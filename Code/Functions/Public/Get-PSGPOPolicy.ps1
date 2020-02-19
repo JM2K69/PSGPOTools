@@ -1,3 +1,18 @@
+<#
+.Synopsis
+   This function return all GPO parameter
+.DESCRIPTION
+   This function return all GPO parameter, you can choose a Scope Machine or User
+.EXAMPLE
+   PS> Get-PSGPOPolicy
+.EXAMPLE
+    PS> Get-PSGPOPolicy -Scope Machine
+.EXAMPLE
+    PS> Get-PSGPOPolicy -ScopeUser
+.NOTES
+   The fuction return all GPO parameter found in all Admx with the Adml with the OSCulture
+#>
+
 function Get-PSGPOPolicy {
     [cmdletbinding()]
     Param(
