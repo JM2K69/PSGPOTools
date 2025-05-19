@@ -675,11 +675,14 @@ function Get-PSGPOCategory {
 }
 function Get-PSGPOPolicy {
     [cmdletbinding()]
-    Param()
+    Param(
+        [ValidateSet("User", "Machine")]
+        [string]$Scope
+    )
 
     ### VAR ###
     ### MAIN ###
-    $Policies =  [GpoToolsUtility]::Policies
+    $Policies =  [GpoToolsUtility]::Policies | Where-Object { $_.Scope -eq $Scope }
     If ($null -eq $Policies){
         Write-Warning "Initiate ADMX and ADML files with Initialize-PSGPOAdmx cmdlet."
     }Else{
@@ -713,5 +716,247 @@ function Initialize-PSGPOAdmx {
     ### MAIN ###
     # Empty Statics properties
     [GPOToolsUtility]::RemoveAll()
-    [GpotoolsUtility]::InitiateAdmxAdml($Item,$UICulture)
+
+    # Sequential processing to load ADMX and ADML files
+    [GPOToolsUtility]::InitiateAdmxAdml($Item, $UICulture)
+}
+
+function Show-GPOTreeView {
+    [cmdletbinding()]
+    Param()
+
+    # Ensure WPF assemblies are loaded for PowerShell 7.5 and .NET 9 compatibility
+    Add-Type -AssemblyName PresentationFramework
+    Add-Type -AssemblyName PresentationCore
+    Add-Type -AssemblyName WindowsBase
+
+    $xaml = @"
+<Window xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
+        xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
+        Title='GPO TreeView' Height='600' Width='800' Background='{DynamicResource {x:Static SystemColors.ControlBrushKey}}'>
+    <Window.Resources>
+        <Style TargetType='TreeView'>
+            <Setter Property='FontSize' Value='14'/>
+        </Style>
+        <Style TargetType='TextBox'>
+            <Setter Property='FontSize' Value='14'/>
+        </Style>
+        <Style TargetType='TextBlock'>
+            <Setter Property='FontSize' Value='14'/>
+        </Style>
+        <Style TargetType='DataGrid'>
+            <Setter Property='FontSize' Value='14'/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height='Auto'/>
+            <RowDefinition Height='*'/>
+            <RowDefinition Height='Auto'/>
+        </Grid.RowDefinitions>
+        <!-- Search bar -->
+        <StackPanel Orientation='Horizontal' Margin='10' Grid.Row='0'>
+            <TextBox Name='searchTextBox' Width='300' Height='28' Margin='0,0,10,0' VerticalAlignment='Center'/>
+            <Button Name='searchButton' Content='Rechercher' Width='100' Height='28' VerticalAlignment='Center'/>
+        </StackPanel>
+        <TreeView Name='treeView' Margin='10' Grid.Row='1'>
+            <TreeView.ContextMenu>
+                <ContextMenu Name='treeViewContextMenu'>
+                    <MenuItem Name='enableMenuItem' Header='Enable this parameter'/>
+                    <MenuItem Name='disableMenuItem' Header='Disable this parameter'/>
+                    <MenuItem Name='createGpoMenuItem' Header='Create a GPO'/>
+                </ContextMenu>
+            </TreeView.ContextMenu>
+        </TreeView>
+        <StackPanel Name='detailsPanel' Margin='10' Grid.Row='2'>
+            <TextBlock Text='Display Name:' FontWeight='Bold'/>
+            <TextBox Name='displayNameTextBox' IsReadOnly='True' TextWrapping='Wrap'/>
+            <TextBlock Text='Description:' FontWeight='Bold'/>
+            <TextBox Name='descriptionTextBox' IsReadOnly='True' TextWrapping='Wrap' />
+            <TextBlock Text='Scope:' FontWeight='Bold'/>
+            <TextBox Name='scopeTextBox' IsReadOnly='True' TextWrapping='Wrap'/>
+            <TextBlock Text='Registry Path:' FontWeight='Bold'/>
+            <TextBox Name='registryPathTextBox' IsReadOnly='True' TextWrapping='Wrap'/>
+            <TextBlock Text='Registry Key:' FontWeight='Bold'/>
+            <TextBox Name='registryKeyTextBox' IsReadOnly='True' TextWrapping='Wrap'/>
+            <TextBlock Text='Registry Values:' FontWeight='Bold'/>
+            <DataGrid Name='registryValuesGrid' AutoGenerateColumns='False' IsReadOnly='True'>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header='Name' Binding='{Binding Key}' Width='*'/>
+                    <DataGridTextColumn Header='Value' Binding='{Binding Value}' Width='*'/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>
+"@
+
+        $xmlDocument = New-Object System.Xml.XmlDocument
+        $xmlDocument.LoadXml($xaml)
+        $reader = New-Object System.Xml.XmlNodeReader $xmlDocument
+        $window = [Windows.Markup.XamlReader]::Load($reader)
+
+    $treeView = $window.FindName("treeView")
+    # Ajout du menu contextuel sur le TreeView
+    $contextMenu = New-Object System.Windows.Controls.ContextMenu
+
+    $enableMenuItem = New-Object System.Windows.Controls.MenuItem
+    $enableMenuItem.Header = "Enable this parameter"
+    $enableMenuItem.Add_Click({
+        $selectedItem = $treeView.SelectedItem
+        if ($selectedItem -and $selectedItem.Tag -is [GPOToolsPolicy]) {
+            #[System.Windows.MessageBox]::Show("[Stub] Enable: $($selectedItem.Tag.DisplayName)", "Enable", 'OK', 'Information')
+        }
+    })
+     $disableMenuItem = New-Object System.Windows.Controls.MenuItem
+     $disableMenuItem.Header = "Disable this parameter"
+     $disableMenuItem.Add_Click({
+         $selectedItem = $treeView.SelectedItem
+         if ($selectedItem -and $selectedItem.Tag -is [GPOToolsPolicy]) {
+             #[System.Windows.MessageBox]::Show("[Stub] Disable: $($selectedItem.Tag.DisplayName)", "Disable", 'OK', 'Information')
+         }
+     })
+    $createGpoMenuItem = New-Object System.Windows.Controls.MenuItem
+    $createGpoMenuItem.Header = "Create a GPO"
+    $createGpoMenuItem.Add_Click({
+        $selectedItem = $treeView.SelectedItem
+        #[System.Windows.MessageBox]::Show("[Stub] Create a GPO action", "Create GPO", 'OK', 'Information')
+    })
+    $contextMenu.Items.Add($enableMenuItem) | Out-Null
+    $contextMenu.Items.Add($disableMenuItem) | Out-Null
+    $contextMenu.Items.Add($createGpoMenuItem) | Out-Null
+    $treeView.ContextMenu = $contextMenu
+
+    $displayNameTextBox = $window.FindName("displayNameTextBox")
+    $descriptionTextBox = $window.FindName("descriptionTextBox")
+    $scopeTextBox = $window.FindName("scopeTextBox")
+    $registryPathTextBox = $window.FindName("registryPathTextBox")
+    $registryKeyTextBox = $window.FindName("registryKeyTextBox")
+    $registryValuesGrid = $window.FindName("registryValuesGrid")
+    $searchTextBox = $window.FindName("searchTextBox")
+    $searchButton = $window.FindName("searchButton")
+
+
+    # Context menu logic for TreeView
+    if ($null -ne $treeView) {
+        # Menu item click handlers
+        $enableMenuItem.Add_Click({
+            $selectedItem = $treeView.SelectedItem
+            if ($selectedItem -is [System.Windows.Controls.TreeViewItem]) {
+                $policy = $selectedItem.Tag
+                if ($policy -is [GPOToolsPolicy]) {
+                    [System.Windows.MessageBox]::Show("Enable: $($policy.DisplayName)", "Enable Parameter")
+                }
+            }
+        })
+        $disableMenuItem.Add_Click({
+            $selectedItem = $treeView.SelectedItem
+            if ($selectedItem -is [System.Windows.Controls.TreeViewItem]) {
+                $policy = $selectedItem.Tag
+                if ($policy -is [GPOToolsPolicy]) {
+                    #[System.Windows.MessageBox]::Show("Disable: $($policy.DisplayName)", "Disable Parameter")
+                    Write-Host "Disable: $($policy.DisplayName)"
+                }
+            }
+        })
+        $createGpoMenuItem.Add_Click({
+            $selectedItem = $treeView.SelectedItem
+            if ($selectedItem -is [System.Windows.Controls.TreeViewItem]) {
+                $policy = $selectedItem.Tag
+                if ($policy -is [GPOToolsPolicy]) {
+                    #[System.Windows.MessageBox]::Show("Create GPO for: $($policy.DisplayName)", "Create GPO")
+                    Write-Host "Create GPO for: $($policy.DisplayName)"
+                }
+            }
+        })
+    }
+
+    $treeView.add_SelectedItemChanged({
+        $selectedItem = $treeView.SelectedItem
+        if ($selectedItem -is [Windows.Controls.TreeViewItem]) {
+            $policy = $selectedItem.Tag
+            if ($policy -is [GPOToolsPolicy]) {
+                $displayNameTextBox.Text = $policy.DisplayName
+                $descriptionTextBox.Text = $policy.Description
+                $scopeTextBox.Text = $policy.Scope.ToString()
+                $registryPathTextBox.Text = $policy.Registry.Path
+                $registryKeyTextBox.Text = $policy.Registry.Key
+
+                # Populate registry values in the DataGrid
+                $registryValuesGrid.ItemsSource = @(
+                    foreach ($key in $policy.Registry.Value.Keys) {
+                        [PSCustomObject]@{
+                            Key   = $key
+                            Value = $policy.Registry.Value[$key]
+                        }
+                    }
+                )
+            } else {
+                $displayNameTextBox.Text = ""
+                $descriptionTextBox.Text = ""
+                $scopeTextBox.Text = ""
+                $registryPathTextBox.Text = ""
+                $registryKeyTextBox.Text = ""
+                $registryValuesGrid.ItemsSource = $null
+            }
+        }
+    })
+
+    function Populate-TreeView {
+        param(
+            [string]$Filter = ''
+        )
+        $treeView.Items.Clear()
+        $scopes = [Enum]::GetValues([ScopePolicy])
+        foreach ($scope in $scopes) {
+            $scopeItem = New-Object Windows.Controls.TreeViewItem
+            $scopeItem.Header = $scope.ToString()
+            $scopeItem.Tag = $scope
+
+            $policies = Get-PSGPOPolicy -Scope $scope
+            if ($Filter -and $Filter -ne 'Rechercher une GPO par nom...') {
+                $policies = $policies | Where-Object { $_.DisplayName -like "*$Filter*" }
+            }
+            foreach ($policy in $policies) {
+                $category = $policy.Category
+                $parentCategory = $category.ParentCategory
+                $currentItem = $scopeItem
+                while ($null -ne $parentCategory ) {
+                    $existingItem = $currentItem.Items | Where-Object { $_.Header -eq $parentCategory.DisplayName }
+                    if (-not $existingItem) {
+                        $newItem = New-Object Windows.Controls.TreeViewItem
+                        $newItem.Header = $parentCategory.DisplayName
+                        $newItem.Tag =  $parentCategory
+                        $currentItem.Items.Add($newItem) | Out-Null
+                        $currentItem = $newItem
+                    } else {
+                        $currentItem = $existingItem
+                    }
+                    $parentCategory = $parentCategory.ParentCategory
+                }
+                $policyItem = New-Object Windows.Controls.TreeViewItem
+                $policyItem.Header = $policy.DisplayName
+                $policyItem.Tag = $policy
+                $currentItem.Items.Add($policyItem) | Out-Null
+            }
+            $treeView.Items.Add($scopeItem) | Out-Null
+        }
+    }
+
+    # Initial population
+
+    Populate-TreeView
+
+    $searchButton.Add_Click({
+        $filter = $searchTextBox.Text
+        Populate-TreeView -Filter $filter
+    })
+    $searchTextBox.Add_KeyDown({
+        if ($_.Key -eq 'Return') {
+            $filter = $searchTextBox.Text
+            Populate-TreeView -Filter $filter
+        }
+    })
+
+    $window.ShowDialog() | Out-Null
 }
