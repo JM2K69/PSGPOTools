@@ -1,4 +1,5 @@
 using PSGPOTools.Web.Components;
+using PSGPOTools.Web.Configuration;
 using PSGPOTools.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.Configure<SambaAdOptions>(
+    builder.Configuration.GetSection(SambaAdOptions.SectionName));
 builder.Services.AddSingleton<PowerShellGpoService>();
+builder.Services.AddSingleton<SambaAdGpoService>();
 
 var app = builder.Build();
 
