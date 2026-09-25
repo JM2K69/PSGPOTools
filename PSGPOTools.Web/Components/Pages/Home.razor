@@ -1,182 +1,312 @@
 @page "/"
 @rendermode InteractiveServer
 @inject PowerShellGpoService GpoService
+@inject SambaAdGpoService SambaAdService
 
-<PageTitle>PSGPOTools Web</PageTitle>
+<PageTitle>PSGPOTools - GPO Policy Manager</PageTitle>
 
-<section class="hero">
-    <div>
-        <p class="eyebrow">PSGPOTools Web</p>
-        <h1>Explorateur ADMX/ADML multiplateforme</h1>
-        <p class="lead">
-            L'interface WPF est remplacée par Blazor Server, tout en conservant le moteur PowerShell PSGPOTools côté serveur.
-        </p>
-    </div>
-    <div class="status-card">
-        <span class="status-label">État</span>
-        <strong>@(GpoService.IsInitialized ? "Initialisé" : "En attente")</strong>
-        @if (GpoService.IsInitialized)
-        {
-            <small>@GpoService.Policies.Count policies chargées</small>
-        }
-    </div>
-</section>
-
-<section class="panel">
-    <EditForm Model="this" OnSubmit="LoadPoliciesAsync">
-        <div class="form-grid">
-            <label>
-                Dossier PolicyDefinitions
-                <InputText class="form-control" @bind-Value="policyDefinitionsPath" placeholder="Chemin vers les fichiers .admx/.adml" />
-            </label>
-            <label>
-                Culture ADML
-                <InputText class="form-control" @bind-Value="cultureName" placeholder="fr-FR, en-US..." />
-            </label>
-            <button class="btn btn-primary" type="submit" disabled="@isLoading">
-                @(isLoading ? "Chargement..." : "Charger les policies")
+<div class="policy-app">
+    <header class="policy-header">
+        <div class="brand-block">
+            <div class="brand-icon" aria-hidden="true">P</div>
+            <div>
+                <h1>GPO Policy Manager</h1>
+                <p>Explorez et gérez les stratégies de groupe</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="view-switch" role="group" aria-label="Vue active">
+                <button class="view-button @(activeView == WorkspaceView.PolicyCatalog ? "active" : string.Empty)" type="button" @onclick="() => activeView = WorkspaceView.PolicyCatalog">
+                    Modèles ADMX
+                </button>
+                <button class="view-button @(activeView == WorkspaceView.DomainGpos ? "active" : string.Empty)" type="button" @onclick="() => activeView = WorkspaceView.DomainGpos">
+                    GPO du domaine
+                </button>
+            </div>
+            @if (activeView == WorkspaceView.PolicyCatalog)
+            {
+                <div class="header-search">
+                    <span aria-hidden="true">⌕</span>
+                    <InputText @bind-Value="searchText" @bind-Value:event="oninput" placeholder="Rechercher une stratégie..." />
+                </div>
+            }
+            <button class="primary-action" type="button" @onclick="RefreshCurrentViewAsync" disabled="@(!CanRefresh)">
+                <span aria-hidden="true">↻</span>
+                @(isBusy ? "Chargement..." : "Actualiser")
             </button>
         </div>
-    </EditForm>
+    </header>
 
-    @if (!string.IsNullOrWhiteSpace(errorMessage))
+    @if (activeView == WorkspaceView.PolicyCatalog)
     {
-        <div class="alert alert-danger" role="alert">@errorMessage</div>
+        <EditForm Model="this" OnSubmit="LoadPoliciesAsync" class="source-bar">
+            <label>
+                <span>Dossier PolicyDefinitions</span>
+                <InputText @bind-Value="policyDefinitionsPath" />
+            </label>
+            <label class="culture-field">
+                <span>Culture ADML</span>
+                <InputText @bind-Value="cultureName" />
+            </label>
+            <button class="secondary-action" type="submit" disabled="@isLoading">
+                @(isLoading ? "Chargement..." : "Charger les stratégies")
+            </button>
+        </EditForm>
     }
-
-    @if (GpoService.IsInitialized)
+    else
     {
-        <div class="loaded-info">
-            <span><strong>Source :</strong> @GpoService.LoadedPath</span>
-            <span><strong>Culture :</strong> @GpoService.LoadedCulture</span>
+        <div class="source-bar domain-source">
+            <div>
+                <span>Contrôleur Samba AD</span>
+                <strong>@(SambaAdService.IsConfigured ? SambaAdService.Server : "Non configuré")</strong>
+            </div>
+            <button class="secondary-action" type="button" @onclick="LoadDomainGposAsync" disabled="@(!SambaAdService.IsConfigured || isLoadingDomainGpos)">
+                @(isLoadingDomainGpos ? "Connexion..." : "Charger les GPO")
+            </button>
         </div>
     }
-</section>
 
-@if (GpoService.IsInitialized)
-{
-    <section class="toolbar">
-        <InputText class="form-control search" @bind-Value="searchText" @bind-Value:event="oninput" placeholder="Rechercher une policy, un chemin, une clé registre..." />
-        <select class="form-select scope-select" @bind="scopeFilter">
-            <option value="">Tous les scopes</option>
-            <option value="Machine">Machine</option>
-            <option value="User">User</option>
-        </select>
-    </section>
+    @if (!string.IsNullOrWhiteSpace(CurrentErrorMessage))
+    {
+        <div class="page-message">@CurrentErrorMessage</div>
+    }
 
-    <section class="workspace">
-        <div class="policy-list">
-            @foreach (var policy in FilteredPolicies)
-            {
-                <button class="policy-item @(selectedPolicy == policy ? "selected" : string.Empty)" @onclick="() => SelectPolicy(policy)">
-                    <span class="policy-scope">@policy.Scope</span>
-                    <strong>@policy.DisplayName</strong>
-                    <small>@policy.Path</small>
-                </button>
-            }
-        </div>
-
-        <div class="policy-details">
-            @if (selectedPolicy is null)
-            {
-                <div class="empty-state">Sélectionne une policy pour afficher ses détails.</div>
-            }
-            else
-            {
-                <span class="policy-scope">@selectedPolicy.Scope</span>
-                <h2>@selectedPolicy.DisplayName</h2>
-                <p class="muted">@selectedPolicy.Description</p>
-
-                <dl>
-                    <dt>ID</dt>
-                    <dd>@selectedPolicy.Id</dd>
-                    <dt>Nom</dt>
-                    <dd>@selectedPolicy.Name</dd>
-                    <dt>Chemin</dt>
-                    <dd>@selectedPolicy.Path</dd>
-                    <dt>Fichier</dt>
-                    <dd>@selectedPolicy.FileName</dd>
-                    <dt>Registre</dt>
-                    <dd>@selectedPolicy.Registry.Path\@selectedPolicy.Registry.Key</dd>
-                </dl>
-
-                <h3>Valeurs registre</h3>
-                @if (selectedPolicy.Registry.Values.Count == 0)
+    <main class="policy-workspace">
+        <section class="workspace-panel tree-panel">
+            <header class="panel-header">
+                <div>
+                    <h2>@(activeView == WorkspaceView.PolicyCatalog ? "Structure des stratégies" : "GPO du domaine")</h2>
+                    <p>@(activeView == WorkspaceView.PolicyCatalog ? "Sélectionnez une stratégie pour afficher ses propriétés" : $"{domainGpos.Count} objet(s) trouvé(s)")</p>
+                </div>
+            </header>
+            <div class="panel-body tree-surface">
+                @if (activeView == WorkspaceView.PolicyCatalog)
                 {
-                    <p class="muted">Aucune valeur registre exposée par cette policy.</p>
+                    @if (!GpoService.IsInitialized)
+                    {
+                        <div class="empty-panel">Chargez les fichiers ADMX/ADML pour construire l’arborescence.</div>
+                    }
+                    else
+                    {
+                        <details class="scope-group" open>
+                            <summary>
+                                <span class="scope-icon user-scope" aria-hidden="true">●</span>
+                                <strong>Configuration utilisateur</strong>
+                                <span class="scope-count">@UserPolicies.Count</span>
+                            </summary>
+                            <div class="scope-tree">
+                                <PolicyCategoryTree Categories="UserOfficialTree" SelectedPolicy="selectedPolicy" PolicySelected="SelectPolicy" />
+                            </div>
+                        </details>
+                        <details class="scope-group" open>
+                            <summary>
+                                <span class="scope-icon machine-scope" aria-hidden="true">▰</span>
+                                <strong>Configuration ordinateur</strong>
+                                <span class="scope-count">@MachinePolicies.Count</span>
+                            </summary>
+                            <div class="scope-tree">
+                                <PolicyCategoryTree Categories="MachineOfficialTree" SelectedPolicy="selectedPolicy" PolicySelected="SelectPolicy" />
+                            </div>
+                        </details>
+                    }
+                }
+                else if (!SambaAdService.IsConfigured)
+                {
+                    <div class="empty-panel">Configurez <code>SambaAd:Server</code> dans <code>appsettings.json</code>.</div>
                 }
                 else
                 {
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>État</th>
-                                <th>Valeur</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var value in selectedPolicy.Registry.Values)
-                            {
-                                <tr>
-                                    <td>@value.Key</td>
-                                    <td>@value.Value</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                    @foreach (var gpo in domainGpos)
+                    {
+                        <button class="domain-item @(selectedDomainGpo == gpo ? "selected" : string.Empty)" type="button" @onclick="() => selectedDomainGpo = gpo">
+                            <span class="domain-item-icon" aria-hidden="true">▦</span>
+                            <span>
+                                <strong>@gpo.DisplayName</strong>
+                                <small>@gpo.Id</small>
+                            </span>
+                        </button>
+                    }
                 }
-            }
-        </div>
-    </section>
-}
+            </div>
+        </section>
+
+        <section class="workspace-panel details-panel">
+            <header class="panel-header">
+                <div>
+                    <h2>Détails de la stratégie</h2>
+                    <p>Informations et paramètres de l’objet sélectionné</p>
+                </div>
+            </header>
+            <div class="panel-body details-form">
+                @if (activeView == WorkspaceView.PolicyCatalog)
+                {
+                    @if (selectedPolicy is null)
+                    {
+                        <div class="empty-panel">Sélectionnez une stratégie dans l’arborescence.</div>
+                    }
+                    else
+                    {
+                        <label>
+                            <span>Nom d’affichage</span>
+                            <div class="readonly-field">@selectedPolicy.DisplayName</div>
+                        </label>
+                        <label>
+                            <span>Description</span>
+                            <div class="readonly-field multiline">@selectedPolicy.Description</div>
+                        </label>
+                        <div class="field-grid">
+                            <label>
+                                <span>Étendue</span>
+                                <div class="readonly-field">@GetScopeLabel(selectedPolicy.Scope)</div>
+                            </label>
+                            <label>
+                                <span>Fichier ADMX</span>
+                                <div class="readonly-field">@selectedPolicy.FileName</div>
+                            </label>
+                        </div>
+                        <label>
+                            <span>Catégorie</span>
+                            <div class="readonly-field">@selectedPolicy.Path</div>
+                        </label>
+                        <label>
+                            <span>Chemin du Registre</span>
+                            <div class="readonly-field">@selectedPolicy.Registry.Path</div>
+                        </label>
+                        <label>
+                            <span>Clé du Registre</span>
+                            <div class="readonly-field">@selectedPolicy.Registry.Key</div>
+                        </label>
+                        <section class="values-section">
+                            <h3>Valeurs du Registre</h3>
+                            @if (selectedPolicy.Registry.Values.Count == 0)
+                            {
+                                <div class="empty-values">Aucune valeur exposée par cette stratégie.</div>
+                            }
+                            else
+                            {
+                                <table>
+                                    <thead><tr><th>Nom</th><th>Valeur</th></tr></thead>
+                                    <tbody>
+                                        @foreach (var value in selectedPolicy.Registry.Values)
+                                        {
+                                            <tr><td>@value.Key</td><td>@value.Value</td></tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </section>
+                    }
+                }
+                else if (selectedDomainGpo is null)
+                {
+                    <div class="empty-panel">Sélectionnez une GPO du domaine.</div>
+                }
+                else
+                {
+                    <label><span>Nom d’affichage</span><div class="readonly-field">@selectedDomainGpo.DisplayName</div></label>
+                    <label><span>Identificateur</span><div class="readonly-field">@selectedDomainGpo.Id</div></label>
+                    <label><span>Nom LDAP</span><div class="readonly-field multiline">@selectedDomainGpo.DistinguishedName</div></label>
+                    <label><span>Chemin SYSVOL</span><div class="readonly-field multiline">@selectedDomainGpo.FileSystemPath</div></label>
+                    <div class="field-grid">
+                        <label><span>Configuration ordinateur</span><div class="readonly-field">@GetStateLabel(selectedDomainGpo.ComputerEnabled)</div></label>
+                        <label><span>Configuration utilisateur</span><div class="readonly-field">@GetStateLabel(selectedDomainGpo.UserEnabled)</div></label>
+                    </div>
+                    <div class="field-grid">
+                        <label><span>Version</span><div class="readonly-field">@selectedDomainGpo.VersionNumber</div></label>
+                        <label><span>Dernière modification</span><div class="readonly-field">@FormatDate(selectedDomainGpo.ModifiedAt)</div></label>
+                    </div>
+                }
+            </div>
+        </section>
+    </main>
+</div>
 
 @code {
+    private enum WorkspaceView
+    {
+        PolicyCatalog,
+        DomainGpos
+    }
+
     private string policyDefinitionsPath = string.Empty;
     private string cultureName = CultureInfo.CurrentUICulture.Name;
     private string searchText = string.Empty;
-    private string scopeFilter = string.Empty;
     private string? errorMessage;
+    private string? domainErrorMessage;
     private bool isLoading;
+    private bool isLoadingDomainGpos;
+    private WorkspaceView activeView = WorkspaceView.PolicyCatalog;
     private GpoPolicyInfo? selectedPolicy;
+    private IReadOnlyList<DomainGpoInfo> domainGpos = [];
+    private DomainGpoInfo? selectedDomainGpo;
 
-    private IEnumerable<GpoPolicyInfo> FilteredPolicies
-    {
-        get
-        {
-            var query = GpoService.Policies.AsEnumerable();
-
-            if (!string.IsNullOrWhiteSpace(scopeFilter))
-            {
-                query = query.Where(policy => string.Equals(policy.Scope, scopeFilter, StringComparison.OrdinalIgnoreCase));
-            }
-
-            if (!string.IsNullOrWhiteSpace(searchText))
-            {
-                query = query.Where(policy =>
-                    Contains(policy.DisplayName, searchText) ||
-                    Contains(policy.Description, searchText) ||
-                    Contains(policy.Path, searchText) ||
-                    Contains(policy.Registry.Path, searchText) ||
-                    Contains(policy.Registry.Key, searchText));
-            }
-
-            return query.Take(300);
-        }
-    }
+    private bool isBusy => isLoading || isLoadingDomainGpos;
+    private bool CanRefresh => !isBusy && (activeView != WorkspaceView.DomainGpos || SambaAdService.IsConfigured);
+    private string? CurrentErrorMessage => activeView == WorkspaceView.PolicyCatalog ? errorMessage : domainErrorMessage;
+    private IReadOnlyList<GpoPolicyInfo> UserPolicies => FilterPolicies("User");
+    private IReadOnlyList<GpoPolicyInfo> MachinePolicies => FilterPolicies("Machine");
+    private IReadOnlyList<PolicyCategoryNode> UserOfficialTree => OfficialPolicyTreeBuilder.Build(UserPolicies, "User");
+    private IReadOnlyList<PolicyCategoryNode> MachineOfficialTree => OfficialPolicyTreeBuilder.Build(MachinePolicies, "Machine");
 
     protected override void OnInitialized()
     {
         policyDefinitionsPath = GpoService.DefaultPolicyDefinitionsPath;
     }
 
+    private IReadOnlyList<GpoPolicyInfo> FilterPolicies(string scope)
+    {
+        var query = GpoService.Policies.Where(policy =>
+            string.Equals(policy.Scope, scope, StringComparison.OrdinalIgnoreCase));
+
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            query = query.Where(policy =>
+                Contains(policy.DisplayName, searchText) ||
+                Contains(policy.Description, searchText) ||
+                Contains(policy.Path, searchText) ||
+                Contains(policy.Registry.Path, searchText) ||
+                Contains(policy.Registry.Key, searchText));
+        }
+
+        return query.Take(1000).ToList();
+    }
+
+    private Task RefreshCurrentViewAsync()
+    {
+        return activeView == WorkspaceView.DomainGpos ? LoadDomainGposAsync() : LoadPoliciesAsync();
+    }
+
+    private void SelectPolicy(GpoPolicyInfo policy)
+    {
+        selectedPolicy = policy;
+    }
+
+    private async Task LoadDomainGposAsync()
+    {
+        domainErrorMessage = null;
+        isLoadingDomainGpos = true;
+        try
+        {
+            domainGpos = await SambaAdService.GetGroupPoliciesAsync();
+            selectedDomainGpo = domainGpos.FirstOrDefault();
+        }
+        catch (Exception ex)
+        {
+            domainErrorMessage = ex.Message;
+        }
+        finally
+        {
+            isLoadingDomainGpos = false;
+        }
+    }
+
     private async Task LoadPoliciesAsync()
     {
         errorMessage = null;
         selectedPolicy = null;
-
         if (string.IsNullOrWhiteSpace(policyDefinitionsPath))
         {
-            errorMessage = "Indique un dossier PolicyDefinitions contenant les fichiers .admx et les sous-dossiers de culture .adml.";
+            errorMessage = "Indiquez un dossier PolicyDefinitions contenant les fichiers .admx et les sous-dossiers de culture .adml.";
             return;
         }
 
@@ -184,7 +314,7 @@
         try
         {
             await GpoService.InitializeAsync(policyDefinitionsPath, cultureName);
-            selectedPolicy = FilteredPolicies.FirstOrDefault();
+            selectedPolicy = UserPolicies.FirstOrDefault() ?? MachinePolicies.FirstOrDefault();
         }
         catch (Exception ex)
         {
@@ -196,13 +326,8 @@
         }
     }
 
-    private void SelectPolicy(GpoPolicyInfo policy)
-    {
-        selectedPolicy = policy;
-    }
-
-    private static bool Contains(string value, string search)
-    {
-        return value.Contains(search, StringComparison.OrdinalIgnoreCase);
-    }
+    private static string GetScopeLabel(string scope) => scope == "Machine" ? "Ordinateur" : "Utilisateur";
+    private static string GetStateLabel(bool enabled) => enabled ? "Activée" : "Désactivée";
+    private static bool Contains(string value, string search) => value.Contains(search, StringComparison.OrdinalIgnoreCase);
+    private static string FormatDate(DateTimeOffset? value) => value?.ToLocalTime().ToString("g", CultureInfo.CurrentCulture) ?? "Non renseignée";
 }

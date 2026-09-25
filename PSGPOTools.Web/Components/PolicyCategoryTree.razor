@@ -1,0 +1,62 @@
+@foreach (var category in Categories)
+{
+    <details class="category-group @GetKindClass(category)" open="@category.IsInitiallyExpanded">
+        <summary class="tree-node category-node">
+            <span class="tree-icon @GetIconClass(category)" aria-hidden="true">@GetIcon(category)</span>
+            <span class="tree-node-label">@category.Name</span>
+            @if (category.PolicyCount > 0)
+            {
+                <span class="tree-count">@category.PolicyCount</span>
+            }
+        </summary>
+        <div class="tree-branch nested category-children">
+            @if (category.Children.Count > 0)
+            {
+                <PolicyCategoryTree Categories="category.Children"
+                                    SelectedPolicy="SelectedPolicy"
+                                    PolicySelected="PolicySelected" />
+            }
+            @foreach (var policy in category.Policies)
+            {
+                <button class="tree-node policy-node @(SelectedPolicy == policy ? "selected" : string.Empty)"
+                        type="button"
+                        @onclick="() => SelectPolicyAsync(policy)">
+                    <span class="tree-spacer"></span>
+                    <span class="tree-icon policy-icon">▤</span>
+                    <span class="tree-node-label">@policy.DisplayName</span>
+                </button>
+            }
+        </div>
+    </details>
+}
+
+@code {
+    [Parameter]
+    public IReadOnlyList<PolicyCategoryNode> Categories { get; set; } = [];
+
+    [Parameter]
+    public GpoPolicyInfo? SelectedPolicy { get; set; }
+
+    [Parameter]
+    public EventCallback<GpoPolicyInfo> PolicySelected { get; set; }
+
+    private Task SelectPolicyAsync(GpoPolicyInfo policy)
+    {
+        return PolicySelected.InvokeAsync(policy);
+    }
+
+    private static string GetKindClass(PolicyCategoryNode category) => category.Kind switch
+    {
+        PolicyCategoryNodeKind.Structural => "structural-category",
+        PolicyCategoryNodeKind.AllSettings => "all-settings-category",
+        _ => "admx-category"
+    };
+
+    private static string GetIconClass(PolicyCategoryNode category) => category.Kind == PolicyCategoryNodeKind.AllSettings
+        ? "all-settings-icon"
+        : "folder-icon";
+
+    private static string GetIcon(PolicyCategoryNode category) => category.Kind == PolicyCategoryNodeKind.AllSettings
+        ? "▤"
+        : "▰";
+}
