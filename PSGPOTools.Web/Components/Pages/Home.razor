@@ -1,0 +1,208 @@
+@page "/"
+@rendermode InteractiveServer
+@inject PowerShellGpoService GpoService
+
+<PageTitle>PSGPOTools Web</PageTitle>
+
+<section class="hero">
+    <div>
+        <p class="eyebrow">PSGPOTools Web</p>
+        <h1>Explorateur ADMX/ADML multiplateforme</h1>
+        <p class="lead">
+            L'interface WPF est remplacée par Blazor Server, tout en conservant le moteur PowerShell PSGPOTools côté serveur.
+        </p>
+    </div>
+    <div class="status-card">
+        <span class="status-label">État</span>
+        <strong>@(GpoService.IsInitialized ? "Initialisé" : "En attente")</strong>
+        @if (GpoService.IsInitialized)
+        {
+            <small>@GpoService.Policies.Count policies chargées</small>
+        }
+    </div>
+</section>
+
+<section class="panel">
+    <EditForm Model="this" OnSubmit="LoadPoliciesAsync">
+        <div class="form-grid">
+            <label>
+                Dossier PolicyDefinitions
+                <InputText class="form-control" @bind-Value="policyDefinitionsPath" placeholder="Chemin vers les fichiers .admx/.adml" />
+            </label>
+            <label>
+                Culture ADML
+                <InputText class="form-control" @bind-Value="cultureName" placeholder="fr-FR, en-US..." />
+            </label>
+            <button class="btn btn-primary" type="submit" disabled="@isLoading">
+                @(isLoading ? "Chargement..." : "Charger les policies")
+            </button>
+        </div>
+    </EditForm>
+
+    @if (!string.IsNullOrWhiteSpace(errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">@errorMessage</div>
+    }
+
+    @if (GpoService.IsInitialized)
+    {
+        <div class="loaded-info">
+            <span><strong>Source :</strong> @GpoService.LoadedPath</span>
+            <span><strong>Culture :</strong> @GpoService.LoadedCulture</span>
+        </div>
+    }
+</section>
+
+@if (GpoService.IsInitialized)
+{
+    <section class="toolbar">
+        <InputText class="form-control search" @bind-Value="searchText" @bind-Value:event="oninput" placeholder="Rechercher une policy, un chemin, une clé registre..." />
+        <select class="form-select scope-select" @bind="scopeFilter">
+            <option value="">Tous les scopes</option>
+            <option value="Machine">Machine</option>
+            <option value="User">User</option>
+        </select>
+    </section>
+
+    <section class="workspace">
+        <div class="policy-list">
+            @foreach (var policy in FilteredPolicies)
+            {
+                <button class="policy-item @(selectedPolicy == policy ? "selected" : string.Empty)" @onclick="() => SelectPolicy(policy)">
+                    <span class="policy-scope">@policy.Scope</span>
+                    <strong>@policy.DisplayName</strong>
+                    <small>@policy.Path</small>
+                </button>
+            }
+        </div>
+
+        <div class="policy-details">
+            @if (selectedPolicy is null)
+            {
+                <div class="empty-state">Sélectionne une policy pour afficher ses détails.</div>
+            }
+            else
+            {
+                <span class="policy-scope">@selectedPolicy.Scope</span>
+                <h2>@selectedPolicy.DisplayName</h2>
+                <p class="muted">@selectedPolicy.Description</p>
+
+                <dl>
+                    <dt>ID</dt>
+                    <dd>@selectedPolicy.Id</dd>
+                    <dt>Nom</dt>
+                    <dd>@selectedPolicy.Name</dd>
+                    <dt>Chemin</dt>
+                    <dd>@selectedPolicy.Path</dd>
+                    <dt>Fichier</dt>
+                    <dd>@selectedPolicy.FileName</dd>
+                    <dt>Registre</dt>
+                    <dd>@selectedPolicy.Registry.Path\@selectedPolicy.Registry.Key</dd>
+                </dl>
+
+                <h3>Valeurs registre</h3>
+                @if (selectedPolicy.Registry.Values.Count == 0)
+                {
+                    <p class="muted">Aucune valeur registre exposée par cette policy.</p>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>État</th>
+                                <th>Valeur</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var value in selectedPolicy.Registry.Values)
+                            {
+                                <tr>
+                                    <td>@value.Key</td>
+                                    <td>@value.Value</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            }
+        </div>
+    </section>
+}
+
+@code {
+    private string policyDefinitionsPath = string.Empty;
+    private string cultureName = CultureInfo.CurrentUICulture.Name;
+    private string searchText = string.Empty;
+    private string scopeFilter = string.Empty;
+    private string? errorMessage;
+    private bool isLoading;
+    private GpoPolicyInfo? selectedPolicy;
+
+    private IEnumerable<GpoPolicyInfo> FilteredPolicies
+    {
+        get
+        {
+            var query = GpoService.Policies.AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(scopeFilter))
+            {
+                query = query.Where(policy => string.Equals(policy.Scope, scopeFilter, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                query = query.Where(policy =>
+                    Contains(policy.DisplayName, searchText) ||
+                    Contains(policy.Description, searchText) ||
+                    Contains(policy.Path, searchText) ||
+                    Contains(policy.Registry.Path, searchText) ||
+                    Contains(policy.Registry.Key, searchText));
+            }
+
+            return query.Take(300);
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        policyDefinitionsPath = GpoService.DefaultPolicyDefinitionsPath;
+    }
+
+    private async Task LoadPoliciesAsync()
+    {
+        errorMessage = null;
+        selectedPolicy = null;
+
+        if (string.IsNullOrWhiteSpace(policyDefinitionsPath))
+        {
+            errorMessage = "Indique un dossier PolicyDefinitions contenant les fichiers .admx et les sous-dossiers de culture .adml.";
+            return;
+        }
+
+        isLoading = true;
+        try
+        {
+            await GpoService.InitializeAsync(policyDefinitionsPath, cultureName);
+            selectedPolicy = FilteredPolicies.FirstOrDefault();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void SelectPolicy(GpoPolicyInfo policy)
+    {
+        selectedPolicy = policy;
+    }
+
+    private static bool Contains(string value, string search)
+    {
+        return value.Contains(search, StringComparison.OrdinalIgnoreCase);
+    }
+}

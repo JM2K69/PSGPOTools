@@ -3,10 +3,19 @@ Write-Host "[BUILD][START] Launching Build Process" -ForegroundColor RED -Backgr
 # Retrieve parent folder
 $Current = (Split-Path -Path $MyInvocation.MyCommand.Path)
 $Root = ((Get-Item $Current).Parent).FullName
-$ModuleName = split-Path -Path $root -Leaf
+$ManifestFile = Get-ChildItem -Path $Root -Directory |
+    ForEach-Object { Get-ChildItem -Path $_.FullName -Filter *.psd1 -File -ErrorAction SilentlyContinue } |
+    Where-Object { $_.BaseName -eq $_.Directory.Name } |
+    Select-Object -First 1
+
+if ($null -eq $ManifestFile) {
+    Throw "No module manifest (*.psd1) found in a module folder under $Root"
+}
+
+$ModuleName = $ManifestFile.BaseName
 Write-Host "[BUILD][START] Working on module $($ModuleName)" -ForegroundColor RED -BackgroundColor White
 
-$ModuleFolderPath = Join-Path -Path $Root -ChildPath $ModuleName
+$ModuleFolderPath = $ManifestFile.Directory.FullName
 
 $CodeSourcePath = Join-Path -Path $Root -ChildPath "Code"
 

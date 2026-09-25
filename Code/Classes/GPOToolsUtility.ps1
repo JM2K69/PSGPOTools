@@ -14,6 +14,9 @@ class GPOToolsUtility {
     static [System.Collections.Generic.List[GpoToolsCategory]]$Categories = @()
     static [System.Collections.Generic.List[GpoToolsPolicy]]$Policies = @()
     static [System.Collections.ArrayList]$TargetLoad = @()
+    static [hashtable]$AdmxNamespaceCache = @{}
+    static [hashtable]$NamespaceFileIndex = @{}
+    static [string]$NamespaceFileIndexFolderPath = ''
 
     static [void]InitiateAdmxAdml(
         [System.IO.DirectoryInfo]$Folder,
@@ -29,7 +32,8 @@ class GPOToolsUtility {
         #On passe en revu chaque fichier admx
         if (Test-Path -Path $Folder.FullName){
             Write-Verbose "Initialization of ADMX file in $Folder"
-            $AdmxFiles = Get-ChildItem -Path $Folder.FullName -File -Filter *.admx
+            [GPOToolsUtility]::BuildNamespaceFileIndex($Folder)
+            $AdmxFiles = Get-ChildItem -Path $Folder.FullName -File -Filter *.admx | Sort-Object Name
             foreach ($File in $AdmxFiles) {
                 [GPOToolsUtility]::InitiateAdmxAdml($File,$UICulture)
             }
@@ -89,8 +93,36 @@ class GPOToolsUtility {
     static [string]GetNamespaceAdmx(
         [System.IO.FileInfo]$AdmxFile
     ){
+        $CacheKey = $AdmxFile.FullName
+        if ([GPOToolsUtility]::AdmxNamespaceCache.ContainsKey($CacheKey)) {
+            return [GPOToolsUtility]::AdmxNamespaceCache[$CacheKey]
+        }
+
         [xml]$Xml = Get-Content -Path $AdmxFile.FullName -Encoding UTF8
-        return $Xml.policyDefinitions.policyNamespaces.target.namespace
+        $Namespace = $Xml.policyDefinitions.policyNamespaces.target.namespace
+        [GPOToolsUtility]::AdmxNamespaceCache[$CacheKey] = $Namespace
+        return $Namespace
+    }
+
+    static [void]BuildNamespaceFileIndex(
+        [System.IO.DirectoryInfo]$Folder
+    ){
+        if ([GPOToolsUtility]::NamespaceFileIndexFolderPath -eq $Folder.FullName) {
+            return
+        }
+
+        [GPOToolsUtility]::NamespaceFileIndex.Clear()
+        [GPOToolsUtility]::NamespaceFileIndexFolderPath = $Folder.FullName
+
+        $AdmxFiles = Get-ChildItem -Path $Folder.FullName -File -Filter *.admx | Sort-Object Name
+        foreach ($File in $AdmxFiles) {
+            $Namespace = [GPOToolsUtility]::GetNamespaceAdmx($File)
+            if (![GPOToolsUtility]::NamespaceFileIndex.ContainsKey($Namespace)) {
+                [GPOToolsUtility]::NamespaceFileIndex[$Namespace] = [System.Collections.ArrayList]::new()
+            }
+
+            [void][GPOToolsUtility]::NamespaceFileIndex[$Namespace].Add($File)
+        }
     }
     static [string]GetADMLPathFromADMX(
         [System.IO.FileInfo]$AdmxFile,
@@ -140,12 +172,15 @@ class GPOToolsUtility {
         [string]$namespace
     ){
         $FolderPath = Split-Path -Path $Path
-        $Files = Get-ChildItem -Path $FolderPath -Filter *.admx -Exclude $Path.Name
-        $File = $Files | Foreach-Object {
-            if([GPOToolsUtility]::GetNamespaceAdmx($_) -eq $namespace){
-                $_
-            }
+        $CurrentFile = Get-Item -Path $Path
+        [GPOToolsUtility]::BuildNamespaceFileIndex((Get-Item -Path $FolderPath))
+
+        $File = @()
+        if ([GPOToolsUtility]::NamespaceFileIndex.ContainsKey($namespace)) {
+            $File = [GPOToolsUtility]::NamespaceFileIndex[$namespace] |
+                Where-Object { $_.FullName -ne $CurrentFile.FullName }
         }
+
         switch ($File.count){
             1 {
                 break
@@ -224,12 +259,15 @@ class GPOToolsUtility {
                 [GPOToolsUtility]::SupportOnTable,
                 [GPOToolsUtility]::Categories,
                 [GPOToolsUtility]::Policies,
-                [GPOToolsUtility]::TargetLoad
+                [GPOToolsUtility]::TargetLoad,
+                [GPOToolsUtility]::AdmxNamespaceCache,
+                [GPOToolsUtility]::NamespaceFileIndex
                 #[GPOToolsCategory]::AllParentCategory
             )
         ){
             $Property.Clear()
         }
+        [GPOToolsUtility]::NamespaceFileIndexFolderPath = ''
     }
 
 }# End GPOToolsUtility
