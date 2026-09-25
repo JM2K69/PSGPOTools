@@ -90,7 +90,12 @@
                     {
                         <details class="scope-group" open>
                             <summary>
-                                <span class="scope-icon user-scope" aria-hidden="true">●</span>
+                                <span class="scope-icon user-scope" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <circle cx="12" cy="8" r="3.5"></circle>
+                                        <path d="M5.5 19c.7-3.5 3-5.3 6.5-5.3s5.8 1.8 6.5 5.3"></path>
+                                    </svg>
+                                </span>
                                 <strong>Configuration utilisateur</strong>
                                 <span class="scope-count">@UserPolicies.Count</span>
                             </summary>
@@ -100,7 +105,12 @@
                         </details>
                         <details class="scope-group" open>
                             <summary>
-                                <span class="scope-icon machine-scope" aria-hidden="true">▰</span>
+                                <span class="scope-icon machine-scope" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <rect x="3" y="4" width="18" height="12" rx="2"></rect>
+                                        <path d="M8 20h8M12 16v4"></path>
+                                    </svg>
+                                </span>
                                 <strong>Configuration ordinateur</strong>
                                 <span class="scope-count">@MachinePolicies.Count</span>
                             </summary>

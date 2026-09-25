@@ -347,8 +347,20 @@ summary:focus-visible {
 }
 
 .scope-icon {
-    font-weight: 700;
-    width: 18px;
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 22px;
+    justify-content: center;
+    width: 22px;
+}
+
+.scope-icon svg {
+    height: 22px;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+    width: 22px;
 }
 
 .user-scope {
@@ -413,15 +425,42 @@ summary:focus-visible {
 }
 
 .tree-icon {
-    display: inline-block;
-    flex: 0 0 16px;
-    font-weight: 700;
-    text-align: center;
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 19px;
+    justify-content: center;
+    width: 19px;
+}
+
+.tree-icon svg {
+    height: 18px;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.7;
+    width: 18px;
 }
 
 .folder-icon {
-    color: #d79b00;
-    font-size: 0.88rem;
+    color: #d29600;
+    transition: color 140ms ease, transform 140ms ease;
+}
+
+.folder-open-icon {
+    display: none;
+}
+
+.category-group[open] > summary .folder-closed-icon {
+    display: none;
+}
+
+.category-group[open] > summary .folder-open-icon {
+    display: block;
+}
+
+.category-group[open] > summary .folder-icon {
+    color: #f2a900;
+    transform: translateY(-1px);
 }
 
 .policy-icon {

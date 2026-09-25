@@ -2,7 +2,28 @@
 {
     <details class="category-group @GetKindClass(category)" open="@category.IsInitiallyExpanded">
         <summary class="tree-node category-node">
-            <span class="tree-icon @GetIconClass(category)" aria-hidden="true">@GetIcon(category)</span>
+            @if (category.Kind == PolicyCategoryNodeKind.AllSettings)
+            {
+                <span class="tree-icon all-settings-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M6 3h9l3 3v15H6z"></path>
+                        <path d="M14 3v4h4M9 11h6M9 15h6"></path>
+                    </svg>
+                </span>
+            }
+            else
+            {
+                <span class="tree-icon folder-icon" aria-hidden="true">
+                    <svg class="folder-closed-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 7.5h7l2-2h4.5A2.5 2.5 0 0 1 19 8v1H5a2 2 0 0 0-2 2z"></path>
+                        <path d="M3 10.5A1.5 1.5 0 0 1 4.5 9h15a1.5 1.5 0 0 1 1.45 1.88l-2 7.5A2.2 2.2 0 0 1 16.82 20H5.18a2.2 2.2 0 0 1-2.13-1.62z"></path>
+                    </svg>
+                    <svg class="folder-open-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 8V6.5A2.5 2.5 0 0 1 5.5 4H10l2 2h6.5A2.5 2.5 0 0 1 21 8.5V10"></path>
+                        <path d="M4.5 9h15a1.5 1.5 0 0 1 1.43 1.95l-2.35 7.5A2.2 2.2 0 0 1 16.48 20H5.52a2.2 2.2 0 0 1-2.1-1.55l-2.35-7.5A1.5 1.5 0 0 1 2.5 9z"></path>
+                    </svg>
+                </span>
+            }
             <span class="tree-node-label">@category.Name</span>
             @if (category.PolicyCount > 0)
             {
@@ -22,7 +43,12 @@
                         type="button"
                         @onclick="() => SelectPolicyAsync(policy)">
                     <span class="tree-spacer"></span>
-                    <span class="tree-icon policy-icon">▤</span>
+                    <span class="tree-icon policy-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M6 3h9l3 3v15H6z"></path>
+                            <path d="M14 3v4h4M9 11h6M9 15h6"></path>
+                        </svg>
+                    </span>
                     <span class="tree-node-label">@policy.DisplayName</span>
                 </button>
             }
@@ -52,11 +78,4 @@
         _ => "admx-category"
     };
 
-    private static string GetIconClass(PolicyCategoryNode category) => category.Kind == PolicyCategoryNodeKind.AllSettings
-        ? "all-settings-icon"
-        : "folder-icon";
-
-    private static string GetIcon(PolicyCategoryNode category) => category.Kind == PolicyCategoryNodeKind.AllSettings
-        ? "▤"
-        : "▰";
 }
