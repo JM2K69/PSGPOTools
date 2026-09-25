@@ -408,8 +408,8 @@ class GPOToolsCategory {
         [GpoToolsAdmx]$Admx,
         [GpoToolsAdml]$Adml
     ){
-        [void]$Admx.Categories | Foreach-Object {
-            [GPOToolsCategory]::Create($_,$Admx.Categories,$Adml)
+        $Admx.Categories | Foreach-Object {
+            [void][GPOToolsCategory]::Create($_,$Admx.Categories,$Adml)
         }
     }
 }

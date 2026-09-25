@@ -94,7 +94,9 @@ public sealed class PowerShellGpoService : IDisposable
             return;
         }
 
-        _runspace = RunspaceFactory.CreateRunspace();
+        var initialSessionState = InitialSessionState.CreateDefault2();
+        initialSessionState.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Bypass;
+        _runspace = RunspaceFactory.CreateRunspace(initialSessionState);
         _runspace.Open();
     }
 
