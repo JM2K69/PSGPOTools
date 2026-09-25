@@ -41,5 +41,9 @@
     "editor.tabSize": 2
   },
   //Specifies the path to a PowerShell Script Analyzer settings file. To override the default settings for all projects, enter an absolute path, or enter a path relative to your workspace.
-  "powershell.scriptAnalysis.settingsPath": ".vscode/PSScriptAnalyzerSettings.psd1"
+  "powershell.scriptAnalysis.settingsPath": ".vscode/PSScriptAnalyzerSettings.psd1",
+  "workbench.colorCustomizations": {
+    "statusBar.noFolderBackground": "#875000",
+    "statusBar.noFolderForeground": "#FFFAF2"
+  }
 }
