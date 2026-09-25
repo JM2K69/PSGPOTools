@@ -9,7 +9,7 @@
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
-	"version": "0.1.0",
+	"version": "2.0.0",
 
 	// Start PowerShell
     "windows": {
@@ -25,74 +25,69 @@
         "args": [ "-NoProfile" ]
     },
 
-	// The command is a shell script
-	"isShellCommand": true,
-
-	// Show the output window always
-	"showOutput": "always",
-
     // Associate with test task runner
     "tasks": [
         {
-            "taskName": "Clean",
-            "suppressTaskName": true,
-            "showOutput": "always",
+            "label": "Clean",
+            "type": "shell",
             "args": [
                 "Write-Host 'Invoking psake on build.psake.ps1 -taskList Clean'; Invoke-psake build.psake.ps1 -taskList Clean;",
                 "Invoke-Command { Write-Host 'Completed Clean task in task runner.' }"
-            ]
+            ],
+            "problemMatcher": []
         },
         {
-            "taskName": "Build",
-            "suppressTaskName": true,
-            "isBuildCommand": true,
-            "showOutput": "always",
+            "label": "Build",
+            "type": "shell",
             "args": [
                 "Write-Host 'Invoking psake on build.psake.ps1 -taskList Build'; Invoke-psake build.psake.ps1 -taskList Build;",
                 "Invoke-Command { Write-Host 'Completed Build task in task runner.' }"
-            ]
+            ],
+            "problemMatcher": [],
+            "group": {
+                "_id": "build",
+                "isDefault": false
+            }
         },
         {
-            "taskName": "BuildHelp",
-            "suppressTaskName": true,
-            "showOutput": "always",
+            "label": "BuildHelp",
+            "type": "shell",
             "args": [
                 "Write-Host 'Invoking psake on build.psake.ps1 -taskList BuildHelp'; Invoke-psake build.psake.ps1 -taskList BuildHelp;",
                 "Invoke-Command { Write-Host 'Completed BuildHelp task in task runner.' }"
-            ]
+            ],
+            "problemMatcher": []
         },
         {
-            "taskName": "Analyze",
-            "suppressTaskName": true,
-            "showOutput": "always",
+            "label": "Analyze",
+            "type": "shell",
             "args": [
                 "Write-Host 'Invoking psake on build.psake.ps1 -taskList Analyze'; Invoke-psake build.psake.ps1 -taskList Analyze;",
                 "Invoke-Command { Write-Host 'Completed Analyze task in task runner.' }"
-            ]
+            ],
+            "problemMatcher": []
         },
         {
-            "taskName": "Install",
-            "suppressTaskName": true,
-            "showOutput": "always",
+            "label": "Install",
+            "type": "shell",
             "args": [
                 "Write-Host 'Invoking psake on build.psake.ps1 -taskList Install'; Invoke-psake build.psake.ps1 -taskList Install;",
                 "Invoke-Command { Write-Host 'Completed Install task in task runner.' }"
-            ]
+            ],
+            "problemMatcher": []
         },
         {
-            "taskName": "Publish",
-            "suppressTaskName": true,
-            "showOutput": "always",
+            "label": "Publish",
+            "type": "shell",
             "args": [
                 "Write-Host 'Invoking psake on build.psake.ps1 -taskList Publish'; Invoke-psake build.psake.ps1 -taskList Publish;",
                 "Invoke-Command { Write-Host 'Completed Publish task in task runner.' }"
-            ]
+            ],
+            "problemMatcher": []
         },
         {
-            "taskName": "Test",
-            "suppressTaskName": true,
-            "isTestCommand": true,
-            "showOutput": "always",
+            "label": "Test",
+            "type": "shell",
             "args": [
                 "Write-Host 'Invoking Pester'; Invoke-Pester -PesterOption @{IncludeVSCodeMarker=$true};",
                 "Invoke-Command { Write-Host 'Completed Test task in task runner.' }"
@@ -100,7 +95,9 @@
             "problemMatcher": [
                 {
                     "owner": "powershell",
-                    "fileLocation": ["absolute"],
+                    "fileLocation": [
+                        "absolute"
+                    ],
                     "severity": "error",
                     "pattern": [
                         {
@@ -114,7 +111,11 @@
                         }
                     ]
                 }
-            ]
+            ],
+            "group": {
+                "_id": "test",
+                "isDefault": false
+            }
         }
-	]
+    ]
 }
