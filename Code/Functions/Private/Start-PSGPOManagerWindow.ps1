@@ -316,13 +316,26 @@ function Start-PSGPOManagerWindow {
     })
 
     # Context menu actions copy information about the selected policy to the clipboard.
+    # The last copy task is kept: a failed copy (no clipboard on a Linux session...) is reported
+    # instead of being lost, and the tests can wait for it.
+    $clipboard = @{ Task = $null; Error = $null; Text = $null }
     function Copy-SelectedPolicyText {
         param([scriptblock]$Text)
 
         $selected = $treeView.SelectedItem
         if ($selected -and $selected.Tag -is [GPOToolsPolicy]) {
             $value = & $Text $selected.Tag
-            if ($value) { $null = $window.Clipboard.SetTextAsync($value) }
+            if ($value) {
+                $clipboard.Error = $null
+                $clipboard.Text = $value
+                try {
+                    $clipboard.Task = $window.Clipboard.SetTextAsync($value)
+                } catch {
+                    $clipboard.Task = $null
+                    $clipboard.Error = $_.Exception
+                    Write-Warning "Copy to the clipboard failed: $($_.Exception.Message)"
+                }
+            }
         }
     }
     $copyNameMenuItem.Add_Click({ Copy-SelectedPolicyText { param($p) $p.DisplayName } })
@@ -433,7 +446,7 @@ function Start-PSGPOManagerWindow {
     # A hashtable, because assigning a variable inside the posted action would only set a child-scope copy.
     $onShownState = @{ Error = $null }
     if ($OnShown) {
-        $controls = @{ Window = $window; Editing = $editing }
+        $controls = @{ Window = $window; Editing = $editing; Clipboard = $clipboard }
         foreach ($name in 'treeView', 'themeToggleButton', 'breadcrumbTextBlock', 'searchTextBox', 'searchButton',
             'displayNameTextBox', 'descriptionTextBox', 'scopeTextBox', 'registryPathTextBox',
             'registryKeyTextBox', 'registryValuesList', 'settingTitleTextBlock', 'previewEmptyTextBlock', 'detailsTabs', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
