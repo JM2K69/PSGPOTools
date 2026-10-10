@@ -4,6 +4,9 @@
 
 ### Added
 
+* GUI setting form generated from the ADMX elements and the ADML presentation, in presentation order: Not Configured / Enabled / Disabled, check boxes, drop-down lists (sorted unless `noSort`), bounded numeric boxes, text, multi-line text, editable lists (with name/value pairs for `explicitValue` lists) and explanation texts
+* GUI registry preview: what the setting writes (the future Registry.pol content), refreshed on every edit, with validation messages (required, bounds, length)
+* `Get-PSGPOPolicyRegistryChange` (private): registry values written for a state and the entered values, including list encoding (`valuePrefix`, `explicitValue`, `additive`) and the editor defaults flagged `Implicit`
 * Complete registry model of the policies: `EnabledValues` / `DisabledValues` (enabledValue, disabledValue, enabledList, disabledList; decimal, longDecimal, string and delete values) and `Elements` (boolean, decimal, longDecimal, text, multiText, enum, list) with the schema defaults and their ADML presentation (control, label, default value, localized enum choices)
 * Values that the ADMX does not write but the policy editor does (DWORD 1 when enabled, deletion when disabled) are flagged `Implicit`, to be confirmed against the GPMC
 * The GUI details grid shows every registry value of the selected policy
@@ -11,6 +14,7 @@
 
 ### Fixed
 
+* `Show-GPOManagerAvalonia` failed with "Setup was already called" after the module was re-imported in the same session
 * Policies of class `Both` (about a third of the Windows ADMX set) only existed in the User scope; they now exist once per scope, with the matching hive
 * ADML paths, the Avalonia runtime path and the build no longer rely on `\` separators (Linux/macOS)
 * `Initialize-PSGPOAdmx` requires `-Path` outside Windows instead of failing on `$Env:windir`

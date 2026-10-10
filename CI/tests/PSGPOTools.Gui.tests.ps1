@@ -161,4 +161,104 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
     }
+
+    Describe 'Policy setting form' -Skip:$AvaloniaMissing {
+        BeforeAll {
+            function Select-TestPolicy {
+                param($Ui, [string]$Id, [string]$Scope)
+                $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource {
+                    param($n) $n.Tag -is [GPOToolsPolicy] -and $n.Tag.ID -eq $Id -and (-not $Scope -or "$($n.Tag.Scope)" -eq $Scope)
+                }.GetNewClosure()
+            }
+            function Get-PreviewLine {
+                param($Ui)
+                @($Ui.registryPreviewGrid.ItemsSource | ForEach-Object { '{0} {1}' -f $_.Key, $_.Value })
+            }
+        }
+
+        It 'Builds the options of AxISURLZonePolicies from the ADMX and ADML' {
+            Start-PSGPOManagerWindow -OnShown {
+                param($Ui)
+                Select-TestPolicy $Ui 'AxISURLZonePolicies'
+                $Controls = $Ui.Editing.Editor.Controls
+
+                $Combo = $Controls['InstallTrustedOCX']
+                $Combo | Should -BeOfType ([Avalonia.Controls.ComboBox])
+                @($Combo.ItemsSource) | Should -Be @("Don't install", 'Prompt the user', 'Silently install')
+                $Combo.SelectedItem | Should -Be 'Silently install'
+                $Controls['IgnoreUnknownCA'] | Should -BeOfType ([Avalonia.Controls.CheckBox])
+                $Controls['IgnoreUnknownCA'].IsChecked | Should -BeFalse
+
+                # Presentation order: three dropdowns, the free text, then the check boxes.
+                $Boxes = @($Ui.optionsHost.Content.Children)
+                $Boxes.Count | Should -Be 8
+                $Boxes[3] | Should -BeOfType ([Avalonia.Controls.TextBlock])
+                $Boxes[3].Text | Should -BeLike 'Permit connection to trusted sites*'
+            }
+        }
+
+        It 'Enables the options and fills the preview only when the policy is enabled' {
+            Start-PSGPOManagerWindow -OnShown {
+                param($Ui)
+                Select-TestPolicy $Ui 'AxISURLZonePolicies'
+                $Ui.notConfiguredRadio.IsChecked | Should -BeTrue
+                $Ui.optionsHost.IsEnabled | Should -BeFalse
+                $Ui.registryPreviewGrid.ItemsSource | Should -BeNullOrEmpty
+
+                $Ui.enabledRadio.IsChecked = $true
+                $Ui.optionsHost.IsEnabled | Should -BeTrue
+                Get-PreviewLine $Ui | Should -Contain 'Set SOFTWARE\Policies\Microsoft\Windows\AxInstaller\AxISURLZonePolicies\InstallTrustedOCX = 2 (DWord)'
+
+                # Editing an option updates the preview.
+                $Ui.Editing.Editor.Controls['InstallTrustedOCX'].SelectedItem = "Don't install"
+                $Ui.Editing.Editor.Controls['IgnoreUnknownCA'].IsChecked = $true
+                $Lines = Get-PreviewLine $Ui
+                $Lines | Should -Contain 'Set SOFTWARE\Policies\Microsoft\Windows\AxInstaller\AxISURLZonePolicies\InstallTrustedOCX = 0 (DWord)'
+                $Lines | Should -Contain 'Set SOFTWARE\Policies\Microsoft\Windows\AxInstaller\AxISURLZonePolicies\IgnoreUnknownCA = 1 (DWord)'
+
+                $Ui.disabledRadio.IsChecked = $true
+                $Ui.optionsHost.IsEnabled | Should -BeFalse
+                (Get-PreviewLine $Ui | Where-Object { $_ -like 'Delete *' }).Count | Should -Be 7
+            }
+        }
+
+        It 'Edits the free entries of the DisallowCpls list' {
+            Start-PSGPOManagerWindow -OnShown {
+                param($Ui)
+                Select-TestPolicy $Ui 'DisallowCpls'
+                $Ui.enabledRadio.IsChecked = $true
+                $List = $Ui.Editing.Editor.Controls['DisallowCplsList']
+                foreach ($Entry in 'Microsoft.Mouse', 'Microsoft.System', 'Microsoft.Sound') {
+                    $List.NameInput.Text = $Entry
+                    Invoke-Click $List.Add
+                }
+                $List.ListBox.SelectedIndex = 1
+                Invoke-Click $List.Remove
+                @($List.Entries) | Should -Be @('Microsoft.Mouse', 'Microsoft.Sound')
+
+                $Lines = Get-PreviewLine $Ui
+                $Lines | Should -Contain 'Delete Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowCpl\*: all values deleted [default]'
+                $Lines | Should -Contain 'Set Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowCpl\1 = Microsoft.Mouse (String)'
+                $Lines | Should -Contain 'Set Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowCpl\2 = Microsoft.Sound (String)'
+                $List.ValueInput.IsVisible | Should -BeFalse
+            }
+        }
+
+        It 'Shows the validation error of a required text' {
+            $Policy = [GPOToolsUtility]::Policies | Where-Object { $_.Elements.Count -eq 1 -and $_.Elements[0].Type -eq 'Text' -and $_.Elements[0].Required -and -not $_.Elements[0].DefaultValue } | Select-Object -First 1
+            Start-PSGPOManagerWindow -OnShown {
+                param($Ui)
+                Select-TestPolicy $Ui $Policy.ID "$($Policy.Scope)"
+                $Ui.enabledRadio.IsChecked = $true
+                $Ui.settingErrorTextBlock.Text | Should -BeLike '*is required.'
+                $Ui.registryPreviewGrid.ItemsSource | Should -BeNullOrEmpty
+
+                $Ui.Editing.Editor.Controls[$Policy.Elements[0].Id].Text = 'Contoso'
+                # Avalonia posts TextChanged to the dispatcher: run it before checking.
+                [Avalonia.Threading.Dispatcher]::UIThread.RunJobs()
+                $Ui.settingErrorTextBlock.Text | Should -BeNullOrEmpty
+                @(Get-PreviewLine $Ui)[-1] | Should -BeLike '* = Contoso (*String)'
+            }
+        }
+    }
 }

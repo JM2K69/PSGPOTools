@@ -184,6 +184,32 @@ function Start-PSGPOManagerWindow {
                                     <DataGridTextColumn Header='Value' Binding='{Binding Value}' Width='2*'/>
                                 </DataGrid.Columns>
                             </DataGrid>
+
+                            <TextBlock Text='Setting' FontSize='12' FontWeight='SemiBold'
+                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,0,0,4'/>
+                            <StackPanel Orientation='Horizontal' Spacing='16'>
+                                <RadioButton Name='notConfiguredRadio' GroupName='policyState' Content='Not Configured' IsChecked='True'/>
+                                <RadioButton Name='enabledRadio' GroupName='policyState' Content='Enabled'/>
+                                <RadioButton Name='disabledRadio' GroupName='policyState' Content='Disabled'/>
+                            </StackPanel>
+
+                            <TextBlock Text='Options' FontSize='12' FontWeight='SemiBold'
+                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                            <Border BorderThickness='1' BorderBrush='{DynamicResource BorderBrush}' CornerRadius='4' Padding='12'>
+                                <ContentControl Name='optionsHost'/>
+                            </Border>
+                            <TextBlock Name='settingErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' Margin='0,8,0,0'/>
+
+                            <TextBlock Text='Registry Preview' FontSize='12' FontWeight='SemiBold'
+                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                            <DataGrid Name='registryPreviewGrid' AutoGenerateColumns='False'
+                                      IsReadOnly='True' MaxHeight='240' Margin='0,0,0,16'
+                                      GridLinesVisibility='None' HeadersVisibility='Column'>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header='Action' Binding='{Binding Key}' Width='*'/>
+                                    <DataGridTextColumn Header='Registry' Binding='{Binding Value}' Width='3*'/>
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
@@ -209,6 +235,45 @@ function Start-PSGPOManagerWindow {
     $copyNameMenuItem = Get-PSGPOAvaloniaControl $window 'copyNameMenuItem'
     $copyRegistryMenuItem = Get-PSGPOAvaloniaControl $window 'copyRegistryMenuItem'
     $copyCommandMenuItem = Get-PSGPOAvaloniaControl $window 'copyCommandMenuItem'
+    $notConfiguredRadio = Get-PSGPOAvaloniaControl $window 'notConfiguredRadio'
+    $enabledRadio = Get-PSGPOAvaloniaControl $window 'enabledRadio'
+    $disabledRadio = Get-PSGPOAvaloniaControl $window 'disabledRadio'
+    $optionsHost = Get-PSGPOAvaloniaControl $window 'optionsHost'
+    $settingErrorTextBlock = Get-PSGPOAvaloniaControl $window 'settingErrorTextBlock'
+    $registryPreviewGrid = Get-PSGPOAvaloniaControl $window 'registryPreviewGrid'
+
+    # Options form of the selected policy (New-PSGPOPolicyEditor) and the policy it edits.
+    $editing = @{ Policy = $null; Editor = $null }
+
+    # Registry values the current setting writes (what Registry.pol will contain).
+    function Update-RegistryPreview {
+        $policy = $editing.Policy
+        $state = if ($enabledRadio.IsChecked) { 'Enabled' } elseif ($disabledRadio.IsChecked) { 'Disabled' } else { 'NotConfigured' }
+        # Like the Group Policy editor, options can only be edited when the policy is enabled.
+        $optionsHost.IsEnabled = $state -eq 'Enabled'
+        $settingErrorTextBlock.Text = ''
+        if (-not $policy) {
+            $registryPreviewGrid.ItemsSource = $null
+            return
+        }
+        try {
+            $changes = @(Get-PSGPOPolicyRegistryChange -Policy $policy -State $state -Value (& $editing.Editor.GetValue))
+            $registryPreviewGrid.ItemsSource = @(
+                foreach ($change in $changes) {
+                    $row = [AvaloniaRegistryRow]::new()
+                    $row.Key = if ($change.Type -in 'Delete', 'DeleteAllValues') { 'Delete' } else { 'Set' }
+                    $row.Value = Format-PSGPORegistryValue $change
+                    $row
+                }
+            )
+        } catch {
+            $settingErrorTextBlock.Text = $_.Exception.Message
+            $registryPreviewGrid.ItemsSource = $null
+        }
+    }
+    foreach ($radio in $notConfiguredRadio, $enabledRadio, $disabledRadio) {
+        $radio.add_IsCheckedChanged({ Update-RegistryPreview })
+    }
 
     # Theme management: Avalonia FluentTheme + our ThemeDictionaries swap automatically
     # when RequestedThemeVariant changes, no manual brush-by-brush update needed.
@@ -260,7 +325,13 @@ function Start-PSGPOManagerWindow {
         $breadcrumbTextBlock.Text = if ($pathParts.Count -gt 0) { "📍 $($pathParts -join ' > ')" } else { 'Select a policy to see its path' }
 
         $policy = if ($selected) { $selected.Tag } else { $null }
+        # The setting is not read from a GPO yet: every policy starts as Not Configured.
+        $notConfiguredRadio.IsChecked = $true
         if ($policy -is [GPOToolsPolicy]) {
+            $editing.Policy = $policy
+            $editing.Editor = New-PSGPOPolicyEditor -Policy $policy -OnChange { Update-RegistryPreview }
+            $optionsHost.Content = $editing.Editor.Panel
+
             $displayNameTextBox.Text = $policy.DisplayName
             $descriptionTextBox.Text = if ($policy.Description) { $policy.Description } else { '(No description available)' }
             $scopeTextBox.Text = $policy.Scope.ToString()
@@ -293,7 +364,11 @@ function Start-PSGPOManagerWindow {
             $registryPathTextBox.Text = ''
             $registryKeyTextBox.Text = ''
             $registryValuesGrid.ItemsSource = $null
+            $editing.Policy = $null
+            $editing.Editor = $null
+            $optionsHost.Content = $null
         }
+        Update-RegistryPreview
     })
 
     function Update-PolicyTree {
@@ -330,10 +405,11 @@ function Start-PSGPOManagerWindow {
     # A hashtable, because assigning a variable inside the posted action would only set a child-scope copy.
     $onShownState = @{ Error = $null }
     if ($OnShown) {
-        $controls = @{ Window = $window }
+        $controls = @{ Window = $window; Editing = $editing }
         foreach ($name in 'treeView', 'themeToggleButton', 'breadcrumbTextBlock', 'searchTextBox', 'searchButton',
             'displayNameTextBox', 'descriptionTextBox', 'scopeTextBox', 'registryPathTextBox',
-            'registryKeyTextBox', 'registryValuesGrid', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem') {
+            'registryKeyTextBox', 'registryValuesGrid', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
+            'notConfiguredRadio', 'enabledRadio', 'disabledRadio', 'optionsHost', 'settingErrorTextBlock', 'registryPreviewGrid') {
             $controls[$name] = Get-PSGPOAvaloniaControl $window $name
         }
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {

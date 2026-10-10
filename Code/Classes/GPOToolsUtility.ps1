@@ -445,6 +445,8 @@ class GPOToolsPolicy {
     [GPOToolsRegistryValue[]]$EnabledValues = @()
     [GPOToolsRegistryValue[]]$DisabledValues = @()
     [GPOToolsPolicyElement[]]$Elements = @()
+    # Ordre de presentation ADML : @(@{ RefId; Control; Label }), textes libres compris
+    Hidden [object[]]$Layout = @()
     Hidden [GpoToolscategory]$Category
     Hidden [GPOToolsSupportedOn]$SupportedOn
 
@@ -478,6 +480,7 @@ class GPOToolsPolicy {
             $Element.Localize($ADMLPol,$Presentation)
         }
         $this.Elements = $Policy.Elements
+        $this.Layout = $ADMLPol.GetPresentationLayout($Policy.Presentation)
     }
 
     [string]GeneratePath(){
@@ -797,19 +800,32 @@ class GpoToolsAdml {
         return $this.Presentations[$Id]
     }
 
+    # Ordre d'affichage des presentations : id -> @(@{ RefId; Control; Label }), textes libres compris
+    Hidden [hashtable]$PresentationLayouts
+
+    [object[]]GetPresentationLayout([string]$Id){
+        if ([string]::IsNullOrEmpty($Id) -or $null -eq $this.PresentationLayouts -or -not $this.PresentationLayouts.ContainsKey($Id)){
+            return @()
+        }
+        return $this.PresentationLayouts[$Id]
+    }
+
     Hidden [void]LoadPresentations([xml]$Xml){
         $this.Presentations = @{}
+        $this.PresentationLayouts = @{}
         foreach ($Presentation in $Xml.policyDefinitionResources.resources.presentationTable.presentation){
             $Controls = @{}
+            $Layout = [System.Collections.Generic.List[object]]::new()
             foreach ($Node in $Presentation.ChildNodes){
                 if ($Node.NodeType -ne [System.Xml.XmlNodeType]::Element){
                     continue
                 }
                 $RefId = $Node.GetAttribute('refId')
+                $Label = if ($null -ne $Node['label']) { $Node['label'].InnerText } else { $Node.InnerText }
+                $Layout.Add(@{ RefId = $RefId; Control = $Node.LocalName; Label = "$Label".Trim() })
                 if (-not $RefId){
                     continue
                 }
-                $Label = if ($null -ne $Node['label']) { $Node['label'].InnerText } else { $Node.InnerText }
                 $Default = switch ($Node.LocalName){
                     'checkBox' { [GPOToolsPolicyElement]::GetBool($Node,'defaultChecked',$false) }
                     'dropdownList' { [GPOToolsPolicyElement]::GetAttribute($Node,'defaultItem') }
@@ -823,9 +839,13 @@ class GpoToolsAdml {
                     Control = $Node.LocalName
                     Label = "$Label".Trim()
                     DefaultValue = $Default
+                    # dropdownList : sans noSort="true", l'editeur trie les choix par libelle
+                    NoSort = [GPOToolsPolicyElement]::GetBool($Node,'noSort',$false)
+                    SpinStep = [GPOToolsPolicyElement]::GetUInt($Node,'spinStep',1)
                 }
             }
             $this.Presentations[$Presentation.id] = $Controls
+            $this.PresentationLayouts[$Presentation.id] = $Layout.ToArray()
         }
     }
 
