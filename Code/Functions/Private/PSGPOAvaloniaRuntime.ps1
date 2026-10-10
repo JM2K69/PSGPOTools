@@ -23,10 +23,11 @@ function Initialize-PSGPOAvaloniaRuntime {
     if ($script:PSGPOAvaloniaInitialized) { return }
 
     $rid = Get-PSGPOAvaloniaRid
-    $avaloniaPath = Join-Path -Path $PSScriptRoot -ChildPath "Avalonia\bin\$rid"
+    # Separate segments: the path is also given to .NET (LoadFrom), which does not accept '\' on Linux/macOS.
+    $avaloniaPath = Join-Path -Path $PSScriptRoot -ChildPath 'Avalonia' -AdditionalChildPath 'bin', $rid
 
     if (-not (Test-Path -Path $avaloniaPath)) {
-        throw "Avalonia runtime assemblies not found for '$rid' in '$avaloniaPath'. Run '$(Join-Path $PSScriptRoot 'Avalonia\Get-AvaloniaBinaries.ps1')' -Rid $rid first (see Avalonia\Get-AvaloniaBinaries.ps1 -?)."
+        throw "Avalonia runtime assemblies not found for '$rid' in '$avaloniaPath'. Run '$(Join-Path $PSScriptRoot 'Avalonia' 'Get-AvaloniaBinaries.ps1')' -Rid $rid first."
     }
 
     # Common managed assemblies, plus the platform-specific windowing backend.

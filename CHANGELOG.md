@@ -2,8 +2,18 @@
 
 ## Unreleased
 
+### Added
+
+* Complete registry model of the policies: `EnabledValues` / `DisabledValues` (enabledValue, disabledValue, enabledList, disabledList; decimal, longDecimal, string and delete values) and `Elements` (boolean, decimal, longDecimal, text, multiText, enum, list) with the schema defaults and their ADML presentation (control, label, default value, localized enum choices)
+* Values that the ADMX does not write but the policy editor does (DWORD 1 when enabled, deletion when disabled) are flagged `Implicit`, to be confirmed against the GPMC
+* The GUI details grid shows every registry value of the selected policy
+* Linux job in the CI (model and public functions)
+
 ### Fixed
 
+* Policies of class `Both` (about a third of the Windows ADMX set) only existed in the User scope; they now exist once per scope, with the matching hive
+* ADML paths, the Avalonia runtime path and the build no longer rely on `\` separators (Linux/macOS)
+* `Initialize-PSGPOAdmx` requires `-Path` outside Windows instead of failing on `$Env:windir`
 * `Get-PSGPOCategory` and `Get-PSGPOSupportedOn` never warned that nothing was loaded
 * Parent categories referenced through a local prefix alias (e.g. `netcon:NetworkConnections`) were not found: Windows Defender Firewall and Preference snap-in extensions are no longer root categories
 * GUI tree skipped each policy's own category: policies were shown one level too high

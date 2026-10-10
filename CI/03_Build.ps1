@@ -24,14 +24,14 @@ $MainPSM1Contents = @()
 
 
 
-$ClassFolderPath = "$CodeSourcePath\Classes\"
+$ClassFolderPath = Join-Path -Path $CodeSourcePath -ChildPath 'Classes'
 If(Test-Path $ClassFolderPath){
     $PublicClasses = Get-ChildItem -Path $ClassFolderPath -Filter *.ps1 | sort-object Name
     $MainPSM1Contents += $PublicClasses
 }
 
-$PrivateFunctionsFolderPath = "$CodeSourcePath\Functions\Private"
-$PublicFunctionsFolderPath = "$CodeSourcePath\Functions\Public"
+$PrivateFunctionsFolderPath = Join-Path -Path $CodeSourcePath -ChildPath 'Functions' -AdditionalChildPath 'Private'
+$PublicFunctionsFolderPath = Join-Path -Path $CodeSourcePath -ChildPath 'Functions' -AdditionalChildPath 'Public'
 If(Test-Path $PrivateFunctionsFolderPath){
 
     $PrivateFunctions = Get-ChildItem -Path $PrivateFunctionsFolderPath -Filter *.ps1

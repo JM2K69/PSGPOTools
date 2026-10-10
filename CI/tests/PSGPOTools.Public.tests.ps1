@@ -1,8 +1,8 @@
 #Requires -Modules @{ ModuleName = 'Pester'; ModuleVersion = '5.5.0' }
 
 BeforeAll {
-    $ModuleManifest = Join-Path $PSScriptRoot '..\..\PSGPOTools\PSGPOTools.psd1'
-    $PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..\..\sources\PolicyDefinitions')).Path
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
+    $PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path
     Get-Module PSGPOTools | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }

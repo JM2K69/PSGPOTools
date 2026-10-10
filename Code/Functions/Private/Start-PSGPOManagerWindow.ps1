@@ -269,15 +269,9 @@ function Start-PSGPOManagerWindow {
                 $registryPathTextBox.Text = if ($policy.Registry.Path) { $policy.Registry.Path } else { '(No registry path defined)' }
                 $registryKeyTextBox.Text = if ($policy.Registry.Key) { $policy.Registry.Key } else { '(No registry value name defined)' }
 
-                if ($policy.Registry.Value -and $policy.Registry.Value.Keys.Count -gt 0) {
-                    $registryValuesGrid.ItemsSource = @(
-                        foreach ($key in $policy.Registry.Value.Keys) {
-                            $row = [AvaloniaRegistryRow]::new()
-                            $row.Key = $key
-                            $row.Value = if ($policy.Registry.Value[$key]) { $policy.Registry.Value[$key] } else { '(Not defined)' }
-                            $row
-                        }
-                    )
+                $rows = @(Get-PSGPOPolicyRegistryRow -Policy $policy)
+                if ($rows.Count -gt 0) {
+                    $registryValuesGrid.ItemsSource = $rows
                 } else {
                     $row = [AvaloniaRegistryRow]::new()
                     $row.Key = 'Information'

@@ -40,3 +40,25 @@ jobs:
         with:
           name: test-results
           path: TestResults.xml
+
+  test-linux:
+    # The console must also run on Linux: ADMX model, public functions and tree on PowerShell 7.
+    # The GUI tests are skipped here (no Avalonia runtime staged, no display).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Pester
+        shell: pwsh
+        run: Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser -Force -SkipPublisherCheck
+
+      - name: Build and test
+        shell: pwsh
+        run: ./CI/Invoke-Tests.ps1 -OutputPath TestResults-linux.xml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-linux
+          path: TestResults-linux.xml
