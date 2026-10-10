@@ -377,13 +377,19 @@ class GPOToolsCategory {
     ){
         # Pour chaque category de Categories
         #Parmi les categories de meme nom que celle recherchee
-        $ParentCat = @([GPOToolsUtility]::FindCategory($Cat.ParentCategory.Name).Where({
+        $Candidates = [GPOToolsUtility]::FindCategory($Cat.ParentCategory.Name)
+        # Le prefix de la reference a ete resolu en namespace : correspondance exacte
+        $ParentCat = @($Candidates.Where({ $_.target.namespace -eq $Cat.ParentCategory.namespace }))
+        if ($ParentCat.Count -eq 0){
+            # Repli quand le namespace n'est pas charge (ex. using vers un fichier absent)
+            $ParentCat = @($Candidates.Where({
                     # Si son prefix est similaire a celui de la category parent recherchee
                     $_.target.prefix -eq $Cat.ParentCategory.prefix -or
                     #Ou si la category parent est present dans le meme fichier admx avec
                     #le meme prefix que la category enfant
                     $_.target.prefix -eq $Cat.target.prefix
                 }))
+        }
         if ($ParentCat.Count -eq 0){
             Write-Verbose "[GPOToolsCategory](FindParentCategory) No ParentCategory found for $($Cat.Name) Name in [GPOToolsUtility]::Categories static property"
             # La category parent peut etre definie plus loin dans le meme fichier admx : on la cree maintenant
@@ -471,13 +477,13 @@ class GPOToolsPolicy {
     ){
         # Pour chaque category de Categories
         #Parmi les categories de meme nom que celle recherchee
-        $ParentCat = @([GPOToolsUtility]::FindCategory($Pol.ParentCategory.Name).Where({
-                    # Si son prefix est similaire a celui de la category parent recherchee
-                    $_.target.prefix -eq $Pol.ParentCategory.prefix -or
-                    #Ou si la category parent est present dans le meme fichier admx avec
-                    #le meme prefix que la policy enfant
-                    $_.target.prefix -eq $Pol.target.prefix
-                }))
+        $Candidates = [GPOToolsUtility]::FindCategory($Pol.ParentCategory.Name)
+        # Le prefix de la reference a ete resolu en namespace : correspondance exacte
+        $ParentCat = @($Candidates.Where({ $_.target.namespace -eq $Pol.ParentCategory.namespace }))
+        if ($ParentCat.Count -eq 0){
+            # Repli quand le namespace n'est pas charge : meme prefix que la reference
+            $ParentCat = @($Candidates.Where({ $_.target.prefix -eq $Pol.ParentCategory.prefix }))
+        }
         if ($ParentCat.Count -eq 0){
             Write-Warning "[GPOToolsPolicy](FindParentCategory) No ParentCategory found for $($Pol.Name) policy in [GPOToolsUtility]::Categories static property"
             return $null
@@ -571,6 +577,19 @@ class GpoToolsAdmx {
         if ($null -ne $PolicyDefinitions.Policies){
             $PolicyDefinitions.Policies.policy | Foreach-Object {
                 $this.Policies.Add($([AdmxPolicy]::New($_,$trgt)))
+            }
+        }
+
+        # Les prefix des references parentCategory sont des alias locaux au fichier
+        # (ex. netcon:NetworkConnections alors que NetworkConnections.admx declare le
+        # prefix networkconnections) : on les resout en namespace via using/target.
+        $Namespaces = @{ $trgt.prefix = $trgt.namespace }
+        foreach ($Ns in $this.Using){
+            $Namespaces[$Ns.prefix] = $Ns.namespace
+        }
+        foreach ($Item in @($this.Categories) + @($this.Policies)){
+            if ($null -ne $Item.ParentCategory){
+                $Item.ParentCategory.namespace = $Namespaces[$Item.ParentCategory.prefix]
             }
         }
     }

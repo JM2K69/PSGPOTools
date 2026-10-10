@@ -4,6 +4,8 @@
 
 ### Fixed
 
+* `Get-PSGPOCategory` and `Get-PSGPOSupportedOn` never warned that nothing was loaded
+* Parent categories referenced through a local prefix alias (e.g. `netcon:NetworkConnections`) were not found: Windows Defender Firewall and Preference snap-in extensions are no longer root categories
 * GUI tree skipped each policy's own category: policies were shown one level too high
 * GUI theme toggle assumed a light start while the window follows the OS theme
 * `Get-PSGPOPolicy` without `-Scope` returned only User policies; it now returns all policies
@@ -14,6 +16,7 @@
 
 ### Changed
 
+* Tests rewritten for Pester 5+, with new tests for the public functions and the Avalonia GUI (real window driven through a private test hook); `CI/Invoke-Tests.ps1` builds and runs them, also in a GitHub Actions workflow
 * `Initialize-PSGPOAdmx` is about 5x faster (~20 s -> ~4 s on the Windows ADMX set): categories and ADMX namespaces are indexed, ADML strings are read through the hashtable indexer
 * GUI context menu: the Enable/Disable/Create GPO placeholders (they only wrote to the console) are replaced by working copy actions (policy name, registry path, PowerShell command)
 * GUI text is English only, the tree is built in linear time and a warning is shown when no policy is loaded

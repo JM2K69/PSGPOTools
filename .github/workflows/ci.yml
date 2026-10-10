@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main, avalonia]
+  pull_request:
+
+jobs:
+  test:
+    # Windows: the ADMX parsing paths and the GUI tests (real Avalonia window) target Windows.
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show PowerShell version
+        shell: pwsh
+        run: $PSVersionTable
+
+      - name: Install Pester
+        shell: pwsh
+        run: Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser -Force -SkipPublisherCheck
+
+      - name: Cache Avalonia runtime
+        uses: actions/cache@v4
+        with:
+          path: PSGPOTools/Avalonia/bin
+          key: avalonia-win-x64-${{ hashFiles('PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1') }}
+
+      - name: Stage Avalonia runtime
+        shell: pwsh
+        run: ./PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1 -Rid win-x64
+
+      - name: Build and test
+        shell: pwsh
+        run: ./CI/Invoke-Tests.ps1 -OutputPath TestResults.xml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults.xml
