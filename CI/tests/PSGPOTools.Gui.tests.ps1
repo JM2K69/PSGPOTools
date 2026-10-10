@@ -7,15 +7,17 @@ BeforeDiscovery {
     $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
     Get-Module PSGPOTools | Remove-Module -Force
     Import-Module $ModuleManifest -Force
-
-    $Rid = & (Get-Module PSGPOTools) { Get-PSGPOAvaloniaRid }
-    $AvaloniaMissing = -not (Test-Path (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Avalonia' 'bin' $Rid 'Avalonia.dll'))
-    if ($AvaloniaMissing) {
-        Write-Warning "Avalonia runtime not staged for ${Rid}: GUI tests skipped (run PSGPOTools\Avalonia\Get-AvaloniaBinaries.ps1)."
-    }
 }
 
 InModuleScope -ModuleName PSGPOTools {
+    # Evaluated during discovery, here and not in BeforeDiscovery: InModuleScope runs this block
+    # in the module scope, where the variables of the test file are not visible (-Skip:$null).
+    $Rid = Get-PSGPOAvaloniaRid
+    $AvaloniaMissing = -not (Test-Path (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Avalonia' 'bin' $Rid 'Avalonia.dll'))
+    if ($AvaloniaMissing) {
+        Write-Warning "Avalonia runtime not staged for ${Rid}: GUI tests skipped (run PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1)."
+    }
+
     BeforeAll {
         $PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path
         # Root BeforeAll also runs when every test is skipped: only load the ADMX for the GUI tests.
