@@ -1,16 +1,15 @@
 function Show-GPOManagerAvalonia {
     <#
     .SYNOPSIS
-        Cross-platform (Windows/Linux/macOS) Avalonia UI equivalent of Show-GPOManager.
+        Cross-platform (Windows/Linux/macOS) graphical explorer for the loaded ADMX policies.
     .DESCRIPTION
-        Same GPO tree/details experience as Show-GPOManager, but hosted on Avalonia UI
-        instead of WPF so it also runs on Linux and macOS via PowerShell 7+.
+        Displays the policies loaded by Initialize-PSGPOAdmx in a tree (scope > categories >
+        policies) with a details panel, hosted on Avalonia UI under PowerShell 7+.
 
         The Avalonia assemblies are not bundled with the module; run
         .\Avalonia\Get-AvaloniaBinaries.ps1 once per target platform beforehand (see that
         script's help for details). All GPO/ADMX logic stays in PowerShell; Avalonia is
-        only used to render the window, loaded at runtime the same way
-        Add-Type -AssemblyName PresentationFramework is used for the WPF version.
+        only used to render the window, its assemblies being loaded at runtime.
     .LINK
         https://www.deploymentresearch.com/using-avalonia-ui-in-deployr-task-sequences/
     #>
@@ -222,7 +221,7 @@ function Show-GPOManagerAvalonia {
         $themeToggleButton.Content = if ($script:isDarkTheme) { '☀️ Mode Clair' } else { '🌙 Mode Sombre' }
     })
 
-    # Context menu actions operate on the current TreeView selection, same as the WPF version.
+    # Context menu actions operate on the current TreeView selection.
     $enableMenuItem.Add_Click({
         $selected = $treeView.SelectedItem
         if ($selected -and $selected.Tag -is [GPOToolsPolicy]) {
@@ -318,7 +317,7 @@ function Show-GPOManagerAvalonia {
                 $parentCategory = $category.ParentCategory
                 $currentNode = $scopeNode
 
-                # Build (or reuse) the category chain, deepest-parent-first, same as the WPF version.
+                # Build (or reuse) the category chain, deepest-parent-first.
                 $chain = [System.Collections.Generic.List[object]]::new()
                 while ($null -ne $parentCategory) {
                     $chain.Add($parentCategory)
@@ -365,7 +364,7 @@ function Show-GPOManagerAvalonia {
     })
 
     # Avalonia's SetupWithoutStarting() does not run a message loop by itself; drive one
-    # manually and stop it when the window closes (mirrors WPF's blocking ShowDialog()).
+    # manually and stop it when the window closes so the call blocks until then.
     $cts = [System.Threading.CancellationTokenSource]::new()
     $window.Add_Closed({
         [Avalonia.Threading.Dispatcher]::UIThread.Post(

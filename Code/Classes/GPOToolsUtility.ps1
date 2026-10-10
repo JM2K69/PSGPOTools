@@ -172,7 +172,7 @@ class GPOToolsUtility {
     #>
     static [bool]CheckCategoryPresence(
         [string]$Name,
-        [hashtable]$target
+        [AdmxNamespace]$target
     ){
         $Result = [GPOToolsUtility]::Categories |
             Where-Object {
@@ -305,7 +305,7 @@ class GPOToolsCategory {
         }
     }
 
-    static [System.Collections.Generic.List[GpoToolsCategory]]Create(
+    static [GPOToolsCategory]Create(
         [AdmxCategory]$Category,
         [System.Collections.ArrayList]$AllCat,
         [GpoToolsAdml]$Adml
@@ -320,7 +320,12 @@ class GPOToolsCategory {
             return $NewCat
         }Else{
             Write-Verbose "[GPOToolsCategory] $($Category.Name) Category is already load in [GPOToolsUtility]::Categories"
-            return [GPOToolsUtility]::Categories | Where-Object {$_.Name -eq $Category.Name}
+            return [GPOToolsUtility]::Categories |
+                Where-Object {
+                    ($_.Name -eq $Category.Name) -and
+                    ($_.target.prefix -eq $Category.target.prefix) -and
+                    ($_.target.namespace -eq $Category.target.namespace)
+                } | Select-Object -First 1
         }
     }
     <#
@@ -336,7 +341,7 @@ class GPOToolsCategory {
         [GpoToolsAdml]$Adml
     ){
         # Pour chaque category de Categories
-        $ParentCat = [GPOToolsUtility]::Categories |
+        $ParentCat = @([GPOToolsUtility]::Categories |
             Where-Object {
                     #Si la categorie a le meme nom que celle recherche
                     $_.Name -eq $Cat.ParentCategory.Name -and
@@ -346,23 +351,25 @@ class GPOToolsCategory {
                         #le meme prefix que la category enfant
                         $_.target.prefix -eq $Cat.target.prefix
                     )
-                }
-        if ($null -eq $ParentCat.count){
+                })
+        if ($ParentCat.Count -eq 0){
             Write-Verbose "[GPOToolsCategory](FindParentCategory) No ParentCategory found for $($Cat.Name) Name in [GPOToolsUtility]::Categories static property"
-            if($Categories.Name -contains $Cat.ParentCategory.Name){
-                $ParentCat = $Categories.Name | Where-Object {$_.Name -eq $Category.ParentCategory.Name}
-                if ($ParentCat -eq 1) {
-                    return [GPOToolsCategory]::New($ParentCat,$Categories,$Adml)
-                }Else{
-                    Throw "[GPOToolsCategory](FindParentCategory) To many ParentCategory found for $($Cat.Name) in ADMX file"
-                }
+            # La category parent peut etre definie plus loin dans le meme fichier admx : on la cree maintenant
+            $AdmxParent = @($Categories | Where-Object {
+                $_.Name -eq $Cat.ParentCategory.Name -and $Cat.ParentCategory.prefix -eq $Cat.target.prefix
+            })
+            if ($AdmxParent.Count -eq 1) {
+                return [GPOToolsCategory]::Create($AdmxParent[0],$Categories,$Adml)
+            }ElseIf ($AdmxParent.Count -ge 2) {
+                Throw "[GPOToolsCategory](FindParentCategory) To many ParentCategory found for $($Cat.Name) in ADMX file"
             }Else{
-                throw ('[GPOToolsCategory](FindParentCategory) No category parent {0} found for {1} category in [GPOToolsUtility]::Categories static property and ADMX file' -f $Cat.ParentCategory.Name,$Cat.Name)
+                Write-Warning ('[GPOToolsCategory](FindParentCategory) No category parent {0} found for {1} category in [GPOToolsUtility]::Categories static property and ADMX file' -f $Cat.ParentCategory.Name,$Cat.Name)
+                return $null
             }
         }ElseIf($ParentCat.count -ge 2){
             Throw "[GPOToolsCategory](FindParentCategory) To many ParentCategory found for $($Cat.Name)"
         }Else{
-            return $ParentCat
+            return $ParentCat[0]
         }
     }
 
@@ -370,7 +377,7 @@ class GPOToolsCategory {
         [GpoToolsAdmx]$Admx,
         [GpoToolsAdml]$Adml
     ){
-        [void]$Admx.Categories | Foreach-Object {
+        $null = $Admx.Categories | Foreach-Object {
             [GPOToolsCategory]::Create($_,$Admx.Categories,$Adml)
         }
     }
@@ -431,7 +438,7 @@ class GPOToolsPolicy {
         [AdmxPolicy]$Pol
     ){
         # Pour chaque category de Categories
-        $ParentCat = [GPOToolsUtility]::Categories |
+        $ParentCat = @([GPOToolsUtility]::Categories |
             Where-Object {
                     #Si la categorie a le meme nom que celle recherche
                     $_.Name -eq $Pol.ParentCategory.Name -and
@@ -441,13 +448,14 @@ class GPOToolsPolicy {
                         #le meme prefix que la policy enfant
                         $_.target.prefix -eq $Pol.target.prefix
                     )
-                }
-        if ($null -eq $ParentCat.count){
-            Throw "[GPOToolsCategory](FindParentCategory) No ParentCategory found for $($Pol.Name) policy in [GPOToolsUtility]::Categories static property"
+                })
+        if ($ParentCat.Count -eq 0){
+            Write-Warning "[GPOToolsPolicy](FindParentCategory) No ParentCategory found for $($Pol.Name) policy in [GPOToolsUtility]::Categories static property"
+            return $null
         }ElseIf($ParentCat.count -ge 2){
-            Throw "[GPOToolsCategory](FindParentCategory) To many ParentCategory found for $($Pol.Name) policy"
+            Throw "[GPOToolsPolicy](FindParentCategory) To many ParentCategory found for $($Pol.Name) policy"
         }Else{
-            return $ParentCat
+            return $ParentCat[0]
         }
     }
 
