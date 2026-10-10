@@ -53,3 +53,41 @@ function Get-PSGPOPolicyRegistryRow {
         $Row
     }
 }
+
+# Row of the "Registry Preview" list: full key with its hive, value name, Windows type and data.
+function ConvertTo-PSGPOPreviewRow {
+    [CmdletBinding()]
+    [OutputType([AvaloniaPreviewRow])]
+    param(
+        [Parameter(Mandatory)] [GPOToolsRegistryValue]$Change,
+        [Parameter(Mandatory)] [ScopePolicy]$Scope
+    )
+
+    $Hive = if ($Scope -eq [ScopePolicy]::Machine) { 'HKLM' } else { 'HKCU' }
+    $RegType = @{
+        String = 'REG_SZ'; ExpandString = 'REG_EXPAND_SZ'; MultiString = 'REG_MULTI_SZ'
+        DWord = 'REG_DWORD'; QWord = 'REG_QWORD'
+    }
+    $Row = [AvaloniaPreviewRow]::new()
+    $Row.Key = '{0}\{1}' -f $Hive, $Change.Key
+    switch ($Change.Type) {
+        'Delete' {
+            $Row.Title = 'Delete value'
+            $Row.ValueName = $Change.ValueName
+            $Row.Data = '-'
+        }
+        'DeleteAllValues' {
+            $Row.Title = 'Delete all values of the key'
+            $Row.ValueName = '(all values)'
+            $Row.Data = '-'
+        }
+        default {
+            $Row.Title = 'Set {0}' -f $RegType["$($Change.Type)"]
+            $Row.ValueName = $Change.ValueName
+            $Row.Data = if ($Change.Type -eq [GPOToolsRegistryValueType]::MultiString) { $Change.Value -join ' | ' } else { "$($Change.Value)" }
+        }
+    }
+    # Not written in the ADMX: the editor's default behaviour, to be confirmed against GPMC.
+    if ($Change.Implicit) { $Row.Title += ' (editor default)' }
+    $Row
+}

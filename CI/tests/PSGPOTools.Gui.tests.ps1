@@ -75,7 +75,7 @@ InModuleScope -ModuleName PSGPOTools {
                 $Ui.registryPathTextBox.Text | Should -Be 'HKLM:\Software\Policies\Microsoft\Windows Defender'
                 $Ui.registryKeyTextBox.Text | Should -Be 'DisableAntiSpyware'
 
-                $Rows = @($Ui.registryValuesGrid.ItemsSource)
+                $Rows = @($Ui.registryValuesList.ItemsSource)
                 ($Rows | Where-Object Key -EQ 'Enabled').Value | Should -Be 'Software\Policies\Microsoft\Windows Defender\DisableAntiSpyware = 1 (DWord)'
                 ($Rows | Where-Object Key -EQ 'Disabled').Value | Should -Be 'Software\Policies\Microsoft\Windows Defender\DisableAntiSpyware = 0 (DWord)'
 
@@ -91,7 +91,7 @@ InModuleScope -ModuleName PSGPOTools {
 
                 $Ui.displayNameTextBox.Text | Should -BeNullOrEmpty
                 $Ui.registryPathTextBox.Text | Should -BeNullOrEmpty
-                $Ui.registryValuesGrid.ItemsSource | Should -BeNullOrEmpty
+                $Ui.registryValuesList.ItemsSource | Should -BeNullOrEmpty
             }
         }
 
@@ -172,7 +172,8 @@ InModuleScope -ModuleName PSGPOTools {
             }
             function Get-PreviewLine {
                 param($Ui)
-                @($Ui.registryPreviewGrid.ItemsSource | ForEach-Object { '{0} {1}' -f $_.Key, $_.Value })
+                # 'Title | Key | Value name | Data' for each change of the preview list
+                @($Ui.registryPreviewList.ItemsSource | ForEach-Object { '{0} | {1} | {2} | {3}' -f $_.Title, $_.Key, $_.ValueName, $_.Data })
             }
         }
 
@@ -203,22 +204,45 @@ InModuleScope -ModuleName PSGPOTools {
                 Select-TestPolicy $Ui 'AxISURLZonePolicies'
                 $Ui.notConfiguredRadio.IsChecked | Should -BeTrue
                 $Ui.optionsHost.IsEnabled | Should -BeFalse
-                $Ui.registryPreviewGrid.ItemsSource | Should -BeNullOrEmpty
+                $Ui.registryPreviewList.ItemsSource | Should -BeNullOrEmpty
+                $Ui.previewEmptyTextBlock.IsVisible | Should -BeTrue
+                $Ui.settingTitleTextBlock.Text | Should -Be 'Establish ActiveX installation policy for sites in Trusted zones'
 
                 $Ui.enabledRadio.IsChecked = $true
+                $Ui.previewEmptyTextBlock.IsVisible | Should -BeFalse
                 $Ui.optionsHost.IsEnabled | Should -BeTrue
-                Get-PreviewLine $Ui | Should -Contain 'Set SOFTWARE\Policies\Microsoft\Windows\AxInstaller\AxISURLZonePolicies\InstallTrustedOCX = 2 (DWord)'
+                Get-PreviewLine $Ui | Should -Contain 'Set REG_DWORD | HKLM\SOFTWARE\Policies\Microsoft\Windows\AxInstaller\AxISURLZonePolicies | InstallTrustedOCX | 2'
 
                 # Editing an option updates the preview.
                 $Ui.Editing.Editor.Controls['InstallTrustedOCX'].SelectedItem = "Don't install"
                 $Ui.Editing.Editor.Controls['IgnoreUnknownCA'].IsChecked = $true
                 $Lines = Get-PreviewLine $Ui
-                $Lines | Should -Contain 'Set SOFTWARE\Policies\Microsoft\Windows\AxInstaller\AxISURLZonePolicies\InstallTrustedOCX = 0 (DWord)'
-                $Lines | Should -Contain 'Set SOFTWARE\Policies\Microsoft\Windows\AxInstaller\AxISURLZonePolicies\IgnoreUnknownCA = 1 (DWord)'
+                $Lines | Should -Contain 'Set REG_DWORD | HKLM\SOFTWARE\Policies\Microsoft\Windows\AxInstaller\AxISURLZonePolicies | InstallTrustedOCX | 0'
+                $Lines | Should -Contain 'Set REG_DWORD | HKLM\SOFTWARE\Policies\Microsoft\Windows\AxInstaller\AxISURLZonePolicies | IgnoreUnknownCA | 1'
 
                 $Ui.disabledRadio.IsChecked = $true
                 $Ui.optionsHost.IsEnabled | Should -BeFalse
-                (Get-PreviewLine $Ui | Where-Object { $_ -like 'Delete *' }).Count | Should -Be 7
+                @(Get-PreviewLine $Ui | Where-Object { $_ -like 'Delete value (editor default) | HKLM\*' }).Count | Should -Be 7
+            }
+        }
+
+        It 'Renders the preview rows on screen, with the key, at a 1333x750 window size' {
+            # Regression: the former DataGrid kept its header height, so the rows were never visible.
+            Start-PSGPOManagerWindow -OnShown {
+                param($Ui)
+                $Ui.Window.Width = 1333
+                $Ui.Window.Height = 750
+                Select-TestPolicy $Ui 'Biometrics_EnableBio'
+                $Ui.enabledRadio.IsChecked = $true
+                $Ui.Window.UpdateLayout()
+
+                Get-PreviewLine $Ui | Should -Be 'Set REG_DWORD | HKLM\SOFTWARE\Policies\Microsoft\Biometrics | Enabled | 1'
+                $Row = $Ui.registryPreviewList.ContainerFromIndex(0)
+                $Row | Should -Not -BeNullOrEmpty
+                $Row.Bounds.Height | Should -BeGreaterThan 40
+                # The row is inside the visible part of the Setting tab, without scrolling.
+                $Origin = [Avalonia.VisualExtensions]::TranslatePoint($Row, [Avalonia.Point]::new(0, 0), $Ui.Window)
+                $Origin.Value.Y + $Row.Bounds.Height | Should -BeLessThan $Ui.Window.Bounds.Height
             }
         }
 
@@ -237,9 +261,9 @@ InModuleScope -ModuleName PSGPOTools {
                 @($List.Entries) | Should -Be @('Microsoft.Mouse', 'Microsoft.Sound')
 
                 $Lines = Get-PreviewLine $Ui
-                $Lines | Should -Contain 'Delete Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowCpl\*: all values deleted [default]'
-                $Lines | Should -Contain 'Set Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowCpl\1 = Microsoft.Mouse (String)'
-                $Lines | Should -Contain 'Set Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowCpl\2 = Microsoft.Sound (String)'
+                $Lines | Should -Contain 'Delete all values of the key (editor default) | HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowCpl | (all values) | -'
+                $Lines | Should -Contain 'Set REG_SZ | HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowCpl | 1 | Microsoft.Mouse'
+                $Lines | Should -Contain 'Set REG_SZ | HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowCpl | 2 | Microsoft.Sound'
                 $List.ValueInput.IsVisible | Should -BeFalse
             }
         }
@@ -251,13 +275,14 @@ InModuleScope -ModuleName PSGPOTools {
                 Select-TestPolicy $Ui $Policy.ID "$($Policy.Scope)"
                 $Ui.enabledRadio.IsChecked = $true
                 $Ui.settingErrorTextBlock.Text | Should -BeLike '*is required.'
-                $Ui.registryPreviewGrid.ItemsSource | Should -BeNullOrEmpty
+                $Ui.registryPreviewList.ItemsSource | Should -BeNullOrEmpty
+                $Ui.previewEmptyTextBlock.Text | Should -BeLike 'Fix the options*'
 
                 $Ui.Editing.Editor.Controls[$Policy.Elements[0].Id].Text = 'Contoso'
                 # Avalonia posts TextChanged to the dispatcher: run it before checking.
                 [Avalonia.Threading.Dispatcher]::UIThread.RunJobs()
                 $Ui.settingErrorTextBlock.Text | Should -BeNullOrEmpty
-                @(Get-PreviewLine $Ui)[-1] | Should -BeLike '* = Contoso (*String)'
+                @(Get-PreviewLine $Ui)[-1] | Should -BeLike 'Set REG_*SZ | HKCU\* | * | Contoso'
             }
         }
     }
