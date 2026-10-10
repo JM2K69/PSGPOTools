@@ -45,6 +45,7 @@ param(
     [string]$SkiaVersion = '2.88.9',
     [string]$HarfBuzzVersion = '7.3.0.3',
     [string]$MicroComVersion = '0.11.0',
+    [string]$TmdsDBusVersion = '0.20.0',
 
     [switch]$Force
 )
@@ -80,7 +81,7 @@ function Copy-ManagedAssembly {
 
     # Prefer the newest TFM actually shipped, falling back for the small support packages.
     foreach ($tfm in @('net8.0', 'net6.0', 'net5.0', 'netstandard2.0')) {
-        $libPath = Join-Path $PackagePath "lib\$tfm"
+        $libPath = Join-Path $PackagePath 'lib' $tfm
         if (Test-Path $libPath) {
             Get-ChildItem -Path $libPath -Filter '*.dll' -File | Copy-Item -Destination $DestForRid -Force
             return
@@ -93,7 +94,7 @@ function Copy-NativeAssets {
     param([string]$PackagePath, [string[]]$RuntimeFolders)
 
     foreach ($rf in $RuntimeFolders) {
-        $nativePath = Join-Path $PackagePath "runtimes\$rf\native"
+        $nativePath = Join-Path $PackagePath 'runtimes' $rf 'native'
         if (Test-Path $nativePath) {
             Get-ChildItem -Path $nativePath -File | Copy-Item -Destination $DestForRid -Force
             return
@@ -128,6 +129,8 @@ switch -Wildcard ($Rid) {
     'linux-*' {
         Copy-ManagedAssembly (Get-NugetPackage -Id 'Avalonia.X11' -Version $AvaloniaVersion)
         Copy-ManagedAssembly (Get-NugetPackage -Id 'Avalonia.FreeDesktop' -Version $AvaloniaVersion)
+        # Dependency of Avalonia.FreeDesktop (D-Bus); its own System.IO.Pipelines ships with PowerShell 7.
+        Copy-ManagedAssembly (Get-NugetPackage -Id 'Tmds.DBus.Protocol' -Version $TmdsDBusVersion)
         Copy-NativeAssets (Get-NugetPackage -Id 'SkiaSharp.NativeAssets.Linux' -Version $SkiaVersion) @($Rid)
         Copy-NativeAssets (Get-NugetPackage -Id 'HarfBuzzSharp.NativeAssets.Linux' -Version $HarfBuzzVersion) @($Rid)
     }

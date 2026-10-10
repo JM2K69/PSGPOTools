@@ -10,10 +10,11 @@
 * Complete registry model of the policies: `EnabledValues` / `DisabledValues` (enabledValue, disabledValue, enabledList, disabledList; decimal, longDecimal, string and delete values) and `Elements` (boolean, decimal, longDecimal, text, multiText, enum, list) with the schema defaults and their ADML presentation (control, label, default value, localized enum choices)
 * Values that the ADMX does not write but the policy editor does (DWORD 1 when enabled, deletion when disabled) are flagged `Implicit`, to be confirmed against the GPMC
 * The GUI details grid shows every registry value of the selected policy
-* Linux job in the CI (model and public functions)
+* Linux job in the CI running every test, the GUI included (Avalonia X11 backend under Xvfb)
 
 ### Fixed
 
+* Linux: `Get-AvaloniaBinaries.ps1 -Rid linux-x64` did not download `Tmds.DBus.Protocol`, required by Avalonia.FreeDesktop, and built its package paths with `\`
 * Linux: ADML files whose case differs from their ADMX (InetRes.adml, KDC.adml, Messaging.adml, as shipped by Microsoft) and culture folders are now found on case-sensitive file systems; the .admx extension is compared case-insensitively
 * GUI registry preview rows were never displayed (the DataGrid kept its header height inside the scroll viewer): the preview is now a list showing the key with its hive, the value name, the Windows type and the data, as selectable text
 * GUI details: the setting form and the ADMX details are split into Setting / Details tabs, and the "Registry Key" field that showed the value name is now labelled "Value Name"

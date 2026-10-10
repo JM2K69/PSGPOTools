@@ -49,6 +49,32 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
+        # Runs the Avalonia loop (platform events included) until $Until is true or the timeout,
+        # instead of blocking the UI thread: the X11 clipboard answers through window messages.
+        function Invoke-UiLoop {
+            param([scriptblock]$Until = { $false }, [int]$TimeoutMilliseconds = 5000)
+            $Frame = [Avalonia.Threading.DispatcherFrame]::new()
+            $Timer = [Avalonia.Threading.DispatcherTimer]::new()
+            $Timer.Interval = [TimeSpan]::FromMilliseconds(20)
+            $Deadline = [DateTime]::UtcNow.AddMilliseconds($TimeoutMilliseconds)
+            $Timer.Add_Tick({
+                if ((& $Until) -or [DateTime]::UtcNow -gt $Deadline) {
+                    $Timer.Stop()
+                    $Frame.Continue = $false
+                }
+            }.GetNewClosure())
+            $Timer.Start()
+            [Avalonia.Threading.Dispatcher]::UIThread.PushFrame($Frame)
+        }
+
+        function Wait-UiTask {
+            param([System.Threading.Tasks.Task]$Task)
+            # Not a closure: it must see $Task through this function scope.
+            Invoke-UiLoop -Until { $Task.IsCompleted }
+            if (-not $Task.IsCompleted) { throw 'The UI task did not complete within 5 seconds.' }
+            $Task.GetAwaiter().GetResult()
+        }
+
         function Invoke-Click {
             param($Control)
             $ClickEvent = if ($Control -is [Avalonia.Controls.MenuItem]) { [Avalonia.Controls.MenuItem]::ClickEvent } else { [Avalonia.Controls.Button]::ClickEvent }
@@ -148,7 +174,9 @@ InModuleScope -ModuleName PSGPOTools {
                 param($Ui)
                 $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) [object]::ReferenceEquals($n.Tag, $DefenderPolicy) }
                 Invoke-Click $Ui[$MenuItem]
-                $State.Text = $Ui.Window.Clipboard.GetTextAsync().GetAwaiter().GetResult()
+                # The copy is asynchronous (SetTextAsync): let the loop run, then read the clipboard.
+                Invoke-UiLoop -TimeoutMilliseconds 300
+                $State.Text = Wait-UiTask $Ui.Window.Clipboard.GetTextAsync()
             }
             $State.Text | Should -Be (& $Expected)
         }
