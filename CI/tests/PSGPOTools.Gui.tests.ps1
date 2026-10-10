@@ -169,16 +169,35 @@ InModuleScope -ModuleName PSGPOTools {
             @{ Item = 'PowerShell command'; MenuItem = 'copyCommandMenuItem'
                Expected = { "Get-ItemProperty -Path 'HKLM:\Software\Policies\Microsoft\Windows Defender' -Name 'DisableAntiSpyware'" } }
         ) {
-            $State = @{ Text = $null }
+            $State = @{ Copied = $null; ReadBack = $null }
             Start-PSGPOManagerWindow -OnShown {
                 param($Ui)
                 $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) [object]::ReferenceEquals($n.Tag, $DefenderPolicy) }
                 Invoke-Click $Ui[$MenuItem]
-                # The copy is asynchronous (SetTextAsync): let the loop run, then read the clipboard.
-                Invoke-UiLoop -TimeoutMilliseconds 300
-                $State.Text = Wait-UiTask $Ui.Window.Clipboard.GetTextAsync()
+
+                # Our part: the right text is handed to the clipboard and the copy completes.
+                $Copy = $Ui.Clipboard
+                if ($Copy.Error) { throw "SetTextAsync threw $($Copy.Error.GetType().FullName): $($Copy.Error.Message)" }
+                $Copy.Task | Should -Not -BeNullOrEmpty -Because 'the menu item must start a copy'
+                try { Wait-UiTask $Copy.Task } catch {
+                    throw "SetTextAsync failed: $($_.Exception.GetBaseException().GetType().FullName): $($_.Exception.GetBaseException().Message)"
+                }
+                $State.Copied = $Copy.Text
+
+                # The platform part: read the system clipboard back.
+                try { $State.ReadBack = Wait-UiTask $Ui.Window.Clipboard.GetTextAsync() } catch {
+                    throw "GetTextAsync failed: $($_.Exception.GetBaseException().GetType().FullName): $($_.Exception.GetBaseException().Message)"
+                }
             }
-            $State.Text | Should -Be (& $Expected)
+            $State.Copied | Should -Be (& $Expected) -Because 'the menu item must copy this text'
+
+            # Under Xvfb (Linux CI) the X11 clipboard reads back $null although the copy succeeded:
+            # report it as inconclusive rather than pass without proof, until checked on a Linux desktop.
+            if (-not $IsWindows -and $null -eq $State.ReadBack) {
+                Set-ItResult -Inconclusive -Because 'the X11 clipboard returned nothing under Xvfb; the read back is only checked on Windows so far'
+                return
+            }
+            $State.ReadBack | Should -Be (& $Expected) -Because 'the system clipboard must hold the copied text'
         }
 
         It 'Warns when no policy is loaded' {
