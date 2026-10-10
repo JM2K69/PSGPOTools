@@ -68,6 +68,20 @@ To uninstall PSGPOTools:
 PS> Uninstall-Module -Name PSGPOTools
 ```
 
+## Building from source
+
+PSGPOTools requires **PowerShell 7.4+**. The module file `PSGPOTools/PSGPOTools.psm1` is generated from the `Code/` folder and is not versioned: always edit `Code/`, then rebuild.
+
+``` PowerShell
+# Generate PSGPOTools.psm1 and refresh the manifest exports
+pwsh -File .\CI\03_Build.ps1
+
+# Optional: stage the Avalonia runtime used by Show-GPOManagerAvalonia
+pwsh -File .\PSGPOTools\Avalonia\Get-AvaloniaBinaries.ps1
+
+Import-Module .\PSGPOTools\PSGPOTools.psd1
+```
+
 ## Testing Module
 
 After the installation with the PowerShellGallery, import the module with Import-Module cmdlet.

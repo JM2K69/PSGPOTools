@@ -35,7 +35,7 @@ function Initialize-PSGPOAvaloniaRuntime {
         'Avalonia.Dialogs.dll', 'Avalonia.Markup.dll', 'Avalonia.Markup.Xaml.dll',
         'Avalonia.Markup.Xaml.Loader.dll', 'Avalonia.Metal.dll', 'Avalonia.MicroCom.dll',
         'Avalonia.OpenGL.dll', 'Avalonia.Remote.Protocol.dll', 'Avalonia.Skia.dll',
-        'Avalonia.Themes.Fluent.dll', 'HarfBuzzSharp.dll', 'SkiaSharp.dll'
+        'Avalonia.Themes.Fluent.dll', 'Avalonia.Controls.DataGrid.dll', 'HarfBuzzSharp.dll', 'SkiaSharp.dll'
     )
     switch -Wildcard ($rid) {
         'win-*' { $assemblies += 'Avalonia.Win32.dll' }
@@ -62,6 +62,12 @@ function Initialize-PSGPOAvaloniaRuntime {
     $builder = [Avalonia.AppBuilderDesktopExtensions]::UsePlatformDetect($builder)
     $builder.SetupWithoutStarting() | Out-Null
     [Avalonia.Application]::Current.Styles.Add([Avalonia.Themes.Fluent.FluentTheme]::new())
+
+    # The DataGrid control ships its Fluent theme resources separately from Avalonia.Themes.Fluent;
+    # without this StyleInclude, DataGrid/DataGridTextColumn cannot be resolved from XAML.
+    $dataGridStyle = [Avalonia.Markup.Xaml.Styling.StyleInclude]::new([Uri]::new('resm:Styles?assembly=Avalonia.Controls.DataGrid'))
+    $dataGridStyle.Source = [Uri]::new('avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml')
+    [Avalonia.Application]::Current.Styles.Add($dataGridStyle)
 
     $script:PSGPOAvaloniaInitialized = $true
 }

@@ -12,5 +12,5 @@ function Initialize-PSGPOAdmx {
     ### MAIN ###
     # Empty Statics properties
     [GPOToolsUtility]::RemoveAll()
-    [GpotoolsUtility]::InitiateAdmxAdml($Item,$UICulture)
+    [GPOToolsUtility]::InitiateAdmxAdml($Item, $UICulture)
 }
