@@ -82,6 +82,17 @@ pwsh -File .\PSGPOTools\Avalonia\Get-AvaloniaBinaries.ps1
 Import-Module .\PSGPOTools\PSGPOTools.psd1
 ```
 
+### Running the tests
+
+The tests need Pester 5.5+ (`Install-Module Pester -Scope CurrentUser`). The GUI tests open the real Avalonia window and are skipped when the Avalonia runtime has not been staged.
+
+``` PowerShell
+# Build the module, then run every test file of CI\tests
+pwsh -File .\CI\Invoke-Tests.ps1
+```
+
+The same script runs on every push and pull request in GitHub Actions (`.github/workflows/ci.yml`, Windows runner).
+
 ## Testing Module
 
 After the installation with the PowerShellGallery, import the module with Import-Module cmdlet.
