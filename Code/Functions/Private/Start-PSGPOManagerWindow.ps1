@@ -151,67 +151,95 @@ function Start-PSGPOManagerWindow {
                                    Foreground='{DynamicResource HeaderTextBrush}'/>
                     </Border>
 
-                    <ScrollViewer Grid.Row='1' Padding='16'>
-                        <StackPanel Name='detailsPanel'>
-                            <TextBlock Text='Display Name' FontSize='12' FontWeight='SemiBold'
-                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,8,0,4'/>
-                            <TextBox Name='displayNameTextBox' IsReadOnly='True'/>
+                    <!-- Setting: what the administrator edits; Details: what the ADMX defines. -->
+                    <TabControl Grid.Row='1' Name='detailsTabs' Margin='8,0,8,8'>
+                        <TabItem Header='Setting'>
+                            <ScrollViewer Padding='8'>
+                                <StackPanel>
+                                    <TextBlock Name='settingTitleTextBlock' FontSize='16' FontWeight='SemiBold'
+                                               TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'
+                                               Text='Select a policy in the tree'/>
 
-                            <TextBlock Text='Description' FontSize='12' FontWeight='SemiBold'
-                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
-                            <TextBox Name='descriptionTextBox' IsReadOnly='True' TextWrapping='Wrap'
-                                     AcceptsReturn='True' MinHeight='60' MaxHeight='120'/>
+                                    <StackPanel Orientation='Horizontal' Spacing='16' Margin='0,12,0,0'>
+                                        <RadioButton Name='notConfiguredRadio' GroupName='policyState' Content='Not Configured' IsChecked='True'/>
+                                        <RadioButton Name='enabledRadio' GroupName='policyState' Content='Enabled'/>
+                                        <RadioButton Name='disabledRadio' GroupName='policyState' Content='Disabled'/>
+                                    </StackPanel>
 
-                            <TextBlock Text='Scope' FontSize='12' FontWeight='SemiBold'
-                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
-                            <TextBox Name='scopeTextBox' IsReadOnly='True'/>
+                                    <TextBlock Text='Options' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <Border BorderThickness='1' BorderBrush='{DynamicResource BorderBrush}' CornerRadius='4' Padding='12'>
+                                        <ContentControl Name='optionsHost'/>
+                                    </Border>
+                                    <TextBlock Name='settingErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' Margin='0,8,0,0'/>
 
-                            <TextBlock Text='Registry Path' FontSize='12' FontWeight='SemiBold'
-                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
-                            <TextBox Name='registryPathTextBox' IsReadOnly='True'/>
+                                    <TextBlock Text='Registry Preview' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <TextBlock Name='previewEmptyTextBlock' Foreground='{DynamicResource SecondaryTextBrush}'
+                                               TextWrapping='Wrap' Text='Not configured: nothing is written to the registry.'/>
+                                    <ItemsControl Name='registryPreviewList'>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BorderThickness='0,0,0,1' BorderBrush='{DynamicResource BorderBrush}' Padding='0,6'>
+                                                    <Grid ColumnDefinitions='Auto,*' RowDefinitions='Auto,Auto,Auto,Auto'>
+                                                        <TextBlock Grid.Row='0' Grid.ColumnSpan='2' FontWeight='SemiBold' Text='{Binding Title}'/>
+                                                        <TextBlock Grid.Row='1' Grid.Column='0' Text='Key' Margin='0,2,12,0' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                        <SelectableTextBlock Grid.Row='1' Grid.Column='1' Text='{Binding Key}' TextWrapping='Wrap' Margin='0,2,0,0'/>
+                                                        <TextBlock Grid.Row='2' Grid.Column='0' Text='Value' Margin='0,2,12,0' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                        <SelectableTextBlock Grid.Row='2' Grid.Column='1' Text='{Binding ValueName}' TextWrapping='Wrap' Margin='0,2,0,0'/>
+                                                        <TextBlock Grid.Row='3' Grid.Column='0' Text='Data' Margin='0,2,12,0' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                        <SelectableTextBlock Grid.Row='3' Grid.Column='1' Text='{Binding Data}' TextWrapping='Wrap' Margin='0,2,0,0'/>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </TabItem>
 
-                            <TextBlock Text='Registry Key' FontSize='12' FontWeight='SemiBold'
-                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
-                            <TextBox Name='registryKeyTextBox' IsReadOnly='True'/>
+                        <TabItem Header='Details'>
+                            <ScrollViewer Padding='8'>
+                                <StackPanel Name='detailsPanel'>
+                                    <TextBlock Text='Display Name' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,8,0,4'/>
+                                    <TextBox Name='displayNameTextBox' IsReadOnly='True' TextWrapping='Wrap'/>
 
-                            <TextBlock Text='Registry Values' FontSize='12' FontWeight='SemiBold'
-                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
-                            <DataGrid Name='registryValuesGrid' AutoGenerateColumns='False'
-                                      IsReadOnly='True' MaxHeight='200' Margin='0,0,0,16'
-                                      GridLinesVisibility='None' HeadersVisibility='Column'>
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header='Name' Binding='{Binding Key}' Width='*'/>
-                                    <DataGridTextColumn Header='Value' Binding='{Binding Value}' Width='2*'/>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                                    <TextBlock Text='Description' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <TextBox Name='descriptionTextBox' IsReadOnly='True' TextWrapping='Wrap'
+                                             AcceptsReturn='True' MinHeight='60' MaxHeight='240'/>
 
-                            <TextBlock Text='Setting' FontSize='12' FontWeight='SemiBold'
-                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,0,0,4'/>
-                            <StackPanel Orientation='Horizontal' Spacing='16'>
-                                <RadioButton Name='notConfiguredRadio' GroupName='policyState' Content='Not Configured' IsChecked='True'/>
-                                <RadioButton Name='enabledRadio' GroupName='policyState' Content='Enabled'/>
-                                <RadioButton Name='disabledRadio' GroupName='policyState' Content='Disabled'/>
-                            </StackPanel>
+                                    <TextBlock Text='Scope' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <TextBox Name='scopeTextBox' IsReadOnly='True'/>
 
-                            <TextBlock Text='Options' FontSize='12' FontWeight='SemiBold'
-                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
-                            <Border BorderThickness='1' BorderBrush='{DynamicResource BorderBrush}' CornerRadius='4' Padding='12'>
-                                <ContentControl Name='optionsHost'/>
-                            </Border>
-                            <TextBlock Name='settingErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' Margin='0,8,0,0'/>
+                                    <TextBlock Text='Registry Key' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <TextBox Name='registryPathTextBox' IsReadOnly='True'/>
 
-                            <TextBlock Text='Registry Preview' FontSize='12' FontWeight='SemiBold'
-                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
-                            <DataGrid Name='registryPreviewGrid' AutoGenerateColumns='False'
-                                      IsReadOnly='True' MaxHeight='240' Margin='0,0,0,16'
-                                      GridLinesVisibility='None' HeadersVisibility='Column'>
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header='Action' Binding='{Binding Key}' Width='*'/>
-                                    <DataGridTextColumn Header='Registry' Binding='{Binding Value}' Width='3*'/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </StackPanel>
-                    </ScrollViewer>
+                                    <TextBlock Text='Value Name' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <TextBox Name='registryKeyTextBox' IsReadOnly='True'/>
+
+                                    <TextBlock Text='Registry Values defined by the ADMX' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <ItemsControl Name='registryValuesList'>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BorderThickness='0,0,0,1' BorderBrush='{DynamicResource BorderBrush}' Padding='0,6'>
+                                                    <StackPanel Spacing='2'>
+                                                        <TextBlock FontWeight='SemiBold' Text='{Binding Key}' TextWrapping='Wrap'/>
+                                                        <SelectableTextBlock Text='{Binding Value}' TextWrapping='Wrap'/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </TabItem>
+                    </TabControl>
                 </Grid>
             </Border>
         </Grid>
@@ -231,7 +259,9 @@ function Start-PSGPOManagerWindow {
     $scopeTextBox = Get-PSGPOAvaloniaControl $window 'scopeTextBox'
     $registryPathTextBox = Get-PSGPOAvaloniaControl $window 'registryPathTextBox'
     $registryKeyTextBox = Get-PSGPOAvaloniaControl $window 'registryKeyTextBox'
-    $registryValuesGrid = Get-PSGPOAvaloniaControl $window 'registryValuesGrid'
+    $registryValuesList = Get-PSGPOAvaloniaControl $window 'registryValuesList'
+    $settingTitleTextBlock = Get-PSGPOAvaloniaControl $window 'settingTitleTextBlock'
+    $previewEmptyTextBlock = Get-PSGPOAvaloniaControl $window 'previewEmptyTextBlock'
     $copyNameMenuItem = Get-PSGPOAvaloniaControl $window 'copyNameMenuItem'
     $copyRegistryMenuItem = Get-PSGPOAvaloniaControl $window 'copyRegistryMenuItem'
     $copyCommandMenuItem = Get-PSGPOAvaloniaControl $window 'copyCommandMenuItem'
@@ -240,7 +270,7 @@ function Start-PSGPOManagerWindow {
     $disabledRadio = Get-PSGPOAvaloniaControl $window 'disabledRadio'
     $optionsHost = Get-PSGPOAvaloniaControl $window 'optionsHost'
     $settingErrorTextBlock = Get-PSGPOAvaloniaControl $window 'settingErrorTextBlock'
-    $registryPreviewGrid = Get-PSGPOAvaloniaControl $window 'registryPreviewGrid'
+    $registryPreviewList = Get-PSGPOAvaloniaControl $window 'registryPreviewList'
 
     # Options form of the selected policy (New-PSGPOPolicyEditor) and the policy it edits.
     $editing = @{ Policy = $null; Editor = $null }
@@ -252,24 +282,20 @@ function Start-PSGPOManagerWindow {
         # Like the Group Policy editor, options can only be edited when the policy is enabled.
         $optionsHost.IsEnabled = $state -eq 'Enabled'
         $settingErrorTextBlock.Text = ''
-        if (-not $policy) {
-            $registryPreviewGrid.ItemsSource = $null
-            return
+        $rows = @()
+        if ($policy) {
+            try {
+                $changes = @(Get-PSGPOPolicyRegistryChange -Policy $policy -State $state -Value (& $editing.Editor.GetValue))
+                $rows = @(foreach ($change in $changes) { ConvertTo-PSGPOPreviewRow -Change $change -Scope $policy.Scope })
+            } catch {
+                $settingErrorTextBlock.Text = $_.Exception.Message
+            }
         }
-        try {
-            $changes = @(Get-PSGPOPolicyRegistryChange -Policy $policy -State $state -Value (& $editing.Editor.GetValue))
-            $registryPreviewGrid.ItemsSource = @(
-                foreach ($change in $changes) {
-                    $row = [AvaloniaRegistryRow]::new()
-                    $row.Key = if ($change.Type -in 'Delete', 'DeleteAllValues') { 'Delete' } else { 'Set' }
-                    $row.Value = Format-PSGPORegistryValue $change
-                    $row
-                }
-            )
-        } catch {
-            $settingErrorTextBlock.Text = $_.Exception.Message
-            $registryPreviewGrid.ItemsSource = $null
-        }
+        $registryPreviewList.ItemsSource = $rows
+        $previewEmptyTextBlock.IsVisible = $rows.Count -eq 0
+        $previewEmptyTextBlock.Text = if (-not $policy) { 'Select a policy in the tree.' }
+            elseif ($settingErrorTextBlock.Text) { 'Fix the options above to see the registry values.' }
+            else { 'Not configured: nothing is written to the registry.' }
     }
     foreach ($radio in $notConfiguredRadio, $enabledRadio, $disabledRadio) {
         $radio.add_IsCheckedChanged({ Update-RegistryPreview })
@@ -329,6 +355,7 @@ function Start-PSGPOManagerWindow {
         $notConfiguredRadio.IsChecked = $true
         if ($policy -is [GPOToolsPolicy]) {
             $editing.Policy = $policy
+            $settingTitleTextBlock.Text = $policy.DisplayName
             $editing.Editor = New-PSGPOPolicyEditor -Policy $policy -OnChange { Update-RegistryPreview }
             $optionsHost.Content = $editing.Editor.Panel
 
@@ -342,12 +369,12 @@ function Start-PSGPOManagerWindow {
 
                 $rows = @(Get-PSGPOPolicyRegistryRow -Policy $policy)
                 if ($rows.Count -gt 0) {
-                    $registryValuesGrid.ItemsSource = $rows
+                    $registryValuesList.ItemsSource = $rows
                 } else {
                     $row = [AvaloniaRegistryRow]::new()
                     $row.Key = 'Information'
                     $row.Value = '(No registry value available for this policy)'
-                    $registryValuesGrid.ItemsSource = @($row)
+                    $registryValuesList.ItemsSource = @($row)
                 }
             } else {
                 $registryPathTextBox.Text = '(This policy does not use the registry)'
@@ -355,7 +382,7 @@ function Start-PSGPOManagerWindow {
                 $row = [AvaloniaRegistryRow]::new()
                 $row.Key = 'Information'
                 $row.Value = '(This policy does not store data in the registry)'
-                $registryValuesGrid.ItemsSource = @($row)
+                $registryValuesList.ItemsSource = @($row)
             }
         } else {
             $displayNameTextBox.Text = ''
@@ -363,10 +390,11 @@ function Start-PSGPOManagerWindow {
             $scopeTextBox.Text = ''
             $registryPathTextBox.Text = ''
             $registryKeyTextBox.Text = ''
-            $registryValuesGrid.ItemsSource = $null
+            $registryValuesList.ItemsSource = $null
             $editing.Policy = $null
             $editing.Editor = $null
             $optionsHost.Content = $null
+            $settingTitleTextBlock.Text = 'Select a policy in the tree'
         }
         Update-RegistryPreview
     })
@@ -408,8 +436,8 @@ function Start-PSGPOManagerWindow {
         $controls = @{ Window = $window; Editing = $editing }
         foreach ($name in 'treeView', 'themeToggleButton', 'breadcrumbTextBlock', 'searchTextBox', 'searchButton',
             'displayNameTextBox', 'descriptionTextBox', 'scopeTextBox', 'registryPathTextBox',
-            'registryKeyTextBox', 'registryValuesGrid', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
-            'notConfiguredRadio', 'enabledRadio', 'disabledRadio', 'optionsHost', 'settingErrorTextBlock', 'registryPreviewGrid') {
+            'registryKeyTextBox', 'registryValuesList', 'settingTitleTextBlock', 'previewEmptyTextBlock', 'detailsTabs', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
+            'notConfiguredRadio', 'enabledRadio', 'disabledRadio', 'optionsHost', 'settingErrorTextBlock', 'registryPreviewList') {
             $controls[$name] = Get-PSGPOAvaloniaControl $window $name
         }
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {

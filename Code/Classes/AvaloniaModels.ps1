@@ -22,3 +22,11 @@ class AvaloniaRegistryRow {
     [string]$Key
     [string]$Value
 }
+
+# One registry change of the "Registry Preview" list (Show-GPOManagerAvalonia, Setting tab)
+class AvaloniaPreviewRow {
+    [string]$Title
+    [string]$Key
+    [string]$ValueName
+    [string]$Data
+}
