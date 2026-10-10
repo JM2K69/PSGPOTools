@@ -1,0 +1,377 @@
+<#
+    XAML of the Show-GPOManagerAvalonia window (Start-PSGPOManagerWindow).
+#>
+
+function Get-PSGPOManagerWindowXaml {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param()
+
+    @"
+<Window xmlns='https://github.com/avaloniaui'
+        xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
+        Title='GPO Policy Manager'
+        Width='1200' Height='700'
+        MinWidth='800' MinHeight='500'
+        WindowStartupLocation='CenterScreen'
+        Background='{DynamicResource BackgroundBrush}'
+        Name='MainWindow'>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key='Light'>
+                    <SolidColorBrush x:Key='PrimaryBrush'>#0078D4</SolidColorBrush>
+                    <SolidColorBrush x:Key='PrimaryHoverBrush'>#106EBE</SolidColorBrush>
+                    <SolidColorBrush x:Key='PrimaryPressedBrush'>#005A9E</SolidColorBrush>
+                    <SolidColorBrush x:Key='AccentBrush'>#00BCF2</SolidColorBrush>
+                    <SolidColorBrush x:Key='BackgroundBrush'>#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key='SecondaryBackgroundBrush'>#F5F5F5</SolidColorBrush>
+                    <SolidColorBrush x:Key='BorderBrush'>#E1E1E1</SolidColorBrush>
+                    <SolidColorBrush x:Key='TextBrush'>#1F1F1F</SolidColorBrush>
+                    <SolidColorBrush x:Key='SecondaryTextBrush'>#605E5C</SolidColorBrush>
+                    <SolidColorBrush x:Key='TreeViewHoverBrush'>#F3F2F1</SolidColorBrush>
+                    <SolidColorBrush x:Key='IconFolderBrush'>#FDB900</SolidColorBrush>
+                    <SolidColorBrush x:Key='IconFileBrush'>#0078D4</SolidColorBrush>
+                    <SolidColorBrush x:Key='IconScopeBrush'>#107C10</SolidColorBrush>
+                    <SolidColorBrush x:Key='HeaderBackgroundBrush'>#F3F2F1</SolidColorBrush>
+                    <SolidColorBrush x:Key='HeaderTextBrush'>#1F1F1F</SolidColorBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key='Dark'>
+                    <SolidColorBrush x:Key='PrimaryBrush'>#0086F0</SolidColorBrush>
+                    <SolidColorBrush x:Key='PrimaryHoverBrush'>#3399FF</SolidColorBrush>
+                    <SolidColorBrush x:Key='PrimaryPressedBrush'>#0066CC</SolidColorBrush>
+                    <SolidColorBrush x:Key='AccentBrush'>#00D4FF</SolidColorBrush>
+                    <SolidColorBrush x:Key='BackgroundBrush'>#1E1E1E</SolidColorBrush>
+                    <SolidColorBrush x:Key='SecondaryBackgroundBrush'>#2D2D30</SolidColorBrush>
+                    <SolidColorBrush x:Key='BorderBrush'>#3F3F46</SolidColorBrush>
+                    <SolidColorBrush x:Key='TextBrush'>#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key='SecondaryTextBrush'>#CCCCCC</SolidColorBrush>
+                    <SolidColorBrush x:Key='TreeViewHoverBrush'>#2D2D30</SolidColorBrush>
+                    <SolidColorBrush x:Key='IconFolderBrush'>#FFD700</SolidColorBrush>
+                    <SolidColorBrush x:Key='IconFileBrush'>#64B5F6</SolidColorBrush>
+                    <SolidColorBrush x:Key='IconScopeBrush'>#81C784</SolidColorBrush>
+                    <SolidColorBrush x:Key='HeaderBackgroundBrush'>#252526</SolidColorBrush>
+                    <SolidColorBrush x:Key='HeaderTextBrush'>#FFFFFF</SolidColorBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid RowDefinitions='Auto,*'>
+
+        <!-- Header: title, view switch, theme toggle, search (policy editor only) -->
+        <Border Grid.Row='0'
+                Background='{DynamicResource BackgroundBrush}'
+                BorderThickness='0,0,0,1'
+                BorderBrush='{DynamicResource BorderBrush}'
+                Padding='20,16'>
+            <Grid ColumnDefinitions='Auto,*'>
+                <StackPanel Grid.Column='0' VerticalAlignment='Center'>
+                    <TextBlock Text='GPO Policy Manager' FontSize='22' FontWeight='Bold'
+                               Foreground='{DynamicResource TextBrush}'/>
+                    <TextBlock Name='subtitleTextBlock' Text='Explore and manage Group Policy Objects' FontSize='12'
+                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,2,0,0'/>
+                </StackPanel>
+
+                <StackPanel Grid.Column='1' Orientation='Horizontal'
+                            HorizontalAlignment='Right' VerticalAlignment='Center' Spacing='12'>
+                    <Button Name='managementButton' Content='🏢 Group Policy Management' Height='36'/>
+                    <Button Name='browseAdmxButton' Content='📚 Browse the ADMX policies' Height='36'/>
+                    <Button Name='themeToggleButton' Content='🌙 Dark mode' Height='36' Width='140'/>
+                    <StackPanel Name='searchPanel' Orientation='Horizontal' Spacing='12'>
+                        <TextBox Name='searchTextBox' Width='320' Height='36'
+                                 Watermark='Search a policy...' VerticalContentAlignment='Center'/>
+                        <Button Name='searchButton' Content='🔍 Search' Height='36' Width='130'/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Group Policy Management view: domain tree | Splitter | details of the selection -->
+        <Grid Grid.Row='1' Name='managementView' ColumnDefinitions='2*,Auto,3*' IsVisible='False'>
+
+            <Border Grid.Column='0'
+                    Background='{DynamicResource BackgroundBrush}'
+                    Margin='16,16,8,16' CornerRadius='8' BorderThickness='1'
+                    BorderBrush='{DynamicResource BorderBrush}'
+                    BoxShadow='0 2 10 0 #1A000000'>
+                <Grid RowDefinitions='Auto,*'>
+                    <Border Grid.Row='0'
+                            Background='{DynamicResource HeaderBackgroundBrush}'
+                            Padding='16,12' CornerRadius='8,8,0,0'>
+                        <StackPanel>
+                            <TextBlock Text='🏢 Group Policy Management' FontSize='15' FontWeight='SemiBold'
+                                       Foreground='{DynamicResource HeaderTextBrush}'/>
+                            <TextBlock Name='directoryBreadcrumbTextBlock' Text='Right-click a domain or an OU to create a GPO'
+                                       FontSize='11' Foreground='{DynamicResource SecondaryTextBrush}'
+                                       Margin='0,4,0,0' TextTrimming='CharacterEllipsis'/>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Grid.Row='1' Name='directoryEmptyTextBlock' Margin='16' TextWrapping='Wrap'
+                               Foreground='{DynamicResource SecondaryTextBrush}'
+                               Text='No directory loaded: read one with Import-PSGPODirectory, then open the window with Show-GPOManagerAvalonia -Directory.'/>
+                    <TreeView Grid.Row='1' Name='domainTreeView' Margin='8'>
+                        <TreeView.Styles>
+                            <Style Selector='TreeViewItem'>
+                                <Setter Property='IsExpanded' Value='{Binding IsExpanded, Mode=TwoWay}'/>
+                            </Style>
+                        </TreeView.Styles>
+                        <TreeView.ItemTemplate>
+                            <TreeDataTemplate ItemsSource='{Binding Children}'>
+                                <StackPanel Orientation='Horizontal' Spacing='4'>
+                                    <TextBlock Text='{Binding Icon}' FontSize='13'/>
+                                    <TextBlock Text='{Binding Header}'/>
+                                </StackPanel>
+                            </TreeDataTemplate>
+                        </TreeView.ItemTemplate>
+                        <TreeView.ContextMenu>
+                            <ContextMenu Name='domainContextMenu'>
+                                <MenuItem Name='createLinkedGpoMenuItem' Header='➕ Create a GPO in this domain, and Link it here...'/>
+                                <MenuItem Name='newGpoMenuItem' Header='➕ New GPO...'/>
+                                <MenuItem Name='editGpoMenuItem' Header='✏️ Edit...'/>
+                            </ContextMenu>
+                        </TreeView.ContextMenu>
+                    </TreeView>
+                </Grid>
+            </Border>
+
+            <GridSplitter Grid.Column='1' Width='6' HorizontalAlignment='Center'
+                          VerticalAlignment='Stretch' Background='Transparent'/>
+
+            <Border Grid.Column='2'
+                    Background='{DynamicResource BackgroundBrush}'
+                    Margin='8,16,16,16' CornerRadius='8' BorderThickness='1'
+                    BorderBrush='{DynamicResource BorderBrush}'
+                    BoxShadow='0 2 10 0 #1A000000'>
+                <Grid RowDefinitions='Auto,*'>
+                    <Border Grid.Row='0'
+                            Background='{DynamicResource HeaderBackgroundBrush}'
+                            Padding='16,12' CornerRadius='8,8,0,0'>
+                        <TextBlock Name='directoryTitleTextBlock' Text='Select an item in the tree' FontSize='15' FontWeight='SemiBold'
+                                   TextWrapping='Wrap' Foreground='{DynamicResource HeaderTextBrush}'/>
+                    </Border>
+
+                    <ScrollViewer Grid.Row='1' Padding='16,8'>
+                        <StackPanel>
+                            <!-- New GPO form, opened from the context menu -->
+                            <Border Name='newGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                    BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                    Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                <StackPanel Spacing='8'>
+                                    <TextBlock Name='newGpoTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap'
+                                               Foreground='{DynamicResource TextBrush}'/>
+                                    <TextBox Name='newGpoNameTextBox' Watermark='Name of the new GPO'/>
+                                    <TextBlock Name='newGpoErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                    <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                        <Button Name='newGpoCreateButton' Content='Create' Width='100'/>
+                                        <Button Name='newGpoCancelButton' Content='Cancel' Width='100'/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <Button Name='editGpoButton' Content='✏️ Edit this GPO' IsVisible='False' Margin='0,8,0,8'/>
+
+                            <ItemsControl Name='directoryPropertiesList'>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid ColumnDefinitions='180,*' Margin='0,3'>
+                                            <TextBlock Grid.Column='0' Text='{Binding Key}' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                            <SelectableTextBlock Grid.Column='1' Text='{Binding Value}' TextWrapping='Wrap'/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock Name='linksHeaderTextBlock' FontSize='12' FontWeight='SemiBold'
+                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                            <ItemsControl Name='linksList'>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderThickness='0,0,0,1' BorderBrush='{DynamicResource BorderBrush}' Padding='0,6'>
+                                            <Grid ColumnDefinitions='Auto,*' RowDefinitions='Auto,Auto,Auto'>
+                                                <TextBlock Grid.Row='0' Grid.Column='0' Text='{Binding Order}' FontWeight='SemiBold' Margin='0,0,12,0'/>
+                                                <TextBlock Grid.Row='0' Grid.Column='1' Text='{Binding Name}' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                                <TextBlock Grid.Row='1' Grid.Column='1' Text='{Binding Location}' TextWrapping='Wrap' IsVisible='{Binding Location, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'
+                                                           Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                <StackPanel Grid.Row='2' Grid.Column='1' Orientation='Horizontal' Spacing='16'>
+                                                    <TextBlock Text='{Binding Enforced}'/>
+                                                    <TextBlock Text='{Binding LinkEnabled}'/>
+                                                    <TextBlock Text='{Binding Status}' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Policy editor view: banner of the edited GPO, then TreeView | Splitter | Details -->
+        <Grid Grid.Row='1' Name='editorView' RowDefinitions='Auto,*'>
+        <Border Grid.Row='0' Name='editingBanner' IsVisible='False' Margin='16,16,16,0' Padding='12,8' CornerRadius='6'
+                Background='{DynamicResource SecondaryBackgroundBrush}' BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'>
+            <StackPanel>
+                <TextBlock Name='editingGpoTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                <TextBlock Text='Proof of concept: the settings are not saved to the GPO yet.' FontSize='11'
+                           Foreground='{DynamicResource SecondaryTextBrush}' TextWrapping='Wrap'/>
+            </StackPanel>
+        </Border>
+        <Grid Grid.Row='1' ColumnDefinitions='2*,Auto,3*' Margin='0'>
+
+            <Border Grid.Column='0'
+                    Background='{DynamicResource BackgroundBrush}'
+                    Margin='16,16,8,16' CornerRadius='8' BorderThickness='1'
+                    BorderBrush='{DynamicResource BorderBrush}'
+                    BoxShadow='0 2 10 0 #1A000000'>
+                <Grid RowDefinitions='Auto,*'>
+                    <Border Grid.Row='0' Name='treeHeaderBorder'
+                            Background='{DynamicResource HeaderBackgroundBrush}'
+                            Padding='16,12' CornerRadius='8,8,0,0'>
+                        <StackPanel>
+                            <TextBlock Text='📁 Policy Structure' FontSize='15' FontWeight='SemiBold'
+                                       Foreground='{DynamicResource HeaderTextBrush}'/>
+                            <TextBlock Name='breadcrumbTextBlock' Text='Select a policy to see its path'
+                                       FontSize='11' Foreground='{DynamicResource SecondaryTextBrush}'
+                                       Margin='0,4,0,0' TextTrimming='CharacterEllipsis'/>
+                        </StackPanel>
+                    </Border>
+
+                    <TreeView Grid.Row='1' Name='treeView' Margin='8'>
+                        <TreeView.ItemTemplate>
+                            <TreeDataTemplate ItemsSource='{Binding Children}'>
+                                <StackPanel Orientation='Horizontal' Spacing='4'>
+                                    <TextBlock Text='{Binding Icon}' FontSize='13'/>
+                                    <TextBlock Text='{Binding Header}'/>
+                                </StackPanel>
+                            </TreeDataTemplate>
+                        </TreeView.ItemTemplate>
+                        <TreeView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Name='copyNameMenuItem' Header='📋 Copy policy name'/>
+                                <MenuItem Name='copyRegistryMenuItem' Header='📋 Copy registry path'/>
+                                <Separator/>
+                                <MenuItem Name='copyCommandMenuItem' Header='⌨️ Copy PowerShell command'/>
+                            </ContextMenu>
+                        </TreeView.ContextMenu>
+                    </TreeView>
+                </Grid>
+            </Border>
+
+            <GridSplitter Grid.Column='1' Width='6' HorizontalAlignment='Center'
+                          VerticalAlignment='Stretch' Background='Transparent'/>
+
+            <Border Grid.Column='2'
+                    Background='{DynamicResource BackgroundBrush}'
+                    Margin='8,16,16,16' CornerRadius='8' BorderThickness='1'
+                    BorderBrush='{DynamicResource BorderBrush}'
+                    BoxShadow='0 2 10 0 #1A000000'>
+                <Grid RowDefinitions='Auto,*'>
+                    <Border Grid.Row='0' Name='detailsHeaderBorder'
+                            Background='{DynamicResource HeaderBackgroundBrush}'
+                            Padding='16,12' CornerRadius='8,8,0,0'>
+                        <TextBlock Text='ℹ️ Policy Details' FontSize='15' FontWeight='SemiBold'
+                                   Foreground='{DynamicResource HeaderTextBrush}'/>
+                    </Border>
+
+                    <!-- Setting: what the administrator edits; Details: what the ADMX defines. -->
+                    <TabControl Grid.Row='1' Name='detailsTabs' Margin='8,0,8,8'>
+                        <TabItem Header='Setting'>
+                            <ScrollViewer Padding='8'>
+                                <StackPanel>
+                                    <TextBlock Name='settingTitleTextBlock' FontSize='16' FontWeight='SemiBold'
+                                               TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'
+                                               Text='Select a policy in the tree'/>
+
+                                    <StackPanel Orientation='Horizontal' Spacing='16' Margin='0,12,0,0'>
+                                        <RadioButton Name='notConfiguredRadio' Content='Not Configured' IsChecked='True'/>
+                                        <RadioButton Name='enabledRadio' Content='Enabled'/>
+                                        <RadioButton Name='disabledRadio' Content='Disabled'/>
+                                    </StackPanel>
+
+                                    <TextBlock Text='Options' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <Border BorderThickness='1' BorderBrush='{DynamicResource BorderBrush}' CornerRadius='4' Padding='12'>
+                                        <ContentControl Name='optionsHost'/>
+                                    </Border>
+                                    <TextBlock Name='settingErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' Margin='0,8,0,0'/>
+
+                                    <TextBlock Text='Registry Preview' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <TextBlock Name='previewEmptyTextBlock' Foreground='{DynamicResource SecondaryTextBrush}'
+                                               TextWrapping='Wrap' Text='Not configured: nothing is written to the registry.'/>
+                                    <ItemsControl Name='registryPreviewList'>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BorderThickness='0,0,0,1' BorderBrush='{DynamicResource BorderBrush}' Padding='0,6'>
+                                                    <Grid ColumnDefinitions='Auto,*' RowDefinitions='Auto,Auto,Auto,Auto'>
+                                                        <TextBlock Grid.Row='0' Grid.ColumnSpan='2' FontWeight='SemiBold' Text='{Binding Title}'/>
+                                                        <TextBlock Grid.Row='1' Grid.Column='0' Text='Key' Margin='0,2,12,0' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                        <SelectableTextBlock Grid.Row='1' Grid.Column='1' Text='{Binding Key}' TextWrapping='Wrap' Margin='0,2,0,0'/>
+                                                        <TextBlock Grid.Row='2' Grid.Column='0' Text='Value' Margin='0,2,12,0' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                        <SelectableTextBlock Grid.Row='2' Grid.Column='1' Text='{Binding ValueName}' TextWrapping='Wrap' Margin='0,2,0,0'/>
+                                                        <TextBlock Grid.Row='3' Grid.Column='0' Text='Data' Margin='0,2,12,0' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                        <SelectableTextBlock Grid.Row='3' Grid.Column='1' Text='{Binding Data}' TextWrapping='Wrap' Margin='0,2,0,0'/>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </TabItem>
+
+                        <TabItem Header='Details'>
+                            <ScrollViewer Padding='8'>
+                                <StackPanel Name='detailsPanel'>
+                                    <TextBlock Text='Display Name' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,8,0,4'/>
+                                    <TextBox Name='displayNameTextBox' IsReadOnly='True' TextWrapping='Wrap'/>
+
+                                    <TextBlock Text='Description' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <TextBox Name='descriptionTextBox' IsReadOnly='True' TextWrapping='Wrap'
+                                             AcceptsReturn='True' MinHeight='60' MaxHeight='240'/>
+
+                                    <TextBlock Text='Scope' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <TextBox Name='scopeTextBox' IsReadOnly='True'/>
+
+                                    <TextBlock Text='Registry Key' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <TextBox Name='registryPathTextBox' IsReadOnly='True'/>
+
+                                    <TextBlock Text='Value Name' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <TextBox Name='registryKeyTextBox' IsReadOnly='True'/>
+
+                                    <TextBlock Text='Registry Values defined by the ADMX' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <ItemsControl Name='registryValuesList'>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BorderThickness='0,0,0,1' BorderBrush='{DynamicResource BorderBrush}' Padding='0,6'>
+                                                    <StackPanel Spacing='2'>
+                                                        <TextBlock FontWeight='SemiBold' Text='{Binding Key}' TextWrapping='Wrap'/>
+                                                        <SelectableTextBlock Text='{Binding Value}' TextWrapping='Wrap'/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </Border>
+        </Grid>
+        </Grid>
+    </Grid>
+</Window>
+"@
+}

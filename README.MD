@@ -93,6 +93,20 @@ pwsh -File .\CI\Invoke-Tests.ps1
 
 The same script runs on every push and pull request in GitHub Actions (`.github/workflows/ci.yml`, Windows runner).
 
+## Group Policy Management view (proof of concept)
+
+`Show-GPOManagerAvalonia -Directory` opens a view close to GPMC: the domain, its OUs with their GPO links (by link order, enforced and disabled links marked) and the Group Policy Objects container. Its context menu creates a GPO linked to the selected domain or OU ("Create a GPO in this domain, and Link it here..."), creates an unlinked GPO from the Group Policy Objects container, and edits a GPO: the policy editor then opens on it.
+
+For now the directory is described in a JSON file and the changes stay in memory: reading a real domain (LDAP, Samba AD included) and saving the settings come later. A sample of a realistic domain is shipped with the module:
+
+```Powershell
+Initialize-PSGPOAdmx -UICulture 'en-US'
+$Sample = Join-Path (Split-Path (Get-Module PSGPOTools).Path) 'Samples' 'Directory.sample.json'
+Show-GPOManagerAvalonia -Directory (Import-PSGPODirectory -Path $Sample)
+```
+
+See `Get-Help Import-PSGPODirectory` for the JSON format.
+
 ## Testing Module
 
 After the installation with the PowerShellGallery, import the module with Import-Module cmdlet.

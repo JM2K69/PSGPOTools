@@ -16,7 +16,7 @@ Describe 'Module manifest' {
 
     It 'Exports only the public functions' {
         (Get-Module PSGPOTools).ExportedCommands.Keys | Sort-Object |
-            Should -Be @('Get-PSGPOCategory', 'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 'Initialize-PSGPOAdmx', 'Show-GPOManagerAvalonia')
+            Should -Be @('Get-PSGPOCategory', 'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 'Show-GPOManagerAvalonia')
         (Get-Module PSGPOTools).ExportedVariables.Count | Should -Be 0
     }
 }
