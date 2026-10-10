@@ -12,6 +12,8 @@ class AvaloniaTreeNode {
     [System.Collections.ObjectModel.ObservableCollection[object]]$Children
     [AvaloniaTreeNode]$Parent
     [object]$Tag
+    # Bound two-way to TreeViewItem.IsExpanded
+    [bool]$IsExpanded
 
     AvaloniaTreeNode() {
         $this.Children = [System.Collections.ObjectModel.ObservableCollection[object]]::new()
@@ -29,4 +31,14 @@ class AvaloniaPreviewRow {
     [string]$Key
     [string]$ValueName
     [string]$Data
+}
+
+# One GPO link of the Group Policy Management details ("Linked Group Policy Objects", "Links")
+class AvaloniaLinkRow {
+    [int]$Order
+    [string]$Name
+    [string]$Location
+    [string]$Enforced
+    [string]$LinkEnabled
+    [string]$Status
 }

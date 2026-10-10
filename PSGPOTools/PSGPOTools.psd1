@@ -70,7 +70,8 @@ PowerShellVersion = '7.4'
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = 'Get-PSGPOCategory', 'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 
-               'Initialize-PSGPOAdmx', 'Show-GPOManagerAvalonia'
+               'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 
+               'Show-GPOManagerAvalonia'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()

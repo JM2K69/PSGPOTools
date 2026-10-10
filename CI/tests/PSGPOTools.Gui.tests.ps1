@@ -339,4 +339,197 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
     }
+
+    Describe 'Group Policy Management view' -Skip:$AvaloniaMissing {
+        BeforeAll {
+            $SamplePath = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Samples' 'Directory.sample.json'
+
+            # Node of the domain tree at a path of headers, from the domain.
+            function Get-DomainNode {
+                param($Ui, [string[]]$Path)
+                $Node = @($Ui.domainTreeView.ItemsSource)[0]
+                foreach ($Header in $Path) {
+                    $Node = $Node.Children | Where-Object Header -EQ $Header | Select-Object -First 1
+                    if (-not $Node) { throw "No node '$Header' in the domain tree." }
+                }
+                $Node
+            }
+        }
+        BeforeEach {
+            # Each test changes the directory: start again from the sample.
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+        }
+
+        It 'Opens on the domain tree, the domain expanded' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.managementView.IsVisible | Should -BeTrue
+                $Ui.editorView.IsVisible | Should -BeFalse
+                $Ui.searchPanel.IsVisible | Should -BeFalse
+                $Ui.managementButton.IsVisible | Should -BeFalse
+                $Ui.browseAdmxButton.IsVisible | Should -BeTrue
+                $Ui.directoryEmptyTextBlock.IsVisible | Should -BeFalse
+                $Ui.subtitleTextBlock.Text | Should -Be 'Group Policy Management - corp.contoso.com'
+
+                $Domain = @($Ui.domainTreeView.ItemsSource)[0]
+                $Domain.Header | Should -Be 'corp.contoso.com'
+                $Domain.Children[-1].Header | Should -Be 'Group Policy Objects'
+                # The IsExpanded binding reaches the tree view item.
+                $Ui.Window.UpdateLayout()
+                $Ui.domainTreeView.ContainerFromItem($Domain).IsExpanded | Should -BeTrue
+            }
+        }
+
+        It 'Shows the links of the selected OU and only its context menu items' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Paris', 'Workstations'
+                $Ui.directoryTitleTextBlock.Text | Should -Be 'Workstations'
+                $Ui.directoryBreadcrumbTextBlock.Text | Should -Be '📍 corp.contoso.com > Sites > Paris > Workstations'
+                $Ui.linksHeaderTextBlock.Text | Should -Be 'Linked Group Policy Objects (3)'
+                @($Ui.linksList.ItemsSource.Name) | Should -Be @(
+                    'C - Workstations - Security Baseline Windows 11', 'C - Workstations - BitLocker', 'C - Workstations - Windows Update Ring Broad')
+                $Ui.createLinkedGpoMenuItem.IsVisible | Should -BeTrue
+                $Ui.newGpoMenuItem.IsVisible | Should -BeFalse
+                $Ui.editGpoMenuItem.IsVisible | Should -BeFalse
+                $Ui.editGpoButton.IsVisible | Should -BeFalse
+
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Paris', 'Workstations', 'C - Workstations - BitLocker'
+                $Ui.directoryTitleTextBlock.Text | Should -Be 'C - Workstations - BitLocker'
+                $Ui.linksHeaderTextBlock.Text | Should -Be 'Links (2)'
+                $Ui.createLinkedGpoMenuItem.IsVisible | Should -BeFalse
+                $Ui.editGpoMenuItem.IsVisible | Should -BeTrue
+                $Ui.editGpoButton.IsVisible | Should -BeTrue
+
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                $Ui.newGpoMenuItem.IsVisible | Should -BeTrue
+                $Ui.createLinkedGpoMenuItem.IsVisible | Should -BeFalse
+                $Ui.editGpoMenuItem.IsVisible | Should -BeFalse
+            }
+        }
+
+        It 'Creates a GPO linked to the selected OU from the context menu' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Users'
+                Invoke-Click $Ui.createLinkedGpoMenuItem
+                $Ui.newGpoPanel.IsVisible | Should -BeTrue
+                $Ui.newGpoTitleTextBlock.Text | Should -Be 'New GPO in corp.contoso.com, linked to Users'
+                $Ui.newGpoNameTextBox.Text | Should -Be 'New Group Policy Object'
+
+                $Ui.newGpoNameTextBox.Text = 'U - Lyon - Proxy'
+                Invoke-Click $Ui.newGpoCreateButton
+
+                $Ui.newGpoPanel.IsVisible | Should -BeFalse
+                $Gpo = $Ui.Directory.FindGpo('U - Lyon - Proxy')
+                $Gpo | Should -Not -BeNullOrEmpty
+                $Users = $Ui.Directory.Domain.Children | Where-Object Name -EQ 'Sites' | ForEach-Object Children | Where-Object Name -EQ 'Lyon' | ForEach-Object Children | Where-Object Name -EQ 'Users'
+                $Users.Links[-1].Gpo | Should -Be $Gpo
+                $Users.Links[-1].Order | Should -Be 5
+
+                # The new link is selected, its OU expanded, and shown in the tree after the other links.
+                $Selected = $Ui.domainTreeView.SelectedItem
+                $Selected.Tag | Should -Be $Users.Links[-1]
+                $Selected.Parent.IsExpanded | Should -BeTrue
+                $Selected.Parent.Parent.IsExpanded | Should -BeTrue
+                $Selected.Parent.Children[4].Header | Should -Be 'U - Lyon - Proxy'
+                $Ui.directoryTitleTextBlock.Text | Should -Be 'U - Lyon - Proxy'
+                (Get-DomainNode $Ui 'Group Policy Objects').Children.Header | Should -Contain 'U - Lyon - Proxy'
+            }
+        }
+
+        It 'Keeps the form open with the error when the name is already used' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers'
+                Invoke-Click $Ui.createLinkedGpoMenuItem
+                $Ui.newGpoErrorTextBlock.IsVisible | Should -BeFalse -Because 'an empty error takes no room'
+                $Ui.newGpoNameTextBox.Text = 'c - servers - windows update'
+                Invoke-Click $Ui.newGpoCreateButton
+                $Ui.newGpoPanel.IsVisible | Should -BeTrue
+                $Ui.newGpoErrorTextBlock.Text | Should -BeLike "*already exists in corp.contoso.com*"
+                $Ui.newGpoErrorTextBlock.IsVisible | Should -BeTrue
+                $Ui.Directory.Gpos.Count | Should -Be 29
+
+                Invoke-Click $Ui.newGpoCancelButton
+                $Ui.newGpoPanel.IsVisible | Should -BeFalse
+            }
+        }
+
+        It 'Creates an unlinked GPO from the Group Policy Objects container' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                Invoke-Click $Ui.newGpoMenuItem
+                $Ui.newGpoTitleTextBlock.Text | Should -Be 'New GPO in corp.contoso.com'
+                $Ui.newGpoNameTextBox.Text = 'TEST - Unlinked'
+                Invoke-Click $Ui.newGpoCreateButton
+
+                $Gpo = $Ui.Directory.FindGpo('TEST - Unlinked')
+                @($Ui.Directory.GetLinksOf($Gpo)).Count | Should -Be 0
+                $Ui.domainTreeView.SelectedItem.Tag | Should -Be $Gpo
+                $Ui.domainTreeView.SelectedItem.Parent.Header | Should -Be 'Group Policy Objects'
+                $Ui.linksHeaderTextBlock.Text | Should -Be 'Links (0)'
+            }
+        }
+
+        It 'Edits a GPO in the policy editor, then goes back to the domain tree' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+
+                $Ui.editorView.IsVisible | Should -BeTrue
+                $Ui.managementView.IsVisible | Should -BeFalse
+                $Ui.searchPanel.IsVisible | Should -BeTrue
+                $Ui.managementButton.IsVisible | Should -BeTrue
+                $Ui.editingBanner.IsVisible | Should -BeTrue
+                $Ui.editingGpoTextBlock.Text | Should -Be "✏️ Editing the GPO 'C - Servers - Security Baseline' [corp.contoso.com]"
+                $Ui.subtitleTextBlock.Text | Should -Be 'Editing the GPO C - Servers - Security Baseline'
+                $Ui.Editing.Gpo.DisplayName | Should -Be 'C - Servers - Security Baseline'
+
+                # The policy editor works as before (by ID: an earlier test reloads the ADMX files).
+                $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsPolicy] -and $n.Tag.ID -eq 'DisableAntiSpywareDefender' }
+                $Ui.settingTitleTextBlock.Text | Should -Be 'Turn off Windows Defender Antivirus'
+
+                Invoke-Click $Ui.managementButton
+                $Ui.managementView.IsVisible | Should -BeTrue
+                $Ui.editorView.IsVisible | Should -BeFalse
+                $Ui.directoryTitleTextBlock.Text | Should -Be 'C - Servers - Security Baseline'
+
+                # Browsing the ADMX policies is outside any GPO.
+                Invoke-Click $Ui.browseAdmxButton
+                $Ui.editorView.IsVisible | Should -BeTrue
+                $Ui.editingBanner.IsVisible | Should -BeFalse
+                $Ui.Editing.Gpo | Should -BeNullOrEmpty
+                $Ui.treeView.SelectedItem | Should -BeNullOrEmpty
+            }
+        }
+
+        It 'Edits the GPO of the details panel with its button' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'TEST - Edge Policies'
+                Invoke-Click $Ui.editGpoButton
+                $Ui.editorView.IsVisible | Should -BeTrue
+                $Ui.Editing.Gpo.DisplayName | Should -Be 'TEST - Edge Policies'
+            }
+        }
+
+        It 'Opens on the policy editor without directory, the domain view explaining how to load one' {
+            Start-PSGPOManagerWindow -OnShown {
+                param($Ui)
+                $Ui.editorView.IsVisible | Should -BeTrue
+                $Ui.managementView.IsVisible | Should -BeFalse
+                $Ui.editingBanner.IsVisible | Should -BeFalse
+                $Ui.managementButton.IsVisible | Should -BeTrue
+
+                Invoke-Click $Ui.managementButton
+                $Ui.managementView.IsVisible | Should -BeTrue
+                $Ui.directoryEmptyTextBlock.IsVisible | Should -BeTrue
+                $Ui.directoryEmptyTextBlock.Text | Should -BeLike '*Import-PSGPODirectory*'
+                $Ui.domainTreeView.IsVisible | Should -BeFalse
+            }
+        }
+    }
 }
