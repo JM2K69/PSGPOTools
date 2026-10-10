@@ -18,7 +18,11 @@ BeforeDiscovery {
 InModuleScope -ModuleName PSGPOTools {
     BeforeAll {
         $PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path
-        Initialize-PSGPOAdmx -Path $PolicyDefinitions -UICulture 'en-US' 3>$null
+        # Root BeforeAll also runs when every test is skipped: only load the ADMX for the GUI tests.
+        $AvaloniaDll = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Avalonia' 'bin' (Get-PSGPOAvaloniaRid) 'Avalonia.dll'
+        if (Test-Path $AvaloniaDll) {
+            Initialize-PSGPOAdmx -Path $PolicyDefinitions -UICulture 'en-US' 3>$null
+        }
 
         # Depth-first search of the first tree node matching a condition.
         function Find-TreeNode {

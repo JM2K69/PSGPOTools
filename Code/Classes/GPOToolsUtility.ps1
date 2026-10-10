@@ -33,7 +33,7 @@ class GPOToolsUtility {
         #On passe en revu chaque fichier admx
         if (Test-Path -Path $Folder.FullName){
             Write-Verbose "Initialization of ADMX file in $Folder"
-            $AdmxFiles = Get-ChildItem -Path $Folder.FullName -File -Filter *.admx
+            $AdmxFiles = [GPOToolsUtility]::GetAdmxFiles($Folder.FullName)
             foreach ($File in $AdmxFiles) {
                 [GPOToolsUtility]::InitiateAdmxAdml($File,$UICulture)
             }
@@ -104,12 +104,29 @@ class GPOToolsUtility {
         [cultureinfo]$UICulture
     ){
         $ParentPath = Split-Path -Path $AdmxFile.FullName
-        $ADMLPath  = [System.IO.Path]::Combine($ParentPath,$UICulture.Name,($AdmxFile.Name -replace '\.admx$','.adml'))
-        if (Test-Path -Path $ADMLPath){
+        $ADMLName = $AdmxFile.Name -replace '\.admx$','.adml'
+        $ADMLPath  = [System.IO.Path]::Combine($ParentPath,$UICulture.Name,$ADMLName)
+        if (Test-Path -LiteralPath $ADMLPath){
             return $ADMLPath
-        }Else{
-            Throw "The ADML File $ADMLPath doesn't exist."
         }
+        # Les fichiers Microsoft n'ont pas toujours la meme casse (inetres.admx / InetRes.adml,
+        # kdc.admx / KDC.adml) : sur un systeme de fichiers sensible a la casse (Linux, SYSVOL
+        # Samba en acces local), on cherche le dossier de langue et le fichier sans tenir compte de la casse.
+        $CultureFolder = Get-ChildItem -LiteralPath $ParentPath -Directory -ErrorAction SilentlyContinue |
+            Where-Object { $_.Name -eq $UICulture.Name } | Select-Object -First 1
+        if ($null -ne $CultureFolder){
+            $ADMLFile = Get-ChildItem -LiteralPath $CultureFolder.FullName -File -ErrorAction SilentlyContinue |
+                Where-Object { $_.Name -eq $ADMLName } | Select-Object -First 1
+            if ($null -ne $ADMLFile){
+                return $ADMLFile.FullName
+            }
+        }
+        Throw "The ADML File $ADMLPath doesn't exist."
+    }
+
+    # Fichiers .admx d'un dossier, extension comparee sans tenir compte de la casse
+    static [System.IO.FileInfo[]]GetAdmxFiles([string]$FolderPath){
+        return @(Get-ChildItem -LiteralPath $FolderPath -File | Where-Object { $_.Extension -eq '.admx' })
     }
 
     static [void]CheckAndInitiateDependancy(
@@ -152,7 +169,7 @@ class GPOToolsUtility {
         $Index = [GPOToolsUtility]::NamespaceIndex[$FolderPath]
         if ($null -eq $Index){
             $Index = @{}
-            foreach ($AdmxFile in Get-ChildItem -Path $FolderPath -Filter *.admx){
+            foreach ($AdmxFile in [GPOToolsUtility]::GetAdmxFiles($FolderPath)){
                 $Ns = [GPOToolsUtility]::GetNamespaceAdmx($AdmxFile)
                 if ($null -eq $Index[$Ns]){
                     $Index[$Ns] = [System.Collections.Generic.List[System.IO.FileInfo]]::new()

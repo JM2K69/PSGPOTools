@@ -252,6 +252,26 @@ InModuleScope -ModuleName PSGPOTools {
                 Should -Be (Join-Path $PolicyDefinitions 'fr-FR' 'WindowsBackup.adml')
         }
 
+        It 'GetADMLPathFromADMX ignores the case of the culture folder and of the ADML file' {
+            # Microsoft ships inetres.admx / InetRes.adml, kdc.admx / KDC.adml: they must load on Linux too.
+            $Folder = New-Item -ItemType Directory -Path (Join-Path $TestDrive 'CaseStore')
+            $Admx = New-Item -ItemType File -Path (Join-Path $Folder 'kdc.admx')
+            $Culture = New-Item -ItemType Directory -Path (Join-Path $Folder 'en-us')
+            $Adml = New-Item -ItemType File -Path (Join-Path $Culture 'KDC.adml')
+            [GPOToolsUtility]::GetADMLPathFromADMX($Admx, [cultureinfo]'en-US') | Should -Be $Adml.FullName
+            { [GPOToolsUtility]::GetADMLPathFromADMX($Admx, [cultureinfo]'fr-FR') } | Should -Throw "*doesn't exist*"
+        }
+
+        It 'Loads the ADMX whose ADML name differs in case (<File>)' -ForEach @(
+            @{ File = 'inetres.admx' }
+            @{ File = 'kdc.admx' }
+            @{ File = 'messaging.admx' }
+        ) {
+            [GPOToolsUtility]::RemoveAll()
+            [GPOToolsUtility]::InitiateAdmxAdml((Get-Item (Join-Path $PolicyDefinitions $File)), [cultureinfo]'en-US') 3>$null
+            @([GPOToolsUtility]::Policies | Where-Object FileName -EQ $File).Count | Should -BeGreaterThan 0
+        }
+
         It 'FindDependancyFile finds <Namespace>' -ForEach @(
             @{ Namespace = 'Microsoft.Policies.Windows'; File = 'Windows.admx' }
             @{ Namespace = 'Microsoft.Policies.Server'; File = 'WindowsServer.admx' }
