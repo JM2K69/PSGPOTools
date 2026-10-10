@@ -3,14 +3,14 @@
 # The classes are only visible inside the module, so the whole file runs in its scope.
 # InModuleScope at the top level needs the module during discovery, hence BeforeDiscovery.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..\..\PSGPOTools\PSGPOTools.psd1'
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
     Get-Module PSGPOTools | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
 InModuleScope -ModuleName PSGPOTools {
     BeforeAll {
-        $script:PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..\..\sources\PolicyDefinitions')).Path
+        $script:PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path
     }
 
     Describe 'GpoToolsAdmx class' {
@@ -149,7 +149,7 @@ InModuleScope -ModuleName PSGPOTools {
 
     Describe 'GpoToolsAdml class' {
         BeforeAll {
-            $ADMLFile = Get-Item -Path (Join-Path $PolicyDefinitions 'fr-FR\WindowsBackup.adml')
+            $ADMLFile = Get-Item -Path (Join-Path $PolicyDefinitions 'fr-FR' 'WindowsBackup.adml')
             $ADML = [GPOToolsAdml]::new($ADMLFile.FullName)
         }
 
@@ -179,7 +179,7 @@ InModuleScope -ModuleName PSGPOTools {
     Describe 'GPOToolsSupportedOn class' {
         BeforeAll {
             $ADMX = [GpoToolsAdmx]::new((Join-Path $PolicyDefinitions 'Windows.admx'))
-            $ADML = [GpoToolsAdml]::new((Join-Path $PolicyDefinitions 'fr-FR\Windows.adml'))
+            $ADML = [GpoToolsAdml]::new((Join-Path $PolicyDefinitions 'fr-FR' 'Windows.adml'))
         }
 
         It 'Resolves the localized display name' {
@@ -199,7 +199,7 @@ InModuleScope -ModuleName PSGPOTools {
     Describe 'GPOToolsCategory class' {
         BeforeAll {
             $ADMX = [GpoToolsAdmx]::new((Join-Path $PolicyDefinitions 'Windows.admx'))
-            $ADML = [GpoToolsAdml]::new((Join-Path $PolicyDefinitions 'fr-FR\Windows.adml'))
+            $ADML = [GpoToolsAdml]::new((Join-Path $PolicyDefinitions 'fr-FR' 'Windows.adml'))
         }
         BeforeEach {
             [GPOToolsUtility]::RemoveAll()
@@ -249,7 +249,7 @@ InModuleScope -ModuleName PSGPOTools {
 
         It 'GetADMLPathFromADMX builds the culture path' {
             [GPOToolsUtility]::GetADMLPathFromADMX($ADMXFile, [cultureinfo]'fr-FR') |
-                Should -Be (Join-Path $PolicyDefinitions 'fr-FR\WindowsBackup.adml')
+                Should -Be (Join-Path $PolicyDefinitions 'fr-FR' 'WindowsBackup.adml')
         }
 
         It 'FindDependancyFile finds <Namespace>' -ForEach @(

@@ -4,12 +4,12 @@
 # Start-PSGPOManagerWindow -OnShown hook), drives its controls, then the window closes.
 # They are skipped when the Avalonia runtime has not been staged with Get-AvaloniaBinaries.ps1.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..\..\PSGPOTools\PSGPOTools.psd1'
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
     Get-Module PSGPOTools | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 
     $Rid = & (Get-Module PSGPOTools) { Get-PSGPOAvaloniaRid }
-    $AvaloniaMissing = -not (Test-Path (Join-Path $PSScriptRoot "..\..\PSGPOTools\Avalonia\bin\$Rid\Avalonia.dll"))
+    $AvaloniaMissing = -not (Test-Path (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Avalonia' 'bin' $Rid 'Avalonia.dll'))
     if ($AvaloniaMissing) {
         Write-Warning "Avalonia runtime not staged for ${Rid}: GUI tests skipped (run PSGPOTools\Avalonia\Get-AvaloniaBinaries.ps1)."
     }
@@ -17,7 +17,7 @@ BeforeDiscovery {
 
 InModuleScope -ModuleName PSGPOTools {
     BeforeAll {
-        $PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..\..\sources\PolicyDefinitions')).Path
+        $PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path
         Initialize-PSGPOAdmx -Path $PolicyDefinitions -UICulture 'en-US' 3>$null
 
         # Depth-first search of the first tree node matching a condition.
@@ -76,8 +76,8 @@ InModuleScope -ModuleName PSGPOTools {
                 $Ui.registryKeyTextBox.Text | Should -Be 'DisableAntiSpyware'
 
                 $Rows = @($Ui.registryValuesGrid.ItemsSource)
-                ($Rows | Where-Object Key -EQ 'Enable').Value | Should -Be '1'
-                ($Rows | Where-Object Key -EQ 'Disable').Value | Should -Be '0'
+                ($Rows | Where-Object Key -EQ 'Enabled').Value | Should -Be 'Software\Policies\Microsoft\Windows Defender\DisableAntiSpyware = 1 (DWord)'
+                ($Rows | Where-Object Key -EQ 'Disabled').Value | Should -Be 'Software\Policies\Microsoft\Windows Defender\DisableAntiSpyware = 0 (DWord)'
 
                 $Ui.breadcrumbTextBlock.Text | Should -BeLike "*Machine > Windows Components > *$($DefenderPolicy.Category.DisplayName) > $($DefenderPolicy.DisplayName)"
             }

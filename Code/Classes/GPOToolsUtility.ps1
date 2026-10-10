@@ -73,8 +73,14 @@ class GPOToolsUtility {
                 [GPOToolsCategory]::LoadAdmxAdml($Admx,$Adml)
 
                 #On cree les objet Policy et on les incremente dans la propriete statique
+                #Une policy de classe Both existe cote Machine et cote User, comme dans la GPMC
                 foreach ($Policy in $ADMX.Policies){
-                    [GPOToolsutility]::Policies.Add([GPOToolsPolicy]::New($Policy,$ADML))
+                    if ($Policy.Class -eq 'Both'){
+                        [GPOToolsutility]::Policies.Add([GPOToolsPolicy]::New($Policy,$ADML,[ScopePolicy]::Machine))
+                        [GPOToolsutility]::Policies.Add([GPOToolsPolicy]::New($Policy,$ADML,[ScopePolicy]::User))
+                    }Else{
+                        [GPOToolsutility]::Policies.Add([GPOToolsPolicy]::New($Policy,$ADML))
+                    }
                 }
 
                 [GPOToolsutility]::TargetLoad.Add($ADMX.Target.namespace)
@@ -98,7 +104,7 @@ class GPOToolsUtility {
         [cultureinfo]$UICulture
     ){
         $ParentPath = Split-Path -Path $AdmxFile.FullName
-        $ADMLPath  = '{0}\{1}\{2}' -f $ParentPath,$UICulture,$($AdmxFile.Name -replace '\.admx','.adml')
+        $ADMLPath  = [System.IO.Path]::Combine($ParentPath,$UICulture.Name,($AdmxFile.Name -replace '\.admx$','.adml'))
         if (Test-Path -Path $ADMLPath){
             return $ADMLPath
         }Else{
@@ -431,25 +437,47 @@ class GPOToolsPolicy {
     [string]$ID
     [GpoToolsRegistry]$Registry
     [ScopePolicy]$Scope
+    # Classe ADMX : User, Machine ou Both. Une policy Both donne un objet par Scope.
+    [string]$Class
     [string]$FileName
+    # Cle de registre relative a la ruche du Scope (HKLM pour Machine, HKCU pour User)
+    [string]$RegistryKey
+    [GPOToolsRegistryValue[]]$EnabledValues = @()
+    [GPOToolsRegistryValue[]]$DisabledValues = @()
+    [GPOToolsPolicyElement[]]$Elements = @()
     Hidden [GpoToolscategory]$Category
     Hidden [GPOToolsSupportedOn]$SupportedOn
 
+    # Scope deduit de la classe ADMX (Both : User). Prefere le constructeur avec Scope.
     GPOToolsPolicy([AdmxPolicy]$Policy,[GpoToolsAdml]$ADMLPol){
+        $DefaultScope = if ($Policy.Class -eq 'Machine') { [ScopePolicy]::Machine } else { [ScopePolicy]::User }
+        $this.Init($Policy,$ADMLPol,$DefaultScope)
+    }
+
+    GPOToolsPolicy([AdmxPolicy]$Policy,[GpoToolsAdml]$ADMLPol,[ScopePolicy]$Scope){
+        $this.Init($Policy,$ADMLPol,$Scope)
+    }
+
+    Hidden [void]Init([AdmxPolicy]$Policy,[GpoToolsAdml]$ADMLPol,[ScopePolicy]$Scope){
         $this.ID = $Policy.Name
         $this.Name = $ADMLPol.GetString($Policy.Name)
         $this.DisplayName = $ADMLPol.GetString($Policy.DisplayName)
         $this.Description = $ADMLPol.GetString($Policy.explainText)
-        if ($Policy.Class -eq 'Machine'){
-            $this.scope = [ScopePolicy]::Machine
-        }Else{
-            $this.scope = [ScopePolicy]::User
-        }
+        $this.Class = $Policy.Class
+        $this.Scope = $Scope
         $this.FileName = [System.IO.Path]::GetFileName($ADMLPol.FilePath) -Replace 'l$','x'
         $this.Category = [GPOToolsPolicy]::FindParentCategory($Policy)
         $this.Path = $this.GeneratePath()
 
-        $this.Registry = [GPOToolsRegistry]::New($Policy)
+        $this.Registry = [GPOToolsRegistry]::New($Policy,$Scope)
+        $this.RegistryKey = $Policy.RegKey
+        $this.EnabledValues = $Policy.EnabledValues
+        $this.DisabledValues = $Policy.DisabledValues
+        $Presentation = $ADMLPol.GetPresentation($Policy.Presentation)
+        foreach ($Element in $Policy.Elements){
+            $Element.Localize($ADMLPol,$Presentation)
+        }
+        $this.Elements = $Policy.Elements
     }
 
     [string]GeneratePath(){
@@ -521,7 +549,16 @@ class GPOToolsRegistry {
     $DefaultValue
 
     GPOToolsRegistry([AdmxPolicy]$Pol) {
-        if ($Pol.Class -eq 'Machine'){
+        $DefaultScope = if ($Pol.Class -eq 'Machine') { [ScopePolicy]::Machine } else { [ScopePolicy]::User }
+        $this.Init($Pol,$DefaultScope)
+    }
+
+    GPOToolsRegistry([AdmxPolicy]$Pol,[ScopePolicy]$Scope) {
+        $this.Init($Pol,$Scope)
+    }
+
+    Hidden [void]Init([AdmxPolicy]$Pol,[ScopePolicy]$Scope) {
+        if ($Scope -eq [ScopePolicy]::Machine){
             $this.Path = 'HKLM:\{0}' -f $Pol.RegKey
         }Else{
             $this.Path = 'HKCU:\{0}' -f $Pol.RegKey
@@ -606,7 +643,10 @@ class AdmxPolicy {
     $SupportedOn
     $enableValue
     $disableValue
-    $elements
+    [string]$Presentation
+    [GPOToolsRegistryValue[]]$EnabledValues = @()
+    [GPOToolsRegistryValue[]]$DisabledValues = @()
+    [GPOToolsPolicyElement[]]$Elements = @()
 
     AdmxPolicy ($Policy,[AdmxNamespace]$target){
         $this.Name = $policy.Name
@@ -634,9 +674,40 @@ class AdmxPolicy {
         }Else{
             Write-Verbose ("[AdmxPolicy] No parent category found for {0} policy" -f $policy.Name)
         }
-        #$this.elements = $policy.elements
+        $this.Presentation = $policy.GetAttribute('presentation') -replace '^\$\(presentation\.(.*)\)$', '$1'
 
+        # Valeurs ecrites a l'activation / desactivation : enabledValue (ou, a defaut,
+        # le comportement de l'editeur : DWORD 1 sur valueName) puis enabledList.
+        $Enabled = [System.Collections.Generic.List[GPOToolsRegistryValue]]::new()
+        $Disabled = [System.Collections.Generic.List[GPOToolsRegistryValue]]::new()
+        $Value = [GPOToolsRegistryValue]::FromValueNode($policy['enabledValue'],$this.RegKey,$this.ValueName)
+        if ($null -eq $Value -and $this.ValueName){
+            $Value = [GPOToolsRegistryValue]::new($this.RegKey,$this.ValueName,[GPOToolsRegistryValueType]::DWord,[uint32]1)
+            $Value.Implicit = $true
+        }
+        if ($null -ne $Value){ $Enabled.Add($Value) }
+        # Desactivation sans disabledValue : la valeur est supprimee
+        $Value = [GPOToolsRegistryValue]::FromValueNode($policy['disabledValue'],$this.RegKey,$this.ValueName)
+        if ($null -eq $Value -and $this.ValueName){
+            $Value = [GPOToolsRegistryValue]::new($this.RegKey,$this.ValueName,[GPOToolsRegistryValueType]::Delete,$null)
+            $Value.Implicit = $true
+        }
+        if ($null -ne $Value){ $Disabled.Add($Value) }
+        foreach ($Item in [GPOToolsRegistryValue]::FromListNode($policy['enabledList'],$this.RegKey)){ $Enabled.Add($Item) }
+        foreach ($Item in [GPOToolsRegistryValue]::FromListNode($policy['disabledList'],$this.RegKey)){ $Disabled.Add($Item) }
+        $this.EnabledValues = $Enabled.ToArray()
+        $this.DisabledValues = $Disabled.ToArray()
 
+        # Elements saisis par l'administrateur
+        if ($null -ne $policy['elements']){
+            $PolicyElements = [System.Collections.Generic.List[GPOToolsPolicyElement]]::new()
+            foreach ($Node in $policy['elements'].ChildNodes){
+                if ($Node.NodeType -eq [System.Xml.XmlNodeType]::Element){
+                    $PolicyElements.Add([GPOToolsPolicyElement]::new($Node,$this.RegKey))
+                }
+            }
+            $this.Elements = $PolicyElements.ToArray()
+        }
     }
 }
 
@@ -712,6 +783,49 @@ class GpoToolsAdml {
         Write-Verbose ('Chargement de la table StringTable pour le fichier {0}' -f $File.BaseName)
         foreach ($String in $xml.policyDefinitionResources.resources.stringTable.string){
             $this.StringTable.Add($String.id,$String.'#Text')
+        }
+        $this.LoadPresentations($Xml)
+    }
+
+    # Presentations de l'ADML : id -> (refId -> @{ Control; Label; DefaultValue })
+    Hidden [hashtable]$Presentations
+
+    [hashtable]GetPresentation([string]$Id){
+        if ([string]::IsNullOrEmpty($Id) -or $null -eq $this.Presentations){
+            return $null
+        }
+        return $this.Presentations[$Id]
+    }
+
+    Hidden [void]LoadPresentations([xml]$Xml){
+        $this.Presentations = @{}
+        foreach ($Presentation in $Xml.policyDefinitionResources.resources.presentationTable.presentation){
+            $Controls = @{}
+            foreach ($Node in $Presentation.ChildNodes){
+                if ($Node.NodeType -ne [System.Xml.XmlNodeType]::Element){
+                    continue
+                }
+                $RefId = $Node.GetAttribute('refId')
+                if (-not $RefId){
+                    continue
+                }
+                $Label = if ($null -ne $Node['label']) { $Node['label'].InnerText } else { $Node.InnerText }
+                $Default = switch ($Node.LocalName){
+                    'checkBox' { [GPOToolsPolicyElement]::GetBool($Node,'defaultChecked',$false) }
+                    'dropdownList' { [GPOToolsPolicyElement]::GetAttribute($Node,'defaultItem') }
+                    'decimalTextBox' { [GPOToolsPolicyElement]::GetAttribute($Node,'defaultValue') }
+                    'longDecimalTextBox' { [GPOToolsPolicyElement]::GetAttribute($Node,'defaultValue') }
+                    'textBox' { if ($null -ne $Node['defaultValue']) { $Node['defaultValue'].InnerText } }
+                    'comboBox' { if ($null -ne $Node['default']) { $Node['default'].InnerText } }
+                    default { $null }
+                }
+                $Controls[$RefId] = @{
+                    Control = $Node.LocalName
+                    Label = "$Label".Trim()
+                    DefaultValue = $Default
+                }
+            }
+            $this.Presentations[$Presentation.id] = $Controls
         }
     }
 
