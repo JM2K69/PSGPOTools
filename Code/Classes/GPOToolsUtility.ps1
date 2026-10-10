@@ -14,6 +14,10 @@ class GPOToolsUtility {
     static [System.Collections.Generic.List[GpoToolsCategory]]$Categories = @()
     static [System.Collections.Generic.List[GpoToolsPolicy]]$Policies = @()
     static [System.Collections.ArrayList]$TargetLoad = @()
+    # Index Name -> List[GpoToolsCategory], alimente par AddCategory()
+    static hidden [hashtable]$CategoryIndex = @{}
+    # Index Dossier -> (Namespace -> List[FileInfo]), alimente par FindDependancyFile()
+    static hidden [hashtable]$NamespaceIndex = @{}
 
     static [void]InitiateAdmxAdml(
         [System.IO.DirectoryInfo]$Folder,
@@ -60,20 +64,17 @@ class GPOToolsUtility {
                 $ADML = [GpoToolsAdml]::New($ADMLPath)
 
                 #On cree les objets SupportedOn
-                $Support = $ADMX.SupportedOnDefinition | Foreach-Object { [GPOToolsSupportedOn]::New($_,$ADML) }
+                #et on les incremente dans la propriete statique
+                foreach ($SupportedOn in $ADMX.SupportedOnDefinition){
+                    [GPOToolsutility]::SupportOnTable.Add([GPOToolsSupportedOn]::New($SupportedOn,$ADML))
+                }
 
                 #On initialise les objets Category
                 [GPOToolsCategory]::LoadAdmxAdml($Admx,$Adml)
 
-                #On cree les objet Policy
-                $Pols = $ADMX.Policies | Foreach-Object {[GPOToolsPolicy]::New($_,$ADML)}
-
-                #On incremente les objets dans les proprietes statiques
-                if ($Support.count -gt 0){
-                    $Support | Foreach-Object {[GPOToolsutility]::SupportOnTable.Add($_)}
-                }
-                if ($Pols.count -gt 0){
-                    $Pols | Foreach-Object {[GPOToolsutility]::Policies.Add($_)}
+                #On cree les objet Policy et on les incremente dans la propriete statique
+                foreach ($Policy in $ADMX.Policies){
+                    [GPOToolsutility]::Policies.Add([GPOToolsPolicy]::New($Policy,$ADML))
                 }
 
                 [GPOToolsutility]::TargetLoad.Add($ADMX.Target.namespace)
@@ -140,12 +141,21 @@ class GPOToolsUtility {
         [string]$namespace
     ){
         $FolderPath = Split-Path -Path $Path
-        $Files = Get-ChildItem -Path $FolderPath -Filter *.admx -Exclude $Path.Name
-        $File = $Files | Foreach-Object {
-            if([GPOToolsUtility]::GetNamespaceAdmx($_) -eq $namespace){
-                $_
+        # Les namespaces d'un dossier ne sont lus qu'une fois : sans cache, chaque
+        # dependance relisait tous les fichiers admx du dossier
+        $Index = [GPOToolsUtility]::NamespaceIndex[$FolderPath]
+        if ($null -eq $Index){
+            $Index = @{}
+            foreach ($AdmxFile in Get-ChildItem -Path $FolderPath -Filter *.admx){
+                $Ns = [GPOToolsUtility]::GetNamespaceAdmx($AdmxFile)
+                if ($null -eq $Index[$Ns]){
+                    $Index[$Ns] = [System.Collections.Generic.List[System.IO.FileInfo]]::new()
+                }
+                $Index[$Ns].Add($AdmxFile)
             }
+            [GPOToolsUtility]::NamespaceIndex[$FolderPath] = $Index
         }
+        $File = if ($null -ne $Index[$namespace]) { $Index[$namespace].ToArray() } else { @() }
         switch ($File.count){
             1 {
                 break
@@ -174,17 +184,48 @@ class GPOToolsUtility {
         [string]$Name,
         [AdmxNamespace]$target
     ){
-        $Result = [GPOToolsUtility]::Categories |
-            Where-Object {
-                ($_.Name -eq $Name) -and
-                ($_.target.prefix -eq $target.prefix) -and
-                ($_.target.namespace -eq $target.namespace)
-            }
-        if ($Result.count -eq 0){
-            return $false
-        }Else{
-            return $true
+        return $null -ne [GPOToolsUtility]::FindCategory($Name,$target)
+    }
+
+    <# Ajoute une category dans la propriete statique Categories et dans l'index
+     par nom utilise pour les recherches (evite de parcourir toute la liste).
+     Use :
+        [GPOToolsCategory]::Create()
+    #>
+    static [void]AddCategory(
+        [GPOToolsCategory]$Category
+    ){
+        [GPOToolsUtility]::Categories.Add($Category)
+        $List = [GPOToolsUtility]::CategoryIndex[$Category.Name]
+        if ($null -eq $List){
+            $List = [System.Collections.Generic.List[GPOToolsCategory]]::new()
+            [GPOToolsUtility]::CategoryIndex[$Category.Name] = $List
         }
+        $List.Add($Category)
+    }
+
+    # Retourne les categories chargees portant ce nom (tableau vide si aucune)
+    static [GPOToolsCategory[]]FindCategory(
+        [string]$Name
+    ){
+        $List = [GPOToolsUtility]::CategoryIndex[$Name]
+        if ($null -eq $List){
+            return @()
+        }
+        return $List.ToArray()
+    }
+
+    # Retourne la category chargee correspondant au nom, prefix et namespace ($null si aucune)
+    static [GPOToolsCategory]FindCategory(
+        [string]$Name,
+        [AdmxNamespace]$target
+    ){
+        foreach ($Cat in [GPOToolsUtility]::FindCategory($Name)){
+            if (($Cat.target.prefix -eq $target.prefix) -and ($Cat.target.namespace -eq $target.namespace)){
+                return $Cat
+            }
+        }
+        return $null
     }
 
     <# Surcharge de Methode pour verifier la presence d'une category dans la
@@ -199,11 +240,7 @@ class GPOToolsUtility {
         [string]$TargetPrefix
     ){
         $return = $false
-        $Result = [GPOToolsUtility]::Categories |
-            Where-Object {
-                ($_.Name -eq $Name) -and
-                ($_.target.prefix -eq $TargetPrefix)
-            }
+        $Result = @([GPOToolsUtility]::FindCategory($Name).Where({ $_.target.prefix -eq $TargetPrefix }))
         switch ($Result.Count){
             1 {$return = $true}
             0 {$return =  $false}
@@ -224,7 +261,9 @@ class GPOToolsUtility {
                 [GPOToolsUtility]::SupportOnTable,
                 [GPOToolsUtility]::Categories,
                 [GPOToolsUtility]::Policies,
-                [GPOToolsUtility]::TargetLoad
+                [GPOToolsUtility]::TargetLoad,
+                [GPOToolsUtility]::CategoryIndex,
+                [GPOToolsUtility]::NamespaceIndex
                 #[GPOToolsCategory]::AllParentCategory
             )
         ){
@@ -244,7 +283,7 @@ class GPOToolsSupportedOn {
         [GpoToolsAdml]$Adml
     ){
         $this.Name = $Support.Name
-        $this.DisplayName = $Adml.StringTable."$($Support.DisplayName)"
+        $this.DisplayName = $Adml.GetString($Support.DisplayName)
     }
 
     static [Array]LoadAdmxAdml(
@@ -288,9 +327,9 @@ class GPOToolsCategory {
     ){
         $this.Name = $Cat.Name
         $this.target = $Cat.target
-        $this.DisplayName = $Adml.StringTable."$($Cat.DisplayName)"
+        $this.DisplayName = $Adml.GetString($Cat.DisplayName)
         if ($null -ne $Cat.explainText){
-            $this.ExplainText = $Adml.StringTable."$($Cat.ExplainText)"
+            $this.ExplainText = $Adml.GetString($Cat.ExplainText)
         }
 
         #Gestion du Parent
@@ -311,21 +350,17 @@ class GPOToolsCategory {
         [GpoToolsAdml]$Adml
     ){
         # Si la category est presente dans la classe utility on rappel l'objet
-        if (![GPOToolsUtility]::CheckCategoryPresence($Category.Name,$Category.target) ){
+        $Existing = [GPOToolsUtility]::FindCategory($Category.Name,$Category.target)
+        if ($null -eq $Existing){
             Write-Verbose "[GPOToolsCategory]Loading of $($Category.Name) Category"
             $NewCat = [GpoToolsCategory]::New($Category,$AllCat,$Adml)
 
             # On ajoute la category au membre statique de la classe GPOToolsUtility
-            [GPOToolsUtility]::Categories.Add($NewCat)
+            [GPOToolsUtility]::AddCategory($NewCat)
             return $NewCat
         }Else{
             Write-Verbose "[GPOToolsCategory] $($Category.Name) Category is already load in [GPOToolsUtility]::Categories"
-            return [GPOToolsUtility]::Categories |
-                Where-Object {
-                    ($_.Name -eq $Category.Name) -and
-                    ($_.target.prefix -eq $Category.target.prefix) -and
-                    ($_.target.namespace -eq $Category.target.namespace)
-                } | Select-Object -First 1
+            return $Existing
         }
     }
     <#
@@ -341,23 +376,20 @@ class GPOToolsCategory {
         [GpoToolsAdml]$Adml
     ){
         # Pour chaque category de Categories
-        $ParentCat = @([GPOToolsUtility]::Categories |
-            Where-Object {
-                    #Si la categorie a le meme nom que celle recherche
-                    $_.Name -eq $Cat.ParentCategory.Name -and
-                    (# Et que son prefix est similaire a celui de la category parent recherchee
-                        $_.target.prefix -eq $Cat.ParentCategory.prefix -or
-                        #Ou si la category parent est present dans le meme fichier admx avec
-                        #le meme prefix que la category enfant
-                        $_.target.prefix -eq $Cat.target.prefix
-                    )
-                })
+        #Parmi les categories de meme nom que celle recherchee
+        $ParentCat = @([GPOToolsUtility]::FindCategory($Cat.ParentCategory.Name).Where({
+                    # Si son prefix est similaire a celui de la category parent recherchee
+                    $_.target.prefix -eq $Cat.ParentCategory.prefix -or
+                    #Ou si la category parent est present dans le meme fichier admx avec
+                    #le meme prefix que la category enfant
+                    $_.target.prefix -eq $Cat.target.prefix
+                }))
         if ($ParentCat.Count -eq 0){
             Write-Verbose "[GPOToolsCategory](FindParentCategory) No ParentCategory found for $($Cat.Name) Name in [GPOToolsUtility]::Categories static property"
             # La category parent peut etre definie plus loin dans le meme fichier admx : on la cree maintenant
-            $AdmxParent = @($Categories | Where-Object {
+            $AdmxParent = @($Categories.Where({
                 $_.Name -eq $Cat.ParentCategory.Name -and $Cat.ParentCategory.prefix -eq $Cat.target.prefix
-            })
+            }))
             if ($AdmxParent.Count -eq 1) {
                 return [GPOToolsCategory]::Create($AdmxParent[0],$Categories,$Adml)
             }ElseIf ($AdmxParent.Count -ge 2) {
@@ -377,8 +409,8 @@ class GPOToolsCategory {
         [GpoToolsAdmx]$Admx,
         [GpoToolsAdml]$Adml
     ){
-        $null = $Admx.Categories | Foreach-Object {
-            [GPOToolsCategory]::Create($_,$Admx.Categories,$Adml)
+        foreach ($Category in $Admx.Categories){
+            $null = [GPOToolsCategory]::Create($Category,$Admx.Categories,$Adml)
         }
     }
 }
@@ -399,15 +431,15 @@ class GPOToolsPolicy {
 
     GPOToolsPolicy([AdmxPolicy]$Policy,[GpoToolsAdml]$ADMLPol){
         $this.ID = $Policy.Name
-        $this.Name = $ADMLPol.StringTable."$($Policy.Name)"
-        $this.DisplayName = $ADMLPol.StringTable."$($Policy.DisplayName)"
-        $this.Description = $ADMLPol.StringTable."$($Policy.explainText)"
+        $this.Name = $ADMLPol.GetString($Policy.Name)
+        $this.DisplayName = $ADMLPol.GetString($Policy.DisplayName)
+        $this.Description = $ADMLPol.GetString($Policy.explainText)
         if ($Policy.Class -eq 'Machine'){
             $this.scope = [ScopePolicy]::Machine
         }Else{
             $this.scope = [ScopePolicy]::User
         }
-        $this.FileName = (Split-Path $ADMLPol.FilePath -Leaf) -Replace 'l$','x'
+        $this.FileName = [System.IO.Path]::GetFileName($ADMLPol.FilePath) -Replace 'l$','x'
         $this.Category = [GPOToolsPolicy]::FindParentCategory($Policy)
         $this.Path = $this.GeneratePath()
 
@@ -438,17 +470,14 @@ class GPOToolsPolicy {
         [AdmxPolicy]$Pol
     ){
         # Pour chaque category de Categories
-        $ParentCat = @([GPOToolsUtility]::Categories |
-            Where-Object {
-                    #Si la categorie a le meme nom que celle recherche
-                    $_.Name -eq $Pol.ParentCategory.Name -and
-                    (# Et que son prefix est similaire a celui de la category parent recherchee
-                        $_.target.prefix -eq $Pol.ParentCategory.prefix -or
-                        #Ou si la category parent est present dans le meme fichier admx avec
-                        #le meme prefix que la policy enfant
-                        $_.target.prefix -eq $Pol.target.prefix
-                    )
-                })
+        #Parmi les categories de meme nom que celle recherchee
+        $ParentCat = @([GPOToolsUtility]::FindCategory($Pol.ParentCategory.Name).Where({
+                    # Si son prefix est similaire a celui de la category parent recherchee
+                    $_.target.prefix -eq $Pol.ParentCategory.prefix -or
+                    #Ou si la category parent est present dans le meme fichier admx avec
+                    #le meme prefix que la policy enfant
+                    $_.target.prefix -eq $Pol.target.prefix
+                }))
         if ($ParentCat.Count -eq 0){
             Write-Warning "[GPOToolsPolicy](FindParentCategory) No ParentCategory found for $($Pol.Name) policy in [GPOToolsUtility]::Categories static property"
             return $null
@@ -661,9 +690,19 @@ class GpoToolsAdml {
         $This.BaseName = $File.BaseName
         $this.StringTable = @{}
 
-        $xml.policyDefinitionResources.resources.stringTable.string | Foreach-Object {
-            Write-Verbose ('Ajout du champ {0} dans la table StringTable pour le fichier {1}' -f $_.id,$File.BaseName)
-            $this.StringTable.Add($_.id,$_.'#Text')
+        Write-Verbose ('Chargement de la table StringTable pour le fichier {0}' -f $File.BaseName)
+        foreach ($String in $xml.policyDefinitionResources.resources.stringTable.string){
+            $this.StringTable.Add($String.id,$String.'#Text')
         }
+    }
+
+    # Retourne la chaine localisee d'un identifiant ($null si absent).
+    # L'indexeur est utilise car l'acces par membre dynamique ($Table."$Id") est
+    # environ 200 fois plus lent sur des milliers d'identifiants differents.
+    [string]GetString([string]$Id){
+        if ([string]::IsNullOrEmpty($Id)){
+            return $null
+        }
+        return $this.StringTable[$Id]
     }
 }

@@ -12,6 +12,7 @@
 
 ### Changed
 
+* `Initialize-PSGPOAdmx` is about 5x faster (~20 s -> ~4 s on the Windows ADMX set): categories and ADMX namespaces are indexed, ADML strings are read through the hashtable indexer
 * Avalonia is the only GUI: the WPF `Show-GPOManager` and its notes were removed
 * The manifest targets PowerShell 7.4+ (`Core` edition) and exports only the public functions
 * `PSGPOTools.psm1` is no longer versioned; build it with `CI/03_Build.ps1`
