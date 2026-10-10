@@ -42,8 +42,8 @@ jobs:
           path: TestResults.xml
 
   test-linux:
-    # The console must also run on Linux: ADMX model, public functions and tree on PowerShell 7.
-    # The GUI tests are skipped here (no Avalonia runtime staged, no display).
+    # The console must also run on Linux: every test, the GUI included (Avalonia X11 backend
+    # on a virtual X server).
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -52,9 +52,22 @@ jobs:
         shell: pwsh
         run: Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser -Force -SkipPublisherCheck
 
-      - name: Build and test
+      - name: Install the virtual X server and the X11 libraries
+        run: sudo apt-get update && sudo apt-get install -y xvfb libx11-6 libice6 libsm6 libfontconfig1 fonts-dejavu-core
+
+      - name: Cache Avalonia runtime
+        uses: actions/cache@v4
+        with:
+          path: PSGPOTools/Avalonia/bin
+          key: avalonia-linux-x64-${{ hashFiles('PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1') }}
+
+      - name: Stage Avalonia runtime
         shell: pwsh
-        run: ./CI/Invoke-Tests.ps1 -OutputPath TestResults-linux.xml
+        run: ./PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1 -Rid linux-x64
+
+      - name: Build and test
+        # 1920x1080 screen: the default Xvfb screen (640x480) is smaller than the tested windows.
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" pwsh -NoProfile -File ./CI/Invoke-Tests.ps1 -OutputPath TestResults-linux.xml
 
       - name: Upload test results
         if: always()

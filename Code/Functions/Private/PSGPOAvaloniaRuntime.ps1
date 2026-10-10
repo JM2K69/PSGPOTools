@@ -49,7 +49,7 @@ function Initialize-PSGPOAvaloniaRuntime {
     )
     switch -Wildcard ($rid) {
         'win-*' { $assemblies += 'Avalonia.Win32.dll' }
-        'linux-*' { $assemblies += 'Avalonia.X11.dll', 'Avalonia.FreeDesktop.dll' }
+        'linux-*' { $assemblies += 'Tmds.DBus.Protocol.dll', 'Avalonia.X11.dll', 'Avalonia.FreeDesktop.dll' }
         'osx' { $assemblies += 'Avalonia.Native.dll' }
     }
 
