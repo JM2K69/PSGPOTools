@@ -16,7 +16,10 @@ enum GPOToolsRegistryValueType {
     MultiString
     DWord
     QWord
+    # Supprime une valeur (**del. dans Registry.pol)
     Delete
+    # Supprime toutes les valeurs de la cle (**delvals. dans Registry.pol), ValueName vide
+    DeleteAllValues
 }
 
 class GPOToolsRegistryValue {
@@ -142,6 +145,8 @@ class GPOToolsPolicyElement {
     [bool]$Expandable
     # list
     [string]$ValuePrefix
+    # valuePrefix="" (noms 1, 2, 3...) n'est pas l'absence de valuePrefix (nom = donnee)
+    [bool]$HasValuePrefix
     [bool]$Additive
     [bool]$ExplicitValue
     # boolean
@@ -156,6 +161,8 @@ class GPOToolsPolicyElement {
     [string]$Control
     [string]$Label
     [object]$DefaultValue
+    [bool]$NoSort
+    [uint64]$SpinStep = 1
 
     GPOToolsPolicyElement(
         [System.Xml.XmlElement]$Node,
@@ -236,6 +243,7 @@ class GPOToolsPolicyElement {
             }
             'list' {
                 $this.Type = 'List'
+                $this.HasValuePrefix = $Node.HasAttribute('valuePrefix')
                 $this.ValuePrefix = $Node.GetAttribute('valuePrefix')
                 $this.Additive = [GPOToolsPolicyElement]::GetBool($Node,'additive',$false)
                 $this.Expandable = [GPOToolsPolicyElement]::GetBool($Node,'expandable',$false)
@@ -264,6 +272,8 @@ class GPOToolsPolicyElement {
             $this.Control = $Presented.Control
             $this.Label = $Presented.Label
             $this.DefaultValue = $Presented.DefaultValue
+            $this.NoSort = [bool]$Presented.NoSort
+            if ($Presented.SpinStep){ $this.SpinStep = $Presented.SpinStep }
         }
     }
 

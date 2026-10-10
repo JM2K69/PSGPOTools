@@ -11,10 +11,11 @@ function Format-PSGPORegistryValue {
         [Parameter(Mandatory)] [GPOToolsRegistryValue]$Value
     )
 
-    $Text = if ($Value.Type -eq [GPOToolsRegistryValueType]::Delete) {
-        '{0}\{1}: deleted' -f $Value.Key, $Value.ValueName
-    } else {
-        '{0}\{1} = {2} ({3})' -f $Value.Key, $Value.ValueName, $Value.Value, $Value.Type
+    $Text = switch ($Value.Type) {
+        'Delete' { '{0}\{1}: deleted' -f $Value.Key, $Value.ValueName }
+        'DeleteAllValues' { '{0}\*: all values deleted' -f $Value.Key }
+        'MultiString' { '{0}\{1} = {2} ({3})' -f $Value.Key, $Value.ValueName, ($Value.Value -join ' | '), $Value.Type }
+        default { '{0}\{1} = {2} ({3})' -f $Value.Key, $Value.ValueName, $Value.Value, $Value.Type }
     }
     # An implicit value is not written in the ADMX: it is the editor's default behaviour.
     if ($Value.Implicit) { "$Text [default]" } else { $Text }

@@ -22,6 +22,15 @@ function Initialize-PSGPOAvaloniaRuntime {
 
     if ($script:PSGPOAvaloniaInitialized) { return }
 
+    # Avalonia can only be set up once per process. Re-importing the module (Import-Module -Force,
+    # rebuild) resets $script:PSGPOAvaloniaInitialized but not Avalonia: reuse the running application.
+    $applicationType = 'Avalonia.Application' -as [type]
+    if ($null -ne $applicationType -and $null -ne $applicationType::Current) {
+        Write-Verbose 'Avalonia is already set up in this process: reusing the current application.'
+        $script:PSGPOAvaloniaInitialized = $true
+        return
+    }
+
     $rid = Get-PSGPOAvaloniaRid
     # Separate segments: the path is also given to .NET (LoadFrom), which does not accept '\' on Linux/macOS.
     $avaloniaPath = Join-Path -Path $PSScriptRoot -ChildPath 'Avalonia' -AdditionalChildPath 'bin', $rid
