@@ -87,10 +87,10 @@ function Show-GPOManagerAvalonia {
 
                 <StackPanel Grid.Column='1' Orientation='Horizontal'
                             HorizontalAlignment='Right' VerticalAlignment='Center' Spacing='12'>
-                    <Button Name='themeToggleButton' Content='🌙 Mode Sombre' Height='36' Width='140'/>
+                    <Button Name='themeToggleButton' Content='🌙 Dark mode' Height='36' Width='140'/>
                     <TextBox Name='searchTextBox' Width='320' Height='36'
-                             Watermark='Rechercher une GPO...' VerticalContentAlignment='Center'/>
-                    <Button Name='searchButton' Content='🔍 Rechercher' Height='36' Width='130'/>
+                             Watermark='Search a policy...' VerticalContentAlignment='Center'/>
+                    <Button Name='searchButton' Content='🔍 Search' Height='36' Width='130'/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -127,10 +127,10 @@ function Show-GPOManagerAvalonia {
                         </TreeView.ItemTemplate>
                         <TreeView.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Name='enableMenuItem' Header='✅ Enable this parameter'/>
-                                <MenuItem Name='disableMenuItem' Header='❌ Disable this parameter'/>
+                                <MenuItem Name='copyNameMenuItem' Header='📋 Copy policy name'/>
+                                <MenuItem Name='copyRegistryMenuItem' Header='📋 Copy registry path'/>
                                 <Separator/>
-                                <MenuItem Name='createGpoMenuItem' Header='➕ Create a GPO'/>
+                                <MenuItem Name='copyCommandMenuItem' Header='⌨️ Copy PowerShell command'/>
                             </ContextMenu>
                         </TreeView.ContextMenu>
                     </TreeView>
@@ -208,36 +208,44 @@ function Show-GPOManagerAvalonia {
     $registryPathTextBox = Get-PSGPOAvaloniaControl $window 'registryPathTextBox'
     $registryKeyTextBox = Get-PSGPOAvaloniaControl $window 'registryKeyTextBox'
     $registryValuesGrid = Get-PSGPOAvaloniaControl $window 'registryValuesGrid'
-    $enableMenuItem = Get-PSGPOAvaloniaControl $window 'enableMenuItem'
-    $disableMenuItem = Get-PSGPOAvaloniaControl $window 'disableMenuItem'
-    $createGpoMenuItem = Get-PSGPOAvaloniaControl $window 'createGpoMenuItem'
+    $copyNameMenuItem = Get-PSGPOAvaloniaControl $window 'copyNameMenuItem'
+    $copyRegistryMenuItem = Get-PSGPOAvaloniaControl $window 'copyRegistryMenuItem'
+    $copyCommandMenuItem = Get-PSGPOAvaloniaControl $window 'copyCommandMenuItem'
 
     # Theme management: Avalonia FluentTheme + our ThemeDictionaries swap automatically
     # when RequestedThemeVariant changes, no manual brush-by-brush update needed.
-    $script:isDarkTheme = $false
+    # The window starts on the OS theme, so the toggle starts from the actual variant.
+    $platformSettings = [Avalonia.Application]::Current.PlatformSettings
+    $script:isDarkTheme = $null -ne $platformSettings -and
+        $platformSettings.GetColorValues().ThemeVariant -eq [Avalonia.Platform.PlatformThemeVariant]::Dark
+    $updateThemeButton = { $themeToggleButton.Content = if ($script:isDarkTheme) { '☀️ Light mode' } else { '🌙 Dark mode' } }
+    & $updateThemeButton
     $themeToggleButton.Add_Click({
         $script:isDarkTheme = -not $script:isDarkTheme
         $window.RequestedThemeVariant = if ($script:isDarkTheme) { [Avalonia.Styling.ThemeVariant]::Dark } else { [Avalonia.Styling.ThemeVariant]::Light }
-        $themeToggleButton.Content = if ($script:isDarkTheme) { '☀️ Mode Clair' } else { '🌙 Mode Sombre' }
+        & $updateThemeButton
     })
 
-    # Context menu actions operate on the current TreeView selection.
-    $enableMenuItem.Add_Click({
+    # Context menu actions copy information about the selected policy to the clipboard.
+    function Copy-SelectedPolicyText {
+        param([scriptblock]$Text)
+
         $selected = $treeView.SelectedItem
         if ($selected -and $selected.Tag -is [GPOToolsPolicy]) {
-            Write-Host "Enable: $($selected.Tag.DisplayName)"
+            $value = & $Text $selected.Tag
+            if ($value) { $null = $window.Clipboard.SetTextAsync($value) }
         }
-    })
-    $disableMenuItem.Add_Click({
-        $selected = $treeView.SelectedItem
-        if ($selected -and $selected.Tag -is [GPOToolsPolicy]) {
-            Write-Host "Disable: $($selected.Tag.DisplayName)"
-        }
-    })
-    $createGpoMenuItem.Add_Click({
-        $selected = $treeView.SelectedItem
-        if ($selected -and $selected.Tag -is [GPOToolsPolicy]) {
-            Write-Host "Create GPO for: $($selected.Tag.DisplayName)"
+    }
+    $copyNameMenuItem.Add_Click({ Copy-SelectedPolicyText { param($p) $p.DisplayName } })
+    $copyRegistryMenuItem.Add_Click({ Copy-SelectedPolicyText { param($p) $p.Registry.Path } })
+    $copyCommandMenuItem.Add_Click({
+        Copy-SelectedPolicyText {
+            param($p)
+            if ($p.Registry.Key) {
+                "Get-ItemProperty -Path '{0}' -Name '{1}'" -f $p.Registry.Path, $p.Registry.Key
+            } elseif ($p.Registry.Path) {
+                "Get-ItemProperty -Path '{0}'" -f $p.Registry.Path
+            }
         }
     })
 
@@ -256,34 +264,34 @@ function Show-GPOManagerAvalonia {
         $policy = if ($selected) { $selected.Tag } else { $null }
         if ($policy -is [GPOToolsPolicy]) {
             $displayNameTextBox.Text = $policy.DisplayName
-            $descriptionTextBox.Text = if ($policy.Description) { $policy.Description } else { '(Aucune description disponible)' }
+            $descriptionTextBox.Text = if ($policy.Description) { $policy.Description } else { '(No description available)' }
             $scopeTextBox.Text = $policy.Scope.ToString()
 
             if ($policy.Registry) {
-                $registryPathTextBox.Text = if ($policy.Registry.Path) { $policy.Registry.Path } else { '(Aucun chemin de registre défini)' }
-                $registryKeyTextBox.Text = if ($policy.Registry.Key) { $policy.Registry.Key } else { '(Aucune clé de registre définie)' }
+                $registryPathTextBox.Text = if ($policy.Registry.Path) { $policy.Registry.Path } else { '(No registry path defined)' }
+                $registryKeyTextBox.Text = if ($policy.Registry.Key) { $policy.Registry.Key } else { '(No registry value name defined)' }
 
                 if ($policy.Registry.Value -and $policy.Registry.Value.Keys.Count -gt 0) {
                     $registryValuesGrid.ItemsSource = @(
                         foreach ($key in $policy.Registry.Value.Keys) {
                             $row = [AvaloniaRegistryRow]::new()
                             $row.Key = $key
-                            $row.Value = if ($policy.Registry.Value[$key]) { $policy.Registry.Value[$key] } else { '(Valeur non définie)' }
+                            $row.Value = if ($policy.Registry.Value[$key]) { $policy.Registry.Value[$key] } else { '(Not defined)' }
                             $row
                         }
                     )
                 } else {
                     $row = [AvaloniaRegistryRow]::new()
                     $row.Key = 'Information'
-                    $row.Value = '(Aucune valeur de registre disponible pour cette GPO)'
+                    $row.Value = '(No registry value available for this policy)'
                     $registryValuesGrid.ItemsSource = @($row)
                 }
             } else {
-                $registryPathTextBox.Text = '(Cette GPO ne nécessite pas de configuration de registre)'
-                $registryKeyTextBox.Text = '(Aucune clé de registre)'
+                $registryPathTextBox.Text = '(This policy does not use the registry)'
+                $registryKeyTextBox.Text = '(No registry value name)'
                 $row = [AvaloniaRegistryRow]::new()
                 $row.Key = 'Information'
-                $row.Value = '(Cette policy ne stocke pas de données dans le registre)'
+                $row.Value = '(This policy does not store data in the registry)'
                 $registryValuesGrid.ItemsSource = @($row)
             }
         } else {
@@ -296,70 +304,22 @@ function Show-GPOManagerAvalonia {
         }
     })
 
-    function Populate-TreeView {
-        param([string]$Filter = '')
-
-        $rootNodes = [System.Collections.ObjectModel.ObservableCollection[object]]::new()
-
-        foreach ($scope in [Enum]::GetValues([ScopePolicy])) {
-            $scopeNode = [AvaloniaTreeNode]::new()
-            $scopeNode.Header = $scope.ToString()
-            $scopeNode.Icon = '📋'
-            $scopeNode.Tag = $scope
-
-            $policies = Get-PSGPOPolicy -Scope $scope
-            if ($Filter) {
-                $policies = $policies | Where-Object { $_.DisplayName -like "*$Filter*" }
-            }
-
-            foreach ($policy in $policies) {
-                $category = $policy.Category
-                $parentCategory = $category.ParentCategory
-                $currentNode = $scopeNode
-
-                # Build (or reuse) the category chain, deepest-parent-first.
-                $chain = [System.Collections.Generic.List[object]]::new()
-                while ($null -ne $parentCategory) {
-                    $chain.Add($parentCategory)
-                    $parentCategory = $parentCategory.ParentCategory
-                }
-                for ($i = $chain.Count - 1; $i -ge 0; $i--) {
-                    $cat = $chain[$i]
-                    $existing = $currentNode.Children | Where-Object { $_.Tag -and $_.Tag.DisplayName -eq $cat.DisplayName } | Select-Object -First 1
-                    if (-not $existing) {
-                        $existing = [AvaloniaTreeNode]::new()
-                        $existing.Header = $cat.DisplayName
-                        $existing.Icon = '📂'
-                        $existing.Tag = $cat
-                        $existing.Parent = $currentNode
-                        $currentNode.Children.Add($existing)
-                    }
-                    $currentNode = $existing
-                }
-
-                $policyNode = [AvaloniaTreeNode]::new()
-                $policyNode.Header = $policy.DisplayName
-                $policyNode.Icon = '📄'
-                $policyNode.Tag = $policy
-                $policyNode.Parent = $currentNode
-                $currentNode.Children.Add($policyNode)
-            }
-
-            if ($scopeNode.Children.Count -gt 0) {
-                $rootNodes.Add($scopeNode)
-            }
-        }
-
-        $treeView.ItemsSource = $rootNodes
+    function Update-PolicyTree {
+        $treeView.ItemsSource = New-PSGPOPolicyTree -Filter $searchTextBox.Text
     }
 
-    Populate-TreeView
+    if ([GPOToolsUtility]::Policies.Count -eq 0) {
+        Write-Warning 'No policy loaded: run Initialize-PSGPOAdmx before Show-GPOManagerAvalonia.'
+        $breadcrumbTextBlock.Text = 'No policy loaded - run Initialize-PSGPOAdmx first'
+    } else {
+        Update-PolicyTree
+    }
 
-    $searchButton.Add_Click({ Populate-TreeView -Filter $searchTextBox.Text })
+    $searchButton.Add_Click({ Update-PolicyTree })
     $searchTextBox.Add_KeyDown({
         param($sender, $e)
         if ($e.Key -eq [Avalonia.Input.Key]::Enter) {
-            Populate-TreeView -Filter $searchTextBox.Text
+            Update-PolicyTree
         }
     })
 
