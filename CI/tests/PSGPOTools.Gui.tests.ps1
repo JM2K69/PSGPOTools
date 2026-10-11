@@ -148,18 +148,20 @@ InModuleScope -ModuleName PSGPOTools {
         It 'Toggles between the dark and light themes' {
             Start-PSGPOManagerWindow -OnShown {
                 param($Ui)
-                $Before = $Ui.themeToggleButton.Content
+                $Before = $Ui.themeToggleText.Text
+                $BeforeIcon = $Ui.themeToggleIcon.Data
                 Invoke-Click $Ui.themeToggleButton
                 $First = $Ui.Window.RequestedThemeVariant
-                $Ui.themeToggleButton.Content | Should -Not -Be $Before
+                $Ui.themeToggleText.Text | Should -Not -Be $Before
+                $Ui.themeToggleIcon.Data | Should -Not -Be $BeforeIcon
 
                 Invoke-Click $Ui.themeToggleButton
                 $Ui.Window.RequestedThemeVariant | Should -Not -Be $First
-                $Ui.themeToggleButton.Content | Should -Be $Before
+                $Ui.themeToggleText.Text | Should -Be $Before
 
                 # The label always offers the other theme than the one displayed.
                 $Dark = [Avalonia.Styling.ThemeVariant]::Dark
-                $Ui.themeToggleButton.Content | Should -BeLike $(if ($Ui.Window.RequestedThemeVariant -eq $Dark) { '*Light mode' } else { '*Dark mode' })
+                $Ui.themeToggleText.Text | Should -Be $(if ($Ui.Window.RequestedThemeVariant -eq $Dark) { 'Light mode' } else { 'Dark mode' })
             }
         }
 
@@ -376,7 +378,13 @@ InModuleScope -ModuleName PSGPOTools {
                 $Domain.Children[-1].Header | Should -Be 'Group Policy Objects'
                 # The IsExpanded binding reaches the tree view item.
                 $Ui.Window.UpdateLayout()
-                $Ui.domainTreeView.ContainerFromItem($Domain).IsExpanded | Should -BeTrue
+                $DomainItem = $Ui.domainTreeView.ContainerFromItem($Domain)
+                $DomainItem.IsExpanded | Should -BeTrue
+                # The icon of the node is drawn from the shipped SVG, in its colour (no emoji: Linux has no font for them).
+                $Icon = [Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($DomainItem) | Where-Object { $_ -is [Avalonia.Controls.PathIcon] } | Select-Object -First 1
+                $Icon.Data | Should -BeOfType ([Avalonia.Media.StreamGeometry])
+                $Icon.Data.Bounds.Width | Should -BeGreaterThan 10
+                "$($Icon.Foreground)" | Should -Be '#ff0f6cbd'
             }
         }
 
@@ -385,7 +393,7 @@ InModuleScope -ModuleName PSGPOTools {
                 param($Ui)
                 $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Paris', 'Workstations'
                 $Ui.directoryTitleTextBlock.Text | Should -Be 'Workstations'
-                $Ui.directoryBreadcrumbTextBlock.Text | Should -Be '📍 corp.contoso.com > Sites > Paris > Workstations'
+                $Ui.directoryBreadcrumbTextBlock.Text | Should -Be 'corp.contoso.com > Sites > Paris > Workstations'
                 $Ui.linksHeaderTextBlock.Text | Should -Be 'Linked Group Policy Objects (3)'
                 @($Ui.linksList.ItemsSource.Name) | Should -Be @(
                     'C - Workstations - Security Baseline Windows 11', 'C - Workstations - BitLocker', 'C - Workstations - Windows Update Ring Broad')
@@ -484,7 +492,7 @@ InModuleScope -ModuleName PSGPOTools {
                 $Ui.searchPanel.IsVisible | Should -BeTrue
                 $Ui.managementButton.IsVisible | Should -BeTrue
                 $Ui.editingBanner.IsVisible | Should -BeTrue
-                $Ui.editingGpoTextBlock.Text | Should -Be "✏️ Editing the GPO 'C - Servers - Security Baseline' [corp.contoso.com]"
+                $Ui.editingGpoTextBlock.Text | Should -Be "Editing the GPO 'C - Servers - Security Baseline' [corp.contoso.com]"
                 $Ui.subtitleTextBlock.Text | Should -Be 'Editing the GPO C - Servers - Security Baseline'
                 $Ui.Editing.Gpo.DisplayName | Should -Be 'C - Servers - Security Baseline'
 

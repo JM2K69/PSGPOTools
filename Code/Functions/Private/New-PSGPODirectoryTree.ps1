@@ -29,7 +29,7 @@ function New-PSGPODirectoryTree {
         param([string]$Header, [string]$Icon, $Tag, [AvaloniaTreeNode]$Parent)
         $Node = [AvaloniaTreeNode]::new()
         $Node.Header = $Header
-        $Node.Icon = $Icon
+        Set-PSGPOTreeNodeIcon -Node $Node -Name $Icon
         $Node.Tag = $Tag
         $Node.Parent = $Parent
         if ($Parent) { $Parent.Children.Add($Node) }
@@ -40,14 +40,15 @@ function New-PSGPODirectoryTree {
     function Add-Som {
         param([GPOToolsSom]$Som, [AvaloniaTreeNode]$Parent)
         $Header = if ($Som.BlockInheritance) { "$($Som.Name) (blocks inheritance)" } else { $Som.Name }
-        $Icon = if ($Som.Kind -eq [GPOToolsSomKind]::Domain) { '🌐' } else { '📁' }
+        $Icon = if ($Som.Kind -eq [GPOToolsSomKind]::Domain) { 'globe' } elseif ($Som.BlockInheritance) { 'folder-prohibited' } else { 'folder' }
         $Node = New-Node $Header $Icon $Som $Parent
 
         foreach ($Link in @($Som.Links | Sort-Object Order)) {
             $LinkHeader = $Link.Gpo.DisplayName
             if ($Link.Enforced) { $LinkHeader += ' (enforced)' }
             if (-not $Link.Enabled) { $LinkHeader += ' (link disabled)' }
-            [void](New-Node $LinkHeader '🔗' $Link $Node)
+            $LinkIcon = if (-not $Link.Enabled) { 'link-dismiss' } elseif ($Link.Enforced) { 'lock-closed' } else { 'link' }
+            [void](New-Node $LinkHeader $LinkIcon $Link $Node)
         }
         foreach ($Child in $Som.Children) { [void](Add-Som $Child $Node) }
         $Node
@@ -57,8 +58,8 @@ function New-PSGPODirectoryTree {
     $DomainNode = Add-Som $Directory.Domain $null
     $DomainNode.IsExpanded = $true
 
-    $GposNode = New-Node 'Group Policy Objects' '📚' 'GroupPolicyObjects' $DomainNode
-    foreach ($Gpo in $Directory.Gpos) { [void](New-Node $Gpo.DisplayName '📜' $Gpo $GposNode) }
+    $GposNode = New-Node 'Group Policy Objects' 'library' 'GroupPolicyObjects' $DomainNode
+    foreach ($Gpo in $Directory.Gpos) { [void](New-Node $Gpo.DisplayName 'document-settings' $Gpo $GposNode) }
 
     $Roots.Add($DomainNode)
     # Comma keeps PowerShell from unrolling the collection into the pipeline.

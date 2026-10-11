@@ -108,7 +108,12 @@ function Start-PSGPOManagerWindow {
     $platformSettings = [Avalonia.Application]::Current.PlatformSettings
     $script:isDarkTheme = $null -ne $platformSettings -and
         $platformSettings.GetColorValues().ThemeVariant -eq [Avalonia.Platform.PlatformThemeVariant]::Dark
-    $updateThemeButton = { $themeToggleButton.Content = if ($script:isDarkTheme) { '☀️ Light mode' } else { '🌙 Dark mode' } }
+    $themeToggleIcon = Get-PSGPOAvaloniaControl $window 'themeToggleIcon'
+    $themeToggleText = Get-PSGPOAvaloniaControl $window 'themeToggleText'
+    $updateThemeButton = {
+        $themeToggleText.Text = if ($script:isDarkTheme) { 'Light mode' } else { 'Dark mode' }
+        $themeToggleIcon.Data = [Avalonia.Media.Geometry]::Parse((Get-PSGPOIconData -Name $(if ($script:isDarkTheme) { 'weather-sunny' } else { 'weather-moon' })))
+    }
     & $updateThemeButton
     $themeToggleButton.Add_Click({
         $script:isDarkTheme = -not $script:isDarkTheme
@@ -162,7 +167,7 @@ function Start-PSGPOManagerWindow {
             $pathParts.Insert(0, $current.Header)
             $current = $current.Parent
         }
-        $breadcrumbTextBlock.Text = if ($pathParts.Count -gt 0) { "📍 $($pathParts -join ' > ')" } else { 'Select a policy to see its path' }
+        $breadcrumbTextBlock.Text = if ($pathParts.Count -gt 0) { $pathParts -join ' > ' } else { 'Select a policy to see its path' }
 
         $policy = if ($selected) { $selected.Tag } else { $null }
         # The setting is not read from a GPO yet: every policy starts as Not Configured.
@@ -252,7 +257,7 @@ function Start-PSGPOManagerWindow {
         $editing.Gpo = $Gpo
         $treeView.SelectedItem = $null
         $editingBanner.IsVisible = $null -ne $Gpo
-        $editingGpoTextBlock.Text = if ($Gpo) { "✏️ Editing the GPO '$($Gpo.DisplayName)' [$($Directory.DomainName)]" } else { '' }
+        $editingGpoTextBlock.Text = if ($Gpo) { "Editing the GPO '$($Gpo.DisplayName)' [$($Directory.DomainName)]" } else { '' }
         Show-View 'Editor'
     }
 
@@ -341,7 +346,7 @@ function Start-PSGPOManagerWindow {
 
         $pathParts = [System.Collections.Generic.List[string]]::new()
         for ($current = $selected; $current; $current = $current.Parent) { $pathParts.Insert(0, $current.Header) }
-        $directoryBreadcrumbTextBlock.Text = if ($pathParts.Count) { "📍 $($pathParts -join ' > ')" } else { 'Right-click a domain or an OU to create a GPO' }
+        $directoryBreadcrumbTextBlock.Text = if ($pathParts.Count) { $pathParts -join ' > ' } else { 'Right-click a domain or an OU to create a GPO' }
 
         $detail = Get-PSGPODirectoryDetail -Directory $Directory -Item $item
         $directoryTitleTextBlock.Text = $detail.Title
@@ -408,7 +413,7 @@ function Start-PSGPOManagerWindow {
             'displayNameTextBox', 'descriptionTextBox', 'scopeTextBox', 'registryPathTextBox',
             'registryKeyTextBox', 'registryValuesList', 'settingTitleTextBlock', 'previewEmptyTextBlock', 'detailsTabs', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
             'notConfiguredRadio', 'enabledRadio', 'disabledRadio', 'optionsHost', 'settingErrorTextBlock', 'registryPreviewList',
-            'subtitleTextBlock', 'managementButton', 'browseAdmxButton', 'searchPanel', 'managementView', 'editorView',
+            'themeToggleIcon', 'themeToggleText', 'subtitleTextBlock', 'managementButton', 'browseAdmxButton', 'searchPanel', 'managementView', 'editorView',
             'editingBanner', 'editingGpoTextBlock', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
             'directoryTitleTextBlock', 'directoryPropertiesList', 'linksHeaderTextBlock', 'linksList', 'createLinkedGpoMenuItem',
             'newGpoMenuItem', 'editGpoMenuItem', 'editGpoButton', 'newGpoPanel', 'newGpoTitleTextBlock', 'newGpoNameTextBox',
