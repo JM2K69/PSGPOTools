@@ -16,6 +16,7 @@
 
 ### Fixed
 
+* GUI trees: selecting a node with a long name scrolled the tree horizontally and cut the domain and the OUs (seen on Linux); long names are now trimmed, with the full name as tooltip
 * GUI: the Not Configured / Enabled / Disabled radio buttons shared a group name with those of the previously opened windows, so opening a window could run a handler of a closed one
 * GUI copy to the clipboard: a failed copy is now reported with a warning instead of being silently lost
 * Linux: `Get-AvaloniaBinaries.ps1 -Rid linux-x64` did not download `Tmds.DBus.Protocol`, required by Avalonia.FreeDesktop, and built its package paths with `\`

@@ -446,6 +446,26 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
+        It 'Keeps the tree aligned to the left when a long name is selected, trimming it' {
+            # Regression (Linux, 1200 px): selecting a deep link with a long name scrolled the tree
+            # horizontally and cut the domain and the OUs.
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.Window.Width = 1000
+                $Node = Get-DomainNode $Ui 'Sites', 'Paris', 'Workstations', 'C - Workstations - Security Baseline Windows 11 (enforced)'
+                for ($Parent = $Node.Parent; $Parent; $Parent = $Parent.Parent) { $Parent.IsExpanded = $true }
+                $Ui.domainTreeView.ItemsSource = @($Ui.domainTreeView.ItemsSource)
+                $Ui.domainTreeView.SelectedItem = $Node
+                $Ui.Window.UpdateLayout()
+                [Avalonia.Threading.Dispatcher]::UIThread.RunJobs()
+                $Ui.Window.UpdateLayout()
+
+                $Scroll = [Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($Ui.domainTreeView) | Where-Object { $_ -is [Avalonia.Controls.ScrollViewer] } | Select-Object -First 1
+                $Scroll.Offset.X | Should -Be 0
+                $Scroll.Extent.Width | Should -BeLessOrEqual ($Scroll.Viewport.Width + 1)
+            }
+        }
+
         It 'Keeps the form open with the error when the name is already used' {
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {
                 param($Ui)

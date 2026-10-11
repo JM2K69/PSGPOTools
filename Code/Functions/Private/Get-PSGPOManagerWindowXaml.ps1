@@ -151,7 +151,7 @@ $iconResources
                     <TextBlock Grid.Row='1' Name='directoryEmptyTextBlock' Margin='16' TextWrapping='Wrap'
                                Foreground='{DynamicResource SecondaryTextBrush}'
                                Text='No directory loaded: read one with Import-PSGPODirectory, then open the window with Show-GPOManagerAvalonia -Directory.'/>
-                    <TreeView Grid.Row='1' Name='domainTreeView' Margin='8'>
+                    <TreeView Grid.Row='1' Name='domainTreeView' Margin='8' ScrollViewer.HorizontalScrollBarVisibility='Disabled'>
                         <TreeView.Styles>
                             <Style Selector='TreeViewItem'>
                                 <Setter Property='IsExpanded' Value='{Binding IsExpanded, Mode=TwoWay}'/>
@@ -159,10 +159,10 @@ $iconResources
                         </TreeView.Styles>
                         <TreeView.ItemTemplate>
                             <TreeDataTemplate ItemsSource='{Binding Children}'>
-                                <StackPanel Orientation='Horizontal' Spacing='6'>
-                                    <PathIcon Data='{Binding IconData}' Foreground='{Binding IconBrush}' VerticalAlignment='Center'/>
-                                    <TextBlock Text='{Binding Header}'/>
-                                </StackPanel>
+                                <Grid ColumnDefinitions='Auto,*'>
+                                    <PathIcon Grid.Column='0' Data='{Binding IconData}' Foreground='{Binding IconBrush}' VerticalAlignment='Center' Margin='0,0,6,0'/>
+                                    <TextBlock Grid.Column='1' Text='{Binding Header}' TextTrimming='CharacterEllipsis' ToolTip.Tip='{Binding Header}'/>
+                                </Grid>
                             </TreeDataTemplate>
                         </TreeView.ItemTemplate>
                         <TreeView.ContextMenu>
@@ -300,13 +300,13 @@ $iconResources
                         </StackPanel>
                     </Border>
 
-                    <TreeView Grid.Row='1' Name='treeView' Margin='8'>
+                    <TreeView Grid.Row='1' Name='treeView' Margin='8' ScrollViewer.HorizontalScrollBarVisibility='Disabled'>
                         <TreeView.ItemTemplate>
                             <TreeDataTemplate ItemsSource='{Binding Children}'>
-                                <StackPanel Orientation='Horizontal' Spacing='6'>
-                                    <PathIcon Data='{Binding IconData}' Foreground='{Binding IconBrush}' VerticalAlignment='Center'/>
-                                    <TextBlock Text='{Binding Header}'/>
-                                </StackPanel>
+                                <Grid ColumnDefinitions='Auto,*'>
+                                    <PathIcon Grid.Column='0' Data='{Binding IconData}' Foreground='{Binding IconBrush}' VerticalAlignment='Center' Margin='0,0,6,0'/>
+                                    <TextBlock Grid.Column='1' Text='{Binding Header}' TextTrimming='CharacterEllipsis' ToolTip.Tip='{Binding Header}'/>
+                                </Grid>
                             </TreeDataTemplate>
                         </TreeView.ItemTemplate>
                         <TreeView.ContextMenu>
