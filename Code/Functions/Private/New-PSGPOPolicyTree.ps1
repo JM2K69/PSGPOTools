@@ -13,10 +13,15 @@ function New-PSGPOPolicyTree {
 
     $rootNodes = [System.Collections.ObjectModel.ObservableCollection[object]]::new()
 
+    # Icons read once: thousands of nodes share them.
+    $folderData = Get-PSGPOIconData -Name 'folder'
+    $policyData = Get-PSGPOIconData -Name 'document'
+
     foreach ($scope in [Enum]::GetValues([ScopePolicy])) {
         $scopeNode = [AvaloniaTreeNode]::new()
         $scopeNode.Header = $scope.ToString()
-        $scopeNode.Icon = '📋'
+        # User and Machine, shown as the User / Computer Configuration of the Group Policy editor.
+        Set-PSGPOTreeNodeIcon -Node $scopeNode -Name $(if ($scope -eq [ScopePolicy]::User) { 'person' } else { 'desktop' })
         $scopeNode.Tag = $scope
 
         # One node per category object within this scope, so lookups do not scan siblings.
@@ -41,7 +46,9 @@ function New-PSGPOPolicyTree {
                 if (-not $categoryNodes.TryGetValue($cat, [ref]$node)) {
                     $node = [AvaloniaTreeNode]::new()
                     $node.Header = $cat.DisplayName
-                    $node.Icon = '📂'
+                    $node.Icon = 'folder'
+                    $node.IconData = $folderData
+                    $node.IconBrush = $script:PSGPOIconBrush['folder']
                     $node.Tag = $cat
                     $node.Parent = $currentNode
                     $currentNode.Children.Add($node)
@@ -52,7 +59,9 @@ function New-PSGPOPolicyTree {
 
             $policyNode = [AvaloniaTreeNode]::new()
             $policyNode.Header = $policy.DisplayName
-            $policyNode.Icon = '📄'
+            $policyNode.Icon = 'document'
+            $policyNode.IconData = $policyData
+            $policyNode.IconBrush = $script:PSGPOIconBrush['document']
             $policyNode.Tag = $policy
             $policyNode.Parent = $currentNode
             $currentNode.Children.Add($policyNode)

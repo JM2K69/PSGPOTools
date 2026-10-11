@@ -246,4 +246,41 @@ class FailingDirectory : GPOToolsDirectory {
             $Detail.LinksHeader | Should -BeNullOrEmpty
         }
     }
+
+    Describe 'Icons' {
+        It 'Ships every icon the code uses, under the MIT license of Fluent UI System Icons' {
+            $IconFolder = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Resources' 'Icons'
+            Get-Content (Join-Path $IconFolder 'LICENSE') -TotalCount 1 | Should -Be 'MIT License'
+            $Shipped = @(Get-PSGPOIconName)
+            $Code = Get-ChildItem (Join-Path $PSScriptRoot '..' '..' 'Code') -Recurse -Filter *.ps1 | Get-Content -Raw
+            $Used = @([regex]::Matches($Code -join "`n", "Icon\.([a-z-]+)\}|-Name '([a-z-]+)'|'(folder|document|person|desktop|weather-sunny|weather-moon)'") |
+                ForEach-Object { $_.Groups[1..3].Value } | Where-Object { $_ } | Sort-Object -Unique)
+            $Used.Count | Should -BeGreaterThan 15
+            foreach ($Name in $Used) { $Shipped | Should -Contain $Name -Because "the code uses the icon '$Name'" }
+        }
+
+        It 'Reads each icon as path data with the non-zero fill rule' {
+            foreach ($Name in Get-PSGPOIconName) {
+                Get-PSGPOIconData -Name $Name | Should -Match '^F1 M[\d.]' -Because "$Name.svg must hold a path"
+            }
+            { Get-PSGPOIconData -Name 'no-such-icon' } | Should -Throw -ExpectedMessage 'Icon not found*'
+        }
+
+        It 'Gives the tree nodes an icon by kind, with a colour' {
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            $Roots = New-PSGPODirectoryTree -Directory $Directory
+            $Domain = $Roots[0]
+            $Domain.Icon | Should -Be 'globe'
+            $Domain.IconData | Should -Be (Get-PSGPOIconData -Name 'globe')
+            $Domain.IconBrush | Should -Match '^#[0-9A-F]{6}$'
+            ($Domain.Children | Where-Object Header -EQ 'Servers').Icon | Should -Be 'folder'
+            ($Domain.Children | Where-Object Header -EQ 'Tier 0 (blocks inheritance)').Icon | Should -Be 'folder-prohibited'
+            ($Domain.Children | Where-Object Header -EQ 'Default Domain Policy').Icon | Should -Be 'link'
+            ($Domain.Children | Where-Object Header -EQ 'C - All - LAPS (enforced)').Icon | Should -Be 'lock-closed'
+            $Domain.Children[-1].Icon | Should -Be 'library'
+            $Domain.Children[-1].Children[0].Icon | Should -Be 'document-settings'
+            $Lyon = ($Domain.Children | Where-Object Header -EQ 'Sites').Children | Where-Object Header -EQ 'Lyon'
+            (($Lyon.Children | Where-Object Header -EQ 'Workstations').Children | Where-Object Header -Like '*(link disabled)').Icon | Should -Be 'link-dismiss'
+        }
+    }
 }

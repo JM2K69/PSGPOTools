@@ -7,6 +7,11 @@ function Get-PSGPOManagerWindowXaml {
     [OutputType([string])]
     param()
 
+    # Icons of Resources/Icons as geometry resources: {StaticResource Icon.<name>}
+    $iconResources = (Get-PSGPOIconName | ForEach-Object {
+        "            <StreamGeometry x:Key='Icon.$_'>$(Get-PSGPOIconData -Name $_)</StreamGeometry>"
+    }) -join [Environment]::NewLine
+
     @"
 <Window xmlns='https://github.com/avaloniaui'
         xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
@@ -17,8 +22,16 @@ function Get-PSGPOManagerWindowXaml {
         Background='{DynamicResource BackgroundBrush}'
         Name='MainWindow'>
 
+    <Window.Styles>
+        <Style Selector='PathIcon'>
+            <Setter Property='Width' Value='16'/>
+            <Setter Property='Height' Value='16'/>
+        </Style>
+    </Window.Styles>
+
     <Window.Resources>
         <ResourceDictionary>
+$iconResources
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key='Light'>
                     <SolidColorBrush x:Key='PrimaryBrush'>#0078D4</SolidColorBrush>
@@ -76,13 +89,33 @@ function Get-PSGPOManagerWindowXaml {
 
                 <StackPanel Grid.Column='1' Orientation='Horizontal'
                             HorizontalAlignment='Right' VerticalAlignment='Center' Spacing='12'>
-                    <Button Name='managementButton' Content='🏢 Group Policy Management' Height='36'/>
-                    <Button Name='browseAdmxButton' Content='📚 Browse the ADMX policies' Height='36'/>
-                    <Button Name='themeToggleButton' Content='🌙 Dark mode' Height='36' Width='140'/>
+                    <Button Name='managementButton' Height='36'>
+                        <StackPanel Orientation='Horizontal' Spacing='8'>
+                            <PathIcon Data='{StaticResource Icon.organization}'/>
+                            <TextBlock Text='Group Policy Management' VerticalAlignment='Center'/>
+                        </StackPanel>
+                    </Button>
+                    <Button Name='browseAdmxButton' Height='36'>
+                        <StackPanel Orientation='Horizontal' Spacing='8'>
+                            <PathIcon Data='{StaticResource Icon.book}'/>
+                            <TextBlock Text='Browse the ADMX policies' VerticalAlignment='Center'/>
+                        </StackPanel>
+                    </Button>
+                    <Button Name='themeToggleButton' Height='36' Width='140'>
+                        <StackPanel Orientation='Horizontal' Spacing='8'>
+                            <PathIcon Name='themeToggleIcon' Data='{StaticResource Icon.weather-moon}'/>
+                            <TextBlock Name='themeToggleText' Text='Dark mode' VerticalAlignment='Center'/>
+                        </StackPanel>
+                    </Button>
                     <StackPanel Name='searchPanel' Orientation='Horizontal' Spacing='12'>
                         <TextBox Name='searchTextBox' Width='320' Height='36'
                                  Watermark='Search a policy...' VerticalContentAlignment='Center'/>
-                        <Button Name='searchButton' Content='🔍 Search' Height='36' Width='130'/>
+                        <Button Name='searchButton' Height='36' Width='130'>
+                            <StackPanel Orientation='Horizontal' Spacing='8'>
+                                <PathIcon Data='{StaticResource Icon.search}'/>
+                                <TextBlock Text='Search' VerticalAlignment='Center'/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -101,11 +134,17 @@ function Get-PSGPOManagerWindowXaml {
                             Background='{DynamicResource HeaderBackgroundBrush}'
                             Padding='16,12' CornerRadius='8,8,0,0'>
                         <StackPanel>
-                            <TextBlock Text='🏢 Group Policy Management' FontSize='15' FontWeight='SemiBold'
-                                       Foreground='{DynamicResource HeaderTextBrush}'/>
-                            <TextBlock Name='directoryBreadcrumbTextBlock' Text='Right-click a domain or an OU to create a GPO'
-                                       FontSize='11' Foreground='{DynamicResource SecondaryTextBrush}'
-                                       Margin='0,4,0,0' TextTrimming='CharacterEllipsis'/>
+                            <StackPanel Orientation='Horizontal' Spacing='8'>
+                                <PathIcon Data='{StaticResource Icon.organization}' Foreground='{DynamicResource HeaderTextBrush}'/>
+                                <TextBlock Text='Group Policy Management' FontSize='15' FontWeight='SemiBold'
+                                           Foreground='{DynamicResource HeaderTextBrush}'/>
+                            </StackPanel>
+                            <Grid ColumnDefinitions='Auto,*' Margin='0,4,0,0'>
+                                <PathIcon Grid.Column='0' Data='{StaticResource Icon.location}' Width='12' Height='12'
+                                          Margin='0,0,4,0' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                <TextBlock Grid.Column='1' Name='directoryBreadcrumbTextBlock' Text='Right-click a domain or an OU to create a GPO'
+                                           FontSize='11' Foreground='{DynamicResource SecondaryTextBrush}' TextTrimming='CharacterEllipsis'/>
+                            </Grid>
                         </StackPanel>
                     </Border>
 
@@ -120,17 +159,23 @@ function Get-PSGPOManagerWindowXaml {
                         </TreeView.Styles>
                         <TreeView.ItemTemplate>
                             <TreeDataTemplate ItemsSource='{Binding Children}'>
-                                <StackPanel Orientation='Horizontal' Spacing='4'>
-                                    <TextBlock Text='{Binding Icon}' FontSize='13'/>
+                                <StackPanel Orientation='Horizontal' Spacing='6'>
+                                    <PathIcon Data='{Binding IconData}' Foreground='{Binding IconBrush}' VerticalAlignment='Center'/>
                                     <TextBlock Text='{Binding Header}'/>
                                 </StackPanel>
                             </TreeDataTemplate>
                         </TreeView.ItemTemplate>
                         <TreeView.ContextMenu>
                             <ContextMenu Name='domainContextMenu'>
-                                <MenuItem Name='createLinkedGpoMenuItem' Header='➕ Create a GPO in this domain, and Link it here...'/>
-                                <MenuItem Name='newGpoMenuItem' Header='➕ New GPO...'/>
-                                <MenuItem Name='editGpoMenuItem' Header='✏️ Edit...'/>
+                                <MenuItem Name='createLinkedGpoMenuItem' Header='Create a GPO in this domain, and Link it here...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.add}'/></MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Name='newGpoMenuItem' Header='New GPO...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.add}'/></MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Name='editGpoMenuItem' Header='Edit...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.edit}'/></MenuItem.Icon>
+                                </MenuItem>
                             </ContextMenu>
                         </TreeView.ContextMenu>
                     </TreeView>
@@ -171,7 +216,12 @@ function Get-PSGPOManagerWindowXaml {
                                 </StackPanel>
                             </Border>
 
-                            <Button Name='editGpoButton' Content='✏️ Edit this GPO' IsVisible='False' Margin='0,8,0,8'/>
+                            <Button Name='editGpoButton' IsVisible='False' Margin='0,8,0,8'>
+                                <StackPanel Orientation='Horizontal' Spacing='8'>
+                                    <PathIcon Data='{StaticResource Icon.edit}'/>
+                                    <TextBlock Text='Edit this GPO' VerticalAlignment='Center'/>
+                                </StackPanel>
+                            </Button>
 
                             <ItemsControl Name='directoryPropertiesList'>
                                 <ItemsControl.ItemTemplate>
@@ -216,7 +266,10 @@ function Get-PSGPOManagerWindowXaml {
         <Border Grid.Row='0' Name='editingBanner' IsVisible='False' Margin='16,16,16,0' Padding='12,8' CornerRadius='6'
                 Background='{DynamicResource SecondaryBackgroundBrush}' BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'>
             <StackPanel>
-                <TextBlock Name='editingGpoTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                <StackPanel Orientation='Horizontal' Spacing='8'>
+                    <PathIcon Data='{StaticResource Icon.edit}' Foreground='{DynamicResource PrimaryBrush}'/>
+                    <TextBlock Name='editingGpoTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                </StackPanel>
                 <TextBlock Text='Proof of concept: the settings are not saved to the GPO yet.' FontSize='11'
                            Foreground='{DynamicResource SecondaryTextBrush}' TextWrapping='Wrap'/>
             </StackPanel>
@@ -233,29 +286,41 @@ function Get-PSGPOManagerWindowXaml {
                             Background='{DynamicResource HeaderBackgroundBrush}'
                             Padding='16,12' CornerRadius='8,8,0,0'>
                         <StackPanel>
-                            <TextBlock Text='📁 Policy Structure' FontSize='15' FontWeight='SemiBold'
-                                       Foreground='{DynamicResource HeaderTextBrush}'/>
-                            <TextBlock Name='breadcrumbTextBlock' Text='Select a policy to see its path'
-                                       FontSize='11' Foreground='{DynamicResource SecondaryTextBrush}'
-                                       Margin='0,4,0,0' TextTrimming='CharacterEllipsis'/>
+                            <StackPanel Orientation='Horizontal' Spacing='8'>
+                                <PathIcon Data='{StaticResource Icon.tree}' Foreground='{DynamicResource HeaderTextBrush}'/>
+                                <TextBlock Text='Policy Structure' FontSize='15' FontWeight='SemiBold'
+                                           Foreground='{DynamicResource HeaderTextBrush}'/>
+                            </StackPanel>
+                            <Grid ColumnDefinitions='Auto,*' Margin='0,4,0,0'>
+                                <PathIcon Grid.Column='0' Data='{StaticResource Icon.location}' Width='12' Height='12'
+                                          Margin='0,0,4,0' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                <TextBlock Grid.Column='1' Name='breadcrumbTextBlock' Text='Select a policy to see its path'
+                                           FontSize='11' Foreground='{DynamicResource SecondaryTextBrush}' TextTrimming='CharacterEllipsis'/>
+                            </Grid>
                         </StackPanel>
                     </Border>
 
                     <TreeView Grid.Row='1' Name='treeView' Margin='8'>
                         <TreeView.ItemTemplate>
                             <TreeDataTemplate ItemsSource='{Binding Children}'>
-                                <StackPanel Orientation='Horizontal' Spacing='4'>
-                                    <TextBlock Text='{Binding Icon}' FontSize='13'/>
+                                <StackPanel Orientation='Horizontal' Spacing='6'>
+                                    <PathIcon Data='{Binding IconData}' Foreground='{Binding IconBrush}' VerticalAlignment='Center'/>
                                     <TextBlock Text='{Binding Header}'/>
                                 </StackPanel>
                             </TreeDataTemplate>
                         </TreeView.ItemTemplate>
                         <TreeView.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Name='copyNameMenuItem' Header='📋 Copy policy name'/>
-                                <MenuItem Name='copyRegistryMenuItem' Header='📋 Copy registry path'/>
+                                <MenuItem Name='copyNameMenuItem' Header='Copy policy name'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.copy}'/></MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Name='copyRegistryMenuItem' Header='Copy registry path'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.copy}'/></MenuItem.Icon>
+                                </MenuItem>
                                 <Separator/>
-                                <MenuItem Name='copyCommandMenuItem' Header='⌨️ Copy PowerShell command'/>
+                                <MenuItem Name='copyCommandMenuItem' Header='Copy PowerShell command'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.code}'/></MenuItem.Icon>
+                                </MenuItem>
                             </ContextMenu>
                         </TreeView.ContextMenu>
                     </TreeView>
@@ -274,8 +339,11 @@ function Get-PSGPOManagerWindowXaml {
                     <Border Grid.Row='0' Name='detailsHeaderBorder'
                             Background='{DynamicResource HeaderBackgroundBrush}'
                             Padding='16,12' CornerRadius='8,8,0,0'>
-                        <TextBlock Text='ℹ️ Policy Details' FontSize='15' FontWeight='SemiBold'
-                                   Foreground='{DynamicResource HeaderTextBrush}'/>
+                        <StackPanel Orientation='Horizontal' Spacing='8'>
+                            <PathIcon Data='{StaticResource Icon.info}' Foreground='{DynamicResource HeaderTextBrush}'/>
+                            <TextBlock Text='Policy Details' FontSize='15' FontWeight='SemiBold'
+                                       Foreground='{DynamicResource HeaderTextBrush}'/>
+                        </StackPanel>
                     </Border>
 
                     <!-- Setting: what the administrator edits; Details: what the ADMX defines. -->

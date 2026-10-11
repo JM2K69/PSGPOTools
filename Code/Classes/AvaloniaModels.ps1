@@ -8,7 +8,10 @@
 
 class AvaloniaTreeNode {
     [string]$Header
+    # Icon of Resources/Icons (Set-PSGPOTreeNodeIcon): its name, path data and colour
     [string]$Icon
+    [string]$IconData
+    [string]$IconBrush
     [System.Collections.ObjectModel.ObservableCollection[object]]$Children
     [AvaloniaTreeNode]$Parent
     [object]$Tag

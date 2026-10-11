@@ -38,6 +38,7 @@
 
 ### Changed
 
+* GUI icons: Microsoft Fluent UI System Icons (the Windows 11 icons, MIT license) are shipped with the module in `Resources/Icons` and drawn as vector paths, coloured by kind (OUs, blocked inheritance, links, enforced and disabled links, GPOs, User / Machine); they replace the emoji, drawn as empty boxes on Linux desktops without an emoji font
 * Tests rewritten for Pester 5+, with new tests for the public functions and the Avalonia GUI (real window driven through a private test hook); `CI/Invoke-Tests.ps1` builds and runs them, also in a GitHub Actions workflow
 * `Initialize-PSGPOAdmx` is about 5x faster (~20 s -> ~4 s on the Windows ADMX set): categories and ADMX namespaces are indexed, ADML strings are read through the hashtable indexer
 * GUI context menu: the Enable/Disable/Create GPO placeholders (they only wrote to the console) are replaced by working copy actions (policy name, registry path, PowerShell command)
