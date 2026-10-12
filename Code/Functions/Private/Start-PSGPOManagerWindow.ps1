@@ -86,7 +86,12 @@ function Start-PSGPOManagerWindow {
     $newGpoGroupsPanel = Get-PSGPOAvaloniaControl $window 'newGpoGroupsPanel'
     $newGpoGroupsTextBlock = Get-PSGPOAvaloniaControl $window 'newGpoGroupsTextBlock'
     $newGpoGroupsContainerComboBox = Get-PSGPOAvaloniaControl $window 'newGpoGroupsContainerComboBox'
-    $newGpoResultTextBlock = Get-PSGPOAvaloniaControl $window 'newGpoResultTextBlock'
+    $directoryResultTextBlock = Get-PSGPOAvaloniaControl $window 'directoryResultTextBlock'
+    $deleteLinkMenuItem = Get-PSGPOAvaloniaControl $window 'deleteLinkMenuItem'
+    $deleteLinkPanel = Get-PSGPOAvaloniaControl $window 'deleteLinkPanel'
+    $deleteLinkTextBlock = Get-PSGPOAvaloniaControl $window 'deleteLinkTextBlock'
+    $deleteLinkConfirmButton = Get-PSGPOAvaloniaControl $window 'deleteLinkConfirmButton'
+    $deleteLinkCancelButton = Get-PSGPOAvaloniaControl $window 'deleteLinkCancelButton'
 
     $applyPanel = Get-PSGPOAvaloniaControl $window 'applyPanel'
     $directoryTabs = Get-PSGPOAvaloniaControl $window 'directoryTabs'
@@ -548,7 +553,7 @@ function Start-PSGPOManagerWindow {
         $newGpoTitleTextBlock.Text = if ($Som) { "New GPO in $($Directory.DomainName), linked to $($Som.Name)" } else { "New GPO in $($Directory.DomainName)" }
         $newGpoNameTextBox.Text = 'New Group Policy Object'
         $newGpoErrorTextBlock.Text = ''
-        $newGpoResultTextBlock.Text = ''
+        $directoryResultTextBlock.Text = ''
         $newGpoStatusComboBox.SelectedIndex = 0
         $newGpoGroupsCheckBox.IsChecked = $false
         # The groups go to the users container by default, or to an OU.
@@ -628,12 +633,48 @@ function Start-PSGPOManagerWindow {
         }
         $newGpoPanel.IsVisible = $false
         Update-DirectoryTree -Select $select
-        $newGpoResultTextBlock.Text = (@($done) + @($problems)) -join [Environment]::NewLine
-        if ($problems.Count) {
-            $newGpoResultTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
+        Show-DirectoryResult -Text ((@($done) + @($problems)) -join [Environment]::NewLine) -Problem:($problems.Count -gt 0)
+    }
+
+    # What a change of the directory did, under the details; in red when something failed.
+    function Show-DirectoryResult {
+        param([string]$Text, [switch]$Problem)
+        $directoryResultTextBlock.Text = $Text
+        if ($Problem) {
+            $directoryResultTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
         } else {
-            $newGpoResultTextBlock.ClearValue([Avalonia.Controls.TextBlock]::ForegroundProperty)
+            $directoryResultTextBlock.ClearValue([Avalonia.Controls.TextBlock]::ForegroundProperty)
         }
+    }
+
+    # Deletion of the selected link, once confirmed, as GPMC: the GPO itself is kept.
+    $deleteLink = @{ Som = $null; Link = $null }
+    function Open-DeleteLinkForm {
+        $node = $domainTreeView.SelectedItem
+        if (-not $node -or $node.Tag -isnot [GPOToolsGpoLink] -or $node.Parent.Tag -isnot [GPOToolsSom]) { return }
+        $deleteLink.Link = $node.Tag
+        $deleteLink.Som = $node.Parent.Tag
+        $deleteLinkTextBlock.Text = "Delete the link of the GPO '$($node.Tag.GetDisplayName())' to $($node.Parent.Tag.Name)? " +
+            'The GPO itself is not deleted: it stays in Group Policy Objects, with its other links.'
+        $newGpoPanel.IsVisible = $false
+        $directoryResultTextBlock.Text = ''
+        $deleteLinkPanel.IsVisible = $true
+    }
+
+    function Submit-DeleteLink {
+        $som = $deleteLink.Som
+        $link = $deleteLink.Link
+        if (-not $som -or -not $link) { return }
+        try {
+            $Directory.RemoveLink($som, $link)
+        } catch {
+            $deleteLinkPanel.IsVisible = $false
+            Show-DirectoryResult -Text "The link of the GPO '$($link.GetDisplayName())' to $($som.Name) is not deleted: $($_.Exception.GetBaseException().Message)" -Problem
+            return
+        }
+        $deleteLinkPanel.IsVisible = $false
+        Update-DirectoryTree -Select $som
+        Show-DirectoryResult -Text "Link of the GPO '$($link.GetDisplayName())' to $($som.Name) deleted."
     }
 
     # Settings tab of the selected GPO: its Registry.pol files read once per version of the GPO.
@@ -700,19 +741,21 @@ function Start-PSGPOManagerWindow {
         $linksList.ItemsSource = $detail.Links
         $editGpoButton.IsVisible = $null -ne $detail.Gpo
         $newGpoPanel.IsVisible = $false
-        $newGpoResultTextBlock.Text = ''
+        $directoryResultTextBlock.Text = ''
+        $deleteLinkPanel.IsVisible = $false
 
         # Context menu of the selected node, as in GPMC.
         # A read-only directory (read over LDAP) cannot create GPOs yet.
         $createLinkedGpoMenuItem.IsVisible = $item -is [GPOToolsSom] -and -not $Directory.IsReadOnly
         $newGpoMenuItem.IsVisible = $item -eq 'GroupPolicyObjects' -and -not $Directory.IsReadOnly
         $editGpoMenuItem.IsVisible = $null -ne $detail.Gpo
+        $deleteLinkMenuItem.IsVisible = $item -is [GPOToolsGpoLink] -and -not $Directory.IsReadOnly
         Update-SettingsTab
     })
     # Nothing to offer on this node: do not open an empty menu.
     (Get-PSGPOAvaloniaControl $window 'domainContextMenu').add_Opening({
         param($sender, $e)
-        if (-not ($createLinkedGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible) -or
+        if (-not ($createLinkedGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible) -or
             -not $domainTreeView.SelectedItem) { $e.Cancel = $true }
     })
 
@@ -723,6 +766,9 @@ function Start-PSGPOManagerWindow {
     $domainTreeView.add_DoubleTapped({ $gpo = Get-SelectedGpo; if ($gpo) { Open-GpoEditor -Gpo $gpo } })
     $newGpoCreateButton.Add_Click({ Submit-NewGpo })
     $newGpoCancelButton.Add_Click({ $newGpoPanel.IsVisible = $false })
+    $deleteLinkMenuItem.Add_Click({ Open-DeleteLinkForm })
+    $deleteLinkConfirmButton.Add_Click({ Submit-DeleteLink })
+    $deleteLinkCancelButton.Add_Click({ $deleteLinkPanel.IsVisible = $false })
     $newGpoGroupsCheckBox.add_IsCheckedChanged({ $newGpoGroupsPanel.IsVisible = [bool]$newGpoGroupsCheckBox.IsChecked })
     # The property, not TextChanged: it is raised at once, whoever sets the text.
     $newGpoNameTextBox.add_PropertyChanged({
@@ -777,7 +823,8 @@ function Start-PSGPOManagerWindow {
             'directoryTitleTextBlock', 'directoryPropertiesList', 'linksHeaderTextBlock', 'linksList', 'createLinkedGpoMenuItem',
             'newGpoMenuItem', 'editGpoMenuItem', 'editGpoButton', 'newGpoPanel', 'newGpoTitleTextBlock', 'newGpoNameTextBox',
             'newGpoErrorTextBlock', 'newGpoCreateButton', 'newGpoCancelButton', 'newGpoStatusComboBox', 'newGpoGroupsCheckBox', 'newGpoGroupsPanel',
-            'newGpoGroupsTextBlock', 'newGpoGroupsContainerComboBox', 'newGpoResultTextBlock') {
+            'newGpoGroupsTextBlock', 'newGpoGroupsContainerComboBox', 'directoryResultTextBlock', 'deleteLinkMenuItem', 'deleteLinkPanel',
+            'deleteLinkTextBlock', 'deleteLinkConfirmButton', 'deleteLinkCancelButton') {
             $controls[$name] = Get-PSGPOAvaloniaControl $window $name
         }
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {

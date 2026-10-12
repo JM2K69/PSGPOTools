@@ -4,6 +4,9 @@
 
 ### Added
 
+* Security filtering in the details of a GPO, as the Scope tab of GPMC: who applies it and who is denied it (the "Apply Group Policy" extended right of its DACL), by name; read for every GPO with the domain, in one search, the names resolved in the domain
+* Deleting a link from the context menu of a link, once confirmed, as GPMC: the GPO itself is kept, the following links move up one link order; the gPLink is removed with the last link, as samba-tool gpo dellink does, and the change is refused when the links changed in the domain meanwhile
+
 * New GPO: its GPO status (computer settings only, user settings only), written to the flags of the group policy container as samba-tool gpo create has no option for it; and optionally its security filtering groups APPLY_<GPO> (only its members apply the GPO) and DENY_<GPO> (its members never apply it), global security groups created in the users container or an OU. Authenticated Users keep reading the GPO (MS16-072); the ACL of its SYSVOL folder is derived from the directory one as samba-tool does, so that samba-tool gpo aclcheck finds them consistent. A GPO whose filtering failed is not linked, and the window says what was done and what failed
 * `GPOToolsSecurityDescriptor`: security descriptors read and written byte for byte on any platform (the ACL classes of .NET are Windows-only), with their SDDL and the SYSVOL ACL of a GPO derived from its directory ACL
 

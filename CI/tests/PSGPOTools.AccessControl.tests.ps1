@@ -100,11 +100,52 @@ InModuleScope -ModuleName PSGPOTools {
             $Descriptor.ToSddl() | Should -Match ([regex]::Escape("$Apply;;S-1-5-11)"))
         }
 
+        It 'Reads who applies the GPO and who is denied it, as GPMC lists them' {
+            $Descriptor = [GPOToolsSecurityDescriptor]::Parse($DefaultDomainPolicy)
+            $Filtering = $Descriptor.GetSecurityFiltering()
+            # Domain Admins have full control but not the extended rights: not in the filtering.
+            $Filtering.Apply | Should -Be @('S-1-5-11')
+            $Filtering.Deny | Should -BeNullOrEmpty
+
+            $Descriptor.SetSecurityFiltering("$Domain-1103", "$Domain-1104")
+            # Every extended right (no object type) and an inherit-only entry.
+            $Descriptor.Dacl.Add([GPOToolsAce]::new([GPOToolsAce]::AccessAllowed, 2, 0x000F01FF, "$Domain-1105", [guid]::Empty))
+            $Descriptor.Dacl.Add([GPOToolsAce]::new([GPOToolsAce]::AccessAllowedObject, 0x0A, 0x100, "$Domain-1106", $Apply))
+            # Another extended right: not Apply Group Policy.
+            $Descriptor.Dacl.Add([GPOToolsAce]::new([GPOToolsAce]::AccessAllowedObject, 2, 0x100, "$Domain-1107", '00299570-246d-11d0-a768-00aa006e0529'))
+            $Filtering = $Descriptor.GetSecurityFiltering()
+            $Filtering.Apply | Should -Be @("$Domain-1103", "$Domain-1105")
+            $Filtering.Deny | Should -Be @("$Domain-1104")
+        }
+
         It 'Names the groups after the GPO, without the characters a group name cannot hold' {
             Get-PSGPOFilteringGroupName -Prefix APPLY -GpoName 'C - Servers - Security Baseline' | Should -Be 'APPLY_C - Servers - Security Baseline'
             Get-PSGPOFilteringGroupName -Prefix DENY -GpoName ' Proxy: http/https [v2]* ' | Should -Be 'DENY_Proxy_ http_https _v2__'
             Get-PSGPOFilteringGroupName -Prefix DENY -GpoName 'Ends with dots...' | Should -Be 'DENY_Ends with dots'
             { Get-PSGPOFilteringGroupName -Prefix APPLY -GpoName ('x' * 60) } | Should -Throw -ExpectedMessage '*longer than 64 characters*'
+        }
+    }
+
+    Describe 'Deleting a link from a gPLink' {
+        BeforeAll {
+            $First = 'cn={11111111-1111-1111-1111-111111111111},cn=policies,cn=system,dc=contoso,dc=com'
+            $Second = 'CN={22222222-2222-2222-2222-222222222222},CN=Policies,CN=System,DC=contoso,DC=com'
+            function New-Link { param($DistinguishedName) $Link = [GPOToolsGpoLink]::new(); $Link.GpoDistinguishedName = $DistinguishedName; $Link }
+        }
+
+        It 'Removes the link of the GPO only, the other links kept as written' {
+            $Current = "[LDAP://$First;2][LDAP://$Second;1]"
+            Get-PSGPORemovedGpLink -Current $Current -Link (New-Link $First.ToUpperInvariant()) | Should -Be "[LDAP://$Second;1]"
+            Get-PSGPORemovedGpLink -Current $Current -Link (New-Link $Second) | Should -Be "[LDAP://$First;2]"
+        }
+
+        It 'Gives an empty value when the last link goes' {
+            Get-PSGPORemovedGpLink -Current "[LDAP://$First;0]" -Link (New-Link $First) | Should -Be ''
+        }
+
+        It 'Refuses a GPO that is not linked there anymore' {
+            { Get-PSGPORemovedGpLink -Current "[LDAP://$First;0]" -Link (New-Link $Second) } | Should -Throw -ExpectedMessage '*not linked there anymore*'
+            { Get-PSGPORemovedGpLink -Current $null -Link (New-Link $Second) } | Should -Throw -ExpectedMessage '*not linked there anymore*'
         }
     }
 
@@ -129,8 +170,41 @@ InModuleScope -ModuleName PSGPOTools {
             @($Directory.NewFilteringGroups($Gpo, 'OU=Groups,DC=contoso,DC=com').DistinguishedName)[0] | Should -Be 'CN=APPLY_Workstations,OU=Groups,DC=contoso,DC=com'
         }
 
+        It 'Shows the security filtering in the details of the GPO' {
+            function Get-Value { param($Key) (Get-PSGPODirectoryDetail -Directory $Directory -Item $Gpo).Properties | Where-Object Key -EQ $Key | ForEach-Object Value }
+            Get-Value 'Security filtering' | Should -Be 'Authenticated Users'
+            Get-Value 'Denied to' | Should -BeNullOrEmpty
+
+            $null = $Directory.NewFilteringGroups($Gpo, $null)
+            $Gpo.SecurityFiltering | Should -Be @('APPLY_Workstations')
+            Get-Value 'Security filtering' | Should -Be 'APPLY_Workstations'
+            Get-Value 'Denied to' | Should -Be 'DENY_Workstations'
+
+            $Gpo.SecurityFiltering = @()
+            Get-Value 'Security filtering' | Should -BeLike 'Nobody*'
+            $Gpo.SecurityFiltering = $null
+            Get-Value 'Security filtering' | Should -BeLike 'Not read*'
+        }
+
+        It 'Deletes a link, the links after it moving up, and keeps the GPO' {
+            $Ou = $Directory.AddOrganizationalUnit($Directory.Domain, 'Workstations')
+            $Second = $Directory.NewGpo('Second')
+            $Third = $Directory.NewGpo('Third')
+            foreach ($Linked in $Gpo, $Second, $Third) { $null = $Directory.NewLink($Ou, $Linked) }
+            $Directory.RemoveLink($Ou, $Ou.Links[0])
+            @($Ou.Links.Gpo.DisplayName) | Should -Be @('Second', 'Third')
+            @($Ou.Links.Order) | Should -Be @(1, 2)
+            $Directory.FindGpo('Workstations') | Should -Not -BeNullOrEmpty
+            $Removed = [GPOToolsGpoLink]::new()
+            $Removed.GpoDistinguishedName = $Gpo.DistinguishedName
+            { $Directory.RemoveLink($Ou, $Removed) } | Should -Throw -ExpectedMessage '*not a link of Workstations*'
+        }
+
         It 'Refuses the changes on a read-only directory' {
             $Directory.IsReadOnly = $true
+            $Ou = $Directory.AddOrganizationalUnit($Directory.Domain, 'Servers')
+            $Ou.Links.Add([GPOToolsGpoLink]::new())
+            { $Directory.RemoveLink($Ou, $Ou.Links[0]) } | Should -Throw -ExpectedMessage '*read-only*'
             { $Directory.SetGpoStatus($Gpo, 1) } | Should -Throw -ExpectedMessage '*read-only*'
             { $Directory.NewFilteringGroups($Gpo, $null) } | Should -Throw -ExpectedMessage '*read-only*'
         }

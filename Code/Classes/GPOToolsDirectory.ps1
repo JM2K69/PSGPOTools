@@ -27,6 +27,10 @@ class GPOToolsGpo {
     [int]$Version
     # flags: 1 = user settings disabled, 2 = computer settings disabled
     [int]$Flags
+    # Security filtering, as GPMC lists it: who applies the GPO (Authenticated Users for a new
+    # GPO) and who is denied it, by name; $null when it could not be read
+    [string[]]$SecurityFiltering = @('Authenticated Users')
+    [string[]]$DeniedTo = @()
 
     [int] GetUserVersion() { return $this.Version -shr 16 }
     [int] GetComputerVersion() { return $this.Version -band 0xFFFF }
@@ -256,7 +260,23 @@ class GPOToolsDirectory {
     [object[]] NewFilteringGroups([GPOToolsGpo]$Gpo, [string]$Container) {
         $this.AssertWritable()
         if ([string]::IsNullOrWhiteSpace($Container)) { $Container = $this.GetUsersContainer() }
-        return $this.SaveFilteringGroups($Gpo, $Container)
+        $Created = $this.SaveFilteringGroups($Gpo, $Container)
+        $Gpo.SecurityFiltering = @($Created[0].Name)
+        $Gpo.DeniedTo = @($Created[1].Name)
+        return $Created
+    }
+
+    # Deletes a link of a SOM, like GPMC "Delete" on a link: the GPO itself is kept, the links
+    # after it move up one link order.
+    [void] RemoveLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {
+        $this.AssertWritable()
+        if (-not $Som.Links.Contains($Link)) { throw "This link is not a link of $($Som.Name) anymore." }
+        $this.SaveRemovedLink($Som, $Link)
+        if ($Som.Links.Contains($Link)) {
+            [void]$Som.Links.Remove($Link)
+            $Order = 1
+            foreach ($Remaining in @($Som.Links | Sort-Object Order)) { $Remaining.Order = $Order++ }
+        }
     }
 
     [string] GetUsersContainer() {
@@ -340,6 +360,8 @@ class GPOToolsDirectory {
     # SaveNewLink may set the links of the SOM again from the domain (link added by someone else).
     hidden [void] SaveNewLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {}
     hidden [void] SaveGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {}
+    # SaveRemovedLink may set the links of the SOM again from the domain.
+    hidden [void] SaveRemovedLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {}
 
     # Groups created in memory, by distinguished name.
     hidden [hashtable]$Groups = @{}
@@ -396,6 +418,10 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
 
     hidden [void] SaveGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {
         Set-PSGPODomainGpoFlags -Directory $this -Gpo $Gpo -Flags $Flags
+    }
+
+    hidden [void] SaveRemovedLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {
+        Remove-PSGPODomainGpLink -Directory $this -Som $Som -Link $Link
     }
 
     hidden [object[]] SaveFilteringGroups([GPOToolsGpo]$Gpo, [string]$Container) {
