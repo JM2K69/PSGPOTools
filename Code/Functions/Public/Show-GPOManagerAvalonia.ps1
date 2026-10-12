@@ -17,9 +17,10 @@ function Show-GPOManagerAvalonia {
         A status bar shows this computer (name, system, addresses), its domain and the domain
         controller the directory was read from, with its directory service.
 
-        The policy editor displays the policies loaded by Initialize-PSGPOAdmx in a tree
-        (scope > categories > policies) with their setting form and details. The settings are
-        not saved to the GPO yet.
+        The policy editor displays the security settings of the computer (Windows Settings >
+        Security Settings) and the policies loaded by Initialize-PSGPOAdmx (scope > categories >
+        policies) with their setting form and details. Editing a GPO, each setting is read from
+        the GPO (Registry.pol, GptTmpl.inf) and Apply saves it there.
 
         Hosted on Avalonia UI under PowerShell 7+; the call blocks until the window is closed.
         The Avalonia assemblies are not bundled with the module; run

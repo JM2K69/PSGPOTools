@@ -96,7 +96,16 @@ function Start-PSGPOManagerWindow {
     # GPO opened from the Group Policy Management view ($null: browsing the ADMX policies).
     # Pol: the Registry.pol of the GPO by scope; Saved: the registry values of the setting of the
     # selected policy in it, compared with the form to know whether there is something to apply.
-    $editing = @{ Policy = $null; Editor = $null; Gpo = $null; Pol = @{}; PolError = $null; Saved = $null }
+    # Security: the selected security setting, Template: the GptTmpl.inf of the GPO (security
+    # settings); Saved is then the raw value of the setting in it.
+    $editing = @{ Policy = $null; Security = $null; Editor = $null; Gpo = $null; Pol = @{}; PolError = $null; Template = $null; Saved = $null }
+    $previewHeaderTextBlock = Get-PSGPOAvaloniaControl $window 'previewHeaderTextBlock'
+    $notDefinedMark = '(not defined)'
+
+    # Raw GptTmpl.inf value of the security setting of the form, or the not defined mark.
+    function Get-SecuritySignature {
+        if ($enabledRadio.IsChecked) { $editing.Security.ConvertToRaw((& $editing.Editor.GetValue)) } else { $notDefinedMark }
+    }
 
     function Get-SettingState {
         if ($enabledRadio.IsChecked) { 'Enabled' } elseif ($disabledRadio.IsChecked) { 'Disabled' } else { 'NotConfigured' }
@@ -114,8 +123,11 @@ function Start-PSGPOManagerWindow {
         $applyPanel.IsVisible = [bool]$editing.Gpo
         $pol = if ($policy) { $editing.Pol["$($policy.Scope)"] }
         $changed = $false
-        if ($policy -and $pol -and -not $settingErrorTextBlock.Text) {
-            try { $changed = (Get-SettingSignature $policy (Get-SettingState) (& $editing.Editor.GetValue)) -ne $editing.Saved } catch { $changed = $false }
+        if (-not $settingErrorTextBlock.Text) {
+            try {
+                if ($policy -and $pol) { $changed = (Get-SettingSignature $policy (Get-SettingState) (& $editing.Editor.GetValue)) -ne $editing.Saved }
+                elseif ($editing.Security -and $editing.Template) { $changed = (Get-SecuritySignature) -ne $editing.Saved }
+            } catch { $changed = $false }
         }
         $applySettingButton.IsEnabled = $changed
     }
@@ -127,6 +139,27 @@ function Start-PSGPOManagerWindow {
         # Like the Group Policy editor, options can only be edited when the policy is enabled.
         $optionsHost.IsEnabled = $state -eq 'Enabled'
         $settingErrorTextBlock.Text = ''
+        if ($editing.Security) {
+            # A security setting: its line of GptTmpl.inf.
+            $rows = @()
+            if ($state -eq 'Enabled') {
+                try {
+                    $row = [AvaloniaPreviewRow]::new()
+                    $row.Title = 'Set in GptTmpl.inf'
+                    $row.Key = "[$($editing.Security.Section)]"
+                    $row.ValueName = $editing.Security.Key
+                    $row.Data = $editing.Security.ConvertToRaw((& $editing.Editor.GetValue))
+                    $rows = @($row)
+                } catch {
+                    $settingErrorTextBlock.Text = $_.Exception.Message
+                }
+            }
+            $registryPreviewList.ItemsSource = $rows
+            $previewEmptyTextBlock.IsVisible = $rows.Count -eq 0
+            $previewEmptyTextBlock.Text = if ($settingErrorTextBlock.Text) { 'Fix the value above to see the line of GptTmpl.inf.' } else { 'Not defined: nothing is written to GptTmpl.inf.' }
+            Update-ApplyButton
+            return
+        }
         $rows = @()
         if ($policy) {
             try {
@@ -147,6 +180,24 @@ function Start-PSGPOManagerWindow {
     # Saves the setting of the selected policy in the Registry.pol of the GPO. The file is
     # changed on a copy: if the domain refuses it, the setting read before stays.
     $applySettingButton.Add_Click({
+        if ($editing.Security) {
+            # A security setting: written to a copy of GptTmpl.inf, saved, then kept.
+            $setting = $editing.Security
+            if (-not $editing.Gpo -or -not $editing.Template) { return }
+            $value = if ($enabledRadio.IsChecked) { & $editing.Editor.GetValue } else { $null }
+            $copy = [GPOToolsSecurityTemplate]::Parse($editing.Template.ToBytes())
+            try {
+                Set-PSGPOSecurityValue -Template $copy -Setting $setting -Value $value
+                $Directory.WriteSecurityTemplate($editing.Gpo, $copy.ToBytes())
+                $editing.Template = $copy
+                $editing.Saved = Get-SecuritySignature
+                $applyStatusTextBlock.Text = "Saved: $($setting.FormatValue($value)) in GptTmpl.inf (version $($editing.Gpo.GetComputerVersion()))."
+            } catch {
+                $applyStatusTextBlock.Text = "Not saved: $($_.Exception.GetBaseException().Message)"
+            }
+            Update-ApplyButton
+            return
+        }
         $policy = $editing.Policy
         $scope = "$($policy.Scope)"
         if (-not $policy -or -not $editing.Gpo -or -not $editing.Pol[$scope]) { return }
@@ -224,6 +275,48 @@ function Start-PSGPOManagerWindow {
         }
     })
 
+    # A security setting in the form: Not Defined / Define this policy setting, its value read
+    # from the GptTmpl.inf of the edited GPO.
+    function Show-SecuritySetting {
+        param([GPOToolsSecuritySetting]$Setting)
+        $read = [pscustomobject]@{ Defined = $false; Value = $null; Problem = $null; Raw = $null }
+        if ($editing.Template) { $read = Get-PSGPOSecurityValue -Template $editing.Template -Setting $Setting }
+        $editing.Policy = $null
+        $editing.Saved = if ($read.Defined) { $read.Raw } else { $notDefinedMark }
+        $notConfiguredRadio.Content = 'Not Defined'
+        $enabledRadio.Content = 'Define this policy setting'
+        $disabledRadio.IsVisible = $false
+        $previewHeaderTextBlock.Text = 'GptTmpl.inf Preview'
+        if ($read.Defined -and -not $read.Problem) { $enabledRadio.IsChecked = $true } else { $notConfiguredRadio.IsChecked = $true }
+        $applyStatusTextBlock.Text = if ($read.Problem) { $read.Problem }
+            elseif ($editing.Template) { "$(if ($read.Defined) { 'Defined' } else { 'Not defined' }) in GptTmpl.inf" }
+            elseif ($editing.Gpo -and $editing.PolError) { $editing.PolError } else { '' }
+
+        $editing.Security = $Setting
+        $settingTitleTextBlock.Text = $Setting.Name
+        $editing.Editor = New-PSGPOSecurityEditor -Setting $Setting -Value $read.Value -OnChange { Update-RegistryPreview }
+        $optionsHost.Content = $editing.Editor.Panel
+
+        $displayNameTextBox.Text = $Setting.Name
+        $descriptionTextBox.Text = "Security setting of the computer, in GptTmpl.inf (Machine\Microsoft\Windows NT\SecEdit).$(if ($Setting.Reference) { "`n`nReference: $($Setting.Reference)" })"
+        $scopeTextBox.Text = 'Machine'
+        $registryPathTextBox.Text = "GptTmpl.inf [$($Setting.Section)]"
+        $registryKeyTextBox.Text = $Setting.Key
+        $registryValuesList.ItemsSource = @(
+            foreach ($pair in @(
+                    @('Category', ($Setting.Path -join ' > '))
+                    @('Value', $(if ($Setting.Kind -eq 'RegistryValue') { "$($Setting.Display), registry type $($Setting.RegistryType)" } else { $Setting.Kind }))
+                    @('Range', $(if ($null -ne $Setting.Min -or $null -ne $Setting.Max) { "$($Setting.Min) to $($Setting.Max) $($Setting.Unit)".Trim() }))
+                    @('Values', (@($Setting.Choices | ForEach-Object { "$($_.Value): $($_.Text)" }) -join '; ')))) {
+                if (-not $pair[1]) { continue }
+                $row = [AvaloniaRegistryRow]::new()
+                $row.Key = $pair[0]
+                $row.Value = $pair[1]
+                $row
+            })
+        Update-RegistryPreview
+    }
+
     $treeView.add_SelectionChanged({
         $selected = $treeView.SelectedItem
 
@@ -237,6 +330,16 @@ function Start-PSGPOManagerWindow {
         $breadcrumbTextBlock.Text = if ($pathParts.Count -gt 0) { $pathParts -join ' > ' } else { 'Select a policy to see its path' }
 
         $policy = if ($selected) { $selected.Tag } else { $null }
+        $editing.Security = $null
+        if ($policy -is [GPOToolsSecuritySetting]) {
+            Show-SecuritySetting -Setting $policy
+            return
+        }
+        # A policy: Not Configured / Enabled / Disabled.
+        $notConfiguredRadio.Content = 'Not Configured'
+        $enabledRadio.Content = 'Enabled'
+        $disabledRadio.IsVisible = $true
+        $previewHeaderTextBlock.Text = 'Registry Preview'
         # The setting of the policy in the Registry.pol of the edited GPO, else not configured.
         $read = [pscustomobject]@{ State = 'NotConfigured'; Value = @{} }
         $pol = if ($policy -is [GPOToolsPolicy]) { $editing.Pol["$($policy.Scope)"] }
@@ -340,16 +443,19 @@ function Start-PSGPOManagerWindow {
         $editing.Gpo = $Gpo
         # The settings of the GPO: its Registry.pol for each scope (empty when it has none).
         $editing.Pol = @{}
+        $editing.Template = $null
         $editing.PolError = $null
         if ($Gpo) {
-            foreach ($scope in 'Machine', 'User') {
-                try {
+            try {
+                foreach ($scope in 'Machine', 'User') {
                     $editing.Pol[$scope] = [GPOToolsRegistryPol]::Parse($Directory.ReadPolicyFile($Gpo, $scope))
-                } catch {
-                    $editing.PolError = "The settings of the GPO cannot be read: $($_.Exception.GetBaseException().Message)"
-                    $editing.Pol = @{}
-                    break
                 }
+                # Its security settings: GptTmpl.inf, a new empty template when the GPO has none.
+                $editing.Template = [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($Gpo))
+            } catch {
+                $editing.PolError = "The settings of the GPO cannot be read: $($_.Exception.GetBaseException().Message)"
+                $editing.Pol = @{}
+                $editing.Template = $null
             }
         }
         $treeView.SelectedItem = $null
@@ -454,6 +560,9 @@ function Start-PSGPOManagerWindow {
                     $pol = [GPOToolsRegistryPol]::Parse($Directory.ReadPolicyFile($gpo, $scope))
                     $cached[$scope] = @(Get-PSGPOConfiguredSetting -Pol $pol -Scope $scope)
                 }
+                # Security settings first, as GPMC lists Windows Settings before Administrative Templates.
+                $template = [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($gpo))
+                $cached['Machine'] = @(Get-PSGPOConfiguredSecuritySetting -Template $template) + $cached['Machine']
             } catch {
                 $cached.Error = "The settings of the GPO cannot be read: $($_.Exception.GetBaseException().Message)"
             }
@@ -461,7 +570,7 @@ function Start-PSGPOManagerWindow {
         }
         $settingsStatusTextBlock.Text = if ($cached.Error) { $cached.Error }
             elseif ([GPOToolsUtility]::Policies.Count -eq 0) { 'No ADMX loaded (Initialize-PSGPOAdmx): the values are shown as Extra Registry Settings.' }
-            else { "Registry settings of $($gpo.DisplayName) (version: computer $($gpo.GetComputerVersion()), user $($gpo.GetUserVersion()))" }
+            else { "Settings of $($gpo.DisplayName) (version: computer $($gpo.GetComputerVersion()), user $($gpo.GetUserVersion()))" }
         $computerState = if ($gpo.Flags -band 2) { 'Disabled' } else { 'Enabled' }
         $userState = if ($gpo.Flags -band 1) { 'Disabled' } else { 'Enabled' }
         $computerSettingsHeader.Text = "Computer Configuration ($computerState)$(if (-not $cached.Machine.Count) { ': no settings defined' })"
@@ -562,7 +671,7 @@ function Start-PSGPOManagerWindow {
             'registryKeyTextBox', 'registryValuesList', 'settingTitleTextBlock', 'previewEmptyTextBlock', 'detailsTabs', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
             'notConfiguredRadio', 'enabledRadio', 'disabledRadio', 'optionsHost', 'settingErrorTextBlock', 'registryPreviewList',
             'themeToggleIcon', 'themeToggleText', 'subtitleTextBlock', 'managementButton', 'browseAdmxButton', 'searchPanel', 'managementView', 'editorView',
-            'editingBanner', 'editingGpoTextBlock', 'applyPanel', 'applySettingButton', 'applyStatusTextBlock', 'directoryTabs', 'settingsTab', 'settingsStatusTextBlock', 'computerSettingsHeader', 'computerSettingsList', 'userSettingsHeader', 'userSettingsList', 'demoBanner', 'demoBannerTextBlock', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
+            'editingBanner', 'editingGpoTextBlock', 'applyPanel', 'applySettingButton', 'applyStatusTextBlock', 'previewHeaderTextBlock', 'directoryTabs', 'settingsTab', 'settingsStatusTextBlock', 'computerSettingsHeader', 'computerSettingsList', 'userSettingsHeader', 'userSettingsList', 'demoBanner', 'demoBannerTextBlock', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
             'directoryTitleTextBlock', 'directoryPropertiesList', 'linksHeaderTextBlock', 'linksList', 'createLinkedGpoMenuItem',
             'newGpoMenuItem', 'editGpoMenuItem', 'editGpoButton', 'newGpoPanel', 'newGpoTitleTextBlock', 'newGpoNameTextBox',
             'newGpoErrorTextBlock', 'newGpoCreateButton', 'newGpoCancelButton') {

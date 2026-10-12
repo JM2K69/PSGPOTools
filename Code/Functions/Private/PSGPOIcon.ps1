@@ -21,6 +21,7 @@ $script:PSGPOIconBrush = @{
     'document'          = '#3A96DD'
     'person'            = '#0F6CBD'
     'desktop'           = '#0F6CBD'
+    'shield'            = '#107C10'
 }
 
 # Path data of an icon of Resources/Icons ('folder' for folder.svg).

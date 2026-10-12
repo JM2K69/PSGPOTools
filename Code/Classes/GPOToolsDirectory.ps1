@@ -254,16 +254,38 @@ class GPOToolsDirectory {
         return $Found.ToArray()
     }
 
+    # Client-side extensions declared by a GPO (gPC*ExtensionNames) for its files, with the tool
+    # of the editor: Registry (Registry.pol, administrative templates of the computer / user)
+    # and Security (GptTmpl.inf, security settings).
+    static [string] $RegistryExtension = '{35378EAC-683F-11D2-A89A-00C04FBBCFA2}'
+    static [hashtable] $RegistryTool = @{ Machine = '{D02B1F72-3407-48AE-BA88-E8213C6761F1}'; User = '{D02B1F73-3407-48AE-BA88-E8213C6761F1}' }
+    static [string] $SecurityExtension = '{827D319E-6EAC-11D2-A4EA-00C04F79F83A}'
+    static [string] $SecurityTool = '{803E14A0-B4FB-11D0-A0D0-00A0C90F574B}'
+    # Security template of a GPO, in its folder
+    static [string] $SecurityTemplatePath = 'Machine\Microsoft\Windows NT\SecEdit\GptTmpl.inf'
+
     # Registry.pol of a GPO for a scope (Machine or User): its bytes, $null when the GPO has none.
     [byte[]] ReadPolicyFile([GPOToolsGpo]$Gpo, [string]$Scope) {
-        return $this.LoadPolicyFile($Gpo, [GPOToolsDirectory]::GetScopeFolder($Scope))
+        return $this.LoadGpoFile($Gpo, "$([GPOToolsDirectory]::GetScopeFolder($Scope))\Registry.pol")
     }
 
     # Writes the Registry.pol of a GPO for a scope, and increases the version of the GPO for that
     # scope so that the computers apply it.
     [void] WritePolicyFile([GPOToolsGpo]$Gpo, [string]$Scope, [byte[]]$Bytes) {
         $this.AssertWritable()
-        $this.SavePolicyFile($Gpo, [GPOToolsDirectory]::GetScopeFolder($Scope), $Bytes)
+        $Folder = [GPOToolsDirectory]::GetScopeFolder($Scope)
+        $this.SaveGpoFile($Gpo, "$Folder\Registry.pol", $Bytes, $Folder, [GPOToolsDirectory]::RegistryExtension, [GPOToolsDirectory]::RegistryTool[$Folder])
+    }
+
+    # GptTmpl.inf of a GPO (its security settings): its bytes, $null when the GPO has none.
+    [byte[]] ReadSecurityTemplate([GPOToolsGpo]$Gpo) {
+        return $this.LoadGpoFile($Gpo, [GPOToolsDirectory]::SecurityTemplatePath)
+    }
+
+    # Writes the GptTmpl.inf of a GPO, and increases its computer version.
+    [void] WriteSecurityTemplate([GPOToolsGpo]$Gpo, [byte[]]$Bytes) {
+        $this.AssertWritable()
+        $this.SaveGpoFile($Gpo, [GPOToolsDirectory]::SecurityTemplatePath, $Bytes, 'Machine', [GPOToolsDirectory]::SecurityExtension, [GPOToolsDirectory]::SecurityTool)
     }
 
     # Folder of a scope in the GPO: Machine (HKLM) or User (HKCU).
@@ -293,13 +315,15 @@ class GPOToolsDirectory {
     # SaveNewLink may set the links of the SOM again from the domain (link added by someone else).
     hidden [void] SaveNewLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {}
 
-    # Registry.pol files kept in memory, by GPO and scope folder.
-    hidden [hashtable]$PolicyFiles = @{}
-    hidden [byte[]] LoadPolicyFile([GPOToolsGpo]$Gpo, [string]$Folder) {
-        return $this.PolicyFiles["$($Gpo.Id)\$Folder"]
+    # Files of the GPOs kept in memory, by GPO and path in its folder.
+    hidden [hashtable]$GpoFiles = @{}
+    hidden [byte[]] LoadGpoFile([GPOToolsGpo]$Gpo, [string]$Path) {
+        return $this.GpoFiles["$($Gpo.Id)\$Path"]
     }
-    hidden [void] SavePolicyFile([GPOToolsGpo]$Gpo, [string]$Folder, [byte[]]$Bytes) {
-        $this.PolicyFiles["$($Gpo.Id)\$Folder"] = $Bytes
+    # Saves a file of the GPO, then increases the version of the scope ($Folder) and declares the
+    # client-side extension that applies it.
+    hidden [void] SaveGpoFile([GPOToolsGpo]$Gpo, [string]$Path, [byte[]]$Bytes, [string]$Folder, [string]$Extension, [string]$Tool) {
+        $this.GpoFiles["$($Gpo.Id)\$Path"] = $Bytes
         $Gpo.Version = [GPOToolsDirectory]::GetNextVersion($Gpo.Version, $Folder)
     }
 }
@@ -331,12 +355,12 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
         Add-PSGPODomainGpLink -Directory $this -Som $Som -Link $Link
     }
 
-    hidden [byte[]] LoadPolicyFile([GPOToolsGpo]$Gpo, [string]$Folder) {
-        return Read-PSGPOSysvolFile -Directory $this -Gpo $Gpo -Path "$Folder\Registry.pol"
+    hidden [byte[]] LoadGpoFile([GPOToolsGpo]$Gpo, [string]$Path) {
+        return Read-PSGPOSysvolFile -Directory $this -Gpo $Gpo -Path $Path
     }
 
-    hidden [void] SavePolicyFile([GPOToolsGpo]$Gpo, [string]$Folder, [byte[]]$Bytes) {
-        Save-PSGPODomainPolicyFile -Directory $this -Gpo $Gpo -Folder $Folder -Bytes $Bytes
+    hidden [void] SaveGpoFile([GPOToolsGpo]$Gpo, [string]$Path, [byte[]]$Bytes, [string]$Folder, [string]$Extension, [string]$Tool) {
+        Save-PSGPODomainGpoFile -Directory $this -Gpo $Gpo -Path $Path -Bytes $Bytes -Folder $Folder -Extension $Extension -Tool $Tool
     }
 
     # Directory service of a domain controller from the vendorName of its rootDSE: Samba sets it,

@@ -365,6 +365,10 @@ InModuleScope -ModuleName PSGPOTools {
             $Directory = Import-PSGPODirectory -Path $SamplePath
         }
         BeforeAll {
+            function Get-PreviewLine {
+                param($Ui)
+                @($Ui.registryPreviewList.ItemsSource | ForEach-Object { '{0} | {1} | {2} | {3}' -f $_.Title, $_.Key, $_.ValueName, $_.Data })
+            }
             function Select-GuiPolicy {
                 param($Ui, [string]$Id)
                 $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsPolicy] -and $n.Tag.ID -eq $Id }.GetNewClosure()
@@ -726,9 +730,94 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
+        It 'Edits the security settings of a GPO in GptTmpl.inf, as the Group Policy editor' {
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+
+                # Machine > Windows Settings > Security Settings > Account Policies > Password Policy
+                $Node = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsSecuritySetting] -and $n.Tag.Key -eq 'MinimumPasswordLength' }
+                $Node.Parent.Header | Should -Be 'Password Policy'
+                $Node.Parent.Parent.Parent.Header | Should -Be 'Security Settings'
+                $Node.Parent.Parent.Parent.Parent.Header | Should -Be 'Windows Settings'
+                $Ui.treeView.SelectedItem = $Node
+                $Ui.settingTitleTextBlock.Text | Should -Be 'Minimum password length'
+                $Ui.notConfiguredRadio.Content | Should -Be 'Not Defined'
+                $Ui.enabledRadio.Content | Should -Be 'Define this policy setting'
+                $Ui.disabledRadio.IsVisible | Should -BeFalse
+                $Ui.notConfiguredRadio.IsChecked | Should -BeTrue
+                $Ui.applyStatusTextBlock.Text | Should -Be 'Not defined in GptTmpl.inf'
+
+                $Ui.enabledRadio.IsChecked = $true
+                $Ui.Editing.Editor.Controls['Value'].Value = 14
+                (Get-PreviewLine $Ui) | Should -Be 'Set in GptTmpl.inf | [System Access] | MinimumPasswordLength | 14'
+                $Ui.Editing.Editor.Controls['Value'].Value = 200
+                $Ui.settingErrorTextBlock.Text | Should -BeLike '*at most 128 characters*'
+                $Ui.applySettingButton.IsEnabled | Should -BeFalse
+                $Ui.Editing.Editor.Controls['Value'].Value = 14
+                $Ui.applySettingButton.IsEnabled | Should -BeTrue
+                Invoke-Click $Ui.applySettingButton
+                $Ui.applyStatusTextBlock.Text | Should -Be 'Saved: 14 characters in GptTmpl.inf (version 17).'
+
+                # A user right: accounts added to the list.
+                $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsSecuritySetting] -and $n.Tag.Key -eq 'SeBackupPrivilege' }
+                $Ui.enabledRadio.IsChecked = $true
+                $Accounts = $Ui.Editing.Editor.Controls['Value']
+                foreach ($Account in '*S-1-5-32-544', 'CONTOSO\Backup') { $Accounts.NameInput.Text = $Account; Invoke-Click $Accounts.Add }
+                @($Accounts.Entries) | Should -Be @('BUILTIN\Administrators (*S-1-5-32-544)', 'CONTOSO\Backup')
+                Invoke-Click $Ui.applySettingButton
+
+                # Selected again: read from GptTmpl.inf.
+                $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsSecuritySetting] -and $n.Tag.Key -eq 'MinimumPasswordLength' }
+                $Ui.enabledRadio.IsChecked | Should -BeTrue
+                $Ui.Editing.Editor.Controls['Value'].Value | Should -Be 14
+                $Ui.applySettingButton.IsEnabled | Should -BeFalse
+
+                # An administrative template again: its labels come back.
+                Select-GuiPolicy $Ui 'Biometrics_EnableBio'
+                $Ui.notConfiguredRadio.Content | Should -Be 'Not Configured'
+                $Ui.disabledRadio.IsVisible | Should -BeTrue
+
+                # The Settings tab lists the security settings first.
+                Invoke-Click $Ui.managementButton
+                $Ui.directoryTabs.SelectedItem = $Ui.settingsTab
+                $Rows = @($Ui.computerSettingsList.ItemsSource)
+                $Rows[0].Path | Should -Be 'Policies > Windows Settings > Security Settings > Account Policies > Password Policy'
+                $Rows[0].State | Should -Be '14 characters'
+                ($Rows | Where-Object Name -EQ 'Back up files and directories').State | Should -Be 'BUILTIN\Administrators, CONTOSO\Backup'
+            }
+            $Template = [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($Gpo))
+            $Template.GetValue('System Access', 'MinimumPasswordLength') | Should -Be '14'
+            $Template.GetValue('Privilege Rights', 'SeBackupPrivilege') | Should -Be '*S-1-5-32-544,CONTOSO\Backup'
+            $Template.GetSectionNames()[0..1] | Should -Be @('Unicode', 'Version')
+        }
+
+        It 'Removes a security setting when it is no longer defined' {
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            $Template = [GPOToolsSecurityTemplate]::new()
+            $Template.SetValue('Event Audit', 'AuditLogonEvents', '3')
+            $Directory.WriteSecurityTemplate($Gpo, $Template.ToBytes())
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+                $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsSecuritySetting] -and $n.Tag.Key -eq 'AuditLogonEvents' }
+                $Ui.enabledRadio.IsChecked | Should -BeTrue
+                $Ui.Editing.Editor.Controls['Success'].IsChecked | Should -BeTrue
+                $Ui.Editing.Editor.Controls['Failure'].IsChecked | Should -BeTrue
+                $Ui.notConfiguredRadio.IsChecked = $true
+                $Ui.previewEmptyTextBlock.Text | Should -Be 'Not defined: nothing is written to GptTmpl.inf.'
+                Invoke-Click $Ui.applySettingButton
+                $Ui.applyStatusTextBlock.Text | Should -BeLike 'Saved: Not Defined in GptTmpl.inf*'
+            }
+            [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($Gpo)).GetSectionNames() | Should -Not -Contain 'Event Audit'
+        }
+
         It 'Keeps the setting read when the domain refuses the change' {
             Mock Read-PSGPOSysvolFile { $null }
-            Mock Save-PSGPODomainPolicyFile { throw 'access denied' }
+            Mock Save-PSGPODomainGpoFile { throw 'access denied' }
             Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
                 param($Ui)
                 $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Default Domain Policy'

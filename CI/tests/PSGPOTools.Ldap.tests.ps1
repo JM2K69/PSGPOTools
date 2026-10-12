@@ -612,6 +612,34 @@ InModuleScope -ModuleName PSGPOTools {
             (Get-PSGPODirectory -Server $Server).FindGpo($GpoName).Version | Should -Be 0x00010001
         }
 
+        It 'Writes the security settings of the GPO in GptTmpl.inf, which Samba reads back' {
+            $Gpo = $Directory.FindGpo($GpoName)
+            $Before = (Get-PSGPODirectory -Server $Server).FindGpo($GpoName).Version
+            $Template = [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($Gpo))
+            $Template.IsEmpty() | Should -BeTrue -Because 'a new GPO has no security setting'
+            $Catalog = Get-PSGPOSecuritySetting
+            Set-PSGPOSecurityValue -Template $Template -Setting ($Catalog | Where-Object Key -EQ 'MinimumPasswordLength') -Value 14
+            Set-PSGPOSecurityValue -Template $Template -Setting ($Catalog | Where-Object Key -EQ 'MaxTicketAge') -Value 8
+            Set-PSGPOSecurityValue -Template $Template -Setting ($Catalog | Where-Object Key -EQ 'AuditLogonEvents') -Value 3
+            Set-PSGPOSecurityValue -Template $Template -Setting ($Catalog | Where-Object Key -EQ 'SeBackupPrivilege') -Value @('*S-1-5-32-544')
+            $Directory.WriteSecurityTemplate($Gpo, $Template.ToBytes())
+
+            $Read = Get-PSGPODirectory -Server $Server
+            $Again = $Read.FindGpo($GpoName)
+            $Again.Version | Should -Be ($Before + 1) -Because 'the computer version increases'
+            [Linq.Enumerable]::SequenceEqual([byte[]]$Read.ReadSecurityTemplate($Again), [byte[]]$Template.ToBytes()) | Should -BeTrue
+            $Connection = New-PSGPODirectoryConnection -Directory $Read
+            try { $Entry = Invoke-PSGPOLdapSearch -Connection $Connection -SearchBase $Again.DistinguishedName -Scope Base -Attribute 'gPCMachineExtensionNames' }
+            finally { $Connection.Dispose() }
+            # Contains, not -BeLike: the brackets are wildcards for -like.
+            (Get-PSGPOLdapValue $Entry 'gPCMachineExtensionNames').Contains('[{827D319E-6EAC-11D2-A4EA-00C04F79F83A}{803E14A0-B4FB-11D0-A0D0-00A0C90F574B}]') | Should -BeTrue
+
+            # Samba reads the file the module wrote.
+            $Listed = Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'manage', 'security', 'list', ('{' + $Again.Id.ToString().ToUpperInvariant() + '}'), '-H', "ldap://$Server", '--use-kerberos=required'
+            ($Listed -join "`n") | Should -Match 'MinimumPasswordLength\s*=\s*14'
+            ($Listed -join "`n") | Should -Match 'MaxTicketAge\s*=\s*8'
+        }
+
         It 'Adds a link to the links the domain has now, not to a stale copy' {
             # A stale copy of the OU: someone removes a link after it was read.
             $Stale = Get-PSGPODirectory -Server $Server

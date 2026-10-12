@@ -120,6 +120,15 @@ The **Settings** tab of a GPO lists its configured settings as GPMC does: Comput
 
 The changes use Kerberos (`kinit` on Linux); a password is never given to samba-tool nor sent over plain LDAP.
 
+### Security settings
+
+The policy editor shows the security settings of the computer as the Group Policy editor does, under Machine > Windows Settings > Security Settings: Account Policies (password, account lockout, Kerberos), Local Policies (audit, user rights assignment, security options) and Event Log. Each setting is "Not Defined" or defined with a value checked against its range or choices; Apply writes it to the `GptTmpl.inf` of the GPO (`Machine\Microsoft\Windows NT\SecEdit`, [MS-GPSB]), increases the computer version and declares the Security client-side extension.
+
+- `GptTmpl.inf` is read and written byte for byte (UTF-16LE); the sections and keys the module does not know (restricted groups, services, file and registry permissions) are kept as they are and listed in the Settings tab.
+- The catalog of the settings is in `PSGPOTools/Resources`: `SecuritySettings.json` (names, units and ranges from Microsoft Learn) and `SecurityOptions.json`, the security options stored as registry values, generated from Windows by `CI/Update-SecurityOptionCatalog.ps1`.
+- The accounts of the user rights are written as SIDs (`*S-1-5-32-544`) or names, and shown with the names of the well-known SIDs.
+- A Samba domain controller applies only part of these settings to itself (password length, ages and complexity; Kerberos ticket lifetimes); the others apply to Windows computers.
+
 ```Powershell
 # Windows, on a computer of the domain: the identity of the session
 Show-GPOManagerAvalonia -Directory (Get-PSGPODirectory)

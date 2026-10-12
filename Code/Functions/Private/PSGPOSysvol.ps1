@@ -6,18 +6,11 @@
     - Windows: the UNC path \\<server>\<share>\..., with the identity of the session.
     - Linux/macOS: smbclient with Kerberos (kinit), as .NET has no SMB client there.
 
-    Saving a Registry.pol also increases the version of the GPO for its scope, in GPT.INI and in
-    the versionNumber of the group policy container, and declares the Registry client-side
-    extension (gPCMachineExtensionNames / gPCUserExtensionNames): without them the computers
-    would not apply the change, as with GPMC.
+    Saving a file of the GPO (Registry.pol, GptTmpl.inf) also increases the version of the GPO
+    for its scope, in GPT.INI and in the versionNumber of the group policy container, and
+    declares the client-side extension of the file (gPCMachineExtensionNames /
+    gPCUserExtensionNames): without them the computers would not apply the change, as with GPMC.
 #>
-
-# Registry client-side extension and the administrative templates tools (computer, user).
-$script:PSGPORegistryExtension = '{35378EAC-683F-11D2-A89A-00C04FBBCFA2}'
-$script:PSGPORegistryTool = @{
-    Machine = '{D02B1F72-3407-48AE-BA88-E8213C6761F1}'
-    User = '{D02B1F73-3407-48AE-BA88-E8213C6761F1}'
-}
 
 # Share and path of the GPO folder, from its gPCFileSysPath (\\<domain>\SysVol\<domain>\Policies\{GUID}).
 function Get-PSGPOSysvolLocation {
@@ -99,7 +92,9 @@ function Write-PSGPOSysvolFile {
     )
 
     $location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
-    $folder = Split-Path -Path $Path -Parent
+    # Not Split-Path: on Linux it turns the \ of the path in the GPO folder into /.
+    $separator = $Path.LastIndexOfAny([char[]]'\/')
+    $folder = if ($separator -gt 0) { $Path.Substring(0, $separator) } else { '' }
     if ($IsWindows) {
         $file = "\\$($Directory.Server)\$($location.Share)\$($location.Path)\$Path"
         $null = New-Item -ItemType Directory -Path (Split-Path -Path $file -Parent) -Force
@@ -110,8 +105,11 @@ function Write-PSGPOSysvolFile {
     $local = [System.IO.Path]::GetTempFileName()
     try {
         [System.IO.File]::WriteAllBytes($local, $Bytes)
-        if ($folder) {
-            $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $location.Share -IgnoreStatus 'NT_STATUS_OBJECT_NAME_COLLISION' -Command ('mkdir "{0}\{1}"' -f $location.Path, $folder)
+        # smbclient creates one folder at a time: each level of the path.
+        $level = ''
+        foreach ($part in @($folder -split '[\\/]' | Where-Object { $_ })) {
+            $level = if ($level) { "$level\$part" } else { $part }
+            $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $location.Share -IgnoreStatus 'NT_STATUS_OBJECT_NAME_COLLISION' -Command ('mkdir "{0}\{1}"' -f $location.Path, $level)
         }
         $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $location.Share -Command ('put "{2}" "{0}\{1}"' -f $location.Path, $Path, $local)
     } finally {
@@ -207,14 +205,20 @@ function Add-PSGPOLdapValueChange {
     [void]$Request.Modifications.Add($add)
 }
 
-# Saves the Registry.pol of a scope, then increases the version of the GPO for that scope.
-function Save-PSGPODomainPolicyFile {
+# Saves a file of the GPO, then increases the version of the GPO for its scope and declares
+# the client-side extension that applies it.
+function Save-PSGPODomainGpoFile {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
         [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
+        # Path in the GPO folder (Machine\Registry.pol)
+        [Parameter(Mandatory)] [string]$Path,
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [byte[]]$Bytes,
+        # Scope whose version increases
         [Parameter(Mandatory)] [ValidateSet('Machine', 'User')] [string]$Folder,
-        [Parameter(Mandatory)] [AllowEmptyCollection()] [byte[]]$Bytes
+        [Parameter(Mandatory)] [string]$Extension,
+        [Parameter(Mandatory)] [string]$Tool
     )
 
     $extensionAttribute = if ($Folder -eq 'Machine') { 'gPCMachineExtensionNames' } else { 'gPCUserExtensionNames' }
@@ -225,10 +229,10 @@ function Save-PSGPODomainPolicyFile {
         $oldVersion = Get-PSGPOLdapValue $entry 'versionNumber'
         $version = [GPOToolsDirectory]::GetNextVersion([int]$oldVersion, $Folder)
         $oldExtensions = Get-PSGPOLdapValue $entry $extensionAttribute
-        $extensions = Add-PSGPOExtensionName -Current $oldExtensions -Extension $script:PSGPORegistryExtension -Tool $script:PSGPORegistryTool[$Folder]
+        $extensions = Add-PSGPOExtensionName -Current $oldExtensions -Extension $Extension -Tool $Tool
 
         # SYSVOL first, then the version in GPT.INI and in the directory, as GPMC does.
-        Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path "$Folder\Registry.pol" -Bytes $Bytes
+        Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $Path -Bytes $Bytes
         $gptIni = Set-PSGPOGptIniVersion -Bytes (Read-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path 'GPT.INI') -Version $version
         Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path 'GPT.INI' -Bytes $gptIni
 
@@ -243,7 +247,7 @@ function Save-PSGPODomainPolicyFile {
         } catch {
             $base = $_.Exception.GetBaseException()
             if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -in 'NoSuchAttribute', 'AttributeOrValueExists') {
-                throw "The GPO $($Gpo.DisplayName) changed in the domain meanwhile: its Registry.pol was saved, read the domain again and apply the setting again so that its version increases."
+                throw "The GPO $($Gpo.DisplayName) changed in the domain meanwhile: $Path was saved, read the domain again and apply the setting again so that its version increases."
             }
             throw
         }
@@ -251,5 +255,5 @@ function Save-PSGPODomainPolicyFile {
         $connection.Dispose()
     }
     $Gpo.Version = $version
-    Write-Verbose "Registry.pol of $($Gpo.DisplayName) ($Folder) saved, version $version."
+    Write-Verbose "$Path of $($Gpo.DisplayName) saved, version $version."
 }
