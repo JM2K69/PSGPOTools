@@ -29,6 +29,7 @@
 
 ### Fixed
 
+* The policy editor was empty without ADMX files loaded (Linux without `Initialize-PSGPOAdmx`), so the security settings of a GPO (the Default Domain Policy for example) could not be edited: they are now always shown, the breadcrumb saying that no ADMX policy is loaded
 * The window froze when creating a GPO from a terminal: samba-tool gpo create asks for a password on it even with Kerberos. samba-tool and smbclient now run without standard input (samba-tool also with --no-pass) and are stopped after a time limit, with an error, instead of waiting forever
 * Writing a file deeper than one folder in SYSVOL from Linux (Split-Path turned its \ into /, so smbclient created no intermediate folder)
 * The registry preview wrote a value twice when an element writes the value of the policy itself (valueName without enabledValue): the element value is kept, the editor default of the policy dropped

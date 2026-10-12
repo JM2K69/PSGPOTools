@@ -404,11 +404,11 @@ function Start-PSGPOManagerWindow {
         $treeView.ItemsSource = New-PSGPOPolicyTree -Filter $searchTextBox.Text
     }
 
+    # The security settings do not come from the ADMX files: the tree always has them.
+    Update-PolicyTree
     if ([GPOToolsUtility]::Policies.Count -eq 0) {
-        Write-Warning 'No policy loaded: run Initialize-PSGPOAdmx before Show-GPOManagerAvalonia.'
-        $breadcrumbTextBlock.Text = 'No policy loaded - run Initialize-PSGPOAdmx first'
-    } else {
-        Update-PolicyTree
+        Write-Warning 'No ADMX policy loaded: run Initialize-PSGPOAdmx before Show-GPOManagerAvalonia for the Administrative Templates.'
+        $breadcrumbTextBlock.Text = 'No ADMX policy loaded (Initialize-PSGPOAdmx): only the security settings are shown'
     }
 
     $searchButton.Add_Click({ Update-PolicyTree })
