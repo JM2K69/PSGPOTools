@@ -680,6 +680,32 @@ InModuleScope -ModuleName PSGPOTools {
             ($Listed -join "`n") | Should -Match 'MaxTicketAge\s*=\s*8'
         }
 
+        It 'Sets the GPO status and the security filtering groups, consistent in SYSVOL' {
+            $Gpo = $Directory.FindGpo($SecondName)
+            $Directory.SetGpoStatus($Gpo, 1)
+            (Get-PSGPODirectory -Server $Server).FindGpo($SecondName).GetStatus() | Should -Be 'User configuration settings disabled'
+
+            # In the OU of the test, deleted with it.
+            $Groups = $Directory.NewFilteringGroups($Gpo, $OuDN)
+            @($Groups.Name) | Should -Be @("APPLY_$SecondName", "DENY_$SecondName")
+            @($Groups.DistinguishedName) | Should -Be @("CN=APPLY_$SecondName,$OuDN", "CN=DENY_$SecondName,$OuDN")
+            $Groups.Sid | ForEach-Object { $_ | Should -Match '^S-1-5-21-\d+-\d+-\d+-\d+$' }
+
+            $Connection = New-PSGPODirectoryConnection -Directory $Directory
+            try { $Sddl = (Get-PSGPODomainSecurityDescriptor -Connection $Connection -DistinguishedName $Gpo.DistinguishedName).ToSddl() }
+            finally { $Connection.Dispose() }
+            $Sddl | Should -Match ([regex]::Escape("(OD;CI;0x00000100;edacfd8f-ffb3-11d1-b41d-00a0c968f939;;$($Groups[1].Sid))"))
+            $Sddl | Should -Match ([regex]::Escape("(OA;CI;0x00000100;edacfd8f-ffb3-11d1-b41d-00a0c968f939;;$($Groups[0].Sid))"))
+            $Sddl | Should -Match ([regex]::Escape("(A;CI;0x00020094;;;$($Groups[0].Sid))"))
+            $Sddl | Should -Not -Match 'edacfd8f-ffb3-11d1-b41d-00a0c968f939;;S-1-5-11\)' -Because 'Authenticated Users no longer apply it'
+            $Sddl | Should -Match ([regex]::Escape('(A;CI;0x00020094;;;S-1-5-11)')) -Because 'the computers still read it'
+
+            # Samba finds the ACL of the SYSVOL folder consistent with the directory one.
+            $Check = Invoke-PSGPONativeCommand -FilePath (Get-PSGPOPlatform).SambaToolPath -ArgumentList 'gpo', 'aclcheck', '-H', "ldap://$Server", '--use-kerberos=required', '--no-pass'
+            "$($Check.Output -join "`n")`n$($Check.Error)" | Should -Not -Match 'ERROR'
+            { $Directory.NewFilteringGroups($Gpo, $OuDN) } | Should -Throw -ExpectedMessage '*already exists*'
+        }
+
         It 'Creates a GPO from a terminal without waiting for a password (the window froze)' -Skip:(-not (Get-Command script -ErrorAction SilentlyContinue)) {
             # samba-tool gpo create asks for a password on the terminal, even with Kerberos.
             $Script = Join-Path $TestDrive 'create-from-terminal.ps1'

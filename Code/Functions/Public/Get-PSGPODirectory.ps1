@@ -70,7 +70,7 @@ function Get-PSGPODirectory {
         $dnsHostName = Get-PSGPOLdapValue $rootDse 'dnsHostName'
         if (-not $domainDN) { throw "$Server did not give its default naming context: is it a domain controller?" }
 
-        $domain = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $domainDN -Scope Base -Attribute 'gPLink', 'gPOptions'
+        $domain = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $domainDN -Scope Base -Attribute 'gPLink', 'gPOptions', 'wellKnownObjects'
         if (-not $domain) { throw "The domain object $domainDN cannot be read: the account has no access to the directory (anonymous bind?)." }
         $organizationalUnits = @(Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $domainDN -Scope Subtree `
                 -Filter '(objectClass=organizationalUnit)' -Attribute 'name', 'ou', 'gPLink', 'gPOptions')
@@ -86,5 +86,9 @@ function Get-PSGPODirectory {
     $directory.Credential = $Credential
     $directory.UseSsl = [bool]$UseSsl
     $directory.Port = $Port
+    # Container of the users and groups, where it may have been redirected (redirusr).
+    foreach ($value in @($domain.Attributes['wellKnownObjects'])) {
+        if ("$value" -match '^B:32:A9D1CA15768811D1ADED00C04FD8D5CD:(.+)$') { $directory.UsersContainer = $Matches[1] }
+    }
     $directory
 }

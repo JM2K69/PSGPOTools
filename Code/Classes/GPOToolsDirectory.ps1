@@ -125,6 +125,8 @@ class GPOToolsDirectory {
     [bool]$IsReadOnly
     # Sample data shown because no domain was discovered (Show-GPOManagerAvalonia)
     [bool]$IsDemonstration
+    # Container of the users and groups (wellKnownObjects of the domain); CN=Users when not read
+    [string]$UsersContainer
 
     GPOToolsDirectory([string]$DomainName) {
         if ([string]::IsNullOrWhiteSpace($DomainName)) { throw 'The domain name is required.' }
@@ -239,6 +241,29 @@ class GPOToolsDirectory {
         return $Link
     }
 
+    # GPO status, like GPMC: 0 enabled, 1 user configuration settings disabled, 2 computer
+    # configuration settings disabled, 3 all settings disabled.
+    [void] SetGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {
+        $this.AssertWritable()
+        if ($Flags -lt 0 -or $Flags -gt 3) { throw "Unknown GPO status flags: $Flags (0 to 3)." }
+        $this.SaveGpoStatus($Gpo, $Flags)
+        $Gpo.Flags = $Flags
+    }
+
+    # Security filtering groups of a GPO, created in $Container: APPLY_<GPO>, whose members alone
+    # apply it, and DENY_<GPO>, whose members never apply it. Returns the two groups (Name,
+    # DistinguishedName, Sid).
+    [object[]] NewFilteringGroups([GPOToolsGpo]$Gpo, [string]$Container) {
+        $this.AssertWritable()
+        if ([string]::IsNullOrWhiteSpace($Container)) { $Container = $this.GetUsersContainer() }
+        return $this.SaveFilteringGroups($Gpo, $Container)
+    }
+
+    [string] GetUsersContainer() {
+        if ($this.UsersContainer) { return $this.UsersContainer }
+        return "CN=Users,$($this.Domain.DistinguishedName)"
+    }
+
     # Where a GPO is linked, as (Som, Link) pairs.
     [object[]] GetLinksOf([GPOToolsGpo]$Gpo) {
         $Found = [System.Collections.Generic.List[object]]::new()
@@ -314,6 +339,20 @@ class GPOToolsDirectory {
     hidden [void] SaveNewGpo([GPOToolsGpo]$Gpo) {}
     # SaveNewLink may set the links of the SOM again from the domain (link added by someone else).
     hidden [void] SaveNewLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {}
+    hidden [void] SaveGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {}
+
+    # Groups created in memory, by distinguished name.
+    hidden [hashtable]$Groups = @{}
+    hidden [object[]] SaveFilteringGroups([GPOToolsGpo]$Gpo, [string]$Container) {
+        $Created = foreach ($Prefix in 'APPLY', 'DENY') {
+            $Name = Get-PSGPOFilteringGroupName -Prefix $Prefix -GpoName $Gpo.DisplayName
+            $DistinguishedName = 'CN={0},{1}' -f ($Name -replace '([,\\#+<>;"=])', '\$1'), $Container
+            if ($this.Groups.ContainsKey($DistinguishedName)) { throw "The group $DistinguishedName already exists." }
+            [pscustomobject]@{ Name = $Name; DistinguishedName = $DistinguishedName; Sid = $null }
+        }
+        foreach ($Group in $Created) { $this.Groups[$Group.DistinguishedName] = $Group }
+        return $Created
+    }
 
     # Files of the GPOs kept in memory, by GPO and path in its folder.
     hidden [hashtable]$GpoFiles = @{}
@@ -353,6 +392,14 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
 
     hidden [void] SaveNewLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {
         Add-PSGPODomainGpLink -Directory $this -Som $Som -Link $Link
+    }
+
+    hidden [void] SaveGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {
+        Set-PSGPODomainGpoFlags -Directory $this -Gpo $Gpo -Flags $Flags
+    }
+
+    hidden [object[]] SaveFilteringGroups([GPOToolsGpo]$Gpo, [string]$Container) {
+        return New-PSGPODomainFilteringGroup -Directory $this -Gpo $Gpo -Container $Container
     }
 
     hidden [byte[]] LoadGpoFile([GPOToolsGpo]$Gpo, [string]$Path) {

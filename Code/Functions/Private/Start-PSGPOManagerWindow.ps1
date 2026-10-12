@@ -81,6 +81,12 @@ function Start-PSGPOManagerWindow {
     $newGpoErrorTextBlock = Get-PSGPOAvaloniaControl $window 'newGpoErrorTextBlock'
     $newGpoCreateButton = Get-PSGPOAvaloniaControl $window 'newGpoCreateButton'
     $newGpoCancelButton = Get-PSGPOAvaloniaControl $window 'newGpoCancelButton'
+    $newGpoStatusComboBox = Get-PSGPOAvaloniaControl $window 'newGpoStatusComboBox'
+    $newGpoGroupsCheckBox = Get-PSGPOAvaloniaControl $window 'newGpoGroupsCheckBox'
+    $newGpoGroupsPanel = Get-PSGPOAvaloniaControl $window 'newGpoGroupsPanel'
+    $newGpoGroupsTextBlock = Get-PSGPOAvaloniaControl $window 'newGpoGroupsTextBlock'
+    $newGpoGroupsContainerComboBox = Get-PSGPOAvaloniaControl $window 'newGpoGroupsContainerComboBox'
+    $newGpoResultTextBlock = Get-PSGPOAvaloniaControl $window 'newGpoResultTextBlock'
 
     $applyPanel = Get-PSGPOAvaloniaControl $window 'applyPanel'
     $directoryTabs = Get-PSGPOAvaloniaControl $window 'directoryTabs'
@@ -542,11 +548,41 @@ function Start-PSGPOManagerWindow {
         $newGpoTitleTextBlock.Text = if ($Som) { "New GPO in $($Directory.DomainName), linked to $($Som.Name)" } else { "New GPO in $($Directory.DomainName)" }
         $newGpoNameTextBox.Text = 'New Group Policy Object'
         $newGpoErrorTextBlock.Text = ''
+        $newGpoResultTextBlock.Text = ''
+        $newGpoStatusComboBox.SelectedIndex = 0
+        $newGpoGroupsCheckBox.IsChecked = $false
+        # The groups go to the users container by default, or to an OU.
+        $containers = [System.Collections.Generic.List[string]]::new()
+        $containers.Add($Directory.GetUsersContainer())
+        $stack = [System.Collections.Generic.Stack[GPOToolsSom]]::new()
+        foreach ($child in @($Directory.Domain.Children | Sort-Object Name -Descending)) { $stack.Push($child) }
+        while ($stack.Count) {
+            $som = $stack.Pop()
+            $containers.Add($som.DistinguishedName)
+            foreach ($child in @($som.Children | Sort-Object Name -Descending)) { $stack.Push($child) }
+        }
+        $newGpoGroupsContainerComboBox.ItemsSource = $containers
+        $newGpoGroupsContainerComboBox.SelectedIndex = 0
+        Update-NewGpoGroupText
         $newGpoPanel.IsVisible = $true
         [void]$newGpoNameTextBox.Focus()
         $newGpoNameTextBox.SelectAll()
     }
 
+    # What the security filtering groups of the new GPO will be.
+    function Update-NewGpoGroupText {
+        try {
+            $apply = Get-PSGPOFilteringGroupName -Prefix APPLY -GpoName $newGpoNameTextBox.Text
+            $deny = Get-PSGPOFilteringGroupName -Prefix DENY -GpoName $newGpoNameTextBox.Text
+            $newGpoGroupsTextBlock.Text = "$apply`: only its members apply the GPO (add the computers or users to it). $deny`: its members never apply it. Authenticated Users keep reading the GPO."
+        } catch {
+            $newGpoGroupsTextBlock.Text = $_.Exception.Message
+        }
+    }
+
+    # Creates the GPO, then sets its status and its security filtering groups, then links it.
+    # It is not linked when its security filtering failed: it would apply to every computer and
+    # user. What failed after the creation is said under the details of the GPO.
     function Submit-NewGpo {
         try {
             $gpo = $Directory.NewGpo($newGpoNameTextBox.Text)
@@ -554,16 +590,50 @@ function Start-PSGPOManagerWindow {
             $newGpoErrorTextBlock.Text = $_.Exception.GetBaseException().Message
             return
         }
+        $done = [System.Collections.Generic.List[string]]::new()
+        $problems = [System.Collections.Generic.List[string]]::new()
+        $done.Add("GPO '$($gpo.DisplayName)' created.")
+        $flags = [int]"$($newGpoStatusComboBox.SelectedItem.Tag)"
+        if ($flags) {
+            try {
+                $Directory.SetGpoStatus($gpo, $flags)
+                $done.Add("GPO status: $($gpo.GetStatus()).")
+            } catch {
+                $problems.Add("Its status is not set: $($_.Exception.GetBaseException().Message)")
+            }
+        }
+        $filtered = $true
+        if ($newGpoGroupsCheckBox.IsChecked) {
+            try {
+                $container = "$($newGpoGroupsContainerComboBox.SelectedItem)"
+                $groups = $Directory.NewFilteringGroups($gpo, $container)
+                $done.Add("Security filtering groups $(@($groups.Name) -join ' and ') created in $container.")
+            } catch {
+                $filtered = $false
+                $problems.Add("Its security filtering groups are not set: $($_.Exception.GetBaseException().Message)")
+            }
+        }
         $select = $gpo
         if ($newGpo.Som) {
-            try {
-                $select = $Directory.NewLink($newGpo.Som, $gpo)
-            } catch {
-                Write-Warning "The GPO '$($gpo.DisplayName)' was created but not linked: $($_.Exception.GetBaseException().Message)"
+            if (-not $filtered) {
+                $problems.Add("It is not linked to $($newGpo.Som.Name), so that it does not apply to everyone: link it once its security filtering is set.")
+            } else {
+                try {
+                    $select = $Directory.NewLink($newGpo.Som, $gpo)
+                    $done.Add("Linked to $($newGpo.Som.Name).")
+                } catch {
+                    $problems.Add("It is not linked to $($newGpo.Som.Name): $($_.Exception.GetBaseException().Message)")
+                }
             }
         }
         $newGpoPanel.IsVisible = $false
         Update-DirectoryTree -Select $select
+        $newGpoResultTextBlock.Text = (@($done) + @($problems)) -join [Environment]::NewLine
+        if ($problems.Count) {
+            $newGpoResultTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
+        } else {
+            $newGpoResultTextBlock.ClearValue([Avalonia.Controls.TextBlock]::ForegroundProperty)
+        }
     }
 
     # Settings tab of the selected GPO: its Registry.pol files read once per version of the GPO.
@@ -630,6 +700,7 @@ function Start-PSGPOManagerWindow {
         $linksList.ItemsSource = $detail.Links
         $editGpoButton.IsVisible = $null -ne $detail.Gpo
         $newGpoPanel.IsVisible = $false
+        $newGpoResultTextBlock.Text = ''
 
         # Context menu of the selected node, as in GPMC.
         # A read-only directory (read over LDAP) cannot create GPOs yet.
@@ -652,6 +723,12 @@ function Start-PSGPOManagerWindow {
     $domainTreeView.add_DoubleTapped({ $gpo = Get-SelectedGpo; if ($gpo) { Open-GpoEditor -Gpo $gpo } })
     $newGpoCreateButton.Add_Click({ Submit-NewGpo })
     $newGpoCancelButton.Add_Click({ $newGpoPanel.IsVisible = $false })
+    $newGpoGroupsCheckBox.add_IsCheckedChanged({ $newGpoGroupsPanel.IsVisible = [bool]$newGpoGroupsCheckBox.IsChecked })
+    # The property, not TextChanged: it is raised at once, whoever sets the text.
+    $newGpoNameTextBox.add_PropertyChanged({
+        param($sender, $e)
+        if ($e.Property -eq [Avalonia.Controls.TextBox]::TextProperty) { Update-NewGpoGroupText }
+    })
     $newGpoNameTextBox.Add_KeyDown({
         param($sender, $e)
         if ($e.Key -eq [Avalonia.Input.Key]::Enter) { Submit-NewGpo }
@@ -699,7 +776,8 @@ function Start-PSGPOManagerWindow {
             'editingBanner', 'editingGpoTextBlock', 'applyPanel', 'applySettingButton', 'applyStatusTextBlock', 'previewHeaderTextBlock', 'directoryTabs', 'settingsTab', 'settingsStatusTextBlock', 'computerSettingsHeader', 'computerSettingsList', 'userSettingsHeader', 'userSettingsList', 'demoBanner', 'demoBannerTextBlock', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
             'directoryTitleTextBlock', 'directoryPropertiesList', 'linksHeaderTextBlock', 'linksList', 'createLinkedGpoMenuItem',
             'newGpoMenuItem', 'editGpoMenuItem', 'editGpoButton', 'newGpoPanel', 'newGpoTitleTextBlock', 'newGpoNameTextBox',
-            'newGpoErrorTextBlock', 'newGpoCreateButton', 'newGpoCancelButton') {
+            'newGpoErrorTextBlock', 'newGpoCreateButton', 'newGpoCancelButton', 'newGpoStatusComboBox', 'newGpoGroupsCheckBox', 'newGpoGroupsPanel',
+            'newGpoGroupsTextBlock', 'newGpoGroupsContainerComboBox', 'newGpoResultTextBlock') {
             $controls[$name] = Get-PSGPOAvaloniaControl $window $name
         }
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {

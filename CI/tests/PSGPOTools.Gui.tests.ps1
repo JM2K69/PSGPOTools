@@ -463,6 +463,61 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
+        It 'Creates a GPO with its status and its security filtering groups' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Users'
+                Invoke-Click $Ui.createLinkedGpoMenuItem
+                $Ui.newGpoStatusComboBox.SelectedIndex | Should -Be 0
+                $Ui.newGpoGroupsCheckBox.IsChecked | Should -BeFalse
+                $Ui.newGpoGroupsPanel.IsVisible | Should -BeFalse
+
+                $Ui.newGpoNameTextBox.Text = 'U - Lyon - Proxy'
+                $Ui.newGpoStatusComboBox.SelectedIndex = 2
+                $Ui.newGpoGroupsCheckBox.IsChecked = $true
+                $Ui.newGpoGroupsPanel.IsVisible | Should -BeTrue
+                $Ui.newGpoGroupsTextBlock.Text | Should -BeLike 'APPLY_U - Lyon - Proxy: only its members apply the GPO*DENY_U - Lyon - Proxy: its members never apply it*'
+                # The users container first, then the OUs of the domain.
+                $Containers = @($Ui.newGpoGroupsContainerComboBox.ItemsSource)
+                $Containers[0] | Should -Be 'CN=Users,DC=corp,DC=contoso,DC=com'
+                $Containers | Should -Contain 'OU=Users,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com'
+                $Ui.newGpoGroupsContainerComboBox.SelectedItem = 'OU=Users,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com'
+                Invoke-Click $Ui.newGpoCreateButton
+
+                $Gpo = $Ui.Directory.FindGpo('U - Lyon - Proxy')
+                $Gpo.GetStatus() | Should -Be 'Computer configuration settings disabled'
+                $Ui.Directory.GetLinksOf($Gpo).Count | Should -Be 1
+                $Ui.newGpoResultTextBlock.Text -split '\r?\n' | Should -Be @(
+                    "GPO 'U - Lyon - Proxy' created."
+                    'GPO status: Computer configuration settings disabled.'
+                    'Security filtering groups APPLY_U - Lyon - Proxy and DENY_U - Lyon - Proxy created in OU=Users,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com.'
+                    'Linked to Users.')
+                $Ui.newGpoResultTextBlock.IsVisible | Should -BeTrue
+                # Another selection: the result goes away.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites'
+                $Ui.newGpoResultTextBlock.IsVisible | Should -BeFalse
+            }
+        }
+
+        It 'Does not link a GPO whose security filtering failed, and says why' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Users'
+                Invoke-Click $Ui.createLinkedGpoMenuItem
+                $Name = 'U - ' + ('x' * 60)
+                $Ui.newGpoNameTextBox.Text = $Name
+                $Ui.newGpoGroupsCheckBox.IsChecked = $true
+                $Ui.newGpoGroupsTextBlock.Text | Should -BeLike '*longer than 64 characters*'
+                Invoke-Click $Ui.newGpoCreateButton
+
+                $Gpo = $Ui.Directory.FindGpo($Name)
+                $Gpo | Should -Not -BeNullOrEmpty -Because 'the GPO itself was created'
+                $Ui.Directory.GetLinksOf($Gpo).Count | Should -Be 0 -Because 'without its filtering it would apply to everyone'
+                $Ui.newGpoResultTextBlock.Text | Should -BeLike '*security filtering groups are not set*longer than 64 characters*not linked to Users*'
+                $Ui.newGpoResultTextBlock.Foreground.Color.ToString() | Should -Be '#ffd13438'
+            }
+        }
+
         It 'Keeps the tree aligned to the left when a long name is selected, trimming it' {
             # Regression (Linux, 1200 px): selecting a deep link with a long name scrolled the tree
             # horizontally and cut the domain and the OUs.
