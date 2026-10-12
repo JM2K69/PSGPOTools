@@ -292,6 +292,33 @@ class GPOToolsSecurityDescriptor {
         return $Bytes
     }
 
+    # Who applies the GPO and who is denied it: the SIDs given the extended right "Apply Group
+    # Policy" (an ACE for that right, or for every extended right), as GPMC lists them in its
+    # security filtering. Apply and Deny, in the order of the DACL.
+    [pscustomobject] GetSecurityFiltering() {
+        $Applied = [System.Collections.Generic.List[string]]::new()
+        $Denied = [System.Collections.Generic.List[string]]::new()
+        foreach ($Ace in @($this.Dacl)) {
+            if (-not $Ace.IsKnown() -or ($Ace.Flags -band [GPOToolsAce]::InheritOnly)) { continue }
+            if (-not ($Ace.Mask -band [GPOToolsSecurityDescriptor]::ControlAccess)) { continue }
+            if ($Ace.IsObjectAce() -and $Ace.ObjectType -ne [guid]::Empty -and $Ace.ObjectType -ne [GPOToolsSecurityDescriptor]::ApplyGroupPolicy) { continue }
+            # Not $List = if (...): the output of if unrolls an empty list into $null.
+            if ($Ace.IsDeny()) {
+                if (-not $Denied.Contains($Ace.Sid)) { $Denied.Add($Ace.Sid) }
+            } elseif (-not $Applied.Contains($Ace.Sid)) {
+                $Applied.Add($Ace.Sid)
+            }
+        }
+        return [pscustomobject]@{ Apply = $Applied.ToArray(); Deny = $Denied.ToArray() }
+    }
+
+    # Names of the well-known SIDs a GPO ACL holds, as Windows shows them.
+    static [hashtable] $WellKnownNames = @{
+        'S-1-1-0' = 'Everyone'; 'S-1-3-0' = 'CREATOR OWNER'; 'S-1-5-9' = 'ENTERPRISE DOMAIN CONTROLLERS'
+        'S-1-5-11' = 'Authenticated Users'; 'S-1-5-18' = 'SYSTEM'; 'S-1-5-32-544' = 'Administrators'
+        'S-1-5-32-545' = 'Users'; 'S-1-5-32-554' = 'Pre-Windows 2000 Compatible Access'
+    }
+
     # Security filtering of a GPO ([MS-GPOL] 3.2.5.1.6): the members of $ApplySid read and apply
     # it, the members of $DenySid do not apply it, and Authenticated Users only read it (the
     # computers must read the GPO, MS16-072). Both are optional.

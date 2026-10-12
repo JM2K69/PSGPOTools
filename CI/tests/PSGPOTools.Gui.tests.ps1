@@ -487,15 +487,44 @@ InModuleScope -ModuleName PSGPOTools {
                 $Gpo = $Ui.Directory.FindGpo('U - Lyon - Proxy')
                 $Gpo.GetStatus() | Should -Be 'Computer configuration settings disabled'
                 $Ui.Directory.GetLinksOf($Gpo).Count | Should -Be 1
-                $Ui.newGpoResultTextBlock.Text -split '\r?\n' | Should -Be @(
+                $Ui.directoryResultTextBlock.Text -split '\r?\n' | Should -Be @(
                     "GPO 'U - Lyon - Proxy' created."
                     'GPO status: Computer configuration settings disabled.'
                     'Security filtering groups APPLY_U - Lyon - Proxy and DENY_U - Lyon - Proxy created in OU=Users,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com.'
                     'Linked to Users.')
-                $Ui.newGpoResultTextBlock.IsVisible | Should -BeTrue
+                $Ui.directoryResultTextBlock.IsVisible | Should -BeTrue
                 # Another selection: the result goes away.
                 $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites'
-                $Ui.newGpoResultTextBlock.IsVisible | Should -BeFalse
+                $Ui.directoryResultTextBlock.IsVisible | Should -BeFalse
+            }
+        }
+
+        It 'Deletes a link from the context menu once confirmed, keeping the GPO' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'U - Lyon - Printers'
+                $Ui.deleteLinkMenuItem.IsVisible | Should -BeFalse -Because 'a GPO is not a link'
+                ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Security filtering').Value | Should -Be 'Authenticated Users'
+
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Users', 'U - Lyon - Printers'
+                $Ui.deleteLinkMenuItem.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.deleteLinkMenuItem
+                $Ui.deleteLinkPanel.IsVisible | Should -BeTrue
+                $Ui.deleteLinkTextBlock.Text | Should -BeLike "Delete the link of the GPO 'U - Lyon - Printers' to Users?*not deleted*"
+                Invoke-Click $Ui.deleteLinkCancelButton
+                $Ui.deleteLinkPanel.IsVisible | Should -BeFalse
+                $Users = $Ui.Directory.FindSom('OU=Users,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com')
+                $Users.Links.Count | Should -Be 4
+
+                Invoke-Click $Ui.deleteLinkMenuItem
+                Invoke-Click $Ui.deleteLinkConfirmButton
+                $Ui.deleteLinkPanel.IsVisible | Should -BeFalse
+                @($Users.Links.Gpo.DisplayName) | Should -Not -Contain 'U - Lyon - Printers'
+                @($Users.Links.Order) | Should -Be @(1, 2, 3)
+                $Ui.domainTreeView.SelectedItem.Tag | Should -Be $Users
+                $Ui.directoryResultTextBlock.Text | Should -Be "Link of the GPO 'U - Lyon - Printers' to Users deleted."
+                (Get-DomainNode $Ui 'Sites', 'Lyon', 'Users').Children.Header | Should -Not -Contain 'U - Lyon - Printers'
+                (Get-DomainNode $Ui 'Group Policy Objects').Children.Header | Should -Contain 'U - Lyon - Printers'
             }
         }
 
@@ -513,8 +542,8 @@ InModuleScope -ModuleName PSGPOTools {
                 $Gpo = $Ui.Directory.FindGpo($Name)
                 $Gpo | Should -Not -BeNullOrEmpty -Because 'the GPO itself was created'
                 $Ui.Directory.GetLinksOf($Gpo).Count | Should -Be 0 -Because 'without its filtering it would apply to everyone'
-                $Ui.newGpoResultTextBlock.Text | Should -BeLike '*security filtering groups are not set*longer than 64 characters*not linked to Users*'
-                $Ui.newGpoResultTextBlock.Foreground.Color.ToString() | Should -Be '#ffd13438'
+                $Ui.directoryResultTextBlock.Text | Should -BeLike '*security filtering groups are not set*longer than 64 characters*not linked to Users*'
+                $Ui.directoryResultTextBlock.Foreground.Color.ToString() | Should -Be '#ffd13438'
             }
         }
 

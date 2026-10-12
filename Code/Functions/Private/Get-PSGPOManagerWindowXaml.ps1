@@ -191,6 +191,9 @@ $iconResources
                                 <MenuItem Name='editGpoMenuItem' Header='Edit...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.edit}'/></MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Name='deleteLinkMenuItem' Header='Delete link...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.link-dismiss}'/></MenuItem.Icon>
+                                </MenuItem>
                             </ContextMenu>
                         </TreeView.ContextMenu>
                     </TreeView>
@@ -255,8 +258,21 @@ $iconResources
                                         </StackPanel>
                                     </Border>
 
-                                    <!-- What the last GPO creation did, and what failed -->
-                                    <TextBlock Name='newGpoResultTextBlock' TextWrapping='Wrap' Margin='0,8,0,0'
+                                    <!-- Confirmation of the deletion of a link, as GPMC asks for it -->
+                                    <Border Name='deleteLinkPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='#D13438'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='deleteLinkTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='deleteLinkConfirmButton' Content='Delete link' Width='120'/>
+                                                <Button Name='deleteLinkCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- What the last change of the directory did, and what failed -->
+                                    <TextBlock Name='directoryResultTextBlock' TextWrapping='Wrap' Margin='0,8,0,0'
                                                IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
 
                                     <Button Name='editGpoButton' IsVisible='False' Margin='0,8,0,8'>

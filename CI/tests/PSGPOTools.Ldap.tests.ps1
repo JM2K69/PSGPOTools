@@ -704,6 +704,12 @@ InModuleScope -ModuleName PSGPOTools {
             $Check = Invoke-PSGPONativeCommand -FilePath (Get-PSGPOPlatform).SambaToolPath -ArgumentList 'gpo', 'aclcheck', '-H', "ldap://$Server", '--use-kerberos=required', '--no-pass'
             "$($Check.Output -join "`n")`n$($Check.Error)" | Should -Not -Match 'ERROR'
             { $Directory.NewFilteringGroups($Gpo, $OuDN) } | Should -Throw -ExpectedMessage '*already exists*'
+
+            # Read again with the domain: the names of the groups, as GPMC shows the filtering.
+            $Read = Get-PSGPODirectory -Server $Server
+            $Read.FindGpo($SecondName).SecurityFiltering | Should -Be @("APPLY_$SecondName")
+            $Read.FindGpo($SecondName).DeniedTo | Should -Be @("DENY_$SecondName")
+            ($Read.Gpos | Where-Object Id -EQ ([guid]'31B2F340-016D-11D2-945F-00C04FB984F9')).SecurityFiltering | Should -Be @('Authenticated Users')
         }
 
         It 'Creates a GPO from a terminal without waiting for a password (the window froze)' -Skip:(-not (Get-Command script -ErrorAction SilentlyContinue)) {
@@ -737,6 +743,28 @@ Import-Module '$Module'
             @($StaleOu.Links.Gpo.DisplayName) | Should -Be $Expected
             $Link.Order | Should -Be 2
             @((Get-PSGPODirectory -Server $Server).FindSom($OuDN).Links.Gpo.DisplayName) | Should -Be $Expected
+        }
+
+        It 'Deletes the links of an OU, the gPLink removed with the last one, and keeps the GPOs' {
+            $Read = Get-PSGPODirectory -Server $Server
+            $ReadOu = $Read.FindSom($OuDN)
+            $Read.RemoveLink($ReadOu, ($ReadOu.Links | Where-Object { $_.Gpo.DisplayName -eq $GpoName }))
+            @($ReadOu.Links.Gpo.DisplayName) | Should -Be @('Default Domain Policy')
+            $ReadOu.Links[0].Order | Should -Be 1
+            @((Get-PSGPODirectory -Server $Server).FindSom($OuDN).Links.Gpo.DisplayName) | Should -Be @('Default Domain Policy')
+
+            # A stale copy whose link is gone from the domain: refused, nothing written.
+            $StaleOu = $Directory.FindSom($OuDN)
+            $StaleLink = $StaleOu.Links | Where-Object { $_.Gpo.DisplayName -eq $GpoName }
+            { $Directory.RemoveLink($StaleOu, $StaleLink) } | Should -Throw -ExpectedMessage '*not linked there anymore*'
+
+            $Read.RemoveLink($ReadOu, $ReadOu.Links[0])
+            $ReadOu.Links.Count | Should -Be 0
+            $Connection = New-PSGPODirectoryConnection -Directory $Read
+            try { $Entry = Invoke-PSGPOLdapSearch -Connection $Connection -SearchBase $OuDN -Scope Base -Attribute 'gPLink' }
+            finally { $Connection.Dispose() }
+            Get-PSGPOLdapValue $Entry 'gPLink' | Should -BeNullOrEmpty -Because 'samba-tool gpo dellink removes the attribute with the last link'
+            (Get-PSGPODirectory -Server $Server).FindGpo($GpoName) | Should -Not -BeNullOrEmpty -Because 'the GPO itself is kept'
         }
     }
 }

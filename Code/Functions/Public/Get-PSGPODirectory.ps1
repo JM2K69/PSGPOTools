@@ -76,12 +76,19 @@ function Get-PSGPODirectory {
                 -Filter '(objectClass=organizationalUnit)' -Attribute 'name', 'ou', 'gPLink', 'gPOptions')
         $gpos = @(Invoke-PSGPOLdapSearch -Connection $connection -SearchBase "CN=Policies,CN=System,$domainDN" -Scope OneLevel `
                 -Filter '(objectClass=groupPolicyContainer)' -Attribute 'cn', 'displayName', 'versionNumber', 'flags', 'gPCFileSysPath')
+
+        $directory = ConvertTo-PSGPOLdapDirectory -Server $(if ($dnsHostName) { $dnsHostName } else { $Server }) -VendorName (Get-PSGPOLdapValue $rootDse 'vendorName') -DomainEntry $domain `
+            -OrganizationalUnitEntry $organizationalUnits -GpoEntry $gpos
+        # Security filtering of the GPOs, as GPMC shows it: not a reason to fail the reading.
+        try {
+            Read-PSGPODomainSecurityFiltering -Connection $connection -Directory $directory
+        } catch {
+            Write-Warning "The security filtering of the GPOs cannot be read: $($_.Exception.GetBaseException().Message)"
+            foreach ($gpo in $directory.Gpos) { $gpo.SecurityFiltering = $null; $gpo.DeniedTo = $null }
+        }
     } finally {
         $connection.Dispose()
     }
-
-    $directory = ConvertTo-PSGPOLdapDirectory -Server $(if ($dnsHostName) { $dnsHostName } else { $Server }) -VendorName (Get-PSGPOLdapValue $rootDse 'vendorName') -DomainEntry $domain `
-        -OrganizationalUnitEntry $organizationalUnits -GpoEntry $gpos
     # The changes connect again as the directory was read.
     $directory.Credential = $Credential
     $directory.UseSsl = [bool]$UseSsl

@@ -235,3 +235,83 @@ function New-PSGPODomainFilteringGroup {
     Set-PSGPODomainSecurityFiltering -Directory $Directory -Gpo $Gpo -ApplySid $apply.Sid -DenySid $deny.Sid
     $apply, $deny
 }
+
+# LDAP filter value of a binary attribute: each byte escaped (\xx).
+function ConvertTo-PSGPOLdapBinaryFilter {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([Parameter(Mandatory)] [byte[]]$Bytes)
+
+    -join ($Bytes | ForEach-Object { '\{0:x2}' -f $_ })
+}
+
+# Names of SIDs: the well-known ones, the others read in the domain (sAMAccountName), by groups
+# of 50 in one search each; a SID found nowhere keeps its string form.
+function Resolve-PSGPODomainSid {
+    [CmdletBinding()]
+    [OutputType([hashtable])]
+    param(
+        [Parameter(Mandatory)] $Connection,
+        [Parameter(Mandatory)] [string]$DomainDistinguishedName,
+        [AllowEmptyCollection()] [string[]]$Sid = @()
+    )
+
+    $names = @{}
+    $unknown = [System.Collections.Generic.List[string]]::new()
+    foreach ($value in @($Sid | Select-Object -Unique)) {
+        if ([GPOToolsSecurityDescriptor]::WellKnownNames.ContainsKey($value)) { $names[$value] = [GPOToolsSecurityDescriptor]::WellKnownNames[$value] }
+        else { $unknown.Add($value) }
+    }
+    for ($start = 0; $start -lt $unknown.Count; $start += 50) {
+        $chunk = $unknown.GetRange($start, [Math]::Min(50, $unknown.Count - $start))
+        $filter = '(|{0})' -f (-join ($chunk | ForEach-Object { "(objectSid=$(ConvertTo-PSGPOLdapBinaryFilter -Bytes ([GPOToolsSecurityDescriptor]::ConvertSidToBytes($_))))" }))
+        $request = [System.DirectoryServices.Protocols.SearchRequest]::new($DomainDistinguishedName, $filter, 'Subtree', 'objectSid', 'sAMAccountName')
+        foreach ($entry in $Connection.SendRequest($request).Entries) {
+            if (-not $entry.Attributes['objectSid'] -or -not $entry.Attributes['sAMAccountName']) { continue }
+            $found = ConvertFrom-PSGPOSidBytes -Bytes ([byte[]]$entry.Attributes['objectSid'].GetValues([byte[]])[0])
+            $names[$found] = "$($entry.Attributes['sAMAccountName'].GetValues([string])[0])"
+        }
+    }
+    foreach ($value in $unknown) { if (-not $names.ContainsKey($value)) { $names[$value] = $value } }
+    $names
+}
+
+# Security filtering of every GPO of the directory (SecurityFiltering, DeniedTo), from their
+# DACL read in one paged search; a GPO whose DACL cannot be read gets $null (not read).
+function Read-PSGPODomainSecurityFiltering {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] $Connection,
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory
+    )
+
+    $request = [System.DirectoryServices.Protocols.SearchRequest]::new("CN=Policies,CN=System,$($Directory.Domain.DistinguishedName)",
+        '(objectClass=groupPolicyContainer)', 'OneLevel', 'nTSecurityDescriptor')
+    [void]$request.Controls.Add([System.DirectoryServices.Protocols.SecurityDescriptorFlagControl]::new([System.DirectoryServices.Protocols.SecurityMasks]::Dacl))
+    $page = [System.DirectoryServices.Protocols.PageResultRequestControl]::new(500)
+    [void]$request.Controls.Add($page)
+    $filtering = @{}
+    do {
+        $response = $Connection.SendRequest($request)
+        foreach ($entry in $response.Entries) {
+            if (-not $entry.Attributes['nTSecurityDescriptor']) { continue }
+            $descriptor = [GPOToolsSecurityDescriptor]::Parse([byte[]]$entry.Attributes['nTSecurityDescriptor'].GetValues([byte[]])[0])
+            $filtering[$entry.DistinguishedName.ToLowerInvariant()] = $descriptor.GetSecurityFiltering()
+        }
+        $cookie = ($response.Controls | Where-Object { $_ -is [System.DirectoryServices.Protocols.PageResultResponseControl] } | Select-Object -First 1).Cookie
+        $page.Cookie = $cookie
+    } while ($cookie -and $cookie.Length)
+
+    $names = Resolve-PSGPODomainSid -Connection $Connection -DomainDistinguishedName $Directory.Domain.DistinguishedName `
+        -Sid @($filtering.Values | ForEach-Object { $_.Apply; $_.Deny })
+    foreach ($gpo in $Directory.Gpos) {
+        $found = $filtering["$($gpo.DistinguishedName)".ToLowerInvariant()]
+        if (-not $found) {
+            $gpo.SecurityFiltering = $null
+            $gpo.DeniedTo = $null
+            continue
+        }
+        $gpo.SecurityFiltering = @($found.Apply | ForEach-Object { $names[$_] })
+        $gpo.DeniedTo = @($found.Deny | ForEach-Object { $names[$_] })
+    }
+}

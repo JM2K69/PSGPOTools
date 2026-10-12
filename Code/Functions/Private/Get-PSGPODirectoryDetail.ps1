@@ -65,6 +65,12 @@ function Get-PSGPODirectoryDetail {
         $Detail.Properties = @(
             New-Row 'Unique ID' ('{' + $Gpo.Id.ToString().ToUpperInvariant() + '}')
             New-Row 'GPO status' $Gpo.GetStatus()
+            # Security filtering, as the Scope tab of GPMC: who applies the GPO, who is denied it.
+            New-Row 'Security filtering' $(
+                if ($null -eq $Gpo.SecurityFiltering) { 'Not read (no access to the permissions of the GPO)' }
+                elseif ($Gpo.SecurityFiltering.Count -eq 0) { 'Nobody: the GPO applies to no computer or user' }
+                else { $Gpo.SecurityFiltering -join ', ' })
+            if ($Gpo.DeniedTo.Count) { New-Row 'Denied to' ($Gpo.DeniedTo -join ', ') }
             New-Row 'User version' $Gpo.GetUserVersion()
             New-Row 'Computer version' $Gpo.GetComputerVersion()
             New-Row 'Distinguished name' $Gpo.DistinguishedName

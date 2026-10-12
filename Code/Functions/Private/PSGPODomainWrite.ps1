@@ -137,43 +137,7 @@ function Add-PSGPODomainGpLink {
         [GPOToolsGpoLink]$Link
     )
 
-    $connection = New-PSGPODirectoryConnection -Directory $Directory
-    try {
-        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Som.DistinguishedName -Scope Base -Attribute 'gPLink'
-        if (-not $entry) { throw "$($Som.DistinguishedName) is not in the domain anymore." }
-        $current = Get-PSGPOLdapValue $entry 'gPLink'
-        $new = Get-PSGPONewGpLink -Current $current -Link $Link
-
-        $request = [System.DirectoryServices.Protocols.ModifyRequest]::new()
-        $request.DistinguishedName = $Som.DistinguishedName
-        if ($null -ne $current) {
-            # Removing the value read makes the request fail if it changed meanwhile.
-            $remove = [System.DirectoryServices.Protocols.DirectoryAttributeModification]::new()
-            $remove.Name = 'gPLink'
-            $remove.Operation = [System.DirectoryServices.Protocols.DirectoryAttributeOperation]::Delete
-            [void]$remove.Add($current)
-            [void]$request.Modifications.Add($remove)
-        }
-        $add = [System.DirectoryServices.Protocols.DirectoryAttributeModification]::new()
-        $add.Name = 'gPLink'
-        $add.Operation = [System.DirectoryServices.Protocols.DirectoryAttributeOperation]::Add
-        [void]$add.Add($new)
-        [void]$request.Modifications.Add($add)
-        try {
-            [void]$connection.SendRequest($request)
-        } catch {
-            $base = $_.Exception.GetBaseException()
-            if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -in 'NoSuchAttribute', 'AttributeOrValueExists') {
-                throw "The links of $($Som.Name) changed in the domain meanwhile: read the domain again, then link the GPO."
-            }
-            if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -eq 'InsufficientAccessRights') {
-                throw "The account cannot link GPOs to $($Som.Name): $($base.Message)"
-            }
-            throw
-        }
-    } finally {
-        $connection.Dispose()
-    }
+    $new = Update-PSGPODomainGpLink -Directory $Directory -Som $Som -Change { param($Current) Get-PSGPONewGpLink -Current $Current -Link $Link } -Action 'link GPOs to'
 
     # The links as the domain has them now, the new one being this link object.
     $Directory.SetLinks($Som, $new)
@@ -185,4 +149,106 @@ function Add-PSGPODomainGpLink {
         }
     }
     Write-Verbose "GPO $($Link.GetDisplayName()) linked to $($Som.DistinguishedName) (link order $($Link.Order))."
+}
+
+# gPLink without the link of a GPO, the other links kept as written; throws when the GPO is not
+# linked there.
+function Get-PSGPORemovedGpLink {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [AllowEmptyString()]
+        [string]$Current,
+
+        [Parameter(Mandatory)]
+        [GPOToolsGpoLink]$Link
+    )
+
+    $kept = [System.Text.StringBuilder]::new()
+    $found = $false
+    foreach ($match in [regex]::Matches("$Current", '\[LDAP://([^;\]]+);(\d+)\]', 'IgnoreCase')) {
+        if (-not $found -and [string]::Equals($match.Groups[1].Value, $Link.GpoDistinguishedName, [System.StringComparison]::OrdinalIgnoreCase)) {
+            $found = $true
+            continue
+        }
+        [void]$kept.Append($match.Value)
+    }
+    if (-not $found) { throw "The GPO $($Link.GetDisplayName()) is not linked there anymore." }
+    $kept.ToString()
+}
+
+# Changes the gPLink of a SOM in the domain: $Change gets the value read and returns the new one
+# (empty: no link left, the attribute is removed, as samba-tool gpo dellink does). The value read
+# is removed in the same request, so that it fails if the links changed meanwhile. Returns the
+# new value.
+function Update-PSGPODomainGpLink {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsSom]$Som,
+        [Parameter(Mandatory)] [scriptblock]$Change,
+        # What the account does, for the access denied message ('link GPOs to')
+        [Parameter(Mandatory)] [string]$Action
+    )
+
+    $connection = New-PSGPODirectoryConnection -Directory $Directory
+    try {
+        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Som.DistinguishedName -Scope Base -Attribute 'gPLink'
+        if (-not $entry) { throw "$($Som.DistinguishedName) is not in the domain anymore." }
+        $current = Get-PSGPOLdapValue $entry 'gPLink'
+        $new = "$(& $Change $current)"
+
+        $request = [System.DirectoryServices.Protocols.ModifyRequest]::new()
+        $request.DistinguishedName = $Som.DistinguishedName
+        if ($null -ne $current) {
+            $remove = [System.DirectoryServices.Protocols.DirectoryAttributeModification]::new()
+            $remove.Name = 'gPLink'
+            $remove.Operation = [System.DirectoryServices.Protocols.DirectoryAttributeOperation]::Delete
+            [void]$remove.Add($current)
+            [void]$request.Modifications.Add($remove)
+        }
+        if ($new) {
+            $add = [System.DirectoryServices.Protocols.DirectoryAttributeModification]::new()
+            $add.Name = 'gPLink'
+            $add.Operation = [System.DirectoryServices.Protocols.DirectoryAttributeOperation]::Add
+            [void]$add.Add($new)
+            [void]$request.Modifications.Add($add)
+        }
+        try {
+            [void]$connection.SendRequest($request)
+        } catch {
+            $base = $_.Exception.GetBaseException()
+            if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -in 'NoSuchAttribute', 'AttributeOrValueExists') {
+                throw "The links of $($Som.Name) changed in the domain meanwhile: read the domain again, then try again."
+            }
+            if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -eq 'InsufficientAccessRights') {
+                throw "The account cannot $Action $($Som.Name): $($base.Message)"
+            }
+            throw
+        }
+    } finally {
+        $connection.Dispose()
+    }
+    $new
+}
+
+# Removes the link from the gPLink of the SOM in the domain, then sets its links as the domain
+# has them.
+function Remove-PSGPODomainGpLink {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [GPOToolsLdapDirectory]$Directory,
+
+        [Parameter(Mandatory)]
+        [GPOToolsSom]$Som,
+
+        [Parameter(Mandatory)]
+        [GPOToolsGpoLink]$Link
+    )
+
+    $new = Update-PSGPODomainGpLink -Directory $Directory -Som $Som -Change { param($Current) Get-PSGPORemovedGpLink -Current $Current -Link $Link } -Action 'delete the links of'
+    $Directory.SetLinks($Som, $new)
+    Write-Verbose "Link of the GPO $($Link.GetDisplayName()) to $($Som.DistinguishedName) deleted."
 }
