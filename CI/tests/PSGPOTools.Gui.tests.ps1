@@ -819,6 +819,81 @@ InModuleScope -ModuleName PSGPOTools {
             [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($Gpo)).GetSectionNames() | Should -Not -Contain 'Event Audit'
         }
 
+        It 'Shows only the settings the GPO configures with "Configured settings only"' {
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            $Pol = [GPOToolsRegistryPol]::new()
+            Set-PSGPOPolicyState -Policy ([GPOToolsUtility]::Policies | Where-Object { $_.ID -eq 'DisallowCpls' } | Select-Object -First 1) -Pol $Pol -State Disabled
+            $Directory.WritePolicyFile($Gpo, 'User', $Pol.ToBytes())
+            $Template = [GPOToolsSecurityTemplate]::new()
+            $Template.SetValue('System Access', 'MinimumPasswordLength', '14')
+            $Directory.WriteSecurityTemplate($Gpo, $Template.ToBytes())
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                function Get-TreeSecurity {
+                    param($Roots)
+                    $Stack = [System.Collections.Generic.Stack[object]]::new()
+                    foreach ($Root in $Roots) { $Stack.Push($Root) }
+                    while ($Stack.Count) {
+                        $Node = $Stack.Pop()
+                        foreach ($Child in $Node.Children) { $Stack.Push($Child) }
+                        if ($Node.Tag -is [GPOToolsSecuritySetting]) { $Node.Tag }
+                    }
+                }
+                $Ui.configuredOnlyCheckBox.IsVisible | Should -BeFalse -Because 'only a GPO has configured settings'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+                $Ui.configuredOnlyCheckBox.IsVisible | Should -BeTrue
+                $Ui.configuredOnlyCheckBox.IsChecked | Should -BeFalse
+                @(Get-TreePolicy $Ui.treeView.ItemsSource).Count | Should -Be ([GPOToolsUtility]::Policies.Count)
+
+                $Ui.configuredOnlyCheckBox.IsChecked = $true
+                @(Get-TreePolicy $Ui.treeView.ItemsSource).ID | Should -Be @('DisallowCpls')
+                @(Get-TreeSecurity $Ui.treeView.ItemsSource).Key | Should -Be @('MinimumPasswordLength')
+                $Ui.treeView.ItemsSource.Header | Should -Be @('User', 'Machine')
+                # Expanded down to the settings, to see them at once.
+                $Node = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsSecuritySetting] }
+                for ($Parent = $Node.Parent; $Parent; $Parent = $Parent.Parent) { $Parent.IsExpanded | Should -BeTrue -Because "$($Parent.Header) leads to the setting" }
+                # The tree items themselves, not only the model.
+                $Ui.Window.UpdateLayout()
+                $Machine = $Ui.treeView.ContainerFromItem(@($Ui.treeView.ItemsSource)[1])
+                $Machine | Should -Not -BeNullOrEmpty
+                $Machine.IsExpanded | Should -BeTrue
+
+                # With the search too.
+                $Ui.searchTextBox.Text = 'password'
+                Invoke-Click $Ui.searchButton
+                @(Get-TreePolicy $Ui.treeView.ItemsSource).Count | Should -Be 0
+                @(Get-TreeSecurity $Ui.treeView.ItemsSource).Key | Should -Be @('MinimumPasswordLength')
+                $Ui.searchTextBox.Text = 'BitLocker'
+                Invoke-Click $Ui.searchButton
+                $Ui.treeView.ItemsSource | Should -BeNullOrEmpty
+                $Ui.breadcrumbTextBlock.Text | Should -Be 'No configured setting matches the search'
+                $Ui.searchTextBox.Text = ''
+
+                $Ui.configuredOnlyCheckBox.IsChecked = $false
+                @(Get-TreePolicy $Ui.treeView.ItemsSource).Count | Should -Be ([GPOToolsUtility]::Policies.Count)
+
+                # Browsing the ADMX outside any GPO: no filter.
+                $Ui.configuredOnlyCheckBox.IsChecked = $true
+                Invoke-Click $Ui.managementButton
+                Invoke-Click $Ui.browseAdmxButton
+                $Ui.configuredOnlyCheckBox.IsVisible | Should -BeFalse
+                $Ui.configuredOnlyCheckBox.IsChecked | Should -BeFalse
+                @(Get-TreePolicy $Ui.treeView.ItemsSource).Count | Should -Be ([GPOToolsUtility]::Policies.Count)
+            }
+        }
+
+        It 'Says when the GPO configures no setting with "Configured settings only"' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+                $Ui.configuredOnlyCheckBox.IsChecked = $true
+                $Ui.treeView.ItemsSource | Should -BeNullOrEmpty
+                $Ui.breadcrumbTextBlock.Text | Should -Be 'This GPO configures no setting'
+            }
+        }
+
         It 'Keeps the setting read when the domain refuses the change' {
             Mock Read-PSGPOSysvolFile { $null }
             Mock Save-PSGPODomainGpoFile { throw 'access denied' }

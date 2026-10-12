@@ -4,6 +4,7 @@
 
 ### Added
 
+* Policy editor on a GPO: "Configured settings only" shows only the policies its Registry.pol files configure and the security settings its GptTmpl.inf defines, their folders expanded; it combines with the search
 * Security settings of a GPO (GptTmpl.inf, [MS-GPSB]): read and written byte for byte (`GPOToolsSecurityTemplate`), with a catalog of 189 settings as the Group Policy editor shows them (password, account lockout and Kerberos policies, audit policy, user rights assignment, security options, event logs). Edited in the policy editor under Machine > Windows Settings > Security Settings ("Not Defined" / "Define this policy setting", the value checked against its range or choices) and listed in the Settings tab; saving increases the computer version and declares the Security client-side extension. Checked on a Samba 4.22 domain controller, which reads back the file (samba-tool gpo manage security list)
 * `CI/Update-SecurityOptionCatalog.ps1` generates the catalog of the security options stored as registry values from the catalog of Windows (SeCEdit Reg Values, or sceregvl.inf)
 * GPO creation in the domain (samba-tool gpo create against the domain controller of the directory: group policy container, SYSVOL folder and its permissions) and GPO links written to the gPLink of the domain or OU over LDAP, with the lowest precedence; the links are read again before writing and the change is refused when they changed meanwhile

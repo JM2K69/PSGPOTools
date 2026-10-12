@@ -35,6 +35,7 @@ function Start-PSGPOManagerWindow {
     $breadcrumbTextBlock = Get-PSGPOAvaloniaControl $window 'breadcrumbTextBlock'
     $searchTextBox = Get-PSGPOAvaloniaControl $window 'searchTextBox'
     $searchButton = Get-PSGPOAvaloniaControl $window 'searchButton'
+    $configuredOnlyCheckBox = Get-PSGPOAvaloniaControl $window 'configuredOnlyCheckBox'
     $displayNameTextBox = Get-PSGPOAvaloniaControl $window 'displayNameTextBox'
     $descriptionTextBox = Get-PSGPOAvaloniaControl $window 'descriptionTextBox'
     $scopeTextBox = Get-PSGPOAvaloniaControl $window 'scopeTextBox'
@@ -400,9 +401,29 @@ function Start-PSGPOManagerWindow {
         Update-RegistryPreview
     })
 
+    # The tree of the policies matching the search; editing a GPO with "Configured settings
+    # only", the policies its Registry.pol files configure and the security settings its
+    # GptTmpl.inf defines.
     function Update-PolicyTree {
-        $treeView.ItemsSource = New-PSGPOPolicyTree -Filter $searchTextBox.Text
+        $only = $null
+        if ($configuredOnlyCheckBox.IsChecked -and $editing.Gpo) {
+            $only = [System.Collections.Generic.HashSet[object]]::new()
+            foreach ($scope in 'Machine', 'User') {
+                if (-not $editing.Pol[$scope]) { continue }
+                foreach ($configured in @(Get-PSGPOConfiguredPolicy -Pol $editing.Pol[$scope] -Scope $scope)) { [void]$only.Add($configured.Policy) }
+            }
+            if ($editing.Template) {
+                foreach ($setting in Get-PSGPOSecuritySetting) {
+                    if ($editing.Template.HasValue($setting.Section, $setting.Key)) { [void]$only.Add($setting) }
+                }
+            }
+        }
+        $treeView.ItemsSource = New-PSGPOPolicyTree -Filter $searchTextBox.Text -Only $only
+        if ($only -and -not @($treeView.ItemsSource).Count) {
+            $breadcrumbTextBlock.Text = if ($searchTextBox.Text) { 'No configured setting matches the search' } else { 'This GPO configures no setting' }
+        }
     }
+    $configuredOnlyCheckBox.add_IsCheckedChanged({ Update-PolicyTree })
 
     # The security settings do not come from the ADMX files: the tree always has them.
     Update-PolicyTree
@@ -459,6 +480,10 @@ function Start-PSGPOManagerWindow {
             }
         }
         $treeView.SelectedItem = $null
+        # The filter on the configured settings only applies to a GPO; rebuilt for this one.
+        $configuredOnlyCheckBox.IsVisible = $null -ne $Gpo
+        if (-not $Gpo -and $configuredOnlyCheckBox.IsChecked) { $configuredOnlyCheckBox.IsChecked = $false }
+        elseif ($configuredOnlyCheckBox.IsChecked) { Update-PolicyTree }
         $editingBanner.IsVisible = $null -ne $Gpo
         $editingGpoTextBlock.Text = if (-not $Gpo) { '' }
             elseif ($editing.PolError) { "Editing the GPO '$($Gpo.DisplayName)' [$($Directory.DomainName)]: $($editing.PolError)" }
@@ -666,7 +691,7 @@ function Start-PSGPOManagerWindow {
     $onShownState = @{ Error = $null }
     if ($OnShown) {
         $controls = @{ Window = $window; Editing = $editing; Clipboard = $clipboard; Directory = $Directory }
-        foreach ($name in 'treeView', 'themeToggleButton', 'breadcrumbTextBlock', 'searchTextBox', 'searchButton',
+        foreach ($name in 'treeView', 'themeToggleButton', 'breadcrumbTextBlock', 'searchTextBox', 'searchButton', 'configuredOnlyCheckBox',
             'displayNameTextBox', 'descriptionTextBox', 'scopeTextBox', 'registryPathTextBox',
             'registryKeyTextBox', 'registryValuesList', 'settingTitleTextBlock', 'previewEmptyTextBlock', 'detailsTabs', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
             'notConfiguredRadio', 'enabledRadio', 'disabledRadio', 'optionsHost', 'settingErrorTextBlock', 'registryPreviewList',

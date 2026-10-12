@@ -59,6 +59,30 @@ function Format-PSGPOElementValue {
     }
 }
 
+# Policies of the loaded ADMX set a Registry.pol configures for a scope: Policy and Read (its
+# state and option values, Get-PSGPOPolicyState).
+function Get-PSGPOConfiguredPolicy {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsRegistryPol]$Pol,
+
+        [Parameter(Mandatory)] [ValidateSet('Machine', 'User')] [string]$Scope
+    )
+
+    $index = Get-PSGPOPolicyKeyIndex
+    # Policies writing a key of the file, each once.
+    $seen = [System.Collections.Generic.HashSet[object]]::new()
+    foreach ($key in @($Pol.Entries.Key | Select-Object -Unique)) {
+        $found = $null
+        if (-not $index.TryGetValue("$Scope|$key", [ref]$found)) { continue }
+        foreach ($policy in $found) {
+            if (-not $seen.Add($policy)) { continue }
+            $read = Get-PSGPOPolicyState -Policy $policy -Pol $Pol
+            if ($read.State -ne 'NotConfigured') { [pscustomobject]@{ Policy = $policy; Read = $read } }
+        }
+    }
+}
+
 function Get-PSGPOConfiguredSetting {
     [CmdletBinding()]
     [OutputType([AvaloniaSettingRow])]
@@ -68,23 +92,12 @@ function Get-PSGPOConfiguredSetting {
         [Parameter(Mandatory)] [ValidateSet('Machine', 'User')] [string]$Scope
     )
 
-    $index = Get-PSGPOPolicyKeyIndex
     $hive = if ($Scope -eq 'Machine') { 'HKLM' } else { 'HKCU' }
 
-    # Policies writing a key of the file, each once.
-    $candidates = [System.Collections.Generic.List[object]]::new()
-    $seen = [System.Collections.Generic.HashSet[object]]::new()
-    foreach ($key in @($Pol.Entries.Key | Select-Object -Unique)) {
-        $found = $null
-        if ($index.TryGetValue("$Scope|$key", [ref]$found)) {
-            foreach ($policy in $found) { if ($seen.Add($policy)) { $candidates.Add($policy) } }
-        }
-    }
-
     $explained = [System.Collections.Generic.HashSet[object]]::new()
-    $rows = foreach ($policy in $candidates) {
-        $read = Get-PSGPOPolicyState -Policy $policy -Pol $Pol
-        if ($read.State -eq 'NotConfigured') { continue }
+    $rows = foreach ($configured in @(Get-PSGPOConfiguredPolicy -Pol $Pol -Scope $Scope)) {
+        $policy = $configured.Policy
+        $read = $configured.Read
         foreach ($entry in @(Get-PSGPOPolicyEntry -Policy $policy -Pol $Pol)) { [void]$explained.Add($entry) }
 
         $path = [System.Collections.Generic.List[string]]::new()
