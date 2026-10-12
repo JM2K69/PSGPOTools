@@ -12,13 +12,16 @@
     The changes use Kerberos (kinit on Linux): a password is never given to samba-tool.
 #>
 
-# Runs samba-tool and returns its output; throws with its error output when it fails.
+# Runs samba-tool and returns its output; throws with its error output when it fails. It never
+# asks for a password (--no-pass, no standard input): the changes use Kerberos.
 function Invoke-PSGPOSambaTool {
     [CmdletBinding()]
     [OutputType([string])]
     param(
         [Parameter(Mandatory)]
-        [string[]]$ArgumentList
+        [string[]]$ArgumentList,
+
+        [int]$TimeoutSeconds = 120
     )
 
     $platform = Get-PSGPOPlatform
@@ -29,20 +32,13 @@ function Invoke-PSGPOSambaTool {
         throw 'Creating a GPO needs samba-tool on this computer (Debian/Ubuntu: apt install python3-samba; RHEL/Fedora: dnf install samba-tools).'
     }
 
-    $errorFile = [System.IO.Path]::GetTempFileName()
-    try {
-        $output = & $platform.SambaToolPath @ArgumentList 2>$errorFile
-        $exitCode = $LASTEXITCODE
-        $errors = (Get-Content -LiteralPath $errorFile -Raw -ErrorAction SilentlyContinue)
-    } finally {
-        Remove-Item -LiteralPath $errorFile -Force -ErrorAction SilentlyContinue
+    $result = Invoke-PSGPONativeCommand -FilePath $platform.SambaToolPath -ArgumentList (@($ArgumentList) + '--no-pass') -TimeoutSeconds $TimeoutSeconds
+    if ($result.ExitCode -ne 0) {
+        $message = "$($result.Error)".Trim()
+        if (-not $message) { $message = "$($result.Output -join [Environment]::NewLine)".Trim() }
+        throw "samba-tool $($ArgumentList[0..1] -join ' ') failed ($($result.ExitCode)): $message"
     }
-    if ($exitCode -ne 0) {
-        $message = "$errors".Trim()
-        if (-not $message) { $message = "$($output -join [Environment]::NewLine)".Trim() }
-        throw "samba-tool $($ArgumentList[0..1] -join ' ') failed ($exitCode): $message"
-    }
-    $output
+    $result.Output
 }
 
 # GUID of the GPO in the output of samba-tool gpo create: "GPO 'name' created as {GUID}".
