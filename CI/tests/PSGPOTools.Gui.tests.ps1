@@ -283,7 +283,7 @@ InModuleScope -ModuleName PSGPOTools {
 
         It 'Renders the preview rows on screen, with the key, at a 1333x750 window size' {
             # Regression: the former DataGrid kept its header height, so the rows were never visible.
-            Start-PSGPOManagerWindow -OnShown {
+            Start-PSGPOManagerWindow -StartView Editor -OnShown {
                 param($Ui)
                 $Ui.Window.Width = 1333
                 $Ui.Window.Height = 750
@@ -550,8 +550,8 @@ InModuleScope -ModuleName PSGPOTools {
         It 'Shows a directory read over LDAP read-only: no GPO creation, links to missing GPOs shown' {
             Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
                 param($Ui)
-                $Ui.subtitleTextBlock.Text | Should -Be 'Group Policy Management - hardenbox.labo (read-only)'
-                $Ui.directoryBreadcrumbTextBlock.Text | Should -Be 'Read-only: read over LDAP from dc.hardenbox.labo, read-only'
+                $Ui.subtitleTextBlock.Text | Should -Be 'Group Policy Management - hardenbox.labo (Samba AD, read-only)'
+                $Ui.directoryBreadcrumbTextBlock.Text | Should -Be 'Read-only: read over LDAP from dc.hardenbox.labo (Samba AD), read-only'
 
                 $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Lyon'
                 $Ui.createLinkedGpoMenuItem.IsVisible | Should -BeFalse
@@ -600,19 +600,83 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
-        It 'Opens on the policy editor without directory, the domain view explaining how to load one' {
+        It 'Shows the demonstration banner over a demonstration directory only' {
+            $Directory.IsDemonstration = $true
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.demoBanner.IsVisible | Should -BeTrue
+                $Ui.demoBannerTextBlock.Text | Should -Be 'Demonstration environment: no Active Directory or Samba AD domain discovered'
+                $Ui.subtitleTextBlock.Text | Should -Be 'Group Policy Management - corp.contoso.com (demonstration)'
+                # The tree stays usable under the banner.
+                $Ui.domainTreeView.IsVisible | Should -BeTrue
+                $Ui.Window.UpdateLayout()
+                $Ui.domainTreeView.Bounds.Height | Should -BeGreaterThan 200
+            }
+            foreach ($Other in (Import-PSGPODirectory -Path $SamplePath), (New-TestLdapDirectory)) {
+                Start-PSGPOManagerWindow -Directory $Other -OnShown {
+                    param($Ui)
+                    $Ui.demoBanner.IsVisible | Should -BeFalse
+                    $Ui.subtitleTextBlock.Text | Should -Not -BeLike '*demonstration*'
+                }
+            }
+        }
+
+        It 'Opens on the Group Policy Management view with the reason when the domain could not be read' {
+            Start-PSGPOManagerWindow -DirectoryError 'LDAP connection to dc.hardenbox.labo:389 failed: no ticket' -OnShown {
+                param($Ui)
+                $Ui.managementView.IsVisible | Should -BeTrue
+                $Ui.domainTreeView.IsVisible | Should -BeFalse
+                $Ui.directoryEmptyTextBlock.IsVisible | Should -BeTrue
+                $Ui.directoryEmptyTextBlock.Text | Should -BeLike "The domain could not be read.*LDAP connection to dc.hardenbox.labo:389 failed: no ticket"
+                $Ui.directoryBreadcrumbTextBlock.Text | Should -Be 'Domain not read'
+                $Ui.browseAdmxButton.IsVisible | Should -BeTrue
+            }
+        }
+
+        It 'Opens on the Group Policy Management view by default, explaining how to load a directory' {
             Start-PSGPOManagerWindow -OnShown {
+                param($Ui)
+                $Ui.managementView.IsVisible | Should -BeTrue
+                $Ui.editorView.IsVisible | Should -BeFalse
+                $Ui.directoryEmptyTextBlock.IsVisible | Should -BeTrue
+                $Ui.directoryEmptyTextBlock.Text | Should -BeLike '*Get-PSGPODirectory*Import-PSGPODirectory*'
+                $Ui.domainTreeView.IsVisible | Should -BeFalse
+                $Ui.demoBanner.IsVisible | Should -BeFalse
+
+                Invoke-Click $Ui.browseAdmxButton
+                $Ui.editorView.IsVisible | Should -BeTrue
+                $Ui.editingBanner.IsVisible | Should -BeFalse
+                $Ui.managementButton.IsVisible | Should -BeTrue
+            }
+        }
+
+        It 'Opens on the policy editor with -StartView Editor' {
+            Start-PSGPOManagerWindow -StartView Editor -OnShown {
                 param($Ui)
                 $Ui.editorView.IsVisible | Should -BeTrue
                 $Ui.managementView.IsVisible | Should -BeFalse
-                $Ui.editingBanner.IsVisible | Should -BeFalse
-                $Ui.managementButton.IsVisible | Should -BeTrue
+                $Ui.searchPanel.IsVisible | Should -BeTrue
+            }
+        }
 
-                Invoke-Click $Ui.managementButton
-                $Ui.managementView.IsVisible | Should -BeTrue
-                $Ui.directoryEmptyTextBlock.IsVisible | Should -BeTrue
-                $Ui.directoryEmptyTextBlock.Text | Should -BeLike '*Import-PSGPODirectory*'
-                $Ui.domainTreeView.IsVisible | Should -BeFalse
+        It 'Shows this computer, its addresses, its domain and the domain controller in the status bar' {
+            $Platform = Get-PSGPOPlatform
+            Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
+                param($Ui)
+                $Items = @($Ui.statusBarList.ItemsSource)
+                $Items.Count | Should -Be 4
+                $Items[0].Text | Should -BeLike "$($Platform.ComputerName) - *"
+                $Items[3].Text | Should -Be 'DC dc.hardenbox.labo (Samba AD)'
+
+                # Drawn at the bottom of the window, below the views.
+                $Ui.Window.UpdateLayout()
+                $Ui.statusBar.IsVisible | Should -BeTrue
+                $Ui.statusBar.Bounds.Height | Should -BeGreaterThan 15
+                $Ui.statusBar.Bounds.Bottom | Should -BeGreaterThan ($Ui.Window.Bounds.Height - 2)
+                $Ui.statusBar.Bounds.Top | Should -BeGreaterOrEqual $Ui.managementView.Bounds.Bottom
+                $Icons = @([Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($Ui.statusBarList) | Where-Object { $_ -is [Avalonia.Controls.PathIcon] })
+                $Icons.Count | Should -Be 4
+                $Icons | ForEach-Object { $_.Data | Should -Not -BeNullOrEmpty }
             }
         }
     }

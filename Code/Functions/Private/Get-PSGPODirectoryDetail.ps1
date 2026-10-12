@@ -45,6 +45,10 @@ function Get-PSGPODirectoryDetail {
             New-Row 'Distinguished name' $Item.DistinguishedName
             New-Row 'Block inheritance' $(if ($Item.BlockInheritance) { 'Yes' } else { 'No' })
         )
+        if ($Item.Kind -eq [GPOToolsSomKind]::Domain -and $Directory -is [GPOToolsLdapDirectory]) {
+            $Detail.Properties += New-Row 'Domain controller' $Directory.Server
+            $Detail.Properties += New-Row 'Directory service' $Directory.ServerType
+        }
         $Detail.LinksHeader = "Linked Group Policy Objects ($($Item.Links.Count))"
         $Detail.Links = @(foreach ($Link in @($Item.Links | Sort-Object Order)) { New-LinkRow $Link $Link.GetDisplayName() '' })
     } elseif ($Item -is [GPOToolsGpoLink] -and -not $Item.Gpo) {

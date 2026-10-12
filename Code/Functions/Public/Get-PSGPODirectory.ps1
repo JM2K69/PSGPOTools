@@ -64,7 +64,7 @@ function Get-PSGPODirectory {
 
     $connection = New-PSGPOLdapConnection -Server $Server -Credential $Credential -UseSsl:$UseSsl -Port $Port
     try {
-        $rootDse = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase '' -Scope Base -Attribute 'defaultNamingContext', 'dnsHostName'
+        $rootDse = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase '' -Scope Base -Attribute 'defaultNamingContext', 'dnsHostName', 'vendorName'
         $domainDN = Get-PSGPOLdapValue $rootDse 'defaultNamingContext'
         $dnsHostName = Get-PSGPOLdapValue $rootDse 'dnsHostName'
         if (-not $domainDN) { throw "$Server did not give its default naming context: is it a domain controller?" }
@@ -79,6 +79,6 @@ function Get-PSGPODirectory {
         $connection.Dispose()
     }
 
-    ConvertTo-PSGPOLdapDirectory -Server $(if ($dnsHostName) { $dnsHostName } else { $Server }) -DomainEntry $domain `
+    ConvertTo-PSGPOLdapDirectory -Server $(if ($dnsHostName) { $dnsHostName } else { $Server }) -VendorName (Get-PSGPOLdapValue $rootDse 'vendorName') -DomainEntry $domain `
         -OrganizationalUnitEntry $organizationalUnits -GpoEntry $gpos
 }

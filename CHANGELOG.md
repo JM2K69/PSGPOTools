@@ -4,6 +4,9 @@
 
 ### Added
 
+* `Show-GPOManagerAvalonia` reads the domain at launch (domain of the computer, the domain controller it runs on, or `-Server` with `-Credential` / `-UseSsl`) and opens on the Group Policy Management view; it shows why when the domain cannot be read, and the sample directory under a "demonstration environment" banner when no domain is discovered; `-NoDirectory` opens the policy editor only
+* The window names the directory service of the domain controller, Active Directory or Samba AD (vendorName of the rootDSE), in its subtitle and in the details of the domain
+* GUI status bar: this computer (name, system, domain controller role), its addresses, its domain and the domain controller the directory was read from
 * `Get-PSGPODirectory`: reads the domain, its OUs, GPO links (gPLink by link order, enforced and disabled links, links to missing GPOs) and blocked inheritance, and the GPOs (versions, status, SYSVOL path) over LDAP, from Windows and Linux, for Windows and Samba domain controllers; Kerberos with the current identity, or a password over LDAPS only. The directory is read-only for now: the window offers no GPO creation on it
 * Platform detection (private `Get-PSGPOPlatform`, kept in `$script:PSGPOPlatform`): operating system, domain of the computer, Windows or Samba domain controller (smb.conf server role), Kerberos realm, samba-tool and the native LDAP library
 * Tests against a real domain controller, run when `PSGPOTOOLS_TEST_LDAP_SERVER` names one

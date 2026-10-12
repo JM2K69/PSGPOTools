@@ -99,6 +99,29 @@ function Test-PSGPOLdapLibrary {
     'The OpenLDAP client library (libldap) is not installed: install libldap2 (Debian/Ubuntu: apt install libldap2; RHEL/Fedora: dnf install openldap).'
 }
 
+# Addresses of the network interfaces that are up: IPv4 first, without loopback and link-local.
+function Get-PSGPOIPAddress {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param()
+
+    try {
+        $addresses = foreach ($interface in [System.Net.NetworkInformation.NetworkInterface]::GetAllNetworkInterfaces()) {
+            if ($interface.OperationalStatus -ne [System.Net.NetworkInformation.OperationalStatus]::Up) { continue }
+            if ($interface.NetworkInterfaceType -eq [System.Net.NetworkInformation.NetworkInterfaceType]::Loopback) { continue }
+            foreach ($unicast in $interface.GetIPProperties().UnicastAddresses) {
+                $address = $unicast.Address
+                if ([System.Net.IPAddress]::IsLoopback($address) -or $address.IsIPv6LinkLocal) { continue }
+                $address
+            }
+        }
+        $addresses | Sort-Object { $_.AddressFamily -ne [System.Net.Sockets.AddressFamily]::InterNetwork }, { "$_" } |
+            ForEach-Object { "$_" } | Select-Object -Unique
+    } catch {
+        Write-Verbose "Network addresses not read: $($_.Exception.Message)"
+    }
+}
+
 function Get-PSGPOPlatform {
     [CmdletBinding()]
     [OutputType([GPOToolsPlatform])]
@@ -115,6 +138,8 @@ function Get-PSGPOPlatform {
 
     $platform = [GPOToolsPlatform]::new()
     $platform.ComputerName = [Environment]::MachineName
+    $platform.OperatingSystemDescription = [System.Runtime.InteropServices.RuntimeInformation]::OSDescription
+    $platform.IPAddresses = @(Get-PSGPOIPAddress)
     $platform.OperatingSystem = if ($IsWindows) { 'Windows' } elseif ($IsMacOS) { 'MacOS' } else { 'Linux' }
 
     if ($IsWindows) {

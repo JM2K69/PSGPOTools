@@ -55,5 +55,5 @@ function Get-TestLdapEntrySet {
 
 function New-TestLdapDirectory {
     $Set = Get-TestLdapEntrySet
-    ConvertTo-PSGPOLdapDirectory -Server 'dc.hardenbox.labo' -DomainEntry $Set.Domain -OrganizationalUnitEntry $Set.Ous -GpoEntry $Set.Gpos 3>$null
+    ConvertTo-PSGPOLdapDirectory -Server 'dc.hardenbox.labo' -VendorName 'Samba Team (https://www.samba.org)' -DomainEntry $Set.Domain -OrganizationalUnitEntry $Set.Ous -GpoEntry $Set.Gpos 3>$null
 }

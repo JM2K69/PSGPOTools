@@ -14,6 +14,13 @@ function Start-PSGPOManagerWindow {
         # Domain of the Group Policy Management view; without it the window opens on the ADMX policies.
         [GPOToolsDirectory]$Directory,
 
+        # Why the domain could not be read: shown in the Group Policy Management view.
+        [string]$DirectoryError,
+
+        # View shown at launch: the Group Policy Management view, or the policy editor.
+        [ValidateSet('Management', 'Editor')]
+        [string]$StartView = 'Management',
+
         [scriptblock]$OnShown
     )
 
@@ -56,6 +63,8 @@ function Start-PSGPOManagerWindow {
     $editingGpoTextBlock = Get-PSGPOAvaloniaControl $window 'editingGpoTextBlock'
     $domainTreeView = Get-PSGPOAvaloniaControl $window 'domainTreeView'
     $directoryEmptyTextBlock = Get-PSGPOAvaloniaControl $window 'directoryEmptyTextBlock'
+    $demoBanner = Get-PSGPOAvaloniaControl $window 'demoBanner'
+    $statusBarList = Get-PSGPOAvaloniaControl $window 'statusBarList'
     $directoryBreadcrumbTextBlock = Get-PSGPOAvaloniaControl $window 'directoryBreadcrumbTextBlock'
     $directoryTitleTextBlock = Get-PSGPOAvaloniaControl $window 'directoryTitleTextBlock'
     $directoryPropertiesList = Get-PSGPOAvaloniaControl $window 'directoryPropertiesList'
@@ -248,6 +257,8 @@ function Start-PSGPOManagerWindow {
         $searchPanel.IsVisible = $View -eq 'Editor'
         $subtitleTextBlock.Text = if ($View -eq 'Management') {
             if (-not $Directory) { 'Group Policy Management' }
+            elseif ($Directory.IsDemonstration) { "Group Policy Management - $($Directory.DomainName) (demonstration)" }
+            elseif ($Directory -is [GPOToolsLdapDirectory]) { "Group Policy Management - $($Directory.DomainName) ($($Directory.ServerType), read-only)" }
             elseif ($Directory.IsReadOnly) { "Group Policy Management - $($Directory.DomainName) (read-only)" }
             else { "Group Policy Management - $($Directory.DomainName)" }
         } elseif ($editing.Gpo) { "Editing the GPO $($editing.Gpo.DisplayName)" } else { 'Explore and manage Group Policy Objects' }
@@ -390,13 +401,17 @@ function Start-PSGPOManagerWindow {
     $directoryHint = if ($Directory.IsReadOnly) { "Read-only: $($Directory.Source)" } else { 'Right-click a domain or an OU to create a GPO' }
     $directoryBreadcrumbTextBlock.Text = $directoryHint
     $directoryEmptyTextBlock.IsVisible = -not $Directory
+    $demoBanner.IsVisible = [bool]$Directory.IsDemonstration
     $domainTreeView.IsVisible = [bool]$Directory
-    if ($Directory) {
-        Update-DirectoryTree
-        Show-View 'Management'
-    } else {
-        Show-View 'Editor'
+    if ($DirectoryError) {
+        $directoryEmptyTextBlock.Text = "The domain could not be read.`n`n$DirectoryError"
+        $directoryEmptyTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
+        $directoryBreadcrumbTextBlock.Text = 'Domain not read'
     }
+    if ($Directory) { Update-DirectoryTree }
+    Show-View $StartView
+
+    $statusBarList.ItemsSource = @(Get-PSGPOStatusBarItem -Platform (Get-PSGPOPlatform) -Directory $Directory -DirectoryError $DirectoryError)
 
     # Avalonia's SetupWithoutStarting() does not run a message loop by itself; drive one
     # manually and stop it when the window closes so the call blocks until then.
@@ -419,7 +434,7 @@ function Start-PSGPOManagerWindow {
             'registryKeyTextBox', 'registryValuesList', 'settingTitleTextBlock', 'previewEmptyTextBlock', 'detailsTabs', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
             'notConfiguredRadio', 'enabledRadio', 'disabledRadio', 'optionsHost', 'settingErrorTextBlock', 'registryPreviewList',
             'themeToggleIcon', 'themeToggleText', 'subtitleTextBlock', 'managementButton', 'browseAdmxButton', 'searchPanel', 'managementView', 'editorView',
-            'editingBanner', 'editingGpoTextBlock', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
+            'editingBanner', 'editingGpoTextBlock', 'demoBanner', 'demoBannerTextBlock', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
             'directoryTitleTextBlock', 'directoryPropertiesList', 'linksHeaderTextBlock', 'linksList', 'createLinkedGpoMenuItem',
             'newGpoMenuItem', 'editGpoMenuItem', 'editGpoButton', 'newGpoPanel', 'newGpoTitleTextBlock', 'newGpoNameTextBox',
             'newGpoErrorTextBlock', 'newGpoCreateButton', 'newGpoCancelButton') {
