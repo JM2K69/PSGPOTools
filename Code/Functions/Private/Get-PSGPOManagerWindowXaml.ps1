@@ -226,6 +226,27 @@ $iconResources
                                             <TextBlock Name='newGpoTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap'
                                                        Foreground='{DynamicResource TextBrush}'/>
                                             <TextBox Name='newGpoNameTextBox' Watermark='Name of the new GPO'/>
+                                            <!-- GPO status (flags of the GPO), as GPMC: the configuration it applies -->
+                                            <Grid ColumnDefinitions='Auto,*'>
+                                                <TextBlock Text='GPO status' VerticalAlignment='Center' Margin='0,0,12,0'
+                                                           Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                <ComboBox Grid.Column='1' Name='newGpoStatusComboBox' SelectedIndex='0' HorizontalAlignment='Stretch'>
+                                                    <ComboBoxItem Content='Enabled: computer and user settings' Tag='0'/>
+                                                    <ComboBoxItem Content='Computer settings only (user configuration disabled)' Tag='1'/>
+                                                    <ComboBoxItem Content='User settings only (computer configuration disabled)' Tag='2'/>
+                                                </ComboBox>
+                                            </Grid>
+                                            <!-- Security filtering groups APPLY_<GPO> and DENY_<GPO> -->
+                                            <CheckBox Name='newGpoGroupsCheckBox' Content='Create the security filtering groups'/>
+                                            <StackPanel Name='newGpoGroupsPanel' Spacing='6' Margin='28,0,0,0' IsVisible='False'>
+                                                <TextBlock Name='newGpoGroupsTextBlock' TextWrapping='Wrap' FontSize='12'
+                                                           Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                <Grid ColumnDefinitions='Auto,*'>
+                                                    <TextBlock Text='Groups in' VerticalAlignment='Center' Margin='0,0,12,0'
+                                                               Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                    <ComboBox Grid.Column='1' Name='newGpoGroupsContainerComboBox' HorizontalAlignment='Stretch'/>
+                                                </Grid>
+                                            </StackPanel>
                                             <TextBlock Name='newGpoErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
                                             <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
                                                 <Button Name='newGpoCreateButton' Content='Create' Width='100'/>
@@ -233,6 +254,10 @@ $iconResources
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>
+
+                                    <!-- What the last GPO creation did, and what failed -->
+                                    <TextBlock Name='newGpoResultTextBlock' TextWrapping='Wrap' Margin='0,8,0,0'
+                                               IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
 
                                     <Button Name='editGpoButton' IsVisible='False' Margin='0,8,0,8'>
                                         <StackPanel Orientation='Horizontal' Spacing='8'>
