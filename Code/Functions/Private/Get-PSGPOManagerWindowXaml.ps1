@@ -349,11 +349,17 @@ $iconResources
                             Background='{DynamicResource HeaderBackgroundBrush}'
                             Padding='16,12' CornerRadius='8,8,0,0'>
                         <StackPanel>
-                            <StackPanel Orientation='Horizontal' Spacing='8'>
-                                <PathIcon Data='{StaticResource Icon.tree}' Foreground='{DynamicResource HeaderTextBrush}'/>
-                                <TextBlock Text='Policy Structure' FontSize='15' FontWeight='SemiBold'
-                                           Foreground='{DynamicResource HeaderTextBrush}'/>
-                            </StackPanel>
+                            <Grid ColumnDefinitions='*,Auto'>
+                                <StackPanel Orientation='Horizontal' Spacing='8' VerticalAlignment='Center'>
+                                    <PathIcon Data='{StaticResource Icon.tree}' Foreground='{DynamicResource HeaderTextBrush}'/>
+                                    <TextBlock Text='Policy Structure' FontSize='15' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource HeaderTextBrush}'/>
+                                </StackPanel>
+                                <!-- Editing a GPO: only the settings it configures -->
+                                <CheckBox Grid.Column='1' Name='configuredOnlyCheckBox' Content='Configured settings only'
+                                          IsVisible='False' Foreground='{DynamicResource HeaderTextBrush}'
+                                          ToolTip.Tip='Shows only the policies and security settings this GPO configures'/>
+                            </Grid>
                             <Grid ColumnDefinitions='Auto,*' Margin='0,4,0,0'>
                                 <PathIcon Grid.Column='0' Data='{StaticResource Icon.location}' Width='12' Height='12'
                                           Margin='0,0,4,0' Foreground='{DynamicResource SecondaryTextBrush}'/>
@@ -364,6 +370,11 @@ $iconResources
                     </Border>
 
                     <TreeView Grid.Row='1' Name='treeView' Margin='8' ScrollViewer.HorizontalScrollBarVisibility='Disabled'>
+                        <TreeView.Styles>
+                            <Style Selector='TreeViewItem'>
+                                <Setter Property='IsExpanded' Value='{Binding IsExpanded, Mode=TwoWay}'/>
+                            </Style>
+                        </TreeView.Styles>
                         <TreeView.ItemTemplate>
                             <TreeDataTemplate ItemsSource='{Binding Children}'>
                                 <Grid ColumnDefinitions='Auto,*'>

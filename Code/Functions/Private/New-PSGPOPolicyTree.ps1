@@ -8,8 +8,14 @@ function New-PSGPOPolicyTree {
     [OutputType([System.Collections.ObjectModel.ObservableCollection[object]])]
     param(
         # Case-insensitive substring matched against the policy display name.
-        [string]$Filter = ''
+        [string]$Filter = '',
+
+        # Only these policies and security settings (the settings a GPO configures), their
+        # folders expanded; $null: all of them.
+        [AllowNull()]
+        [System.Collections.Generic.HashSet[object]]$Only
     )
+    $expand = $null -ne $Only
 
     $rootNodes = [System.Collections.ObjectModel.ObservableCollection[object]]::new()
 
@@ -30,6 +36,7 @@ function New-PSGPOPolicyTree {
         foreach ($policy in [GPOToolsUtility]::Policies) {
             if ($policy.Scope -ne $scope) { continue }
             if ($Filter -and $policy.DisplayName.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -lt 0) { continue }
+            if ($expand -and -not $Only.Contains($policy)) { continue }
 
             # Category chain from the policy's own category up to the root.
             $chain = [System.Collections.Generic.List[object]]::new()
@@ -50,6 +57,7 @@ function New-PSGPOPolicyTree {
                     $node.IconData = $folderData
                     $node.IconBrush = $script:PSGPOIconBrush['folder']
                     $node.Tag = $cat
+                    $node.IsExpanded = $expand
                     $node.Parent = $currentNode
                     $currentNode.Children.Add($node)
                     $categoryNodes[$cat] = $node
@@ -70,17 +78,21 @@ function New-PSGPOPolicyTree {
         # Security settings (GptTmpl.inf) of the computer, first as in the Group Policy editor:
         # Windows Settings > Security Settings > Account Policies > Password Policy > settings.
         if ($scope -eq [ScopePolicy]::Machine) {
-            $security = @(Get-PSGPOSecuritySetting | Where-Object { -not $Filter -or $_.Name.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0 })
+            $security = @(Get-PSGPOSecuritySetting | Where-Object {
+                (-not $Filter -or $_.Name.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) -and (-not $expand -or $Only.Contains($_))
+            })
             if ($security.Count) {
                 $windowsNode = [AvaloniaTreeNode]::new()
                 $windowsNode.Header = 'Windows Settings'
                 Set-PSGPOTreeNodeIcon -Node $windowsNode -Name 'folder'
                 $windowsNode.Tag = 'WindowsSettings'
+                $windowsNode.IsExpanded = $expand
                 $windowsNode.Parent = $scopeNode
                 $securityNode = [AvaloniaTreeNode]::new()
                 $securityNode.Header = 'Security Settings'
                 Set-PSGPOTreeNodeIcon -Node $securityNode -Name 'shield'
                 $securityNode.Tag = 'SecuritySettings'
+                $securityNode.IsExpanded = $expand
                 $securityNode.Parent = $windowsNode
                 $windowsNode.Children.Add($securityNode)
                 $folders = @{}
@@ -96,6 +108,7 @@ function New-PSGPOPolicyTree {
                             $folder.IconData = $folderData
                             $folder.IconBrush = $script:PSGPOIconBrush['folder']
                             $folder.Tag = "Security:$folderPath"
+                            $folder.IsExpanded = $expand
                             $folder.Parent = $parent
                             $parent.Children.Add($folder)
                             $folders[$folderPath] = $folder
@@ -114,6 +127,7 @@ function New-PSGPOPolicyTree {
         }
 
         if ($scopeNode.Children.Count -gt 0) {
+            $scopeNode.IsExpanded = $expand
             $rootNodes.Add($scopeNode)
         }
     }
