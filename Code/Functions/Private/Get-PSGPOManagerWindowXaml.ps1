@@ -150,7 +150,7 @@ $iconResources
 
                     <TextBlock Grid.Row='1' Name='directoryEmptyTextBlock' Margin='16' TextWrapping='Wrap'
                                Foreground='{DynamicResource SecondaryTextBrush}'
-                               Text='No directory loaded: read one with Import-PSGPODirectory, then open the window with Show-GPOManagerAvalonia -Directory.'/>
+                               Text='No directory loaded: read the domain with Get-PSGPODirectory (or a JSON description with Import-PSGPODirectory), then open the window with Show-GPOManagerAvalonia -Directory.'/>
                     <TreeView Grid.Row='1' Name='domainTreeView' Margin='8' ScrollViewer.HorizontalScrollBarVisibility='Disabled'>
                         <TreeView.Styles>
                             <Style Selector='TreeViewItem'>
@@ -198,8 +198,8 @@ $iconResources
                                    TextWrapping='Wrap' Foreground='{DynamicResource HeaderTextBrush}'/>
                     </Border>
 
-                    <ScrollViewer Grid.Row='1' Padding='16,8'>
-                        <StackPanel>
+                    <ScrollViewer Grid.Row='1'>
+                        <StackPanel Margin='16,8'>
                             <!-- New GPO form, opened from the context menu -->
                             <Border Name='newGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
                                     BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
@@ -349,8 +349,8 @@ $iconResources
                     <!-- Setting: what the administrator edits; Details: what the ADMX defines. -->
                     <TabControl Grid.Row='1' Name='detailsTabs' Margin='8,0,8,8'>
                         <TabItem Header='Setting'>
-                            <ScrollViewer Padding='8'>
-                                <StackPanel>
+                            <ScrollViewer>
+                                <StackPanel Margin='8'>
                                     <TextBlock Name='settingTitleTextBlock' FontSize='16' FontWeight='SemiBold'
                                                TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'
                                                Text='Select a policy in the tree'/>
@@ -394,8 +394,8 @@ $iconResources
                         </TabItem>
 
                         <TabItem Header='Details'>
-                            <ScrollViewer Padding='8'>
-                                <StackPanel Name='detailsPanel'>
+                            <ScrollViewer>
+                                <StackPanel Name='detailsPanel' Margin='8'>
                                     <TextBlock Text='Display Name' FontSize='12' FontWeight='SemiBold'
                                                Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,8,0,4'/>
                                     <TextBox Name='displayNameTextBox' IsReadOnly='True' TextWrapping='Wrap'/>

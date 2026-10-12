@@ -297,6 +297,8 @@ InModuleScope -ModuleName PSGPOTools {
                 $Row.Bounds.Height | Should -BeGreaterThan 40
                 # The row is inside the visible part of the Setting tab, without scrolling.
                 $Origin = [Avalonia.VisualExtensions]::TranslatePoint($Row, [Avalonia.Point]::new(0, 0), $Ui.Window)
+                # TranslatePoint gives $null when it cannot place the row: the check would pass without proof.
+                $Origin | Should -Not -BeNullOrEmpty
                 $Origin.Value.Y + $Row.Bounds.Height | Should -BeLessThan $Ui.Window.Bounds.Height
             }
         }
@@ -345,6 +347,7 @@ InModuleScope -ModuleName PSGPOTools {
     Describe 'Group Policy Management view' -Skip:$AvaloniaMissing {
         BeforeAll {
             $SamplePath = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Samples' 'Directory.sample.json'
+            . (Join-Path $PSScriptRoot 'Fixtures' 'LdapDirectory.ps1')
 
             # Node of the domain tree at a path of headers, from the domain.
             function Get-DomainNode {
@@ -541,6 +544,59 @@ InModuleScope -ModuleName PSGPOTools {
                 Invoke-Click $Ui.editGpoButton
                 $Ui.editorView.IsVisible | Should -BeTrue
                 $Ui.Editing.Gpo.DisplayName | Should -Be 'TEST - Edge Policies'
+            }
+        }
+
+        It 'Shows a directory read over LDAP read-only: no GPO creation, links to missing GPOs shown' {
+            Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
+                param($Ui)
+                $Ui.subtitleTextBlock.Text | Should -Be 'Group Policy Management - hardenbox.labo (read-only)'
+                $Ui.directoryBreadcrumbTextBlock.Text | Should -Be 'Read-only: read over LDAP from dc.hardenbox.labo, read-only'
+
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Lyon'
+                $Ui.createLinkedGpoMenuItem.IsVisible | Should -BeFalse
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                $Ui.newGpoMenuItem.IsVisible | Should -BeFalse
+
+                $Workstations = Get-DomainNode $Ui 'Lyon', 'Workstations (blocks inheritance)'
+                $Ui.domainTreeView.SelectedItem = $Workstations.Children | Where-Object { $_.Tag -is [GPOToolsGpoLink] -and -not $_.Tag.Gpo }
+                $Ui.directoryTitleTextBlock.Text | Should -BeLike 'GPO not found (*)'
+                $Ui.editGpoMenuItem.IsVisible | Should -BeFalse
+                $Ui.editGpoButton.IsVisible | Should -BeFalse
+
+                # The GPOs can still be opened in the policy editor.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Lyon', 'Workstations (blocks inheritance)', 'Workstations (enforced)'
+                Invoke-Click $Ui.editGpoMenuItem
+                $Ui.editorView.IsVisible | Should -BeTrue
+                $Ui.Editing.Gpo.Id | Should -Be ([guid]$TestLdapWorkstationsPolicy)
+            }
+        }
+
+        It 'Keeps the long distinguished names inside the details panel' {
+            # Regression: a padding on the scroll viewer moved its content without narrowing it, so
+            # the end of the long values was drawn under the right border, cut.
+            Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Default Domain Policy'
+                $Ui.Window.UpdateLayout()
+                [Avalonia.Threading.Dispatcher]::UIThread.RunJobs()
+                $Ui.Window.UpdateLayout()
+
+                # Compared with what the scroll viewer shows, its bounds, not with its viewport.
+                $Scroll = [Avalonia.VisualTree.VisualExtensions]::GetVisualAncestors($Ui.directoryPropertiesList) | Where-Object { $_ -is [Avalonia.Controls.ScrollViewer] } | Select-Object -First 1
+                $Texts = @([Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($Ui.directoryPropertiesList) | Where-Object { $_ -is [Avalonia.Controls.SelectableTextBlock] })
+                $Texts.Count | Should -BeGreaterThan 4
+                foreach ($Text in $Texts) {
+                    # Right edge in the scroll viewer: the offsets of the ancestors added up.
+                    $Right = $Text.Bounds.Width
+                    for ($Visual = $Text; $Visual -and -not [object]::ReferenceEquals($Visual, $Scroll); $Visual = [Avalonia.VisualTree.VisualExtensions]::GetVisualParent($Visual)) {
+                        $Right += $Visual.Bounds.X
+                    }
+                    $Visual | Should -Not -BeNullOrEmpty -Because 'the value is drawn in the scroll viewer'
+                    $Right | Should -BeLessOrEqual ($Scroll.Bounds.Width - 8) -Because "'$($Text.Text)' must end before the right margin"
+                    # A value without spaces is cut inside a word: no line wider than its block.
+                    foreach ($Line in $Text.TextLayout.TextLines) { $Line.Width | Should -BeLessOrEqual ($Text.Bounds.Width + 0.5) }
+                }
             }
         }
 

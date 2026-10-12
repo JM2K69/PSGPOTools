@@ -4,6 +4,9 @@
 
 ### Added
 
+* `Get-PSGPODirectory`: reads the domain, its OUs, GPO links (gPLink by link order, enforced and disabled links, links to missing GPOs) and blocked inheritance, and the GPOs (versions, status, SYSVOL path) over LDAP, from Windows and Linux, for Windows and Samba domain controllers; Kerberos with the current identity, or a password over LDAPS only. The directory is read-only for now: the window offers no GPO creation on it
+* Platform detection (private `Get-PSGPOPlatform`, kept in `$script:PSGPOPlatform`): operating system, domain of the computer, Windows or Samba domain controller (smb.conf server role), Kerberos realm, samba-tool and the native LDAP library
+* Tests against a real domain controller, run when `PSGPOTOOLS_TEST_LDAP_SERVER` names one
 * GUI Group Policy Management view (proof of concept): domain, OUs, GPO links by link order and the Group Policy Objects container, with a details panel (links of an OU, links and versions of a GPO) and a context menu to create a GPO (linked to the selected domain or OU, or unlinked) and to edit a GPO in the policy editor
 * `Import-PSGPODirectory`: reads the domain of the view from JSON; `Samples/Directory.sample.json` describes a realistic domain (tiering, sites, servers by role, blocked inheritance, enforced and disabled links)
 * GUI setting form generated from the ADMX elements and the ADML presentation, in presentation order: Not Configured / Enabled / Disabled, check boxes, drop-down lists (sorted unless `noSort`), bounded numeric boxes, text, multi-line text, editable lists (with name/value pairs for `explicitValue` lists) and explanation texts
@@ -16,6 +19,8 @@
 
 ### Fixed
 
+* GUI details panels: the end of long values (distinguished names, SYSVOL paths) was cut under the right border: Avalonia measured the content of a padded scroll viewer on its full width; the padding is now a margin of the content
+* GUI tests: a check of the preview position could pass without proof when the row could not be placed in the window
 * GUI trees: selecting a node with a long name scrolled the tree horizontally and cut the domain and the OUs (seen on Linux); long names are now trimmed, with the full name as tooltip
 * GUI: the Not Configured / Enabled / Disabled radio buttons shared a group name with those of the previously opened windows, so opening a window could run a handler of a closed one
 * GUI copy to the clipboard: a failed copy is now reported with a warning instead of being silently lost

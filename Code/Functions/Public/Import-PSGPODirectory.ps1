@@ -32,6 +32,7 @@ function Import-PSGPODirectory {
     $Data = Get-Content -LiteralPath $Path -Raw -ErrorAction Stop | ConvertFrom-Json -AsHashtable -ErrorAction Stop
     if (-not $Data.domain) { throw "'$Path': the 'domain' property is required." }
     $Directory = [GPOToolsDirectory]::new($Data.domain)
+    $Directory.Source = "JSON file $((Resolve-Path -LiteralPath $Path).Path), changes in memory"
 
     foreach ($Entry in @($Data.gpos)) {
         if ($null -eq $Entry) { continue }

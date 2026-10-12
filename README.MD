@@ -93,19 +93,38 @@ pwsh -File .\CI\Invoke-Tests.ps1
 
 The same script runs on every push and pull request in GitHub Actions (`.github/workflows/ci.yml`, Windows runner).
 
-## Group Policy Management view (proof of concept)
+## Group Policy Management view
 
-`Show-GPOManagerAvalonia -Directory` opens a view close to GPMC: the domain, its OUs with their GPO links (by link order, enforced and disabled links marked) and the Group Policy Objects container. Its context menu creates a GPO linked to the selected domain or OU ("Create a GPO in this domain, and Link it here..."), creates an unlinked GPO from the Group Policy Objects container, and edits a GPO: the policy editor then opens on it.
+`Show-GPOManagerAvalonia -Directory` opens a view close to GPMC: the domain, its OUs with their GPO links (by link order, enforced and disabled links marked, links to missing GPOs shown) and the Group Policy Objects container. Its context menu edits a GPO in the policy editor and, on a writable directory, creates a GPO linked to the selected domain or OU ("Create a GPO in this domain, and Link it here...") or unlinked from the Group Policy Objects container.
 
-For now the directory is described in a JSON file and the changes stay in memory: reading a real domain (LDAP, Samba AD included) and saving the settings come later. A sample of a realistic domain is shipped with the module:
+### Reading a domain
+
+`Get-PSGPODirectory` reads the domain over LDAP, with the same code for Windows and Samba domain controllers, from Windows and Linux (System.DirectoryServices.Protocols). The directory is read-only for now: creating GPOs and links in the domain, and saving the settings, come later.
+
+```Powershell
+# Windows, on a computer of the domain: the identity of the session
+Show-GPOManagerAvalonia -Directory (Get-PSGPODirectory)
+
+# Linux (Samba AD): a Kerberos ticket first; needs the SASL GSSAPI module
+# (Debian/Ubuntu: apt install libsasl2-modules-gssapi-mit)
+kinit administrator@HARDENBOX.LABO
+Show-GPOManagerAvalonia -Directory (Get-PSGPODirectory -Server dc.hardenbox.labo)
+
+# Or a password over LDAPS (the certificate of the server must be trusted)
+Get-PSGPODirectory -Server dc.contoso.com -Credential (Get-Credential) -UseSsl
+```
+
+A password is never sent over plain LDAP. Without `-Server`, the module uses the computer itself when it is a domain controller, else the domain of the computer.
+
+### Offline directory
+
+A directory can also be described in JSON, for demonstrations and tests; its changes stay in memory. A sample of a realistic domain is shipped with the module (see `Get-Help Import-PSGPODirectory` for the format):
 
 ```Powershell
 Initialize-PSGPOAdmx -UICulture 'en-US'
 $Sample = Join-Path (Split-Path (Get-Module PSGPOTools).Path) 'Samples' 'Directory.sample.json'
 Show-GPOManagerAvalonia -Directory (Import-PSGPODirectory -Path $Sample)
 ```
-
-See `Get-Help Import-PSGPODirectory` for the JSON format.
 
 ## Testing Module
 

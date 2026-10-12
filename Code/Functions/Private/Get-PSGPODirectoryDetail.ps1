@@ -31,7 +31,7 @@ function Get-PSGPODirectoryDetail {
         $Row.Location = $Location
         $Row.Enforced = 'Enforced: ' + $(if ($Link.Enforced) { 'Yes' } else { 'No' })
         $Row.LinkEnabled = 'Link enabled: ' + $(if ($Link.Enabled) { 'Yes' } else { 'No' })
-        $Row.Status = $Link.Gpo.GetStatus()
+        $Row.Status = $Link.GetStatus()
         $Row
     }
 
@@ -46,7 +46,14 @@ function Get-PSGPODirectoryDetail {
             New-Row 'Block inheritance' $(if ($Item.BlockInheritance) { 'Yes' } else { 'No' })
         )
         $Detail.LinksHeader = "Linked Group Policy Objects ($($Item.Links.Count))"
-        $Detail.Links = @(foreach ($Link in @($Item.Links | Sort-Object Order)) { New-LinkRow $Link $Link.Gpo.DisplayName '' })
+        $Detail.Links = @(foreach ($Link in @($Item.Links | Sort-Object Order)) { New-LinkRow $Link $Link.GetDisplayName() '' })
+    } elseif ($Item -is [GPOToolsGpoLink] -and -not $Item.Gpo) {
+        $Detail.Title = $Item.GetDisplayName()
+        $Detail.Properties = @(
+            New-Row 'GPO status' $Item.GetStatus()
+            New-Row 'Distinguished name' $Item.GpoDistinguishedName
+            New-Row 'Link order' $Item.Order
+        )
     } elseif ($Item -is [GPOToolsGpoLink] -or $Item -is [GPOToolsGpo]) {
         $Gpo = if ($Item -is [GPOToolsGpoLink]) { $Item.Gpo } else { $Item }
         $Detail.Gpo = $Gpo
@@ -57,6 +64,7 @@ function Get-PSGPODirectoryDetail {
             New-Row 'User version' $Gpo.GetUserVersion()
             New-Row 'Computer version' $Gpo.GetComputerVersion()
             New-Row 'Distinguished name' $Gpo.DistinguishedName
+            New-Row 'File system path' $Gpo.FileSysPath
         )
         $Found = @($Directory.GetLinksOf($Gpo) | Sort-Object { $_.Som.DistinguishedName.Length }, { $_.Som.DistinguishedName })
         $Detail.LinksHeader = "Links ($($Found.Count))"

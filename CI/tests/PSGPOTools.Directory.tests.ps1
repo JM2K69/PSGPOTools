@@ -253,7 +253,7 @@ class FailingDirectory : GPOToolsDirectory {
             Get-Content (Join-Path $IconFolder 'LICENSE') -TotalCount 1 | Should -Be 'MIT License'
             $Shipped = @(Get-PSGPOIconName)
             $Code = Get-ChildItem (Join-Path $PSScriptRoot '..' '..' 'Code') -Recurse -Filter *.ps1 | Get-Content -Raw
-            $Used = @([regex]::Matches($Code -join "`n", "Icon\.([a-z-]+)\}|-Name '([a-z-]+)'|'(folder|document|person|desktop|weather-sunny|weather-moon)'") |
+            $Used = @([regex]::Matches($Code -join "`n", "Icon\.([a-z-]+)\}|(?:Get-PSGPOIconData|Set-PSGPOTreeNodeIcon)[^\n]*?-Name '([a-z-]+)'|'(folder|document|person|desktop|weather-sunny|weather-moon)'") |
                 ForEach-Object { $_.Groups[1..3].Value } | Where-Object { $_ } | Sort-Object -Unique)
             $Used.Count | Should -BeGreaterThan 15
             foreach ($Name in $Used) { $Shipped | Should -Contain $Name -Because "the code uses the icon '$Name'" }

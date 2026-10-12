@@ -247,7 +247,9 @@ function Start-PSGPOManagerWindow {
         $browseAdmxButton.IsVisible = $View -eq 'Management'
         $searchPanel.IsVisible = $View -eq 'Editor'
         $subtitleTextBlock.Text = if ($View -eq 'Management') {
-            if ($Directory) { "Group Policy Management - $($Directory.DomainName)" } else { 'Group Policy Management' }
+            if (-not $Directory) { 'Group Policy Management' }
+            elseif ($Directory.IsReadOnly) { "Group Policy Management - $($Directory.DomainName) (read-only)" }
+            else { "Group Policy Management - $($Directory.DomainName)" }
         } elseif ($editing.Gpo) { "Editing the GPO $($editing.Gpo.DisplayName)" } else { 'Explore and manage Group Policy Objects' }
     }
 
@@ -346,7 +348,7 @@ function Start-PSGPOManagerWindow {
 
         $pathParts = [System.Collections.Generic.List[string]]::new()
         for ($current = $selected; $current; $current = $current.Parent) { $pathParts.Insert(0, $current.Header) }
-        $directoryBreadcrumbTextBlock.Text = if ($pathParts.Count) { $pathParts -join ' > ' } else { 'Right-click a domain or an OU to create a GPO' }
+        $directoryBreadcrumbTextBlock.Text = if ($pathParts.Count) { $pathParts -join ' > ' } else { $directoryHint }
 
         $detail = Get-PSGPODirectoryDetail -Directory $Directory -Item $item
         $directoryTitleTextBlock.Text = $detail.Title
@@ -358,8 +360,9 @@ function Start-PSGPOManagerWindow {
         $newGpoPanel.IsVisible = $false
 
         # Context menu of the selected node, as in GPMC.
-        $createLinkedGpoMenuItem.IsVisible = $item -is [GPOToolsSom]
-        $newGpoMenuItem.IsVisible = $item -eq 'GroupPolicyObjects'
+        # A read-only directory (read over LDAP) cannot create GPOs yet.
+        $createLinkedGpoMenuItem.IsVisible = $item -is [GPOToolsSom] -and -not $Directory.IsReadOnly
+        $newGpoMenuItem.IsVisible = $item -eq 'GroupPolicyObjects' -and -not $Directory.IsReadOnly
         $editGpoMenuItem.IsVisible = $null -ne $detail.Gpo
     })
     # Nothing to offer on this node: do not open an empty menu.
@@ -384,6 +387,8 @@ function Start-PSGPOManagerWindow {
     $managementButton.Add_Click({ Show-View 'Management' })
     $browseAdmxButton.Add_Click({ Open-GpoEditor -Gpo $null })
 
+    $directoryHint = if ($Directory.IsReadOnly) { "Read-only: $($Directory.Source)" } else { 'Right-click a domain or an OU to create a GPO' }
+    $directoryBreadcrumbTextBlock.Text = $directoryHint
     $directoryEmptyTextBlock.IsVisible = -not $Directory
     $domainTreeView.IsVisible = [bool]$Directory
     if ($Directory) {
