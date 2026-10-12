@@ -38,16 +38,21 @@ function Invoke-PSGPOSmbClient {
         [Parameter(Mandatory)] [string]$Command,
         [switch]$AllowMissing,
         # NT_STATUS errors that are not failures (an existing folder for mkdir).
-        [string[]]$IgnoreStatus = @()
+        [string[]]$IgnoreStatus = @(),
+        [int]$TimeoutSeconds = 120
     )
 
     $smbclient = Get-Command -Name 'smbclient' -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
     if (-not $smbclient) { throw 'Reading SYSVOL needs smbclient on this computer (Debian/Ubuntu: apt install smbclient; RHEL/Fedora: dnf install samba-client).' }
-    $output = & $smbclient.Source "//$Server/$Share" '--use-kerberos=required' '-c' $Command 2>&1 | ForEach-Object { "$_" }
+    # Never a password prompt: no standard input, Kerberos only. Not --no-pass: with it,
+    # smbclient does not use the Kerberos ticket ("No password for user principal").
+    $result = Invoke-PSGPONativeCommand -FilePath $smbclient.Source -TimeoutSeconds $TimeoutSeconds `
+        -ArgumentList "//$Server/$Share", '--use-kerberos=required', '-c', $Command
+    $output = @($result.Output) + @("$($result.Error)" -split '\r?\n' | Where-Object { $_ })
     $status = @($output | Select-String -Pattern 'NT_STATUS_[A-Z_]+' -AllMatches | ForEach-Object { $_.Matches.Value } | Where-Object { $_ -notin $IgnoreStatus })
     $missing = @($status | Where-Object { $_ -in 'NT_STATUS_OBJECT_NAME_NOT_FOUND', 'NT_STATUS_OBJECT_PATH_NOT_FOUND', 'NT_STATUS_NO_SUCH_FILE' })
     if ($AllowMissing -and $missing.Count) { return $null }
-    if ($status.Count -or $LASTEXITCODE -ne 0) {
+    if ($status.Count -or $result.ExitCode -ne 0) {
         throw "smbclient //$Server/$Share failed: $(($output | Where-Object { $_ }) -join ' ')"
     }
     , $output

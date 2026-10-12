@@ -415,6 +415,45 @@ InModuleScope -ModuleName PSGPOTools {
         }
     }
 
+    Describe 'Commands of the system' {
+        BeforeAll {
+            $Pwsh = (Get-Process -Id $PID).Path
+        }
+
+        It 'Gives a prompt the end of input instead of waiting for the keyboard' {
+            $Watch = [System.Diagnostics.Stopwatch]::StartNew()
+            $Result = Invoke-PSGPONativeCommand -FilePath $Pwsh -ArgumentList '-NoProfile', '-Command', '$Line = [Console]::In.ReadLine(); "read: [$Line]"' -TimeoutSeconds 60
+            $Result.ExitCode | Should -Be 0
+            $Result.Output | Should -Be 'read: []'
+            $Watch.Elapsed.TotalSeconds | Should -BeLessThan 30
+        }
+
+        It 'Stops a command that does not end in time' {
+            $Watch = [System.Diagnostics.Stopwatch]::StartNew()
+            { Invoke-PSGPONativeCommand -FilePath $Pwsh -ArgumentList '-NoProfile', '-Command', 'Start-Sleep -Seconds 60' -TimeoutSeconds 3 } |
+                Should -Throw -ExpectedMessage '*did not end within 3 seconds: stopped.'
+            $Watch.Elapsed.TotalSeconds | Should -BeLessThan 30
+        }
+
+        It 'Returns the exit code, the output and the errors, the arguments passed as they are' {
+            $Result = Invoke-PSGPONativeCommand -FilePath $Pwsh -ArgumentList '-NoProfile', '-Command', '"one"; "two words"; [Console]::Error.WriteLine("bad thing"); exit 3'
+            $Result.ExitCode | Should -Be 3
+            $Result.Output | Should -Be @('one', 'two words')
+            $Result.Error.Trim() | Should -Be 'bad thing'
+        }
+
+        It 'Never lets samba-tool and smbclient ask for a password' {
+            Mock Get-PSGPOPlatform { [GPOToolsPlatform]@{ OperatingSystem = 'Linux'; SambaToolPath = '/usr/bin/samba-tool' } }
+            Mock Get-Command { [pscustomobject]@{ Source = '/usr/bin/smbclient' } } -ParameterFilter { $Name -eq 'smbclient' }
+            Mock Invoke-PSGPONativeCommand { [pscustomobject]@{ ExitCode = 0; Output = @("GPO 'X' created as {8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99}"); Error = '' } }
+            $null = Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'create', 'X', '-H', 'ldap://dc', '--use-kerberos=required'
+            Should -Invoke Invoke-PSGPONativeCommand -Times 1 -Exactly -ParameterFilter { $FilePath -eq '/usr/bin/samba-tool' -and $ArgumentList -contains '--no-pass' -and $ArgumentList[2] -eq 'X' }
+            $null = Invoke-PSGPOSmbClient -Server 'dc' -Share 'sysvol' -Command 'ls'
+            # smbclient: Kerberos, and no --no-pass, with which it does not use the ticket.
+            Should -Invoke Invoke-PSGPONativeCommand -Times 1 -Exactly -ParameterFilter { $FilePath -eq '/usr/bin/smbclient' -and $ArgumentList -notcontains '--no-pass' -and $ArgumentList -contains '--use-kerberos=required' }
+        }
+    }
+
     Describe 'Changes of a directory read over LDAP' {
         BeforeEach {
             $Directory = New-TestLdapDirectory
@@ -525,6 +564,7 @@ InModuleScope -ModuleName PSGPOTools {
             $OuDN = "OU=$OuName,$($Directory.Domain.DistinguishedName)"
             $GpoName = "PSGPOTools test GPO $Stamp"
             $SecondName = "PSGPOTools test GPO 2 $Stamp"
+            $TerminalName = "PSGPOTools test GPO terminal $Stamp"
             # An OU of the test, then the directory read again to have it.
             $null = Invoke-PSGPOSambaTool -ArgumentList 'ou', 'add', $OuDN, '-H', "ldap://$Server", '--use-kerberos=required'
             $Directory = Get-PSGPODirectory -Server $Server
@@ -533,7 +573,7 @@ InModuleScope -ModuleName PSGPOTools {
 
         AfterAll {
             # Everything the tests created, whatever failed.
-            foreach ($Name in $GpoName, $SecondName) {
+            foreach ($Name in $GpoName, $SecondName, $TerminalName) {
                 $Gpo = (Get-PSGPODirectory -Server $Server).FindGpo($Name)
                 if (-not $Gpo) { continue }
                 $Id = '{' + $Gpo.Id.ToString().ToUpperInvariant() + '}'
@@ -638,6 +678,22 @@ InModuleScope -ModuleName PSGPOTools {
             $Listed = Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'manage', 'security', 'list', ('{' + $Again.Id.ToString().ToUpperInvariant() + '}'), '-H', "ldap://$Server", '--use-kerberos=required'
             ($Listed -join "`n") | Should -Match 'MinimumPasswordLength\s*=\s*14'
             ($Listed -join "`n") | Should -Match 'MaxTicketAge\s*=\s*8'
+        }
+
+        It 'Creates a GPO from a terminal without waiting for a password (the window froze)' -Skip:(-not (Get-Command script -ErrorAction SilentlyContinue)) {
+            # samba-tool gpo create asks for a password on the terminal, even with Kerberos.
+            $Script = Join-Path $TestDrive 'create-from-terminal.ps1'
+            $Module = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
+            Set-Content -LiteralPath $Script -Value @"
+Import-Module '$Module'
+& (Get-Module PSGPOTools) { Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'create', '$TerminalName', '-H', 'ldap://$Server', '--use-kerberos=required' }
+"@
+            $Pwsh = (Get-Process -Id $PID).Path
+            # A pseudo-terminal as standard input, as when the window is started from a shell.
+            $Output = & timeout 90 script -qec "$Pwsh -NoProfile -File $Script" /dev/null 2>&1
+            $LASTEXITCODE | Should -Be 0 -Because "the command ended: $($Output -join ' ')"
+            ($Output -join "`n") | Should -Match 'created as \{'
+            (Get-PSGPODirectory -Server $Server).FindGpo($TerminalName) | Should -Not -BeNullOrEmpty
         }
 
         It 'Adds a link to the links the domain has now, not to a stale copy' {
