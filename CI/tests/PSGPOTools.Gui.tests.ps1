@@ -202,13 +202,17 @@ InModuleScope -ModuleName PSGPOTools {
             $State.ReadBack | Should -Be (& $Expected) -Because 'the system clipboard must hold the copied text'
         }
 
-        It 'Warns when no policy is loaded' {
+        It 'Shows the security settings and warns when no ADMX policy is loaded' {
             [GPOToolsUtility]::RemoveAll()
             try {
                 Start-PSGPOManagerWindow -WarningVariable Warn 3>$null -OnShown {
                     param($Ui)
-                    $Ui.treeView.ItemsSource | Should -BeNullOrEmpty
-                    $Ui.breadcrumbTextBlock.Text | Should -BeLike 'No policy loaded*'
+                    # The security settings do not come from the ADMX files (Linux without ADMX).
+                    $Ui.treeView.ItemsSource.Header | Should -Be @('Machine')
+                    @($Ui.treeView.ItemsSource)[0].Children.Header | Should -Be @('Windows Settings')
+                    $Ui.breadcrumbTextBlock.Text | Should -BeLike 'No ADMX policy loaded*'
+                    $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsSecuritySetting] -and $n.Tag.Key -eq 'MinimumPasswordLength' }
+                    $Ui.settingTitleTextBlock.Text | Should -Be 'Minimum password length'
                 }
                 $Warn | Should -Not -BeNullOrEmpty
             } finally {
