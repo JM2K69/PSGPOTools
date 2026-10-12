@@ -97,6 +97,12 @@ The same script runs on every push and pull request in GitHub Actions (`.github/
 
 `Show-GPOManagerAvalonia -Directory` opens a view close to GPMC: the domain, its OUs with their GPO links (by link order, enforced and disabled links marked, links to missing GPOs shown) and the Group Policy Objects container. Its context menu edits a GPO in the policy editor and, on a writable directory, creates a GPO linked to the selected domain or OU ("Create a GPO in this domain, and Link it here...") or unlinked from the Group Policy Objects container.
 
+### At launch
+
+`Show-GPOManagerAvalonia` opens on the Group Policy Management view and reads the domain by itself: the domain of the computer (Windows session, or a Kerberos ticket on Linux), the domain of the domain controller it runs on, or the one of `-Server`. The window tells whether the domain controller runs Active Directory (Windows) or Samba AD. When the domain cannot be read, the window opens and says why; when no domain is discovered, it shows the sample directory under a "demonstration environment" banner. `-NoDirectory` opens the policy editor only.
+
+A status bar shows this computer (name and system), its addresses, its domain and the domain controller the directory was read from.
+
 ### Reading a domain
 
 `Get-PSGPODirectory` reads the domain over LDAP, with the same code for Windows and Samba domain controllers, from Windows and Linux (System.DirectoryServices.Protocols). The directory is read-only for now: creating GPOs and links in the domain, and saving the settings, come later.

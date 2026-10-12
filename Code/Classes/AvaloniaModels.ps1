@@ -36,6 +36,13 @@ class AvaloniaPreviewRow {
     [string]$Data
 }
 
+# One item of the status bar of the window: an icon (path data), a text and its tooltip
+class AvaloniaStatusItem {
+    [string]$IconData
+    [string]$Text
+    [string]$ToolTip
+}
+
 # One GPO link of the Group Policy Management details ("Linked Group Policy Objects", "Links")
 class AvaloniaLinkRow {
     [int]$Order

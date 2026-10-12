@@ -174,6 +174,9 @@ function ConvertTo-PSGPOLdapDirectory {
         [Parameter(Mandatory)]
         [string]$Server,
 
+        # vendorName of the rootDSE of the server (Samba sets it)
+        [string]$VendorName,
+
         # The domain object (gPLink)
         [Parameter(Mandatory)]
         $DomainEntry,
@@ -189,7 +192,7 @@ function ConvertTo-PSGPOLdapDirectory {
 
     $domainDN = $DomainEntry.DistinguishedName
     $domainName = (@([regex]::Matches($domainDN, '(?i)(?:^|,)DC=([^,]+)') | ForEach-Object { $_.Groups[1].Value }) -join '.').ToLowerInvariant()
-    $directory = [GPOToolsLdapDirectory]::new($domainName, $domainDN, $Server)
+    $directory = [GPOToolsLdapDirectory]::new($domainName, $domainDN, $Server, [GPOToolsLdapDirectory]::GetServerType($VendorName))
 
     foreach ($entry in $GpoEntry) {
         $cn = Get-PSGPOLdapValue $entry 'cn'

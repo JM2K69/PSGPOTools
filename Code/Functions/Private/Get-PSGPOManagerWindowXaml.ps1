@@ -71,7 +71,7 @@ $iconResources
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid RowDefinitions='Auto,*'>
+    <Grid RowDefinitions='Auto,*,Auto'>
 
         <!-- Header: title, view switch, theme toggle, search (policy editor only) -->
         <Border Grid.Row='0'
@@ -122,9 +122,24 @@ $iconResources
         </Border>
 
         <!-- Group Policy Management view: domain tree | Splitter | details of the selection -->
-        <Grid Grid.Row='1' Name='managementView' ColumnDefinitions='2*,Auto,3*' IsVisible='False'>
+        <Grid Grid.Row='1' Name='managementView' ColumnDefinitions='2*,Auto,3*' RowDefinitions='Auto,*' IsVisible='False'>
 
-            <Border Grid.Column='0'
+            <!-- Shown when no domain was discovered and the sample directory is displayed -->
+            <Border Grid.Row='0' Grid.ColumnSpan='3' Name='demoBanner' IsVisible='False' Margin='16,16,16,0' Padding='12,8'
+                    CornerRadius='6' Background='#FFF4CE' BorderThickness='1' BorderBrush='#F2C94C'>
+                <StackPanel Orientation='Horizontal' Spacing='8'>
+                    <PathIcon Data='{StaticResource Icon.info}' Foreground='#8A6100'/>
+                    <StackPanel>
+                        <TextBlock Name='demoBannerTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='#3D2C00'
+                                   Text='Demonstration environment: no Active Directory or Samba AD domain discovered'/>
+                        <TextBlock FontSize='11' TextWrapping='Wrap' Foreground='#3D2C00'
+                                   Text='The domain shown is sample data and its changes stay in memory. Read a domain with Show-GPOManagerAvalonia -Server, or from a computer of the domain.'/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+
+            <Border Grid.Row='1' Grid.Column='0'
                     Background='{DynamicResource BackgroundBrush}'
                     Margin='16,16,8,16' CornerRadius='8' BorderThickness='1'
                     BorderBrush='{DynamicResource BorderBrush}'
@@ -182,10 +197,10 @@ $iconResources
                 </Grid>
             </Border>
 
-            <GridSplitter Grid.Column='1' Width='6' HorizontalAlignment='Center'
+            <GridSplitter Grid.Row='1' Grid.Column='1' Width='6' HorizontalAlignment='Center'
                           VerticalAlignment='Stretch' Background='Transparent'/>
 
-            <Border Grid.Column='2'
+            <Border Grid.Row='1' Grid.Column='2'
                     Background='{DynamicResource BackgroundBrush}'
                     Margin='8,16,16,16' CornerRadius='8' BorderThickness='1'
                     BorderBrush='{DynamicResource BorderBrush}'
@@ -439,6 +454,26 @@ $iconResources
             </Border>
         </Grid>
         </Grid>
+
+        <!-- Status bar: this computer, its addresses, the domain and the domain controller read -->
+        <Border Grid.Row='2' Name='statusBar' Background='{DynamicResource HeaderBackgroundBrush}'
+                BorderThickness='0,1,0,0' BorderBrush='{DynamicResource BorderBrush}' Padding='16,6'>
+            <ItemsControl Name='statusBarList'>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation='Horizontal'/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation='Horizontal' Spacing='6' Margin='0,0,24,0' ToolTip.Tip='{Binding ToolTip}'>
+                            <PathIcon Data='{Binding IconData}' Width='14' Height='14' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                            <TextBlock Text='{Binding Text}' FontSize='12' VerticalAlignment='Center' Foreground='{DynamicResource TextBrush}'/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
     </Grid>
 </Window>
 "@

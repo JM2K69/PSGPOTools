@@ -106,6 +106,8 @@ class GPOToolsDirectory {
     [string]$Source = 'in memory'
     # NewGpo and NewLink are refused while writing to the source is not implemented
     [bool]$IsReadOnly
+    # Sample data shown because no domain was discovered (Show-GPOManagerAvalonia)
+    [bool]$IsDemonstration
 
     GPOToolsDirectory([string]$DomainName) {
         if ([string]::IsNullOrWhiteSpace($DomainName)) { throw 'The domain name is required.' }
@@ -248,11 +250,21 @@ class GPOToolsDirectory {
 class GPOToolsLdapDirectory : GPOToolsDirectory {
     # Domain controller the directory was read from
     [string]$Server
+    # Directory service of the domain controller: 'Samba AD' or 'Active Directory' (Windows)
+    [string]$ServerType
 
-    GPOToolsLdapDirectory([string]$DomainName, [string]$DomainDistinguishedName, [string]$Server) : base($DomainName) {
+    GPOToolsLdapDirectory([string]$DomainName, [string]$DomainDistinguishedName, [string]$Server, [string]$ServerType) : base($DomainName) {
         $this.Domain.DistinguishedName = $DomainDistinguishedName
         $this.Server = $Server
-        $this.Source = "read over LDAP from $Server, read-only"
+        $this.ServerType = $ServerType
+        $this.Source = "read over LDAP from $Server ($ServerType), read-only"
         $this.IsReadOnly = $true
+    }
+
+    # Directory service of a domain controller from the vendorName of its rootDSE: Samba sets it,
+    # Windows domain controllers do not.
+    static [string] GetServerType([string]$VendorName) {
+        if ($VendorName -match 'Samba') { return 'Samba AD' }
+        return 'Active Directory'
     }
 }

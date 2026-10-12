@@ -115,6 +115,16 @@ InModuleScope -ModuleName PSGPOTools {
             if ($IsWindows) { $Platform.LdapAvailable | Should -BeTrue }
         }
 
+        It 'Reads the system description and the addresses of this computer' {
+            $Platform = Get-PSGPOPlatform -Force
+            $Platform.OperatingSystemDescription | Should -Be ([System.Runtime.InteropServices.RuntimeInformation]::OSDescription)
+            foreach ($Address in $Platform.IPAddresses) {
+                [System.Net.IPAddress]::Parse($Address) | Should -Not -BeNullOrEmpty
+                [System.Net.IPAddress]::IsLoopback([System.Net.IPAddress]::Parse($Address)) | Should -BeFalse
+                $Address | Should -Not -BeLike 'fe80:*'
+            }
+        }
+
         It 'Describes the platform in one line' {
             $Platform = [GPOToolsPlatform]@{ ComputerName = 'dc'; OperatingSystem = 'Linux'; DomainName = 'hardenbox.labo'; IsDomainController = $true; DomainControllerType = 'Samba' }
             "$Platform" | Should -Be 'dc (Linux, Samba domain controller of hardenbox.labo)'
@@ -161,7 +171,8 @@ InModuleScope -ModuleName PSGPOTools {
             $Directory.Domain.DistinguishedName | Should -Be $TestLdapDomainDN
             $Directory.Server | Should -Be 'dc.hardenbox.labo'
             $Directory.IsReadOnly | Should -BeTrue
-            $Directory.Source | Should -Be 'read over LDAP from dc.hardenbox.labo, read-only'
+            $Directory.Source | Should -Be 'read over LDAP from dc.hardenbox.labo (Samba AD), read-only'
+            $Directory.ServerType | Should -Be 'Samba AD'
         }
 
         It 'Reads the GPOs, their versions, status and SYSVOL path' {
@@ -230,10 +241,139 @@ InModuleScope -ModuleName PSGPOTools {
         }
 
         It 'Refuses to create GPOs and links, and changes nothing' {
-            { $Directory.NewGpo('New') } | Should -Throw -ExpectedMessage '*hardenbox.labo is read-only (read over LDAP from dc.hardenbox.labo, read-only)*'
+            { $Directory.NewGpo('New') } | Should -Throw -ExpectedMessage '*hardenbox.labo is read-only (read over LDAP from dc.hardenbox.labo (Samba AD), read-only)*'
             { $Directory.NewLink($Lyon, $Directory.Gpos[0]) } | Should -Throw -ExpectedMessage '*read-only*'
             $Directory.Gpos.Count | Should -Be 5
             $Lyon.Links.Count | Should -Be 0
+        }
+    }
+
+    Describe 'Directory service of the domain controller' {
+        It 'Is <Expected> for the vendor name "<Vendor>"' -ForEach @(
+            @{ Vendor = 'Samba Team (https://www.samba.org)'; Expected = 'Samba AD' }
+            @{ Vendor = ''; Expected = 'Active Directory' }
+            @{ Vendor = $null; Expected = 'Active Directory' }
+        ) {
+            [GPOToolsLdapDirectory]::GetServerType($Vendor) | Should -Be $Expected
+        }
+
+        It 'Shows the domain controller and its directory service in the details of the domain' {
+            $Directory = New-TestLdapDirectory
+            $Detail = Get-PSGPODirectoryDetail -Directory $Directory -Item $Directory.Domain
+            ($Detail.Properties | Where-Object Key -EQ 'Domain controller').Value | Should -Be 'dc.hardenbox.labo'
+            ($Detail.Properties | Where-Object Key -EQ 'Directory service').Value | Should -Be 'Samba AD'
+        }
+    }
+
+    Describe 'Status bar' {
+        BeforeAll {
+            $SambaDc = [GPOToolsPlatform]@{
+                ComputerName = 'dc'; OperatingSystem = 'Linux'; OperatingSystemDescription = 'Debian GNU/Linux 13 (trixie)'
+                IPAddresses = @('10.0.0.51', '2001:db8::51'); DomainName = 'hardenbox.labo'; IsDomainController = $true; DomainControllerType = 'Samba'
+            }
+            $Workstation = [GPOToolsPlatform]@{ ComputerName = 'pc'; OperatingSystem = 'Windows'; OperatingSystemDescription = 'Microsoft Windows 10.0.26300' }
+        }
+
+        It 'Shows a Samba domain controller reading its own domain' {
+            $Items = @(Get-PSGPOStatusBarItem -Platform $SambaDc -Directory (New-TestLdapDirectory))
+            @($Items.Text) | Should -Be @(
+                'dc - Debian GNU/Linux 13 (trixie) (Samba domain controller)'
+                'IP 10.0.0.51, 2001:db8::51'
+                'Domain hardenbox.labo'
+                'DC dc.hardenbox.labo (Samba AD)')
+            $Items[0].ToolTip | Should -Be 'This computer: dc (Linux, Samba domain controller of hardenbox.labo)'
+            $Items[3].ToolTip | Should -Be 'Directory read over LDAP from dc.hardenbox.labo (Samba AD), read-only'
+            $Items | ForEach-Object { $_.IconData | Should -Match '^F1 M' }
+        }
+
+        It 'Shows <Case>' -ForEach @(
+            @{ Case = 'the demonstration directory'; Demo = $true; Error = $null; Expected = 'No domain controller: demonstration directory' }
+            @{ Case = 'an offline directory'; Demo = $false; Error = $null; Expected = 'No domain controller: corp.contoso.com offline' }
+            @{ Case = 'a domain that could not be read'; Demo = $null; Error = 'LDAP connection failed'; Expected = 'Domain controller not reached' }
+            @{ Case = 'no directory'; Demo = $null; Error = $null; Expected = 'No directory read' }
+        ) {
+            $Directory = if ($null -ne $Demo) { Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Samples' 'Directory.sample.json') }
+            if ($Demo) { $Directory.IsDemonstration = $true }
+            $Items = @(Get-PSGPOStatusBarItem -Platform $Workstation -Directory $Directory -DirectoryError $Error)
+            $Items[3].Text | Should -Be $Expected
+            if ($Error) { $Items[3].ToolTip | Should -Be $Error }
+        }
+
+        It 'Shows a computer outside a domain without network address' {
+            $Items = @(Get-PSGPOStatusBarItem -Platform $Workstation)
+            @($Items.Text) | Should -Be @('pc - Microsoft Windows 10.0.26300', 'No network address', 'Not in a domain', 'No directory read')
+        }
+    }
+
+    Describe 'Show-GPOManagerAvalonia at launch' {
+        BeforeEach {
+            $script:Opened = $null
+            Mock Start-PSGPOManagerWindow { $script:Opened = @{ Directory = $Directory; DirectoryError = $DirectoryError; StartView = $StartView } }
+            Mock Get-PSGPODirectory { New-TestLdapDirectory }
+        }
+        AfterAll { $script:PSGPOPlatform = $null }
+
+        It 'Reads the domain of the computer and opens on it' {
+            Mock Get-PSGPOPlatform { [GPOToolsPlatform]@{ OperatingSystem = 'Linux'; DomainName = 'hardenbox.labo' } }
+            Show-GPOManagerAvalonia
+            Should -Invoke Get-PSGPODirectory -Times 1 -Exactly -ParameterFilter { -not $Server -and -not $Credential -and -not $UseSsl }
+            $script:Opened.Directory.DomainName | Should -Be 'hardenbox.labo'
+            $script:Opened.StartView | Should -Be 'Management'
+            $script:Opened.DirectoryError | Should -BeNullOrEmpty
+        }
+
+        It 'Shows the sample directory as a demonstration when no domain is discovered' {
+            Mock Get-PSGPOPlatform { [GPOToolsPlatform]@{ OperatingSystem = 'Windows' } }
+            Show-GPOManagerAvalonia
+            Should -Invoke Get-PSGPODirectory -Times 0 -Exactly
+            $script:Opened.Directory.DomainName | Should -Be 'corp.contoso.com'
+            $script:Opened.Directory.IsDemonstration | Should -BeTrue
+            $script:Opened.DirectoryError | Should -BeNullOrEmpty
+        }
+
+        It 'Opens without directory, and warns, when the sample directory cannot be read' {
+            Mock Get-PSGPOPlatform { [GPOToolsPlatform]@{ OperatingSystem = 'Linux' } }
+            Mock Import-PSGPODirectory { throw 'file not found' }
+            Show-GPOManagerAvalonia -WarningVariable Warnings 3>$null
+            $Warnings | Should -BeLike '*demonstration directory cannot be read: file not found'
+            $script:Opened.Directory | Should -BeNullOrEmpty
+        }
+
+        It 'Reads the domain of -Server with -Credential and -UseSsl, even outside a domain' {
+            Mock Get-PSGPOPlatform { [GPOToolsPlatform]@{ OperatingSystem = 'Windows' } }
+            $Credential = [pscredential]::new('administrator', (ConvertTo-SecureString 'not-used' -AsPlainText -Force))
+            Show-GPOManagerAvalonia -Server 'dc.hardenbox.labo' -Credential $Credential -UseSsl
+            Should -Invoke Get-PSGPODirectory -Times 1 -Exactly -ParameterFilter {
+                $Server -eq 'dc.hardenbox.labo' -and $Credential.UserName -eq 'administrator' -and $UseSsl
+            }
+            $script:Opened.Directory | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Opens with the reason, not the demonstration, when the domain cannot be read, and warns' {
+            Mock Get-PSGPOPlatform { [GPOToolsPlatform]@{ OperatingSystem = 'Linux'; DomainName = 'hardenbox.labo' } }
+            Mock Get-PSGPODirectory { throw 'LDAP connection to dc.hardenbox.labo:389 failed: no ticket' }
+            Show-GPOManagerAvalonia -WarningVariable Warnings 3>$null
+            $Warnings | Should -BeLike '*could not be read: LDAP connection to dc.hardenbox.labo:389 failed: no ticket'
+            # Sample data next to a domain that exists would mislead.
+            $script:Opened.Directory | Should -BeNullOrEmpty
+            $script:Opened.DirectoryError | Should -Be 'LDAP connection to dc.hardenbox.labo:389 failed: no ticket'
+        }
+
+        It 'Shows the given directory without detecting anything' {
+            Mock Get-PSGPOPlatform { throw 'not expected' }
+            $Given = [GPOToolsDirectory]::new('offline.test')
+            Show-GPOManagerAvalonia -Directory $Given
+            Should -Invoke Get-PSGPOPlatform -Times 0 -Exactly
+            Should -Invoke Get-PSGPODirectory -Times 0 -Exactly
+            $script:Opened.Directory | Should -Be $Given
+        }
+
+        It 'Reads nothing with -NoDirectory' {
+            Mock Get-PSGPOPlatform { throw 'not expected' }
+            Show-GPOManagerAvalonia -NoDirectory
+            Should -Invoke Get-PSGPOPlatform -Times 0 -Exactly
+            $script:Opened.Directory | Should -BeNullOrEmpty
+            $script:Opened.StartView | Should -Be 'Editor'
         }
     }
 
@@ -263,6 +403,18 @@ InModuleScope -ModuleName PSGPOTools {
             $Directory | Should -BeOfType ([GPOToolsLdapDirectory])
             $Directory.Domain.DistinguishedName | Should -Match '^DC='
             $Directory.IsReadOnly | Should -BeTrue
+        }
+
+        It 'Names the directory service of the domain controller' {
+            $Directory.ServerType | Should -BeIn 'Samba AD', 'Active Directory'
+            $Directory.Source | Should -BeLike "read over LDAP from * ($($Directory.ServerType)), read-only"
+        }
+
+        It 'Is read by Show-GPOManagerAvalonia at launch' {
+            Mock Start-PSGPOManagerWindow { $script:Launched = $Directory }
+            Show-GPOManagerAvalonia -Server $env:PSGPOTOOLS_TEST_LDAP_SERVER
+            $script:Launched | Should -BeOfType ([GPOToolsLdapDirectory])
+            $script:Launched.Domain.DistinguishedName | Should -Be $Directory.Domain.DistinguishedName
         }
 
         It 'Finds the default GPOs and their links' {
