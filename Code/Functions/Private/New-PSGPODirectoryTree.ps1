@@ -44,7 +44,7 @@ function New-PSGPODirectoryTree {
         $Node = New-Node $Header $Icon $Som $Parent
 
         foreach ($Link in @($Som.Links | Sort-Object Order)) {
-            $LinkHeader = $Link.Gpo.DisplayName
+            $LinkHeader = $Link.GetDisplayName()
             if ($Link.Enforced) { $LinkHeader += ' (enforced)' }
             if (-not $Link.Enabled) { $LinkHeader += ' (link disabled)' }
             $LinkIcon = if (-not $Link.Enabled) { 'link-dismiss' } elseif ($Link.Enforced) { 'lock-closed' } else { 'link' }
