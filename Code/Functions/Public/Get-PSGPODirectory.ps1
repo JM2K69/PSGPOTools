@@ -8,8 +8,9 @@ function Get-PSGPODirectory {
         (gPOptions), and the group policy containers (GPOs). Works with Windows and Samba domain
         controllers, from Windows and Linux, through System.DirectoryServices.Protocols.
 
-        The directory is read-only for now: creating GPOs and links in the domain comes later.
-        Pass it to Show-GPOManagerAvalonia -Directory.
+        Its changes are written to the domain: NewGpo creates a GPO with samba-tool (Linux,
+        Kerberos), NewLink links a GPO to the domain or an OU over LDAP. Pass it to
+        Show-GPOManagerAvalonia -Directory to manage it in the window.
 
         Authentication:
         - Windows: the identity of the session (Kerberos), or -Credential.
@@ -79,6 +80,11 @@ function Get-PSGPODirectory {
         $connection.Dispose()
     }
 
-    ConvertTo-PSGPOLdapDirectory -Server $(if ($dnsHostName) { $dnsHostName } else { $Server }) -VendorName (Get-PSGPOLdapValue $rootDse 'vendorName') -DomainEntry $domain `
+    $directory = ConvertTo-PSGPOLdapDirectory -Server $(if ($dnsHostName) { $dnsHostName } else { $Server }) -VendorName (Get-PSGPOLdapValue $rootDse 'vendorName') -DomainEntry $domain `
         -OrganizationalUnitEntry $organizationalUnits -GpoEntry $gpos
+    # The changes connect again as the directory was read.
+    $directory.Credential = $Credential
+    $directory.UseSsl = [bool]$UseSsl
+    $directory.Port = $Port
+    $directory
 }

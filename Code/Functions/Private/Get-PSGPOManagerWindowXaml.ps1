@@ -213,65 +213,113 @@ $iconResources
                                    TextWrapping='Wrap' Foreground='{DynamicResource HeaderTextBrush}'/>
                     </Border>
 
-                    <ScrollViewer Grid.Row='1'>
-                        <StackPanel Margin='16,8'>
-                            <!-- New GPO form, opened from the context menu -->
-                            <Border Name='newGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
-                                    BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
-                                    Background='{DynamicResource SecondaryBackgroundBrush}'>
-                                <StackPanel Spacing='8'>
-                                    <TextBlock Name='newGpoTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap'
-                                               Foreground='{DynamicResource TextBrush}'/>
-                                    <TextBox Name='newGpoNameTextBox' Watermark='Name of the new GPO'/>
-                                    <TextBlock Name='newGpoErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
-                                    <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
-                                        <Button Name='newGpoCreateButton' Content='Create' Width='100'/>
-                                        <Button Name='newGpoCancelButton' Content='Cancel' Width='100'/>
-                                    </StackPanel>
+                    <!-- Details of the selection; Settings: the configured settings of a GPO, as GPMC -->
+                    <TabControl Grid.Row='1' Name='directoryTabs' Margin='8,0,8,8'>
+                        <TabItem Header='Details'>
+                            <ScrollViewer>
+                                <StackPanel Margin='16,8'>
+                                    <!-- New GPO form, opened from the context menu -->
+                                    <Border Name='newGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='newGpoTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap'
+                                                       Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBox Name='newGpoNameTextBox' Watermark='Name of the new GPO'/>
+                                            <TextBlock Name='newGpoErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='newGpoCreateButton' Content='Create' Width='100'/>
+                                                <Button Name='newGpoCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Button Name='editGpoButton' IsVisible='False' Margin='0,8,0,8'>
+                                        <StackPanel Orientation='Horizontal' Spacing='8'>
+                                            <PathIcon Data='{StaticResource Icon.edit}'/>
+                                            <TextBlock Text='Edit this GPO' VerticalAlignment='Center'/>
+                                        </StackPanel>
+                                    </Button>
+
+                                    <ItemsControl Name='directoryPropertiesList'>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid ColumnDefinitions='180,*' Margin='0,3'>
+                                                    <TextBlock Grid.Column='0' Text='{Binding Key}' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                    <SelectableTextBlock Grid.Column='1' Text='{Binding Value}' TextWrapping='Wrap'/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <TextBlock Name='linksHeaderTextBlock' FontSize='12' FontWeight='SemiBold'
+                                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
+                                    <ItemsControl Name='linksList'>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BorderThickness='0,0,0,1' BorderBrush='{DynamicResource BorderBrush}' Padding='0,6'>
+                                                    <Grid ColumnDefinitions='Auto,*' RowDefinitions='Auto,Auto,Auto'>
+                                                        <TextBlock Grid.Row='0' Grid.Column='0' Text='{Binding Order}' FontWeight='SemiBold' Margin='0,0,12,0'/>
+                                                        <TextBlock Grid.Row='0' Grid.Column='1' Text='{Binding Name}' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                                        <TextBlock Grid.Row='1' Grid.Column='1' Text='{Binding Location}' TextWrapping='Wrap' IsVisible='{Binding Location, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'
+                                                                   Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                        <StackPanel Grid.Row='2' Grid.Column='1' Orientation='Horizontal' Spacing='16'>
+                                                            <TextBlock Text='{Binding Enforced}'/>
+                                                            <TextBlock Text='{Binding LinkEnabled}'/>
+                                                            <TextBlock Text='{Binding Status}' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
                                 </StackPanel>
-                            </Border>
-
-                            <Button Name='editGpoButton' IsVisible='False' Margin='0,8,0,8'>
-                                <StackPanel Orientation='Horizontal' Spacing='8'>
-                                    <PathIcon Data='{StaticResource Icon.edit}'/>
-                                    <TextBlock Text='Edit this GPO' VerticalAlignment='Center'/>
+                            </ScrollViewer>
+                        </TabItem>
+                        <TabItem Name='settingsTab' Header='Settings' IsVisible='False'>
+                            <ScrollViewer>
+                                <StackPanel Margin='16,8' Spacing='4'>
+                                    <TextBlock Name='settingsStatusTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                    <TextBlock Name='computerSettingsHeader' FontSize='14' FontWeight='SemiBold' Margin='0,8,0,0' Foreground='{DynamicResource TextBrush}'/>
+                                    <ItemsControl Name='computerSettingsList'>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BorderThickness='0,0,0,1' BorderBrush='{DynamicResource BorderBrush}' Padding='0,6'>
+                                                    <StackPanel Spacing='2'>
+                                                        <TextBlock Text='{Binding Path}' FontSize='11' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                        <Grid ColumnDefinitions='*,Auto'>
+                                                            <SelectableTextBlock Grid.Column='0' Text='{Binding Name}' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                                            <TextBlock Grid.Column='1' Text='{Binding State}' Margin='12,0,0,0'/>
+                                                        </Grid>
+                                                        <SelectableTextBlock Text='{Binding Options}' TextWrapping='Wrap' Margin='12,2,0,0'
+                                                                             IsVisible='{Binding Options, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <TextBlock Name='userSettingsHeader' FontSize='14' FontWeight='SemiBold' Margin='0,16,0,0' Foreground='{DynamicResource TextBrush}'/>
+                                    <ItemsControl Name='userSettingsList'>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BorderThickness='0,0,0,1' BorderBrush='{DynamicResource BorderBrush}' Padding='0,6'>
+                                                    <StackPanel Spacing='2'>
+                                                        <TextBlock Text='{Binding Path}' FontSize='11' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                        <Grid ColumnDefinitions='*,Auto'>
+                                                            <SelectableTextBlock Grid.Column='0' Text='{Binding Name}' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                                            <TextBlock Grid.Column='1' Text='{Binding State}' Margin='12,0,0,0'/>
+                                                        </Grid>
+                                                        <SelectableTextBlock Text='{Binding Options}' TextWrapping='Wrap' Margin='12,2,0,0'
+                                                                             IsVisible='{Binding Options, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
                                 </StackPanel>
-                            </Button>
-
-                            <ItemsControl Name='directoryPropertiesList'>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid ColumnDefinitions='180,*' Margin='0,3'>
-                                            <TextBlock Grid.Column='0' Text='{Binding Key}' Foreground='{DynamicResource SecondaryTextBrush}'/>
-                                            <SelectableTextBlock Grid.Column='1' Text='{Binding Value}' TextWrapping='Wrap'/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-
-                            <TextBlock Name='linksHeaderTextBlock' FontSize='12' FontWeight='SemiBold'
-                                       Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
-                            <ItemsControl Name='linksList'>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border BorderThickness='0,0,0,1' BorderBrush='{DynamicResource BorderBrush}' Padding='0,6'>
-                                            <Grid ColumnDefinitions='Auto,*' RowDefinitions='Auto,Auto,Auto'>
-                                                <TextBlock Grid.Row='0' Grid.Column='0' Text='{Binding Order}' FontWeight='SemiBold' Margin='0,0,12,0'/>
-                                                <TextBlock Grid.Row='0' Grid.Column='1' Text='{Binding Name}' FontWeight='SemiBold' TextWrapping='Wrap'/>
-                                                <TextBlock Grid.Row='1' Grid.Column='1' Text='{Binding Location}' TextWrapping='Wrap' IsVisible='{Binding Location, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'
-                                                           Foreground='{DynamicResource SecondaryTextBrush}'/>
-                                                <StackPanel Grid.Row='2' Grid.Column='1' Orientation='Horizontal' Spacing='16'>
-                                                    <TextBlock Text='{Binding Enforced}'/>
-                                                    <TextBlock Text='{Binding LinkEnabled}'/>
-                                                    <TextBlock Text='{Binding Status}' Foreground='{DynamicResource SecondaryTextBrush}'/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
-                    </ScrollViewer>
+                            </ScrollViewer>
+                        </TabItem>
+                    </TabControl>
                 </Grid>
             </Border>
         </Grid>
@@ -285,7 +333,7 @@ $iconResources
                     <PathIcon Data='{StaticResource Icon.edit}' Foreground='{DynamicResource PrimaryBrush}'/>
                     <TextBlock Name='editingGpoTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
                 </StackPanel>
-                <TextBlock Text='Proof of concept: the settings are not saved to the GPO yet.' FontSize='11'
+                <TextBlock Text='The setting of each policy is read from the Registry.pol of the GPO; Apply saves it there.' FontSize='11'
                            Foreground='{DynamicResource SecondaryTextBrush}' TextWrapping='Wrap'/>
             </StackPanel>
         </Border>
@@ -374,6 +422,18 @@ $iconResources
                                         <RadioButton Name='notConfiguredRadio' Content='Not Configured' IsChecked='True'/>
                                         <RadioButton Name='enabledRadio' Content='Enabled'/>
                                         <RadioButton Name='disabledRadio' Content='Disabled'/>
+                                    </StackPanel>
+
+                                    <!-- Editing a GPO: what its Registry.pol holds, and Apply to save the setting -->
+                                    <StackPanel Name='applyPanel' Orientation='Horizontal' Spacing='12' Margin='0,12,0,0' IsVisible='False'>
+                                        <Button Name='applySettingButton' IsEnabled='False'>
+                                            <StackPanel Orientation='Horizontal' Spacing='8'>
+                                                <PathIcon Data='{StaticResource Icon.save}'/>
+                                                <TextBlock Text='Apply' VerticalAlignment='Center'/>
+                                            </StackPanel>
+                                        </Button>
+                                        <TextBlock Name='applyStatusTextBlock' VerticalAlignment='Center' TextWrapping='Wrap' FontSize='12'
+                                                   Foreground='{DynamicResource SecondaryTextBrush}'/>
                                     </StackPanel>
 
                                     <TextBlock Text='Options' FontSize='12' FontWeight='SemiBold'

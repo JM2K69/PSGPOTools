@@ -4,6 +4,11 @@
 
 ### Added
 
+* GPO creation in the domain (samba-tool gpo create against the domain controller of the directory: group policy container, SYSVOL folder and its permissions) and GPO links written to the gPLink of the domain or OU over LDAP, with the lowest precedence; the links are read again before writing and the change is refused when they changed meanwhile
+* Registry.pol read and written byte for byte on any platform (`GPOToolsRegistryPol`): header, entries of every type, **del. / **delvals. deletions
+* Setting of a policy read from and written to a Registry.pol: state and option values (Get-PSGPOPolicyState), and a new setting replacing only the entries of the policy (Set-PSGPOPolicyState); checked on every policy of the Windows ADMX set (written, read back and cleared, enabled and disabled)
+* Policy editor on a GPO: each policy shows the setting its Registry.pol holds, and Apply saves it in SYSVOL (smbclient with Kerberos on Linux, UNC path on Windows), increasing the version of the GPO in GPT.INI and in the directory and declaring the Registry client-side extension
+* GPMC-like Settings tab of a GPO: configured policies by Computer / User Configuration with their category path, state and option values, and the Extra Registry Settings
 * `Show-GPOManagerAvalonia` reads the domain at launch (domain of the computer, the domain controller it runs on, or `-Server` with `-Credential` / `-UseSsl`) and opens on the Group Policy Management view; it shows why when the domain cannot be read, and the sample directory under a "demonstration environment" banner when no domain is discovered; `-NoDirectory` opens the policy editor only
 * The window names the directory service of the domain controller, Active Directory or Samba AD (vendorName of the rootDSE), in its subtitle and in the details of the domain
 * GUI status bar: this computer (name, system, domain controller role), its addresses, its domain and the domain controller the directory was read from
@@ -22,6 +27,7 @@
 
 ### Fixed
 
+* The registry preview wrote a value twice when an element writes the value of the policy itself (valueName without enabledValue): the element value is kept, the editor default of the policy dropped
 * GUI details panels: the end of long values (distinguished names, SYSVOL paths) was cut under the right border: Avalonia measured the content of a padded scroll viewer on its full width; the padding is now a margin of the content
 * GUI tests: a check of the preview position could pass without proof when the row could not be placed in the window
 * GUI trees: selecting a node with a long name scrolled the tree horizontally and cut the domain and the OUs (seen on Linux); long names are now trimmed, with the full name as tooltip

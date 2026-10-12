@@ -158,7 +158,7 @@ InModuleScope -ModuleName PSGPOTools {
 class FailingDirectory : GPOToolsDirectory {
     FailingDirectory() : base('fail.test') {}
     hidden [void] SaveNewGpo([GPOToolsGpo]$Gpo) { throw 'Access denied' }
-    hidden [void] SaveLinks([GPOToolsSom]$Som) { throw 'Access denied' }
+    hidden [void] SaveNewLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) { throw 'Access denied' }
 }
 [FailingDirectory]::new()
 '@

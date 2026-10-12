@@ -44,6 +44,32 @@ function Get-PSGPOPolicyRegistryChange {
     )
 
     if ($State -eq 'NotConfigured') { return }
+    $changes = @(Get-PSGPOPolicyRegistryChangeList -Policy $Policy -State $State -Value $Value)
+
+    # A value written twice: an element writing the value of the policy itself (valueName
+    # without enabledValue) gives the data; the editor default of the policy is dropped.
+    $explicit = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    foreach ($change in $changes) {
+        if (-not $change.Implicit -and $change.Type -ne 'DeleteAllValues') { [void]$explicit.Add("$($change.Key)`0$($change.ValueName)") }
+    }
+    $written = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    foreach ($change in $changes) {
+        $name = if ($change.Type -eq 'DeleteAllValues') { "$($change.Key)`0**delvals." } else { "$($change.Key)`0$($change.ValueName)" }
+        if ($change.Implicit -and $change.Type -ne 'DeleteAllValues' -and $explicit.Contains($name)) { continue }
+        if (-not $written.Add($name)) { continue }
+        $change
+    }
+}
+
+# Registry values of the setting before the duplicates are removed.
+function Get-PSGPOPolicyRegistryChangeList {
+    [CmdletBinding()]
+    [OutputType([GPOToolsRegistryValue])]
+    param(
+        [Parameter(Mandatory)] [GPOToolsPolicy]$Policy,
+        [Parameter(Mandatory)] [string]$State,
+        [hashtable]$Value = @{}
+    )
 
     if ($State -eq 'Disabled') {
         foreach ($Item in $Policy.DisabledValues) { $Item }

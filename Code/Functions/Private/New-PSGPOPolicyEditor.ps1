@@ -9,6 +9,8 @@
       Panel     the StackPanel to display;
       GetValue  scriptblock returning the hashtable expected by Get-PSGPOPolicyRegistryChange;
       Controls  element Id -> its control(s), for the tests.
+    -Value gives the values to show (element Id -> value, as Get-PSGPOPolicyState reads them
+    from a Registry.pol); the other elements show their default.
     -OnChange runs after every edit. The handlers are closures because they fire after this
     function has returned; they only call -OnChange, never module functions.
 #>
@@ -17,6 +19,7 @@ function New-PSGPOPolicyEditor {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] [GPOToolsPolicy]$Policy,
+        [hashtable]$Value = @{},
         [scriptblock]$OnChange = {}
     )
 
@@ -56,7 +59,9 @@ function New-PSGPOPolicyEditor {
         }
         $Element = $Entry
         $Label = if ($Element.Label) { $Element.Label } else { $Element.Id }
+        # Plain assignments: assigning an if statement would unroll a one-item array.
         $Default = Get-PSGPOElementDefault -Element $Element
+        if ($Value.ContainsKey($Element.Id) -and $null -ne $Value[$Element.Id]) { $Default = $Value[$Element.Id] }
         $Box = [Avalonia.Controls.StackPanel]::new()
         $Box.Spacing = 4
 
@@ -112,6 +117,7 @@ function New-PSGPOPolicyEditor {
                     $TextBox.TextWrapping = [Avalonia.Media.TextWrapping]::Wrap
                     $TextBox.MinHeight = 80
                     $TextBox.Watermark = 'One entry per line'
+                    if ($null -ne $Default) { $TextBox.Text = @($Default) -join [Environment]::NewLine }
                 } else {
                     $TextBox.MaxLength = [int][Math]::Min($Element.MaxLength, [int]::MaxValue)
                     $TextBox.Text = "$Default"
@@ -131,6 +137,15 @@ function New-PSGPOPolicyEditor {
                 $Entries = [System.Collections.ObjectModel.ObservableCollection[string]]::new()
                 $Pairs = [System.Collections.Generic.List[object]]::new()
                 $Explicit = $Element.ExplicitValue
+                foreach ($Item in @($Default | Where-Object { $null -ne $_ })) {
+                    if ($Explicit) {
+                        $Pairs.Add(@{ Name = "$($Item.Name)"; Value = "$($Item.Value)" })
+                        $Entries.Add("$($Item.Name) = $($Item.Value)")
+                    } else {
+                        $Pairs.Add(@{ Name = "$Item"; Value = "$Item" })
+                        $Entries.Add("$Item")
+                    }
+                }
 
                 $ListBox = [Avalonia.Controls.ListBox]::new()
                 $ListBox.ItemsSource = $Entries
