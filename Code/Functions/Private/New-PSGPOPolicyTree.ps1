@@ -67,6 +67,52 @@ function New-PSGPOPolicyTree {
             $currentNode.Children.Add($policyNode)
         }
 
+        # Security settings (GptTmpl.inf) of the computer, first as in the Group Policy editor:
+        # Windows Settings > Security Settings > Account Policies > Password Policy > settings.
+        if ($scope -eq [ScopePolicy]::Machine) {
+            $security = @(Get-PSGPOSecuritySetting | Where-Object { -not $Filter -or $_.Name.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0 })
+            if ($security.Count) {
+                $windowsNode = [AvaloniaTreeNode]::new()
+                $windowsNode.Header = 'Windows Settings'
+                Set-PSGPOTreeNodeIcon -Node $windowsNode -Name 'folder'
+                $windowsNode.Tag = 'WindowsSettings'
+                $windowsNode.Parent = $scopeNode
+                $securityNode = [AvaloniaTreeNode]::new()
+                $securityNode.Header = 'Security Settings'
+                Set-PSGPOTreeNodeIcon -Node $securityNode -Name 'shield'
+                $securityNode.Tag = 'SecuritySettings'
+                $securityNode.Parent = $windowsNode
+                $windowsNode.Children.Add($securityNode)
+                $folders = @{}
+                foreach ($setting in $security) {
+                    $parent = $securityNode
+                    $folderPath = ''
+                    foreach ($part in $setting.Path) {
+                        $folderPath = "$folderPath>$part"
+                        if (-not $folders.ContainsKey($folderPath)) {
+                            $folder = [AvaloniaTreeNode]::new()
+                            $folder.Header = $part
+                            $folder.Icon = 'folder'
+                            $folder.IconData = $folderData
+                            $folder.IconBrush = $script:PSGPOIconBrush['folder']
+                            $folder.Tag = "Security:$folderPath"
+                            $folder.Parent = $parent
+                            $parent.Children.Add($folder)
+                            $folders[$folderPath] = $folder
+                        }
+                        $parent = $folders[$folderPath]
+                    }
+                    $node = [AvaloniaTreeNode]::new()
+                    $node.Header = $setting.Name
+                    Set-PSGPOTreeNodeIcon -Node $node -Name 'shield'
+                    $node.Tag = $setting
+                    $node.Parent = $parent
+                    $parent.Children.Add($node)
+                }
+                $scopeNode.Children.Insert(0, $windowsNode)
+            }
+        }
+
         if ($scopeNode.Children.Count -gt 0) {
             $rootNodes.Add($scopeNode)
         }

@@ -333,7 +333,7 @@ $iconResources
                     <PathIcon Data='{StaticResource Icon.edit}' Foreground='{DynamicResource PrimaryBrush}'/>
                     <TextBlock Name='editingGpoTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
                 </StackPanel>
-                <TextBlock Text='The setting of each policy is read from the Registry.pol of the GPO; Apply saves it there.' FontSize='11'
+                <TextBlock Text='The setting of each policy is read from the GPO (Registry.pol, GptTmpl.inf for the security settings); Apply saves it there.' FontSize='11'
                            Foreground='{DynamicResource SecondaryTextBrush}' TextWrapping='Wrap'/>
             </StackPanel>
         </Border>
@@ -443,7 +443,7 @@ $iconResources
                                     </Border>
                                     <TextBlock Name='settingErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' Margin='0,8,0,0'/>
 
-                                    <TextBlock Text='Registry Preview' FontSize='12' FontWeight='SemiBold'
+                                    <TextBlock Name='previewHeaderTextBlock' Text='Registry Preview' FontSize='12' FontWeight='SemiBold'
                                                Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
                                     <TextBlock Name='previewEmptyTextBlock' Foreground='{DynamicResource SecondaryTextBrush}'
                                                TextWrapping='Wrap' Text='Not configured: nothing is written to the registry.'/>
