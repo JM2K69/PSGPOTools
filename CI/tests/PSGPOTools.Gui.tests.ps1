@@ -364,6 +364,12 @@ InModuleScope -ModuleName PSGPOTools {
             # Each test changes the directory: start again from the sample.
             $Directory = Import-PSGPODirectory -Path $SamplePath
         }
+        BeforeAll {
+            function Select-GuiPolicy {
+                param($Ui, [string]$Id)
+                $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsPolicy] -and $n.Tag.ID -eq $Id }.GetNewClosure()
+            }
+        }
 
         It 'Opens on the domain tree, the domain expanded' {
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {
@@ -547,16 +553,16 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
-        It 'Shows a directory read over LDAP read-only: no GPO creation, links to missing GPOs shown' {
+        It 'Shows a directory read over LDAP: GPO creation offered, links to missing GPOs shown' {
             Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
                 param($Ui)
-                $Ui.subtitleTextBlock.Text | Should -Be 'Group Policy Management - hardenbox.labo (Samba AD, read-only)'
-                $Ui.directoryBreadcrumbTextBlock.Text | Should -Be 'Read-only: read over LDAP from dc.hardenbox.labo (Samba AD), read-only'
+                $Ui.subtitleTextBlock.Text | Should -Be 'Group Policy Management - hardenbox.labo (Samba AD)'
+                $Ui.directoryBreadcrumbTextBlock.Text | Should -Be 'Right-click a domain or an OU to create a GPO'
 
                 $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Lyon'
-                $Ui.createLinkedGpoMenuItem.IsVisible | Should -BeFalse
+                $Ui.createLinkedGpoMenuItem.IsVisible | Should -BeTrue
                 $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
-                $Ui.newGpoMenuItem.IsVisible | Should -BeFalse
+                $Ui.newGpoMenuItem.IsVisible | Should -BeTrue
 
                 $Workstations = Get-DomainNode $Ui 'Lyon', 'Workstations (blocks inheritance)'
                 $Ui.domainTreeView.SelectedItem = $Workstations.Children | Where-Object { $_.Tag -is [GPOToolsGpoLink] -and -not $_.Tag.Gpo }
@@ -597,6 +603,156 @@ InModuleScope -ModuleName PSGPOTools {
                     # A value without spaces is cut inside a word: no line wider than its block.
                     foreach ($Line in $Text.TextLayout.TextLines) { $Line.Width | Should -BeLessOrEqual ($Text.Bounds.Width + 0.5) }
                 }
+            }
+        }
+
+        It 'Creates a GPO in the domain and links it to the OU, from the context menu' {
+            Mock New-PSGPODomainGpo {
+                $Gpo.Id = [guid]'8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99'
+                $Gpo.DistinguishedName = "CN={8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99},CN=Policies,CN=System,$TestLdapDomainDN"
+            }
+            Mock Add-PSGPODomainGpLink { $Directory.SetLinks($Som, "[LDAP://$($Link.GpoDistinguishedName);0]"); $Link.Order = 1; $Som.Links[0] = $Link }
+            Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Lyon'
+                Invoke-Click $Ui.createLinkedGpoMenuItem
+                $Ui.newGpoNameTextBox.Text = 'C - Lyon - Proxy'
+                Invoke-Click $Ui.newGpoCreateButton
+
+                $Ui.newGpoPanel.IsVisible | Should -BeFalse
+                $Ui.newGpoErrorTextBlock.Text | Should -BeNullOrEmpty
+                $Ui.domainTreeView.SelectedItem.Tag.Gpo.Id | Should -Be ([guid]'8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99')
+                $Ui.domainTreeView.SelectedItem.Parent.Header | Should -Be 'Lyon'
+            }
+            Should -Invoke New-PSGPODomainGpo -Times 1 -Exactly
+            Should -Invoke Add-PSGPODomainGpLink -Times 1 -Exactly
+        }
+
+        It 'Shows in the form why the domain refused the GPO' {
+            Mock New-PSGPODomainGpo { throw 'samba-tool gpo create failed (255): access denied' }
+            Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Lyon'
+                Invoke-Click $Ui.createLinkedGpoMenuItem
+                $Ui.newGpoNameTextBox.Text = 'Refused'
+                Invoke-Click $Ui.newGpoCreateButton
+                $Ui.newGpoPanel.IsVisible | Should -BeTrue
+                $Ui.newGpoErrorTextBlock.Text | Should -BeLike '*access denied'
+            }
+        }
+
+        It 'Shows the setting of the policy read from the Registry.pol of the GPO, and applies a change' {
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            # A Registry.pol written before: the control panel list of DisallowCpls (User).
+            $Policy = [GPOToolsUtility]::Policies | Where-Object { $_.ID -eq 'DisallowCpls' } | Select-Object -First 1
+            $Pol = [GPOToolsRegistryPol]::new()
+            Set-PSGPOPolicyState -Policy $Policy -Pol $Pol -State Enabled -Value @{ DisallowCplsList = [string[]]@('Microsoft.Mouse', 'Microsoft.Sound') }
+            $Directory.WritePolicyFile($Gpo, 'User', $Pol.ToBytes())
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+                $Ui.applyPanel.IsVisible | Should -BeTrue
+
+                Select-GuiPolicy $Ui 'DisallowCpls'
+                $Ui.enabledRadio.IsChecked | Should -BeTrue
+                @($Ui.Editing.Editor.Controls['DisallowCplsList'].Entries) | Should -Be @('Microsoft.Mouse', 'Microsoft.Sound')
+                $Ui.applyStatusTextBlock.Text | Should -Be 'Enabled in User\Registry.pol'
+                $Ui.applySettingButton.IsEnabled | Should -BeFalse -Because 'the form shows what the file holds'
+
+                # A Machine policy, not configured, then enabled and applied.
+                Select-GuiPolicy $Ui 'Biometrics_EnableBio'
+                $Ui.notConfiguredRadio.IsChecked | Should -BeTrue
+                $Ui.applySettingButton.IsEnabled | Should -BeFalse
+                $Ui.enabledRadio.IsChecked = $true
+                $Ui.applySettingButton.IsEnabled | Should -BeTrue
+                Invoke-Click $Ui.applySettingButton
+                $Ui.applyStatusTextBlock.Text | Should -Be 'Saved: Enabled in Machine\Registry.pol (version 17).'
+                $Ui.applySettingButton.IsEnabled | Should -BeFalse
+
+                # Selected again: read from the file.
+                Select-GuiPolicy $Ui 'DisallowCpls'
+                Select-GuiPolicy $Ui 'Biometrics_EnableBio'
+                $Ui.enabledRadio.IsChecked | Should -BeTrue
+            }
+            $Saved = [GPOToolsRegistryPol]::Parse($Directory.ReadPolicyFile($Gpo, 'Machine'))
+            @($Saved.Entries | ForEach-Object { "$_" }) | Should -Be '[SOFTWARE\Policies\Microsoft\Biometrics;Enabled;DWord;1]'
+            $Gpo.GetComputerVersion() | Should -Be 17
+        }
+
+        It 'Shows the configured settings of the selected GPO in its Settings tab, as GPMC' {
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            $Pol = [GPOToolsRegistryPol]::new()
+            Set-PSGPOPolicyState -Policy ([GPOToolsUtility]::Policies | Where-Object { $_.ID -eq 'Biometrics_EnableBio' } | Select-Object -First 1) -Pol $Pol -State Disabled
+            $Directory.WritePolicyFile($Gpo, 'Machine', $Pol.ToBytes())
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers'
+                $Ui.settingsTab.IsVisible | Should -BeFalse -Because 'an OU has no settings'
+
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                $Ui.settingsTab.IsVisible | Should -BeTrue
+                $Ui.directoryTabs.SelectedItem = $Ui.settingsTab
+                $Ui.computerSettingsHeader.Text | Should -Be 'Computer Configuration (Enabled)'
+                $Rows = @($Ui.computerSettingsList.ItemsSource)
+                $Rows.Count | Should -Be 1
+                $Rows[0].Name | Should -Be 'Allow the use of biometrics'
+                $Rows[0].State | Should -Be 'Disabled'
+                # Drawn on screen, not only in the list: Avalonia binds the class itself, not a PSObject.
+                $Rows[0] | Should -BeOfType ([AvaloniaSettingRow])
+                $Rows[0].GetType().Name | Should -Be 'AvaloniaSettingRow'
+                $Ui.Window.UpdateLayout()
+                $Texts = @([Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($Ui.computerSettingsList) | Where-Object { $_ -is [Avalonia.Controls.TextBlock] } | ForEach-Object Text)
+                $Texts | Should -Contain 'Allow the use of biometrics'
+                $Texts | Should -Contain 'Policies > Administrative Templates > Windows Components > Biometrics'
+                $Ui.userSettingsHeader.Text | Should -Be 'User Configuration (Disabled): no settings defined' -Because 'the user settings of this GPO are disabled'
+
+                # Another GPO, then an OU: the tab follows, and leaves when there is no GPO.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Default Domain Policy'
+                @($Ui.computerSettingsList.ItemsSource).Count | Should -Be 0
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers'
+                $Ui.settingsTab.IsVisible | Should -BeFalse
+                $Ui.directoryTabs.SelectedIndex | Should -Be 0
+
+                # A setting applied in the editor shows in the report.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+                Select-GuiPolicy $Ui 'Biometrics_EnableBio'
+                $Ui.enabledRadio.IsChecked = $true
+                Invoke-Click $Ui.applySettingButton
+                Invoke-Click $Ui.managementButton
+                $Ui.directoryTabs.SelectedItem = $Ui.settingsTab
+                @($Ui.computerSettingsList.ItemsSource)[0].State | Should -Be 'Enabled'
+            }
+        }
+
+        It 'Keeps the setting read when the domain refuses the change' {
+            Mock Read-PSGPOSysvolFile { $null }
+            Mock Save-PSGPODomainPolicyFile { throw 'access denied' }
+            Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Default Domain Policy'
+                Invoke-Click $Ui.editGpoMenuItem
+                Select-GuiPolicy $Ui 'Biometrics_EnableBio'
+                $Ui.enabledRadio.IsChecked = $true
+                Invoke-Click $Ui.applySettingButton
+                $Ui.applyStatusTextBlock.Text | Should -Be 'Not saved: access denied'
+                $Ui.applySettingButton.IsEnabled | Should -BeTrue -Because 'the change is still to apply'
+                $Ui.Editing.Pol['Machine'].Entries.Count | Should -Be 0
+            }
+        }
+
+        It 'Says when the settings of the GPO cannot be read' {
+            Mock Read-PSGPOSysvolFile { throw 'smbclient failed: NT_STATUS_ACCESS_DENIED' }
+            Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Default Domain Policy'
+                Invoke-Click $Ui.editGpoMenuItem
+                $Ui.editingGpoTextBlock.Text | Should -BeLike '*settings of the GPO cannot be read: smbclient failed: NT_STATUS_ACCESS_DENIED'
+                Select-GuiPolicy $Ui 'Biometrics_EnableBio'
+                $Ui.applySettingButton.IsEnabled | Should -BeFalse
+                $Ui.enabledRadio.IsChecked = $true
+                $Ui.applySettingButton.IsEnabled | Should -BeFalse -Because 'nothing was read to change'
             }
         }
 

@@ -4,6 +4,8 @@
 # built from LDAP search entries without a server; the tests against a real domain controller
 # run only when PSGPOTOOLS_TEST_LDAP_SERVER names one (with a Kerberos ticket on Linux):
 #   PSGPOTOOLS_TEST_LDAP_SERVER=dc.hardenbox.labo pwsh -File CI/Invoke-Tests.ps1
+# The tests that write to that domain (an OU and a GPO of their own, deleted at the end) also
+# need PSGPOTOOLS_TEST_LDAP_WRITE=1, samba-tool and an account allowed to create GPOs.
 BeforeDiscovery {
     $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
     Get-Module PSGPOTools | Remove-Module -Force
@@ -13,6 +15,7 @@ BeforeDiscovery {
 InModuleScope -ModuleName PSGPOTools {
     # Evaluated during discovery, in the module scope (see PSGPOTools.Gui.tests.ps1).
     $LdapServer = $env:PSGPOTOOLS_TEST_LDAP_SERVER
+    $LdapWrite = $LdapServer -and $env:PSGPOTOOLS_TEST_LDAP_WRITE -eq '1'
 
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Fixtures' 'LdapDirectory.ps1')
@@ -165,13 +168,13 @@ InModuleScope -ModuleName PSGPOTools {
             $Workstations = $Directory.FindSom("OU=Workstations,OU=Lyon,$TestLdapDomainDN")
         }
 
-        It 'Reads the domain, read-only' {
+        It 'Reads the domain' {
             $Directory | Should -BeOfType ([GPOToolsLdapDirectory])
             $Directory.DomainName | Should -Be 'hardenbox.labo'
             $Directory.Domain.DistinguishedName | Should -Be $TestLdapDomainDN
             $Directory.Server | Should -Be 'dc.hardenbox.labo'
-            $Directory.IsReadOnly | Should -BeTrue
-            $Directory.Source | Should -Be 'read over LDAP from dc.hardenbox.labo (Samba AD), read-only'
+            $Directory.IsReadOnly | Should -BeFalse
+            $Directory.Source | Should -Be 'read over LDAP from dc.hardenbox.labo (Samba AD)'
             $Directory.ServerType | Should -Be 'Samba AD'
         }
 
@@ -240,12 +243,6 @@ InModuleScope -ModuleName PSGPOTools {
             @($Detail.Links.Status) | Should -Be @('User configuration settings disabled', 'GPO not found')
         }
 
-        It 'Refuses to create GPOs and links, and changes nothing' {
-            { $Directory.NewGpo('New') } | Should -Throw -ExpectedMessage '*hardenbox.labo is read-only (read over LDAP from dc.hardenbox.labo (Samba AD), read-only)*'
-            { $Directory.NewLink($Lyon, $Directory.Gpos[0]) } | Should -Throw -ExpectedMessage '*read-only*'
-            $Directory.Gpos.Count | Should -Be 5
-            $Lyon.Links.Count | Should -Be 0
-        }
     }
 
     Describe 'Directory service of the domain controller' {
@@ -282,7 +279,7 @@ InModuleScope -ModuleName PSGPOTools {
                 'Domain hardenbox.labo'
                 'DC dc.hardenbox.labo (Samba AD)')
             $Items[0].ToolTip | Should -Be 'This computer: dc (Linux, Samba domain controller of hardenbox.labo)'
-            $Items[3].ToolTip | Should -Be 'Directory read over LDAP from dc.hardenbox.labo (Samba AD), read-only'
+            $Items[3].ToolTip | Should -Be 'Directory read over LDAP from dc.hardenbox.labo (Samba AD)'
             $Items | ForEach-Object { $_.IconData | Should -Match '^F1 M' }
         }
 
@@ -377,6 +374,97 @@ InModuleScope -ModuleName PSGPOTools {
         }
     }
 
+    Describe 'gPLink formatting' {
+        It 'Writes the links with the highest link order first, with their options' {
+            $Links = [GPOToolsGpoLink]::Parse('[LDAP://cn={A},DC=x;0][LDAP://cn={B},DC=x;2][LDAP://cn={C},DC=x;1]')
+            [GPOToolsGpoLink]::Format($Links) | Should -Be '[LDAP://cn={A},DC=x;0][LDAP://cn={B},DC=x;2][LDAP://cn={C},DC=x;1]'
+            [GPOToolsGpoLink]::Format(@()) | Should -Be ''
+        }
+
+        It 'Adds a new link with the lowest precedence, first in the value' {
+            $Link = [GPOToolsGpoLink]@{ GpoDistinguishedName = 'cn={N},DC=x'; Order = 3 }
+            Get-PSGPONewGpLink -Current '[LDAP://cn={A},DC=x;0][LDAP://cn={B},DC=x;2]' -Link $Link | Should -Be '[LDAP://cn={N},DC=x;0][LDAP://cn={A},DC=x;0][LDAP://cn={B},DC=x;2]'
+            Get-PSGPONewGpLink -Current $null -Link $Link | Should -Be '[LDAP://cn={N},DC=x;0]'
+            Get-PSGPONewGpLink -Current ' ' -Link $Link | Should -Be '[LDAP://cn={N},DC=x;0]'
+            $Enforced = [GPOToolsGpoLink]@{ GpoDistinguishedName = 'cn={N},DC=x'; Enforced = $true }
+            Get-PSGPONewGpLink -Current '' -Link $Enforced | Should -Be '[LDAP://cn={N},DC=x;2]'
+        }
+
+        It 'Refuses a link that the domain already has, whatever the case of its DN' {
+            $Link = [GPOToolsGpoLink]@{ GpoDistinguishedName = 'CN={A},DC=X' }
+            { Get-PSGPONewGpLink -Current '[LDAP://cn={a},dc=x;0]' -Link $Link } | Should -Throw -ExpectedMessage '*already linked*'
+        }
+    }
+
+    Describe 'samba-tool' {
+        It 'Reads the GUID of the new GPO in the output of gpo create' {
+            ConvertFrom-PSGPOSambaToolGpoCreate -Output @('Using temporary directory /tmp/x', "GPO 'Test' created as {8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99}") |
+                Should -Be ([guid]'8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99')
+            { ConvertFrom-PSGPOSambaToolGpoCreate -Output @('ERROR: something') } | Should -Throw -ExpectedMessage '*did not give the GUID*'
+        }
+
+        It 'Says what to install when samba-tool is missing' {
+            Mock Get-PSGPOPlatform { [GPOToolsPlatform]@{ OperatingSystem = 'Linux' } }
+            { Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'listall' } | Should -Throw -ExpectedMessage $(if ($IsWindows) { '*runs on Linux*' } else { '*apt install python3-samba*' })
+        }
+
+        It 'Refuses to give a password to samba-tool: the changes use Kerberos' {
+            $Directory = New-TestLdapDirectory
+            $Directory.Credential = [pscredential]::new('administrator', (ConvertTo-SecureString 'not-used' -AsPlainText -Force))
+            { New-PSGPODomainGpo -Directory $Directory -Gpo ([GPOToolsGpo]@{ DisplayName = 'X' }) } | Should -Throw -ExpectedMessage '*uses Kerberos: run kinit administrator*'
+        }
+    }
+
+    Describe 'Changes of a directory read over LDAP' {
+        BeforeEach {
+            $Directory = New-TestLdapDirectory
+            $Lyon = $Directory.FindSom("OU=Lyon,$TestLdapDomainDN")
+            $Workstations = $Directory.FindSom("OU=Workstations,OU=Lyon,$TestLdapDomainDN")
+        }
+
+        It 'Creates the GPO in the domain, with the identity the domain gave it' {
+            Mock New-PSGPODomainGpo {
+                $Gpo.Id = [guid]'8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99'
+                $Gpo.DistinguishedName = "CN={8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99},CN=Policies,CN=System,$TestLdapDomainDN"
+                $Gpo.FileSysPath = '\\hardenbox.labo\sysvol\hardenbox.labo\Policies\{8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99}'
+            }
+            $Gpo = $Directory.NewGpo('C - Lyon - Proxy')
+            Should -Invoke New-PSGPODomainGpo -Times 1 -Exactly -ParameterFilter { $Gpo.DisplayName -eq 'C - Lyon - Proxy' }
+            $Gpo.Id | Should -Be ([guid]'8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99')
+            $Directory.Gpos | Should -Contain $Gpo
+        }
+
+        It 'Keeps the directory unchanged when the domain refuses the GPO' {
+            Mock New-PSGPODomainGpo { throw 'samba-tool gpo create failed (255): access denied' }
+            { $Directory.NewGpo('Refused') } | Should -Throw -ExpectedMessage '*access denied*'
+            $Directory.Gpos.Count | Should -Be 5
+        }
+
+        It 'Links the GPO in the domain, then shows the links the domain has' {
+            $Gpo = $Directory.Gpos | Where-Object Id -EQ ([guid]$TestLdapDefaultDcPolicy)
+            # Someone else linked the Workstations GPO meanwhile: the domain has two links.
+            Mock Add-PSGPODomainGpLink {
+                $New = "[LDAP://$($Link.GpoDistinguishedName);0][LDAP://$(Get-TestLdapGpoDN $TestLdapWorkstationsPolicy);0]"
+                $Directory.SetLinks($Som, $New)
+                for ($i = 0; $i -lt $Som.Links.Count; $i++) {
+                    if ($Som.Links[$i].GpoDistinguishedName -eq $Link.GpoDistinguishedName) { $Link.Order = $Som.Links[$i].Order; $Som.Links[$i] = $Link }
+                }
+            }
+            $Link = $Directory.NewLink($Lyon, $Gpo)
+            Should -Invoke Add-PSGPODomainGpLink -Times 1 -Exactly
+            $Lyon.Links.Count | Should -Be 2
+            $Lyon.Links[1] | Should -Be $Link
+            $Link.Order | Should -Be 2
+            $Lyon.Links[0].Gpo.Id | Should -Be ([guid]$TestLdapWorkstationsPolicy)
+        }
+
+        It 'Keeps the links unchanged when the domain refuses the link' {
+            Mock Add-PSGPODomainGpLink { throw 'The links of Lyon changed in the domain meanwhile' }
+            { $Directory.NewLink($Lyon, $Directory.Gpos[0]) } | Should -Throw -ExpectedMessage '*changed in the domain meanwhile*'
+            $Lyon.Links.Count | Should -Be 0
+        }
+    }
+
     Describe 'LDAP errors' {
         It 'Explains <Case>' -ForEach @(
             @{ Case = 'wrong credentials'; Code = 49; Expected = '*user name or the password is wrong*' }
@@ -399,15 +487,15 @@ InModuleScope -ModuleName PSGPOTools {
             $Directory = Get-PSGPODirectory -Server $env:PSGPOTOOLS_TEST_LDAP_SERVER
         }
 
-        It 'Reads the domain of the domain controller, read-only' {
+        It 'Reads the domain of the domain controller' {
             $Directory | Should -BeOfType ([GPOToolsLdapDirectory])
             $Directory.Domain.DistinguishedName | Should -Match '^DC='
-            $Directory.IsReadOnly | Should -BeTrue
+            $Directory.IsReadOnly | Should -BeFalse
         }
 
         It 'Names the directory service of the domain controller' {
             $Directory.ServerType | Should -BeIn 'Samba AD', 'Active Directory'
-            $Directory.Source | Should -BeLike "read over LDAP from * ($($Directory.ServerType)), read-only"
+            $Directory.Source | Should -BeLike "read over LDAP from * ($($Directory.ServerType))"
         }
 
         It 'Is read by Show-GPOManagerAvalonia at launch' {
@@ -425,6 +513,120 @@ InModuleScope -ModuleName PSGPOTools {
             $DefaultDomain.FileSysPath | Should -BeLike '\\*\sysvol\*\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}'
             $Directory.Domain.Links.Gpo | Should -Contain $DefaultDomain
             $Directory.FindSom("OU=Domain Controllers,$($Directory.Domain.DistinguishedName)").Links.Gpo | Should -Contain $DefaultDc
+        }
+    }
+
+    Describe 'Changes written to a domain controller' -Skip:(-not $LdapWrite) {
+        BeforeAll {
+            $Server = $env:PSGPOTOOLS_TEST_LDAP_SERVER
+            $Stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
+            $Directory = Get-PSGPODirectory -Server $Server
+            $OuName = "PSGPOTools test $Stamp"
+            $OuDN = "OU=$OuName,$($Directory.Domain.DistinguishedName)"
+            $GpoName = "PSGPOTools test GPO $Stamp"
+            $SecondName = "PSGPOTools test GPO 2 $Stamp"
+            # An OU of the test, then the directory read again to have it.
+            $null = Invoke-PSGPOSambaTool -ArgumentList 'ou', 'add', $OuDN, '-H', "ldap://$Server", '--use-kerberos=required'
+            $Directory = Get-PSGPODirectory -Server $Server
+            $Ou = $Directory.FindSom($OuDN)
+        }
+
+        AfterAll {
+            # Everything the tests created, whatever failed.
+            foreach ($Name in $GpoName, $SecondName) {
+                $Gpo = (Get-PSGPODirectory -Server $Server).FindGpo($Name)
+                if (-not $Gpo) { continue }
+                $Id = '{' + $Gpo.Id.ToString().ToUpperInvariant() + '}'
+                try { $null = Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'dellink', $OuDN, $Id, '-H', "ldap://$Server", '--use-kerberos=required' } catch { }
+                try { $null = Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'del', $Id, '-H', "ldap://$Server", '--use-kerberos=required' } catch { Write-Warning $_ }
+            }
+            try { $null = Invoke-PSGPOSambaTool -ArgumentList 'ou', 'delete', $OuDN, '-H', "ldap://$Server", '--use-kerberos=required', '--force-subtree-delete' } catch { Write-Warning $_ }
+        }
+
+        It 'Creates a GPO in the domain, with its folder in SYSVOL' {
+            $Ou | Should -Not -BeNullOrEmpty -Because 'the OU of the test was created'
+            $Gpo = $Directory.NewGpo($GpoName)
+            $Gpo.Id | Should -Not -Be ([guid]::Empty)
+            $Gpo.FileSysPath | Should -BeLike "*\Policies\{$($Gpo.Id.ToString())}"
+
+            $Read = Get-PSGPODirectory -Server $Server
+            $Again = $Read.FindGpo($GpoName)
+            $Again.Id | Should -Be $Gpo.Id
+            $Again.Version | Should -Be 0
+            $Again.GetStatus() | Should -Be 'Enabled'
+        }
+
+        It 'Links the GPO to the OU with the lowest precedence' {
+            $Gpo = $Directory.FindGpo($GpoName)
+            $Link = $Directory.NewLink($Ou, $Gpo)
+            $Link.Order | Should -Be 1
+            $Ou.Links.Count | Should -Be 1
+
+            $Second = $Directory.NewGpo($SecondName)
+            $SecondLink = $Directory.NewLink($Ou, $Second)
+            $SecondLink.Order | Should -Be 2 -Because 'a new link has the lowest precedence'
+
+            $ReadOu = (Get-PSGPODirectory -Server $Server).FindSom($OuDN)
+            @($ReadOu.Links.Gpo.DisplayName) | Should -Be @($GpoName, $SecondName)
+            @($ReadOu.Links.Enabled) | Should -Be @($true, $true)
+        }
+
+        It 'Refuses to link the same GPO twice, and changes nothing' {
+            $Gpo = $Directory.FindGpo($GpoName)
+            { $Directory.NewLink($Ou, $Gpo) } | Should -Throw -ExpectedMessage '*already linked*'
+            (Get-PSGPODirectory -Server $Server).FindSom($OuDN).Links.Count | Should -Be 2
+        }
+
+        It 'Writes the Registry.pol of the GPO in SYSVOL and increases its version' {
+            Initialize-PSGPOAdmx -Path (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path -UICulture 'en-US' 3>$null
+            $Policy = [GPOToolsUtility]::Policies | Where-Object { $_.ID -eq 'AxISURLZonePolicies' } | Select-Object -First 1
+            $Gpo = $Directory.FindGpo($GpoName)
+            $Directory.ReadPolicyFile($Gpo, 'Machine') | Should -BeNullOrEmpty -Because 'a new GPO has no setting'
+
+            $Pol = [GPOToolsRegistryPol]::new()
+            Set-PSGPOPolicyState -Policy $Policy -Pol $Pol -State Enabled -Value @{ InstallTrustedOCX = 0; IgnoreUnknownCA = $true }
+            $Directory.WritePolicyFile($Gpo, 'Machine', $Pol.ToBytes())
+            $Gpo.GetComputerVersion() | Should -Be 1
+
+            # Read again from the domain: the file, its setting, the version and the extension.
+            $Read = Get-PSGPODirectory -Server $Server
+            $Again = $Read.FindGpo($GpoName)
+            $Again.Version | Should -Be 1
+            $Bytes = $Read.ReadPolicyFile($Again, 'Machine')
+            [Linq.Enumerable]::SequenceEqual([byte[]]$Bytes, [byte[]]$Pol.ToBytes()) | Should -BeTrue
+            $State = Get-PSGPOPolicyState -Policy $Policy -Pol ([GPOToolsRegistryPol]::Parse($Bytes))
+            $State.State | Should -Be 'Enabled'
+            $State.Value['IgnoreUnknownCA'] | Should -BeTrue
+            $GptIni = [System.Text.Encoding]::ASCII.GetString((Read-PSGPOSysvolFile -Directory $Read -Gpo $Again -Path 'GPT.INI'))
+            $GptIni | Should -Match '(?m)^Version=1\r?$'
+            $Connection = New-PSGPODirectoryConnection -Directory $Read
+            try { $Entry = Invoke-PSGPOLdapSearch -Connection $Connection -SearchBase $Again.DistinguishedName -Scope Base -Attribute 'gPCMachineExtensionNames' }
+            finally { $Connection.Dispose() }
+            Get-PSGPOLdapValue $Entry 'gPCMachineExtensionNames' | Should -Be '[{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{D02B1F72-3407-48AE-BA88-E8213C6761F1}]'
+
+            # A user setting increases the user version only.
+            $UserPolicy = [GPOToolsUtility]::Policies | Where-Object { $_.ID -eq 'DisallowCpls' } | Select-Object -First 1
+            $UserPol = [GPOToolsRegistryPol]::new()
+            Set-PSGPOPolicyState -Policy $UserPolicy -Pol $UserPol -State Enabled -Value @{ DisallowCplsList = [string[]]@('Microsoft.Mouse') }
+            $Read.WritePolicyFile($Again, 'User', $UserPol.ToBytes())
+            (Get-PSGPODirectory -Server $Server).FindGpo($GpoName).Version | Should -Be 0x00010001
+        }
+
+        It 'Adds a link to the links the domain has now, not to a stale copy' {
+            # A stale copy of the OU: someone removes a link after it was read.
+            $Stale = Get-PSGPODirectory -Server $Server
+            $StaleOu = $Stale.FindSom($OuDN)
+            $StaleOu.Links.Count | Should -Be 2
+            $Id = '{' + $Directory.FindGpo($SecondName).Id.ToString().ToUpperInvariant() + '}'
+            $null = Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'dellink', $OuDN, $Id, '-H', "ldap://$Server", '--use-kerberos=required'
+
+            $DefaultDomain = $Stale.Gpos | Where-Object Id -EQ ([guid]'31B2F340-016D-11D2-945F-00C04FB984F9')
+            $Link = $Stale.NewLink($StaleOu, $DefaultDomain)
+            # The removed link does not come back, and the copy now has the links of the domain.
+            $Expected = @($GpoName, 'Default Domain Policy')
+            @($StaleOu.Links.Gpo.DisplayName) | Should -Be $Expected
+            $Link.Order | Should -Be 2
+            @((Get-PSGPODirectory -Server $Server).FindSom($OuDN).Links.Gpo.DisplayName) | Should -Be $Expected
         }
     }
 }

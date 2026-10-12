@@ -81,9 +81,44 @@ function Start-PSGPOManagerWindow {
     $newGpoCreateButton = Get-PSGPOAvaloniaControl $window 'newGpoCreateButton'
     $newGpoCancelButton = Get-PSGPOAvaloniaControl $window 'newGpoCancelButton'
 
+    $applyPanel = Get-PSGPOAvaloniaControl $window 'applyPanel'
+    $directoryTabs = Get-PSGPOAvaloniaControl $window 'directoryTabs'
+    $settingsTab = Get-PSGPOAvaloniaControl $window 'settingsTab'
+    $settingsStatusTextBlock = Get-PSGPOAvaloniaControl $window 'settingsStatusTextBlock'
+    $computerSettingsHeader = Get-PSGPOAvaloniaControl $window 'computerSettingsHeader'
+    $computerSettingsList = Get-PSGPOAvaloniaControl $window 'computerSettingsList'
+    $userSettingsHeader = Get-PSGPOAvaloniaControl $window 'userSettingsHeader'
+    $userSettingsList = Get-PSGPOAvaloniaControl $window 'userSettingsList'
+    $applySettingButton = Get-PSGPOAvaloniaControl $window 'applySettingButton'
+    $applyStatusTextBlock = Get-PSGPOAvaloniaControl $window 'applyStatusTextBlock'
+
     # Options form of the selected policy (New-PSGPOPolicyEditor), the policy it edits and the
     # GPO opened from the Group Policy Management view ($null: browsing the ADMX policies).
-    $editing = @{ Policy = $null; Editor = $null; Gpo = $null }
+    # Pol: the Registry.pol of the GPO by scope; Saved: the registry values of the setting of the
+    # selected policy in it, compared with the form to know whether there is something to apply.
+    $editing = @{ Policy = $null; Editor = $null; Gpo = $null; Pol = @{}; PolError = $null; Saved = $null }
+
+    function Get-SettingState {
+        if ($enabledRadio.IsChecked) { 'Enabled' } elseif ($disabledRadio.IsChecked) { 'Disabled' } else { 'NotConfigured' }
+    }
+
+    # Registry values of a setting as one text, to compare two settings.
+    function Get-SettingSignature {
+        param([GPOToolsPolicy]$Policy, [string]$State, [hashtable]$Value)
+        (@(Get-PSGPOPolicyRegistryChange -Policy $Policy -State $State -Value $Value) | ForEach-Object { Format-PSGPORegistryValue $_ }) -join "`n"
+    }
+
+    # Apply is offered when the form differs from the Registry.pol of the GPO and is valid.
+    function Update-ApplyButton {
+        $policy = $editing.Policy
+        $applyPanel.IsVisible = [bool]$editing.Gpo
+        $pol = if ($policy) { $editing.Pol["$($policy.Scope)"] }
+        $changed = $false
+        if ($policy -and $pol -and -not $settingErrorTextBlock.Text) {
+            try { $changed = (Get-SettingSignature $policy (Get-SettingState) (& $editing.Editor.GetValue)) -ne $editing.Saved } catch { $changed = $false }
+        }
+        $applySettingButton.IsEnabled = $changed
+    }
 
     # Registry values the current setting writes (what Registry.pol will contain).
     function Update-RegistryPreview {
@@ -106,7 +141,30 @@ function Start-PSGPOManagerWindow {
         $previewEmptyTextBlock.Text = if (-not $policy) { 'Select a policy in the tree.' }
             elseif ($settingErrorTextBlock.Text) { 'Fix the options above to see the registry values.' }
             else { 'Not configured: nothing is written to the registry.' }
+        Update-ApplyButton
     }
+
+    # Saves the setting of the selected policy in the Registry.pol of the GPO. The file is
+    # changed on a copy: if the domain refuses it, the setting read before stays.
+    $applySettingButton.Add_Click({
+        $policy = $editing.Policy
+        $scope = "$($policy.Scope)"
+        if (-not $policy -or -not $editing.Gpo -or -not $editing.Pol[$scope]) { return }
+        $state = Get-SettingState
+        $value = & $editing.Editor.GetValue
+        $copy = [GPOToolsRegistryPol]::Parse($editing.Pol[$scope].ToBytes())
+        try {
+            Set-PSGPOPolicyState -Policy $policy -Pol $copy -State $state -Value $value
+            $Directory.WritePolicyFile($editing.Gpo, $scope, $copy.ToBytes())
+            $editing.Pol[$scope] = $copy
+            $editing.Saved = Get-SettingSignature $policy $state $value
+            $version = if ($scope -eq 'Machine') { $editing.Gpo.GetComputerVersion() } else { $editing.Gpo.GetUserVersion() }
+            $applyStatusTextBlock.Text = "Saved: $state in $scope\Registry.pol (version $version)."
+        } catch {
+            $applyStatusTextBlock.Text = "Not saved: $($_.Exception.GetBaseException().Message)"
+        }
+        Update-ApplyButton
+    })
     foreach ($radio in $notConfiguredRadio, $enabledRadio, $disabledRadio) {
         $radio.add_IsCheckedChanged({ Update-RegistryPreview })
     }
@@ -179,12 +237,24 @@ function Start-PSGPOManagerWindow {
         $breadcrumbTextBlock.Text = if ($pathParts.Count -gt 0) { $pathParts -join ' > ' } else { 'Select a policy to see its path' }
 
         $policy = if ($selected) { $selected.Tag } else { $null }
-        # The setting is not read from a GPO yet: every policy starts as Not Configured.
-        $notConfiguredRadio.IsChecked = $true
+        # The setting of the policy in the Registry.pol of the edited GPO, else not configured.
+        $read = [pscustomobject]@{ State = 'NotConfigured'; Value = @{} }
+        $pol = if ($policy -is [GPOToolsPolicy]) { $editing.Pol["$($policy.Scope)"] }
+        if ($pol) {
+            try { $read = Get-PSGPOPolicyState -Policy $policy -Pol $pol } catch { Write-Warning "Setting of $($policy.DisplayName) not read: $($_.Exception.Message)" }
+        }
+        $editing.Policy = $null
+        $editing.Saved = if ($pol) { Get-SettingSignature $policy $read.State $read.Value } else { $null }
+        switch ($read.State) {
+            'Enabled' { $enabledRadio.IsChecked = $true }
+            'Disabled' { $disabledRadio.IsChecked = $true }
+            default { $notConfiguredRadio.IsChecked = $true }
+        }
+        $applyStatusTextBlock.Text = if ($pol) { "$($read.State) in $($policy.Scope)\Registry.pol" } elseif ($editing.Gpo -and $editing.PolError) { $editing.PolError } else { '' }
         if ($policy -is [GPOToolsPolicy]) {
             $editing.Policy = $policy
             $settingTitleTextBlock.Text = $policy.DisplayName
-            $editing.Editor = New-PSGPOPolicyEditor -Policy $policy -OnChange { Update-RegistryPreview }
+            $editing.Editor = New-PSGPOPolicyEditor -Policy $policy -Value $read.Value -OnChange { Update-RegistryPreview }
             $optionsHost.Content = $editing.Editor.Panel
 
             $displayNameTextBox.Text = $policy.DisplayName
@@ -258,7 +328,7 @@ function Start-PSGPOManagerWindow {
         $subtitleTextBlock.Text = if ($View -eq 'Management') {
             if (-not $Directory) { 'Group Policy Management' }
             elseif ($Directory.IsDemonstration) { "Group Policy Management - $($Directory.DomainName) (demonstration)" }
-            elseif ($Directory -is [GPOToolsLdapDirectory]) { "Group Policy Management - $($Directory.DomainName) ($($Directory.ServerType), read-only)" }
+            elseif ($Directory -is [GPOToolsLdapDirectory]) { "Group Policy Management - $($Directory.DomainName) ($($Directory.ServerType))" }
             elseif ($Directory.IsReadOnly) { "Group Policy Management - $($Directory.DomainName) (read-only)" }
             else { "Group Policy Management - $($Directory.DomainName)" }
         } elseif ($editing.Gpo) { "Editing the GPO $($editing.Gpo.DisplayName)" } else { 'Explore and manage Group Policy Objects' }
@@ -268,9 +338,26 @@ function Start-PSGPOManagerWindow {
     function Open-GpoEditor {
         param([GPOToolsGpo]$Gpo)
         $editing.Gpo = $Gpo
+        # The settings of the GPO: its Registry.pol for each scope (empty when it has none).
+        $editing.Pol = @{}
+        $editing.PolError = $null
+        if ($Gpo) {
+            foreach ($scope in 'Machine', 'User') {
+                try {
+                    $editing.Pol[$scope] = [GPOToolsRegistryPol]::Parse($Directory.ReadPolicyFile($Gpo, $scope))
+                } catch {
+                    $editing.PolError = "The settings of the GPO cannot be read: $($_.Exception.GetBaseException().Message)"
+                    $editing.Pol = @{}
+                    break
+                }
+            }
+        }
         $treeView.SelectedItem = $null
         $editingBanner.IsVisible = $null -ne $Gpo
-        $editingGpoTextBlock.Text = if ($Gpo) { "Editing the GPO '$($Gpo.DisplayName)' [$($Directory.DomainName)]" } else { '' }
+        $editingGpoTextBlock.Text = if (-not $Gpo) { '' }
+            elseif ($editing.PolError) { "Editing the GPO '$($Gpo.DisplayName)' [$($Directory.DomainName)]: $($editing.PolError)" }
+            else { "Editing the GPO '$($Gpo.DisplayName)' [$($Directory.DomainName)]" }
+        Update-ApplyButton
         Show-View 'Editor'
     }
 
@@ -348,6 +435,46 @@ function Start-PSGPOManagerWindow {
         Update-DirectoryTree -Select $select
     }
 
+    # Settings tab of the selected GPO: its Registry.pol files read once per version of the GPO.
+    $settingsCache = @{}
+    function Update-SettingsTab {
+        $gpo = Get-SelectedGpo
+        $settingsTab.IsVisible = [bool]$gpo
+        if (-not $gpo) {
+            if ($directoryTabs.SelectedItem -eq $settingsTab) { $directoryTabs.SelectedIndex = 0 }
+            return
+        }
+        if ($directoryTabs.SelectedItem -ne $settingsTab) { return }
+
+        $cached = $settingsCache["$($gpo.Id)"]
+        if (-not $cached -or $cached.Version -ne $gpo.Version) {
+            $cached = @{ Version = $gpo.Version; Machine = @(); User = @(); Error = $null }
+            try {
+                foreach ($scope in 'Machine', 'User') {
+                    $pol = [GPOToolsRegistryPol]::Parse($Directory.ReadPolicyFile($gpo, $scope))
+                    $cached[$scope] = @(Get-PSGPOConfiguredSetting -Pol $pol -Scope $scope)
+                }
+            } catch {
+                $cached.Error = "The settings of the GPO cannot be read: $($_.Exception.GetBaseException().Message)"
+            }
+            $settingsCache["$($gpo.Id)"] = $cached
+        }
+        $settingsStatusTextBlock.Text = if ($cached.Error) { $cached.Error }
+            elseif ([GPOToolsUtility]::Policies.Count -eq 0) { 'No ADMX loaded (Initialize-PSGPOAdmx): the values are shown as Extra Registry Settings.' }
+            else { "Registry settings of $($gpo.DisplayName) (version: computer $($gpo.GetComputerVersion()), user $($gpo.GetUserVersion()))" }
+        $computerState = if ($gpo.Flags -band 2) { 'Disabled' } else { 'Enabled' }
+        $userState = if ($gpo.Flags -band 1) { 'Disabled' } else { 'Enabled' }
+        $computerSettingsHeader.Text = "Computer Configuration ($computerState)$(if (-not $cached.Machine.Count) { ': no settings defined' })"
+        $userSettingsHeader.Text = "User Configuration ($userState)$(if (-not $cached.User.Count) { ': no settings defined' })"
+        $computerSettingsList.ItemsSource = $cached.Machine
+        $userSettingsList.ItemsSource = $cached.User
+    }
+    $directoryTabs.add_SelectionChanged({
+        param($sender, $e)
+        # Only the selection of a tab, not of a control inside one.
+        if ([object]::ReferenceEquals($e.Source, $directoryTabs)) { Update-SettingsTab }
+    })
+
     function Get-SelectedGpo {
         $item = if ($domainTreeView.SelectedItem) { $domainTreeView.SelectedItem.Tag }
         if ($item -is [GPOToolsGpoLink]) { $item.Gpo } elseif ($item -is [GPOToolsGpo]) { $item }
@@ -375,6 +502,7 @@ function Start-PSGPOManagerWindow {
         $createLinkedGpoMenuItem.IsVisible = $item -is [GPOToolsSom] -and -not $Directory.IsReadOnly
         $newGpoMenuItem.IsVisible = $item -eq 'GroupPolicyObjects' -and -not $Directory.IsReadOnly
         $editGpoMenuItem.IsVisible = $null -ne $detail.Gpo
+        Update-SettingsTab
     })
     # Nothing to offer on this node: do not open an empty menu.
     (Get-PSGPOAvaloniaControl $window 'domainContextMenu').add_Opening({
@@ -434,7 +562,7 @@ function Start-PSGPOManagerWindow {
             'registryKeyTextBox', 'registryValuesList', 'settingTitleTextBlock', 'previewEmptyTextBlock', 'detailsTabs', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
             'notConfiguredRadio', 'enabledRadio', 'disabledRadio', 'optionsHost', 'settingErrorTextBlock', 'registryPreviewList',
             'themeToggleIcon', 'themeToggleText', 'subtitleTextBlock', 'managementButton', 'browseAdmxButton', 'searchPanel', 'managementView', 'editorView',
-            'editingBanner', 'editingGpoTextBlock', 'demoBanner', 'demoBannerTextBlock', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
+            'editingBanner', 'editingGpoTextBlock', 'applyPanel', 'applySettingButton', 'applyStatusTextBlock', 'directoryTabs', 'settingsTab', 'settingsStatusTextBlock', 'computerSettingsHeader', 'computerSettingsList', 'userSettingsHeader', 'userSettingsList', 'demoBanner', 'demoBannerTextBlock', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
             'directoryTitleTextBlock', 'directoryPropertiesList', 'linksHeaderTextBlock', 'linksList', 'createLinkedGpoMenuItem',
             'newGpoMenuItem', 'editGpoMenuItem', 'editGpoButton', 'newGpoPanel', 'newGpoTitleTextBlock', 'newGpoNameTextBox',
             'newGpoErrorTextBlock', 'newGpoCreateButton', 'newGpoCancelButton') {

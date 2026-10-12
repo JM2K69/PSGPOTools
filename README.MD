@@ -105,7 +105,20 @@ A status bar shows this computer (name and system), its addresses, its domain an
 
 ### Reading a domain
 
-`Get-PSGPODirectory` reads the domain over LDAP, with the same code for Windows and Samba domain controllers, from Windows and Linux (System.DirectoryServices.Protocols). The directory is read-only for now: creating GPOs and links in the domain, and saving the settings, come later.
+`Get-PSGPODirectory` reads the domain over LDAP, with the same code for Windows and Samba domain controllers, from Windows and Linux (System.DirectoryServices.Protocols).
+
+### Creating, linking and configuring GPOs
+
+On a domain read with `Get-PSGPODirectory`, the context menu creates a GPO in the domain and links it to the selected domain or OU, as GPMC does:
+
+- the GPO is created with `samba-tool gpo create` (group policy container, User/Machine containers, SYSVOL folder with the permissions of the GPO), which works against Samba and Windows domain controllers and needs samba-tool on the computer (Debian/Ubuntu: `apt install python3-samba`);
+- the link is written to the `gPLink` of the OU over LDAP, with the lowest precedence; the links are read again just before, and the change is refused rather than lost when someone changed them meanwhile.
+
+Editing a GPO reads its `Registry.pol` files (Machine and User) from SYSVOL: each policy shows its real state and option values, and **Apply** saves the setting. Saving also increases the version of the GPO (`GPT.INI` and `versionNumber`) and declares the Registry client-side extension, so that the computers apply it. SYSVOL is reached on the domain controller the directory was read from: with smbclient and Kerberos on Linux (`apt install smbclient`), with the UNC path on Windows.
+
+The **Settings** tab of a GPO lists its configured settings as GPMC does: Computer and User Configuration, the category path, the state and the option values of each policy, and the registry values no policy of the loaded ADMX explains (Extra Registry Settings).
+
+The changes use Kerberos (`kinit` on Linux); a password is never given to samba-tool nor sent over plain LDAP.
 
 ```Powershell
 # Windows, on a computer of the domain: the identity of the session

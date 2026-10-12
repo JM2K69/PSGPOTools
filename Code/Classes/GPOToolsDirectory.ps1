@@ -4,8 +4,8 @@
 
     GPOToolsDirectory keeps the directory in memory: read from JSON (Import-PSGPODirectory), its
     changes stay in memory. GPOToolsLdapDirectory is read from a domain over LDAP
-    (Get-PSGPODirectory, Windows AD or Samba AD) and is read-only until writing is implemented;
-    writing will override the hidden Save* methods, which run before the in-memory change.
+    (Get-PSGPODirectory, Windows AD or Samba AD) and writes its changes to the domain through
+    the hidden Save* methods, which run before the in-memory change.
 
     gPLink (MS-GPOL 2.2.2): [LDAP://<GPO DN>;<options>]... with options bit 0 = link disabled and
     bit 1 = enforced. The last entry is link order 1 (highest precedence): GPMC and samba-tool gpo
@@ -60,6 +60,23 @@ class GPOToolsGpoLink {
     [string] GetStatus() {
         if ($this.Gpo) { return $this.Gpo.GetStatus() }
         return 'GPO not found'
+    }
+
+    # gPLink options of the link: bit 0 link disabled, bit 1 enforced.
+    [int] GetOptions() {
+        $Options = 0
+        if (-not $this.Enabled) { $Options = $Options -bor 1 }
+        if ($this.Enforced) { $Options = $Options -bor 2 }
+        return $Options
+    }
+
+    # gPLink value of links: the highest link order first, link order 1 last.
+    static [string] Format([GPOToolsGpoLink[]]$Links) {
+        $Text = [System.Text.StringBuilder]::new()
+        foreach ($Link in @($Links | Sort-Object Order -Descending)) {
+            [void]$Text.AppendFormat('[LDAP://{0};{1}]', $Link.GpoDistinguishedName, $Link.GetOptions())
+        }
+        return $Text.ToString()
     }
 
     # Links of a gPLink value, by link order; the directory resolves their GPO.
@@ -218,7 +235,7 @@ class GPOToolsDirectory {
         $Link.Gpo = $Gpo
         $Link.Order = $Som.Links.Count + 1
         $Som.Links.Add($Link)
-        try { $this.SaveLinks($Som) } catch { [void]$Som.Links.Remove($Link); throw }
+        try { $this.SaveNewLink($Som, $Link) } catch { [void]$Som.Links.Remove($Link); throw }
         return $Link
     }
 
@@ -237,28 +254,89 @@ class GPOToolsDirectory {
         return $Found.ToArray()
     }
 
+    # Registry.pol of a GPO for a scope (Machine or User): its bytes, $null when the GPO has none.
+    [byte[]] ReadPolicyFile([GPOToolsGpo]$Gpo, [string]$Scope) {
+        return $this.LoadPolicyFile($Gpo, [GPOToolsDirectory]::GetScopeFolder($Scope))
+    }
+
+    # Writes the Registry.pol of a GPO for a scope, and increases the version of the GPO for that
+    # scope so that the computers apply it.
+    [void] WritePolicyFile([GPOToolsGpo]$Gpo, [string]$Scope, [byte[]]$Bytes) {
+        $this.AssertWritable()
+        $this.SavePolicyFile($Gpo, [GPOToolsDirectory]::GetScopeFolder($Scope), $Bytes)
+    }
+
+    # Folder of a scope in the GPO: Machine (HKLM) or User (HKCU).
+    static [string] GetScopeFolder([string]$Scope) {
+        switch ($Scope) {
+            'Machine' { return 'Machine' }
+            'User' { return 'User' }
+        }
+        throw "Unknown policy scope: '$Scope' (Machine or User)."
+    }
+
+    # Version of a GPO once a scope changed: the computer version in the low word, the user one in the high word.
+    static [int] GetNextVersion([int]$Version, [string]$Folder) {
+        $Computer = $Version -band 0xFFFF
+        $User = ($Version -shr 16) -band 0xFFFF
+        if ($Folder -eq 'Machine') { $Computer = ($Computer + 1) -band 0xFFFF } else { $User = ($User + 1) -band 0xFFFF }
+        return ($User -shl 16) -bor $Computer
+    }
+
     hidden [void] AssertWritable() {
         if ($this.IsReadOnly) { throw "The directory $($this.DomainName) is read-only ($($this.Source))." }
     }
 
     # Persistence of a change, once validated: nothing to do in memory. A failure undoes the change.
+    # SaveNewGpo may give the GPO the identity the domain chose (Id, DistinguishedName, FileSysPath).
     hidden [void] SaveNewGpo([GPOToolsGpo]$Gpo) {}
-    hidden [void] SaveLinks([GPOToolsSom]$Som) {}
+    # SaveNewLink may set the links of the SOM again from the domain (link added by someone else).
+    hidden [void] SaveNewLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {}
+
+    # Registry.pol files kept in memory, by GPO and scope folder.
+    hidden [hashtable]$PolicyFiles = @{}
+    hidden [byte[]] LoadPolicyFile([GPOToolsGpo]$Gpo, [string]$Folder) {
+        return $this.PolicyFiles["$($Gpo.Id)\$Folder"]
+    }
+    hidden [void] SavePolicyFile([GPOToolsGpo]$Gpo, [string]$Folder, [byte[]]$Bytes) {
+        $this.PolicyFiles["$($Gpo.Id)\$Folder"] = $Bytes
+        $Gpo.Version = [GPOToolsDirectory]::GetNextVersion($Gpo.Version, $Folder)
+    }
 }
 
-# Directory read from a domain over LDAP (Get-PSGPODirectory): read-only for now.
+# Directory read from a domain over LDAP (Get-PSGPODirectory); its changes are written to the
+# domain: GPOs created with samba-tool, links written over LDAP.
 class GPOToolsLdapDirectory : GPOToolsDirectory {
-    # Domain controller the directory was read from
+    # Domain controller the directory was read from, and that the changes go to
     [string]$Server
     # Directory service of the domain controller: 'Samba AD' or 'Active Directory' (Windows)
     [string]$ServerType
+    # How the directory was read, to connect again for the changes
+    hidden [pscredential]$Credential
+    hidden [bool]$UseSsl
+    hidden [int]$Port
 
     GPOToolsLdapDirectory([string]$DomainName, [string]$DomainDistinguishedName, [string]$Server, [string]$ServerType) : base($DomainName) {
         $this.Domain.DistinguishedName = $DomainDistinguishedName
         $this.Server = $Server
         $this.ServerType = $ServerType
-        $this.Source = "read over LDAP from $Server ($ServerType), read-only"
-        $this.IsReadOnly = $true
+        $this.Source = "read over LDAP from $Server ($ServerType)"
+    }
+
+    hidden [void] SaveNewGpo([GPOToolsGpo]$Gpo) {
+        New-PSGPODomainGpo -Directory $this -Gpo $Gpo
+    }
+
+    hidden [void] SaveNewLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {
+        Add-PSGPODomainGpLink -Directory $this -Som $Som -Link $Link
+    }
+
+    hidden [byte[]] LoadPolicyFile([GPOToolsGpo]$Gpo, [string]$Folder) {
+        return Read-PSGPOSysvolFile -Directory $this -Gpo $Gpo -Path "$Folder\Registry.pol"
+    }
+
+    hidden [void] SavePolicyFile([GPOToolsGpo]$Gpo, [string]$Folder, [byte[]]$Bytes) {
+        Save-PSGPODomainPolicyFile -Directory $this -Gpo $Gpo -Folder $Folder -Bytes $Bytes
     }
 
     # Directory service of a domain controller from the vendorName of its rootDSE: Samba sets it,

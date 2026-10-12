@@ -36,6 +36,18 @@ class AvaloniaPreviewRow {
     [string]$Data
 }
 
+# One configured setting of the Settings tab of a GPO (Get-PSGPOConfiguredSetting)
+class AvaloniaSettingRow {
+    # Category path ('Policies > Administrative Templates > ...'), or 'Extra Registry Settings'
+    [string]$Path
+    [string]$Name
+    [string]$State
+    # One 'Label: value' line per option
+    [string]$Options
+    # A registry value no policy of the loaded ADMX explains
+    [bool]$IsExtra
+}
+
 # One item of the status bar of the window: an icon (path data), a text and its tooltip
 class AvaloniaStatusItem {
     [string]$IconData
