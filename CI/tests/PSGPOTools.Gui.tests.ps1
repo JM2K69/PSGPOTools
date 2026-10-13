@@ -1088,4 +1088,77 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
     }
+
+    Describe 'ADMX window' -Skip:$AvaloniaMissing {
+        BeforeAll {
+            $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
+        }
+        BeforeEach {
+            $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
+        }
+        AfterAll {
+            $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
+            # The ADMX files the other tests expect.
+            Initialize-PSGPOAdmx -Path $PolicyDefinitions -UICulture 'en-US' 3>$null
+        }
+
+        It 'Proposes the folders found, detects the language from the language folders, and loads them' {
+            $Loaded = Show-PSGPOAdmxWindow -OnShown {
+                param($Ui)
+                @($Ui.candidateComboBox.ItemsSource) | Should -Contain $PolicyDefinitions
+                $Ui.pathTextBox.Text = $PolicyDefinitions
+                @($Ui.cultureComboBox.ItemsSource) | Should -Contain 'en-US'
+                @($Ui.cultureComboBox.ItemsSource) | Should -Contain 'fr-FR'
+                $Ui.cultureComboBox.SelectedItem | Should -Not -BeNullOrEmpty -Because 'the language of the session or en-US is there'
+                $Ui.statusTextBlock.Text | Should -Match '^\d+ ADMX files, \d+ languages\.$'
+                $Ui.loadButton.IsEnabled | Should -BeTrue
+
+                $Ui.cultureComboBox.SelectedItem = 'fr-FR'
+                Invoke-Click $Ui.loadButton
+                $Ui.statusTextBlock.Text | Should -BeLike 'Loading the ADMX files of*in fr-FR...'
+                $Ui.loadButton.IsEnabled | Should -BeFalse
+                Invoke-UiLoop -Until { -not $Ui.Window.IsVisible } -TimeoutMilliseconds 120000
+                $Ui.Window.IsVisible | Should -BeFalse -Because 'the window closes once the files are loaded'
+            }
+            $Loaded | Should -BeTrue
+            [GPOToolsUtility]::Policies.Count | Should -BeGreaterThan 1000
+            $Settings = Get-PSGPOUserSetting
+            $Settings.PolicyDefinitions | Should -Be $PolicyDefinitions
+            $Settings.UICulture | Should -Be 'fr-FR'
+
+            # Next time: the folder and the language chosen are selected.
+            $null = Show-PSGPOAdmxWindow -OnShown {
+                param($Ui)
+                $Ui.pathTextBox.Text | Should -Be $PolicyDefinitions
+                $Ui.cultureComboBox.SelectedItem | Should -Be 'fr-FR'
+            }
+        }
+
+        It 'Does not open the console when no ADMX file is loaded' {
+            Mock Show-PSGPOAdmxWindow { $false }
+            Mock Start-PSGPOManagerWindow { }
+            [GPOToolsUtility]::RemoveAll()
+            Show-GPOManagerAvalonia -NoDirectory -WarningVariable Warn 3>$null
+            Should -Invoke Start-PSGPOManagerWindow -Times 0 -Exactly
+            $Warn | Should -BeLike '*console is not opened*'
+        }
+
+        It 'Says what is wrong with a folder, and loads nothing when cancelled' {
+            $NotAdmx = Join-Path $TestDrive 'NotAdmx'
+            $null = New-Item -ItemType Directory -Path $NotAdmx -Force
+            $Loaded = Show-PSGPOAdmxWindow -OnShown {
+                param($Ui)
+                $Ui.pathTextBox.Text = Join-Path $TestDrive 'Missing'
+                $Ui.statusTextBlock.Text | Should -BeLike "The folder '*Missing' does not exist."
+                $Ui.loadButton.IsEnabled | Should -BeFalse
+                $Ui.pathTextBox.Text = $NotAdmx
+                $Ui.statusTextBlock.Text | Should -BeLike 'No .admx file in*choose the PolicyDefinitions folder itself.'
+                $Ui.cultureComboBox.ItemsSource | Should -BeNullOrEmpty
+                Invoke-Click $Ui.cancelButton
+                $Ui.Window.IsVisible | Should -BeFalse
+            }
+            $Loaded | Should -BeFalse
+            (Get-PSGPOUserSetting).Count | Should -Be 0 -Because 'nothing was chosen'
+        }
+    }
 }

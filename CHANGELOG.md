@@ -4,6 +4,9 @@
 
 ### Added
 
+* `Show-GPOManagerAvalonia` asks for the ADMX files when none is loaded: a window proposes the PolicyDefinitions folders found on this computer (the central store of the domain on Windows, the folder chosen last, the folder of Windows, the SYSVOL of a Samba domain controller, the copy next to the module) or another one (typed, or picked with the folder picker of the system), and the language of its ADML files; it loads them and remembers the choice for the next time (settings.json in the configuration folder of the user). The console does not open without them; `-PolicyDefinitions` and `-UICulture` load a folder without asking
+* `Initialize-PSGPOAdmx` detects the language from the names of the language folders of PolicyDefinitions when `-UICulture` is not given: the language of the session, else the same language in another country, else en-US, else the only one there is; it asks for `-UICulture` when several languages remain
+
 * Security filtering in the details of a GPO, as the Scope tab of GPMC: who applies it and who is denied it (the "Apply Group Policy" extended right of its DACL), by name; read for every GPO with the domain, in one search, the names resolved in the domain
 * Deleting a link from the context menu of a link, once confirmed, as GPMC: the GPO itself is kept, the following links move up one link order; the gPLink is removed with the last link, as samba-tool gpo dellink does, and the change is refused when the links changed in the domain meanwhile
 

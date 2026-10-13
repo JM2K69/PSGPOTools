@@ -19,7 +19,10 @@ function Show-GPOManagerAvalonia {
 
         The policy editor displays the security settings of the computer (Windows Settings >
         Security Settings) and the policies loaded by Initialize-PSGPOAdmx (scope > categories >
-        policies) with their setting form and details. Editing a GPO, each setting is read from
+        policies) with their setting form and details. When no ADMX file is loaded, a window asks
+        for the PolicyDefinitions folder and the language of its ADML files (detected from the
+        names of its language folders), remembering the choice for the next time; the console does
+        not open without them. -PolicyDefinitions loads a folder without asking. Editing a GPO, each setting is read from
         the GPO (Registry.pol, GptTmpl.inf) and Apply saves it there.
 
         Hosted on Avalonia UI under PowerShell 7+; the call blocks until the window is closed.
@@ -35,6 +38,10 @@ function Show-GPOManagerAvalonia {
         Account to read the domain with (see Get-PSGPODirectory).
     .PARAMETER UseSsl
         Reads the domain over LDAPS (see Get-PSGPODirectory).
+    .PARAMETER PolicyDefinitions
+        PolicyDefinitions folder to load the ADMX files from, without asking (see Initialize-PSGPOAdmx).
+    .PARAMETER UICulture
+        Language of the ADML files of -PolicyDefinitions (en-US, fr-FR...); detected when not given.
     .PARAMETER NoDirectory
         Neither reads the domain nor shows the sample directory: the window opens on the policy
         editor to browse the ADMX policies.
@@ -42,6 +49,9 @@ function Show-GPOManagerAvalonia {
         # The domain of the computer (Windows session, or a Kerberos ticket on Linux)
         Initialize-PSGPOAdmx -UICulture 'en-US'
         Show-GPOManagerAvalonia
+    .EXAMPLE
+        # Linux: the ADMX files of a copy of PolicyDefinitions, in the language of the session
+        Show-GPOManagerAvalonia -PolicyDefinitions ~/PolicyDefinitions
     .EXAMPLE
         kinit administrator@HARDENBOX.LABO
         Show-GPOManagerAvalonia -Server dc.hardenbox.labo
@@ -66,8 +76,24 @@ function Show-GPOManagerAvalonia {
         [switch]$UseSsl,
 
         [Parameter(Mandatory, ParameterSetName = 'NoDirectory')]
-        [switch]$NoDirectory
+        [switch]$NoDirectory,
+
+        [ValidateScript( { Test-Path -Path $_ -PathType Container })]
+        [string]$PolicyDefinitions,
+
+        [string]$UICulture
     )
+
+    # The ADMX files first: asked for in a window when none is loaded.
+    if ($PolicyDefinitions -or $UICulture) {
+        $admx = @{}
+        if ($PolicyDefinitions) { $admx.Path = $PolicyDefinitions }
+        if ($UICulture) { $admx.UICulture = $UICulture }
+        Initialize-PSGPOAdmx @admx -WarningAction SilentlyContinue
+    } elseif ([GPOToolsUtility]::Policies.Count -eq 0 -and -not (Show-PSGPOAdmxWindow)) {
+        Write-Warning 'No ADMX file loaded: the console is not opened. Choose a PolicyDefinitions folder, or give -PolicyDefinitions.'
+        return
+    }
 
     $directoryError = $null
     if ($PSCmdlet.ParameterSetName -eq 'Domain') {
