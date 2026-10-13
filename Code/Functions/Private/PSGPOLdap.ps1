@@ -166,6 +166,33 @@ function Get-PSGPOLdapValue {
     if ($values) { $values[0] }
 }
 
+# Account the connection is bound with ("Who am I?", RFC 4532): DOMAIN\user, or the DN the server
+# gives; $null when the server does not answer it.
+function Get-PSGPOLdapAccount {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([Parameter(Mandatory)] $Connection)
+
+    try {
+        $response = $Connection.SendRequest([System.DirectoryServices.Protocols.ExtendedRequest]::new('1.3.6.1.4.1.4203.1.11.3'))
+    } catch {
+        Write-Verbose "Who am I? not answered: $($_.Exception.GetBaseException().Message)"
+        return $null
+    }
+    ConvertFrom-PSGPOLdapAuthzId -Value $(if ($response.ResponseValue) { [System.Text.Encoding]::UTF8.GetString($response.ResponseValue) })
+}
+
+# Account of an authorization identity: u:DOMAIN\user, dn:<DN> or empty (anonymous).
+function ConvertFrom-PSGPOLdapAuthzId {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([AllowNull()] [AllowEmptyString()] [string]$Value)
+
+    if ([string]::IsNullOrEmpty($Value)) { return 'Anonymous' }
+    if ($Value -match '^(?:u|dn):(.+)$') { return $Matches[1] }
+    $Value
+}
+
 # Builds the directory from the search entries; no network, so that it can be tested.
 function ConvertTo-PSGPOLdapDirectory {
     [CmdletBinding()]
@@ -187,8 +214,21 @@ function ConvertTo-PSGPOLdapDirectory {
 
         # groupPolicyContainer objects (cn, displayName, versionNumber, flags, gPCFileSysPath)
         [AllowEmptyCollection()]
-        [object[]]$GpoEntry = @()
+        [object[]]$GpoEntry = @(),
+
+        # The CN=Policies container (allowedChildClassesEffective)
+        $PoliciesEntry,
+
+        # The entries hold allowedAttributesEffective: the rights of the account. An attribute
+        # missing then means no right; without it, every right is assumed.
+        [switch]$EffectiveRights
     )
+
+    # The account may write this attribute of the entry.
+    $canWrite = {
+        param($Entry, [string]$Name)
+        -not $EffectiveRights -or @($Entry.Attributes['allowedAttributesEffective']) -contains $Name
+    }
 
     $domainDN = $DomainEntry.DistinguishedName
     $domainName = (@([regex]::Matches($domainDN, '(?i)(?:^|,)DC=([^,]+)') | ForEach-Object { $_.Groups[1].Value }) -join '.').ToLowerInvariant()
@@ -209,10 +249,15 @@ function ConvertTo-PSGPOLdapDirectory {
         $gpo.FileSysPath = Get-PSGPOLdapValue $entry 'gPCFileSysPath'
         $gpo.Version = [int](Get-PSGPOLdapValue $entry 'versionNumber')
         $gpo.Flags = [int](Get-PSGPOLdapValue $entry 'flags')
+        $gpo.CanEdit = & $canWrite $entry 'versionNumber'
         [void]$directory.AddExistingGpo($gpo)
     }
 
     $directory.SetLinks($directory.Domain, (Get-PSGPOLdapValue $DomainEntry 'gPLink'))
+    $directory.Domain.CanLink = & $canWrite $DomainEntry 'gPLink'
+    if ($EffectiveRights) {
+        $directory.CanCreateGpo = $PoliciesEntry -and @($PoliciesEntry.Attributes['allowedChildClassesEffective']) -contains 'groupPolicyContainer'
+    }
 
     # Parents before children: by number of RDNs.
     $depth = { @([regex]::Matches($_.DistinguishedName, '(?<!\\),')).Count }
@@ -226,6 +271,7 @@ function ConvertTo-PSGPOLdapDirectory {
         if (-not $name) { $name = Get-PSGPOLdapValue $entry 'ou' }
         $som = $directory.AddOrganizationalUnit($parent, $name, $entry.DistinguishedName)
         $som.BlockInheritance = ([int](Get-PSGPOLdapValue $entry 'gPOptions') -band 1) -eq 1
+        $som.CanLink = & $canWrite $entry 'gPLink'
         $directory.SetLinks($som, (Get-PSGPOLdapValue $entry 'gPLink'))
     }
 

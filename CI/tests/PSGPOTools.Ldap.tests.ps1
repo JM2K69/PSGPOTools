@@ -307,6 +307,8 @@ InModuleScope -ModuleName PSGPOTools {
             $script:Opened = $null
             Mock Start-PSGPOManagerWindow { $script:Opened = @{ Directory = $Directory; DirectoryError = $DirectoryError; StartView = $StartView } }
             Mock Get-PSGPODirectory { New-TestLdapDirectory }
+            # The ADMX files as loaded: no window asking for them.
+            Mock Show-PSGPOAdmxWindow { $true }
         }
         AfterAll { $script:PSGPOPlatform = $null }
 
@@ -539,6 +541,7 @@ InModuleScope -ModuleName PSGPOTools {
 
         It 'Is read by Show-GPOManagerAvalonia at launch' {
             Mock Start-PSGPOManagerWindow { $script:Launched = $Directory }
+            Mock Show-PSGPOAdmxWindow { $true }
             Show-GPOManagerAvalonia -Server $env:PSGPOTOOLS_TEST_LDAP_SERVER
             $script:Launched | Should -BeOfType ([GPOToolsLdapDirectory])
             $script:Launched.Domain.DistinguishedName | Should -Be $Directory.Domain.DistinguishedName
@@ -552,6 +555,13 @@ InModuleScope -ModuleName PSGPOTools {
             $DefaultDomain.FileSysPath | Should -BeLike '\\*\sysvol\*\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}'
             $Directory.Domain.Links.Gpo | Should -Contain $DefaultDomain
             $Directory.FindSom("OU=Domain Controllers,$($Directory.Domain.DistinguishedName)").Links.Gpo | Should -Contain $DefaultDc
+        }
+
+        It 'Names the account it is read with, and its rights' {
+            $Directory.Account | Should -Match '^[^\\]+\\[^\\]+$|^CN='
+            # The tests run as a domain administrator: every right, nothing hidden.
+            $Directory.IsLimited() | Should -BeFalse -Because "$($Directory.Account) manages every OU and GPO"
+            $Directory.CanCreateGpo | Should -BeTrue
         }
     }
 

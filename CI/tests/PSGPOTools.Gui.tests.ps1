@@ -499,6 +499,35 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
+        It 'Shows a delegated account its name, and only what it may do' {
+            # The fixture domain as a technician of Lyon\Workstations reads it (see PSGPOTools.Delegation.tests.ps1).
+            $Set = Get-TestLdapEntrySet
+            foreach ($Entry in $Set.Ous) {
+                if ($Entry.DistinguishedName -like 'OU=Workstations,OU=Lyon,*') { $Entry.Attributes['allowedattributeseffective'] = [string[]]@('gPLink', 'gPOptions') }
+            }
+            $Policies = New-TestLdapEntry "CN=Policies,CN=System,$TestLdapDomainDN" @{ allowedChildClassesEffective = 'groupPolicyContainer' }
+            $Delegated = ConvertTo-PSGPOLdapDirectory -Server 'dc.hardenbox.labo' -VendorName 'Samba Team' -DomainEntry $Set.Domain `
+                -OrganizationalUnitEntry $Set.Ous -GpoEntry $Set.Gpos -PoliciesEntry $Policies -EffectiveRights 3>$null
+            $Delegated.Account = 'HARDENBOX\tier2'
+            Start-PSGPOManagerWindow -Directory $Delegated -OnShown {
+                param($Ui)
+                $Ui.subtitleTextBlock.Text | Should -Be 'Group Policy Management - hardenbox.labo (Samba AD) - connected as HARDENBOX\tier2'
+                @($Ui.statusBarList.ItemsSource.Text) | Should -Contain 'Connected as HARDENBOX\tier2 (delegated rights)'
+
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Lyon'
+                $Ui.createLinkedGpoMenuItem.IsVisible | Should -BeFalse -Because 'Lyon is only the path to Workstations'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Lyon', 'Workstations (blocks inheritance)'
+                $Ui.createLinkedGpoMenuItem.IsVisible | Should -BeTrue
+
+                # A GPO linked to its OU that it cannot edit: the link can go, the GPO is read only.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Lyon', 'Workstations (blocks inheritance)', 'Workstations (enforced)'
+                $Ui.editGpoMenuItem.IsVisible | Should -BeFalse
+                $Ui.editGpoButton.IsVisible | Should -BeFalse
+                $Ui.deleteLinkMenuItem.IsVisible | Should -BeTrue
+                ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Your rights').Value | Should -Be 'Read only'
+            }
+        }
+
         It 'Deletes a link from the context menu once confirmed, keeping the GPO' {
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {
                 param($Ui)

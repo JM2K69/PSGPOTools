@@ -131,6 +131,31 @@ function Get-PSGPODomainSecurityDescriptor {
     [GPOToolsSecurityDescriptor]::Parse([byte[]]$response.Entries[0].Attributes['nTSecurityDescriptor'].GetValues([byte[]])[0])
 }
 
+# Writes the DACL of an object of the directory; its owner and group stay as they are.
+function Set-PSGPODomainDacl {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] $Connection,
+        [Parameter(Mandatory)] [string]$DistinguishedName,
+        [Parameter(Mandatory)] [GPOToolsSecurityDescriptor]$Descriptor,
+        # What the object is, for the access denied message
+        [string]$Name = $DistinguishedName
+    )
+
+    $request = [System.DirectoryServices.Protocols.ModifyRequest]::new($DistinguishedName,
+        [System.DirectoryServices.Protocols.DirectoryAttributeOperation]::Replace, 'nTSecurityDescriptor', [byte[]]$Descriptor.ToBytes())
+    [void]$request.Controls.Add([System.DirectoryServices.Protocols.SecurityDescriptorFlagControl]::new([System.DirectoryServices.Protocols.SecurityMasks]::Dacl))
+    try {
+        [void]$Connection.SendRequest($request)
+    } catch {
+        $base = $_.Exception.GetBaseException()
+        if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -eq 'InsufficientAccessRights') {
+            throw "The account cannot change the permissions of ${Name}: $($base.Message)"
+        }
+        throw
+    }
+}
+
 # Sets the ACL of the SYSVOL folder of the GPO as samba-tool gpo create does: through the SMB
 # client of Samba (its Python bindings, there with samba-tool), with the ACEs in the order given.
 # smbcacls is not used: it sorts the ACEs and removes duplicates, and samba-tool gpo aclcheck
@@ -196,19 +221,7 @@ function Set-PSGPODomainSecurityFiltering {
     try {
         $descriptor = Get-PSGPODomainSecurityDescriptor -Connection $connection -DistinguishedName $Gpo.DistinguishedName
         $descriptor.SetSecurityFiltering($ApplySid, $DenySid)
-        $request = [System.DirectoryServices.Protocols.ModifyRequest]::new($Gpo.DistinguishedName,
-            [System.DirectoryServices.Protocols.DirectoryAttributeOperation]::Replace, 'nTSecurityDescriptor', [byte[]]$descriptor.ToBytes())
-        # Only the DACL changes: the owner and group stay as they are.
-        [void]$request.Controls.Add([System.DirectoryServices.Protocols.SecurityDescriptorFlagControl]::new([System.DirectoryServices.Protocols.SecurityMasks]::Dacl))
-        try {
-            [void]$connection.SendRequest($request)
-        } catch {
-            $base = $_.Exception.GetBaseException()
-            if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -eq 'InsufficientAccessRights') {
-                throw "The account cannot change the permissions of the GPO '$($Gpo.DisplayName)': $($base.Message)"
-            }
-            throw
-        }
+        Set-PSGPODomainDacl -Connection $connection -DistinguishedName $Gpo.DistinguishedName -Descriptor $descriptor -Name "the GPO '$($Gpo.DisplayName)'"
         # Read again: the ACL as the domain stored it gives the ACL of the folder.
         $descriptor = Get-PSGPODomainSecurityDescriptor -Connection $connection -DistinguishedName $Gpo.DistinguishedName
     } finally {

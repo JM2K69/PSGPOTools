@@ -41,9 +41,15 @@ function Get-PSGPOStatusBarItem {
     $domain = if ($Platform.DomainName) { "Domain $($Platform.DomainName)" } else { 'Not in a domain' }
     New-StatusItem 'globe' $domain
 
-    # The domain controller the directory comes from.
+    # The domain controller the directory comes from, and the account it was read with.
     if ($Directory -is [GPOToolsLdapDirectory]) {
         New-StatusItem 'server' "DC $($Directory.Server) ($($Directory.ServerType))" "Directory $($Directory.Source)"
+        if ($Directory.Account) {
+            $limited = $Directory.IsLimited()
+            New-StatusItem 'person' "Connected as $($Directory.Account)$(if ($limited) { ' (delegated rights)' })" $(
+                if ($limited) { "The directory is read as $($Directory.Account): only the OUs and GPOs it manages are shown." }
+                else { "The directory is read as $($Directory.Account), which manages every OU and GPO." })
+        }
     } elseif ($Directory.IsDemonstration) {
         New-StatusItem 'server' 'No domain controller: demonstration directory' 'No Active Directory or Samba AD domain was discovered: the directory shown is sample data.'
     } elseif ($Directory) {

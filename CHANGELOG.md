@@ -4,6 +4,10 @@
 
 ### Added
 
+* Delegation (RBAC): the console shows what the account it reads the domain with manages, from the delegations of the domain (the attributes and classes it may write, allowedAttributesEffective and allowedChildClassesEffective). A Tier 1 or Tier 2 technician sees the OUs where it links GPOs, their parents greyed as the path to them, and the GPOs it edits or that are linked to its OUs; the menus offer only what it may do (create, link, edit, delete a link), and the directory refuses the rest before asking the domain. A domain administrator sees everything. This is not a security boundary: the permissions of the domain are
+* The account the directory is read with ("Who am I?", RFC 4532) in the title, the status bar and the details of the domain, with the rights of the account in the details of each OU and GPO
+* `CI/New-TierDelegationLab.ps1`: builds a tiered delegation lab in a test domain (OU=Tier 1 and OU=Tier 2, their delegated groups with "Link GPOs" on their OUs, a GPO per tier they edit)
+
 * `Show-GPOManagerAvalonia` asks for the ADMX files when none is loaded: a window proposes the PolicyDefinitions folders found on this computer (the central store of the domain on Windows, the folder chosen last, the folder of Windows, the SYSVOL of a Samba domain controller, the copy next to the module) or another one (typed, or picked with the folder picker of the system), and the language of its ADML files; it loads them and remembers the choice for the next time (settings.json in the configuration folder of the user). The console does not open without them; `-PolicyDefinitions` and `-UICulture` load a folder without asking
 * `Initialize-PSGPOAdmx` detects the language from the names of the language folders of PolicyDefinitions when `-UICulture` is not given: the language of the session, else the same language in another country, else en-US, else the only one there is; it asks for `-UICulture` when several languages remain
 
