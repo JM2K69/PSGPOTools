@@ -463,7 +463,9 @@ function Start-PSGPOManagerWindow {
         $subtitleTextBlock.Text = if ($View -eq 'Management') {
             if (-not $Directory) { 'Group Policy Management' }
             elseif ($Directory.IsDemonstration) { "Group Policy Management - $($Directory.DomainName) (demonstration)" }
-            elseif ($Directory -is [GPOToolsLdapDirectory]) { "Group Policy Management - $($Directory.DomainName) ($($Directory.ServerType))" }
+            elseif ($Directory -is [GPOToolsLdapDirectory]) {
+                "Group Policy Management - $($Directory.DomainName) ($($Directory.ServerType))$(if ($Directory.Account) { " - connected as $($Directory.Account)" })"
+            }
             elseif ($Directory.IsReadOnly) { "Group Policy Management - $($Directory.DomainName) (read-only)" }
             else { "Group Policy Management - $($Directory.DomainName)" }
         } elseif ($editing.Gpo) { "Editing the GPO $($editing.Gpo.DisplayName)" } else { 'Explore and manage Group Policy Objects' }
@@ -739,17 +741,18 @@ function Start-PSGPOManagerWindow {
         $linksHeaderTextBlock.Text = $detail.LinksHeader
         $linksHeaderTextBlock.IsVisible = [bool]$detail.LinksHeader
         $linksList.ItemsSource = $detail.Links
-        $editGpoButton.IsVisible = $null -ne $detail.Gpo
+        $editGpoButton.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit
         $newGpoPanel.IsVisible = $false
         $directoryResultTextBlock.Text = ''
         $deleteLinkPanel.IsVisible = $false
 
         # Context menu of the selected node, as in GPMC.
         # A read-only directory (read over LDAP) cannot create GPOs yet.
-        $createLinkedGpoMenuItem.IsVisible = $item -is [GPOToolsSom] -and -not $Directory.IsReadOnly
-        $newGpoMenuItem.IsVisible = $item -eq 'GroupPolicyObjects' -and -not $Directory.IsReadOnly
-        $editGpoMenuItem.IsVisible = $null -ne $detail.Gpo
-        $deleteLinkMenuItem.IsVisible = $item -is [GPOToolsGpoLink] -and -not $Directory.IsReadOnly
+        # And what the account may do there (its delegations).
+        $createLinkedGpoMenuItem.IsVisible = $item -is [GPOToolsSom] -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo -and $item.CanLink
+        $newGpoMenuItem.IsVisible = $item -eq 'GroupPolicyObjects' -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo
+        $editGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit
+        $deleteLinkMenuItem.IsVisible = $item -is [GPOToolsGpoLink] -and -not $Directory.IsReadOnly -and $selected.Parent.Tag.CanLink
         Update-SettingsTab
     })
     # Nothing to offer on this node: do not open an empty menu.
@@ -763,7 +766,7 @@ function Start-PSGPOManagerWindow {
     $newGpoMenuItem.Add_Click({ Open-NewGpoForm -Som $null })
     $editGpoMenuItem.Add_Click({ $gpo = Get-SelectedGpo; if ($gpo) { Open-GpoEditor -Gpo $gpo } })
     $editGpoButton.Add_Click({ $gpo = Get-SelectedGpo; if ($gpo) { Open-GpoEditor -Gpo $gpo } })
-    $domainTreeView.add_DoubleTapped({ $gpo = Get-SelectedGpo; if ($gpo) { Open-GpoEditor -Gpo $gpo } })
+    $domainTreeView.add_DoubleTapped({ $gpo = Get-SelectedGpo; if ($gpo -and $gpo.CanEdit) { Open-GpoEditor -Gpo $gpo } })
     $newGpoCreateButton.Add_Click({ Submit-NewGpo })
     $newGpoCancelButton.Add_Click({ $newGpoPanel.IsVisible = $false })
     $deleteLinkMenuItem.Add_Click({ Open-DeleteLinkForm })

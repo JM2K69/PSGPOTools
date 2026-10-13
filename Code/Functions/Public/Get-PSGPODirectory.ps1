@@ -70,15 +70,19 @@ function Get-PSGPODirectory {
         $dnsHostName = Get-PSGPOLdapValue $rootDse 'dnsHostName'
         if (-not $domainDN) { throw "$Server did not give its default naming context: is it a domain controller?" }
 
-        $domain = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $domainDN -Scope Base -Attribute 'gPLink', 'gPOptions', 'wellKnownObjects'
+        # allowedAttributesEffective: the attributes the account may write, for its rights (RBAC).
+        $domain = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $domainDN -Scope Base -Attribute 'gPLink', 'gPOptions', 'wellKnownObjects', 'allowedAttributesEffective'
         if (-not $domain) { throw "The domain object $domainDN cannot be read: the account has no access to the directory (anonymous bind?)." }
         $organizationalUnits = @(Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $domainDN -Scope Subtree `
-                -Filter '(objectClass=organizationalUnit)' -Attribute 'name', 'ou', 'gPLink', 'gPOptions')
+                -Filter '(objectClass=organizationalUnit)' -Attribute 'name', 'ou', 'gPLink', 'gPOptions', 'allowedAttributesEffective')
         $gpos = @(Invoke-PSGPOLdapSearch -Connection $connection -SearchBase "CN=Policies,CN=System,$domainDN" -Scope OneLevel `
-                -Filter '(objectClass=groupPolicyContainer)' -Attribute 'cn', 'displayName', 'versionNumber', 'flags', 'gPCFileSysPath')
+                -Filter '(objectClass=groupPolicyContainer)' -Attribute 'cn', 'displayName', 'versionNumber', 'flags', 'gPCFileSysPath', 'allowedAttributesEffective')
+        $policies = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase "CN=Policies,CN=System,$domainDN" -Scope Base -Attribute 'allowedChildClassesEffective'
+        $account = Get-PSGPOLdapAccount -Connection $connection
 
         $directory = ConvertTo-PSGPOLdapDirectory -Server $(if ($dnsHostName) { $dnsHostName } else { $Server }) -VendorName (Get-PSGPOLdapValue $rootDse 'vendorName') -DomainEntry $domain `
-            -OrganizationalUnitEntry $organizationalUnits -GpoEntry $gpos
+            -OrganizationalUnitEntry $organizationalUnits -GpoEntry $gpos -PoliciesEntry $policies -EffectiveRights
+        $directory.Account = $account
         # Security filtering of the GPOs, as GPMC shows it: not a reason to fail the reading.
         try {
             Read-PSGPODomainSecurityFiltering -Connection $connection -Directory $directory

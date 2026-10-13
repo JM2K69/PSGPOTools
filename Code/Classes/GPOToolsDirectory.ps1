@@ -31,6 +31,8 @@ class GPOToolsGpo {
     # GPO) and who is denied it, by name; $null when it could not be read
     [string[]]$SecurityFiltering = @('Authenticated Users')
     [string[]]$DeniedTo = @()
+    # The account of the console can edit the GPO (write of its group policy container)
+    [bool]$CanEdit = $true
 
     [int] GetUserVersion() { return $this.Version -shr 16 }
     [int] GetComputerVersion() { return $this.Version -band 0xFFFF }
@@ -110,6 +112,9 @@ class GPOToolsSom {
     [System.Collections.Generic.List[GPOToolsGpoLink]]$Links
     [System.Collections.Generic.List[GPOToolsSom]]$Children
     [GPOToolsSom]$Parent
+    # The account of the console can link GPOs here (write of gPLink), as the GPMC delegation
+    # "Link GPOs"
+    [bool]$CanLink = $true
 
     GPOToolsSom() {
         $this.Links = [System.Collections.Generic.List[GPOToolsGpoLink]]::new()
@@ -131,6 +136,10 @@ class GPOToolsDirectory {
     [bool]$IsDemonstration
     # Container of the users and groups (wellKnownObjects of the domain); CN=Users when not read
     [string]$UsersContainer
+    # Account the directory was read with (NetBIOS domain and user name); $null in memory
+    [string]$Account
+    # The account can create GPOs (groupPolicyContainer objects in CN=Policies)
+    [bool]$CanCreateGpo = $true
 
     GPOToolsDirectory([string]$DomainName) {
         if ([string]::IsNullOrWhiteSpace($DomainName)) { throw 'The domain name is required.' }
@@ -223,14 +232,46 @@ class GPOToolsDirectory {
     # Creates a GPO, like GPMC "New GPO".
     [GPOToolsGpo] NewGpo([string]$DisplayName) {
         $this.AssertWritable()
+        if (-not $this.CanCreateGpo) { throw "The account $($this.Account) cannot create GPOs in $($this.DomainName)." }
         $Gpo = $this.AddGpo($DisplayName, [guid]::Empty)
         try { $this.SaveNewGpo($Gpo) } catch { [void]$this.Gpos.Remove($Gpo); throw }
         return $Gpo
     }
 
+    # Rights of the account, as the delegations of the domain give them (RBAC): a technician sees
+    # the OUs where it links GPOs, with their parents as the path to them, and the GPOs it edits
+    # or that are linked there.
+    [bool] IsLimited() {
+        if (-not $this.CanCreateGpo) { return $true }
+        foreach ($Gpo in $this.Gpos) { if (-not $Gpo.CanEdit) { return $true } }
+        $Stack = [System.Collections.Generic.Stack[GPOToolsSom]]::new()
+        $Stack.Push($this.Domain)
+        while ($Stack.Count) {
+            $Som = $Stack.Pop()
+            if (-not $Som.CanLink) { return $true }
+            foreach ($Child in $Som.Children) { $Stack.Push($Child) }
+        }
+        return $false
+    }
+
+    # A SOM the account manages, or the path to one.
+    [bool] IsSomVisible([GPOToolsSom]$Som) {
+        if ($Som.CanLink) { return $true }
+        foreach ($Child in $Som.Children) { if ($this.IsSomVisible($Child)) { return $true } }
+        return $false
+    }
+
+    # A GPO the account edits, or linked to a SOM it manages.
+    [bool] IsGpoVisible([GPOToolsGpo]$Gpo) {
+        if ($Gpo.CanEdit) { return $true }
+        foreach ($Pair in $this.GetLinksOf($Gpo)) { if ($Pair.Som.CanLink) { return $true } }
+        return $false
+    }
+
     # Links a GPO to a SOM with the lowest precedence (the last link order), like GPMC.
     [GPOToolsGpoLink] NewLink([GPOToolsSom]$Som, [GPOToolsGpo]$Gpo) {
         $this.AssertWritable()
+        $this.AssertCanLink($Som)
         foreach ($Existing in $Som.Links) {
             if ([object]::ReferenceEquals($Existing.Gpo, $Gpo)) {
                 throw "The GPO '$($Gpo.DisplayName)' is already linked to $($Som.Name)."
@@ -270,6 +311,7 @@ class GPOToolsDirectory {
     # after it move up one link order.
     [void] RemoveLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {
         $this.AssertWritable()
+        $this.AssertCanLink($Som)
         if (-not $Som.Links.Contains($Link)) { throw "This link is not a link of $($Som.Name) anymore." }
         $this.SaveRemovedLink($Som, $Link)
         if ($Som.Links.Contains($Link)) {
@@ -352,6 +394,10 @@ class GPOToolsDirectory {
 
     hidden [void] AssertWritable() {
         if ($this.IsReadOnly) { throw "The directory $($this.DomainName) is read-only ($($this.Source))." }
+    }
+
+    hidden [void] AssertCanLink([GPOToolsSom]$Som) {
+        if (-not $Som.CanLink) { throw "The account $($this.Account) cannot link GPOs to $($Som.Name): no delegation there." }
     }
 
     # Persistence of a change, once validated: nothing to do in memory. A failure undoes the change.

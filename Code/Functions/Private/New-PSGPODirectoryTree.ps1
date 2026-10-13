@@ -2,6 +2,10 @@
     Builds the Group Policy Management tree of Show-GPOManagerAvalonia, as GPMC shows it:
     domain > GPO links (by link order) and OUs, then the "Group Policy Objects" container.
     Kept free of any Avalonia type so it can be tested without a UI.
+
+    Only what the account manages is shown (RBAC, from the delegations of the domain): the OUs
+    where it links GPOs, their parents greyed as the path to them, without their links; the GPOs
+    it edits or that are linked to its OUs.
 #>
 
 # Key of a node kept across rebuilds (expanded nodes): the DN of a SOM, a fixed key for the GPO container.
@@ -42,15 +46,17 @@ function New-PSGPODirectoryTree {
         $Header = if ($Som.BlockInheritance) { "$($Som.Name) (blocks inheritance)" } else { $Som.Name }
         $Icon = if ($Som.Kind -eq [GPOToolsSomKind]::Domain) { 'globe' } elseif ($Som.BlockInheritance) { 'folder-prohibited' } else { 'folder' }
         $Node = New-Node $Header $Icon $Som $Parent
+        # Only the path to the OUs the account manages: greyed, without its links.
+        if (-not $Som.CanLink) { $Node.IconBrush = '#8A8886' }
 
-        foreach ($Link in @($Som.Links | Sort-Object Order)) {
+        foreach ($Link in @($Som.Links | Where-Object { $Som.CanLink } | Sort-Object Order)) {
             $LinkHeader = $Link.GetDisplayName()
             if ($Link.Enforced) { $LinkHeader += ' (enforced)' }
             if (-not $Link.Enabled) { $LinkHeader += ' (link disabled)' }
             $LinkIcon = if (-not $Link.Enabled) { 'link-dismiss' } elseif ($Link.Enforced) { 'lock-closed' } else { 'link' }
             [void](New-Node $LinkHeader $LinkIcon $Link $Node)
         }
-        foreach ($Child in $Som.Children) { [void](Add-Som $Child $Node) }
+        foreach ($Child in $Som.Children) { if ($Directory.IsSomVisible($Child)) { [void](Add-Som $Child $Node) } }
         $Node
     }
 
@@ -59,7 +65,9 @@ function New-PSGPODirectoryTree {
     $DomainNode.IsExpanded = $true
 
     $GposNode = New-Node 'Group Policy Objects' 'library' 'GroupPolicyObjects' $DomainNode
-    foreach ($Gpo in $Directory.Gpos) { [void](New-Node $Gpo.DisplayName 'document-settings' $Gpo $GposNode) }
+    foreach ($Gpo in $Directory.Gpos) {
+        if ($Directory.IsGpoVisible($Gpo)) { [void](New-Node $Gpo.DisplayName 'document-settings' $Gpo $GposNode) }
+    }
 
     $Roots.Add($DomainNode)
     # Comma keeps PowerShell from unrolling the collection into the pipeline.
