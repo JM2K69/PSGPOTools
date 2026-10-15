@@ -43,6 +43,9 @@ InModuleScope -ModuleName PSGPOTools {
                 }
             }
             @($Catalog.Cse | Select-Object -Unique).Count | Should -Be 21
+            # Every item type has its form: only the Registry collections are not created here.
+            @($Catalog.Items | Where-Object { -not $_.Properties }).Element | Should -Be @('Collection')
+            @($Catalog.Items | Where-Object { -not $_.IsCollection }).Count | Should -Be 35
         }
 
         It 'Gives each scope its preference types, as the Group Policy editor' {
@@ -146,8 +149,8 @@ InModuleScope -ModuleName PSGPOTools {
             { New-PSGPOPreferenceItem -File $File -Type $RegistryItem -Values @{ key = 'K'; action = 'X' } } | Should -Throw -ExpectedMessage '*C, R, U or D*'
             $Service = (Get-PSGPOPreferenceExtension -Id Services).Items[0]
             { New-PSGPOPreferenceItem -File $File -Type $Service -Values @{ serviceName = 'Spooler'; timeout = 'soon' } } | Should -Throw -ExpectedMessage '*must be a number*'
-            $Task = (Get-PSGPOPreferenceExtension -Id ScheduledTasks).Items[0]
-            { New-PSGPOPreferenceItem -File $File -Type $Task -Values @{} } | Should -Throw -ExpectedMessage '*created with GPMC*'
+            $Collection = $Registry.Items | Where-Object Element -EQ 'Collection'
+            { New-PSGPOPreferenceItem -File $File -Type $Collection -Values @{} } | Should -Throw -ExpectedMessage '*created with GPMC*'
             @(Get-PSGPOPreferenceItem -File $File -Extension $Registry).Count | Should -Be 0 -Because 'nothing was added'
         }
 
@@ -162,6 +165,90 @@ InModuleScope -ModuleName PSGPOTools {
             Move-PSGPOPreferenceElement -Element $B -Direction Down
             Remove-PSGPOPreferenceElement -Element @(Get-PSGPOPreferenceItem -File $File -Extension $Registry)[2].Element
             @(Get-PSGPOPreferenceItem -File $File -Extension $Registry).Name | Should -Be @('A', 'B')
+        }
+    }
+
+    Describe 'Preference items holding XML' {
+        BeforeAll {
+            $Tasks = Get-PSGPOPreferenceExtension -Id ScheduledTasks
+            $ImmediateV2 = $Tasks.Items | Where-Object Element -EQ 'ImmediateTaskV2'
+        }
+
+        It 'Creates an immediate task with its Task Scheduler definition' {
+            $File = [GPOToolsPreferenceFile]::Create($Tasks.Root, $Tasks.RootClsid)
+            $Element = New-PSGPOPreferenceItem -File $File -Type $ImmediateV2 -Values @{ action = 'C'; name = 'Inventory' }
+            $Element.GetAttribute('clsid') | Should -Be '{9756B581-76EC-4169-9AFC-0CA8D43ADB5F}'
+            $Properties = $Element.SelectSingleNode('Properties')
+            $Properties.GetAttribute('runAs') | Should -Be 'NT AUTHORITY\System'
+            $Properties.GetAttribute('logonType') | Should -Be 'S4U'
+            $Properties.SelectSingleNode('Task').GetAttribute('version') | Should -Be '1.3'
+            $Properties.SelectSingleNode('Task/Triggers/TimeTrigger/StartBoundary').InnerText | Should -Be '%LocalTimeXmlEx%'
+            $Properties.SelectSingleNode('Task/Actions/Exec/Command').InnerText | Should -BeLike '*powershell.exe'
+
+            # The definition changed: read back indented, written again, seen in the report.
+            $Item = @(Get-PSGPOPreferenceItem -File $File -Extension $Tasks)[0]
+            $Item.Editable | Should -BeTrue
+            $Item.Xml['Task'] | Should -BeLike '<Task version="1.3">*<Exec>*'
+            $Before = @(Get-PSGPOConfiguredPreference -Files ([ordered]@{ 'Machine\Preferences\ScheduledTasks\ScheduledTasks.xml' = $File.ToBytes() }) -Scope Machine)
+            $Before[0].Options | Should -Match 'Content: Task \(SHA-256 [0-9A-F]{12}\)'
+            Set-PSGPOPreferenceElement -Element $Element -Type $ImmediateV2 -Values @{ Task = $Item.Xml['Task'].Replace('Write-Output Hello', 'Write-Output Bye') }
+            $Properties.SelectSingleNode('Task/Actions/Exec/Arguments').InnerText | Should -BeLike '*Bye*'
+            @($Properties.SelectNodes('Task')).Count | Should -Be 1
+            $After = @(Get-PSGPOConfiguredPreference -Files ([ordered]@{ 'Machine\Preferences\ScheduledTasks\ScheduledTasks.xml' = $File.ToBytes() }) -Scope Machine)
+            $After[0].Options | Should -Not -Be $Before[0].Options
+        }
+
+        It 'Refuses XML that is not valid, or not the elements the item holds' {
+            $File = [GPOToolsPreferenceFile]::Create($Tasks.Root, $Tasks.RootClsid)
+            { New-PSGPOPreferenceItem -File $File -Type $ImmediateV2 -Values @{ name = 'T'; Task = '<Task><Actions>' } } | Should -Throw -ExpectedMessage '*the XML is not valid*'
+            { New-PSGPOPreferenceItem -File $File -Type $ImmediateV2 -Values @{ name = 'T'; Task = '<Job/>' } } | Should -Throw -ExpectedMessage '*<Job> is not expected here, only <Task>*'
+            { New-PSGPOPreferenceItem -File $File -Type $ImmediateV2 -Values @{ name = 'T'; Task = '' } } | Should -Throw -ExpectedMessage '*a <Task> element is required*'
+            @(Get-PSGPOPreferenceItem -File $File -Extension $Tasks).Count | Should -Be 0
+        }
+
+        It 'Keeps the Internet settings in Reg elements, and an application id on the item' {
+            $Internet = Get-PSGPOPreferenceExtension -Id InternetSettings
+            $File = [GPOToolsPreferenceFile]::Create($Internet.Root, $Internet.RootClsid)
+            $Element = New-PSGPOPreferenceItem -File $File -Type ($Internet.Items | Where-Object Element -EQ 'IE7') -Values @{}
+            $Element.SelectSingleNode('Properties/Reg').GetAttribute('name') | Should -Be 'Start Page'
+
+            $Applications = Get-PSGPOPreferenceExtension -Id Applications
+            $File = [GPOToolsPreferenceFile]::Create($Applications.Root, $Applications.RootClsid)
+            $Application = $Applications.Items[0]
+            { New-PSGPOPreferenceItem -File $File -Type $Application -Values @{ extId = '' } } | Should -Throw -ExpectedMessage '*is required*'
+            $Element = New-PSGPOPreferenceItem -File $File -Type $Application -Values @{ extId = '{11111111-2222-3333-4444-555555555555}'; Content = '<Files clsid="{215B2E53-57CE-475c-80FE-9EEC14635851}"/>' }
+            $Element.GetAttribute('extId') | Should -Be '{11111111-2222-3333-4444-555555555555}'
+            $Element.SelectSingleNode('Properties').HasAttribute('extId') | Should -BeFalse
+            $Element.SelectSingleNode('Files').GetAttribute('clsid') | Should -Be '{215B2E53-57CE-475c-80FE-9EEC14635851}'
+            (@(Get-PSGPOPreferenceItem -File $File -Extension $Applications)[0]).Properties['extId'] | Should -Be '{11111111-2222-3333-4444-555555555555}'
+        }
+
+        It 'Creates an item of each of the 35 types with its defaults, read back as written' {
+            foreach ($Extension in @(Get-PSGPOPreferenceCatalog)) {
+                foreach ($Type in @($Extension.Items | Where-Object { -not $_.IsCollection })) {
+                    $File = [GPOToolsPreferenceFile]::Create($Extension.Root, $Extension.RootClsid)
+                    $Values = @{}
+                    foreach ($Property in @($Type.Properties | Where-Object { $_.Required -and $_.Type -eq 'Text' -and -not $_.Default })) { $Values[$Property.Name] = 'x' }
+                    { $null = New-PSGPOPreferenceItem -File $File -Type $Type -Values $Values } | Should -Not -Throw -Because "$($Extension.Id) $($Type.Element) has a form"
+                    $Item = @(Get-PSGPOPreferenceItem -File ([GPOToolsPreferenceFile]::Parse($File.ToBytes())) -Extension $Extension)
+                    $Item.Count | Should -Be 1
+                    $Item[0].ElementName | Should -Be $Type.Element
+                    $Item[0].Editable | Should -BeTrue
+                }
+            }
+        }
+
+        It 'Gives readable fields to the types generated from their schema' {
+            $Power = (Get-PSGPOPreferenceExtension -Id PowerOptions).Items | Where-Object Element -EQ 'GlobalPowerOptionsV2'
+            ($Power.Properties | Where-Object Name -EQ 'hibernateAC').Type | Should -Be 'Number'
+            ($Power.Properties | Where-Object Name -EQ 'action').Type | Should -Be 'Action'
+            $Folder = (Get-PSGPOPreferenceExtension -Id FolderOptions).Items | Where-Object Element -EQ 'GlobalFolderOptionsVista'
+            ($Folder.Properties | Where-Object Name -EQ 'hideFileExt').Type | Should -Be 'Bool'
+            ($Folder.Properties | Where-Object Name -EQ 'hideFileExt').Label | Should -Be 'Hide file ext'
+            $File = [GPOToolsPreferenceFile]::Create('FolderOptions', '{8AB5F5D7-F676-48ab-A94E-1186E120EFDC}')
+            $Element = New-PSGPOPreferenceItem -File $File -Type $Folder -Values @{ hideFileExt = '0'; hidden = 'SHOW' }
+            $Element.GetAttribute('name') | Should -Be 'Folder Options (Windows Vista and later)'
+            $Element.SelectSingleNode('Properties').GetAttribute('hideFileExt') | Should -Be '0'
         }
     }
 

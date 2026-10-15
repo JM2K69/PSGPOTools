@@ -22,6 +22,10 @@ $script:PSGPOIconBrush = @{
     'person'            = '#0F6CBD'
     'desktop'           = '#0F6CBD'
     'shield'            = '#107C10'
+    # Preferences ([MS-GPPREF]): their own colour, apart from the policies
+    'toolbox'           = '#038387'
+    'wrench'            = '#038387'
+    'folder-preference' = '#038387'
 }
 
 # Path data of an icon of Resources/Icons ('folder' for folder.svg).
