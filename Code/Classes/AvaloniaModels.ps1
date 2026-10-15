@@ -103,3 +103,14 @@ class AvaloniaPreferenceRow {
     # The item (Get-PSGPOPreferenceItem)
     [object]$Item
 }
+
+# One setting of the configuration window (Get-PSGPOConfigurationSetting)
+class AvaloniaConfigurationRow {
+    [string]$Key
+    [string]$Value
+    [string]$Default
+    # 'Set in your configuration' or 'Default'
+    [string]$Source
+    [string]$SourceBrush
+    [object]$Setting
+}

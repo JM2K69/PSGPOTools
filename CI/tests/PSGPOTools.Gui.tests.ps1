@@ -604,6 +604,97 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
+        It 'Creates, changes and removes the settings of the configuration in its window' {
+            $ConfigurationBefore = $env:PSGPOTOOLS_CONFIGURATION_PATH
+            $env:PSGPOTOOLS_CONFIGURATION_PATH = Join-Path $TestDrive "Configuration-$([guid]::NewGuid()).psd1"
+            try {
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    Invoke-Click $Ui.configurationButton
+                    $Settings = $Ui.Configuration.Ui
+                    $Settings.Window.IsVisible | Should -BeTrue
+                    $C = $Settings.Controls
+                    $Rows = @($C.settingsList.ItemsSource)
+                    $Rows.Count | Should -Be 9
+                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 9
+                    ($Rows | Where-Object Key -EQ 'NewGpo.SecurityFilteringGroups.ApplyPrefix').Default | Should -BeLike 'Default: APPLY_ - Names of the groups*'
+
+                    # Create: a choice, a boolean, a text.
+                    $C.keyComboBox.SelectedItem = 'NewGpo.SecurityFilteringGroups.Scope'
+                    @($C.valueComboBox.ItemsSource) | Should -Be @('Global', 'DomainLocal', 'Universal')
+                    $C.valueTextBox.IsVisible | Should -BeFalse
+                    $C.valueComboBox.SelectedItem = 'DomainLocal'
+                    Invoke-Click $C.setButton
+                    $C.keyComboBox.SelectedItem = 'NewGpo.SecurityFilteringGroups.Create'
+                    @($C.valueComboBox.ItemsSource) | Should -Be @('True', 'False')
+                    $C.valueComboBox.SelectedItem = 'True'
+                    Invoke-Click $C.setButton
+                    $C.keyComboBox.SelectedItem = 'NewGpo.SecurityFilteringGroups.Container'
+                    $C.valueTextBox.Text = 'OU=Servers'
+                    Invoke-Click $C.setButton
+                    $Row = @($C.settingsList.ItemsSource) | Where-Object Key -EQ 'NewGpo.SecurityFilteringGroups.Container'
+                    "$($Row.Value) | $($Row.Source)" | Should -Be 'Value: OU=Servers | Set in your configuration'
+                    $C.statusTextBlock.Text | Should -BeLike '*not saved yet.'
+
+                    # A wrong value is refused with the reason.
+                    $C.keyComboBox.SelectedItem = 'NewGpo.SecurityFilteringGroups.ApplyPrefix'
+                    $C.valueTextBox.Text = 'GPO:A'
+                    Invoke-Click $C.setButton
+                    $C.statusTextBlock.Text | Should -BeLike '*ApplyPrefix must not be empty, nor hold*'
+                    (@($C.settingsList.ItemsSource) | Where-Object Key -EQ 'NewGpo.SecurityFilteringGroups.ApplyPrefix').Source | Should -Be 'Default'
+
+                    # Update, then delete (back to the default).
+                    $C.keyComboBox.SelectedItem = 'NewGpo.SecurityFilteringGroups.Scope'
+                    $C.valueComboBox.SelectedItem = 'Universal'
+                    Invoke-Click $C.setButton
+                    Invoke-Click $C.removeButton
+                    (@($C.settingsList.ItemsSource) | Where-Object Key -EQ 'NewGpo.SecurityFilteringGroups.Scope').Source | Should -Be 'Default'
+
+                    # Closing asks once when the changes are not saved; Save writes them.
+                    Invoke-Click $C.closeButton
+                    $Settings.Window.IsVisible | Should -BeTrue
+                    $C.statusTextBlock.Text | Should -BeLike 'Your changes are not saved*'
+                    Invoke-Click $C.saveButton
+                    $C.statusTextBlock.Text | Should -BeLike 'Saved:*'
+                    Invoke-Click $C.closeButton
+                    $Settings.Window.IsVisible | Should -BeFalse
+
+                    # The new GPO form takes the configuration.
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Users'
+                    Invoke-Click $Ui.createLinkedGpoMenuItem
+                    $Ui.newGpoGroupsCheckBox.IsChecked | Should -BeTrue
+                    $Ui.newGpoGroupsPanel.IsVisible | Should -BeTrue
+                    @($Ui.newGpoGroupsContainerComboBox.ItemsSource)[0] | Should -Be 'OU=Servers,DC=corp,DC=contoso,DC=com'
+                    $Ui.newGpoGroupsContainerComboBox.SelectedIndex | Should -Be 0
+                }
+                $Saved = Import-PowerShellDataFile -LiteralPath $env:PSGPOTOOLS_CONFIGURATION_PATH
+                $Saved.NewGpo.SecurityFilteringGroups.Create | Should -BeTrue
+                $Saved.NewGpo.SecurityFilteringGroups.Container | Should -Be 'OU=Servers'
+                $Saved.NewGpo.SecurityFilteringGroups.ContainsKey('Scope') | Should -BeFalse -Because 'it was removed'
+            } finally {
+                $env:PSGPOTOOLS_CONFIGURATION_PATH = $ConfigurationBefore
+            }
+        }
+
+        It 'Proposes the name, status and groups of the configuration for a new GPO' {
+            $ConfigurationBefore = $env:PSGPOTOOLS_CONFIGURATION_PATH
+            $env:PSGPOTOOLS_CONFIGURATION_PATH = Join-Path $TestDrive "Configuration-$([guid]::NewGuid()).psd1"
+            Set-Content -LiteralPath $env:PSGPOTOOLS_CONFIGURATION_PATH -Value "@{ NewGpo = @{ DefaultName = 'C - New'; Status = 'ComputerOnly'; SecurityFilteringGroups = @{ ApplyPrefix = 'GPO-A-'; DenyPrefix = 'GPO-D-' } } }"
+            try {
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Users'
+                    Invoke-Click $Ui.createLinkedGpoMenuItem
+                    $Ui.newGpoNameTextBox.Text | Should -Be 'C - New'
+                    $Ui.newGpoStatusComboBox.SelectedIndex | Should -Be 1
+                    $Ui.newGpoGroupsCheckBox.IsChecked | Should -BeFalse
+                    $Ui.newGpoGroupsTextBlock.Text | Should -BeLike 'GPO-A-C - New: only its members apply the GPO*GPO-D-C - New: its members never apply it*'
+                }
+            } finally {
+                $env:PSGPOTOOLS_CONFIGURATION_PATH = $ConfigurationBefore
+            }
+        }
+
         It 'Creates, edits, moves and deletes the preference items of a GPO' {
             $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {
