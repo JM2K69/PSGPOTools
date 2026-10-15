@@ -1,0 +1,367 @@
+{
+    "Source": "[MS-GPPREF] Group Policy: Preferences Extension Data Structure, sections 1.9 (CSE and tool GUIDs), 2.2.1 (files), 2.2.1.1.2 (element names and CLSIDs) and the element-specific attributes of each preference type",
+    "Extensions": [
+        {
+            "Id": "Applications", "Name": "Applications", "Group": "Windows Settings", "Scopes": [ "User" ],
+            "Path": "Applications\\Applications.xml", "Root": "Applications", "RootClsid": "{16DB8EC4-EBFC-4958-98EE-712E9DD3A966}",
+            "Cse": "{F9C77450-3A41-477E-9310-9ACD617BD9E3}", "Tool": "{0DA274B5-EB93-47A7-AAFB-65BA532D3FE6}",
+            "Items": [ { "Element": "Application", "Clsid": "{C8535E2E-148D-494d-8E9A-71FC46649B5E}", "Label": "Application" } ]
+        },
+        {
+            "Id": "Drives", "Name": "Drive Maps", "Group": "Windows Settings", "Scopes": [ "User" ],
+            "Path": "Drives\\Drives.xml", "Root": "Drives", "RootClsid": "{8FDDCC1A-0C3C-43cd-A6B4-71A6DF20DA8C}",
+            "Cse": "{5794DAFD-BE60-433f-88A2-1A31939AC01F}", "Tool": "{2EA1A81B-48E5-45E9-8BB7-A6E3AC170006}",
+            "Items": [ {
+                "Element": "Drive", "Clsid": "{935D1B74-9CB8-4e3c-9914-7DD559B7A417}", "Label": "Mapped Drive", "NameFormat": "{letter}:", "StatusFormat": "{letter}:", "UserContext": true,
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "path", "Label": "Location", "Type": "Text", "Hint": "\\\\server\\share" },
+                    { "Name": "persistent", "Label": "Reconnect", "Type": "Bool", "Default": "0" },
+                    { "Name": "label", "Label": "Label as", "Type": "Text" },
+                    { "Name": "useLetter", "Label": "Use the drive letter (otherwise the first available from it)", "Type": "Bool", "Default": "1" },
+                    { "Name": "letter", "Label": "Drive letter", "Type": "Choice", "Choices": [ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" ], "Default": "H", "Required": true },
+                    { "Name": "userName", "Label": "Connect as (domain\\user)", "Type": "Text" },
+                    { "Name": "cpassword", "Label": "Password", "Type": "Password" },
+                    { "Name": "thisDrive", "Label": "Hide/Show this drive", "Type": "Choice", "Choices": [ "NOCHANGE", "HIDE", "SHOW" ], "Default": "NOCHANGE" },
+                    { "Name": "allDrives", "Label": "Hide/Show all drives", "Type": "Choice", "Choices": [ "NOCHANGE", "HIDE", "SHOW" ], "Default": "NOCHANGE" }
+                ]
+            } ]
+        },
+        {
+            "Id": "EnvironmentVariables", "Name": "Environment", "Group": "Windows Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "EnvironmentVariables\\EnvironmentVariables.xml", "Root": "EnvironmentVariables", "RootClsid": "{BF141A63-327B-438a-B9BF-2C188F13B7AD}",
+            "Cse": "{0E28E245-9368-4853-AD84-6DA3BA35BB75}", "Tool": "{35141B6B-498A-4CC7-AD59-CEF93D89B2CE}",
+            "Items": [ {
+                "Element": "EnvironmentVariable", "Clsid": "{78570023-8373-4a19-BA80-2F150738EA19}", "Label": "Environment Variable", "NameFormat": "{name}", "StatusFormat": "{name} = {value}",
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "name", "Label": "Name", "Type": "Text", "Required": true },
+                    { "Name": "value", "Label": "Value", "Type": "Text" },
+                    { "Name": "user", "Label": "User variable (otherwise system variable)", "Type": "Bool", "Default": "0" },
+                    { "Name": "partial", "Label": "Partial (a segment of PATH)", "Type": "Bool", "Default": "0" }
+                ]
+            } ]
+        },
+        {
+            "Id": "Files", "Name": "Files", "Group": "Windows Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "Files\\Files.xml", "Root": "Files", "RootClsid": "{215B2E53-57CE-475c-80FE-9EEC14635851}",
+            "Cse": "{7150F9BF-48AD-4da4-A49C-29EF4A8369BA}", "Tool": "{3BAE7E51-E3F4-41D0-853D-9BB9FD47605F}",
+            "Items": [ {
+                "Element": "File", "Clsid": "{50BE44C8-567A-4ed1-B1D0-9234FE1F38AF}", "Label": "File", "NameFormat": "{targetPath|leaf}", "StatusFormat": "{targetPath|leaf}",
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "fromPath", "Label": "Source file(s)", "Type": "Text" },
+                    { "Name": "targetPath", "Label": "Destination file", "Type": "Text", "Required": true },
+                    { "Name": "readOnly", "Label": "Read-only", "Type": "Bool", "Default": "0" },
+                    { "Name": "archive", "Label": "Archive", "Type": "Bool", "Default": "1" },
+                    { "Name": "hidden", "Label": "Hidden", "Type": "Bool", "Default": "0" },
+                    { "Name": "suppress", "Label": "Suppress errors on individual file actions", "Type": "Bool", "Default": "0" }
+                ]
+            } ]
+        },
+        {
+            "Id": "Folders", "Name": "Folders", "Group": "Windows Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "Folders\\Folders.xml", "Root": "Folders", "RootClsid": "{77CC39E7-3D16-4f8f-AF86-EC0BBEE2C861}",
+            "Cse": "{6232C319-91AC-4931-9385-E70C2B099F0E}", "Tool": "{3EC4E9D3-714D-471F-88DC-4DD4471AAB47}",
+            "Items": [ {
+                "Element": "Folder", "Clsid": "{07DA02F5-F9CD-4397-A550-4AE21B6B4BD3}", "Label": "Folder", "NameFormat": "{path|leaf}", "StatusFormat": "{path|leaf}",
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "path", "Label": "Path", "Type": "Text", "Required": true },
+                    { "Name": "readOnly", "Label": "Read-only", "Type": "Bool", "Default": "0" },
+                    { "Name": "archive", "Label": "Archive", "Type": "Bool", "Default": "1" },
+                    { "Name": "hidden", "Label": "Hidden", "Type": "Bool", "Default": "0" },
+                    { "Name": "deleteIgnoreErrors", "Label": "Delete: ignore errors for files and folders that cannot be deleted", "Type": "Bool", "Default": "0" },
+                    { "Name": "deleteReadOnly", "Label": "Delete: allow deletion of read-only files and folders", "Type": "Bool", "Default": "0" },
+                    { "Name": "deleteFiles", "Label": "Delete: delete all files in the folder(s)", "Type": "Bool", "Default": "0" },
+                    { "Name": "deleteSubFolders", "Label": "Delete: recursively delete all subfolders (if emptied)", "Type": "Bool", "Default": "0" },
+                    { "Name": "deleteFolder", "Label": "Delete: delete this folder (if emptied)", "Type": "Bool", "Default": "0" }
+                ]
+            } ]
+        },
+        {
+            "Id": "IniFiles", "Name": "Ini Files", "Group": "Windows Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "IniFiles\\IniFiles.xml", "Root": "IniFiles", "RootClsid": "{694C651A-08F2-47fa-A427-34C4F62BA207}",
+            "Cse": "{74EE6C03-5363-4554-B161-627540339CAB}", "Tool": "{516FC620-5D34-4B08-8165-6A06B623EDEB}",
+            "Items": [ {
+                "Element": "Ini", "Clsid": "{EEFACE84-D3D8-4680-8D4B-BF103E759448}", "Label": "Ini File", "NameFormat": "{property}", "StatusFormat": "{property}",
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "path", "Label": "File path", "Type": "Text", "Required": true },
+                    { "Name": "section", "Label": "Section name", "Type": "Text" },
+                    { "Name": "property", "Label": "Property name", "Type": "Text" },
+                    { "Name": "value", "Label": "Property value", "Type": "Text" }
+                ]
+            } ]
+        },
+        {
+            "Id": "Registry", "Name": "Registry", "Group": "Windows Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "Registry\\Registry.xml", "Root": "RegistrySettings", "RootClsid": "{A3CCFC41-DFDB-43a5-8D26-0FE8B954DA51}",
+            "Cse": "{B087BE9D-ED37-454f-AF9C-04291E351182}", "Tool": "{BEE07A6A-EC9F-4659-B8C9-0B1937907C83}",
+            "Items": [ {
+                "Element": "Registry", "Clsid": "{9CD4B2F4-923D-47f5-A062-E897DD1DAD50}", "Label": "Registry Item", "NameFormat": "{name|key|leaf}", "StatusFormat": "{name|key|leaf}",
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "displayDecimal", "Label": "Display the value in decimal", "Type": "Bool", "Default": "0" },
+                    { "Name": "default", "Label": "Default value of the key", "Type": "Bool", "Default": "0" },
+                    { "Name": "hive", "Label": "Hive", "Type": "Choice", "Choices": [ "HKEY_LOCAL_MACHINE", "HKEY_CURRENT_USER", "HKEY_USERS", "HKEY_CLASSES_ROOT", "HKEY_CURRENT_CONFIG" ], "Default": "HKEY_LOCAL_MACHINE", "UserDefault": "HKEY_CURRENT_USER", "Required": true },
+                    { "Name": "key", "Label": "Key path", "Type": "Text", "Required": true },
+                    { "Name": "name", "Label": "Value name (empty: the key only)", "Type": "Text" },
+                    { "Name": "type", "Label": "Value type", "Type": "Choice", "Choices": [ "", "REG_SZ", "REG_EXPAND_SZ", "REG_MULTI_SZ", "REG_DWORD", "REG_QWORD", "REG_BINARY" ], "Default": "REG_SZ" },
+                    { "Name": "value", "Label": "Value data", "Type": "Text" }
+                ]
+            }, { "Element": "Collection", "Clsid": "{53B533F5-224C-47e3-B01B-CA3B3F3FF4BF}", "Label": "Collection", "IsCollection": true } ]
+        },
+        {
+            "Id": "NetworkShares", "Name": "Network Shares", "Group": "Windows Settings", "Scopes": [ "Machine" ],
+            "Path": "NetworkShares\\NetworkShares.xml", "Root": "NetworkShareSettings", "RootClsid": "{520870D8-A6E7-47e8-A8D8-E6A4E76EAEC2}",
+            "Cse": "{6A4C88C6-C502-4f74-8F60-2CB23EDC24E2}", "Tool": "{BFCBBEB0-9DF4-4c0c-A728-434EA66A0373}",
+            "Items": [ {
+                "Element": "NetShare", "Clsid": "{2888C5E7-94FC-4739-90AA-2C1536D68BC0}", "Label": "Network Share", "NameFormat": "{name}",
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "name", "Label": "Share name", "Type": "Text", "Required": true },
+                    { "Name": "path", "Label": "Folder path", "Type": "Text" },
+                    { "Name": "comment", "Label": "Comment", "Type": "Text" },
+                    { "Name": "allRegular", "Label": "Update all regular shares", "Type": "Bool", "Default": "0" },
+                    { "Name": "allHidden", "Label": "Update all hidden non-administrative shares", "Type": "Bool", "Default": "0" },
+                    { "Name": "allAdminDrive", "Label": "Update all administrative drive-letter shares", "Type": "Bool", "Default": "0" },
+                    { "Name": "limitUsers", "Label": "User limit", "Type": "Choice", "Choices": [ "NO_CHANGE", "MAX_ALLOWED", "SET_LIMIT" ], "Default": "NO_CHANGE" },
+                    { "Name": "userLimit", "Label": "Number of users (SET_LIMIT)", "Type": "Number", "Default": "" },
+                    { "Name": "abe", "Label": "Access-based enumeration", "Type": "Choice", "Choices": [ "NO_CHANGE", "ENABLE", "DISABLE" ], "Default": "NO_CHANGE" }
+                ]
+            } ]
+        },
+        {
+            "Id": "Shortcuts", "Name": "Shortcuts", "Group": "Windows Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "Shortcuts\\Shortcuts.xml", "Root": "Shortcuts", "RootClsid": "{872ECB34-B2EC-401b-A585-D32574AA90EE}",
+            "Cse": "{C418DD9D-0D14-4efb-8FBF-CFE535C8FAC7}", "Tool": "{CEFFA6E2-E3BD-421B-852C-6F6A79A59BC1}",
+            "Items": [ {
+                "Element": "Shortcut", "Clsid": "{4F2F7C55-2790-433e-8127-0739D1CFA327}", "Label": "Shortcut", "NameFormat": "{shortcutPath|leaf}", "StatusFormat": "{shortcutPath|leaf}",
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "shortcutPath", "Label": "Location and name (%DesktopDir%\\Name)", "Type": "Text", "Required": true },
+                    { "Name": "targetType", "Label": "Target type", "Type": "Choice", "Choices": [ "FILESYSTEM", "URL", "SHELL" ], "Default": "FILESYSTEM" },
+                    { "Name": "targetPath", "Label": "Target path", "Type": "Text" },
+                    { "Name": "arguments", "Label": "Arguments", "Type": "Text" },
+                    { "Name": "startIn", "Label": "Start in", "Type": "Text" },
+                    { "Name": "shortcutKey", "Label": "Shortcut key", "Type": "Text", "Default": "0" },
+                    { "Name": "window", "Label": "Run", "Type": "Choice", "Choices": [ "", "MIN", "MAX" ], "Default": "" },
+                    { "Name": "comment", "Label": "Comment", "Type": "Text" },
+                    { "Name": "iconPath", "Label": "Icon file path", "Type": "Text" },
+                    { "Name": "iconIndex", "Label": "Icon index", "Type": "Number", "Default": "0" }
+                ]
+            } ]
+        },
+        {
+            "Id": "DataSources", "Name": "Data Sources", "Group": "Control Panel Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "DataSources\\DataSources.xml", "Root": "DataSources", "RootClsid": "{380F820F-F21B-41ac-A3CC-24D4F80F067B}",
+            "Cse": "{728EE579-943C-4519-9EF7-AB56765798ED}", "Tool": "{1612b55c-243c-48dd-a449-ffc097b19776}",
+            "Items": [ {
+                "Element": "DataSource", "Clsid": "{5C209626-D820-4d69-8D50-1FACD6214488}", "Label": "ODBC Data Source", "NameFormat": "{dsn}",
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "userDSN", "Label": "User data source (otherwise system)", "Type": "Bool", "Default": "0", "UserDefault": "1" },
+                    { "Name": "dsn", "Label": "Name", "Type": "Text", "Required": true },
+                    { "Name": "driver", "Label": "Driver", "Type": "Text" },
+                    { "Name": "description", "Label": "Description", "Type": "Text" },
+                    { "Name": "username", "Label": "User name", "Type": "Text" },
+                    { "Name": "cpassword", "Label": "Password", "Type": "Password" }
+                ]
+            } ]
+        },
+        {
+            "Id": "Devices", "Name": "Devices", "Group": "Control Panel Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "Devices\\Devices.xml", "Root": "Devices", "RootClsid": "{4DD26924-3F32-47aa-BF33-36D51BD1E54E}",
+            "Cse": "{1A6364EB-776B-4120-ADE1-B63A406A76B5}", "Tool": "{1b767e9a-7be4-4d35-85c1-2e174a7ba951}",
+            "Items": [ {
+                "Element": "Device", "Clsid": "{2E1C95D0-85FB-403a-A57C-A508854FB7C8}", "Label": "Device", "NameFormat": "{deviceType|deviceClass}",
+                "Properties": [
+                    { "Name": "deviceAction", "Label": "Action", "Type": "Choice", "Choices": [ "DISABLE", "ENABLE" ], "Default": "DISABLE", "Required": true },
+                    { "Name": "deviceClass", "Label": "Device class (display)", "Type": "Text" },
+                    { "Name": "deviceType", "Label": "Device type (display)", "Type": "Text" },
+                    { "Name": "deviceClassGUID", "Label": "Device class GUID ({...})", "Type": "Text", "Required": true },
+                    { "Name": "deviceTypeID", "Label": "Device instance ID", "Type": "Text" }
+                ]
+            } ]
+        },
+        {
+            "Id": "FolderOptions", "Name": "Folder Options", "Group": "Control Panel Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "FolderOptions\\FolderOptions.xml", "Root": "FolderOptions", "RootClsid": "{8AB5F5D7-F676-48ab-A94E-1186E120EFDC}",
+            "Cse": "{A3F3E39B-5D83-4940-B954-28315B82F0A8}", "Tool": "{3BFAE46A-7F3A-467B-8CEA-6AA34DC71F53}",
+            "Items": [
+                { "Element": "GlobalFolderOptions", "Clsid": "{E7632293-E3FC-4fee-9CD3-584C95D8D2A0}", "Label": "Folder Options (Windows XP)" },
+                { "Element": "GlobalFolderOptionsVista", "Clsid": "{DBF1E3CD-4CA2-407c-BE84-5F67D3BE754D}", "Label": "Folder Options (Windows Vista and later)" },
+                { "Element": "OpenWith", "Clsid": "{100B9C09-906A-4f5a-9C41-1BD98B6CA022}", "Label": "Open With" },
+                { "Element": "FileType", "Clsid": "{580C4D3B-7A89-44d0-92D2-C105702C7BD0}", "Label": "File Type" }
+            ]
+        },
+        {
+            "Id": "InternetSettings", "Name": "Internet Settings", "Group": "Control Panel Settings", "Scopes": [ "User" ],
+            "Path": "InternetSettings\\InternetSettings.xml", "Root": "InternetSettings", "RootClsid": "{B611EB48-F531-42cd-A1F6-5E0D015377BA}",
+            "Cse": "{E47248BA-94CC-49C4-BBB5-9EB7F05183D0}", "Tool": "{5C935941-A954-4F7C-B507-885941ECE5C4}",
+            "Items": [
+                { "Element": "Internet", "Clsid": "{8C0FE68F-E8A2-4f17-99E7-C6EFED208917}", "Label": "Internet Explorer 5 and 6" },
+                { "Element": "IE7", "Clsid": "{683F7AD7-E782-4232-8A6D-F22431F12DB5}", "Label": "Internet Explorer 7 and later" }
+            ]
+        },
+        {
+            "Id": "Groups", "Name": "Local Users and Groups", "Group": "Control Panel Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "Groups\\Groups.xml", "Root": "Groups", "RootClsid": "{3125E937-EB16-4b4c-9934-544FC6D24D26}",
+            "Cse": "{17D89FEC-5C44-4972-B12D-241CAEF74509}", "Tool": "{79F92669-4224-476c-9C5C-6EFB4D87DF4A}",
+            "Items": [ {
+                "Element": "Group", "Clsid": "{6D4A79E4-529C-4481-ABD0-F5BD7EA93BA7}", "Label": "Local Group", "NameFormat": "{groupName}",
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "groupName", "Label": "Group name", "Type": "Text", "Required": true },
+                    { "Name": "groupSid", "Label": "Group SID (built-in groups)", "Type": "Text" },
+                    { "Name": "newName", "Label": "Rename to", "Type": "Text" },
+                    { "Name": "description", "Label": "Description", "Type": "Text" },
+                    { "Name": "deleteAllUsers", "Label": "Delete all member users", "Type": "Bool", "Default": "0" },
+                    { "Name": "deleteAllGroups", "Label": "Delete all member groups", "Type": "Bool", "Default": "0" },
+                    { "Name": "removeAccounts", "Label": "Do not add or remove the current user", "Type": "Bool", "Default": "0" },
+                    { "Name": "Members", "Label": "Members (ADD or REMOVE)", "Type": "Members" }
+                ]
+            }, {
+                "Element": "User", "Clsid": "{DF5F1855-51E5-4d24-8B1A-D9BDE98BA1D1}", "Label": "Local User", "NameFormat": "{userName}",
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "userName", "Label": "User name", "Type": "Text", "Required": true },
+                    { "Name": "newName", "Label": "Rename to", "Type": "Text" },
+                    { "Name": "fullName", "Label": "Full name", "Type": "Text" },
+                    { "Name": "description", "Label": "Description", "Type": "Text" },
+                    { "Name": "cpassword", "Label": "Password", "Type": "Password" },
+                    { "Name": "changeLogon", "Label": "User must change password at next logon", "Type": "Bool", "Default": "0" },
+                    { "Name": "noChange", "Label": "User cannot change password", "Type": "Bool", "Default": "0" },
+                    { "Name": "neverExpires", "Label": "Password never expires", "Type": "Bool", "Default": "0" },
+                    { "Name": "acctDisabled", "Label": "Account is disabled", "Type": "Bool", "Default": "0" },
+                    { "Name": "expires", "Label": "Account expires (YYYY-MM-DD)", "Type": "Text" }
+                ]
+            } ]
+        },
+        {
+            "Id": "NetworkOptions", "Name": "Network Options", "Group": "Control Panel Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "NetworkOptions\\NetworkOptions.xml", "Root": "NetworkOptions", "RootClsid": "{09686AD1-5D80-48ee-A940-690A6DF02A90}",
+            "Cse": "{3A0DBA37-F8B2-4356-83DE-3E90BD5C261F}", "Tool": "{949FB894-E883-42C6-88C1-29169720E8CA}",
+            "Items": [
+                { "Element": "VPN", "Clsid": "{0532F359-3205-4d32-ADB7-9AEC6402BECF}", "Label": "VPN Connection" },
+                { "Element": "DUN", "Clsid": "{9B0D030D-9396-49c1-8DEF-08B35B5BB79E}", "Label": "Dial-Up Connection" }
+            ]
+        },
+        {
+            "Id": "PowerOptions", "Name": "Power Options", "Group": "Control Panel Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "PowerOptions\\PowerOptions.xml", "Root": "PowerOptions", "RootClsid": "{7B0F9381-C3B8-4525-8167-87349B671D94}",
+            "Cse": "{E62688F0-25FD-4c90-BFF5-F508B9D2E31F}", "Tool": "{9AD2BAFE-63B4-4883-A08C-C3C6196BCAFD}",
+            "Items": [
+                { "Element": "GlobalPowerOptions", "Clsid": "{46D0DCC4-FC14-48fb-829B-854868C7DC16}", "Label": "Power Options (Windows XP)" },
+                { "Element": "GlobalPowerOptionsV2", "Clsid": "{2B130A62-fc14-4572-91C3-5435C6A0C3FC}", "Label": "Power Plan (Windows Vista and later)" },
+                { "Element": "PowerScheme", "Clsid": "{DE828AFA-7E71-480e-8081-5447CBE87754}", "Label": "Power Scheme (Windows XP)" }
+            ]
+        },
+        {
+            "Id": "Printers", "Name": "Printers", "Group": "Control Panel Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "Printers\\Printers.xml", "Root": "Printers", "RootClsid": "{1F577D12-3D1B-471e-A1B7-060317597B9C}",
+            "Cse": "{BC75B1ED-5833-4858-9BB8-CBF0B166DF9D}", "Tool": "{A8C42CEA-CDB8-4388-97F4-5831F933DA84}",
+            "Items": [ {
+                "Element": "SharedPrinter", "Clsid": "{9A5E9697-9095-436d-A0EE-4D128FDFBCE5}", "Label": "Shared Printer", "NameFormat": "{path|leaf}", "UserContext": true,
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "comment", "Label": "Comment", "Type": "Text" },
+                    { "Name": "path", "Label": "Share path (\\\\server\\printer)", "Type": "Text", "Required": true },
+                    { "Name": "location", "Label": "Location", "Type": "Text" },
+                    { "Name": "default", "Label": "Set this printer as the default printer", "Type": "Bool", "Default": "0" },
+                    { "Name": "skipLocal", "Label": "Only if a local printer is not present", "Type": "Bool", "Default": "0" },
+                    { "Name": "deleteAll", "Label": "Delete all shared printer connections", "Type": "Bool", "Default": "0" },
+                    { "Name": "persistent", "Label": "Reconnect", "Type": "Bool", "Default": "0" },
+                    { "Name": "deleteMaps", "Label": "Unmap all local ports (Delete)", "Type": "Bool", "Default": "0" },
+                    { "Name": "port", "Label": "Local port", "Type": "Text" },
+                    { "Name": "username", "Label": "Connect as", "Type": "Text" },
+                    { "Name": "cpassword", "Label": "Password", "Type": "Password" }
+                ]
+            }, {
+                "Element": "PortPrinter", "Clsid": "{C3A739D2-4A44-401e-9F9D-88E5E77DFB3E}", "Label": "TCP/IP Printer", "NameFormat": "{localName|ipAddress}",
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "ipAddress", "Label": "IP address (or DNS name)", "Type": "Text", "Required": true },
+                    { "Name": "useDNS", "Label": "Use DNS name", "Type": "Bool", "Default": "0" },
+                    { "Name": "localName", "Label": "Local name", "Type": "Text" },
+                    { "Name": "path", "Label": "Printer path (driver installation point)", "Type": "Text" },
+                    { "Name": "default", "Label": "Set this printer as the default printer", "Type": "Bool", "Default": "0" },
+                    { "Name": "skipLocal", "Label": "Only if a local printer is not present", "Type": "Bool", "Default": "0" },
+                    { "Name": "deleteAll", "Label": "Delete all TCP/IP printer connections", "Type": "Bool", "Default": "0" },
+                    { "Name": "location", "Label": "Location", "Type": "Text" },
+                    { "Name": "comment", "Label": "Comment", "Type": "Text" },
+                    { "Name": "lprQueue", "Label": "LPR queue name", "Type": "Text" },
+                    { "Name": "snmpCommunity", "Label": "SNMP community", "Type": "Text" },
+                    { "Name": "protocol", "Label": "Protocol", "Type": "Choice", "Choices": [ "PROTOCOL_RAWTCP_TYPE", "PROTOCOL_LPR_TYPE" ], "Default": "PROTOCOL_RAWTCP_TYPE" },
+                    { "Name": "portNumber", "Label": "Port number", "Type": "Number", "Default": "9100" },
+                    { "Name": "doubleSpool", "Label": "LPR byte counting enabled", "Type": "Bool", "Default": "0" },
+                    { "Name": "snmpEnabled", "Label": "SNMP status enabled", "Type": "Bool", "Default": "0" },
+                    { "Name": "snmpDevIndex", "Label": "SNMP device index", "Type": "Number", "Default": "1" }
+                ]
+            }, {
+                "Element": "LocalPrinter", "Clsid": "{F08996D5-568B-45f5-BB7A-D3FB1E370B0A}", "Label": "Local Printer", "NameFormat": "{name}",
+                "Properties": [
+                    { "Name": "action", "Label": "Action", "Type": "Action", "Default": "U" },
+                    { "Name": "name", "Label": "Name", "Type": "Text", "Required": true },
+                    { "Name": "port", "Label": "Port", "Type": "Choice", "Choices": [ "LPT1:", "LPT2:", "LPT3:" ], "Default": "LPT1:" },
+                    { "Name": "path", "Label": "Printer path (driver installation point)", "Type": "Text" },
+                    { "Name": "default", "Label": "Set this printer as the default printer", "Type": "Bool", "Default": "0" },
+                    { "Name": "location", "Label": "Location", "Type": "Text" },
+                    { "Name": "comment", "Label": "Comment", "Type": "Text" },
+                    { "Name": "deleteAll", "Label": "Delete all local printers", "Type": "Bool", "Default": "0" }
+                ]
+            } ]
+        },
+        {
+            "Id": "RegionalOptions", "Name": "Regional Options", "Group": "Control Panel Settings", "Scopes": [ "User" ],
+            "Path": "RegionalOptions\\RegionalOptions.xml", "Root": "Regional", "RootClsid": "{BDBA23C2-DE02-434e-8D89-13E53CB6710B}",
+            "Cse": "{E5094040-C46C-4115-B030-04FB2E545B00}", "Tool": "{B9CCA4DE-E2B9-4CBD-BF7D-11B6EBFBDDF7}",
+            "Items": [ { "Element": "RegionalOptions", "Clsid": "{C126A328-BECF-4acc-BA8D-C9C7F6B84E49}", "Label": "Regional Options" } ]
+        },
+        {
+            "Id": "ScheduledTasks", "Name": "Scheduled Tasks", "Group": "Control Panel Settings", "Scopes": [ "Machine", "User" ],
+            "Path": "ScheduledTasks\\ScheduledTasks.xml", "Root": "ScheduledTasks", "RootClsid": "{CC63F200-7309-4ba0-B154-A71CD118DBCC}",
+            "Cse": "{AADCED64-746C-4633-A97C-D61349046527}", "Tool": "{CAB54552-DEEA-4691-817E-ED4A4D1AFC72}",
+            "Items": [
+                { "Element": "Task", "Clsid": "{2DEECB1C-261F-4e13-9B21-16FB83BC03BD}", "Label": "Scheduled Task (Windows XP)" },
+                { "Element": "ImmediateTask", "Clsid": "{9F030D12-DDA3-4C26-8548-B7CE9151166A}", "Label": "Immediate Task (Windows XP)" },
+                { "Element": "TaskV2", "Clsid": "{D8896631-B747-47a7-84A6-C155337F3BC8}", "Label": "Scheduled Task (Windows 7 and later)" },
+                { "Element": "ImmediateTaskV2", "Clsid": "{9756B581-76EC-4169-9AFC-0CA8D43ADB5F}", "Label": "Immediate Task (Windows 7 and later)" }
+            ]
+        },
+        {
+            "Id": "Services", "Name": "Services", "Group": "Control Panel Settings", "Scopes": [ "Machine" ],
+            "Path": "Services\\Services.xml", "Root": "NTServices", "RootClsid": "{2CFB484A-4E96-4b5d-A0B6-093D2F91E6AE}",
+            "Cse": "{91FBB303-0CD5-4055-BF42-E512A681B325}", "Tool": "{CC5746A9-9B74-4be5-AE2E-64379C86E0E4}",
+            "Items": [ {
+                "Element": "NTService", "Clsid": "{AB6F0B67-341F-4e51-92F9-005FBFBA1A43}", "Label": "Service", "NameFormat": "{serviceName}",
+                "Properties": [
+                    { "Name": "startupType", "Label": "Startup", "Type": "Choice", "Choices": [ "NOCHANGE", "AUTOMATIC", "MANUAL", "DISABLED", "BOOT", "SYSTEM" ], "Default": "NOCHANGE", "Required": true },
+                    { "Name": "serviceName", "Label": "Service name (LanmanServer...)", "Type": "Text", "Required": true },
+                    { "Name": "serviceAction", "Label": "Service action", "Type": "Choice", "Choices": [ "NOCHANGE", "START", "STOP", "RESTART", "RESTART_IF_REQUIRED" ], "Default": "NOCHANGE", "Required": true },
+                    { "Name": "timeout", "Label": "Wait timeout if service is locked (seconds)", "Type": "Number", "Default": "30" },
+                    { "Name": "accountName", "Label": "Log on as (empty: no change)", "Type": "Text" },
+                    { "Name": "cpassword", "Label": "Password", "Type": "Password" },
+                    { "Name": "interact", "Label": "Allow service to interact with the desktop", "Type": "Bool", "Default": "0" },
+                    { "Name": "firstFailure", "Label": "First failure", "Type": "Choice", "Choices": [ "", "NOACTION", "RESTART", "REBOOT", "RUNCMD" ], "Default": "" },
+                    { "Name": "secondFailure", "Label": "Second failure", "Type": "Choice", "Choices": [ "", "NOACTION", "RESTART", "REBOOT", "RUNCMD" ], "Default": "" },
+                    { "Name": "thirdFailure", "Label": "Subsequent failures", "Type": "Choice", "Choices": [ "", "NOACTION", "RESTART", "REBOOT", "RUNCMD" ], "Default": "" },
+                    { "Name": "resetFailCountDelay", "Label": "Reset fail count after (days)", "Type": "Number", "Default": "" },
+                    { "Name": "restartServiceDelay", "Label": "Restart service after (minutes)", "Type": "Number", "Default": "" },
+                    { "Name": "program", "Label": "Program to run on failure", "Type": "Text" },
+                    { "Name": "args", "Label": "Its parameters", "Type": "Text" }
+                ]
+            } ]
+        },
+        {
+            "Id": "StartMenu", "Name": "Start Menu", "Group": "Control Panel Settings", "Scopes": [ "User" ],
+            "Path": "StartMenuTaskbar\\StartMenuTaskbar.xml", "Root": "StartMenuTaskbar", "RootClsid": "{4C4059E4-2F6E-4630-9CB8-5D9A89252C3B}",
+            "Cse": "{E4F48E54-F38D-4884-BFB9-D4D2E5729C18}", "Tool": "{CF848D48-888D-4F45-B530-6A201E62A605}",
+            "Items": [
+                { "Element": "StartMenu", "Clsid": "{F722CC65-E38A-496b-BA76-49EBF9571415}", "Label": "Start Menu (Windows XP)" },
+                { "Element": "StartMenuVista", "Clsid": "{8B03851A-1210-4621-80B6-C334A4F1C941}", "Label": "Start Menu (Windows Vista)" }
+            ]
+        }
+    ]
+}

@@ -389,6 +389,24 @@ class GPOToolsDirectory {
         $this.SaveRestoredGpo($Gpo, $Files, $Flags, $MachineExtensionNames, $UserExtensionNames)
     }
 
+    # Preferences of a GPO ([MS-GPPREF]): the XML file of a preference type for a scope, by its
+    # path in Preferences (Registry\Registry.xml); $null when the GPO has none.
+    [byte[]] ReadPreferenceFile([GPOToolsGpo]$Gpo, [string]$Scope, [string]$Path) {
+        return $this.LoadGpoFile($Gpo, "$([GPOToolsDirectory]::GetScopeFolder($Scope))\Preferences\$Path")
+    }
+
+    # Writes the XML file of a preference type, increases the version of the scope and declares
+    # the client-side extension of the type with its tool, and the tool under the null extension
+    # as GPMC does for the preferences.
+    [void] WritePreferenceFile([GPOToolsGpo]$Gpo, [string]$Scope, [string]$Path, [byte[]]$Bytes, [string]$Extension, [string]$Tool) {
+        $this.AssertWritable()
+        $Folder = [GPOToolsDirectory]::GetScopeFolder($Scope)
+        $this.SaveGpoFile($Gpo, "$Folder\Preferences\$Path", $Bytes, $Folder, @([GPOToolsDirectory]::PreferenceToolsExtension, $Extension), $Tool)
+    }
+
+    # The null GUID under which GPMC lists the tools of the preferences.
+    static [string] $PreferenceToolsExtension = '{00000000-0000-0000-0000-000000000000}'
+
     # GptTmpl.inf of a GPO (its security settings): its bytes, $null when the GPO has none.
     [byte[]] ReadSecurityTemplate([GPOToolsGpo]$Gpo) {
         return $this.LoadGpoFile($Gpo, [GPOToolsDirectory]::SecurityTemplatePath)
@@ -473,12 +491,14 @@ class GPOToolsDirectory {
     }
     # Saves a file of the GPO, then increases the version of the scope ($Folder) and declares the
     # client-side extension that applies it.
-    hidden [void] SaveGpoFile([GPOToolsGpo]$Gpo, [string]$Path, [byte[]]$Bytes, [string]$Folder, [string]$Extension, [string]$Tool) {
+    hidden [void] SaveGpoFile([GPOToolsGpo]$Gpo, [string]$Path, [byte[]]$Bytes, [string]$Folder, [string[]]$Extension, [string]$Tool) {
         $this.GpoFiles["$($Gpo.Id)\$Path"] = $Bytes
         $Gpo.Version = [GPOToolsDirectory]::GetNextVersion($Gpo.Version, $Folder)
         $Gpo.Modified = [datetime]::UtcNow
-        if ($Folder -eq 'Machine') { $Gpo.MachineExtensionNames = Add-PSGPOExtensionName -Current $Gpo.MachineExtensionNames -Extension $Extension -Tool $Tool }
-        else { $Gpo.UserExtensionNames = Add-PSGPOExtensionName -Current $Gpo.UserExtensionNames -Extension $Extension -Tool $Tool }
+        foreach ($Guid in $Extension) {
+            if ($Folder -eq 'Machine') { $Gpo.MachineExtensionNames = Add-PSGPOExtensionName -Current $Gpo.MachineExtensionNames -Extension $Guid -Tool $Tool }
+            else { $Gpo.UserExtensionNames = Add-PSGPOExtensionName -Current $Gpo.UserExtensionNames -Extension $Guid -Tool $Tool }
+        }
     }
 }
 
@@ -537,7 +557,7 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
         Restore-PSGPODomainGpo -Directory $this -Gpo $Gpo -Files $Files -Flags $Flags -MachineExtensionNames $MachineExtensionNames -UserExtensionNames $UserExtensionNames
     }
 
-    hidden [void] SaveGpoFile([GPOToolsGpo]$Gpo, [string]$Path, [byte[]]$Bytes, [string]$Folder, [string]$Extension, [string]$Tool) {
+    hidden [void] SaveGpoFile([GPOToolsGpo]$Gpo, [string]$Path, [byte[]]$Bytes, [string]$Folder, [string[]]$Extension, [string]$Tool) {
         Save-PSGPODomainGpoFile -Directory $this -Gpo $Gpo -Path $Path -Bytes $Bytes -Folder $Folder -Extension $Extension -Tool $Tool
     }
 

@@ -118,13 +118,39 @@ function Start-PSGPOManagerWindow {
     $applySettingButton = Get-PSGPOAvaloniaControl $window 'applySettingButton'
     $applyStatusTextBlock = Get-PSGPOAvaloniaControl $window 'applyStatusTextBlock'
 
+    $detailsTabs = Get-PSGPOAvaloniaControl $window 'detailsTabs'
+    $detailsTitleTextBlock = Get-PSGPOAvaloniaControl $window 'detailsTitleTextBlock'
+    $preferencesPanel = Get-PSGPOAvaloniaControl $window 'preferencesPanel'
+    $preferencesTitleTextBlock = Get-PSGPOAvaloniaControl $window 'preferencesTitleTextBlock'
+    $preferencesInfoTextBlock = Get-PSGPOAvaloniaControl $window 'preferencesInfoTextBlock'
+    $preferencesToolbar = Get-PSGPOAvaloniaControl $window 'preferencesToolbar'
+    $preferencesNewTypeComboBox = Get-PSGPOAvaloniaControl $window 'preferencesNewTypeComboBox'
+    $preferencesNewButton = Get-PSGPOAvaloniaControl $window 'preferencesNewButton'
+    $preferencesEditButton = Get-PSGPOAvaloniaControl $window 'preferencesEditButton'
+    $preferencesDeleteButton = Get-PSGPOAvaloniaControl $window 'preferencesDeleteButton'
+    $preferencesUpButton = Get-PSGPOAvaloniaControl $window 'preferencesUpButton'
+    $preferencesDownButton = Get-PSGPOAvaloniaControl $window 'preferencesDownButton'
+    $preferencesStatusTextBlock = Get-PSGPOAvaloniaControl $window 'preferencesStatusTextBlock'
+    $preferencesEmptyTextBlock = Get-PSGPOAvaloniaControl $window 'preferencesEmptyTextBlock'
+    $preferencesList = Get-PSGPOAvaloniaControl $window 'preferencesList'
+    $preferencesDeletePanel = Get-PSGPOAvaloniaControl $window 'preferencesDeletePanel'
+    $preferencesDeleteTextBlock = Get-PSGPOAvaloniaControl $window 'preferencesDeleteTextBlock'
+    $preferencesDeleteConfirmButton = Get-PSGPOAvaloniaControl $window 'preferencesDeleteConfirmButton'
+    $preferencesDeleteCancelButton = Get-PSGPOAvaloniaControl $window 'preferencesDeleteCancelButton'
+    $preferencesFormBorder = Get-PSGPOAvaloniaControl $window 'preferencesFormBorder'
+    $preferencesFormTitleTextBlock = Get-PSGPOAvaloniaControl $window 'preferencesFormTitleTextBlock'
+    $preferencesFormHost = Get-PSGPOAvaloniaControl $window 'preferencesFormHost'
+    $preferencesFormErrorTextBlock = Get-PSGPOAvaloniaControl $window 'preferencesFormErrorTextBlock'
+    $preferencesSaveButton = Get-PSGPOAvaloniaControl $window 'preferencesSaveButton'
+    $preferencesCancelButton = Get-PSGPOAvaloniaControl $window 'preferencesCancelButton'
+
     # Options form of the selected policy (New-PSGPOPolicyEditor), the policy it edits and the
     # GPO opened from the Group Policy Management view ($null: browsing the ADMX policies).
     # Pol: the Registry.pol of the GPO by scope; Saved: the registry values of the setting of the
     # selected policy in it, compared with the form to know whether there is something to apply.
     # Security: the selected security setting, Template: the GptTmpl.inf of the GPO (security
     # settings); Saved is then the raw value of the setting in it.
-    $editing = @{ Policy = $null; Security = $null; Editor = $null; Gpo = $null; Pol = @{}; PolError = $null; Template = $null; Saved = $null }
+    $editing = @{ Policy = $null; Security = $null; Editor = $null; Gpo = $null; Pol = @{}; PolError = $null; Template = $null; Saved = $null; Preferences = @{} }
     $previewHeaderTextBlock = Get-PSGPOAvaloniaControl $window 'previewHeaderTextBlock'
     $notDefinedMark = '(not defined)'
 
@@ -343,6 +369,200 @@ function Start-PSGPOManagerWindow {
         Update-RegistryPreview
     }
 
+    # --- Preferences ([MS-GPPREF]) of the edited GPO --------------------------------------------
+
+    # The type shown, the item edited and its form; the files read once per GPO edited.
+    $preferences = @{ Node = $null; File = $null; Item = $null; Type = $null; Form = $null }
+
+    function Set-PreferenceStatus {
+        param([string]$Text, [switch]$Problem)
+        $preferencesStatusTextBlock.Text = $Text
+        if ($Problem) { $preferencesStatusTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438')) }
+        else { $preferencesStatusTextBlock.ClearValue([Avalonia.Controls.TextBlock]::ForegroundProperty) }
+    }
+
+    # The file of a preference type of the GPO: read once; an empty one when the GPO has none.
+    function Get-PreferenceFile {
+        param([GPOToolsPreferenceNode]$Node)
+        $key = "$($Node.Scope)|$($Node.Extension.Id)"
+        if (-not $editing.Preferences.ContainsKey($key)) {
+            $bytes = $Directory.ReadPreferenceFile($editing.Gpo, $Node.Scope, $Node.Extension.Path)
+            $editing.Preferences[$key] = if ($bytes) { [GPOToolsPreferenceFile]::Parse($bytes) } else { [GPOToolsPreferenceFile]::Create($Node.Extension.Root, $Node.Extension.RootClsid) }
+        }
+        $editing.Preferences[$key]
+    }
+
+    function Test-PreferenceEditable {
+        $editing.Gpo -and $editing.Gpo.CanEdit -and -not $Directory.IsReadOnly -and $preferences.File
+    }
+
+    function Update-PreferenceButtons {
+        $row = $preferencesList.SelectedItem
+        $editable = Test-PreferenceEditable
+        $preferencesNewButton.IsEnabled = $editable -and $null -ne $preferencesNewTypeComboBox.SelectedItem
+        $preferencesEditButton.IsEnabled = $editable -and $row -and $row.Item.Editable
+        $preferencesDeleteButton.IsEnabled = $editable -and $row
+        $preferencesUpButton.IsEnabled = $editable -and $row -and -not $row.Item.Collection
+        $preferencesDownButton.IsEnabled = $editable -and $row -and -not $row.Item.Collection
+    }
+
+    # The items of the type selected in the tree, for the edited GPO.
+    function Show-PreferenceType {
+        param([GPOToolsPreferenceNode]$Node, [string]$Status, [string]$SelectUid)
+        $preferences.Node = $Node
+        $preferences.File = $null
+        $extension = $Node.Extension
+        $scopeLabel = if ($Node.Scope -eq 'Machine') { 'Computer Configuration' } else { 'User Configuration' }
+        $preferencesTitleTextBlock.Text = "$($extension.Name) ($scopeLabel)"
+        $types = @($extension.Items | Where-Object { $_.Properties -and -not $_.IsCollection })
+        $preferencesInfoTextBlock.Text = "Preferences > $($extension.Group) > $($extension.Name): Preferences\$($extension.Path) in the $($Node.Scope) folder of the GPO, client-side extension $($extension.Cse)." +
+            $(if (-not $types.Count) { ' Its items are created with GPMC: the console shows them, keeps them as they are and deletes them.' })
+        $preferencesFormBorder.IsVisible = $false
+        $preferencesDeletePanel.IsVisible = $false
+        $preferencesNewTypeComboBox.ItemsSource = @($types.Label)
+        $preferencesNewTypeComboBox.SelectedIndex = if ($types.Count) { 0 } else { -1 }
+        $preferencesNewTypeComboBox.IsVisible = $types.Count -gt 0
+        $preferencesNewButton.IsVisible = $types.Count -gt 0
+        $rows = @()
+        $problem = $null
+        if (-not $editing.Gpo) {
+            $preferencesEmptyTextBlock.Text = 'Edit a GPO (Group Policy Management view) to see and configure its preferences.'
+        } else {
+            try {
+                $preferences.File = Get-PreferenceFile $Node
+                $rows = @(foreach ($item in @(Get-PSGPOPreferenceItem -File $preferences.File -Extension $extension)) {
+                        $row = [AvaloniaPreferenceRow]::new()
+                        $row.Name = "$(if ($item.Collection) { "$($item.Collection) > " })$(if ($item.Name) { $item.Name } else { $item.Label })"
+                        $row.Summary = Get-PSGPOPreferenceSummary -Item $item
+                        $row.Flags = (@(
+                                if ($item.Disabled) { 'Disabled' }
+                                if ($item.FilterCount) { "$($item.FilterCount) targeting filter(s)" }
+                                if ($item.HasPassword) { 'Stores a password readable by any user of the domain (MS14-025)' }
+                                if (-not $item.Editable) { 'Edited with GPMC' }) -join ' - ')
+                        $row.Item = $item
+                        $row
+                    })
+                $preferencesEmptyTextBlock.Text = if ($rows.Count) { '' } else { "This GPO has no $($extension.Name) item for the $(if ($Node.Scope -eq 'Machine') { 'computers' } else { 'users' })." }
+            } catch {
+                $problem = "The preferences cannot be read: $($_.Exception.GetBaseException().Message)"
+                $preferencesEmptyTextBlock.Text = ''
+            }
+        }
+        $preferencesEmptyTextBlock.IsVisible = [bool]$preferencesEmptyTextBlock.Text
+        $preferencesList.ItemsSource = $rows
+        if ($SelectUid) { $preferencesList.SelectedItem = $rows | Where-Object { $_.Item.Uid -eq $SelectUid } | Select-Object -First 1 }
+        if ($problem) { Set-PreferenceStatus $problem -Problem } else { Set-PreferenceStatus $Status }
+        Update-PreferenceButtons
+    }
+
+    # Applies a change to a copy of the file, writes it to the GPO, then shows the items again;
+    # returns the error message when the change or the write failed (nothing is kept then).
+    function Save-PreferenceFile {
+        param([scriptblock]$Change, [string]$Done, [string]$SelectUid)
+        $node = $preferences.Node
+        $copy = [GPOToolsPreferenceFile]::Parse($preferences.File.ToBytes())
+        try {
+            $uid = & $Change $copy
+            $Directory.WritePreferenceFile($editing.Gpo, $node.Scope, $node.Extension.Path, $copy.ToBytes(), $node.Extension.Cse, $node.Extension.Tool)
+        } catch {
+            return $_.Exception.GetBaseException().Message
+        }
+        $editing.Preferences["$($node.Scope)|$($node.Extension.Id)"] = $copy
+        $settingsCache.Remove("$($editing.Gpo.Id)")
+        $version = if ($node.Scope -eq 'Machine') { $editing.Gpo.GetComputerVersion() } else { $editing.Gpo.GetUserVersion() }
+        Show-PreferenceType -Node $node -Status "$Done in Preferences\$($node.Extension.Path) ($($node.Scope) version $version)." -SelectUid $(if ($uid) { $uid } else { $SelectUid })
+        $null
+    }
+
+    function Find-PreferenceElement {
+        param([GPOToolsPreferenceFile]$File, [string]$Uid)
+        $File.Document.SelectSingleNode("//*[@uid='$Uid']")
+    }
+
+    function Open-PreferenceForm {
+        param($Type, $Item)
+        $preferences.Type = $Type
+        $preferences.Item = $Item
+        $preferences.Form = New-PSGPOPreferenceForm -Type $Type -Scope $preferences.Node.Scope -Item $Item
+        $preferencesFormHost.Content = $preferences.Form.Panel
+        $preferencesFormTitleTextBlock.Text = if ($Item) { "$($Type.Label): $($Item.Name)" } else { "New $($Type.Label)" }
+        $preferencesFormErrorTextBlock.Text = ''
+        $preferencesDeletePanel.IsVisible = $false
+        $preferencesFormBorder.IsVisible = $true
+    }
+
+    $preferencesList.add_SelectionChanged({ Update-PreferenceButtons })
+    $preferencesNewTypeComboBox.add_SelectionChanged({ Update-PreferenceButtons })
+    $preferencesNewButton.Add_Click({
+        $type = @($preferences.Node.Extension.Items | Where-Object { $_.Properties -and -not $_.IsCollection })[$preferencesNewTypeComboBox.SelectedIndex]
+        if ($type) { Open-PreferenceForm -Type $type -Item $null }
+    })
+    $preferencesEditButton.Add_Click({
+        $row = $preferencesList.SelectedItem
+        if ($row -and $row.Item.Editable) { Open-PreferenceForm -Type $row.Item.Type -Item $row.Item }
+    })
+    $preferencesList.add_DoubleTapped({
+        $row = $preferencesList.SelectedItem
+        if ($row -and $row.Item.Editable -and (Test-PreferenceEditable)) { Open-PreferenceForm -Type $row.Item.Type -Item $row.Item }
+    })
+    $preferencesCancelButton.Add_Click({ $preferencesFormBorder.IsVisible = $false })
+    $preferencesSaveButton.Add_Click({
+        $type = $preferences.Type
+        $item = $preferences.Item
+        try {
+            $values = & $preferences.Form.GetValues
+            $common = & $preferences.Form.GetCommon
+        } catch {
+            $preferencesFormErrorTextBlock.Text = $_.Exception.Message
+            return
+        }
+        $problem = if ($item) {
+            Save-PreferenceFile -Done "$($type.Label) saved" -SelectUid $item.Uid -Change {
+                param($Copy)
+                Set-PSGPOPreferenceElement -Element (Find-PreferenceElement $Copy $item.Uid) -Type $type -Values $values -Common $common
+            }
+        } else {
+            Save-PreferenceFile -Done "$($type.Label) created" -Change {
+                param($Copy)
+                (New-PSGPOPreferenceItem -File $Copy -Type $type -Values $values -Common $common).GetAttribute('uid')
+            }
+        }
+        if ($problem) { $preferencesFormErrorTextBlock.Text = $problem } else { $preferencesFormBorder.IsVisible = $false }
+    })
+    $preferencesDeleteButton.Add_Click({
+        $row = $preferencesList.SelectedItem
+        if (-not $row) { return }
+        $preferencesDeleteTextBlock.Text = "Delete the item '$($row.Name)' from the GPO? The computers and users stop applying it; what it already changed stays, unless it removes itself (Remove this item when it is no longer applied)."
+        $preferencesFormBorder.IsVisible = $false
+        $preferencesDeletePanel.IsVisible = $true
+    })
+    $preferencesDeleteCancelButton.Add_Click({ $preferencesDeletePanel.IsVisible = $false })
+    $preferencesDeleteConfirmButton.Add_Click({
+        $row = $preferencesList.SelectedItem
+        $preferencesDeletePanel.IsVisible = $false
+        if (-not $row) { return }
+        $problem = Save-PreferenceFile -Done "'$($row.Name)' deleted" -Change {
+            param($Copy)
+            Remove-PSGPOPreferenceElement -Element (Find-PreferenceElement $Copy $row.Item.Uid)
+            $null
+        }
+        if ($problem) { Set-PreferenceStatus "Not deleted: $problem" -Problem }
+    })
+    # Not GetNewClosure for the handlers: the functions of this window would not be found.
+    function Move-PreferenceItem {
+        param([string]$Direction)
+        $row = $preferencesList.SelectedItem
+        if (-not $row) { return }
+        $problem = Save-PreferenceFile -Done "'$($row.Name)' moved $($Direction.ToLowerInvariant())" -SelectUid $row.Item.Uid -Change {
+            param($Copy)
+            Move-PSGPOPreferenceElement -Element (Find-PreferenceElement $Copy $row.Item.Uid) -Direction $Direction
+            $null
+        }
+        if ($problem) { Set-PreferenceStatus "Not moved: $problem" -Problem }
+    }
+    $preferencesUpButton.Add_Click({ Move-PreferenceItem -Direction Up })
+    $preferencesDownButton.Add_Click({ Move-PreferenceItem -Direction Down })
+
     $treeView.add_SelectionChanged({
         $selected = $treeView.SelectedItem
 
@@ -357,6 +577,17 @@ function Start-PSGPOManagerWindow {
 
         $policy = if ($selected) { $selected.Tag } else { $null }
         $editing.Security = $null
+        # A preference type: its items instead of the form of a policy.
+        $isPreference = $policy -is [GPOToolsPreferenceNode]
+        $preferencesPanel.IsVisible = $isPreference
+        $detailsTabs.IsVisible = -not $isPreference
+        $detailsTitleTextBlock.Text = if ($isPreference) { 'Preference Items' } else { 'Policy Details' }
+        if ($isPreference) {
+            $editing.Policy = $null
+            $editing.Editor = $null
+            Show-PreferenceType -Node $policy
+            return
+        }
         if ($policy -is [GPOToolsSecuritySetting]) {
             Show-SecuritySetting -Setting $policy
             return
@@ -442,6 +673,13 @@ function Start-PSGPOManagerWindow {
                     if ($editing.Template.HasValue($setting.Section, $setting.Key)) { [void]$only.Add($setting) }
                 }
             }
+            # The preference types the GPO declares (its client-side extensions).
+            foreach ($scope in 'Machine', 'User') {
+                $names = if ($scope -eq 'Machine') { "$($editing.Gpo.MachineExtensionNames)" } else { "$($editing.Gpo.UserExtensionNames)" }
+                foreach ($extension in @(Get-PSGPOPreferenceExtension -Scope $scope)) {
+                    if ($names.IndexOf($extension.Cse, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) { [void]$only.Add("Preference:$scope|$($extension.Id)") }
+                }
+            }
         }
         $treeView.ItemsSource = New-PSGPOPolicyTree -Filter $searchTextBox.Text -Only $only
         if ($only -and -not @($treeView.ItemsSource).Count) {
@@ -492,6 +730,7 @@ function Start-PSGPOManagerWindow {
         # The settings of the GPO: its Registry.pol for each scope (empty when it has none).
         $editing.Pol = @{}
         $editing.Template = $null
+        $editing.Preferences = @{}
         $editing.PolError = $null
         if ($Gpo) {
             try {
@@ -715,6 +954,19 @@ function Start-PSGPOManagerWindow {
                 # Security settings first, as GPMC lists Windows Settings before Administrative Templates.
                 $template = [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($gpo))
                 $cached['Machine'] = @(Get-PSGPOConfiguredSecuritySetting -Template $template) + $cached['Machine']
+                # Preferences last, as GPMC lists them after the policies: their files, read in one
+                # copy of the folder, only when the GPO declares a preference type.
+                $declared = "$($gpo.MachineExtensionNames)$($gpo.UserExtensionNames)"
+                if (@(Get-PSGPOPreferenceCatalog | Where-Object { $declared.IndexOf($_.Cse, [System.StringComparison]::OrdinalIgnoreCase) -ge 0 }).Count) {
+                    $files = $Directory.ReadGpoFolder($gpo)
+                    foreach ($scope in 'Machine', 'User') {
+                        # Not through the pipeline: it wraps the rows in PSObjects, which Avalonia cannot bind.
+                        $rows = [System.Collections.Generic.List[object]]::new()
+                        foreach ($row in @($cached[$scope])) { $rows.Add($row) }
+                        foreach ($preference in @(Get-PSGPOConfiguredPreference -Files $files -Scope $scope)) { if ($preference.Row) { $rows.Add($preference.Row) } }
+                        $cached[$scope] = $rows.ToArray()
+                    }
+                }
             } catch {
                 $cached.Error = "The settings of the GPO cannot be read: $($_.Exception.GetBaseException().Message)"
             }
@@ -1051,7 +1303,12 @@ function Start-PSGPOManagerWindow {
             'newGpoGroupsTextBlock', 'newGpoGroupsContainerComboBox', 'directoryResultTextBlock', 'deleteLinkMenuItem', 'deleteLinkPanel',
             'deleteLinkTextBlock', 'deleteLinkConfirmButton', 'deleteLinkCancelButton', 'historyTab', 'historyPathTextBox', 'historyBackupButton',
             'historyBackupAllButton', 'historyStatusTextBlock', 'historyTimelineList', 'historyCompareTextBlock', 'historyChangesList',
-            'historyRestoreButton', 'historyRestorePanel', 'historyRestoreTextBlock', 'historyRestoreConfirmButton', 'historyRestoreCancelButton') {
+            'historyRestoreButton', 'historyRestorePanel', 'historyRestoreTextBlock', 'historyRestoreConfirmButton', 'historyRestoreCancelButton',
+            'detailsTitleTextBlock', 'preferencesPanel', 'preferencesTitleTextBlock', 'preferencesInfoTextBlock', 'preferencesNewTypeComboBox',
+            'preferencesNewButton', 'preferencesEditButton', 'preferencesDeleteButton', 'preferencesUpButton', 'preferencesDownButton',
+            'preferencesStatusTextBlock', 'preferencesEmptyTextBlock', 'preferencesList', 'preferencesDeletePanel', 'preferencesDeleteTextBlock',
+            'preferencesDeleteConfirmButton', 'preferencesDeleteCancelButton', 'preferencesFormBorder', 'preferencesFormTitleTextBlock',
+            'preferencesFormHost', 'preferencesFormErrorTextBlock', 'preferencesSaveButton', 'preferencesCancelButton') {
             $controls[$name] = Get-PSGPOAvaloniaControl $window $name
         }
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {

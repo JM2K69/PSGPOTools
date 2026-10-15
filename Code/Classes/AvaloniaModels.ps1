@@ -93,3 +93,13 @@ class AvaloniaChangeRow {
     [bool]$HasBefore
     [bool]$HasAfter
 }
+
+# One item of a preference type in the editor (preferences panel)
+class AvaloniaPreferenceRow {
+    [string]$Name
+    [string]$Summary
+    # Disabled, targeting filters, stored password...
+    [string]$Flags
+    # The item (Get-PSGPOPreferenceItem)
+    [object]$Item
+}
