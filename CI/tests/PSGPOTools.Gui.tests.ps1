@@ -208,8 +208,10 @@ InModuleScope -ModuleName PSGPOTools {
                 Start-PSGPOManagerWindow -WarningVariable Warn 3>$null -OnShown {
                     param($Ui)
                     # The security settings do not come from the ADMX files (Linux without ADMX).
-                    $Ui.treeView.ItemsSource.Header | Should -Be @('Machine')
-                    @($Ui.treeView.ItemsSource)[0].Children.Header | Should -Be @('Windows Settings')
+                    # The preferences do not either: both scopes have them.
+                    $Ui.treeView.ItemsSource.Header | Should -Be @('User', 'Machine')
+                    @($Ui.treeView.ItemsSource)[0].Children.Header | Should -Be @('Preferences')
+                    @($Ui.treeView.ItemsSource)[1].Children.Header | Should -Be @('Windows Settings', 'Preferences')
                     $Ui.breadcrumbTextBlock.Text | Should -BeLike 'No ADMX policy loaded*'
                     $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsSecuritySetting] -and $n.Tag.Key -eq 'MinimumPasswordLength' }
                     $Ui.settingTitleTextBlock.Text | Should -Be 'Minimum password length'
@@ -599,6 +601,116 @@ InModuleScope -ModuleName PSGPOTools {
                 @(Get-PSGPOBackup -Path $Root).Count | Should -Be 3 -Because "the state before the restore was the newest backup already"
             } finally {
                 $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
+            }
+        }
+
+        It 'Creates, edits, moves and deletes the preference items of a GPO' {
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                function Select-Preference {
+                    param([string]$Scope, [string]$Group, [string]$Name)
+                    $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource {
+                        param($n) $n.Tag -is [GPOToolsPreferenceNode] -and $n.Tag.Scope -eq $Scope -and $n.Tag.Extension.Name -eq $Name
+                    }.GetNewClosure()
+                }
+                # Outside a GPO: the type, no item.
+                Invoke-Click $Ui.browseAdmxButton
+                Select-Preference Machine 'Windows Settings' 'Registry'
+                $Ui.preferencesPanel.IsVisible | Should -BeTrue
+                $Ui.detailsTabs.IsVisible | Should -BeFalse
+                $Ui.detailsTitleTextBlock.Text | Should -Be 'Preference Items'
+                $Ui.preferencesEmptyTextBlock.Text | Should -BeLike 'Edit a GPO*'
+                $Ui.preferencesNewButton.IsEnabled | Should -BeFalse
+
+                Invoke-Click $Ui.managementButton
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+                Select-Preference Machine 'Windows Settings' 'Registry'
+                $Ui.preferencesTitleTextBlock.Text | Should -Be 'Registry (Computer Configuration)'
+                $Ui.preferencesEmptyTextBlock.Text | Should -Be 'This GPO has no Registry item for the computers.'
+                @($Ui.preferencesNewTypeComboBox.ItemsSource) | Should -Be @('Registry Item')
+
+                # New item.
+                Invoke-Click $Ui.preferencesNewButton
+                $Ui.preferencesFormBorder.IsVisible | Should -BeTrue
+                $Ui.preferencesFormTitleTextBlock.Text | Should -Be 'New Registry Item'
+                $Controls = $Ui.preferencesFormHost.Content.Children
+                $Text = { param($Label) $Index = [array]::IndexOf(@($Controls | ForEach-Object { "$($_.Text)" }), $Label); $Controls[$Index + 1] }
+                (& $Text 'Key path *').Text = 'SOFTWARE\Contoso'
+                (& $Text 'Value name (empty: the key only)').Text = 'Mode'
+                (& $Text 'Value data').Text = 'on'
+                Invoke-Click $Ui.preferencesSaveButton
+                $Ui.preferencesFormBorder.IsVisible | Should -BeFalse
+                $Ui.preferencesStatusTextBlock.Text | Should -BeLike 'Registry Item created in Preferences\Registry\Registry.xml (Machine version *).'
+                @($Ui.preferencesList.ItemsSource).Name | Should -Be @('Mode')
+                @($Ui.preferencesList.ItemsSource)[0].Summary | Should -BeLike 'Update - Hive: HKEY_LOCAL_MACHINE - Key path: SOFTWARE\Contoso*'
+                $Ui.preferencesList.SelectedItem.Name | Should -Be 'Mode'
+
+                # A required value missing: the form says so, nothing is written.
+                Invoke-Click $Ui.preferencesNewButton
+                Invoke-Click $Ui.preferencesSaveButton
+                $Ui.preferencesFormErrorTextBlock.Text | Should -Be 'Key path is required.'
+                Invoke-Click $Ui.preferencesCancelButton
+
+                # Edit, then a second item moved before it, then delete.
+                Invoke-Click $Ui.preferencesEditButton
+                $Controls = $Ui.preferencesFormHost.Content.Children
+                (& $Text 'Value data').Text = 'off'
+                Invoke-Click $Ui.preferencesSaveButton
+                @($Ui.preferencesList.ItemsSource)[0].Summary | Should -BeLike '*Value data: off*'
+                Invoke-Click $Ui.preferencesNewButton
+                $Controls = $Ui.preferencesFormHost.Content.Children
+                (& $Text 'Key path *').Text = 'SOFTWARE\Contoso\Agent'
+                (& $Text 'Value name (empty: the key only)').Text = ''
+                Invoke-Click $Ui.preferencesSaveButton
+                @($Ui.preferencesList.ItemsSource).Name | Should -Be @('Mode', 'Agent')
+                Invoke-Click $Ui.preferencesUpButton
+                @($Ui.preferencesList.ItemsSource).Name | Should -Be @('Agent', 'Mode')
+                $Ui.preferencesList.SelectedItem.Name | Should -Be 'Agent'
+                Invoke-Click $Ui.preferencesDeleteButton
+                $Ui.preferencesDeletePanel.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.preferencesDeleteConfirmButton
+                @($Ui.preferencesList.ItemsSource).Name | Should -Be @('Mode')
+                $Ui.preferencesStatusTextBlock.Text | Should -BeLike "'Agent' deleted*"
+
+                # Only the configured settings: the Registry preferences of the computers.
+                $Ui.configuredOnlyCheckBox.IsChecked = $true
+                $Node = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsPreferenceNode] }
+                "$($Node.Tag)" | Should -Be 'Registry (Machine)'
+                @(Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsPreferenceNode] -and $n.Tag.Scope -eq 'User' }) | Should -BeNullOrEmpty
+
+                # The Settings tab lists the item.
+                Invoke-Click $Ui.managementButton
+                $Ui.directoryTabs.SelectedItem = $Ui.settingsTab
+                $Row = @($Ui.computerSettingsList.ItemsSource) | Where-Object Path -EQ 'Policies > Preferences > Windows Settings > Registry'
+                $Row.Name | Should -Be 'Mode'
+                $Row.State | Should -Be 'Update'
+            }
+            $Gpo.MachineExtensionNames | Should -Match ([regex]::Escape('{B087BE9D-ED37-454F-AF9C-04291E351182}{BEE07A6A-EC9F-4659-B8C9-0B1937907C83}'))
+        }
+
+        It 'Shows the items it does not edit, and warns of a stored password' {
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            $Tasks = Get-PSGPOPreferenceExtension -Id ScheduledTasks
+            $File = [GPOToolsPreferenceFile]::Parse([System.Text.Encoding]::UTF8.GetBytes(@'
+<?xml version="1.0" encoding="utf-8"?>
+<ScheduledTasks clsid="{CC63F200-7309-4ba0-B154-A71CD118DBCC}"><ImmediateTaskV2 clsid="{9756B581-76EC-4169-9AFC-0CA8D43ADB5F}" name="Inventory" image="0" changed="2021-01-01 00:00:00" uid="{11111111-2222-3333-4444-555555555555}"><Properties action="C" name="Inventory" runAs="NT AUTHORITY\System" logonType="S4U" cpassword="xyz"><Task version="1.3"/></Properties></ImmediateTaskV2></ScheduledTasks>
+'@))
+            $Directory.WritePreferenceFile($Gpo, 'Machine', $Tasks.Path, $File.ToBytes(), $Tasks.Cse, $Tasks.Tool)
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+                $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsPreferenceNode] -and $n.Tag.Scope -eq 'Machine' -and $n.Tag.Extension.Id -eq 'ScheduledTasks' }
+                $Ui.preferencesNewButton.IsVisible | Should -BeFalse
+                $Ui.preferencesInfoTextBlock.Text | Should -BeLike '*created with GPMC*'
+                $Row = @($Ui.preferencesList.ItemsSource)[0]
+                $Row.Name | Should -Be 'Inventory'
+                $Row.Flags | Should -Be 'Stores a password readable by any user of the domain (MS14-025) - Edited with GPMC'
+                $Ui.preferencesList.SelectedItem = $Row
+                $Ui.preferencesEditButton.IsEnabled | Should -BeFalse
+                $Ui.preferencesDeleteButton.IsEnabled | Should -BeTrue
             }
         }
 

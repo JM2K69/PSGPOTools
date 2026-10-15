@@ -690,6 +690,23 @@ InModuleScope -ModuleName PSGPOTools {
             ($Listed -join "`n") | Should -Match 'MaxTicketAge\s*=\s*8'
         }
 
+        It 'Writes the preferences of the GPO in SYSVOL and declares their extension as GPMC does' {
+            $Gpo = $Directory.FindGpo($GpoName)
+            $Registry = Get-PSGPOPreferenceExtension -Id Registry
+            $Before = (Get-PSGPODirectory -Server $Server).FindGpo($GpoName).Version
+            $File = [GPOToolsPreferenceFile]::Create($Registry.Root, $Registry.RootClsid)
+            $null = New-PSGPOPreferenceItem -File $File -Type $Registry.Items[0] -Values @{ key = 'SOFTWARE\PSGPOTools'; name = 'Test'; type = 'REG_SZ'; value = 'on' }
+            $Directory.WritePreferenceFile($Gpo, 'Machine', $Registry.Path, $File.ToBytes(), $Registry.Cse, $Registry.Tool)
+
+            $Read = Get-PSGPODirectory -Server $Server
+            $Again = $Read.FindGpo($GpoName)
+            $Again.Version | Should -Be ($Before + 1)
+            [Linq.Enumerable]::SequenceEqual([byte[]]$Read.ReadPreferenceFile($Again, 'Machine', $Registry.Path), [byte[]]$File.ToBytes()) | Should -BeTrue
+            $Again.MachineExtensionNames.Contains('[{00000000-0000-0000-0000-000000000000}') | Should -BeTrue
+            $Again.MachineExtensionNames.Contains('[{B087BE9D-ED37-454F-AF9C-04291E351182}{BEE07A6A-EC9F-4659-B8C9-0B1937907C83}]') | Should -BeTrue
+            @(Get-PSGPOPreferenceItem -File ([GPOToolsPreferenceFile]::Parse($Read.ReadPreferenceFile($Again, 'Machine', $Registry.Path))) -Extension $Registry).Name | Should -Be @('Test')
+        }
+
         It 'Backs up the GPO from SYSVOL until it changes, and tells what changed' {
             $Root = Join-Path $TestDrive 'domain-backups'
             $Gpo = $Directory.FindGpo($GpoName)

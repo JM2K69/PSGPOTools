@@ -265,6 +265,11 @@ function Get-PSGPOSettingReport {
             $detail = if ($row.IsExtra -and $row.Options) { ($row.Options -split ' = ', 2)[0] }
             New-ReportRow $label $row.Path $row.Name $row.State $row.Options $detail
         }
+        # The preference items, by their uid.
+        foreach ($extension in @(Get-PSGPOPreferenceExtension -Scope $scope)) { [void]$known.Add((Get-PSGPOPreferencePath -Extension $extension -Scope $scope)) }
+        foreach ($row in @(Get-PSGPOConfiguredPreference -Files $Files -Scope $scope)) {
+            [pscustomobject]@{ Key = $row.Key; Scope = $row.Scope; Path = $row.Path; Name = $row.Name; State = $row.State; Options = $row.Options }
+        }
     }
 
     # The other files: changed when their content changed. GPT.INI only holds the version.

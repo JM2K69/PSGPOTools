@@ -549,10 +549,81 @@ $iconResources
                             Padding='16,12' CornerRadius='8,8,0,0'>
                         <StackPanel Orientation='Horizontal' Spacing='8'>
                             <PathIcon Data='{StaticResource Icon.info}' Foreground='{DynamicResource HeaderTextBrush}'/>
-                            <TextBlock Text='Policy Details' FontSize='15' FontWeight='SemiBold'
+                            <TextBlock Name='detailsTitleTextBlock' Text='Policy Details' FontSize='15' FontWeight='SemiBold'
                                        Foreground='{DynamicResource HeaderTextBrush}'/>
                         </StackPanel>
                     </Border>
+
+                    <!-- Preferences ([MS-GPPREF]) of the selected type: its items, in their order, and the
+                         form of the item created or edited. Shown instead of the tabs of a policy. -->
+                    <Grid Grid.Row='1' Name='preferencesPanel' IsVisible='False' Margin='16,8' RowDefinitions='Auto,Auto,Auto,*'>
+                        <StackPanel Grid.Row='0' Spacing='2'>
+                            <TextBlock Name='preferencesTitleTextBlock' FontSize='16' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                            <TextBlock Name='preferencesInfoTextBlock' FontSize='12' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                        </StackPanel>
+                        <WrapPanel Grid.Row='1' Name='preferencesToolbar' Orientation='Horizontal' Margin='0,8,0,0'>
+                            <ComboBox Name='preferencesNewTypeComboBox' MinWidth='200' Margin='0,0,8,4'/>
+                            <Button Name='preferencesNewButton' Margin='0,0,8,4'>
+                                <StackPanel Orientation='Horizontal' Spacing='6'>
+                                    <PathIcon Data='{StaticResource Icon.add}' Width='14' Height='14'/>
+                                    <TextBlock Text='New item' VerticalAlignment='Center'/>
+                                </StackPanel>
+                            </Button>
+                            <Button Name='preferencesEditButton' Content='Edit' Margin='0,0,8,4'/>
+                            <Button Name='preferencesDeleteButton' Content='Delete' Margin='0,0,8,4'/>
+                            <Button Name='preferencesUpButton' Content='Move up' Margin='0,0,8,4' ToolTip.Tip='The items apply in their order'/>
+                            <Button Name='preferencesDownButton' Content='Move down' Margin='0,0,8,4'/>
+                        </WrapPanel>
+                        <TextBlock Grid.Row='2' Name='preferencesStatusTextBlock' TextWrapping='Wrap' Margin='0,4,0,0'
+                                   IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                        <ScrollViewer Grid.Row='3' Margin='0,8,0,0'>
+                            <StackPanel Spacing='8' Margin='0,0,12,0'>
+                                <TextBlock Name='preferencesEmptyTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                <ListBox Name='preferencesList' MaxHeight='320'>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Spacing='2' Margin='0,2'>
+                                                <TextBlock Text='{Binding Name}' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                                <TextBlock Text='{Binding Summary}' FontSize='12' TextWrapping='Wrap'/>
+                                                <TextBlock Text='{Binding Flags}' FontSize='11' Foreground='#CA5010' TextWrapping='Wrap'
+                                                           IsVisible='{Binding Flags, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <!-- Confirmation of a deletion -->
+                                <Border Name='preferencesDeletePanel' IsVisible='False' Padding='12' CornerRadius='4'
+                                        BorderThickness='1' BorderBrush='#D13438' Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                    <StackPanel Spacing='8'>
+                                        <TextBlock Name='preferencesDeleteTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                        <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                            <Button Name='preferencesDeleteConfirmButton' Content='Delete' Width='100'/>
+                                            <Button Name='preferencesDeleteCancelButton' Content='Cancel' Width='100'/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                                <!-- The item created or edited -->
+                                <Border Name='preferencesFormBorder' IsVisible='False' Padding='12' CornerRadius='4'
+                                        BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}' Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                    <StackPanel Spacing='8'>
+                                        <TextBlock Name='preferencesFormTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                        <ContentControl Name='preferencesFormHost'/>
+                                        <TextBlock Name='preferencesFormErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap'
+                                                   IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                        <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                            <Button Name='preferencesSaveButton' Width='100'>
+                                                <StackPanel Orientation='Horizontal' Spacing='6'>
+                                                    <PathIcon Data='{StaticResource Icon.save}' Width='14' Height='14'/>
+                                                    <TextBlock Text='Save' VerticalAlignment='Center'/>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Name='preferencesCancelButton' Content='Cancel' Width='100'/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
 
                     <!-- Setting: what the administrator edits; Details: what the ADMX defines. -->
                     <TabControl Grid.Row='1' Name='detailsTabs' Margin='8,0,8,8'>

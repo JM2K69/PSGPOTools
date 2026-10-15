@@ -262,7 +262,8 @@ function Save-PSGPODomainGpoFile {
         [Parameter(Mandatory)] [AllowEmptyCollection()] [byte[]]$Bytes,
         # Scope whose version increases
         [Parameter(Mandatory)] [ValidateSet('Machine', 'User')] [string]$Folder,
-        [Parameter(Mandatory)] [string]$Extension,
+        # Client-side extension(s) under which the tool is declared
+        [Parameter(Mandatory)] [string[]]$Extension,
         [Parameter(Mandatory)] [string]$Tool
     )
 
@@ -274,7 +275,8 @@ function Save-PSGPODomainGpoFile {
         $oldVersion = Get-PSGPOLdapValue $entry 'versionNumber'
         $version = [GPOToolsDirectory]::GetNextVersion([int]$oldVersion, $Folder)
         $oldExtensions = Get-PSGPOLdapValue $entry $extensionAttribute
-        $extensions = Add-PSGPOExtensionName -Current $oldExtensions -Extension $Extension -Tool $Tool
+        $extensions = $oldExtensions
+        foreach ($guid in $Extension) { $extensions = Add-PSGPOExtensionName -Current $extensions -Extension $guid -Tool $Tool }
 
         # SYSVOL first, then the version in GPT.INI and in the directory, as GPMC does.
         Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $Path -Bytes $Bytes

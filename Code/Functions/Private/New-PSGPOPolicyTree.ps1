@@ -126,6 +126,41 @@ function New-PSGPOPolicyTree {
             }
         }
 
+        # Preferences ([MS-GPPREF]), last as in the Group Policy editor: Windows Settings and
+        # Control Panel Settings, one node per preference type of the scope.
+        $preferences = @(Get-PSGPOPreferenceExtension -Scope "$scope" | Where-Object {
+                (-not $Filter -or $_.Name.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) -and
+                (-not $expand -or $Only.Contains("Preference:$scope|$($_.Id)"))
+            })
+        if ($preferences.Count) {
+            $preferencesNode = [AvaloniaTreeNode]::new()
+            $preferencesNode.Header = 'Preferences'
+            Set-PSGPOTreeNodeIcon -Node $preferencesNode -Name 'folder'
+            $preferencesNode.Tag = "Preferences:$scope"
+            $preferencesNode.IsExpanded = $expand
+            $preferencesNode.Parent = $scopeNode
+            $groups = @{}
+            foreach ($extension in $preferences) {
+                if (-not $groups.ContainsKey($extension.Group)) {
+                    $group = [AvaloniaTreeNode]::new()
+                    $group.Header = $extension.Group
+                    Set-PSGPOTreeNodeIcon -Node $group -Name 'folder'
+                    $group.Tag = "Preferences:$scope|$($extension.Group)"
+                    $group.IsExpanded = $expand
+                    $group.Parent = $preferencesNode
+                    $preferencesNode.Children.Add($group)
+                    $groups[$extension.Group] = $group
+                }
+                $node = [AvaloniaTreeNode]::new()
+                $node.Header = $extension.Name
+                Set-PSGPOTreeNodeIcon -Node $node -Name 'document-settings'
+                $node.Tag = [GPOToolsPreferenceNode]::new("$scope", $extension)
+                $node.Parent = $groups[$extension.Group]
+                $groups[$extension.Group].Children.Add($node)
+            }
+            $scopeNode.Children.Add($preferencesNode)
+        }
+
         if ($scopeNode.Children.Count -gt 0) {
             $scopeNode.IsExpanded = $expand
             $rootNodes.Add($scopeNode)
