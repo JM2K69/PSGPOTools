@@ -849,6 +849,47 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
+        It 'Links an existing GPO from the context menu, offering only the GPOs not linked there' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                $Ui.linkGpoMenuItem.IsVisible | Should -BeFalse -Because 'only a domain or an OU is linked to'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Users', 'U - Lyon - Printers'
+                $Ui.linkGpoMenuItem.IsVisible | Should -BeFalse
+
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Users'
+                $Users = $Ui.Directory.FindSom('OU=Users,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com')
+                $Ui.linkGpoMenuItem.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.linkGpoMenuItem
+                $Ui.linkGpoPanel.IsVisible | Should -BeTrue
+                $Ui.linkGpoTitleTextBlock.Text | Should -Be 'Link an existing GPO of corp.contoso.com to Users'
+                $Offered = @($Ui.linkGpoList.ItemsSource)
+                $Offered.Count | Should -Be ($Ui.Directory.Gpos.Count - $Users.Links.Count)
+                @($Offered.DisplayName) | Should -Not -Contain 'U - Lyon - Printers' -Because 'it is already linked there'
+                $Ui.linkGpoConfirmButton.IsEnabled | Should -BeFalse -Because 'no GPO is chosen yet'
+
+                $Ui.linkGpoFilterTextBox.Text = 'no such GPO'
+                @($Ui.linkGpoList.ItemsSource).Count | Should -Be 0
+                $Ui.linkGpoErrorTextBlock.Text | Should -Be "No GPO named like 'no such GPO' can be linked to Users."
+                Invoke-Click $Ui.linkGpoCancelButton
+                $Ui.linkGpoPanel.IsVisible | Should -BeFalse
+
+                Invoke-Click $Ui.linkGpoMenuItem
+                $Target = $Offered[0]
+                $Ui.linkGpoFilterTextBox.Text = $Target.DisplayName.ToUpperInvariant()
+                $Ui.linkGpoList.SelectedItem | Should -Be $Target -Because 'the only match is chosen'
+                $Ui.linkGpoConfirmButton.IsEnabled | Should -BeTrue
+                $Count = $Users.Links.Count
+                Invoke-Click $Ui.linkGpoConfirmButton
+                $Ui.linkGpoPanel.IsVisible | Should -BeFalse
+                $Users.Links.Count | Should -Be ($Count + 1)
+                $Users.Links[-1].Gpo | Should -Be $Target
+                $Ui.domainTreeView.SelectedItem.Tag | Should -Be $Users.Links[-1]
+                $Ui.directoryResultTextBlock.Text | Should -Be "GPO '$($Target.DisplayName)' linked to Users, link order $($Count + 1)."
+                (Get-DomainNode $Ui 'Sites', 'Lyon', 'Users').Children.Header | Should -Contain $Target.DisplayName
+            }
+        }
+
         It 'Does not link a GPO whose security filtering failed, and says why' {
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {
                 param($Ui)
