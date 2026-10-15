@@ -3,7 +3,9 @@ Write-Host "[BUILD][START] Launching Build Process" -ForegroundColor RED -Backgr
 # Retrieve parent folder
 $Current = (Split-Path -Path $MyInvocation.MyCommand.Path)
 $Root = ((Get-Item $Current).Parent).FullName
-$ModuleName = split-Path -Path $root -Leaf
+# The module is PSGPOTools whatever the folder of the repository is called (a GitHub archive is
+# extracted as PSGPOTools-<branch>, a worktree can have any name).
+$ModuleName = 'PSGPOTools'
 Write-Host "[BUILD][START] Working on module $($ModuleName)" -ForegroundColor RED -BackgroundColor White
 
 $ModuleFolderPath = Join-Path -Path $Root -ChildPath $ModuleName
