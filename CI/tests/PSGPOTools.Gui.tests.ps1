@@ -690,7 +690,7 @@ InModuleScope -ModuleName PSGPOTools {
             $Gpo.MachineExtensionNames | Should -Match ([regex]::Escape('{B087BE9D-ED37-454F-AF9C-04291E351182}{BEE07A6A-EC9F-4659-B8C9-0B1937907C83}'))
         }
 
-        It 'Shows the items it does not edit, and warns of a stored password' {
+        It 'Edits the task definition of an immediate task, and warns of a stored password' {
             $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
             $Tasks = Get-PSGPOPreferenceExtension -Id ScheduledTasks
             $File = [GPOToolsPreferenceFile]::Parse([System.Text.Encoding]::UTF8.GetBytes(@'
@@ -703,13 +703,28 @@ InModuleScope -ModuleName PSGPOTools {
                 $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
                 Invoke-Click $Ui.editGpoMenuItem
                 $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsPreferenceNode] -and $n.Tag.Scope -eq 'Machine' -and $n.Tag.Extension.Id -eq 'ScheduledTasks' }
-                $Ui.preferencesNewButton.IsVisible | Should -BeFalse
-                $Ui.preferencesInfoTextBlock.Text | Should -BeLike '*created with GPMC*'
+                $Ui.preferencesNewButton.IsVisible | Should -BeTrue
+                @($Ui.preferencesNewTypeComboBox.ItemsSource) | Should -Contain 'Immediate Task (Windows 7 and later)'
                 $Row = @($Ui.preferencesList.ItemsSource)[0]
                 $Row.Name | Should -Be 'Inventory'
-                $Row.Flags | Should -Be 'Stores a password readable by any user of the domain (MS14-025) - Edited with GPMC'
+                $Row.Flags | Should -Be 'Stores a password readable by any user of the domain (MS14-025)'
                 $Ui.preferencesList.SelectedItem = $Row
-                $Ui.preferencesEditButton.IsEnabled | Should -BeFalse
+                $Ui.preferencesEditButton.IsEnabled | Should -BeTrue
+                Invoke-Click $Ui.preferencesEditButton
+                $Controls = @($Ui.preferencesFormHost.Content.Children)
+                # The warning of the password, and the task definition as XML.
+                @($Controls | Where-Object { "$($_.Text)" -like 'A password is stored*' }).Count | Should -Be 1
+                $Box = $Controls | Where-Object { $_ -is [Avalonia.Controls.TextBox] -and "$($_.Text)" -like '<Task*' }
+                $Box.Text | Should -Be '<Task version="1.3" />'
+                $Box.Text = '<Task version="1.3"><Actions'
+                Invoke-Click $Ui.preferencesSaveButton
+                $Ui.preferencesFormErrorTextBlock.Text | Should -BeLike '*the XML is not valid*'
+                $Box.Text = '<Task version="1.3"><Actions Context="Author"><Exec><Command>inventory.exe</Command></Exec></Actions></Task>'
+                Invoke-Click $Ui.preferencesSaveButton
+                $Ui.preferencesFormBorder.IsVisible | Should -BeFalse
+                $Saved = [GPOToolsPreferenceFile]::Parse($Ui.Directory.ReadPreferenceFile($Gpo, 'Machine', $Tasks.Path))
+                $Saved.Document.SelectSingleNode('//Exec/Command').InnerText | Should -Be 'inventory.exe'
+                $Saved.Document.SelectSingleNode('//Properties').GetAttribute('cpassword') | Should -Be 'xyz' -Because 'the stored password is kept as it is'
                 $Ui.preferencesDeleteButton.IsEnabled | Should -BeTrue
             }
         }

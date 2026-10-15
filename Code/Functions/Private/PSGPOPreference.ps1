@@ -94,6 +94,10 @@ function Get-PSGPOPreferenceItem {
             $properties = $element.ChildNodes | Where-Object { $_ -is [System.Xml.XmlElement] -and $_.LocalName -eq 'Properties' } | Select-Object -First 1
             $values = [ordered]@{}
             if ($properties) { foreach ($attribute in $properties.Attributes) { $values[$attribute.Name] = $attribute.Value } }
+            # Values the type keeps on the item element itself (extId of an application).
+            foreach ($property in @($type.Properties | Where-Object { $_.OnItem })) { $values[$property.Name] = $element.GetAttribute($property.Name) }
+            $xml = [ordered]@{}
+            foreach ($property in @($type.Properties | Where-Object Type -EQ 'Xml')) { $xml[$property.Name] = Get-PSGPOPreferenceXml -Element $element -Property $property }
             $members = @(if ($properties) {
                     foreach ($member in $properties.SelectNodes('Members/Member')) {
                         [pscustomobject]@{ Name = $member.GetAttribute('name'); Sid = $member.GetAttribute('sid'); Action = $member.GetAttribute('action') }
@@ -120,6 +124,9 @@ function Get-PSGPOPreferenceItem {
                 HasPassword = [bool]("$($values['cpassword'])$($values['cPassword'])")
                 Properties = $values
                 Members = $members
+                Xml = $xml
+                # Elements inside Properties or the item that the console does not edit (a task, Reg values)
+                Content = Get-PSGPOPreferenceContent -Element $element -Properties $properties
                 Editable = [bool]($type -and $type.Properties)
             }
         }
@@ -138,7 +145,7 @@ function Get-PSGPOPreferenceSummary {
     if ($Item.Action -and $script:PSGPOPreferenceActions.Contains($Item.Action)) { $parts.Add($script:PSGPOPreferenceActions[$Item.Action]) }
     $properties = if ($Item.Type -and $Item.Type.Properties) { @($Item.Type.Properties) } else { @($values.Keys | ForEach-Object { [pscustomobject]@{ Name = $_; Label = $_; Type = 'Text' } }) }
     foreach ($property in $properties) {
-        if ($property.Name -eq 'action' -or $property.Type -in 'Password', 'Members') { continue }
+        if ($property.Name -eq 'action' -or $property.Type -in 'Password', 'Members', 'Xml') { continue }
         $value = "$($values[$property.Name])"
         if (-not $value -or ($property.Type -eq 'Bool' -and $value -eq '0') -or $value -in 'NOCHANGE', 'NO_CHANGE') { continue }
         $parts.Add($(if ($property.Type -eq 'Bool') { $property.Label } else { "$($property.Label): $value" }))
@@ -168,6 +175,18 @@ function Set-PSGPOPreferenceElement {
     foreach ($property in @($Type.Properties)) {
         if ($property.Type -eq 'Password') {
             if ("$($Values[$property.Name])") { throw "Passwords are not written in preferences: any user of the domain can read them (MS14-025)." }
+            continue
+        }
+        if ($property.Type -eq 'Xml') {
+            if (-not $Values.Contains($property.Name)) { continue }
+            Set-PSGPOPreferenceXml -Element $Element -Properties $properties -Property $property -Text "$($Values[$property.Name])"
+            continue
+        }
+        if ($property.OnItem) {
+            if (-not $Values.Contains($property.Name)) { continue }
+            $value = "$($Values[$property.Name])".Trim()
+            if ($property.Required -and -not $value) { throw "$($property.Label) is required." }
+            $Element.SetAttribute($property.Name, $value)
             continue
         }
         if ($property.Type -eq 'Members') {
@@ -304,6 +323,7 @@ function Get-PSGPOConfiguredPreference {
                     if ("$($item.Properties[$name])") { "$name = $($item.Properties[$name])" }
                 })
             if ($item.Members.Count) { $options += "Members: $(@($item.Members | ForEach-Object { "$($_.Action) $(if ($_.Name) { $_.Name } else { $_.Sid })" }) -join ', ')" }
+            if ($item.Content) { $options += "Content: $($item.Content)" }
             if ($item.HasPassword) { $options += 'A password is stored (readable by any user of the domain, MS14-025)' }
             if ($item.FilterCount) { $options += "$($item.FilterCount) item-level targeting filter(s)" }
             $row = [AvaloniaSettingRow]::new()
@@ -314,4 +334,104 @@ function Get-PSGPOConfiguredPreference {
             [pscustomobject]@{ Key = "$label|$category|$($item.Uid)"; Scope = $label; Path = $row.Path; Name = $row.Name; State = $row.State; Options = $row.Options; Row = $row }
         }
     }
+}
+
+# The elements of an Xml property of an item, indented: those of its Properties (a Task, Reg
+# values), or those of the item itself besides Properties and Filters (Scope Item).
+function Get-PSGPOPreferenceXml {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)] [System.Xml.XmlElement]$Element,
+        [Parameter(Mandatory)] $Property
+    )
+
+    $parent = if ($Property.Scope -eq 'Item') { $Element } else { $Element.SelectSingleNode('Properties') }
+    if (-not $parent) { return '' }
+    $settings = [System.Xml.XmlWriterSettings]::new()
+    $settings.Indent = $true
+    $settings.IndentChars = '  '
+    $settings.OmitXmlDeclaration = $true
+    $settings.ConformanceLevel = [System.Xml.ConformanceLevel]::Fragment
+    $text = [System.Text.StringBuilder]::new()
+    $writer = [System.Xml.XmlWriter]::Create($text, $settings)
+    try {
+        foreach ($child in @($parent.ChildNodes | Where-Object { $_ -is [System.Xml.XmlElement] -and $_.LocalName -notin 'Properties', 'Filters', 'Members' })) { $child.WriteTo($writer) }
+    } finally {
+        $writer.Dispose()
+    }
+    $text.ToString()
+}
+
+# Replaces the elements of an Xml property of an item with the text given, checked first: well
+# formed, and made of the elements the property holds (Roots).
+function Set-PSGPOPreferenceXml {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [System.Xml.XmlElement]$Element,
+        [Parameter(Mandatory)] [System.Xml.XmlElement]$Properties,
+        [Parameter(Mandatory)] $Property,
+        [AllowEmptyString()] [string]$Text
+    )
+
+    $fragment = $Element.OwnerDocument.CreateDocumentFragment()
+    try {
+        $fragment.InnerXml = $Text
+    } catch {
+        throw "$($Property.Label): the XML is not valid: $($_.Exception.GetBaseException().Message)"
+    }
+    $elements = @($fragment.ChildNodes | Where-Object { $_ -is [System.Xml.XmlElement] })
+    if ($Property.Roots) {
+        $other = @($elements | Where-Object { $Property.Roots -notcontains $_.LocalName })
+        if ($other.Count) { throw "$($Property.Label): <$($other[0].LocalName)> is not expected here, only <$($Property.Roots -join '>, <')>." }
+        if (-not $elements.Count) { throw "$($Property.Label): a <$($Property.Roots[0])> element is required." }
+    }
+    $parent = if ($Property.Scope -eq 'Item') { $Element } else { $Properties }
+    foreach ($child in @($parent.ChildNodes | Where-Object { $_ -is [System.Xml.XmlElement] -and $_.LocalName -notin 'Properties', 'Filters', 'Members' })) {
+        [void]$parent.RemoveChild($child)
+    }
+    # Before the targeting of the item, which closes it.
+    $filters = if ($Property.Scope -eq 'Item') { $Element.SelectSingleNode('Filters') }
+    foreach ($child in $elements) {
+        if ($filters) { [void]$parent.InsertBefore($child, $filters) } else { [void]$parent.AppendChild($child) }
+    }
+}
+
+# What an item holds besides attributes (a task definition, Reg values, the elements of an
+# application), as a hash: enough to see that it changed.
+function Get-PSGPOPreferenceContent {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)] [System.Xml.XmlElement]$Element,
+        [AllowNull()] $Properties
+    )
+
+    $parts = @(
+        if ($Properties) { $Properties.ChildNodes | Where-Object { $_ -is [System.Xml.XmlElement] -and $_.LocalName -ne 'Members' } }
+        $Element.ChildNodes | Where-Object { $_ -is [System.Xml.XmlElement] -and $_.LocalName -notin 'Properties', 'Filters' }
+    )
+    if (-not $parts.Count) { return '' }
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes((-join ($parts | ForEach-Object { $_.OuterXml })))
+    "$(@($parts.LocalName | Select-Object -Unique) -join ', ') (SHA-256 $([Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData($bytes)).Substring(0, 12)))"
+}
+
+# An XML fragment indented, to read it in a form; the text as it is when it is not valid.
+function Format-PSGPOXmlText {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([AllowEmptyString()] [string]$Text)
+
+    if (-not $Text.Trim()) { return '' }
+    $document = [System.Xml.XmlDocument]::new()
+    $fragment = $document.CreateDocumentFragment()
+    try { $fragment.InnerXml = $Text } catch { return $Text }
+    $settings = [System.Xml.XmlWriterSettings]::new()
+    $settings.Indent = $true
+    $settings.IndentChars = '  '
+    $settings.ConformanceLevel = [System.Xml.ConformanceLevel]::Fragment
+    $builder = [System.Text.StringBuilder]::new()
+    $writer = [System.Xml.XmlWriter]::Create($builder, $settings)
+    try { $fragment.WriteTo($writer) } finally { $writer.Dispose() }
+    $builder.ToString()
 }

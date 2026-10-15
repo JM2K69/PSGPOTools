@@ -135,7 +135,7 @@ function New-PSGPOPolicyTree {
         if ($preferences.Count) {
             $preferencesNode = [AvaloniaTreeNode]::new()
             $preferencesNode.Header = 'Preferences'
-            Set-PSGPOTreeNodeIcon -Node $preferencesNode -Name 'folder'
+            Set-PSGPOTreeNodeIcon -Node $preferencesNode -Name 'toolbox'
             $preferencesNode.Tag = "Preferences:$scope"
             $preferencesNode.IsExpanded = $expand
             $preferencesNode.Parent = $scopeNode
@@ -144,7 +144,9 @@ function New-PSGPOPolicyTree {
                 if (-not $groups.ContainsKey($extension.Group)) {
                     $group = [AvaloniaTreeNode]::new()
                     $group.Header = $extension.Group
+                    # A folder in the colour of the preferences.
                     Set-PSGPOTreeNodeIcon -Node $group -Name 'folder'
+                    $group.IconBrush = $script:PSGPOIconBrush['folder-preference']
                     $group.Tag = "Preferences:$scope|$($extension.Group)"
                     $group.IsExpanded = $expand
                     $group.Parent = $preferencesNode
@@ -153,7 +155,7 @@ function New-PSGPOPolicyTree {
                 }
                 $node = [AvaloniaTreeNode]::new()
                 $node.Header = $extension.Name
-                Set-PSGPOTreeNodeIcon -Node $node -Name 'document-settings'
+                Set-PSGPOTreeNodeIcon -Node $node -Name 'wrench'
                 $node.Tag = [GPOToolsPreferenceNode]::new("$scope", $extension)
                 $node.Parent = $groups[$extension.Group]
                 $groups[$extension.Group].Children.Add($node)

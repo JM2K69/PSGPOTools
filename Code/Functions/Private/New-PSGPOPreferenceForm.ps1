@@ -7,6 +7,7 @@
       Choice      ComboBox of the values ("(none)" for an empty value)
       Password    a warning when the item stores one: it is kept, never written (MS14-025)
       Members     one member per line: ADD or REMOVE, the name, and the SID if known
+      Xml         the elements the item holds (a task definition, Reg values), checked when saved
     then the options of the Common tab: description, continue after an error, run in the
     security context of the user, remove the item when it no longer applies.
 
@@ -91,6 +92,20 @@ function New-PSGPOPreferenceForm {
                     $Warning.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
                     $Panel.Children.Add($Warning)
                 }
+            }
+            'Xml' {
+                $Panel.Children.Add((& $NewLabel "$($Property.Label)$(if ($Property.Roots) { ": <$($Property.Roots -join '>, <')>" })"))
+                $Box = [Avalonia.Controls.TextBox]::new()
+                $Box.AcceptsReturn = $true
+                $Box.TextWrapping = [Avalonia.Media.TextWrapping]::NoWrap
+                $Box.MinHeight = 160
+                $Box.MaxHeight = 420
+                $Box.FontFamily = [Avalonia.Media.FontFamily]::new('Consolas, DejaVu Sans Mono, monospace')
+                $Box.FontSize = 12
+                $Box.Text = if ($Item) { "$($Item.Xml[$Name])" } else { Format-PSGPOXmlText "$($Property.Default)" }
+                $Panel.Children.Add($Box)
+                $Controls[$Name] = $Box
+                $Getters[$Name] = { "$($Box.Text)" }.GetNewClosure()
             }
             'Members' {
                 $Panel.Children.Add((& $NewLabel "$($Property.Label): one per line, ADD or REMOVE then the name (and its SID, S-1-...)"))
