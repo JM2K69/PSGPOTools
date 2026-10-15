@@ -360,6 +360,99 @@ $iconResources
                                 </StackPanel>
                             </ScrollViewer>
                         </TabItem>
+                        <!-- History of the GPO: its backups as a timeline (oldest on the left), and what
+                             changed at the selected one -->
+                        <TabItem Name='historyTab' Header='History' IsVisible='False'>
+                            <Grid RowDefinitions='Auto,Auto,Auto,*' Margin='16,8'>
+                                <Grid Grid.Row='0' ColumnDefinitions='Auto,*,Auto,Auto'>
+                                    <TextBlock Text='Backups in' VerticalAlignment='Center' Margin='0,0,8,0'
+                                               Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                    <TextBox Grid.Column='1' Name='historyPathTextBox' Watermark='Folder of the backups'/>
+                                    <Button Grid.Column='2' Name='historyBackupButton' Margin='8,0,0,0'
+                                            ToolTip.Tip='Back up this GPO, when it changed since its last backup'>
+                                        <StackPanel Orientation='Horizontal' Spacing='6'>
+                                            <PathIcon Data='{StaticResource Icon.save}' Width='14' Height='14'/>
+                                            <TextBlock Text='Back up now' VerticalAlignment='Center'/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Grid.Column='3' Name='historyBackupAllButton' Content='Back up all GPOs' Margin='8,0,0,0'
+                                            ToolTip.Tip='Back up every GPO shown that changed since its last backup'/>
+                                </Grid>
+                                <TextBlock Grid.Row='1' Name='historyStatusTextBlock' TextWrapping='Wrap' Margin='0,8,0,0'
+                                           Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                <ScrollViewer Grid.Row='2' Name='historyTimelineScrollViewer' Margin='0,8,0,0'
+                                              HorizontalScrollBarVisibility='Auto' VerticalScrollBarVisibility='Disabled'>
+                                    <ListBox Name='historyTimelineList' Background='Transparent' Margin='0,0,0,14'>
+                                        <ListBox.ItemsPanel>
+                                            <ItemsPanelTemplate><StackPanel Orientation='Horizontal'/></ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.Styles>
+                                            <Style Selector='ListBoxItem'>
+                                                <Setter Property='Padding' Value='0'/>
+                                                <Setter Property='Margin' Value='0'/>
+                                            </Style>
+                                        </ListBox.Styles>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Width='150' RowDefinitions='24,Auto,Auto,Auto' Margin='0,6'>
+                                                    <!-- The branch, through the node, as a git graph -->
+                                                    <Rectangle Grid.Row='0' Height='3' VerticalAlignment='Center' Fill='{Binding LineBrush}'/>
+                                                    <Ellipse Grid.Row='0' Width='18' Height='18' HorizontalAlignment='Center'
+                                                             Fill='{Binding NodeFill}' Stroke='{Binding NodeStroke}' StrokeThickness='3'/>
+                                                    <TextBlock Grid.Row='1' Text='{Binding Title}' FontSize='11' FontWeight='SemiBold' HorizontalAlignment='Center' Margin='0,4,0,0'/>
+                                                    <TextBlock Grid.Row='2' Text='{Binding Subtitle}' FontSize='11' HorizontalAlignment='Center'
+                                                               Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                    <TextBlock Grid.Row='3' Text='{Binding Summary}' FontSize='11' HorizontalAlignment='Center'/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </ScrollViewer>
+                                <ScrollViewer Grid.Row='3' Margin='0,8,0,0'>
+                                    <StackPanel Spacing='4' Margin='0,0,12,0'>
+                                        <Grid ColumnDefinitions='*,Auto'>
+                                            <TextBlock Name='historyCompareTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' VerticalAlignment='Center'/>
+                                            <Button Grid.Column='1' Name='historyRestoreButton' Content='Restore this version...' Margin='8,0,0,0' IsVisible='False'
+                                                    ToolTip.Tip='Put the GPO back as this backup has it'/>
+                                        </Grid>
+                                        <!-- Confirmation of a restore, as GPMC asks for it -->
+                                        <Border Name='historyRestorePanel' IsVisible='False' Margin='0,4,0,4' Padding='12' CornerRadius='4'
+                                                BorderThickness='1' BorderBrush='#D13438' Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                            <StackPanel Spacing='8'>
+                                                <TextBlock Name='historyRestoreTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                                <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                    <Button Name='historyRestoreConfirmButton' Content='Restore' Width='110'/>
+                                                    <Button Name='historyRestoreCancelButton' Content='Cancel' Width='100'/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                        <ItemsControl Name='historyChangesList'>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderThickness='0,0,0,1' BorderBrush='{DynamicResource BorderBrush}' Padding='0,6'>
+                                                        <Grid ColumnDefinitions='Auto,*'>
+                                                            <Border Grid.Column='0' Background='{Binding ChangeBrush}' CornerRadius='3' Padding='6,1'
+                                                                    VerticalAlignment='Top' Margin='0,2,10,0'>
+                                                                <TextBlock Text='{Binding Change}' Foreground='White' FontSize='11' FontWeight='SemiBold'/>
+                                                            </Border>
+                                                            <StackPanel Grid.Column='1' Spacing='2'>
+                                                                <TextBlock Text='{Binding Location}' FontSize='11' TextWrapping='Wrap'
+                                                                           Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                                <SelectableTextBlock Text='{Binding Name}' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                                                <SelectableTextBlock Text='{Binding Before}' TextWrapping='Wrap' Foreground='#D13438'
+                                                                                     TextDecorations='Strikethrough' IsVisible='{Binding HasBefore}'/>
+                                                                <SelectableTextBlock Text='{Binding After}' TextWrapping='Wrap' Foreground='#107C10'
+                                                                                     IsVisible='{Binding HasAfter}'/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Grid>
+                        </TabItem>
                     </TabControl>
                 </Grid>
             </Border>

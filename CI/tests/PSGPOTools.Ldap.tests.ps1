@@ -690,6 +690,43 @@ InModuleScope -ModuleName PSGPOTools {
             ($Listed -join "`n") | Should -Match 'MaxTicketAge\s*=\s*8'
         }
 
+        It 'Backs up the GPO from SYSVOL until it changes, and tells what changed' {
+            $Root = Join-Path $TestDrive 'domain-backups'
+            $Gpo = $Directory.FindGpo($GpoName)
+            $First = Backup-PSGPO -Directory $Directory -Path $Root -Name $GpoName
+            $First.Result | Should -Be 'Created'
+            $First.Modified | Should -Not -BeNullOrEmpty -Because 'whenChanged of the GPO names the backup'
+            @($First.Files.Path) | Should -Contain 'GPT.INI'
+            @($First.Files.Path) | Should -Contain 'Machine\Registry.pol'
+            @($First.Files.Path) | Should -Contain 'Machine\Microsoft\Windows NT\SecEdit\GptTmpl.inf'
+            [Linq.Enumerable]::SequenceEqual([System.IO.File]::ReadAllBytes((Join-Path $First.Path 'Files' 'Machine' 'Registry.pol')),
+                [byte[]]$Directory.ReadPolicyFile($Gpo, 'Machine')) | Should -BeTrue
+            (Backup-PSGPO -Directory $Directory -Path $Root -Name $GpoName).Result | Should -Be 'Unchanged'
+
+            $Template = [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($Gpo))
+            Set-PSGPOSecurityValue -Template $Template -Setting (Get-PSGPOSecuritySetting | Where-Object Key -EQ 'MinimumPasswordLength') -Value 16
+            $Directory.WriteSecurityTemplate($Gpo, $Template.ToBytes())
+            $Second = Backup-PSGPO -Directory $Directory -Path $Root -Name $GpoName
+            $Second.Result | Should -Be 'Created'
+            $Change = Compare-PSGPOBackup -ReferenceBackup $First -DifferenceBackup $Second | Where-Object Name -EQ 'Minimum password length'
+            "$($Change.Change): $($Change.Before) -> $($Change.After)" | Should -Be 'Changed: 14 characters -> 16 characters'
+
+            # Back to the first backup: its files in SYSVOL, a higher version in GPT.INI and the directory.
+            $Before = (Get-PSGPODirectory -Server $Server).FindGpo($GpoName).Version
+            $Result = Restore-PSGPO -Backup $First -Directory $Directory -Confirm:$false
+            $Result.BackupBefore | Should -Not -BeNullOrEmpty
+            $Read = Get-PSGPODirectory -Server $Server
+            $Again = $Read.FindGpo($GpoName)
+            $Again.GetComputerVersion() | Should -Be (($Before -band 0xFFFF) + 1)
+            $Again.GetUserVersion() | Should -Be (($Before -shr 16) + 1)
+            [System.Text.Encoding]::ASCII.GetString((Read-PSGPOSysvolFile -Directory $Read -Gpo $Again -Path 'GPT.INI')) | Should -Match "(?m)^Version=$($Again.Version)\r?$"
+            $Template = [GPOToolsSecurityTemplate]::Parse($Read.ReadSecurityTemplate($Again))
+            $Template.GetValue('System Access', 'MinimumPasswordLength') | Should -Be '14'
+            $Again.MachineExtensionNames | Should -Be $First.MachineExtensionNames
+            $Restored = Backup-PSGPO -Directory $Read -Path $Root -Name $GpoName
+            Compare-PSGPOBackup -ReferenceBackup $First -DifferenceBackup $Restored | Should -BeNullOrEmpty
+        }
+
         It 'Sets the GPO status and the security filtering groups, consistent in SYSVOL' {
             $Gpo = $Directory.FindGpo($SecondName)
             $Directory.SetGpoStatus($Gpo, 1)

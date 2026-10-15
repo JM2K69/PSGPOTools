@@ -76,7 +76,7 @@ function Get-PSGPODirectory {
         $organizationalUnits = @(Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $domainDN -Scope Subtree `
                 -Filter '(objectClass=organizationalUnit)' -Attribute 'name', 'ou', 'gPLink', 'gPOptions', 'allowedAttributesEffective')
         $gpos = @(Invoke-PSGPOLdapSearch -Connection $connection -SearchBase "CN=Policies,CN=System,$domainDN" -Scope OneLevel `
-                -Filter '(objectClass=groupPolicyContainer)' -Attribute 'cn', 'displayName', 'versionNumber', 'flags', 'gPCFileSysPath', 'allowedAttributesEffective')
+                -Filter '(objectClass=groupPolicyContainer)' -Attribute 'cn', 'displayName', 'versionNumber', 'flags', 'gPCFileSysPath', 'whenChanged', 'gPCMachineExtensionNames', 'gPCUserExtensionNames', 'allowedAttributesEffective')
         $policies = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase "CN=Policies,CN=System,$domainDN" -Scope Base -Attribute 'allowedChildClassesEffective'
         $account = Get-PSGPOLdapAccount -Connection $connection
 

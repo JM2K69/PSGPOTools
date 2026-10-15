@@ -33,6 +33,11 @@ class GPOToolsGpo {
     [string[]]$DeniedTo = @()
     # The account of the console can edit the GPO (write of its group policy container)
     [bool]$CanEdit = $true
+    # Last change of the GPO in the directory (whenChanged, UTC); $null when not read
+    [Nullable[datetime]]$Modified
+    # Client-side extensions of the GPO (gPCMachineExtensionNames, gPCUserExtensionNames)
+    [string]$MachineExtensionNames
+    [string]$UserExtensionNames
 
     [int] GetUserVersion() { return $this.Version -shr 16 }
     [int] GetComputerVersion() { return $this.Version -band 0xFFFF }
@@ -364,6 +369,26 @@ class GPOToolsDirectory {
         $this.SaveGpoFile($Gpo, "$Folder\Registry.pol", $Bytes, $Folder, [GPOToolsDirectory]::RegistryExtension, [GPOToolsDirectory]::RegistryTool[$Folder])
     }
 
+    # Every file of the folder of a GPO, by path in the folder (Machine\Registry.pol): for a backup.
+    [System.Collections.Specialized.OrderedDictionary] ReadGpoFolder([GPOToolsGpo]$Gpo) {
+        return $this.LoadGpoFolder($Gpo)
+    }
+
+    # The GPO as the directory has it now (version, status, last change): before a backup, as
+    # it may have changed since it was read.
+    [void] RefreshGpo([GPOToolsGpo]$Gpo) {
+        $this.LoadGpoState($Gpo)
+    }
+
+    # Puts a GPO back as a backup has it, like GPMC Restore-GPO: the files of its folder (those
+    # the backup does not have are deleted), its status and client-side extensions; its version
+    # increases so that the computers apply it again. Its links and permissions do not change.
+    [void] RestoreGpo([GPOToolsGpo]$Gpo, [System.Collections.IDictionary]$Files, [int]$Flags, [string]$MachineExtensionNames, [string]$UserExtensionNames) {
+        $this.AssertWritable()
+        if (-not $Gpo.CanEdit) { throw "The account $($this.Account) cannot edit the GPO '$($Gpo.DisplayName)'." }
+        $this.SaveRestoredGpo($Gpo, $Files, $Flags, $MachineExtensionNames, $UserExtensionNames)
+    }
+
     # GptTmpl.inf of a GPO (its security settings): its bytes, $null when the GPO has none.
     [byte[]] ReadSecurityTemplate([GPOToolsGpo]$Gpo) {
         return $this.LoadGpoFile($Gpo, [GPOToolsDirectory]::SecurityTemplatePath)
@@ -427,11 +452,33 @@ class GPOToolsDirectory {
     hidden [byte[]] LoadGpoFile([GPOToolsGpo]$Gpo, [string]$Path) {
         return $this.GpoFiles["$($Gpo.Id)\$Path"]
     }
+    hidden [System.Collections.Specialized.OrderedDictionary] LoadGpoFolder([GPOToolsGpo]$Gpo) {
+        $Files = [System.Collections.Specialized.OrderedDictionary]::new([System.StringComparer]::OrdinalIgnoreCase)
+        $Prefix = "$($Gpo.Id)\"
+        foreach ($Key in @($this.GpoFiles.Keys | Where-Object { $_.StartsWith($Prefix) } | Sort-Object)) {
+            $Files[$Key.Substring($Prefix.Length)] = $this.GpoFiles[$Key]
+        }
+        return $Files
+    }
+    hidden [void] LoadGpoState([GPOToolsGpo]$Gpo) {}
+    hidden [void] SaveRestoredGpo([GPOToolsGpo]$Gpo, [System.Collections.IDictionary]$Files, [int]$Flags, [string]$MachineExtensionNames, [string]$UserExtensionNames) {
+        $Prefix = "$($Gpo.Id)\"
+        foreach ($Key in @($this.GpoFiles.Keys | Where-Object { $_.StartsWith($Prefix) })) { $this.GpoFiles.Remove($Key) }
+        foreach ($Name in $Files.Keys) { if ($Name -ne 'GPT.INI') { $this.GpoFiles["$Prefix$Name"] = [byte[]]$Files[$Name] } }
+        $Gpo.Version = [GPOToolsDirectory]::GetNextVersion([GPOToolsDirectory]::GetNextVersion($Gpo.Version, 'Machine'), 'User')
+        $Gpo.Flags = $Flags
+        $Gpo.MachineExtensionNames = $MachineExtensionNames
+        $Gpo.UserExtensionNames = $UserExtensionNames
+        $Gpo.Modified = [datetime]::UtcNow
+    }
     # Saves a file of the GPO, then increases the version of the scope ($Folder) and declares the
     # client-side extension that applies it.
     hidden [void] SaveGpoFile([GPOToolsGpo]$Gpo, [string]$Path, [byte[]]$Bytes, [string]$Folder, [string]$Extension, [string]$Tool) {
         $this.GpoFiles["$($Gpo.Id)\$Path"] = $Bytes
         $Gpo.Version = [GPOToolsDirectory]::GetNextVersion($Gpo.Version, $Folder)
+        $Gpo.Modified = [datetime]::UtcNow
+        if ($Folder -eq 'Machine') { $Gpo.MachineExtensionNames = Add-PSGPOExtensionName -Current $Gpo.MachineExtensionNames -Extension $Extension -Tool $Tool }
+        else { $Gpo.UserExtensionNames = Add-PSGPOExtensionName -Current $Gpo.UserExtensionNames -Extension $Extension -Tool $Tool }
     }
 }
 
@@ -476,6 +523,18 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
 
     hidden [byte[]] LoadGpoFile([GPOToolsGpo]$Gpo, [string]$Path) {
         return Read-PSGPOSysvolFile -Directory $this -Gpo $Gpo -Path $Path
+    }
+
+    hidden [System.Collections.Specialized.OrderedDictionary] LoadGpoFolder([GPOToolsGpo]$Gpo) {
+        return Read-PSGPOSysvolFolder -Directory $this -Gpo $Gpo
+    }
+
+    hidden [void] LoadGpoState([GPOToolsGpo]$Gpo) {
+        Update-PSGPODomainGpoState -Directory $this -Gpo $Gpo
+    }
+
+    hidden [void] SaveRestoredGpo([GPOToolsGpo]$Gpo, [System.Collections.IDictionary]$Files, [int]$Flags, [string]$MachineExtensionNames, [string]$UserExtensionNames) {
+        Restore-PSGPODomainGpo -Directory $this -Gpo $Gpo -Files $Files -Flags $Flags -MachineExtensionNames $MachineExtensionNames -UserExtensionNames $UserExtensionNames
     }
 
     hidden [void] SaveGpoFile([GPOToolsGpo]$Gpo, [string]$Path, [byte[]]$Bytes, [string]$Folder, [string]$Extension, [string]$Tool) {

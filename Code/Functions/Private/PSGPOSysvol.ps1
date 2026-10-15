@@ -86,6 +86,43 @@ function Read-PSGPOSysvolFile {
     }
 }
 
+# Every file of the GPO folder, by path in the folder (Machine\Registry.pol), sorted: for a
+# backup. Linux copies the folder with smbclient into a temporary folder first.
+function Read-PSGPOSysvolFolder {
+    [CmdletBinding()]
+    [OutputType([System.Collections.Specialized.OrderedDictionary])]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo
+    )
+
+    $location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
+    $local = $null
+    if ($IsWindows) {
+        $root = "\\$($Directory.Server)\$($location.Share)\$($location.Path)"
+        if (-not (Test-Path -LiteralPath $root -PathType Container)) { throw "The folder of the GPO '$($Gpo.DisplayName)' is not in SYSVOL: $root" }
+    } else {
+        Assert-PSGPOKerberosOnly -Directory $Directory
+        $local = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-$([guid]::NewGuid())"
+        $null = New-Item -ItemType Directory -Path $local
+        $root = $local
+    }
+    try {
+        if ($local) {
+            $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $location.Share -TimeoutSeconds 600 `
+                -Command ('prompt OFF; recurse ON; lcd "{0}"; cd "{1}"; mget *' -f $local, $location.Path)
+        }
+        $files = [System.Collections.Specialized.OrderedDictionary]::new([System.StringComparer]::OrdinalIgnoreCase)
+        $prefix = $root.TrimEnd('\', '/').Length + 1
+        foreach ($file in @(Get-ChildItem -LiteralPath $root -File -Recurse -Force | Sort-Object FullName)) {
+            $files[($file.FullName.Substring($prefix) -replace '/', '\')] = [System.IO.File]::ReadAllBytes($file.FullName)
+        }
+        , $files
+    } finally {
+        if ($local) { Remove-Item -LiteralPath $local -Recurse -Force -ErrorAction SilentlyContinue }
+    }
+}
+
 # Writes a file of the GPO folder, creating its folder when needed.
 function Write-PSGPOSysvolFile {
     [CmdletBinding()]
@@ -192,10 +229,12 @@ function Add-PSGPOLdapValueChange {
         [Parameter(Mandatory)] [System.DirectoryServices.Protocols.ModifyRequest]$Request,
         [Parameter(Mandatory)] [string]$Name,
         [AllowNull()] [string]$Old,
-        [Parameter(Mandatory)] [string]$New
+        # Empty: the attribute is removed.
+        [Parameter(Mandatory)] [AllowEmptyString()] [AllowNull()] [string]$New
     )
 
     # A [string] parameter turns $null into '': an attribute absent from the entry is empty here.
+    if ($Old -ceq $New) { return }
     if (-not [string]::IsNullOrEmpty($Old)) {
         $remove = [System.DirectoryServices.Protocols.DirectoryAttributeModification]::new()
         $remove.Name = $Name
@@ -203,6 +242,7 @@ function Add-PSGPOLdapValueChange {
         [void]$remove.Add($Old)
         [void]$Request.Modifications.Add($remove)
     }
+    if ([string]::IsNullOrEmpty($New)) { return }
     $add = [System.DirectoryServices.Protocols.DirectoryAttributeModification]::new()
     $add.Name = $Name
     $add.Operation = [System.DirectoryServices.Protocols.DirectoryAttributeOperation]::Add
@@ -260,5 +300,85 @@ function Save-PSGPODomainGpoFile {
         $connection.Dispose()
     }
     $Gpo.Version = $version
+    if ($Folder -eq 'Machine') { $Gpo.MachineExtensionNames = $extensions } else { $Gpo.UserExtensionNames = $extensions }
     Write-Verbose "$Path of $($Gpo.DisplayName) saved, version $version."
+}
+
+# Deletes a file of the GPO folder; nothing when it is not there.
+function Remove-PSGPOSysvolFile {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
+        [Parameter(Mandatory)] [string]$Path
+    )
+
+    $location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
+    if ($IsWindows) {
+        Remove-Item -LiteralPath "\\$($Directory.Server)\$($location.Share)\$($location.Path)\$Path" -Force -ErrorAction SilentlyContinue
+        return
+    }
+    Assert-PSGPOKerberosOnly -Directory $Directory
+    $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $location.Share -AllowMissing -Command ('del "{0}\{1}"' -f $location.Path, $Path)
+}
+
+# Puts a GPO of the domain back as a backup has it (GPOToolsDirectory.RestoreGpo): its files
+# in SYSVOL, then its version (both scopes increased), status and client-side extensions in the
+# directory, refused if the version changed meanwhile.
+function Restore-PSGPODomainGpo {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
+        [Parameter(Mandatory)] [System.Collections.IDictionary]$Files,
+        [int]$Flags,
+        [AllowEmptyString()] [AllowNull()] [string]$MachineExtensionNames,
+        [AllowEmptyString()] [AllowNull()] [string]$UserExtensionNames
+    )
+
+    $connection = New-PSGPODirectoryConnection -Directory $Directory
+    try {
+        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Gpo.DistinguishedName -Scope Base `
+            -Attribute 'versionNumber', 'flags', 'gPCMachineExtensionNames', 'gPCUserExtensionNames'
+        if (-not $entry) { throw "The GPO $($Gpo.DisplayName) is not in the domain anymore." }
+        $oldVersion = Get-PSGPOLdapValue $entry 'versionNumber'
+        $version = [GPOToolsDirectory]::GetNextVersion([GPOToolsDirectory]::GetNextVersion([int]$oldVersion, 'Machine'), 'User')
+
+        # SYSVOL first: the files of the backup, without those it does not have, then GPT.INI.
+        $current = Read-PSGPOSysvolFolder -Directory $Directory -Gpo $Gpo
+        foreach ($name in $Files.Keys) {
+            if ($name -ne 'GPT.INI') { Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $name -Bytes ([byte[]]$Files[$name]) }
+        }
+        foreach ($name in @($current.Keys)) {
+            if ($name -ne 'GPT.INI' -and -not $Files.Contains($name)) { Remove-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $name }
+        }
+        $gptIni = if ($Files.Contains('GPT.INI')) { [byte[]]$Files['GPT.INI'] } else { [byte[]]$current['GPT.INI'] }
+        Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path 'GPT.INI' -Bytes (Set-PSGPOGptIniVersion -Bytes $gptIni -Version $version)
+
+        $request = [System.DirectoryServices.Protocols.ModifyRequest]::new()
+        $request.DistinguishedName = $Gpo.DistinguishedName
+        Add-PSGPOLdapValueChange -Request $request -Name 'versionNumber' -Old $oldVersion -New "$version"
+        Add-PSGPOLdapValueChange -Request $request -Name 'flags' -Old (Get-PSGPOLdapValue $entry 'flags') -New "$Flags"
+        Add-PSGPOLdapValueChange -Request $request -Name 'gPCMachineExtensionNames' -Old (Get-PSGPOLdapValue $entry 'gPCMachineExtensionNames') -New $MachineExtensionNames
+        Add-PSGPOLdapValueChange -Request $request -Name 'gPCUserExtensionNames' -Old (Get-PSGPOLdapValue $entry 'gPCUserExtensionNames') -New $UserExtensionNames
+        try {
+            [void]$connection.SendRequest($request)
+        } catch {
+            $base = $_.Exception.GetBaseException()
+            if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -in 'NoSuchAttribute', 'AttributeOrValueExists') {
+                throw "The GPO $($Gpo.DisplayName) changed in the domain meanwhile: its files were restored, restore it again so that its version increases."
+            }
+            if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -eq 'InsufficientAccessRights') {
+                throw "The account cannot edit the GPO '$($Gpo.DisplayName)': $($base.Message)"
+            }
+            throw
+        }
+    } finally {
+        $connection.Dispose()
+    }
+    $Gpo.Version = $version
+    $Gpo.Flags = $Flags
+    $Gpo.MachineExtensionNames = $MachineExtensionNames
+    $Gpo.UserExtensionNames = $UserExtensionNames
+    Write-Verbose "GPO $($Gpo.DisplayName) restored, version $version."
 }

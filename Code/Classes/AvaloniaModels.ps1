@@ -64,3 +64,32 @@ class AvaloniaLinkRow {
     [string]$LinkEnabled
     [string]$Status
 }
+
+# One node of the timeline of a GPO (History tab): a backup, or the GPO as it is now
+class AvaloniaHistoryNode {
+    [string]$Title
+    [string]$Subtitle
+    # What changed from the previous node: "+2 ~1 -0", or "first backup"
+    [string]$Summary
+    [string]$NodeFill
+    [string]$NodeStroke
+    [string]$LineBrush
+    # The backup (PSGPOTools.Backup); $null for the current state
+    [object]$Backup
+    [bool]$IsCurrent
+    # The changes from the previous node (Compare-PSGPOSettingReport), and the date of that node
+    [object[]]$Changes
+    [string]$Previous
+}
+
+# One change of a setting between two nodes of the timeline (History tab)
+class AvaloniaChangeRow {
+    [string]$Change
+    [string]$ChangeBrush
+    [string]$Location
+    [string]$Name
+    [string]$Before
+    [string]$After
+    [bool]$HasBefore
+    [bool]$HasAfter
+}

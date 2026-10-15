@@ -252,3 +252,28 @@ function Remove-PSGPODomainGpLink {
     $Directory.SetLinks($Som, $new)
     Write-Verbose "Link of the GPO $($Link.GetDisplayName()) to $($Som.DistinguishedName) deleted."
 }
+
+# The GPO as the directory has it now: display name, version, status and last change.
+function Update-PSGPODomainGpoState {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo
+    )
+
+    $connection = New-PSGPODirectoryConnection -Directory $Directory
+    try {
+        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Gpo.DistinguishedName -Scope Base `
+            -Attribute 'displayName', 'versionNumber', 'flags', 'whenChanged', 'gPCMachineExtensionNames', 'gPCUserExtensionNames'
+    } finally {
+        $connection.Dispose()
+    }
+    if (-not $entry) { throw "The GPO '$($Gpo.DisplayName)' is not in the domain anymore." }
+    $displayName = Get-PSGPOLdapValue $entry 'displayName'
+    if ($displayName) { $Gpo.DisplayName = $displayName }
+    $Gpo.Version = [int](Get-PSGPOLdapValue $entry 'versionNumber')
+    $Gpo.Flags = [int](Get-PSGPOLdapValue $entry 'flags')
+    $Gpo.Modified = ConvertFrom-PSGPOGeneralizedTime (Get-PSGPOLdapValue $entry 'whenChanged')
+    $Gpo.MachineExtensionNames = Get-PSGPOLdapValue $entry 'gPCMachineExtensionNames'
+    $Gpo.UserExtensionNames = Get-PSGPOLdapValue $entry 'gPCUserExtensionNames'
+}
