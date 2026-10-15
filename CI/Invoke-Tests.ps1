@@ -1,3 +1,5 @@
+#Requires -Version 7.4
+# PSGPOTools runs on PowerShell 7.4+ (pwsh), not Windows PowerShell 5.1 (powershell.exe).
 <#
 .SYNOPSIS
     Builds the module from Code/ and runs the Pester 5+ test suite (local and CI).
