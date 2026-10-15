@@ -193,6 +193,18 @@ function ConvertFrom-PSGPOLdapAuthzId {
     $Value
 }
 
+# Date of a GeneralizedTime value of the directory (20261015093012.0Z), in UTC; $null when absent.
+function ConvertFrom-PSGPOGeneralizedTime {
+    [CmdletBinding()]
+    param([AllowNull()] [AllowEmptyString()] [string]$Value)
+
+    if (-not $Value) { return $null }
+    $match = [regex]::Match($Value, '^(\d{14})(?:[.,]\d+)?Z$')
+    if (-not $match.Success) { return $null }
+    [datetime]::ParseExact($match.Groups[1].Value, 'yyyyMMddHHmmss', [cultureinfo]::InvariantCulture,
+        [System.Globalization.DateTimeStyles]::AdjustToUniversal -bor [System.Globalization.DateTimeStyles]::AssumeUniversal)
+}
+
 # Builds the directory from the search entries; no network, so that it can be tested.
 function ConvertTo-PSGPOLdapDirectory {
     [CmdletBinding()]
@@ -250,6 +262,9 @@ function ConvertTo-PSGPOLdapDirectory {
         $gpo.Version = [int](Get-PSGPOLdapValue $entry 'versionNumber')
         $gpo.Flags = [int](Get-PSGPOLdapValue $entry 'flags')
         $gpo.CanEdit = & $canWrite $entry 'versionNumber'
+        $gpo.Modified = ConvertFrom-PSGPOGeneralizedTime (Get-PSGPOLdapValue $entry 'whenChanged')
+        $gpo.MachineExtensionNames = Get-PSGPOLdapValue $entry 'gPCMachineExtensionNames'
+        $gpo.UserExtensionNames = Get-PSGPOLdapValue $entry 'gPCUserExtensionNames'
         [void]$directory.AddExistingGpo($gpo)
     }
 

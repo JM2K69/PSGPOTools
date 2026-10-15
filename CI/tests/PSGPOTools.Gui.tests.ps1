@@ -528,6 +528,80 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
+        It 'Shows the backups of a GPO as a timeline, what changed at each one, and backs it up' {
+            $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
+            $Root = Join-Path $TestDrive "history-$([guid]::NewGuid())"
+            $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
+            Set-PSGPOUserSetting -Values @{ BackupPath = $Root }
+            try {
+                $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+                $null = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName
+                Start-Sleep -Milliseconds 1100
+                $Pol = [GPOToolsRegistryPol]::new()
+                Set-PSGPOPolicyState -Policy ([GPOToolsUtility]::Policies | Where-Object ID -EQ 'Biometrics_EnableBio' | Select-Object -First 1) -Pol $Pol -State Enabled
+                $Directory.WritePolicyFile($Gpo, 'Machine', $Pol.ToBytes())
+                $null = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName
+                # Not backed up yet: the current state.
+                $Directory.SetGpoStatus($Gpo, 0)
+
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'C - Servers - Security Baseline'
+                    $Ui.historyTab.IsVisible | Should -BeTrue
+                    $Ui.directoryTabs.SelectedItem = $Ui.historyTab
+                    $Ui.historyPathTextBox.Text | Should -Be $Root
+
+                    # Oldest first, the current state last; the newest node selected.
+                    $Nodes = @($Ui.historyTimelineList.ItemsSource)
+                    @($Nodes.Summary) | Should -Be @('first backup', '+1  ~0  -0', '+0  ~1  -0, not backed up')
+                    $Nodes[2].IsCurrent | Should -BeTrue
+                    $Ui.historyTimelineList.SelectedIndex | Should -Be 2
+                    $Ui.historyStatusTextBlock.Text | Should -BeLike '2 backups in*The GPO changed since the last one (Now).'
+                    $Ui.historyCompareTextBlock.Text | Should -BeLike 'Changes since the backup of*not backed up yet'
+                    $Row = @($Ui.historyChangesList.ItemsSource)[0]
+                    "$($Row.Change) | $($Row.Location) | $($Row.Name) | $($Row.Before) | $($Row.After)" |
+                        Should -Be 'Changed | GPO > Properties | GPO status | User configuration settings disabled | Enabled'
+
+                    $Ui.historyTimelineList.SelectedIndex = 1
+                    $Ui.historyCompareTextBlock.Text | Should -BeLike 'Changes from * to *'
+                    @($Ui.historyChangesList.ItemsSource).Name | Should -Be @('Allow the use of biometrics')
+                    @($Ui.historyChangesList.ItemsSource)[0].ChangeBrush | Should -Be '#107C10'
+                    $Ui.historyTimelineList.SelectedIndex = 0
+                    $Ui.historyCompareTextBlock.Text | Should -BeLike 'First backup, *: the settings of the GPO then'
+
+                    # Back up now: the current state becomes the newest backup.
+                    Invoke-Click $Ui.historyBackupButton
+                    $Ui.historyStatusTextBlock.Text | Should -Be "Backed up in $Root."
+                    @($Ui.historyTimelineList.ItemsSource).Count | Should -Be 3
+                    @($Ui.historyTimelineList.ItemsSource | Where-Object IsCurrent).Count | Should -Be 0
+                    Invoke-Click $Ui.historyBackupButton
+                    $Ui.historyStatusTextBlock.Text | Should -BeLike 'Not backed up again*'
+
+                    # Restore the first backup, once confirmed.
+                    $Ui.historyTimelineList.SelectedIndex = 0
+                    $Ui.historyRestoreButton.IsVisible | Should -BeTrue
+                    Invoke-Click $Ui.historyRestoreButton
+                    $Ui.historyRestorePanel.IsVisible | Should -BeTrue
+                    $Ui.historyRestoreTextBlock.Text | Should -BeLike "Restore the GPO 'C - Servers - Security Baseline' as it was on *backed up first."
+                    Invoke-Click $Ui.historyRestoreCancelButton
+                    $Ui.historyRestorePanel.IsVisible | Should -BeFalse
+                    Invoke-Click $Ui.historyRestoreButton
+                    Invoke-Click $Ui.historyRestoreConfirmButton
+                    $Ui.historyStatusTextBlock.Text | Should -BeLike 'GPO restored as it was on * (version *); its state before was backed up.'
+                    $Ui.Directory.ReadPolicyFile($Gpo, 'Machine') | Should -BeNullOrEmpty -Because 'the first backup had no Registry.pol'
+                    $Gpo.GetStatus() | Should -Be 'User configuration settings disabled'
+                    $Ui.directoryTabs.SelectedItem | Should -Be $Ui.historyTab
+                    # Its state before the restore was backed up: the restore shows as the change of Now.
+                    $Nodes = @($Ui.historyTimelineList.ItemsSource)
+                    $Nodes[-1].IsCurrent | Should -BeTrue
+                    $Ui.historyRestoreButton.IsVisible | Should -BeFalse -Because 'Now is not a backup'
+                }
+                @(Get-PSGPOBackup -Path $Root).Count | Should -Be 3 -Because "the state before the restore was the newest backup already"
+            } finally {
+                $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
+            }
+        }
+
         It 'Deletes a link from the context menu once confirmed, keeping the GPO' {
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {
                 param($Ui)

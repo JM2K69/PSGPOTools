@@ -96,6 +96,20 @@ function Start-PSGPOManagerWindow {
     $applyPanel = Get-PSGPOAvaloniaControl $window 'applyPanel'
     $directoryTabs = Get-PSGPOAvaloniaControl $window 'directoryTabs'
     $settingsTab = Get-PSGPOAvaloniaControl $window 'settingsTab'
+    $historyTab = Get-PSGPOAvaloniaControl $window 'historyTab'
+    $historyPathTextBox = Get-PSGPOAvaloniaControl $window 'historyPathTextBox'
+    $historyBackupButton = Get-PSGPOAvaloniaControl $window 'historyBackupButton'
+    $historyBackupAllButton = Get-PSGPOAvaloniaControl $window 'historyBackupAllButton'
+    $historyStatusTextBlock = Get-PSGPOAvaloniaControl $window 'historyStatusTextBlock'
+    $historyTimelineScrollViewer = Get-PSGPOAvaloniaControl $window 'historyTimelineScrollViewer'
+    $historyTimelineList = Get-PSGPOAvaloniaControl $window 'historyTimelineList'
+    $historyCompareTextBlock = Get-PSGPOAvaloniaControl $window 'historyCompareTextBlock'
+    $historyChangesList = Get-PSGPOAvaloniaControl $window 'historyChangesList'
+    $historyRestoreButton = Get-PSGPOAvaloniaControl $window 'historyRestoreButton'
+    $historyRestorePanel = Get-PSGPOAvaloniaControl $window 'historyRestorePanel'
+    $historyRestoreTextBlock = Get-PSGPOAvaloniaControl $window 'historyRestoreTextBlock'
+    $historyRestoreConfirmButton = Get-PSGPOAvaloniaControl $window 'historyRestoreConfirmButton'
+    $historyRestoreCancelButton = Get-PSGPOAvaloniaControl $window 'historyRestoreCancelButton'
     $settingsStatusTextBlock = Get-PSGPOAvaloniaControl $window 'settingsStatusTextBlock'
     $computerSettingsHeader = Get-PSGPOAvaloniaControl $window 'computerSettingsHeader'
     $computerSettingsList = Get-PSGPOAvaloniaControl $window 'computerSettingsList'
@@ -716,10 +730,217 @@ function Start-PSGPOManagerWindow {
         $computerSettingsList.ItemsSource = $cached.Machine
         $userSettingsList.ItemsSource = $cached.User
     }
+    # --- History tab: the backups of the GPO as a timeline, and what changed at each one ---------
+
+    # Reports of the backups read once (by folder), and of the current state of each GPO (by its
+    # version and last change).
+    $history = @{ Reports = @{}; Current = @{} }
+    $historyPathTextBox.Text = Get-PSGPODefaultBackupPath
+
+    function Get-HistoryRoot {
+        $path = "$($historyPathTextBox.Text)".Trim()
+        if (-not $path) { $path = Get-PSGPODefaultBackupPath; $historyPathTextBox.Text = $path }
+        $path
+    }
+
+    function Set-HistoryStatus {
+        param([string]$Text, [switch]$Problem)
+        $historyStatusTextBlock.Text = $Text
+        if ($Problem) { $historyStatusTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438')) }
+        else { $historyStatusTextBlock.ClearValue([Avalonia.Controls.TextBlock]::ForegroundProperty) }
+    }
+
+    function Format-HistoryDate {
+        param($Date)
+        if ($null -eq $Date) { return 'unknown date' }
+        ([datetime]$Date).ToLocalTime().ToString('g')
+    }
+
+    function Get-ChangeSummary {
+        param([object[]]$Changes)
+        $count = { param($Kind) @($Changes | Where-Object Change -EQ $Kind).Count }
+        if (-not $Changes.Count) { return 'no setting changed' }
+        '+{0}  ~{1}  -{2}' -f (& $count 'Added'), (& $count 'Changed'), (& $count 'Removed')
+    }
+
+    function Update-HistoryTab {
+        $gpo = Get-SelectedGpo
+        $historyTab.IsVisible = [bool]$gpo
+        if (-not $gpo) {
+            if ($directoryTabs.SelectedItem -eq $historyTab) { $directoryTabs.SelectedIndex = 0 }
+            return
+        }
+        if ($directoryTabs.SelectedItem -ne $historyTab) { return }
+
+        $root = Get-HistoryRoot
+        $nodes = [System.Collections.Generic.List[AvaloniaHistoryNode]]::new()
+        $problem = $null
+        try {
+            # Oldest first, as the branch of a git graph.
+            $backups = @(Get-PSGPOBackupEntry -Path $root -Id $gpo.Id)
+            [array]::Reverse($backups)
+            $previous = @()
+            $previousDate = $null
+            foreach ($backup in $backups) {
+                if (-not $history.Reports.ContainsKey($backup.Path)) { $history.Reports[$backup.Path] = @(Get-PSGPOBackupSetting -Backup $backup) }
+                $report = $history.Reports[$backup.Path]
+                $node = [AvaloniaHistoryNode]::new()
+                $node.Backup = $backup
+                $node.Title = Format-HistoryDate $(if ($backup.Modified) { $backup.Modified } else { $backup.BackedUp })
+                $node.Subtitle = "version $($backup.ComputerVersion) / $($backup.UserVersion)"
+                $node.Changes = @(Compare-PSGPOSettingReport -Reference $previous -Difference $report)
+                $node.Summary = if ($nodes.Count) { Get-ChangeSummary $node.Changes } else { 'first backup' }
+                $node.Previous = $previousDate
+                $node.NodeFill = '#0078D4'
+                $node.NodeStroke = '#0078D4'
+                $node.LineBrush = '#8A8886'
+                $nodes.Add($node)
+                $previous = $report
+                $previousDate = $node.Title
+            }
+
+            # The GPO as it is now, when it changed since its last backup.
+            $Directory.RefreshGpo($gpo)
+            $key = "$($gpo.Id)|$($gpo.Version)|$($gpo.Modified)|$($gpo.Flags)"
+            if (-not $history.Current.ContainsKey($key)) {
+                $files = $Directory.ReadGpoFolder($gpo)
+                $history.Current[$key] = @(Get-PSGPOSettingReport -Files $files -Property (Get-PSGPOBackupProperty -Directory $Directory -Gpo $gpo))
+            }
+            $changes = @(Compare-PSGPOSettingReport -Reference $previous -Difference $history.Current[$key])
+            if ($changes.Count -or -not $nodes.Count) {
+                $node = [AvaloniaHistoryNode]::new()
+                $node.IsCurrent = $true
+                $node.Title = 'Now'
+                $node.Subtitle = "version $($gpo.GetComputerVersion()) / $($gpo.GetUserVersion())"
+                $node.Changes = $changes
+                $node.Summary = if ($nodes.Count) { "$(Get-ChangeSummary $changes), not backed up" } else { 'not backed up' }
+                $node.Previous = $previousDate
+                $node.NodeFill = 'Transparent'
+                $node.NodeStroke = '#CA5010'
+                $node.LineBrush = '#8A8886'
+                $nodes.Add($node)
+            }
+        } catch {
+            $problem = "The history cannot be read: $($_.Exception.GetBaseException().Message)"
+        }
+
+        $historyTimelineList.ItemsSource = $nodes
+        $backed = @($nodes | Where-Object { -not $_.IsCurrent }).Count
+        if ($problem) { Set-HistoryStatus $problem -Problem }
+        elseif (-not $backed) { Set-HistoryStatus "No backup of this GPO in $root yet: Back up now keeps its settings as they are." }
+        elseif ($nodes[-1].IsCurrent) { Set-HistoryStatus "$backed backup$(if ($backed -gt 1) { 's' }) in $root. The GPO changed since the last one (Now)." }
+        else { Set-HistoryStatus "$backed backup$(if ($backed -gt 1) { 's' }) in $root. The last one is up to date." }
+        # The newest node, the branch scrolled to it.
+        if ($nodes.Count) { $historyTimelineList.SelectedIndex = $nodes.Count - 1 } else { Show-HistoryChange $null }
+        [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] { $historyTimelineScrollViewer.ScrollToEnd() }, [Avalonia.Threading.DispatcherPriority]::Background)
+    }
+
+    # What changed at the selected node, from the node before it.
+    function Show-HistoryChange {
+        param([AvaloniaHistoryNode]$Node)
+        # A backup can be restored, by an account that may edit the GPO.
+        $gpo = Get-SelectedGpo
+        $historyRestorePanel.IsVisible = $false
+        $historyRestoreButton.IsVisible = $Node -and -not $Node.IsCurrent -and $gpo -and $gpo.CanEdit -and -not $Directory.IsReadOnly
+        if (-not $Node) {
+            $historyCompareTextBlock.Text = ''
+            $historyChangesList.ItemsSource = $null
+            return
+        }
+        $historyCompareTextBlock.Text = if ($Node.IsCurrent -and $Node.Previous) { "Changes since the backup of $($Node.Previous), not backed up yet" }
+            elseif ($Node.IsCurrent) { 'The settings of the GPO now, never backed up' }
+            elseif ($Node.Previous) { "Changes from $($Node.Previous) to $($Node.Title)" }
+            else { "First backup, $($Node.Title): the settings of the GPO then" }
+        if (-not $Node.Changes.Count) { $historyCompareTextBlock.Text += ': no setting changed (the version or the files did)' }
+        $scopes = @{ GPO = 'GPO'; Computer = 'Computer Configuration'; User = 'User Configuration'; Files = 'Files' }
+        $brushes = @{ Added = '#107C10'; Removed = '#D13438'; Changed = '#CA5010' }
+        $historyChangesList.ItemsSource = @(foreach ($change in $Node.Changes) {
+                $row = [AvaloniaChangeRow]::new()
+                $row.Change = $change.Change
+                $row.ChangeBrush = $brushes[$change.Change]
+                $row.Location = "$($scopes[$change.Scope]) > $($change.Path)"
+                $row.Name = $change.Name
+                $row.Before = $change.Before
+                $row.After = $change.After
+                $row.HasBefore = [bool]$change.Before
+                $row.HasAfter = [bool]$change.After
+                $row
+            })
+    }
+
+    # Backs up GPOs in the folder of the history; what was done in the status.
+    function Invoke-HistoryBackup {
+        param([GPOToolsGpo[]]$Gpos)
+        $root = Get-HistoryRoot
+        $counts = @{ Created = 0; Unchanged = 0 }
+        $errors = [System.Collections.Generic.List[string]]::new()
+        try { $null = New-Item -ItemType Directory -Path $root -Force -ErrorAction Stop }
+        catch { Set-HistoryStatus "The folder of the backups cannot be created: $($_.Exception.GetBaseException().Message)" -Problem; return }
+        Set-PSGPOUserSetting -Values @{ BackupPath = $root }
+        foreach ($gpo in $Gpos) {
+            try {
+                $result = Save-PSGPOBackup -Directory $Directory -Gpo $gpo -Path $root
+                $counts[$result.Result]++
+            } catch {
+                $errors.Add("$($gpo.DisplayName): $($_.Exception.GetBaseException().Message)")
+            }
+        }
+        $history.Current = @{}
+        Update-HistoryTab
+        $text = if ($Gpos.Count -eq 1 -and -not $errors.Count) {
+            if ($counts.Created) { "Backed up in $root." } else { 'Not backed up again: the GPO did not change since its last backup.' }
+        } else {
+            "$($counts.Created) GPO(s) backed up, $($counts.Unchanged) unchanged since their last backup, in $root."
+        }
+        if ($errors.Count) { Set-HistoryStatus "$text Not backed up: $($errors -join '; ')" -Problem } else { Set-HistoryStatus $text }
+    }
+
+    # Restore of the selected backup, once confirmed; the GPO as it is now is backed up first.
+    $historyRestoreButton.Add_Click({
+        $node = $historyTimelineList.SelectedItem
+        $gpo = Get-SelectedGpo
+        if (-not $node -or $node.IsCurrent -or -not $gpo) { return }
+        $historyRestoreTextBlock.Text = "Restore the GPO '$($gpo.DisplayName)' as it was on $($node.Title)? Its files, status and client-side extensions are replaced, " +
+            'and its version increases so that the computers apply it again. Its links and security filtering do not change. ' +
+            'The GPO as it is now is backed up first.'
+        $historyRestorePanel.IsVisible = $true
+    })
+    $historyRestoreCancelButton.Add_Click({ $historyRestorePanel.IsVisible = $false })
+    $historyRestoreConfirmButton.Add_Click({
+        $node = $historyTimelineList.SelectedItem
+        $gpo = Get-SelectedGpo
+        $historyRestorePanel.IsVisible = $false
+        if (-not $node -or $node.IsCurrent -or -not $gpo) { return }
+        try {
+            $result = Restore-PSGPO -Backup $node.Backup -Directory $Directory -Confirm:$false
+        } catch {
+            Set-HistoryStatus "The GPO is not restored: $($_.Exception.GetBaseException().Message)" -Problem
+            return
+        }
+        # Its settings, details and history as they are now.
+        $settingsCache.Remove("$($gpo.Id)")
+        $history.Current = @{}
+        Update-DirectoryTree -Select $domainTreeView.SelectedItem.Tag
+        $directoryTabs.SelectedItem = $historyTab
+        Update-HistoryTab
+        Set-HistoryStatus "GPO restored as it was on $($node.Title) (version $($result.Version)); its state before was backed up."
+    })
+    $historyTimelineList.add_SelectionChanged({ Show-HistoryChange $historyTimelineList.SelectedItem })
+    $historyBackupButton.Add_Click({ $gpo = Get-SelectedGpo; if ($gpo) { Invoke-HistoryBackup -Gpos @($gpo) } })
+    $historyBackupAllButton.Add_Click({ Invoke-HistoryBackup -Gpos @($Directory.Gpos | Where-Object { $Directory.IsGpoVisible($_) }) })
+    # Another folder: its backups, remembered for the next time.
+    $historyPathTextBox.add_KeyDown({
+        param($sender, $e)
+        if ($e.Key -eq [Avalonia.Input.Key]::Enter) {
+            Set-PSGPOUserSetting -Values @{ BackupPath = (Get-HistoryRoot) }
+            Update-HistoryTab
+        }
+    })
+
     $directoryTabs.add_SelectionChanged({
         param($sender, $e)
         # Only the selection of a tab, not of a control inside one.
-        if ([object]::ReferenceEquals($e.Source, $directoryTabs)) { Update-SettingsTab }
+        if ([object]::ReferenceEquals($e.Source, $directoryTabs)) { Update-SettingsTab; Update-HistoryTab }
     })
 
     function Get-SelectedGpo {
@@ -754,6 +975,7 @@ function Start-PSGPOManagerWindow {
         $editGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit
         $deleteLinkMenuItem.IsVisible = $item -is [GPOToolsGpoLink] -and -not $Directory.IsReadOnly -and $selected.Parent.Tag.CanLink
         Update-SettingsTab
+        Update-HistoryTab
     })
     # Nothing to offer on this node: do not open an empty menu.
     (Get-PSGPOAvaloniaControl $window 'domainContextMenu').add_Opening({
@@ -827,7 +1049,9 @@ function Start-PSGPOManagerWindow {
             'newGpoMenuItem', 'editGpoMenuItem', 'editGpoButton', 'newGpoPanel', 'newGpoTitleTextBlock', 'newGpoNameTextBox',
             'newGpoErrorTextBlock', 'newGpoCreateButton', 'newGpoCancelButton', 'newGpoStatusComboBox', 'newGpoGroupsCheckBox', 'newGpoGroupsPanel',
             'newGpoGroupsTextBlock', 'newGpoGroupsContainerComboBox', 'directoryResultTextBlock', 'deleteLinkMenuItem', 'deleteLinkPanel',
-            'deleteLinkTextBlock', 'deleteLinkConfirmButton', 'deleteLinkCancelButton') {
+            'deleteLinkTextBlock', 'deleteLinkConfirmButton', 'deleteLinkCancelButton', 'historyTab', 'historyPathTextBox', 'historyBackupButton',
+            'historyBackupAllButton', 'historyStatusTextBlock', 'historyTimelineList', 'historyCompareTextBlock', 'historyChangesList',
+            'historyRestoreButton', 'historyRestorePanel', 'historyRestoreTextBlock', 'historyRestoreConfirmButton', 'historyRestoreCancelButton') {
             $controls[$name] = Get-PSGPOAvaloniaControl $window $name
         }
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {
