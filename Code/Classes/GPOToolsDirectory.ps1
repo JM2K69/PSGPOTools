@@ -305,7 +305,10 @@ class GPOToolsDirectory {
     # DistinguishedName, Sid).
     [object[]] NewFilteringGroups([GPOToolsGpo]$Gpo, [string]$Container) {
         $this.AssertWritable()
-        if ([string]::IsNullOrWhiteSpace($Container)) { $Container = $this.GetUsersContainer() }
+        # By default where the configuration says, else the users container.
+        if ([string]::IsNullOrWhiteSpace($Container)) {
+            $Container = Resolve-PSGPOGroupContainer -Directory $this -Container (Get-PSGPOConfigurationData).NewGpo.SecurityFilteringGroups.Container
+        }
         $Created = $this.SaveFilteringGroups($Gpo, $Container)
         $Gpo.SecurityFiltering = @($Created[0].Name)
         $Gpo.DeniedTo = @($Created[1].Name)
@@ -455,8 +458,8 @@ class GPOToolsDirectory {
     # Groups created in memory, by distinguished name.
     hidden [hashtable]$Groups = @{}
     hidden [object[]] SaveFilteringGroups([GPOToolsGpo]$Gpo, [string]$Container) {
-        $Created = foreach ($Prefix in 'APPLY', 'DENY') {
-            $Name = Get-PSGPOFilteringGroupName -Prefix $Prefix -GpoName $Gpo.DisplayName
+        $Created = foreach ($Role in 'Apply', 'Deny') {
+            $Name = Get-PSGPOFilteringGroupName -Role $Role -GpoName $Gpo.DisplayName
             $DistinguishedName = 'CN={0},{1}' -f ($Name -replace '([,\\#+<>;"=])', '\$1'), $Container
             if ($this.Groups.ContainsKey($DistinguishedName)) { throw "The group $DistinguishedName already exists." }
             [pscustomobject]@{ Name = $Name; DistinguishedName = $DistinguishedName; Sid = $null }
@@ -503,7 +506,8 @@ class GPOToolsDirectory {
 }
 
 # Directory read from a domain over LDAP (Get-PSGPODirectory); its changes are written to the
-# domain: GPOs created with samba-tool, links written over LDAP.
+# domain: GPOs created with New-GPO of RSAT (Windows) or samba-tool (Linux), links written over
+# LDAP.
 class GPOToolsLdapDirectory : GPOToolsDirectory {
     # Domain controller the directory was read from, and that the changes go to
     [string]$Server

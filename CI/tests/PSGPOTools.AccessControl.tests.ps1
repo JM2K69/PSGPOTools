@@ -119,10 +119,10 @@ InModuleScope -ModuleName PSGPOTools {
         }
 
         It 'Names the groups after the GPO, without the characters a group name cannot hold' {
-            Get-PSGPOFilteringGroupName -Prefix APPLY -GpoName 'C - Servers - Security Baseline' | Should -Be 'APPLY_C - Servers - Security Baseline'
-            Get-PSGPOFilteringGroupName -Prefix DENY -GpoName ' Proxy: http/https [v2]* ' | Should -Be 'DENY_Proxy_ http_https _v2__'
-            Get-PSGPOFilteringGroupName -Prefix DENY -GpoName 'Ends with dots...' | Should -Be 'DENY_Ends with dots'
-            { Get-PSGPOFilteringGroupName -Prefix APPLY -GpoName ('x' * 60) } | Should -Throw -ExpectedMessage '*longer than 64 characters*'
+            Get-PSGPOFilteringGroupName -Role Apply -GpoName 'C - Servers - Security Baseline' | Should -Be 'APPLY_C - Servers - Security Baseline'
+            Get-PSGPOFilteringGroupName -Role Deny -GpoName ' Proxy: http/https [v2]* ' | Should -Be 'DENY_Proxy_ http_https _v2__'
+            Get-PSGPOFilteringGroupName -Role Deny -GpoName 'Ends with dots...' | Should -Be 'DENY_Ends with dots'
+            { Get-PSGPOFilteringGroupName -Role Apply -GpoName ('x' * 60) } | Should -Throw -ExpectedMessage '*longer than 64 characters*'
         }
     }
 

@@ -1,10 +1,11 @@
 <#
     Changes written to the domain of a GPOToolsLdapDirectory (its hidden Save* methods).
 
-    - GPO creation: samba-tool gpo create, against the domain controller of the directory. It
-      creates the group policy container and its User/Machine containers in the directory, and
-      the GPO folder in SYSVOL over SMB with the permissions of the GPO, as GPMC does. It works
-      against Samba and Windows domain controllers; it needs samba-tool on this computer.
+    - GPO creation, against the domain controller of the directory: on Windows New-GPO of the
+      Group Policy Management tools of RSAT (the GroupPolicy module), on Linux samba-tool gpo
+      create. Both create the group policy container and its User/Machine containers in the
+      directory, and the GPO folder in SYSVOL with the permissions of the GPO, as GPMC does,
+      against Samba and Windows domain controllers.
     - GPO link: the gPLink of the domain or the OU, written over LDAP. The old value is removed
       and the new one added in one modify request: when someone changed the links meanwhile,
       the server refuses it instead of losing their change.
@@ -39,6 +40,31 @@ function Invoke-PSGPOSambaTool {
         throw "samba-tool $($ArgumentList[0..1] -join ' ') failed ($($result.ExitCode)): $message"
     }
     $result.Output
+}
+
+# Creates a GPO from Windows with New-GPO (GroupPolicy module of RSAT, loaded in PowerShell 7
+# through its Windows PowerShell compatibility), on the domain controller of the directory;
+# returns its GUID.
+function New-PSGPOWindowsGpo {
+    [CmdletBinding()]
+    [OutputType([guid])]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [string]$Name
+    )
+
+    # -SkipEditionCheck: PowerShell 7 hides the Windows PowerShell modules not marked for Core
+    # (GroupPolicy is one); Import-Module loads them through the Windows PowerShell compatibility.
+    if (-not (Get-Module -ListAvailable -SkipEditionCheck -Name GroupPolicy)) {
+        throw "Creating a GPO from Windows needs the Group Policy Management tools of RSAT (the GroupPolicy module): Add-WindowsCapability -Online -Name 'Rsat.GroupPolicy.Management.Tools~~~~0.0.1.0' on Windows 10/11, or Install-WindowsFeature GPMC on Windows Server."
+    }
+    Import-Module -Name GroupPolicy -ErrorAction Stop -WarningAction SilentlyContinue -Verbose:$false
+    try {
+        $created = New-GPO -Name $Name -Domain $Directory.DomainName -Server $Directory.Server -ErrorAction Stop
+    } catch {
+        throw "New-GPO failed on $($Directory.Server): $($_.Exception.Message)"
+    }
+    [guid]"$($created.Id)"
 }
 
 # GUID of the GPO in the output of samba-tool gpo create: "GPO 'name' created as {GUID}".
@@ -78,10 +104,13 @@ function New-PSGPODomainGpo {
     )
 
     if ($Directory.Credential) {
-        throw "Creating a GPO uses Kerberos: run kinit $($Directory.Credential.UserName), then read the domain without -Credential."
+        throw "Creating a GPO uses the identity of the session (Kerberos): $(if ($IsWindows) { 'read the domain' } else { "run kinit $($Directory.Credential.UserName), then read the domain" }) without -Credential."
     }
-    $output = Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'create', $Gpo.DisplayName, '-H', "ldap://$($Directory.Server)", '--use-kerberos=required'
-    $id = ConvertFrom-PSGPOSambaToolGpoCreate -Output $output
+    $id = if ($IsWindows) {
+        New-PSGPOWindowsGpo -Directory $Directory -Name $Gpo.DisplayName
+    } else {
+        ConvertFrom-PSGPOSambaToolGpoCreate -Output (Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'create', $Gpo.DisplayName, '-H', "ldap://$($Directory.Server)", '--use-kerberos=required')
+    }
 
     # The GPO as the domain stored it.
     $distinguishedName = 'CN={{{0}}},CN=Policies,CN=System,{1}' -f $id.ToString().ToUpperInvariant(), $Directory.Domain.DistinguishedName

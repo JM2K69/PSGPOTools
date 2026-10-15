@@ -32,6 +32,7 @@ function Start-PSGPOManagerWindow {
 
     $treeView = Get-PSGPOAvaloniaControl $window 'treeView'
     $themeToggleButton = Get-PSGPOAvaloniaControl $window 'themeToggleButton'
+    $configurationButton = Get-PSGPOAvaloniaControl $window 'configurationButton'
     $breadcrumbTextBlock = Get-PSGPOAvaloniaControl $window 'breadcrumbTextBlock'
     $searchTextBox = Get-PSGPOAvaloniaControl $window 'searchTextBox'
     $searchButton = Get-PSGPOAvaloniaControl $window 'searchButton'
@@ -801,24 +802,30 @@ function Start-PSGPOManagerWindow {
     }
 
     # New GPO form: linked to $Som, or only created in the domain when $Som is $null.
-    $newGpo = @{ Som = $null }
+    $newGpo = @{ Som = $null; Groups = $null }
     function Open-NewGpoForm {
         param([GPOToolsSom]$Som)
         $newGpo.Som = $Som
         $newGpoTitleTextBlock.Text = if ($Som) { "New GPO in $($Directory.DomainName), linked to $($Som.Name)" } else { "New GPO in $($Directory.DomainName)" }
-        $newGpoNameTextBox.Text = 'New Group Policy Object'
+        # What the configuration proposes (Get-PSGPOConfiguration): name, status, groups.
+        $configuration = (Get-PSGPOConfigurationData).NewGpo
+        $newGpo.Groups = $configuration.SecurityFilteringGroups
+        $newGpoNameTextBox.Text = $configuration.DefaultName
         $newGpoErrorTextBlock.Text = ''
         $directoryResultTextBlock.Text = ''
-        $newGpoStatusComboBox.SelectedIndex = 0
-        $newGpoGroupsCheckBox.IsChecked = $false
-        # The groups go to the users container by default, or to an OU.
+        $newGpoStatusComboBox.SelectedIndex = [array]::IndexOf(@('Enabled', 'ComputerOnly', 'UserOnly'), $configuration.Status)
+        $newGpoGroupsCheckBox.IsChecked = [bool]$newGpo.Groups.Create
+        $newGpoGroupsPanel.IsVisible = [bool]$newGpo.Groups.Create
+        # The groups go to the container of the configuration, else the users container, or to an OU.
+        $configured = Resolve-PSGPOGroupContainer -Directory $Directory -Container $newGpo.Groups.Container
         $containers = [System.Collections.Generic.List[string]]::new()
-        $containers.Add($Directory.GetUsersContainer())
+        $containers.Add($configured)
+        if ($configured -ne $Directory.GetUsersContainer()) { $containers.Add($Directory.GetUsersContainer()) }
         $stack = [System.Collections.Generic.Stack[GPOToolsSom]]::new()
         foreach ($child in @($Directory.Domain.Children | Sort-Object Name -Descending)) { $stack.Push($child) }
         while ($stack.Count) {
             $som = $stack.Pop()
-            $containers.Add($som.DistinguishedName)
+            if ($som.DistinguishedName -ne $configured) { $containers.Add($som.DistinguishedName) }
             foreach ($child in @($som.Children | Sort-Object Name -Descending)) { $stack.Push($child) }
         }
         $newGpoGroupsContainerComboBox.ItemsSource = $containers
@@ -832,8 +839,9 @@ function Start-PSGPOManagerWindow {
     # What the security filtering groups of the new GPO will be.
     function Update-NewGpoGroupText {
         try {
-            $apply = Get-PSGPOFilteringGroupName -Prefix APPLY -GpoName $newGpoNameTextBox.Text
-            $deny = Get-PSGPOFilteringGroupName -Prefix DENY -GpoName $newGpoNameTextBox.Text
+            $settings = if ($newGpo.Groups) { $newGpo.Groups } else { (Get-PSGPOConfigurationData).NewGpo.SecurityFilteringGroups }
+            $apply = Get-PSGPOFilteringGroupName -Role Apply -GpoName $newGpoNameTextBox.Text -Settings $settings
+            $deny = Get-PSGPOFilteringGroupName -Role Deny -GpoName $newGpoNameTextBox.Text -Settings $settings
             $newGpoGroupsTextBlock.Text = "$apply`: only its members apply the GPO (add the computers or users to it). $deny`: its members never apply it. Authenticated Users keep reading the GPO."
         } catch {
             $newGpoGroupsTextBlock.Text = $_.Exception.Message
@@ -1258,6 +1266,14 @@ function Start-PSGPOManagerWindow {
         elseif ($e.Key -eq [Avalonia.Input.Key]::Escape) { $newGpoPanel.IsVisible = $false }
     })
     $managementButton.Add_Click({ Show-View 'Management' })
+    # The configuration window (New-PSGPOConfigurationWindow), one at a time, owned by the console.
+    $configurationWindow = @{ Ui = $null }
+    $configurationButton.Add_Click({
+        if ($configurationWindow.Ui -and $configurationWindow.Ui.Window.IsVisible) { $configurationWindow.Ui.Window.Activate(); return }
+        $configurationWindow.Ui = New-PSGPOConfigurationWindow
+        $configurationWindow.Ui.Window.RequestedThemeVariant = $window.RequestedThemeVariant
+        $configurationWindow.Ui.Window.Show($window)
+    })
     $browseAdmxButton.Add_Click({ Open-GpoEditor -Gpo $null })
 
     $directoryHint = if ($Directory.IsReadOnly) { "Read-only: $($Directory.Source)" } else { 'Right-click a domain or an OU to create a GPO' }
@@ -1290,7 +1306,7 @@ function Start-PSGPOManagerWindow {
     # A hashtable, because assigning a variable inside the posted action would only set a child-scope copy.
     $onShownState = @{ Error = $null }
     if ($OnShown) {
-        $controls = @{ Window = $window; Editing = $editing; Clipboard = $clipboard; Directory = $Directory }
+        $controls = @{ Window = $window; Editing = $editing; Clipboard = $clipboard; Directory = $Directory; Configuration = $configurationWindow }
         foreach ($name in 'treeView', 'themeToggleButton', 'breadcrumbTextBlock', 'searchTextBox', 'searchButton', 'configuredOnlyCheckBox',
             'displayNameTextBox', 'descriptionTextBox', 'scopeTextBox', 'registryPathTextBox',
             'registryKeyTextBox', 'registryValuesList', 'settingTitleTextBlock', 'previewEmptyTextBlock', 'detailsTabs', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
@@ -1304,7 +1320,7 @@ function Start-PSGPOManagerWindow {
             'deleteLinkTextBlock', 'deleteLinkConfirmButton', 'deleteLinkCancelButton', 'historyTab', 'historyPathTextBox', 'historyBackupButton',
             'historyBackupAllButton', 'historyStatusTextBlock', 'historyTimelineList', 'historyCompareTextBlock', 'historyChangesList',
             'historyRestoreButton', 'historyRestorePanel', 'historyRestoreTextBlock', 'historyRestoreConfirmButton', 'historyRestoreCancelButton',
-            'detailsTitleTextBlock', 'preferencesPanel', 'preferencesTitleTextBlock', 'preferencesInfoTextBlock', 'preferencesNewTypeComboBox',
+            'detailsTitleTextBlock', 'configurationButton', 'preferencesPanel', 'preferencesTitleTextBlock', 'preferencesInfoTextBlock', 'preferencesNewTypeComboBox',
             'preferencesNewButton', 'preferencesEditButton', 'preferencesDeleteButton', 'preferencesUpButton', 'preferencesDownButton',
             'preferencesStatusTextBlock', 'preferencesEmptyTextBlock', 'preferencesList', 'preferencesDeletePanel', 'preferencesDeleteTextBlock',
             'preferencesDeleteConfirmButton', 'preferencesDeleteCancelButton', 'preferencesFormBorder', 'preferencesFormTitleTextBlock',

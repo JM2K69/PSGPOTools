@@ -398,6 +398,47 @@ InModuleScope -ModuleName PSGPOTools {
         }
     }
 
+    Describe 'GPO creation from Windows (RSAT)' {
+        BeforeAll {
+            # New-GPO exists only where RSAT is installed: a stand-in to mock.
+            if (-not (Get-Command New-GPO -ErrorAction SilentlyContinue)) { function script:New-GPO { param($Name, $Domain, $Server) } }
+            $Directory = [GPOToolsLdapDirectory]::new('powershell.labo', 'DC=powershell,DC=labo', 'ADDS.powershell.labo', 'Active Directory')
+        }
+
+        It 'Creates the GPO with New-GPO on the domain controller of the directory' {
+            Mock Get-Module -ParameterFilter { $ListAvailable -and $SkipEditionCheck -and $Name -eq 'GroupPolicy' } { [pscustomobject]@{ Name = 'GroupPolicy' } }
+            Mock Import-Module -ParameterFilter { $Name -eq 'GroupPolicy' } { }
+            Mock New-GPO { [pscustomobject]@{ Id = [guid]'11111111-2222-3333-4444-555555555555'; DisplayName = $Name } }
+            New-PSGPOWindowsGpo -Directory $Directory -Name 'Test' | Should -Be ([guid]'11111111-2222-3333-4444-555555555555')
+            Should -Invoke New-GPO -Times 1 -Exactly -ParameterFilter { $Name -eq 'Test' -and $Domain -eq 'powershell.labo' -and $Server -eq 'ADDS.powershell.labo' }
+        }
+
+        It 'Says how to install the Group Policy Management tools when they are missing' {
+            Mock Get-Module -ParameterFilter { $ListAvailable -and $SkipEditionCheck -and $Name -eq 'GroupPolicy' } { }
+            { New-PSGPOWindowsGpo -Directory $Directory -Name 'Test' } | Should -Throw -ExpectedMessage "*Rsat.GroupPolicy.Management.Tools~~~~0.0.1.0*Install-WindowsFeature GPMC*"
+        }
+
+        It 'Says why New-GPO failed' {
+            Mock Get-Module -ParameterFilter { $ListAvailable -and $SkipEditionCheck -and $Name -eq 'GroupPolicy' } { [pscustomobject]@{ Name = 'GroupPolicy' } }
+            Mock Import-Module -ParameterFilter { $Name -eq 'GroupPolicy' } { }
+            Mock New-GPO { throw 'Access is denied.' }
+            { New-PSGPOWindowsGpo -Directory $Directory -Name 'Test' } | Should -Throw -ExpectedMessage 'New-GPO failed on ADDS.powershell.labo: Access is denied.'
+        }
+
+        It 'Gives Windows the ACL of the SYSVOL folder without the ACEs of the extended rights' -Skip:(-not $IsWindows) {
+            $Descriptor = [GPOToolsSecurityDescriptor]::new()
+            $Descriptor.Control = [GPOToolsSecurityDescriptor]::DaclProtected
+            $Descriptor.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
+            $Descriptor.SetSecurityFiltering('S-1-5-21-1-2-3-1103', 'S-1-5-21-1-2-3-1104')
+            $Files = [GPOToolsSecurityDescriptor]::Parse($Descriptor.ConvertToFileSystem().ToBytes())
+            $Files.Dacl.RemoveAll([Predicate[GPOToolsAce]] { param($Ace) $Ace.IsObjectAce() }) | Out-Null
+            $Security = [System.Security.AccessControl.DirectorySecurity]::new()
+            $Security.SetSecurityDescriptorSddlForm($Files.ToSddl(), [System.Security.AccessControl.AccessControlSections]::Access)
+            $Security.AreAccessRulesProtected | Should -BeTrue
+            @($Security.GetAccessRules($true, $false, [System.Security.Principal.SecurityIdentifier]).IdentityReference.Value) | Should -Be @('S-1-5-21-1-2-3-1103')
+        }
+    }
+
     Describe 'samba-tool' {
         It 'Reads the GUID of the new GPO in the output of gpo create' {
             ConvertFrom-PSGPOSambaToolGpoCreate -Output @('Using temporary directory /tmp/x', "GPO 'Test' created as {8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99}") |
@@ -413,7 +454,7 @@ InModuleScope -ModuleName PSGPOTools {
         It 'Refuses to give a password to samba-tool: the changes use Kerberos' {
             $Directory = New-TestLdapDirectory
             $Directory.Credential = [pscredential]::new('administrator', (ConvertTo-SecureString 'not-used' -AsPlainText -Force))
-            { New-PSGPODomainGpo -Directory $Directory -Gpo ([GPOToolsGpo]@{ DisplayName = 'X' }) } | Should -Throw -ExpectedMessage '*uses Kerberos: run kinit administrator*'
+            { New-PSGPODomainGpo -Directory $Directory -Gpo ([GPOToolsGpo]@{ DisplayName = 'X' }) } | Should -Throw -ExpectedMessage '*uses the identity of the session (Kerberos)*without -Credential*'
         }
     }
 

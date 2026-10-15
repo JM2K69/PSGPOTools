@@ -8,8 +8,9 @@ function Get-PSGPODirectory {
         (gPOptions), and the group policy containers (GPOs). Works with Windows and Samba domain
         controllers, from Windows and Linux, through System.DirectoryServices.Protocols.
 
-        Its changes are written to the domain: NewGpo creates a GPO with samba-tool (Linux,
-        Kerberos), NewLink links a GPO to the domain or an OU over LDAP. Pass it to
+        Its changes are written to the domain: NewGpo creates a GPO with New-GPO of RSAT on
+        Windows (the GroupPolicy module), with samba-tool on Linux (Kerberos), NewLink links a GPO
+        to the domain or an OU over LDAP. Pass it to
         Show-GPOManagerAvalonia -Directory to manage it in the window.
 
         Authentication:

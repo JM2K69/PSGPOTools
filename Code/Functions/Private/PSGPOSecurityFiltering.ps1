@@ -11,17 +11,19 @@
       samba-tool and GPMC do, so that samba-tool gpo aclcheck still finds them consistent.
 #>
 
-# Name of a security filtering group: <Prefix>_<GPO name>, the characters a group name cannot
-# hold replaced by _.
+# Name of a security filtering group: the prefix of its role in the configuration (APPLY_,
+# DENY_ by default), then the name of the GPO, the characters a group name cannot hold replaced by _.
 function Get-PSGPOFilteringGroupName {
     [CmdletBinding()]
     [OutputType([string])]
     param(
-        [Parameter(Mandatory)] [ValidateSet('APPLY', 'DENY')] [string]$Prefix,
-        [Parameter(Mandatory)] [string]$GpoName
+        [Parameter(Mandatory)] [ValidateSet('Apply', 'Deny')] [string]$Role,
+        [Parameter(Mandatory)] [string]$GpoName,
+        # The SecurityFilteringGroups table of the configuration
+        [hashtable]$Settings = (Get-PSGPOConfigurationData).NewGpo.SecurityFilteringGroups
     )
 
-    $name = '{0}_{1}' -f $Prefix, ("$GpoName".Trim() -replace '["/\\\[\]:;|=,+*?<>@]', '_')
+    $name = '{0}{1}' -f $Settings["${Role}Prefix"], ("$GpoName".Trim() -replace '["/\\\[\]:;|=,+*?<>@]', '_')
     $name = $name.TrimEnd('.', ' ')
     # cn of a group: 64 characters at most.
     if ($name.Length -gt 64) { throw "The group name '$name' is longer than 64 characters: give the GPO a shorter name." }
@@ -73,7 +75,9 @@ function New-PSGPODomainGroup {
         [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
         [Parameter(Mandatory)] [string]$Name,
         [Parameter(Mandatory)] [string]$Container,
-        [string]$Description
+        [string]$Description,
+        # Scope of the security group
+        [ValidateSet('Global', 'DomainLocal', 'Universal')] [string]$Scope = 'Global'
     )
 
     $distinguishedName = 'CN={0},{1}' -f ($Name -replace '([,\\#+<>;"=])', '\$1'), $Container
@@ -82,8 +86,10 @@ function New-PSGPODomainGroup {
         $request = [System.DirectoryServices.Protocols.AddRequest]::new($distinguishedName)
         [void]$request.Attributes.Add([System.DirectoryServices.Protocols.DirectoryAttribute]::new('objectClass', 'group'))
         [void]$request.Attributes.Add([System.DirectoryServices.Protocols.DirectoryAttribute]::new('sAMAccountName', $Name))
-        # Global security group (GROUP_TYPE_ACCOUNT_GROUP | GROUP_TYPE_SECURITY_ENABLED).
-        [void]$request.Attributes.Add([System.DirectoryServices.Protocols.DirectoryAttribute]::new('groupType', '-2147483646'))
+        # A security group (GROUP_TYPE_SECURITY_ENABLED 0x80000000) of its scope ([MS-ADTS] 2.2.13):
+        # global 0x2, domain local 0x4, universal 0x8.
+        $groupType = @{ Global = -2147483646; DomainLocal = -2147483644; Universal = -2147483640 }[$Scope]
+        [void]$request.Attributes.Add([System.DirectoryServices.Protocols.DirectoryAttribute]::new('groupType', "$groupType"))
         if ($Description) { [void]$request.Attributes.Add([System.DirectoryServices.Protocols.DirectoryAttribute]::new('description', $Description)) }
         try {
             [void]$connection.SendRequest($request)
@@ -192,7 +198,24 @@ function Set-PSGPOSysvolAcl {
         [Parameter(Mandatory)] [GPOToolsSecurityDescriptor]$Descriptor
     )
 
-    if ($IsWindows) { throw 'Setting the SYSVOL permissions of a GPO from Windows is not available yet: use a Linux computer with samba-tool.' }
+    if ($IsWindows) {
+        # Windows: the folder by its UNC path, with the access control of .NET; the ACEs of the
+        # extended rights (Apply Group Policy) are left out, as GPMC does: they mean nothing to a
+        # file. Windows propagates the inheritable ACEs to the files and folders of the GPO.
+        $location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
+        $files = [GPOToolsSecurityDescriptor]::Parse($Descriptor.ToBytes())
+        $files.Dacl.RemoveAll([Predicate[GPOToolsAce]] { param($Ace) $Ace.IsObjectAce() }) | Out-Null
+        $folder = [System.IO.DirectoryInfo]::new("\\$($Directory.Server)\$($location.Share)\$($location.Path)")
+        if (-not $folder.Exists) { throw "The folder of the GPO '$($Gpo.DisplayName)' is not in SYSVOL: $($folder.FullName)" }
+        $security = [System.Security.AccessControl.DirectorySecurity]::new()
+        $security.SetSecurityDescriptorSddlForm($files.ToSddl(), [System.Security.AccessControl.AccessControlSections]::Access)
+        try {
+            [System.IO.FileSystemAclExtensions]::SetAccessControl($folder, $security)
+        } catch {
+            throw "The SYSVOL permissions of the GPO '$($Gpo.DisplayName)' cannot be set: $($_.Exception.Message)"
+        }
+        return
+    }
     Assert-PSGPOKerberosOnly -Directory $Directory
     $python = Get-Command -Name 'python3' -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
     if (-not $python) { throw 'Setting the SYSVOL permissions needs python3 and the Samba Python bindings (Debian/Ubuntu: apt install python3-samba).' }
@@ -241,10 +264,12 @@ function New-PSGPODomainFilteringGroup {
         [Parameter(Mandatory)] [string]$Container
     )
 
-    $applyName = Get-PSGPOFilteringGroupName -Prefix APPLY -GpoName $Gpo.DisplayName
-    $denyName = Get-PSGPOFilteringGroupName -Prefix DENY -GpoName $Gpo.DisplayName
-    $apply = New-PSGPODomainGroup -Directory $Directory -Name $applyName -Container $Container -Description "Members apply the GPO $($Gpo.DisplayName)"
-    $deny = New-PSGPODomainGroup -Directory $Directory -Name $denyName -Container $Container -Description "Members do not apply the GPO $($Gpo.DisplayName)"
+    # Names, scope and descriptions from the configuration.
+    $settings = (Get-PSGPOConfigurationData).NewGpo.SecurityFilteringGroups
+    $applyName = Get-PSGPOFilteringGroupName -Role Apply -GpoName $Gpo.DisplayName -Settings $settings
+    $denyName = Get-PSGPOFilteringGroupName -Role Deny -GpoName $Gpo.DisplayName -Settings $settings
+    $apply = New-PSGPODomainGroup -Directory $Directory -Name $applyName -Container $Container -Scope $settings.Scope -Description ($settings.ApplyDescription -f $Gpo.DisplayName)
+    $deny = New-PSGPODomainGroup -Directory $Directory -Name $denyName -Container $Container -Scope $settings.Scope -Description ($settings.DenyDescription -f $Gpo.DisplayName)
     Set-PSGPODomainSecurityFiltering -Directory $Directory -Gpo $Gpo -ApplySid $apply.Sid -DenySid $deny.Sid
     $apply, $deny
 }

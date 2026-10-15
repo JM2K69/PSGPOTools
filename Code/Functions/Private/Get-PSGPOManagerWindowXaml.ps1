@@ -101,6 +101,12 @@ $iconResources
                             <TextBlock Text='Browse the ADMX policies' VerticalAlignment='Center'/>
                         </StackPanel>
                     </Button>
+                    <Button Name='configurationButton' Height='36' ToolTip.Tip='Configuration of PSGPOTools (Configuration.psd1)'>
+                        <StackPanel Orientation='Horizontal' Spacing='8'>
+                            <PathIcon Data='{StaticResource Icon.settings}'/>
+                            <TextBlock Text='Settings' VerticalAlignment='Center'/>
+                        </StackPanel>
+                    </Button>
                     <Button Name='themeToggleButton' Height='36' Width='140'>
                         <StackPanel Orientation='Horizontal' Spacing='8'>
                             <PathIcon Name='themeToggleIcon' Data='{StaticResource Icon.weather-moon}'/>
