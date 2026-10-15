@@ -32,11 +32,12 @@ function Initialize-PSGPOAvaloniaRuntime {
     }
 
     $rid = Get-PSGPOAvaloniaRid
-    # Separate segments: the path is also given to .NET (LoadFrom), which does not accept '\' on Linux/macOS.
-    $avaloniaPath = Join-Path -Path $PSScriptRoot -ChildPath 'Avalonia' -AdditionalChildPath 'bin', $rid
-
-    if (-not (Test-Path -Path $avaloniaPath)) {
-        throw "Avalonia runtime assemblies not found for '$rid' in '$avaloniaPath'. Run '$(Join-Path $PSScriptRoot 'Avalonia' 'Get-AvaloniaBinaries.ps1')' -Rid $rid first."
+    # The module or the data folder of the user; installed from nuget.org on first use.
+    $avaloniaPath = Get-PSGPOAvaloniaPath -Rid $rid
+    if (-not $avaloniaPath) {
+        Write-Host "PSGPOTools: the Avalonia runtime of the window ($rid) is not installed; installing it once from nuget.org (checked packages)..."
+        $avaloniaPath = Install-PSGPOAvaloniaRuntime -Rid $rid
+        Write-Host "PSGPOTools: Avalonia runtime installed in $avaloniaPath."
     }
 
     # Common managed assemblies, plus the platform-specific windowing backend.
