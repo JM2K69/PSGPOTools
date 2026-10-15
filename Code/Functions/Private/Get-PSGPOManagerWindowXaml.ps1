@@ -191,6 +191,9 @@ $iconResources
                                 <MenuItem Name='createLinkedGpoMenuItem' Header='Create a GPO in this domain, and Link it here...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.add}'/></MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Name='linkGpoMenuItem' Header='Link an Existing GPO...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.link}'/></MenuItem.Icon>
+                                </MenuItem>
                                 <MenuItem Name='newGpoMenuItem' Header='New GPO...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.add}'/></MenuItem.Icon>
                                 </MenuItem>
@@ -273,6 +276,29 @@ $iconResources
                                             <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
                                                 <Button Name='deleteLinkConfirmButton' Content='Delete link' Width='120'/>
                                                 <Button Name='deleteLinkCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Link of an existing GPO of the domain to the selected domain or OU, as GPMC -->
+                                    <Border Name='linkGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='linkGpoTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap'
+                                                       Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBox Name='linkGpoFilterTextBox' Watermark='Search a GPO'/>
+                                            <ListBox Name='linkGpoList' MaxHeight='240' SelectionMode='Single'>
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text='{Binding DisplayName}' TextTrimming='CharacterEllipsis'/>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                            <TextBlock Name='linkGpoErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='linkGpoConfirmButton' Content='Link' Width='100' IsEnabled='False'/>
+                                                <Button Name='linkGpoCancelButton' Content='Cancel' Width='100'/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>

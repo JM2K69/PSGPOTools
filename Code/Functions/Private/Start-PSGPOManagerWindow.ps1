@@ -93,6 +93,14 @@ function Start-PSGPOManagerWindow {
     $deleteLinkTextBlock = Get-PSGPOAvaloniaControl $window 'deleteLinkTextBlock'
     $deleteLinkConfirmButton = Get-PSGPOAvaloniaControl $window 'deleteLinkConfirmButton'
     $deleteLinkCancelButton = Get-PSGPOAvaloniaControl $window 'deleteLinkCancelButton'
+    $linkGpoMenuItem = Get-PSGPOAvaloniaControl $window 'linkGpoMenuItem'
+    $linkGpoPanel = Get-PSGPOAvaloniaControl $window 'linkGpoPanel'
+    $linkGpoTitleTextBlock = Get-PSGPOAvaloniaControl $window 'linkGpoTitleTextBlock'
+    $linkGpoFilterTextBox = Get-PSGPOAvaloniaControl $window 'linkGpoFilterTextBox'
+    $linkGpoList = Get-PSGPOAvaloniaControl $window 'linkGpoList'
+    $linkGpoErrorTextBlock = Get-PSGPOAvaloniaControl $window 'linkGpoErrorTextBlock'
+    $linkGpoConfirmButton = Get-PSGPOAvaloniaControl $window 'linkGpoConfirmButton'
+    $linkGpoCancelButton = Get-PSGPOAvaloniaControl $window 'linkGpoCancelButton'
 
     $applyPanel = Get-PSGPOAvaloniaControl $window 'applyPanel'
     $directoryTabs = Get-PSGPOAvaloniaControl $window 'directoryTabs'
@@ -813,6 +821,8 @@ function Start-PSGPOManagerWindow {
         $newGpoNameTextBox.Text = $configuration.DefaultName
         $newGpoErrorTextBlock.Text = ''
         $directoryResultTextBlock.Text = ''
+        $deleteLinkPanel.IsVisible = $false
+        $linkGpoPanel.IsVisible = $false
         $newGpoStatusComboBox.SelectedIndex = [array]::IndexOf(@('Enabled', 'ComputerOnly', 'UserOnly'), $configuration.Status)
         $newGpoGroupsCheckBox.IsChecked = [bool]$newGpo.Groups.Create
         $newGpoGroupsPanel.IsVisible = [bool]$newGpo.Groups.Create
@@ -920,6 +930,7 @@ function Start-PSGPOManagerWindow {
         $deleteLinkTextBlock.Text = "Delete the link of the GPO '$($node.Tag.GetDisplayName())' to $($node.Parent.Tag.Name)? " +
             'The GPO itself is not deleted: it stays in Group Policy Objects, with its other links.'
         $newGpoPanel.IsVisible = $false
+        $linkGpoPanel.IsVisible = $false
         $directoryResultTextBlock.Text = ''
         $deleteLinkPanel.IsVisible = $true
     }
@@ -938,6 +949,58 @@ function Start-PSGPOManagerWindow {
         $deleteLinkPanel.IsVisible = $false
         Update-DirectoryTree -Select $som
         Show-DirectoryResult -Text "Link of the GPO '$($link.GetDisplayName())' to $($som.Name) deleted."
+    }
+
+    # Link of an existing GPO to the selected domain or OU, as GPMC "Link an Existing GPO...": the
+    # GPOs of the domain not linked there yet, by name.
+    $linkGpo = @{ Som = $null }
+    function Open-LinkGpoForm {
+        param([GPOToolsSom]$Som)
+        $linkGpo.Som = $Som
+        $linkGpoTitleTextBlock.Text = "Link an existing GPO of $($Directory.DomainName) to $($Som.Name)"
+        $linkGpoErrorTextBlock.Text = ''
+        $directoryResultTextBlock.Text = ''
+        $newGpoPanel.IsVisible = $false
+        $deleteLinkPanel.IsVisible = $false
+        $linkGpoFilterTextBox.Text = ''
+        Update-LinkGpoList
+        $linkGpoPanel.IsVisible = $true
+        [void]$linkGpoFilterTextBox.Focus()
+    }
+
+    function Update-LinkGpoList {
+        $som = $linkGpo.Som
+        if (-not $som) { return }
+        $filter = "$($linkGpoFilterTextBox.Text)".Trim()
+        $linked = [System.Collections.Generic.HashSet[object]]::new()
+        foreach ($link in $som.Links) { if ($link.Gpo) { [void]$linked.Add($link.Gpo) } }
+        $gpos = [System.Collections.Generic.List[GPOToolsGpo]]::new()
+        foreach ($gpo in @($Directory.Gpos | Sort-Object DisplayName)) {
+            if ($linked.Contains($gpo)) { continue }
+            if ($filter -and $gpo.DisplayName.IndexOf($filter, [System.StringComparison]::OrdinalIgnoreCase) -lt 0) { continue }
+            $gpos.Add($gpo)
+        }
+        $linkGpoList.ItemsSource = $gpos
+        $linkGpoList.SelectedIndex = if ($gpos.Count -eq 1) { 0 } else { -1 }
+        $linkGpoConfirmButton.IsEnabled = $null -ne $linkGpoList.SelectedItem
+        $linkGpoErrorTextBlock.Text = if ($gpos.Count) { '' }
+            elseif ($filter) { "No GPO named like '$filter' can be linked to $($som.Name)." }
+            else { "Every GPO of $($Directory.DomainName) is already linked to $($som.Name)." }
+    }
+
+    function Submit-LinkGpo {
+        $som = $linkGpo.Som
+        $gpo = $linkGpoList.SelectedItem
+        if (-not $som -or $gpo -isnot [GPOToolsGpo]) { return }
+        try {
+            $link = $Directory.NewLink($som, $gpo)
+        } catch {
+            $linkGpoErrorTextBlock.Text = $_.Exception.GetBaseException().Message
+            return
+        }
+        $linkGpoPanel.IsVisible = $false
+        Update-DirectoryTree -Select $link
+        Show-DirectoryResult -Text "GPO '$($gpo.DisplayName)' linked to $($som.Name), link order $($link.Order)."
     }
 
     # Settings tab of the selected GPO: its Registry.pol files read once per version of the GPO.
@@ -1226,11 +1289,13 @@ function Start-PSGPOManagerWindow {
         $newGpoPanel.IsVisible = $false
         $directoryResultTextBlock.Text = ''
         $deleteLinkPanel.IsVisible = $false
+        $linkGpoPanel.IsVisible = $false
 
         # Context menu of the selected node, as in GPMC.
         # A read-only directory (read over LDAP) cannot create GPOs yet.
         # And what the account may do there (its delegations).
         $createLinkedGpoMenuItem.IsVisible = $item -is [GPOToolsSom] -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo -and $item.CanLink
+        $linkGpoMenuItem.IsVisible = $item -is [GPOToolsSom] -and -not $Directory.IsReadOnly -and $item.CanLink -and $Directory.Gpos.Count -gt 0
         $newGpoMenuItem.IsVisible = $item -eq 'GroupPolicyObjects' -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo
         $editGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit
         $deleteLinkMenuItem.IsVisible = $item -is [GPOToolsGpoLink] -and -not $Directory.IsReadOnly -and $selected.Parent.Tag.CanLink
@@ -1240,12 +1305,22 @@ function Start-PSGPOManagerWindow {
     # Nothing to offer on this node: do not open an empty menu.
     (Get-PSGPOAvaloniaControl $window 'domainContextMenu').add_Opening({
         param($sender, $e)
-        if (-not ($createLinkedGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible) -or
+        if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible) -or
             -not $domainTreeView.SelectedItem) { $e.Cancel = $true }
     })
 
     $createLinkedGpoMenuItem.Add_Click({ $item = $domainTreeView.SelectedItem.Tag; if ($item -is [GPOToolsSom]) { Open-NewGpoForm -Som $item } })
     $newGpoMenuItem.Add_Click({ Open-NewGpoForm -Som $null })
+    $linkGpoMenuItem.Add_Click({ $item = $domainTreeView.SelectedItem.Tag; if ($item -is [GPOToolsSom]) { Open-LinkGpoForm -Som $item } })
+    # The property, not TextChanged: it is raised at once, whoever sets the text.
+    $linkGpoFilterTextBox.add_PropertyChanged({
+        param($sender, $e)
+        if ($e.Property.Name -eq 'Text' -and $linkGpoPanel.IsVisible) { Update-LinkGpoList }
+    })
+    $linkGpoList.add_SelectionChanged({ $linkGpoConfirmButton.IsEnabled = $null -ne $linkGpoList.SelectedItem })
+    $linkGpoList.add_DoubleTapped({ Submit-LinkGpo })
+    $linkGpoConfirmButton.Add_Click({ Submit-LinkGpo })
+    $linkGpoCancelButton.Add_Click({ $linkGpoPanel.IsVisible = $false })
     $editGpoMenuItem.Add_Click({ $gpo = Get-SelectedGpo; if ($gpo) { Open-GpoEditor -Gpo $gpo } })
     $editGpoButton.Add_Click({ $gpo = Get-SelectedGpo; if ($gpo) { Open-GpoEditor -Gpo $gpo } })
     $domainTreeView.add_DoubleTapped({ $gpo = Get-SelectedGpo; if ($gpo -and $gpo.CanEdit) { Open-GpoEditor -Gpo $gpo } })
@@ -1317,7 +1392,8 @@ function Start-PSGPOManagerWindow {
             'newGpoMenuItem', 'editGpoMenuItem', 'editGpoButton', 'newGpoPanel', 'newGpoTitleTextBlock', 'newGpoNameTextBox',
             'newGpoErrorTextBlock', 'newGpoCreateButton', 'newGpoCancelButton', 'newGpoStatusComboBox', 'newGpoGroupsCheckBox', 'newGpoGroupsPanel',
             'newGpoGroupsTextBlock', 'newGpoGroupsContainerComboBox', 'directoryResultTextBlock', 'deleteLinkMenuItem', 'deleteLinkPanel',
-            'deleteLinkTextBlock', 'deleteLinkConfirmButton', 'deleteLinkCancelButton', 'historyTab', 'historyPathTextBox', 'historyBackupButton',
+            'deleteLinkTextBlock', 'deleteLinkConfirmButton', 'deleteLinkCancelButton', 'linkGpoMenuItem', 'linkGpoPanel',
+            'linkGpoTitleTextBlock', 'linkGpoFilterTextBox', 'linkGpoList', 'linkGpoErrorTextBlock', 'linkGpoConfirmButton', 'linkGpoCancelButton', 'historyTab', 'historyPathTextBox', 'historyBackupButton',
             'historyBackupAllButton', 'historyStatusTextBlock', 'historyTimelineList', 'historyCompareTextBlock', 'historyChangesList',
             'historyRestoreButton', 'historyRestorePanel', 'historyRestoreTextBlock', 'historyRestoreConfirmButton', 'historyRestoreCancelButton',
             'detailsTitleTextBlock', 'configurationButton', 'preferencesPanel', 'preferencesTitleTextBlock', 'preferencesInfoTextBlock', 'preferencesNewTypeComboBox',
