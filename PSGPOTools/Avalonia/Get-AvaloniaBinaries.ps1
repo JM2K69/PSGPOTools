@@ -32,7 +32,12 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$module = Import-Module (Join-Path $PSScriptRoot '..' 'PSGPOTools.psd1') -PassThru -Force
+$moduleRoot = Join-Path $PSScriptRoot '..'
+if (-not (Test-Path -LiteralPath (Join-Path $moduleRoot 'PSGPOTools.psm1'))) {
+    # A clone of the repository: the module is built from Code/ by CI/03_Build.ps1.
+    throw "The PSGPOTools module is not built in $((Resolve-Path $moduleRoot).Path): run CI/03_Build.ps1 first."
+}
+$module = Import-Module (Join-Path $moduleRoot 'PSGPOTools.psd1') -PassThru -Force
 & $module {
     param($Rid, $Destination, $Force)
     if (-not $Rid) { $Rid = Get-PSGPOAvaloniaRid }
