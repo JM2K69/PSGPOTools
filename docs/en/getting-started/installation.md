@@ -34,7 +34,8 @@ anything, then puts them in place at once.
 
 - They go into the module folder when it can be written to, else into the data folder of the user.
 - `PSGPOTOOLS_AVALONIA_NO_DOWNLOAD=1` forbids the download (offline computers).
-- `Avalonia/Get-AvaloniaBinaries.ps1` installs them beforehand, or for another computer:
+- `Avalonia/Get-AvaloniaBinaries.ps1` installs them beforehand, or for another computer. It loads
+  the module: from the repository, build it first (`CI/03_Build.ps1`).
 
 ```powershell
 ./PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1 -Rid linux-x64
