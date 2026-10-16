@@ -49,4 +49,29 @@
         # settings copied into it), whatever domain it comes from.
         TemplateLabel = 'Template'
     }
+
+    # Approval workflow: the GPOs the creators make wait for the approval of an approver. The
+    # rights are those of the domain: the creators get the right to create GPOs (Initialize-
+    # PSGPOWorkflow), not Group Policy Creator Owners; a GPO they create applies to nobody until
+    # it is approved; the approval gives it to the owner of the approved GPOs and sets what the
+    # creators may still do with it.
+    Workflow = @{
+        # The approval workflow is used.
+        Enabled = $false
+
+        # Groups of the approvers (Tier 0), separated by commas: names of the domain.
+        Approvers = 'Domain Admins'
+
+        # Groups of the creators (Tier 1), separated by commas: they create GPOs that wait for
+        # an approval, and edit them until then.
+        Creators = ''
+
+        # Owner of the approved GPOs: a group of the approvers.
+        ApprovedOwner = 'Domain Admins'
+
+        # What the approval proposes for the creators: ReadOnly (they cannot change the GPO
+        # anymore) or EditSettings (they still edit its settings; each change needs a new
+        # approval).
+        CreatorRights = 'ReadOnly'
+    }
 }

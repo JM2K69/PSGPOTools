@@ -57,6 +57,7 @@ function New-PSGPODirectoryTree {
 
         foreach ($Link in @($Som.Links | Where-Object { $Som.CanLink } | Sort-Object Order)) {
             $LinkHeader = $Link.GetDisplayName()
+            if ($Link.Gpo -and $Link.Gpo.ApprovalState -eq 'Pending') { $LinkHeader += ' (waiting for approval)' }
             if ($Link.Enforced) { $LinkHeader += ' (enforced)' }
             if (-not $Link.Enabled) { $LinkHeader += ' (link disabled)' }
             $LinkIcon = if (-not $Link.Enabled) { 'link-dismiss' } elseif ($Link.Enforced) { 'lock-closed' } else { 'link' }
@@ -72,7 +73,13 @@ function New-PSGPODirectoryTree {
 
     $GposNode = New-Node 'Group Policy Objects' 'library' 'GroupPolicyObjects' $DomainNode
     foreach ($Gpo in $Directory.Gpos) {
-        if ($Directory.IsGpoVisible($Gpo)) { [void](New-Node $Gpo.DisplayName 'document-settings' $Gpo $GposNode) }
+        if (-not $Directory.IsGpoVisible($Gpo)) { continue }
+        if ($Gpo.ApprovalState -eq 'Pending') {
+            $Node = New-Node "$($Gpo.DisplayName) (waiting for approval)" 'document-settings' $Gpo $GposNode
+            $Node.IconBrush = '#CA5010'
+        } else {
+            [void](New-Node $Gpo.DisplayName 'document-settings' $Gpo $GposNode)
+        }
     }
     if ($null -ne $DeletedGpo) {
         $DeletedNode = New-Node 'Deleted GPOs' 'delete' 'DeletedGpos' $DomainNode

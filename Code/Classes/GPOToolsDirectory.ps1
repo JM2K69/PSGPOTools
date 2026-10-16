@@ -38,6 +38,12 @@ class GPOToolsGpo {
     # Client-side extensions of the GPO (gPCMachineExtensionNames, gPCUserExtensionNames)
     [string]$MachineExtensionNames
     [string]$UserExtensionNames
+    # Owner of the GPO (its group policy container): SID and name; $null when not read
+    [string]$OwnerSid
+    [string]$Owner
+    # Approval workflow (Workflow of the configuration): 'Pending' (created by a creator, it
+    # applies to nobody until approved) or 'Approved'; $null without the workflow
+    [string]$ApprovalState
 
     [int] GetUserVersion() { return $this.Version -shr 16 }
     [int] GetComputerVersion() { return $this.Version -band 0xFFFF }
@@ -145,6 +151,9 @@ class GPOToolsDirectory {
     [string]$Account
     # The account can create GPOs (groupPolicyContainer objects in CN=Policies)
     [bool]$CanCreateGpo = $true
+    # Approval workflow of the domain (Update-PSGPODomainWorkflow): Enabled, IsApprover,
+    # IsCreator, the SIDs and names of the groups, the owner of the approved GPOs; $null without it
+    [pscustomobject]$Workflow
 
     GPOToolsDirectory([string]$DomainName) {
         if ([string]::IsNullOrWhiteSpace($DomainName)) { throw 'The domain name is required.' }
@@ -240,7 +249,43 @@ class GPOToolsDirectory {
         if (-not $this.CanCreateGpo) { throw "The account $($this.Account) cannot create GPOs in $($this.DomainName)." }
         $Gpo = $this.AddGpo($DisplayName, [guid]::Empty)
         try { $this.SaveNewGpo($Gpo) } catch { [void]$this.Gpos.Remove($Gpo); throw }
+        # The approval workflow: a GPO of a creator applies to nobody until it is approved. If it
+        # cannot be made so, it is deleted rather than left applying to everyone.
+        if ($this.IsWorkflowCreator()) {
+            try {
+                $this.SavePendingGpo($Gpo)
+                $Gpo.ApprovalState = 'Pending'
+            } catch {
+                $Reason = $_.Exception.GetBaseException().Message
+                try { $this.SaveRemovedGpo($Gpo); [void]$this.Gpos.Remove($Gpo) } catch { throw "The GPO '$($Gpo.DisplayName)' is created but cannot wait for its approval ($Reason), and cannot be deleted: delete it, it applies to everyone. $($_.Exception.GetBaseException().Message)" }
+                throw "The GPO '$($Gpo.DisplayName)' is not created: it cannot wait for its approval ($Reason)."
+            }
+        } elseif ($this.Workflow -and $this.Workflow.Enabled) {
+            $Gpo.ApprovalState = 'Approved'
+        }
         return $Gpo
+    }
+
+    # The account creates GPOs that wait for an approval: a creator of the workflow, not an approver.
+    [bool] IsWorkflowCreator() {
+        return $this.Workflow -and $this.Workflow.Enabled -and $this.Workflow.IsCreator -and -not $this.Workflow.IsApprover
+    }
+
+    # Approves a GPO waiting for its approval: its owner becomes the owner of the approved GPOs,
+    # in the directory and in SYSVOL; the creators keep reading it (ReadOnly) or editing its
+    # settings (EditSettings); it applies to $ApplyToSid (with its name $ApplyToName).
+    [void] ApproveGpo([GPOToolsGpo]$Gpo, [string]$CreatorRights, [string]$ApplyToSid, [string]$ApplyToName) {
+        $this.AssertWritable()
+        if (-not ($this.Workflow -and $this.Workflow.Enabled)) { throw 'The approval workflow is not enabled for this domain (Workflow.Enabled).' }
+        if (-not $this.Workflow.IsApprover) { throw "The account $($this.Account) is not an approver of the GPOs (Workflow.Approvers)." }
+        if ($CreatorRights -notin 'ReadOnly', 'EditSettings') { throw "Unknown rights of the creators: '$CreatorRights' (ReadOnly or EditSettings)." }
+        if (-not $ApplyToSid) { throw 'The approved GPO applies to someone: give the group (or Authenticated Users).' }
+        $this.SaveApprovedGpo($Gpo, $CreatorRights, $ApplyToSid)
+        $Gpo.ApprovalState = 'Approved'
+        $Gpo.OwnerSid = $this.Workflow.ApprovedOwnerSid
+        $Gpo.Owner = $this.Workflow.ApprovedOwner
+        $Gpo.SecurityFiltering = @($ApplyToName)
+        $Gpo.DeniedTo = @()
     }
 
     # Configuration of PSGPOTools for the domain (Use-PSGPODomainConfiguration): Configuration.psd1
@@ -344,6 +389,8 @@ class GPOToolsDirectory {
     # DistinguishedName, Sid).
     [object[]] NewFilteringGroups([GPOToolsGpo]$Gpo, [string]$Container) {
         $this.AssertWritable()
+        # It would apply to the members of the group before its approval.
+        if ($Gpo.ApprovalState -eq 'Pending') { throw "The GPO '$($Gpo.DisplayName)' waits for its approval: its security filtering is set when it is approved." }
         # By default where the configuration says, else the users container.
         if ([string]::IsNullOrWhiteSpace($Container)) {
             $Container = Resolve-PSGPOGroupContainer -Directory $this -Container (Get-PSGPOConfigurationData).NewGpo.SecurityFilteringGroups.Container
@@ -493,6 +540,12 @@ class GPOToolsDirectory {
     hidden [void] SaveGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {}
     # SaveRemovedLink may set the links of the SOM again from the domain.
     hidden [void] SaveRemovedLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {}
+    # A GPO of a creator, made to wait for its approval: it applies to nobody.
+    hidden [void] SavePendingGpo([GPOToolsGpo]$Gpo) {
+        $Gpo.SecurityFiltering = @()
+        $Gpo.Owner = $this.Account
+    }
+    hidden [void] SaveApprovedGpo([GPOToolsGpo]$Gpo, [string]$CreatorRights, [string]$ApplyToSid) {}
     hidden [void] SaveRemovedGpo([GPOToolsGpo]$Gpo) {
         $Prefix = "$($Gpo.Id)\"
         foreach ($Key in @($this.GpoFiles.Keys | Where-Object { $_.StartsWith($Prefix) })) { $this.GpoFiles.Remove($Key) }
@@ -591,6 +644,14 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
 
     hidden [void] SaveRemovedGpo([GPOToolsGpo]$Gpo) {
         Remove-PSGPODomainGpo -Directory $this -Gpo $Gpo
+    }
+
+    hidden [void] SavePendingGpo([GPOToolsGpo]$Gpo) {
+        Set-PSGPODomainPendingGpo -Directory $this -Gpo $Gpo
+    }
+
+    hidden [void] SaveApprovedGpo([GPOToolsGpo]$Gpo, [string]$CreatorRights, [string]$ApplyToSid) {
+        Approve-PSGPODomainGpo -Directory $this -Gpo $Gpo -CreatorRights $CreatorRights -ApplyToSid $ApplyToSid
     }
 
     # The configuration of the domain in the SYSVOL share of the domain controller.

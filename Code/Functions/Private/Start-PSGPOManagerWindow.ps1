@@ -97,6 +97,14 @@ function Start-PSGPOManagerWindow {
     $deleteLinkCancelButton = Get-PSGPOAvaloniaControl $window 'deleteLinkCancelButton'
     $linkGpoMenuItem = Get-PSGPOAvaloniaControl $window 'linkGpoMenuItem'
     $deleteGpoMenuItem = Get-PSGPOAvaloniaControl $window 'deleteGpoMenuItem'
+    $approveGpoMenuItem = Get-PSGPOAvaloniaControl $window 'approveGpoMenuItem'
+    $approveGpoPanel = Get-PSGPOAvaloniaControl $window 'approveGpoPanel'
+    $approveGpoTextBlock = Get-PSGPOAvaloniaControl $window 'approveGpoTextBlock'
+    $approveGpoRightsComboBox = Get-PSGPOAvaloniaControl $window 'approveGpoRightsComboBox'
+    $approveGpoApplyToTextBox = Get-PSGPOAvaloniaControl $window 'approveGpoApplyToTextBox'
+    $approveGpoErrorTextBlock = Get-PSGPOAvaloniaControl $window 'approveGpoErrorTextBlock'
+    $approveGpoConfirmButton = Get-PSGPOAvaloniaControl $window 'approveGpoConfirmButton'
+    $approveGpoCancelButton = Get-PSGPOAvaloniaControl $window 'approveGpoCancelButton'
     $deleteGpoPanel = Get-PSGPOAvaloniaControl $window 'deleteGpoPanel'
     $deleteGpoTextBlock = Get-PSGPOAvaloniaControl $window 'deleteGpoTextBlock'
     $deleteGpoConfirmButton = Get-PSGPOAvaloniaControl $window 'deleteGpoConfirmButton'
@@ -874,8 +882,12 @@ function Start-PSGPOManagerWindow {
             })
         $newGpoTemplateComboBox.SelectedIndex = 0
         $newGpoStatusComboBox.SelectedIndex = [array]::IndexOf(@('Enabled', 'ComputerOnly', 'UserOnly'), $configuration.Status)
-        $newGpoGroupsCheckBox.IsChecked = [bool]$newGpo.Groups.Create
-        $newGpoGroupsPanel.IsVisible = [bool]$newGpo.Groups.Create
+        # A GPO of a creator waits for its approval: its security filtering is set then.
+        $creator = $Directory.IsWorkflowCreator()
+        $newGpoGroupsCheckBox.IsVisible = -not $creator
+        $newGpoGroupsCheckBox.IsChecked = [bool]$newGpo.Groups.Create -and -not $creator
+        $newGpoGroupsPanel.IsVisible = [bool]$newGpoGroupsCheckBox.IsChecked
+        if ($creator) { $newGpoTitleTextBlock.Text += ': it waits for the approval of an approver, and applies to nobody until then' }
         # The groups go to the container of the configuration, else the users container, or to an OU.
         $configured = Resolve-PSGPOGroupContainer -Directory $Directory -Container $newGpo.Groups.Container
         $containers = [System.Collections.Generic.List[string]]::new()
@@ -924,6 +936,7 @@ function Start-PSGPOManagerWindow {
         $done = [System.Collections.Generic.List[string]]::new()
         $problems = [System.Collections.Generic.List[string]]::new()
         $done.Add("GPO '$($gpo.DisplayName)' created.")
+        if ($gpo.ApprovalState -eq 'Pending') { $done.Add("It waits for the approval of $($Directory.Workflow.Approvers -join ', '): it applies to nobody until then.") }
         if ($template) {
             try {
                 Copy-PSGPOBackupSetting -Directory $Directory -Gpo $gpo -Backup $template
@@ -997,7 +1010,46 @@ function Start-PSGPOManagerWindow {
 
     # The forms of the details, one at a time.
     function Hide-DirectoryForm {
-        foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel) { $panel.IsVisible = $false }
+        foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel, $approveGpoPanel) { $panel.IsVisible = $false }
+    }
+
+    # Approval of the selected GPO (approval workflow): what the creators may still do, who
+    # applies it; backed up with the approved label in the folder of the History tab.
+    $approveGpo = @{ Gpo = $null }
+    function Open-ApproveGpoForm {
+        $gpo = Get-SelectedGpo
+        if (-not $gpo -or $gpo.ApprovalState -ne 'Pending') { return }
+        $approveGpo.Gpo = $gpo
+        $approveGpoTextBlock.Text = "Approve the GPO '$($gpo.DisplayName)'$(if ($gpo.Owner) { ", created by $($gpo.Owner)" })? " +
+            "Its owner becomes $($Directory.Workflow.ApprovedOwner), in the directory and in SYSVOL: its creator cannot give itself its rights back. " +
+            "It applies to the group below from then on, and is backed up as its approved version."
+        $approveGpoRightsComboBox.SelectedIndex = if ($Directory.Workflow.CreatorRights -eq 'EditSettings') { 1 } else { 0 }
+        $approveGpoApplyToTextBox.Text = 'Authenticated Users'
+        $approveGpoErrorTextBlock.Text = ''
+        Hide-DirectoryForm
+        $directoryResultTextBlock.Text = ''
+        $approveGpoPanel.IsVisible = $true
+    }
+
+    function Submit-ApproveGpo {
+        $gpo = $approveGpo.Gpo
+        if (-not $gpo) { return }
+        $rights = "$($approveGpoRightsComboBox.SelectedItem.Tag)"
+        try {
+            $applyTo = Resolve-PSGPOApplyTo -Directory $Directory -Name "$($approveGpoApplyToTextBox.Text)"
+            $result = Invoke-PSGPOApproval -Directory $Directory -Gpo $gpo -CreatorRights $rights -ApplyTo $applyTo -BackupPath (Get-HistoryRoot)
+        } catch {
+            $approveGpoErrorTextBlock.Text = $_.Exception.GetBaseException().Message
+            return
+        }
+        $approveGpoPanel.IsVisible = $false
+        $settingsCache.Remove("$($gpo.Id)")
+        $history.Current = @{}
+        Update-DirectoryTree -Select $gpo
+        $lines = @("GPO '$($gpo.DisplayName)' approved: owned by $($result.Owner), applied by $($result.AppliedBy), the creators $(if ($rights -eq 'EditSettings') { 'edit its settings' } else { 'read it' }).")
+        if ($result.Backup) { $lines += 'Backed up as its approved version.' }
+        if ($result.Problem) { $lines += $result.Problem }
+        Show-DirectoryResult -Text ($lines -join [Environment]::NewLine) -Problem:([bool]$result.Problem)
     }
 
     # Deletion of the selected GPO, once confirmed, as GPMC: its links too; backed up first in
@@ -1549,6 +1601,8 @@ function Start-PSGPOManagerWindow {
         # Delete a GPO from Group Policy Objects, as GPMC; never a default GPO of the domain.
         $deleteGpoMenuItem.IsVisible = $item -is [GPOToolsGpo] -and -not $Directory.IsReadOnly -and $item.CanEdit -and [GPOToolsDirectory]::DefaultGpoIds -notcontains $item.Id
         $restoreDeletedGpoMenuItem.IsVisible = $canRestore
+        $approveGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.ApprovalState -eq 'Pending' -and -not $Directory.IsReadOnly -and
+            $Directory.Workflow -and $Directory.Workflow.IsApprover
         Update-SettingsTab
         Update-HistoryTab
     })
@@ -1556,7 +1610,7 @@ function Start-PSGPOManagerWindow {
     (Get-PSGPOAvaloniaControl $window 'domainContextMenu').add_Opening({
         param($sender, $e)
         if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
-                $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible) -or
+                $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible -or $approveGpoMenuItem.IsVisible) -or
             -not $domainTreeView.SelectedItem) { $e.Cancel = $true }
     })
 
@@ -1579,6 +1633,9 @@ function Start-PSGPOManagerWindow {
     $newGpoCancelButton.Add_Click({ $newGpoPanel.IsVisible = $false })
     $deleteLinkMenuItem.Add_Click({ Open-DeleteLinkForm })
     $deleteGpoMenuItem.Add_Click({ Open-DeleteGpoForm })
+    $approveGpoMenuItem.Add_Click({ Open-ApproveGpoForm })
+    $approveGpoConfirmButton.Add_Click({ Submit-ApproveGpo })
+    $approveGpoCancelButton.Add_Click({ $approveGpoPanel.IsVisible = $false })
     $deleteGpoConfirmButton.Add_Click({ Submit-DeleteGpo })
     $deleteGpoCancelButton.Add_Click({ $deleteGpoPanel.IsVisible = $false })
     $restoreDeletedGpoMenuItem.Add_Click({ Open-RestoreGpoForm })
@@ -1654,7 +1711,8 @@ function Start-PSGPOManagerWindow {
             'linkGpoTitleTextBlock', 'linkGpoFilterTextBox', 'linkGpoList', 'linkGpoErrorTextBlock', 'linkGpoConfirmButton', 'linkGpoCancelButton',
             'deleteGpoMenuItem', 'deleteGpoPanel', 'deleteGpoTextBlock', 'deleteGpoConfirmButton', 'deleteGpoCancelButton', 'restoreDeletedGpoMenuItem',
             'restoreDeletedGpoButton', 'restoreGpoPanel', 'restoreGpoTextBlock', 'restoreGpoLinkCheckBox', 'restoreGpoConfirmButton', 'restoreGpoCancelButton',
-            'newGpoTemplateComboBox', 'historyNotesTemplateCheckBox',
+            'newGpoTemplateComboBox', 'historyNotesTemplateCheckBox', 'approveGpoMenuItem', 'approveGpoPanel', 'approveGpoTextBlock',
+            'approveGpoRightsComboBox', 'approveGpoApplyToTextBox', 'approveGpoErrorTextBlock', 'approveGpoConfirmButton', 'approveGpoCancelButton',
             'historyCommentTextBox', 'historyDriftBorder', 'historyDriftTextBlock', 'historyDriftButton', 'historyNotesPanel', 'historyNotesInfoTextBlock',
             'historyNotesCommentTextBox', 'historyNotesLabelsTextBox', 'historyNotesApprovedCheckBox', 'historyNotesSaveButton', 'historyTab', 'historyPathTextBox', 'historyBackupButton',
             'historyBackupAllButton', 'historyStatusTextBlock', 'historyTimelineList', 'historyCompareTextBlock', 'historyChangesList',

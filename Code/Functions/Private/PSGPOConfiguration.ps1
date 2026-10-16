@@ -122,6 +122,14 @@ function Test-PSGPOConfiguration {
         if (-not $label -or $label.Length -gt 64 -or $label -match '[,\r\n\t]') { "Backup.$name must not be empty, and has at most 64 characters, without comma, tab or line break." }
     }
     if ("$($Configuration.Backup.ApprovedLabel)".Trim() -eq "$($Configuration.Backup.TemplateLabel)".Trim()) { 'Backup.ApprovedLabel and TemplateLabel must differ.' }
+    $workflow = $Configuration.Workflow
+    if ($workflow.Enabled -isnot [bool]) { 'Workflow.Enabled must be $true or $false.' }
+    if ($workflow.CreatorRights -notin 'ReadOnly', 'EditSettings') { "Workflow.CreatorRights must be ReadOnly or EditSettings, not '$($workflow.CreatorRights)'." }
+    foreach ($name in 'Approvers', 'ApprovedOwner') {
+        if ("$($workflow[$name])".Trim() -eq '') { "Workflow.$name must not be empty." }
+    }
+    if ("$($workflow.ApprovedOwner)" -match ',') { 'Workflow.ApprovedOwner is one group.' }
+    if ($workflow.Enabled -and "$($workflow.Creators)".Trim() -eq '') { 'Workflow.Creators must name the groups of the creators when the workflow is enabled.' }
     if ($groups.Container -and "$($groups.Container)" -notmatch '^(?:(?:OU|CN)=[^,]+)(?:,(?:OU|CN|DC)=[^,]+)*$') { "NewGpo.SecurityFilteringGroups.Container is not a distinguished name: '$($groups.Container)'." }
 }
 
@@ -153,6 +161,7 @@ function Resolve-PSGPOGroupContainer {
 $script:PSGPOConfigurationChoices = @{
     'NewGpo.Status' = @('Enabled', 'ComputerOnly', 'UserOnly')
     'NewGpo.SecurityFilteringGroups.Scope' = @('Global', 'DomainLocal', 'Universal')
+    'Workflow.CreatorRights' = @('ReadOnly', 'EditSettings')
 }
 
 # The settings one by one (NewGpo.SecurityFilteringGroups.Scope...): their default, their value

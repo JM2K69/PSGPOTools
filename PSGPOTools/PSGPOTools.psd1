@@ -69,10 +69,11 @@ PowerShellVersion = '7.4'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Backup-PSGPO', 'Compare-PSGPOBackup', 'Get-PSGPOBackup', 
-               'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 
-               'Get-PSGPODrift', 'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 
-               'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 'New-PSGPO', 
+FunctionsToExport = 'Approve-PSGPO', 'Backup-PSGPO', 'Compare-PSGPOBackup', 
+               'Get-PSGPOBackup', 'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 
+               'Get-PSGPODirectory', 'Get-PSGPODrift', 'Get-PSGPOPolicy', 
+               'Get-PSGPOSupportedOn', 'Import-PSGPODirectory', 
+               'Initialize-PSGPOAdmx', 'Initialize-PSGPOWorkflow', 'New-PSGPO', 
                'Remove-PSGPO', 'Restore-PSGPO', 'Set-PSGPOBackup', 
                'Show-GPOManagerAvalonia'
 
