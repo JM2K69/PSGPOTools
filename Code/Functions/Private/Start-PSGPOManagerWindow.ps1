@@ -119,6 +119,16 @@ function Start-PSGPOManagerWindow {
     $historyRestoreTextBlock = Get-PSGPOAvaloniaControl $window 'historyRestoreTextBlock'
     $historyRestoreConfirmButton = Get-PSGPOAvaloniaControl $window 'historyRestoreConfirmButton'
     $historyRestoreCancelButton = Get-PSGPOAvaloniaControl $window 'historyRestoreCancelButton'
+    $historyCommentTextBox = Get-PSGPOAvaloniaControl $window 'historyCommentTextBox'
+    $historyDriftBorder = Get-PSGPOAvaloniaControl $window 'historyDriftBorder'
+    $historyDriftTextBlock = Get-PSGPOAvaloniaControl $window 'historyDriftTextBlock'
+    $historyDriftButton = Get-PSGPOAvaloniaControl $window 'historyDriftButton'
+    $historyNotesPanel = Get-PSGPOAvaloniaControl $window 'historyNotesPanel'
+    $historyNotesInfoTextBlock = Get-PSGPOAvaloniaControl $window 'historyNotesInfoTextBlock'
+    $historyNotesCommentTextBox = Get-PSGPOAvaloniaControl $window 'historyNotesCommentTextBox'
+    $historyNotesLabelsTextBox = Get-PSGPOAvaloniaControl $window 'historyNotesLabelsTextBox'
+    $historyNotesApprovedCheckBox = Get-PSGPOAvaloniaControl $window 'historyNotesApprovedCheckBox'
+    $historyNotesSaveButton = Get-PSGPOAvaloniaControl $window 'historyNotesSaveButton'
     $settingsStatusTextBlock = Get-PSGPOAvaloniaControl $window 'settingsStatusTextBlock'
     $computerSettingsHeader = Get-PSGPOAvaloniaControl $window 'computerSettingsHeader'
     $computerSettingsList = Get-PSGPOAvaloniaControl $window 'computerSettingsList'
@@ -1056,8 +1066,8 @@ function Start-PSGPOManagerWindow {
     # --- History tab: the backups of the GPO as a timeline, and what changed at each one ---------
 
     # Reports of the backups read once (by folder), and of the current state of each GPO (by its
-    # version and last change).
-    $history = @{ Reports = @{}; Current = @{} }
+    # version and last change); the GPO compared to its approved version (Get-PSGPODriftState).
+    $history = @{ Reports = @{}; Current = @{}; Drift = $null }
     $historyPathTextBox.Text = Get-PSGPODefaultBackupPath
 
     function Get-HistoryRoot {
@@ -1086,7 +1096,9 @@ function Start-PSGPOManagerWindow {
         '+{0}  ~{1}  -{2}' -f (& $count 'Added'), (& $count 'Changed'), (& $count 'Removed')
     }
 
+    # The timeline of the selected GPO; the backup in $SelectPath selected, else the newest node.
     function Update-HistoryTab {
+        param([string]$SelectPath)
         $gpo = Get-SelectedGpo
         $historyTab.IsVisible = [bool]$gpo
         if (-not $gpo) {
@@ -1098,6 +1110,8 @@ function Start-PSGPOManagerWindow {
         $root = Get-HistoryRoot
         $nodes = [System.Collections.Generic.List[AvaloniaHistoryNode]]::new()
         $problem = $null
+        $history.Drift = $null
+        $approvedLabel = Get-PSGPOApprovedLabel
         try {
             # Oldest first, as the branch of a git graph.
             $backups = @(Get-PSGPOBackupEntry -Path $root -Id $gpo.Id)
@@ -1114,9 +1128,15 @@ function Start-PSGPOManagerWindow {
                 $node.Changes = @(Compare-PSGPOSettingReport -Reference $previous -Difference $report)
                 $node.Summary = if ($nodes.Count) { Get-ChangeSummary $node.Changes } else { 'first backup' }
                 $node.Previous = $previousDate
-                $node.NodeFill = '#0078D4'
-                $node.NodeStroke = '#0078D4'
+                # The approved version in green, its labels under it, its comment as its tool tip.
+                $node.IsApproved = $backup.Labels -contains $approvedLabel
+                $node.NodeFill = if ($node.IsApproved) { '#107C10' } else { '#0078D4' }
+                $node.NodeStroke = $node.NodeFill
                 $node.LineBrush = '#8A8886'
+                $node.LabelsText = @($backup.Labels) -join ', '
+                $node.HasLabels = [bool]@($backup.Labels).Count
+                $node.LabelBrush = if ($node.IsApproved) { '#3BA55C' } else { '#3A96DD' }
+                if ($backup.Comment) { $node.Comment = $backup.Comment }
                 $nodes.Add($node)
                 $previous = $report
                 $previousDate = $node.Title
@@ -1130,6 +1150,12 @@ function Start-PSGPOManagerWindow {
                 $history.Current[$key] = @(Get-PSGPOSettingReport -Files $files -Property (Get-PSGPOBackupProperty -Directory $Directory -Gpo $gpo))
             }
             $changes = @(Compare-PSGPOSettingReport -Reference $previous -Difference $history.Current[$key])
+            # Its approved version: the newest backup with the label.
+            $approvedNode = @($nodes | Where-Object IsApproved) | Select-Object -Last 1
+            $history.Drift = if ($approvedNode) {
+                Get-PSGPODriftState -Directory $Directory -Gpo $gpo -Backups @($approvedNode.Backup) -Current $history.Current[$key] `
+                    -ApprovedSetting $history.Reports[$approvedNode.Backup.Path] -Label $approvedLabel
+            }
             if ($changes.Count -or -not $nodes.Count) {
                 $node = [AvaloniaHistoryNode]::new()
                 $node.IsCurrent = $true
@@ -1153,24 +1179,58 @@ function Start-PSGPOManagerWindow {
         elseif (-not $backed) { Set-HistoryStatus "No backup of this GPO in $root yet: Back up now keeps its settings as they are." }
         elseif ($nodes[-1].IsCurrent) { Set-HistoryStatus "$backed backup$(if ($backed -gt 1) { 's' }) in $root. The GPO changed since the last one (Now)." }
         else { Set-HistoryStatus "$backed backup$(if ($backed -gt 1) { 's' }) in $root. The last one is up to date." }
-        # The newest node, the branch scrolled to it.
-        if ($nodes.Count) { $historyTimelineList.SelectedIndex = $nodes.Count - 1 } else { Show-HistoryChange $null }
+        Update-HistoryDrift -Backed $backed -Label $approvedLabel
+        # The node asked for, else the newest one; the branch scrolled to it.
+        $index = $nodes.Count - 1
+        if ($SelectPath) {
+            for ($i = 0; $i -lt $nodes.Count; $i++) { if ($nodes[$i].Backup -and $nodes[$i].Backup.Path -eq $SelectPath) { $index = $i } }
+        }
+        if ($nodes.Count) {
+            # Selecting the node it is already on would not show it again.
+            if ($historyTimelineList.SelectedIndex -eq $index) { Show-HistoryChange $nodes[$index] } else { $historyTimelineList.SelectedIndex = $index }
+        } else { Show-HistoryChange $null }
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] { $historyTimelineScrollViewer.ScrollToEnd() }, [Avalonia.Threading.DispatcherPriority]::Background)
     }
 
-    # What changed at the selected node, from the node before it.
+    # The GPO compared to its approved version, over the timeline: in orange when it changed since.
+    function Update-HistoryDrift {
+        param([int]$Backed, [string]$Label)
+        $drift = $history.Drift
+        $historyDriftButton.IsVisible = $drift -and $drift.State -eq 'Drifted'
+        $historyDriftBorder.IsVisible = $Backed -gt 0
+        if (-not $Backed) { return }
+        $brush = '#8A8886'
+        $historyDriftTextBlock.Text = if (-not $drift) {
+            "No approved version yet: check '$Label' in the notes of a backup to see what changes after it."
+        } else {
+            $by = if ($drift.ApprovedBy) { ", by $($drift.ApprovedBy)" }
+            if ($drift.State -eq 'Drifted') {
+                $brush = '#CA5010'
+                "Changed since its approved version of $(Format-HistoryDate $drift.Approved)$by ($(Get-ChangeSummary $drift.Changes))."
+            } else {
+                $brush = '#107C10'
+                "The GPO is its approved version of $(Format-HistoryDate $drift.Approved)$by."
+            }
+        }
+        $historyDriftBorder.BorderBrush = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse($brush))
+    }
+
+    # What changed at the selected node, from the node before it; or what $Title says, for the
+    # changes since the approved version.
     function Show-HistoryChange {
-        param([AvaloniaHistoryNode]$Node)
+        param([AvaloniaHistoryNode]$Node, [string]$Title)
         # A backup can be restored, by an account that may edit the GPO.
         $gpo = Get-SelectedGpo
         $historyRestorePanel.IsVisible = $false
-        $historyRestoreButton.IsVisible = $Node -and -not $Node.IsCurrent -and $gpo -and $gpo.CanEdit -and -not $Directory.IsReadOnly
+        $historyRestoreButton.IsVisible = $Node -and -not $Node.IsCurrent -and -not $Title -and $gpo -and $gpo.CanEdit -and -not $Directory.IsReadOnly
+        Show-HistoryNote $(if (-not $Title) { $Node })
         if (-not $Node) {
             $historyCompareTextBlock.Text = ''
             $historyChangesList.ItemsSource = $null
             return
         }
-        $historyCompareTextBlock.Text = if ($Node.IsCurrent -and $Node.Previous) { "Changes since the backup of $($Node.Previous), not backed up yet" }
+        $historyCompareTextBlock.Text = if ($Title) { $Title }
+            elseif ($Node.IsCurrent -and $Node.Previous) { "Changes since the backup of $($Node.Previous), not backed up yet" }
             elseif ($Node.IsCurrent) { 'The settings of the GPO now, never backed up' }
             elseif ($Node.Previous) { "Changes from $($Node.Previous) to $($Node.Title)" }
             else { "First backup, $($Node.Title): the settings of the GPO then" }
@@ -1191,10 +1251,45 @@ function Start-PSGPOManagerWindow {
             })
     }
 
-    # Backs up GPOs in the folder of the history; what was done in the status.
+    # The notes of the backup of a node, to change them; hidden for the GPO now.
+    $historyNote = @{ Backup = $null }
+    function Show-HistoryNote {
+        param([AvaloniaHistoryNode]$Node)
+        $backup = if ($Node -and -not $Node.IsCurrent) { $Node.Backup }
+        $historyNote.Backup = $backup
+        $historyNotesPanel.IsVisible = [bool]$backup
+        if (-not $backup) { return }
+        $label = Get-PSGPOApprovedLabel
+        $info = "Backed up$(if ($backup.BackedUpBy) { " by $($backup.BackedUpBy)" }) on $(Format-HistoryDate $backup.BackedUp)."
+        if ($backup.NotesUpdated) { $info += " Notes changed$(if ($backup.NotesUpdatedBy) { " by $($backup.NotesUpdatedBy)" }) on $(Format-HistoryDate $backup.NotesUpdated)." }
+        $historyNotesInfoTextBlock.Text = $info
+        $historyNotesCommentTextBox.Text = $backup.Comment
+        $historyNotesLabelsTextBox.Text = @($backup.Labels | Where-Object { $_ -ne $label }) -join ', '
+        $historyNotesApprovedCheckBox.Content = "$label version"
+        $historyNotesApprovedCheckBox.IsChecked = $backup.Labels -contains $label
+    }
+
+    function Save-HistoryNote {
+        $backup = $historyNote.Backup
+        if (-not $backup) { return }
+        $label = Get-PSGPOApprovedLabel
+        $labels = @("$($historyNotesLabelsTextBox.Text)" -split ',' | Where-Object { $_.Trim() -and $_.Trim() -ne $label })
+        if ($historyNotesApprovedCheckBox.IsChecked) { $labels += $label }
+        try {
+            $saved = Save-PSGPOBackupNote -Backup $backup -Comment $historyNotesCommentTextBox.Text -Label $labels -Account $Directory.Account
+        } catch {
+            Set-HistoryStatus "The notes are not saved: $($_.Exception.GetBaseException().Message)" -Problem
+            return
+        }
+        Update-HistoryTab -SelectPath $saved.Path
+        Set-HistoryStatus "Notes of the backup of $(Format-HistoryDate $(if ($saved.Modified) { $saved.Modified } else { $saved.BackedUp })) saved."
+    }
+
+    # Backs up GPOs in the folder of the history, with the comment typed; what was done in the status.
     function Invoke-HistoryBackup {
         param([GPOToolsGpo[]]$Gpos)
         $root = Get-HistoryRoot
+        $comment = "$($historyCommentTextBox.Text)".Trim()
         $counts = @{ Created = 0; Unchanged = 0 }
         $errors = [System.Collections.Generic.List[string]]::new()
         try { $null = New-Item -ItemType Directory -Path $root -Force -ErrorAction Stop }
@@ -1202,7 +1297,7 @@ function Start-PSGPOManagerWindow {
         Set-PSGPOUserSetting -Values @{ BackupPath = $root }
         foreach ($gpo in $Gpos) {
             try {
-                $result = Save-PSGPOBackup -Directory $Directory -Gpo $gpo -Path $root
+                $result = Save-PSGPOBackup -Directory $Directory -Gpo $gpo -Path $root -Comment $comment
                 $counts[$result.Result]++
             } catch {
                 $errors.Add("$($gpo.DisplayName): $($_.Exception.GetBaseException().Message)")
@@ -1210,8 +1305,12 @@ function Start-PSGPOManagerWindow {
         }
         $history.Current = @{}
         Update-HistoryTab
+        # The comment went with the new backups.
+        if ($counts.Created) { $historyCommentTextBox.Text = '' }
         $text = if ($Gpos.Count -eq 1 -and -not $errors.Count) {
-            if ($counts.Created) { "Backed up in $root." } else { 'Not backed up again: the GPO did not change since its last backup.' }
+            if ($counts.Created) { "Backed up in $root." }
+            elseif ($comment) { 'Not backed up again: the GPO did not change since its last backup. Its comment is in the notes of that backup.' }
+            else { 'Not backed up again: the GPO did not change since its last backup.' }
         } else {
             "$($counts.Created) GPO(s) backed up, $($counts.Unchanged) unchanged since their last backup, in $root."
         }
@@ -1249,6 +1348,16 @@ function Start-PSGPOManagerWindow {
         Set-HistoryStatus "GPO restored as it was on $($node.Title) (version $($result.Version)); its state before was backed up."
     })
     $historyTimelineList.add_SelectionChanged({ Show-HistoryChange $historyTimelineList.SelectedItem })
+    $historyNotesSaveButton.Add_Click({ Save-HistoryNote })
+    # The changes from the approved version to the GPO now, under the timeline.
+    $historyDriftButton.Add_Click({
+        $drift = $history.Drift
+        if (-not $drift) { return }
+        $node = [AvaloniaHistoryNode]::new()
+        $node.IsCurrent = $true
+        $node.Changes = $drift.Changes
+        Show-HistoryChange $node -Title "Changes since the approved version of $(Format-HistoryDate $drift.Approved)"
+    })
     $historyBackupButton.Add_Click({ $gpo = Get-SelectedGpo; if ($gpo) { Invoke-HistoryBackup -Gpos @($gpo) } })
     $historyBackupAllButton.Add_Click({ Invoke-HistoryBackup -Gpos @($Directory.Gpos | Where-Object { $Directory.IsGpoVisible($_) }) })
     # Another folder: its backups, remembered for the next time.
@@ -1393,7 +1502,9 @@ function Start-PSGPOManagerWindow {
             'newGpoErrorTextBlock', 'newGpoCreateButton', 'newGpoCancelButton', 'newGpoStatusComboBox', 'newGpoGroupsCheckBox', 'newGpoGroupsPanel',
             'newGpoGroupsTextBlock', 'newGpoGroupsContainerComboBox', 'directoryResultTextBlock', 'deleteLinkMenuItem', 'deleteLinkPanel',
             'deleteLinkTextBlock', 'deleteLinkConfirmButton', 'deleteLinkCancelButton', 'linkGpoMenuItem', 'linkGpoPanel',
-            'linkGpoTitleTextBlock', 'linkGpoFilterTextBox', 'linkGpoList', 'linkGpoErrorTextBlock', 'linkGpoConfirmButton', 'linkGpoCancelButton', 'historyTab', 'historyPathTextBox', 'historyBackupButton',
+            'linkGpoTitleTextBlock', 'linkGpoFilterTextBox', 'linkGpoList', 'linkGpoErrorTextBlock', 'linkGpoConfirmButton', 'linkGpoCancelButton',
+            'historyCommentTextBox', 'historyDriftBorder', 'historyDriftTextBlock', 'historyDriftButton', 'historyNotesPanel', 'historyNotesInfoTextBlock',
+            'historyNotesCommentTextBox', 'historyNotesLabelsTextBox', 'historyNotesApprovedCheckBox', 'historyNotesSaveButton', 'historyTab', 'historyPathTextBox', 'historyBackupButton',
             'historyBackupAllButton', 'historyStatusTextBlock', 'historyTimelineList', 'historyCompareTextBlock', 'historyChangesList',
             'historyRestoreButton', 'historyRestorePanel', 'historyRestoreTextBlock', 'historyRestoreConfirmButton', 'historyRestoreCancelButton',
             'detailsTitleTextBlock', 'configurationButton', 'preferencesPanel', 'preferencesTitleTextBlock', 'preferencesInfoTextBlock', 'preferencesNewTypeComboBox',

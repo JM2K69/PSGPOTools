@@ -80,6 +80,13 @@ class AvaloniaHistoryNode {
     # The changes from the previous node (Compare-PSGPOSettingReport), and the date of that node
     [object[]]$Changes
     [string]$Previous
+    # Notes of the backup: its labels on the node, its comment as its tool tip ($null: none)
+    [string]$LabelsText
+    [bool]$HasLabels
+    [string]$LabelBrush
+    [object]$Comment
+    # The approved version of the GPO (Backup.ApprovedLabel of the configuration)
+    [bool]$IsApproved
 }
 
 # One change of a setting between two nodes of the timeline (History tab)

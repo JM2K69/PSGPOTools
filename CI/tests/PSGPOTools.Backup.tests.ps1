@@ -143,6 +143,7 @@ InModuleScope -ModuleName PSGPOTools {
             $Result.BackupBefore | Should -Not -BeNullOrEmpty
             $Backups = @(Get-PSGPOBackup -Path $Root)
             $Backups[0].Path | Should -Be $Result.BackupBefore
+            $Backups[0].Comment | Should -BeLike 'Before the restore of the version of *'
             $Now = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName
             Compare-PSGPOBackup -ReferenceBackup $Old -DifferenceBackup $Now | Should -BeNullOrEmpty
         }
@@ -211,6 +212,106 @@ InModuleScope -ModuleName PSGPOTools {
 
         It 'Finds nothing between a backup and itself' {
             Compare-PSGPOBackup -ReferenceBackup $Backups[0] -DifferenceBackup $Backups[0] | Should -BeNullOrEmpty
+        }
+    }
+
+    Describe 'Notes of the backups and the approved version' {
+        BeforeEach {
+            $Root = Join-Path $TestDrive "notes-$([guid]::NewGuid())"
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            $Directory.Account = 'CORP\alice'
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            Set-TestSetting $Directory $Gpo 'Enabled' 14
+        }
+
+        It 'Keeps the comment and the labels beside the backup, without changing its manifest' {
+            $Backup = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Comment ' CHG-1024: biometrics ' -Label 'Reviewed', ' reviewed ', 'Q4'
+            $Backup.Comment | Should -Be 'CHG-1024: biometrics'
+            $Backup.Labels | Should -Be @('Reviewed', 'Q4') -Because 'a label is kept once, case ignored'
+            $Backup.BackedUpBy | Should -Be 'CORP\alice'
+            $Backup.NotesUpdatedBy | Should -Be 'CORP\alice'
+            $Manifest = Get-Content -LiteralPath (Join-Path $Backup.Path 'manifest.json') -Raw
+            Test-Path -LiteralPath (Join-Path $Backup.Path 'notes.json') | Should -BeTrue
+
+            $Read = Get-PSGPOBackup -Path $Root
+            $Read.Comment | Should -Be 'CHG-1024: biometrics'
+            $Read.Labels | Should -Be @('Reviewed', 'Q4')
+            $Read.NotesUpdated | Should -BeOfType [datetime]
+
+            $Changed = $Read | Set-PSGPOBackup -Comment 'Reviewed by the security team' -AddLabel 'Prod' -RemoveLabel 'q4' -Confirm:$false
+            $Changed.Labels | Should -Be @('Reviewed', 'Prod')
+            (Get-PSGPOBackup -Path $Root).Comment | Should -Be 'Reviewed by the security team'
+            Get-Content -LiteralPath (Join-Path $Backup.Path 'manifest.json') -Raw | Should -Be $Manifest -Because 'the manifest is what was backed up'
+            Restore-PSGPO -Backup (Get-PSGPOBackup -Path $Root) -Directory $Directory -NoBackup -WhatIf | Out-Null
+            { Get-PSGPOVerifiedBackupFile -Backup (Get-PSGPOBackup -Path $Root) } | Should -Not -Throw
+
+            # No comment and no label: no notes.
+            $null = Get-PSGPOBackup -Path $Root | Set-PSGPOBackup -Comment '' -RemoveLabel 'Reviewed', 'Prod' -Confirm:$false
+            Test-Path -LiteralPath (Join-Path $Backup.Path 'notes.json') | Should -BeFalse
+            (Get-PSGPOBackup -Path $Root).Labels | Should -BeNullOrEmpty
+        }
+
+        It 'Rejects a label with a comma, and ignores notes it cannot read' {
+            { Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Label 'a,b' -ErrorAction Stop } | Should -Throw '*no comma*'
+            $Backup = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName
+            Set-Content -LiteralPath (Join-Path $Backup.Path 'notes.json') -Value '{ not json'
+            $Read = Get-PSGPOBackup -Path $Root 3>$null
+            $Read.Comment | Should -Be ''
+            $Read.Labels | Should -BeNullOrEmpty
+        }
+
+        It 'Labels the last backup of a GPO that did not change, but keeps its comment' {
+            $First = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Comment 'Baseline 2026'
+            $Again = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Comment 'Nothing changed' -Approve
+            $Again.Result | Should -Be 'Unchanged'
+            $Again.Path | Should -Be $First.Path
+            $Again.Comment | Should -Be 'Baseline 2026'
+            $Again.Labels | Should -Be @('Approved')
+            @(Get-PSGPOBackup -Path $Root -Approved).Count | Should -Be 1
+            @(Get-PSGPOBackup -Path $Root -Label 'Appr*').Count | Should -Be 1
+            @(Get-PSGPOBackup -Path $Root -Label 'Other').Count | Should -Be 0
+        }
+
+        It 'Finds the GPOs changed since their approved version, here or elsewhere' {
+            $Other = $Directory.FindGpo('U - Lyon - Printers')
+            $null = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Approve
+            $null = Backup-PSGPO -Directory $Directory -Path $Root -Name $Other.DisplayName
+            $Drift = @(Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName, $Other.DisplayName)
+            ($Drift | Where-Object Id -EQ $Gpo.Id).State | Should -Be 'InSync'
+            ($Drift | Where-Object Id -EQ $Other.Id).State | Should -Be 'NotApproved'
+
+            # Changed after its approval, then backed up without approval: still drifted.
+            Start-Sleep -Milliseconds 1100
+            Set-TestSetting $Directory $Gpo 'Disabled' 14
+            $Changed = Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName
+            $Changed.State | Should -Be 'Drifted'
+            $Changed.ApprovedBy | Should -Be 'CORP\alice'
+            @($Changed.Changes).Count | Should -Be 1
+            $Changed.Changes[0].Change | Should -Be 'Changed'
+            $Changed.Changes[0].Before | Should -Be 'Enabled'
+            $Changed.Changes[0].After | Should -Be 'Disabled'
+            $null = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName
+            (Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName).State | Should -Be 'Drifted'
+
+            # Its newest backup approved: in sync again; or the setting put back.
+            $null = Get-PSGPOBackup -Path $Root -Id $Gpo.Id | Select-Object -First 1 | Set-PSGPOBackup -Approve -Confirm:$false
+            (Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName).State | Should -Be 'InSync'
+            (Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Label 'Other').State | Should -Be 'NotApproved'
+        }
+
+        It 'Uses the approved label of the configuration' {
+            $Configuration = Join-Path $TestDrive "configuration-$([guid]::NewGuid()).psd1"
+            Set-Content -LiteralPath $Configuration -Value "@{ Backup = @{ ApprovedLabel = 'Production' } }"
+            $env:PSGPOTOOLS_CONFIGURATION_PATH = $Configuration
+            try {
+                $Backup = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Approve
+                $Backup.Labels | Should -Be @('Production')
+                (Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName).State | Should -Be 'InSync'
+                Set-Content -LiteralPath $Configuration -Value "@{ Backup = @{ ApprovedLabel = 'a,b' } }"
+                Get-PSGPOApprovedLabel 3>$null | Should -Be 'Approved' -Because 'a wrong configuration is not used'
+            } finally {
+                Remove-Item Env:PSGPOTOOLS_CONFIGURATION_PATH
+            }
         }
     }
 }

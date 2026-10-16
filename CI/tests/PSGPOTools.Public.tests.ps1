@@ -16,7 +16,7 @@ Describe 'Module manifest' {
 
     It 'Exports only the public functions' {
         (Get-Module PSGPOTools).ExportedCommands.Keys | Sort-Object |
-            Should -Be @('Backup-PSGPO', 'Compare-PSGPOBackup', 'Get-PSGPOBackup', 'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 'Restore-PSGPO', 'Show-GPOManagerAvalonia')
+            Should -Be @('Backup-PSGPO', 'Compare-PSGPOBackup', 'Get-PSGPOBackup', 'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 'Get-PSGPODrift', 'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 'Restore-PSGPO', 'Set-PSGPOBackup', 'Show-GPOManagerAvalonia')
         (Get-Module PSGPOTools).ExportedVariables.Count | Should -Be 0
     }
 }
