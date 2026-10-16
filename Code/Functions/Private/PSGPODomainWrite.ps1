@@ -6,6 +6,8 @@
       create. Both create the group policy container and its User/Machine containers in the
       directory, and the GPO folder in SYSVOL with the permissions of the GPO, as GPMC does,
       against Samba and Windows domain controllers.
+    - GPO deletion, the same way: Remove-GPO on Windows, samba-tool gpo del on Linux (its
+      container and its SYSVOL folder); its links are deleted over LDAP before.
     - GPO link: the gPLink of the domain or the OU, written over LDAP. The old value is removed
       and the new one added in one modify request: when someone changed the links meanwhile,
       the server refuses it instead of losing their change.
@@ -28,9 +30,9 @@ function Invoke-PSGPOSambaTool {
     $platform = Get-PSGPOPlatform
     if (-not $platform.SambaToolPath) {
         if ($IsWindows) {
-            throw 'Creating a GPO needs samba-tool, which runs on Linux: create it from a Linux computer of the domain, or with the Group Policy Management Console.'
+            throw 'This change needs samba-tool, which runs on Linux: make it from a Linux computer of the domain, or with the Group Policy Management Console.'
         }
-        throw 'Creating a GPO needs samba-tool on this computer (Debian/Ubuntu: apt install python3-samba; RHEL/Fedora: dnf install samba-tools).'
+        throw 'This change needs samba-tool on this computer (Debian/Ubuntu: apt install python3-samba; RHEL/Fedora: dnf install samba-tools).'
     }
 
     $result = Invoke-PSGPONativeCommand -FilePath $platform.SambaToolPath -ArgumentList (@($ArgumentList) + '--no-pass') -TimeoutSeconds $TimeoutSeconds
@@ -55,16 +57,69 @@ function New-PSGPOWindowsGpo {
 
     # -SkipEditionCheck: PowerShell 7 hides the Windows PowerShell modules not marked for Core
     # (GroupPolicy is one); Import-Module loads them through the Windows PowerShell compatibility.
-    if (-not (Get-Module -ListAvailable -SkipEditionCheck -Name GroupPolicy)) {
-        throw "Creating a GPO from Windows needs the Group Policy Management tools of RSAT (the GroupPolicy module): Add-WindowsCapability -Online -Name 'Rsat.GroupPolicy.Management.Tools~~~~0.0.1.0' on Windows 10/11, or Install-WindowsFeature GPMC on Windows Server."
-    }
-    Import-Module -Name GroupPolicy -ErrorAction Stop -WarningAction SilentlyContinue -Verbose:$false
+    Import-PSGPOGroupPolicyModule -Action 'Creating a GPO'
     try {
         $created = New-GPO -Name $Name -Domain $Directory.DomainName -Server $Directory.Server -ErrorAction Stop
     } catch {
         throw "New-GPO failed on $($Directory.Server): $($_.Exception.Message)"
     }
     [guid]"$($created.Id)"
+}
+
+# Loads the GroupPolicy module of RSAT, or says how to install it.
+function Import-PSGPOGroupPolicyModule {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [string]$Action)
+
+    # -SkipEditionCheck: PowerShell 7 hides the Windows PowerShell modules not marked for Core
+    # (GroupPolicy is one); Import-Module loads them through the Windows PowerShell compatibility.
+    if (-not (Get-Module -ListAvailable -SkipEditionCheck -Name GroupPolicy)) {
+        throw "$Action from Windows needs the Group Policy Management tools of RSAT (the GroupPolicy module): Add-WindowsCapability -Online -Name 'Rsat.GroupPolicy.Management.Tools~~~~0.0.1.0' on Windows 10/11, or Install-WindowsFeature GPMC on Windows Server."
+    }
+    Import-Module -Name GroupPolicy -ErrorAction Stop -WarningAction SilentlyContinue -Verbose:$false
+}
+
+# Deletes a GPO from Windows with Remove-GPO (RSAT), on the domain controller of the directory.
+function Remove-PSGPOWindowsGpo {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo
+    )
+
+    Import-PSGPOGroupPolicyModule -Action 'Deleting a GPO'
+    try {
+        Remove-GPO -Guid $Gpo.Id -Domain $Directory.DomainName -Server $Directory.Server -Confirm:$false -ErrorAction Stop
+    } catch {
+        throw "Remove-GPO failed on $($Directory.Server): $($_.Exception.Message)"
+    }
+}
+
+# Deletes a GPO of the domain (GPOToolsDirectory.RemoveGpo, its links deleted before): its
+# container in the directory and its folder in SYSVOL, then checks it is gone.
+function Remove-PSGPODomainGpo {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo
+    )
+
+    if ($Directory.Credential) {
+        throw "Deleting a GPO uses the identity of the session (Kerberos): $(if ($IsWindows) { 'read the domain' } else { "run kinit $($Directory.Credential.UserName), then read the domain" }) without -Credential."
+    }
+    if ($IsWindows) {
+        Remove-PSGPOWindowsGpo -Directory $Directory -Gpo $Gpo
+    } else {
+        $null = Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'del', ('{' + $Gpo.Id.ToString().ToUpperInvariant() + '}'), '-H', "ldap://$($Directory.Server)", '--use-kerberos=required'
+    }
+    $connection = New-PSGPODirectoryConnection -Directory $Directory
+    try {
+        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Gpo.DistinguishedName -Scope Base -Attribute 'displayName'
+    } finally {
+        $connection.Dispose()
+    }
+    if ($entry) { throw "The GPO '$($Gpo.DisplayName)' is still in the domain after its deletion." }
+    Write-Verbose "GPO $($Gpo.DisplayName) deleted from $($Directory.Server)."
 }
 
 # GUID of the GPO in the output of samba-tool gpo create: "GPO 'name' created as {GUID}".

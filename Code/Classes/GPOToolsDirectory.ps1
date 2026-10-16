@@ -243,6 +243,28 @@ class GPOToolsDirectory {
         return $Gpo
     }
 
+    # The Default Domain Policy and the Default Domain Controllers Policy: never deleted.
+    static [guid[]] $DefaultGpoIds = @([guid]'31B2F340-016D-11D2-945F-00C04FB984F9', [guid]'6AC1786C-016F-11D2-945F-00C04FB984F9')
+
+    # Deletes a GPO, like GPMC "Delete": its links in the domain first (refused when the account
+    # cannot delete one of them), then the GPO, its container and its folder in SYSVOL.
+    [void] RemoveGpo([GPOToolsGpo]$Gpo) {
+        $this.AssertWritable()
+        if (-not $this.Gpos.Contains($Gpo)) { throw "The GPO '$($Gpo.DisplayName)' is not in $($this.DomainName)." }
+        if ([GPOToolsDirectory]::DefaultGpoIds -contains $Gpo.Id) {
+            throw "The GPO '$($Gpo.DisplayName)' is a default GPO of the domain: it is not deleted (change its settings instead)."
+        }
+        if (-not $Gpo.CanEdit) { throw "The account $($this.Account) cannot delete the GPO '$($Gpo.DisplayName)'." }
+        $Links = @($this.GetLinksOf($Gpo))
+        $Refused = @($Links | Where-Object { -not $_.Som.CanLink } | ForEach-Object { $_.Som.Name })
+        if ($Refused.Count) {
+            throw "The account $($this.Account) cannot delete the links of the GPO '$($Gpo.DisplayName)' to $($Refused -join ', '): the GPO is not deleted."
+        }
+        foreach ($Pair in $Links) { $this.RemoveLink($Pair.Som, $Pair.Link) }
+        $this.SaveRemovedGpo($Gpo)
+        [void]$this.Gpos.Remove($Gpo)
+    }
+
     # Rights of the account, as the delegations of the domain give them (RBAC): a technician sees
     # the OUs where it links GPOs, with their parents as the path to them, and the GPOs it edits
     # or that are linked there.
@@ -454,6 +476,10 @@ class GPOToolsDirectory {
     hidden [void] SaveGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {}
     # SaveRemovedLink may set the links of the SOM again from the domain.
     hidden [void] SaveRemovedLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {}
+    hidden [void] SaveRemovedGpo([GPOToolsGpo]$Gpo) {
+        $Prefix = "$($Gpo.Id)\"
+        foreach ($Key in @($this.GpoFiles.Keys | Where-Object { $_.StartsWith($Prefix) })) { $this.GpoFiles.Remove($Key) }
+    }
 
     # Groups created in memory, by distinguished name.
     hidden [hashtable]$Groups = @{}
@@ -506,7 +532,7 @@ class GPOToolsDirectory {
 }
 
 # Directory read from a domain over LDAP (Get-PSGPODirectory); its changes are written to the
-# domain: GPOs created with New-GPO of RSAT (Windows) or samba-tool (Linux), links written over
+# domain: GPOs created and deleted with RSAT (Windows) or samba-tool (Linux), links written over
 # LDAP.
 class GPOToolsLdapDirectory : GPOToolsDirectory {
     # Domain controller the directory was read from, and that the changes go to
@@ -539,6 +565,10 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
 
     hidden [void] SaveRemovedLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {
         Remove-PSGPODomainGpLink -Directory $this -Som $Som -Link $Link
+    }
+
+    hidden [void] SaveRemovedGpo([GPOToolsGpo]$Gpo) {
+        Remove-PSGPODomainGpo -Directory $this -Gpo $Gpo
     }
 
     hidden [object[]] SaveFilteringGroups([GPOToolsGpo]$Gpo, [string]$Container) {

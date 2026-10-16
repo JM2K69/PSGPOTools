@@ -10,6 +10,13 @@ function Restore-PSGPO {
 
         The GPO as it is now is backed up first, in the same folder, so that the restore can be
         undone (unless -NoBackup). The files of the backup are checked against their SHA-256 first.
+
+        A backup of a deleted GPO (Get-PSGPOBackup -Deleted) creates it again: a new GPO, with a
+        new GUID given by the domain, the name, settings, status and client-side extensions of the
+        backup. Its security filtering is not restored (it applies to Authenticated Users); with
+        -RestoreLink it is linked again to its containers that still exist, only when its
+        security filtering was Authenticated Users and its links were enabled. The new GPO is
+        backed up at once, and the deleted one leaves the recycle bin.
     .PARAMETER Backup
         The backup to restore (Get-PSGPOBackup).
     .PARAMETER Directory
@@ -18,6 +25,11 @@ function Restore-PSGPO {
         Domain controller to read the domain from, without -Directory.
     .PARAMETER NoBackup
         Does not back up the GPO as it is now before restoring it.
+    .PARAMETER RestoreLink
+        For a deleted GPO: links it again where it was (see the description).
+    .EXAMPLE
+        # A deleted GPO, created again and linked where it was
+        Get-PSGPOBackup -Path /srv/gpo-backups -Deleted | Where-Object DisplayName -EQ 'U - Lyon - Printers' | Restore-PSGPO -RestoreLink
     .EXAMPLE
         # The GPO as it was on 15 October
         Get-PSGPOBackup -Path /srv/gpo-backups -Name 'T1 - Servers - Baseline' |
@@ -36,7 +48,9 @@ function Restore-PSGPO {
 
         [string]$Server,
 
-        [switch]$NoBackup
+        [switch]$NoBackup,
+
+        [switch]$RestoreLink
     )
 
     begin {
@@ -48,9 +62,17 @@ function Restore-PSGPO {
     }
     process {
         $gpo = $Directory.Gpos | Where-Object Id -EQ $Backup.Id | Select-Object -First 1
-        if (-not $gpo) { throw "The GPO '$($Backup.DisplayName)' {$($Backup.Id)} is not in $($Directory.DomainName): restoring a deleted GPO is not available." }
         $date = if ($Backup.Modified) { $Backup.Modified } else { $Backup.BackedUp }
         $files = Get-PSGPOVerifiedBackupFile -Backup $Backup
+        if (-not $gpo) {
+            if (-not [string]::Equals($Backup.Domain, $Directory.DomainName, [System.StringComparison]::OrdinalIgnoreCase)) {
+                throw "The backup is of a GPO of $($Backup.Domain), not of $($Directory.DomainName): use it as a template of a new GPO (New-PSGPO -Template)."
+            }
+            if ($Backup.RestoredAs) { throw "The deleted GPO '$($Backup.DisplayName)' was created again already, as {$($Backup.RestoredAs)}." }
+            if (-not $PSCmdlet.ShouldProcess("Deleted GPO '$($Backup.DisplayName)'", "Create it again from its backup of $(([datetime]$date).ToLocalTime().ToString('g'))")) { return }
+            Restore-PSGPODeletedGpo -Directory $Directory -Backup $Backup -Files $files -RestoreLink:$RestoreLink
+            return
+        }
         if (-not $PSCmdlet.ShouldProcess("GPO '$($gpo.DisplayName)'", "Restore its backup of $(([datetime]$date).ToLocalTime().ToString('g'))")) { return }
 
         $safety = $null
@@ -61,21 +83,20 @@ function Restore-PSGPO {
                 $safety = Save-PSGPOBackupNote -Backup $safety -Comment "Before the restore of the version of $(([datetime]$date).ToLocalTime().ToString('g'))." -Label $safety.Labels -Account $Directory.Account
             }
         }
-        $machine = $Backup.MachineExtensionNames
-        $user = $Backup.UserExtensionNames
-        if ($null -eq $machine -and $null -eq $user) {
-            # A backup without them: the extensions of its files.
-            $machine = Get-PSGPOFileExtensionName -Files $files -Scope Machine
-            $user = Get-PSGPOFileExtensionName -Files $files -Scope User
-        }
-        $Directory.RestoreGpo($gpo, $files, $Backup.Flags, $machine, $user)
+        $extensions = Get-PSGPOBackupExtensionName -Backup $Backup -Files $files
+        $Directory.RestoreGpo($gpo, $files, $Backup.Flags, $extensions.Machine, $extensions.User)
         [pscustomobject]@{
             PSTypeName = 'PSGPOTools.Restore'
             DisplayName = $gpo.DisplayName
+            Id = $gpo.Id
             RestoredFrom = $Backup.Path
             Version = $gpo.Version
             Status = $gpo.GetStatus()
             BackupBefore = if ($safety) { $safety.Path }
+            CreatedAgain = $false
+            Backup = $null
+            Linked = [string[]]@()
+            Problems = [string[]]@()
         }
     }
 }

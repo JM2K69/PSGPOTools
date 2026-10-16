@@ -15,6 +15,11 @@
     approved version of the GPO: what changed since, made in the console or elsewhere (GPMC,
     samba-tool), is its drift (Get-PSGPODriftState).
 
+    The backups are also the recycle bin of the GPOs: a GPO deleted from the domain keeps its
+    backups (the last one made at its deletion), and can be created again from one of them
+    (Restore-PSGPODeletedGpo); and the backups with the template label of the configuration
+    (Backup.TemplateLabel) are the templates of the new GPOs (Copy-PSGPOBackupSetting).
+
     The settings of a backup (Get-PSGPOBackupSetting) are those of the Settings tab: the policies
     of the Registry.pol files (by category path, with the loaded ADMX), the security settings,
     the other files by their hash, and the properties of the GPO; two backups are compared
@@ -52,12 +57,21 @@ function Get-PSGPOApprovedLabel {
     (Get-PSGPOConfigurationData).Backup.ApprovedLabel
 }
 
+# Label of the templates of new GPOs (Configuration.psd1, Backup.TemplateLabel).
+function Get-PSGPOTemplateLabel {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param()
+
+    (Get-PSGPOConfigurationData).Backup.TemplateLabel
+}
+
 # The notes of a backup folder: Comment, Labels, Updated (UTC) and UpdatedBy; empty when it has none.
 function Read-PSGPOBackupNote {
     [CmdletBinding()]
     param([Parameter(Mandatory)] [string]$Path)
 
-    $notes = @{ Comment = ''; Labels = [string[]]@(); Updated = $null; UpdatedBy = $null }
+    $notes = @{ Comment = ''; Labels = [string[]]@(); Updated = $null; UpdatedBy = $null; RestoredAs = $null }
     $file = Join-Path $Path 'notes.json'
     if (-not (Test-Path -LiteralPath $file -PathType Leaf)) { return $notes }
     try {
@@ -66,6 +80,7 @@ function Read-PSGPOBackupNote {
         $notes.Comment = "$($read.Comment)"
         $notes.Labels = ConvertTo-PSGPOBackupLabel -Label @($read.Labels)
         $notes.UpdatedBy = $read.UpdatedBy
+        if ($read.RestoredAs) { $notes.RestoredAs = [guid]$read.RestoredAs }
         if ($read.Updated) {
             $notes.Updated = if ($read.Updated -is [datetime]) { $read.Updated.ToUniversalTime() }
                 else { [datetime]::Parse($read.Updated, [cultureinfo]::InvariantCulture, [System.Globalization.DateTimeStyles]::AdjustToUniversal -bor [System.Globalization.DateTimeStyles]::AssumeUniversal) }
@@ -77,7 +92,8 @@ function Read-PSGPOBackupNote {
 }
 
 # Writes the notes of a backup (all of them: the comment and the labels replace those it had), at
-# once through a temporary file; no comment and no label removes notes.json. Returns the backup
+# once through a temporary file; no comment and no label removes notes.json. -RestoredAs: the
+# GPO created again from this backup of a deleted GPO (kept when not given). Returns the backup
 # with its new notes.
 function Save-PSGPOBackupNote {
     [CmdletBinding()]
@@ -85,13 +101,15 @@ function Save-PSGPOBackupNote {
         [Parameter(Mandatory)] $Backup,
         [AllowNull()] [AllowEmptyString()] [string]$Comment,
         [AllowNull()] [AllowEmptyCollection()] [string[]]$Label,
-        [string]$Account
+        [string]$Account,
+        [guid]$RestoredAs = [guid]::Empty
     )
 
     $labels = ConvertTo-PSGPOBackupLabel -Label $Label
     $Comment = "$Comment".Trim()
+    if ($RestoredAs -eq [guid]::Empty -and $Backup.RestoredAs) { $RestoredAs = $Backup.RestoredAs }
     $file = Join-Path $Backup.Path 'notes.json'
-    if (-not $Comment -and -not $labels.Count) {
+    if (-not $Comment -and -not $labels.Count -and $RestoredAs -eq [guid]::Empty) {
         Remove-Item -LiteralPath $file -Force -ErrorAction SilentlyContinue
         $updated = $null
         $Account = $null
@@ -105,6 +123,7 @@ function Save-PSGPOBackupNote {
             Labels = $labels
             Updated = $updated.ToString('o')
             UpdatedBy = $Account
+            RestoredAs = if ($RestoredAs -ne [guid]::Empty) { $RestoredAs.ToString() } else { $null }
         } | ConvertTo-Json -Depth 3 | Set-Content -LiteralPath $temporary -Encoding utf8
         Move-Item -LiteralPath $temporary -Destination $file -Force
     }
@@ -112,6 +131,7 @@ function Save-PSGPOBackupNote {
     $Backup.Labels = $labels
     $Backup.NotesUpdated = $updated
     $Backup.NotesUpdatedBy = $Account
+    $Backup.RestoredAs = if ($RestoredAs -ne [guid]::Empty) { $RestoredAs } else { $null }
     $Backup
 }
 
@@ -239,6 +259,8 @@ function ConvertTo-PSGPOBackupEntry {
         Labels = [string[]]@($Note.Labels)
         NotesUpdated = $Note.Updated
         NotesUpdatedBy = $Note.UpdatedBy
+        # The GPO created again from this backup of a deleted GPO
+        RestoredAs = $Note.RestoredAs
         Result = $Result
     }
 }
@@ -509,6 +531,170 @@ function Get-PSGPOVerifiedBackupFile {
         if ((Get-PSGPOFileHash -Bytes ([byte[]]$files[$file.Path])) -ne $file.Sha256) { throw "The backup $($Backup.Path) was changed: $($file.Path) is not the file backed up." }
     }
     , $files
+}
+
+# Client-side extensions of a backup, for its files: those it kept, else those of its files.
+function Get-PSGPOBackupExtensionName {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] $Backup,
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [System.Collections.IDictionary]$Files
+    )
+
+    if ($null -eq $Backup.MachineExtensionNames -and $null -eq $Backup.UserExtensionNames) {
+        return [pscustomobject]@{ Machine = Get-PSGPOFileExtensionName -Files $Files -Scope Machine; User = Get-PSGPOFileExtensionName -Files $Files -Scope User }
+    }
+    [pscustomobject]@{ Machine = $Backup.MachineExtensionNames; User = $Backup.UserExtensionNames }
+}
+
+# The settings of a backup (a template) given to a GPO: the files of the backup, checked, without
+# its GPT.INI (the GPO keeps its own, its version increased), and their client-side extensions;
+# the status of the GPO does not change.
+function Copy-PSGPOBackupSetting {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
+        [Parameter(Mandatory)] $Backup
+    )
+
+    $files = Get-PSGPOVerifiedBackupFile -Backup $Backup
+    $extensions = Get-PSGPOBackupExtensionName -Backup $Backup -Files $files
+    $files.Remove('GPT.INI')
+    $Directory.RestoreGpo($Gpo, $files, $Gpo.Flags, $extensions.Machine, $extensions.User)
+}
+
+# The templates of new GPOs: the backups with the template label, newest first, of any domain.
+function Get-PSGPOTemplateBackup {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [string]$Path)
+
+    $label = Get-PSGPOTemplateLabel
+    @(Get-PSGPOBackupEntry -Path $Path | Where-Object { $_.Labels -contains $label })
+}
+
+# The recycle bin: for each GPO of the domain of the directory that is not in it anymore, its
+# newest backup; not those created again since (RestoredAs).
+function Get-PSGPODeletedGpoBackup {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
+        [Parameter(Mandatory)] [string]$Path
+    )
+
+    $present = [System.Collections.Generic.HashSet[guid]]::new()
+    foreach ($gpo in $Directory.Gpos) { [void]$present.Add($gpo.Id) }
+    $backups = @(Get-PSGPOBackupEntry -Path $Path | Where-Object { [string]::Equals($_.Domain, $Directory.DomainName, [System.StringComparison]::OrdinalIgnoreCase) })
+    $deleted = foreach ($group in @($backups | Group-Object Id)) {
+        $newest = $group.Group[0]
+        if ($present.Contains($newest.Id) -or @($group.Group | Where-Object RestoredAs).Count) { continue }
+        $newest
+    }
+    @($deleted | Sort-Object DisplayName)
+}
+
+# Deletes a GPO (GPOToolsDirectory.RemoveGpo), backed up first in $Path unless -NoBackup: its
+# last backup says when and by whom it was deleted, and keeps it in the recycle bin.
+function Remove-PSGPOWithBackup {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
+        [string]$Path,
+        [switch]$NoBackup
+    )
+
+    $links = @($Directory.GetLinksOf($Gpo) | ForEach-Object { $_.Som.DistinguishedName })
+    $backup = $null
+    if (-not $NoBackup) {
+        $null = New-Item -ItemType Directory -Path $Path -Force -ErrorAction Stop
+        $backup = Save-PSGPOBackup -Directory $Directory -Gpo $Gpo -Path $Path
+    }
+    $Directory.RemoveGpo($Gpo)
+    if ($backup) {
+        $by = if ($Directory.Account) { $Directory.Account } else { [Environment]::UserName }
+        $text = "GPO deleted on $([datetime]::Now.ToString('g')) by $by."
+        $backup = Save-PSGPOBackupNote -Backup $backup -Comment ((@($backup.Comment, $text) | Where-Object { $_ }) -join [Environment]::NewLine) -Label $backup.Labels -Account $Directory.Account
+    }
+    [pscustomobject]@{
+        PSTypeName = 'PSGPOTools.RemovedGpo'
+        DisplayName = $Gpo.DisplayName
+        Id = $Gpo.Id
+        Links = $links
+        Backup = if ($backup) { $backup.Path }
+    }
+}
+
+# Creates a deleted GPO again from one of its backups: a new GPO (the domain gives it a new GUID)
+# with the name, files, status and client-side extensions of the backup. Its security filtering is
+# not restored: the GPO applies to Authenticated Users, so it is linked again (-RestoreLink) only
+# when the backup had that filtering, to its containers that still exist, where the account
+# links; disabled links are not. The backup notes the new GPO (RestoredAs), which is backed up.
+function Restore-PSGPODeletedGpo {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
+        [Parameter(Mandatory)] $Backup,
+        [Parameter(Mandatory)] [System.Collections.IDictionary]$Files,
+        [switch]$RestoreLink
+    )
+
+    $problems = [System.Collections.Generic.List[string]]::new()
+    $linked = [System.Collections.Generic.List[string]]::new()
+    $date = if ($Backup.Modified) { $Backup.Modified } else { $Backup.BackedUp }
+    $gpo = $Directory.NewGpo($Backup.DisplayName)
+    try {
+        $extensions = Get-PSGPOBackupExtensionName -Backup $Backup -Files $Files
+        $Directory.RestoreGpo($gpo, $Files, $Backup.Flags, $extensions.Machine, $extensions.User)
+    } catch {
+        $problems.Add("The GPO is created, but its settings are not restored: $($_.Exception.GetBaseException().Message)")
+    }
+
+    $filtering = @($Backup.SecurityFiltering)
+    $default = ($filtering -join '|') -eq 'Authenticated Users' -and -not @($Backup.DeniedTo | Where-Object { $_ }).Count
+    if (-not $default) {
+        $was = (@($filtering | ForEach-Object { "applied by $_" }) + @($Backup.DeniedTo | Where-Object { $_ } | ForEach-Object { "denied to $_" })) -join ', '
+        $problems.Add("Its security filtering is not restored ($was): it applies to Authenticated Users until it is set again.")
+    }
+    if ($RestoreLink -and -not $problems.Count) {
+        foreach ($link in @($Backup.Links | Sort-Object { [int]$_.Order })) {
+            $som = $Directory.FindSom($link.Container)
+            if (-not $som) { $problems.Add("Not linked to $($link.Container): it is not in the domain anymore."); continue }
+            if (-not $link.Enabled) { $problems.Add("Not linked to $($som.Name): that link was disabled."); continue }
+            try {
+                $null = $Directory.NewLink($som, $gpo)
+                $linked.Add($som.DistinguishedName)
+                if ($link.Enforced) { $problems.Add("Linked to $($som.Name), not enforced: that link was enforced.") }
+            } catch {
+                $problems.Add("Not linked to $($som.Name): $($_.Exception.GetBaseException().Message)")
+            }
+        }
+    } elseif ($RestoreLink -and @($Backup.Links).Count) {
+        $problems.Add('It is not linked again, so that it does not apply to everyone: link it once its security filtering and settings are set.')
+    }
+
+    # The deleted GPO is now this one: out of the recycle bin, and its history starts here.
+    $root = Split-Path -Parent (Split-Path -Parent $Backup.Path)
+    $null = Save-PSGPOBackupNote -Backup $Backup -Comment $Backup.Comment -Label $Backup.Labels -Account $Directory.Account -RestoredAs $gpo.Id
+    $after = $null
+    try {
+        $after = Save-PSGPOBackup -Directory $Directory -Gpo $gpo -Path $root -Comment ("Created again from the backup of $(([datetime]$date).ToLocalTime().ToString('g')) of the deleted GPO {$($Backup.Id.ToString().ToUpperInvariant())}.")
+    } catch {
+        $problems.Add("The new GPO is not backed up: $($_.Exception.GetBaseException().Message)")
+    }
+    [pscustomobject]@{
+        PSTypeName = 'PSGPOTools.Restore'
+        DisplayName = $gpo.DisplayName
+        Id = $gpo.Id
+        RestoredFrom = $Backup.Path
+        Version = $gpo.Version
+        Status = $gpo.GetStatus()
+        BackupBefore = $null
+        CreatedAgain = $true
+        Backup = if ($after) { $after.Path }
+        Linked = $linked.ToArray()
+        Problems = $problems.ToArray()
+    }
 }
 
 # Client-side extensions of the files of a GPO for a scope: Registry for its Registry.pol, and

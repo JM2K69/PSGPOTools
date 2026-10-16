@@ -148,7 +148,7 @@ InModuleScope -ModuleName PSGPOTools {
             Compare-PSGPOBackup -ReferenceBackup $Old -DifferenceBackup $Now | Should -BeNullOrEmpty
         }
 
-        It 'Restores nothing with -WhatIf, from a changed backup, or for a GPO not in the domain' {
+        It 'Restores nothing with -WhatIf, from a changed backup, or from the backup of another domain' {
             $Version = $Gpo.Version
             Restore-PSGPO -Backup $Old -Directory $Directory -WhatIf
             $Gpo.Version | Should -Be $Version
@@ -157,9 +157,10 @@ InModuleScope -ModuleName PSGPOTools {
             { Restore-PSGPO -Backup $Old -Directory $Directory -Confirm:$false } | Should -Throw -ExpectedMessage '*was changed*Registry.pol*'
             $Gpo.Version | Should -Be $Version
 
-            $Other = Import-PSGPODirectory -Path $SamplePath
-            $Other.Gpos.Remove($Other.FindGpo('C - Servers - Security Baseline'))
-            { Restore-PSGPO -Backup $Old -Directory $Other -Confirm:$false } | Should -Throw -ExpectedMessage '*is not in corp.contoso.com*'
+            $Other = [GPOToolsDirectory]::new('fabrikam.com')
+            $Fresh = Backup-PSGPO -Directory $Directory -Path (Join-Path $TestDrive "other-$([guid]::NewGuid())") -Name $Gpo.DisplayName
+            { Restore-PSGPO -Backup $Fresh -Directory $Other -Confirm:$false } | Should -Throw -ExpectedMessage '*of corp.contoso.com, not of fabrikam.com*template*'
+            $Other.Gpos.Count | Should -Be 0
         }
 
         It 'Finds the extensions of the files of a backup without them' {
@@ -312,6 +313,89 @@ InModuleScope -ModuleName PSGPOTools {
             } finally {
                 Remove-Item Env:PSGPOTOOLS_CONFIGURATION_PATH
             }
+        }
+    }
+
+    Describe 'Deletion of a GPO, the recycle bin and the templates' {
+        BeforeEach {
+            $Root = Join-Path $TestDrive "bin-$([guid]::NewGuid())"
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            $Directory.Account = 'CORP\bob'
+            $Gpo = $Directory.FindGpo('U - Lyon - Printers')
+            $Users = $Directory.FindSom('OU=Users,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com')
+            Set-TestSetting $Directory $Gpo 'Enabled' 10
+        }
+
+        It 'Deletes a GPO and its links, and refuses a default GPO, a GPO it cannot edit, or links it cannot delete' {
+            { $Directory.RemoveGpo($Directory.FindGpo('Default Domain Policy')) } | Should -Throw -ExpectedMessage '*default GPO of the domain*'
+            $Gpo.CanEdit = $false
+            { $Directory.RemoveGpo($Gpo) } | Should -Throw -ExpectedMessage '*cannot delete the GPO*'
+            $Gpo.CanEdit = $true
+            $Users.CanLink = $false
+            { $Directory.RemoveGpo($Gpo) } | Should -Throw -ExpectedMessage '*cannot delete the links of the GPO*to Users*'
+            $Directory.FindGpo('U - Lyon - Printers') | Should -Not -BeNullOrEmpty
+            $Users.CanLink = $true
+
+            $Count = $Users.Links.Count
+            $Directory.RemoveGpo($Gpo)
+            $Directory.FindGpo('U - Lyon - Printers') | Should -BeNullOrEmpty
+            $Users.Links.Count | Should -Be ($Count - 1)
+            @($Users.Links.Order) | Should -Be @(1..($Count - 1))
+            $Directory.ReadPolicyFile($Gpo, 'Machine') | Should -BeNullOrEmpty -Because 'its files are gone'
+        }
+
+        It 'Backs up a GPO before deleting it, keeps it in the recycle bin, and creates it again with its links' {
+            Remove-PSGPO -Name 'U - Lyon - Printers' -Directory $Directory -BackupPath $Root -WhatIf
+            $Directory.FindGpo('U - Lyon - Printers') | Should -Not -BeNullOrEmpty -Because '-WhatIf deletes nothing'
+
+            $Removed = Remove-PSGPO -Name 'U - Lyon - Printers' -Directory $Directory -BackupPath $Root -Confirm:$false
+            $Removed.Links | Should -Be @($Users.DistinguishedName)
+            $Directory.FindGpo('U - Lyon - Printers') | Should -BeNullOrEmpty
+            $Deleted = @(Get-PSGPOBackup -Path $Root -Deleted -Directory $Directory)
+            $Deleted.Count | Should -Be 1
+            $Deleted[0].Id | Should -Be $Gpo.Id
+            $Deleted[0].Comment | Should -BeLike 'GPO deleted on * by CORP\bob.'
+            $Deleted[0].Path | Should -Be $Removed.Backup
+
+            $Restored = $Deleted[0] | Restore-PSGPO -Directory $Directory -RestoreLink -Confirm:$false
+            $Restored.CreatedAgain | Should -BeTrue
+            $Restored.Problems | Should -BeNullOrEmpty
+            $Restored.Id | Should -Not -Be $Gpo.Id -Because 'the domain gives the new GPO its GUID'
+            $New = $Directory.FindGpo('U - Lyon - Printers')
+            $New.Id | Should -Be $Restored.Id
+            $Restored.Linked | Should -Be @($Users.DistinguishedName)
+            @($Users.Links | Where-Object { [object]::ReferenceEquals($_.Gpo, $New) }).Count | Should -Be 1
+            [Linq.Enumerable]::SequenceEqual([byte[]]$Directory.ReadPolicyFile($New, 'Machine'), [System.IO.File]::ReadAllBytes((Join-Path $Deleted[0].Path 'Files' 'Machine' 'Registry.pol'))) | Should -BeTrue
+
+            # Out of the recycle bin; its history starts with a backup that says where it comes from.
+            @(Get-PSGPOBackup -Path $Root -Deleted -Directory $Directory).Count | Should -Be 0
+            (Get-PSGPOBackup -Path $Root -Id $New.Id).Comment | Should -BeLike "Created again from the backup of * of the deleted GPO {$($Gpo.Id.ToString().ToUpperInvariant())}."
+            Compare-PSGPOBackup -ReferenceBackup $Deleted[0] -DifferenceBackup (Get-PSGPOBackup -Path $Root -Id $New.Id) | Should -BeNullOrEmpty
+            { (Get-PSGPOBackup -Path $Root -Id $Gpo.Id) | Restore-PSGPO -Directory $Directory -Confirm:$false } | Should -Throw -ExpectedMessage '*was created again already*'
+        }
+
+        It 'Does not link again a deleted GPO whose security filtering was not Authenticated Users' {
+            $Gpo.SecurityFiltering = @('CORP\APPLY_U - Lyon - Printers')
+            $null = Remove-PSGPO -Name $Gpo.DisplayName -Directory $Directory -BackupPath $Root -Confirm:$false
+            $Restored = Get-PSGPOBackup -Path $Root -Deleted -Directory $Directory | Restore-PSGPO -Directory $Directory -RestoreLink -Confirm:$false
+            $Restored.Linked | Should -BeNullOrEmpty
+            $Restored.Problems -join ' ' | Should -BeLike '*security filtering is not restored (applied by CORP\APPLY_U - Lyon - Printers)*not linked again*'
+            $Directory.GetLinksOf($Directory.FindGpo($Gpo.DisplayName)).Count | Should -Be 0
+        }
+
+        It 'Creates a GPO from a template: the settings of the backup, its own status' {
+            $Template = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Label 'Template'
+            @(Get-PSGPOBackup -Path $Root -Template).Count | Should -Be 1
+            $New = New-PSGPO -Name 'U - Marseille - Printers' -Template $Template -Status UserOnly -Directory $Directory
+            $New.GetStatus() | Should -Be 'Computer configuration settings disabled'
+            [Linq.Enumerable]::SequenceEqual([byte[]]$Directory.ReadPolicyFile($New, 'Machine'), [byte[]]$Directory.ReadPolicyFile($Gpo, 'Machine')) | Should -BeTrue
+            $New.MachineExtensionNames | Should -Be $Gpo.MachineExtensionNames
+            $Directory.GetLinksOf($New).Count | Should -Be 0
+
+            # A template changed since its backup: no GPO created.
+            [System.IO.File]::WriteAllBytes((Join-Path $Template.Path 'Files' 'Machine' 'Registry.pol'), [byte[]](1, 2, 3))
+            { New-PSGPO -Name 'U - Nantes - Printers' -Template $Template -Directory $Directory } | Should -Throw -ExpectedMessage '*was changed*'
+            $Directory.FindGpo('U - Nantes - Printers') | Should -BeNullOrEmpty
         }
     }
 }

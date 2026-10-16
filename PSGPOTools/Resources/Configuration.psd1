@@ -43,5 +43,9 @@
         # Label of the approved versions: the newest backup with it is the reference the GPO is
         # compared to, to find what changed since (Get-PSGPODrift, History tab).
         ApprovedLabel = 'Approved'
+
+        # Label of the templates: a backup with it is proposed as the start of a new GPO (its
+        # settings copied into it), whatever domain it comes from.
+        TemplateLabel = 'Template'
     }
 }

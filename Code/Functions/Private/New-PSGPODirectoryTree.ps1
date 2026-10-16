@@ -1,6 +1,7 @@
 <#
     Builds the Group Policy Management tree of Show-GPOManagerAvalonia, as GPMC shows it:
-    domain > GPO links (by link order) and OUs, then the "Group Policy Objects" container.
+    domain > GPO links (by link order) and OUs, then the "Group Policy Objects" container, and
+    "Deleted GPOs": the recycle bin, the newest backup of each GPO deleted from the domain.
     Kept free of any Avalonia type so it can be tested without a UI.
 
     Only what the account manages is shown (RBAC, from the delegations of the domain): the OUs
@@ -16,6 +17,7 @@ function Get-PSGPODirectoryNodeKey {
 
     if ($Node.Tag -is [GPOToolsSom]) { 'SOM:' + $Node.Tag.DistinguishedName }
     elseif ($Node.Tag -eq 'GroupPolicyObjects') { 'GPOS:' + $Node.Parent.Tag.DistinguishedName }
+    elseif ($Node.Tag -eq 'DeletedGpos') { 'DELETED:' + $Node.Parent.Tag.DistinguishedName }
 }
 
 function New-PSGPODirectoryTree {
@@ -26,7 +28,11 @@ function New-PSGPODirectoryTree {
         [GPOToolsDirectory]$Directory,
 
         # Keys (Get-PSGPODirectoryNodeKey) of the nodes to expand; the domain is always expanded.
-        [System.Collections.Generic.HashSet[string]]$Expanded
+        [System.Collections.Generic.HashSet[string]]$Expanded,
+
+        # The backups of the deleted GPOs (Get-PSGPODeletedGpoBackup): the "Deleted GPOs" node.
+        [AllowEmptyCollection()]
+        [object[]]$DeletedGpo
     )
 
     function New-Node {
@@ -67,6 +73,13 @@ function New-PSGPODirectoryTree {
     $GposNode = New-Node 'Group Policy Objects' 'library' 'GroupPolicyObjects' $DomainNode
     foreach ($Gpo in $Directory.Gpos) {
         if ($Directory.IsGpoVisible($Gpo)) { [void](New-Node $Gpo.DisplayName 'document-settings' $Gpo $GposNode) }
+    }
+    if ($null -ne $DeletedGpo) {
+        $DeletedNode = New-Node 'Deleted GPOs' 'delete' 'DeletedGpos' $DomainNode
+        foreach ($Backup in $DeletedGpo) {
+            $Node = New-Node $Backup.DisplayName 'document-settings' $Backup $DeletedNode
+            $Node.IconBrush = '#8A8886'
+        }
     }
 
     $Roots.Add($DomainNode)
