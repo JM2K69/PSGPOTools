@@ -203,6 +203,9 @@ $iconResources
                                 <MenuItem Name='deleteLinkMenuItem' Header='Delete link...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.link-dismiss}'/></MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Name='approveGpoMenuItem' Header='Approve...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.shield}'/></MenuItem.Icon>
+                                </MenuItem>
                                 <MenuItem Name='deleteGpoMenuItem' Header='Delete GPO...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.delete}'/></MenuItem.Icon>
                                 </MenuItem>
@@ -289,6 +292,33 @@ $iconResources
                                             <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
                                                 <Button Name='deleteLinkConfirmButton' Content='Delete link' Width='120'/>
                                                 <Button Name='deleteLinkCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Approval of a GPO waiting for it (approval workflow) -->
+                                    <Border Name='approveGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='#107C10'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='approveGpoTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <Grid ColumnDefinitions='Auto,*'>
+                                                <TextBlock Text='The creators' VerticalAlignment='Center' Margin='0,0,12,0'
+                                                           Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                <ComboBox Grid.Column='1' Name='approveGpoRightsComboBox' HorizontalAlignment='Stretch'>
+                                                    <ComboBoxItem Content='Read it only: they cannot change it anymore' Tag='ReadOnly'/>
+                                                    <ComboBoxItem Content='Keep editing its settings: each change needs a new approval' Tag='EditSettings'/>
+                                                </ComboBox>
+                                            </Grid>
+                                            <Grid ColumnDefinitions='Auto,*'>
+                                                <TextBlock Text='Applies to' VerticalAlignment='Center' Margin='0,0,12,0'
+                                                           Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                <TextBox Grid.Column='1' Name='approveGpoApplyToTextBox' Watermark='A group of the domain, or Authenticated Users'/>
+                                            </Grid>
+                                            <TextBlock Name='approveGpoErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='approveGpoConfirmButton' Content='Approve' Width='110'/>
+                                                <Button Name='approveGpoCancelButton' Content='Cancel' Width='100'/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>

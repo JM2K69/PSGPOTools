@@ -59,6 +59,13 @@ function Get-PSGPODirectoryDetail {
             $Detail.Properties += New-Row 'Domain controller' $Directory.Server
             $Detail.Properties += New-Row 'Directory service' $Directory.ServerType
         }
+        if ($Item.Kind -eq [GPOToolsSomKind]::Domain -and $Directory.Workflow -and $Directory.Workflow.Enabled) {
+            $Detail.Properties += New-Row 'Approval workflow' $(
+                if ($Directory.Workflow.Problem) { "Cannot be read: $($Directory.Workflow.Problem)" }
+                elseif ($Directory.Workflow.IsApprover) { "You approve the GPOs (approvers: $($Directory.Workflow.Approvers -join ', '))" }
+                elseif ($Directory.Workflow.IsCreator) { "Your GPOs wait for an approval (approvers: $($Directory.Workflow.Approvers -join ', '))" }
+                else { "Approvers: $($Directory.Workflow.Approvers -join ', '); creators: $($Directory.Workflow.Creators -join ', ')" })
+        }
         if ($Item.Kind -eq [GPOToolsSomKind]::Domain -and $Directory.Account) {
             $Detail.Properties += New-Row 'Connected as' $Directory.Account
             $Detail.Properties += New-Row 'Delegation' $(if ($Directory.IsLimited()) { 'Limited: only the OUs and GPOs this account manages are shown' } else { 'Full: this account manages every OU and GPO' })
@@ -80,6 +87,9 @@ function Get-PSGPODirectoryDetail {
         $Detail.Properties = @(
             New-Row 'Unique ID' ('{' + $Gpo.Id.ToString().ToUpperInvariant() + '}')
             New-Row 'GPO status' $Gpo.GetStatus()
+            if ($Gpo.ApprovalState -eq 'Pending') { New-Row 'Approval' "Waiting for approval: it applies to nobody until an approver approves it$(if ($Gpo.Owner) { " (created by $($Gpo.Owner))" })." }
+            elseif ($Gpo.ApprovalState -eq 'Approved') { New-Row 'Approval' 'Approved' }
+            if ($Gpo.Owner) { New-Row 'Owner' $Gpo.Owner }
             # Security filtering, as the Scope tab of GPMC: who applies the GPO, who is denied it.
             New-Row 'Security filtering' $(
                 if ($null -eq $Gpo.SecurityFiltering) { 'Not read (no access to the permissions of the GPO)' }
@@ -92,7 +102,7 @@ function Get-PSGPODirectoryDetail {
             New-Row 'File system path' $Gpo.FileSysPath
         )
         if ($Directory.Account) {
-            $Detail.Properties = @($Detail.Properties[0..1]) + @(New-Row 'Your rights' $(if ($Gpo.CanEdit) { 'Edit settings' } else { 'Read only' })) + @($Detail.Properties[2..($Detail.Properties.Count - 1)])
+            $Detail.Properties = @($Detail.Properties[0..1]) + @(New-Row 'Your rights' $(if ($Gpo.CanEdit) { 'Edit settings' } else { 'Read only' })) + @($Detail.Properties | Select-Object -Skip 2)
         }
         $Found = @($Directory.GetLinksOf($Gpo) | Sort-Object { $_.Som.DistinguishedName.Length }, { $_.Som.DistinguishedName })
         $Detail.LinksHeader = "Links ($($Found.Count))"

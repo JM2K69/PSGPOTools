@@ -105,7 +105,11 @@ function Get-PSGPODirectory {
     foreach ($value in @($domain.Attributes['wellKnownObjects'])) {
         if ("$value" -match '^B:32:A9D1CA15768811D1ADED00C04FD8D5CD:(.+)$') { $directory.UsersContainer = $Matches[1] }
     }
-    # The configuration of PSGPOTools for this domain, from its SYSVOL.
+    # The configuration of PSGPOTools for this domain, from its SYSVOL, and its approval workflow.
     Use-PSGPODomainConfiguration -Directory $directory
+    if ((Get-PSGPOWorkflowSetting).Enabled) {
+        $connection = New-PSGPODirectoryConnection -Directory $directory
+        try { Update-PSGPODomainWorkflow -Connection $connection -Directory $directory } finally { $connection.Dispose() }
+    }
     $directory
 }

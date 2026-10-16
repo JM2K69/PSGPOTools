@@ -682,8 +682,8 @@ InModuleScope -ModuleName PSGPOTools {
                     $C.pathTextBlock.Text | Should -BeLike 'Configuration of the domain corp.contoso.com, for every console of the domain: SYSVOL\corp.contoso.com\PSGPOTools\Configuration.psd1*(not created yet)*'
                     $C.saveButton.IsEnabled | Should -BeTrue
                     $Rows = @($C.settingsList.ItemsSource)
-                    $Rows.Count | Should -Be 11
-                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 11
+                    $Rows.Count | Should -Be 16
+                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 16
                     ($Rows | Where-Object Key -EQ 'NewGpo.SecurityFilteringGroups.ApplyPrefix').Default | Should -BeLike 'Default: APPLY_ - Names of the groups*'
 
                     # Create: a choice, a boolean, a text.
@@ -1038,6 +1038,65 @@ InModuleScope -ModuleName PSGPOTools {
                     $Ui.directoryResultTextBlock.Text | Should -BeLike "*Settings of the template 'U - Lyon - Printers' copied.*"
                     "$($New.MachineExtensionNames)$($New.UserExtensionNames)" | Should -Be "$($Restored.MachineExtensionNames)$($Restored.UserExtensionNames)"
                 }
+            } finally {
+                $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
+            }
+        }
+
+        It 'Makes the GPO of a creator wait for its approval, and approves it from the context menu' {
+            $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
+            $Root = Join-Path $TestDrive "approval-$([guid]::NewGuid())"
+            $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
+            Set-PSGPOUserSetting -Values @{ BackupPath = $Root }
+            $Workflow = {
+                param([bool]$Approver)
+                [pscustomobject]@{
+                    Enabled = $true; Problem = $null; IsApprover = $Approver; IsCreator = -not $Approver
+                    Approvers = @('Domain Admins'); ApproverSids = @('S-1-5-21-1-2-3-512'); Creators = @('GPO-Tier1-Admins'); CreatorSids = @('S-1-5-21-1-2-3-1123')
+                    AccountCreatorSids = @(); ApprovedOwner = 'Domain Admins'; ApprovedOwnerSid = 'S-1-5-21-1-2-3-512'; CreatorRights = 'EditSettings'
+                }
+            }
+            try {
+                $Directory.Account = 'CORP\tech1'
+                $Directory.Workflow = & $Workflow $false
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    # A creator: no security filtering groups, and the GPO waits.
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Users'
+                    Invoke-Click $Ui.createLinkedGpoMenuItem
+                    $Ui.newGpoTitleTextBlock.Text | Should -BeLike '*waits for the approval of an approver, and applies to nobody until then'
+                    $Ui.newGpoGroupsCheckBox.IsVisible | Should -BeFalse
+                    $Ui.newGpoNameTextBox.Text = 'T1 - Lyon - Proxy'
+                    Invoke-Click $Ui.newGpoCreateButton
+                    $Gpo = $Ui.Directory.FindGpo('T1 - Lyon - Proxy')
+                    $Gpo.ApprovalState | Should -Be 'Pending'
+                    $Ui.directoryResultTextBlock.Text | Should -BeLike '*It waits for the approval of Domain Admins: it applies to nobody until then.*'
+                    (Get-DomainNode $Ui 'Sites', 'Lyon', 'Users').Children.Header | Should -Contain 'T1 - Lyon - Proxy (waiting for approval)'
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'T1 - Lyon - Proxy (waiting for approval)'
+                    ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Approval').Value | Should -BeLike 'Waiting for approval: it applies to nobody*(created by CORP\tech1).'
+                    $Ui.approveGpoMenuItem.IsVisible | Should -BeFalse -Because 'a creator does not approve'
+
+                    # An approver approves it.
+                    $Ui.Directory.Workflow = & $Workflow $true
+                    $Ui.Directory.Account = 'CORP\admin'
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'T1 - Lyon - Proxy (waiting for approval)'
+                    $Ui.approveGpoMenuItem.IsVisible | Should -BeTrue
+                    Invoke-Click $Ui.approveGpoMenuItem
+                    $Ui.approveGpoPanel.IsVisible | Should -BeTrue
+                    $Ui.approveGpoTextBlock.Text | Should -BeLike "Approve the GPO 'T1 - Lyon - Proxy', created by CORP\tech1? Its owner becomes Domain Admins*"
+                    $Ui.approveGpoRightsComboBox.SelectedItem.Tag | Should -Be 'EditSettings' -Because 'the configuration proposes it'
+                    $Ui.approveGpoApplyToTextBox.Text | Should -Be 'Authenticated Users'
+                    $Ui.approveGpoRightsComboBox.SelectedIndex = 0
+                    Invoke-Click $Ui.approveGpoConfirmButton
+                    $Ui.approveGpoPanel.IsVisible | Should -BeFalse
+                    $Gpo.ApprovalState | Should -Be 'Approved'
+                    $Gpo.SecurityFiltering | Should -Be @('Authenticated Users')
+                    $Ui.directoryResultTextBlock.Text | Should -BeLike "GPO 'T1 - Lyon - Proxy' approved: owned by Domain Admins, applied by Authenticated Users, the creators read it.*Backed up as its approved version."
+                    (Get-DomainNode $Ui 'Group Policy Objects').Children.Header | Should -Contain 'T1 - Lyon - Proxy'
+                    $Ui.approveGpoMenuItem.IsVisible | Should -BeFalse
+                }
+                (Get-PSGPOBackup -Path $Root -Approved).DisplayName | Should -Be 'T1 - Lyon - Proxy'
             } finally {
                 $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
             }
