@@ -81,6 +81,14 @@ InModuleScope -ModuleName PSGPOTools {
             (Get-Sddl $Approved) | Should -Match "\(A;CI;0x00020094;;;$Domain-3000\)"
         }
 
+        It 'Denies the GPO to a group' {
+            $Approved = ConvertTo-PSGPOApprovedDescriptor -Descriptor (New-CreatedDescriptor) -OwnerSid $Admins -RemoveSids $Creator -ApplySid "$Domain-3000" -DenySid "$Domain-3001" -Container
+            $Filtering = $Approved.GetSecurityFiltering()
+            $Filtering.Apply | Should -Be @("$Domain-3000")
+            $Filtering.Deny | Should -Be @("$Domain-3001")
+            $Approved.Dacl[0].IsDeny() | Should -BeTrue -Because 'a deny ACE comes first'
+        }
+
         It 'Keeps the inherited ACEs of an object the GPO holds, and changes its owner' {
             $Inner = New-CreatedDescriptor
             $Inner.Dacl.Add([GPOToolsAce]::new(0, 0x12, 0x000200B7, $Tier1, [guid]::Empty))
@@ -247,6 +255,22 @@ InModuleScope -ModuleName PSGPOTools {
             $Refusing.FindGpo('T1 - Refused') | Should -BeNullOrEmpty
         }
 
+        It 'Gives the window rows it can bind, for every kind of node' {
+            # A row in a PSObject (the output of the pipeline) is shown empty by Avalonia.
+            $Directory.Workflow = New-Workflow -Creator $true
+            $Pending = $Directory.NewGpo('T1 - Proxy')
+            $Deleted = [pscustomobject]@{ PSTypeName = 'PSGPOTools.Backup'; DisplayName = 'Gone'; Id = [guid]::NewGuid(); BackedUp = [datetime]::UtcNow; Status = 'Enabled'; SecurityFiltering = @('Authenticated Users'); DeniedTo = @(); Links = @(); Path = '/tmp/x' }
+            foreach ($Item in @($Directory.Domain, $Directory.FindSom('OU=Users,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com'), $Pending, $Directory.FindGpo('Default Domain Policy'), 'GroupPolicyObjects', 'DeletedGpos', $Deleted)) {
+                $Rows = (Get-PSGPODirectoryDetail -Directory $Directory -Item $Item -DeletedGpo @($Deleted)).Properties
+                @($Rows).Count | Should -BeGreaterThan 0
+                [System.Linq.Enumerable]::Count([System.Linq.Enumerable]::OfType[System.Management.Automation.PSObject]([object[]]@($Rows))) | Should -Be 0 -Because "the rows of $Item are bound by the window"
+            }
+            $Keys = @((Get-PSGPODirectoryDetail -Directory $Directory -Item $Pending).Properties.Key)
+            $Keys | Should -Contain 'Approval'
+            $Keys | Should -Contain 'Security filtering'
+            $Keys[2] | Should -Be 'Your rights'
+        }
+
         It 'Approves a pending GPO, and backs it up as its approved version' {
             $Directory.Workflow = New-Workflow -Creator $true
             $Gpo = $Directory.NewGpo('T1 - Proxy')
@@ -266,6 +290,50 @@ InModuleScope -ModuleName PSGPOTools {
             $Backup.Id | Should -Be $Gpo.Id
             $Backup.Comment | Should -Be 'Approved by CORP\admin, created by CORP\tech1: the creators edit its settings; applied by APPLY_T1 - Proxy.'
             (Get-PSGPODrift -Directory $Directory -Path $Root -Name 'T1 - Proxy').State | Should -Be 'InSync'
+        }
+
+        It 'Creates the security filtering groups at the approval: the GPO applies to APPLY_ and is denied to DENY_' {
+            $Directory.Workflow = New-Workflow -Creator $true
+            $Gpo = $Directory.NewGpo('T1 - Proxy')
+            $Directory.Workflow = New-Workflow -Approver $true
+            { Approve-PSGPO -Name 'T1 - Proxy' -Directory $Directory -CreateFilteringGroups -ApplyTo 'X' -BackupPath $Root -Confirm:$false } | Should -Throw '*do not give -ApplyTo or -DenyTo*'
+            { Approve-PSGPO -Name 'T1 - Proxy' -Directory $Directory -GroupContainer 'OU=Groups' -BackupPath $Root -Confirm:$false } | Should -Throw '*-GroupContainer is where*'
+
+            $Result = Approve-PSGPO -Name 'T1 - Proxy' -Directory $Directory -CreateFilteringGroups -GroupContainer 'OU=Users,OU=Lyon,OU=Sites' -BackupPath $Root -Confirm:$false
+            $Result.AppliedBy | Should -Be 'APPLY_T1 - Proxy'
+            $Result.DeniedTo | Should -Be 'DENY_T1 - Proxy'
+            $Result.GroupsCreated | Should -Be @(
+                'CN=APPLY_T1 - Proxy,OU=Users,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com'
+                'CN=DENY_T1 - Proxy,OU=Users,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com')
+            $Gpo.SecurityFiltering | Should -Be @('APPLY_T1 - Proxy')
+            $Gpo.DeniedTo | Should -Be @('DENY_T1 - Proxy')
+            (Get-PSGPOBackup -Path $Root -Approved).Comment | Should -BeLike '*applied by APPLY_T1 - Proxy, denied to DENY_T1 - Proxy.'
+        }
+
+        It 'Approves a GPO with the groups it already has, and is not approved when its groups cannot be created' {
+            $Directory.Workflow = New-Workflow -Creator $true
+            $Gpo = $Directory.NewGpo('T1 - Proxy')
+            $Directory.Workflow = New-Workflow -Approver $true
+            { $Directory.NewApprovalGroups($Gpo, '') } | Should -Not -Throw
+            $Existing = Find-PSGPOFilteringGroup -Directory $Directory -Gpo $Gpo
+            $Existing.Apply.Name | Should -Be 'APPLY_T1 - Proxy'
+            $Existing.Deny.Name | Should -Be 'DENY_T1 - Proxy'
+
+            # Its groups exist: creating them again fails, and the GPO stays pending.
+            { Approve-PSGPO -Name 'T1 - Proxy' -Directory $Directory -CreateFilteringGroups -BackupPath $Root -Confirm:$false -ErrorAction Stop } | Should -Throw '*security filtering groups cannot be created*already exists*'
+            $Gpo.ApprovalState | Should -Be 'Pending'
+
+            # Without -ApplyTo: its own groups.
+            $Result = Approve-PSGPO -Name 'T1 - Proxy' -Directory $Directory -BackupPath $Root -Confirm:$false
+            $Result.AppliedBy | Should -Be 'APPLY_T1 - Proxy'
+            $Result.DeniedTo | Should -Be 'DENY_T1 - Proxy'
+            $Result.GroupsCreated | Should -BeNullOrEmpty
+        }
+
+        It 'Refuses the groups of the approval to an account that is not an approver' {
+            $Directory.Workflow = New-Workflow -Creator $true
+            $Gpo = $Directory.NewGpo('T1 - Proxy')
+            { $Directory.NewApprovalGroups($Gpo, '') } | Should -Throw '*is not an approver*'
         }
     }
 }

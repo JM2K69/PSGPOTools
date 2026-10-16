@@ -275,17 +275,35 @@ class GPOToolsDirectory {
     # in the directory and in SYSVOL; the creators keep reading it (ReadOnly) or editing its
     # settings (EditSettings); it applies to $ApplyToSid (with its name $ApplyToName).
     [void] ApproveGpo([GPOToolsGpo]$Gpo, [string]$CreatorRights, [string]$ApplyToSid, [string]$ApplyToName) {
+        $this.ApproveGpo($Gpo, $CreatorRights, $ApplyToSid, $ApplyToName, $null, $null)
+    }
+
+    # The same, the GPO also denied to $DenyToSid (with its name $DenyToName).
+    [void] ApproveGpo([GPOToolsGpo]$Gpo, [string]$CreatorRights, [string]$ApplyToSid, [string]$ApplyToName, [string]$DenyToSid, [string]$DenyToName) {
         $this.AssertWritable()
         if (-not ($this.Workflow -and $this.Workflow.Enabled)) { throw 'The approval workflow is not enabled for this domain (Workflow.Enabled).' }
         if (-not $this.Workflow.IsApprover) { throw "The account $($this.Account) is not an approver of the GPOs (Workflow.Approvers)." }
         if ($CreatorRights -notin 'ReadOnly', 'EditSettings') { throw "Unknown rights of the creators: '$CreatorRights' (ReadOnly or EditSettings)." }
         if (-not $ApplyToSid) { throw 'The approved GPO applies to someone: give the group (or Authenticated Users).' }
-        $this.SaveApprovedGpo($Gpo, $CreatorRights, $ApplyToSid)
+        $this.SaveApprovedGpo($Gpo, $CreatorRights, $ApplyToSid, $DenyToSid)
         $Gpo.ApprovalState = 'Approved'
         $Gpo.OwnerSid = $this.Workflow.ApprovedOwnerSid
         $Gpo.Owner = $this.Workflow.ApprovedOwner
         $Gpo.SecurityFiltering = @($ApplyToName)
+        # Not "= if (...)": the output of if unrolls an empty list into $null.
         $Gpo.DeniedTo = @()
+        if ($DenyToSid) { $Gpo.DeniedTo = @($DenyToName) }
+    }
+
+    # The security filtering groups of a GPO waiting for its approval, created by an approver in
+    # $Container (the configuration when empty): APPLY_<GPO> and DENY_<GPO>, without setting its
+    # security filtering, which its approval sets. Returns the two groups (Name, DistinguishedName, Sid).
+    [object[]] NewApprovalGroups([GPOToolsGpo]$Gpo, [string]$Container) {
+        $this.AssertWritable()
+        if (-not ($this.Workflow -and $this.Workflow.Enabled -and $this.Workflow.IsApprover)) { throw "The account $($this.Account) is not an approver of the GPOs (Workflow.Approvers)." }
+        # A path below the domain (OU=Groups,OU=Tier 1) is made a distinguished name.
+        if ([string]::IsNullOrWhiteSpace($Container)) { $Container = (Get-PSGPOConfigurationData).NewGpo.SecurityFilteringGroups.Container }
+        return $this.SaveApprovalGroups($Gpo, (Resolve-PSGPOGroupContainer -Directory $this -Container $Container))
     }
 
     # Configuration of PSGPOTools for the domain (Use-PSGPODomainConfiguration): Configuration.psd1
@@ -545,7 +563,17 @@ class GPOToolsDirectory {
         $Gpo.SecurityFiltering = @()
         $Gpo.Owner = $this.Account
     }
-    hidden [void] SaveApprovedGpo([GPOToolsGpo]$Gpo, [string]$CreatorRights, [string]$ApplyToSid) {}
+    hidden [void] SaveApprovedGpo([GPOToolsGpo]$Gpo, [string]$CreatorRights, [string]$ApplyToSid, [string]$DenyToSid) {}
+    hidden [object[]] SaveApprovalGroups([GPOToolsGpo]$Gpo, [string]$Container) {
+        $Created = foreach ($Role in 'Apply', 'Deny') {
+            $Name = Get-PSGPOFilteringGroupName -Role $Role -GpoName $Gpo.DisplayName
+            $DistinguishedName = 'CN={0},{1}' -f ($Name -replace '([,\\#+<>;"=])', '\$1'), $Container
+            if ($this.Groups.ContainsKey($DistinguishedName)) { throw "The group $DistinguishedName already exists." }
+            [pscustomobject]@{ Name = $Name; DistinguishedName = $DistinguishedName; Sid = $Name }
+        }
+        foreach ($Group in $Created) { $this.Groups[$Group.DistinguishedName] = $Group }
+        return $Created
+    }
     hidden [void] SaveRemovedGpo([GPOToolsGpo]$Gpo) {
         $Prefix = "$($Gpo.Id)\"
         foreach ($Key in @($this.GpoFiles.Keys | Where-Object { $_.StartsWith($Prefix) })) { $this.GpoFiles.Remove($Key) }
@@ -650,8 +678,12 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
         Set-PSGPODomainPendingGpo -Directory $this -Gpo $Gpo
     }
 
-    hidden [void] SaveApprovedGpo([GPOToolsGpo]$Gpo, [string]$CreatorRights, [string]$ApplyToSid) {
-        Approve-PSGPODomainGpo -Directory $this -Gpo $Gpo -CreatorRights $CreatorRights -ApplyToSid $ApplyToSid
+    hidden [void] SaveApprovedGpo([GPOToolsGpo]$Gpo, [string]$CreatorRights, [string]$ApplyToSid, [string]$DenyToSid) {
+        Approve-PSGPODomainGpo -Directory $this -Gpo $Gpo -CreatorRights $CreatorRights -ApplyToSid $ApplyToSid -DenyToSid $DenyToSid
+    }
+
+    hidden [object[]] SaveApprovalGroups([GPOToolsGpo]$Gpo, [string]$Container) {
+        return New-PSGPODomainFilteringGroup -Directory $this -Gpo $Gpo -Container $Container -NoFiltering
     }
 
     # The configuration of the domain in the SYSVOL share of the domain controller.

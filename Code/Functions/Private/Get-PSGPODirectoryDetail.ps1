@@ -102,7 +102,8 @@ function Get-PSGPODirectoryDetail {
             New-Row 'File system path' $Gpo.FileSysPath
         )
         if ($Directory.Account) {
-            $Detail.Properties = @($Detail.Properties[0..1]) + @(New-Row 'Your rights' $(if ($Gpo.CanEdit) { 'Edit settings' } else { 'Read only' })) + @($Detail.Properties | Select-Object -Skip 2)
+            # A slice, not Select-Object: the pipeline wraps the rows in PSObject, which Avalonia cannot bind.
+            $Detail.Properties = @($Detail.Properties[0..1]) + @(New-Row 'Your rights' $(if ($Gpo.CanEdit) { 'Edit settings' } else { 'Read only' })) + @($Detail.Properties[2..($Detail.Properties.Count - 1)])
         }
         $Found = @($Directory.GetLinksOf($Gpo) | Sort-Object { $_.Som.DistinguishedName.Length }, { $_.Som.DistinguishedName })
         $Detail.LinksHeader = "Links ($($Found.Count))"
