@@ -1,21 +1,79 @@
 <#
     Configuration of PSGPOTools: Resources/Configuration.psd1 of the module (every key, with its
-    default), then the Configuration.psd1 of the user, which only holds the keys it changes:
-    in the configuration folder of the user, or at PSGPOTOOLS_CONFIGURATION_PATH. Both are read
-    as data (Import-PowerShellDataFile), never run. A configuration of the user that cannot be
-    read or holds a wrong value is reported and left out: the defaults apply.
+    default), then the configuration of the domain, which only holds the keys it changes:
+    Configuration.psd1 in SYSVOL\<domain>\PSGPOTools on the domain controller the console reads
+    the domain from (GPOToolsDirectory.ReadConfigurationFile). One configuration for every
+    console of the domain, written by its administrators: SYSVOL lets Authenticated Users read
+    it and only the administrators write it, so a technician cannot give itself another one.
+    There is no configuration of the user, and no local file says where the configuration is:
+    the domain does.
+
+    Both files are read as data (Import-PowerShellDataFile), never run. A configuration of the
+    domain that cannot be read or holds a wrong value is reported and left out: the defaults
+    apply. The configuration in use is the one of the last directory read (Get-PSGPODirectory,
+    Show-GPOManagerAvalonia, or a command given -Directory); without one, the defaults.
 #>
 
-function Get-PSGPOConfigurationPath {
+# The configuration of the module: every key, with its default.
+function Get-PSGPODefaultConfigurationPath {
     [CmdletBinding()]
+    [OutputType([string])]
     param()
 
-    $user = if ($env:PSGPOTOOLS_CONFIGURATION_PATH) { $env:PSGPOTOOLS_CONFIGURATION_PATH } else {
-        $config = [Environment]::GetFolderPath([Environment+SpecialFolder]::ApplicationData)
-        if (-not $config) { $config = Join-Path $HOME '.config' }
-        Join-Path $config 'PSGPOTools' 'Configuration.psd1'
+    Join-Path $PSScriptRoot 'Resources' 'Configuration.psd1'
+}
+
+# The configuration of the domain in use: Directory, Path, Exists, Override (the keys it sets,
+# checked) and Problem (why it is not used).
+$script:PSGPOConfigurationState = @{ Directory = $null; Path = $null; Exists = $false; Override = @{}; Problem = $null }
+
+# Reads the configuration of the domain of $Directory, used from now on; nothing again for the
+# same directory unless -Force. Without a directory: the defaults of the module.
+function Use-PSGPODomainConfiguration {
+    [CmdletBinding()]
+    param(
+        [AllowNull()] [GPOToolsDirectory]$Directory,
+        [switch]$Force
+    )
+
+    if (-not $Force -and $Directory -and [object]::ReferenceEquals($script:PSGPOConfigurationState.Directory, $Directory)) { return }
+    $state = @{ Directory = $Directory; Path = $null; Exists = $false; Override = @{}; Problem = $null }
+    if ($Directory) {
+        $state.Path = $Directory.GetConfigurationPath()
+        try {
+            $bytes = $Directory.ReadConfigurationFile()
+            if ($bytes) {
+                $state.Exists = $true
+                $override = ConvertFrom-PSGPOConfigurationByte -Bytes $bytes
+                $merged = Merge-PSGPOConfiguration -Base (Import-PowerShellDataFile -LiteralPath (Get-PSGPODefaultConfigurationPath)) -Override $override
+                $problems = @(Test-PSGPOConfiguration -Configuration $merged)
+                if ($problems.Count) { throw ($problems -join ' ') }
+                $state.Override = $override
+            }
+        } catch {
+            $state.Problem = $_.Exception.Message
+            Write-Warning "The configuration of the domain $($state.Path) is not used: $($state.Problem)"
+        }
     }
-    [pscustomobject]@{ Default = Join-Path $PSScriptRoot 'Resources' 'Configuration.psd1'; User = $user }
+    $script:PSGPOConfigurationState = $state
+}
+
+# The keys of a configuration file, read as data from its bytes.
+function ConvertFrom-PSGPOConfigurationByte {
+    [CmdletBinding()]
+    [OutputType([hashtable])]
+    param([Parameter(Mandatory)] [byte[]]$Bytes)
+
+    $local = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-$([guid]::NewGuid()).psd1"
+    try {
+        [System.IO.File]::WriteAllBytes($local, $Bytes)
+        Import-PowerShellDataFile -LiteralPath $local -ErrorAction Stop
+    } catch {
+        # Not the temporary file in the message.
+        throw "it is not PowerShell data: $($_.Exception.Message.Replace($local, 'Configuration.psd1'))"
+    } finally {
+        Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue
+    }
 }
 
 # The values of $Override over those of $Base, key by key, nested tables included.
@@ -67,25 +125,13 @@ function Test-PSGPOConfiguration {
     if ($groups.Container -and "$($groups.Container)" -notmatch '^(?:(?:OU|CN)=[^,]+)(?:,(?:OU|CN|DC)=[^,]+)*$') { "NewGpo.SecurityFilteringGroups.Container is not a distinguished name: '$($groups.Container)'." }
 }
 
-# The configuration in use: the defaults, with the configuration of the user over them.
+# The configuration in use: the defaults, with the configuration of the domain over them.
 function Get-PSGPOConfigurationData {
     [CmdletBinding()]
     [OutputType([hashtable])]
     param()
 
-    $paths = Get-PSGPOConfigurationPath
-    $configuration = Import-PowerShellDataFile -LiteralPath $paths.Default
-    if (Test-Path -LiteralPath $paths.User -PathType Leaf) {
-        try {
-            $merged = Merge-PSGPOConfiguration -Base $configuration -Override (Import-PowerShellDataFile -LiteralPath $paths.User -ErrorAction Stop)
-            $problems = @(Test-PSGPOConfiguration -Configuration $merged)
-            if ($problems.Count) { throw ($problems -join ' ') }
-            $configuration = $merged
-        } catch {
-            Write-Warning "The configuration $($paths.User) is not used: $($_.Exception.Message)"
-        }
-    }
-    $configuration
+    Merge-PSGPOConfiguration -Base (Import-PowerShellDataFile -LiteralPath (Get-PSGPODefaultConfigurationPath)) -Override $script:PSGPOConfigurationState.Override
 }
 
 # The container of the security filtering groups for a directory: the configuration, made a
@@ -110,16 +156,16 @@ $script:PSGPOConfigurationChoices = @{
 }
 
 # The settings one by one (NewGpo.SecurityFilteringGroups.Scope...): their default, their value
-# in the configuration of the user if it sets it, their kind (Bool, Choice, Text) and the comment
-# that describes them in the configuration of the module.
+# in the configuration of the domain if it sets it, their kind (Bool, Choice, Text) and the
+# comment that describes them in the configuration of the module.
 function Get-PSGPOConfigurationSetting {
     [CmdletBinding()]
     param(
-        # The values the user sets, by key; read from its configuration when not given.
+        # The values the domain sets, by key; those of the configuration in use when not given.
         [hashtable]$Override
     )
 
-    $paths = Get-PSGPOConfigurationPath
+    $paths = @{ Default = Get-PSGPODefaultConfigurationPath }
     # Comments of the defaults: the comment lines just above each key.
     $comments = @{}
     $stack = [System.Collections.Generic.List[string]]::new()
@@ -137,13 +183,7 @@ function Get-PSGPOConfigurationSetting {
         if (-not $text) { $pending.Clear() }
     }
 
-    if (-not $PSBoundParameters.ContainsKey('Override')) {
-        $Override = @{}
-        if (Test-Path -LiteralPath $paths.User -PathType Leaf) {
-            try { $Override = ConvertTo-PSGPOFlatConfiguration -Data (Import-PowerShellDataFile -LiteralPath $paths.User -ErrorAction Stop) }
-            catch { Write-Warning "The configuration $($paths.User) cannot be read: $($_.Exception.Message)" }
-        }
-    }
+    if (-not $PSBoundParameters.ContainsKey('Override')) { $Override = ConvertTo-PSGPOFlatConfiguration -Data $script:PSGPOConfigurationState.Override }
     $defaults = ConvertTo-PSGPOFlatConfiguration -Data (Import-PowerShellDataFile -LiteralPath $paths.Default)
     foreach ($key in @($defaults.Keys | Sort-Object)) {
         $default = $defaults[$key]
@@ -218,14 +258,17 @@ function ConvertTo-PSGPODataText {
     $lines -join [Environment]::NewLine
 }
 
-# Writes the configuration of the user: the values it sets (by key), checked first with the
-# defaults; nothing is written when one is wrong. No value: the file is removed.
-function Save-PSGPOUserConfiguration {
+# Writes the configuration of the domain of $Directory: the values it sets (by key), checked first
+# with the defaults; nothing is written when one is wrong. No value: the file is removed. Only
+# the administrators of the domain can write it (SYSVOL). The configuration is then read again.
+function Save-PSGPODomainConfiguration {
     [CmdletBinding(SupportsShouldProcess)]
-    param([Parameter(Mandatory)] [AllowEmptyCollection()] [hashtable]$Values)
+    param(
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [hashtable]$Values
+    )
 
-    $paths = Get-PSGPOConfigurationPath
-    $defaults = Import-PowerShellDataFile -LiteralPath $paths.Default
+    $defaults = Import-PowerShellDataFile -LiteralPath (Get-PSGPODefaultConfigurationPath)
     $flatDefaults = ConvertTo-PSGPOFlatConfiguration -Data $defaults
     foreach ($key in $Values.Keys) {
         if (-not $flatDefaults.ContainsKey($key)) { throw "Unknown setting $key." }
@@ -234,18 +277,25 @@ function Save-PSGPOUserConfiguration {
     $override = ConvertFrom-PSGPOFlatConfiguration -Flat $Values
     $problems = @(Test-PSGPOConfiguration -Configuration (Merge-PSGPOConfiguration -Base $defaults -Override $override))
     if ($problems.Count) { throw ($problems -join ' ') }
-    if (-not $PSCmdlet.ShouldProcess($paths.User, 'Save the configuration')) { return }
-    if (-not $Values.Count) {
-        Remove-Item -LiteralPath $paths.User -Force -ErrorAction SilentlyContinue
-        return
+    $path = $Directory.GetConfigurationPath()
+    if (-not $PSCmdlet.ShouldProcess($path, 'Save the configuration of the domain')) { return }
+    $bytes = $null
+    if ($Values.Count) {
+        $by = if ($Directory.Account) { $Directory.Account } else { [Environment]::UserName }
+        $text = "# Configuration of PSGPOTools for the domain $($Directory.DomainName), for every console of the domain:`r`n" +
+            "# the settings changed from the defaults of the module (Get-PSGPOConfiguration shows them all).`r`n" +
+            "# Written by $by with the console; read as data.`r`n" +
+            (ConvertTo-PSGPODataText -Data $override) + "`r`n"
+        $bytes = [System.Text.UTF8Encoding]::new($false).GetBytes($text)
+        # Read back before it replaces the file.
+        $null = ConvertFrom-PSGPOConfigurationByte -Bytes $bytes
     }
-    $text = "# Configuration of PSGPOTools for $([Environment]::UserName): the settings changed from the defaults`r`n" +
-        "# of the module (Get-PSGPOConfiguration shows them all). Written by the console; read as data.`r`n" +
-        (ConvertTo-PSGPODataText -Data $override) + "`r`n"
-    $null = New-Item -ItemType Directory -Path (Split-Path -Parent $paths.User) -Force
-    $temporary = "$($paths.User).$([guid]::NewGuid()).tmp"
-    Set-Content -LiteralPath $temporary -Value $text -Encoding utf8 -NoNewline
-    # Read back before it replaces the file.
-    $null = Import-PowerShellDataFile -LiteralPath $temporary
-    Move-Item -LiteralPath $temporary -Destination $paths.User -Force
+    try {
+        $Directory.WriteConfigurationFile($bytes)
+    } catch {
+        $message = $_.Exception.GetBaseException().Message
+        if ($message -match 'ACCESS_DENIED|denied') { throw "The account $($Directory.Account) cannot write the configuration of the domain $($path): only the administrators of the domain can ($message)." }
+        throw "The configuration of the domain $path is not saved: $message"
+    }
+    Use-PSGPODomainConfiguration -Directory $Directory -Force
 }

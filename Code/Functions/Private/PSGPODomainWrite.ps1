@@ -114,7 +114,7 @@ function Remove-PSGPODomainGpo {
     }
     $connection = New-PSGPODirectoryConnection -Directory $Directory
     try {
-        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Gpo.DistinguishedName -Scope Base -Attribute 'displayName'
+        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Gpo.DistinguishedName -Scope Base -Attribute 'displayName' -AllowMissing
     } finally {
         $connection.Dispose()
     }
@@ -278,7 +278,7 @@ function Update-PSGPODomainGpLink {
 
     $connection = New-PSGPODirectoryConnection -Directory $Directory
     try {
-        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Som.DistinguishedName -Scope Base -Attribute 'gPLink'
+        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Som.DistinguishedName -Scope Base -Attribute 'gPLink' -AllowMissing
         if (-not $entry) { throw "$($Som.DistinguishedName) is not in the domain anymore." }
         $current = Get-PSGPOLdapValue $entry 'gPLink'
         $new = "$(& $Change $current)"
@@ -348,7 +348,7 @@ function Update-PSGPODomainGpoState {
     $connection = New-PSGPODirectoryConnection -Directory $Directory
     try {
         $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Gpo.DistinguishedName -Scope Base `
-            -Attribute 'displayName', 'versionNumber', 'flags', 'whenChanged', 'gPCMachineExtensionNames', 'gPCUserExtensionNames'
+            -Attribute 'displayName', 'versionNumber', 'flags', 'whenChanged', 'gPCMachineExtensionNames', 'gPCUserExtensionNames' -AllowMissing
     } finally {
         $connection.Dispose()
     }

@@ -117,7 +117,10 @@ function Invoke-PSGPOLdapSearch {
         [Parameter(Mandatory)]
         [string[]]$Attribute,
 
-        [int]$PageSize = 500
+        [int]$PageSize = 500,
+
+        # Nothing, instead of an error, when the search base is not in the directory.
+        [switch]$AllowMissing
     )
 
     $request = [System.DirectoryServices.Protocols.SearchRequest]::new()
@@ -132,7 +135,13 @@ function Invoke-PSGPOLdapSearch {
     }
 
     do {
-        $response = $Connection.SendRequest($request)
+        try {
+            $response = $Connection.SendRequest($request)
+        } catch {
+            $base = $_.Exception.GetBaseException()
+            if ($AllowMissing -and $base.PSObject.Properties['Response'] -and "$($base.Response.ResultCode)" -eq 'NoSuchObject') { return }
+            throw
+        }
         foreach ($entry in $response.Entries) {
             $attributes = @{}
             foreach ($name in $entry.Attributes.AttributeNames) {

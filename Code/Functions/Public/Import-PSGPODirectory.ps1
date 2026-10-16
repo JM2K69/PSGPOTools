@@ -72,5 +72,7 @@ function Import-PSGPODirectory {
 
     Add-Link $Directory.Domain $Data.links
     Add-OrganizationalUnit $Directory.Domain $Data.organizationalUnits
+    # A directory in memory has no configuration of its own: the defaults.
+    Use-PSGPODomainConfiguration -Directory $Directory
     $Directory
 }

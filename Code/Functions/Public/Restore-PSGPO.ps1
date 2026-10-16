@@ -59,6 +59,7 @@ function Restore-PSGPO {
             if ($Server) { $read.Server = $Server }
             $Directory = Get-PSGPODirectory @read -ErrorAction Stop
         }
+        Use-PSGPODomainConfiguration -Directory $Directory
     }
     process {
         $gpo = $Directory.Gpos | Where-Object Id -EQ $Backup.Id | Select-Object -First 1

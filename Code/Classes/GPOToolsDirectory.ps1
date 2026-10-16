@@ -243,6 +243,23 @@ class GPOToolsDirectory {
         return $Gpo
     }
 
+    # Configuration of PSGPOTools for the domain (Use-PSGPODomainConfiguration): Configuration.psd1
+    # in SYSVOL\<domain>\PSGPOTools; its bytes, $null when the domain has none.
+    [byte[]] ReadConfigurationFile() {
+        return $this.LoadConfigurationFile()
+    }
+
+    # Writes the configuration of the domain; $null or no byte removes it.
+    [void] WriteConfigurationFile([byte[]]$Bytes) {
+        $this.AssertWritable()
+        $this.SaveConfigurationFile($Bytes)
+    }
+
+    # Where the configuration of the domain is, as shown to the user.
+    [string] GetConfigurationPath() {
+        return "SYSVOL\$($this.DomainName)\PSGPOTools\Configuration.psd1 ($($this.Source))"
+    }
+
     # The Default Domain Policy and the Default Domain Controllers Policy: never deleted.
     static [guid[]] $DefaultGpoIds = @([guid]'31B2F340-016D-11D2-945F-00C04FB984F9', [guid]'6AC1786C-016F-11D2-945F-00C04FB984F9')
 
@@ -494,6 +511,11 @@ class GPOToolsDirectory {
         return $Created
     }
 
+    # The configuration of the domain kept in memory.
+    hidden [byte[]]$ConfigurationBytes
+    hidden [byte[]] LoadConfigurationFile() { return $this.ConfigurationBytes }
+    hidden [void] SaveConfigurationFile([byte[]]$Bytes) { $this.ConfigurationBytes = if ($Bytes -and $Bytes.Length) { $Bytes } else { $null } }
+
     # Files of the GPOs kept in memory, by GPO and path in its folder.
     hidden [hashtable]$GpoFiles = @{}
     hidden [byte[]] LoadGpoFile([GPOToolsGpo]$Gpo, [string]$Path) {
@@ -569,6 +591,23 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
 
     hidden [void] SaveRemovedGpo([GPOToolsGpo]$Gpo) {
         Remove-PSGPODomainGpo -Directory $this -Gpo $Gpo
+    }
+
+    # The configuration of the domain in the SYSVOL share of the domain controller.
+    [string] GetConfigurationPath() {
+        return "\\$($this.Server)\SYSVOL\$($this.DomainName)\PSGPOTools\Configuration.psd1"
+    }
+
+    hidden [byte[]] LoadConfigurationFile() {
+        return Read-PSGPOSysvolItem -Directory $this -Share 'SYSVOL' -Path "$($this.DomainName)\PSGPOTools\Configuration.psd1"
+    }
+
+    hidden [void] SaveConfigurationFile([byte[]]$Bytes) {
+        if ($Bytes -and $Bytes.Length) {
+            Write-PSGPOSysvolItem -Directory $this -Share 'SYSVOL' -Base $this.DomainName -Path 'PSGPOTools\Configuration.psd1' -Bytes $Bytes
+        } else {
+            Remove-PSGPOSysvolItem -Directory $this -Share 'SYSVOL' -Path "$($this.DomainName)\PSGPOTools\Configuration.psd1"
+        }
     }
 
     hidden [object[]] SaveFilteringGroups([GPOToolsGpo]$Gpo, [string]$Container) {

@@ -8,6 +8,9 @@ function Get-PSGPODirectory {
         (gPOptions), and the group policy containers (GPOs). Works with Windows and Samba domain
         controllers, from Windows and Linux, through System.DirectoryServices.Protocols.
 
+        The configuration of PSGPOTools for the domain (Get-PSGPOConfiguration: SYSVOL\<domain>\
+        PSGPOTools\Configuration.psd1) is read with it, and used from then on.
+
         Its changes are written to the domain: NewGpo creates a GPO with New-GPO of RSAT on
         Windows (the GroupPolicy module), with samba-tool on Linux (Kerberos), NewLink links a GPO
         to the domain or an OU over LDAP. Pass it to
@@ -102,5 +105,7 @@ function Get-PSGPODirectory {
     foreach ($value in @($domain.Attributes['wellKnownObjects'])) {
         if ("$value" -match '^B:32:A9D1CA15768811D1ADED00C04FD8D5CD:(.+)$') { $directory.UsersContainer = $Matches[1] }
     }
+    # The configuration of PSGPOTools for this domain, from its SYSVOL.
+    Use-PSGPODomainConfiguration -Directory $directory
     $directory
 }

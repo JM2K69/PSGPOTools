@@ -671,9 +671,7 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
-        It 'Creates, changes and removes the settings of the configuration in its window' {
-            $ConfigurationBefore = $env:PSGPOTOOLS_CONFIGURATION_PATH
-            $env:PSGPOTOOLS_CONFIGURATION_PATH = Join-Path $TestDrive "Configuration-$([guid]::NewGuid()).psd1"
+        It 'Creates, changes and removes the settings of the configuration of the domain in its window' {
             try {
                 Start-PSGPOManagerWindow -Directory $Directory -OnShown {
                     param($Ui)
@@ -681,6 +679,8 @@ InModuleScope -ModuleName PSGPOTools {
                     $Settings = $Ui.Configuration.Ui
                     $Settings.Window.IsVisible | Should -BeTrue
                     $C = $Settings.Controls
+                    $C.pathTextBlock.Text | Should -BeLike 'Configuration of the domain corp.contoso.com, for every console of the domain: SYSVOL\corp.contoso.com\PSGPOTools\Configuration.psd1*(not created yet)*'
+                    $C.saveButton.IsEnabled | Should -BeTrue
                     $Rows = @($C.settingsList.ItemsSource)
                     $Rows.Count | Should -Be 11
                     @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 11
@@ -700,7 +700,7 @@ InModuleScope -ModuleName PSGPOTools {
                     $C.valueTextBox.Text = 'OU=Servers'
                     Invoke-Click $C.setButton
                     $Row = @($C.settingsList.ItemsSource) | Where-Object Key -EQ 'NewGpo.SecurityFilteringGroups.Container'
-                    "$($Row.Value) | $($Row.Source)" | Should -Be 'Value: OU=Servers | Set in your configuration'
+                    "$($Row.Value) | $($Row.Source)" | Should -Be 'Value: OU=Servers | Set for the domain'
                     $C.statusTextBlock.Text | Should -BeLike '*not saved yet.'
 
                     # A wrong value is refused with the reason.
@@ -734,19 +734,33 @@ InModuleScope -ModuleName PSGPOTools {
                     @($Ui.newGpoGroupsContainerComboBox.ItemsSource)[0] | Should -Be 'OU=Servers,DC=corp,DC=contoso,DC=com'
                     $Ui.newGpoGroupsContainerComboBox.SelectedIndex | Should -Be 0
                 }
-                $Saved = Import-PowerShellDataFile -LiteralPath $env:PSGPOTOOLS_CONFIGURATION_PATH
+                $Saved = ConvertFrom-PSGPOConfigurationByte -Bytes $Directory.ReadConfigurationFile()
                 $Saved.NewGpo.SecurityFilteringGroups.Create | Should -BeTrue
                 $Saved.NewGpo.SecurityFilteringGroups.Container | Should -Be 'OU=Servers'
                 $Saved.NewGpo.SecurityFilteringGroups.ContainsKey('Scope') | Should -BeFalse -Because 'it was removed'
             } finally {
-                $env:PSGPOTOOLS_CONFIGURATION_PATH = $ConfigurationBefore
+                Use-PSGPODomainConfiguration -Directory $null
             }
         }
 
-        It 'Proposes the name, status and groups of the configuration for a new GPO' {
-            $ConfigurationBefore = $env:PSGPOTOOLS_CONFIGURATION_PATH
-            $env:PSGPOTOOLS_CONFIGURATION_PATH = Join-Path $TestDrive "Configuration-$([guid]::NewGuid()).psd1"
-            Set-Content -LiteralPath $env:PSGPOTOOLS_CONFIGURATION_PATH -Value "@{ NewGpo = @{ DefaultName = 'C - New'; Status = 'ComputerOnly'; SecurityFilteringGroups = @{ ApplyPrefix = 'GPO-A-'; DenyPrefix = 'GPO-D-' } } }"
+        It 'Shows the configuration without saving it for a directory that cannot be written' {
+            $Directory.IsReadOnly = $true
+            try {
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    Invoke-Click $Ui.configurationButton
+                    $C = $Ui.Configuration.Ui.Controls
+                    $C.saveButton.IsEnabled | Should -BeFalse
+                    $C.pathTextBlock.Text | Should -BeLike '*cannot be written: the configuration is shown, not saved*'
+                    $Ui.Configuration.Ui.Window.Close()
+                }
+            } finally {
+                Use-PSGPODomainConfiguration -Directory $null
+            }
+        }
+
+        It 'Proposes the name, status and groups of the configuration of the domain for a new GPO' {
+            $Directory.WriteConfigurationFile([System.Text.Encoding]::UTF8.GetBytes("@{ NewGpo = @{ DefaultName = 'C - New'; Status = 'ComputerOnly'; SecurityFilteringGroups = @{ ApplyPrefix = 'GPO-A-'; DenyPrefix = 'GPO-D-' } } }"))
             try {
                 Start-PSGPOManagerWindow -Directory $Directory -OnShown {
                     param($Ui)
@@ -758,7 +772,7 @@ InModuleScope -ModuleName PSGPOTools {
                     $Ui.newGpoGroupsTextBlock.Text | Should -BeLike 'GPO-A-C - New: only its members apply the GPO*GPO-D-C - New: its members never apply it*'
                 }
             } finally {
-                $env:PSGPOTOOLS_CONFIGURATION_PATH = $ConfigurationBefore
+                Use-PSGPODomainConfiguration -Directory $null
             }
         }
 
