@@ -102,6 +102,10 @@ function Start-PSGPOManagerWindow {
     $approveGpoTextBlock = Get-PSGPOAvaloniaControl $window 'approveGpoTextBlock'
     $approveGpoRightsComboBox = Get-PSGPOAvaloniaControl $window 'approveGpoRightsComboBox'
     $approveGpoApplyToTextBox = Get-PSGPOAvaloniaControl $window 'approveGpoApplyToTextBox'
+    $approveGpoDenyToTextBox = Get-PSGPOAvaloniaControl $window 'approveGpoDenyToTextBox'
+    $approveGpoGroupsCheckBox = Get-PSGPOAvaloniaControl $window 'approveGpoGroupsCheckBox'
+    $approveGpoGroupsTextBlock = Get-PSGPOAvaloniaControl $window 'approveGpoGroupsTextBlock'
+    $approveGpoFilteringGrid = Get-PSGPOAvaloniaControl $window 'approveGpoFilteringGrid'
     $approveGpoErrorTextBlock = Get-PSGPOAvaloniaControl $window 'approveGpoErrorTextBlock'
     $approveGpoConfirmButton = Get-PSGPOAvaloniaControl $window 'approveGpoConfirmButton'
     $approveGpoCancelButton = Get-PSGPOAvaloniaControl $window 'approveGpoCancelButton'
@@ -1015,7 +1019,7 @@ function Start-PSGPOManagerWindow {
 
     # Approval of the selected GPO (approval workflow): what the creators may still do, who
     # applies it; backed up with the approved label in the folder of the History tab.
-    $approveGpo = @{ Gpo = $null }
+    $approveGpo = @{ Gpo = $null; Groups = $null }
     function Open-ApproveGpoForm {
         $gpo = Get-SelectedGpo
         if (-not $gpo -or $gpo.ApprovalState -ne 'Pending') { return }
@@ -1024,20 +1028,45 @@ function Start-PSGPOManagerWindow {
             "Its owner becomes $($Directory.Workflow.ApprovedOwner), in the directory and in SYSVOL: its creator cannot give itself its rights back. " +
             "It applies to the group below from then on, and is backed up as its approved version."
         $approveGpoRightsComboBox.SelectedIndex = if ($Directory.Workflow.CreatorRights -eq 'EditSettings') { 1 } else { 0 }
-        $approveGpoApplyToTextBox.Text = 'Authenticated Users'
+        # Its own groups when they exist; else the approver may create them, as the New GPO form.
+        $existing = Find-PSGPOFilteringGroup -Directory $Directory -Gpo $gpo
+        $approveGpo.Groups = (Get-PSGPOConfigurationData).NewGpo.SecurityFilteringGroups
+        $approveGpoApplyToTextBox.Text = if ($existing.Apply) { $existing.Apply.Name } else { 'Authenticated Users' }
+        $approveGpoDenyToTextBox.Text = if ($existing.Deny) { $existing.Deny.Name } else { '' }
+        $approveGpoGroupsCheckBox.IsVisible = -not ($existing.Apply -or $existing.Deny)
+        $approveGpoGroupsCheckBox.IsChecked = $approveGpoGroupsCheckBox.IsVisible -and [bool]$approveGpo.Groups.Create
+        $approveGpoGroupsTextBlock.Text = if ($approveGpoGroupsCheckBox.IsVisible) {
+            "$(Get-PSGPOFilteringGroupName -Role Apply -GpoName $gpo.DisplayName -Settings $approveGpo.Groups) applies it, $(Get-PSGPOFilteringGroupName -Role Deny -GpoName $gpo.DisplayName -Settings $approveGpo.Groups) is denied it; " +
+                "created in $(Resolve-PSGPOGroupContainer -Directory $Directory -Container $approveGpo.Groups.Container) ($($approveGpo.Groups.Scope))."
+        } else { "Its groups exist: $(@($existing.Apply, $existing.Deny | Where-Object { $_ } | ForEach-Object Name) -join ', ')." }
+        Update-ApproveGpoGroups
         $approveGpoErrorTextBlock.Text = ''
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
         $approveGpoPanel.IsVisible = $true
     }
 
+    # The groups to create replace who applies it and who is denied it.
+    function Update-ApproveGpoGroups {
+        $create = [bool]($approveGpoGroupsCheckBox.IsVisible -and $approveGpoGroupsCheckBox.IsChecked)
+        $approveGpoFilteringGrid.IsEnabled = -not $create
+        $approveGpoGroupsTextBlock.Opacity = if ($create -or -not $approveGpoGroupsCheckBox.IsVisible) { 1 } else { 0.6 }
+    }
+
     function Submit-ApproveGpo {
         $gpo = $approveGpo.Gpo
         if (-not $gpo) { return }
         $rights = "$($approveGpoRightsComboBox.SelectedItem.Tag)"
+        $create = [bool]($approveGpoGroupsCheckBox.IsVisible -and $approveGpoGroupsCheckBox.IsChecked)
         try {
-            $applyTo = Resolve-PSGPOApplyTo -Directory $Directory -Name "$($approveGpoApplyToTextBox.Text)"
-            $result = Invoke-PSGPOApproval -Directory $Directory -Gpo $gpo -CreatorRights $rights -ApplyTo $applyTo -BackupPath (Get-HistoryRoot)
+            $approval = @{ Directory = $Directory; Gpo = $gpo; CreatorRights = $rights; BackupPath = (Get-HistoryRoot) }
+            if ($create) {
+                $approval.CreateFilteringGroups = $true
+            } else {
+                $approval.ApplyTo = Resolve-PSGPOApplyTo -Directory $Directory -Name "$($approveGpoApplyToTextBox.Text)"
+                if ("$($approveGpoDenyToTextBox.Text)".Trim()) { $approval.DenyTo = Resolve-PSGPOApplyTo -Directory $Directory -Name "$($approveGpoDenyToTextBox.Text)" }
+            }
+            $result = Invoke-PSGPOApproval @approval
         } catch {
             $approveGpoErrorTextBlock.Text = $_.Exception.GetBaseException().Message
             return
@@ -1046,7 +1075,8 @@ function Start-PSGPOManagerWindow {
         $settingsCache.Remove("$($gpo.Id)")
         $history.Current = @{}
         Update-DirectoryTree -Select $gpo
-        $lines = @("GPO '$($gpo.DisplayName)' approved: owned by $($result.Owner), applied by $($result.AppliedBy), the creators $(if ($rights -eq 'EditSettings') { 'edit its settings' } else { 'read it' }).")
+        $lines = @("GPO '$($gpo.DisplayName)' approved: owned by $($result.Owner), applied by $($result.AppliedBy)$(if ($result.DeniedTo) { ", denied to $($result.DeniedTo)" }), the creators $(if ($rights -eq 'EditSettings') { 'edit its settings' } else { 'read it' }).")
+        if ($result.GroupsCreated.Count) { $lines += "Security filtering groups created: $($result.GroupsCreated -join '; ')." }
         if ($result.Backup) { $lines += 'Backed up as its approved version.' }
         if ($result.Problem) { $lines += $result.Problem }
         Show-DirectoryResult -Text ($lines -join [Environment]::NewLine) -Problem:([bool]$result.Problem)
@@ -1635,6 +1665,7 @@ function Start-PSGPOManagerWindow {
     $deleteGpoMenuItem.Add_Click({ Open-DeleteGpoForm })
     $approveGpoMenuItem.Add_Click({ Open-ApproveGpoForm })
     $approveGpoConfirmButton.Add_Click({ Submit-ApproveGpo })
+    $approveGpoGroupsCheckBox.add_IsCheckedChanged({ Update-ApproveGpoGroups })
     $approveGpoCancelButton.Add_Click({ $approveGpoPanel.IsVisible = $false })
     $deleteGpoConfirmButton.Add_Click({ Submit-DeleteGpo })
     $deleteGpoCancelButton.Add_Click({ $deleteGpoPanel.IsVisible = $false })
@@ -1713,6 +1744,7 @@ function Start-PSGPOManagerWindow {
             'restoreDeletedGpoButton', 'restoreGpoPanel', 'restoreGpoTextBlock', 'restoreGpoLinkCheckBox', 'restoreGpoConfirmButton', 'restoreGpoCancelButton',
             'newGpoTemplateComboBox', 'historyNotesTemplateCheckBox', 'approveGpoMenuItem', 'approveGpoPanel', 'approveGpoTextBlock',
             'approveGpoRightsComboBox', 'approveGpoApplyToTextBox', 'approveGpoErrorTextBlock', 'approveGpoConfirmButton', 'approveGpoCancelButton',
+            'approveGpoDenyToTextBox', 'approveGpoGroupsCheckBox', 'approveGpoGroupsTextBlock', 'approveGpoFilteringGrid',
             'historyCommentTextBox', 'historyDriftBorder', 'historyDriftTextBlock', 'historyDriftButton', 'historyNotesPanel', 'historyNotesInfoTextBlock',
             'historyNotesCommentTextBox', 'historyNotesLabelsTextBox', 'historyNotesApprovedCheckBox', 'historyNotesSaveButton', 'historyTab', 'historyPathTextBox', 'historyBackupButton',
             'historyBackupAllButton', 'historyStatusTextBlock', 'historyTimelineList', 'historyCompareTextBlock', 'historyChangesList',

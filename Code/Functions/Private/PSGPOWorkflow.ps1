@@ -280,6 +280,7 @@ function ConvertTo-PSGPOApprovedDescriptor {
         [AllowEmptyCollection()] [string[]]$RemoveSids = @(),
         [AllowEmptyCollection()] [string[]]$EditSids = @(),
         [string]$ApplySid,
+        [string]$DenySid,
         [switch]$Container
     )
 
@@ -299,6 +300,9 @@ function ConvertTo-PSGPOApprovedDescriptor {
                 $approved.AddAce([GPOToolsAce]::new([GPOToolsAce]::AccessAllowed, $inherit, [GPOToolsSecurityDescriptor]::ReadMask, $ApplySid, [guid]::Empty))
             }
             $approved.AddAce([GPOToolsAce]::new([GPOToolsAce]::AccessAllowedObject, $inherit, [GPOToolsSecurityDescriptor]::ControlAccess, $ApplySid, [GPOToolsSecurityDescriptor]::ApplyGroupPolicy))
+        }
+        if ($DenySid) {
+            $approved.AddAce([GPOToolsAce]::new([GPOToolsAce]::AccessDeniedObject, [GPOToolsAce]::ContainerInherit, [GPOToolsSecurityDescriptor]::ControlAccess, $DenySid, [GPOToolsSecurityDescriptor]::ApplyGroupPolicy))
         }
     }
     $approved
@@ -378,7 +382,8 @@ function Approve-PSGPODomainGpo {
         [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
         [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
         [Parameter(Mandatory)] [ValidateSet('ReadOnly', 'EditSettings')] [string]$CreatorRights,
-        [Parameter(Mandatory)] [string]$ApplyToSid
+        [Parameter(Mandatory)] [string]$ApplyToSid,
+        [string]$DenyToSid
     )
 
     $workflow = $Directory.Workflow
@@ -414,7 +419,7 @@ function Approve-PSGPODomainGpo {
                 -Descriptor (ConvertTo-PSGPOApprovedDescriptor -Descriptor $inner -OwnerSid $ownerSid -RemoveSids $remove)
         }
         Set-PSGPODomainOwnerAndDacl -Connection $connection -DistinguishedName $Gpo.DistinguishedName -Name "the GPO '$($Gpo.DisplayName)'" `
-            -Descriptor (ConvertTo-PSGPOApprovedDescriptor -Descriptor $descriptor -OwnerSid $ownerSid -RemoveSids $remove -EditSids $edit -ApplySid $ApplyToSid -Container)
+            -Descriptor (ConvertTo-PSGPOApprovedDescriptor -Descriptor $descriptor -OwnerSid $ownerSid -RemoveSids $remove -EditSids $edit -ApplySid $ApplyToSid -DenySid $DenyToSid -Container)
         $descriptor = Get-PSGPODomainSecurityDescriptor -Connection $connection -DistinguishedName $Gpo.DistinguishedName
     } finally {
         $connection.Dispose()
@@ -528,20 +533,64 @@ function Resolve-PSGPOApplyTo {
     }
 }
 
+# The security filtering groups a GPO already has (APPLY_<GPO> and DENY_<GPO>, the prefixes of the
+# configuration), to propose them at its approval: Apply and Deny, each Name and Sid, or $null.
+function Find-PSGPOFilteringGroup {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo
+    )
+
+    $found = [ordered]@{ Apply = $null; Deny = $null }
+    $connection = if ($Directory -is [GPOToolsLdapDirectory]) { New-PSGPODirectoryConnection -Directory $Directory }
+    try {
+        foreach ($role in 'Apply', 'Deny') {
+            $name = Get-PSGPOFilteringGroupName -Role $role -GpoName $Gpo.DisplayName
+            if ($connection) {
+                try { $found[$role] = @(Find-PSGPODomainAccount -Connection $connection -DomainDistinguishedName $Directory.Domain.DistinguishedName -Name $name)[0] } catch { }
+            } else {
+                $group = @($Directory.Groups.Values | Where-Object Name -EQ $name)[0]
+                if ($group) { $found[$role] = [pscustomobject]@{ Name = $group.Name; Sid = $(if ($group.Sid) { $group.Sid } else { $group.Name }) } }
+            }
+        }
+    } finally {
+        if ($connection) { $connection.Dispose() }
+    }
+    [pscustomobject]$found
+}
+
 # Approves a GPO (GPOToolsDirectory.ApproveGpo), then backs it up with the approved label in
 # $BackupPath: its approved version, to which it is compared from then on (Get-PSGPODrift).
+# -CreateFilteringGroups creates its groups APPLY_<GPO> and DENY_<GPO> first (in $GroupContainer,
+# the configuration when empty), and the GPO applies to the first and is denied to the second; a
+# GPO whose groups cannot be created is not approved.
 function Invoke-PSGPOApproval {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
         [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
         [Parameter(Mandatory)] [ValidateSet('ReadOnly', 'EditSettings')] [string]$CreatorRights,
-        [Parameter(Mandatory)] [pscustomobject]$ApplyTo,
+        [pscustomobject]$ApplyTo,
+        [pscustomobject]$DenyTo,
+        [switch]$CreateFilteringGroups,
+        [string]$GroupContainer,
         [Parameter(Mandatory)] [string]$BackupPath
     )
 
+    $created = @()
+    if ($CreateFilteringGroups) {
+        try {
+            $created = @($Directory.NewApprovalGroups($Gpo, $GroupContainer))
+        } catch {
+            throw "The GPO '$($Gpo.DisplayName)' is not approved: its security filtering groups cannot be created ($($_.Exception.GetBaseException().Message))."
+        }
+        $ApplyTo = [pscustomobject]@{ Name = $created[0].Name; Sid = $created[0].Sid }
+        $DenyTo = [pscustomobject]@{ Name = $created[1].Name; Sid = $created[1].Sid }
+    }
+    if (-not $ApplyTo) { throw 'The approved GPO applies to someone: give the group (or Authenticated Users).' }
     $creator = $Gpo.Owner
-    $Directory.ApproveGpo($Gpo, $CreatorRights, $ApplyTo.Sid, $ApplyTo.Name)
+    $Directory.ApproveGpo($Gpo, $CreatorRights, $ApplyTo.Sid, $ApplyTo.Name, $(if ($DenyTo) { $DenyTo.Sid }), $(if ($DenyTo) { $DenyTo.Name }))
     $by = if ($Directory.Account) { $Directory.Account } else { [Environment]::UserName }
     $rights = if ($CreatorRights -eq 'EditSettings') { 'edit its settings' } else { 'read it' }
     $backup = $null
@@ -549,7 +598,7 @@ function Invoke-PSGPOApproval {
     try {
         $null = New-Item -ItemType Directory -Path $BackupPath -Force -ErrorAction Stop
         $backup = Save-PSGPOBackup -Directory $Directory -Gpo $Gpo -Path $BackupPath -Label (Get-PSGPOApprovedLabel) `
-            -Comment "Approved by $by$(if ($creator) { ", created by $creator" }): the creators $rights; applied by $($ApplyTo.Name)."
+            -Comment "Approved by $by$(if ($creator) { ", created by $creator" }): the creators $rights; applied by $($ApplyTo.Name)$(if ($DenyTo) { ", denied to $($DenyTo.Name)" })."
     } catch {
         $problem = "It is approved, but not backed up: $($_.Exception.GetBaseException().Message)"
     }
@@ -560,6 +609,8 @@ function Invoke-PSGPOApproval {
         CreatedBy = $creator
         CreatorRights = $CreatorRights
         AppliedBy = $ApplyTo.Name
+        DeniedTo = if ($DenyTo) { $DenyTo.Name }
+        GroupsCreated = [string[]]@($created | ForEach-Object DistinguishedName)
         Backup = if ($backup) { $backup.Path }
         Problem = $problem
     }

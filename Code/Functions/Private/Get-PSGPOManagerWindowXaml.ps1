@@ -310,10 +310,17 @@ $iconResources
                                                     <ComboBoxItem Content='Keep editing its settings: each change needs a new approval' Tag='EditSettings'/>
                                                 </ComboBox>
                                             </Grid>
-                                            <Grid ColumnDefinitions='Auto,*'>
-                                                <TextBlock Text='Applies to' VerticalAlignment='Center' Margin='0,0,12,0'
+                                            <!-- Security filtering groups APPLY_<GPO> and DENY_<GPO>, created by the approver -->
+                                            <CheckBox Name='approveGpoGroupsCheckBox' Content='Create the security filtering groups'/>
+                                            <TextBlock Name='approveGpoGroupsTextBlock' TextWrapping='Wrap' FontSize='12' Margin='28,0,0,0'
+                                                       Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                            <Grid ColumnDefinitions='Auto,*' RowDefinitions='Auto,Auto' Name='approveGpoFilteringGrid'>
+                                                <TextBlock Text='Applies to' VerticalAlignment='Center' Margin='0,0,12,6'
                                                            Foreground='{DynamicResource SecondaryTextBrush}'/>
-                                                <TextBox Grid.Column='1' Name='approveGpoApplyToTextBox' Watermark='A group of the domain, or Authenticated Users'/>
+                                                <TextBox Grid.Column='1' Name='approveGpoApplyToTextBox' Margin='0,0,0,6' Watermark='A group of the domain, or Authenticated Users'/>
+                                                <TextBlock Grid.Row='1' Text='Denied to' VerticalAlignment='Center' Margin='0,0,12,0'
+                                                           Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                <TextBox Grid.Row='1' Grid.Column='1' Name='approveGpoDenyToTextBox' Watermark='A group of the domain (optional)'/>
                                             </Grid>
                                             <TextBlock Name='approveGpoErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
                                             <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>

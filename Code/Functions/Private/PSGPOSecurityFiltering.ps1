@@ -261,7 +261,9 @@ function New-PSGPODomainFilteringGroup {
     param(
         [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
         [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
-        [Parameter(Mandatory)] [string]$Container
+        [Parameter(Mandatory)] [string]$Container,
+        # The groups only: the approval of the GPO sets its security filtering.
+        [switch]$NoFiltering
     )
 
     # Names, scope and descriptions from the configuration.
@@ -270,7 +272,7 @@ function New-PSGPODomainFilteringGroup {
     $denyName = Get-PSGPOFilteringGroupName -Role Deny -GpoName $Gpo.DisplayName -Settings $settings
     $apply = New-PSGPODomainGroup -Directory $Directory -Name $applyName -Container $Container -Scope $settings.Scope -Description ($settings.ApplyDescription -f $Gpo.DisplayName)
     $deny = New-PSGPODomainGroup -Directory $Directory -Name $denyName -Container $Container -Scope $settings.Scope -Description ($settings.DenyDescription -f $Gpo.DisplayName)
-    Set-PSGPODomainSecurityFiltering -Directory $Directory -Gpo $Gpo -ApplySid $apply.Sid -DenySid $deny.Sid
+    if (-not $NoFiltering) { Set-PSGPODomainSecurityFiltering -Directory $Directory -Gpo $Gpo -ApplySid $apply.Sid -DenySid $deny.Sid }
     $apply, $deny
 }
 

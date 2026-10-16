@@ -1087,12 +1087,20 @@ InModuleScope -ModuleName PSGPOTools {
                     $Ui.approveGpoTextBlock.Text | Should -BeLike "Approve the GPO 'T1 - Lyon - Proxy', created by CORP\tech1? Its owner becomes Domain Admins*"
                     $Ui.approveGpoRightsComboBox.SelectedItem.Tag | Should -Be 'EditSettings' -Because 'the configuration proposes it'
                     $Ui.approveGpoApplyToTextBox.Text | Should -Be 'Authenticated Users'
+                    $Ui.approveGpoDenyToTextBox.Text | Should -Be ''
+                    # Its groups do not exist yet: the approver may create them.
+                    $Ui.approveGpoGroupsCheckBox.IsVisible | Should -BeTrue
+                    $Ui.approveGpoGroupsCheckBox.IsChecked | Should -BeFalse -Because 'the configuration does not check it'
+                    $Ui.approveGpoGroupsTextBlock.Text | Should -BeLike 'APPLY_T1 - Lyon - Proxy applies it, DENY_T1 - Lyon - Proxy is denied it; created in CN=Users,DC=corp,DC=contoso,DC=com (Global).'
+                    $Ui.approveGpoGroupsCheckBox.IsChecked = $true
+                    $Ui.approveGpoFilteringGrid.IsEnabled | Should -BeFalse -Because 'the new groups apply and deny it'
                     $Ui.approveGpoRightsComboBox.SelectedIndex = 0
                     Invoke-Click $Ui.approveGpoConfirmButton
                     $Ui.approveGpoPanel.IsVisible | Should -BeFalse
                     $Gpo.ApprovalState | Should -Be 'Approved'
-                    $Gpo.SecurityFiltering | Should -Be @('Authenticated Users')
-                    $Ui.directoryResultTextBlock.Text | Should -BeLike "GPO 'T1 - Lyon - Proxy' approved: owned by Domain Admins, applied by Authenticated Users, the creators read it.*Backed up as its approved version."
+                    $Gpo.SecurityFiltering | Should -Be @('APPLY_T1 - Lyon - Proxy')
+                    $Gpo.DeniedTo | Should -Be @('DENY_T1 - Lyon - Proxy')
+                    $Ui.directoryResultTextBlock.Text | Should -BeLike "GPO 'T1 - Lyon - Proxy' approved: owned by Domain Admins, applied by APPLY_T1 - Lyon - Proxy, denied to DENY_T1 - Lyon - Proxy, the creators read it.*Security filtering groups created: CN=APPLY_T1 - Lyon - Proxy,CN=Users,DC=corp,DC=contoso,DC=com; CN=DENY_T1 - Lyon - Proxy,CN=Users,DC=corp,DC=contoso,DC=com.*Backed up as its approved version."
                     (Get-DomainNode $Ui 'Group Policy Objects').Children.Header | Should -Contain 'T1 - Lyon - Proxy'
                     $Ui.approveGpoMenuItem.IsVisible | Should -BeFalse
                 }
