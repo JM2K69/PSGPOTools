@@ -28,6 +28,8 @@ function Start-PSGPOManagerWindow {
 
     $xaml = Get-PSGPOManagerWindowXaml
 
+    # The configuration of PSGPOTools for the domain shown (SYSVOL of its domain controller).
+    Use-PSGPODomainConfiguration -Directory $Directory -Force
     $window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse($xaml)
 
     $treeView = Get-PSGPOAvaloniaControl $window 'treeView'
@@ -1601,7 +1603,7 @@ function Start-PSGPOManagerWindow {
     $configurationWindow = @{ Ui = $null }
     $configurationButton.Add_Click({
         if ($configurationWindow.Ui -and $configurationWindow.Ui.Window.IsVisible) { $configurationWindow.Ui.Window.Activate(); return }
-        $configurationWindow.Ui = New-PSGPOConfigurationWindow
+        $configurationWindow.Ui = New-PSGPOConfigurationWindow -Directory $Directory
         $configurationWindow.Ui.Window.RequestedThemeVariant = $window.RequestedThemeVariant
         $configurationWindow.Ui.Window.Show($window)
     })

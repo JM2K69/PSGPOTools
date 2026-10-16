@@ -74,6 +74,7 @@ function Backup-PSGPO {
             if ($Server) { $read.Server = $Server }
             $Directory = Get-PSGPODirectory @read -ErrorAction Stop
         }
+        Use-PSGPODomainConfiguration -Directory $Directory
         $null = New-Item -ItemType Directory -Path $Path -Force -ErrorAction Stop
         $Path = (Resolve-Path -LiteralPath $Path).ProviderPath
         $names = [System.Collections.Generic.List[string]]::new()

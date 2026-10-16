@@ -116,7 +116,7 @@ class AvaloniaConfigurationRow {
     [string]$Key
     [string]$Value
     [string]$Default
-    # 'Set in your configuration' or 'Default'
+    # 'Set for the domain' or 'Default'
     [string]$Source
     [string]$SourceBrush
     [object]$Setting

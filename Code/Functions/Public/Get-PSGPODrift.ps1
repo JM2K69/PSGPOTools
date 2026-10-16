@@ -54,6 +54,7 @@ function Get-PSGPODrift {
             if ($Server) { $read.Server = $Server }
             $Directory = Get-PSGPODirectory @read -ErrorAction Stop
         }
+        Use-PSGPODomainConfiguration -Directory $Directory
         if (-not $Label) { $Label = Get-PSGPOApprovedLabel }
         $names = [System.Collections.Generic.List[string]]::new()
     }

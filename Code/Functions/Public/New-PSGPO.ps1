@@ -51,6 +51,7 @@ function New-PSGPO {
         if ($Server) { $read.Server = $Server }
         $Directory = Get-PSGPODirectory @read -ErrorAction Stop
     }
+    Use-PSGPODomainConfiguration -Directory $Directory
     # Its files checked before anything is created.
     if ($Template) { $null = Get-PSGPOVerifiedBackupFile -Backup $Template }
     $what = if ($Template) { "Create it from the template '$($Template.DisplayName)'" } else { 'Create it' }

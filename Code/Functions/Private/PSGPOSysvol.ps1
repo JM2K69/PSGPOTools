@@ -58,6 +58,88 @@ function Invoke-PSGPOSmbClient {
     , $output
 }
 
+# A file of a SYSVOL share of the domain controller (path with \ from the root of the share):
+# its bytes, $null when it does not exist.
+function Read-PSGPOSysvolItem {
+    [CmdletBinding()]
+    [OutputType([byte[]])]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [string]$Share,
+        [Parameter(Mandatory)] [string]$Path
+    )
+
+    if ($IsWindows) {
+        $file = "\\$($Directory.Server)\$Share\$Path"
+        if (-not (Test-Path -LiteralPath $file -PathType Leaf)) { return $null }
+        return , [System.IO.File]::ReadAllBytes($file)
+    }
+    Assert-PSGPOKerberosOnly -Directory $Directory
+    $local = [System.IO.Path]::GetTempFileName()
+    try {
+        $result = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $Share -AllowMissing -Command ('get "{0}" "{1}"' -f $Path, $local)
+        if ($null -eq $result) { return $null }
+        return , [System.IO.File]::ReadAllBytes($local)
+    } finally {
+        Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue
+    }
+}
+
+# Writes a file of a SYSVOL share: $Path in the folder $Base (which exists), the folders of
+# $Path created when needed.
+function Write-PSGPOSysvolItem {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [string]$Share,
+        [Parameter(Mandatory)] [string]$Base,
+        [Parameter(Mandatory)] [string]$Path,
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [byte[]]$Bytes
+    )
+
+    # Not Split-Path: on Linux it turns the \ of the path into /.
+    $separator = $Path.LastIndexOfAny([char[]]'\/')
+    $folder = if ($separator -gt 0) { $Path.Substring(0, $separator) } else { '' }
+    if ($IsWindows) {
+        $file = "\\$($Directory.Server)\$Share\$Base\$Path"
+        $null = New-Item -ItemType Directory -Path (Split-Path -Path $file -Parent) -Force
+        [System.IO.File]::WriteAllBytes($file, $Bytes)
+        return
+    }
+    Assert-PSGPOKerberosOnly -Directory $Directory
+    $local = [System.IO.Path]::GetTempFileName()
+    try {
+        [System.IO.File]::WriteAllBytes($local, $Bytes)
+        # smbclient creates one folder at a time: each level of the path.
+        $level = ''
+        foreach ($part in @($folder -split '[\\/]' | Where-Object { $_ })) {
+            $level = if ($level) { "$level\$part" } else { $part }
+            $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $Share -IgnoreStatus 'NT_STATUS_OBJECT_NAME_COLLISION' -Command ('mkdir "{0}\{1}"' -f $Base, $level)
+        }
+        $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $Share -Command ('put "{2}" "{0}\{1}"' -f $Base, $Path, $local)
+    } finally {
+        Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue
+    }
+}
+
+# Deletes a file of a SYSVOL share; nothing when it is not there.
+function Remove-PSGPOSysvolItem {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [string]$Share,
+        [Parameter(Mandatory)] [string]$Path
+    )
+
+    if ($IsWindows) {
+        $file = "\\$($Directory.Server)\$Share\$Path"
+        if (Test-Path -LiteralPath $file -PathType Leaf) { Remove-Item -LiteralPath $file -Force -ErrorAction Stop }
+        return
+    }
+    Assert-PSGPOKerberosOnly -Directory $Directory
+    $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $Share -AllowMissing -Command ('del "{0}"' -f $Path)
+}
+
 # A file of the GPO folder: its bytes, $null when it does not exist.
 function Read-PSGPOSysvolFile {
     [CmdletBinding()]
@@ -70,20 +152,9 @@ function Read-PSGPOSysvolFile {
     )
 
     $location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
-    if ($IsWindows) {
-        $file = "\\$($Directory.Server)\$($location.Share)\$($location.Path)\$Path"
-        if (-not (Test-Path -LiteralPath $file -PathType Leaf)) { return $null }
-        return , [System.IO.File]::ReadAllBytes($file)
-    }
-    Assert-PSGPOKerberosOnly -Directory $Directory
-    $local = [System.IO.Path]::GetTempFileName()
-    try {
-        $result = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $location.Share -AllowMissing -Command ('get "{0}\{1}" "{2}"' -f $location.Path, $Path, $local)
-        if ($null -eq $result) { return $null }
-        return , [System.IO.File]::ReadAllBytes($local)
-    } finally {
-        Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue
-    }
+    $bytes = Read-PSGPOSysvolItem -Directory $Directory -Share $location.Share -Path "$($location.Path)\$Path"
+    if ($null -eq $bytes) { return $null }
+    , [byte[]]$bytes
 }
 
 # Every file of the GPO folder, by path in the folder (Machine\Registry.pol), sorted: for a
@@ -134,29 +205,7 @@ function Write-PSGPOSysvolFile {
     )
 
     $location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
-    # Not Split-Path: on Linux it turns the \ of the path in the GPO folder into /.
-    $separator = $Path.LastIndexOfAny([char[]]'\/')
-    $folder = if ($separator -gt 0) { $Path.Substring(0, $separator) } else { '' }
-    if ($IsWindows) {
-        $file = "\\$($Directory.Server)\$($location.Share)\$($location.Path)\$Path"
-        $null = New-Item -ItemType Directory -Path (Split-Path -Path $file -Parent) -Force
-        [System.IO.File]::WriteAllBytes($file, $Bytes)
-        return
-    }
-    Assert-PSGPOKerberosOnly -Directory $Directory
-    $local = [System.IO.Path]::GetTempFileName()
-    try {
-        [System.IO.File]::WriteAllBytes($local, $Bytes)
-        # smbclient creates one folder at a time: each level of the path.
-        $level = ''
-        foreach ($part in @($folder -split '[\\/]' | Where-Object { $_ })) {
-            $level = if ($level) { "$level\$part" } else { $part }
-            $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $location.Share -IgnoreStatus 'NT_STATUS_OBJECT_NAME_COLLISION' -Command ('mkdir "{0}\{1}"' -f $location.Path, $level)
-        }
-        $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $location.Share -Command ('put "{2}" "{0}\{1}"' -f $location.Path, $Path, $local)
-    } finally {
-        Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue
-    }
+    Write-PSGPOSysvolItem -Directory $Directory -Share $location.Share -Base $location.Path -Path $Path -Bytes $Bytes
 }
 
 function Assert-PSGPOKerberosOnly {
@@ -270,7 +319,7 @@ function Save-PSGPODomainGpoFile {
     $extensionAttribute = if ($Folder -eq 'Machine') { 'gPCMachineExtensionNames' } else { 'gPCUserExtensionNames' }
     $connection = New-PSGPODirectoryConnection -Directory $Directory
     try {
-        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Gpo.DistinguishedName -Scope Base -Attribute 'versionNumber', $extensionAttribute
+        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Gpo.DistinguishedName -Scope Base -Attribute 'versionNumber', $extensionAttribute -AllowMissing
         if (-not $entry) { throw "The GPO $($Gpo.DisplayName) is not in the domain anymore." }
         $oldVersion = Get-PSGPOLdapValue $entry 'versionNumber'
         $version = [GPOToolsDirectory]::GetNextVersion([int]$oldVersion, $Folder)
@@ -341,7 +390,7 @@ function Restore-PSGPODomainGpo {
     $connection = New-PSGPODirectoryConnection -Directory $Directory
     try {
         $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Gpo.DistinguishedName -Scope Base `
-            -Attribute 'versionNumber', 'flags', 'gPCMachineExtensionNames', 'gPCUserExtensionNames'
+            -Attribute 'versionNumber', 'flags', 'gPCMachineExtensionNames', 'gPCUserExtensionNames' -AllowMissing
         if (-not $entry) { throw "The GPO $($Gpo.DisplayName) is not in the domain anymore." }
         $oldVersion = Get-PSGPOLdapValue $entry 'versionNumber'
         $version = [GPOToolsDirectory]::GetNextVersion([GPOToolsDirectory]::GetNextVersion([int]$oldVersion, 'Machine'), 'User')

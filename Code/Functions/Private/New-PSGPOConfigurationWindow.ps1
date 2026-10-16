@@ -2,7 +2,9 @@
     Window of the configuration of PSGPOTools (Get-PSGPOConfiguration), opened from the console:
     every setting with its value, its default and where the value comes from. A value is set
     (created or changed) for a setting, or removed (the default applies again); Save writes the
-    Configuration.psd1 of the user with the values set, once checked. Only the settings of the
+    configuration of the domain (SYSVOL\<domain>\PSGPOTools\Configuration.psd1) with the values
+    set, once checked: only an administrator of the domain can. Without a domain that can be
+    written (a sample directory), the configuration is shown, not saved. Only the settings of the
     module can be set: an unknown one would be refused when the configuration is read.
 
     Returns @{ Window; Controls; State }: the window is shown by the caller (owned by the console).
@@ -10,7 +12,10 @@
 
 function New-PSGPOConfigurationWindow {
     [CmdletBinding()]
-    param()
+    param(
+        # The directory of the domain whose configuration is shown and saved.
+        [AllowNull()] [GPOToolsDirectory]$Directory
+    )
 
     $xaml = @'
 <Window xmlns='https://github.com/avaloniaui'
@@ -55,7 +60,7 @@ function New-PSGPOConfigurationWindow {
                     </Panel>
                 </Grid>
                 <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
-                    <Button Name='setButton' Content='Set the value' ToolTip.Tip='Adds the setting to your configuration, or changes its value'/>
+                    <Button Name='setButton' Content='Set the value' ToolTip.Tip='Adds the setting to the configuration of the domain, or changes its value'/>
                     <Button Name='removeButton' Content='Remove (use the default)'/>
                 </StackPanel>
             </StackPanel>
@@ -80,18 +85,28 @@ function New-PSGPOConfigurationWindow {
     # The functions the handlers call, captured: a closure (GetNewClosure) does not see the
     # private functions of the module, only the variables it holds.
     $GetSettings = ${function:Get-PSGPOConfigurationSetting}
-    $GetPaths = ${function:Get-PSGPOConfigurationPath}
+    $GetDefaultPath = ${function:Get-PSGPODefaultConfigurationPath}
     $TestConfiguration = ${function:Test-PSGPOConfiguration}
     $MergeConfiguration = ${function:Merge-PSGPOConfiguration}
     $Unflatten = ${function:ConvertFrom-PSGPOFlatConfiguration}
-    $SaveConfiguration = ${function:Save-PSGPOUserConfiguration}
+    $SaveConfiguration = ${function:Save-PSGPODomainConfiguration}
     $RowType = [AvaloniaConfigurationRow]
 
-    # The values of the configuration of the user, by key, as edited (saved with Save).
-    $State = @{ Values = @{}; Dirty = $false; CloseAsked = $false; Settings = @() }
-    $paths = Get-PSGPOConfigurationPath
+    # The values of the configuration of the domain, by key, as edited (saved with Save).
+    $State = @{ Values = @{}; Dirty = $false; CloseAsked = $false; Settings = @(); Directory = $Directory }
+    # As the domain has it now: an administrator may have changed it meanwhile.
+    Use-PSGPODomainConfiguration -Directory $Directory -Force
+    $domainState = $script:PSGPOConfigurationState
     foreach ($setting in @(Get-PSGPOConfigurationSetting)) { if ($setting.IsSet) { $State.Values[$setting.Key] = $setting.Value } }
-    $Controls.pathTextBlock.Text = "Your configuration: $($paths.User)$(if (-not (Test-Path -LiteralPath $paths.User)) { ' (not created yet)' }). Defaults: $($paths.Default)."
+    $canSave = $Directory -and -not $Directory.IsReadOnly
+    $Controls.pathTextBlock.Text = if ($Directory) {
+        "Configuration of the domain $($Directory.DomainName), for every console of the domain: $($domainState.Path)$(if (-not $domainState.Exists) { ' (not created yet)' })." +
+            $(if ($canSave) { ' Only the administrators of the domain can save it.' } else { ' This directory cannot be written: the configuration is shown, not saved.' }) +
+            " Defaults: $(Get-PSGPODefaultConfigurationPath)."
+    } else {
+        "No domain: the defaults of the module apply ($(Get-PSGPODefaultConfigurationPath))."
+    }
+    $Controls.saveButton.IsEnabled = [bool]$canSave
     $red = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
     $Text = { param($Value) if ($Value -is [bool]) { if ($Value) { 'True' } else { 'False' } } elseif ("$Value" -eq '') { '(empty)' } else { "$Value" } }
 
@@ -109,7 +124,7 @@ function New-PSGPOConfigurationWindow {
                 $row.Key = $setting.Key
                 $row.Value = "Value: $(& $Text $setting.Value)"
                 $row.Default = "Default: $(& $Text $setting.Default)$(if ($setting.Description) { " - $($setting.Description)" })"
-                $row.Source = if ($setting.IsSet) { 'Set in your configuration' } else { 'Default' }
+                $row.Source = if ($setting.IsSet) { 'Set for the domain' } else { 'Default' }
                 $row.SourceBrush = if ($setting.IsSet) { '#0078D4' } else { '#8A8886' }
                 $row.Setting = $setting
                 $row
@@ -160,7 +175,7 @@ function New-PSGPOConfigurationWindow {
         $values = @{}
         foreach ($name in $State.Values.Keys) { $values[$name] = $State.Values[$name] }
         $values[$key] = $value
-        $defaults = Import-PowerShellDataFile -LiteralPath (& $GetPaths).Default
+        $defaults = Import-PowerShellDataFile -LiteralPath (& $GetDefaultPath)
         $problems = @(& $TestConfiguration -Configuration (& $MergeConfiguration -Base $defaults -Override (& $Unflatten -Flat $values)))
         if ($problems.Count) { & $SetStatus ($problems -join ' ') -Problem; return }
         $State.Values[$key] = $value
@@ -179,14 +194,14 @@ function New-PSGPOConfigurationWindow {
         $State.CloseAsked = $false
         & $Refresh $key
         & $ShowSetting $key
-        & $SetStatus "$key removed from your configuration: the default applies. Not saved yet."
+        & $SetStatus "$key removed from the configuration of the domain: the default applies. Not saved yet."
     }.GetNewClosure())
 
     $Controls.saveButton.Add_Click({
         try {
-            & $SaveConfiguration -Values $State.Values -Confirm:$false
+            & $SaveConfiguration -Directory $State.Directory -Values $State.Values -Confirm:$false
             $State.Dirty = $false
-            & $SetStatus "Saved: $((& $GetPaths).User)$(if (-not $State.Values.Count) { ' removed, the defaults apply' })."
+            & $SetStatus "Saved: $($State.Directory.GetConfigurationPath())$(if (-not $State.Values.Count) { ' removed, the defaults apply' })."
         } catch {
             & $SetStatus "Not saved: $($_.Exception.Message)" -Problem
         }

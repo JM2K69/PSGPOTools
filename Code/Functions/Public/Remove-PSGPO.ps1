@@ -50,6 +50,7 @@ function Remove-PSGPO {
             if ($Server) { $read.Server = $Server }
             $Directory = Get-PSGPODirectory @read -ErrorAction Stop
         }
+        Use-PSGPODomainConfiguration -Directory $Directory
         if (-not $BackupPath) { $BackupPath = Get-PSGPODefaultBackupPath }
     }
     process {

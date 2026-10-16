@@ -300,18 +300,18 @@ InModuleScope -ModuleName PSGPOTools {
             (Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Label 'Other').State | Should -Be 'NotApproved'
         }
 
-        It 'Uses the approved label of the configuration' {
-            $Configuration = Join-Path $TestDrive "configuration-$([guid]::NewGuid()).psd1"
-            Set-Content -LiteralPath $Configuration -Value "@{ Backup = @{ ApprovedLabel = 'Production' } }"
-            $env:PSGPOTOOLS_CONFIGURATION_PATH = $Configuration
+        It 'Uses the approved label of the configuration of the domain' {
+            $Directory.WriteConfigurationFile([System.Text.Encoding]::UTF8.GetBytes("@{ Backup = @{ ApprovedLabel = 'Production' } }"))
             try {
+                Use-PSGPODomainConfiguration -Directory $Directory -Force
                 $Backup = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Approve
                 $Backup.Labels | Should -Be @('Production')
                 (Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName).State | Should -Be 'InSync'
-                Set-Content -LiteralPath $Configuration -Value "@{ Backup = @{ ApprovedLabel = 'a,b' } }"
-                Get-PSGPOApprovedLabel 3>$null | Should -Be 'Approved' -Because 'a wrong configuration is not used'
+                $Directory.WriteConfigurationFile([System.Text.Encoding]::UTF8.GetBytes("@{ Backup = @{ ApprovedLabel = 'a,b' } }"))
+                Use-PSGPODomainConfiguration -Directory $Directory -Force 3>$null
+                Get-PSGPOApprovedLabel | Should -Be 'Approved' -Because 'a wrong configuration is not used'
             } finally {
-                Remove-Item Env:PSGPOTOOLS_CONFIGURATION_PATH
+                Use-PSGPODomainConfiguration -Directory $null
             }
         }
     }

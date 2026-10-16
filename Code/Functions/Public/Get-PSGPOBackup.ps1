@@ -63,6 +63,7 @@ function Get-PSGPOBackup {
             if ($Server) { $read.Server = $Server }
             $Directory = Get-PSGPODirectory @read -ErrorAction Stop
         }
+        Use-PSGPODomainConfiguration -Directory $Directory
         Get-PSGPODeletedGpoBackup -Directory $Directory -Path $Path | Where-Object { $Id -eq [guid]::Empty -or $_.Id -eq $Id }
     } else {
         Get-PSGPOBackupEntry -Path $Path -Id $Id

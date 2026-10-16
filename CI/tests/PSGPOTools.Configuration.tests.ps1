@@ -1,7 +1,8 @@
 #Requires -Modules @{ ModuleName = 'Pester'; ModuleVersion = '5.5.0' }
 
 # Configuration of PSGPOTools (Get-PSGPOConfiguration): the defaults of the module, the
-# Configuration.psd1 of the user over them, and what they set for a new GPO.
+# configuration of the domain over them (SYSVOL\<domain>\PSGPOTools\Configuration.psd1, here in a
+# directory in memory), and what they set for a new GPO.
 BeforeDiscovery {
     $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
     Get-Module PSGPOTools | Remove-Module -Force
@@ -10,21 +11,26 @@ BeforeDiscovery {
 
 InModuleScope -ModuleName PSGPOTools {
     BeforeAll {
-        $Before = $env:PSGPOTOOLS_CONFIGURATION_PATH
         $SamplePath = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Samples' 'Directory.sample.json'
-        function Set-UserConfiguration {
+        # A domain in memory with the configuration $Content (none when empty), in use.
+        function Set-DomainConfiguration {
             param([string]$Content)
-            $env:PSGPOTOOLS_CONFIGURATION_PATH = Join-Path $TestDrive "Configuration-$([guid]::NewGuid()).psd1"
-            if ($Content) { Set-Content -LiteralPath $env:PSGPOTOOLS_CONFIGURATION_PATH -Value $Content }
+            $script:Domain = Import-PSGPODirectory -Path $SamplePath
+            if ($Content) { $script:Domain.WriteConfigurationFile([System.Text.Encoding]::UTF8.GetBytes($Content)) }
+            Use-PSGPODomainConfiguration -Directory $script:Domain -Force
+            $script:Domain
         }
     }
-    AfterAll { $env:PSGPOTOOLS_CONFIGURATION_PATH = $Before }
+    AfterAll { Use-PSGPODomainConfiguration -Directory $null }
 
     Describe 'Configuration of PSGPOTools' {
-        It 'Has the defaults of the module when the user has no configuration' {
-            Set-UserConfiguration $null
+        It 'Has the defaults of the module when the domain has no configuration, or without a domain' {
+            Use-PSGPODomainConfiguration -Directory $null
+            (Get-PSGPOConfiguration).Domain | Should -BeNullOrEmpty
+            $Domain = Set-DomainConfiguration $null
             $Read = Get-PSGPOConfiguration
-            $Read.UserFileExists | Should -BeFalse
+            $Read.Domain | Should -Be 'corp.contoso.com'
+            $Read.DomainFileExists | Should -BeFalse
             $Read.DefaultPath | Should -BeLike '*Resources*Configuration.psd1'
             $Groups = $Read.Configuration.NewGpo.SecurityFilteringGroups
             $Groups.Create | Should -BeFalse
@@ -34,10 +40,12 @@ InModuleScope -ModuleName PSGPOTools {
             $Read.Configuration.NewGpo.Status | Should -Be 'Enabled'
         }
 
-        It 'Takes the keys of the configuration of the user, the others keeping their default' {
-            Set-UserConfiguration "@{ NewGpo = @{ Status = 'ComputerOnly'; SecurityFilteringGroups = @{ Create = `$true; ApplyPrefix = 'GPO-A-'; Scope = 'DomainLocal' } } }"
+        It 'Takes the keys of the configuration of the domain, the others keeping their default' {
+            $Domain = Set-DomainConfiguration "@{ NewGpo = @{ Status = 'ComputerOnly'; SecurityFilteringGroups = @{ Create = `$true; ApplyPrefix = 'GPO-A-'; Scope = 'DomainLocal' } } }"
             $Read = Get-PSGPOConfiguration
-            $Read.UserFileExists | Should -BeTrue
+            $Read.DomainFileExists | Should -BeTrue
+            $Read.DomainPath | Should -BeLike 'SYSVOL\corp.contoso.com\PSGPOTools\Configuration.psd1*'
+
             $Read.Configuration.NewGpo.Status | Should -Be 'ComputerOnly'
             $Read.Configuration.NewGpo.DefaultName | Should -Be 'New Group Policy Object'
             $Groups = $Read.Configuration.NewGpo.SecurityFilteringGroups
@@ -49,13 +57,54 @@ InModuleScope -ModuleName PSGPOTools {
             @{ Case = 'has an unknown setting'; Content = "@{ NewGpo = @{ Colour = 'blue' } }"; Message = '*Unknown setting NewGpo.Colour*' }
             @{ Case = 'has a wrong scope'; Content = "@{ NewGpo = @{ SecurityFilteringGroups = @{ Scope = 'Forest' } } }"; Message = "*Scope must be Global, DomainLocal or Universal, not 'Forest'*" }
             @{ Case = 'has a prefix a group name cannot hold'; Content = "@{ NewGpo = @{ SecurityFilteringGroups = @{ DenyPrefix = 'DENY:' } } }"; Message = '*DenyPrefix must not be empty, nor hold*' }
-            @{ Case = 'runs code'; Content = "@{ NewGpo = @{ DefaultName = (Get-Date) } }"; Message = '*is not used*' }
-            @{ Case = 'is not PowerShell data'; Content = "@{ NewGpo = "; Message = '*is not used*' }
+            @{ Case = 'runs code'; Content = "@{ NewGpo = @{ DefaultName = (Get-Date) } }"; Message = ' it is not PowerShell data: Cannot generate a PowerShell object for a ScriptBlock evaluating dynamic expressions*' }
+            @{ Case = 'is not PowerShell data'; Content = "@{ NewGpo = "; Message = " it is not PowerShell data: The file 'Configuration.psd1' could not be parsed*" }
         ) {
-            Set-UserConfiguration $Content
-            $Output = @(Get-PSGPOConfigurationData 3>&1)
-            "$($Output | Where-Object { $_ -is [System.Management.Automation.WarningRecord] })" | Should -BeLike $Message
-            ($Output | Where-Object { $_ -is [hashtable] }).NewGpo.SecurityFilteringGroups.Scope | Should -Be 'Global' -Because 'the defaults apply'
+            $Output = @(Set-DomainConfiguration $Content 3>&1)
+            "$($Output | Where-Object { $_ -is [System.Management.Automation.WarningRecord] })" | Should -BeLike "The configuration of the domain SYSVOL\corp.contoso.com\PSGPOTools\Configuration.psd1*is not used:$Message"
+            (Get-PSGPOConfiguration).Problem | Should -Not -BeNullOrEmpty
+            (Get-PSGPOConfigurationData).NewGpo.SecurityFilteringGroups.Scope | Should -Be 'Global' -Because 'the defaults apply'
+        }
+
+        It 'Saves the configuration of the domain, checked first, and reads it again' {
+            $Domain = Set-DomainConfiguration $null
+            { Save-PSGPODomainConfiguration -Directory $Domain -Values @{ 'NewGpo.Status' = 'Sometimes' } } | Should -Throw '*Status must be Enabled*'
+            $Domain.ReadConfigurationFile() | Should -BeNullOrEmpty -Because 'nothing is written when a value is wrong'
+            Save-PSGPODomainConfiguration -Directory $Domain -Values @{ 'NewGpo.Status' = 'UserOnly'; 'Backup.TemplateLabel' = 'Model' }
+            $Text = [System.Text.Encoding]::UTF8.GetString($Domain.ReadConfigurationFile())
+            $Text | Should -BeLike '# Configuration of PSGPOTools for the domain corp.contoso.com, for every console of the domain*'
+            (Get-PSGPOConfigurationData).NewGpo.Status | Should -Be 'UserOnly'
+            Get-PSGPOTemplateLabel | Should -Be 'Model'
+            Save-PSGPODomainConfiguration -Directory $Domain -Values @{}
+            $Domain.ReadConfigurationFile() | Should -BeNullOrEmpty -Because 'no value: the file is removed'
+            (Get-PSGPOConfigurationData).NewGpo.Status | Should -Be 'Enabled'
+        }
+
+        It 'Reads the configuration of the domain of the directory used, not of another' {
+            $First = Set-DomainConfiguration "@{ NewGpo = @{ DefaultName = 'First' } }"
+            $Second = Import-PSGPODirectory -Path $SamplePath
+            (Get-PSGPOConfigurationData).NewGpo.DefaultName | Should -Be 'New Group Policy Object' -Because 'the directory read last has no configuration'
+            Use-PSGPODomainConfiguration -Directory $First
+            (Get-PSGPOConfigurationData).NewGpo.DefaultName | Should -Be 'First'
+        }
+
+        It 'Reads and writes the configuration in the SYSVOL share of the domain controller' {
+            $Directory = [GPOToolsLdapDirectory]::new('contoso.com', 'DC=contoso,DC=com', 'dc1.contoso.com', 'Samba AD')
+            $Directory.GetConfigurationPath() | Should -Be '\\dc1.contoso.com\SYSVOL\contoso.com\PSGPOTools\Configuration.psd1'
+            Mock Read-PSGPOSysvolItem { , [byte[]](64, 123, 125) }
+            Mock Write-PSGPOSysvolItem { }
+            Mock Remove-PSGPOSysvolItem { }
+            [System.Text.Encoding]::ASCII.GetString($Directory.ReadConfigurationFile()) | Should -Be '@{}'
+            Should -Invoke Read-PSGPOSysvolItem -Times 1 -Exactly -ParameterFilter { $Share -eq 'SYSVOL' -and $Path -eq 'contoso.com\PSGPOTools\Configuration.psd1' }
+            $Directory.WriteConfigurationFile([byte[]](1, 2))
+            Should -Invoke Write-PSGPOSysvolItem -Times 1 -Exactly -ParameterFilter { $Share -eq 'SYSVOL' -and $Base -eq 'contoso.com' -and $Path -eq 'PSGPOTools\Configuration.psd1' }
+            $Directory.WriteConfigurationFile($null)
+            Should -Invoke Remove-PSGPOSysvolItem -Times 1 -Exactly -ParameterFilter { $Path -eq 'contoso.com\PSGPOTools\Configuration.psd1' }
+
+            Mock Write-PSGPOSysvolItem { throw 'smbclient //dc1/SYSVOL failed: NT_STATUS_ACCESS_DENIED' }
+            $Directory.Account = 'CONTOSO\tech1'
+            { Save-PSGPODomainConfiguration -Directory $Directory -Values @{ 'NewGpo.Status' = 'UserOnly' } } |
+                Should -Throw -ExpectedMessage 'The account CONTOSO\tech1 cannot write the configuration of the domain*only the administrators of the domain can*'
         }
 
         It 'Makes the container of the groups a distinguished name of the domain' {
@@ -66,8 +115,7 @@ InModuleScope -ModuleName PSGPOTools {
         }
 
         It 'Creates the groups of a new GPO with the prefixes and in the container of the configuration' {
-            Set-UserConfiguration "@{ NewGpo = @{ SecurityFilteringGroups = @{ Container = 'OU=Servers'; ApplyPrefix = 'GPO-A-'; DenyPrefix = 'GPO-D-' } } }"
-            $Directory = Import-PSGPODirectory -Path $SamplePath
+            $Directory = Set-DomainConfiguration "@{ NewGpo = @{ SecurityFilteringGroups = @{ Container = 'OU=Servers'; ApplyPrefix = 'GPO-A-'; DenyPrefix = 'GPO-D-' } } }"
             $Groups = $Directory.NewFilteringGroups($Directory.FindGpo('C - Servers - Security Baseline'), $null)
             @($Groups.DistinguishedName) | Should -Be @(
                 'CN=GPO-A-C - Servers - Security Baseline,OU=Servers,DC=corp,DC=contoso,DC=com'
@@ -75,7 +123,7 @@ InModuleScope -ModuleName PSGPOTools {
         }
 
         It 'Creates a security group of the scope of the configuration, with its description' {
-            Set-UserConfiguration "@{ NewGpo = @{ SecurityFilteringGroups = @{ Scope = 'DomainLocal'; ApplyDescription = 'Apply {0} (Tier 1)' } } }"
+            $null = Set-DomainConfiguration "@{ NewGpo = @{ SecurityFilteringGroups = @{ Scope = 'DomainLocal'; ApplyDescription = 'Apply {0} (Tier 1)' } } }"
             $script:Requests = [System.Collections.Generic.List[object]]::new()
             Mock New-PSGPODirectoryConnection {
                 $Connection = [pscustomobject]@{}
