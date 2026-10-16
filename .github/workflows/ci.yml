@@ -26,6 +26,11 @@ jobs:
           path: PSGPOTools/Avalonia/bin
           key: avalonia-win-x64-${{ hashFiles('PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1') }}
 
+      - name: Build the module
+        # Get-AvaloniaBinaries.ps1 loads the module, which is built from Code/ (not in the repository).
+        shell: pwsh
+        run: ./CI/03_Build.ps1
+
       - name: Stage Avalonia runtime
         shell: pwsh
         run: ./PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1 -Rid win-x64
@@ -60,6 +65,11 @@ jobs:
         with:
           path: PSGPOTools/Avalonia/bin
           key: avalonia-linux-x64-${{ hashFiles('PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1') }}
+
+      - name: Build the module
+        # Get-AvaloniaBinaries.ps1 loads the module, which is built from Code/ (not in the repository).
+        shell: pwsh
+        run: ./CI/03_Build.ps1
 
       - name: Stage Avalonia runtime
         shell: pwsh
