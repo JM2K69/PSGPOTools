@@ -203,6 +203,12 @@ $iconResources
                                 <MenuItem Name='deleteLinkMenuItem' Header='Delete link...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.link-dismiss}'/></MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Name='deleteGpoMenuItem' Header='Delete GPO...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.delete}'/></MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Name='restoreDeletedGpoMenuItem' Header='Restore...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.arrow-undo}'/></MenuItem.Icon>
+                                </MenuItem>
                             </ContextMenu>
                         </TreeView.ContextMenu>
                     </TreeView>
@@ -248,6 +254,13 @@ $iconResources
                                                     <ComboBoxItem Content='User settings only (computer configuration disabled)' Tag='2'/>
                                                 </ComboBox>
                                             </Grid>
+                                            <!-- Template: a backup whose settings the GPO starts with -->
+                                            <Grid ColumnDefinitions='Auto,*'>
+                                                <TextBlock Text='Start from' VerticalAlignment='Center' Margin='0,0,12,0'
+                                                           Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                <ComboBox Grid.Column='1' Name='newGpoTemplateComboBox' HorizontalAlignment='Stretch'
+                                                          ToolTip.Tip='A backup labelled as a template (History tab): the new GPO starts with its settings'/>
+                                            </Grid>
                                             <!-- Security filtering groups APPLY_<GPO> and DENY_<GPO> -->
                                             <CheckBox Name='newGpoGroupsCheckBox' Content='Create the security filtering groups'/>
                                             <StackPanel Name='newGpoGroupsPanel' Spacing='6' Margin='28,0,0,0' IsVisible='False'>
@@ -276,6 +289,33 @@ $iconResources
                                             <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
                                                 <Button Name='deleteLinkConfirmButton' Content='Delete link' Width='120'/>
                                                 <Button Name='deleteLinkCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Confirmation of the deletion of a GPO, backed up first -->
+                                    <Border Name='deleteGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='#D13438'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='deleteGpoTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='deleteGpoConfirmButton' Content='Delete GPO' Width='120'/>
+                                                <Button Name='deleteGpoCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- A deleted GPO created again from its backup -->
+                                    <Border Name='restoreGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='restoreGpoTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <CheckBox Name='restoreGpoLinkCheckBox'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='restoreGpoConfirmButton' Content='Restore' Width='110'/>
+                                                <Button Name='restoreGpoCancelButton' Content='Cancel' Width='100'/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>
@@ -311,6 +351,12 @@ $iconResources
                                         <StackPanel Orientation='Horizontal' Spacing='8'>
                                             <PathIcon Data='{StaticResource Icon.edit}'/>
                                             <TextBlock Text='Edit this GPO' VerticalAlignment='Center'/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Name='restoreDeletedGpoButton' IsVisible='False' Margin='0,8,0,8'>
+                                        <StackPanel Orientation='Horizontal' Spacing='8'>
+                                            <PathIcon Data='{StaticResource Icon.arrow-undo}'/>
+                                            <TextBlock Text='Restore this GPO...' VerticalAlignment='Center'/>
                                         </StackPanel>
                                     </Button>
 
@@ -470,11 +516,13 @@ $iconResources
                                                            Foreground='{DynamicResource SecondaryTextBrush}'/>
                                                 <TextBox Name='historyNotesCommentTextBox' AcceptsReturn='True' TextWrapping='Wrap' MinHeight='48'
                                                          Watermark='Comment of this backup'/>
-                                                <Grid ColumnDefinitions='*,Auto,Auto'>
+                                                <Grid ColumnDefinitions='*,Auto,Auto,Auto'>
                                                     <TextBox Name='historyNotesLabelsTextBox' Watermark='Labels, separated by commas'/>
                                                     <CheckBox Grid.Column='1' Name='historyNotesApprovedCheckBox' Margin='12,0,0,0'
                                                               ToolTip.Tip='The approved version: the GPO is compared to it, to find what changed since'/>
-                                                    <Button Grid.Column='2' Name='historyNotesSaveButton' Content='Save notes' Margin='8,0,0,0'/>
+                                                    <CheckBox Grid.Column='2' Name='historyNotesTemplateCheckBox' Margin='12,0,0,0'
+                                                              ToolTip.Tip='A template: a new GPO can start with the settings of this backup'/>
+                                                    <Button Grid.Column='3' Name='historyNotesSaveButton' Content='Save notes' Margin='8,0,0,0'/>
                                                 </Grid>
                                             </StackPanel>
                                         </Border>

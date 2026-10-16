@@ -394,7 +394,8 @@ InModuleScope -ModuleName PSGPOTools {
 
                 $Domain = @($Ui.domainTreeView.ItemsSource)[0]
                 $Domain.Header | Should -Be 'corp.contoso.com'
-                $Domain.Children[-1].Header | Should -Be 'Group Policy Objects'
+                $Domain.Children[-2].Header | Should -Be 'Group Policy Objects'
+                $Domain.Children[-1].Header | Should -Be 'Deleted GPOs' -Because 'the recycle bin of the GPOs, from their backups'
                 # The IsExpanded binding reaches the tree view item.
                 $Ui.Window.UpdateLayout()
                 $DomainItem = $Ui.domainTreeView.ContainerFromItem($Domain)
@@ -681,8 +682,8 @@ InModuleScope -ModuleName PSGPOTools {
                     $Settings.Window.IsVisible | Should -BeTrue
                     $C = $Settings.Controls
                     $Rows = @($C.settingsList.ItemsSource)
-                    $Rows.Count | Should -Be 10
-                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 10
+                    $Rows.Count | Should -Be 11
+                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 11
                     ($Rows | Where-Object Key -EQ 'NewGpo.SecurityFilteringGroups.ApplyPrefix').Default | Should -BeLike 'Default: APPLY_ - Names of the groups*'
 
                     # Create: a choice, a boolean, a text.
@@ -953,6 +954,78 @@ InModuleScope -ModuleName PSGPOTools {
                 $Ui.domainTreeView.SelectedItem.Tag | Should -Be $Users.Links[-1]
                 $Ui.directoryResultTextBlock.Text | Should -Be "GPO '$($Target.DisplayName)' linked to Users, link order $($Count + 1)."
                 (Get-DomainNode $Ui 'Sites', 'Lyon', 'Users').Children.Header | Should -Contain $Target.DisplayName
+            }
+        }
+
+        It 'Deletes a GPO once confirmed, keeps it in Deleted GPOs, restores it, and starts a new GPO from a template' {
+            $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
+            $Root = Join-Path $TestDrive "bin-$([guid]::NewGuid())"
+            $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
+            Set-PSGPOUserSetting -Values @{ BackupPath = $Root }
+            try {
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'Default Domain Policy'
+                    $Ui.deleteGpoMenuItem.IsVisible | Should -BeFalse -Because 'a default GPO of the domain is never deleted'
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Users', 'U - Lyon - Printers'
+                    $Ui.deleteGpoMenuItem.IsVisible | Should -BeFalse -Because 'on a link, Delete link deletes the link'
+
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'U - Lyon - Printers'
+                    $Gpo = $Ui.domainTreeView.SelectedItem.Tag
+                    $Ui.deleteGpoMenuItem.IsVisible | Should -BeTrue
+                    Invoke-Click $Ui.deleteGpoMenuItem
+                    $Ui.deleteGpoPanel.IsVisible | Should -BeTrue
+                    $Ui.deleteGpoTextBlock.Text | Should -BeLike "Delete the GPO 'U - Lyon - Printers'? Its 1 link (Users) is deleted too. It is backed up first in $Root*"
+                    Invoke-Click $Ui.deleteGpoCancelButton
+                    $Ui.Directory.FindGpo('U - Lyon - Printers') | Should -Not -BeNullOrEmpty
+                    Invoke-Click $Ui.deleteGpoMenuItem
+                    Invoke-Click $Ui.deleteGpoConfirmButton
+                    $Ui.Directory.FindGpo('U - Lyon - Printers') | Should -BeNullOrEmpty
+                    $Ui.directoryResultTextBlock.Text | Should -Be "GPO 'U - Lyon - Printers' deleted, with its 1 link. Its backup is in Deleted GPOs, to restore it."
+                    (Get-DomainNode $Ui 'Sites', 'Lyon', 'Users').Children.Header | Should -Not -Contain 'U - Lyon - Printers'
+
+                    # In the recycle bin: its details, then restored with its link.
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Deleted GPOs'
+                    @($Ui.directoryPropertiesList.ItemsSource).Key | Should -Be @('U - Lyon - Printers')
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Deleted GPOs', 'U - Lyon - Printers'
+                    $Ui.directoryTitleTextBlock.Text | Should -Be 'U - Lyon - Printers (deleted)'
+                    ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Comment').Value | Should -BeLike 'GPO deleted on *'
+                    $Ui.historyTab.IsVisible | Should -BeFalse
+                    $Ui.restoreDeletedGpoButton.IsVisible | Should -BeTrue
+                    $Ui.restoreDeletedGpoMenuItem.IsVisible | Should -BeTrue
+                    Invoke-Click $Ui.restoreDeletedGpoButton
+                    $Ui.restoreGpoPanel.IsVisible | Should -BeTrue
+                    $Ui.restoreGpoLinkCheckBox.Content | Should -Be 'Link it again where it was (1 link)'
+                    $Ui.restoreGpoLinkCheckBox.IsChecked | Should -BeTrue
+                    Invoke-Click $Ui.restoreGpoConfirmButton
+                    $Restored = $Ui.Directory.FindGpo('U - Lyon - Printers')
+                    $Restored | Should -Not -BeNullOrEmpty
+                    $Restored.Id | Should -Not -Be $Gpo.Id
+                    $Ui.domainTreeView.SelectedItem.Tag | Should -Be $Restored
+                    $Ui.directoryResultTextBlock.Text | Should -BeLike "GPO 'U - Lyon - Printers' restored from its backup of *, as {*}.*Linked again to Users."
+                    (Get-DomainNode $Ui 'Sites', 'Lyon', 'Users').Children.Header | Should -Contain 'U - Lyon - Printers'
+                    @((Get-DomainNode $Ui 'Deleted GPOs').Children).Count | Should -Be 0
+
+                    # Its backup made a template, in the History tab; then a new GPO from it.
+                    $Ui.directoryTabs.SelectedItem = $Ui.historyTab
+                    $Ui.historyNotesTemplateCheckBox.Content | Should -Be 'Template'
+                    $Ui.historyNotesTemplateCheckBox.IsChecked = $true
+                    Invoke-Click $Ui.historyNotesSaveButton
+                    $Ui.directoryTabs.SelectedIndex = 0
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                    Invoke-Click $Ui.newGpoMenuItem
+                    @($Ui.newGpoTemplateComboBox.ItemsSource)[0] | Should -Be 'Empty GPO'
+                    @($Ui.newGpoTemplateComboBox.ItemsSource)[1] | Should -BeLike 'U - Lyon - Printers, backup of *'
+                    $Ui.newGpoTemplateComboBox.SelectedIndex = 1
+                    $Ui.newGpoNameTextBox.Text = 'U - Lille - Printers'
+                    Invoke-Click $Ui.newGpoCreateButton
+                    $New = $Ui.Directory.FindGpo('U - Lille - Printers')
+                    $New | Should -Not -BeNullOrEmpty
+                    $Ui.directoryResultTextBlock.Text | Should -BeLike "*Settings of the template 'U - Lyon - Printers' copied.*"
+                    "$($New.MachineExtensionNames)$($New.UserExtensionNames)" | Should -Be "$($Restored.MachineExtensionNames)$($Restored.UserExtensionNames)"
+                }
+            } finally {
+                $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
             }
         }
 

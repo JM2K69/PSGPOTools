@@ -402,6 +402,7 @@ InModuleScope -ModuleName PSGPOTools {
         BeforeAll {
             # New-GPO exists only where RSAT is installed: a stand-in to mock.
             if (-not (Get-Command New-GPO -ErrorAction SilentlyContinue)) { function script:New-GPO { param($Name, $Domain, $Server) } }
+            if (-not (Get-Command Remove-GPO -ErrorAction SilentlyContinue)) { function script:Remove-GPO { param($Guid, $Domain, $Server, [switch]$Confirm) } }
             $Directory = [GPOToolsLdapDirectory]::new('powershell.labo', 'DC=powershell,DC=labo', 'ADDS.powershell.labo', 'Active Directory')
         }
 
@@ -423,6 +424,20 @@ InModuleScope -ModuleName PSGPOTools {
             Mock Import-Module -ParameterFilter { $Name -eq 'GroupPolicy' } { }
             Mock New-GPO { throw 'Access is denied.' }
             { New-PSGPOWindowsGpo -Directory $Directory -Name 'Test' } | Should -Throw -ExpectedMessage 'New-GPO failed on ADDS.powershell.labo: Access is denied.'
+        }
+
+        It 'Deletes the GPO with Remove-GPO on the domain controller of the directory, then checks it is gone' {
+            Mock Get-Module -ParameterFilter { $ListAvailable -and $SkipEditionCheck -and $Name -eq 'GroupPolicy' } { [pscustomobject]@{ Name = 'GroupPolicy' } }
+            Mock Import-Module -ParameterFilter { $Name -eq 'GroupPolicy' } { }
+            Mock Remove-GPO { }
+            $Gpo = [GPOToolsGpo]@{ Id = [guid]'11111111-2222-3333-4444-555555555555'; DisplayName = 'Test'; DistinguishedName = 'CN={11111111-2222-3333-4444-555555555555},CN=Policies,CN=System,DC=powershell,DC=labo' }
+            Remove-PSGPOWindowsGpo -Directory $Directory -Gpo $Gpo
+            Should -Invoke Remove-GPO -Times 1 -Exactly -ParameterFilter { $Guid -eq $Gpo.Id -and $Domain -eq 'powershell.labo' -and $Server -eq 'ADDS.powershell.labo' }
+
+            Mock Remove-GPO { throw 'Access is denied.' }
+            { Remove-PSGPOWindowsGpo -Directory $Directory -Gpo $Gpo } | Should -Throw -ExpectedMessage 'Remove-GPO failed on ADDS.powershell.labo: Access is denied.'
+            Mock Get-Module -ParameterFilter { $ListAvailable -and $SkipEditionCheck -and $Name -eq 'GroupPolicy' } { }
+            { Remove-PSGPOWindowsGpo -Directory $Directory -Gpo $Gpo } | Should -Throw -ExpectedMessage 'Deleting a GPO from Windows needs the Group Policy Management tools of RSAT*'
         }
 
         It 'Gives Windows the ACL of the SYSVOL folder without the ACEs of the extended rights' -Skip:(-not $IsWindows) {
@@ -455,6 +470,21 @@ InModuleScope -ModuleName PSGPOTools {
             $Directory = New-TestLdapDirectory
             $Directory.Credential = [pscredential]::new('administrator', (ConvertTo-SecureString 'not-used' -AsPlainText -Force))
             { New-PSGPODomainGpo -Directory $Directory -Gpo ([GPOToolsGpo]@{ DisplayName = 'X' }) } | Should -Throw -ExpectedMessage '*uses the identity of the session (Kerberos)*without -Credential*'
+            { Remove-PSGPODomainGpo -Directory $Directory -Gpo ([GPOToolsGpo]@{ DisplayName = 'X' }) } | Should -Throw -ExpectedMessage 'Deleting a GPO uses the identity of the session (Kerberos)*without -Credential*'
+        }
+
+        It 'Deletes a GPO with samba-tool gpo del and Kerberos, then checks it is gone' -Skip:$IsWindows {
+            $Directory = New-TestLdapDirectory
+            $Gpo = [GPOToolsGpo]@{ Id = [guid]'8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99'; DisplayName = 'X'; DistinguishedName = 'CN={8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99},CN=Policies,CN=System,DC=corp,DC=contoso,DC=com' }
+            Mock Invoke-PSGPOSambaTool { }
+            Mock New-PSGPODirectoryConnection { [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name Dispose -Value { } -PassThru }
+            Mock Invoke-PSGPOLdapSearch { }
+            Remove-PSGPODomainGpo -Directory $Directory -Gpo $Gpo
+            Should -Invoke Invoke-PSGPOSambaTool -Times 1 -Exactly -ParameterFilter {
+                ($ArgumentList -join ' ') -eq "gpo del {8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99} -H ldap://$($Directory.Server) --use-kerberos=required"
+            }
+            Mock Invoke-PSGPOLdapSearch { [pscustomobject]@{ DistinguishedName = $Gpo.DistinguishedName } }
+            { Remove-PSGPODomainGpo -Directory $Directory -Gpo $Gpo } | Should -Throw -ExpectedMessage "*'X' is still in the domain after its deletion*"
         }
     }
 
@@ -870,6 +900,30 @@ Import-Module '$Module'
             finally { $Connection.Dispose() }
             Get-PSGPOLdapValue $Entry 'gPLink' | Should -BeNullOrEmpty -Because 'samba-tool gpo dellink removes the attribute with the last link'
             (Get-PSGPODirectory -Server $Server).FindGpo($GpoName) | Should -Not -BeNullOrEmpty -Because 'the GPO itself is kept'
+        }
+
+        It 'Deletes a GPO, its links first, then creates it again from its backup' {
+            $Root = Join-Path $TestDrive "bin-$([guid]::NewGuid())"
+            $Read = Get-PSGPODirectory -Server $Server
+            $Gpo = $Read.FindGpo($TerminalName)
+            if (-not $Gpo) { $Gpo = $Read.NewGpo($TerminalName) }
+            $ReadOu = $Read.FindSom($OuDN)
+            $null = $Read.NewLink($ReadOu, $Gpo)
+            $Id = $Gpo.Id
+
+            $Removed = Remove-PSGPO -Name $TerminalName -Directory $Read -BackupPath $Root -Confirm:$false
+            $Removed.Links | Should -Be @($OuDN)
+            $Fresh = Get-PSGPODirectory -Server $Server
+            $Fresh.FindGpo($TerminalName) | Should -BeNullOrEmpty
+            @($Fresh.FindSom($OuDN).Links | Where-Object GpoDistinguishedName -Like "*$Id*").Count | Should -Be 0 -Because 'its links were deleted first'
+            $Location = Get-PSGPOSysvolLocation -Directory $Fresh -Gpo $Gpo
+            Read-PSGPOSysvolFile -Directory $Fresh -Gpo $Gpo -Path 'GPT.INI' | Should -BeNullOrEmpty -Because "its folder $($Location.Path) is gone"
+
+            $Restored = Get-PSGPOBackup -Path $Root -Deleted -Directory $Fresh | Where-Object Id -EQ $Id | Restore-PSGPO -Directory $Fresh -RestoreLink -Confirm:$false
+            $Restored.Problems | Should -BeNullOrEmpty
+            $Again = (Get-PSGPODirectory -Server $Server).FindGpo($TerminalName)
+            $Again.Id | Should -Be $Restored.Id
+            @((Get-PSGPODirectory -Server $Server).FindSom($OuDN).Links.Gpo.DisplayName) | Should -Contain $TerminalName
         }
     }
 }

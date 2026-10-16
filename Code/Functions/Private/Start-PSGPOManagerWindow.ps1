@@ -94,6 +94,20 @@ function Start-PSGPOManagerWindow {
     $deleteLinkConfirmButton = Get-PSGPOAvaloniaControl $window 'deleteLinkConfirmButton'
     $deleteLinkCancelButton = Get-PSGPOAvaloniaControl $window 'deleteLinkCancelButton'
     $linkGpoMenuItem = Get-PSGPOAvaloniaControl $window 'linkGpoMenuItem'
+    $deleteGpoMenuItem = Get-PSGPOAvaloniaControl $window 'deleteGpoMenuItem'
+    $deleteGpoPanel = Get-PSGPOAvaloniaControl $window 'deleteGpoPanel'
+    $deleteGpoTextBlock = Get-PSGPOAvaloniaControl $window 'deleteGpoTextBlock'
+    $deleteGpoConfirmButton = Get-PSGPOAvaloniaControl $window 'deleteGpoConfirmButton'
+    $deleteGpoCancelButton = Get-PSGPOAvaloniaControl $window 'deleteGpoCancelButton'
+    $restoreDeletedGpoMenuItem = Get-PSGPOAvaloniaControl $window 'restoreDeletedGpoMenuItem'
+    $restoreDeletedGpoButton = Get-PSGPOAvaloniaControl $window 'restoreDeletedGpoButton'
+    $restoreGpoPanel = Get-PSGPOAvaloniaControl $window 'restoreGpoPanel'
+    $restoreGpoTextBlock = Get-PSGPOAvaloniaControl $window 'restoreGpoTextBlock'
+    $restoreGpoLinkCheckBox = Get-PSGPOAvaloniaControl $window 'restoreGpoLinkCheckBox'
+    $restoreGpoConfirmButton = Get-PSGPOAvaloniaControl $window 'restoreGpoConfirmButton'
+    $restoreGpoCancelButton = Get-PSGPOAvaloniaControl $window 'restoreGpoCancelButton'
+    $newGpoTemplateComboBox = Get-PSGPOAvaloniaControl $window 'newGpoTemplateComboBox'
+    $historyNotesTemplateCheckBox = Get-PSGPOAvaloniaControl $window 'historyNotesTemplateCheckBox'
     $linkGpoPanel = Get-PSGPOAvaloniaControl $window 'linkGpoPanel'
     $linkGpoTitleTextBlock = Get-PSGPOAvaloniaControl $window 'linkGpoTitleTextBlock'
     $linkGpoFilterTextBox = Get-PSGPOAvaloniaControl $window 'linkGpoFilterTextBox'
@@ -790,12 +804,30 @@ function Start-PSGPOManagerWindow {
         , $keys
     }
 
+    # The recycle bin and the templates: from the backups of the folder of the History tab, read
+    # again when that folder changes or with -Force (after a deletion, a restore, new notes).
+    $backupLists = @{ Root = $null; Deleted = @(); Templates = @() }
+    function Update-BackupList {
+        param([switch]$Force)
+        $root = Get-HistoryRoot
+        if (-not $Force -and $backupLists.Root -eq $root) { return }
+        $backupLists.Root = $root
+        try {
+            $backupLists.Deleted = @(Get-PSGPODeletedGpoBackup -Directory $Directory -Path $root)
+            $backupLists.Templates = @(Get-PSGPOTemplateBackup -Path $root)
+        } catch {
+            $backupLists.Deleted = @()
+            $backupLists.Templates = @()
+        }
+    }
+
     # Rebuilds the tree and selects the first node whose Tag is $Select, its parents expanded.
     function Update-DirectoryTree {
         param($Select)
+        Update-BackupList
         $keys = Get-ExpandedKey
         if ($null -ne $Select) {
-            $roots = New-PSGPODirectoryTree -Directory $Directory -Expanded $keys
+            $roots = New-PSGPODirectoryTree -Directory $Directory -Expanded $keys -DeletedGpo $backupLists.Deleted
             $target = $null
             $stack = [System.Collections.Generic.Stack[object]]::new()
             foreach ($root in $roots) { $stack.Push($root) }
@@ -806,7 +838,7 @@ function Start-PSGPOManagerWindow {
             }
             for ($parent = $target.Parent; $parent; $parent = $parent.Parent) { [void]$keys.Add("$(Get-PSGPODirectoryNodeKey $parent)") }
         }
-        $roots = New-PSGPODirectoryTree -Directory $Directory -Expanded $keys
+        $roots = New-PSGPODirectoryTree -Directory $Directory -Expanded $keys -DeletedGpo $backupLists.Deleted
         $domainTreeView.ItemsSource = $roots
         if ($null -ne $Select) {
             $stack = [System.Collections.Generic.Stack[object]]::new()
@@ -820,7 +852,7 @@ function Start-PSGPOManagerWindow {
     }
 
     # New GPO form: linked to $Som, or only created in the domain when $Som is $null.
-    $newGpo = @{ Som = $null; Groups = $null }
+    $newGpo = @{ Som = $null; Groups = $null; Templates = @() }
     function Open-NewGpoForm {
         param([GPOToolsSom]$Som)
         $newGpo.Som = $Som
@@ -831,8 +863,14 @@ function Start-PSGPOManagerWindow {
         $newGpoNameTextBox.Text = $configuration.DefaultName
         $newGpoErrorTextBlock.Text = ''
         $directoryResultTextBlock.Text = ''
-        $deleteLinkPanel.IsVisible = $false
-        $linkGpoPanel.IsVisible = $false
+        Hide-DirectoryForm
+        # The templates: the backups with the template label, newest first.
+        Update-BackupList -Force
+        $newGpo.Templates = @($backupLists.Templates)
+        $newGpoTemplateComboBox.ItemsSource = @('Empty GPO') + @(foreach ($template in $newGpo.Templates) {
+                "$($template.DisplayName), backup of $(Format-HistoryDate $template.BackedUp)$(if ($template.Domain -and $template.Domain -ne $Directory.DomainName) { " ($($template.Domain))" })"
+            })
+        $newGpoTemplateComboBox.SelectedIndex = 0
         $newGpoStatusComboBox.SelectedIndex = [array]::IndexOf(@('Enabled', 'ComputerOnly', 'UserOnly'), $configuration.Status)
         $newGpoGroupsCheckBox.IsChecked = [bool]$newGpo.Groups.Create
         $newGpoGroupsPanel.IsVisible = [bool]$newGpo.Groups.Create
@@ -872,7 +910,10 @@ function Start-PSGPOManagerWindow {
     # It is not linked when its security filtering failed: it would apply to every computer and
     # user. What failed after the creation is said under the details of the GPO.
     function Submit-NewGpo {
+        $template = if ($newGpoTemplateComboBox.SelectedIndex -gt 0) { $newGpo.Templates[$newGpoTemplateComboBox.SelectedIndex - 1] }
         try {
+            # A template checked before the GPO is created.
+            if ($template) { $null = Get-PSGPOVerifiedBackupFile -Backup $template }
             $gpo = $Directory.NewGpo($newGpoNameTextBox.Text)
         } catch {
             $newGpoErrorTextBlock.Text = $_.Exception.GetBaseException().Message
@@ -881,6 +922,14 @@ function Start-PSGPOManagerWindow {
         $done = [System.Collections.Generic.List[string]]::new()
         $problems = [System.Collections.Generic.List[string]]::new()
         $done.Add("GPO '$($gpo.DisplayName)' created.")
+        if ($template) {
+            try {
+                Copy-PSGPOBackupSetting -Directory $Directory -Gpo $gpo -Backup $template
+                $done.Add("Settings of the template '$($template.DisplayName)' copied.")
+            } catch {
+                $problems.Add("The settings of the template are not copied: $($_.Exception.GetBaseException().Message)")
+            }
+        }
         $flags = [int]"$($newGpoStatusComboBox.SelectedItem.Tag)"
         if ($flags) {
             try {
@@ -939,10 +988,89 @@ function Start-PSGPOManagerWindow {
         $deleteLink.Som = $node.Parent.Tag
         $deleteLinkTextBlock.Text = "Delete the link of the GPO '$($node.Tag.GetDisplayName())' to $($node.Parent.Tag.Name)? " +
             'The GPO itself is not deleted: it stays in Group Policy Objects, with its other links.'
-        $newGpoPanel.IsVisible = $false
-        $linkGpoPanel.IsVisible = $false
+        Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
         $deleteLinkPanel.IsVisible = $true
+    }
+
+    # The forms of the details, one at a time.
+    function Hide-DirectoryForm {
+        foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel) { $panel.IsVisible = $false }
+    }
+
+    # Deletion of the selected GPO, once confirmed, as GPMC: its links too; backed up first in
+    # the folder of the History tab, so that Deleted GPOs keeps it.
+    $deleteGpo = @{ Gpo = $null }
+    function Open-DeleteGpoForm {
+        $gpo = if ($domainTreeView.SelectedItem) { $domainTreeView.SelectedItem.Tag }
+        if ($gpo -isnot [GPOToolsGpo]) { return }
+        $deleteGpo.Gpo = $gpo
+        $links = @($Directory.GetLinksOf($gpo))
+        $deleteGpoTextBlock.Text = "Delete the GPO '$($gpo.DisplayName)'? " +
+            $(if ($links.Count) { "Its $($links.Count) link$(if ($links.Count -gt 1) { 's' }) ($(@($links | ForEach-Object { $_.Som.Name }) -join ', ')) $(if ($links.Count -gt 1) { 'are' } else { 'is' }) deleted too. " } else { 'It is not linked. ' }) +
+            "It is backed up first in $(Get-HistoryRoot): Deleted GPOs keeps it, to restore it."
+        Hide-DirectoryForm
+        $directoryResultTextBlock.Text = ''
+        $deleteGpoPanel.IsVisible = $true
+    }
+
+    function Submit-DeleteGpo {
+        $gpo = $deleteGpo.Gpo
+        $deleteGpoPanel.IsVisible = $false
+        if (-not $gpo) { return }
+        try {
+            $removed = Remove-PSGPOWithBackup -Directory $Directory -Gpo $gpo -Path (Get-HistoryRoot)
+        } catch {
+            # Some links may be gone already.
+            Update-DirectoryTree -Select $gpo
+            Show-DirectoryResult -Text "The GPO '$($gpo.DisplayName)' is not deleted: $($_.Exception.GetBaseException().Message)" -Problem
+            return
+        }
+        $settingsCache.Remove("$($gpo.Id)")
+        Update-BackupList -Force
+        Update-DirectoryTree -Select $Directory.Domain
+        $count = @($removed.Links).Count
+        Show-DirectoryResult -Text "GPO '$($gpo.DisplayName)' deleted$(if ($count) { ", with its $count link$(if ($count -gt 1) { 's' })" }). Its backup is in Deleted GPOs, to restore it."
+    }
+
+    # A deleted GPO created again from its newest backup; linked again where it was, when its
+    # security filtering allows it.
+    $restoreGpo = @{ Backup = $null }
+    function Open-RestoreGpoForm {
+        $backup = if ($domainTreeView.SelectedItem) { $domainTreeView.SelectedItem.Tag }
+        if (-not $backup -or $backup.PSObject.TypeNames -notcontains 'PSGPOTools.Backup') { return }
+        $restoreGpo.Backup = $backup
+        $restoreGpoTextBlock.Text = "Create the deleted GPO '$($backup.DisplayName)' again from its backup of $(Format-HistoryDate $backup.BackedUp)? " +
+            'It gets a new unique ID from the domain, and the settings, status and client-side extensions of the backup. Its security filtering is not restored: it applies to Authenticated Users.'
+        $links = @($backup.Links).Count
+        $filtering = (@($backup.SecurityFiltering) -join '|') -eq 'Authenticated Users' -and -not @($backup.DeniedTo | Where-Object { $_ }).Count
+        $restoreGpoLinkCheckBox.IsVisible = $links -gt 0
+        $restoreGpoLinkCheckBox.IsEnabled = $filtering
+        $restoreGpoLinkCheckBox.IsChecked = $filtering
+        $restoreGpoLinkCheckBox.Content = if ($filtering) { "Link it again where it was ($links link$(if ($links -gt 1) { 's' }))" }
+            else { "Not linked again: its security filtering was $(@($backup.SecurityFiltering) -join ', '), set it first" }
+        Hide-DirectoryForm
+        $directoryResultTextBlock.Text = ''
+        $restoreGpoPanel.IsVisible = $true
+    }
+
+    function Submit-RestoreGpo {
+        $backup = $restoreGpo.Backup
+        $restoreGpoPanel.IsVisible = $false
+        if (-not $backup) { return }
+        try {
+            $files = Get-PSGPOVerifiedBackupFile -Backup $backup
+            $result = Restore-PSGPODeletedGpo -Directory $Directory -Backup $backup -Files $files -RestoreLink:([bool]($restoreGpoLinkCheckBox.IsVisible -and $restoreGpoLinkCheckBox.IsChecked))
+        } catch {
+            Show-DirectoryResult -Text "The GPO '$($backup.DisplayName)' is not restored: $($_.Exception.GetBaseException().Message)" -Problem
+            return
+        }
+        $gpo = $Directory.Gpos | Where-Object Id -EQ $result.Id | Select-Object -First 1
+        Update-BackupList -Force
+        Update-DirectoryTree -Select $gpo
+        $lines = @("GPO '$($result.DisplayName)' restored from its backup of $(Format-HistoryDate $backup.BackedUp), as {$($result.Id.ToString().ToUpperInvariant())}.")
+        if ($result.Linked.Count) { $lines += "Linked again to $(@($result.Linked | ForEach-Object { $Directory.FindSom($_).Name }) -join ', ')." }
+        Show-DirectoryResult -Text ((@($lines) + @($result.Problems)) -join [Environment]::NewLine) -Problem:($result.Problems.Count -gt 0)
     }
 
     function Submit-DeleteLink {
@@ -970,8 +1098,7 @@ function Start-PSGPOManagerWindow {
         $linkGpoTitleTextBlock.Text = "Link an existing GPO of $($Directory.DomainName) to $($Som.Name)"
         $linkGpoErrorTextBlock.Text = ''
         $directoryResultTextBlock.Text = ''
-        $newGpoPanel.IsVisible = $false
-        $deleteLinkPanel.IsVisible = $false
+        Hide-DirectoryForm
         $linkGpoFilterTextBox.Text = ''
         Update-LinkGpoList
         $linkGpoPanel.IsVisible = $true
@@ -1264,17 +1391,22 @@ function Start-PSGPOManagerWindow {
         if ($backup.NotesUpdated) { $info += " Notes changed$(if ($backup.NotesUpdatedBy) { " by $($backup.NotesUpdatedBy)" }) on $(Format-HistoryDate $backup.NotesUpdated)." }
         $historyNotesInfoTextBlock.Text = $info
         $historyNotesCommentTextBox.Text = $backup.Comment
-        $historyNotesLabelsTextBox.Text = @($backup.Labels | Where-Object { $_ -ne $label }) -join ', '
+        $template = Get-PSGPOTemplateLabel
+        $historyNotesLabelsTextBox.Text = @($backup.Labels | Where-Object { $_ -ne $label -and $_ -ne $template }) -join ', '
         $historyNotesApprovedCheckBox.Content = "$label version"
         $historyNotesApprovedCheckBox.IsChecked = $backup.Labels -contains $label
+        $historyNotesTemplateCheckBox.Content = $template
+        $historyNotesTemplateCheckBox.IsChecked = $backup.Labels -contains $template
     }
 
     function Save-HistoryNote {
         $backup = $historyNote.Backup
         if (-not $backup) { return }
         $label = Get-PSGPOApprovedLabel
-        $labels = @("$($historyNotesLabelsTextBox.Text)" -split ',' | Where-Object { $_.Trim() -and $_.Trim() -ne $label })
+        $template = Get-PSGPOTemplateLabel
+        $labels = @("$($historyNotesLabelsTextBox.Text)" -split ',' | Where-Object { $_.Trim() -and $_.Trim() -ne $label -and $_.Trim() -ne $template })
         if ($historyNotesApprovedCheckBox.IsChecked) { $labels += $label }
+        if ($historyNotesTemplateCheckBox.IsChecked) { $labels += $template }
         try {
             $saved = Save-PSGPOBackupNote -Backup $backup -Comment $historyNotesCommentTextBox.Text -Label $labels -Account $Directory.Account
         } catch {
@@ -1366,6 +1498,10 @@ function Start-PSGPOManagerWindow {
         if ($e.Key -eq [Avalonia.Input.Key]::Enter) {
             Set-PSGPOUserSetting -Values @{ BackupPath = (Get-HistoryRoot) }
             Update-HistoryTab
+            # Its deleted GPOs in the tree.
+            Update-BackupList -Force
+            $tag = if ($domainTreeView.SelectedItem) { $domainTreeView.SelectedItem.Tag }
+            if ($tag -is [GPOToolsGpo] -or $tag -is [GPOToolsSom]) { Update-DirectoryTree -Select $tag } else { Update-DirectoryTree -Select $Directory.Domain }
         }
     })
 
@@ -1388,17 +1524,17 @@ function Start-PSGPOManagerWindow {
         for ($current = $selected; $current; $current = $current.Parent) { $pathParts.Insert(0, $current.Header) }
         $directoryBreadcrumbTextBlock.Text = if ($pathParts.Count) { $pathParts -join ' > ' } else { $directoryHint }
 
-        $detail = Get-PSGPODirectoryDetail -Directory $Directory -Item $item
+        $detail = Get-PSGPODirectoryDetail -Directory $Directory -Item $item -DeletedGpo $backupLists.Deleted
         $directoryTitleTextBlock.Text = $detail.Title
         $directoryPropertiesList.ItemsSource = $detail.Properties
         $linksHeaderTextBlock.Text = $detail.LinksHeader
         $linksHeaderTextBlock.IsVisible = [bool]$detail.LinksHeader
         $linksList.ItemsSource = $detail.Links
         $editGpoButton.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit
-        $newGpoPanel.IsVisible = $false
         $directoryResultTextBlock.Text = ''
-        $deleteLinkPanel.IsVisible = $false
-        $linkGpoPanel.IsVisible = $false
+        Hide-DirectoryForm
+        $canRestore = $null -ne $detail.Deleted -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo
+        $restoreDeletedGpoButton.IsVisible = $canRestore
 
         # Context menu of the selected node, as in GPMC.
         # A read-only directory (read over LDAP) cannot create GPOs yet.
@@ -1408,13 +1544,17 @@ function Start-PSGPOManagerWindow {
         $newGpoMenuItem.IsVisible = $item -eq 'GroupPolicyObjects' -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo
         $editGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit
         $deleteLinkMenuItem.IsVisible = $item -is [GPOToolsGpoLink] -and -not $Directory.IsReadOnly -and $selected.Parent.Tag.CanLink
+        # Delete a GPO from Group Policy Objects, as GPMC; never a default GPO of the domain.
+        $deleteGpoMenuItem.IsVisible = $item -is [GPOToolsGpo] -and -not $Directory.IsReadOnly -and $item.CanEdit -and [GPOToolsDirectory]::DefaultGpoIds -notcontains $item.Id
+        $restoreDeletedGpoMenuItem.IsVisible = $canRestore
         Update-SettingsTab
         Update-HistoryTab
     })
     # Nothing to offer on this node: do not open an empty menu.
     (Get-PSGPOAvaloniaControl $window 'domainContextMenu').add_Opening({
         param($sender, $e)
-        if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible) -or
+        if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
+                $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible) -or
             -not $domainTreeView.SelectedItem) { $e.Cancel = $true }
     })
 
@@ -1436,6 +1576,13 @@ function Start-PSGPOManagerWindow {
     $newGpoCreateButton.Add_Click({ Submit-NewGpo })
     $newGpoCancelButton.Add_Click({ $newGpoPanel.IsVisible = $false })
     $deleteLinkMenuItem.Add_Click({ Open-DeleteLinkForm })
+    $deleteGpoMenuItem.Add_Click({ Open-DeleteGpoForm })
+    $deleteGpoConfirmButton.Add_Click({ Submit-DeleteGpo })
+    $deleteGpoCancelButton.Add_Click({ $deleteGpoPanel.IsVisible = $false })
+    $restoreDeletedGpoMenuItem.Add_Click({ Open-RestoreGpoForm })
+    $restoreDeletedGpoButton.Add_Click({ Open-RestoreGpoForm })
+    $restoreGpoConfirmButton.Add_Click({ Submit-RestoreGpo })
+    $restoreGpoCancelButton.Add_Click({ $restoreGpoPanel.IsVisible = $false })
     $deleteLinkConfirmButton.Add_Click({ Submit-DeleteLink })
     $deleteLinkCancelButton.Add_Click({ $deleteLinkPanel.IsVisible = $false })
     $newGpoGroupsCheckBox.add_IsCheckedChanged({ $newGpoGroupsPanel.IsVisible = [bool]$newGpoGroupsCheckBox.IsChecked })
@@ -1503,6 +1650,9 @@ function Start-PSGPOManagerWindow {
             'newGpoGroupsTextBlock', 'newGpoGroupsContainerComboBox', 'directoryResultTextBlock', 'deleteLinkMenuItem', 'deleteLinkPanel',
             'deleteLinkTextBlock', 'deleteLinkConfirmButton', 'deleteLinkCancelButton', 'linkGpoMenuItem', 'linkGpoPanel',
             'linkGpoTitleTextBlock', 'linkGpoFilterTextBox', 'linkGpoList', 'linkGpoErrorTextBlock', 'linkGpoConfirmButton', 'linkGpoCancelButton',
+            'deleteGpoMenuItem', 'deleteGpoPanel', 'deleteGpoTextBlock', 'deleteGpoConfirmButton', 'deleteGpoCancelButton', 'restoreDeletedGpoMenuItem',
+            'restoreDeletedGpoButton', 'restoreGpoPanel', 'restoreGpoTextBlock', 'restoreGpoLinkCheckBox', 'restoreGpoConfirmButton', 'restoreGpoCancelButton',
+            'newGpoTemplateComboBox', 'historyNotesTemplateCheckBox',
             'historyCommentTextBox', 'historyDriftBorder', 'historyDriftTextBlock', 'historyDriftButton', 'historyNotesPanel', 'historyNotesInfoTextBlock',
             'historyNotesCommentTextBox', 'historyNotesLabelsTextBox', 'historyNotesApprovedCheckBox', 'historyNotesSaveButton', 'historyTab', 'historyPathTextBox', 'historyBackupButton',
             'historyBackupAllButton', 'historyStatusTextBlock', 'historyTimelineList', 'historyCompareTextBlock', 'historyChangesList',

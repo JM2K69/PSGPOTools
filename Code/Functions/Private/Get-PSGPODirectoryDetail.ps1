@@ -10,10 +10,17 @@ function Get-PSGPODirectoryDetail {
         [Parameter(Mandatory)]
         [GPOToolsDirectory]$Directory,
 
-        # GPOToolsSom, GPOToolsGpoLink, GPOToolsGpo or 'GroupPolicyObjects'
+        # GPOToolsSom, GPOToolsGpoLink, GPOToolsGpo, 'GroupPolicyObjects', 'DeletedGpos' or the
+        # backup of a deleted GPO
         [AllowNull()]
-        $Item
+        $Item,
+
+        # The backups of the deleted GPOs, for 'DeletedGpos'
+        [AllowEmptyCollection()]
+        [object[]]$DeletedGpo = @()
     )
+
+    $Date = { param($Value) if ($Value) { ([datetime]$Value).ToLocalTime().ToString('g') } else { 'unknown date' } }
 
     function New-Row {
         param([string]$Key, [string]$Value)
@@ -35,7 +42,7 @@ function Get-PSGPODirectoryDetail {
         $Row
     }
 
-    $Detail = @{ Title = 'Select an item in the tree'; Properties = @(); LinksHeader = ''; Links = @(); Gpo = $null; Som = $null }
+    $Detail = @{ Title = 'Select an item in the tree'; Properties = @(); LinksHeader = ''; Links = @(); Gpo = $null; Som = $null; Deleted = $null }
 
     if ($Item -is [GPOToolsSom]) {
         $Detail.Som = $Item
@@ -90,6 +97,25 @@ function Get-PSGPODirectoryDetail {
         $Found = @($Directory.GetLinksOf($Gpo) | Sort-Object { $_.Som.DistinguishedName.Length }, { $_.Som.DistinguishedName })
         $Detail.LinksHeader = "Links ($($Found.Count))"
         $Detail.Links = @(foreach ($Pair in $Found) { New-LinkRow $Pair.Link $Pair.Som.Name $Pair.Som.DistinguishedName })
+    } elseif ($Item -and $Item.PSObject.TypeNames -contains 'PSGPOTools.Backup') {
+        # A deleted GPO, as its newest backup has it.
+        $Detail.Deleted = $Item
+        $Detail.Title = "$($Item.DisplayName) (deleted)"
+        $Detail.Properties = @(
+            New-Row 'Unique ID' ('{' + $Item.Id.ToString().ToUpperInvariant() + '}')
+            New-Row 'Last backup' "$(& $Date $Item.BackedUp)$(if ($Item.BackedUpBy) { ", by $($Item.BackedUpBy)" })"
+            if ($Item.Comment) { New-Row 'Comment' $Item.Comment }
+            New-Row 'GPO status' $Item.Status
+            New-Row 'Security filtering' $(if ($null -eq $Item.SecurityFiltering) { 'Not read' } else { @($Item.SecurityFiltering) -join ', ' })
+            if (@($Item.DeniedTo | Where-Object { $_ }).Count) { New-Row 'Denied to' (@($Item.DeniedTo) -join ', ') }
+            New-Row 'Was linked to' $(if (@($Item.Links).Count) { @($Item.Links | ForEach-Object { $_.Container }) -join [Environment]::NewLine } else { 'Nothing' })
+            New-Row 'Backup' $Item.Path
+        )
+    } elseif ($Item -eq 'DeletedGpos') {
+        $Detail.Title = "Deleted GPOs of $($Directory.DomainName)"
+        # Not "= if (...) { @(...) }": the output of if unrolls a list of one row.
+        $Detail.Properties = @(foreach ($Backup in $DeletedGpo) { New-Row $Backup.DisplayName "Last backup: $(& $Date $Backup.BackedUp)" })
+        if (-not $DeletedGpo.Count) { $Detail.Properties = @(New-Row 'None' 'No GPO deleted from the domain has a backup in the folder of the History tab.') }
     } elseif ($Item -eq 'GroupPolicyObjects') {
         $Detail.Title = "Group Policy Objects in $($Directory.DomainName)"
         $Detail.Properties = @(foreach ($Gpo in $Directory.Gpos) { if ($Directory.IsGpoVisible($Gpo)) { New-Row $Gpo.DisplayName $Gpo.GetStatus() } })

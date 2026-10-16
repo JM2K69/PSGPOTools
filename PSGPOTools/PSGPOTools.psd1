@@ -72,8 +72,9 @@ PowerShellVersion = '7.4'
 FunctionsToExport = 'Backup-PSGPO', 'Compare-PSGPOBackup', 'Get-PSGPOBackup', 
                'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 
                'Get-PSGPODrift', 'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 
-               'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 'Restore-PSGPO', 
-               'Set-PSGPOBackup', 'Show-GPOManagerAvalonia'
+               'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 'New-PSGPO', 
+               'Remove-PSGPO', 'Restore-PSGPO', 'Set-PSGPOBackup', 
+               'Show-GPOManagerAvalonia'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
