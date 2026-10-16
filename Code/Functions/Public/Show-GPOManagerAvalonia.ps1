@@ -26,9 +26,10 @@ function Show-GPOManagerAvalonia {
         the GPO (Registry.pol, GptTmpl.inf) and Apply saves it there.
 
         Hosted on Avalonia UI under PowerShell 7+; the call blocks until the window is closed.
-        The Avalonia assemblies are not bundled with the module; run
-        .\Avalonia\Get-AvaloniaBinaries.ps1 once per target platform beforehand (see that
-        script's help for details).
+        The Avalonia assemblies are not bundled with the module: the first time a window opens,
+        the runtime of the computer is downloaded from nuget.org and checked against its pinned
+        SHA-512. For a computer without internet, run .\Avalonia\Get-AvaloniaBinaries.ps1 on
+        another one (see that script's help for details).
     .PARAMETER Directory
         Directory to show instead of reading the domain: from Get-PSGPODirectory, or from
         Import-PSGPODirectory (offline description, for demonstrations).

@@ -35,7 +35,8 @@ catalogue nuget.org) avant d'extraire quoi que ce soit, puis les met en place d'
 - Ils vont dans le dossier du module quand on peut y écrire, sinon dans le dossier de données de
   l'utilisateur.
 - `PSGPOTOOLS_AVALONIA_NO_DOWNLOAD=1` interdit le téléchargement (ordinateurs hors ligne).
-- `Avalonia/Get-AvaloniaBinaries.ps1` les installe à l'avance, ou pour un autre ordinateur :
+- `Avalonia/Get-AvaloniaBinaries.ps1` les installe à l'avance, ou pour un autre ordinateur. Il
+  charge le module : depuis le dépôt, construisez-le d'abord (`CI/03_Build.ps1`).
 
 ```powershell
 ./PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1 -Rid linux-x64
