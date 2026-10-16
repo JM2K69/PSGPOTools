@@ -6,8 +6,14 @@
       SHA-256 of each file;
     - Files/: the files of its SYSVOL folder, as they are (GPT.INI, Registry.pol, GptTmpl.inf,
       scripts, preferences...).
+    - notes.json, when the backup has notes: its comment and labels, written with the backup or
+      later (Set-PSGPOBackup, History tab); the manifest and the files never change.
     The GUID keeps the history of a GPO that is renamed. A backup is written only when the GPO
     changed since the last one (its files or its properties), as Backup-GPO by date of change.
+
+    The newest backup with the approved label of the configuration (Backup.ApprovedLabel) is the
+    approved version of the GPO: what changed since, made in the console or elsewhere (GPMC,
+    samba-tool), is its drift (Get-PSGPODriftState).
 
     The settings of a backup (Get-PSGPOBackupSetting) are those of the Settings tab: the policies
     of the Registry.pol files (by category path, with the loaded ADMX), the security settings,
@@ -16,6 +22,98 @@
 #>
 
 $script:PSGPOBackupFormat = 'PSGPOTools.Backup/1'
+$script:PSGPOBackupNotesFormat = 'PSGPOTools.BackupNotes/1'
+
+# The labels of a backup, checked: trimmed, each once (case ignored), in their order.
+function ConvertTo-PSGPOBackupLabel {
+    [CmdletBinding()]
+    [OutputType([string[]])]
+    param([AllowNull()] [AllowEmptyCollection()] [string[]]$Label)
+
+    $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    $labels = [System.Collections.Generic.List[string]]::new()
+    foreach ($item in @($Label)) {
+        $text = "$item".Trim()
+        if (-not $text) { continue }
+        if ($text.Length -gt 64 -or $text -match '[,\r\n\t]') {
+            throw "A label has at most 64 characters, and no comma, tab or line break: '$text'."
+        }
+        if ($seen.Add($text)) { $labels.Add($text) }
+    }
+    , [string[]]$labels
+}
+
+# Label of the approved versions of the GPOs (Configuration.psd1, Backup.ApprovedLabel).
+function Get-PSGPOApprovedLabel {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param()
+
+    (Get-PSGPOConfigurationData).Backup.ApprovedLabel
+}
+
+# The notes of a backup folder: Comment, Labels, Updated (UTC) and UpdatedBy; empty when it has none.
+function Read-PSGPOBackupNote {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [string]$Path)
+
+    $notes = @{ Comment = ''; Labels = [string[]]@(); Updated = $null; UpdatedBy = $null }
+    $file = Join-Path $Path 'notes.json'
+    if (-not (Test-Path -LiteralPath $file -PathType Leaf)) { return $notes }
+    try {
+        $read = Get-Content -LiteralPath $file -Raw | ConvertFrom-Json -AsHashtable
+        if ($read.Format -ne $script:PSGPOBackupNotesFormat) { throw "unknown format '$($read.Format)'" }
+        $notes.Comment = "$($read.Comment)"
+        $notes.Labels = ConvertTo-PSGPOBackupLabel -Label @($read.Labels)
+        $notes.UpdatedBy = $read.UpdatedBy
+        if ($read.Updated) {
+            $notes.Updated = if ($read.Updated -is [datetime]) { $read.Updated.ToUniversalTime() }
+                else { [datetime]::Parse($read.Updated, [cultureinfo]::InvariantCulture, [System.Globalization.DateTimeStyles]::AdjustToUniversal -bor [System.Globalization.DateTimeStyles]::AssumeUniversal) }
+        }
+    } catch {
+        Write-Warning "The notes of the backup $Path are ignored: $($_.Exception.Message)"
+    }
+    $notes
+}
+
+# Writes the notes of a backup (all of them: the comment and the labels replace those it had), at
+# once through a temporary file; no comment and no label removes notes.json. Returns the backup
+# with its new notes.
+function Save-PSGPOBackupNote {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] $Backup,
+        [AllowNull()] [AllowEmptyString()] [string]$Comment,
+        [AllowNull()] [AllowEmptyCollection()] [string[]]$Label,
+        [string]$Account
+    )
+
+    $labels = ConvertTo-PSGPOBackupLabel -Label $Label
+    $Comment = "$Comment".Trim()
+    $file = Join-Path $Backup.Path 'notes.json'
+    if (-not $Comment -and -not $labels.Count) {
+        Remove-Item -LiteralPath $file -Force -ErrorAction SilentlyContinue
+        $updated = $null
+        $Account = $null
+    } else {
+        if (-not $Account) { $Account = [Environment]::UserName }
+        $updated = [datetime]::UtcNow
+        $temporary = Join-Path $Backup.Path "notes.$([guid]::NewGuid().ToString('N')).tmp"
+        [ordered]@{
+            Format = $script:PSGPOBackupNotesFormat
+            Comment = $Comment
+            Labels = $labels
+            Updated = $updated.ToString('o')
+            UpdatedBy = $Account
+        } | ConvertTo-Json -Depth 3 | Set-Content -LiteralPath $temporary -Encoding utf8
+        Move-Item -LiteralPath $temporary -Destination $file -Force
+    }
+    $Backup.Comment = $Comment
+    $Backup.Labels = $labels
+    $Backup.NotesUpdated = $updated
+    $Backup.NotesUpdatedBy = $Account
+    $Backup
+}
 
 # Name of the folder of a GPO in the backups: its display name, without the characters a file
 # name cannot hold, and its GUID.
@@ -92,7 +190,7 @@ function Get-PSGPOBackupEntry {
                 continue
             }
             if ($read.Format -ne $script:PSGPOBackupFormat) { Write-Warning "Backup ignored, unknown format '$($read.Format)': $manifest"; continue }
-            ConvertTo-PSGPOBackupEntry -Manifest $read -Path $backupFolder.FullName
+            ConvertTo-PSGPOBackupEntry -Manifest $read -Path $backupFolder.FullName -Note (Read-PSGPOBackupNote -Path $backupFolder.FullName)
         }
     }
     @($entries | Sort-Object -Property @{ Expression = 'BackedUp'; Descending = $true })
@@ -103,7 +201,8 @@ function ConvertTo-PSGPOBackupEntry {
     param(
         [Parameter(Mandatory)] [System.Collections.IDictionary]$Manifest,
         [string]$Path,
-        [string]$Result
+        [string]$Result,
+        [hashtable]$Note = @{ Comment = ''; Labels = [string[]]@() }
     )
 
     $date = {
@@ -120,6 +219,8 @@ function ConvertTo-PSGPOBackupEntry {
         DisplayName = $gpo.DisplayName
         Domain = $Manifest.Domain
         BackedUp = & $date $Manifest.BackedUp
+        # Account the backup was made with
+        BackedUpBy = $Manifest.Account
         Modified = & $date $gpo.Modified
         Version = [int]$gpo.Version
         ComputerVersion = [int]$gpo.ComputerVersion
@@ -133,19 +234,31 @@ function ConvertTo-PSGPOBackupEntry {
         MachineExtensionNames = $gpo.MachineExtensionNames
         UserExtensionNames = $gpo.UserExtensionNames
         Files = @($Manifest.Files)
+        # Notes of the backup (notes.json)
+        Comment = "$($Note.Comment)"
+        Labels = [string[]]@($Note.Labels)
+        NotesUpdated = $Note.Updated
+        NotesUpdatedBy = $Note.UpdatedBy
         Result = $Result
     }
 }
 
-# Writes a backup of the GPO in $Path, unless the last one is the same (Result 'Unchanged').
+# Writes a backup of the GPO in $Path, unless the last one is the same (Result 'Unchanged'), with
+# a comment and labels. When the GPO did not change, the last backup is the GPO as it is: it gets
+# the labels, not the comment (Set-PSGPOBackup changes it).
 function Save-PSGPOBackup {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
         [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
         [Parameter(Mandatory)] [string]$Path,
+        [string]$Comment,
+        [string[]]$Label,
         [switch]$Force
     )
+
+    $Comment = "$Comment".Trim()
+    $labels = ConvertTo-PSGPOBackupLabel -Label $Label
 
     # The GPO as it is now: it may have changed since the directory was read.
     $Directory.RefreshGpo($Gpo)
@@ -163,6 +276,10 @@ function Save-PSGPOBackup {
             (ConvertTo-Json -Compress @($last.DeniedTo)) -eq (ConvertTo-Json -Compress @($properties.DeniedTo)) -and
             (ConvertTo-Json -Depth 5 -Compress @($last.Links)) -eq (ConvertTo-Json -Depth 5 -Compress @($properties.Links))
         if ($same) {
+            # Its labels (the approval of the GPO as it is); the comment is of a change: none here.
+            if (@($labels | Where-Object { $_ -notin @($last.Labels) }).Count) {
+                $last = Save-PSGPOBackupNote -Backup $last -Comment $last.Comment -Label (@($last.Labels) + @($labels)) -Account $Directory.Account
+            }
             $last.Result = 'Unchanged'
             return $last
         }
@@ -201,7 +318,50 @@ function Save-PSGPOBackup {
     }
     $manifest | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $destination 'manifest.json') -Encoding utf8
     Write-Verbose "GPO '$($Gpo.DisplayName)' backed up in $destination."
-    ConvertTo-PSGPOBackupEntry -Manifest ($manifest | ConvertTo-Json -Depth 6 | ConvertFrom-Json -AsHashtable) -Path $destination -Result 'Created'
+    $entry = ConvertTo-PSGPOBackupEntry -Manifest ($manifest | ConvertTo-Json -Depth 6 | ConvertFrom-Json -AsHashtable) -Path $destination -Result 'Created'
+    if ($Comment -or $labels.Count) { $entry = Save-PSGPOBackupNote -Backup $entry -Comment $Comment -Label $labels -Account $Directory.Account }
+    $entry
+}
+
+# The approved version of a GPO and what changed since: State InSync (the GPO is the approved
+# version), Drifted (Changes: from the approved version to the GPO now) or NotApproved (no backup
+# with the label). $Backups: the backups of the GPO, read when not given; $Current: the settings
+# of the GPO now (Get-PSGPOSettingReport), read when not given.
+function Get-PSGPODriftState {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
+        [string]$Path,
+        [AllowEmptyCollection()] [object[]]$Backups,
+        [AllowEmptyCollection()] [object[]]$Current,
+        [object[]]$ApprovedSetting,
+        [string]$Label = (Get-PSGPOApprovedLabel)
+    )
+
+    if ($null -eq $Backups) { $Backups = @(Get-PSGPOBackupEntry -Path $Path -Id $Gpo.Id) }
+    $approved = $Backups | Where-Object { $_.Labels -contains $Label } | Sort-Object BackedUp -Descending | Select-Object -First 1
+    $state = [pscustomobject]@{
+        PSTypeName = 'PSGPOTools.Drift'
+        DisplayName = $Gpo.DisplayName
+        Id = $Gpo.Id
+        State = 'NotApproved'
+        Approved = $null
+        ApprovedBy = $null
+        ApprovedBackup = $approved
+        Changes = @()
+    }
+    if (-not $approved) { return $state }
+    if ($null -eq $Current) {
+        $Directory.RefreshGpo($Gpo)
+        $Current = @(Get-PSGPOSettingReport -Files $Directory.ReadGpoFolder($Gpo) -Property (Get-PSGPOBackupProperty -Directory $Directory -Gpo $Gpo))
+    }
+    if ($null -eq $ApprovedSetting) { $ApprovedSetting = @(Get-PSGPOBackupSetting -Backup $approved) }
+    $state.Approved = if ($approved.Modified) { $approved.Modified } else { $approved.BackedUp }
+    $state.ApprovedBy = if ($approved.NotesUpdatedBy) { $approved.NotesUpdatedBy } else { $approved.BackedUpBy }
+    $state.Changes = @(Compare-PSGPOSettingReport -Reference $ApprovedSetting -Difference $Current)
+    $state.State = if ($state.Changes.Count) { 'Drifted' } else { 'InSync' }
+    $state
 }
 
 # The files of a backup, by path in the GPO folder (Machine\Registry.pol).

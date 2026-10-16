@@ -56,6 +56,10 @@ function Restore-PSGPO {
         $safety = $null
         if (-not $NoBackup) {
             $safety = Save-PSGPOBackup -Directory $Directory -Gpo $gpo -Path (Split-Path -Parent (Split-Path -Parent $Backup.Path))
+            # Why this backup was made, in its history; not on a backup that was there already.
+            if ($safety.Result -eq 'Created') {
+                $safety = Save-PSGPOBackupNote -Backup $safety -Comment "Before the restore of the version of $(([datetime]$date).ToLocalTime().ToString('g'))." -Label $safety.Labels -Account $Directory.Account
+            }
         }
         $machine = $Backup.MachineExtensionNames
         $user = $Backup.UserExtensionNames

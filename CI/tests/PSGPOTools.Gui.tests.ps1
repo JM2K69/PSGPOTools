@@ -604,6 +604,72 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
+        It 'Backs up with a comment, keeps the notes of a backup, and shows the changes since the approved version' {
+            $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
+            $Root = Join-Path $TestDrive "notes-$([guid]::NewGuid())"
+            $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
+            Set-PSGPOUserSetting -Values @{ BackupPath = $Root }
+            try {
+                $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+                $null = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName
+
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'C - Servers - Security Baseline'
+                    $Ui.directoryTabs.SelectedItem = $Ui.historyTab
+                    $Ui.historyDriftBorder.IsVisible | Should -BeTrue
+                    $Ui.historyDriftTextBlock.Text | Should -BeLike "No approved version yet: check 'Approved'*"
+                    $Ui.historyDriftButton.IsVisible | Should -BeFalse
+
+                    # The notes of the selected backup: approve it.
+                    $Ui.historyNotesPanel.IsVisible | Should -BeTrue
+                    $Ui.historyNotesApprovedCheckBox.Content | Should -Be 'Approved version'
+                    $Ui.historyNotesInfoTextBlock.Text | Should -BeLike 'Backed up on *.'
+                    $Ui.historyNotesCommentTextBox.Text = 'Baseline reviewed'
+                    $Ui.historyNotesLabelsTextBox.Text = 'Q4, Approved, ,q4'
+                    $Ui.historyNotesApprovedCheckBox.IsChecked = $true
+                    Invoke-Click $Ui.historyNotesSaveButton
+                    $Ui.historyStatusTextBlock.Text | Should -BeLike 'Notes of the backup of * saved.'
+                    $Node = @($Ui.historyTimelineList.ItemsSource)[0]
+                    $Node.IsApproved | Should -BeTrue
+                    $Node.NodeFill | Should -Be '#107C10'
+                    $Node.LabelsText | Should -Be 'Q4, Approved'
+                    $Node.Comment | Should -Be 'Baseline reviewed'
+                    $Ui.historyTimelineList.SelectedItem | Should -Be $Node -Because 'the saved backup stays selected'
+                    $Ui.historyNotesLabelsTextBox.Text | Should -Be 'Q4' -Because 'the approved label is the check box'
+                    $Ui.historyDriftTextBlock.Text | Should -BeLike 'The GPO is its approved version of *'
+
+                    # Changed outside the console: drifted.
+                    $Pol = [GPOToolsRegistryPol]::new()
+                    Set-PSGPOPolicyState -Policy ([GPOToolsUtility]::Policies | Where-Object ID -EQ 'Biometrics_EnableBio' | Select-Object -First 1) -Pol $Pol -State Enabled
+                    $Ui.Directory.WritePolicyFile($Gpo, 'Machine', $Pol.ToBytes())
+                    $Ui.directoryTabs.SelectedIndex = 0
+                    $Ui.directoryTabs.SelectedItem = $Ui.historyTab
+                    $Ui.historyDriftTextBlock.Text | Should -BeLike 'Changed since its approved version of * (+1  ~0  -0).'
+                    $Ui.historyDriftBorder.BorderBrush.Color.ToString() | Should -Be '#ffca5010'
+                    $Ui.historyDriftButton.IsVisible | Should -BeTrue
+                    $Ui.historyNotesPanel.IsVisible | Should -BeFalse -Because 'Now is not a backup'
+
+                    # Backed up with a comment: still not the approved version.
+                    $Ui.historyCommentTextBox.Text = 'CHG-1024: biometrics'
+                    Invoke-Click $Ui.historyBackupButton
+                    $Ui.historyCommentTextBox.Text | Should -Be '' -Because 'the comment went with the backup'
+                    $Nodes = @($Ui.historyTimelineList.ItemsSource)
+                    $Nodes.Count | Should -Be 2
+                    $Nodes[1].Comment | Should -Be 'CHG-1024: biometrics'
+                    $Nodes[1].IsApproved | Should -BeFalse
+                    $Ui.historyDriftButton.IsVisible | Should -BeTrue
+                    Invoke-Click $Ui.historyDriftButton
+                    $Ui.historyCompareTextBlock.Text | Should -BeLike 'Changes since the approved version of *'
+                    @($Ui.historyChangesList.ItemsSource).Name | Should -Be @('Allow the use of biometrics')
+                    $Ui.historyRestoreButton.IsVisible | Should -BeFalse
+                }
+                (Get-PSGPOBackup -Path $Root | Select-Object -First 1).BackedUpBy | Should -Be $Directory.Account
+            } finally {
+                $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
+            }
+        }
+
         It 'Creates, changes and removes the settings of the configuration in its window' {
             $ConfigurationBefore = $env:PSGPOTOOLS_CONFIGURATION_PATH
             $env:PSGPOTOOLS_CONFIGURATION_PATH = Join-Path $TestDrive "Configuration-$([guid]::NewGuid()).psd1"
@@ -615,8 +681,8 @@ InModuleScope -ModuleName PSGPOTools {
                     $Settings.Window.IsVisible | Should -BeTrue
                     $C = $Settings.Controls
                     $Rows = @($C.settingsList.ItemsSource)
-                    $Rows.Count | Should -Be 9
-                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 9
+                    $Rows.Count | Should -Be 10
+                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 10
                     ($Rows | Where-Object Key -EQ 'NewGpo.SecurityFilteringGroups.ApplyPrefix').Default | Should -BeLike 'Default: APPLY_ - Names of the groups*'
 
                     # Create: a choice, a boolean, a text.

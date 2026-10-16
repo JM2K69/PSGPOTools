@@ -37,4 +37,11 @@
             DenyDescription = 'Members do not apply the GPO {0}'
         }
     }
+
+    # Backups of the GPOs (History tab, Backup-PSGPO).
+    Backup = @{
+        # Label of the approved versions: the newest backup with it is the reference the GPO is
+        # compared to, to find what changed since (Get-PSGPODrift, History tab).
+        ApprovedLabel = 'Approved'
+    }
 }

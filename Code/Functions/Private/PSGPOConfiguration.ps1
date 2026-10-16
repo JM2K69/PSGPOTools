@@ -59,6 +59,8 @@ function Test-PSGPOConfiguration {
         if (-not $prefix -or $prefix -match '["/\\\[\]:;|=,+*?<>@]') { "NewGpo.SecurityFilteringGroups.$name must not be empty, nor hold a character a group name cannot hold." }
     }
     if ($groups.ApplyPrefix -eq $groups.DenyPrefix) { 'NewGpo.SecurityFilteringGroups.ApplyPrefix and DenyPrefix must differ.' }
+    $label = "$($Configuration.Backup.ApprovedLabel)".Trim()
+    if (-not $label -or $label.Length -gt 64 -or $label -match '[,\r\n\t]') { 'Backup.ApprovedLabel must not be empty, and has at most 64 characters, without comma, tab or line break.' }
     if ($groups.Container -and "$($groups.Container)" -notmatch '^(?:(?:OU|CN)=[^,]+)(?:,(?:OU|CN|DC)=[^,]+)*$') { "NewGpo.SecurityFilteringGroups.Container is not a distinguished name: '$($groups.Container)'." }
 }
 

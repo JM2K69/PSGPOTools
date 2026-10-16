@@ -395,7 +395,7 @@ $iconResources
                         <!-- History of the GPO: its backups as a timeline (oldest on the left), and what
                              changed at the selected one -->
                         <TabItem Name='historyTab' Header='History' IsVisible='False'>
-                            <Grid RowDefinitions='Auto,Auto,Auto,*' Margin='16,8'>
+                            <Grid RowDefinitions='Auto,Auto,Auto,Auto,Auto,*' Margin='16,8'>
                                 <Grid Grid.Row='0' ColumnDefinitions='Auto,*,Auto,Auto'>
                                     <TextBlock Text='Backups in' VerticalAlignment='Center' Margin='0,0,8,0'
                                                Foreground='{DynamicResource SecondaryTextBrush}'/>
@@ -410,9 +410,21 @@ $iconResources
                                     <Button Grid.Column='3' Name='historyBackupAllButton' Content='Back up all GPOs' Margin='8,0,0,0'
                                             ToolTip.Tip='Back up every GPO shown that changed since its last backup'/>
                                 </Grid>
-                                <TextBlock Grid.Row='1' Name='historyStatusTextBlock' TextWrapping='Wrap' Margin='0,8,0,0'
+                                <TextBox Grid.Row='1' Name='historyCommentTextBox' Margin='0,8,0,0'
+                                         Watermark='Comment of the next backup (optional): why the GPO changed, the ticket of the change'/>
+                                <TextBlock Grid.Row='2' Name='historyStatusTextBlock' TextWrapping='Wrap' Margin='0,8,0,0'
                                            Foreground='{DynamicResource SecondaryTextBrush}'/>
-                                <ScrollViewer Grid.Row='2' Name='historyTimelineScrollViewer' Margin='0,8,0,0'
+                                <!-- The GPO compared to its approved version: what changed since, here or elsewhere -->
+                                <Border Grid.Row='3' Name='historyDriftBorder' IsVisible='False' Margin='0,8,0,0' Padding='10,6'
+                                        CornerRadius='4' BorderThickness='1' Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                    <Grid ColumnDefinitions='*,Auto'>
+                                        <TextBlock Name='historyDriftTextBlock' TextWrapping='Wrap' VerticalAlignment='Center'
+                                                   Foreground='{DynamicResource TextBrush}'/>
+                                        <Button Grid.Column='1' Name='historyDriftButton' Content='Show the changes' Margin='8,0,0,0' IsVisible='False'
+                                                ToolTip.Tip='What changed from the approved version to the GPO now'/>
+                                    </Grid>
+                                </Border>
+                                <ScrollViewer Grid.Row='4' Name='historyTimelineScrollViewer' Margin='0,8,0,0'
                                               HorizontalScrollBarVisibility='Auto' VerticalScrollBarVisibility='Disabled'>
                                     <ListBox Name='historyTimelineList' Background='Transparent' Margin='0,0,0,14'>
                                         <ListBox.ItemsPanel>
@@ -426,7 +438,8 @@ $iconResources
                                         </ListBox.Styles>
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid Width='150' RowDefinitions='24,Auto,Auto,Auto' Margin='0,6'>
+                                                <Grid Width='150' RowDefinitions='24,Auto,Auto,Auto,Auto' Margin='0,6' Background='Transparent'
+                                                      ToolTip.Tip='{Binding Comment}'>
                                                     <!-- The branch, through the node, as a git graph -->
                                                     <Rectangle Grid.Row='0' Height='3' VerticalAlignment='Center' Fill='{Binding LineBrush}'/>
                                                     <Ellipse Grid.Row='0' Width='18' Height='18' HorizontalAlignment='Center'
@@ -435,18 +448,36 @@ $iconResources
                                                     <TextBlock Grid.Row='2' Text='{Binding Subtitle}' FontSize='11' HorizontalAlignment='Center'
                                                                Foreground='{DynamicResource SecondaryTextBrush}'/>
                                                     <TextBlock Grid.Row='3' Text='{Binding Summary}' FontSize='11' HorizontalAlignment='Center'/>
+                                                    <TextBlock Grid.Row='4' Text='{Binding LabelsText}' FontSize='10' FontWeight='SemiBold' HorizontalAlignment='Center'
+                                                               TextTrimming='CharacterEllipsis' Margin='4,2,4,0' Foreground='{Binding LabelBrush}' IsVisible='{Binding HasLabels}'/>
                                                 </Grid>
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>
                                     </ListBox>
                                 </ScrollViewer>
-                                <ScrollViewer Grid.Row='3' Margin='0,8,0,0'>
+                                <ScrollViewer Grid.Row='5' Margin='0,8,0,0'>
                                     <StackPanel Spacing='4' Margin='0,0,12,0'>
                                         <Grid ColumnDefinitions='*,Auto'>
                                             <TextBlock Name='historyCompareTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' VerticalAlignment='Center'/>
                                             <Button Grid.Column='1' Name='historyRestoreButton' Content='Restore this version...' Margin='8,0,0,0' IsVisible='False'
                                                     ToolTip.Tip='Put the GPO back as this backup has it'/>
                                         </Grid>
+                                        <!-- Notes of the selected backup: its comment, its labels, the approved version -->
+                                        <Border Name='historyNotesPanel' IsVisible='False' Margin='0,4,0,4' Padding='10' CornerRadius='4'
+                                                BorderThickness='1' BorderBrush='{DynamicResource BorderBrush}' Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                            <StackPanel Spacing='6'>
+                                                <TextBlock Name='historyNotesInfoTextBlock' FontSize='11' TextWrapping='Wrap'
+                                                           Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                <TextBox Name='historyNotesCommentTextBox' AcceptsReturn='True' TextWrapping='Wrap' MinHeight='48'
+                                                         Watermark='Comment of this backup'/>
+                                                <Grid ColumnDefinitions='*,Auto,Auto'>
+                                                    <TextBox Name='historyNotesLabelsTextBox' Watermark='Labels, separated by commas'/>
+                                                    <CheckBox Grid.Column='1' Name='historyNotesApprovedCheckBox' Margin='12,0,0,0'
+                                                              ToolTip.Tip='The approved version: the GPO is compared to it, to find what changed since'/>
+                                                    <Button Grid.Column='2' Name='historyNotesSaveButton' Content='Save notes' Margin='8,0,0,0'/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
                                         <!-- Confirmation of a restore, as GPMC asks for it -->
                                         <Border Name='historyRestorePanel' IsVisible='False' Margin='0,4,0,4' Padding='12' CornerRadius='4'
                                                 BorderThickness='1' BorderBrush='#D13438' Background='{DynamicResource SecondaryBackgroundBrush}'>
