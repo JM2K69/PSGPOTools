@@ -125,7 +125,11 @@ jobs:
         run: |
           # The name of the domain controller on the address of the runner, not on the loopback.
           ip=$(hostname -I | awk '{print $1}')
-          echo "$ip dc.ci.test dc ci.test" | sudo tee -a /etc/hosts
+          # First in /etc/hosts: the address gives this name back, as Kerberos expects of a server.
+          { echo "$ip dc.ci.test dc ci.test"; cat /etc/hosts; } > /tmp/hosts
+          sudo cp /tmp/hosts /etc/hosts
+          # LDAP over SASL GSSAPI keeps the name of the server (no reverse lookup of its address).
+          echo 'SASL_NOCANON on' | sudo tee -a /etc/ldap/ldap.conf
           sudo rm -f /etc/samba/smb.conf
           sudo samba-tool domain provision --realm=CI.TEST --domain=CI --server-role=dc --dns-backend=NONE \
             --host-name=dc --host-ip="$ip" --use-rfc2307 --adminpass="$CI_ADMIN_PASSWORD"
@@ -162,6 +166,8 @@ jobs:
       - name: Get a Kerberos ticket of the administrator
         run: |
           echo "$CI_ADMIN_PASSWORD" | kinit administrator@CI.TEST
+          # The ticket of the LDAP service: what LDAP over GSSAPI needs.
+          kvno ldap/dc.ci.test
           klist
 
       - name: Read the domain once
