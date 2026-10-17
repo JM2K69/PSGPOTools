@@ -57,7 +57,8 @@ function New-PSGPODirectoryTree {
 
         foreach ($Link in @($Som.Links | Where-Object { $Som.CanLink } | Sort-Object Order)) {
             $LinkHeader = $Link.GetDisplayName()
-            if ($Link.Gpo -and $Link.Gpo.ApprovalState -eq 'Pending') { $LinkHeader += ' (waiting for approval)' }
+            if ($Link.Gpo -and $Link.Gpo.AppliesWhilePending()) { $LinkHeader += ' (waiting for approval, but it applies)' }
+            elseif ($Link.Gpo -and $Link.Gpo.ApprovalState -eq 'Pending') { $LinkHeader += ' (waiting for approval)' }
             if ($Link.Enforced) { $LinkHeader += ' (enforced)' }
             if (-not $Link.Enabled) { $LinkHeader += ' (link disabled)' }
             $LinkIcon = if (-not $Link.Enabled) { 'link-dismiss' } elseif ($Link.Enforced) { 'lock-closed' } else { 'link' }
@@ -72,11 +73,11 @@ function New-PSGPODirectoryTree {
     $DomainNode.IsExpanded = $true
 
     $GposNode = New-Node 'Group Policy Objects' 'library' 'GroupPolicyObjects' $DomainNode
-    foreach ($Gpo in $Directory.Gpos) {
-        if (-not $Directory.IsGpoVisible($Gpo)) { continue }
+    foreach ($Gpo in $Directory.GetVisibleGpos()) {
         if ($Gpo.ApprovalState -eq 'Pending') {
-            $Node = New-Node "$($Gpo.DisplayName) (waiting for approval)" 'document-settings' $Gpo $GposNode
-            $Node.IconBrush = '#CA5010'
+            $Label = if ($Gpo.AppliesWhilePending()) { "$($Gpo.DisplayName) (waiting for approval, but it applies)" } else { "$($Gpo.DisplayName) (waiting for approval)" }
+            $Node = New-Node $Label 'document-settings' $Gpo $GposNode
+            $Node.IconBrush = if ($Gpo.AppliesWhilePending()) { '#C50F1F' } else { '#CA5010' }
         } else {
             [void](New-Node $Gpo.DisplayName 'document-settings' $Gpo $GposNode)
         }

@@ -55,7 +55,7 @@ function Remove-PSGPO {
     }
     process {
         foreach ($pattern in $Name) {
-            $found = @($Directory.Gpos | Where-Object { $_.DisplayName -like $pattern })
+            $found = @($Directory.Gpos | Where-Object { Test-PSGPONameMatch -Name $_.DisplayName -Pattern $pattern })
             if (-not $found) { Write-Error "No GPO named '$pattern' in $($Directory.DomainName)."; continue }
             foreach ($gpo in $found) {
                 $links = @($Directory.GetLinksOf($gpo)).Count

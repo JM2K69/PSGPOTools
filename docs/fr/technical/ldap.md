@@ -22,7 +22,7 @@ comme Samba.
 
 | Objet | Attributs |
 |---|---|
-| rootDSE | `defaultNamingContext`, `dnsHostName`, `vendorName` (Samba le renseigne : `Samba AD`) |
+| rootDSE | `defaultNamingContext`, `dnsHostName`, `vendorName` (Samba le renseigne, à `Samba Team (https://www.samba.org)` : la console affiche alors `Samba AD`) |
 | le domaine | `gPLink`, `gPOptions`, `wellKnownObjects` (le conteneur des utilisateurs), `allowedAttributesEffective` |
 | les OU | `name`, `gPLink`, `gPOptions`, `allowedAttributesEffective` |
 | `CN=Policies` | `allowedChildClassesEffective` (le compte peut-il créer des GPO) |

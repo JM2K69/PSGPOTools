@@ -204,8 +204,21 @@ function Write-PSGPOSysvolFile {
         [Parameter(Mandatory)] [AllowEmptyCollection()] [byte[]]$Bytes
     )
 
+    Assert-PSGPOGpoFilePath -Path $Path
     $location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
     Write-PSGPOSysvolItem -Directory $Directory -Share $location.Share -Base $location.Path -Path $Path -Bytes $Bytes
+}
+
+# A path of a file in a GPO folder (Machine\Registry.pol): relative, below the folder. A path from
+# a backup comes from a file anyone with write access to the backups could change; .. or a rooted
+# path would write outside the GPO, and a quote would end the smbclient command.
+function Assert-PSGPOGpoFilePath {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [AllowEmptyString()] [string]$Path)
+
+    $segments = @("$Path" -split '[\\/]')
+    $bad = -not $Path -or $Path -match '^[\\/]' -or $segments.Where({ $_ -in '', '.', '..' -or $_ -match '[\x00-\x1f:*?"<>|]' -or $_.EndsWith('.') -or $_.EndsWith(' ') }).Count
+    if ($bad) { throw "Not a path of a file in a GPO folder: '$Path'." }
 }
 
 function Assert-PSGPOKerberosOnly {
@@ -322,6 +335,11 @@ function Save-PSGPODomainGpoFile {
         $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Gpo.DistinguishedName -Scope Base -Attribute 'versionNumber', $extensionAttribute -AllowMissing
         if (-not $entry) { throw "The GPO $($Gpo.DisplayName) is not in the domain anymore." }
         $oldVersion = Get-PSGPOLdapValue $entry 'versionNumber'
+        # $Bytes is the whole file, from the copy read with the GPO: if the GPO changed since
+        # (another console, GPMC), writing it would undo those changes without a word.
+        if ([int]$oldVersion -ne $Gpo.Version) {
+            throw "The GPO $($Gpo.DisplayName) changed since it was read (version $($Gpo.Version), now $([int]$oldVersion)): $Path is not saved, so that those changes are not lost. Read the domain again (open the console again) and make the change again."
+        }
         $version = [GPOToolsDirectory]::GetNextVersion([int]$oldVersion, $Folder)
         $oldExtensions = Get-PSGPOLdapValue $entry $extensionAttribute
         $extensions = $oldExtensions
@@ -364,9 +382,12 @@ function Remove-PSGPOSysvolFile {
         [Parameter(Mandatory)] [string]$Path
     )
 
+    Assert-PSGPOGpoFilePath -Path $Path
     $location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
     if ($IsWindows) {
-        Remove-Item -LiteralPath "\\$($Directory.Server)\$($location.Share)\$($location.Path)\$Path" -Force -ErrorAction SilentlyContinue
+        # A file that is not deleted is an error: the restored GPO would keep it.
+        $file = "\\$($Directory.Server)\$($location.Share)\$($location.Path)\$Path"
+        if (Test-Path -LiteralPath $file -PathType Leaf) { Remove-Item -LiteralPath $file -Force -ErrorAction Stop }
         return
     }
     Assert-PSGPOKerberosOnly -Directory $Directory

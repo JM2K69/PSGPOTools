@@ -2,13 +2,14 @@ name: CI
 
 on:
   push:
-    branches: [main, avalonia]
+    branches: [master, main, avalonia]
   pull_request:
 
 jobs:
   test:
     # Windows: the ADMX parsing paths and the GUI tests (real Avalonia window) target Windows.
     runs-on: windows-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -24,7 +25,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: PSGPOTools/Avalonia/bin
-          key: avalonia-win-x64-${{ hashFiles('PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1') }}
+          key: avalonia-win-x64-${{ hashFiles('PSGPOTools/Resources/AvaloniaPackages.json') }}
 
       - name: Build the module
         # Get-AvaloniaBinaries.ps1 loads the module, which is built from Code/ (not in the repository).
@@ -50,6 +51,7 @@ jobs:
     # The console must also run on Linux: every test, the GUI included (Avalonia X11 backend
     # on a virtual X server).
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -64,7 +66,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: PSGPOTools/Avalonia/bin
-          key: avalonia-linux-x64-${{ hashFiles('PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1') }}
+          key: avalonia-linux-x64-${{ hashFiles('PSGPOTools/Resources/AvaloniaPackages.json') }}
 
       - name: Build the module
         # Get-AvaloniaBinaries.ps1 loads the module, which is built from Code/ (not in the repository).
@@ -85,3 +87,52 @@ jobs:
         with:
           name: test-results-linux
           path: TestResults-linux.xml
+
+  test-samba:
+    # The tests that write to a domain (links, Registry.pol, versions, groups, restore, samba-tool),
+    # against a Samba AD DC provisioned on the runner, with a Kerberos ticket as on a real domain.
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PSGPOTOOLS_TEST_LDAP_SERVER: dc.ci.test
+      PSGPOTOOLS_TEST_LDAP_WRITE: '1'
+      # A throwaway domain, only on this runner.
+      CI_ADMIN_PASSWORD: 'Ci-Passw0rd-Samba'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Pester
+        shell: pwsh
+        run: Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser -Force -SkipPublisherCheck
+
+      - name: Install Samba, Kerberos and the SASL GSSAPI module of LDAP
+        run: |
+          sudo DEBIAN_FRONTEND=noninteractive apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y samba samba-dsdb-modules samba-vfs-modules smbclient python3-samba krb5-user libsasl2-modules-gssapi-mit ldb-tools
+          sudo systemctl disable --now smbd nmbd winbind samba-ad-dc 2>/dev/null || true
+
+      - name: Provision the domain CI.TEST
+        run: |
+          echo "127.0.0.1 dc.ci.test dc" | sudo tee -a /etc/hosts
+          sudo rm -f /etc/samba/smb.conf
+          sudo samba-tool domain provision --realm=CI.TEST --domain=CI --server-role=dc --dns-backend=NONE \
+            --host-name=dc --use-rfc2307 --adminpass="$CI_ADMIN_PASSWORD"
+          sudo cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
+          printf '\n[libdefaults]\n    rdns = false\n' | sudo tee -a /etc/krb5.conf >/dev/null
+          sudo samba
+          for i in $(seq 1 30); do smbclient -N -L dc.ci.test >/dev/null 2>&1 && break; sleep 2; done
+
+      - name: Get a Kerberos ticket of the administrator
+        run: |
+          echo "$CI_ADMIN_PASSWORD" | kinit administrator@CI.TEST
+          klist
+
+      - name: Build and test against the domain
+        run: pwsh -NoProfile -File ./CI/Invoke-Tests.ps1 -Path ./CI/tests/PSGPOTools.Ldap.tests.ps1, ./CI/tests/PSGPOTools.RegistryPol.tests.ps1 -OutputPath TestResults-samba.xml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-samba
+          path: TestResults-samba.xml

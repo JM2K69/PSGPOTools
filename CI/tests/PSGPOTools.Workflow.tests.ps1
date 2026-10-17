@@ -32,6 +32,8 @@ InModuleScope -ModuleName PSGPOTools {
             $Descriptor
         }
         function Get-Sddl { param($Descriptor) $Descriptor.ToSddl() }
+        # The owners an approved GPO may have.
+        $Trusted = @($Admins, "$Domain-519", 'S-1-5-32-544', 'S-1-5-18')
         # A workflow of a directory in memory.
         function New-Workflow {
             param([bool]$Approver, [bool]$Creator)
@@ -66,7 +68,7 @@ InModuleScope -ModuleName PSGPOTools {
     Describe 'Rights of an approved GPO' {
         It 'Is owned by the owner of the approved GPOs, without the ACEs of the creator and of the creators, applied by Authenticated Users' {
             $Pending = ConvertTo-PSGPOPendingDescriptor -Descriptor (New-CreatedDescriptor) -EditSids $Tier1
-            $Approved = ConvertTo-PSGPOApprovedDescriptor -Descriptor $Pending -OwnerSid $Admins -RemoveSids $Creator, $Tier1, $Tier2 -ApplySid 'S-1-5-11' -Container
+            $Approved = ConvertTo-PSGPOApprovedDescriptor -Descriptor $Pending -OwnerSid $Admins -TrustedSids $Trusted -RemoveSids $Creator, $Tier1, $Tier2 -ApplySid 'S-1-5-11' -Container
             $Approved.Owner | Should -Be $Admins
             @($Approved.Dacl | Where-Object { $_.Sid -in $Creator, $Tier1 }).Count | Should -Be 0
             $Approved.GetSecurityFiltering().Apply | Should -Be @('S-1-5-11')
@@ -75,14 +77,14 @@ InModuleScope -ModuleName PSGPOTools {
         }
 
         It 'Lets the groups of creators edit its settings (EditSettings), and applies it to a group' {
-            $Approved = ConvertTo-PSGPOApprovedDescriptor -Descriptor (New-CreatedDescriptor) -OwnerSid $Admins -RemoveSids $Creator, $Tier1 -EditSids $Tier1 -ApplySid "$Domain-3000" -Container
+            $Approved = ConvertTo-PSGPOApprovedDescriptor -Descriptor (New-CreatedDescriptor) -OwnerSid $Admins -TrustedSids $Trusted -RemoveSids $Creator, $Tier1 -EditSids $Tier1 -ApplySid "$Domain-3000" -Container
             (Get-Sddl $Approved) | Should -Match "\(A;CI;0x000200b7;;;$Tier1\)"
             $Approved.GetSecurityFiltering().Apply | Should -Be @("$Domain-3000") -Because 'Authenticated Users no longer apply it'
             (Get-Sddl $Approved) | Should -Match "\(A;CI;0x00020094;;;$Domain-3000\)"
         }
 
         It 'Denies the GPO to a group' {
-            $Approved = ConvertTo-PSGPOApprovedDescriptor -Descriptor (New-CreatedDescriptor) -OwnerSid $Admins -RemoveSids $Creator -ApplySid "$Domain-3000" -DenySid "$Domain-3001" -Container
+            $Approved = ConvertTo-PSGPOApprovedDescriptor -Descriptor (New-CreatedDescriptor) -OwnerSid $Admins -TrustedSids $Trusted -RemoveSids $Creator -ApplySid "$Domain-3000" -DenySid "$Domain-3001" -Container
             $Filtering = $Approved.GetSecurityFiltering()
             $Filtering.Apply | Should -Be @("$Domain-3000")
             $Filtering.Deny | Should -Be @("$Domain-3001")
@@ -92,12 +94,39 @@ InModuleScope -ModuleName PSGPOTools {
         It 'Keeps the inherited ACEs of an object the GPO holds, and changes its owner' {
             $Inner = New-CreatedDescriptor
             $Inner.Dacl.Add([GPOToolsAce]::new(0, 0x12, 0x000200B7, $Tier1, [guid]::Empty))
-            $Approved = ConvertTo-PSGPOApprovedDescriptor -Descriptor $Inner -OwnerSid $Admins -RemoveSids $Creator, $Tier1
+            $Approved = ConvertTo-PSGPOApprovedDescriptor -Descriptor $Inner -OwnerSid $Admins -TrustedSids $Trusted -RemoveSids $Creator, $Tier1
             $Approved.Owner | Should -Be $Admins
             @($Approved.Dacl | Where-Object Sid -EQ $Creator).Count | Should -Be 0
             @($Approved.Dacl | Where-Object Sid -EQ $Tier1).Count | Should -Be 1 -Because 'an inherited ACE follows its parent'
-            (Get-Sddl $Approved) | Should -Match 'edacfd8f' -Because 'only the GPO itself gets its security filtering'
+            (Get-Sddl $Approved) | Should -Not -Match 'edacfd8f' -Because 'the security filtering is on the GPO itself, an object it holds only inherits it'
+            (Get-Sddl $Approved) | Should -Match '\(A;CI;0x00020094;;;S-1-5-11\)'
             @((Get-PSGPOExplicitDescriptor -Descriptor $Approved).Dacl | Where-Object { $_.Flags -band 0x10 }).Count | Should -Be 0
+        }
+
+        It 'Removes, and reports, the permissions someone added while it was pending' {
+            $Pending = ConvertTo-PSGPOPendingDescriptor -Descriptor (New-CreatedDescriptor) -EditSids $Tier1
+            # What its creator, its owner, can add outside the console.
+            $Pending.Dacl.Add([GPOToolsAce]::new(0, 2, 0x000F01FF, "$Domain-4000", [guid]::Empty))
+            $Pending.Dacl.Add([GPOToolsAce]::new(5, 2, 0x00000100, "$Domain-4001", [GPOToolsSecurityDescriptor]::ApplyGroupPolicy))
+            $Pending.Dacl.Add([GPOToolsAce]::new(0, 2, 0x00040000, 'S-1-3-4', [guid]::Empty))
+            $Pending.Dacl.Insert(0, [GPOToolsAce]::new(1, 2, 0x000F01FF, $Admins, [guid]::Empty))
+            $Pending.Dacl[([array]::IndexOf(@($Pending.Dacl.Sid), 'S-1-5-11'))].Mask = 0x000200BF
+            $Unexpected = [System.Collections.Generic.List[string]]::new()
+            $Approved = ConvertTo-PSGPOApprovedDescriptor -Descriptor $Pending -OwnerSid $Admins -TrustedSids $Trusted -RemoveSids $Creator, $Tier1 -ApplySid "$Domain-3000" -Unexpected $Unexpected -Container
+            @($Approved.Dacl | Where-Object { $_.Sid -in "$Domain-4000", "$Domain-4001", 'S-1-3-4', $Creator, $Tier1 }).Count | Should -Be 0
+            @($Approved.Dacl | Where-Object { $_.IsDeny() }).Count | Should -Be 0 -Because 'only the deny ACE the approver chooses'
+            ($Approved.Dacl | Where-Object { $_.Sid -eq 'S-1-5-11' -and $_.Type -eq 0 }).Mask | Should -Be 0x00020094 -Because 'Authenticated Users only read it'
+            $Approved.GetSecurityFiltering().Apply | Should -Be @("$Domain-3000")
+            $Unexpected.Count | Should -Be 5 -Because 'the ACEs of the creator and of the creators are expected'
+            "$Unexpected" | Should -Match "$Domain-4000"
+            "$Unexpected" | Should -Not -Match "$Creator\)"
+        }
+
+        It 'Gives Authenticated Users the read of the GPO when it has none' {
+            $Descriptor = New-CreatedDescriptor
+            [void]$Descriptor.Dacl.RemoveAll([Predicate[GPOToolsAce]] { param($Ace) $Ace.Sid -eq 'S-1-5-11' })
+            $Approved = ConvertTo-PSGPOApprovedDescriptor -Descriptor $Descriptor -OwnerSid $Admins -TrustedSids $Trusted -RemoveSids $Creator -ApplySid "$Domain-3000" -Container
+            (Get-Sddl $Approved) | Should -Match '\(A;CI;0x00020094;;;S-1-5-11\)' -Because 'the computers must read every GPO (MS16-072)'
         }
     }
 
@@ -151,6 +180,7 @@ InModuleScope -ModuleName PSGPOTools {
             }
             Mock Get-PSGPOAccountGroupSid { , [string[]]@($Creator, "$Domain-513", $Tier1) }
             Mock Invoke-PSGPOLdapBinarySearch {
+                if ($Scope -eq 'Base') { return [pscustomobject]@{ DistinguishedName = $SearchBase; Values = @{ objectSid = @(, [GPOToolsSecurityDescriptor]::ConvertSidToBytes($Domain)) } } }
                 foreach ($Pair in @(@('11111111-1111-1111-1111-111111111111', $Admins), @('22222222-2222-2222-2222-222222222222', $Creator))) {
                     $Descriptor = [GPOToolsSecurityDescriptor]::new()
                     $Descriptor.Owner = $Pair[1]
@@ -178,6 +208,28 @@ InModuleScope -ModuleName PSGPOTools {
             "$Output" | Should -BeLike '*cannot be read, no GPO can be created until it is fixed*'
             $Directory.CanCreateGpo | Should -BeFalse
             $Directory.Workflow.Problem | Should -BeLike "*No account named 'GPO-Tier1-Admins'*"
+        }
+
+        It 'Stops the creation of GPOs when the account of the console is <Case>' -ForEach @(
+            @{ Case = 'unknown'; Account = $null }
+            @{ Case = 'not found in the domain'; Account = 'CONTOSO\nobody' }
+        ) {
+            $Directory.Account = $Account
+            Mock Get-PSGPOAccountGroupSid { }
+            $null = @(Update-PSGPODomainWorkflow -Connection ([pscustomobject]@{}) -Directory $Directory 3>&1)
+            $Directory.CanCreateGpo | Should -BeFalse -Because 'its GPOs would be approved at once'
+            $Directory.IsWorkflowCreator() | Should -BeFalse
+            $Directory.Workflow.Problem | Should -Not -BeNullOrEmpty
+        }
+
+        It 'Reads the SID of the domain from the domain, not from the owner of the approved GPOs' {
+            Mock Get-PSGPOWorkflowSetting { [pscustomobject]@{ Enabled = $true; Approvers = @('Domain Admins'); Creators = @('GPO-Tier1-Admins'); ApprovedOwner = 'Administrators'; CreatorRights = 'ReadOnly' } }
+            Mock Find-PSGPODomainAccount {
+                foreach ($N in $Name) { [pscustomobject]@{ Name = $N; Sid = @{ 'Domain Admins' = $Admins; 'GPO-Tier1-Admins' = $Tier1; 'Administrators' = 'S-1-5-32-544' }[$N] } }
+            }
+            Update-PSGPODomainWorkflow -Connection ([pscustomobject]@{}) -Directory $Directory
+            $Directory.Workflow.DomainSid | Should -Be $Domain
+            $Directory.FindGpo('Approved GPO').ApprovalState | Should -Be 'Approved' -Because 'Domain Admins of the domain own it'
         }
 
         It 'Has no workflow when it is not enabled' {

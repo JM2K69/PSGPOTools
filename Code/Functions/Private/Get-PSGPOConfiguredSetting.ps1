@@ -59,8 +59,9 @@ function Format-PSGPOElementValue {
     }
 }
 
-# Policies of the loaded ADMX set a Registry.pol configures for a scope: Policy and Read (its
-# state and option values, Get-PSGPOPolicyState).
+# Policies of the loaded ADMX set a Registry.pol configures for a scope: Policy, Read (its state
+# and option values, Get-PSGPOPolicyState) and Entries (those of the file it explains). Many
+# policies share a key: only those with an entry of their own are read.
 function Get-PSGPOConfiguredPolicy {
     [CmdletBinding()]
     param(
@@ -70,15 +71,18 @@ function Get-PSGPOConfiguredPolicy {
     )
 
     $index = Get-PSGPOPolicyKeyIndex
+    $byKey = Get-PSGPOPolEntryIndex -Pol $Pol
     # Policies writing a key of the file, each once.
     $seen = [System.Collections.Generic.HashSet[object]]::new()
-    foreach ($key in @($Pol.Entries.Key | Select-Object -Unique)) {
+    foreach ($key in $byKey.Keys) {
         $found = $null
         if (-not $index.TryGetValue("$Scope|$key", [ref]$found)) { continue }
         foreach ($policy in $found) {
             if (-not $seen.Add($policy)) { continue }
-            $read = Get-PSGPOPolicyState -Policy $policy -Pol $Pol
-            if ($read.State -ne 'NotConfigured') { [pscustomobject]@{ Policy = $policy; Read = $read } }
+            $entries = @(Get-PSGPOPolicyEntry -Policy $policy -Pol $Pol -EntryByKey $byKey)
+            if (-not $entries.Count) { continue }
+            $read = Get-PSGPOPolicyState -Policy $policy -Pol $Pol -Entry $entries
+            if ($read.State -ne 'NotConfigured') { [pscustomobject]@{ Policy = $policy; Read = $read; Entries = $entries } }
         }
     }
 }
@@ -98,7 +102,7 @@ function Get-PSGPOConfiguredSetting {
     $rows = foreach ($configured in @(Get-PSGPOConfiguredPolicy -Pol $Pol -Scope $Scope)) {
         $policy = $configured.Policy
         $read = $configured.Read
-        foreach ($entry in @(Get-PSGPOPolicyEntry -Policy $policy -Pol $Pol)) { [void]$explained.Add($entry) }
+        foreach ($entry in $configured.Entries) { [void]$explained.Add($entry) }
 
         $path = [System.Collections.Generic.List[string]]::new()
         for ($category = $policy.Category; $category; $category = $category.ParentCategory) { $path.Insert(0, $category.DisplayName) }

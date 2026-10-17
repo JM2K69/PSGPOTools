@@ -22,7 +22,7 @@ GSSAPI module missing, an IP address given instead of a name, a server unreachab
 
 | Object | Attributes |
 |---|---|
-| rootDSE | `defaultNamingContext`, `dnsHostName`, `vendorName` (Samba sets it: `Samba AD`) |
+| rootDSE | `defaultNamingContext`, `dnsHostName`, `vendorName` (Samba sets it, to `Samba Team (https://www.samba.org)`: the console then says `Samba AD`) |
 | the domain | `gPLink`, `gPOptions`, `wellKnownObjects` (the users container), `allowedAttributesEffective` |
 | the OUs | `name`, `gPLink`, `gPOptions`, `allowedAttributesEffective` |
 | `CN=Policies` | `allowedChildClassesEffective` (can the account create GPOs) |

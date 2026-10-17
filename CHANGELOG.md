@@ -66,6 +66,24 @@
 
 ### Fixed
 
+* Security: the approval of a GPO now rebuilds its permissions from what an approved GPO may hold (the allow ACEs of its possible owners and of CREATOR OWNER, the read of Authenticated Users and of the domain controllers), instead of only removing the ACEs of the creator and of the creators: an ACE the creator added outside the console while it owned the GPO (full control for another account, a deny ACE, OWNER RIGHTS) kept it in control of the approved GPO. Those ACEs are removed and reported (`RemovedPermissions` of `Approve-PSGPO`, a warning, the window, the comment of the approved backup); on Windows, the files of the SYSVOL folder lose their explicit ACEs and only inherit the folder
+* Security: the approval writes SYSVOL first, then the containers the GPO holds, then the GPO, whose owner makes it approved: a failure left a GPO approved, and applied, with a SYSVOL folder its creator still owned. It now stays pending, and can be approved again
+* Security: a pending GPO someone gave "Apply Group Policy" back to (its creator owns it) was shown as applying to nobody; the tree ("(waiting for approval, but it applies)", in red), its details and the approval form now say who it applies to, and the approval form shows where it is linked
+* Security: the role of the account failed open when the server did not say which account the console used (LDAP "Who am I?") or that account was not found: neither creator nor approver, it created approved GPOs. No GPO can be created then, until it is fixed; an answer in the dn: form is resolved
+* Security: the SID of the domain was taken from the owner of the approved GPOs: with a builtin group (Administrators), every GPO of Domain Admins was shown pending. It is read from the domain
+* Security: an error other than a missing group, looking for the APPLY_ and DENY_ groups of a GPO to approve, made it apply to Authenticated Users; it now stops the approval
+* Security: the paths of the files of a backup (manifest.json) were not checked: `..` wrote outside the GPO folder in SYSVOL (another GPO, or outside Policies) at a restore or from a template. A path outside the GPO folder makes the backup ignored, with a warning, and SYSVOL writes refuse it
+* Security: `Restore-PSGPO` restored a backup of another domain on a GPO of this domain with its GUID, as the Default Domain Policy and the Default Domain Controllers Policy have in every domain; a backup of another domain is never restored (a template instead)
+* Saving a setting wrote the whole file from the copy read with the GPO, without checking the GPO had not changed since: a setting another console or GPMC wrote meanwhile was lost without a word. The version of the GPO in the domain is now compared with the one read, and nothing is written when it changed
+* A deleted GPO left the recycle bin even when its settings could not be restored; it now stays there
+* A file the restore could not delete on Windows was kept without an error
+* One damaged manifest made Get-PSGPOBackup, the drift and the recycle bin fail; it is ignored, with a warning
+* `Backup-PSGPO` and `Get-PSGPODrift` skipped one of two GPOs with the same name; a GPO name with brackets (`Servers [Lyon]`) was taken as a wildcard pattern by the commands (`-Name`), matching nothing or failing: it is the name, and `*` or `?` make a pattern
+* The user version of a GPO was negative from 0x8000
+* `Get-PSGPOCategory`, `Get-PSGPOPolicy` and `Get-PSGPOSupportedOn` had no help
+* The CI did not run on master, without a time limit, and its cache of the Avalonia runtime was not renewed when its packages changed
+* The documentation said the vendorName of Samba is "Samba AD", the read mask of a file 0x1200A9 for every ACE, the tests run on Windows only, and that the status of a GPO is set at any time (at its creation only)
+
 * The policy editor was empty without ADMX files loaded (Linux without `Initialize-PSGPOAdmx`), so the security settings of a GPO (the Default Domain Policy for example) could not be edited: they are now always shown, the breadcrumb saying that no ADMX policy is loaded
 * The window froze when creating a GPO from a terminal: samba-tool gpo create asks for a password on it even with Kerberos. samba-tool and smbclient now run without standard input (samba-tool also with --no-pass) and are stopped after a time limit, with an error, instead of waiting forever
 * Writing a file deeper than one folder in SYSVOL from Linux (Split-Path turned its \ into /, so smbclient created no intermediate folder)
@@ -94,6 +112,12 @@
 * `Code/` was missing the DataGrid fix and the `-Scope` parameter present only in the generated module
 
 ### Changed
+
+* Performance: the Settings tab of a GPO and the comparison of backups read a Registry.pol of a security baseline (380 entries) in under a second, instead of 34 s: the registry values of each policy are computed once for the loaded ADMX, and its entries found by key. Reading a domain of 2 000 GPOs sorts them once (it sorted them at each one: 140 s), and resolves the links and the OUs by distinguished name; the GPOs a delegated account sees are found in one pass over the tree
+* The ADMX of Windows 11 26H2 in `sources/PolicyDefinitions` (236 ADMX files, the language folders in lower case)
+* CI: a third job, `test-samba`, runs the tests that write to a domain against a Samba AD DC provisioned on the runner, with a Kerberos ticket; `CI/Invoke-Tests.ps1 -Path` runs some test files
+* The build updates the exports of the manifest only when the public functions change; the manifest names this repository, its license, its changes and its authors
+* README, contributing and the bug report template rewritten for the console; SECURITY.md says how to report a vulnerability and what the console relies on
 
 * GUI icons: Microsoft Fluent UI System Icons (the Windows 11 icons, MIT license) are shipped with the module in `Resources/Icons` and drawn as vector paths, coloured by kind (OUs, blocked inheritance, links, enforced and disabled links, GPOs, User / Machine); they replace the emoji, drawn as empty boxes on Linux desktops without an emoji font
 * Tests rewritten for Pester 5+, with new tests for the public functions and the Avalonia GUI (real window driven through a private test hook); `CI/Invoke-Tests.ps1` builds and runs them, also in a GitHub Actions workflow

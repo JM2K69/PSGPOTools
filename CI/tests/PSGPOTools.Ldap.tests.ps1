@@ -731,6 +731,15 @@ InModuleScope -ModuleName PSGPOTools {
             Set-PSGPOPolicyState -Policy $UserPolicy -Pol $UserPol -State Enabled -Value @{ DisallowCplsList = [string[]]@('Microsoft.Mouse') }
             $Read.WritePolicyFile($Again, 'User', $UserPol.ToBytes())
             (Get-PSGPODirectory -Server $Server).FindGpo($GpoName).Version | Should -Be 0x00010001
+
+            # The first directory read the GPO before that change, as another console would have:
+            # it refuses to write its copy over it, and writes nothing.
+            $Other = [GPOToolsRegistryPol]::new()
+            { $Directory.WritePolicyFile($Gpo, 'Machine', $Other.ToBytes()) } | Should -Throw -ExpectedMessage '*changed since it was read (version 1, now 65537)*'
+            [Linq.Enumerable]::SequenceEqual([byte[]]$Read.ReadPolicyFile($Again, 'Machine'), [byte[]]$Pol.ToBytes()) | Should -BeTrue
+            (Get-PSGPODirectory -Server $Server).FindGpo($GpoName).Version | Should -Be 0x00010001
+            # Read again, it writes: the GPO the next tests change.
+            $Gpo.Version = (Get-PSGPODirectory -Server $Server).FindGpo($GpoName).Version
         }
 
         It 'Writes the security settings of the GPO in GptTmpl.inf, which Samba reads back' {

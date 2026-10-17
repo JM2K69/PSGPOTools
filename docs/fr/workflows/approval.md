@@ -86,6 +86,14 @@ Ce que le domaine lui donne, et ce que la console ajoute :
 **Elle ne s'applique à personne**, même liée, tant qu'elle n'est pas approuvée. Dans l'arbre, elle
 affiche *(waiting for approval)* ; ses détails disent qui l'a créée.
 
+Son créateur en est propriétaire tant qu'elle attend, et le propriétaire d'un objet peut toujours
+en changer les droits : avec un autre outil que la console (`ldbmodify`, ADSI), le créateur
+pourrait redonner « Appliquer la stratégie de groupe » à quelqu'un. La console le dit alors, en
+rouge : *(waiting for approval, but it applies)* dans l'arbre, à qui elle s'applique dans ses
+détails et dans le formulaire d'approbation. L'approbation reconstruit ses droits quels qu'ils
+soient (ci-dessous). Pour qu'un créateur ne puisse pas faire appliquer une GPO en la liant, ne lui
+donnez pas le droit de lier des GPO (`gPLink`) là où elles ne doivent pas s'appliquer.
+
 !!! info "Pourquoi chaque fichier du dossier"
     Samba vérifie l'ACL NT d'un fichier **et** son ACL POSIX, et ne modifie l'ACL POSIX d'un
     fichier que pour son propriétaire. Les droits des groupes de créateurs sont posés sur chaque
@@ -121,13 +129,27 @@ L'approbation :
 1. donne la GPO, les conteneurs qu'elle contient (`CN=Machine`, `CN=User`…), son dossier SYSVOL et
    **chaque fichier et dossier qu'il contient** au propriétaire des GPO approuvées : un
    propriétaire peut toujours changer les droits, le créateur se rendrait donc ses droits sinon ;
-2. retire les ACE du créateur et de tous les groupes de créateurs ;
+2. **reconstruit ses droits** à partir de ce qu'une GPO approuvée peut avoir, et non de ce qu'a la
+   GPO en attente : les ACE d'autorisation des propriétaires possibles d'une GPO approuvée (le
+   propriétaire des GPO approuvées, les approbateurs, Domain Admins, Enterprise Admins,
+   Administrators, SYSTEM) et de CREATOR OWNER, et la lecture d'Authenticated Users et des
+   contrôleurs de domaine. Toute autre ACE explicite est retirée : celles du créateur et des
+   groupes de créateurs, et **toute autre** (une ACE ajoutée par un créateur hors de la console,
+   une ACE de refus, OWNER RIGHTS). Ces dernières sont *inattendues* : la console, `Approve-PSGPO`
+   (`RemovedPermissions`, et un avertissement) et le commentaire de la sauvegarde approuvée les
+   listent, en SDDL, pour que l'approbateur cherche qui les a ajoutées. Sous Windows, chaque
+   fichier du dossier perd ses ACE explicites et hérite seulement du dossier ;
 3. donne aux groupes de créateurs du créateur *Edit settings* (EditSettings), ou rien de plus que
    la lecture de tous (ReadOnly) ;
 4. pose qui applique la GPO et à qui elle est refusée (une ACE de refus de « Appliquer la stratégie
    de groupe », en tête de la DACL), Authenticated Users gardant la lecture ;
 5. la sauvegarde avec l'étiquette approuvée, son commentaire disant qui l'a approuvée, qui l'a
    créée, ce que gardent les créateurs, qui l'applique et à qui elle est refusée.
+
+Elle écrit SYSVOL d'abord, puis les conteneurs que contient la GPO, puis **la GPO en dernier** :
+c'est son propriétaire qui la rend approuvée. Si l'une de ces écritures échoue, la GPO est encore
+en attente, la console le dit, et elle peut être approuvée de nouveau une fois le problème corrigé ;
+elle n'est jamais approuvée avec un dossier SYSVOL que son créateur possède encore.
 
 ![Une GPO approuvée](../assets/screenshots/18-approved-gpo.png)
 
@@ -167,8 +189,13 @@ restaure la version approuvée.
 ## Limites
 
 - Tant qu'elle attend, son créateur est propriétaire de la GPO : avec un autre outil que la
-  console, il pourrait redonner « Appliquer la stratégie de groupe » à quelqu'un. Une ACE pour
-  OWNER RIGHTS (`S-1-3-4`) l'en empêcherait ; elle n'est pas encore posée.
+  console, il peut redonner « Appliquer la stratégie de groupe » à quelqu'un, et la GPO s'applique
+  jusqu'à son approbation ou sa suppression. La console le montre et l'approbation le retire ; elle
+  ne peut pas l'empêcher, le domaine donne ce droit à tout propriétaire. Une ACE pour OWNER RIGHTS
+  (`S-1-3-4`) l'en empêcherait ; elle n'est pas posée.
+- Le rôle du compte est lu dans ses groupes : quand le serveur ne dit pas quel compte la console
+  utilise (LDAP « Who am I? »), ou que ce compte est introuvable, aucune GPO ne peut être créée
+  tant que ce n'est pas corrigé.
 - Après une approbation en EditSettings, un fichier qu'un technicien crée dans la GPO lui
   appartient : l'approbation suivante le rend au propriétaire des GPO approuvées.
 - Approuver une GPO de nouveau demande qu'elle soit en attente ; pour revoir les modifications

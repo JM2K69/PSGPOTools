@@ -276,8 +276,13 @@ function ConvertTo-PSGPOLdapDirectory {
         $gpo.UserExtensionNames = Get-PSGPOLdapValue $entry 'gPCUserExtensionNames'
         [void]$directory.AddExistingGpo($gpo)
     }
+    $directory.SortGpos()
+    # By distinguished name, to resolve the links and the parents of the OUs in one pass.
+    $gpoByDn = @{}
+    foreach ($gpo in $directory.Gpos) { $gpoByDn[$gpo.DistinguishedName] = $gpo }
+    $somByDn = @{ $directory.Domain.DistinguishedName = $directory.Domain }
 
-    $directory.SetLinks($directory.Domain, (Get-PSGPOLdapValue $DomainEntry 'gPLink'))
+    $directory.SetLinks($directory.Domain, (Get-PSGPOLdapValue $DomainEntry 'gPLink'), $gpoByDn)
     $directory.Domain.CanLink = & $canWrite $DomainEntry 'gPLink'
     if ($EffectiveRights) {
         $directory.CanCreateGpo = $PoliciesEntry -and @($PoliciesEntry.Attributes['allowedChildClassesEffective']) -contains 'groupPolicyContainer'
@@ -286,7 +291,7 @@ function ConvertTo-PSGPOLdapDirectory {
     # Parents before children: by number of RDNs.
     $depth = { @([regex]::Matches($_.DistinguishedName, '(?<!\\),')).Count }
     foreach ($entry in @($OrganizationalUnitEntry | Sort-Object $depth, { $_.DistinguishedName })) {
-        $parent = $directory.FindSom([GPOToolsDirectory]::GetParentDistinguishedName($entry.DistinguishedName))
+        $parent = $somByDn["$([GPOToolsDirectory]::GetParentDistinguishedName($entry.DistinguishedName))"]
         if (-not $parent) {
             Write-Warning "Organizational unit ignored, its parent is not the domain or an OU: $($entry.DistinguishedName)"
             continue
@@ -294,9 +299,10 @@ function ConvertTo-PSGPOLdapDirectory {
         $name = Get-PSGPOLdapValue $entry 'name'
         if (-not $name) { $name = Get-PSGPOLdapValue $entry 'ou' }
         $som = $directory.AddOrganizationalUnit($parent, $name, $entry.DistinguishedName)
+        $somByDn[$som.DistinguishedName] = $som
         $som.BlockInheritance = ([int](Get-PSGPOLdapValue $entry 'gPOptions') -band 1) -eq 1
         $som.CanLink = & $canWrite $entry 'gPLink'
-        $directory.SetLinks($som, (Get-PSGPOLdapValue $entry 'gPLink'))
+        $directory.SetLinks($som, (Get-PSGPOLdapValue $entry 'gPLink'), $gpoByDn)
     }
 
     # OUs by name, as GPMC shows them.

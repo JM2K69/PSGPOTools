@@ -13,7 +13,7 @@ Linux**, and manages the GPOs of **Samba AD** and **Windows Active Directory** d
 - **Group Policy Management view**
 
     The domain, its OUs and their GPO links, the Group Policy Objects, as GPMC shows them; create,
-    link, delete and restore GPOs, set their status and their security filtering.
+    link, delete and restore GPOs, with their status and their security filtering at creation.
     [The console](features/console.md)
 
 - **Policy editor**

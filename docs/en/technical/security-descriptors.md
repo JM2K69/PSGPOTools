@@ -39,7 +39,7 @@ the rights of the directory turned into file rights (`ldapmask2filemask`):
 
 | Directory | Files |
 |---|---|
-| read property + list (`RP LC`) | read and execute (`0x1200A9`) |
+| read property + list (`RP LC`) | read and execute (`0x1000A9`; `0x1200A9` with the read control of the ACE) |
 | write property (`WP`) | write (`0x100116`) |
 | create child (`CC`) | add file, add subfolder |
 | delete child (`DC`) | delete child |

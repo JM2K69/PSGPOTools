@@ -84,13 +84,18 @@ If(test-Path $PostContentPath){
 
 Write-Host "[BUILD][START][PSD1] Adding functions to export" -ForegroundColor RED -BackgroundColor White
 
-$FunctionsToExport = $PublicFunctions.BaseName
+$FunctionsToExport = @($PublicFunctions.BaseName | Sort-Object)
 $Manifest = Join-Path -Path $ModuleFolderPath -ChildPath "$($ModuleName).psd1"
-$Tags = @( 'PSEdition_Core','Windows','Linux','MacOS','Avalonia','psgpotools','gpo','admx','adml' )
-Update-ModuleManifest -Path $Manifest -FunctionsToExport $FunctionsToExport -Tags $Tags
-# Update-ModuleManifest comments out empty exports, which would fall back to '*'
-(Get-Content -Path $Manifest) -replace '^# VariablesToExport = @\(\)', 'VariablesToExport = @()' |
-    Set-Content -Path $Manifest -Encoding utf8
+# Only when the public functions changed: Update-ModuleManifest rewrites the whole file (its date
+# included), so a build would otherwise always leave the manifest changed.
+$Exported = @((Import-PowerShellDataFile -Path $Manifest).FunctionsToExport | Sort-Object)
+if (($Exported -join ',') -ne ($FunctionsToExport -join ',')) {
+    Update-ModuleManifest -Path $Manifest -FunctionsToExport $FunctionsToExport
+    # Update-ModuleManifest comments out empty exports, which would fall back to '*'
+    (Get-Content -Path $Manifest) -replace '^# VariablesToExport = @\(\)', 'VariablesToExport = @()' |
+        Set-Content -Path $Manifest -Encoding utf8
+    Write-Host "[BUILD][PSD1] FunctionsToExport updated" -ForegroundColor RED -BackgroundColor White
+}
 
 Write-Host "[BUILD][END][MAIN PSM1] building main PSM1 " -ForegroundColor RED -BackgroundColor White
 

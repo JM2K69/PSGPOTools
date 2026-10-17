@@ -70,7 +70,7 @@ function Get-PSGPOBackup {
     }
     $entries | Where-Object {
         (-not $templateLabel -or $_.Labels -contains $templateLabel) -and
-        $_.DisplayName -like $Name -and
+        (Test-PSGPONameMatch -Name $_.DisplayName -Pattern $Name) -and
         (-not $Label -or @($_.Labels | Where-Object { $_ -like $Label }).Count) -and
         (-not $approvedLabel -or $_.Labels -contains $approvedLabel)
     }

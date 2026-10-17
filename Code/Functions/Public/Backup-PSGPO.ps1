@@ -87,15 +87,11 @@ function Backup-PSGPO {
     }
     end {
         $gpos = if ($names.Count) {
-            foreach ($pattern in $names) {
-                $found = @($Directory.Gpos | Where-Object { $_.DisplayName -like $pattern })
-                if (-not $found) { Write-Error "No GPO named '$pattern' in $($Directory.DomainName)." }
-                $found
-            }
+            Find-PSGPOByName -Directory $Directory -Name $names
         } else {
             $Directory.Gpos
         }
-        foreach ($gpo in @($gpos | Select-Object -Unique)) {
+        foreach ($gpo in @($gpos)) {
             try {
                 Save-PSGPOBackup -Directory $Directory -Gpo $gpo -Path $Path -Comment $Comment -Label $labels -Force:$Force
             } catch {

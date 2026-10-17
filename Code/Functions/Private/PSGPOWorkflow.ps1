@@ -134,9 +134,14 @@ function Get-PSGPOAccountGroupSid {
         [string]$Sid
     )
 
-    $filter = if ($Sid) { "(objectSid=$(ConvertTo-PSGPOLdapBinaryFilter -Bytes ([GPOToolsSecurityDescriptor]::ConvertSidToBytes($Sid))))" }
-        else { "(sAMAccountName=$(ConvertTo-PSGPOLdapFilterValue (($Account -split '\\')[-1])))" }
-    $entry = @(Invoke-PSGPOLdapBinarySearch -Connection $Connection -SearchBase $DomainDistinguishedName -Filter $filter -Attribute 'objectSid') | Select-Object -First 1
+    $entry = if (-not $Sid -and $Account -match '^[A-Za-z]+=.+,(?i:DC)=') {
+        # A distinguished name: a "Who am I?" answer in the dn: form.
+        @(Invoke-PSGPOLdapBinarySearch -Connection $Connection -SearchBase $Account -Scope Base -Attribute 'objectSid') | Select-Object -First 1
+    } else {
+        $filter = if ($Sid) { "(objectSid=$(ConvertTo-PSGPOLdapBinaryFilter -Bytes ([GPOToolsSecurityDescriptor]::ConvertSidToBytes($Sid))))" }
+            else { "(sAMAccountName=$(ConvertTo-PSGPOLdapFilterValue (($Account -split '\\')[-1])))" }
+        @(Invoke-PSGPOLdapBinarySearch -Connection $Connection -SearchBase $DomainDistinguishedName -Filter $filter -Attribute 'objectSid') | Select-Object -First 1
+    }
     if (-not $entry) { return [string[]]@() }
     $sids = [System.Collections.Generic.List[string]]::new()
     $sids.Add((ConvertFrom-PSGPOSidBytes -Bytes ([byte[]]$entry.Values['objectSid'][0])))
@@ -177,8 +182,16 @@ function Update-PSGPODomainWorkflow {
         $approvers = @(Find-PSGPODomainAccount -Connection $Connection -DomainDistinguishedName $domainDN -Name $setting.Approvers)
         $creators = @(Find-PSGPODomainAccount -Connection $Connection -DomainDistinguishedName $domainDN -Name $setting.Creators)
         $owner = @(Find-PSGPODomainAccount -Connection $Connection -DomainDistinguishedName $domainDN -Name $setting.ApprovedOwner)[0]
+        # Read, not taken from a SID of the configuration: the owner may be a builtin group.
+        $domain = @(Invoke-PSGPOLdapBinarySearch -Connection $Connection -SearchBase $domainDN -Scope Base -Attribute 'objectSid') | Select-Object -First 1
+        if (-not $domain -or -not $domain.Values['objectSid']) { throw "the SID of the domain $domainDN cannot be read." }
+        $domainSid = ConvertFrom-PSGPOSidBytes -Bytes ([byte[]]$domain.Values['objectSid'][0])
+        # The role of the account is read in its groups: an account that is not found would be
+        # neither a creator nor an approver, and the GPOs it creates would be approved at once.
+        if (-not $Directory.Account -or $Directory.Account -eq 'Anonymous') { throw 'the server does not say which account the console is connected with (LDAP "Who am I?").' }
         # Not @(...): the function returns its array as one object.
         $token = Get-PSGPOAccountGroupSid -Connection $Connection -DomainDistinguishedName $domainDN -Account $Directory.Account
+        if (-not $token.Count) { throw "the account $($Directory.Account) is not found in the domain: its groups cannot be read." }
     } catch {
         $Directory.Workflow = [pscustomobject]@{ Enabled = $true; Problem = $_.Exception.Message; IsApprover = $false; IsCreator = $false }
         $Directory.CanCreateGpo = $false
@@ -199,6 +212,7 @@ function Update-PSGPODomainWorkflow {
         ApprovedOwner = $owner.Name
         ApprovedOwnerSid = $owner.Sid
         CreatorRights = $setting.CreatorRights
+        DomainSid = $domainSid
     }
 
     # The owners of the GPOs: their approval state.
@@ -210,7 +224,6 @@ function Update-PSGPODomainWorkflow {
         }
     }
     $names = Resolve-PSGPODomainSid -Connection $Connection -DomainDistinguishedName $domainDN -Sid @($owners.Values | Where-Object { $_ })
-    $domainSid = ($owner.Sid -replace '-\d+$', '')
     $approved = Get-PSGPOApprovedOwnerSid -Workflow $Directory.Workflow -DomainSid $domainSid
     foreach ($gpo in $Directory.Gpos) {
         $sid = $owners["$($gpo.DistinguishedName)".ToLowerInvariant()]
@@ -268,30 +281,62 @@ function Add-PSGPOEditSettingsAce {
     if (-not $present) { $Descriptor.AddAce([GPOToolsAce]::new([GPOToolsAce]::AccessAllowed, [GPOToolsAce]::ContainerInherit, $script:PSGPOEditSettingsMask, $Sid, [guid]::Empty)) }
 }
 
-# The descriptor of an approved GPO, or of an object it holds ($Container: the GPO itself): owned
-# by $OwnerSid, without the ACEs (not inherited) of $RemoveSids (the creator and the creators);
-# on the GPO, the groups $EditSids edit its settings, and $ApplySid applies it.
+# Accounts that only read an approved GPO: Authenticated Users (the computers must read every GPO,
+# MS16-072) and ENTERPRISE DOMAIN CONTROLLERS.
+$script:PSGPOReadOnlySids = @([GPOToolsSecurityDescriptor]::AuthenticatedUsers, 'S-1-5-9')
+
+# The descriptor of an approved GPO, or of an object it holds ($Container: the GPO itself), owned
+# by $OwnerSid. Its DACL is rebuilt from what an approved GPO may hold, not from what the pending
+# GPO holds: its creator owned it, and could add any ACE outside the console. The explicit ACEs
+# kept are the allow ACEs of $TrustedSids (the owners an approved GPO may have) and of CREATOR
+# OWNER, and the read rights of Authenticated Users and of the domain controllers; every other
+# explicit ACE is removed, and those of an account other than $RemoveSids (the creator and the
+# creators) are added to $Unexpected, as SDDL. The inherited ACEs stay: the directory computes
+# them from the parent. On the GPO, Authenticated Users read it, the groups $EditSids edit its
+# settings, $ApplySid applies it and $DenySid is denied it.
 function ConvertTo-PSGPOApprovedDescriptor {
     [CmdletBinding()]
     [OutputType([GPOToolsSecurityDescriptor])]
     param(
         [Parameter(Mandatory)] [GPOToolsSecurityDescriptor]$Descriptor,
         [Parameter(Mandatory)] [string]$OwnerSid,
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [string[]]$TrustedSids,
         [AllowEmptyCollection()] [string[]]$RemoveSids = @(),
         [AllowEmptyCollection()] [string[]]$EditSids = @(),
         [string]$ApplySid,
         [string]$DenySid,
+        [System.Collections.Generic.List[string]]$Unexpected,
         [switch]$Container
     )
 
     $approved = [GPOToolsSecurityDescriptor]::Parse($Descriptor.ToBytes())
     $approved.Owner = $OwnerSid
+    if ($null -eq $approved.Dacl) { $approved.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new() }
+    $trusted = @($TrustedSids) + @([GPOToolsSecurityDescriptor]::CreatorOwner)
     for ($i = $approved.Dacl.Count - 1; $i -ge 0; $i--) {
         $ace = $approved.Dacl[$i]
-        if ($ace.IsKnown() -and -not ($ace.Flags -band [GPOToolsAce]::Inherited) -and $RemoveSids -contains $ace.Sid) { $approved.Dacl.RemoveAt($i) }
+        if ($ace.Flags -band [GPOToolsAce]::Inherited) { continue }
+        $keep = $ace.IsKnown() -and -not $ace.IsDeny() -and $trusted -contains $ace.Sid
+        if (-not $keep -and $ace.IsKnown() -and -not $ace.IsDeny() -and -not $ace.IsObjectAce() -and $script:PSGPOReadOnlySids -contains $ace.Sid) {
+            # Read, nothing more ("Apply Group Policy" is set below, as the approver chooses).
+            $read = $ace.Mask -band ([GPOToolsSecurityDescriptor]::ReadMask -bor [GPOToolsSecurityDescriptor]::ControlAccess)
+            if ($read -ne $ace.Mask -and $null -ne $Unexpected -and $RemoveSids -notcontains $ace.Sid) { $Unexpected.Add($ace.ToSddl()) }
+            $ace.Mask = $read
+            $keep = [bool]$read
+        }
+        if ($keep) { continue }
+        if ($null -ne $Unexpected -and -not ($ace.IsKnown() -and $RemoveSids -contains $ace.Sid)) {
+            $Unexpected.Add($(if ($ace.IsKnown()) { $ace.ToSddl() } else { "(an access control entry of type $($ace.Type))" }))
+        }
+        $approved.Dacl.RemoveAt($i)
     }
     if ($Container) {
         Remove-PSGPOApplyRight -Descriptor $approved
+        $read = @($approved.Dacl | Where-Object { $_.IsKnown() -and -not $_.IsDeny() -and -not $_.IsObjectAce() -and $_.Sid -eq [GPOToolsSecurityDescriptor]::AuthenticatedUsers -and
+                ($_.Mask -band [GPOToolsSecurityDescriptor]::ReadMask) -eq [GPOToolsSecurityDescriptor]::ReadMask }).Count
+        if (-not $read) {
+            $approved.AddAce([GPOToolsAce]::new([GPOToolsAce]::AccessAllowed, [GPOToolsAce]::ContainerInherit, [GPOToolsSecurityDescriptor]::ReadMask, [GPOToolsSecurityDescriptor]::AuthenticatedUsers, [guid]::Empty))
+        }
         foreach ($sid in $EditSids) { Add-PSGPOEditSettingsAce -Descriptor $approved -Sid $sid }
         if ($ApplySid) {
             $inherit = [GPOToolsAce]::ContainerInherit
@@ -374,8 +419,12 @@ function Set-PSGPODomainPendingGpo {
     Write-Verbose "GPO '$($Gpo.DisplayName)' waits for its approval: it applies to nobody."
 }
 
-# Approves a GPO of the domain (GPOToolsDirectory.ApproveGpo): its container and the containers
-# it holds, then its SYSVOL folder and everything in it, owned by the owner of the approved GPOs.
+# Approves a GPO of the domain (GPOToolsDirectory.ApproveGpo): its SYSVOL folder and everything in
+# it, then the containers it holds, then its container, owned by the owner of the approved GPOs.
+# The container of the GPO is written last: its owner is what makes it approved, so a GPO whose
+# SYSVOL folder or inner containers cannot be written stays pending, and can be approved again.
+# Returns the permissions removed that belonged to neither the creator nor the creators (SDDL):
+# someone added them while the GPO was pending.
 function Approve-PSGPODomainGpo {
     [CmdletBinding()]
     param(
@@ -397,7 +446,7 @@ function Approve-PSGPODomainGpo {
         $descriptor = [GPOToolsSecurityDescriptor]::Parse([byte[]]$self.Values['nTSecurityDescriptor'][0])
 
         # The creator (its owner, unless an approver owns it) and its groups of creators.
-        $approvedOwners = Get-PSGPOApprovedOwnerSid -Workflow $workflow -DomainSid ($ownerSid -replace '-\d+$', '')
+        $approvedOwners = Get-PSGPOApprovedOwnerSid -Workflow $workflow -DomainSid $workflow.DomainSid
         $creator = if ($approvedOwners -notcontains $descriptor.Owner) { $descriptor.Owner }
         $creatorGroups = @()
         if ($creator) {
@@ -410,22 +459,39 @@ function Approve-PSGPODomainGpo {
         }
         $remove = @(@($creator) + @($workflow.CreatorSids) | Where-Object { $_ } | Select-Object -Unique)
         $edit = if ($CreatorRights -eq 'EditSettings') { $creatorGroups } else { @() }
+        $unexpected = [System.Collections.Generic.List[string]]::new()
+        $approved = ConvertTo-PSGPOApprovedDescriptor -Descriptor $descriptor -OwnerSid $ownerSid -TrustedSids $approvedOwners -RemoveSids $remove `
+            -EditSids $edit -ApplySid $ApplyToSid -DenySid $DenyToSid -Unexpected $unexpected -Container
+        $inner = @(foreach ($entry in @($entries | Where-Object { $_.DistinguishedName -ne $Gpo.DistinguishedName } | Sort-Object { $_.DistinguishedName.Length } -Descending)) {
+                if (-not $entry.Values['nTSecurityDescriptor']) { continue }
+                [pscustomobject]@{
+                    DistinguishedName = $entry.DistinguishedName
+                    Descriptor = ConvertTo-PSGPOApprovedDescriptor -Descriptor ([GPOToolsSecurityDescriptor]::Parse([byte[]]$entry.Values['nTSecurityDescriptor'][0])) `
+                        -OwnerSid $ownerSid -TrustedSids $approvedOwners -RemoveSids $remove -Unexpected $unexpected
+                }
+            })
 
-        # The containers it holds first (User, Machine...), then the GPO.
-        foreach ($entry in @($entries | Where-Object { $_.DistinguishedName -ne $Gpo.DistinguishedName } | Sort-Object { $_.DistinguishedName.Length } -Descending)) {
-            if (-not $entry.Values['nTSecurityDescriptor']) { continue }
-            $inner = [GPOToolsSecurityDescriptor]::Parse([byte[]]$entry.Values['nTSecurityDescriptor'][0])
-            Set-PSGPODomainOwnerAndDacl -Connection $connection -DistinguishedName $entry.DistinguishedName -Name $entry.DistinguishedName `
-                -Descriptor (ConvertTo-PSGPOApprovedDescriptor -Descriptor $inner -OwnerSid $ownerSid -RemoveSids $remove)
+        # SYSVOL first, with the ACL the approved GPO will have; the GPO stays pending if it fails.
+        try {
+            Set-PSGPOGpoFolderAcl -Directory $Directory -Gpo $Gpo -Descriptor $approved -Owner
+        } catch {
+            throw "The GPO '$($Gpo.DisplayName)' is not approved, its SYSVOL folder cannot be given to $($workflow.ApprovedOwner): $($_.Exception.Message) It is still pending; approve it again once fixed."
         }
-        Set-PSGPODomainOwnerAndDacl -Connection $connection -DistinguishedName $Gpo.DistinguishedName -Name "the GPO '$($Gpo.DisplayName)'" `
-            -Descriptor (ConvertTo-PSGPOApprovedDescriptor -Descriptor $descriptor -OwnerSid $ownerSid -RemoveSids $remove -EditSids $edit -ApplySid $ApplyToSid -DenySid $DenyToSid -Container)
-        $descriptor = Get-PSGPODomainSecurityDescriptor -Connection $connection -DistinguishedName $Gpo.DistinguishedName
+        # The containers it holds (User, Machine...), then the GPO.
+        try {
+            foreach ($item in $inner) {
+                Set-PSGPODomainOwnerAndDacl -Connection $connection -DistinguishedName $item.DistinguishedName -Name $item.DistinguishedName -Descriptor $item.Descriptor
+            }
+            Set-PSGPODomainOwnerAndDacl -Connection $connection -DistinguishedName $Gpo.DistinguishedName -Name "the GPO '$($Gpo.DisplayName)'" -Descriptor $approved
+        } catch {
+            throw "The GPO '$($Gpo.DisplayName)' is not approved: $($_.Exception.Message) It is still pending; approve it again once fixed."
+        }
     } finally {
         $connection.Dispose()
     }
-    Set-PSGPOGpoFolderAcl -Directory $Directory -Gpo $Gpo -Descriptor $descriptor -Owner
+    foreach ($ace in $unexpected) { Write-Warning "GPO '$($Gpo.DisplayName)': a permission nobody gives a pending GPO was removed at its approval: $ace" }
     Write-Verbose "GPO '$($Gpo.DisplayName)' approved: owned by $($workflow.ApprovedOwner), the creators $(if ($CreatorRights -eq 'EditSettings') { 'edit its settings' } else { 'read it' })."
+    , [string[]]$unexpected
 }
 
 # The SYSVOL folder of a GPO, every file and every folder in it, with the ACL derived from the
@@ -447,10 +513,15 @@ function Set-PSGPOGpoFolderAcl {
     $folder = $Descriptor.ConvertToFileSystem()
     $folder.Owner = $Descriptor.Owner
     Set-PSGPOSysvolItemAcl -Directory $Directory -Share $location.Share -Path $location.Path -Descriptor $folder -Owner:$Owner -Dacl
+    # Windows: what the folder holds only inherits its ACL, its explicit ACEs removed (the creator
+    # could have added some to a file).
+    $inherit = [GPOToolsSecurityDescriptor]::new()
+    $inherit.Owner = $folder.Owner
+    $inherit.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
     foreach ($item in @(Get-PSGPOSysvolTree -Directory $Directory -Share $location.Share -Path $location.Path)) {
         $path = "$($location.Path)\$($item.Path)"
-        if (-not $IsWindows) { Set-PSGPOSysvolItemAcl -Directory $Directory -Share $location.Share -Path $path -Descriptor $folder -Owner:$Owner -Dacl }
-        elseif ($Owner) { Set-PSGPOSysvolItemAcl -Directory $Directory -Share $location.Share -Path $path -Descriptor $folder -Owner }
+        $child = if ($IsWindows) { $inherit } else { $folder }
+        Set-PSGPOSysvolItemAcl -Directory $Directory -Share $location.Share -Path $path -Descriptor $child -Owner:$Owner -Dacl
     }
 }
 
@@ -548,7 +619,10 @@ function Find-PSGPOFilteringGroup {
         foreach ($role in 'Apply', 'Deny') {
             $name = Get-PSGPOFilteringGroupName -Role $role -GpoName $Gpo.DisplayName
             if ($connection) {
-                try { $found[$role] = @(Find-PSGPODomainAccount -Connection $connection -DomainDistinguishedName $Directory.Domain.DistinguishedName -Name $name)[0] } catch { }
+                # Only a missing group is no group: any other error stops, rather than the GPO
+                # being approved for Authenticated Users.
+                try { $found[$role] = @(Find-PSGPODomainAccount -Connection $connection -DomainDistinguishedName $Directory.Domain.DistinguishedName -Name $name)[0] }
+                catch { if ($_.Exception.Message -notlike 'No account named *') { throw } }
             } else {
                 $group = @($Directory.Groups.Values | Where-Object Name -EQ $name)[0]
                 if ($group) { $found[$role] = [pscustomobject]@{ Name = $group.Name; Sid = $(if ($group.Sid) { $group.Sid } else { $group.Name }) } }
@@ -590,6 +664,7 @@ function Invoke-PSGPOApproval {
     }
     if (-not $ApplyTo) { throw 'The approved GPO applies to someone: give the group (or Authenticated Users).' }
     $creator = $Gpo.Owner
+    $Gpo.RemovedAtApproval = @()
     $Directory.ApproveGpo($Gpo, $CreatorRights, $ApplyTo.Sid, $ApplyTo.Name, $(if ($DenyTo) { $DenyTo.Sid }), $(if ($DenyTo) { $DenyTo.Name }))
     $by = if ($Directory.Account) { $Directory.Account } else { [Environment]::UserName }
     $rights = if ($CreatorRights -eq 'EditSettings') { 'edit its settings' } else { 'read it' }
@@ -598,7 +673,7 @@ function Invoke-PSGPOApproval {
     try {
         $null = New-Item -ItemType Directory -Path $BackupPath -Force -ErrorAction Stop
         $backup = Save-PSGPOBackup -Directory $Directory -Gpo $Gpo -Path $BackupPath -Label (Get-PSGPOApprovedLabel) `
-            -Comment "Approved by $by$(if ($creator) { ", created by $creator" }): the creators $rights; applied by $($ApplyTo.Name)$(if ($DenyTo) { ", denied to $($DenyTo.Name)" })."
+            -Comment "Approved by $by$(if ($creator) { ", created by $creator" }): the creators $rights; applied by $($ApplyTo.Name)$(if ($DenyTo) { ", denied to $($DenyTo.Name)" }).$(if ($Gpo.RemovedAtApproval.Count) { " Permissions added while it was pending, removed: $($Gpo.RemovedAtApproval -join ' ')." })"
     } catch {
         $problem = "It is approved, but not backed up: $($_.Exception.GetBaseException().Message)"
     }
@@ -611,6 +686,8 @@ function Invoke-PSGPOApproval {
         AppliedBy = $ApplyTo.Name
         DeniedTo = if ($DenyTo) { $DenyTo.Name }
         GroupsCreated = [string[]]@($created | ForEach-Object DistinguishedName)
+        # Permissions someone added while it was pending (SDDL), removed by the approval
+        RemovedPermissions = [string[]]@($Gpo.RemovedAtApproval)
         Backup = if ($backup) { $backup.Path }
         Problem = $problem
     }

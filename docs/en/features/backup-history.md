@@ -56,6 +56,14 @@ Compare-PSGPOBackup -ReferenceBackup $Backups[1] -DifferenceBackup $Backups[0]
 
 Its links and its permissions do not change.
 
+A backup is never restored in another domain, even on a GPO with its GUID: the Default Domain
+Policy and the Default Domain Controllers Policy have the same GUID in every domain. Use it as a
+[template](gpo-management.md#templates) of a new GPO instead.
+
+Each path of the manifest must be a file of the GPO folder (no `..`, no rooted path): a backup
+whose manifest names another one is ignored, with a warning, as a damaged manifest is; the other
+backups are listed.
+
 ```powershell
 Get-PSGPOBackup -Path /srv/gpo-backups -Name 'T1 - Servers - Baseline' |
     Where-Object { $_.Modified.Date -eq [datetime]'2026-10-15' } | Select-Object -First 1 | Restore-PSGPO

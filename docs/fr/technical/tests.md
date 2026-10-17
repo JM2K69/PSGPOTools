@@ -40,10 +40,20 @@ Avec `PSGPOTOOLS_TEST_LDAP_WRITE=1`, ils créent une OU et des GPO nommées `PSG
 lient, écrivent leurs paramètres, en suppriment et en restaurent une, et suppriment tout ce qu'ils
 ont créé à la fin, quoi qui ait échoué.
 
-Le workflow d'approbation, qui demande deux comptes (Tier 0 et Tier 1), a été testé pas à pas dans
-le labo, `kinit` changeant de compte entre les étapes ([approbation](../workflows/approval.md)).
+Les écritures d'une approbation (`PSGPOTools.Hardening.tests.ps1`) sont testées avec des mocks :
+leur ordre (SYSVOL, les objets que contient la GPO, puis la GPO), la GPO laissée en attente quand
+SYSVOL échoue, les permissions retirées et signalées. Le workflow complet, qui demande deux comptes
+(Tier 0 et Tier 1), a été testé pas à pas dans le labo, `kinit` changeant de compte entre les
+étapes ([approbation](../workflows/approval.md)).
 
 ## CI
 
-`.github/workflows/ci.yml` lance les tests sur `windows-latest` (la fenêtre comprise) ; la
-documentation est construite et publiée par `.github/workflows/docs.yml`.
+`.github/workflows/ci.yml` lance trois jobs à chaque push sur `master`, `main` et `avalonia` :
+
+| Job | Lance |
+|---|---|
+| `test` | tous les tests sur `windows-latest`, la fenêtre comprise |
+| `test-linux` | tous les tests sur `ubuntu-latest`, la fenêtre comprise (Avalonia sur Xvfb) |
+| `test-samba` | les tests qui écrivent dans un domaine, contre un contrôleur Samba AD provisionné sur la machine de la CI (`CI.TEST`), avec un ticket Kerberos de son administrateur |
+
+La documentation est construite et publiée par `.github/workflows/docs.yml`.

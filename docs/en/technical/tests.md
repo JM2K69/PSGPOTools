@@ -39,10 +39,20 @@ With `PSGPOTOOLS_TEST_LDAP_WRITE=1`, they create an OU and GPOs named `PSGPOTool
 them, write their settings, delete and restore one, and delete everything they created at the end,
 whatever failed.
 
-The approval workflow, which needs two accounts (Tier 0 and Tier 1), was tested step by step in
-the lab, `kinit` changing the account between the steps ([approval](../workflows/approval.md)).
+The writes of an approval (`PSGPOTools.Hardening.tests.ps1`) are tested with mocks: their order
+(SYSVOL, the objects the GPO holds, then the GPO), the GPO left pending when SYSVOL fails, the
+permissions removed and reported. The whole workflow, which needs two accounts (Tier 0 and
+Tier 1), was tested step by step in the lab, `kinit` changing the account between the steps
+([approval](../workflows/approval.md)).
 
 ## CI
 
-`.github/workflows/ci.yml` runs the tests on `windows-latest` (the window included); the
-documentation is built and published by `.github/workflows/docs.yml`.
+`.github/workflows/ci.yml` runs three jobs on each push to `master`, `main` and `avalonia`:
+
+| Job | Runs |
+|---|---|
+| `test` | every test on `windows-latest`, the window included |
+| `test-linux` | every test on `ubuntu-latest`, the window included (Avalonia on Xvfb) |
+| `test-samba` | the tests that write to a domain, against a Samba AD DC provisioned on the runner (`CI.TEST`), with a Kerberos ticket of its administrator |
+
+The documentation is built and published by `.github/workflows/docs.yml`.
