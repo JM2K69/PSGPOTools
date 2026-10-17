@@ -42,7 +42,7 @@ CREATOR OWNER en héritage seul, les droits de l'annuaire traduits en droits de 
 
 | Annuaire | Fichiers |
 |---|---|
-| lecture des propriétés + liste (`RP LC`) | lecture et exécution (`0x1200A9`) |
+| lecture des propriétés + liste (`RP LC`) | lecture et exécution (`0x1000A9` ; `0x1200A9` avec le contrôle de lecture de l'ACE) |
 | écriture des propriétés (`WP`) | écriture (`0x100116`) |
 | création d'enfants (`CC`) | ajout de fichier, ajout de sous-dossier |
 | suppression d'enfants (`DC`) | suppression d'enfant |

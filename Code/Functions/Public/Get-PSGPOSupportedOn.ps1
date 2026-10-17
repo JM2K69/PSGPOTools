@@ -1,13 +1,27 @@
 function Get-PSGPOSupportedOn {
-    [cmdletbinding()]
-    Param()
+    <#
+    .SYNOPSIS
+        The platforms the policies of the loaded administrative templates support.
+    .DESCRIPTION
+        Each supportedOn definition of the ADMX files loaded (Initialize-PSGPOAdmx), with its text in
+        the language of the ADML files ("At least Windows 10"...): what the Details tab of a policy
+        shows, and what the policy editor filters on.
+    .EXAMPLE
+        Initialize-PSGPOAdmx -Path C:\Windows\PolicyDefinitions
+        Get-PSGPOSupportedOn | Where-Object DisplayName -Like '*Windows 11*'
+    .OUTPUTS
+        GPOToolsSupportedOn
+    .LINK
+        Initialize-PSGPOAdmx
+    #>
+    [CmdletBinding()]
+    [OutputType([GPOToolsSupportedOn])]
+    param()
 
-    ### VAR ###
-    ### MAIN ###
-    $Support =  [GpoToolsUtility]::SupportOnTable
-    If ($Support.Count -eq 0){
-        Write-Warning "Initiate ADMX and ADML files with Initialize-PSGPOAdmx cmdlet."
-    }Else{
-        return $Support
+    $Support = [GPOToolsUtility]::SupportOnTable
+    if ($Support.Count -eq 0) {
+        Write-Warning 'No administrative template is loaded: run Initialize-PSGPOAdmx first.'
+        return
     }
+    $Support
 }

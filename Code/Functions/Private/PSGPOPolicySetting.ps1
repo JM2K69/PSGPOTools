@@ -42,10 +42,20 @@ function Test-PSGPOPolEntryMatch {
     }
 }
 
-# Every registry value a policy can write, and the keys of its list elements.
+# Every registry value a policy can write (ValueNames, "<key>`0<value name>"), the keys of its
+# list elements (ListKeys), and every key of both (Keys). Kept for each policy of the loaded ADMX
+# set: a settings report asks it for thousands of policies.
 function Get-PSGPOPolicyFootprint {
     [CmdletBinding()]
     param([Parameter(Mandatory)] [GPOToolsPolicy]$Policy)
+
+    $source = [GPOToolsUtility]::Policies
+    if (-not $script:PSGPOPolicyFootprints -or -not [object]::ReferenceEquals($script:PSGPOPolicyFootprintSource, $source)) {
+        $script:PSGPOPolicyFootprints = [System.Collections.Generic.Dictionary[object, object]]::new([System.Collections.Generic.ReferenceEqualityComparer]::Instance)
+        $script:PSGPOPolicyFootprintSource = $source
+    }
+    $known = $null
+    if ($script:PSGPOPolicyFootprints.TryGetValue($Policy, [ref]$known)) { return $known }
 
     $values = [System.Collections.Generic.List[GPOToolsRegistryValue]]::new()
     foreach ($item in @($Policy.EnabledValues) + @($Policy.DisabledValues)) { if ($item) { $values.Add($item) } }
@@ -64,7 +74,26 @@ function Get-PSGPOPolicyFootprint {
     $names = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     # An empty value name is the default value of the key.
     foreach ($value in $values) { if ($value.Type -ne 'DeleteAllValues') { [void]$names.Add("$($value.Key)`0$($value.ValueName)") } }
-    [pscustomobject]@{ ValueNames = $names; ListKeys = $listKeys }
+    $keys = [System.Collections.Generic.HashSet[string]]::new($listKeys, [System.StringComparer]::OrdinalIgnoreCase)
+    foreach ($name in $names) { [void]$keys.Add($name.Substring(0, $name.IndexOf([char]0))) }
+    $footprint = [pscustomobject]@{ ValueNames = $names; ListKeys = $listKeys; Keys = $keys }
+    $script:PSGPOPolicyFootprints[$Policy] = $footprint
+    $footprint
+}
+
+# The entries of a Registry.pol by key (case-insensitive), to find those of a policy without
+# reading every entry: Get-PSGPOPolicyEntry -EntryByKey.
+function Get-PSGPOPolEntryIndex {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [GPOToolsRegistryPol]$Pol)
+
+    $index = [System.Collections.Generic.Dictionary[string, System.Collections.Generic.List[GPOToolsPolEntry]]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    foreach ($entry in $Pol.Entries) {
+        $list = $null
+        if (-not $index.TryGetValue($entry.Key, [ref]$list)) { $list = [System.Collections.Generic.List[GPOToolsPolEntry]]::new(); $index[$entry.Key] = $list }
+        $list.Add($entry)
+    }
+    , $index
 }
 
 # Entries of the Registry.pol that belong to the policy.
@@ -73,11 +102,19 @@ function Get-PSGPOPolicyEntry {
     [OutputType([GPOToolsPolEntry])]
     param(
         [Parameter(Mandatory)] [GPOToolsPolicy]$Policy,
-        [Parameter(Mandatory)] [GPOToolsRegistryPol]$Pol
+        [Parameter(Mandatory)] [GPOToolsRegistryPol]$Pol,
+        # Get-PSGPOPolEntryIndex of $Pol: only the entries of the keys of the policy are read
+        $EntryByKey
     )
 
     $footprint = Get-PSGPOPolicyFootprint -Policy $Policy
-    foreach ($entry in $Pol.Entries) {
+    $entries = if ($EntryByKey) {
+        # By key, not in the order of the file: what the state is read from.
+        $found = [System.Collections.Generic.List[GPOToolsPolEntry]]::new()
+        foreach ($key in $footprint.Keys) { $list = $null; if ($EntryByKey.TryGetValue($key, [ref]$list)) { $found.AddRange($list) } }
+        $found
+    } else { $Pol.Entries }
+    foreach ($entry in $entries) {
         if ($footprint.ListKeys.Contains($entry.Key) -or $footprint.ValueNames.Contains("$($entry.Key)`0$($entry.GetTargetValueName())")) { $entry }
     }
 }
@@ -107,10 +144,12 @@ function Get-PSGPOPolicyState {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] [GPOToolsPolicy]$Policy,
-        [Parameter(Mandatory)] [GPOToolsRegistryPol]$Pol
+        [Parameter(Mandatory)] [GPOToolsRegistryPol]$Pol,
+        # Its entries (Get-PSGPOPolicyEntry), when already found
+        [AllowEmptyCollection()] [GPOToolsPolEntry[]]$Entry
     )
 
-    $entries = @(Get-PSGPOPolicyEntry -Policy $Policy -Pol $Pol)
+    $entries = if ($PSBoundParameters.ContainsKey('Entry')) { @($Entry) } else { @(Get-PSGPOPolicyEntry -Policy $Policy -Pol $Pol) }
     if (-not $entries.Count) { return [pscustomobject]@{ State = 'NotConfigured'; Value = @{} } }
 
     $enabled = Test-PSGPOPolValueSet -Entry $entries -Value @($Policy.EnabledValues)

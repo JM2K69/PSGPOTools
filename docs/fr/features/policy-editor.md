@@ -46,6 +46,13 @@ fichier ADMX.
 Les valeurs qu'aucune stratégie des ADMX chargés n'explique sont conservées, et montrées comme
 **Extra Registry Settings** dans l'onglet Settings.
 
+!!! warning "Une GPO modifiée depuis que la console l'a lue"
+    Apply écrit le fichier entier, à partir de la copie lue avec la GPO. Si la version de la GPO
+    dans le domaine n'est plus celle que la console a lue (une autre console, GPMC, un script l'a
+    modifiée), rien n'est écrit : les autres modifications seraient perdues sans un mot. Rouvrez la
+    console pour relire la GPO telle qu'elle est, puis refaites la modification. GPMC, lui, écrase
+    le fichier dans ce cas.
+
 ## Paramètres de sécurité
 
 ![Les paramètres de sécurité](../assets/screenshots/12-editor-security.png)

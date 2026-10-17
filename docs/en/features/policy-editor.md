@@ -42,6 +42,12 @@ The **Registry Preview** shows what Apply writes: the key, the value, its type a
 The values no policy of the loaded ADMX explains are kept, and shown as **Extra Registry
 Settings** in the Settings tab.
 
+!!! warning "A GPO changed since the console read it"
+    Apply writes the whole file, from the copy read with the GPO. If the version of the GPO in the
+    domain is no longer the one the console read (another console, GPMC, a script changed it),
+    nothing is written: the other changes would be lost without a word. Open the console again to
+    read the GPO as it is, then make the change again. GPMC overwrites the file in that case.
+
 ## Security settings
 
 ![The security settings](../assets/screenshots/12-editor-security.png)

@@ -59,6 +59,14 @@ GPMC :
 
 Ses liens et ses droits ne changent pas.
 
+Une sauvegarde n'est jamais restaurée dans un autre domaine, même sur une GPO qui a son GUID : la
+Default Domain Policy et la Default Domain Controllers Policy ont le même GUID dans tous les
+domaines. Utilisez-la plutôt comme [modèle](gpo-management.md#les-modeles) d'une nouvelle GPO.
+
+Chaque chemin du manifeste doit être un fichier du dossier de la GPO (pas de `..`, pas de chemin
+absolu) : une sauvegarde dont le manifeste en nomme un autre est ignorée, avec un avertissement,
+comme un manifeste abîmé ; les autres sauvegardes sont listées.
+
 ```powershell
 Get-PSGPOBackup -Path /srv/gpo-backups -Name 'T1 - Servers - Baseline' |
     Where-Object { $_.Modified.Date -eq [datetime]'2026-10-15' } | Select-Object -First 1 | Restore-PSGPO

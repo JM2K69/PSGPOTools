@@ -87,8 +87,10 @@ function Get-PSGPODirectoryDetail {
         $Detail.Properties = @(
             New-Row 'Unique ID' ('{' + $Gpo.Id.ToString().ToUpperInvariant() + '}')
             New-Row 'GPO status' $Gpo.GetStatus()
-            if ($Gpo.ApprovalState -eq 'Pending') { New-Row 'Approval' "Waiting for approval: it applies to nobody until an approver approves it$(if ($Gpo.Owner) { " (created by $($Gpo.Owner))" })." }
+            if ($Gpo.AppliesWhilePending()) { New-Row 'Approval' "Waiting for approval, but it APPLIES to $($Gpo.SecurityFiltering -join ', '): its creator owns it until it is approved, and gave 'Apply Group Policy' back$(if ($Gpo.Owner) { " (created by $($Gpo.Owner))" }). Approve it (its permissions are rebuilt) or delete it." }
+            elseif ($Gpo.ApprovalState -eq 'Pending') { New-Row 'Approval' "Waiting for approval: it applies to nobody until an approver approves it$(if ($Gpo.Owner) { " (created by $($Gpo.Owner))" })." }
             elseif ($Gpo.ApprovalState -eq 'Approved') { New-Row 'Approval' 'Approved' }
+            if ($Gpo.RemovedAtApproval.Count) { New-Row 'Removed at approval' "Permissions added while it was pending: $($Gpo.RemovedAtApproval -join ' ')" }
             if ($Gpo.Owner) { New-Row 'Owner' $Gpo.Owner }
             # Security filtering, as the Scope tab of GPMC: who applies the GPO, who is denied it.
             New-Row 'Security filtering' $(
@@ -129,7 +131,7 @@ function Get-PSGPODirectoryDetail {
         if (-not $DeletedGpo.Count) { $Detail.Properties = @(New-Row 'None' 'No GPO deleted from the domain has a backup in the folder of the History tab.') }
     } elseif ($Item -eq 'GroupPolicyObjects') {
         $Detail.Title = "Group Policy Objects in $($Directory.DomainName)"
-        $Detail.Properties = @(foreach ($Gpo in $Directory.Gpos) { if ($Directory.IsGpoVisible($Gpo)) { New-Row $Gpo.DisplayName $Gpo.GetStatus() } })
+        $Detail.Properties = @(foreach ($Gpo in $Directory.GetVisibleGpos()) { New-Row $Gpo.DisplayName $Gpo.GetStatus() })
     }
     $Detail
 }

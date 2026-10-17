@@ -19,6 +19,29 @@ Describe 'Module manifest' {
             Should -Be @('Approve-PSGPO', 'Backup-PSGPO', 'Compare-PSGPOBackup', 'Get-PSGPOBackup', 'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 'Get-PSGPODrift', 'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 'Initialize-PSGPOWorkflow', 'New-PSGPO', 'Remove-PSGPO', 'Restore-PSGPO', 'Set-PSGPOBackup', 'Show-GPOManagerAvalonia')
         (Get-Module PSGPOTools).ExportedVariables.Count | Should -Be 0
     }
+
+    It 'Points to this repository, its license and its changes' {
+        $Data = (Import-PowerShellDataFile -Path $ModuleManifest).PrivateData.PSData
+        $Data.ProjectUri | Should -Be 'https://github.com/JM2K69/PSGPOTools'
+        $Data.LicenseUri | Should -BeLike 'https://github.com/JM2K69/PSGPOTools/*LICENSE'
+        $Data.ReleaseNotes | Should -BeLike '*CHANGELOG.md'
+    }
+}
+
+Describe 'Help of the commands' {
+    It '<Command> has a synopsis, an example and the help of each of its parameters' -ForEach @(
+        # At discovery: the module is imported after it.
+        (Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1')).FunctionsToExport | ForEach-Object { @{ Command = $_ } }
+    ) {
+        $Help = Get-Help -Name $Command -Full
+        "$($Help.Synopsis)".Trim() | Should -Not -BeLike "$Command*" -Because 'a command without help shows its syntax as synopsis'
+        @($Help.Examples.Example).Count | Should -BeGreaterThan 0
+        $Common = [System.Management.Automation.Cmdlet]::CommonParameters + [System.Management.Automation.Cmdlet]::OptionalCommonParameters
+        foreach ($Parameter in (Get-Command $Command).Parameters.Keys | Where-Object { $_ -notin $Common }) {
+            $Text = @($Help.Parameters.Parameter | Where-Object Name -EQ $Parameter)[0].Description.Text
+            "$Text".Trim() | Should -Not -BeNullOrEmpty -Because "-$Parameter of $Command is described"
+        }
+    }
 }
 
 Describe 'Before Initialize-PSGPOAdmx' {
@@ -60,12 +83,16 @@ Describe 'After Initialize-PSGPOAdmx' {
     }
 
     It 'Every policy has a category and a path under its scope' {
-        @($AllPolicies | Where-Object { $null -eq $_.Category }).Count | Should -Be 0
+        # TerminalServer.admx (Windows 11 26H2) puts AutoSubscription in a category AutoSubscription
+        # that no ADMX defines: it has none, and the editor shows it under its scope.
+        @($AllPolicies | Where-Object { $null -eq $_.Category } | ForEach-Object ID | Sort-Object -Unique) | Should -Be @('AutoSubscription')
         @($AllPolicies | Where-Object { $_.Path -notlike "$($_.Scope)\*" }).Count | Should -Be 0
     }
 
-    It 'Category names are unique per prefix' {
-        @(Get-PSGPOCategory | Group-Object Name, { $_.target.prefix } | Where-Object Count -GT 1).Count | Should -Be 0
+    It 'Category names are unique per namespace' {
+        # Not per prefix: GroupPolicyPreferencesLogging.admx and grouppolicypreferences.admx both
+        # use the prefix pref, for two namespaces, and both define CSE_Logging.
+        @(Get-PSGPOCategory | Group-Object Name, { $_.target.namespace } | Where-Object Count -GT 1).Count | Should -Be 0
     }
 
     It 'Resolves the parent of <Category> (<Case>)' -ForEach @(
@@ -105,7 +132,9 @@ Describe 'After Initialize-PSGPOAdmx' {
                     foreach ($Child in $Node.Children) { $Stack.Push($Child) }
                     if ($Node.Tag -is [GPOToolsPolicy]) {
                         $PolicyNodes++
-                        [object]::ReferenceEquals($Node.Parent.Tag, $Node.Tag.Category) | Should -BeTrue
+                        # A policy without a category is under its scope.
+                        $Expected = if ($Node.Tag.Category) { $Node.Tag.Category } else { $Node.Tag.Scope }
+                        if ($Node.Tag.Category) { [object]::ReferenceEquals($Node.Parent.Tag, $Expected) | Should -BeTrue } else { $Node.Parent.Tag | Should -Be $Expected }
                     }
                 }
                 $PolicyNodes | Should -Be ([GPOToolsUtility]::Policies.Count)

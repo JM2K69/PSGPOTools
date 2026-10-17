@@ -44,9 +44,19 @@ class GPOToolsGpo {
     # Approval workflow (Workflow of the configuration): 'Pending' (created by a creator, it
     # applies to nobody until approved) or 'Approved'; $null without the workflow
     [string]$ApprovalState
+    # The permissions its approval removed that neither its creator nor the creators had (SDDL):
+    # someone added them while it was pending
+    [string[]]$RemovedAtApproval = @()
 
-    [int] GetUserVersion() { return $this.Version -shr 16 }
+    # -band: -shr keeps the sign, a user version of 0x8000 or more would be negative.
+    [int] GetUserVersion() { return ($this.Version -shr 16) -band 0xFFFF }
     [int] GetComputerVersion() { return $this.Version -band 0xFFFF }
+
+    # A pending GPO someone gave "Apply Group Policy" back to: its creator owns it, and can change
+    # its permissions outside the console. It applies before its approval.
+    [bool] AppliesWhilePending() {
+        return $this.ApprovalState -eq 'Pending' -and $this.SecurityFiltering.Count -gt 0
+    }
 
     [string] GetStatus() {
         switch ($this.Flags -band 3) {
@@ -218,14 +228,28 @@ class GPOToolsDirectory {
         foreach ($Link in $Som.Links) { $Link.Gpo = $this.FindGpoByDistinguishedName($Link.GpoDistinguishedName) }
     }
 
-    # Adds a GPO read from a directory: unlike AddGpo, its name may be empty or already used.
+    # The same, the GPOs found in $GpoByDistinguishedName (a hashtable, case-insensitive): reading
+    # a domain, a search of the list for each link would be quadratic.
+    [void] SetLinks([GPOToolsSom]$Som, [string]$GpLink, [hashtable]$GpoByDistinguishedName) {
+        $Som.Links = [GPOToolsGpoLink]::Parse($GpLink)
+        foreach ($Link in $Som.Links) { $Link.Gpo = $GpoByDistinguishedName[$Link.GpoDistinguishedName] }
+    }
+
+    # Adds a GPO read from a directory: unlike AddGpo, its name may be empty or already used. The
+    # list is not sorted: SortGpos once every GPO is added (sorting at each one is quadratic).
     [GPOToolsGpo] AddExistingGpo([GPOToolsGpo]$Gpo) {
         if (-not $Gpo.DistinguishedName) {
             $Gpo.DistinguishedName = 'CN={{{0}}},CN=Policies,CN=System,{1}' -f $Gpo.Id.ToString().ToUpperInvariant(), $this.Domain.DistinguishedName
         }
         $this.Gpos.Add($Gpo)
-        $this.Gpos.Sort([System.Comparison[GPOToolsGpo]] { param($a, $b) [string]::Compare($a.DisplayName, $b.DisplayName, $true) })
         return $Gpo
+    }
+
+    # The GPOs by name, as GPMC lists them.
+    [void] SortGpos() {
+        $Sorted = [System.Linq.Enumerable]::ToList([System.Linq.Enumerable]::OrderBy($this.Gpos, [Func[GPOToolsGpo, string]] { param($Gpo) "$($Gpo.DisplayName)" }, [System.StringComparer]::OrdinalIgnoreCase))
+        $this.Gpos.Clear()
+        $this.Gpos.AddRange($Sorted)
     }
 
     # Adds an existing GPO; $Id is generated when empty.
@@ -373,6 +397,22 @@ class GPOToolsDirectory {
         if ($Gpo.CanEdit) { return $true }
         foreach ($Pair in $this.GetLinksOf($Gpo)) { if ($Pair.Som.CanLink) { return $true } }
         return $false
+    }
+
+    # The GPOs IsGpoVisible shows, in their order, in one pass over the tree: IsGpoVisible for
+    # each GPO would walk the whole tree for each one.
+    [GPOToolsGpo[]] GetVisibleGpos() {
+        $Linked = [System.Collections.Generic.HashSet[object]]::new([System.Collections.Generic.ReferenceEqualityComparer]::Instance)
+        $Stack = [System.Collections.Generic.Stack[GPOToolsSom]]::new()
+        $Stack.Push($this.Domain)
+        while ($Stack.Count) {
+            $Som = $Stack.Pop()
+            if ($Som.CanLink) { foreach ($Link in $Som.Links) { if ($Link.Gpo) { [void]$Linked.Add($Link.Gpo) } } }
+            foreach ($Child in $Som.Children) { $Stack.Push($Child) }
+        }
+        $Visible = [System.Collections.Generic.List[GPOToolsGpo]]::new()
+        foreach ($Gpo in $this.Gpos) { if ($Gpo.CanEdit -or $Linked.Contains($Gpo)) { $Visible.Add($Gpo) } }
+        return $Visible.ToArray()
     }
 
     # Links a GPO to a SOM with the lowest precedence (the last link order), like GPMC.
@@ -679,7 +719,7 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
     }
 
     hidden [void] SaveApprovedGpo([GPOToolsGpo]$Gpo, [string]$CreatorRights, [string]$ApplyToSid, [string]$DenyToSid) {
-        Approve-PSGPODomainGpo -Directory $this -Gpo $Gpo -CreatorRights $CreatorRights -ApplyToSid $ApplyToSid -DenyToSid $DenyToSid
+        $Gpo.RemovedAtApproval = Approve-PSGPODomainGpo -Directory $this -Gpo $Gpo -CreatorRights $CreatorRights -ApplyToSid $ApplyToSid -DenyToSid $DenyToSid
     }
 
     hidden [object[]] SaveApprovalGroups([GPOToolsGpo]$Gpo, [string]$Container) {

@@ -1024,9 +1024,13 @@ function Start-PSGPOManagerWindow {
         $gpo = Get-SelectedGpo
         if (-not $gpo -or $gpo.ApprovalState -ne 'Pending') { return }
         $approveGpo.Gpo = $gpo
+        # What the approver approves: where it is linked, and whether someone made it apply already.
+        $links = @($Directory.GetLinksOf($gpo))
         $approveGpoTextBlock.Text = "Approve the GPO '$($gpo.DisplayName)'$(if ($gpo.Owner) { ", created by $($gpo.Owner)" })? " +
-            "Its owner becomes $($Directory.Workflow.ApprovedOwner), in the directory and in SYSVOL: its creator cannot give itself its rights back. " +
-            "It applies to the group below from then on, and is backed up as its approved version."
+            "Its owner becomes $($Directory.Workflow.ApprovedOwner), in the directory and in SYSVOL, and its permissions are rebuilt: its creator cannot give itself its rights back. " +
+            "It applies to the group below from then on, and is backed up as its approved version. " +
+            $(if ($links.Count) { "It is linked to $(@($links | ForEach-Object { $_.Som.Name }) -join ', ')." } else { 'It is not linked.' }) +
+            $(if ($gpo.AppliesWhilePending()) { " Warning: it applies already, to $($gpo.SecurityFiltering -join ', '): someone gave 'Apply Group Policy' back while it was pending." })
         $approveGpoRightsComboBox.SelectedIndex = if ($Directory.Workflow.CreatorRights -eq 'EditSettings') { 1 } else { 0 }
         # Its own groups when they exist; else the approver may create them, as the New GPO form.
         $existing = Find-PSGPOFilteringGroup -Directory $Directory -Gpo $gpo
@@ -1077,9 +1081,10 @@ function Start-PSGPOManagerWindow {
         Update-DirectoryTree -Select $gpo
         $lines = @("GPO '$($gpo.DisplayName)' approved: owned by $($result.Owner), applied by $($result.AppliedBy)$(if ($result.DeniedTo) { ", denied to $($result.DeniedTo)" }), the creators $(if ($rights -eq 'EditSettings') { 'edit its settings' } else { 'read it' }).")
         if ($result.GroupsCreated.Count) { $lines += "Security filtering groups created: $($result.GroupsCreated -join '; ')." }
+        if ($result.RemovedPermissions.Count) { $lines += "Permissions added while it was pending, removed: $($result.RemovedPermissions -join ' '). Find out who added them." }
         if ($result.Backup) { $lines += 'Backed up as its approved version.' }
         if ($result.Problem) { $lines += $result.Problem }
-        Show-DirectoryResult -Text ($lines -join [Environment]::NewLine) -Problem:([bool]$result.Problem)
+        Show-DirectoryResult -Text ($lines -join [Environment]::NewLine) -Problem:([bool]($result.Problem -or $result.RemovedPermissions.Count))
     }
 
     # Deletion of the selected GPO, once confirmed, as GPMC: its links too; backed up first in
@@ -1575,7 +1580,7 @@ function Start-PSGPOManagerWindow {
         Show-HistoryChange $node -Title "Changes since the approved version of $(Format-HistoryDate $drift.Approved)"
     })
     $historyBackupButton.Add_Click({ $gpo = Get-SelectedGpo; if ($gpo) { Invoke-HistoryBackup -Gpos @($gpo) } })
-    $historyBackupAllButton.Add_Click({ Invoke-HistoryBackup -Gpos @($Directory.Gpos | Where-Object { $Directory.IsGpoVisible($_) }) })
+    $historyBackupAllButton.Add_Click({ Invoke-HistoryBackup -Gpos @($Directory.GetVisibleGpos()) })
     # Another folder: its backups, remembered for the next time.
     $historyPathTextBox.add_KeyDown({
         param($sender, $e)

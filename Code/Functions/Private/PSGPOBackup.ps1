@@ -210,7 +210,12 @@ function Get-PSGPOBackupEntry {
                 continue
             }
             if ($read.Format -ne $script:PSGPOBackupFormat) { Write-Warning "Backup ignored, unknown format '$($read.Format)': $manifest"; continue }
-            ConvertTo-PSGPOBackupEntry -Manifest $read -Path $backupFolder.FullName -Note (Read-PSGPOBackupNote -Path $backupFolder.FullName)
+            # One damaged or hostile manifest does not hide the other backups.
+            try {
+                ConvertTo-PSGPOBackupEntry -Manifest $read -Path $backupFolder.FullName -Note (Read-PSGPOBackupNote -Path $backupFolder.FullName)
+            } catch {
+                Write-Warning "Backup ignored, its manifest is not valid ($($_.Exception.GetBaseException().Message)): $manifest"
+            }
         }
     }
     @($entries | Sort-Object -Property @{ Expression = 'BackedUp'; Descending = $true })
@@ -232,6 +237,8 @@ function ConvertTo-PSGPOBackupEntry {
         $null
     }
     $gpo = $Manifest.Gpo
+    # Its files go back into SYSVOL: each one in the GPO folder.
+    foreach ($file in @($Manifest.Files)) { Assert-PSGPOGpoFilePath -Path "$($file.Path)" }
     [pscustomobject]@{
         PSTypeName = 'PSGPOTools.Backup'
         Path = $Path
@@ -639,13 +646,18 @@ function Restore-PSGPODeletedGpo {
         [switch]$RestoreLink
     )
 
+    if (-not [string]::Equals($Backup.Domain, $Directory.DomainName, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "The backup of '$($Backup.DisplayName)' is of a GPO of $($Backup.Domain), not of $($Directory.DomainName): use it as a template of a new GPO."
+    }
     $problems = [System.Collections.Generic.List[string]]::new()
     $linked = [System.Collections.Generic.List[string]]::new()
     $date = if ($Backup.Modified) { $Backup.Modified } else { $Backup.BackedUp }
     $gpo = $Directory.NewGpo($Backup.DisplayName)
+    $restored = $false
     try {
         $extensions = Get-PSGPOBackupExtensionName -Backup $Backup -Files $Files
         $Directory.RestoreGpo($gpo, $Files, $Backup.Flags, $extensions.Machine, $extensions.User)
+        $restored = $true
     } catch {
         $problems.Add("The GPO is created, but its settings are not restored: $($_.Exception.GetBaseException().Message)")
     }
@@ -673,9 +685,11 @@ function Restore-PSGPODeletedGpo {
         $problems.Add('It is not linked again, so that it does not apply to everyone: link it once its security filtering and settings are set.')
     }
 
-    # The deleted GPO is now this one: out of the recycle bin, and its history starts here.
+    # The deleted GPO is now this one: out of the recycle bin, and its history starts here. Not
+    # when its settings are not restored: the backup stays in the recycle bin, to try again.
     $root = Split-Path -Parent (Split-Path -Parent $Backup.Path)
-    $null = Save-PSGPOBackupNote -Backup $Backup -Comment $Backup.Comment -Label $Backup.Labels -Account $Directory.Account -RestoredAs $gpo.Id
+    if ($restored) { $null = Save-PSGPOBackupNote -Backup $Backup -Comment $Backup.Comment -Label $Backup.Labels -Account $Directory.Account -RestoredAs $gpo.Id }
+    else { $problems.Add("The backup stays in Deleted GPOs: delete the new GPO '$($gpo.DisplayName)' {$($gpo.Id.ToString().ToUpperInvariant())} before restoring it again.") }
     $after = $null
     try {
         $after = Save-PSGPOBackup -Directory $Directory -Gpo $gpo -Path $root -Comment ("Created again from the backup of $(([datetime]$date).ToLocalTime().ToString('g')) of the deleted GPO {$($Backup.Id.ToString().ToUpperInvariant())}.")
