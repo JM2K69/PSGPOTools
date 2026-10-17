@@ -21,6 +21,15 @@ jobs:
         shell: pwsh
         run: Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser -Force -SkipPublisherCheck
 
+      - name: Analyze the sources (PSScriptAnalyzer)
+        shell: pwsh
+        run: |
+          Install-Module PSScriptAnalyzer -Scope CurrentUser -Force
+          # TypeNotFound is information: a class of another file, which the build puts first.
+          $found = @(Invoke-ScriptAnalyzer -Path ./Code -Recurse -Settings ./PSScriptAnalyzerSettings.psd1 | Where-Object Severity -In 'Error', 'Warning')
+          $found | Format-Table RuleName, Severity, ScriptName, Line, Message -AutoSize -Wrap
+          if ($found.Count) { throw "PSScriptAnalyzer: $($found.Count) finding(s)." }
+
       - name: Cache Avalonia runtime
         uses: actions/cache@v4
         with:
@@ -113,14 +122,29 @@ jobs:
 
       - name: Provision the domain CI.TEST
         run: |
-          echo "127.0.0.1 dc.ci.test dc" | sudo tee -a /etc/hosts
+          echo "127.0.0.1 dc.ci.test dc ci.test" | sudo tee -a /etc/hosts
           sudo rm -f /etc/samba/smb.conf
           sudo samba-tool domain provision --realm=CI.TEST --domain=CI --server-role=dc --dns-backend=NONE \
             --host-name=dc --use-rfc2307 --adminpass="$CI_ADMIN_PASSWORD"
-          sudo cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
-          printf '\n[libdefaults]\n    rdns = false\n' | sudo tee -a /etc/krb5.conf >/dev/null
+          # No DNS on the runner: the KDC is named, not looked up.
+          sudo tee /etc/krb5.conf >/dev/null <<'KRB5'
+          [libdefaults]
+              default_realm = CI.TEST
+              dns_lookup_realm = false
+              dns_lookup_kdc = false
+              rdns = false
+          [realms]
+              CI.TEST = {
+                  kdc = dc.ci.test
+                  admin_server = dc.ci.test
+              }
+          [domain_realm]
+              .ci.test = CI.TEST
+              ci.test = CI.TEST
+          KRB5
           sudo samba
-          for i in $(seq 1 30); do smbclient -N -L dc.ci.test >/dev/null 2>&1 && break; sleep 2; done
+          for i in $(seq 1 60); do smbclient -N -L dc.ci.test >/dev/null 2>&1 && break; sleep 2; done
+          cat /etc/krb5.conf
 
       - name: Get a Kerberos ticket of the administrator
         run: |

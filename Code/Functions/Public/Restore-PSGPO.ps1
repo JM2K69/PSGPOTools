@@ -91,6 +91,7 @@ function Restore-PSGPO {
         }
         $extensions = Get-PSGPOBackupExtensionName -Backup $Backup -Files $files
         $Directory.RestoreGpo($gpo, $files, $Backup.Flags, $extensions.Machine, $extensions.User)
+        $problems = @(Restore-PSGPOWmiFilterLink -Directory $Directory -Gpo $gpo -Backup $Backup)
         [pscustomobject]@{
             PSTypeName = 'PSGPOTools.Restore'
             DisplayName = $gpo.DisplayName
@@ -102,7 +103,7 @@ function Restore-PSGPO {
             CreatedAgain = $false
             Backup = $null
             Linked = [string[]]@()
-            Problems = [string[]]@()
+            Problems = [string[]]$problems
         }
     }
 }

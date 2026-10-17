@@ -80,7 +80,7 @@ function Get-PSGPODirectory {
         $organizationalUnits = @(Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $domainDN -Scope Subtree `
                 -Filter '(objectClass=organizationalUnit)' -Attribute 'name', 'ou', 'gPLink', 'gPOptions', 'allowedAttributesEffective')
         $gpos = @(Invoke-PSGPOLdapSearch -Connection $connection -SearchBase "CN=Policies,CN=System,$domainDN" -Scope OneLevel `
-                -Filter '(objectClass=groupPolicyContainer)' -Attribute 'cn', 'displayName', 'versionNumber', 'flags', 'gPCFileSysPath', 'whenChanged', 'gPCMachineExtensionNames', 'gPCUserExtensionNames', 'allowedAttributesEffective')
+                -Filter '(objectClass=groupPolicyContainer)' -Attribute 'cn', 'displayName', 'versionNumber', 'flags', 'gPCFileSysPath', 'whenChanged', 'gPCMachineExtensionNames', 'gPCUserExtensionNames', 'gPCWQLFilter', 'allowedAttributesEffective')
         $policies = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase "CN=Policies,CN=System,$domainDN" -Scope Base -Attribute 'allowedChildClassesEffective'
         $account = Get-PSGPOLdapAccount -Connection $connection
 
@@ -93,6 +93,12 @@ function Get-PSGPODirectory {
         } catch {
             Write-Warning "The security filtering of the GPOs cannot be read: $($_.Exception.GetBaseException().Message)"
             foreach ($gpo in $directory.Gpos) { $gpo.SecurityFiltering = $null; $gpo.DeniedTo = $null }
+        }
+        # The WMI filters: not a reason to fail the reading either.
+        try {
+            Read-PSGPODomainWmiFilter -Connection $connection -Directory $directory
+        } catch {
+            Write-Warning "The WMI filters of the domain cannot be read: $($_.Exception.GetBaseException().Message)"
         }
     } finally {
         $connection.Dispose()

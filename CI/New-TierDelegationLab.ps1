@@ -58,7 +58,7 @@ Import-Module (Join-Path $PSScriptRoot '..' 'PSGPOTools' 'PSGPOTools.psd1') -For
         try {
             $request = [System.DirectoryServices.Protocols.SearchRequest]::new($Base, $Filter, $Scope, 'objectSid')
             $entries = $connection.SendRequest($request).Entries
-            if ($entries.Count -and $entries[0].Attributes['objectSid']) { return ConvertFrom-PSGPOSidBytes -Bytes ([byte[]]$entries[0].Attributes['objectSid'].GetValues([byte[]])[0]) }
+            if ($entries.Count -and $entries[0].Attributes['objectSid']) { return ConvertFrom-PSGPOBinarySid -Bytes ([byte[]]$entries[0].Attributes['objectSid'].GetValues([byte[]])[0]) }
             return $entries.Count -gt 0
         } catch [System.DirectoryServices.Protocols.DirectoryOperationException] {
             return $false

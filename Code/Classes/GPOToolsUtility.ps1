@@ -356,7 +356,7 @@ class GPOToolsCategory {
         }
 
         #Gestion du Parent
-        if ($Cat.ParentCategory -ne $null){
+        if ($null -ne $Cat.ParentCategory){
             # Si la categorie a un parent dans l'admx on le cherche et on l'ajoute
             $this.ParentCategory = [GPOToolsCategory]::FindParentCategory($Cat,$AllCat,$Adml)
             Write-Verbose ("[GPOToolsCategory] {0} Category have a parent : {1}" -f $Cat.Name,$Cat.ParentCategory.Name)
@@ -501,7 +501,7 @@ class GPOToolsPolicy {
     }
 
     [string]GeneratePath(){
-        if($this.Category -ne $Null){
+        if($null -ne $this.Category){
             $GNPath = '{0}\{1}' -f $this.Scope,[GPOToolsPolicy]::GeneratePath($this.Category)
         }Else{
             $GNpath = '{0}\' -f $this.Scope
@@ -509,7 +509,7 @@ class GPOToolsPolicy {
         return $GnPath
     }
     static [string]GeneratePath([GpoToolscategory]$Cat){
-        if($Cat.ParentCategory -ne $Null){
+        if($null -ne $Cat.ParentCategory){
             $GNPath = '{0}{1}\' -f [GPOToolsPolicy]::GeneratePath($Cat.ParentCategory),$Cat.DisplayName
         }Else{
             $GNpath = '{0}\' -f $Cat.DisplayName
@@ -547,7 +547,7 @@ class GPOToolsPolicy {
             $State = [StatePolicy]::NotConfigured
         }Else{
             $RegProperty = Get-ItemProperty $This.Registry.Path  -name $This.Registry.Key -ErrorAction SilentlyContinue
-            if($RegProperty -eq $null){
+            if($null -eq $RegProperty){
                 $State = [StatePolicy]::NotConfigured
             }Elseif($RegProperty.{$This.Registry.Key} -eq $this.Registry.Value.Enable){
                 $State = [StatePolicy]::Enabled
@@ -678,7 +678,7 @@ class AdmxPolicy {
         $this.SupportedOn = $policy.SupportedOn
         $this.enableValue = $policy.enabledValue.decimal.Value
         $this.disableValue = $policy.disabledValue.decimal.Value
-        if ($policy.ParentCategory.ref -ne $null){
+        if ($null -ne $policy.ParentCategory.ref){
             $SplitResult = $policy.ParentCategory.ref -split ':'
             if ($SplitResult.count -eq 1){
                 $this.ParentCategory = @{
@@ -744,7 +744,7 @@ class AdmxCategory {
         $this.DisplayName = $Category.DisplayName -replace '\$\(string\.(.*)\)', '$1'
         $this.target = $target
         $this.explainText = $Category.explainText -replace '\$\(string\.(.*)\)', '$1'
-        if ($Category.parentcategory.ref -ne $null){
+        if ($null -ne $Category.parentcategory.ref){
             $SplitResult = $Category.parentcategory.ref -split ':'
             if ($SplitResult.count -eq 1){
                 $this.ParentCategory = @{

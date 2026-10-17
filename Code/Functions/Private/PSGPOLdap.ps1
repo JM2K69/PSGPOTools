@@ -274,6 +274,7 @@ function ConvertTo-PSGPOLdapDirectory {
         $gpo.Modified = ConvertFrom-PSGPOGeneralizedTime (Get-PSGPOLdapValue $entry 'whenChanged')
         $gpo.MachineExtensionNames = Get-PSGPOLdapValue $entry 'gPCMachineExtensionNames'
         $gpo.UserExtensionNames = Get-PSGPOLdapValue $entry 'gPCUserExtensionNames'
+        $gpo.WmiFilterId = ConvertFrom-PSGPOWqlFilterLink -Value (Get-PSGPOLdapValue $entry 'gPCWQLFilter')
         [void]$directory.AddExistingGpo($gpo)
     }
     $directory.SortGpos()

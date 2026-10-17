@@ -88,6 +88,7 @@ function Get-PSGPOSysvolItemAcl {
     )
 
     if ($IsWindows) {
+        Use-PSGPOSysvolCredential -Directory $Directory -Share $Share
         $item = Get-Item -LiteralPath "\\$($Directory.Server)\$Share\$Path" -Force -ErrorAction Stop
         $sections = [System.Security.AccessControl.AccessControlSections]'Owner, Group, Access'
         $security = if ($item -is [System.IO.DirectoryInfo]) { [System.IO.FileSystemAclExtensions]::GetAccessControl($item, $sections) } else { [System.IO.FileSystemAclExtensions]::GetAccessControl([System.IO.FileInfo]$item, $sections) }
@@ -112,6 +113,7 @@ function Set-PSGPOSysvolItemAcl {
 
     if (-not $Owner -and -not $Dacl) { throw 'Set-PSGPOSysvolItemAcl writes the owner, the DACL, or both.' }
     if ($IsWindows) {
+        Use-PSGPOSysvolCredential -Directory $Directory -Share $Share
         $item = Get-Item -LiteralPath "\\$($Directory.Server)\$Share\$Path" -Force -ErrorAction Stop
         $windows = [GPOToolsSecurityDescriptor]::Parse($Descriptor.ToBytes())
         # The ACEs of extended rights (Apply Group Policy) mean nothing to a file: left out, as GPMC does.
@@ -149,6 +151,7 @@ function Get-PSGPOSysvolTree {
     )
 
     if ($IsWindows) {
+        Use-PSGPOSysvolCredential -Directory $Directory -Share $Share
         $root = "\\$($Directory.Server)\$Share\$Path"
         $prefix = $root.TrimEnd('\').Length + 1
         foreach ($item in @(Get-ChildItem -LiteralPath $root -Recurse -Force -ErrorAction Stop | Sort-Object FullName)) {

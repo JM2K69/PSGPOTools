@@ -102,7 +102,7 @@ function Show-PSGPOAdmxWindow {
     $candidateComboBox.add_SelectionChanged({ if ($candidateComboBox.SelectedItem) { $pathTextBox.Text = "$($candidateComboBox.SelectedItem)" } })
     # The property, not TextChanged: it is raised at once, whoever sets the text.
     $pathTextBox.add_PropertyChanged({
-        param($sender, $e)
+        param($control, $e)
         if ($e.Property -eq [Avalonia.Controls.TextBox]::TextProperty) { Update-Culture }
     })
     $cultureComboBox.add_SelectionChanged({ $loadButton.IsEnabled = -not $state.Busy -and $null -ne $cultureComboBox.SelectedItem })
@@ -177,6 +177,7 @@ function Show-PSGPOAdmxWindow {
         [Avalonia.Threading.Dispatcher]::UIThread.MainLoop($cts.Token)
     } catch [System.OperationCanceledException] {
         # Expected: the loop exits by cancellation once the window is closed.
+        Write-Verbose 'The window is closed.'
     }
     if ($onShownState.Error) { throw $onShownState.Error }
     $state.Loaded

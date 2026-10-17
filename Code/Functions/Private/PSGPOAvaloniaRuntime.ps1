@@ -35,9 +35,9 @@ function Initialize-PSGPOAvaloniaRuntime {
     # The module or the data folder of the user; installed from nuget.org on first use.
     $avaloniaPath = Get-PSGPOAvaloniaPath -Rid $rid
     if (-not $avaloniaPath) {
-        Write-Host "PSGPOTools: the Avalonia runtime of the window ($rid) is not installed; installing it once from nuget.org (checked packages)..."
+        Write-Information -InformationAction Continue "PSGPOTools: the Avalonia runtime of the window ($rid) is not installed; installing it once from nuget.org (checked packages)..."
         $avaloniaPath = Install-PSGPOAvaloniaRuntime -Rid $rid
-        Write-Host "PSGPOTools: Avalonia runtime installed in $avaloniaPath."
+        Write-Information -InformationAction Continue "PSGPOTools: Avalonia runtime installed in $avaloniaPath."
     }
 
     # Common managed assemblies, plus the platform-specific windowing backend.

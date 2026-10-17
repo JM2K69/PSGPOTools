@@ -50,6 +50,16 @@
         TemplateLabel = 'Template'
     }
 
+    # Audit log: each change the consoles and the commands make in the domain, one line (when, who,
+    # from which computer, what, on which GPO or container), never rewritten; Get-PSGPOAuditLog
+    # reads it.
+    Audit = @{
+        # Folder of the log, the same for every console of the domain: a share the administrators
+        # of the GPOs write (\\server\gpo-audit). Empty: the folder Audit of the backups of the
+        # account, which only its console sees.
+        Path = ''
+    }
+
     # Approval workflow: the GPOs the creators make wait for the approval of an approver. The
     # rights are those of the domain: the creators get the right to create GPOs (Initialize-
     # PSGPOWorkflow), not Group Policy Creator Owners; a GPO they create applies to nobody until

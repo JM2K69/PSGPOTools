@@ -60,6 +60,7 @@ function Start-PSGPOManagerWindow {
     $subtitleTextBlock = Get-PSGPOAvaloniaControl $window 'subtitleTextBlock'
     $managementButton = Get-PSGPOAvaloniaControl $window 'managementButton'
     $browseAdmxButton = Get-PSGPOAvaloniaControl $window 'browseAdmxButton'
+    $refreshButton = Get-PSGPOAvaloniaControl $window 'refreshButton'
     $searchPanel = Get-PSGPOAvaloniaControl $window 'searchPanel'
     $managementView = Get-PSGPOAvaloniaControl $window 'managementView'
     $editorView = Get-PSGPOAvaloniaControl $window 'editorView'
@@ -91,6 +92,31 @@ function Start-PSGPOManagerWindow {
     $newGpoGroupsContainerComboBox = Get-PSGPOAvaloniaControl $window 'newGpoGroupsContainerComboBox'
     $directoryResultTextBlock = Get-PSGPOAvaloniaControl $window 'directoryResultTextBlock'
     $deleteLinkMenuItem = Get-PSGPOAvaloniaControl $window 'deleteLinkMenuItem'
+    $enforcedLinkMenuItem = Get-PSGPOAvaloniaControl $window 'enforcedLinkMenuItem'
+    $enabledLinkMenuItem = Get-PSGPOAvaloniaControl $window 'enabledLinkMenuItem'
+    $moveLinkUpMenuItem = Get-PSGPOAvaloniaControl $window 'moveLinkUpMenuItem'
+    $moveLinkDownMenuItem = Get-PSGPOAvaloniaControl $window 'moveLinkDownMenuItem'
+    $blockInheritanceMenuItem = Get-PSGPOAvaloniaControl $window 'blockInheritanceMenuItem'
+    $gpoStatusMenuItem = Get-PSGPOAvaloniaControl $window 'gpoStatusMenuItem'
+    $wmiFilterMenuItem = Get-PSGPOAvaloniaControl $window 'wmiFilterMenuItem'
+    $newWmiFilterMenuItem = Get-PSGPOAvaloniaControl $window 'newWmiFilterMenuItem'
+    $deleteWmiFilterMenuItem = Get-PSGPOAvaloniaControl $window 'deleteWmiFilterMenuItem'
+    $newWmiFilterPanel = Get-PSGPOAvaloniaControl $window 'newWmiFilterPanel'
+    $newWmiFilterNameTextBox = Get-PSGPOAvaloniaControl $window 'newWmiFilterNameTextBox'
+    $newWmiFilterDescriptionTextBox = Get-PSGPOAvaloniaControl $window 'newWmiFilterDescriptionTextBox'
+    $newWmiFilterNamespaceTextBox = Get-PSGPOAvaloniaControl $window 'newWmiFilterNamespaceTextBox'
+    $newWmiFilterQueryTextBox = Get-PSGPOAvaloniaControl $window 'newWmiFilterQueryTextBox'
+    $newWmiFilterErrorTextBlock = Get-PSGPOAvaloniaControl $window 'newWmiFilterErrorTextBlock'
+    $newWmiFilterCreateButton = Get-PSGPOAvaloniaControl $window 'newWmiFilterCreateButton'
+    $newWmiFilterCancelButton = Get-PSGPOAvaloniaControl $window 'newWmiFilterCancelButton'
+    $deleteWmiFilterPanel = Get-PSGPOAvaloniaControl $window 'deleteWmiFilterPanel'
+    $deleteWmiFilterTextBlock = Get-PSGPOAvaloniaControl $window 'deleteWmiFilterTextBlock'
+    $deleteWmiFilterConfirmButton = Get-PSGPOAvaloniaControl $window 'deleteWmiFilterConfirmButton'
+    $deleteWmiFilterCancelButton = Get-PSGPOAvaloniaControl $window 'deleteWmiFilterCancelButton'
+    $gpoStatusEnabledMenuItem = Get-PSGPOAvaloniaControl $window 'gpoStatusEnabledMenuItem'
+    $gpoStatusUserDisabledMenuItem = Get-PSGPOAvaloniaControl $window 'gpoStatusUserDisabledMenuItem'
+    $gpoStatusComputerDisabledMenuItem = Get-PSGPOAvaloniaControl $window 'gpoStatusComputerDisabledMenuItem'
+    $gpoStatusAllDisabledMenuItem = Get-PSGPOAvaloniaControl $window 'gpoStatusAllDisabledMenuItem'
     $deleteLinkPanel = Get-PSGPOAvaloniaControl $window 'deleteLinkPanel'
     $deleteLinkTextBlock = Get-PSGPOAvaloniaControl $window 'deleteLinkTextBlock'
     $deleteLinkConfirmButton = Get-PSGPOAvaloniaControl $window 'deleteLinkConfirmButton'
@@ -170,7 +196,6 @@ function Start-PSGPOManagerWindow {
     $preferencesPanel = Get-PSGPOAvaloniaControl $window 'preferencesPanel'
     $preferencesTitleTextBlock = Get-PSGPOAvaloniaControl $window 'preferencesTitleTextBlock'
     $preferencesInfoTextBlock = Get-PSGPOAvaloniaControl $window 'preferencesInfoTextBlock'
-    $preferencesToolbar = Get-PSGPOAvaloniaControl $window 'preferencesToolbar'
     $preferencesNewTypeComboBox = Get-PSGPOAvaloniaControl $window 'preferencesNewTypeComboBox'
     $preferencesNewButton = Get-PSGPOAvaloniaControl $window 'preferencesNewButton'
     $preferencesEditButton = Get-PSGPOAvaloniaControl $window 'preferencesEditButton'
@@ -443,7 +468,7 @@ function Start-PSGPOManagerWindow {
         $editing.Gpo -and $editing.Gpo.CanEdit -and -not $Directory.IsReadOnly -and $preferences.File
     }
 
-    function Update-PreferenceButtons {
+    function Update-PreferenceToolbar {
         $row = $preferencesList.SelectedItem
         $editable = Test-PreferenceEditable
         $preferencesNewButton.IsEnabled = $editable -and $null -ne $preferencesNewTypeComboBox.SelectedItem
@@ -499,7 +524,7 @@ function Start-PSGPOManagerWindow {
         $preferencesList.ItemsSource = $rows
         if ($SelectUid) { $preferencesList.SelectedItem = $rows | Where-Object { $_.Item.Uid -eq $SelectUid } | Select-Object -First 1 }
         if ($problem) { Set-PreferenceStatus $problem -Problem } else { Set-PreferenceStatus $Status }
-        Update-PreferenceButtons
+        Update-PreferenceToolbar
     }
 
     # Applies a change to a copy of the file, writes it to the GPO, then shows the items again;
@@ -538,8 +563,8 @@ function Start-PSGPOManagerWindow {
         $preferencesFormBorder.IsVisible = $true
     }
 
-    $preferencesList.add_SelectionChanged({ Update-PreferenceButtons })
-    $preferencesNewTypeComboBox.add_SelectionChanged({ Update-PreferenceButtons })
+    $preferencesList.add_SelectionChanged({ Update-PreferenceToolbar })
+    $preferencesNewTypeComboBox.add_SelectionChanged({ Update-PreferenceToolbar })
     $preferencesNewButton.Add_Click({
         $type = @($preferences.Node.Extension.Items | Where-Object { $_.Properties -and -not $_.IsCollection })[$preferencesNewTypeComboBox.SelectedIndex]
         if ($type) { Open-PreferenceForm -Type $type -Item $null }
@@ -744,7 +769,7 @@ function Start-PSGPOManagerWindow {
 
     $searchButton.Add_Click({ Update-PolicyTree })
     $searchTextBox.Add_KeyDown({
-        param($sender, $e)
+        param($control, $e)
         if ($e.Key -eq [Avalonia.Input.Key]::Enter) {
             Update-PolicyTree
         }
@@ -758,6 +783,8 @@ function Start-PSGPOManagerWindow {
         $editorView.IsVisible = $View -eq 'Editor'
         $managementButton.IsVisible = $View -eq 'Editor'
         $browseAdmxButton.IsVisible = $View -eq 'Management'
+        # A domain read over LDAP is read again; a description in memory has nothing to read.
+        $refreshButton.IsVisible = $View -eq 'Management' -and $Directory -is [GPOToolsLdapDirectory]
         $searchPanel.IsVisible = $View -eq 'Editor'
         $subtitleTextBlock.Text = if ($View -eq 'Management') {
             if (-not $Directory) { 'Group Policy Management' }
@@ -847,7 +874,7 @@ function Start-PSGPOManagerWindow {
             foreach ($root in $roots) { $stack.Push($root) }
             while ($stack.Count -and -not $target) {
                 $node = $stack.Pop()
-                if ([object]::ReferenceEquals($node.Tag, $Select)) { $target = $node }
+                if ([object]::ReferenceEquals($node.Tag, $Select) -or ($Select -is [string] -and $node.Tag -is [string] -and $node.Tag -eq $Select)) { $target = $node }
                 foreach ($child in $node.Children) { $stack.Push($child) }
             }
             for ($parent = $target.Parent; $parent; $parent = $parent.Parent) { [void]$keys.Add("$(Get-PSGPODirectoryNodeKey $parent)") }
@@ -859,7 +886,7 @@ function Start-PSGPOManagerWindow {
             foreach ($root in $roots) { $stack.Push($root) }
             while ($stack.Count) {
                 $node = $stack.Pop()
-                if ([object]::ReferenceEquals($node.Tag, $Select)) { $domainTreeView.SelectedItem = $node; break }
+                if ([object]::ReferenceEquals($node.Tag, $Select) -or ($Select -is [string] -and $node.Tag -is [string] -and $node.Tag -eq $Select)) { $domainTreeView.SelectedItem = $node; break }
                 foreach ($child in $node.Children) { $stack.Push($child) }
             }
         }
@@ -1014,7 +1041,7 @@ function Start-PSGPOManagerWindow {
 
     # The forms of the details, one at a time.
     function Hide-DirectoryForm {
-        foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel, $approveGpoPanel) { $panel.IsVisible = $false }
+        foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel, $approveGpoPanel, $newWmiFilterPanel, $deleteWmiFilterPanel) { $panel.IsVisible = $false }
     }
 
     # Approval of the selected GPO (approval workflow): what the creators may still do, who
@@ -1043,7 +1070,7 @@ function Start-PSGPOManagerWindow {
             "$(Get-PSGPOFilteringGroupName -Role Apply -GpoName $gpo.DisplayName -Settings $approveGpo.Groups) applies it, $(Get-PSGPOFilteringGroupName -Role Deny -GpoName $gpo.DisplayName -Settings $approveGpo.Groups) is denied it; " +
                 "created in $(Resolve-PSGPOGroupContainer -Directory $Directory -Container $approveGpo.Groups.Container) ($($approveGpo.Groups.Scope))."
         } else { "Its groups exist: $(@($existing.Apply, $existing.Deny | Where-Object { $_ } | ForEach-Object Name) -join ', ')." }
-        Update-ApproveGpoGroups
+        Update-ApproveGpoGroupState
         $approveGpoErrorTextBlock.Text = ''
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
@@ -1051,7 +1078,7 @@ function Start-PSGPOManagerWindow {
     }
 
     # The groups to create replace who applies it and who is denied it.
-    function Update-ApproveGpoGroups {
+    function Update-ApproveGpoGroupState {
         $create = [bool]($approveGpoGroupsCheckBox.IsVisible -and $approveGpoGroupsCheckBox.IsChecked)
         $approveGpoFilteringGrid.IsEnabled = -not $create
         $approveGpoGroupsTextBlock.Opacity = if ($create -or -not $approveGpoGroupsCheckBox.IsVisible) { 1 } else { 0.6 }
@@ -1583,7 +1610,7 @@ function Start-PSGPOManagerWindow {
     $historyBackupAllButton.Add_Click({ Invoke-HistoryBackup -Gpos @($Directory.GetVisibleGpos()) })
     # Another folder: its backups, remembered for the next time.
     $historyPathTextBox.add_KeyDown({
-        param($sender, $e)
+        param($control, $e)
         if ($e.Key -eq [Avalonia.Input.Key]::Enter) {
             Set-PSGPOUserSetting -Values @{ BackupPath = (Get-HistoryRoot) }
             Update-HistoryTab
@@ -1595,7 +1622,7 @@ function Start-PSGPOManagerWindow {
     })
 
     $directoryTabs.add_SelectionChanged({
-        param($sender, $e)
+        param($control, $e)
         # Only the selection of a tab, not of a control inside one.
         if ([object]::ReferenceEquals($e.Source, $directoryTabs)) { Update-SettingsTab; Update-HistoryTab }
     })
@@ -1633,6 +1660,26 @@ function Start-PSGPOManagerWindow {
         $newGpoMenuItem.IsVisible = $item -eq 'GroupPolicyObjects' -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo
         $editGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit
         $deleteLinkMenuItem.IsVisible = $item -is [GPOToolsGpoLink] -and -not $Directory.IsReadOnly -and $selected.Parent.Tag.CanLink
+        # A link: Enforced, Link Enabled and its order, as GPMC; a SOM: Block Inheritance.
+        $onLink = $deleteLinkMenuItem.IsVisible
+        $enforcedLinkMenuItem.IsVisible = $onLink
+        $enforcedLinkMenuItem.IsChecked = $onLink -and $item.Enforced
+        $enabledLinkMenuItem.IsVisible = $onLink
+        $enabledLinkMenuItem.IsChecked = $onLink -and $item.Enabled
+        $moveLinkUpMenuItem.IsVisible = $onLink -and $item.Order -gt 1
+        $moveLinkDownMenuItem.IsVisible = $onLink -and $item.Order -lt $selected.Parent.Tag.Links.Count
+        $blockInheritanceMenuItem.IsVisible = $item -is [GPOToolsSom] -and -not $Directory.IsReadOnly -and $item.CanLink
+        $blockInheritanceMenuItem.IsChecked = $item -is [GPOToolsSom] -and $item.BlockInheritance
+        $gpoStatusMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit -and -not $Directory.IsReadOnly
+        foreach ($statusItem in $gpoStatusEnabledMenuItem, $gpoStatusUserDisabledMenuItem, $gpoStatusComputerDisabledMenuItem, $gpoStatusAllDisabledMenuItem) {
+            $statusItem.IsChecked = $null -ne $detail.Gpo -and [int]$statusItem.Tag -eq ($detail.Gpo.Flags -band 3)
+        }
+        # WMI Filters: a new filter, the deletion of one.
+        $newWmiFilterMenuItem.IsVisible = $item -eq 'WmiFilters' -and -not $Directory.IsReadOnly
+        $deleteWmiFilterMenuItem.IsVisible = $item -is [GPOToolsWmiFilter] -and -not $Directory.IsReadOnly
+        # WMI Filter: the filters of the domain, as the WMI Filtering of the Scope tab of GPMC.
+        $wmiFilterMenuItem.IsVisible = $gpoStatusMenuItem.IsVisible -and ($Directory.WmiFilters.Count -or $null -ne $detail.Gpo.WmiFilterId)
+        if ($wmiFilterMenuItem.IsVisible) { Update-WmiFilterMenu -Gpo $detail.Gpo }
         # Delete a GPO from Group Policy Objects, as GPMC; never a default GPO of the domain.
         $deleteGpoMenuItem.IsVisible = $item -is [GPOToolsGpo] -and -not $Directory.IsReadOnly -and $item.CanEdit -and [GPOToolsDirectory]::DefaultGpoIds -notcontains $item.Id
         $restoreDeletedGpoMenuItem.IsVisible = $canRestore
@@ -1643,8 +1690,9 @@ function Start-PSGPOManagerWindow {
     })
     # Nothing to offer on this node: do not open an empty menu.
     (Get-PSGPOAvaloniaControl $window 'domainContextMenu').add_Opening({
-        param($sender, $e)
+        param($control, $e)
         if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
+                $blockInheritanceMenuItem.IsVisible -or $gpoStatusMenuItem.IsVisible -or $wmiFilterMenuItem.IsVisible -or $newWmiFilterMenuItem.IsVisible -or $deleteWmiFilterMenuItem.IsVisible -or
                 $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible -or $approveGpoMenuItem.IsVisible) -or
             -not $domainTreeView.SelectedItem) { $e.Cancel = $true }
     })
@@ -1654,7 +1702,7 @@ function Start-PSGPOManagerWindow {
     $linkGpoMenuItem.Add_Click({ $item = $domainTreeView.SelectedItem.Tag; if ($item -is [GPOToolsSom]) { Open-LinkGpoForm -Som $item } })
     # The property, not TextChanged: it is raised at once, whoever sets the text.
     $linkGpoFilterTextBox.add_PropertyChanged({
-        param($sender, $e)
+        param($control, $e)
         if ($e.Property.Name -eq 'Text' -and $linkGpoPanel.IsVisible) { Update-LinkGpoList }
     })
     $linkGpoList.add_SelectionChanged({ $linkGpoConfirmButton.IsEnabled = $null -ne $linkGpoList.SelectedItem })
@@ -1667,10 +1715,150 @@ function Start-PSGPOManagerWindow {
     $newGpoCreateButton.Add_Click({ Submit-NewGpo })
     $newGpoCancelButton.Add_Click({ $newGpoPanel.IsVisible = $false })
     $deleteLinkMenuItem.Add_Click({ Open-DeleteLinkForm })
+
+    # Links, inheritance and status, written to the domain at once, as GPMC does: the tree shows
+    # them as the domain has them, and the result says what changed or why not.
+    function Invoke-DirectoryChange {
+        param([Parameter(Mandatory)] [scriptblock]$Change, [Parameter(Mandatory)] [string]$Done, $Select)
+        try {
+            & $Change
+        } catch {
+            Update-DirectoryTree -Select $Select
+            Show-DirectoryResult -Text $_.Exception.GetBaseException().Message -Problem
+            return
+        }
+        Update-DirectoryTree -Select $Select
+        Show-DirectoryResult -Text $Done
+    }
+    # The items of WMI Filter: none, then each filter of the domain, the one of the GPO checked.
+    function Update-WmiFilterMenu {
+        param([GPOToolsGpo]$Gpo)
+        $wmiFilterMenuItem.Items.Clear()
+        foreach ($choice in @($null) + @($Directory.WmiFilters)) {
+            $item = [Avalonia.Controls.MenuItem]::new()
+            $item.Header = if ($choice) { $choice.Name } else { '(none)' }
+            $item.ToggleType = [Avalonia.Controls.MenuItemToggleType]::Radio
+            $item.GroupName = 'wmiFilter'
+            $item.IsChecked = if ($choice) { $Gpo.WmiFilterId -eq $choice.Id } else { $null -eq $Gpo.WmiFilterId }
+            $item.Tag = $choice
+            if ($choice) { [Avalonia.Controls.ToolTip]::SetTip($item, $choice.GetQueryText()) }
+            $item.Add_Click({ param($control) Set-SelectedWmiFilter -Filter $control.Tag })
+            [void]$wmiFilterMenuItem.Items.Add($item)
+        }
+    }
+    function Set-SelectedWmiFilter {
+        param([GPOToolsWmiFilter]$Filter)
+        $gpo = Get-SelectedGpo
+        if (-not $gpo) { return }
+        if ("$($gpo.WmiFilterId)" -eq "$(if ($Filter) { $Filter.Id })") { return }
+        $select = $domainTreeView.SelectedItem.Tag
+        Invoke-DirectoryChange -Select $select -Done "'$($gpo.DisplayName)' $(if ($Filter) { "is linked to the WMI filter '$($Filter.Name)': the computers apply it only when $($Filter.GetQueryText()) returns something" } else { 'is linked to no WMI filter' })." `
+            -Change { $Directory.SetWmiFilter($gpo, $Filter) }
+    }
+    # New WMI Filter... on WMI Filters, as GPMC.
+    function Open-NewWmiFilterForm {
+        $newWmiFilterNameTextBox.Text = ''
+        $newWmiFilterDescriptionTextBox.Text = ''
+        $newWmiFilterNamespaceTextBox.Text = 'root\CIMv2'
+        $newWmiFilterQueryTextBox.Text = ''
+        $newWmiFilterErrorTextBlock.Text = ''
+        Hide-DirectoryForm
+        $directoryResultTextBlock.Text = ''
+        $newWmiFilterPanel.IsVisible = $true
+        $newWmiFilterNameTextBox.Focus()
+    }
+    function Submit-NewWmiFilter {
+        $namespace = "$($newWmiFilterNamespaceTextBox.Text)".Trim()
+        if (-not $namespace) { $namespace = 'root\CIMv2' }
+        $queries = @("$($newWmiFilterQueryTextBox.Text)" -split '\r?\n' | ForEach-Object { $_.Trim() } | Where-Object { $_ } | ForEach-Object { [pscustomobject]@{ Namespace = $namespace; Query = $_ } })
+        try {
+            $filter = $Directory.NewWmiFilter($newWmiFilterNameTextBox.Text, "$($newWmiFilterDescriptionTextBox.Text)".Trim(), $queries)
+        } catch {
+            $newWmiFilterErrorTextBlock.Text = $_.Exception.GetBaseException().Message
+            return
+        }
+        $newWmiFilterPanel.IsVisible = $false
+        Update-DirectoryTree -Select $filter
+        Show-DirectoryResult -Text "WMI filter '$($filter.Name)' created. Link a GPO to it with WMI Filter in the context menu of the GPO."
+    }
+    # Delete WMI filter... on a filter, once confirmed; refused while a GPO uses it.
+    $deleteWmiFilter = @{ Filter = $null }
+    function Open-DeleteWmiFilterForm {
+        $filter = if ($domainTreeView.SelectedItem) { $domainTreeView.SelectedItem.Tag }
+        if ($filter -isnot [GPOToolsWmiFilter]) { return }
+        $deleteWmiFilter.Filter = $filter
+        $users = @($Directory.Gpos | Where-Object { $_.WmiFilterId -eq $filter.Id } | ForEach-Object DisplayName)
+        $deleteWmiFilterTextBlock.Text = "Delete the WMI filter '$($filter.Name)'? " +
+            $(if ($users.Count) { "It is used by $($users -join ', '): unlink them first (WMI Filter > (none)), it is not deleted otherwise." } else { 'No GPO uses it.' })
+        Hide-DirectoryForm
+        $directoryResultTextBlock.Text = ''
+        $deleteWmiFilterPanel.IsVisible = $true
+    }
+    function Submit-DeleteWmiFilter {
+        $filter = $deleteWmiFilter.Filter
+        if (-not $filter) { return }
+        $deleteWmiFilterPanel.IsVisible = $false
+        Invoke-DirectoryChange -Select 'WmiFilters' -Done "WMI filter '$($filter.Name)' deleted." -Change { $Directory.RemoveWmiFilter($filter) }
+    }
+    $newWmiFilterMenuItem.Add_Click({ Open-NewWmiFilterForm })
+    $newWmiFilterCreateButton.Add_Click({ Submit-NewWmiFilter })
+    $newWmiFilterCancelButton.Add_Click({ $newWmiFilterPanel.IsVisible = $false })
+    $deleteWmiFilterMenuItem.Add_Click({ Open-DeleteWmiFilterForm })
+    $deleteWmiFilterConfirmButton.Add_Click({ Submit-DeleteWmiFilter })
+    $deleteWmiFilterCancelButton.Add_Click({ $deleteWmiFilterPanel.IsVisible = $false })
+
+    function Get-SelectedLink {
+        $selected = $domainTreeView.SelectedItem
+        if ($selected -and $selected.Tag -is [GPOToolsGpoLink] -and $selected.Parent.Tag -is [GPOToolsSom]) { [pscustomobject]@{ Som = $selected.Parent.Tag; Link = $selected.Tag } }
+    }
+    $enforcedLinkMenuItem.Add_Click({
+        $pair = Get-SelectedLink
+        if (-not $pair) { return }
+        $enforced = -not $pair.Link.Enforced
+        Invoke-DirectoryChange -Select $pair.Link -Done "The link of '$($pair.Link.GetDisplayName())' to $($pair.Som.Name) is $(if ($enforced) { 'enforced: it applies even where the inheritance is blocked' } else { 'no longer enforced' })." `
+            -Change { $Directory.SetLink($pair.Som, $pair.Link, $pair.Link.Enabled, $enforced) }
+    })
+    $enabledLinkMenuItem.Add_Click({
+        $pair = Get-SelectedLink
+        if (-not $pair) { return }
+        $enabled = -not $pair.Link.Enabled
+        Invoke-DirectoryChange -Select $pair.Link -Done "The link of '$($pair.Link.GetDisplayName())' to $($pair.Som.Name) is $(if ($enabled) { 'enabled' } else { 'disabled: the GPO no longer applies there' })." `
+            -Change { $Directory.SetLink($pair.Som, $pair.Link, $enabled, $pair.Link.Enforced) }
+    })
+    # Not GetNewClosure: the closure would not see the functions of the window.
+    function Move-SelectedLink {
+        param([int]$Step)
+        $pair = Get-SelectedLink
+        if (-not $pair) { return }
+        $order = $pair.Link.Order + $Step
+        Invoke-DirectoryChange -Select $pair.Link -Done "The link of '$($pair.Link.GetDisplayName())' to $($pair.Som.Name) has the link order $order." `
+            -Change { $Directory.MoveLink($pair.Som, $pair.Link, $order) }
+    }
+    $moveLinkUpMenuItem.Add_Click({ Move-SelectedLink -Step -1 })
+    $moveLinkDownMenuItem.Add_Click({ Move-SelectedLink -Step 1 })
+    $blockInheritanceMenuItem.Add_Click({
+        $som = $domainTreeView.SelectedItem.Tag
+        if ($som -isnot [GPOToolsSom]) { return }
+        $blocked = -not $som.BlockInheritance
+        Invoke-DirectoryChange -Select $som -Done "The inheritance of $($som.Name) is $(if ($blocked) { 'blocked: the GPOs linked above apply there only when their link is enforced' } else { 'no longer blocked' })." `
+            -Change { $Directory.SetBlockInheritance($som, $blocked) }
+    })
+    foreach ($statusItem in $gpoStatusEnabledMenuItem, $gpoStatusUserDisabledMenuItem, $gpoStatusComputerDisabledMenuItem, $gpoStatusAllDisabledMenuItem) {
+        $statusItem.Add_Click({
+            param($control)
+            $gpo = Get-SelectedGpo
+            if (-not $gpo) { return }
+            $flags = [int]$control.Tag
+            $select = $domainTreeView.SelectedItem.Tag
+            if (($gpo.Flags -band 3) -eq $flags) { return }
+            Invoke-DirectoryChange -Select $select -Done "The status of '$($gpo.DisplayName)' is: $(@('Enabled', 'User configuration settings disabled', 'Computer configuration settings disabled', 'All settings disabled')[$flags])." `
+                -Change { $Directory.SetGpoStatus($gpo, $flags) }
+        })
+    }
     $deleteGpoMenuItem.Add_Click({ Open-DeleteGpoForm })
     $approveGpoMenuItem.Add_Click({ Open-ApproveGpoForm })
     $approveGpoConfirmButton.Add_Click({ Submit-ApproveGpo })
-    $approveGpoGroupsCheckBox.add_IsCheckedChanged({ Update-ApproveGpoGroups })
+    $approveGpoGroupsCheckBox.add_IsCheckedChanged({ Update-ApproveGpoGroupState })
     $approveGpoCancelButton.Add_Click({ $approveGpoPanel.IsVisible = $false })
     $deleteGpoConfirmButton.Add_Click({ Submit-DeleteGpo })
     $deleteGpoCancelButton.Add_Click({ $deleteGpoPanel.IsVisible = $false })
@@ -1683,11 +1871,11 @@ function Start-PSGPOManagerWindow {
     $newGpoGroupsCheckBox.add_IsCheckedChanged({ $newGpoGroupsPanel.IsVisible = [bool]$newGpoGroupsCheckBox.IsChecked })
     # The property, not TextChanged: it is raised at once, whoever sets the text.
     $newGpoNameTextBox.add_PropertyChanged({
-        param($sender, $e)
+        param($control, $e)
         if ($e.Property -eq [Avalonia.Controls.TextBox]::TextProperty) { Update-NewGpoGroupText }
     })
     $newGpoNameTextBox.Add_KeyDown({
-        param($sender, $e)
+        param($control, $e)
         if ($e.Key -eq [Avalonia.Input.Key]::Enter) { Submit-NewGpo }
         elseif ($e.Key -eq [Avalonia.Input.Key]::Escape) { $newGpoPanel.IsVisible = $false }
     })
@@ -1701,6 +1889,41 @@ function Start-PSGPOManagerWindow {
         $configurationWindow.Ui.Window.Show($window)
     })
     $browseAdmxButton.Add_Click({ Open-GpoEditor -Gpo $null })
+
+    # Refresh (F5): the domain read again, as GPMC does; the tree keeps what is expanded and
+    # selected. The changes of the other consoles and of GPMC show, and a GPO read again can be
+    # saved again (its version is the one of the domain).
+    # What was selected: the posted block runs once this function returned.
+    $refresh = @{ Item = $null; LinkSom = $null }
+    function Invoke-DirectoryRefresh {
+        if ($Directory -isnot [GPOToolsLdapDirectory] -or -not $refreshButton.IsEnabled) { return }
+        $selected = $domainTreeView.SelectedItem
+        $refresh.Item = if ($selected) { $selected.Tag }
+        $refresh.LinkSom = if ($refresh.Item -is [GPOToolsGpoLink] -and $selected.Parent.Tag -is [GPOToolsSom]) { $selected.Parent.Tag.DistinguishedName }
+        $refreshButton.IsEnabled = $false
+        Show-DirectoryResult -Text "Reading the domain again from $($Directory.Server)..."
+        # Posted: the text shows before the window waits for the domain.
+        [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {
+                try {
+                    Update-PSGPODirectoryFromDomain -Directory $Directory
+                } catch {
+                    $refreshButton.IsEnabled = $true
+                    Show-DirectoryResult -Text "The domain is not read again: $($_.Exception.GetBaseException().Message)" -Problem
+                    return
+                }
+                $settingsCache.Clear()
+                $history.Current = @{}
+                $backupLists.Root = $null
+                Update-DirectoryTree -Select (Find-PSGPODirectoryItem -Directory $Directory -Item $refresh.Item -LinkSom $refresh.LinkSom)
+                $refreshButton.IsEnabled = $true
+                Show-DirectoryResult -Text "The domain is read again from $($Directory.Server), at $((Get-Date).ToString('T'))."
+            }, [Avalonia.Threading.DispatcherPriority]::Background)
+    }
+    $refreshButton.Add_Click({ Invoke-DirectoryRefresh })
+    $window.add_KeyDown({
+        param($control, $e)
+        if ($e.Key -eq [Avalonia.Input.Key]::F5 -and $managementView.IsVisible) { Invoke-DirectoryRefresh; $e.Handled = $true }
+    })
 
     $directoryHint = if ($Directory.IsReadOnly) { "Read-only: $($Directory.Source)" } else { 'Right-click a domain or an OU to create a GPO' }
     $directoryBreadcrumbTextBlock.Text = $directoryHint
@@ -1757,7 +1980,8 @@ function Start-PSGPOManagerWindow {
             'detailsTitleTextBlock', 'configurationButton', 'preferencesPanel', 'preferencesTitleTextBlock', 'preferencesInfoTextBlock', 'preferencesNewTypeComboBox',
             'preferencesNewButton', 'preferencesEditButton', 'preferencesDeleteButton', 'preferencesUpButton', 'preferencesDownButton',
             'preferencesStatusTextBlock', 'preferencesEmptyTextBlock', 'preferencesList', 'preferencesDeletePanel', 'preferencesDeleteTextBlock',
-            'preferencesDeleteConfirmButton', 'preferencesDeleteCancelButton', 'preferencesFormBorder', 'preferencesFormTitleTextBlock',
+            'preferencesDeleteConfirmButton', 'preferencesDeleteCancelButton', 'preferencesFormBorder', 'preferencesFormTitleTextBlock', 'refreshButton',
+            'enforcedLinkMenuItem', 'enabledLinkMenuItem', 'moveLinkUpMenuItem', 'moveLinkDownMenuItem', 'blockInheritanceMenuItem', 'gpoStatusMenuItem', 'wmiFilterMenuItem', 'newWmiFilterMenuItem', 'deleteWmiFilterMenuItem', 'newWmiFilterPanel', 'newWmiFilterNameTextBox', 'newWmiFilterDescriptionTextBox', 'newWmiFilterNamespaceTextBox', 'newWmiFilterQueryTextBox', 'newWmiFilterErrorTextBlock', 'newWmiFilterCreateButton', 'newWmiFilterCancelButton', 'deleteWmiFilterPanel', 'deleteWmiFilterTextBlock', 'deleteWmiFilterConfirmButton', 'deleteWmiFilterCancelButton', 'gpoStatusEnabledMenuItem', 'gpoStatusUserDisabledMenuItem', 'gpoStatusComputerDisabledMenuItem', 'gpoStatusAllDisabledMenuItem',
             'preferencesFormHost', 'preferencesFormErrorTextBlock', 'preferencesSaveButton', 'preferencesCancelButton') {
             $controls[$name] = Get-PSGPOAvaloniaControl $window $name
         }
@@ -1770,6 +1994,7 @@ function Start-PSGPOManagerWindow {
         [Avalonia.Threading.Dispatcher]::UIThread.MainLoop($cts.Token)
     } catch [System.OperationCanceledException] {
         # Expected: the loop exits by cancellation once the window is closed.
+        Write-Verbose 'The window is closed.'
     }
 
     if ($onShownState.Error) { throw $onShownState.Error }

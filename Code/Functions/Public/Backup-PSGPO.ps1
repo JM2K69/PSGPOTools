@@ -46,7 +46,7 @@ function Backup-PSGPO {
     .LINK
         Get-PSGPODrift
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType('PSGPOTools.Backup')]
     param(
         [Parameter(Mandatory)]
@@ -92,6 +92,7 @@ function Backup-PSGPO {
             $Directory.Gpos
         }
         foreach ($gpo in @($gpos)) {
+            if (-not $PSCmdlet.ShouldProcess("GPO '$($gpo.DisplayName)'", "Back it up in $Path")) { continue }
             try {
                 Save-PSGPOBackup -Directory $Directory -Gpo $gpo -Path $Path -Comment $Comment -Label $labels -Force:$Force
             } catch {

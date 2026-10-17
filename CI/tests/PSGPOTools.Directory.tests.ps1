@@ -184,8 +184,9 @@ class FailingDirectory : GPOToolsDirectory {
             @($Roots[0].Children.Header) | Should -Be @(
                 'Default Domain Policy', 'C - All - LAPS (enforced)', 'C - All - Defender Antivirus', 'C - All - Windows Firewall',
                 'Domain Controllers', 'Tier 0 (blocks inheritance)', 'Servers', 'Sites', 'Staging (blocks inheritance)', 'Disabled Objects',
-                'Group Policy Objects')
-            @($Roots[0].Children[-1].Children.Tag) | Should -Be @($Directory.Gpos)
+                'Group Policy Objects', 'WMI Filters')
+            @($Roots[0].Children[-2].Children.Tag) | Should -Be @($Directory.Gpos)
+            $Roots[0].Children[-1].Tag | Should -Be 'WmiFilters'
         }
 
         It 'Marks the enforced and disabled links' {
@@ -205,8 +206,9 @@ class FailingDirectory : GPOToolsDirectory {
             $Roots = New-PSGPODirectoryTree -Directory $Directory -Expanded $Keys
             ($Roots[0].Children | Where-Object Header -EQ 'Sites').IsExpanded | Should -BeTrue
             ($Roots[0].Children | Where-Object Header -EQ 'Servers').IsExpanded | Should -BeFalse
-            $Roots[0].Children[-1].IsExpanded | Should -BeTrue
-            Get-PSGPODirectoryNodeKey $Roots[0].Children[-1] | Should -Be 'GPOS:DC=corp,DC=contoso,DC=com'
+            $Roots[0].Children[-2].IsExpanded | Should -BeTrue
+            Get-PSGPODirectoryNodeKey $Roots[0].Children[-2] | Should -Be 'GPOS:DC=corp,DC=contoso,DC=com'
+            Get-PSGPODirectoryNodeKey $Roots[0].Children[-1] | Should -Be 'WMI:DC=corp,DC=contoso,DC=com'
             Get-PSGPODirectoryNodeKey $Roots[0].Children[0] | Should -BeNullOrEmpty
         }
     }
@@ -277,8 +279,9 @@ class FailingDirectory : GPOToolsDirectory {
             ($Domain.Children | Where-Object Header -EQ 'Tier 0 (blocks inheritance)').Icon | Should -Be 'folder-prohibited'
             ($Domain.Children | Where-Object Header -EQ 'Default Domain Policy').Icon | Should -Be 'link'
             ($Domain.Children | Where-Object Header -EQ 'C - All - LAPS (enforced)').Icon | Should -Be 'lock-closed'
-            $Domain.Children[-1].Icon | Should -Be 'library'
-            $Domain.Children[-1].Children[0].Icon | Should -Be 'document-settings'
+            $Domain.Children[-2].Icon | Should -Be 'library'
+            $Domain.Children[-2].Children[0].Icon | Should -Be 'document-settings'
+            $Domain.Children[-1].Icon | Should -Be 'filter'
             $Lyon = ($Domain.Children | Where-Object Header -EQ 'Sites').Children | Where-Object Header -EQ 'Lyon'
             (($Lyon.Children | Where-Object Header -EQ 'Workstations').Children | Where-Object Header -Like '*(link disabled)').Icon | Should -Be 'link-dismiss'
         }

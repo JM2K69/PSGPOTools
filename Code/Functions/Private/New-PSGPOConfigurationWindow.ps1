@@ -209,7 +209,7 @@ function New-PSGPOConfigurationWindow {
 
     # Closing with changes not saved (Close, or the window frame) asks once more.
     $Window.add_Closing({
-        param($Sender, $Arguments)
+        param($control, $Arguments)
         if ($State.Dirty -and -not $State.CloseAsked) {
             $Arguments.Cancel = $true
             $State.CloseAsked = $true

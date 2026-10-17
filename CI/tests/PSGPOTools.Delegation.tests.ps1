@@ -85,7 +85,7 @@ InModuleScope -ModuleName PSGPOTools {
         It 'Shows the OUs it manages with the path to them, and hides the others' {
             $Domain = @($Roots)[0]
             # The domain: no link shown, only the path to Lyon, and the GPO container.
-            @($Domain.Children.Header) | Should -Be @('Lyon', 'Group Policy Objects')
+            @($Domain.Children.Header) | Should -Be @('Lyon', 'Group Policy Objects', 'WMI Filters')
             $Lyon = Get-Node $Roots 'Lyon'
             $Lyon.IconBrush | Should -Be '#8A8886' -Because 'it is only the path to the OUs it manages'
             @($Lyon.Children.Header) | Should -Be @('Workstations (blocks inheritance)')
