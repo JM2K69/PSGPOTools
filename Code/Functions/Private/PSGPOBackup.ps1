@@ -179,6 +179,10 @@ function Get-PSGPOBackupProperty {
         DeniedTo = $denied
         MachineExtensionNames = $Gpo.MachineExtensionNames
         UserExtensionNames = $Gpo.UserExtensionNames
+        WmiFilter = $(
+            $filter = $Directory.GetWmiFilter($Gpo)
+            if ($filter) { [ordered]@{ Id = $filter.Id.ToString(); Name = $filter.Name; Queries = $filter.GetQueryText() } }
+            elseif ($null -ne $Gpo.WmiFilterId) { [ordered]@{ Id = $Gpo.WmiFilterId.ToString(); Name = $null; Queries = $null } })
         Links = @(foreach ($pair in @($Directory.GetLinksOf($Gpo) | Sort-Object { $_.Som.DistinguishedName })) {
                 [ordered]@{ Container = $pair.Som.DistinguishedName; Enabled = $pair.Link.Enabled; Enforced = $pair.Link.Enforced; Order = $pair.Link.Order }
             })
@@ -256,6 +260,9 @@ function ConvertTo-PSGPOBackupEntry {
         SecurityFiltering = $gpo.SecurityFiltering
         DeniedTo = $gpo.DeniedTo
         Links = @($gpo.Links)
+        # $null in a backup of a GPO without WMI filter, and in the backups made before they were kept
+        WmiFilter = $gpo.WmiFilter
+        HasWmiFilter = $gpo.Contains('WmiFilter')
         Flags = [int]$gpo.Flags
         # $null in a backup of a GPO whose extensions were not read
         MachineExtensionNames = $gpo.MachineExtensionNames
@@ -299,11 +306,12 @@ function Save-PSGPOBackup {
 
     $last = Get-PSGPOBackupEntry -Path $Path -Id $Gpo.Id | Select-Object -First 1
     if ($last -and -not $Force) {
-        $same = (ConvertTo-Json -Depth 5 -Compress @($last.Files)) -eq (ConvertTo-Json -Depth 5 -Compress $fileList) -and
+        $same = (ConvertTo-Json -Depth 5 -Compress -InputObject @($last.Files)) -eq (ConvertTo-Json -Depth 5 -Compress -InputObject $fileList) -and
             $last.Version -eq $properties.Version -and $last.Status -eq $properties.Status -and $last.DisplayName -ceq $properties.DisplayName -and
-            (ConvertTo-Json -Compress @($last.SecurityFiltering)) -eq (ConvertTo-Json -Compress @($properties.SecurityFiltering)) -and
-            (ConvertTo-Json -Compress @($last.DeniedTo)) -eq (ConvertTo-Json -Compress @($properties.DeniedTo)) -and
-            (ConvertTo-Json -Depth 5 -Compress @($last.Links)) -eq (ConvertTo-Json -Depth 5 -Compress @($properties.Links))
+            (ConvertTo-Json -Compress -InputObject @($last.SecurityFiltering)) -eq (ConvertTo-Json -Compress -InputObject @($properties.SecurityFiltering)) -and
+            (ConvertTo-Json -Compress -InputObject @($last.DeniedTo)) -eq (ConvertTo-Json -Compress -InputObject @($properties.DeniedTo)) -and
+            (ConvertTo-Json -Depth 5 -Compress -InputObject @($last.Links)) -eq (ConvertTo-Json -Depth 5 -Compress -InputObject @($properties.Links)) -and
+            "$($last.WmiFilter.Id)" -eq "$($properties.WmiFilter.Id)"
         if ($same) {
             # Its labels (the approval of the GPO as it is); the comment is of a change: none here.
             if (@($labels | Where-Object { $_ -notin @($last.Labels) }).Count) {
@@ -429,6 +437,9 @@ function Get-PSGPOSettingReport {
     New-ReportRow 'GPO' 'Properties' 'GPO status' $Property.Status
     New-ReportRow 'GPO' 'Properties' 'Security filtering' $(if ($null -eq $Property.SecurityFiltering) { 'Not read' } else { @($Property.SecurityFiltering) -join ', ' })
     New-ReportRow 'GPO' 'Properties' 'Denied to' (@($Property.DeniedTo) -join ', ')
+    if ($Property.WmiFilter) {
+        New-ReportRow 'GPO' 'Properties' 'WMI filter' $(if ($Property.WmiFilter.Name) { "$($Property.WmiFilter.Name): $($Property.WmiFilter.Queries)" } else { "{$($Property.WmiFilter.Id)}" })
+    }
     foreach ($link in @($Property.Links)) {
         New-ReportRow 'GPO' 'Links' $link.Container ('{0}, {1}' -f $(if ($link.Enabled) { 'Link enabled' } else { 'Link disabled' }), $(if ($link.Enforced) { 'enforced' } else { 'not enforced' }))
     }
@@ -476,7 +487,7 @@ function Get-PSGPOBackupSetting {
 
     $property = @{
         DisplayName = $Backup.DisplayName; Status = $Backup.Status; SecurityFiltering = $Backup.SecurityFiltering
-        DeniedTo = $Backup.DeniedTo; Links = $Backup.Links
+        DeniedTo = $Backup.DeniedTo; Links = $Backup.Links; WmiFilter = $Backup.WmiFilter
     }
     Get-PSGPOSettingReport -Files (Read-PSGPOBackupFile -Backup $Backup) -Property $property
 }
@@ -662,6 +673,10 @@ function Restore-PSGPODeletedGpo {
         $problems.Add("The GPO is created, but its settings are not restored: $($_.Exception.GetBaseException().Message)")
     }
 
+    if ($restored) {
+        $problem = Restore-PSGPOWmiFilterLink -Directory $Directory -Gpo $gpo -Backup $Backup
+        if ($problem) { $problems.Add($problem) }
+    }
     $filtering = @($Backup.SecurityFiltering)
     $default = ($filtering -join '|') -eq 'Authenticated Users' -and -not @($Backup.DeniedTo | Where-Object { $_ }).Count
     if (-not $default) {
@@ -729,4 +744,28 @@ function Get-PSGPOFileExtensionName {
         $names = Add-PSGPOExtensionName -Current $names -Extension ([GPOToolsDirectory]::SecurityExtension) -Tool ([GPOToolsDirectory]::SecurityTool)
     }
     $names
+}
+
+# The WMI filter of a restored GPO as the backup has it, as GPMC restores it: linked again when the
+# filter is still in the domain. Returns what could not be done, or nothing. A backup made before
+# the WMI filters were kept leaves it as it is.
+function Restore-PSGPOWmiFilterLink {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
+        [Parameter(Mandatory)] $Backup
+    )
+
+    if (-not $Backup.HasWmiFilter) { return }
+    $wanted = if ($Backup.WmiFilter) { [guid]$Backup.WmiFilter.Id }
+    if ("$wanted" -eq "$($Gpo.WmiFilterId)") { return }
+    if ($null -eq $wanted) {
+        try { $Directory.SetWmiFilter($Gpo, $null) } catch { return "Its WMI filter is not removed: $($_.Exception.GetBaseException().Message)" }
+        return
+    }
+    $filter = $Directory.FindWmiFilter($wanted.ToString())
+    if (-not $filter) { return "Its WMI filter '$($Backup.WmiFilter.Name)' is not in the domain anymore: create it again, then link the GPO to it." }
+    try { $Directory.SetWmiFilter($Gpo, $filter) } catch { return "Its WMI filter '$($filter.Name)' is not linked again: $($_.Exception.GetBaseException().Message)" }
 }

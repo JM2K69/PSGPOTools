@@ -95,6 +95,12 @@ $iconResources
                             <TextBlock Text='Group Policy Management' VerticalAlignment='Center'/>
                         </StackPanel>
                     </Button>
+                    <Button Name='refreshButton' Height='36' ToolTip.Tip='Read the domain again (F5)'>
+                        <StackPanel Orientation='Horizontal' Spacing='8'>
+                            <PathIcon Data='{StaticResource Icon.arrow-sync}'/>
+                            <TextBlock Text='Refresh' VerticalAlignment='Center'/>
+                        </StackPanel>
+                    </Button>
                     <Button Name='browseAdmxButton' Height='36'>
                         <StackPanel Orientation='Horizontal' Spacing='8'>
                             <PathIcon Data='{StaticResource Icon.book}'/>
@@ -199,6 +205,24 @@ $iconResources
                                 </MenuItem>
                                 <MenuItem Name='editGpoMenuItem' Header='Edit...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.edit}'/></MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Name='enforcedLinkMenuItem' Header='Enforced' ToggleType='CheckBox'/>
+                                <MenuItem Name='enabledLinkMenuItem' Header='Link Enabled' ToggleType='CheckBox'/>
+                                <MenuItem Name='moveLinkUpMenuItem' Header='Move link up'/>
+                                <MenuItem Name='moveLinkDownMenuItem' Header='Move link down'/>
+                                <MenuItem Name='blockInheritanceMenuItem' Header='Block Inheritance' ToggleType='CheckBox'/>
+                                <MenuItem Name='gpoStatusMenuItem' Header='GPO Status'>
+                                    <MenuItem Name='gpoStatusEnabledMenuItem' Header='Enabled' ToggleType='Radio' Tag='0'/>
+                                    <MenuItem Name='gpoStatusUserDisabledMenuItem' Header='User Configuration Settings Disabled' ToggleType='Radio' Tag='1'/>
+                                    <MenuItem Name='gpoStatusComputerDisabledMenuItem' Header='Computer Configuration Settings Disabled' ToggleType='Radio' Tag='2'/>
+                                    <MenuItem Name='gpoStatusAllDisabledMenuItem' Header='All Settings Disabled' ToggleType='Radio' Tag='3'/>
+                                </MenuItem>
+                                <MenuItem Name='wmiFilterMenuItem' Header='WMI Filter'/>
+                                <MenuItem Name='newWmiFilterMenuItem' Header='New WMI Filter...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.add}'/></MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Name='deleteWmiFilterMenuItem' Header='Delete WMI filter...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.delete}'/></MenuItem.Icon>
                                 </MenuItem>
                                 <MenuItem Name='deleteLinkMenuItem' Header='Delete link...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.link-dismiss}'/></MenuItem.Icon>
@@ -353,6 +377,42 @@ $iconResources
                                             <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
                                                 <Button Name='restoreGpoConfirmButton' Content='Restore' Width='110'/>
                                                 <Button Name='restoreGpoCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- A new WMI filter of the domain, as GPMC: its name, description and WQL queries -->
+                                    <Border Name='newWmiFilterPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Text='New WMI filter' FontWeight='SemiBold' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBlock Text='Name' FontSize='12' Opacity='0.8' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBox Name='newWmiFilterNameTextBox' Watermark='Name'/>
+                                            <TextBlock Text='Description' FontSize='12' Opacity='0.8' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBox Name='newWmiFilterDescriptionTextBox' Watermark='Description (optional)'/>
+                                            <TextBlock Text='Namespace' FontSize='12' Opacity='0.8' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBox Name='newWmiFilterNamespaceTextBox' Text='root\CIMv2' Watermark='Namespace'/>
+                                            <TextBlock Text='WQL queries, one per line' FontSize='12' Opacity='0.8' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBox Name='newWmiFilterQueryTextBox' AcceptsReturn='True' TextWrapping='Wrap' MinHeight='70'
+                                                     Watermark='WQL queries, one per line: SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1'/>
+                                            <TextBlock Name='newWmiFilterErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='newWmiFilterCreateButton' Content='Create' Width='100'/>
+                                                <Button Name='newWmiFilterCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Deletion of a WMI filter no GPO uses -->
+                                    <Border Name='deleteWmiFilterPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='#D13438'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='deleteWmiFilterTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='deleteWmiFilterConfirmButton' Content='Delete' Width='120'/>
+                                                <Button Name='deleteWmiFilterCancelButton' Content='Cancel' Width='100'/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>

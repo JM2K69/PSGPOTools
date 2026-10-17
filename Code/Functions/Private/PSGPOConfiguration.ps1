@@ -130,6 +130,8 @@ function Test-PSGPOConfiguration {
     }
     if ("$($workflow.ApprovedOwner)" -match ',') { 'Workflow.ApprovedOwner is one group.' }
     if ($workflow.Enabled -and "$($workflow.Creators)".Trim() -eq '') { 'Workflow.Creators must name the groups of the creators when the workflow is enabled.' }
+    $audit = "$($Configuration.Audit.Path)".Trim()
+    if ($audit -and -not [System.IO.Path]::IsPathRooted($audit)) { "Audit.Path must be a full path (a share: \\server\gpo-audit), not '$audit'." }
     if ($groups.Container -and "$($groups.Container)" -notmatch '^(?:(?:OU|CN)=[^,]+)(?:,(?:OU|CN|DC)=[^,]+)*$') { "NewGpo.SecurityFilteringGroups.Container is not a distinguished name: '$($groups.Container)'." }
 }
 

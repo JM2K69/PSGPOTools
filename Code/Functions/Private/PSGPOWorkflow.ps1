@@ -118,7 +118,7 @@ function Find-PSGPODomainAccount {
         $entry = @(Invoke-PSGPOLdapBinarySearch -Connection $Connection -SearchBase $DomainDistinguishedName `
                 -Filter "(sAMAccountName=$(ConvertTo-PSGPOLdapFilterValue $account))" -Attribute 'objectSid') | Select-Object -First 1
         if (-not $entry -or -not $entry.Values['objectSid']) { throw "No account named '$item' in the domain." }
-        [pscustomobject]@{ Name = $account; Sid = ConvertFrom-PSGPOSidBytes -Bytes ([byte[]]$entry.Values['objectSid'][0]) }
+        [pscustomobject]@{ Name = $account; Sid = ConvertFrom-PSGPOBinarySid -Bytes ([byte[]]$entry.Values['objectSid'][0]) }
     }
 }
 
@@ -144,9 +144,9 @@ function Get-PSGPOAccountGroupSid {
     }
     if (-not $entry) { return [string[]]@() }
     $sids = [System.Collections.Generic.List[string]]::new()
-    $sids.Add((ConvertFrom-PSGPOSidBytes -Bytes ([byte[]]$entry.Values['objectSid'][0])))
+    $sids.Add((ConvertFrom-PSGPOBinarySid -Bytes ([byte[]]$entry.Values['objectSid'][0])))
     $token = @(Invoke-PSGPOLdapBinarySearch -Connection $Connection -SearchBase $entry.DistinguishedName -Scope Base -Attribute 'tokenGroups') | Select-Object -First 1
-    foreach ($value in @($token.Values['tokenGroups'])) { if ($value) { $sids.Add((ConvertFrom-PSGPOSidBytes -Bytes ([byte[]]$value))) } }
+    foreach ($value in @($token.Values['tokenGroups'])) { if ($value) { $sids.Add((ConvertFrom-PSGPOBinarySid -Bytes ([byte[]]$value))) } }
     , [string[]]$sids
 }
 
@@ -185,7 +185,7 @@ function Update-PSGPODomainWorkflow {
         # Read, not taken from a SID of the configuration: the owner may be a builtin group.
         $domain = @(Invoke-PSGPOLdapBinarySearch -Connection $Connection -SearchBase $domainDN -Scope Base -Attribute 'objectSid') | Select-Object -First 1
         if (-not $domain -or -not $domain.Values['objectSid']) { throw "the SID of the domain $domainDN cannot be read." }
-        $domainSid = ConvertFrom-PSGPOSidBytes -Bytes ([byte[]]$domain.Values['objectSid'][0])
+        $domainSid = ConvertFrom-PSGPOBinarySid -Bytes ([byte[]]$domain.Values['objectSid'][0])
         # The role of the account is read in its groups: an account that is not found would be
         # neither a creator nor an approver, and the GPOs it creates would be approved at once.
         if (-not $Directory.Account -or $Directory.Account -eq 'Anonymous') { throw 'the server does not say which account the console is connected with (LDAP "Who am I?").' }

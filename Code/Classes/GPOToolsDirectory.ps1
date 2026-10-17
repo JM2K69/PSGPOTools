@@ -47,6 +47,8 @@ class GPOToolsGpo {
     # The permissions its approval removed that neither its creator nor the creators had (SDDL):
     # someone added them while it was pending
     [string[]]$RemovedAtApproval = @()
+    # WMI filter of the GPO (gPCWQLFilter): the Id of a msWMI-Som object; $null without one
+    [Nullable[guid]]$WmiFilterId
 
     # -band: -shr keeps the sign, a user version of 0x8000 or more would be negative.
     [int] GetUserVersion() { return ($this.Version -shr 16) -band 0xFFFF }
@@ -68,6 +70,23 @@ class GPOToolsGpo {
     }
 
     [string] ToString() { return $this.DisplayName }
+}
+
+# A WMI filter of the domain (msWMI-Som in CN=SOM,CN=WMIPolicy,CN=System): the computers apply the
+# GPOs linked to it only when one of its queries returns something.
+class GPOToolsWmiFilter {
+    [guid]$Id
+    [string]$Name
+    [string]$Description
+    [string]$DistinguishedName
+    # Its WQL queries: Namespace (root\CIMv2) and Query, as msWMI-Parm2 holds them
+    [object[]]$Queries = @()
+
+    [string] GetQueryText() {
+        return (@($this.Queries | ForEach-Object { "$($_.Namespace): $($_.Query)" }) -join '; ')
+    }
+
+    [string] ToString() { return $this.Name }
 }
 
 class GPOToolsGpoLink {
@@ -161,6 +180,8 @@ class GPOToolsDirectory {
     [string]$Account
     # The account can create GPOs (groupPolicyContainer objects in CN=Policies)
     [bool]$CanCreateGpo = $true
+    # WMI filters of the domain
+    [System.Collections.Generic.List[GPOToolsWmiFilter]]$WmiFilters
     # Approval workflow of the domain (Update-PSGPODomainWorkflow): Enabled, IsApprover,
     # IsCreator, the SIDs and names of the groups, the owner of the approved GPOs; $null without it
     [pscustomobject]$Workflow
@@ -169,6 +190,7 @@ class GPOToolsDirectory {
         if ([string]::IsNullOrWhiteSpace($DomainName)) { throw 'The domain name is required.' }
         $this.DomainName = $DomainName
         $this.Gpos = [System.Collections.Generic.List[GPOToolsGpo]]::new()
+        $this.WmiFilters = [System.Collections.Generic.List[GPOToolsWmiFilter]]::new()
         $this.Domain = [GPOToolsSom]::new()
         $this.Domain.Name = $DomainName
         $this.Domain.DistinguishedName = (($DomainName.Split('.') | ForEach-Object { "DC=$_" }) -join ',')
@@ -243,6 +265,15 @@ class GPOToolsDirectory {
         }
         $this.Gpos.Add($Gpo)
         return $Gpo
+    }
+
+    # Takes everything $Read has (the domain read again, of the same type): what holds this
+    # directory (the window, its handlers) sees the domain as it is now.
+    [void] ReplaceWith([GPOToolsDirectory]$Read) {
+        if ($Read.GetType() -ne $this.GetType()) { throw "The directory read again is a $($Read.GetType().Name), not a $($this.GetType().Name)." }
+        foreach ($Property in $this.GetType().GetProperties([System.Reflection.BindingFlags]'Instance, Public')) {
+            if ($Property.CanWrite) { $Property.SetValue($this, $Property.GetValue($Read)) }
+        }
     }
 
     # The GPOs by name, as GPMC lists them.
@@ -459,6 +490,103 @@ class GPOToolsDirectory {
         return $Created
     }
 
+    # The WMI filter of a GPO; $null without one, or when it is not in the domain anymore.
+    [GPOToolsWmiFilter] GetWmiFilter([GPOToolsGpo]$Gpo) {
+        if ($null -eq $Gpo.WmiFilterId) { return $null }
+        foreach ($Filter in $this.WmiFilters) { if ($Filter.Id -eq $Gpo.WmiFilterId) { return $Filter } }
+        return $null
+    }
+
+    # A WMI filter by name (case-insensitive) or Id.
+    [GPOToolsWmiFilter] FindWmiFilter([string]$NameOrId) {
+        $Id = [guid]::Empty
+        $IsId = [guid]::TryParse($NameOrId.Trim('{', '}', ' '), [ref]$Id)
+        foreach ($Filter in $this.WmiFilters) {
+            if (($IsId -and $Filter.Id -eq $Id) -or [string]::Equals($Filter.Name, $NameOrId, [System.StringComparison]::OrdinalIgnoreCase)) { return $Filter }
+        }
+        return $null
+    }
+
+    # Links a GPO to a WMI filter ($null: none), as the WMI Filtering of the Scope tab of GPMC.
+    [void] SetWmiFilter([GPOToolsGpo]$Gpo, [GPOToolsWmiFilter]$Filter) {
+        $this.AssertWritable()
+        if (-not $Gpo.CanEdit) { throw "The account $($this.Account) cannot edit the GPO '$($Gpo.DisplayName)'." }
+        if ($Filter -and -not $this.WmiFilters.Contains($Filter)) { throw "The WMI filter '$($Filter.Name)' is not a filter of $($this.DomainName)." }
+        $this.SaveWmiFilter($Gpo, $Filter)
+        $Gpo.WmiFilterId = if ($Filter) { $Filter.Id } else { $null }
+    }
+
+    # Creates a WMI filter: its queries are WQL queries of a namespace (root\CIMv2).
+    [GPOToolsWmiFilter] NewWmiFilter([string]$Name, [string]$Description, [object[]]$Queries) {
+        $this.AssertWritable()
+        $Name = "$Name".Trim()
+        if (-not $Name) { throw 'The name of the WMI filter is required.' }
+        if ($this.FindWmiFilter($Name)) { throw "A WMI filter named '$Name' already exists in $($this.DomainName)." }
+        if (-not @($Queries).Count) { throw 'A WMI filter has at least one query.' }
+        $Filter = [GPOToolsWmiFilter]::new()
+        $Filter.Id = [guid]::NewGuid()
+        $Filter.Name = $Name
+        $Filter.Description = $Description
+        $Filter.Queries = @($Queries | ForEach-Object { [pscustomobject]@{ Namespace = $(if ($_.Namespace) { $_.Namespace } else { 'root\CIMv2' }); Query = "$($_.Query)" } })
+        $Filter.DistinguishedName = 'CN={{{0}}},CN=SOM,CN=WMIPolicy,CN=System,{1}' -f $Filter.Id.ToString().ToUpperInvariant(), $this.Domain.DistinguishedName
+        $this.SaveNewWmiFilter($Filter)
+        $this.WmiFilters.Add($Filter)
+        return $Filter
+    }
+
+    # Deletes a WMI filter no GPO is linked to, as GPMC does.
+    [void] RemoveWmiFilter([GPOToolsWmiFilter]$Filter) {
+        $this.AssertWritable()
+        $Linked = @($this.Gpos | Where-Object { $_.WmiFilterId -eq $Filter.Id } | ForEach-Object DisplayName)
+        if ($Linked.Count) { throw "The WMI filter '$($Filter.Name)' is used by $($Linked -join ', '): it is not deleted." }
+        $this.SaveRemovedWmiFilter($Filter)
+        [void]$this.WmiFilters.Remove($Filter)
+    }
+
+    # Enables or disables a link, enforces it or not, like the Link Enabled and Enforced items of
+    # GPMC.
+    [void] SetLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link, [bool]$Enabled, [bool]$Enforced) {
+        $this.AssertWritable()
+        $this.AssertCanLink($Som)
+        if (-not $Som.Links.Contains($Link)) { throw "This link is not a link of $($Som.Name) anymore." }
+        # Only what changes: another console may have changed the other option meanwhile.
+        [Nullable[bool]]$NewEnabled = $null
+        [Nullable[bool]]$NewEnforced = $null
+        if ($Enabled -ne $Link.Enabled) { $NewEnabled = $Enabled }
+        if ($Enforced -ne $Link.Enforced) { $NewEnforced = $Enforced }
+        if ($null -eq $NewEnabled -and $null -eq $NewEnforced) { return }
+        $this.SaveLink($Som, $Link, $NewEnabled, $NewEnforced, 0)
+        if ($null -ne $NewEnabled) { $Link.Enabled = $Enabled }
+        if ($null -ne $NewEnforced) { $Link.Enforced = $Enforced }
+    }
+
+    # Moves a link to the link order $Order (1 is the highest precedence), the others following
+    # in their order, like the arrows of the Linked Group Policy Objects tab of GPMC.
+    [void] MoveLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link, [int]$Order) {
+        $this.AssertWritable()
+        $this.AssertCanLink($Som)
+        if (-not $Som.Links.Contains($Link)) { throw "This link is not a link of $($Som.Name) anymore." }
+        if ($Order -lt 1 -or $Order -gt $Som.Links.Count) { throw "Link order ${Order}: $($Som.Name) has $($Som.Links.Count) link$(if ($Som.Links.Count -ne 1) { 's' }) (1 to $($Som.Links.Count))." }
+        $this.SaveLink($Som, $Link, $null, $null, $Order)
+        # As the domain has them: the same order whether the links were read again or not.
+        $Others = @($Som.Links | Where-Object { -not [object]::ReferenceEquals($_, $Link) } | Sort-Object Order)
+        $Position = 1
+        foreach ($Other in $Others) {
+            if ($Position -eq $Order) { $Position++ }
+            $Other.Order = $Position++
+        }
+        $Link.Order = $Order
+    }
+
+    # Blocks the inheritance of a SOM or not, like GPMC "Block Inheritance": the GPOs linked to its
+    # parents no longer apply there, but for the enforced links.
+    [void] SetBlockInheritance([GPOToolsSom]$Som, [bool]$Blocked) {
+        $this.AssertWritable()
+        $this.AssertCanLink($Som)
+        $this.SaveBlockInheritance($Som, $Blocked)
+        $Som.BlockInheritance = $Blocked
+    }
+
     # Deletes a link of a SOM, like GPMC "Delete" on a link: the GPO itself is kept, the links
     # after it move up one link order.
     [void] RemoveLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {
@@ -598,6 +726,13 @@ class GPOToolsDirectory {
     hidden [void] SaveGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {}
     # SaveRemovedLink may set the links of the SOM again from the domain.
     hidden [void] SaveRemovedLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {}
+    # SaveLink may set the links of the SOM again from the domain; $null keeps an option, $Order 0
+    # the link order.
+    hidden [void] SaveLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link, [Nullable[bool]]$Enabled, [Nullable[bool]]$Enforced, [int]$Order) {}
+    hidden [void] SaveBlockInheritance([GPOToolsSom]$Som, [bool]$Blocked) {}
+    hidden [void] SaveWmiFilter([GPOToolsGpo]$Gpo, [GPOToolsWmiFilter]$Filter) {}
+    hidden [void] SaveNewWmiFilter([GPOToolsWmiFilter]$Filter) {}
+    hidden [void] SaveRemovedWmiFilter([GPOToolsWmiFilter]$Filter) {}
     # A GPO of a creator, made to wait for its approval: it applies to nobody.
     hidden [void] SavePendingGpo([GPOToolsGpo]$Gpo) {
         $Gpo.SecurityFiltering = @()
@@ -696,34 +831,73 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
 
     hidden [void] SaveNewGpo([GPOToolsGpo]$Gpo) {
         New-PSGPODomainGpo -Directory $this -Gpo $Gpo
+        Write-PSGPOAuditEntry -Directory $this -Action 'NewGpo' -Target $Gpo.DistinguishedName -Gpo $Gpo
     }
 
     hidden [void] SaveNewLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {
         Add-PSGPODomainGpLink -Directory $this -Som $Som -Link $Link
+        Write-PSGPOAuditEntry -Directory $this -Action 'NewLink' -Target $Som.DistinguishedName -Gpo $Link.Gpo -Details @{ Order = $Link.Order }
     }
 
     hidden [void] SaveGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {
-        Set-PSGPODomainGpoFlags -Directory $this -Gpo $Gpo -Flags $Flags
+        Set-PSGPODomainGpoStatus -Directory $this -Gpo $Gpo -Flags $Flags
+        Write-PSGPOAuditEntry -Directory $this -Action 'SetGpoStatus' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details @{ Flags = $Flags }
     }
 
     hidden [void] SaveRemovedLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {
         Remove-PSGPODomainGpLink -Directory $this -Som $Som -Link $Link
+        Write-PSGPOAuditEntry -Directory $this -Action 'RemoveLink' -Target $Som.DistinguishedName -Gpo $Link.Gpo -Details @{ Gpo = $Link.GpoDistinguishedName }
+    }
+
+    hidden [void] SaveLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link, [Nullable[bool]]$Enabled, [Nullable[bool]]$Enforced, [int]$Order) {
+        Set-PSGPODomainGpLink -Directory $this -Som $Som -Link $Link -Enabled $Enabled -Enforced $Enforced -Order $Order
+        $Changed = [ordered]@{}
+        if ($null -ne $Enabled) { $Changed.Enabled = [bool]$Enabled }
+        if ($null -ne $Enforced) { $Changed.Enforced = [bool]$Enforced }
+        if ($Order) { $Changed.Order = $Order }
+        Write-PSGPOAuditEntry -Directory $this -Action 'SetLink' -Target $Som.DistinguishedName -Gpo $Link.Gpo -Details $Changed
+    }
+
+    hidden [void] SaveBlockInheritance([GPOToolsSom]$Som, [bool]$Blocked) {
+        $null = Set-PSGPODomainBlockInheritance -Directory $this -Som $Som -Blocked $Blocked
+        Write-PSGPOAuditEntry -Directory $this -Action 'SetBlockInheritance' -Target $Som.DistinguishedName -Details @{ Blocked = $Blocked }
+    }
+
+    hidden [void] SaveWmiFilter([GPOToolsGpo]$Gpo, [GPOToolsWmiFilter]$Filter) {
+        Set-PSGPODomainWmiFilterLink -Directory $this -Gpo $Gpo -Filter $Filter
+        Write-PSGPOAuditEntry -Directory $this -Action 'SetWmiFilter' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details @{ WmiFilter = $(if ($Filter) { $Filter.Name }); WmiFilterId = $(if ($Filter) { $Filter.Id.ToString() }) }
+    }
+
+    hidden [void] SaveNewWmiFilter([GPOToolsWmiFilter]$Filter) {
+        New-PSGPODomainWmiFilter -Directory $this -Filter $Filter
+        Write-PSGPOAuditEntry -Directory $this -Action 'NewWmiFilter' -Target $Filter.DistinguishedName -Details ([ordered]@{ Name = $Filter.Name; Queries = $Filter.GetQueryText() })
+    }
+
+    hidden [void] SaveRemovedWmiFilter([GPOToolsWmiFilter]$Filter) {
+        Remove-PSGPODomainWmiFilter -Directory $this -Filter $Filter
+        Write-PSGPOAuditEntry -Directory $this -Action 'RemoveWmiFilter' -Target $Filter.DistinguishedName -Details @{ Name = $Filter.Name }
     }
 
     hidden [void] SaveRemovedGpo([GPOToolsGpo]$Gpo) {
         Remove-PSGPODomainGpo -Directory $this -Gpo $Gpo
+        Write-PSGPOAuditEntry -Directory $this -Action 'RemoveGpo' -Target $Gpo.DistinguishedName -Gpo $Gpo
     }
 
     hidden [void] SavePendingGpo([GPOToolsGpo]$Gpo) {
         Set-PSGPODomainPendingGpo -Directory $this -Gpo $Gpo
+        Write-PSGPOAuditEntry -Directory $this -Action 'PendingGpo' -Target $Gpo.DistinguishedName -Gpo $Gpo
     }
 
     hidden [void] SaveApprovedGpo([GPOToolsGpo]$Gpo, [string]$CreatorRights, [string]$ApplyToSid, [string]$DenyToSid) {
         $Gpo.RemovedAtApproval = Approve-PSGPODomainGpo -Directory $this -Gpo $Gpo -CreatorRights $CreatorRights -ApplyToSid $ApplyToSid -DenyToSid $DenyToSid
+        Write-PSGPOAuditEntry -Directory $this -Action 'ApproveGpo' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details ([ordered]@{
+                CreatedBy = $Gpo.Owner; CreatorRights = $CreatorRights; ApplyTo = $ApplyToSid; DenyTo = $DenyToSid; RemovedPermissions = @($Gpo.RemovedAtApproval) })
     }
 
     hidden [object[]] SaveApprovalGroups([GPOToolsGpo]$Gpo, [string]$Container) {
-        return New-PSGPODomainFilteringGroup -Directory $this -Gpo $Gpo -Container $Container -NoFiltering
+        $Created = New-PSGPODomainFilteringGroup -Directory $this -Gpo $Gpo -Container $Container -NoFiltering
+        Write-PSGPOAuditEntry -Directory $this -Action 'NewFilteringGroups' -Target $Container -Gpo $Gpo -Details @{ Groups = @($Created | ForEach-Object DistinguishedName) }
+        return $Created
     }
 
     # The configuration of the domain in the SYSVOL share of the domain controller.
@@ -741,10 +915,13 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
         } else {
             Remove-PSGPOSysvolItem -Directory $this -Share 'SYSVOL' -Path "$($this.DomainName)\PSGPOTools\Configuration.psd1"
         }
+        Write-PSGPOAuditEntry -Directory $this -Action 'SaveConfiguration' -Target $this.GetConfigurationPath() -Details @{ Removed = -not ($Bytes -and $Bytes.Length) }
     }
 
     hidden [object[]] SaveFilteringGroups([GPOToolsGpo]$Gpo, [string]$Container) {
-        return New-PSGPODomainFilteringGroup -Directory $this -Gpo $Gpo -Container $Container
+        $Created = New-PSGPODomainFilteringGroup -Directory $this -Gpo $Gpo -Container $Container
+        Write-PSGPOAuditEntry -Directory $this -Action 'NewFilteringGroups' -Target $Container -Gpo $Gpo -Details @{ Groups = @($Created | ForEach-Object DistinguishedName) }
+        return $Created
     }
 
     hidden [byte[]] LoadGpoFile([GPOToolsGpo]$Gpo, [string]$Path) {
@@ -761,10 +938,13 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
 
     hidden [void] SaveRestoredGpo([GPOToolsGpo]$Gpo, [System.Collections.IDictionary]$Files, [int]$Flags, [string]$MachineExtensionNames, [string]$UserExtensionNames) {
         Restore-PSGPODomainGpo -Directory $this -Gpo $Gpo -Files $Files -Flags $Flags -MachineExtensionNames $MachineExtensionNames -UserExtensionNames $UserExtensionNames
+        Write-PSGPOAuditEntry -Directory $this -Action 'RestoreGpo' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details @{ Files = @($Files.Keys); Version = $Gpo.Version }
     }
 
     hidden [void] SaveGpoFile([GPOToolsGpo]$Gpo, [string]$Path, [byte[]]$Bytes, [string]$Folder, [string[]]$Extension, [string]$Tool) {
         Save-PSGPODomainGpoFile -Directory $this -Gpo $Gpo -Path $Path -Bytes $Bytes -Folder $Folder -Extension $Extension -Tool $Tool
+        Write-PSGPOAuditEntry -Directory $this -Action 'SaveGpoFile' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details ([ordered]@{
+                Path = $Path; Size = $Bytes.Length; Sha256 = [Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData($Bytes)); Version = $Gpo.Version })
     }
 
     # Directory service of a domain controller from the vendorName of its rootDSE: Samba sets it,

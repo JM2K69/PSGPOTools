@@ -70,6 +70,7 @@ function Read-PSGPOSysvolItem {
     )
 
     if ($IsWindows) {
+        Use-PSGPOSysvolCredential -Directory $Directory -Share $Share
         $file = "\\$($Directory.Server)\$Share\$Path"
         if (-not (Test-Path -LiteralPath $file -PathType Leaf)) { return $null }
         return , [System.IO.File]::ReadAllBytes($file)
@@ -101,6 +102,7 @@ function Write-PSGPOSysvolItem {
     $separator = $Path.LastIndexOfAny([char[]]'\/')
     $folder = if ($separator -gt 0) { $Path.Substring(0, $separator) } else { '' }
     if ($IsWindows) {
+        Use-PSGPOSysvolCredential -Directory $Directory -Share $Share
         $file = "\\$($Directory.Server)\$Share\$Base\$Path"
         $null = New-Item -ItemType Directory -Path (Split-Path -Path $file -Parent) -Force
         [System.IO.File]::WriteAllBytes($file, $Bytes)
@@ -132,6 +134,7 @@ function Remove-PSGPOSysvolItem {
     )
 
     if ($IsWindows) {
+        Use-PSGPOSysvolCredential -Directory $Directory -Share $Share
         $file = "\\$($Directory.Server)\$Share\$Path"
         if (Test-Path -LiteralPath $file -PathType Leaf) { Remove-Item -LiteralPath $file -Force -ErrorAction Stop }
         return
@@ -170,6 +173,7 @@ function Read-PSGPOSysvolFolder {
     $location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
     $local = $null
     if ($IsWindows) {
+        Use-PSGPOSysvolCredential -Directory $Directory -Share $($location.Share)
         $root = "\\$($Directory.Server)\$($location.Share)\$($location.Path)"
         if (-not (Test-Path -LiteralPath $root -PathType Container)) { throw "The folder of the GPO '$($Gpo.DisplayName)' is not in SYSVOL: $root" }
     } else {
@@ -219,6 +223,36 @@ function Assert-PSGPOGpoFilePath {
     $segments = @("$Path" -split '[\\/]')
     $bad = -not $Path -or $Path -match '^[\\/]' -or $segments.Where({ $_ -in '', '.', '..' -or $_ -match '[\x00-\x1f:*?"<>|]' -or $_.EndsWith('.') -or $_.EndsWith(' ') }).Count
     if ($bad) { throw "Not a path of a file in a GPO folder: '$Path'." }
+}
+
+# Windows, a directory read with -Credential: SYSVOL is reached with that account too, as LDAP is,
+# through an SMB connection to the share with it (as net use \\server\SYSVOL /user:...), opened
+# once. Without it, SYSVOL would be written with the identity of the session, and the directory
+# with another account. Nothing to do without -Credential, nor on Linux (Kerberos only).
+$script:PSGPOSysvolConnections = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+function Use-PSGPOSysvolCredential {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [string]$Share
+    )
+
+    if (-not $IsWindows -or -not $Directory.Credential) { return }
+    $root = "\\$($Directory.Server)\$Share"
+    $key = "$root|$($Directory.Credential.UserName)"
+    if ($script:PSGPOSysvolConnections.Contains($key)) { return }
+    try {
+        $null = New-PSDrive -Name ('PSGPO' + [guid]::NewGuid().ToString('N').Substring(0, 8)) -PSProvider FileSystem -Root $root -Credential $Directory.Credential -Scope Global -ErrorAction Stop
+    } catch {
+        $message = $_.Exception.GetBaseException().Message
+        # ERROR_SESSION_CREDENTIAL_CONFLICT: Windows has one account per server and session.
+        if ($message -match '1219|multiple connections|plusieurs connexions') {
+            throw "$root is already reached with another account in this Windows session: close those connections (net use \\$($Directory.Server)\* /delete), or read the domain without -Credential. $message"
+        }
+        throw "$root cannot be reached as $($Directory.Credential.UserName): $message"
+    }
+    [void]$script:PSGPOSysvolConnections.Add($key)
+    Write-Verbose "$root reached as $($Directory.Credential.UserName)."
 }
 
 function Assert-PSGPOKerberosOnly {
@@ -338,7 +372,7 @@ function Save-PSGPODomainGpoFile {
         # $Bytes is the whole file, from the copy read with the GPO: if the GPO changed since
         # (another console, GPMC), writing it would undo those changes without a word.
         if ([int]$oldVersion -ne $Gpo.Version) {
-            throw "The GPO $($Gpo.DisplayName) changed since it was read (version $($Gpo.Version), now $([int]$oldVersion)): $Path is not saved, so that those changes are not lost. Read the domain again (open the console again) and make the change again."
+            throw "The GPO $($Gpo.DisplayName) changed since it was read (version $($Gpo.Version), now $([int]$oldVersion)): $Path is not saved, so that those changes are not lost. Read the domain again (Refresh, F5, in the console) and make the change again."
         }
         $version = [GPOToolsDirectory]::GetNextVersion([int]$oldVersion, $Folder)
         $oldExtensions = Get-PSGPOLdapValue $entry $extensionAttribute
@@ -385,6 +419,7 @@ function Remove-PSGPOSysvolFile {
     Assert-PSGPOGpoFilePath -Path $Path
     $location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
     if ($IsWindows) {
+        Use-PSGPOSysvolCredential -Directory $Directory -Share $($location.Share)
         # A file that is not deleted is an error: the restored GPO would keep it.
         $file = "\\$($Directory.Server)\$($location.Share)\$($location.Path)\$Path"
         if (Test-Path -LiteralPath $file -PathType Leaf) { Remove-Item -LiteralPath $file -Force -ErrorAction Stop }

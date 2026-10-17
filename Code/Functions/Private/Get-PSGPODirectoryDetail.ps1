@@ -10,8 +10,8 @@ function Get-PSGPODirectoryDetail {
         [Parameter(Mandatory)]
         [GPOToolsDirectory]$Directory,
 
-        # GPOToolsSom, GPOToolsGpoLink, GPOToolsGpo, 'GroupPolicyObjects', 'DeletedGpos' or the
-        # backup of a deleted GPO
+        # GPOToolsSom, GPOToolsGpoLink, GPOToolsGpo, GPOToolsWmiFilter, 'GroupPolicyObjects',
+        # 'WmiFilters', 'DeletedGpos' or the backup of a deleted GPO
         [AllowNull()]
         $Item,
 
@@ -98,6 +98,12 @@ function Get-PSGPODirectoryDetail {
                 elseif ($Gpo.SecurityFiltering.Count -eq 0) { 'Nobody: the GPO applies to no computer or user' }
                 else { $Gpo.SecurityFiltering -join ', ' })
             if ($Gpo.DeniedTo.Count) { New-Row 'Denied to' ($Gpo.DeniedTo -join ', ') }
+            # WMI filtering, as the Scope tab of GPMC.
+            $WmiFilter = $Directory.GetWmiFilter($Gpo)
+            New-Row 'WMI filter' $(
+                if ($null -eq $Gpo.WmiFilterId) { 'None' }
+                elseif ($WmiFilter) { "$($WmiFilter.Name) ($($WmiFilter.GetQueryText()))" }
+                else { "{$($Gpo.WmiFilterId.ToString().ToUpperInvariant())}: not in the domain anymore, the computers ignore the GPO" })
             New-Row 'User version' $Gpo.GetUserVersion()
             New-Row 'Computer version' $Gpo.GetComputerVersion()
             New-Row 'Distinguished name' $Gpo.DistinguishedName
@@ -129,6 +135,21 @@ function Get-PSGPODirectoryDetail {
         # Not "= if (...) { @(...) }": the output of if unrolls a list of one row.
         $Detail.Properties = @(foreach ($Backup in $DeletedGpo) { New-Row $Backup.DisplayName "Last backup: $(& $Date $Backup.BackedUp)" })
         if (-not $DeletedGpo.Count) { $Detail.Properties = @(New-Row 'None' 'No GPO deleted from the domain has a backup in the folder of the History tab.') }
+    } elseif ($Item -eq 'WmiFilters') {
+        $Detail.Title = "WMI Filters in $($Directory.DomainName)"
+        $Detail.Properties = @(foreach ($Filter in $Directory.WmiFilters) { New-Row $Filter.Name $Filter.GetQueryText() })
+        if (-not $Directory.WmiFilters.Count) { $Detail.Properties = @(New-Row 'None' 'No WMI filter in the domain: New WMI Filter... in the context menu creates one.') }
+    } elseif ($Item -is [GPOToolsWmiFilter]) {
+        $Detail.Title = $Item.Name
+        $Users = @($Directory.Gpos | Where-Object { $_.WmiFilterId -eq $Item.Id } | ForEach-Object DisplayName)
+        $Detail.Properties = @(
+            New-Row 'Type' 'WMI filter'
+            New-Row 'Description' $(if ($Item.Description) { $Item.Description } else { '(none)' })
+            foreach ($Query in @($Item.Queries)) { New-Row 'Query' "$($Query.Namespace): $($Query.Query)" }
+            New-Row 'GPOs using it' $(if ($Users.Count) { $Users -join [Environment]::NewLine } else { 'None' })
+            New-Row 'Unique ID' ('{' + $Item.Id.ToString().ToUpperInvariant() + '}')
+            New-Row 'Distinguished name' $Item.DistinguishedName
+        )
     } elseif ($Item -eq 'GroupPolicyObjects') {
         $Detail.Title = "Group Policy Objects in $($Directory.DomainName)"
         $Detail.Properties = @(foreach ($Gpo in $Directory.GetVisibleGpos()) { New-Row $Gpo.DisplayName $Gpo.GetStatus() })

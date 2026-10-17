@@ -25,6 +25,8 @@ $script:PSGPOIconBrush = @{
     # Deleted GPOs (their backups), templates of new GPOs
     'delete'            = '#8A8886'
     'document-copy'     = '#8764B8'
+    # WMI filters
+    'filter'            = '#5C2E91'
     # Preferences ([MS-GPPREF]): their own colour, apart from the policies
     'toolbox'           = '#038387'
     'wrench'            = '#038387'

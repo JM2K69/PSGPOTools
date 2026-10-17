@@ -70,11 +70,14 @@ PowerShellVersion = '7.4'
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = 'Approve-PSGPO', 'Backup-PSGPO', 'Compare-PSGPOBackup', 
-               'Get-PSGPOBackup', 'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 
-               'Get-PSGPODirectory', 'Get-PSGPODrift', 'Get-PSGPOPolicy', 
-               'Get-PSGPOSupportedOn', 'Import-PSGPODirectory', 
-               'Initialize-PSGPOAdmx', 'Initialize-PSGPOWorkflow', 'New-PSGPO', 
-               'Remove-PSGPO', 'Restore-PSGPO', 'Set-PSGPOBackup', 
+               'Get-PSGPOAuditLog', 'Get-PSGPOBackup', 'Get-PSGPOCategory', 
+               'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 'Get-PSGPODrift', 
+               'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 'Get-PSGPOWmiFilter', 
+               'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 
+               'Initialize-PSGPOWorkflow', 'New-PSGPO', 'New-PSGPOLink', 
+               'New-PSGPOWmiFilter', 'Remove-PSGPO', 'Remove-PSGPOLink', 
+               'Remove-PSGPOWmiFilter', 'Restore-PSGPO', 'Set-PSGPO', 
+               'Set-PSGPOBackup', 'Set-PSGPOInheritance', 'Set-PSGPOLink', 
                'Show-GPOManagerAvalonia'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

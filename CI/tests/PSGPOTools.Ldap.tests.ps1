@@ -650,6 +650,9 @@ InModuleScope -ModuleName PSGPOTools {
             $null = Invoke-PSGPOSambaTool -ArgumentList 'ou', 'add', $OuDN, '-H', "ldap://$Server", '--use-kerberos=required'
             $Directory = Get-PSGPODirectory -Server $Server
             $Ou = $Directory.FindSom($OuDN)
+            # The changes of the tests go to an audit log of the test, not to that of the account.
+            $script:AuditLog = Join-Path $TestDrive 'audit'
+            Mock Get-PSGPOAuditPath { $script:AuditLog }
         }
 
         AfterAll {
@@ -696,6 +699,94 @@ InModuleScope -ModuleName PSGPOTools {
             $Gpo = $Directory.FindGpo($GpoName)
             { $Directory.NewLink($Ou, $Gpo) } | Should -Throw -ExpectedMessage '*already linked*'
             (Get-PSGPODirectory -Server $Server).FindSom($OuDN).Links.Count | Should -Be 2
+        }
+
+        It 'Enforces, disables and moves a link, and blocks the inheritance of the OU, as the domain reads them back' {
+            $Second = $Ou.Links | Where-Object { $_.Gpo.DisplayName -eq $SecondName }
+            $Directory.SetLink($Ou, $Second, $false, $true)
+            $Directory.MoveLink($Ou, $Second, 1)
+            $Directory.SetBlockInheritance($Ou, $true)
+
+            $ReadOu = (Get-PSGPODirectory -Server $Server).FindSom($OuDN)
+            @($ReadOu.Links | Sort-Object Order | ForEach-Object { $_.Gpo.DisplayName }) | Should -Be @($SecondName, $GpoName)
+            $ReadSecond = $ReadOu.Links | Where-Object { $_.Gpo.DisplayName -eq $SecondName }
+            $ReadSecond.Enabled | Should -BeFalse
+            $ReadSecond.Enforced | Should -BeTrue
+            $ReadOu.BlockInheritance | Should -BeTrue
+
+            # Back as they were, for the next tests.
+            $Directory.SetLink($Ou, $Second, $true, $false)
+            $Directory.MoveLink($Ou, $Second, 2)
+            $Directory.SetBlockInheritance($Ou, $false)
+            $ReadOu = (Get-PSGPODirectory -Server $Server).FindSom($OuDN)
+            @($ReadOu.Links | Sort-Object Order | ForEach-Object { $_.Gpo.DisplayName }) | Should -Be @($GpoName, $SecondName)
+            @($ReadOu.Links.Enabled) | Should -Be @($true, $true)
+            $ReadOu.BlockInheritance | Should -BeFalse
+        }
+
+        It 'Creates a WMI filter, links the GPO to it, reads both back, and deletes the filter once unlinked' {
+            $Gpo = $Directory.FindGpo($GpoName)
+            $FilterName = "PSGPOTools test WMI $Stamp"
+            $Filter = $Directory.NewWmiFilter($FilterName, 'Test of PSGPOTools', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = "SELECT * FROM Win32_OperatingSystem WHERE Caption LIKE '%;%'" }))
+            try {
+                $Directory.SetWmiFilter($Gpo, $Filter)
+                $Read = Get-PSGPODirectory -Server $Server
+                $ReadFilter = $Read.FindWmiFilter($FilterName)
+                $ReadFilter.Id | Should -Be $Filter.Id
+                $ReadFilter.Description | Should -Be 'Test of PSGPOTools'
+                $ReadFilter.Queries[0].Query | Should -Be "SELECT * FROM Win32_OperatingSystem WHERE Caption LIKE '%;%'"
+                $Read.FindGpo($GpoName).WmiFilterId | Should -Be $Filter.Id
+                { $Directory.RemoveWmiFilter($Filter) } | Should -Throw -ExpectedMessage '*is used by*'
+                $Directory.SetWmiFilter($Gpo, $null)
+                (Get-PSGPODirectory -Server $Server).FindGpo($GpoName).WmiFilterId | Should -BeNullOrEmpty
+            } finally {
+                if ($Gpo.WmiFilterId) { $Directory.SetWmiFilter($Gpo, $null) }
+                $Directory.RemoveWmiFilter($Filter)
+            }
+            (Get-PSGPODirectory -Server $Server).FindWmiFilter($FilterName) | Should -BeNullOrEmpty
+        }
+
+        It 'Writes the changes the domain accepted to the audit log' {
+            $Entries = @(Get-PSGPOAuditLog -Path $script:AuditLog -Domain $Directory.DomainName)
+            @($Entries.Action) | Should -Contain 'NewGpo'
+            @($Entries.Action) | Should -Contain 'NewLink'
+            @($Entries.Action) | Should -Contain 'SetLink'
+            @($Entries.Action) | Should -Contain 'SetBlockInheritance'
+            ($Entries | Where-Object Action -EQ 'NewGpo' | Select-Object -Last 1).GpoName | Should -Be $GpoName
+            ($Entries | Select-Object -First 1).Server | Should -Be $Directory.Server
+        }
+
+        It 'Reads the domain again in place, as Refresh does' {
+            $Console = Get-PSGPODirectory -Server $Server
+            $Held = $Console
+            $Other = Get-PSGPODirectory -Server $Server
+            $Other.SetBlockInheritance($Other.FindSom($OuDN), $true)
+            try {
+                Update-PSGPODirectoryFromDomain -Directory $Console
+                [object]::ReferenceEquals($Held, $Console) | Should -BeTrue
+                $Console.FindSom($OuDN).BlockInheritance | Should -BeTrue -Because 'the change of the other console shows'
+            } finally {
+                $Other.SetBlockInheritance($Other.FindSom($OuDN), $false)
+            }
+        }
+
+        It 'Keeps the change another console made to the links meanwhile' {
+            $Other = Get-PSGPODirectory -Server $Server
+            $OtherOu = $Other.FindSom($OuDN)
+            $Second = $Ou.Links | Where-Object { $_.Gpo.DisplayName -eq $SecondName }
+            $Directory.SetLink($Ou, $Second, $true, $true)
+            # The other console read the links before: it changes the links as the domain has them.
+            $OtherSecond = $OtherOu.Links | Where-Object { $_.Gpo.DisplayName -eq $SecondName }
+            $Other.MoveLink($OtherOu, $OtherSecond, 1)
+            $OtherSecond.Enforced | Should -BeTrue -Because 'the enforced link the first console set is kept'
+            $ReadOu = (Get-PSGPODirectory -Server $Server).FindSom($OuDN)
+            ($ReadOu.Links | Where-Object { $_.Gpo.DisplayName -eq $SecondName }).Enforced | Should -BeTrue
+            ($ReadOu.Links | Where-Object { $_.Gpo.DisplayName -eq $SecondName }).Order | Should -Be 1
+            $Other.SetLink($OtherOu, $OtherSecond, $true, $false)
+            $Other.MoveLink($OtherOu, $OtherSecond, 2)
+            # The first console reads its links again (the next tests use it).
+            $Directory.SetLinks($Ou, [GPOToolsGpoLink]::Format($OtherOu.Links))
+            foreach ($Link in $Ou.Links) { $Link.Gpo = $Directory.FindGpoByDistinguishedName($Link.GpoDistinguishedName) }
         }
 
         It 'Writes the Registry.pol of the GPO in SYSVOL and increases its version' {

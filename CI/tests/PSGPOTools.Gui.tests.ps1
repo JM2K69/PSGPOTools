@@ -394,7 +394,8 @@ InModuleScope -ModuleName PSGPOTools {
 
                 $Domain = @($Ui.domainTreeView.ItemsSource)[0]
                 $Domain.Header | Should -Be 'corp.contoso.com'
-                $Domain.Children[-2].Header | Should -Be 'Group Policy Objects'
+                $Domain.Children[-3].Header | Should -Be 'Group Policy Objects'
+                $Domain.Children[-2].Header | Should -Be 'WMI Filters'
                 $Domain.Children[-1].Header | Should -Be 'Deleted GPOs' -Because 'the recycle bin of the GPOs, from their backups'
                 # The IsExpanded binding reaches the tree view item.
                 $Ui.Window.UpdateLayout()
@@ -682,8 +683,8 @@ InModuleScope -ModuleName PSGPOTools {
                     $C.pathTextBlock.Text | Should -BeLike 'Configuration of the domain corp.contoso.com, for every console of the domain: SYSVOL\corp.contoso.com\PSGPOTools\Configuration.psd1*(not created yet)*'
                     $C.saveButton.IsEnabled | Should -BeTrue
                     $Rows = @($C.settingsList.ItemsSource)
-                    $Rows.Count | Should -Be 16
-                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 16
+                    $Rows.Count | Should -Be 17
+                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 17
                     ($Rows | Where-Object Key -EQ 'NewGpo.SecurityFilteringGroups.ApplyPrefix').Default | Should -BeLike 'Default: APPLY_ - Names of the groups*'
 
                     # Create: a choice, a boolean, a text.
@@ -928,6 +929,123 @@ InModuleScope -ModuleName PSGPOTools {
                 (Get-DomainNode $Ui 'Sites', 'Lyon', 'Users').Children.Header | Should -Not -Contain 'U - Lyon - Printers'
                 (Get-DomainNode $Ui 'Group Policy Objects').Children.Header | Should -Contain 'U - Lyon - Printers'
             }
+        }
+
+        It 'Enforces, disables and moves a link, blocks the inheritance and sets the status of a GPO from the context menu' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Users = $Ui.Directory.FindSom('OU=Users,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com')
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Users', 'U - Lyon - Printers'
+                $Ui.enforcedLinkMenuItem.IsVisible | Should -BeTrue
+                $Ui.enforcedLinkMenuItem.IsChecked | Should -BeFalse
+                $Ui.enabledLinkMenuItem.IsChecked | Should -BeTrue
+                $Ui.moveLinkUpMenuItem.IsVisible | Should -BeTrue
+                $Ui.moveLinkDownMenuItem.IsVisible | Should -BeFalse -Because 'it is the last link'
+                $Ui.blockInheritanceMenuItem.IsVisible | Should -BeFalse -Because 'a link is not an OU'
+
+                Invoke-Click $Ui.enforcedLinkMenuItem
+                $Link = $Users.Links | Where-Object { $_.Gpo.DisplayName -eq 'U - Lyon - Printers' }
+                $Link.Enforced | Should -BeTrue
+                $Ui.domainTreeView.SelectedItem.Header | Should -Be 'U - Lyon - Printers (enforced)'
+                $Ui.enforcedLinkMenuItem.IsChecked | Should -BeTrue
+                $Ui.directoryResultTextBlock.Text | Should -BeLike '*is enforced*'
+
+                Invoke-Click $Ui.moveLinkUpMenuItem
+                $Link.Order | Should -Be 3
+                @($Users.Links | Sort-Object Order | ForEach-Object { $_.Gpo.DisplayName })[2] | Should -Be 'U - Lyon - Printers'
+                $Ui.moveLinkDownMenuItem.IsVisible | Should -BeTrue
+
+                Invoke-Click $Ui.enabledLinkMenuItem
+                $Link.Enabled | Should -BeFalse
+                $Ui.enabledLinkMenuItem.IsChecked | Should -BeFalse
+
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Users'
+                $Ui.blockInheritanceMenuItem.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.blockInheritanceMenuItem
+                $Users.BlockInheritance | Should -BeTrue
+                $Ui.domainTreeView.SelectedItem.Header | Should -Be 'Users (blocks inheritance)'
+
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'U - Lyon - Printers'
+                $Ui.gpoStatusMenuItem.IsVisible | Should -BeTrue
+                # A user GPO: its computer settings disabled.
+                $Ui.gpoStatusComputerDisabledMenuItem.IsChecked | Should -BeTrue
+                $Ui.gpoStatusEnabledMenuItem.IsChecked | Should -BeFalse
+                Invoke-Click $Ui.gpoStatusAllDisabledMenuItem
+                $Ui.Directory.FindGpo('U - Lyon - Printers').GetStatus() | Should -Be 'All settings disabled'
+                $Ui.gpoStatusAllDisabledMenuItem.IsChecked | Should -BeTrue
+                $Ui.directoryResultTextBlock.Text | Should -BeLike '*All settings disabled*'
+            }
+        }
+
+        It 'Links a GPO to a WMI filter from its context menu' {
+            $Filter = $Directory.NewWmiFilter('Laptops', '', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_Battery' }))
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'C - Laptops - Power Management'
+                $Ui.wmiFilterMenuItem.IsVisible | Should -BeTrue
+                @($Ui.wmiFilterMenuItem.Items.Header) | Should -Be @('(none)', 'Laptops')
+                @($Ui.wmiFilterMenuItem.Items)[0].IsChecked | Should -BeTrue
+                Invoke-Click @($Ui.wmiFilterMenuItem.Items)[1]
+                $Ui.Directory.FindGpo('C - Laptops - Power Management').WmiFilterId | Should -Be $Filter.Id
+                $Ui.directoryResultTextBlock.Text | Should -BeLike "*is linked to the WMI filter 'Laptops'*"
+                ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'WMI filter').Value | Should -BeLike 'Laptops (*'
+                @($Ui.wmiFilterMenuItem.Items)[1].IsChecked | Should -BeTrue
+            }
+        }
+
+        It 'Creates a WMI filter in WMI Filters, and deletes it once no GPO uses it' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters'
+                $Ui.newWmiFilterMenuItem.IsVisible | Should -BeTrue
+                $Ui.deleteWmiFilterMenuItem.IsVisible | Should -BeFalse
+                ($Ui.directoryPropertiesList.ItemsSource | Select-Object -First 1).Key | Should -Be 'None'
+                Invoke-Click $Ui.newWmiFilterMenuItem
+                $Ui.newWmiFilterPanel.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.newWmiFilterCreateButton
+                $Ui.newWmiFilterErrorTextBlock.Text | Should -Be 'The name of the WMI filter is required.'
+                $Ui.newWmiFilterNameTextBox.Text = 'Workstations'
+                $Ui.newWmiFilterQueryTextBox.Text = "SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1`n"
+                Invoke-Click $Ui.newWmiFilterCreateButton
+                $Ui.newWmiFilterPanel.IsVisible | Should -BeFalse
+                $Filter = $Ui.Directory.FindWmiFilter('Workstations')
+                $Filter.Queries[0].Query | Should -Be 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1'
+                $Filter.Queries[0].Namespace | Should -Be 'root\CIMv2'
+                $Ui.domainTreeView.SelectedItem.Tag | Should -Be $Filter
+                $Ui.directoryTitleTextBlock.Text | Should -Be 'Workstations'
+
+                $Ui.deleteWmiFilterMenuItem.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.deleteWmiFilterMenuItem
+                $Ui.deleteWmiFilterTextBlock.Text | Should -BeLike "Delete the WMI filter 'Workstations'? No GPO uses it."
+                Invoke-Click $Ui.deleteWmiFilterConfirmButton
+                $Ui.Directory.WmiFilters.Count | Should -Be 0
+                $Ui.domainTreeView.SelectedItem.Tag | Should -Be 'WmiFilters'
+                $Ui.directoryResultTextBlock.Text | Should -Be "WMI filter 'Workstations' deleted."
+            }
+        }
+
+        It 'Reads the domain again (Refresh, F5), keeping what is selected' {
+            $Set = Get-TestLdapEntrySet
+            $Read = ConvertTo-PSGPOLdapDirectory -Server 'dc.hardenbox.labo' -VendorName 'Samba Team' -DomainEntry $Set.Domain -OrganizationalUnitEntry $Set.Ous -GpoEntry $Set.Gpos 3>$null
+            # The domain as another console left it: one more GPO.
+            $script:Again = ConvertTo-PSGPOLdapDirectory -Server 'dc.hardenbox.labo' -VendorName 'Samba Team' -DomainEntry $Set.Domain -OrganizationalUnitEntry $Set.Ous -GpoEntry $Set.Gpos 3>$null
+            $null = $script:Again.AddGpo('Created by another console', [guid]::Empty)
+            Mock Get-PSGPODirectory { $script:Again }
+            Mock Use-PSGPODomainConfiguration { }
+            Start-PSGPOManagerWindow -Directory $Read -OnShown {
+                param($Ui)
+                $Ui.refreshButton.IsVisible | Should -BeTrue
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                (Get-DomainNode $Ui 'Group Policy Objects').Children.Header | Should -Not -Contain 'Created by another console'
+                Invoke-Click $Ui.refreshButton
+                $Ui.directoryResultTextBlock.Text | Should -BeLike 'Reading the domain again from dc.hardenbox.labo...'
+                Invoke-UiLoop -Until { $Ui.refreshButton.IsEnabled -and $Ui.directoryResultTextBlock.Text -like '*is read again*' }
+                $Ui.directoryResultTextBlock.Text | Should -BeLike 'The domain is read again from dc.hardenbox.labo, at *'
+                (Get-DomainNode $Ui 'Group Policy Objects').Children.Header | Should -Contain 'Created by another console'
+                $Ui.domainTreeView.SelectedItem.Tag | Should -Be 'GroupPolicyObjects' -Because 'the selection is kept'
+                $Ui.Directory.FindGpo('Created by another console') | Should -Not -BeNullOrEmpty -Because 'the same directory object holds the domain read again'
+            }
+            Should -Invoke Get-PSGPODirectory -Times 1 -ParameterFilter { $Server -eq 'dc.hardenbox.labo' }
         }
 
         It 'Links an existing GPO from the context menu, offering only the GPOs not linked there' {

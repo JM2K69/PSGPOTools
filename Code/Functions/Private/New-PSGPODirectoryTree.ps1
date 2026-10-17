@@ -18,6 +18,7 @@ function Get-PSGPODirectoryNodeKey {
     if ($Node.Tag -is [GPOToolsSom]) { 'SOM:' + $Node.Tag.DistinguishedName }
     elseif ($Node.Tag -eq 'GroupPolicyObjects') { 'GPOS:' + $Node.Parent.Tag.DistinguishedName }
     elseif ($Node.Tag -eq 'DeletedGpos') { 'DELETED:' + $Node.Parent.Tag.DistinguishedName }
+    elseif ($Node.Tag -eq 'WmiFilters') { 'WMI:' + $Node.Parent.Tag.DistinguishedName }
 }
 
 function New-PSGPODirectoryTree {
@@ -82,6 +83,9 @@ function New-PSGPODirectoryTree {
             [void](New-Node $Gpo.DisplayName 'document-settings' $Gpo $GposNode)
         }
     }
+    # WMI Filters, as GPMC: every filter of the domain.
+    $WmiNode = New-Node 'WMI Filters' 'filter' 'WmiFilters' $DomainNode
+    foreach ($Filter in $Directory.WmiFilters) { [void](New-Node $Filter.Name 'filter' $Filter $WmiNode) }
     if ($null -ne $DeletedGpo) {
         $DeletedNode = New-Node 'Deleted GPOs' 'delete' 'DeletedGpos' $DomainNode
         foreach ($Backup in $DeletedGpo) {

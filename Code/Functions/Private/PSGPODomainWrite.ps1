@@ -222,16 +222,8 @@ function Add-PSGPODomainGpLink {
     )
 
     $new = Update-PSGPODomainGpLink -Directory $Directory -Som $Som -Change { param($Current) Get-PSGPONewGpLink -Current $Current -Link $Link } -Action 'link GPOs to'
-
     # The links as the domain has them now, the new one being this link object.
-    $Directory.SetLinks($Som, $new)
-    for ($i = 0; $i -lt $Som.Links.Count; $i++) {
-        if ([string]::Equals($Som.Links[$i].GpoDistinguishedName, $Link.GpoDistinguishedName, [System.StringComparison]::OrdinalIgnoreCase)) {
-            $Link.Order = $Som.Links[$i].Order
-            $Link.Gpo = $Som.Links[$i].Gpo
-            $Som.Links[$i] = $Link
-        }
-    }
+    Set-PSGPOSomLinkFromDomain -Directory $Directory -Som $Som -GpLink $new -Link $Link
     Write-Verbose "GPO $($Link.GetDisplayName()) linked to $($Som.DistinguishedName) (link order $($Link.Order))."
 }
 
@@ -333,7 +325,7 @@ function Remove-PSGPODomainGpLink {
     )
 
     $new = Update-PSGPODomainGpLink -Directory $Directory -Som $Som -Change { param($Current) Get-PSGPORemovedGpLink -Current $Current -Link $Link } -Action 'delete the links of'
-    $Directory.SetLinks($Som, $new)
+    Set-PSGPOSomLinkFromDomain -Directory $Directory -Som $Som -GpLink $new
     Write-Verbose "Link of the GPO $($Link.GetDisplayName()) to $($Som.DistinguishedName) deleted."
 }
 
@@ -360,4 +352,125 @@ function Update-PSGPODomainGpoState {
     $Gpo.Modified = ConvertFrom-PSGPOGeneralizedTime (Get-PSGPOLdapValue $entry 'whenChanged')
     $Gpo.MachineExtensionNames = Get-PSGPOLdapValue $entry 'gPCMachineExtensionNames'
     $Gpo.UserExtensionNames = Get-PSGPOLdapValue $entry 'gPCUserExtensionNames'
+}
+
+# The links of a SOM as the domain has them ($GpLink), each one the link object the SOM had for its
+# GPO (and $Link, a new link), updated: what holds a link (the window, a script) keeps it.
+function Set-PSGPOSomLinkFromDomain {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsSom]$Som,
+        [AllowEmptyString()] [string]$GpLink,
+        [GPOToolsGpoLink]$Link
+    )
+
+    $known = @{}
+    foreach ($existing in $Som.Links) { $known[$existing.GpoDistinguishedName] = $existing }
+    if ($Link) { $known[$Link.GpoDistinguishedName] = $Link }
+    $Directory.SetLinks($Som, $GpLink)
+    for ($i = 0; $i -lt $Som.Links.Count; $i++) {
+        $read = $Som.Links[$i]
+        $kept = $known[$read.GpoDistinguishedName]
+        if (-not $kept) { continue }
+        $kept.Order = $read.Order
+        $kept.Enabled = $read.Enabled
+        $kept.Enforced = $read.Enforced
+        $kept.Gpo = $read.Gpo
+        $Som.Links[$i] = $kept
+    }
+}
+
+# gPLink with the link of a GPO changed: enabled or not, enforced or not, and moved to the link
+# order $Order (1 is the highest precedence; 0 keeps it). The other links are kept as written;
+# throws when the GPO is not linked there.
+function Get-PSGPOChangedGpLink {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [AllowEmptyString()] [string]$Current,
+        [Parameter(Mandatory)] [GPOToolsGpoLink]$Link,
+        [Nullable[bool]]$Enabled,
+        [Nullable[bool]]$Enforced,
+        [int]$Order = 0
+    )
+
+    # In link order: the last entry of the value is link order 1.
+    $entries = [System.Collections.Generic.List[object]]::new()
+    foreach ($match in [regex]::Matches("$Current", '\[LDAP://([^;\]]+);(\d+)\]', 'IgnoreCase')) {
+        $entries.Insert(0, [pscustomobject]@{ Dn = $match.Groups[1].Value; Options = [int]$match.Groups[2].Value; Text = $match.Value })
+    }
+    $entry = $entries | Where-Object { [string]::Equals($_.Dn, $Link.GpoDistinguishedName, [System.StringComparison]::OrdinalIgnoreCase) } | Select-Object -First 1
+    if (-not $entry) { throw "The GPO $($Link.GetDisplayName()) is not linked there anymore." }
+    $options = $entry.Options
+    if ($null -ne $Enabled) { $options = if ($Enabled) { $options -band (-bnot 1) } else { $options -bor 1 } }
+    if ($null -ne $Enforced) { $options = if ($Enforced) { $options -bor 2 } else { $options -band (-bnot 2) } }
+    if ($options -ne $entry.Options) { $entry.Text = '[LDAP://{0};{1}]' -f $entry.Dn, $options }
+    if ($Order -gt 0) {
+        [void]$entries.Remove($entry)
+        $entries.Insert([math]::Min($Order, $entries.Count + 1) - 1, $entry)
+    }
+    $text = [System.Text.StringBuilder]::new()
+    for ($i = $entries.Count - 1; $i -ge 0; $i--) { [void]$text.Append($entries[$i].Text) }
+    $text.ToString()
+}
+
+# Changes a link of a SOM in the domain (Get-PSGPOChangedGpLink), then sets its links as the
+# domain has them, the changed one being this link object.
+function Set-PSGPODomainGpLink {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsSom]$Som,
+        [Parameter(Mandatory)] [GPOToolsGpoLink]$Link,
+        [Nullable[bool]]$Enabled,
+        [Nullable[bool]]$Enforced,
+        [int]$Order = 0
+    )
+
+    $new = Update-PSGPODomainGpLink -Directory $Directory -Som $Som -Action 'change the links of' -Change {
+        param($Current) Get-PSGPOChangedGpLink -Current $Current -Link $Link -Enabled $Enabled -Enforced $Enforced -Order $Order
+    }
+    Set-PSGPOSomLinkFromDomain -Directory $Directory -Som $Som -GpLink $new -Link $Link
+    Write-Verbose "Link of the GPO $($Link.GetDisplayName()) to $($Som.DistinguishedName): link order $($Link.Order), $(if ($Link.Enabled) { 'enabled' } else { 'disabled' })$(if ($Link.Enforced) { ', enforced' })."
+}
+
+# Blocks or unblocks the inheritance of a SOM (bit 0 of gPOptions), refused if gPOptions changed
+# meanwhile. Returns whether it is blocked, as the domain has it.
+function Set-PSGPODomainBlockInheritance {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsSom]$Som,
+        [Parameter(Mandatory)] [bool]$Blocked
+    )
+
+    $connection = New-PSGPODirectoryConnection -Directory $Directory
+    try {
+        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Som.DistinguishedName -Scope Base -Attribute 'gPOptions' -AllowMissing
+        if (-not $entry) { throw "$($Som.DistinguishedName) is not in the domain anymore." }
+        $old = Get-PSGPOLdapValue $entry 'gPOptions'
+        $options = if ($Blocked) { [int]$old -bor 1 } else { [int]$old -band (-bnot 1) }
+        if ("$old" -eq "$options") { return $Blocked }
+        $request = [System.DirectoryServices.Protocols.ModifyRequest]::new()
+        $request.DistinguishedName = $Som.DistinguishedName
+        Add-PSGPOLdapValueChange -Request $request -Name 'gPOptions' -Old $old -New "$options"
+        try {
+            [void]$connection.SendRequest($request)
+        } catch {
+            $base = $_.Exception.GetBaseException()
+            if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -in 'NoSuchAttribute', 'AttributeOrValueExists') {
+                throw "The inheritance of $($Som.Name) changed in the domain meanwhile: read the domain again, then try again."
+            }
+            if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -eq 'InsufficientAccessRights') {
+                throw "The account cannot block the inheritance of $($Som.Name): $($base.Message)"
+            }
+            throw
+        }
+    } finally {
+        $connection.Dispose()
+    }
+    Write-Verbose "Inheritance of $($Som.DistinguishedName) $(if ($Blocked) { 'blocked' } else { 'not blocked' })."
+    $Blocked
 }

@@ -165,6 +165,34 @@ InModuleScope -ModuleName PSGPOTools {
         }
     }
 
+    Describe 'SYSVOL with -Credential on Windows' -Skip:(-not $IsWindows) {
+        BeforeEach {
+            $script:PSGPOSysvolConnections.Clear()
+            $Directory = [GPOToolsLdapDirectory]::new('contoso.com', 'DC=contoso,DC=com', 'dc1.contoso.com', 'Active Directory')
+            # A test account: nothing is connected, New-PSDrive is mocked.
+            $Directory.Credential = [pscredential]::new('CONTOSO\admin1', (ConvertTo-SecureString 'not-a-password' -AsPlainText -Force))
+        }
+
+        It 'Reaches the share with the account of the directory, once' {
+            Mock New-PSDrive { }
+            Use-PSGPOSysvolCredential -Directory $Directory -Share 'SYSVOL'
+            Use-PSGPOSysvolCredential -Directory $Directory -Share 'SYSVOL'
+            Should -Invoke New-PSDrive -Times 1 -Exactly -ParameterFilter { $Root -eq '\\dc1.contoso.com\SYSVOL' -and $Credential.UserName -eq 'CONTOSO\admin1' }
+        }
+
+        It 'Says how to close the connections of another account' {
+            Mock New-PSDrive { throw 'Multiple connections to a server or shared resource by the same user, using more than one user name, are not allowed (1219).' }
+            { Use-PSGPOSysvolCredential -Directory $Directory -Share 'SYSVOL' } | Should -Throw -ExpectedMessage '*already reached with another account*net use*'
+        }
+
+        It 'Does nothing without -Credential' {
+            Mock New-PSDrive { }
+            $Directory.Credential = $null
+            Use-PSGPOSysvolCredential -Directory $Directory -Share 'SYSVOL'
+            Should -Invoke New-PSDrive -Times 0
+        }
+    }
+
     Describe 'Reading a large domain' {
         It 'Reads 2 000 GPOs and 1 000 OUs, sorted, in a few seconds' {
             $Gpos = foreach ($i in 1..2000) {

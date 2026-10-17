@@ -31,7 +31,7 @@ function Get-PSGPOFilteringGroupName {
 }
 
 # SID of the directory value objectSid.
-function ConvertFrom-PSGPOSidBytes {
+function ConvertFrom-PSGPOBinarySid {
     [CmdletBinding()]
     [OutputType([string])]
     param([Parameter(Mandatory)] [byte[]]$Bytes)
@@ -40,7 +40,7 @@ function ConvertFrom-PSGPOSidBytes {
 }
 
 # Writes the flags of the group policy container (GPO status).
-function Set-PSGPODomainGpoFlags {
+function Set-PSGPODomainGpoStatus {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
@@ -112,7 +112,7 @@ function New-PSGPODomainGroup {
     }
     $sid = $null
     if ($entries.Count -and $entries[0].Attributes['objectSid']) {
-        $sid = ConvertFrom-PSGPOSidBytes -Bytes ([byte[]]$entries[0].Attributes['objectSid'].GetValues([byte[]])[0])
+        $sid = ConvertFrom-PSGPOBinarySid -Bytes ([byte[]]$entries[0].Attributes['objectSid'].GetValues([byte[]])[0])
     }
     if (-not $sid) { throw "The group $distinguishedName was created but its SID cannot be read." }
     Write-Verbose "Group $distinguishedName created ($sid)."
@@ -308,7 +308,7 @@ function Resolve-PSGPODomainSid {
         $request = [System.DirectoryServices.Protocols.SearchRequest]::new($DomainDistinguishedName, $filter, 'Subtree', 'objectSid', 'sAMAccountName')
         foreach ($entry in $Connection.SendRequest($request).Entries) {
             if (-not $entry.Attributes['objectSid'] -or -not $entry.Attributes['sAMAccountName']) { continue }
-            $found = ConvertFrom-PSGPOSidBytes -Bytes ([byte[]]$entry.Attributes['objectSid'].GetValues([byte[]])[0])
+            $found = ConvertFrom-PSGPOBinarySid -Bytes ([byte[]]$entry.Attributes['objectSid'].GetValues([byte[]])[0])
             $names[$found] = "$($entry.Attributes['sAMAccountName'].GetValues([string])[0])"
         }
     }

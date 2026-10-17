@@ -150,7 +150,7 @@ function New-PSGPOPreferenceForm {
             @{ Name = 'removePolicy'; Label = 'Remove this item when it is no longer applied' })) {
         $Check = [Avalonia.Controls.CheckBox]::new()
         $Check.Content = $Option.Label
-        $Check.IsChecked = if ($Item) { [bool]$Item.($Option.Name.Substring(0, 1).ToUpperInvariant() + $Option.Name.Substring(1)) } else { $false }
+        $Check.IsChecked = if ($Item) { [bool]$Item.PSObject.Properties[$Option.Name.Substring(0, 1).ToUpperInvariant() + $Option.Name.Substring(1)].Value } else { $false }
         $Panel.Children.Add($Check)
         $Controls[$Option.Name] = $Check
         $Common[$Option.Name] = { if ($Check.IsChecked) { '1' } else { '0' } }.GetNewClosure()
