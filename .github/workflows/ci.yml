@@ -117,15 +117,18 @@ jobs:
       - name: Install Samba, Kerberos and the SASL GSSAPI module of LDAP
         run: |
           sudo DEBIAN_FRONTEND=noninteractive apt-get update
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y samba samba-dsdb-modules samba-vfs-modules smbclient python3-samba krb5-user libsasl2-modules-gssapi-mit ldb-tools
+          # samba-ad-dc: the services of a domain controller, the KDC included (Ubuntu splits them out).
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y samba samba-ad-dc samba-dsdb-modules samba-vfs-modules smbclient python3-samba krb5-user libsasl2-modules-gssapi-mit ldb-tools
           sudo systemctl disable --now smbd nmbd winbind samba-ad-dc 2>/dev/null || true
 
       - name: Provision the domain CI.TEST
         run: |
-          echo "127.0.0.1 dc.ci.test dc ci.test" | sudo tee -a /etc/hosts
+          # The name of the domain controller on the address of the runner, not on the loopback.
+          ip=$(hostname -I | awk '{print $1}')
+          echo "$ip dc.ci.test dc ci.test" | sudo tee -a /etc/hosts
           sudo rm -f /etc/samba/smb.conf
           sudo samba-tool domain provision --realm=CI.TEST --domain=CI --server-role=dc --dns-backend=NONE \
-            --host-name=dc --use-rfc2307 --adminpass="$CI_ADMIN_PASSWORD"
+            --host-name=dc --host-ip="$ip" --use-rfc2307 --adminpass="$CI_ADMIN_PASSWORD"
           # No DNS on the runner: the KDC is named, not looked up.
           sudo tee /etc/krb5.conf >/dev/null <<'KRB5'
           [libdefaults]
@@ -143,8 +146,18 @@ jobs:
               ci.test = CI.TEST
           KRB5
           sudo samba
-          for i in $(seq 1 60); do smbclient -N -L dc.ci.test >/dev/null 2>&1 && break; sleep 2; done
-          cat /etc/krb5.conf
+          # The KDC (88) and LDAP (389) listening, or the step fails with what Samba says.
+          for i in $(seq 1 60); do
+            if sudo ss -ltn | grep -q ':88 ' && sudo ss -ltn | grep -q ':389 '; then break; fi
+            sleep 2
+          done
+          sudo ss -ltnp | grep -E ':(53|88|389|445|636) ' || true
+          if ! sudo ss -ltn | grep -q ':88 '; then
+            echo "The KDC of Samba does not listen."
+            pgrep -a samba || true
+            sudo tail -n 80 /var/log/samba/log.samba 2>/dev/null || sudo journalctl -n 80 --no-pager
+            exit 1
+          fi
 
       - name: Get a Kerberos ticket of the administrator
         run: |
