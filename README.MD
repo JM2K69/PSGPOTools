@@ -1,357 +1,70 @@
 # PSGPOTools
 
-![Build Status](https://build.status.url.here)
+[![CI](https://github.com/JM2K69/PSGPOTools/actions/workflows/ci.yml/badge.svg)](https://github.com/JM2K69/PSGPOTools/actions/workflows/ci.yml)
+[![Documentation](https://github.com/JM2K69/PSGPOTools/actions/workflows/docs.yml/badge.svg)](https://jm2k69.github.io/PSGPOTools/)
 
-## Description
+**PSGPOTools** is a Group Policy management console, in the spirit of GPMC, written in
+PowerShell 7 with an [Avalonia](https://avaloniaui.net/) interface. It runs on **Windows and
+Linux**, and manages the GPOs of **Samba AD** and **Windows Active Directory** domains alike.
 
-This module read the content of ADMX and ADML files. It instantiate object with GPOTools* classes.
-You can search a policy parameter with PowerShell functions and find the registry key.
+**Documentation: <https://jm2k69.github.io/PSGPOTools/>** ([français](https://jm2k69.github.io/PSGPOTools/fr/))
 
-Authored by NicolasBn
+![The Group Policy Management view on a Samba AD domain](docs/assets/screenshots/01-console-domain.png)
 
-## RoadMap
+## What it does
 
-What do we want for the first version ?
-Checklist :
+- **Group Policy Management view**: the domain, its OUs and their GPO links, the Group Policy
+  Objects; create, link, delete and restore GPOs, with their status and security filtering.
+- **Policy editor**: the administrative templates (ADMX/ADML), the security settings
+  (`GptTmpl.inf`) and the Group Policy Preferences of a GPO, read from SYSVOL and saved there,
+  its version and client-side extensions updated as GPMC does.
+- **History**: backups with comments and labels, the differences between two versions, restore,
+  a recycle bin, templates, and the drift of each GPO from its approved version.
+- **Approval workflow**: Tier 1 technicians create GPOs that apply to nobody until a Tier 0
+  approver approves them, on the rights of the domain only.
+- **Delegation**: each technician sees and changes only what the domain lets their account
+  manage.
+- **Central configuration**: one file in the SYSVOL of the domain, the same for every console.
 
-* [x]  Have the simpliest policies with thier key
-* [x]  Check if the simpliest policies are configured
-* [x]  Cover a minimum of code with pester test
-* [ ]  Have a CI
-* [ ]  ...
+Everything the console does is also a PowerShell command (`Get-PSGPODirectory`, `New-PSGPO`,
+`Backup-PSGPO`, `Approve-PSGPO`...): see the
+[command reference](https://jm2k69.github.io/PSGPOTools/en/reference/commands/).
 
-What do we want in futures versions ?
+## Quick start
 
-* [ ]  Read the content of .pol file to compare with ADMX content and determine the configured paramter in .pol file. Possibility with the [GPRegistryPolicy](https://github.com/PowerShell/GPRegistryPolicy) module.
-* [ ]  Have a provider to explore the parameters like than gpedit.msc
-* [ ]  Experiment the module to compare hundred GPO in .pol files
-* [ ]  Have a provider to explorer the domain GPO
-* [ ]  Transaction compatibility for to easy rollback
-* [ ]  Warn the user when the parameter is not compatible with de target system
-* [ ]  Better speed the initialization of admx/adml (multi runspace ?)
+PowerShell **7.4 or later**, on Windows or Linux. The console is on the `avalonia` branch until
+its first release on the PowerShell Gallery:
 
-Another ideas are welcome.
-
-## Installing
-
-The easiest way to get PSGPOTools is using the [PowerShell Gallery](https://powershellgallery.com/packages/PSGPOTools/)!
-
-### Inspecting the module
-
-Best practice is that you inspect modules prior to installing them. You can do this by saving the module to a local path:
-
-``` PowerShell
-PS> Save-Module -Name PSGPOTools -Path <path> -AllowPrerelease
+```powershell
+git clone -b avalonia https://github.com/JM2K69/PSGPOTools.git
+cd PSGPOTools
+pwsh -File CI/03_Build.ps1          # builds PSGPOTools/PSGPOTools.psm1 from Code/
+Import-Module ./PSGPOTools/PSGPOTools.psd1
+Show-GPOManagerAvalonia             # the domain of the computer, or -Server dc.example.com
 ```
 
-### Installing the module
+The first time a window opens, the console downloads its Avalonia runtime from nuget.org, each
+package checked against its pinned SHA-512. What each platform needs (RSAT on Windows; Kerberos,
+`samba-tool`, `smbclient` and the SASL GSSAPI module on Linux) is in
+[Installation](https://jm2k69.github.io/PSGPOTools/en/getting-started/installation/).
 
-Once you trust a module, you can install it using:
+## Development
 
-``` PowerShell
-PS> Install-Module -Name PSGPOTools -AllowPrerelease
+The sources are in `Code/` (classes, private and public functions); `CI/03_Build.ps1`
+concatenates them into `PSGPOTools/PSGPOTools.psm1`, which is not versioned. The tests need
+Pester 5.5+:
+
+```powershell
+pwsh -File CI/Invoke-Tests.ps1
 ```
 
-### Updating PSGPOTool
-
-Once installed from the PowerShell Gallery, you can update it using:
-
-``` PowerShell
-PS> Update-Module -Name PSGPOTools -AllowPrerelease
-```
-
-### Uninstalling PSGPOTools
-
-To uninstall PSGPOTools:
-
-``` PowerShell
-PS> Uninstall-Module -Name PSGPOTools
-```
-
-## Building from source
-
-PSGPOTools requires **PowerShell 7.4+**. The module file `PSGPOTools/PSGPOTools.psm1` is generated from the `Code/` folder and is not versioned: always edit `Code/`, then rebuild.
-
-``` PowerShell
-# Generate PSGPOTools.psm1 and refresh the manifest exports
-pwsh -File .\CI\03_Build.ps1
-
-# Optional: stage the Avalonia runtime used by Show-GPOManagerAvalonia
-pwsh -File .\PSGPOTools\Avalonia\Get-AvaloniaBinaries.ps1
-
-Import-Module .\PSGPOTools\PSGPOTools.psd1
-```
-
-### Running the tests
-
-The tests need Pester 5.5+ (`Install-Module Pester -Scope CurrentUser`). The GUI tests open the real Avalonia window and are skipped when the Avalonia runtime has not been staged.
-
-``` PowerShell
-# Build the module, then run every test file of CI\tests
-pwsh -File .\CI\Invoke-Tests.ps1
-```
-
-The same script runs on every push and pull request in GitHub Actions (`.github/workflows/ci.yml`, Windows runner).
-
-## Group Policy Management view
-
-`Show-GPOManagerAvalonia -Directory` opens a view close to GPMC: the domain, its OUs with their GPO links (by link order, enforced and disabled links marked, links to missing GPOs shown) and the Group Policy Objects container. Its context menu edits a GPO in the policy editor and, on a writable directory, creates a GPO linked to the selected domain or OU ("Create a GPO in this domain, and Link it here...") or unlinked from the Group Policy Objects container.
-
-### At launch
-
-`Show-GPOManagerAvalonia` opens on the Group Policy Management view and reads the domain by itself: the domain of the computer (Windows session, or a Kerberos ticket on Linux), the domain of the domain controller it runs on, or the one of `-Server`. The window tells whether the domain controller runs Active Directory (Windows) or Samba AD. When the domain cannot be read, the window opens and says why; when no domain is discovered, it shows the sample directory under a "demonstration environment" banner. `-NoDirectory` opens the policy editor only.
-
-A status bar shows this computer (name and system), its addresses, its domain and the domain controller the directory was read from.
-
-### Reading a domain
-
-`Get-PSGPODirectory` reads the domain over LDAP, with the same code for Windows and Samba domain controllers, from Windows and Linux (System.DirectoryServices.Protocols).
-
-### Creating, linking and configuring GPOs
-
-On a domain read with `Get-PSGPODirectory`, the context menu creates a GPO in the domain and links it to the selected domain or OU, as GPMC does:
-
-- the GPO is created with `samba-tool gpo create` (group policy container, User/Machine containers, SYSVOL folder with the permissions of the GPO), which works against Samba and Windows domain controllers and needs samba-tool on the computer (Debian/Ubuntu: `apt install python3-samba`);
-- the link is written to the `gPLink` of the OU over LDAP, with the lowest precedence; the links are read again just before, and the change is refused rather than lost when someone changed them meanwhile.
-
-Editing a GPO reads its `Registry.pol` files (Machine and User) from SYSVOL: each policy shows its real state and option values, and **Apply** saves the setting. Saving also increases the version of the GPO (`GPT.INI` and `versionNumber`) and declares the Registry client-side extension, so that the computers apply it. SYSVOL is reached on the domain controller the directory was read from: with smbclient and Kerberos on Linux (`apt install smbclient`), with the UNC path on Windows.
-
-The **Settings** tab of a GPO lists its configured settings as GPMC does: Computer and User Configuration, the category path, the state and the option values of each policy, and the registry values no policy of the loaded ADMX explains (Extra Registry Settings).
-
-The changes use Kerberos (`kinit` on Linux); a password is never given to samba-tool nor sent over plain LDAP.
-
-### Security settings
-
-The policy editor shows the security settings of the computer as the Group Policy editor does, under Machine > Windows Settings > Security Settings: Account Policies (password, account lockout, Kerberos), Local Policies (audit, user rights assignment, security options) and Event Log. Each setting is "Not Defined" or defined with a value checked against its range or choices; Apply writes it to the `GptTmpl.inf` of the GPO (`Machine\Microsoft\Windows NT\SecEdit`, [MS-GPSB]), increases the computer version and declares the Security client-side extension.
-
-- `GptTmpl.inf` is read and written byte for byte (UTF-16LE); the sections and keys the module does not know (restricted groups, services, file and registry permissions) are kept as they are and listed in the Settings tab.
-- The catalog of the settings is in `PSGPOTools/Resources`: `SecuritySettings.json` (names, units and ranges from Microsoft Learn) and `SecurityOptions.json`, the security options stored as registry values, generated from Windows by `CI/Update-SecurityOptionCatalog.ps1`.
-- The accounts of the user rights are written as SIDs (`*S-1-5-32-544`) or names, and shown with the names of the well-known SIDs.
-- A Samba domain controller applies only part of these settings to itself (password length, ages and complexity; Kerberos ticket lifetimes); the others apply to Windows computers.
-
-```Powershell
-# Windows, on a computer of the domain: the identity of the session
-Show-GPOManagerAvalonia -Directory (Get-PSGPODirectory)
-
-# Linux (Samba AD): a Kerberos ticket first; needs the SASL GSSAPI module
-# (Debian/Ubuntu: apt install libsasl2-modules-gssapi-mit)
-kinit administrator@HARDENBOX.LABO
-Show-GPOManagerAvalonia -Directory (Get-PSGPODirectory -Server dc.hardenbox.labo)
-
-# Or a password over LDAPS (the certificate of the server must be trusted)
-Get-PSGPODirectory -Server dc.contoso.com -Credential (Get-Credential) -UseSsl
-```
-
-A password is never sent over plain LDAP. Without `-Server`, the module uses the computer itself when it is a domain controller, else the domain of the computer.
-
-### Offline directory
-
-A directory can also be described in JSON, for demonstrations and tests; its changes stay in memory. A sample of a realistic domain is shipped with the module (see `Get-Help Import-PSGPODirectory` for the format):
-
-```Powershell
-Initialize-PSGPOAdmx -UICulture 'en-US'
-$Sample = Join-Path (Split-Path (Get-Module PSGPOTools).Path) 'Samples' 'Directory.sample.json'
-Show-GPOManagerAvalonia -Directory (Import-PSGPODirectory -Path $Sample)
-```
-
-## Testing Module
-
-After the installation with the PowerShellGallery, import the module with Import-Module cmdlet.
-At the first, you need to use the Initialize-PSGPOAdmx. This command will read the default admx/adml files present in your system. After that, it creates and stocks the objets in static properties of [GPOToolsUtility] class.
-
-```Powershell
-Import-Module PSGPOTools
-
-# Initialization of ADMX and ADML files
-Initialize-PSGPOAdmx -UICulture 'en-US'
-WARNING: No dependancy file found for Microsoft.Policies.Server target in C:\WINDOWS\PolicyDefinitions\ServerManager.admx ADMX file
-WARNING: No dependancy file found for Microsoft.Policies.Backup target in C:\WINDOWS\PolicyDefinitions\WindowsBackup.admx ADMX file
-WARNING: No dependancy file found for Microsoft.Policies.Server target in C:\WINDOWS\PolicyDefinitions\WindowsBackup.admx ADMX file
-```
-
-Then, to read the static properties of GPOToolsUtility Class, use those commands :
-```Powershell
-# The policies :
-Get-PSGPOPolicy
-Path        : Machine\Windows Components\ActiveX Installer Service\
-Name        : Approved Installation Sites for ActiveX Controls
-DisplayName : Approved Installation Sites for ActiveX Controls
-Description : This policy setting determines which ActiveX installation sites standard users in your organization can use to install ActiveX controls on their computers. When this setting is enabled, the administrator
-              can create a list of approved Activex Install sites specified by host URL.
-
-              If you enable this setting, the administrator can create a list of approved ActiveX Install sites specified by host URL.
-
-              If you disable or do not configure this policy setting, ActiveX controls prompt the user for administrative credentials before installation.
-
-              Note: Wild card characters cannot be used when specifying the host URLs.
-
-ID          : ApprovedActiveXInstallSites
-Registry    : GPOToolsRegistry
-Scope       : Machine
-FileName    : ActiveXInstallService.admx
-
-Path        : Machine\Windows Components\ActiveX Installer Service\
-Name        : Establish ActiveX installation policy for sites in Trusted zones
-DisplayName : Establish ActiveX installation policy for sites in Trusted zones
-Description : This policy setting controls the installation of ActiveX controls for sites in Trusted zone.
-
-              If you enable this policy setting, ActiveX controls are installed according to the settings defined by this policy setting.
-
-              If you disable or do not configure this policy setting, ActiveX controls prompt the user before installation.
-
-              If the trusted site uses the HTTPS protocol, this policy setting can also control how ActiveX Installer Service responds to certificate errors. By default all HTTPS connections must supply a server
-              certificate that passes all validation criteria. If you are aware that a trusted site has a certificate error but you want to trust it anyway you can select the certificate errors that you want to ignore.
-
-              Note: This policy setting applies to all sites in Trusted zones.
-
-ID          : AxISURLZonePolicies
-Registry    : GPOToolsRegistry
-Scope       : Machine
-FileName    : ActiveXInstallService.admx
-
-Path        : User\Control Panel\Add or Remove Programs\
-Name        : Specify default category for Add New Programs
-DisplayName : Specify default category for Add New Programs
-Description : Specifies the category of programs that appears when users open the "Add New Programs" page.
-
-              If you enable this setting, only the programs in the category you specify are displayed when the "Add New Programs" page opens. Users can use the Category box on the "Add New Programs" page to display
-              programs in other categories.
-
-              To use this setting, type the name of a category in the Category box for this setting. You must enter a category that is already defined in Add or Remove Programs. To define a category, use Software
-              Installation.
-
-              If you disable this setting or do not configure it, all programs (Category: All) are displayed when the "Add New Programs" page opens.
-
-              You can use this setting to direct users to the programs they are most likely to need.
-
-              Note: This setting is ignored if either the "Remove Add or Remove Programs" setting or the "Hide Add New Programs page" setting is enabled.
-ID          : DefaultCategory
-Registry    : GPOToolsRegistry
-Scope       : User
-FileName    : AddRemovePrograms.admx
-
-Path        : User\Control Panel\Add or Remove Programs\
-Name        : Hide the "Add a program from CD-ROM or floppy disk" option
-DisplayName : Hide the "Add a program from CD-ROM or floppy disk" option
-Description : Removes the "Add a program from CD-ROM or floppy disk" section from the Add New Programs page. This prevents users from using Add or Remove Programs to install programs from removable media.
-
-              If you disable this setting or do not configure it, the "Add a program from CD-ROM or floppy disk" option is available to all users.
-
-              This setting does not prevent users from using other tools and methods to add or remove program components.
-
-              Note: If the "Hide Add New Programs page" setting is enabled, this setting is ignored. Also, if the "Prevent removable media source for any install" setting (located in User Configuration\Administrative
-              Templates\Windows Components\Windows Installer) is enabled, users cannot add programs from removable media, regardless of this setting.
-ID          : NoAddFromCDorFloppy
-Registry    : GPOToolsRegistry
-Scope       : User
-FileName    : AddRemovePrograms.admx
-...
-
-# The Categories :
-Get-PSGPOCategory
-Name                                            DisplayName                                                        ExplainText
-----                                            -----------                                                        -----------
-System                                          System                                                             Allows configuration of various system component settings.
-InternetManagement                              Internet Communication Management
-Troubleshooting                                 Troubleshooting and Diagnostics
-InternetManagement_Settings                     Internet Communication settings
-WindowsComponents                               Windows Components                                                 Contains settings for operating system components.
-WindowsExplorer                                 File Explorer                                                      Manages File Explorer settings. These include shell properties, folder options, file menus, and avail...
-TabletPC                                        Tablet PC
-DataCollectionAndPreviewBuilds                  Data Collection and Preview Builds
-Network                                         Network                                                            Allows configuration of components of the operating syst
-...
-
-#The SupportedOn :
-Get-PSGPOSupportedOn
-Name                                                         DisplayName
-----                                                         -----------
-SUPPORTED_Win2KWithWindowsInstaller20                        Windows 2000 with Windows Installer v2
-SUPPORTED_WindowsPreVistaWithWindowsSearch                   Windows Server 2003 or Windows XP with Windows Search installed
-SUPPORTED_AllowWebPrinting                                   Windows 2000 or later, running IIS. Not supported on Windows Server 2003.
-SUPPORTED_IE6SP1                                             At least Internet Explorer 6 Service Pack 1
-SUPPORTED_Win2k                                              At least Windows 2000
-SUPPORTED_Win2kOnly                                          Windows 2000 only
-SUPPORTED_Win2kSP1                                           At least Windows 2000 Service Pack 1
-SUPPORTED_Win2kSP3                                           At least Windows 2000 Service Pack 3
-...
-```
-
-You want to see if the parameter is configured in your system ?
-```PowerShell
-$Pol = Get-PSGPOPolicy
-$Pol[0]
-
-
-Path        : Machine\Composants Windows\Service d’installation ActiveX\
-Name        : Sites d’installation approuvés pour les contrôles ActiveX
-DisplayName : Sites d’installation approuvés pour les contrôles ActiveX
-Description : Ce paramètre de stratégie détermine quels sites d’installation ActiveX les utilisateurs standard de votre organisation peuvent utiliser pour installer des contrôles ActiveX
-              sur leur ordinateur. Lorsque ce paramètre est activé, l’administrateur peut créer une liste des sites d’installation ActiveX approuvés spécifiés par l’URL hôte.
-
-              Si vous activez ce paramètre, l’administrateur peut créer une liste des sites d’installation ActiveX approuvés spécifiés par l’URL hôte.
-
-              Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les contrôles ActiveX invitent l’utilisateur à spécifier des informations d’identification d’administration
-              avant l’installation.
-
-              Remarque : vous ne pouvez pas utiliser de caractères génériques pour indiquer des URL hôtes.
-
-
-ID          : ApprovedActiveXInstallSites
-Registry    : GPOToolsRegistry
-Scope       : Machine
-FileName    : ActiveXInstallService.admx
-
-$Pol[0].GetPolicyState()
-NotConfigured
-```
-
-You want to see the registry key ?
-
-```PowerShell
-$Pol[0].Registry
-```
-
-You need to search a particular parameter by the registry key :
-
-```PowerShell
-Get-PSGPOPolicy | ? {$_.Registry.Path -like "*SOFTWARE\Policies\Microsoft\Windows Defender" -and $_.Registry.Key -like 'DisableAntispyware'}
-
-
-Path        : Machine\Windows Components\Windows Defender Antivirus\
-Name        : Turn off Windows Defender Antivirus
-DisplayName : Turn off Windows Defender Antivirus
-Description : This policy setting turns off Windows Defender Antivirus.
-
-                  If you enable this policy setting, Windows Defender Antivirus does not run, and will not scan computers for
-              malware or other potentially unwanted software.
-
-                  If you disable this policy setting, Windows Defender Antivirus will run regardless of any other installed
-              antivirus product.
-
-                  If you do not configure this policy setting, Windows will internally manage Windows Defender Antivirus. If you
-              install another antivirus program, Windows automatically disables Windows Defender Antivirus. Otherwise, Windows
-              Defender Antivirus will scan your computers for malware and other potentially unwanted software.
-
-                  Enabling or disabling this policy may lead to unexpected or unsupported behavior. It is recommended that you leave
-              this policy setting unconfigured.
-ID          : DisableAntiSpywareDefender
-Registry    : GPOToolsRegistry
-Scope       : Machine
-FileName    : WindowsDefender.admx
-
-```
-
-## Contributing to PSGPOTools (Need update)
-
-Interested in contributing? Read how you can [Contribute](contributing.md) to PSGPOTool
-
-This project maintains a [Code of Conduct](code-of-conduct.md) that establishes how the project is governed and how everyone involved is expected to behave. You can report unacceptable behavior to [baudin.nicolas@outlook.fr](mailto:baudin.nicolas@outlook.fr).
-
-## Release History
-
-A detailed release history is contained in the [Change Log](CHANGELOG.md).
+The CI runs them on Windows and Linux (the window included, on Xvfb on Linux), and the tests that
+write to a domain against a Samba AD DC. The architecture and the formats are described in the
+[technical documentation](https://jm2k69.github.io/PSGPOTools/en/technical/architecture/); see
+[contributing.md](contributing.md) to contribute, and [SECURITY.md](SECURITY.md) to report a
+vulnerability.
 
 ## License
 
-PSGPOTools is provided under the [MIT license](LICENSE.md).
+[MIT](LICENSE). Started by NicolasBn as a reader of ADMX and ADML files, the console is developed
+by JM2K69.
