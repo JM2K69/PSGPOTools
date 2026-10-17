@@ -1,122 +1,70 @@
 # Contributing
 
-See an issue that you can help with? Have an idea for the next great feature? Thanks for taking the time to contribute!!!
-
-Here are some guidelines for contributing to this project. They are not hard rules, just guidelines.
+Thanks for taking the time to contribute. PSGPOTools changes the Group Policy of real domains,
+often with the rights of a Tier 0 account: every change is reviewed with that in mind.
 
 ## Code of Conduct
 
-This project maintains a [code of conduct](code-of-conduct.md) that establishes how the project is governed and how everyone involved is expected to behave.
+This project follows its [code of conduct](code-of-conduct.md).
 
-You can report unacceptable behavior to [nicolas@akalya.fr](mailto:nicolas@akalya.fr).
+## Reporting a bug
 
-## TL;DR
+Check the [issues](https://github.com/JM2K69/PSGPOTools/issues) first, then open one with the
+bug report template. What helps most:
 
-* Check if any bugs/issues/features have been previously reported/requested before creating a new issue.
-* Ensure you are using the LATEST version before raising a new issue.
-* Ensure you complete the Pull Request template when raising a new PR.
+- the version of the module (or the commit), of PowerShell (`$PSVersionTable`) and of the system;
+- the domain controller: **Samba AD** (its version, `samba -V`) or **Windows Server** (its version);
+- the console runs on Windows or Linux, with which account (an administrator, a delegated Tier 1);
+- the exact steps, the command or the action of the console, and the whole error
+  (`$Error[0] | Format-List * -Force` gives its stack);
+- what you expected instead.
 
-## Reporting Bugs/Issues
+Remove what is private (names, SIDs, addresses) from logs and screenshots, and say where you did.
 
-The reality is that code will contain bugs, even with thorough testing, issues can get through. Following these guidelines will help the maintainers to understand the issue you have encountered, reproduce the problem and fix it! You might even find that you don't need to create one.
+A security issue is not reported in an issue: see [SECURITY.md](SECURITY.md).
 
-> **Note:** If you find an issue that is Closed that seems like what you are experiencing, please open a **new** issue and include a link to the previous issue in your description.
+## Suggesting a feature
 
-### Before you file a bug report
+Open an issue with the feature request template: what you need to do, how you do it today (GPMC,
+AGPM, a script), and how it would work on Samba AD and on Windows AD.
 
-* **Ensure you are running the latest version of the module.** If you are running an older version of the module, try updating the module and testing if the issue remains. If you installed the module from the [PowerShell Gallery](https://powershellgallery.com), use this command to update the module: ``` PS> Update-Module -Name PSGPOTool ```.
-* **Ensure that you are using the CMDLet correctly.** Have you checked the help? Sometimes we assume we know how a specific function or CMDLet works, and it turns out we are wrong. The command ```Get-Help``` is your friend!
-* **Has the issue been reported before?** You might not be the only person who has reported the issue. Check out the [Issues][Issues] and look through any current Issues that may match the issue you are experiencing.
+## Code
 
-### Submitting a (good) bug report
+### The constraints of the project
 
-Bugs and problems are tracked using [GitHub issues](https://guides.github.com/features/issues/). To submit a bug, create an issue and provide the information requested in [the template](ISSUE_TEMPLATE.md). The template will help the maintainers to resolve issues faster.
+- **PowerShell 7.4+ and Avalonia only**: no WPF, no Windows PowerShell 5.1, no compiled .NET code.
+- **Windows and Linux**, **Samba AD and Windows AD**: a feature works on all four, or says clearly
+  where it does not.
+- **The rights are those of the domain**: the console never decides alone what an account may do;
+  it reads the rights the domain gives, and the domain controller refuses the rest.
+- **Fail closed**: when something cannot be checked, the console refuses rather than risk a GPO
+  that applies to everyone.
 
-Here are some tips on ensuring you create an excellent bug report:
+### Build and tests
 
-* **Bugs should be actionable**, that is, something that can be fixed as part of this project. Issues with Windows, .Net or PowerShell might not be solvable within this project.
-* **Use a clear descriptive title** for the issue that describes the issue.
-* **Describe the exact steps to reproduce the issue** and include as many details as possible. People often leave things out as they think they might not be important, but every little detail counts! When listing what steps or commands you executed, **don't just say what you did, try to explain how you did it**. Be as detailed as possible, it is safe to say that more is usually better.
-* **Provide specific examples**, include specific steps you have taken, link to files or other copy/pastable snippets. If you are providing snippets of code, ensure you use Markdown Code Blocks. <>TODO: link<> If you can, provide the exact steps/code you were executing when the issue happened.
-* **PowerShell Transcripts can be extremely useful** so please include those where possible. You can start a transcript with ```Start-Transcript``` and end it with ```Stop-Transcript```.
-* **Screenshots and Gifs** can also be extemely useful, however transcripts are preferred.
-* **If there is private/confidential information**, feel free to remove that from any logs/transcripts/images, but remember to highlight where you have done so.
-* **Describe the behavior you observed after following the steps you described** and then clearly state what the problem is with this behavior. Sometimes it isn't clear why something is an issue.
-* **Describe what behaviour you would expect** others might be expecting different behaviors.
-* **Include stack traces where possible**. If you have access to the Exception, the ```ScriptStackTrace``` and other properties may point to where the problem is.
-* **Include details about your environment** including Windows/Linux/Mac OSX version, PowerShell versions and 64/32 bit environments. If you are using Azure Automation, please ensure you mention if this is the Azure Worker or a Hybrid Worker. It can also help to include any other modules you might be using.
-* **Subscribe to notifications** so you can answer any follow-up questions, and assist in testing the final fixes for the issue.
-* **Just because you think the issue might be easy, doesn't mean it is so**. Issues can be quite complex when you actually look into them, resolution may take time so be patient.
+The sources are in `Code/` (`Classes`, `Functions/Private`, `Functions/Public`).
+`CI/03_Build.ps1` concatenates them into `PSGPOTools/PSGPOTools.psm1`, which is not versioned:
+always edit `Code/`, then build.
 
-## Suggesting New Features and Enhancements
+```powershell
+pwsh -File CI/03_Build.ps1
+pwsh -File CI/Invoke-Tests.ps1                                   # every test (Pester 5.5+)
+pwsh -File CI/Invoke-Tests.ps1 -Path CI/tests/PSGPOTools.Backup.tests.ps1
+```
 
-Got a killer idea for a new feature? Maybe you want to suggest a minor improvement or some totally new features? These guidelines will help maintainers understand your suggestion!
+The GUI tests open the real window; they are skipped when the Avalonia runtime is not installed
+(`PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1`, after the build). The tests that write to a
+domain run when `PSGPOTOOLS_TEST_LDAP_SERVER` names a domain controller and
+`PSGPOTOOLS_TEST_LDAP_WRITE=1` (with a Kerberos ticket on Linux): use a test domain, they create
+and delete GPOs. The [technical documentation](https://jm2k69.github.io/PSGPOTools/en/technical/tests/)
+describes the suite.
 
-### Before you submit an enhancement suggestion
+### Pull requests
 
-* **Ensure you are running the latest version of the module.** The feature you require might be included in a new version of the module. If you installed the module from the Gallery, use this command to update the module: ``` PS> Update-Module -Name PSGPOTool ```.
-* **Ensure that you are using the CMDLet correctly.** Have you checked the help? Perhaps the feature has already been implemented but you just haven't discovered it yet! The command ```Get-Help``` is your friend!
-* **Has the feature been requested before?** You might not be the only person who has requested this new feature. If it has, add a comment to the existing issue instead of opening a new one. Be sure to checkout closed issues as well, the feature may have been previously implemented or rejected.
-
-### Submitting a (good) enhancement suggestion
-
-Enhancements are tracked via [GitHub issues](https://guides.github.com/features/issues/) just as bugs are. To submit a suggestion, create an issue and provide the information requested in [the template](ISSUE_TEMPLATE.md).
-
-Here are some tips on ensuring you create an excellent suggestion:
-
-* **Enhancements should be actionable**, that is, something that can/should be included in the project. Does the enhancement fall inside or outside the scope of the module? Modules should closely align to a specific set of activities, for instance a database query CMDLet probably shouldn't be included in a module relating to network connections.
-* **Use a clear descriptive title** for the issue that describes the suggestion.
-* **Describe the new functionality or enhancement**, provide a step-by-step description of how it would function.
-* **Describe the current behavior and expected behavior** you would like to see.
-* **Provide specific examples** including how the feature would work, error handling, validation, etc.
-* **Describe why this would be useful** to implement this suggestion. Is this something other users might want or just something you require?
-* **Subscribe to notifications** so you can answer any follow-up questions, and assist in testing the final fixes for the issue.
-* **Just because you think the feature might be easy to implement, doesn't mean it is so**. New features could be simple, or they might require significant effort to implement, please be patient.
-
-## Code Contributions
-
-### Your First Contribution
-
-Looking to make your first contribution? Congratulations, you are taking the first steps into an amazing journey.
-
-Don't know where to start? You can start by looking through the issues for the **Beginner** and **Help Wanted** tags:
-* **Beginner** are simple and should only take a few lines of code and tests to complete.
-* **Help Wanted** are more involved and will take more effort to complete.
-
-### Pull Requests
-
-Pull requests are always more than welcome. When creating a pull request, ensure that you complete [the template](PULL_REQUEST_TEMPLATE.md).
-
-Here are a few guidelines that should be followed:
-
-* Each pull request should accomplish a clear goal. Ensure that you clearly state in the request what it accomplishes.
-    * Bug fixes: What was the bug? How did you fix it?
-    * New features: What is it? How is it used?
-* Provide a high level explanation of what you are changing, it makes it easier to review.
-* Keep requests small, as it:
-    * Makes reviews easier.
-    * Makes testing easier.
-    * Helps review conflicts more easily.
-* Ensure that all Pester tests pass and there are no failures.
-* Ensure that there are no errors or warnings with PowerShell Script Analyzer
-* Any new code needs to have tests created:
-    * Bug fixes: Consider test cases that would have failed before the change but pass now.
-    * New features: Test cases need to ensure that new features function correctly and existing features still function as previously expected.
-* Ensure that any code you write aligns with community style guides.
-* Don't include issue numbers in the PR title.
-* Ensure that your branch is up-to-date to reduce the merge conflicts that could occur.
-### Things that might get your Pull Request rejected
-
-There are often things in Pull Requests that might lead to a pull request being rejected, these include:
-
-* Malicious code.
-* Code that breaks previous functionality in a way that could be avoided.
-* Code that doesn't align with community style recommendations.
-* Code that fails Pester tests or PowerShell Script analyser.
-* Code that is obviously plagiarised.
-
-<!--
-
-    This is based upon the work by the Atom project, https://github.com/atom/atom/
-
--->
+- One goal per pull request, with what it changes and why.
+- Tests: a bug fix comes with the test that failed before it; a feature with tests of what it
+  does and of what it refuses.
+- The documentation (`docs/en` and `docs/fr`) and the `CHANGELOG.md` follow the change.
+- Write like the code around: its names, its comments (why, not what), its error messages (what
+  happened and what to do).
+- The CI must pass on Windows, Linux and against Samba.
