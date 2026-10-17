@@ -220,11 +220,11 @@ Hvis du vil se et eksempel på standarddialogboksen Åpne, kjører du Wordpad og
 
 Obs!  I Windows Vista gjelder denne policyinnstillingen bare for programmer som bruker fellesdialogboksstilen for Windows XP. Denne policyinnstillingen gjelder ikke for den nye fellesdialogboksstilen for Windows Vista. Det kreves at tredjeparts programmer med Windows 2000-sertifisering eller senere bruker denne innstillingen.</string>
       <string id="NoRecycleFiles">Ikke flytt slettede filer til papirkurven</string>
-      <string id="NoRecycleFiles_Help">Når en fil eller mappe slettes i Filutforsker, plasseres en kopi av filen eller mappen i papirkurven. Du kan forandre dette ved å bruke denne innstillingen.
+      <string id="NoRecycleFiles_Help">Når en fil eller mappe slettes i fil Utforsker, plasseres en kopi av filen eller mappen i papir kurven. Hvis du bruker denne innstillingen, kan du endre denne virke måten.
 
-Hvis denne innstillingen aktiveres, vil ikke filer og mapper som slettes i Filutforsker bli plassert i papirkurven, og vil derfor slettes permanent.
+Hvis du aktiverer denne innstillingen, vil ikke filer og mapper som slettes i fil Utforsker bli plassert i papir kurven, og vil derfor slettes permanent.
 
-Hvis denne innstillingen deaktiveres eller ikke konfigureres, vil filer og mapper som slettes i Filutforsker plasseres i papirkurven.</string>
+Hvis du deaktiverer eller ikke konfigurerer denne innstillingen, vil filer og mapper som slettes i fil Utforsker bli plassert i papir kurven.</string>
       <string id="NoRunAsInstallPrompt">Ikke be om alternativ legitimasjon</string>
       <string id="NoRunAsInstallPrompt_Help">Hindrer brukere i å skrive inn alternativ påloggingslegitimasjon for å installere et program.
 
@@ -519,19 +519,33 @@ Hvis du aktiverer denne policyinnstillingen, kan du hente snarveisikoner for fil
 Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, forhindres snarveisikoner for fil som bruker eksterne baner, fra å vises.
 
 Obs! Hvis du tillater bruken av eksterne baner i snarveisikoner for fil, kan det utsette brukernes datamaskiner for sikkerhetsrisiko.</string>
-      <string id="DefaultAssociationsConfiguration">Angi en konfigurasjonsfil for standardtilknytninger</string>
-      <string id="DefaultAssociationsConfiguration_Help">Denne policyinnstillingen angir banen til en fil (for eksempel lagret lokalt eller på en nettverksplassering) som inneholder filtype og standard programtilknytninger for protokoll. Denne filen kan opprettes ved hjelp av DISM-verktøyet.
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Tillat filgruppebeskrivelsesoperasjoner å skrive til en hvilken som helst målbane</string>
+      <string id="AllowAllCopyFGDDestinations_Help">Denne policyinnstillingen bestemmer om oppbevaringskontroller for banetraversering skal fremtvinges ved skriving av filer som mottas via utklippstavlen eller filgruppebeskrivelser for dra-slipp (CFSTR_FILEDESCRIPTOR).
 
+Hvis du aktiverer denne policyinnstillingen, blir ikke begrensningskontroller for banetraversering tatt i bruk, og filer kan skrives til alle baner som kan nås av målmappen. Aktiver denne policyen bare hvis standardvirkemåten bryter en nødvendig arbeidsflyt.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, fremtvinger filgruppebeskrivelsesoperasjoner baneoppbevaring og forkaster filnavn som forsøker å escape-målmappen via relative banekomponenter.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">Ikke bruk merket for webkoden på filer som er kopiert fra usikre kilder</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">Denne policyinnstillingen bestemmer bruken av merket for nedlastet fra nettet på filer som er hentet fra usikre plasseringer.
+
+Hvis du aktiverer denne policyinnstillingen, blir ikke filer som kopieres fra usikre kilder, merket som nedlastet fra nettet.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, blir filer som kopieres fra usikre kilder, merket som nedlastet fra nettet.
+
+Obs! Hvis du ikke merker filer fra usikre kilder som nedlastet fra nettet, kan brukernes datamaskiner utsettes for sikkerhetsrisikoer.</string>
+      <string id="DefaultAssociationsConfiguration">Angi en konfigurasjonsfil for standardtilknytninger</string>
+      <string id="DefaultAssociationsConfiguration_Help">Denne policyen angir banen til en fil (lagret lokalt eller på en nettverksplassering) som inneholder filtype- og standard programtilknytninger for protokoll. Denne filen kan opprettes med DISM-verktøyet.
+      
 Eksempel:
 Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-Hvis du vil ha mer informasjon, se i DISM-dokumentasjonen på TechNet.
+Hvis du vil ha mer informasjon, kan du se DISM-dokumentasjonen.
 
-Hvis denne gruppepolicyinnstillingen er aktivert og klientmaskinen er domenetilknyttet, blir filen behandlet, og standardtilknytninger brukes ved pålogging.
+Filen kan redigeres videre etter den er opprettet for å endre hvor ofte policytilknytningene brukes. Et «Versjon»-attributt kan legges til i elementet «DefaultAssociations». Verdien må være et heltall. Et «Foreslått»-attributt kan legges til i et hvilket som helst «Tilknytning»-element. Verdien må være boolsk og standardverdien er «usann». Når policyen brukes på en bruker, blir alle tilknytninger som har Suggested="true", brukt bare én gang. Hvis Versjon-verdien øker, blir Tilknytninger med Suggested="true" brukt på nytt.
 
-Hvis gruppepolicyinnstillingen ikke er konfigurert, er deaktivert eller klientmaskinen ikke er domenetilknyttet, brukes ingen standardtilknytninger ved pålogging.
+Hvis denne gruppepolicyen er aktivert og klientmaskinen er domenetilknyttet, blir filen behandlet, og standardtilknytninger brukes ved pålogging.
 
-Hvis policyinnstillingen er aktivert, deaktivert eller ikke konfigurert, kan brukere fortsatt overstyre standard filtype og protokolltilknytninger.</string>
+Hvis policyen er aktivert, kan brukerne fremdeles overstyre standard filtype og protokolltilknytninger, men ved neste pålogging blir filen brukt på nytt.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

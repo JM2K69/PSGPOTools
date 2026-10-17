@@ -138,13 +138,14 @@
         Visualizza le informazioni di contatto specificate agli utenti locali nelle notifiche di Sicurezza di Windows.
 
         Abilitato:
-        Le informazioni di contatto dell'azienda vengono visualizzate nelle notifiche di Sicurezza di Windows.
+        Le informazioni di contatto della società vengono visualizzate nelle notifiche di Sicurezza di Windows.
 
-        Dopo aver impostato questa opzione su Abilitato, devi configurare l'impostazione dei criteri di gruppo Specifica il nome della società di contatto e almeno una delle seguenti impostazioni dei criteri di gruppo:
-        -Specifica il numero di telefono o l'ID Skype del contatto
-        -Specifica il numero e-mail o l'ID e-mail del contatto
-        -Specifica il sito Web del contatto
-
+        Dopo aver impostato questa opzione su Abilitato, devi configurare l'impostazione di Criteri di gruppo Specifica il nome della società di contatto e almeno una delle seguenti impostazioni di Criteri di gruppo:
+        - Specifica il numero di telefono o l'ID Skype del contatto
+        - Specifica l'indirizzo e-mail o l'ID e-mail del contatto
+        - Specifica il sito Web del contatto
+        Nota: in alcuni casi la visualizzazione delle opzioni di contatto verrà limitata in base allo spazio disponibile per le notifiche.
+        
         Disabilitato:
         Le informazioni di contatto non vengono visualizzate nelle notifiche.
 
@@ -292,7 +293,7 @@
         Non configurato:
         Come Disabilitato.
     </string>
-    <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning">Nascondere il suggerimento di aggiornamento del firmware TPM.</string>
+    <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning">Nascondi il suggerimento di aggiornamento del firmware TPM.</string>
     <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning_Explain">
         Nasconde il suggerimento di aggiornamento del firmware TPM quando viene rilevato un firmware vulnerabile.
 

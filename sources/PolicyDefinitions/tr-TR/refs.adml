@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>ReFS grup ilkesi</displayName>
+  <description>ReFS için grup ilkesi ayarları</description>
+  <resources>
+    <stringTable>
+      <string id="ReFS">ReFS</string>
+      <string id="EnableDevDrive">Geliştirici sürücüsünü etkinleştir</string>
+      <string id="EnableDevDriveText">Geliştirici sürücüsü veya geliştirici birimi, geliştirici senaryolarının performansı için optimize edilmiş bir birimdir. Geliştirici birimi, yöneticinin birime eklenen dosya sistemi filtrelerini seçmesine olanak tanır.
+
+Bu ayar devre dışı bırakıldığında yeni geliştirici birimlerinin oluşturulmasına izin verilmez, mevcut geliştirici birimleri normal birimler olarak bağlanır.
+
+Bu ayar yapılandırılmadığında varsayılan ilke, geliştirici birimlerini etkinleştirirken antivirüs filtresinin bir geliştirici birimine eklenmesine izin verir.  Ayrıca, yapılandırılmadığında yerel bir yönetici geliştirici birimine antivirüs filtresi eklememeyi seçebilir
+
+Bu ayarın etkili olması için yeniden başlatma gerekir.</string>
+      <string id="ModeOff">Kapalı</string>
+      <string id="ModeAudit">Yalnızca denetim</string>
+      <string id="ModeBlock">Engelle</string>
+      <string id="BlockExternalBusMount">USB ve IEEE 1394 disklerine ReFS birimlerinin bağlanmasını kontrol et</string>
+      <string id="BlockExternalBusMountText">ReFS birimlerinin USB veya IEEE 1394 ile bağlı disklere bağlanmasına izin verilip verilmediğini denetler. ReFS, çalışırken takılabilen veya çıkarılabilen disklerde desteklenen bir yapılandırma değildir.
+
+Blok, bağlamayı reddeder ve Sistem günlüğüne bir olay kaydeder.
+
+Yalnızca denetim ayarı, bağlamaya izin verir ve aynı olayı kaydeder. Böylece bu ilkenin etkinleştirilmesinin etkisi zorunlu kılınmadan önce değerlendirilebilir.
+
+Kapalı, denetim yapmaz ve engelleme yapmaz.
+
+Bir Depolama Alanları birimi için bu denetim havuzu destekleyen fiziksel diskler için geçerlidir. Alanın kendisi için geçerli değildir.
+
+Bu ilke ayarı yapılandırılmamışsa bu bilgisayardaki yerel ayar kullanılır. Yerel bir ayar yoksa bu Windows sürümü için varsayılan davranış kullanılır.
+
+ReFS bu ayarı yüklendiğinde okur. Bu nedenle bir değişikliğin uygulanması için yeniden başlatma gerekir. Ayar daha sonra bir birimin bağlandığı her işlemde değerlendirilir. Bu yüzden zaten bağlı olan bir birim bağlantısı kesilip yeniden bağlanana kadar geçerli durumunu korur.</string>
+      <string id="BlockHotplugMount">Çalışırken takılabilen disklerde ReFS birimlerinin bağlanmasını denetleyin</string>
+      <string id="BlockHotplugMountText">Depolama yığını tarafından “çalışırken takılabilir” olarak bildirilen disklere, hangi veri yoluna bağlı olurlarsa olsunlar, ReFS birimlerinin bağlanmasına izin verilip verilmeyeceğini belirler. ReFS, çalışırken takılabilir veya çıkarılabilir disklerde desteklenen bir yapılandırma değildir.
+
+Blok, bağlamayı reddeder ve Sistem günlüğüne bir olay kaydeder.
+
+Yalnızca denetim ayarı, bağlamaya izin verir ve aynı olayı kaydeder. Böylece bu ilkenin etkinleştirilmesinin etkisi zorunlu kılınmadan önce değerlendirilebilir.
+
+Kapalı, denetim yapmaz ve engelleme yapmaz.
+
+Bir Depolama Alanları birimi için bu denetim havuzu destekleyen fiziksel diskler için geçerlidir. Alanın kendisi için geçerli değildir.
+
+Bu ilke ayarı yapılandırılmamışsa bu bilgisayardaki yerel ayar kullanılır. Yerel bir ayar yoksa bu Windows sürümü için varsayılan davranış kullanılır.
+
+ReFS bu ayarı yüklendiğinde okur. Bu nedenle bir değişikliğin uygulanması için yeniden başlatma gerekir. Ayar daha sonra bir birimin bağlandığı her işlemde değerlendirilir. Bu yüzden zaten bağlı olan bir birim bağlantısı kesilip yeniden bağlanana kadar geçerli durumunu korur.</string>
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="EnableDevDriveOptions">
+        <checkBox refId="DevDriveAllowAntivirusFilter" defaultChecked="true">Antivirüs filtresinin geliştirici sürücüleri korumasına izin ver</checkBox>
+      </presentation>
+      <presentation id="BlockExternalBusMountOptions">
+        <dropdownList refId="BlockExternalBusMountMode" defaultItem="0">USB veya IEEE 1394 disklerindeki ReFS birimleri için eylem</dropdownList>
+      </presentation>
+      <presentation id="BlockHotplugMountOptions">
+        <dropdownList refId="BlockHotplugMountMode" defaultItem="0">Çalışırken takılabilir disklerdeki ReFS birimleri için eylem</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

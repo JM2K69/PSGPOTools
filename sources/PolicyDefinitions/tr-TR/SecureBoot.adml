@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>buraya görünen adı girin</displayName>
+  <description>buraya açıklamayı girin</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Güvenli Önyükleme</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Denetimli Özellik Sunma Yoluyla Sertifika Dağıtımı</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">Yeni Güvenli Önyükleme sertifikalarını cihazlarına dağıtmak için yardım isteyen kuruluşlar bu ayarı etkinleştirebilir.
+
+ 
+
+Not: Bu özelliği kullanmak için cihazın gerekli tanılama verilerini Microsoft'a gönderiyor olması gerekir.
+
+ 
+
+Daha fazla bilgi için bkz. https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Güncellemelerle Otomatik Sertifika Dağıtımı</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">Sertifika güncellemelerini başarıyla işleyebileceğini gösteren test sonuçları bulunan cihazlarda, güncellemeler bakım güncellemelerinin bir parçası olarak otomatik başlatılır. Bu ilke varsayılan olarak etkindir. Otomatik güncellemeyi yönetmek isteyen kuruluşlar, bu ilkeyi kullanarak özelliği açıkça etkinleştirebilir veya devre dışı bırakabilir.
+
+ 
+
+Daha fazla bilgi için bkz. https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Güvenli Önyükleme Sertifikası Dağıtımını Etkinleştir</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Bu ilke ayarı, cihazlarda Güvenli Önyükleme Sertifikası Dağıtımı işlemini etkinleştirmenize veya devre dışı bırakmanıza olanak tanır. Etkinleştirildiğinde, Windows bu ilkenin uygulandığı cihazlara otomatik olarak sertifika dağıtım sürecini başlatır. 
+
+ 
+
+Not: Bu kayıt defteri ayarı bir ilke anahtarında depolanmaz ve bir tercih olarak kabul edilir. Bu nedenle, bu ayarı uygulayan Grup İlkesi Nesnesi kaldırılırsa bu kayıt defteri ayarı kalır. 
+
+ 
+
+Not: Bu ayarı çalıştıran ve işleyen Windows görevi her 12 saatte bir çalışır. Bazı durumlarda, güncelleştirmeler güvenli bir şekilde sıralanabilmesi için sistem yeniden başlatılana kadar bekletilir. 
+
+ 
+
+Not: Sertifikalar ürün yazılımına uygulandıktan sonra Windows'tan geri alınamaz. Sertifikaların silinmesi gerekiyorsa bu işlem donanım yazılımı menü arabiriminden yapılmalıdır. 
+
+ 
+
+Daha fazla bilgi için bkz. https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Güvenli Önyükleme için Gerekli Hizmet Verilerini Sınırla</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Bu ilke ayarı, işletim sisteminin günlük Güvenli Önyükleme gerekli hizmet verileri olayını yayıp yayımlamayacağını denetler. Olay, cihazın Güvenli Önyükleme yapılandırması ve üretici yazılımı değişken durumu hakkında bilgi içerir ve güvenlik gerektiren olarak sınıflandırıldığı için normalde Telemetriye İzin Ver tanılama verileri düzeyinden bağımsız olarak gönderilir.
+
+ 
+
+Bu ilke ayarı etkinleştirildiğinde, günlük Güvenli Önyükleme gerekli hizmet verileri olayı yayımlanmaz. Bu, Windows Kısıtlı Trafik Sınırlı İşlevsellik Temeli altında çalışan kuruluşlar için tasarlanmıştır.
+
+ 
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, işletim sistemi mevcut telemetri izin kurallarına göre Güvenli Önyükleme gerekli hizmet verileri olayını yayımlamaya devam eder.</string>
+
+      <string id="SUPPORTED_Windows8">En az Windows Server 2012, Windows 8 veya Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

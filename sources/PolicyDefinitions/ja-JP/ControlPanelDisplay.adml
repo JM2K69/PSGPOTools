@@ -169,6 +169,12 @@ Windows XP 以降のシステムでこの設定を有効にした場合、ユー
 既定では、ユーザーは、コンピューターのロック時またはログオン画面に表示される背景画像を変更できます。
 
 この設定を有効にした場合、ユーザーは、ロック画面とログオン イメージを変更できなくなり、代わりに既定のイメージが表示されます。</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">ロック画面の背景が動かないようにする</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">このポリシー設定では、ロック画面画像を静的にするか、デバイスの加速度計出力によって微妙なパン効果を与えるかを制御します。
+
+この設定を有効にした場合、動きが止められ、従来の静的なロック画面の背景画像が表示されます。
+
+この設定を無効にした場合 (およびデバイスに加速度計がある場合)、ユーザーがデバイスを物理的に移動したときに、ロック画面の背景が静止画像の周りで表示されます。</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">特定の既定のロック画面とログオン イメージを強制する</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">この設定を使用すると、イメージ ファイルへのパス (場所) を入力することで、その既定のロック画面とログオン イメージを強制することができます。ロック画面とログオン画面の両方に同じイメージが使用されます。
 

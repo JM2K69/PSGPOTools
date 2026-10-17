@@ -99,6 +99,67 @@ Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane,
 
 Jeśli ten obiekt zasad grupy zostanie zastosowany do urządzenia, gdy będzie otwarta aplikacja, pracownicy będą musieli ponownie uruchomić aplikację lub urządzenie w celu zastosowania zmian zasad do aplikacji.
       </string>
+      <string id="LetAppsAccessSystemAIModels_Name">Zezwalaj aplikacjom systemu Windows na korzystanie z funkcji generowania tekstu i obrazów systemu Windows</string>
+      <string id="LetAppsAccessSystemAIModels_Explain">
+To ustawienie zasad określa, czy aplikacje systemu Windows mogą korzystać z funkcji generowania tekstu i obrazów systemu Windows.
+
+Możesz określić ustawienie domyślne dla wszystkich aplikacji albo ustawienia dla poszczególnych aplikacji, określając nazwę rodziny pakietów. Nazwę rodziny pakietów dla aplikacji można uzyskać za pomocą polecenia cmdlet Get-AppPackage programu Windows PowerShell. Ustawienie dla aplikacji zastępuje ustawienie domyślne.
+
+Jeśli wybierzesz opcję „Użytkownik ma kontrolę”, pracownicy w Twojej organizacji będą mogli zdecydować, czy aplikacje Windows mogą korzystać z generowania tekstu i obrazów w obszarze Ustawienia &gt; Prywatność na urządzeniu.
+
+Jeśli wybierzesz opcję „Wymuś zezwolenie”, aplikacje Windows będą mogły korzystać z funkcji generowania tekstu i obrazów systemu Windows, a pracownicy w Twojej organizacji nie będą mogli tego zmienić.
+
+Jeśli wybierzesz opcję „Wymuś odmowę”, aplikacje Windows nie będą mogły korzystać z funkcji generowania tekstu i obrazów systemu Windows, a pracownicy w Twojej organizacji nie będą mogli tego zmienić.
+
+Jeśli wyłączysz lub nie skonfigurujesz tego ustawienia zasad, pracownicy w Twojej organizacji będą mogli zdecydować, czy aplikacje systemu Windows mogą korzystać z funkcji generowania tekstu i obrazów systemu Windows w obszarze Ustawienia &gt; Prywatność na urządzeniu.
+
+Jeśli aplikacja jest otwarta po zastosowaniu tego obiektu zasad grupy na urządzeniu, pracownicy muszą ponownie uruchomić aplikację lub urządzenie, aby zmiany zasad zostały zastosowane do aplikacji.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Name">Niech aplikacje systemu Windows wykonują zrzuty ekranu różnych okien lub ekranów</string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Explain">To ustawienie zasad określa, czy aplikacje systemu Windows mogą wykonywać zrzuty ekranu różnych okien lub wyświetlaczy.
+
+Możesz określić ustawienie domyślne dla wszystkich aplikacji albo skonfigurować je dla każdej aplikacji osobno, podając nazwę rodziny pakietów. Aby uzyskać nazwę rodziny pakietów aplikacji, możesz użyć polecenia cmdlet Get-AppPackage środowiska Windows PowerShell. Ustawienie na poziomie aplikacji zastępuje ustawienie domyślne.
+
+Wybranie opcji „Pod kontrolą użytkownika” umożliwi pracownikom w organizacji decydowanie, czy aplikacje systemu Windows mogą wykonywać zrzuty ekranu różnych okien lub wyświetlaczy z poziomu ekranu Ustawienia i prywatność na urządzeniu.
+
+W przypadku wybrania opcji „Wymuś zezwalanie” aplikacje systemu Windows będą mogły wykonywać zrzuty ekranu różnych okien lub wyświetlaczy, a pracownicy w organizacji nie będą mogli tego zmienić.
+
+W przypadku wybrania opcji „Wymuś odmowę” aplikacje systemu Windows nie będą mogły wykonywać zrzuty ekranu różnych okien lub wyświetlaczy, a pracownicy w organizacji nie będą mogli tego zmienić.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, pracownicy w organizacji będą mogli decydować, czy aplikacje systemu Windows będą mogły wykonywać zrzuty ekranu różnych okien lub wyświetlaczy z poziomu ekranu Ustawienia i prywatność na urządzeniu.
+
+Jeśli ten obiekt zasad grupy zostanie zastosowany do urządzenia, gdy będzie otwarta aplikacja, pracownicy będą musieli ponownie uruchomić aplikację lub urządzenie w celu zastosowania zmian zasad do aplikacji.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Name">Niech aplikacje systemu Windows wyłączają obramowanie zrzutu ekranu</string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Explain">To ustawienie zasad określa, czy aplikacje systemu Windows mogą wyłączyć obramowanie zrzutu ekranu.
+
+Możesz określić ustawienie domyślne dla wszystkich aplikacji lub skonfigurować je dla każdej aplikacji osobno, podając nazwę rodziny pakietów. Aby uzyskać nazwę rodziny pakietów aplikacji, możesz użyć polecenia cmdlet Get-AppPackage środowiska Windows PowerShell. Ustawienie na poziomie aplikacji zastępuje ustawienie domyślne.
+
+Wybranie opcji „Pod kontrolą użytkownika” umożliwi pracownikom w organizacji decydowanie, czy aplikacje systemu Windows mogą wyłączyć obramowanie zrzutu ekranu (z poziomu ekranu Ustawienia &gt; Prywatność na urządzeniu).
+
+W przypadku wybrania opcji „Wymuś zezwalanie” aplikacje systemu Windows będą mogły wyłączyć obramowanie zrzutu ekranu i pracownicy w organizacji nie będą mogli tego zmienić.
+
+W przypadku wybrania opcji „Wymuś odmowę” aplikacje systemu Windows nie będą mogły wyłączyć obramowania zrzutu ekranu i pracownicy w organizacji nie będą mogli tego zmienić.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, pracownicy w organizacji będą mogli decydować, czy aplikacje systemu Windows będą mogły wyłączyć obramowanie zrzutu ekranu (z poziomu ekranu Ustawienia &gt; Prywatność na urządzeniu).
+
+Jeśli ten obiekt zasad grupy zostanie zastosowany do urządzenia, gdy będzie otwarta aplikacja, pracownicy będą musieli ponownie uruchomić aplikację lub urządzenie w celu zastosowania zmian zasad do aplikacji.
+      </string>
+      <string id="LetAppsAccessHumanPresence_Name">Zezwalaj aplikacjom systemu Windows na dostęp do wykrywania obecności</string>
+      <string id="LetAppsAccessHumanPresence_Explain">To ustawienie zasad określa, czy aplikacje systemu Windows mogą uzyskiwać dostęp do wykrywania obecności.
+
+Można określić ustawienie domyślne dla wszystkich aplikacji lub skonfigurować je dla każdej aplikacji osobno, podając nazwę rodziny pakietów. Aby uzyskać nazwę rodziny pakietów aplikacji, można użyć polecenia cmdlet Get-AppPackage środowiska Windows PowerShell. Ustawienie na poziomie aplikacji zastępuje ustawienie domyślne.
+
+Wybranie opcji „Pod kontrolą użytkownika” umożliwi pracownikom w organizacji decydowanie, czy aplikacje systemu Windows mogą uzyskiwać dostęp do wykrywania obecności (z poziomu ekranu Ustawienia &gt; Prywatność na urządzeniu).
+
+W przypadku wybrania opcji „Wymuś zezwalanie” aplikacje systemu Windows będą mogły uzyskiwać dostęp do wykrywania obecności i pracownicy w organizacji nie będą mogli tego zmienić.
+
+W przypadku wybrania opcji „Wymuś odmowę” aplikacje systemu Windows nie będą mogły uzyskiwać dostępu do wykrywania obecności i pracownicy w organizacji nie będą mogli tego zmienić.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, pracownicy w organizacji będą mogli decydować, czy aplikacje systemu Windows będą mogły uzyskiwać dostęp do wykrywania obecności (z poziomu ekranu Ustawienia &gt; Prywatność na urządzeniu).
+
+Jeśli ten obiekt zasad grupy zostanie zastosowany do urządzenia, gdy będzie otwarta aplikacja, pracownicy będą musieli ponownie uruchomić aplikację lub urządzenie w celu zastosowania zmian zasad do aplikacji.
+      </string>
       <string id="LetAppsAccessLocation_Name">Zezwalaj aplikacjom systemu Windows na dostęp do informacji o lokalizacji</string>
       <string id="LetAppsAccessLocation_Explain">To ustawienie zasad określa, czy aplikacje systemu Windows mogą uzyskiwać dostęp do informacji o lokalizacji.
 
@@ -173,6 +234,36 @@ W przypadku wybrania opcji „Wymuś odmowę” aplikacje systemu Windows nie b�
 Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, pracownicy w organizacji będą mogli decydować, czy aplikacje systemu Windows będą mogły uzyskiwać dostęp do powiadomień (z poziomu ekranu Ustawienia &gt; Prywatność na urządzeniu).
 
 Jeśli ten obiekt zasad grupy zostanie zastosowany do urządzenia, gdy będzie otwarta aplikacja, pracownicy będą musieli ponownie uruchomić tę aplikację lub urządzenie w celu zastosowania do niej zmian zasad.
+      </string>
+      <string id="LetAppsAccessPasskeys_Name">Zezwalaj aplikacjom systemu Windows na dostęp do kluczy dostępu</string>
+      <string id="LetAppsAccessPasskeys_Explain">To ustawienie zasad określa, czy aplikacje mogą uzyskiwać dostęp do kluczy dostępu.
+
+Możesz określić ustawienie domyślne dla wszystkich aplikacji albo ustawienia dla poszczególnych aplikacji, określając nazwę rodziny pakietów. Nazwę rodziny pakietów dla aplikacji można uzyskać za pomocą polecenia cmdlet Get-AppPackage w programie Windows PowerShell. Ustawienie dla aplikacji zastępuje ustawienie domyślne.
+
+Jeśli wybierzesz opcję „Użytkownik ma kontrolę”, pracownicy w Twojej organizacji będą mogli decydować, czy aplikacje będą miały dostęp do kluczy dostępu, korzystając z opcji Ustawienia &gt; Prywatność na urządzeniu.
+
+Jeśli wybierzesz opcję „Wymuś zezwolenie”, aplikacje będą miały dostęp do kluczy dostępu, a pracownicy w Twojej organizacji nie będą mogli ich zmieniać.
+
+Jeśli wybierzesz opcję „Wymuś odmowę”, aplikacje nie będą miały dostępu do kluczy dostępu, a pracownicy w Twojej organizacji nie będą mogli ich zmienić.
+
+Jeśli wyłączysz to ustawienie zasad lub go nie skonfigurujesz, pracownicy w Twojej organizacji będą mogli decydować, czy aplikacje mogą uzyskiwać dostęp do kluczy dostępu, korzystając z opcji Ustawienia &gt; Prywatność na urządzeniu.
+
+Jeśli aplikacja jest otwarta po zastosowaniu tego obiektu zasad grupy na urządzeniu, pracownicy muszą ponownie uruchomić aplikację lub urządzenie, aby zmiany zasad zostały zastosowane do aplikacji.
+      </string>
+      <string id="LetAppsAccessPasskeysEnumeration_Name">Zezwalaj aplikacjom systemu Windows na automatyczne wypełnianie kluczy dostępu</string>
+      <string id="LetAppsAccessPasskeysEnumeration_Explain">To ustawienie zasad określa, czy aplikacje mogą uzyskiwać automatycznie wypełniać klucze dostępu.
+
+Możesz określić ustawienie domyślne dla wszystkich aplikacji albo ustawienia dla poszczególnych aplikacji, określając nazwę rodziny pakietów. Nazwę rodziny pakietów dla aplikacji można uzyskać za pomocą polecenia cmdlet Get-AppPackage w programie Windows PowerShell. Ustawienie dla aplikacji zastępuje ustawienie domyślne.
+
+Jeśli wybierzesz opcję „Użytkownik ma kontrolę”, pracownicy w Twojej organizacji będą mogli decydować, czy aplikacje będą mogły automatycznie wypełniać klucze dostępu, korzystając z opcji Ustawienia &gt; Prywatność na urządzeniu.
+
+Jeśli wybierzesz opcję „Wymuś zezwolenie”, aplikacje będą mogły automatycznie wypełniać klucze dostępu, a pracownicy w Twojej organizacji nie będą mogli ich zmieniać.
+
+Jeśli wybierzesz opcję „Wymuś odmowę”, aplikacje nie będą mogły automatycznie wypełniać kluczy dostępu, a pracownicy w Twojej organizacji nie będą mogli ich zmienić.
+
+Jeśli wyłączysz to ustawienie zasad lub go nie skonfigurujesz, pracownicy w Twojej organizacji będą mogli decydować, czy aplikacje mogą automatycznie wypełniać klucze dostępu, korzystając z opcji Ustawienia &gt; Prywatność na urządzeniu.
+
+Jeśli aplikacja jest otwarta po zastosowaniu tego obiektu zasad grupy na urządzeniu, pracownicy muszą ponownie uruchomić aplikację lub urządzenie, aby zmiany zasad zostały zastosowane do aplikacji.
       </string>
       <string id="LetAppsAccessPhone_Name">Zezwalaj aplikacjom systemu Windows na wykonywanie połączeń telefonicznych</string>
       <string id="LetAppsAccessPhone_Explain">To ustawienie zasad określa, czy aplikacje systemu Windows mogą wykonywać połączenia telefoniczne.
@@ -321,6 +412,35 @@ Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, pracownicy Tw
 
 Ta zasada jest stosowana do aplikacji systemu Windows i Cortany. Ma ona pierwszeństwo przed zasadą „Zezwalaj na Cortanę na ekranie blokady”. Ta zasada ma zastosowanie tylko wtedy, gdy konfiguracja zasady „Zezwalaj na aktywację głosową” zezwala na aktywowanie aplikacji za pomocą głosu.
       </string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Name">Zezwalaj aplikacjom systemu Windows na dostęp do ruchów użytkownika podczas działania w tle</string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Explain">To ustawienie zasad określa, czy aplikacje systemu Windows mogą uzyskiwać dostęp do ruchów głowy, rąk i kontrolerów ruchu użytkownika oraz innych śledzonych obiektów, gdy działają w tle.
+
+Możesz określić ustawienie domyślne dla wszystkich aplikacji albo ustawienia dla poszczególnych aplikacji, określając nazwę rodziny pakietów. Nazwę rodziny pakietów dla danej aplikacji możesz pobrać za pomocą polecenia cmdlet Get-AppPackage programu Windows PowerShell. Ustawienia dla poszczególnych aplikacji zastępują ustawienie domyślne.
+
+Jeśli wybierzesz opcję Pod kontrolą użytkownika, pracownicy Twojej organizacji będą mogli określać, czy aplikacje systemu Windows będą mogły uzyskiwać dostęp do ruchów użytkownika, gdy będą działać w tle, wybierając kolejno pozycje Ustawienia &gt; Prywatność na urządzeniu.
+
+Jeśli wybierzesz opcję Wymuś zezwalanie, aplikacje systemu Windows będą mogły uzyskiwać dostęp do ruchów użytkownika, gdy będą działać w tle, a pracownicy Twojej organizacji nie będą mogli zmienić tego ustawienia.
+
+Jeśli wybierzesz opcję Wymuś odmowę, aplikacje systemu Windows nie będą mogły uzyskiwać dostępu do ruchów użytkownika, gdy będą działać w tle, a pracownicy Twojej organizacji nie będą mogli zmienić tego ustawienia.
+
+Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, pracownicy Twojej organizacji będą mogli określać, czy aplikacje systemu Windows będą mogły uzyskiwać dostęp do ruchów użytkownika, gdy będą działać w tle, wybierając kolejno pozycje Ustawienia &gt; Prywatność na urządzeniu.
+
+Jeśli aplikacja będzie otwarta w momencie zastosowania tego obiektu zasad grupy na urządzeniu, pracownicy będą musieli uruchomić ponownie aplikację lub urządzenie, aby zmiany zasad zostały zastosowane do danej aplikacji.
+      </string>
+      <string id="LetAppsAccessForegroundText_Name">Zezwalaj aplikacjom systemu Windows na dostęp do zawartości tekstowej z aplikacji na pierwszym planie</string>
+      <string id="LetAppsAccessForegroundText_Explain">To ustawienie zasad określa, czy aplikacje systemu Windows mogą uzyskiwać dostęp do zawartości tekstowej z aplikacji pierwszoplanowych.
+Możesz określić ustawienie domyślne dla wszystkich aplikacji albo ustawienia dla poszczególnych aplikacji, określając nazwę rodziny pakietów. Nazwę rodziny pakietów dla aplikacji można uzyskać za pomocą polecenia cmdlet Get-AppPackage programu Windows PowerShell. Ustawienie dla aplikacji zastępuje ustawienie domyślne.
+
+Jeśli wybierzesz opcję „Użytkownik ma kontrolę”, pracownicy w Twojej organizacji mogą decydować, czy aplikacje systemu Windows mogą uzyskiwać dostęp do zawartości tekstowej z aplikacji pierwszoplanowych, korzystając z sekcji Ustawienia &gt; Prywatność na urządzeniu.
+
+Jeśli wybierzesz opcję „Wymuś zezwalanie”, aplikacje systemu Windows będą miały uprawnienia do uzyskiwania dostępu do zawartości tekstowej z aplikacji pierwszoplanowych, a pracownicy w Twojej organizacji nie będą mogli tego zmienić.
+
+Jeśli wybierzesz opcję „Wymuś odmowę”, aplikacje systemu Windows nie będą miały uprawnień do uzyskiwania dostępu do zawartości tekstowej z aplikacji pierwszoplanowych, a pracownicy w Twojej organizacji nie będą mogli tego zmienić.
+
+Jeśli wyłączysz to ustawienie zasad lub go nie skonfigurujesz, pracownicy w Twojej organizacji mogą decydować, czy aplikacje systemu Windows mogą uzyskiwać dostęp do zawartości tekstowej z aplikacji pierwszoplanowych, korzystając z sekcji Ustawienia &gt; Prywatność na urządzeniu.
+
+Jeśli aplikacja jest otwarta po zastosowaniu tego obiektu zasad grupy na urządzeniu, pracownicy muszą ponownie uruchomić aplikację lub urządzenie, aby zmiany zasad zostały zastosowane do aplikacji.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LetAppsAccessCalendar">
@@ -376,6 +496,42 @@ Ta zasada jest stosowana do aplikacji systemu Windows i Cortany. Ma ona pierwsze
         <multiTextBox refId="LetAppsAccessEmail_ForceAllowTheseApps_List"/>
         <text>Wymuś odmowę tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
         <multiTextBox refId="LetAppsAccessEmail_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessSystemAIModels">
+        <dropdownList refId="LetAppsAccessSystemAIModels_Enum" noSort="true" defaultItem="0">Domyślne dla wszystkich aplikacji:</dropdownList>
+        <text>Pozwól użytkownikom kontrolować te konkretne aplikacje (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_UserInControlOfTheseApps_List"/>
+        <text>Wymuś zezwalanie tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceAllowTheseApps_List"/>
+        <text>Wymuś odmowę tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureProgrammatic">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureProgrammatic_Enum" noSort="true" defaultItem="0">Domyślne dla wszystkich aplikacji:</dropdownList>
+        <text>Pozwól użytkownikom kontrolować te konkretne aplikacje (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_UserInControlOfTheseApps_List"/>
+        <text>Wymuś zezwalanie tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceAllowTheseApps_List"/>
+        <text>Wymuś odmowę tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureWithoutBorder">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureWithoutBorder_Enum" noSort="true" defaultItem="0">Domyślne dla wszystkich aplikacji:</dropdownList>
+        <text>Pozwól użytkownikom kontrolować te konkretne aplikacje (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_UserInControlOfTheseApps_List"/>
+        <text>Wymuś zezwalanie tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceAllowTheseApps_List"/>
+        <text>Wymuś odmowę tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessHumanPresence">
+        <dropdownList refId="LetAppsAccessHumanPresence_Enum" noSort="true" defaultItem="0">Domyślne dla wszystkich aplikacji:</dropdownList>
+        <text>Pozwól użytkownikom kontrolować te konkretne aplikacje (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_UserInControlOfTheseApps_List"/>
+        <text>Wymuś zezwalanie tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceAllowTheseApps_List"/>
+        <text>Wymuś odmowę tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessLocation">
         <dropdownList refId="LetAppsAccessLocation_Enum" noSort="true" defaultItem="0">Domyślne dla wszystkich aplikacji:</dropdownList>
@@ -473,7 +629,7 @@ Ta zasada jest stosowana do aplikacji systemu Windows i Cortany. Ma ona pierwsze
         <multiTextBox refId="LetAppsRunInBackground_UserInControlOfTheseApps_List"/>
         <text>Wymuś zezwalanie tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
         <multiTextBox refId="LetAppsRunInBackground_ForceAllowTheseApps_List"/>
-        <text>Wymuś odmowę tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <text>Wymuś odmowę dla tych konkretnych aplikacji (użyj nazw rodzin pakietów):</text>
         <multiTextBox refId="LetAppsRunInBackground_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsGetDiagnosticInfo">
@@ -482,7 +638,7 @@ Ta zasada jest stosowana do aplikacji systemu Windows i Cortany. Ma ona pierwsze
         <multiTextBox refId="LetAppsGetDiagnosticInfo_UserInControlOfTheseApps_List"/>
         <text>Wymuś zezwalanie tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_ForceAllowTheseApps_List"/>
-        <text>Wymuś odmowę tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <text>Wymuś odmowę dla tych konkretnych aplikacji (użyj nazw rodzin pakietów):</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessGazeInput">
@@ -499,6 +655,42 @@ Ta zasada jest stosowana do aplikacji systemu Windows i Cortany. Ma ona pierwsze
       </presentation>
       <presentation id="LetAppsActivateWithVoiceAboveLock">
         <dropdownList refId="LetAppsActivateWithVoiceAboveLock_Enum" noSort="true" defaultItem="0">Domyślne dla wszystkich aplikacji:</dropdownList>
+      </presentation>
+      <presentation id="LetAppsAccessBackgroundSpatialPerception">
+        <dropdownList refId="LetAppsAccessBackgroundSpatialPerception_Enum" noSort="true" defaultItem="0">Domyślne dla wszystkich aplikacji:</dropdownList>
+        <text>Pozwól użytkownikom kontrolować te konkretne aplikacje (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_UserInControlOfTheseApps_List"/>
+        <text>Wymuś zezwalanie tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps_List"/>
+        <text>Wymuś odmowę dla tych konkretnych aplikacji (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessForegroundText">
+        <dropdownList refId="LetAppsAccessForegroundText_Enum" noSort="true" defaultItem="0">Domyślne dla wszystkich aplikacji:</dropdownList>
+        <text>Pozwól użytkownikom kontrolować te konkretne aplikacje (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_UserInControlOfTheseApps_List"/>
+        <text>Wymuś zezwalanie tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceAllowTheseApps_List"/>
+        <text>Wymuś odmowę dla tych konkretnych aplikacji (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeys">
+        <dropdownList refId="LetAppsAccessPasskeys_Enum" noSort="true" defaultItem="0">Domyślne dla wszystkich aplikacji:</dropdownList>
+        <text>Pozwól użytkownikom kontrolować te konkretne aplikacje (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_UserInControlOfTheseApps_List"/>
+        <text>Wymuś zezwalanie tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceAllowTheseApps_List"/>
+        <text>Wymuś odmowę dla tych konkretnych aplikacji (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeysEnumeration">
+        <dropdownList refId="LetAppsAccessPasskeysEnumeration_Enum" noSort="true" defaultItem="0">Domyślne dla wszystkich aplikacji:</dropdownList>
+        <text>Pozwól użytkownikom kontrolować te konkretne aplikacje (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_UserInControlOfTheseApps_List"/>
+        <text>Wymuś zezwalanie tym konkretnym aplikacjom (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceAllowTheseApps_List"/>
+        <text>Wymuś odmowę dla tych konkretnych aplikacji (użyj nazw rodzin pakietów):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceDenyTheseApps_List"/>
       </presentation>
     </presentationTable>
   </resources>

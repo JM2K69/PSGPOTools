@@ -80,20 +80,37 @@
       <string id="Channel_LogMaxSize">指定記錄檔大小上限 (KB)</string>
       <string id="Channel_LogMaxSize_Help">這個原則設定可指定記錄檔的大小上限 (以 KB 為單位)。
 
-如果您啟用這個原則設定，即可將記錄檔大小上限設定為介於 1 MB (1024 KB) 至 2 TB (2147483647 KB) 之間 (以 KB 為遞增單位)。
+如果您啟用此原則設定，可以設定介於 1 MB (1024 KB) 與 2 TB (2147483647 KB) 之間 (以 KB 為單位遞增) 的最大記錄檔大小。
 
-如果您停用或未設定這個原則設定，則記錄檔大小上限將會設定為本機設定值。本機系統管理員可使用 [記錄內容] 對話方塊來變更這個值，此值預設為 1 MB。</string>
+如果您停用或未設定這個原則設定，則記錄檔大小上限將會設定為本機設定值。本機系統管理員可使用 [記錄內容] 對話方塊來變更這個值，此值預設為 20 MB。</string>
       <string id="Channel_LogMaxSizeSecurity_Help">這個原則設定可指定記錄檔的大小上限 (以 KB 為單位)。
 
 如果您啟用這個原則設定，即可將記錄檔大小上限設定為介於 20 MB (20480 KB) 至 2 TB (2147483647 KB) 之間 (以 KB 為遞增單位)。
 
-如果您停用或未設定這個原則設定，則記錄檔大小上限將會設定為本機設定值。本機系統管理員可使用 [記錄內容] 對話方塊來變更這個值，此值預設為 20 MB。</string>
+如果您停用或未設定這個原則設定，則記錄檔大小上限將會設定為本機設定的值。本機系統管理員可使用 [記錄內容] 對話方塊來變更這個值，此值預設為 40 MB。</string>
       <string id="ChannelName_Help">記錄檔的組態設定</string>
       <string id="EventLog_Application">應用程式</string>
       <string id="EventLog_Security">安全性</string>
       <string id="EventLog_Setup">安裝</string>
       <string id="EventLog_System">系統</string>
       <string id="EventLogCategory">事件記錄服務</string>
+      <string id="Service_RpcAccess_Remote">限制遠端存取事件記錄檔服務</string>
+      <string id="Service_RpcAccess_Remote_Help">此原則設定可控制允許哪些遠端使用者連線到此電腦上的事件記錄檔服務。
+
+如果您啟用此原則，您可以限制遠端使用者必須是其成員的群組，才能連線到此電腦上的事件記錄檔服務。您可以要求遠端使用者必須是下列其中一個內建群組的成員:
+
+• 已驗證的使用者
+• EventLog 讀取者
+• 系統管理員
+
+如果您停用或未設定此原則，預設值將會是 Authenticated Users。
+
+對於舊版 Windows，只支援已驗證的使用者。為了保持回溯相容性，一律允許來自已驗證使用者的服務本機連線。
+
+此設定不會控制個別記錄檔的存取權。一旦允許遠端連線，它仍然需要存取其嘗試使用的特定資源。</string>
+      <string id="Service_RpcAccess_Remote_AU">已驗證的使用者</string>
+      <string id="Service_RpcAccess_Remote_ER">事件記錄檔讀取者</string>
+      <string id="Service_RpcAccess_Remote_AD">系統管理員</string>
     </stringTable>
     <presentationTable>
       <presentation id="Channel_Log_FileLogAccess_1">
@@ -157,16 +174,19 @@
         </textBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_1">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">記錄檔大小上限 (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">記錄檔大小上限 (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_2">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">記錄檔大小上限 (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="40960">記錄檔大小上限 (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_3">
         <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">記錄檔大小上限 (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_4">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">記錄檔大小上限 (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">記錄檔大小上限 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="Service_RpcAccess_Remote">
+        <dropdownList refId="RpcAccess_Remote_Setting" noSort="true" defaultItem="0">選擇下列其中一個設定：</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

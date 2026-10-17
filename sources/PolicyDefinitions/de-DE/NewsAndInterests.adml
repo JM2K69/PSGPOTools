@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Anzeigename hier eingeben</displayName>
+  <description>Beschreibung hier eingeben</description>
+  <resources>
+    <stringTable>
+      <string id="NewsAndInterests">Widgets</string>
+      <string id="AllowNewsAndInterests">Zulassen von Widgets</string>
+      <string id="Explain_AllowNewsAndInterests">Diese Richtlinie gibt an, ob die Widgets-Funktion auf dem Gerät zugelassen ist.
+Widgets sind standardmäßig aktiviert, ausgenommen, Sie ändern dies in Ihren Einstellungen.
+Wenn Sie diese Funktion bereits aktiviert haben, bleibt sie automatisch aktiv, bis sie deaktiviert wird.</string>
+      <string id="DisableWidgetsOnLockScreen">Widgets auf Sperrbildschirm deaktivieren</string>
+      <string id="Explain_DisableWidgetsOnLockScreen">Diese Richtlinie gibt an, ob das Feature "Widgets" auf dem Sperrbildschirm deaktiviert werden soll.
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, werden Widgets auf dem Sperrbildschirm angezeigt und können in der App "Windows-Einstellungen" verwaltet werden.
+Wenn Sie diese Richtlinieneinstellung aktivieren, werden keine Widgets auf dem Sperrbildschirm angezeigt.</string>
+      <string id="DisableWidgetsBoard">Widgets-Board deaktivieren</string>
+      <string id="Explain_DisableWidgetsBoard">Diese Richtlinie gibt an, ob die Funktion "Widgets Board" deaktiviert werden soll. 
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Sie das Widget board aufrufen und seinen Einstiegspunkt auf der Taskleiste anzeigen. Die Funktion "Widgets Board" kann in den Widgeteinstellungen verwaltet werden, deren Einstiegspunkt sich auf dem Widgetboard befindet.
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie das Widgetboard nicht aufrufen, und sein Einstiegspunkt wird nicht mehr auf der Taskleiste angezeigt.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

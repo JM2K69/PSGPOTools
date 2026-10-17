@@ -947,7 +947,7 @@ Si vous désactivez ce paramètre de stratégie, UE-V Agent synchronise les para
 Si vous ne configurez pas ce paramètre de stratégie, toute valeur définie est supprimée.
 Remarque : si l'utilisateur se connecte à son compte Microsoft pour son ordinateur, UE-V Agent ne synchronise pas les applications Windows. Les applications Windows seront réglées sur les paramètres configurés dans Synchroniser vos paramètres dans Windows.
       </string>
-      <string id="Win8AppsList">Synchronisation des applications Windows</string>
+      <string id="Win8AppsList">Synchronisation des Windows App</string>
       <string id="Win8AppsList_Help">Ce paramètre de stratégie spécifie si User Experience Virtualization (UE-V) synchronise les paramètres d'applications Windows spécifiques. Par défaut, UE-V Agent ne synchronise pas les paramètres des applications Windows. Ce paramètre de stratégie vous permet de répertorier les applications Windows en fonction du nom de famille de leur package. UE-V synchronise les paramètres d'applications répertoriées entre les ordinateurs de travail de chaque utilisateur qui exécutent la même application Windows. Si vous activez ce paramètre de stratégie et répertoriez les noms de famille de package des applications Windows, UE-V Agent synchronisera les paramètres pour les applications répertoriées. 
 Si vous désactivez cette stratégie, aucune application Windows ne synchronisera ses paramètres. 
 Si vous ne configurez pas ce paramètre de stratégie, toute valeur définie sera supprimée.

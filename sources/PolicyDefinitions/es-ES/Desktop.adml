@@ -55,6 +55,15 @@ Nota: esta opción no deshabilita Active Desktop. Los usuarios pueden seguir usa
 De forma predeterminada, un usuario puede cambiar la ubicación de sus carpetas de perfiles personales, como Documentos, Música, etc. si escribe una ruta de acceso nueva en la pestaña Ubicaciones del cuadro Propiedades de la carpeta en cuestión.
 
 Si habilita esta opción, los usuarios no pueden escribir una ubicación nueva en el cuadro Destino.</string>
+      <string id="EnableThemeFileRemoteResource">Permitir archivos de tema desde ubicaciones de red</string>
+      <string id="EnableThemeFileRemoteResource_Help">Esta configuración de directiva determina si se pueden usar rutas de acceso remotas para recursos dentro de un archivo de tema de escritorio de Windows (.theme/.themepack).
+
+Si habilitas esta configuración de directiva, los archivos de tema pueden hacer referencia a recursos (como imágenes, sonidos e iconos) ubicados en recursos compartidos de red u otras ubicaciones remotas. Los usuarios podrán aplicar temas que contengan recursos remotos.
+
+Si deshabilitas esta configuración de directiva, los archivos de tema no podrán usar recursos remotos. Cualquier archivo de tema que haga referencia a recursos remotos no podrá cargar esos recursos y solo se mostrarán los recursos locales.
+
+Si no estableces esta configuración de directiva, el comportamiento predeterminado es bloquear los recursos remotos en los archivos de tema por motivos de seguridad.</string>
+
       <string id="ForceActiveDesktopOn">Habilitar Active Desktop</string>
       <string id="ForceActiveDesktopOn_Help">Habilita Active Desktop e impide que los usuarios lo puedan deshabilitar.
 

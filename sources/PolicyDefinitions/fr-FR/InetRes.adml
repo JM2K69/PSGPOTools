@@ -266,11 +266,11 @@ Si vous activez ce paramètre de stratégie, la commande Visite guidée est supp
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, les utilisateurs peuvent exécuter la Visite guidée à partir du menu ? (Aide).</string>
       <string id="ExplainPopupBlocker_AllowList">Ce paramètre de stratégie permet de spécifier la liste des sites Web qui sont autorisés à ouvrir des fenêtres publicitaires, quelle que soit la valeur des paramètres du bloqueur de fenêtres publicitaires du processus Internet Explorer.
 
-Si vous activez ce paramètre de stratégie, vous pouvez entrer la liste des sites Web qui sont autorisés à ouvrir des fenêtres publicitaires, quelle que soit la valeur des paramètres utilisateur. Seul le nom de domaine est autorisé : www.contoso.com est valide, mais http://www.contoso.com ne l’est pas. Les caractères génériques étant autorisés, *.contoso.com est également valide.
+Si vous activez ce paramètre de stratégie, vous pouvez entrer la liste des sites Web qui sont autorisés à ouvrir des fenêtres publicitaires, quelle que soit la valeur des paramètres utilisateur. Seul le nom de domaine est autorisé: www.contoso.com est valide, mais http://www.contoso.com ne l’est pas. Les caractères génériques étant autorisés, *.contoso.com est également valide.
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, vous ne pouvez pas spécifier la liste des exceptions du bloqueur de fenêtres publicitaires par défaut.
 
-Remarque : vous pouvez désactiver des utilisateurs pour les empêcher d’ajouter des sites Web à la liste des exceptions ou d’en supprimer, en activant la stratégie « Désactiver la gestion de la liste des exceptions du bloqueur de fenêtres publicitaires ».</string>
+Remarque: vous pouvez désactiver des utilisateurs pour les empêcher d’ajouter des sites Web à la liste des exceptions ou d’en supprimer, en activant la stratégie «Désactiver la gestion de la liste verte du bloqueur de fenêtres publicitaires».</string>
       <string id="ExplainScriptPaste_AllProcs_Explain">Ce paramètre de stratégie vous permet d’ignorer les invites lorsqu’un script qui s’exécute dans un processus de l’ordinateur tente d’effectuer une opération sur le Presse-papiers (supprimer, copier ou coller).
 
 Si vous activez ce paramètre de stratégie, l’utilisateur ne reçoit pas d’invite lorsqu’un script qui s’exécute dans un processus de l’ordinateur effectue une opération sur le Presse-papiers. Cela signifie que si le comportement de la zone est défini pour afficher les invites, il est ignoré et activé.
@@ -355,7 +355,7 @@ Si vous désactivez ce paramètre de stratégie, l’Assistant Connexion Interne
 
 Si vous ne configurez pas ce paramètre de stratégie, l’utilisateur peut décider de démarrer automatiquement ou non l’Assistant Connexion Internet.</string>
       <string id="ICWSettings">Paramètres de l’Assistant Connexion Internet</string>
-      <string id="Identities">Gestionnaire d’identifications : empêcher les utilisateurs d’utiliser des identifications</string>
+      <string id="Identities">Identity Manager : empêcher les utilisateurs d’utiliser des identifications</string>
       <string id="IDN_Always">Toujours convertir au format IDN</string>
       <string id="IDN_Intranet">Convertir les adresses intranet au format IDN</string>
       <string id="IDN_Never">Ne jamais convertir au format IDN</string>
@@ -415,17 +415,17 @@ Si vous ne configurez pas ce paramètre de stratégie, l’utilisateur peut inte
 
 Si vous activez ce paramètre de stratégie, l’utilisateur n’est pas invité à activer le filtre anti-hameçonnage. Vous devez spécifier le mode utilisé par le filtre anti-hameçonnage : manuel, automatique ou désactivé.
 
-Si vous sélectionnez le mode manuel, le filtre anti-hameçonnage effectue seulement une analyse locale et l’utilisateur est invité à confirmer l’envoi de données à Microsoft. Si la fonctionnalité est complètement activée, les adresses des sites Web qui ne figurent pas dans la liste autorisée du filtre sont automatiquement envoyées à Microsoft sans demande à l’utilisateur.
+Si vous sélectionnez le mode manuel, le filtre anti-hameçonnage effectue seulement une analyse locale et l’utilisateur est invité à confirmer l’envoi de données à Microsoft. Si la fonctionnalité est complètement activée, les adresses des sites Web qui ne figurent pas dans la liste verte du filtre sont automatiquement envoyées à Microsoft sans demande à l’utilisateur.
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, l’utilisateur est invité à déterminer le mode de fonctionnement du filtre anti-hameçonnage.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter">Ce paramètre de stratégie permet à l’utilisateur d’activer le filtre SmartScreen, qui l’avertit si le site Web visité est connu pour ses tentatives frauduleuses de collecte d’informations personnelles par « hameçonnage » ou pour son hébergement de programmes malveillants.
 
-Si vous activez ce paramètre de stratégie, l’utilisateur n’est pas invité à activer le filtre SmartScreen. Vous devez spécifier le mode utilisé par le filtre SmartScreen : activé ou désactivé. Toutes les adresses des sites Web qui ne figurent pas dans la liste autorisée du filtre sont automatiquement envoyées à Microsoft sans demande à l’utilisateur.
+Si vous activez ce paramètre de stratégie, l’utilisateur n’est pas invité à activer le filtre SmartScreen. Vous devez spécifier le mode utilisé par le filtre SmartScreen : activé ou désactivé. Toutes les adresses des sites Web qui ne figurent pas dans la liste verte du filtre sont automatiquement envoyées à Microsoft sans demande à l’utilisateur.
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, l’utilisateur est invité à décider de l’activation ou non du filtre SmartScreen durant l’introduction de l’interface logicielle lors de la première utilisation.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter_IE9">Ce paramètre de stratégie empêche l’utilisateur de gérer le filtre SmartScreen, qui l’avertit si le site Web visité est connu pour ses tentatives frauduleuses de collecte d’informations personnelles par « hameçonnage » ou pour son hébergement de programmes malveillants.
 
-Si vous activez ce paramètre de stratégie, l’utilisateur n’est pas invité à activer le filtre SmartScreen. Toutes les adresses des sites Web qui ne figurent pas dans la liste autorisée du filtre sont automatiquement envoyées à Microsoft sans demande à l’utilisateur.
+Si vous activez ce paramètre de stratégie, l’utilisateur n’est pas invité à activer le filtre SmartScreen. Toutes les adresses des sites Web qui ne figurent pas dans la liste verte du filtre sont automatiquement envoyées à Microsoft sans demande à l’utilisateur.
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, l’utilisateur est invité à décider de l’activation ou non du filtre SmartScreen durant l’introduction de l’interface logicielle lors de la première utilisation.</string>
       <string id="IE_Explain_DisableSecuritySettingsCheck">Ce paramètre de stratégie désactive la fonctionnalité de vérification des paramètres de sécurité, qui examine les paramètres de sécurité d’Internet Explorer pour déterminer s’ils font courir un risque à Internet Explorer.
@@ -805,9 +805,9 @@ Attention : la désactivation de ce paramètre de stratégie ne supprime pas le
 Si vous activez ce paramètre de stratégie, la commande Astuce du jour est supprimée du Menu ? (Aide).
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, les utilisateurs peuvent activer ou désactiver l’Astuce du jour, qui apparaît en bas de l’écran du navigateur.</string>
-      <string id="IE_ExplainIdentities">Empêche les utilisateurs de configurer des identifications uniques à l’aide du Gestionnaire d’identification.
+      <string id="IE_ExplainIdentities">Empêche les utilisateurs de configurer des identifications uniques à l’aide de Identity Manager.
 
-Le gestionnaire d’identification permet aux utilisateurs de créer plusieurs comptes, tels que des comptes de messagerie, dans le même ordinateur. Chaque utilisateur a une identification unique avec un mot de passe et des préférences de programmes différents.
+Identity Manager permet aux utilisateurs de créer plusieurs comptes, tels que des comptes de messagerie, dans le même ordinateur. Chaque utilisateur a une identification unique avec un mot de passe et des préférences de programmes différents.
 
 Si vous activez ce paramètre de stratégie, les utilisateurs ne peuvent pas créer de nouvelles identifications, gérer les identifications existantes ou modifier leurs identifications. L’option Changer d’identité est supprimée du menu Fichier du carnet d’adresses.
 
@@ -1345,7 +1345,7 @@ Si vous activez ce paramètre de stratégie, l’utilisateur ne peut pas ajouter
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, l’utilisateur peut ajouter ou supprimer des sites Web dans la liste des exceptions.
 
-Remarque : vous pouvez autoriser une liste de sites Web par défaut à ouvrir des fenêtres publicitaires, quelle que soit la valeur des paramètres du bloqueur de fenêtres publicitaires du processus Internet Explorer, en activant le paramètre de stratégie « Liste des fenêtres publicitaires autorisées ».</string>
+Remarque: vous pouvez autoriser une liste de sites Web par défaut à ouvrir des fenêtres publicitaires, quelle que soit la valeur des paramètres du bloqueur de fenêtres publicitaires du processus Internet Explorer, en activant le paramètre de stratégie «Liste verte des fenêtres publicitaires».</string>
       <string id="IE_ExplainRestrictPopupManagement">Ce paramètre de stratégie vous permet de gérer les fenêtres publicitaires dans Internet Explorer.
 
 Si vous activez ce paramètre de stratégie, les informations du Panneau de configuration concernant la gestion des fenêtres publicitaires sont non disponibles (grisées) et aucun autre contrôle, notification et boîte de dialogue du gestionnaire de fenêtres publicitaires n’apparaît. Les fenêtres publicitaires fonctionnent comme dans Windows XP Service Pack 1 ou versions antérieures, mais les fenêtres affichées hors de l’écran continuent à être repositionnées sur l’écran.
@@ -3014,7 +3014,7 @@ Cette fonctionnalité s’applique uniquement aux versions d’Internet Explorer
       <string id="Persistence_FileLimits4">Limites de taille de fichier pour la zone Sites sensibles</string>
       <string id="PhishingOff">Désactivé</string>
       <string id="PhishingOn">Activé</string>
-      <string id="PopupBlocker_AllowList">Liste des fenêtres publicitaires autorisées</string>
+      <string id="PopupBlocker_AllowList">Liste verte des fenêtres publicitaires</string>
       <string id="Printing">Impression en cours</string>
       <string id="Printing_Explain">Ce paramètre de stratégie spécifie si Internet Explorer imprime les couleurs et les images d’arrière-plan lorsque l’utilisateur imprime une page Web. L’inclusion des couleurs et des images d’arrière-plan peut réduire la vitesse et la qualité d’impression de la page, selon les capacités de votre imprimante.
 
@@ -3574,37 +3574,42 @@ Si vous désactivez ou ne configurez pas ce paramètre de stratégie, Internet E
 
 Remarque : cette stratégie n'est plus prise en charge à partir de Windows 10 version 1607.</string>
       <string id="Protocols_None">N’utiliser aucun protocole sécurisé</string>
-      <string id="Protocols_SSL2">Utiliser SSL 2.0 uniquement</string>
+      <string id="Protocols_SSL2">[Obsolète] Utiliser uniquement SSL 2.0</string>
       <string id="Protocols_SSL3">Utiliser SSL 3.0 uniquement</string>
-      <string id="Protocols_SSL2_SSL3">Utiliser SSL 2.0 et SSL 3.0</string>
+      <string id="Protocols_SSL2_SSL3">[Obsolète] Utiliser SSL 2.0 et SSL 3.0</string>
       <string id="Protocols_TLS10">Utiliser TLS 1.0 uniquement</string>
-      <string id="Protocols_SSL2_TLS10">Utiliser SSL 2.0 et TLS 1.0</string>
+      <string id="Protocols_SSL2_TLS10">[Obsolète] Utiliser SSL 2.0 et TLS 1.0</string>
       <string id="Protocols_SSL3_TLS10">Utiliser SSL 3.0 et TLS 1.0</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">Utiliser SSL 2.0, SSL 3.0 et TLS 1.0</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[Obsolète] Utiliser SSL 2.0, SSL 3.0 et TLS 1.0</string>
       <string id="Protocols_TLS11">Utiliser TLS 1.1 uniquement</string>
-      <string id="Protocols_SSL2_TLS11">Utiliser SSL 2.0 et TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS11">[Obsolète] Utiliser SSL 2.0 et TLS 1.1</string>
       <string id="Protocols_SSL3_TLS11">Utiliser SSL 3.0 et TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">Utiliser SSL 2.0, SSL 3.0 et TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[Obsolète] Utiliser SSL 2.0, SSL 3.0 et TLS 1.1</string>
       <string id="Protocols_TLS10_TLS11">Utiliser TLS 1.0 et TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">Utiliser SSL 2.0, TLS 1.0 et TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[Obsolète] Utiliser SSL 2.0, TLS 1.0 et TLS 1.1</string>
       <string id="Protocols_SSL3_TLS10_TLS11">Utiliser SSL 3.0, TLS 1.0 et TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">Utiliser SSL 2.0, SSL 3.0, TLS 1.0 et TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[Obsolète] Utiliser SSL 2.0, SSL 3.0, TLS 1.0 et TLS 1.1</string>
       <string id="Protocols_TLS12">Utiliser TLS 1.2 uniquement</string>
-      <string id="Protocols_SSL2_TLS12">Utiliser SSL 2.0 et TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS12">[Obsolète] Utiliser SSL 2.0 et TLS 1.2</string>
       <string id="Protocols_SSL3_TLS12">Utiliser SSL 3.0 et TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">Utiliser SSL 2.0, SSL 3.0 et TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[Obsolète] Utiliser SSL 2.0, SSL 3.0 et TLS 1.2</string>
       <string id="Protocols_TLS10_TLS12">Utiliser TLS 1.0 et TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">Utiliser SSL 2.0, TLS 1.0 et TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[Obsolète] Utiliser SSL 2.0, TLS 1.0 et TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS12">Utiliser SSL 3.0, TLS 1.0 et TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">Utiliser SSL 2.0, SSL 3.0, TLS 1.0 et TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[Obsolète] Utiliser SSL 2.0, SSL 3.0, TLS 1.0 et TLS 1.2</string>
       <string id="Protocols_TLS11_TLS12">Utiliser TLS 1.1 et TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">Utiliser SSL 2.0, TLS 1.1 et TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[Obsolète] Utiliser SSL 2.0, TLS 1.1 et TLS 1.2</string>
       <string id="Protocols_SSL3_TLS11_TLS12">Utiliser SSL 3.0, TLS 1.1 et TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">Utiliser SSL 2.0, SSL 3.0, TLS 1.1 et TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[Obsolète] Utiliser SSL 2.0, SSL 3.0, TLS 1.1 et TLS 1.2</string>
       <string id="Protocols_TLS10_TLS11_TLS12">Utiliser TLS 1.0, TLS 1.1 et TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">Utiliser SSL 2.0, TLS 1.0, TLS 1.1 et TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[Obsolète] Utiliser SSL 2.0, TLS 1.0, TLS 1.1 et TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">Utiliser SSL 3.0, TLS 1.0, TLS 1.1 et TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">Utiliser SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 et TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[Obsolète] Utiliser SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 et TLS 1.2</string>
+      <string id="Protocols_TLS13">Utiliser TLS 1.3 uniquement</string>
+      <string id="Protocols_TLS12_TLS13">Utiliser TLS 1.2 et TLS 1.3</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">Utiliser TLS 1.1, TLS 1.2 et TLS 1.3</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">Utiliser TLS 1.0, TLS 1.1, TLS 1.2 et TLS 1.3</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">Utiliser SSL 3.0, TLS 1.0, TLS 1.1, TLS 1.2 et TLS 1.3</string>
       <string id="LockToolbars">Verrouiller toutes les barres d’outils</string>
       <string id="MoveStopRefresh">Verrouiller l’emplacement des boutons Arrêter et Actualiser</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3917,6 +3922,120 @@ Remarque : si vous avez également activé le paramètre de stratégie Modèles
 Si vous activez ce paramètre, les employés voient une page supplémentaire dans Internet Explorer 11, indiquant qu’un site a été ouvert avec Microsoft Edge en mode Entreprise.
 
 Si vous désactivez ce paramètre ou si vous ne le configurez pas, le comportement par défaut de l’application s’applique et aucune page supplémentaire n’apparaît.</string>
+      <string id="NeedEdgeBrowser">Configurer le canal de Microsoft Edge à utiliser pour l’ouverture des sites redirigés</string>
+      <string id="IE_ExplainNeedEdgeBrowser">Vous permet de configurer jusqu'à trois versions de Microsoft Edge pour ouvrir un site redirigé (par ordre de préférence). Utilisez cette stratégie si votre environnement est configuré de manière à rediriger des sites d'Internet Explorer 11 vers Microsoft Edge. Si l'une des versions choisies n'est pas installée sur l'appareil, cette préférence est ignorée.
+
+Si Windows Update pour la prochaine version de Microsoft Edge* et le canal stable Microsoft Edge sont installés, le comportement suivant s'applique :
+- Si vous désactivez ou ne configurez pas cette stratégie, le canal stable Microsoft Edge est utilisé. Il s'agit du comportement par défaut.
+- Si vous activez cette stratégie, vous pouvez configurer l'ouverture des sites redirigés dans un maximum de trois des canaux suivants, parmi lesquels :
+    1 = Canal stable Microsoft Edge
+    2 = Microsoft Edge Beta version 77 ou ultérieure
+    3 = Microsoft Edge Dev version 77 ou ultérieure
+    4 = Microsoft Edge Canary version 77 ou ultérieure
+
+Si Windows Update pour la prochaine version de Microsoft Edge* ou le canal stable Microsoft Edge n'est pas installé, le comportement suivant s'applique :
+- Si vous désactivez ou ne configurez pas cette stratégie, Microsoft Edge version 45 ou version antérieure est automatiquement utilisé. Il s'agit du comportement par défaut.
+- Si vous activez cette stratégie, vous pouvez configurer l'ouverture des sites redirigés dans un maximum de trois des canaux suivants, parmi lesquels :
+    0 = Microsoft Edge version 45 ou version antérieure
+    1 = Canal stable Microsoft Edge
+    2 = Microsoft Edge Beta version 77 ou version ultérieure
+    3 = Microsoft Edge Dev version 77 ou version ultérieure
+    4 = Microsoft Edge Canary version 77 ou version ultérieure
+
+*Pour plus d'informations sur Windows Update pour la prochaine version de Microsoft Edge, notamment la procédure de désactivation, voir https://go.microsoft.com/fwlink/?linkid=2102115. Cette mise à jour s'applique uniquement à Windows 10 version 1709 et version supérieure.</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta version 77 ou ultérieure</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev version 77 ou ultérieure</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary version 77 ou ultérieure</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge version 45 ou antérieure</string>
+      <string id="KeepIntranetSitesInInternetExplorer">Conserver tous les sites intranet dans Internet Explorer</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">Empêche l’ouverture des sites intranet dans un navigateur, à l’exception d’Internet Explorer. Mais, si la stratégie « Envoyer tous les sites non inclus dans la liste des sites en mode Entreprise vers Microsoft Edge » (« RestrictIE ») n’est pas activée, cette stratégie n’a aucun effet.
+
+Si vous activez cette stratégie, tous les sites intranet sont ouverts dans Internet Explorer 11. Les seules exceptions sont les sites répertoriés dans votre liste des sites en mode Entreprise.
+
+Si vous désactivez cette stratégie ou si vous ne la configurez pas, tous les sites intranet sont automatiquement ouverts dans Microsoft Edge.
+
+Nous vous recommandons vivement de garder cette stratégie synchronisée avec la stratégie « Envoyer tout le trafic intranet vers Internet Explorer » (« SendIntranetToInternetExplorer »). En outre, il est recommandé de n’activer cette stratégie que si vos sites intranet présentent des problèmes de compatibilité connus avec Microsoft Edge.
+
+Stratégies associées :
+- Envoyer tout le trafic intranet vers Internet Explorer (« SendIntranetToInternetExplorer »)
+- Envoyer tous les sites non inclus dans la liste des sites en mode Entreprise vers Microsoft Edge (« RestrictIE »)
+
+Pour plus d’informations sur l’utilisation de cette stratégie avec d’autres stratégies associées afin de créer la configuration optimale pour votre organisation, voir https://go.microsoft.com/fwlink/?linkid=2094210.</string>
+      <string id="AllowSaveTargetAsInIEMode">Autoriser « enregistrer la cible sous » en mode Internet Explorer</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">Ce paramètre de stratégie permet aux administrateurs d’activer le menu contextuel « enregistrer la cible sous » en mode Internet Explorer.
+
+Si vous activez ce paramètre de stratégie, « enregistrer la cible sous » s’affiche dans le menu contextuel du mode Internet Explorer et fonctionne comme Internet Explorer.
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, « enregistrer la cible sous » n’apparaîtra pas dans le menu contextuel du mode Internet Explorer.
+
+Pour plus d’informations, voir https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="EnableGlobalWindowListInIEMode">Activer la liste des fenêtres globales en mode Internet Explorer</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">Ce paramètre permet à Internet Explorer mode d’utiliser la liste des fenêtres globales qui permet l’état de partage avec d’autres applications.
+Le paramètre prend effet uniquement lorsque Internet Explorer 11 est désactivé en tant que navigateur autonome.
+
+Si vous activez cette stratégie, Internet Explorer mode utilise la liste de fenêtres globale.
+
+Si vous désactivez ou ne configurez pas cette stratégie, Internet Explorer mode continue de conserver une liste de fenêtres distincte.
+
+Pour en savoir plus sur Internet Explorer mode, voir https://go.microsoft.com/fwlink/?linkid=2102921
+Pour en savoir plus sur la désactivation de Internet Explorer 11 en tant que navigateur autonome, consultez https://go.microsoft.com/fwlink/?linkid=2168340</string>
+      <string id="EnableExtendedIEModeHotkeys">Activer les touches d’accès rapide étendues en mode Internet Explorer</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">Ce paramètre de stratégie permet aux administrateurs d’activer les touches d’accès rapide au mode Microsoft Edge Internet Explorer étendues, telles que « Ctrl+S », de façon à utiliser la fonctionnalité « Enregistrer sous ».
+
+si vous activez cette stratégie, les fonctionnalités de clé hotkey étendues sont activées en mode Internet Explorer et fonctionnent de la même manière qu’Internet Explorer.
+
+si vous désactivez ou ne configurez pas cette stratégie, les touches d’accès rapide étendues ne fonctionneront pas en mode Internet Explorer.
+
+pour plus d’informations, voir https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="AllowLegacyURLFields">Autoriser les anciennes fonctionnalités de fichiers de raccourcis Internet</string>
+      <string id="IE_ExplainAllowLegacyURLFields">Ce paramètre de stratégie autorise l’utilisation de certaines fonctionnalités désactivées, telles que le champ WorkingDirectory ou la gestion de protocole enfichable, dans les fichiers de raccourci Internet.
+
+Si vous activez ce paramètre de stratégie, les fonctionnalités désactivées pour les fichiers de raccourci Internet seront réactivées.
+
+Si vous désactivez ou ne configurez pas cette stratégie, certaines fonctionnalités pour les fichiers de raccourci Internet, telles que le champ WorkingDirectory ou la gestion des protocoles enfichables, sont désactivées.</string>
+      <string id="ResetZoomForDialogInIEMode">Rétablir le zoom par défaut pour les boîtes de dialogue HTML en mode Internet Explorer</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">Ce paramètre de stratégie permet aux administrateurs de rétablir le zoom par défaut pour les boîtes de dialogue HTML en mode Internet Explorer.
+
+Si vous activez cette stratégie, le zoom d’une boîte de dialogue HTML en mode Internet Explorer n’est pas propagé à partir de sa page parente.
+
+Si vous désactivez ou ne configurez pas cette stratégie, le zoom d’une boîte de dialogue HTML en mode Internet Explorer est défini en fonction du zoom de sa page parente.
+
+Pour plus d’informations, consultez https://go.microsoft.com/fwlink/?linkid=2220107</string>
+      <string id="DisableInternetExplorerApp">Désactiver Internet Explorer 11 comme navigateur autonome</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">Cette stratégie vous permet de limiter le lancement d’Internet Explorer en tant que navigateur autonome.
+
+Si vous activez cette stratégie, elle :
+-Empêche le lancement d’Internet Explorer 11 en tant que navigateur autonome.
+-Limite l’utilisation d’Internet Explorer au mode « Internet Explorer » natif de Microsoft Edge.
+- Redirige les tentatives de lancement d’Internet Explorer 11 vers le navigateur de canal stable Microsoft Edge.
+-Remplace toutes les autres stratégies qui redirigent vers Internet Explorer 11.
+
+Même avec cette stratégie activée, le lancement d’Internet Explorer 11 via l’automatisation COM sera toujours autorisée. Pour désactiver les lancements d’Internet Explorer 11 via l’automatisation COM, utilisez la stratégie de groupe « Désactiver l’automatisation COM d’Internet Explorer 11 ».
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, tous les sites sont ouverts à l’aide des paramètres actuels du navigateur actif. Remarque : le canal stable Microsoft Edge doit être installé pour que cette stratégie prenne effet.</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">Désactiver le lancement d’Internet Explorer 11 via COM Automation</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">Cette stratégie vous permet de limiter le lancement de Explorer Internet à l’aide de l’automatisation COM.
+
+Si vous activez cette stratégie, elle empêche le lancement d’Internet Explorer 11 à l’aide de l’automatisation COM.
+
+Si vous désactivez ou ne configurez pas cette stratégie, les lancements d’automatisation COM Explorer 11 sur Internet sont autorisés.</string>
+      <string id="DisableIEAppDeprecationNotification">Masquer la notification de retrait d'Internet Explorer 11</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">Ce paramètre de stratégie vous permet d’indiquer si le rappel de la barre de notification indiquant que Internet Explorer est en cours de retrait s’affiche. Par défaut, la barre de notification est affichée dans Internet Explorer 11.
+
+Si vous activez ce paramètre de stratégie, la barre de notification n’est pas affichée dans Internet Explorer 11.
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, la barre de notification s’affiche dans Internet Explorer 11.</string>
+      <string id="NotifyDisableIEOptions_Never">Jamais</string>
+      <string id="NotifyDisableIEOptions_Always">Toujours</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">Une fois par utilisateur</string>
+      <string id="JScriptReplacement">Remplacez JScript en chargeant JScript9Legacy à la place de JScript.</string>
+      <string id="IE_ExplainJScriptReplacement">Ce paramètre de stratégie spécifie si JScript ou JScript9Legacy est chargé.
+      
+Si vous activez ce paramètre de stratégie ou s'il n'est pas configuré, JScript9Legacy sera chargé dans les situations où JScript est instancié.
+
+Si vous désactivez cette stratégie, JScript est utilisé.</string>
       <string id="VerMgmtDisable">Désactiver le blocage des contrôles ActiveX obsolètes par Internet Explorer</string>
       <string id="IE_ExplainVerMgmtDisable">Ce paramètre de stratégie détermine si Internet Explorer bloque certains contrôles ActiveX obsolètes. Les contrôles ActiveX obsolètes ne sont jamais bloqués dans la Zone Intranet.
 
@@ -4118,6 +4237,12 @@ Si vous activez ce paramètre, Internet Explorer ne télécharge plus les mises
 Si vous désactivez ou que vous ne configurez pas ce paramètre, Internet Explorer continue de télécharger des versions à jour de VersionList.XML.
 
 Pour plus d’informations, consultez la page « Mise à jour pour bloquer les contrôles ActiveX obsolètes dans Internet Explorer » de la bibliothèque TechNet.</string>
+      <string id="DisableHTMLApplication">Désactiver l’application HTML</string>
+      <string id="DisableHTMLApplication_Explain">Ce paramètre de stratégie spécifie si l’exécution de l’application HTML (fichier HTA) est bloquée ou autorisée.
+
+Si vous activez ce paramètre de stratégie, l’exécution de l’application HTML (fichier HTA) est bloquée.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, l’exécution de l’application HTML (fichier HTA) est autorisée.</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
@@ -4787,6 +4912,14 @@ Pour plus d’informations, consultez la page « Mise à jour pour bloquer les 
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">Liste de domaines</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">Premier choix</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">Deuxième choix</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">Troisième choix</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">Avertir que le navigateur Internet Explorer 11 est désactivé</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -37,14 +37,30 @@ Obs! Aktivering av den här principinställningen förhindrar inte användarna f
       <string id="DisableRoamedProfileInit_Help">Med den här principinställningen kan administratörer som konfigurerat centrala profiler i samband med grupprincipinställningen för att ta bort cachelagrade centrala profiler säkerställa att Utforskaren inte ominitierar standardprograminställningar och andra inställningar till standardvärden. 
 
 Om du aktiverar den här principinställningen på en dator där inte alla program är installerade på samma sätt som på datorn användaren senast loggade in på kanske inte programmen fungerar som förväntat. </string>
+      <string id="DisableGraphRecentItems">Visa filer baserat på din konto- och molnleverantörsaktivitet</string>
+      <string id="DisableGraphRecentItems_Help">Om du inaktiverar den här inställningen kommer Utforskaren att hindras från att begära metadata för molnfiler och visa dem på startsidan och andra vyer i Utforskaren. Alla insikter och filer som baseras på kontoaktivitet eller aktivitet hos molnleverantören stoppas i vyer som senaste, rekommenderat, favoriter, delade med mera.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Inaktivera källintegrering med avancerade inställningar i Utforskaren</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">Om du inaktiverar avancerad inställnings källintegrering hindras Utforskaren från att visa lagringsplatsinformation från komponenten Advanced Settings sytem</string>
+      <string id="DisableFileExplorerPrelaunch">Inaktivera Utforskaren för att starta ett fönster i bakgrunden i förväg</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Den här principen hindrar användare från att aktivera förhandsstartsfunktionen i Utforskaren, vilket skapar ett fönster i bakgrunden för att påskynda startupplevelsen och förbättra svarstiden.</string>
+      <string id="MakePrintScreenKeyYieldable">Gör utskriftsskärm-tangenten mer användbar</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Den här principinställningen bestämmer om printskärmsnyckeln kan lämnas över till andra program.
+
+Om du aktiverar den här principinställningen kan utskriftsskärmsnyckeln fångas upp av program, vilket gör att de kan åsidosätta standardfunktionaliteten för skärmbilder.
+
+Om du inaktiverar den här principinställningen behåller print Screen-nyckeln sitt tidigare beteende för att ta skärmbilder och kan inte fångas upp av program.
+
+Om den här principen inte konfigureras kan utskriftsskärmnyckeln fångas upp av program, vilket gör att de kan åsidosätta standardfunktionaliteten för skärmbilder, samma som det aktiverade beteendet.
+
+Obs! Den här inställningen kan kräva att datorn startas om för att börja gälla.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>URL till supportwebbsida</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>URL till supportwebbsida</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

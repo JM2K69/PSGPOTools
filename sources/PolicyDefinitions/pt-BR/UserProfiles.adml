@@ -42,11 +42,11 @@ Observação: para que a configuração de política tenha efeito, ela deve ser 
 
 Observação: o funcionamento quando essa configuração de política é ativada é exatamente igual ao funcionamento observado no Windows 2000 Professional pré-SP4 e no Windows XP Professional.</string>
       <string id="Connect_HomeDir_ToRoot">Conectar a pasta base à raiz do compartilhamento</string>
-      <string id="Connect_HomeDir_ToRoot_Explain">Essa configuração de política restaura as definições das variáveis de ambiente %HOMESHARE% e %HOMEPATH% para aquelas usadas no Windows NT 4.0 ou em versões anteriores. Junto com a variável %HOMEDRIVE%, essas variáveis definem a pasta base de um perfil de usuário. A pasta local é um mapeamento persistente de uma letra de unidade no computador local para uma pasta base ou remota.
+      <string id="Connect_HomeDir_ToRoot_Explain">Essa configuração de política restaura as definições das variáveis de ambiente %HOMESHARE% e %HOMEPATH% para aquelas usadas no Windows NT 4.0 ou em versões anteriores. Junto com a variável %HOMEDRIVE%, essas variáveis definem a pasta base de um perfil de usuário. A pasta base é um mapeamento persistente de uma letra de unidade no computador local para uma pasta base ou remota.
 
-Se você habilitar essa configuração de política, o sistema usará as definições do Windows NT 4.0. %HOMESHARE% armazena somente o compartilhamento de rede (como \\server\share). Como resultado, os usuários podem acessar qualquer pasta no compartilhamento base usando a letra de unidade da pasta base. Dica: para especificar uma pasta base na família Windows 2000 Server, em Usuários e Computadores ou Usuários e Grupos Locais do Active Directory, clique com o botão direito no nome de uma conta de usuário, clique em Propriedades e clique na guia Perfil.
+Se você habilitar essa configuração de política, o sistema usará as definições do Windows NT 4.0. %HOMESHARE% armazena somente o compartilhamento de rede (como \\server\share). %HOMEPATH% armazena o restante do caminho totalmente qualificado para o diretório base (como \dir1\dir2\homedir). Como resultado, os usuários podem acessar qualquer pasta no compartilhamento base usando a letra de unidade da pasta base. 
 
-Se você desabilitar ou não definir essa configuração de política, o sistema usará as definições introduzidas pelo Windows 2000. %HOMESHARE% armazena o caminho completo qualificado para o diretócio base (como \\server\share\dir1\dir2\homedir). %HOMEPATH% armazena uma barra invertida final e esta é incluída para compatibilidade com sistemas anteriores. No Windows NT 4.0 e anterior, %HOMESHARE% armazena somente o compartilhamento de rede (como \\servidor\compartilhamento).</string>
+Se você desabilitar ou não definir essa configuração de política, o sistema usará as definições introduzidas pelo Windows 2000. %HOMESHARE% armazena o caminho completo qualificado para o diretório base (como \\server\share\dir1\dir2\homedir). %HOMEPATH% armazena uma barra invertida final e esta é incluída para compatibilidade com sistemas anteriores.</string>
       <string id="DeleteRoamingCachedProfiles">Excluir cópias em cache de perfis móveis</string>
       <string id="DeleteRoamingCachedProfiles_Help">Essa configuração de política determina se o Windows salvará uma cópia do perfil móvel de um usuário no disco rígido do computador local quando o usuário efetuar logoff. 
 
@@ -77,6 +77,14 @@ Se você desabilitar ou não definir essa configuração de política, o sistema
 Observação: Esta configuração de política e as configurações relacionadas nessa pasta definem a resposta do sistema quando o download dos perfis móveis de usuários está lento. Para ajustar o período de tempo em que o usuário deve responder a esse aviso em sistemas operacionais anteriores ao Microsoft Windows Vista, use a configuração de política "Tempo limite para caixas de diálogo".
 
 Importante: se a configuração "Não detectar conexões de rede lentas" estiver habilitada, essa configuração de política será ignorada. Além disso, se a configuração de política "Excluir cópias em cache de perfis móveis" estiver habilitada, não haverá cópia local do perfil móvel para ser carregada quando o sistema detectar uma conexão lenta.</string>
+      <string id="AllowNonStandardUserProfilePaths">Permitir hives de registro de perfil de usuário e AppData de caminhos não padrão</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Essa configuração de política controla se hives de registro de perfil de usuário e locais de pasta AppData têm permissão para aceitar formatos de caminho não padrão.
+
+Se você habilitar essa configuração de política, os locais de perfil do usuário aceitarão um intervalo maior de formatos de caminho de arquivo.
+
+Se você desabilitar ou não definir essa configuração de política, os locais de perfil de usuário aceitarão apenas caminhos de pasta padrão do Windows.
+
+Observação: habilitar essa configuração pode expor o sistema a riscos de segurança. Habilite-a somente se um aplicativo específico em sua organização o exigir e somente depois de avaliar todos os riscos para seu ambiente.</string>
       <string id="ExcludeDirectories">Excluir pastas do perfil móvel</string>
       <string id="ExcludeDirectories_Help">Essa configuração de política permite que você exclua pastas que normalmente são incluídas no perfil de usuário. Consequentemente, essas pastas não precisarão ser armazenadas pelo servidor de rede em que o perfil reside e não seguirão usuários para outros computadores.
 

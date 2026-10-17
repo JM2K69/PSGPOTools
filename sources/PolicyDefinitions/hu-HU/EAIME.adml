@@ -13,7 +13,7 @@ Ha engedélyezi ezt a házirend-beállítást, akkor a hibás konvertálások na
 
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor a hibás konvertálások naplózása ki lesz kapcsolva.
 
-Ez a házirend-beállítás a japán Microsoft írásjegybevivőre vonatkozik.</string>
+Ez a házirend-beállítás a japán Microsoft írásjegybevivőre és a hagyományos kínai írásjegybevivőre vonatkozik.</string>
       <string id="L_TurnOffSavingAutoTuningDataToFile">Automatikus beállítási adatok fájlba mentésének kikapcsolása</string>
       <string id="L_TurnOffSavingAutoTuningDataToFileExplain">Ez a házirend-beállítás lehetővé teszi az automatikus beállítási eredmények fájlba mentésének kikapcsolását.
 
@@ -55,17 +55,19 @@ Ez a házirend-beállítás a japán Microsoft írásjegybevivőre vonatkozik.
 
 Megjegyzés: A beállítás módosításai csak akkor lépnek érvénybe, amikor a felhasználó kijelentkezik.</string>
       <string id="L_TurnOffCustomDictionary">Egyéni szótár kikapcsolása</string>
-      <string id="L_TurnOffCustomDictionaryExplain">Ezzel a házirend-beállítással letiltható az egyéni szótárak használatának lehetősége.
+      <string id="L_TurnOffCustomDictionaryExplain">Ezzel a házirendbeállítással kikapcsolhatja a saját szótárak használatát.
 
-Ha engedélyezi ezt a házirend-beállítást, akkor sem a felhasználói felület eszközeivel, sem alkalmazásprogramozási felületekkel nem vehet fel, nem módosíthat és nem törölhet szavakat az egyéni szótárban. Az egyéni szótárban a házirend-beállítás engedélyezése előtt regisztrált szavak továbbra is használhatók az átalakításhoz.
+Ha engedélyezi ezt a házirend-beállítást, akkor sem GUI-eszközökkel, sem API-okkal nem adhat hozzá, szerkeszthet és törölhet szavakat a saját szótárban. A házirend-beállítás engedélyezése előtt regisztrált szavak továbbra is felhasználhatók konvertálásra.
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor az egyéni szótár alapértelmezés szerint használható.
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a saját szótár alapértelmezés szerint használható.
 
-A japán Microsoft írásjegybevivő használata esetén az [Automatikus beállítási adatok törlése] lehetőség akkor is működik, ha ez a házirend-beállítás engedélyezve van, és törli az önbeállított szavakat az egyéni szótárból.
+Az [Automatikus beállítások törlése] funkció akkor is eltávolítja a saját szavakat a szótárból, ha egy csoportházirend-beállítás be van kapcsolva. Ehhez válassza a Beállítások &gt; Idő &amp; Nyelv &gt; Japán nyelvi beállítások &gt; Microsoft IME-beállítások lehetőséget. Ha a kompatibilis üzemmód be van kapcsolva, válassza a Speciális beállítások &gt; Szótár/automatikus beállítás &gt; [Automatikus beállítási adatok törlése] lehetőséget.
 
-Ez a házirend-beállítás a japán Microsoft írásjegybevivőre vonatkozik.
+[A beviteli előzmények törlése] eltávolítja a saját szavakat a szótárból, még akkor is, ha egy csoportházirend-beállítás be van kapcsolva. Ehhez válassza a Beállítások &gt; Idő &amp; Nyelv &gt; Japán nyelvi beállítások &gt; Microsoft IME-beállítások &gt; Oktatás és szótár &gt; [Beviteli előzmények törlése] lehetőséget.
 
-Megjegyzés: Ennek a beállításnak a módosításai csak akkor lépnek érvénybe, amikor a felhasználó kijelentkezik.</string>
+Ez a házirendbeállítás érvényes a japán Microsoft IME-re.
+
+Megjegyzés: A beállítás módosítása csak a felhasználó kijelentkezésekor lép életbe.</string>
       <string id="L_RestrictCharacterCodeRangeOfConversion">Átalakítás karakterkód-tartományának korlátozása</string>
       <string id="L_RestrictCharacterCodeRangeOfConversionExplain">Ez a házirend-beállítás lehetővé teszi, hogy egy karakterszűrő beállításával korlátozza az átalakítás karakterkód-tartományát.
 
@@ -118,26 +120,54 @@ Ha letiltja ezt a házirend-beállítást, kikapcsolja a funkciót, és a felhas
 Ha nem konfigurálja ezt a házirend-beállítást, a felhőbeli jelöltek funkció alapértelmezés szerint ki lesz kapcsolva, de a felhasználó szabadon be- és kikapcsolhatja.
 
 Ez a házirend-beállítás csak a Microsoft CHS Pinyin írásjegybevivőre vonatkozik.</string>
-      <string id="L_TurnOnLiveSticker">Élő matrica bekapcsolása</string>
-      <string id="L_TurnOnLiveStickerExplain">Ez a házirend-beállítás az élő matricákat létrehozó szolgáltatást szabályozza, amely egy online szolgáltatáson keresztül biztosít matricákat online módon.
+      <string id="L_ConfigureSimplifiedChineseImeVersion">Egyszerűsített kínai írásjegybevivő verziójának konfigurálása</string>
+      <string id="L_ConfigureSimplifiedChineseImeVersionExplain">Ez a házirend-beállítás szabályozza a Microsoft írásjegybevivő verzióját.
 
-Ha engedélyezi a házirend-beállítást, a szolgáltatáshoz társított funkció bekapcsol, az élő matricák létrehozásához a rendszer elküldi a Microsoftnak a felhasználó által a billentyűzeten beírt adatokat, és a felhasználó nem tudja kikapcsolni a funkciót.
+Ha nem konfigurálja ezt a házirend-beállítást, a felhasználó szabályozhatja a használni kívánt írásjegybevivő-verziót. Alapértelmezés szerint az új Microsoft írásjegybevivő van bekapcsolva.
 
-Ha letiltja a házirend-beállítást, a szolgáltatáshoz társított funkció kikapcsol, és a felhasználó nem tudja bekapcsolni.
+Ha engedélyezi ezt a házirend-beállítást, a felhasználó nem tudja szabályozni a használni kívánt írásjegybevivő-verziót. Ilyenkor mindig a Microsoft írásjegybevivő előző verziója van kiválasztva.
 
-Ha nem konfigurálja a házirend-beállítást, akkor a funkció alapértelmezés szerint ki lesz kapcsolva, és a felhasználó be- és kikapcsolhatja az élő matricákat létrehozó szolgáltatást.
+Ha letiltja ezt a házirend-beállítást, a felhasználó nem tudja szabályozni a használni kívánt írásjegybevivő-verziót. Ilyenkor mindig a Microsoft írásjegybevivő új verziója van kiválasztva.
 
-A házirend-beállítás csak a Microsoft CHS Pinyin írásjegybevivőre vonatkozik.</string>
-      <string id="L_TurnOnLexiconUpdate">Lexikonfrissítés bekapcsolása</string>
-      <string id="L_TurnOnLexiconUpdateExplain">Ez a házirend-beállítás a lexikonfrissítési funkciót szabályozza, amely divatos és népszerű kifejezéseket tartalmazó lexikont tölt le a helyi számítógépre.
+Ez a házirend-beállítás csak a Microsoft egyszerűsített kínai írásjegybevivőjére vonatkozik.
 
-Ha engedélyezi ezt a házirend-beállítást, bekapcsolja a szolgáltatáshoz tartozó funkciókat, és a divatos és népszerű kifejezéseket tartalmazó lexikon letölthető a helyi számítógépre. A felhasználó a Gépházban be- és kikapcsolhatja ezt a beállítást.
+Megjegyzés: E beállítás módosítása csak a felhasználó kijelentkezése után jut érvényre.</string>
+      <string id="L_ConfigureTraditionalChineseImeVersion">Hagyományos kínai írásjegybevivő verziójának konfigurálása</string>
+      <string id="L_ConfigureTraditionalChineseImeVersionExplain">Ez a házirend-beállítás szabályozza a Microsoft írásjegybevivő verzióját.
 
-Ha letiltja ezt a házirend-beállítást, kikapcsolja a szolgáltatáshoz tartozó funkciókat, és a felhasználó nem is tudja bekapcsolni őket.
+Ha nem konfigurálja ezt a házirend-beállítást, a felhasználó szabályozhatja a használni kívánt írásjegybevivő-verziót. Alapértelmezés szerint az új Microsoft írásjegybevivő van bekapcsolva.
 
-Ha nem konfigurálja ezt a házirend-beállítást, akkor az alapértelmezésben engedélyezve lesz, és a felhasználó be-, illetve kikapcsolhatja a lexikonfrissítési funkciót.
+Ha engedélyezi ezt a házirend-beállítást, a felhasználó nem tudja szabályozni a használni kívánt írásjegybevivő-verziót. Ilyenkor mindig a Microsoft írásjegybevivő előző verziója van kiválasztva.
 
-Ez a házirend-beállítás csak a Microsoft CHS Pinyin írásjegybevivőre vonatkozik.</string>
+Ha letiltja ezt a házirend-beállítást, a felhasználó nem tudja szabályozni a használni kívánt írásjegybevivő-verziót. Ilyenkor mindig a Microsoft írásjegybevivő új verziója van kiválasztva.
+
+Ez a házirend-beállítás csak a Microsoft hagyományos kínai írásjegybevivőjére vonatkozik.
+
+Megjegyzés: E beállítás módosítása csak a felhasználó kijelentkezése után jut érvényre.</string>
+      <string id="L_ConfigureJapaneseImeVersion">Japán írásjegybevivő verziójának konfigurálása</string>
+      <string id="L_ConfigureJapaneseImeVersionExplain">Ez a házirend-beállítás szabályozza a Microsoft írásjegybevivő verzióját.
+
+Ha nem konfigurálja ezt a házirend-beállítást, a felhasználó szabályozhatja a használni kívánt írásjegybevivő-verziót. Alapértelmezés szerint az új Microsoft írásjegybevivő van bekapcsolva.
+
+Ha engedélyezi ezt a házirend-beállítást, a felhasználó nem tudja szabályozni a használni kívánt írásjegybevivő-verziót. Ilyenkor mindig a Microsoft írásjegybevivő előző verziója van kiválasztva.
+
+Ha letiltja ezt a házirend-beállítást, a felhasználó nem tudja szabályozni a használni kívánt írásjegybevivő-verziót. Ilyenkor mindig a Microsoft írásjegybevivő új verziója van kiválasztva.
+
+Ez a házirend-beállítás csak a Microsoft japán írásjegybevivőjére vonatkozik.
+
+Megjegyzés: E beállítás módosítása csak a felhasználó kijelentkezése után jut érvényre.</string>
+      <string id="L_ConfigureKoreanImeVersion">Koreai írásjegybevivő verziójának konfigurálása</string>
+      <string id="L_ConfigureKoreanImeVersionExplain">Ez a házirend-beállítás szabályozza a Microsoft írásjegybevivő verzióját.
+
+Ha nem konfigurálja ezt a házirend-beállítást, a felhasználó szabályozhatja a használni kívánt írásjegybevivő-verziót. Alapértelmezés szerint az új Microsoft írásjegybevivő van bekapcsolva.
+
+Ha engedélyezi ezt a házirend-beállítást, a felhasználó nem tudja szabályozni a használni kívánt írásjegybevivő-verziót. Ilyenkor mindig a Microsoft írásjegybevivő előző verziója van kiválasztva.
+
+Ha letiltja ezt a házirend-beállítást, a felhasználó nem tudja szabályozni a használni kívánt írásjegybevivő-verziót. Ilyenkor mindig a Microsoft írásjegybevivő új verziója van kiválasztva.
+
+Ez a házirend-beállítás csak a Microsoft koreai írásjegybevivőjére vonatkozik.
+
+Megjegyzés: E beállítás módosítása csak a felhasználó kijelentkezése után jut érvényre.</string>
     </stringTable>
     <presentationTable>
       <presentation id="L_RestrictCharacterCodeRangeOfConversion">

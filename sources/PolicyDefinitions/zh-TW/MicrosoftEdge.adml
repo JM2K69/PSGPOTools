@@ -129,6 +129,12 @@
 當啟用時，允許列印。
 
 當停用時，不允許列印。</string>
+      <string id="AllowMixedModePrintingInPdf">PDF 檔案有橫向和直向分頁，按照每個頁面自己的方向列印。</string>
+      <string id="AllowMixedModePrintingInPdf_Explain">在此原則下，您可以根據 Microsoft Edge 中每個頁面的方向列印 PDF 檔案。
+
+如果啟用，則允許混合模式列印。
+
+如果停用，則不允許混合模式列印。</string>
       <string id="AllowSavingHistory">允許儲存歷程記錄</string>
       <string id="AllowSavingHistory_Explain">Microsoft Edge 會儲存使用者的瀏覽歷程記錄，其中包含他們在其裝置上所造訪之網站的相關資訊。
 
@@ -332,12 +338,12 @@
       <string id="SetDefaultSearchEngine_Explain">此原則設定使您能夠為您的員工設定預設搜索引擎。您的員工可以隨時更改預設搜尋引擎。
 
 重要
-該設定只能用於加入網域或註冊了 MDM 的裝置。若要了解更多信息，請參閱 Microsoft 瀏覽器副檔名原則（又名 .ms/browserpolicy）。
+該設定只能用於加入網域或註冊了 MDM 的裝置。若要了解更多信息，請參閱 Microsoft 瀏覽器副檔名原則（aka.ms/browserpolicy）。
 
-如果您啟用該設定，您則可以為您的員工選擇一個預設的搜索引擎。如果啟用該設定，您也必須通過添加一個連結（至少要包含其簡短名稱和該搜索引擎的 https: 網址）到 OpenSearch XML 檔案將預設引擎添加至“設置預設搜索引擎”設定。若要了解更多有關創建 OpenSearch XML 檔案的信息，請參閱“了解 OpenSearch 標準 (https://msdn.microsoft.com/en-us/library/dd163546.aspx) 主題。使用此格式指定要添加的連結：&lt;https://fabrikam.com/opensearch.xml&gt;
+如果您啟用該設定，您則可以為您的員工選擇一個預設的搜索引擎。如果啟用該設定，您也必須通過添加一個連結（至少要包含其簡短名稱和該搜索引擎的 https: 網址）到 OpenSearch XML 檔案將預設引擎添加至“設置預設搜索引擎”設定。若要了解更多有關創建 OpenSearch XML 檔案的信息，請參閱“了解 OpenSearch 標準” (https://msdn.microsoft.com/en-us/library/dd163546.aspx) 主題。使用此格式指定要添加的連結：&lt;https://fabrikam.com/opensearch.xml&gt;
 
 注
-如果您希望您的員工對每個市場都使用預設的 Microsoft Edge 設定，您可以將該字串設定為 EDGEDEFAULT 。如果您希望您的員工使用 Microsoft Bing 作為預設搜索引擎，您可以將字串設定為 EDGEBING。
+如果您希望您的員工對每個市場都使用預設的 Microsoft Edge 設定，您可以將該字串設定為 EDGEDEFAULT。如果您希望您的員工使用 Microsoft Bing 作為預設搜索引擎，您可以將字串設定為 EDGEBING。
 
 員工可以隨時變更預設搜索引擎，除非您停用“允許搜索引擎個性化”設定，該操作可限制任何變更。
 
@@ -491,7 +497,7 @@
       <string id="AllowPrelaunchDropdown_AllowPrelaunch">允許預先啟動</string>
       <string id="AllowPrelaunchDropdown_PreventPrelaunch">防止預先啟動</string>
 
-      <string id="ConfigureKioskMode">設定 kiosk 模式</string>
+      <string id="ConfigureKioskMode">設定 Kiosk 模式</string>
       <string id="ConfigureKioskMode_Explain">在指派存取權下的 kiosk 模式中，設定在單一應用程式或其中一個應用程式在 kiosk 裝置上運行時，Microsoft Edge 的處理方式。您可以控制 Microsoft Edge 是否以 InPrivate 全螢幕、以有限功能的 InPrivate 索引標籤，或一般的 Microsoft Edge 執行。
 
 您必須設定 Microsoft Edge 中指派的存取權，此原則才會生效；否則，這些設定將會被略過。若要深入了解指派存取權及 kiosk 設定，請參閱 [設定 kiosk 並執行 Windows 電腦桌面版本的共用裝置] (https://aka.ms/E489vw)。
@@ -502,7 +508,7 @@
 如果已啟用且設為 1：
 - 如果是單一應用程式，它會執行有限的 InPrivate 多重索引標籤版本，而且是唯一可供公開瀏覽的應用程式。使用者無法最小化、關閉或開啟視窗或自訂 Microsoft Edge，但可以清除瀏覽資料與下載項目，並按一下 [結束工作階段] 重新啟動。您可以使用 [設定 kiosk 重設閒置逾時時間間隔] 原則，設定在閒置一段時間後重新啟動 Microsoft Edge。
 - 如果它是多個應用程式之一，將會在有限的多重索引標籤版本 InPrivate 中執行，公開瀏覽其他應用程式。使用者可以將最小化、關閉和開啟多個 InPrivate 視窗，但無法自訂 Microsoft Edge。</string>
-      <string id="ConfigureKioskResetAfterIdleTimeout">設定在閒置後重設 kiosk</string>
+      <string id="ConfigureKioskResetAfterIdleTimeout">設定在閒置後重設 Kiosk</string>
       <string id="ConfigureKioskResetAfterIdleTimeout_Explain">您可以設定在閒置指定的一段時間後，重設 Microsoft Edge 為初始設定體驗。重設計時器將在前次使用者互動結束後開始計時。正在重設為初始設定體驗將會刪除目前的使用者瀏覽資料。
 
 如果啟用此功能，您可以將閒置時間設定以分鐘為單位 (0-1440)。您必須將 kiosk 模式原則設定為 1，並將指派存取權的 Microsoft Edge 設定為單一的應用程式，此原則才能運作。一旦閒置時間到達指定時間，將會出現確認訊息提示使用者繼續使用，但如果使用者未採取任何動作，Microsoft Edge 將在 30 秒後重設。
@@ -512,9 +518,14 @@
 如果停用或未設定，預設值為 5 分鐘。
 
 如果您未設定指派存取權的 Microsoft Edge，則這個原則便不會生效。</string>
-    </stringTable>
+      <string id="SuppressEdgeDeprecationNotification">避免顯示 Microsoft Edge 過時通知</string>
+      <string id="SuppressEdgeDeprecationNotification_Explain">您可以設定 Microsoft Edge 以避免顯示通知提醒使用者此版本的 Microsoft Edge 將於 2021 年 3 月 9 日停止支援。若啟用此選項，將不會顯示通知。
 
+若停用或未設定此選項，則會在每次啟動 Microsoft Edge 時顯示通知。 </string>
+
+    </stringTable>
     <!-- Presentation -->
+    
     <presentationTable>
       <presentation id="ConfiguredFavorites_Presentation">
         <textBox refId="ConfiguredFavoritesPrompt">

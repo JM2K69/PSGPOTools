@@ -17,7 +17,7 @@ Czujnik pamięci jest wyłączony na komputerze. Użytkownicy nie mogą włączy
 Nieskonfigurowane:
 Domyślnie Czujnik pamięci jest wyłączony, dopóki użytkownikowi nie zacznie brakować miejsca na dysku lub nie włączy go ręcznie. Użytkownicy mogą skonfigurować to ustawienie w Ustawieniach magazynu.
     </string>
-    <string id="SS_ConfigStorageSenseGlobalCadence">Konfiguruj tempo Czujnika pamięci</string>
+    <string id="SS_ConfigStorageSenseGlobalCadence">Konfiguruj tempo pracy Czujnika pamięci </string>
     <string id="SS_ConfigStorageSenseGlobalCadence_Explain">
 Czujnik pamięci może automatycznie wyczyścić niektóre pliki użytkownika w celu zwolnienia miejsca na dysku.
 
@@ -55,7 +55,7 @@ Uruchomiony Czujnik pamięci może usuwać z Kosza użytkownika pliki, które zn
 Jeśli zasada grupy „Zezwalaj na używanie Czujnika pamięci” jest wyłączona, ta zasada nie przynosi żadnego efektu.
 
 Włączone:
-Musisz podać minimalny próg wieku (w dniach) pliku w Koszu, po przekroczeniu którego Czujnik pamięci usunie plik. Obsługiwane wartości: od 0 do 365.
+Musisz podać minimalny próg wieku (w dniach) pliku w Koszu, po przekroczeniu którego Czujnik pamięci usunie plik. Obsługiwane wartości:od 0 do 365.
 Jeśli ustawisz wartość zero, Czujnik pamięci nie będzie usuwał plików z Kosza użytkownika. Wartość domyślna to 30 dni.
 
 Wyłączone lub nieskonfigurowane:
@@ -63,16 +63,16 @@ Domyślnie Czujnik pamięci będzie usuwał z Kosza użytkownika pliki, które z
     </string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold">Konfiguruj próg oczyszczania folderu Pobrane przez Czujnik pamięci</string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold_Explain">
-Uruchomiony Czujnik pamięci może usuwać z folderu Pobrane użytkownika pliki, które znajdowały się tam przez określoną liczbę dni.
+Uruchomiony Czujnik pamięci może usuwać z folderu Pobrane użytkownika pliki, które nie były otwierane co najmniej przez określoną liczbę dni.
 
 Jeśli zasada grupy „Zezwalaj na używanie Czujnika pamięci” jest wyłączona, ta zasada nie przynosi żadnego efektu.
 
 Włączone:
-Musisz podać minimalny próg wieku (w dniach) pliku w folderze Pobrane, po przekroczeniu którego Czujnik pamięci usunie plik. Obsługiwane wartości: od 0 do 365.
+Musisz podać minimalną liczbę dni, przez którą plik może nie być otwierany, zanim Czujnik pamięci będzie mógł go usunąć z folderu Pobrane. Obsługiwane wartości:od 0 do 365.
 Jeśli ustawisz wartość zero, Czujnik pamięci nie będzie usuwał plików z folderu Pobrane użytkownika. Wartość domyślna to 0. Ta wartość oznacza, że pliki nigdy nie są usuwane z folderu Pobrane.
 
 Wyłączone lub nieskonfigurowane:
-Domyślnie Czujnik pamięci nie będzie usuwać plików z folderu Pobrane użytkownika. Użytkownicy mogą skonfigurować to ustawienie w Ustawieniach magazynu.
+Domyślnie Czujnik pamięci nie będzie usuwał plików z folderu Pobrane użytkownika. Użytkownicy mogą skonfigurować to ustawienie w Ustawieniach magazynu.
     </string>
     <string id="SS_ConfigStorageSenseCloudContentDehydrationThreshold">Konfiguruj próg usuwania z urządzenia zawartości chmury przez Czujnik pamięci</string>
     <string id="SS_ConfigStorageSenseCloudContentDehydrationThreshold_Explain">
@@ -81,7 +81,7 @@ Uruchomiony Czujnik pamięci może usuwać z urządzenia skopiowaną do chmury z
 Jeśli zasada grupy „Zezwalaj na używanie Czujnika pamięci” jest wyłączona, ta zasada nie przynosi żadnego efektu.
 
 Włączone:
-Musisz podać liczbę dni, która musi upłynąć od otwarcia pliku zapisanego w chmurze, aby Czujnik pamięci mógł usunąć go z urządzenia. Obsługiwane wartości: od 0 do 365.
+Musisz podać minimalną liczbę dni, przez którą plik zapisany w chmurze może nie być otwierany, zanim Czujnik pamięci będzie mógł go usunąć z katalogu głównego synchronizacji. Obsługiwane wartości:od 0 do 365.
 Jeśli ustawisz wartość zero, Czujnik pamięci nie będzie usuwał z urządzenia zawartości skopiowanej do chmury. Wartość domyślna to 0. Ta wartość oznacza, że zawartość skopiowana do chmury nigdy nie jest usuwana z urządzenia.
 
 Wyłączone lub nieskonfigurowane:

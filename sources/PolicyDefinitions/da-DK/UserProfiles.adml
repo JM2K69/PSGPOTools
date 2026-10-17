@@ -77,6 +77,14 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan 
 Bemærk! Denne politikindstilling og relaterede politikindstillinger i denne mappe definerer tilsammen, hvordan systemet skal reagere, når hentningen af roamingbrugerprofiler er langsom. Brug indstillingen Timeout for dialogbokse til at justere det tidsrum, brugeren har til at svare på beskeden, hvis de bruger et operativsystem tidligere end Microsoft Windows Vista.
 
 Vigtigt! Hvis indstillingen Genkend ikke langsomme netværksforbindelser er aktiveret, ignoreres denne politikindstilling. Hvis politikindstillingen "Slet cachekopier af roamingprofiler" er aktiveret, kan der desuden ikke hentes en lokal kopi af roamingprofilen, når forbindelsen er langsom.</string>
+      <string id="AllowNonStandardUserProfilePaths">Tillad brugerprofilens registreringsdatabaser og AppData fra stier, der ikke er standard</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Denne politikindstilling kontrollerer, om brugerprofilens registreringsdatabaser og AppData-mappeplaceringer har tilladelse til at acceptere stier, der ikke er standardformater.
+
+Hvis du aktiverer denne politikindstilling, accepterer brugerprofilplaceringer et bredere interval af filformater.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, accepterer brugerprofilplaceringer kun standardmapper i Windows.
+
+Bemærk! Hvis du aktiverer denne indstilling, kan systemet blive udsat for sikkerhedsrisici. Aktivér det kun, hvis et bestemt program i din organisation kræver det, og kun efter at have evalueret alle risiciene for dit miljø.</string>
       <string id="ExcludeDirectories">Medtag ikke mapper i roamingprofil</string>
       <string id="ExcludeDirectories_Help">Denne politikindstilling gør det muligt at udelade mapper, der normalt medtages i brugerprofilen. Disse mapper skal derfor ikke lagres på den netværksserver, hvor profilen lagres, og mapperne følger ikke brugeren til andre computere.
 
@@ -188,7 +196,7 @@ Denne politikindstilling og relaterede politikindstillinger i denne mappe define
 
 Hvis aktiverer denne politikindstilling, venter systemet på, at fjernkopien af roamingbrugerprofilen indlæses, selv når indlæsningen er langsom.
 
-Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, indlæses den lokale kopi af roamingbrugerprofilen, når indlæsningen af fjernprofilen er langsom. Den lokale kopi bruges også, når brugeren bliver spurgt (som angivet i indstillingen Giv brugeren besked, når der findes en langsom netværksforbindelse), men ikke svarer inden for den afsatte tidsfrist (som angivet i indstillingen Timeout for dialogbokse").
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, indlæses den lokale kopi af roamingbrugerprofilen, når indlæsningen af fjernprofilen er langsom. Den lokale kopi bruges også, når brugeren bliver spurgt (som angivet i indstillingen Giv brugeren besked, når der findes en langsom netværksforbindelse), men ikke svarer inden for den afsatte tidsfrist (som angivet i indstillingen "Timeout for dialogbokse").
 
 Det kan især anbefales at vente på fjernprofilen, hvis brugerne ofte flytter fra computer til computer, og den lokale kopi af brugerprofilen ikke altid er opdateret. Den lokale kopi kan med fordel bruges, når det er vigtigere at kunne logge på hurtigt.
 
@@ -316,12 +324,11 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan 
       <string id="PrimaryComputerRup">Hent kun roamingprofiler på primære computere</string>
       <string id="PrimaryComputerRup_Help">Denne politikindstilling styrer pr. computer, om roamingprofiler kun hentes på en brugers primære computere. Denne politikindstilling er nyttig til forbedring af logonydelsen og til forbedring af sikkerheden for brugerdata på computere, hvor brugeren måske ikke vil hente private data, f.eks. på en computer i et mødelokale eller på en computer på et fjernkontor.
 
-Hvis en brugers primære computer skal angives, skal en administrator bruge administrationssoftware eller et script til at føje attributter for den primære computer til brugerens konto i AD DS (Active Directory Domain Services). Denne politikindstilling kræver også Windows Server 2012-versionen af Active Directory-skemaet for at fungere.
+Hvis en brugers primære computer skal angives, skal en administrator bruge administrationssoftware eller et script til at føje attributter for den primære computer til brugerens konto i AD DS (Active Directory-domæneservices). Denne politikindstilling kræver også Windows Server 2012-versionen af Active Directory-skemaet for at fungere.
 
 Hvis du aktiverer denne politikindstilling, og brugeren har en roamingprofil, hentes roamingprofilen kun til brugerens primære computer.
 
 Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, og brugeren har en roamingprofil, hentes roamingprofilen til alle computere, som brugeren logger på.
-      
       </string>
       <string id="USER_HOME">Angiv brugerens hjemmemappe</string>
       <string id="USER_HOME_EXPLAIN">Med denne politikindstilling kan du angive placeringen af og roden til (filshare eller lokal sti) en brugers hjemmemappe til en logonsession.

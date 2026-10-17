@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Sem zadejte zobrazovaný název.</displayName>
+  <description>Zde zadejte popis.</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Vypnout Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot_Help">Toto nastavení zásady umožňuje vypnout Windows Copilot.
+
+Pokud toto nastavení zásady povolíte, uživatelé nebudou moct Copilot používat. Na hlavním panelu se nezobrazí ani ikona Copilotu.
+
+Pokud toto nastavení zásady zakážete nebo nenakonfigurujete, uživatelé budou moct Copilot používat, až ho budou mít k dispozici.
+      </string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="DisableAIDataAnalysis">Vypnout ukládání snímků pro použití se Vzpomínáním
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Toto nastavení zásad umožňuje určit, jestli se snímky obrazovky dají uložit pro použití s Vzpomínání. Pro spravovaná zařízení nejsou snímky pro Vzpomínání ve výchozím nastavení povolené. Správci IT nemůžou sami povolit ukládání snímků jménem svých uživatelů. Možnost povolit ukládání snímků vyžaduje souhlas jednotlivých uživatelů s vyjádřením souhlasu.
+
+Pokud se zásady nenakonfigurují, snímky se nebudou ukládat pro použití s Vzpomínání.
+
+Pokud tuto zásadu povolíte, snímky se nebudou ukládat pro použití s Vzpomínání. Pokud se na zařízení dříve uložily snímky, odstraní se, až se tyto zásady povolí.
+
+Pokud tuto zásadu nastavíte na zakázáno, koncoví uživatelé budou mít možnost ukládat snímky obrazovky a pomocí Vzpomínání vyhledávat věci, které na zařízení viděli.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Nastavit maximální úložiště pro snímky používané Vzpomínání
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Toto nastavení zásad umožňuje řídit maximální velikost místa na disku, které může systém Windows použít k ukládání snímků pro Vzpomínání.
+
+Maximální velikost místa na disku pro snímky můžete nastavit na 10, 25, 50, 75, 100 nebo 150 GB.
+
+Pokud toto nastavení není nakonfigurované, nakonfiguruje operační systém přidělení úložiště pro snímky na základě kapacity úložiště zařízení, pokud aktuální uživatel neurčí jinou hodnotu.
+
+Při kapacitě úložiště zařízení 256 GB se přidělí 25 GB. Při kapacitě úložiště zařízení 512 GB se přidělí 75 GB. Při kapacitě úložiště zařízení 1 TB nebo vyšší se přidělí 150 GB.
+
+Pokud je pro Vzpomínání nastavená maximální doba uložení i maximální prostor úložiště, snímky se odstraní při dosažení prvního maxima.
+
+Důležité: Toto nastavení platí jenom pro skladové položky klienta Enterprise a Education.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Umožněte operačnímu systému definovat maximální velikost úložiště na základě velikosti úložiště pevného disku</string>
+      <string id="SetMaximumStorageSpace_10GB">10 GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25 GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50 GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75 GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100 GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150 GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Nastavit maximální dobu trvání ukládání snímků používaných službou Vzpomínání
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Toto nastavení zásad umožňuje řídit maximální dobu (ve dnech), po kterou systém Windows ukládá snímky pro Vzpomínání.
+
+Když je zásada povolená, můžete nakonfigurovat maximální dobu uložení na 30, 60, 90 nebo 180 dnů.
+
+Pokud tato zásada není nakonfigurovaná, maximální doba uložení je 90 dní, pokud aktuální uživatel neurčí jinou hodnotu.
+
+Pokud je pro Vzpomínání nastavená maximální doba uložení i maximální prostor úložiště, snímky se odstraní při dosažení prvního maxima.
+
+Důležité: Toto nastavení platí jenom pro skladové položky klienta Enterprise a Education.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">Nechte operační systém definovat maximální dobu, po kterou se budou snímky ukládat
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 dnů</string>
+      <string id="SetMaximumStorageDuration_60Days">60 dnů</string>
+      <string id="SetMaximumStorageDuration_90Days">90 dnů</string>
+      <string id="SetMaximumStorageDuration_180Days">180 dnů</string>
+      <string id="SetDenyAppListForRecall">Nastavte seznam aplikací, které se mají filtrovat ze snímků pro Vzpomínání
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Tato zásada umožňuje definovat seznam aplikací, které se nezahrnou do snímků pro Vzpomínání.
+
+Uživatelé budou moct přidávat další aplikace, které se mají vyloučit ze snímků pomocí nastavení Vzpomínání.
+
+Seznam může obsahovat ID uživatelských modelů aplikací (AUMID) nebo název spustitelného souboru.
+
+Pomocí středníkem odděleného seznamu aplikací můžete definovat seznam zakázaných aplikací pro Vzpomínání.
+
+Příklad: code.exe; Microsoft.WindowsNotepad_8wekyb3d8bbwe! Aplikace;ms-teams.exe
+
+Důležité: Toto nastavení platí jenom pro skladové položky klienta Enterprise a Education. Při konfiguraci tohoto nastavení zásad se změny projeví až po restartování zařízení.
+      </string>
+      <string id="SetDenyUriListForRecall">Nastavení seznamu identifikátorů URI, které se mají filtrovat ze snímků pro Vzpomínání
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Toto nastavení zásad umožňuje definovat seznam identifikátorů URI, které se při použití podporovaného prohlížeče nezahrnou do snímků pro Vzpomínání. Lidé ve vaší organizaci můžou pomocí nastavení Vzpomínání přidat do seznamu další weby. Definujte seznam středníkem k oddělení identifikátorů URI.
+
+Příklad: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+Přidání https://www.WoodgroveBank.com do seznamu by také filtroval https://Account.WoodgroveBank.com a https://www.WoodgroveBank.com/Account.
+
+Důležité: Toto nastavení platí jenom pro skladové položky klienta Enterprise a Education. Změny této zásady se projeví po restartování zařízení.
+      </string>
+      <string id="SetDataLossPreventionProvider">Nastavte ID poskytovatele ochrany před únikem informací pro Vzpomínání
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Tato zásada umožňuje správci zadat zprostředkovatele ochrany před únikem informací, které Vzpomínání použije, pokud je zprostředkovatel správně nainstalován. Řetězec pro tento účel musíte získat od svého poskytovatele. Bude vypadat například takto: 'key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll' (bez uvozovek v hodnotě).
+
+Důležité: Toto nastavení platí jenom pro skladové položky klienta Enterprise a Education.
+      </string>
+      <string id="SetCopilotHardwareKey">Nastavit hardwarovou klávesu Copilot</string>
+      <string id="SetCopilotHardwareKey_Help">Toto nastavení zásad určuje, která aplikace se otevře, když uživatel stiskne na klávesnici klávesu Copilot. Pokud je zásada povolená a uživatel stiskne klávesu Copilot, otevře se zadaná aplikace. Uživatelé můžou změnit přiřazení klávesy v Nastavení. Pokud tato zásada není nakonfigurovaná, Copilot se otevře, pokud je v dané zemi nebo oblasti k dispozici.
+      </string>
+      <string id="AllowRecallEnablement">Umožnit povolení funkce Vzpomínání.
+      </string>
+      <string id="AllowRecallEnablement_Help">Toto nastavení zásad umožňuje určit, zda bude Vzpomínání volitelná součást k dispozici pro koncové uživatele, aby je mohli povolit na svém zařízení. Ve výchozím nastavení je Vzpomínání pro spravovaná komerční zařízení zakázaná. Vzpomínání není ve výchozím nastavení na spravovaných zařízeních k dispozici a jednotliví uživatelé nemůžou Vzpomínání sami povolit.
+
+Pokud tato zásada není nakonfigurovaná, koncoví uživatelé budou mít komponentu Vzpomínání v zakázaném stavu.
+
+Pokud je tato zásada zakázána, bude Vzpomínání komponenta v zakázaném stavu a bity pro Vzpomínání budou ze zařízení odebrány. Pokud se na zařízení dříve uložily snímky, odstraní se, až se tyto zásady zakáže. Odebrání Vzpomínání vyžaduje restartování zařízení.
+
+Pokud je tato zásada povolená, koncoví uživatelé budou mít na svém zařízení Vzpomínání k dispozici. V závislosti na stavu zásad DisableAIDataAnalysis (vypnout ukládání snímků pro použití s Vzpomínání) se koncoví uživatelé budou moct rozhodnout, jestli chtějí ukládat snímky obrazovky, a pomocí Vzpomínání najít, co si na zařízení zobrazili.
+      </string>
+      <string id="DisableClickToDo">Zakázat akce kliknutím</string>
+      <string id="DisableClickToDo_Help">Akce kliknutím umožňuje uživatelům provádět akce s obsahem na svých obrazovkách. Když je aktivována, pořídí snímek obrazovky a analyzuje ho, aby prezentovala akce. Akce kliknutím končí, když ji uživatel ukončí, a nemůže pořizovat snímky obrazovky, když je zavřená. Analýza snímků obrazovky se vždy provádí místně na jejich zařízení. Ve výchozím nastavení je uživatelům Akce kliknutím povolena.
+
+Toto nastavení zásad umožňuje určit, zda je Akce kliknutím uživatelům k dispozici na jejich zařízení.
+
+Pokud je tato zásada povolena, komponenta Akce kliknutím a vstupní body nebudou uživatelům k dispozici.
+
+Pokud je tato zásada zakázána, uživatelé budou mít Akci kliknutím k dispozici na svém zařízení.
+      </string>
+      <string id="Paint">Malování</string>
+      <string id="DisableImageCreator">Zakázat Tvůrce obrázků</string>
+      <string id="DisableImageCreator_Help">Toto nastavení zásad umožňuje určit, zda bude v aplikaci Windows Malování zakázána funkce Tvůrce obrázků. Pokud je tato zásada povolená, Tvůrce obrázků funkce nebudou v aplikaci Malování přístupné. Pokud je tato zásada zakázaná nebo není nakonfigurovaná, uživatelé budou mít přístup k Tvůrce obrázků funkcím.</string>
+      <string id="DisableCocreator">Zakázat Spolutvůrce</string>
+      <string id="DisableCocreator_Help">Toto nastavení zásad umožňuje určit, zda bude v aplikaci Windows Malování zakázána funkce spoluvytváření. Pokud je tato zásada povolená, funkce Spoluvytváření nebude v aplikaci Malování přístupná. Pokud je tato zásada zakázaná nebo není nakonfigurovaná, uživatelé budou mít přístup k funkcím spoluvytváření.</string>
+      <string id="DisableGenerativeFill">Zakázat generativní výplň</string>
+      <string id="DisableGenerativeFill_Help">Toto nastavení zásad umožňuje určit, zda bude v aplikaci Windows Malování zakázána funkce generování výplní. Pokud je tato zásada povolená, nebude funkce generování výplní v aplikaci Malování přístupná. Pokud je tato zásada zakázaná nebo není nakonfigurovaná, uživatelé budou mít přístup k generativní funkci vyplňování.</string>
+      <string id="AllowRecallExport">Povolit export informací o Vzpomínání a snímcích</string>
+      <string id="AllowRecallExport_Help">Tato zásada vám umožňuje určit, jestli uživatelé mohou exportovat záznamy Vzpomínání a informace o snímcích. Exportování umožňuje uživatelům sdílet své Vzpomínání a informace o snímcích s důvěryhodnými aplikacemi nebo weby. Uživatelé mohou exportovat z Nastavení &gt; Ochrana osobních údajů a zabezpečení &gt; Vzpomínání a snímky &gt; Rozšířené nastavení &gt; Exportovat snímky &gt; Exportovat minulé snímky &gt; Export.
+
+Uživatelé si také mohou zvolit průběžný export snímků, pokud v Nastavení &gt; Ochrana osobních údajů a zabezpečení &gt; Vzpomínání a snímky &gt; Rozšířené nastavení &gt; Export snímků &gt; Export tuto možnost zapnou.
+
+Před spuštěním exportu se uživatel musí ověřit pomocí Windows Hello a bude upozorněn, že jeho exportované snímky jsou zašifrované, protože mohou obsahovat citlivé informace. Uživatel je také upozorněn, že bude muset poskytnout svůj kód pro export záznamů Vzpomínání, pokud chce důvěryhodným aplikacím nebo webům povolit přístup k exportovaným snímkům. Kód pro export záznamů Vzpomínání se uživatelům zobrazí během nastavení Vzpomínání, i když je tato zásada zakázaná nebo není nakonfigurována. Pro spravovaná zařízení:
+
+Když tuto zásadu povolíte, uživatelé budou moct exportovat záznamy Vzpomínání a informace o snímcích.
+
+Pokud je zásada zakázaná nebo není nakonfigurovaná, uživatelé nebudou moct exportovat záznamy Vzpomínání a informace o snímcích.
+
+Důležité: Toto nastavení platí pouze pro zařízení v Evropském hospodářském prostoru (EHP). Export záznamů Vzpomínání a informací o snímcích je proces iniciovaný uživatelem a vztahuje se na konkrétního uživatele. Správci IT nebo jiní uživatelé nemohou iniciovat export jménem jiného uživatele.
+      </string>
+      <string id="DisableSettingsAgent">Zakázat prostředí agentního vyhledávání v Nastavení</string>
+      <string id="DisableSettingsAgent_Help">Agentní prostředí v Nastavení vylepšuje výsledky hledání v aplikaci Nastavení tím, že umožňuje přirozený jazyk. Po aktivaci využívá model AI k poskytování inteligentních návrhů vyhledávání v Nastavení.
+
+        Toto nastavení zásad umožňuje určit, zda je prostředí agentního vyhledávání v Nastavení k dispozici pro uživatele na jejich zařízení.
+
+        Pokud je tato zásada povolena, prostředí agentního vyhledávání v Nastavení bude zakázáno, což omezí výsledky hledání na staticky indexovaná a sémantická hledání.
+
+        Pokud je tato zásada zakázána, uživatelé budou mít na svém zařízení k dispozici prostředí agentního vyhledávání v Nastavení.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Úroveň protokolování registru na zařízení</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Toto nastavení zásad umožňuje nakonfigurovat úroveň protokolování pro operace registru na zařízení.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Chyba nebo vyšší</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Informace nebo vyšší</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Ladění nebo vyšší</string>
+      <string id="RemoveMicrosoftCopilotApp">Odebrat aplikaci Microsoft Copilot</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Toto nastavení zásad umožňuje cíleně odinstalovat aplikaci Microsoft Copilot pro uživatele. Bude platit pro zařízení nebo uživatele, kteří splňují níže uvedené podmínky:
+
+• Microsoft 365 Copilot i Microsoft Copilot jsou nainstalované
+
+• Aplikaci Microsoft Copilot nenainstaloval uživatel
+
+• Aplikace Microsoft Copilot nebyla v posledních 28 dnech spuštěna
+ 
+Pokud je tato zásada povolená, aplikace Microsoft Copilot se odinstaluje. Uživatelé si ji můžou znovu nainstalovat, pokud budou chtít. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>Zadejte AUMID aplikace.</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Zadejte seznam zamítnutí aplikací:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Zadejte seznam zamítnutí identifikátorů URI:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>Zadejte ID zprostředkovatele ochrany před únikem informací:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Vyberte maximální prostor úložiště:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Vyberte maximální dobu trvání úložiště:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Úroveň protokolování registru na zařízení: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

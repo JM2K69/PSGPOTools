@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Gruppepolicyinnstillinger for statusindikator for nettverkstilkobling</displayName>
   <description>Gruppepolicyinnstillinger for statusindikator for nettverkstilkobling</description>
@@ -73,7 +73,7 @@
       </presentation>
       <presentation id="NCSI_PassivePolling">
         <text>Følgende avmerkingsboks deaktiverer mekanismen for passiv avspørring i NCSI.   Dette kan redusere prosessorbelastningen på servere eller andre maskiner med statisk nettverkstilkobling.</text>
-        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Deaktiver passiv avspørring</checkBox>  
+        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Deaktiver passiv avspørring</checkBox>
       </presentation>
       <presentation id="NCSI_GlobalDns">
         <text>Følgende avmerkingsboks deaktiverer grensesnittbinding ved DNS-oppslag i NCSI. Dette kan gjøre at NCSI fungerer bedre med spesielle nettverkskonfigurasjoner, for eksempel en DNS-server som kjører på localhost.</text>

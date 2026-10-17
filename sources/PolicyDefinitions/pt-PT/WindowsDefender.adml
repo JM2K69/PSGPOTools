@@ -3,10 +3,12 @@
 <description>introduza a descrição aqui</description>
 <resources>
     <stringTable>
-    <string id="AntiSpywareDefender">Antivírus do Windows Defender</string>
+    <string id="AntiSpywareDefender">Antivírus do Microsoft Defender</string>
     <string id="AntiSpyware">Endpoint Protection</string>
     <string id="Exclusions">Exclusões</string>
-    <string id="ExploitGuard">Windows Defender Exploit Guard</string>
+    <string id="Features">Funcionalidades</string>
+    <string id="DeviceControl">Controlo de Dispositivos</string>
+    <string id="ExploitGuard">Microsoft Defender Exploit Guard</string>
     <string id="ExploitGuard_ASR">Redução de Superfície de Ataque</string>
     <string id="ExploitGuard_ControlledFolderAccess">Acesso Controlado a Pastas</string>
     <string id="ExploitGuard_NetworkProtection">Proteção da Rede</string>
@@ -15,6 +17,9 @@
     <string id="Quarantine">Quarentena</string>
     <string id="RealtimeProtection">Proteção em Tempo Real</string>
     <string id="Remediation">Remediação</string>
+    <string id="Remediation_BNB">Blocos de Rede Comportamentais</string>
+    <string id="Remediation_BNB_REP">Proteção contra Encriptação Remota</string>
+    <string id="Remediation_BNB_BFP">Proteção contra Força Bruta</string>
     <string id="Reporting">Relatórios</string>
     <string id="Scan">Análise</string>
     <string id="SignatureUpdate">Atualizações de Informações de Segurança</string>
@@ -29,15 +34,68 @@ Se ativar ou não configurar esta definição, o serviço antimalware será carr
 
 Se desativar esta definição, o serviço antimalware será carregado como uma tarefa de baixa prioridade.</string>
 
+    <string id="MeteredConnectionUpdates">Permite ao Antivírus do Microsoft Defender atualizar e comunicar através de uma ligação com tráfego limitado.</string>
+    <string id="MeteredConnectionUpdates_Explain">
+    Desativado (predefinição): 
+    As atualizações e as comunicações não são permitidas em ligações com tráfego limitado.
+
+Ativada 
+    Permitir que os dispositivos geridos atualizem através de ligações com tráfego limitado. Poderão ser aplicáveis custos de dados.</string>
+    <string id="HideExclusionsFromLocalAdmins">Controle se as exclusões estão ou não visíveis para Administradores Locais.</string>
+    <string id="HideExclusionsFromLocalAdmins_Explain">
+    Esta definição de política controla se as exclusões estão ou não visíveis para Administradores Locais.  Para os utilizadores finais (que não são Administradores Locais), as exclusões não estão visíveis, quer esta definição seja ou não ativada.
+ Desativado (Predefinição):
+ Se desativar ou não configurar esta definição, os Administradores Locais poderão ver exclusões na Aplicação de Segurança do Windows ou através do PowerShell.
+
+ Ativado: 
+ Se ativar esta definição, os Administradores Locais deixarão de poder ver a lista de exclusões na Aplicação de Segurança do Windows ou através do PowerShell.
+ Nota: a aplicação desta definição não irá remover exclusões, apenas impedirá que as pessoas sejam visíveis para os Administradores Locais. Isto é refletido em Get-MpPreference.</string>
+    <string id="HideExclusionsFromLocalUsers">Decidir se as exclusões são visíveis para os utilizadores locais</string>
+    <string id="HideExclusionsFromLocalUsers_Explain">
+    Esta definição de política controla se as exclusões são visíveis para os utilizadores locais no dispositivo.
+    Utilize a definição de política HideExclusionsFromLocalAdmins para ocultar exclusões de utilizadores locais padrão e administrativos.</string>
+    <string id="AllowNetworkProtectionOnWinServer">Esta definições controla se a proteção de rede tem permissão para ser configurada para o modo de bloqueio ou auditoria no Windows Server.</string>
+    <string id="AllowNetworkProtectionOnWinServer_Explain">
+    Desativado (predefinição): 
+    Se não for configurada ou estiver desativada, a proteção de rede não pode ser configurada para bloquear ou modo de auditoria no Windows Server.
+
+Ativada 
+    Se estiver ativada, os administradores poderão controlar se a proteção da rede tem permissão para ser configurada em modo de bloqueio ou auditoria no Windows Server.
+    Tenha em atenção que esta configuração depende da configuração EnableNetworkProtection. Se esta configuração for falsa, o EnableNetworkProtection será ignorado, caso contrário, a proteção da rede será iniciada no Windows Server, dependendo do valor EnableNetworkProtection.</string>
+    <string id="DisableDatagramProcessing">Esta definição controla o processamento de datagramas da proteção da rede.</string>
+    <string id="DisableDatagramProcessing_Explain">
+    Desativado (Predefinição): 
+    Se Não Estiver Configurado ou estiver Desativado, o processamento de datagramas será ativado para proteção da rede.
+
+    Ativado: 
+    Se estiver Ativado, o processamento de datagramas será desativado para a proteção da rede.</string>
+    <string id="EnableConvertWarnToBlock">Converter veredito de aviso para bloquear</string>
+    <string id="EnableConvertWarnToBlock_Explain">
+    A proteção de rede inspeciona o tráfego de rede e determina se permite ou bloqueia o tráfego ou apresenta um aviso.
+    
+    Desativado (Predefinição): 
+    Se Não Estiver Configurado ou Desativado, a proteção de rede apresentará um aviso para vereditos de aviso.
+
+    Ativado: 
+    Se esta definição estiver Ativada, a proteção de rede bloqueia o tráfego de rede em vez de apresentar um aviso.</string>
+    <string id="AllowSwitchToAsyncInspection">Ativar inspeção assíncrona</string>
+    <string id="AllowSwitchToAsyncInspection_Explain">
+    Decida se a proteção de rede pode melhorar o desempenho, ao mudar da inspeção em tempo real para a inspeção assíncrona.
+
+    Desativado (Predefinição): 
+    Se Não Estiver Configurado ou Desativado, a inspeção assíncrona não será ativada para proteção de rede.
+
+    Ativado: 
+    Se ativado, a mudança para a inspeção assíncrona será permitida para proteção de rede.</string>
     <string id="DisableAutoExclusions">Desativar Exclusões Automáticas</string>
     <string id="DisableAutoExclusions_Explain">
-        Permite que um administrador especifique se a funcionalidade das Exclusões Automáticas para SKUs do Servidor deve ser desativada.
+        Permite que um administrador especifique se a funcionalidade de Exclusões Automáticas para SKUs de Servidor deve ser desativada.
 
         Desativado (Predefinição):
-        O Windows Defender excluirá da análise a lista predefinida de caminhos, para melhorar o desempenho.
+        O Microsoft Defender excluirá da análise a lista predefinida de caminhos, para melhorar o desempenho.
 
         Ativado:
-        O Windows Defender não excluirá das análises a lista predefinida de caminhos. Isto pode ter impacto no desempenho da máquina em alguns cenários.
+        O Microsoft Defender não excluirá das análises a lista predefinida de caminhos. Isto pode afetar o desempenho do computador em alguns cenários.
 
         Não configurado:
         O mesmo que Desativado.
@@ -49,29 +107,29 @@ Se desativar esta definição, o serviço antimalware será carregado como uma t
 
     Se desativar ou não configurar esta definição de política, por predefinição, o Endpoint Protection será executado e será verificada a existência de software maligno e outro software potencialmente indesejável nos computadores.
     </string>
-    <string id="DisableAntiSpywareDefender">Desativar o Antivírus do Windows Defender</string>
-    <string id="DisableAntiSpywareDefender_Explain">Esta definição de política desativa o Antivírus do Windows Defender.
+    <string id="DisableAntiSpywareDefender">Desativar o Antivírus do Microsoft Defender</string>
+    <string id="DisableAntiSpywareDefender_Explain">Esta definição de política desativa o Antivírus do Microsoft Defender.
     
-    Se ativar esta definição de política, o Antivírus do Windows Defender não é executado e não analisa os computadores quanto à existência de malware ou outro software potencialmente indesejável.
+    Se ativar esta definição de política, o Antivírus do Microsoft Defender não é executado e não irá analisar a existência de malware ou outro software potencialmente indesejável nos computadores.
 
-    Se desativar esta definição de política, o Antivírus do Windows Defender é executado independentemente de qualquer outro produto de antivírus instalado.
+    Se desativar esta definição de política, o Antivírus do Microsoft Defender será executado independentemente de qualquer outro produto antivírus instalado.
 
-    Se não configurar esta definição de política, o Windows gere internamente o Antivírus do Windows Defender. Se instalar outro programa antivírus, o Windows desativa automaticamente o Antivírus do Windows Defender. Caso contrário, o Antivírus do Windows Defender analisa os computadores quanto à presença de malware e outro software potencialmente indesejável.
+    Se não configurar esta definição de política, o Windows irá gerir internamente o Antivírus do Microsoft Defender. Se instalar outro programa antivírus, o Windows desativa automaticamente o Antivírus do Microsoft Defender. Caso contrário, o Antivírus do Microsoft Defender irá analisar a existência de malware e outro software potencialmente indesejável nos computadores.
 
-    A ativação ou desativação desta política pode levar a comportamento inesperado ou não suportado. Recomenda-se que deixe esta definição de política por configurar.</string>
+    A ativação ou desativação desta política poderá provocar um comportamento inesperado ou não suportado. Recomenda-se que deixe esta definição de política não configurada.</string>
     <string id="DisableLocalAdminMerge">Configurar comportamento de intercalação de listas do administrador local</string>
     <string id="DisableLocalAdminMerge_Explain">Esta definição de política controla se as definições de listas complexas configuradas por um administrador local são ou não intercaladas com as definições da Política de Grupo. Esta definição é aplicável a listas tais como ameaças e exclusões.
 
-Se ativar ou não configurar esta definição, os itens exclusivos definidos na Política de Grupo e nas definições de preferências configuradas pelo administrador local serão intercalados com a política efetivamente resultante. Em caso de conflito, as definições da Política de Grupo prevalecem sobre as definições de preferências.
+    Se ativar ou não configurar esta definição, os itens exclusivos definidos na Política de Grupo e nas definições de preferências configuradas pelo administrador local serão intercalados com a política efetivamente resultante. Em caso de conflito, as definições da Política de Grupo prevalecem sobre as definições de preferências.
 
-Se desativar esta definição, os itens definidos pela Política de Grupo serão utilizados na política efetivamente resultante. As definições da Política de Grupo prevalecem sobre as definições de preferências configuradas pelo administrador local.</string>
+    Se desativar esta definição, os itens definidos pela Política de Grupo serão utilizados na política efetivamente resultante. As definições da Política de Grupo prevalecem sobre as definições de preferências configuradas pelo administrador local.</string>
     <string id="DisableRoutinelyTakingAction">Desativar a remediação de rotina</string>
     <string id="DisableRoutinelyTakingActionDefender_Explain">
-    Esta definição da política permite-lhe configurar se o Antivírus do Windows Defender toma automaticamente medidas contra todas as ameaças detetadas. A medida a tomar contra uma determinada ameaça é determinada pela combinação da medida definida pela política, da medida definida pelo utilizador e da medida definida pela assinatura.
+    Esta definição de política permite-lhe configurar se o Antivírus do Microsoft Defender toma automaticamente medidas contra todas as ameaças detetadas. A ação a efetuar numa determinada ameaça é determinada pela combinação da ação definida pela política, da ação definida pelo utilizador e da ação definida pela assinatura.
 
-    Se ativar esta definição da política, o Antivírus do Windows Defender não toma automaticamente medidas contra as ameaças detetadas, mas solicita aos utilizadores que optem entre as medidas disponíveis para cada ameaça.
+    Se ativar esta definição de política, o Antivírus do Microsoft Defender não efetuará automaticamente medidas contra as ameaças detetadas, mas pedirá aos utilizadores que escolham entre as ações disponíveis para cada ameaça.
 
-    Se desativar ou não configurar esta definição da política, o Antivírus do Windows Defender toma automaticamente medidas contra todas as ameaças detetadas, após um atraso não-configurável de aproximadamente cinco segundos.</string>
+    Se desativar ou não configurar esta definição de política, o Antivírus do Microsoft Defender toma automaticamente medidas contra todas as ameaças detetadas após um atraso não-configurável de aproximadamente cinco segundos.</string>
     <string id="DisableRoutinelyTakingAction_Explain">
         Esta definição de política permite configurar se o Endpoint Protection deve efetuar automaticamente ações em relação a todas as ameaças detetadas. A ação a efetuar relativamente a determinada ameaça será determinada pela combinação da ação definida pela política, da ação definida pelo utilizador e da ação definida pela assinatura.
 
@@ -109,11 +167,19 @@ Se desativar ou não configurar esta definição, o servidor proxy não será ig
       Se desativar ou não configurar esta definição, o proxy ignora este passo de contingência de acordo com a ordem especificada acima.
     </string>
     <string id="RandomizeScheduleTaskTimes">Aleatorizar horário das tarefas agendadas</string>
-    <string id="RandomizeScheduleTaskTimes_Explain">Esta definição de política permite-lhe ativar ou desativar a aleatoriedade da hora de início da análise programada e da hora de início da atualização das informações de segurança programada. Esta definição é utilizada para distribuir o impacto de recursos de análise. Por exemplo, pode ser utilizada em máquinas virtuais convidadas que partilham um anfitrião, para impedir que várias máquinas virtuais convidadas realizem uma operação que exija uma utilização excessiva do disco ao mesmo tempo.
+    <string id="RandomizeScheduleTaskTimes_Explain">Esta definição de política permite configurar a aleatoriedade da hora de início da análise agendada e a hora de início da atualização da definição agendada.
 
-    Se ativar ou não configurar esta definição, as tarefas agendadas serão iniciadas a uma hora aleatória, num intervalo de 30 minutos antes e depois da hora de início especificada.
+Se ativar ou não configurar esta definição de política e não tiver definido uma janela de aleatoriedade na definição Configurar janela de aleatoriedade da hora da tarefa agendada, a aleatoriedade será adicionada entre 0 e 4 horas.
+        Se ativar ou não configurar esta definição de política e definir uma janela de aleatoriedade na definição Configurar janela de aleatoriedade de tempo de tarefa agendada, será utilizada a janela de aleatoriedade configurada.
+        Se desativar esta definição de política, mas configurar a janela de aleatoriedade da hora da tarefa agendada, a aleatoriedade não será efetuada. 
+    </string>
+    <string id="SchedulerRandomizationTime">Configurar horas de tarefas agendadas da janela aleatoriedade</string>
+    <string id="SchedulerRandomizationTime_Explain">Esta definição de política permite-lhe configurar a hora de início da análise de tarefas agendada e a janela de hora de início da atualização de informações de segurança agendada em horas. Esta definição afeta a configuração Selecionar aleatoriamente as horas de tarefas agendadas.
 
-    Se desativar esta definição, as tarefas agendadas começarão à hora de início especificada.</string>
+        Se ativar esta definição, tem de escolher uma janela de seleção aleatória em horas. O intervalo da janela de seleção aleatória possível é entre 1 e 23 horas. O intervalo de seleção aleatória implementado é entre 0 e o valor configurado. 
+        Ao ativar esta definição, as definições Selecionar aleatoriamente horas de tarefas agendadas utilizam a janela de seleção aleatória especificada nesta definição de configuração. 
+        Se desativar ou não configurar esta definição de política, as definições Selecionar aleatoriamente as horas de tarefas agendadas selecionarão aleatoriamente as horas de tarefas agendadas entre 0 e 4 horas.</string>
+
     <string id="ServiceKeepAlive">Permitir que o serviço antimalware esteja sempre em execução</string>
     <string id="ServiceKeepAlive_Explain">Esta definição de política permite configurar se o serviço antimalware se manterá ou não em execução quando as informações de segurança de antivírus e antispyware estiverem desativadas. É recomendado manter esta definição desativada.
 
@@ -135,12 +201,20 @@ Se desativar ou não configurar esta definição, o servidor proxy não será ig
         Não configurado:
         O mesmo que Desativado.
     </string>
+    <string id="SupportLogLocation">Definir o caminho do diretório para copiar ficheiros de registo de suporte</string>
+    <string id="SupportLogLocation_Explain">Esta definição de política permite configurar o caminho de diretório onde os ficheiros de registo de suporte serão copiados. O valor desta definição deve ser um caminho de diretório válido.
+
+Se ativar esta definição, os ficheiros de registo de suporte serão copiados para o caminho de localização de registo de suporte especificado.
+
+Se desativar ou não configurar esta definição, os ficheiros de suporte de registos não serão copiados para qualquer localização.</string>
     <string id="Exclusions_Extensions">Exclusões de Extensões</string>
     <string id="Exclusions_Extensions_Explain">Esta definição de política permite especificar uma lista de tipos de ficheiros a excluir de análises agendadas, personalizadas e em tempo real. Os tipos de ficheiros para esta definição deverão ser adicionados nas Opções. Cada entrada deverá ser listada como um par nome-valor, em que o nome deverá ser uma representação de cadeia da extensão de tipo de ficheiro (tal como "obj" ou "lib"). O valor não é utilizado, sendo recomendado defini-lo como 0.</string>
     <string id="Exclusions_Paths">Exclusões de Caminhos</string>
     <string id="Exclusions_Paths_Explain">Esta definição de política permite desativar a análise agendada e em tempo real dos ficheiros nos caminhos especificados ou dos recursos completamente qualificados especificados. Os caminhos para esta definição deverão ser adicionados nas Opções. Cada entrada deverá ser listada como um par nome-valor, em que o nome deverá ser uma representação de cadeia de um caminho ou nome de recurso completamente qualificado. Como exemplo, um caminho poderá ser definido como: "c:\Windows" para excluir todos os ficheiros deste diretório. Um nome de recurso completamente qualificado poderá ser definido como: "C:\Windows\App.exe". O valor não é utilizado, sendo recomendado defini-lo como 0.</string>
     <string id="Exclusions_Processes">Exclusões de Processos</string>
-    <string id="Exclusions_Processes_Explain">Esta definição de política permite desativar a análise agendada e em tempo real de qualquer ficheiro aberto por qualquer dos processos especificados. O próprio processo não será excluído. Para excluir o processo, utilize a Exclusão de caminho. Os processos para esta definição deverão ser adicionados nas Opções. Cada entrada deverá ser listada como um par nome-valor, em que o nome deverá ser uma representação de cadeia do caminho para a imagem do processo. Tenha em atenção que só é possível excluir ficheiros executáveis. Por exemplo, um processo poderá ser definido como: "c:\windows\app.exe". O valor não é utilizado, sendo recomendado defini-lo como 0.</string>
+    <string id="Exclusions_Processes_Explain">Esta definição de política permite desativar a análise em tempo real de qualquer ficheiro aberto por qualquer dos processos especificados. Esta política não se aplica a análises agendadas. O próprio processo não será excluído. Para excluir o processo, utilize a Exclusão de caminho. Os processos deverão ser adicionados nas Opções desta definição. Cada entrada deverá ser listada como um par nome-valor, em que o nome deverá ser uma representação de cadeia do caminho para a imagem do processo. Tenha em atenção que só é possível excluir ficheiros executáveis. Por exemplo, um processo poderá ser definido como: "c:\windows\app.exe". O valor não é utilizado, sendo recomendado defini-lo como 0.</string>
+    <string id="Exclusions_IpAddresses">Exclusões de Endereços Ip</string>
+    <string id="Exclusions_IpAddresses_Explain">Permite que um administrador desative explicitamente a inspeção de pacotes de rede efetuadas por wdnisdrv num conjunto específico de endereços IP.</string>
     <string id="Nis_DisableProtocolRecognition">Ativar reconhecimento de protocolos</string>
     <string id="Nis_DisableProtocolRecognition_Explain">Esta definição de política permite configurar o reconhecimento de protocolos para proteção da rede contra exploits de vulnerabilidades conhecidas.
 
@@ -167,6 +241,30 @@ Se desativar ou não configurar esta definição, a Política de Grupo terá pri
 Se ativar esta definição, os itens serão removidos da pasta Quarentena após o número de dias especificado.
 
 Se desativar ou não configurar esta definição, os itens serão indefinidamente mantidos na pasta Quarentena, não sendo automaticamente removidos.</string>
+
+    <string id="RealtimeProtection_DisableSriptScanning">Ativar análise de scripts</string>
+    <string id="RealtimeProtection_DisableSriptScanning_Explain">Esta definição de política permite configurar a análise de scripts.
+
+Se ativar ou não configurar esta definição, a análise de scripts será ativada.
+
+Se desativar esta definição, a análise de scripts será desativada.</string>
+
+    <string id="RealtimeProtection_OobeEnableRtpAndSigUpdate">Configurar a proteção em tempo real e as Atualizações de Informações de Segurança durante a OOBE</string>
+    <string id="RealtimeProtection_OobeEnableRtpAndSigUpdate_Explain">Esta definição de política permite-lhe configurar se a proteção em tempo real e as Atualizações de Informações de Segurança estão ativadas durante a OOBE (Experiência de Primeira Execução).
+ 
+    Se ativar esta definição, a proteção em tempo real e as Atualizações de Informações de Segurança serão ativadas durante a OOBE.
+ 
+    Se desativar ou não configurar esta definição de política, a proteção em tempo real e as Atualizações de Informações de Segurança durante a OOBE não são ativadas.</string>
+
+    <string id="RealtimeProtection_PerformanceModeStatus">Configurar o estado do modo de desempenho</string>
+    <string id="RealtimeProtection_PerformanceModeStatus_Explain">Esta política controla o modo de desempenho do Antivírus do Microsoft Defender para Unidades de Desenvolvimento.
+
+    Uma Unidade de Desenvolvimento é uma unidade de disco otimizada para um desempenho mais elevado em cenários de desenvolvimento de software. Quando esta política está Ativada ou não configurada, o Modo de desempenho é ativado para o Antivírus do Microsoft Defender. No Modo de desempenho, as verificações de segurança do Antivírus do Microsoft Defender dos conteúdos armazenados em Unidades de Desenvolvimento são realizadas de forma assíncrona para melhorar o desempenho. O modo de desempenho requer que as seguintes políticas também sejam ativadas: “Ativar unidade de desenvolvimento” e “Política de anexação de filtros de unidades de desenvolvimento”.
+
+    Se Ativar ou não configurar esta definição de política, o Modo de desempenho é ativado.
+
+    Se Desativar esta definição de política, o Modo de desempenho será desativado e o Antivírus do Microsoft Defender protegerá uma Unidade de Desenvolvimento da mesma forma que outras unidades.</string>
+
     <string id="RealtimeProtection_DisableBehaviorMonitoring">Ativar monitorização de comportamento</string>
     <string id="RealtimeProtection_DisableBehaviorMonitoring_Explain">Esta definição de política permite configurar a monitorização de comportamento.
 
@@ -192,13 +290,13 @@ Se ativar ou não configurar esta definição, as notificações de escrita de v
 
 Se desativar esta definição, as notificações de escrita de volumes não processados serão desativadas.</string>
     <string id="DisableRealtimeMonitoring">Desativar a proteção em tempo real</string>
-    <string id="DisableRealtimeMonitoringDefender_Explain">Esta definição de política desativa os avisos de proteção em tempo real para deteção de software maligno conhecido.
+    <string id="DisableRealtimeMonitoringDefender_Explain">Esta política desativa a proteção em tempo real no Antivírus do Microsoft Defender.
 
-    O Antivírus do Windows Defender alerta o utilizador quando software maligno ou software potencialmente indesejável tenta a própria instalação ou execução no computador.
+    A proteção em tempo real consiste na análise permanente com monitorização e heurística do comportamento de ficheiros e processos. Quando a proteção em tempo real está ativa, o Antivírus do Microsoft Defender deteta malware e software potencialmente indesejável que tenta instalar-se ou executar no seu dispositivo e pede-lhe para tomar medidas em deteções de malware.
 
-    Se ativar esta definição de política, o Antivírus do Windows Defender não pede aos utilizadores que tomem medidas em relação a deteções de software maligno.
+    Se ativar esta definição de política, a proteção em tempo real será desativada. 
 
-    Se desativar ou não configurar esta definição de política, o Antivírus do Windows Defender pede aos utilizadores que tomem medidas em relação a deteções de software maligno.</string>
+    Se desativar ou não configurar esta definição de política, a proteção em tempo real será ativada.</string>
     <string id="DisableRealtimeMonitoring_Explain">
     Esta definição de política desativa os avisos de proteção em tempo real para deteção de software maligno conhecido.
 
@@ -306,6 +404,92 @@ Se desativar ou não configurar esta definição, será executada uma análise c
 Se ativar esta definição, será executada uma análise completa agendada para conclusão da remediação à hora especificada.
 
 Se desativar ou não configurar esta definição, será executada uma análise completa agendada para conclusão da remediação à hora predefinida.</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState">Configurar Modo de Proteção contra Encriptação Remota</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_Explain">
+    Defina o modo de Proteção contra Encriptação Remota no Antivírus do Microsoft Defender, que pode detetar e bloquear tentativas de substituir ficheiros locais por versões encriptadas a partir de outro dispositivo. 
+
+    Definições suportadas:
+    * 0 - Não configurado ou Predefinição: aplique as predefinições, que podem variar consoante a versão do motor antivírus e a plataforma
+    * 1 - Bloquear: impeça comportamentos suspeitos e maliciosos
+    * 2 - Auditar: gere deteções DRP sem bloquear
+    * 4 - Desativado: a funcionalidade está desativada sem impacto no desempenho
+    </string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_0">Predefinição</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_1">Bloquear</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_2">Auditoria</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_3">Desativado</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_MaxBlockTime">Configurar o tempo de bloqueio da Proteção contra Encriptação Remota</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_MaxBlockTime_Explain">
+    Defina o tempo máximo de bloqueio de um endereço IP pela Proteção de Encriptação Remota. Após este período, os endereços IP bloqueados poderão reiniciar as ligações. 
+
+Definições suportadas:
+    * 0 - Nenhum: a lógica de funcionalidades interna determinará o tempo de bloqueio real
+    * Especifique outras horas em incrementos de 15 minutos
+    </string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness">Configurar a agressividade com que a Proteção contra Encriptação Remota bloqueia ameaças</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness_Explain">
+    Defina os critérios para quando a proteção de prevenção de encriptação remota bloqueia endereços IP.
+
+    Definições suportadas:
+    *0 - Baixo: bloqueia apenas quando o nível de confiança é de 100% (predefinição)
+    *1 - Médio: utilizar a agregação em cloud e bloquear quando o nível de confiança for superior a 99%
+    *2 - Elevado: utilizar a informação e o contexto da cloud e bloquear quando o nível de confiança for superior a 90%
+    </string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness_0">Baixa</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness_1">Médio</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness_2">Alta</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtectionExclusions"> Definir exclusões da Proteção contra Encriptação Remota</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtectionExclusions_Explain">
+    Especifique endereços IP, sub-redes e nomes de domínio a excluir da Proteção contra Encriptação Remota. Note que os atacantes podem falsificar endereços e nomes excluídos para contornar a proteção.
+
+    Introduza cada endereço ou sub-rede numa nova linha como um par nome-valor:
+    - Coluna Nome: introduza um endereço IP ou um nome de sub-rede. Por exemplo, ""1.1.127.0"" impedirá que este endereço IP seja bloqueado.
+    - Coluna do valor: introduza ""0"" para cada item
+    </string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState">Configurar modo de Proteção contra Força Bruta</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_Explain">
+    Defina o modo para a Proteção contra Força Bruta no Antivírus do Microsoft Defender, que pode detetar e bloquear tentativas de iniciar sessão e de começar sessões de forma forçada.
+
+    Definições suportadas:
+    * 0 - Não configurado ou Predefinição: aplique as predefinições, que podem variar consoante a versão do motor antivírus e a plataforma
+    * 1 - Bloquear: impeça comportamentos suspeitos e maliciosos
+    * 2 - Auditar: gere deteções DRP sem bloquear
+    * 4 - Desativado: a funcionalidade está desativada sem impacto no desempenho
+    </string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_0">Predefinição</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_1">Bloquear</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_2">Auditoria</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_3">Desativado</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_MaxBlockTime">Configurar o tempo de bloqueio da Proteção contra Força Bruta</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_MaxBlockTime_Explain">
+    Defina o tempo máximo que um endereço IP é bloqueado pela Proteção Brute-Force. Após este período, os endereços IP bloqueados poderão iniciar sessão e iniciar sessões.
+
+Definições suportadas:
+    * 0 - Nenhum: a lógica de funcionalidades interna determinará o tempo de bloqueio real
+    * Especifique outras horas em incrementos de 15 minutos
+    </string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness">Configurar a agressividade da Proteção contra Força Bruta</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness_Explain">
+    Defina os critérios para quando a Proteção Brute-Force bloqueia endereços IP.
+
+Definições suportadas:
+    *0 - Baixo: bloquear apenas quando o nível de confiança for 100% (Predefinição)
+    *1 - Médio: utilize a agregação da cloud e bloqueie quando o nível de confiança está acima de 99%
+    *2 - Alta: utilize informações e contexto da cloud e bloqueie quando o nível de confiança estiver acima de 90%
+    </string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness_0">Baixa</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness_1">Médio</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness_2">Alta</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtectionExclusions">Definir exclusões da Proteção contra Força Bruta</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtectionExclusions_Explain">
+    Especifique endereços IP, sub-redes ou nomes de estações de trabalho a excluir da Proteção contra Força Bruta. Os endereços IP excluídos não serão verificados quanto a possíveis atividades de força bruta.
+    
+    Note que os atacantes podem falsificar endereços e nomes excluídos para contornar a proteção. Certifique-se de que os nomes são exclusivos e pouco suscetíveis de serem adivinhados pelos atacantes.
+
+    Introduza cada endereço ou sub-rede numa nova linha como um par nome-valor:
+    - Coluna Nome: introduza um endereço IP, um nome de sub-rede ou um nome de estação de trabalho. Por exemplo, "1.1.127.0" excluirá este endereço IP de ser bloqueado pelo BFP.
+    - Coluna do valor: introduza "0" para cada item
+    </string>
     <string id="Reporting_AdditionalActionTimeout">Configurar tempo limite para deteções que exijam análise adicional</string>
     <string id="Reporting_AdditionalActionTimeout_Explain">Esta definição de política configura o tempo, em minutos, antes de uma deteção no estado de "ação adicional" passar para o estado "eliminada".</string>
     <string id="Reporting_CriticalFailureTimeout">Configurar tempo limite para deteções em estado de falha crítica</string>
@@ -331,13 +515,26 @@ Se desativar esta definição, os eventos do Watson não serão enviados.</strin
     4 - Depuração</string>
     <string id="Reporting_DisableEnhancedNotifications">Desligar as notificações avançadas</string>
     <string id="Reporting_DisableEnhancedNotifications_Explain">
-      Utilize esta definição de política para especificar se pretende que as notificações avançadas do Antivírus do Windows Defender sejam apresentadas nos clientes.
+      Utilize esta definição de política para especificar se pretende que as notificações avançadas do Antivírus do Microsoft Defender sejam apresentadas nos clientes.
       
-      Se desativar ou não configurar esta definição, as notificações avançadas do Antivírus do Windows Defender são apresentadas nos clientes.
+      Se desativar ou não configurar esta definição, as notificações avançadas do Antivírus do Microsoft Defender serão apresentadas nos clientes.
       
-      Se ativar esta definição, as notificações avançadas do Antivírus do Windows Defender não são apresentadas nos clientes.
+      Se ativar esta definição, as notificações avançadas do Antivírus do Microsoft Defender não serão apresentadas nos clientes.
     </string>
+    <string id="Reporting_ServiceHealthReportInterval">Configurar intervalo de tempo para relatórios de estado de funcionamento do serviço</string>
+    <string id="Reporting_ServiceHealthReportInterval_Explain">Esta definição de política configura o intervalo de tempo (em minutos) para os relatórios de estado de funcionamento do serviço a serem enviados a partir dos pontos finais.
 
+Se desativar ou não configurar esta definição, será aplicado o valor predefinido. O valor predefinido é definido em 60 minutos (1 hora).
+
+Se configurar esta definição para 0, não serão enviados relatórios de estado de funcionamento do serviço.
+
+O valor máximo permitido para ser definido é de 14400 minutos (10 dias).</string>
+    <string id="Reporting_EnableDynamicSignatureDroppedEventReporting">Configurar se a Assinatura Dinâmica deve comunicar eventos ignorados da Assinatura Dinâmica</string>
+    <string id="Reporting_EnableDynamicSignatureDroppedEventReporting_Explain">Esta definição de política configura se o relatório de eventos ignorados para a assinatura dinâmica.
+
+Se não configurar esta definição, será aplicado o valor predefinido. O valor predefinido está definido como desativado (não são comunicados eventos).
+    Se configurar esta definição como ativada, os eventos ignorados da assinatura dinâmica serão comunicados.
+    Se configurar esta definição como desativada, os eventos ignorados da assinatura dinâmica não serão comunicados.</string>
       <string id="Scan_AllowPause">Permitir que os utilizadores coloquem a análise em pausa</string>
     <string id="Scan_AllowPause_Explain">Esta definição de política permite gerir se os utilizadores finais poderão ou não colocar em pausa uma análise em curso.
 
@@ -365,35 +562,47 @@ Se desativar ou não configurar esta definição, a utilização da CPU não exc
     <string id="CheckForSignaturesBeforeRunningScan">Verificar as mais recentes informações de segurança de vírus e spyware antes de executar uma análise agendada</string>
     <string id="CheckForSignaturesBeforeRunningScan_Explain">Esta definição de política permite gerir se as novas informações de segurança de vírus e spyware deverão ser verificadas antes de executar uma análise. 
 
-    Esta definição é aplicável às análises agendadas e à linha de comandos "mpcmdrun -SigUpdate", mas não afeta as análises iniciadas manualmente a partir da interface do utilizador.
+    Esta definição aplica-se a análises agendadas, mas não tem qualquer efeito nas análises iniciadas manualmente a partir da interface de utilizador ou nas iniciadas a partir da linha de comandos utilizando "mpcmdrun -Scan".
 
     Se ativar esta definição, serão procuradas novas informações de segurança antes da execução de uma análise.
 
     Se desativar ou não configurar esta definição, a análise será iniciada utilizando as informações de segurança existentes.</string>
     <string id="Scan_DisableArchiveScanning">Analisar ficheiros de arquivo</string>
-    <string id="Scan_DisableArchiveScanning_Explain">Esta definição de política permite configurar análises de software malicioso ou indesejável em ficheiros de arquivo, tais como ficheiros .ZIP ou .CAB.
+    <string id="Scan_DisableArchiveScanning_Explain">Esta definição de política permite configurar análises de software malicioso e indesejável em ficheiros de arquivo, tais como .ZIP ou .CAB ficheiros.
 
 Se ativar ou não configurar esta definição, os ficheiros de arquivo serão analisados.
 
-Se desativar esta definição, os ficheiros de arquivo não serão analisados.</string>
+Se desativar esta definição, os ficheiros de arquivo não serão analisados. No entanto, os arquivos mortos são sempre verificados durante análises direcionadas.</string>
     <string id="Scan_DisableCatchupFullScan">Ativar análise completa de atualização</string>
     <string id="Scan_DisableCatchupFullScan_Explain">Esta definição de política permite configurar análises de atualização para as análises rápidas agendadas. Uma análise de atualização é uma análise iniciada por ter falhado uma análise agendada normalmente.  Normalmente, estas análises agendadas falham porque o computador se encontrava desligado à hora agendada. 
 
 Se ativar esta definição, as análises de atualização de análises rápidas agendadas serão ativadas. Se um computador se encontrar offline durante duas análises agendadas consecutivas, será iniciada uma análise de atualização da próxima vez que um utilizador iniciar sessão no computador.  Se não estiver configurada qualquer análise agendada, não será executada qualquer análise de atualização.
 
 Se desativar ou não configurar esta definição, as análises de atualização de análises rápidas agendadas serão desativadas.</string>
+    <string id="Scan_ThrottleForScheduledScanOnly">Tipo de limitação da CPU</string>
+    <string id="Scan_ThrottleForScheduledScanOnly_Explain">Esta definição de política determina se a percentagem máxima de utilização da CPU permitida durante uma análise aplica-se apenas a análises agendadas ou a análises agendadas e personalizadas (mas não à proteção em tempo real). O limite máximo de utilização da CPU também é referido como limitação da CPU ou um limite de utilização da CPU.
+
+    O valor predefinido para esta definição de política é True, o que significa que a limitação da CPU é aplicada apenas a análises agendadas.
+
+    Se ativar ou não configurar esta definição, a limitação da CPU será aplicada apenas a análises agendadas.
+
+    Se desativar esta definição, a limitação da CPU será aplicada a análises agendadas e personalizadas.</string>
     <string id="Scan_DisableCatchupQuickScan">Ativar análise rápida de atualização</string>
     <string id="Scan_DisableCatchupQuickScan_Explain">Esta definição de política permite configurar análises de atualização para as análises rápidas agendadas. Uma análise de atualização é uma análise iniciada por ter falhado uma análise agendada normalmente.  Normalmente, estas análises agendadas falham porque o computador se encontrava desligado à hora agendada. 
 
 Se ativar esta definição, as análises de atualização de análises rápidas agendadas serão ativadas. Se um computador se encontrar offline durante duas análises agendadas consecutivas, será iniciada uma análise de atualização da próxima vez que um utilizador iniciar sessão no computador.  Se não estiver configurada qualquer análise agendada, não será executada qualquer análise de atualização.
 
 Se desativar ou não configurar esta definição, as análises de atualização de análises rápidas agendadas serão desativadas.</string>
+    <string id="Scan_DaysUntilAggressiveCatchupQuickScan">Acionar uma análise rápida após X dias sem análises</string>
+    <string id="Scan_DaysUntilAggressiveCatchupQuickScan_Explain">Esta definição de política define o número de dias que podem passar desde a última análise antes de uma análise rápida de atualização agressiva ser automaticamente acionada. O valor representa o número de dias que podem passar sem que sejam efetuadas análises antes de ser acionada uma análise rápida agressiva.
+    
+Os valores válidos variam entre 7 e 60 dias. Se não estiver configurado, as análises rápidas agressivas serão desativadas. Por predefinição, o valor é definido para 25 dias quando ativado.</string>
     <string id="Scan_DisableEmailScanning">Ativar análise de correio eletrónico</string>
-    <string id="Scan_DisableEmailScanning_Explain">Esta definição de política permite configurar a análise de correio eletrónico. Quando a análise de correio eletrónico estiver ativada, o motor analisará os ficheiros e a caixa de correio, de acordo com o respetivo formato específico, de modo a analisar os corpos e anexos das mensagens de correio. Atualmente são suportados diversos formatos de correio eletrónico, como por exemplo: pst (Outlook), dbx, mbx, mime (Outlook Express), binhex (Mac).
+    <string id="Scan_DisableEmailScanning_Explain">Esta definição de política permite configurar a análise de e-mail. Quando a análise de e-mail estiver ativada, o motor analisará os ficheiros e a caixa de correio, de acordo com o respetivo formato específico, de modo a verificar os corpos e anexos das mensagens de correio. Atualmente são suportados diversos formatos de e-mail, como, por exemplo, pst (Outlook), dbx, mbx, mime (Outlook Express), binhex (Mac). A análise de e-mails não é suportada em clientes de e-mail modernos.
+    
+    Se ativar esta definição, a análise de e-mail será ativada.
 
-Se ativar esta definição, a análise de correio eletrónico será ativada.
-
-Se desativar ou não configurar esta definição, a análise de correio eletrónico será desativada.</string>
+    Se desativar ou não configurar esta definição, a análise de e-mail será desativada.</string>
     <string id="Scan_DisableHeuristics">Ativar heurística</string>
     <string id="Scan_DisableHeuristics_Explain">Esta definição de política permite configurar a heurística. As deteções suspeitas serão suprimidas imediatamente antes de reportar ao cliente do motor. Desativar a heurística reduzirá a capacidade de sinalização de novas ameaças. É recomendado não desativar a heurística.
 
@@ -430,12 +639,12 @@ Se desativar ou não configurar esta definição, não será criado um ponto de 
 Se ativar esta definição, as unidades de rede mapeadas serão analisadas.
 
 Se desativar ou não configurar esta definição, as unidades de rede mapeadas não serão analisadas.</string>
-    <string id="Scan_DisableScanningNetworkFiles">Analisar ficheiros de rede</string>
-    <string id="Scan_DisableScanningNetworkFiles_Explain">Esta definição de política permite configurar a análise de ficheiros de rede. É recomendado não ativar esta definição.
+    <string id="Scan_DisableScanningNetworkFiles">Configurar a análise de ficheiros de rede</string>
+    <string id="Scan_DisableScanningNetworkFiles_Explain">Esta definição de política permite a análise de ficheiros de rede utilizando a proteção de acesso. A predefinição está ativada. Recomendado para permanecer ativado na maioria dos casos.
 
-Se ativar esta definição, os ficheiros de rede serão analisados.
+Se ativar ou não configurar esta definição, os ficheiros de rede serão analisados.
 
-Se desativar ou não configurar esta definição, os ficheiros de rede não serão analisados.</string>
+Se desativar esta definição, os ficheiros de rede não serão analisados.</string>
     <string id="Scan_LocalSettingOverrideAvgCPULoadFactor">Configurar ignorar definição local da percentagem máxima de utilização da CPU</string>
     <string id="Scan_LocalSettingOverrideAvgCPULoadFactor_Explain">Esta definição de política configura ignorar definição local para configuração da percentagem máxima de utilização da CPU durante a análise. A definição só pode ser configurada pela Política de Grupo.
 
@@ -475,9 +684,9 @@ Se desativar ou não configurar esta definição, os itens serão mantidos na pa
     <string id="Scan_QuickScanInterval">Especificar o intervalo de execução de análises rápidas por dia</string>
     <string id="Scan_QuickScanInterval_Explain">Esta definição de política permite especificar um intervalo em que executar uma análise rápida. O valor da hora é representado como o número de horas entre análises rápidas. Os valores válidos variam entre 1 (de hora em hora) e 24 (uma vez por dia). Se definido como zero, as análises rápidas não ocorrerão com intervalos. Por predefinição, o valor é definido como 0.
 
-Se ativar esta definição, será executada uma análise rápida no intervalo especificado.
+    Se ativar esta definição, será executada uma análise rápida no intervalo especificado.
 
-Se desativar ou não configurar esta definição, será executada uma análise rápida à hora predefinida.</string>
+    Se desativar ou não configurar esta definição, não será executada uma análise rápida controlada por esta configuração.</string>
     <string id="Scan_ScanOnlyIfIdle">Iniciar a análise agendada apenas quando o computador estiver ligado mas não em utilização</string>
     <string id="Scan_ScanOnlyIfIdle_Explain">Esta definição de política permite configurar o início de análises agendadas apenas quando o computador estiver ligado mas não em utilização.
 
@@ -521,11 +730,11 @@ Se desativar ou não configurar esta definição, será executada uma análise a
     <string id="Scan_ScheduleDay_7">Sexta-feira</string>
     <string id="Scan_ScheduleDay_8">Sábado</string>
     <string id="Scan_ScheduleQuickScantime">Especificar a hora de uma análise rápida diária</string>
-    <string id="Scan_ScheduleQuickScantime_Explain">Esta definição de política permite especificar a hora de execução de uma análise rápida diária. O valor da hora é representado como o número de minutos após a meia-noite (00:00).  Por exemplo, 120 (0x78) é equivalente às 2:00 h. Por predefinição, esta definição é configurada para o valor horário das 2:00 h. O horário é baseado na hora local do computador em que a análise é executada.
+    <string id="Scan_ScheduleQuickScantime_Explain">Esta definição de política permite-lhe especificar a hora do dia em que deve efetuar uma análise rápida diária. O valor de tempo é representado como o número de minutos após a meia-noite (00:00).  Por exemplo, 120 (0x78) é equivalente a 02:00. Por predefinição, esta definição está desativada. A agenda baseia-se na hora local no computador onde a análise está a ser executada.
 
-Se ativar esta definição, será executada uma análise rápida diária à hora especificada.
+Se ativar esta definição, será executada uma análise rápida diária na hora do dia especificada.
 
-Se desativar ou não configurar esta definição, será executada uma análise rápida diária à hora predefinida.</string>
+Se desativar ou não configurar esta definição, a análise rápida diária controlada por esta configuração não será executada.</string>
     <string id="Scan_ScheduleTime">Especificar a hora de execução de uma análise agendada</string>
     <string id="Scan_ScheduleTime_Explain">Esta definição de política permite especificar a hora de execução de uma análise agendada. O valor da hora é representado como o número de minutos após a meia-noite (00:00).  Por exemplo, 120 (0x78) é equivalente às 2:00 h. Por predefinição, esta definição é configurada para o valor horário das 2:00 h. O horário é baseado na hora local do computador em que a análise é executada.
 
@@ -547,18 +756,30 @@ Se desativar ou não configurar esta definição, será executada uma análise a
 
         Se desativar ou não configurar esta definição, não serão realizadas alterações à prioridade da CPU durante análises agendadas.
     </string>
+
+    <string id="Scan_QuickScanIncludeExclusions">Analisar ficheiros e diretórios excluídos durante análises rápidas</string>
+    <string id="Scan_QuickScanIncludeExclusions_Explain">
+        Esta definição de política permite-lhe analisar ficheiros e diretórios excluídos durante análises rápidas.
+
+Se definir esta definição de política como 1, todos os ficheiros e diretórios excluídos da proteção em tempo real utilizando exclusões contextuais são analisados durante uma análise rápida.
+
+Se definir esta política como 0 ou não a configurar, as exclusões não são analisadas durante análises rápidas.
+    </string>
+	<string id="Scan_QuickScanIncludeExclusions_Disabled">0</string>
+	<string id="Scan_QuickScanIncludeExclusions_RtpExclusions">1</string>
+
     <string id="SignatureUpdate_ASSignatureDue">Definir o número de dias até que as informações de segurança de spyware sejam consideradas desatualizadas</string>
-    <string id="SignatureUpdate_ASSignatureDue_Explain">Esta definição de política permite definir o número de dias que terão de passar até que as informações de segurança de spyware sejam consideradas desatualizadas. Se as informações de segurança forem consideradas desatualizadas, este estado poderá acionar diversas ações adicionais, incluindo reverter para uma origem de atualização alternativa ou apresentar um ícone de aviso na interface do utilizador. Por predefinição, este valor é definido como 14 dias.
+    <string id="SignatureUpdate_ASSignatureDue_Explain">Esta definição de política permite definir o número de dias que terão de passar até que as informações de segurança de spyware sejam consideradas desatualizadas. Se as informações de segurança forem consideradas desatualizadas, este estado poderá acionar várias ações adicionais, incluindo reverter para uma origem de atualização alternativa ou apresentar um ícone de aviso na interface do utilizador. Por predefinição, este valor é definido para 7 dias.
 
-    Se ativar esta definição, as informações de segurança de spyware serão consideradas desatualizadas após ter passado o número de dias especificado sem atualizações.
+Se ativar esta definição, as informações de segurança de spyware serão consideradas desatualizadas após ter passado o número de dias especificado sem uma atualização.
 
-    Se desativar ou não configurar esta definição, as informações de segurança de spyware serão consideradas desatualizadas após ter passado o número de dias predefinido sem atualizações.</string>
+Se desativar ou não configurar esta definição, as informações de segurança de spyware serão consideradas desatualizadas após ter passado o número de dias predefinido sem uma atualização.</string>
     <string id="SignatureUpdate_AVSignatureDue">Definir o número de dias até que as informações de segurança de vírus sejam consideradas desatualizadas</string>
-    <string id="SignatureUpdate_AVSignatureDue_Explain">Esta definição de política permite definir o número de dias que terão de passar até que as informações de segurança de vírus sejam consideradas desatualizadas. Se as informações de segurança forem consideradas desatualizadas, este estado poderá acionar diversas ações adicionais, incluindo reverter para uma origem de atualização alternativa ou apresentar um ícone de aviso na interface do utilizador. Por predefinição, este valor é definido como 14 dias.
+    <string id="SignatureUpdate_AVSignatureDue_Explain">Esta definição de política permite definir o número de dias que terão de passar até que as informações de segurança de vírus sejam consideradas desatualizadas. Se as informações de segurança forem consideradas desatualizadas, este estado poderá acionar várias ações adicionais, incluindo reverter para uma origem de atualização alternativa ou apresentar um ícone de aviso na interface do utilizador. Por predefinição, este valor é definido para 7 dias.
 
-    Se ativar esta definição, as informações de segurança de vírus serão consideradas desatualizadas após ter passado o número de dias especificado sem atualizações.
+Se ativar esta definição, as informações de segurança de vírus serão consideradas desatualizadas após ter passado o número de dias especificado sem uma atualização.
 
-    Se desativar ou não configurar esta definição, as informações de segurança de vírus serão consideradas desatualizadas após ter passado o número de dias predefinido sem atualizações.</string>
+Se desativar ou não configurar esta definição, as informações de segurança de vírus serão consideradas desatualizadas após ter passado o número de dias predefinido sem uma atualização.</string>
     <string id="SignatureUpdate_DefinitionUpdateFileSharesSources">Definir partilhas de ficheiros para transferência das atualizações de informações de segurança</string>
     <string id="SignatureUpdate_DefinitionUpdateFileSharesSources_Explain">Esta definição de política permite configurar as origens de partilha de ficheiros UNC para transferência de atualizações de informações de segurança. As origens serão contactadas pela ordem especificada. O valor desta definição deverá ser introduzido como uma cadeia separada por pipes que enumere as origens de atualização de informações de segurança. Por exemplo: "{\\unc1 | \\unc2 }". Por predefinição, a lista encontra-se vazia.
 
@@ -569,6 +790,13 @@ Se desativar ou não configurar esta definição, será executada uma análise a
     <string id="SignatureUpdate_SharedSignaturesLocation_Explain">Esta definição de política permite definir a localização das informações de segurança para computadores configurados com VDI. 
 
     Se desativar ou não configurar esta definição, as informações de segurança serão referenciadas a partir da origem de localização predefinida.</string>
+    <string id="SignatureUpdate_SharedSignaturesLocationUpdateAtScheduledTimeOnly">Configure atualizações de informações de segurança de acordo com o agendador para clientes VDI.</string>
+    <string id="SignatureUpdate_SharedSignaturesLocationUpdateAtScheduledTimeOnly_Explain">Esta definição de política permite-lhe configurar atualizações de informações de segurança de acordo com o programador para computadores configurados por VDI. É utilizado em conjunto com a localização das informações de segurança partilhadas (SharedSignaturesLocation).
+
+    Se ativar esta definição de política e configurar SharedSignaturesLocation, as atualizações da localização configurada ocorrem apenas na hora de atualização agendada configurada anteriormente.
+
+    Se desativar ou não configurar esta definição de política, as atualizações ocorrem sempre que é detetada uma nova atualização de informações de segurança na localização especificada por SharedSignaturesLocation.
+    </string>
     <string id="SignatureUpdate_DisableScanOnUpdate">Ativar análise após atualização das informações de segurança</string>
     <string id="SignatureUpdate_DisableScanOnUpdate_Explain">Esta definição de política permite configurar o início automático de uma análise após a atualização das informações de segurança.
 
@@ -756,58 +984,67 @@ Os valores válidos para as ações de remediação são:
       Se ativar esta definição, a UI da AM não apresentará notificações de reinício.
     </string>
     <string id="UX_Configuration_Notification_Suppress">Suprimir todas as notificações</string>
-    <string id="UX_Configuration_Notification_Suppress_Explain">Utilize esta definição de política para especificar se pretende que as notificações do Antivírus do Windows Defender sejam apresentadas nos clientes.
-      Se desativar ou não configurar esta definição, as notificações do Antivírus do Windows Defender são apresentadas nos clientes.
+    <string id="UX_Configuration_Notification_Suppress_Explain">Utilize esta definição de política para especificar se pretende que as notificações do Antivírus do Microsoft Defender sejam apresentadas nos clientes.
+      Se desativar ou não configurar esta definição, as notificações do Antivírus do Microsoft Defender serão apresentadas nos clientes.
 
-      Se ativar esta definição, as notificações do Antivírus do Windows Defender não são apresentadas nos clientes.
+      Se ativar esta definição, as notificações do Antivírus do Microsoft Defender não serão apresentadas nos clientes.
     </string>
-    <string id="UX_Configuration_CustomDefaultActionToastString">Apresentar texto adicional aos clientes quando for necessário executar uma ação</string>
-    <string id="UX_Configuration_CustomDefaultActionToastString_Explain">Esta definição de política permite configurar se será ou não apresentado texto adicional aos clientes quando for necessário executar uma ação. O texto apresentado consiste numa cadeia personalizada definida pelo administrador. Por exemplo, o número de telefone de contacto do suporte técnico da empresa. A interface do cliente apresentará um máximo de 1024 carateres. As cadeias com um comprimento superior serão truncadas antes da apresentação.
-
-Se ativar esta definição, será apresentado o texto adicional especificado.
-
-Se desativar ou não configurar esta definição, não será apresentado qualquer texto adicional.</string>
     <string id="MpCloudBlockLevel">Selecionar o nível de proteção da cloud</string>
     <string id="MpCloudBlockLevel_Explain">
-      Esta definição de política determina a agressividade do Antivírus do Windows Defender ao bloquear e analisar ficheiros suspeitos.
+      Esta definição de política determina a agressividade do Antivírus do Microsoft Defender ao bloquear e analisar ficheiros suspeitos.
 
-      Se esta definição estiver ativada, o Antivírus do Windows Defender é mais agressivo quando identificar ficheiros suspeitos para bloquear e analisar; caso contrário, é menos agressivo e, como tal, bloqueia e analisa com menor frequência. 
+      Se esta definição estiver ativada, o Antivírus do Microsoft Defender será mais agressivo quando identificar ficheiros suspeitos para bloquear e analisar; caso contrário, será menos agressivo e, por isso, bloqueia e analisa com menor frequência. 
       
-      Para obter mais informações sobre os valores específicos que são suportados, consulte o site de documentação do Antivírus do Windows Defender.
+      Para obter mais informações sobre os valores específicos que são suportados, consulte o site de documentação do Antivírus do Microsoft Defender.
 
-      Nota: Esta funcionalidade requer que a definição "Aderir ao Microsoft MAPS" esteja ativada para funcionar.
+      Nota: esta funcionalidade requer que a definição "Aderir ao Microsoft MAPS" esteja ativada para funcionar.
 
       As opções possíveis são:
-      (0x0) Nível de bloqueio predefinido do Windows Defender
-      (0x2) Alto nível de bloqueio - bloqueia ficheiros desconhecidos de forma agressiva, ao mesmo tempo que otimiza o desempenho do cliente (maior possibilidade de falsos positivos)
-      (0x4) +Alto nível de bloqueio – bloqueia ficheiros desconhecidos de forma agressiva e aplica medidas de proteção adicionais (pode ter impacto no desempenho do cliente)
+      (0x0) Nível de bloqueio predefinido do Antivírus do Microsoft Defender
+      (0x1) O nível de bloqueio do Antivírus do Microsoft Defender moderado só fornece veredito para deteções de alta confiança
+      (0x2) Nível de bloqueio elevado – bloqueia agressivamente desconhecidos ao otimizar o desempenho do cliente (maior probabilidade de falsos positivos)
+      (0x4) Nível de bloqueio elevado+ – bloqueia agressivamente desconhecidos e aplica medidas de proteção adicionais (pode afetar o desempenho do cliente)
       (0x6) Nível de bloqueio de tolerância zero – bloqueia todos os executáveis desconhecidos
     </string>
-    <string id="MpCloudBlockLevel_Default_Level">Nível de bloqueio predefinido do Antivírus do Windows Defender</string>
+    <string id="MpCloudBlockLevel_Default_Level">Nível de bloqueio predefinido</string>
+    <string id="MpCloudBlockLevel_Moderate_Level">Nível de bloqueio moderado</string>
     <string id="MpCloudBlockLevel_High_Level">Alto nível de bloqueio</string>
     <string id="MpCloudBlockLevel_High_Plus_Level">+Alto nível de bloqueio</string>
     <string id="MpCloudBlockLevel_Zero_Tolerance_Level">Nível de bloqueio de tolerância zero</string>
     <string id="MpBafsExtendedTimeout">Configurar verificação de cloud alargada</string>
     <string id="MpBafsExtendedTimeout_Explain">
-      Esta funcionalidade permite que o Antivírus do Windows Defender bloqueie um ficheiro suspeito durante até 60 segundos e o analise na cloud para se certificar de que é seguro.
+      Esta funcionalidade permite que o Antivírus do Microsoft Defender bloqueie um ficheiro suspeito durante até 60 segundos e analisa-o na nuvem para se certificar de que é seguro.
       
-      O tempo limite de verificação típico na cloud é de 10 segundos. Para ativar a funcionalidade de verificação de cloud alargada, especifique o acréscimo de tempo em segundos, até 50 segundos adicionais.
+      O tempo limite de verificação de Cloud típica é de 10 segundos. Para ativar a funcionalidade de verificação de cloud expandida, especifique o tempo prolongado em segundos, até um máximo de 50 segundos.
 
-      Por exemplo, se o tempo limite pretendido for 60 segundos, especifique 50 segundos nesta definição, o que ativa a funcionalidade de verificação de cloud alargada e aumenta o tempo total para 60 segundos.
+      Por exemplo, se o tempo limite pretendido for 60 segundos, especifique 50 segundos nesta definição, o que irá ativar a funcionalidade de verificação de cloud alargada e aumentará o tempo total para 60 segundos.
 
-      Nota: Esta funcionalidade depende da ativação de três outras definições MAPS: "Configurar a funcionalidade 'Bloquear na Primeira Ocorrência'"; "Aderir ao Microsoft MAPS"; e "Enviar amostras de ficheiros quando for necessária uma análise adicional".
+      Nota: esta funcionalidade depende de três outras definições do MAPS - "Configurar a funcionalidade "Bloquear na Primeira Ocorrência"", "Aderir ao Microsoft MAPS" e "Enviar amostras de ficheiros quando for necessária uma análise adicional" que têm de estar ativadas.
+    </string>
+    <string id="MpEngine_EnableFileHashComputation">Ativar funcionalidade de computação de hash de ficheiro</string>
+    <string id="MpEngine_EnableFileHashComputation_Explain">
+        Ativar ou desativar a funcionalidade de computação de hash de ficheiro.
+
+        Ativado:
+        Quando esta funcionalidade está ativada, o Microsoft Defender calcula o valor de hash para os ficheiros que digitaliza.
+
+        Desativado:
+        O valor de hash do ficheiro não está calculado
+        
+        Não configurado:
+        O mesmo que Desativado.
     </string>
     <string id="ExploitGuard_EnableNetworkProtection">Impedir que utilizadores e aplicações acedam a sites perigosos</string>
     <string id="ExploitGuard_EnableNetworkProtection_Explain">
-    Ative ou desative a proteção de rede Windows Defender Exploit Guard para impedir que os colaboradores utilizem qualquer aplicação para aceder a domínios perigosos que possam alojar esquemas de phishing, sites que alojem exploits, e outros conteúdos maliciosos na Internet.
+    Ative ou desative a proteção de rede do Microsoft Defender Exploit Guard para impedir que os colaboradores utilizem qualquer aplicação para aceder a domínios perigosos que possam alojar esquemas de phishing, sites de alojamento de exploração e outros conteúdos maliciosos na Internet.
 
     Ativado:
     Especifique o modo na secção Opções:
-    -Bloquear: Os utilizadores e as aplicações não poderão aceder a domínios perigosos
-    -Modo de Auditoria: Os utilizadores e as aplicações podem estabelecer ligação a domínios perigosos; no entanto, se esta funcionalidade tivesse bloqueado o acesso no caso de estar definida para Bloquear, seria apresentado um registo do evento nos registos de eventos
+    -Bloquear: os utilizadores e as aplicações não poderão aceder a domínios perigosos
+    -Modo de Auditoria: os utilizadores e as aplicações podem ligar a domínios perigosos; no entanto, se esta funcionalidade tivesse bloqueado o acesso se estivesse definida para Bloquear, existiria um registo do evento nos registos de eventos.
 
     Desativado:
-    Os utilizadores e as aplicações não serão bloqueados de tal modo que não possam estabelecer ligação a domínios perigosos.
+    Os utilizadores e as aplicações não serão impedidos de estabelecer ligação a domínios perigosos.
 
     Não configurado:
     O mesmo que Desativado.
@@ -830,90 +1067,108 @@ Se desativar ou não configurar esta definição, não será apresentado qualque
 
     Pode configurar regras de ASR na definição de GP para Configurar regras de Attack Surface Reduction.
     </string>
+    <string id="ExploitGuard_ASR_ASROnlyPerRuleExclusions">Aplicar uma lista de exclusões a regras específicas de redução da superfície de ataque (RSA)</string>d
+    <string id="ExploitGuard_ASR_ASROnlyPerRuleExclusions_Explain">
+    Esta política permite que um administrador especifique uma lista de exclusões para regras de RSA específicas.
+    Cada entrada é um par nome/valor. A chave indica o GUID da regra e o valor é um conjunto de caminhos completos separados pelo caráter &gt;, que indica as exclusões para essa regra de RSA específica.
+
+    NOTA: o GUID é uma CHAVE, não um valor.
+
+    Exemplo:
+    CHAVE: "{75668C1F-73B5-4CF0-BB93-3ECF5DB7C484}"
+    VALOR: "C:\Notepad.exe&gt;c:\regedit.exe&gt;C:\SomeFolder\test.exe"
+    </string>
     <string id="ExploitGuard_ASR_Rules">Configurar regras de Redução de Superfície de Ataque</string>
     <string id="ExploitGuard_ASR_Rules_Explain">
     Defina o estado para cada regra de Attack Surface Reduction (ASR).
 
-    Depois de ativar esta definição, pode definir cada regra para o seguinte estado na secção Opções:
-    - Bloquear: a regra será aplicada
-    - Modo de Auditoria: se, normalmente, a regra originasse um evento, este seria registado (apesar de a regra não ser realmente aplicada)
+    Depois de ativar esta definição, pode definir cada regra para o seguinte estado na secção Opções: 
+   - Bloquear: a regra será aplicada
+   - Modo de Auditoria: se, normalmente, a regra originasse um evento, este seria registado (apesar de a regra não ser realmente aplicada)
     - Desligado: a regra não será aplicada
+    - Não configurado: a regra é ativada com valores predefinidos
+    - Avisar: a regra será aplicada e o utilizador final terá a opção de contornar o bloqueio
 
-    Ativado:
-    Especifique o estado para cada regra de ASR na secção Opções para esta definição.
-    Introduza cada regra numa linha nova como um par nome-valor:
-    - Coluna do nome: introduza um ID de regra de ASR válido
+   A menos que a regra ASR esteja desativada, é recolhida uma subamostra dos eventos de auditoria para as regras ASR com o valor não configurado.
+
+       Ativado: 
+   Especifique o estado de cada regra ASR na secção de Opções desta definição.
+   Introduza cada regra numa linha nova como um par nome-valor:
+    - Coluna do nome: introduza um ID de regra ASR válido
     - Coluna do valor: introduza o ID de estado relativo ao estado que pretende especificar para a regra associada
 
     Os IDs de estado que se seguem são permitidos na coluna do valor:
     - 1 (Bloquear)
     - 0 (Desligado)
     - 2 (Auditoria)
+    - 5 (Não configurado)
+    - 6 (Avisar)
+
     
     Exemplo:
-    xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx            0
-    xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx            1
-    xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx            2
+    xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx       0
+    xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx       1
+    xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx       2
 
-    Desativado:
+     Desativado:
     Não serão configuradas regras de ASR.
 
     Não configurado:
     O mesmo que Desativado.
 
-    Pode excluir pastas ou ficheiros e recursos na definição de GP ""Excluir pastas e caminhos das Regras do Attack Surface Reduction"".
+    Pode excluir pastas ou ficheiros na definição de GP ""Excluir ficheiros e caminhos das Regras do Attack Surface Reduction"".
     </string>
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess">Configurar Acesso controlado a pastas</string>
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess_Explain">
-    Ative ou desative o acesso controlado a pastas para aplicações não fidedignas. Pode optar por bloquear, efetuar auditoria ou permitir tentativas de aplicações não fidedignas para:
-    - Modificar ou eliminar ficheiros em pastas protegidas, como a pasta Documentos
-    - Escrever em setores do disco
+        Ative ou desative o acesso controlado a pastas para aplicações não fidedignas. Pode optar por bloquear, auditar ou permitir tentativas de aplicações não fidedignas para:
+        - Modificar ou eliminar ficheiros em pastas protegidas, como a pasta Documentos
+        - Escrever em setores do disco
 
-    Também pode optar por bloquear ou efetuar auditoria apenas a escrita em setores do disco, mantendo a permissão para modificação ou eliminação de ficheiros em pastas protegidas.
+        Também pode optar por apenas bloquear ou auditar escritas em setores do disco, ao mesmo tempo que permite a modificação ou eliminação de ficheiros em pastas protegidas.
 
-    O Antivírus do Windows Defender determina automaticamente que aplicações podem ser consideradas fidedignas. Pode adicionar aplicações fidedignas na definição de GP para Configurar aplicações permitidas.
-    As pastas predefinidas do sistema são protegidas automaticamente, mas pode adicionar pastas na definição de GP de configuração de pastas protegidas.
+        O Antivírus do Microsoft Defender determina automaticamente que aplicações podem ser consideradas fidedignas. Pode adicionar aplicações fidedignas na definição de GP de configuração de aplicações permitidas.
+        As pastas predefinidas do sistema são protegidas automaticamente, mas pode adicionar pastas na definição de GP de configuração de pastas protegidas.
 
-    Bloquear:
-    O seguinte será bloqueado:
-    - Tentativas de aplicações não fidedignas para modificar ou eliminar ficheiros em pastas protegidas
-    - Tentativas de aplicações não fidedignas para escrever em setores do disco
-    O registo de eventos do Windows registará estes bloqueios nos Registos de Serviços e Aplicações &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Operational &gt; ID 1123.
-
-
-    Desativado:
-    O seguinte não será bloqueado e a respetiva execução será autorizada:
-    - Tentativas de aplicações não fidedignas para modificar ou eliminar ficheiros em pastas protegidas
-    - Tentativas de aplicações não fidedignas para escrever em setores do disco
-    Estas tentativas não serão registadas no registo de eventos do Windows.
+        Bloquear
+        Os itens que se seguem serão bloqueados:
+        - Tentativas de aplicações não fidedignas para modificar ou eliminar ficheiros em pastas protegidas
+        - Tentativas de aplicações não fidedignas para escrever em setores do disco
+        O registo de eventos do Windows irá gravar estes blocos nos Registos de Serviços e Aplicações &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Operacional &gt; ID 1123.
 
 
-    Modo de Auditoria:
-    O seguinte não será bloqueado e a respetiva execução será autorizada:
-    - Tentativas de aplicações não fidedignas para modificar ou eliminar ficheiros em pastas protegidas
-    - Tentativas de aplicações não fidedignas para escrever em setores do disco
-    O registo de eventos do Windows registará estes bloqueios nos Registos de Serviços e Aplicações &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Operational &gt; ID 1124.
+        Desativado
+        O que se segue não será bloqueado e terá permissão para ser executado:
+        - Tentativas de aplicações não fidedignas para modificar ou eliminar ficheiros em pastas protegidas
+        - Tentativas de aplicações não fidedignas para escrever em setores do disco
+        Estas tentativas não serão registadas no Registo de Eventos do Windows.
 
 
-    Bloquear apenas modificação do disco:
-    O seguinte será bloqueado:
-    - Tentativas de aplicações não fidedignas para escrever em setores do disco
-    O registo de eventos do Windows registará estes bloqueios nos Registos de Serviços e Aplicações &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Operational &gt; ID 1123.
-
-    O seguinte não será bloqueado e a respetiva execução será autorizada:
-    - Tentativas de aplicações não fidedignas para modificar ou eliminar ficheiros em pastas protegidas
-    Estas tentativas não serão registadas no registo de eventos do Windows.
+        Modo de Auditoria:
+        O que se segue não será bloqueado e terá permissão para ser executado:
+        - Tentativas de aplicações não fidedignas para modificar ou eliminar ficheiros em pastas protegidas
+        - Tentativas de aplicações não fidedignas para escrever em setores do disco
+        O registo de eventos do Windows irá registar estas tentativas em Registos de Serviços e Aplicações &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; operacional &gt; ID 1124.
 
 
-    Apenas efetuar auditoria a modificações do disco:
-    O seguinte não será bloqueado e a respetiva execução será autorizada:
-    - Tentativas de aplicações não fidedignas para escrever em setores do disco
-    - Tentativas de aplicações não fidedignas para modificar ou eliminar ficheiros em pastas protegidas
-    Apenas as tentativas para escrever em setores de disco protegidos serão registadas no registo de eventos do Windows (em Registos de Serviços e Aplicações &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Operational &gt; ID 1124).
-    Tentativas de modificar ou eliminar ficheiros em pastas protegidas não serão registadas.
+        Bloquear apenas a modificação do disco:
+        Os itens que se seguem serão bloqueados:
+        - Tentativas de aplicações não fidedignas para escrever em setores do disco
+        O registo de eventos do Windows irá registar estas tentativas em Registos de Serviços e Aplicações &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Operacional &gt; ID 1123.
 
-    Não configurado:
-    O mesmo que Desativado.
+        O que se segue não será bloqueado e terá permissão para ser executado:
+        - Tentativas de aplicações não fidedignas para modificar ou eliminar ficheiros em pastas protegidas
+        Estas tentativas não serão registadas no registo de eventos do Windows.
+
+
+        Auditar apenas a modificação do disco:
+        O que se segue não será bloqueado e terá permissão para ser executado:
+        - Tentativas de aplicações não fidedignas para escrever em setores do disco
+        - Tentativas de aplicações não fidedignas para modificar ou eliminar ficheiros em pastas protegidas
+        Só as tentativas de escrita em setores de disco protegidos serão registadas no registo de eventos do Windows (em Registos de Serviços e Aplicações &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Operacional &gt; ID 1124).
+        As tentativas de modificar ou eliminar ficheiros em pastas protegidas não serão registadas.
+
+        Não configurado:
+        O mesmo que Desativado.
     </string>
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess_Disable">Desativar (Predefinição)</string>
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess_Block">Bloquear</string>
@@ -922,47 +1177,188 @@ Se desativar ou não configurar esta definição, não será apresentado qualque
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess_AuditDiskModifications">Apenas efetuar auditoria a modificações do disco</string>
     <string id="ExploitGuard_ControlledFolderAccess_AllowedApplications">Configurar aplicações permitidas</string>
     <string id="ExploitGuard_ControlledFolderAccess_AllowedApplications_Explain">
-    Adicione aplicações que devam ser consideradas "fidedignas" pelo acesso controlado a pastas.
+    Adicione aplicações adicionais que devam ser consideradas "fidedignas" pelo acesso controlado a pastas.
 
     Estas aplicações podem modificar ou eliminar ficheiros em pastas com acesso controlado.
 
-    O Antivírus do Windows Defender determina automaticamente que aplicações devem ser consideradas fidedignas. Pode configurar esta definição para adicionar aplicações.
+    O Antivírus do Microsoft Defender determina automaticamente que aplicações devem ser consideradas fidedignas. Pode configurar esta definição para adicionar aplicações adicionais.
 
-    Ativado:
+    Ativado: 
     Especifique aplicações permitidas adicionais na secção Opções.
 
-    Desativado:
-    Não serão adicionadas aplicações à lista fidedigna.
+    Desativado
+    Não serão adicionadas aplicações adicionais à lista fidedigna.
 
     Não configurado:
     O mesmo que Desativado.
 
-    Pode ativar o acesso controlado a pastas na definição de GP para Configurar acesso controlado a pastas.
+    Pode ativar o acesso controlado a pastas na definição de GP para configurar acesso controlado a pastas.
 
     As pastas predefinidas do sistema são protegidas automaticamente, mas pode adicionar pastas na definição de GP de configuração de pastas protegidas.
     </string>
     <string id="ExploitGuard_ControlledFolderAccess_ProtectedFolders">Configurar pastas protegidas</string>
     <string id="ExploitGuard_ControlledFolderAccess_ProtectedFolders_Explain">
-    Especifique pastas adicionais que devam ser protegidas pela funcionalidade de Acesso controlado a pastas.
+    Especifique pastas adicionais que devam ser protegidas pela Funcionalidade de acesso controlado a pastas.
 
-    Os ficheiros nestas pastas não podem ser modificados nem eliminados por aplicações não fidedignas.
+    Os ficheiros nestas pastas não podem ser modificados ou eliminados por aplicações não fidedignas.
 
-    As pastas predefinidas do sistema são protegidas automaticamente. Pode configurar esta definição para adicionar pastas adicionais.
+    As pastas predefinidas do sistema são protegidas automaticamente. Pode configurar esta definição para adicionar pastas adicionais. 
     A lista de pastas predefinidas do sistema que estão protegidas é apresentada na Segurança do Windows.
 
     Ativado:
     Especifique pastas adicionais que devam ser protegidas na secção Opções.
 
-    Desativado:
+    Desativado
     Não serão protegidas pastas adicionais.
 
     Não configurado:
     O mesmo que Desativado.
 
-    Pode ativar o acesso controlado a pastas na definição de GP para Configurar o acesso controlado a pastas.
+    Pode ativar o acesso controlado a pastas na definição de GP para configurar acesso controlado a pastas.
 
-    O Antivírus do Windows Defender determina automaticamente que aplicações podem ser consideradas fidedignas. Pode adicionar aplicações fidedignas na definição de GP para Configurar aplicações permitidas.
+    O Antivírus do Microsoft Defender determina automaticamente que aplicações podem ser consideradas fidedignas. Pode adicionar aplicações fidedignas na definição de GP de configuração de aplicações permitidas.
     </string>
+    <string id="DeviceControl_PolicyGroups">Definir grupos de políticas de controlo de dispositivos</string>
+    <string id="DeviceControl_PolicyGroups_Explain">
+        Siga o esquema XML dos grupos de políticas de controlo de dispositivos para preencher os dados dos grupos de políticas. 
+        Em alternativa, pode utilizar um caminho de ficheiro que contenha os dados de grupos XML.
+    </string>
+    <string id="DeviceControl_PolicyRules">Definir regras de política de controlo de dispositivo</string>
+    <string id="DeviceControl_PolicyRules_Explain">
+        Siga o esquema XML das regras de política de controlo de dispositivos para preencher os dados das regras de política.
+        Em alternativa, pode utilizar um caminho de ficheiro que contenha os dados das regras XML.
+    </string>
+    <string id="Root_PlatformUpdateChannel">Selecionar a via de atualizações mensais da plataforma do Microsoft Defender [a ser preterido]</string>
+    <string id="Root_PlatformUpdateChannel_Explain">[a ser preterido] Ative esta política para especificar quando os dispositivos recebem atualizações da plataforma do Microsoft Defender durante a implementação gradual mensal.
+
+        Canal Beta: os dispositivos definidos para esta via serão os primeiros a receber novas atualizações. Selecione o Canal Beta para participar na identificação de problemas e comunicá-los à Microsoft. Os dispositivos no Programa Windows Insider estão subscritos a esta via por predefinição. Apenas para utilização em ambientes de teste (manual) e num número limitado de dispositivos.
+        Canal Atual (Pré-Visualização): os dispositivos definidos para esta via receberão atualizações mais cedo durante o ciclo mensal de disponibilização gradual. Sugerido para ambientes de pré-produção/validação.
+        Canal Atual (de Teste): os dispositivos receberão atualizações após o ciclo mensal de disponibilização gradual. Sugere-se a aplicação a uma parte pequena e representativa da sua população de produção (~10%).
+        Canal Atual (Amplo): os dispositivos só receberão atualizações após a conclusão do ciclo de disponibilização gradual. Sugere-se a aplicação a um conjunto alargado de dispositivos da sua população de produção (~10-100%).
+        Crítico - Atraso: os dispositivos receberão atualizações com um atraso de 48 horas. Sugerido apenas para ambientes críticos.
+
+        Se desativar ou não configurar esta política, o dispositivo manter-se-á automaticamente atualizado durante o ciclo de disponibilização gradual. Adequado para a maioria dos dispositivos.
+    </string>
+    <string id="Root_EngineUpdateChannel">Selecionar a via de atualizações mensais do motor do Microsoft Defender [a ser preterido]</string>
+    <string id="Root_EngineUpdateChannel_Explain">[a ser preterido] Ative esta política para especificar quando os dispositivos recebem atualizações do motor do Microsoft Defender durante a implementação gradual mensal.
+
+        Canal Beta: os dispositivos definidos para esta via serão os primeiros a receber novas atualizações. Selecione o Canal Beta para participar na identificação de problemas e comunicá-los à Microsoft. Os dispositivos no Programa Windows Insider estão subscritos a esta via por predefinição. Apenas para utilização em ambientes de teste (manual) e num número limitado de dispositivos.
+        Canal Atual (Pré-Visualização): os dispositivos definidos para esta via receberão atualizações mais cedo durante o ciclo mensal de disponibilização gradual. Sugerido para ambientes de pré-produção/validação.
+        Canal Atual (de Teste): os dispositivos receberão atualizações após o ciclo mensal de disponibilização gradual. Sugere-se a aplicação a uma parte pequena e representativa da sua população de produção (~10%).
+        Canal Atual (Amplo): os dispositivos só receberão atualizações após a conclusão do ciclo de disponibilização gradual. Sugere-se a aplicação a um conjunto alargado de dispositivos da sua população de produção (~10-100%).
+        Crítico - Atraso: os dispositivos receberão atualizações com um atraso de 48 horas. Sugerido apenas para ambientes críticos.
+
+        Se desativar ou não configurar esta política, o dispositivo manter-se-á automaticamente atualizado durante o ciclo de disponibilização gradual. Adequado para a maioria dos dispositivos.
+    </string>
+    <string id="Root_SecurityIntelligenceUpdateChannel">Selecione o canal para as atualizações diárias das informações de segurança do Microsoft Defender</string>
+    <string id="Root_SecurityIntelligenceUpdateChannel_Explain">Ative esta política para especificar quando os dispositivos recebem atualizações de informações de segurança do Microsoft Defender durante a implementação gradual diária.
+
+        Canal Atual (Faseado): os dispositivos receberão atualizações após o ciclo de lançamento. Sugerida a aplicação a uma pequena parte representativa da população de produção (~10%).
+        Canal Atual (Abrangente): os dispositivos só receberão atualizações após a conclusão do ciclo de lançamento gradual. Sugerida a aplicação a um vasto conjunto de dispositivos na população de produção (~10-100%).
+        Crítico - Atraso de tempo: os dispositivos receberão atualizações com um atraso de 48 horas. Sugerido apenas para ambientes críticos.
+
+        Se desativar ou não configurar esta política, o dispositivo manter-se-á atualizado automaticamente durante o ciclo de lançamento diário. Adequado para a maioria dos dispositivos.
+    </string>
+    <string id="Root_UpdateChannel_Dropdown_Beta">Canal Beta</string>
+    <string id="Root_UpdateChannel_Dropdown_Preview">Canal Atual (Pré-visualização)</string>
+    <string id="Root_UpdateChannel_Dropdown_Staged">Canal Atual (Faseado)</string>
+    <string id="Root_UpdateChannel_Dropdown_Broad">Canal Atual (Amplo)</string>
+    <string id="Root_UpdateChannel_Dropdown_Delayed">Crítico - Atraso de tempo</string>
+    <string id="Root_DeploymentChannel">Selecionar o canal de implementação segura do Microsoft Defender</string>
+    <string id="Root_DeploymentChannel_Explain">Ative esta política para especificar quando os dispositivos recebem atualizações binárias do Microsoft Defender.
+
+        Canal de Validação: os dispositivos definidos para este canal são os primeiros a receber novas atualizações binárias mensais (da plataforma e do motor). A probabilidade de ocorrerem novos problemas é maior, por isso, adicione a este canal apenas os dispositivos com a maior tolerância ao risco (recomendado para, no máximo, 1% dos dispositivos no seu ambiente).
+        Canal de Lançamento - Antecipado: o canal de lançamento é adequado para a maior parte do seu ambiente de produção. Os dispositivos definidos para este canal recebem atualizações mais cedo no canal de lançamento. Distribua os dispositivos pelos canais antecipado, rápido e amplo de acordo com a respetiva tolerância ao risco. Adicione dispositivos aos canais anteriores para identificar problemas mais cedo e evitar afetar o resto do seu ambiente.
+        Canal de Lançamento - Rápido: o canal de lançamento é adequado para a maior parte do seu ambiente de produção. Os dispositivos recebem atualizações mais tarde durante o ciclo de disponibilização gradual. Distribua os dispositivos pelos canais antecipado, rápido e amplo de acordo com a respetiva tolerância ao risco. Utilize dispositivos nos canais anteriores para identificar problemas mais cedo e evitar afetar o resto do seu ambiente.
+        Canal de Lançamento - Amplo: o canal de lançamento é adequado para a maior parte do seu ambiente de produção. Os dispositivos neste canal recebem atualizações no final do ciclo de disponibilização gradual. Distribua os dispositivos pelos canais antecipado, rápido e amplo de acordo com a respetiva tolerância ao risco. Utilize dispositivos nos canais anteriores para identificar problemas mais cedo e evitar afetar o resto do seu ambiente.
+        Canal Atrasado: os dispositivos neste canal recebem atualizações aproximadamente 48 horas após os dispositivos no canal de lançamento (amplo). Utilize este canal para infraestruturas críticas e recursos de elevado valor (~1% dos dispositivos, no máximo).
+
+        Se não configurar esta política, os dispositivos são adicionados ao canal de lançamento. A Microsoft determina se os dispositivos recebem atualizações mais cedo ou mais tarde no canal de lançamento.
+    </string>
+    <string id="Root_DeploymentChannel_Dropdown_Validation">Canal de Validação</string>
+    <string id="Root_DeploymentChannel_Dropdown_Early">Canal de Lançamento - Antecipado</string>
+    <string id="Root_DeploymentChannel_Dropdown_Fast">Canal de Lançamento - Rápido</string>
+    <string id="Root_DeploymentChannel_Dropdown_Broad">Canal de Lançamento - Amplo</string>
+    <string id="Root_DeploymentChannel_Dropdown_Delayed">Canal Atrasado</string>
+    <string id="MpEngine_DisableGradualRelease">Desativar a implementação gradual de atualizações do Microsoft Defender.</string>
+    <string id="MpEngine_DisableGradualRelease_Explain">Ative esta política para desativar a implementação gradual de atualizações do Defender.
+
+       Canal Atual (Amplo): os dispositivos definidos para este canal receberão atualizações pela última vez durante o ciclo de lançamento gradual. Melhor para máquinas de datacenter que só recebem atualizações limitadas.
+
+     Nota: esta definição aplica-se a atualizações mensais e diárias do Defender e substituirá quaisquer seleções de canal configuradas anteriormente para atualizações de plataforma e motor.
+
+        Se desativar ou não configurar esta política, o dispositivo permanecerá no Canal Atual (Predefinição), a menos que seja especificado de outro modo em canais específicos para atualizações de plataforma e motor. Mantenha-se atualizado automaticamente durante o ciclo de lançamento gradual. Adequado para a maioria dos dispositivos.</string>
+    <string id="DeviceControl_DefaultEnforcement">Selecionar Política de Imposição Predefinida de Controlo de Dispositivos</string>
+    <string id="DeviceControl_DefaultEnforcement_Explain">
+        Permissão predefinida: ao escolher esta imposição predefinida, irá permitir que todas as operações ocorram nos dispositivos anexados se não forem encontradas regras de política para corresponder.
+        Negação predefinida: a escolha desta imposição predefinida, irá negar que as operações ocorram nos dispositivos anexados se não forem encontradas regras de política para corresponder.
+
+        A imposição predefinida estabelecerá qual a decisão que deve ser tomada durante as verificações de acesso de Controlo do Dispositivo quando nenhuma das regras de política corresponder.
+    </string>
+    <string id="DeviceControl_DefaultEnforcement_DefaultAllow">Permissão predefinida</string>
+    <string id="DeviceControl_DefaultEnforcement_DefaultDeny">Negação predefinida</string>
+    <string id="DeviceControl_DataDuplicationRemoteLocation">Definir a localização remota dos dados de prova do Controlo de Dispositivos</string>
+    <string id="DeviceControl_DataDuplicationRemoteLocation_Explain">
+        Defina a localização remota do ficheiro de provas, onde o serviço Controlo de Dispositivos irá mover os dados de provas capturados.
+
+Ao configurar esta definição, certifique-se de que o Controlo de Dispositivos está Ativado e de que o caminho fornecido é um caminho remoto ao qual o utilizador pode aceder.
+    </string>
+	<string id="DeviceControl_DataDuplicationLocalRetentionPeriod">Definir o período de retenção para ficheiros na cache de controlo do dispositivo local</string>
+    <string id="DeviceControl_DataDuplicationLocalRetentionPeriod_Explain">
+        Esta definição de política determina durante quanto tempo o controlo de dispositivo retém ficheiros para provas na respetiva cache local no dispositivo. O controlo do dispositivo mantém um ficheiro na respetiva cache local apenas se não conseguir carregar o ficheiro para uma partilha de rede designada ou armazenamento do Azure. 
+
+Por predefinição, o controlo do dispositivo retém ficheiros na respetiva cache local durante 60 dias.
+    </string>
+	<string id="DeviceControl_SecuredDevicesConfiguration">Ativar o controlo do dispositivo para tipos de dispositivo específicos</string>
+    <string id="DeviceControl_SecuredDevicesConfiguration_Explain">
+        Esta definição de política controla que tipos de dispositivo, identificados pelos respetivos PrimaryIds, terão a proteção de controlo de dispositivos ativada. Se ativar esta definição para determinados tipos de dispositivo, o controlo de dispositivos regulará o acesso a esses dispositivos com base na política personalizada correspondente. O controlo de dispositivos será desativado para todos os outros tipos de dispositivo suportados, mesmo que políticas de proteção personalizadas estejam configuradas para esses dispositivos.
+ 
+        Esta definição suporta atualmente estes tipos de dispositivo: RemovableMediaDevices, CdRomDevices, WpdDevices e PrinterDevices. 
+ 
+        Se ativar esta definição de política, mas não especificar nenhum PrimaryId, o controlo de dispositivos será desativado em todos os tipos de dispositivo suportados.
+ 
+        Se desativar ou não configurar esta definição de política, o controlo de dispositivos será imposto em todos os dispositivos suportados com base nas respetivas políticas personalizadas correspondentes.
+    </string>
+	<string id="DeviceControl_CustomSupportLink">Configurar uma ligação de suporte para notificações de controlo de dispositivos</string>
+    <string id="DeviceControl_CustomSupportLink_Explain">
+        Esta definição permite que a sua organização especifique a ligação "Obter Suporte" nas notificações de controlo do dispositivo. 
+		
+Quando configurado, o botão "Obter Suporte" navega automaticamente para a ligação especificada.
+    </string>
+	<string id="DeviceControl_PolicyRefreshFailureInterval">Definir a taxa de atualização da política</string>
+    <string id="DeviceControl_PolicyRefreshFailureInterval_Explain">
+        Esta definição define o intervalo, em minutos, em que o dispositivo tentará carregar novamente a configuração de política no caso de ter ocorrido um erro e a política não ter sido carregada.
+	</string>
+	<string id="DeviceControl_AzureAdRefreshInterval">Definir a taxa de atualização do Azure AD</string>
+    <string id="DeviceControl_AzureAdRefreshInterval_Explain">
+        Esta definição define o intervalo, em minutos, em que o dispositivo irá consultar Azure AD para atualizar definições, configuração e associações a grupos relacionados.
+	</string>
+	<string id="DeviceControl_DataDuplicationMaximumQuota">Definir o limite de duplicação de dados (MB)</string>
+    <string id="DeviceControl_DataDuplicationMaximumQuota_Explain">
+        Esta definição define a quantidade máxima de dados que podem ser duplicados para controlo de dispositivos. 
+		
+Quando o limite for atingido, os ficheiros copiados para armazenamento amovível não serão duplicados no computador.
+	</string>
+    <string id="Features_DeviceControlEnabled">Controlo de Dispositivos</string>
+    <string id="DeviceControl_DeviceControlEnabled_Explain">
+        Ative ou Desative o Controlo de Dispositivos do Defender neste computador.
+        Nota: tem de estar inscrito como E3 ou E5 para que o Controlo de Dispositivos seja ativado.
+    </string>
+    <string id="Features_TDTFeatureEnabled">Nível de Integração do Intel TDT</string>
+    <string id="Features_TDTFeatureEnabled_Explain">Esta definição de política configura o nível de integração Intel TDT para dispositivos compatíveis com Intel TDT.
+
+        Se não configurar esta definição, será aplicado o valor predefinido. O valor predefinida é controlado pelas atualizações de informações de segurança da Microsoft. A Microsoft ativará o Intel TDT se houver uma ameaça conhecida.
+        Se configurar esta definição como ativada, a integração do Intel TDT será ativada.
+        Se configurar esta definição como desativada, a integração do Intel TDT será desativada.</string>
+    <string id="Features_PassiveRemediation">Ativar o EDR no modo de bloqueio</string>
+    <string id="Features_PassiveRemediation_Explain">Esta definição de política ativa ou desativa o EDR no modo de bloqueio (também conhecido como "remediação passiva"). O EDR no modo de bloqueio é recomendado para dispositivos que executam o Antivírus do Microsoft Defender no modo passivo. Disponível na versão de plataforma: 4.18.2202.X
+
+        O tipo dos dados é um número inteiro
+
+        Valores suportados:
+
+1: Ativar o EDR no modo de bloqueio
+        0: Desativar o EDR no modo de bloqueio</string>
     </stringTable>
     <presentationTable>
     <presentation id="ProxyBypass">
@@ -980,6 +1376,11 @@ Se desativar ou não configurar esta definição, não será apresentado qualque
         <label>Definir o servidor proxy para ligação à rede</label>
     </textBox>
     </presentation>
+    <presentation id="SupportLogLocation">
+    <textBox refId="SupportLogLocation">
+        <label>Definir o caminho do diretório para copiar ficheiros de registo de suporte</label>
+    </textBox>
+    </presentation>
     <presentation id="Exclusions_Extensions">
     <listBox refId="Exclusions_ExtensionsList">Exclusões de Extensões</listBox>
     </presentation>
@@ -988,6 +1389,9 @@ Se desativar ou não configurar esta definição, não será apresentado qualque
     </presentation>
     <presentation id="Exclusions_Processes">
     <listBox refId="Exclusions_ProcessesList">Exclusões de Processos</listBox>
+    </presentation>
+    <presentation id="Exclusions_IpAddresses">
+    <listBox refId="Exclusions_IpAddressesList">Exclusões de Endereços IP</listBox>
     </presentation>
     <presentation id="Nis_Consumers_IPS_sku_differentiation_Signature_Set_Guid">
     <listBox refId="Nis_Consumers_IPS_sku_differentiation_Signature_Set_GuidList">Especificar conjuntos adicionais de definições para a inspeção de tráfego de rede</listBox>
@@ -1001,11 +1405,38 @@ Se desativar ou não configurar esta definição, não será apresentado qualque
     <presentation id="RealtimeProtection_RealtimeScanDirection">
     <dropdownList refId="RealtimeProtection_RealtimeScanDirection" noSort="true" defaultItem="0">Configurar monitorização da atividade de programas e ficheiros recebidos e enviados</dropdownList>
     </presentation>
+    <presentation id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState">
+        <dropdownList refId="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState" noSort="true" defaultItem="0">Especificar o estado da Proteção contra Encriptação Remota</dropdownList>
+    </presentation>
+    <presentation id="Remediation_BNB_REP_RemoteEncryptionProtection_MaxBlockTime">
+        <decimalTextBox refId="Remediation_BNB_REP_RemoteEncryptionProtection_MaxBlockTime" defaultValue="15">Especifique durante quanto tempo pretende bloquear deteções, em minutos</decimalTextBox>
+    </presentation>
+    <presentation id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness">
+        <dropdownList refId="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness" noSort="true" defaultItem="0">Especifique a agressividade com que a Proteção contra Encriptação Remota bloqueia ameaças</dropdownList>
+    </presentation>
+    <presentation id="Remediation_BNB_REP_RemoteEncryptionProtectionExclusions">
+        <listBox refId="Remediation_BNB_REP_RemoteEncryptionProtectionExclusions">Exclusões da Proteção contra Encriptação Remota</listBox>
+    </presentation>
+    <presentation id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState">
+        <dropdownList refId="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState" noSort="true" defaultItem="0">Especificar o estado da Proteção contra Força Bruta</dropdownList>
+    </presentation>
+    <presentation id="Remediation_BNB_BFP_BruteForceProtection_MaxBlockTime">
+        <decimalTextBox refId="Remediation_BNB_BFP_BruteForceProtection_MaxBlockTime" defaultValue="15">Especifique durante quanto tempo pretende bloquear deteções, em minutos</decimalTextBox>
+    </presentation>
+    <presentation id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness">
+        <dropdownList refId="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness" noSort="true" defaultItem="0">Especifique o nível de agressividade com que a Proteção contra Força Bruta bloqueia as ameaças</dropdownList>
+    </presentation>
+    <presentation id="Remediation_BNB_BFP_BruteForceProtectionExclusions">
+        <listBox refId="Remediation_BNB_BFP_BruteForceProtectionExclusions">Exclusões da Proteção contra Força Bruta</listBox>
+    </presentation>
     <presentation id="Remediation_Scan_ScheduleDay">
     <dropdownList refId="Remediation_Scan_ScheduleDay" noSort="true" defaultItem="0">Especificar o dia da semana para execução de uma análise completa agendada para conclusão da remediação</dropdownList>
     </presentation>
     <presentation id="Remediation_Scan_ScheduleTime">
     <decimalTextBox refId="Remediation_Scan_ScheduleTime" defaultValue="120">Especificar a hora de execução de uma análise completa agendada para conclusão da remediação</decimalTextBox>
+    </presentation>
+    <presentation id="Scan_DaysUntilAggressiveCatchupQuickScan">
+    <decimalTextBox refId="Scan_DaysUntilAggressiveCatchupQuickScan" defaultValue="25">Especifique quantos dias sem análises devem passar antes de uma análise rápida agressiva ser acionada</decimalTextBox>
     </presentation>
     <presentation id="Scan_MissedScheduledScanCountBeforeCatchup">
     <decimalTextBox refId="Scan_MissedScheduledScanCountBeforeCatchup" defaultValue="2">Define o número de análises agendadas que se pode falhar, após as quais é forçada uma análise de atualização</decimalTextBox>
@@ -1027,6 +1458,9 @@ Se desativar ou não configurar esta definição, não será apresentado qualque
     </presentation>
     <presentation id="Reporting_WppTracingLevel">
     <decimalTextBox refId="Reporting_WppTracingLevel" defaultValue="0">Configurar nível de rastreio WPP</decimalTextBox>
+    </presentation>
+    <presentation id="Reporting_ServiceHealthReportInterval">
+    <decimalTextBox refId="Reporting_ServiceHealthReportInterval" defaultValue="60">Configurar intervalo de tempo para relatórios de estado de funcionamento do serviço</decimalTextBox>
     </presentation>
     <presentation id="Scan_ArchiveMaxDepth">
     <decimalTextBox refId="Scan_ArchiveMaxDepth" defaultValue="0">Especificar a profundidade máxima de análise dos ficheiros de arquivo</decimalTextBox>
@@ -1056,10 +1490,10 @@ Se desativar ou não configurar esta definição, não será apresentado qualque
     <decimalTextBox refId="Scan_ScheduleTime" defaultValue="120">Especificar a hora de execução de uma análise agendada</decimalTextBox>
     </presentation>
     <presentation id="SignatureUpdate_ASSignatureDue">
-    <decimalTextBox refId="SignatureUpdate_ASSignatureDue" defaultValue="14">Definir o número de dias até que as informações de segurança de spyware sejam consideradas desatualizadas</decimalTextBox>
+    <decimalTextBox refId="SignatureUpdate_ASSignatureDue" defaultValue="7">Definir o número de dias até que as informações de segurança de spyware sejam consideradas desatualizadas</decimalTextBox>
     </presentation>
     <presentation id="SignatureUpdate_AVSignatureDue">
-    <decimalTextBox refId="SignatureUpdate_AVSignatureDue" defaultValue="14">Definir o número de dias até que as informações de segurança de vírus sejam consideradas desatualizadas</decimalTextBox>
+    <decimalTextBox refId="SignatureUpdate_AVSignatureDue" defaultValue="7">Definir o número de dias até que as informações de segurança de vírus sejam consideradas desatualizadas</decimalTextBox>
     </presentation>
     <presentation id="SignatureUpdate_DefinitionUpdateFileSharesSources">
     <textBox refId="SignatureUpdate_DefinitionUpdateFileSharesSources">
@@ -1100,11 +1534,6 @@ Se desativar ou não configurar esta definição, não será apresentado qualque
     <presentation id="Threats_ThreatSeverityDefaultAction">
     <listBox refId="Threats_ThreatSeverityDefaultActionList">Especificar níveis de alerta das ameaças cuja deteção não deverá acionar a ação predefinida</listBox>
     </presentation>
-    <presentation id="UX_Configuration_CustomDefaultActionToastString">
-    <textBox refId="UX_Configuration_CustomDefaultActionToastString">
-        <label>Apresentar texto adicional aos clientes quando for necessário executar uma ação</label>
-    </textBox>
-    </presentation>
     <presentation id="SignatureUpdate_ExpiryNotificationIntervalDays">
         <decimalTextBox refId="SignatureUpdate_ExpiryNotificationIntervalDays">Especificar o intervalo para as notificações de expiração</decimalTextBox>
     </presentation>
@@ -1119,6 +1548,9 @@ Se desativar ou não configurar esta definição, não será apresentado qualque
     </presentation>
     <presentation id="ExploitGuard_ASR_ASROnlyExclusions">
         <listBox refId="ExploitGuard_ASR_ASROnlyExclusions">Exclusões das regras ASR:</listBox>
+    </presentation>
+    <presentation id="ExploitGuard_ASR_ASROnlyPerRuleExclusions">
+        <listBox refId="ExploitGuard_ASR_ASROnlyPerRuleExclusions">Exclusões para cada regra de RSA:</listBox>
     </presentation>
     <presentation id="ExploitGuard_ASR_Rules">
         <listBox refId="ExploitGuard_ASR_Rules">Defina o estado de cada regra ASR:</listBox>
@@ -1135,6 +1567,70 @@ Se desativar ou não configurar esta definição, não será apresentado qualque
     <presentation id="Root_PUAProtection">
         <dropdownList refId="Root_PUAProtection" noSort="true" defaultItem="0"></dropdownList>
     </presentation>
+    <presentation id="Scan_QuickScanIncludeExclusions">
+        <dropdownList refId="Scan_QuickScanIncludeExclusions" noSort="true" defaultItem="0"></dropdownList>
+    </presentation>
+    <presentation id="DeviceControl_PolicyGroups">
+    <textBox refId="DeviceControl_PolicyGroups">
+        <label>Definir os grupos de políticas aqui</label>
+    </textBox>
+    </presentation>
+    <presentation id="DeviceControl_PolicyRules">
+    <textBox refId="DeviceControl_PolicyRules">
+        <label>Definir as regras de política aqui</label>
+    </textBox>
+    </presentation>
+    <presentation id="SchedulerRandomizationTime">
+        <decimalTextBox refId="SchedulerRandomizationTime" defaultValue="4">Especifique a janela aleatoriedade do programador em horas.</decimalTextBox>
+    </presentation>
+    <presentation id="PlatformUpdateChannelsDropDown">
+    <dropdownList refId="UpdateChannelsDropDown" noSort="true" defaultItem="0">Selecione o canal para as atualizações da plataforma mensais do Microsoft Defender:</dropdownList>
+    </presentation>
+    <presentation id="EngineUpdateChannelsDropDown">
+    <dropdownList refId="UpdateChannelsDropDown" noSort="true" defaultItem="0">Selecionar o canal para as atualizações do motor mensais do Microsoft Defender:</dropdownList>
+    </presentation>
+    <presentation id="SecurityIntelligenceUpdateChannelsDropDown">
+    <dropdownList refId="UpdateChannelsDropDown" noSort="true" defaultItem="0">Selecione o canal para as atualizações diárias das informações de segurança do Microsoft Defender:</dropdownList>
+    </presentation>
+    <presentation id="DeploymentChannelsDropDown">
+    <dropdownList refId="DeploymentChannelsDropDown" noSort="true" defaultItem="0">Selecionar o canal de implementação segura do Microsoft Defender:</dropdownList>
+    </presentation>
+    <presentation id="DeviceControlDefaultEnforcementDropDown">
+    <dropdownList refId="DeviceControlDefaultEnforcementDropDown" noSort="true" defaultItem="0">Selecionar Política de Imposição Predefinida de Controlo de Dispositivos</dropdownList>
+    </presentation>
+    <presentation id="DeviceControl_DataDuplicationRemoteLocation">
+    <textBox refId="DeviceControl_DataDuplicationRemoteLocation">
+        <label>Definir a localização remota de duplicação de dados de Controlo de Dispositivos.</label>
+    </textBox>
+    </presentation>
+	<presentation id="DeviceControl_DataDuplicationLocalRetentionPeriod">
+		<decimalTextBox refId="DeviceControl_DataDuplicationLocalRetentionPeriod" defaultValue="60">Definir o período de retenção para ficheiros na cache de controlo do dispositivo local</decimalTextBox>
+    </presentation>
+	<presentation id="DeviceControl_SecuredDevicesConfiguration">
+    <textBox refId="DeviceControl_SecuredDevicesConfiguration">
+        <label>Ativar o controlo do dispositivo para tipos de dispositivo específicos</label>
+    </textBox>
+    </presentation>
+	<presentation id="DeviceControl_CustomSupportLink">
+    <textBox refId="DeviceControl_CustomSupportLink">
+        <label>Configurar uma ligação de suporte para notificações de controlo de dispositivos</label>
+    </textBox>
+    </presentation>
+	<presentation id="DeviceControl_PolicyRefreshFailureInterval">
+    <textBox refId="DeviceControl_PolicyRefreshFailureInterval">
+        <label>Definir a taxa de atualização da política</label>
+    </textBox>
+	</presentation>
+	<presentation id="DeviceControl_AzureAdRefreshInterval">
+    <textBox refId="DeviceControl_AzureAdRefreshInterval">
+        <label>Definir a taxa de atualização do Azure AD</label>
+    </textBox>
+	</presentation>
+	<presentation id="DeviceControl_DataDuplicationMaximumQuota">
+    <textBox refId="DeviceControl_DataDuplicationMaximumQuota">
+        <label>Definir o limite de duplicação de dados (MB)</label>
+    </textBox>
+	</presentation>
    </presentationTable>
 </resources>
 </policyDefinitionResources>

@@ -108,11 +108,13 @@
 
 另请参阅“计算机配置/管理模板/Windows 组件/Windows 错误报告”中的“配置错误报告”、“显示错误通知”和“禁用 Windows 错误报告”策略设置。</string>
       <string id="RemoveWindowsUpdate_ICM">关闭对所有 Windows 更新功能的访问</string>
-      <string id="RemoveWindowsUpdate_ICM_Help">使用此策略设置，可以删除对 Windows 更新的访问权限。
+      <string id="RemoveWindowsUpdate_ICM_Help">此策略设置允许你删除对 Windows 更新的访问权限。
 
-如果启用此策略设置，则所有 Windows 更新功能都将被删除。这包括阻止从“开始”菜单上的 Windows 更新超链接及 Internet Explorer 中的“工具”菜单访问 Windows 更新网站(http://windowsupdate.microsoft.com)。Windows 自动更新也将禁用: Windows 更新不会向你发送关于重要更新的通知，也不会向你发送重要更新。此策略设置还阻止“设备管理器”从 Windows 更新网站自动安装驱动程序更新。
+如果启用此策略设置，则将删除所有 Windows 更新功能。这包括阻止从“开始”菜单以及 Internet Explorer 中的“工具”菜单上的“Windows 更新”超链接访问 Windows 更新网站 http://windowsupdate.microsoft.com。还将禁用 Windows 自动更新；Windows 更新不会向你发送有关关键更新的通知，也不会向你发送关键更新。此策略设置还会阻止设备管理器从 Windows 更新网站自动安装驱动程序更新。
 
-如果禁用或未配置此策略设置，则用户可以访问 Windows 更新网站，也可以启用自动更新以接收来自 Windows 更新的通知和关键更新。</string>
+如果禁用或未配置此策略设置，则用户可以访问 Windows 更新网站并启用自动更新，以从 Windows 更新接收通知和关键更新。
+
+注意: 仅当此电脑配置为使用“指定 Intranet Microsoft 更新服务位置”策略连接到 Intranet 更新服务时，此策略才适用。</string>
       <string id="SearchCompanion_DisableFileUpdates">关闭搜索助理内容文件更新</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">此策略设置指定搜索助理是否在本地或 Internet 搜索过程中自动下载内容更新。
 

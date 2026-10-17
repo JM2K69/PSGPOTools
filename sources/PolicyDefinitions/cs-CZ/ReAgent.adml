@@ -13,6 +13,13 @@
     Pokud toto nastavení zásad povolíte nebo nenakonfigurujete, zobrazí se na stránce Rozšířené metody obnovení v ovládacím panelu Obnovení položky K obnovení počítače použít bitovou kopii systému vytvořenou dříve a Přeinstalovat systém Windows (nebo Vrátit počítač do výrobního stavu), pomocí kterých může uživatel obnovit počítač do původního stavu nebo ho obnovit pomocí bitové kopie systému vytvořené uživatelem. Toto je výchozí nastavení.
 
     Pokud toto nastavení zásad zakážete, položky K obnovení počítače použít bitovou kopii systému vytvořenou dříve a Přeinstalovat systém Windows (nebo Vrátit počítač do výrobního stavu) v ovládacím panelu Obnovení nebudou k dispozici. Pokud je však toto nastavení zásad zakázáno, budou moci uživatelé přesto obnovit počítač do původního stavu nebo k obnovení použít bitovou kopii systému vytvořenou uživatelem restartováním počítače a zobrazením nabídky Možnosti obnovení systému, pokud je k dispozici.</string>
+      <string id="AllowTrustedOfflineScan">Povolit offline kontrolu z důvěryhodného prostředí Windows Recovery Environment</string>
+      <string id="AllowTrustedOfflineScan_help">    Požadavky: Windows 10
+    Popis: Toto nastavení zásad určuje, jestli se má povolit offline kontrola z důvěryhodného prostředí Windows Recovery Environment.
+
+    Pokud toto nastavení zásad povolíte, offline kontrola se spustí bez výzvy k zadání obnovovacího klíče nástroje BitLocker, pokud nástroj BitLocker považuje prostředí Windows Recovery Environment za důvěryhodné.
+
+    Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, offline kontrola vyzve uživatele k zadání obnovovacího klíče nástroje BitLocker, aby bylo možné odemknout svazek operačního systému. Pokud uživatel přeskočí odemknutí svazku operačního systému, neprovede se offline kontrola. Toto je výchozí nastavení.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

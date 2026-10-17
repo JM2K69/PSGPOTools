@@ -60,33 +60,34 @@ Es sind keine Neustarts oder Dienstneustarts erforderlich, damit diese Richtlini
 
 </string>
 <string id="TroubleshootingAllowRecommendations">Problembehandlung: Benutzern den Zugriff auf die empfohlene Problembehandlung für bekannte Probleme erlauben</string>
-<string id="TroubleshootingAllowRecommendationsExplain">Durch diese Richtlinieneinstellung werden empfohlene Problembehandlungen für bekannte Probleme auf das Gerät angewendet. Außerdem können Administratoren konfigurieren, wie die Richtlinieneinstellung auf Ihre Domänen/IT-Umgebungen angewendet wird.
-Wenn die Richtlinieneinstellung nicht konfiguriert wird, kann der Benutzer festlegen, ob und wie empfohlene Problembehandlungen angewendet werden.
+<string id="TroubleshootingAllowRecommendationsExplain">Diese Richtlinieneinstellung konfiguriert, wie die Fehlerbehebung bei bekannten Problemen auf das Gerät angewendet werden kann, und ermöglicht Administratoren, die Anwendung auf ihre Domänen/IT-Umgebungen zu konfigurieren.
 
-Wenn Sie die Richtlinie aktivieren, können Sie konfigurieren, wie empfohlene Problembehandlungen auf Benutzergeräte angewendet werden. Sie können unter folgenden Werten wählen:
-0 = Dieses Feature deaktivieren
-1 = Dieses Feature deaktivieren, aber trotzdem wichtige Problembehandlungen anwenden
-2 = Benutzer benachrichtigen, wenn eine empfohlene Problembehandlung verfügbar ist, und dem Benutzer dann ermöglichen, sie auszuführen oder zu ignorieren
-3 = Empfohlene Problembehandlung automatisch ausführen und den Benutzer nach der erfolgreichen Ausführung benachrichtigen
-4 = Empfohlene Problembehandlung automatisch ausführen, ohne den Benutzer zu benachrichtigen
-5 = Dem Benutzer die Auswahl eigener Einstellungen für empfohlene Problembehandlungen ermöglichen
+Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, kann der Nutzer konfigurieren, wie die Fehlerbehebung angewendet wird.
 
-Befolgen Sie die nachstehenden Anweisungen, um empfohlene Problembehandlungen für Geräte in Ihrer Domäne auszulösen, nachdem Sie diese neue Einstellung festgelegt haben:
-1. Erstellen Sie ein Batchskript mit folgendem Inhalt:
-Durch das folgende Batchskript werden empfohlene Problembehandlungen ausgelöst:
-C:\Windows\System32\mitigationscanner.exe
+Durch Aktivieren dieser Richtlinie können Sie konfigurieren, wie die Fehlerbehebung auf dem Gerät des Nutzers angewendet wird. Sie können aus einem der folgenden Werte auswählen:
+0 = Erlaubt Nutzern, Systemfunktionen oder Microsoft nicht, die Fehlerbehebung anzuwenden 
+1 = Wendet die Fehlerbehebung bei kritischen Problemen nur automatisch durch Systemfunktionen und Microsoft an
+2 = Wendet die Fehlerbehebung bei kritischen Problemen automatisch durch Systemfunktionen und Microsoft an. Benachrichtigt Nutzer, wenn eine Fehlerbehebung für andere Probleme verfügbar ist, und lässt Nutzer wählen, ob sie sie anwenden oder ignorieren möchten.
+3 = Wendet die Fehlerbehebung bei kritischen und anderen Problemen automatisch durch Systemfunktionen und Microsoft an. Benachrichtigt den Benutzer, wenn die Fehlerbehebung ein Problem behoben hat.
+4 = Wendet die Fehlerbehebung bei kritischen und anderen Problemen automatisch durch Systemfunktionen und Microsoft an. Benachrichtigt Nutzer nicht, wenn die Fehlerbehebung ein Problem behoben hat.
+5 = Ermöglicht dem Nutzer, seine eigenen Einstellungen für die Fehlerbehebung auszuwählen.
 
-2. Um eine neue sofortige Aufgabe zu erstellen, navigieren Sie zu "Gruppenrichtlinienverwaltungs-Editor &gt; Computerkonfiguration &gt; Einstellungen" und wählen "Systemsteuerungseinstellungen" aus. 
-3. Klicken Sie unter "Systemsteuerungseinstellungen" mit der rechten Maustaste auf "Geplante Aufgaben", und wählen Sie "Neu" aus. Wählen Sie "Sofortige Aufgabe (mindestens Windows 7)" aus.
-4. Geben Sie einen Namen und ggf. eine Beschreibung an, legen Sie dann unter "Sicherheitsoptionen" das Benutzerkonto auf "System" fest, und aktivieren Sie das Kontrollkästchen "Mit höchsten Berechtigungen ausführen".
-5. Erstellen Sie auf der Registerkarte "Aktionen" eine neue Aktion, wählen Sie als Typ "Programm starten" aus, und geben Sie dann die in Schritt 1 erstellte Datei ein.
-6. Konfigurieren Sie die Aufgabe für die Bereitstellung in Ihrer Domäne.</string>
-<string id="RecommendationsDropDown_DoNothing">Dieses Feature deaktivieren</string>
-<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Dieses Feature deaktivieren, aber trotzdem wichtige Problembehandlungen anwenden</string>
-<string id="RecommendationsDropDown_AskFirst">Benutzer benachrichtigen, wenn eine empfohlene Problembehandlung verfügbar ist, und dem Benutzer dann ermöglichen, sie auszuführen oder zu ignorieren</string>
-<string id="RecommendationsDropDown_ApplyThenNotify">Empfohlene Problembehandlung automatisch ausführen und den Benutzer nach der erfolgreichen Ausführung benachrichtigen</string>
-<string id="RecommendationsDropDown_ApplySilently">Empfohlene Problembehandlung automatisch ausführen, ohne den Benutzer zu benachrichtigen</string>
-<string id="RecommendationsDropDown_DeferToUser">Dem Benutzer die Auswahl eigener Einstellungen für empfohlene Problembehandlungen ermöglichen</string>
+Nach dem Festlegen dieser Richtlinie können Sie die folgenden Anweisungen verwenden, um Geräte in Ihrer Domäne auf verfügbare Fehlerbehebung von Microsoft zu überprüfen:
+1. Erstellen Sie ein Bat-Skript mit den folgenden Inhalten:
+rem Das folgende Batch-Skript löst die empfohlene Fehlerbehebung aus
+schtasks/run/TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner"
+
+2. Um eine neue Sofortaufgabe zu erstellen, navigieren Sie zum Gruppenrichtlinienverwaltungs-Editor &gt; Computerkonfiguration &gt; Einstellungen und wählen Sie Systemsteuerungseinstellungen. 
+3. Klicken Sie unter Systemsteuerungseinstellungen mit der rechten Maustaste auf Geplante Aufgaben und wählen Sie Neu. Wählen Sie Sofortige Aufgabe (mindestens Windows 7).
+4. Geben Sie den Namen und die Beschreibung ein. Setzen Sie dann unter Sicherheitsoptionen das Nutzerkonto auf System und aktivieren Sie das Kontrollkästchen Mit den höchsten Berechtigungen ausführen.
+5. Erstellen Sie auf der Registerkarte Aktionen eine neue Aktion, wählen Sie als Typ Programm starten aus und geben Sie die in Schritt 1 erstellte Datei ein
+6. Konfigurieren Sie die Aufgabe, die für Ihre Domäne bereitgestellt werden soll.</string>
+<string id="RecommendationsDropDown_DoNothing">Lassen Sie nicht zu, dass Benutzer, Systemfunktionen oder Microsoft eine Problembehandlung anwenden.</string>
+<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Wenden Sie die Problembehandlung durch Systemfunktionen und Microsoft nur bei kritischen Problemen an.</string>
+<string id="RecommendationsDropDown_AskFirst">Wenden Sie die Problembehandlung durch Systemfunktionen und Microsoft bei kritischen Problemen automatisch an. Benutzer werden benachrichtigt, wenn eine Problembehandlung für andere Probleme verfügbar ist. Benutzer können wählen, ob sie diese anwenden oder ignorieren.</string>
+<string id="RecommendationsDropDown_ApplyThenNotify">Wenden Sie die Problembehandlung durch Systemfunktionen und Microsoft bei kritischen und anderen Problemen automatisch an. Benutzer werden benachrichtigt, wenn ein Problem mit der Problembehandlung behoben wurde.</string>
+<string id="RecommendationsDropDown_ApplySilently">Wenden Sie die Problembehandlung durch Systemfunktionen und Microsoft bei kritischen und anderen Problemen automatisch an. Benutzer werden nicht benachrichtigt, wenn ein Problem mit der Problembehandlung behoben wurde.</string>
+<string id="RecommendationsDropDown_DeferToUser">Ermöglichen Sie dem Benutzer, eigene Einstellungen für die Problembehandlung vorzunehmen.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MsdtToolDownloadPolicy">

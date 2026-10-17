@@ -2,39 +2,47 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>Správce balíčků Appx</displayName> 
+  <displayName>Správce balíčků Appx</displayName>
   <description>Správce balíčků Appx</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">Nasazení balíčku aplikace</string>
       <string id="AppxDeploymentAllowAllTrustedApps">Povolit instalaci všech důvěryhodných aplikací</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Nastavení této zásady umožňuje řídit instalaci důvěryhodných podnikových aplikací pro Windows Store (podepsaných vývojáři).
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Toto nastavení zásad umožňuje spravovat instalaci důvěryhodných obchodních aplikací (LOB) nebo zabalených aplikací Microsoft Store podepsaných vývojářem.
 
-Když nastavení této zásady povolíte, můžete nainstalovat jakoukoli podnikovou aplikaci pro Windows Store (podepsanou vývojářem). (Aplikace musí být podepsána řetězem certifikátů, který je možné úspěšně ověřit v místním počítači.)
+Pokud toto nastavení zásad povolíte nebo nenakonfigurujete, můžete nainstalovat libovolnou obchodní aplikaci (LOB) nebo zabalenou aplikaci Microsoft Store podepsanou vývojářem (musí být podepsaná řetězem certifikátů, který místní počítač dokáže úspěšně ověřit).
 
-Pokud nastavení této zásady zakážete nebo nenakonfigurujete, nebudete moct podnikové aplikace pro Windows Store (podepsané vývojáři) instalovat.</string>
+Pokud toto nastavení zásad zakážete, nebudete moct instalovat obchodní aplikace (LOB) ani zabalené aplikace Microsoft Store podepsané vývojářem.</string>
+      <string id="AllowAutomaticAppArchiving">Archivovat zřídka používané aplikace</string>
+      <string id="AllowAutomaticAppArchivingExplanation">Toto nastavení zásad určuje, zda systém může archivovat zřídka používané aplikace.
+
+Pokud toto nastavení zásad povolíte, systém bude pravidelně kontrolovat a archivovat zřídka používané aplikace.
+
+Pokud toto nastavení zásad zakážete, systém nebude archivovat žádné aplikace.
+
+Pokud toto nastavení zásad nenakonfigurujete (výchozí nastavení), bude systém používat výchozí chování, které bude pravidelně kontrolovat a archivovat zřídka používané aplikace a uživatel bude moci toto nastavení konfigurovat.</string>
       <string id="AllowDeploymentInSpecialProfiles">Povolit operace nasazení ve speciálních profilech</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">Toto nastavení zásad umožňuje spravovat nasazení aplikací pro Windows Store, pokud je uživatel přihlášen pomocí speciálního profilu. Za speciální profily jsou pokládány následující uživatelské profily, ve kterých po odhlášení uživatele dojde k zahození změn:
+      <string id="AllowDeploymentInSpecialProfilesExplanation">Toto nastavení zásad umožňuje spravovat nasazení zabalených Microsoft Store aplikací, když je uživatel přihlášen pomocí speciálního profilu. Speciální profily jsou následující profily uživatelů, u kterých se po odhlášení uživatele zahodí změny:
 
-Cestovní uživatelské profily, ve kterých se používá nastavení zásad skupiny Odstraňovat kopie cestovních profilů z mezipaměti
+Roamingové uživatelské profily, pro které platí nastavení zásad skupiny "Odstranit kopie roamingových profilů uložené v mezipaměti".
 
-Povinné uživatelské profily a tzv. super-mandatory profily, které byly vytvořeny administrátorem
+Povinné profily uživatelů a super-povinné profily, které jsou vytvořeny správcem
 
-Dočasné uživatelské profily, které se vytvoří, když vinou chyby nelze načíst správný profil
+Dočasné profily uživatelů, které jsou vytvořeny v případě, že chyba brání správnému profilu v načtení
 
-Uživatelské profily pro účet Guest a členy skupiny Guests
+Profily uživatelů pro účet Guest a členy skupiny Guests
 
 
-Když toto nastavení zásad povolíte, umožní zásady skupiny provádět u aplikací pro Windows Store operace nasazení (přidávání, registrace, import po etapách, aktualizace nebo odebrání balíčku aplikací), pokud uživatel používá speciální profil.
+Pokud toto nastavení zásad povolíte, Zásady skupiny povolí operace nasazení (přidání, registrace, příprava, aktualizace nebo odebrání balíčku aplikace) zabalených Microsoft Store aplikací při použití speciálního profilu.
 
-Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, budou zásady skupiny blokovat operace nasazení, když uživatel používá speciální profil.</string>
-      <string id="AllowDevelopmentWithoutDevLicense">Povolí vývoj aplikací pro Windows Store a jejich instalaci z integrovaného vývojového prostředí (IDE)</string>
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, Zásady skupiny zablokuje operace nasazení zabalených Microsoft Store aplikací při použití speciálního profilu.</string>
+      <string id="AllowDevelopmentWithoutDevLicense">Umožňuje vývoj zabalených Microsoft Store aplikací a jejich instalaci z integrovaného vývojového prostředí (IDE).</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        Povolí nebo zakáže vývoj aplikací pro Windows Store a jejich instalaci z IDE.
+        Povolí nebo zakáže vývoj aplikací pro Microsoft Store a jejich instalaci z IDE.
 
-        Pokud toto nastavení povolíte a zároveň povolíte zásadu skupiny Povolit instalaci všech důvěryhodných aplikací, můžete vyvíjet aplikace pro Windows Store a instalovat je přímo z IDE.
-        
-        Pokud nastavení této zásady zakážete nebo nenakonfigurujete, nebudete moct vyvíjet aplikace pro Windows Store ani je instalovat z IDE.
+        Pokud toto nastavení povolíte a zároveň povolíte zásadu skupiny Povolit instalaci všech důvěryhodných aplikací, můžete vyvíjet aplikace pro Microsoft Store a instalovat je přímo z IDE.
+
+        Pokud nastavení této zásady zakážete nebo nenakonfigurujete, nebudete moct vyvíjet aplikace pro Microsoft Store ani je instalovat z IDE.
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">Zakázat instalaci aplikací pro Windows na nesystémové svazky</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -54,11 +62,149 @@ Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, budou zásady sk
       </string>
       <string id="AllowSharedLocalAppData">Povolit aplikaci pro Windows sdílení aplikačních dat mezi uživateli</string>
       <string id="AllowSharedLocalAppDataExplanation">Řídí schopnost aplikace pro Windows sdílet data mezi uživateli, kteří si ji nainstalovali.
-      
+
         Pokud nastavení této zásady povolíte, aplikace pro Windows bude moct sdílet aplikační data s jinými instancemi stejné aplikace. Data se sdílejí přes složku SharedLocal, která je dostupná přes rozhraní API Windows.Storage.
 
-        Pokud nastavení této zásady zakážete, aplikace pro Windows nebude moct sdílet aplikační data s jinými instancemi stejné aplikace. Pokud byla tato zásada dříve povolená, zůstanou všechna dříve sdílená aplikační data ve složce SharedLocal. 
+        Pokud nastavení této zásady zakážete, aplikace pro Windows nebude moct sdílet aplikační data s jinými instancemi stejné aplikace. Pokud byla tato zásada dříve povolená, zůstanou všechna dříve sdílená aplikační data ve složce SharedLocal.
       </string>
+      <string id="BlockNonAdminUserInstall">Zabránit uživatelům bez oprávnění správce instalovat zabalené aplikace pro Windows</string>
+      <string id="BlockNonAdminUserInstallExplanation">Určuje, jestli si uživatelé, kteří nejsou správci, můžou nainstalovat balíčky aplikací pro Windows.
+
+        Pokud tuto zásadu povolíte, uživatelé bez oprávnění správce nebudou moct instalaci balíčků aplikací pro Windows spustit. Správci, kteří si chtějí nainstalovat určitou aplikaci, budou muset tuto operaci spustit z kontextu správce (například z okna prostředí PowerShell, které si otevřou jako správci). Všichni uživatelé si budou moct nadále instalovat balíčky aplikací pro Windows přes Microsoft Store, pokud to povolují jiné zásady.
+
+        Pokud tuto zásadu zakážete nebo nenakonfigurujete, budou moct instalaci balíčků aplikací pro Windows spouštět všichni uživatelé.
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">Nastavte autorizované domény pro ověřování HTTPS v instalaci streamování MSIX</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">Toto nastavení zásad určuje, jestli se token EntraID OAuth zahrne do komunikace HTTPS se zadaným plně kvalifikovaným názvem domény pro provedení instalace streamování MSIX.
+
+Pokud toto nastavení zásad povolíte, komunikace HTTPS s předdefinovanými plně kvalifikovanými doménami zahrne při provádění streamované instalace MSIX token EntraID OAuth uživatele. Zadaná hodnota je regulární výraz (skript ECMA), který se použije k porovnání s plně kvalifikovanou doménou adresy URL velkými písmeny.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, token EntraID OAuth uživatele se bude sdílet jen s výchozími nakonfigurovanými doménami.
+      </string>
+      <string id="DisableBackgroundAutoUpdates">Nepovolit aplikacím nainstalovaným bokem automatickou aktualizaci na pozadí</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">Umožňuje spravovat aplikacím nainstalovaným bokem automatické aktualizace na pozadí. 
+
+        Pokud toto nastavení povolíte, nebudou se aplikace nainstalované bokem na pozadí automaticky aktualizovat.
+
+        Pokud tuto zásadu zakážete, aplikace nainstalované bokem se automaticky aktualizují na pozadí.
+
+      Výchozí hodnota je Zakázáno (klíč není k dispozici)
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">Nepovolit aplikacím nainstalovaným bokem automatickou aktualizaci na pozadí v síti s měřením dat</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">Spravuje možnost aplikací načtených bokem automaticky aktualizovat na pozadí v síti s měřením dat.
+
+Pokud tuto zásadu povolíte, aplikace načtené bokem se nebudou automaticky aktualizovat na pozadí v síti s měřením dat.
+
+Pokud tuto zásadu zakážete, aplikace načtené bokem se automaticky aktualizují na pozadí v síti s měřením dat.
+
+Výchozí hodnota je disabled (klíč není k dispozici).
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">Nepovolit instalaci nepodepsaných balíčků pro jednotlivé uživatele ve výchozím nastavení (vyžaduje explicitní povolení pro každou instalaci)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">Nepovolit instalaci nepodepsaných balíčků pro jednotlivé uživatele ve výchozím nastavení (vyžaduje explicitní povolení pro každou instalaci)
+
+Pokud tuto zásadu povolíte, výchozí možnost AllowUnsigned je false.
+
+Pokud tuto zásadu zakážete, výchozí možnost AllowUnsigned je true.
+
+Výchozí hodnota je disabled (klíč není k dispozici).
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">Povolené názvy rodin balíčků pro instalaci uživateli bez oprávnění správce</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">Povolené názvy rodin balíčků pro instalaci balíčku aplikace pro Windows, který není správcem
+
+Pokud tuto zásadu povolíte, můžete zadat seznam balíčků aplikací pro Windows, které nejsou správci, a zahájit instalaci bez ohledu na nakonfigurovanou zásadu Zabránit uživatelům, kteří nejsou správci, instalovat zabalené aplikace pro Windows.
+
+Zadané hodnoty budou považovány za regulární výrazy (skript ECMA). Název sady balíčků, jako je Contoso.ContosoApp_8wekyb3d8bbwe, je sám platný regulární výraz, který se bude shodovat se všemi balíčky v dané rodině. Regulární výraz jako ^Contoso.*_8wekyb3d8bbwe$ se bude také shodovat Contoso.ContosoApp_8wekyb3d8bbwe
+
+Pokud název sady balíčků instalačního balíčku aplikace pro Windows odpovídá jakémukoli pravidlu, nebude blokován zásadou Zabránit uživatelům, které nejsou správci, v instalaci zabalených aplikací pro Windows. Instalace může být stále blokována jinými zásadami nebo nastaveními.
+
+Pokud tuto zásadu zakážete nebo nenakonfigurujete, budou se na všechny balíčky aplikací pro Windows vztahovat nakonfigurovaná zásada Zabránit uživatelům bez oprávnění správce instalovat zabalené aplikace pro Windows.
+
+Výchozí hodnota je disabled (klíč není k dispozici).
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">Odeberte ze systému výchozí balíčky Microsoft Store.</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">Odebere ze systému výchozí balíčky Microsoft Store.
+
+Pokud tuto zásadu povolíte, vybrané aplikace Microsoft Store v zadaném seznamu se ze systému odinstalují. Můžete provést úpravy výchozích nastavení.
+
+Nevybrané aplikace v seznamu nebudou odebrány.
+
+* Toto je bezobslužná aplikace (bez uživatelského rozhraní)
+
+** Tato aplikace je výchozím obslužným programem pro běžný typ souboru nebo protokol. Odebrání této aplikace může mít za následek zhoršení uživatelského prostředí. Tuto aplikaci nedoporučujeme odebírat.
+
+Pokud tuto zásadu povolíte, můžete aplikaci odebrat také zadáním názvu rodiny balíčků aplikace (například Microsoft.WindowsCalculator_8wekyb3d8bbwe) do dynamického seznamu v části „Zadat další názvy rodin balíčků k odebrání“.
+
+Pokud je tato zásada povolena, přeinstalace dříve odebrané aplikace vyžaduje zrušení výběru aplikace v zadaném seznamu nebo odstranění názvu rodiny balíčků aplikace z dynamického seznamu.
+
+Součásti systému Windows nelze odebrat prostřednictvím dynamického seznamu odebrání aplikace.
+
+Ověření názvů rodin balíčků v dynamickém seznamu odebrání aplikace probíhá při přihlášení uživatele, ne v době konfigurace zásad.
+
+Výchozí hodnota je „zakázáno“ (klíč není k dispozici).
+
+Pokud je zásada zakázána nebo není nakonfigurována, nebudou ze systému odebrány žádné výchozí aplikace.
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">Odebere ze systému výchozí balíčky Microsoft Store.</string>
+      <string id="EnableMsixAllowedZones">Povolit povolené zóny pro balíčky MSIX</string>
+      <string id="EnableMsixAllowedZonesExplanation">Tato zásada určuje, jestli se můžou instalovat balíčky MSIX pocházející z konkrétních zón adres URL. Původ balíčku se určuje podle jeho identifikátoru URI a jestli je k dispozici Mart-of-the-Web (MotW). Pokud je zapojeno více identifikátorů URI, jsou všechny z nich považovány za zahrnuté;
+
+Pokud tuto zásadu povolíte, uživatelé budou moct instalovat balíčky MSIX podle konfigurace pro každou zónu.
+
+Pokud tuto zásadu zakážete nebo nenakonfigurujete, uživatelé budou moct instalovat balíčky MSIX z libovolné zóny kromě nedůvěryhodných.</string>
+      <string id="ZoneAllowed">Povolit</string>
+      <string id="ZoneBlocked">Blokovat</string>
+      <string id="EnableMsixSmartScreenCheck">Povolit kontroly Microsoft SmartScreen pro balíčky MSIX</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">Tato zásada určuje, jestli se při instalaci balíčků MSIX z konkrétních zón URL provede kontrola filtru Microsoft SmartScreen.
+
+Pokud tuto zásadu povolíte nebo nenakonfigurujete, URI balíčku se před instalací vyhodnotí pomocí Microsoft SmartScreen. Tato kontrola se provádí jenom u balíčků, které pocházejí z internetu.
+
+Pokud tuto možnost zakážete, Microsoft SmartScreen se před instalací balíčku nezobrazí.</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>Výraz</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">Povolené názvy rodin balíčků pro instalaci uživateli bez oprávnění správce</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>Odebere ze systému výchozí balíčky Microsoft Store.</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">Centrum Feedback</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">Microsoft 365 Copilot</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft News</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Microsoft Fotografie **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Microsoft Rychlé poznámky</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">Microsoft To Do</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN Počasí</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Outlook pro Windows</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">Malování</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">Rychlý pomocník</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">Výstřižky</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Windows Kalkulačka</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Windows Kamera **</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Přehrávač médií Windows **</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Windows Poznámkový blok **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Záznam zvuku systému Windows</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Terminál Windows</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">Aplikace Xbox Gaming</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Xbox Identity Provider *</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Překryvný prvek řeči na text pro Xbox *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">Zadejte další názvy skupin balíčků, které se mají odebrat</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">Místní počítač</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">Intranet</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">Důvěryhodné servery</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">Internet</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">Nedůvěryhodné weby</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

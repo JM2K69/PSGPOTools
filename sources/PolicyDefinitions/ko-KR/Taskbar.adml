@@ -29,6 +29,12 @@
 이 정책 설정을 사용하면 시스템 알림 영역에 보안 및 유지 관리 아이콘이 표시되지 않습니다.
 
 이 정책 설정을 사용하지 않거나 구성하지 않으면 시스템 알림 영역에 보안 및 유지 관리 아이콘이 표시됩니다.</string>
+      <string id="HideSCAMeetNow">지금 모임 시작 아이콘 제거</string>
+      <string id="HideSCAMeetNow_Help">이 정책 설정을 사용하여 시스템 제어 영역에서 지금 모임 시작 아이콘을 제거할 수 있습니다.
+
+이 정책 설정을 사용하면 시스템 알림 영역에 지금 모임 시작 아이콘이 표시되지 않습니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 시스템 알림 영역에 지금 모임 시작 아이콘이 표시됩니다.</string>
       <string id="TaskbarLockAll">모든 작업 표시줄 설정 잠금</string>
       <string id="TaskbarLockAll_Help">이 정책 설정을 통해 모든 작업 표시줄 설정을 잠글 수 있습니다.
 
@@ -121,7 +127,6 @@
 이 정책 설정을 사용하면 사용자가 파일 , 폴더, 웹사이트 또는 기타 항목을 시작 메뉴 및 작업 표시줄의 점프 목록에 고정할 수 없습니다. 또한 점프 목록에 고정된 기존 항목을 제거할 수도 없습니다. 점프 목록에 고정된 기존 항목은 계속 표시됩니다.
 
 이 정책 설정을 사용하지 않거나 구성하지 않으면 사용자는 파일, 폴더, 웹 사이트 및 기타 항목을 프로그램의 점프 목록에 고정하며 이 메뉴에 해당 항목이 항상 표시되도록 할 수 있습니다.
-
 </string>
       <string id="TaskbarNoMultimon">Do not allow taskbars on more than one display(둘 이상의 디스플레이에 작업 표시줄 표시 허용 안 함)</string>
       <string id="TaskbarNoMultimon_Help">이 정책 설정을 사용하면 사용자가 둘 이상의 모니터에 작업 표시줄을 표시하지 못하게 할 수 있습니다.
@@ -129,14 +134,14 @@
 이 정책 설정을 사용하면 사용자가 둘 이상의 디스플레이에 작업 표시줄을 표시할 수 없습니다. 다중 디스플레이 섹션은 작업 표시줄 속성 대화 상자에서 사용되지 않도록 설정되어 있습니다.
 
 이 정책 설정을 사용하지 않거나 구성하지 않으면 사용자가 둘 이상의 디스플레이에 작업 표시줄을 표시할 수 있습니다.</string>
-        <string id="ShowWindowsStoreAppsOnTaskbar">작업 표시줄에 실행중인 Windows 스토어 앱 표시</string>
+        <string id="ShowWindowsStoreAppsOnTaskbar">작업 표시줄에 패키지된 Microsoft Store 앱 표시</string>
         <string id="ShowWindowsStoreAppsOnTaskbar_Help">
-이 정책 설정을 통해 사용자는 작업 표시줄에서 Windows 스토어 앱을 볼 수 있습니다.
- 
-이 정책 설정을 사용하도록 설정하면 사용자 작업 표시줄에 Windows 스토어 앱이 표시됩니다.
- 
-이 정책 설정을 사용하지 않도록 설정하면 사용자 작업 표시줄에 Windows 스토어 앱이 표시되지 않습니다.
- 
+이 정책 설정을 통해 사용자는 작업 표시줄에서 패키지된 Microsoft Store 앱을 볼 수 있습니다.
+
+이 정책 설정을 사용하도록 설정하면 사용자 작업 표시줄에 패키지된 Microsoft Store 앱이 표시됩니다.
+
+이 정책 설정을 사용하지 않도록 설정하면 사용자 작업 표시줄에 패키지된 Microsoft Store 앱이 표시되지 않습니다.
+
 이 정책 설정을 구성하지 않으면 사용자 장치의 기본 설정이 사용되며, 사용자가 변경할 수 있습니다.</string>
       <string id="DisableNotificationCenter">알림 및 알림 센터 제거</string>
       <string id="DisableNotificationCenter_Help">이 정책 설정은 작업 표시줄의 알림 영역에서 알림 및 알림 센터를 제거합니다.
@@ -148,7 +153,7 @@
 이 정책 설정을 사용하지 않거나 구성하지 않으면 알림과 보안 및 유지 관리가 작업 표시줄에 표시됩니다.
 
 이 정책 설정을 적용하려면 다시 부팅해야 합니다.</string>
-      <string id="NoPinningStoreToTaskbar">작업 표시줄에 Microsoft Store 앱 고정 허용 안 함</string> 
+      <string id="NoPinningStoreToTaskbar">작업 표시줄에 Microsoft Store 앱 고정 허용 안 함</string>
       <string id="NoPinningStoreToTaskbar_Help">
 이 정책 설정을 통해 작업 표시줄에 Microsoft Store 앱을 고정하는 기능을 제어할 수 있습니다.
 
@@ -165,10 +170,81 @@
 이 정책 설정을 구성하지 않으면 일정이 기본 논리에 따라 설정됩니다.</string>
       <string id="ConfigureTaskbarCalendar_SimplifiedChinese">중국어 간체(음력)</string>
       <string id="ConfigureTaskbarCalendar_TraditionalChinese">중국어 번체(음력)</string>
+      <string id="Chat">채팅</string>
+      <string id="ConfigureChatIcon">작업 표시줄에서 채팅 아이콘 구성</string>
+      <string id="ConfigureChatIcon_Help">이 정책 설정을 통해 작업 표시줄에서 채팅 아이콘을 구성할 수 있습니다.
+
+이 정책 설정을 사용하고 표시하기로 설정하면 기본적으로 작업 표시줄에 채팅 아이콘이 표시됩니다. 사용자가 설정에서 표시하거나 숨길 수 있습니다.
+
+이 정책 설정을 사용하고 숨기기로 설정하면 기본적으로 채팅 아이콘이 숨겨집니다. 사용자가 설정에서 표시하거나 숨길 수 있습니다.
+
+이 정책 설정을 사용한 다음 사용 안 함으로 설정하면 채팅 아이콘이 표시되지 않으며, 사용자가 설정에서 표시하거나 숨길 수 없습니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 채팅 아이콘이 Windows 버전의 기본값에 따라 구성됩니다.</string>
+      <string id="ChatEnum_Show">표시</string>
+      <string id="ChatEnum_Hide">숨기기</string>
+      <string id="ChatEnum_Disabled">사용 안 함</string>
+      <string id="HideTaskViewButton">TaskView 버튼 숨기기</string>
+      <string id="HideTaskViewButton_Help">이 정책 설정을 통해 TaskView 단추를 숨길 수 있습니다.
+
+이 정책 설정을 사용하면 작업 보기 단추가 숨겨지고 설정 토글이 사용하지 않도록 설정됩니다.</string>
+      <string id="AlwaysShowNotificationIcon">알림 벨 아이콘 표시</string>
+      <string id="AlwaysShowNotificationIcon_Help">
+이 정책 설정을 통해 시스템 트레이에 알림 벨 아이콘을 표시할 수 있습니다.
+
+이 정책 설정을 사용하면 알림 아이콘이 항상 표시됩니다. 그렇지 않으면 알림 아이콘은 특별한 상태 있을 때만 표시됩니다(예: 방해 금지가 켜져 있는 경우).
+
+이 정책 설정을 적용하려면 다시 부팅해야 합니다.
+      </string>
+      <string id="TurnOffAbbreviatedDateTimeFormat">약식 시간 및 날짜 형식 끄기</string>
+      <string id="TurnOffAbbreviatedDateTimeFormat_Help">
+이 정책 설정을 사용하면 시스템 트레이에 더 긴 시간 및 날짜 형식을 표시할 수 있습니다.
+
+이 설정을 사용하면 시간 형식에 AM/PM 시간 표식이 포함되며 날짜에 연도가 포함됩니다.
+
+이 정책 설정을 적용하려면 다시 부팅해야 합니다.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior">ConfigureTaskbarSmallButtonBehavior</string>  
+      <string id="ConfigureTaskbarSmallButtonBehavior_DisplayName">작업 표시줄 작은 단추 동작 구성</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Help">이 정책 설정을 사용하면 작은 작업 표시줄 단추의 동작을 구성할 수 있습니다.
+      
+다음과 같이 설정된 경우:
+      - 항상: 작업 표시줄은 항상 작은 단추를 사용합니다.
+      - 작업 표시줄이 가득 찼을 때: 작업 표시줄은 사용 가능한 공간에 따라 작은 단추와 표준 단추 크기 사이를 동적으로 전환합니다.
+      - 사용 안 함: 작업 표시줄에서 작은 단추를 사용하지 않습니다. 표준 크기의 단추만 사용됩니다.
+
+이 정책을 사용하도록 설정하면 위의 옵션 중 하나를 선택해야 하며, 사용자는 설정 UI에서 "작은 작업 표시줄 단추 표시" 옵션을 변경할 수 없습니다.
+
+이 정책이 비활성화되었거나 구성되지 않으면 그룹 정책에 따라 아무런 옵션도 적용되지 않습니다. Windows는 기본적으로 "작업 표시줄이 가득 찬 경우" 동작으로 설정되어 있으며, 사용자는 설정 UI에서 이 설정을 수동으로 변경할 수 있습니다.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Always">항상</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_WhenTaskbarIsFull">작업 표시줄이 꽉 찼을 때</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Never">안 함</string>
+      <string id="DisableTaskbarPosition">작업 표시줄 위치 변경 사용 안 함</string>
+      <string id="DisableTaskbarPosition_Help">이 정책 설정을 사용하면 사용자가 작업 표시줄의 위치를 변경하지 못하게 할 수 있습니다.
+
+이 정책 설정을 사용하면 작업 표시줄이 화면 아래쪽으로 이동되고 설정 앱에서 작업 표시줄 위치 설정이 회색으로 표시됩니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 사용자가 설정 앱에서 작업 표시줄의 위치를 변경할 수 있습니다.</string>
+      <string id="DisableTaskbarSize">작업 표시줄 크기 변경 사용 안 함</string>
+      <string id="DisableTaskbarSize_Help">이 정책 설정을 사용하면 사용자가 작업 표시줄 크기를 변경하지 못하게 할 수 있습니다.
+
+이 정책 설정을 사용하면 작업 표시줄이 기본 크기로 설정되고 설정 앱에서 작업 표시줄 크기 설정이 회색으로 표시됩니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 사용자가 설정 앱에서 작업 표시줄 크기를 변경할 수 있습니다.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureTaskbarCalendar">
         <dropdownList refId="ConfigureTaskbarCalendar_Dropdown" defaultItem="0">일정:</dropdownList>
+      </presentation>
+      <presentation id="ConfigureChatIcon">
+          <text>채팅 아이콘 설정 구성</text>
+          <text> </text>
+          <dropdownList refId="ConfigureChatIcon_Action" noSort="true" defaultItem="1">상태: </dropdownList>
+          <text> </text>
+      </presentation>
+      <presentation id="ConfigureTaskbarSmallButtonBehavior">
+        <dropdownList refId="ConfigureTaskbarSmallButtonBehavior_Dropdown" noSort="true" defaultItem="1">더 작은 작업 표시줄 단추를 표시할 시기를 선택하세요. </dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -220,11 +220,11 @@ Näet esimerkin tavallisesta Avaa-valintaikkunasta käynnistämällä Wordpadin 
 
 Huomautus: Windows Vistassa tämä käytäntöasetus koskee vain yleistä Windows XP -valintaikkunatyyliä käyttäviä sovelluksia. Tämä käytäntöasetus ei koske uutta yleistä Windows Vista -valintaikkunatyyliä. Muiden valmistajien sovelluksilta edellytetään tätä asetusta Windows 2000:n ja uudempien versioiden sertifioinnissa.</string>
       <string id="NoRecycleFiles">Älä siirrä poistettuja tiedostoja roskakoriin</string>
-      <string id="NoRecycleFiles_Help">Kun tiedosto tai kansio poistetaan Resurssienhallinnassa, se kopioidaan roskakoriin. Tämän asetuksen avulla tätä ominaisuutta voidaan muokata.
+      <string id="NoRecycleFiles_Help">Kun tiedosto tai kansio poistetaan Resurssienhallinnassa, tiedoston tai kansion kopio on sijoitettu roska koriin. Tämän asetuksen avulla voit muuttaa tätä asetusta.
 
-Jos tämä asetus on käytössä, Resurssienhallinnassa poistettuja tiedostoja ja kansioita ei kopioida roskakoriin vaan ne poistetaan lopullisesti.
+Jos otat tämän asetuksen käyttöön, Resurssienhallinnassa poistettuja tiedostoja ja kansioita ei sijoittaa roska koriin, ja ne poistetaan pysyvästi.
 
-Jos tämä asetus poistetaan käytöstä tai sitä ei määritetä, Resurssienhallinnassa poistetut tiedostot ja kansiot kopioidaan roskakoriin.</string>
+Jos poistat tämän asetuksen käytöstä tai et määritä sitä, Resurssienhallinnassa poistetut tiedostot ja kansiot sijoitetaan roska koriin.</string>
       <string id="NoRunAsInstallPrompt">Älä pyydä vaihtoehtoisia valtuustietoja</string>
       <string id="NoRunAsInstallPrompt_Help">Estää käyttäjiä antamasta vaihtoehtoisia valtuustietoja ohjelmien asentamiseksi.
 
@@ -519,19 +519,33 @@ Jos otat tämän käytäntöasetuksen käyttöön, tiedostojen pikakuvakkeiden h
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, etäpolkuja käyttäviä tiedostojen pikakuvakkeita ei näytetä.
 
 Huomautus: Käyttäjän tietokone voi altistua turvallisuusriskeille, jos tiedostojen pikakuvakkeiden etäpolut sallitaan.</string>
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Salli tiedostoryhmän kuvaustoimintojen kirjoittaa mihin tahansa kohdepolkuun</string>
+      <string id="AllowAllCopyFGDDestinations_Help">Tämä käytäntöasetus määrittää, pakotetaanko polun ylityksen estotarkistukset, kun tiedostoja kirjoitetaan leikepöydän tai vedä ja pudota -tiedostoryhmäkuvausten (CFSTR_FILEDESCRIPTOR) kautta vastaanotetuista tiedoista.
+
+Jos otat tämän käytäntöasetuksen käyttöön, polun ylityksen estotarkistuksia ei pakoteta, ja tiedostoja voidaan kirjoittaa mihin tahansa polkuun, johon kohdekansio pääsee. Ota tämä käytäntö käyttöön vain, jos oletustoiminta estää tarvittavan työnkulun.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tiedostoryhmäkuvaustoiminnot pakottavat polun sisältötarkistukset ja hylkäävät tiedostonimet, jotka yrittävät poistua kohdekansiosta suhteellisten polkukomponenttien avulla.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">Älä käytä verkkomerkintää tiedostoissa, jotka on kopioitu suojaamattomista lähteistä</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">Tämä käytäntöasetus määrittää, käytetäänkö Verkkomerkintä-tunnistetta tiedostoihin, jotka ovat peräisin suojaamattomista sijainneista.
+
+Jos otat tämän käytäntöasetuksen käyttöön, suojaamattomista lähteistä kopioituja tiedostoja ei merkitä Verkkomerkinnällä.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, suojaamattomista lähteistä kopioidut tiedostot merkitään asianmukaisella Verkkomerkinnällä.
+
+Huomautus: jos suojaamattomien lähteiden tiedostoja ei tunnisteta Verkkomerkinnällä, käyttäjien tietokoneet voivat altistua tietoturvariskeille.</string>
       <string id="DefaultAssociationsConfiguration">Määritä oletusarvoinen yhteyksien määritystiedosto</string>
-      <string id="DefaultAssociationsConfiguration_Help">Tämä käytäntö määrittää polun (paikalliseen tai verkkosijainnissa olevaan) tiedostoon, joka sisältää tiedostotyyppien ja protokollien oletusarvoiset sovellusyhteydet. Tämän tiedoston voi luoda DISM-työkalulla.
-
+      <string id="DefaultAssociationsConfiguration_Help">Tämä käytäntö määrittää polun tiedostoon (tallennettu paikallisesti tai verkkosijaintiin), joka sisältää tiedostotyypin ja protokollan oletussovelluskytkennät. Tämä tiedosto voidaan luoda DISM-työkalulla.
+      
 Esimerkki:
-Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt 
+Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-Lisätietoja on TechNetin DISM-ohjeissa.
+Lisätietoja on DISM-dokumentaatiossa.
 
-Jos tämä ryhmäkäytäntö otetaan käyttöön ja asiakaskone on liitetty toimialueeseen, tiedosto käsitellään ja oletusyhteydet otetaan käyttöön sisäänkirjautumisessa. 
+Tiedostoa voidaan muokata sen luomisen jälkeen, jotta käytäntökytkentöjen määrityksen väli muuttuu. Version-määrite voidaan lisätä DefaultAssociations-elementtiin. Arvon on oltava kokonaisluku. Ehdotettu-määrite voidaan lisätä mihin tahansa Kytkentä-elementtiin. Arvon on oltava totuusarvo, ja oletusarvo on "false". Kun käytäntöä sovelletaan käyttäjään, kaikki kytkennät, joissa on Suggested="true", otetaan käyttöön vain kerran. Jos Version-arvoa joskus kasvatetaan, kytkennät, joissa on Suggested="true", otetaan uudelleen käyttöön.
 
-Jos ryhmäkäytäntöä ei määritetä tai oteta käyttöön tai asiakaskonetta ei ole liitetty toimialueeseen, oletusyhteyksiä ei oteta käyttöön sisäänkirjautumisessa.
+Jos tämä ryhmäkäytäntö on käytössä ja asiakaskone on liitetty toimialueeseen, tiedosto käsitellään ja oletuskytkennät otetaan käyttöön kirjautumisen yhteydessä.
 
-Jos käytäntö otetaan käyttöön tai poistetaan käytöstä tai sitä ei määritetä, käyttäjät voivat edelleen ohittaa tiedostotyypin ja protokollan oletusyhteydet.</string>
+Jos käytäntö on käytössä, käyttäjät voivat edelleen ohittaa oletustiedostotyypin ja protokollakytkennät, mutta seuraavan kirjautumisen yhteydessä tiedosto otetaan uudelleen käyttöön.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

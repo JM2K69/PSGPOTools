@@ -60,33 +60,34 @@ Microsoft 支持诊断工具(MSDT)收集诊断数据供技术支持人员进行�
 
 </string>
 <string id="TroubleshootingAllowRecommendations">疑难解答: 允许用户访问已知问题的推荐疑难解答</string>
-<string id="TroubleshootingAllowRecommendationsExplain">此策略设置为设备上的已知问题应用建议的疑难解答，并允许管理员配置将其应用于域/IT 环境的方式。
-如果未配置此策略设置，则将允许用户配置是否以及如何应用建议的疑难解答。
+<string id="TroubleshootingAllowRecommendationsExplain">此策略设置配置如何在设备上应用对已知问题进行故障排除的方法，并允许管理员配置将它应用于其域/IT 环境的方式。
 
-如果启用此策略，则可以配置在用户设备上应用建议的疑难解答的方式。你可以从下列值中选择一个:
-0 = 关闭此功能。
-1 = 关闭此功能但仍应用关键的疑难解答。
-2 = 在建议的疑难解答可用时通知用户，然后允许用户运行或忽略它。
-3 = 自动运行建议的疑难解答并在成功运行后通知用户。
-4 = 自动运行建议的疑难解答而不通知用户。
-5 = 允许用户选择其自己的建议疑难解答设置。
+如果不配置此策略设置，用户将能够配置如何应用故障排除。
 
-设置此新设置后，若要为域中的设备触发建议的疑难解答，请按照以下说明进行操作:
-1. 使用以下内容创建批处理脚本:
-rem 下列批处理脚本会触发建议的疑难解答
-C:\Windows\System32\mitigationscanner.exe
+如果启用此策略，则可以配置如何在用户设备上应用故障排除。你可以选择以下值之一:
+0 = 不允许用户、系统功能或 Microsoft 应用故障排除。
+1 = 仅由系统功能和 Microsoft 自动对严重问题应用故障排除。
+2 = 由系统功能和 Microsoft 自动对严重问题应用故障排除。当可对其他问题进行故障排除时通知用户，并允许用户选择应用或忽略。
+3 = 由系统功能和 Microsoft 自动对严重问题和其他问题应用故障排除。当通过故障排除解决问题时通知用户。
+4 = 由系统功能和 Microsoft 自动对严重问题和其他问题应用故障排除。当故障排除解决问题时不通知用户。
+5 = 允许用户选择自己的故障排除设置。
 
-2. 若要创建新的即时任务，请导航到“组策略管理编辑器”&gt;“计算机配置”&gt;“首选项”，然后选择“控制面板设置”。
-3. 在“控制面板设置”下，右键单击“计划的任务”，然后选择“新建”。选择“即时任务(至少是 Windows 7)”。
-4. 根据需要提供名称和描述，然后在“安全选项”下将用户帐户设置为“系统”，并选中“使用最高权限运行”复选框。
-5. 在“操作”选项卡中，创建一项新操作，选择“启动程序”作为其类型，然后输入在步骤 1 中创建的文件。
-6. 配置任务以部署到域中。</string>
-<string id="RecommendationsDropDown_DoNothing">关闭此功能</string>
-<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">关闭此功能但仍应用关键的疑难解答。</string>
-<string id="RecommendationsDropDown_AskFirst">在建议的疑难解答可用时通知用户，然后允许用户运行或忽略它。</string>
-<string id="RecommendationsDropDown_ApplyThenNotify">自动运行建议的疑难解答并在成功运行后通知用户。</string>
-<string id="RecommendationsDropDown_ApplySilently">自动运行建议的疑难解答而不通知用户。</string>
-<string id="RecommendationsDropDown_DeferToUser">允许用户选择其自己偏好的疑难解答设置。</string>
+设置此策略后，你可以按照以下说明检查域中的设备是否存在来自 Microsoft 的可用故障排除:
+1. 创建包含以下内容的 bat 脚本:
+rem 以下批处理脚本将触发“建议的故障排除”
+schtasks /run /TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner"
+
+2. 要创建新的即时任务，请导航到“组策略管理编辑器”&gt;“计算机配置”&gt;“首选项”，然后选择“控制面板”设置。
+3. 在“控制面板”设置下，右键单击“计划任务”并选择“新建”。选择“即时任务(至少是 Windows 7)”。
+4. 提供适当的名称和说明，然后在“安全选项”下将用户账户设置为“系统”，然后选择“使用最高权限运行”复选框。
+5. 在“操作”选项卡中，创建新操作，选择“启动程序”作为其类型，然后输入在步骤 1 中创建的文件。
+6. 配置要部署到域的任务。</string>
+<string id="RecommendationsDropDown_DoNothing">不允许用户、系统功能或 Microsoft 应用故障排除。</string>
+<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">仅通过系统功能和 Microsoft 来自动应用对关键问题的故障排除。</string>
+<string id="RecommendationsDropDown_AskFirst">通过系统功能和 Microsoft 自动对关键问题应用故障排除。在其他问题的疑难解答可用时通知用户，并允许用户选择应用或忽略。</string>
+<string id="RecommendationsDropDown_ApplyThenNotify">通过系统功能和 Microsoft 自动对关键问题和其他问题进行故障排除。排除故障时通知用户问题已解决。</string>
+<string id="RecommendationsDropDown_ApplySilently">通过系统功能和 Microsoft 自动对关键问题和其他问题进行故障排除。解决问题后不要通知用户。</string>
+<string id="RecommendationsDropDown_DeferToUser">允许用户选择其自己的疑难解答设置。</string>
     </stringTable>
     <presentationTable>
       <presentation id="MsdtToolDownloadPolicy">

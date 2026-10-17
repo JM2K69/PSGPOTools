@@ -220,11 +220,11 @@ Starten Sie WordPad, und klicken Sie im Menü "Datei" auf "Öffnen", um ein Beis
 
 Hinweis: Unter Windows Vista gilt diese Richtlinieneinstellung nur für Anwendungen, die den Windows XP-Stil für allgemeine Dialogfelder verwenden. Diese Richtlinieneinstellung gilt nicht für den neuen Windows Vista-Stil für allgemeine Dialogfelder. Für die Zertifizierung von Drittanbieteranwendungen unter Windows 2000 oder späteren Versionen ist das Festhalten an dieser Einstellung eine Voraussetzung.</string>
       <string id="NoRecycleFiles">Gelöschte Dateien nicht in den Papierkorb verschieben</string>
-      <string id="NoRecycleFiles_Help">Wenn im Datei-Explorer eine Datei oder ein Ordner gelöscht wird, wird eine Kopie der Datei oder des Ordners im Papierkorb abgelegt. Mit dieser Einstellung können Sie dieses Vorgehen ändern.
+      <string id="NoRecycleFiles_Help">Wenn eine Datei oder ein Ordner im Datei-Explorer gelöscht wird, wird eine Kopie der Datei oder des Ordners im Papier Korb abgelegt. Mit dieser Einstellung können Sie dieses Verhalten ändern.
 
-Wenn Sie diese Einstellung aktivieren, werden Dateien und Ordner, die mithilfe des Datei-Explorers gelöscht werden, nicht im Papierkorb abgelegt und somit dauerhaft gelöscht.
+Wenn Sie diese Einstellung aktivieren, werden Dateien und Ordner, die mithilfe des Datei-Explorers gelöscht werden, nicht im Papier Korb abgelegt und werden daher endgültig gelöscht.
 
-Wenn Sie diese Einstellung deaktivieren oder nicht konfigurieren, werden mithilfe des Datei-Explorers gelöschte Dateien und Ordner im Papierkorb abgelegt.</string>
+Wenn Sie diese Einstellung deaktivieren oder nicht konfigurieren, werden Dateien und Ordner, die mithilfe des Datei-Explorers gelöscht wurden, im Papier Korb abgelegt.</string>
       <string id="NoRunAsInstallPrompt">Keine alternativen Anmeldeinformationen anfordern</string>
       <string id="NoRunAsInstallPrompt_Help">Verhindert, dass Benutzer alternative Anmeldeinformationen zum Installieren eines Programms angeben.
 
@@ -519,19 +519,33 @@ Wenn Sie diese Richtlinieneinstellung aktivieren, ist das Abrufen von Dateiverkn
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird die Anzeige von Dateiverknüpfungssymbolen, für die Remotepfade verwendet werden, verhindert.
 
 Hinweis: Wenn Sie die Verwendung von Remotepfaden in Dateiverknüpfungssymbolen zulassen, können die Computer der Benutzer Sicherheitsrisiken unterliegen.</string>
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Dateigruppen-Deskriptorvorgänge zum Schreiben in jeden Zielpfad zulassen</string>
+      <string id="AllowAllCopyFGDDestinations_Help">Diese Richtlinieneinstellung legt fest, ob Pfadausnahmeprüfungen erzwungen werden, wenn Dateien geschrieben werden, die über Zwischenablage oder Drag-and-Drop-Dateigruppendeskriptoren (CFSTR_FILEDESCRIPTOR) empfangen werden.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, werden keine Überprüfungen der Pfadausnahmebeschränkung erzwungen, und Dateien können in jeden vom Zielordner erreichbaren Pfad geschrieben werden. Aktivieren Sie diese Richtlinie nur, wenn das Standardverhalten einen erforderlichen Workflow unterbricht.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, erzwingen Dateigruppendeskriptorvorgänge den Pfadeinschluss und lehnen Dateinamen ab, die versuchen, den Zielordner über relative Pfadkomponenten mit Escapezeichen zu versehen.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">Die Markierung „Mark of the Web“ nicht auf Dateien anwenden, die aus unsicheren Quellen kopiert wurden</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">Diese Richtlinieneinstellung bestimmt die Anwendung des Tags „Mark of the Web“ auf Dateien, die von unsicheren Speicherorten stammen.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, werden Dateien, die aus unsicheren Quellen kopiert wurden, nicht mit „Mark of the Web“ gekennzeichnet.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, werden Dateien, die aus unsicheren Quellen kopiert wurden, mit dem entsprechenden „Mark of the Web“ gekennzeichnet.
+
+Hinweis: Wenn Dateien aus unsicheren Quellen nicht mit „Mark of the Web“ gekennzeichnet werden, können Computer von Benutzern Sicherheitsrisiken ausgesetzt werden.</string>
       <string id="DefaultAssociationsConfiguration">Konfigurationsdatei für Standardzuordnungen festlegen</string>
-      <string id="DefaultAssociationsConfiguration_Help">Mithilfe dieser Richtlinieneinstellung wird der Pfad zu einer Datei angegeben (z. B. eine lokal oder unter einer Netzwerkadresse gespeicherte Datei), die Standardanwendungszuordnungen für Dateitypen und Protokolle enthält. Diese Datei kann mit dem DISM-Tool erstellt werden.
-
+      <string id="DefaultAssociationsConfiguration_Help">Diese Richtlinie gibt den Pfad zu einer Datei an (lokal oder an einem Netzwerkspeicherort gespeichert), die Standardanwendungszuordnungen für Dateitypen und Protokolle enthält. Diese Datei kann mit dem DISM-Tool erstellt werden.
+      
 Beispiel:
-Dism.exe/Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
+Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-Weitere Informationen finden Sie in der DISM-Dokumentation auf der TechNet-Website.
+Weitere Informationen finden Sie in der DISM-Dokumentation.
 
-Wenn diese Gruppenrichtlinie aktiviert ist und der Clientcomputer einer Domäne angehört, wird die Datei beim Anmelden verarbeitet, und die Standardzuordnungen werden angewendet.
+Die Datei kann nach der Erstellung weiter bearbeitet werden, um zu ändern, wie oft die Richtlinienzuordnungen angewendet werden. Das Attribut „Version“ kann dem Element „DefaultAssociations“ hinzugefügt werden. Der Wert sollte eine ganze Zahl sein. Ein „Suggested“-Attribut kann zu jedem „Association“-Element hinzugefügt werden. Der Wert sollte ein boolescher Wert sein und der Standardwert ist „false“. Wenn die Richtlinie auf einen Benutzer angewendet wird, wird jede Zuordnung mit Suggested="true" nur einmal angewendet. Wenn der Versionswert jemals erhöht wird, werden Zuordnungen mit Suggested="true" erneut angewendet.
 
-Wenn diese Gruppenrichtlinie nicht konfiguriert oder deaktiviert ist oder der Clientcomputer keiner Domäne angehört, werden beim Anmelden keine Standardzuordnungen angewendet.
+Wenn diese Gruppenrichtlinie aktiviert ist und der Clientcomputer einer Domäne angehört, wird die Datei verarbeitet und die Standardzuordnungen werden bei der Anmeldung angewendet.
 
-Wenn die Richtlinie aktiviert, deaktiviert oder nicht konfiguriert ist, können die Benutzer die Standardzuordnungen für Dateitypen und Protokolle weiterhin überschreiben.</string>
+Wenn die Richtlinie aktiviert ist, können Benutzer weiterhin die Standarddateityp- und Protokollzuordnungen außer Kraft setzen, aber bei der nächsten Anmeldung wird die Datei erneut angewendet.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

@@ -3,10 +3,12 @@
 <description>buraya açıklamayı girin</description>
 <resources>
     <stringTable>
-    <string id="AntiSpywareDefender">Windows Defender Virüsten Koruma</string>
+    <string id="AntiSpywareDefender">Microsoft Defender Virüsten Koruma</string>
     <string id="AntiSpyware">Endpoint Protection</string>
     <string id="Exclusions">Dışlamalar</string>
-    <string id="ExploitGuard">Windows Defender Exploit Guard</string>
+    <string id="Features">Özellikler</string>
+    <string id="DeviceControl">Aygıt Denetimi</string>
+    <string id="ExploitGuard">Microsoft Defender Exploit Guard</string>
     <string id="ExploitGuard_ASR">Attack Surface Azaltma</string>
     <string id="ExploitGuard_ControlledFolderAccess">Denetlenen Klasör Erişimi</string>
     <string id="ExploitGuard_NetworkProtection">Ağ Koruması</string>
@@ -15,6 +17,9 @@
     <string id="Quarantine">Karantina</string>
     <string id="RealtimeProtection">Gerçek Zamanlı Koruma</string>
     <string id="Remediation">Düzeltme</string>
+    <string id="Remediation_BNB">Davranışsal Ağ Blokları</string>
+    <string id="Remediation_BNB_REP">Uzaktan Şifreleme Koruması</string>
+    <string id="Remediation_BNB_BFP">Brute-Force Koruması</string>
     <string id="Reporting">Raporlama</string>
     <string id="Scan">Tarama</string>
     <string id="SignatureUpdate">Güvenlik Bilgileri Güncelleştirmeleri</string>
@@ -29,18 +34,71 @@ Bu ayarı etkinleştirir veya yapılandırmazsanız, kötü amaçlı yazılımda
 
 Bu ayarı devre dışı bırakırsanız, kötü amaçlı yazılımdan koruma hizmeti düşük önceliğe sahip bir görev gibi yüklenir.</string>
 
+    <string id="MeteredConnectionUpdates">Microsoft Defender Virüsten Koruma’nın tarifeli bağlantı üzerinden güncellenmesine ve iletişim kurmasına izin verir.</string>
+    <string id="MeteredConnectionUpdates_Explain">
+    Devre dışı (varsayılan): 
+    Tarifeli bağlantılar üzerinden güncelleştirmelere ve iletişime izin verilmez.
+
+Etkinleştirilmeyeceğini 
+    Yönetilen cihazların tarifeli bağlantılar üzerinden güncelleştirilmesine izin ver. Veri ücretleri uygulanabilir.</string>
+    <string id="HideExclusionsFromLocalAdmins">Dışlamaların Yerel Yöneticiler tarafından görülüp görülemeyeceğini kontrol edin.</string>
+    <string id="HideExclusionsFromLocalAdmins_Explain">
+    Bu ilke ayarı dışlamaların Yerel Yöneticiler tarafından görülüp görülemeyeceğini kontrol eder. Son kullanıcılar (Yerel Yönetici olmayanlar) bu ayarın etkin olup olmamasından bağımsız olarak dışlamaları göremez.
+    Devre dışı (Varsayılan):
+        Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız Yerel Yöneticiler, dışlamaları Windows Güvenliği ya da PowerShell üzerinden görebilir.
+
+    Etkin: 
+        Bu ayarı etkinleştirirseniz Yerel Yöneticiler dışlama listelerini artık Windows Güvenliği uygulaması veya PowerShell üzerinden göremez.
+        Not: Bu ayarı uygulamak dışlamaları kaldırmaz, yalnızca dışlamaların Yerel Yöneticiler tarafından görülmesini engeller. Bu bilgi  Get-MpPreference'ta belirtilir.</string>
+    <string id="HideExclusionsFromLocalUsers">Dışlamaların yerel kullanıcılar tarafından görülüp görülemeyeceğini denetleyin</string>
+    <string id="HideExclusionsFromLocalUsers_Explain">
+    Bu ilke ayarı, dışlamaların cihazdaki yerel kullanıcılar tarafından görülüp görüle olmadığını kontrol eder.
+    Standart ve yönetim yerel kullanıcılarının dışlamalarını gizlemek için HideExclusionsFromLocalAdmins ilke ayarını kullanın.</string>
+    <string id="AllowNetworkProtectionOnWinServer">Bu ayarlar, Ağ Koruması’nın Windows Server üzerinde engelleme veya denetleme moduna yapılandırılmasına izin verilip verilmeyeceğini denetler.</string>
+    <string id="AllowNetworkProtectionOnWinServer_Explain">
+    Devre dışı (varsayılan): 
+    Yapılandırılmazsa veya devre dışı bırakılırsa, ağ korumasının Windows Server 'da blok halinde veya denetleme modunda yapılandırılmasına izin verilmez.
+
+Etkinleştirilmeyeceğini 
+    Etkinleştirilirse, yöneticiler ağ korumasının Windows Server 'da engelleme veya denetleme modu olarak yapılandırılmasına izin verilip verilmeyeceğini denetleyebilir.
+    Bu yapılandırmanın EnableNetworkProtection yapılandırmasına bağlı olduğunu unutmayın. Bu yapılandırma yanlışsa, EnableNetworkProtection gözardı edilir, aksi takdirde ağ koruması, EnableNetworkProtection 'ın değerine bağlı olarak Windows Server 'da başlatılır.</string>
+    <string id="DisableDatagramProcessing">Bu ayar ağ koruması için veri birimi işlemeyi denetler.</string>
+    <string id="DisableDatagramProcessing_Explain">
+    Devre Dışı (Varsayılan): 
+    Yapılandırılmadı veya Devre Dışı Bırakılırsa, ağ koruması için veri birimi işleme etkinleştirilir.
+
+Etkin: 
+    Etkinse, ağ koruması için veri birimi işleme devre dışı bırakılır.</string>
+    <string id="EnableConvertWarnToBlock">Engellemek için uyarı kararını dönüştür</string>
+    <string id="EnableConvertWarnToBlock_Explain">
+    Ağ koruması, ağ trafiğini denetler ve trafiğe izin verme veya trafiği engelleme kararı alır ve bir uyarı görüntüler.
+    
+    Devre dışı (Varsayılan): 
+    Bu ayar Yapılandırılmadı veya Devre dışı olduğunda, ağ koruması uyarı kararlarıyla ilgili uyarı görüntüler.
+
+    Etkin: 
+    Bu ayar Etkin olduğunda, ağ koruması uyarı görüntülemek yerine ağ trafiğini engeller.</string>
+    <string id="AllowSwitchToAsyncInspection">Zaman uyumsuz incelemeyi etkinleştir</string>
+    <string id="AllowSwitchToAsyncInspection_Explain">
+    Gerçek zamanlı incelemeden zaman uyumsuz incelemeye geçerek ağ korumasının performansı iyileştirip geliştireyemediklerini denetleyin.
+
+Devre Dışı (Varsayılan): 
+    Yapılandırılmadı veya Devre Dışı bırakılırsa, ağ koruması için zaman uyumsuz inceleme etkinleştirilmez.
+
+Etkin: 
+    Etkinse, ağ koruması için zaman uyumsuz incelemeye geçişe izin verilir.</string>
     <string id="DisableAutoExclusions">Otomatik Dışlamaları kapat</string>
     <string id="DisableAutoExclusions_Explain">
         Bir yöneticinin Sunucu SKU'lar için Otomatik Dışlamalar özelliğinin kapatılıp kapatılmayacağını belirlemesine izin verin.
 
-        Devre dışı bırakıldı (Varsayılan):
-        Windows Defender, performansı iyileştirmek için yolların önceden tanımlanmış listesini taramanın dışında bırakır.
+        Devre dışı (Varsayılan):
+        Microsoft Defender, performansı iyileştirmek için yolların önceden tanımlanmış listesini taramanın dışında bırakır.
 
-        Etkinleştirildi:
-        Windows Defender, yolların önceden tanımlanmış listesini taramanın dışında bırakmaz. Bu, bazı senaryolarda makine performansını etkileyebilir.
+        Etkin:
+        Microsoft Defender, yolların önceden tanımlanmış listesini taramanın dışında bırakmaz. Bu, bazı senaryolarda makine performansını etkileyebilir.
 
         Yapılandırılmadı:
-        Devre dışı bırakıldı ile aynı.
+        Devre dışı ile aynı.
     </string>
     <string id="DisableAntiSpyware">Endpoint Protection'ı kapat</string>
     <string id="DisableAntiSpyware_Explain">Bu ilke ayarı Endpoint Protection'ı kapatır.
@@ -49,29 +107,29 @@ Bu ilke ayarını etkinleştirirseniz Endpoint Protection çalışmaz ve bilgisa
 
 Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız varsayılan olarak, Endpoint Protection çalıştırılır ve bilgisayarlarda kötü amaçlı yazılım ve diğer olası istenmeyen yazılım tarama işlemi yapılır.
     </string>
-    <string id="DisableAntiSpywareDefender">Windows Defender Virüsten Koruma'yı kapat</string>
-    <string id="DisableAntiSpywareDefender_Explain">Bu ilke ayarı, Windows Defender Virüsten Koruma'yı kapatır.
+    <string id="DisableAntiSpywareDefender">Microsoft Defender Virüsten Koruma'yı kapat</string>
+    <string id="DisableAntiSpywareDefender_Explain">Bu ilke ayarı, Microsoft Defender Virüsten Koruma'yı kapatır.
     
-    Bu ilke ayarını etkinleştirirseniz Windows Defender Virüsten Koruma çalışmaz ve bilgisayarlarda kötü amaçlı yazılım veya istenmeyebilecek diğer yazılımlar için tarama yapmaz.
+    Bu ilke ayarını etkinleştirirseniz Microsoft Defender Virüsten Koruma çalışmaz ve bilgisayarlarda kötü amaçlı yazılım veya istenmeyebilecek diğer yazılımlar için tarama yapmaz.
 
-    Bu ilke ayarını devre dışı bırakırsanız Windows Defender Virüsten Koruma, yüklü diğer virüsten koruma ürünlerinden bağımsız olarak çalışır.
+    Bu ilke ayarını devre dışı bırakırsanız Microsoft Defender Virüsten Koruma, yüklü diğer virüsten koruma ürünlerinden bağımsız olarak çalışır.
 
-    Bu ilke ayarını yapılandırmazsanız Windows, Windows Defender Virüsten Koruma'yı dahili olarak yönetir. Başka bir virüsten koruma programı yüklerseniz Windows, Windows Defender Virüsten Koruma'yı otomatik olarak devre dışı bırakır. Aksi halde Windows Defender Virüsten Koruma, bilgisayarlarınızda kötü amaçlı yazılım ve diğer istenmeyebilecek yazılımlar için tarama yapar.
+    Bu ilke ayarını yapılandırmazsanız Windows, Microsoft Defender Virüsten Koruma'yı dahili olarak yönetir. Başka bir virüsten koruma programı yüklerseniz Windows, Microsoft Defender Virüsten Koruma'yı otomatik olarak devre dışı bırakır. Aksi halde Microsoft Defender Virüsten Koruma, bilgisayarlarınızda kötü amaçlı yazılım ve diğer istenmeyebilecek yazılımlar için tarama yapar.
 
     Bu ilkenin etkinleştirilmesi veya devre dışı bırakılması, beklenmeyen veya desteklenmeyen davranışlara neden olabilir. Bu ilke ayarını yapılandırılmamış olarak bırakmanız önerilir.</string>
     <string id="DisableLocalAdminMerge">Listeler için yerel yöneticinizin birleştirme davranışını yapılandır</string>
-    <string id="DisableLocalAdminMerge_Explain">Bu ilke ayarı, yerel bir yönetici tarafından yapılandırılan karmaşık liste ayarlarının Grup İlke ayarlarıyla birleştirilip birleştirilmeyeceğini denetler. Bu ayar, tehditler ve Dışlamalar gibi listelerde uygulanır.
+    <string id="DisableLocalAdminMerge_Explain">Bu ilke ayarı, yerel bir yönetici tarafından yapılandırılan karmaşık liste ayarlarının Grup İlke ayarlarıyla birleştirilme durumunu denetler. Bu ayar, tehditler ve Dışlamalar gibi listelerde uygulanır.
 
-Bu ayarı etkinleştirir veya yapılandırmazsanız, Grup İlkesi'nde ve yerel yönetici tarafından yapılandırılan tercih ayarlarında tanımlanan benzersiz öğeler, geçerli sonuç ilkesiyle birleştirilir. Çakışma söz konusu olduğunda, Grup ilkesi Ayarları tercih ayarlarını geçersiz kılar.
+    Bu ayarı etkinleştirmez veya yapılandırmazsanız Grup İlkesi'nde ve yerel yönetici tarafından yapılandırılan tercih ayarlarında tanımlanan benzersiz öğeler, geçerli sonuç ilkesiyle birleştirilir. Çakışma söz konusu ise Grup ilkesi Ayarları, tercih ayarlarını geçersiz kılar.
 
-Bu ayarı devre dışı bırakırsanız, yalnızca Grup İlkesi tarafından tanımlanan öğeler geçerli sonuç ilkesinde kullanılır. Grup İlkesi ayarları, yerel yönetici tarafından yapılandırılan tercih ayarlarını geçersiz kılar.</string>
+    Bu ayarı etkinleştirirseniz yalnızca Grup İlkesi tarafından tanımlanan öğeler geçerli sonuç ilkesinde kullanılır. Grup İlkesi ayarları, yerel yönetici tarafından yapılandırılan tercih ayarlarını geçersiz kılar.</string>
     <string id="DisableRoutinelyTakingAction">Rutin düzeltmeyi kapat</string>
     <string id="DisableRoutinelyTakingActionDefender_Explain">
-    Bu ilke ayarı Windows Defender Virüsten Koruma'nın algılanan tüm tehditlere karşı otomatik olarak önlem alıp almayacağını yapılandırmanızı sağlar. Belirli bir tehditte alınacak önlem ilke tarafından tanımlanan, kullanıcı tarafından tanımlanan ve imza tarafından tanımlanan önlemlerin bir bileşimiyle saptanır.
+    Bu ilke ayarı Microsoft Defender Virüsten Koruma'nın algılanan tüm tehditlere karşı otomatik olarak önlem alıp almayacağını yapılandırmanızı sağlar. Belirli bir tehditte alınacak önlem ilke tarafından tanımlanan, kullanıcı tarafından tanımlanan ve imza tarafından tanımlanan önlemlerin bir bileşimiyle saptanır.
 
-    Bu ilke ayarını etkinleştirirseniz Windows Defender Virüsten Koruma algılanan tehditlere karşı otomatik olarak önlem almaz, ancak kullanıcıdan her tehdit için kullanılabilen önlemlerden birini seçmesini ister.
+    Bu ilke ayarını etkinleştirirseniz Microsoft Defender Virüsten Koruma algılanan tehditlere karşı otomatik olarak önlem almaz, ancak kullanıcıdan her tehdit için kullanılabilen önlemlerden birini seçmesini ister.
 
-    Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız Windows Defender Virüsten Koruma, yapılandırması değiştirilemeyen beş saniyelik bir gecikmeden sonra algılanan tüm tehditlere karşı otomatik olarak önlem alır.</string>
+    Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız Microsoft Defender Virüsten Koruma, yapılandırması değiştirilemeyen beş saniyelik bir gecikmeden sonra algılanan tüm tehditlere karşı otomatik olarak önlem alır.</string>
     <string id="DisableRoutinelyTakingAction_Explain">
         Bu ilke ayarı Endpoint Protection'ın algılanan tüm tehditlere karşı otomatik olarak önlem alıp almayacağını yapılandırmanızı sağlar. Belirli bir tehditte alınacak önlem ilke tarafından tanımlanan, kullanıcı tarafından tanımlanan ve imza tarafından tanımlanan önlemlerin bir bileşimiyle saptanır.
 
@@ -109,11 +167,19 @@ Bu ayarı devre dışı bırakır veya yapılandırmazsanız, belirtilen adresle
       Bu ayarı devre dışı bırakır veya yapılandırmazsanız proxy, yukarıda belirtilen sırayla bu geri dönüş adımını atlar.
     </string>
     <string id="RandomizeScheduleTaskTimes">Zamanlanmış görev sürelerini rastgele ayarla</string>
-    <string id="RandomizeScheduleTaskTimes_Explain">Bu ilke ayarı, zamanlanmış tarama başlangıç zamanının ve zamanlanmış güvenlik bilgileri güncelleştirme başlangıç zamanının rasgele seçimini etkinleştirmenize veya devre dışı bırakmanıza olanak sağlar. Bu ayar, taramanın kaynak etkisini dağıtmak için kullanılır. Örneğin, bir ana bilgisayarı paylaşan konuk sanal makinelerde, birden çok konuk sanal makinenin yoğun disk kullanımına neden olan bir işlemi aynı anda üstlenmelerini önlemek için kullanılabilir.
+    <string id="RandomizeScheduleTaskTimes_Explain">Bu ilke ayarı, zamanlanan tarama başlangıç saatini ve zamanlanan güncelleştirme başlangıç saatini rastgele seçme özelliğini yapılandırmanıza olanak tanır.
 
-    Bu ayarı etkinleştirirseniz veya yapılandırmazsanız, zamanlanmış görevler belirtilen başlangıç saatinden 30 dakika öncesi ile sonrası arasında rastgele bir zamanda başlatılır.
+        Bu ilke ayarını etkinleştirirseniz veya yapılandırmazsanız ve Zamanlanan görev saatini yapılandır rastgele seçim penceresi ayarında bir rastgele seçim penceresi ayarlamadıysanız, rastgele seçim özelliği 0-4 saat arasına eklenir.
+        Bu ilke ayarını etkinleştirirseniz veya yapılandırmazsanız ve Zamanlanan görev saatini yapılandır rastgele seçim penceresi ayarında bir rastgele seçim penceresi ayarladıysanız, yapılandırılan rastgele seçim penceresi kullanılır.
+        Bu ilke ayarını devre dışı bırakırsanız ancak zamanlanan görev saati rastgele seçim penceresini yapılandırmadıysanız, rastgele seçim yapılmaz. 
+    </string>
+    <string id="SchedulerRandomizationTime">Zamanlanan görev süreleri rastgele seçim penceresini yapılandır</string>
+    <string id="SchedulerRandomizationTime_Explain">Bu ilke ayarı, zamanlanmış görev tarama başlangıç zamanını ve zamanlanmış güvenlik bilgileri güncelleştirme başlangıç zamanı penceresini saat cinsinden yapılandırmanızı sağlar. Bu ayar, Zamanlanmış görev zamanlarını rastgele belirle yapılandırmasını etkileyebilir.
 
-    Bu ayarı devre dışı bırakırsanız, zamanlanmış görevler belirtilen başlangıç saatinde başlatılır.</string>
+        Bu ayarı etkinleştirirseniz saat cinsinden bir rastgele seçim penceresi seçmelisiniz. Olası rastgele seçim penceresi aralığı 1 ile 23 saat arasındadır. Uygulanan rastgele seçim aralığı 0 ile yapılandırılan değer arasında olur. 
+        Bu ayar etkinleştirildiğinde, Zamanlanmış görev zamanlarını rastgele belirle ayarları, bu yapılandırma ayarında belirtilen rastgele seçim penceresini kullanır. 
+        Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, Zamanlanmış görev zamanlarını rastgele belirle ayarları görev zamanlarını 0-4 saat arasında rastgele olarak seçer.</string>
+
     <string id="ServiceKeepAlive">Kötü amaçlı yazılımdan koruma hizmetinin her zaman çalışmaya devam etmesine izin ver</string>
     <string id="ServiceKeepAlive_Explain">Bu ilke ayarı, virüsten koruma ve casus yazılım önleme güvenlik bilgileri devre dışı bırakıldığında kötü amaçlı yazılımdan koruma hizmetinin çalışıp çalışmayacağını yapılandırmanıza olanak sağlar. Bu ayarın devre dışı kalması önerilir.
 
@@ -135,12 +201,20 @@ Bu ayarı devre dışı bırakır veya yapılandırmazsanız, belirtilen adresle
         Yapılandırılmadı:
         Devre dışı bırakıldı ile aynı.
     </string>
+    <string id="SupportLogLocation">Destek günlük dosyalarını kopyalamak için dizin yolunu tanımlayın</string>
+    <string id="SupportLogLocation_Explain">Bu ilke ayarı, destek günlük dosyalarının kopyalanacağı dizin yolunu yapılandırmanızı sağlar. Bu ayarın değeri geçerli bir dizin yolu olmalıdır.
+
+Bu ayarı etkinleştirirseniz destek günlüğü dosyaları belirtilen destek günlüğü konumu yoluna kopyalanır.
+
+Bu ayarı devre dışı bırakır veya yapılandırmazsanız, destek günlükleri dosyaları herhangi bir konuma kopyalanmaz.</string>
     <string id="Exclusions_Extensions">Uzantı Dışlamaları</string>
     <string id="Exclusions_Extensions_Explain">Bu ilke ayarı; zamanlanmış, özel ve gerçek zamanlı taramalardan dışarıda tutulması gereken dosya türlerinin listesini belirlemenizi sağlar. Dosya türlerinin bu ayarın Seçenekleri altına eklenmesi gerekir. Her bir girdi, bir ad/değer çifti olarak listelenmelidir; burada ad, dosya türü uzantısının dize gösterimi biçiminde ("obj" veya "lib" gibi) olmalıdır. Değer kullanılmaz ve bu değerin 0 olarak ayarlanması önerilir.</string>
     <string id="Exclusions_Paths">Yol Dışlamaları</string>
     <string id="Exclusions_Paths_Explain">Bu ilke ayarı, belirtilen yolların altındaki dosyalar veya belirtilen tam olarak nitelenmiş kaynaklar için zamanlanmış ve gerçek zamanlı taramaları devre dışı bırakmanızı sağlar. Yolların bu ayarın Seçenekleri altına eklenmesi gerekir. Her bir girdi, bir ad/değer çifti olarak listelenmelidir; burada ad, bir yolun dize gösterimi veya tam olarak nitelenmiş kaynak adı biçiminde olmalıdır. Örneğin, bu dizindeki tüm dosyaları dışarıda bırakmak için yol şu şekilde tanımlanabilir: "c:\Windows". Tam olarak nitelenmiş kaynak adı şu şekilde tanımlanmalıdır: "C:\Windows\App.exe". Değer kullanılmaz ve bu değerin 0 olarak ayarlanması önerilir.</string>
     <string id="Exclusions_Processes">İşlem Dışlamaları</string>
-    <string id="Exclusions_Processes_Explain">Bu ilke ayarı, belirtilen işlemlerden herhangi bir tanesi tarafından açılan bir dosya için zamanlanmış ve gerçek zamanlı taramaları devre dışı bırakmanızı sağlar. İşlemin kendi dışarıda bırakılmaz. İşlemi dışarıda bırakmak için Yol dışlamasını kullanın. İşlemlerin bu ayarın Seçenekleri altına eklenmesi gerekir. Her bir girdi, bir ad/değer çifti olarak listelenmelidir; burada ad, işlem görüntüsü yolunun dize gösterimi biçiminde olmalıdır. Yalnızca yürütülebilir dosyaların dışarıda bırakıldığını unutmayın. Örneğin, bir işlem şu şekilde tanımlanabilir: "c:\windows\app.exe". Değer kullanılmaz ve bu değerin 0 olarak ayarlanması önerilir.</string>
+    <string id="Exclusions_Processes_Explain">Bu ilke ayarı, belirtilen işlemlerin herhangi biri tarafından açılan herhangi bir dosya için gerçek zamanlı taramayı devre dışı bırakmanıza olanak tanır. Bu ilke zamanlanmış taramalara uygulanmaz. İşlemin kendisi dışlanmaz. İşlemi dışlamak için yol dışlamasını kullanın. İşlemler bu ayar için seçenekler altına eklenmelidir. Her girdi, işlem görüntüsü yolunun dize gösterimi olması gereken ad değeri çifti olarak listelenmelidir. Yalnızca yürütülebilir dosyaların dışlanacağını unutmayın. Örneğin, bir işlem şu şekilde tanımlanabilir: "c:\windows\app.exe". Değer kullanılmaz ve 0 olarak ayarlanmalıdır.</string>
+    <string id="Exclusions_IpAddresses">Ip Adresi Dışlamaları</string>
+    <string id="Exclusions_IpAddresses_Explain">Yöneticinin, wdnisdrv tarafından belirli bir IP adresi kümesinde yapılan ağ paketi incelemesini açık bir şekilde devre dışı bırakmasına olanak verir.</string>
     <string id="Nis_DisableProtocolRecognition">Protokol tanımayı aç</string>
     <string id="Nis_DisableProtocolRecognition_Explain">Bu ilke ayarı, bilinen güvenlik açıklarından yararlanmalara karşı ağ koruması için protokol tanımayı yapılandırmanızı sağlar.
 
@@ -167,6 +241,30 @@ Bu ayarı devre dışı bırakır veya yapılandırmazsanız, Grup İlkesi yerel
 Bu ayarı etkinleştirirseniz, öğeler belirtilen sayıda gün geçtikten sonra Karantina klasöründen kaldırılır.
 
 Bu ayarı devre dışı bırakır veya yapılandırmazsanız, öğeler süresiz olarak karantina klasöründe tutulur ve otomatik olarak kaldırılmaz.</string>
+
+    <string id="RealtimeProtection_DisableSriptScanning">Kod taramasını aç</string>
+    <string id="RealtimeProtection_DisableSriptScanning_Explain">Bu ilke ayarı, betik taramayı yapılandırmanızı sağlar.
+
+Bu ayarı etkinleştirir veya yapılandırmazsanız, komut dosyası taraması etkinleştirilir.
+
+Bu ayarı devre dışı bırakırsanız, komut dosyası taraması devre dışı bırakılır.</string>
+
+    <string id="RealtimeProtection_OobeEnableRtpAndSigUpdate">OOBE sırasında gerçek zamanlı korumayı ve Güvenlik Analizi Güncelleştirmelerini yapılandırın</string>
+    <string id="RealtimeProtection_OobeEnableRtpAndSigUpdate_Explain">Bu ilke ayarı, OOBE (İlk Çalıştırma Deneyimi) sırasında gerçek zamanlı korumanın ve Güvenlik Analizi Güncelleştirmelerinin etkin olup olmadığını yapılandırmanızı sağlar.
+ 
+    Bu ayarı etkinleştirirseniz OOBE sırasında gerçek zamanlı koruma ve Güvenlik Analizi Güncelleştirmeleri etkinleştirilir.
+ 
+    Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız OOBE sırasında gerçek zamanlı koruma ve Güvenlik Analizi Güncelleştirmeleri etkinleştirilmez.</string>
+
+    <string id="RealtimeProtection_PerformanceModeStatus">Performans modu durumunu yapılandır</string>
+    <string id="RealtimeProtection_PerformanceModeStatus_Explain">Bu ilke Geliştirici Sürücüleri için Microsoft Defender Virüsten Koruma performansını denetler.
+
+    Geliştirici Sürücüsü, yazılım geliştirme senaryolarında daha yüksek performans için iyileştirilmiş bir disket sürücüsüdür. Bu ilke Etkin olarak ayarlandığında veya yapılandırılmamış olduğunda Performans modu, Microsoft Defender Virüsten Koruma için açılır. Performans modunda, Geliştirici Sürücülerinde depolanan içerik üzerinde Microsoft Defender Virüsten Koruma tarafından yapılan güvenlik denetimleri performansı iyileştirmek için zaman uyumsuz olarak gerçekleştirilir. Performans modu için ayrıca şu ilkelerin etkinleştirilmesi gerekir: “Geliştirici sürücüsünü etkinleştirme” ve “Geliştirici sürücüsü filtre ekleme ilkesi”.
+
+    Bu ilke ayarını Etkin olarak belirler veya yapılandırmazsanız Performans modu açılır.
+
+    Bu ilke ayarını Devre Dışı olarak belirlerseniz Performans modu kapatılır ve Microsoft Defender Virüsten Koruma, bir Geliştirici Sürücüsünü diğer sürücüleri koruduğu gibi korur.</string>
+
     <string id="RealtimeProtection_DisableBehaviorMonitoring">Davranış izlemeyi aç</string>
     <string id="RealtimeProtection_DisableBehaviorMonitoring_Explain">Bu ilke ayarı, davranış izlemeyi yapılandırmanızı sağlar.
 
@@ -192,13 +290,13 @@ Bu ayarı etkinleştirir veya yapılandırmazsanız, ham birim yazma bildirimler
 
 Bu ayarı devre dışı bırakırsanız, ham birim yazma bildirimleri devre dışı bırakılır.</string>
     <string id="DisableRealtimeMonitoring">Gerçek zamanlı korumayı kapat</string>
-    <string id="DisableRealtimeMonitoringDefender_Explain">Bu ilke ayarı bilinen kötü amaçlı yazılım algılama için gerçek zamanlı koruma istemlerini kapatır.
+    <string id="DisableRealtimeMonitoringDefender_Explain">Bu ilke, bu ilkede gerçek zamanlı korumayı Microsoft Defender Virüsten Koruma.
 
-    Kötü amaçlı yazılım veya istenmeyen türden olabilecek yazılım kendini bilgisayarınıza yüklemeyi veya bilgisayarınızda çalıştırmayı denediğinde Windows Defender Virüsten Koruma sizi uyarır.
+Gerçek zamanlı koruma, dosya ve işlem davranışı izleme ve buluşsal yöntemleri içeren her zaman açık taramadan oluşur. Gerçek zamanlı koruma açık olduğunda, Microsoft Defender Virüsten Koruma kendini yüklemeye veya cihazınıza çalıştırmaya çalışan kötü amaçlı yazılımları ve istenmeyebilecek yazılımları algılayıp kötü amaçlı yazılım algılamaları üzerinde işlem gerçekleştirmenizi istiyor.
 
-    Bu ilke ayarını etkinleştirirseniz Windows Defender Virüsten Koruma, kötü amaçlı yazılım algılanması durumunda kullanıcılardan işlem yapmasını istemez.
+Bu ilke ayarını etkinleştirirseniz gerçek zamanlı koruma kapatılır. 
 
-    Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız Windows Defender Virüsten Koruma, kötü amaçlı yazılım algılanması durumunda kullanıcılardan işlem yapmasını ister.</string>
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız gerçek zamanlı koruma açılır.</string>
     <string id="DisableRealtimeMonitoring_Explain">
     Bu ilke ayarı bilinen kötü amaçlı yazılım algılama için gerçek zamanlı koruma istemlerini kapatır.
 
@@ -306,6 +404,92 @@ Bu ayarı devre dışı bırakır veya yapılandırmazsanız, düzeltmeyi tamaml
 Bu ayarı etkinleştirirseniz, düzeltmeyi tamamlamak üzere zamanlanmış tam tarama günün belirtilen saatinde çalıştırılır.
 
 Bu ayarı devre dışı bırakır veya yapılandırmazsanız, düzeltmeyi tamamlamak üzere zamanlanmış tam tarama varsayılan saatte gerçekleştirilir.</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState">Uzaktan Şifreleme Koruması Modunu Yapılandırma</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_Explain">
+    Yerel dosyaları başka bir cihazdan şifrelenmiş sürümlerle değiştirme girişimlerini algılayıp engelleyip Microsoft Defender Virüsten Koruma'da Uzaktan Şifreleme Koruması modunu ayarlayın. 
+
+Desteklenen ayarlar:
+    * 0 - Yapılandırılmadı veya Varsayılan: Virüsten koruma altyapısı sürümüne ve platforma bağlı olarak farklılık gösterenin varsayılanları uygula
+    * 1 - Engelle: Şüpheli ve kötü amaçlı davranışları engelle
+    * 2 - Denetim: Engellemeden EDR algılamaları oluştur
+    * 4 - Kapalı: Özellik performans etkisi içermeden kapalı
+    </string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_0">Varsayılan</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_1">Engelle</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_2">Denetim</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_3">Kapalı</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_MaxBlockTime">Uzaktan Şifreleme Koruması engelleme süresini yapılandırma</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_MaxBlockTime_Explain">
+    Ip adresinin Uzaktan Şifreleme Koruması tarafından engelleniyor olduğu en uzun zamanı ayarla. Bu süre sonunda, engellenen IP adresleri bağlantıları yeniden başlatacak. 
+
+Desteklenen ayarlar:
+    * 0 - Hiçbiri: İç özellik mantığı gerçek engelleme zamanlarını belirleyacak
+    * 15 dakikalık artışlarla diğer zamanları belirtin
+    </string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness">Uzaktan Şifreleme Koruması'nın tehditleri ne kadar agresif bir şekilde engelley olduğunu yapılandır</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness_Explain">
+    Uzaktan şifreleme önleme koruması IP adreslerini engellediğinde ölçütler belirleyin.
+
+Desteklenen ayarlar:
+    *0 - Düşük: Yalnızca olasılık düzeyi geçerli olduğunda 100% (Varsayılan)
+    *1 - Orta: Bulut toplamayı kullanın ve olasılık düzeyi bu düzeyin üzerinde olduğunda 99%
+    *2 - Yüksek: Bulut intel ve context kullanın ve güvenilirlik düzeyi bu düzeyin üzerinde olduğunda 90%
+    </string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness_0">Düşük</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness_1">Orta</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness_2">Yüksek</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtectionExclusions"> Uzaktan Şifreleme Korumasından dışta bırakılanları ayarlama</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtectionExclusions_Explain">
+    Uzaktan Şifreleme Korumasının dışında bırakılacak IP adreslerini, alt ağları ve etki alanı adlarını belirtin. Saldırganların korumayı atlatmak için dışta bırakılan adresleri ve adları taklit edebileceğini unutmayın.
+
+    Her adresi veya alt ağı yeni bir satıra ad-değer çifti olarak girin:
+    - Ad sütunu: Bir IP adresi veya alt ağ adı girin. Örneğin, ""1.1.127.0"" bu IP adresinin engellenmesini önleyecektir.
+    - Değer sütunu: Her öğe için ""0"" girin
+    </string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState">Brute-Force Koruması modunu yapılandırma</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_Explain">
+    Microsoft Defender Virüsten Koruma'da Brute-Force Koruma modunu ayarla. Bu mod, oturum açma ve oturum başlatma girişimlerini algılayıp engelleyebilmesini sağlar.
+
+Desteklenen ayarlar:
+    * 0 - Yapılandırılmadı veya Varsayılan: Virüsten koruma altyapısı sürümüne ve platforma bağlı olarak farklılık gösterenin varsayılanları uygula
+    * 1 - Engelle: Şüpheli ve kötü amaçlı davranışları engelle
+    * 2 - Denetim: Engellemeden EDR algılamaları oluştur
+    * 4 - Kapalı: Özellik performans etkisi içermeden kapalı
+    </string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_0">Varsayılan</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_1">Engelle</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_2">Denetim</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_3">Kapalı</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_MaxBlockTime">Brute-Force Koruması engelleme süresini yapılandırma</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_MaxBlockTime_Explain">
+    Ip adresinin Güvenlik Koruması tarafından engelleniyor olduğu en Brute-Force ayarla. Bu süre sonunda engellenen IP adresleri oturum açarak oturum başlatacak.
+
+Desteklenen ayarlar:
+    * 0 - Hiçbiri: İç özellik mantığı gerçek engelleme zamanlarını belirleyacak
+    * 15 dakikalık artışlarla diğer zamanları belirtin
+    </string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness">Brute-Force Koruması agresifliğini yapılandırma</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness_Explain">
+    Güvenlik Koruması'nın IP adreslerini Brute-Force ölçütlerini belirleyin.
+
+Desteklenen ayarlar:
+    *0 - Düşük: Yalnızca olasılık düzeyi geçerli olduğunda 100% (Varsayılan)
+    *1 - Orta: Bulut toplamayı kullanın ve olasılık düzeyi bu düzeyin üzerinde olduğunda 99%
+    *2 - Yüksek: Bulut intel ve context kullanın ve güvenilirlik düzeyi bu düzeyin üzerinde olduğunda 90%
+    </string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness_0">Düşük</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness_1">Orta</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness_2">Yüksek</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtectionExclusions">Brute-Force Koruması dışlamalarını ayarlama</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtectionExclusions_Explain">
+    Brute-Force Korumasının dışında tutulacak IP adreslerini, alt ağları veya iş istasyonu adlarını belirtin. Hariç tutulan IP adresleri olası kaba kuvvet etkinlikleri açısından kontrol edilmeyecektir.
+    
+    Saldırganların korumayı atlatmak için hariç tutulan adresleri ve adları taklit edebileceğini unutmayın. İsimlerin benzersiz olduğundan ve saldırganlar tarafından tahmin edilemeyeceğinden emin olun.
+
+    Her adresi veya alt ağı yeni bir satıra ad-değer çifti olarak girin:
+    - Ad sütunu: Bir IP adresi, alt ağ adı veya iş istasyonu adı girin. Örneğin, "1.1.127.0" bu IP adresinin BFP tarafından engellenmesini engelleyecektir.
+    - Değer sütunu: Her öğe için "0" girin
+    </string>
     <string id="Reporting_AdditionalActionTimeout">Ek eylem gerektiren algılamalar için zaman aşımını yapılandır</string>
     <string id="Reporting_AdditionalActionTimeout_Explain">Bu ilke ayarı, "ek eylem" durumundaki algılamanın "temizlendi" durumuna geçmesinden önceki dakika cinsinden süreyi yapılandırır.</string>
     <string id="Reporting_CriticalFailureTimeout">Kritik olarak başarısız durumdaki algılamalar için zaman aşımını yapılandır</string>
@@ -331,13 +515,26 @@ Bu ayarı devre dışı bırakırsanız, Watson olayları gönderilmez.</string>
     4 - Hata Ayıkla</string>
     <string id="Reporting_DisableEnhancedNotifications">Gelişmiş bildirimleri kapat</string>
     <string id="Reporting_DisableEnhancedNotifications_Explain">
-      Windows Defender Virüsten Koruma gelişmiş bildirimlerinin istemciler üzerinde gösterilmesini isteyip istemediğinizi belirtmek için bu ilke ayarını kullanın
+      Microsoft Defender Virüsten Koruma gelişmiş bildirimlerinin istemciler üzerinde gösterilmesini isteyip istemediğinizi belirtmek için bu ilke ayarını kullanın.
       
-      Bu ayarı devre dışı bırakır veya yapılandırmazsanız, Windows Defender Virüsten Koruma gelişmiş bildirimleri istemciler üzerinde gösterilir.
+      Bu ayarı devre dışı bırakır veya yapılandırmazsanız, Microsoft Defender Virüsten Koruma gelişmiş bildirimleri istemciler üzerinde gösterilir.
       
-      Bu ayarı etkinleştirirseniz, Windows Defender Virüsten Koruma gelişmiş bildirimleri istemciler üzerinde gösterilmez.
+      Bu ayarı etkinleştirirseniz, Microsoft Defender Virüsten Koruma gelişmiş bildirimleri istemciler üzerinde gösterilmez.
     </string>
+    <string id="Reporting_ServiceHealthReportInterval">Hizmet durumu raporları için zaman aralığını yapılandırma</string>
+    <string id="Reporting_ServiceHealthReportInterval_Explain">Bu ilke ayarı, uç noktalardan gönderilecek hizmet durumu raporlarının zaman aralığını (dakika cinsinden) yapılandırır.
 
+Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız varsayılan değer uygulanır. Varsayılan değer 60 dakika (1 saat) olarak ayarlanır.
+
+Bu ayarı 0 olarak yapılandırırsanız, hiçbir hizmet durumu raporu gönderilmez.
+
+En büyük değer 14400 dakikadır (10 gün).</string>
+    <string id="Reporting_EnableDynamicSignatureDroppedEventReporting">Dinamik İmza bırakılan olayları bildirip bildirmemeyi yapılandırma</string>
+    <string id="Reporting_EnableDynamicSignatureDroppedEventReporting_Explain">Bu ilke ayarı Dinamik İmza bırakılan olayları bildirip bildirmemeyi yapılandırır.
+
+    Bu ayarı yapılandırmazsanız varsayılan değer uygulanır. Varsayılan değer devre dışıdır (bu tür olaylar bildirilmez).
+    Bu ayarı etkin olarak yapılandırırsanız Dinamik İmza bırakılan olaylar bildirilir.
+    Bu ayarı devre dışı olarak yapılandırırsanız Dinamik İmza bırakılan olaylar bildirilmez.</string>
       <string id="Scan_AllowPause">Kullanıcıların taramayı duraklatmalarına izin ver</string>
     <string id="Scan_AllowPause_Explain">Bu ilke ayarı, son kullanıcıların devam eden bir taramayı duraklatıp duraklatamayacaklarını yönetmenizi sağlar.
 
@@ -365,35 +562,47 @@ Bu ayarı devre dışı bırakır veya yapılandırmazsanız, CPU kullanımı va
     <string id="CheckForSignaturesBeforeRunningScan">Zamanlanmış bir tarama çalıştırmadan önce en son virüs ve casus yazılım güvenlik bilgilerini denetle</string>
     <string id="CheckForSignaturesBeforeRunningScan_Explain">Bu ilke ayarı, tarama yapmadan önce yeni virüs ve casus yazılım güvenlik gösterimi için denetim yapılıp yapılmayacağını yönetmenizi sağlar. 
 
-    Bu ayar, zamanlanmış taramaların yanı sıra "mpcmdrun -SigUpdate" komut satırına da uygulanır, ancak kullanıcı arayüzünden el ile başlatılan taramalar üzerinde bir etkisi yoktur.
+    Bu ayar, zamanlanmış taramalara uygulanır, ancak kullanıcı arayüzünden el ile başlatılan taramalar veya "mpcmdrun -Scan" kullanarak komut satırından başlatılanlar üzerinde bir etkisi yoktur.
 
     Bu ayarı etkinleştirirseniz, tarama başlatılmadan önce yeni güvenlik bilgileri için denetim yapılır.
 
     Bu ayarı devre dışı bırakır veya yapılandırmazsanız tarama, mevcut güvenlik bilgileri kullanılarak başlatılır.</string>
     <string id="Scan_DisableArchiveScanning">Arşiv dosyalarını tara</string>
-    <string id="Scan_DisableArchiveScanning_Explain">Bu ilke ayarı, .ZIP veya .CAB gibi arşiv dosyalarında kötü amaçlı ve istenmeyen yazılımlar için tarama yapılandırmanızı sağlar.
+    <string id="Scan_DisableArchiveScanning_Explain">Bu ilke, .ZIP veya .CAB gibi arşiv dosyalarında kötü amaçlı ve istenmeyen yazılımlar için tarama yapılandırmanızı sağlar.
 
-Bu ayarı etkinleştirir veya yapılandırmazsanız, arşiv dosyaları taranır.
+    Bu ayarı etkinleştirir veya yapılandırmazsanız, arşiv dosyaları taranır.
 
-Bu ayarı devre dışı bırakırsanız, arşiv dosyaları taranmaz.</string>
+    Bu ayarı devre dışı bırakırsanız, arşiv dosyaları taranmaz. Ancak, yönlendiren taramalar sırasında arşivler her zaman taranır.</string>
     <string id="Scan_DisableCatchupFullScan">Ertelenmiş tam taramayı aç</string>
     <string id="Scan_DisableCatchupFullScan_Explain">Bu ilke ayarı, zamanlanmış tam taramalar için ertelenmiş taramaları yapılandırmanızı sağlar. Ertelenmiş tarama, düzenli olarak zamanlanmış taramanın zamanında yapılamamasıyla başlatılan taramadır. Genellikle bu zamanlanmış taramaların yapılamamasının nedeni, zamanlanan saatte bilgisayarın kapalı olmasıdır. 
 
 Bu ayarı etkinleştirirseniz, zamanlanmış tam taramalara ilişkin ertelenmiş taramalar açılır. Bilgisayar arka arkaya iki zamanlanmış tarama için de çevrimdışı kaldıysa, bilgisayarda ilk oturum açıldığında ertelenmiş tarama başlatılır. Herhangi bir yapılandırılan zamanlanmış tarama yoksa, ertelenmiş tarama yapılmaz.
 
 Bu ayarı devre dışı bırakır veya yapılandırmazsanız, zamanlanmış tam taramalara ilişkin ertelenmiş taramalar kapatılır.</string>
+    <string id="Scan_ThrottleForScheduledScanOnly">CPU azaltma türü</string>
+    <string id="Scan_ThrottleForScheduledScanOnly_Explain">Bu ilke, tarama sırasında izin verilen en yüksek CPU kullanımı yüzdesinin yalnızca zamanlanmış taramalar için mi, yoksa hem zamanlanmış hem de özel taramalara mı (ancak gerçek zamanlı koruma değil) uygulanacağını belirtir. En yüksek CPU kullanım sınırı, CPU azaltma veya CPU kullanım sınırı olarak da adlandırılır.
+
+    Bu ilke ayarının varsayılan değeri True'dur. Bu, CPU azaltmanın yalnızca zamanlanmış taramalara uygulandığı anlamına gelir.
+
+    Bu ayarı etkinleştirirseniz veya yapılandırmazsanız CPU azaltma yalnızca zamanlanmış taramalara uygulanır.
+
+    Bu ayarı devre dışı bırakırsanız, CPU azaltma zamanlanmış ve özel taramalar için geçerli olacaktır.</string>
     <string id="Scan_DisableCatchupQuickScan">Ertelenmiş hızlı taramayı aç</string>
     <string id="Scan_DisableCatchupQuickScan_Explain">Bu ilke ayarı, zamanlanmış hızlı taramalar için ertelenmiş taramaları yapılandırmanızı sağlar. Ertelenmiş tarama, düzenli olarak zamanlanmış taramanın zamanında yapılamamasıyla başlatılan taramadır.  Genellikle bu zamanlanmış taramaların yapılamamasının nedeni, zamanlanan saatte bilgisayarın kapalı olmasıdır. 
 
 Bu ayarı etkinleştirirseniz, zamanlanmış hızlı taramalara ilişkin ertelenmiş taramalar açılır. Bilgisayar arka arkaya iki zamanlanmış tarama için de çevrimdışı kaldıysa, bilgisayarda ilk oturum açıldığında ertelenmiş tarama başlatılır.  Herhangi bir yapılandırılan zamanlanmış tarama yoksa, ertelenmiş tarama yapılmaz.
 
 Bu ayarı devre dışı bırakır veya yapılandırmazsanız, zamanlanmış hızlı taramalara ilişkin ertelenmiş taramalar kapatılır.</string>
+    <string id="Scan_DaysUntilAggressiveCatchupQuickScan">Tarama olmadan X gün sonra hızlı tarama tetikle</string>
+    <string id="Scan_DaysUntilAggressiveCatchupQuickScan_Explain">Bu ilke ayarı, agresif bir ertelenmiş hızlı tarama otomatik olarak tetiklenebilmesi için son taramadan bu yana geçilen gün sayısını belirtir. Değer, agresif bir hızlı tarama tetiklenmeden önce herhangi bir tarama gerçekleştirilmeden geçilen gün sayısını temsil eder.
+    
+Geçerli değerler 7 ile 60 gün arasında olmalıdır. Yapılandırılmazsa, agresif hızlı taramalar devre dışı bırakılır. Varsayılan olarak, değer etkinleştirildiğinde 25 gün olarak ayarlanır.</string>
     <string id="Scan_DisableEmailScanning">E-posta taramasını aç</string>
-    <string id="Scan_DisableEmailScanning_Explain">Bu ilke ayarı e-posta taramasını yapılandırmanızı sağlar. E-posta taraması etkinleştirildiğinde altyapı, posta gövdelerini ve ekleri çözümlemek için özel biçimlerine göre posta kutusunu ve posta dosyalarını ayrıştırır. Birçok e-posta biçimi desteklenmektedir. Örneğin, pst (Outlook), dbx, mbx, mime (Outlook Express), binhex (Mac).
+    <string id="Scan_DisableEmailScanning_Explain">Bu ilke e-posta taramasını yapılandırmanızı sağlar. E-posta taraması etkinleştirildiğinde altyapı, posta gövdelerini ve ekleri çözümlemek için özel biçimlerine göre posta kutusunu ve posta dosyalarını ayrıştırır. Birçok e-posta biçimi desteklenmektedir. Örneğin, pst (Outlook), dbx, mbx, mime (Outlook Express), binhex (Mac). Modern e-posta istemcilerde e-posta taraması desteklenmez.
+    
+    Bu ayarı etkinleştirirseniz, e-posta taraması etkinleştirilir.
 
-Bu ayarı etkinleştirirseniz, e-posta taraması etkinleştirilir.
-
-Bu ayarı devre dışı bırakır veya yapılandırmazsanız, e-posta taraması devre dışı bırakılır.</string>
+    Bu ayarı devre dışı bırakır veya yapılandırmazsanız, e-posta taraması devre dışı bırakılır.</string>
     <string id="Scan_DisableHeuristics">Buluşsal yöntemleri aç</string>
     <string id="Scan_DisableHeuristics_Explain">Bu ilke ayarı, buluşsal yöntemleri yapılandırmanızı sağlar. Şüpheli algılamalar altyapı istemcisine raporlanmadan hemen önce bastırılır. Buluşsal yöntemleri kapatmak yeni tehditleri işaretleme olasılığını düşürür. Buluşsal yöntemleri kapatmamanız önerilir.
 
@@ -430,12 +639,12 @@ Bu ayarı devre dışı bırakır veya yapılandırmazsanız, sistem geri yükle
 Bu ayarı etkinleştirirseniz, eşleştirilmiş ağ sürücüleri taranır.
 
 Bu ayarı devre dışı bırakır veya yapılandırmazsanız, eşleştirilmiş ağ sürücüleri taranmaz.</string>
-    <string id="Scan_DisableScanningNetworkFiles">Ağ dosyalarını tara</string>
-    <string id="Scan_DisableScanningNetworkFiles_Explain">Bu ilke ayarı, ağ dosyalarının taranmasını yapılandırmanızı sağlar. Bu ayarı etkinleştirmemeniz önerilir.
+    <string id="Scan_DisableScanningNetworkFiles">Ağ dosyalarının taranmasını yapılandırın</string>
+    <string id="Scan_DisableScanningNetworkFiles_Explain">Bu ilke ayarı, erişim koruması kullanan ağ dosyalarının taranmalarına olanak sağlar. Varsayılan etkin. Çoğu durumda etkin kalması önerilir.
 
-Bu ayarı etkinleştirirseniz, ağ dosyaları taranır.
+Bu ayarı etkinleştirirseniz veya yapılandırmazsanız ağ dosyaları taranır.
 
-Bu ayarı devre dışı bırakır veya yapılandırmazsanız, ağ dosyaları taranmaz.</string>
+Bu ayarı devre dışı bırakırsanız, ağ dosyaları taranır.</string>
     <string id="Scan_LocalSettingOverrideAvgCPULoadFactor">En büyük CPU kullanımı yüzdesi için yerel geçersiz kılma ayarını yapılandır</string>
     <string id="Scan_LocalSettingOverrideAvgCPULoadFactor_Explain">Bu ilke ayarı, tarama sırasında en büyük CPU kullanımı yüzdesi yapılandırmasına yönelik yerel bir geçersiz kılmayı yapılandırır. Bu ayar yalnızca Grup İlkesi tarafından ayarlanabilir.
 
@@ -473,11 +682,11 @@ Bu ayarı etkinleştirirseniz, belirtilen gün sonra öğeler tarama geçmişi k
 
 Bu ayarı devre dışı bırakır veya yapılandırmazsanız, öğeler varsayılan gün kadar tarama geçmişi klasöründe tutulur.</string>
     <string id="Scan_QuickScanInterval">Günde çalıştırılacak hızlı tarama aralığını belirt</string>
-    <string id="Scan_QuickScanInterval_Explain">Bu ilke ayarı, hızlı tarama gerçekleştirme aralığını belirtmenizi sağlar. Saat değeri, hızlı taramalar arasındaki saat sayısını temsil eder. Geçerli değerler 1 (her saat) ile 24 (günde bir kez) arasındadır. Sıfıra ayarlanırsa, hızlı tarama aralığı oluşmaz. Varsayılan değer olarak bu ayar 0'dır.
+    <string id="Scan_QuickScanInterval_Explain">Bu ilke ayarı, hızlı tarama gerçekleştirme aralığını belirtmenizi sağlar. Saat değeri, hızlı taramalar arasındaki saat sayısını temsil eder. Geçerli değerler 1 (her saat) ile 24 (günde bir kez) arasındadır. Sıfıra ayarlanırsa hızlı tarama aralığı oluşmaz. Bu ayarın varsayılan değeri 0'dır.
 
-Bu ayarı etkinleştirirseniz, belirtilen aralıkta hızlı tarama çalıştırılır.
+    Bu ayarı etkinleştirirseniz belirtilen aralıkta hızlı tarama çalıştırılır.
 
-Bu ayarı devre dışı bırakır veya yapılandırmazsanız, hızlı tarama varsayılan saatte çalışır.</string>
+    Bu ayarı devre dışı bırakır veya yapılandırmazsanız bu yapılandırmanın kontrol ettiği hızlı tarama çalışmaz.</string>
     <string id="Scan_ScanOnlyIfIdle">Zamanlanmış taramayı yalnızca bilgisayar açık ancak kullanımda değilken başlat</string>
     <string id="Scan_ScanOnlyIfIdle_Explain">Bu ilke ayarı, zamanlanmış taramaların yalnızca bilgisayarınız açık ancak kullanılmıyorken başlayacak şekilde yapılandırılmasını sağlar.
 
@@ -521,11 +730,11 @@ Bu ayarı devre dışı bırakır veya yapılandırmazsanız, zamanlanmış tara
     <string id="Scan_ScheduleDay_7">Cuma</string>
     <string id="Scan_ScheduleDay_8">Cumartesi</string>
     <string id="Scan_ScheduleQuickScantime">Günlük hızlı tarama saatini belirt</string>
-    <string id="Scan_ScheduleQuickScantime_Explain">Bu ilke ayarı, günlük hızlı taramanın günün hangi saatinde gerçekleştirileceğini belirtmenizi sağlar. Saat değeri, gece yarısından (00:00) sonraki dakika sayısını temsil eder.  Örneğin, 120 (0x78), saat 02:00'a eşittir. Varsayılan değer olarak bu ayar, 02:00 saat değerine ayarlanır. Zamanlama işlemi, taramanın yürütüleceği bilgisayarın yerel saatini temel alır.
+    <string id="Scan_ScheduleQuickScantime_Explain">Bu ilke ayarı, günlük hızlı taramanın günün hangi saatinde gerçekleştirileceğini belirtmenizi sağlar. Saat değeri, gece yarısından (00:00) sonraki dakika sayısını temsil eder.  Örneğin, 120 (0x78), saat 02:00'ye eşittir. Varsayılan olarak bu ayar devre dışıdır. Zamanlama işlemi, taramanın yürütüleceği bilgisayarın yerel saatini temel alır.
 
-Bu ayarı etkinleştirirseniz, günün belirtilen saatinde günlük hızlı tarama çalıştırılır.
+    Bu ayarı etkinleştirirseniz günün belirtilen saatinde günlük hızlı tarama çalıştırılır.
 
-Bu ayarı devre dışı bırakır veya yapılandırmazsanız, günlük hızlı tarama varsayılan saatte çalışır.</string>
+    Bu ayarı devre dışı bırakır veya yapılandırmazsanız bu yapılandırmanın kontrol ettiği günlük hızlı tarama çalışmaz.</string>
     <string id="Scan_ScheduleTime">Zamanlanmış tarama çalıştırmak için günün saatini belirt</string>
     <string id="Scan_ScheduleTime_Explain">Bu ilke ayarı, zamanlanmış taramanın günün hangi saatinde gerçekleştirileceğini belirtmenizi sağlar. Saat değeri, gece yarısından (00:00) sonraki dakika sayısını temsil eder.  Örneğin, 120 (0x78), saat 02:00'a eşittir. Varsayılan değer olarak bu ayar, 02:00 saat değerine ayarlanır. Zamanlama işlemi, taramanın yürütüleceği bilgisayarın yerel saatini temel alır.
 
@@ -547,18 +756,30 @@ Bu ayarı devre dışı bırakır veya yapılandırmazsanız, zamanlanmış tara
 
         Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız zamanlanmış taramalar için CPU önceliğinde herhangi bir değişiklik yapılmaz.
     </string>
+
+    <string id="Scan_QuickScanIncludeExclusions">Hızlı taramalar sırasında dışlanan dosyaları ve dizinleri tara</string>
+    <string id="Scan_QuickScanIncludeExclusions_Explain">
+        Bu ilke ayarı, hızlı taramalar sırasında dışlanan dosyaları ve dizinleri taramanıza olanak sağlar.
+
+        Bu ilke ayarını 1 olarak ayarlarsanız, bağlamsal dışlamalar kullanılarak gerçek zamanlı korumanın dışında bırakılan tüm dosyalar ve dizinler hızlı tarama sırasında taranır.
+
+        Bu ilkeyi 0 olarak ayarlar veya yapılandırmazsanız dışlananlar hızlı taramalar sırasında taranmaz.
+    </string>
+	<string id="Scan_QuickScanIncludeExclusions_Disabled">0</string>
+	<string id="Scan_QuickScanIncludeExclusions_RtpExclusions">1</string>
+
     <string id="SignatureUpdate_ASSignatureDue">Casus yazılım güvenlik bilgilerinin süresi geçmiş olarak kabul edilmesi için gereken gün sayısını belirt</string>
-    <string id="SignatureUpdate_ASSignatureDue_Explain">Bu ilke ayarı, casus yazılım güvenlik bilgileri süresi geçmiş olarak kabul edilmeden önce geçmesi gereken gün sayısını tanımlamanıza olanak sağlar. Güvenlik bilgilerinin süresinin geçtiğine karar verilirse, bu durum alternatif bir güncelleştirme kaynağına geri dönmek veya kullanıcı arayüzünde bir uyarı simgesi görüntülemek dahil çeşitli ek eylemleri tetikleyebilir. Varsayılan olarak bu değer 14 güne ayarlanmıştır.
+    <string id="SignatureUpdate_ASSignatureDue_Explain">Bu ilke ayarı, casus yazılım güvenlik bilgileri güncel değil kabul edilmeden önce geçmesi gereken gün sayısını tanımlamanızı sağlar. Güvenlik bilgileri süresinin eski olduğu belirlenirse, bu durum alternatif bir güncelleştirme kaynağına geri dönmek veya Kullanıcı arabiriminde bir uyarı simgesi görüntülemek gibi birkaç ek işlemi tetikleyebilir. Varsayılan olarak, bu değer 7 güne ayarlıdır.
 
-    Bu ayarı etkinleştirirseniz, güncelleştirme olmadan belirtilen sayıda gün geçtikten sonra casus yazılım güvenlik bilgileri süresi geçmiş olarak kabul edilir.
+Bu ayarı etkinleştirirseniz, güncelleştirme olmadan belirtilen sayıda gün geçtikten sonra casus yazılım güvenlik bilgileri süresi geçmiş olarak kabul edilir.
 
-    Bu ayarı devre dışı bırakır veya yapılandırmazsanız, güncelleştirme olmadan varsayılan sayıda gün geçtikten sonra casus yazılım güvenlik bilgileri süresi geçmiş olarak kabul edilir.</string>
+Bu ayarı devre dışı bırakır veya yapılandırmazsanız, güncelleştirme olmadan varsayılan sayıda gün geçtikten sonra casus yazılım güvenlik bilgileri süresi geçmiş olarak kabul edilir.</string>
     <string id="SignatureUpdate_AVSignatureDue">Virüs güvenlik bilgileri süresi geçmiş olarak kabul edilmeden önce geçecek gün sayısını tanımla</string>
-    <string id="SignatureUpdate_AVSignatureDue_Explain">Bu ilke ayarı, virüs güvenlik bilgileri süresi geçmiş olarak kabul edilmeden önce geçmesi gereken gün sayısını tanımlamanıza olanak sağlar. Güvenlik bilgilerinin süresinin geçtiğine karar verilirse, bu durum alternatif bir güncelleştirme kaynağına geri dönmek veya kullanıcı arayüzünde bir uyarı simgesi görüntülemek dahil çeşitli ek eylemleri tetikleyebilir. Varsayılan olarak bu değer 14 güne ayarlanmıştır.
+    <string id="SignatureUpdate_AVSignatureDue_Explain">Bu ilke ayarı, virüsten güvenlik bilgileri güncel değil olarak değerlendirilmeden önce geçmesi gereken gün sayısını tanımlamanızı sağlar. Güvenlik bilgileri süresinin eski olduğu belirlenirse, bu durum alternatif bir güncelleştirme kaynağına geri dönmek veya Kullanıcı arabiriminde bir uyarı simgesi görüntülemek gibi birkaç ek işlemi tetikleyebilir. Varsayılan olarak, bu değer 7 güne ayarlıdır.
 
-    Bu ayarı etkinleştirirseniz, güncelleştirme olmadan belirtilen sayıda gün geçtikten sonra virüs yazılım güvenlik bilgileri süresi geçmiş olarak kabul edilir.
+Bu ayarı etkinleştirirseniz, güncelleştirme olmadan belirtilen sayıda gün geçtikten sonra virüs güvenlik bilgileri süresi geçmiş olarak kabul edilir.
 
-    Bu ayarı devre dışı bırakır veya yapılandırmazsanız, güncelleştirme olmadan varsayılan sayıda gün geçtikten sonra virüs yazılım güvenlik bilgileri süresi geçmiş olarak kabul edilir.</string>
+Bu ayarı devre dışı bırakır veya yapılandırmazsanız, güncelleştirme olmadan varsayılan sayıda gün geçtikten sonra virüs güvenliği yönetim bilgileri süresi geçmiş kabul edilir.</string>
     <string id="SignatureUpdate_DefinitionUpdateFileSharesSources">Güvenlik bilgileri güncelleştirmelerini indirmek için dosya paylaşımları tanımla</string>
     <string id="SignatureUpdate_DefinitionUpdateFileSharesSources_Explain">Bu ilke ayarı, güvenlik bilgileri güncelleştirmelerini indirmek için UNC dosya paylaşım kaynakları yapılandırmanıza olanak sağlar. Kaynaklara belirtilen sırada başvurulur. Bu ayarın değeri, güvenlik bilgileri güncelleştirme kaynaklarını sıralayan dikey çizgi ile ayrılmış bir dize olarak girilmelidir. Örneğin: "{\\unc1 | \\unc2 }". Varsayılan değer olarak bu liste boştur.
 
@@ -569,6 +790,13 @@ Bu ayarı devre dışı bırakır veya yapılandırmazsanız, zamanlanmış tara
     <string id="SignatureUpdate_SharedSignaturesLocation_Explain">Bu ilke ayarı, VDI ile yapılandırılmış bilgisayarlar için güvenlik bilgileri konumunu tanımlamanıza olanak sağlar. 
 
     Bu ayarı devre dışı bırakır veya yapılandırmazsanız güvenlik bilgileri, varsayılan yerel kaynaktan gösterilir.</string>
+    <string id="SignatureUpdate_SharedSignaturesLocationUpdateAtScheduledTimeOnly">Güvenlik zekası güncelleştirmelerini VDI istemcileri için zamanlayıcıya göre yapılandırın.</string>
+    <string id="SignatureUpdate_SharedSignaturesLocationUpdateAtScheduledTimeOnly_Explain">Bu ilke ayarı, güvenlik zekası güncelleştirmelerini VDI tarafından yapılandırılan bilgisayarlar için zamanlayıcıya göre yapılandırmanızı sağlar. Paylaşılan güvenlik zekası konumu (SharedSignaturesLocation) ile birlikte kullanılır.
+
+    Bu ilke ayarını etkinleştirir ve SharedSignaturesLocation'ı yapılandırırsanız, yapılandırılan konumdan güncelleştirmeler yalnızca önceden yapılandırılan zamanlanmış güncelleştirme zamanında gerçekleşir.
+
+    Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız güncelleştirmeler, SharedSignaturesLocation tarafından belirtilen konumda yeni bir güvenlik zekası güncelleştirmesi algılandığında gerçekleşir.
+    </string>
     <string id="SignatureUpdate_DisableScanOnUpdate">Güvenlik bilgileri güncelleştirmesinden sonra taramayı aç</string>
     <string id="SignatureUpdate_DisableScanOnUpdate_Explain">Bu ilke ayarı, güvenlik bilgileri güncelleştirmesi gerçekleştikten sonra başlatılacak olan otomatik tarama yapılandırmanıza olanak sağlar.
 
@@ -756,61 +984,70 @@ Geçerli düzeltme eylemi değerleri şunlardır:
       Bu ayarı etkinleştirirseniz, AM UI önyükleme bildirimlerini göstermez.
     </string>
     <string id="UX_Configuration_Notification_Suppress">Tüm bildirimleri gösterme</string>
-    <string id="UX_Configuration_Notification_Suppress_Explain">Bu ilke ayarını Windows Defender Virüsten Koruma bildirimlerinin istemciler üzerinde gösterilmesini isteyip istemediğinizi belirtmek için kullanın.
-      Bu ayarı devre dışı bırakır veya yapılandırmazsanız, Windows Defender Virüsten Koruma bildirimleri istemciler üzerinde gösterilir.
+    <string id="UX_Configuration_Notification_Suppress_Explain">Bu ilke ayarını Microsoft Defender Virüsten Koruma bildirimlerinin istemciler üzerinde gösterilmesini isteyip istemediğinizi belirtmek için kullanın.
+      Bu ayarı devre dışı bırakır veya yapılandırmazsanız, Microsoft Defender Virüsten Koruma bildirimleri istemciler üzerinde gösterilir.
 
-      Bu ayarı etkinleştirirseniz, Windows Defender Virüsten Koruma bildirimleri istemciler üzerinde gösterilmez.
+      Bu ayarı etkinleştirirseniz, Microsoft Defender Virüsten Koruma bildirimleri istemciler üzerinde gösterilmez.
     </string>
-    <string id="UX_Configuration_CustomDefaultActionToastString">İstemciler bir eylem gerçekleştirmesi gerektiğinde onlara ek metin göster</string>
-    <string id="UX_Configuration_CustomDefaultActionToastString_Explain">Bu ilke ayarı, istemciler bir eylem gerçekleştirmesi gerektiğinde onlara ek metin gösterilip gösterilmeyeceğini yapılandırmanızı sağlar. Görüntülenen metin, yönetici tarafından tanımlanmış özel bir dizedir. Örneğin, şirket yardım masasını aramak için telefon numarası. İstemci arabirimi yalnızca en fazla 1024 karakter görüntüler. Daha uzun dizeler görüntülemeden önce kesilir.
-
-Bu ayarı etkinleştirirseniz, belirtilen ek metin görüntülenir.
-
-Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız hiçbir ek metin görüntülenmez.</string>
     <string id="MpCloudBlockLevel">Bulut koruma düzeyini seçin</string>
     <string id="MpCloudBlockLevel_Explain">
-      Bu ilke ayarı, Windows Defender Virüsten Koruma'nın şüpheli dosyaları engelleme ve tarama konusunda ne kadar saldırgan olacağını belirler.
+      Bu ilke ayarı, Microsoft Defender Virüsten Koruma'nın şüpheli dosyaları engelleme ve tarama konusunda ne kadar saldırgan olacağını belirler.
 
-      Bu ayar açıksa Windows Defender Virüsten Koruma, şüpheli dosyaları engelleme ve tarama konusunda daha saldırgan olur; aksi takdirde, daha az saldırgan olur ve daha az sıklıkla engelleme ve tarama yapar. 
+      Bu ayar açıksa Microsoft Defender Virüsten Koruma, şüpheli dosyaları engelleme ve tarama konusunda daha saldırgan olur; aksi takdirde, daha az saldırgan olur ve daha az sıklıkla engelleme ve tarama yapar. 
       
-      Desteklenen belirli değerler hakkında daha fazla bilgi almak için Windows Defender Virüsten Koruma belgeleri sitesine bakın.
+      Desteklenen belirli değerler hakkında daha fazla bilgi almak için Microsoft Defender Virüsten Koruma belgeleri sitesine bakın.
 
       Not: Bu özelliğin çalışması için "Microsoft MAPS'ye katıl" ayarının etkinleştirilmiş olması gerekir.
 
       Olası seçenekler:
-      (0x0) Varsayılan windows defender engelleme düzeyi
+      (0x0) Varsayılan Microsoft Defender Virüsten Koruma engelleme düzeyi
+      (0x1) Orta Microsoft Defender Virüsten Koruma engelleme düzeyi yalnızca yüksek güvenlikli algılamalar için karar verir
       (0x2) Yüksek engelleme düzeyi - istemci performansını en iyi düzeye getirirken bilinmeyen kaynakları saldırgan şekilde engelle (daha fazla hatalı pozitif sonuç şansı)
       (0x4) Yüksek+ engelleme düzeyi – bilinmeyen kaynakları saldırgan şekilde engelle ve ek koruma yöntemleri uygula (istemci performansını etkileyebilir)
       (0x6) Sıfır tolerans engelleme düzeyi – tüm bilinmeyen çalıştırılabilir dosyaları engelle
     </string>
-    <string id="MpCloudBlockLevel_Default_Level">Windows Defender Virüsten Koruma varsayılan engelleme düzeyi</string>
+    <string id="MpCloudBlockLevel_Default_Level">Varsayılan engelleme düzeyi</string>
+    <string id="MpCloudBlockLevel_Moderate_Level">Orta engelleme düzeyi</string>
     <string id="MpCloudBlockLevel_High_Level">Yüksek engelleme düzeyi</string>
     <string id="MpCloudBlockLevel_High_Plus_Level">Yüksek+ engelleme düzeyi</string>
     <string id="MpCloudBlockLevel_Zero_Tolerance_Level">Sıfır tolerans engelleme düzeyi</string>
     <string id="MpBafsExtendedTimeout">Genişletilmiş bulut denetimi yapılandır</string>
     <string id="MpBafsExtendedTimeout_Explain">
-      Bu özellik Windows Defender Virüsten Koruma kötü amaçlı yazılımdan korumanın 60 saniye kadar şüpheli bir dosyayı engellemesine ve güvenli olduğundan emin olmak için bulutta taramasına olanak sağlar.
+      Bu özellik Microsoft Defender Virüsten Koruma'nın 60 saniye kadar şüpheli bir dosyayı engellemesine ve güvenli olduğundan emin olmak için bulutta taramasına olanak sağlar.
       
       Normal bulut denetimi zaman aşımı 10 saniyedir. Genişletilmiş bulut onay özelliğini etkinleştirmek için saniye cinsinden 50 saniyeye kadar uzatılan süreyi belirtin.
 
       İstediğiniz zaman aşımı 60 saniye ise, örneğin, bu ayarda 50 saniyeyi belirtin ki genişletilmiş bulut denetim özelliği devreye girsin ve sürenin tamamını 60 saniyeye çıkarsın.
 
-      Not: Bu özellik diğer üç HARİTALAR ayarına bağlıdır - "'İlk Görüşte Engelleme' özelliğini Yapılandır"; Microsoft Haritalar'a Katıl"; "Daha fazla çözümleme gerektiğinde dosya örnekleri Gönder" tümünün etkinleştirilmesi gerekir.
+      Not: Bu özellik diğer üç MAPS ayarına bağlıdır - "'İlk Görüşte Engelleme' özelliğini Yapılandır"; Microsoft MAPS'a Katıl"; "Daha fazla çözümleme gerektiğinde dosya örnekleri Gönder" tümünün etkinleştirilmesi gerekir.
+    </string>
+    <string id="MpEngine_EnableFileHashComputation">Dosya karması hesaplama özelliğini etkinleştir</string>
+    <string id="MpEngine_EnableFileHashComputation_Explain">
+        Dosya karması hesaplama özelliğini etkinleştirin veya devre dışı bırakın.
+
+        Etkin:
+        Bu özellik etkinleştirildiğinde Microsoft Defender, taradığı dosyalar için karma değerini hesaplar.
+
+        Devre dışı:
+        Dosya karması değeri hesaplanmaz
+        
+        Yapılandırılmamış:
+        Devre dışı ile aynı.
     </string>
     <string id="ExploitGuard_EnableNetworkProtection">Kullanıcıların ve uygulamaların tehlikeli web sitelerine erişmelerini engelleyin</string>
     <string id="ExploitGuard_EnableNetworkProtection_Explain">
-    Windows Defender Exploit Guard ağ korumasını etkinleştirerek veya devre dışı bırakarak çalışanlarınızın kimlik avı dolandırıcılığı, açıklardan yararlanan yazılım barındıran siteler ve İnternet'teki diğer kötü amaçlı içerikleri barındırabilen tehlikeli etki alanlarına erişebilecek uygulamaları kullanmalarını engelleyin.
+    Microsoft Defender Exploit Guard ağ korumasını etkinleştirerek veya devre dışı bırakarak çalışanlarınızın kimlik avı dolandırıcılığı, açıklardan yararlanan yazılım barındıran siteler ve İnternetteki diğer kötü amaçlı içerikleri barındırabilen tehlikeli etki alanlarına erişebilecek uygulamaları kullanmalarını engelleyin.
 
-    Etkinleştirildi:
+    Etkin:
     Seçenekler bölümünde modu belirleyin:
     -Engelle: Kullanıcılar ve uygulamalar tehlikeli etki alanlarına erişemez
-    -Denetle: Kullanıcılar ve uygulamalar tehlikeli etki alanlarına bağlanabilir, ancak Engelle olarak ayarlandığında bu özellik erişimi engelleyeceğinden Windows Defender Güvenlik Merkezi'nde olayın bir kaydı gösterilir
+    -Denetleme Modu: Kullanıcılar ve uygulamalar tehlikeli etki alanlarına bağlanabilir, ancak Engelle olarak ayarlandığında bu özellik erişimi engelleyecekse olay günlüklerinde olayın bir kaydı gösterilir.
 
-    Devre dışı bırakıldı:
-    Kullanıcılar ve uygulamalar, tehlikeli etki alanlarına bağlanırken engellenmez.
+    Devre dışı:
+    Kullanıcılar ve uygulamaların tehlikeli etki alanlarına bağlanmaları engellenmez.
 
-    Yapılandırılmadı:
-    Devre dışı bırakıldı ile aynı.
+    Yapılandırılmamış:
+    Devre dışı ile aynı.
     </string>
     <string id="ExploitGuard_ASR_ASROnlyExclusions">Attack Surface Azaltma Kuralları'ndan dosyaları ve yolları dışla</string>
     <string id="ExploitGuard_ASR_ASROnlyExclusions_Explain">
@@ -830,27 +1067,44 @@ Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız hiçbir ek me
 
         Attack Surface Azaltma kurallarını yapılandır GP ayarında ASR kurallarını yapılandırabilirsiniz.
     </string>
+    <string id="ExploitGuard_ASR_ASROnlyPerRuleExclusions">Belirli saldırı yüzeyini azaltma (ASR) kurallarına dışlama listesi uygulayın</string>g
+    <string id="ExploitGuard_ASR_ASROnlyPerRuleExclusions_Explain">
+    Bu ilke, bir yöneticinin belirli ASR kuralları için dışlama listesi belirtmesine olanak tanır.
+    Her giriş bir ad-değer çiftidir. Anahtar, kural GUID’sini belirtir ve değer, &gt; karakteriyle ayrılan bir tam yol kümesidir ve ilgili ASR kuralıyla ilgili dışlamaları gösterir.
+
+    NOT: GUID, bir ANAHTARDIR; değer değildir.
+
+    Örnek:
+    ANAHTAR: "{75668C1F-73B5-4CF0-BB93-3ECF5DB7C484}"
+    DEĞER: "C:\Notepad.exe&gt;c:\regedit.exe&gt;C:\SomeFolder\test.exe"
+    </string>
     <string id="ExploitGuard_ASR_Rules">Attack Surface Azaltma kurallarını yapılandır</string>
     <string id="ExploitGuard_ASR_Rules_Explain">
-    Her Attack Surface Azaltma (ASR) kuralı için durumu ayarlayın.
+    Her Saldırı Yüzeyini Azaltma (ASR) kuralı için durumu ayarlayın.
 
-    Bu ayarı etkinleştirdikten sonra her kuralı Seçenekler bölümünde aşağıdaki şekilde ayarlayabilirsiniz:
+    Bu ayarı etkinleştirdikten sonra Seçenekler bölümünde her kuralı aşağıdaki şekilde ayarlayabilirsiniz:
     - Engelle: Kural uygulanır
-    - Denetle Modu: Kural normalde bir olaya neden olacaksa kaydedilir (ancak kural gerçekten uygulanmaz)
+    - Denetim Modu: Kural normalde bir olaya neden olacaksa kaydedilir (ancak kural gerçekten uygulanmaz)
     - Kapalı: Kural uygulanmaz
+    - Yapılandırılmadı: Kural varsayılan değerlerle etkinleştirilir
+    - Uyarı: Kural uygulanır ve son kullanıcıya engeli atlama seçeneği sağlanır
+
+    ASR kuralı devre dışı bırakılmadığı sürece, ASR kuralları için denetim olaylarının bir alt örneği toplanır ve Yapılandırılmadı değerinde olur.
 
     Etkinleştirildi:
-    Seçenekler bölümünde bu ayar için her ASR kuralının durumunu ayarlayın.
-    Her kuralı bir ad-değer çifti olarak yeni bir satıra yazın:
+    Bu ayarın Seçenekler bölümünde her ASR kuralının durumunu ayarlayın.
+    Her kuralı bir ad-değer çifti olarak yeni bir satıra girin:
     - Ad sütunu: Geçerli bir ASR kuralı kimliği girin
     - Değer sütunu: İlişkili kural için belirlemek istediğiniz durumla ilgili durum kimliğini girin
 
-    Aşağıdaki durum kimliklerine değer sütunu altında izin verilir:
+    Durum sütununda aşağıdaki durum kimliklerinin kullanılmasına izin verilir:
     - 1 (Engelle)
     - 0 (Kapalı)
     - 2 (Denetle)
-    
+    - 5 (Yapılandırılmadı)
+    - 6 (Uyarı)
 
+    
     Örnek:
     xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx            0
     xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx            1
@@ -860,61 +1114,61 @@ Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız hiçbir ek me
     ASR kuralları yapılandırılmaz.
 
     Yapılandırılmadı:
-    Devre dışı bırakıldı ile aynı.
+    Devre dışı bırakıldı ayarıyla aynıdır.
 
-    ""Klasörleri veya dosyaları ve kaynakları dışla"" GP ayarında klasörleri veya dosyaları ve kaynakları dışlayabilirsiniz.
+    ""Dosyaları ve yolları Saldırı Yüzeyini Azaltma Kurallarından dışla"" GP ayarında klasörleri veya dosyaları dışlayabilirsiniz.
     </string>
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess">Denetlenen klasör erişimini yapılandır</string>
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess_Explain">
-    Güvenilmeyen uygulamalar için denetlenen klasör erişimini etkinleştirin veya devre dışı bırakın. Güvenilmeyen uygulamalar tarafından yapılan şu girişimleri engellemeyi, denetlemeyi veya onlar için izin ermeyi seçebilirsiniz:
-    - Belgeler klasörü gibi korunan klasörlerdeki dosyaları değiştirme veya silme
-    - Disk kesimlerine yazma
+        Güvenilmeyen uygulamalar için denetlenen klasör erişimini etkinleştirin veya devre dışı bırakın. Güvenilmeyen uygulamalar tarafından yapılan şu girişimleri engellemeyi, denetlemeyi veya onlara izin vermeyi seçebilirsiniz:
+        - Belgeler klasörü gibi korunan klasörlerdeki dosyaları değiştirme veya silme
+        - Disk kesimlerine yazma
 
-    Korunan klasörlerdeki dosyaların değiştirilmesine veya silinmesine izin verirken sadece disk kesimlerine yazmaları engellemeyi veya denetlemeyi de seçebilirsiniz.
+        Korunan klasörlerdeki dosyaların değiştirilmesine veya silinmesine izin verirken sadece disk kesimlerine yazmaları engellemeyi veya denetlemeyi de seçebilirsiniz.
 
-    Windows Defender Virüsten Koruma, hangi uygulamalara güvenilebileceğini otomatik olarak belirler. İzin verilen uygulamaları yapılandır GP ayarında ek güvenilir uygulamalar ekleyebilirsiniz.
-    Varsayılan sistem klasörleri otomatik olarak korunur ancak Korunan klasörleri yapılandır GP ayarında klasör ekleyebilirsiniz.
+        Microsoft Defender Virüsten Koruma, hangi uygulamalara güvenilebileceğini otomatik olarak belirler. İzin verilen uygulamaları yapılandır GP ayarında ek güvenilir uygulamalar ekleyebilirsiniz.
+        Varsayılan sistem klasörleri otomatik olarak korunur ancak Korunan klasörleri yapılandır GP ayarında klasör ekleyebilirsiniz.
 
-    Engelle:
-    Şunlar engellenir:
-    - Güvenilmeyen uygulamalar tarafından korunan klasörlerdeki dosyaları değiştirme veya silme girişimleri
-    - Güvenilmeyen uygulamalar tarafından disk kesimlerine yazma girişimleri
-    Windows olay günlüğü, bu engellemeleri Uygulamalar ve Hizmetler Günlükleri &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; İşlem &gt; Kimlik 1123 altında kaydeder.
-
-
-    Devre dışı bırakıldı:
-    Şunlar engellenmez ve çalışmasına izin verilir:
-    - Güvenilmeyen uygulamalar tarafından korunan klasörlerdeki dosyaları değiştirme veya silme girişimleri
-    - Güvenilmeyen uygulamalar tarafından disk kesimlerine yazma girişimleri
-    Bu girişimler Windows olay günlüğüne kaydedilmez.
+        Engelle:
+        Şunlar engellenir:
+        - Güvenilmeyen uygulamalar tarafından korunan klasörlerdeki dosyaları değiştirme veya silme girişimleri
+        - Güvenilmeyen uygulamalar tarafından disk kesimlerine yazma girişimleri
+        Windows olay günlüğü, bu engellemeleri Uygulamalar ve Hizmetler Günlükleri &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; İşlem &gt; Kimlik 1123 altında kaydeder.
 
 
-    Denetleme Modu:
-    Şunlar engellenmez ve çalışmasına izin verilir:
-    - Güvenilmeyen uygulamalar tarafından korunan klasörlerdeki dosyaları değiştirme veya silme girişimleri
-    - Güvenilmeyen uygulamalar tarafından disk kesimlerine yazma girişimleri
-    Windows olay günlüğü bu girişimleri Uygulamalar ve Hizmetler Günlükleri &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; İşlem &gt; Kimlik 1124 altında kaydeder.
+        Devre dışı:
+        Şunlar engellenmez ve çalışmalarına izin verilir:
+        - Güvenilmeyen uygulamalar tarafından korunan klasörlerdeki dosyaları değiştirme veya silme girişimleri
+        - Güvenilmeyen uygulamalar tarafından disk kesimlerine yazma girişimleri
+        Bu girişimler Windows olay günlüğüne kaydedilmez.
 
 
-    Yalnızca disk değiştirmeyi engelle:
-    Şunlar engellenir:
-    - Güvenilmeyen uygulamalar tarafından disk kesimlerine yazma girişimleri
-    Windows olay günlüğü bu girişimleri Uygulamalar ve Hizmetler Günlükleri &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; İşlem &gt; Kimlik 1123.
-
-    Şunlar engellenmez ve çalışmasına izin verilir:
-    - Güvenilmeyen uygulamalar tarafından korunan klasörlerdeki dosyaları değiştirme veya silme girişimleri
-    Bu girişimler Windows olay günlüğüne kaydedilmez.
+        Denetleme Modu:
+        Şunlar engellenmez ve çalışmalarına izin verilir:
+        - Güvenilmeyen uygulamalar tarafından korunan klasörlerdeki dosyaları değiştirme veya silme girişimleri
+        - Güvenilmeyen uygulamalar tarafından disk kesimlerine yazma girişimleri
+        Windows olay günlüğü bu girişimleri Uygulamalar ve Hizmetler Günlükleri &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; İşlem &gt; Kimlik 1124 altında kaydeder.
 
 
-    Yalnızca disk değiştirmeyi denetle:
-    Şunlar engellenmez ve çalışmasına izin verilir:
-    - Güvenilmeyen uygulamalar tarafından disk kesimlerine yazma girişimleri
-    - Güvenilmeyen uygulamalar tarafından korunan klasörlerdeki dosyaları değiştirme veya silme girişimleri
-    Yalnızca korumalı disk kesimlerine yazma girişimleri Windows olay günlüğüne kaydedilir (Uygulamalar ve Hizmetler Günlükleri &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; İşlem &gt; Kimlik 1124 altında).
-    Korunan klasörlerdeki dosyaları değiştirme veya silme girişimleri kaydedilmez.
+        Yalnızca disk değiştirmeyi engelle:
+        Şunlar engellenir:
+        - Güvenilmeyen uygulamalar tarafından disk kesimlerine yazma girişimleri
+        Windows olay günlüğü bu girişimleri Uygulamalar ve Hizmetler Günlükleri &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; İşlem &gt; Kimlik 1123.
 
-    Yapılandırılmadı:
-    Devre dışı bırakıldı ile aynı.
+        Şunlar engellenmez ve çalışmasına izin verilir:
+        - Güvenilmeyen uygulamalar tarafından korunan klasörlerdeki dosyaları değiştirme veya silme girişimleri
+        Bu girişimler Windows olay günlüğüne kaydedilmez.
+
+
+        Yalnızca disk değiştirmeyi denetle:
+        Şunlar engellenmez ve çalışmalarına izin verilir:
+        - Güvenilmeyen uygulamalar tarafından disk kesimlerine yazma girişimleri
+        - Güvenilmeyen uygulamalar tarafından korunan klasörlerdeki dosyaları değiştirme veya silme girişimleri
+        Yalnızca korumalı disk kesimlerine yazma girişimleri Windows olay günlüğüne kaydedilir (Uygulamalar ve Hizmetler Günlükleri &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; İşlem &gt; Kimlik 1124 altında).
+        Korunan klasörlerdeki dosyaları değiştirme veya silme girişimleri kaydedilmez.
+
+        Yapılandırılmamış:
+        Devre dışı ile aynı.
     </string>
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess_Disable">Devre dışı bırak (Varsayılan)</string>
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess_Block">Engelle</string>
@@ -927,17 +1181,16 @@ Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız hiçbir ek me
 
     Bu uygulamaların denetlenen klasör erişimi klasörlerindeki dosyaları değiştirmesine veya silmesine izin verilir.
 
-    Windows Defender Virüsten Koruma, hangi uygulamalara güvenilmesi gerektiğini otomatik olarak belirler. Ek uygulamalar eklemek için bu ayarı yapılandırabilirsiniz.
+    Microsoft Defender Virüsten Koruma, hangi uygulamalara güvenilmesi gerektiğini otomatik olarak belirler. Ek uygulamalar eklemek için bu ayarı yapılandırabilirsiniz.
 
-        Etkinleştirildi:
+        Etkin:
     Seçenekler bölümünde ek izin verilen uygulamaları belirleyin.
 
-    Etkin: 
-    Devre dışı bırakıldı:
+    Devre dışı:
     Güvenilir listesine ek uygulama eklenmez.
 
-    Yapılandırılmadı:
-    Devre dışı bırakıldı ile aynı.
+    Yapılandırılmamış:
+    Devre dışı ile aynı.
 
     Denetlenen klasör erişimini yapılandır GP ayarında denetlenen klasör erişimini etkinleştirebilirsiniz.
 
@@ -952,19 +1205,160 @@ Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız hiçbir ek me
     Varsayılan sistem klasörleri otomatik olarak korunur. Ek klasör eklemek için bu ayarı yapılandırabilirsiniz. 
     Korunan varsayılan sistem klasörleri listesi Windows Güvenliği'nde gösterilir.
 
-    Etkinleştirildi:
+    Etkin:
     Seçenekler bölümünde korunması gereken ek klasörleri belirleyin.
 
-    Devre dışı bırakıldı:
+    Devre dışı:
     Ek klasörler korunmaz.
 
     Yapılandırılmadı:
-    Devre dışı bırakıldı ile aynı.
+    Devre dışı ile aynı.
 
     Denetimli klasör erişimini yapılandır GP ayarında denetimli klasör erişimini etkinleştirebilirsiniz.
 
-    Windows Defender Virüsten Koruma, hangi uygulamalara güvenilebileceğini otomatik olarak belirler. İzin verilen uygulamaları yapılandır GP ayarında ek güvenilir uygulamalar ekleyebilirsiniz.
+    Microsoft Defender Virüsten Koruma, hangi uygulamalara güvenilebileceğini otomatik olarak belirler. İzin verilen uygulamaları yapılandır GP ayarında ek güvenilir uygulamalar ekleyebilirsiniz.
     </string>
+    <string id="DeviceControl_PolicyGroups">Aygıt Denetim ilkesi grupları tanımlama</string>
+    <string id="DeviceControl_PolicyGroups_Explain">
+        İlke grupları verilerini doldurmak için lütfen cihaz denetim ilkesi grupları xml şemasını izleyin. 
+        Alternatif olarak, XML grupları verilerini içeren bir dosya yolu da kullanılabilir.
+    </string>
+    <string id="DeviceControl_PolicyRules">Aygıt Denetim ilkesi kuralları tanımlama</string>
+    <string id="DeviceControl_PolicyRules_Explain">
+        İlke kuralları verilerini doldurmak için lütfen cihaz denetim ilkesi kuralları xml şemasını izleyin.
+        Alternatif olarak, XML kuralları verilerini içeren bir dosya yolu da kullanın.
+    </string>
+    <string id="Root_PlatformUpdateChannel">Microsoft Defender aylık platform güncelleştirmeleri için kanal seçin [kullanım dışı bırakılacak]</string>
+    <string id="Root_PlatformUpdateChannel_Explain">[kullanım dışı bırakılacak] Aylık kademeli dağıtım sırasında cihazların Microsoft Defender platform güncelleştirmelerini ne zaman alacağını belirtmek için bu ilkeyi etkinleştirin.​
+
+        Beta Kanal: Bu kanala ayarlanan cihazlar, yeni güncelleştirmeleri ilk alan cihazlar olacaktır. Sorunların belirlenmesine ve Microsoft'a bildirilmesine katılmak için Beta Kanal'ı seçin. Windows Insider Programı’ndaki cihazlar varsayılan olarak bu kanala abonedir. Yalnızca (el ile) test ortamlarında ve sınırlı sayıda cihazda kullanım içindir.
+        Güncel Kanal (Önizleme): Bu kanala ayarlanan cihazlara, aylık kademeli sürüm döngüsü sırasında en erken güncelleştirmeler sunulacaktır. Ön üretim/doğrulama ortamları için önerilir.
+        Güncel Kanal (Aşamalı): Cihazlara aylık kademeli sürüm döngüsünden sonra güncelleştirmeler sunulacaktır. Üretim veri kümenizin küçük, temsili bir bölümüne (yaklaşık %10) uygulanması önerilir.
+        Güncel Kanal (Geniş): Cihazlara yalnızca kademeli sürüm döngüsü tamamlandıktan sonra güncelleştirmeler sunulacaktır. Üretim veri kümenizdeki (yaklaşık %10-100) geniş bir cihaz grubuna uygulanması önerilir.
+        Kritik - Zaman gecikmesi: Cihazlara 48 saatlik bir gecikmeyle güncelleştirmeler sunulacaktır. Yalnızca kritik ortamlar için önerilir.
+
+        Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız, kademeli yayın döngüsü sırasında cihaz otomatik olarak güncel kalacaktır. Çoğu cihaz için uygundur.
+    </string>
+    <string id="Root_EngineUpdateChannel">Microsoft Defender aylık altyapı güncelleştirmeleri için kanal seçin [kullanım dışı bırakılacak]</string>
+    <string id="Root_EngineUpdateChannel_Explain">[kullanım dışı bırakılacak] Aylık kademeli dağıtım sırasında cihazların Microsoft Defender altyapı güncelleştirmelerini ne zaman alacağını belirtmek için bu ilkeyi etkinleştirin.​
+
+        Beta Kanal: Bu kanala ayarlanan cihazlar, yeni güncelleştirmeleri ilk alan cihazlar olacaktır. Sorunların belirlenmesine ve Microsoft'a bildirilmesine katılmak için Beta Kanal'ı seçin. Windows Insider Programı’ndaki cihazlar varsayılan olarak bu kanala abonedir. Yalnızca (el ile) test ortamlarında ve sınırlı sayıda cihazda kullanım içindir.
+        Güncel Kanal (Önizleme): Bu kanala ayarlanan cihazlara, aylık kademeli sürüm döngüsü sırasında en erken güncelleştirmeler sunulacaktır. Ön üretim/doğrulama ortamları için önerilir.
+        Güncel Kanal (Aşamalı): Cihazlara aylık kademeli sürüm döngüsünden sonra güncelleştirmeler sunulacaktır. Üretim veri kümenizin küçük, temsili bir bölümüne (yaklaşık %10) uygulanması önerilir.
+        Güncel Kanal (Geniş): Cihazlara yalnızca kademeli sürüm döngüsü tamamlandıktan sonra güncelleştirmeler sunulacaktır. Üretim veri kümenizdeki (yaklaşık %10-100) geniş bir cihaz grubuna uygulanması önerilir.
+        Kritik - Zaman gecikmesi: Cihazlara 48 saatlik bir gecikmeyle güncelleştirmeler sunulacaktır. Yalnızca kritik ortamlar için önerilir.
+
+        Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız, kademeli yayın döngüsü sırasında cihaz otomatik olarak güncel kalacaktır. Çoğu cihaz için uygundur.
+    </string>
+    <string id="Root_SecurityIntelligenceUpdateChannel">Microsoft Defender günlük güvenlik zekası güncelleştirmeleri kanalını seçin</string>
+    <string id="Root_SecurityIntelligenceUpdateChannel_Explain">Cihazların günlük aşamalı kullanıma sunma sırasında Microsoft Defender güvenlik zekası güncelleştirmelerini ne zaman alacağını belirtmek için bu ilkeyi etkinleştirin.
+
+        Güncel Kanal (Aşamalı): Güncelleştirmeler sürüm döngüsünden sonra cihazlara sunulur. Üretim topluluğunun küçük ve temsili bir bölümüne (~%10) uygulanması önerilir.
+        Güncel Kanal (Geniş): Güncelleştirmeler yalnızca aşamalı sürüm döngüsü tamamlandıktan sonra cihazlara sunulur. Üretim topluluğunuzda geniş bir cihaz kümesine (~%10-100) uygulanması önerilir.
+        Kritik - Gecikmeli: Güncelleştirmeler 48 saatlik bir gecikmeyle cihazlara sunulur. Yalnızca kritik ortamlar için önerilir.
+
+        Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız, cihaz günlük sürüm döngüsü sırasında otomatik olarak güncel duruma getirilir. Çoğu cihaz için uygundur.
+    </string>
+    <string id="Root_UpdateChannel_Dropdown_Beta">Beta Kanal</string>
+    <string id="Root_UpdateChannel_Dropdown_Preview">Güncel Kanal (Önizleme)</string>
+    <string id="Root_UpdateChannel_Dropdown_Staged">Güncel Kanal (Hazırlanmış)</string>
+    <string id="Root_UpdateChannel_Dropdown_Broad">Güncel Kanal (Geniş)</string>
+    <string id="Root_UpdateChannel_Dropdown_Delayed">Kritik - Gecikme süresi</string>
+    <string id="Root_DeploymentChannel">Microsoft Defender güvenli dağıtım kanalını seçin</string>
+    <string id="Root_DeploymentChannel_Explain">Cihazların Microsoft Defender ikili güncelleştirmelerini ne zaman alacağını belirlemek için bu ilkeyi etkinleştirin.​
+
+        Doğrulama Kanalı: Bu kanala ayarlanan cihazlar yeni aylık ikili (platform ve altyapı) güncelleştirmelerini ilk alacak olan cihazlardır. Yeni sorunların ortaya çıkma olasılığı daha yüksektir; bu nedenle yalnızca en yüksek risk toleransına sahip cihazları bu kanala ekleyin (ortamınızdaki cihazların %1’i veya daha azı için önerilir).
+        Yayın Kanalı - Erken: Yayın kanalı, üretim ortamınızın çoğunluğu için uygundur. Bu kanala ayarlanan cihazlara, güncelleştirmeler yayın kanalında en erken sunulur. Cihazları risk toleranslarına göre erken, hızlı ve geniş kanallarına dağıtın. Sorunları daha erken ortaya çıkarmak ve ortamınızın geri kalanını etkilememek için, cihazları daha erken kanallara ekleyin.
+        Yayın Kanalı - Hızlı: Yayın kanalı, üretim ortamınızın çoğunluğu için uygundur. Cihazlara, kademeli yayın döngüsünün daha sonraki bir aşamasında güncelleştirmeler sunulur. Cihazları risk toleranslarına göre erken, hızlı ve geniş kanallarına dağıtın. Sorunları daha erken ortaya çıkarmak ve ortamınızın geri kalanını etkilememek için, daha erken kanallardaki cihazları kullanın.
+        Yayın Kanalı - Geniş: Yayın kanalı, üretim ortamınızın çoğunluğu için uygundur. Bu kanaldaki cihazlar güncelleştirmeleri kademeli yayın döngüsünün sonunda alır. Cihazları risk toleranslarına göre erken, hızlı ve geniş kanallarına dağıtın. Sorunları daha erken ortaya çıkarmak ve ortamınızın geri kalanını etkilememek için, daha erken kanallardaki cihazları kullanın.
+        Gecikmeli Kanal: Güncelleştirmeler bu kanaldaki cihazlara, yayın kanalındaki (geniş) cihazlardan yaklaşık 48 saat sonra sunulur. Bu kanalı kritik altyapı varlıkları ve değerli varlıklar için kullanın (yaklaşık olarak cihazların %1’i veya daha azı).
+
+        Bu ilkeyi yapılandırmazsanız, cihazlar yayın kanalına eklenir. Cihazların yayın kanalı içinde güncelleştirmeleri daha erken mi yoksa daha geç mi alacağını Microsoft belirler.
+    </string>
+    <string id="Root_DeploymentChannel_Dropdown_Validation">Doğrulama Kanalı</string>
+    <string id="Root_DeploymentChannel_Dropdown_Early">Yayın Kanalı - Erken</string>
+    <string id="Root_DeploymentChannel_Dropdown_Fast">Yayın Kanalı - Hızlı</string>
+    <string id="Root_DeploymentChannel_Dropdown_Broad">Yayın Kanalı - Geniş</string>
+    <string id="Root_DeploymentChannel_Dropdown_Delayed">Gecikmeli Kanal</string>
+    <string id="MpEngine_DisableGradualRelease">Microsoft Defender güncelleştirmelerinin aşamalı piyasaya sürümünü devre dışı bırakın.</string>
+    <string id="MpEngine_DisableGradualRelease_Explain">Defender güncelleştirmelerinin aşamalı piyasaya sürümünü devre dışı bırakmak için bu ilkeyi etkinleştirin.
+
+        Güncel Kanal (Geniş): Aşamalı piyasaya sürüm döngüsü sırasında, güncelleştirmeler en son olarak bu kanal ayarının seçili olduğu cihazlara sunulacaktır. Yalnızca sınırlı sayıda güncelleştirme almak isteyen veri merkezi makineleri için idealdir.
+
+        Not: Bu ayar hem aylık hem günlük Defender güncelleştirmeleri için geçerlidir. Ayrıca, platform ve altyapı güncelleştirmeleriyle ilgili önceden yapılandırılmış tüm seçimleri geçersiz kılar.
+
+        Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız platform ve altyapı güncelleştirmeleri sunan belirli kanallarda aksi belirtilmediği sürece cihaz Güncel Kanal (Varsayılan) ayarında kalır. Aşamalı piyasaya sürüm döngüsü sırasında otomatik olarak güncelleştirme alırsınız. Çoğu cihaz için uygundur.</string>
+    <string id="DeviceControl_DefaultEnforcement">Cihaz Denetimi Varsayılan Zorlama İlkesini Seçin</string>
+    <string id="DeviceControl_DefaultEnforcement_Explain">
+        Varsayılan İzin Ver: Bu varsayılan zorlamayı seçmek, eşleşen bir ilke kuralı bulunmazsa, bağlı cihazlarda herhangi bir işlemin gerçekleşmesine izin verir.
+        Varsayılan Reddet: Bu varsayılan zorlamayı seçmek, eşleşen bir ilke kuralı bulunmazsa, bağlı cihazlarda gerçekleşecek tüm işlemleri Reddeder.
+
+        Varsayılan Yürütme, ilke kurallarının hiçbiri eşleşmediğinde Aygıt Denetimi erişim kontrolleri sırasında hangi kararın verilmesi gerektiğini belirler.
+    </string>
+    <string id="DeviceControl_DefaultEnforcement_DefaultAllow">Varsayılan İzin Ver</string>
+    <string id="DeviceControl_DefaultEnforcement_DefaultDeny">Varsayılan Reddet</string>
+    <string id="DeviceControl_DataDuplicationRemoteLocation">Cihaz Denetimi kanıt verileri uzak konumunu tanımlayın</string>
+    <string id="DeviceControl_DataDuplicationRemoteLocation_Explain">
+        Cihaz Denetimi hizmetinin yakalanan kanıt verilerini taşıyacağı kanıt dosyası uzak konumunu tanımla.
+
+Bu ayarı yapılandırırken, Cihaz Denetimi'nin Etkin olduğundan ve sağlanan yolun kullanıcının erişenin uzak bir yol olduğundan emin olun.
+    </string>
+	<string id="DeviceControl_DataDuplicationLocalRetentionPeriod">Yerel cihaz kontrol önbelleğindeki dosyalar için saklama süresini ayarlayın</string>
+    <string id="DeviceControl_DataDuplicationLocalRetentionPeriod_Explain">
+        Bu ilke ayarı, cihaz denetiminin dosyaları kanıt amacıyla cihazdaki yerel önbelleğinde ne kadar süreyle saklayacağını belirler. Cihaz denetimi, bir dosyayı yalnızca belirlenmiş bir ağ paylaşımına veya Azure depolamaya yükleyemiyorsa yerel önbelleğinde tutar. 
+
+        Varsayılan olarak, cihaz kontrolü dosyaları 60 gün boyunca yerel önbelleğinde tutar.
+    </string>
+	<string id="DeviceControl_SecuredDevicesConfiguration">Belirli cihaz türleri için cihaz denetimini aç</string>
+    <string id="DeviceControl_SecuredDevicesConfiguration_Explain">
+        Bu ilke ayarı, PrimaryId'leri tarafından tanımlanan hangi cihaz türlerinin cihaz denetim korumasının açık olduğunu kontrol eder. Bu ayarı belirli cihaz türleri için etkinleştirirseniz, cihaz denetimi ilgili özel ilkeye göre bu cihazlara erişimi düzenler. Cihaz denetimi, bu cihazlar için özel koruma ilkeleri yapılandırılmış olsa bile desteklenen tüm diğer cihaz türleri için devre dışı bırakılacak.
+ 
+Bu ayar şu anda şu cihaz türlerini destekler: RemovableMediaDevices, CdRomDevices, WpdDevices ve PrinterDevices. 
+ 
+Bu ilke ayarını etkinleştirir ancak herhangi bir PrimaryId belirtmiyorsanız, cihaz denetimi desteklenen tüm cihaz türlerinde kapatılır.
+ 
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız cihaz denetimi, ilgili özel ilkelere dayalı olarak desteklenen tüm cihazlarda zorlar.
+    </string>
+	<string id="DeviceControl_CustomSupportLink">Cihaz denetimi bildirimleri için bir destek bağlantısı ayarlayın</string>
+    <string id="DeviceControl_CustomSupportLink_Explain">
+        Bu ayar, kuruluşunuzun cihaz denetimi bildirimlerini 'Destek Al' bağlantısını belirtmesini sağlar. 
+		
+Yapılandırıldığında, 'Destek Al" düğmesi otomatik olarak belirtilen bağlantıya gidin.
+    </string>
+	<string id="DeviceControl_PolicyRefreshFailureInterval">İlke yenileme hızını ayarlayın</string>
+    <string id="DeviceControl_PolicyRefreshFailureInterval_Explain">
+        Bu ayar, bir hata oluşması ve ilkenin yüklenememesi durumunda cihazın ilke yapılandırmasını yüklemeyi yeniden deneyeceği aralığı dakika cinsinden tanımlar.
+	</string>
+	<string id="DeviceControl_AzureAdRefreshInterval">Azure AD yenileme hızını ayarla</string>
+    <string id="DeviceControl_AzureAdRefreshInterval_Explain">
+        Bu ayar, cihazın ilgili ayarları, yapılandırmayı ve grup üyeliklerini Azure AD sorgulaacağı aralığı dakika cinsinden belirtir.
+	</string>
+	<string id="DeviceControl_DataDuplicationMaximumQuota">Veri çoğaltma sınırını ayarla (MB)</string>
+    <string id="DeviceControl_DataDuplicationMaximumQuota_Explain">
+        Bu ayar, cihaz denetimi için çoğaltılabilecek maksimum veri miktarını tanımlar. 
+		
+		Sınıra ulaşıldığında, çıkarılabilir depolama birimine kopyalanan dosyalar makinede çoğaltılmayacaktır.
+	</string>
+    <string id="Features_DeviceControlEnabled">Cihaz Denetimi</string>
+    <string id="DeviceControl_DeviceControlEnabled_Explain">
+        Bu makinede Defender Cihaz Denetimini Etkinleştirin veya Devre Dışı Bırak.
+        Not: Cihaz Denetiminin etkinleştirilmesi için E3 veya E5 olarak kaydolmanız gerekir.
+    </string>
+    <string id="Features_TDTFeatureEnabled">Intel TDT Entegrasyon Düzeyi</string>
+    <string id="Features_TDTFeatureEnabled_Explain">Bu ilke ayarı, Intel TDT özellikli cihazlar için Intel TDT tümleştirme düzeyini yapılandırır.
+
+        Bu ayarı yapılandırmazsanız varsayılan değer uygulanır. Varsayılan değer, Microsoft güvenlik zekası güncelleştirmeleri tarafından denetlenmekte olup bilinen bir tehdit varsa Microsoft, Intel TDT'yi etkinleştirir.
+        Bu ayarı etkin olarak yapılandırırsanız Intel TDT tümleştirmesi açılır.
+        Bu ayarı devre dışı olarak yapılandırırsanız, Intel TDT tümleştirmesi kapatılır.</string>
+    <string id="Features_PassiveRemediation">EDR'yi blok modunda etkinleştir</string>
+    <string id="Features_PassiveRemediation_Explain">Bu ilke ayarı, EDR'yi blok modunda ("pasif düzeltme" olarak da bilinir) etkinleştirir veya devre dışı bırakır. Blok modunda EDR, Microsoft Defender Virüsten Koruma'ü pasif modda çalıştıran cihazlar için önerilir. Şu Platform sürümü ile kullanılabilir: 4.18.2202.X
+
+        Veri türü tamsayıdır
+
+        Desteklenen değerler:
+
+        1: EDR'yi blok modunda aç
+        0: EDR'yi blok modunda kapat</string>
     </stringTable>
     <presentationTable>
     <presentation id="ProxyBypass">
@@ -982,6 +1376,11 @@ Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız hiçbir ek me
         <label>Ağa bağlanmak için proxy sunucusunu tanımla</label>
     </textBox>
     </presentation>
+    <presentation id="SupportLogLocation">
+    <textBox refId="SupportLogLocation">
+        <label>Destek günlük dosyalarını kopyalamak için dizin yolunu tanımlayın</label>
+    </textBox>
+    </presentation>
     <presentation id="Exclusions_Extensions">
     <listBox refId="Exclusions_ExtensionsList">Uzantı Dışlamaları</listBox>
     </presentation>
@@ -990,6 +1389,9 @@ Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız hiçbir ek me
     </presentation>
     <presentation id="Exclusions_Processes">
     <listBox refId="Exclusions_ProcessesList">İşlem Dışlamaları</listBox>
+    </presentation>
+    <presentation id="Exclusions_IpAddresses">
+    <listBox refId="Exclusions_IpAddressesList">IP Adresi Dışlamaları</listBox>
     </presentation>
     <presentation id="Nis_Consumers_IPS_sku_differentiation_Signature_Set_Guid">
     <listBox refId="Nis_Consumers_IPS_sku_differentiation_Signature_Set_GuidList">Ağ trafiği incelemesi için ek tanım kümeleri belirt</listBox>
@@ -1003,11 +1405,38 @@ Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız hiçbir ek me
     <presentation id="RealtimeProtection_RealtimeScanDirection">
     <dropdownList refId="RealtimeProtection_RealtimeScanDirection" noSort="true" defaultItem="0">Gelen ve giden dosya ve program etkinliğini izlemeyi yapılandır</dropdownList>
     </presentation>
+    <presentation id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState">
+        <dropdownList refId="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState" noSort="true" defaultItem="0">Uzaktan Şifreleme Korumasının durumunu belirtin</dropdownList>
+    </presentation>
+    <presentation id="Remediation_BNB_REP_RemoteEncryptionProtection_MaxBlockTime">
+        <decimalTextBox refId="Remediation_BNB_REP_RemoteEncryptionProtection_MaxBlockTime" defaultValue="15">Algılamaları engelleme süresini dakika cinsinden belirtin</decimalTextBox>
+    </presentation>
+    <presentation id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness">
+        <dropdownList refId="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness" noSort="true" defaultItem="0">Uzaktan Şifreleme Koruması'nın tehditleri ne kadar agresif bir şekilde engelley olduğunu belirtin</dropdownList>
+    </presentation>
+    <presentation id="Remediation_BNB_REP_RemoteEncryptionProtectionExclusions">
+        <listBox refId="Remediation_BNB_REP_RemoteEncryptionProtectionExclusions">Uzaktan Şifreleme Koruması Dışlamaları</listBox>
+    </presentation>
+    <presentation id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState">
+        <dropdownList refId="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState" noSort="true" defaultItem="0">Brute-Force Korumasının durumunu belirtin</dropdownList>
+    </presentation>
+    <presentation id="Remediation_BNB_BFP_BruteForceProtection_MaxBlockTime">
+        <decimalTextBox refId="Remediation_BNB_BFP_BruteForceProtection_MaxBlockTime" defaultValue="15">Algılamaları engelleme süresini dakika cinsinden belirtin</decimalTextBox>
+    </presentation>
+    <presentation id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness">
+        <dropdownList refId="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness" noSort="true" defaultItem="0">Brute-Force Korumasının tehditleri ne kadar agresif bir şekilde engellediğini belirleme</dropdownList>
+    </presentation>
+    <presentation id="Remediation_BNB_BFP_BruteForceProtectionExclusions">
+        <listBox refId="Remediation_BNB_BFP_BruteForceProtectionExclusions">Brute-Force Koruması Dışlamaları</listBox>
+    </presentation>
     <presentation id="Remediation_Scan_ScheduleDay">
     <dropdownList refId="Remediation_Scan_ScheduleDay" noSort="true" defaultItem="0">Düzeltmeyi tamamlamak üzere zamanlanmış tam taramanın çalıştırılacağı günü belirt</dropdownList>
     </presentation>
     <presentation id="Remediation_Scan_ScheduleTime">
     <decimalTextBox refId="Remediation_Scan_ScheduleTime" defaultValue="120">Düzeltmeyi tamamlamak üzere zamanlanmış tam taramanın çalıştırılacağı saati belirt</decimalTextBox>
+    </presentation>
+    <presentation id="Scan_DaysUntilAggressiveCatchupQuickScan">
+    <decimalTextBox refId="Scan_DaysUntilAggressiveCatchupQuickScan" defaultValue="25">Agresif bir hızlı tarama tetiklenebilmesi için tarama olmadan kaç gün geçmesi gerektiğini belirtin</decimalTextBox>
     </presentation>
     <presentation id="Scan_MissedScheduledScanCountBeforeCatchup">
     <decimalTextBox refId="Scan_MissedScheduledScanCountBeforeCatchup" defaultValue="2">Kaç tane zamanlanmış tarama zamanında yapılmayınca ertelenmiş taramaya zorlanacağına yönelik bir sayı tanımlayın</decimalTextBox>
@@ -1029,6 +1458,9 @@ Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız hiçbir ek me
     </presentation>
     <presentation id="Reporting_WppTracingLevel">
     <decimalTextBox refId="Reporting_WppTracingLevel" defaultValue="0">WPP izleme düzeyini yapılandır</decimalTextBox>
+    </presentation>
+    <presentation id="Reporting_ServiceHealthReportInterval">
+    <decimalTextBox refId="Reporting_ServiceHealthReportInterval" defaultValue="60">Hizmet durumu raporları için zaman aralığını yapılandırma</decimalTextBox>
     </presentation>
     <presentation id="Scan_ArchiveMaxDepth">
     <decimalTextBox refId="Scan_ArchiveMaxDepth" defaultValue="0">Arşiv dosyalarının taranacağı en fazla derinliği belirt</decimalTextBox>
@@ -1058,10 +1490,10 @@ Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız hiçbir ek me
     <decimalTextBox refId="Scan_ScheduleTime" defaultValue="120">Zamanlanmış tarama çalıştırmak için günün saatini belirt</decimalTextBox>
     </presentation>
     <presentation id="SignatureUpdate_ASSignatureDue">
-    <decimalTextBox refId="SignatureUpdate_ASSignatureDue" defaultValue="14">Casus yazılım güvenlik bilgilerinin süresi geçmiş olarak kabul edilmesi için gereken gün sayısını belirt</decimalTextBox>
+    <decimalTextBox refId="SignatureUpdate_ASSignatureDue" defaultValue="7">Casus yazılım güvenlik bilgilerinin süresi geçmiş olarak kabul edilmesi için gereken gün sayısını belirt</decimalTextBox>
     </presentation>
     <presentation id="SignatureUpdate_AVSignatureDue">
-    <decimalTextBox refId="SignatureUpdate_AVSignatureDue" defaultValue="14">Virüs güvenlik bilgileri süresi geçmiş olarak kabul edilmeden önce geçecek gün sayısını tanımla</decimalTextBox>
+    <decimalTextBox refId="SignatureUpdate_AVSignatureDue" defaultValue="7">Virüs güvenlik bilgileri süresi geçmiş olarak kabul edilmeden önce geçecek gün sayısını tanımla</decimalTextBox>
     </presentation>
     <presentation id="SignatureUpdate_DefinitionUpdateFileSharesSources">
     <textBox refId="SignatureUpdate_DefinitionUpdateFileSharesSources">
@@ -1102,11 +1534,6 @@ Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız hiçbir ek me
     <presentation id="Threats_ThreatSeverityDefaultAction">
     <listBox refId="Threats_ThreatSeverityDefaultActionList">Algılandığında varsayılan eylemin gerçekleştirilmemesi gereken tehdit uyarı düzeylerini belirt</listBox>
     </presentation>
-    <presentation id="UX_Configuration_CustomDefaultActionToastString">
-    <textBox refId="UX_Configuration_CustomDefaultActionToastString">
-        <label>İstemciler bir eylem gerçekleştirmesi gerektiğinde onlara ek metin göster</label>
-    </textBox>
-    </presentation>
     <presentation id="SignatureUpdate_ExpiryNotificationIntervalDays">
         <decimalTextBox refId="SignatureUpdate_ExpiryNotificationIntervalDays">Süre sonu bildirimi için zaman aralığı belirle</decimalTextBox>
     </presentation>
@@ -1121,6 +1548,9 @@ Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız hiçbir ek me
     </presentation>
     <presentation id="ExploitGuard_ASR_ASROnlyExclusions">
         <listBox refId="ExploitGuard_ASR_ASROnlyExclusions">ASR kurallarındaki dışlamalar:</listBox>
+    </presentation>
+    <presentation id="ExploitGuard_ASR_ASROnlyPerRuleExclusions">
+        <listBox refId="ExploitGuard_ASR_ASROnlyPerRuleExclusions">Her bir ASR kuralıyla ilgili dışlamalar:</listBox>
     </presentation>
     <presentation id="ExploitGuard_ASR_Rules">
         <listBox refId="ExploitGuard_ASR_Rules">Her ASR kuralı için durumu ayarlayın:</listBox>
@@ -1137,6 +1567,70 @@ Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız hiçbir ek me
     <presentation id="Root_PUAProtection">
         <dropdownList refId="Root_PUAProtection" noSort="true" defaultItem="0"></dropdownList>
     </presentation>
+    <presentation id="Scan_QuickScanIncludeExclusions">
+        <dropdownList refId="Scan_QuickScanIncludeExclusions" noSort="true" defaultItem="0"></dropdownList>
+    </presentation>
+    <presentation id="DeviceControl_PolicyGroups">
+    <textBox refId="DeviceControl_PolicyGroups">
+        <label>İlke gruplarını buradan belirleyin</label>
+    </textBox>
+    </presentation>
+    <presentation id="DeviceControl_PolicyRules">
+    <textBox refId="DeviceControl_PolicyRules">
+        <label>İlke kurallarını buradan tanımlayın</label>
+    </textBox>
+    </presentation>
+    <presentation id="SchedulerRandomizationTime">
+        <decimalTextBox refId="SchedulerRandomizationTime" defaultValue="4">Zamanlayıcı rastgele seçim penceresini saat olarak belirtin.</decimalTextBox>
+    </presentation>
+    <presentation id="PlatformUpdateChannelsDropDown">
+    <dropdownList refId="UpdateChannelsDropDown" noSort="true" defaultItem="0">Microsoft Defender aylık platform güncelleştirmeleri için kanal seçin:</dropdownList>
+    </presentation>
+    <presentation id="EngineUpdateChannelsDropDown">
+    <dropdownList refId="UpdateChannelsDropDown" noSort="true" defaultItem="0">Microsoft Defender aylık altyapı güncelleştirmeleri için kanal seçin:</dropdownList>
+    </presentation>
+    <presentation id="SecurityIntelligenceUpdateChannelsDropDown">
+    <dropdownList refId="UpdateChannelsDropDown" noSort="true" defaultItem="0">Microsoft Defender günlük güvenlik zekası güncelleştirmeleri kanalını seçin:</dropdownList>
+    </presentation>
+    <presentation id="DeploymentChannelsDropDown">
+    <dropdownList refId="DeploymentChannelsDropDown" noSort="true" defaultItem="0">Microsoft Defender güvenli dağıtım kanalını seçin:</dropdownList>
+    </presentation>
+    <presentation id="DeviceControlDefaultEnforcementDropDown">
+    <dropdownList refId="DeviceControlDefaultEnforcementDropDown" noSort="true" defaultItem="0">Cihaz Denetimi Varsayılan Zorlama İlkesini Seçin</dropdownList>
+    </presentation>
+    <presentation id="DeviceControl_DataDuplicationRemoteLocation">
+    <textBox refId="DeviceControl_DataDuplicationRemoteLocation">
+        <label>Cihaz Denetimi veri çoğaltma uzak konumunu tanımlayın.</label>
+    </textBox>
+    </presentation>
+	<presentation id="DeviceControl_DataDuplicationLocalRetentionPeriod">
+		<decimalTextBox refId="DeviceControl_DataDuplicationLocalRetentionPeriod" defaultValue="60">Yerel cihaz kontrol önbelleğindeki dosyalar için saklama süresini ayarlayın</decimalTextBox>
+    </presentation>
+	<presentation id="DeviceControl_SecuredDevicesConfiguration">
+    <textBox refId="DeviceControl_SecuredDevicesConfiguration">
+        <label>Belirli cihaz türleri için cihaz denetimini aç</label>
+    </textBox>
+    </presentation>
+	<presentation id="DeviceControl_CustomSupportLink">
+    <textBox refId="DeviceControl_CustomSupportLink">
+        <label>Cihaz denetimi bildirimleri için bir destek bağlantısı ayarlayın</label>
+    </textBox>
+    </presentation>
+	<presentation id="DeviceControl_PolicyRefreshFailureInterval">
+    <textBox refId="DeviceControl_PolicyRefreshFailureInterval">
+        <label>İlke yenileme hızını ayarlayın</label>
+    </textBox>
+	</presentation>
+	<presentation id="DeviceControl_AzureAdRefreshInterval">
+    <textBox refId="DeviceControl_AzureAdRefreshInterval">
+        <label>Azure AD yenileme hızını ayarla</label>
+    </textBox>
+	</presentation>
+	<presentation id="DeviceControl_DataDuplicationMaximumQuota">
+    <textBox refId="DeviceControl_DataDuplicationMaximumQuota">
+        <label>Veri çoğaltma sınırını ayarla (MB)</label>
+    </textBox>
+	</presentation>
    </presentationTable>
 </resources>
 </policyDefinitionResources>

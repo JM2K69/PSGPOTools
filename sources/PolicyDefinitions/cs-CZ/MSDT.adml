@@ -60,33 +60,34 @@ Aby se toto nastavení zásad projevilo, není vyžadováno restartování poč�
 
 </string>
 <string id="TroubleshootingAllowRecommendations">Poradce při potížích: Povolit uživatelům přístup k doporučeným řešením známých problémů</string>
-<string id="TroubleshootingAllowRecommendationsExplain">Nastavení této zásady určuje způsob použití doporučených postupů pro řešení známých problémů u zařízení a umožňuje správcům příslušnou konfiguraci v jejich doménách nebo IT prostředích.
-Pokud toto nastavení nenakonfigurujete, umožníte uživateli, aby si nakonfiguroval, jestli a jak se mají doporučené postupy pro řešení problémů používat.
+<string id="TroubleshootingAllowRecommendationsExplain">Nastavení této zásady konfiguruje možné způsoby použití řešení známých problémů na zařízení a umožňuje správcům příslušnou konfiguraci v jejich doménách nebo IT prostředích.
 
-Při povolení této zásady můžete nakonfigurovat, jak se budou doporučené postupy pro řešení problémů používat u zařízení uživatele. Můžete vybrat jednu z následujících hodnot:
-0 = Vypnout tuto funkci
-1 = Vypnout tuto funkci, ale přesto používat kriticky důležité postupy pro řešení problémů
-2 = Upozornit uživatele, že je k dispozici doporučený postup pro řešení problémů, ale pak nechat na něm, jestli ho spustí, nebo bude ignorovat
-3 = Spustit doporučený postup pro řešení problémů automaticky a po jeho úspěšném doběhnutí upozornit uživatele
-4 = Spustit doporučený postup pro řešení problémů automaticky bez upozornění uživatele
-5 = Umožnit uživateli zvolit si vlastní nastavení pro doporučené postupy pro řešení problémů
+Pokud toto nastavení zásad nenakonfigurujete, umožníte uživateli, aby si nakonfiguroval, jak se má řešení potíží používat.
 
-Po nastavení této nové zásady můžete doporučené postupy pro řešení problémů u zařízení ve vaší doméně spouštět podle následujících pokynů:
-1. Vytvořte skript bat s následujícím obsahem:
-rem Následující dávkový skript spustí doporučené postupy pro řešení problémů
-C:\Windows\System32\mitigationscanner.exe
+Při povolení této zásady můžete nakonfigurovat, jak se bude řešení potíží používat na zařízení uživatele. Můžete vybrat jednu z následujících hodnot:
+0 = Nepovolovat uživatelům, systémovým funkcím ani Microsoftu použít řešení potíží.
+1 = Automaticky použít řešení potíží pouze u kritických problémů pomocí systémových funkcí a Microsoftu.
+2 = Automaticky použít řešení potíží u kritických problémů pomocí systémových funkcí a Microsoftu. Upozorňovat uživatele, když je dostupné řešení potíží pro jiné problémy, a povolit uživatelům tuto možnost použít nebo ignorovat.
+3 = Automaticky použít řešení potíží u kritických a jiných problémů pomocí systémových funkcí a Microsoftu. Upozorňovat uživatele na vyřešení problému.
+4 = Automaticky použít řešení potíží u kritických a jiných problémů pomocí systémových funkcí a Microsoftu. Neupozorňovat uživatele na vyřešení problému.
+5 = Umožnit uživateli zvolit si vlastní nastavení řešení potíží.
 
-2. Pokud chcete vytvořit novou okamžitou úlohu, přejděte na Editor pro správu zásad skupiny &gt; Konfigurace počítače &gt; Předvolby a vyberte Nastavení ovládacích panelů. 
-3. V části Nastavení ovládacích panelů klikněte pravým tlačítkem myši na Naplánované úlohy a vyberte Nová. Vyberte možnost Okamžitá úloha (alespoň Windows 7).
-4. Zadejte odpovídající název a popis a potom v části Možnosti zabezpečení nastavte uživatelský účet na hodnotu Systém a zaškrtněte políčko Spustit s nejvyššími oprávněními.
-5. Na kartě Akce vytvořte novou akci, jako její typ vyberte možnost Spustit program a potom zadejte soubor vytvořený v kroku 1.
-6. Nakonfigurujte úlohu pro nasazení do vaší domény.</string>
-<string id="RecommendationsDropDown_DoNothing">Tuto funkci vypnout</string>
-<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Vypnout tuto funkci, ale přesto používat kriticky důležité postupy pro řešení problémů</string>
-<string id="RecommendationsDropDown_AskFirst">Upozornit uživatele, že je k dispozici doporučený postup pro řešení problémů, ale pak nechat na něm, jestli ho spustí, nebo bude ignorovat</string>
-<string id="RecommendationsDropDown_ApplyThenNotify">Spustit doporučený postup pro řešení problémů automaticky a po jeho úspěšném doběhnutí upozornit uživatele</string>
-<string id="RecommendationsDropDown_ApplySilently">Spustit doporučený postup pro řešení problémů automaticky bez upozornění uživatele</string>
-<string id="RecommendationsDropDown_DeferToUser">Umožnit uživateli zvolit si vlastní nastavení pro doporučené postupy pro řešení problémů</string>
+Po nastavení této zásady můžete pomocí následujících pokynů kontrolovat dostupné možnosti řešení potíží od Microsoftu:
+1. Vytvořte dávkový skript s následujícím obsahem:
+rem Následující dávkový skript spustí doporučené řešení potíží
+schtasks /run /TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner"
+
+2. Když budete chtít vytvořit novou okamžitou úlohu, přejděte do Editoru správy zásad skupiny &gt; Konfigurace počítače &gt; Předvolby a vyberte Nastavení ovládacích panelů. 
+3. V nastavení ovládacích panelů klikněte pravým tlačítkem na Naplánované úlohy a vyberte Nová. Vyberte Okamžitá úloha (alespoň Windows 7).
+4. Zadejte odpovídající název a popis a pak v části Možnosti zabezpečení zaškrtněte políčko Spustit s nejvyššími oprávněními.
+5. Na kartě Akce vytvořte novou akci, jako typ akce vyberte Spustit program a pak zadejte soubor, který jste vytvořili v kroku 1.
+6. Nakonfigurujte nasazení této úlohy do vaší domény.</string>
+<string id="RecommendationsDropDown_DoNothing">Nepovolovat uživatelům, systémovým funkcím ani Microsoftu použít řešení potíží.</string>
+<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Automaticky použít řešení potíží pouze u kritických problémů pomocí systémových funkcí a Microsoftu.</string>
+<string id="RecommendationsDropDown_AskFirst">Automaticky použít řešení potíží u kritických problémů pomocí systémových funkcí a Microsoftu. Upozorňovat uživatele, když je dostupné řešení potíží pro jiné problémy, a povolit uživatelům tuto možnost použít nebo ignorovat.</string>
+<string id="RecommendationsDropDown_ApplyThenNotify">Automaticky použít řešení potíží u kritických a jiných problémů pomocí systémových funkcí a Microsoftu. Upozorňovat uživatele na vyřešení problému.</string>
+<string id="RecommendationsDropDown_ApplySilently">Automaticky použít řešení potíží u kritických a jiných problémů pomocí systémových funkcí a Microsoftu. Neupozorňovat uživatele na vyřešení problému.</string>
+<string id="RecommendationsDropDown_DeferToUser">Umožnit uživateli zvolit si vlastní nastavení řešení potíží.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MsdtToolDownloadPolicy">

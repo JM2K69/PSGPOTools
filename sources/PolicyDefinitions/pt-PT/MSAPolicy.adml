@@ -12,6 +12,8 @@ Isto aplica-se tanto a utilizadores atuais de um dispositivo, como a novos utili
 Recomenda-se a ativação desta definição antes de qualquer utilizador iniciar sessão num dispositivo para evitar a existência de tokens na cache. Se esta definição for desativada ou não estiver configurada, as aplicações e serviços podem utilizar contas Microsoft para autenticação.  
 Por defeito, esta definição está Desativada. Esta definição não tem impacto sobre se os utilizadores podem iniciar sessão em dispositivos utilizando contas Microsoft ou sobre a capacidade de os utilizadores fornecerem contas Microsoft através do browser para autenticação com aplicações baseadas na Web. 
         </string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnly">Permitir a autenticação do dispositivo apenas para o assistente de Início de sessão da conta Microsoft</string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnlyExplain">Esta definição determina se apenas permite a autenticação de dispositivo empresarial para o serviço de Assistente de Início de sessão da Conta Microsoft (WLIDSVC). Por predefinição, esta definição está desativada e permite a autenticação do utilizador e do dispositivo. Quando o valor estiver definido como 1, permite apenas a autenticação do dispositivo e bloqueia a autenticação do utilizador.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

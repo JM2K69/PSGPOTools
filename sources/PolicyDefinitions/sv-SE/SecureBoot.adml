@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>ange visningsnamn här</displayName>
+  <description>ange beskrivning här</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Säker start</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Certifikatdistribution via kontrollerad funktionsdistribution</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">Den här inställningen kan aktiveras för företag som vill ha hjälp med att distribuera de nya certifikaten för säker start till sina enheter.
+
+ 
+
+Obs! Enheten måste skicka obligatoriska diagnostikdata till Microsoft för att kunna använda den här funktionen.
+
+ 
+
+Mer information finns i: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Automatisk certifikatdistribution via uppdateringar</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">För enheter där testresultat är tillgängliga som indikerar att enheten kan bearbeta certifikatuppdateringarna kommer uppdateringarna att initieras automatiskt som en del av underhållsuppdateringarna. Den här principen är aktiverad som standard. För företag som vill hantera automatisk uppdatering använder du den här principen för att uttryckligen aktivera eller inaktivera funktionen.
+
+ 
+
+Mer information finns i: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Aktivera distribution av certifikat för säker start</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Med den här principinställningen kan du aktivera eller inaktivera distributionsprocessen för certifikat för säker start på enheter. När det är aktiverat startar Windows automatiskt certifikatdistributionsprocessen till enheter där den här principen har tillämpats. 
+
+ 
+
+Obs! Den här registerinställningen lagras inte i en principnyckel och detta anses vara en prioritet. Om det GPO som implementerar den här inställningen tas bort kommer registerinställningen därför att finnas kvar. 
+
+ 
+
+Obs! Windows-uppgiften som kör och bearbetar den här inställningen körs var 12:e timme. I vissa fall sparas uppdateringarna tills systemet startas om för att ordna uppdateringarna på ett säkert sätt. 
+
+ 
+
+Obs! När certifikaten har tillämpats på den inbyggda programvaran kan du inte ångra dem från Windows. Om du behöver rensa certifikaten måste du göra det från menygränssnittet för inbyggd programvara. 
+
+ 
+
+Mer information finns i: https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Begränsa nödvändiga tjänstdata för säker start</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Den här principinställningen styr om operativsystemet genererar den dagliga säker start som krävs för tjänstdatahändelsen. Händelsen innehåller information om enhetens konfiguration för Säker start och läget för inbyggda programvarans variabler, och skickas normalt oavsett diagnostikdatanivån Tillåt telemetri eftersom den klassificeras som säkerhetskrävd.
+Händelsen innehåller information om enhetens konfiguration för säker start (Secure Boot) och tillstånd för firmware-variabler, och skickas vanligtvis oavsett diagnostikdatanivån för Tillåt telemetri eftersom den klassificeras som säkerhetskrävd.
+
+ 
+
+Genom att aktivera den här principinställningen genereras inte den dagliga säkra start som krävs för tjänstdatahändelsen. Detta är avsett för företag som arbetar under baslinjen för begränsad trafik i Windows.
+
+ 
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen fortsätter operativsystemet att generera den tjänstdatahändelse som krävs för säker start enligt de befintliga reglerna för telemetribehörighet.</string>
+
+      <string id="SUPPORTED_Windows8">Minst Windows Server 2012, Windows 8 eller Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

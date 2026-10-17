@@ -14,6 +14,19 @@
 Hvis denne politik er aktiveret, bliver oplevelsen til indstillinger for beskyttelse af personlige oplysninger ikke startet for nyoprettede brugerkonti eller for konti, som skulle have fået opfordringer til at vælge indstillinger for beskyttelse af personlige oplysninger efter en opgradering.
 
 Hvis denne politik deaktiveres eller ikke konfigureres, startes oplevelsen til indstillinger for beskyttelse af personlige oplysninger for nyoprettede brugerkonti og konti, som skulle have fået opfordringer til at vælge indstillinger for beskyttelse af personlige oplysninger efter en opgradering.</string>
+
+      <string id="AllowOOBEUpdates">Tillad opdateringer i førstegangsoplevelsen</string>
+      <string id="AllowOOBEUpdates_Explain">Denne politik giver dig mulighed for at konfigurere, om en ny enhed skal modtage kritiske opdateringer under førstegangsoplevelsen.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, modtager nye enheder ikke vigtige opdateringer under førstegangsoplevelsen.
+
+Hvis du aktiverer politikken, vil nye enheder modtage de seneste godkendte kritiske opdateringer under førstegangsoplevelsen.
+
+Noter:
+Denne politik styrer ikke siden for programrettelse for zero-day-sårbarhed (Zero Day Patch – ZDP) i førstegangsoplevelsen.
+
+Hvis du har afbrudt kvalitetsopdateringer midlertidigt via udskydelser af Kvalitetsopdatering til Windows og midlertidigt afbrudte politikker, leveres der ingen kvalitetsopdateringer under førstegangsoplevelsen.
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

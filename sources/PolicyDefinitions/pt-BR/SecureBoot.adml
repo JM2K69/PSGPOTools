@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>digite o nome para exibição aqui</displayName>
+  <description>digite a descrição aqui</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Inicialização Segura</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Implantação de Certificado por meio de Distribuição Controlada de Recursos</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">Para empresas que procuram assistência na implantação dos novos certificados de Inicialização Segura em seus dispositivos, essa configuração pode ser habilitada.
+
+ 
+
+Observação: o dispositivo deve enviar dados de diagnóstico obrigatórios à Microsoft para usar este recurso.
+
+ 
+
+Para obter mais informações, veja: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Implantação Automática de Certificado por meio de Atualizações</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">Para os dispositivos com resultados de teste disponíveis que indiquem que o dispositivo pode processar as atualizações de certificado com sucesso, as atualizações serão iniciadas automaticamente como parte das atualizações de manutenção. Esta política está habilitada por padrão. Para as empresas que querem gerenciar a atualização automática, use esta política para habilitar ou desabilitar explicitamente o recurso.
+
+ 
+
+Para obter mais informações, veja: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Habilitar a Implantação de Certificado de Inicialização Segura</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Esta configuração de política permite habilitar ou desabilitar o processo de Implantação de Certificado de Inicialização Segura em dispositivos. Quando habilitado, o Windows iniciará automaticamente o processo de implantação de certificado em dispositivos nos quais essa política foi aplicada. 
+
+ 
+
+Observação: esta configuração de registro não é armazenada em uma chave de política e é considerada uma preferência. Portanto, se o Objeto de Política de Grupo que implementa esta configuração for removido, esta configuração de registro permanecerá. 
+
+ 
+
+Observação: a tarefa do Windows que executa e processa esta configuração é executada a cada 12 horas. Em alguns casos, as atualizações serão mantidas até que o sistema seja reiniciado para sequenciar as atualizações com segurança. 
+
+ 
+
+Observação: depois que os certificados forem aplicados ao firmware, não será possível desfazê-los no Windows. Se for necessário limpar os certificados, isso deverá ser feito na interface de menu do firmware. 
+
+ 
+
+Para obter mais informações, veja: https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Limitar Dados de Serviço Necessários para Inicialização Segura</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Essa configuração de política controla se o sistema operacional emite o evento de dados de serviço diário necessário de Inicialização Segura. O evento contém informações sobre a configuração de Inicialização Segura do dispositivo e o estado da variável de firmware e normalmente é enviado independentemente do nível de dados de diagnóstico Permitir Telemetria porque é classificado como necessário para a segurança.
+
+ 
+
+Ao habilitar essa configuração de política, o evento diário de dados do serviço necessário de Inicialização Segura não será emitido. Isso destina-se a empresas que operam na Linha de Base de Funcionalidade Limitada de Tráfego Restrito do Windows.
+
+ 
+
+Se você desabilitar ou não definir essa configuração de política, o sistema operacional continuará a emitir o evento de dados de serviço necessário de Inicialização Segura de acordo com as regras de permissão de telemetria existentes.</string>
+
+      <string id="SUPPORTED_Windows8">Windows Server 2012, Windows 8 ou Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

@@ -285,6 +285,21 @@
         
         如果原則已停用，語音服務將會停用，而且使用者將無法透過設定啟用語音服務。
       </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">限制 [語言套件] 及 [語言功能] 安裝</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        此原則設定限制  所有使用者依需求套件安裝語言套件和語言功能。 此原則並不限制轉換  Windows  語言， 如果您想要限制  Windows 語言 ，請使用以下原則:[限制 Windows 應該為所有登入的使用者使用的 UI 語言。]  
+
+ 如果您啟用此原則設定，所有使用者將 無法  安裝語言套件和語言功能 。
+
+ 如果您停用或未設定此原則設定，則不會有對 任何使用者的 語言套件或功能 的安裝 限制 。  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        此原則設定限制  使用者依需求安裝語言套件和語言功能。 此原則並不限制轉換  Windows  語言， 如果您想要限制  Windows 語言 ，請使用以下原則:[限制 Windows 應該為選取的使用者使用的 UI 語言。]  
+
+ 如果您啟用此原則設定，使用者將 無法  安裝語言套件和語言功能 。  
+
+ 如果您停用或未設定此原則設定，則不會有 使用者的 語言套件或語言功能 的安裝 限制 。  
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LocaleSystemRestrict">

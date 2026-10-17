@@ -42,11 +42,11 @@ Opmerking: de beleidsinstelling moet op de computer van de cliënt worden geconf
 
 Opmerking: het gedrag wanneer deze beleidsinstelling is ingeschakeld is precies hetzelfde gedrag als in Windows 2000 Professional vóór SP4 en Windows XP Professional.</string>
       <string id="Connect_HomeDir_ToRoot">De basismap verbinden met de hoofdmap van de share</string>
-      <string id="Connect_HomeDir_ToRoot_Explain">Deze beleidsinstelling herstelt de definities van de omgevingsvariabelen %HOMESHARE%  %HOMEPATH% in de omgevingsvariabelen die in Windows NT 4.0 en daarvoor worden gebruikt. Samen met %HOMEDRIVE% bepalen deze variabelen welke basismap voor een gebruikersprofiel wordt gebruikt. De basismap is een permanente toewijzing van een stationsletter op de lokale computer aan een lokale of externe map.
+      <string id="Connect_HomeDir_ToRoot_Explain">Deze beleidsinstelling herstelt de definities van de omgevingsvariabelen %HOMESHARE% %HOMEPATH% in de omgevingsvariabelen die in Windows NT 4.0 en daarvoor worden gebruikt. Samen met %HOMEDRIVE% bepalen deze variabelen welke basismap voor een gebruikersprofiel wordt gebruikt. De basismap is een permanente toewijzing van een stationsletter op de lokale computer aan een lokale of externe map.
 
 Als u deze beleidsinstelling inschakelt, gebruikt het systeem de definities voor Windows NT 4.0. %HOMESHARE% bewaart alleen het delen van het netwerk (zoals \\server\delen). In %HOMEPATH% wordt de rest van het volledige pad naar de basismap opgeslagen (bijvoorbeeld \map1\map2\basismap). Hierdoor hebben gebruikers via de stationsletter van de basismap toegang tot elke map op de basis-share.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, gebruikt het systeem de definities uit Windows 2000. In %HOMEPATH% wordt de rest van het volledige pad naar de basismap opgeslagen (bijvoorbeeld \server\delen\map1\map2\basismap). Gebruikers hebben via de stationsletter van de basismap toegang tot de basismap en onderliggende mappen, maar ze hebben geen toegang tot de bovenliggende mappen en kunnen deze niet zien. Met het oog op de compatibiliteit met eerdere systemen wordt de waarde in %HOMEPATH% afgesloten met een backslash.</string>
+Als u deze beleidsinstelling uitschakelt of niet configureert, gebruikt het systeem de definities uit Windows 2000. In %HOMESHARE% wordt de rest van het volledige pad naar de basismap opgeslagen (bijvoorbeeld \server\delen\map1\map2\basismap). Gebruikers hebben via de stationsletter van de basismap toegang tot de basismap en onderliggende mappen, maar ze hebben geen toegang tot de bovenliggende mappen en kunnen deze niet zien. Met het oog op de compatibiliteit met eerdere systemen wordt de waarde in %HOMEPATH% afgesloten met een backslash.</string>
       <string id="DeleteRoamingCachedProfiles">Kopieën van zwervende profielen uit cache verwijderen</string>
       <string id="DeleteRoamingCachedProfiles_Help">Deze beleidsinstelling bepaalt of Windows een kopie bewaart van het zwervende profiel van een gebruiker op de harde schijf van de locale computer wanneer de gebruiker zich afmeldt. 
 
@@ -77,6 +77,14 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de gebruike
 Opmerking: met behulp van deze en aanverwante beleidsinstellingen in deze map kunt u bepalen hoe het systeem reageert wanneer zwervende gebruikersprofielen niet snel genoeg worden gedownload. Met de beleidsinstelling Time-out voor dialoogvensters kunt u de tijd aanpassen waarbinnen de gebruiker in oudere besturingssystemen dan Microsoft Windows Vista op deze melding moet reageren.
 
 Belangrijk: als de instelling Langzame netwerkverbindingen niet detecteren is ingeschakeld, wordt deze beleidsinstelling genegeerd. Daarnaast geldt dat er geen lokale kopie van het zwervende profiel kan worden geladen wanneer er een langzame verbinding wordt gedetecteerd als de beleidsinstelling Kopieën van zwervende profielen uit cache verwijderen is ingeschakeld.</string>
+      <string id="AllowNonStandardUserProfilePaths">Gebruikersprofielregisterhives en AppData uit niet-standaardpaden toestaan</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Deze beleidsinstelling bepaalt of registerhives van gebruikersprofielen en AppData-maplocaties niet-standaard padindelingen mogen accepteren.
+
+Als je deze beleidsinstelling inschakelt, accepteren gebruikersprofiel locaties een bredere reeks bestandspadindelingen.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, accepteren gebruikersprofiel locaties alleen standaard Windows-mappaden.
+
+Let op: als je deze instelling inschakelt, kan het systeem worden blootgesteld aan beveiligingsrisico's. Schakel deze instelling alleen in als een specifieke app in je organisatie dit vereist, en pas nadat je alle risico's voor je omgeving hebt geëvalueerd.</string>
       <string id="ExcludeDirectories">Mappen niet opnemen in zwervend profiel</string>
       <string id="ExcludeDirectories_Help">Met deze beleidsinstelling kunt u mappen uitsluiten die normaal in het profiel van de gebruikers zijn opgenomen. Als gevolg hiervan hoeven deze mappen niet te worden opgeslagen op de netwerkserver waarop het profiel is opgeslagen en zijn deze mappen niet beschikbaar wanneer de gebruiker zich op een andere computer aanmeldt.
 

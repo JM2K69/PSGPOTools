@@ -41,11 +41,11 @@
 
 注意: 此设置不会控制 Cortana 量身定制的体验，因为存在用于对其进行配置的单独策略。</string>
       <string id="DisableWindowsConsumerFeatures">关闭 Microsoft 用户体验</string>
-      <string id="DisableWindowsConsumerFeatures_Help">此策略设置关闭可帮助用户充分利用其设备和 Microsoft 帐户的体验。
+      <string id="DisableWindowsConsumerFeatures_Help">此策略设置关闭可帮助用户充分利用其设备和 Microsoft 账户的体验。
 
-如果启用此策略设置，用户将不会再看到 Microsoft 提供的个性化建议以及有关其 Microsoft 帐户的通知。
+如果启用此策略设置，用户将不会再看到 Microsoft 提供的个性化建议以及有关其 Microsoft 账户的通知。
 
-如果禁用或未配置此策略设置，则用户可能会看到 Microsoft 提供的建议以及有关其 Microsoft 帐户的通知。
+如果禁用或未配置此策略设置，则用户可能会看到 Microsoft 提供的建议以及有关其 Microsoft 账户的通知。
 
 注意: 此设置仅适用于 Enterprise 和 Education SKU。</string>
       <string id="DisableSoftLanding">不显示 Windows 使用技巧</string>
@@ -67,6 +67,43 @@
 如果启用此策略，则当 Windows 及其应用有更新和更改时，不再显示“欢迎使用 Windows”体验。
 
 如果禁用或未配置此策略，则会启动“欢迎使用 Windows”体验，帮助用户使用 Windows，告知他们有哪些新增的功能、更改的功能和建议的功能。</string>
+      <string id="DisableCloudOptimizedContent">关闭云优化内容</string>
+      <string id="DisableCloudOptimizedContent_Help">通过此策略设置，您可以在所有 Windows 体验中关闭云优化内容。
+
+如果启用此策略，则使用云优化内容客户端组件的 Windows 体验将改为显示默认回退内容。
+
+如果禁用或未配置此策略，则 Windows 体验将能够使用云优化内容。</string>
+      <string id="DisableSpotlightCollectionOnDesktop">在桌面上关闭聚焦图集</string>
+      <string id="DisableSpotlightCollectionOnDesktop_Help">此策略设置会删除“个性化”中的聚焦图集设置，使用户无法选择每日图像或随后将其从 Microsoft 下载到桌面。
+
+如果启用此策略，“聚焦图集”将不会作为“个性化”设置中的选项提供。
+
+如果禁用或未配置此策略，则“聚焦图集”将作为“个性化”设置中的一个选项出现，允许用户选择“聚焦图集”作为桌面提供程序，并在桌面上显示来自 Microsoft 的每日图像。</string>
+      <string id="DisableConsumerAccountStateContent">关闭云消费者账户状态内容</string>
+      <string id="DisableConsumerAccountStateContent_Help">通过此策略设置，您可以在所有 Windows 体验中关闭云使用者账户状态内容。
+
+            如果启用此策略，则使用云使用者账户状态内容客户端组件的 Windows 体验将改为显示默认回退内容。
+
+            如果禁用或未配置此策略，则 Windows 体验将能够使用云使用者账户状态内容。
+        </string>
+      <string id="EnableOrganizationalMessagesContent">启用组织消息</string>
+      <string id="EnableOrganizationalMessagesContent_Help">组织消息允许管理员在所选 Windows 11 体验中向最终用户传递消息。管理员可通过 Microsoft Endpoint Manager 等服务使用组织消息。
+
+默认情况下禁用此策略。如果启用此策略，这些体验将显示管理员预订的内容。
+
+启用此策略不会影响管理 Microsoft 在 Windows 体验上交付内容的现有 MDM 策略设置。</string>
+      <string id="DisableGetStartedContent">禁用“入门”</string>
+      <string id="DisableGetStartedContent_Help">此策略设置将禁用 Windows 入门体验。
+
+如果启用此策略设置，则“入门”将不会自动启动，如果手动启动，则会立即关闭。相关后台任务将不会运行。
+
+如果禁用或未配置此策略设置，则“入门”将保持可用状态，并且可能会显示以帮助用户了解 Windows。</string>
+      <string id="DisableCopilotPinScreenContent">禁用 Copilot 固定屏幕</string>
+      <string id="DisableCopilotPinScreenContent_Help">阻止 Windows 在登录时显示智能 Microsoft 365 Copilot 副驾驶® 建议。这不会禁用 Copilot，也不会影响授权。
+
+如果启用此策略设置，智能 Microsoft 365 Copilot 副驾驶® 设置指南将不会在登录时自动启动。
+
+如果禁用或未配置此策略设置，登录时可能会显示智能 Microsoft 365 Copilot 副驾驶® 设置指南，帮助用户发现并设置 Copilot。</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureWindowsSpotlight">

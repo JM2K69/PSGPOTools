@@ -169,7 +169,7 @@ Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız oturu
       <string id="UILang4">Almanca</string>
       <string id="UILang5">Basitleştirilmiş Çince</string>
       <string id="UILang6">Geleneksel Çince</string>
-      <string id="UILang34">Geleneksel Çince (Hong Kong)</string>
+      <string id="UILang34">Geleneksel Çince (Hong Kong ÖİB)</string>
       <string id="UILang35">Geleneksel Çince (Tayvan)</string>
       <string id="UILang7">Fransızca</string>
       <string id="UILang8">İspanyolca</string>
@@ -284,6 +284,21 @@ Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Windo
         Bu ilke etkinleştirilirse veya yapılandırılmazsa denetim kullanıcılara bırakılır ve kullanıcılar, konuşma hizmetlerini ayarlar üzerinden etkinleştirip etkinleştirmemeyi seçebilirler.
         
         Bu ilke devre dışı bırakılırsa konuşma hizmetleri devre dışı bırakılır ve kullanıcılar, konuşma hizmetlerini ayarlar üzerinden etkinleştiremezler.
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Dil Paketi ve Dil Özelliği Yüklemesini Kısıtlama</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        Bu ilke ayarı,  tüm kullanıcıların istenen paketlerde dil paketlerini ve dil özelliklerini yüklemesini kısıtlar.  Bu ilke,  Windows  dilini  değiştirmeyi kısıtlamaz,  Windows  dilini  kısıtlamak istiyorsanız, şu ilkeyi kullanın: "Windows'un kayıtlı tüm kullanıcılar için kullandığı kullanıcı arabirimi dillerini kısıtlar."   
+
+     Bu ilke ayarını etkinleştirirseniz, tüm kullanıcılar için  dil paketleri ve dil özelliklerinin  yüklemesi  engellenir . 
+
+           Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız,  kullanıcı için  hiçbir  dil paketi veya dil özelliği yükleme sınırlaması yoktur.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        Bu ilke ayarı,  kullanıcının isteğe bağlı dil paketlerini ve dil özelliklerini yüklemesini kısıtlar.  Bu ilke,  Windows  dilini  değiştirmeyi kısıtlamaz,  Windows  dilini  kısıtlamak istiyorsanız, şu ilkeyi kullanın: "Windows'un seçilen kullanıcı için kullanması gereken kullanıcı arabirimi dillerini kısıtlar."   
+
+Bu ilke ayarını etkinleştirirseniz, kullanıcı için  dil paketleri ve dil özelliklerinin  yüklemesi  engellenir .   
+
+         Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız,  kullanıcı için  hiçbir  dil paketi veya  dil özelliği  yükleme sınırlaması yoktur.  
       </string>
     </stringTable>
     <presentationTable>

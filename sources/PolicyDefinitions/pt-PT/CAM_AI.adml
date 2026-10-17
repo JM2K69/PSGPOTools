@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Políticas de IA do CAM (Gestor de Acesso de Capacidade)</displayName>
+  <description>Políticas relacionadas com capacidades de IA e a respetiva gestão de consentimento.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">Consentimento de IA</string>
+      <string id="WindowsAI">IA Windows</string>
+      <string id="UserInControl">Utilizador no Controlo</string>
+      <string id="ForceEnable">Forçar Ativação</string>
+      <string id="ForceDisable">Forçar Desativação</string>
+      <string id="AgentConsentDuration_Name">Duração do Consentimento do Agente</string>
+      <string id="AgentConsentDuration_Explain">Especifica durante quanto tempo, em horas, uma resposta de consentimento "Permitir" para capacidades de agente permanece válida antes de ser apresentado novamente o pedido ao utilizador.
+
+Se esta política estiver ativada, o valor tem de estar entre 1 (1 hora) e 8760 (1 ano). O valor configurado é utilizado como o tempo de expiração predefinido para todas as respostas de consentimento "Permitir" para capacidades de agente.
+
+Se esta política não estiver configurada ou se o valor estiver fora do intervalo permitido, a predefinição é 720 horas (30 dias).</string>
+      <string id="ConfigureAgentConnectors_Name">Configurar Conectores de Agente</string>
+      <string id="ConfigureAgentConnectors_Explain">Ativar ou Desativar Conectores de Agente.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Política de Acesso do Conector do Agente</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Esta definição de política permite-lhe definir uma lista de ligações permitidas entre anfitriões MCP e servidores MCP.
+
+O formato desta lista será uma cadeia JSON que cumpre o esquema em https://go.microsoft.com/fwlink/?LinkId=2363700.
+
+Se esta política não estiver configurada, o anfitrião MCP poderá ligar-se a qualquer servidor MCP com o consentimento do utilizador.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Configurar Conectores de Agente: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Duração do consentimento (horas): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Configurar ligações de Anfitrião/Servidor MCP permitidas:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

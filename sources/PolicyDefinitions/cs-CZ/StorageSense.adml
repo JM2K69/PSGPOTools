@@ -63,12 +63,12 @@ Ve výchozím nastavení bude Inteligentní úložiště odstraňovat soubory, k
     </string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold">Nakonfigurovat prahovou hodnotu pro vyčištění stažených souborů funkcí Inteligentní úložiště</string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold_Explain">
-Inteligentní úložiště může při svém spuštění odstranit soubory ve složce Stažené soubory uživatele, které tam jsou déle než určitý počet dní.
+Inteligentní úložiště může při svém spuštění odstranit soubory ve složce Stažené soubory uživatele, které nebyly otevřeny déle než určitý počet dní.
 
 Pokud je zakázána zásada skupiny Povolit Inteligentní úložiště, nemá tato zásada žádný vliv.
 
 Povoleno:
-Je třeba zadat prahovou hodnotu pro minimální dobu uložení souboru ve složce Stažené soubory (ve dnech), po kterém ho má Inteligentní úložiště odstranit. Podporované hodnoty: 0 až 365.
+Je třeba zadat minimální počet dní, během kterých neproběhne žádné otevření souboru ve složce Stažené soubory, aby ho mohlo Inteligentní úložiště odstranit. Podporované hodnoty: 0 až 365.
 Pokud tuto hodnotu nastavíte na nulu, nebude Inteligentní úložiště soubory ve složce Stažené soubory odstraňovat. Výchozí hodnota je 0, což znamená, že se soubory nikdy neodstraňují.
 
 Zakázáno nebo nenakonfigurováno:
@@ -81,7 +81,7 @@ Inteligentní úložiště může při svém spuštění vyprázdnit cloudový o
 Pokud je zakázána zásada skupiny Povolit Inteligentní úložiště, nemá tato zásada žádný vliv.
 
 Povoleno:
-Je třeba zadat počet dní od posledního otevření cloudového obsahu, po kterém ho Inteligentní úložiště vyprázdní. Podporované hodnoty: 0 až 365.
+Je třeba zadat minimální počet dní, během kterých neproběhne žádné otevření souboru zálohovaného v cloudu, aby ho mohlo Inteligentní úložiště vyprázdnit z kořene synchronizace. Podporované hodnoty: 0 až 365.
 Pokud tuto hodnotu nastavíte na nulu, nebude Inteligentní úložiště cloudový obsah vyprazdňovat. Výchozí hodnota je 0, což znamená, že se tento obsah nikdy nevyprazdňuje.
 
 Zakázáno nebo nenakonfigurováno:
@@ -90,7 +90,7 @@ Ve výchozím nastavení nebude Inteligentní úložiště cloudový obsah vypra
     </stringTable>
     <presentationTable>
     <presentation id="SS_ConfigStorageSenseGlobalCadence_Presentation">
-        <dropdownList refId="StorageSenseGlobalCadence" noSort="true" defaultItem="3">Spustit Inteligentní úložiště:</dropdownList>
+        <dropdownList refId="StorageSenseGlobalCadence" noSort="true" defaultItem="3">Spouštět Inteligentní úložiště:</dropdownList>
     </presentation>
     <presentation id="SS_ConfigStorageSenseRecycleBinCleanupThreshold_Presentation">
         <decimalTextBox refId="StorageSenseRecycleBinCleanupThreshold" defaultValue="30">Minimální doba uložení souborů ve složce Koš (ve dnech), než je Inteligentní úložiště odstraní (0 znamená, že se soubory neodstraní nikdy):</decimalTextBox>

@@ -10,6 +10,8 @@
         <string id="MSPassport_UsePassportForWork">Använd Windows Hello för företag</string>
         <!-- Add support for certificate trust deployments -->
         <string id="WHFB_UseCertificateForOnPremAuth">Använd certifikat för lokal autentisering</string>
+        <!-- Add support for cloud trust deployments -->
+        <string id="WHFB_UseCloudTrustForOnPremAuth">Använd moln förtroende för lokal autentisering</string>
         <!-- DropdownList Button strings -->
         <string id="MSPassport_UsePassportForWorkExplain">Windows Hello för företag är ett alternativt sätt att logga in i Windows med ditt Active Directory- eller Azure Active Directory-konto i stället för att använda lösenord, smartkort och virtuella smartkort.
 
@@ -34,13 +36,13 @@ Om du aktiverar den här principinställningen konfigureras endast Windows Hello
 Om du inaktiverar eller låter bli att konfigurera principinställningen prioriteras TPM:en, men alla enheter kan konfigurera Windows Hello för företag med hjälp av programvara om TPM:en inte fungerar eller inte är tillgänglig.
         </string>
         <string id="MSPassport_MinimumPINLength">Minsta PIN-kodslängd</string>
-        <string id="MSPassport_MinimumPINLengthExplain">Med Minsta PIN-kodslängd anges lägsta antal tecken som krävs i PIN-koden. Det lägsta antalet som du kan ange för den här principinställningen är 4. Det högsta antalet tecken som du kan ange måste vara mindre än antalet i principinställningen Största PIN-kodslängd, eller mindre än 127, beroende på vilket av dessa två värden som är lägst.
+        <string id="MSPassport_MinimumPINLengthExplain">Med minsta PIN-kodslängd anges det minsta antal tecken som krävs för PIN-koden.  Det lägsta antalet som du kan konfigurera för den här principinställningen är 4.  Det största tal som du kan ställa in måste vara mindre än det antal som anges i principinställningen Maximal PIN-längd eller siffran 127, beroende på vilket som är lägst.
 
-Om du konfigurerar den här principinställningen måste PIN-kodslängden vara större än eller lika med det här antalet tecken.
+Om du konfigurerar den här principinställningen måste PIN-kodslängden vara större än eller lika med den här siffran.
 
-Om du inaktiverar eller låter bli att konfigurera principinställningen måste PIN-kodslängden vara större än eller lika med 4.
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen måste PIN-kodslängden vara större än eller lika med 6.
 
-OBS! Om de angivna villkoren ovan för minsta PIN-kodslängd inte uppfylls används standardvärdena för både största och minsta PIN-kodslängd.
+Obs! Om ovanstående villkor för minimilängd för PIN-kod inte uppfylls används standardvärdena för både högsta och lägsta PIN-kodslängd.
         </string>
         <string id="MSPassport_MaximumPINLength">Största PIN-kodslängd</string>
         <string id="MSPassport_MaximumPINLengthExplain">Med Största PIN-kodslängd anges det högsta antalet tecken som tillåts i PIN-koden. Det största antalet som du kan ange för den här principinställningen är 127. Det lägsta antalet tecken som du kan ange måste vara större än antalet i principinställningen Minsta PIN-kodslängd, eller större än 4, beroende på vilket av dessa två värden som är störst.
@@ -54,30 +56,38 @@ OBS! Om de angivna villkoren ovan för största PIN-kodslängd inte uppfylls anv
         <string id="MSPassport_UppercaseLetters">Kräv versaler</string>
         <string id="MSPassport_UppercaseLettersExplain">Med den här principinställningen kan du konfigurera användningen av versaler i PIN-koden.
 
-Om du aktiverar den här principinställningen kräver Windows att användarnas PIN-koder ska innehålla minst en versal.
+Om du aktiverar den här principinställningen kräver Windows att användarna ska ha minst en versal i PIN-koden.
 
-Om du inaktiverar eller låter bli att konfigurera principinställningen tillåter Windows inte versaler i användarnas PIN-koder.
+Om du inaktiverar principinställningen tillåter inte Windows att användarna har versaler i PIN-koden.
+
+Om du låter bli att konfigurera principinställningen tillåter Windows versaler i PIN-koden, men kräver det inte.
         </string>
         <string id="MSPassport_LowercaseLetters">Kräv gemener</string>
         <string id="MSPassport_LowercaseLettersExplain">Med den här principinställningen kan du konfigurera användningen av gemener i PIN-koden.
 
-Om du aktiverar den här principinställningen kräver Windows att användarnas PIN-koder ska innehålla minst en gemen.
+Om du aktiverar den här principinställningen kräver Windows att användarna ska ha minst en gemen i PIN-koden.
 
-Om du inaktiverar eller låter bli att konfigurera principinställningen tillåter Windows inte gemener i användarnas PIN-koder.
+Om du inaktiverar principinställningen tillåter inte Windows att användarna har gemener i PIN-koden.
+
+Om du låter bli att konfigurera principinställningen tillåter Windows gemener i PIN-koden, men kräver det inte.
         </string>
         <string id="MSPassport_SpecialCharacters">Kräv specialtecken</string>
-        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Med den här principinställningen kan du konfigurera användningen av specialtecken i PIN-koden. Följande specialtecken är giltiga: ! " # $ %  ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
+        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Med den här principinställningen kan du konfigurera användningen av specialtecken i PIN-koden. Följande specialtecken tillåts: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
 
-Om du aktiverar den här principinställningen kräver Windows att användarnas PIN-koder ska innehålla minst ett specialtecken.
+Om du aktiverar den här principinställningen kräver Windows att användarens PIN-kod ska ha minst ett specialtecken.
 
-Om du inaktiverar eller låter bli att konfigurera principinställningen tillåter Windows inte specialtecken i användarnas PIN-koder.]]>
+Om du inaktiverar principinställningen tillåter inte Windows att användaren har specialtecken i PIN-koden.
+
+Om du låter bli att konfigurera principinställningen tillåter Windows specialtecken i PIN-koden, men kräver det inte.]]>
         </string>
         <string id="MSPassport_Digits">Kräv siffror</string>
         <string id="MSPassport_DigitsExplain">Med den här principinställningen kan du konfigurera användningen av siffror i PIN-koden.
 
-Om du aktiverar eller låter bli att konfigurera principinställningen kräver Windows att användarnas PIN-koder ska innehålla minst en siffra.
+Om du aktiverar den här principinställningen kräver Windows att användarna ska ha minst en siffra i PIN-koden.
 
-Om du inaktiverar principinställningen tillåter Windows inte siffror i användarnas PIN-koder.
+Om du inaktiverar principinställningen tillåter inte Windows att användarna har siffror i PIN-koden.
+
+Om du låter bli att konfigurera principinställningen tillåter Windows siffror i PIN-koden, men kräver det inte.
         </string>
         <string id="MSPassport_PINHistory">Historik</string>
         <string id="MSPassport_PINHistoryExplain">Den här inställningen anger hur många tidigare PIN-koder bakåt i tiden som inte får återanvändas. Med den här principen kan administratörer öka säkerheten genom att se till att gamla PIN-koder inte återanvänds i alltför stor utsträckning. PIN-kodshistoriken bevaras inte vid PIN-återställning.
@@ -100,6 +110,19 @@ Om du inaktiverar principinställningen tillåter Windows Hello för företag in
 
 OBS! Om du inaktiverar principen kan användarna inte använda biometrisk inloggning för någon typ av konto på enheten.
         </string>
+        <string id="MSPassport_EnableEnhancedSignInSecurity">Aktivera ESS med kringutrustning som stöds</string>
+        <string id="MSPassport_EnableEnhancedSignInSecurityExplain">Förbättrad inloggningssäkerhet (ESS) isolerar biometriska malldata (ansikte och fingeravtryck) i Windows Hello och matchningsåtgärder mot betrodd maskinvara eller angivna minnesregioner, vilket innebär att resten av operativsystemet inte kan komma åt eller manipulera dem. Eftersom kommunikationskanalen mellan sensorerna och algoritmen också skyddas är det omöjligt för skadlig kod att mata in eller spela upp data för att simulera en användare som loggar in eller låsa en användare från sin dator. 
+Om du aktiverar den här principen kan den ha följande möjliga värden:
+
+0 – Förbättrad inloggningssäkerhet inaktiverad med kringutrustningssensorer
+ESS inaktiveras på system med kompatibel programvara och maskinvara. Autentiseringsåtgärder för Windows Hello kompatibla kringutrustningsenheter kommer att tillåtas, med förbehåll för aktuella funktionsbegränsningar.
+
+1 – Förbättrad inloggningssäkerhet aktiverad utan kringutrustningssensorer (standard och rekommenderas)
+ESS aktiveras på system med kompatibel programvara och maskinvara, enligt det befintliga standardbeteendet i Windows. Autentiseringsåtgärder för biometriska kringutrustningsenheter blockeras och är inte tillgängliga för Windows Hello.
+
+Om du inaktiverar eller inte konfigurerar den här principen blockeras icke-ESS-sensorer på ESS-enheten.
+
+        </string>
         <string id="MSPassport_EnablePinRecovery">Använd PIN-återställning</string>
         <string id="MSPassport_EnablePinRecoveryExplain">Med PIN-återställning kan en användare ändra en PIN som denne glömt genom att använda PIN-återställningstjänsten för Windows Hello för företag utan att förlora tillhörande autentiseringsuppgifter eller certifikat, inklusive eventuella nycklar som är kopplade till användarens personliga konton på enheten. För att göra detta krypterar den Azure-baserade PIN-återställningstjänsten en återställningshemlighet som lagras på enheten och som kräver både PIN-återställningstjänsten och enheten för att dekryptera den. PIN-återställningstjänsten kräver att användaren utför multifaktorautentisering i Azure Active Directory.
 
@@ -110,13 +133,22 @@ Om du inaktiverar eller låter bli att konfigurera principinställningen skapar 
 OBS! Den här principen gäller endast enheter som är registrerade med Azure Active Directory.
         </string>
         <!-- Explain Text for UseCertificateForOnPremAuth -->
-        <string id="WHFB_UseCertificateForOnPremAuthExplain">Använd den här principinställningen för att konfigurera Windows Hello för företag och registrera ett inloggningscertifikat för lokal autentisering.
+        <string id="WHFB_UseCertificateForOnPremAuthExplain">Med den här princip inställningen kan du konfigurera Windows Hello för företag så att ett inloggnings certifikat som används för lokal autentisering registreras.
 
-Om du aktiverar den här principinställningen så registrerar Windows Hello för företag ett inloggningscertifikat för lokal autentisering.
+Om du aktiverar den här princip inställningen registrerar Windows Hello för företag ett inloggnings certifikat som används för lokal autentisering.
 
-Om du inaktiverar eller låter bli att konfigurera principinställningen registrerar Windows Hello för företag en nyckel som används för lokal autentisering.
+Om du inaktiverar eller låter bli att konfigurera den här princip inställningen använder Windows Hello för företag en nyckel eller en Kerberos-biljett (beroende på andra princip inställningar) för lokal autentisering.
 
-Obs! Om du inaktiverar eller låter bli att konfigurera den här principinställningen, men aktiverar principinställningen Använd Windows Hello för företag, måste det finnas en eller flera Windows Server 2016-domänkontrollanter för att autentisering med Windows Hello för företag ska lyckas.
+Obs! Om du inaktiverar eller låter bli att konfigurera den här princip inställningen och aktiverar princip inställningen Använd Windows Hello för företag måste en eller flera Windows Server 2016-domänkontrollanter tillåta att Windows Hello för företag-autentisering Miss lyckas.
+        </string>
+        <!-- Explain Text for UseCloudTrustForOnPremAuth -->
+        <string id="WHFB_UseCloudTrustForOnPremAuthExplain">Använd den här princip inställningen för att konfigurera Windows Hello för företag till att använda Azure AD Kerberos för lokal autentisering.
+
+Om du aktiverar den här princip inställningen använder Windows Hello för företag en Kerberos-biljett som hämtats från autentisering till Azure för lokal autentisering.
+
+Om du inaktiverar eller låter bli att konfigurera den här princip inställningen använder Windows Hello för företag en nyckel eller ett certifikat (beroende på andra princip inställningar) för lokal autentisering. 
+ 
+Obs! en miljö som aktiverar både den här princip inställningen och princip inställningen Använd Windows Hello för företag kräver en eller flera Windows Server 2016-domänkontrollanter. Annars kommer Windows Hello för företag-autentisering att Miss lyckas.
         </string>
         <!-- Explain text for device unlock policy -->
         <string id="MSPassport_UseDeviceUnlock">Konfigurera enhetsupplåsningsfaktorer</string>
@@ -173,6 +205,9 @@ Windows kräver att användare låser eller låser upp sina sessioner efter att 
         </string>
     </stringTable>
     <presentationTable>
+        <presentation id="MSPassport_EnableEnhancedSignInSecurityControl">
+            <decimalTextBox refId="MSPassport_EnableEnhancedSignInSecurityDataType" spin="true" spinStep="1" defaultvalue="1">Aktivera ESS med kringutrustning som stöds</decimalTextBox>
+        </presentation>
         <presentation id="MSPassport_MinimumPINLengthControl">
             <decimalTextBox refId="MSPassport_MinimumPINLengthDataType" spin="true" spinStep="1" defaultvalue="6">Minsta PIN-kodslängd</decimalTextBox>
         </presentation>

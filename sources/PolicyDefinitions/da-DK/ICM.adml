@@ -110,9 +110,11 @@ Se også politikindstillingerne "Konfigurer fejlrapportering", "Vis fejlmeddelel
       <string id="RemoveWindowsUpdate_ICM">Slå adgang til alle Windows Update-funktioner fra</string>
       <string id="RemoveWindowsUpdate_ICM_Help">Denne politikindstilling gør det muligt at fjerne adgang til Windows Update.
 
-Hvis du aktiverer denne politikindstilling, fjernes alle Windows Update-funktioner. Dette omfatter blokering af adgangen til Windows Update-webstedet via http://windowsupdate.microsoft.com, via Windows Update-hyperlinket i menuen Start og også via menuen Funktioner i Internet Explorer. Automatisk opdatering af Windows deaktiveres også, og du vil ikke blive underrettet om eller modtage vigtige opdateringer fra Windows Update. Denne politikindstilling forhindrer også Enhedshåndtering i automatisk at installere driveropdateringer fra Windows Update-webstedet.
+Hvis du aktiverer denne politikindstilling, fjernes alle Windows Update-funktioner. Dette omfatter blokering af adgangen til webstedet Windows Update via http://windowsupdate.microsoft.com, via Windows Update-hyperlinket i menuen Start og også via menuen Funktioner i Internet Explorer. Automatisk opdatering af Windows deaktiveres også, og du vil ikke blive underrettet om eller modtage vigtige opdateringer fra Windows Update. Denne politikindstilling forhindrer også Enhedshåndtering i automatisk at installere driveropdateringer fra webstedet Windows Update.
 
-Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, kan brugere få adgang til Windows Update-webstedet og sætte automatisk opdatering til at modtage meddelelser og vigtige opdateringer fra Windows Update.</string>
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, kan brugere få adgang til webstedet Windows Update og sætte automatisk opdatering til at modtage meddelelser og vigtige opdateringer fra Windows Update.
+
+Bemærk: Denne politik gælder kun, når denne pc er konfigureret og har forbindelse til en opdateringstjenester på intranettet vha. politikken "Angiv placeringen af Microsoft-opdateringstjenesten på intranettet".</string>
       <string id="SearchCompanion_DisableFileUpdates">Slå opdateringer af filer til Søgeassistent-indhold fra</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">Denne politikindstilling angiver, om Søgeassistent automatisk skal hente indholdsopdateringer i forbindelse med søgninger lokalt og på internettet.
 

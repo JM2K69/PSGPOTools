@@ -6,6 +6,8 @@
   <resources>
     <stringTable>
       <string id="NotificationsCategory">Powiadomienia</string>
+      <string id="WnsEndpoint">Włącza zasady grupy dla w pełni kwalifikowanej nazwy domeny dla usługi powiadomień WNS</string>
+      <string id="WnsEndpointExplain">Te zasady ustawia specjalną w pełni kwalifikowaną nazwę domeny dla usługi powiadomień WNS na potrzeby określonych środowisk.</string>
       <string id="NoTileNotification">Wyłącz powiadomienia na kafelkach</string>
       <string id="NoTileNotificationExplain">
           
@@ -118,6 +120,18 @@
 
           Aby to ustawienie zasad zaczęło obowiązywać, nie jest wymagany ponowny rozruch komputera ani ponowne uruchomienie usług.
       </string>
+      <string id="ExpandedToastNotifications">Włącz wiele wyskakujących powiadomień w centrum akcji</string>
+      <string id="ExpandedToastNotificationsExplain">
+          To ustawienie zasad włącza wiele rozszerzonych wyskakujących powiadomień w centrum akcji.
+
+Jeśli to ustawienie zasad zostanie włączone, pierwsze trzy powiadomienia każdej aplikacji będą domyślnie rozwijane w centrum akcji.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, tylko pierwsze powiadomienie każdej aplikacji będzie domyślnie rozwijane w centrum akcji.
+
+tylko Windows 10. Ta operacja zostanie natychmiast wycofana dla Windows 11.
+
+Aby to ustawienie zasad zostało zastosowane, nie jest wymagane ponowne uruchomienie komputera ani ponowne uruchomienie usługi.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="QuietHoursBeginTimePicker">
@@ -125,6 +139,11 @@
       </presentation>
       <presentation id="QuietHoursEndTimePicker">
         <decimalTextBox refId="QuietHoursDailyEndMinuteControl" defaultValue="360">Liczba minut po północy:</decimalTextBox>
+      </presentation>
+      <presentation id="WnsEndpoint">
+        <textBox refId="WnsEndpoint_FQDN">
+          <label>FQDN dla WNS</label>
+        </textBox>
       </presentation>
     </presentationTable>
   </resources>

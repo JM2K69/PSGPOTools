@@ -285,6 +285,19 @@ Se desativar ou não configurar esta definição de política, o Windows não in
         
         Se esta política estiver desativada, os serviços de voz serão desativados e os utilizadores não conseguirão ativar os serviços de voz através das definições.
       </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Pacote Restringir Língua e Instalação de Funcionalidades Linguísticas</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        Esta definição de política restringe todos os utilizadores de instalarem pacotes de idiomas e funcionalidades de idioma nos pacotes de demanda. esta política não restringe a mudança do idioma do Windows, se pretender restringir a idioma do Windows utilizar a seguinte política: "restringir os idiomas de IU utilizados pelo Windows para todos os utilizadores registados".   
+Se ativar esta definição de política, a instalação de pacotes de idiomas e funcionalidades de idioma será impedida para todos os utilizadores.
+
+Se desativar ou não configurar esta definição de política, não existem pacotes de idioma ou restrição de instalação de funcionalidades para qualquer utilizador.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        Esta definição de política restringe o utilizador de instalar pacotes de idiomas e funcionalidades de idioma a pedido. esta política não restringe a alteração do idioma do Windows, caso pretenda restringir o idioma do Windows, utilize a seguinte política: "restringir os idiomas de IU que o Windows deve utilizar para o utilizador selecionado."   
+Se ativar esta definição de política, a instalação de pacotes de idiomas e funcionalidades de idioma será impedida para o utilizador.  
+
+Se desativar ou não configurar esta definição de política, não existem pacotes de idiomas ou de restrição de funcionalidades de idioma para o utilizador.  
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LocaleSystemRestrict">

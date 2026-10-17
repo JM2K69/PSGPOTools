@@ -39,21 +39,21 @@ Not:  Bu KDC ilkesinin aşağıdaki seçeneklerinin etkili olabilmesi için, Ker
 
 "Destekleniyor" olarak yapılandırırsanız, etki alanı denetleyicisi talepleri, bileşik kimlik doğrulamasını ve Kerberos korumasını destekler. Etki alanı denetleyicisi, etki alanının Dinamik Erişim Denetimi için talepleri ve bileşik kimlik doğrulamasını ve Kerberos korumasını desteklediğini Kerberos istemci bilgisayarlarına duyurur. 
 
-Etki alanı işlev düzeyi gereksinimleri "Talepleri her zaman sağla" ve "Korumasız kimlik doğrulaması istekleri başarısız olsun" seçeneklerinde, etki alanı işlev düzeyi Windows Server 2008 R2 veya önceki sürümüne ayarlanırsa, etki alanı denetleyicileri "Destekleniyor" seçeneği belirlenmiş gibi davranır. 
+Etki alanı işlev düzeyi gereksinimleri
 
-Etki alanı işlev düzeyi Windows Server 2012 olarak ayarlanırsa, etki alanı denetleyicisi Kerberos istemci bilgisayarlarına etki alanının Dinamik Erişim Denetimi için talepleri ve bileşik kimlik doğrulamasını ve Kerberos korumasını desteklediğini duyurur ve:   
-	- "Talepleri her zaman sağla" seçeneğini ayarlarsanız, hesaplar için her zaman talep döndürür ve esnek kimlik doğrulaması güvenli tünelini (FAST) duyurmak için RFC davranışını destekler.
-   - "Korumasız kimlik doğrulaması istekleri başarısız olsun" seçeneğini ayarlarsanız, korumasız Kerberos iletilerini her zaman reddeder.
+ "Talepleri her zaman sağla" ve "Korumasız kimlik doğrulaması istekleri başarısız olsun" seçeneklerinde, etki alanı işlev düzeyi Windows Server 2008 R2 veya önceki sürümüne ayarlanırsa, etki alanı denetleyicileri "Destekleniyor" seçeneği belirlenmiş gibi davranır. 
+Etki alanı işlev düzeyi Windows Server 2012 olarak ayarlanırsa, etki alanı denetleyicisi Kerberos istemci bilgisayarlarına etki alanının Dinamik Erişim Denetimi için talepleri ve bileşik kimlik doğrulamasını ve Kerberos korumasını desteklediğini duyurur ve:
+- "Talepleri her zaman sağla" seçeneğini ayarlarsanız, hesaplar için her zaman talep döndürür ve esnek kimlik doğrulaması güvenli tünelini (FAST) duyurmak için RFC davranışını destekler.
+- "Korumasız kimlik doğrulaması istekleri başarısız olsun" seçeneğini ayarlarsanız, korumasız Kerberos iletilerini her zaman reddeder.
 
 Uyarı: "Korumasız kimlik doğrulaması istekleri başarısız olsun" ayarlandığında, Kerberos korumasını desteklemeyen istemci bilgisayarlar etki alanı denetleyicisinin kimliğini doğrulayamaz.
 
 Bu özelliğin etkili olduğundan emin olmak için Dinamik Erişim Denetimi için talepleri ve bileşik kimlik doğrulamasını destekleyen ve kimlik doğrulama isteklerini işlemek üzere Kerberos koruması kullanabilen yeterli sayıda etki alanı denetleyicisi dağıtın. Bu ilkeyi destekleyen etki alanı denetleyicilerinin sayısının yetersiz olması, Dinamik Erişim Denetimi veya Kerberos korumasının gerekli olduğu her durumda kimlik doğrulama hatalarına neden olur (yani, "Destekleniyor" seçeneğinin etkinleştirildiği durum).
 
-Bu ilke ayarı etkinleştirildiğinde etki alanı denetleyicisinin performansı üzerindeki etkisi:  
+Bu ilke ayarı etkinleştirildiğinde etki alanı denetleyicisinin performansı üzerindeki etkisi:
 - Güvenli Kerberos etki alanı özelliği bulunması gerekir ve bu da ek ileti alışverişlerine neden olur.
-   - Dinamik Erişim Denetimi'ne yönelik talepler ve bileşik kimlik doğrulaması, iletideki verilerin boyutunu ve karmaşıklığını artırır ve bu da daha fazla işlem süresine ve daha büyük Kerberos hizmeti anahtar boyutuna yol açar.
-   - Kerberos koruması Kerberos iletilerini tamamen şifreler ve Kerberos hatalarını işaretler; bu, işleme süresinin artmasına neden olur ancak hizmet anahtar boyutunu değiştirmez.
-
+- Dinamik Erişim Denetimi'ne yönelik talepler ve bileşik kimlik doğrulaması, iletideki verilerin boyutunu ve karmaşıklığını artırır ve bu da daha fazla işlem süresine ve daha büyük Kerberos hizmeti anahtar boyutuna yol açar.
+- Kerberos koruması Kerberos iletilerini tamamen şifreler ve Kerberos hatalarını işaretler; bu, işleme süresinin artmasına neden olur ancak hizmet anahtar boyutunu değiştirmez.
 </string>
       <string id="NoCbacAndArmor">Desteklenmiyor</string>
       <string id="MixModeCbacAndArmor">Destekleniyor</string>
@@ -93,6 +93,47 @@ Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, DC, PKInit
       <string id="NoPKINITFreshness">Devre dışı</string>
       <string id="SupportPKINITFreshness">Destekleniyor</string>
       <string id="RequirePKINITFreshness">Gerekli</string>
+      <string id="PKINITHashAlgorithmConfiguration">Sertifika oturum açma için karma algoritmalarını yapılandır</string>
+      <string id="PKINITHashAlgorithmConfiguration_explain">Bu ilke ayarı, sertifika doğrulaması yapılırken Kerberos istemcisi tarafından kullanılan karma veya sağlama toplamı algoritmalarını denetler.
+
+Bu ilkeyi etkinleştirirseniz her bir algoritmada dört durumdan birini yapılandırabilirsiniz:
+
+- “Varsayılan”, algoritmayı önerilen duruma ayarlar.
+
+- “Destekleniyor”, algoritmanın kullanılmasını sağlar. Varsayılan olarak devre dışı bırakılan algoritmaların etkinleştirilmesi güvenliğinizi azaltabilir.
+
+- “Denetlenmiyor”, algoritmanın kullanılmasını sağlar ve algoritma her kullanıldığında bir olay (ID 309) raporlar. Bu durum, algoritmanın kullanılmadığını ve güvenli bir şekilde devre dışı bırakılabileceğini doğrulamaya yöneliktir.
+
+- “Desteklenmiyor”, algoritmanın kullanımını devre dışı bırakır. Bu durum, güvenli olmadığı düşünülen algoritmalara yöneliktir.
+
+Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız, her bir algoritma “Varsayılan” durumunu alır.
+Windows Kerberos istemcisi tarafından desteklenen karma ve sağlama toplamı algoritmaları ile bunların varsayılan durumları hakkında daha fazla bilgiyi https://go.microsoft.com/fwlink/?linkid=2169037 adresinde bulabilirsiniz.
+
+Bu yapılandırma tarafından oluşturulan olaylar: 309, 310.
+</string>
+      <string id="PKINITHashAlgorithm_Default">Varsayılan</string>
+      <string id="PKINITHashAlgorithm_Supported">Destekleniyor</string>
+      <string id="PKINITHashAlgorithm_Audited">Denetlendi</string>
+      <string id="PKINITHashAlgorithm_NotSupported">Desteklenmiyor</string>
+      <string id="StrongNameMatches">Sertifikalar için ad tabanlı tanımlayıcı ad eşlemelerine izin ver</string>
+      <string id="StrongNameMatches_explain">Bu ilke ayarı, Active Directory kullanıcı hesaplarına verilen sertifikaların güvenli eşlemesi için alternatif, ad tabanlı tanımlayıcıların kullanılmasına olanak sağlar ve hangi sertifikaların hangi hesaplarla eşlendiğini belirtir. Bu ayar etkinleştirilmediğinde sertifikalar genellikle ad tabanlı tanımlayıcılara izin verilmeyen aka.ms/StrongCertMapKB içinde belirtilen “güvenli eşleme” ölçütlerini karşılamalıdır.
+
+Bu ilkede belirtilen her eşleme, aşağıda belirtilen söz dizimini kullanarak IssuerSubject ve/veya UPN Soneki ile birlikte bir ilke OID'si içermelidir. Belirli bir sertifika için bu ilkede geçerli bir eşleme bulunamadığında Active Directory, KB5014754 içinde belirtilen mevcut tanımlayıcı eşleme ölçütlerini kullanarak bir eşleşme bulmaya çalışır. ”Güvenli ad eşleme” veya mevcut ”güvenli eşleme” (bu ilke) ölçütlerine uymayan sertifika eşlemeleri kimlik doğrulaması için geçersiz kabul edilir.
+
+Genel ilke biçimi ve bazı örnekler aşağıda listelenir. Bu ilke yalnızca Active Directory kullanıcı hesapları için geçerlidir.
+
+Genel söz dizimi
+==============
+&lt;thumbprint&gt;; &lt;list of oids&gt;; &lt;name-match methods&gt;
+
+Örnekler
+==============
+IssuerThumbprint1; oid1, oid2, oid3; UpnSuffix=domain.com
+IssuerThumbprint2; oid1; UpnSuffix=domain.com, UpnSuffix=other.domain.com, IssuerSubject
+IssuerThumbprint3; oid1, oid2; IssuerSubject
+
+İlke, her kuralın demet olarak gösterildiği, kural başına tam olarak bir sertifika parmak izi içermelidir. Parmak izi benzersiz olmalıdır ve birden çok kuralda yinelenemez. Noktalı virgülle ayrılmış her demetin bölümleri belirtilen sırada olmalıdır ancak virgülle ayrılmış alanlar herhangi bir sırada olabilir. Kurallar da yeni satırlarla ayrılır.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="emitlili">
@@ -120,6 +161,15 @@ Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, DC, PKInit
       </presentation>
       <presentation id="PKINITFreshness">
         <dropdownList refId="PKINITFreshness_Levels" noSort="true" defaultItem="1">PKInit Yenilik Uzantısı seçenekleri:</dropdownList>
+      </presentation>
+      <presentation id="PKINITHashAlgorithmConfiguration">
+        <dropdownList refId="PKINITHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
+      </presentation>
+      <presentation id="StrongNameMatches">
+          <multiTextBox refId="StrongNameMatchesList">Tanımlayıcı Ad Eşleme Kuralları:</multiTextBox>
       </presentation>
     </presentationTable>
   </resources>

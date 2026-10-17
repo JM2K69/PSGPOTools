@@ -172,6 +172,12 @@ Om du inaktiverar eller låter bli att konfigurera principinställningen kommer 
 Användare kan som standard ändra bakgrundsbilden som visas på låsskärmen eller inloggningsskärmen.
 
 Om du aktiverar den här inställningen kan användarna inte ändra bakgrundsbilden på låsskärmen och inloggningsskärmen. I stället visas standardbilden.</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">Förhindra låsskärmens bakgrundsrörelse</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">Den här principinställningen styr om låsskärms bilden är statisk eller har en diskret panorerings funktion som styr enhetens accelerometer-utdata.
+
+Om du aktiverar den här inställningen förhindras rörelse och användaren ser den traditionella statiska låsskärmens bakgrundsbild.
+
+Om du inaktiverar den här inställningen (och enheten har en accelerometer) kommer användaren att se låsskärmens bakgrundsbild runt en stillbild när hen fysiskt flyttar sin enhet.</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">Framtvinga en viss bild på låsskärmen och inloggningsskärmen</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">Med den här inställningen kan du framtvinga att en viss bild används som standard på låsskärmen och inloggningsskärmen genom att ange sökvägen (platsen) till bildfilen. Samma bild används för både låsskärmen och inloggningsskärmen.
 

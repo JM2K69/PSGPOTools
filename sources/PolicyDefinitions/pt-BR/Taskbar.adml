@@ -29,6 +29,12 @@ Se você desabilitar ou não definir esta configuração de política, o ícone 
 Se você habilitar essa configuração de política, o ícone de Segurança e Manutenção não será exibido na área de notificação do sistema.
 
 Se você desabilitar ou não definir essa configuração de política, o ícone de Segurança e Manutenção será exibido na área de notificação do sistema.</string>
+      <string id="HideSCAMeetNow">Remover o ícone Reunir Agora</string>
+      <string id="HideSCAMeetNow_Help">Essa configuração de política permite remover o ícone Reunir Agora da área de controle do sistema.
+
+Se você habilitar essa configuração de política, o ícone Reunir Agora não será exibido na área de notificação do sistema.
+
+Se desabilitar ou não definir essa configuração de política, o ícone Reunir Agora será exibido na área de notificação do sistema.</string>
       <string id="TaskbarLockAll">Bloquear todas as configurações da barra de tarefas</string>
       <string id="TaskbarLockAll_Help">Esta configuração de política permite bloquear todas as configurações da barra de tarefas.
 
@@ -90,15 +96,15 @@ Se você habilitar esta configuração de política, os ícones de notificação
 
 Se você desabilitar ou não definir esta configuração de política, os ícones de notificação recém-adicionados serão promovidos temporariamente para a Barra de Tarefas.</string>
       <string id="EnableLegacyBalloonNotifications">Desabilite a exibição de notificações de balão como notificações do sistema.</string>
-      <string id="EnableLegacyBalloonNotifications_Help">Esta política desativa a funcionalidade que converte balões em notificações do sistema. 
+      <string id="EnableLegacyBalloonNotifications_Help">Essa política desabilita a funcionalidade que converte balões em notificações do sistema.
 
-Se você habilitar essa configuração de política, as notificações do sistema e do aplicativo serão processadas como balões em vez de notificações do sistema.   
+Se você habilitar essa configuração de política, as notificações do sistema e do aplicativo serão processadas como balões em vez de notificações do sistema.
 
-Habilite essa configuração de política se um aplicativo ou um componente do sistema específico que usa as notificações de balão tiver problemas de compatibilidade com as notificações do sistema. 
+Habilite essa configuração de política se um aplicativo ou um componente do sistema específico que usa as notificações de balão tiver problemas de compatibilidade com as notificações do sistema.
 
-Se você desabilitar ou não definir essa configuração de política, todas as notificações aparecerão como notificações do sistema.
+Se você desabilitar ou não definir essa configuração de política, todas as notificações serão exibidas como notificações do sistema.
 
-Uma reinicialização é necessária para essa configuração de política entrar em vigor.</string>
+Uma reinicialização é necessária para que essa configuração de política entre em vigor.</string>
       <string id="NoRemoteDestinations">Não exibir nem controlar itens nas Listas de Atalhos a partir de locais remotos</string>
       <string id="NoRemoteDestinations_Help">Esta configuração de política permite controlar a exibição e o controle de itens nas Listas de Atalhos a partir de locais remotos.
 
@@ -129,14 +135,14 @@ Se você desabilitar ou não definir esta configuração de política, os usuár
 Se você habilitar esta configuração de política, os usuários não poderão mostrar barras de ferramentas em mais de uma exibição. A seção de múltipla exibição não está habilitada na caixa de diálogo de propriedades da barra de ferramentas.
 
 Se você desabilitar ou não definir esta configuração de política, os usuários poderão mostrar barras de ferramentas em mais de uma exibição.</string>
-        <string id="ShowWindowsStoreAppsOnTaskbar">Mostrar aplicativos da Windows Store na barra de tarefas</string>
+        <string id="ShowWindowsStoreAppsOnTaskbar">Mostrar aplicativos da Microsoft Store empacotados na barra de tarefas</string>
         <string id="ShowWindowsStoreAppsOnTaskbar_Help">
-Essa configuração de política permite aos usuários ver aplicativos da Windows Store na barra de tarefas.
- 
-Se você habilitar essa configuração de política, os usuários irão ver aplicativos da Windows Store na barra de tarefas.
- 
-Se você desabilitar essa configuração de política, os usuários não irão ver aplicativos da Windows Store na barra de tarefas.
- 
+Essa configuração de política permite que os usuários visualizem aplicativos da Microsoft Store empacotados na barra de tarefas.
+
+Se você habilitar essa configuração de política, os usuários visualizarão aplicativos da Microsoft Store na barra de tarefas.
+
+Se você desabilitar essa configuração de política, os usuários não visualizarão aplicativos da Microsoft Store na barra de tarefas.
+
 Se você não configurar essa configuração de política, a configuração padrão para o dispositivo do usuário será usada, e o usuário pode optar por alterá-la.</string>
       <string id="DisableNotificationCenter">Remover a Central de Ações e Notificações</string>
       <string id="DisableNotificationCenter_Help">Essa configuração de política remove a Central de Ações e as notificações da área de notificação na barra de tarefas.
@@ -148,7 +154,7 @@ Se essa configuração for habilitada, a Central de Ações e as notificações 
 Se você desabilitar ou não definir essa configuração de política, Notificação e Segurança e Manutenção serão exibidos na barra de tarefas. 
 
 Uma reinicialização é necessária para essa configuração de política entrar em vigor.</string>
-      <string id="NoPinningStoreToTaskbar">Não permitir a fixação de aplicativo da Store na barra de tarefas</string> 
+      <string id="NoPinningStoreToTaskbar">Não permitir a fixação de aplicativo da Store na barra de tarefas</string>
       <string id="NoPinningStoreToTaskbar_Help">
 Essa configuração de política permite que você controle a fixação do aplicativo da Store na barra de tarefas.
 
@@ -165,10 +171,81 @@ Se você desabilitar essa configuração de política, os usuários não poderã
 Se você não definir essa configuração de política, o calendário será definido de acordo com a lógica padrão.</string>
       <string id="ConfigureTaskbarCalendar_SimplifiedChinese">Chinês simplificado (lunar)</string>
       <string id="ConfigureTaskbarCalendar_TraditionalChinese">Chinês tradicional (lunar)</string>
+      <string id="Chat">Bate-papo</string>
+      <string id="ConfigureChatIcon">Configura o ícone de Chat na barra de tarefas</string>
+      <string id="ConfigureChatIcon_Help">Essa configuração de política permite configurar o ícone Chat na barra de tarefas.
+
+Se você habilitar essa configuração de política e defini-la como Mostrar, o ícone Chat será exibido na barra de tarefas por padrão. Os usuários podem mostrar ou ocultá-lo em Configurações.
+
+Se você habilitar essa configuração de política e defini-la como Ocultar, o ícone chat ficará oculto por padrão. Os usuários podem mostrar ou ocultá-lo em Configurações.
+
+Se você habilitar essa configuração de política e defini-la como Desabilitada, o ícone chat não será exibido e os usuários não poderão mostrar ou ocultá-lo em Configurações.
+
+Se você desabilitar ou não definir essa configuração de política, o ícone Chat será configurado de acordo com os padrões da edição do Windows.</string>
+      <string id="ChatEnum_Show">Exibir</string>
+      <string id="ChatEnum_Hide">Ocultar</string>
+      <string id="ChatEnum_Disabled">Desabilitado</string>
+      <string id="HideTaskViewButton">Ocultar o botão TaskView</string>
+      <string id="HideTaskViewButton_Help">Esta configuração de política permite ocultar o botão TaskView.
+
+Se você habilitar essa configuração de política, o botão TaskView ficará oculto e a alternância Configurações será desabilitada.</string>
+      <string id="AlwaysShowNotificationIcon">Mostrar ícone de sino de notificação</string>
+      <string id="AlwaysShowNotificationIcon_Help">
+Essa configuração de política permite mostrar o ícone de sino de notificação na bandeja do sistema.
+
+Se você habilitar essa configuração de política, o ícone de notificação sempre será mostrado. Caso contrário, o ícone de notificação só será mostrado quando houver um status (por exemplo, Não Incomodar estiver ativado).
+
+Uma reinicialização é necessária para que essa configuração de política entre em vigor.
+      </string>
+      <string id="TurnOffAbbreviatedDateTimeFormat">Desativar o formato abreviado de tempo e data</string>
+      <string id="TurnOffAbbreviatedDateTimeFormat_Help">
+Essa configuração de política permite mostrar o formato de data e hora mais longos na bandeja do sistema.
+
+Se esta configuração estiver habilitada, o formato de hora incluirá o marcador de hora AM/PM e a data incluirá o ano.
+
+Uma reinicialização é necessária para que essa configuração de política entre em vigor.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior">ConfigureTaskbarSmallButtonBehavior</string>  
+      <string id="ConfigureTaskbarSmallButtonBehavior_DisplayName">Configurar o Comportamento dos Botões Pequenos da Barra de Tarefas</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Help">Essa configuração de política permite que você configure o comportamento de pequenos botões da barra de tarefas.
+      
+Quando definido como:
+      – Sempre: a barra de tarefas sempre usa os botões pequenos.
+      – Quando a barra de tarefas estiver cheia: a barra de tarefas alterna dinamicamente entre botões pequenos e tamanhos de botão padrão com base no espaço disponível.
+      – Nunca: a barra de tarefas nunca usa os botões pequenos. Somente os botões de tamanho padrão serão usados.
+
+Quando essa política está habilitada, uma das opções acima deve ser selecionada e os usuários não podem alterar a opção "Mostrar botões menores da barra de tarefas" na interface do usuário de Configurações.
+
+Quando essa política está desabilitada ou não configurada, nenhuma opção é aplicada pela Política de Grupo. O Windows usa como padrão o comportamento "Quando a barra de tarefas está cheia" e os usuários podem alterar manualmente essa configuração na interface do usuário de Configurações.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Always">Sempre</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_WhenTaskbarIsFull">Quando a barra de tarefas estiver cheia</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Never">Nunca</string>
+      <string id="DisableTaskbarPosition">Desabilite a alteração da posição da barra de tarefas</string>
+      <string id="DisableTaskbarPosition_Help">Esta configuração de política permite impedir que os usuários alterem a posição da barra de tarefas.
+
+Se você habilitar essa configuração de política, a barra de tarefas será movida para a parte inferior da tela e a configuração de posição da barra de tarefas ficará esmaecida no aplicativo Configurações.
+
+Se você desabilitar ou não definir esta configuração de política, os usuários poderão alterar a posição da barra de tarefas no aplicativo Configurações.</string>
+      <string id="DisableTaskbarSize">Desabilite a alteração do tamanho da barra de tarefas</string>
+      <string id="DisableTaskbarSize_Help">Esta configuração de política permite impedir que os usuários alterem o tamanho da barra de tarefas.
+
+Se você habilitar essa configuração de política, a barra de tarefas será definida com o tamanho padrão e a configuração de tamanho da barra de tarefas ficará esmaecida no aplicativo Configurações.
+
+Se você desabilitar ou não definir esta configuração de política, os usuários poderão alterar o tamanho da barra de tarefas no aplicativo Configurações.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureTaskbarCalendar">
         <dropdownList refId="ConfigureTaskbarCalendar_Dropdown" defaultItem="0">Calendário:</dropdownList>
+      </presentation>
+      <presentation id="ConfigureChatIcon">
+          <text>Definir a configuração do ícone de Chat</text>
+          <text> </text>
+          <dropdownList refId="ConfigureChatIcon_Action" noSort="true" defaultItem="1">Estado: </dropdownList>
+          <text> </text>
+      </presentation>
+      <presentation id="ConfigureTaskbarSmallButtonBehavior">
+        <dropdownList refId="ConfigureTaskbarSmallButtonBehavior_Dropdown" noSort="true" defaultItem="1">Escolha quando mostrar botões menores da barra de tarefas: </dropdownList>
       </presentation>
     </presentationTable>
   </resources>

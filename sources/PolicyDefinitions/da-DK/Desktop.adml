@@ -55,6 +55,15 @@ Bemærk! Indstillingen deaktiverer ikke Active Desktop. Brugerne kan stadig brug
 En bruger kan som standard ændre placeringen af sine individuelle profilmapper, f.eks. Dokumenter, Musik osv. ved at skrive en ny sti i feltet Placering i dialogboksen Egenskaber.
 
 Hvis du aktiverer denne indstilling, kan brugere ikke angive en ny placering i feltet Placering.</string>
+      <string id="EnableThemeFileRemoteResource">Tillad temafiler fra netværksplaceringer</string>
+      <string id="EnableThemeFileRemoteResource_Help">Denne politikindstilling bestemmer, om fjernstier kan bruges til ressourcer i en Windows-skrivebordstemafil (.theme/.themepack).
+
+Hvis du aktiverer denne politikindstilling, kan temafiler referere til ressourcer (f.eks. billeder, lyde og ikoner), der er placeret på netværksshares eller andre fjernplaceringer. Brugerne vil kunne anvende temaer, der indeholder fjernressourcer.
+
+Hvis du deaktiverer denne politikindstilling, kan temafiler ikke bruge fjernressourcer. Alle temafiler, der refererer til fjernressourcer, vil ikke kunne indlæse disse ressourcer, og kun lokale ressourcer vil blive vist.
+
+Hvis du ikke konfigurerer denne politikindstilling, er standardadfærden at blokere fjernressourcer i temafiler af sikkerhedsmæssige årsager.</string>
+
       <string id="ForceActiveDesktopOn">Aktiver Active Desktop</string>
       <string id="ForceActiveDesktopOn_Help">Aktiverer Active Desktop og forhindrer brugerne i at deaktivere Active Desktop.
 

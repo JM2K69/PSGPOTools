@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>ReFS-groepsbeleid</displayName>
+  <description>Groepsbeleidsinstellingen voor ReFS</description>
+  <resources>
+    <stringTable>
+      <string id="ReFS">ReFS</string>
+      <string id="EnableDevDrive">Dev station inschakelen</string>
+      <string id="EnableDevDriveText">Dev station of ontwikkelaarsvolume is een volume dat is geoptimaliseerd voor de prestaties van ontwikkelaarsscenario's. Met een ontwikkelaarsvolume kan een beheerder bestandssysteemfilters kiezen die op het volume zijn aangesloten.
+
+Als u deze instelling uitschakelt, kunnen er geen nieuwe ontwikkelaarsvolumes worden gemaakt. Bestaande ontwikkelaarsvolumes worden gekoppeld als normale volumes.
+
+Als deze instelling niet is geconfigureerd, is het standaardbeleid om ontwikkelaarsvolumes in te schakelen terwijl het antivirusfilter kan worden gekoppeld op een deveveloper-volume.  Als deze optie niet is geconfigureerd, kan een lokale beheerder ervoor kiezen om geen antivirusfilter aan een ontwikkelaarsvolume te laten toevoegen.
+
+De computer moet opnieuw worden opgestart om deze instelling van kracht te laten worden.</string>
+      <string id="ModeOff">Uit</string>
+      <string id="ModeAudit">Alleen audit</string>
+      <string id="ModeBlock">Blokkeren</string>
+      <string id="BlockExternalBusMount">Het koppelen van ReFS-volumes op USB- en IEEE 1394-schijven beheren</string>
+      <string id="BlockExternalBusMountText">Hiermee bepaalt u of ReFS-volumes mogen worden gekoppeld op schijven die zijn aangesloten via USB of IEEE 1394. ReFS is geen ondersteunde configuratie op hot-pluggable of verwisselbare schijven.
+
+Block weigert de koppeling en registreert een gebeurtenis in het systeemlogboek.
+
+Controle staat alleen het koppelen toe en registreert dezelfde gebeurtenis, zodat het effect van het inschakelen van dit beleid kan worden beoordeeld voordat het wordt afgedwongen.
+
+Uit voert geen controle en geen blokkering uit.
+
+Voor een volume voor Opslagruimten is de controle van toepassing op de fysieke schijven die als back-up van de groep fungeren, niet op de ruimte zelf.
+
+Als deze beleidsinstelling niet wordt geconfigureerd, wordt de lokale instelling op deze computer gebruikt. Als er geen lokale instelling bestaat, wordt het standaardgedrag voor deze versie van Windows gebruikt.
+
+ReFS leest deze instelling wanneer deze wordt geladen, dus een herstart is vereist voordat een wijziging van toepassing is. De instelling wordt vervolgens geëvalueerd telkens wanneer een volume wordt gekoppeld, zodat een reeds gekoppeld volume zijn huidige status behoudt totdat het wordt ontkoppeld en opnieuw wordt gekoppeld.</string>
+      <string id="BlockHotplugMount">Het koppelen van ReFS-volumes op hot-plugbare schijven beheren</string>
+      <string id="BlockHotplugMountText">Hiermee bepaalt u of ReFS-volumes mogen worden gekoppeld aan schijven die door de opslagstack worden gerapporteerd als hot-pluggable, door welke bus ze ook zijn aangesloten. ReFS is geen ondersteunde configuratie op hot-pluggable of verwisselbare schijven.
+
+Block weigert de koppeling en registreert een gebeurtenis in het systeemlogboek.
+
+Controle staat alleen het koppelen toe en registreert dezelfde gebeurtenis, zodat het effect van het inschakelen van dit beleid kan worden beoordeeld voordat het wordt afgedwongen.
+
+Uit voert geen controle en geen blokkering uit.
+
+Voor een volume voor Opslagruimten is de controle van toepassing op de fysieke schijven die als back-up van de groep fungeren, niet op de ruimte zelf.
+
+Als deze beleidsinstelling niet wordt geconfigureerd, wordt de lokale instelling op deze computer gebruikt. Als er geen lokale instelling bestaat, wordt het standaardgedrag voor deze versie van Windows gebruikt.
+
+ReFS leest deze instelling wanneer deze wordt geladen, dus een herstart is vereist voordat een wijziging van toepassing is. De instelling wordt vervolgens geëvalueerd telkens wanneer een volume wordt gekoppeld, zodat een reeds gekoppeld volume zijn huidige status behoudt totdat het wordt ontkoppeld en opnieuw wordt gekoppeld.</string>
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="EnableDevDriveOptions">
+        <checkBox refId="DevDriveAllowAntivirusFilter" defaultChecked="true">Antivirusfilters dev stations laten beveiligen</checkBox>
+      </presentation>
+      <presentation id="BlockExternalBusMountOptions">
+        <dropdownList refId="BlockExternalBusMountMode" defaultItem="0">Actie voor ReFS-volumes op USB- of IEEE 1394-schijven</dropdownList>
+      </presentation>
+      <presentation id="BlockHotplugMountOptions">
+        <dropdownList refId="BlockHotplugMountMode" defaultItem="0">Actie voor ReFS-volumes op hot-plugbare schijven</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

@@ -119,6 +119,51 @@ Als u deze instelling niet instelt of uitschakelt, is " internetverbindingen met
         Als u deze instelling uitschakelt of niet configureert, wordt het synchroniseren van de groep "Start-indeling" standaard ingeschakeld en kan de functie door de gebruiker worden geconfigureerd.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">Toegankelijkheidsinstellingen niet synchroniseren</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        Synchroniseren van de groep 'toegankelijkheid' van en naar de pc voorkomen. Hiermee wordt de groep 'toegankelijkheid' op de instellingenpagina Windows Back-up in Pc-instellingen uitgeschakeld.
+
+Als je deze beleidsinstelling inschakelt, wordt de groep 'toegankelijkheid' niet gesynchroniseerd.
+
+Gebruik de optie Gebruikers toestaan toegankelijkheidssynchronisatie in te schakelen, zodat synchronisatie standaard is uitgeschakeld, maar wel beschikbaar is.
+
+Als je deze instelling niet instelt of uitschakelt, is de synchronisatie van de groep 'toegankelijkheid' standaard ingeschakeld en kan deze worden geconfigureerd door de gebruiker.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">Instellingen voor taalvoorkeuren niet synchroniseren</string>
+      <string id="DisableLanguageSettingSync_Help">
+        Voorkomen dat de groep 'taalvoorkeuren' synchroniseert van en naar deze pc. Hiermee wordt de groep 'talenvoorkeuren' op de instellingenpagina Windows Back-up in Pc-instellingen uitgeschakeld.
+
+Als je deze beleidsinstelling inschakelt, wordt de groep 'taalvoorkeuren' niet gesynchroniseerd.
+
+Gebruik de optie Gebruikers toestaan synchronisatie van taalvoorkeuren in te schakelen, zodat synchronisatie standaard is uitgeschakeld, maar wel beschikbaar is.
+
+Als je deze instelling niet instelt of uitschakelt, is de synchronisatie van de groep 'taalvoorkeuren' standaard ingeschakeld en kan deze worden geconfigureerd door de gebruiker.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Windows Back-up inschakelen</string>
+      <string id="EnableWindowsBackup_Help">Met deze beleidsinstelling kunnen beheerders back-ups van Windows-instellingen configureren en beheren voor hun organisatie.
+
+Als u deze beleidsinstelling inschakelt, wordt er regelmatig een back-up gemaakt van Windows-instellingen.
+
+Als u deze beleidsinstelling uitschakelt, wordt er geen back-up gemaakt van Windows-instellingen.
+
+Als deze beleidsinstelling niet is geconfigureerd, wordt er periodiek een back-up gemaakt van Windows-instellingen op basis van geschiktheid.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Windows-herstel inschakelen</string>
+      <string id="EnableWindowsRestore_Help">Met deze beleidsinstelling kunnen beheerders Windows instellingen-herstel voor hun organisatie configureren en beheren.
+
+Als je deze beleidsinstelling inschakelt, wordt Windows instellingen-herstel ingeschakeld.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, wordt Windows instellingen-herstel uitgeschakeld.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Als u deze instelling niet instelt of uitschakelt, is " internetverbindingen met
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">Gebruikers mogen de synchronisatie van "Start-indeling" inschakelen.</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Gebruikers toestaan om synchroniseren van 'toegankelijkheid' in te schakelen.</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Gebruikers toestaan om de synchronisatie van 'taalvoorkeuren' in te schakelen.</checkBox>
       </presentation>
 
     </presentationTable>

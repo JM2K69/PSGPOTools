@@ -173,6 +173,12 @@
 根據預設值，使用者可以變更電腦鎖定畫面或登入畫面的背景影像。
 
 若啟用此設定，使用者將無法變更其鎖定畫面與登入影像，而且會看到預設影像。</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">防止鎖定畫面背景動作</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">此原則設定可控制鎖定畫面影像為靜態的，或是由裝置的加速計輸出所驅動的輕微平移效果。
+
+如果您啟用這個設定，將會防止動作而且使用者會看到傳統的靜態鎖定畫面背景影像。
+
+如果您停用此設定 (且裝置有加速計)，使用者將會在實際移動裝置時，看見鎖定畫面背景在靜止影像周圍平移。</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">強制使用特定的預設鎖定畫面與登入影像</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">此設定可以讓您透過輸入影像檔案的路徑 (位置)，以強制使用特定的預設鎖定畫面與登入影像。相同的影像將同時用於鎖定畫面與登入畫面。
 

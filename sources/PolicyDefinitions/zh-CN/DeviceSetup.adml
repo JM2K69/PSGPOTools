@@ -70,13 +70,13 @@
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">搜索 Windows 更新</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">搜索托管服务器</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">先搜索托管服务器，然后搜索 WU</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">禁止从 Internet 进行设备元数据检索</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">使用此策略设置，可以禁止 Windows 从 Internet 检索设备元数据。
-          
-如果启用此策略设置，则 Windows 不从 Internet 检索已安装设备的设备元数据。此策略设置会覆盖“设备安装设置”对话框(“控制面板”&gt;“系统和安全性”&gt;“系统”&gt;“高级系统设置”&gt;“硬件”选项卡)中的设置。
 
-如果禁用或未配置此策略设置，则由“设备安装设置”对话框中的设置控制 Windows 是否从 Internet 检索设备元数据。</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">阻止自动下载与设备元数据关联的应用程序</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">使用此策略设置，可以阻止 Windows 下载与设备元数据关联的应用程序。
+
+如果启用此策略设置，则 Windows 不会下载与已安装设备的设备元数据关联的应用程序。此策略设置将替代“设备安装设置”对话框 (控制面板 &gt;“系统和安全 &gt; 系统 &gt; 高级系统设置”&gt;“硬件”选项卡) 中的设置。
+
+如果禁用或未配置此策略设置，则“设备安装设置”对话框中的设置控制 Windows 是否下载与设备元数据关联的应用程序。</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

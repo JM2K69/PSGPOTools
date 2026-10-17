@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Stratégies d’IA CAM (Capability Access Manager)</displayName>
+  <description>Stratégies liées aux fonctionnalités d’IA et à leur gestion du consentement.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">Consentement IA</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">Utilisateur en contrôle</string>
+      <string id="ForceEnable">Forcer l’activation</string>
+      <string id="ForceDisable">Forcer la désactivation</string>
+      <string id="AgentConsentDuration_Name">Durée du consentement de l’agent</string>
+      <string id="AgentConsentDuration_Explain">Spécifie la durée, en heures, pendant laquelle une réponse de consentement « Autoriser » pour les fonctionnalités de l’agent reste valide avant que l’utilisateur ne soit invité à nouveau.
+
+Si cette stratégie est activée, la valeur doit être comprise entre 1 (1 heure) et 8760 (1 an). La valeur configurée est utilisée comme délai d’expiration par défaut pour toutes les réponses de consentement « Autoriser » pour les fonctionnalités de l’agent.
+
+Si cette stratégie n’est pas configurée ou si la valeur est en dehors de la plage autorisée, la valeur par défaut est de 720 heures (30 jours).</string>
+      <string id="ConfigureAgentConnectors_Name">Configurer les connecteurs d’agent</string>
+      <string id="ConfigureAgentConnectors_Explain">Activer ou désactiver les connecteurs d’agent.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Stratégie d’accès du connecteur d’agent</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Ce paramètre de stratégie vous permet de définir une liste de connexions autorisées entre les hôtes MCP et les serveurs MCP.
+
+Le format de cette liste est une chaîne JSON qui respecte le schéma disponible à l’adresse https://go.microsoft.com/fwlink/?LinkId=2363700.
+
+Si cette stratégie n’est pas configurée, l’hôte MCP peut se connecter à n’importe quel serveur MCP avec le consentement de l’utilisateur.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Configurer les connecteurs d’agent : </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Durée du consentement (heures) : </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Configurer les connexions hôte/serveur MCP autorisées :</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

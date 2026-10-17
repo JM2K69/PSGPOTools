@@ -27,34 +27,33 @@ Opmerking: informatie over eerdere aanmeldingspogingen wordt alleen verstrekt al
 
 </string>
       <string id="CbacAndArmor">KDC-ondersteuning voor claims, samengestelde authenticatie en Kerberos-beveiliging</string>
-      <string id="CbacAndArmor_explain">Met deze beleidsinstelling kunt u een domeincontroller zo configureren dat claims en samengestelde authenticatie voor dynamisch toegangsbeheer en Kerberos-beveiliging met behulp van Kerberos-authenticatie worden ondersteund.
+      <string id="CbacAndArmor_explain">Met deze beleidsinstelling kunt u een domeincontroller zo configureren dat claims en samengestelde verificatie voor dynamisch toegangsbeheer en Kerberos-beveiliging met behulp van Kerberos-authenticatie worden ondersteund.
 
-Als u deze beleidsinstelling inschakelt, maken de clientcomputers die claims en samengestelde verificatie voor dynamische toegangsregeling ondersteunen en geschikt zijn voor Kerberos-beveiliging, gebruik van de Kerberos-verificatieberichten. Dit beleid dient toegepast te worden op alle domein-controllers om te zorgen voor consistente toepassing van dit beleid in het domein. 
+Als u deze beleidsinstelling inschakelt, maken de clientcomputers die claims en samengestelde verificatie voor dynamisch toegangsbeheer ondersteunen en geschikt zijn voor Kerberos-beveiliging, gebruik van de Kerberos-verificatieberichten. Dit beleid dient te worden toegepast op alle domeincontrollers om te zorgen voor consistente toepassing van dit beleid in het domein.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, zal de domeincontroller geen claims, samengestelde verificatie of beveiliging niet ondersteunen.
+ Als u deze beleidsinstelling uitschakelt of niet configureert, zal de domeincontroller geen claims, samengestelde verificatie of beveiliging ondersteunen.
 
-Als u de optie "Niet ondersteund" configureert, ondersteund de domeincontroller geen claims, samengestelde verificatie of beveiliging, hetgeen de standaard werking is voor domeincontrollers die Windows Server 2008 R2 of eerdere bedrijfssystemen draaien..
+Als u de optie 'Niet ondersteund' configureert, ondersteunt de domeincontroller geen claims, samengestelde verificatie of beveiliging, hetgeen de standaard werking is voor domeincontrollers die worden uitgevoerd op Windows Server 2008 R2 of eerdere besturingssystemen.
 
-Opmerking: de volgende opties van dit KDC-beleid zijn pas van kracht nadat het Kerberos-groepsbeleid 'Kerberos-clientondersteuning voor claims, samengestelde authenticatie en Kerberos-beveiliging' is ingeschakeld op ondersteunde systemen. Als de Kerberos-beleidsinstelling niet is ingeschakeld, worden deze onderdelen niet gebruikt in Kerberos-authenticatieberichten.  
+Opmerking: de volgende opties van dit KDC-beleid zijn pas van kracht nadat het Kerberos-groepsbeleid 'Kerberos-klantondersteuning voor claims, samengestelde verificatie en Kerberos-beveiliging' is ingeschakeld op ondersteunde systemen. Als de Kerberos-beleidsinstelling niet is ingeschakeld, worden deze functies niet gebruikt in Kerberos-verificatieberichten.
 
-Als u Ondersteund configureert, worden claims, samengestelde authenticatie en Kerberos-beveiliging ondersteund op de domeincontroller. Vanaf de domeincontroller wordt aan Kerberos-clientcomputers gemeld dat in het domein claims en samengestelde authenticatie voor dynamisch toegangsbeheer en Kerberos-beveiliging kunnen worden verwerkt. 
+Als u de optie 'Ondersteund' configureert, worden claims, samengestelde verificatie en Kerberos-beveiliging ondersteund op de domeincontroller. Vanaf de domeincontroller wordt aan de Kerberos-clientcomputers gemeld dat in het domein claims en samengestelde verificatie voor dynamisch toegangsbeheer en Kerberos-beveiliging kunnen worden verwerkt.
 
-Functionele domeinniveau-eisen
-Wanneer het functionele domeinniveau is ingesteld op Windows Server 2008 R2 of eerder, werken de domeincontrollers voor de opties "Altijd claims aanleveren" en "Onbeveiligd verificatieverzoek mislukt" alsof de optie "Ondersteund"is ingeschakeld. 
+Functionele niveauvereisten voor domein
+Als het functionele domeinniveau is ingesteld op Windows Server 2008 R2 of eerder, werken de domeincontrollers voor de opties 'Altijd claims aanleveren' en 'Onbeveiligd verificatieverzoek mislukt' alsof de optie 'Ondersteund' is ingeschakeld.
 
-Wanneer het functionele domeinniveau is ingesteld op Windows Server 2012, meldt de domeincontroller aan de Kerberos-clientcomputers dat het domein in staat is om claims en samengestelde verificatie voor dynamische toegangsregeling en Kerberos-beveiliging te verwerken en:
-   - indien u de optie "Altijd claims aanleveren" instelt, worden altijd claims voor accounts teruggestuurd en wordt de RFC-werking voor het melden van de flexibele verificatie en secure tunneling (FAST) ondersteund.
-   - indien u de optie "Onbeveiligd verificatieverzoek mislukt" instelt, worden onbeveiligde Kerberos-berichten geweigerd.
+Als het functionele domeinniveau is ingesteld op Windows Server 2012, meldt de domeincontroller aan de Kerberos-clientcomputers dat het domein in staat is om claims en samengestelde verificatie voor dynamisch toegangsbeheer en Kerberos-beveiliging te verwerken en:
+   - indien u de optie 'Altijd claims aanleveren' instelt, worden altijd claims voor account teruggestuurd en wordt de RFC-werking voor het melden van de flexibele verificatie secure tunneling (FAST) ondersteund.
+   - indien u de optie 'Onbeveiligd verificatieverzoek mislukt' instelt, worden onbeveiligde Kerberos-berichten geweigerd.
 
-Waarschuwing wanneer de optie "Onbeveiligd verificatieverzoek mislukt" is ingesteld, zal de verificatie van de clientcomputers, die de Kerberos-beveiliging niet ondersteunen, bij de domeincontrollers mislukken.
+Waarschuwing: als de optie 'Onbeveiligd verificatieverzoek mislukt' is ingesteld, zal de verificatie van de clientcomputers, die de Kerberos-beveiliging niet ondersteunen, bij de domeincontrollers mislukken.
 
-Om de effectiviteit van deze functie te kunnen garanderen moeten voldoende domeincontrollers worden geïmplementeerd, die claims en samengestelde verificatie voor dynamische toegangsregeling ondersteunen en geschikt zijn voor Kerberos-beveiliging om de verificatieverzoeken te kunnen verwerken. Een onvoldoende aantal domeincontrollers die dit beleid ondersteunen, zal resulteren in mislukte verificaties wanneer dynamische toegangsregeling of Kerberos-beveiliging is vereist (hetgeen van toepassing is wanneer de optie "Ondersteund" is ingeschakeld).
+Om de effectiviteit van deze functie te kunnen garanderen, moeten voldoende domeincontrollers worden geïmplementeerd, die claims en samengestelde verificatie voor dynamisch toegangsbeheer ondersteunen en geschikt zijn voor Kerberos-beveiliging om de verificatieverzoeken te kunnen verwerken. Een onvoldoende aantal domeincontrollers die dit beleid ondersteunen, zal resulteren in mislukte verificaties wanneer dynamisch toegangsbeheer of Kerberos-beveiliging is vereist (hetgeen van toepassing is wanneer de optie 'Ondersteund' is ingeschakeld)
 
-De prestaties van de domeincontroller worden beïnvloed wanneer deze beleidsinstelling is ingeschakeld:
-   - Wanneer beveiligde Kerberos-domeinen moeten worden opgespoord heeft dit een extra berichtenuitwisseling tot gevolg.
-   - Claims en samengestelde verificatie voor dynamische toegangsregeling vergroot de hoeveelheid en complexiteit van de data in een bericht, hetgeen resulteert in meer verwerkingstijd en grotere Kerberos-serviceticketafmetingen.
-   -beveiliging voorziet in het volledig versleutelen van Kerberos-berichten en ondertekenen van Kerberos-fouten, hetgeen resulteert in een langere verwerkingstijd, maar de grootte van het serviceticket niet veranderd.
-
+De prestaties van de domeincontroller worden beïnvloed als deze beleidsinstelling is ingeschakeld:
+   - beveiligde Kerberos-domeinopsporing is vereist en heeft dit een extra berichtenuitwisseling tot gevolg.
+   - claims en samengestelde verificatie voor dynamisch toegangsbeheer vergroot de hoeveelheid en complexiteit van de data in een bericht, hetgeen resulteert in meer verwerkingstijd en grotere Kerberos-serviceticketafmeting.
+   - Kerberos-beveiliging voorziet in het volledig versleutelen van Kerberos-berichten en ondertekent Kerberos-fouten, hetgeen resulteert in een langere verwerkingstijd, maar verandert niet de grootte van het serviceticket.
 </string>
       <string id="NoCbacAndArmor">Niet ondersteund</string>
       <string id="MixModeCbacAndArmor">Ondersteund</string>
@@ -94,6 +93,47 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, biedt de domeinco
       <string id="NoPKINITFreshness">Uitgeschakeld</string>
       <string id="SupportPKINITFreshness">Ondersteund</string>
       <string id="RequirePKINITFreshness">Vereist</string>
+      <string id="PKINITHashAlgorithmConfiguration">Hash-algoritmen configureren voor certificaataanmelding</string>
+      <string id="PKINITHashAlgorithmConfiguration_explain">Met deze beleidsinstelling beheert u hash- of controlesomalgoritmen die door de Kerberos-client worden gebruikt bij het uitvoeren van certificaatverificatie.
+
+Als u dit beleid inschakelt, kunt u een van de vier statussen configureren voor elke algoritme:
+
+- Als u 'Standaard' kiest, wordt het algoritme ingesteld op de aanbevolen status.
+
+- Als u 'Ondersteund' kiest, wordt het gebruik van het algoritme ingeschakeld. Het inschakelen van algoritmen die standaard zijn uitgeschakeld, kan uw beveiliging verminderen.
+
+- Als u 'Gecontroleerd' kiest, wordt het algoritme gebruikt en wordt een gebeurtenis (id 309) gerapporteerd telkens wanneer deze wordt gebruikt. Deze status is bedoeld om te controleren of het algoritme niet wordt gebruikt en veilig kan worden uitgeschakeld.
+
+- Als u 'Niet ondersteund' kiest, wordt het gebruik van het algoritme uitgeschakeld. Deze status is bedoeld voor algoritmen die als onveilig worden beschouwd.
+
+Als u dit beleid uitschakelt of niet configureert, wordt voor elk algoritme de status 'Standaard' gebruikt.
+Meer informatie over de hash- en controlesomalgoritmen die worden ondersteund door de Windows Kerberos-client en de standaardstatussen vindt u op https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Gebeurtenissen gegenereerd door deze configuratie: 309, 310.
+</string>
+      <string id="PKINITHashAlgorithm_Default">Standaard</string>
+      <string id="PKINITHashAlgorithm_Supported">Ondersteund</string>
+      <string id="PKINITHashAlgorithm_Audited">Gecontroleerd</string>
+      <string id="PKINITHashAlgorithm_NotSupported">Niet ondersteund</string>
+      <string id="StrongNameMatches">Sterke toewijzingen op basis van namen voor certificaten toestaan</string>
+      <string id="StrongNameMatches_explain">Met deze beleidsinstelling kunt u alternatieve id's op basis van namen gebruiken om certificaten die zijn uitgegeven aan Active Directory-gebruikersaccounts sterk toe te wijzen en op te geven welke certificaten aan welke accounts worden toegewezen. Als deze instelling niet is ingeschakeld, moeten certificaten voldoen aan de criteria voor sterke toewijzing die zijn opgegeven in aka.ms/StrongCertMapKB, waardoor in het algemeen op naam gebaseerde id's niet worden toegestaan.
+
+Elke toewijzing die in dit beleid is opgegeven, moet een beleids-OID bevatten naast een IssuerSubject en/of een UPN-achtervoegsel met behulp van de syntaxis die hieronder is opgegeven. Als een geldige toewijzing voor een bepaald certificaat niet kan worden gevonden in dit beleid, probeert Active Directory een overeenkomst te vinden met behulp van de bestaande criteria voor sterke toewijzing die zijn opgegeven in KB5014754. Certificaattoewijzingen die niet voldoen aan de criteria 'sterke naamtoewijzing' (dit beleid) of de bestaande criteria 'sterke toewijzing' worden als ongeldig beschouwd voor verificatie.
+
+De algemene beleidsindeling en enkele voorbeelden worden hieronder weergegeven. Dit beleid is alleen van toepassing op Active Directory-gebruikersaccounts.
+
+Algemene syntaxis
+==============
+&lt;thumbprint&gt;; &lt;lijst met methoden voor naamovereenkomst&gt;; &lt;&gt;
+
+Voorbeelden
+==============
+IssuerThumbprint1; oid1, oid2, oid3; UpnSuffix=domain.com
+IssuerThumbprint2; oid1; UpnSuffix=domain.com, UpnSuffix=other.domain.com, IssuerSubject
+IssuerThumbprint3; oid1, oid2; IssuerSubject
+
+Het beleid moet exact één certificaatvingerafdruk per regel bevatten, waarbij elke regel wordt weergegeven als een tuple. Vingerafdrukken moeten uniek zijn en kunnen niet worden herhaald in meerdere regels. De secties van elke tuple die worden gescheiden door puntkomma's moeten in de aangegeven volgorde staan, terwijl de velden gescheiden door komma's in elke volgorde kunnen zijn. De regels zelf worden gescheiden door nieuwe regels.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="emitlili">
@@ -121,6 +161,15 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, biedt de domeinco
       </presentation>
       <presentation id="PKINITFreshness">
         <dropdownList refId="PKINITFreshness_Levels" noSort="true" defaultItem="1">Opties voor PKInit-nieuwheidsextensie:</dropdownList>
+      </presentation>
+      <presentation id="PKINITHashAlgorithmConfiguration">
+        <dropdownList refId="PKINITHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
+      </presentation>
+      <presentation id="StrongNameMatches">
+          <multiTextBox refId="StrongNameMatchesList">Regels voor overeenkomsten van sterke namen:</multiTextBox>
       </presentation>
     </presentationTable>
   </resources>

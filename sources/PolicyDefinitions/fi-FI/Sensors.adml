@@ -36,6 +36,92 @@
       
       </string>
       <string id="LocationAndSensors">Sijainti ja tunnistimet</string>
+      <string id="HumanPresence">Ihmisten tavoitettavuus</string>
+      <string id="ForceInstantWake_DisplayName">Pakota pikaherätys</string>
+      <string id="ForceInstantWake_ExplainText">Määrittää, onko herätä saapuessa -valinta MDM-käytännön pakottama päälle tai pois päältä. Käyttäjä ei voi muuttaa tätä asetusta, ja käyttöliittymän vaihtopainike näkyy harmaana.</string>
+      <string id="ForceInstantWake_0">Palautuu käyttäjän oletusarvoiseen valintaan</string>
+      <string id="ForceInstantWake_1">Pakotettu avautumaan</string>
+      <string id="ForceInstantWake_2">Pakotettu sulkeutumaan</string>
+      <string id="ForceInstantLock_DisplayName">Pakota pikalukitus</string>
+      <string id="ForceInstantLock_ExplainText">Määrittää, onko lukitus poistuttaessa -valinta MDM-käytännön pakottama. Käyttäjä ei voi muuttaa tätä asetusta, ja käyttöliittymän vaihtopainike näkyy harmaana.</string>
+      <string id="ForceInstantLock_0">Palautuu käyttäjän oletusarvoiseen valintaan</string>
+      <string id="ForceInstantLock_1">Pakotettu avautumaan</string>
+      <string id="ForceInstantLock_2">Pakotettu sulkeutumaan</string>
+      <string id="ForceLockTimeout_DisplayName">Lukituksen aikakatkaisu</string>
+      <string id="ForceLockTimeout_ExplainText">Määrittää MDM-käytännön pakottaman lukitus poistuttaessa -toiminnon aikakatkaisun. Käyttäjä ei voi muuttaa tätä asetusta, ja käyttöliittymän vaihtopainike näkyy harmaana.</string>
+      <string id="ForceLockTimeout_0">Palautuu käyttäjän oletusarvoiseen valintaan</string>
+      <string id="ForceLockTimeout_1">10 sekuntia</string>
+      <string id="ForceLockTimeout_2">30 sekuntia</string>
+      <string id="ForceLockTimeout_3">2 minuuttia</string>
+      <string id="ForceLockTimeout_4">Välitön</string>
+      <string id="ForceInstantDim_DisplayName">Pakota pikahimmennys</string>
+      <string id="ForceInstantDim_ExplainText">Määrittää, onko huomiopohjainen näytön himmennys MDM-käytännön pakottama. Käyttäjä ei voi muuttaa tätä asetusta, ja käyttöliittymän vaihtopainike näkyy harmaana.</string>
+      <string id="ForceInstantDim_0">Palautuu käyttäjän oletusarvoiseen valintaan</string>
+      <string id="ForceInstantDim_1">Pakotettu avautumaan</string>
+      <string id="ForceInstantDim_2">Pakotettu sulkeutumaan</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_DisplayName">Pakota aktivointi käytöstä, kun virransäästö on käytössä</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_ExplainText">Määrittää, pakotetaanko MDM-käytäntö poistamaan Aktivointi lähestyttäessä käytöstä, kun virransäästö on käytössä -valintaruutu. Käyttäjä ei voi muuttaa tätä asetusta, ja käyttöliittymän valintaruutu näkyy harmaana.</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_0">Palautuu käyttäjän oletusarvoiseen valintaan</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_1">Pakotettu tarkistus</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_2">Pakotettu tarkistamattomaksi</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_DisplayName">Pakota Salli herätys, kun ulkoinen näyttö on yhdistetty</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_ExplainText">Määrittää, pakotetaanko MDM-käytäntö sallimaan Aktivointi lähestyttäessä, kun ulkoinen näyttö on yhdistetty -valintaruutu. Käyttäjä ei voi muuttaa tätä asetusta, ja käyttöliittymän valintaruutu näkyy harmaana.</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_0">Palautuu käyttäjän oletusarvoiseen valintaan</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_1">Pakotettu tarkistus</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_2">Pakotettu tarkistamattomaksi</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_DisplayName">Pakota salliminen, kun ulkoinen näyttö on yhdistetty</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_ExplainText">Määrittää, pakotetaanko mobiililaitteiden hallintakäytännön valinta sallimalla lukitus poistuttaessa, kun ulkoisen näytön yhteys on muodostettu -valintaruutu. Käyttäjä ei voi muuttaa tätä asetusta, ja käyttöliittymän valintaruutu näkyy harmaana.</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_0">Palautuu käyttäjän oletusarvoiseen valintaan</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_1">Pakotettu tarkistus</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_2">Pakotettu tarkistamattomaksi</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_DisplayName">Pakota Salli himmennys, kun ulkoinen näyttö on yhdistetty</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_ExplainText">Määrittää, pakotetaanko mobiililaitteiden hallintakäytännön valintaruutu sallimaan mukautuva himmentäminen, kun ulkoinen näyttö on yhdistetty -valintaruutu. Käyttäjä ei voi muuttaa tätä asetusta, ja käyttöliittymän valintaruutu näkyy harmaana.</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_0">Palautuu käyttäjän oletusarvoiseen valintaan</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_1">Pakotettu tarkistus</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_2">Pakotettu tarkistamattomaksi</string>
+      <string id="ForceOnlookerDetection_DisplayName">Pakota katselijoiden havaitseminen</string>
+      <string id="ForceOnlookerDetection_ExplainText">Määrittää, pakotetaanko mobiililaitteiden hallintakäytäntö on pakottanut onlooker Detection -ominaisuuden käyttöön tai poistamaan sen käytöstä. Käyttäjä ei voi muuttaa tätä asetusta, ja käyttöliittymän vaihtopainike näkyy harmaana.</string>
+      <string id="ForceOnlookerDetection_0">Palautuu käyttäjän oletusarvoiseen valintaan</string>
+      <string id="ForceOnlookerDetection_1">Pakotettu avautumaan</string>
+      <string id="ForceOnlookerDetection_2">Pakotettu sulkeutumaan</string>
+      <string id="ForceOnlookerDetectionAction_DisplayName">Pakota katselijoiden havaitsemisen toimet</string>
+      <string id="ForceOnlookerDetectionAction_ExplainText">Määrittää, pakottaako MDM-käytäntö Onlooker Detection -toiminnon. Käyttäjä ei voi muuttaa tätä asetusta, ja käyttöliittymän vaihtopainike näkyy harmaana.</string>
+      <string id="ForceOnlookerDetectionAction_0">Palautuu käyttäjän oletusarvoiseen valintaan</string>
+      <string id="ForceOnlookerDetectionAction_1">Himmennä</string>
+      <string id="ForceOnlookerDetectionAction_2">Ilmoitus</string>
+      <string id="ForceOnlookerDetectionAction_3">Himmennä ja ilmoita</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ForceInstantWake">
+        <dropdownList refId="ForceInstantWakeDropdown" noSort="true" defaultItem="0">Valitse jokin seuraavista toiminnoista</dropdownList>
+      </presentation>
+      <presentation id="ForceInstantLock">
+        <dropdownList refId="ForceInstantLockDropdown" noSort="true" defaultItem="0">Valitse jokin seuraavista toiminnoista</dropdownList>
+      </presentation>
+      <presentation id="ForceLockTimeout">
+        <dropdownList refId="ForceLockTimeoutDropdown" noSort="true" defaultItem="1">Valitse jokin seuraavista aikakatkaisuista</dropdownList>
+      </presentation>
+      <presentation id="ForceInstantDim">
+        <dropdownList refId="ForceInstantDimDropdown" noSort="true" defaultItem="0">Valitse jokin seuraavista toiminnoista</dropdownList>
+      </presentation>
+      <presentation id="ForceDisableWakeWhenBatterySaverOn">
+        <dropdownList refId="ForceDisableWakeWhenBatterySaverOnDropdown" noSort="true" defaultItem="0">Valitse jokin seuraavista toiminnoista</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowWakeWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowWakeWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">Valitse jokin seuraavista toiminnoista</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowLockWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowLockWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">Valitse jokin seuraavista toiminnoista</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowDimWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowDimWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">Valitse jokin seuraavista toiminnoista</dropdownList>
+      </presentation>
+      <presentation id="ForceOnlookerDetection">
+        <dropdownList refId="ForceOnlookerDetectionDropdown" noSort="true" defaultItem="0">Valitse jokin seuraavista toiminnoista</dropdownList>
+      </presentation>
+      <presentation id="ForceOnlookerDetectionAction">
+        <dropdownList refId="ForceOnlookerDetectionActionDropdown" noSort="true" defaultItem="0">Valitse jokin seuraavista toiminnoista</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

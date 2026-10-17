@@ -12,6 +12,8 @@ Isso se aplica aos usuários existentes de um dispositivo e a novos usuários qu
 É recomendável habilitar esta configuração antes de qualquer usuário entrar em um dispositivo para impedir a presença de tokens em cache. Se esta configuração estiver desabilitada ou não definida, os aplicativos e serviços poderão usar contas Microsoft para autenticação. 
 Por padrão, esta configuração é Desabilitada. Esta configuração não afeta se os usuários podem entrar em dispositivos usando contas Microsoft ou a capacidade de os usuários fornecerem contas Microsoft pelo navegador para autenticação com aplicativos baseados na Web. 
         </string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnly">Permitir apenas a autenticação do dispositivo para o Assistente de Conexão da Conta Microsoft</string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnlyExplain">Essa configuração determina se a autenticação do dispositivo corporativo deve ser permitida apenas para o serviço do Assistente de Conexão da Conta Microsoft (wlidsvc). Por padrão, essa configuração está desabilitada e permite a autenticação do usuário e do dispositivo. Quando o valor for definido como 1, permita apenas a autenticação do dispositivo e bloqueie a autenticação do usuário.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

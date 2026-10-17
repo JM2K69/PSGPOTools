@@ -18,7 +18,6 @@ Jos valitset asetuksen, jonka mukaan BitLocker-varmuuskopioiminen Active Directo
 Jos tämä käytäntöasetus poistetaan käytöstä tai sitä ei määritetä, BitLocker-palautustietoja ei varmuuskopioida Active Directory -toimialueen palveluihin.
 
 Huomautus: TPM-turvapiirin alustus saattaa käynnistyä BitLockerin asennuksen aikana. Ota käytäntöasetus Ota käyttöön TPM-varmuuskopiointi Active Directory -toimialueen palveluihin käyttöön kohteessa Järjestelmä\TPM-turvapiiripalvelut, jotta voit varmistaa, että myös TPM-tiedot varmuuskopioidaan.
-      
       </string>
       <string id="ActiveDirectoryBackup_Name">Tallenna BitLocker-palautustiedot Active Directory -toimialueen palveluihin (Windows Server 2008 ja Windows Vista)</string>
       <string id="ActiveDirectoryBackupDropDown_1">Palautussalasanat ja avainpaketit</string>
@@ -102,8 +101,6 @@ Huomautus: 48-numeroinen palautussalasana ei ole käytettävissä FIPS-yhteensop
 
 Tämä käytäntöasetus antaa järjestelmänvalvojalle tavan palauttaa BitLockerin salaamat tiedot, jotta tietoja ei menetetä avaintietojen puuttuessa. Jos et salli kumpaakaan käyttäjän palautusasetuksista, sinun on estettävä käytäntövirhe ottamalla käyttöön Tallenna BitLocker-palautustiedot Active Directory -toimialueen palveluihin (Windows Server 2008 ja Windows Vista) -käytäntöasetus.
 
-      
-
       </string>
 
       <string id="ConfigureRecoveryUsage_Name">Valitse, miten käyttäjät voivat palauttaa BitLocker-suojattuja asemia (Windows Server 2008 ja Windows Vista)</string>
@@ -134,8 +131,6 @@ Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää menetelmä
 
 Jos tämä käytäntöasetus on poistettu käytöstä tai sitä ei ole määritetty, oletuspalautusasetuksia tuetaan BitLocker-palautukselle. Oletusarvon mukaan DRA sallitaan, käyttäjä voi määrittää palautusasetukset, kuten palautussalasanan ja -avaimen, ja palautustietoja ei tallenneta Active Directory -toimialueen palveluihin.
 
-
-
 </string>
 
       <string id="OSRecoveryPasswordUsageDropDown_Require">Vaadi 48-numeroinen palautussalasana</string>
@@ -164,8 +159,6 @@ Huomautus: Jos Älä ota BitLockeria käyttöön, ennen kuin kiinteiden data-ase
 Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää menetelmät, joita käyttäjät voivat käyttää tietojen palauttamiseen BitLocker-suojatuista kiinteistä data-asemista.
 
 Jos tämä käytäntöasetus on poistettu käytöstä tai sitä ei ole määritetty, oletuspalautusasetuksia tuetaan BitLocker-palautukselle. Oletusarvon mukaan DRA sallitaan, käyttäjä voi määrittää palautusasetukset, kuten palautussalasanan ja -avaimen, ja palautustietoja ei tallenneta Active Directory -toimialueen palveluihin.
-
-
 
 </string>
 
@@ -196,7 +189,6 @@ Huomautus: Jos Älä ota BitLockeria käyttöön, ennen kuin kiinteiden data-ase
 Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää menetelmät, joita käyttäjät voivat käyttää tietojen palauttamiseen BitLocker-suojatuista siirrettävistä data-asemista.
 
 Jos tämä käytäntöasetus on poistettu käytöstä tai sitä ei ole määritetty, oletuspalautusasetuksia tuetaan BitLocker-palautukselle. Oletusarvon mukaan DRA sallitaan, käyttäjä voi määrittää palautusasetukset, kuten palautussalasanan ja -avaimen, ja palautustietoja ei tallenneta Active Directory -toimialueen palveluihin.
-      
       </string>
       <string id="RDVRecoveryPasswordUsageDropDown_Require">Vaadi 48-numeroinen palautussalasana</string>
       <string id="RDVRecoveryPasswordUsageDropDown_Allow">Salli 48-numeroinen palautussalasana</string>
@@ -321,6 +313,18 @@ Huomautus: Jotkin tietokoneet eivät ehkä ole yhteensopivia tämän käytännö
 
       </string>
       <string id="DisableExternalDMAUnderLock_Name">Poista uudet DMA-laitteet käytöstä, kun tämä tietokone on lukittuna</string>
+
+      <string id="DisableWinRETrust_Help">Tämä käytäntöasetus määrittää, luottaako BitLocker Windowsin palautusympäristöön (WinRE).
+
+Kun BitLocker luottaa WinRE:hen, WinRE voi käyttää BitLocker-suojattua käyttöjärjestelmäasemaa ilman BitLocker-palautusavainta. Tämä tukee palautustoimintoja, jotka tarvitsevat käyttöjärjestelmäaseman käyttöoikeuden.
+
+Tärkeää: tämän käytäntöasetuksen ottaminen käyttöön muuttaa palautuksen toimintaa. Jos otat tämän käytäntöasetuksen käyttöön, BitLocker ei luota WinRE:hen. BitLocker-palautusavain vaaditaan kaikkiin WinRE-toimintoihin, joiden on käytettävä BitLocker-suojattua käyttöjärjestelmäasemaa. Palautustoiminnot, რომლებიც edellyttävät WinRE:n käyttöä käyttöjärjestelmäasemaan, saattavat tarvita käyttäjän tai järjestelmänvalvojan toimia, eivätkä ne välttämättä valmistu automaattisesti, kuten Käynnistyksen korjaus, Quick Machine Recovery, Push-button Recovery sekä MDM:n käynnistämä etäpalautus tai tyhjennys RemoteWipe CSP:n avulla.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, BitLocker luottaa vahvistettuun WinRE-näköistiedostoon, jotta WinRE voi käyttää BitLocker-suojattua käyttöjärjestelmäasemaa ilman palautusavainta.
+
+Tämä käytäntöasetus pakotetaan vain, kun BitLocker tai laitesalaus on käytössä.</string>
+
+      <string id="DisableWinRETrust_Name">Poista Windowsin palautusympäristön (WinRE) BitLocker-luottamus käytöstä</string>
 
       <string id="FVEOSCategory">Käyttöjärjestelmäasemat</string>
       <string id="FVEFDVCategory">Kiinteät data-asemat</string>

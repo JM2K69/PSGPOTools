@@ -70,13 +70,13 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor a Rendsz
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Keresés a Windows Update webhelyen</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Keresés kezelt kiszolgálón</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Keresés kezelt kiszolgálón, majd a WU webhelyen</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Az eszközmetaadatok internetről való lekérésének megakadályozása</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Ezzel a házirend-beállítással megakadályozhatja, hogy a Windows eszközmetaadatokat kérjen le az internetről.
-          
-Ha engedélyezi ezt a házirend-beállítást, akkor a Windows nem kér le metaadatokat a telepített eszközökhöz az internetről. Ez a házirend-beállítás felülírja az Eszköztelepítési beállítások párbeszédpanel (Vezérlőpult &gt; Rendszer és biztonság &gt; Rendszer &gt; Speciális rendszerbeállítások &gt; Hardver fül).
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor az Eszköztelepítési beállítások párbeszédpanel beállítása határozza meg, hogy a Windows lekér-e eszközmetaadatokat az internetről.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Az eszköz metaadataihoz társított alkalmazások automatikus letöltésének letiltása</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Ezzel a házirend-beállítással megakadályozhatja, hogy a Windows letöltse az eszköz-metaadatokhoz társított alkalmazásokat.
+
+Ha engedélyezi ezt a házirend-beállítást, a Windows nem tölti le a telepített eszközök eszköz-metaadataihoz társított alkalmazásokat. Ez a házirend-beállítás felülbírálja az Eszköztelepítési beállítások párbeszédpanelen (Vezérlőpult &gt; Rendszer és biztonság &gt; Rendszer &gt; Speciális rendszerbeállítások &gt; Hardver lap) lévő beállítást.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, az Eszköztelepítési beállítások párbeszédpanel beállítása határozza meg, hogy a Windows letölti-e az eszköz-metaadatokhoz társított alkalmazásokat.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

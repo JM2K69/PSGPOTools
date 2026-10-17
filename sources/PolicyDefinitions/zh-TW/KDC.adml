@@ -54,7 +54,6 @@
    - 必要的安全 Kerberos 網域功能探索會導致額外的訊息交換。
    - 宣告和動態存取控制的複合驗證會增加訊息中資料的大小和複雜度，而需要更長的處理時間，並產生更大的 Kerberos 服務票證大小。
    - Kerberos 保護會將 Kerberos 訊息完全加密，並簽署 Kerberos 錯誤，這樣會導致處理時間增加，但是不會變更服務票證大小。
-
 </string>
       <string id="NoCbacAndArmor">不支援</string>
       <string id="MixModeCbacAndArmor">支援</string>
@@ -94,6 +93,47 @@
       <string id="NoPKINITFreshness">已停用</string>
       <string id="SupportPKINITFreshness">支援</string>
       <string id="RequirePKINITFreshness">必要</string>
+      <string id="PKINITHashAlgorithmConfiguration">設定憑證登入的雜湊演算法</string>
+      <string id="PKINITHashAlgorithmConfiguration_explain">此原則設定可控制 Kerberos 用戶端在執行憑證驗證時所使用的雜湊或總和檢查碼演算法。
+
+如果您啟用這個原則，即可為每個演算法設定為四種狀態中的其中之一:
+
+[預設] 會將演算法設定為建議的狀態。
+
+[支援] 會啟用演算法的使用。啟用預設已停用的演算法可能會降低您的安全性。
+
+[已稽核] 會啟用演算法的使用，並在每次使用演算法時報告事件 (識別碼 309)。這個狀態是為了確保演算法並未使用，而且得以安全地停用。
+
+[不支援] 會停用演算法的使用。此狀態適用於視為不安全的演算法。
+
+如果停用或未設定此原則，則每個演算法都會假設為 [預設] 狀態。
+如需有關 Windows Kerberos 用戶端所支援之雜湊和總和檢查碼演算法及其預設狀態的詳細資訊，請參閱 https://go.microsoft.com/fwlink/?linkid=2169037。
+
+此設定所產生的事件: 309, 310。
+</string>
+      <string id="PKINITHashAlgorithm_Default">預設</string>
+      <string id="PKINITHashAlgorithm_Supported">支援</string>
+      <string id="PKINITHashAlgorithm_Audited">已稽核</string>
+      <string id="PKINITHashAlgorithm_NotSupported">不支援</string>
+      <string id="StrongNameMatches">允許憑證的名稱型強式對應</string>
+      <string id="StrongNameMatches_explain">此原則設定可使用替代的名稱型識別碼，以強式對應核發給 Active Directory 使用者帳戶的憑證，並指定憑證對應的帳戶。若不啟用此設定，憑證就必須符合 aka.ms/StrongCertMapKB 中所指定的「強對應」準則，通常不允許名稱型識別碼。
+
+此原則中指定的每個對應項目都必須包含一個原則 OID，以及使用下列指定語法的 IssuerSubject 和/或 UPN 尾碼。如果在此原則中找不到指定憑證的有效對應，Active Directory 會嘗試使用 KB5014754 中指定的現有強式對應準則來尋找相符項目。憑證地圖若不符合「強式名稱對應」準則 (本原則) 或現有的「強對應」準則，會被視為無效驗證。
+
+以下列出一般原則格式和一些範例。此原則僅適用於 Active Directory 使用者帳戶。
+
+一般語法
+==============
+&lt;thumbprint&gt;; &lt;list of oids&gt;; &lt;name-match methods&gt;
+
+範例
+==============
+IssuerThumbprint1; oid1, oid2, oid3; UpnSuffix=domain.com
+IssuerThumbprint2; oid1; UpnSuffix=domain.com, UpnSuffix=other.domain.com, IssuerSubject
+IssuerThumbprint3; oid1, oid2; IssuerSubject
+
+此原則必須確實包含一個憑證指紋 (每個規則)，且每個規則以元組表示。指紋必須是唯一的，而且不能在多個規則中重複。每個以分號區隔的結構組區段必須是以指定的順序區隔，而以逗號區隔的欄位可依照任何順序區隔。規則本身會以新行分隔。
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="emitlili">
@@ -121,6 +161,15 @@
       </presentation>
       <presentation id="PKINITFreshness">
         <dropdownList refId="PKINITFreshness_Levels" noSort="true" defaultItem="1">PKInit Freshness 延伸模組選項:</dropdownList>
+      </presentation>
+      <presentation id="PKINITHashAlgorithmConfiguration">
+        <dropdownList refId="PKINITHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
+      </presentation>
+      <presentation id="StrongNameMatches">
+          <multiTextBox refId="StrongNameMatchesList">強式名稱比對規則：</multiTextBox>
       </presentation>
     </presentationTable>
   </resources>

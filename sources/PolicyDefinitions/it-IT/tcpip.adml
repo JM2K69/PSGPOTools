@@ -27,19 +27,17 @@
       <string id="IPHTTPS_ClientState">Imposta stato IP-HTTPS</string>
       <string id="IPHTTPS_ClientUrl">URL IP-HTTPS</string>
 
-      <string id="ISATAP_State_Help">Questa impostazione dei criteri consente di configurare il protocollo ISATAP (Intra-Site Automatic Tunnel Addressing Protocol), una tecnologia di tunneling automatico da indirizzo a router e da host a host, da host a router e da router a host utilizzata per fornire connettività IPv6 unicast tra host IPv6 in una Intranet IPv4.
+      <string id="ISATAP_State_Help">Questa impostazione dei criteri consente di configurare l'indirizzo IP (ISATAP) del tunnel Automatic (IP-to-Point) per il router e la tecnologia di tunneling automatico da host a host e router a host e router da cui deve essere utilizzata per garantire la connettività IPv6 unicast tra gli host IPv6 tra una Intranet IPv4.
 
-Se si disabilita o non si configura questa impostazione dei criteri, verrà utilizzata l'impostazione dell'host locale.
+Se si disabilita o non si configura questa impostazione dei criteri, viene utilizzata l'impostazione dell'host locale.
 
 Se si abilita questa impostazione dei criteri, sarà possibile configurare ISATAP con una delle impostazioni seguenti:
 
-Stato predefinito del criterio: se il nome del router ISATAP viene risolto, il protocollo ISATAP dell'host sarà configurato con un indirizzo locale rispetto al collegamento e un indirizzo per ciascun prefisso ricevuto dal router ISATAP tramite la configurazione automatica senza stato degli indirizzi. Se il nome del router ISATAP non viene risolto, la connettività ISATAP non sarà disponibile sull'host che utilizza l'indirizzo IPv4 corrispondente.
+Stato predefinito del criterio: nell'host non sono presenti interfacce ISATAP.
 
-Stato abilitato del criterio: se il nome ISATAP viene risolto, il protocollo ISATAP dell'host sarà configurato con un indirizzo locale rispetto al collegamento e un indirizzo per ciascun prefisso ricevuto dal router ISATAP tramite la configurazione automatica senza stato degli indirizzi. Se il nome ISATAP non viene risolto, l'interfaccia ISATAP dell'host sarà configurata con un indirizzo locale rispetto al collegamento.
+Stato abilitato del criterio: se il nome del ISATAP viene risolto, l'host avrà ISATAP configurato con un indirizzo locale rispetto al collegamento e un indirizzo per ciascun prefisso ricevuto dal router ISATAP tramite la configurazione automatica degli indirizzi senza stato. Se il nome del ISATAP non viene risolto correttamente, l'host avrà un'interfaccia ISATAP configurata con un indirizzo locale rispetto al collegamento.
 
-Stato disabilitato del criterio: sull'host non sono presenti interfacce ISATAP.
-
-
+Stato disabilitato del criterio: nell'host non è presente alcuna interfaccia ISATAP.
 
 </string>
 
@@ -54,19 +52,17 @@ Se si disabilita o non si configura questa impostazione, verrà utilizzata l'imp
 </string>
 
 
-      <string id="6to4_State_Help">Questa impostazione dei criteri consente di configurare 6to4, una tecnologia di assegnazione degli indirizzi e di tunneling automatico da router a router utilizzata per fornire connettività IPv6 unicast tra siti e host IPv6 sulla rete Internet IPv4. 6to4 utilizza il prefisso di indirizzo locale 2002:WWXX:YYZZ::/48, le cui lettere sono una rappresentazione esadecimale dell'indirizzo IPv4 globale (w.x.y.z) assegnato a un sito.
+      <string id="6to4_State_Help">Questa impostazione dei criteri consente di configurare 6to4, un'assegnazione di indirizzi e una tecnologia di tunneling automatico router-to-router usata per fornire la connettività IPv6 unicast tra i siti IPv6 e gli host nell'Internet IPv4. 6to4 usa il prefisso di indirizzo globale: 2002: WWXX: YYZZ::/48 in cui le lettere sono una rappresentazione esadecimale dell'indirizzo IPv4 globale (con estensione z) assegnato a un sito.
 
-Se si disabilita o non si configura questa impostazione dei criteri, verrà utilizzata l'impostazione dell'host locale.
+se si disabilita o non si configura questa impostazione dei criteri, viene usata l'impostazione host locale.
 
-Se si abilita questa impostazione dei criteri, sarà possibile configurare 6to4 con una delle impostazioni seguenti:
+se si abilita questa impostazione dei criteri, è possibile configurare 6to4 con una delle impostazioni seguenti:
 
-Stato predefinito del criterio: 6to4 è abilitato se l'host dispone solo della connettività IPv6 locale rispetto al collegamento e di un indirizzo IPv4 pubblico. Se non sono presenti indirizzi IPv6 e IPv4 globali, l'host non disporrà di un'interfaccia 6to4. Se non è presente alcun indirizzo IPv6 globale, ma esiste un indirizzo IPv4 globale, l'host disporrà di un'interfaccia 6to4.
+criterio predefinito: 6to4 è disattivato e la connettività con 6to4 non sarà disponibile.
 
-Stato abilitato del criterio: se è presente un indirizzo IPv4 globale, l'host disporrà di un'interfaccia 6to4. Se non sono presenti indirizzi IPv4 globali, l'host non disporrà di un'interfaccia 6to4.
+stato abilitato per i criteri: se è presente un indirizzo IPv4 globale, l'host avrà un'interfaccia 6to4. Se non è presente alcun indirizzo IPv4 globale, l'host non avrà un'interfaccia 6to4.
 
-Stato disabilitato del criterio: 6to4 è disabilitato e la connettività 6to4 non sarà disponibile.
-
-
+criteri disabilitati: 6to4 è disattivato e la connettività con 6to4 non sarà disponibile.
 
 </string>
 
@@ -188,6 +184,45 @@ Se si abilita o non si configura questa impostazione dei criteri, i limiti della
 Se si disabilita questa impostazione dei criteri, i limiti della configurazione automatica senza stato per gli indirizzi IP saranno disabilitati e non verrà limitato il numero di indirizzi e route configurati automaticamente.
 
 
+
+</string>
+
+      <string id="IPxlatCfg_PermitNonCellularCLAT">Imposta autorizzazione in CLAT</string>
+      <string id="IPxlatCfg_PermitNonCellularCLAT_Help">Questa impostazione di criteri ti consente di permettere o disabilitare il traduttore lato cliente per 464XLAT (CLAT) a livello globale per le interfacce non cellulare.
+
+Se abiliti questa impostazione di criteri, CLAT è consentito a livello globale e può essere abilitato nelle interfacce di rete.
+
+Se disabiliti questa impostazione di criteri, CLAT non è consentito a livello globale e non può essere abilitato.
+
+Se non configuri questa impostazione di criteri, viene usata l'impostazione dell'host locale.
+
+Non sono necessari riavvii dei dispositivi o dei servizi per rendere effettiva questa impostazione di criteri.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromRA">Imposta Recupera informazioni sul prefisso da RA in CLAT</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromRA_Help">Questa impostazione di criteri consente di usare annunci router (RA) come origine di informazioni sul prefisso per CLAT non cellulare.
+
+Se abiliti questa impostazione di criteri, CLAT sarà autorizzato a individuare i prefissi NAT64 tramite annunci router. Se entrambi i metodi di individuazione dei prefissi NAT64 sono abilitati, l'ordine di precedenza è (RA, DNS).
+
+Se disabiliti questa impostazione di criteri, CLAT non sarà autorizzato a individuare i prefissi NAT64 tramite annunci router.
+
+Se non configuri questa impostazione di criteri, viene usata l'impostazione dell'host locale.
+
+Per rendere effettiva questa impostazione di criteri è necessario riavviare il sistema.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS">Imposta Recupera informazioni sul prefisso da DNS in CLAT</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS_Help">Questa impostazione di criteri consente di usare DNS come origine di informazioni sul prefisso per CLAT non cellulare.
+
+Se abiliti questa impostazione di criteri, CLAT sarà autorizzato a individuare i prefissi NAT64 tramite DNS. Se entrambi i metodi di individuazione dei prefissi NAT64 sono abilitati, l'ordine di precedenza è (RA, DNS).
+
+Se disabiliti questa impostazione di criteri, CLAT non sarà autorizzato a individuare i prefissi NAT64 tramite DNS.
+
+Se non configuri questa impostazione di criteri, viene usata l'impostazione dell'host locale.
+
+Per rendere effettiva questa impostazione di criteri è necessario riavviare il sistema.
 
 </string>
 

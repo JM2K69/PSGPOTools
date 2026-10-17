@@ -49,10 +49,10 @@ Obs! Icke-administratörer (förutom ansvariga för nätverkskonfigurering) har 
 Tips! Du kan öppna dialogrutan "Avancerade TCP/IP-inställningar" genom att högerklicka på en anslutningsikon och välja "Egenskaper". Välj fliken "Nätverk" för fjärranslutningar.  Markera "Internet ProtocoL (TCP/IP)" i listan "Markerade komponenter används av anslutningen", klicka sedan på "Egenskaper" och därefter på "Avancerat".
 
 Obs! Om du ändrar inställningen från Aktiverad till Inte konfigurerad, aktiveras inte knappen "Avancerat" förrän användaren loggar ut.</string>
-      <string id="NC_AllowNetBridge_NLA">Förhindra att nätverksbrygga installeras och konfigureras i ditt DNS-domännätverk</string>
+      <string id="NC_AllowNetBridge_NLA">Förhindra att nätverksbrygga installeras och konfigureras i ditt nätverk.</string>
       <string id="NC_AllowNetBridge_NLA_Help">Anger om en användare kan installera och konfigurera nätverksbryggan.
 
-Viktigt! Den här inställningen är platsberoende. Den tillämpas endast när datorn är ansluten till samma DNS-nätverk som den var ansluten till när inställningen uppdaterades på datorn. Om en dator är ansluten till ett annat DNS-domännätverk än det som den var ansluten till när inställningen uppdaterades gäller inte den här inställningen.
+Viktigt! Den här inställningen är platsmedveten på AD-domänanslutna enheter. Den tillämpas endast när datorn är ansluten till samma DNS-domännätverk som den var ansluten till när inställningen uppdaterades på datorn. Om en dator är ansluten till ett annat DNS-domännätverk än det som den var ansluten till när inställningen uppdaterades gäller inte den här inställningen. På Entra-anslutna enheter gäller den här inställningen för alla nätverk.
 
 Nätverksbryggan ger användare möjlighet att skapa en MAC-brygga av skikt 2, så att två eller fler nätverkssegment kan sammanslutas. Den här anslutningen visas i mappen Nätverksanslutningar.
 

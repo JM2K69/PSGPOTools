@@ -947,7 +947,7 @@ UE-V Agent 預設會同步處理電腦與設定儲存位置之間的 Windows 應
 若未設定此原則設定，所有定義的值將予刪除。
 注意: 若使用者連到他們電腦的 Microsoft 帳戶，UE-V Agent 將不會同步處理 Windows 應用程式。Windows 應用程式預設會使用 Windows 之 [同步您的設定] 組態中所配置的任何設定。
       </string>
-      <string id="Win8AppsList">Windows 應用程式同步處理</string>
+      <string id="Win8AppsList">Windows App 同步處理</string>
       <string id="Win8AppsList_Help">此原則設定設定 User Experience Virtualization (UE-V) 是否要同步處理指定之 Windows 應用程式的設定。UE-V Agent 預設不會同步處理 Windows 應用程式的設定。此原則設定可讓您依套件系列名稱列出 Windows 8 應用程式。UE-V 會對每部執行相同 Windows 應用程式之使用者工作電腦，同步處理清單上所列之應用程式設定。若啟用此原則設定，並有列出 Windows 應用程式套件系列名稱，UE-V Agent 將會同步處理所列應用程式的設定。
 若停用此原則，將不會同步處理任何 Windows 應用程式的設定。
 若未設定此原則設定，所有定義的值將予刪除。
@@ -960,10 +960,10 @@ UE-V Agent 預設會同步處理電腦與設定儲存位置之間的 Windows 應
 如果未設定此原則設定，將會刪除任何定義的值。
       </string>
       <string id="SyncUnlistedWindows8Apps">同步處理未列出的 Windows 應用程式</string>
-      <string id="SyncUnlistedWindows8Apps_Help">此原則設定定義 User Experience Virtualization (UE-V) Agent 對於 Windows 應用程式清單中未明確列出之 Windows 應用程式所應採取的預設設定同步處理行為。
-UE-V Agent 預設只會同步處理 Windows 應用程式清單中所列之 Windows 應用程式的設定。
-若啟用此設定，將會同步處理 Windows 應用程式清單中，未明確停用之所有 Windows 應用程式的設定。
-若停用此設定，將只會同步處理 Windows 應用程式清單中，設定要同步處理之 Windows 應用程式的設定。
+      <string id="SyncUnlistedWindows8Apps_Help">此原則設定定義 User Experience Virtualization (UE-V) Agent 對於 Windows App 清單中未明確列出之 Windows App 所應採取的預設設定同步處理行為。
+UE-V Agent 預設只會同步處理 Windows App 清單中所列之 Windows App 的設定。
+若啟用此設定，將會同步處理 Windows App 清單中，未明確停用之所有 Windows App 的設定。
+若停用此設定，將只會同步處理 Windows App 清單中，設定要同步處理之 Windows App 的設定。
 若未設定此原則設定，所有定義的值將予刪除。
       </string>
       <string id="SyncSettingsOverMetered">透過計量付費連線同步設定</string>
@@ -1015,13 +1015,13 @@ UE-V Agent 預設只會同步處理 Windows 應用程式清單中所列之 Windo
         <decimalTextBox refId="RepositoryTimeout">同步處理逾時 (毫秒):</decimalTextBox>
       </presentation>
       <presentation id="SettingsStoragePath">
-        <text>在文字方塊中輸入通用命名慣例 (UNC) 路徑，例如 \\servername\sharename。</text>
+        <text>在文字輸入框中輸入通用命名慣例 (UNC) 路徑，例如 \\servername\sharename。</text>
         <textBox refId="SettingsStoragePath">
           <label>設定儲存路徑</label>
         </textBox>
       </presentation>
       <presentation id="SettingsTemplateCatalogPath">
-        <text>在文字方塊中輸入通用命名慣例 (UNC) 路徑，例如 \\servername\sharename 或電腦上的資料夾位置。</text>
+        <text>在文字輸入框中輸入通用命名慣例 (UNC) 路徑，例如 \\servername\sharename 或電腦上的資料夾位置。</text>
         <textBox refId="SettingsTemplateCatalogPath">
           <label>設定範本類別目錄路徑</label>
         </textBox>
@@ -1048,11 +1048,11 @@ UE-V Agent 預設只會同步處理 Windows 應用程式清單中所列之 Windo
         <decimalTextBox refId="SettingsImportNotification_Delay" defaultValue="10" spinStep="1">通知延遲 (秒):</decimalTextBox>
       </presentation>
       <presentation id="Win8AppsList">
-        <text>在文字方塊類型中，輸入已經過同步處理之 Windows 應用程式套件系列的名稱。</text>
+        <text>在文字輸入框類型中，輸入已經過同步處理之 Windows 應用程式套件系列的名稱。</text>
         <multiTextBox refId="Win8AppsList"/>
       </presentation>
       <presentation id="SyncProviderName">
-        <text>在文字方塊中輸入通用命名慣例 (UNC) 路徑，例如 \\servername\sharename\syncprovider.dll。</text>
+        <text>在文字輸入框中輸入通用命名慣例 (UNC) 路徑，例如 \\servername\sharename\syncprovider.dll。</text>
         <textBox refId="SyncProviderName">
           <label>同步提供者名稱</label>
         </textBox>

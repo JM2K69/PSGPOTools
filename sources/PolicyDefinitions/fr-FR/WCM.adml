@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2006 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Paramètres de stratégie de groupe du Gestionnaire de connexions Windows</displayName>
   <description>Paramètres de stratégie de groupe du Gestionnaire de connexions Windows</description>
@@ -22,11 +22,11 @@ Tentatives de connexion manuelle
 Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, les ordinateurs sont autorisés à se connecter simultanément aux réseaux n'appartenant pas à un domaine.
       </string>
       <string id="WCM_DisableRoaming">Interdire la connexion aux réseaux haut débit mobiles itinérants</string>
-      <string id="WCM_DisableRoaming_Help">Ce paramètre de stratégie empêche les clients de se connecter aux réseaux haut débit mobile lorsque le client est inscrit sur un réseau avec opérateur itinérant. 
+      <string id="WCM_DisableRoaming_Help">Ce paramètre de stratégie empêche les clients de se connecter à des réseaux haut débit mobiles lorsque le client est inscrit sur un réseau de fournisseur d’itinérance.
 
-Si ce paramètre de stratégie est activé, toutes les tentatives de connexion automatique et manuelle aux réseaux de fournisseurs itinérants sont bloquées jusqu'à ce que le client soit inscrit auprès du réseau du fournisseur personnel.
+Si ce paramètre de stratégie est activé, toutes les tentatives de connexion automatique et manuelle aux réseaux de fournisseurs d’itinérance sont bloquées jusqu’à ce que le client s’inscrive sur le réseau du fournisseur local.
 
-Si ce paramètre de stratégie n'est pas configuré ou s'il est désactivé, les clients sont autorisés à se connecter aux réseaux haut débit mobiles de fournisseur itinérant.
+Si ce paramètre de stratégie est désactivé ou n’est pas configuré, les clients sont autorisés à se connecter aux réseaux haut débit mobiles du fournisseur d’itinérance.
       </string>
       <string id="WCM_MinimizeConnections">Minimiser le nombre de connexions simultanées à Internet ou à un domaine Windows</string>
       <string id="WCM_MinimizeConnections_AllowAllConnections">0 = autoriser les connexions simultanées</string>
@@ -47,25 +47,25 @@ Si ce paramètre de stratégie n'est pas configuré ou s'il est désactivé, les
         Ce paramètre de stratégie est associé au paramètre de stratégie « permettre à Windows de déconnecter au réseau un ordinateur d'un réseau ».
       </string>
       <string id="WCM_DisablePowerManagement">Désactiver la gestion de l’alimentation en mode veille connectée</string>
-      <string id="WCM_DisablePowerManagement_Help">Ce paramètre de stratégie spécifie que la gestion de l'alimentation est désactivée lorsque l'ordinateur passe en mode veille connectée. 
+      <string id="WCM_DisablePowerManagement_Help">Ce paramètre de stratégie spécifie que la gestion de l’alimentation est désactivée lorsque l’ordinateur passe en mode veille connectée.
 
-Si ce paramètre de stratégie est activé, le gestionnaire des connexions Windows ne gère pas les radios des cartes afin de réduire la consommation d'énergie lorsque l'ordinateur passe en mode veille connectée.
+Si ce paramètre de stratégie est activé, le Gestionnaire de connexions Windows ne gère pas la consommation électrique lorsque l’ordinateur passe en mode veille connectée.
 
-Si ce paramètre de stratégie n'est pas configuré ou s'il est désactivé, la gestion de l'alimentation est activée lorsque l'ordinateur passe en mode veille connectée.
+Si ce paramètre de stratégie est désactivé ou n’est pas configuré, la gestion de l’alimentation est activée lorsque l’ordinateur passe en mode veille connectée.
       </string>
       <string id="WCM_EnableSoftDisconnect">Permettre à Windows une déconnexion logicielle d'un ordinateur d'un réseau</string>
-      <string id="WCM_EnableSoftDisconnect_Help">Ce paramètre de stratégie détermine si Windows va déconnecter par logiciel un ordinateur d'un réseau.
+      <string id="WCM_EnableSoftDisconnect_Help">Ce paramètre de stratégie détermine si Windows va déconnecter par logiciel un ordinateur d’un réseau.
 
-Si vous activez ce paramètre de stratégie ou si vous ne le configurez pas, Windows déconnectera par logiciel un ordinateur d'un réseau lorsqu'il déterminera que l'ordinateur ne doit plus être connecté à un réseau.
+Si vous activez ce paramètre de stratégie ou si vous ne le configurez pas, Windows déconnectera par logiciel un ordinateur d’un réseau lorsqu’il déterminera que l’ordinateur ne doit plus être connecté à un réseau.
 
-Si vous désactivez ce paramètre de stratégie, Windows déconnectera un ordinateur du réseau immédiatement lorsqu'il déterminera que l'ordinateur ne doit plus être connecté à un réseau.
+Si vous désactivez ce paramètre de stratégie, Windows déconnectera un ordinateur du réseau immédiatement lorsqu’il déterminera que l’ordinateur ne doit plus être connecté à un réseau.
 
 Lorsque la déconnexion logicielle est activée :
-- Lorsque Windows décide que l'ordinateur ne doit plus être connecté à un réseau, il attend le trafic pour le régler sur ce réseau. La session TCP existante va continuer sans interruption.
-- Windows vérifie régulièrement le niveau de trafic sur le réseau. Si le niveau de trafic est supérieur à un seuil donné, aucune autre action n'est entreprise. L'ordinateur reste connecté au réseau et continue à l'utiliser. Par exemple, si la connexion réseau est actuellement utilisée pour télécharger des fichiers à partir d'Internet, les fichiers continueront à être téléchargés à l'aide de cette connexion réseau.
-- Lorsque le trafic réseau chute en dessous de ce seuil, l'ordinateur est déconnecté du réseau. Les applications qui utilisent une connexion réseau active même lorsqu'elles ne sont pas en cours d'utilisation (par exemple, des applications de messagerie électronique) peuvent perdre leur connexion. Dans ce cas, ces applications doivent rétablir leur connexion via un autre réseau. 
+– Lorsque Windows décide que l’ordinateur ne doit plus être connecté à un réseau, il attend le trafic pour le régler sur ce réseau. La session TCP existante va continuer sans interruption.
+– Windows vérifie régulièrement le niveau de trafic sur le réseau. Si le niveau de trafic est supérieur à un seuil donné, aucune autre action n’est entreprise. L’ordinateur reste connecté au réseau et continue à l’utiliser. Par exemple, si la connexion réseau est actuellement utilisée pour télécharger des fichiers à partir d’Internet, les fichiers continueront à être téléchargés à l’aide de cette connexion réseau.
+– Lorsque le trafic réseau chute en dessous de ce seuil, l’ordinateur est déconnecté du réseau. Les applications qui utilisent une connexion réseau active, même lorsqu’elles ne sont pas en cours d’utilisation (par exemple, des applications de messagerie électronique), peuvent perdre leur connexion. Dans ce cas, ces applications doivent rétablir leur connexion via un autre réseau.
 
-Ce paramètre de stratégie dépend d'autres paramètres de stratégie de groupe. Par exemple, si l'opération de réduction du nombre de connexions simultanées à Internet ou à un domaine Windows est désactivée, Windows ne se connecte à aucun réseau.
+Ce paramètre de stratégie dépend d’autres paramètres de stratégie de groupe. Par exemple, si l’opération de réduction du nombre de connexions simultanées à Internet ou à un domaine Windows est désactivée, Windows ne se connecte à aucun réseau.
       </string>
     </stringTable>
     <presentationTable>

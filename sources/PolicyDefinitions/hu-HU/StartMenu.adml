@@ -27,11 +27,10 @@ Ha letiltja vagy nem konfigurálja a házirend-beállítást, megjelenik a „Mi
 Ha letiltja vagy nem konfigurálja a házirend-beállítást, megjelenik a „Minden eredmény megjelenítése” hivatkozás a Start menü keresőmezőjéből indított felhasználói keresések esetén.  Ha külső gyártótól származó protokollkezelő van telepítve, akkor a „Minden eredmény megjelenítése” hivatkozás helyett a „Keresés mindenhol” hivatkozás jelenik meg.</string>
       <string id="AddSearchInternetLinkInStartMenu">A Keresés az interneten hivatkozás hozzáadása a Start menühöz</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
-
 Ha engedélyezi ezt a házirend-beállítást, megjelenik a „Keresés az interneten” hivatkozás a Start menü keresőmezőjéből indított felhasználói keresések esetén.  Ez a gomb elindítja az alapértelmezett böngészőt a keresési lekérdezéssel.
 
 Ha letiltja a házirendet, nem fog megjelenni a „Keresés az interneten” hivatkozás a Start menü keresőmezőjéből indított felhasználói keresések esetén.
-          
+
 Ha nem konfigurálja a házirendet (alapértelmezés), nem jelenik meg a „Keresés az interneten” hivatkozás a Start menüben.</string>
       <string id="NoSearchFilesInStartMenu">A keresés nem terjed ki a fájlokra</string>
       <string id="NoSearchFilesInStartMenu_Help">Ha engedélyezi ezt a házirend-beállítást, a Start menü keresőmezője nem keres a fájlok között.
@@ -122,9 +121,9 @@ A Windows 2000 Professional és Windows XP Professional rendszeren az összes 16
 
 Ha engedélyezi ezt a beállítást, a Futtatás párbeszédpanelen egy jelölőnégyzet jelenik meg, lehetővé téve a felhasználók számára, hogy a 16 bites programokat egy erre kijelölt NTVDM-folyamatban futtassák. Ez a jelölőnégyzet csak akkor érhető el, ha a felhasználó 16 bites programot ad meg a Futtatás párbeszédpanelen.</string>
       <string id="NoAutoTrayNotify">Az értesítési terület karbantartásának kikapcsolása</string>
-      <string id="NoAutoTrayNotify_Help">Ez a beállítás az értesítési területre, más néven a „rendszertálcára” van hatással.
+      <string id="NoAutoTrayNotify_Help">Ez a beállítás az értesítési területre, más néven a "rendszertálcára van hatással".
 
-Az értesítési terület a tálcán található, általában a képernyő alsó részén, és az aktuális értesítéseket, valamint a számítógép óráját tartalmazza. Ez a beállítás azt határozza meg, hogy az elemek mindig kibontott, vagy mindig összecsukott állapotban jelenjenek-e meg. Alapértelmezés szerint az értesítések mindig összecsukott állapotban vannak. Az értesítés karbantartására szolgáló &lt;&lt; ikonra szokás még „francia idézőjelként” is utalni."
+Az értesítési terület a tálcán található, általában a képernyő alsó részén, és az aktuális értesítéseket, valamint a számítógép óráját tartalmazza. Ez a beállítás azt határozza meg, hogy az elemek mindig kibontott, vagy mindig összecsukott állapotban jelenjenek-e meg. Alapértelmezés szerint az értesítések mindig összecsukott állapotban vannak. Az értesítés karbantartására szolgáló &lt;&lt; ikonra szokás még "francia idézőjelként” is utalni."
 
 A beállítás engedélyezése esetén a rendszer értesítési területe kibontott állapotban jelenik meg, és megjeleníti az összes értesítést.
 
@@ -207,6 +206,19 @@ A Keresés elem továbbra is megjelenik a Fájlkezelő Szokásos gombok eszközt
 Ez a házirend-beállítás csak a felhasználói felület megadott elemeire vonatkozik. Nincs hatással az Internet Explorer böngészőre, és nem tiltja le azt sem, hogy a felhasználók más módszerekkel keressenek.
 
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Keresés hivatkozás elérhető lesz a Start menüből.</string>
+      <string id="ShowOrHideMostUsedApps">A „Leggyakrabban használt“ lista megjelenítése vagy elrejtése a Start menüben</string>
+      <string id="ShowOrHideMostUsedApps_Help">Ha engedélyezi ezt a házirend-beállítást, a Start menü segítségével megjelenítheti vagy elrejtheti a felhasználó által legtöbbet használt alkalmazások listáját a felhasználói beállításoktól függetlenül.
+
+Ha a "Megjelenítés" lehetőséget választja, a rendszer a „Leggyakrabban használt“ lista megjelenítését, és a felhasználó nem módosíthatja a Beállítások alkalmazással az elrejtését.
+
+Ha az "Elrejtés" lehetőséget választja, a rendszer elrejti a „Leggyakrabban használt“ listát, és a felhasználó nem módosíthatja a Beállítások alkalmazással a megjelenítését.
+
+A "Nincs beállítva" lehetőséget választja, vagy ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, lehetővé teszi a „Leggyakrabban használt“ lista ki-/bekapcsolását a Beállítások alkalmazásban a felhasználók számára. Ez az alapértelmezett eljárás.
+
+Megjegyzés: ha konfigurálja ezt a házirendet a Windows 10 támogatott verzióin, a "Megjelenítés" vagy az "Elrejtés" beállítás felülírja a "Gyakran használt programok listájának eltávolítása a Start menüből" beállítását (amely a Start menü ugyanazon részét befolyásolja, viszont kevesebb lehetőség áll rendelkezésre).</string>
+      <string id="MFU_NotConfigured">Nem konfigurált</string>
+      <string id="MFU_Show">Megjelenítés</string>
+      <string id="MFU_Hide">Elrejtés</string>
       <string id="NoFrequentUsedPrograms">A gyakran használt programok listájának eltávolítása a Start menüből</string>
       <string id="NoFrequentUsedPrograms_Help">Ha engedélyezi a beállítást, a Start menüben nem jelenik meg a gyakran használt programok listája.
 
@@ -243,7 +255,7 @@ Ha letiltja, vagy nem konfigurálja ezt a beállítást, alapértelmezés szerin
       <string id="APPLIST_NONE">Nincs</string>
       <string id="APPLIST_COLLAPSE">Összecsukás</string>
       <string id="APPLIST_COLLAPSESETTING">Összecsukás és a beállítás letiltása</string>
-      <string id="APPLIST_REMOVESETTING">Eltávolítás és a beállítás letiltása</string>    
+      <string id="APPLIST_REMOVESETTING">Eltávolítás és a beállítás letiltása</string>
 
       <string id="NoNetAndDialupConnect">A Start menü Hálózati kapcsolatok elemének eltávolítása</string>
       <string id="NoNetAndDialupConnect_Help">Ez a házirend-beállítás lehetővé teszi a Hálózati kapcsolatok elem eltávolítását a Start menüből.
@@ -258,9 +270,9 @@ Ha letiltja vagy nem konfigurálja a házirend-beállítást, a Hálózati kapcs
 
 További információt „A Beállítások menü programjainak letiltása” és „A Vezérlőpult letiltása”, valamint a Hálózati kapcsolatok mappában (Számítógép konfigurációja és Felhasználó konfigurációja\Felügyeleti sablonok\Hálózat\Hálózati kapcsolatok) lévő beállítások leírásánál talál.</string>
       <string id="NoPinnedPrograms">A rögzített programok listájának eltávolítása a Start menüből</string>
-      <string id="NoPinnedPrograms_Help">Ha engedélyezi a beállítást, a Start menüben nem jelenik meg a Rögzített programok lista. A felhasználók nem rögzíthetnek programokat a Start menüre. 
+      <string id="NoPinnedPrograms_Help">Ha engedélyezi a beállítást, a Start menüben nem jelenik meg a Rögzített programok lista. A felhasználók nem rögzíthetnek programokat a Start menüre.
 
-A Windows XP és a Windows Vista rendszerben eltűnnek a Start menü testreszabása párbeszédpanelről az internetre és az e-mailre vonatkozó jelölőnégyzetek. 
+A Windows XP és a Windows Vista rendszerben eltűnnek a Start menü testreszabása párbeszédpanelről az internetre és az e-mailre vonatkozó jelölőnégyzetek.
 
 Ha letiltja vagy nem konfigurálja ezt a beállítást, a Rögzített programok lista továbbra is megjelenik a Start menüben. A felhasználók programokat rögzíthetnek a Start menüre, illetve eltávolíthatják a rögzített programokat.</string>
       <string id="NoRecentDocsHistory">Ne legyenek előzmények az utoljára megnyitott dokumentumokról</string>
@@ -328,7 +340,7 @@ A beállítás engedélyezésének hatására a következő változások törté
 
 (3) A felhasználó nem adhatja meg a következőket az Internet Explorer címsorában:
 
-– UNC elérési út: \\&lt;kiszolgáló&gt;\&lt;megosztás&gt; 
+– UNC elérési út: \\&lt;kiszolgáló&gt;\&lt;megosztás&gt;
 
 – Helyi meghajtók elérése: például C:
 
@@ -612,10 +624,44 @@ Ha engedélyezi ezt a házirendet, a rendszer eltávolítja a Kapcsolatok ikont 
       <string id="HideRecentlyAddedApps_Help">Ezzel a házirenddel megakadályozhatja, hogy a Start menü megjelenítse a legutóbb telepített alkalmazások listáját.
 
 Ha engedélyezi ezt a házirendet, a Start menü nem jeleníti meg a „Legutóbb telepítve” listát. A Gépház megfelelő beállítása is le lesz tiltva.</string>
+      <string id="HideRecommendedSection">Az Ajánlott szakasz eltávolítása a Start menüből</string>
+      <string id="HideRecommendedSection_Help">Ezzel a házirenddel megakadályozhatja, hogy a Start menü megjelenítse az ajánlott alkalmazások és fájlok listáját.
+
+Ha engedélyezi ezt a házirend-beállítást, a Start menüben nem jelenik meg az ajánlott fájlok és alkalmazások listáját tartalmazó szakasz.</string>
+ <string id="HideCategoryView">Kategórianézet elrejtése a Start menüben</string>
+ <string id="HideCategoryView_Help">Ez a házirendbeállítás lehetővé teszi a kategória nézet elrejtését a Start menüben.
+ 
+ Ha engedélyezi ezt a házirendbeállítást, a Start menü nem fogja megjeleníteni a kategória nézetet, és alapértelmezés szerint rácsnézetre vált.</string>
+
+ <string id="ConfigureStartPins">Kezdőképernyőre kitűzés konfigurálása</string>
+      <string id="ConfigureStartPins_Help">Lehetővé teszi a rendszergazda számára a Start menüben rögzített alapértelmezett elemek felülbírálását.
+
+Ez a beállítás lehetővé teszi, hogy megadja a Start menüben rögzített alapértelmezett elemeket.</string>
+
+      <string id="HideRecommendedPersonalizedSites">Személyre szabott webhelyjavaslatok eltávolítása a Start menü Javaslatok szakaszából</string>
+      <string id="HideRecommendedPersonalizedSites_Help">Ezzel a szabályzatbeállítással elrejtheti a személyre szabott webhelyeket a Start menü Javaslatok szakaszában. 
+      
+Ha engedélyezi ezt a szabályzatbeállítást, a Start menü többé nem jelenít meg személyre szabott webhelyjavaslatokat a Javaslatok részben.</string>
       <string id="DisableContextMenusInStart">Helyi menük letiltása a Start menüben</string>
       <string id="DisableContextMenusInStart_Help">Ezzel a házirenddel megakadályozhatja, hogy a felhasználók meg tudják nyitni a helyi menüket a Start menüben.
 
 Ha engedélyezi ezt a házirendet, a rendszer figyelmen kívül hagyja a helyi menük meghívását a Start menüben.</string>
+      <string id="SimplifyQuickSettings_DisplayName">Gyorsbeállítások elrendezésének egyszerűsítése</string>
+      <string id="SimplifyQuickSettings_ExplainText">Ha engedélyezi ezt a házirendet, a gyorsbeállítások csak a Wi-Fi-, a Bluetooth-, az akadálymentességi és a VPN-gombokra; a fényerő és a hangerő csúszkáira; valamint az akkumulátorjelzőre és a Beállítások alkalmazásra mutató hivatkozásra lesznek korlátozva.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a gyorsbeállítások normál elrendezése jelenik meg a Gyorsbeállítások lehívásakor.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">A gyorsbeállítások szerkesztésének letiltása</string>
+      <string id="DisableEditingQuickSettings_ExplainText">Ha engedélyezi ezt a házirendet, a felhasználó nem módosíthatja a gyorsbeállításokat.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasználó szerkesztheti a gyorsbeállításokat, például a gombok rögzítését vagy a rögzítésük feloldását.</string>
+      <string id="DisableControlCenter">Gyorsbeállítások eltávolítása</string>
+      <string id="DisableControlCenter_Help">Ez a házirend-beállítás eltávolítja a Gyorsbeállításokat a tálca jobb alsó területéről.
+
+A gyorsbeállítások területe a tálca órájának bal oldalán található, és az aktuális hálózat és a hangerő ikonjait tartalmazza.
+
+Ha ez a beállítás engedélyezve van, a Gyorsbeállítások nem jelenik meg a gyorsbeállítások területén. 
+
+A házirend-beállítás érvénybe lépéséhez újraindítás szükséges.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +678,22 @@ Ha engedélyezi ezt a házirendet, a rendszer figyelmen kívül hagyja a helyi m
           <label>Kezdőképernyő-elrendezés fájlja</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">Elrendezés újraalkalmazása minden bejelentkezéskor</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">Méret kiválasztása</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">Válasszon egyet a következő műveletek közül:</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>Kezdőképernyőre kitűzés elrendezési fájlja</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">Kategórianézet elrejtése</checkBox>
       </presentation>
     </presentationTable>
   </resources>

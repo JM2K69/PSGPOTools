@@ -78,22 +78,39 @@ Ha engedélyezi ezt a házirend-beállítást, akkor az Eseménynapló az ebben 
 
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, az Eseménynapló a %SYSTEMROOT%\System32\winevt\Logs mappát fogja használni.</string>
       <string id="Channel_LogMaxSize">Maximális naplófájlméret megadása (KB)</string>
-      <string id="Channel_LogMaxSize_Help">Ez a házirend-beállítás meghatározza adja meg a naplófájl maximális méretét kilobájtban.
+      <string id="Channel_LogMaxSize_Help">Ez a házirend-beállítás kilobájtban adja meg a naplófájl maximális méretét.
 
-Ha engedélyezi ezt a házirend-beállítást, beállíthatja a naplófájl maximális méretét 1 megabájt (1024 kilobájt) és 2 terabájt (2147483647 kilobájt) között, kilobájtonkénti lépésekben.
+Ha engedélyezi ezt a házirend-beállítást, beállíthatja a naplófájl maximális méretét 1 megabájt (1024 kilobájt) és 2 terabájt (2147483647 kilobájt) között, kilobájtban kifejezve.
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor a naplófájl maximális mérete a helyileg konfigurált értékhez fog igazodni. Ezt az értéket a helyi rendszergazda a Napló tulajdonságai párbeszédpanelen módosíthatja; alapértelmezett értéke 1 megabájt.</string>
-      <string id="Channel_LogMaxSizeSecurity_Help">Ez a házirend-beállítás meghatározza adja meg a naplófájl maximális méretét kilobájtban.
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor a naplófájl maximális mérete a helyileg konfigurált értékhez fog igazodni. Ezt az értéket a helyi rendszergazda a Napló tulajdonságai párbeszédpanelen módosíthatja; alapértelmezett értéke 20 megabájt.</string>
+      <string id="Channel_LogMaxSizeSecurity_Help">Ez a házirend-beállítás kilobájtban adja meg a naplófájl maximális méretét.
 
 Ha engedélyezi ezt a házirend-beállítást, beállíthatja a naplófájl maximális méretét 20 megabájt (20480 kilobájt) és 2 terabájt (2147483647 kilobájt) között, kilobájtonkénti lépésekben.
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor a naplófájl maximális mérete a helyileg konfigurált értékhez fog igazodni. Ezt az értéket a helyi rendszergazda a Napló tulajdonságai párbeszédpanelen módosíthatja; alapértelmezett értéke 20 megabájt.</string>
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor a naplófájl maximális mérete a helyileg konfigurált értékhez fog igazodni. Ezt az értéket a helyi rendszergazda a Napló tulajdonságai párbeszédpanelen módosíthatja; alapértelmezett értéke 40 megabájt.</string>
       <string id="ChannelName_Help">A napló konfigurációs beállításai</string>
       <string id="EventLog_Application">Alkalmazás</string>
       <string id="EventLog_Security">Biztonság</string>
       <string id="EventLog_Setup">Telepítő</string>
       <string id="EventLog_System">Rendszer</string>
       <string id="EventLogCategory">Az Eseménynapló szolgáltatás</string>
+      <string id="Service_RpcAccess_Remote">Az Eseménynapló szolgáltatás távoli elérésének korlátozása</string>
+      <string id="Service_RpcAccess_Remote_Help">Ez a szabályzatbeállítás vezérli, hogy mely távoli felhasználók kapcsolódhatnak az Eseménynapló szolgáltatáshoz ezen a számítógépen.
+
+Ha engedélyezi ezt a szabályzatot, korlátozhatja, hogy a távoli felhasználóknak mely csoport tagjainak kell lenniük ahhoz, hogy kapcsolódhassanak az Eseménynapló szolgáltatáshoz ezen a számítógépen. Megkövetelheti, hogy a távoli felhasználók a következő beépített csoportok egyikének tagjai legyenek:
+
+• Hitelesített felhasználók
+• Eseménynapló-olvasók
+• Rendszergazdák
+
+Ha letiltja vagy nem konfigurálja ezt a szabályzatot, az alapértelmezett érték a Hitelesített felhasználók lesz.
+
+A Windows korábbi verzióiban csak a hitelesített felhasználók voltak támogatottak. A visszamenőleges kompatibilitás megőrzése érdekében a hitelesített felhasználók mindig kapcsolódhatnak helyileg a szolgáltatáshoz.
+
+Ez a beállítás nem szabályozza az egyes naplókhoz való hozzáférést. Egy távoli kapcsolat engedélyezése után annak továbbra is hozzá kell férnie a használni kívánt erőforrásokhoz.</string>
+      <string id="Service_RpcAccess_Remote_AU">Hitelesített felhasználók</string>
+      <string id="Service_RpcAccess_Remote_ER">Eseménynapló-olvasók</string>
+      <string id="Service_RpcAccess_Remote_AD">Rendszergazdák</string>
     </stringTable>
     <presentationTable>
       <presentation id="Channel_Log_FileLogAccess_1">
@@ -157,16 +174,19 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor a napló
         </textBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_1">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maximális naplófájlméret (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maximális naplófájlméret (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_2">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maximális naplófájlméret (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="40960">Maximális naplófájlméret (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_3">
         <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maximális naplófájlméret (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_4">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maximális naplófájlméret (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maximális naplófájlméret (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="Service_RpcAccess_Remote">
+        <dropdownList refId="RpcAccess_Remote_Setting" noSort="true" defaultItem="0">Válasszon egyet a következő beállítások közül:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

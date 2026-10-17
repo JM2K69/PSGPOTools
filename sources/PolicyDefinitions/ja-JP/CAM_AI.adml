@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>CAM (Capability Access Manager) AI ポリシー</displayName>
+  <description>AI 機能とその同意管理に関するポリシー。</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">AI の同意</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">ユーザーによる制御</string>
+      <string id="ForceEnable">強制的に有効にする</string>
+      <string id="ForceDisable">強制的に無効にする</string>
+      <string id="AgentConsentDuration_Name">エージェントの同意期間</string>
+      <string id="AgentConsentDuration_Explain">エージェント機能に対する "許可" の同意応答が有効な状態を維持してから、ユーザーに再度メッセージが表示されるまでの時間を指定します。
+
+このポリシーが有効な場合、値は 1 (1 時間) から 8760 (1 年) の値にする必要があります。構成された値は、エージェント機能に対するすべての "許可" 同意応答の既定の有効期限として使用されます。
+
+このポリシーが構成されていない場合、または値が許容範囲外の場合、既定値は 720 時間 (30 日) です。</string>
+      <string id="ConfigureAgentConnectors_Name">エージェント コネクターの構成</string>
+      <string id="ConfigureAgentConnectors_Explain">エージェント コネクターを有効または無効にします。</string>
+      <string id="AgentConnectorAccessPolicy_Name">エージェント コネクター アクセス ポリシー</string>
+      <string id="AgentConnectorAccessPolicy_Explain">このポリシー設定を使用すると、MCP ホストと MCP サーバー間の許可される接続の一覧を定義できます。
+
+このリストの形式は、https://go.microsoft.com/fwlink/?LinkId=2363700 のスキーマに準拠する JSON 文字列になります。
+
+このポリシーが構成されていない場合、MCP ホストはユーザーの同意を得て任意の MCP サーバーに接続できます。</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> エージェント コネクターの構成: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> 同意期間 (時間): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>許可される MCP ホスト/サーバー接続の構成:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

@@ -5,7 +5,7 @@
   <description>여기에 설명 입력</description>
   <resources>
     <stringTable>
-      <string id="ActiveDirectoryBackup_Help">이 정책 설정으로 BitLocker 드라이브 암호화 복구 정보의 AD DS(Active Directory 도메인 서비스) 백업을 관리할 수 있습니다. 이 정책은 키 정보 부족으로 인한 데이터 손실을 방지하기 위해 BitLocker로 암호화된 데이터를 복구하기 위한 관리 방법을 제공합니다. 이 정책 설정은 Windows Server 2008 또는 Windows Vista를 실행하는 컴퓨터에만 적용됩니다.
+      <string id="ActiveDirectoryBackup_Help">이 정책 설정으로 BitLocker 드라이브 암호화 복구 정보의 AD DS(Active Directory Domain Services) 백업을 관리할 수 있습니다. 이 정책은 키 정보 부족으로 인한 데이터 손실을 방지하기 위해 BitLocker로 암호화된 데이터를 복구하기 위한 관리 방법을 제공합니다. 이 정책 설정은 Windows Server 2008 또는 Windows Vista를 실행하는 컴퓨터에만 적용됩니다.
 
 이 정책 설정을 사용하면 컴퓨터에 BitLocker가 켜져 있을 때 BitLocker 복구 정보가 자동으로 동의 없이 AD DS로 백업됩니다. 이 정책 설정은 BitLocker를 사용할 경우에 적용됩니다.
 
@@ -17,10 +17,9 @@ BitLocker 복구 정보에는 복구 암호와 일부 고유한 식별 데이터
 
 이 정책 설정을 사용하지 않거나 구성하지 않으면 BitLocker 복구 정보가 AD DS로 백업되지 않습니다.
 
-참고: BitLocker 설정 중에 TPM(신뢰할 수 있는 플랫폼 모듈)을 초기화해야 할 수 있습니다. TPM 정보도 백업하려면 시스템\TPM(신뢰할 수 있는 플랫폼 모듈) 서비스에서 "Active Directory 도메인 서비스에 TPM 백업 사용" 정책 설정을 사용하도록 설정하십시오.
-      
+참고: BitLocker 설정 중에 TPM(신뢰할 수 있는 플랫폼 모듈)을 초기화해야 할 수 있습니다. TPM 정보도 백업하려면 시스템\TPM(신뢰할 수 있는 플랫폼 모듈) 서비스에서 "Active Directory Domain Services에 TPM 백업 사용" 정책 설정을 사용하도록 설정하십시오.
       </string>
-      <string id="ActiveDirectoryBackup_Name">Active Directory 도메인 서비스에 BitLocker 복구 정보 저장(Windows Server 2008 및 Windows Vista)</string>
+      <string id="ActiveDirectoryBackup_Name">Active Directory Domain Services에 BitLocker 복구 정보 저장(Windows Server 2008 및 Windows Vista)</string>
       <string id="ActiveDirectoryBackupDropDown_1">복구 암호 및 키 패키지</string>
       <string id="ActiveDirectoryBackupDropDown_2">복구 암호만</string>
 
@@ -99,9 +98,7 @@ TPM이 없는 컴퓨터에서 BitLocker를 사용하려면 "호환되는 TPM 없
 
 참고: FIPS 규격 모드에서는 48자리 복구 암호를 사용할 수 없습니다.
 
-@중요: 이 정책 설정은 키 정보 부족으로 인한 데이터 손실을 방지하기 위해 BitLocker로 암호화된 데이터를 복구하기 위한 관리 방법을 제공합니다. 아래에 나오는 두 복구 옵션을 모두 허용하지 않을 경우 "Active Directory 도메인 서비스에 BitLocker 복구 정보 저장(Windows Server 2008 및 Windows Vista)" 정책 설정을 사용하여 정책 오류가 발생하지 않도록 해야 합니다.
-
-      
+@중요: 이 정책 설정은 키 정보 부족으로 인한 데이터 손실을 방지하기 위해 BitLocker로 암호화된 데이터를 복구하기 위한 관리 방법을 제공합니다. 아래에 나오는 두 복구 옵션을 모두 허용하지 않을 경우 "Active Directory Domain Services에 BitLocker 복구 정보 저장(Windows Server 2008 및 Windows Vista)" 정책 설정을 사용하여 정책 오류가 발생하지 않도록 해야 합니다.
 
       </string>
 
@@ -123,7 +120,7 @@ TPM이 없는 컴퓨터에서 BitLocker를 사용하려면 "호환되는 TPM 없
 
 사용자가 드라이브에 대해 BitLocker를 사용할 때 복구 옵션을 지정하지 못하게 하려면 "BitLocker 설정 마법사에서 복구 옵션 생략"을 선택합니다. 이렇게 하면 BitLocker를 사용할 때 사용할 복구 옵션을 지정할 수 없게 되며 드라이브에 대한 BitLocker 복구 옵션이 정책 설정에 따라 결정됩니다.
 
-"Active Directory 도메인 서비스에 BitLocker 복구 정보 저장"에서 AD DS에 저장할 운영 체제 드라이브에 대한 BitLocker 복구 정보를 선택합니다. "복구 암호 및 키 패키지 백업"을 선택하면 BitLocker 복구 암호와 키 패키지가 모두 AD DS에 저장됩니다. 키 패키지를 저장하면 물리적으로 손상된 드라이브에서 데이터를 복구할 수 있습니다. "복구 암호만 백업"을 선택하면 복구 암호가 AD DS에 저장됩니다.
+"Active Directory Domain Services에 BitLocker 복구 정보 저장"에서 AD DS에 저장할 운영 체제 드라이브에 대한 BitLocker 복구 정보를 선택합니다. "복구 암호 및 키 패키지 백업"을 선택하면 BitLocker 복구 암호와 키 패키지가 모두 AD DS에 저장됩니다. 키 패키지를 저장하면 물리적으로 손상된 드라이브에서 데이터를 복구할 수 있습니다. "복구 암호만 백업"을 선택하면 복구 암호가 AD DS에 저장됩니다.
 
 컴퓨터가 도메인에 연결되고 BitLocker 복구 정보가 AD DS에 성공적으로 백업될 때까지 사용자가 BitLocker를 사용하지 못하도록 하려면 "운영 체제 드라이브에 대한 복구 정보가 AD DS에 저장될 때까지 BitLocker 사용 안 함" 확인란을 선택합니다.
 
@@ -132,8 +129,6 @@ TPM이 없는 컴퓨터에서 BitLocker를 사용하려면 "호환되는 TPM 없
 이 정책 설정을 사용하면 사용자가 BitLocker로 보호된 운영 체제 드라이브에서 데이터를 복구하는 데 사용할 수 있는 방법을 제어할 수 있습니다.
 
 이 정책 설정을 사용하지 않거나 구성하지 않으면 BitLocker 복구에 대해 기본 복구 옵션이 지원됩니다. 기본적으로 DRA가 허용되고, 사용자가 복구 암호 및 복구 키를 포함하여 복구 옵션을 지정할 수 있으며, 복구 정보가 AD DS에 백업되지 않습니다.
-
-
 
 </string>
 
@@ -154,7 +149,7 @@ TPM이 없는 컴퓨터에서 BitLocker를 사용하려면 "호환되는 TPM 없
 
 사용자가 드라이브에 대해 BitLocker를 사용할 때 복구 옵션을 지정하지 못하게 하려면 "BitLocker 설정 마법사에서 복구 옵션 생략"을 선택합니다. 이렇게 하면 BitLocker를 사용할 때 사용할 복구 옵션을 지정할 수 없게 되며 드라이브에 대한 BitLocker 복구 옵션이 정책 설정에 따라 결정됩니다.
 
-"Active Directory 도메인 서비스에 BitLocker 복구 정보 저장"에서 AD DS에 저장할 고정 데이터 드라이브에 대한 BitLocker 복구 정보를 선택합니다. "복구 암호 및 키 패키지 백업"을 선택하면 BitLocker 복구 암호와 키 패키지가 모두 AD DS에 저장됩니다. 키 패키지를 저장하면 물리적으로 손상된 드라이브에서 데이터를 복구할 수 있습니다. "복구 암호만 백업"을 선택하면 복구 암호가 AD DS에 저장됩니다.
+"Active Directory Domain Services에 BitLocker 복구 정보 저장"에서 AD DS에 저장할 고정 데이터 드라이브에 대한 BitLocker 복구 정보를 선택합니다. "복구 암호 및 키 패키지 백업"을 선택하면 BitLocker 복구 암호와 키 패키지가 모두 AD DS에 저장됩니다. 키 패키지를 저장하면 물리적으로 손상된 드라이브에서 데이터를 복구할 수 있습니다. "복구 암호만 백업"을 선택하면 복구 암호가 AD DS에 저장됩니다.
 
 컴퓨터가 도메인에 연결되고 BitLocker 복구 정보가 AD DS에 성공적으로 백업될 때까지 사용자가 BitLocker를 사용하지 못하도록 하려면 "고정 데이터 드라이브에 대한 복구 정보가 AD DS에 저장될 때까지 BitLocker 사용 안 함" 확인란을 선택합니다.
 
@@ -163,8 +158,6 @@ TPM이 없는 컴퓨터에서 BitLocker를 사용하려면 "호환되는 TPM 없
 이 정책 설정을 사용하면 사용자가 BitLocker로 보호된 고정 데이터 드라이브에서 데이터를 복구하는 데 사용할 수 있는 방법을 제어할 수 있습니다.
 
 이 정책 설정을 사용하지 않거나 구성하지 않으면 BitLocker 복구에 대해 기본 복구 옵션이 지원됩니다. 기본적으로 DRA가 허용되고, 사용자가 복구 암호 및 복구 키를 포함하여 복구 옵션을 지정할 수 있으며, 복구 정보가 AD DS에 백업되지 않습니다.
-
-
 
 </string>
 
@@ -186,7 +179,7 @@ TPM이 없는 컴퓨터에서 BitLocker를 사용하려면 "호환되는 TPM 없
 
 사용자가 드라이브에 대해 BitLocker를 사용할 때 복구 옵션을 지정하지 못하게 하려면 "BitLocker 설정 마법사에서 복구 옵션 생략"을 선택합니다. 이렇게 하면 BitLocker를 사용할 때 사용할 복구 옵션을 지정할 수 없게 되며 드라이브에 대한 BitLocker 복구 옵션이 정책 설정에 따라 결정됩니다.
 
-"Active Directory 도메인 서비스에 BitLocker 복구 정보 저장"에서 AD DS에 저장할 이동식 드라이브에 대한 BitLocker 복구 정보를 선택합니다. "복구 암호 및 키 패키지 백업"을 선택하면 BitLocker 복구 암호와 키 패키지가 모두 AD DS에 저장됩니다. "복구 암호만 백업"을 선택하면 복구 암호가 AD DS에 저장됩니다.
+"Active Directory Domain Services에 BitLocker 복구 정보 저장"에서 AD DS에 저장할 이동식 드라이브에 대한 BitLocker 복구 정보를 선택합니다. "복구 암호 및 키 패키지 백업"을 선택하면 BitLocker 복구 암호와 키 패키지가 모두 AD DS에 저장됩니다. "복구 암호만 백업"을 선택하면 복구 암호가 AD DS에 저장됩니다.
 
 컴퓨터가 도메인에 연결되고 BitLocker 복구 정보가 AD DS에 성공적으로 백업될 때까지 사용자가 BitLocker를 사용하지 못하도록 하려면 "이동식 데이터 드라이브에 대한 복구 정보가 AD DS에 저장될 때까지 BitLocker 사용 안 함" 확인란을 선택합니다.
 
@@ -195,7 +188,6 @@ TPM이 없는 컴퓨터에서 BitLocker를 사용하려면 "호환되는 TPM 없
 이 정책 설정을 사용하면 사용자가 BitLocker로 보호되는 이동식 데이터 드라이브에서 데이터를 복구하는 데 사용할 수 있는 방법을 제어할 수 있습니다.
 
 이 정책 설정을 사용하지 않거나 구성하지 않으면 BitLocker 복구에 대해 기본 복구 옵션이 지원됩니다. 기본적으로 DRA가 허용되고, 사용자가 복구 암호 및 복구 키를 포함하여 복구 옵션을 지정할 수 있으며, 복구 정보가 AD DS에 백업되지 않습니다.
-      
       </string>
       <string id="RDVRecoveryPasswordUsageDropDown_Require">48자리 복구 암호 요구</string>
       <string id="RDVRecoveryPasswordUsageDropDown_Allow">48자리 복구 암호 허용</string>
@@ -286,7 +278,7 @@ BitLocker를 사용하도록 설정하기 전에 이 정책 설정을 사용하�
 
       <string id="PlatformValidation_UEFI_Help">이 정책 설정으로 컴퓨터의 TPM(신뢰할 수 있는 플랫폼 모듈) 보안 하드웨어로 BitLocker 암호화 키의 보안을 유지하는 방법을 구성할 수 있습니다. 컴퓨터에 호환되는 TPM이 없거나 이미 BitLocker가 TPM 보호 기능과 함께 설정된 경우에는 이 정책 설정이 적용되지 않습니다.
 
-중요:이 그룹 정책은 기본 UEFI 펌웨어 구성을 사용하는 컴퓨터에만 적용됩니다. CSM(호환성 서비스 모듈)을 지원하는 UEFI 펌웨어 또는 BIOS를 사용하는 컴퓨터는 PCR(플랫폼 구성 레지스터)에 다른 값을 저장 합니다. "BIOS 기반 펌웨어 구성에 대한 TPM 플랫폼 유효성 검사 프로필 구성" 그룹 정책 설정을 사용하여 BIOS 구성을 사용하는 컴퓨터나 CSM을 지원하는 UEFI 펌웨어를 사용하는 컴퓨터에 대한 TPM PCR 프로필을 구성할 수 있습니다.
+중요: 이 그룹 정책은 기본 UEFI 펌웨어 구성을 사용하는 컴퓨터에만 적용됩니다. CSM(호환성 서비스 모듈)을 지원하는 UEFI 펌웨어 또는 BIOS를 사용하는 컴퓨터는 PCR(플랫폼 구성 레지스터)에 다른 값을 저장합니다. "BIOS 기반 펌웨어 구성에 대한 TPM 플랫폼 유효성 검사 프로필 구성" 그룹 정책 설정을 사용하여 BIOS 구성을 사용하는 컴퓨터나 CSM을 지원하는 UEFI 펌웨어를 사용하는 컴퓨터에 대한 TPM PCR 프로필을 구성할 수 있습니다.
 
 BitLocker를 사용하도록 설정하기 전에 이 정책 설정을 사용하면 BitLocker로 암호화된 운영 체제 드라이브에 대한 액세스를 잠금 해제하기 전에 TPM에서 검사할 부팅 구성 요소를 구성할 수 있습니다. BitLocker 보호가 적용되는 동안 이러한 구성 요소가 변경될 경우 TPM은 암호화 키를 해제하여 드라이브의 잠금을 해제하지 않으며, 대신 컴퓨터에서 BitLocker 복구 콘솔을 표시하고 드라이브의 잠금을 해제하려면 복구 암호나 복구 키를 입력하라고 요구합니다.
 
@@ -296,7 +288,7 @@ BitLocker를 사용하도록 설정하기 전에 이 정책 설정을 사용하�
 
 보안 부트 상태(PCR 7) 지원을 사용할 수 있는 경우 기본 플랫폼 유효성 검사 프로필은 보안 부트 상태(PCR 7) 및 BitLocker 액세스 제어(PCR 11)를 사용하여 암호화 키를 보호합니다. 
 
-경고: 기본 플랫폼 유효성 검사 프로필을 변경하면 컴퓨터의 보안과 관리 효율에 영향을 줍니다. 악의적이거나 허가된 플랫폼 수정에 대한 BitLocker의 민감도는 PCR의 포함 여부에 따라 증가하거나 감소합니다. 특히 PCR 7을 생략한 상태로 이 정책을 설정하면 "무결성 확인 시 보안 부팅 허용" 그룹 정책이 다시 정의되어 BitLocker에서 플랫폼 또는 BCD(부팅 구성 데이터) 무결성 확인 시 보안 부팅을 사용할 수 없습니다. 이 정책을 설정하면 펌웨어를 업데이트할 때 BitLocker 복구가 발생할 수 있습니다. PCR 0을 포함하도록 이 정책을 설정하면 펌웨어 업데이트를 적용하기 전에 BitLocker를 일시 중단하십시오.
+경고: 기본 플랫폼 유효성 검사 프로필을 변경하면 컴퓨터의 보안과 관리 효율에 영향을 줍니다. 악의적이거나 허가된 플랫폼 수정에 대한 BitLocker의 민감도는 PCR의 포함 여부에 따라 증가하거나 감소합니다. 특히 PCR 7을 생략한 상태로 이 정책을 설정하면 "무결성 확인 시 보안 부팅 허용" 그룹 정책이 다시 정의되어 BitLocker에서 플랫폼 또는 BCD(부팅 구성 데이터) 무결성 확인 시 보안 부팅을 사용할 수 없습니다. 이 정책을 설정하면 펌웨어를 업데이트할 때 BitLocker 복구가 발생할 수 있습니다. PCR 0을 포함하도록 이 정책을 설정하는 경우 펌웨어 업데이트를 적용하기 전에 BitLocker를 일시 중단하세요.
 
 각 PC의 사용 가능한 하드웨어를 기반으로 보안 및 유용성의 조합이 최상인 PCR 프로필을 Windows에서 선택할 수 있게 하려면 이 정책을 구성하지 않는 것이 좋습니다.
       </string>
@@ -320,6 +312,18 @@ BitLocker를 사용하도록 설정하기 전에 이 정책 설정을 사용하�
 
       </string>
       <string id="DisableExternalDMAUnderLock_Name">이 컴퓨터가 잠긴 경우 새 DMA 장치 사용 중지</string>
+
+      <string id="DisableWinRETrust_Help">이 정책 설정은 BitLocker가 Windows 복구 환경(WinRE)을 신뢰하는지 여부를 제어합니다.
+
+BitLocker가 WinRE를 신뢰하면 WinRE는 BitLocker 복구 키 없이 BitLocker로 보호된 운영 체제 볼륨에 액세스할 수 있습니다. 운영 체제 볼륨에 대한 액세스가 필요한 복구 작업을 지원합니다.
+
+중요: 이 정책을 활성화하면 복구 동작이 변경됩니다. 이 정책 설정을 활성화하면 BitLocker가 WinRE를 신뢰하지 않습니다. BitLocker로 보호된 운영 체제 볼륨에 액세스해야 하는 모든 WinRE 작업에는 BitLocker 복구 키가 필요합니다. WinRE 액세스를 통해 운영 체제 볼륨에 액세스하는 복구 작업의 경우 사용자 또는 관리자의 개입이 필요할 수 있으며, 시작 복구, 빠른 컴퓨터 복구, 단추를 통한 복구, RemoteWipe CSP를 사용한 MDM 시작 원격 재설정 또는 초기화를 포함하여 자동으로 완료되지 않을 수 있습니다.
+
+이 정책 설정을 사용하지 않도록 설정하거나 구성하지 않으면 BitLocker가 유효성이 검사된 WinRE 이미지를 신뢰하므로 복구 키가 필요할 때 WinRE가 BitLocker로 보호된 운영 체제 볼륨에 액세스할 수 있습니다.
+
+이 정책 설정은 BitLocker 또는 장치 암호화가 활성화된 경우에만 적용됩니다.</string>
+
+      <string id="DisableWinRETrust_Name">WinRE(Windows 복구 환경)의 BitLocker 신뢰 비활성화</string>
 
       <string id="FVEOSCategory">운영 체제 드라이브</string>
       <string id="FVEFDVCategory">고정 데이터 드라이브</string>
@@ -371,10 +375,9 @@ BitLocker로 보호되는 드라이브가 BitLocker를 사용하는 다른 컴�
 
 이 정책 설정을 구성하지 않으면 컴퓨터에서 기본 Windows BCD 설정을 확인합니다. 
 
-참고: BitLocker에서 "무결성 확인 시 보안 부팅 허용" 그룹 정책에 정의된 대로 플랫폼 및 BCD(부팅 구성 데이터) 무결성 확인 시 보안 부팅을 사용하는 경우 확장된 부팅 구성 데이터 유효성 검사 프로필 사용" 그룹 정책이 무시됩니다.
+참고: BitLocker에서 "무결성 확인 시 보안 부팅 허용" 그룹 정책에 정의된 대로 플랫폼 및 BCD(부팅 구성 데이터) 무결성 확인 시 보안 부팅을 사용하는 경우 확장된 부팅 구성 데이터 유효성 검사 프로필 사용 그룹 정책이 무시됩니다.
 
 부트 디버깅(0x16000010)을 제어하는 설정이 항상 확인되며 제공된 필드에 포함된 경우 아무런 영향을 주지 않습니다.
-      
       </string>
 
       <string id="OSActiveDirectoryBackupDropDown_1">복구 암호 및 키 패키지 저장</string>
@@ -717,8 +720,7 @@ PIN 또는 암호 등 추가 정보를 입력해야만 BitLocker를 사용할 �
 
 참고: 그룹 정책 설정인 "기본 UEFI 펌웨어 구성에 대한 TPM 플랫폼 유효성 검사 프로필 구성"을 사용하고 PCR 7을 생략하는 경우에는 BitLocker에서 플랫폼 또는 BCD(부팅 구성 데이터) 무결성 확인 시 보안 부팅을 사용할 수 없습니다.
 
-이 정책을 사용하지 않으면 펌웨어를 업데이트할 때 BitLocker 복구가 발생할 수 있습니다. 이 정책을 사용하지 않으면 펌웨어 업데이트를 적용하기 전에 BitLocker를 일시 중단하십시오.
-    
+이 정책을 사용하지 않으면 펌웨어를 업데이트할 때 BitLocker 복구가 발생할 수 있습니다. 이 정책을 사용하지 않으면 펌웨어 업데이트를 적용하기 전에 BitLocker를 일시 중단하세요.
       </string>
       <string id="SUPPORTED_Windows8NoARM">Windows Server 2012 또는 Windows 8 이상</string>  
       <string id="SUPPORTED_Windows_6_3ToVista">Windows Server 2012 R2, Windows 8.1, Windows Server 2012, Windows 8, Windows Server 2008, Windows 7 및 Windows Vista</string>

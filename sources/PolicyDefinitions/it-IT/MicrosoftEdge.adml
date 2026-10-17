@@ -129,6 +129,12 @@ Se non si configura questa impostazione, i dipendenti possono scegliere se usare
 Se abilitato, la stampa è consentita.
 
 Se disabilitato, la stampa non è consentita.</string>
+      <string id="AllowMixedModePrintingInPdf">Per i file PDF che abbiano sia pagine in orizzontale che pagine in verticale, stampa ognuna di esse con l'orientamento corretto.</string>
+      <string id="AllowMixedModePrintingInPdf_Explain">Con questi criteri, puoi stampare i file PDF in base all'orientamento per pagina in Microsoft Edge.
+
+Se abilitati, la stampa in modalità mista è consentita.
+
+Se disabilitati, la stampa in modalità mista non è consentita.</string>
       <string id="AllowSavingHistory">Consenti il salvataggio della cronologia</string>
       <string id="AllowSavingHistory_Explain">Microsoft Edge salva la cronologia di esplorazione dell'utente che si compone delle informazioni sui siti Web che visita sui dispositivi.
 
@@ -491,7 +497,7 @@ Se impedisci il pre-avvio, Microsoft Edge non esegue il pre-avvio durante l'acce
       <string id="AllowPrelaunchDropdown_AllowPrelaunch">Consenti il pre-avvio</string>
       <string id="AllowPrelaunchDropdown_PreventPrelaunch">Impedisci il pre-avvio</string>
 
-      <string id="ConfigureKioskMode">Configura modalità tutto schermo</string>
+      <string id="ConfigureKioskMode">Configura modalità chiosco</string>
       <string id="ConfigureKioskMode_Explain">Configura il comportamento di Microsoft Edge quando è in esecuzione in modalità tutto schermo con accesso assegnato, sia come singola app sia come una di più app in esecuzione sul dispositivo chiosco multimediale. Puoi controllare se Microsoft Edge esegue InPrivate a schermo intero, multi-scheda InPrivate con funzionalità limitata o Microsoft Edge normale.
 
 Devi configurare Microsoft Edge nell'accesso assegnato affinché questo criterio sia effettivo; in caso contrario, queste impostazioni vengono ignorate. Per saperne di più sull'accesso assegnato e sulla configurazione della modalità tutto schermo, vedi "Configurare i dispositivi chiosco multimediale e condivisi che eseguono le edizioni desktop di Windows" (https://aka.ms/E489vw).
@@ -502,7 +508,7 @@ Se abilitato e impostato su 0 (predefinito o non configurato):
 Se abilitato e impostato su 1:
 - Se si tratta di una singola app, esegue una versione multi-scheda limitata di InPrivate ed è l'unica app disponibile per la navigazione pubblica. Gli utenti non possono ridurre a icona, chiudere o aprire Windows o personalizzare Microsoft Edge, ma possono cancellare i dati di navigazione e i download e riavviare facendo clic su "Termina sessione". Puoi configurare Microsoft Edge per il riavvio dopo un periodo di inattività utilizzando il criterio "Configura ripristino chiosco multimediale dopo timeout per inattività".
 - Se è una di più app, viene eseguito in una versione multi-scheda limitata di InPrivate per la navigazione pubblica con altre app. Gli utenti possono ridurre a icona, chiudere e aprire più finestre InPrivate, ma non possono personalizzare Microsoft Edge.</string>
-      <string id="ConfigureKioskResetAfterIdleTimeout">Configura ripristino chiosco multimediale dopo timeout per inattività</string>
+      <string id="ConfigureKioskResetAfterIdleTimeout">Configura ripristino chiosco dopo timeout per inattività</string>
       <string id="ConfigureKioskResetAfterIdleTimeout_Explain">Puoi configurare Microsoft Edge per ripristinare l'esperienza di avvio configurata dopo un determinato periodo di inattività. Il timer di ripristino inizia dopo l'ultima interazione dell'utente. Il ripristino dell'esperienza di avvio configurata elimina i dati di navigazione dell'utente corrente.
 
 Se abilitato, puoi impostare il tempo di inattività in minuti (0-1440). È necessario impostare il criterio Configura modalità tutto schermo su 1 e configurare Microsoft Edge nell'accesso assegnato come app singola per il funzionamento di questo criterio. Una volta che il tempo di inattività corrisponde al tempo specificato, un messaggio di conferma richiede all'utente di continuare e, in caso contrario, Microsoft Edge viene ripristinato dopo 30 secondi.
@@ -512,9 +518,14 @@ Se imposti questo criterio su 0, Microsoft Edge non utilizza un timer di inattiv
 Se disabilitato o non configurato, il valore predefinito è 5 minuti.
 
 Se non configuri Microsoft Edge nell'accesso assegnato, questo criterio non ha effetto.</string>
-    </stringTable>
+      <string id="SuppressEdgeDeprecationNotification">Disabilita la visualizzazione della notifica sulla deprecazione di Microsoft Edge</string>
+      <string id="SuppressEdgeDeprecationNotification_Explain">Puoi configurare Microsoft Edge per disabilitare la visualizzazione della notifica che informa gli utenti della fine del supporto il 9 marzo 2021 di questa versione di Microsoft Edge. Se abiliti l’opzione, la notifica non verrà visualizzata.
 
+Se disabiliti o non configuri l’opzione, la notifica verrà visualizzata ogni volta che avvii Microsoft Edge. </string>
+
+    </stringTable>
     <!-- Presentation -->
+    
     <presentationTable>
       <presentation id="ConfiguredFavorites_Presentation">
         <textBox refId="ConfiguredFavoritesPrompt">

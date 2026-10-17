@@ -9,18 +9,18 @@
       <string id="UserInControl">由用户控制</string>
       <string id="ForceAllow">强制允许</string>
       <string id="ForceDeny">强制拒绝</string>
-      <string id="LetAppsAccessAccountInfo_Name">允许 Windows 应用访问帐户信息</string>
-      <string id="LetAppsAccessAccountInfo_Explain">此策略设置指定 Windows 应用是否能够访问帐户信息。
+      <string id="LetAppsAccessAccountInfo_Name">允许 Windows 应用访问账户信息</string>
+      <string id="LetAppsAccessAccountInfo_Explain">此策略设置指定 Windows 应用是否能够访问账户信息。
 
 你可以为所有应用指定默认设置，也可以通过指定程序包系列名称按应用设置。可以通过使用 Get-AppPackage Windows PowerShell cmdlet 来获取应用的程序包系列名称。按应用设置将覆盖默认设置。
 
-如果你选择“由用户控制”选项，则你组织中的员工可以在设备上使用“设置”&gt;“隐私”来决定是否允许 Windows 应用访问帐户信息。
+如果你选择“由用户控制”选项，则你组织中的员工可以在设备上使用“设置”&gt;“隐私”来决定是否允许 Windows 应用访问账户信息。
 
-如果你选择“强制允许”选项，则将允许 Windows 应用访问帐户信息，并且你组织中的员工将无法更改此设置。
+如果你选择“强制允许”选项，则将允许 Windows 应用访问账户信息，并且你组织中的员工将无法更改此设置。
 
-如果你选择“强制拒绝”选项，则不允许 Windows 应用访问帐户信息，并且你组织中的员工将无法更改此设置。
+如果你选择“强制拒绝”选项，则不允许 Windows 应用访问账户信息，并且你组织中的员工将无法更改此设置。
 
-如果禁用或未配置此策略设置，你组织中的员工可以在设备上使用“设置”&gt;“隐私”来决定是否允许 Windows 应用访问帐户信息。
+如果禁用或未配置此策略设置，你组织中的员工可以在设备上使用“设置”&gt;“隐私”来决定是否允许 Windows 应用访问账户信息。
 
 如果在设备上应用此组策略对象时某个应用处于打开状态，则员工必须重新启动该应用或设备才能将策略更改应用到该应用。
       </string>
@@ -99,6 +99,67 @@
 
 如果在设备上应用此组策略对象时某个应用处于打开状态，则员工必须重新启动该应用或设备才能将策略更改应用到该应用。
       </string>
+      <string id="LetAppsAccessSystemAIModels_Name">允许 Windows 应用使用 Windows 的文本和图像生成功能</string>
+      <string id="LetAppsAccessSystemAIModels_Explain">
+此策略设置指定 Windows 应用是否可以使用 Windows 的文本和图像生成功能。
+
+可以指定所有应用的默认设置，也可通过指定包系列名称来指定每应用设置。可以通过使用 Get-AppPackage Windows PowerShell cmdlet 来获取应用的包系列名称。每应用设置会替代默认设置。
+
+如果选择“用户正在控制”选项，则组织中的员工可以通过在设备上使用“设置”&gt;“隐私”来决定 Windows 应用是否可以使用文本和图像生成。
+
+如果选择“强制允许”选项，则 Windows 应用可以使用 Windows 的文本和图像生成功能，并且组织中的员工无法更改此设置。
+
+如果选择“强制拒绝”选项，则 Windows 应用无法使用 Windows 的文本和图像生成功能，并且组织中的员工无法更改此设置。
+
+如果禁用或不配置此策略设置，则组织中的员工可以通过在设备上使用“设置”&gt;“隐私”来确定 Windows 应用是否可以使用 Windows 的文本和图像生成功能。
+
+如果在设备上应用此组策略对象时，某个应用处于打开状态，则员工必须重启该应用或设备，才能将策略更改应用到该应用。
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Name">允许 Windows 应用拍摄各种窗口或显示的屏幕截图</string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Explain">此策略设置指定 Windows 应用是否能够拍摄各种窗口或显示的屏幕截图。
+
+你可以为所有应用指定默认设置，也可以通过指定程序包系列名称按应用设置。可以通过使用 Get-AppPackage Windows PowerShell cmdlet 来获取应用的程序包系列名称。按应用设置将覆盖默认设置。
+
+如果你选择“由用户控制”选项，则你组织中的员工可以在设备上使用“设置”&gt;“隐私”来决定 Windows 应用是否能够拍摄各种窗口或显示的屏幕截图。
+
+如果你选择“强制允许”选项，则将允许 Windows 应用拍摄各种窗口或显示的屏幕截图，并且你组织中的员工无法更改此项设置。
+
+如果你选择“强制拒绝”选项，则不允许 Windows 应用拍摄各种窗口或显示的屏幕截图，并且你组织中的员工无法更改此项设置。
+
+如果禁用或未配置此策略设置，你组织中的员工可以在设备上使用“设置”&gt;“隐私”来决定 Windows 应用是否能够拍摄各种窗口或显示的屏幕截图。
+
+如果在设备上应用此组策略对象时某个应用处于打开状态，则员工必须重新启动该应用或设备才能将策略更改应用到该应用。
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Name">允许 Windows 应用关闭屏幕截图边框</string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Explain">此策略设置指定 Windows 应用是否能够关闭屏幕截图边框。
+
+你可以为所有应用指定默认设置，也可以通过指定程序包系列名称按应用设置。可以通过使用 Get-AppPackage Windows PowerShell cmdlet 来获取应用的程序包系列名称。按应用设置将覆盖默认设置。
+
+如果你选择“由用户控制”选项，则你组织中的员工可以在设备上使用“设置”&gt;“隐私”来决定 Windows 应用是否能够关闭屏幕截图边框。
+
+如果你选择“强制允许”选项，则将允许 Windows 应用访问日历关闭屏幕截图边框，并且你组织中的员工无法更改此项设置。
+
+如果你选择“强制拒绝”选项，则不允许 Windows 应用关闭屏幕截图边框，并且你组织中的员工无法更改此项设置。
+
+如果禁用或未配置此策略设置，你组织中的员工可以在设备上使用“设置”&gt;“隐私”来决定 Windows 应用是否能够关闭屏幕截图边框。
+
+如果在设备上应用此组策略对象时某个应用处于打开状态，则员工必须重新启动该应用或设备才能将策略更改应用到该应用。
+      </string>
+      <string id="LetAppsAccessHumanPresence_Name">允许 Windows 应用访问状态感应</string>
+      <string id="LetAppsAccessHumanPresence_Explain">此策略设置指定 Windows 应用是否能够访问存在感测。
+
+你可以为所有应用指定默认设置，也可以通过指定程序包系列名称按应用设置。可以通过使用 Get-AppPackage Windows PowerShell cmdlet 来获取应用的程序包系列名称。按应用设置将覆盖默认设置。
+
+如果你选择“由用户控制”选项，则你组织中的员工可以在设备上使用“设置”&gt;“隐私”来决定是否允许 Windows 应用访问存在感测。
+
+如果你选择“强制允许”选项，则将允许 Windows 应用访问存在感测，并且你组织中的员工无法更改此项设置。
+
+如果你选择“强制拒绝”选项，则不允许 Windows 应用访问存在感测，并且你组织中的员工无法更改此项设置。
+
+如果禁用或未配置此策略设置，你组织中的员工可以在设备上使用“设置”&gt;“隐私”来决定是否允许 Windows 应用访问存在感测。
+
+如果在设备上应用此组策略对象时某个应用处于打开状态，则员工必须重新启动该应用或设备才能将策略更改应用到该应用。
+      </string>
       <string id="LetAppsAccessLocation_Name">允许 Windows 应用访问位置</string>
       <string id="LetAppsAccessLocation_Explain">此策略设置指定 Windows 应用是否能够访问位置。
 
@@ -173,6 +234,36 @@
 如果禁用或未配置此策略设置，则你组织中的员工可以在设备上使用“设置”&gt;“隐私”来决定是否允许 Windows 应用访问通知。
 
 如果在设备上应用此组策略对象时某个应用处于打开状态，则员工必须重新启动该应用或设备才能将策略更改应用到该应用。
+      </string>
+      <string id="LetAppsAccessPasskeys_Name">允许 Windows 应用访问密钥</string>
+      <string id="LetAppsAccessPasskeys_Explain">此策略设置指定应用是否可访问密钥。
+
+可以指定所有应用的默认设置，也可以通过指定包系列名称来指定每应用设置。可以通过使用 Get-AppPackage Windows PowerShell cmdlet 来获取应用的包系列名称。每应用设置会替代默认设置。
+
+如果你选择“由用户控制”选项，你组织中的员工可在设备上使用“设置”&gt;“隐私”来决定应用是否可访问密钥。
+
+如果你选择“强制允许”选项，则将允许应用访问密钥，并且你组织中的员工无法更改此设置。
+
+如果你选择“强制拒绝”选项，则禁止应用访问密钥，并且你组织中的员工无法更改此设置。
+
+如果禁用或未配置此策略设置，你组织中的员工可以在设备上使用“设置”&gt;“隐私”来决定应用是否可访问密钥。
+
+在设备上应用此组策略对象时，如果某个应用处于打开状态，则员工必须重启该应用或设备，才能将策略更改应用到该应用。
+      </string>
+      <string id="LetAppsAccessPasskeysEnumeration_Name">允许 Windows 应用自动填充密钥</string>
+      <string id="LetAppsAccessPasskeysEnumeration_Explain">此策略设置指定应用是否可自动填充密钥。
+
+可以指定所有应用的默认设置，也可以通过指定包系列名称来指定每应用设置。可以通过使用 Get-AppPackage Windows PowerShell cmdlet 来获取应用的包系列名称。每应用设置会替代默认设置。
+
+如果你选择“由用户控制”选项，你组织中的员工可在设备上使用“设置”&gt;“隐私”来决定应用是否可自动填充密钥。
+
+如果你选择“强制允许”选项，则将允许应用自动填充密钥，并且你组织中的员工无法更改此设置。
+
+如果你选择“强制拒绝”选项，则禁止自动填充密钥，并且你组织中的员工无法更改此设置。
+
+如果禁用或未配置此策略设置，你组织中的员工可以在设备上使用“设置”&gt;“隐私”来决定应用是否可自动填充密钥。
+
+在设备上应用此组策略对象时，如果某个应用处于打开状态，则员工必须重启该应用或设备，才能将策略更改应用到该应用。
       </string>
       <string id="LetAppsAccessPhone_Name">允许 Windows 应用打电话</string>
       <string id="LetAppsAccessPhone_Explain">此策略设置指定 Windows 应用是否能够打电话。
@@ -321,6 +412,35 @@
 
 此策略已应用于 Windows 应用和 Cortana。它优先于“允许在锁屏界面上方使用 Cortana”策略。仅当“允许语音激活”策略配置为允许通过语音激活应用程序时，此策略才适用。
       </string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Name">允许 Windows 应用在后台运行时访问用户移动</string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Explain">此策略设置指定 Windows 应用是否可以在后台运行时访问用户的头、双手、运动控制器和其他跟踪对象的移动。
+
+你可以为所有应用指定默认设置，也可以通过指定程序包系列名称为每个应用进行设置。可以使用 Get-AppPackage Windows PowerShell cmdlet 来获取应用的程序包系列名称。按应用设置将覆盖默认设置。
+
+如果选择“由用户控制”选项，则组织中的员工可以使用设备上的“设置”&gt;“隐私”来决定是否允许 Windows 应用在后台运行时访问用户移动。
+
+如果选择“强制允许”选项，则将允许 Windows 应用在后台运行应用访问用户移动，并且组织中的员工无法更改此设置。
+
+如果选择“强制拒绝”选项，则将禁止 Windows 应用在后台运行应用时访问用户移动，并且组织中的员工无法更改此设置。
+
+如果禁用或未配置此策略设置，组织中的员工可以使用设备上的“设置”&gt;“隐私”来决定是否允许 Windows 应用在后台运行时访问用户移动。
+
+如果在设备上应用此组策略对象时某个应用处于打开状态，则员工必须重启该应用或设备才能将策略更改应用到该应用。
+      </string>
+      <string id="LetAppsAccessForegroundText_Name">允许 Windows 应用访问前台应用程序中的文本内容</string>
+      <string id="LetAppsAccessForegroundText_Explain">此策略设置指定 Windows 应用是否可访问前台应用程序的文本内容。
+可以指定所有应用的默认设置，也可以通过指定包系列名称来指定每应用设置。可以通过使用 Get-AppPackage Windows PowerShell cmdlet 来获取应用的包系列名称。每应用设置会替代默认设置。
+
+如果选择“由用户控制”选项，则你组织中的员工可在设备上使用“设置”&gt;“隐私”来决定是否允许 Windows 应用访问前台应用程序的文本内容。
+
+如果选择“强制允许”选项，则将允许 Windows 应用访问前台应用程序的文本内容，并且你组织中的员工无法更改此设置。
+
+如果选择“强制拒绝”选项，则不允许 Windows 应用访问前台应用程序的文本内容，并且你组织中的员工无法更改此设置。
+
+如果禁用或未配置此策略设置，你组织中的员工可在设备上使用“设置”&gt;“隐私”来决定是否允许 Windows 应用访问前台应用程序的文本内容。
+
+在设备上应用此组策略对象时，如果某个应用处于打开状态，则员工必须重启该应用或设备，才能将策略更改应用到该应用。
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LetAppsAccessCalendar">
@@ -376,6 +496,42 @@
         <multiTextBox refId="LetAppsAccessEmail_ForceAllowTheseApps_List"/>
         <text>强制拒绝这些特定应用(使用程序包系列名称):</text>
         <multiTextBox refId="LetAppsAccessEmail_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessSystemAIModels">
+        <dropdownList refId="LetAppsAccessSystemAIModels_Enum" noSort="true" defaultItem="0">所有应用的默认设置:</dropdownList>
+        <text>由用户控制这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_UserInControlOfTheseApps_List"/>
+        <text>强制允许这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceAllowTheseApps_List"/>
+        <text>强制拒绝这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureProgrammatic">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureProgrammatic_Enum" noSort="true" defaultItem="0">所有应用的默认设置:</dropdownList>
+        <text>由用户控制这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_UserInControlOfTheseApps_List"/>
+        <text>强制允许这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceAllowTheseApps_List"/>
+        <text>强制拒绝这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureWithoutBorder">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureWithoutBorder_Enum" noSort="true" defaultItem="0">所有应用的默认设置:</dropdownList>
+        <text>由用户控制这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_UserInControlOfTheseApps_List"/>
+        <text>强制允许这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceAllowTheseApps_List"/>
+        <text>强制拒绝这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessHumanPresence">
+        <dropdownList refId="LetAppsAccessHumanPresence_Enum" noSort="true" defaultItem="0">所有应用的默认设置:</dropdownList>
+        <text>由用户控制这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_UserInControlOfTheseApps_List"/>
+        <text>强制允许这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceAllowTheseApps_List"/>
+        <text>强制拒绝这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessLocation">
         <dropdownList refId="LetAppsAccessLocation_Enum" noSort="true" defaultItem="0">所有应用的默认设置:</dropdownList>
@@ -453,9 +609,9 @@
         <dropdownList refId="LetAppsAccessTasks_Enum" noSort="true" defaultItem="0">所有应用的默认设置:</dropdownList>
         <text>由用户控制这些特定应用(使用程序包系列名称):</text>
         <multiTextBox refId="LetAppsAccessTasks_UserInControlOfTheseApps_List"/>
-        <text>强制允许这些特定应用(使用程序包系列名称):</text>
+        <text>强制允许这些特定应用(使用包系列名称):</text>
         <multiTextBox refId="LetAppsAccessTasks_ForceAllowTheseApps_List"/>
-        <text>强制拒绝这些特定应用(使用程序包系列名称):</text>
+        <text>强制拒绝这些特定应用(使用包系列名称):</text>
         <multiTextBox refId="LetAppsAccessTasks_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessTrustedDevices">
@@ -489,9 +645,9 @@
         <dropdownList refId="LetAppsAccessGazeInput_Enum" noSort="true" defaultItem="0">所有应用的默认设置:</dropdownList>
         <text>由用户控制这些特定应用(使用程序包系列名称):</text>
         <multiTextBox refId="LetAppsAccessGazeInput_UserInControlOfTheseApps_List"/>
-        <text>强制允许这些特定应用(使用包系列名称):</text>
+        <text>强制允许这些特定应用(使用程序包系列名称):</text>
         <multiTextBox refId="LetAppsAccessGazeInput_ForceAllowTheseApps_List"/>
-        <text>强制拒绝这些特定应用(使用包系列名称):</text>
+        <text>强制拒绝这些特定应用(使用程序包系列名称):</text>
         <multiTextBox refId="LetAppsAccessGazeInput_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsActivateWithVoice">
@@ -499,6 +655,42 @@
       </presentation>
       <presentation id="LetAppsActivateWithVoiceAboveLock">
         <dropdownList refId="LetAppsActivateWithVoiceAboveLock_Enum" noSort="true" defaultItem="0">所有应用的默认设置:</dropdownList>
+      </presentation>
+      <presentation id="LetAppsAccessBackgroundSpatialPerception">
+        <dropdownList refId="LetAppsAccessBackgroundSpatialPerception_Enum" noSort="true" defaultItem="0">所有应用的默认设置:</dropdownList>
+        <text>由用户控制这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_UserInControlOfTheseApps_List"/>
+        <text>强制允许这些特定应用(使用包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps_List"/>
+        <text>强制拒绝这些特定应用(使用包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessForegroundText">
+        <dropdownList refId="LetAppsAccessForegroundText_Enum" noSort="true" defaultItem="0">所有应用的默认设置:</dropdownList>
+        <text>由用户控制这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_UserInControlOfTheseApps_List"/>
+        <text>强制允许这些特定应用(使用包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceAllowTheseApps_List"/>
+        <text>强制拒绝这些特定应用(使用包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeys">
+        <dropdownList refId="LetAppsAccessPasskeys_Enum" noSort="true" defaultItem="0">所有应用的默认设置:</dropdownList>
+        <text>由用户控制这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_UserInControlOfTheseApps_List"/>
+        <text>强制允许这些特定应用(使用包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceAllowTheseApps_List"/>
+        <text>强制拒绝这些特定应用(使用包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeysEnumeration">
+        <dropdownList refId="LetAppsAccessPasskeysEnumeration_Enum" noSort="true" defaultItem="0">所有应用的默认设置:</dropdownList>
+        <text>由用户控制这些特定应用(使用程序包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_UserInControlOfTheseApps_List"/>
+        <text>强制允许这些特定应用(使用包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceAllowTheseApps_List"/>
+        <text>强制拒绝这些特定应用(使用包系列名称):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceDenyTheseApps_List"/>
       </presentation>
     </presentationTable>
   </resources>

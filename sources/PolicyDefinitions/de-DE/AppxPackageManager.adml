@@ -2,38 +2,47 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>AppX-Paket-Manager</displayName> 
-  <description>AppX-Paket-Manager</description>
+  <displayName>Appx Package Manager</displayName>
+  <description>Appx Package Manager</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">Bereitstellung von App-Paketen</string>
       <string id="AppxDeploymentAllowAllTrustedApps">Installation aller vertrauenswürdigen Apps zulassen</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Mit dieser Richtlinieneinstellung können Sie die Installation vertrauenswürdiger Windows Store-Branchen-Apps oder vom Entwickler signierter Windows Store-Apps verwalten.
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Mit dieser Richtlinieneinstellung können Sie die Installation von vertrauenswürdigen branchenspezifischen (LOB)- oder vom Entwickler signierten Microsoft Store Apps-Paketen verwalten.
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie alle Windows Store-Branchen-Apps oder vom Entwickler signierten Windows Store-Apps installieren. (Diese müssen mit einer Zertifikatkette signiert sein, die vom lokalen Computer erfolgreich überprüft werden kann.)
+Wenn Sie diese Richtlinieneinstellung aktivieren oder nicht konfigurieren, können Sie jede branchenspezifische oder vom Entwickler signierte, paketierte Microsoft Store-App installieren (die mit einer Zertifikatkette signiert sein muss, die vom lokalen Computer erfolgreich überprüft werden kann).
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Sie keine Windows Store-Branchen-Apps oder vom Entwickler signierten Windows Store-Apps installieren.</string>
+Wenn Sie diese Richtlinieneinstellung deaktivieren, können Sie LOB- oder vom Entwickler signierte, paketierte Microsoft Store-Apps nicht installieren.</string>
+      <string id="AllowAutomaticAppArchiving">Archivieren Sie selten verwendete Apps</string>
+      <string id="AllowAutomaticAppArchivingExplanation">Mit dieser Richtlinien Einstellung wird gesteuert, ob das System selten verwendete Apps archivieren kann.
+
+Wenn Sie diese Richtlinien Einstellung aktivieren, überprüft das System Regel mäßig nach selten verwendeten Apps.
+
+Wenn Sie diese Richtlinien Einstellung deaktivieren, werden keine Apps vom System archivieren.
+
+Wenn Sie diese Richtlinien Einstellung nicht konfigurieren (Standard), wird vom System das Standard Verhalten verwendet, in dem es sich um eine Regel mäßige über Prüfung der selten verwendeten Apps handelt, und der Benutzer kann diese Einstellung selbst konfigurieren.</string>
       <string id="AllowDeploymentInSpecialProfiles">Bereitstellungsvorgänge in speziellen Profilen zulassen</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">Mit dieser Richtlinieneinstellung können Sie die Bereitstellung von Windows Store-Apps verwalten, wenn der Benutzer mit einem speziellen Profil angemeldet ist. Zu speziellen Profilen zählen folgende Benutzerprofile, bei denen Änderungen nach dem Abmelden des Benutzers verworfen werden:
+      <string id="AllowDeploymentInSpecialProfilesExplanation">Mit dieser Richtlinieneinstellung können Sie die Bereitstellung von gepackten Microsoft Store-Anwendungen verwalten, wenn der Benutzer mit einem speziellen Profil angemeldet ist. Spezielle Profile sind die folgenden Benutzerprofile, bei denen die Änderungen nach der Abmeldung des Benutzers verworfen werden:
 
-Roamingbenutzerprofile, für die die Gruppenrichtlinieneinstellung "Zwischengespeicherte Kopien von Roamingprofilen löschen" gilt
+Roaming-Benutzerprofile, für die die Gruppenrichtlinieneinstellung „Zwischengespeicherte Kopien von Roaming-Profilen löschen“ gilt
 
-Von einem Administrator erstellte verbindliche Benutzerprofile und superverbindliche Profile
+ Obligatorische Benutzerprofile und super-obligatorische Profile, die von einem Administrator erstellt werden
 
-Temporäre Benutzerprofile, die erstellt werden, wenn das richtige Profil aufgrund eines Fehlers nicht geladen werden kann
+ Temporäre Benutzerprofile, die erstellt werden, wenn ein Fehler das Laden des richtigen Profils verhindert
 
-Benutzerprofile für das Gastkonto und Mitglieder der Gästegruppe
+ Benutzerprofile für das Gastkonto und Mitglieder der Gruppe „Gäste“
 
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, lässt die Gruppenrichtlinie bei Verwendung eines speziellen Profils Bereitstellungsvorgänge (Hinzufügen, Registrieren, Bereitstellen, Aktualisieren oder Entfernen eines App-Pakets) für Windows Store-Apps zu.
+ Wenn Sie diese Richtlinieneinstellung aktivieren, erlaubt die Gruppenrichtlinie Bereitstellungsvorgänge (Hinzufügen, Registrieren, Bereitstellen, Aktualisieren oder Entfernen eines App-Pakets) von gepackten Microsoft Store-Apps, wenn ein spezielles Profil verwendet wird.
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, verhindert die Gruppenrichtlinie bei Verwendung eines speziellen Profils Bereitstellungsvorgänge für Windows Store-Apps.</string>
-      <string id="AllowDevelopmentWithoutDevLicense">Ermöglicht die Entwicklung von Windows Store-Apps und deren Installation von einer integrierten Entwicklungsumgebung (IDE) aus.</string>
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, blockiert die Gruppenrichtlinie Bereitstellungsvorgänge für verpackte Microsoft Store-Apps, wenn ein spezielles Profil verwendet wird.</string>
+      <string id="AllowDevelopmentWithoutDevLicense">Ermöglicht die Entwicklung von gepackten Microsoft Store-Apps und deren Installation aus einer integrierten Entwicklungsumgebung (Integrated Development Environment, IDE).</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        Erlaubt oder verweigert die Entwicklung von Windows Store-Anwendungen und deren direkte Installation von einer IDE aus.
-        Wenn Sie diese Einstellung und die Gruppenrichtlinie "Installation aller vertrauenswürdigen Apps zulassen" aktivieren, können Sie Windows Store-Apps entwickeln und direkt von einer IDE aus installieren.
-        
-        Wenn Sie diese Einstellung deaktivieren oder nicht konfigurieren, können Sie keine Windows Store-Apps entwickeln oder direkt von einer IDE aus installieren.
+        Erlaubt oder verweigert die Entwicklung von Microsoft Store-Anwendungen und deren direkte Installation von einer IDE aus.
+
+        Wenn Sie diese Einstellung und die Gruppenrichtlinie "Installation aller vertrauenswürdigen Apps zulassen" aktivieren, können Sie Microsoft Store-Apps entwickeln und direkt von einer IDE aus installieren.
+
+        Wenn Sie diese Einstellung deaktivieren oder nicht konfigurieren, können Sie keine Microsoft Store-Apps entwickeln oder direkt von einer IDE aus installieren.
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">Installation von Windows-Apps auf Nicht-Systemvolumes deaktivieren</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -52,12 +61,150 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, ver
         Wenn Sie diese Einstellung deaktivieren oder nicht konfigurieren und eine App auf ein anderes Volume verschoben wird, werden die App-Daten der Benutzer ebenfalls auf dieses Volume verschoben.
       </string>
       <string id="AllowSharedLocalAppData">Windows-Apps die Freigabe von Anwendungsdaten zwischen Benutzern erlauben</string>
-      <string id="AllowSharedLocalAppDataExplanation">Verwaltet die Fähigkeit einer Windows-App, Daten zwischen Benutzern, die die App installiert haben, freizugeben.
-      
-        Wenn Sie diese Richtlinie aktivieren, kann eine Windows-App App-Daten für andere Instanzen der App freigeben. Die Daten werden über den Ordner "SharedLocal" freigegeben, der durch die Windows.Storage API verfügbar gemacht wird.
+      <string id="AllowSharedLocalAppDataExplanation">Verwaltet die Fähigkeit einer Windows-App, Daten zwischen Benutzern freizugeben, die die App installiert haben.
 
-        Wenn Sie diese Richtlinie deaktivieren, kann eine Windows-App keine App-Daten für andere Instanzen dieser App freigeben. Falls diese Richtlinie zuvor aktiviert war, verbleiben alle zuvor freigegebenen App-Daten im Ordner "SharedLocal". 
+        Wenn Sie diese Richtlinie aktivieren, kann eine Windows-App ihre Daten für andere Instanzen der App freigeben. Die Daten werden über den Ordner "SharedLocal" freigegeben, der durch die Windows.Storage-API verfügbar gemacht wird.
+
+        Wenn Sie diese Richtlinie deaktivieren, kann eine Windows-App keine App-Daten für andere Instanzen dieser App freigeben. Falls diese Richtlinie zuvor aktiviert war, verbleiben alle zuvor freigegebenen App-Daten im Ordner "SharedLocal".
       </string>
+      <string id="BlockNonAdminUserInstall">Verhindern, dass Benutzer ohne Administratorrechte verpackte Windows-Apps installieren</string>
+      <string id="BlockNonAdminUserInstallExplanation">Verwaltet für Benutzer ohne Administratorrechte die Möglichkeit, verpackte Windows-Apps zu installieren.
+
+        Wenn Sie diese Richtlinie aktivieren, können Benutzer ohne Administratorrechte die Installation von Windows-App-Paketen nicht initiieren. Administratoren, die eine App installieren möchten, müssen dies in einem Administratorkontext tun (z. B. in einem PowerShell-Fenster mit Administratorrechten). Alle Benutzer können weiterhin Windows-App-Pakete über den Microsoft Store installieren, sofern dies nach anderen Richtlinien zulässig ist.
+
+        Wenn Sie diese Richtlinie deaktivieren oder nicht konfigurieren, können alle Benutzer Windows-App-Pakete installieren.
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">Festlegen autorisierter Domänen für die HTTPS-Authentifizierung in der MSIX-Streaminginstallation</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">Diese Richtlinieneinstellung legt fest, ob ein EntraID-OAuth-Token in die HTTPS-Kommunikation mit einem angegebenen vollqualifizierten Domänennamen für die Durchführung einer MSIX-Streaminginstallation einbezogen wird.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, enthält die HTTPS-Kommunikation mit den vordefinierten vollqualifizierten Domänen das EntraID-OAuth-Token des Benutzers, wenn eine MSIX-Streaminginstallation ausgeführt wird. Der angegebene Wert ist ein regulärer Ausdruck (ECMA-Skript), der für die Übereinstimmung mit der vollqualifizierten Großbuchstabendomäne der URL verwendet wird.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird das EntraID-OAuth-Token des Benutzers nur für die standardmäßig konfigurierten Domänen freigegeben.
+      </string>
+      <string id="DisableBackgroundAutoUpdates">Nicht zulassen, dass quergeladene Apps im Hintergrund automatisch aktualisiert werden</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">Verwaltet die Möglichkeit einer quergeladenen App, automatisch im Hintergrund zu aktualisieren.
+
+Wenn Sie diese Richtlinie aktivieren, werden quergeladene Apps nicht automatisch im Hintergrund aktualisiert.
+
+Wenn Sie diese Richtlinie deaktivieren, werden quergeladene Apps automatisch im Hintergrund aktualisiert.
+
+Der Standardwert ist "disabled" (Schlüssel nicht vorhanden).
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">Nicht zulassen, dass quergeladene Apps im Hintergrund in einem getakteten Netzwerk automatisch aktualisiert werden</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">Verwaltet die Möglichkeit einer quergeladenen App, ein automatisches Update im Hintergrund in einem getakteten Netzwerk auszuführen.
+
+Wenn Sie diese Richtlinie aktivieren, werden quergeladene Apps in einem getakteten Netzwerk nicht automatisch im Hintergrund aktualisiert.
+
+Wenn Sie diese Richtlinie deaktivieren, werden quergeladene Apps automatisch im Hintergrund in einem getakteten Netzwerk aktualisiert.
+
+Der Standardwert ist "disabled" (Schlüssel nicht vorhanden).
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">Standardmäßige Installation von nicht signierten Paketen pro Benutzer nicht zulassen (erfordert explizites Zulassen pro Installation)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">Installation nicht signierter Pakete pro Benutzer standardmäßig nicht zulassen (erfordert explizites Zulassen pro Installation)
+
+Wenn Sie diese Richtlinie aktivieren, lautet die Option "AllowUnsigned" standardmäßig "false".
+
+Wenn Sie diese Richtlinie deaktivieren, lautet die Option "AllowUnsigned" standardmäßig "true".
+
+Der Standardwert ist "disabled" (Schlüssel nicht vorhanden).
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">Zulässige Paketfamiliennamen für die Installation von Nichtadministratorbenutzern</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">Zulässige Paketfamiliennamen für die Installation von Windows-App-Paketen, die keine Administratoren sind.
+
+Wenn Sie diese Richtlinie aktivieren, können Sie eine Liste der Windows-App-Pakete eingeben, bei denen es sich nicht um Administratoren handelt, die die Installation unabhängig von der konfigurierten Richtlinie "Installation verpackter Windows-Apps durch Benutzer ohne Administratorrechte verhindern" initiieren können.
+
+Die angegebenen Werte werden als reguläre Ausdrücke behandelt (ECMA-Skript). Ein Paketfamilienname wie Contoso.ContosoApp_8wekyb3d8bbwe ist selbst ein gültiger regulärer Ausdruck, der mit allen Paketen in dieser Familie übereinstimmt. Ein regulärer Ausdruck wie ^Contoso.*_8wekyb3d8bbwe$ stimmt auch mit Contoso.ContosoApp_8wekyb3d8bbwe überein.
+
+Wenn der Paketfamilienname eines installierenden Windows-App-Pakets mit einer Regel übereinstimmt, wird es nicht durch die Richtlinie "Nicht-Administratorbenutzer daran hindern, verpackte Windows-Apps zu installieren" blockiert. Die Installation wird möglicherweise noch durch andere Richtlinien oder Einstellungen blockiert.
+
+Wenn Sie diese Richtlinie deaktivieren oder nicht konfigurieren, unterliegt alle Windows-App-Pakete der konfigurierten Richtlinie "Installation verpackter Windows-Apps durch Benutzer ohne Administratorrechte verhindern".
+
+Der Standardwert ist "disabled" (Schlüssel nicht vorhanden).
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">Entfernen Sie Microsoft Store-Standardpakete aus dem System.</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">Entfernt Standardpakete des Microsoft Store vom System.
+
+Wenn Sie diese Richtlinie aktivieren, werden die ausgewählten Microsoft Store-Apps in der bereitgestellten Liste vom System deinstalliert. Sie können Anpassungen an den Standardeinstellungen vornehmen.
+
+Nicht ausgewählte Apps in der Liste werden nicht entfernt.
+
+* Dies ist eine monitorlose App (ohne Benutzeroberfläche)
+
+** Diese App ist der Standardhandler für einen allgemeinen Dateityp oder ein Protokoll. Das Entfernen dieser App kann zu einer Beeinträchtigung der Benutzerfreundlichkeit führen. Es wird nicht empfohlen, diese App zu entfernen.
+
+Wenn Sie diese Richtlinie aktivieren, können Sie eine App auch entfernen, indem Sie den Paketfamiliennamen der App (z. B. Microsoft.WindowsCalculator_8wekyb3d8bbwe) in der dynamischen Liste unter „Zusätzliche Paketfamiliennamen zum Entfernen angeben“ eingeben.
+
+Wenn diese Richtlinie aktiviert ist, erfordert die Neuinstallation einer zuvor entfernten App das Abwählen der App aus der bereitgestellten Liste oder das Entfernen des Paketfamiliennamens der App aus der dynamischen Liste.
+
+Windows-Systemkomponenten können nicht über die dynamische App-Entfernungsliste entfernt werden.
+
+Die Überprüfung der Paketfamiliennamen in der dynamischen App-Entfernungsliste erfolgt bei der Benutzeranmeldung und nicht zum Zeitpunkt der Richtlinienkonfiguration.
+
+Der Standardwert ist „deaktiviert“ (Schlüssel nicht vorhanden).
+
+Wenn die Richtlinie deaktiviert oder nicht konfiguriert ist, werden keine Standard-Apps vom System entfernt.
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">Entfernt Microsoft Store-Standardpakete aus dem System.</string>
+      <string id="EnableMsixAllowedZones">Zugelassene Zonen für MSIX-Pakete aktivieren</string>
+      <string id="EnableMsixAllowedZonesExplanation">Diese Richtlinie steuert, ob MSIX-Pakete, die aus bestimmten URL-Zonen stammen, installiert werden dürfen. Der Ursprung eines Pakets wird durch seinen URI bestimmt und ob ein Mart-of-the-Web (MotW) vorhanden ist. Wenn mehrere URIs beteiligt sind, werden alle berücksichtigt;
+
+Wenn Sie diese Richtlinie aktivieren, können Benutzer MSIX-Pakete gemäß der Konfiguration für jede Zone installieren.
+
+Wenn Sie diese Richtlinie deaktivieren oder nicht konfigurieren, können Benutzer MSIX-Pakete aus einer beliebigen Zone installieren, mit Ausnahme von "Nicht vertrauenswürdig".</string>
+      <string id="ZoneAllowed">Zulassen</string>
+      <string id="ZoneBlocked">Blockieren</string>
+      <string id="EnableMsixSmartScreenCheck">Microsoft SmartScreen-Überprüfungen für MSIX-Pakete aktivieren</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">Diese Richtlinie steuert, ob die Microsoft SmartScreen-Prüfung bei der Installation von MSIX-Paketen aus bestimmten URL-Zonen durchgeführt wird.
+
+Wenn Sie diese Richtlinie aktivieren oder nicht konfigurieren, wird die Paket-URI vor der Installation mit Microsoft SmartScreen überprüft. Diese Prüfung erfolgt nur bei Paketen, die aus dem Internet stammen.
+
+Wenn Sie diese Richtlinie deaktivieren, wird Microsoft SmartScreen vor der Installation eines Pakets nicht konsultiert.</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>Ausdruck</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">Zulässige Paketfamiliennamen für die Installation von Nichtadministratorbenutzern</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>Entfernt Microsoft Store-Standardpakete aus dem System.</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">Feedback-Hub</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">Microsoft 365 Copilot</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft News</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Microsoft Fotos **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Microsoft Sticky Notes</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">Microsoft To Do</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN Wetter</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Outlook für Windows</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">Paint</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">Schnellhilfe</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">Snipping Tool</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Windows-Rechner</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Windows-Kamera **</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Windows Medienwiedergabe **</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Windows-Editor **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Windows-Audiorekorder</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Windows-Terminal</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">Xbox Gaming-App</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Xbox Identity Provider *</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Xbox Spracherkennungsüberlagerung *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">Zusätzliche Paketfamiliennamen angeben, die entfernt werden sollen</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">Lokaler Computer</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">Intranet</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">Vertrauenswürdige Sites</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">Internet</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">Nicht vertrauenswürdige Websites</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

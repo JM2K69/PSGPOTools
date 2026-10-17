@@ -13,6 +13,13 @@
     Hvis du aktiverer eller undlader at konfigurere denne politikindstilling, vises elementerne "Brug en afbildning, du har oprettet tidligere, til at genoprette computeren" og "Geninstaller Windows" (eller "Angiv fabriksindstillingerne for computeren igen") på siden "Avancerede genoprettelsesmetoder" i Genoprettelse (i Kontrolpanel) og gør det muligt for brugere at genoprette computerens oprindelige tilstand eller fra et brugeroprettet systembillede. Dette er standardindstillingen.
 
     Hvis du deaktiverer denne politikindstilling, er elementerne "Brug en afbildning, du har oprettet tidligere, til at genoprette computeren" og "Geninstaller Windows" (eller "Angiv fabriksindstillingerne for computeren igen") i Genoprettelse (i Kontrolpanel) ikke tilgængelige. Når denne politikindstilling er deaktiveret, kan brugere dog fortsat genoprette computerens oprindelige tilstand eller fra et brugeroprettet systembillede ved at genstarte computeren og åbne menuen Indstillinger for Systemgenoprettelse, hvis den er tilgængelig.</string>
+      <string id="AllowTrustedOfflineScan">Tillad offline scanning fra det pålidelige Windows Genoprettelsesmiljø</string>
+      <string id="AllowTrustedOfflineScan_help">    Krav: Windows 10
+    Beskrivelse: Denne politikindstilling kontrollerer, om offlinescanning må tillades fra et pålideligt Windows Genoprettelsesmiljø.
+
+    Hvis du aktiverer denne politikindstilling, køres offlinescanning, uden at der bliver bedt om en BitLocker-genoprettelsesnøgle, så længe BitLocker har tillid til Windows Genoprettelsesmiljø.
+
+    Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, bliver brugeren bedt om at angive BitLocker-genoprettelsesnøglen for at låse OS-diskenheden op. Hvis brugeren springer oplåsning af OS-diskenheden over, køres offlinescanning ikke. Dette er standardindstillingen.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

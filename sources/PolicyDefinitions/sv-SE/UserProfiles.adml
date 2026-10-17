@@ -77,6 +77,14 @@ Om du inaktiverar eller inte konfigurerar den här principinställningen tillfr�
 Obs! Den här principinställningen och relaterade principinställningar i den här mappen definierar tillsammans hur systemet ska reagera när centrala användarprofiler tar lång tid att ladda ned. Du kan ändra hur lång tid användaren har på sig att besvara detta meddelande för tidigare operativsystem än Microsoft Windows Vista med principinställningen "Timeout för dialogrutor".
 
 Viktigt! Om inställningen "Identifiera inte långsamma nätverksanslutningar automatiskt" är aktiverad, kommer den här principinställningen att ignoreras. Om principinställningen "Ta bort cachelagrade kopior av centrala profiler" är aktiverad, kommer det inte heller att finnas någon lokal kopia av den centrala profilen som kan läsas in när en långsam anslutning upptäcks.</string>
+      <string id="AllowNonStandardUserProfilePaths">Tillåt användarprofilens registerfiler och AppData från icke-standardiserade sökvägar</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Den här principinställningen styr om registrets huvudnycklar för användarprofilen och platser för AppData-mappar tillåts acceptera sökvägsformat som inte är standard.
+
+Om du aktiverar den här principinställningen accepterar användarprofilplatser ett bredare utbud av filsökvägsformat.
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen accepterar användarprofilplatser bara Windows-mappsökvägar som är standard.
+
+Obs! Om du aktiverar den här inställningen kan systemet utsättas för säkerhetsrisker. Aktivera den bara om ett visst program i din organisation kräver det, och endast efter att ha utvärderat alla risker för din miljö.</string>
       <string id="ExcludeDirectories">Uteslut kataloger i den centrala profilen</string>
       <string id="ExcludeDirectories_Help">Med den här principinställningen kan du undanta mappar som normalt inkluderas i användarens profil. Därför behöver dessa mappar inte lagras på nätverksservern där profilen finns och följer inte med användarna till andra datorer.
 
@@ -301,7 +309,6 @@ Alltid på – användarna kan inte ändra den här inställningen och användar
 Alltid av – användarna kan inte ändra den här inställningen och användarnamnet och kontobilden delas inte med appar (inte skrivbordsappar). Dessutom kan appar (inte skrivbordsappar) med autentiseringskapacitet inte hämta användarens huvudnamn, SIP/URI och DNS. Om det här alternativet väljs kan vissa företagsprogram och/eller branschprogram som litar på att domäninformationen skyddas av den här inställningen för att ansluta till nätverksresurser påverkas negativt.
 
 Om du inaktiverar eller inte konfigurerar den här principen har användaren fullständig kontroll över den här inställningen och kan aktivera eller inaktivera den. Om det här alternativet väljs kan vissa företagsprogram och/eller branschprogram som litar på att domäninformationen skyddas av den här inställningen för att ansluta till nätverksresurser påverkas negativt om användarna väljer att inaktivera inställningen.
-      
       </string>
       <string id="Lbl_UserInfoAccessAction_On">Alltid på</string>
       <string id="Lbl_UserInfoAccessAction_Off">Alltid av</string>

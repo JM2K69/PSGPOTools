@@ -46,7 +46,7 @@ Remarques :
           L’affichage Web est affecté par les paramètres « Activer l’interface classique » et « Ne pas autoriser l’ouverture des Options des dossiers à partir du bouton Options sous l’onglet Affichage du ruban » dans Configuration utilisateur\Modèles d’administration\Composants Windows\Explorateur Windows, et par le paramètre « Activer Active Desktop » dans Configuration utilisateur\Modèles d’administration\Bureau\Active Desktop.</string>
       <string id="DomainDisplayPrinters_Help">Si vous activez ce paramètre de stratégie, il définit le nombre maximal d’imprimantes (de chaque type) que l’Assistant Ajout d’imprimante affiche sur un ordinateur d’un réseau géré (lorsque l’ordinateur peut atteindre un contrôleur de domaine, par exemple un ordinateur portable faisant partie d’un domaine dans un réseau d’entreprise.)
 
-Si ce paramètre de stratégie est désactivé, la page d’analyse réseau ne s’affiche pas..
+          Si ce paramètre de stratégie est désactivé, la page d’analyse réseau ne s’affiche pas.
 
           Si ce paramètre de stratégie n’est pas configuré, l’Assistant Ajout d’imprimante affiche le nombre par défaut d’imprimantes de chaque type :
           Imprimantes Active Directory : 20
@@ -59,8 +59,8 @@ Si ce paramètre de stratégie est désactivé, la page d’analyse réseau ne s
 
           Si vous ne souhaitez pas afficher les imprimantes d’un certain type, activez cette stratégie et définissez le nombre d’imprimantes à afficher à 0.
 
-          Dans  Windows 10 et versions ultérieures, seules les imprimantes TCP/IP peuvent s’afficher dans l’Assistant. Si vous activez ce paramètre de stratégie, seules les limites relatives aux imprimantes TCP/IP sont applicables. Sur Windows 10 uniquement, si vous désactivez ou ne configurez pas ce paramètre de stratégie, la limite par défaut s’applique.
-          
+          Dans Windows 10 et versions ultérieures, seules les imprimantes TCP/IP peuvent s’afficher dans l’Assistant. Si vous activez ce paramètre de stratégie, seules les limites relatives aux imprimantes TCP/IP sont applicables. Sur Windows 10 uniquement, si vous désactivez ou ne configurez pas ce paramètre de stratégie, la limite par défaut s’applique.
+
           Dans Windows 8 et versions ultérieures, les imprimantes Bluetooth ne s’affichent pas, si bien que leurs limites ne s’appliquent pas à ces versions de Windows.
       </string>
       <string id="DomainPrinters">Assistant Ajout d’imprimante - Page d’analyse réseau (réseau géré)</string>
@@ -140,14 +140,14 @@ Si ce paramètre est désactivé, la page d’analyse réseau ne s’affiche pas
 
 Si ce paramètre n’est pas configuré, l’Assistant Ajout d’imprimante affiche le nombre d’imprimantes par défaut de chaque type :
 Imprimantes TCP/IP : 50
-Imprimantes des services Web : 50
+Imprimantes des services web : 50
 Imprimantes Bluetooth : 10
 Imprimantes partagées : 50
 
-Si vous ne souhaitez pas afficher les imprimantes d’un certain type, activez cette stratégie et définissez le nombre d’imprimantes à afficher à 0.
+Si vous ne souhaitez pas afficher les imprimantes d’un certain type, activez cette stratégie et définissez le nombre d’imprimantes à afficher sur 0.
 
 Dans Windows 10 et versions ultérieures, seules les imprimantes TCP/IP peuvent s’afficher dans l’Assistant. Si vous activez ce paramètre de stratégie, seules les limites relatives aux imprimantes TCP/IP sont applicables. Sur Windows 10 uniquement, si vous désactivez ou ne configurez pas ce paramètre de stratégie, la limite par défaut s’applique.
-          
+
 Dans Windows 8 et versions ultérieures, les imprimantes Bluetooth ne s’affichent pas, si bien que leurs limites ne s’appliquent pas à ces versions de Windows.</string>
       <string id="NonDomainPrinters">Assistant Ajout d’imprimante - Page d’analyse réseau (réseau non géré)</string>
       <string id="PackagePointAndPrintOnly">Utiliser Pointer et imprimer les packages uniquement</string>
@@ -268,7 +268,7 @@ Si vous activez ce paramètre de stratégie, l’ordinateur client continue de c
 Si vous désactivez ce paramètre de stratégie, l’ordinateur client ne recherche les pilotes Pointer et imprimer compatibles que dans le magasin de pilotes local et le cache du pilote de serveur. S’il ne trouve aucun pilote compatible, la connexion Pointer et imprimer échoue.
 
 Ce paramètre de stratégie n’est pas configuré par défaut et le comportement dépend de la version Windows que vous utilisez.
-Par défaut, la famille de référence (SKU) Windows Édition Intégrale, Professionnel et Familiale continuera à rechercher des pilotes Pointer et imprimer compatibles à partir de Windows Update, lorsque cela est nécessaire. Vous devez cependant activer ce paramètre de stratégie de façon explicite pour les autres versions de Windows (par exemple, Windows Entreprise et toutes les versions de Windows Server 2008 R2 et ultérieures) pour qu’elles adoptent le même comportement.</string>
+Par défaut, la famille de référence (SKU) Windows Édition Ultimate, Professionnel et Familiale continuera à rechercher des pilotes Pointer et imprimer compatibles à partir de Windows Update, lorsque cela est nécessaire. Vous devez cependant activer ce paramètre de stratégie de façon explicite pour les autres versions de Windows (par exemple, Windows Entreprise et toutes les versions de Windows Server 2008 R2 et ultérieures) pour qu’elles adoptent le même comportement.</string>
       <string id="V4DriverDisallowPrinterExtension">Ne pas autoriser les pilotes d’impression v4 à afficher les extensions des imprimantes</string>
       <string id="V4DriverDisallowPrinterExtension_Help">Cette stratégie détermine si des pilotes d’impression v4 sont autorisés à exécuter des extensions d’imprimante.
 
@@ -278,19 +278,241 @@ Par défaut, la famille de référence (SKU) Windows Édition Intégrale, Profes
 
         Si vous désactivez ou ne configurez pas ce paramètre de stratégie, toutes les extensions d’imprimantes installées pourront être exécutées.</string>
       <string id="MXDWUseLegacyOutputFormatMSXPS">Remplacer le format de sortie Microsoft XPS Document Writer (MXDW) par défaut par le format Microsoft XPS (*.xps) hérité</string>
-      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Microsoft XPS Document Writer (MXDW) génère des fichiers OpenXPS (*.oxps) par défaut dans Windows 10 et Windows Server 2019.
+      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Microsoft XPS Document Writer (MXDW) génère par défaut des fichiers OpenXPS (*.oxps) dans Windows 10, Windows 10 et Windows Server 2025.
 
-          Si vous activez ce paramètre de stratégie de groupe, le format de sortie MXDW par défaut est le format Microsoft XPS (*.xps) hérité.
+Si vous activez ce paramètre de stratégie de groupe, le format de sortie MXDW par défaut est l’ancienne version de Microsoft XPS (*.xps).
 
-          Si vous désactivez ou ne configurez pas ce paramètre de stratégie, le format de sortie MXDW par défaut est OpenXPS (*.oxps).</string>
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, le format de sortie MXDW par défaut est OpenXPS (*.oxps).</string>
       <string id="SetDefaultPrinterMRUModeOff">Désactiver la gestion des imprimantes par défaut Windows</string>
       <string id="SetDefaultPrinterMRUModeOff_Help">Cette préférence vous permet de modifier la gestion des imprimantes par défaut.
 
 Si vous activez ce paramètre, Windows ne gère pas l’imprimante par défaut.
- 
+
 Si vous désactivez ce paramètre, Windows gère l’imprimante par défaut.
 
-Si vous ne configurez pas ce paramètre, la gestion des imprimantes par défaut n’est pas modifiée. </string>
+Si vous ne configurez pas ce paramètre, la gestion des imprimantes par défaut ne change pas. </string>
+      <string id="EnableDeviceControl">Activer les Restrictions d’Impression sous Contrôle de Périphérique</string>
+      <string id="EnableDeviceControl_Help">
+Détermine si les restrictions d’impression de contrôle de périphérique sont appliquées pour l’impression sur cet ordinateur.
+
+          Par défaut, il n’y a aucune restriction à l’impression en fonction du type de connexion ou de la marque/du modèle de l’imprimante.
+
+          Si vous activez ce paramètre, l’ordinateur limite l’impression aux connexions aux imprimantes sur le réseau d’entreprise ou aux imprimantes USB approuvées.
+
+          Si vous désactivez ce paramètre ou ne le configurez pas, l’impression n’est soumise à aucune restriction en fonction du type de connexion ou de la marque/du modèle de l’imprimante.</string>
+      <string id="ApprovedUsbPrintDevices">Liste des périphériques d’impression connectés à USB approuvés</string>
+      <string id="ApprovedUsbPrintDevices_Help">
+
+Ce paramètre est un composant des restrictions d’impression de pilotage de matériel. Pour utiliser ce paramètre, activez le paramètre d’impression de contrôle de périphérique en activant le paramètre « Activer les restrictions d’impression de contrôle de périphérique ».
+
+Lorsque l’impression du contrôle de périphérique est activée, le système utilise la liste de valeurs VID/PID spécifiée pour déterminer si l’imprimante USB connectée actuelle est approuvée pour l’impression locale.
+
+Tapez toutes les combinaisons VID/PID approuvées (séparées par des virgules) qui correspondent aux modèles d’imprimante USB approuvés. Lorsqu’un utilisateur tente d’imprimer vers une file d’attente d’impression USB, le numéro/PID de l’appareil sera comparé à la liste approuvée.
+      </string>
+      <string id="RestrictDriverInstallationToAdministrators">Limite l’installation du pilote d’impression aux administrateurs</string>
+      <string id="RestrictDriverInstallationToAdministrators_Help">
+Détermine si les utilisateurs qui ne sont pas administrateurs peuvent installer des pilotes d’impression sur cet ordinateur.
+
+Par défaut, les utilisateurs qui ne sont pas administrateurs ne peuvent pas installer de pilotes d’impression sur cet ordinateur.
+
+Si vous activez ce paramètre ou si vous ne le configurez pas, le système limite l’installation des pilotes d’impression aux administrateurs de cet ordinateur.
+
+Si vous désactivez ce paramètre, le système ne limitera pas l’installation des pilotes d’impression sur cet ordinateur.
+        </string>
+      <string id="CopyFilesPolicy">Gérer le traitement des fichiers spécifiques à la file d’attente</string>
+      <string id="CopyFilesPolicy_AllowAll">Autoriser tous les fichiers speccifiques de file d’attente</string>
+      <string id="CopyFilesPolicy_Disabled">Ne pas autoriser les fichiers spécifiques à la file d’attente</string>
+      <string id="CopyFilesPolicy_Help">
+Gère le traitement des fichiers spécifiques à la file d’attente pendant l’installation de l’imprimante. Au moment de l’installation de l’imprimante, une application d’installation fournie par le fournisseur peut spécifier un ensemble de fichiers, de tout type, à associer à une file d’attente d’impression particulière. Les fichiers sont téléchargés sur chaque client qui se connecte au serveur d’impression.
+
+Vous pouvez activer ce paramètre pour modifier le comportement par défaut impliquant des fichiers spécifiques à la file d’attente. Pour utiliser ce paramètre, sélectionnez l’une des options ci-dessous dans la zone Gérer le traitement des fichiers spécifiques à la file d’attente.
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, le comportement par défaut est « Limiter les fichiers spécifiques à la file d’attente aux profils de couleurs ».
+
+-- « Ne pas autoriser les fichiers spécifiques à la file d’attente » spécifie qu’aucun fichier spécifique à la file d’attente ne sera autorisé/traité pendant l’installation de la file d’attente à l’impression/de l’imprimante.
+
+-- « Limiter les fichiers spécifiques à la file d’attente aux profils de couleurs » spécifie que seuls les fichiers spécifiques à la file d’attente qui respectent le modèle de profil de couleurs standard sont autorisés. Cela signifie les entrées utilisant Registry Key CopyFiles\ICM, contenant une valeur de répertoire de COLOR et prenant en charge mscms.dll en tant que valeur module. « Limiter les fichiers spécifiques à la file d’attente aux profils de couleurs » est le comportement par défaut.
+
+-- « Autoriser tous les fichiers spécifiques à la file d’attente » spécifie que tous les fichiers spécifiques à la file d’attente seront autorisés/traités lors de l’installation de la file d’attente à l’impression/de l’imprimante.
+      </string>
+      <string id="CopyFilesPolicy_ICMOnly">Limiter les fichiers spécifiques à la file d’attente aux profils de couleurs</string>
+      <string id="DriverValidationLevel_Inbox">Exiger des pilotes signés dans la boîte de réception</string>
+      <string id="DriverValidationLevel_Legacy">Autoriser tous les pilotes signés de manière valide</string>
+      <string id="DriverValidationLevel_Trusted">Autoriser les pilotes signés du Magasin approuvé des pilotes de boîte de réception et d’impression</string>
+      <string id="DriverValidationLevel_TrustedShared">Autoriser la boîte de réception, le magasin approuvé des pilotes d’impression, WHQL et le magasin d’éditeurs approuvés</string>
+      <string id="DriverValidationLevel_WHQL">Autoriser la boîte de réception, le magasin approuvé des pilotes d’impression et les pilotes signés WHQL</string>
+      <string id="DriverValidationLevel">Gérer la validation de la signature du pilote d’impression</string>
+      <string id="DriverValidationLevel_Help">
+          Ce paramètre de stratégie contrôle le mécanisme de validation de signature du pilote d’impression. Cette stratégie contrôle le type de signature numérique requis pour qu’un pilote d’impression soit considéré comme valide et installé sur le système.
+
+Dans le cadre de cette validation, la signature du catalogue/incorporé est vérifiée et tous les fichiers du pilote doivent faire partie du catalogue ou avoir leur propre signature incorporée qui peut être utilisée pour la validation.
+
+Vous pouvez activer ce paramètre pour modifier la méthode de validation de signature par défaut. Pour utiliser ce paramètre, sélectionnez l’une des options ci-dessous dans la zone « Sélectionner le mécanisme de signature du pilote pour cet ordinateur ».
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, la méthode par défaut est « Autoriser tous les pilotes signés de manière valide ».
+
+-- « Exiger des pilotes signés dans la boîte de réception » spécifie que seuls les pilotes expédiés dans le cadre d’une image Windows sont autorisés sur cet ordinateur.
+
+-- « Autoriser les pilotes signés dans le Magasin de confiance et PrintDrivers » spécifie uniquement les pilotes expédiés dans le cadre d’une image Windows ou les pilotes signés par des certificats installés dans le magasin de certificats « PrintDrivers » sont autorisés sur cet ordinateur.
+
+-- « Autoriser la boîte de réception, le magasin approuvé PrintDrivers et les pilotes signés WHQL » spécifie que les seuls pilotes autorisés sur cet ordinateur sont ceux fournis dans le cadre d’une image Windows, signés par des certificats installés dans le magasin de certificats « PrintDrivers » ou signés par le Laboratoire de qualité matérielle Windows (WHQL).
+
+-- « Autoriser la boîte de réception, le magasin approuvé PrintDrivers, WHQL et les pilotes signés du Magasin des éditeurs approuvés » spécifie que les seuls pilotes autorisés sur cet ordinateur sont ceux qui sont : expédiés dans le cadre d’une image Windows, signés par des certificats installés dans le magasin de certificats « PrintDrivers », signés par le Laboratoire de qualité matérielle Windows (WHQL) ou signés par des certificats installés dans le magasin de certificats « Éditeurs approuvés ».
+
+-- « Autoriser tous les pilotes signés de manière valide » spécifie que tout pilote d’impression ayant une signature incorporée valide ou pouvant être validé par rapport au catalogue de pilotes d’impression peut être installé sur cet ordinateur.
+
+Le magasin de certificats « PrintDrivers » doit être créé par un administrateur sous l’emplacement du magasin de l’ordinateur local.
+
+Le magasin de certificats « Éditeurs approuvés » peut contenir des certificats provenant de sources qui ne sont pas liées aux pilotes d’impression.
+
+      </string>
+      <string id="DriverValidationLevelTitle">Sélectionner le mécanisme de signature du pilote pour cet ordinateur</string>
+      <string id="DriverExclusionList">Gérer la liste d’exclusion du pilote d’impression</string>
+      <string id="DriverExclusionList_Help">
+Ce paramètre de stratégie contrôle la liste d’exclusion des pilotes d’impression. La liste d’exclusion permet à un administrateur d’organiser une liste de pilotes d’imprimantes qui ne sont pas autorisés à être installés sur le système.
+
+Cette opération vérifie la vérification des signatures et permet d’exclure les pilotes dont le niveau de signature est valide pour la stratégie de validation de signature du pilote d’impression.
+
+Les entrées de la liste d’exclusion sont constituées d’un hachage SHA256 (ou d’un hachage SHA1 pour Win7) du fichier INF et/ou du fichier DLL du pilote principal et du nom du fichier.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, la clé de Registre et les valeurs associées à ce paramètre de stratégie sont supprimées, si la valeur est actuellement définie.
+
+      </string>
+      <string id="RpcListenerPolicy">Configurer les paramètres de l’écouteur RPC</string>
+      <string id="RpcOverNamedPipes">RPC sur des canaux nommés</string>
+      <string id="RpcOverTcp">RPC sur TCP</string>
+      <string id="RpcOverNamedPipesAndTcp">RPC sur les canaux nommés et TCP</string>
+      <string id="RpcAuthenticationProtocol_Negotiate">Négocier</string>
+      <string id="RpcAuthenticationProtocol_Kerberos">Kerberos</string>
+      <string id="RpcListenerPolicy_Help">
+Ce paramètre de stratégie contrôle quels protocoles de connexions RPC entrantes au spouleur d’impression sont autorisées à utiliser.
+
+Par défaut, RPC sur TCP est activé et Negotiate est utilisé pour le protocole d’authentification.
+
+Protocole pour autoriser les connexions RPC entrantes :
+    : « RPC sur des canaux nommés » : les connexions RPC entrantes sont uniquement autorisées sur les canaux nommés
+    « RPC sur TCP » : les connexions RPC entrantes sont uniquement autorisées sur TCP (option par défaut)
+    « RPC sur des canaux nommés et TCP » : les connexions RPC entrantes sont autorisées sur TCP et les canaux nommés
+
+Protocole d’authentification à utiliser pour les connexions RPC entrantes : 
+    « Negotiate » : utilisez le protocole d’authentification Negotiate (option par défaut) 
+    « Kerberos » : utilisez le protocole d’authentification Kerberos
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les valeurs par défaut ci-dessus seront utilisées.
+      </string>
+      <string id="RpcConnectionPolicy">Configurer les paramètres de connexion RPC</string>
+      <string id="RpcConnectionAuthenticationDefault">Par défaut</string>
+      <string id="RpcConnectionAuthenticationEnabled">Authentification activée</string>
+      <string id="RpcConnectionAuthenticationDisabled">Authentification désactivée</string>
+      <string id="RpcConnectionPolicy_Help">
+Ce paramètre de stratégie contrôle les paramètres de protocole et de protocole à utiliser pour les connexions RPC sortantes à un spouleur d’impression distant.
+
+Par défaut, RPC sur TCP est utilisé et l’authentification est toujours activée. Pour RPC sur des canaux nommés, l’authentification est toujours activée pour les ordinateurs joints à un domaine, mais désactivée pour les ordinateurs qui ne sont pas joints à un domaine.
+
+Protocole à utiliser pour les connexions RPC sortantes :
+    -- « RPC sur TCP » : utiliser RPC sur TCP pour les connexions RPC sortantes à un spouleur d’impression distant
+    -- « RPC sur canaux nommés » : utiliser RPC sur les canaux nommés pour les connexions RPC sortantes à un spouleur d’impression distant
+
+Utiliser l’authentification pour les connexions RPC sortantes sur des canaux nommés :
+    -- « Par défaut » : par défaut, les ordinateurs joints à un domaine activent l’authentification RPC pour RPC sur des canaux nommés alors que les ordinateurs non joints à un domaine désactivent l’authentification RPC pour RPC sur les canaux nommés
+    -- « Authentification activée » : l’authentification RPC est utilisée pour les connexions RPC sortantes sur des canaux nommés
+    -- « Authentification désactivée » : l’authentification RPC ne sera pas utilisée pour les connexions RPC sortantes sur des canaux nommés
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les valeurs par défaut ci-dessus sont utilisées.
+      </string>
+      <string id="RpcTcpPortPolicy">Configurer RPC sur le port TCP</string>
+      <string id="RpcTcpPortPolicy_Help">
+Ce paramètre de stratégie contrôle le port utilisé pour RPC sur TCP pour les connexions entrantes au spouleur d’impression et les connexions sortantes aux spouleurs d’impression distants.
+
+Par défaut, les ports TCP dynamiques sont utilisés.
+
+Port RPC sur TCP :
+    -- Port à utiliser pour RPC sur TCP. La valeur 0 est la valeur par défaut et indique que les ports TCP dynamiques seront utilisés
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les ports TCP dynamiques sont utilisés.
+      </string>
+      <string id="RpcIncomingAuthenticationLevelPolicy">Configurer le paramètre de confidentialité au niveau des paquets RPC pour les connexions entrantes</string>
+      <string id="RpcIncomingAuthenticationLevelPolicy_Help">
+Ce paramètre de stratégie contrôle si la confidentialité au niveau du paquet est activée pour RPC pour les connexions entrantes.
+
+Par défaut, la confidentialité du niveau de paquet est activée pour RPC pour les connexions entrantes.
+
+Si vous activez ou ne configurez pas ce paramètre de stratégie, la confidentialité au niveau des paquets est activée pour RPC pour les connexions entrantes.
+      </string>
+      <string id="AlwaysSendIppPageCounts">Toujours envoyer des informations de nombre de pages de travail pour les imprimantes IPP</string>
+      <string id="AlwaysSendIppPageCounts_Help">
+Détermine s’il faut toujours envoyer des informations de nombre de pages à des fins de gestion des comptes pour les imprimantes à l’aide du pilote de classe IPP Microsoft.
+
+Par défaut, les pages sont envoyées à l’imprimante dès leur rendu et les informations de nombre de pages ne sont pas envoyées à l’imprimante, sauf si les pages doivent être réorganisées.
+
+Si vous activez ce paramètre, le système affiche toutes les pages des travaux d’impression en avant et envoie à l’imprimante le nombre total de pages pour le travail d’impression.
+
+Si vous désactivez ce paramètre ou si vous ne le configurez pas, les pages sont imprimées dès leur rendu et le nombre de pages n’est envoyé que lorsque la réorganisation des pages est nécessaire pour traiter le travail.
+      </string>
+      <string id="RequireIpps">Nécessite IPPS pour les imprimantes IPP</string>
+      <string id="RequireIpps_Help">Détermine si la communication avec les imprimantes utilisant le pilote de classe IPP Microsoft doit utiliser IPPS (qui utilise TLS pour une communication sécurisée).
+
+Si vous activez ce paramètre de stratégie, seules les imprimantes IPP prenant en charge IPPS peuvent être installées.
+
+Si vous désactivez ce paramètre ou si vous ne le configurez pas, la valeur par défaut est d’autoriser l’installation d’imprimantes IPP qui ne prennent pas en charge IPPS.
+      </string>
+      <string id="IppTlsCertificatePolicy">Définir la stratégie de sécurité TLS/SSL pour les imprimantes IPP</string>
+      <string id="IppTlsCertificatePolicy_Help">
+Détermine la stratégie de sécurité TLS/SSL (WINHTTP_OPTION_SECURITY_FLAGS) pour les imprimantes qui utilisent le pilote de classe Microsoft IPP.
+
+Par défaut, la stratégie de sécurité est définie pour ignorer toutes les erreurs de certificat, ce qui permet d’utiliser des certificats auto-signés pour les imprimantes.
+
+Si vous activez ce paramètre, le système active par défaut toutes les vérifications de certificats, ce qui désactive les erreurs de certificats. Une vérification spécifique des certificats peut être effectuée à l’aide des cases à cocher correspondantes.
+
+Si vous désactivez ce paramètre ou ne le configurez pas, la valeur par défaut consiste à ignorer toutes les erreurs de certificat (toutes les cases ne sont pas cochées).
+      </string>
+      <string id="RedirectionGuardPolicy">Configurer Redirection Guard</string>
+      <string id="RedirectionGuardPolicy_Disabled">Redirection Guard désactivée</string>
+      <string id="RedirectionGuardPolicy_Enabled">Redirection Guard activé</string>
+      <string id="RedirectionGuardPolicy_AuditOnly">Audit redirection Guard uniquement</string>
+      <string id="RedirectionGuardPolicy_Help">
+Détermine si Redirection Guard est activé pour le spouleur d’impression.
+
+Vous pouvez activer ce paramètre pour configurer la stratégie Redirection Guard appliquée au spouleur.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, Redirection Guard est par défaut « Activé ».
+
+Si vous activez ce paramètre, vous pouvez sélectionner les options suivantes :
+
+-- Activé : Redirection Guard empêche le suivi des redirections de fichiers
+
+-- Désactivé : Redirection Guard ne sera pas activé et les redirections de fichiers peuvent être utilisées dans le processus spouleur
+
+-- Audit : Redirection Guard enregistre les événements comme s’ils étaient activés, mais n’empêchera pas réellement l’utilisation des redirections de fichiers dans le spouleur.
+      </string>
+      <string id="WindowsProtectedPrintPolicy">Configurer l’impression protégée Windows</string>
+      <string id="WindowsProtectedPrintPolicy_Help">
+Détermine si l’impression protégée par Windows est activée sur cet ordinateur.
+
+Par défaut, l’impression protégée par Windows n’est pas activée et il n’existe aucune restriction sur les pilotes d’impression pouvant être installés ou la fonctionnalité d’impression.
+
+Si vous activez ce paramètre, l’ordinateur fonctionne en mode d’impression protégé par Windows, ce qui autorise uniquement l’impression sur des imprimantes qui prennent en charge un sous-ensemble de pilotes d’impression Windows de boîte de réception.
+
+Si vous désactivez ce paramètre ou si vous ne le configurez pas, il n’existe aucune restriction sur les pilotes d’impression qui peuvent être installés ou la fonctionnalité d’impression.
+
+Pour plus d’informations, consultez https://learn.microsoft.com/en-us/windows-hardware/drivers/print/windows-protected-print-mode
+      </string>
+      <string id="WindowsReadyPrintDriverRanking">Configurez le classement des pilotes Windows Ready Print</string>
+      <string id="WindowsReadyPrintDriverRanking_Help">
+Détermine si le classement des pilotes d’impression Windows Ready Print est activé sur cet ordinateur.
+
+Lorsqu’il est activé, Windows privilégie le pilote de classe Microsoft IPP pour les imprimantes qui prennent en charge le protocole IPP (Internet Printing Protocol). Cela s’applique à la fois aux imprimantes IPP connectées au réseau et aux imprimantes connectées en USB qui prennent en charge IPP sur USB.
+
+Si vous activez ce paramètre, Windows donne la priorité au pilote de classe Microsoft IPP lors de la sélection automatique du pilote pour les imprimantes éligibles.
+
+Si vous désactivez ce paramètre, Windows utilise le comportement par défaut de sélection du pilote.
+
+Si vous ne configurez pas ce paramètre, le paramètre de l’administrateur(-trice) local(e) est utilisé à la place. Si aucun de ces paramètres n'est défini, le classement des pilotes Windows Ready Print est activé par défaut.
+
+Remarque : ce paramètre de stratégie de groupe a la priorité sur le paramètre de l’administrateur(-trice) local(e). Ce paramètre affecte uniquement la sélection automatique du pilote lors de la configuration initiale de l’imprimante. Les installations d’imprimantes existantes ne sont pas modifiées. Vous devez désinstaller puis réinstaller complètement une imprimante pour que la modification de ce paramètre prenne effet.
+
+Pour en savoir plus, consultez https://go.microsoft.com/fwlink/?linkid=2364024.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="CustomizedSupportUrl">
@@ -350,6 +572,50 @@ Si vous ne configurez pas ce paramètre, la gestion des imprimantes par défaut 
           <label>Chemin Active Directory par défaut</label>
         </textBox>
         <text>exemple --&gt; LDAP://DC=Domain1,DC=MyCompany,DC=com.</text>
+      </presentation>
+      <presentation id="ApprovedUsbPrintDevices">
+        <text>Spécifiez la liste des périphériques d’imprimante connectés à USB approuvés.</text>
+        <text>La liste est une liste séparée par des virgules de valeurs PID/PID USB. Exemple : 0351/0872, 135E/2179</text>
+        <textBox refId="ApprovedUsbPrintDevices_List">
+          <label>vid/pid</label>
+        </textBox>
+      </presentation>
+      <presentation id="CopyFilesPolicy">
+        <text>Sélectionnez la méthode de traitement des fichiers spécifiques à la file d’attente.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="CopyFilesPolicy_Enum">Gérer le traitement des fichiers spécifiques à la file d’attente :</dropdownList>
+      </presentation>
+      <presentation id="DriverValidationLevel">
+        <dropdownList defaultItem="4" noSort="true" refId="DriverValidationLevel_Enum">Sélectionnez le mécanisme de signature du pilote pour cet ordinateur :</dropdownList>
+      </presentation>
+      <presentation id="DriverExclusionList">
+        <text>  </text>
+        <text>Entrez un hachage de fichier associé au nom du fichier représenté ci-dessous.</text>
+        <text>  </text>
+        <listBox refId="Driver_ExclusionListEntry">Nom du fichier  Hachage de fichier :</listBox>
+      </presentation>
+      <presentation id="RpcListenerPolicy">
+        <text>Configurez les options de protocole pour les connexions RPC entrantes.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RpcListenerProtocols_Enum">Protocoles pour autoriser les connexions RPC entrantes :</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcAuthenticationProtocol_Enum">Protocole d’authentification à utiliser pour les connexions RPC entrantes :</dropdownList>
+      </presentation>
+      <presentation id="RpcConnectionPolicy">
+        <text>Configurez les options de protocole pour les connexions RPC sortantes.</text>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionProtocol_Enum">Protocole à utiliser pour les connexions RPC sortantes :</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionAuthentication_Enum">Utilisez l’authentification pour les connexions RPC sortantes :</dropdownList>
+      </presentation>
+      <presentation id="RpcTcpPortPolicy">
+        <text>Configurez le port à utiliser pour RPC sur TCP.</text>
+        <decimalTextBox defaultValue="0" refId="RpcTcpPort">RPC sur le port TCP :</decimalTextBox>
+      </presentation>
+      <presentation id="IppTlsCertificatePolicy">
+        <checkBox refId="SecurityFlagsBlockUnknownCA" defaultChecked="true">Ne pas autoriser les autorités de certification non valides</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertWrongUsage" defaultChecked="true">Ne pas autoriser les certificats non-serveurs</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertCNInvalid" defaultChecked="true">Ne pas autoriser les noms communs de certificats non valides</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertDateInvalid" defaultChecked="true">Ne pas autoriser les dates de certificats non valides</checkBox>
+      </presentation>
+      <presentation id="RedirectionGuardPolicy">
+        <text>Configurer les options pour Redirection Guard</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RedirectionGuardPolicy_Enum">Options de Redirection Guard</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

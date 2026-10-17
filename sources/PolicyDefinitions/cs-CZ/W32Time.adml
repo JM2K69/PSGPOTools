@@ -12,7 +12,7 @@ Pokud tuto zásadu povolíte, bude služba W32time na cílových počítačích 
 Další podrobnosti o jednotlivých parametrech a kombinacích jejich hodnot, jakož i definice příznaků najdete v tématu https://go.microsoft.com/fwlink/?linkid=847809.
 
         FrequencyCorrectRate
-Tento parametr řídí, jak často služba W32time provádí korekci frekvence místních hodin. Nižší hodnoty způsobí méně časté korekce, vyšší hodnoty způsobí častější korekce. Výchozí hodnota: 4 (skalární).
+Tento parametr řídí, jak často služba W32time provádí korekci frekvence místních hodin. Nižší hodnoty způsobí větší korekce, vyšší hodnoty způsobí menší korekce. Výchozí hodnota: 4 (skalární).
 
         HoldPeriod
 Tento parametr značí, kolik konzistentních časových vzorků v řadě musí klientský počítač přijmout před tím, než se následné časové vzorky vyhodnotí jako potenciální špičky. Výchozí hodnota: 5.
@@ -30,13 +30,13 @@ Pokud přijde časový vzorek udávající čas v minulosti (v porovnání s mí
 Pokud přijde časový vzorek udávající čas v budoucnosti (v porovnání s místním časem klientského počítače), jehož časový rozdíl je větší, než určuje hodnota parametru MaxPosPhaseCorrection, bude se tento vzorek ignorovat. Výchozí hodnota: 172 800 sekund.
 
         PhaseCorrectRate
-Tento parametr určuje, jak rychle bude služba W32time provádět korekce odchylky od místního času klientského počítače, aby se zajistila shoda s časovými vzorky, které se ze serveru NTP akceptují jako přesné. Nižší hodnoty způsobí, že se bude čas upravovat pomaleji; větší hodnoty budou znamenat rychlejší úpravu času. Výchozí hodnota: 7 (skalární).
+Tento parametr určuje, jak rychle bude služba W32time provádět korekce odchylky od místního času klientského počítače, aby se zajistila shoda s časovými vzorky, které se ze serveru NTP akceptují jako přesné. Nižší hodnoty způsobí, že se bude čas upravovat rychleji; větší hodnoty budou znamenat pomalejší úpravu času. Výchozí hodnota: 7 (skalární).
 
         PollAdjustFactor
 Tento parametr řídí, jak rychle bude služba W32time měnit intervaly dotazování. Pokud se odezvy považují za přesné, interval dotazování se automaticky prodlouží. Pokud se odpovědi považují za nepřesné, interval dotazování se automaticky zkrátí. Výchozí hodnota: 5 (skalární).
 
         SpikeWatchPeriod
-Tento parametr určuje, po jakou dobu se přijímají vzorky s časovou odchylkou větší než LargePhaseOffset , než se akceptují jako přesné. Hodnota SpikeWatchPeriod se používá ve spojení s hodnotou HoldPeriod, čímž jde eliminovat sporadické, nepřesné časové vzorky vracené z partnerského počítače. Výchozí hodnota: 900 sekund.
+Tento parametr určuje, po jakou dobu se přijímají vzorky s časovou odchylkou větší než LargePhaseOffset, než se akceptují jako přesné. Hodnota SpikeWatchPeriod se používá ve spojení s hodnotou HoldPeriod, čímž jde eliminovat sporadické, nepřesné časové vzorky vracené z partnerského počítače. Výchozí hodnota: 900 sekund.
 
         UpdateInterval
 Tento parametr určuje dobu, po kterou bude služba W32time čekat mezi korekcemi při postupném provádění korekcí času. Pokud provádí postupnou opravu času, mírně upraví čas, počká tuto dobu a následně zkontroluje, jestli je potřeba provést další opravu. Tento postup se opakuje až do dokončení korekce. Výchozí hodnota: 100 jednotek v délce jedné setiny sekundy, což je 1 sekunda.
@@ -67,7 +67,10 @@ Tento parametr řídí, jestli bude řadič domény reagovat na požadavek synch
         UtilizeSslTimeData
 Tento parametr řídí, jestli bude W32time používat časová data vypočítaná z přenosů SSL v počítači jako doplňující vstup pro korekci místních hodin. Výchozí hodnota: 1 (povoleno, logická hodnota).
 
-        Parametry řadiče domény jen pro čtení:
+        ClockAdjustmentAuditLimit
+Tento parametr určuje nejmenší úpravy místních hodin, které je možné zaznamenat do protokolu událostí služby W32time na cílovém počítači. Výchozí hodnota: 800 miliontin (PPM).
+
+       Parametry řadiče domény jen pro čtení:
 
         ChainEntryTimeout
 Tento parametr určuje maximální dobu, po kterou může záznam zůstat v tabulce řetězení, než se bude považovat za záznam, jehož platnost vypršela. Takovéto neplatné položky se můžou odebrat při zpracování dalších požadavků nebo odpovědí. Výchozí hodnota: 16 sekund.

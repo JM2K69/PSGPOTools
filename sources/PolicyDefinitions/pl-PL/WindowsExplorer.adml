@@ -220,11 +220,11 @@ Aby zobaczyć przykład standardowego okna dialogowego Otwieranie, uruchom progr
 
 Uwaga: W systemie Windows Vista to ustawienie zasad dotyczy tylko aplikacji korzystających ze wspólnego stylu okien dialogowych systemu Windows XP. To ustawienie zasad nie dotyczy nowego wspólnego stylu okien dialogowych systemu Windows Vista. aplikacje innych firm mające certyfikat systemu Windows 2000 lub nowszego muszą obsługiwać to ustawienie.</string>
       <string id="NoRecycleFiles">Nie przenoś plików usuniętych do Kosza</string>
-      <string id="NoRecycleFiles_Help">Gdy w Eksploratorze plików jest usuwany plik lub folder, kopia pliku lub folderu jest umieszczana w Koszu. Korzystając z tego ustawienia, można zmienić to zachowanie.
+      <string id="NoRecycleFiles_Help">Gdy w Eksploratorze plików jest usuwany plik lub folder, kopia pliku lub folderu jest umieszczana w koszu. Korzystając z tego ustawienia, można zmienić to zachowanie.
 
-Jeżeli to ustawienie zostanie włączone, pliki i foldery usunięte w Eksploratorze plików nie zostaną umieszczone w Koszu i zostaną trwale usunięte.
+Jeśli to ustawienie zostanie włączone, pliki i foldery usunięte za pomocą Eksploratora plików nie będą umieszczane w koszu i zostaną trwale usunięte.
 
-Jeżeli to ustawienie zostanie wyłączone lub pozostanie nieskonfigurowane, pliki i foldery usunięte za pomocą Eksploratora plików zostaną umieszczone w Koszu.</string>
+Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, pliki i foldery usunięte za pomocą Eksploratora plików zostaną rozmieszczone w koszu.</string>
       <string id="NoRunAsInstallPrompt">Nie żądaj alternatywnych poświadczeń</string>
       <string id="NoRunAsInstallPrompt_Help">Zapobiega podawaniu przez użytkowników alternatywnych poświadczeń logowania w celu zainstalowania programu.
 
@@ -519,19 +519,33 @@ Jeśli to ustawienie zasad zostanie włączone, ikony skrótów do plików mogą
 Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, wyświetlanie ikon skrótów do plików ze ścieżkami zdalnymi jest zablokowane.
 
 Uwaga: zezwolenie na używanie ścieżek zdalnych w ikonach skrótów do plików może stanowić zagrożenie dla bezpieczeństwa komputera.</string>
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Zezwalaj operacjom deskryptora grupy plików na zapisywanie w dowolnej ścieżce docelowej</string>
+      <string id="AllowAllCopyFGDDestinations_Help">To ustawienie zasad określa, czy podczas zapisywania plików odebranych za pośrednictwem schowka lub deskryptorów grupy plików (CFSTR_FILEDESCRIPTOR) metodą „przeciągnij i upuść” są wymuszane kontrole zawierania się w ścieżce.
+
+Jeśli włączysz to ustawienie zasad, kontrole zawierania się w ścieżce nie będą wymuszane, a pliki będą mogły być zapisywane w dowolnej ścieżce osiągalnej dla folderu docelowego. Włącz te zasady tylko wtedy, gdy domyślne zachowanie uniemożliwia realizację wymaganego przepływu pracy.
+
+Jeśli wyłączysz to ustawienie zasad lub go nie skonfigurujesz, operacje na deskryptorach grup plików wymuszają ograniczanie ścieżki i odrzucają nazwy plików próbujące wyjść poza folder docelowy za pomocą składników ścieżki względnej.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">Nie stosuj znacznika tagu sieci Web do plików skopiowanych z niezabezpieczonych źródeł</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">To ustawienie zasad określa zastosowanie znacznika tagu internetowego do plików pochodzących z niezabezpieczonych lokalizacji.
+
+Jeśli to ustawienie zasad zostanie włączone, pliki skopiowane z niezabezpieczonych źródeł nie będą oznaczane znacznikiem internetowym.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, pliki skopiowane z niezabezpieczonych źródeł zostaną oznaczone odpowiednim znacznikiem internetowym.
+
+Uwaga: brak otagowania plików z niezabezpieczonych źródeł znacznikiem internetowym może narazić komputery użytkowników na zagrożenia bezpieczeństwa.</string>
       <string id="DefaultAssociationsConfiguration">Ustaw plik konfiguracji skojarzeń domyślnych</string>
-      <string id="DefaultAssociationsConfiguration_Help">Te zasady określają ścieżkę do pliku (np. przechowywanego lokalnie lub w lokalizacji sieciowej), który zawiera domyślne skojarzenia aplikacji dla typów plików i protokołów. Ten plik można utworzyć przy użyciu narzędzia DISM.
+      <string id="DefaultAssociationsConfiguration_Help">Te zasady określają ścieżkę do pliku (przechowywanego lokalnie lub w lokalizacji sieciowej), który zawiera domyślne skojarzenia aplikacji typu pliku i protokołu. Ten plik można utworzyć za pomocą narzędzia DISM.
+      
+Na przykład:
+Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-Przykład:
-Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt 
+Aby uzyskać więcej informacji, zapoznaj się z dokumentacją narzędzia DISM.
 
-Więcej informacji zawiera dokumentacja narzędzia DISM dostępna w witrynie TechNet.
+Plik można dalej edytować po jego utworzeniu, aby zmienić częstotliwość stosowania skojarzeń zasad. Atrybut „Version” można dodać do elementu „DefaultAssociations”. Wartość powinna być liczbą całkowitą. Atrybut „Suggested” można dodać do dowolnego elementu „Association”. Wartość powinna być wartością logiczną, a wartość domyślna to „false”. Gdy zasady zostaną zastosowane do użytkownika, każdy element „Association”, który ma atrybut Suggested="true" zostanie zastosowany tylko raz. Jeśli wartość atrybutu „Version” zostanie kiedykolwiek zwiększona, elementy „Association” z atrybutem Suggested="true" zostaną ponownie zastosowane.
 
-Jeśli te zasady grupy zostaną włączone i maszyna kliencka jest przyłączona do domeny, plik zostanie przetworzony i podczas logowania zostaną zastosowane skojarzenia domyślne.
+Jeśli te zasady grupy są włączone, a komputer klienta jest przyłączony do domeny, plik zostanie przetworzony, a domyślne skojarzenia zostaną zastosowane podczas logowania.
 
-Jeśli te zasady grupy nie zostaną skonfigurowane lub zostaną wyłączone albo jeśli maszyna kliencka nie należy do domeny, podczas logowania nie zostaną zastosowane żadne skojarzenia domyślne.
-
-Jeśli te zasady zostaną włączone lub wyłączone albo nie zostaną skonfigurowane, użytkownicy w dalszym ciągu będą mogli zastąpić domyślne skojarzenia typów plików i protokołów.</string>
+Jeśli te zasady są włączone, użytkownicy nadal będą mogli zastępować domyślne skojarzenia typów plików i protokołów, ale przy następnym logowaniu plik zostanie ponownie zastosowany.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

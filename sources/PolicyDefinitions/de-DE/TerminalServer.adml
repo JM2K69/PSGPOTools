@@ -5,6 +5,8 @@
   <description>Beschreibung hier eingeben</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Automatisches Abonnement aktivieren</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Steuert die Liste der URLs, denen der Benutzer automatisch abonniert werden soll</string>
       <string id="TS_SUPPORTED_Windows10">Mindestens Windows 10 oder Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">Mindestens Windows 8 oder Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">Mindestens Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">Mindestens Windows XP und nur Windows Server 2003</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">Mindestens Windows Server 2008 oder Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  Nur Windows Server 2008 R2</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10, Version 1903, Windows 10, Version 1909 und Windows 10, Version 2004</string>
       <string id="TS_TERMINAL_SERVER">Remotedesktopsitzungs-Host</string>
       <string id="TS_TERMINAL_SERVER_Help">Steuert die Konfiguration eines Remotedesktopsitzungs-Hostservers.</string>
       <string id="TS_LICENSE_SERVER">Remotedesktoplizenzierung</string>
@@ -128,22 +131,22 @@ Wenn Sie diese Einstellung deaktivieren oder nicht konfigurieren, kann der Benut
 Wenn Sie diese Einstellung aktivieren, wird das Kontrollkästchen zum Speichern von Anmeldeinformationen in der Remotedesktopverbindung deaktiviert, und Benutzer sind nicht mehr n der Lage, Kennwörter zu speichern. Wenn ein Benutzer eine RDP-Datei über die Remotedesktopverbindung öffnet und seine Einstellungen speichert, werden alle zuvor in der RDP-Datei vorhandenen Kennwörter gelöscht.
 
 Wenn Sie diese Einstellung deaktivieren oder nicht konfigurieren, kann der Benutzer Kennwörter über die Remotedesktopverbindung speichern.</string>
-      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">Diese Richtlinieneinstellugn gibt an, ob die Zuordnung von Clientlaufwerken während einer Remotedesktopdienste-Sitzung (Laufwerkumleitung) verhindert werden soll.
+      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">Mit dieser Richtlinieneinstellung wird angegeben, ob die Zuordnung von Clientlaufwerken in einer Remotedesktopdienste Sitzung (Laufwerkumleitung) verhindert werden soll.
 
-In der Regel ordnet ein Remotedesktopdienste-Hostserver Clientlaufwerke beim Herstellen der Verbindung automatisch zu. Zugeordnete Laufwerke werden in der Sitzungsordnerstruktur im Datei-Explorer oder unter "Arbeitsplatz" im Format &lt;Laufwerkbuchstabe&gt; auf &lt;Computername&gt; angezeigt. Mit dieser Richtlinieneinstellung können Sie dieses Verhalten außer Kraft setzen.
+Standardmäßig ordnet ein RD-Sitzungshost Server Clientlaufwerke bei der Verbindung automatisch zu. Zugeordnete Laufwerke werden in der Sitzungsordnerstruktur im Datei-Explorer oder auf dem Computer im formatierten &lt;driveletter&gt; auf &lt;computername&gt; angezeigt. Sie können diese Richtlinieneinstellung verwenden, um dieses Verhalten außer Kraft zu setzen.
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, ist die Umleitung von Clientlaufwerken in Remotedesktopdienste-Sitzungen nicht zulässig, und die Zwischenablageumleitung beim Kopieren von Dateien ist auf Computern unter Windows Server 2003, Windows 8 und Windows XP nicht zulässig.
+Wenn Sie diese Richtlinieneinstellung aktivieren, ist die Umleitung von Clientlaufwerken in Remotedesktopdienste Sitzungen nicht zulässig, und die Umleitung von Zwischenablagedateien ist auf Computern mit Windows XP, Windows Server 2003, Windows Server 2012 (und höher) oder Windows 8 (und höher) nicht zulässig.
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren, ist die Umleitung von Clientlaufwerken immer zulässig. Außerdem ist die Zwischenablageumleitung beim Kopieren von Dateien immer zulässig, wenn die Zwischenablageumleitung zulässig ist.
+Wenn Sie diese Richtlinieneinstellung deaktivieren, ist die Umleitung von Clientlaufwerken immer zulässig. Darüber hinaus ist die Umleitung von Zwischenablagedateien immer zulässig, wenn die Zwischenablageumleitung zulässig ist.
 
-Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, werden die Umleitung von Clientlaufwerken und die Zwischenablageumleitung beim Kopieren von Dateien nicht auf Gruppenrichtlinienebene festgelegt.
-
+Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, werden die Umleitung von Clientlaufwerken und die Umleitung von Zwischenablagedateien nicht auf Gruppenrichtlinie Ebene angegeben.
 </string>
       <string id="TS_CLIENT_DRIVE_M">Laufwerkumleitung nicht zulassen</string>
       <string id="TS_CLIENT_HELP">Steuert die Clienteinstellungen für die Remotedesktopverbindung.</string>
       <string id="TS_CLIENT_LPT">LPT-Anschlussumleitung nicht zulassen</string>
       <string id="TS_CLIENT_PNP">Umleitung bei unterstützten Plug &amp; Play-Geräten nicht zulassen</string>
       <string id="TS_CAMERA_REDIRECTION">Keine Umleitung von Videoaufnahmen zulassen</string>
+      <string id="TS_LOCATION_REDIRECTION">Standortumleitung nicht zulassen</string>
       <string id="TS_CLIENT_PRINTER">Clientdruckerumleitung nicht zulassen</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">Diese Richtlinieneinstellung legt fest, ob die Freigabe von Inhalten der Zwischenablage (Zwischenablageumleitung) zwischen Remote- und Clientcomputern während einer Remotedesktopdienste-Sitzung verhindert werden soll.
 
@@ -209,6 +212,15 @@ Wenn Sie diese Richtlinieneinstellung aktivieren, können Benutzer ihre Videoauf
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer ihre Videoaufnahmegeräte zum Remotecomputer umleiten. Um die Videoaufnahmegeräte auszuwählen, die zum Remotecomputer umgeleitet werden sollen, können Benutzer unter "Remotedesktopverbindung" auf der Registerkarte "Lokale Ressourcen" die Option "Weitere" verwenden.
 
 </string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">Mit dieser Richtlinien Einstellung können Sie die Umleitung von Standort Daten an den Remote Computer in einer Remote Desktop Dienste-Sitzung steuern.
+
+Remote Desktop Dienste ermöglicht Standard mäßig die Umleitung von Standort Daten.
+
+Wenn Sie diese Richtlinien Einstellung aktivieren, können Benutzer Ihre Standort Daten nicht an den Remote Computer umleiten.
+
+Wenn Sie diese Richtlinien Einstellung deaktivieren oder nicht konfigurieren, können Benutzer Ihre Standort Daten an den Remote Computer umleiten.
+          
+</string>
       <string id="TS_MAXMONITOR_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie die Anzahl Überwachungen begrenzen, die ein Benutzer zur Anzeige einer Remotedesktopdienste-Sitzung verwenden kann. Durch die Begrenzung der Anzahl Überwachungen zum Anzeigen einer Remotedesktopdienste-Sitzung lässt sich die Verbindungsleistung (insbesondere für langsame Verbindungen) verbessern und die Serverauslastung reduzieren.
 
 Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Anzahl Überwachungen festlegen, die zur Anzeige einer Remotedesktopdienste-Sitzung verwendet werden können. Sie können einen Wert von 1 bis 16 angeben.
@@ -229,7 +241,6 @@ Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, verwenden Remotedeskt
 Hinweis: Sie können die Clients beschränken, die eine Remoteverbindung mithilfe der Remotedesktopdienste herstellen können, indem Sie die Richtlinieneinstellung unter "Computerkonfiguration\Administrative Vorlagen\Windows-Komponenten\Remotedesktopdienste\Remotedesktopsitzungs-Host\Sicherheit\Benutzerauthentifizierung mit Authentifizierung auf Netzwerkebene ist für Remoteverbindungen erforderlich" konfigurieren. 
 
 Sie können die Anzahl Benutzer beschränken, die gleichzeitig eine Verbindung herstellen können, indem Sie die Richtlinieneinstellung unter "Computerkonfiguration\Administrative Vorlagen\Windows-Komponenten\Remotedesktopdienste\Remotedesktopsitzungs-Host\Verbindungen\Anzahl der Verbindungen einschränken" konfigurieren oder indem Sie die Richtlinieneinstellung "Maximale Verbindungen" mithilfe des WMI-Anbieters für den Remotedesktopsitzungs-Host konfigurieren.
-
 </string>
       <string id="TS_MAXDISPLAYRES">Maximale Bildschirmauflösung begrenzen</string>
       <string id="TS_MAXDISPLAYRES_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie die maximale Bildschirmauflösung angeben, die für jeden zur Anzeige einer Remotedesktopdienste-Sitzung verwendeten Monitor verwendet werden kann. Indem die Auflösung zur Anzeige einer Remotesitzung begrenzt wird, lässt sich die Verbindungsleistung besonders über langsame Verbindungen verbessern und die Serverauslastung reduzieren.
@@ -385,12 +396,12 @@ Wenn Sie diese Richtlinieneinstellung aktivieren, müssen Sie ein "Keep-alive"-I
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird kein "Keep-alive"-Intervall festgelegt und der Sitzungsstatus vom Server nicht überprüft.</string>
       <string id="TS_LICENSING">Lizenzierung</string>
       <string id="TS_LICENSING_Help">Steuert die Konfiguration von Remotedesktop-Lizenzierungseinstellungen für einen Remotedesktopsitzungs-Hostserver.</string>
-      <string id="TS_LICENSE_SECGROUP">Sicherheitsgruppe "Lizenzserver</string>
+      <string id="TS_LICENSE_SECGROUP">Sicherheitsgruppe Lizenzserver</string>
       <string id="TS_LICENSE_SECGROUP_HELP">Mit dieser Richtlinieneinstellung können Sie die Remotedesktopsitzungs-Hostserver angeben, für die ein Remotedesktop-Lizenzserver Remotedesktopdienste-Clientzugriffslizenzen (Remotedesktopdienste-CALs) anbietet.
 
 Mit dieser Richtlinieneinstellung können Sie steuern, für welche Remotedesktopsitzungs-Hostserver Remotedesktopdienste-CALs vom Remotedesktop-Lizenzserver ausgestellt werden. Ein Lizenzserver stellt standardmäßig für jeden Remotedesktopsitzungs-Hostserver, der eine Remotedesktopdienste-CAL anfordert, eine derartige Lizenz aus.
 
-Wenn Sie diese Richtlinieneinstellung aktivieren und diese Richtlinieneinstellung auf einen Remotedesktop-Lizenzserver angewendet wird, reagiert der Lizenzserver nur auf Remotedesktopdienste-CAL-Anforderungen von Remotedesktopsitzungs-Hostservern, deren Computerkonten Mitglied der Gruppe “RDS-Endpunktserver" auf dem Lizenzserver sind.
+Wenn Sie diese Richtlinieneinstellung aktivieren und diese Richtlinieneinstellung auf einen Remotedesktop-Lizenzserver angewendet wird, reagiert der Lizenzserver nur auf Remotedesktopdienste-CAL-Anforderungen von Remotedesktopsitzungs-Hostservern, deren Computerkonten Mitglied der Gruppe "RDS-Endpunktserver" auf dem Lizenzserver sind.
 
 Die Gruppe "RDS-Endpuntkserver" ist standardmäßig leer.
 
@@ -403,12 +414,11 @@ Hinweis: Sie sollten diese Richtlinieneinstellung nur aktivieren, wenn der Lizen
 
 Wenn Sie diese Richtlinieneinstellung aktivieren, versucht ein Remotedesktopsitzungs-Hostserver zuerst, die angegebenen Lizenzserver zu finden. Wenn die angegebenen Lizenzserver nicht gefunden werden, führt der Remotedesktopsitzungs-Hostserver eine automatische Lizenzserversuche durch. Bei der automatischen Lizenzserversuche versucht ein Remotedesktopsitzungs-Hostserver in einer Windows Server-basierten Domäne in der folgenden Reihenfolge, eine Lizenzserververbindung herzustellen:
 
-    1. Remotedesktop-Lizenzserver, die in Active Directory-Domänendiensten veröffentlicht wurden.
+    1. Remotedesktop-Lizenzserver, die in Active Directory Domain Services veröffentlicht wurden.
 
     2. Remotedesktop-Lizenzserver, die auf Domänencontrollern in derselbeen Domäne wie der Remotedesktopsitzungs-Hostserver installiert sind.
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, gibt der Remotedesktopsitzungs-Hostserver keinen Lizenzserver auf Gruppenrichtlinienebene an.
-
 </string>
       <string id="TS_LICENSE_TOOLTIP">Benachrichtigungen zu Remotedesktop-Lizenzierungsproblemen ausblenden, die den Remotedesktopsitzungs-Hostserver betreffen</string>
       <string id="TS_LICENSE_TOOLTIP_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie festlegen, ob Benachrichtigungen auf einem Remotedesktopsitzungs-Hostserver angezeigt werden, falls Probleme mit der Remotedesktoplizenzierung vorliegen, die den Remotedesktopsitzungs-Hostserver betreffen.
@@ -420,19 +430,19 @@ Wenn Sie diese Richtlinieneinstellung aktivieren, werden diese Benachrichtigunge
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, werden die Benachrichtigungen auf dem Remotedesktopsitzungs-Hostserver angezeigt, nachdem Sie sich als lokaler Administrator angemeldet haben.</string>
       <string id="TS_LICENSING_MODE">Remotedesktop-Lizenzierungsmodus festlegen</string>
       <string id="TS_LICENSING_MODE_EXPLAIN">
-        Mit dieser Richtlinieneinstellung können Sie den Typ der Clientzugriffslizenz für Remotedesktopdienste (RDS-CAL) festlegen, die erforderlich ist, um eine Verbindung mit diesem RD-Sitzungshostserver herzustellen.
+        Mit dieser Richtlinieneinstellung können Sie den Typ der Remotedesktopdienste-Clientzugriffslizenz (RDS-CAL) festlegen, die erforderlich ist, um eine Verbindung mit diesem RD-Sitzungshost-Server herzustellen.
 
         Sie können diese Richtlinieneinstellung verwenden, um einen von zwei Lizenzierungsmodi auszuwählen: "Pro Benutzer" oder "Pro Gerät".
 
-        Der Lizenzierungsmodus "Pro Benutzer" erfordert, dass für jedes Benutzerkonto, das eine Verbindung zu diesem Server mit dem RD-Sitzungshost herstellt, eine "Pro-Benutzer"-RDS-CAL von einem RD-Lizenzierungsserver ausgestellt wird.
+        Der Lizenzierungsmodus "Pro Benutzer" erfordert, dass jedes Benutzerkonto, das eine Verbindung mit diesem RD-Sitzungshost-Server herstellt, über eine "Pro Benutzer"-Clientzugriffslizenz für Remotedesktopdienste verfügt, die von einem RD-Lizenzierungsserver ausgestellt wurde.
 
-        Der Lizenzierungsmodus "Pro Gerät" erfordert, dass für jedes Benutzerkonto, das eine Verbindung zu diesem Server mit dem RD-Sitzungshost herstellt, eine "Pro-Gerät"-RDS-CAL von einem RD-Lizenzierungsserver ausgestellt wird.
+        Der Lizenzierungsmodus "Pro Gerät" erfordert, dass jedes Gerät, das eine Verbindung mit diesem RD-Sitzungshost-Server herstellt, über eine "Pro Gerät"-Clientzugriffslizenz für Remotedesktopdienste verfügt, die von einem RD-Lizenzierungsserver ausgestellt wurde.
 
-        Der AAD-Lizenzierungsmodus "Pro Benutzer" erfordert, dass jedes Benutzerkonto, das eine Verbindung zu diesem RD-Sitzungshostserver herstellt, über einen Dienstplan verfügt, der in AAD zugewiesene RDS-Lizenzen unterstützt.
-        
-        Wenn Sie diese Richtlinieneinstellung aktivieren, wird der von Ihnen angegebene Remotedesktop-Lizenzierungsmodus vom Remotedesktop-Lizenzserver und vom RD-Sitzungshost berücksichtigt.
+        Wenn Sie diese Richtlinieneinstellung aktivieren, wird der von Ihnen angegebene Remotedesktop-Lizenzierungsmodus vom Remotedesktop-Lizenzserver und RD Sitzungshost berücksichtigt.
 
-        Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird der Lizenzierungsmodus nicht auf Gruppenrichtlinienebene angegeben.
+        Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird der Lizenzierungsmodus nicht auf Gruppenrichtlinienebene festgelegt.
+
+        Hinweis: Der AAD-Modus "Pro Benutzer" ist unter Windows 11 und höher veraltet.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Pro Gerät</string>
       <string id="TS_LICENSING_MODE_PER_USER">Pro Benutzer</string>
@@ -546,7 +556,7 @@ Wird die Einstellung nicht konfiguriert, ist eine unsichere Kommunikation zuläs
 
 Hinweis: Die RPC-Schnittstelle wird zum Verwalten und Konfigurieren der Remotedesktopdienste verwendet.</string>
       <string id="TS_SD_ClustName">Namen der Remotedesktop-Verbindungsbrokerfarm konfigurieren</string>
-      <string id="TS_SD_ClustName_Explain">Mit dieser Richtlinieneinstellung können Sie den Namen einer Farm im Remotedesktop-Verbindungsbroker angeben, der ein Server beitreten soll. Der Remotedesktop-Verbindungsbroker ermittelt anhand des Farmnamens, welche Remotedesktopsitzungs-Hostserver in der gleichen Remotedesktopsitzungs-Hostserverfarm enthalten sind. Daher müssen Sie den gleichen Farmnamen für alle Remotedesktopsitzungs-Hostserver verwenden, die sich in der gleichen Farm mit Lastenausgleich befinden. Der Farmname muss nicht mit einem Namen in den Active Directory-Domänendiensten identisch sein.
+      <string id="TS_SD_ClustName_Explain">Mit dieser Richtlinieneinstellung können Sie den Namen einer Farm im Remotedesktop-Verbindungsbroker angeben, der ein Server beitreten soll. Der Remotedesktop-Verbindungsbroker ermittelt anhand des Farmnamens, welche Remotedesktopsitzungs-Hostserver in der gleichen Remotedesktopsitzungs-Hostserverfarm enthalten sind. Daher müssen Sie den gleichen Farmnamen für alle Remotedesktopsitzungs-Hostserver verwenden, die sich in der gleichen Farm mit Lastenausgleich befinden. Der Farmname muss nicht mit einem Namen in den Active Directory Domain Services identisch sein.
 
 Wenn Sie einen neuen Farmnamen angeben, wird im Remotedesktop-Verbindungsbroker eine neue Farm erstellt. Wenn Sie einen vorhandenen Farmnamen angeben, tritt der Server dieser Farm im Remotedesktop-Verbindungsbroker bei.
 
@@ -559,7 +569,6 @@ Hinweise:
      1. Diese Einstellung wird erst wirksam, nachdem sowohl die Richtlinieneinstellung "Remotedesktop-Verbindungsbroker beitreten" als auch die Richtlinieneinstellung "Namen des Remotedesktop-Verbindungsbrokerservers konfigurieren" mithilfe der Gruppenrichtlinie aktiviert und konfiguriert wurden.
 
      2. Für Windows Server 2008 wird diese Richtlinieneinstellung mindestens ab Windows Server 2008 Standard unterstützt.
-
 </string>
       <string id="TS_SD_EXPOSE_ADDRESS">IP-Adressumleitung verwenden</string>
       <string id="TS_SD_EXPOSE_ADDRESS_Explain">Mit dieser Richtlinieneinstellung können Sie die Umleitungsmethode festlegen, die verwendet wird, wenn ein Clientgerät eine erneute Verbindung mit einer vorhandenen Remotedesktopdienste-Sitzung in einer Remotedesktopsitzungs-Hostserverfarm mit Lastenausgleich herstellt. Diese Einstellung gilt für einen Remotedesktopsitzungs-Hostserver, der für die Verwendung des Remotedesktop-Verbindungsbrokers und nicht des Remotedesktop-Verbindungsbrokerservers konfiguriert wurde.
@@ -609,6 +618,17 @@ Wenn Sie diese Einstellung deaktivieren oder nicht konfigurieren, wird die für 
       <string id="TS_SECURITY_LAYER_POLICY">Verwendung einer bestimmten Sicherheitsstufe für Remoteverbindungen (RDP) ist erforderlich</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Microsoft Entra ID-Authentifizierungsdurchsetzung aktivieren</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie festlegen, ob die serverseitige Durchsetzung der Microsoft Entra ID-Authentifizierung erforderlich ist.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, müssen alle Remotedesktopdienste-Clients die RDS AAD-Authentifizierung verwenden, um sich bei RD-Sitzungshost-Servern zu authentifizieren. 
+
+Diese Richtlinie lässt kein Ausweichen auf andere Authentifizierungsmethoden zu. 
+
+Die Authentifizierung auf Netzwerkebene (NLA) muss aktiviert sein, damit diese Richtlinie wirksam wird. Weitere Informationen finden Sie in der Richtlinie „Benutzerauthentifizierung für Remoteverbindungen mithilfe der Authentifizierung auf Netzwerkebene anfordern“.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird die Durchsetzung der Microsoft Entra ID-Authentifizierung nicht aktiviert.
+</string>
       <string id="TS_Session_End_On_Limit">Sitzung beenden, wenn Zeitlimit erreicht wird</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">Diese Richtlinieneinstellung legt fest, ob eine Remotedesktopdienste-Sitzung beim Erreichen des Zeitlimits beendet wird, anstatt sie zu trennen.
 
@@ -787,6 +807,79 @@ Wenn Sie diese Richtlinieneinstellung aktivieren, wird der Desktop immer angezei
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, kann ein Startprogramm festgelegt werden, das nach dem Verbinden des Clients mit dem Remotecomputer auf dem Remotecomputer ausgeführt wird. Wenn kein Startprogramm angegeben wird, wird immer der Desktop auf dem Remotecomputer angezeigt, nachdem der Client eine Verbindung mit dem Remotecomputer hergestellt hat.
 
 Hinweis: Wenn diese Richtlinieneinstellung aktiviert ist, wird die Richtlinieneinstellung "Ein Programm beim Herstellen der Verbindung ausführen" ignoriert.</string>
+      <string id="TS_UIA">Umleitung von Benutzeroberflächenautomatisierung zulassen</string>
+      <string id="TS_UIA_EXPLAIN">Diese Richtlinieneinstellung legt fest, ob Clientanwendungen für die Automatisierung der Benutzeroberfläche (User Interface, UI), die auf dem lokalen Computer ausgeführt werden, auf UI-Elemente auf dem Server zugreifen können.
+
+Die UI-Automatisierung ermöglicht Programmen den Zugriff auf die meisten Elemente der Benutzeroberfläche, wodurch Sie Produkte für unterstützende Technologien wie Bildschirmlupe und Sprachausgabe verwenden können, die mit der Benutzeroberfläche interagieren müssen, um richtig zu funktionieren. UI-Informationen ermöglichen auch automatisierten Testskripten die Interaktion mit der Benutzeroberfläche.
+
+Remotedesktop-Sitzungen unterstützen derzeit keine Umleitung der UI-Automatisierung.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren oder nicht konfigurieren, können alle UI-Automatisierungsclients auf Ihrem lokalen Computer mit Remote-Apps interagieren. Sie können beispielsweise die Clients Bildschirmlupe und die Sprachausgabe Ihres lokalen Computers verwenden, um mit der Benutzeroberfläche auf einer Webseite zu interagieren, die Sie in einer Remotesitzung geöffnet haben.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren, können UI -Automatisierungsclients, die auf Ihrem lokalen Computer ausgeführt werden, nicht mit Remote-Apps interagieren.
+</string>
+      <string id="TS_WEBAUTHN">WebAuthn-Umleitung nicht zulassen</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie die Umleitung von Webauthentifizierungsanforderungen (WebAuthn) von einer Remotedesktopsitzung an das lokale Gerät steuern. Diese Umleitung ermöglicht es Benutzern, sich bei Ressourcen innerhalb der Remotedesktopsitzung mit ihrem lokalen  Authentifikator (z. B. Windows Hello for Business, Sicherheitsschlüssel oder andere) zu authentifizieren. 
+
+ Standardmäßig erlaubt Remotedesktop die Umleitung von WebAuthn-Anforderungen.
+
+ Wenn Sie diese Richtlinieneinstellung aktivieren, können Benutzer ihren lokalen Authentifikator nicht innerhalb der Remotedesktopsitzung verwenden.
+
+ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer lokale Authentifikatoren innerhalb der Remotedesktopsitzung verwenden.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">Übertragung der Zwischenablage vom Server auf den Client deaktivieren</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">Übertragung der Zwischenablage vom Client auf den Server deaktivieren</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Nur-Text zulassen</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Nur-Text und Bilder zulassen</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Nur-Text, Bilder und Rich-Text-Format zulassen</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Nur-Text, Bilder, Rich-Text-Format und HTML zulassen</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">Übertragung der Zwischenablage vom Server auf den Client einschränken</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie die Datenübertragungen in der Zwischenablage vom Server zum Client einschränken.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, müssen Sie zwischen den folgenden Verhaltensweisen wählen:
+
+– Zwischenablageübertragungen von Server zu Client deaktivieren.
+
+– Nur-Text-Kopieren vom Server auf den Client zulassen.
+
+– Nur-Text- und Bildkopiervorgänge vom Server auf den Client zulassen.
+
+– Nur-Text zulassen, Bilder und Rich-Text-Format kopieren vom Server auf den Client.
+
+– Nur-Text, Bilder, Rich-Text-Format und HTML-Kopiervorgänge vom Server auf den Client zulassen.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer beliebige Inhalte vom Server auf den Client kopieren, wenn die Umleitung der Zwischenablage aktiviert ist.
+
+Hinweis: Diese Richtlinieneinstellung wird sowohl in der Computerkonfiguration als auch in der Benutzerkonfiguration angezeigt. Wenn beide Richtlinieneinstellungen konfiguriert sind, wird die strengere Einschränkung verwendet.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">Übertragung der Zwischenablage vom Client auf den Server einschränken</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie die Datenübertragung in der Zwischenablage vom Client zum Server einschränken.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, müssen Sie aus den folgenden Verhaltensweisen wählen:
+
+– Deaktivieren Sie die Übertragung der Zwischenablage vom Client zum Server.
+
+– Erlauben Sie das Kopieren von Klartext vom Client zum Server.
+
+– Erlauben Sie das Kopieren von reinem Text und Bildern vom Client zum Server.
+
+– Erlauben Sie das Kopieren von reinem Text, Bildern und Rich-Text-Format vom Client auf den Server.
+
+– Ermöglichen Sie das Kopieren von reinem Text, Bildern, Rich Text Format und HTML vom Client zum Server.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer beliebige Inhalte vom Client auf den Server kopieren, wenn die Zwischenablageumleitung aktiviert ist.
+
+Hinweis: Diese Richtlinieneinstellung erscheint sowohl in der Computerkonfiguration als auch in der Benutzerkonfiguration. Wenn beide Richtlinieneinstellungen konfiguriert sind, wird die strengere Einschränkung verwendet.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Deaktivieren der Integration der Cloud-Zwischenablage für die Datenübertragung von Server zu Client</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie steuern, ob Daten, die von der Remotesitzung über die Umleitung der Zwischenablage an den Client übertragen werden, der clientseitigen Cloud-Zwischenablage hinzugefügt werden.
+
+ Standardmäßig deaktiviert Remotedesktop die Integration mit der clientseitigen Cloud-Zwischenablage für Daten, die von der Remotesitzung über die Zwischenablageumleitung übertragen werden.
+
+ Wenn Sie diese Richtlinieneinstellung aktivieren oder nicht konfigurieren, werden Daten, die in der Remotesitzung kopiert und auf dem Client eingefügt werden, nicht zur clientseitigen Cloud-Zwischenablage hinzugefügt.
+
+ Wenn Sie diese Richtlinieneinstellung deaktivieren, werden Daten, die in der Remotesitzung kopiert und auf dem Client eingefügt werden, der clientseitigen Cloud-Zwischenablage hinzugefügt (falls aktiviert).
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie festlegen, ob für Benutzerauthentifizierungen bei Remoteverbindungen mit dem Remotedesktopsitzungs-Hostserver eine Authentifizierung auf Netzwerkebene erforderlich ist. Diese Richtlinieneinstellung erhöht die Sicherheit, da die Benutzerauthentifizierung zu einem früheren Zeitpunkt im Remoteverbindungsprozess stattfindet.
 
 Wenn Sie diese Richtlinieneinstellung aktivieren, können nur Clientcomputer, die die Authentifizierung auf Netzwerkebene unterstützen, eine Verbindung mit dem Remotedesktopsitzungs-Hostserver herstellen.
@@ -801,6 +894,24 @@ Wichtig: Das Deaktivieren dieser Richtlinieneinstellung wirkt sich negativ auf d
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Benutzerauthentifizierung mit Authentifizierung auf Netzwerkebene ist für Remoteverbindungen erforderlich</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Remotesitzung bei Sperre für Legacy-Authentifizierung trennen</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie die Benutzererfahrung konfigurieren, wenn die Remotedesktopsitzung durch den Benutzer oder durch eine Richtlinie gesperrt wird. Sie können angeben, ob in der Remotesitzung der Remotesperrbildschirm angezeigt oder die Verbindung getrennt wird, wenn die Remotesitzung gesperrt ist. Durch Trennung der Remotesitzung wird sichergestellt, dass eine Remotesitzung nicht auf dem Sperrbildschirm bleiben und nach einem Verlust der Netzwerkkonnektivität nicht automatisch erneut verbunden werden kann.
+
+Diese Richtlinie gilt nur bei Verwendung der Legacy-Authentifizierung für die Authentifizierung beim Remote-PC. Die Legacy-Authentifizierung ist auf Benutzername und Kennwort oder Zertifikate wie Smartcards beschränkt. Die Legacy-Authentifizierung nutzt die Microsoft Identity Platform, z. B. Microsoft Entra ID, nicht. Die Legacy-Authentifizierung umfasst die Standardauthentifizierungsprotokolle NTLM, CredSSP, RDSTLS, TLS und RDP.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird bei Remotedesktopverbindungen, die die Legacy-Authentifizierung verwenden, die Remotesitzung getrennt, wenn die Remotesitzung gesperrt ist. Benutzer können erneut eine Verbindung herstellen, wenn sie dazu in der Lage sind, und ihre Anmeldeinformationen erneut eingeben, wenn sie dazu aufgefordert werden.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird bei Remotedesktopverbindungen, die die Legacy-Authentifizierung verwenden, der Remotesperrbildschirm angezeigt, wenn die Remotesitzung gesperrt ist. Benutzer können die Remotesitzung mit ihrem Benutzernamen und Kennwort oder mithilfe von Zertifikaten entsperren.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Remotesitzung bei Sperre für Microsoft Identity Platform-Authentifizierung trennen</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie die Benutzeroberfläche konfigurieren, wenn die Remotedesktop Sitzung durch den Benutzer oder durch eine Richtlinie gesperrt wird. Sie können angeben, ob in der Remotesitzung der Remotesperrbildschirm angezeigt oder die Verbindung getrennt wird, wenn die Remotesitzung gesperrt ist. Durch das Trennen der Remotesitzung wird sichergestellt, dass eine Remotesitzung nicht auf dem Sperrbildschirm verbleiben kann und dass die Verbindung aufgrund eines Verlusts der Netzwerkkonnektivität nicht automatisch wiederhergestellt werden kann.
+
+Diese Richtlinie gilt nur bei Verwendung eines Identitätsanbieters, der die Microsoft Identity Platform ( z. B. Microsoft Entra ID ) für die Authentifizierung am Remotecomputer verwendet. Diese Richtlinie gilt nicht, wenn die Legacyauthentifizierung verwendet wird, die die Protokolle NTLM, CredSSP, RDSTLS, TLS und RDP für die Standardauthentifizierung umfasst.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren oder nicht konfigurieren, trennen Remotedesktop Verbindungen, die das Microsoft Identity Platform verwenden, die Remotesitzung, wenn die Remotesitzung gesperrt ist. Benutzer können die Verbindung wiederherstellen, wenn sie bereit sind, und können die kennwortlose Authentifizierung verwenden, wenn sie konfiguriert sind.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren, wird Remotedesktop Verbindungen, die den Microsoft Identity Platform verwenden, den Remotesperrbildschirm anzeigen, wenn die Remotesitzung gesperrt ist. Benutzer können die Remotesitzung mit ihrem Benutzernamen und Kennwort oder mithilfe von Zertifikaten entsperren.
+</string>
       <string id="TS_User_Help">Steuert die Konfiguration der Remotedesktopdienste-Technologien, die den Zugriff auf einen Server, auf dem Windows-basierte Programme ausgeführt werden, oder auf den gesamten Windows-Desktop ermöglichen.</string>
       <string id="TS_USER_HOME">Basisverzeichnis für Remotedesktopdienste-Benutzer festlegen</string>
       <string id="TS_USER_HOME_EXPLAIN">Legt fest, ob Remotedesktopdienste die angegebene Netzwerkfreigabe oder den angegebenen lokalen Verzeichnispfad bei Remotedesktopdienste-Sitzungen als Stamm für das Basisverzeichnis des Benutzers verwenden.
@@ -901,36 +1012,44 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren, können Benutzer keine mit e
 Hinweis: Sie können diese Richtlinieneinstellung im Knoten "Computerkonfiguration" oder im Knoten "Benutzerkonfiguration" definieren. Wenn Sie diese Richtlinieneinstellung für den Computer konfigurieren, sind alle Benutzer auf dem Computer betroffen.
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">SHA1-Fingerabdrücke von Zertifikaten angeben, die vertrauenswürdige RDP-Herausgeber darstellen</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie eine Liste von SHA1-Zertifikatfingerabdrücken (Secure-Hash-Algorithmus 1) angeben, in der vertrauenswürdige Herausgeber von RDP-Dateien (Remotedesktopprotokoll) aufgeführt sind.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Fingerabdrücke von Zertifikaten angeben, die vertrauenswürdige .rdp-Herausgeber darstellen</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie eine Liste von Zertifikatfingerabdrücken angeben, die vertrauenswürdige Herausgeber von Remotedesktopprotokoll (.rdp)-Dateien darstellen. SHA-256-, SHA-384- und SHA-512-Fingerabdrücke werden unterstützt. SHA-1-Fingerabdrücke sind veraltet: SHA-1 gilt nicht mehr als sicher, und die Unterstützung für SHA-1-Fingerabdrücke wird in einem bevorstehenden Sicherheitsupdate standardmäßig deaktiviert. Admins sollten alle Fingerabdruckeinträge so bald wie möglich auf SHA-256 oder eine sicherere Variante migrieren.
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, sind alle Zertifikate mit einem SHA1-Fingerabdruck, der einem Fingerabdruck in der Liste entspricht, vertrauenswürdig. Wenn ein Benutzer versucht, eine RDP-Datei zu starten, die durch ein vertrauenswürdiges Zertifikat signiert ist, wird für Benutzer beim Starten der Datei keine Warnung angezeigt. Zeigen Sie die Zertifikatdetails an, und klicken Sie dann auf das Feld "Fingerabdruck", um den Fingerabdruck abzurufen.
+Fingerabdrücke kann der Hashalgorithmus versehen vorangestellt, der zu ihrer Erzeugung verwendet wurde. Unterstützte Präfixe sind „sha256:“, „sha384:“ und „sha512:“ (Groß-/Kleinschreibung wird nicht berücksichtigt). Beispiel: sha256:AB0356F2... Wenn kein Präfix angegeben ist, wird der Eintrag als Vorgänger-SHA-1-Fingerabdruck behandelt.
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird kein Herausgeber als vertrauenswürdiger Herausgeber von RDP-Dateien behandelt.
+Wenn das Kontrollkästchen „SHA-1-Fingerabdrücke nicht zulassen“ aktiviert ist, werden Einträge ohne Präfix ignoriert. Es werden nur SHA-256-, SHA-384- und SHA-512-Fingerabdrücke abgeglichen. Es wird dringend empfohlen, dieses Kontrollkästchen jetzt zu aktivieren, um sich auf die bevorstehende Standardänderung vorzubereiten.
 
-Hinweis:
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird jedes Zertifikat als vertrauenswürdig eingestuft, dessen Fingerabdruck mit einem Fingerabdruck in der Liste übereinstimmt. Wenn ein Benutzer versucht, eine RDP-Datei zu starten, die durch ein vertrauenswürdiges Zertifikat signiert ist, erhält der Benutzer beim Starten der Datei keine Warnung.
 
-Sie können diese Richtlinieneinstellung im Knoten "Computerkonfiguration" oder im Knoten "Benutzerkonfiguration" definieren. Wenn Sie diese Richtlinieneinstellung für den Computer konfigurieren, entspricht die Liste vertrauenswürdiger Zertifikatfingerabdrücke für einen Benutzer einer Kombination aus der für den Computer definierten Liste und der für den Benutzer definierten Liste.
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird kein Herausgeber als vertrauenswürdiger RDP-Herausgeber behandelt.
 
-Diese Richtlinieneinstellung setzt das Verhalten der Richtlinieneinstellung "RDP-Dateien von gültigen Herausgebern und standardmäßige RDP-Einstellungen des Benutzers zulassen" außer Kraft.
+Hinweise:
 
-Wenn die Liste eine Zeichenfolge enthält, bei der es sich nicht um einen Zertifikatfingerabdruck handelt, wird sie ignoriert.
+Sie können diese Richtlinieneinstellung im Knoten „Computerkonfiguration“ oder im Knoten „Benutzerkonfiguration“ definieren. Wenn Sie diese Richtlinieneinstellung für den Computer konfigurieren, ist die Liste der für einen Benutzer vertrauenswürdigen Zertifikatfingerabdrücke eine Kombination aus der für den Computer definierten Liste und der für den Benutzer definierten Liste.
 
+Diese Richtlinieneinstellung setzt das Verhalten der Richtlinieneinstellung „RDP-Dateien von gültigen Herausgebern und standardmäßige RDP-Einstellungen des Benutzers zulassen“ außer Kraft.
+
+Wenn die Liste eine Zeichenfolge enthält, die kein Zertifikatfingerabdruck ist, wird sie ignoriert.
+
+Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie eine Liste von SHA1-Zertifikatfingerabdrücken (Secure-Hash-Algorithmus 1) angeben, in der vertrauenswürdige Herausgeber von RDP-Dateien (Remotedesktopprotokoll) aufgeführt sind.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie eine Liste von Zertifikatfingerabdrücken angeben, die vertrauenswürdige Herausgeber von Remotedesktopprotokoll (.rdp)-Dateien darstellen. SHA-256-, SHA-384- und SHA-512-Fingerabdrücke werden unterstützt. SHA-1-Fingerabdrücke sind veraltet: SHA-1 gilt nicht mehr als sicher, und die Unterstützung für SHA-1-Fingerabdrücke wird in einem bevorstehenden Sicherheitsupdate standardmäßig deaktiviert. Benutzer sollten alle Fingerabdruckeinträge so bald wie möglich auf SHA-256 oder eine sicherere Variante migrieren.
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, sind alle Zertifikate mit einem SHA1-Fingerabdruck, der einem Fingerabdruck in der Liste entspricht, vertrauenswürdig. Wenn ein Benutzer versucht, eine RDP-Datei zu starten, die durch ein vertrauenswürdiges Zertifikat signiert ist, wird für Benutzer beim Starten der Datei keine Warnung angezeigt. Zeigen Sie die Zertifikatdetails an, und klicken Sie dann auf das Feld "Fingerabdruck", um den Fingerabdruck abzurufen.
+Fingerabdrücke kann der Hashalgorithmus versehen vorangestellt, der zu ihrer Erzeugung verwendet wurde. Unterstützte Präfixe sind „sha256:“, „sha384:“ und „sha512:“ (Groß-/Kleinschreibung wird nicht berücksichtigt). Beispiel: sha256:AB0356F2... Wenn kein Präfix angegeben ist, wird der Eintrag als Vorgänger-SHA-1-Fingerabdruck behandelt.
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird kein Herausgeber als vertrauenswürdiger Herausgeber von RDP-Dateien behandelt.
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird jedes Zertifikat als vertrauenswürdig eingestuft, dessen Fingerabdruck mit einem Fingerabdruck in der Liste übereinstimmt. Wenn ein Benutzer versucht, eine RDP-Datei zu starten, die mit einem vertrauenswürdigen Zertifikat signiert ist, erhält der Benutzer beim Starten der Datei keine Warnmeldungen.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird kein Herausgeber als vertrauenswürdiger RDP-Herausgeber behandelt.
 
 Hinweis:
 
-Sie können diese Richtlinieneinstellung im Knoten "Computerkonfiguration" oder im Knoten "Benutzerkonfiguration" definieren. Wenn Sie diese Richtlinieneinstellung für den Computer konfigurieren, entspricht die Liste vertrauenswürdiger Zertifikatfingerabdrücke für einen Benutzer einer Kombination aus der für den Computer definierten Liste und der für den Benutzer definierten Liste.
+Sie können diese Richtlinieneinstellung im Knoten „Computerkonfiguration“ oder im Knoten „Benutzerkonfiguration“ definieren. Wenn Sie diese Richtlinieneinstellung für den Computer konfigurieren, ist die Liste der für einen Benutzer vertrauenswürdigen Zertifikatfingerabdrücke eine Kombination aus der für den Computer definierten Liste und der für den Benutzer definierten Liste.
 
-Diese Richtlinieneinstellung setzt das Verhalten der Richtlinieneinstellung "RDP-Dateien von gültigen Herausgebern und standardmäßige RDP-Einstellungen des Benutzers zulassen" außer Kraft.
+Diese Richtlinieneinstellung setzt das Verhalten der Richtlinieneinstellung „RDP-Dateien von gültigen Herausgebern und standardmäßige RDP-Einstellungen des Benutzers zulassen“ außer Kraft.
 
-Wenn die Liste eine Zeichenfolge enthält, bei der es sich nicht um einen Zertifikatfingerabdruck handelt, wird sie ignoriert.
+Wenn die Liste eine Zeichenfolge enthält, die kein Zertifikatfingerabdruck ist, wird sie ignoriert.
 
+Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">Auf dem Clientcomputer zur Eingabe von Anmeldeinformationen auffordern</string>
@@ -1018,6 +1137,14 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren, verwenden die auf diesem Ser
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">Aktivieren der erweiterten Shell-Erfahrung für RemoteApp</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">Diese Richtlinieneinstellung ermöglicht eine erweiterte Shell-Erfahrung für RemoteApp-Sitzungen und bietet Support für Standard-Dateizuordnungen, Run/RunOnce-Registrierungsschlüssel und mehr. Diese Richtlinieneinstellung gilt nur für RemoteApp-Sitzungen und nicht für Remotedesktop-Sitzungen.
+
+Wenn Sie diese Richtlinie aktivieren oder nicht konfigurieren, verwenden RemoteApp-Sitzungen auf RD-Sitzungshostservern die erweiterte Shell-Erfahrung.
+
+Wenn Sie diese Richtlinie deaktivieren, verwenden RemoteApp-Sitzungen nicht die erweiterte Shell-Erfahrung sondern das Verhalten der Vorgängershell. Dies ist möglicherweise erforderlich, wenn Kompatibilitätsprobleme in veröffentlichten RemoteApp-Programmen auftreten.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1147,25 +1274,23 @@ Wenn Sie diese Richtlinieneinstellung aktivieren, wird die angegebene URL als St
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, verfügt der Benutzer über keine Standardverbindungs-URL.
 
 Hinweis: RemoteApp-Programme, die über RemoteApp- und Desktopverbindungen von einem nicht vertrauenswürdigen Server installiert werden, können die Sicherheit von Benutzerkonten gefährden.
-      
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">RDP-Transportprotokolle auswählen</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie angeben, welche Protokolle für den RDP-Zugriff (Remotedesktopprotokoll) auf diesen Server verwendet werden können.
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie angeben, welche Protokolle für Remotedesktopprotokoll Zugriff auf diesen Server verwendet werden können.
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, müssen Sie angeben, ob für RDP UDP verwendet werden soll.
+Wenn Sie diese Richtlinieneinstellung aktivieren, müssen Sie angeben, ob RDP UDP verwenden soll.
 
-Sie können dabei eine der folgenden Optionen auswählen: "UDP und TCP verwenden", "Nur TCP verwenden" oder "UDP oder TCP verwenden" (Standardeinstellung). 
+Sie können eine der folgenden Optionen auswählen: "UDP oder TCP (Standard)" oder "Nur TCP verwenden" 
 
-Wenn Sie "UDP oder TCP verwenden" auswählen und die UDP-Verbindung erfolgreich hergestellt wurde, wird für den Großteil des RDP-Datenverkehrs UDP verwendet.
+Wenn Sie "UDP oder TCP verwenden" auswählen und die UDP-Verbindung erfolgreich ist, wird der großteil des RDP-Datenverkehrs UDP verwenden.
 
-Wenn die UDP-Verbindung nicht erfolgreich hergestellt werden konnte oder Sie die Option "Nur TCP verwenden" auswählen, wird für den gesamten RDP-Datenverkehr TCP verwendet.
+Wenn die UDP-Verbindung nicht erfolgreich ist oder Sie "Nur TCP verwenden" auswählen, verwendet der gesamte RDP-Datenverkehr TCP.
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, werden von RDP die optimalen Protokolle für die beste Benutzerfreundlichkeit ausgewählt.
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wählt RDP die optimalen Protokolle aus, um eine optimale Benutzererfahrung zu gewährleisten.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">UDP und TCP verwenden</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Nur TCP verwenden</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">UDP oder TCP verwenden</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Nur TCP verwenden</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Netzwerkerkennung auf dem Server auswählen</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie angeben, wie das Remotedesktopprotokoll die Netzwerkqualität erkennen soll (Bandbreite und Latenz).
@@ -1249,7 +1374,7 @@ HINWEIS: Die Richtlinieneinstellung aktiviert den Lastenausgleich zwischen Grafi
         </textBox>
       </presentation>
       <presentation id="TS_KEEP_ALIVE">
-        <decimalTextBox refId="TS_KEEP_ALIVE_INTERVAL">Keep-Alive"-Intervall:</decimalTextBox>
+        <decimalTextBox refId="TS_KEEP_ALIVE_INTERVAL">Keep-Alive-Intervall:</decimalTextBox>
       </presentation>
       <presentation id="TS_LICENSE_SERVERS">
         <textBox refId="TS_LICENSE_EDIT">
@@ -1344,12 +1469,13 @@ HINWEIS: Die Richtlinieneinstellung aktiviert den Lastenausgleich zwischen Grafi
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Kommagetrennte Liste von vertrauenswürdigen SHA1-Zertifikatfingerabdrücken:</label>
+          <label>Durch Trennzeichen getrennte Liste vertrauenswürdiger Zertifikatfingerabdrücke (Präfix mit sha256:, sha384:, oder sha512:):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">SHA-1-Fingerabdrücke nicht zulassen</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Kommagetrennte Liste von vertrauenswürdigen SHA1-Zertifikatfingerabdrücken:</label>
+          <label>Durch Trennzeichen getrennte Liste vertrauenswürdiger Zertifikatfingerabdrücke (Präfix mit sha256:, sha384:, oder sha512:):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1387,6 +1513,12 @@ HINWEIS: Die Richtlinieneinstellung aktiviert den Lastenausgleich zwischen Grafi
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Transporttyp auswählen</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Übertragung der Zwischenablage vom Server auf den Client einschränken:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Übertragung der Zwischenablage vom Client auf den Server einschränken:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

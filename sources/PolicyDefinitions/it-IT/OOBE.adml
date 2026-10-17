@@ -14,6 +14,19 @@
 Se questo criterio viene abilitato, l'esperienza di privacy non verrà avviata per gli account utente appena creati o per gli account a cui viene chiesto di scegliere le impostazioni di privacy dopo un aggiornamento.
 
 Se questo criterio viene disabilitato o non configurato, l'esperienza di privacy potrà essere avviata per gli account utente appena creati o per gli account a cui viene chiesto di scegliere le impostazioni di privacy dopo un aggiornamento.</string>
+
+      <string id="AllowOOBEUpdates">Consenti aggiornamenti nella Configurazione guidata</string>
+      <string id="AllowOOBEUpdates_Explain">Questo criterio ti consente di configurare un nuovo dispositivo per ricevere aggiornamenti critici durante la configurazione guidata.
+
+Se disabiliti o non configuri questo criterio, i nuovi dispositivi non riceveranno aggiornamenti critici durante la configurazione guidata.
+
+Se abiliti il criterio, i nuovi dispositivi riceveranno gli aggiornamenti critici approvati più recenti durante la configurazione guidata.
+
+Note:
+Questo criterio non controlla la pagina degli aggiornamenti delle patch zero-day (ZDP) nella Configurazione guidata.
+
+Se hai sospeso gli aggiornamenti qualitativi tramite i rinvii degli aggiornamenti qualitativi di Windows e i criteri di sospensione, tali aggiornamenti non verranno distribuiti durante la configurazione guidata.
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

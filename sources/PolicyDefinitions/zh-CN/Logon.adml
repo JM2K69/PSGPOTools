@@ -127,16 +127,15 @@
       <string id="DisableStartupSound">关闭 Windows 启动声音</string>
       <string id="DisableStartupSound_Help">该策略在此版本的 Windows 中不可用。</string>
       <string id="EnableFirstLogonAnimation">显示首次登录动画  </string>
-      <string id="EnableFirstLogonAnimation_Help">使用此策略设置，可以控制用户在第一次登录到计算机时是否会看到首次登录动画。 此设置既适用于在计算机上完成初始设置的第一位用户，也适用于后来添加到该计算机的用户。 此外，它还可以控制在 Microsoft 帐户用户首次登录期间是否将向其提供有关选择启用服务的提示。
+      <string id="EnableFirstLogonAnimation_Help">使用此策略设置，可以控制用户在第一次登录到计算机时是否会看到首次登录动画。此设置既适用于在计算机上完成初始设置的第一位用户，也适用于后来添加到该计算机的用户。此外，它还可以控制在 Microsoft 账户用户首次登录期间是否将向其提供有关选择启用服务的提示。
 
-如果启用此策略设置，Microsoft 帐户用户将会看到有关选择启用服务的提示，而使用其他帐户的用户则会看到登录动画。
+如果启用此策略设置，Microsoft 账户用户将会看到有关选择启用服务的提示，而使用其他账户的用户则会看到登录动画。
 
-如果禁用此策略设置，则用户将不会看到动画，并且 Microsoft 帐户用户也不会看到有关选择启用服务的提示。
+如果禁用此策略设置，则用户将不会看到动画，并且 Microsoft 账户用户也不会看到有关选择启用服务的提示。
 
 如果未配置此策略设置，完成 Windows 初始设置的用户将在首次登录期间看到动画。如果第一位用户已完成初始设置但未配置此策略设置，则该计算机的新用户将不会看到动画。
 
-        注意：服务器上不会显示首次登录动画，因此在这种情况下该策略无效。
-      
+        注意: 服务器上不会显示首次登录动画，因此在这种情况下该策略无效。
       </string>
       <string id="DontEnumerateConnectedUsers">不在加入域的计算机上枚举连接的用户</string>
       <string id="DontEnumerateConnectedUsers_Help">此策略设置禁止在加入域的计算机上枚举连接的用户。
@@ -150,12 +149,12 @@
 如果启用此策略设置，则登录用户界面将在加入域的计算机上枚举所有本地用户。
 
 如果禁用或未配置此策略设置，则登录用户界面将不会在加入域的计算机上枚举本地用户。</string>
-      <string id="BlockUserFromShowingAccountDetailsOnSignin">阻止用户在登录时显示帐户详细信息</string>
-      <string id="BlockUserFromShowingAccountDetailsOnSignin_Help">此策略可防止用户在登录屏幕上显示帐户详细信息(电子邮件地址或用户名)。
+      <string id="BlockUserFromShowingAccountDetailsOnSignin">阻止用户在登录时显示账户详细信息</string>
+      <string id="BlockUserFromShowingAccountDetailsOnSignin_Help">此策略可防止用户在登录屏幕上显示账户详细信息(电子邮件地址或用户名)。
 
-如果启用此策略设置，用户将无法选择在登录屏幕上显示帐户详细信息。
+如果启用此策略设置，用户将无法选择在登录屏幕上显示账户详细信息。
 
-如果禁用或未配置此策略设置，则用户可以选择在登录屏幕上显示帐户详细信息。</string>
+如果禁用或未配置此策略设置，则用户可以选择在登录屏幕上显示账户详细信息。</string>
       <string id="DisableLockScreenAppNotifications">关闭锁屏上的应用通知</string>
       <string id="DisableLockScreenAppNotifications_Help">使用此策略设置可以禁止在锁屏上显示应用通知。
 

@@ -250,13 +250,13 @@ Kun tämä käytäntö on poistettu käytöstä tai sitä ei ole määritetty, W
 
 Kun tämä käytäntö on poistettu käytöstä tai sitä ei ole määritetty, oletusasetukset ovat seuraavat: .bmp;.emf;.gif;.jpg;.jpeg;.png;.wmf;.wrn;.txt;.err;.xml;.cpp;.c;.h;.cxx;.hxx;.idl;.cs;.vb;.idl;.xsd;.doc;.docx;.xls;.xlsx;.ppt;.pptx;.vsd;.xlsb;.xltx;.dot;.rtf</string>
       <string id="PreventUnwantedAddins">Estä ei-toivotut iFilter-suodattimet ja protokollakäsittelyt</string>
-      <string id="PreventUnwantedAddins_Explain">Tämän käytännön ottaminen käyttöön estää Windowsin työpöytähakua käyttämästä iFilter-suodattimia ja protokollakäsittelyitä, ellei niitä ole määritetty sallittujen luettelossa. Tämä käytäntö ei kuitenkaan estä iFilter-suodatinten tai protokollakäsittelyiden asentamista tai niiden käyttämistä muiden sovellusten tai palveluiden toimesta. 
-Voit myös määrittää sallittujen laajennusten luettelon antamalla classID- tai ProgID-merkkijonon. Jos esimerkiksi aiot ottaa käyttöön tietyn iFilter-suodattimen, varmista, että se on sallittujen luettelossa joko GUID-tunnuksena (kuten {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}, aaltosulkeet mukaan lukien) tai ProgID-merkkijonona (kuten VisFilter.CFilter.1).
+      <string id="PreventUnwantedAddins_Explain">Tämän käytännön ottaminen käyttöön estää Windowsin työpöytähakua käyttämästä iFilter-suodattimia ja protokollakäsittelyitä, ellei niitä ole määritetty sallituissa. Tämä käytäntö ei kuitenkaan estä iFilter-suodatinten tai protokollakäsittelyiden asentamista tai niiden käyttämistä muiden sovellusten tai palveluiden toimesta. 
+Voit myös määrittää sallitut laajennukset antamalla classID- tai ProgID-merkkijonon. Jos esimerkiksi aiot ottaa käyttöön tietyn iFilter-suodattimen, varmista, että se on sallituissa joko GUID-tunnuksena (kuten {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}, aaltosulkeet mukaan lukien) tai ProgID-merkkijonona (kuten VisFilter.CFilter.1).
 
 Jos ylläpidät lukittua työasemaympäristöä, tästä asetuksesta ei ole hyötyä, koska muilla kuin järjestelmänvalvojilla ei ole oikeuksia asentaa uusia osia. Jos käyttäjillä on järjestelmänvalvojan käyttöoikeudet tai he pystyvät asentamaan ohjelmistoa, tämä käytäntö erityisesti estää heitä käyttämästä Windowsin työpöytähakuun liittyviä laajennuksia.
 
-Huomautus: Koska ryhmäkäytäntöeditorissa on rajoitus, sinun on lisättävä sallittujen luetteloon vähintään yksi merkintä, vaikka haluaisit ottaa tämän käytännön käyttöön ilman sallittujen luetteloa. Luo luettelon merkintä sijoittamalla välilyönti nimikenttään sekä arvokenttään ja tallenna merkintä sitten. Tämä luo paikkamerkkimerkinnän, jonka ohjelma ohittaa.</string>
-      <string id="PreventUnwantedAddins_AllowList">Sallittujen luettelo</string>
+Huomautus: Koska ryhmäkäytäntöeditorissa on rajoitus, sinun on lisättävä sallittuihin vähintään yksi merkintä, vaikka haluaisit ottaa tämän käytännön käyttöön ilman sallittujen luetteloa. Luo luettelon merkintä sijoittamalla välilyönti nimikenttään sekä arvokenttään ja tallenna merkintä sitten. Tämä luo paikkamerkkimerkinnän, jonka ohjelma ohittaa.</string>
+      <string id="PreventUnwantedAddins_AllowList">Sallitut</string>
       <string id="ExcludedExtensionsMultiline">Estä tiettyjen tiedostotyyppien indeksointi</string>
       <string id="ExcludedExtensionsMultiline_Explain">Tämän käytännön ottaminen käyttöön antaa sinun muokata indeksoinnista pois jätettävien tiedostotyyppien luetteloa. Käyttäjä ei voi muokata tätä luetteloa. Erottele tiedostotunnisteet puolipisteillä.
 
@@ -279,6 +279,8 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, ai
 Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, Cortana sallitaan laitteessa. Jos poistat tämän asetuksen käytöstä, Cortana poistetaan käytöstä. 
  
 Kun Cortana on poistettu käytöstä, käyttäjät pystyvät edelleen haun avulla löytämään kohteita laitteesta.</string>
+      <string id="EnableDynamicContentInWSB">Salli haku korostukset</string>
+      <string id="ExplainEnableDynamicContentInWSB">Tämän asetuksen poistaminen käytöstä poistaa hakujen korostukset Käynnistä-valikon hakuruudusta ja hakukodista. Tämän asetuksen ottaminen käyttöön tai sen määrittelemättä jättäminen kytkee hakujen korostukset päälle aloitusvalikon hakuruudussa ja hakukotiosiossa.</string>
       <string id="AllowCortanaAboveLock">Salli Cortana lukitusnäytön päällä</string>
       <string id="ExplainAllowCortanaAboveLock">Tämä käytäntöasetus määrittää, voiko käyttäjä olla vuorovaikutuksessa Cortanan kanssa puheen avulla järjestelmän ollessa lukittuna.
 
@@ -298,6 +300,27 @@ Jos tämä on käytössä, haku ja Cortana voivat käyttää sijaintitietoja.</s
       <string id="AllowCortanainAADEnabled">Ota Cortana-sivu käyttöön AAD:ssä</string>
       <string id="AllowCloudSearchEnabled">Ota pilvihaku käyttöön</string>
       <string id="AllowCloudSearchControlledByUser">Käyttäjä valittu</string>
+      <string id="DisableSearch_DisplayName">Poista haun käyttöliittymä kokonaan käytöstä</string>
+      <string id="DisableSearch_ExplainText">Jos otat tämän käytännön käyttöön, haun käyttöliittymä poistetaan käytöstä yhdessä sen aloituskohtien, kuten pikanäppäinten, kosketuslevyeleiden ja tyyppihaun kanssa aloitusvalikko. Myös aloitusvalikko hakukenttä ja haun tehtäväpalkki -painike piilotetaan.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjä pystyy avaamaan haun käyttöliittymän ja sen eri aloituskohdat näytetään.</string>
+      <string id="ConfigureSearchOnTaskbarMode">Määrittää tehtäväpalkin haun</string>
+      <string id="ConfigureSearchOnTaskbarMode_Help">Tämän käytäntöasetuksen avulla voit määrittää haun tehtäväpalkissa.
+
+Jos otat tämän käytäntöasetuksen käyttöön ja määrität sen piilotettavaksi, tehtäväpalkin haku piilotetaan oletusarvon mukaan. Käyttäjät eivät voi muuttaa sitä Asetuksissa.
+
+Jos otat tämän käytäntöasetuksen käyttöön ja määrität sen arvoksi vain hakukuvake, hakukuvake näkyy tehtäväpalkissa oletusarvon mukaan. Käyttäjät eivät voi muuttaa sitä Asetuksissa.
+
+Jos otat tämän käytäntöasetuksen käyttöön ja määrität sen arvoksi hakukuvakkeen ja selitteen, hakukuvake ja otsikko näytetään tehtäväpalkissa oletusarvon mukaan. Käyttäjät eivät voi muuttaa sitä Asetuksissa.
+
+Jos otat tämän käytäntöasetuksen käyttöön ja määrität sen arvoksi hakuruudun, hakukenttä näkyy oletusarvoisesti tehtäväpalkissa. Käyttäjät eivät voi muuttaa sitä Asetuksissa.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tehtäväpalkin haku määritetään Windows-version oletusasetusten mukaisesti. Käyttäjät voivat muuttaa tehtäväpalkin hakua Asetuksissa.
+      </string>
+      <string id="SearchOnTaskbarModeEnum_Hidden">Piilota</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconOnly">Pelkkä hakukuvake</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconAndLabel">Hakukuvake ja otsikko</string>
+      <string id="SearchOnTaskbarModeEnum_SearchBox">Hakukenttä</string>
     </stringTable>
     <presentationTable>
       <presentation id="RichAttachmentPreviews">
@@ -337,7 +360,7 @@ Jos tämä on käytössä, haku ja Cortana voivat käyttää sijaintitietoja.</s
         <decimalTextBox refId="LimitEnableThrottlingOnlineMailboxes" defaultValue="120">Kohteita minuutissa</decimalTextBox>
       </presentation>
       <presentation id="PreventUnwantedAddins">
-        <listBox refId="PreventUnwantedAddins_AllowList">Sallittujen luettelo</listBox>
+        <listBox refId="PreventUnwantedAddins_AllowList">Sallitut</listBox>
       </presentation>
       <presentation id="PreventIndexingCertainPaths_1">
         <listBox refId="PreventIndexingCertainPaths">Estä tiettyjen polkujen indeksointi</listBox>
@@ -386,6 +409,9 @@ Jos tämä on käytössä, haku ja Cortana voivat käyttää sijaintitietoja.</s
       </presentation>
       <presentation id="AllowCortanaAAD">
         <dropdownList refId="AllowCortanaAAD_Dropdown" noSort="true" defaultItem="0">Cortana AAD:ssä -asetus</dropdownList>
+      </presentation>
+      <presentation id="ConfigureSearchOnTaskbarMode">
+        <dropdownList refId="ConfigureSearchOnTaskbarMode_Dropdown" noSort="true" defaultItem="0">Hae tehtäväpalkista</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

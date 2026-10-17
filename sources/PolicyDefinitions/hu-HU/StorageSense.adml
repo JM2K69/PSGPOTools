@@ -50,42 +50,42 @@ Alapértelmezés szerint a Tárterületsegéd törölni fogja a felhasználó id
     </string>
     <string id="SS_ConfigStorageSenseRecycleBinCleanupThreshold">Tárterületsegéd lomtárürítési küszöbértékének konfigurálása</string>
     <string id="SS_ConfigStorageSenseRecycleBinCleanupThreshold_Explain">
-Amikor fut a Tárterületsegéd, törölni tudja a felhasználó Lomtárában lévő fájlokat, ha a fájlok már bizonyos számú napja ott vannak.
+Ha a Tárterületsegéd fut, akkor törölheti a felhasználó Lomtárában lévő fájlokat, ha azok már adott napja ott vannak.
 
-Ha a „Tárterületsegéd engedélyezése” csoportházirend le van tiltva, ez a házirend sem lép életbe.
+Ha le van tiltva a „Tárterületsegéd engedélyezése” csoportházirend, akkor ennek a házirendnek nincs hatása.
 
 Engedélyezve:
-Meg kell adnia a Lomtárban lévő fájlok minimális korának küszöbértékét (napokban) ahhoz, hogy a Tárterületsegéd törölje őket. A támogatott értékek: 0–365.
+Meg kell adni a Lomtárban lévő fájlok minimális korértékét (napban). A Tárterületsegéd ennyi nap után törli a fájlokat. A támogatott értékek: 0–365.
 Ha itt a nulla értéket adja meg, a Tárterületsegéd nem törli a felhasználó Lomtárában lévő fájlokat. Az alapértelmezett érték 30 nap.
 
-Letiltva vagy nincs beállítva:
-Alapértelmezés szerint a Tárterületsegéd törli a felhasználó Lomtárában lévő olyan fájlokat, amelyek 30 napnál régebb óta vannak ott. A felhasználók a Tárhelybeállításokban adhatják meg ezt a beállítást.
+Letiltva vagy Nincs konfigurálva:
+Alapértelmezés szerint a Tárterületsegéd törli a felhasználó Lomtárában lévő olyan fájlokat, amelyek több mint 30 napja vannak ott. A felhasználók ezt a tárolási beállítások között módosíthatják.
     </string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold">Tárhely konfigurálása – letöltések törlési küszöbértéke</string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold_Explain">
-Amikor fut a Tárterületsegéd, törölni tudja a felhasználó Letöltések mappájában lévő fájlokat, ha a fájlok már bizonyos számú napja ott vannak.
+A Tárterületsegéd a futtatásakor törölheti a felhasználó Letöltések mappájában lévő fájlokat, ha egy bizonyos számú napig nem nyitották meg őket.
 
-Ha a „Tárterületsegéd engedélyezése” csoportházirend le van tiltva, ez a házirend sem lép életbe.
+Ha letiltja a „Tárterületsegéd engedélyezése” csoportházirendet, ennek a házirendnek lesz hatása.
 
 Engedélyezve:
-Meg kell adnia a Letöltések mappában lévő fájlok minimális korának küszöbértékét (napokban) ahhoz, hogy a Tárterületsegéd törölje őket. A támogatott értékek: 0–365.
-Ha itt a nulla értéket adja meg, a Tárterületsegéd nem törli a felhasználó Letöltések mappájában lévő fájlokat. Az alapértelmezett érték 0 nap, vagyis a rendszer sosem törli a Letöltések mappában lévő fájlokat.
+Meg kell adnia azoknak a napoknak a minimális számát, ameddig egy fájl megnyitás nélkül maradhat, mielőtt a Tárterületsegéd törli a Letöltések mappából. Támogatott értékek: 0–365.
+Ha ez az érték nulla, a Tárterületsegéd nem törli a felhasználó Letöltések mappájában lévő fájlokat. Az alapértelmezett érték 0, azaz a rendszer soha nem törli a Letöltések mappában lévő fájlokat.
 
-Letiltva vagy nincs beállítva:
-Alapértelmezés szerint a Tárterületsegéd nem törli a felhasználó Letöltések mappájában lévő fájlokat. A felhasználók a Tárhelybeállításokban adhatják meg ezt a beállítást.
+Letiltva vagy nincs konfigurálva:
+Alapértelmezés szerint a Tárterületsegéd nem törli a felhasználó Letöltések mappában lévő fájljait. A felhasználók maguk állíthatják be ezt a tárterület-beállításokban.
     </string>
-    <string id="SS_ConfigStorageSenseCloudContentDehydrationThreshold">Tárterületsegéd felhőtartalom-kiszárítási küszöbértéke</string>
+    <string id="SS_ConfigStorageSenseCloudContentDehydrationThreshold">Tárterületsegéd felhőtartalom-kiszárítási küszöbértékének konfigurálása</string>
     <string id="SS_ConfigStorageSenseCloudContentDehydrationThreshold_Explain">
-Amikor fut a Tárterületsegéd, ki tudja szárítani a felhőben is megtalálható olyan tartalmat, amelyet adott számú napig nem nyitottak meg.
+Amikor fut a Tárterületsegéd, kiszáríthatja azokat a felhőben is tárolt tartalmakat, amelyeket bizonyos számú napig nem nyitottak meg.
 
-Ha a „Tárterületsegéd engedélyezése” csoportházirend le van tiltva, ez a házirend sem lép életbe.
+Ha letiltja a „Tárterületsegéd engedélyezése” csoportházirendet, ennek a házirendnek nincs hatása.
 
 Engedélyezve:
-Meg kell adnia, hogy hány napig nem szabad megnyitni a felhőben is tárolt fájlokat ahhoz, hogy a Tárterületsegéd kiszárítsa őket. A támogatott értékek: 0–365.
-Ha itt a nulla értéket adja meg, a Tárterületsegéd nem szárítja ki a felhőben is tárolt tartalmakat. Az alapértelmezett érték 0 nap, vagyis a rendszer sosem szárítja ki a felhőben is tárolt tartalmakat.
+Meg kell adnia azoknak a napoknak a minimális számát, amennyi után a felhőben is tárolt fájlokat a Tárterületséged kiszárítja a szinkronizálási gyökérből. Támogatott értékek: 0–365.
+Ha ez az érték nulla, a Tárterületsegédet nem szárítja ki a felhőben is tárolt tartalmakat. Az alapértelmezett érték 0, vagyis a felhőben is tárolt tartalmakat a rendszer nem szárítja ki.
 
-Letiltva vagy nincs beállítva:
-Alapértelmezés szerint a Tárterületsegéd nem törli a felhőben is megtalálható tartalmakat. A felhasználók a Tárhelybeállításokban adhatják meg ezt a beállítást.
+Letiltva vagy nincs konfigurálva:
+Alapértelmezés szerint a Tárterületsegédet nem szárítja ki a felhőben is tárolt tartalmakat. A felhasználók maguk állíthatják be ezt a beállítást a tárterület-beállításokban.
     </string>
     </stringTable>
     <presentationTable>
@@ -99,7 +99,7 @@ Alapértelmezés szerint a Tárterületsegéd nem törli a felhőben is megtalá
         <decimalTextBox refId="StorageSenseDownloadsCleanupThreshold" defaultValue="0">A Letöltések mappában lévő fájlok minimális élettartama (napban), mielőtt a Tárterületsegéd törölné őket (a 0 beállítás esetén nem törlődnek a fájlok):</decimalTextBox>
     </presentation>
     <presentation id="SS_ConfigStorageSenseCloudContentDehydrationThreshold_Presentation">
-        <decimalTextBox refId="StorageSenseCloudContentDehydrationThreshold" defaultValue="0">Azoknak a napoknak a száma, amennyi után a Tárterületsegéd kiszárítja a felhőben is megtalálható fájlokat (a 0 beállítás esetén nem szárítja ki a fájlokat):</decimalTextBox>
+        <decimalTextBox refId="StorageSenseCloudContentDehydrationThreshold" defaultValue="0">A felhőbe mentett fájlok megnyitása óta eltelt napok száma, mielőtt a Tárterületsegéd kiszárítja őket (a 0 beállítás esetén nem szárítja ki a fájlokat):</decimalTextBox>
     </presentation>
     </presentationTable>
 </resources>

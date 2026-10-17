@@ -173,6 +173,12 @@ Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız oturu
 Varsayılan olarak, kullanıcılar makine kilitlendiğinde veya oturum açma ekranı görüntülenirken gösterilen arka plan resmini değiştirebilirler.
 
 Bu ayarı etkinleştirirseniz kullanıcılar, kilit ekranı ve oturum açma resimlerini değiştiremezler ve bunun yerine varsayılan resmi görürler.</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">Kilit ekranı arka plan hareketini engelle</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">Bu ilke ayarı, kilit ekranı resminin statik halde veya cihazın ivmeölçer çıkışı tarafından yönlendirilen hafif bir kaydırma efektine sahip olup olmayacağını denetler.
+
+Bu ayarı etkinleştirirseniz hareket engellenir ve kullanıcı geleneksel statik kilit ekranı arka plan resmini görür.
+
+Bu ayarı devre dışı bırakırsanız (ve cihazda bir ivmeölçer varsa) kullanıcı, cihazını hareket ettirdiğinde kilit ekranı arka planının sabit bir resim etrafında kaydığını görür.</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">Belirli bir varsayılan kilit ekranı ve oturum açma resmini zorla</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">Bu ayar, belirli bir varsayılan kilit ekranı ve oturum açma resminin yolunu (konumunu) girerek bu resim dosyasını uygulanması için zorlamanızı sağlar. Aynı resim, hem kilit hem de oturum açma ekranları için kullanılır.
 

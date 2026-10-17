@@ -436,7 +436,7 @@ Förutom uppdateringar i bakgrunden, uppdateras alltid grupprincipen när system
 
 Som standard uppdateras datorns grupprinciper i bakgrunden var 90:e minut, med en slumpmässig förskjutning på mellan 0 och 30 minuter.
 
-Om du aktiverar den här inställningen kan du ange ett uppdateringsintervall från 0 till 64 800 minuter (45 dagar). Om du väljer 0 minuter försöker datorn uppdatera grupprinciper var sjunde sekund. Eftersom uppdateringarna kan påverka användares arbete och öka nätverkstrafiken är emellertid väldigt korta uppdateringsintervall inte lämpliga för de flesta installationer.
+Om du aktiverar den här inställningen kan du ange ett uppdateringsintervall från 0 till 64 800 minuter (45 dagar). Om du väljer 0 minuter försöker datorn uppdatera grupprinciper var 7:e sekund. Eftersom uppdateringarna kan påverka användares arbete och öka nätverkstrafiken är emellertid väldigt korta uppdateringsintervall inte lämpliga för de flesta installationer.
 
 Om du inaktiverar inställningen uppdateras grupprinciper var 90:e minut (standardvärdet). Om du vill ange att grupprinciper aldrig ska uppdateras när datorn används, väljer du principen Inaktivera uppdatering av grupprinciper i bakgrunden.
 
@@ -466,7 +466,7 @@ Förutom uppdateringar i bakgrunden, uppdateras alltid grupprincipen när använ
 
 Som standard uppdateras användargrupprinciper i bakgrunden var 90:e minut, med en slumpmässig förskjutning på mellan 0 och 30 minuter.
 
-Om du aktiverar den här inställningen kan du ange ett uppdateringsintervall från 0 till 64 800 minuter (45 dagar). Om du väljer 0 minuter försöker datorn uppdatera användargrupprinciper var sjunde sekund. Eftersom uppdateringarna kan påverka användares arbete och öka nätverkstrafiken är emellertid väldigt korta uppdateringsintervall inte lämpliga för de flesta installationer.
+Om du aktiverar den här inställningen kan du ange ett uppdateringsintervall från 0 till 64 800 minuter (45 dagar). Om du väljer 0 minuter försöker datorn uppdatera användargrupprinciper var 7:e sekund. Eftersom uppdateringarna kan påverka användares arbete och öka nätverkstrafiken är emellertid väldigt korta uppdateringsintervall inte lämpliga för de flesta installationer.
 
 Om du inaktiverar inställningen uppdateras användargrupprinciper var 90:e minut (standardvärdet). Om du vill ange att grupprinciper för användare aldrig ska uppdateras när datorn används markerar du principen Inaktivera uppdatering av grupprinciper i bakgrunden.
 

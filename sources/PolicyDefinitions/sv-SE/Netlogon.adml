@@ -135,11 +135,11 @@ Du kan ange TTL-värdet för DNS-poster genom att klicka på "Aktiverad" och sed
 
 Om du inte konfigurerar den här principinställningen kommer den inte att tillämpas på någon domänkontrollant. Domänkontrollanterna kommer att använda de lokalt konfigurerade inställningarna.</string>
       <string id="Netlogon_ExpectedDialupDelay">Ange förväntad anslutningsfördröjning vid inloggning</string>
-      <string id="Netlogon_ExpectedDialupDelay_Help">Den här principinställningen anger den ytterligare tid som datorn väntar på svar från domänkontrollanten vid inloggning till nätverket.
+      <string id="Netlogon_ExpectedDialupDelay_Help">Den här principinställningen anger den ytterligare tid som datorn väntar på svar från domänkontrollanten vid inloggning i nätverket.
 
-Du kan ange värdet för förväntad anslutningsfördröjning vid inloggning genom att klicka på Aktiverad och sedan ange ett värde i sekunder (till exempel motsvarar värdet ”60” 1 minut).
+Du kan ange värdet för förväntad anslutningsfördröjning vid inloggning genom att klicka på Aktiverad och sedan ange ett värde i sekunder (t.ex. motsvarar värdet "60" 1 minut).
 
-Om du inte konfigurerar den här principinställningen kommer den inte att tillämpas på någon dator. Datorerna kommer att använda de lokalt konfigurerade inställningarna.</string>
+Om du inte konfigurerar den här principinställningen tillämpas den inte på någon dator. Datorerna använder då deras lokala konfiguration.</string>
       <string id="Netlogon_GcSiteCoverage">Ange platser som täcks av DNS SRV-poster för lokalisering av global katalog</string>
       <string id="Netlogon_GcSiteCoverage_Help">Den här principinställningen anger för vilka platser som de globala katalogerna ska registrera platsspecifika DNS SRV-resursposter för lokalisering av global katalog. Dessa poster registreras utöver de platsspecifika SRV-poster som registreras för den plats där den globala katalogen finns och poster som registreras av en global katalog som konfigurerats för att registrera DNS SRV-resursposter för lokalisering av global katalog för de platser som ligger närmast och som inte har någon global katalog. 
 
@@ -298,6 +298,7 @@ Den här principinställningen rekommenderas för att minska riskerna för domä
 Om du aktiverar den här principinställningen kommer den här domänkontrollanten inte att behandla inkommande mailslot-meddelanden som används för domänkontrollantlokalisering baserat på NetBIOS-domännamn.
 
 Om du inaktiverar eller låter bli att konfigurera den här principinställningen kommer den här domänkontrollanten att behandla inkommande mailslot-meddelanden. Detta är standardbeteendet för domänkontrollantlokaliseraren.</string>
+
       <string id="Netlogon_AvoidFallbackNetbiosDiscovery">Använd inte NetBIOS-baserad domänkontrollantlokalisering när DNS-baserad lokalisering inte lyckas</string>
       <string id="Netlogon_AvoidFallbackNetbiosDiscovery_Help">Med den här principinställningen kan du bestämma lokaliseringsalgoritmen för domänkontrollanter. Lokaliseringsalgoritmen för domänkontrollanter föredrar som standard DNS-baserad lokalisering om DNS-domännamnet är känt. Om den DNS-baserade lokaliseringen inte lyckas och NetBIOS-domännamnet inte är känt används NetBIOS-baserad lokalisering som nödlösning.
 
@@ -307,7 +308,18 @@ Observera att den här principinställningen inte påverkar NetBIOS-baserad dom�
 
 Om du aktiverar eller låter bli att konfigurera den här principinställningen använder lokaliseringsalgoritmen för domänkontrollanter inte NetBIOS-baserad lokalisering som nödlösning när den DNS-baserade lokaliseringen inte lyckas. Detta är standardfunktionen.
 
-Om du inaktiverar den här principinställningen kan lokaliseringsalgoritmen för domänkontrollanter använda NetBIOS-baserad lokalisering som nödlösning när den DNS-baserade lokaliseringen inte lyckas.</string>
+Om du inaktiverar den här principinställningen kan lokaliseringsalgoritmen för domänkontrollanter använda NetBIOS-baserad lokalisering som nödlösning när den DNS-baserade lokaliseringen inte lyckas.
+
+Den här inställningen har ingen effekt om inte inställningen BlockNetbiosDiscovery har inaktiverats. NetBIOS-baserad identifiering anses vara osäker, har många begränsningar och kommer att bli inaktuell i en framtida version. Därför rekommenderas inte NetBIOS-baserad identifiering. Mer information finns i https://aka.ms/dclocatornetbiosdeprecation.</string>
+
+      <string id="Netlogon_BlockNetbiosDiscovery">Blockera NetBIOS-baserad identifiering för domänkontrollantplats</string>
+      <string id="Netlogon_BlockNetbiosDiscovery_Help">Med den här principinställningen kan du styra om domänkontrollantens platsalgoritm använder NetBIOS_based identifiering för domänkontrollantens plats.
+
+Om du aktiverar eller inte konfigurerar den här principinställningen använder dc-platsalgoritmen aldrig NetBIOS-baserad identifiering. Det här är standardbeteendet.
+
+Om du inaktiverar den här principinställningen kan dc-platsalgoritmen använda NetBIOS-baserad identifiering vid behov. Det slutliga beteendet styrs ytterligare av inställningen AvoidFallbackNetbiosDiscovery.
+
+NetBIOS-baserad identifiering anses vara osäker, har många begränsningar och kommer att bli inaktuell i en framtida version. Därför rekommenderas inte NetBIOS-baserad identifiering. Mer information finns i https://aka.ms/dclocatornetbiosdeprecation.</string>
 
       <string id="Netlogon_AddressLookupOnPingBehavior">Ange adressuppslagsbeteendet för ping-kommandot för lokaliseraren av domänkontrollanter</string>
       <string id="Netlogon_AddressLookupOnPingBehavior_Help">Den här principinställningen anger hur en domänkontrollant beter sig när den svarar en klient vars IP-adress inte mappas till någon konfigurerad plats.
@@ -337,6 +349,31 @@ De tillåtna värdena på den här inställningen ger följande beteenden:
 Klicka på Aktiverad och ange ett värde om du vill ange det här beteendet. Intervallet för värdena är 1 till 2.
 
 Om du inte konfigurerar den här principinställningen kommer den inte att tillämpas på någon dator. Datorerna kommer att använda de lokalt konfigurerade inställningarna.</string>
+
+      <string id="Netlogon_DnsSrvRecordUseLowerCaseHostNames">Använd gemener i DNS-värdnamn vid registrering av SRV-poster för domänkontrollanter</string>
+      <string id="Netlogon_DnsSrvRecordUseLowerCaseHostNames_Help">Den här principinställningen anger om de domänkontrollanter som inställningen tillämpas för ska använda gemener i sina DNS-värdnamn vid registrering av SRV-poster.
+
+Om den är aktiverad använder domänkontrollanter gemener i sina DNS-värdnamn vid registrering av SRV-poster. Ett bästa försök görs för att radera alla tidigare registrerade SRV-poster som innehåller DNS-värdnamn med både versaler och gemener. Klicka på nedanstående länk om du vill läsa mer och få anvisningar för manuell rensning.
+
+Om den är inaktiverad använder domänkontrollanter det konfigurerade DNS-värdnamnet som det är vid registrering av SRV-poster.
+
+Om den inte konfigureras använder domänkontrollanter deras lokala konfiguration. Den lokala standardkonfigurationen aktiveras då.
+
+Ingen omstart krävs för att verkställa ändringar av den här inställningen.
+
+Mer information finns på https://aka.ms/lowercasehostnamesrvrecord
+      </string>
+      <string id="Netlogon_EnhancedDomainNtlmLogs">Logga utökade NTLM-loggar för hela domänen</string>
+      <string id="Netlogon_EnhancedDomainNtlmLogs_Help">Den här principinställningen anger om domänkontrollanterna som den här inställningen tillämpas på ska logga de nya, förbättrade NTLM-loggarna för hela domänen. Dessa loggar innehåller mer information om NTLM-autentisering på en domänomfattande nivå, inklusive användning av NTLMv1.
+
+Om det är aktiverat kommer domänkontrollanterna att logga de nya domänomfattande NTLM-loggarna.
+
+Om det är inaktiverat kommer domänkontrollanterna inte att logga de nya domänomfattande NTLM-loggarna.
+
+Om det inte är konfigurerat kommer domänkontrollanterna som standard att logga de nya domänomfattande NTLM-loggarna.
+
+Mer information finns på aka.ms/ntlmlogandblock.
+      </string>
 
     </stringTable>
     <presentationTable>

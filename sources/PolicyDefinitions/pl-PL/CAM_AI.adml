@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Zasady sztucznej inteligencji CAM (Capability Access Manager)</displayName>
+  <description>Zasady dotyczące możliwości sztucznej inteligencji i zarządzania zgodami.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">Zgoda na AI</string>
+      <string id="WindowsAI">Sztuczna inteligencja systemu Windows</string>
+      <string id="UserInControl">Użytkownik decyduje</string>
+      <string id="ForceEnable">Wymuś włączenie</string>
+      <string id="ForceDisable">Wymuś wyłączenie</string>
+      <string id="AgentConsentDuration_Name">Czas trwania zgody agenta</string>
+      <string id="AgentConsentDuration_Explain">Określa, jak długo, w godzinach, odpowiedź dotycząca zgody „Zezwalaj” dla możliwości agenta pozostaje ważna, zanim użytkownik zostanie ponownie poproszony o wybór.
+
+Jeśli to ustawienie zasad jest włączone, wartość musi zawierać się w zakresie od 1 (1 godzina) do 8760 (1 rok). Ustawiona wartość jest używana jako domyślny czas wygaśnięcia dla wszystkich odpowiedzi dotyczących zgody „Zezwalaj” dla możliwości agenta.
+
+Jeśli to ustawienie zasad nie jest skonfigurowane albo wartość wykracza poza dozwolony zakres, wartość domyślna to 720 godzin (30 dni).</string>
+      <string id="ConfigureAgentConnectors_Name">Konfiguruj łączniki agenta</string>
+      <string id="ConfigureAgentConnectors_Explain">Włącz lub wyłącz łączniki agenta.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Zasada dostępu do łącznika agenta</string>
+      <string id="AgentConnectorAccessPolicy_Explain">To ustawienie zasad umożliwia zdefiniowanie listy dozwolonych połączeń między hostami MCP a serwerami MCP.
+
+Ta lista ma postać ciągu JSON zgodnego ze schematem podanym na stronie https://go.microsoft.com/fwlink/?LinkId=2363700.
+
+Jeśli to ustawienie zasad nie jest skonfigurowane, host MCP może łączyć się z dowolnym serwerem MCP za zgodą użytkownika.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Konfiguruj łączniki agenta: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Czas trwania zgody (godziny): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Konfiguruj dozwolone połączenia z hostem/serwerem MCP:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

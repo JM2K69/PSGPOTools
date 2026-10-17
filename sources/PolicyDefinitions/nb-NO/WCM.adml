@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2006 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Gruppepolicyinnstillinger for Windows Tilkoblingsbehandling</displayName>
   <description>Gruppepolicyinnstillinger for Windows Tilkoblingsbehandling</description>
@@ -22,11 +22,11 @@ Forsøk på manuell tilkobling
 Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan datamaskiner koble til både domene- og ikke-domenenettverk samtidig.
       </string>
       <string id="WCM_DisableRoaming">Forhindre tilkobling til roaming-nettverk for mobilt bredbånd</string>
-      <string id="WCM_DisableRoaming_Help">Denne policyinnstillingen hindrer klienter i å koble til nettverk for mobilt bredbånd når klienten er registrert på et nettverk for roaming-leverandør. 
+      <string id="WCM_DisableRoaming_Help">Denne policyinnstillingen hindrer klienter i å koble til nettverk for mobilt bredbånd når klienten er registrert i et nettverk for roamingleverandør.
 
-Hvis denne policyinnstillingen er aktivert, blokkeres alle forsøk på automatisk og manuell tilkobling til nettverk for roaming-leverandør til klienten er registrert på nettverket for hjemmeleverandør.
+Hvis denne policyinnstillingen aktiveres, blokkeres alle forsøk på automatisk og manuell tilkobling til roamingleverandører til klienten er registrert hos hjemmeleverandørnettverket.
 
-Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan klienter koble til nettverk for roaming-leverandør for mobilt bredbånd.
+Hvis denne policyinnstillingen ikke er konfigurert eller er deaktivert, kan klienter koble seg til nettverk for mobilt bredbånd.
       </string>
       <string id="WCM_MinimizeConnections">Minimer antallet samtidige tilkoblinger til Internett eller et Windows-domene</string>
       <string id="WCM_MinimizeConnections_AllowAllConnections">0 = Tillat samtidige tilkoblinger</string>
@@ -47,9 +47,9 @@ Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan klien
         Denne policyinnstillingen er relatert til policyinnstillingen Aktiver Windows for å løse ut en datamaskin fra et nettverk.
       </string>
       <string id="WCM_DisablePowerManagement">Deaktiver strømstyring i tilkoblet ventemodus</string>
-      <string id="WCM_DisablePowerManagement_Help">Denne policyinnstillingen angir at strømstyring er deaktivert når maskinen går over i tilkoblet ventemodus. 
+      <string id="WCM_DisablePowerManagement_Help">Denne policyinnstillingen angir at strømstyring er deaktivert når maskinen går over i tilkoblet ventemodus.
 
-Hvis denne policyinnstillingen er aktivert, behandler ikke Windows Tilkoblingsbehandling kortradioer for å redusere strømforbruk når maskinen går over i tilkoblet ventemodus.
+Hvis denne policyinnstillingen er aktivert, administrerer ikke Windows Tilkoblingsbehandling kortradioer for å redusere strømforbruk når maskinen går over i tilkoblet ventemodus.
 
 Hvis denne policyinnstillingen ikke er konfigurert eller er deaktivert, aktiveres strømstyring når maskinen går over i tilkoblet ventemodus.
       </string>
@@ -63,9 +63,9 @@ Hvis denne policyinnstillingen er deaktivert, vil Windows koble en datamaskin fr
 Når myk frakobling er aktivert:
 – Når Windows bestemmer at datamaskinen ikke lenger skal være tilkoblet et nettverk, venter Windows til trafikken roer seg på nettverket. Den eksisterende TCP-økten fortsetter uavbrutt.
 – Windows kontrollerer deretter trafikknivået på nettverket regelmessig. Hvis trafikknivået er over en bestemt terskel, utføres ingen flere handlinger. Datamaskinen forblir tilkoblet til nettverket og fortsetter å bruke det. Hvis nettverkstilkoblingen for eksempel brukes til å laste ned filer fra Internett, fortsetter nedlastingen av filer ved hjelp av denne nettverkstilkoblingen.
-– Når nettverkstrafikken kommer under denne terskelen, kobles datamaskinen fra nettverket. Apper som holder en nettverkstilkobling aktiv selv når de ikke bruker den aktivt (for eksempel e-postapper), kan miste tilkoblingen. Hvis dette skjer, skal disse appene koble til på nytt via et annet nettverk. 
+– Når nettverkstrafikken kommer under denne terskelen, kobles datamaskinen fra nettverket. Apper som holder en nettverkstilkobling aktiv selv når de ikke bruker den aktivt (for eksempel e-postapper), kan miste tilkoblingen. Hvis dette skjer, vil disse appene koble til på nytt via et annet nettverk. 
 
-Denne policyinnstillingen avhenger av andre gruppepolicyinnstillinger. Hvis Minimer antallet samtidige tilkoblinger til Internett eller et Windows-domene for eksempel er deaktivert, vil ikke Windows koble fra noen nettverk.
+Denne policyinnstillingen avhenger av andre gruppepolicyinnstillinger. Hvis for eksempel Minimer antallet samtidige tilkoblinger til Internett eller et Windows-domene er deaktivert, vil ikke Windows koble fra noen nettverk.
       </string>
     </stringTable>
     <presentationTable>

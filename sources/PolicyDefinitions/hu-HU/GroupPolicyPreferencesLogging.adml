@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>Csoportházirend beállítási naplózási házirendek</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">Az Alkalmazások beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_Applications_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja az Alkalmazások beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést az Alkalmazások bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken az Alkalmazások bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.
+
+</string>
+      <string id="CSE_DataSources_Logging">Az Adatforrások beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_DataSources_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja az Adatforrások beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést az Adatforrások bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken az Adatforrások bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_Devices_Logging">Az Eszközök beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_Devices_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja az Eszközök beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést az Eszközök bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken az Eszközök bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_Drives_Logging">A Meghajtócsatlakoztatások beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_Drives_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Meghajtócsatlakoztatások beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Meghajtócsatlakoztatások bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Meghajtócsatlakoztatások bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_Environment_Logging">A Környezet beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_Environment_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Környezet beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Környezet bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Környezet bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_Files_Logging">A Fájlok beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_Files_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Fájlok beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Fájlok bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Fájlok bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_FolderOptions_Logging">A Mappabeállítások beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_FolderOptions_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Mappabeállítások beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Mappabeállítások bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Mappabeállítások bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_Folders_Logging">A Mappák beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_Folders_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Mappák beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Mappák bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Mappák bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_IniFiles_Logging">Az INI-fájlok beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_IniFiles_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja az INI-fájlok beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést az INI-fájlok bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken az INI-fájlok bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_Internet_Logging">Az Internetbeállítások beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_Internet_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Internet beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést az Internet bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken az Internet bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">A Helyi felhasználók és csoportok beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Helyi felhasználó és a Helyi csoport beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Helyi felhasználó és a Helyi csoport bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Helyi felhasználó és a Helyi csoport bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_NetworkOptions_Logging">A Hálózati beállítások beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_NetworkOptions_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Hálózati beállítások beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Hálózati beállítások bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Hálózati beállítások bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_NetShares_Logging">A Hálózati megosztások beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_NetShares_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Hálózati megosztások beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Hálózati megosztások bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Hálózati megosztások bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_PowerOptions_Logging">Az Energiagazdálkodási lehetőségek beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_PowerOptions_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja az Energiagazdálkodási lehetőségek beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést az Energiagazdálkodási lehetőségek bővítmény esetében. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken az Energiagazdálkodási lehetőségek bővítmény esetében.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_Printers_Logging">A Nyomtatók beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_Printers_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Fájlok beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Nyomtatók bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Nyomtatók bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_RegionalOptions_Logging">A Területi beállítások beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_RegionalOptions_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Területi beállítások beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Területi beállítások bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Területi beállítások bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_PrefRegistry_Logging">A Beállításjegyzék beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_PrefRegistry_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Fájlok beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Beállításjegyzék bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Beállításjegyzék bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_ScheduledTasks_Logging">Az Ütemezett feladatok beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja az Ütemezett feladatok beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést az Ütemezett feladatok bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken az Ütemezett feladatok bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_Services_Logging">A Szolgáltatások beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_Services_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Szolgáltatások beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Szolgáltatások bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Szolgáltatások bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_Shortcuts_Logging">A Parancsikonok beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_Shortcuts_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Parancsikonok beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Parancsikonok bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Parancsikonok bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_StartMenu_Logging">A Start menü beállítás naplózásának és nyomon követésének beállítása</string>
+      <string id="CSE_StartMenu_Logging_Help">Ezzel a házirend-beállítással konfigurálhatja a Start menü beállításbővítmény eseménynaplózásának rögzítési részletességét, illetve bekapcsolhatja a nyomkövetést a Start menü bővítményre. A naplózás és a nyomkövetés diagnosztikai információkat nyújt a hibaelhárításhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, konfigurálhatja az eseménynaplózást, valamint bekapcsolhatja a nyomkövetést az ügyfélszámítógépeken a Start menü bővítményre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, alapértelmezés szerint a bővítmény eseménynaplózása csak a figyelmeztetésekre és hibákra terjed ki, a bővítmény nyomkövetése pedig ki van kapcsolva.
+
+Biztonsági figyelmeztetés: 
+Csak a minimálisan szükséges engedélyekkel biztosítsa a konfigurált hálózati megosztást. Ne használjon széles körű hozzáférést (pl. Bármely standard fiók vagy Mindenki teljes hozzáféréssel), mert ez jogosulatlan hozzáférést eredményezhet a naplózási és nyomkövetési adatokhoz
+
+Megjegyzések:
+
+1. Felhasználó konfigurációja nyomkövetése: Ahhoz, hogy ennek a bővítménynek a Felhasználó konfigurációja helyen lévő példányára végezzen a rendszer nyomkövetést, meg kell adnia a „Felhasználó nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a felhasználói nyomkövetési fájl az ügyfélszámítógépen, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nincsenek beállításelemek ebben a bővítményben a Felhasználó konfigurációja helyen, a rendszer nem hoz létre felhasználói nyomkövetési fájlt.
+
+2. Számítógép konfigurációja nyomkövetése: Ez a beállításbővítmény csak a Felhasználó konfigurációja helyen érhető el, ezért a számítógép-konfiguráció nyomkövetése nem alkalmazható.
+
+3. Csoportházirend-modellezési lekérdezés nyomkövetése: Ahhoz, hogy a rendszer nyomkövetést végezzen, amikor Ön csoportházirend-modellezési lekérdezést hajt végre, meg kell adnia a „Tervezés nyomkövetése” mezőben annak a helynek az elérési útját, ahol létrehozható a tervezés-nyomkövetési fájl azon a számítógépen, amelyen a modellezést futtatja, továbbá be kell kapcsolnia a „Nyomkövetés” beállítást. Ha nem végez csoportházirend-modellezést vagy nincsenek beállításelemek ebben a bővítményben, a rendszer nem hoz létre tervezés-nyomkövetési fájlt.</string>
+      <string id="CSE_NOCHANGES">Feldolgozás változatlan csoportházirend-objektumok esetén is</string>
+      <string id="CSE_NOBACKGROUND">Ne alkalmazza háttérben történő rendszeres feldolgozás közben</string>
+      <string id="CSE_ALLOWSLOWLINK">Feldolgozás engedélyezése lassú hálózati kapcsolaton keresztül</string>
+      <string id="CSE_TRACELEVEL">Nyomkövetés</string>
+      <string id="CSE_TRACEFILEPATHUSER">Felhasználó nyomkövetése</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">Számítógép nyomkövetése</string>
+      <string id="CSE_TRACEFILEPATH">Nyomkövetési fájl</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">Tervezés nyomkövetése</string>
+      <string id="CSE_TRACEFILEMAXSIZE">Nyomkövetési fájl maximális mérete (KB)</string>
+      <string id="CSE_TRACELEVELNORMAL">Ki</string>
+      <string id="CSE_TRACELEVELVERBOSE">Be</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">Háttér prioritás</string>
+      <string id="CSE_PRILEVEL_NORMAL">Normál</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">Normál alatt</string>
+      <string id="CSE_PRILEVEL_LOWEST">Legalacsonyabb</string>
+      <string id="CSE_PRILEVEL_IDLE">Üresjárat</string>
+      <string id="CSE_LOGLEVEL">Eseménynaplózás</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">Tájékoztatások, figyelmeztetések és hibák</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">Figyelmeztetések és hibák</string>
+      <string id="CSE_LOGLEVEL_ERRORS">Csak a hibák</string>
+      <string id="CSE_LOGLEVEL_NONE">Nincs</string>
+      <string id="CSE_Logging">Naplózás és nyomkövetés</string>
+      <string id="CSE_Logging_Help">Lehetővé teszi, hogy konfigurálja a naplózást és nyomkövetést a beállítási összetevőkhöz.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Számítógép nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Eseménynaplózás</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nyomkövetés</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Felhasználó nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Tervezés nyomkövetése</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Nyomkövetési fájl maximális mérete (KB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

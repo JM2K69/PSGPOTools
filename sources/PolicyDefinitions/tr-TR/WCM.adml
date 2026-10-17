@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2006 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Windows Bağlantı Yöneticisi Grup İlkesi Ayarları</displayName>
   <description>Windows Bağlantı Yöneticisi Grup İlkesi Ayarları</description>
@@ -22,7 +22,7 @@ Manuel bağlantı girişimleri
 Bu ilke ayarı yapılandırılmazsa veya devre dışı bırakılırsa bilgisayarların aynı anda hem etki alanı hem de etki alanı olmayan ağlara bağlanmalarına izin verilir.
       </string>
       <string id="WCM_DisableRoaming">Dolaşımlı Mobil Geniş Bant ağlara bağlantıyı yasaklayın</string>
-      <string id="WCM_DisableRoaming_Help">Bu ilke ayarı, istemci dolaşımlı sağlayıcı ağına kayıtlı olduğunda istemcilerin Mobil Geniş Bant ağlara bağlanmasını engeller. 
+      <string id="WCM_DisableRoaming_Help">Bu ilke ayarı, istemci dolaşımlı sağlayıcı ağına kayıtlı olduğunda istemcilerin Mobil Geniş Bant ağlara bağlanmasını engeller.
 
 Bu ilke ayarı etkinleştirilirse istemci ana sağlayıcı ağına kaydolana kadar dolaşımlı sağlayıcı ağlarına tüm otomatik ve manuel bağlantı girişimleri engellenir.
 
@@ -47,7 +47,7 @@ Bu ilke ayarı yapılandırılmazsa veya devre dışı bırakılırsa istemciler
         Bu ilke ayarı, "Windows'un bir ağdan bir bilgisayarın yazılım bağlantısını kesmesini etkinleştir" ilke ayarı ile ilişkilidir.
       </string>
       <string id="WCM_DisablePowerManagement">Bağlı bekleme modunda güç yönetimini devre dışı bırakın</string>
-      <string id="WCM_DisablePowerManagement_Help">Bu ilke ayarı, makine bağlı bekleme moduna girdiğinde güç yönetiminin devre dışı bırakılacağını belirtir. 
+      <string id="WCM_DisablePowerManagement_Help">Bu ilke ayarı, makine bağlı bekleme moduna girdiğinde güç yönetiminin devre dışı bırakılacağını belirtir.
 
 Bu ilke ayarı etkinleştirilirse makine bağlı bekleme moduna girdiğinde güç tüketimini azaltmak amacıyla Windows Bağlantı Yöneticisi bağdaştırıcı radyoları yönetmez.
 
@@ -63,7 +63,7 @@ Bu ilke ayarı devre dışı bırakılırsa Windows, bilgisayarın artık bir a�
 Yazılım bağlantısı kesme etkinleştirildiğinde:
 - Windows, bilgisayarın artık bir ağa bağlanmaması gerektiğine karar verdiğinde bu ağ üzerine yerleşmek için trafiği bekler. Mevcut TCP oturumu kesintisiz devam eder.
 - Daha sonra Windows, ağ üzerindeki trafik düzeyini düzenli olarak denetler. Trafik düzeyi belirli bir eşik üzerindeyse başka bir işlem yapılmaz. Bilgisayar ağa bağlı kalır ve ağı kullanmaya devam eder. Örneğin, ağ bağlantısı şu anda İnternet'ten dosya indirmek için kullanılıyorsa dosyalar, bu ağ bağlantısı kullanılarak indirilmeye devam eder.
-- Ağ trafiği bu eşiğin altına düşerse bilgisayarın ağdan bağlantısı kesilir. Bir ağ bağlantısının aktif olarak kullanılmadığında bile aktif kalmasını sağlayan uygulamalar (örneğin, e-posta uygulamaları) bağlantısını kaybedebilir. Bu durumda bu uygulamalar, farklı bir ağ üzerinden bağlantısını yeniden kurmalıdır. 
+- Ağ trafiği bu eşiğin altına düşerse bilgisayarın ağdan bağlantısı kesilir. Bir ağ bağlantısının aktif olarak kullanılmadığında bile aktif kalmasını sağlayan uygulamalar (örneğin, e-posta uygulamaları) bağlantısını kaybedebilir. Bu durumda bu uygulamalar, farklı bir ağ üzerinden bağlantıyı yeniden kurmalıdır.
 
 Bu ilke ayarı, diğer grup ilkesi ayarlarına bağlıdır. Örneğin, 'İnternet'e veya bir Windows Etki Alanı'na eş zamanlı bağlantı sayısını en aza indir' devre dışı bırakıldığında Windows, herhangi bir ağdan bağlantıyı kesmez.
       </string>

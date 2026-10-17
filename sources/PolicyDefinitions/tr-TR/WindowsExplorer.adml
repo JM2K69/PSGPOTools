@@ -220,11 +220,11 @@ Standart Aç iletişim kutusunun bir örneğini görmek için Wordpad'i başlat�
 
 Not: Windows Vista'da, bu ilke ayarı yalnızca Windows XP genel iletişim kutusu stilini kullanan uygulamalar için geçerlidir. Bu ilke ayarı yeni Windows Vista genel iletişim kutusu stiline uygulanmaz. Windows 2000 ya da daha yeni sertifika kullanan üçüncü taraflara ait uygulamaların bu ayara uyması zorunludur.</string>
       <string id="NoRecycleFiles">Silinen dosyaları Geri Dönüşüm Kutusu'na taşıma</string>
-      <string id="NoRecycleFiles_Help">Dosya Gezgini'nde bir dosya veya klasör silindiğinde, dosya veya klasörün bir kopyası Geri Dönüşüm Kutusu'na yerleştirilir. Bu ayarı kullanarak bu davranışı değiştirebilirsiniz.
+      <string id="NoRecycleFiles_Help">Dosya Gezgini 'nde bir dosya veya klasör silindiğinde, dosya veya klasörün bir kopyası geri dönüşüm kutusu 'na yerleştirilir. Bu ayarı kullanarak bu davranışı değiştirebilirsiniz.
 
-Bu ayarı etkinleştirirseniz, Dosya Gezgini kullanılarak silinen dosyalar ve klasörler Geri Dönüşüm Kutusu'na yerleştirilmez ve böylece kalıcı olarak silinir.
+Bu ayarı etkinleştirirseniz, dosya Gezgini kullanılarak silinen dosyalar ve klasörler geri dönüşüm kutusu 'Na yerleştirilmeyecektir ve bu nedenle kalıcı olarak silinecektir.
 
-Bu ayarı devre dışı bırakır veya bu ayarı yapılandırmazsanız, Dosya Gezgini kullanılarak silinen dosya ve klasörler Geri Dönüşüm Kutusu'na yerleştirilir.</string>
+Bu ayarı devre dışı bırakır veya yapılandırmazsanız, dosya Gezgini kullanılarak silinen dosyalar ve klasörler geri dönüşüm kutusu 'Na yerleştirilir.</string>
       <string id="NoRunAsInstallPrompt">Diğer kimlik belgelerini isteme</string>
       <string id="NoRunAsInstallPrompt_Help">Kullanıcıların bir program yüklemek için farklı bir kimlik bilgisi sunmasını engeller.
 
@@ -519,19 +519,33 @@ Bu ilke ayarını etkinleştirirseniz dosya kısa yolu simgelerinin uzak yollard
 Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız uzak yolları kullanan dosya kısayolu simgelerinin görüntülenmesi engellenir.
 
 Not: Dosya kısayolu simgelerinde uzak yolların kullanılmasına izin verilmesi kullanıcıların bilgisayarlarında güvenlik riski oluşturabilir.</string>
-      <string id="DefaultAssociationsConfiguration">Varsayılan ilişkileri yapılandırma dosyasını ayarla</string>
-      <string id="DefaultAssociationsConfiguration_Help">Bu ilke, dosya türü ve protokol varsayılan uygulama ilişkilendirmelerinin bulunduğu dosyanın (ör. yerel olarak depolanan ya da ağ konumunda bulunan) yolunu belirtir. Bu dosya DISM aracı kullanılarak oluşturulabilir.
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Dosya grubu tanımlayıcı işlemlerinin herhangi bir hedef yola yazmasına izin ver</string>
+      <string id="AllowAllCopyFGDDestinations_Help">Bu ilke ayarı, panodan ya da sürükle bırak dosya grubu tanımlayıcılarından (CFSTR_FILEDESCRIPTOR) alınan dosyalar yazılırken yol geçişi sınırlandırma denetimlerinin uygulanıp uygulanmayacağını belirler.
 
+Bu ilke ayarını etkinleştirirseniz, yol geçişi sınırlandırma denetimleri uygulanmaz ve dosyalar hedef klasörün ulaşabildiği herhangi bir yola yazılabilir. Bu ilkeyi yalnızca varsayılan davranış gerekli bir iş akışını bozuyorsa etkinleştirin.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, dosya grubu tanımlayıcısı işlemleri yol sınırlandırmasını uygular ve göreli yol bileşenleri kullanarak hedef klasörden çıkmaya çalışan dosya adlarını reddeder.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">Güvenli olmayan kaynaklardan kopyalanan dosyalara Web İşareti etiketi uygulama</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">Bu ilke ayarı, güvenli olmayan konumlardan gelen dosyalara Web İşareti etiketinin uygulanıp uygulanmayacağını belirler.
+
+Bu ilke ayarını etkinleştirirseniz, güvenli olmayan kaynaklardan kopyalanan dosyalar Web İşareti ile etiketlenmez.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, güvenli olmayan kaynaklardan kopyalanan dosyalar uygun Web İşareti ile etiketlenir.
+
+Not: Güvenli olmayan kaynaklardan gelen dosyaların Web İşareti ile etiketlenmemesi, kullanıcıların bilgisayarlarını güvenlik risklerine açık hale getirebilir.</string>
+      <string id="DefaultAssociationsConfiguration">Varsayılan ilişkileri yapılandırma dosyasını ayarla</string>
+      <string id="DefaultAssociationsConfiguration_Help">Bu ilke, dosya türü ve protokol varsayılan uygulama ilişkilendirmelerini içeren bir dosyanın yolunu (yerel olarak veya bir ağ konumuna depolanır) belirtir. Bu dosya DISM aracı kullanılarak oluşturulabilir.
+      
 Örneğin:
 Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-Daha fazla bilgi için TechNet'te DISM belgelerine bakın.
+Daha fazla bilgi için DISM belgelerine bakın.
 
-Bu grup ilkesi etkinse ve istemci makine etki alanına bağlıysa, dosya işlenir ve varsayılan ilişkilendirmeler oturum açma sırasında uygulanır.
+Bu dosya oluşturulduktan sonra yine düzenlenerek ilke ilişkilendirmelerinin uygulanma sıklığı değiştirilebilir. "Version" özniteliği, "DefaultAssociations" öğesine eklenebilir. Değer bir tamsayı olmalıdır. "Suggested" özniteliği herhangi bir "Association" öğesine eklenebilir. Değer bir bool ve varsayılan değer "false" olmalıdır. İlke, bir kullanıcıya uygulandığında, Suggested="true" olan tüm İlişkilendirmeler yalnızca bir kez uygulanır. Sürüm değeri arttırılmışsa, Suggested="true" olan ilişkilendirmeler yeniden uygulanır.
 
-Grup ilkesi yapılandırılmazsa, devre dışı bırakılırsa ya da istemci makine etki alanına bağlı değilse, oturum açma sırasında hiçbir varsayılan ilişkilendirme uygulanmaz.
+Bu grup ilkesi etkinleştirilirse ve istemci makinesi etki alanına katılmışsa, dosya işlenir ve varsayılan ilişkilendirmeler oturum açma sırasında uygulanır.
 
-İlke etkinse, devre dışıysa veya yapılandırılmamışsa, kullanıcılar varsayılan dosya türü ve protokol ilişkilendirmelerinin üzerine yazmaya devam edebilir.</string>
+İlke etkinleştirilirse, kullanıcılar varsayılan dosya türünü ve protokol ilişkilendirmelerini yine de geçersiz kılabilir ancak dosya, bir sonraki oturum açılışında yeniden uygulanır.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

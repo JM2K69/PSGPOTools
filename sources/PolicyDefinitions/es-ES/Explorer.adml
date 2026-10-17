@@ -37,14 +37,30 @@ Nota: habilitar esta configuración de directiva no impide que los usuarios pued
       <string id="DisableRoamedProfileInit_Help">Esta configuración de directiva permite a los administradores que hayan configurado un perfil móvil junto con la configuración de directiva Eliminar grupo de perfiles móviles en caché para asegurarse de que el explorador no reinicializará las asociaciones de los valores predeterminados de los programas predeterminados y otras configuraciones. 
 
 Si habilitas esta configuración de directiva en un equipo que no contenga todos los programas instalados del mismo modo que en el equipo en el que el usuario haya iniciado sesión por última vez, puede producirse un comportamiento inesperado. </string>
+      <string id="DisableGraphRecentItems">Mostrar archivos en función de la cuenta y la actividad del proveedor en la nube</string>
+      <string id="DisableGraphRecentItems_Help">Si desactivas esta opción, impedirás que Explorador de archivos solicite metadatos de archivo en la nube y los muestre en la página principal y en otras vistas de Explorador de archivos. Las conclusiones y los archivos basados en la actividad de la cuenta o del proveedor de nube se detendrán en vistas como Recientes, Recomendado, Favoritos, Compartido, etc.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Desactivar la integración de origen de configuración avanzada en Explorador de archivos</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">Deshabilitar la integración de origen de configuración avanzada impedirá que Explorador de archivos muestre información del repositorio desde el componente de configuración avanzada</string>
+      <string id="DisableFileExplorerPrelaunch">Deshabilitar Explorador de archivos característica para iniciar previamente una ventana en segundo plano</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Esta directiva impide que los usuarios habiliten la característica Inicio previo en Explorador de archivos, que crea una ventana en segundo plano para acelerar la experiencia de inicio y mejorar la capacidad de respuesta.</string>
+      <string id="MakePrintScreenKeyYieldable">Hacer que la tecla Imprimir pantalla sea reasignable</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Esta configuración de directiva determina si la tecla Imprimir pantalla se puede entregar a otras aplicaciones.
+
+Si habilitas esta configuración de directiva, las aplicaciones podrán interceptar la tecla Imprimir pantalla, lo que les permitirá invalidar la funcionalidad de captura de pantalla predeterminada.
+
+Si deshabilitas esta configuración de directiva, la clave de la pantalla de impresión conservará su comportamiento heredado para tomar capturas de pantalla y las aplicaciones no podrán interceptarlas.
+
+Si esta directiva no está configurada, las aplicaciones pueden interceptar la clave de la pantalla de impresión, lo que les permite invalidar la funcionalidad de captura de pantalla predeterminada, igual que el comportamiento habilitado.
+
+Nota: Esta configuración puede requerir un reinicio del sistema para que surta efecto.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>Dirección URL de la página web de soporte</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>Dirección URL de la página web de soporte</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

@@ -32,13 +32,12 @@
 Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de instelling van de lokale host gebruikt.
 
 Als u deze beleidsinstelling inschakelt, kunt u ISATAP met een van de volgende instellingen configureren:
-Standaard beleidstatus: als de naam van de ISATAP-router kan worden omgezet, heeft de host ISATAP geconfigureerd met een link-local adres en wordt er via automatische adresconfiguratie een stateless adres voor elk voorvoegsel ontvangen van de ISATAP-router. Als de naam van de ISATAP-router niet kan worden omgezet, is er geen ISATAP-connectiviteit beschikbaar op de host die het corresponderende IPv4-adres gebruikt.
+
+Standaard beleidstatus: er zijn geen ISATAP-interfaces beschikbaar op de host.
 
 Ingeschakelde status: als de naam van de ISATAP-router kan worden omgezet, heeft de host ISATAP geconfigureerd met een link-local adres en wordt er via automatische adresconfiguratie een stateless adres voor elk voorvoegsel ontvangen van de ISATAP-router. Als de naam van de ISATAP-router niet kan worden omgezet, beschikt de host over een ISATAP-interface die is geconfigureerd met een link-local adres.
 
 Uitgeschakelde status: er zijn geen ISATAP-interfaces beschikbaar op de host.
-
-
 
 </string>
 
@@ -58,13 +57,12 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de instelli
 Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de instelling van de lokale host gebruikt.
 
 Als u deze beleidsinstelling inschakelt, kunt u 6to4 met een van de volgende instellingen configureren:
-Standaard beleidstatus: 6to4 is beschikbaar als de host alleen link-local IPv6-connectiviteit en een openbaar IPv4-adres heeft. Als er geen globaal IPv6-adres aanwezig is en evenmin een globaal IPv4-adres, beschikt de host niet over een 6to4-interface. Als er geen globaal IPv6-adres bestaat maar wel een globaal IPv4-adres, beschikt de host over een 6to4-interface.Ingeschakelde status:
+
+Standaard beleidstatus: 6to4 is uitgeschakeld en connectiviteit met 6to4 is niet beschikbaar.
 
 Ingeschakelde status: als er een globaal IPv4-adres aanwezig is, beschikt de host over een 6to4-interface. Als er geen globaal IPv4-adres aanwezig is, beschikt de host niet over een 6to4-interface.
 
 Uitgeschakelde status: 6to4 is uitgeschakeld en er is geen connectiviteit via 6to4 beschikbaar.
-
-
 
 </string>
 
@@ -186,6 +184,45 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, zal Limieten voor
 Als u deze beleidsinstelling uitschakelt of niet configureert, wordt Limieten voor stateless IP-autoconfiguratie ingeschakeld en beperkt het systeem het aantal automatisch geconfigureerde adressen en routes.
 
 
+
+</string>
+
+      <string id="IPxlatCfg_PermitNonCellularCLAT">CLAT-toestemming instellen</string>
+      <string id="IPxlatCfg_PermitNonCellularCLAT_Help">Met deze beleidsinstelling kun je de vertaler aan de klantzijde voor 464XLAT (CLAT) wereldwijd toestaan of uitschakelen voor niet-mobiele interfaces.
+
+Als je deze beleidsinstelling inschakelt, is CLAT wereldwijd toegestaan en kan het worden ingeschakeld op netwerkinterfaces.
+
+Als je deze beleidsinstelling uitschakelt, is CLAT wereldwijd niet toegestaan en kan het niet worden ingeschakeld.
+
+Als je deze beleidsinstelling niet configureert, wordt de instelling van de lokale host gebruikt.
+
+Je hoeft niet opnieuw op te starten of de service opnieuw te starten om deze beleidsinstelling van kracht te laten worden.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromRA">CLAT-voorvoegselgegevens ophalen uit RA instellen</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromRA_Help">Met deze beleidsinstelling kun je routeradvertenties (RA) gebruiken als bron van voorvoegselinformatie voor niet-mobiele CLAT.
+
+Als je deze beleidsinstelling inschakelt, mag CLAT NAT64-voorvoegsels ontdekken via RA. Als beide methoden voor het ontdekken van NAT64-voorvoegsels zijn ingeschakeld, is de volgorde van prioriteit (RA, DNS).
+
+Als je deze beleidsinstelling uitschakelt, mag CLAT geen NAT64-voorvoegsels ontdekken via RA.
+
+Als je deze beleidsinstelling niet configureert, wordt de instelling van de lokale host gebruikt.
+
+Je moet de computer opnieuw opstarten om deze beleidsinstelling van kracht te laten worden.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS">CLAT-voorvoegselgegevens ophalen uit DNS instellen</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS_Help">Met deze beleidsinstelling kun je DNS gebruiken als bron van voorvoegselinformatie voor niet-mobiele CLAT.
+
+Als je deze beleidsinstelling inschakelt, mag CLAT NAT64-voorvoegsels ontdekken via DNS. Als beide methoden voor het ontdekken van NAT64-voorvoegsels zijn ingeschakeld, is de volgorde van prioriteit (RA, DNS).
+
+Als je deze beleidsinstelling uitschakelt, mag CLAT geen NAT64-voorvoegsels ontdekken via DNS.
+
+Als je deze beleidsinstelling niet configureert, wordt de instelling van de lokale host gebruikt.
+
+Je moet de computer opnieuw opstarten om deze beleidsinstelling van kracht te laten worden.
 
 </string>
 

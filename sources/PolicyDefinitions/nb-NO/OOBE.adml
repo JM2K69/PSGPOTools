@@ -14,6 +14,19 @@
 Hvis denne policyen aktiveres, vil ikke personvernopplevelsen starte opp for nyopprettede brukerkontoer eller kontoer som ville blitt bedt om å velge sine personverninnstillinger etter en oppgradering.
 
 Hvis denne policyen deaktiveres eller ikke konfigureres, kan personvernopplevelsen starte for nylig opprettede brukerkontoer eller for kontoer som bør bli bedt om å velge personverninnstillinger etter en oppgradering.</string>
+
+      <string id="AllowOOBEUpdates">Tillat oppdateringer i OOBE</string>
+      <string id="AllowOOBEUpdates_Explain">Med denne policyen kan du konfigurere om en ny enhet får kritiske oppdateringer i løpet av Out-of-Box Experience.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyen, vil ikke nye enheter motta kritiske oppdateringer i løpet av Out-of-Box Experience.
+
+Hvis du aktiverer policyen, vil nye enheter motta de nyeste godkjente kritiske oppdateringene i løpet av Out-of-Box Experience.
+
+Obs!
+Denne policyen kontrollerer ikke oppdateringssiden for nulldagsoppdateringer (ZDP) i OOBE.
+
+Hvis du har stanset kvalitetsoppdateringer midlertidig gjennom utsettelser av Windows-kvalitetsoppdateringer og pausepolicyer, blir ingen kvalitetsoppdateringer levert i løpet av Out-of-Box Experience.
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

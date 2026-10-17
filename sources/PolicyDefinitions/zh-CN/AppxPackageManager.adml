@@ -2,39 +2,47 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>Appx 包管理器</displayName> 
+  <displayName>Appx 包管理器</displayName>
   <description>Appx 包管理器</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">应用程序包部署</string>
       <string id="AppxDeploymentAllowAllTrustedApps">允许安装所有受信任的应用程序</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">使用此策略设置，可以管理可信业务线(LOB) Windows 应用商店应用的安装。
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">此策略设置允许你管理受信任的业务线 (LOB) 或开发人员签名的打包 Microsoft Store 应用的安装。
 
-如果启用此策略设置，则可以安装任何 LOB 或开发人员签名的 Windows 应用商店应用(该应用必须使用可由本地计算机成功验证的证书链签名)。
+如果启用或不配置此策略设置，则可以安装任何 LOB 或开发人员签名的打包 Microsoft Store 应用(必须使用可由本地计算机成功验证的证书链进行签名)。
 
-如果禁用或未配置此策略设置，则无法安装 LOB 或开发人员签名的 Windows 应用商店应用。</string>
+如果禁用此策略设置，则无法安装 LOB 或开发人员签名的打包 Microsoft Store 应用。</string>
+      <string id="AllowAutomaticAppArchiving">存档不常用的应用</string>
+      <string id="AllowAutomaticAppArchivingExplanation">此策略设置控制系统是否可以存档不经常使用的应用。
+
+如果启用此策略设置，则系统将定期检查并存档不经常使用的应用。
+
+如果禁用此策略设置，则系统将不会存档任何应用。
+
+如果未配置此策略设置 (默认 ")"，则系统将遵循默认行为，该行为会定期检查并存档不经常使用的应用，并且用户将能够自己配置此设置。</string>
       <string id="AllowDeploymentInSpecialProfiles">允许使用特殊配置文件进行部署操作</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">使用此策略设置，可以管理用户使用特殊配置文件登录时的 Windows 应用商店应用的部署。特殊配置文件为以下用户配置文件，用户注销后会放弃其中所做更改：
+      <string id="AllowDeploymentInSpecialProfilesExplanation">使用此策略设置，可以在用户使用特殊配置文件登录时管理打包 Microsoft Store 应用的部署。特殊配置文件是以下用户配置文件，在用户注销后将放弃更改:
 
-应用“删除缓存的漫游配置文件副本”组策略设置的漫游用户配置文件
+漫游用户配置文件，其中“删除漫游配置文件的缓存副本”组策略设置应用
 
-由管理员创建的强制性用户配置文件和超级强制性配置文件
+强制用户配置文件和超强制配置文件，由管理员
 
-出现的错误阻止加载正确配置文件时创建的临时用户配置文件
+临时用户配置文件创建，当错误阻止正确配置文件加载来宾账户和来宾组成员的
 
-来宾帐户和来宾组成员的用户配置文件
+用户配置文件时创建
 
 
-如果启用此策略设置，则组策略允许在使用特殊配置文件时对 Windows 应用商店应用执行部署操作（添加、注册、暂存、更新或删除应用包）。
+如果启用此策略设置，组策略在使用特殊配置文件时允许对打包 Microsoft Store 应用执行部署操作(添加、注册、暂存、更新或删除应用包)。
 
-如果禁用或未配置此策略设置，则组策略会阻止在使用特殊配置文件时对 Windows 应用商店应用执行部署操作。</string>
-      <string id="AllowDevelopmentWithoutDevLicense">允许开发 Windows 应用商店应用并从集成开发环境(IDE)安装这些应用 </string>
+如果禁用或未配置此策略设置，组策略在使用特殊配置文件时阻止打包 Microsoft Store 应用的部署操作。</string>
+      <string id="AllowDevelopmentWithoutDevLicense">允许开发打包的Microsoft Store应用，并从集成开发环境 （IDE） 安装它们</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        允许或拒绝在不安装开发者许可证的情况下开发 Windows 应用商店应用程序。
+        允许或拒绝开发 Microsoft Store 应用程序，并直接从 IDE 进行安装。
 
-        如果启用此设置并启用“允许安装所有受信任的应用”组策略，则可以在不安装开发者许可证的情况下开发 Windows 应用商店应用。
-        
-        如果禁用或未配置此设置，则需要先安装开发者许可证，然后才能开发 Windows 应用商店应用。
+        如果启用此设置并启用“允许安装所有受信任的应用程序”组策略，则可以开发 Microsoft Store 应用并直接从 IDE 进行安装。
+
+        如果禁用或未配置此设置，则无法开发 Microsoft Store 应用或直接从 IDE 进行安装。
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">禁止将 Windows 应用安装到非系统卷</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -54,11 +62,149 @@
       </string>
       <string id="AllowSharedLocalAppData">允许 Windows 应用在用户之间共享应用程序数据</string>
       <string id="AllowSharedLocalAppDataExplanation">管理 Windows 应用在安装了该应用的用户之间共享数据的功能。
-      
+
         如果启用此策略，则 Windows 应用可以与该应用的其他实例共享应用数据。数据通过 SharedLocal 文件夹共享。可通过 Windows.Storage API 使用此文件夹。
 
-        如果禁用此策略，Windows 应用将无法与该应用的其他实例共享应用数据。如果以前启用过此策略，则以前共享的应用数据仍将保留在 SharedLocal 文件夹中。 
+        如果禁用此策略，则 Windows 应用将无法与该应用的其他实例共享应用数据。如果以前启用过此策略，则以前共享的应用数据仍将保留在 SharedLocal 文件夹中。
       </string>
+      <string id="BlockNonAdminUserInstall">阻止非管理员用户安装打包的 Windows 应用</string>
+      <string id="BlockNonAdminUserInstallExplanation">管理非管理员用户安装 Windows 应用程序包的能力。
+
+        如果启用此策略，则非管理员用户将无法启动 Windows 应用程序包的安装。想要安装应用的管理员需要从管理员上下文(例如，管理员 PowerShell 窗口)中执行此操作。如果其他策略允许，则所有用户仍可以通过 Microsoft Store 安装 Windows 应用程序包。
+
+        如果禁用或未配置此策略，则所有用户都将能够启动 Windows 应用程序包的安装。
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">在 MSIX 流式处理安装中为 HTTPS 身份验证设置授权域</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">此策略设置确定是否将 EntraID OAuth 令牌包括在 HTTPS 与指定完全限定域名的通信中，以便执行 MSIX 流式处理安装。
+
+如果启用此策略设置，则在执行流式 MSIX 安装时，与预定义的完全限定域的 HTTPS 通信将合并用户的 EntraID OAuth 令牌。提供的值是 ECMA 脚本) (正则表达式，用于与 URL 的大写完全限定域匹配。
+
+如果禁用或未配置此策略设置，则用户的 EntraID OAuth 令牌将仅与默认配置的域共享。
+      </string>
+      <string id="DisableBackgroundAutoUpdates">不允许旁加载应用在后台自动更新</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">管理旁加载应用在后台自动更新的能力。
+
+        如果启用此策略，旁加载应用将不会在后台自动更新。
+
+        如果禁用此策略，旁加载应用将在后台自动更新。
+
+ 默认值为“禁用”（此键不存在）。
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">不允许旁加载应用在按流量计费的网络上在后台自动更新</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">管理旁加载应用在按流量计费的网络上在后台自动更新的能力。
+
+        如果启用此策略，旁加载应用将不会在按流量计费的网络上在后台自动更新。
+
+        如果禁用此策略，旁加载应用将在按流量计费的网络上在后台自动更新。
+
+ 默认值为“禁用”（该键不存在）。
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">默认情况下不允许每用户安装未签名的包(每次安装时需要显式允许)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">默认情况下不允许每用户安装未签名的包(要求每次安装都显式允许)
+
+        如果启用此策略，则 AllowUnsigned 选项默认为 "false"。
+
+        如果禁用此策略，则 AllowUnsigned 选项默认为 "true"。
+
+        默认为“禁用”(密钥不存在)。
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">非管理员用户安装允许的包系列名称</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">非管理员用户 Windows 应用包安装允许的程序包系列名称。
+
+如果启用此策略，则可以输入非管理员可启动安装的 Windows 应用包列表，无论配置的“阻止非管理员用户安装打包的 Windows 应用”策略如何。
+
+提供的值将被视为 ECMA 脚本) (正则表达式。包系列名称，如Contoso.ContosoApp_8wekyb3d8bbwe本身是一个有效的正则表达式，将匹配该系列中的所有包。^Contoso.*_8wekyb3d8bbwe$ 之类的正则表达式也将匹配Contoso.ContosoApp_8wekyb3d8bbwe
+
+如果安装的 Windows 应用包的程序包系列名称与任何规则匹配，则不会被“阻止非管理员用户安装打包的 Windows 应用”策略阻止。安装可能仍被其他策略或设置阻止。
+
+如果禁用或未配置此策略，则所有 Windows 应用包都将遵循配置的“阻止非管理员用户安装打包的 Windows 应用”策略。
+
+默认值为 “disabled”，(密钥) 不存在。
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">从系统中移除默认 Microsoft Store 应用包。</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">从系统中移除默认 Microsoft Store 应用包。
+
+如果启用此策略，则将从系统中卸载所提供列表中的所选 Microsoft Store 应用。可以对默认设置进行调整。
+
+列表中未选择的应用将不会被移除。
+
+* 这是一个无外设应用(无 UI)
+
+** 此应用是通用文件类型或协议的默认处理程序。移除此应用可能会导致用户体验下降。不建议移除此应用。
+
+如果启用此策略，还可以通过在动态列表的“指定要移除的其他包系列名称”下输入应用的包系列名称(例如，Microsoft.WindowsCalculator_8wekyb3d8bbwe)来移除应用。
+
+如果启用此策略，要重新安装以前移除的应用，则需要从提供的列表中取消选择该应用或从动态列表中移除应用的包系列名称。
+
+无法通过动态应用移除列表来移除 Windows 系统组件。
+
+在用户登录时(而不是在策略配置时)验证动态应用移除列表中的包系列名称。
+
+默认值为“已禁用”(不存在密钥)。
+
+如果禁用或未配置策略，则不会从系统中移除默认应用。
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">从系统中移除默认 Microsoft Store 应用包。</string>
+      <string id="EnableMsixAllowedZones">为 MSIX 包启用允许的区域</string>
+      <string id="EnableMsixAllowedZonesExplanation">此策略控制是否允许安装来自特定 URL 区域的 MSIX 包。包的来源由其 URI 以及是否存在网页标记 (MotW) 决定。如果涉及多个 URI，则所有 URI 都会被纳入考量;
+
+如果启用此策略，用户将可根据各区域的配置安装 MSIX 包。
+
+如果禁用或未配置此策略，用户将可从“不受信任”区域以外的任何区域安装 MSIX 包。</string>
+      <string id="ZoneAllowed">允许</string>
+      <string id="ZoneBlocked">阻止</string>
+      <string id="EnableMsixSmartScreenCheck">为 MSIX 包启用 Microsoft SmartScreen 检查</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">此策略控制从特定 URL 区域安装 MSIX 包时，是否执行 Microsoft SmartScreen 检查。
+
+如果启用或未配置此策略，将在安装前通过 Microsoft SmartScreen 评估包的 URI。此检查仅适用于来自 Internet 的包。
+
+如果禁用此策略，则在安装包前不会咨询 Microsoft SmartScreen。</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>表达式</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">非管理员用户安装允许的包系列名称</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>从系统中移除默认 Microsoft Store 应用包。</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">反馈中心</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">智能 Microsoft 365 Copilot 副驾驶®</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft 资讯</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Microsoft 照片 **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Microsoft Sticky Notes</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">微软待办</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN 天气</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Outlook for Windows</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">画图</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">快速助手</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">截图工具</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Windows 计算器</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Windows 相机 **</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Windows 媒体播放器 **</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Windows 记事本 **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Windows 录音机</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Windows 终端</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">Xbox 游戏应用</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Xbox Identity Provider *</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Xbox 语音转文本覆盖 *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">指定要移除的其他包系列名称</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">本地计算机</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">Intranet</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">受信任的站点</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">Internet</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">不受信任的站点</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

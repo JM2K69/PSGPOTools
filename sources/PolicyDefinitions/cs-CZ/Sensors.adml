@@ -36,6 +36,92 @@
       
       </string>
       <string id="LocationAndSensors">Umístění a lokátory</string>
+      <string id="HumanPresence">Přítomnost člověka</string>
+      <string id="ForceInstantWake_DisplayName">Vynutit okamžité probuzení</string>
+      <string id="ForceInstantWake_ExplainText">Určuje, jestli zásada MDM vynucuje vypnutí nebo zapnutí probuzení při příchodu. Uživatel nebude moct toto nastavení změnit a posuvník bude v uživatelském rozhraní neaktivní.</string>
+      <string id="ForceInstantWake_0">Přechod do výchozí volby uživatele</string>
+      <string id="ForceInstantWake_1">Vynucené zapnutí</string>
+      <string id="ForceInstantWake_2">Vynucené vypnutí</string>
+      <string id="ForceInstantLock_DisplayName">Vynutit okamžité uzamčení </string>
+      <string id="ForceInstantLock_ExplainText">Určuje, jestli zásada MDM vynucuje vypnutí nebo zapnutí funkce zamykání při odchodu. Uživatel nebude moct toto nastavení změnit a posuvník bude v uživatelském rozhraní neaktivní.</string>
+      <string id="ForceInstantLock_0">Přechod do výchozí volby uživatele</string>
+      <string id="ForceInstantLock_1">Vynucené zapnutí</string>
+      <string id="ForceInstantLock_2">Vynucené vypnutí</string>
+      <string id="ForceLockTimeout_DisplayName">Časový limit zámku</string>
+      <string id="ForceLockTimeout_ExplainText">Určuje prodlevu na aktivaci funkce zamykání při odchodu vynucenou zásadou MDM. Uživatel nebude moct toto nastavení změnit a posuvník bude v uživatelském rozhraní neaktivní.</string>
+      <string id="ForceLockTimeout_0">Výchozí volba pro uživatele</string>
+      <string id="ForceLockTimeout_1">10 sekund</string>
+      <string id="ForceLockTimeout_2">30 sekund</string>
+      <string id="ForceLockTimeout_3">2 minuty</string>
+      <string id="ForceLockTimeout_4">Příkazy</string>
+      <string id="ForceInstantDim_DisplayName">Vynutit okamžité ztmavení</string>
+      <string id="ForceInstantDim_ExplainText">Určuje, jestli zásada MDM vynucuje vypnutí nebo zapnutí funkce Ztmavení obrazovky na základě pozornosti. Uživatel nebude moct toto nastavení změnit a posuvník bude v uživatelském rozhraní zašedivělý.</string>
+      <string id="ForceInstantDim_0">Výchozí hodnota je volba uživatele</string>
+      <string id="ForceInstantDim_1">Vynucené zapnutí</string>
+      <string id="ForceInstantDim_2">Vynucené vypnutí</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_DisplayName">Vynutit zákaz probuzení při zapnutí spořiče baterie</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_ExplainText">Určuje, jestli zásady správy mobilních zařízení vynucují zaškrtnutí nebo nezaškrtnutí políčka Zákaz probuzení při příchodu při zapnutí spořiče baterie. Uživatel nebude moct toto nastavení změnit a zaškrtávací políčko bude v uživatelském rozhraní neaktivní.</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_0">Přechod do výchozí volby uživatele</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_1">Vynucení zaškrtnuto</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_2">Vynucení nezaškrtnuto</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_DisplayName">Vynutit povolení probuzení při připojení externího monitoru</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_ExplainText">Určuje, jestli zásady správy mobilních zařízení vynucují zaškrtnutí nebo nezaškrtnutí políčka Povolení probuzení při příchodu při připojení externího monitoru. Uživatel nebude moct toto nastavení změnit a zaškrtávací políčko bude v uživatelském rozhraní neaktivní.</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_0">Přechod do výchozí volby uživatele</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_1">Vynucení zaškrtnuto</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_2">Vynucení nezaškrtnuto</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_DisplayName">Vynutit povolení zámku při připojení externího monitoru</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_ExplainText">Určuje, jestli zásady MDM vynucují zaškrtnutí nebo nezaškrtnutí políčka Povolit zamykání při odchodu při připojení externího monitoru. Uživatel nebude moct toto nastavení změnit a zaškrtávací políčko bude v uživatelském rozhraní neaktivní.</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_0">Přechod do výchozí volby uživatele</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_1">Vynucení zaškrtnuto</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_2">Vynucení nezaškrtnuto</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_DisplayName">Vynutit povolení stmívání při připojení externího monitoru</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_ExplainText">Určuje, jestli zásady MDM vynucují zaškrtnutí nebo nezaškrtnutí políčka Povolit adaptivní stmívání při připojení externího monitoru. Uživatel nebude moct toto nastavení změnit a zaškrtávací políčko bude v uživatelském rozhraní neaktivní.</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_0">Přechod do výchozí volby uživatele</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_1">Vynucení zaškrtnuto</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_2">Vynucení nezaškrtnuto</string>
+      <string id="ForceOnlookerDetection_DisplayName">Vynutit detekci přihlížejících osob</string>
+      <string id="ForceOnlookerDetection_ExplainText">Určuje, jestli zásada MDM vynutí zapnutí nebo vypnutí funkce Rozpoznávání funkce Onlooker. Uživatel nebude moci toto nastavení změnit a přepínač v uživatelském rozhraní bude neaktivní.</string>
+      <string id="ForceOnlookerDetection_0">Přechod do výchozí volby uživatele</string>
+      <string id="ForceOnlookerDetection_1">Vynucené zapnutí</string>
+      <string id="ForceOnlookerDetection_2">Vynucené vypnutí</string>
+      <string id="ForceOnlookerDetectionAction_DisplayName">Akce vynucení detekce přihlížejících osob</string>
+      <string id="ForceOnlookerDetectionAction_ExplainText">Určuje, jestli zásada MDM vynucování akce Detekce funkce Vyhledávání je vynucená. Uživatel nebude moci toto nastavení změnit a přepínač v uživatelském rozhraní bude neaktivní.</string>
+      <string id="ForceOnlookerDetectionAction_0">Přechod do výchozí volby uživatele</string>
+      <string id="ForceOnlookerDetectionAction_1">Ztmavit</string>
+      <string id="ForceOnlookerDetectionAction_2">Oznámit</string>
+      <string id="ForceOnlookerDetectionAction_3">Ztmavení a oznámení</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ForceInstantWake">
+        <dropdownList refId="ForceInstantWakeDropdown" noSort="true" defaultItem="0">Zvolit jednu z následujících akcí</dropdownList>
+      </presentation>
+      <presentation id="ForceInstantLock">
+        <dropdownList refId="ForceInstantLockDropdown" noSort="true" defaultItem="0">Zvolit jednu z následujících akcí</dropdownList>
+      </presentation>
+      <presentation id="ForceLockTimeout">
+        <dropdownList refId="ForceLockTimeoutDropdown" noSort="true" defaultItem="1">Zvolte jeden z následujících časových limitů</dropdownList>
+      </presentation>
+      <presentation id="ForceInstantDim">
+        <dropdownList refId="ForceInstantDimDropdown" noSort="true" defaultItem="0">Zvolit jednu z následujících akcí</dropdownList>
+      </presentation>
+      <presentation id="ForceDisableWakeWhenBatterySaverOn">
+        <dropdownList refId="ForceDisableWakeWhenBatterySaverOnDropdown" noSort="true" defaultItem="0">Zvolit jednu z následujících akcí</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowWakeWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowWakeWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">Zvolit jednu z následujících akcí</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowLockWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowLockWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">Zvolit jednu z následujících akcí</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowDimWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowDimWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">Zvolit jednu z následujících akcí</dropdownList>
+      </presentation>
+      <presentation id="ForceOnlookerDetection">
+        <dropdownList refId="ForceOnlookerDetectionDropdown" noSort="true" defaultItem="0">Zvolit jednu z následujících akcí</dropdownList>
+      </presentation>
+      <presentation id="ForceOnlookerDetectionAction">
+        <dropdownList refId="ForceOnlookerDetectionActionDropdown" noSort="true" defaultItem="0">Zvolit jednu z následujících akcí</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

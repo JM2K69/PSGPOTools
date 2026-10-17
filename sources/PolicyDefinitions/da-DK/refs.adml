@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>ReFS-gruppepolitik</displayName>
+  <description>Gruppepolitikindstillinger for ReFS</description>
+  <resources>
+    <stringTable>
+      <string id="ReFS">ReFS</string>
+      <string id="EnableDevDrive">Aktivér dev drive</string>
+      <string id="EnableDevDriveText">Dev drive eller udviklerdiskenheden er en diskenhed, der er optimeret til ydeevnen i udviklerscenarier. En udviklerdiskenhed gør det muligt for en administrator at vælge filsystemfiltre, der er vedhæftet på diskenheden.
+
+Hvis du deaktiverer denne indstilling, vil det ikke tillade oprettelse af nye udviklerdiskenheder. Eksisterende udviklerdiskenheder tilsluttes som almindelige diskenheder.
+
+Hvis denne indstilling ikke er konfigureret, er standardpolitikken at aktivere udviklerdiskenheder, samtidig med at antivirusfilteret kan vedhæftes på en deveveloper-diskenhed.  Hvis den ikke er konfigureret, kan en lokal administrator desuden vælge ikke at have et antivirusfilter knyttet til en udviklerdiskenhed.
+
+Computeren skal genstartes, for at denne indstilling kan træde i kraft.</string>
+      <string id="ModeOff">Fra</string>
+      <string id="ModeAudit">Overvåg kun</string>
+      <string id="ModeBlock">Blokér</string>
+      <string id="BlockExternalBusMount">Kontrollér montering af ReFS-diskenheder på USB- og IEEE 1394-diske</string>
+      <string id="BlockExternalBusMountText">Styrer, om ReFS-diskenheder må tilslutte diske på diske, der er tilsluttet via USB eller IEEE 1394. ReFS er ikke en understøttet konfiguration på diske, der kan tilsluttes eller kan tilsluttes under drift.
+
+Blok afviser tilslutning og registrerer en hændelse i systemlogfilen.
+
+Overvågning tillader kun tilslutning og registrerer den samme hændelse, så effekten af aktivering af denne politik kan vurderes, før den gennemtvinges.
+
+Fra udfører ingen overvågning og ingen blokering.
+
+For en lagerpladsdiskenhed gælder kontrollen for de fysiske diske, der står bag puljen, ikke for selve pladsen.
+
+Hvis denne politikindstilling ikke er konfigureret, bruges den lokale indstilling på denne computer. Hvis der ikke findes nogen lokal indstilling, bruges standardfunktionen for denne version af Windows.
+
+ReFS læser denne indstilling, når den indlæses, så en genstart er påkrævet, før en ændring træder i kraft. Indstillingen evalueres derefter, hver gang en diskenhed tilsluttes, så en diskenhed, der allerede er tilsluttet, bevarer sin nuværende tilstand, indtil den kobles fra og tilsluttes igen.</string>
+      <string id="BlockHotplugMount">Kontrol af montering af ReFS-diskenheder på diske, der understøtter hotplugging</string>
+      <string id="BlockHotplugMountText">Styrer, om ReFS-diskenheder må tilslutte diske, som lagerstakken rapporterer som hot-plug-able, uanset hvilken bus de er tilsluttet med. ReFS er ikke en understøttet konfiguration på diske, der kan tilsluttes eller kan tilsluttes under drift.
+
+Blok afviser tilslutning og registrerer en hændelse i systemlogfilen.
+
+Overvågning tillader kun tilslutning og registrerer den samme hændelse, så effekten af aktivering af denne politik kan vurderes, før den gennemtvinges.
+
+Fra udfører ingen overvågning og ingen blokering.
+
+For en lagerpladsdiskenhed gælder kontrollen for de fysiske diske, der står bag puljen, ikke for selve pladsen.
+
+Hvis denne politikindstilling ikke er konfigureret, bruges den lokale indstilling på denne computer. Hvis der ikke findes nogen lokal indstilling, bruges standardfunktionen for denne version af Windows.
+
+ReFS læser denne indstilling, når den indlæses, så en genstart er påkrævet, før en ændring træder i kraft. Indstillingen evalueres derefter, hver gang en diskenhed tilsluttes, så en diskenhed, der allerede er tilsluttet, bevarer sin nuværende tilstand, indtil den kobles fra og tilsluttes igen.</string>
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="EnableDevDriveOptions">
+        <checkBox refId="DevDriveAllowAntivirusFilter" defaultChecked="true">Lad antivirusfilter beskytte dev drives</checkBox>
+      </presentation>
+      <presentation id="BlockExternalBusMountOptions">
+        <dropdownList refId="BlockExternalBusMountMode" defaultItem="0">Handling for ReFS-diskenheder på USB- eller IEEE 1394-diske</dropdownList>
+      </presentation>
+      <presentation id="BlockHotplugMountOptions">
+        <dropdownList refId="BlockHotplugMountMode" defaultItem="0">Handling for ReFS-diskenheder på diske, der understøtter hotplug</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Gruppepolitikindstillinger for indikator for netværksforbindelse</displayName>
   <description>Gruppepolitikindstillinger for indikator for netværksforbindelse</description>
@@ -73,7 +73,7 @@
       </presentation>
       <presentation id="NCSI_PassivePolling">
         <text>Følgende afkrydsningsfelt deaktiverer funktionen til passive forespørgsler i NCSI.   Dette kan forbedre CPU-belastningen på servere eller andre computere, hvor netværksforbindelsen er statisk.</text>
-        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Deaktiver passive forespørgsler</checkBox>  
+        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Deaktiver passive forespørgsler</checkBox>
       </presentation>
       <presentation id="NCSI_GlobalDns">
         <text>Følgende afkrydsningsfelt deaktiverer grænsefladebinding ved DNS-opslag i NCSI. Dette kan medføre, at NCSI fungerer bedre med specielle netværkskonfigurationer, som en DNS-server, der kører på en lokal vært.</text>

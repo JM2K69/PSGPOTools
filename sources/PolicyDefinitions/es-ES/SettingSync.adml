@@ -119,6 +119,51 @@ Si deshabilita o no establece esta configuración, el usuario podrá configurar 
         Si deshabilita o no establece esta configuración, la sincronización del grupo "distribución de la pantalla Inicio" estará activada de forma predeterminada y el usuario podrá configurarla.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">No sincronizar la configuración de accesibilidad</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        Impide que el grupo de "accesibilidad" se sincronice desde y hacia este equipo. Esto desactiva y deshabilita el grupo "accesibilidad" en la página de configuración "Copias de seguridad de Windows" en configuración de PC.
+
+Si habilitas esta configuración de directiva, el grupo "accesibilidad" no se sincronizará.
+
+Usa la opción "Permitir a los usuarios activar la sincronización de accesibilidad" para que la sincronización esté desactivada de forma predeterminada, pero no deshabilitada.
+
+Si no estableces o deshabilitas esta configuración, la sincronización del grupo de "accesibilidad" está activada de forma predeterminada y configurable por el usuario.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">No sincronizar la configuración de preferencias de lenguaje</string>
+      <string id="DisableLanguageSettingSync_Help">
+        Impide que el grupo "preferencias de idioma" se sincronice hacia y desde este equipo. Desactiva y deshabilita el grupo "Preferencias de idiomas" en la página de configuración "Copias de seguridad de Windows" de configuración de PC.
+
+Si habilita esta configuración de directiva, el grupo "preferencias de idioma" no se sincronizará.
+
+Use la opción "Permitir a los usuarios activar la sincronización de preferencias de idioma" para que la sincronización esté desactivada de forma predeterminada, pero no deshabilitada.
+
+Si no establece o deshabilita esta configuración, la sincronización del grupo "preferencias de idioma" está activada de forma predeterminada y el usuario puede configurarla.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Habilitar copia de seguridad de Windows</string>
+      <string id="EnableWindowsBackup_Help">Esta configuración de directiva permite a los administradores configurar y administrar la copia de seguridad de la configuración de Windows para su organización.
+
+Si habilita esta configuración de directiva, se realizará una copia de seguridad de la configuración de Windows periódicamente.
+
+Si deshabilita esta configuración de directiva, no se realizará la copia de seguridad de la configuración de Windows.
+
+Si no se establece esta configuración de directiva, la copia de seguridad de la configuración de Windows se realizará periódicamente en función de la idoneidad.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Habilitar restauración de Windows</string>
+      <string id="EnableWindowsRestore_Help">Esta configuración de directiva permite a los administradores configurar y administrar la restauración de la configuración de Windows de su organización.
+
+Si habilitas esta configuración de directiva, se habilitará la restauración de la configuración de Windows.
+
+Si deshabilitas o no configuras esta configuración de directiva, se deshabilitará la restauración de la configuración de Windows.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Si deshabilita o no establece esta configuración, el usuario podrá configurar 
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">Permitir a los usuarios activar la sincronización de "distribución de la pantalla Inicio".</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Permitir a los usuarios activar la sincronización de "accesibilidad".</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Permitir a los usuarios activar la sincronización de "preferencias de idioma".</checkBox>
       </presentation>
 
     </presentationTable>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>immettere qui il nome visualizzato</displayName>
+  <description>immettere qui la descrizione</description>
+  <resources>
+    <stringTable>
+      <string id="NewsAndInterests">Widget</string>
+      <string id="AllowNewsAndInterests">Consenti widget</string>
+      <string id="Explain_AllowNewsAndInterests">Questo criterio specifica se la funzionalità dei widget è consentita nel dispositivo.
+I widget verranno attivati per impostazione predefinita a meno che non vengano modificati nelle impostazioni.
+Se questa funzionalità è stata attivata prima, rimarrà automaticamente a meno che non venga disattivata.</string>
+      <string id="DisableWidgetsOnLockScreen">Disabilita widget nella schermata di blocco</string>
+      <string id="Explain_DisableWidgetsOnLockScreen">Questo criterio specifica se disabilitare la funzionalità Widget nella schermata di blocco.
+Se si disabilita o non si configura questa impostazione dei criteri, i widget verranno visualizzati nella schermata di blocco e potranno essere gestiti nell'app Impostazioni di Windows.
+Se si abilita questa impostazione dei criteri, i widget non verranno visualizzati nella schermata di blocco.</string>
+      <string id="DisableWidgetsBoard">Disabilita bacheca widget</string>
+      <string id="Explain_DisableWidgetsBoard">Questo criterio specifica se disabilitare l'esperienza Della bacheca widget. 
+Se si disabilita o non si configura questa impostazione dei criteri, sarà possibile richiamare la bacheca dei widget e visualizzarne il punto di ingresso sulla barra delle applicazioni. L'esperienza Bacheca widget può essere gestita in Impostazioni widget il cui punto di ingresso si trova nella bacheca widget.
+Se si abilita questa impostazione dei criteri, non sarà possibile richiamare la lavagna dei widget e il relativo punto di ingresso non verrà più visualizzato sulla barra delle applicazioni.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

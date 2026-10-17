@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>CAM (功能存取管理員) AI 原則</displayName>
+  <description>與 AI 功能及其同意管理相關的原則。</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">AI 同意</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">由使用者控制</string>
+      <string id="ForceEnable">強制啟用</string>
+      <string id="ForceDisable">強制停用</string>
+      <string id="AgentConsentDuration_Name">Agent 同意期間</string>
+      <string id="AgentConsentDuration_Explain">再次提示使用者之前，指定 Agent 功能的 [允許] 同意回應可維持有效的時間長度 (以小時為單位)。
+
+如果啟用此原則，值必須介於 1 (1 小時) 到 8760 (1 年) 之間。設定的值會做為 Agent 功能所有 [允許] 同意回應的預設到期時間。
+
+如果未設定此原則，或值超出允許的範圍，預設值為 720 小時 (30 天)。</string>
+      <string id="ConfigureAgentConnectors_Name">設定 Agent 連接器</string>
+      <string id="ConfigureAgentConnectors_Explain">啟用或停用 Agent 連接器。</string>
+      <string id="AgentConnectorAccessPolicy_Name">Agent 連接器存取原則</string>
+      <string id="AgentConnectorAccessPolicy_Explain">此原則設定可讓您定義 MCP 主機與 MCP 伺服器之間允許的連線清單。
+
+此清單的格式為符合 https://go.microsoft.com/fwlink/?LinkId=2363700 所定義結構描述的 JSON 字串。
+
+如果未設定此原則，MCP 主機可在使用者同意的情況下連線到所有 MCP 伺服器。</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> 設定 Agent 連接器: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> 同意持續時間 (小時): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>設定允許的 MCP 主機/伺服器連線:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

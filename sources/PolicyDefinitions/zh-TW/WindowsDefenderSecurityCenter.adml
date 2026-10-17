@@ -135,21 +135,22 @@
     </string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts">設定自訂通知</string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts_Explain">
-        在 Windows 安全性通知中對本機使用者顯示指定的連絡資訊。
+        在 Windows 安全性通知中向本機使用者顯示指定連絡資訊。
 
-        啟用:
+        已啟用：
         您公司的連絡資訊將會顯示在 Windows 安全性發出的通知中。
 
-        將這一項設為 [啟用] 後，您必須設定 [指定連絡公司名稱] GP 設定，和至少下列其中一個 GP 設定:
-        -指定連絡電話號碼或 Skype 識別碼
+        設定為已啟用後，您必須設定指定連絡公司名稱 GP 設定，和至少一個下列 GP 設定：
+        -指定連絡電話號碼或 Skype ID
         -指定連絡電子郵件地址或電子郵件識別碼
         -指定連絡網站
+        請注意，在某些情況下我們將會根據可用通知空間，限制連絡顯示選項。
+        
+        已停用：
+        通知上將不會顯示任何連絡資訊。
 
-        停用:
-        通知上不顯示任何連絡資訊。
-
-        未設定:
-        與 [停用] 同。
+        未設定：
+        與已停用相同。
     </string>
     <string id="EnterpriseCustomization_EnableInAppCustomization">設定自訂連絡資訊</string>
     <string id="EnterpriseCustomization_EnableInAppCustomization_Explain">

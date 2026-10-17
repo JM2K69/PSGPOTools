@@ -33,6 +33,11 @@ Si vous désactivez ce paramètre de stratégie, l’inscription à GPM sera act
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">Sélectionnez le type d'informations d'identification à utiliser :</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>ID de l’application MDM :</label>
+        </textBox>
+        <text>L’ID d’application MDM représente l’ID de votre application MDM configuré dans Azure AD. Cela est facultatif et uniquement requis pour l’inscription automatique à MDM à l’aide des identifiants de l’appareil lorsque plusieurs applications MDM sont configurées dans Azure AD.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

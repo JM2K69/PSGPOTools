@@ -108,11 +108,13 @@ Toto nastavení zásad přepíše uživatelské nastavení pro hlášení chyb z
 
 Další informace získáte také v popisu nastavení zásad Konfigurovat funkci Zasílání zpráv o chybách, Zobrazit oznamování chyb a Zakázat funkci Zasílání zpráv o chybách systému Windows ve složce Konfigurace počítače/Šablony pro správu/Součásti systému Windows/Zasílání zpráv o chybách systému Windows.</string>
       <string id="RemoveWindowsUpdate_ICM">Vypnout přístup ke všem funkcím služby Windows Update</string>
-      <string id="RemoveWindowsUpdate_ICM_Help">Toto nastavení zásad umožňuje odebrat přístup ke službě Windows Update.
+      <string id="RemoveWindowsUpdate_ICM_Help">Tato zásada umožňuje odebrat přístup ke službě Windows Update.
 
-Pokud toto nastavení zásad povolíte, budou odebrány všechny funkce služby Windows Update. Patří sem blokování přístupu k webu Windows Update na adrese http://windowsupdate.microsoft.com pomocí hypertextového odkazu Windows Update v nabídce Start a také v nabídce Nástroje aplikace Internet Explorer. Automatická aktualizace systému Windows je také zakázána. Nebudete upozorňováni na důležité aktualizace z webu Windows Update ani je nebudete dostávat. Toto nastavení zásad také zabrání Správci zařízení v automatické instalaci aktualizací ovladačů z webu Windows Update.
+Pokud tuto zásadu povolíte, odeberou se všechny funkce služby Windows Update. Patří sem blokování přístupu k webu Windows Update na adrese http://windowsupdate.microsoft.com pomocí hypertextového odkazu Windows Update v nabídce Start a také v nabídce Nástroje aplikace Internet Explorer. Budou také zakázané automatické aktualizace Windows: nebudete upozorňováni na důležité aktualizace ze služby Windows Update ani je nebudete dostávat. Tato zásada také zabrání Správci zařízení v automatické instalaci aktualizací ovladačů ze služby Windows Update.
 
-Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, budou mít uživatelé přístup k webu Windows Update a budou moci povolit automatické aktualizace a přijímat tak oznámení a důležité aktualizace z webu Windows Update.</string>
+Pokud tuto zásadu zakážete nebo nenakonfigurujete, budou mít uživatelé přístup ke službě Windows Update a budou moct povolit automatické aktualizace, a přijímat tak oznámení a důležité aktualizace ze služby Windows Update.
+
+Poznámka: Tato zásada bude platit jen v případě, že je tento počítač nakonfigurovaný pro připojení k intranetové aktualizační službě pomocí zásady Určit umístění intranetového serveru služby Microsoft Update.</string>
       <string id="SearchCompanion_DisableFileUpdates">Vypnout aktualizace souborů obsahu Průvodce vyhledáváním</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">Toto nastavení zásad určuje, zda má Průvodce vyhledáváním při místním vyhledávání a vyhledávání v Internetu automaticky stahovat aktualizace obsahu.
 

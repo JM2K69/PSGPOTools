@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>voer hier de weergegeven naam in</displayName>
+  <description>typ hier een beschrijving</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Windows Copilot uitschakelen</string>
+      <string id="TurnOffWindowsCopilot_Help">Met deze beleidsinstelling kunt u Windows Copilot uitschakelen.
+
+Als u deze beleidsinstelling inschakelt, kunnen gebruikers Copilot niet gebruiken. Het Copilot-pictogram wordt ook niet weergegeven op de taakbalk.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, kunnen gebruikers Copilot gebruiken wanneer deze beschikbaar is voor hen.
+      </string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="DisableAIDataAnalysis">Het opslaan van momentopnamen uitschakelen voor gebruik met Herinnering
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Met deze beleidsinstelling kunt u bepalen of momentopnamen van het scherm kunnen worden opgeslagen voor gebruik met Recall. Voor beheerde apparaten zijn momentopnamen voor Recall standaard niet ingeschakeld. IT-beheerders kunnen het opslaan van momentopnamen niet zelf inschakelen namens hun gebruikers. Voor de keuze om het opslaan van momentopnamen in te schakelen, is toestemming van de afzonderlijke gebruiker vereist.
+
+Als het beleid niet is geconfigureerd, worden momentopnamen niet opgeslagen voor gebruik met Recall.
+
+Als u dit beleid inschakelt, worden momentopnamen niet opgeslagen voor gebruik met Recall. Als momentopnamen eerder op het apparaat zijn opgeslagen, worden deze verwijderd wanneer dit beleid is ingeschakeld.
+
+Als u dit beleid instelt op Uitgeschakeld, kunnen eindgebruikers momentopnamen van hun scherm opslaan en Recall gebruiken om dingen te vinden die ze op hun apparaat hebben gezien.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Maximale opslag instellen voor momentopnamen die worden gebruikt door Herinnering
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Met deze beleidsinstelling kunt u bepalen hoeveel schijfruimte maximaal door Windows kan worden gebruikt om momentopnamen voor Herinnering op te slaan.
+
+U kunt de maximale hoeveelheid schijfruimte voor momentopnamen instellen op 10, 25, 50, 75, 100 of 150 GB.
+
+Wanneer deze instelling niet is geconfigureerd, wordt de opslagtoewijzing voor momentopnamen geconfigureerd op basis van de opslagcapaciteit van het apparaat, , tenzij de huidige gebruiker een andere waarde opgeeft.
+
+25 GB wordt toegewezen wanneer de opslagcapaciteit van het apparaat 256 GB is. 75 GB wordt toegewezen wanneer de opslagcapaciteit van het apparaat 512 GB is. 150 GB wordt toegewezen wanneer de opslagcapaciteit van het apparaat 1 TB of hoger is.
+
+Als zowel de maximale opslagduur als de maximale opslagcapaciteit voor Recall zijn ingesteld, worden momentopnamen verwijderd wanneer de eerste limiet is bereikt.
+
+Belangrijk: Deze instelling is alleen van toepassing op Enterprise- en Education-client SKU's.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Het besturingssysteem de maximale opslaghoeveelheid laten definiëren op basis van de opslaggrootte van de harde schijf</string>
+      <string id="SetMaximumStorageSpace_10GB">10GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Maximale duur instellen voor het opslaan van momentopnamen die worden gebruikt door Herinnering
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Met deze beleidsinstelling kunt u de maximale tijdsduur (in dagen) bepalen waarmee Windows momentopnamen voor Herinnering opslaat.
+
+Wanneer het beleid is ingeschakeld, kunt u de maximale opslagduur instellen op 30, 60, 90 of 180 dagen.
+
+Wanneer dit beleid niet is geconfigureerd, is de maximale opslagduur 90 dagen, tenzij de huidige gebruiker een andere waarde opgeeft.
+
+Als zowel de maximale opslagduur als de maximale opslagcapaciteit voor Recall zijn ingesteld, worden momentopnamen verwijderd wanneer de eerste limiet is bereikt.
+
+Belangrijk: Deze instelling is alleen van toepassing op Enterprise- en Education-client SKU's.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">Laat het besturingssysteem de maximale hoeveelheid tijd bepalen dat de momentopnamen worden opgeslagen
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 dagen</string>
+      <string id="SetMaximumStorageDuration_60Days">60 dagen</string>
+      <string id="SetMaximumStorageDuration_90Days">90 dagen</string>
+      <string id="SetMaximumStorageDuration_180Days">180 dagen</string>
+      <string id="SetDenyAppListForRecall">Een lijst met apps instellen die moeten worden gefilterd op momentopnamen voor Herinnering
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Met dit beleid kunt u een lijst met apps definiëren die niet worden opgenomen in momentopnamen voor Recall.
+
+Gebruikers kunnen met behulp van Recall instellingen aanvullende toepassingen toevoegen die moeten worden uitgesloten van momentopnamen.
+
+De lijst kan AUMID (Application User Model ID's) of de naam van het uitvoerbare bestand bevatten.
+
+Gebruik een door puntkomma's gescheiden lijst met apps om de lijst met apps voor weigeren voor Recall te definiëren.
+
+Bijvoorbeeld: code.exe; Microsoft.WindowsNotepad_8wekyb3d8bbwe! App;ms-teams.exe
+
+Belangrijk: deze instelling is alleen van toepassing op enterprise- en education-client-SKU's. Wanneer u deze beleidsinstelling configureert, worden wijzigingen pas van kracht nadat het apparaat opnieuw is opgestart.
+      </string>
+      <string id="SetDenyUriListForRecall">Een lijst met URI's instellen die moeten worden gefilterd op momentopnamen voor Herinnering
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Met deze beleidsinstelling kunt u een lijst met URI's definiëren die niet worden opgenomen in momentopnamen voor Recall wanneer een ondersteunde browser wordt gebruikt. Mensen binnen uw organisatie kunnen Recall instellingen gebruiken om meer websites aan de lijst toe te voegen. Definieer de lijst met een puntkomma om URI's te scheiden.
+
+Bijvoorbeeld: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+Als u https://www.WoodgroveBank.com aan de lijst toevoegt, worden ook https://Account.WoodgroveBank.com en https://www.WoodgroveBank.com/Account. gefilterd
+
+Belangrijk: deze instelling is alleen van toepassing op enterprise- en education-client-SKU's. Wijzigingen in dit beleid worden van kracht nadat het apparaat opnieuw is opgestart.
+      </string>
+      <string id="SetDataLossPreventionProvider">Stel de DLP-provider ID in voor Recall
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Met dit beleid kan een beheerder een DLP-provider opgeven die door Recall wordt gebruikt als de provider correct is geïnstalleerd. Hiervoor moet je de betreffende tekenreeks van je provider ophalen. Deze ziet er ongeveer als volgt uit: 'key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll' (zonder aanhalingstekens in de waarde).
+
+Belangrijk: Deze instelling is alleen van toepassing op Enterprise- en Education-client SKU's.
+      </string>
+      <string id="SetCopilotHardwareKey">Copilot-hardwaresleutel instellen</string>
+      <string id="SetCopilotHardwareKey_Help">Met deze beleidsinstelling wordt bepaald welke app wordt geopend wanneer de gebruiker op de Copilot-toets op het toetsenbord drukt. Als het beleid is ingeschakeld, wordt de opgegeven app geopend wanneer de gebruiker op de Copilot-toets drukt. Gebruikers kunnen de sleuteltoewijzing wijzigen in Instellingen. Als het beleid niet is geconfigureerd, wordt Copilot geopend indien beschikbaar in dat land of die regio.
+      </string>
+      <string id="AllowRecallEnablement">Herinnering toestaan om in te schakelen
+      </string>
+      <string id="AllowRecallEnablement_Help">Met deze beleidsinstelling kunt u bepalen of het Recall optionele onderdeel beschikbaar is voor eindgebruikers om in te schakelen op hun apparaat. Standaard is Recall uitgeschakeld voor beheerde commerciële apparaten. Recall is standaard niet beschikbaar op beheerde apparaten en individuele gebruikers kunnen Recall niet zelf inschakelen.
+
+Als dit beleid niet is geconfigureerd, hebben eindgebruikers het Recall onderdeel uitgeschakeld.
+
+Als dit beleid is uitgeschakeld, heeft het Recall onderdeel de status Uitgeschakeld en worden de bits voor Recall van het apparaat verwijderd. Als momentopnamen eerder op het apparaat zijn opgeslagen, worden deze verwijderd wanneer dit beleid is uitgeschakeld. Als u Recall verwijdert, moet het apparaat opnieuw worden opgestart.
+
+Als het beleid is ingeschakeld, hebben eindgebruikers Recall beschikbaar op hun apparaat. Afhankelijk van de status van het DisableAIDataAnalysis-beleid (het opslaan van momentopnamen uitschakelen voor gebruik met Recall), kunnen eindgebruikers kiezen of ze momentopnamen van hun scherm willen opslaan en Recall gebruiken om dingen te vinden die ze op hun apparaat hebben gezien.
+      </string>
+      <string id="DisableClickToDo">Klikken om te doen uitschakelen</string>
+      <string id="DisableClickToDo_Help">Met Klikken om te doen kunnen mensen actie ondernemen op inhoud op hun schermen. Wanneer het wordt geactiveerd, wordt een schermopname van het scherm gemaakt en geanalyseerd om acties te presenteren. Klikken om te doen eindigt wanneer deze wordt afgesloten en er kunnen geen schermopnamen worden gemaakt terwijl deze zijn gesloten. Schermopnameanalyse wordt altijd lokaal uitgevoerd op het apparaat. Standaard is Klikken om te doen ingeschakeld voor gebruikers.
+
+Met deze beleidsinstelling kunt u bepalen of Klikken om te doen beschikbaar is voor gebruikers op hun apparaat.
+
+Wanneer het beleid is ingeschakeld, zijn het onderdeel Klikken om te doen en toegangspunten niet beschikbaar voor gebruikers.
+
+Wanneer het beleid is uitgeschakeld, hebben gebruikers Klikken om te doen beschikbaar op hun apparaat.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">Maker van afbeelding uitschakelen</string>
+      <string id="DisableImageCreator_Help">Met deze beleidsinstelling kunt u bepalen of Image Creator functionaliteit is uitgeschakeld in de Windows Paint-app. Als dit beleid is ingeschakeld, is Image Creator functionaliteit niet toegankelijk in de Paint-app. Als dit beleid is uitgeschakeld of niet is geconfigureerd, hebben gebruikers toegang tot Image Creator functionaliteit.</string>
+      <string id="DisableCocreator">Medecreator uitschakelen</string>
+      <string id="DisableCocreator_Help">Met deze beleidsinstelling kunt u bepalen of cocreatiefunctionaliteit is uitgeschakeld in de Windows Paint-app. Als dit beleid is ingeschakeld, is cocreatiefunctionaliteit niet toegankelijk in de Paint-app. Als dit beleid is uitgeschakeld of niet is geconfigureerd, hebben gebruikers toegang tot cocreatorfunctionaliteit.</string>
+      <string id="DisableGenerativeFill">Genererende opvulling uitschakelen</string>
+      <string id="DisableGenerativeFill_Help">Met deze beleidsinstelling kunt u bepalen of de functie voor genererende opvulling is uitgeschakeld in de Windows Paint-app. Als dit beleid is ingeschakeld, is de functionaliteit voor genererende opvulling niet toegankelijk in de Paint-app. Als dit beleid is uitgeschakeld of niet is geconfigureerd, hebben gebruikers toegang tot de functionaliteit voor genererende opvulling.</string>
+      <string id="AllowRecallExport">Exporteren van Recall- en momentopnamegegevens toestaan</string>
+      <string id="AllowRecallExport_Help">Met dit beleid kun je bepalen of gebruikers hun eigen Recall- en momentopnamegegevens kunnen exporteren. Door te exporteren, kunnen gebruikers hun Recall- en momentopnamegegevens delen met vertrouwde apps of websites. Gebruikers kunnen exporteren vanuit Instellingen &gt; Privacy en beveiliging &gt; Recall en momentopnamen &gt; Geavanceerde instellingen &gt; Momentopnamen exporteren &gt; Eerdere momentopnamen exporteren &gt; Exporteren.
+
+Gebruikers kunnen er ook voor kiezen om hun momentopnamen continu te exporteren als ze de optie 'Momentopnamen vanaf nu exporteren' inschakelen via Instellingen &gt; Privacy en beveiliging &gt; Recall en momentopnamen &gt; Geavanceerde instellingen &gt; Momentopnamen exporteren &gt; Exporteren.
+
+Voordat een export wordt gestart, moet de gebruiker zich authenticeren met Windows Hello en ontvangt de gebruiker een melding dat de geëxporteerde momentopnamen zijn versleuteld omdat ze mogelijk gevoelige informatie bevatten. De gebruiker ontvangt ook een melding dat deze de Recall-exportcode moet opgeven als de gebruiker vertrouwde apps of websites toegang wil geven tot de geëxporteerde momentopnamen. De Recall-exportcode wordt aan gebruikers weergegeven tijdens de Recall-configuratie, zelfs als dit beleid is ingesteld op Uitgeschakeld of Niet geconfigureerd. Voor beheerde apparaten:
+
+Wanneer je dit beleid instelt op Ingeschakeld, kunnen gebruikers Recall- en momentopnamegegevens exporteren.
+
+Als het beleid is ingesteld op Uitgeschakeld of Niet geconfigureerd, kunnen gebruikers hun Recall- en momentopnamegegevens niet exporteren.
+
+Belangrijk: Deze instelling is alleen van toepassing op apparaten in de Europese Economische Ruimte (EER). Het exporteren van Recall- en momentopnamegegevens is een door de gebruiker geïnitieerd proces en is per gebruiker. IT-beheerders of andere gebruikers kunnen geen export namens een andere gebruiker initiëren.
+      </string>
+      <string id="DisableSettingsAgent">Zoekervaring voor instellingen uitschakelen</string>
+      <string id="DisableSettingsAgent_Help">De agentische ervaring voor Instellingen verbetert de zoekresultaten binnen de app Instellingen door natuurlijke taal in te schakelen. Wanneer deze functie is geactiveerd, maakt het gebruik van een AI-model om intelligente zoeksuggesties voor Instellingen te bieden.
+
+        Met deze beleidsinstelling kun je bepalen of de agentische zoekervaring voor Instellingen beschikbaar is voor gebruikers op hun apparaat.
+
+        Wanneer het beleid is ingeschakeld, is de agentische zoekervaring voor Instellingen uitgeschakeld, waardoor de zoekresultaten worden beperkt tot statisch geïndexeerde zoekopdrachten en semantische zoekopdrachten.
+
+        Wanneer het beleid is uitgeschakeld, hebben gebruikers de agentische zoekervaring voor Instellingen beschikbaar op hun apparaat.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Logboekregistratieniveau op apparaat</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Met deze beleidsinstelling kunt u het niveau van logboekregistratie voor registerbewerkingen op het apparaat configureren.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Fout of hoger</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Informatie of hoger</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Fouten opsporen of hoger</string>
+      <string id="RemoveMicrosoftCopilotApp">Microsoft Copilot-app verwijderen</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Met deze beleidsinstelling kun je Microsoft Copilot voor gebruikers op een gerichte manier verwijderen. Dit geldt voor apparaten/gebruikers die aan de volgende voorwaarden voldoen:
+
+• Microsoft 365 Copilot en Microsoft Copilot zijn beide geïnstalleerd
+
+• De Microsoft Copilot-app is niet door de gebruiker geïnstalleerd
+
+• De Microsoft Copilot-app is in de afgelopen 28 dagen niet gestart
+ 
+Als je dit beleid inschakelt, wordt de Microsoft Copilot-app verwijderd. Gebruikers kunnen de app nog steeds opnieuw installeren als ze dat willen. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>AUMID van app invoeren</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Lijst met geweigerde apps invoeren:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Lijst met geweigerde URI's invoeren:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>Voer de DLP-provider ID in:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Maximale opslagruimte selecteren:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Maximale opslagduur selecteren:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Logboekregistratieniveau op apparaat: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

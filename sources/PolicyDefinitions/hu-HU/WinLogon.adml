@@ -101,6 +101,13 @@ Ha letiltja vagy nem konfigurálja ezt a beállítást, az automatikus bejelentk
       <string id="ConfigAutomaticRestartSignOn_EnableIfSecure">Engedélyezve, ha a BitLocker be van kapcsolva és nincs felfüggesztve</string>
       <string id="ConfigAutomaticRestartSignOn_EnableAlways">Mindig engedélyezve</string>
 
+      <string id="EnableMPRNotifications">Konfigurálja a felhasználó jelszavának átadását a winlogon által küldött MPR-értesítések tartalmában.</string>
+      <string id="EnableMPRNotifications_Help">Ez a házirend szabályozza, hogy a rendszer tartalmazza-e a felhasználó jelszavát a winlogon által küldött MPR-értesítések tartalmában.
+
+Ha letiltja vagy nem konfigurálja ezt a beállítást, a winlogon az MPR-értesítésekben a felhasználó hitelesítési adatait üres jelszómezőivel küldi el.
+
+Ha engedélyezi ezt a beállítást, a winlogon által küldött MPR-értesítések tartalmazzák a felhasználó jelszavát a hitelesítési adatok között.</string>
+
     </stringTable>
     <presentationTable>
       <presentation id="LogonHoursPolicyDescription">

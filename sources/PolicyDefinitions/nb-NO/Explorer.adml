@@ -25,7 +25,7 @@ Hvis du deaktiverer denne policyinnstillingen, kan brukere legge til nye element
 
 Obs!  Aktivering av denne policyinnstillingen forhindrer ikke brukeren i å legge til nye elementer, for eksempel filer og mapper, i deres gjeldende filsystemprofilmappe på %userprofile%.</string>
       <string id="TurnOffSPIAnimations">Slå av felleskontroll og vindusanimasjoner</string>
-      <string id="TurnOffSPIAnimations_Help">Denne policyen ligner på innstillinger som er direkte tilgjengelige for datamaskinbrukere.  Deaktivering av animasjoner kan forbedre brukbarheten for brukere med en viss synshemming, i tillegg til at det forbedrer ytelsen og batterilivet i noen scenarier.</string>
+      <string id="TurnOffSPIAnimations_Help">Denne policyen ligner på innstillinger som er direkte tilgjengelige for datamaskinbrukere.  Deaktivering av animasjoner kan forbedre brukbarheten for brukere med en viss synsnedsettelse, i tillegg til at det forbedrer ytelsen og batterilivet i noen scenarier.</string>
       <string id="NoDataExecutionPrevention">Slå av Datakjøringsforhindring for Explorer</string>
       <string id="NoDataExecutionPrevention_Help">Deaktivering av datakjøringsforhindring kan føre til at enkelte eldre plugin-programmer virker uten å avslutte Explorer.</string>
       <string id="NoHeapTerminationOnCorruption">Deaktiver heapavslutning ved feil</string>
@@ -37,14 +37,30 @@ Obs!  Aktivering av denne policyinnstillingen forhindrer ikke brukeren i å legg
       <string id="DisableRoamedProfileInit_Help">Denne policyinnstillingen tillater at administratorer som har konfigurert flytteprofilen sammen med innstillingen Slett gruppepolicy for hurtigbufret flytteprofil, kan sørge for at Internet Explorer ikke initialiserer tilknytninger til standardprogrammer og andre innstillinger på nytt til standardverdier. 
 
 Hvis du aktiverer denne policyinnstillingen på en maskin som ikke inneholder alle programmer som er installert på samme måte som de ble på maskinen som brukeren sist logget på, kan det oppstå uventede resultater. </string>
+      <string id="DisableGraphRecentItems">Vis filer basert på konto- og skyleverandøraktivitet</string>
+      <string id="DisableGraphRecentItems_Help">Hvis du deaktiverer denne innstillingen, hindrer du Filutforsker i å be om metadata for skyfiler og vise den på hjemmesiden og andre visninger i Filutforsker. All innsikt og filer som er basert på kontoaktivitet eller skyleverandøraktivitet, stoppes i visninger som Nylig, Anbefalt, Favoritter, Delt osv.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Deaktiver kildeintegrasjon for avanserte innstillinger i Filutforsker</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">Deaktivering av kildeintegrasjon for avanserte innstillinger hindrer Filutforsker fra å vise repositoriumsinformasjon fra sytem-komponenten avanserte innstillinger</string>
+      <string id="DisableFileExplorerPrelaunch">Deaktiver Filutforsker-funksjonen for å forhåndsstarte et vindu i bakgrunnen</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Denne policyen hindrer at brukerne aktiverer forhåndsstartfunksjonen i Filutforsker, noe som oppretter et vindu i bakgrunnen for å akselerere oppstartsopplevelsen og forbedre svargraden.</string>
+      <string id="MakePrintScreenKeyYieldable">Gjør Print Screen-tasten nyttig</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Denne policyinnstillingen bestemmer om print screen-nøkkelen kan gis til andre programmer.
+
+Hvis du aktiverer denne policyinnstillingen, kan utskriftsskjermtasten fanges opp av programmer, slik at de kan overstyre standardskjermfunksjonaliteten for skjermbilder.
+
+Hvis du deaktiverer denne policyinnstillingen, beholder print Screen-tasten den eldre virkemåten for å ta skjermbilder og kan ikke fanges opp av programmer.
+
+Hvis denne policyen ikke er konfigurert, kan utskriftsskjermtasten fanges opp av programmer, slik at de kan overstyre standardskjermfunksjonaliteten, samme som den aktiverte atferden.
+
+Obs! Denne innstillingen kan kreve at systemet startes på nytt for å tre i kraft.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>URL-adresse for webside for kundestøtte</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>URL-adresse for webside for kundestøtte</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

@@ -129,6 +129,12 @@ Pokud toto nastavení nenakonfigurujete, zaměstnanci se můžou rozhodnout, jes
 Pokud je tato zásada povolená, je tisk povolený.
 
 Pokud je zakázaná, není tisk povolený.</string>
+      <string id="AllowMixedModePrintingInPdf">Soubory PDF, které mají stránky na šířku i na výšku, tisknout podle jejich vlastní orientace</string>
+      <string id="AllowMixedModePrintingInPdf_Explain">Pomocí této zásady můžete určit, že se soubory PDF mají v aplikaci Microsoft Edge tisknout v závislosti na orientaci jednotlivých stránek.
+
+Pokud je tato zásada povolená, je smíšený režim povolený.
+
+Pokud je zakázaná, není smíšený režim povolený.</string>
       <string id="AllowSavingHistory">Povolit ukládání historie</string>
       <string id="AllowSavingHistory_Explain">Microsoft Edge ukládá na zařízení uživatelů jejich historii procházení, která se skládá z informací o jimi navštívených webech.
 
@@ -242,11 +248,11 @@ Související zásady:
       <string id="ConfigureOpenEdgeWithList_PreviousPages">Předchozí stránky</string>
       <string id="ConfigureOpenEdgeWithList_ProvisionedHomePages">Konkrétní stránka nebo stránky (výchozí)</string>
       <string id="AlwaysEnableBooksLibrary">Vždycky zobrazovat funkci Knihy v Microsoft Edgi</string>
-      <string id="AlwaysEnableBooksLibrary_Explain">Toto nastavení zásad vám pomůže rozhodnout, jestli se má zobrazovat karta Knihy, bez ohledu na nastavení země nebo oblasti zařízení v části Země nebo oblast v nastavení Windows.
- 
-Pokud toto nastavení povolíte, bude Microsoft Edge zobrazovat funkci Knihy, bez ohledu na zemi nebo oblast zařízení.
+      <string id="AlwaysEnableBooksLibrary_Explain">Toto nastavení zásad vám pomůže rozhodnout, jestli se má karta Knihy zobrazovat bez ohledu na nastavení země nebo oblasti zařízení, jak je nakonfigurovano v nastavení Windows v části Země nebo Oblast.
 
-Pokud toto nastavení zakážete nebo nenakonfigurujete, bude Microsoft Edge zobrazovat funkci Knihy jenom v zemích nebo oblastech, kde se podporuje.</string>
+Pokud toto nastavení povolíte, Microsoft Edge zobrazí knihovnu knih bez ohledu na zemi nebo oblast zařízení.
+
+Pokud toto nastavení zakážete nebo nenakonfigurujete, Microsoft Edge zobrazí knihovnu knih pouze v zemích nebo oblastech, kde je podporována.</string>
       <string id="EnableExtendedBooksTelemetry">Povolit rozšířenou telemetrii pro kartu Knihy</string>
       <string id="EnableExtendedBooksTelemetry_Explain">Nastavením této zásady můžete rozhodnout, jaký objem dat týkajících se knihy, kterou si čtete z karty Knihy v Microsoft Edgi, se odešle do Microsoftu.
 
@@ -491,39 +497,44 @@ Pokud předběžné spouštění znemožníte, Microsoft Edge se nebude moct př
       <string id="AllowPrelaunchDropdown_AllowPrelaunch">Povolit předběžné spouštění</string>
       <string id="AllowPrelaunchDropdown_PreventPrelaunch">Zakázat předběžné spouštění</string>
 
-      <string id="ConfigureKioskMode">Konfigurovat beznabídkový režim</string>
-      <string id="ConfigureKioskMode_Explain">Nakonfigurujte, jak se Microsoft Edge bude chovat v beznabídkovém režimu s přiřazeným přístupem, ať už jako jediná aplikace, nebo jedna z více aplikací běžících na zařízení, které slouží jako veřejný terminál. Můžete nastavit, zda se bude Microsoft Edge spouštět na celou obrazovku v režimu InPrivate, v režimu InPrivate s více kartami a omezenou funkčností, nebo jako normální Microsoft Edge.
+      <string id="ConfigureKioskMode">Konfigurovat kioskový režim</string>
+      <string id="ConfigureKioskMode_Explain">Nakonfigurujte, jak se Microsoft Edge bude chovat v kioskovém režimu s přiřazeným přístupem, ať už jako jediná aplikace, nebo jedna z více aplikací běžících na zařízení, které slouží jako kiosek. Můžete nastavit, zda se bude Microsoft Edge spouštět na celou obrazovku v režimu InPrivate, v režimu InPrivate s více kartami a omezenou funkčností, nebo jako normální Microsoft Edge.
 
-Aby se tato zásada mohla uplatnit, musíte nakonfigurovat Microsoft Edge v přiřazeném přístupu; v opačném případě se toto nastavení bude ignorovat. Další informace o konfiguraci přiřazeného přístupu a beznabídkového režimu najdete v článku, který se věnuje konfiguraci veřejných terminálů a sdílených zařízení používajících desktopové verze Windows (https://aka.ms/E489vw).
+Aby se tato zásada mohla uplatnit, musíte nakonfigurovat Microsoft Edge v přiřazeném přístupu; v opačném případě se toto nastavení bude ignorovat. Další informace o konfiguraci přiřazeného přístupu a kioskového režimu najdete v článku, který se věnuje konfiguraci kiosků a sdílených zařízení používajících desktopové verze Windows (https://aka.ms/E489vw).
 
 Pokud tuto funkci povolíte a nastavíte na 0 (výchozí nebo nenakonfigurováno), bude platit toto:
 – Pokud budete Microsoft Edge používat jako jedinou aplikaci, spustí se pro digitální informační panely nebo interaktivní obrazovky na celou obrazovku v režimu InPrivate.
 – Pokud ho budete používat jako jednu z mnoha aplikací, spustí se Microsoft Edge normálně.
 Pokud tuto funkci povolíte a nastavíte na 1, bude platit toto:
-– Pokud budete Microsoft Edge používat jako jedinou aplikaci, spustí se v omezené verzi InPrivate s více kartami a bude sloužit jako jediná aplikace dostupná pro veřejné procházení. Uživatelé nebudou moct minimalizovat, zavírat ani otevírat okna ani přizpůsobit Microsoft Edge, ale kliknutím na Ukončit relaci budou moct vymazat údaje o procházení a stažené položky. Pomocí zásady Nakonfigurovat resetování veřejného terminálu po uplynutí doby nečinnosti můžete Microsoft Edge nakonfigurovat tak, aby se po uplynutí určité doby nečinnosti restartoval.
+– Pokud budete Microsoft Edge používat jako jedinou aplikaci, spustí se v omezené verzi InPrivate s více kartami a bude sloužit jako jediná aplikace dostupná pro veřejné procházení. Uživatelé nebudou moct minimalizovat, zavírat ani otevírat okna ani přizpůsobit Microsoft Edge, ale kliknutím na Ukončit relaci budou moct vymazat údaje o procházení a stažené položky. Pomocí zásady Nakonfigurovat resetování kiosku po uplynutí doby nečinnosti můžete Microsoft Edge nakonfigurovat tak, aby se po uplynutí určité doby nečinnosti restartoval.
 – Pokud ho budete používat jako jednu z mnoha aplikací, spustí se v omezené verzi InPrivate s více kartami pro veřejné procházení s ostatními aplikacemi. Uživatelé budou moct minimalizovat, zavírat a otevírat více oken v režimu InPrivate, ale nebudou moct Microsoft Edge přizpůsobit.</string>
-      <string id="ConfigureKioskResetAfterIdleTimeout">Nakonfigurovat resetování veřejného terminálu po uplynutí doby nečinnosti</string>
+      <string id="ConfigureKioskResetAfterIdleTimeout">Nakonfigurovat resetování kiosku po uplynutí doby nečinnosti</string>
       <string id="ConfigureKioskResetAfterIdleTimeout_Explain">Microsoft Edge můžete nakonfigurovat tak, aby se po uplynutí určité doby nečinnosti resetoval do nakonfigurovaného úvodního stavu. Odpočítávání doby pro resetování se spustí po poslední interakci uživatele. Při resetování do nakonfigurovaného úvodního stavu se odstraní údaje o procházení aktuálního uživatele.
 
-Pokud tuto funkci povolíte, můžete nastavit dobu nečinnosti v minutách (0 až 1 440). Aby se tato zásada uplatnila, musíte zásadu konfigurace beznabídkového režimu nastavit na 1 a musíte nakonfigurovat Microsoft Edge v přiřazeném přístupu jako jedinou aplikaci. Jakmile uplyne nastavená doba nečinnosti, potvrzovací zpráva vyzve uživatele, aby pokračoval. Pokud uživatel neprovede žádnou akci, Microsoft Edge se po 30 sekundách resetuje.
+Pokud tuto funkci povolíte, můžete nastavit dobu nečinnosti v minutách (0 až 1 440). Aby se tato zásada uplatnila, musíte zásadu konfigurace kioskového režimu nastavit na 1 a musíte nakonfigurovat Microsoft Edge v přiřazeném přístupu jako jedinou aplikaci. Jakmile uplyne nastavená doba nečinnosti, potvrzovací zpráva vyzve uživatele, aby pokračoval. Pokud uživatel neprovede žádnou akci, Microsoft Edge se po 30 sekundách resetuje.
 
 Pokud tuto zásadu nastavíte na 0, Microsoft Edge nepoužije odpočet doby nečinnosti.
 
 Pokud tuto zásadu zakážete nebo nenakonfigurujete, je výchozí hodnotou 5 minut.
 
 Pokud nenakonfigurujete Microsoft Edge v přiřazeném přístupu, tato zásada se nijak neprojeví.</string>
-    </stringTable>
+      <string id="SuppressEdgeDeprecationNotification">Potlačení zobrazení oznámení o zastaralosti prohlížeče Microsoft Edge</string>
+      <string id="SuppressEdgeDeprecationNotification_Explain">Microsoft Edge můžete nakonfigurovat tak, aby potlačil zobrazení oznámení, které uživatele informuje o tom, že podpora této verze Microsoft Edge skončila 9. března 2021. Pokud je tato možnost povolená, oznámení se nezobrazí.
 
+Pokud je tato možnost zakázaná nebo není nakonfigurovaná, oznámení se zobrazí při každém spuštění Edge. </string>
+
+    </stringTable>
     <!-- Presentation -->
+    
     <presentationTable>
       <presentation id="ConfiguredFavorites_Presentation">
         <textBox refId="ConfiguredFavoritesPrompt">
           <label>Zadejte adresu URL, která ukazuje na soubor, který obsahuje veškerá data ke zřizování oblíbených položek (ve formátu html). Můžete exportovat sadu oblíbených položek z Microsoft Edge a používat tento soubor html ke zřizování uživatelských počítačů.
 
 URL se dá zadat jako
-1. Umístění HTTP: http://localhost:8080/URL.html
-2. Místní síť: \\síť\sdílené_složky\URL.html
-3. Místní soubor: file:///c:\\Users\\&lt;uživatel&gt;\\Dokumenty\\URL.html nebo C:\\Users\\&lt;uživatel&gt;\\Dokumenty\\URL.html
+1. Umístění HTTP: http://localhost:8080/URLs.html
+2. Místní síť: \\síť\sdílené_složky\URLs.html
+3. Místní soubor: file:///c:\\Users\\&lt;uživatel&gt;\\Dokumenty\\URLs.html nebo C:\\Users\\&lt;uživatel&gt;\\Dokumenty\\URLs.html
           </label>
         </textBox>
       </presentation>
@@ -589,7 +600,7 @@ URL se dá zadat jako
         <dropdownList refId="ZonesListBox" noSort="true" defaultItem="0">Konfigurace shromažďování telemetrických dat</dropdownList>
       </presentation>
       <presentation id="ConfigureKioskMode_Presentation">
-        <text>Nakonfigurujte, jak se bude Microsoft Edge chovat v beznabídkovém režimu.
+        <text>Nakonfigurujte, jak se bude Microsoft Edge chovat v kioskovém režimu.
 
 Přiřazený přístup jedné aplikace:
    – 0 = celoobrazovkové digitální informační panely a interaktivní obrazovky
@@ -602,7 +613,7 @@ Přiřazený přístup více aplikací:
         <decimalTextBox refId="ConfigureKioskMode_TextBox" defaultValue="0"></decimalTextBox>
       </presentation>
       <presentation id="ConfigureKioskResetAfterIdleTimeout_Presentation">
-        <text>Zadejte čas v minutách od poslední aktivity uživatele před resetováním veřejného terminálu Microsoft Edge. Můžete zvolit:
+        <text>Zadejte čas v minutách od poslední aktivity uživatele před resetováním kiosku Microsoft Edge. Můžete zvolit:
    – 0 pro zakázání doby nečinnosti
    – 1 až 1 440 minut nečinnosti od poslední uživatelské interakce
         </text>

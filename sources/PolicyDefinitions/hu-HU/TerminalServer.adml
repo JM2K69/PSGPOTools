@@ -5,6 +5,8 @@
   <description>itt adja meg a leírást</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Automatikus előfizetés engedélyezése</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Ellenőrzi azon URL-címek listáját, amelyekre a felhasználónak automatikusan fel kell iratkoznia</string>
       <string id="TS_SUPPORTED_Windows10">Legalább Windows 10 vagy Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">Legalább Windows 8 vagy Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">Legalább Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">Legalább Windows XP, és csak Windows Server 2003</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">Legalább Windows Server 2008 vagy Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  Csak Windows Server 2008 R2</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 1903-as verzió, Windows 10 1909-es verzió és Windows 10 2004-es verzió</string>
       <string id="TS_TERMINAL_SERVER">Távoli asztali munkamenetgazda</string>
       <string id="TS_TERMINAL_SERVER_Help">Távoli asztali munkamenetgazda kiszolgáló konfigurációjának vezérlése</string>
       <string id="TS_LICENSE_SERVER">Távoli asztali licencelés</string>
@@ -132,18 +135,18 @@ Ha letiltja a beállítást vagy nem konfigurálja, a felhasználó a jelszavát
 
 Alapértelmezés szerint a távoli asztali munkamenetgazda-kiszolgáló a kapcsolat létrehozásakor automatikusan csatlakoztatja az ügyfélmeghajtókat. A csatlakoztatott meghajtók a Fájlkezelőben vagy a Sajátgép ablakban a munkamenet mappafájában jelennek meg, a következő formában: &lt;meghajtóbetűjel&gt; a következőn: &lt;számítógépnév&gt;. A beállítással felülbírálhatja ezt a viselkedést.
 
-Ha engedélyezi ezt a házirend-beállítást, a Távoli asztali szolgáltatások munkameneteiben nem lesz engedélyezett az ügyfélmeghajtók átirányítása, továbbá a Windows Server 2003, Windows 8 és Windows XP rendszert futtató számítógépeken nem lesz engedélyezett a vágólappal végzett fájlmásolás átirányítása.
+Ha engedélyezi ezt a házirend-beállítást, a Távoli asztali szolgáltatások munkameneteiben nem lesz engedélyezett az ügyfélmeghajtók átirányítása, továbbá a Windows XP, Windows Server 2003, Windows Server 2012 (vagy újabb) és Windows 8 (vagy újabb) rendszert futtató számítógépeken nem lesz engedélyezett a vágólappal végzett fájlmásolás átirányítása.
 
 Ha letiltja a házirend-beállítást, az ügyfélmeghajtók átirányítása mindig engedélyezett. A vágólappal végzett fájlmásolás átirányítása emellett mindig engedélyezett, ha a vágólap átirányítása engedélyezve van.
 
 Ha nem konfigurálja ezt a házirend-beállítást, a rendszer nem szabályozza az ügyfélmeghajtók és a vágólappal végzett fájlmásolás átirányítását a csoportházirend szintjén.
-
 </string>
       <string id="TS_CLIENT_DRIVE_M">Meghajtók átirányításának tiltása</string>
       <string id="TS_CLIENT_HELP">Távoli asztali kapcsolat ügyfél beállításainak vezérlése</string>
       <string id="TS_CLIENT_LPT">LPT-port átirányításának tiltása</string>
       <string id="TS_CLIENT_PNP">A támogatott Plug and Play eszközök átirányításának tiltása</string>
       <string id="TS_CAMERA_REDIRECTION">Videorögzítés átirányításának tiltása</string>
+      <string id="TS_LOCATION_REDIRECTION">Hely átirányításának tiltása</string>
       <string id="TS_CLIENT_PRINTER">Ügyfélnyomtatóra történő átirányítás tiltása</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">Ezzel a házirend-beállítással a vágólapon található tartalom távoli számítógép és ügyfélszámítógép közötti megosztását (vagyis a vágólap átirányítását) tilthatja le a Távoli asztal szolgáltatások munkamenetében.
 
@@ -208,6 +211,15 @@ Ha engedélyezi ezt a házirend-beállítást, a felhasználók nem irányíthat
 
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasználók átirányíthatják videorögzítő eszközeiket a távoli számítógépre. A felhasználók a Távoli asztali kapcsolat párbeszédpanel Helyi erőforrások lapján található Egyebek gombra kattintva választhatják ki a távoli számítógépre átirányítani kívánt videorögzítő eszközöket.
 
+</string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">Ezzel a házirend-beállítással szabályozhatja a helyadatok távoli számítógépre történő átirányítását távoli asztali szolgáltatási munkamenetben.
+
+A távoli asztali szolgáltatások alapértelmezés szerint lehetővé teszik a helyadatok átirányítását.
+
+Ha engedélyezi ezt a házirend-beállítást, a felhasználók nem irányítják át a helyadataikat a távoli számítógépre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasználók átirányíthatják a helyadataikat a távoli számítógépre.
+          
 </string>
       <string id="TS_MAXMONITOR_EXPLAIN">Ezzel a házirend-beállítással korlátozhatja, hogy a felhasználó hány monitort használhat a Távoli asztali szolgáltatások munkamenetének megjelenítésére. A Távoli asztali szolgáltatások munkamenetének megjelenítésére használható monitorok számának korlátozásával növelhető a kapcsolat teljesítménye (különösen lassú kapcsolatok esetében), és csökkenthető a kiszolgáló terhelése.
 
@@ -352,7 +364,7 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, az ügyfelek n
       <string id="TS_GATEWAY_POLICY_SERVER">Távoli asztali átjárókiszolgáló címének beállítása</string>
       <string id="TS_GATEWAY_POLICY_SERVER_HELP">Ez a beállítás határozza meg azt a címet, amelyet az ügyfeleknek használniuk kell, amikor a távoli asztali átjárókiszolgálón keresztül próbálnak csatlakozni a távoli asztali munkamenetgazda kiszolgálóhoz. A házirend-beállítás használata lehet kötelező, vagy engedélyezheti a felhasználók számára a beállítás felülírását. Alapértelmezés szerint a házirend-beállítás engedélyezés esetén kötelező. Ha ez a házirend-beállítás kötelező, a felhasználók még akkor sem tudják felülírni a beállítást, ha az ügyfélen megadják a „Távoli asztali átjárókiszolgáló beállításainak használata” beállítást.
 
-Megjegyzés: A hitelesítési módszer megadása is feltétlenül ajánlott „A távoli asztali átjáró hitelesítési módszerének beállítása" házirend-beállítás révén. Ha a házirend-beállításon keresztül nem ad meg hitelesítési módszert, hitelesítésre az ügyfélszámítógépen engedélyezett NTLM protokoll vagy egy intelligens kártya használható.
+Megjegyzés: A hitelesítési módszer megadása is feltétlenül ajánlott „A távoli asztali átjáró hitelesítési módszerének beállítása” házirend-beállítás révén. Ha a házirend-beállításon keresztül nem ad meg hitelesítési módszert, hitelesítésre az ügyfélszámítógépen engedélyezett NTLM protokoll vagy egy intelligens kártya használható.
 
 Ha engedélyezni kívánja, hogy a felhasználók felülírják a „Távoli asztali átjárókiszolgáló címének beállítása” házirend-beállítást, és másik távoli asztali átjárókiszolgálóhoz csatlakozzanak, jelölje be „A felhasználók módosíthatják ezt a beállítást” jelölőnégyzetet, ennek hatására a felhasználók megadhatnak alternatív távoli asztali átjárókiszolgálót. A felhasználók beállítások konfigurálásával, RDP-fájllal, illetve HTML-parancsfájllal definiálhatnak másik távoli asztali átjárókiszolgálót. Ha ezt nem teszik, a rendszer alapértelmezés szerint az ebben a házirend-beállításban megadott távoli asztali átjárókiszolgálót használja.
 
@@ -420,19 +432,19 @@ Ha engedélyezi ezt a házirend-beállítást, az értesítések nem jelennek me
 Ha letiltja vagy nem konfigurálja ezt a beállítást, az értesítések megjelennek a távoli asztali munkamenetgazda kiszolgálón, miután helyi rendszergazdaként bejelentkezett.</string>
       <string id="TS_LICENSING_MODE">A távoli asztali licencelés módjának beállítása</string>
       <string id="TS_LICENSING_MODE_EXPLAIN">
-        Ezzel a házirend-beállítással meghatározhatja, hogy a távoli asztali szolgáltatások ügyfélhozzáférési licencei (RDS CAL) közül milyen típusúval lehet ehhez a távoli asztali munkamenetgazda-kiszolgálóhoz csatlakozni.
+        Ezzel a házirend-beállítással meghatározhatja, hogy a Távoli asztali szolgáltatások ügyféllicenceinek (RDS CAL) mely típusának kell csatlakoznia ehhez a Távoli asztali munkamenetgazda-kiszolgálóhoz.
 
-        A házirend-beállítás megadásakor háromféle licencelési mód közül választhat: Felhasználónkénti, Eszközönkénti, illetve AAD-alapú felhasználónkénti.
+        A házirend-beállítás használatával kétféle licencelési mód közül választhat: felhasználónkénti vagy eszközönkénti.
 
-        A Felhasználónkénti licencelési mód esetén a távoli asztali munkamenetgazda-kiszolgálóhoz kapcsolódó összes felhasználói fióknak kell rendelkeznie RD-licenckiszolgáló által kibocsájtott felhasználónkénti RDS CAL-lal.
+        A felhasználónkénti licencelési mód esetén az ehhez a Távoli asztali munkamenetgazda-kiszolgálóhoz kapcsolódó összes felhasználói fióknak rendelkeznie kell Távoli asztali licenckiszolgáló által kibocsátott felhasználószintű RDS-ügyféllicenccel.
 
-        Az Eszközönkénti licencelési mód esetén a távoli asztali munkamenetgazda-kiszolgálóhoz kapcsolódó összes eszköznek kell rendelkeznie RD-licenckiszolgáló által kibocsájtott eszközönkénti RDS CAL-lal.
+        Az eszközönkénti licencelési mód esetén az ehhez a Távoli asztali munkamenetgazda-kiszolgálóhoz kapcsolódó összes eszköznek rendelkeznie kell Távoli asztali licenckiszolgáló által kibocsátott eszközszintű RDS-ügyféllicenccel.
 
-        Az AAD-alapú felhasználónkénti licencelési mód esetén a távoli asztali munkamenetgazda-kiszolgálóhoz kapcsolódó összes felhasználói fióknak kell rendelkeznie az AAD-ben hozzárendelt, RDS-licenceket támogató szolgáltatáscsomaggal.
-        
-        Ha engedélyezi ezt a házirend-beállítást, a távoli asztali licenckiszolgáló és a távoli asztali munkamenetgazda a megadott távoli asztali licencelési módot veszi figyelembe.
+        Ha engedélyezi ezt a házirend-beállítást, a Távoli asztali licenckiszolgáló és a Távoli asztali munkamenetgazda az Ön által megadott távoli asztali licencelési módot veszi figyelembe.
 
-        Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a rendszer nem szabályozza a licencelési módot a csoportházirend szintjén.
+        Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a licencelési mód nem lesz meghatározva a csoportházirend szintjén.
+
+        Megjegyzés: Az AAD-alapú felhasználónkénti mód a Windows 11-ben és újabb verziókban elavult.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Eszközönkénti</string>
       <string id="TS_LICENSING_MODE_PER_USER">Felhasználónkénti</string>
@@ -609,6 +621,17 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a rendszer nem
       <string id="TS_SECURITY_LAYER_POLICY">Meghatározott biztonsági réteg alkalmazásának megkövetelése a távoli (RDP) kapcsolatokhoz</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Microsoft Entra ID hitelesítésének érvényesítésének engedélyezése</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">Ezzel a házirend-beállítással megadhatja, szükséges-e a Microsoft Entra ID hitelesítés kiszolgálóoldali érvényesítése.
+
+Ha engedélyezi ezt a házirendet, minden Távoli asztali szolgáltatások ügyfélnek RDS AAD hitelesítést kell használnia a Távoli asztali munkamenetgazda kiszolgálóin történő hitelesítéshez. 
+
+Ez a házirend nem engedélyezi a más hitelesítési módszerekre való visszalépést. 
+
+A hálózati szintű hitelesítés (NLA) engedélyezése szükséges ahhoz, hogy ez a házirend érvényes legyen. Tekintse meg a „Felhasználóhitelesítés megkövetelése a távoli kapcsolatokhoz a hálózati szintű hitelesítés révén” házirendet.
+
+Ha letiltja vagy nem konfigurálja ezt a házirendet, akkor a Microsoft Entra ID hitelesítés érvényesítése nem lesz kötelező.
+</string>
       <string id="TS_Session_End_On_Limit">A munkamenet befejezése az időkorlát elérésekor</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">Ezzel a házirend-beállítással megadhatja, hogy a rendszer befejezze-e a Távoli asztali szolgáltatások letelt időkorlátú munkameneteit, vagy leválassza őket.
 
@@ -787,6 +810,79 @@ Ha engedélyezi ezt a beállítást, az asztal mindig megjelenik, amikor egy üg
 Ha letiltja vagy nem konfigurálja ezt a beállítást, megadható az ügyfél távoli számítógéphez történő kapcsolódása után a távoli számítógépen elinduló kezdőprogram. Ha nincs megadva kezdőprogram, akkor mindig az asztal jelenik meg a távoli számítógépen az ügyfél kapcsolódása után.
 
 Megjegyzés: Ha ez a házirend-beállítás engedélyezett, akkor a „Program indítása kapcsolódáskor” házirend-beállítás figyelmen kívül marad.</string>
+      <string id="TS_UIA">UI-automatizálás átirányításának engedélyezése</string>
+      <string id="TS_UIA_EXPLAIN">Ez a házirend-beállítás határozza meg, hogy a helyi számítógépen futó UI-automatizálási (felhasználóifelület-automatizálási) ügyfélalkalmazások hozzáférhetnek-e a kiszolgálón lévő felhasználói felületi elemekhez.
+
+Az UI-automatizálás a legtöbb UI-elemhez hozzáférést biztosít a programok számára, ami lehetővé teszi az olyan kisegítő technológiai termékek (például a Nagyító és a Narrátor) használatát, amelyeknek együtt kell működniük a felhasználói felülettel a megfelelő működés érdekében. A felhasználói felület adatai az automatikus tesztparancsfájlok számára is lehetővé teszik a felhasználói felülettel való együttműködést.
+
+A távoli asztali munkamenetek jelenleg nem támogatják az UI-automatizálás átirányítását.
+
+Ha engedélyezi vagy nem konfigurálja ezt a házirend-beállítást, a helyi számítógépen található összes UI-automatizálási ügyfél együttműködhet a távoli alkalmazásokkal. Például használhatja a helyi számítógépen a Narrátor- és a Nagyító-ügyfeleket arra, hogy együttműködjenek egy távoli munkamenetben megnyitott weblap felhasználói felületével.
+
+Ha letiltja ezt a házirend-beállítást, a helyi számítógépen futó UI-automatizálási ügyfelek nem működhetnek együtt a távoli alkalmazásokkal.
+</string>
+      <string id="TS_WEBAUTHN">Ne engedélyezze a WebAuthn-átirányítást</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">Ez a házirend-beállítás lehetővé teszi a távoli asztali munkamenetekből a helyi eszközre érkező webes hitelesítési (WebAuthn) kérelmek átirányításának vezérlését. Az átirányítás lehetővé teszi, hogy a felhasználók a helyi hitelesítőjük (pl. Vállalati Windows Hello, biztonsági kulcs vagy egyéb) használatával végezzenek hitelesítést a távoli asztali munkameneten belüli erőforrásokhoz.
+
+Alapértelmezés szerint a Távoli asztal engedélyezi a WebAuthn-kérelmek átirányítását.
+
+Ha ez a házirend-beállítás engedélyezve van, a felhasználók nem használhatják a helyi hitelesítőjüket a távoli asztali munkamenetben.
+
+Ha a házirend-beállítás le van tiltva vagy nincs konfigurálva, a felhasználók használhatnak helyi hitelesítőket a távoli asztali munkamenetben.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">A vágólap ügyfélről kiszolgálóra való átviteleinek letiltása</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">A vágólap ügyfélről kiszolgálóra való átvitelének letiltása:</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Egyszerű szöveg engedélyezése</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Egyszerű szöveg és képek engedélyezése</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Egyszerű szöveg, képek és Rich Text formátum engedélyezése</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Egyszerű szöveg, képek, Rich Text formátum és HTML engedélyezése</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">A vágólap kiszolgálóról ügyfélre történő átvitelének korlátozása</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">Ezzel a házirend-beállítással korlátozhatja a vágólap a kiszolgálóról az ügyfélre irányuló adatátvitelét.
+
+Ha engedélyezi ezt a házirend-beállítást, a következő viselkedésmódok közül kell választania::
+
+- A vágólap átvitelének letiltása a kiszolgálóról az ügyfélre.
+
+- Egyszerű szöveg másolásának engedélyezése a kiszolgálóról az ügyfélre.
+
+- Egyszerű szöveg és képek másolásának engedélyezése a kiszolgálóról az ügyfélre.
+
+- Egyszerű szöveg, képek és Rich Text formátum másolásának engedélyezése a kiszolgálóról az ügyfélre.
+
+- Egyszerű szöveg, képek, Rich Text formátum és HTML másolásának engedélyezése a kiszolgálóról az ügyfélre.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasználók tetszőleges tartalmakat másolhatnak a kiszolgálóról az ügyfélre, ha engedélyezve van a vágólap átirányítása.
+
+Megjegyzés: Ez a házirend-beállítás a Számítógép konfigurációja és a Felhasználó konfigurációja területen is megjelenik. Ha mindkét házirend-beállítás konfigurálva van, a rendszer a szigorúbb korlátozást használja.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">A vágólap ügyfélről kiszolgálóra való átvitelének korlátozása</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">Ezzel a házirend-beállítással korlátozhatja a vágólap az ügyfélről a kiszolgálóra irányuló adatátvitelét.
+
+Ha engedélyezi ezt a házirend-beállítást, a következő viselkedésmódok közül kell választania::
+
+- A vágólap átvitelének letiltása az ügyfélről a kiszolgálóra.
+
+- Egyszerű szöveg másolásának engedélyezése az ügyfélről a kiszolgálóra.
+
+- Egyszerű szöveg és képek másolásának engedélyezése az ügyfélről a kiszolgálóra.
+
+- Egyszerű szöveg, képek és Rich Text formátum másolásának engedélyezése az ügyfélről a kiszolgálóra.
+
+- Egyszerű szöveg, képek, Rich Text formátum és HTML másolásának engedélyezése az ügyfélről a kiszolgálóra.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasználók tetszőleges tartalmakat másolhatnak az ügyfélről a kiszolgálóra, ha engedélyezve van a vágólap átirányítása.
+
+Megjegyzés: Ez a házirend-beállítás a Számítógép konfigurációja és a Felhasználó konfigurációja területen is megjelenik. Ha mindkét házirend-beállítás konfigurálva van, a rendszer a szigorúbb korlátozást használja.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Felhőalapú vágólap integrációjának letiltása kiszolgáló és ügyfél közötti adatátvitel esetén</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">Ezzel a házirend-beállítással szabályozhatja, hogy a rendszer hozzáadja-e a távoli munkamenetből az ügyfélhez a vágólap átirányításával átvitt adatokat az ügyféloldali felhőbeli vágólaphoz.
+
+Alapértelmezés szerint a Távoli asztal letiltja az ügyféloldali felhőbeli vágólap integrációját a távoli munkamenetből a vágólap átirányításával átvitt adatok esetében.
+
+Ha engedélyezi vagy nem konfigurálja ezt a házirend-beállítást, a távoli munkamenetben másolt és az ügyfélen beillesztett adatok nem lesznek hozzáadva az ügyféloldali felhő vágólaphoz.
+
+Ha letiltja ezt a házirend-beállítást, a távoli munkamenetben másolt és az ügyfélen beillesztett adatok hozzá lesznek adva az ügyféloldali felhő vágólaphoz (ha az engedélyezve van).
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">Ezzel a házirend-beállítással megadhatja, hogy a távoli asztali munkamenetgazda-kiszolgálóval való távoli kapcsolat létesítéséhez szükség legyen-e hálózati szintű hitelesítéssel történő felhasználóhitelesítésre. Ez a beállítás fokozza a biztonságot azáltal, hogy a távoli kapcsolat létesítésének egy korai szakaszában felhasználóhitelesítést tesz kötelezővé.
 
 Ha engedélyezi ezt a házirend-beállítást, csak a hálózati szintű hitelesítést támogató ügyfélszámítógépek csatlakozhatnak a távoli asztali munkamenetgazda-kiszolgálóhoz.
@@ -801,6 +897,24 @@ Fontos: ha letiltja a házirend-beállítást, csökkenhet a biztonság, mivel a
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Felhasználóhitelesítés megkövetelése a távoli kapcsolatokhoz a hálózati szintű hitelesítés révén</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Távoli munkamenet leválasztása zárolt örökölt hitelesítéshez</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">Ezzel a házirend-beállítással konfigurálhatja a felhasználói élményt, amikor a Távoli asztal munkamenetet a felhasználó vagy egy házirend zárolja. Megadhatja, hogy a távoli munkamenet megjeleníti-e a távoli zárolási képernyőt, vagy megszakítja a kapcsolatot, amikor a távoli munkamenet zárolva van. A távoli munkamenet leválasztásával biztosítható, hogy a távoli munkamenet ne maradjon a zárolási képernyőn, és a hálózati kapcsolat megszakadása miatt ne lehessen automatikusan újracsatlakozni.
+
+Ez a házirend csak akkor érvényes, ha örökölt hitelesítést használ a távoli számítógépen való hitelesítéshez. Az örökölt hitelesítés a felhasználónévre és a jelszóra, illetve az intelligens kártyákhoz hasonló tanúsítványokra korlátozódik. Az örökölt hitelesítés nem használja ki a Microsoft Identitásplatformot, például a Microsoft Entra ID-t. Az örökölt hitelesítés magában foglalja az NTLM, a CredSSP, az RDSTLS, a TLS és az RDP alapszintű hitelesítési protokollokat.
+
+Ha engedélyezi ezt a házirend-beállítást, a örökölt hitelesítést használó Távoli asztal kapcsolatai bontják a távoli munkamenetet, amikor a távoli munkamenet zárolva van. A felhasználók újracsatlakozhatnak, amikor készen állnak, és amikor a rendszer kéri, újra meg kell adniuk a hitelesítő adataikat.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, az örökölt hitelesítést használó Távoli asztal kapcsolatai megjelenítik a távoli zárolási képernyőt, amikor a távoli munkamenet zárolva van. A felhasználók a felhasználónevükkel, jelszavukkal vagy tanúsítványukkal oldhatják fel a távoli munkamenet zárolását.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Távoli munkamenet leválasztása zárolás esetén a Microsoft identitásplatform-hitelesítéshez</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">Ezzel a házirend-beállítással konfigurálhatja a felhasználói élményt, amikor a Távoli asztal munkamenetet a felhasználó vagy egy házirend zárolja. Megadhatja, hogy a távoli munkamenet megjeleníti-e a távoli zárolási képernyőt, vagy megszakítja a kapcsolatot, amikor a távoli munkamenet zárolva van. A távoli munkamenet leválasztásával biztosítható, hogy a távoli munkamenet ne maradjon a zárolási képernyőn, és a hálózati kapcsolat megszakadása miatt ne lehessen automatikusan újracsatlakozni.
+
+Ez a szabályzat csak akkor érvényes, ha olyan identitásszolgáltatót használ, amely a Microsoft identitásplatformot, például a Microsoft Entra ID-t használja a távoli számítógépen való hitelesítéshez. Ez a szabályzat nem vonatkozik az örökölt hitelesítésre, amely magában foglalja az NTLM, a CredSSP, az RDSTLS, a TLS és az RDP alapszintű hitelesítési protokollokat.
+
+Ha engedélyezi vagy nem konfigurálja ezt a házirend-beállítást, Távoli asztal Microsoft identitásplatformot használó kapcsolatai bontják a távoli munkamenetet, amikor a távoli munkamenet zárolva van. A felhasználók újracsatlakozhatnak, amikor készen állnak, és jelszó nélküli hitelesítést használhatnak, ha a rendszer így van konfigurálva.
+
+Ha letiltja ezt a házirend-beállítást, Távoli asztal Microsoft identitásplatformot használó kapcsolatai megjelenítik a távoli zárolási képernyőt, amikor a távoli munkamenet zárolva van. A felhasználók a felhasználónevükkel, jelszavukkal vagy tanúsítványukkal oldhatják fel a távoli munkamenet zárolását.
+</string>
       <string id="TS_User_Help">Ez a beállítás vezérli a Távoli asztali szolgáltatások technológia konfigurálását, amely hozzáférést biztosít egy Windows-alapú programokat vagy teljes Windows asztalt futtató kiszolgálóhoz</string>
       <string id="TS_USER_HOME">Távoli asztali szolgáltatások felhasználói kezdőkönyvtárának beállítása</string>
       <string id="TS_USER_HOME_EXPLAIN">Ez a beállítás határozza meg, hogy a Távoli asztali szolgáltatások a megadott hálózati megosztást vagy egy helyi könyvtár elérési útját használja-e a felhasználó kezdőkönyvtára számára megadott gyökérkönyvtárként egy Távoli asztali szolgáltatások munkamenetben.
@@ -901,36 +1015,44 @@ Ha letiltja ezt a beállítást, a felhasználók nem futtathatnak érvényes ta
 Megjegyzés: Ez a házirend a Számítógép konfigurációja vagy a Felhasználó konfigurációja csomópontban definiálható. Ha egy adott számítógépen megadja ezt a beállítást, az a számítógép összes felhasználóját érinti.
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Megbízható .rdp közzétevőket képviselő tanúsítványok SHA1-ujjlenyomatainak megadása</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Ezzel a házirend-beállítással megadhatja azon tanúsítványok SHA1-alapú ujjlenyomatainak listáját, amelyek megbízható RDP-fájlok (.rdp kiterjesztésű fájlok) közzétevőit képviselik.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Megbízható .rdp közzétevőket képviselő tanúsítványok ujjlenyomatainak megadása</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Ezzel a házirend-beállítással megadhatja a megbízható Remote Desktop Protocol (.rdp) fájlok közzétevőit jelölő tanúsítvány-ujjlenyomatok listáját. Az SHA-256, SHA-384 és SHA-512 ujjlenyomatok támogatottak. Az SHA-1 ujjlenyomatok elavultak: az SHA-1 már nem tekinthető biztonságosnak, és az SHA-1 ujjlenyomatok támogatása egy közelgő biztonsági frissítésben alapértelmezés szerint le lesz tiltva. A rendszergazdáknak a lehető leghamarabb át kell telepíteniük az összes ujjlenyomat-bejegyzést SHA-256-ra vagy erősebbre.
 
-Ha engedélyezi ezt a beállítást, a rendszer minden olyan tanúsítványt megbízhatónak tekint, amelynek SHA1-ujjlenyomata egyezik a listán szereplő egyik ujjlenyomattal. Ha a felhasználó egy megbízható tanúsítvánnyal aláírt .rdp fájlt próbál meg indítani, a rendszer nem küld figyelmeztető üzenetet neki. Ujjlenyomat beszerzéséhez tekintse meg a tanúsítvány adatait, majd kattintson az Ujjlenyomat mezőbe.
+Az ujjlenyomatok előtt megadható az őket előállító kivonatolási algoritmus. A támogatott előtagok: „sha256:”, „sha384:” és „sha512:” (a kis- és nagybetűk megkülönböztetése nélkül). Például: sha256:AB0356F2... Ha nincs megadva előtag, a rendszer a bejegyzést örökölt SHA-1 ujjlenyomatként kezeli.
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a rendszer egyetlen .rdp közzétevőt sem tekint megbízhatónak.
+Ha az „SHA-1 ujjlenyomatok letiltása” jelölőnégyzet engedélyezve van, a rendszer figyelmen kívül hagyja az előtag nélküli bejegyzéseket. Csak az SHA-256, SHA-384 és SHA-512 ujjlenyomatok lesznek egyeztetve. Erősen javasoljuk, hogy most engedélyezze ezt a jelölőnégyzetet, hogy felkészüljön a közelgő alapértelmezett módosításra.
+
+Ha engedélyezi ezt a házirend-beállítást, a rendszer megbízhatónak tekinti azokat a tanúsítványokat, amelyek ujjlenyomata megegyezik a listán szereplő valamelyik ujjlenyomattal. Ha a felhasználó egy megbízható tanúsítvánnyal aláírt .rdp fájlt próbál meg indítani, a rendszer nem küld figyelmeztető üzenetet neki.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a rendszer egyetlen közzétevőt sem tekint megbízható .rdp közzétevőnek.
 
 Megjegyzések:
 
-Ez a házirend a Számítógép konfigurációja vagy a Felhasználó konfigurációja csomópontban definiálható. Ha ezt a beállítást megadja a számítógépen, az adott felhasználó számára megbízható tanúsítvány-ujjlenyomatok listája a számítógép részére definiált ujjlenyomatlistából és a felhasználónak definiált ujjlenyomatlistából tevődik össze.
+Ezt a házirend-beállítást a Számítógép konfigurációja vagy a Felhasználó konfigurációja csomópontban adhatja meg. Ha ezt a házirend-beállítást a számítógépre konfigurálja, a felhasználó számára megbízható tanúsítvány-ujjlenyomatok listája a számítógéphez meghatározott lista és a felhasználóhoz meghatározott lista kombinációja lesz.
 
-Ez a beállítás érvényteleníti „Az érvényes közzétevőktől származó .rdp fájlok, valamint a felhasználó alapértelmezett .rdp beállításainak engedélyezése” házirend-beállítást.
+Ez a házirend-beállítás felülbírálja az „Engedélyezés az érvényes közzétevőktől származó .rdp fájlokhoz és a felhasználó alapértelmezett .rdp beállításaihoz” házirend-beállítás viselkedését.
 
-Ha a lista olyan karakterláncot tartalmaz, amely nem tanúsítvány-ujjlenyomat, azt a rendszer figyelmen kívül hagyja.
+Ha a lista olyan sztringet tartalmaz, amely nem tanúsítvány-ujjlenyomat, a rendszer figyelmen kívül hagyja.
 
+További információ: https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Ezzel a házirend-beállítással megadhatja azon tanúsítványok SHA1-alapú ujjlenyomatainak listáját, amelyek megbízható RDP-fájlok (.rdp kiterjesztésű fájlok) közzétevőit képviselik.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Ezzel a házirend-beállítással megadhatja a megbízható Remote Desktop Protocol (.rdp) fájlok közzétevőit jelölő tanúsítvány-ujjlenyomatok listáját. Az SHA-256, SHA-384 és SHA-512 ujjlenyomatok támogatottak. Az SHA-1 ujjlenyomatok elavultak: az SHA-1 már nem tekinthető biztonságosnak, és az SHA-1 ujjlenyomatok támogatása egy közelgő biztonsági frissítésben alapértelmezés szerint le lesz tiltva. A felhasználóknak a lehető leghamarabb át kell telepíteniük az összes ujjlenyomat-bejegyzést SHA-256-ra vagy erősebbre.
 
-Ha engedélyezi ezt a beállítást, a rendszer minden olyan tanúsítványt megbízhatónak tekint, amelynek SHA1-ujjlenyomata egyezik a listán szereplő egyik ujjlenyomattal. Ha a felhasználó egy megbízható tanúsítvánnyal aláírt .rdp fájlt próbál meg indítani, a rendszer nem küld figyelmeztető üzenetet neki. Ujjlenyomat beszerzéséhez tekintse meg a tanúsítvány adatait, majd kattintson az Ujjlenyomat mezőbe.
+Az ujjlenyomatok előtt megadható az őket előállító kivonatolási algoritmus. A támogatott előtagok: „sha256:”, „sha384:” és „sha512:” (a kis- és nagybetűk megkülönböztetése nélkül). Például: sha256:AB0356F2... Ha nincs megadva előtag, a rendszer a bejegyzést örökölt SHA-1 ujjlenyomatként kezeli.
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a rendszer egyetlen .rdp közzétevőt sem tekint megbízhatónak.
+Ha engedélyezi ezt a házirend-beállítást, a rendszer megbízhatónak tekinti azokat a tanúsítványokat, amelyek ujjlenyomata megegyezik a listán szereplő valamelyik ujjlenyomattal. Ha a felhasználó egy megbízható tanúsítvánnyal aláírt .rdp fájlt próbál meg indítani, a rendszer nem küld figyelmeztető üzenetet neki.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a rendszer egyetlen közzétevőt sem tekint megbízható .rdp közzétevőnek.
 
 Megjegyzés:
 
-Ez a házirend a Számítógép konfigurációja vagy a Felhasználó konfigurációja csomópontban definiálható. Ha ezt a beállítást megadja a számítógépen, az adott felhasználó számára megbízható tanúsítvány-ujjlenyomatok listája a számítógép részére definiált ujjlenyomatlistából és a felhasználónak definiált ujjlenyomatlistából tevődik össze.
+Ezt a házirend-beállítást a Számítógép konfigurációja vagy a Felhasználó konfigurációja csomópontban adhatja meg. Ha ezt a házirend-beállítást a számítógépre konfigurálja, a felhasználó számára megbízható tanúsítvány-ujjlenyomatok listája a számítógéphez meghatározott lista és a felhasználóhoz meghatározott lista kombinációja lesz.
 
-Ez a beállítás érvényteleníti „Az érvényes közzétevőktől származó .rdp fájlok, valamint a felhasználó alapértelmezett .rdp beállításainak engedélyezése” házirend-beállítást.
+Ez a házirend-beállítás felülbírálja az „Engedélyezés az érvényes közzétevőktől származó .rdp fájlokhoz és a felhasználó alapértelmezett .rdp beállításaihoz” házirend-beállítás viselkedését.
 
-Ha a lista olyan karakterláncot tartalmaz, amely nem tanúsítvány-ujjlenyomat, azt a rendszer figyelmen kívül hagyja.
+Ha a lista olyan sztringet tartalmaz, amely nem tanúsítvány-ujjlenyomat, a rendszer figyelmen kívül hagyja.
 
+További információ: https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">Hitelesítő adatok kérése az ügyfélszámítógépen</string>
@@ -1018,6 +1140,14 @@ Ha letiltja a házirend-beállítást, a távoli asztali munkamenetgazda kiszolg
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">A RemoteApp továbbfejlesztett felületének engedélyezése</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">Ez a szabályzatbeállítás lehetővé teszi a RemoteApp-munkamenetek továbbfejlesztett felületét, amely támogatást nyújt az alapértelmezett fájltársításokhoz, a Run-/RunOnce-beállításkulcsokhoz és egyebekhez. Ez a szabályzatbeállítás csak RemoteApp-munkamenetekre vonatkozik, és nem érvényes a Távoli asztal munkamenetekre.
+
+Ha engedélyezi vagy nem konfigurálja ezt a szabályzatbeállítást, a Terminálkiszolgálókon futó RemoteApp-munkamenetek továbbfejlesztett felülettel fognak rendelkezni.
+
+Ha letiltja ezt a szabályzatbeállítást, a RemoteApp-munkamenetek nem a továbbfejlesztett felülettel fognak rendelkezni, és az örökölt felület viselkedését fogják használni. Erre akkor lehet szükség, ha kompatibilitási problémák lépnek fel a közzétett RemoteApp-programokban.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1151,21 +1281,20 @@ Megjegyzés: Azok a RemoteApp-programok, amelyeket nem megbízható kiszolgáló
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">RDP-átviteli protokollok megadása</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Ezzel a házirend-beállítással megadhatja, hogy mely protokollokat lehessen használni a kiszolgáló RDP protokollal történő eléréséhez.
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Ezzel a szabályzatbeállítással megadhatja, hogy mely protokollok használhatók a kiszolgáló RDP protokoll (RDP) általi elérésére.
 
-Ha engedélyezi ezt a házirend-beállítást, meg kell adni, hogy az RDP protokoll használja-e az UDP protokollt.
+Ha engedélyezi ezt a szabályzatbeállítást, meg kell adnia, hogy szeretné-e, hogy az RDP az UDP-t használja.
 
-A következő beállítások érhetők el: UDP és TCP, Csak TCP és Vagy UDP, vagy TCP (alapértelmezett) 
+A következő lehetőségek közül választhat: „UDP vagy TCP használata (alapértelmezett)” vagy „Csak TCP használata” 
 
-Ha a Vagy UDP, vagy TCP lehetőséget választja és az UDP-kapcsolat sikeresen létrejön, akkor az RDP-forgalom többnyire az UDP protokollt használja.
+Ha az „UDP vagy TCP használata” lehetőséget választja, és az UDP-kapcsolat sikeres, a legtöbb RDP-forgalom UDP-t fog használni.
 
-Ha az UDP-kapcsolat nem jön létre vagy a Csak TCP lehetőséget választja, akkor az RDP-forgalom a TCP protokollt használja.
+Ha az UDP-kapcsolat nem sikerül, vagy ha a „Csak TCP használata” lehetőséget választja, az összes RDP-forgalom TCP-t fog használni.
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, az RDP protokoll a legjobb felhasználói élményt lehetővé tevő protokollokat használja.
+Ha letiltja vagy nem konfigurálja ezt a szabályzatbeállítást, az RDP az optimális protokollokat választja a legjobb felhasználói élmény biztosítása érdekében.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">UDP és TCP</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Csak TCP</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">Vagy UDP, vagy TCP</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Csak TCP</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Hálózatmegfigyelés megadása a kiszolgálón</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">Ezzel a házirend-beállítással megadhatja, hogy az RDP protokoll hogyan próbálja megállapítani a hálózat minőségét (a sávszélességet és a késést).
@@ -1344,12 +1473,13 @@ MEGJEGYZÉS: A házirend-beállítás lehetővé teszi a grafikus processzorok (
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Megbízható tanúsítványok SHA1-ujjlenyomatait tartalmazó, vesszőkkel tagolt lista:</label>
+          <label>Megbízható tanúsítvány-ujjlenyomatok vesszővel elválasztott listája (előtag a következőkkel: sha256:, sha384: vagy sha512:):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">SHA-1 ujjlenyomatok letiltása</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Megbízható tanúsítványok SHA1-ujjlenyomatait tartalmazó, vesszőkkel tagolt lista:</label>
+          <label>Megbízható tanúsítvány-ujjlenyomatok vesszővel elválasztott listája (előtag a következőkkel: sha256:, sha384: vagy sha512:):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1387,6 +1517,12 @@ MEGJEGYZÉS: A házirend-beállítás lehetővé teszi a grafikus processzorok (
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Átviteli típus megadása</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">A vágólap kiszolgálóról ügyfélre történő átvitelének korlátozása:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">A vágólap ügyfélről kiszolgálóra való átvitelének korlátozása:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

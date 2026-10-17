@@ -5,14 +5,14 @@
   <description>typ hier een beschrijving</description>
   <resources>
     <stringTable>
-      <string id="W32TIME_CONFIG_EXPLAIN">Met deze beleidsinstelling kunt u klokdiscipline en algemene waarden voor de Windows Time-service (W32time) instellen voor domeincontrollers, waaronder alleen-lezen domeincontrollers.
+      <string id="W32TIME_CONFIG_EXPLAIN">Met deze beleidsinstelling kunt u klokdiscipline en algemene waarden voor de Windows Time-service (W32time) instellen voor domeincontrollers, waaronder RODC's.
 
-Als deze beleidsinstelling is ingeschakeld, gebruikt de W32time-service op doelcomputers de hier verstrekte instellingen. Anders gebruikt de service op doelcomputers lokaal geconfigureerde instellingen.
+Als deze instelling is ingeschakeld, gebruikt de W32time-service op doelmachines de hier verstrekte instellingen. Anders gebruikt de service op doelmachines lokaal geconfigureerde instellingen.
 
 Meer informatie over individuele parameters, combinaties van parameterwaarden en definities van markeringen vindt u hier: https://go.microsoft.com/fwlink/?linkid=847809.
 
         FrequencyCorrectRate
-Deze parameter bepaalt hoe snel W32time de frequentie van de lokale klok corrigeert. Een lagere waarde betekent tragere correcties; een hogere waarde betekent frequentere correcties. Standaard: 4 (scalair).
+Deze parameter bepaalt hoe snel W32time de frequentie van de lokale klok corrigeert. Een lagere waarde betekent grotere correcties; een hogere waarde betekent kleinere correcties. Standaard: 4 (scalar).
 
         HoldPeriod
 Deze parameter duidt op het aantal consistente tijdvoorbeelden dat de clientcomputer in een reeks moet ontvangen alvorens volgende tijdvoorbeelden worden beoordeeld als potentiële pieken. Standaard: 5.
@@ -21,22 +21,22 @@ Deze parameter duidt op het aantal consistente tijdvoorbeelden dat de clientcomp
 Als een tijdvoorbeeld met meer dan LargePhaseOffset afwijkt van de lokale klok van de clientcomputer, wordt ervan uitgegaan dat de lokale klok aanzienlijk is afgeweken, oftewel heeft gepiekt. Standaard: 50.000.000 eenheden van 100 nanoseconden (ns) of 5 seconden.
 
         MaxAllowedPhaseOffset
-Als een reactie is ontvangen met een tijdafwijking die groter is dan deze parameterwaarde, zet W32time de lokale klok van de clientcomputer onmiddellijk op de tijd die als nauwkeurig wordt geaccepteerd van de NTP-server (Network Time Protocol). Als de tijdafwijking lager is dan deze waarde, wordt de lokale klok van de clientcomputer geleidelijk gecorrigeerd. Standaard: 300 seconden.
+Als een reactie is ontvangen met een tijdafwijking die groter is dan deze parameterwaarde, zet W32time de lokale klok van de clientcomputer onmiddellijk op de tijd die als accuraat wordt geaccepteerd van de NTP-server (Network Time Protocol). Als de tijdafwijking lager is dan deze waarde, wordt de lokale klok van de clientcomputer geleidelijk bijgesteld. Standaard: 300 seconden.
 
         MaxNegPhaseCorrection
-Als een tijdvoorbeeld is ontvangen dat een tijd in het verleden aangeeft (ten opzichte van de lokale klok van de clientcomputer) met een groter tijdsverschil dan de waarde van MaxNegPhaseCorrection, wordt het tijdvoorbeeld verwijderd. Standaard: 172.800 seconden.
+Als een tijdvoorbeeld is ontvangen dat een tijd in het verleden aangeeft (ten opzichte van de lokale klok van de clientcomputer) dat een tijdsverschil vertoont dat groter is dan de MaxNegPhaseCorrection-waarde, wordt het tijdvoorbeeld verwijderd. Standaard: 172.800 seconden.
 
         MaxPosPhaseCorrection
-Als een tijdvoorbeeld is ontvangen dat een tijd in de toekomst aangeeft (ten opzichte van de lokale klok van de clientcomputer) met een groter tijdsverschil dan de waarde van MaxPosPhaseCorrection, wordt het tijdvoorbeeld verwijderd. Standaard: 172.800 seconden.
+Als een tijdvoorbeeld is ontvangen dat een tijd in de toekomst aangeeft (ten opzichte van de lokale klok van de clientcomputer) met een groter tijdsverschil dan de MaxPosPhaseCorrection-waarde, wordt het tijdvoorbeeld verwijderd. Standaard: 172.800 seconden.
 
         PhaseCorrectRate
-Deze parameter bepaalt hoe snel W32time de afwijking van de lokale klok van de clientcomputer corrigeert naar de tijdvoorbeelden die zijn geaccepteerd als nauwkeurig op de NTP-server. Een lagere waarde betekent dat de klok langzamer wordt gecorrigeerd; een hogere waarde betekent een snellere correctie. Standaard: 7 (scalair).
+Deze parameter bepaalt hoe snel W32time de afwijking van de lokale klok van de clientcomputer corrigeert naar de tijdvoorbeelden die zijn geaccepteerd als accuraat op de NTP-server. Een lagere waarde betekent dat de klok sneller wordt gecorrigeerd; een hogere waarde betekent een langzamere correctie. Standaard: 7 (scalar).
 
         PollAdjustFactor
-Deze parameter bepaalt hoe snel W32time polling-intervallen wijzigt. Wanneer reacties als nauwkeurig worden beschouwd, wordt het polling-interval automatisch verlengd. Wanneer de reacties als onjuist worden beschouwd, wordt het polling-interval automatisch ingekort. Standaard: 5 (scalair).
+Deze parameter bepaalt hoe snel W32time polling-intervallen wijzigt. Wanneer reacties als accuraat worden beschouwd, wordt het polling-interval automatisch verlengd. Wanneer de reacties als onjuist worden beschouwd, wordt het polling-interval automatisch ingekort. Standaard: 5 (scalar).
 
         SpikeWatchPeriod
-Deze parameter geeft aan hoe lang het duurt voordat een voorbeeld met een grotere tijdafwijking dan LargePhaseOffset wordt geaccepteerd als nauwkeurig. SpikeWatchPeriod wordt samen met HoldPeriod gebruikt om sporadische, onnauwkeurige tijdvoorbeelden uit te sluiten die door een peer worden geretourneerd. Standaard: 900 seconden.
+Deze parameter geeft aan hoe lang het duurt voordat een voorbeeld met een tijdafwijking die groter is dan LargePhaseOffset wordt geaccepteerd als accuraat. SpikeWatchPeriod wordt samen met HoldPeriod gebruikt om sporadische, onnauwkeurige tijdvoorbeelden uit te sluiten die door een peer worden geretourneerd. Standaard: 900 seconden.
 
         UpdateInterval
 Deze parameter duidt op de hoeveelheid tijd dat W32time tussen correcties wacht wanneer de klok geleidelijk wordt gecorrigeerd. Bij geleidelijke correcties wordt de klok een klein beetje bijgesteld, wordt de aangegeven tijd gewacht, waarna wordt gecontroleerd of er nog een bijstelling nodig is, totdat de gehele correctie is uitgevoerd. Standaard: 100 eenheden van 1/100e seconde, of 1 seconde.
@@ -44,48 +44,48 @@ Deze parameter duidt op de hoeveelheid tijd dat W32time tussen correcties wacht 
         Algemene parameters:
 
         AnnounceFlags
-Deze parameter is een bitmask-waarde die bepaalt hoe de beschikbaarheid van de tijdservice wordt bekendgemaakt via NetLogon. Standaard: 0x0a hexadecimaal
+Deze parameter is een bitmask-waarde die bepaalt hoe de beschikbaarheid van de tijdservice wordt bekendgemaakt via NetLogon. Standaard: 0x0-a hexadecimaal
 
         EventLogFlags
-Deze parameter bepaalt speciale gebeurtenissen die kunnen worden geregistreerd in het systeemlogboek van Logboeken. Standaard: 0x02 hexadecimale bitmask.
+Deze parameter bepaalt speciale gebeurtenissen die kunnen worden geregistreerd in het logboekbestand van het Logboeken-systeem. Standaard: 0x02 hexadecimale bitmask.
 
         LocalClockDispersion
 Deze parameter geeft de maximale fout in seconden aan die door de NTP-server wordt gemeld aan clients die een tijdvoorbeeld aanvragen. (Alleen van toepassing wanneer de NTP-server de tijd van de lokale CMOS-klok gebruikt.) Standaard: 10 seconden.
 
         MaxPollInterval
-Deze parameter bepaalt het maximale polling-interval, waarmee de maximale hoeveelheid tijd tussen polls van een peer wordt gedefinieerd. Standaard: 10 in logaritme met grondtal 2, of 1024 seconden. (Moet niet hoger worden gezet dan 15.)
+Deze parameter bepaalt het maximale polling-interval, waarmee de maximale hoeveelheid tijd tussen polls van een peer wordt gedefinieerd. Standaard: 10 in log base-2, of 1024 seconden. (Moet niet hoger worden gezet dan 15.)
 
         MinPollInterval
-Deze parameter bepaalt het minimale polling-interval, waarmee de minimale hoeveelheid tijd tussen polls van een peer wordt gedefinieerd. Standaard: 6 in logaritme met grondtal 2, of 64 seconden.
+Deze parameter bepaalt het minimale polling-interval, waarmee de minimale hoeveelheid tijd tussen polls van een peer wordt gedefinieerd. Standaard: 6 in log base-2, of 64 seconden.
 
         ClockHoldoverPeriod
-Deze parameter duidt op het maximumaantal seconden dat een systeemklok nominaal nauwkeurig kan blijven zonder te synchroniseren met een tijdbron. Als deze tijdperiode voorbijgaat zonder dat W32time nieuwe voorbeelden van zijn invoerproviders heeft gekregen, start W32time opnieuw detectie van tijdbronnen. Standaard: 7800 seconden.
+Deze parameter duidt op het maximale aantal seconden dat een systeemklok nominaal accuraat kan blijven zonder te synchroniseren met een tijdbron. Als deze tijdperiode voorbijgaat zonder dat W32time nieuwe voorbeelden van zijn invoerproviders heeft gekregen, start W32time opnieuw detectie van tijdbronnen. Standaard: 7800 seconden.
 
         RequireSecureTimeSyncRequests
-Deze parameter bepaalt of de domeincontroller reageert op tijdsynchronisatieaanvragen waarbij oudere authenticatieprotocollen worden gebruikt. Indien ingeschakeld (op 1 ingesteld), reageert de domeincontroller niet op aanvragen waarbij dergelijke protocollen worden gebruikt. Standaard: 0 booleaans.
+Deze parameter bepaalt of de DC wel of niet reageert op tijdsynchronisatieaanvragen die oudere authenticatieprotocollen gebruiken. Indien ingeschakeld (op 1 ingesteld), reageert de DC niet op aanvragen die dergelijke protocollen gebruiken. Standaard: 0 Booleaans.
 
         UtilizeSslTimeData
-Deze parameter bepaalt of W32time tijdgegevens gebruikt die worden berekend op grond van SSL-verkeer op de computer als extra invoer voor correctie van de lokale klok. Standaard: 1 (ingeschakeld) booleaans
+Deze parameter bepaalt of W32time tijdgegevens gebruikt die worden berekend op grond van SSL-verkeer op de machine als extra invoer voor correctie van de lokale klok. Standaard: 1 (ingeschakeld) Booleaans
 
-        ClockAdjustmentAuditLimit
-Deze parameter geeft de kleinste bijstellingen van de lokale klok aan die op de doelcomputer in het gebeurtenissenlogboek van de W32time-service mogen worden geregistreerd. Standaard: 800 ppm (parts per million).
+   ClockAdjustmentAuditLimit
+Deze parameter specificeert de kleinste lokale klokaanpassingen die kunnen worden vastgelegd in het W32time-servicegebeurtenislogboek op de doelcomputer. Standaard: 800 delen per miljoen (PPM).
 
-        Parameters voor alleen-lezen domeincontrollers:
+        RODC parameters:
 
-        ChainEntryTimeout
-Deze parameter geeft de maximale hoeveelheid tijd aan dat een vermelding in de chaining-tabel mag blijven voordat deze als verlopen wordt beschouwd. Verlopen vermeldingen kunnen worden verwijderd wanneer de volgende aanvraag of reactie wordt verwerkt. Standaard: 16 seconden.
+     ChainEntryTimeout
+Deze parameter geeft de maximale hoeveelheid tijd aan dat een vermelding in de chaining-tabel mag zijn voordat deze als verlopen wordt beschouwd. Verlopen vermeldingen kunnen worden verwijderd wanneer de volgende aanvraag of reactie wordt verwerkt. Standaard: 16 seconden.
 
-        ChainMaxEntries
+         ChainMaxEntries
 Deze parameter bepaalt het maximale aantal vermeldingen dat in de chaining-tabel is toegestaan. Als de chaining-tabel vol is en er geen verlopen vermeldingen kunnen worden verwijderd, worden alle binnenkomende aanvragen verwijderd. Standaard: 128 vermeldingen.
 
         ChainMaxHostEntries
-Deze parameter bepaalt het maximumaantal vermeldingen dat in de chaining-tabel is toegestaan voor een bepaalde host. Standaard: 4 vermeldingen.
+Deze parameter bepaalt het maximale aantal vermeldingen dat in de chaining-tabel is toegestaan voor een bepaalde host. Standaard: 4 vermeldingen.
 
         ChainDisable
-Deze parameter bepaalt of het chaining-mechanisme wordt uitgeschakeld. Als chaining is uitgeschakeld (ingesteld op 0), kan de alleen-lezen domeincontroller worden gesynchroniseerd met elke gewenste domeincontroller, maar hosts die hun wachtwoorden niet in de cache op de alleen-lezen domeincontroller bewaren, kunnen niet worden gesynchroniseerd met de alleen-lezen domeincontroller. Standaard: 0 booleaans.
+Deze parameter bepaalt of het chaining-mechanisme wel of niet wordt uitgeschakeld. Als chaining uitgeschakeld is (instelling 4), kan de RODC synchroniseren met elke gewenste domeincontroller, maar hosts die hun wachtwoorden niet in de cache op de RODC bewaren, kunnen niet synchroniseren met de RODC. Standaard: 0 Booleaans.
 
-        ChainLoggingRate
-Deze parameter bepaalt de frequentie waarop een gebeurtenis die aangeeft hoeveel geslaagde en mislukte chaining-pogingen worden gedaan, wordt geregistreerd in het systeemlogboek in Logboeken. Standaard: 30 minuten.
+       ChainLoggingRate
+Deze parameter bepaalt de frequentie waarop een gebeurtenis die aangeeft hoeveel succesvolle en mislukte chaining-pogingen worden gedaan, wordt geregistreerd in het systeemlogboek in Logboeken. Standaard: 30 minuten.
       </string>
 
 <string id="W32TIME_CONFIGURE_NTPCLIENT_EXPLAIN">Met deze beleidsinstelling geeft u een set parameters op voor het besturen van de Windows NTP-client.

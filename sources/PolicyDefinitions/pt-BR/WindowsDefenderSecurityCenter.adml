@@ -135,16 +135,17 @@
     </string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts">Configurar notificações personalizadas</string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts_Explain">
-        Exiba as informações de contato especificadas para os usuários locais nas notificações da Segurança do Windows.
+        Exibe as informações de contato especificadas para os usuários locais nas notificações da Segurança do Windows.
 
         Habilitado:
         As informações de contato da sua empresa serão exibidas nas notificações da Segurança do Windows.
 
-        Depois de selecionar Habilitado, você deve definir a configuração de política de grupo Especificar nome da empresa de contato e no mínimo uma das seguintes configurações de política de grupo:
-        -Especificar número de telefone de contato ou Skype ID
+        Depois de selecionar Habilitado, você deve definir a configuração de Política de Grupo e pelo menos uma das seguintes configurações de Política de Grupo:
+        -Especificar número de telefone de contato ou ID do Skype
         -Especificar email de contato ou ID de email
         -Especificar site de contato
-
+        Observe que, em alguns casos, limitaremos as opções de contato que são exibidas com base no espaço disponível da notificação.
+        
         Desabilitado:
         Nenhuma informação de contato será mostrada nas notificações.
 
@@ -292,7 +293,7 @@
         Não configurado:
         O mesmo que Desabilitado.
     </string>
-    <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning">Ocultar a recomendação de Atualização do Firmware do TPM.</string>
+    <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning">Ocultar a recomendação de Atualização de Firmware do TPM.</string>
     <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning_Explain">
         Ocultar a recomendação para atualizar o Firmware do TPM quando um firmware vulnerável é detectado.
 

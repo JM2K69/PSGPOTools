@@ -13,6 +13,13 @@
     Si vous activez ce paramètre de stratégie ou si vous ne le configurez pas, les options « Utiliser une image système créée précédemment pour récupérer votre ordinateur » et « Réinstaller Windows » (ou « Restaurer les paramètres d’usine de votre ordinateur ») s’affichent sur la page « Méthodes de récupération avancées » de Récupération (dans le Panneau de configuration) et permettent à l’utilisateur de restaurer l’état initial de l’ordinateur ou une image système créée par l’utilisateur. Il s’agit de la configuration par défaut.
 
     Si vous désactivez ce paramètre de stratégie, les options « Utiliser une image système créée précédemment pour récupérer votre ordinateur » et « Réinstaller Windows » (ou « Restaurer les paramètres d’usine de votre ordinateur ») sont indisponibles dans Récupération (dans le Panneau de configuration). Cependant, lorsque ce paramètre de stratégie est désactivé, les utilisateurs peuvent toujours restaurer l’état initial de l’ordinateur ou une image système créée par l’utilisateur en redémarrant l’ordinateur et en accédant au menu Options de récupération système, s’il est disponible.</string>
+      <string id="AllowTrustedOfflineScan">Autoriser l’analyse hors connexion à partir de l’Environnement de récupération Windows approuvé</string>
+      <string id="AllowTrustedOfflineScan_help">    Configuration requise : Windows 10
+    Description : ce paramètre de stratégie contrôle si l’analyse hors connexion peut être autorisée à partir d’un Environnement de récupération Windows approuvé.
+
+    Si vous activez ce paramètre de stratégie, l’analyse hors connexion s’exécute sans demander la clé de récupération BitLocker, tant que BitLocker fait confiance à l’Environnement de récupération Windows.
+
+    Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, l’analyse hors connexion requête à l’utilisateur(-trice) la clé de récupération BitLocker pour déverrouiller le volume du système d’exploitation. Si l’utilisateur(-trice) ignore le déverrouillage du volume du système d’exploitation, l’analyse hors connexion ne s’exécute pas. Il s’agit du paramètre par défaut.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

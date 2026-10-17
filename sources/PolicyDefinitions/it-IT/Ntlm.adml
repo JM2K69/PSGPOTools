@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Impostazioni NTLM</displayName>
+  <description>Impostazioni di configurazione per il pacchetto di protezione NTLM.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">Registrazione avanzata NTLM</string>
+      <string id="EnhancedAuditsId_Explain">Questa impostazione di criteri consente al pacchetto di protezione NTLM di registrare i nuovi log di controllo avanzati per client e server.
+
+      Questi log avanzati contengono informazioni sull'uso di NTLM, sul motivo per cui viene usato NTLM e sulla destinazione della richiesta di autenticazione NTLM. Includono anche informazioni sull'utilizzo di NTLMv1 e altri downgrade della sicurezza.
+
+      Se questo criterio è stato abilitato o non è configurato, verranno generati i nuovi log di controllo. Se si disabilita il criterio, i nuovi log non vengono generati.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">Blocco avanzato NTLM</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Questa impostazione di criteri consente al pacchetto di protezione NTLM di bloccare le richieste di autenticazione NTLM in base ai nuovi criteri di blocco avanzati a livello di computer.
+
+      Questi criteri di blocco avanzati permettono di bloccare l'autenticazione NTLM in base a nuovi criteri, come il tipo di account, il ruolo del dispositivo o il tipo di applicazione.
+
+      Se il criterio generale è impostato su "Disabilitato" o "Non configurato", le sottoimpostazioni seguenti non avranno effetto. Se il criterio generale è impostato su "Abilitato", i criteri secondari seguenti avranno effetto in base alla loro configurazione.
+
+      Se non configurati, tutti i criteri sono impostati in modalità "Audit". I criteri impostati su "Audit" registrano un avviso riguardo alla richiesta NTLM che potrebbe essere bloccata, ma non la bloccano. Puoi abilitare contemporaneamente più criteri contrassegnati come "Audit" e questi verranno registrati in un registro eventi unificato.
+
+      Se un criterio è contrassegnato come "Abilitato", la richiesta di autenticazione NTLM verrà bloccata se corrisponde ai criteri selezionati. Se più criteri sono contrassegnati come "Abilitato", la richiesta di autenticazione NTLM verrà bloccata se corrisponde ai criteri selezionati. Verrà generato un registro eventi per il primo criterio che blocca l'autenticazione NTLM. 
+
+      Nei casi in cui sono presenti sia criteri "Audit" sia "Abilitato", prevarrà il criterio "Abilitato".
+
+      Tutti i criteri di blocco avanzati descritti condividono lo stesso elenco di elementi consentiti, che specifica gli account, i dispositivi e le applicazioni autorizzati a usare l'autenticazione NTLM. L'elenco autorizzati può contenere una serie di nomi di destinazione o SPN per consentire l'autenticazione. 
+
+      Per ulteriori informazioni, visita aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Disabilitata</string>
+      <string id="Audit">Controllo</string>
+      <string id="Enabled">Abilitata</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Blocca l'accesso Single Sign-On di NTLM per gli account di dominio</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">Blocca NTLM per i controller di dominio</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">Blocca NTLM quando il binding del computer non riesce</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Blocca tutte le autenticazioni NTLM</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Specificare l'elenco di elementi consentiti per i criteri di blocco avanzato:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

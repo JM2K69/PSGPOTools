@@ -65,18 +65,17 @@ Se ativar esta definição de política, pode selecionar se o Windows procura no
 Tenha em atenção que se forem especificados ambos, o Windows procurará primeiro no Servidor Gerido, como, por exemplo, um servidor Windows Server Update Services (WSUS). Só se não for encontrada nenhuma atualização é que o Windows também procurará no Windows Update.
 
 Se desativar ou não configurar esta definição de política, os membros do grupo Administradores poderão determinar o servidor utilizado para procurar controladores de dispositivo.
-      
       </string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Procurar no Windows Update</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Procurar no Servidor Gerido</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Procurar no Servidor Gerido, em seguida no WU</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Impedir a obtenção de metadados de dispositivo a partir da Internet</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Esta definição de política permite impedir o Windows de obter metadados de dispositivo a partir da Internet.
-          
-Se ativar esta definição de política, o Windows não obtém metadados de dispositivo para dispositivos instalados a partir da Internet. Esta definição de política substitui a definição na caixa de diálogo Definições de Instalação de Dispositivos (Painel de Controlo &gt; Sistema e Segurança &gt; Sistema &gt; Definições de Sistema Avançadas &gt; separador Hardware).
 
-Se desativar ou não configurar esta definição de política, a definição na caixa de diálogo Definições de Instalação de Dispositivos controla se o Windows obtém metadados de dispositivo a partir da Internet.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Impedir a transferência automática de aplicações associadas aos metadados do dispositivo</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Esta definição de política permite impedir que o Windows transfira aplicações associadas aos metadados do dispositivo.
+
+Se ativar esta definição de política, o Windows não transfere aplicações associadas aos metadados do dispositivo para dispositivos instalados. Esta definição de política substitui a definição na caixa de diálogo Definições de Instalação do Dispositivo (Painel de Controlo &gt; Sistema e Segurança &gt; Sistema &gt; Definições Avançadas do Sistema &gt; separador Hardware).
+
+Se desativar ou não configurar esta definição de política, a definição na caixa de diálogo Definições de Instalação do Dispositivo controla se o Windows transfere aplicações associadas aos metadados do dispositivo.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

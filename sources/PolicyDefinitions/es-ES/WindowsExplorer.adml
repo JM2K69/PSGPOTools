@@ -220,11 +220,11 @@ Para ver un ejemplo del cuadro de diálogo Abrir estándar, inicie Wordpad y, en
 
 Nota: en Windows Vista, esta configuración de directiva solo se aplica a las aplicaciones que usan el estilo de cuadro de diálogo común de Windows XP. Esta configuración de directiva no se aplica al nuevo estilo de cuadro de diálogo común de Windows Vista. es necesario que las aplicaciones de terceros con Windows 2000 o certificaciones posteriores se adhieran a esta opción de configuración.</string>
       <string id="NoRecycleFiles">No mover los archivos eliminados a la papelera de reciclaje</string>
-      <string id="NoRecycleFiles_Help">Cuando se elimina un archivo o carpeta en el Explorador de archivos, se agrega una copia del archivo o de la carpeta en la papelera de reciclaje. Esta opción permite cambiar este comportamiento.
+      <string id="NoRecycleFiles_Help">Cuando se elimina un archivo o carpeta en el explorador de archivos, se coloca una copia del archivo o de la carpeta en la papelera de reciclaje. Con esta configuración, puede cambiar este comportamiento.
 
-Si habilita esta opción, los archivos y las carpetas que se eliminen con el Explorador de archivos no se moverán a la papelera de reciclaje y, por lo tanto, se eliminarán permanentemente.
+Si habilita esta configuración, los archivos y carpetas que se eliminen con el explorador de archivos no se colocarán en la papelera de reciclaje y, por lo tanto, se eliminarán de forma permanente.
 
-Si deshabilita o no configura esta opción, los archivos y las carpetas que se eliminen con el Explorador de archivos se moverán a la papelera de reciclaje.</string>
+Si deshabilita o no configura esta opción, los archivos y las carpetas que se eliminen con el explorador de archivos se colocarán en la papelera de reciclaje.</string>
       <string id="NoRunAsInstallPrompt">No solicitar credenciales alternativas</string>
       <string id="NoRunAsInstallPrompt_Help">Impide que los usuarios proporcionen otras credenciales de inicio de sesión para instalar un programa.
 
@@ -294,8 +294,7 @@ Los elementos válidos que puede mostrar en la barra de lugares son:
 
 1) Accesos directos a carpetas locales (por ejemplo, C:\Windows)
 
-2) Accesos directos a carpetas remotas (\\servidor
-ecursoCompartido)
+2) Accesos directos a carpetas remotas (\\server\share)
 
 3) Carpetas de FTP
 
@@ -520,19 +519,33 @@ Si habilita esta configuración de directiva, los iconos de accesos directos de 
 Si deshabilita o no define esta configuración de directiva, los iconos de accesos directos de archivos que usan rutas de acceso remotas no pueden mostrarse.
 
 Nota: permitir el uso de rutas de acceso remotas en iconos de accesos directos de archivos puede exponer los equipos de los usuarios a riesgos de seguridad.</string>
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Permitir que las operaciones de descriptor de grupo de archivos escriban en cualquier ruta de acceso de destino</string>
+      <string id="AllowAllCopyFGDDestinations_Help">Esta configuración de directiva determina si se aplican comprobaciones de contención de recorrido de ruta de acceso al escribir archivos recibidos mediante el Portapapeles o arrastrando y colocando descriptores de grupo de archivos (CFSTR_FILEDESCRIPTOR).
+
+Si habilita esta configuración de directiva, no se aplicarán las comprobaciones de contención de recorrido de ruta de acceso y los archivos podrán escribirse en cualquier ruta de acceso accesible para la carpeta de destino. Habilite esta directiva solo si el comportamiento predeterminado interrumpe un flujo de trabajo requerido.
+
+Si deshabilita o no establece esta configuración de directiva, las operaciones de descriptor de grupo de archivos exigen la contención de la ruta de acceso y rechazan los nombres de archivo que intentan escapar de la carpeta de destino mediante componentes de ruta de acceso relativa.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">No aplicar la marca de la etiqueta web a los archivos copiados de orígenes no seguros</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">Esta configuración de directiva determina la aplicación de la etiqueta Marca de la Web a los archivos procedentes de ubicaciones no seguras.
+
+Si habilitas esta configuración de directiva, los archivos copiados de orígenes no seguros no se etiquetarán con la Marca de la Web.
+
+Si deshabilitas o no estableces esta configuración de directiva, los archivos copiados de orígenes no seguros se etiquetarán con la Marca de la Web apropiada.
+
+Nota: no etiquetar los archivos de orígenes no seguros con la Marca de la Web puede exponer los equipos de los usuarios a riesgos de seguridad.</string>
       <string id="DefaultAssociationsConfiguration">Definir un archivo de configuración de asociaciones predeterminadas</string>
-      <string id="DefaultAssociationsConfiguration_Help">Esta directiva especifica la ruta de acceso a un archivo (por ejemplo, almacenado de manera local o en una ubicación de red) que contiene asociaciones de aplicaciones predeterminadas de tipo de archivo y protocolo. Este archivo puede crearse usando la herramienta DISM.
+      <string id="DefaultAssociationsConfiguration_Help">Esta directiva especifica la ruta a un archivo (almacenado localmente o en una ubicación de red) que contiene asociaciones de aplicación predeterminadas de tipo de archivo y protocolo. Este archivo se puede crear mediante la herramienta DISM.
+      
+Por ejemplo:
+Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-Por ejemplo
-:Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
+Para obtener más información, consulte la documentación de DISM.
 
-Para obtener más información, consulte la documentación sobre DISM en TechNet.
+El archivo se puede ser editado después de crearlo para cambiar la frecuencia con la que se aplican las asociaciones de directiva. Se puede agregar un atributo "Version" al elemento "DefaultAssociations". El valor debe ser un entero. Se puede agregar un atributo "Suggested" a cualquier elemento "Association". El valor debe ser un booleano y el valor predeterminado es "false". Cuando la directiva se aplica a un usuario, cualquier asociación que tenga Suggested="true" solo se aplicará una vez. Si el valor de Versión se incrementa alguna vez, se volverán a aplicar las asociaciones con Suggested="true".
 
-Si esta directiva de grupo está habilitada y el equipo cliente está unido a un dominio, el archivo se procesará y se aplicarán asociaciones predeterminadas en el momento del inicio de sesión.
+Si esta directiva de grupo está habilitada y el equipo cliente está unido a un dominio, el archivo se procesará y las asociaciones predeterminadas se aplicarán en el momento del inicio de sesión.
 
-Si la configuración de directiva no está definida o está deshabilitada, o si el equipo cliente no está unido a un dominio, no se aplicarán asociaciones predeterminadas en el momento del inicio de sesión.
-
-Si la directiva está habilitada, deshabilitada o no está configurada, los usuarios podrán aún invalidar las asociaciones predeterminadas de tipo de archivo y protocolo.</string>
+Si la directiva está habilitada, los usuarios podrán invalidar el tipo de archivo predeterminado y las asociaciones de protocolo, pero en el siguiente inicio de sesión se volverá a aplicar el archivo.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">
@@ -596,7 +609,7 @@ Si la directiva está habilitada, deshabilitada o no está configurada, los usua
         <dropdownList refId="NoDrivesDropdown" noSort="true" defaultItem="5">Elegir una de las siguientes combinaciones</dropdownList>
       </presentation>
       <presentation id="PlacesBar">
-        <text>Lugares para mostrar:":</text>
+        <text>Lugares para mostrar:</text>
         <textBox refId="Places0">
           <label>Elemento 1</label>
         </textBox>

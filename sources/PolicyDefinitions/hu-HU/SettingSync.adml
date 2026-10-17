@@ -119,6 +119,51 @@ Ha nem adja meg vagy nem tiltja le ezt a beállítást, a forgalmi díjas kapcso
         Ha letiltja vagy nem adja meg ezt a beállítást, a „Kezdőképernyő” csoport alapértelmezés szerint be van kapcsolva, és a felhasználó konfigurálhatja azt.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">Ne szinkronizálja az akadálymentességi beállításokat</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        Az „akadálymentesség“ csoport és a számítógép közötti szinkronizálás megakadályozása. Ezzel kikapcsolja és letiltja a „Kisegítő lehetőségek” csoportot a Gépház „Windows biztonsági másolat” beállítások lapján.
+
+Ha engedélyezi ezt a házirend-beállítást, a „kisegítő lehetőségek” csoport nem lesz szinkronizálva.
+
+Használja az „Akadálymentességi szinkronizálás bekapcsolásának engedélyezése a felhasználók számára” beállítást, hogy a szinkronizálás alapértelmezés szerint ki legyen kapcsolva, de ne legyen letiltva.
+
+Ha nem állítja be vagy letiltja ezt a beállítást, a „Kisegítő lehetőségek” csoport szinkronizálása alapértelmezés szerint be van kapcsolva, és a felhasználó konfigurálhatja azt.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">Ne legyenek szinkronizálva a nyelvi beállítások</string>
+      <string id="DisableLanguageSettingSync_Help">
+        A „nyelvi beállítások“ csoport és a számítógép közötti szinkronizálás megakadályozása. Ezzel kikapcsolja és letiltja a „Nyelvi beállítások” csoportot a Gépház „Windows biztonsági másolat” beállítások lapján.
+
+Ha engedélyezi ezt a házirend-beállítást, a „nyelvi beállítások” csoport nem lesz szinkronizálva.
+
+Használja a „Nyelvi beállítások szinkronizálásának engedélyezése a felhasználók számára” beállítást, hogy a szinkronizálás alapértelmezés szerint ki legyen kapcsolva, de ne legyen letiltva.
+
+Ha nem állítja be vagy letiltja ezt a beállítást, a „nyelvi beállítások” csoport szinkronizálása alapértelmezés szerint be van kapcsolva, és a felhasználó konfigurálhatja azt.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Windows biztonsági másolat engedélyezése</string>
+      <string id="EnableWindowsBackup_Help">Ezzel a házirend-beállítással a rendszergazdák konfigurálhatják és kezelhetik a Windows-beállítások biztonsági mentését a szervezetükben.
+
+Ha engedélyezi ezt a házirend-beállítást, a Windows-beállítások biztonsági másolat időszakosan készül.
+
+Ha letiltja ezt a házirend-beállítást, a Windows-beállítások nem készít biztonsági másolatot.
+
+Ha nincs konfigurálva ez a házirend-beállítás, a Windows-beállítások biztonsági mentése időszakosan, jogosultság alapján történik.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Windows helyreállításának engedélyezése</string>
+      <string id="EnableWindowsRestore_Help">Ezzel a házirend-beállítással a rendszergazdák konfigurálhatják és kezelhetik a Windows-beállítások visszaállítását a szervezetükben.
+
+Ha engedélyezi ezt a házirend-beállítást, a Windows-beállítások helyreállítása engedélyezve lesz.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Windows-beállítások helyreállítása le lesz tiltva.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Ha nem adja meg vagy nem tiltja le ezt a beállítást, a forgalmi díjas kapcso
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">A felhasználók bekapcsolhatják a „Kezdőképernyő” szinkronizálását.</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">A felhasználók bekapcsolhatják az „Akadálymentesség” szinkronizálását.</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">A felhasználók bekapcsolhatják a „nyelvi beállítások“ szinkronizálását.</checkBox>
       </presentation>
 
     </presentationTable>

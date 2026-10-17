@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>DPAPI</displayName>
+  <description>Konfigurer DPAPI-indstillinger</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod">Angiv rotationsperioden for DPAPI-sikkerhedskopieringsnøgler</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">Denne politikindstilling angiver rotationsperioden for DPAPI-sikkerhedskopinøgler. 
+Du kan bruge denne indstilling til at tilsidesætte standardværdien på 90 dage. Angiv 0 for at deaktivere rotationen af DPAPI-sikkerhedskopinøgler. 
+Hvis du aktiverer denne politikindstilling, skal du angive det antal dage, som systemet skal vente, før der oprettes en ny DPAPI-sikkerhedskopinøgle. 
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, bruges standardværdien på 90 dage.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">Specificer rotationsperioden i dage for DPAPI-sikkerhedskopieringsnøgler. 
+Angiv 0 for at deaktivere rotationen af DPAPI-sikkerhedskopieringsnøgler.</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

@@ -135,11 +135,11 @@ Aby określić wartość TTL dla rekordów DNS lokalizatora kontrolerów domen, 
 
 Jeśli to ustawienie zasad nie zostanie skonfigurowane, nie będzie stosowane do żadnych kontrolerów domen i kontrolery domen będą używać swojej lokalnej konfiguracji.</string>
       <string id="Netlogon_ExpectedDialupDelay">Określ oczekiwane opóźnienie połączenia telefonicznego podczas logowania</string>
-      <string id="Netlogon_ExpectedDialupDelay_Help">To ustawienie zasad określa dodatkowy czas oczekiwania komputera na odpowiedź kontrolera domeny podczas logowania do sieci.
+      <string id="Netlogon_ExpectedDialupDelay_Help">To ustawienie zasad określa dodatkowy czas oczekiwania przez komputer na odpowiedź z kontrolera domeny podczas logowania do sieci.
 
-Aby określić oczekiwane opóźnienie połączenia telefonicznego podczas logowania, należy kliknąć opcję Włączone i wprowadzić odpowiednią wartość w sekundach (na przykład wartość „60” oznacza jedną minutę).
+Aby określić oczekiwane opóźnienie połączenia telefonicznego podczas logowania, kliknij pozycję Włączone, a następnie wprowadź odpowiednią wartość w sekundach (na przykład wartość 60 oznacza 1 minutę).
 
-Jeśli to ustawienie zasad nie zostanie skonfigurowane, nie będzie stosowane na żadnych komputerach i komputery będą używać swojej lokalnej konfiguracji.</string>
+Jeśli nie skonfigurujesz tego ustawienia zasad, nie będzie ono stosowane do żadnego komputera, a komputery będą używać swoich konfiguracji lokalnych.</string>
       <string id="Netlogon_GcSiteCoverage">Określ lokacje uwzględniane przez rekordy DNS SRV lokalizatora wykazów globalnych</string>
       <string id="Netlogon_GcSiteCoverage_Help">To ustawienie zasad określa lokacje, dla których wykazy globalne powinny rejestrować specyficzne dla lokacji rekordy zasobów DNS SRV lokalizatora wykazów globalnych. Te rekordy są rejestrowane dodatkowo do specyficznych dla lokacji rekordów SRV rejestrowanych w lokacji, w której znajduje się wykaz globalny, oraz rekordów zarejestrowanych przez wykaz globalny skonfigurowany do rejestrowania rekordów DNS SRV lokalizatora wykazów globalnych dla najbliższych lokacji bez wykazu globalnego. 
 
@@ -298,6 +298,7 @@ Zastosowanie tego ustawienia zasad jest zalecane w celu zmniejszenia pola ataku 
 Jeśli to ustawienie zasad zostanie włączone, ten kontroler domeny nie będzie przetwarzał przychodzących komunikatów skrzynki mailslot, które są używane do lokalizowania kontrolerów domeny na podstawie nazwy domeny NetBIOS.
 
 Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, ten kontroler domeny będzie przetwarzał przychodzące komunikaty skrzynki mailslot. Jest to domyślne działanie lokalizatora kontrolerów domen.</string>
+
       <string id="Netlogon_AvoidFallbackNetbiosDiscovery">Nie używaj odnajdowania NetBIOS dla lokalizacji kontrolera domeny, jeśli odnajdowanie DNS nie powiedzie się</string>
       <string id="Netlogon_AvoidFallbackNetbiosDiscovery_Help">To ustawienie zasad umożliwia kontrolowanie algorytmu lokalizacji kontrolera domeny. Domyślnie algorytm lokalizacji kontrolera domeny preferuje odnajdowanie DNS, jeśli nazwa domeny DNS jest znana. Jeśli odnajdowanie DNS nie powiedzie się i jest znana nazwa domeny NetBIOS, algorytm użyje odnajdowania NetBIOS jako mechanizmu rezerwowego.
 
@@ -307,7 +308,18 @@ Należy zauważyć, że to ustawienie zasad nie wpływa na funkcję odnajdowania
 
 Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, algorytm lokalizacji kontrolera domeny nie używa odnajdowania NetBIOS jako mechanizmu rezerwowego, jeśli odnajdowanie DNS nie powiedzie się. To jest domyślne działanie.
 
-Jeśli to ustawienie zasad zostanie wyłączone, algorytm lokalizacji kontrolera domeny będzie mógł używać odnajdowania NetBIOS jako mechanizmu rezerwowego, jeśli odnajdowanie DNS nie powiedzie się.</string>
+Jeśli to ustawienie zasad zostanie wyłączone, algorytm lokalizacji kontrolera domeny będzie mógł używać odnajdowania NetBIOS jako mechanizmu rezerwowego, jeśli odnajdowanie DNS nie powiedzie się.
+
+To ustawienie nie ma skutku, chyba że ustawienie BlockNetiosDiscovery jest wyłączone. Wykrywanie oparte na systemie NetBIOS jest uważane za niebezpieczne, ma wiele ograniczeń i zostanie wycofane w przyszłym wydaniu. Z tego powodu wykrywanie oparte na systemie NetBIOS nie jest zalecane. Aby uzyskać więcej informacji, zobacz https://aka.ms/dclocatornetbiosdeprecation.</string>
+
+      <string id="Netlogon_BlockNetbiosDiscovery">Blokuj wykrywanie oparte na systemie NetBIOS dla lokalizacji kontrolera domeny</string>
+      <string id="Netlogon_BlockNetbiosDiscovery_Help">To ustawienie zasad umożliwia określenie, czy algorytm lokalizacji kontrolera domeny używa wykrywania opartego na systemie NetBIOS dla lokalizacji kontrolera domeny.
+
+Jeśli to ustawienie zasad zostanie włączone lub nie zostanie skonfigurowane, algorytm lokalizacji kontrolera domeny nigdy nie będzie używać wykrywania opartego na systemie NetBIOS. To jest zachowanie domyślne.
+
+Jeśli to ustawienie zasad zostanie wyłączone, algorytm lokalizacji kontrolera domeny może w razie potrzeby używać wykrywania opartego na systemie NetBIOS. Ostateczne zachowanie zależy dodatkowo od ustawienia AvoidFallbackNetbiosDiscovery.
+
+Wykrywanie oparte na systemie NetBIOS jest uznawane za niebezpieczne, ma wiele ograniczeń i zostanie wycofane w przyszłym wydaniu. Z tych przyczyn wykrywanie oparte na systemie NetBIOS nie jest zalecane. Aby uzyskać więcej informacji, zobacz https://aka.ms/dclocatornetbiosdeprecation.</string>
 
       <string id="Netlogon_AddressLookupOnPingBehavior">Określ zachowanie podczas wyszukiwania adresu na potrzeby polecenia ping lokalizatora kontrolerów domen</string>
       <string id="Netlogon_AddressLookupOnPingBehavior_Help">To ustawienie zasad umożliwia skonfigurowanie, jakie jest zachowanie kontrolera domeny podczas odpowiadania klientowi, którego adresu IP nie można zamapować na żadną skonfigurowaną lokację.
@@ -337,6 +349,33 @@ Dopuszczalne wartości tego ustawienia powodują następujące działania:
 Aby określić odpowiednie działanie, należy kliknąć pozycję „Włączone”, a następnie wprowadzić wartość. Zakres wartości wynosi od 1 do 2.
 
 Jeśli to ustawienie zasad nie zostanie skonfigurowane, nie będzie stosowane na żadnych komputerach, a komputery będą używać swojej lokalnej konfiguracji.</string>
+
+      <string id="Netlogon_DnsSrvRecordUseLowerCaseHostNames">Używaj małych liter w nazwach hostów DNS podczas rejestrowania rekordów SRV kontrolerów domeny</string>
+      <string id="Netlogon_DnsSrvRecordUseLowerCaseHostNames_Help">To ustawienie zasad określa, czy kontrolery domeny, do których to ustawienie jest stosowane, będą małymi literami nazwy hosta DNS podczas rejestrowania rekordów SRV.
+
+Jeśli ta zasada jest włączona, podczas rejestrowania rekordów SRV kontrolera domeny kontrolery domeny będą mieć za małą nazwę hosta DNS. Zostanie podjęta stara próba usunięcia wszystkich zarejestrowanych wcześniej rekordów SRV zawierających nazwy hostów DNS o różnych wielkościach. Aby uzyskać więcej informacji i potencjalnych procedur ręcznego oczyszczania, zobacz poniższy link.
+
+Jeśli ta zasada jest wyłączona, kontrolery domeny będą używać swojej skonfigurowanej nazwy hosta DNS jako nazwy do rejestrowania rekordów SRV kontrolera domeny.
+
+Jeśli to ustawienie nie zostanie skonfigurowane, kontrolery domeny będą domyślnie używać swojej lokalnej konfiguracji.
+
+Domyślna konfiguracja lokalna jest włączona.
+
+Aby zmiany tego ustawienia zaczęły obowiązywać, nie jest wymagany ponowny rozruch.
+
+Więcej informacji jest dostępnych pod adresem https://aka.ms/lowercasehostnamesrvrecord
+      </string>
+      <string id="Netlogon_EnhancedDomainNtlmLogs">Rejestrowanie rozszerzonych dzienników NTLM dla całej domeny</string>
+      <string id="Netlogon_EnhancedDomainNtlmLogs_Help">To ustawienie zasad konfiguruje, czy kontrolery domeny, do których to ustawienie jest stosowane, będą rejestrować nowe, rozszerzone dzienniki NTLM dla całej domeny. Te dzienniki zawierają więcej informacji o uwierzytelnianiu NTLM na poziomie całej domeny, w tym o użyciu NTLMv1.
+
+Jeśli te zasady są włączone, kontrolery domeny będą rejestrować nowe dzienniki NTLM dla całej domeny.
+
+Jeśli te zasady są wyłączone, kontrolery domeny nie będą rejestrować nowych dzienników NTLM dla całej domeny.
+
+Jeśli nie skonfigurowano zasad, kontrolery domeny będą domyślnie rejestrować nowe dzienniki NTLM dla całej domeny.
+
+Więcej informacji można znaleźć na stronie aka.ms/ntlmlogandblock.
+      </string>
 
     </stringTable>
     <presentationTable>

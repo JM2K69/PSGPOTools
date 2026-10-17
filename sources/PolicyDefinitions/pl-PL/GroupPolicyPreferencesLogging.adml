@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>Zasady rejestrowania preferencji zasad grupy</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">Konfiguruj rejestrowanie i śledzenie preferencji aplikacji</string>
+      <string id="CSE_Applications_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Aplikacje oraz włączenie śledzenia rozszerzenia Aplikacje. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Aplikacje na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: Aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu Dane śledzenia użytkownika należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję Śledzenie. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: Aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu Dane śledzenia planowania należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję Śledzenie. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.
+
+</string>
+      <string id="CSE_DataSources_Logging">Konfiguruj rejestrowanie i śledzenie preferencji źródeł danych</string>
+      <string id="CSE_DataSources_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Źródła danych oraz włączenie śledzenia rozszerzenia Źródła danych. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Źródła danych na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_Devices_Logging">Konfiguruj rejestrowanie i śledzenie preferencji urządzeń</string>
+      <string id="CSE_Devices_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Urządzenia oraz włączenie śledzenia rozszerzenia Urządzenia. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Urządzenia na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_Drives_Logging">Konfiguruj rejestrowanie i śledzenie preferencji mapowań dysków</string>
+      <string id="CSE_Drives_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Mapowania dysków oraz włączenie śledzenia rozszerzenia Mapowania dysków. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Mapowania dysków na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_Environment_Logging">Konfiguruj rejestrowanie i śledzenie preferencji środowiska</string>
+      <string id="CSE_Environment_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Środowisko oraz włączenie śledzenia rozszerzenia Środowisko. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Środowisko na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_Files_Logging">Konfiguruj rejestrowanie i śledzenie preferencji plików</string>
+      <string id="CSE_Files_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Pliki oraz włączenie śledzenia rozszerzenia Pliki. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Pliki na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_FolderOptions_Logging">Konfiguruj rejestrowanie i śledzenie preferencji opcji folderów</string>
+      <string id="CSE_FolderOptions_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Opcje folderów oraz włączenie śledzenia rozszerzenia Opcje folderów. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Opcje folderów na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_Folders_Logging">Konfiguruj rejestrowanie i śledzenie preferencji folderów</string>
+      <string id="CSE_Folders_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Foldery oraz włączenie śledzenia rozszerzenia Foldery. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Foldery na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_IniFiles_Logging">Konfiguruj rejestrowanie i śledzenie preferencji plików INI</string>
+      <string id="CSE_IniFiles_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Pliki INI oraz włączenie śledzenia rozszerzenia Pliki INI. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Pliki INI na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_Internet_Logging">Konfiguruj rejestrowanie i śledzenie preferencji ustawień internetowych</string>
+      <string id="CSE_Internet_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Internet oraz włączenie śledzenia rozszerzenia Internet. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Internet na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">Konfiguruj rejestrowanie i śledzenie preferencji użytkowników i grup lokalnych</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzeń preferencji Użytkownik lokalny i Grupa lokalna oraz włączenie śledzenia rozszerzeń Użytkownik lokalny i Grupa lokalna. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzeń Użytkownik lokalny i Grupa lokalna na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_NetworkOptions_Logging">Konfiguruj rejestrowanie i śledzenie preferencji opcji sieciowych</string>
+      <string id="CSE_NetworkOptions_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Opcje sieciowe oraz włączenie śledzenia rozszerzenia Opcje sieciowe. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Opcje sieciowe na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_NetShares_Logging">Konfiguruj rejestrowanie i śledzenie preferencji udziałów sieciowych</string>
+      <string id="CSE_NetShares_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Udziały sieciowe oraz włączenie śledzenia rozszerzenia Udziały sieciowe. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Udziały sieciowe na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_PowerOptions_Logging">Konfiguruj rejestrowanie i śledzenie preferencji opcji zasilania</string>
+      <string id="CSE_PowerOptions_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Opcje zasilania oraz włączenie śledzenia rozszerzenia Opcje zasilania. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Opcje zasilania na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_Printers_Logging">Konfiguruj rejestrowanie i śledzenie preferencji drukarek</string>
+      <string id="CSE_Printers_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Drukarki oraz włączenie śledzenia rozszerzenia Drukarki. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Drukarki na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_RegionalOptions_Logging">Konfiguruj rejestrowanie i śledzenie preferencji opcji ustawień regionalnych</string>
+      <string id="CSE_RegionalOptions_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Opcje ustawień regionalnych oraz włączenie śledzenia rozszerzenia Opcje ustawień regionalnych. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Opcje ustawień regionalnych na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_PrefRegistry_Logging">Konfiguruj rejestrowanie i śledzenie preferencji rejestru</string>
+      <string id="CSE_PrefRegistry_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Rejestr oraz włączenie śledzenia rozszerzenia Rejestr. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Rejestr na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_ScheduledTasks_Logging">Konfiguruj rejestrowanie i śledzenie preferencji zaplanowanych zadań</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Zaplanowane zadania oraz włączenie śledzenia rozszerzenia Zaplanowane zadania. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Zaplanowane zadania na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_Services_Logging">Konfiguruj rejestrowanie i śledzenie preferencji usług</string>
+      <string id="CSE_Services_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Usługi oraz włączenie śledzenia rozszerzenia Usługi. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Usługi na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_Shortcuts_Logging">Konfiguruj rejestrowanie i śledzenie preferencji skrótów</string>
+      <string id="CSE_Shortcuts_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Skróty oraz włączenie śledzenia rozszerzenia Skróty. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Skróty na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_StartMenu_Logging">Konfiguruj rejestrowanie i śledzenie preferencji menu Start</string>
+      <string id="CSE_StartMenu_Logging_Help">To ustawienie zasad umożliwia skonfigurowanie poziomu szczegółów rejestrowanych przez funkcję rejestrowania zdarzeń dla rozszerzenia preferencji Menu Start oraz włączenie śledzenia rozszerzenia Menu Start. Rejestrowanie i śledzenie dostarcza informacji diagnostycznych umożliwiających rozwiązywanie problemów.
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować rejestrowanie zdarzeń oraz włączyć śledzenie dla rozszerzenia Menu Start na komputerach klienckich.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślne rejestrowanie zdarzeń dla tego rozszerzenia będzie obejmować tylko ostrzeżenia i błędy, a śledzenie dla tego rozszerzenia będzie wyłączone.
+
+Uwaga dotycząca zabezpieczeń: 
+Zabezpiecz skonfigurowany udział sieciowy, nadając tylko minimalne wymagane uprawnienia. Nie używaj szerokiego dostępu (np. dowolnego konta standardowego lub opcji Wszyscy z pełną kontrolą), ponieważ może to spowodować nieautoryzowany dostęp do danych rejestrowania i śledzenia
+
+Uwagi:
+
+1. Śledzenie konfiguracji użytkownika: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji, które są wymienione w węźle Konfiguracja użytkownika, w polu „Dane śledzenia użytkownika” należy podać ścieżkę do lokalizacji na komputerze klienckim, w której można utworzyć plik śledzenia użytkownika, a ponadto należy włączyć opcję „Śledzenie”. Jeśli w tym rozszerzeniu nie będzie elementów preferencji dostępnych w węźle Konfiguracja użytkownika, nie zostanie utworzony plik śledzenia użytkownika.
+
+2. Śledzenie konfiguracji komputera: to rozszerzenie preferencji jest dostępne tylko w węźle Konfiguracja użytkownika, więc nie można stosować śledzenia konfiguracji komputera.
+
+3. Śledzenie zapytań modelowania zasad grupy: aby wykonać śledzenie elementów w tym rozszerzeniu preferencji podczas wykonywania zapytania modelowania zasad grupy, w polu „Dane śledzenia planowania” należy podać ścieżkę do lokalizacji na komputerze, w której podczas modelowania można utworzyć plik śledzenia planowania, a ponadto należy włączyć opcję „Śledzenie”. Jeśli nie jest wykonywane modelowanie zasad grupy lub w tym rozszerzeniu nie ma elementów preferencji, nie zostanie utworzony plik śledzenia planowania.</string>
+      <string id="CSE_NOCHANGES">Przetwarzaj, nawet jeśli obiekty zasad grupy nie zostały zmienione</string>
+      <string id="CSE_NOBACKGROUND">Nie stosuj podczas okresowego przetwarzania w tle</string>
+      <string id="CSE_ALLOWSLOWLINK">Zezwalaj na przetwarzanie przez powolne połączenie sieciowe</string>
+      <string id="CSE_TRACELEVEL">Śledzenie</string>
+      <string id="CSE_TRACEFILEPATHUSER">Dane śledzenia użytkownika</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">Dane śledzenia komputera</string>
+      <string id="CSE_TRACEFILEPATH">Plik śledzenia</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">Dane śledzenia planowania</string>
+      <string id="CSE_TRACEFILEMAXSIZE">Maksymalny rozmiar pliku śledzenia (KB)</string>
+      <string id="CSE_TRACELEVELNORMAL">Wyłączony</string>
+      <string id="CSE_TRACELEVELVERBOSE">Włączony</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">Priorytet w tle</string>
+      <string id="CSE_PRILEVEL_NORMAL">Normalny</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">Poniżej normalnego</string>
+      <string id="CSE_PRILEVEL_LOWEST">Najniższy</string>
+      <string id="CSE_PRILEVEL_IDLE">Bezczynny</string>
+      <string id="CSE_LOGLEVEL">Rejestrowanie zdarzeń</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">Informacje, ostrzeżenia i błędy</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">Ostrzeżenia i błędy</string>
+      <string id="CSE_LOGLEVEL_ERRORS">Tylko błędy</string>
+      <string id="CSE_LOGLEVEL_NONE">Brak</string>
+      <string id="CSE_Logging">Rejestrowanie i śledzenie</string>
+      <string id="CSE_Logging_Help">Umożliwia konfigurowanie rejestrowania i śledzenia składników preferencji.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Dane śledzenia komputera</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Rejestrowanie zdarzeń</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Śledzenie</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Dane śledzenia użytkownika</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Dane śledzenia planowania</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksymalny rozmiar pliku śledzenia (KB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

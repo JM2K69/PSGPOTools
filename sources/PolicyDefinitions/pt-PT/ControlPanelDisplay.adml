@@ -173,6 +173,12 @@ Se desativar ou não configurar esta definição de política, os utilizadores q
 Por predefinição, os utilizadores podem alterar a imagem de fundo apresentada quando a máquina está bloqueada ou no ecrã de início de sessão.
 
 Se ativar esta definição, o utilizador não poderá alterar a sua imagem dos ecrã de bloqueio e de início de sessão, vendo, em vez disso, a imagem predefinida.</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">Impedir movimento do fundo do ecrã de bloqueio</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">Esta definição de política controla se a imagem do ecrã de bloqueio é estática ou tem um efeito de movimento subtil orientado pela saída acelerómetro do dispositivo.
+
+Se ativar esta definição, a movimento será impedida e o utilizador verá a imagem de fundo do ecrã de bloqueio estático tradicional.
+
+Se desativar esta definição (e o dispositivo tiver uma acelerómetro), o utilizador verá o fundo do ecrã de bloqueio em torno de uma imagem continuará à medida que os mesmos possam mover o seu dispositivo.</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">Forçar uma imagem específica predefinida para os ecrãs de bloqueio e de início de sessão</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">Esta definição permite forçar uma imagem específica predefinida nos ecrãs de bloqueio e de início de sessão introduzindo o caminho (localização) do ficheiro de imagem. Será utilizada a mesma imagem para os ecrãs de bloqueio e de início de sessão.
 

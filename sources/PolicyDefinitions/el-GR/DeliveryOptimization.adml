@@ -6,21 +6,14 @@
     <stringTable>
       <string id="DeliveryOptimizationCat">Βελτιστοποίηση παράδοσης</string>
       <string id="DownloadMode">Λειτουργία λήψης</string>
-      <string id="DownloadMode_Help">Καθορίζει τη μέθοδο λήψης που μπορεί να χρησιμοποιήσει η Βελτιστοποίηση παράδοσης για λήψεις του Windows Update, εφαρμογών και ενημερώσεων εφαρμογών.
-      
-Η ακόλουθη λίστα εμφανίζει τις τιμές που υποστηρίζονται:
+      <string id="DownloadMode_Help">Καθορίζει τη μέθοδο που μπορεί να χρησιμοποιήσει Βελτιστοποίηση παράδοσης για τη λήψη περιεχομένου εκ μέρους διαφόρων προϊόντων της Microsoft.
 
-0=HTTP μόνο, χωρίς ομοτιμία.
-      
-1 = HTTP σε συνδυασμό με ομοτιμία στο ίδιο NAT.
-
-2 = HTTP σε συνδυασμό με ομοτιμία σε μια ιδιωτική ομάδα. Η ομοτιμία πραγματοποιείται σε συσκευές που βρίσκονται στην ίδια τοποθεσία Active Directory (αν υπάρχει) ή στον ίδιο τομέα από προεπιλογή. Όταν είναι ενεργοποιημένη αυτή η επιλογή, η ομοτιμία θα μεταφέρεται ανάμεσα στα NAT. Για να δημιουργήσετε μια προσαρμοσμένη ομάδα, χρησιμοποιήστε το αναγνωριστικό της ομάδας σε συνδυασμό με τη Λειτουργία 2.
-      
-3 = HTTP σε συνδυασμό με ομοτιμία Internet. 
-
-99 = Απλή λειτουργία λήψης χωρίς ομοτιμία. Η Βελτιστοποίηση παράδοσης πραγματοποιεί λήψη μόνο με HTTP και δεν επιχειρεί να επικοινωνήσει με τις υπηρεσίες cloud της Βελτιστοποίησης παράδοσης.
-      
-100=Λειτουργία παράκαμψης. Μην χρησιμοποιήσετε τη Βελτιστοποίηση παράδοσης και χρησιμοποιήστε εναλλακτικά το BITS.</string>
+0 = HTTP μόνο, χωρίς ομοτιμία
+1 = HTTP σε συνδυασμό με ομοτιμία πίσω από το ίδιο NAT
+2 = HTTP σε συνδυασμό με ομοτιμία σε μια ιδιωτική ομάδα
+3 = HTTP σε συνδυασμό με ομοτιμία Internet
+99 = HTTP μόνο, χωρίς ομοτιμία, χωρίς χρήση της υπηρεσίας cloud DO
+100 = Λειτουργία παράκαμψης, υπό απόσυρση σε Windows 11</string>
       <string id="DownloadMode_CdnOnly">Μόνο HTTP (0)</string>
       <string id="DownloadMode_Lan">LAN (1)</string>
       <string id="DownloadMode_Group">Ομάδα (2)</string>
@@ -28,144 +21,80 @@
       <string id="DownloadMode_Simple">Απλή (99)</string>
       <string id="DownloadMode_Bypass">Παράκαμψη (100)</string>
       <string id="GroupId">Αναγνωριστικό ομάδας</string>
-      <string id="GroupId_Help">Το αναγνωριστικό ομάδας πρέπει να οριστεί ως GUID. Αυτή η πολιτική καθορίζει ένα αυθαίρετο αναγνωριστικό ομάδας στην οποία ανήκει η συσκευή.
-      
-Χρησιμοποιήστε το αν θέλετε να καθορίσετε μία ομάδα για ομότιμη συνεργασία τοπικού δικτύου σε διακλαδώσεις που βρίσκονται σε διαφορετικούς τομείς ή δεν βρίσκονται στο ίδιο LAN.
-      
-Σημείωση: πρόκειται για μια βελτιστοποίηση βέλτιστης μεθόδου και δεν θα πρέπει να βασίζεστε σε αυτή για έλεγχο ταυτότητας.</string>
-      <string id="MaxUploadBandwidth">Μέγ. εύρος ζώνης αποστολής (KB/s)</string>
-      <string id="MaxUploadBandwidth_Help">Καθορίζει το μέγιστο εύρος ζώνης αποστολής που θα χρησιμοποιεί η Βελτιστοποίηση παράδοσης σε όλες τις ταυτόχρονες δραστηριότητες αποστολής (ορισμένο σε KB/s).
-      
-Η προεπιλεγμένη τιμή 0 (μηδέν) επιτρέπει απεριόριστη χρήση, κατά την οποία οι δραστηριότητες αποστολής βελτιστοποιούνται δυναμικά ώστε να κάνουν ελάχιστη χρήση τους εύρους ζώνης αποστολής.</string>
+      <string id="GroupId_Help">Καθορίζει ένα αυθαίρετο αναγνωριστικό ομάδας στο οποίο ανήκει η συσκευή. Πρέπει να χρησιμοποιηθεί ΈΝΑ GUID.</string>
       <string id="MaxCacheSize">Μέγιστο μέγεθος cache (ποσοστό)</string>
-      <string id="MaxCacheSize_Help">Καθορίζει το μέγιστο μέγεθος cache που χρησιμοποιεί η Βελτιστοποίηση παράδοσης ως ποσοστό του διαθέσιμου χώρου στο δίσκο (1-100).</string>
+      <string id="MaxCacheSize_Help">Καθορίζει το μέγιστο μέγεθος cache που μπορεί να χρησιμοποιήσει Βελτιστοποίηση παράδοσης, ως ποσοστό του διαθέσιμου χώρου στη μονάδα δίσκου.</string>
       <string id="AbsoluteMaxCacheSize">Απόλυτο μέγιστο μέγεθος cache (GB)</string>
-      <string id="AbsoluteMaxCacheSize_Help">Καθορίζει το μέγιστο μέγεθος σε GB για το cache βελτιστοποίησης παράδοσης.
-      
-Αυτή η πολιτική παρακάμπτει την πολιτική DOMaxCacheSize.
-      
-Η τιμή 0 (μηδέν) σημαίνει "απεριόριστο" cache. Η Βελτιστοποίηση παράδοσης θα εκκαθαρίσει το cache όταν εξαντληθεί ο χώρος στη μονάδα δίσκου της συσκευής.</string>
+      <string id="AbsoluteMaxCacheSize_Help">Καθορίζει το μέγιστο μέγεθος σε GB Βελτιστοποίηση παράδοσης cache. Αυτή η πολιτική παρακάμπτει την πολιτική MaxCacheSize.</string>
       <string id="MaxCacheAge">Μέγ. ηλικία cache (σε δευτερόλεπτα)</string>
-      <string id="MaxCacheAge_Help">Καθορίζει το μέγιστο χρονικό διάστημα σε δευτερόλεπτα που διατηρούνται τα αρχεία στο cache της Βελτιστοποίησης παράδοσης, αφού ολοκληρωθεί η λήψη τους με επιτυχία.
-      
-Η τιμή "0" σημαίνει "απεριόριστο". Η Βελτιστοποίηση παράδοσης θα διατηρήσει τα αρχεία στο cache για περισσότερο χρόνο και θα καταστήσει τα αρχεία διαθέσιμα για αποστολές σε άλλες συσκευές, εφόσον δεν έχει γίνει υπέρβαση του μεγέθους του cache.</string>
+      <string id="MaxCacheAge_Help">Καθορίζει το μέγιστο χρόνο σε δευτερόλεπτα που διατηρείται κάθε αρχείο στο cache Βελτιστοποίηση παράδοσης μετά την επιτυχή λήψη του.</string>
       <string id="MonthlyUploadDataCap">Μηνιαίο όριο αποστολής δεδομένων (GB)</string>
-      <string id="MonthlyUploadDataCap_Help">Καθορίζει τον μέγιστο συνολικό αριθμό byte σε GB που επιτρέπεται να αποστείλει η Βελτιστοποίηση παράδοσης σε ομότιμους υπολογιστές στο Internet σε κάθε ημερολογιακό μήνα. 
-      
-Η τιμή 0 (μηδέν) σημαίνει "χωρίς περιορισμό". Αν ορίσετε την τιμή "0", δεν εφαρμόζεται κανένα μηνιαίο όριο αποστολής.</string>
+      <string id="MonthlyUploadDataCap_Help">Καθορίζει τον μέγιστο αριθμό byte σε GB που επιτρέπεται να αποστείλετε Βελτιστοποίηση παράδοσης σε ομότιμους υπολογιστές στο Internet σε κάθε ημερολογιακό μήνα.</string>
       <string id="MinBackgroundQos">Ελάχιστη ποιότητα υπηρεσίας παρασκηνίου (KB/s)</string>
-      <string id="MinBackgroundQos_Help">Καθορίζει την ελάχιστη QoS λήψης (Ποιότητα υπηρεσίας ή ταχύτητα) για λήψεις παρασκηνίου, σε KiloByte/δευτερόλεπτο. 
-      
-Αυτή η πολιτική επηρεάζει το συνδυασμό ομότιμων προελεύσεων και προελεύσεων HTTP. Η Βελτιστοποίηση παράδοσης συμπληρώνει τη λήψη από τις προελεύσεις HTTP για να επιτύχει την ελάχιστη καθορισμένη τιμή QoS.</string>
+      <string id="MinBackgroundQos_Help">Καθορίζει το ελάχιστο QoS λήψης (Ποιότητα υπηρεσίας) σε KiloByte/δευτερόλεπτο για λήψεις στο παρασκήνιο.</string>
       <string id="ModifyCacheDrive">Τροποποίηση μονάδας δίσκου cache</string>
-      <string id="ModifyCacheDrive_Help">Καθορίζει τη μονάδα δίσκου που θα χρησιμοποιήσει η Βελτιστοποίηση παράδοσης για το cache της. 
-      
-Από προεπιλογή, χρησιμοποιείται η μονάδα δίσκου %SystemDrive% για την αποθήκευση του cache. Η θέση της μονάδας δίσκου μπορεί να καθοριστεί χρησιμοποιώντας μεταβλητές περιβάλλοντος, ένα γράμμα μονάδας δίσκου ή μια πλήρη διαδρομή.</string>
-      <string id="MaxDownloadBandwidth">Μέγιστο όριο εύρους ζώνης λήψης (KB/s)</string>
-      <string id="MaxDownloadBandwidth_Help">Καθορίζει το μέγιστο εύρος ζώνης λήψης (σε KiloByte/δευτερόλεπτο) που θα χρησιμοποιεί μια συσκευή σε όλες τις ταυτόχρονες δραστηριότητες λήψης μέσω της Βελτιστοποίησης παράδοσης. 
-      
-Η προεπιλεγμένη τιμή 0 (μηδέν) σημαίνει ότι η Βελτιστοποίηση παράδοσης θα προσαρμόζεται δυναμικά ώστε να χρησιμοποιεί το διαθέσιμο εύρος ζώνης για τις λήψεις.</string>
-      <string id="PercentageMaxDownloadBandwidth">Μέγιστο εύρος ζώνης λήψης (ποσοστό)</string>
-      <string id="PercentageMaxDownloadBandwidth_Help">Καθορίζει το μέγιστο εύρος ζώνης λήψης που χρησιμοποιεί η Βελτιστοποίηση παράδοσης σε όλες τις ταυτόχρονες δραστηριότητες λήψης ως ποσοστό του διαθέσιμου εύρους ζώνης λήψης. 
-      
-Η προεπιλεγμένη τιμή 0 (μηδέν) σημαίνει ότι η Βελτιστοποίηση παράδοσης προσαρμόζεται δυναμικά ώστε να χρησιμοποιεί το διαθέσιμο εύρος ζώνης για λήψεις.
-
-Αυτή η πολιτική είναι υπό απόσυρση και θα καταργηθεί στην επόμενη έκδοση. Χρησιμοποιήστε εναλλακτικά την επιλογή "Μέγιστο εύρος ζώνης λήψης στο προσκήνιο (ποσοστό)" ή "Μέγιστο εύρος ζώνης λήψης στο παρασκήνιο (ποσοστό)".</string>
+      <string id="ModifyCacheDrive_Help">Καθορίζει τη μονάδα δίσκου που πρέπει να χρησιμοποιεί Βελτιστοποίηση παράδοσης για την cache της. Η θέση της μονάδας δίσκου μπορεί να καθοριστεί χρησιμοποιώντας μεταβλητές περιβάλλοντος, γράμμα μονάδας δίσκου ή χρησιμοποιώντας πλήρη διαδρομή.</string>
+      <string id="MaxBackgroundDownloadBandwidth">Μέγιστο εύρος ζώνης λήψης στο παρασκήνιο (σε KB/δευτ.)</string>
+      <string id="MaxBackgroundDownloadBandwidth_Help">Καθορίζει το μέγιστο εύρος ζώνης λήψης στο παρασκήνιο σε KiloByte/δευτερόλεπτο που μπορεί να χρησιμοποιήσει η συσκευή σε όλες τις ταυτόχρονες δραστηριότητες λήψης χρησιμοποιώντας Βελτιστοποίηση παράδοσης.</string>
+      <string id="MaxForegroundDownloadBandwidth">Μέγιστο εύρος ζώνης λήψης στο προσκήνιο (σε KB/δευτ.)</string>
+      <string id="MaxForegroundDownloadBandwidth_Help">Καθορίζει το μέγιστο εύρος ζώνης λήψης στο προσκήνιο σε KiloByte/δευτερόλεπτο που μπορεί να χρησιμοποιήσει η συσκευή σε όλες τις ταυτόχρονες δραστηριότητες λήψης χρησιμοποιώντας Βελτιστοποίηση παράδοσης.</string>
       <string id="PercentageMaxBackgroundBandwidth">Μέγιστο εύρος ζώνης λήψης στο παρασκήνιο (ποσοστό)</string>
-      <string id="PercentageMaxBackgroundBandwidth_Help">Καθορίζει το μέγιστο εύρος ζώνης λήψης στο παρασκήνιο που χρησιμοποιεί η Βελτιστοποίηση παράδοσης σε όλες τις ταυτόχρονες δραστηριότητες λήψης ως ποσοστό του διαθέσιμου εύρους ζώνης λήψης. 
-      
-Η προεπιλεγμένη τιμή 0 (μηδέν) σημαίνει ότι η Βελτιστοποίηση παράδοσης προσαρμόζεται δυναμικά ώστε να χρησιμοποιεί το διαθέσιμο εύρος ζώνης για λήψεις στο παρασκήνιο.</string>
+      <string id="PercentageMaxBackgroundBandwidth_Help">Καθορίζει το μέγιστο εύρος ζώνης λήψης στο παρασκήνιο που χρησιμοποιεί Βελτιστοποίηση παράδοσης σε όλες τις ταυτόχρονες δραστηριότητες λήψης ως ποσοστό του διαθέσιμου εύρους ζώνης λήψης.</string>
       <string id="PercentageMaxForegroundBandwidth">Μέγιστο εύρος ζώνης λήψης στο προσκήνιο (ποσοστό)</string>
-      <string id="PercentageMaxForegroundBandwidth_Help">Καθορίζει το μέγιστο εύρος ζώνης λήψης στο προσκήνιο που χρησιμοποιεί η Βελτιστοποίηση παράδοσης σε όλες τις ταυτόχρονες δραστηριότητες λήψης ως ποσοστό του διαθέσιμου εύρους ζώνης λήψης.
-      
-Η προεπιλεγμένη τιμή 0 (μηδέν) σημαίνει ότι η Βελτιστοποίηση παράδοσης προσαρμόζεται δυναμικά ώστε να χρησιμοποιεί το διαθέσιμο εύρος ζώνης για λήψεις στο προσκήνιο.</string>
-      <string id="MinFileSizeToCache">Ελάχιστο μέγεθος αρχείου περιεχομένου για χρήση cache ομότιμου (σε MB)</string>
-      <string id="MinFileSizeToCache_Help">Καθορίζει το ελάχιστο μέγεθος αρχείου περιεχομένου σε MB που επιτρέπεται να χρησιμοποιεί το cache ομότιμου. 
-      
-Προτεινόμενες τιμές: 1 MB έως 100000 MB.</string>
-      <string id="AllowVPNPeerCaching">Ενεργοποίηση cache ομότιμου όταν η συσκευή συνδέεται μέσω VPN</string>
-      <string id="AllowVPNPeerCaching_Help">Καθορίστε "true" για να επιτρέψετε στη συσκευή να συμμετέχει στη χρήση cache ομότιμου ενώ είναι συνδεδεμένη με VPN στο δίκτυο τομέα.
-      
-Αυτό σημαίνει ότι η συσκευή μπορεί να πραγματοποιεί λήψη ή αποστολή σε άλλες συσκευές του δικτύου τομέα, είτε μέσω VPN είτε μέσω του εταιρικού δικτύου τομέα.</string>
-      <string id="MinRAMAllowedToPeer">Ελάχιστη απαιτούμενη χωρητικότητα RAM (συνολική) για την ενεργοποίηση χρήσης cache ομότιμου (σε GB)</string>
-      <string id="MinRAMAllowedToPeer_Help">Καθορίζει το ελάχιστο μέγεθος μνήμης RAM σε GB που απαιτείται για τη χρήση cache ομότιμου. 
-      
-Για παράδειγμα, εάν οριστεί ως ελάχιστο 1 GB, οι συσκευές με διαθέσιμη μνήμη 1 GB ή περισσότερη θα επιτρέπεται να χρησιμοποιούν το cache ομότιμου. 
-      
-Προτεινόμενες τιμές: 1 GB έως 4 GB.</string>
-      <string id="MinDiskSizeAllowedToPeer">Ελάχιστος επιτρεπόμενο μέγεθος δίσκου για τη χρήση cache ομότιμου (σε GB)</string>
-      <string id="MinDiskSizeAllowedToPeer_Help">Καθορίζει το απαιτούμενο ελάχιστο μέγεθος δίσκου (χωρητικότητα σε GB) για να χρησιμοποιήσει η συσκευή το cache ομότιμου. Θα χρησιμοποιηθεί η προεπιλεγμένη τιμή της υπηρεσίας cloud. 
-      
-Προτεινόμενες τιμές: 64 GB έως 256 GB. 
-      
-Σημείωση: Εάν έχει οριστεί η πολιτική DOModifyCacheDrive, ο έλεγχος μεγέθους δίσκου θα ισχύει για τον νέο κατάλογο εργασίας που καθορίζεται από αυτή την πολιτική.</string>
+      <string id="PercentageMaxForegroundBandwidth_Help">Καθορίζει το μέγιστο εύρος ζώνης λήψης στο προσκήνιο που χρησιμοποιεί Βελτιστοποίηση παράδοσης σε όλες τις ταυτόχρονες δραστηριότητες λήψης ως ποσοστό του διαθέσιμου εύρους ζώνης λήψης.</string>
+      <string id="MinFileSizeToCache">Ελάχιστο μέγεθος αρχείου περιεχομένου P2P (σε MB)</string>
+      <string id="MinFileSizeToCache_Help">Καθορίζει το ελάχιστο μέγεθος αρχείου περιεχομένου σε MB που είναι επιλέξιμο για χρήση P2P.</string>
+      <string id="AllowVPNPeerCaching">Ενεργοποίηση P2P ενώ η συσκευή συνδέεται μέσω VPN</string>
+      <string id="AllowVPNPeerCaching_Help">Καθορίζει εάν η συσκευή, με μια ενεργή σύνδεση VPN, θα επιτρέπεται να συμμετέχει σε P2P ή όχι.</string>
+      <string id="MinRAMAllowedToPeer">Ελάχιστη απαιτούμενη χωρητικότητα RAM (συνολική) για την ενεργοποίηση χρήσης P2P (σε GB)</string>
+      <string id="MinRAMAllowedToPeer_Help">Καθορίζει το ελάχιστο συνολικό μέγεθος RAM σε GB που απαιτείται για τη χρήση P2P.</string>
+      <string id="MinDiskSizeAllowedToPeer">Ελάχιστο μέγεθος δίσκου που επιτρέπεται να χρησιμοποιεί P2P (σε GB)</string>
+      <string id="MinDiskSizeAllowedToPeer_Help">Καθορίζει το απαιτούμενο ελάχιστο συνολικό μέγεθος δίσκου σε GB για τη χρήση P2P από τη συσκευή.</string>
       <string id="MinBatteryPercentageAllowedToUpload">Να επιτρέπονται οι αποστολές ενώ η συσκευή λειτουργεί με μπαταρία υπό το ορισμένο επίπεδο μπαταρίας (ποσοστό)</string>
-      <string id="MinBatteryPercentageAllowedToUpload_Help">Καθορίστε οποιαδήποτε τιμή μεταξύ 1 και 100 (σε ποσοστό) για να επιτρέψετε στη συσκευή την αποστολή δεδομένων σε ομότιμους ομάδας και LAN κατά τη λειτουργία με συνεχές ρεύμα (μπαταρία). 
-      
-Η προτεινόμενη τιμή για ορισμό, αν επιτρέπετε τις αποστολές σε λειτουργία μπαταρίας, είναι 40 (για ποσοστό 40%). Η συσκευή μπορεί να πραγματοποιεί λήψη από ομότιμους ανεξάρτητα από αυτήν την πολιτική. 
-      
-Η τιμή 0 σημαίνει "χωρίς περιορισμό". Θα χρησιμοποιηθεί η ορισμένη προεπιλεγμένη τιμή της υπηρεσίας cloud.</string>
-      <string id="CacheHost">[Δεσμευμένο για μελλοντική χρήση] Όνομα κεντρικού υπολογιστή διακομιστή cache</string>
-      <string id="CacheHost_Help">[Δεσμευμένο για μελλοντική χρήση]</string>
+      <string id="MinBatteryPercentageAllowedToUpload_Help">Καθορίζει το ελάχιστο επίπεδο μπαταρίας που απαιτείται για την αποστολή σε ομότιμους υπολογιστές, κατά τη λειτουργία με μπαταρία.</string>
+      <string id="CacheHost">Όνομα κεντρικού υπολογιστή διακομιστή cache</string>
+      <string id="CacheHost_Help">Καθορίζει έναν ή περισσότερους διακομιστές microsoft Connected Cache που θα χρησιμοποιηθούν από τους υπολογιστές-πελάτες σας. Μία ή περισσότερες τιμές μπορούν να προστεθούν είτε ως πλήρως προσδιορισμένα ονόματα τομέων (FQDN) είτε ως διευθύνσεις IP. Για να προσθέσετε πολλές τιμές, διαχωρίστε κάθε FQDN ή διεύθυνση IP με κόμματα.</string>
+      <string id="CacheHostSource">Προέλευση κεντρικού υπολογιστή διακομιστή cache</string>
+      <string id="CacheHostSource_Help">Καθορίζει τον τρόπο με τον οποίο οι υπολογιστές-πελάτες μπορούν να ανακαλύψουν δυναμικά διακομιστές cache συνδεδεμένους στη Microsoft.
+
+1 = Επιλογή DHCP 235
+2 = Επιλογή DHCP 235 Force</string>
+      <string id="CacheHostSource_DHCP">Επιλογή DHCP 235</string>
+      <string id="CacheHostSource_DHCP_Force">Επιλογή DHCP 235 Force</string>
+      <string id="DisallowCacheServerDownloadsOnVPN">Να μην επιτρέπεται η λήψη από διακομιστές συνδεδεμένου cache της Microsoft κατά τη σύνδεση της συσκευής μέσω VPN</string>
+      <string id="DisallowCacheServerDownloadsOnVPN_Help">Καθορίστε να μην επιτρέπεται η λήψη στοιχείων λήψης από διακομιστές συνδεδεμένου cache της Microsoft όταν η συσκευή συνδέεται μέσω VPN. Όταν δεν είναι επιλεγμένο, επιτρέπεται η λήψη της συσκευής από το Συνδεδεμένο cache της Microsoft όταν είναι συνδεδεμένο μέσω VPN. Επιλέξτε το πλαίσιο για να αποκλείσετε αυτές τις λήψεις.</string>
       <string id="GroupIdSource">Επιλέξτε την προέλευση των αναγνωριστικών ομάδας</string>
-      <string id="GroupIdSource_Help">Ορίστε αυτήν την πολιτική για να περιορίσετε την επιλογή ομότιμου σε μια συγκεκριμένη προέλευση. 
-      
-Οι διαθέσιμες επιλογές είναι: 
+      <string id="GroupIdSource_Help">Καθορίζει την προέλευση του αναγνωριστικού ομάδας που χρησιμοποιείται για την επιλογή ομότιμου.
 
-1 = Τοποθεσία AD.
-
-2 = SID τομέα με έλεγχο ταυτότητας.
-
-3 = Αναγνωριστικό επιλογής DHCP.
-
-4 = Επίθημα DNS. 
-
-5 = Αναγνωριστικό μισθωτή AAD. 
-
-Όταν οριστεί, το αναγνωριστικό ομάδας θα αντιστοιχιστεί αυτόματα από την επιλεγμένη προέλευση. Εάν ορίσετε αυτή την πολιτική, η πολιτική GroupID θα αγνοηθεί. 
-      
-Οι επιλογές που καθορίζονται σε αυτή την πολιτική ισχύουν μόνο για τη λειτουργία λήψης ομάδας (2). Αν η ομάδα (2) δεν έχει οριστεί ως λειτουργία λήψης, αυτή η πολιτική θα αγνοηθεί. 
-
-Για την επιλογή 3 - Αναγνωριστικό επιλογής DHCP, ο υπολογιστής-πελάτης θα υποβάλλει ερώτημα για το Αναγνωριστικό επιλογής DHCP 234 και θα χρησιμοποιεί την επιστρεφόμενη τιμή GUID ως το αναγνωριστικό ομάδας.</string>
-      <string id="GroupIdSource_Unset">Κατάργηση ορισμού (0)</string>
+0 = Δεν έχει οριστεί
+1 = Τοποθεσία AD
+2 = SID τομέα με έλεγχο ταυτότητας
+3 = Αναγνωριστικό επιλογής DHCP
+4 = Επίθημα DNS
+5 = Αναγνωριστικό μισθωτή αναγνωριστικού Entra</string>
+      <string id="GroupIdSource_Unset">Δεν έχει οριστεί (0)</string>
       <string id="GroupIdSource_AD">Τοποθεσία AD (1)</string>
       <string id="GroupIdSource_SID">SID εξουσιοδοτημένου τομέα (2)</string>
       <string id="GroupIdSource_DHCP">Αναγνωριστικό επιλογής DHCP (3)</string>
       <string id="GroupIdSource_DNS">Επίθημα DNS (4)</string>
       <string id="GroupIdSource_AAD">Αναγνωριστικό μισθωτή AAD (5)</string>
       <string id="DelayBackgroundDownloadFromHttp">Καθυστέρηση λήψης στο παρασκήνιο από http (σε δευτερόλεπτα)</string>
-      <string id="DelayBackgroundDownloadFromHttp_Help">Αυτή η πολιτική σάς επιτρέπει την εφαρμογή καθυστέρησης στη χρήση μιας προέλευσης HTTP για μια λήψη στο παρασκήνιο που επιτρέπεται να χρησιμοποιεί P2P.
-      
-Όταν συμπληρωθεί το μέγιστο όριο καθυστέρησης, η λήψη θα συνεχιστεί χρησιμοποιώντας το πρωτόκολλο HTTP, είτε με λήψη ολόκληρου του ωφέλιμου φορτίου ή με συμπλήρωση των byte που δεν λήφθηκαν από ομότιμους υπολογιστές.
-      
-Έχετε υπόψη σας ότι μια λήψη που αναμένει ομότιμες προελεύσεις, θα φαίνεται στον τελικό χρήστη να έχει κολλήσει.
-      
-Η προτεινόμενη τιμή είναι 1 ώρα (3600).</string>
-      <string id="DelayForegroundDownloadFromHttp">Καθυστέρηση λήψης στο προσκήνιο από http (σε δευτερόλεπτα)</string>
-      <string id="DelayForegroundDownloadFromHttp_Help">Αυτή η πολιτική σάς επιτρέπει την εφαρμογή καθυστέρησης στη χρήση μιας προέλευσης HTTP για μια λήψη στο προσκήνιο (αλληλεπιδραστική) που επιτρέπεται να χρησιμοποιεί P2P.
-      
-Όταν συμπληρωθεί το μέγιστο όριο καθυστέρησης, η λήψη θα συνεχιστεί χρησιμοποιώντας το πρωτόκολλο HTTP, είτε με λήψη ολόκληρου του ωφέλιμου φορτίου ή με συμπλήρωση των byte που δεν λήφθηκαν από ομότιμους υπολογιστές.
-      
-Έχετε υπόψη σας ότι μια λήψη που αναμένει ομότιμες προελεύσεις, θα φαίνεται στον τελικό χρήστη να έχει κολλήσει.
-      
-Η προτεινόμενη τιμή είναι 1 λεπτό (60).</string>
+      <string id="DelayBackgroundDownloadFromHttp_Help">Για λήψεις στο παρασκήνιο που χρησιμοποιούν P2P, καθορίζει το χρόνο αναμονής πριν ξεκινήσει η λήψη από την προέλευση HTTP.</string>
+      <string id="DelayForegroundDownloadFromHttp">Καθυστέρηση λήψης προσκηνίου από http (σε δευτερόλεπτα)</string>
+      <string id="DelayForegroundDownloadFromHttp_Help">Για λήψεις στο προσκήνιο που χρησιμοποιούν P2P, καθορίζει το χρόνο αναμονής πριν ξεκινήσει η λήψη από την προέλευση HTTP.</string>
       <string id="DelayCacheServerFallbackBackground">Καθυστέρηση επιστροφής από διακομιστή cache για λήψη στο παρασκήνιο (σε δευτερόλεπτα)</string>
-      <string id="DelayCacheServerFallbackBackground_Help">Ορίστε αυτή την πολιτική για να καθυστερήσετε την επιστροφή από τον διακομιστή cache στην προέλευση HTTP για μια λήψη περιεχομένου στο παρασκήνιο κατά X δευτερόλεπτα. 
-
-Σημείωση: αν ορίσετε την πολιτική για να καθυστερήσετε τη λήψη στο παρασκήνιο από http, θα εφαρμοστεί πρώτα (για να επιτρέπονται οι λήψεις από ομότιμα συστήματα πρώτα).</string>
+      <string id="DelayCacheServerFallbackBackground_Help">Για λήψεις στο παρασκήνιο που χρησιμοποιούν διακομιστή cache, καθορίζει το χρόνο αναμονής πριν την επιστροφή για λήψη από την αρχική προέλευση HTTP.</string>
       <string id="DelayCacheServerFallbackForeground">Καθυστέρηση επιστροφής από διακομιστή cache για λήψη στο προσκήνιο (σε δευτερόλεπτα)</string>
-      <string id="DelayCacheServerFallbackForeground_Help">Ορίστε αυτή την πολιτική για να καθυστερήσετε την επιστροφή από τον διακομιστή cache στην προέλευση HTTP για μια λήψη περιεχομένου στο προσκήνιο κατά X δευτερόλεπτα. 
-
-Σημείωση: αν ορίσετε την πολιτική για να καθυστερήσετε τη λήψη στο προσκήνιο από http, θα εφαρμοστεί πρώτα (για να επιτρέπονται οι λήψεις από ομότιμα συστήματα πρώτα).</string>
+      <string id="DelayCacheServerFallbackForeground_Help">Για λήψεις στο προσκήνιο που χρησιμοποιούν διακομιστή cache, καθορίζει το χρόνο αναμονής πριν την επιστροφή για λήψη από την αρχική προέλευση HTTP.</string>
       <string id="RestrictPeerSelectionBy">Επιλέξτε μια μέθοδο για να περιορίσετε την επιλογή ομότιμων</string>
-      <string id="RestrictPeerSelectionBy_Help">Ορίστε αυτήν την πολιτική για να περιορίσετε την επιλογή ομότιμου μέσω της επιλογής. 
-      
-Οι διαθέσιμες επιλογές είναι: 
-1 = μάσκα υποδικτύου (περισσότερες επιλογές θα προστεθούν σε μελλοντική έκδοση). 
-      
-Η επιλογή 1 (μάσκα υποδικτύου) εφαρμόζεται στη λειτουργία λήψης LAN (1) και στην ομάδα (2).</string>
+      <string id="RestrictPeerSelectionBy_Help">Καθορίζει τον περιορισμό της επιλογής ομότιμου χρησιμοποιώντας την επιλεγμένη μέθοδο, εκτός από την πολιτική DownloadMode.
+
+0 = Κανένα
+1 = Μάσκα υποδικτύου
+2 = Τοπικός εντοπισμός (DNS-SD)</string>
       <string id="RestrictPeerSelectionBy_None">Καμία</string>
-      <string id="RestrictPeerSelectionBy_Subnet">Υποδίκτυο</string>
+      <string id="RestrictPeerSelectionBy_Subnet">Μάσκα υποδικτύου</string>
+      <string id="RestrictPeerSelectionBy_LinkLocal">Τοπικός εντοπισμός (DNS-SD)</string>
       <string id="SetHoursToLimitBackgroundDownloadBandwidth">Ορισμός εργάσιμων ωρών για τον περιορισμό του εύρους ζώνης λήψης στο παρασκήνιο</string>
       <string id="SetHoursToLimitBackgroundDownloadBandwidth_Help">Καθορίζει το μέγιστο εύρος ζώνης λήψης στο παρασκήνιο που χρησιμοποιεί η Βελτιστοποίηση παράδοσης κατά τη διάρκεια και εκτός των εργάσιμων ωρών, σε όλες τις ταυτόχρονες δραστηριότητες λήψης ως ποσοστό του διαθέσιμου εύρους ζώνης λήψης.</string>
       <string id="SetHoursToLimitForegroundDownloadBandwidth">Ορισμός εργάσιμων ωρών για τον περιορισμό του εύρους ζώνης λήψης στο προσκήνιο</string>
@@ -194,6 +123,8 @@
       <string id="Time11PM">11 μ.μ.</string>
       <string id="Time12AM">12 π.μ.</string>
       <string id="Time12PM">12 μ.μ.</string>
+      <string id="VpnKeywords">Λέξεις-κλειδιά VPN</string>
+      <string id="VpnKeywords_Help">Καθορίζει μία ή περισσότερες λέξεις-κλειδιά που χρησιμοποιούνται για την αναγνώριση συνδέσεων VPN. Για να προσθέσετε πολλές λέξεις-κλειδιά, διαχωρίστε τις με κόμμα.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DownloadMode">
@@ -204,96 +135,86 @@
           <label>Αναγνωριστικό ομάδας:</label>
         </textBox>
       </presentation>
-      <presentation id="MaxUploadBandwidth">
-        <decimalTextBox defaultValue="0" refId="MaxUploadBandwidth">Μέγιστο εύρος ζώνης αποστολής (σε KB/s):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (απεριόριστο)</text>
-      </presentation>
       <presentation id="MaxCacheSize">
         <decimalTextBox defaultValue="20" refId="MaxCacheSize">Μέγ. μέγεθος cache (ποσοστό):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 20%</text>
       </presentation>
       <presentation id="AbsoluteMaxCacheSize">
         <decimalTextBox defaultValue="10" refId="AbsoluteMaxCacheSize">Απόλυτο μέγιστο μέγεθος cache (GB):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 10 GB</text>
       </presentation>
       <presentation id="MaxCacheAge">
-        <decimalTextBox defaultValue="259200" refId="MaxCacheAge">Μέγ. ηλικία cache (σε δευτερόλεπτα):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 3 ημέρες</text>
+        <decimalTextBox defaultValue="604800" refId="MaxCacheAge">Μέγ. ηλικία cache (σε δευτερόλεπτα):</decimalTextBox>
       </presentation>
       <presentation id="MonthlyUploadDataCap">
-        <decimalTextBox defaultValue="20" refId="MonthlyUploadDataCap">Μηνιαίο όριο αποστολής δεδομένων (GB):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 20 GB</text>
+        <decimalTextBox defaultValue="5120" refId="MonthlyUploadDataCap">Μηνιαίο όριο αποστολής δεδομένων (GB):</decimalTextBox>
       </presentation>
       <presentation id="MinBackgroundQos">
-        <decimalTextBox defaultValue="500" refId="MinBackgroundQos">Ελάχιστη ποιότητα υπηρεσίας παρασκηνίου (KB/s):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 500 KB/δευτ.</text>
+        <decimalTextBox defaultValue="20480" refId="MinBackgroundQos">Ελάχιστη ποιότητα υπηρεσίας παρασκηνίου (KB/s):</decimalTextBox>
       </presentation>
       <presentation id="ModifyCacheDrive">
         <textBox refId="ModifyCacheDrive">
           <label>Τροποποίηση μονάδας δίσκου cache:</label>
         </textBox>
       </presentation>
-      <presentation id="MaxDownloadBandwidth">
-        <decimalTextBox defaultValue="0" refId="MaxDownloadBandwidth">Μέγιστο όριο εύρους ζώνης λήψης (KB/s):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (απεριόριστο)</text>
+      <presentation id="MaxBackgroundDownloadBandwidth">
+        <decimalTextBox defaultValue="0" refId="MaxBackgroundDownloadBandwidth">Μέγιστο εύρος ζώνης λήψης στο παρασκήνιο (σε KB/δευτ.):</decimalTextBox>
       </presentation>
-      <presentation id="PercentageMaxDownloadBandwidth">
-        <decimalTextBox defaultValue="0" refId="PercentageMaxDownloadBandwidth">Μέγιστο όριο εύρους ζώνης λήψης (ποσοστό):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (απεριόριστο)</text>
+      <presentation id="MaxForegroundDownloadBandwidth">
+        <decimalTextBox defaultValue="0" refId="MaxForegroundDownloadBandwidth">Μέγιστο εύρος ζώνης λήψης στο προσκήνιο (σε KB/δευτ.):</decimalTextBox>
       </presentation>
       <presentation id="PercentageMaxBackgroundBandwidth">
         <decimalTextBox defaultValue="0" refId="PercentageMaxBackgroundBandwidth">Μέγιστο εύρος ζώνης λήψης στο παρασκήνιο (ποσοστό):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (απεριόριστο)</text>
       </presentation>
       <presentation id="PercentageMaxForegroundBandwidth">
         <decimalTextBox defaultValue="0" refId="PercentageMaxForegroundBandwidth">Μέγιστο εύρος ζώνης λήψης στο προσκήνιο (ποσοστό):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (απεριόριστο)</text>
       </presentation>
       <presentation id="MinFileSizeToCache">
-        <decimalTextBox defaultValue="100" refId="MinFileSizeToCache">Ελάχιστο μέγεθος αρχείου περιεχομένου cache ομότιμου (σε MB):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 100 MB</text>
+        <decimalTextBox defaultValue="100" refId="MinFileSizeToCache">Ελάχιστο μέγεθος αρχείου περιεχομένου P2P (σε MB):</decimalTextBox>
       </presentation>
       <presentation id="AllowVPNPeerCaching">
-        <checkBox defaultChecked="false" refId="AllowVPNPeerCaching">Ενεργοποίηση cache ομότιμου όταν η συσκευή συνδέεται μέσω VPN</checkBox>
+        <checkBox defaultChecked="false" refId="AllowVPNPeerCaching">Ενεργοποίηση P2P ενώ η συσκευή συνδέεται μέσω VPN</checkBox>
       </presentation>
       <presentation id="MinRAMAllowedToPeer">
-        <decimalTextBox defaultValue="4" refId="MinRAMAllowedToPeer">Ελάχιστη απαιτούμενη χωρητικότητα RAM (συνολική) για την ενεργοποίηση χρήσης cache ομότιμου (σε GB):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 4 GB</text>
+        <decimalTextBox defaultValue="4" refId="MinRAMAllowedToPeer">Ελάχιστη απαιτούμενη χωρητικότητα RAM (συνολική) για την ενεργοποίηση χρήσης P2P (σε GB):</decimalTextBox>
       </presentation>
       <presentation id="MinDiskSizeAllowedToPeer">
-        <decimalTextBox defaultValue="32" refId="MinDiskSizeAllowedToPeer">Ελάχιστος επιτρεπόμενος χώρος στο δίσκο για τη χρήση cache ομότιμου (σε GB):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 32 GB</text>
+        <decimalTextBox defaultValue="32" refId="MinDiskSizeAllowedToPeer">Ελάχιστο μέγεθος δίσκου που επιτρέπεται να χρησιμοποιεί P2P (σε GB):</decimalTextBox>
       </presentation>
       <presentation id="MinBatteryPercentageAllowedToUpload">
         <decimalTextBox defaultValue="0" refId="MinBatteryPercentageAllowedToUpload">Ελάχιστο επίπεδο μπαταρίας (ποσοστό):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (απεριόριστη)</text>
       </presentation>
       <presentation id="CacheHost">
         <textBox refId="CacheHost">
           <label>Cache διακομιστή:</label>
         </textBox>
       </presentation>
+      <presentation id="CacheHostSource">
+        <dropdownList defaultItem="0" noSort="true" refId="CacheHostSource">Προέλευση κεντρικού υπολογιστή διακομιστή cache:</dropdownList>
+      </presentation>
+      <presentation id="DisallowCacheServerDownloadsOnVPN">
+        <checkBox defaultChecked="false" refId="DisallowCacheServerDownloadsOnVPN">Να μην επιτρέπεται η λήψη από MCC μέσω VPN</checkBox>
+      </presentation>
       <presentation id="GroupIdSource">
-        <dropdownList defaultItem="0" noSort="true" refId="GroupIdSource">Προέλευση των αναγνωριστικών ομάδας:</dropdownList>        
+        <dropdownList defaultItem="0" noSort="true" refId="GroupIdSource">Προέλευση των αναγνωριστικών ομάδας:</dropdownList>
       </presentation>
       <presentation id="DelayBackgroundDownloadFromHttp">
         <decimalTextBox defaultValue="0" refId="DelayBackgroundDownloadFromHttp">Καθυστέρηση λήψης στο παρασκήνιο από http (σε δευτερόλεπτα):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (χωρίς καθυστέρηση)</text>
       </presentation>
       <presentation id="DelayForegroundDownloadFromHttp">
         <decimalTextBox defaultValue="0" refId="DelayForegroundDownloadFromHttp">Καθυστέρηση λήψης στο προσκήνιο από http (σε δευτερόλεπτα):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (χωρίς καθυστέρηση)</text>
       </presentation>
       <presentation id="DelayCacheServerFallbackBackground">
         <decimalTextBox defaultValue="0" refId="DelayCacheServerFallbackBackground">Καθυστέρηση επιστροφής από διακομιστή cache για λήψη στο παρασκήνιο (σε δευτερόλεπτα):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (χωρίς καθυστέρηση)</text>
       </presentation>
       <presentation id="DelayCacheServerFallbackForeground">
         <decimalTextBox defaultValue="0" refId="DelayCacheServerFallbackForeground">Καθυστέρηση επιστροφής από διακομιστή cache για λήψη στο προσκήνιο (σε δευτερόλεπτα):</decimalTextBox>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (χωρίς καθυστέρηση)</text>
       </presentation>
       <presentation id="RestrictPeerSelectionBy">
-        <dropdownList defaultItem="0" noSort="true" refId="RestrictPeerSelectionBy">Περιορισμός επιλογής ομότιμου από:</dropdownList>
+        <dropdownList defaultItem="1" noSort="true" refId="RestrictPeerSelectionBy">Περιορισμός επιλογής ομότιμου από:</dropdownList>
+      </presentation>
+      <presentation id="VpnKeywords">
+        <textBox refId="VpnKeywords">
+          <label>Λέξεις-κλειδιά VPN:</label>
+        </textBox>
       </presentation>
       <presentation id="SetHoursToLimitBackgroundDownloadBandwidth">
         <text/>
@@ -303,11 +224,9 @@
         <text/>
         <text>Μέγιστο εύρος ζώνης λήψης στο παρασκήνιο (ποσοστό) κατά τις εργάσιμες ώρες:</text>
         <decimalTextBox defaultValue="0" refId="SetHoursToLimitBackgroundDownloadBandwidthIn"/>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (απεριόριστη)</text>
         <text/>
         <text>Μέγιστο εύρος ζώνης λήψης στο παρασκήνιο (ποσοστό) εκτός των εργάσιμων ωρών:</text>
         <decimalTextBox defaultValue="0" refId="SetHoursToLimitBackgroundDownloadBandwidthOut"/>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (απεριόριστη)</text>
       </presentation>
       <presentation id="SetHoursToLimitForegroundDownloadBandwidth">
         <text/>
@@ -317,11 +236,9 @@
         <text/>
         <text>Μέγιστο εύρος ζώνης λήψης στο προσκήνιο (ποσοστό) κατά τις εργάσιμες ώρες:</text>
         <decimalTextBox defaultValue="0" refId="SetHoursToLimitForegroundDownloadBandwidthIn"/>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (απεριόριστη)</text>
         <text/>
         <text>Μέγιστο εύρος ζώνης λήψης στο προσκήνιο (ποσοστό) εκτός των εργάσιμων ωρών:</text>
         <decimalTextBox defaultValue="0" refId="SetHoursToLimitForegroundDownloadBandwidthOut"/>
-        <text>Η προεπιλεγμένη τιμή είναι 0 (απεριόριστη)</text>
       </presentation>
     </presentationTable>
   </resources>

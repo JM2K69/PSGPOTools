@@ -108,11 +108,13 @@ Questa impostazione dei criteri sostituisce tutte le impostazioni utente relativ
 
 Vedere anche le impostazioni dei criteri "Configura Segnalazione errori", "Visualizza notifica errori" e "Disabilita Segnalazione errori Windows" in Configurazione computer/Modelli amministrativi/Componenti di Windows/Segnalazione errori Windows.</string>
       <string id="RemoveWindowsUpdate_ICM">Disattiva accesso a tutte le funzionalità di Windows Update</string>
-      <string id="RemoveWindowsUpdate_ICM_Help">Questa impostazione dei criteri consente di rimuovere l'accesso a Windows Update.
+      <string id="RemoveWindowsUpdate_ICM_Help">Questa impostazione dei criteri ti consente di rimuovere l'accesso a Windows Update.
 
-Se si abilita questa impostazione dei criteri, tutte le funzionalità di Windows Update verranno rimosse. Non sarà più possibile accedere al sito Web Windows Update all'indirizzo http://windowsupdate.microsoft.com né utilizzando il collegamento Windows Update nel menu Start né utilizzando il menu Strumenti in Internet Explorer. Verrà inoltre disabilitata la funzione di aggiornamento automatico di Windows, non verranno inviate notifiche della disponibilità di aggiornamenti critici e gli aggiornamenti non verranno installati. Questa impostazione dei criteri impedisce inoltre l'installazione automatica degli aggiornamenti dei driver dal sito Web Windows Update tramite Gestione dispositivi.
+Se abiliti questa impostazione dei criteri, tutte le funzionalità di Windows Update verranno rimosse. Non sarà più possibile accedere al sito Windows Update all'indirizzo http://windowsupdate.microsoft.com né utilizzando il collegamento Windows Update nel menu Start né utilizzando il menu Strumenti in Internet Explorer. Verrà inoltre disabilitata la funzione di aggiornamento automatico di Windows, non verranno inviate notifiche della disponibilità di aggiornamenti critici e gli aggiornamenti non verranno installati. Questa impostazione dei criteri impedisce inoltre l'installazione automatica degli aggiornamenti dei driver dal sito Windows Update tramite Gestione dispositivi.
 
-Se si disabilita o non si configura questa impostazione dei criteri, gli utenti potranno accedere al sito Web Windows Update e abilitare gli aggiornamenti automatici per ricevere notifiche e aggiornamenti critici da Windows Update.</string>
+Se si disabilita o non si configura questa impostazione dei criteri, gli utenti potranno accedere al sito Windows Update e abilitare gli aggiornamenti automatici per ricevere notifiche e aggiornamenti critici da Windows Update.
+
+Nota: questi criteri si applicano solo quando il computer è configurato per la connessione a un servizio di aggiornamento Intranet mediante "Specifica il percorso del servizio di aggiornamento Microsoft nella rete Intranet".</string>
       <string id="SearchCompanion_DisableFileUpdates">Disattiva aggiornamenti file contenuto Ricerca guidata</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">Questa impostazione dei criteri specifica se Ricerca guidata deve scaricare automaticamente gli aggiornamenti del contenuto durante le ricerche locali e in Internet.
 

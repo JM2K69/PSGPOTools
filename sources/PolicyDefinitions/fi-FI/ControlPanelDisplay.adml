@@ -173,6 +173,12 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, k�
 Oletusarvon mukaan käyttäjät voivat muuttaa taustakuvaa, joka näytetään koneen ollessa lukittuna sekä kirjautumisnäytössä.
 
 Jos otat tämän asetuksen käyttöön, käyttäjät eivät voi muuttaa lukitus- ja kirjautumisnäytön taustakuvaa, ja näkyvissä on oletuskuva.</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">Estä lukitusnäytön taustan liike</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">Tämä asetus määrittää, onko lukituksen näyttökuva staattinen vai onko siinä hienovarainen liukuma-efekti, joka perustuu laitteen kiihtyvyysmittarin lähtöön.
+
+Jos otat tämän asetuksen käyttöön, liike estetään, ja käyttäjälle näytetään perinteinen staattinen lukitusnäytön taustakuva.
+
+Jos poistat tämän asetuksen käytöstä (ja laitteessa on kiihtyvyysmittari), käyttäjä näkee lukitusnäytön taustan liikkuvan, kun laitetta siirretään fyysisesti.</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">Pakota tietty lukitus- ja kirjautumisnäytön oletuskuva</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">Tämän asetuksen avulla voit pakottaa tietyn lukitus- ja kirjautumisnäytön oletuskuvan kirjoittamalla kuvatiedoston polun (sijainnin). Samaa kuvaa käytetään sekä lukitus- että kirjautumisnäytössä.
 

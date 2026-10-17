@@ -220,11 +220,11 @@ Hvis du vil have vist et eksempel på standarddialogboksen Åbn, skal du starte 
 
 Bemærk! I Windows Vista gælder denne politikindstilling kun for de programmer, der bruger standarddialogboksene fra Windows XP. Politikindstillingen gælder ikke for de nye standarddialogbokse i Windows Vista. Det kræves, at tredjepartsprogrammer med certificering til Windows 2000 eller senere overholder retningslinjerne i denne indstilling.</string>
       <string id="NoRecycleFiles">Slettede filer skal ikke flyttes til Papirkurv</string>
-      <string id="NoRecycleFiles_Help">Når en fil eller mappe slettes i Stifinder, placeres der en kopi af den pågældende fil eller mappe i papirkurven. Det kan du ændre ved hjælp af denne indstilling.
+      <string id="NoRecycleFiles_Help">Når en fil eller mappe slettes i Stifinder, placeres der en kopi af filen eller mappen i papirkurven. Hvis du bruger denne indstilling, kan du ændre denne funktionsmåde.
 
-Hvis du aktiverer denne indstilling, placeres filer og mapper, som slettes ved hjælp af Stifinder, ikke først i papirkurven, men derimod slettes de permanent.
+Hvis du aktiverer denne indstilling, placeres filer og mapper, der slettes ved hjælp af Stifinder, ikke i papirkurven, og de slettes derfor permanent.
 
-Hvis du deaktiverer eller ikke konfigurerer denne indstilling, placeres filer og mapper, som slettes ved hjælp af Stifinder, i papirkurven.</string>
+Hvis du deaktiverer eller undlader at konfigurere denne indstilling, placeres filer og mapper, som slettes ved hjælp af Stifinder, i papirkurven.</string>
       <string id="NoRunAsInstallPrompt">Anmod ikke om alternative legitimationsoplysninger</string>
       <string id="NoRunAsInstallPrompt_Help">Forhindrer brugerne i at angive alternative logonoplysninger for at installere et program.
 
@@ -519,19 +519,33 @@ Hvis du aktiverer denne politikindstilling, tillades det, at ikoner til genveje 
 Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, forhindres visningen af ikoner til genveje til filer, der bruger fjernstier.
 
 Bemærk! Ved at tillade brugen af fjernstier i ikoner til genveje til filer kan brugernes computere blive udsat for sikkerhedsrisici.</string>
-      <string id="DefaultAssociationsConfiguration">Angiv standardtilknytning for konfigurationsfil</string>
-      <string id="DefaultAssociationsConfiguration_Help">Denne politik angiver stien til en fil (som enten er lagret lokalt eller på en netværksplacering), der indeholder standardprogramtilknytninger for filtype og protokol. Denne fil kan oprettes ved hjælp af DISM-værktøjet.
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Tillad, at filgruppebeskrivelseshandlinger kan skrive til enhver destinationssti</string>
+      <string id="AllowAllCopyFGDDestinations_Help">Denne politikindstilling bestemmer, om kontrol af opbevaring af stigennemgang skal gennemtvinges, når der skrives filer, der er modtaget via Udklipsholder, eller ved træk og slip-filgruppebeskrivelser (CFSTR_FILEDESCRIPTOR).
 
-Eksempel:
+Hvis du aktiverer denne politikindstilling, gennemtvinges kontrol af gennemgang af stier ikke, og filer kan skrives til enhver sti, der kan nås af destinationsmappen. Aktivér kun denne politik, hvis standardfunktionsmåden bryder en påkrævet arbejdsproces.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, gennemtvinger filgruppebeskrivelseshandlinger stiopbevaring og afviser filnavne, der forsøger at undslippe destinationsmappen via relative stikomponenter.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">Anvend ikke mærket for webmærket på filer, der er kopieret fra usikre kilder</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">Denne politikindstilling bestemmer anvendelsen af Mark of the Web-mærket på filer, der kommer fra usikre placeringer.
+
+Hvis du aktiverer denne politikindstilling, mærkes filer, der er kopieret fra usikre kilder, ikke med Mark of the Web.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, mærkes filer, der er kopieret fra usikre kilder, med det relevante Mark of the Web.
+
+Bemærk! Hvis du ikke mærker filer fra usikre kilder med Mark of the Web, kan det udsætte brugernes computere for sikkerhedsrisici.</string>
+      <string id="DefaultAssociationsConfiguration">Angiv standardtilknytning for konfigurationsfil</string>
+      <string id="DefaultAssociationsConfiguration_Help">Denne politik angiver stien til en fil (gemt lokalt eller på en netværksplacering), der indeholder filtype- og protokolstandardprogramtilknytninger. Denne fil kan oprettes ved hjælp af DISM-værktøjet.
+      
+For eksempel:
 Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-For yderligere oplysninger henvises til DISM-dokumentationen på TechNet.
+Du kan finde flere oplysninger i dokumentationen til DISM.
 
-Hvis denne gruppepolitik er aktiveret, og klientcomputeren er domænetilknyttet, vil filen blive behandlet, og standardtilknytninger vil blive anvendt ved logon.
+Filen kan redigeres yderligere, når den er oprettet, for at ændre, hvor ofte politiktilknytningerne anvendes. Der kan føjes en "Version"-attribut til elementet "DefaultAssociations". Værdien skal være et heltal. En "Foreslået"-attribut kan føjes til et "Tilknytning"-element. Værdien skal være en boolesk værdi, og standardværdien er "false". Når politikken anvendes på en bruger, anvendes alle tilknytninger, der har Suggested="true", kun én gang. Hvis versionsværdien på et tidspunkt forøges, anvendes tilknytninger med Foreslået="sand" igen.
 
-Hvis gruppepolitikken ikke er konfigureret eller er deaktiveret, eller hvis klientcomputeren ikke er domænetilknyttet, vil der ikke blive anvendt standardtilknytninger ved logon.
+Hvis denne gruppepolitik er aktiveret, og klientcomputeren er domænetilknyttet, behandles filen, og der anvendes standardtilknytninger på logontidspunktet.
 
-Hvis politikken er aktiveret, deaktiveret eller ikke konfigureret, kan brugerne stadig tilsidesætte standardtilknytninger af filtyper og protokoller.</string>
+Hvis politikken er aktiveret, kan brugerne stadig tilsidesætte standardfiltype- og protokoltilknytninger, men ved næste logon anvendes filen igen.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

@@ -55,6 +55,15 @@ Observação: esta configuração não desabilita o Active Desktop. Os usuários
 Por padrão, o usuário pode alterar o local de suas pastas de perfil individuais, como Documentos, Música, etc., digitando um novo caminho na guia Locais da caixa de diálogo Propriedades da pasta.
 
 Se você habilitar esta configuração, os usuários não poderão editar um novo local na caixa Destino.</string>
+      <string id="EnableThemeFileRemoteResource">Permitir arquivos de tema de locais de rede</string>
+      <string id="EnableThemeFileRemoteResource_Help">Essa configuração de política determina se caminhos remotos podem ser usados para recursos dentro de um arquivo de tema da área de trabalho do Windows (.theme/.themepack).
+
+Se você habilitar essa configuração de política, os arquivos de tema poderão fazer referência a recursos (como imagens, sons e ícones) localizados em compartilhamentos de rede ou em outros locais remotos. Os usuários poderão aplicar temas que contêm recursos remotos.
+
+Se você desabilitar essa configuração de política, os arquivos de tema não poderão usar os recursos remotos. Qualquer arquivo de tema que faça referência a recursos remotos não carregará esses recursos e somente os recursos locais serão exibidos.
+
+Se você não definir essa configuração de política, o comportamento padrão será bloquear os recursos remotos em arquivos de tema por motivos de segurança.</string>
+
       <string id="ForceActiveDesktopOn">Ativar Active Desktop</string>
       <string id="ForceActiveDesktopOn_Help">Habilita o Active Desktop e impede que os usuários o desabilitem.
 

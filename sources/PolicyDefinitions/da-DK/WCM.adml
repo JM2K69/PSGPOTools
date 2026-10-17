@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2006 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Gruppepolitikindstillinger for Windows Forbindelsesstyring</displayName>
   <description>Gruppepolitikindstillinger for Windows Forbindelsesstyring</description>
@@ -22,7 +22,7 @@ Forsøg på manuel forbindelse
 Hvis denne politikindstilling ikke er konfigureret, eller den er deaktiveret, har computere tilladelse til at oprette samtidig forbindelse til både domæne- og ikke-domænenetværk.
       </string>
       <string id="WCM_DisableRoaming">Forbyd forbindelse til roaming af mobile bredbåndsnetværk</string>
-      <string id="WCM_DisableRoaming_Help">Denne politikindstilling forhindrer klienter i at oprette forbindelse til mobile bredbåndsnetværk, når klienten er registreret på et roamingudbydernetværk. 
+      <string id="WCM_DisableRoaming_Help">Denne politikindstilling forhindrer klienter i at oprette forbindelse til mobile bredbåndsnetværk, når klienten er registreret på et roamingudbydernetværk.
 
 Hvis denne politikindstilling er aktiveret, blokeres alle automatiske og manuelle forsøg på forbindelse til roamingudbydernetværk, indtil klienten er registreret hos hjemmeudbydernetværket.
 
@@ -54,18 +54,18 @@ Hvis denne politikindstilling er aktiveret, får Windows Forbindelsesstyring ikk
 Hvis denne politikindstilling ikke er konfigureret, eller den er deaktiveret, aktiveres strømstyring, når computeren går i tilsluttet standbytilstand.
       </string>
       <string id="WCM_EnableSoftDisconnect">Gør det muligt for Windows at foretage en blød afbrydelse af forbindelsen til en computer fra et netværk</string>
-      <string id="WCM_EnableSoftDisconnect_Help">Denne politikindstilling bestemmer, om Windows foretager en blød afbrydelse af forbindelsen mellem en computer og et netværk.
+      <string id="WCM_EnableSoftDisconnect_Help">Denne politikindstilling bestemmer, om Windows foretager en blød afbrydelse af forbindelsen mellem en computer og et netværk..
 
-Hvis indstillingen er aktiveret eller ikke er konfigureret, foretages en blød afbrydelse af forbindelsen mellem en computer og et netværk, når Windows afgør, at computeren ikke længere skal have forbindelse til et netværk.
+Hvis denne politikindstilling er aktiveret eller ikke er konfigureret, foretages en blød afbrydelse af forbindelsen mellem en computer og et netværk, når Windows afgør, at computeren ikke længere skal have forbindelse til et netværk.
 
-Hvis politikindstillingen er deaktiveret, afbrydes forbindelsen mellem en computer og et netværk straks, når Windows afgør, at computeren ikke længere skal have forbindelse til netværket.
+Hvis politikindstillingen er deaktiveret, afbryder Windows forbindelsen mellem en computer og et netværk så snart, når Windows afgør, at computeren ikke længere skal have forbindelse til netværket.
 
 Når blød afbrydelse er aktiveret:
 - Når Windows afgør, at computeren ikke længere skal have forbindelse til et netværk, afventes, at trafikken falder til ro på dette netværk. Den eksisterende TCP-session fortsætter uden afbrydelse.
-- Derefter kontrollerer Windows trafikniveauet på netværket med jævne mellemrum. Hvis trafikniveauet er over en bestemt tærskel, udføres der ingen yderligere handling. Computeren bevarer forbindelsen til netværket og fortsætter med at bruge det. Hvis netværksforbindelsen for eksempel i øjeblikket bruges til at downloade filer fra internettet, vil filerne fortsat blive downloadet ved hjælp af denne netværksforbindelse.
-- Når netværkstrafikken falder til under denne tærskelværdi, afbrydes computerens forbindelse til netværket. Apps, der bevarer en netværksforbindelse aktiv, også selvom de ikke bruger den aktivt (for eksempel mailapps) risikerer at miste forbindelsen. Hvis dette sker, skal disse apps genoprette deres forbindelse via et andet netværk. 
+- Derefter kontrollerer Windows trafikniveauet på netværket med jævne mellemrum. Hvis trafikniveauet er over en bestemt grænse, udføres der ingen yderligere handling. Computeren bevarer forbindelsen til netværket og fortsætter med at bruge det. Hvis netværksforbindelsen f.eks. i øjeblikket bruges til at downloade filer fra internettet, vil filerne fortsat blive downloadet ved hjælp af denne netværksforbindelse.
+- Når netværkstrafikken falder til under denne grænse, afbrydes computerens forbindelse til netværket. Apps, der bevarer en netværksforbindelse aktiv, også selvom de ikke bruger den aktivt (for eksempel mailapps) risikerer at miste forbindelsen. Hvis dette sker, skal disse apps genoprette deres forbindelse via et andet netværk.
 
-Politikindstillingen, afhænger af andre indstillinger for gruppepolitik. Hvis "Minimer antallet af samtidige forbindelser til internettet eller et Windows-domæne" for eksempel er deaktiveret, vil Windows ikke afbryde forbindelsen til noget netværk.
+Denne politikindstilling afhænger af andre indstillinger for gruppepolitik. Hvis "Minimer antallet af samtidige forbindelser til internettet eller et Windows-domæne" f.eks. er deaktiveret, vil Windows ikke afbryde forbindelsen til noget netværk.
       </string>
     </stringTable>
     <presentationTable>

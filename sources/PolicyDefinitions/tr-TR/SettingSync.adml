@@ -119,6 +119,51 @@ Bu ayarı ayarlamaz veya devre dışı bırakmazsanız, tarifeli bağlantılarda
         Bu ayarı ayarlamaz veya devre dışı bırakmazsanız, "Başlangıç ekranı düzeni" grubunun eşitlenmesi varsayılan olarak açıktır ve kullanıcı tarafından yapılandırılabilir.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">Erişilebilirlik ayarlarınızı eşitlemeyin</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        "Erişilebilirlik" grubunun bu bilgisayarla ve bu bilgisayardan eşitlenmesini önle. Bu, kişisel bilgisayar ayarlarındaki “Windows Yedekleme” ayarları sayfasındaki “erişilebilirlik” grubunu kapatır ve devre dışı bırakır.
+
+Bu ilke ayarını etkinleştirirseniz “erişilebilirlik” grubu eşitlenmez.
+
+Eşitlemenin varsayılan olarak kapalı olması ancak devre dışı bırakılmaması için “Kullanıcıların erişilebilirlik eşitlemesini açmasına izin ver” seçeneğini kullanın.
+
+Bu ayarı yapmaz veya devre dışı bırakmazsanız “erişilebilirlik” grubunun eşitlenmesi varsayılan olarak açıktır ve kullanıcı tarafından yapılandırılabilir.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">Dil tercihleri ayarlarını eşitleme</string>
+      <string id="DisableLanguageSettingSync_Help">
+        "Dil tercihleri" grubunun bu bilgisayarla ve bu bilgisayardan eşitlenmesini önle. Bu, kişisel bilgisayar ayarlarındaki “Windows Yedekleme” ayarları sayfasındaki “dil tercihleri” grubunu kapatır ve devre dışı bırakır.
+
+Bu ilke ayarını etkinleştirirseniz “dil tercihleri” grubu eşitlenmez.
+
+Eşitlemenin varsayılan olarak kapalı olması ancak devre dışı bırakılmaması için “Kullanıcıların dil tercihleri eşitlemesini açmasına izin ver” seçeneğini kullanın.
+
+Bu ayarı yapmaz veya devre dışı bırakmazsanız “dil tercihleri” grubunun eşitlenmesi varsayılan olarak açıktır ve kullanıcı tarafından yapılandırılabilir.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Windows Yedekleme’yi etkinleştir</string>
+      <string id="EnableWindowsBackup_Help">Bu ilke ayarı, yöneticilerin kuruluşları için Windows ayarları yedeklemesini yapılandırmalarına ve yönetmelerine olanak tanır.
+
+Bu ilke ayarını etkinleştirirseniz, Windows ayarları yedeklemesi düzenli aralıklarla gerçekleşir.
+
+Bu ilke ayarını devre dışı bırakırsanız, Windows ayarlarını yedekleme gerçekleşmez.
+
+Bu ilke ayarı yapılandırılmazsa, uygunluğa bağlı olarak Windows ayarları yedeklemesi düzenli aralıklarla gerçekleştirilir.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Windows Geri Yükleme Özelliğini Etkinleştir</string>
+      <string id="EnableWindowsRestore_Help">Bu ilke ayarı, yöneticilerin kuruluşları için Windows ayarlarını geri yükleme özelliğini yapılandırmalarına ve yönetmelerine olanak sağlar.
+
+Bu ilke ayarını etkinleştirirseniz Windows ayarları geri yükleme özelliği etkinleştirilir.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Windows ayarları geri yükleme özelliği devre dışı bırakılır.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Bu ayarı ayarlamaz veya devre dışı bırakmazsanız, tarifeli bağlantılarda
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">Kullanıcıların "Başlangıç ekranı düzeni" eşitlemeyi açmasına izin ver.</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Kullanıcıların "erişilebilirlik" eşitlemesini açmasına izin verin.</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Kullanıcıların "dil tercihleri" eşitlemeyi açmasına izin ver.</checkBox>
       </presentation>
 
     </presentationTable>

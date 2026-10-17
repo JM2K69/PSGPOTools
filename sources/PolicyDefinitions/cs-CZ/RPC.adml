@@ -27,9 +27,9 @@ Rozšířené informace o chybě obsahují místní čas výskytu chyby, verzi s
 
 Pokud nastavení této zásady zakážete, generuje služba RPC Runtime pouze stavový kód, který zobrazuje chybový stav.
 
-Pokud nastavení této zásady nenakonfigurujete, zůstane zakázáno.  Vygeneruje se pouze stavový kód, který označuje chybový stav.
+Pokud nastavení této zásady nenakonfigurujete, zůstane zakázáno. Vygeneruje se pouze stavový kód, který označuje chybový stav.
 
-Pokud nastavení této zásady povolíte, bude služba RPC Runtime generovat rozšířené informace o chybě.  Z rozevíracího seznamu je třeba vybrat typ reakce na chybu.
+Pokud nastavení této zásady povolíte, bude služba RPC Runtime generovat rozšířené informace o chybě. Z rozevíracího seznamu je třeba vybrat typ reakce na chybu.
 
 – Možnost Vypnuto zakáže všechny rozšířené informace o chybě u všech procesů. Vzdálené volání procedur bude generovat pouze kód chyby.
 

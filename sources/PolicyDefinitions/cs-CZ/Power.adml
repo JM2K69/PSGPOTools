@@ -296,6 +296,8 @@ Pokud toto nastavení zásad nenakonfigurujete, budou moct toto nastavení říd
 Pokud nastavení této zásady povolíte, omezování výkonu se vypne.
 
 Pokud nastavení této zásady zakážete nebo nenakonfigurujete, je toto nastavení řízeno uživateli.</string>
+      <string id="EnableEnergySaver">Povolit, aby byl spořič energie vždy zapnutý</string>
+      <string id="EnableEnergySaverExplain">Tato zásada prodlouží výdrž baterie a sníží spotřebu energie tím, že povolí spořič energie, aby byl vždy zapnutý. </string>
     </stringTable>
     <presentationTable>
       <presentation id="ACHibernateTimeOut_1">

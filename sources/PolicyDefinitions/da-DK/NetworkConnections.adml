@@ -49,10 +49,10 @@ Bemærk! Ikke-administratorer (gælder ikke for netværkskonfigurationsoperatør
 Tip! Hvis du vil åbne dialogboksen Avanceret TCP/IP-indstilling, skal du højreklikke på et forbindelsesikon i mappen Netværksforbindelser og klikke på Egenskaber. For fjernadgangsforbindelser skal du klikke på fanen Netværk.  Klik på Internetprotokol (TCP/IP) i boksen De markerede komponenter anvendes af denne forbindelse, klik på knappen Egenskaber, og klik derefter på knappen Avanceret.
 
 Bemærk! Ændring af denne indstilling fra Aktiveret til Ikke konfigureret aktiverer ikke knappen Avanceret, før brugeren logger af.</string>
-      <string id="NC_AllowNetBridge_NLA">Forbyd installation og konfiguration af netværksbro på DNS-domænenetværket</string>
+      <string id="NC_AllowNetBridge_NLA">Forbyd installation og konfiguration af netværksbro på dit netværk.</string>
       <string id="NC_AllowNetBridge_NLA_Help">Fastslår, om en bruger kan installere og konfigurere netværksbroen.
 
-Vigtigt! Indstillingen er afhængig af placeringen. Den kan kun anvendes, når en computer har forbindelse til det samme DNS-domænenetværk, som den havde forbindelse til, da indstillingen blev opdateret på computeren. Indstillingen anvendes ikke, hvis en computer har forbindelse til et andet DNS-domænenetværk, end det var forbundet til, da indstillingen blev opdateret.
+Vigtigt! Denne indstilling er lokalitetsafhængig på AD-domænetilknyttede enheder. Den kan kun anvendes, når en computer har forbindelse til det samme DNS-domænenetværk, som den havde forbindelse til, da indstillingen blev opdateret på computeren. Indstillingen anvendes ikke, hvis en computer har forbindelse til et andet DNS-domænenetværk, end det var forbundet til, da indstillingen blev opdateret. På Entra-tilknyttede enheder gælder denne indstilling for alle netværk.
 
 Med netværksbroen kan brugere oprette en layer 2-MAC-bro med mulighed for at forbinde to eller flere netværkssegmenter. Forbindelsen vises i mappen Netværksforbindelser.
 

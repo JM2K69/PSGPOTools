@@ -297,6 +297,8 @@ Bu ilke ayarını yapılandırmazsanız, kullanıcılar bu ayarı kontrol edebil
 Bu ilke ayarını etkinleştirirseniz, Güç Azaltma kapatılacaktır.
 
 Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, bu ayarı kullanıcılar denetler.</string>
+      <string id="EnableEnergySaver">Enerji Tasarrufunu Her Zaman Açık Tutmayı Etkinleştir</string>
+      <string id="EnableEnergySaverExplain">Bu ilke Enerji Tasarrufu'nun her zaman açık tutulmasını etkinleştirerek pil ömrünü uzatır ve enerji tüketimini azaltır. </string>
     </stringTable>
     <presentationTable>
       <presentation id="ACHibernateTimeOut_1">

@@ -110,9 +110,11 @@ Ayrıca bkz: Bilgisayar Yapılandırması/Yönetim Şablonları/Windows Bileşen
       <string id="RemoveWindowsUpdate_ICM">Tüm Windows Update özelliklerine erişimi kapat</string>
       <string id="RemoveWindowsUpdate_ICM_Help">Bu ilke ayarı, Windows Update erişimini kaldırmanıza olarak tanır.
 
-Bu ilke ayarını etkinleştirirseniz tüm Windows Update özellikleri kaldırılır. Bu, Başlat menüsündeki Windows Update köprüsünden ve ayrıca Internet Explorer'ın Araçlar menüsünden, http://windowsupdate.microsoft.com adresindeki Windows Update web sitesine erişimi engellemeyi de kapsar. Windows'un otomatik güncelleştirilmesi de devre dışı bırakılır; Windows Update'ten önemli güncelleştirmeleri alamazsınız ve önemli güncelleştirmeler çıktığında bilgilendirilmezsiniz. Bu ilke ayarı, Aygıt Yöneticisi'nin Windows Update web sitesinden sürücü güncelleştirmelerini otomatik olarak yüklemesini de engeller.
+Bu ilke ayarını etkinleştirirseniz tüm Windows Update özellikleri kaldırılır. Bu, Başlat menüsündeki Windows Update köprüsünden ve ayrıca Internet Explorer'ın Araçlar menüsünden, http://windowsupdate.microsoft.com adresindeki Windows Update web sitesine erişimi engellemeyi de kapsar. Windows'un otomatik güncelleştirilmesi de devre dışı bırakılır; Windows Update'ten önemli güncelleştirmeleri alamazsınız ve önemli güncelleştirmeler çıktığında bilgilendirilmezsiniz. Bu ilke ayarı, Cihaz Yöneticisi'nin Windows Update web sitesinden sürücü güncelleştirmelerini otomatik olarak yüklemesini de engeller.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kullanıcılar Windows Update web sitesine erişebilir ve Windows Update'den bildirimlerle önemli güncelleştirmeleri almak için otomatik güncelleştirmeyi etkinleştirebilirler.</string>
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kullanıcılar, Windows Update web sitesine erişebilir ve Windows Update'den bildirimler ile önemli güncelleştirmeleri almak için otomatik güncelleştirmeyi etkinleştirebilirler.
+
+Not: Bu ilke, yalnızca bu bilgisayarın "İntranet Microsoft güncelleştirme hizmeti konumunu belirt" ilkesini kullanarak bir intranet güncelleştirme hizmetine bağlanacak şekilde yapılandırıldığı durumlarda uygulanır.</string>
       <string id="SearchCompanion_DisableFileUpdates">Arama Yardımcısı içerik dosyası güncelleştirmelerini kapat</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">Bu ilke ayarı, Arama Yardımcısı'nın yerel aramalar veya Internet aramaları sırasında içerik güncelleştirmelerini otomatik olarak indirip indirmeyeceğini belirtir.
 

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>skriv inn visningsnavn her</displayName>
+  <description>skriv inn beskrivelse her</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Sikker oppstart</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Sertifikatdistribusjon via styrt funksjonsutrulling</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">For bedrifter som ønsker hjelp til å distribuere de nye Secure Boot-sertifikatene til enhetene sine, kan denne innstillingen aktiveres.
+
+ 
+
+Obs! Enheten må sende nødvendige diagnosedata til Microsoft for å kunne bruke denne funksjonen.
+
+ 
+
+Hvis du vil ha mer informasjon, kan du se: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Automatisk sertifikatdistribusjon via oppdateringer</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">Når det gjelder enheter der testresultatene er tilgjengelige, som angir at enheten kan behandle sertifikatoppdateringene, startes oppdateringene automatisk som en del av vedlikeholdsoppdateringene. Denne policyen er aktivert som standard. For virksomheter som ønsker å administrere automatisk oppdatering, kan du bruke denne policyen til eksplisitt å aktivere eller deaktivere funksjonen.
+
+ 
+
+Hvis du vil ha mer informasjon, kan du se: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Aktiver distribusjon av sertifikat for sikker oppstart</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Med denne policyinnstillingen kan du aktivere eller deaktivere distribusjonsprosessen for sertifikat for sikker oppstart på enheter. Når den er aktivert, starter Windows automatisk sertifikatdistribusjonsprosessen til enheter der denne policyen er brukt. 
+
+ 
+
+Obs! Denne registerinnstillingen er ikke lagret i en policynøkkel, og dette regnes som en innstilling. Hvis gruppepolicyobjektet som implementerer denne innstillingen, fjernes, blir derfor denne registerinnstillingen værende. 
+
+ 
+
+Obs! Windows-oppgaven som kjører og behandler denne innstillingen, kjører hver 12. time. I noen tilfeller vil oppdateringene holdes til systemet startes på nytt for å sikre sekvensering av oppdateringene. 
+
+ 
+
+Obs! Når sertifikatene er brukt på fastvaren, kan du ikke angre dem fra Windows. Hvis det er nødvendig å fjerne sertifikatene, må det gjøres fra fastvaremenygrensesnittet. 
+
+ 
+
+Hvis du vil ha mer informasjon, kan du se: https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Begrens nødvendige servicedata for Sikker oppstart</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Denne policyinnstillingen styrer om operativsystemet genererer den daglige Sikker oppstart‑hendelsen for påkrevde tjenester. Hendelsen inneholder informasjon om enhetens Sikker oppstart-konfigurasjon og tilstanden til fastvarevariabler, og sendes vanligvis uavhengig av nivået for diagnosedata i Tillat telemetri, fordi den er klassifisert som sikkerhetskrav.
+
+ 
+
+Hvis du aktiverer denne policyinnstillingen, blir ikke den daglige tjenestedatahendelsen som kreves for Sikker oppstart, sendt. Dette er ment for virksomheter som kjører under Windows Restricted Traffic Limited Functionality Baseline.
+
+ 
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, fortsetter operativsystemet å sende tjenestedatahendelsen som kreves for Sikker oppstart, i tråd med de gjeldende reglene for telemetritillatelse.</string>
+
+      <string id="SUPPORTED_Windows8">Minst Windows Server 2012, Windows 8 eller Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

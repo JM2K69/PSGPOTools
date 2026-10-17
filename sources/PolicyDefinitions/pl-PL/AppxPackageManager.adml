@@ -2,19 +2,27 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>Menedżer pakietów Appx</displayName> 
+  <displayName>Menedżer pakietów Appx</displayName>
   <description>Menedżer pakietów Appx</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">Wdrażanie pakietów aplikacji</string>
       <string id="AppxDeploymentAllowAllTrustedApps">Zezwalaj na instalowanie wszystkich aplikacji zaufanych</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">To ustawienie zasad umożliwia zarządzanie instalacją zaufanych aplikacji firmowych (LOB) lub aplikacji podpisanych przez dewelopera ze Sklepu Windows.
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">To ustawienie zasad umożliwia zarządzanie instalacją zaufanych aplikacji biznesowych (LOB) lub aplikacji ze sklepu Microsoft Store podpisanych przez dewelopera.
 
-Jeśli to ustawienie zasad zostanie włączone, będzie można zainstalować dowolną aplikację firmową (LOB) lub aplikację podpisaną przez dewelopera ze Sklepu Windows (musi ona być podpisana przy użyciu łańcucha certyfikatów, który komputer lokalny może pomyślnie zweryfikować).
+Jeśli włączysz to ustawienie zasad lub go nie skonfigurujesz, możesz instalować dowolną biznesową (LOB) lub podpisaną przez dewelopera spakowaną aplikację ze sklepu Microsoft Store (podpisaną przy użyciu łańcucha certyfikatów, który można pomyślnie zweryfikować na komputerze lokalnym).
 
-Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, nie będzie można instalować aplikacji firmowych (LOB) ani aplikacji podpisanych przez dewelopera ze Sklepu Windows.</string>
+Jeśli wyłączysz to ustawienie zasad, nie będzie można instalować biznesowych (LOB) ani podpisanych przez dewelopera spakowanych aplikacji ze sklepu Microsoft Store.</string>
+      <string id="AllowAutomaticAppArchiving">Archiwizuj rzadko używane aplikacje</string>
+      <string id="AllowAutomaticAppArchivingExplanation">To ustawienie zasad określa, czy w systemie mogą być archiwizowane rzadko używane aplikacje.
+
+Jeśli to ustawienie zasad zostanie włączone, system będzie okresowo sprawdzać i archiwizować rzadko używane aplikacje.
+
+Jeśli to ustawienie zasad zostanie wyłączone, system nie będzie archiwizować żadnych aplikacji.
+
+Jeśli to ustawienie zasad pozostanie nieskonfigurowane (wartość domyślna), system będzie śledzić domyślne zachowanie, czyli okresowo sprawdzać i archiwizować rzadko używane aplikacje, a użytkownik będzie mógł skonfigurować to ustawienie samodzielnie.</string>
       <string id="AllowDeploymentInSpecialProfiles">Zezwalaj na operacje wdrażania w profilach specjalnych</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">To ustawienie zasad umożliwia zarządzanie wdrażaniem aplikacji ze Sklepu Windows w przypadku użytkowników zalogowanych za pomocą profilów specjalnych. Profile specjalne to następujące profile użytkowników, w których zmiany są odrzucane po wylogowaniu się użytkownika:
+      <string id="AllowDeploymentInSpecialProfilesExplanation">To ustawienie zasad umożliwia zarządzanie wdrażaniem spakowanych aplikacji ze sklepu Microsoft Store w przypadku użytkowników zalogowanych za pomocą profilów specjalnych. Profile specjalne to następujące profile użytkowników, w których zmiany są odrzucane po wylogowaniu się użytkownika:
 
 Profile użytkowników mobilnych, których dotyczy ustawienie zasad grupy „Usuwaj buforowane kopie profilów mobilnych”
 
@@ -25,16 +33,16 @@ Tymczasowe profile użytkowników tworzone w przypadku, gdy błędy uniemożliwi
 Profile użytkowników dla konta Gość i członków grupy Goście
 
 
-W przypadku włączenia tego ustawienia zasad zasady grupy zezwalają na operacje wdrażania (dodawanie, rejestrowanie, przemieszczanie, aktualizowanie i usuwanie pakietu aplikacji) aplikacji ze Sklepu Windows podczas używania profilu specjalnego.
+W przypadku włączenia tego ustawienia zasad zasady grupy zezwalają na operacje wdrażania (dodawanie, rejestrowanie, przemieszczanie, aktualizowanie i usuwanie pakietu aplikacji) spakowanych aplikacji ze sklepu Microsoft Store podczas używania profilu specjalnego.
 
-Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, zasady grupy będą blokować operacje wdrażania aplikacji ze Sklepu Windows podczas używania profilu specjalnego.</string>
-      <string id="AllowDevelopmentWithoutDevLicense">Zezwalaj na opracowywanie aplikacji ze Sklepu Windows i instalowanie ich za pomocą zintegrowanego środowiska deweloperskiego (IDE)</string>
+Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, zasady grupy będą blokować operacje wdrażania spakowanych aplikacji ze sklepu Microsoft Store podczas używania profilu specjalnego.</string>
+      <string id="AllowDevelopmentWithoutDevLicense">Zezwalaj na opracowywanie spakowanych aplikacji ze sklepu Microsoft Store i instalowanie ich za pomocą zintegrowanego środowiska deweloperskiego (IDE)</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        Zezwala lub nie zezwala na opracowywanie aplikacji ze Sklepu Windows i instalowanie ich bezpośrednio ze środowiska IDE.
+        Zezwala na programowanie aplikacji ze sklepu Microsoft Store i instalowanie ich bezpośrednio ze środowiska IDE albo blokuje taką możliwość.
 
-        W przypadku włączenia tego ustawienia i zasad grupy „Zezwalaj na instalowanie wszystkich aplikacji zaufanych” można opracowywać aplikacje ze Sklepu Windows i instalować je bezpośrednio ze środowiska IDE.
-        
-        Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, nie będzie można opracowywać aplikacji ze Sklepu Windows ani instalować ich bezpośrednio ze środowiska IDE.
+        Jeśli włączysz to ustawienie oraz zasadę grupy „Zezwalaj na instalowanie wszystkich aplikacji zaufanych”, będzie można programować aplikacje ze sklepu Microsoft Store i instalować je bezpośrednio ze środowiska IDE.
+
+        Jeśli wyłączysz to ustawienie albo go nie skonfigurujesz, nie będzie można programować aplikacji ze sklepu Microsoft Store ani instalować ich bezpośrednio ze środowiska IDE.
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">Wyłącz instalowanie aplikacji systemu Windows w woluminach innych niż systemowe</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -53,12 +61,150 @@ Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane
         Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, to w przypadku przeniesienia aplikacji do innego woluminu dane aplikacji użytkowników również zostaną przeniesione do tego woluminu.
       </string>
       <string id="AllowSharedLocalAppData">Zezwalaj aplikacji systemu Windows na udostępnianie danych aplikacji między użytkownikami</string>
-      <string id="AllowSharedLocalAppDataExplanation">Zarządza możliwością udostępniania przez aplikację systemu Windows danych między użytkownikami, którzy mają tę aplikację zainstalowaną.
-      
-        Jeśli te zasady zostaną włączone, aplikacja systemu Windows będzie mogła udostępniać dane aplikacji w innych wystąpieniach tej aplikacji. Dane są udostępniane za pośrednictwem folderu SharedLocal. Dostęp do tego folderu można uzyskać za pomocą interfejsu API Windows.Storage.
+      <string id="AllowSharedLocalAppDataExplanation">Zarządza możliwością udostępniania przez aplikację systemu Windows danych użytkownikom, którzy mają zainstalowaną tę aplikację.
 
-        Jeśli te zasady zostaną wyłączone, aplikacja systemu Windows nie będzie mogła udostępniać danych aplikacji w innych wystąpieniach tej aplikacji. Jeśli te zasady były wcześniej włączone, wszelkie wcześniej udostępnione dane aplikacji pozostaną w folderze SharedLocal. 
+        Jeśli włączysz tę zasadę, aplikacja systemu Windows będzie mogła udostępniać dane aplikacji innym wystąpieniom tej aplikacji. Dane są udostępniane za pośrednictwem folderu SharedLocal. Dostęp do tego folderu można uzyskać za pomocą interfejsu API Windows.Storage.
+
+        Jeśli wyłączysz tę zasadę, aplikacja systemu Windows nie będzie mogła udostępniać danych aplikacji innym wystąpieniom tej aplikacji. Jeśli ta zasada była wcześniej włączona, wszystkie uprzednio udostępnione dane aplikacji pozostaną w folderze SharedLocal.
       </string>
+      <string id="BlockNonAdminUserInstall">Uniemożliwiaj użytkownikom niebędącym administratorami instalowanie aplikacji systemu Windows w pakietach</string>
+      <string id="BlockNonAdminUserInstallExplanation">Zarządza możliwością instalowania pakietów aplikacji systemu Windows przez użytkowników niebędącym administratorami.
+
+        Jeśli włączysz tę zasadę, użytkownicy niebędący administratorami nie będą mogli inicjować instalacji pakietów aplikacji systemu Windows. Administratorzy, którzy chcą zainstalować aplikację, będą musieli to zrobić w kontekście administratora (na przykład w oknie programu PowerShell administratora). Wszyscy użytkownicy nadal będą mogli instalować pakiety aplikacji systemu Windows za pośrednictwem sklepu Microsoft Store, jeśli będzie to dozwolone przez inne zasady.
+
+        Jeśli wyłączysz tę zasadę albo jej nie skonfigurujesz, wszyscy użytkownicy będą mogli inicjować instalację pakietów aplikacji systemu Windows.
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">Ustaw autoryzowane domeny na potrzeby uwierzytelniania HTTPS w instalacji przesyłania strumieniowego MSIX</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">To ustawienie zasad określa, czy token OAuth entraID zostanie uwzględniony w komunikacji HTTPS z określoną w pełni kwalifikowaną nazwą domeny na potrzeby przeprowadzania instalacji przesyłania strumieniowego MSIX.
+
+Jeśli to ustawienie zasad zostanie włączone, komunikacja HTTPS ze wstępnie zdefiniowanymi w pełni kwalifikowaną domeną będzie uwzględniać token OAuth użytkownika entraID podczas przeprowadzania instalacji strumieniowej pliku MSIX. Podana wartość jest wyrażeniem regularnym (skrypt ECMA), które zostanie użyte do dopasowania do wielkiej, w pełni kwalifikowanej domeny adresu URL.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, token OAuth identyfikatora entraID użytkownika będzie udostępniany tylko domyślnie skonfigurowanym domenom.
+      </string>
+      <string id="DisableBackgroundAutoUpdates">Nie zezwalaj aplikacjom ładowanym bezpośrednio na automatyczną aktualizację w tle</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">Zarządza możliwością aplikacji ładowanych bezpośrednio do automatycznej aktualizacji w tle. 
+
+        Jeśli włączysz te zasady, aplikacje ładowane bezpośrednio nie będą aktualizowane automatycznie w tle.
+
+        Jeśli wyłączysz te zasady, aplikacje ładowane bezpośrednio będą aktualizowane automatycznie w tle.
+
+        Wartość domyślna to „Wyłączone” (klucz nie istnieje).
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">Nie zezwalaj aplikacjom ładowanym bezpośrednio na automatyczną aktualizację w tle w sieci taryfowej</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">Zarządza możliwością aplikacji ładowanych bezpośrednio do automatycznej aktualizacji w tle w sieci taryfowej. 
+
+        Jeśli włączysz te zasady, aplikacje ładowane bezpośrednio nie będą aktualizowane automatycznie w tle w sieci taryfowej.
+
+        Jeśli wyłączysz te zasady, aplikacje ładowane bezpośrednio będą aktualizowane automatycznie w tle w sieci taryfowej.
+
+        Wartość domyślna to „Wyłączone” (klucz nie istnieje).
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">Domyślnie nie zezwalaj na instalowanie niepodpisanych pakietów dla poszczególnych użytkowników (wymaga jawnego zezwolenia na instalację)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">Domyślnie nie zezwalaj na instalowanie niepodpisanych pakietów dla poszczególnych użytkowników (wymaga jawnego zezwolenia na instalację)
+
+        Jeśli włączysz te zasady, opcja AllowUnsigned ma domyślnie wartość „false”.
+
+        Jeśli wyłączysz te zasady, opcja AllowUnsigned ma domyślnie wartość „true”.
+
+        Wartość domyślna to „disabled” (brak klucza).
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">Dozwolone nazwy rodzin pakietów dla instalacji użytkownika niebędącego administratorem</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">Dozwolone nazwy rodzin pakietów dla instalacji pakietów aplikacji Windows przez użytkownika niebędącego administratorem.
+
+Jeśli te zasady zostaną włączone, możesz wprowadzić listę pakietów aplikacji systemu Windows, których użytkownicy niebędący administratorami będą mogli inicjować instalowanie niezależnie od skonfigurowanych zasad „Uniemożliwiaj użytkownikom niebędącym administratorami instalowanie spakowanych aplikacji systemu Windows”.
+
+Podane wartości będą traktowane jako wyrażenia regularne (ECMA Script). Nazwa rodziny pakietów, taka jak Contoso.ContosoApp_8wekyb3d8bbwe, sama w sobie jest prawidłowym wyrażeniem regularnym, które będzie zgodne ze wszystkimi pakietami w tej rodzinie. Wyrażenie regularne takie jak ^Contoso.*_8wekyb3d8bbwe$ będzie również zgodne z Contoso.ContosoApp_8wekyb3d8bbwe
+
+Jeśli nazwa rodziny pakietów instalowanej aplikacji systemu Windows jest zgodna z jakąkolwiek regułą, nie będzie ona blokowana przez zasady „Uniemożliwiaj użytkownikom niebędącym administratorami instalowanie spakowanych aplikacji systemu Windows”. Instalacja może być nadal zablokowana przez inne zasady lub ustawienia.
+
+Jeśli te zasady zostaną wyłączone lub nie zostaną skonfigurowane, wszystkie pakiety aplikacji systemu Windows będą podlegać skonfigurowanej zasadzie „Uniemożliwiaj użytkownikom niebędącym administratorami instalowanie spakowanych aplikacji systemu Windows”.
+
+Wartość domyślna to „wyłączone” (brak klucza).
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">Usuń domyślne pakiety sklepu Microsoft Store z systemu.</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">Usuwa domyślne pakiety sklepu Microsoft Store z systemu.
+
+Jeśli włączysz te zasady, wybrane aplikacje Microsoft Store z podanej listy zostaną odinstalowane z systemu. Możesz dostosować ustawienia domyślne.
+
+Niezaznaczone aplikacje na liście nie zostaną usunięte.
+
+* To jest aplikacja bezobsługowa (brak interfejsu użytkownika)
+
+** Ta aplikacja jest domyślnym programem do obsługi popularnych typów plików lub protokołów. Usunięcie tej aplikacji może spowodować spadek jakości środowiska użytkownika. Nie zalecamy usuwania tej aplikacji.
+
+Jeśli włączysz te zasady, możesz również usunąć aplikację, wprowadzając nazwę rodziny pakietów aplikacji (np. Microsoft.WindowsCalculator_8wekyb3d8bbwe) na liście dynamicznej w sekcji „Określ dodatkowe nazwy rodzin pakietów do usunięcia.”.
+
+Jeśli te zasady są włączone, ponowna instalacja wcześniej usuniętej aplikacji wymaga odznaczenia jej na podanej liście lub usunięcia nazwy rodziny pakietów aplikacji z listy dynamicznej.
+
+Nie można usuwać składników systemu Windows za pomocą listy dynamicznego usuwania aplikacji.
+
+Weryfikacja nazw rodzin pakietów na liście dynamicznego usuwania aplikacji następuje podczas logowania użytkownika, a nie w momencie konfigurowania zasad.
+
+Wartość domyślna to „wyłączone” (brak klucza).
+
+Jeśli te zasady są wyłączone lub nieskonfigurowane, żadne aplikacje domyślne nie zostaną usunięte z systemu.
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">Usuwa domyślne pakiety sklepu Microsoft Store z systemu.</string>
+      <string id="EnableMsixAllowedZones">Włącz dozwolone strefy dla pakietów MSIX</string>
+      <string id="EnableMsixAllowedZonesExplanation">Te zasady kontrolują, czy pakiety MSIX pochodzące z określonych stref adresów URL mogą być instalowane. Źródło pakietu jest określane na podstawie jego identyfikatora URI i tego, czy istnieje składowa sieci Web (MotW). Jeśli jest uwzględnionych wiele identyfikatorów URI, uwzględniane są wszystkie identyfikatory URI;
+
+Jeśli te zasady zostaną włączone, użytkownicy będą mogli instalować pakiety MSIX zgodnie z konfiguracją każdej strefy.
+
+Jeśli te zasady zostaną wyłączone lub nie zostaną skonfigurowane, użytkownicy będą mogli instalować pakiety MSIX z dowolnej strefy z wyjątkiem niezaufanych.</string>
+      <string id="ZoneAllowed">Zezwalaj</string>
+      <string id="ZoneBlocked">Zablokuj</string>
+      <string id="EnableMsixSmartScreenCheck">Włącz sprawdzanie filtru Microsoft SmartScreen dla pakietów MSIX</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">Ta zasada kontroluje, czy podczas instalacji pakietów MSIX z określonych stref adresów URL jest wykonywana weryfikacja Microsoft SmartScreen.
+
+Jeśli włączysz tę zasadę lub jej nie skonfigurujesz, adres URI pakietu zostanie sprawdzony przez Microsoft SmartScreen przed instalacją. Sprawdzenie to dotyczy tylko pakietów pochodzących z internetu.
+
+W przypadku wyłączenia tej zasady, nie będzie przeprowadzana konsultacja z programem Microsoft SmartScreen przed zainstalowaniem pakietu.</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>Wyrażenie</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">Dozwolone nazwy rodzin pakietów dla instalacji użytkownika niebędącego administratorem</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>Usuwa domyślne pakiety sklepu Microsoft Store z systemu.</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">Centrum opinii</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">Microsoft 365 Copilot</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft News</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Zdjęcia Microsoft **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Microsoft Sticky Notes</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">Microsoft To Do</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN Pogoda</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Outlook dla systemu Windows</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">Paint</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">Szybka pomoc</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">Narzędzie Wycinanie</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Kalkulator Windows</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Aparat Windows **</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Odtwarzacz multimedialny Windows **</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Notatnik systemu Windows **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Rejestrator dźwięku Windows</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Terminal Windows</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">Aplikacja do gier Xbox</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Xbox Identity Provider *</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Nakładka zamiany mowy na tekst na konsolę Xbox *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">Określ dodatkowe nazwy rodzin pakietów do usunięcia</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">Komputer lokalny</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">Intranet</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">Zaufane witryny</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">Internet</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">Niezaufane witryny</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

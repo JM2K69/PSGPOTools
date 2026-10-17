@@ -27,12 +27,11 @@ Jeżeli ta zasada zostanie wyłączona lub nie zostanie skonfigurowana, łącze 
 Jeżeli ta zasada zostanie wyłączona lub nie zostanie skonfigurowana, łącze Wyświetl więcej wyników będzie wyświetlane, gdy użytkownik będzie przeprowadzał wyszukiwanie w polu wyszukiwania menu Start.  Jeżeli jest zainstalowany program obsługi protokołu innej firmy, zamiast łącza Wyświetl więcej wyników będzie wyświetlane łącze Szukaj wszędzie.</string>
       <string id="AddSearchInternetLinkInStartMenu">Dodaj łącze Wyszukaj w Internecie do menu Start</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
+Jeśli ta zasada zostanie włączona, łącze "Wyszukaj w Internecie" będzie wyświetlane, gdy użytkownik będzie przeprowadzał wyszukiwanie w polu wyszukiwania menu Start.  Ten przycisk uruchamia domyślną przeglądarkę z wyszukiwanych terminów.
 
-Jeżeli ta zasada zostanie włączona, łącze Wyszukaj w Internecie będzie wyświetlane, gdy użytkownik będzie przeprowadzał wyszukiwanie w polu wyszukiwania menu Start.  Ten przycisk uruchamiania domyślną przeglądarkę z wyszukiwanymi terminami.
+Jeśli ta zasada zostanie wyłączona, łącze "Wyszukaj w Internecie" nie będzie wyświetlane, gdy użytkownik będzie przeprowadzał wyszukiwanie w polu wyszukiwania w menu Start.
 
-Jeżeli ta zasada zostanie wyłączona, łącze Wyszukaj w Internecie nie będzie wyświetlane, gdy użytkownik będzie przeprowadzał wyszukiwanie w polu wyszukiwania menu Start.
-          
-Jeżeli ta zasada nie zostanie skonfigurowana (ustawienie domyślne), w menu Start nie będzie wyświetlane łącze Wyszukaj w Internecie.</string>
+Jeśli te zasady nie zostaną skonfigurowane (domyślnie), w menu Start nie będzie dostępnego linku "Wyszukaj w Internecie".</string>
       <string id="NoSearchFilesInStartMenu">Nie wyszukuj plików</string>
       <string id="NoSearchFilesInStartMenu_Help">Jeżeli to ustawienie zasad zostanie włączone, pole wyszukiwania w menu Start nie będzie umożliwiać wyszukiwania plików.
 
@@ -207,6 +206,19 @@ W Eksploratorze plików element Wyszukaj jest nadal widoczny na pasku narzędzi 
 To ustawienie dotyczy tylko określonych elementów interfejsu użytkownika. Nie dotyczy ono programu Internet Explorer ani nie uniemożliwia użytkownikom używania innych metod wyszukiwania.
 
 Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, łącze Wyszukaj będzie dostępne w menu Start.</string>
+      <string id="ShowOrHideMostUsedApps">Pokaż lub ukryj listę „Najczęściej używane” w menu Start</string>
+      <string id="ShowOrHideMostUsedApps_Help">Jeśli to ustawienie zasad zostanie włączone, będzie można skonfigurować menu Start do wyświetlania lub ukrywania listy najczęściej używanych aplikacji użytkownika, niezależnie od ustawień użytkownika.
+
+Wybranie opcji Pokaż spowoduje wymuszenie pokazania listy najczęściej używanych elementów, a użytkownik nie będzie mógł jej zmienić przy użyciu aplikacji ustawienia.
+
+Wybranie opcji "Ukryj" spowoduje ukrycie listy "najczęściej używane", a użytkownik nie będzie mógł jej zmienić, używając aplikacji ustawienia.
+
+Wybranie opcji "nie skonfigurowano" lub wyłączenie lub Nieskonfigurowanie tego ustawienia zasad spowoduje, że użytkownicy będą mogli włączać i wyłączać wyświetlanie listy najczęściej używanych elementów przy użyciu aplikacji ustawienia. To jest zachowanie domyślne.
+
+Uwaga: skonfigurowanie tej zasady w celu określenia "Pokaż" lub "Ukryj" w obsługiwanych wersjach systemu Windows 10 spowoduje zamienienie każdego ustawienia zasad "Usuń listę często używanych programów z menu Start" (która zarządza tą samą częścią menu Start, ale z mniejszą liczbą opcji).</string>
+      <string id="MFU_NotConfigured">Nie skonfigurowano</string>
+      <string id="MFU_Show">Pokaż</string>
+      <string id="MFU_Hide">Ukryj</string>
       <string id="NoFrequentUsedPrograms">Usuń listę często używanych programów z menu Start</string>
       <string id="NoFrequentUsedPrograms_Help">Jeśli to ustawienie zostanie włączone, lista najczęściej używanych programów zostanie usunięta z menu Start.
 
@@ -243,7 +255,7 @@ Jeśli wyłączysz to ustawienie albo go nie skonfigurujesz, lista wszystkich ap
       <string id="APPLIST_NONE">Brak</string>
       <string id="APPLIST_COLLAPSE">Zwiń</string>
       <string id="APPLIST_COLLAPSESETTING">Zwiń i wyłącz ustawienie</string>
-      <string id="APPLIST_REMOVESETTING">Usuń i wyłącz ustawienie</string>    
+      <string id="APPLIST_REMOVESETTING">Usuń i wyłącz ustawienie</string>
 
       <string id="NoNetAndDialupConnect">Usuń element Połączenia sieciowe z menu Start</string>
       <string id="NoNetAndDialupConnect_Help">To ustawienie zasad umożliwia usunięcie elementu Połączenia sieciowe z menu Start.
@@ -258,11 +270,11 @@ Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane,
 
 Zobacz także ustawienia zasad „Wyłącz programy w menu Ustawienia” i „Wyłącz Panel sterowania” oraz ustawienia zasad w folderze Połączenia sieciowe (Konfiguracja komputera i Konfiguracja użytkownika\Szablony administracyjne\Sieć\Połączenia sieciowe).</string>
       <string id="NoPinnedPrograms">Usuń listę programów przypiętych do menu Start</string>
-      <string id="NoPinnedPrograms_Help">Jeżeli to ustawienie zostanie włączone, lista „przypiętych programów” zostanie usunięta z menu Start. Użytkownicy nie będą mogli przypinać programów do menu Start. 
+      <string id="NoPinnedPrograms_Help">Jeśli to ustawienie zostanie włączone, lista Przypięte programy zostanie usunięta z menu Start. Użytkownicy nie mogą przypinać programów do menu Start.
 
-W systemach Windows XP i Windows Vista pola wyboru Internet i E-mail zostaną usunięte z okna dialogowego Dostosowywanie menu Start. 
+W systemach Windows XP i Windows Vista pola wyboru Internet i poczta e-mail są usuwane z okna dialogowego Dostosowywanie menu Start.
 
-Jeżeli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, lista „przypiętych programów” pozostanie w menu Start. Użytkownicy będą mogli przypinać i odpinać programy w menu Start.</string>
+Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, lista "Przypięte programy" pozostanie na menu Start. Użytkownicy mogą przypinać i odpinać programy w menu Start.</string>
       <string id="NoRecentDocsHistory">Nie przechowuj historii niedawno otwieranych dokumentów</string>
       <string id="NoRecentDocsHistory_Help">Zapobiega tworzeniu i wyświetlaniu skrótów do ostatnio otwieranych dokumentów w systemie operacyjnym i zainstalowanych programach.
 
@@ -318,31 +330,29 @@ Uwaga: to ustawienie jest stosowane tylko w przypadku plików docelowych na part
 
 Zobacz też ustawienia zasad „Nie śledź skrótów powłoki podczas przechodzenia” i „Nie używaj metody opartej na wyszukiwaniu podczas rozpoznawania skrótów powłoki”.</string>
       <string id="NoRun">Usuń menu Uruchom z menu Start</string>
-      <string id="NoRun_Help">Pozwala usunąć polecenie Uruchom z menu Start, programu Internet Explorer i Menedżera zadań.
+      <string id="NoRun_Help">Umożliwia usunięcie polecenia Uruchom z menu Start, Internet Explorer i Menedżer zadań.
 
-Włączenie tego ustawienia powoduje następujące zmiany:
+Jeśli to ustawienie zostanie włączone, zostaną wprowadzone następujące zmiany:
 
 (1) Polecenie Uruchom jest usuwane z menu Start.
 
-(2) Polecenie Nowe zadanie (Uruchom) jest usuwane z Menedżera zadań.
+(2) Polecenie Nowe zadanie (Uruchom) zostało usunięte z Menedżer zadań.
 
-(3) Użytkownik ma zablokowaną możliwość wprowadzania na pasku adresu programu Internet Explorer następujących danych:
+(3) Użytkownikowi nie będzie można wprowadzać następujących danych na Internet Explorer pasku adresu:
 
---- Ścieżka UNC: \\&lt;serwer&gt;\&lt;udział&gt; 
+--- Ścieżkę UNC: \\&lt;server&gt;\&lt;share&gt;
 
---- Ścieżka dostępu do dysków lokalnych:  np. C:
+---Accessing dysków lokalnych: np. C:
 
---- Ścieżka dostępu do folderów lokalnych: np. \temp&gt;
+--- Uzyskiwanie dostępu do folderów lokalnych: np. \temp&gt;
 
-Ponadto użytkownicy korzystający z klawiatury rozszerzonej nie będą już mogli wyświetlać okna dialogowego Uruchamianie przez naciśnięcie klawisza aplikacji (klawisza z logo systemu Windows) + R.
+Ponadto użytkownicy z klawiaturami rozszerzonymi nie będą już mogli wyświetlać okna dialogowego Uruchamianie, naciskając klawisz aplikacji (klawisz z logo systemu Windows) + R.
 
-Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, użytkownicy będą mieli dostęp do polecenia Uruchom w menu Start i Menedżerze zadań oraz będą mogli używać paska adresu w programie Internet Explorer.
+Jeśli to ustawienie zostanie wyłączone lub pozostanie nieskonfigurowane, użytkownicy będą mogli uzyskiwać dostęp do polecenia Uruchom w menu Start i w Menedżer zadań oraz korzystać z paska adresu Internet Explorer.
 
+Uwaga: to ustawienie dotyczy tylko określonego interfejsu. Nie uniemożliwia użytkownikom korzystania z innych metod uruchamiania programów.
 
-
-Uwaga: To ustawienie dotyczy tylko określonego interfejsu. Nie zapobiega ono stosowaniu przez użytkowników innych metod uruchamiania programów.
-
-Uwaga: aplikacje innych firm mające certyfikat systemu Windows 2000 lub nowszego muszą obsługiwać to ustawienie.</string>
+Uwaga: jest to wymagane, aby aplikacje innych firm z certyfikatem systemu Windows 2000 lub nowszego były zgodne z tym ustawieniem.</string>
       <string id="NoSetFolders">Usuń programy z menu Ustawienia</string>
       <string id="NoSetFolders_Help">To ustawienie zasad umożliwia usunięcie programów z menu Ustawienia.
 
@@ -599,9 +609,9 @@ Jeśli to ustawienie zasad zostanie włączone, ekran startowy będzie wyświetl
 
 Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, ekran startowy będzie wyświetlany na ekranie głównym za każdym razem, gdy użytkownik naciśnie klawisz z logo systemu Windows. Użytkownicy nadal będą mogli otwierać ekran startowy na innych ekranach przez naciśnięcie przycisku Start na tych ekranach. Ponadto użytkownik będzie mógł skonfigurować to ustawienie.</string>
       <string id="ForceStartSize_DisplayName">Wymuś rozmiar elementu Start: pełny ekran lub menu</string>
-      <string id="ForceStartSize_ExplainText">Jeśli włączysz te zasady i ustawisz wartość dla menu Start lub ekranu startowego, element Start będzie odpowiedniego rozmiaru, a użytkownicy nie będą mogli zmienić jego rozmiaru w obszarze Ustawienia. 
+      <string id="ForceStartSize_ExplainText">Jeśli te zasady zostaną włączone i zostaną ustawione na menu Start lub na ekranie startowym, rozmiar ekranu startowego będzie taki, a użytkownicy nie będą mogli zmienić rozmiaru ekranu startowego w ustawieniach.
 
-Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, system Windows automatycznie wybierze rozmiar na podstawie typu urządzenia, a użytkownicy będą mogli zmienić rozmiar elementu Start w obszarze Ustawienia.</string>
+Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, system Windows będzie automatycznie wybierał rozmiar na podstawie składnika formularza sprzętowego, a użytkownicy będą mogli zmienić rozmiar ekranu startowego w ustawieniach.</string>
       <string id="ForceLauncherSize_Collapsed">Menu Start</string>
       <string id="ForceLauncherSize_Expanded">Pełny ekran startowy</string>
       <string id="HidePeopleBar_DisplayName">Usuń pasek Kontakty z paska zadań</string>
@@ -612,10 +622,44 @@ Jeśli włączysz tę zasadę, ikona Kontakty zostanie usunięta z paska zadań,
       <string id="HideRecentlyAddedApps_Help">Ta zasada umożliwia uniemożliwienie wyświetlania w menu Start listy ostatnio zainstalowanych aplikacji.
 
 Jeśli włączysz tę zasadę, lista „Ostatnio dodane” nie będzie już wyświetlana w menu Start. Odpowiednie ustawienie zostanie także wyłączone w aplikacji Ustawienia.</string>
+      <string id="HideRecommendedSection">Usuń sekcję Proponowane z menu Start</string>
+      <string id="HideRecommendedSection_Help">Ta zasada umożliwia zablokowanie wyświetlania listy zalecanych aplikacji i plików w menu Start.
+
+Jeśli to ustawienie zasad zostanie włączone, w menu Start nie będzie już wyświetlana sekcja zawierająca listę zalecanych plików i aplikacji.</string>
+ <string id="HideCategoryView">Ukryj widok kategorii w menu Start</string>
+ <string id="HideCategoryView_Help">To ustawienie zasad umożliwia ukrycie widoku kategorii w menu Start.
+ 
+Jeśli to ustawienie zasad zostanie włączone, w menu Start nie będzie już wyświetlany widok kategorii i domyślnie będzie używany widok siatki.</string>
+
+ <string id="ConfigureStartPins">Skonfiguruj przypięcia w menu Start</string>
+      <string id="ConfigureStartPins_Help">Umożliwia administratorowi zastępowanie elementów domyślnych przypiętych do ekranu startowego.
+
+To ustawienie umożliwia określenie elementów domyślnych przypiętych do ekranu startowego.</string>
+
+      <string id="HideRecommendedPersonalizedSites">Usuń spersonalizowane rekomendacje dotyczące witryn internetowych z sekcji Zalecane w menu Start</string>
+      <string id="HideRecommendedPersonalizedSites_Help">To ustawienie zasad umożliwia ukrycie spersonalizowanych witryn internetowych w zalecanej sekcji menu Start. 
+      
+Jeśli to ustawienie zasad zostanie włączone, w menu Start nie będą już wyświetlane spersonalizowane rekomendacje dotyczące witryn sieci Web w zalecanej sekcji.</string>
       <string id="DisableContextMenusInStart">Wyłącz menu kontekstowe w menu Start</string>
       <string id="DisableContextMenusInStart_Help">Ta zasada umożliwia uniemożliwienie użytkownikom otwierania menu kontekstowych w menu Start.
 
 Jeśli włączysz tę zasadę, wywołania menu kontekstowych w menu Start będą ignorowane.</string>
+      <string id="SimplifyQuickSettings_DisplayName">Uprość układ szybkich ustawień</string>
+      <string id="SimplifyQuickSettings_ExplainText">Jeśli te zasady zostaną włączone, szybkie ustawienia zostaną ograniczone tylko do przycisków WiFi, Bluetooth, Accessibility i VPN, suwaków jasności i głośności, wskaźnika baterii oraz linku do aplikacji Ustawienia.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, zwykły układ szybkich ustawień będzie wyświetlany przy każdym wywołaniu opcji Szybkie ustawienia.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">Wyłącz szybkie ustawienia edycji</string>
+      <string id="DisableEditingQuickSettings_ExplainText">Jeśli te zasady zostaną włączone, użytkownicy nie będą mogli modyfikować szybkich ustawień.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, użytkownicy będą mogli edytować szybkie ustawienia, takie jak przypinanie lub odpinanie przycisków.</string>
+      <string id="DisableControlCenter">Usuń szybkie ustawienia</string>
+      <string id="DisableControlCenter_Help">To ustawienie zasad usuwa szybkie ustawienia z prawego dolnego obszaru paska zadań.
+
+Obszar szybkich ustawień znajduje się po lewej stronie zegara na pasku zadań i zawiera ikony bieżącej sieci i woluminu.
+
+Jeśli to ustawienie zostanie włączone, szybkie ustawienia nie będą wyświetlane w obszarze Szybkie ustawienia. 
+
+Aby to ustawienie zasad zostało zastosowane, wymagany jest ponowny rozruch.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +676,22 @@ Jeśli włączysz tę zasadę, wywołania menu kontekstowych w menu Start będą
           <label>Plik układu ekranu startowego</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">Zastosuj ponownie układ przy każdym logowaniu</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">Wybierz jeden z następujących rozmiarów</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">Wybierz jedną z następujących akcji</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>Plik układu przypięć w menu Start</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">Ukryj widok kategorii</checkBox>
       </presentation>
     </presentationTable>
   </resources>

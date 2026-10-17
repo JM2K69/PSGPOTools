@@ -55,6 +55,15 @@ Huomautus: Asetus ei poista Active Desktop -työpöytää käytöstä. Käyttäj
 Oletuksena on, että käyttäjä voi muuttaa omien profiilikansionsa, kuten Tiedostot, Musiikki tms., sijaintia kirjoittamalla uuden polun kansion Ominaisuudet-valintaikkunan Sijainnit-välilehteen.
 
 Jos tämä asetus otetaan käyttöön, käyttäjä ei voi kirjoittaa uutta polkua Kohde-ruutuun.</string>
+      <string id="EnableThemeFileRemoteResource">Salli teematiedostot verkkosijainneista</string>
+      <string id="EnableThemeFileRemoteResource_Help">Tämä käytäntöasetus määrittää, voidaanko etäpolkuja käyttää resursseille, jotka ovat Windowsin työpöytäteematiedoston (.theme/.themepack) sisällä.
+
+Jos otat tämän käytäntöasetuksen käyttöön, teematiedostot voivat viitata resursseihin (kuten kuviin, ääniin ja kuvakkeisiin), jotka sijaitsevat verkkojakeluissa tai muissa etäsijainneissa. Käyttäjät voivat käyttää teemoja, jotka sisältävät etäresursseja.
+
+Jos poistat tämän käytäntöasetuksen käytöstä, teematiedostot eivät voi käyttää etäresursseja. Etäresursseihin viittaavien teematiedostojen lataaminen epäonnistuu, ja vain paikalliset resurssit näytetään.
+
+Jos et määritä tätä käytäntöasetusta, oletustoimintana on estää teematiedostojen etäresurssit tietoturvasyistä.</string>
+
       <string id="ForceActiveDesktopOn">Ota käyttöön Active Desktop</string>
       <string id="ForceActiveDesktopOn_Help">Ottaa käyttöön Active Desktop -työpöydän ja estää käyttäjiä poistamasta sitä käytöstä.
 

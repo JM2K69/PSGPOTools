@@ -220,9 +220,9 @@ Per visualizzare un esempio della finestra di dialogo Apri standard, avviare Wor
 
 Nota: in Windows Vista questa impostazione dei criteri si applica solo ad applicazioni che utilizzano lo stile delle finestre di dialogo comuni di Windows XP, ma non a quelle che utilizzano il nuovo stile delle finestre di dialogo comuni di Windows Vista. Le applicazioni di terze parti con certificazione Windows 2000 e versioni successive devono rispettare questa impostazione.</string>
       <string id="NoRecycleFiles">Non spostare i file eliminati nel Cestino</string>
-      <string id="NoRecycleFiles_Help">Quando si elimina un file o una cartella in Esplora file, una copia dell'elemento viene inserita nel Cestino. Questa impostazione consente di modificare questo comportamento.
+      <string id="NoRecycleFiles_Help">Quando un file o una cartella viene eliminato in Esplora file, una copia del file o della cartella viene inserita nel Cestino. Utilizzando questa impostazione è possibile modificare questo comportamento.
 
-Se si abilita questa impostazione, i file e le cartelle eliminati in Esplora file non verranno inseriti nel Cestino e verranno pertanto eliminati definitivamente.
+Se si abilita questa impostazione, i file e le cartelle eliminati in Esplora file non verranno inseriti nel cestino e verranno pertanto eliminati definitivamente.
 
 Se si disabilita o non si configura questa impostazione, i file e le cartelle eliminati in Esplora file verranno inseriti nel Cestino.</string>
       <string id="NoRunAsInstallPrompt">Non richiedere credenziali alternative</string>
@@ -519,19 +519,33 @@ Se si abilita questa impostazione dei criteri, è possibile ottenere icone dei c
 Se si disabilita o non si configura questa impostazione dei criteri, verrà impedita la visualizzazione delle icone dei collegamenti ai file che utilizzano percorsi remoti.
 
 Nota: consentire l'utilizzo di percorsi remoti nelle icone dei collegamenti ai file può esporre i computer degli utenti a rischi per la sicurezza.</string>
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Consenti alle operazioni del descrittore del gruppo di file di scrivere in qualsiasi percorso di destinazione</string>
+      <string id="AllowAllCopyFGDDestinations_Help">Questa impostazione dei criteri determina se i controlli di contenimento dell'attraversamento percorso vengono imposti durante la scrittura di file ricevuti tramite Appunti o descrittori di gruppo di file (CFSTR_FILEDESCRIPTOR).
+
+Se si abilita questa impostazione dei criteri, i controlli di contenimento dell'attraversamento percorso non verranno imposti e sarà possibile scrivere file in qualsiasi percorso raggiungibile dalla cartella di destinazione. Abilitare questo criterio solo se il comportamento predefinito interrompe un flusso di lavoro richiesto.
+
+Se si disabilita o non si configura questa impostazione dei criteri, le operazioni del descrittore del gruppo di file applicheranno il contenimento dei percorsi e rifiuteranno i nomi di file che tentano di eseguire l'escape della cartella di destinazione tramite componenti di percorso relativo.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">Non applicare il contrassegno del tag Web ai file copiati da origini non sicure</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">Questa impostazione di criteri determina l'applicazione del tag Mark of the Web ai file originati da percorsi non sicuri.
+
+Se abiliti questa impostazione di criteri, i file copiati da origini non sicure non verranno contrassegnati con il tag Mark of the Web.
+
+Se disabiliti o non configuri questa impostazione di criteri, i file copiati da origini non sicure verranno contrassegnati con il tag Mark of the Web appropriato.
+
+Nota: l'impossibilità di contrassegnare i file da origini non sicure con il tag Mark of the Web può esporre i computer degli utenti a rischi per la sicurezza.</string>
       <string id="DefaultAssociationsConfiguration">Imposta file di configurazione delle associazioni predefinite</string>
-      <string id="DefaultAssociationsConfiguration_Help">Questo criterio specifica il percorso di un file (archiviato localmente o in un percorso di rete) che contiene le associazioni di applicazioni predefinite per tipi di file e protocolli. Questo file può essere creato mediante lo strumento Gestione e manutenzione immagini distribuzione. 
-
+      <string id="DefaultAssociationsConfiguration_Help">Questo criterio specifica il percorso di un file (archiviato localmente o in un percorso di rete) contenente le associazioni predefinite del tipo di file e del protocollo dell'applicazione. Non è possibile creare questo file usando lo strumento DISM.
+      
 Ad esempio:
-Dism.exe /Online /Export-DefaultAppAssociations:C:\AssocApp.txt 
+Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-Per altre informazioni, fai riferimento alla documentazione relativa a Gestione e manutenzione immagini distribuzione in TechNet.
+Per altre informazioni, fare riferimento alla documentazione DISM.
 
-Se questo criterio di gruppo è abilitato e il computer client appartiene a un dominio, il file verrà elaborato e all'accesso verranno applicate le associazioni predefinite.
+Il file non può essere modificato ulteriormente in seguito alla sua creazione per modificare la frequenza dell'applicazione delle associazioni dei criteri. È possibile aggiungere un attributo "Versione" all'elemento "DefaultAssociations". Il valore deve essere un numero intero. È possibile aggiungere un attributo "Suggerito" a qualsiasi elemento "Associazione". Il valore dovrebbe essere booleano e il valore predefinito è "false". Quando il criterio viene applicato a un utente, qualsiasi associazione con Suggerito="true" verrà applicata una sola volta. Se il valore Versione viene incrementato, le Associazioni con Suggerito="true" verranno riapplicate.
 
-Se il criterio di gruppo non è configurato o è disabilitato oppure il computer client non appartiene a un dominio, all'accesso non verrà applicata alcuna associazione predefinita.
+Se questo criterio di gruppo è abilitato e il computer client è stato aggiunto a un dominio, il file verrà elaborato e le applicazioni predefinite applicate al momento dell'accesso.
 
-Se il criterio è abilitato, disabilitato o non configurato, gli utenti potranno comunque sostituire le associazioni predefinite per tipi di file e protocolli.</string>
+Se il criterio è abilitato, gli utenti potranno ignorare il tipo di file predefinito e le associazioni del protocollo, ma all'accesso successivo il file verrà riapplicato.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

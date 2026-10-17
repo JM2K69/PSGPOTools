@@ -27,12 +27,11 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de koppelin
 Als u deze beleidsinstelling uitschakelt of niet configureert, is de koppeling Meer resultaten weergeven beschikbaar wanneer de gebruiker een zoekactie uitvoert in het zoekvak van het Startmenu.  Als er een protocolhandler van een andere leverancier is geïnstalleerd, wordt de koppeling Overal zoeken weergegeven in plaats van de koppeling Meer resultaten weergeven.</string>
       <string id="AddSearchInternetLinkInStartMenu">De koppeling Op internet zoeken toevoegen aan het Startmenu</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
+Als u deze beleidsinstelling inschakelt, wordt een koppeling Zoeken op internet weergegeven wanneer de gebruiker een zoekopdracht uitvoert in het zoekvak van het Startmenu.  Met deze knop wordt de standaardbrowser gestart met de zoektermen.
 
-Als u deze beleidsinstelling inschakelt, wordt de koppeling Op internet zoeken weergegeven wanneer de gebruiker een zoekactie uitvoert in het zoekvak van het Startmenu.  Door te klikken op deze koppeling wordt de standaardbrowser weergegeven met de zoektermen.
+Als u deze beleidsinstelling uitschakelt, is er geen koppeling Op internet zoeken wanneer de gebruiker een zoekopdracht uitvoert in het zoekvak van het Startmenu.
 
-Als u deze beleidsinstelling uitschakelt, wordt de koppeling Op internet zoeken niet weergegeven wanneer de gebruiker een zoekactie uitvoert in het zoekvak van het Startmenu.
-          
-Als u deze beleidsinstelling niet configureert (de standaardinstelling), wordt de koppeling Op internet zoeken niet weergegeven in het Startmenu.</string>
+Als u deze beleidsinstelling niet configureert (standaard), is er geen koppeling 'Zoeken op internet' in het Startmenu.</string>
       <string id="NoSearchFilesInStartMenu">Niet zoeken naar bestanden</string>
       <string id="NoSearchFilesInStartMenu_Help">Als u deze beleidsinstelling inschakelt, wordt via het zoekvak van het Startmenu niet naar bestanden gezocht.
 
@@ -203,6 +202,19 @@ In Bestandenverkenner wordt het item Zoeken nog altijd weergegeven op de standaa
 Deze beleidsinstelling is alleen van invloed op de opgegeven onderdelen van de gebruikersinterface. De instelling is niet van invloed op Internet Explorer, terwijl de gebruiker ook nog altijd andere zoekmethoden kan kiezen.
 
 Als u deze beleidsinstelling uitschakelt of niet configureert, is de koppeling Zoeken beschikbaar in het Startmenu.</string>
+      <string id="ShowOrHideMostUsedApps">De lijst 'Meest gebruikt' weergeven of verbergen in Startmenu</string>
+      <string id="ShowOrHideMostUsedApps_Help">Als u deze beleidsinstelling inschakelt, kunt u Startmenu configureren om de lijst met meestgebruikte toepassingen van gebruikers weer te geven of te verbergen, ongeacht de gebruikersinstellingen.
+
+Als u 'Weergeven' selecteert, wordt de lijst 'Meest gebruikt' geforceerd weergegeven en kan de gebruiker deze niet verbergen door dit te wijzigen met behulp van de Instellingen-app.
+
+Als u 'Verbergen' selecteert, wordt de lijst 'Meest gebruikt' geforceerd verborgen en kan de gebruiker deze niet weergeven door dit te wijzigen met behulp van de Instellingen-app.
+
+Als u 'Niet geconfigureerd' selecteert of deze beleidsinstelling uitschakelt of niet configureert, kunnen gebruikers de weergave van de lijst 'Meest gebruikt' in- of uitschakelen met behulp van de Instellingen-app. Dit is standaardgedrag.
+
+Opmerking: als u dit beleid instelt op 'Weergeven' of 'Verbergen' in ondersteunde versies van Windows 10, overstijgt dit alle beleidsinstellingen voor 'Lijst met veelgebruikte Programma's uit Startmenu verwijderen' (wat hetzelfde deel van Startmenu beheert, maar met minder opties).</string>
+      <string id="MFU_NotConfigured">Niet geconfigureerd</string>
+      <string id="MFU_Show">Weergeven</string>
+      <string id="MFU_Hide">Verbergen</string>
       <string id="NoFrequentUsedPrograms">Lijst met meest gebruikte programma's uit het Startmenu verwijderen</string>
       <string id="NoFrequentUsedPrograms_Help">Als u deze instelling inschakelt, wordt de lijst met meest gebruikte programma's verwijderd uit het Startmenu.
 
@@ -239,7 +251,7 @@ Als u deze instelling uitschakelt of niet configureert, is de lijst met alle app
       <string id="APPLIST_NONE">Geen</string>
       <string id="APPLIST_COLLAPSE">Samenvouwen</string>
       <string id="APPLIST_COLLAPSESETTING">Samenvouwen en instelling uitschakelen</string>
-      <string id="APPLIST_REMOVESETTING">Verwijderen en instelling uitschakelen</string>    
+      <string id="APPLIST_REMOVESETTING">Verwijderen en instelling uitschakelen</string>
 
       <string id="NoNetAndDialupConnect">Netwerkverbindingen uit het Startmenu verwijderen</string>
       <string id="NoNetAndDialupConnect_Help">Met deze beleidsinstelling kunt u Netwerkverbindingen verwijderen uit het Startmenu.
@@ -254,11 +266,11 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, is Netwerkverbind
 
 Zie ook de beleidsinstellingen 'Programma's uitschakelen in het menu Instellingen' en 'Configuratiescherm uitschakelen' en de beleidsinstellingen in de map Netwerkverbindingen (Computerconfiguratie en Gebruikersconfiguratie\Beheersjablonen\Netwerk\Netwerkverbindingen).</string>
       <string id="NoPinnedPrograms">De lijst met aan het Startmenu vastgemaakte programma's verwijderen</string>
-      <string id="NoPinnedPrograms_Help">Als u deze instelling inschakelt, wordt de lijst Vastgehouden programma's uit het Startmenu verwijderd. Gebruikers kunnen geen programma's vastmaken aan het Startmenu. 
+      <string id="NoPinnedPrograms_Help">Als u deze instelling inschakelt, wordt de lijst Vastgemaakte programma's verwijderd uit de Startmenu. Gebruikers kunnen geen programma's vastmaken aan de Startmenu.
 
-In Windows XP en Windows Vista en worden de selectievakjes Internet en E-mail verwijderd uit het dialoogvenster Startmenu aanpassen. 
+In Windows XP en Windows Vista worden de selectievakjes Internet en e-mail verwijderd uit het dialoogvenster Startmenu aanpassen.
 
-Als u deze instelling uitschakelt of niet configureert, is de lijst Vastgehouden programma's beschikbaar in het Startmenu. Gebruikers kunnen programma's vastmaken aan het Startmenu en weer loskoppelen.</string>
+Als u deze instelling uitschakelt of niet configureert, blijft de lijst Vastgemaakte programma's op de Startmenu. Gebruikers kunnen programma's vastmaken en losmaken in het Startmenu.</string>
       <string id="NoRecentDocsHistory">Geschiedenis van recentelijk geopende documenten niet bijhouden</string>
       <string id="NoRecentDocsHistory_Help">Met deze instelling voorkomt u dat in het besturingssysteem en in geïnstalleerde programma's snelkoppelingen naar recentelijk geopende documenten worden gemaakt en weergegeven.
 
@@ -316,21 +328,29 @@ Zie ook de beleidsinstellingen 'Niet volgen gebruiken voor shell-snelkoppelingen
       <string id="NoRun">Het menu Uitvoeren verwijderen uit het Startmenu</string>
       <string id="NoRun_Help">Hiermee kunt u de opdracht Uitvoeren verwijderen uit het Startmenu, Internet Explorer en Taakbeheer.
 
-Met deze instelling verwijdert u computers in de werkgroep of het domein van de gebruiker van de lijsten met netwerkbronnen in Windows Verkenner en Netwerklocaties.
+Met deze instelling worden de volgende wijzigingen uitgevoerd:
+
+(1) De opdracht Uitvoeren wordt verwijderd uit het Startmenu.
 
 (2) De opdracht Nieuwe taak (uitvoeren) wordt verwijderd uit Taakbeheer.
 
-(3) De gebruiker kan het volgende niet meer opgeven op de Internet Explorer-adresbalk: --- A UNC path: \\&lt;server&gt;\&lt;share&gt; 
+(3) De gebruiker kan het volgende niet meer opgeven op de Internet Explorer-adresbalk:
+
+--- A UNC path: \\&lt;server&gt;\&lt;share&gt;
 
 ---Accessing local drives:  e.g., C:
 
---- Accessing local folders: e.g., \temp&gt; Bovendien is het voor gebruikers met een uitgebreid toetsenbord niet meer mogelijk om het dialoogvenster Uitvoeren te openen door op de toets met het Windows-logo+R te drukken. Als u deze instelling uitschakelt of niet configureert, kunnen gebruikers nog wel werken met de opdracht Uitvoeren in het Startmenu en in Taakbeheer of met de Internet Explorer-adresbalk.
+--- Accessing local folders: e.g., \temp&gt;
+
+Bovendien is het voor gebruikers met een uitgebreid toetsenbord niet meer mogelijk om het dialoogvenster Uitvoeren te openen door op de toets met het Windows-logo+R te drukken.
+
+Als je deze instelling uitschakelt of niet configureert, kunnen gebruikers nog wel werken met de opdracht Uitvoeren in het Startmenu en in Taakbeheer of met de Internet Explorer-adresbalk.
 
 
 
-Opmerking: deze instelling is alleen van invloed op de opgegeven interface. U voorkomt hiermee niet dat gebruikers met behulp van andere methoden programma's uitvoeren.
+Opmerking: deze instelling is alleen van invloed op de opgegeven interface. Je voorkomt hiermee niet dat gebruikers met behulp van andere methoden programma's uitvoeren.
 
-Opmerking: Toepassingen van derden met certificering voor Windows 2000 of later moeten zich houden aan deze instelling.</string>
+Opmerking: toepassingen van derden met certificering voor Windows 2000 of later moeten zich houden aan deze instelling.</string>
       <string id="NoSetFolders">Programma's uit het menu Instellingen verwijderen</string>
       <string id="NoSetFolders_Help">Met deze beleidsinstelling kunt u programma's verwijderen uit het menu Instellingen.
 
@@ -587,9 +607,9 @@ Als u deze beleidsinstelling inschakelt, wordt het startscherm weergegeven op he
 
 Als u deze beleidsinstelling uitschakelt of niet configureert, wordt het startscherm altijd weergegeven op het hoofdbeeldscherm wanneer de gebruiker op de Windows-logotoets drukt. Gebruikers kunnen Start nog steeds openen op andere beeldschermen door op de knop Start op dat beeldscherm te drukken. Ook kunnen gebruikers deze instelling configureren.</string>
       <string id="ForceStartSize_DisplayName">Start moet in volledig scherm of van menugrootte zijn</string>
-      <string id="ForceStartSize_ExplainText">Als u deze beleidsinstelling inschakelt en deze instelt op Startmenu of Start in volledig scherm, heeft Start een vaste grootte en kunnen gebruikers de grootte van Start niet wijzigen in Instellingen.
+      <string id="ForceStartSize_ExplainText">Als u deze beleidsinstelling inschakelt en instelt op Startmenu of startscherm op volledig scherm, heeft Start deze grootte en kunnen gebruikers de grootte van Start niet wijzigen in Instellingen.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de grootte automatisch geselecteerd op basis van de hardware en kunnen gebruikers de grootte van Start wijzigen in Instellingen.</string>
+Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de grootte automatisch geselecteerd op basis van de hardwarevormfactor en kunnen gebruikers de grootte van Start wijzigen in Instellingen.</string>
       <string id="ForceLauncherSize_Collapsed">Startmenu</string>
       <string id="ForceLauncherSize_Expanded">Start in volledig scherm</string>
       <string id="HidePeopleBar_DisplayName">De balk met contacten verwijderen uit de taakbalk</string>
@@ -600,10 +620,44 @@ Als u deze beleidsinstelling inschakelt, wordt het pictogram Personen verwijderd
       <string id="HideRecentlyAddedApps_Help">Met dit beleid kunt u voorkomen dat in het Startmenu een lijst met onlangs geïnstalleerde toepassingen wordt weergegeven.
 
 Als u dit beleid inschakelt, wordt de lijst 'Onlangs toegevoegd' niet meer weergegeven in het Startmenu. De overeenkomstige instelling wordt ook uitgeschakeld in Instellingen.</string>
+      <string id="HideRecommendedSection">Sectie Aanbevolen verwijderen uit het Startmenu</string>
+      <string id="HideRecommendedSection_Help">Met deze beleidsinstelling kunt u voorkomen dat in het Startmenu een lijst met aanbevolen toepassingen en bestanden wordt weergegeven.
+
+Als u deze beleidsinstelling inschakelt, wordt in het Startmenu de sectie met een lijst met aanbevolen bestanden en apps niet meer weergegeven.</string>
+ <string id="HideCategoryView">Categorieweergave verbergen in het Startmenu</string>
+ <string id="HideCategoryView_Help">Met deze beleidsinstelling kunt u de categorieweergave verbergen in het Startmenu.
+ 
+Als u deze beleidsinstelling inschakelt, wordt de categorieweergave niet meer als optie weergegeven in het Startmenu en wordt de rasterweergave standaard weergegeven.</string>
+
+ <string id="ConfigureStartPins">Vastgemaakte items in Start configureren</string>
+      <string id="ConfigureStartPins_Help">Hiermee kan de beheerder de standaarditems overschrijven die aan Start zijn vastgemaakt.
+
+Met deze instelling kunt u de standaarditems opgeven die aan Start zijn vastgemaakt.</string>
+
+      <string id="HideRecommendedPersonalizedSites">Aanbevelingen voor gepersonaliseerde websites verwijderen uit de sectie Aanbevolen in het Startmenu</string>
+      <string id="HideRecommendedPersonalizedSites_Help">Met deze beleidsinstelling kunt u de persoonlijke websites verbergen in de aanbevolen sectie van het Startmenu. 
+      
+Als u deze beleidsinstelling inschakelt, worden in het Startmenu geen persoonlijke websiteaanbeveling meer weergegeven in de aanbevolen sectie.</string>
       <string id="DisableContextMenusInStart">Snelmenu's in het Startmenu uitschakelen</string>
       <string id="DisableContextMenusInStart_Help">Met dit beleid kunt u voorkomen dat gebruikers contextmenu's openen in het Startmenu.
 
 Als u dit beleid inschakelt, worden aanroepen van contextmenu's in het Startmenu genegeerd.</string>
+      <string id="SimplifyQuickSettings_DisplayName">Indeling van snelle instellingen vereenvoudigen</string>
+      <string id="SimplifyQuickSettings_ExplainText">Als u dit beleid inschakelt, worden snelle instellingen beperkt tot alleen de knoppen WiFi, Bluetooth, Toegankelijkheid en VPN; de helderheid en de schuifregelaars voor het volume; en batterijindicator en koppeling naar de app Instellingen.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de normale indeling snelle instellingen weergegeven wanneer Snelle instellingen wordt aangeroepen.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">Snelle instellingen voor bewerken uitschakelen</string>
+      <string id="DisableEditingQuickSettings_ExplainText">Als u dit beleid inschakelt, kan de gebruiker de snelle instellingen niet wijzigen.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, kan de gebruiker snelle instellingen bewerken, zoals knoppen voor vastmaken of losmaken.</string>
+      <string id="DisableControlCenter">Snelle instellingen verwijderen</string>
+      <string id="DisableControlCenter_Help">Met deze beleidsinstelling verwijdert u Snelle instellingen uit het gedeelte rechtsonder op de taakbalk.
+
+Het gebied voor snelle instellingen bevindt zich links van de klok in de taakbalk en bevat pictogrammen voor het huidige netwerk en volume.
+
+Als deze instelling is ingeschakeld, worden snelle instellingen niet weergegeven in het gedeelte Snelle instellingen. 
+
+De computer moet opnieuw worden opgestart om deze beleidsinstelling van kracht te laten worden.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -620,9 +674,22 @@ Als u dit beleid inschakelt, worden aanroepen van contextmenu's in het Startmenu
           <label>Bestand met de indeling van het startscherm</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">Lay-out opnieuw toepassen bij elke aanmelding</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">Kies een van de volgende opties voor de grootte</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">Kies een van de volgende acties</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>Indelingsbestand voor vastgemaakte items starten</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">Categorieweergave verbergen</checkBox>
       </presentation>
     </presentationTable>
   </resources>

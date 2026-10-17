@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>NTLM 설정</displayName>
+  <description>NTLM 보안 패키지의 구성 설정입니다.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">NTLM 강화 로깅</string>
+      <string id="EnhancedAuditsId_Explain">이 정책 설정을 사용하면 NTLM 보안 패키지가 클라이언트와 서버 모두에 대해 강화된 새 감사 로그를 기록할 수 있습니다.
+
+      이러한 강화된 로그에는 NTLM을 사용하는 항목, NTLM을 사용하는 이유 및 NTLM 인증 요청의 대상에 대한 정보가 포함됩니다. 또한 NTLMv1 사용 및 기타 보안 다운그레이드에 대한 정보도 있습니다.
+
+      이 정책을 활성화하거나 구성하지 않으면 새 감사 로그가 생성됩니다. 정책을 비활성화하면 새 로그가 생성되지 않습니다.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">NTLM 향상된 차단</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">이 정책 설정을 사용하면 NTLM 보안 패키지가 컴퓨터 수준에서 향상된 새로운 차단 정책에 따라 NTLM 인증 요청을 차단할 수 있습니다.
+
+      이러한 향상된 차단 정책을 사용하면 계정 유형, 디바이스의 역할 또는 애플리케이션 유형과 같은 새로운 기준에 따라 NTLM 인증을 차단할 수 있습니다.
+
+      전체 정책을 "사용 안 함" 또는 "구성되지 않음"으로 설정하면 아래 하위 설정이 적용되지 않습니다. 전체 정책을 "사용"으로 설정하면 아래 하위 정책이 해당 구성에 따라 적용됩니다.
+
+      구성되지 않은 경우 모든 정책은 "감사" 모드로 설정됩니다. "감사"로 설정된 정책은 차단할 수 있는 NTLM 요청에 대한 경고를 기록하지만 차단하지는 않습니다. "감사"로 표시된 여러 정책을 동시에 사용하도록 설정할 수 있으며 통합 이벤트 로그에 기록됩니다.
+
+      정책이 "사용"으로 표시되면 정책 조건과 일치하는 경우 NTLM 인증 요청이 차단됩니다. 여러 정책이 "사용"으로 표시되면 정책의 조건과 일치하는 경우 NTLM 인증 요청이 차단됩니다. NTLM 인증을 차단하는 첫 번째 정책에 대한 이벤트 로그가 생성됩니다. 
+
+      "감사" 및 "사용" 정책이 둘 다 있는 시나리오에서는 "사용" 정책이 우선적으로 적용됩니다.
+
+      여기에 설명된 모든 향상된 차단 정책은 NTLM 인증을 사용할 수 있는 계정, 디바이스 및 애플리케이션을 지정하는 동일한 허용 목록을 공유합니다. 허용 목록에는 인증을 허용하는 일련의 대상 이름 또는 SPN이 포함될 수 있습니다. 
+
+      자세한 내용은 aka.ms/ntlmlogandblock을 방문하여 확인하세요.
+      </string>
+      <string id="Disabled">사용 안 함</string>
+      <string id="Audit">감사</string>
+      <string id="Enabled">사용</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">도메인 계정의 단일 로그인에 대한 NTLM 차단</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">도메인 컨트롤러에 대한 NTLM 차단</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">컴퓨터 바인딩 실패 시 NTLM 차단</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">모든 NTLM 인증 차단</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">향상된 차단 정책에 대한 허용 목록 지정:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

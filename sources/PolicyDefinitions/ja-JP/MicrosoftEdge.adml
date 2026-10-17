@@ -129,6 +129,12 @@ Version 1810:
 有効にすると、印刷が許可されます。
 
 無効にした場合、印刷は許可されません。</string>
+      <string id="AllowMixedModePrintingInPdf">横と縦の両方のページがある PDF ファイルについては、それぞれの向きに合わせて印刷します。</string>
+      <string id="AllowMixedModePrintingInPdf_Explain">このポリシーを使用すると、Microsoft Edge でページごとの向きに基づいて PDF ファイルを印刷できます。
+
+この設定を有効にした場合、混合モード印刷が許可されます。
+
+無効にした場合、混合モード印刷は許可されません。</string>
       <string id="AllowSavingHistory">履歴の保存を許可する</string>
       <string id="AllowSavingHistory_Explain">Microsoft Edge では、ユーザーの閲覧の履歴が保存されます。閲覧の履歴には、デバイスでアクセスした Web サイトに関する情報で構成されています。
 
@@ -512,9 +518,14 @@ Version 1810:
 無効または未構成の場合、既定値は 5 分です。
 
 割り当てられたアクセスで Microsoft Edge を構成しない場合、このポリシーは有効になりません。</string>
-    </stringTable>
+      <string id="SuppressEdgeDeprecationNotification">Microsoft Edge の廃止通知のディスプレイを表示しない</string>
+      <string id="SuppressEdgeDeprecationNotification_Explain">Microsoft Edge を構成して、このバージョンの Microsoft Edge のサポートが2021年3月9日に終了したことを知らせる通知を非表示にできます。有効にした場合、通知は表示されません。
 
+無効にした場合、または構成しなかった場合は、通知は Edge が起動されるたびに表示されます。 </string>
+
+    </stringTable>
     <!-- Presentation -->
+    
     <presentationTable>
       <presentation id="ConfiguredFavorites_Presentation">
         <textBox refId="ConfiguredFavoritesPrompt">

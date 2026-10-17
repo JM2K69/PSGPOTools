@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2006 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Definições de Política de Grupo do Gerenciador de Conexões do Windows</displayName>
   <description>Definições de Política de Grupo do Gerenciador de Conexões do Windows</description>
@@ -22,11 +22,11 @@ Tentativas de conexão manual
 Se esta configuração de política não for definida ou estiver desabilitada, será permitido que os computadores se conectem simultaneamente a redes que pertençam ou não a um domínio.
       </string>
       <string id="WCM_DisableRoaming">Proibir conexão com redes de Banda Larga Móvel em roaming</string>
-      <string id="WCM_DisableRoaming_Help">Esta configuração de política evita que os clientes se conectem a redes de Banda Larga Móvel quando o cliente estiver registrado em uma rede de provedor em roaming. 
+      <string id="WCM_DisableRoaming_Help">Esta configuração de política impede que os clientes se conectem a redes de banda larga móvel quando o cliente está registrado em uma rede de provedor de roaming.
 
-Se esta configuração de política for habilitada, todas as tentativas de conexão automática e manual com redes de provedor em roaming serão bloqueadas até que o cliente se registre na rede de provedor doméstica.
+Se esta configuração de política for habilitada, todas as tentativas de conexão automática e manual com redes de provedores de roaming serão bloqueadas até que o cliente se registre na rede do provedor doméstico.
 
-Se esta configuração de política não for definida ou estiver desabilitada, será permitido que os clientes se conectem a redes de Banda Larga Móvel em roaming.
+Se esta configuração de política não for definida ou estiver desabilitada, os clientes terão permissão para se conectar a redes de banda larga móvel de provedor de roaming.
       </string>
       <string id="WCM_MinimizeConnections">Minimizar o número de conexões simultâneas com a Internet ou com um Domínio do Windows</string>
       <string id="WCM_MinimizeConnections_AllowAllConnections">0 = Permitir conexões simultâneas</string>
@@ -47,25 +47,25 @@ Se esta configuração de política não for definida ou estiver desabilitada, s
         Esta configuração de política está relacionada à configuração "Habilitar o Windows a desconectar temporariamente um computador de uma rede".
       </string>
       <string id="WCM_DisablePowerManagement">Desabilitar o gerenciamento de energia no modo em espera conectado</string>
-      <string id="WCM_DisablePowerManagement_Help">Esta configuração de política especifica que o gerenciamento de energia fica desabilitado quando o computador entra em modo de espera conectado. 
+      <string id="WCM_DisablePowerManagement_Help">Esta configuração de política especifica que o gerenciamento de energia será desabilitado quando o computador entrar no modo de espera conectado.
 
-Se esta configuração de política for habilitada, o Gerenciador de Conexões do Windows não gerenciará os rádios de adaptador para reduzir o consumo de energia quando o computador entrar no modo de espera conectado.
+Se esta configuração de política for habilitada, o Gerenciador de Conexões do Windows não gerenciará os rádios do adaptador para reduzir o consumo de energia quando o computador entrar no modo de espera conectado.
 
 Se esta configuração de política não for definida ou estiver desabilitada, o gerenciamento de energia será habilitado quando o computador entrar no modo de espera conectado.
       </string>
       <string id="WCM_EnableSoftDisconnect">Habilitar o Windows a desconectar temporariamente um computador de uma rede</string>
-      <string id="WCM_EnableSoftDisconnect_Help">Essa configuração de política determina se o Windows desconectará um computador a partir de uma rede.
+      <string id="WCM_EnableSoftDisconnect_Help">Esta configuração de política determina se o Windows desconectará um computador de uma rede.
 
-Se essa configuração de política estiver habilitada ou não configurada, o Windows desconectará um computador de uma rede quando ele determinar que o computador não deve mais ser conectado a uma rede.
+Se esta configuração de política for habilitada ou não for configurada, o Windows desconectará um computador de uma rede quando ele determinar que o computador não deve mais ser conectado a uma rede.
 
-Se essa configuração de política estiver desabilitada, o Windows desconectará um computador de uma rede imediatamente quando determinar que o computador não deve mais ser conectado a uma rede.
+Se esta configuração de política for desabilitada, o Windows desconectará um computador de uma rede imediatamente quando determinar que o computador não deve mais ser conectado a uma rede.
 
-Quando a desconexão soft está habilitada:
-- Quando o Windows decide que o computador não deve mais ser conectado a uma rede, ele espera que o tráfego se estabeleça nessa rede. A sessão TCP existente continuará ininterrupta.
-- O Windows, em seguida, verifica o nível de tráfego na rede periodicamente. Se o nível de tráfego estiver acima de um determinado limite, nenhuma outra ação será tomada. O computador permanece conectado à rede e continua a usá-lo. Por exemplo, se a conexão de rede estiver sendo usada no momento para baixar arquivos da Internet, os arquivos continuarão sendo baixados usando essa conexão de rede.
-- Quando o tráfego de rede cair abaixo deste limite, o computador será desconectado da rede. Os apps que mantêm uma conexão de rede ativa mesmo quando não o estão usando ativamente (por exemplo, apps do email) puderam perder sua conexão. Se isso acontecer, esses aplicativos devem restabelecer sua conexão em uma rede diferente. 
+Quando a desconexão flexível está habilitada:
+-Quando o Windows decide que o computador não deve mais ser conectado a uma rede, ele espera que o tráfego se estabeleça nessa rede. A sessão TCP existente continuará ininterrupta.
+-O Windows, em seguida, verifica o nível de tráfego na rede periodicamente. Se o nível de tráfego estiver acima de um determinado limite, nenhuma outra ação será executada. O computador permanece conectado à rede e continua a usá-lo. Por exemplo, se a conexão de rede estiver sendo usada no momento para baixar arquivos da Internet, os arquivos continuarão sendo baixados usando essa conexão de rede.
+-Quando o tráfego de rede cair abaixo deste limite, o computador será desconectado da rede. Os apps que mantêm uma conexão de rede ativa mesmo quando não estão sendo usados ativamente (por exemplo, apps de email) podem perder a conexão. Se isso acontecer, esses apps devem restabelecer sua conexão em uma rede diferente.
 
-Essa configuração de política depende de outras configurações de política de grupo. Por exemplo, se 'Minimizar o número de conexões simultâneas com a Internet ou um domínio do Windows' estiver desabilitado, o Windows não se desconectará de nenhuma rede.
+Essa configuração de política depende de outras configurações de política de grupo. Por exemplo, se "Minimizar o número de conexões simultâneas com a Internet ou um Domínio do Windows" estiver desabilitado, o Windows não se desconectará de nenhuma rede.
       </string>
     </stringTable>
     <presentationTable>

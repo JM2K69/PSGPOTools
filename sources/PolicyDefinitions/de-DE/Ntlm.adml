@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>NTLM-Einstellungen</displayName>
+  <description>Konfigurationseinstellungen für das NTLM-Sicherheitspaket.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">Erweiterte NTLM-Protokollierung</string>
+      <string id="EnhancedAuditsId_Explain">Diese Richtlinieneinstellung ermöglicht es dem NTLM-Sicherheitspaket, die neuen, erweiterten Überwachungsprotokolle sowohl für Clients als auch für Server zu protokollieren.
+
+      Diese erweiterten Protokolle enthalten Informationen darüber, was NTLM verwendet, warum NTLM verwendet wird und was das Ziel der NTLM-Authentifizierungsanforderung ist. Sie enthalten auch Informationen zur NTLMv1-Nutzung und anderen Sicherheitsherabstufungen.
+
+      Wenn Sie diese Richtlinie aktivieren oder nicht konfigurieren, werden die neuen Überwachungsprotokolle generiert. Wenn Sie die Richtlinie deaktivieren, werden die neuen Protokolle nicht generiert.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">Erweiterte NTLM-Blockierung</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Mit dieser Richtlinieneinstellung kann das NTLM-Sicherheitspaket NTLM-Authentifizierungsanforderungen basierend auf den neuen, erweiterten Blockierungsrichtlinien auf Computerebene blockieren.
+
+      Diese erweiterten Blockierungsrichtlinien ermöglichen es, die NTLM-Authentifizierung anhand neuer Kriterien zu blockieren, wie zum Beispiel dem Kontotyp, der Rolle des Geräts oder dem Anwendungstyp.
+
+      Wenn die Gesamtrichtlinie auf „Deaktiviert“ oder „Nicht konfiguriert“ gesetzt ist, treten die unten aufgeführten Untereinstellungen nicht in Kraft. Ist die Gesamtrichtlinie auf „Aktiviert“ gesetzt, gelten die unten aufgeführten Unterrichtlinien entsprechend ihrer Konfiguration.
+
+      Sofern nicht anders konfiguriert, sind alle Richtlinien auf den Modus „Überwachung“ eingestellt. Richtlinien im Modus „Überwachung“ protokollieren eine Warnung zu der NTLM-Anforderung, die blockiert werden könnte, blockieren diese jedoch nicht. Mehrere Richtlinien mit dem Status „Überwachung“ können gleichzeitig aktiviert sein und werden in einem einheitlichen Ereignisprotokoll erfasst.
+
+      Wenn eine Richtlinie auf „Aktiviert“ gesetzt ist, wird die NTLM-Authentifizierungsanforderung blockiert, sofern sie den Kriterien dieser Richtlinie entspricht. Sind mehrere Richtlinien auf „Aktiviert“ gesetzt, wird die NTLM-Authentifizierungsanforderung blockiert, wenn sie den Kriterien einer dieser Richtlinien entspricht. Für die erste Richtlinie, die die NTLM-Authentifizierung blockiert, wird ein Ereignisprotokoll erstellt. 
+
+      In Szenarien, in denen sowohl „Überwachung“- als auch „Aktiviert“-Richtlinien vorhanden sind, hat die „Aktiviert“-Richtlinie Vorrang.
+
+      Alle hier beschriebenen erweiterten Blockierungsrichtlinien verwenden dieselbe Zulassungsliste, die die Konten, Geräte und Anwendungen definiert, die NTLM-Authentifizierung verwenden dürfen. Die Zulassungsliste kann eine Reihe von Zielnamen oder SPNs enthalten, um die Authentifizierung zu erlauben. 
+
+      Weitere Informationen finden Sie unter aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Deaktiviert</string>
+      <string id="Audit">Überwachung</string>
+      <string id="Enabled">Aktiviert</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Einmaliges Anmelden für NTLM für Domänenkonten blockieren</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">NTLM blockieren für Domänencontroller</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">NTLM blockieren, wenn die Computerbindung fehlschlägt</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Alle NTLM-Authentifizierungen blockieren</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Geben Sie die Zulassungsliste für erweiterte Blockierungsrichtlinien an:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

@@ -37,14 +37,30 @@ Not: Bu ilke ayarını etkinleştirmek, kullanıcıların %userprofile% konumund
       <string id="DisableRoamedProfileInit_Help">Bu ilke ayarı, Önbelleğe Alınmış Dolaşım Profili Grup İlkesini Sil ile birlikte dolaşımı yapılandıran yöneticilerin, Explorer'ın varsayılan program ilişkilendirmelerini ve diğer ayarları varsayılan değerlere yeniden başlatmamasını sağlamasına izin verir. 
 
 Bu ilke ayarını, tüm programların kullanıcının en son oturum açtığı makinedekiyle aynı şekilde yüklenmiş olmadığı bir makinede etkinleştirirseniz, beklenmeyen davranışlar gerçekleşebilir. </string>
+      <string id="DisableGraphRecentItems">Hesabınızı ve bulut sağlayıcı etkinliğinizi temel alan dosyaları göster</string>
+      <string id="DisableGraphRecentItems_Help">Bu ayarın kapatılması, Dosya Gezgini’nin bulut dosyası meta verilerini istemesini ve bunları giriş sayfasında ve Dosya Gezgini’ndeki diğer görünümlerde görüntülemesini engeller. Hesaba ve bulut sağlayıcısına bağlı olan tüm bilgiler ve dosyalar Son Kullanılanlar, Önerilenler, Sık Kullanılanlar, Paylaşılan vb. görünümlerde durdurulur.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Bu makinede Gelişmiş Ayarlar kaynak tümleştirmesini Dosya Gezgini</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">Gelişmiş Ayarlar kaynak tümleştirmesini devre dışı Dosya Gezgini Gelişmiş Ayarlar sytem bileşeninden depo bilgilerini göstermesini önle</string>
+      <string id="DisableFileExplorerPrelaunch">Arka Dosya Gezgini önceden başlatmak için bu özelliği devre dışı bırak</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Bu ilke, kullanıcıların başlatma deneyimini hızlandırmak ve yanıtlama hızını artırmak için Dosya Gezgini arka planda pencere oluşturan Önceden Başlatma özelliğini etkinleştirmesini sağlar.</string>
+      <string id="MakePrintScreenKeyYieldable">Print Screen tuşunun basılabilir olmasını sağla</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Bu ilke ayarı, Yazdırma Ekranı anahtarının diğer uygulamalara bırakılabilir olup olmadığını ayarlar.
+
+Bu ilke ayarını etkinleştirirseniz yazdırma Ekranı anahtarı uygulamalar tarafından ele geçirerek varsayılan ekran görüntüsü işlevselliğini geçersiz kılmasına izin verir.
+
+Bu ilke ayarını devre dışı bırakırsanız, yazdırma Ekranı anahtarı ekran görüntüsü alma davranışını korumaz ve uygulamalar tarafından engellenemez.
+
+Bu ilke yapılandırılmazsa, yazdırma Ekranı anahtarı uygulamalar tarafından ele geçirilerek etkinleştirilen davranışla aynı varsayılan ekran görüntüsü işlevselliğini geçersiz kılmasına izin verir.
+
+Not: Bu ayarın etkili olması için sistemin yeniden başlatılması gerekebilir.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>Destek Web sayfası URL'si</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>Destek Web sayfası URL'si</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>introduzir o nome a apresentar aqui</displayName>
+  <description>introduzir a descrição aqui</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Desativar o Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot_Help">Esta definição de política permite-lhe desativar o Windows Copilot.
+
+Se ativar esta definição de política, os utilizadores não poderão utilizar o Copilot. O ícone do Copilot também não aparecerá na barra de tarefas.
+
+Se desativar ou não configurar esta definição de política, os utilizadores poderão utilizar o Copilot quando estiver disponível para eles.
+      </string>
+      <string id="WindowsAI">IA Windows</string>
+      <string id="DisableAIDataAnalysis">Desativar a gravação de instantâneos para utilização com a Lembrança
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Esta definição de política permite-lhe determinar se os instantâneos do ecrã podem ser guardados para utilização com Lembrança. Para dispositivos geridos, os instantâneos para Lembrança não estão ativados por predefinição. Os administradores de TI não podem, por si só, ativar a gravação de instantâneos em nome dos respetivos utilizadores. A opção para ativar a gravação de instantâneos requer o consentimento de participação individual do utilizador.
+
+Se a política não estiver configurada, os instantâneos não serão guardados para utilização com Lembrança.
+
+Se ativar esta política, os instantâneos não serão guardados para utilização com Lembrança. Se os instantâneos tiverem sido guardados anteriormente no dispositivo, serão eliminados quando esta política estiver ativada.
+
+Se definir esta política como desativada, os utilizadores finais terão a opção de guardar instantâneos do respetivo ecrã e utilizar Lembrança para encontrar as coisas que viram no respetivo dispositivo.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Definir o armazenamento máximo para instantâneos utilizados pela Lembrança
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Esta definição de política permite-lhe controlar a quantidade máxima de espaço em disco que pode ser utilizado pelo Windows para guardar instantâneos para a Lembrança.
+
+Pode definir a quantidade máxima de espaço em disco para instantâneos como 10, 25, 50, 75, 100 ou 150 GB.
+
+Quando esta definição não está configurada, o sistema operativo configura a alocação de armazenamento para instantâneos com base na capacidade de armazenamento do dispositivo, a menos que o utilizador atual especifique um valor diferente.
+
+São alocados 25 GB quando a capacidade de armazenamento do dispositivo é de 256 GB. São alocados 75 GB quando a capacidade de armazenamento do dispositivo é de 512 GB. São alocados 150 GB quando a capacidade de armazenamento do dispositivo é de 1 TB ou superior.
+
+Se a duração máxima de armazenamento e o espaço máximo de armazenamento estiverem definidos para a Lembrança, então os instantâneos são eliminados quando o primeiro máximo é atingido.
+
+Importante: esta definição aplica-se apenas a SKUs dos clientes Enterprise e Educação.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Permitir que o SO defina a quantidade máxima de armazenamento com base no tamanho de armazenamento da unidade de disco rígido</string>
+      <string id="SetMaximumStorageSpace_10GB">10 GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25 GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50 GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75 GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100 GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150 GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Definir a duração máxima para armazenar instantâneos utilizados para a Lembrança
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Esta definição de política permite-lhe controlar a quantidade máxima de tempo (em dias) que o Windows guarda instantâneos para a Lembrança.
+
+Quando a política está ativada, pode configurar a duração máxima do armazenamento como 30, 60, 90 ou 180 dias.
+
+Quando esta política não está configurada, a duração máxima de armazenamento é de 90 dias, a menos que o utilizador atual especifique um valor diferente.
+
+Se a duração máxima de armazenamento e o espaço máximo de armazenamento estiverem definidos para a Lembrança, então os instantâneos são eliminados quando o primeiro máximo é atingido.
+
+Importante: esta definição aplica-se apenas a SKUs dos clientes Enterprise e Educação.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">Permitir que o SO defina o período máximo de tempo durante o qual os instantâneos serão guardados
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 dias</string>
+      <string id="SetMaximumStorageDuration_60Days">60 dias</string>
+      <string id="SetMaximumStorageDuration_90Days">90 dias</string>
+      <string id="SetMaximumStorageDuration_180Days">180 dias</string>
+      <string id="SetDenyAppListForRecall">Definir uma lista de aplicações a filtrar a partir de instantâneos para a Lembrança
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Esta política permite-lhe definir uma lista de aplicações que não serão incluídas em instantâneos para Lembrança.
+
+Os utilizadores poderão adicionar aplicações adicionais a excluir de instantâneos utilizando definições de Lembrança.
+
+A lista pode incluir IDs de Modelo de Utilizador da Aplicação (AUMID) ou o nome do ficheiro executável.
+
+Utilize uma lista separada por ponto e vírgula de aplicações para definir a lista de aplicações de negação para Lembrança.
+
+Por exemplo: code.exe; Microsoft.WindowsNotepad_8wekyb3d8bbwe! Aplicação;ms-teams.exe
+
+Importante: esta definição aplica-se apenas a SKUs de cliente Enterprise e Education. Ao configurar esta definição de política, as alterações só entrarão em vigor quando o dispositivo reiniciar.
+      </string>
+      <string id="SetDenyUriListForRecall">Definir uma lista de URIs a filtrar a partir de instantâneos para a Lembrança
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Esta definição de política permite-lhe definir uma lista de URIs que não serão incluídos em instantâneos para Lembrança quando é utilizado um browser suportado. Pessoas da sua organização podem utilizar definições de Lembrança para adicionar mais sites à lista. Defina a lista utilizando um ponto e vírgula para separar URIs.
+
+Por exemplo: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+Adicionar https://www.WoodgroveBank.com à lista também filtraria https://Account.WoodgroveBank.com e https://www.WoodgroveBank.com/Account.
+
+Importante: esta definição aplica-se apenas a SKUs de cliente Enterprise e Education. As alterações a esta política produzem efeitos após o reinício do dispositivo.
+      </string>
+      <string id="SetDataLossPreventionProvider">Definir o ID do fornecedor DLP para Lembrança
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Esta política permite que um administrador especifique um fornecedor DLP, que a Lembrança utilizará se o fornecedor estiver corretamente instalado. Terá de obter a cadeia do seu fornecedor. Terá um aspeto semelhante a 'key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll' (sem aspas no valor).
+
+Importante: esta definição aplica-se apenas às SKUs dos clientes Enterprise e Education.
+      </string>
+      <string id="SetCopilotHardwareKey">Definir Tecla de Hardware do Copilot</string>
+      <string id="SetCopilotHardwareKey_Help">Esta definição de política determina que aplicação é aberta quando o utilizador prime a tecla do Copilot no teclado. Se a política estiver ativada, a aplicação especificada será aberta quando o utilizador prime a tecla do Copilot. Os utilizadores podem alterar a atribuição da tecla em Definições. Se a política não estiver configurada, o Copilot será aberto se estiver disponível nesse país ou região.
+      </string>
+      <string id="AllowRecallEnablement">Permitir que a Lembrança seja ativada
+      </string>
+      <string id="AllowRecallEnablement_Help">Esta definição de política permite-lhe determinar se o Lembrança componente opcional está disponível para os utilizadores finais ativarem no respetivo dispositivo. Por predefinição, Lembrança está desativado para dispositivos comerciais geridos. Lembrança não está disponível em dispositivos geridos por predefinição e os utilizadores individuais não podem ativar Lembrança por si próprios.
+
+Se esta política não estiver configurada, os utilizadores finais terão o componente Lembrança num estado desativado.
+
+Se esta política estiver desativada, o componente Lembrança estará no estado desativado e os bits para Lembrança serão removidos do dispositivo. Se os instantâneos tiverem sido guardados anteriormente no dispositivo, serão eliminados quando esta política estiver desativada. A remoção Lembrança requer um reinício do dispositivo.
+
+Se a política estiver ativada, os utilizadores finais terão Lembrança disponíveis no respetivo dispositivo. Dependendo do estado da política DisableAIDataAnalysis (desativar a gravação de instantâneos para utilização com Lembrança), os utilizadores finais poderão escolher se pretendem guardar instantâneos do ecrã e utilizar Lembrança para encontrar as coisas que viram no respetivo dispositivo.
+      </string>
+      <string id="DisableClickToDo">Desativar Clicar para Fazer</string>
+      <string id="DisableClickToDo_Help">Clicar para Fazer permite que as pessoas tomem ações sobre o conteúdo nos seus ecrãs. Quando ativado, tira uma captura de ecrã do seu dispositivo e analisa-a para apresentar ações. O Clicar para Fazer termina quando o utilizador sai, e não pode tirar capturas de ecrã enquanto estiver fechado. A análise de captura de ecrã é sempre realizada localmente no dispositivo. Por predefinição, a opção Clicar para Fazer está ativada para os utilizadores.
+
+Esta definição de política permite-lhe determinar se o Clicar para Fazer está disponível para os utilizadores no seu dispositivo.
+
+Quando a política está ativada, o componente Clicar para Fazer e os pontos de entrada não estarão disponíveis para os utilizadores.
+
+Quando a política está desativada, os utilizadores terão o Clicar para Fazer disponível no seu dispositivo.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">Desativar Criador de Imagens</string>
+      <string id="DisableImageCreator_Help">Esta definição de política permite controlar se Criador de Imagens funcionalidade está desativada na aplicação Windows Paint. Se esta política estiver ativada, Criador de Imagens funcionalidade não estará acessível na aplicação Paint. Se esta política estiver desativada ou não estiver configurada, os utilizadores poderão aceder Criador de Imagens funcionalidade.</string>
+      <string id="DisableCocreator">Desativar o Cocriador</string>
+      <string id="DisableCocreator_Help">Esta definição de política permite controlar se a funcionalidade Cocreator está desativada na aplicação Windows Paint. Se esta política estiver ativada, a funcionalidade Cocreator não estará acessível na aplicação Paint. Se esta política estiver desativada ou não estiver configurada, os utilizadores poderão aceder à funcionalidade Cocreator.</string>
+      <string id="DisableGenerativeFill">Desativar preenchimento generativo</string>
+      <string id="DisableGenerativeFill_Help">Esta definição de política permite controlar se a funcionalidade de preenchimento generativo está desativada na aplicação Windows Paint. Se esta política estiver ativada, a funcionalidade de preenchimento generativo não estará acessível na aplicação Paint. Se esta política estiver desativada ou não estiver configurada, os utilizadores poderão aceder à funcionalidade de preenchimento gerador.</string>
+      <string id="AllowRecallExport">Permitir a exportação de informações de Lembrança e instantâneos</string>
+      <string id="AllowRecallExport_Help">Esta política permite-lhe determinar se os utilizadores podem exportar as suas próprias informações de Lembrança e instantâneos. A exportação permite que os utilizadores partilhem as suas informações de Lembrança e instantâneos com aplicações ou sites fidedignos. Os utilizadores podem exportar a partir de Definições &gt; Privacidade &amp; segurança &gt; Lembrança &amp; instantâneos &gt; Definições avançadas &gt; Exportar instantâneos &gt; Exportar instantâneos passados &gt; Exportar.
+
+Os utilizadores também podem optar por exportar continuamente os seus instantâneos se ativarem a opção para Exportar instantâneos a partir de Definições &gt; Privacidade &amp; segurança &gt; Lembrança &amp; instantâneos &gt; Definições avançadas &gt; Exportar instantâneos &gt; Exportar.
+
+Antes de iniciar uma exportação, o utilizador deve autenticar-se com o Windows Hello e é notificado de que os instantâneos exportados são encriptados, uma vez que podem conter informações confidenciais. O utilizador também é notificado de que terá de fornecer o respetivo código de exportação da Lembrança se quiser permitir o acesso de aplicações ou sites fidedignos aos instantâneos exportados. O código de exportação da Lembrança é apresentado aos utilizadores durante a configuração da Lembrança, mesmo que esta política esteja definida como desativada ou não configurada. Para dispositivos geridos:
+
+Quando definir esta política como ativada, os utilizadores poderão exportar informações de Lembrança e instantâneos.
+
+Se a política estiver definida como desativada ou não configurada, os utilizadores não poderão exportar as suas informações de Lembrança e instantâneos.
+
+Importante: esta definição aplica-se apenas aos dispositivos do Espaço Económico Europeu (EEE). A exportação de informações de Lembrança e instantâneos é um processo iniciado pelo utilizador e é por utilizador. Os administradores de TI ou outros utilizadores não podem iniciar uma exportação em nome de outro.
+      </string>
+      <string id="DisableSettingsAgent">Desativar a experiência de pesquisa nas Definições</string>
+      <string id="DisableSettingsAgent_Help">A experiência de agente nas Definições melhora os resultados da pesquisa na aplicação Definições ao ativar a linguagem natural. Quando ativada, a mesma utiliza um modelo de IA para fornecer sugestões inteligentes de pesquisa nas Definições.
+
+        Esta definição de política permite-lhe determinar se a experiência de pesquisa de agente nas Definições está disponível para os utilizadores no respetivo dispositivo.
+
+        Quando a política está ativada, a experiência de pesquisa de agente nas Definições é desativada, limitando os resultados da pesquisa a pesquisas indexadas estaticamente e pesquisas semânticas.
+
+        Quando a política está desativada, os utilizadores terão a experiência de pesquisa de agente nas Definições disponível no respetivo dispositivo.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Nível de Registo no Dispositivo</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Esta definição de política permite-lhe configurar o nível de registo para operações de registo no dispositivo.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Erro ou superior</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Informação ou superior</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Depuração ou superior</string>
+      <string id="RemoveMicrosoftCopilotApp">Remover a Aplicação Microsoft Copilot</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Esta definição de política permite-lhe desinstalar o Microsoft Copilot para utilizadores de forma direcionada. Será aplicada a dispositivos/utilizadores que cumpram as condições abaixo:
+
+• O Microsoft 365 Copilot e o Microsoft Copilot estão ambos instalados
+
+• A aplicação Microsoft Copilot não foi instalada pelo utilizador
+
+• A aplicação Microsoft Copilot não foi iniciada nos últimos 28 dias
+ 
+Se esta política estiver ativada, a aplicação Microsoft Copilot será desinstalada. Os utilizadores ainda podem reinstalar se optarem por o fazer. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>Entrar no AUMID da Aplicação</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Introduzir a lista de aplicações de negação:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Introduzir a lista de URI de negação:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>Introduza o ID do fornecedor DLP:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Selecionar o espaço máximo de armazenamento:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Selecionar a duração máxima do armazenamento:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Nível de Registo no Dispositivo: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

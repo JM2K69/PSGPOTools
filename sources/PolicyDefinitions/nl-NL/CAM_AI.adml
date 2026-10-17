@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>AI-beleid voor CAM (Capability Access Manager)</displayName>
+  <description>Beleid met betrekking tot AI-mogelijkheden en hun toestemmingsbeheer.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">AI-toestemming</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">Gebruiker heeft controle</string>
+      <string id="ForceEnable">Inschakelen forceren</string>
+      <string id="ForceDisable">Uitschakelen forceren</string>
+      <string id="AgentConsentDuration_Name">Duur van agenttoestemming</string>
+      <string id="AgentConsentDuration_Explain">Hiermee wordt bepaald hoe lang, in uren, een toestemmingsreactie van het type ‘Toestaan’ voor agentfuncties geldig blijft voordat de gebruiker opnieuw om toestemming wordt gevraagd.
+
+Als dit beleid is ingeschakeld, moet de waarde tussen 1 (1 uur) en 8760 (1 jaar) liggen. De geconfigureerde waarde wordt gebruikt als standaardvervaldatum voor alle toestemmingsreacties van het type ‘Toestaan’ voor agentfuncties.
+
+Als dit beleid niet is geconfigureerd of als de waarde buiten het toegestane bereik valt, is de standaardwaarde 720 uur (30 dagen).</string>
+      <string id="ConfigureAgentConnectors_Name">Agentconnectors configureren</string>
+      <string id="ConfigureAgentConnectors_Explain">Agentconnectors in- of uitschakelen.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Toegangsbeleid voor agentconnector</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Met deze beleidsinstelling kun je een lijst met toegestane verbindingen tussen MCP-hosts en MCP-servers definiëren.
+
+De indeling van deze lijst is een JSON-tekenreeks die voldoet aan het schema in https://go.microsoft.com/fwlink/?LinkId=2363700.
+
+Als dit beleid niet is geconfigureerd, kan de MCP-host verbinding maken met een MCP-server met toestemming van de gebruiker.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Agentconnectors configureren: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Toestemmingsduur (uren): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Toegestane MCP-host-/serververbindingen configureren:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

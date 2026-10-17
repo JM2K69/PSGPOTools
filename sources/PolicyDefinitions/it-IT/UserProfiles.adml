@@ -77,6 +77,14 @@ Se si disabilita o non si configura questa impostazione dei criteri, il sistema 
 Nota: questa impostazione dei criteri e quelle correlate disponibili nella cartella definiscono la risposta del sistema nel caso in cui il tempo necessario per scaricare i profili utente mobili sia elevato. Nei sistemi operativi precedenti a Microsoft Windows Vista, per regolare il tempo consentito all'utente per rispondere all'avviso, utilizzare l'impostazione dei criteri "Timeout per finestre di dialogo".
 
 Importante: se l'impostazione "Non rilevare connessioni di rete lente" è abilitata, l'impostazione dei criteri descritta verrà ignorata. Inoltre, se l'impostazione dei criteri "Elimina dalla cache le copie dei profili mobili" è abilitata, non sarà disponibile una copia locale del profilo mobile da caricare quando il sistema rileva una connessione lenta.</string>
+      <string id="AllowNonStandardUserProfilePaths">Consenti hive del Registro di sistema del profilo utente e AppData da percorsi non standard</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Questa impostazione di criteri controlla se le posizioni degli hive del Registro di sistema e della cartella AppData del profilo utente possono accettare formati di percorso non standard.
+
+Se abiliti questa impostazione di criteri, le posizioni del profilo utente accettano una gamma più ampia di formati di percorso dei file.
+
+Se disabiliti o non configuri questa impostazione di criteri, le posizioni del profilo utente accettano solo i percorsi standard delle cartelle di Windows.
+
+Nota: l'abilitazione di questa impostazione può esporre il sistema a rischi per la sicurezza. Abilitala solo se richiesto da una specifica applicazione dell'organizzazione e solo dopo aver valutato tutti i rischi per l'ambiente.</string>
       <string id="ExcludeDirectories">Escludi directory nel profilo mobile</string>
       <string id="ExcludeDirectories_Help">Questa impostazione dei criteri consente di escludere cartelle che sono in genere incluse nel profilo dell'utente. Tali cartelle non verranno pertanto archiviate nel server di rete in cui risiede il profilo e non verranno trasferite nei computer utilizzati dall'utente.
 
@@ -237,7 +245,7 @@ Se si disabilita o non si configura questa impostazione dei criteri, Windows att
       <string id="MachineProfilePath">Imposta percorso profilo mobile per tutti gli utenti che accedono al computer</string>
       <string id="MachineProfilePath_Help">Questa impostazione dei criteri specifica se Windows utilizza il percorso di rete specificato come percorso del profilo utente mobile per tutti gli utenti che accedono al computer.
 
-Per utilizzare questa impostazione dei criteri, digitare il percorso relativo alla condivisione di rete nel formato \\NomeComputer\NomeCondivisione\. Per assegnare a ogni utente una cartella del profilo specifica, è consigliabile utilizzare un percorso come \\NomeComputer\NomeCondivisione\%USERNAME%. Se %USERNAME% non viene indicato, tutti gli utenti che accedono al computer utilizzeranno la stessa cartella del profilo mobile in base a quanto specificato dall'impostazione. È necessario garantire che venga impostata l'opportuna sicurezza relativa alla cartella, per consentire agli utenti di accedere al profilo.
+Per utilizzare questa impostazione dei criteri, digitare il percorso della condivisione di rete nel formato \\NomeComputer\NomeCondivisione\. È consigliabile utilizzare un percorso come \\NomeComputer\NomeCondivisione\%USERNAME% per assegnare a ogni utente una cartella del profilo individuale. Se non specificato, tutti gli utenti che accedono al computer utilizzeranno la stessa cartella del profilo mobile specificata da questo criterio. È necessario assicurarsi di aver impostato la sicurezza appropriata nella cartella per consentire a tutti gli utenti di accedere al profilo.
 
 Se si abilita questa impostazione dei criteri, tutti gli utenti che accedono al computer utilizzeranno il percorso del profilo mobile specificato.
 
@@ -334,7 +342,7 @@ Non specificare variabili di ambiente o puntini di sospensione nel percorso. Ino
 
 Nota: se si sceglie "Sul computer locale" nell'elenco Percorso, la casella Lettera unità verrà ignorata. Se si sceglie "Sul computer locale" e si immette una condivisione file, la home directory dell'utente verrà inserita nel percorso di rete senza mapping della condivisione file a una lettera di unità.
 
-Se si disabilita o non si configura questa impostazione dei criteri, la home directory dell'utente verrà configurata come specificato nell'account Servizi di dominio Active Directory dell'utente.
+Se si disabilita o non si configura questa impostazione dei criteri, la home directory dell'utente verrà configurata come specificato nell'account Active Directory Domain Services dell'utente.
 
 Se l'impostazione dei criteri "Imposta la home directory utente di Servizi Desktop remoto" è abilitata, l'impostazione dei criteri "Imposta la home directory utente" non avrà effetto.</string>
       <string id="on_the_Local_Computer">Sul computer locale</string>

@@ -4,7 +4,7 @@
   <description>Zde zadejte popis.</description>
   <resources>
     <stringTable>
-      <string id="Display">Zobrazení</string>
+      <string id="Display">Obrazovka</string>
       <string id="CPL_Display_Disable">Zakázat ovládací panel Zobrazení</string>
       <string id="CPL_Display_Disable_Help">Zakáže ovládací panel Zobrazení.
 
@@ -172,6 +172,12 @@ Pokud nastavení této zásady zakážete nebo nenakonfigurujete, pak se uživat
 Ve výchozím nastavení můžou uživatelé tento obrázek na pozadí změnit.
 
 Pokud toto nastavení povolíte, nebudou uživatelé moct obrázek zamykací nebo přihlašovací obrazovky změnit a místo něho uvidí výchozí obrázek.</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">Zamezení pohybu pozadí zamykací obrazovky</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">Toto nastavení zásad určuje, zda je obrázek na zamykací obrazovce statický nebo má jemný efekt posouvání řízený výstupem akcelerometru zařízení.
+
+Pokud toto nastavení povolíte, bude pohybu zabráněno a uživateli se zobrazí tradiční statický obrázek pozadí zamykací obrazovky.
+
+Pokud toto nastavení zakážete (a zařízení má akcelerometr), zobrazí se uživateli pohyb pozadí zamykací obrazovky okolo statického obrázku při fyzickém přesunu zařízení.</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">Vynutit konkrétní výchozí obrázek zamykací obrazovky a přihlášení</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">Toto nastavení umožňuje vynutit konkrétní výchozí obrázek pro zamykací a přihlašovací obrazovku tím, že zadáte cestu k příslušnému souboru (jeho umístění). Stejný obrázek se použije pro zamykací i přihlašovací obrazovku.
 

@@ -8,9 +8,9 @@
       <string id="DisplayLastLogonInfoDescription">在用户登录期间显示有关以前登录的信息</string>
       <string id="DisplayLastLogonInfoDescription_Help">此策略设置控制系统是否向用户显示有关以前的登录和登录失败次数的信息。
 
-对于 Windows Server 2008 功能级别及以上版本的域中的本地用户帐户和域用户帐户，如果启用此设置，将在该用户登录后出现一条消息，显示该用户上次成功登录的日期和时间、该用户名上次尝试登录而未成功的日期和时间，以及自该用户上次成功登录以来未成功登录的次数。用户必须确认该消息，然后才能登录到 Microsoft Windows 桌面。
+对于 Windows Server 2008 功能级别及以上版本的域中的本地用户账户和域用户账户，如果启用此设置，将在该用户登录后出现一条消息，显示该用户上次成功登录的日期和时间、该用户名上次尝试登录而未成功的日期和时间，以及自该用户上次成功登录以来未成功登录的次数。用户必须确认该消息，然后才能登录到 Microsoft Windows 桌面。
 
-对于 Windows Server 2003、Windows 2000 本机或 Windows 2000 混合功能级别域中的域用户帐户，如果启用此设置，将出现一条警告消息，指出 Windows 可能无法检索该信息，并且该用户无法登录。因此，如果该域不属于 Windows Server 2008 域功能级别，则不应启用此策略设置。
+对于 Windows Server 2003、Windows 2000 本机或 Windows 2000 混合功能级别域中的域用户账户，如果启用此设置，将出现一条警告消息，指出 Windows 可能无法检索该信息，并且该用户无法登录。因此，如果该域不属于 Windows Server 2008 域功能级别，则不应启用此策略设置。
 
 如果禁用或未配置此设置，则不会显示有关以前的登录或登录失败的消息。</string>
       <string id="Logon">Windows 登录选项</string>
@@ -38,7 +38,7 @@
 
 注意: 如果配置了此设置，则可能希望检查和适当地配置“删除登录时间到期警告”设置</string>
       <string id="ReportCachedLogonPolicyDescription">在用户登录期间报告登录服务器何时不可用</string>
-      <string id="ReportCachedLogonPolicyDescription_Help">此策略控制用户在登录过程中联系不到登录服务器并且已使用以前存储的帐户信息登录时，是否向其显示通知。
+      <string id="ReportCachedLogonPolicyDescription_Help">此策略控制用户在登录过程中联系不到登录服务器并且已使用以前存储的账户信息登录时，是否向其显示通知。
 
 如果启用了此设置，则会在用户使用缓存的凭据登录时向其显示弹出通知。
 
@@ -100,6 +100,13 @@
 
       <string id="ConfigAutomaticRestartSignOn_EnableIfSecure">在 BitLocker 已打开且未暂停的情况下启用</string>
       <string id="ConfigAutomaticRestartSignOn_EnableAlways">始终启用</string>
+
+      <string id="EnableMPRNotifications">在 winlogon 发送的 MPR 通知内容中配置用户密码的传输。</string>
+      <string id="EnableMPRNotifications_Help">此策略控制用户密码是否包含在系统中 winlogon 发送的 MPR 通知的内容中。
+
+如果禁用或未配置此设置，winlogon 将发送包含用户身份验证信息的空密码字段的 MPR 通知。
+
+如果启用此设置，winlogon 会在身份验证信息中发送包含用户密码的 MPR 通知。</string>
 
     </stringTable>
     <presentationTable>

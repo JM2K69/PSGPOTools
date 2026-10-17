@@ -14,6 +14,19 @@
 Ha engedélyezi ezt a házirendet, akkor az adatvédelmi élmény nem fog elindulni az újonnan létrehozott felhasználói fiókok esetén, illetve az olyan fiókoknál, amelyeknél frissítés után megjelent volna az adatvédelmi beállítások kiválasztására vonatkozó felkérés.
 
 Ha letiltja vagy nem konfigurálja ezt a házirendet, akkor az adatvédelmi élmény elindulhat az újonnan létrehozott felhasználói fiókok esetén, illetve az olyan fiókoknál, amelyeknél frissítés után meg kell jelennie az adatvédelmi beállítások kiválasztására vonatkozó felkérésnek.</string>
+
+      <string id="AllowOOBEUpdates">Frissítések engedélyezése a kezdőélmény során</string>
+      <string id="AllowOOBEUpdates_Explain">Ez a szabályzat lehetővé teszi, hogy konfigurálja, hogy az új eszközök megkapják-e a kritikus frissítéseket a kezdőélmény során.
+
+Ha letiltja vagy nem konfigurálja a szabályzatot, az új eszközök nem fognak kritikus frissítéseket kapni a kezdőélmény során.
+
+Ha engedélyezi a szabályzatot, az új eszközök megkapják a legújabb jóváhagyott kritikus frissítéseket a kezdőélmény során.
+
+Megjegyzések:
+Ez a szabályzat nem szabályozza a nulladik napi javítás (ZDP) frissítési lapját a kezdőélmény során.
+
+Ha felfüggesztette a minőségi frissítéseket a Windows minőségi frissítési halasztásain és szüneteltetési szabályzatain keresztül, akkor a kezdőélmény során nem fognak minőségi frissítések érkezni.
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

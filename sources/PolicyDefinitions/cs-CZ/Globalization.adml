@@ -169,7 +169,7 @@ Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude moci přihl
       <string id="UILang4">Němčina</string>
       <string id="UILang5">Čínština (zjednodušená)</string>
       <string id="UILang6">Čínština (tradiční)</string>
-      <string id="UILang34">Čínština (tradiční – Hongkong)</string>
+      <string id="UILang34">Tradiční čínština (Hongkong – zvláštní administrativní oblast)</string>
       <string id="UILang35">Čínština (tradiční – Tchaj-wan)</string>
       <string id="UILang7">Francouzština</string>
       <string id="UILang8">Španělština</string>
@@ -284,6 +284,21 @@ Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, nebude systém W
         Pokud je tato zásada povolena nebo není nakonfigurována, je nastavení ponecháno na uživateli a uživatelé si mohou zvolit, zda prostřednictvím nastavení povolí služby řeči.
         
         Pokud tuto zásadu zakážete, služby řeči budou zakázány a uživatelé je nebudou moci prostřednictvím nastavení povolit.
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Omezit instalaci jazykových sad a jazykových funkcí</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        Tato zásada znemožňuje všem uživatelům instalaci jazykových sad a funkcí a balíčků na vyžádání. Tato zásada neomezuje přepínání jazyka Windows . Pokud chcete omezit jazyk Windows , použijte tuto zásadu: Omezit jazyky uživatelského rozhraní, které systém Windows používá pro všechny přihlášené uživatele.  
+
+        Pokud tuto zásadu povolíte,  instalace jazykových sad a funkcí bude pro všechny uživatele znemožněna.
+
+        Pokud tuto zásadu zakážete nebo nenakonfigurujete, nebude pro uživatele platit žádné omezení instalace jazykových sad a funkcí.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        Tato zásada znemožňuje uživateli instalaci jazykových sad a funkcí na vyžádání. Tato zásada neomezuje přepínání jazyka Windows . Pokud chcete omezit jazyk Windows , použijte tuto zásadu: Omezit jazyky uživatelského rozhraní, které by měl systém Windows používat pro vybraného uživatele.  
+
+        Pokud tuto zásadu povolíte,  instalace jazykových sad a funkcí bude pro uživatele znemožněna.  
+
+        Pokud tuto zásadu zakážete nebo nenakonfigurujete, nebude pro uživatele platit žádné omezení instalace jazykových sad a funkcí.  
       </string>
     </stringTable>
     <presentationTable>

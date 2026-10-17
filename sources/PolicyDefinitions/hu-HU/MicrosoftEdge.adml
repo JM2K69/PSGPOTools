@@ -129,6 +129,12 @@ A beállítás konfigurálatlanul hagyása esetén az alkalmazottak választhatn
 Ha engedélyezve van, a nyomtatás engedélyezett.
 
 Ha le van tiltva, a nyomtatás nem engedélyezett.</string>
+      <string id="AllowMixedModePrintingInPdf">Fekvő és álló oldalakat egyaránt tartalmazó PDF-fájlok esetén minden oldalt a saját tájolásában nyomtasson.</string>
+      <string id="AllowMixedModePrintingInPdf_Explain">Ezzel a házirenddel a PDF-fájlokat oldalanént eltérő tájolásban nyomtathatja ki a Microsoft Edge használatával.
+
+Ha engedélyezve van, a kevert módú nyomtatás engedélyezett.
+
+Ha le van tiltva, a kevert módú nyomtatás nem engedélyezett.</string>
       <string id="AllowSavingHistory">Előzmények mentésének engedélyezése</string>
       <string id="AllowSavingHistory_Explain">A Microsoft Edge menti a felhasználó böngészési előzményeit, amely az eszközeiről felkeresett webhelyek adatait tartalmazza.
 
@@ -277,12 +283,12 @@ A beállítás kikapcsolásával vagy konfigurálatlanul hagyásával minden web
       <string id="CookiesList_Block_None">Minden cookie engedélyezése (alapértelmezés)</string>
       <string id="CookiesList_Block_ThirdParty">Csak a harmadik felek cookie-jainak blokkolása</string>
       <string id="CookiesList_Block_All">Minden cookie blokkolása</string>
-      <string id="EnterpriseModeSiteList">A vállalati mód webhelylistájának engedélyezése</string>
-      <string id="EnterpriseModeSiteList_Explain">Ezzel a házirend-beállítással azt adhatja meg, hogy használja-e a szervezet a vállalati módot és a vállalati mód webhelylistáját a régebbi alkalmazások esetén előforduló gyakori kompatibilitási problémák megoldására.
+      <string id="EnterpriseModeSiteList">A Nagyvállalati módú webhelyek listájának engedélyezése</string>
+      <string id="EnterpriseModeSiteList_Explain">Ezzel a házirend-beállítással azt adhatja meg, hogy használja-e a szervezet a nagyvállalati módot és a nagyvállalati módú webhelyek listáját a régebbi alkalmazások esetén előforduló gyakori kompatibilitási problémák megoldására.
 
-A beállítás bekapcsolása esetén a Microsoft Edge megkeresi a vállalati mód webhelylistáját tartalmazó XML-fájlt. Ez a fájl felsorolja azokat a webhelyeket és tartományokat, amelyeket az Internet Explorer 11-gyel, vállalati üzemmódban kell megtekinteni.
+A beállítás bekapcsolása esetén a Microsoft Edge megkeresi a nagyvállalati módú webhelyek listáját tartalmazó XML-fájlt. Ez a fájl felsorolja azokat a webhelyeket és tartományokat, amelyeket az Internet Explorer 11-gyel, vállalati üzemmódban kell megtekinteni.
 
-A beállítás kikapcsolása vagy konfigurálatlanul hagyása esetén a Microsoft Edge nem használja a vállalati mód webhelylistáját tartalmazó fájlt. Ez esetben az alkalmazottak kompatibilitási problémákat tapasztalhatnak a régebbi alkalmazások használata során.</string>
+A beállítás kikapcsolása vagy konfigurálatlanul hagyása esetén a Microsoft Edge nem használja a nagyvállalati módú webhelyek listáját tartalmazó fájlt. Ez esetben az alkalmazottak kompatibilitási problémákat tapasztalhatnak a régebbi alkalmazások használata során.</string>
       <string id="AllowExtensions">Bővítmények engedélyezése</string>
       <string id="AllowExtensions_Explain">Ezzel a beállítással megadhatja, hogy az alkalmazottak betölthetnek-e bővítményeket a Microsoft Edge-ben.
 
@@ -386,7 +392,7 @@ Kapcsolódó házirend: Webes tartalom engedélyezése az Új lapon</string>
       <string id="ShowMessageWhenOpeningSitesInInternetExplorer_Show_ContinueInEdge">A „Folytatom a Microsoft Edge-ben” hivatkozás megjelenítése</string>
       <string id="ShowMessageWhenOpeningSitesInInternetExplorer_Hide_ContinueInEdge">A „Folytatom a Microsoft Edge-ben” hivatkozás elrejtése</string>
       <string id="ShowMessageWhenOpeningSitesInInternetExplorer">Üzenet megjelenítése a webhelyek Internet Explorerben való megnyitásakor</string>
-      <string id="ShowMessageWhenOpeningSitesInInternetExplorer_Explain">Beállíthatja, hogy a Microsoft Edge automatikusan az Internet Explorer 11-ben nyissa meg a webhelyeket, és megadhatja, hogy értesítés jelenjen meg a webhelyek megnyitása előtt. Ha értesítést szeretne megjeleníteni, engedélyeznie kell A vállalati mód webhelylistájának konfigurálása vagy a Minden intranetes webhely elküldése az Internet Explorer 11-nek házirendet, vagy mindkettőt.
+      <string id="ShowMessageWhenOpeningSitesInInternetExplorer_Explain">Beállíthatja, hogy a Microsoft Edge automatikusan az Internet Explorer 11-ben nyissa meg a webhelyeket, és megadhatja, hogy értesítés jelenjen meg a webhelyek megnyitása előtt. Ha értesítést szeretne megjeleníteni, engedélyeznie kell A nagyvállalati módú webhelyek listájának konfigurálása vagy a Minden intranetes webhely elküldése az Internet Explorer 11-nek házirendet, vagy mindkettőt.
 
 Ha engedélyezi a beállítást, az értesítés megjelenik egy új lapon. Ha azt szeretné, hogy a felhasználók továbbra is a Microsoft Edge-et használják, válassza a „Folytatom a Microsoft Edge-ben beállítás” megjelenítése lehetőséget a Beállítások területen található legördülő listából.
 
@@ -394,7 +400,7 @@ Ha letiltja vagy nem konfigurálja a beállítást, az alkalmazás alapértelmez
 
 Alapértelmezett beállítás: Letiltva vagy Nincs konfigurálva
 Kapcsolódó házirendek:
-– A vállalati mód webhelylistájának konfigurálása
+– A nagyvállalati módú webhelyek listájának konfigurálása
 – Minden intranetes webhely elküldése az Internet Explorer 11-nek</string>
       <string id="PreventAccessToAboutFlagsInMicrosoftEdge">Az about:flags lap elérésének letiltása a Microsoft Edge-ben</string>
       <string id="PreventAccessToAboutFlagsInMicrosoftEdge_Explain">Ezzel a házirend-beállítással szabályozhatja, hogy a dolgozók elérhetik-e a fejlesztői beállítások megadására és a kísérleti funkciók bekapcsolására is alkalmas about:flags lapot.
@@ -491,7 +497,7 @@ Ha letiltja az előzetes indítást, a Microsoft Edge nem indul el előre a Wind
       <string id="AllowPrelaunchDropdown_AllowPrelaunch">Előzetes indítás engedélyezése</string>
       <string id="AllowPrelaunchDropdown_PreventPrelaunch">Előzetes indítás megakadályozása</string>
 
-      <string id="ConfigureKioskMode">Kirakati bemutató mód beállítása</string>
+      <string id="ConfigureKioskMode">Kioszkmód beállítása</string>
       <string id="ConfigureKioskMode_Explain">Dedikált hozzáféréssel konfigurálhatja, hogy a Microsoft Edge hogyan viselkedjen, ha kirakati bemutató módban fut önálló alkalmazásként vagy a kirakati bemutatóként használt eszközön futtatott alkalmazások egyikeként. Szabályozhatja, hogy a Microsoft Edge InPrivate teljes képernyős módban, korlátozott működésű InPrivate többlapos módban vagy a Microsoft Edge normál módjában fusson-e.
 
 Ahhoz, hogy ez a házirend érvénybe lépjen, dedikált hozzáféréssel kell konfigurálnia a Microsoft Edge-et, különben a rendszer figyelmen kívül hagyja ezeket a beállításokat. A dedikált hozzáférésről és a kirakati bemutató mód konfigurálásáról „A kirakati bemutató mód és a Windows asztali kiadásait futtató megosztott eszközök konfigurálása” (https://aka.ms/E489vw) című témakörben olvashat bővebben.
@@ -502,7 +508,7 @@ Ha engedélyezi a beállítást, és a 0 értéket adja meg (Alapértelmezett va
 Ha engedélyezi a beállítást, és az 1 értéket adja meg:
 – Ha önálló alkalmazás, az InPrivate korlátozott működésű, többlapos verzióját futtatja, és ez a nyilvános böngészéshez elérhető egyetlen alkalmazás. A felhasználók nem állíthatják kisméretűre, nem zárhatják be és nem nyithatják meg az ablakokat, illetve nem szabhatják testre a Microsoft Edge-et, azonban törölhetik a böngészési adatokat és a letöltéseket, és a „Munkamenet befejezése” lehetőségre kattintva újraindíthatják az alkalmazást. „A kirakati bemutató mód üresjárati időkorlát lejárta után történő alaphelyzetbe állításának konfigurálása” házirend használatával beállíthatja, hogy a Microsoft Edge egy adott tétlenségi időszakot követően újrainduljon.
 – Ha egy alkalmazáscsoport egyike, az InPrivate korlátozott működésű, többlapos verzióját futtatja a más alkalmazásokban történő nyilvános böngészéshez. A felhasználók több InPrivate-ablakot is kisméretűre állíthatnak, valamint azokat bezárhatják és megnyithatják, azonban nem szabhatják testre a Microsoft Edge-et.</string>
-      <string id="ConfigureKioskResetAfterIdleTimeout">A kirakati bemutató mód üresjárati időkorlát utáni alaphelyzetbe állításának konfigurálása</string>
+      <string id="ConfigureKioskResetAfterIdleTimeout">A kioszkmód üresjárati időkorlát utáni alaphelyzetbe állításának konfigurálása</string>
       <string id="ConfigureKioskResetAfterIdleTimeout_Explain">Beállíthatja, hogy a Microsoft Edge egy adott üresjárati idő után visszaálljon a konfigurált kezdőélményre. Az alaphelyzetbe állítás időzítője az utolsó felhasználói beavatkozás után indul el. A konfigurált kezdőélményre történő visszaállítás törli az aktuális felhasználó böngészési adatait.
 
 Ha engedélyezi a beállítást, megadhatja az üresjárati időt percben (0–1440). Ahhoz, hogy a házirend érvénybe lépjen, A kirakati bemutató mód konfigurálása házirendhez az 1 értéket kell megadnia és dedikált hozzáféréssel önálló alkalmazásként kell konfigurálnia a Microsoft Edge-et. Ha az üresjárati idő megegyezik a megadott idővel, a rendszer megerősítő üzenetben rákérdez, hogy a felhasználó folytatja-e a munkamenetet, és ha nincs válasz, akkor a Microsoft Edge 30 másodperc elteltével alaphelyzetbe áll.
@@ -512,9 +518,14 @@ Ha a házirendhez a 0 értéket állítja be, a Microsoft Edge nem használja az
 Ha letiltja vagy nem konfigurálja a beállítást, az alapértelmezett érték 5 perc.
 
 Ha nem dedikált hozzáféréssel konfigurálja a Microsoft Edge-et, akkor ez a házirend nem lép érvénybe.</string>
-    </stringTable>
+      <string id="SuppressEdgeDeprecationNotification">Az Edge elévülési értesítés megjelenítésének felfüggesztése</string>
+      <string id="SuppressEdgeDeprecationNotification_Explain">Beállíthatja, hogy a Microsoft Edge felfüggessze annak az értesítésnek a megjelenítését, amely tájékoztatja a felhasználókat arról, hogy a Microsoft Edge ezen verziójának támogatása a 2021. március 9-én véget ért. Ha engedélyezve van, az értesítés nem jelenik meg.
 
+Ha letiltja vagy nem konfigurálja a beállítást, a rendszer minden alkalommal megjeleníti az értesítést, amikor az Edge elindul. </string>
+
+    </stringTable>
     <!-- Presentation -->
+    
     <presentationTable>
       <presentation id="ConfiguredFavorites_Presentation">
         <textBox refId="ConfiguredFavoritesPrompt">

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>ReFS 群組原則</displayName>
+  <description>ReFS 的群組原則設定</description>
+  <resources>
+    <stringTable>
+      <string id="ReFS">ReFS</string>
+      <string id="EnableDevDrive">啟用開發人員磁碟機</string>
+      <string id="EnableDevDriveText">開發人員磁碟機或開發人員磁碟區是針對開發人員案例的效能進行優化的磁碟區。開發人員磁碟區可讓系統管理員選擇附加在磁碟區上的檔案系統篩選器。
+      
+停用此設定將禁止建立新的開發人員磁碟區，現有的開發人員磁碟區則會以一般磁碟區裝載。
+
+若未設定此設定，預設原則是啟用開發人員磁碟區，同時允許防毒軟體篩選器附加在開發人員磁碟區上。 此外，如果未進行設定，本機系統管理員可以選擇不要將防毒軟體篩選連結至開發人員磁碟區。
+
+需要重新開機，此設定才會生效。</string>
+      <string id="ModeOff">關閉</string>
+      <string id="ModeAudit">僅稽核</string>
+      <string id="ModeBlock">封鎖</string>
+      <string id="BlockExternalBusMount">控制在 USB 和 IEEE 1394 磁碟上掛接 ReFS 磁碟區</string>
+      <string id="BlockExternalBusMountText">控制是否允許 ReFS 磁碟區裝載到由 USB 或 IEEE 1394 連結的磁碟上。ReFS 在熱插拔或可移除磁碟上不是支援的設定。
+
+阻止會拒絕掛載，並在系統記錄檔中記錄事件。
+
+稽核只會允許裝載，並記錄相同事件，因此可以在強制執行此原則之前，先評估啟用此原則的效果。
+
+關閉不會執行稽核，也不會阻止。
+
+對於「儲存空間」磁碟區，此檢查適用於作為儲存池後端支援的實體磁碟，而非儲存空間本身。
+
+如果未設定此原則，系統會使用這台電腦的本機設定。如果沒有本機設定，則系統會使用此版本 Windows 的預設行為。
+
+ReFS 會在載入時讀取此設定，因此您必須先重新啟動，才能完成套用變更。此設定會在每次掛接磁碟區時進行評估，因此已掛接的磁碟區會維持其當前狀態，直到被卸載並再次掛接為止。</string>
+      <string id="BlockHotplugMount">控制在可熱插拔磁碟上掛接 ReFS 磁碟區</string>
+      <string id="BlockHotplugMountText">控制是否允許 ReFS 磁碟區掛接在儲存堆疊報告為可熱插拔的磁碟上，無論這些磁碟是透過何種匯流排連結。ReFS 並非熱插拔或可移除式磁碟所支援的設定。
+
+阻止會拒絕掛載，並在系統記錄檔中記錄事件。
+
+稽核只會允許裝載，並記錄相同事件，因此可以在強制執行此原則之前，先評估啟用此原則的效果。
+
+關閉不會執行稽核，也不會阻止。
+
+對於「儲存空間」磁碟區，此檢查適用於作為儲存池後端支援的實體磁碟，而非儲存空間本身。
+
+如果未設定此原則，系統會使用這台電腦的本機設定。如果沒有本機設定，則系統會使用此版本 Windows 的預設行為。
+
+ReFS 會在載入時讀取此設定，因此您必須先重新啟動，才能完成套用變更。此設定會在每次掛接磁碟區時進行評估，因此已掛接的磁碟區會維持其當前狀態，直到被卸載並再次掛接為止。</string>
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="EnableDevDriveOptions">
+        <checkBox refId="DevDriveAllowAntivirusFilter" defaultChecked="true">讓防毒軟體篩選器保護開發人員磁碟機</checkBox>
+      </presentation>
+      <presentation id="BlockExternalBusMountOptions">
+        <dropdownList refId="BlockExternalBusMountMode" defaultItem="0">USB 或 IEEE 1394 磁碟上 ReFS 磁碟區的動作</dropdownList>
+      </presentation>
+      <presentation id="BlockHotplugMountOptions">
+        <dropdownList refId="BlockHotplugMountMode" defaultItem="0">熱插拔式磁碟上 ReFS 磁碟區的動作</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

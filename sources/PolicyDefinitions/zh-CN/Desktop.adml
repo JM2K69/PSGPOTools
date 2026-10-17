@@ -55,6 +55,15 @@ Active Directory 文件夹在浏览窗口中显示 Active Directory 对象。
 默认情况下，用户可以更改其个人配置文件文件夹(如 Documents、Music 等)的位置，方法是在该文件夹的“属性”对话框的“位置”选项卡中键入新路径。
 
 如果启用了此设置，用户就无法在“目标”框中键入新位置。</string>
+      <string id="EnableThemeFileRemoteResource">允许来自网络位置的主题文件</string>
+      <string id="EnableThemeFileRemoteResource_Help">此策略设置确定是否可以在 Windows 桌面主题(.theme/.themepack)文件中使用远程路径来引用资源。
+
+如果启用此策略设置，则主题文件可以引用位于网络共享或其他远程位置的资源(如图像、声音和图标)。用户将能够应用包含远程资源的主题。
+
+如果禁用此策略设置，则主题文件将无法使用远程资源。任何引用远程资源的主题文件都将无法加载这些资源，并且只会显示本地资源。
+
+如果未配置此策略设置，则默认行为是出于安全原因阻止主题文件中的远程资源。</string>
+
       <string id="ForceActiveDesktopOn">启用 Active Desktop</string>
       <string id="ForceActiveDesktopOn_Help">启用 Active Desktop 并防止用户禁用它。
 

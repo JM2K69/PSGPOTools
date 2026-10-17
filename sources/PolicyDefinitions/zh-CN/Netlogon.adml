@@ -135,9 +135,9 @@ Rfc1510UdpKpwd   SRV   _kpasswd._udp.&lt;DnsDomainName&gt;
 
 如果未配置此策略设置，则任何 DC 都不应用此设置，而是使用其本地配置。</string>
       <string id="Netlogon_ExpectedDialupDelay">指定登录时期望的拨号延迟</string>
-      <string id="Netlogon_ExpectedDialupDelay_Help">此策略设置指定计算机在登录到网络时等待域控制器(DC)响应的额外时间。
+      <string id="Netlogon_ExpectedDialupDelay_Help">此策略设置指定计算机在登录到网络时等待域控制器（DC）响应的额外时间。
 
-若要指定登录时期望的拨号延迟，请单击“启用”，然后输入一个以秒为单位的期望值(例如，值 60 为 1 分钟)。
+若要指定登录时期望的拨号延迟，请单击“启用”，然后输入一个以秒为单位的期望值(例如，值“60”为 1 分钟)。
 
 如果未配置此策略设置，则任何计算机都不会应用此设置，而是使用其本地配置。</string>
       <string id="Netlogon_GcSiteCoverage">指定由 GC 定位程序 DNS SRV 记录覆盖的站点</string>
@@ -298,8 +298,9 @@ Active Directory 站点是一个或多个连接良好的 TCP/IP 子网，允许�
 如果启用此策略设置，则此 DC 将不处理基于 NetBIOS 域名的 DC 查找所使用的传入 mailslot 消息。
 
 如果禁用或未配置此策略设置，则此 DC 将处理传入的 mailslot 消息。这是 DC 定位程序的默认行为。</string>
+
       <string id="Netlogon_AvoidFallbackNetbiosDiscovery">请勿在基于 DNS 的查找失败时使用基于 NetBIOS 查找域名控制器位置</string>
-      <string id="Netlogon_AvoidFallbackNetbiosDiscovery_Help">使用此策略设置，可以控制域控制器(DC)位置算法。默认情况下，如果 DNS 域名已知，则 DC 查找算法首选使用基于 DNS 的查找。如果基于 DNS 的查找失败且知道 NetBIOS 域名，则算法使用基于 NetBIOS 的查找作为回退机制。
+      <string id="Netlogon_AvoidFallbackNetbiosDiscovery_Help">使用此策略设置，可以控制域控制器(DC)位置算法。默认情况下，如果 DNS 域名已知，则 DC 位置算法首选使用基于 DNS 的查找。如果基于 DNS 的查找失败且知道 NetBIOS 域名，则算法使用基于 NetBIOS 的查找作为回退机制。
 
 基于 NetBIOS 的查找使用 WINS 服务器和 mailslot 消息，但不使用站点信息。因此，它不保证客户端可以发现最近的 DC。它也允许中心站点客户端查找分支站点 DC，即使分支站点 DC 仅注册站点特定的 DNS 记录(推荐)。出于这些原因，不建议使用基于 NetBIOS 的查找。
 
@@ -307,7 +308,18 @@ Active Directory 站点是一个或多个连接良好的 TCP/IP 子网，允许�
 
 如果启用或未配置此策略设置，则当基于 DNS 的查找失败时，DC 位置算法不将基于 NetBIOS 的查找作为回退机制。这是默认的行为。
 
-如果禁用此策略设置，则当基于 DNS 的查找失败时，DC 位置算法可以使用基于 NetBIOS 的查找作为回退机制。</string>
+如果禁用此策略设置，则当基于 DNS 的查找失败时，DC 位置算法可以使用基于 NetBIOS 的查找作为回退机制。
+
+除非禁用 BlockNetbiosDiscovery 设置，否则此设置无效。我们认为基于 NetBIOS 的查找是不安全的，它有很多限制，并且将在未来的版本中弃用。因此，不建议使用基于 NetBIOS 的查找。请参阅 https://aka.ms/dclocatornetbiosdeprecation 了解详细信息。</string>
+
+      <string id="Netlogon_BlockNetbiosDiscovery">阻止基于 NetBIOS 查找域控制器位置</string>
+      <string id="Netlogon_BlockNetbiosDiscovery_Help">使用此策略设置可以控制域控制器(DC)位置算法是否使用基于 NetBIOS 查找来找到域控制器位置。
+
+如果启用或未配置此策略设置，则 DC 位置算法将从不使用基于 NetBIOS 的查找。这是默认行为。
+
+如果禁用此策略设置，则 DC 位置算法可能会在必要时使用基于 NetBIOS 的查找。最终行为会进一步受 AvoidFallbackNetbiosDiscovery 设置的约束。
+
+我们认为基于 NetBIOS 的查找是不安全的，它有很多限制，并且将在未来的版本中弃用。因此，不建议使用基于 NetBIOS 的查找。请参阅 https://aka.ms/dclocatornetbiosdeprecation 了解详细信息。</string>
 
       <string id="Netlogon_AddressLookupOnPingBehavior">指定 DC 定位程序 PING 的地址查找行为</string>
       <string id="Netlogon_AddressLookupOnPingBehavior_Help">此策略设置配置域控制器在响应其 IP 地址未映射到任何配置的站点的客户端时的行为。
@@ -337,6 +349,33 @@ Active Directory 站点是一个或多个连接良好的 TCP/IP 子网，允许�
 若要指定此行为，点击“启用”，然后输入值。值的范围为 1 至 2。
 
 如果未配置此策略设置，则任何计算机都不会应用此设置，而是使用其本地配置。</string>
+
+      <string id="Netlogon_DnsSrvRecordUseLowerCaseHostNames">注册域控制器 SRV 记录时使用小写 DNS 主机名</string>
+      <string id="Netlogon_DnsSrvRecordUseLowerCaseHostNames_Help">此策略设置配置应用此设置的域控制器在注册 SRV 记录时是否将使用小写的 DNS 主机名。
+
+如果启用，则在注册域控制器 SRV 记录时，域控制器将以小写字母作为其 DNS 主机名。将尝试进行最大程度的尝试以删除任何以前注册的、包含混合用例 DNS 主机名的 SRV 记录。有关详细信息和可能的手动清理过程，请参阅下面的链接。
+
+如果禁用此设置，则在注册域控制器 SRV 记录时，域控制器将按原样使用配置的 DNS 主机名。
+
+如果未配置，则域控制器将默认使用其本地配置。
+
+默认的本地配置已启用。
+
+若要使对此设置的更改生效，无需重新启动。
+
+有关详细信息，请访问 https://aka.ms/lowercasehostnamesrvrecord
+      </string>
+      <string id="Netlogon_EnhancedDomainNtlmLogs">记录增强的全域 NTLM 日志</string>
+      <string id="Netlogon_EnhancedDomainNtlmLogs_Help">此策略设置配置应用此设置的域控制器是否会记录新的增强全域 NTLM 日志。这些日志包含有关全域级别的 NTLM 身份验证的详细信息，包括 NTLMv1 使用情况。
+
+如果启用，域控制器将记录新的全域 NTLM 日志。
+
+如果禁用，域控制器不会记录新的全域 NTLM 日志。
+
+如果未配置，域控制器将默认记录新的全域 NTLM 日志。
+
+有关详细信息，请参阅 aka.ms/ntlmlogandblock。
+      </string>
 
     </stringTable>
     <presentationTable>

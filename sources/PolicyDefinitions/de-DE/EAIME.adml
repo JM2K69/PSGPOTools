@@ -7,13 +7,13 @@
     <stringTable>
       <string id="L_IME">IME</string>
       <string id="L_TurnOnMisconversionLoggingForMisconversionReport">Fehlkonvertierungsprotokollierung für Fehlkonvertierungsbericht aktivieren</string>
-      <string id="L_TurnOnMisconversionLoggingForMisconversionReportExplain">Mit dieser Richtlinieneinstellung können Sie die Fehlkonvertierungsprotokollierung für den Fehlkonvertierungsbericht aktivieren.
+      <string id="L_TurnOnMisconversionLoggingForMisconversionReportExplain">Mit dieser Richtlinieneinstellung können Sie die Fehlkonvertierungsprotokollierung für Fehlkonvertierungsbericht aktivieren.
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Fehlkonvertierungsprotokollierung eingeschaltet.
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Fehlkonvertierungsprotokollierung aktiviert.
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird die Fehlkonvertierungsprotokollierung ausgeschaltet.
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird die Fehlkonvertierungsprotokollierung deaktiviert.
 
-Diese Richtlinieneinstellung gilt nur für die japanische Version von Microsoft-IME.</string>
+Diese Richtlinieneinstellung gilt für die japanische Version von Microsoft-IME und IME für traditionelles Chinesisch.</string>
       <string id="L_TurnOffSavingAutoTuningDataToFile">Speichern von automatischen Abstimmungsdaten in einer Datei deaktivieren</string>
       <string id="L_TurnOffSavingAutoTuningDataToFileExplain">Diese Richtlinieneinstellung ermöglicht Ihnen das Deaktivieren des Speicherns der automatischen Abstimmungsergebnisse in einer Datei.
 
@@ -55,17 +55,19 @@ Diese Richtlinieneinstellung gilt für den japanischen Microsoft-IME.
 
 Hinweis: Änderungen an dieser Einstellung werden erst wirksam, wenn sich der Benutzer abmeldet.</string>
       <string id="L_TurnOffCustomDictionary">Benutzerwörterbuch deaktivieren</string>
-      <string id="L_TurnOffCustomDictionaryExplain">Mit dieser Richtlinieneinstellung können Sie die Möglichkeit zur Verwendung eines Benutzerwörterbuchs deaktivieren.
+      <string id="L_TurnOffCustomDictionaryExplain">Mit dieser Richtlinieneinstellung können Sie die Möglichkeit, ein Benutzerwörterbuch zu verwenden, deaktivieren.
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie im Benutzerwörterbuch weder über GUI-Tools noch über APIs Wörter hinzufügen, bearbeiten und löschen. Ein im Benutzerwörterbuch registriertes Wort vor dem Aktivieren dieser Richtlinieneinstellung kann weiterhin für die Konvertierung verwendet werden.
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie im Benutzerwörterbuch keine Wörter mit GUI-Tools oder APIs hinzufügen, bearbeiten und löschen. Ein vor der Aktivierung dieser Richtlinieneinstellung im Benutzerwörterbuch registriertes Wort kann weiterhin für die Konvertierung verwendet werden.
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, kann das Benutzerwörterbuch standardmäßig verwendet werden.
+Wenn Sie diese Richtlinien Einstellung deaktivieren oder nicht konfigurieren, kann das Benutzer Wörterbuch Standard mäßig verwendet werden.
 
-Für den japanischen Microsoft-IME funktioniert [Clear Auto-Tuning-Informationen] auch dann, wenn diese Richtlinieneinstellung aktiviert ist. Selbst optimierte Wörter werden aus dem Benutzerwörterbuch gelöscht.
+Mit [Automatische Abstimmungsinformationen löschen] werden selbst optimierte Wörter aus dem Benutzerwörterbuch entfernt, auch wenn eine Gruppenrichtlinieneinstellung aktiviert ist. Wählen Sie dazu "Einstellungen &gt; Zeit &amp; Sprache &gt; Japanische Optionen &gt; Microsoft-IME-Optionen &gt; Lernen und Wörterbuch &gt; [Eingabeverlauf löschen]" aus.
+
+Mit [Eingabeverlauf löschen] entfernen Sie selbst optimierte Wörter aus dem Benutzerwörterbuch, auch wenn eine Gruppenrichtlinieneinstellung aktiviert ist. Wählen Sie dazu "Einstellungen &gt; Zeit &amp; Sprache &gt; Japanische Optionen &gt; Microsoft-IME-Optionen &gt; Lernen und Wörterbuch &gt; [Eingabeverlauf löschen]" aus.
 
 Diese Richtlinieneinstellung wird auf den japanischen Microsoft-IME angewendet.
 
-Hinweis: Änderungen an dieser Einstellung werden erst wirksam, wenn sich der Benutzer abmeldet.</string>
+Hinweis: Änderungen an dieser Einstellung werden erst nach der Abmeldung des Benutzers wirksam.</string>
       <string id="L_RestrictCharacterCodeRangeOfConversion">Zeichencodebereich der Konvertierung einschränken</string>
       <string id="L_RestrictCharacterCodeRangeOfConversionExplain">Diese Richtlinieneinstellung ermöglicht Ihnen die Einschränkung des Zeichencodebereichs der Konvertierung, indem Zeichenfilter festgelegt werden.
 
@@ -118,26 +120,54 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren, wird die mit diesem Feature 
 Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, ist das Feature standardmäßig deaktiviert, und der Benutzer kann das Feature für Cloudkandidaten ein- und ausschalten.
 
 Diese Richtlinieneinstellung gilt nur für Microsoft CHS Pinyin IME.</string>
-      <string id="L_TurnOnLiveSticker">Live-Sticker aktivieren</string>
-      <string id="L_TurnOnLiveStickerExplain">Diese Richtlinieneinstellung steuert das Liveaufkleber-Feature, das einen Onlinedienst zur Onlinebereitstellung von Aufklebern verwendet.
+      <string id="L_ConfigureSimplifiedChineseImeVersion">IME-Version für vereinfachtes Chinesisch konfigurieren</string>
+      <string id="L_ConfigureSimplifiedChineseImeVersionExplain">Diese Richtlinieneinstellung steuert die Microsoft-IME-Version.
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, wird die mit diesem Feature verknüpfte Funktionalität eingeschaltet und die Tastatureingaben des Benutzers werden an Microsoft zur Generierung der Liveaufkleber gesendet. Der Benutzer kann das Feature nicht ausschalten. 
+Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, kann der Benutzer die verwendete IME-Version steuern. Die neue Microsoft-IME ist standardmäßig aktiviert.
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren, wird die mit diesem Feature verknüpfte Funktionalität ausgeschaltet. Der Benutzer kann das Feature nicht einschalten. 
+Wenn Sie diese Einstellung aktivieren, darf der Benutzer die verwendete IME-Version nicht steuern. Es ist immer die vorherige Microsoft-IME-Version aktiviert.
 
-Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, ist sie standardmäßig deaktiviert. Der Benutzer kann das Liveaufkleber-Feature ein- und ausschalten.
+Wenn Sie die Einstellung deaktivieren, darf der Benutzer die verwendete IME-Version nicht steuern. Es ist immer die neue Microsoft-IME ausgewählt.
 
-Diese Richtlinieneinstellung gilt nur für Microsoft CHS Pinyin IME.</string>
-      <string id="L_TurnOnLexiconUpdate">Lexikonaktualisierung aktivieren</string>
-      <string id="L_TurnOnLexiconUpdateExplain">Mit dieser Richtlinieneinstellung wird das Feature für Lexikonaktualisierungen gesteuert, durch das ein Lexikon für beliebte Begriffe auf den lokalen PC heruntergeladen wird.
+Diese Richtlinieneinstellung gilt nur für die Microsoft-IME für vereinfachtes Chinesisch.
 
-Wenn Sie die Richtlinieneinstellung aktivieren, wird die mit diesem Feature verbundene Funktionalität eingeschaltet, sodass ein Lexikon für beliebte Begriffe auf den lokalen PC heruntergeladen werden kann. Der Benutzer kann das Feature in den Einstellungen ein- und ausschalten.
+Hinweis: Änderungen dieser Einstellung werden erst wirksam, nachdem sich der Benutzer abgemeldet hat.</string>
+      <string id="L_ConfigureTraditionalChineseImeVersion">IME-Version für traditionelles Chinesisch konfigurieren</string>
+      <string id="L_ConfigureTraditionalChineseImeVersionExplain">Diese Richtlinieneinstellung steuert die Microsoft-IME-Version.
 
-Wenn Sie die Richtlinieneinstellung deaktivieren, wird die mit diesem Feature verbundene Funktionalität ausgeschaltet und kann vom Benutzer nicht eingeschaltet werden.
+Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, kann der Benutzer die verwendete IME-Version steuern. Die neue Microsoft-IME ist standardmäßig aktiviert.
 
-Wenn Sie die Richtlinieneinstellung nicht konfigurieren, ist sie standardmäßig eingeschaltet, und der Benutzer kann das Feature für Lexikonaktualisierungen ein- und ausschalten.
+Wenn Sie diese Einstellung aktivieren, darf der Benutzer die verwendete IME-Version nicht steuern. Es ist immer die vorherige Microsoft-IME-Version aktiviert.
 
-Diese Richtlinieneinstellung gilt nur für Microsoft CHS Pinyin IME.</string>
+Wenn Sie die Einstellung deaktivieren, darf der Benutzer die verwendete IME-Version nicht steuern. Es ist immer die neue Microsoft-IME ausgewählt.
+
+Diese Richtlinieneinstellung gilt nur für die Microsoft-IME für traditionelles Chinesisch.
+
+Hinweis: Änderungen dieser Einstellung werden erst wirksam, nachdem sich der Benutzer abgemeldet hat.</string>
+      <string id="L_ConfigureJapaneseImeVersion">IME-Version für Japanisch konfigurieren</string>
+      <string id="L_ConfigureJapaneseImeVersionExplain">Diese Richtlinieneinstellung steuert die Microsoft-IME-Version.
+
+Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, kann der Benutzer die verwendete IME-Version steuern. Die neue Microsoft-IME ist standardmäßig aktiviert.
+
+Wenn Sie diese Einstellung aktivieren, darf der Benutzer die verwendete IME-Version nicht steuern. Es ist immer die vorherige Microsoft-IME-Version aktiviert.
+
+Wenn Sie die Einstellung deaktivieren, darf der Benutzer die verwendete IME-Version nicht steuern. Es ist immer die neue Microsoft-IME ausgewählt.
+
+Diese Richtlinieneinstellung gilt nur für die Microsoft-IME für Japanisch.
+
+Hinweis: Änderungen dieser Einstellung werden erst wirksam, nachdem sich der Benutzer abgemeldet hat.</string>
+      <string id="L_ConfigureKoreanImeVersion">IME-Version für Koreanisch konfigurieren</string>
+      <string id="L_ConfigureKoreanImeVersionExplain">Diese Richtlinieneinstellung steuert die Microsoft-IME-Version.
+
+Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, kann der Benutzer die verwendete IME-Version steuern. Die neue Microsoft-IME ist standardmäßig aktiviert.
+
+Wenn Sie diese Einstellung aktivieren, darf der Benutzer die verwendete IME-Version nicht steuern. Es ist immer die vorherige Microsoft-IME-Version aktiviert.
+
+Wenn Sie die Einstellung deaktivieren, darf der Benutzer die verwendete IME-Version nicht steuern. Es ist immer die neue Microsoft-IME ausgewählt.
+
+Diese Richtlinieneinstellung gilt nur für die Microsoft-IME für Koreanisch.
+
+Hinweis: Änderungen dieser Einstellung werden erst wirksam, nachdem sich der Benutzer abgemeldet hat.</string>
     </stringTable>
     <presentationTable>
       <presentation id="L_RestrictCharacterCodeRangeOfConversion">

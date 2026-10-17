@@ -49,10 +49,10 @@ Uwaga: niezależnie od tego ustawienia użytkownicy inni niż administratorzy (z
 Porada: Aby otworzyć okno dialogowe Zaawansowane ustawienia protokołu TCP/IP, w folderze Połączenia sieciowe kliknij prawym przyciskiem myszy ikonę połączenia i kliknij przycisk Właściwości. W przypadku połączeń dostępu zdalnego kliknij kartę Sieć.  W polu „Zaznaczone składniki są wykorzystywane przez to połączenie” kliknij pozycję Protokół internetowy (TCP/IP), kliknij przycisk Właściwości i kliknij przycisk Zaawansowane.
 
 Uwaga: zmiana tego ustawienia z opcji Włączone na opcję Nieskonfigurowane nie powoduje włączenia przycisku Zaawansowane, dopóki użytkownik się nie wyloguje.</string>
-      <string id="NC_AllowNetBridge_NLA">Zabroń instalowania i konfigurowania mostka sieciowego w sieci tej domeny DNS</string>
+      <string id="NC_AllowNetBridge_NLA">Zabroń instalacji i konfiguracji mostka sieciowego w swojej sieci.</string>
       <string id="NC_AllowNetBridge_NLA_Help">Określa, czy użytkownik może instalować i konfigurować mostek sieciowy.
 
-Ważne: to ustawienie jest zależne od lokalizacji. Dotyczy tylko komputerów podłączonych do tej samej sieci domeny DNS, do której były podłączone, gdy ustawienie było na komputerze odświeżane. Jeśli komputer jest podłączony do sieci domeny DNS innej niż w chwili odświeżania ustawienia, ustawienie nie zostanie zastosowane.
+Ważne: To ustawienie uwzględnia lokalizację na urządzeniach przyłączonych do domeny AD. Dotyczy tylko komputerów podłączonych do tej samej sieci domeny DNS, do której były podłączone, gdy ustawienie było na komputerze odświeżane. Jeśli komputer jest połączony z siecią domeny DNS inną niż ta, z którą był połączony podczas odświeżania ustawienia, to ustawienie nie ma zastosowania. Na urządzeniach przyłączonych do usługi Entra to ustawienie będzie stosowane do wszystkich sieci.
 
 Mostek sieciowy zezwala użytkownikom na utworzenie mostka warstwy 2 MAC, umożliwiając wzajemne łączenie dwóch lub więcej segmentów sieciowych. To połączenie zostanie wyświetlone w folderze Połączenia sieciowe.
 

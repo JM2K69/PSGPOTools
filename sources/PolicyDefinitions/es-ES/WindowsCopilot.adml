@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>escriba aquí el nombre</displayName>
+  <description>escriba aquí la descripción</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Desactivar Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot_Help">Esta configuración de directiva permite desactivar Windows Copilot.
+
+Si habilitas esta configuración de directiva, los usuarios no podrán usar Copilot. El icono de Copilot tampoco aparecerá en la barra de tareas.
+
+Si deshabilitas o no estableces esta configuración de directiva, los usuarios podrán usar Copilot cuando esté disponible para ellos.
+      </string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="DisableAIDataAnalysis">Desactivar el almacenamiento de instantáneas para su uso con Recuerdos
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Esta configuración de directiva permite determinar si las instantáneas de la pantalla se pueden guardar para usarlas con Recuerdos. Para los dispositivos administrados, las instantáneas de Recuerdos no están habilitadas de forma predeterminada. Los administradores de TI no pueden, por su cuenta, habilitar el almacenamiento de instantáneas en nombre de sus usuarios. La opción para habilitar el guardado de instantáneas requiere el consentimiento de participación del usuario individual.
+
+Si la directiva no está configurada, las instantáneas no se guardarán para usarlas con Recuerdos.
+
+Si habilita esta directiva, las instantáneas no se guardarán para usarlas con Recuerdos. Si las instantáneas se guardaron previamente en el dispositivo, se eliminarán cuando esta directiva esté habilitada.
+
+Si establece esta directiva en deshabilitada, los usuarios finales tendrán la opción de guardar instantáneas de su pantalla y usar Recuerdos para encontrar elementos que hayan visto en su dispositivo.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Establezca el almacenamiento máximo para las instantáneas utilizadas por los Recuerdos
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Esta configuración de directiva permite controlar la cantidad máxima de espacio en disco que puede utilizar Windows para guardar instantáneas para Recuerdos.
+
+Puedes establecer que la cantidad máxima de espacio en disco para las instantáneas sea de 10, 25, 50, 75, 100 o 150 GB.
+
+Cuando este ajuste no está configurado, el SO configura la asignación de almacenamiento para las instantáneas basándose en la capacidad de almacenamiento del dispositivo a no ser que el usuario actual especifique un valor diferente.
+
+Se asignan 25 GB cuando la capacidad de almacenamiento del dispositivo es de 256 GB. Se asignan 75 GB cuando la capacidad de almacenamiento del dispositivo es de 512 GB. Se asignan 150 GB cuando la capacidad de almacenamiento del dispositivo es superior a 1 TB.
+
+Si se establecen tanto la duración máxima de almacenamiento como el espacio máximo de almacenamiento para Recuerdos, entonces las instantáneas se eliminan cuando se alcanza el primero de los máximos.
+
+Importante: esta configuración solo se aplica a los SKU de cliente de Enterprise y Education.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Permitir que el sistema operativo defina la cantidad máxima de almacenamiento en función del tamaño de almacenamiento de la unidad de disco duro</string>
+      <string id="SetMaximumStorageSpace_10GB">10 GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25 GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50 GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75 GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100 GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150 GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Establecer la duración máxima de almacenamiento de las instantáneas utilizadas por los Recuerdos
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Esta configuración de directiva permite controlar el tiempo máximo (en días) que Windows guarda instantáneas para Recuerdos.
+
+Cuando la directiva está habilitada, puede configurar la duración máxima de almacenamiento para que sea de 30, 60, 90 o 180 días.
+
+Cuando esta directiva no está configurada, la duración máxima de almacenamiento es de 90 días, a menos que el usuario actual especifique un valor diferente.
+
+Si se establecen tanto la duración máxima de almacenamiento como el espacio máximo de almacenamiento para Recuerdos, entonces las instantáneas se eliminan cuando se alcanza el primero de los máximos.
+
+Importante: esta configuración solo se aplica a los SKU de cliente de Enterprise y Education.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">Permitir que el sistema operativo defina la cantidad máxima de tiempo que se guardarán las instantáneas
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 días</string>
+      <string id="SetMaximumStorageDuration_60Days">60 días</string>
+      <string id="SetMaximumStorageDuration_90Days">90 días</string>
+      <string id="SetMaximumStorageDuration_180Days">180 días</string>
+      <string id="SetDenyAppListForRecall">Establecer una lista de aplicaciones que se filtrarán de las instantáneas para los Recuerdos
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Esta directiva permite definir una lista de aplicaciones que no se incluirán en las instantáneas de Recuerdos.
+
+Los usuarios podrán agregar aplicaciones adicionales para excluirlas de las instantáneas mediante Recuerdos configuración.
+
+La lista puede incluir identificadores de modelo de usuario de aplicación (AUMID) o el nombre del archivo ejecutable.
+
+Use una lista de aplicaciones separadas por punto y coma para definir la lista de aplicaciones denegadas para Recuerdos.
+
+Por ejemplo: code.exe; Microsoft.WindowsNotepad_8wekyb3d8bbwe. Aplicación;ms-teams.exe
+
+Importante: Esta configuración solo se aplica a las SKU de cliente de Enterprise y Education. Al configurar esta configuración de directiva, los cambios no surtirán efecto hasta que se reinicie el dispositivo.
+      </string>
+      <string id="SetDenyUriListForRecall">Establecer una lista de URI que se filtrarán de las instantáneas para los Recuerdos
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Esta configuración de directiva permite definir una lista de URI que no se incluirán en las instantáneas para Recuerdos cuando se use un explorador compatible. Personas de la organización pueden usar Recuerdos configuración para agregar más sitios web a la lista. Defina la lista con punto y coma para separar los URI.
+
+Por ejemplo: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+Al agregar https://www.WoodgroveBank.com a la lista, también se filtrarán https://Account.WoodgroveBank.com y https://www.WoodgroveBank.com/Account.
+
+Importante: Esta configuración solo se aplica a las SKU de cliente de Enterprise y Education. Los cambios realizados en esta directiva surtián efecto después del reinicio del dispositivo.
+      </string>
+      <string id="SetDataLossPreventionProvider">Establecer el id. de proveedor DLP para Recuerdos
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Esta política permite que un administrador especifique un proveedor de DLP, que Recuerdos utilizará si el proveedor está instalado correctamente. Tendrá que obtener la cadena para esto de su proveedor. Tendrá un aspecto similar a 'key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll' (sin comillas en el valor).
+
+Importante: esta configuración solo se aplica a los SKU de cliente de Enterprise y Education.
+      </string>
+      <string id="SetCopilotHardwareKey">Establecer tecla de hardware de Copilot</string>
+      <string id="SetCopilotHardwareKey_Help">Esta configuración de directiva determina qué aplicación se abre cuando el usuario presiona la tecla de Copilot en el teclado. Si la directiva está habilitada, la aplicación especificada se abrirá cuando el usuario presione la tecla de Copilot. Los usuarios pueden cambiar la asignación de teclas en Configuración. Si la directiva no está configurada, Copilot se abrirá si está disponible en ese país o región.
+      </string>
+      <string id="AllowRecallEnablement">Permitir que se habiliten los Recuerdos
+      </string>
+      <string id="AllowRecallEnablement_Help">Esta configuración de directiva le permite determinar si el componente opcional Recuerdos está disponible para que los usuarios finales puedan habilitarlo en su dispositivo. De forma predeterminada, Recuerdos está deshabilitado para los dispositivos comerciales administrados. Recuerdos no está disponible en dispositivos administrados de forma predeterminada y los usuarios individuales no pueden habilitar Recuerdos por su cuenta.
+
+Si esta directiva no está configurada, los usuarios finales tendrán el componente de Recuerdos en estado deshabilitado.
+
+Si se deshabilita esta directiva, el componente de Recuerdos estará en estado deshabilitado y los bits de Recuerdos se quitarán del dispositivo. Si las instantáneas se guardaron previamente en el dispositivo, se eliminarán cuando se deshabilite esta directiva. Para quitar Recuerdos es necesario reiniciar el dispositivo.
+
+Si la directiva está habilitada, los usuarios finales tendrán Recuerdos disponibles en su dispositivo. En función del estado de la directiva DisableAIDataAnalysis (desactivar la opción de guardar instantáneas para usarlas con Recuerdos), los usuarios finales podrán elegir si desean guardar instantáneas de su pantalla y usar Recuerdos para encontrar elementos que hayan visto en su dispositivo.
+      </string>
+      <string id="DisableClickToDo">Deshabilitar Click to Do</string>
+      <string id="DisableClickToDo_Help">Click to Do permite a los usuarios acciones sobre el contenido de sus pantallas. Cuando se activa, hace un recorte de pantalla y lo analiza para presentar acciones. Click to Do finaliza cuando se sale de él y no puede realizar recortes de pantalla mientras está cerrado. El análisis de recortes de pantalla siempre se realiza localmente en el dispositivo. De forma predeterminada, Click to Do está habilitado para los usuarios.
+
+Esta configuración de directiva te permite determinar si Click to Do está disponible para los usuarios en su dispositivo.
+
+Cuando la directiva está habilitada, el componente Click to Do y los puntos de entrada no estarán disponibles para los usuarios.
+
+Cuando la directiva está deshabilitada, los usuarios tendrán Click to Do disponible en su dispositivo.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">Deshabilitar Generador de imágenes</string>
+      <string id="DisableImageCreator_Help">Esta configuración de directiva te permite controlar si Generador de imágenes funcionalidad está deshabilitada en la aplicación De Paint de Windows. Si esta directiva está habilitada, no se podrá acceder a Generador de imágenes funcionalidad en la aplicación Paint. Si esta directiva está deshabilitada o no está configurada, los usuarios podrán acceder a Generador de imágenes funcionalidad.</string>
+      <string id="DisableCocreator">Deshabilitar Cocreador</string>
+      <string id="DisableCocreator_Help">Esta configuración de directiva te permite controlar si la funcionalidad de cocreador está deshabilitada en la aplicación Windows Paint. Si esta directiva está habilitada, no se podrá acceder a la funcionalidad de cocreador en la aplicación Paint. Si esta directiva está deshabilitada o no está configurada, los usuarios podrán acceder a la funcionalidad de cocreador.</string>
+      <string id="DisableGenerativeFill">Deshabilitar relleno generativo</string>
+      <string id="DisableGenerativeFill_Help">Esta configuración de directiva permite controlar si la funcionalidad de relleno generativo está deshabilitada en la aplicación Windows Paint. Si esta directiva está habilitada, no se podrá acceder a la funcionalidad de relleno generativo en la aplicación Paint. Si esta directiva está deshabilitada o no está configurada, los usuarios podrán acceder a la funcionalidad de relleno generativo.</string>
+      <string id="AllowRecallExport">Permitir la exportación de información de Recuerdos e instantáneas</string>
+      <string id="AllowRecallExport_Help">Esta directiva permite determinar si los usuarios pueden exportar su propia información de Recuerdos e instantáneas. La exportación permite a los usuarios compartir su información de Recuerdos e instantáneas con aplicaciones o sitios web de confianza. Los usuarios pueden exportar desde Configuración &gt; Privacidad y seguridad &gt; Recuperar e instantáneas &gt; Configuración avanzada &gt; Exportar instantáneas &gt; Exportar instantáneas anteriores &gt; Exportar.
+
+Los usuarios también pueden elegir exportar sus instantáneas de forma continua si activan la opción de Exportar instantáneas a partir de ahora en Configuración &gt; Privacidad y seguridad &gt; Recuerdos e instantáneas &gt; Configuración avanzada &gt; Exportar instantáneas &gt; Exportar.
+
+Antes de iniciar una exportación, el usuario debe autenticarse con Windows Hello y se le notifica que sus instantáneas exportadas están cifradas, ya que podrían contener información confidencial. También se informa al usuario que deberá proporcionar su código de exportación de Recuerdos si desea permitir que aplicaciones o sitios web de confianza accedan a las instantáneas exportadas. El código de exportación de Recuerdos se muestra a los usuarios durante la configuración de Recuerdos, incluso si esta directiva está deshabilitada o no configurada. Para dispositivos administrados:
+
+Si habilitas esta directiva, los usuarios podrán exportar la información de Recuerdos e instantáneas.
+
+Si la directiva está deshabilitada o no está configurada, los usuarios no podrán exportar su información de Recuerdos e instantáneas.
+
+Importante: esta configuración solo se aplica a dispositivos del Espacio Económico Europeo (EEE). La exportación de información de Recuerdos e instantáneas es un proceso iniciado por el usuario y es por usuario. Los administradores de TI u otros usuarios no pueden iniciar una exportación en nombre de otro.
+      </string>
+      <string id="DisableSettingsAgent">Deshabilitar la experiencia de búsqueda agéntica de Configuración</string>
+      <string id="DisableSettingsAgent_Help">La experiencia agéntica de configuración mejora los resultados de búsqueda en la aplicación Configuración habilitando el lenguaje natural. Cuando se activa, usa un modelo de IA para proporcionar sugerencias de búsqueda de Configuración inteligentes.
+
+        Esta configuración de directiva permite determinar si la experiencia de búsqueda agéntica de Configuración está disponible para los usuarios en su dispositivo.
+
+        Cuando la directiva está habilitada, se deshabilita la experiencia de búsqueda agéntica de Configuración, lo que limita los resultados de la búsqueda a búsquedas indexadas estáticamente y búsquedas semánticas.
+
+        Cuando la directiva está deshabilitada, los usuarios tendrán disponible la experiencia de búsqueda agéntica de Configuración en su dispositivo.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Nivel de registro en el dispositivo</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Esta configuración de directiva permite configurar el nivel de registro para las operaciones del Registro en el dispositivo.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Error o superior</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Información o superior</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Depurar o superior</string>
+      <string id="RemoveMicrosoftCopilotApp">Quitar la aplicación Microsoft Copilot</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Esta configuración de directiva te permite desinstalar Microsoft Copilot para los usuarios de forma dirigida. Se aplicará a los dispositivos o usuarios que cumplan las condiciones siguientes:
+
+• Microsoft 365 Copilot y Microsoft Copilot están instalados
+
+• El usuario no instaló la aplicación Microsoft Copilot
+
+• La aplicación Microsoft Copilot no se ha lanzado en los últimos 28 días
+ 
+Si esta directiva está habilitada, se desinstalará la aplicación Microsoft Copilot. Los usuarios pueden volver a instalar si así lo desean. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>Escriba el AUMID de la aplicación</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Escribe la lista de aplicaciones denegadas:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Escribe la lista de URI denegadas:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>Escribe el id. de proveedor DLP:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Selecciona el espacio máximo de almacenamiento:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Selecciona la duración máxima del almacenamiento:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Nivel de registro en el dispositivo: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

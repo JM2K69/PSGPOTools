@@ -15,7 +15,16 @@ Wenn Sie die Richtlinieneinstellung aktivieren, wird die GDI-DPI-Skalierung für
 Wenn Sie die Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird die GDI-DPI-Skalierung nicht für eine Anwendung aktiviert, es sei denn, sie wurde mithilfe der Anwendungskompatibilitäts-Datenbank, über die Einstellung "System (Erweitert)" in der Benutzeroberfläche für Anwendungskompatibilität oder mithilfe eines Anwendungsmanifests für die Anwendung aktiviert.
 
 Wenn die GDI-DPI-Skalierung so konfiguriert ist, dass sie für eine Anwendung sowohl deaktiviert als auch aktiviert wird, wird sie für die Anwendung deaktiviert.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">Mithilfe der GDI-DPI-Skalierung kann bei Anwendungen, die nicht mit DPI-Werten kompatibel sind, Kompatibilität mit monitorspezifischen DPI-Werten aktiviert werden.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">Durch Aktivieren dieser Richtlinie kann das Standardverhalten überschrieben werden, wenn eine Verbindung mit einem zusätzlichen Monitor hergestellt wird. Sie ermöglicht die Steuerung, ob die Anzeige den primären Bildschirm automatisch klont (spiegeln) oder den Desktop erweitert.
+Mit „Erweitern“ wird die Anzeige auf den zweiten Monitor erweitert, sodass auf jedem Bildschirm unterschiedliche Inhalte angezeigt werden können. Klonen dupliziert die primäre Anzeige auf dem zweiten Monitor, der denselben Inhalt auf beiden Bildschirmen anzeigt. Der interne Standardwert verwendet das Standardverhalten des Systems, das von den Windows-Einstellungen bestimmt wird.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> Konfigurieren des Mehrfachanzeigemodus</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">Durch Aktivieren dieser Richtlinie kann das Standardverhalten überschrieben werden, wenn eine Verbindung mit einem zusätzlichen Monitor hergestellt wird. Sie ermöglicht die Kontrolle darüber, ob eine geklonte Anzeige den internen oder externen Monitor priorisiert, d. h. die bevorzugte Auflösungsquelle festlegt.
+Intern legt die Auflösung der Hauptanzeige als Quelle auf beiden Bildschirmen fest. Extern legt die Auflösung der verbundenen (externen) Anzeige als Quelle auf beiden Bildschirmen fest. Der Standardwert verwendet das Standardverhalten des Systems, das durch die Windows-Einstellungen bestimmt wird.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> Bevorzugte Auflösungsquelle für geklonten Monitor festlegen</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">Mithilfe der GDI-DPI-Skalierung kann bei Anwendungen, die nicht mit DPI-Werten kompatibel sind, Kompatibilität mit monitorspezifischen DPI-Werten aktiviert werden.
 
 Mit dieser Richtlinieneinstellung können Sie ältere Anwendungen angeben, für die die GDI-DPI-Skalierung deaktiviert wird.
 
@@ -26,24 +35,32 @@ Wenn Sie die Richtlinieneinstellung deaktivieren oder nicht konfigurieren, kann 
 Wenn die GDI-DPI-Skalierung so konfiguriert ist, dass sie für eine Anwendung sowohl deaktiviert als auch aktiviert wird, wird sie für die Anwendung deaktiviert.</string>
       <string id="DisplayTurnOnGdiDPIScaling">GdiDPIScaling für Anwendungen aktivieren</string>
       <string id="DisplayTurnOffGdiDPIScaling">GdiDPIScaling für Anwendungen deaktivieren</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">"Prozesseigene System-DPI" ist ein Anwendungskompatibilitätsfeature für Desktopanwendungen, die nicht ordnungsgemäß gerendert werden, nachdem der Anzeigeskalierungsfaktor (DPI) geändert wurde. Wenn der Skalierungsfaktor der primären Anzeige geändert wird, können viele Desktopanwendungen unscharf dargestellt werden. (Dies kann in folgenden Fällen passieren: Wenn Sie eine Anzeige mit einem anderen Anzeigeskalierungsfaktor (DPI) anschließen oder trennen, von einem Gerät mit einem anderen Anzeigeskalierungsfaktor eine Remoteverbindung herstellen oder den Anzeigeskalierungsfaktor manuell ändern). In diesem Fall werden Desktopanwendungen, deren Einstellungen nicht für die ordnungsgemäße Darstellung aktualisiert wurden, so lange unscharf dargestellt, bis sich der Benutzer bei Windows ab- und wieder anmeldet. 
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">System-DPI pro Prozess ist ein Anwendungskompatibilitätsfeature für Desktopanwendungen, die nach einer Änderung des Anzeigeskalierungsfaktors (DPI) nicht richtig gerendert werden. Wenn sich das Anzeigeskalierungsfaktor der primären Anzeige ändert (was passieren kann, wenn Sie eine Anzeige mit einem anderen Anzeigeskalierungsfaktor (DPI) anschließen oder trennen, eine Remoteverbindung von einem Gerät mit einem anderen Anzeigeskalierungsfaktor herstellen oder den Anzeigeskalierungsfaktor manuell ändern), können viele Desktop-Anwendungen unscharf angezeigt werden. Desktopanwendungen, die in diesem Szenario nicht ordnungsgemäß angezeigt wurden, bleiben unscharf, bis sich der Benutzer bei Windows ab- und wieder anmeldet.
 
-Wenn Sie diese Richtlinie aktivieren, werden einige unscharf dargestellte Anwendungen nach dem Neustart wieder scharf dargestellt, ohne dass sich der Benutzer bei Windows ab- und wieder anmelden muss. 
+Wenn Sie diese Richtlinie aktivieren, werden einige verschwommene Anwendungen nach dem Neustart scharf dargestellt, ohne dass sich der Benutzer bei Windows abmelden und wieder anmelden muss.
 
 Beachten Sie Folgendes:
 
-Durch "Prozesseigene System-DPI" werden nur Desktopanwendungen auf der primären Anzeige besser gerendert. Auf sekundären Anzeigen mit einem anderen Skalierungsfaktor können einige Desktopanwendungen weiterhin unscharf dargestellt werden. 
+System-DPI pro Prozess verbessert nur das Rendering von Desktopanwendungen, die auf der primären Anzeige positioniert sind. Einige Desktopanwendungen können auf sekundären Anzeigen, die unterschiedliche Anzeigeskalierungsfaktoren aufweisen, weiterhin verschwommen sein.
 
-"Prozesseigene System-DPI" funktioniert nicht für alle Anwendungen, da einige ältere Desktopanwendungen auf Anzeigen mit hohen DPI-Werten immer unscharf dargestellt werden. 
+System-DPI pro Prozess funktioniert nicht für alle Anwendungen, da einige ältere Desktopanwendungen auf Anzeigen mit hoher DPI-Auflösung immer unscharf dargestellt werden.
 
-In einigen Fällen können Desktopanwendungen ein ungewöhnliches Verhalten aufweisen. In diesem Fall sollte "Prozesseigene System-DPI" deaktiviert werden.
+In einigen Fällen können in einigen Desktopanwendungen ungewöhnliche Verhaltensweisen auftreten. In diesem Fall sollte das System-DPI pro Prozess deaktiviert werden.
 
-Wenn Sie diese Einstellung aktivieren, können Sie die systemweite Standardeinstellung für Desktopanwendungen sowie Außerkraftsetzungen festlegen, die pro Anwendung gelten. Wenn Sie diese Einstellung deaktivieren oder nicht konfigurieren, wird "Prozesseigene System-DPI" auf keinen der Systemprozesse angewendet.
+Wenn Sie diese Einstellung aktivieren, können Sie den systemweiten Standard für Desktopanwendungen sowie für Außerkraftsetzungen pro Anwendung angeben. Wenn Sie diese Einstellung deaktivieren oder nicht konfigurieren, gilt das System-DPI pro Prozess nicht für Prozesse im System.
 
 </string>
       <string id="DisplayPerProcessSystemDpiSettings">Einstellungen für prozesseigene System-DPI konfigurieren</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">Aktivieren</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">Deaktivieren</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">Klonen</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">Standard</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">Erweitern</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">Nur intern</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">Nur extern</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">Standard</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">Intern</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">Extern</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">Prozesseigene System-DPI für Anwendungen aktivieren</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">Prozesseigene System-DPI für Anwendungen deaktivieren</string>
     </stringTable>
@@ -66,6 +83,12 @@ Wenn Sie diese Einstellung aktivieren, können Sie die systemweite Standardeinst
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>Deaktiviert "Prozesseigene System-DPI" für folgende Anwendungen. Verwenden Sie den vollständigen Anwendungspfad oder den Dateinamen der Anwendung einschließlich Erweiterung. Trennen Sie Anwendungen durch ein Semikolon.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">Klonen, Erweitern, InternalOnly, ExternalOnly oder Fortfahren mit Standard-Windows-Einstellungen als Konfiguration für den Mehrfachanzeigemodus.</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">Legen Sie die Standardauflösung fest, die Windows für neue geklonte Anzeigen als interne, externe oder Standardmäßige Windows-Einstellungen verwendet.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

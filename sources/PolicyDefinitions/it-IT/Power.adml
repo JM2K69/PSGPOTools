@@ -296,6 +296,8 @@ Se non si configura questa impostazione dei criteri, l'impostazione verrà contr
 Se si abilita questa impostazione dei criteri, la limitazione di potenza verrà disabilitata.
 
 Se si disabilita o non si configura questa impostazione dei criteri, l'impostazione verrà controllata dagli utenti.</string>
+      <string id="EnableEnergySaver">Abilita il risparmio energia in modo che sia sempre attivo</string>
+      <string id="EnableEnergySaverExplain">Questo criterio estenderà la durata della batteria e ridurrà il consumo di energia consentendo a Risparmio energia di essere sempre attivo. </string>
     </stringTable>
     <presentationTable>
       <presentation id="ACHibernateTimeOut_1">

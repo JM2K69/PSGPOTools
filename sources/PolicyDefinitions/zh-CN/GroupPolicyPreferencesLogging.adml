@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>组策略首选项日志记录策略</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">配置应用程序首选项日志记录和跟踪</string>
+      <string id="CSE_Applications_Logging_Help">使用此策略设置可以配置应用程序首选项扩展的事件日志记录的详细信息的级别，还可以启用应用程序扩展的跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可以为客户端计算机的应用程序扩展配置事件日志记录和启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，并且将禁用此扩展的跟踪。
+
+注意:
+
+1.用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2.计算机配置跟踪: 仅在“用户配置”下可以使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3.组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。
+</string>
+      <string id="CSE_DataSources_Logging">配置数据源首选项日志记录和跟踪</string>
+      <string id="CSE_DataSources_Logging_Help">通过使用此策略设置，可以配置数据源首选项扩展的事件日志记录详细程度，并为“数据源”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“数据源”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_Devices_Logging">配置设备首选项日志记录和跟踪</string>
+      <string id="CSE_Devices_Logging_Help">通过使用此策略设置，可以配置设备首选项扩展的事件日志记录详细程度，并为“设备”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“设备”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_Drives_Logging">配置驱动器映射首选项日志记录和跟踪</string>
+      <string id="CSE_Drives_Logging_Help">通过使用此策略设置，可以配置驱动器映射首选项扩展的事件日志记录详细程度，并为“驱动器映射”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“驱动器映射”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_Environment_Logging">配置环境首选项日志记录和跟踪</string>
+      <string id="CSE_Environment_Logging_Help">通过使用此策略设置，可以配置环境首选项扩展的事件日志记录详细程度，并为“环境”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“环境”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_Files_Logging">配置文件首选项日志记录和跟踪</string>
+      <string id="CSE_Files_Logging_Help">通过使用此策略设置，可以配置文件首选项扩展的事件日志记录详细程度，并为“文件”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“文件”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_FolderOptions_Logging">配置文件夹选项首选项日志记录和跟踪</string>
+      <string id="CSE_FolderOptions_Logging_Help">通过使用此策略设置，可以配置文件夹选项首选项扩展的事件日志记录详细程度，并为“文件夹选项”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“文件夹选项”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_Folders_Logging">配置文件夹首选项日志记录和跟踪</string>
+      <string id="CSE_Folders_Logging_Help">通过使用此策略设置，可以配置文件夹首选项扩展的事件日志记录详细程度，并为“文件夹”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“文件夹”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_IniFiles_Logging">配置 Ini 文件首选项日志记录和跟踪</string>
+      <string id="CSE_IniFiles_Logging_Help">通过使用此策略设置，可以配置 Ini 文件首选项扩展的事件日志记录详细程度，并为“Ini 文件”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“Ini 文件”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_Internet_Logging">配置 Internet 设置首选项日志记录和跟踪</string>
+      <string id="CSE_Internet_Logging_Help">通过使用此策略设置，可以配置 Internet 首选项扩展的事件日志记录详细程度，并为 Internet 扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的 Internet 扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">配置本地用户和组首选项日志记录和跟踪</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">通过使用此策略设置，可以配置本地用户和本地组首选项扩展的事件日志记录详细程度并为“本地用户和本地组”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“本地用户和本地组”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_NetworkOptions_Logging">配置网络选项首选项日志记录和跟踪</string>
+      <string id="CSE_NetworkOptions_Logging_Help">通过使用此策略设置，可以配置网络选项首选项扩展的事件日志记录详细程度，并为“网络选项”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“网络选项”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_NetShares_Logging">配置网络共享首选项日志记录和跟踪</string>
+      <string id="CSE_NetShares_Logging_Help">通过使用此策略设置，可以配置网络共享首选项扩展的事件日志记录详细程度，并为“网络共享”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“网络共享”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_PowerOptions_Logging">配置电源选项首选项日志记录和跟踪</string>
+      <string id="CSE_PowerOptions_Logging_Help">通过使用此策略设置，可以配置电源选项首选项扩展的事件日志记录详细程度，并为“电源选项”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“电源选项”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_Printers_Logging">配置打印机首选项日志记录和跟踪</string>
+      <string id="CSE_Printers_Logging_Help">通过使用此策略设置，可以配置打印机首选项扩展的事件日志记录详细程度，并为“打印机”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“打印机”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_RegionalOptions_Logging">配置区域选项首选项日志记录和跟踪</string>
+      <string id="CSE_RegionalOptions_Logging_Help">通过使用此策略设置，可以配置区域选项首选项扩展的事件日志记录详细程度，并为“区域选项”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“区域选项”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_PrefRegistry_Logging">配置注册表首选项日志记录和跟踪</string>
+      <string id="CSE_PrefRegistry_Logging_Help">通过使用此策略设置，可以配置注册表首选项扩展的事件日志记录详细程度，并为“注册表”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“注册表”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_ScheduledTasks_Logging">配置计划任务首选项日志记录和跟踪</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">通过使用此策略设置，可以配置计划任务首选项扩展的事件日志记录详细程度，并为“计划任务”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“计划任务”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_Services_Logging">配置服务首选项日志记录和跟踪</string>
+      <string id="CSE_Services_Logging_Help">通过使用此策略设置，可以配置服务首选项扩展的事件日志记录详细程度，并为“服务”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“服务”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_Shortcuts_Logging">配置快捷方式首选项日志记录和跟踪</string>
+      <string id="CSE_Shortcuts_Logging_Help">通过使用此策略设置，可以配置快捷方式首选项扩展的事件日志记录详细程度，并为“快捷方式”扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“快捷方式”扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_StartMenu_Logging">配置“开始”菜单首选项日志记录和跟踪</string>
+      <string id="CSE_StartMenu_Logging_Help">通过使用此策略设置，可以配置“开始”菜单首选项扩展的事件日志记录详细程度，并为“开始”菜单扩展启用跟踪。日志记录和跟踪提供用于故障排除的诊断信息。
+
+如果启用此策略设置，则可配置事件日志，并为客户端计算机的“开始”菜单扩展启用跟踪。
+
+如果禁用或未配置此策略设置，则默认情况下，此扩展的事件日志记录仅包含警告和错误，且此扩展的跟踪处于关闭状态。
+
+安全警告: 
+仅使用所需的最低权限保护配置的网络共享。不要使用广泛访问权限(例如，任何标准帐户或具有完全控制权限的任何人)，因为这可能导致未经授权访问日志和跟踪数据
+
+注意:
+
+1. 用户配置跟踪: 若要为“用户配置”下列出的此首选项扩展中的项目执行跟踪，则必须在“用户跟踪”框中提供一个路径(指向能够在客户端计算机上创建用户跟踪文件的位置)，且必须启用“跟踪”选项。如果在“用户配置”下的此扩展中没有首选项，则不会创建用户跟踪文件。
+
+2. 计算机配置跟踪: 仅可在“用户配置”下使用此首选项扩展，因此计算机配置跟踪不适用。
+
+3. 组策略建模查询跟踪: 若要在执行组策略建模查询时对此首选项扩展中的项目执行跟踪，则必须在“计划跟踪”框中提供一个路径(指向能够在运行建模的计算机上创建计划跟踪文件的位置)，且必须启用“跟踪”选项。如果未执行组策略建模或此扩展中没有首选项，则不会创建计划跟踪文件。</string>
+      <string id="CSE_NOCHANGES">即使尚未更改组策略对象也进行处理</string>
+      <string id="CSE_NOBACKGROUND">周期性后台处理期间不要应用</string>
+      <string id="CSE_ALLOWSLOWLINK">允许通过慢速网络连接进行处理</string>
+      <string id="CSE_TRACELEVEL">跟踪</string>
+      <string id="CSE_TRACEFILEPATHUSER">用户跟踪</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">计算机跟踪</string>
+      <string id="CSE_TRACEFILEPATH">跟踪文件</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">计划跟踪</string>
+      <string id="CSE_TRACEFILEMAXSIZE">跟踪文件的最大大小(KB)</string>
+      <string id="CSE_TRACELEVELNORMAL">关闭</string>
+      <string id="CSE_TRACELEVELVERBOSE">打开</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">后台优先级</string>
+      <string id="CSE_PRILEVEL_NORMAL">正常</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">低于正常</string>
+      <string id="CSE_PRILEVEL_LOWEST">最低</string>
+      <string id="CSE_PRILEVEL_IDLE">空闲</string>
+      <string id="CSE_LOGLEVEL">事件日志记录</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">信息、警告和错误</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">警告和错误</string>
+      <string id="CSE_LOGLEVEL_ERRORS">仅错误</string>
+      <string id="CSE_LOGLEVEL_NONE">无</string>
+      <string id="CSE_Logging">日志记录和跟踪</string>
+      <string id="CSE_Logging_Help">允许你对首选组件的日志记录和跟踪进行配置。</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>计算机跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件日志记录</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">跟踪</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>用户跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>计划跟踪</label>
+          <defaultValue>%COMMONAPPDATA%\组策略\首选项\跟踪\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">跟踪文件的最大大小(KB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

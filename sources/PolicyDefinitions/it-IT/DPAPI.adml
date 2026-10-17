@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>DPAPI</displayName>
+  <description>Configura le impostazioni DPAPI</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod">Imposta il periodo di rotazione delle chiavi di backup DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">Questa impostazione dei criteri specifica il periodo di rotazione delle chiavi di backup DPAPI. 
+È possibile utilizzare questa impostazione per sostituire il valore predefinito di 90 giorni. Impostare 0 per disabilitare la rotazione delle chiavi di backup DPAPI. 
+Se si abilita questa impostazione dei criteri, impostare il numero di giorni di attesa del sistema prima di generare una nuova chiave di backup DPAPI. 
+Se si disabilita o non si configura questa impostazione dei criteri, verrà utilizzato il valore predefinito di 90 giorni.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">Specifica il periodo di rotazione delle chiavi di backup DPAPI in giorni. 
+Specifica 0 per disabilitare la rotazione delle chiavi di backup DPAPI.</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

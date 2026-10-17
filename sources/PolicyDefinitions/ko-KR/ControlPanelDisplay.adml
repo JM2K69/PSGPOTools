@@ -173,6 +173,12 @@ Windows XP 및 이후 시스템에서 이 설정을 사용하면 사용자와 �
 기본적으로 사용자는 컴퓨터가 잠겨 있거나 로그온 화면을 표시할 때 표시되는 배경 이미지를 변경할 수 있습니다.
 
 이 설정을 사용하면 사용자가 잠금 화면 및 로그온 이미지를 변경할 수 없으며 대신 기본 이미지가 표시됩니다.</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">잠금 화면 배경 동작 금지</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">이 정책 설정은 잠금 화면 이미지가 정적인지 또는 장치의 가속도계 출력에 따라 미세한 이동 효과가 있는 지 여부를 제어합니다.
+
+이 설정을 사용하면 동작이 금지되고 사용자에게 기존의 정적 잠금 화면 배경 이미지가 표시됩니다.
+
+이 설정을 사용하지 않고 장치에 가속도계가 있는 경우 사용자가 물리적으로 장치를 이동할 때 정지 이미지 주변에 잠금 화면 배경이 이동하는 것을 볼 수 있습니다.</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">특정 기본 잠금 화면 및 로그온 이미지 적용</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">이 설정을 통해 이미지 파일의 경로(위치)를 입력하여 특정 기본 잠금 화면 및 로그온 이미지를 적용할 수 있습니다. 잠금 화면과 로그온 화면 둘 다에 동일한 이미지가 사용됩니다.
 

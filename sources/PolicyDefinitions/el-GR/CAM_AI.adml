@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Πολιτικές AI CAM (Διαχείριση πρόσβασης δυνατοτήτων)</displayName>
+  <description>Πολιτικές που σχετίζονται με τις δυνατότητες AI και τη διαχείριση συναίνεσής τους.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">Συγκατάθεση AI</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">Χρήστης στον έλεγχο</string>
+      <string id="ForceEnable">Επιβολή ενεργοποίησης</string>
+      <string id="ForceDisable">Επιβολή απενεργοποίησης</string>
+      <string id="AgentConsentDuration_Name">Διάρκεια συγκατάθεσης παράγοντα</string>
+      <string id="AgentConsentDuration_Explain">Καθορίζει για πόσο χρονικό διάστημα, σε ώρες, μια απάντηση συγκατάθεσης "Αποδοχή" για δυνατότητες παράγοντα παραμένει έγκυρη προτού ζητηθεί ξανά από τον χρήστη.
+
+Αν αυτή η πολιτική είναι ενεργοποιημένη, η τιμή πρέπει να είναι από 1 (1 ώρα) έως 8760 (1 έτος). Η ρυθμισμένη τιμή χρησιμοποιείται ως ο προεπιλεγμένος χρόνος λήξης για όλες τις απαντήσεις συγκατάθεσης "Αποδοχή" για δυνατότητες παράγοντα.
+
+Αν αυτή η πολιτική δεν έχει ρυθμιστεί ή αν η τιμή είναι εκτός του επιτρεπόμενου εύρους, η προεπιλογή είναι 720 ώρες (30 ημέρες).</string>
+      <string id="ConfigureAgentConnectors_Name">Ρύθμιση παραμέτρων συνδέσεων παράγοντα</string>
+      <string id="ConfigureAgentConnectors_Explain">Ενεργοποίηση ή απενεργοποίηση συνδέσεων παράγοντα.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Πολιτική πρόσβασης σύνδεσης παράγοντα</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Αυτή η ρύθμιση πολιτικής σάς επιτρέπει να ορίσετε μια λίστα επιτρεπόμενων συνδέσεων μεταξύ κεντρικών υπολογιστών MCP και διακομιστών MCP.
+
+Η μορφή αυτής της λίστας θα είναι μια συμβολοσειρά JSON που συμμορφώνεται με το σχήμα στο https://go.microsoft.com/fwlink/?LinkId=2363700.
+
+Αν αυτή η πολιτική δεν έχει ρυθμιστεί, ο κεντρικός υπολογιστής MCP μπορεί να συνδεθεί σε οποιονδήποτε διακομιστή MCP με συγκατάθεση χρήστη.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Ρύθμιση παραμέτρων συνδέσεων παράγοντα: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Διάρκεια συγκατάθεσης (ώρες): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Ρύθμιση παραμέτρων επιτρεπόμενων συνδέσεων κεντρικού υπολογιστή/διακομιστή MCP:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

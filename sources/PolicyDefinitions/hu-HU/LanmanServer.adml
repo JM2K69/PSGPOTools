@@ -69,6 +69,8 @@ SMB 3.11-es titkosítócsomagok:
 
 AES_128_GCM
 AES_128_CCM
+AES_256_GCM
+AES_256_CCM
 
 SMB 3.0-s és 3.02-es titkosítócsomagok:
 
@@ -95,6 +97,100 @@ Ha engedélyezi ezt a házirend-beállítást, az SMB-kiszolgáló az SMB-ügyf�
 Ha letiltja vagy nem konfigurálja a házirend-beállítást, az SMB-kiszolgáló az általa támogatott titkosítócsomagok listájáról azt a titkosítócsomagot választja ki, amelyik az SMB-ügyfél számára a legmegfelelőbb.
 
 Megjegyzés: E biztonsági beállítás módosításai a Windows újraindítása után lépnek érvénybe.</string>
+      <string id="SUPPORTED_Windows_Server_2022_Windows_11_0">Legalább Windows Server 2022 vagy Windows 11</string>
+      <string id="SUPPORTED_Windows_Server_2025_Windows_11_0">Legalább Windows Server 2025 vagy Windows 11</string>
+      <string id="SUPPORTED_Windows_Server_2025_Windows_11_0_24H2">Legalább Windows Server 2025 vagy Windows 11 24H2 verzió</string>
+      <string id="Pol_EnableCompressedTraffic_Name">Forgalomtömörítés kérése az összes megosztáshoz</string>
+      <string id="Pol_EnableCompressedTraffic_Help">Ez a házirend szabályozza, hogy az SMB-kiszolgáló kéri-e az SMB-ügyfelet a forgalomtömörítés használatára az összes SMB-megosztáshoz.
+
+Ha engedélyezi ezt a házirend-beállítást, az SMB-kiszolgáló alapértelmezés szerint kéri az SMB-ügyfelet, hogy tömörítse a forgalmat, ha az SMB-tömörítés engedélyezve van. Lásd az alábbi jegyzeteket.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, az SMB-kiszolgáló alapértelmezés szerint nem fogja kérni az SMB-ügyfelet a forgalom tömörítésére. A forgalom tömörítését azonban más módon is kérheti. Lásd az alábbi jegyzeteket.
+
+Megjegyzés: Ha ez a házirend le van tiltva, a forgalom tömörítését kiszolgálóoldali megosztásonkénti tulajdonságok vagy az SMB-ügyfél kérheti. Ha ezt nem szeretné, és az egyik teljes mértékben le szeretné tiltani a tömörítést, konfigurálja helyette a hozzá tartozó „SMB-tömörítés letiltása” házirendet.
+
+Megjegyzés: A forgalomtömörítés csak akkor használható, ha az SMB-ügyfél és az SMB-kiszolgáló is támogatja és engedélyezi a forgalomtömörítést.
+      </string>
+      <string id="Pol_DisableCompression_Name">SMB-tömörítés letiltása</string>
+      <string id="Pol_DisableCompression_Help">Ez a házirend szabályozza, hogy az SMB-kiszolgáló letiltja-e (teljesen megakadályozza) a forgalom tömörítését.
+
+Ha engedélyezi ezt a házirend-beállítást, az SMB-kiszolgáló soha nem tömöríti az adatokat más házirendek (például az „SMB-tömörítés használata alapértelmezés szerint” házirendtől vagy megosztásonkénti tulajdonságtól) függetlenül.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, az SMB-kiszolgáló tömörítheti a forgalmat (más házirendek és feltételek kombinációjától függően).
+      </string>
+      <string id="Pol_MaxSmb2Dialect_Name">Az SMB maximális verziójának felhatalmazása</string>
+      <string id="Pol_MaxSmb2Dialect_Help">Ez a házirend az SMB protokoll maximális verzióját szabályozza
+
+Megjegyzés: Ez a csoportházirend nem akadályozza meg az SMB 1 használatát, ha az összetevő még telepítve és engedélyezve van.
+      </string>
+      <string id="Pol_MinSmb2Dialect_Name">Az SMB minimális verziójának felhatalmazása</string>
+      <string id="Pol_MinSmb2Dialect_Help">Ez a házirend az SMB protokoll minimális verzióját szabályozza
+
+Megjegyzés: Ez a csoportházirend nem akadályozza meg az SMB 1 használatát, ha az összetevő még telepítve és engedélyezve van.
+      </string>
+      <string id="Dialect_0x202">SMB 2.0.2</string>
+      <string id="Dialect_0x210">SMB 2.1.0</string>
+      <string id="Dialect_0x300">SMB 3.0.0</string>
+      <string id="Dialect_0x302">SMB 3.0.2</string>
+      <string id="Dialect_0x311">SMB 3.1.1</string>
+
+      <string id="Pol_EnableRemoteMailslots_Name">Távoli postafiókok engedélyezése</string>
+      <string id="Pol_EnableRemoteMailslots_Help">Ez a házirend vezérli, hogy az SMB-kiszolgáló engedélyezze vagy letiltsa-e a távoli postafiókokat a számítógép-tallózási szolgáltatáson keresztül.
+
+Ha letiltja ezt a házirend-beállítást, a számítógép-tallózási szolgáltatás a továbbiakban nem a vártnak megfelelően fog működni.
+
+Ha nem konfigurálja ezt a házirend-beállítást, akkor előfordulhat, hogy a számítógép-tallózás továbbra is működni fog, ha a távoli postafiókok engedélyezve vannak.
+
+Megjegyzés: A házirend érvénybe lépéséhez szükség van a Windows újraindítására.
+      </string>
+
+      <string id="Pol_EnableAuthRateLimiter_Name">Hitelesítési sebességkorlátozó engedélyezése</string>
+      <string id="Pol_EnableAuthRateLimiter_Help">Ez a házirend szabályozza, hogy az SMB-kiszolgáló engedélyezi vagy letiltja a hitelesítési sebességkorlátozót.
+
+Ha letiltja ezt a házirend-beállítást, a hitelesítési sebességkorlátozó nem lesz engedélyezve.
+
+Ha nem konfigurálja ezt a házirend-beállítást, a késleltetési beállításoktól függően előfordulhat, hogy a hitelesítési sebességkorlátozó továbbra is működik (az ajánlott késleltetési érték 2000 ezredmásodperc).
+      </string>
+      <string id="Pol_AuditClientDoesNotSupportEncryption_Name">A naplózási ügyfél nem támogatja a titkosítást</string>
+      <string id="Pol_AuditClientDoesNotSupportEncryption_Help">Ez a házirend szabályozza, hogy az SMB-kiszolgáló naplózza-e az eseményt, ha az SMB-kiszolgáló nem támogatja a titkosítást.
+
+Ha engedélyezi ezt a házirend-beállítást, az SMB-kiszolgáló naplózza az eseményt, ha az SMB-ügyfél nem támogatja a titkosítást.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, az SMB-kiszolgáló nem naplózza az eseményt.
+      </string>
+      <string id="Pol_AuditClientDoesNotSupportSigning_Name">A naplózási ügyfél nem támogatja az aláírást</string>
+      <string id="Pol_AuditClientDoesNotSupportSigning_Help">Ez a szabályzat szabályozza, hogy az SMB-kiszolgáló naplózza-e az eseményt, ha az SMB-kiszolgáló nem támogatja az aláírást.
+
+Ha engedélyezi ezt a szabályzatbeállítást, az SMB-kiszolgáló naplózza az eseményt, ha az SMB-ügyfél nem támogatja az aláírást.
+      </string>
+      <string id="Pol_AuditInsecureGuestLogon_Name">Vendégek nem biztonságos bejelentkezéseinek naplózása</string>
+      <string id="Pol_AuditInsecureGuestLogon_Help">Ez a házirend szabályozza, hogy az SMB-ügyfél engedélyezi-e a naplózási eseményt, ha a kiszolgáló vendégfiókként van bejelentkezve.
+
+Ha engedélyezi ezt a házirend-beállítást, az SMB-kiszolgáló naplózza az eseményt, ha az ügyfél vendégfiókként van bejelentkezve.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, az SMB-kiszolgáló nem naplózza az eseményt.
+      </string>
+      <string id="Pol_EnableSMBQUIC_Name">SMB engedélyezése QUIC-en keresztül</string>
+      <string id="Pol_EnableSMBQUIC_Help">Ez a házirend-beállítás szabályozza, hogy az SMB-kiszolgáló engedélyezi-e az SMB-t QUIC-n keresztül.
+
+Ha letiltja ezt a házirend-beállítást, az SMB-kiszolgáló nem fogad kapcsolatokat a QUIC-en keresztül.
+
+Ha nem konfigurálja ezt a házirend-beállítást, előfordulhat, hogy az SMB-kiszolgáló QUIC-kapcsolaton keresztül fogad kapcsolatokat.
+      </string>
+      <string id="Pol_AuthRateLimiterDelayInMs_Name">Hitelesítési sebességkorlátozó késleltetésének beállítása (ezredmásodperc)</string>
+      <string id="Pol_AuthRateLimiterDelayInMs_Help">Ez a házirend határozza meg, hogy az SMB-kiszolgáló az érvénytelen hitelesítési késleltetéshez az alapértelmezett értéket használja-e ezredmásodpercben.
+
+Ha konfigurálja ezt a házirend-beállítást, a hitelesítési sebességkorlátozó a megadott értéket fogja használni az érvénytelen hitelesítési kísérletek késleltetéséhez.
+
+Ha nem konfigurálja ezt a házirend-beállítást, a hitelesítési sebességkorlátozó az alapértelmezett értéketl vagy a HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters mappában található helyi beállításjegyzéktől kapott értéket fogja használni.
+      </string>
+      <string id="Pol_AuditClientSpnSupport_Name">SMB-ügyfél SPN-támogatásának naplózása</string>
+      <string id="Pol_AuditClientSpnSupport_Help">Ez a házirend szabályozza, hogy az SMB-kiszolgáló naplózza-e az SMB-ügyfelek által a hitelesítés során megadott egyszerű szolgáltatásnevet (SPN).
+
+Ha engedélyezi ezt a házirend-beállítást, az SMB-kiszolgáló minden alkalommal naplózza az eseményt, amikor egy SMB-ügyfél a hitelesítés során nem küld SPN-t, vagy érvénytelen SPN-t küld. Ezek az naplózási adatok segíthetnek azonosítani azokat az ügyfeleket, akik nem kompatibilisek az SPN-érvényesítéssel, mielőtt az alkalmazása engedélyezésre kerülne az SMB-kiszolgálón.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, az SMB-kiszolgáló nem naplózza az eseményt.
+      </string>
       </stringTable>
     <presentationTable>
       <presentation id="Pol_HashPublication">
@@ -116,6 +212,17 @@ Megjegyzés: E biztonsági beállítás módosításai a Windows újraindítása
       <presentation id="Pol_CipherSuiteOrder">
         <text>Titkosítócsomagok:</text>
         <multiTextBox refId="MultiText_CipherSuiteOrder"/>
+      </presentation>
+      <presentation id="Pol_MaxSmb2Dialect">
+        <text>SMB-verzió kiválasztása:</text>
+        <dropdownList refId="MaxSmb2Dialect" defaultItem="0">Verzió:</dropdownList>
+      </presentation>
+      <presentation id="Pol_MinSmb2Dialect">
+        <text>SMB-verzió kiválasztása:</text>
+        <dropdownList refId="MinSmb2Dialect" defaultItem="0">Verzió:</dropdownList>
+      </presentation>
+      <presentation id="Pol_AuthRateLimiterDelayInMs">
+        <decimalTextBox refId="DecimalTextBox_AuthRateLimiterDelayInMs" defaultValue="0" spinStep="1">Érték (ezredmásodperc): </decimalTextBox>
       </presentation>
     </presentationTable>
   </resources>

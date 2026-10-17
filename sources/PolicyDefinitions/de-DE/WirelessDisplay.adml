@@ -11,13 +11,9 @@
       <string id="AllowProjectionToPC">Projektion auf diesen PC nicht zulassen</string>
       <string id="AllowProjectionToPC_help">Mit dieser Richtlinieneinstellung können Sie die Projektion auf einen PC deaktivieren.  
 
- 
+Wenn Sie die Option aktivieren, ist Ihr PC nicht sichtbar und kann nicht projiziert werden, es sei denn, der Benutzer startet die App für die drahtlose Anzeige manuell.  
 
-Wenn Sie sie aktivieren, wird Ihr PC nicht erkannt und kann kein Projektionsziel sein, es sei denn, der Benutzer startet die App "Verbinden" manuell.  
-
- 
-
-Wenn Sie sie deaktivieren oder nicht konfigurieren, wird Ihr PC erkannt und kann als Projektionsziel verwendet werden. Dies gilt jedoch nur oberhalb des Sperrbildschirms. Der Benutzer kann die Einstellung auch beliebig aktivieren oder deaktivieren, sofern die App nicht manuell gestartet wird.</string>
+Wenn Sie ihn deaktivieren oder nicht konfigurieren, ist Ihr PC sichtbar und kann nur oberhalb des Sperrbildschirms projiziert werden. Der Benutzer hat eine Option, um ihn mit Ausnahme des manuellen Starts immer zu aktivieren oder zu deaktivieren.</string>
 
       <string id="RequirePinForPairing">PIN für die Kopplung anfordern</string>
       <string id="RequirePinForPairing_help">Mit dieser Richtlinieneinstellung können Sie festlegen, dass eine PIN für die Kopplung erforderlich ist.  

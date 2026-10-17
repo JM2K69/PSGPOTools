@@ -6,6 +6,8 @@
   <resources>
     <stringTable>
       <string id="NotificationsCategory">Varslinger</string>
+      <string id="WnsEndpoint">Aktiverer gruppepolicy for WNS FQDN</string>
+      <string id="WnsEndpointExplain">Denne policyen angir en spesiell WNS FQDN for bestemte miljøer.</string>
       <string id="NoTileNotification">Deaktiver flisvarslinger</string>
       <string id="NoTileNotificationExplain">
           
@@ -118,6 +120,18 @@
 
           Ingen omstart av systemet eller tjenester er nødvendig for at denne policyinnstillingen skal tre i kraft.
       </string>
+      <string id="ExpandedToastNotifications">Aktiver flere utvidede varsler i handlingssenter</string>
+      <string id="ExpandedToastNotificationsExplain">
+          Denne policyinnstillingen aktiverer flere utvidede varselvarsler i handlingssenter.
+
+Hvis du aktiverer denne policyinnstillingen, utvides de tre første varslene for hvert program som standard i handlingssenter.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, utvides bare det første varselet for hvert program som standard i handlingssenter.
+
+Windows 10 bare. Dette vil umiddelbart bli avskrevet for Windows 11.
+
+Ingen omstarter eller tjenester kreves for at denne policyinnstillingen skal tre i kraft.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="QuietHoursBeginTimePicker">
@@ -125,6 +139,11 @@
       </presentation>
       <presentation id="QuietHoursEndTimePicker">
         <decimalTextBox refId="QuietHoursDailyEndMinuteControl" defaultValue="360">Minutter etter midnatt:</decimalTextBox>
+      </presentation>
+      <presentation id="WnsEndpoint">
+        <textBox refId="WnsEndpoint_FQDN">
+          <label>FQDN for WNS</label>
+        </textBox>
       </presentation>
     </presentationTable>
   </resources>

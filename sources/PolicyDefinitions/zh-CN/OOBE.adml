@@ -9,11 +9,24 @@
       <string id="OOBECategory_Explain">配置某些 OOBE 相关设置</string>
 
       <string id="DisablePrivacyExperience">在用户登录时不启动隐私设置体验</string>
-      <string id="DisablePrivacyExperience_Explain">在首次登录新用户帐户或在某些场景的升级后，可能向用户呈现一个屏幕或一组屏幕，提示用户为其帐户选择隐私设置。启用此策略可以阻止此体验启动。
+      <string id="DisablePrivacyExperience_Explain">在首次登录新用户账户或在某些场景的升级后，可能向用户呈现一个屏幕或一组屏幕，提示用户为其账户选择隐私设置。启用此策略可以阻止此体验启动。
 
-如果启用此策略，隐私体验将不会对新创建的用户帐户或在升级后提示其选择隐私设置的帐户启动。
+如果启用此策略，隐私体验将不会对新创建的用户账户或在升级后提示其选择隐私设置的账户启动。
 
-如果禁用或不配置此策略，那么隐私体验可能会对新创建的用户帐户或在升级后应提示其选择隐私设置的帐户启动。</string>
+如果禁用或不配置此策略，那么隐私体验可能会对新创建的用户账户或在升级后应提示其选择隐私设置的账户启动。</string>
+
+      <string id="AllowOOBEUpdates">允许 OOBE 中的更新</string>
+      <string id="AllowOOBEUpdates_Explain">此策略允许你配置新设备在全新安装体验期间是否获取关键更新。
+
+如果禁用或未配置此策略，则新设备在全新安装体验期间将不会收到关键更新。
+
+如果启用策略，新设备在全新安装体验期间将收到最新批准的关键更新。
+
+注意:
+此策略不控制 OOBE 中的零日补丁(ZDP)更新页面。
+
+如果已通过 Windows 质量更新延迟和暂停策略暂停质量更新，则在全新安装体验期间将不会交付任何质量更新。
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

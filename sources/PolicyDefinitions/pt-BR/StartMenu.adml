@@ -27,11 +27,10 @@ Se desabilitar esta política, o link "Ver todos os resultados" será mostrado q
 Se desabilitar ou não definir esta política, um link "Ver Mais Resultados" será mostrado quando o usuário realizar uma pesquisa na caixa Pesquisar do menu Iniciar.  Se um manipulador de protocolo de terceiros for instalado, um link "Pesquisar em Tudo" será mostrado em vez do link "Ver Mais Resultados".</string>
       <string id="AddSearchInternetLinkInStartMenu">Adicionar link de Pesquisa na Internet ao Menu Iniciar</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
+Se você habilitar essa política, um link "Pesquisar na Internet" será mostrado quando o usuário executar uma pesquisa na caixa pesquisar do menu Iniciar.  Este botão inicia o navegador padrão com os termos de pesquisa.
 
-Se você habilitar esta política, um link "Pesquisar na Internet" será mostrado quando o usuário realizar uma pesquisa na caixa Pesquisar do menu Iniciar.  Esse botão inicia o navegador padrão com os termos da pesquisa.
+Se você desabilitar essa política, não haverá um link "Pesquisar na Internet" quando o usuário executar uma pesquisa na caixa pesquisar do menu Iniciar.
 
-Se você desabilitar esta política, não haverá um link "Pesquisar na Internet" quando o usuário realizar uma pesquisa na caixa Pesquisar do menu Iniciar.
-          
 Se você não configurar esta política (padrão), não haverá um link "Pesquisar na Internet" no menu Iniciar.</string>
       <string id="NoSearchFilesInStartMenu">Não pesquisar arquivos</string>
       <string id="NoSearchFilesInStartMenu_Help">Se você habilitar esta configuração de política, a caixa Pesquisar do menu Iniciar não procurará arquivos.
@@ -174,9 +173,9 @@ Observação: O suporte a esta configuração de política requer programas de t
       <string id="HidePowerOptions">Remover e impedir o acesso aos comandos Desligar, Reiniciar, Suspender e Hibernar</string>
       <string id="HidePowerOptions_Help">Esta configuração de política impede que os usuários executem os comandos a seguir na tela Segurança do Windows, na tela de logon e no menu Iniciar: Desligar, Reiniciar, Suspender e Hibernar. Esta configuração de política não impede que os usuários executem programas baseados no Windows que realizam essas funções.
 
-Se você habilitar esta configuração de política, os comandos Desligar, Reiniciar, Suspender e Hibernar serão removidos do menu Iniciar. O botão Ligar/Desligar também será removido da tela Segurança do Windows, que aparece quando você pressiona CTRL+ALT+DELETE, e da tela de logon.
+Se você habilitar esta configuração de política, os comandos Desligar, Reiniciar, Suspender e Hibernar serão removidos do menu Iniciar. O botão Desligar também será removido da tela Segurança do Windows, que aparece quando você pressiona CTRL+ALT+DELETE, e da tela de logon.
 
-Se desabilitar ou não configurar esta política, o botão Ligar/Desligar e os comandos Desligar, Reiniciar, Suspender e Hibernar ficarão disponíveis no menu Iniciar. O botão Ligar/Desligar na tela Segurança do Windows também ficará disponível.</string>
+Se desabilitar ou não configurar esta política, o botão Desligar e os comandos Desligar, Reiniciar, Suspender e Hibernar ficarão disponíveis no menu Iniciar. O botão Desligar na tela Segurança do Windows também ficará disponível.</string>
       <string id="NoCommonGroups">Remover grupos de programas comuns do Menu Iniciar</string>
       <string id="NoCommonGroups_Help">Remove os itens do perfil Todos os Usuários do menu Programas no menu Iniciar.
 
@@ -207,6 +206,19 @@ No Explorador de Arquivos, o item Pesquisar ainda aparece na barra de ferramenta
 Essa configuração de política afeta apenas os elementos especificados da interface do usuário. Ela não afeta o Internet Explorer nem impede que o usuário utilize outros métodos para pesquisar.
 
 Se você desabilitar ou não definir essa configuração de política, o link Pesquisar estará disponível no menu Iniciar.</string>
+      <string id="ShowOrHideMostUsedApps">Mostrar ou ocultar a lista "mais usado" do menu iniciar</string>
+      <string id="ShowOrHideMostUsedApps_Help">Se você habilitar essa configuração de política, poderá configurar o menu Iniciar para mostrar ou ocultar a lista de aplicativos mais usados do usuário, independentemente das configurações do usuário.
+
+Selecionar "Mostrar" irá forçar a exibição da lista "mais usada", e o usuário não poderá alterar para ocultá-la usando o aplicativo configurações.
+
+Selecionar "Ocultar" forçará a lista "mais usado" a ficar oculta, e o usuário não poderá alterar para mostrá-la usando o aplicativo configurações.
+
+Selecionar "não configurado" ou se você desabilitar ou não definir essa configuração de política, tudo permitirá que os usuários ativem ou desativem a exibição da lista "mais usado" usando o aplicativo configurações. Esse é o comportamento padrão.
+
+Observação: a configuração dessa política para "Mostrar" ou "Ocultar" nas versões com suporte do Windows 10 prevalecerá sobre a configuração de política "remover lista de programas frequentes do menu Iniciar" (que gerencia a mesma parte do menu Iniciar, mas com menos opções).</string>
+      <string id="MFU_NotConfigured">Não Configurado</string>
+      <string id="MFU_Show">Mostrar</string>
+      <string id="MFU_Hide">Ocultar</string>
       <string id="NoFrequentUsedPrograms">Remover a lista de programas frequentes do menu Iniciar</string>
       <string id="NoFrequentUsedPrograms_Help">Se esta configuração for habilitada, a lista dos programas usados frequentemente será removida do menu Iniciar.
 
@@ -243,7 +255,7 @@ Se você desabilitar ou não definir essa configuração, a lista de todos os ap
       <string id="APPLIST_NONE">Nenhum</string>
       <string id="APPLIST_COLLAPSE">Recolher</string>
       <string id="APPLIST_COLLAPSESETTING">Recolher e desabilitar a configuração</string>
-      <string id="APPLIST_REMOVESETTING">Remover e desabilitar a configuração</string>    
+      <string id="APPLIST_REMOVESETTING">Remover e desabilitar a configuração</string>
 
       <string id="NoNetAndDialupConnect">Remover Conexões de Rede do Menu Iniciar</string>
       <string id="NoNetAndDialupConnect_Help">Essa configuração de política permite remover as Conexões de Rede do menu Iniciar.
@@ -258,11 +270,11 @@ Se você desabilitar ou não definir essa configuração de política, as Conex�
 
 Consulte também as configurações de política "Desabilitar os programas no menu Configurações" e "Desabilitar o Painel de Controle", além das configurações de política na pasta Conexões de Rede (Configuração do Computador e Configuração do Usuário\Modelos Administrativos\Rede\Conexões de Rede).</string>
       <string id="NoPinnedPrograms">Remover a lista de programas fixados do menu Iniciar</string>
-      <string id="NoPinnedPrograms_Help">Se esta configuração for habilitada, a lista "Programas Fixados" será removida do menu Iniciar. Os usuários não poderão fixar programas no menu Iniciar. 
+      <string id="NoPinnedPrograms_Help">Se você habilitar essa configuração, a lista "Programas Fixados" será removida do menu Iniciar. Os usuários não podem fixar programas no menu Iniciar.
 
-No Windows XP e no Windows Vista, as caixas de seleção de Internet e email serão removidas da caixa de diálogo 'Personalizar Menu Iniciar'. 
+No Windows XP e no Windows Vista, as caixas de seleção internet e email são removidas da caixa de diálogo 'Personalizar menu Iniciar'.
 
-Se esta configuração for desabilitada ou não for definida, a lista "Programas Fixados" permanecerá no menu Iniciar. Os usuários poderão fixar e liberar programas no menu Iniciar.</string>
+Se você desabilitar essa configuração ou não a definir, a lista "Programas Fixados" permanecerá no menu Iniciar. Os usuários podem fixar e desafixar programas no menu Iniciar.</string>
       <string id="NoRecentDocsHistory">Não manter histórico de documentos abertos recentemente</string>
       <string id="NoRecentDocsHistory_Help">Impede que o sistema operacional e os programas instalados criem e exibam atalhos para documentos abertos recentemente.
 
@@ -318,31 +330,29 @@ Observação: essa configuração de política aplica-se somente a arquivos de d
 
 Consulte também as configurações de política "Não rastrear atalhos do Shell em perfis móveis" e "Não usar o método baseado em pesquisa ao resolver atalhos do shell".</string>
       <string id="NoRun">Remover o comando Executar do menu Iniciar</string>
-      <string id="NoRun_Help">Permite remover o comando Executar do menu Iniciar, do Internet Explorer e do Gerenciador de Tarefas.
+      <string id="NoRun_Help">Permite remover o comando Executar do menu Iniciar, Internet Explorer e Gerenciador de Tarefas.
 
-Se você habilitar esta configuração, ocorrerão as seguintes alterações:
+Se você habilitar essa configuração, as seguintes alterações ocorrerão:
 
-(1) O comando Executar será removido do menu Inicial.
+(1) O comando Executar é removido do menu Iniciar.
 
-(2) O comando Nova tarefa (Executar) será removido do Gerenciador de Tarefas.
+(2) O comando Nova Tarefa (Executar) é removido do Gerenciador de Tarefas.
 
-(3) O usuário não poderá digitar o seguinte na Barra de Endereços do Internet Explorer:
+(3) O usuário será impedido de inserir o seguinte na Internet Explorer de Endereços:
 
---- Um caminho UNC: \\&lt; servidor&gt;\&lt; compartilhamento&gt;
+--- caminho UNC: \\&lt;server&gt;\&lt;share&gt;
 
----Acesso a unidades locais: por exemplo, C:
+---Accessing de unidades locais: por exemplo, C:
 
---- Acesso a pastas locais: por exemplo, \temp&gt;
+--- Acessando pastas locais: por exemplo, \temp&gt;
 
-Além disso, usuários com teclados estendidos não poderão mais exibir a caixa de diálogo Executar pressionando a tecla de Aplicativo (a tecla com o logotipo do Windows) + R.
+Além disso, os usuários com teclados estendidos não poderão mais exibir a caixa de diálogo Executar pressionando a tecla Application (a tecla com o logotipo do Windows) + R.
 
-Se você desabilitar ou não definir esta configuração, os usuários poderão acessar o comando Executar no menu Iniciar e no Gerenciador de Tarefas e usar a Barra de Endereços do Internet Explorer.
+Se você desabilitar ou não definir essa configuração, os usuários poderão acessar o comando Executar no menu Iniciar e no Gerenciador de Tarefas e usar a Internet Explorer de Endereços.
 
+Observação: esta configuração afeta somente a interface especificada. Não impede que os usuários usem outros métodos para executar programas.
 
-
-Observação: esta configuração afeta somente a interface especificada. Ela não impede que os usuários utilizem outros métodos para executar programas. 
-
-Observação: os aplicativos de terceiros usados com Windows 2000 ou certificação superior são obrigados a respeitar esta configuração.</string>
+Observação: é um requisito para que aplicativos de terceiros com certificação windows 2000 ou posterior aderam a essa configuração.</string>
       <string id="NoSetFolders">Remover programas no menu Configurações</string>
       <string id="NoSetFolders_Help">Essa configuração de política permite remover programas do menu Configurações.
 
@@ -499,7 +509,7 @@ Consulte também a configuração de política "Remover Fazer Logoff" em Configu
         <string id="NoUninstallFromStart_Help">Se você habilitar esta configuração, os usuários não poderão desinstalar aplicativos Iniciar.
 
 Se você desabilitar ou não definir esta configuração de política, os usuários poderão acessar o comando de desinstalação em Iniciar.</string>
-      <string id="PowerButtonAction_DisplayName">Alterar botão para ligar/desligar do Menu Iniciar</string>
+      <string id="PowerButtonAction_DisplayName">Alterar botão para desligar do Menu Iniciar</string>
       <string id="PowerButtonAction_ExplainText">Defina a ação padrão do botão de ligar e desligar no menu Iniciar.
 
 Se você habilitar esta configuração, o menu Iniciar definirá o botão de ligar e desligar para a ação escolhida e não permitirá que o usuário altere essa ação.
@@ -599,7 +609,7 @@ Se você habilitar essa configuração de política, a tela inicial aparecerá n
 
 Se você desabilitar ou não definir essa configuração de política, a tela inicial sempre aparecerá na tela principal quando o usuário pressionar a tecla do logotipo do Windows. Os usuários ainda poderão abrir a tela inicial em outras exibições, pressionando o botão Iniciar na exibição correspondente. Além disso, o usuário poderá definir essa configuração.</string>
       <string id="ForceStartSize_DisplayName">Forçar para Iniciar ser do tamanho da tela inteira ou do tamanho do menu</string>
-      <string id="ForceStartSize_ExplainText">Se você habilitar essa política e defini-la como Menu Iniciar ou Iniciar em tela inteira, Iniciar terá esse tamanho e os usuários não poderão alterar o tamanho de Iniciar em Configurações. 
+      <string id="ForceStartSize_ExplainText">Se você habilitar essa política e defini-la como menu Iniciar ou Iniciar em tela inteira, Iniciar será desse tamanho e os usuários não poderão alterar o tamanho de Iniciar em Configurações.
 
 Se você desabilitar ou não definir essa configuração de política, o Windows selecionará automaticamente o tamanho com base no fator forma de hardware e os usuários poderão alterar o tamanho de Iniciar em Configurações.</string>
       <string id="ForceLauncherSize_Collapsed">Menu Iniciar</string>
@@ -612,10 +622,44 @@ Se você habilitar esta política, o ícone de pessoas será removido da barra d
       <string id="HideRecentlyAddedApps_Help">Esta política permite impedir que o Menu Iniciar exiba uma lista de aplicativos instalados recentemente.
 
 Se você habilitar esta política, o Menu Iniciar não exibirá a lista "Adicionados recentemente".  A configuração correspondente também será desabilitada em Configurações.</string>
+      <string id="HideRecommendedSection">Remover seção Recomendada do Menu Iniciar</string>
+      <string id="HideRecommendedSection_Help">Esta política permite impedir que o Menu Iniciar exiba uma lista de aplicativos e arquivos recomendados.
+
+Se você habilitar essa configuração de política, o Menu Iniciar não mostrará mais a seção que contém uma lista de arquivos e aplicativos recomendados.</string>
+ <string id="HideCategoryView">Ocultar a exibição Categoria no Menu Iniciar</string>
+ <string id="HideCategoryView_Help">Essa configuração de política permite ocultar o modo de exibição de categoria no menu Iniciar.
+ 
+Se você habilitar essa configuração de política, o Menu Iniciar não mostrará mais o modo de exibição de categoria como uma opção e usará como padrão o modo de exibição de grade.</string>
+
+ <string id="ConfigureStartPins">Configurar Fixações Iniciais</string>
+      <string id="ConfigureStartPins_Help">Permite que o administrador substitua os itens padrão fixados em Iniciar.
+
+Esta configuração permite especificar os itens padrão fixados em Iniciar.</string>
+
+      <string id="HideRecommendedPersonalizedSites">Remover Recomendações personalizadas do site da seção Recomendado no menu Iniciar</string>
+      <string id="HideRecommendedPersonalizedSites_Help">Essa configuração de política permite ocultar os sites personalizados na seção recomendada do menu Iniciar. 
+      
+Se você habilitar essa configuração de política, o Menu Iniciar não mostrará mais recomendações personalizadas do site na seção recomendada.</string>
       <string id="DisableContextMenusInStart">Desabilitar menus de contexto no Menu Iniciar</string>
       <string id="DisableContextMenusInStart_Help">Esta política permite impedir que os usuários abram menus de contexto no Menu Iniciar.
 
 Se você habilitar esta política, as invocações de menus de contexto no Menu Iniciar serão ignoradas.</string>
+      <string id="SimplifyQuickSettings_DisplayName">Simplificar o Layout das Configurações Rápidas</string>
+      <string id="SimplifyQuickSettings_ExplainText">Se você habilitar essa política, as Configurações Rápidas serão reduzidas para ter apenas os botões WiFi, Bluetooth, Acessibilidade e VPN; os controles deslizantes de brilho e volume; e indicador de bateria e link para o aplicativo Configurações.
+
+Se você desabilitar ou não definir essa configuração de política, o layout de Configurações Rápidas regulares será exibido sempre que as Configurações Rápidas forem invocadas.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">Desabilitar as Configurações Rápidas de Edição</string>
+      <string id="DisableEditingQuickSettings_ExplainText">Se você habilitar essa política, o usuário não poderá modificar as Configurações Rápidas.
+
+Se você desabilitar ou não definir essa configuração de política, o usuário poderá editar Configurações Rápidas, como fixar ou desafixar botões.</string>
+      <string id="DisableControlCenter">Remover as configurações rápidas</string>
+      <string id="DisableControlCenter_Help">Esta configuração de política remove as Configurações Rápidas da área inferior direita na barra de tarefas.
+
+A área de configurações rápidas está localizada à esquerda do relógio na barra de tarefas e inclui ícones para a rede e o volume atuais.
+
+Se esta configuração estiver habilitada, as Configurações Rápidas não serão exibidas na área de configurações rápidas. 
+
+Uma reinicialização é necessária para que essa configuração de política entre em vigor.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +676,22 @@ Se você habilitar esta política, as invocações de menus de contexto no Menu 
           <label>Arquivo de layout de Iniciar</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">Reaplicar layout a cada logon</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">Escolha um dos tamanhos a seguir</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">Escolha uma das ações a seguir</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>Iniciar Arquivo de Layout de Fixações</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">Ocultar exibição de categoria</checkBox>
       </presentation>
     </presentationTable>
   </resources>

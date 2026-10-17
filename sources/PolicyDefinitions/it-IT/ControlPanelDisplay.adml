@@ -173,6 +173,12 @@ Se disabiliti o non configuri questa impostazione dei criteri, gli utenti a cui 
 Per impostazione predefinita, gli utenti possono modificare l'immagine di sfondo visualizzata quando il computer è bloccato o mostra la schermata di accesso.
 
 Se abiliti questa impostazione, gli utenti non potranno cambiare l'immagine della schermata di blocco e di accesso e visualizzeranno quella predefinita.</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">Impedisci movimento dello sfondo della schermata di blocco</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">Questa impostazione dei criteri controlla se l'immagine della schermata di blocco è statica o ha un effetto di panoramica delicato basato sull'output dell'accelerometro del dispositivo.
+
+Se si abilita questa impostazione, il movimento non sarà consentito e l'utente visualizzeranno l'immagine di sfondo della schermata di blocco statica tradizionale.
+
+Se disabiliti questa impostazione (e il dispositivo ha una dell'accelerometro), l'utente visualizzeranno la panoramica dello sfondo della schermata di blocco intorno a un'immagine che lo sposta fisicamente.</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">Imponi una specifica immagine predefinita per la schermata di blocco e di accesso</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">Questa impostazione consente di imporre una specifica immagine predefinita per la schermata di blocco e di accesso immettendo il percorso del file dell'immagine. Verrà usata la stessa immagine sia per la schermata di blocco che per quella di accesso.
 

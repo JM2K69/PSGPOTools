@@ -5,6 +5,8 @@
   <description>escriba aquí la descripción</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Habilitar suscripción automática</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Controla la lista de direcciones URL a las que se debería suscribir automáticamente el usuario</string>
       <string id="TS_SUPPORTED_Windows10">Al menos Windows 10 o Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">Al menos Windows 8 o Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">Se requiere al menos Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">Al menos Windows XP y solo Windows Server 2003</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">Al menos Windows Server 2008 o Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  Solo Windows Server 2008 R2</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 versión 1903, Windows 10 versión 1909 y Windows 10 versión 2004</string>
       <string id="TS_TERMINAL_SERVER">Host de sesión de Escritorio remoto</string>
       <string id="TS_TERMINAL_SERVER_Help">Controla la configuración de un servidor host de sesión de Escritorio remoto</string>
       <string id="TS_LICENSE_SERVER">Licencia de Escritorio remoto</string>
@@ -130,20 +133,20 @@ Si habilita esta opción, se deshabilitará la casilla para guardar credenciales
 Si deshabilita esta opción o no la configura, el usuario podrá guardar contraseñas por medio de Conexión a Escritorio remoto.</string>
       <string id="TS_CLIENT_DRIVE_EXPLAIN_M">Esta configuración de directiva especifica si impedir la asignación de unidades cliente en una sesión de Servicios de Escritorio remoto (redirección de unidad).
 
-De forma predeterminada, el servidor host de sesión de Escritorio remoto asigna unidades cliente automáticamente al conectarse. Las unidades asignadas aparecen en el árbol de carpetas de sesión en el Explorador de archivos o en Equipo con el formato &lt;letraDeUnidad&gt; en &lt;nombreDeEquipo&gt;. Puede usar esta directiva para invalidar este comportamiento.
+De forma predeterminada, el servidor host de sesión de Escritorio remoto asigna unidades cliente automáticamente al conectarse. Las unidades asignadas aparecen en el árbol de carpetas de sesión en el Explorador de archivos o en Equipo con el formato &lt;driveletter&gt; en &lt;computername&gt;. Puede usar esta directiva para invalidar este comportamiento.
 
-Si habilita esta configuración de directiva, no se permitirá la redirección de unidades cliente en sesiones de Servicios de Escritorio remoto ni se permitirá la redirección de copias de archivos del Portapapeles en equipos que ejecuten Windows Server 2003, Windows 8 y Windows XP.
+Si habilita esta configuración de directiva, no se permitirá la redirección de unidades cliente en sesiones de Servicios de Escritorio remoto ni se permitirá la redirección de copias de archivos del Portapapeles en equipos que ejecuten Windows XP, Windows Server 2003, Windows Server 2012 (y posteriores) o Windows 8 (y posteriores).
 
 Si deshabilita esta configuración de directiva, se permitirá siempre la redirección de unidades cliente. Además, la redirección de copias de archivo del Portapapeles siempre se permite si se permite la redirección del Portapapeles.
 
 Si no establece esta configuración de directiva, la redirección de unidades cliente y la redirección de copias de archivo del Portapapeles no se especificarán en el nivel de directiva de grupo.
-
 </string>
       <string id="TS_CLIENT_DRIVE_M">No permitir redirección de unidad</string>
       <string id="TS_CLIENT_HELP">Controla la configuración del cliente de conexión a Escritorio remoto</string>
       <string id="TS_CLIENT_LPT">No permitir redirección de puertos LPT</string>
       <string id="TS_CLIENT_PNP">No permitir redirección de dispositivo Plug and Play compatible</string>
       <string id="TS_CAMERA_REDIRECTION">No permitir el redireccionamiento de la captura de vídeo</string>
+      <string id="TS_LOCATION_REDIRECTION">No permitir redirección de ubicación</string>
       <string id="TS_CLIENT_PRINTER">No permitir la redirección de impresoras de cliente</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">Esta configuración de directiva especifica si impedir el uso compartido del contenido del Portapapeles (redirección del Portapapeles) entre un equipo remoto y un equipo cliente durante una sesión de Servicios de Escritorio remoto.
 
@@ -209,6 +212,15 @@ Si habilitas esta configuración de directiva, los usuarios no podrán redirigir
 Si deshabilitas esta configuración de directiva o no la configuras, los usuarios podrán redirigir sus dispositivos de captura de vídeo al equipo remoto. Los usuarios pueden usar la opción Más de la pestaña Recursos locales de Conexión a Escritorio remoto para elegir los dispositivos de captura de vídeo que se redirigirán al equipo remoto.
 
 </string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">Esta configuración de directiva permite controlar la redirección de los datos de ubicación al equipo remoto en una sesión de servicios de escritorio remoto.
+
+De forma predeterminada, servicios de escritorio remoto permite la redirección de los datos de ubicación.
+
+Si habilita esta configuración de Directiva, los usuarios no podrán redirigir sus datos de ubicación al equipo remoto.
+
+Si deshabilita o no establece esta configuración de Directiva, los usuarios podrán redirigir sus datos de ubicación al equipo remoto.
+          
+</string>
       <string id="TS_MAXMONITOR_EXPLAIN">Esta configuración de directiva le permite limitar el número máximo de monitores que un usuario puede usar para mostrar una sesión de Servicios de Escritorio remoto. La limitación del número de monitores para mostrar una sesión de Servicios de Escritorio remoto puede mejorar el rendimiento de la conexión, en particular con vínculos lentos, y reducir la carga del servidor.
 
 Si habilita esta configuración de directiva, podrá especificar el número de monitores que se pueden usar para mostrar una sesión de Servicios de Escritorio remoto. Puede especificar un número de 1 a 16.
@@ -229,7 +241,6 @@ Si no establece esta configuración de directiva, Servicios de Escritorio remoto
 Nota: se pueden limitar los clientes que podrán conectarse de forma remota mediante Servicios de Escritorio remoto estableciendo la configuración de directiva en Configuración del equipo\Plantillas administrativas\Componentes de Windows\Servicios de Escritorio remoto\Host de sesión de Escritorio remoto\Seguridad\Requerir la autenticación del usuario para las conexiones remotas mediante Autenticación a nivel de red. 
 
 Se puede limitar el número de usuarios que pueden conectarse de forma simultánea mediante el establecimiento de la configuración de directiva en Configuración del equipo\Plantillas administrativas\Componentes de Windows\Servicios de Escritorio remoto\Host de sesión de Escritorio remoto\Conexiones\Limitar el número de conexiones, o bien estableciendo la configuración de directiva Número máximo de conexiones mediante el uso del proveedor WMI del host de sesión de Escritorio remoto.
-
 </string>
       <string id="TS_MAXDISPLAYRES">Limitar la resolución máxima de pantalla</string>
       <string id="TS_MAXDISPLAYRES_EXPLAIN">Esta configuración de directiva le permite especificar la resolución máxima de pantalla que puede usar cada monitor que muestra una sesión de Servicios de Escritorio remoto. La limitación de la resolución usada para mostrar una sesión remota puede mejorar el rendimiento de la conexión, en particular con vínculos lentos, y reducir la carga del servidor.
@@ -419,19 +430,19 @@ Si habilita esta configuración de directiva, estas notificaciones no se mostrar
 Si deshabilita o no define esta configuración de directiva, estas notificaciones se mostrarán en el servidor host de sesión de Escritorio remoto después de que inicie sesión como administrador local.</string>
       <string id="TS_LICENSING_MODE">Establecer el modo de licencia de Escritorio remoto</string>
       <string id="TS_LICENSING_MODE_EXPLAIN">
-        Esta configuración de directiva te permite especificar el tipo de licencia de acceso de cliente de los Servicios de Escritorio remoto (CAL de RDS) que necesitas para conectarte a este servidor host de sesión de Escritorio remoto.
+        Esta configuración de directiva permite especificar el tipo de licencia de acceso de cliente para Servicios de Escritorio remoto (CAL de RDS) que se necesita para establecer una conexión con este servidor host de sesión de Escritorio remoto.
 
-        Puedes usar esta configuración de directiva para seleccionar uno de los tres modos de licencia: por usuario, por dispositivo y AAD por usuario.
+        Puede usar esta configuración de directiva para seleccionar uno de los dos modos de licencia: por usuario o por dispositivo.
 
-        El modo de licencia por usuario requiere que cada cuenta de usuario que se conecte a este servidor host de sesión de Escritorio remoto tenga una CAL por usuario de RDS emitida desde un servidor de licencias de escritorio remoto.
+       El modo de licencia por usuario requiere que cada cuenta de usuario que se conecte a este servidor host de sesión de Escritorio remoto tenga una CAL por usuario de RDS emitida desde un servidor de administración de licencias de Escritorio remoto.
 
-        El modo de licencia por dispositivo requiere que cada dispositivo que se conecte a este servidor host de sesión de Escritorio remoto tenga una CAL por dispositivo de RDS emitida desde un servidor de licencias de escritorio remoto.
+        El modo de licencia por dispositivo requiere que cada dispositivo que se conecte a este servidor host de sesión de Escritorio remoto tenga una CAL por dispositivo de RDS emitida desde un servidor de administración de licencias de Escritorio remoto.
 
-        El modo de licencia de AAD por usuario requiere que cada cuenta de usuario que se conecte a este servidor host de sesión de Escritorio remoto tenga un plan de servicio que admita licencias de RDS asignadas en AAD.
-        
-        Si habilitas esta configuración de Directiva, el servidor de licencias de Escritorio remoto podrá admitir el modo de licencia de Escritorio remoto que especifiques.
+        Si habilita esta configuración de política, el modo de licencia de escritorio remoto que especifique será respetado por el servidor de licencias de Escritorio remoto y el host de sesión de Escritorio remoto.
 
-        Si deshabilitas o no estableces esta configuración de directiva, el modo de licencia no se especificará en el nivel de directiva de grupo.
+        Si deshabilita o no establece esta configuración de directiva, el modo de administración de licencias no se especificará en el nivel de directiva de grupo.
+
+        Nota: El modo de AAD por usuario está en desuso en Windows 11 y en las versiones posteriores.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Por dispositivo</string>
       <string id="TS_LICENSING_MODE_PER_USER">Por usuario</string>
@@ -608,6 +619,17 @@ Si deshabilitas o no estableces esta configuración de directiva, el método de 
       <string id="TS_SECURITY_LAYER_POLICY">Requerir el uso de un nivel de seguridad específico para conexiones remotas (RDP)</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Habilitar el cumplimiento de la autenticación de Microsoft Entra ID</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">Esta configuración de directiva permite especificar si se debe exigir el cumplimiento del lado servidor de la autenticación de Microsoft Entra ID.
+
+Si habilitas esta configuración de directiva, todos los clientes de Servicios de Escritorio remoto deben usar la autenticación de AAD de RDS para autenticarse en los servidores host de sesión de Escritorio remoto. 
+
+Esta directiva no permite recurrir a otros métodos de autenticación. 
+
+Es necesario habilitar Autenticación a nivel de red (NLA) para que esta directiva sea efectiva. Consulta la directiva "Requerir la autenticación del usuario para las conexiones remotas mediante Autenticación a nivel de red".
+
+Si deshabilitas o no estableces esta configuración de directiva, no se aplicará la aplicación de la autenticación de Microsoft Entra ID.
+</string>
       <string id="TS_Session_End_On_Limit">Finalizar sesión cuando se alcancen los límites de tiempo</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">Esta configuración de directiva especifica si se finaliza una sesión de Servicios de Escritorio remoto cuyo tiempo de espera se ha agotado en lugar de desconectarla.
 
@@ -786,6 +808,79 @@ Si habilita esta configuración de directiva, el escritorio se mostrará siempre
 Si deshabilita esta configuración de directiva o no la establece, se podrá especificar un programa inicial para ejecutarse en el equipo remoto después de que el cliente se conecte al equipo remoto. Si no se especifica ningún programa inicial, el escritorio se mostrará siempre en el equipo remoto después de que el cliente se conecte al mismo.
 
 Nota: si esta configuración de directiva se habilita, la configuración de directiva "Iniciar un programa al conectarse" se omitirá.</string>
+      <string id="TS_UIA">Permitir redirección de automatización de la interfaz de usuario</string>
+      <string id="TS_UIA_EXPLAIN">Esta configuración de directiva determina si las aplicaciones cliente de automatización de la interfaz de usuario (UI) que se ejecutan en el equipo local pueden tener acceso a los elementos de la UI del servidor.
+
+La automatización de la UI da a los programas acceso a la mayoría de los elementos de la UI, lo que permite usar productos con tecnología de asistencia, como la Lupa y el Narrador, que deben interactuar con la UI para funcionar correctamente. La información de la UI también permite que los scripts de prueba automatizados interactúen con la UI.
+
+Las sesiones de escritorio remoto no admiten actualmente la redirección de automatización de la UI.
+
+Si habilita o no configura esta configuración de directiva, los clientes de automatización de la UI del equipo local pueden interactuar con aplicaciones remotas. Por ejemplo, puede usar los clientes de la Lupa y el Narrador del equipo local para interactuar con la UI en una página web que abrió en una sesión remota.
+
+Si deshabilita esta configuración de directiva, los clientes de automatización de la UI que se ejecutan en el equipo local no pueden interactuar con aplicaciones remotas.
+</string>
+      <string id="TS_WEBAUTHN">No permitir el redireccionamiento de WebAuthn</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">Esta configuración de directiva permite controlar el redireccionamiento de solicitudes de autenticación web (WebAuthn) de una sesión de Escritorio remoto al dispositivo local. Este redireccionamiento permite a los usuarios autenticarse en los recursos en la sesión de Escritorio remoto mediante su autenticador local (por ejemplo, Windows Hello para empresas, clave de seguridad u otro).
+
+De forma predeterminada, Escritorio remoto permite el redireccionamiento de las solicitudes WebAuthn.
+
+Si habilita esta configuración de directiva, los usuarios no podrán usar su autenticador local en la sesión de Escritorio remoto.
+
+Si deshabilita o no establece esta configuración de directiva, los usuarios pueden usar autenticadores locales en la sesión de Escritorio remoto.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">Deshabilitar las transferencias del Portapapeles del servidor al cliente</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">Deshabilitar las transferencias del Portapapeles del cliente al servidor</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Permitir texto sin formato</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Permitir texto sin formato e imágenes</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Permitir texto sin formato, imágenes y formato de texto enriquecido</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Permitir texto sin formato, imágenes, formato de texto enriquecido y HTML</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">Restringir la transferencia del Portapapeles del servidor al cliente</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">Esta configuración de directiva le permite restringir las transferencias de datos del Portapapeles del servidor al cliente.
+
+Si habilita esta configuración de directiva, debe elegir entre los comportamientos siguientes:
+
+- Deshabilitar transferencias del Portapapeles del servidor al cliente.
+
+- Permitir la copia de texto sin formato del servidor al cliente.
+
+- Permitir la copia de texto sin formato e imágenes del servidor al cliente.
+
+- Permitir la copia de texto sin formato, imágenes y formato de texto enriquecido del servidor al cliente.
+
+- Permitir texto sin formato, imágenes, formato de texto enriquecido y copia HTML del servidor al cliente.
+
+Si deshabilita o no establece esta configuración de directiva, los usuarios pueden copiar contenido arbitrario del servidor al cliente si está habilitada la redirección del Portapapeles.
+
+Nota: Esta configuración de directiva aparece tanto en Configuración del equipo como en Configuración del usuario. Si se configuran ambas configuraciones de directiva, se usará la restricción más estricta.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">Restringir la transferencia del Portapapeles del cliente al servidor</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">Esta configuración de directiva le permite restringir las transferencias de datos del Portapapeles de cliente a servidor.
+
+Si habilita esta configuración de directiva, debe elegir entre los comportamientos siguientes:
+
+- Deshabilitar transferencias del Portapapeles de cliente a servidor.
+
+- Permitir la copia de texto sin formato del cliente al servidor.
+
+- Permitir la copia de texto sin formato e imágenes del cliente al servidor.
+
+- Permitir la copia de texto sin formato, imágenes y formato de texto enriquecido del cliente al servidor.
+
+- Permitir texto sin formato, imágenes, formato de texto enriquecido y copia HTML del cliente al servidor.
+
+Si deshabilita o no establece esta configuración de directiva, los usuarios pueden copiar contenido arbitrario del cliente al servidor si está habilitada la redirección del Portapapeles.
+
+Nota: Esta configuración de directiva aparece tanto en Configuración del equipo como en Configuración del usuario. Si se configuran ambas configuraciones de directiva, se usará la restricción más estricta.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Deshabilitar la integración del Portapapeles en la nube para la transferencia de datos de servidor a cliente</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">Esta configuración de directiva permite controlar si los datos transferidos desde la sesión remota al cliente mediante el redireccionamiento del Portapapeles se agregan al Portapapeles de nube del lado cliente.
+
+De forma predeterminada, Escritorio remoto deshabilita la integración con el Portapapeles de nube del lado cliente para los datos transferidos desde la sesión remota mediante la redirección del Portapapeles.
+
+Si habilita o no establece esta configuración de directiva, los datos copiados en la sesión remota y pegados en el cliente no se agregarán al Portapapeles de nube del lado cliente.
+
+Si deshabilita esta configuración de directiva, los datos copiados en la sesión remota y pegados en el cliente se agregarán al Portapapeles de nube del lado cliente (si está habilitado).
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">Esta configuración de directiva le permite especificar si es necesaria la autenticación del usuario para conexiones remotas al servidor host de sesión de Escritorio remoto mediante Autenticación a nivel de red. Esta configuración de directiva mejora la seguridad al requerir que la autenticación del usuario tenga lugar en un momento más temprano del proceso de conexión remota.
 
 Si habilita esta configuración de directiva, solo podrán conectarse al servidor host de sesión de Escritorio remoto los equipos cliente que sean compatibles con Autenticación a nivel de red.
@@ -800,6 +895,24 @@ Importante: deshabilitar esta configuración de directiva proporciona menos segu
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Requerir la autenticación del usuario para las conexiones remotas mediante Autenticación a nivel de red</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Desconectar sesión remota al bloquear la autenticación heredada</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">Esta configuración de directiva te permite configurar la experiencia del usuario cuando la sesión de Escritorio remoto está bloqueada por el usuario o por una directiva. Puedes especificar si la sesión remota mostrará la pantalla de bloqueo remoto o se desconectará cuando la sesión remota esté bloqueada. La desconexión de la sesión remota garantiza que no se pueda dejar una sesión remota en la pantalla de bloqueo y que no se pueda volver a conectar automáticamente debido a la pérdida de conectividad de la red.
+
+Esta directiva solo se aplica cuando se utiliza la autenticación heredada para autenticarse en el PC remoto. La autenticación heredada se limita a nombre de usuario y contraseña, o certificados como tarjetas inteligentes. La autenticación heredada no aprovecha la plataforma de identidad de Microsoft, como Microsoft Entra ID. La autenticación heredada incluye los protocolos de autenticación básica NTLM, CredSSP, RDSTLS, TLS y RDP.
+
+Si habilitas esta configuración de directiva, Escritorio remoto conexiones mediante la autenticación heredada desconectarán la sesión remota cuando la sesión remota esté bloqueada. Los usuarios pueden volver a conectarse cuando estén listos y volver a escribir sus credenciales cuando se les solicite.
+
+Si deshabilitas o no estableces esta configuración de directiva, las conexiones de Escritorio remoto que usen autenticación heredada mostrarán la pantalla de bloqueo remoto cuando se bloquee la sesión remota. Los usuarios pueden desbloquear la sesión remota con su nombre de usuario y contraseña, o certificados.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Desconectar sesión remota al bloquear la autenticación Plataforma de identidad de Microsoft</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">Esta configuración de directiva permite configurar la experiencia del usuario cuando el usuario o una directiva bloquean la sesión de Escritorio remoto. Puede especificar si la sesión remota mostrará la pantalla de bloqueo remoto o se desconectará cuando la sesión remota esté bloqueada. La desconexión de la sesión remota garantiza que no se pueda dejar una sesión remota en la pantalla de bloqueo y no se pueda volver a conectar automáticamente debido a la pérdida de conectividad de red.
+
+Esta directiva solo se aplica cuando se usa un proveedor de identidades que usa el Plataforma de identidad de Microsoft, como Microsoft Entra ID, para autenticarse en el equipo remoto. Esta directiva no se aplica cuando se usa la autenticación heredada, que incluye los protocolos de autenticación básica NTLM, CredSSP, RDSTLS, TLS y RDP.
+
+Si habilita o no establece esta configuración de directiva, Escritorio remoto conexiones que usen el Plataforma de identidad de Microsoft desconectarán la sesión remota cuando la sesión remota esté bloqueada. Los usuarios pueden volver a conectarse cuando estén listos y usar la autenticación sin contraseña si están configurados.
+
+Si deshabilita esta configuración de directiva, Escritorio remoto conexiones que usen el Plataforma de identidad de Microsoft mostrarán la pantalla de bloqueo remoto cuando se bloquee la sesión remota. Los usuarios pueden desbloquear la sesión remota con su nombre de usuario y contraseña, o certificados.
+</string>
       <string id="TS_User_Help">Controla la configuración de las tecnologías de Servicios de Escritorio remoto que habilitan el acceso a un servidor que ejecuta programas basados en Windows o el Escritorio de Windows completo</string>
       <string id="TS_USER_HOME">Establecer directorio principal de usuario de Servicios de Escritorio remoto</string>
       <string id="TS_USER_HOME_EXPLAIN">Especifica si Servicios de Escritorio remoto usa el recurso compartido de red especificado o una ruta de directorio local como la raíz del directorio principal del usuario para una sesión de Servicios de Escritorio remoto.
@@ -900,36 +1013,44 @@ Si deshabilita esta configuración de directiva, los usuarios no pueden ejecutar
 Nota: puede definir esta configuración de directiva en el nodo Configuración del equipo o en el nodo Configuración de usuario. Si establece esta configuración de directiva para el equipo, todos los usuarios del mismo se verán afectados.
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Especificar huellas digitales SHA1 de certificados que representan publicadores .rdp de confianza</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Esta configuración de directiva permite especificar una lista de huellas digitales de certificados de algoritmo hash seguro 1 (SHA1) que representan publicadores de archivos de Protocolo de escritorio remoto (.rdp) de confianza.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Especificar huellas digitales de los certificados que representan a los editores de archivos .rdp de confianza</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Esta configuración de directiva permite especificar una lista de huellas digitales de certificados que representan publicadores de archivos de Protocolo de escritorio remoto (.rdp) de confianza. Se admiten huellas digitales SHA-256, SHA-384 y SHA-512. Las huellas digitales SHA-1 están en desuso: SHA-1 ya no se considera seguro y la compatibilidad con las huellas digitales SHA-1 se deshabilitará de forma predeterminada en una próxima actualización de seguridad. Los administradores deben migrar todas las entradas de huellas digitales a SHA-256 o una versión más segura lo antes posible.
 
-Si habilita esta configuración de directiva, cualquier certificado con una huella digital SHA1 que coincida con una huella digital de la lista se considera de confianza. Si un usuario intenta iniciar un archivo .rdp firmado por un certificado de confianza, el usuario no recibe ningún mensaje de advertencia al iniciar el archivo. Para obtener la huella digital, consulte los detalles del certificado y haga clic en el campo Huella digital.
+Las huellas digitales pueden tener como prefijo el algoritmo hash usado para generarlas. Los prefijos admitidos son "sha256:", "sha384:" y "sha512:" (no distingue mayúsculas de minúsculas). Por ejemplo: sha256:AB0356F2... Si no se especifica ningún prefijo, la entrada se trata como una huella digital SHA-1 heredada.
 
-Si deshabilita o no establece esta configuración de directiva, ningún publicador se tratará como publicador .rdp de confianza.
+Si la casilla "No permitir huellas digitales SHA-1" está habilitada, se ignorarán las entradas sin prefijo. Solo coincidirán las huellas digitales SHA-256, SHA-384 y SHA-512. Se recomienda habilitar esta casilla ahora para prepararse para el próximo cambio predeterminado.
+
+Si habilitas esta configuración de directiva, se considera de confianza cualquier certificado cuya huella digital coincida con una huella digital de la lista. Si un usuario intenta iniciar un archivo .rdp firmado por un certificado de confianza, el usuario no recibe ningún mensaje de advertencia al iniciar el archivo.
+
+Si deshabilitas o no configuras esta configuración de directiva, ningún publicador se tratará como un publicador .rdp de confianza.
 
 Notas:
 
-Puede definir esta configuración de directiva en el nodo Configuración del equipo o en el nodo Configuración de usuario. Si establece esta configuración de directiva para el equipo, la lista de huellas digitales de certificados de confianza para un usuario es una combinación de la lista definida para el equipo y la lista definida para el usuario.
+Puedes definir esta configuración de directiva en el nodo Configuración del equipo o en el nodo Configuración de usuario. Si configuras esta directiva para el equipo, la lista de huellas digitales de certificados de confianza para un usuario será la combinación de la lista definida para el equipo y la lista definida para el usuario.
 
 Esta configuración de directiva invalida el comportamiento de la configuración de directiva "Permitir archivos .rdp de publicadores válidos y la configuración .rdp predeterminada del usuario".
 
-Si la lista contiene una cadena que no es una huella digital de certificado, se pasa por alto.
+Si la lista contiene una cadena que no sea una huella digital de certificado, se ignora.
 
+Para más información, consulta https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Esta configuración de directiva permite especificar una lista de huellas digitales de certificados de algoritmo hash seguro 1 (SHA1) que representan publicadores de archivos de Protocolo de escritorio remoto (.rdp) de confianza.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Esta configuración de directiva permite especificar una lista de huellas digitales de certificados que representan publicadores de archivos de Protocolo de escritorio remoto (.rdp) de confianza. Se admiten huellas digitales SHA-256, SHA-384 y SHA-512. Las huellas digitales SHA-1 están en desuso: SHA-1 ya no se considera seguro y la compatibilidad con las huellas digitales SHA-1 se deshabilitará de forma predeterminada en una próxima actualización de seguridad. Los usuarios deben migrar todas las entradas de huellas digitales a SHA-256 o una versión más segura lo antes posible.
 
-Si habilita esta configuración de directiva, cualquier certificado con una huella digital SHA1 que coincida con una huella digital de la lista se considera de confianza. Si un usuario intenta iniciar un archivo .rdp firmado por un certificado de confianza, el usuario no recibe ningún mensaje de advertencia al iniciar el archivo. Para obtener la huella digital, consulte los detalles del certificado y haga clic en el campo Huella digital.
+Las huellas digitales pueden tener como prefijo el algoritmo hash usado para generarlas. Los prefijos admitidos son "sha256:", "sha384:" y "sha512:" (no distingue mayúsculas de minúsculas). Por ejemplo: sha256:AB0356F2... Si no se especifica ningún prefijo, la entrada se trata como una huella digital SHA-1 heredada.
 
-Si deshabilita o no establece esta configuración de directiva, ningún publicador se tratará como publicador .rdp de confianza.
+Si habilitas esta configuración de directiva, se considera de confianza cualquier certificado cuya huella digital coincida con una huella digital de la lista. Si un usuario intenta iniciar un archivo .rdp firmado por un certificado de confianza, el usuario no recibe ningún mensaje de advertencia al iniciar el archivo.
+
+Si deshabilitas o no configuras esta configuración de directiva, ningún publicador se tratará como un publicador .rdp de confianza.
 
 Nota:
 
-Puede definir esta configuración de directiva en el nodo Configuración del equipo o en el nodo Configuración de usuario. Si establece esta configuración de directiva para el equipo, la lista de huellas digitales de certificados de confianza para un usuario es una combinación de la lista definida para el equipo y la lista definida para el usuario.
+Puedes definir esta configuración de directiva en el nodo Configuración del equipo o en el nodo Configuración de usuario. Si configuras esta directiva para el equipo, la lista de huellas digitales de certificados de confianza para un usuario será la combinación de la lista definida para el equipo y la lista definida para el usuario.
 
 Esta configuración de directiva invalida el comportamiento de la configuración de directiva "Permitir archivos .rdp de publicadores válidos y la configuración .rdp predeterminada del usuario".
 
-Si la lista contiene una cadena que no es una huella digital de certificado, se pasa por alto.
+Si la lista contiene una cadena que no sea una huella digital de certificado, se ignora.
 
+Para más información, consulta https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">Pedir credenciales en el equipo cliente</string>
@@ -1018,6 +1139,14 @@ Si deshabilita esta configuración de directiva, los programas RemoteApp que se 
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">Habilitar la experiencia de shell mejorada para RemoteApp</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">Esta configuración de directiva habilita una experiencia de shell mejorada para las sesiones de RemoteApp, que ofrece admitir con asociaciones de archivos predeterminadas, claves del Registro Run/RunOnce, etc. Esta configuración de directiva solo se aplica a las sesiones de RemoteApp y no a las sesiones de Escritorio remoto.
+
+Si habilitas o no estableces esta configuración de directiva, las sesiones de RemoteApp en servidores host de sesión de Escritorio remoto tendrán la experiencia de shell mejorada.
+
+Si deshabilitas esta configuración de directiva, las sesiones de RemoteApp no tendrán la experiencia de shell mejorada y usarán el comportamiento del shell heredado. Esto puede ser necesario si surgen problemas de compatibilidad en los programas RemoteApp publicados.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1135,7 +1264,7 @@ De forma predeterminada, las sesiones de Conexión a Escritorio remoto que usan 
       
       </string>
       
-      <string id="TS_RADC">Conexión de RemoteApp y Escritorio</string>
+      <string id="TS_RADC">Conexiones de RemoteApp y Escritorio</string>
       <string id="TS_RADC_Help">Controla la configuración de Conexión de RemoteApp y Escritorio</string>
       <string id="TS_RADC_DefaultDesktop">Especificar la dirección URL de conexión predeterminada</string>
       <string id="TS_RADC_DefaultDesktop_Help">Esta configuración de directiva especifica la dirección URL de conexión predeterminada para Conexión de RemoteApp y Escritorio. La dirección URL de conexión predeterminada es una conexión específica que solo se puede configurar mediante directivas de grupo. Además de las funcionalidades que son comunes a todas las conexiones, la dirección URL de conexión predeterminada permite asociar tipos de archivos de documentos con programas RemoteApp.
@@ -1147,25 +1276,23 @@ Si habilita esta configuración de directiva, la dirección URL especificada se 
 Si deshabilita o no establece esta configuración de directiva, el usuario no tendrá dirección URL de conexión predeterminada.
 
 Nota: los programas RemoteApp que se instalan a través de Conexión de RemoteApp y Escritorio desde un servidor que no sea de confianza pueden poner en riesgo la seguridad de la cuenta de un usuario.
-      
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">Seleccionar protocolos de transporte RDP</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Esta configuración de directiva permite especificar qué protocolos pueden usarse para acceder a este servidor con Protocolo de escritorio remoto (RDP).
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Esta configuración de directiva permite especificar qué protocolos se pueden usar para el acceso de Protocolo de escritorio remoto (RDP) a este servidor.
 
-Si habilitas esta configuración de directiva, deberás especificar si deseas que RDP use UDP.
+Si habilita esta configuración de directiva, debe especificar si desea que RDP use UDP.
 
-Puedes seleccionar una de las siguientes opciones: "Usar UDP y TCP", "Usar solo TCP" o "Usar UDP o TCP (predeterminado)".
+Puede seleccionar una de las siguientes opciones: "Usar UDP o TCP (predeterminado)" o "Usar solo TCP" 
 
-Si seleccionas "Usar UDP o TCP" y se establece la conexión UDP, la mayor parte del tráfico RDP usará UDP.
+Si selecciona "Usar UDP o TCP" y la conexión UDP se realiza correctamente, la mayor parte del tráfico RDP usará UDP.
 
-Si no se establece la conexión UDP o si seleccionas "Usar solo TCP", todo el tráfico RDP usará TCP.
+Si la conexión UDP no es correcta o si selecciona "Usar solo TCP", todo el tráfico RDP usará TCP.
 
-Si deshabilitas o no estableces esta configuración de directiva, RDP elegirá los protocolos óptimos para proporcionar al usuario la mejor experiencia posible.
+Si deshabilita o no establece esta configuración de directiva, RDP elegirá los protocolos óptimos para ofrecer la mejor experiencia de usuario.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">Usar UDP y TCP</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Usar solo TCP</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">Usar UDP o TCP</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Usar solo TCP</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Seleccionar detección de red en el servidor</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">Esta configuración de directiva le permite especificar el modo en que el Protocolo de escritorio remoto intentará detectar la calidad de la red (ancho de banda y latencia).
@@ -1344,12 +1471,13 @@ NOTA: La configuración de directiva habilita el equilibrio de carga de las unid
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Lista separada por comas de huellas digitales de certificados de confianza SHA1:</label>
+          <label>Lista separada por comas de huellas digitales de certificados de confianza (prefijo con sha256:, sha384:o sha512:):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">No permitir huellas digitales SHA-1</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Lista separada por comas de huellas digitales de certificados de confianza SHA1:</label>
+          <label>Lista separada por comas de huellas digitales de certificados de confianza (prefijo con sha256:, sha384:o sha512:):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1387,6 +1515,12 @@ NOTA: La configuración de directiva habilita el equilibrio de carga de las unid
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Seleccionar tipo de transporte</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Restringir la transferencia del Portapapeles del servidor al cliente:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Restringir la transferencia del Portapapeles del cliente al servidor:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

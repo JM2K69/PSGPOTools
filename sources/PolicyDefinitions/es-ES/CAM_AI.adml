@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Directivas de IA de CAM (Administrador de acceso a funcionalidades)</displayName>
+  <description>Directivas relacionadas con las capacidades de IA y su administración del consentimiento.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">Consentimiento de IA</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">Usuario en control</string>
+      <string id="ForceEnable">Forzar habilitación</string>
+      <string id="ForceDisable">Forzar deshabilitación</string>
+      <string id="AgentConsentDuration_Name">Duración del consentimiento del agente</string>
+      <string id="AgentConsentDuration_Explain">Especifica durante cuánto tiempo, en horas, una respuesta de consentimiento "Permitir" para las capacidades del agente permanece válida antes de que se vuelva a preguntar al usuario.
+
+Si esta directiva está habilitada, el valor debe estar comprendido entre 1 (1 hora) y 8 760 (1 año). El valor configurado se usa como tiempo de expiración predeterminado para todas las respuestas de consentimiento "Permitir" para las capacidades del agente.
+
+Si esta directiva no está configurada o si el valor está fuera del intervalo permitido, el valor predeterminado es 720 horas (30 días).</string>
+      <string id="ConfigureAgentConnectors_Name">Configurar conectores de agente</string>
+      <string id="ConfigureAgentConnectors_Explain">Habilite o deshabilite los conectores de agente.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Directiva de acceso del conector del agente</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Esta configuración de directiva te permite definir una lista de conexiones permitidas entre hosts MCP y servidores MCP.
+
+El formato de esta lista será una cadena JSON que sigue el esquema de https://go.microsoft.com/fwlink/?LinkId=2363700.
+
+Si esta directiva no está configurada, el host MCP puede conectarse a cualquier servidor MCP con el consentimiento del usuario.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Configurar conectores de agente: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Duración del consentimiento (horas): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Configurar conexiones de host/servidor MCP permitidas:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

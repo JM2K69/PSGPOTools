@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>immettere qui il nome visualizzato</displayName>
+  <description>immettere qui la descrizione</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Avvio protetto</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Distribuzione di certificati tramite l'implementazione controllata delle funzionalità</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">Questa impostazione può essere abilitata per le aziende che vogliono assistenza nella distribuzione dei nuovi certificati di avvio protetto sui dispositivi.
+
+ 
+
+Nota: il dispositivo deve inviare i dati di diagnostica necessari a Microsoft per usare questa funzionalità.
+
+ 
+
+Per altre informazioni, vedere https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Distribuzione automatica dei certificati tramite aggiornamenti</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">Per i dispositivi in cui sono disponibili risultati del test che indicano che il dispositivo può elaborare correttamente gli aggiornamenti del certificato, gli aggiornamenti verranno avviati automaticamente come parte degli aggiornamenti di manutenzione. Questo criterio è abilitato per impostazione predefinita. Per le aziende che desiderano gestire l'aggiornamento automatico, usa questo criterio per abilitare o disabilitare esplicitamente la funzionalità.
+
+ 
+
+Per altre informazioni, vedere https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Abilita la distribuzione del certificato di avvio protetto</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Questa impostazione di criteri consente di abilitare o disabilitare il processo di distribuzione dei certificati di avvio protetto sui dispositivi. Se abilitata, Windows avvierà automaticamente la distribuzione dei certificati sui dispositivi a cui è stata applicata questa impostazione. 
+
+ 
+
+Nota: questa impostazione del registro non è memorizzata in una chiave di criteri e viene considerata una preferenza. Pertanto, se l'oggetto Criteri di gruppo che implementa questa impostazione viene rimosso, l'impostazione del registro rimarrà. 
+
+ 
+
+Nota: l'attività di Windows che esegue e gestisce questa impostazione viene eseguita ogni 12 ore. In alcuni casi, gli aggiornamenti verranno trattenuti fino al riavvio del sistema per garantire una sequenza sicura degli aggiornamenti. 
+
+ 
+
+Nota: una volta applicati i certificati al firmware, non sarà possibile rimuoverli da Windows. Se è necessario cancellare i certificati, questa operazione deve essere eseguita tramite l'interfaccia del menu del firmware. 
+
+ 
+
+Per altre informazioni, vedere https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Limita i dati di servizio richiesti per l'avvio protetto</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Questa impostazione dei criteri controlla se il sistema operativo genera ogni giorno l'evento dei dati del servizio richiesto per l'avvio protetto. L'evento contiene informazioni sulla configurazione dell'avvio protetto del dispositivo e sullo stato delle variabili del firmware e viene in genere inviato indipendentemente dal livello di dati di diagnostica Consenti telemetria perché è classificato come necessario per la sicurezza.
+
+ 
+
+Abilitando questa impostazione dei criteri, l'evento giornaliero dei dati del servizio richiesto per l'avvio protetto non verrà generato. Questa opzione è destinata alle aziende che operano in base alla linea guida "Funzionalità limitata con traffico limitato di Windows".
+
+ 
+
+Se disabiliti o non configuri questa impostazione dei criteri, il sistema operativo continua a generare l'evento dei dati del servizio richiesto per l'avvio protetto in base alle regole di autorizzazione della telemetria esistenti.</string>
+
+      <string id="SUPPORTED_Windows8">Almeno Windows Server 2012, Windows 8 o Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

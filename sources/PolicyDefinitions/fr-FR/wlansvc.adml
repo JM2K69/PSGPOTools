@@ -40,7 +40,7 @@ Lorsqu'il est activé, les connexions préfèrent un code confidentiel pour le c
 
 Si ce paramètre de stratégie est désactivé ou s'il n'est pas configuré, le couplage rapide est préféré par défaut (si autorisé par d'autres stratégies).
       </string>
-      <string id="WiFiSense">Empêcher Windows de se connecter automatiquement aux points d'accès ouverts suggérés, aux réseaux partagés par les contacts et aux points d'accès offrant des services payants</string>
+      <string id="WiFiSense">Autoriser Windows à se connecter automatiquement aux points d'accès ouverts suggérés, aux réseaux partagés par les contacts et aux points d'accès offrant des services payants</string>
       <string id="WiFiSense_Help">Ce paramètre de stratégie détermine si les utilisateurs peuvent activer les paramètres de réseau local sans fil suivants : « Se connecter aux points d'accès ouverts suggérés », « Se connecter aux réseaux partagés par mes contacts » et « Activer les services payants ».
 
 « Se connecter aux points d'accès ouverts suggérés » permet à Windows de connecter automatiquement les utilisateurs aux points d'accès ouverts qu'il connaît grâce à des réseaux participatifs auxquels d'autres utilisateurs de Windows sont connectés.

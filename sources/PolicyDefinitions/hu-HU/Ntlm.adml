@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>NTLM-beállítások</displayName>
+  <description>Az NTLM biztonsági csomag konfigurációs beállításai.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">NTLM kibővített naplózás</string>
+      <string id="EnhancedAuditsId_Explain">Ez a házirend-beállítás lehetővé teszi, hogy az NTLM biztonsági csomag az ügyfelek és a kiszolgálók új, kibővített naplóit rögzítse.
+
+      Ezek a kibővített naplók információt tartalmaznak arról, hogy mi használja az NTLM-et, miért használja az NTLM-et, és hová irányul az NTLM hitelesítési kérelem. Információt nyújtanak az NTLMv1 használatáról és más alacsonyabb biztonsági verziókra való átváltásról is.
+
+      Ha engedélyezi, vagy nem konfigurálja ezt a házirendet, az új naplók létrejönnek. Ha letiltja a házirendet, az új naplók nem jönnek létre.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">NTLM kibővített letiltás</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Ez a házirend-beállítás lehetővé teszi, hogy az NTLM biztonsági csomag az új, kibővített letiltási házirendek alapján tiltsa le az NTLM hitelesítési kérelmeket a számítógép szintjén.
+
+      Ezek a kibővített letiltási házirendek lehetővé teszik Önnek az NTLM-hitelesítés letiltását új feltételek alapján, például a fiók típusa, az eszköz szerepe vagy az alkalmazás típusa szerint.
+
+      Ha az általános házirend „Letiltva” vagy „Nincs konfigurálva” értékre van állítva, az alábbi részbeállítások nem lépnek hatályba. Ha az általános házirend „Engedélyezve” értékre van állítva, az alábbi alházirendek a konfigurációjuk szerint lépnek hatályba.
+
+      Ha nincs konfigurálva, az összes házirend „Auditálás” módra van állítva. Az „Auditálás” módra állított házirendek figyelmeztetést naplóznak az NTLM-kérelemről, amely letiltható lenne, de nem tiltják le. Több, „Auditálás” módra állított házirend egyszerre is engedélyezhető, és ezek egy egységes eseménynaplóban kerülnek rögzítésre.
+
+      Ha bármelyik házirend „Engedélyezve” állapotú, az NTLM hitelesítési kérelem letiltásra kerül, ha az megfelel a házirend feltételeinek. Ha több házirend „Engedélyezve” állapotú, az NTLM hitelesítési kérelem letiltásra kerül, ha az megfelel bármelyik házirend feltételeinek. Az eseménynapló az első, az NTLM hitelesítést letiltó házirendről készül. 
+
+      Olyan esetekben, amikor egyszerre vannak „Auditálás” és „Engedélyezve” állapotú házirendek, az „Engedélyezve” állapotú házirend élvez elsőbbséget.
+
+      Az itt ismertetett kibővített letiltási házirendek mind ugyanazt az engedélyezési listát használják, amely meghatározza az NTLM-hitelesítés használatára jogosult fiókokat, eszközöket és alkalmazásokat. Az engedélyezési lista célnevek vagy SPN-ek sorozatát tartalmazhatja, amelyek engedélyezik a hitelesítést. 
+
+      További információért látogasson el ide: aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Letiltva</string>
+      <string id="Audit">Naplózás</string>
+      <string id="Enabled">Engedélyezve</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">NTLM letiltása tartományi fiókok egyszeri bejelentkezéséhez</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">NTLM letiltása tartományvezérlők esetén</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">NTLM letiltása, ha a számítógépkötés sikertelen</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Az összes NTLM-hitelesítés letiltása</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Adja meg az engedélyezési listát a kibővített letiltási házirendekhez:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

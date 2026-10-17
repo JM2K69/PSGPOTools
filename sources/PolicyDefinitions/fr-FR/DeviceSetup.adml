@@ -70,13 +70,13 @@ Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, les mem
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Rechercher sur Windows Update</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Rechercher sur le serveur géré</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Rechercher sur le serveur géré, puis sur Windows Update</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Empêcher la récupération des métadonnées de périphérique depuis Internet</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Ce paramètre de stratégie permet d’empêcher Windows de récupérer les métadonnées de périphérique depuis Internet.
-          
-Si vous activez ce paramètre de stratégie, Windows ne récupère pas les métadonnées des périphériques installés depuis Internet. Ce paramètre de stratégie remplace le paramètre figurant dans la boîte de dialogue Paramètres d’installation des périphériques (Panneau de configuration &gt; Système et sécurité &gt; Système &gt; Paramètres système avancés &gt; onglet Matériel).
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, le paramètre défini dans la boîte de dialogue Paramètres d’installation des périphériques contrôle si Windows récupère les métadonnées de périphériques depuis Internet.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Empêcher le téléchargement automatique des applications associées aux métadonnées de l’appareil</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Ce paramètre de stratégie vous permet d’empêcher Windows de télécharger les applications associées aux métadonnées de l’appareil.
+
+Si vous activez ce paramètre de stratégie, Windows ne télécharge pas les applications associées aux métadonnées d’appareil pour les appareils installés. Ce paramètre de stratégie remplace le paramètre dans la boîte de dialogue Paramètres d’installation de périphériques (Panneau de configuration &gt; Système et sécurité &gt; Système &gt; Paramètres système avancés &gt; onglet Matériel).
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, le paramètre de la boîte de dialogue Paramètres d’installation de périphérique contrôle si Windows télécharge les applications associées aux métadonnées de l’appareil.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

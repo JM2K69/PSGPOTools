@@ -169,7 +169,7 @@ Se si disabilita o non si configura questa impostazione dei criteri, l'utente co
       <string id="UILang4">Tedesco</string>
       <string id="UILang5">Cinese (semplificato)</string>
       <string id="UILang6">Cinese (tradizionale)</string>
-      <string id="UILang34">Cinese tradizionale (Hong Kong)</string>
+      <string id="UILang34">Cinese tradizionale (RAS di Hong Kong)</string>
       <string id="UILang35">Cinese tradizionale (Taiwan)</string>
       <string id="UILang7">Francese</string>
       <string id="UILang8">Spagnolo</string>
@@ -284,6 +284,19 @@ Se si disabilita o non si configura questa impostazione dei criteri, i formati d
         Se questo criterio è abilitato o non configurato, il controllo viene demandato agli utenti che possono scegliere se abilitare i servizi vocali tramite le impostazioni.
         
         Se questo criterio è disabilitato, i servizi vocali saranno disabilitati e gli utenti non potranno abilitarli tramite le impostazioni.
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Limitare installazione del Language Pack e delle caratteristiche correlate alla lingua</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        Questa impostazione dei criteri limita a tutti gli utenti l'installazione di Language Pack e delle funzionalità della lingua sui pacchetti di richiesta. questo criterio non limita la commutazione della lingua di Windows, se si desidera limitare la lingua di Windows, utilizzare il criterio seguente: "limita le lingue dell'interfaccia utente utilizzate da Windows per tutti gli utenti registrati".   
+Se si abilita questa impostazione dei criteri, l'installazione dei Language Pack e delle funzionalità della lingua non sarà consentita per tutti gli utenti.
+
+Se si disabilita o non si configura questa impostazione dei criteri, non sono presenti Language Pack o restrizioni sull'installazione delle funzionalità per alcun utente.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        Questa impostazione dei criteri limita all'utente di installare i Language Pack e le funzionalità della lingua su richiesta. questo criterio non limita la commutazione della lingua di Windows, se si desidera limitare la lingua di Windows, utilizzare il criterio seguente: "limita le lingue dell'interfaccia utente da utilizzare per l'utente selezionato".   
+Se si abilita questa impostazione dei criteri, l'installazione dei Language Pack e delle funzionalità della lingua non sarà consentita per l'utente.  
+
+Se si disabilita o non si configura questa impostazione dei criteri, nessun Language Pack o funzionalità della lingua non sarà disponibile per l'utente.  
       </string>
     </stringTable>
     <presentationTable>

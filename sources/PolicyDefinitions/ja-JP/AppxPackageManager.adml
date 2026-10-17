@@ -2,19 +2,27 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>Appx パッケージ マネージャー</displayName> 
+  <displayName>Appx パッケージ マネージャー</displayName>
   <description>Appx パッケージ マネージャー</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">アプリ パッケージの展開</string>
       <string id="AppxDeploymentAllowAllTrustedApps">信頼できるすべてのアプリのインストールを許可する</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">このポリシー設定を使用すると、信頼できる基幹業務 (LOB) Windows ストア アプリまたは開発者署名付き Windows ストア アプリのインストールを管理できます。
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">このポリシー設定を使用すると、信頼できる基幹業務 (LOB) または開発者が署名したパッケージ化された Microsoft Store アプリのインストールを管理できます。
 
-このポリシー設定を有効にした場合、任意の LOB Windows ストア アプリまたは開発者署名付き Windows ストア アプリをインストールできます (これらのアプリは、ローカル コンピューターによって正常に検証できる証明書チェーンで署名されている必要があります)。
+このポリシー設定を有効にした場合、または構成しなかった場合、LOB または開発者が署名したパッケージ化された Microsoft Store アプリをインストールできます (これはローカル コンピューターで正常に検証できる証明書チェーンで署名する必要があります)。
 
-このポリシー設定を無効にした場合、または構成しなかった場合、LOB Windows ストア アプリまたは開発者署名付き Windows ストア アプリをインストールすることはできません。</string>
+このポリシー設定を無効にした場合、LOB または開発者が署名したパッケージ化された Microsoft Store アプリをインストールすることはできません。</string>
+      <string id="AllowAutomaticAppArchiving">使用頻度の低いアプリをアーカイブする</string>
+      <string id="AllowAutomaticAppArchivingExplanation">このポリシー設定は、システムで使用頻度の低いアプリをアーカイブできるかどうかを制御します。
+
+このポリシー設定を有効にした場合、システムは定期的に使用されているアプリをチェックして、使用頻度の低いアプリをアーカイブします。
+
+このポリシー設定を無効にした場合、アプリはアーカイブされません。
+
+このポリシー設定を構成しなかった場合 (既定)、システムは既定の動作を実行し、あまり使用されていないアプリを定期的にチェックしてアーカイブし、ユーザーはこの設定を自分で構成できるようになります。</string>
       <string id="AllowDeploymentInSpecialProfiles">特殊なプロファイルでの展開操作を許可する</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">このポリシー設定を使用すると、ユーザーが特殊なプロファイルを使ってサインインしている場合の Windows ストア アプリの展開を管理できます。特殊なプロファイルとは、ユーザーがサインオフした後、プロファイルの変更内容が破棄される以下のユーザー プロファイルです。
+      <string id="AllowDeploymentInSpecialProfilesExplanation">このポリシー設定を使用すると、ユーザーが特殊なプロファイルを使ってサインインしている場合のパッケージ済み Microsoft Store アプリの展開を管理できます。特殊なプロファイルとは、ユーザーがサインオフした後、プロファイルの変更内容が破棄される以下のユーザー プロファイルです。
 
 "一時記憶された移動プロファイルのコピーを削除する" グループ ポリシー設定が適用される移動ユーザー プロファイル
 
@@ -25,16 +33,16 @@
 Guest アカウントと Guests グループのメンバー向けのユーザー プロファイル
 
 
-このポリシー設定を有効にした場合、特殊なプロファイルを使っているときでも Windows ストア アプリの展開操作 (アプリ パッケージの追加、登録、ステージング、更新、移動) ができます。
+このポリシー設定を有効にした場合、特殊なプロファイルを使っているときでもパッケージ済み Microsoft Store アプリの展開操作 (アプリ パッケージの追加、登録、ステージング、更新、移動) ができます。
 
-このポリシー設定を無効にした場合、または構成しなかった場合、グループ ポリシーによって、特殊なプロファイルを使っているときは Windows ストア アプリの展開操作がブロックされます。</string>
-      <string id="AllowDevelopmentWithoutDevLicense">Windows ストア アプリの開発と統合開発環境 (IDE) からのインストールを許可する</string>
+このポリシー設定を無効にした場合、または構成しなかった場合、グループ ポリシーによって、特殊なプロファイルを使っているときはパッケージ済み Microsoft Store アプリの展開操作がブロックされます。</string>
+      <string id="AllowDevelopmentWithoutDevLicense">パッケージ済み Microsoft Store アプリの開発と統合開発環境 (IDE) からのインストールを許可する</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        Windows ストア アプリケーションの開発と IDE からの直接のインストールを許可または禁止します。
+        Microsoft Store アプリケーションの開発と IDE からの直接インストールを許可または拒否します。
 
-        この設定を有効にして、"信頼できるすべてのアプリのインストールを許可する" グループ ポリシーを有効にした場合、Windows ストア アプリを開発して IDE から直接インストールすることができます。
-        
-        このポリシー設定を無効にした場合、または構成しなかった場合、Windows ストア アプリを開発することも、IDE から直接インストールすることもできません。
+        この設定を有効にして、「信頼できるすべてのアプリのインストールを許可する」グループ ポリシーを有効にした場合、Microsoft Store アプリを開発して IDE から直接インストールすることができます。
+
+        この設定を無効にした場合、または構成しなかった場合は、Microsoft Store アプリを開発することも、IDE から直接インストールすることもできません。
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">システム ボリューム以外への Windows アプリのインストールを無効にする</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -53,12 +61,150 @@ Guest アカウントと Guests グループのメンバー向けのユーザー
         この設定を無効にした場合、または構成しなかった場合、アプリが別のボリュームに移動されると、ユーザーのアプリ データもそのボリュームに移動されます。
       </string>
       <string id="AllowSharedLocalAppData">アプリケーション データのユーザー間の共有を Windows アプリに許可する</string>
-      <string id="AllowSharedLocalAppDataExplanation">Windows アプリをインストールしたユーザー間でデータを共有する Windows アプリの機能を管理します。
-      
-        このポリシーを有効にした場合、Windows アプリは、アプリ データをそのアプリの他のインスタンスと共有できます。データは SharedLocal フォルダーを通じて共有されます。このフォルダーは Windows.Storage API によって使用できるようになります。
+      <string id="AllowSharedLocalAppDataExplanation">アプリをインストールしたユーザー間でデータを共有する Windows アプリの機能を管理します。
 
-        このポリシーを無効にした場合、Windows アプリは、アプリ データをそのアプリの他のインスタンスと共有できません。このポリシーが以前に有効になっていた場合、以前共有されていたアプリ データが SharedLocal フォルダーに残ります。 
+        このポリシーを有効にすると、Windows アプリは、アプリ データをそのアプリの他のインスタンスと共有できます。データは SharedLocal フォルダーで共有されます。このフォルダーは、Windows.Storage API で使用できます。
+
+        このポリシーを無効にした場合、Windows アプリは、アプリ データをそのアプリの他のインスタンスと共有できません。このポリシーが以前に有効になっていた場合は、以前共有されていたアプリ データが SharedLocal フォルダーに残ります。
       </string>
+      <string id="BlockNonAdminUserInstall">管理者以外のユーザーがパッケージ化された Windows アプリをインストールできないようにする</string>
+      <string id="BlockNonAdminUserInstallExplanation">管理者以外のユーザーによる Windows アプリ パッケージのインストールを管理します。
+
+        このポリシーを有効にすると、管理者以外は Windows アプリ パッケージのインストールを開始できなくなります。アプリのインストールを希望する管理者は、管理者コンテキスト (たとえば、管理者 PowerShell ウィンドウ) からアプリをインストールする必要があります。他のポリシーで許可されている場合は、すべてのユーザーが Microsoft Store から Windows アプリ パッケージをインストールできます。
+
+        このポリシーを無効にした場合、または構成しなかった場合は、すべてのユーザーが Windows アプリ パッケージのインストールを開始できます。
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">MSIX ストリーミング インストールで HTTPS 認証の承認済みドメインを設定する</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">このポリシー設定では、MSIX ストリーミング インストールを実行するために、指定された完全修飾ドメイン名への HTTPS 通信に EntraID OAuth トークンを含めるかどうかを決定します。
+
+このポリシー設定を有効にした場合、ストリーミング MSIX のインストールを実行するときに、定義済みの完全修飾ドメインへの HTTPS 通信にユーザーの EntraID OAuth トークンが組み込まれます。指定された値は、URL の大文字の完全修飾ドメインと照合するために使用される正規表現 (ECMA スクリプト) です。
+
+このポリシー設定を無効にするか、未構成にした場合、ユーザーの EntraID OAuth トークンは、既定の構成済みドメインとのみ共有されます。
+      </string>
+      <string id="DisableBackgroundAutoUpdates">サイドロードアプリがバックグラウンドで自動更新されることを許可しない</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">バックグラウンドで自動更新するサイドロードアプリの機能を管理します。
+
+       このポリシーを有効にすると、サイドロードアプリがバックグラウンドで自動更新されません。
+
+       このポリシーを無効にすると、サイドロードアプリはバックグラウンドで自動更新されます。 
+
+        デフォルトは「無効」です (キーは存在しません)。
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">従量制課金接続では、サイドロードアプリがバックグラウンドで自動更新されることを許可しない</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">従量制課金接続の場合、バックグラウンドで自動更新するサイドロードアプリの機能を管理します。
+
+       このポリシーを有効にすると、従量制課金接続ではサイドロードアプリがバックグラウンドで自動更新されません。
+
+       このポリシーを無効にすると、サイドロードアプリは従量制課金接続のバックグラウンドで自動更新されます。 
+
+        デフォルトは「無効」です (キーは存在しません)。
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">既定でユーザーごとの署名されていないパッケージのインストールを許可しません (インストールごとに明示的に許可する必要があります)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">既定でユーザーごとの署名されていないパッケージのインストールを許可しません (インストールごとに明示的に許可する必要があります)
+
+        このポリシーを有効にすると、AllowUnsigned オプションの既定値は 'false' になります。
+
+        このポリシーを無効にすると、AllowUnsigned オプションの既定値は 'true' になります。
+
+既定値は 'disabled' です (キーがありません)。
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">管理者以外のユーザーインストールで許可されているパッケージ ファミリ名</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">管理者以外のユーザーの Windows アプリ パッケージのインストールで許可されているパッケージ ファミリ名。
+
+このポリシーを有効にした場合、[管理者以外のユーザーがパッケージ化された Windows アプリをインストールできないようにする] ポリシーに関係なく、管理者以外がインストールを開始できる Windows アプリ パッケージの一覧を入力できます。
+
+指定された値は正規表現 (ECMA スクリプト) として扱われます。Contoso.ContosoApp_8wekyb3d8bbwe などのパッケージ ファミリ名は、そのファミリ内のすべてのパッケージに一致する有効な正規表現です。^Contoso.*_8wekyb3d8bbwe$ などの正規表現もContoso.ContosoApp_8wekyb3d8bbweと一致します
+
+インストールする Windows アプリ パッケージのパッケージ ファミリ名がどのルールとも一致する場合、[管理者以外のユーザーがパッケージ化された Windows アプリをインストールできないようにする] ポリシーによってブロックされません。インストールは、他のポリシーまたは設定によって引き続きブロックされている可能性があります。
+
+このポリシーを無効にした場合、または構成しなかった場合、すべての Windows アプリ パッケージには、構成済みの "管理者以外のユーザーがパッケージ化された Windows アプリをインストールできないようにする" ポリシーが適用されます。
+
+既定値は 'disabled' です (キーがありません)。
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">既定の Microsoft Store パッケージをシステムから削除します。</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">既定の Microsoft Store パッケージをシステムから削除します。
+
+このポリシーを有効にすると、指定された一覧で選択した Microsoft Store アプリがシステムからアンインストールされます。既定の設定を調整できます。
+
+一覧で選択されていないアプリは削除されません。
+
+* これはヘッドレス アプリです (UI なし)
+
+** このアプリは、一般的なファイルの種類またはプロトコルの既定のハンドラーです。このアプリを削除すると、ユーザー エクスペリエンスが低下する可能性があります。このアプリを削除することはお勧めしません。
+
+このポリシーを有効にすると、[削除する追加のパッケージ ファミリ名を指定する] の下にある動的リストにアプリのパッケージ ファミリ名 (Microsoft.WindowsCalculator_8wekyb3d8bbwe など) を入力して、アプリを削除することもできます。
+
+このポリシーが有効な場合、以前に削除されたアプリを再インストールするには、指定された一覧でそのアプリの選択を解除するか、動的リストからアプリのパッケージ ファミリ名を削除する必要があります。
+
+動的アプリ削除リストを使用して Windows システム コンポーネントを削除することはできません。
+
+動的アプリ削除リストのパッケージ ファミリ名の検証は、ポリシー構成時ではなく、ユーザー ログイン時に行われます。
+
+既定値は 'disabled' です (キーが存在しません)。
+
+ポリシーが無効になっている場合、または構成されていない場合、既定のアプリはシステムから削除されません。
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">既定の Microsoft Store パッケージをシステムから削除します。</string>
+      <string id="EnableMsixAllowedZones">MSIX パッケージの許可されたゾーンを有効にする</string>
+      <string id="EnableMsixAllowedZonesExplanation">このポリシーでは、特定の URL ゾーンからの MSIX パッケージのインストールを許可するかどうかを制御します。パッケージの配信元は、その URI と、Mart-of-the-Web (MotW) が存在するかどうかによって決まります。複数の URI が含まれている場合、すべてが考慮されます。
+
+このポリシーを有効にした場合、ユーザーは各ゾーンの構成に従って MSIX パッケージをインストールできます。
+
+このポリシーを無効にするか、未構成にした場合、ユーザーは信頼されていないゾーン以外のゾーンから MSIX パッケージをインストールできます。</string>
+      <string id="ZoneAllowed">許可</string>
+      <string id="ZoneBlocked">ブロック</string>
+      <string id="EnableMsixSmartScreenCheck">MSIX パッケージの Microsoft SmartScreen チェックを有効にする</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">このポリシーは、特定の URL ゾーンから MSIX パッケージをインストールするときに Microsoft SmartScreen チェックを実行するかどうかを制御します。
+
+このポリシーを有効にした場合、または構成しなかった場合、パッケージの URI はインストール前に Microsoft SmartScreen で評価されます。このチェックは、インターネットからのパッケージに対してのみ実行されます。
+
+無効にした場合、パッケージをインストールする前に Microsoft SmartScreen は参照されません。</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>式</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">管理者以外のユーザーインストールで許可されているパッケージ ファミリ名</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>既定の Microsoft Store パッケージをシステムから削除します。</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">フィードバック Hub</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">Microsoft 365 Copilot</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft ニュース</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Microsoft フォト **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Microsoft Sticky Notes</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">Microsoft To Do</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN 天気</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Outlook for Windows</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">ペイント</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">クイック アシスト</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">Snipping Tool</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Windows 電卓</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Windows カメラ **</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Windows メディア プレーヤー **</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Windows メモ帳 **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Windows サウンド レコーダー</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Windows ターミナル</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">Xbox ゲーム アプリ</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Xbox Identity Provider *</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Xbox 音声テキスト変換オーバーレイ *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">削除する追加のパッケージ ファミリ名を指定する</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">ローカル コンピューター</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">イントラネット</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">信頼済みサイト</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">インターネット</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">信頼できないサイト</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

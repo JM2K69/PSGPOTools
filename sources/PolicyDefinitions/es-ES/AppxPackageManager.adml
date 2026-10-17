@@ -2,19 +2,27 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>Gerente de paquetes AppX</displayName> 
+  <displayName>Gerente de paquetes AppX</displayName>
   <description>Gerente de paquetes AppX</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">Implementación de paquetes de la aplicación</string>
       <string id="AppxDeploymentAllowAllTrustedApps">Permitir la instalación de todas las aplicaciones de confianza</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Esta configuración de directiva permite administrar la instalación de las aplicaciones de la Tienda Windows de línea de negocio (LOB) o desarrolladores que sean de confianza.
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Esta configuración de directiva permite administrar la instalación de aplicaciones empaquetadas de línea de negocio (LOB) o de Microsoft Store firmadas por el desarrollador.
 
-Si habilitas esta configuración de directiva, podrás instalar cualquier aplicación de LOB o desarrolladores de la Tienda Windows (debe estar firmada con una cadena de certificados que el equipo local pueda validar correctamente).
+Si habilita o no establece esta configuración de directiva, puede instalar cualquier aplicación de Microsoft Store empaquetada firmada por desarrollador o LOB (que debe estar firmada con una cadena de certificados que el equipo local pueda validar correctamente).
 
-Si deshabilitas o no estableces esta configuración de directiva, no podrás instalar aplicaciones de LOB o desarrolladores de la Tienda Windows.</string>
+Si deshabilita esta configuración de directiva, no podrá instalar aplicaciones de Microsoft Store empaquetadas con firma de desarrollador o LOB.</string>
+      <string id="AllowAutomaticAppArchiving">Archivar aplicaciones poco usadas</string>
+      <string id="AllowAutomaticAppArchivingExplanation">Esta configuración de directiva controla si el sistema puede archivar aplicaciones de uso poco frecuente.
+
+Si habilita esta configuración de Directiva, el sistema comprobará y archivará periódicamente las aplicaciones usadas con poca frecuencia.
+
+Si deshabilitas esta configuración de Directiva, el sistema no archivará ninguna aplicación.
+
+Si no establece esta configuración de directiva (valor predeterminado), el sistema seguirá el comportamiento predeterminado, que es comprobar periódicamente si hay aplicaciones que se usan con poca frecuencia y archivarlas, y el usuario podrá configurar esta configuración.</string>
       <string id="AllowDeploymentInSpecialProfiles">Permitir operaciones de implementación en perfiles especiales</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">Esta configuración de directiva permite administrar la implementación de aplicaciones de la Tienda Windows cuando el usuario inicia sesión con un perfil especial. Los perfiles especiales son los siguientes perfiles de usuario, donde los cambios se descartan cuando el usuario cierre sesión:
+      <string id="AllowDeploymentInSpecialProfilesExplanation">Esta configuración de directiva permite administrar la implementación de aplicaciones de Microsoft Store empaquetadas cuando el usuario inicia sesión con un perfil especial. Los perfiles especiales son los siguientes perfiles de usuario, donde los cambios se descartan cuando el usuario cierre sesión:
 
 Perfiles de usuario móvil a los que se aplica la configuración de directiva de grupo "Eliminar copias en caché de perfiles móviles"
 
@@ -25,16 +33,16 @@ Perfiles de usuario temporales, que se crean cuando un error impide que se cargu
 Perfiles de usuario de la cuenta Invitado y de los miembros del grupo de invitados
 
 
-Si habilita esta configuración de directiva, la directiva de grupo permite realizar operaciones de implementación (agregar, registrar, almacenar provisionalmente, actualizar o quitar un paquete de la aplicación) de las aplicaciones de la Tienda Windows cuando se usa un perfil especial.
+Si se habilita esta configuración de directiva, la directiva de grupo permite realizar operaciones de implementación (agregar, registrar, almacenar provisionalmente, actualizar o quitar un paquete de la aplicación) de las aplicaciones de Microsoft Store empaquetadas cuando se usa un perfil especial.
 
-Si deshabilita o no establece esta configuración de directiva, la directiva de grupo bloquea las operaciones de implementación de aplicaciones de la Tienda Windows cuando se usa un perfil especial.</string>
-      <string id="AllowDevelopmentWithoutDevLicense">Permitir el desarrollo de aplicaciones de la Tienda Windows y su instalación desde un entorno de desarrollo integrado (IDE)</string>
+Si se deshabilita o no se establece esta configuración de directiva, la directiva de grupo bloquea las operaciones de implementación de aplicaciones de Microsoft Store empaquetadas cuando se usa un perfil especial.</string>
+      <string id="AllowDevelopmentWithoutDevLicense">Permitir el desarrollo de aplicaciones de Microsoft Store empaquetadas y su instalación desde un entorno de desarrollo integrado (IDE)</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        Permite o impide desarrollar aplicaciones de la Tienda Windows e instalarlas directamente desde un IDE.
+        Permite o impide desarrollar aplicaciones de Microsoft Store e instalarlas directamente desde un IDE.
 
-        Si habilitas esta configuración de directiva junto con la directiva de grupo "Permitir la instalación de todas las aplicaciones de confianza", podrás desarrollar aplicaciones de la Tienda Windows e instalarlas directamente desde un IDE.
-        
-        Si deshabilitas o no estableces esta configuración, no podrás desarrollar aplicaciones de la Tienda Windows ni instalarlas directamente desde un IDE.
+        Si habilitas esta configuración de directiva junto con la directiva de grupo "Permitir la instalación de todas las aplicaciones de confianza", podrás desarrollar aplicaciones de Microsoft Store e instalarlas directamente desde un IDE.
+
+        Si deshabilitas o no estableces esta configuración, no podrás desarrollar aplicaciones de Microsoft Store ni instalarlas directamente desde un IDE.
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">Deshabilitar la instalación de aplicaciones para Windows en volúmenes que no sean del sistema</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -53,12 +61,150 @@ Si deshabilita o no establece esta configuración de directiva, la directiva de 
         Si deshabilitas o no estableces esta configuración, cuando se mueva una aplicación a un volumen distinto, los datos de aplicaciones de los usuarios también se moverán a este volumen.
       </string>
       <string id="AllowSharedLocalAppData">Permitir que una aplicaciones para Windows comparta datos de aplicaciones entre los usuarios</string>
-      <string id="AllowSharedLocalAppDataExplanation">Administra la capacidad de una aplicación para Windows de compartir datos entre los usuarios que han instalado la aplicación.
-      
-        Si habilitas esta directiva, una aplicación para Windows podrá compartir datos de aplicaciones con otras instancias de dicha aplicación. Los datos se comparten a través de la carpeta SharedLocal. Esta carpeta está disponible en la API Windows.Storage.
+      <string id="AllowSharedLocalAppDataExplanation">Administra la capacidad de una aplicación de Windows de compartir datos entre los usuarios que tengan instalada la aplicación.
 
-        Si deshabilitas esta directiva, una aplicación para Windows no podrá compartir datos de aplicaciones con otras instancias de dicha aplicación. Si esta directiva estaba habilitadas previamente, todos los datos de aplicaciones compartidos anteriormente permanecerán en la carpeta SharedLocal. 
+        Si habilitas esta directiva, una aplicación de Windows podrá compartir datos de la aplicación con otras instancias de dicha aplicación. Los datos se comparten a través de la carpeta SharedLocal. Esta carpeta está disponible en la API Windows.Storage.
+
+        Si deshabilitas esta directiva, una aplicación de Windows no podrá compartir datos de la aplicación con otras instancias de esa aplicación. Si esta directiva se habilitó previamente, los datos de la aplicación que se hayan compartido anteriormente permanecerán en la carpeta SharedLocal.
       </string>
+      <string id="BlockNonAdminUserInstall">Impedir que los usuarios que no sean administradores instalen aplicaciones empaquetadas de Windows</string>
+      <string id="BlockNonAdminUserInstallExplanation">Administra la capacidad de los usuarios que no sean administradores de instalar paquetes de aplicaciones de Windows.
+
+        Si habilitas esta directiva, los usuarios que no sean administradores no podrán iniciar la instalación de paquetes de aplicaciones de Windows. Los administradores que quieran instalar una aplicación deberán hacerlo desde un contexto de administrador (por ejemplo, una ventana de administrador de PowerShell). Todos los usuarios seguirán pudiendo instalar paquetes de aplicaciones de Windows a través de Microsoft Store, si así lo permiten otras directivas.
+
+        Si deshabilitas o no configuras esta directiva, todos los usuarios podrán iniciar la instalación de paquetes de aplicaciones de Windows.
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">Establecer dominios autorizados para la autenticación HTTPS en la instalación de streaming msix</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">Esta configuración de directiva determina si se incluirá un token de OAuth de EntraID en las comunicaciones HTTPS a un nombre de dominio completo especificado para realizar una instalación de streaming MSIX.
+
+Si habilitas esta configuración de directiva, las comunicaciones HTTPS a los dominios completos predefinidos incorporarán el token de OAuth de EntraID del usuario al realizar una instalación de MSIX de streaming. El valor proporcionado es una expresión regular (script ECMA) que se usará para buscar coincidencias con el dominio completo de mayúsculas de la dirección URL.
+
+Si deshabilita o no establece esta configuración de directiva, el token de OAuth de EntraID del usuario solo se compartirá con los dominios configurados predeterminados.
+      </string>
+      <string id="DisableBackgroundAutoUpdates">No se permite que las aplicaciones transferidas localmente se actualicen automáticamente en segundo plano</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">Administra la capacidad de las aplicaciones de instalación de prueba de actualizarse automáticamente en segundo plano.
+
+Si habilita esta directiva, las aplicaciones transferidas localmente no se actualizarán automáticamente en segundo plano.
+
+Si deshabilita esta directiva, las aplicaciones transferidas localmente se actualizarán automáticamente en segundo plano.
+
+El valor predeterminado es "disabled" (clave no presente).
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">No se permite que las aplicaciones transferidas localmente se actualicen automáticamente en segundo plano en una red de uso medido</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">Administra la capacidad de las aplicaciones transferidas localmente de actualizarse automáticamente en segundo plano en una red de uso medido.
+
+Si habilita esta directiva, las aplicaciones transferidas localmente no se actualizarán automáticamente en segundo plano en una red de uso medido.
+
+Si deshabilita esta directiva, las aplicaciones transferidas localmente se actualizarán automáticamente en segundo plano en una red de uso medido.
+
+El valor predeterminado es "disabled" (clave no presente).
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">No permitir que los paquetes sin firmar por usuario se instalen de forma predeterminada (requiere permitir explícitamente por instalación)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">No permitir la instalación de paquetes sin firmar por usuario de forma predeterminada (requiere permitir explícitamente por instalación)
+
+        Si habilitas esta directiva, El valor predeterminado de la opción AllowUnsigned es "false".
+
+         Si deshabilitas esta directiva, el valor predeterminado de la opción AllowUnsigned es "true".
+
+        El valor predeterminado es "disabled" (clave no presente).
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">Nombres de familias de paquetes permitidos para la instalación de usuarios que no son administradores</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">Nombres de familias de paquetes permitidos para la instalación de paquetes de aplicaciones de Windows para usuarios que no son administradores.
+
+Si habilita esta directiva, puede especificar una lista de paquetes de aplicaciones de Windows que los usuarios que no sean administradores podrán iniciar la instalación independientemente de la directiva configurada "Impedir que los usuarios que no son administradores instalen aplicaciones de Windows empaquetadas".
+
+Los valores proporcionados se tratarán como expresiones regulares (script ECMA). Un nombre de familia de paquete como Contoso.ContosoApp_8wekyb3d8bbwe es una expresión regular válida que coincidirá con todos los paquetes de esa familia. Una expresión regular como ^Contoso.*_8wekyb3d8bbwe$ también coincidirá con Contoso.ContosoApp_8wekyb3d8bbwe
+
+Si el nombre de familia de paquete de un paquete de aplicación de Windows que instala coincide con cualquier regla, no se bloqueará mediante la directiva "Impedir que los usuarios que no sean administradores instalen aplicaciones de Windows empaquetadas". Es posible que la instalación aún esté bloqueada por otra directiva o configuración.
+
+Si deshabilita o no configura esta directiva, todos los paquetes de aplicaciones de Windows estarán sujetos a la directiva configurada "Impedir que los usuarios que no sean administradores instalen aplicaciones de Windows empaquetadas".
+
+El valor predeterminado es "disabled" (clave no presente).
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">Elimina los paquetes predeterminados de Microsoft Store del sistema.</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">Elimina los paquetes predeterminados de Microsoft Store del sistema.
+
+Si habilitas esta directiva, las aplicaciones de Microsoft Store seleccionadas de la lista proporcionada se desinstalarán del sistema. Puedes realizar ajustes en la configuración predeterminada.
+
+Las aplicaciones no seleccionadas de la lista no se eliminarán.
+
+* Esta es una aplicación sin periféricos (sin interfaz de usuario)
+
+** Esta aplicación es el controlador predeterminado para un tipo de archivo o protocolo común. Eliminar esta aplicación podría resultar en una experiencia de usuario degradada. No se recomienda eliminar esta aplicación.
+
+Si se habilita esta directiva, también puedes eliminar una aplicación escribiendo el nombre de la familia de paquetes de la aplicación (por ejemplo, Microsoft.WindowsCalculator_8wekyb3d8bbwe) en la lista dinámica de "Especificar nombres de familias de paquetes adicionales para eliminar".
+
+Si esta directiva está habilitada, la reinstalación de una aplicación quitada previamente requiere anular la selección de la aplicación de la lista proporcionada o quitar el nombre de familia del paquete de la aplicación de la lista dinámica.
+
+No se pueden quitar los componentes del sistema de Windows a través de la lista de eliminación dinámica de aplicaciones.
+
+La validación de los nombres de familia de paquetes en la lista de eliminación de aplicaciones dinámicas se produce al iniciar la sesión del usuario, no en el momento de la configuración de la directiva.
+
+El valor predeterminado es "desactivado" (clave no presente).
+
+Si la directiva está deshabilitada o no está configurada, no se quitará ninguna aplicación predeterminada del sistema.
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">Elimina los paquetes predeterminados de Microsoft Store del sistema.</string>
+      <string id="EnableMsixAllowedZones">Habilitar zonas permitidas para paquetes MSIX</string>
+      <string id="EnableMsixAllowedZonesExplanation">Esta directiva controla si se permite la instalación de paquetes MSIX procedentes de zonas URL específicas. El origen de un paquete está determinado por su URI y si hay presente un Mart-of-the-Web (MotW). Si hay varios URI implicados, se consideran todos;
+
+Si habilita esta directiva, los usuarios podrán instalar paquetes MSIX según la configuración de cada zona.
+
+Si deshabilitas o no configuras esta directiva, los usuarios podrán instalar paquetes MSIX desde cualquier zona excepto si no son de confianza.</string>
+      <string id="ZoneAllowed">Permitir</string>
+      <string id="ZoneBlocked">Bloquear</string>
+      <string id="EnableMsixSmartScreenCheck">Habilitar las comprobaciones de Microsoft SmartScreen para paquetes MSIX</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">Esta directiva controla si se realiza la comprobación de Microsoft SmartScreen al instalar paquetes MSIX desde zonas URL específicas.
+
+Si habilitas o no configuras esta directiva, el URI del paquete se evaluará con Microsoft SmartScreen antes de la instalación. Esta comprobación solo se realiza para los paquetes que provienen de Internet.
+
+Si deshabilitas esto, no se consultará a Microsoft SmartScreen antes de instalar un paquete.</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>Expresión</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">Nombres de familias de paquetes permitidos para la instalación de usuarios que no son administradores</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>Elimina los paquetes predeterminados de Microsoft Store del sistema.</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">Centro de opiniones</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">Microsoft 365 Copilot</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft News</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Fotos de Microsoft **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Microsoft Sticky Notes</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">Microsoft To Do</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN El Tiempo</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Outlook para Windows</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">Paint</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">Asistencia rápida</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">Herramienta Recortes</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Calculadora de Windows</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Cámara de Windows **</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Reproductor multimedia de Windows **</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Bloc de notas de Windows **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Grabadora de sonidos de Windows</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Terminal Windows</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">Aplicación de Juegos de Xbox</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Xbox Identity Provider *</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Superposición de conversión de voz en texto de Xbox *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">Especificar nombres de familias de paquetes adicionales para quitar</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">Equipo local</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">Intranet</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">Sitios de confianza</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">Internet</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">Sitio que no es de confianza</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

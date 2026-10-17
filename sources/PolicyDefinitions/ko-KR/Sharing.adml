@@ -25,6 +25,10 @@
 이 정책 설정을 적용하려면 컴퓨터를 다시 시작해야 합니다.</string>
       <string id="HomeGroup">홈 그룹</string>
       <string id="HomeGroup_Help">홈 그룹의 동작을 제어하는 설정을 포함합니다.</string>
+      <string id="DisableShareAppPromotions">DisableShareAppPromotions</string>
+      <string id="DisableShareAppPromotions_Help">이 정책 설정을 통해 IT 관리자는 ShareSheet에 프로모션 앱이 표시되는지 여부를 제어할 수 있습니다. 이 정책을 사용하면 Windows에서 ShareSheet에 프로모션 앱이 표시되지 않습니다. 이 정책을 사용하지 않거나 구성하지 않으면 ShareSheet를 열 때 ShareSheet에 앱 제안 및 프로모션이 표시될 수 있습니다.</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

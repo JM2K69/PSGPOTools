@@ -15,7 +15,16 @@ Se você habilitar essa configuração de política, o Ajuste de DPI GDI será a
 Se você desabilitar ou não configurar essa política, o Ajuste de DPI GDI não será habilitado para um aplicativo, exceto quando um aplicativo for habilitado usando o banco de dados ApplicationCompatibility, a configuração Sistema de Interface do Usuário ApplicationCompatibility (Avançado) ou um manifesto do aplicativo.
 
 Se o Ajuste de DPI GDI estiver configurado para desativar e ativar um aplicativo, o aplicativo será desativado.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">O Ajuste de DPI GDI permite que os aplicativos sem reconhecimento de DPI passem a ter reconhecimento de DPI por monitor.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">Habilitar esta política permite substituir o comportamento padrão ao conectar um monitor adicional. Ela permite controlar se a tela clonará (espelhará) automaticamente a tela principal ou estenderá a área de trabalho.
+Estender expande a tela para o segundo monitor, permitindo ter conteúdo diferente em cada tela. Clonar duplica a tela principal no segundo monitor, mostrando o mesmo conteúdo em ambas as telas. Padrão Interno usa o comportamento padrão do sistema determinado pelas Configurações do Windows.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> Configurar o Modo de Exibição Múltiplo</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">Habilitar esta política permite substituir o comportamento padrão ao conectar um monitor adicional. Ela permite controlar se uma tela clonada prioriza o monitor interno ou externo, ou seja, definir sua fonte de resolução preferida.
+Interno define a resolução do monitor principal como a fonte em ambas as telas. Externo define a resolução da tela conectada (externa) como a fonte em ambas as telas. Padrão usa o comportamento padrão do sistema determinado pelas Configurações do Windows.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> Definir Fonte de Resolução Preferencial do Monitor Clonado</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">O Ajuste de DPI GDI permite que os aplicativos sem reconhecimento de DPI passem a ter reconhecimento de DPI por monitor.
 
 Essa configuração de política permite especificar aplicativos herdados que tenham o Ajuste de DPI GDI desativado.
 
@@ -26,24 +35,32 @@ Se você desabilitar ou não configurar essa configuração, o Ajuste de DPI GDI
 Se o Ajuste de DPI GDI estiver configurado para desativar e ativar um aplicativo, o aplicativo será desativado.</string>
       <string id="DisplayTurnOnGdiDPIScaling">Ativar GdiDPIScaling para aplicativos</string>
       <string id="DisplayTurnOffGdiDPIScaling">Desativar GdiDPIScaling para aplicativos</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">DPI de Sistema por Processo é um recurso de compatibilidade de aplicativo para aplicativos da área de trabalho que não renderizam corretamente após a alteração de um fator de escala de exibição (DPI). Quando o fator de escala de exibição da tela principal é alterado (o que pode acontecer quando você conecta ou desconecta uma tela com outro fator de escala de exibição (DPI), conecta-se remotamente de um dispositivo com um fator de escala de exibição diferente ou altera manualmente o fator de escala de exibição), muitos aplicativos da área de trabalho podem ficar desfocados. Os aplicativos da área de trabalho que não forem atualizados para serem exibidos corretamente nesse cenário ficarão desfocados até que o usuário faça logoff e logon novamente no Windows. 
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">DPI de Sistema por Processo é um recurso de compatibilidade de aplicativo para aplicativos da área de trabalho que não renderizam corretamente após a alteração de um fator de escala de exibição (DPI). Quando o fator de escala de exibição da tela principal é alterado (o que pode acontecer quando você conecta ou desconecta uma tela com outro fator de escala de exibição (DPI), conecta-se remotamente de um dispositivo com um fator de escala de exibição diferente ou altera manualmente o fator de escala de exibição), muitos aplicativos da área de trabalho podem ficar desfocados. Os aplicativos da área de trabalho que não forem atualizados para serem exibidos corretamente nesse cenário ficarão desfocados até que o usuário faça logoff e logon novamente no Windows.
 
-Quando você habilita essa política, alguns aplicativos desfocados ficarão nítidos depois de serem reiniciados, sem exigir que o usuário faça logoff e logon no Windows. 
+Ao habilitar essa política, alguns aplicativos desfocados ficarão nítidos depois de serem reiniciados, sem exigir que o usuário faça logoff e logon no Windows.
 
 Atente para o seguinte:
 
-O DPI de Sistema por Processo só melhorará a renderização de aplicativos da área de trabalho posicionados na tela principal principal. Alguns aplicativos da área de trabalho podem ficar desfocados em telas secundárias com fatores de escala de exibição diferentes. 
+O DPI de Sistema por Processo só melhorará a renderização de aplicativos da área de trabalho posicionados na tela principal. Alguns aplicativos da área de trabalho podem ficar desfocados em telas secundárias com fatores de escala de exibição diferentes.
 
-O DPI de Sistema por Processo não funcionará para todos os aplicativos, pois alguns aplicativos mais antigos da área de trabalho sempre ficarão disfocados em telas com DPI alto. 
+O DPI de Sistema por Processo não funcionará para todos os aplicativos, pois alguns aplicativos mais antigos da área de trabalho sempre ficarão desfocados em telas com DPI alto.
 
 Em alguns casos, você pode perceber um comportamento estranho em alguns aplicativos da área de trabalho. Se isso acontecer, o DPI de Sistema por Processo deve ser desabilitado.
 
-Habilitar essa configuração permite que você especifique o padrão do sistema para aplicativos da área de trabalho, bem como substituições por aplicativo. Se você desabilitar ou não definir essa configuração, o DPI de Sistema por Processo não se aplicará a qualquer processo no sistema.
+Habilitar essa configuração permite que você especifique o padrão do sistema para aplicativos da área de trabalho, bem como substituições por aplicativo. Se você desabilitar ou não definir essa configuração, o DPI de Sistema por Processo não se aplicará a nenhum processo no sistema.
 
 </string>
       <string id="DisplayPerProcessSystemDpiSettings">Definir configurações do DPI de Sistema por Processo</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">Habilitar</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">Desabilitar</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">Clonar</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">Padrão</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">Estender</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">Somente Interno</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">Somente Externo</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">Padrão</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">Interno</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">Externo</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">Habilitar o DPI de Sistema por Processo para aplicativos</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">Desabilitar o DPI de Sistema por Processo para aplicativos</string>
     </stringTable>
@@ -66,6 +83,12 @@ Habilitar essa configuração permite que você especifique o padrão do sistema
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>Desabilitar DPI de Sistema por Processo para os aplicativos a seguir. Use o caminho completo do aplicativo ou o nome de arquivo e a extensão do aplicativo. Separe os aplicativos com ponto e vírgula.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">Clonar, Estender, InternalOnly, ExternalOnly ou Continuar com as Configurações padrão do Windows como configuração para o Modo de Exibição Múltiplo.</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">Defina a resolução padrão que o Windows usará para novas telas clonadas como Configurações Internas, Externas ou Padrão do Windows.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

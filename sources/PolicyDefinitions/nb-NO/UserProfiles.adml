@@ -77,6 +77,14 @@ Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, får ikke
 Obs! Denne og relaterte policyinnstillinger i denne mappen, definerer hvordan systemet skal besvare trege nedlastinger av sentrale brukerprofiler. Bruk innstillingen Tidsavbrudd for dialogbokser for å justere hvor lang tid brukeren har til å besvare denne varslingen i operativsystemer før Microsoft Windows Vista.
 
 Viktig! Hvis policyinnstillingen Ikke søk etter trege nettverkstilkoblinger er aktivert, ignoreres denne policyinnstillingen. Hvis policyinnstillingen Slett hurtigbufrede kopier av sentrale profiler er aktivert, finnes det ingen lokal kopi av den sentrale profilen som kan lastes inn når en treg tilkobling oppdages.</string>
+      <string id="AllowNonStandardUserProfilePaths">Tillat registerstrukturer for brukerprofil og AppData fra baner som ikke er standard</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Denne policyinnstillingen styrer om register‑hivene for brukerprofiler og AppData‑mappene kan godta ikke‑standardiserte baneformater.
+
+Hvis du aktiverer denne policyinnstillingen, godtar brukerprofilplasseringer et bredere utvalg av filbaneformater.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, godtar brukerprofilplasseringer bare standard Windows-mappebaner.
+
+Merk: Hvis du aktiverer denne innstillingen, kan systemet utsettes for sikkerhetsrisikoer. Aktiver det bare hvis et bestemt program i organisasjonen krever det, og bare etter evaluering av alle risikoene for miljøet.</string>
       <string id="ExcludeDirectories">Utelukk mapper i sentral profil</string>
       <string id="ExcludeDirectories_Help">Med denne policyinnstillingen kan du utelate mapper som vanligvis tas med i brukerens profil. Disse mappene må derfor ikke lagres av nettverksserveren som profilen ligger på, og følger ikke brukere til andre datamaskiner.
 

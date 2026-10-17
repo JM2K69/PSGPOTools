@@ -14,8 +14,15 @@
       <string id="WU_SUPPORTED_Windows7_To_Win2kSP3_Or_XPSP1">Windows 7、Windows Server 2008 R2、Windows Vista、Windows Server 2003、Windows XP SP2、Windows XP SP1、Windows 2000 SP4、Windows 2000 SP3</string>
       <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_NoWinRT">Windows XP Professional Service Pack 1 或 Windows 2000 Service Pack 3 及以上版本，不包括 Windows RT</string>
       <string id="WU_SUPPORTED_WindowsXPSP1_NoWinRT">Windows Server 2003 操作系统或 Windows XP Professional SP1 及以上版本，不包括 Windows RT</string>
-      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Windows XP Professional Service Pack 1 及其更高版本，或者 Windows 2000 Service Pack 3 到 Windows 8.1 或 Windows Server 2012 R2(带最新 Service Pack)及其更高版本</string>
-      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Windows Vista 到 Windows 8.1 或 Windows Server 2012 R2(带最新 Service Pack)及其更高版本</string>
+      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Windows XP Professional Service Pack 1 或 Windows 2000 Service Pack 3 到 Windows 8.1 或具有最新 Service Pack 的 Windows Server 2012 R2 或更高版本。不支持Windows 10及更高版本。</string>
+      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Windows Vista 至 Windows 8.1 或 Windows Server 2012 R2 以及最新 Service Pack。不支持Windows 10及更高版本。</string>
+      <string id="WU_SUPPORTED_XPSP1_or_Win2kSP3_AUOption7_SUPPORTED_Server2016">Windows XP Professional Service Pack 1 或者 Windows 2000 Service Pack 3 及以上版本
+选项 7 仅在 Windows Server 2016 及以上版本的服务器上受支持</string>
+      <string id="WU_SUPPORTED_Server2016_Through_Server2022_Or_Windows10">Windows Server 2016 到 Windows Server 2022 或 Windows 10</string>
+      <string id="WU_SUPPORTED_Windows_Server_2019_Windows_10_0_1809">至少为 Windows Server 2019 或 Windows 10 版本 1809</string>
+      <string id="WU_SUPPORTED_Windows_Server_2022_Windows_10_0_2004">Windows Server 2022 或 Windows 10 版本 2004 及以上版本</string>
+      <string id="WU_SUPPORTED_WinServer2025_Win1021H2_Win1122H2">至少为 Windows Server 2025、Windows 10版本 21H2 或 Windows 11 版本 22H2</string>
+      <string id="WU_SUPPORTED_Win11_24H2">至少 Windows 11 版本 24H2</string>
       <string id="AUDontShowUasHelp">此策略设置允许你管理“安装更新并关机”选项是否在“关闭 Windows”对话框中显示。
 
 如果启用此策略设置，即使用户在“开始”菜单中选择“关机”选项时有更新可以安装，“安装更新并关机”选项也不会在“关闭 Windows”对话框中作为一项选择显示。
@@ -56,36 +63,41 @@
       <string id="RemoveWindowsUpdateModeAll">0 - 不显示任何通知</string>
       <string id="RemoveWindowsUpdateModeReboot">1 - 显示需要重新启动的通知</string>
       <string id="AutoUpdateCfg">配置自动更新</string>
-      <string id="AutoUpdateCfg_Help">指定此计算机是否通过 Windows 自动更新服务来接收安全更新和其他重要下载。
+      <string id="AutoUpdateCfg_Help">指定此计算机是否通过 Windows 自动更新服务接收安全更新和其他重要下载。
 
 注意: 此策略不适用于 Windows RT。
 
-此设置允许你指定是否在此计算机上启用自动更新。如果已启用该服务，必须在“组策略设置”中的四个选项中选择一个:
+此设置允许你指定是否在此计算机上启用自动更新。如果启用该服务，则必须在组策略设置中选择四个选项之一:
 
-        2 = 在下载和安装任何更新前发出通知。
+        2 = 在下载和安装任何更新之前通知。
 
-        当 Windows 找到适用于此计算机的更新时，系统将通知用户可以下载更新。转到 Windows 更新后，用户即可下载和安装任何可用更新。
+        当 Windows 找到适用于此计算机的更新时，系统将通知用户更新已准备好下载。转到 Windows 更新后，用户可以下载并安装任何可用更新。
 
-        3 = (默认设置)自动下载更新，并在准备好安装时发出通知
+        3 = (默认设置)自动下载更新并在准备好安装时通知
 
-        Windows 会查找适用于此计算机的更新，并在后台下载它们(在此过程中，用户不会收到通知或发生中断)。下载完成后，系统将通知用户他们已准备好进行安装。转到 Windows 更新后，用户即可安装它们。
+        Windows 查找适用于该计算机的更新，并在后台下载它们(在此过程中，用户不会收到通知或被打扰)。下载完成后，将通知用户更新已准备好进行安装。在转到 Windows 更新后，用户可以安装它们。
 
         4 = 自动下载更新并按下面指定的计划进行安装。
 
-        选择“自动”作为计划的安装时间时，Windows 将自动检查、下载和安装更新。除非由组策略配置，否则设备将按照 Windows 默认设置重启。(适用于 Windows 10 版本 1809 和更高版本)
+        选择“自动”作为计划的安装时间时，Windows 将自动检查、下载和安装更新。除非通过组策略进行配置，否则，设备将按照 Windows 默认设置重新启动。(适用于 Windows 10 版本 1809 及更高版本)
 
-        使用“组策略设置”中的选项指定计划。对于版本 1709 和更高版本，存在一个附加选项，即将更新频率限制为每周、每两周或每月。如果未指定任何计划，所有安装的默认计划将在每天上午 3:00 时进行。如果有任何更新需要重启才能完成安装，Windows 将自动重启计算机。(如果用户在 Windows 准备重启时已登录到计算机，系统将通知用户并提供延迟重启的选项。)
+        使用组策略设置中的选项指定计划。对于版本 1709 及更高版本，还可以选择将更新限制为每周、每两周或每月一次。如果未指定任何计划，则所有安装的默认计划都将是每天凌晨的 3:00。如果有任何更新需要重启才能完成安装，Windows 将自动重启计算机。(如果用户在 Windows 准备重启时已登录到计算机，则用户将收到通知，并可以选择延迟重启。)
 
-        在 Windows 8 和更高版本中，你可以将更新设置为在自动维护期间而不是按指定计划安装。自动维护将在计算机未在使用时安装更新，并在计算机使用电池供电时避免执行此操作。如果自动维护在 2 天内无法安装更新，Windows 更新将立即安装更新。然后，系统将通知用户即将重启，并且仅在不会发生数据意外丢失的情况下才重启。
+        在 Windows 8 和更高版本中，可以将更新设置为在自动维护期间安装，而不是按特定计划安装。自动维护将在计算机未使用时安装更新，并在计算机使用电池电源运行时避免这样做。如果自动维护无法在 2 天内安装更新，Windows 更新将立即安装更新。随后，将会通知用户即将重启，并且只有在数据不会意外丢失的情况下，才会进行重启。
 
-        5 = 允许本地管理员选择自动更新应通知并安装更新的配置模式。(此选项尚未移到任何 Win 10 版本)
+        5 = 允许本地管理员选择自动更新应通知并安装更新的配置模式。(此选项尚未传递到任何 Win 10 版本)
 
-使用此选项，允许本地管理员使用 Windows 更新控制面板选择所选的配置选项。不允许本地管理员禁用自动更新的配置。
+        如果选择此选项，则本地管理员将可以使用 Windows 更新控制面板选择所选的配置选项。本地管理员将无法禁用自动更新的配置。
 
-如果将此策略的状态设置为“已禁用”，必须手动下载并安装 Windows 更新上可用的任何更新。若要执行此操作，请使用“开始”菜单搜索 Windows 更新。
+        7 = 安装任何更新之前通知并在重启之前通知。(仅限 Windows Server)
 
-如果将状态设置为“未配置”，不会在“组策略”级别上指定使用自动更新。但是，管理员仍然可以通过控制面板配置自动更新。</string>
+        如果选择 Windows Server 2016 中的此选项(仅适用于服务器 SKU 设备)，则将允许本地管理员使用 Windows 更新继续手动进行安装或重新启动。
 
+如果将此策略的状态设置为“已禁用”，则必须手动下载并安装 Windows 更新中可用的任何更新。若要执行此操作，请使用“开始”搜索 Windows 更新。
+
+如果状态设置为“未配置”，则不在组策略级别指定自动更新的使用。但管理员仍然可以通过控制面板配置自动更新。</string>
+
+      <string id="AutoUpdateModeNotifyToInstallNotifyToReboot">7 - 自动下载，通知安装，通知重启</string>
       <string id="AutoUpdateModeAdminChooses">5 - 允许本地管理员选择设置</string>
       <string id="AutoUpdateModeAuto">4 - 自动下载并计划安装</string>
       <string id="AutoUpdateModeDownload">3 - 自动下载并通知安装</string>
@@ -137,15 +149,33 @@
 
         备用下载服务器将 Windows 更新代理配置为从备用下载服务器而不是 Intranet 更新服务下载文件。
 
-        通过用于下载缺少 Url 的文件的选项，可以在更新元数据中没有文件的下载 Url 时从备用下载服务器下载内容。仅当 Intranet 更新服务未在更新元数据中提供文件的下载 Url，并且备用下载服务器上有这些文件时，才应使用此选项。
+        通过用于下载缺少 URL 的文件的选项，可以在更新元数据中没有文件的下载 URL 时从备用下载服务器下载内容。仅当 Intranet 更新服务未在更新元数据中提供文件的下载 URL，并且备用下载服务器上有这些文件时，才应使用此选项。
 
         注意: 如果“配置自动更新”策略已禁用，则此策略将不起作用。
 
         注意: 如果未设置“备用下载服务器”，则默认情况下将使用 Intranet 更新服务来下载更新。
 
-        注意: 仅当设置了“备用下载服务器”时才会使用“下载没有 Url 的文件...”选项。
+        注意: 仅当设置了“备用下载服务器”时才会使用“下载没有 URL... 的文件”选项。
 
-        注意: Windows RT 不支持此策略。在 Windows RT 电脑上设置此策略不起任何作用。</string>
+        注意: Windows RT 电脑不支持此策略。在 Windows RT 电脑上设置此策略不起任何作用。
+
+     为了确保最高级别的安全性，Microsoft 建议使用 TLS / SSL 协议保护 WSUS，从而使用基于 HTTPS 的 Intranet 服务器来确保系统安全。如果需要代理，我们建议配置系统代理。为确保最高级别的安全性，还可以在所有设备上利用 WSUS TLS 证书固定。
+
+       为了确保客户端固有的安全性，默认情况下，我们不再允许 Intranet 服务器利用用户代理来检测更新。如果尽管存在安全漏洞，仍需要利用用户代理在使用 Intranet 服务器时检测更新，必须将代理行为配置为“如果使用系统代理检测失败，允许用户代理用作回退”。
+
+        当需要用户代理作为回退并且未配置备用代理行为时，针对 Intranet 服务器的更新检测将失败。</string>
+      <string id="OnlyUseSystemProxyForUpdateDetection">仅使用系统代理检测 (默认的更新)</string>
+      <string id="AllowUserProxyAsFallbackForUpdateDetection">当使用系统代理进行检测时，允许将用户代理用作回退</string>
+      <string id="UpdateClassPolicySource_Title">指定特定 Windows 更新类的源服务</string>
+      <string id="UpdateClassPolicySource_Help">启用此策略后，设备将接收从指定的更新源中所列出类的 Windows 更新：Windows Update 或 Windows Server Update Service。
+
+注意：若要从 Windows Server 更新服务接收任何更新，必须通过 “指定 Intranet Microsoft 更新服务位置“ 策略正确配置 Intranet Microsoft 更新服务位置。
+
+ 如果未配置或禁用此策略，设备将继续按其他策略配置检测更新。
+
+注意：如果当前使用 “不允许延迟策略导致针对 Windows Update 的扫描” 以确保设备仅扫描所指定的服务器，我们建议改为配置此策略或补充此类策略。</string>
+      <string id="UpdateClassPolicySourceSelectionWU">Windows 更新</string>
+      <string id="UpdateClassPolicySourceSelectionWSUS">Windows Server 更新服务</string>
       <string id="DetectionFrequency_Help">指定 Windows 确定在检查可用更新前等待的时间(小时)。确切的等待时间是具体值和 0-4 小时之间的随机变量的总和。
 
         如果将状态设置为“启用”，Windows 将以指定的间隔检查可用更新。
@@ -160,17 +190,17 @@
       <string id="DetectionFrequency_Title">自动更新检测频率</string>
       <string id="ElevateNonAdmins_Help">使用此策略设置，可以控制非管理员用户是否基于“配置自动更新”策略设置接收更新通知。
 
-如果启用此策略设置，在确定哪个登录用户应接收更新通知时，Windows 自动更新和 Microsoft 更新会将非管理员包含在内。非管理员用户将能够安装收到通知的所有可选的、推荐的和重要的内容。用户不会看到“用户帐户控制”窗口，无需提升的权限即可安装这些更新，除非更新包含用户界面、最终用户许可协议或 Windows 更新设置更改。
+如果启用此策略设置，在确定哪个登录用户应接收更新通知时，Windows 自动更新和 Microsoft 更新会将非管理员包含在内。非管理员用户将能够安装收到通知的所有可选的、推荐的和重要的内容。用户不会看到“用户账户控制”窗口，无需提升的权限即可安装这些更新，除非更新包含用户界面、最终用户许可协议或 Windows 更新设置更改。
 
 在两种情况下，此设置的作用取决于操作系统: 一是隐藏/还原更新，二是取消安装。
 
-在 XP 上: 如果启用此策略设置，用户不会看到“用户帐户控制”窗口，无需提升的权限即可执行其中任一更新相关任务。
+在 XP 上: 如果启用此策略设置，用户不会看到“用户账户控制”窗口，无需提升的权限即可执行其中任一更新相关任务。
 
-在 Vista 上: 如果启用此策略设置，用户不会看到“用户帐户控制”窗口，无需提升的权限即可执行其中任一任务。如果不启用此策略设置，则用户始终会看到“帐户控制”窗口，并且需要提升的权限才能执行其中任一任务。
+在 Vista 上: 如果启用此策略设置，用户不会看到“用户账户控制”窗口，无需提升的权限即可执行其中任一任务。如果不启用此策略设置，则用户始终会看到“账户控制”窗口，并且需要提升的权限才能执行其中任一任务。
 
-在 Windows 7 上: 此策略设置无效。用户始终会看到“帐户控制”窗口，并且需要提升的权限才能执行其中任一任务。
+在 Windows 7 上: 此策略设置无效。用户始终会看到“账户控制”窗口，并且需要提升的权限才能执行其中任一任务。
 
-在 Windows 8 和 Windows RT 上: 此策略设置无效。用户始终会看到“帐户控制”窗口，并且需要提升的权限才能执行其中任一任务。
+在 Windows 8 和 Windows RT 上: 此策略设置无效。用户始终会看到“账户控制”窗口，并且需要提升的权限才能执行其中任一任务。
 
 如果禁用此策略设置，则只有管理员用户才会收到更新通知。
 
@@ -289,6 +319,12 @@ Windows 更新还将唤醒系统并在安装最后期限安装更新。
 注意: 在 Windows RT 上不支持此策略。设置此策略对 Windows RT 电脑没有任何影响。</string>
       <string id="TargetGroup_Title">允许客户端目标设置</string>
       <string id="WindowsUpdateCat">Windows 更新</string>
+      <!--Category sub-folders-->
+      <string id="WindowsUpdateOffering">管理从 Windows 更新提供的更新</string>
+      <string id="WSUSOffering">管理 Windows Server Update Service 提供的更新</string>
+      <string id="WindowsUpdateExperience">管理最终用户体验</string>
+      <string id="PreSV">旧策略</string>
+
       <string id="TrustedPublisher_Title">允许来自 Intranet Microsoft 更新服务位置的签名更新  </string>
       <string id="TrustedPublisher_Help">使用此策略设置可管理: 在更新来自 Intranet Microsoft 更新服务位置时，自动更新是否接受 Microsoft 以外实体签名的更新。
 
@@ -304,48 +340,34 @@ Windows 更新还将唤醒系统并在安装最后期限安装更新。
 启用此策略将禁用该功能，并且可能会导致 Windows 应用商店等公共服务连接中断。
 
 注意：只有当配置此电脑使用“指定 Intranet Microsoft 更新服务位置”策略连接 Intranet 更新服务时才适用此策略。</string>
-      <string id="DeferUpdateCat">适用于企业的 Windows 更新</string>
       <string id="ManagePreviewBuilds_Title">管理预览版</string>
-      <string id="ManagePreviewBuilds_Help">选择“禁用预览构建”将防止预览版本安装在设备上。通过设置 -&gt; 更新和安全， 这将防止用户选择进入 Windows 内部程序。
+      <string id="ManagePreviewBuilds_Help">启用此策略可管理发布更新之前接收的更新。
 
-选择“一旦下一版本公开，则禁用预览构建”将在下一个 Windows 发布公开时，阻止预览构建安装于设备。当您的设备被设置为安装预览，并且您希望优雅地退出该设备进行飞行时，该选项有用。此选项将提供预览构建，直到设备获得下一个公共发布版本。
+开发频道
+非常适合高度技术性的用户。开发频道中的预览体验成员将从开发周期中最早的活动开发分支接收内部版本。这些内部版本未与特定的 Windows 10 版本匹配。
 
-选择“启用预览构建”将使设备上安装预览构建。用户可以通过设置 -&gt; 更新和安全 -&gt; Windows 内幕程序来下载并安装 Windows 预览版本。管理员也可以使用其他策略来管理用户设置该值的飞行设置。</string>
-      <string id="DisablePreviewBuilds">禁用预览版</string>
-      <string id="DisablePreviewBuildsAndOptOut">下个发行版本上市后禁用预览版</string>
-      <string id="EnablePreviewBuilds">启用预览版</string>
-      <string id="PreviewBuildFastFeatureUpdates">预览版 - 快</string>
-      <string id="PreviewBuildSlowFeatureUpdates">预览版 - 慢</string>
-      <string id="ReleasePreviewBranchFeatureUpdates">版本预览</string>
-      <string id="SemiAnnualChannelFeatureUpdates">半年频道</string>
-      <string id="SemiAnnualChannelFeatureUpdatesDeprecated">适用于 1809 及以下版本的半年频道(已弃用)</string>
-      <string id="SemiAnnualChannelFeatureUpdatesTargetedDeprecated">适用于 1809 及以下版本的半年频道(定向)(已弃用)</string>
+Beta 版频道
+非常适合想要查看即将面世的 Windows 10 功能的功能浏览者。在这里，你的反馈非常重要，因为它将帮助我们的工程师确保重要问题在主要版本发布之前已修复。
+
+发布预览频道(默认值)
+在发布之前，发布预览频道中的预览体验成员将有权访问即将发布的 Windows 10。这些内部版本由 Microsoft 支持。我们建议公司在发布预览频道中预览和验证即将发布的 Windows 10 版本，然后再在组织内进行广泛部署。
+
+发布预览频道，仅
+质量更新非常适合于那些希望验证即将在其当前版本中推出的功能和修复的用户。注意: 当选择此选项后，会根据配置的策略继续提供发布的功能更新。
+
+注意:预览版注册需要遥测级别设置为 2 或更高，并且要求你的域在 insider.windows.com 上注册。有关预览版的其他信息，请参阅: https://aka.ms/wipforbiz
+
+如果禁用或未配置此策略，Windows 更新将不会为你提供任何预发布更新，你将在其发布后收到此类内容。禁用此策略将导致所有当前处于预发布内部版本的设备退出并在发布后保持最新的功能更新。</string>
+      <string id="DevChannel">开发人员频道</string>
+      <string id="BetaChannel">Beta 频道</string>
+      <string id="ReleasePreviewChannel">发布预览频道</string>
+      <string id="ReleasePreviewQualityOnly">仅质量更新的发布预览</string>
       <string id="DeferFeatureUpdates_Title">选择何时接收预览版和功能更新</string>
-      <string id="DeferFeatureUpdates_Help">启用此策略可指定要接收的预览版或功能更新的级别以及接收时间。
+      <string id="DeferFeatureUpdates_Help">启用此策略以指定何时接收功能更新。
 
-* 预览版 - 快: 设置为该级别的设备将最先收到新的 Windows 内部版本，其中包含尚未面向公众发布的功能。选择“快”可参与识别问题并向 Microsoft 报告问题，并提供有关新功能的建议。
-* 预览版 - 慢: 设置为该级别的设备将在新的 Windows 内部版本面向公众发布之前收到这些新版本，但是比设置为“快”的设备的节奏更慢，且会收到对早期内部版本的更改和修补程序。
-* Release Preview: 在 Microsoft 面向公众发布 Windows 内部版本之前接收这些版本。
-* 半年频道: 在功能更新面向公众发布之后收到功能更新。
+定义更新|这使设备可以延迟获取适用于其当前产品的下一个功能更新（如果在"选择目标功能更新"版本策略中指定了新产品）。对于所有预发布频道，最多可将功能更新延迟 14 天，对于正式发布频道，最多可延迟 365 天。若要了解有关当前版本的详细信息， 请参阅 aka.ms/WindowsTargetVersioninfo
 
-以下 Windows 就绪级别已弃用，仅适用于 1809 及以下版本:
-* 适用于 1809 及以下的半年频道(定向): 功能更新已发布。
-* 适用于 1809 及以下版本的半年频道: 功能更新已声明为“半年频道”，表明版本已准备就绪，可用于广泛部署。
-请查看 http://aka.ms/ReleaseInformationPage 中的版本信息页面以获得半年频道(定向)和半年频道的发布日期。
-
-当选择预览版时:
-    - 最多可以延迟接收预览版 14 天。
-    - 若要防止按计划时间接收预览版，可以将其暂停。暂停将从提供的起始时间起生效，并持续 35 天。
-    - 若要恢复接收已暂停的功能更新，请清除开始日期字段。
-
-预览版注册要求遥测级别设置为 2 或更高，并且你的域已在 insider.windows.com 上注册。有关预览版的其他信息，请参阅: https://aka.ms/wipforbiz
-
-当选择半年频道时:
-    - 你可以延迟接收功能更新最多 365 天。
-    - 若要避免按计划时间接收功能更新，可以将其暂停。暂停将从提供的起始时间起生效，并持续 35 天。
-    - 若要恢复接收已暂停的功能更新，请清除开始日期字段。
-
-如果禁用或未配置此策略，则 Windows 更新不会改变其行为。</string>
+Pause Updates |若要防止向设备提供功能更新，可以暂时暂停功能更新。此暂停将从指定的开始日期起或在清除字段之前的 35 天内保持有效。请注意，即使功能更新已暂停，仍会提供质量更新。</string>
       <string id="DeferQualityUpdates_Title">选择何时接收质量更新</string>
       <string id="DeferQualityUpdates_Help">启用此策略可指定何时接收质量更新。
 
@@ -356,6 +378,20 @@ Windows 更新还将唤醒系统并在安装最后期限安装更新。
 若要继续接收已暂停的质量更新，请清除开始日期字段。
 
 如果禁用或不配置此策略，Windows 更新不会改变其行为。</string>
+      <string id="TargetReleaseVersion_Title">选择目标功能更新版本</string>
+      <string id="TargetReleaseVersion_Help">输入 Windows 更新目标版本页面上列出的产品和版本:
+
+                        aka.ms/WindowsTargetVersioninfo
+
+设备将在后续扫描中请求 Windows 更新产品和版本。
+
+输入目标产品并单击“确定”或“应用”即表示我接受位于 aka.ms/WindowsTargetVersioninfo 的 Microsoft 软件许可条款。如果某组织正在授权使用该软件，则我有权绑定该组织。
+
+如果你输入的值无效，则你将继续使用当前版本，直到你将该值更正为受支持的产品和版本。</string>
+      <string id="DisableWUfBSafeguards">禁用功能更新的安全措施</string>
+      <string id="DisableWUfBSafeguards_Help">
+          若要在不阻止任何安全措施的情况下将功能更新部署到设备，请启用此设置。 安全措施是已知的兼容性问题，阻止将升级部署到受影响的设备，直到问题解决。 启用此策略可以允许组织将功能更新部署到设备以进行测试，或在不阻止安全措施的情况下部署功能更新。
+      </string>
       <string id="ExcludeWUDriversInQualityUpdate_Title">Windows 更新不包括驱动程序</string>
       <string id="ExcludeWUDriversInQualityUpdate_Help">启用此策略将不会在 Windows 质量更新中包括驱动程序。
 
@@ -448,6 +484,16 @@ Windows 更新还将唤醒系统并在安装最后期限安装更新。
       <string id="DisablePauseUXAccess_Help">该设置允许移除访问 “暂停更新” 功能。
 
 一旦启用，用户对暂停更新的访问将被移除。
+      </string>
+
+      <string id="MaxPauseDays_Title">配置可暂停更新的最大天数</string>
+      <string id="MaxPauseDays_Help">此策略控制最终用户可以暂停更新的最大天数。
+
+支持的值为 1-35。默认值为 35 (天)。
+
+配置策略后，用户只能暂停更新，直到策略指定的时间段结束。达到配置的限制后，用户无法再延长暂停。
+
+如果禁用或未配置该策略，则应用默认暂停行为 - 使用户能够一次连续暂停更新最多 35 天。此策略不会完全禁用暂停更新。若要删除对暂停更新的访问权限，请使用“删除'暂停更新'功能的访问权限”策略。
       </string>
 
       <string id="ActiveHoursMaxRange_Title">为自动重新启动指定使用时段范围</string>
@@ -568,7 +614,7 @@ Windows 更新还将唤醒系统并在安装最后期限安装更新。
       <string id="EngagedRestartSnooze_2">2</string>
       <string id="EngagedRestartSnooze_3">3</string>
 
-      <string id="SetEDURestart_Title">更新针对电脑车重启的电源策略</string>
+      <string id="SetEDURestart_Title">更新群组设备重启电源策略</string>
       <string id="SetEDURestart_Help">对于整夜保留在电脑车上的 EDU 设备，启用此策略将跳过电源检查以便确保更新重启将在计划的安装时间外发生。</string>
 
       <string id="AllowAutoWindowsUpdateDownloadOverMeteredNetwork_Title">允许通过按流量计费的连接自动下载更新</string>
@@ -581,31 +627,52 @@ Windows 更新还将唤醒系统并在安装最后期限安装更新。
 注意: 此策略仅在以下情况适用: 此计算机定向到的 Intranet Microsoft 更新服务被配置为支持客户端目标设置。如果禁用或未配置“指定 Intranet Microsoft 更新服务位置”策略，则此策略无效。
       </string>
       <string id="UpdateNotificationLevel_Title">更新通知显示选项</string>
-      <string id="UpdateNotificationLevel_Help">0(默认值) - 使用默认的 Windows 更新通知
-1 - 关闭所有通知, 但不包括重启警告
-2 – 关闭所有通知, 包括重启警告
+      <string id="UpdateNotificationLevel_Help">0 (默认) – 使用默认的 Windows 更新通知
+1 – 关闭所有通知，不包括重启警告
+2 – 关闭所有通知，包括重启警告
 
-此策略允许你定义 Windows 更新通知用户看到的内容。此策略不控制如何以及何时下载和安装更新。
+此策略允许你定义向用户显示的 Windows 更新通知。该策略不会控制下载和安装更新的方式和时间。
 
-重要提示: 如果选择不获取更新通知, 且通过定义其他组策略来避免设备自动获取更新, 则你和设备用户均不会收到关键安全、质量或功能更新的通知, 但你的设备可能会处于风险之中。
+重要提示: 如果你选择不接收更新通知，并且还定义了其他组策略以使设备不会自动获取更新，则你和设备用户将无法知悉重要的安全、质量或功能更新，并且你的设备可能面临风险。
+
+如果你选择将“仅在使用时段应用”与选项 1 或 2 结合使用，则只会在使用时段禁用通知。你可以通过设置“在使用时段关闭针对更新的自动重新启动”来设置使用时段，或允许设备根据用户行为设置使用时段。为确保设备保持安全，如果已达到“指定自动更新和重启的最后期限”中配置的最后期限，则无论使用时段如何，在选择此选项后都会显示通知。
       </string>
       <string id="DefaultNotification">0 (默认) – 默认 OS Windows 更新通知 </string>
       <string id="ExcludingRebootWarnings">1 – 禁止所有通知，不包括重启警告</string>
       <string id="IncludingRebootWarnings">2 – 禁止所有通知，包括重启警告</string>
-      <string id="ComplianceDeadline_Title">指定自动更新和重启的最后期限</string>
-      <string id="ComplianceDeadline_Help">此策略允许你指定用户在其设备上自动安装质量和功能更新前所拥有的天数，以及在需要自动重启后所拥有的宽限期。将进行更新并重启，而不考虑使用时段，用户将无法重新计划。
+      <string id="ComplianceDeadlineForFU_Title">Specify deadline for automatic updates and restarts for feature update</string>
+      <string id="ComplianceDeadlineForFU_Help">This policy lets you specify the number of days before feature updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
 
-功能更新和质量更新的最后期限可以是最多 30 天。自动重启宽限期可以是从 0 到 7 天。
+Set deadlines for feature updates and quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
 
-你还可以在自动重启宽限期结束之前，禁用自动重启。
+Set a grace period for feature updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
 
-如果禁用或未配置此策略，设备将获取更新并按照默认计划重启。
+You can set the device to delay restarting until both the deadline and grace period have expired.
 
-此策略将覆盖以下策略:
-1.  指定更新安装进行自动重启之前的最后期限
-2.  为更新指定预定重启转换和通知计划 
-3.  始终在计划的时间自动重启
-4.  已登录用户进行计划的自动更新安装时不自动重启
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
+      </string>
+      <string id="ComplianceDeadlineForQU_Title">Specify deadline for automatic updates and restarts for quality update</string>
+      <string id="ComplianceDeadlineForQU_Help">This policy lets you specify the number of days before quality updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
+
+Set deadlines for quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
+
+Set a grace period for quality updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
+
+You can set the device to delay restarting until both the deadline and grace period have expired.
+
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
       </string>
       <string id="ComplianceDeadlineDay0">0</string>
       <string id="ComplianceDeadlineDay1">1</string>
@@ -638,6 +705,103 @@ Windows 更新还将唤醒系统并在安装最后期限安装更新。
       <string id="ComplianceDeadlineDay28">28</string>
       <string id="ComplianceDeadlineDay29">29</string>
       <string id="ComplianceDeadlineDay30">30</string>
+
+      <string id="AllowTemporaryEnterpriseFeatureControl_Title">启用通过默认关闭的服务引入的功能</string>
+      <string id="AllowTemporaryEnterpriseFeatureControl_Help">对于托管 Windows 更新的设备，通过维护(在年度功能更新之外)引入的功能默认关闭*。
+
+如果此策略配置为“已启用”，则安装的最新月度质量更新中提供的所有功能都将处于启用状态。
+
+如果此策略设置为“未配置”或“已禁用”，则通过每月质量更新(维护)提供的功能将保持关闭状态，直到安装了包含这些功能的功能更新。
+
+*Windows 更新托管设备是通过策略管理其 Windows 更新的设备，无论是通过云使用适用于企业的 Windows 更新，还是在本地通过 Windows Server Update Services (WSUS)。
+      </string>
+      <string id="AllowOptionalContent_Title">启用可选更新</string>
+      <string id="AllowOptionalContent_Help">使用此策略，设备可以获取可选的更新(包括逐步功能推出 (CFP) - 访问 aka.ms/AllowOptionalContent 了解详细信息)
+
+配置策略时
+
+• 如果选择“自动接收可选更新(包括 CFP)”，设备将根据配置的质量更新延迟自动获取最新的可选更新。这包括可选的累积更新和逐步功能推出(CFP)。
+
+• 如果选择“自动接收可选更新”，设备将仅根据质量更新延迟自动获取可选的累积更新。
+
+• 如果选择“用户可以选择要接收的可选更新”，用户可以访问“设置”&gt;“Windows 更新”&gt;“高级选项”&gt;“可选更新”以选择要获取的可选更新。用户还可以启用“在最新更新可用时立即获取”开关，从而自动接收可选的更新和逐步功能推出。
+      </string>
+      <string id="DonotReceiveOptionalContent">不接收可选更新</string>
+      <string id="ReceiveOptionalContentWithAutoApproval">自动接收可选更新(包括 CPR)</string>
+      <string id="ReceiveOptionalLCUWithAutoApproval">自动接收可选更新</string>
+      <string id="ReceiveOptionalContentNeedUserApproval">用户可以选择要接收的可选更新</string>
+
+      <string id="MaintenanceWindow_Title">配置自动更新的维护时段</string>
+      <string id="MaintenanceWindow_Help">启用此策略可指定设备执行指定更新操作的可重复维护时段。
+
+启用此策略后，Windows 更新将仅在配置的维护时段内执行指定的更新操作。在维护时段之外指定的更新操作将延迟到下一个维护时段开始时。
+
+• 更新操作: 选择仅允许在维护时段内执行的更新操作。如果未选择更新操作，则该操作可能会在维护时段之外发生。
+    - 下载、安装并重启: 完成更新周期，包括下载、安装和系统重启
+    - 安装并重启: 安装已下载的更新并重启设备
+    - 仅重启: 仅针对待处理的更新执行系统重启
+
+• 基本计划配置:
+    - 开始日期: 指定第一个维护时段开始的初始日期(格式: yyyy-mm-dd，例如: 2025-10-30)
+      * 仅当定期计划设置为“无”时，“开始日期”字段才生效
+    - 开始时间: 设置维护时段开始的时间(格式: hh:mm，例如: 23:30 表示晚上 11:30)
+    - 持续时间: 定义每个维护时段的持续时间(以小时为单位)(例如: 2 表示 2 小时时段)
+
+• 定期计划选项:
+    - 无重复: 仅限指定开始日期的一次性维护时段
+    - 每日: 维护时段每天重复
+    - 每周: 维护时段将在选定的星期几重复
+    - 每月: 维护时段将在特定日期每月重复
+
+• 每周计划设置(选择“每周”时):
+    - 星期几选择: 选择维护时段发生在星期几:
+        * 星期日到星期六: 选中用于为维护时段选择一周中特定日子的复选框
+
+• 每月计划设置(选择“每月”时):
+    - 每月计划类型:
+        * 基于日期: 维护时段发生在一个月的特定日期(例如: 每月的第 15 天)
+        * 基于周: 维护时段在一个月内的特定工作日发生(例如: 每月的第 2 个星期二)
+        * 月中的最后一天: 维护时段发生在月中的最后一天
+    - 月中的某一天: 使用基于日期的计划时，指定月份中的哪一天(1-28)
+    - 在月中发生: 使用基于周的计划时，选择月中的哪一周(第一周、第二周、第三周、第四周或最后一周)
+    - 星期几: 使用基于周的计划时，选择星期几(星期日到星期六)
+
+每月配置示例:
+    - 基于日期:“每月的第 3 天”= 月中的某一天: 3
+    - 基于周:“每月的第二个星期二”= 发生: 第二个，星期几: 星期二
+    - 基于周:“每月的最后一个星期五”= 发生: 最后，星期几: 星期五
+    - 月中的最后一天:“每月的最后一天”
+
+发生非重复性维护时段后，必须在 3 个月内计划下一个维护时段。如果非重复维护时段的开始日期在超过 3 个月之前，则将忽略此策略，并且将根据默认设置计划更新。
+
+如果禁用或未配置此策略，Windows 更新将遵循其默认计划行为。</string>
+      <!-- MaintenanceWindowUpdateActionsID dropdown options -->
+      <string id="MaintenanceWindowUpdateActions_DownloadInstallRestart">下载、安装并重启</string>
+      <string id="MaintenanceWindowUpdateActions_InstallRestart">安装并重启</string>
+      <string id="MaintenanceWindowUpdateActions_RestartOnly">仅重启</string>
+      <!-- MaintenanceWindowRepeatScheduleOption dropdown options -->
+      <string id="MaintenanceWindowRepeatSchedule_NoRepeat">无重复</string>
+      <string id="MaintenanceWindowRepeatSchedule_Daily">每天</string>
+      <string id="MaintenanceWindowRepeatSchedule_Weekly">每周</string>
+      <string id="MaintenanceWindowRepeatSchedule_Monthly">每月</string>
+      <!-- MaintenanceWindowMonthlyScheduleID dropdown options -->
+      <string id="MaintenanceWindowMonthlySchedule_MonthBased">基于日期</string>
+      <string id="MaintenanceWindowMonthlySchedule_WeekBased">基于周</string>
+      <string id="MaintenanceWindowMonthlySchedule_LastDay">一个月中的最后一天</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_First">第一个</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Second">第二个</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Third">第三个</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Fourth">第四个</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Last">最新</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedDayOfTheWeek dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Sunday">星期日</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Monday">星期一</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Tuesday">星期二</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Wednesday">星期三</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Thursday">星期四</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Friday">星期五</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Saturday">星期六</string>
     </stringTable>
 
     <presentationTable>
@@ -669,21 +833,28 @@ Windows 更新还将唤醒系统并在安装最后期限安装更新。
         <textBox refId="CorpWUContentHost_Name">
           <label>设置备用下载服务器:</label>
         </textBox>
-        <text>（例如：http://IntranetUpd01）</text>
+        <text>(示例： https://IntranetUpd01)</text>
         <checkBox refId="CorpWUFillEmptyContentUrls" defaultChecked="false">如果设置了备用下载服务器，则下载元数据中没有 Url 的文件。</checkBox>
+        <checkBox refId="CorpWUDoNotEnforceEnterpriseTLSCertPinningForUpdateDetection" defaultChecked="false">不要对 Windows 更新客户端强制执行 TLS 证书固定以检测更新。</checkBox>
+        <dropdownList refId="SetProxyBehaviorForUpdateDetection" noSort="true" defaultItem="0">选择 Windows 更新客户端用于检测更新的代理行为：</dropdownList>
+      </presentation>
+      <presentation id="UpdateClassPolicySource_Title">
+        <text>指定以下 Windows 更新类的源服务：</text>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForFeatureUpdates" noSort="true" defaultItem="0">功能更新</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForQualityUpdates" noSort="true" defaultItem="0">质量更新</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForDriverUpdates" noSort="true" defaultItem="0">驱动程序更新</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForOtherUpdates" noSort="true" defaultItem="0">其他更新</dropdownList>
       </presentation>
       <presentation id="DetectionFrequency_Title">
         <text>检查下列更新的</text>
         <decimalTextBox refId="DetectionFrequency_Hour2" defaultValue="22">间隔（小时）：  </decimalTextBox>
       </presentation>
       <presentation id="RebootRelaunchTimeout_Title">
-        <text>在再次提示计划重新启动</text>
-        <text>前等待</text>
+        <text>请等待以下时间段，然后再次提示</text>
         <decimalTextBox refId="RebootRelaunchTimeout_Minutes3" defaultValue="10">的时间（分钟）：  </decimalTextBox>
       </presentation>
       <presentation id="RebootWarningTimeout_Title">
-        <text>在继续执行计划重新启动</text>
-        <text>前等待</text>
+        <text>请先等待以下一段时间，然后再继续进行计划</text>
         <decimalTextBox refId="RebootWarningTimeout_Minutes3" defaultValue="5">的时间（分钟）：  </decimalTextBox>
       </presentation>
       <presentation id="RescheduleWaitTime_Title">
@@ -695,22 +866,23 @@ Windows 更新还将唤醒系统并在安装最后期限安装更新。
           <label>此计算机的目标组名称</label>
         </textBox>
       </presentation>
-      <presentation id="IdleShutdownTimerDuration_Title">
-        <text>在再次提示计划重新启动</text>
-        <text>关闭服务前处于空闲状态</text>
-        <decimalTextBox refId="IdleShutdownTimerDuration_Minutes" defaultValue="10">的时间（分钟）：  </decimalTextBox>
-      </presentation>
       <presentation id="AlwaysAutoRebootAtScheduledTime_Presentation">
-        <text>重新启动计时器将为用户预留</text>
-        <text>足够时间保存其</text>
+        <text>重启计时器将给用户这些时间以保存其</text>
         <decimalTextBox refId="AlwaysAutoRebootAtScheduledTime_Minutes" defaultValue="15">工作（分钟）：  </decimalTextBox>
       </presentation>
+      <presentation id="TargetReleaseVersion">
+        <textBox refId="ProductVersionId">
+          <label>你希望接收哪个 Windows 产品版本的功能更新？例如，Windows 10</label>
+        </textBox>
+        <textBox refId="TargetReleaseVersionId">
+          <label>功能更新的目标版本</label>
+        </textBox>
+      </presentation>
       <presentation id="ManagePreviewBuilds">
-        <dropdownList refId="ManagePreviewBuildsId" noSort="true" defaultItem="2">设置接收预览版的行为:</dropdownList>
+        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">选择要接收更新的 Windows 就绪级别:</dropdownList>
       </presentation>
       <presentation id="DeferFeatureUpdates">
-        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">选择要接收更新的 Windows 就绪级别:</dropdownList>
-        <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">在预览版或功能更新发布后，延迟以下天数后再予以接收:</decimalTextBox>
+       <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">在功能更新发布后和设备可更新之前，你想推迟更新几天？</decimalTextBox>
         <textBox refId="PauseFeatureUpdatesStartId">
           <label>开始暂停预览版或功能更新:</label>
         </textBox>
@@ -732,6 +904,10 @@ Windows 更新还将唤醒系统并在安装最后期限安装更新。
         <text>指定天数，在此天数后未完成的重新启动将在使用时段以外的时间自动执行: </text>
         <dropdownList refId="AutoRestartDeadline" noSort="true" defaultItem="5">质量更新(天): </dropdownList>
         <dropdownList refId="AutoRestartDeadlineForFeatureUpdates" noSort="true" defaultItem="5">功能更新(天): </dropdownList>
+      </presentation>
+      <presentation id="MaxPauseDays_Title">
+        <text>指定用户可以暂停更新的天数：</text>
+        <decimalTextBox refId="SetMaxPauseDays" noSort="true" defaultValue="35">最长暂停天数: </decimalTextBox>
       </presentation>
       <presentation id="ActiveHoursMaxRange_Title">
         <text>指定最大使用时段范围:</text>
@@ -768,16 +944,50 @@ Windows 更新还将唤醒系统并在安装最后期限安装更新。
       </presentation>
       <presentation id="UpdateNotificationLevel_Title">
         <dropdownList refId="UpdateNotificationLevel" noSort="true" defaultItem="0">指定更新通知显示选项:</dropdownList>
+        <text></text>
+        <checkBox refId="NoUpdateNotificationsDuringActiveHours" defaultChecked="false">仅在使用时段应用</checkBox>
       </presentation>
-      <presentation id="ComplianceDeadline_Title">
-        <text>指定自动运行更新前用户可以推迟的天数 (最多30天)。注意！这个选项不会考虑你使用计算机的时间，并且不能再次推迟更新计划。</text>
-        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="5">质量更新(天数): </dropdownList>
-        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="5">功能更新(天数):</dropdownList>
+       <presentation id="ComplianceDeadlineForFU_Title">
+        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="2">最后期限(天):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriodForFeatureUpdates" noSort="true" defaultItem="7">宽限期(天):</dropdownList>
         <text></text>
-        <text>指定从需要重启时间到设备自动重启的自动重启宽限期(0 到 7 天)。设备将重启，不考虑使用时段，且无法重新计划。</text>
-        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">宽限期(天数)</dropdownList>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForFeatureUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="ComplianceDeadlineForQU_Title">
+        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="7">最后期限(天):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">宽限期(天):</dropdownList>
         <text></text>
-        <checkBox refId="ConfigureDeadlineNoAutoReboot" defaultChecked="false">在宽限期结束前不自动重启</checkBox>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForQualityUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="AllowOptionalContent_Title">
+        <dropdownList refId="AllowOptionalContent" noSort="true" defaultItem="0">选择用户接收可选更新的方式:</dropdownList>
+      </presentation>
+      <presentation id="MaintenanceWindow_Title">
+        <text>维护时段:</text>
+        <dropdownList refId="MaintenanceWindowUpdateActionsID" noSort="true" defaultItem="1">仅允许在维护时段内执行更新操作:</dropdownList>
+        <textBox refId="MaintenanceWindowStartDateID">
+            <label>开始日期(格式: yyyy-mm-dd 示例: 2025-10-30)</label>
+        </textBox>
+        <textBox refId="MaintenanceWindowStartTimeID">
+            <label>开始时间(格式: hh:mm 示例: 23:30 表示晚上 11:30)</label>
+        </textBox>
+        <decimalTextBox refId="MaintenanceWindowDurationHoursID" defaultValue="2">持续时间(小时):</decimalTextBox>
+        <dropdownList refId="MaintenanceWindowRepeatScheduleOptionID" noSort="true" defaultItem="1">选择重复计划:</dropdownList>
+        <text>下列设置仅在选中“每周”时才需要和适用:</text>
+        <checkBox refId="MaintenanceWindowWeeklySundayID" defaultChecked="false">星期日</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyMondayID" defaultChecked="false">星期一</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyTuesdayID" defaultChecked="false">星期二</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyWednesdayID" defaultChecked="false">星期三</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyThursdayID" defaultChecked="false">星期四</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyFridayID" defaultChecked="false">星期五</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklySaturdayID" defaultChecked="false">星期六</checkBox>
+        <text>下列设置仅在选中“每月”时才需要且适用:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyScheduleID" noSort="true" defaultItem="1">每月计划类型:</dropdownList>
+        <text>下列设置仅在选中“基于日期”类型时才需要和适用:</text>
+        <decimalTextBox refId="MaintenanceWindowMonthlyMonthBasedDayOfMonthID" defaultValue="1">月份中的某一天:</decimalTextBox>
+        <text>下列设置仅在选中“基于周”类型时才需要和适用:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonthID" noSort="true" defaultItem="1">每月出现次数</dropdownList>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedDayOfTheWeekID" noSort="true" defaultItem="1">星期几</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

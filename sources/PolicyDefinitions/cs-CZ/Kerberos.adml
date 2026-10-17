@@ -22,19 +22,18 @@ Pokud toto nastavení zakážete, bude seznam mapování názvů hostitelů do s
 Pokud toto nastavení nenakonfigurujete, systém použije mapování názvů hostitelů do sféry Kerberos, která jsou definována v místním registru (pokud existují).</string>
       <string id="MitRealms">Definovat mezioperační nastavení sféry Kerberos V5</string>
       <string id="MitRealms_explain">Toto nastavení zásad nakonfiguruje klienta služby Kerberos tak, aby se mohl ověřovat s mezioperačními sférami Kerberos V5, jak jsou definovány tímto nastavením zásad.
-      
-Pokud toto nastavení zásad povolíte, můžete zobrazit a změnit seznam mezioperačních sfér Kerberos V5 a jejich nastavení. Pokud chcete zobrazit seznam mezioperačních sfér Kerberos V5, povolte toto nastavení zásad a potom klikněte na tlačítko Zobrazit. Chcete-li přidat mezioperační sféru Kerberos V5, povolte toto nastavení, povšimněte si syntaxe a klikněte na tlačítko Zobrazit. V dialogovém okně Zobrazit obsah ve sloupci Název hodnoty zadejte název mezioperační sféry Kerberos V5. Ve sloupci Hodnota zadejte příznaky sféry a názvy hostitelů serverů KDC v odpovídajícím formátu syntaxe. Pokud chcete položku Název hodnoty nebo Hodnota mezioperační sféry Kerberos V5 odebrat ze seznamu, klikněte na položku a potom stiskněte klávesu Delete. Pokud chcete mapování upravit, odeberte stávající položku ze seznamu a přidejte novou s jinými parametry.
+
+Pokud toto nastavení zásad povolíte, můžete zobrazit a změnit seznam mezioperačních sfér Kerberos V5 a jejich nastavení. Pokud chcete zobrazit seznam mezioperačních sfér Kerberos V5, povolte toto nastavení zásad a potom klikněte na tlačítko Zobrazit. Pokud chcete přidat mezioperační sféru Kerberos V5, povolte toto nastavení, povšimněte si syntaxe a klikněte na tlačítko Zobrazit. V dialogovém okně Zobrazit obsah ve sloupci Název hodnoty zadejte název mezioperační sféry Kerberos V5. Ve sloupci Hodnota zadejte příznaky sféry a názvy hostitelů serverů KDC v odpovídajícím formátu syntaxe. Pokud chcete položku Název hodnoty nebo Hodnota mezioperační sféry Kerberos V5 odebrat ze seznamu, klikněte na položku a potom stiskněte klávesu Delete. Pokud chcete mapování upravit, odeberte stávající položku ze seznamu a přidejte novou s jinými parametry.
 
 Pokud toto nastavení zakážete, bude nastavení mezioperační sféry Kerberos V5 definované zásadami skupiny odstraněno.
 
 Pokud toto nastavení nenakonfigurujete, systém použije nastavení mezioperační sféry Kerberos V5, která jsou nadefinována v místním registru, pokud existují.</string>
       <string id="ValidateKDC">Požadovat striktní ověření službou KDC</string>
-      <string id="ValidateKDC_explain">Toto nastavení zásad řídí chování klienta služby Kerberos při ověřování certifikátu KDC pro přihlášení pomocí čipových karet a systémových certifikátů.  
+      <string id="ValidateKDC_explain">Toto nastavení zásad řídí chování klienta služby Kerberos při ověřování certifikátu KDC pro přihlášení pomocí čipových karet a systémových certifikátů.
 
 Pokud toto nastavení zásad povolíte, klient služby Kerberos bude vyžadovat, aby certifikát X.509 služby KDC obsahoval klíčový identifikátor objektu KDC v rozšířeních EKU (Extended Key Usage) a aby certifikát X.509 služby KDC obsahoval příponu dNSName subjectAltName (SAN), která souhlasí s názvem DNS domény. Pokud bude počítač připojen k nějaké doméně, klient služby Kerberos bude vyžadovat, aby byl certifikát X.509 služby KDC podepsán certifikační autoritou v úložném prostoru NTAuth. Pokud počítač není připojen k doméně, klient služby Kerberos dovolí použít kořenový certifikát certifikační autority na čipové kartě v cestě ověření certifikátu X.509 služby KDC.
 
 Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, klient služby Kerberos bude pouze požadovat, aby certifikát KDC obsahoval v rozšířeních EKU identifikátor objektu s účelem Ověření serveru, který může být vystaven pro jakýkoli server.
-
 </string>
       <string id="StrictTarget">Vyžadovat striktní shodu hlavního názvu služby (SPN) u vzdálených volání procedur</string>
       <string id="StrictTarget_explain">  Toto nastavení zásad umožňuje nakonfigurovat tento server tak, aby služba Kerberos mohla dešifrovat lístek obsahující tento hlavní název služby (SPN) generovaný systémem. Když se aplikace pokusí uskutečnit vzdálené volání procedur na tento server s hodnotou NULL pro hlavní název služby (SPN), pokusí se počítače se systémem Windows 7 nebo novějším použít službu Kerberos generováním hlavního názvu služby.
@@ -94,16 +93,14 @@ Pokud toto nastavení zásad nenakonfigurujete, použije se možnost Automaticky
 
       <string id="MaxTokenSize">Nastavit maximální velikost vyrovnávací paměti tokenů kontextu rozhraní SSPI služby Kerberos</string>
       <string id="MaxTokenSize_explain">Toto nastavení zásad umožňuje nastavit hodnotu, která bude vrácena aplikacím, jež požadují maximální velikost vyrovnávací paměti tokenů kontextu rozhraní SSPI.
-              
-Velikost této vyrovnávací paměti určuje maximální velikost tokenů kontextu rozhraní SSPI, kterou aplikace očekává a přiděluje. V závislosti na zpracování žádostí o ověření a členství ve skupinách může být vyrovnávací paměť menší než skutečná velikost tokenů kontextu rozhraní SSPI. 
+
+Velikost této vyrovnávací paměti určuje maximální velikost tokenů kontextu rozhraní SSPI, kterou aplikace očekává a přiděluje. V závislosti na zpracování žádostí o ověření a členství ve skupinách může být vyrovnávací paměť menší než skutečná velikost tokenů kontextu rozhraní SSPI.
 
 Pokud toto nastavení zásad povolíte, použije klient nebo server služby Kerberos nakonfigurovanou hodnotu nebo místně povolenou maximální hodnotu podle toho, která z nich je menší.
 
-Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, použije klient nebo server služby Kerberos místně povolenou maximální hodnotu nebo výchozí hodnotu. 
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, použije klient nebo server služby Kerberos místně povolenou maximální hodnotu nebo výchozí hodnotu.
 
 Poznámka: Nastavení těchto zásad nakonfiguruje výchozí hodnotu 12 000 bajtů u existující hodnoty registru MaxTokenSize v klíči HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters, který byl přidán v systémech Windows XP a Windows Server 2003. Počínaje systémem Windows 8 je výchozí hodnota 48 000 bajtů. Vzhledem ke kódování tokenů kontextu ověřování v protokolu HTTP ve formátu base64 nedoporučujeme nastavovat tuto hodnotu na více než 48 000 bajtů.
-
-
 
 </string>
       <string id="EnableCbacAndArmor">Podpora klientů služby Kerberos pro deklarace identity, složené ověřování a obranu protokolu Kerberos</string>
@@ -111,7 +108,7 @@ Poznámka: Nastavení těchto zásad nakonfiguruje výchozí hodnotu 12 000 baj
 Pokud toto nastavení zásad povolíte, budou klientské počítače vyžadovat deklarace identity, poskytovat informace potřebné k vytvoření složeného ověřování a zajišťovat obranu protokolu Kerberos v doménách, které podporují deklarace identity a složené ověřování dynamického řízení přístupu a obranu protokolu Kerberos.
 
 Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, nebudou klientská zařízení vyžadovat deklarace identity, poskytovat informace potřebné k vytvoření složeného ověřování a zajišťovat obranu zpráv protokolu Kerberos. Služby hostované na tomto zařízení nebudou moci načítat deklarace identity pro klienty pomocí přechodu protokolu Kerberos.  
-  
+
 </string>
       <string id="AlwaysSendCompoundId">Vždy nejprve odeslat složené ověřování</string>
       <string id="AlwaysSendCompoundId_explain">Toto nastavení zásad určuje, zda zařízení vždy odešle žádost o složené ověřování, pokud doména prostředků požaduje složené ověřování.
@@ -124,7 +121,7 @@ Pokud toto nastavení zásad zakážete nebo nenakonfigurujete a doména prostř
 
 </string>
       <string id="DevicePKInitEnabled">Podporovat ověřování zařízení pomocí certifikátu</string>
-      <string id="DevicePKInitEnabled_explain">Podpora pro ověřování zařízení pomocí certifikátu bude vyžadovat připojení k řadiči domény v doméně účtů zařízení, který podporuje ověřování účtů počítačů pomocí certifikátů. 
+      <string id="DevicePKInitEnabled_explain">Podpora pro ověřování zařízení pomocí certifikátu bude vyžadovat připojení k řadiči domény v doméně účtů zařízení, který podporuje ověřování účtů počítačů pomocí certifikátů.
 
 Toto nastavení zásad umožňuje nastavit podporu pro Kerberos za účelem pokusu o ověření zařízení v doméně pomocí certifikátu.
 
@@ -136,9 +133,54 @@ Vynutit: Zařízení se bude vždycky ověřovat pomocí certifikátu. Pokud se 
 
 Pokud toto nastavení zásad zakážete, nebudou se certifikáty nikdy používat.
 Pokud toto nastavení nenakonfigurujete, použije se volba Automaticky.
+
+Postupujte podle tohoto průvodce a nakonfigurujte podnikovou PKI: https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">Automaticky</string>
       <string id="DevicePKInitBehavior_Force">Vynutit</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">Povolit načítání lístku udělování lístků protokolu Kerberos Azure Active Directory během přihlašování.</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">Toto nastavení zásad umožňuje načíst cloudový lístek protokolu Kerberos Azure Active Directory během přihlašování.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, cloudový lístek protokolu Kerberos Azure Active Directory se během přihlašování nenačte.
+
+Pokud toto nastavení zásad povolíte, cloudový lístek protokolu Kerberos Azure Active Directory se během přihlašování načte.</string>
+      <string id="PKInitHashAlgorithmConfiguration">Konfigurovat algoritmy hash pro přihlášení k certifikátu</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">Toto nastavení zásad řídí algoritmy hash nebo kontrolního součtu používané klientem Kerberos při ověřování certifikátu.
+
+Pokud tuto zásadu povolíte, budete moct pro každý algoritmus nakonfigurovat jeden ze čtyř stavů:
+
+- „Výchozí“ nastaví algoritmus na doporučený stav.
+
+- „Podporováno“ povolí použití algoritmu. Povolení algoritmů, které byly ve výchozím nastavení zakázány, může snížit zabezpečení.
+
+- „Auditováno“ umožňuje použití algoritmu a hlásí událost (ID 206) při každém použití. Tento stav je určen k ověření, zda algoritmus není používán a lze jej bezpečně zakázat.
+
+- „Nepodporováno“ zakáže použití algoritmu. Tento stav je určen pro algoritmy, které jsou považovány za nezabezpečené.
+
+Pokud tuto zásadu zakážete nebo nenakonfigurujete, zaujme každý algoritmus „Výchozí“ stav.
+Další informace o algoritmech hash a kontrolních součtů podporovaných klientem Windows Kerberos a jejich výchozích stavech najdete na https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Události generované touto konfigurací: 205, 206, 207, 208.
+</string>
+      <string id="PKInitHashAlgorithm_Default">Výchozí</string>
+      <string id="PKInitHashAlgorithm_Supported">Podporováno</string>
+      <string id="PKInitHashAlgorithm_Audited">Auditováno</string>
+      <string id="PKInitHashAlgorithm_NotSupported">Nepodporováno</string>
+      
+      <string id="DelegatedMSAEnabled">Povolit přihlášení delegovaného účtu spravované služby</string>
+      <string id="DelegatedMSAEnabled_explain">Toto nastavení zásady povolí nebo zakáže přihlášení delegovaného účtu spravované služby pro tento počítač.
+
+Pokud toto nastavení zásad povolíte, klient Kerberos bude podporovat přihlášení delegovaného účtu spravované služby. Všimněte si, že tato zásada má určité předpoklady. Požadavky a pokyny k vytvoření nového delegovaného účtu spravované služby najdete na https://go.microsoft.com/fwlink/?linkid=2250379.
+
+Pokud toto nastavení zásady zakážete nebo nenakonfigurujete, přihlášení k delegovanému účtu spravované služby nebudou podporována. 
+</string>
+      <string id="EnableTryIPSPN">Povolit názvy SPN založené na IP adrese během ověřování Kerberos</string>
+      <string id="EnableTryIPSPN_explain">Toto nastavení zásad umožňuje nakonfigurovat Kerberos tak, aby používal hlavní názvy služeb (SPN) založené na IP adrese.
+
+Pokud toto nastavení zásad povolíte, klient Kerberos se při připojování ke službě pokusí použít názvy SPN založené na IP adrese.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, Kerberos se nepokusí použít názvy SPN založené na IP adrese.
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -181,6 +223,16 @@ Pokud toto nastavení nenakonfigurujete, použije se volba Automaticky.
         <text>Jiný příklad:</text>
         <text>Název hodnoty: REALM.FABRIKAM.COM</text>
         <text>Hodnota: &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">Sféry:</multiTextBox>
+        <text>Syntaxe:</text>
+        <text>Zadejte seznam sfér, ve kterých můžou existovat DMSA.</text>
+        <text>Zadejte plně kvalifikovaný název domény (FQDN) i krátký název.</text>
+        <text>Zadejte jednu sféru na řádek.</text>
+        <text>Podrobnosti:</text>
+        <text>Klient Kerberos se pokusí najít řadič domény podporující DMSA pro uvedené sféry.</text>
+        <text>Pokud nejsou zadané žádné sféry, klient Kerberos se pokusí najít řadič domény podporující DMSA pro všechny sféry.</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">Režim:</dropdownList>
@@ -225,7 +277,7 @@ Pokud toto nastavení nenakonfigurujete, použije se volba Automaticky.
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Podporovat autorizaci pomocí informací klientských zařízení:</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Podporovat autorizaci pomocí informací klientských zařízení:</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">Maximální velikost</decimalTextBox>
@@ -233,7 +285,13 @@ Pokud toto nastavení nenakonfigurujete, použije se volba Automaticky.
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Chování ověřování zařízení pomocí certifikátu:</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Chování ověřování zařízení pomocí certifikátu:</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

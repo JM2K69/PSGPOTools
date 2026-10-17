@@ -296,6 +296,8 @@ Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, wird diese Einstellun
 Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Leistungseinschränkung deaktiviert.
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird diese Einstellung von den Benutzern gesteuert.</string>
+      <string id="EnableEnergySaver">Energiesparmodus auf immer aktiviert festlegen</string>
+      <string id="EnableEnergySaverExplain">Diese Richtlinie verlängert die Akkulaufzeit und verringert den Energieverbrauch, indem der Energiesparmodus immer aktiviert wird. </string>
     </stringTable>
     <presentationTable>
       <presentation id="ACHibernateTimeOut_1">

@@ -110,9 +110,11 @@ Tutustu myös Tietokoneasetukset/Hallintamallit/Windowsin osat/Windowsin virhera
       <string id="RemoveWindowsUpdate_ICM">Poista käytöstä kaikkien Windows Update -ominaisuuksien käyttömahdollisuus</string>
       <string id="RemoveWindowsUpdate_ICM_Help">Tämän käytäntöasetuksen avulla voit poistaa Windows Updaten käytöstä.
 
-Jos otat tämän käytäntöasetuksen käyttöön, kaikki Windows Update -ominaisuudet poistetaan. Tämä tarkoittaa myös sitä, että osoitteessa http://windowsupdate.microsoft.com sijaitsevaa Windows Update -sivustoa ei voi käyttää Käynnistä-valikon Windows Update -hyperlinkin tai Internet Explorerin Työkalut-valikon avulla. Myös Windowsin automaattinen päivittäminen poistetaan käytöstä, joten päivityksistä ei tiedoteta eikä niitä myöskään voi vastaanottaa. Tämä käytäntöasetus estää myös laitehallintaa asentamasta automaattisesti ohjainpäivityksiä Windows Update -sivustosta.
+Jos otat tämän käytäntöasetuksen käyttöön, kaikki Windows Update -ominaisuudet poistetaan. Tämä tarkoittaa myös sitä, että osoitteessa http://windowsupdate.microsoft.com sijaitsevaa Windows Update -sivustoa ei voi käyttää aloitusvalikon Windows Update -hyperlinkin tai Internet Explorerin Työkalut-valikon kautta. Myös Windowsin automaattinen päivittäminen poistetaan käytöstä, joten tärkeistä päivityksistä ei tiedoteta eikä niitä myöskään voi vastaanottaa. Tämä käytäntöasetus estää myös laitehallintaa asentamasta automaattisesti ohjainpäivityksiä Windows Update -sivustosta.
 
-Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjät voivat käyttää Windows Update -sivustoa ja käyttää automaattista päivitystoimintoa päivitysilmoitusten ja tärkeiden päivitysten vastaanottamiseen Windows Update -sivustosta.</string>
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjät voivat käyttää Windows Update -sivustoa ja he voivat käyttää myös automaattista päivitystoimintoa päivitysilmoitusten ja tärkeiden päivitysten vastaanottamiseen Windows Update -sivustosta.
+
+Huomautus: Tämä käytäntö on voimassa vain, kun tietokone on määritetty muodostamaan yhteys intranetin päivityspalveluun Määritä Microsoft Update -palvelun sijainti intranetissä -käytäntöasetuksen avulla.</string>
       <string id="SearchCompanion_DisableFileUpdates">Poista etsintäapuohjelman sisältötiedostopäivitykset käytöstä</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">Tämä käytäntöasetus määrittää, lataako etsintäapuohjelma sisältöpäivityksiä automaattisesti paikallisten hakujen ja Internet-hakujen aikana.
 

@@ -110,9 +110,11 @@ Zie ook de beleidsinstellingen 'Foutrapportage configureren', 'Foutmelding weerg
       <string id="RemoveWindowsUpdate_ICM">Toegang tot alle onderdelen van Windows Update uitschakelen</string>
       <string id="RemoveWindowsUpdate_ICM_Help">Met deze beleidsinstelling kunt u de toegang tot Windows Update verwijderen.
 
-Als u deze beleidsinstelling inschakelt, worden alle functies van Windows Update verwijderd. Dit blokkeert ook de toegang tot de website van Windows Update op http://windowsupdate.microsoft.com via de hyperlink Windows Update in het Startmenu en ook via het menu Extra in Internet Explorer. Windows Automatische updates wordt ook uitgeschakeld.U wordt niet op de hoogte gesteld van essentiële updates en u ontvangt deze ook niet van Windows Update. Met deze beleidsinstelling wordt ook voorkomen dat Apparaatbeheer automatisch updates van stuurprogramma's van de website van Windows Update installeert.
+Als u deze beleidsinstelling inschakelt, worden alle functies van Windows Update verwijderd. Dit blokkeert ook de toegang tot de Windows Update-website op http://windowsupdate.microsoft.com via de hyperlink Windows Update in het Startmenu en ook via het menu Extra in Internet Explorer. Windows Automatische updates wordt ook uitgeschakeld. U wordt niet op de hoogte gesteld van essentiële updates en u ontvangt deze ook niet van Windows Update. Met deze beleidsinstelling wordt ook voorkomen dat Apparaatbeheer automatisch updates van stuurprogramma's van de website van Windows Update installeert.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, hebben gebruikers toegang tot de website Windows Update en kunnen ze Automatische updates inschakelen om meldingen en essentiële updates van Windows Update te ontvangen.</string>
+Als u deze beleidsinstelling uitschakelt of niet configureert, hebben gebruikers toegang tot de Windows Update-website en kunnen ze Automatische updates inschakelen om meldingen en essentiële updates van Windows Update te ontvangen.
+
+Opmerking: dit beleid is alleen van toepassing wanneer de pc is geconfigureerd voor verbinding met een updateservice op het intranet via het beleid "Locatie van Microsoft-updateservice in intranet".</string>
       <string id="SearchCompanion_DisableFileUpdates">Updates van bestanden van Zoekassistent uitschakelen</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">Deze beleidsinstelling bepaalt of door de Zoekassistent automatisch updates van inhoud moeten worden gedownload tijdens lokale en internetzoekopdrachten.
 

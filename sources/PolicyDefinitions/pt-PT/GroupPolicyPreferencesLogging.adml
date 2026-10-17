@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>Políticas de Registo de Preferência de Política de Grupo</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">Configurar o registo e o rastreio de preferência de Aplicações</string>
+      <string id="CSE_Applications_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Aplicações e ativar o rastreio da extensão de Aplicações. O registo e o rastreio fornece informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Aplicações para computadores cliente.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: Para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: Esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" para a localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.
+
+</string>
+      <string id="CSE_DataSources_Logging">Configurar o registo e o rastreio de preferência de Origens de Dados</string>
+      <string id="CSE_DataSources_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Origens de Dados e ativar o rastreio da extensão de Origens de Dados. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Origens de Dados para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_Devices_Logging">Configurar o registo e o rastreio de preferência de Dispositivos</string>
+      <string id="CSE_Devices_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Dispositivos e ativar o rastreio da extensão de Dispositivos. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Dispositivos para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_Drives_Logging">Configurar o registo e o rastreio de preferência de Mapeamentos de Unidades</string>
+      <string id="CSE_Drives_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Mapeamentos de Unidades e ativar o rastreio da extensão de Mapeamentos de Unidades. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Mapeamentos de Unidades para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_Environment_Logging">Configurar o registo e o rastreio de preferência de Ambiente</string>
+      <string id="CSE_Environment_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Ambiente e ativar o rastreio da extensão de Ambiente. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Ambiente para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_Files_Logging">Configurar o registo e o rastreio de preferência de Ficheiros</string>
+      <string id="CSE_Files_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Ficheiros e ativar o rastreio da extensão de Ficheiros. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Ficheiros para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_FolderOptions_Logging">Configurar o registo e o rastreio de preferência de Opções de Pastas</string>
+      <string id="CSE_FolderOptions_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Opções de Pastas e ativar o rastreio da extensão de Opções de Pastas. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Opções de Pastas para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_Folders_Logging">Configurar o registo e o rastreio de preferência de Pastas</string>
+      <string id="CSE_Folders_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Pastas e ativar o rastreio da extensão de Pastas. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Pastas para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_IniFiles_Logging">Configurar o registo e o rastreio de preferência de Ficheiros INI</string>
+      <string id="CSE_IniFiles_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Ficheiros Ini e ativar o rastreio da extensão de Ficheiros Ini. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Ficheiros Ini para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_Internet_Logging">Configurar o registo e o rastreio de preferência de Definições da Internet</string>
+      <string id="CSE_Internet_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Internet e ativar o rastreio da extensão de Internet. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Internet para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">Configurar o registo e o rastreio de preferência de Utilizadores e Grupos Locais</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Utilizador Local e Grupo Local e ativar o rastreio da extensão de Utilizador Local e Grupo Local. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Utilizador Local e Grupo Local para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_NetworkOptions_Logging">Configurar o registo e o rastreio de preferência de Opções de Rede</string>
+      <string id="CSE_NetworkOptions_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Opções de Rede e ativar o rastreio da extensão de Opções de Rede. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Opções de Rede para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_NetShares_Logging">Configurar o registo e o rastreio de preferência de Partilhas de Rede</string>
+      <string id="CSE_NetShares_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Partilhas de Rede e ativar o rastreio da extensão de Partilhas de Rede. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Partilhas de Rede para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_PowerOptions_Logging">Configurar o registo e o rastreio de preferência de Opções de Energia</string>
+      <string id="CSE_PowerOptions_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Opções de Energia e ativar o rastreio da extensão de Opções de Energia. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Opções de Energia para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_Printers_Logging">Configurar o registo e o rastreio de preferência de Impressoras</string>
+      <string id="CSE_Printers_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Impressoras e ativar o rastreio da extensão de Impressoras. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Impressoras para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_RegionalOptions_Logging">Configurar o registo e o rastreio de preferência de Opções Regionais</string>
+      <string id="CSE_RegionalOptions_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Opções Regionais e ativar o rastreio da extensão de Opções Regionais. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Opções Regionais para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_PrefRegistry_Logging">Configurar o registo e o rastreio de preferência de Registo</string>
+      <string id="CSE_PrefRegistry_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Registo e ativar o rastreio da extensão de Registo. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registro de eventos e ativar o rastreio para a extensão de Registo de eventos para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_ScheduledTasks_Logging">Configurar o registo e o rastreio de preferência de Tarefas Agendadas</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Tarefas Agendadas e ativar o rastreio da extensão de Tarefas Agendadas. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Tarefas Agendadas para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_Services_Logging">Configurar o registo e o rastreio de preferência de Serviços</string>
+      <string id="CSE_Services_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Serviços e ativar o rastreio da extensão de Serviços. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Serviços para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_Shortcuts_Logging">Configurar o registo e o rastreio de preferência de Atalhos</string>
+      <string id="CSE_Shortcuts_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Atalhos e ativar o rastreio da extensão de Atalhos. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Atalhos para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_StartMenu_Logging">Configurar o registo e o rastreio de preferência de Menu Iniciar</string>
+      <string id="CSE_StartMenu_Logging_Help">Esta definição de política permite-lhe configurar o nível de detalhes registados pelo registo de eventos para a extensão de preferência de Menu Iniciar e ativar o rastreio da extensão de Menu Iniciar. O registo e o rastreio fornecem informações de diagnóstico para a resolução de problemas.
+
+Se ativar esta definição de política, pode configurar o registo de eventos e ativar o rastreio para a extensão de Menu Iniciar para computadores clientes.
+
+Se desativar ou não configurar esta definição de política, por predefinição, o registo de eventos para esta extensão inclui apenas avisos e erros e o rastreio para esta extensão é desativado.
+
+Aviso de segurança: 
+Proteja a partilha de rede configurada apenas com as permissões mínimas necessárias. Não use acesso alargado (por exemplo, qualquer conta padrão ou Todos com Controlo Total), pois isso pode resultar em acesso não autorizado aos dados de registo e rastreio
+
+Notas:
+
+1. Rastreio da Configuração do Utilizador: para executar o rastreio de itens nesta extensão de preferência listada em Configuração do Utilizador, tem de fornecer um caminho na caixa "Rastreio do utilizador" na localização onde um ficheiro de rastreio do utilizador pode ser criado no computador cliente e tem de ativar a opção "Rastreio". Se não existirem itens de preferência em Configuração do Utilizador nesta extensão, não é criado nenhum ficheiro de rastreio do utilizador.
+
+2. Rastreio da Configuração do Computador: esta extensão de preferência só está disponível em Configuração do Utilizador, pelo que o rastreio da configuração do computador não é aplicável.
+
+3. Rastreio de consultas de Modelação da Política de Grupo: para executar o rastreio de itens nesta extensão de preferência quando executa uma consulta de Modelação da Política de Grupo, tem de fornecer um caminho na caixa "Rastreio de planeamento" na localização onde um ficheiro de rastreio de planeamento pode ser criado no computador onde executa a modelação e tem de ativar a opção "Rastreio". Se não estiver a executar a Modelação da Política de Grupo ou se não existirem itens de preferência nesta extensão, não é criado nenhum ficheiro de rastreio de planeamento.</string>
+      <string id="CSE_NOCHANGES">Processar mesmo que os objetos da Política de Grupo não tenham sido alterados</string>
+      <string id="CSE_NOBACKGROUND">Não aplicar durante o processamento periódico em segundo plano</string>
+      <string id="CSE_ALLOWSLOWLINK">Permitir processamento numa ligação de rede lenta</string>
+      <string id="CSE_TRACELEVEL">Rastreio</string>
+      <string id="CSE_TRACEFILEPATHUSER">Rastreio do utilizador</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">Rastreio do computador</string>
+      <string id="CSE_TRACEFILEPATH">Ficheiro de rastreio</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">Rastreio do planeamento</string>
+      <string id="CSE_TRACEFILEMAXSIZE">Tamanho máximo do ficheiro de rastreio (KB)</string>
+      <string id="CSE_TRACELEVELNORMAL">Desativado</string>
+      <string id="CSE_TRACELEVELVERBOSE">Ativado</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">Prioridade de segundo plano</string>
+      <string id="CSE_PRILEVEL_NORMAL">Normal</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">Abaixo do Normal</string>
+      <string id="CSE_PRILEVEL_LOWEST">Mínimo</string>
+      <string id="CSE_PRILEVEL_IDLE">Inativo</string>
+      <string id="CSE_LOGLEVEL">Registo de eventos</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">Informativo, Avisos e Erros</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">Avisos e Erros</string>
+      <string id="CSE_LOGLEVEL_ERRORS">Erros Apenas</string>
+      <string id="CSE_LOGLEVEL_NONE">Nenhum</string>
+      <string id="CSE_Logging">Registo e rastreio</string>
+      <string id="CSE_Logging_Help">Permite-lhe configurar o registo e rastreio de componentes de Preferência.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreio do computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registo de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreio</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreio do utilizador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreio do planeamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do ficheiro de rastreio (KB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

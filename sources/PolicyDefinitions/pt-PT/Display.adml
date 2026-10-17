@@ -15,7 +15,16 @@ Caso ative esta definição de política, o Dimensionamento PPP de GDI é ativad
 Caso desative ou não configure esta definição de política, o Dimensionamento PPP de GDI não será ativado para uma aplicação exceto quando uma aplicação é ativada utilizando a base de dados ApplicationCompatibility, a definição do Sistema da IU ApplicationCompatibility (Melhorado) ou um manifesto de aplicação.
 
 Caso o Dimensionamento PPP de GDI esteja configurado para ativar e desativar uma aplicação, a aplicação será desativada.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">O Dimensionamento PPP de GDI ativa aplicações que não têm deteção de PPP para que passem a ter deteção de PPP por monitor.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">Ativar esta política permite contornar o comportamento predefinido ao ligar um monitor adicional. Permite especificar se o ecrã irá clonar (espelhar) automaticamente o ecrã principal ou expandir o ambiente de trabalho.
+A opção Expandir estende o ecrã para o segundo monitor, permitindo ter conteúdos diferentes em cada ecrã. A opção Clonar duplica o ecrã principal no segundo monitor, mostrando o mesmo conteúdo em ambos os ecrãs. A Predefinição Interna utiliza o comportamento predefinido do sistema determinado pelas Definições do Windows.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> Configurar Modo de Visualização Múltipla</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">Ativar esta política permite contornar o comportamento predefinido ao ligar um monitor adicional. Permite especificar se um ecrã clonado dá prioridade ao monitor interno ou externo, ou seja, define a origem de resolução preferida.
+A opção Interno define a resolução do ecrã principal como a origem em ambos os ecrãs. A opção Externo define a resolução do ecrã ligado (externo) como a origem em ambos os ecrãs. A predefinição utiliza o comportamento predefinido do sistema determinado pelas Definições do Windows.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> Definir Origem de Resolução Preferencial do Monitor Clonado</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">O Dimensionamento PPP de GDI ativa aplicações que não têm deteção de PPP para que passem a ter deteção de PPP por monitor.
 
 Esta definição de política permite-lhe especificar aplicações legadas que tenham o Dimensionamento PPP de GDI desativado.
 
@@ -26,24 +35,32 @@ Caso desative ou não configure esta definição de política, o Dimensionamento
 Caso o Dimensionamento PPP de GDI esteja configurado para ativar e desativar uma aplicação, a aplicação será desativada.</string>
       <string id="DisplayTurnOnGdiDPIScaling">Ativar GdiDPIScaling para aplicações</string>
       <string id="DisplayTurnOffGdiDPIScaling">Desativar GdiDPIScaling para aplicações</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">O dimensionamento PPP de GDI é uma funcionalidade de compatibilidade de aplicações para aplicações de ambiente de trabalho que não executam a composição corretamente após uma alteração do fator de dimensionamento do ecrã (PPP). Quando o fator de dimensionamento do ecrã principal é alterado (o que pode ocorrer quando liga ou desliga um ecrã com um fator de dimensionamento de ecrã diferente (PPP), quando liga remotamente o ecrã a partir de um dispositivo com um fator de dimensionamento de ecrã diferente ou quando altera manualmente o fator de dimensionamento do ecrã), muitas aplicações de ambiente de trabalho podem surgir desfocadas. As aplicações de ambiente de trabalho que não tenham sido atualizadas para apresentar esta situação corretamente estarão desfocadas até que o utilizador termine sessão e a retome no Windows. 
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">"PPP de Sistema por Processo" é uma funcionalidade de compatibilidade de aplicações para aplicações de computador que não são compostas corretamente após uma alteração do fator de dimensionamento do ecrã (PPP). Quando o fator de dimensionamento do ecrã principal é alterado (o que pode ocorrer quando liga ou desliga um ecrã com um fator de dimensionamento de ecrã diferente (PPP), quando liga remotamente o ecrã a partir de um dispositivo com um fator de dimensionamento de ecrã diferente ou quando altera manualmente o fator de dimensionamento do ecrã), muitas aplicações de computador poderão aparecer desfocadas. As aplicações de computador que não tenham sido atualizadas para serem apresentadas corretamente neste cenário ficarão desfocadas até que o utilizador termine sessão e volte a iniciar sessão no Windows.
 
-Quando ativa esta política algumas aplicações desfocadas ficarão nítidas após serem reiniciadas, sem ser necessário que o utilizador termine sessão e a retome no Windows. 
+Quando ativar esta política, algumas aplicações desfocadas ficarão nítidas após serem reiniciadas, sem exigir que o utilizador termine sessão e volte a iniciar sessão no Windows.
 
 Tenha em atenção o seguinte:
 
-O dimensionamento PPP de GDI só melhorará a composição das aplicações de ambiente de trabalho que estejam posicionadas no ecrã principal. Algumas aplicações de ambiente de trabalho poderão estar ainda desfocadas nos ecrãs secundários com fatores de dimensionamento de ecrã diferentes. 
+A funcionalidade de PPP de Sistema por Processo só irá melhorar a composição das aplicações de computador que estão posicionadas no ecrã principal. Algumas aplicações de computador poderão continuar a aparecer desfocadas em ecrãs secundários com diferentes fatores de dimensionamento.
 
-O dimensionamento PPP de GDI não funcionará em todas as aplicações uma vez que algumas aplicações de ambiente de trabalho mais antigas ficarão sempre desfocadas em ecrãs com PPP elevado. 
+A funcionalidade de PPP de Sistema por Processo não resultará em todas as aplicações, uma vez que algumas aplicações de computador mais antigas aparecerão sempre desfocadas em ecrãs com um valor elevado de PPP.
 
-Em alguns casos, poderá presenciar comportamentos estranhos em algumas aplicações de ambiente de trabalho. Se tal ocorrer, o dimensionamento PPP de GDI deve ser desativado.
+Em alguns casos, poderá observar um comportamento estranho em algumas aplicações de computador. Se isso acontecer, a funcionalidade de PPP de Sistema por Processo deve ser desativada.
 
-Ativar esta definição permite-lhe especificar a predefinição para aplicações de ambiente de trabalho a nível do sistema assim como as substituições por aplicação. Se desativar ou não configurar esta definição, o dimensionamento PPP de GDI não se aplicará a quaisquer processos no sistema.
+A ativação desta definição permite-lhe especificar a predefinição para aplicações de computador ao nível do sistema, bem como substituições por aplicação. Se desativar ou não configurar esta definição, a funcionalidade de PPP de Sistema por Processo não será aplicada a nenhum processo no sistema.
 
 </string>
       <string id="DisplayPerProcessSystemDpiSettings">Configurar definições do dimensionamento PPP de GDI.</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">Ativar</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">Desativar</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">Clonar</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">Predefinido</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">Expandir</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">Interna apenas</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">Apenas Externo</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">Predefinido</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">Interno</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">Externo</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">Ative o dimensionamento PPP de GDI para as aplicações.</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">Desative o dimensionamento PPP de GDI para as aplicações</string>
     </stringTable>
@@ -66,6 +83,12 @@ Ativar esta definição permite-lhe especificar a predefinição para aplicaçõ
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>Desative o dimensionamento PPP de GDI para as seguintes aplicações. Utilize o caminho de aplicação completo ou o nome do ficheiro e a extensão da aplicação. Separe as aplicações com um ponto e vírgula.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">Clonar, Expandir, InternalOnly, ExternalOnly ou Continuar com as Predefinições do Windows como configuração para o Modo de Visualização Múltipla.</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">Defina a resolução predefinida que o Windows utilizará para os novos ecrãs clonados como Definições Internas, Externas ou Predefinidas do Windows.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

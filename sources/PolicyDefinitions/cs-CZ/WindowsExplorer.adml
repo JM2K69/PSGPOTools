@@ -220,11 +220,11 @@ Chcete-li si prohlédnout příklad standardního dialogového okna Otevřít, s
 
 Poznámka: V systému Windows Vista se toto nastavení vztahuje pouze na aplikace používající běžný styl dialogových oken systému Windows XP. Nastavení této zásady se nevztahuje na nový běžný styl dialogových oken systému Windows Vista. Všechny aplikace třetích stran s certifikací Windows 2000 nebo vyšší musí používat toto nastavení.</string>
       <string id="NoRecycleFiles">Nepřesouvat odstraněné soubory do koše</string>
-      <string id="NoRecycleFiles_Help">Je-li v Průzkumníkovi souborů odstraněn soubor nebo složka, je do Koše umístěna jejich kopie. Pomocí tohoto nastavení můžete toto chování změnit.
+      <string id="NoRecycleFiles_Help">Po odstranění souboru nebo složky v Průzkumníkovi souborů se do odpadkového koše umístí kopie souboru nebo složky. Pomocí tohoto nastavení můžete toto chování změnit.
 
-Jestliže toto nastavení povolíte, nebudou soubory a složky odstraněné v Průzkumníkovi souborů umístěny do Koše, ale budou odstraněny trvale.
+Pokud toto nastavení povolíte, nebudou soubory a složky odstraněné v Průzkumníkovi souborů umístěny do koše, a proto budou odstraněny trvale.
 
-Jestliže toto nastavení zakážete nebo nenakonfigurujete, budou soubory a složky odstraněné v Průzkumníkovi souborů umístěny do Koše.</string>
+Pokud toto nastavení zakážete nebo nenakonfigurujete, budou soubory a složky odstraněné v Průzkumníkovi souborů umístěny do odpadkového koše.</string>
       <string id="NoRunAsInstallPrompt">Nevyžadovat další pověření</string>
       <string id="NoRunAsInstallPrompt_Help">Zabraňuje uživatelům v zadání jiných přihlašovacích pověření při instalaci programu.
 
@@ -519,19 +519,33 @@ Pokud toto nastavení zásad povolíte, je povoleno získávání ikon zástupc�
 Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, je zabráněno v zobrazování ikon zástupců souborů využívajících vzdálené cesty.
 
 Poznámka: Povolení použití vzdálených cest v ikonách zástupců souborů může počítače uživatelů vystavit bezpečnostními rizikům.</string>
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Povolit operacím s popisovači skupin souborů zápis do libovolné cílové cesty</string>
+      <string id="AllowAllCopyFGDDestinations_Help">Toto nastavení zásady určuje, jestli se při zápisu souborů přijatých prostřednictvím schránky nebo popisovačů skupin souborů přetažených myší (CFSTR_FILEDESCRIPTOR) vynucují kontroly omezení procházení cest.
+
+Pokud toto nastavení zásady povolíte, kontroly omezení procházení cest se nebudou vynucovat a soubory bude možné zapisovat do libovolné cesty dostupné z cílové složky. Tuto zásadu povolte jen v případě, že výchozí chování narušuje požadovaný pracovní postup.
+
+Pokud toto nastavení zásady zakážete nebo nenakonfigurujete, operace s popisovači skupin souborů budou vynucovat omezení cest a odmítnou názvy souborů, které se pomocí relativních součástí cesty pokoušejí opustit cílovou složku.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">Nepoužívat značku webu na soubory zkopírované z nezabezpečených zdrojů</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">Toto nastavení zásad určuje použití značky Mark of the Web na soubory, které pocházejí z nezabezpečených umístění.
+
+Pokud toto nastavení zásad povolíte, soubory zkopírované z nezabezpečených zdrojů nebudou označeny značkou Mark of the Web.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, soubory zkopírované z nezabezpečených zdrojů budou označeny odpovídající značkou Mark of the Web.
+
+Poznámka: Pokud nebudou soubory z nezabezpečených zdrojů označeny značkou Mark of the Web, můžou být počítače uživatelů vystaveny bezpečnostním rizikům.</string>
       <string id="DefaultAssociationsConfiguration">Nastavit výchozí soubor s konfiguracemi přidružení</string>
-      <string id="DefaultAssociationsConfiguration_Help">Toto nastavení zásad určuje cestu k souboru (uloženému lokálně nebo v síťovém umístění), který obsahuje přidružení výchozích aplikací pro typy souborů a protokoly. Tento soubor je možné vytvořit pomocí nástroje DISM. 
+      <string id="DefaultAssociationsConfiguration_Help">Tato zásada určuje cestu k souboru (na místním nebo síťovém úložišti), ke kterému je přidružená výchozí aplikace na základě typu souboru a protokolu. Tento soubor je možné vytvořit pomocí nástroje DISM.
+      
+Například:
+Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-Příklad:
-Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt 
+Další informace najdete v dokumentaci k DISM.
 
-Další informace najdete v dokumentaci k nástroji DISM na webu TechNet.
+Pokud chcete změnit interval, ve kterém dochází k přidružení zásad, můžete ho upravit i po vytvoření souboru. Atribut Verze můžete přidat k elementu DefaultAssociations. Hodnota by měla být celočíselná. Atribut Suggested můžete přidat ke kterémukoliv elementu Association. Hodnota by měla být logická a výchozí hodnota je „false“. Když se uživateli přiřadí zásada, všechny elementy Association s atributem Suggested=true se použijí jen jednou. Pokud se hodnota Version zvýší, elementy Associations s atributem Suggested="true" se použijí znovu.
 
-Pokud toto nastavení zásad skupiny povolíte a klientský počítač je připojený k doméně, soubor se zpracuje a během přihlašování se použijí výchozí přidružení. 
+Pokud jsou tyto zásady skupiny povolené a klientský počítač je připojený k doméně, při přihlášení se soubor zpracuje a použije se přidružená výchozí aplikace.
 
-Pokud toto nastavení zásad skupiny není nakonfigurované, je zakázané nebo klientský počítač není připojený k doméně, nepoužijí se během přihlašování žádná přidružení. 
-
-Pokud je toto nastavení zásad povolené, zakázané nebo není nakonfigurované, uživatelé budou mít možnost výchozí přidružení typů souborů a protokolů přepsat.</string>
+Pokud je zásada povolená, uživatelé budou moct nadále přepsat výchozí typ souboru a přidružení protokolu, ale při příštím přihlášení se použijí výchozí nastavení.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

@@ -15,7 +15,16 @@ Si vous activez cette stratégie, la mise à l'échelle PPP GDI est activée pou
 Si vous désactivez ou si vous ne configurez pas ce paramètre de stratégie, la mise à l’échelle PPP GDI ne sera pas activée pour une application, à moins qu'une application soit activée à l'aide de la base de données ApplicationCompatibility, du paramètre ApplicationCompatibility UI System (amélioré) ou d'un manifeste d'application.
 
 Si la mise à l'échelle PPP GDI est configurée pour l'activation ou la désactivation d'une application, l'application sera désactivée.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">La mise à l’échelle PPP GDI permet aux applications sans prise en charge DPI de disposer d'une prise en charge DPI par moniteur.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">L'activation de cette stratégie permet de remplacer le comportement par défaut lors de la connexion d'un moniteur supplémentaire. Il vous permet de contrôler si l'affichage clonera automatiquement (mise en miroir) l'écran principal ou étendre le bureau.
+Étendre développe l'affichage sur le deuxième moniteur, vous permettant ainsi d'afficher un contenu différent sur chaque écran. Le clonage duplique l'affichage principal sur le second moniteur en affichant le même contenu sur les deux écrans. La valeur par défaut interne utilise le comportement par défaut du système déterminé par les paramètres Windows.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> Configurer le mode d’affichage multiple</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">L'activation de cette stratégie permet de remplacer le comportement par défaut lors de la connexion d'un moniteur supplémentaire. Il permet de contrôler si un affichage cloné donne la priorité au moniteur interne ou au moniteur externe, c'est-à-dire la définition de sa source de résolution préférée.
+Interne définit la résolution de l’affichage principal comme source de données des deux écrans. Externe définit la résolution de l’affichage connecté (externe) comme source de données des deux écrans. La valeur par défaut utilise le comportement par défaut du système déterminé par les paramètres Windows.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> Définissez la source de résolution préférée du moniteur cloné</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">La mise à l’échelle PPP GDI permet aux applications sans prise en charge DPI de disposer d'une prise en charge DPI par moniteur.
 
 Ce paramètre de stratégie vous permet de spécifier des applications héritées dont la mise à l'échelle PPP GDI est désactivée.
 
@@ -26,24 +35,32 @@ Si vous désactivez ou si vous ne configurez pas ce paramètre de stratégie, la
 Si la mise à l'échelle PPP GDI est configurée pour l'activation ou la désactivation d'une application, l'application sera désactivée.</string>
       <string id="DisplayTurnOnGdiDPIScaling">Activer GdiDPIScaling pour les applications</string>
       <string id="DisplayTurnOffGdiDPIScaling">Désactiver GdiDPIScaling pour les applications</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">La prise en charge DPI système par processus est une fonctionnalité de compatibilité des applications pour les applications de bureau qui ne bénéficient pas d'un rendu correct après la modification d’un facteur d’échelle d’affichage (DPI). En cas de modification du facteur d’échelle d'affichage de l'affichage principal (ce qui peut se produire lorsque vous connectez ou déconnectez un écran qui présente un autre facteur d’échelle d'affichage (DPI), lorsque vous vous connectez à distance à partir d’un appareil présentant un autre facteur d’échelle d'affichage ou lorsque vous modifiez manuellement le facteur d’échelle d'affichage), de nombreuses applications de bureau peuvent s'afficher floues. Les applications de bureau qui n’ont pas été mises à jour pour s’afficher correctement dans ce scénario seront floues jusqu'à ce que l’utilisateur se déconnecte, puis revienne dans Windows. 
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">La résolution points par pouce du système par processus est une fonctionnalité de compatibilité des applications de bureau qui ne s'affichent pas correctement après un changement de facteur d'échelle d'affichage (PPP). Lorsque le facteur d'échelle d'affichage de l'écran principal change (ce qui peut se produire lorsque vous connectez ou déconnectez un écran ayant un facteur d'échelle d'affichage différent (PPP), que vous connectez à distance à partir d'un appareil ayant un autre facteur d'échelle d'affichage ou que vous modifiez manuellement le facteur d'échelle d'affichage), de nombreuses applications de bureau peuvent s'afficher de manière floue. Les applications de bureau qui n’ont pas été mises à jour pour s’afficher correctement dans ce scénario seront floues jusqu'à ce que l’utilisateur se déconnecte, puis revienne dans Windows.
 
-Lorsque vous activez cette stratégie, certaines applications floues sont nettes après un redémarrage, sans que l’utilisateur doive se déconnecter, puis revenir dans Windows. 
+Lorsque vous activez cette stratégie, certaines applications floues seront nettes après leur redémarrage, sans que l'utilisateur ne doive se déconnecter puis se reconnecter à Windows.
 
 Prenez les éléments suivants en compte :
 
-La prise en charge DPI système par processus ne permet d’améliorer que le rendu des applications de bureau qui sont placées sur l’écran principal. Certaines applications de bureau peuvent encore être floues sur les écrans secondaires qui présentent d'autres facteurs d’échelle d'affichage. 
+La résolution points par pouce du système par processus de traitement améliorera uniquement le rendu des applications de bureau qui seront positionnées sur l'écran principal. Certaines applications de bureau peuvent encore être floues sur des écrans secondaires qui présentent un autre facteur de mise à l'échelle d'affichage.
 
-La prise en charge DPI système par processus ne fonctionne pas pour toutes les applications, car certaines applications plus anciennes bureau seront toujours floues sur les écrans haute résolution. 
+La résolution points par pouce du système par processus ne fonctionnera pas pour toutes les applications, puisque certaines applications de bureau plus anciennes seront toujours floues sur les écrans à haute résolution.
 
-Dans certains cas, vous pouvez voir un comportement étrange dans certaines applications de bureau. Si cela se produit, la prise en charge DPI système par processus doit être désactivée.
+Dans certains cas, vous pouvez observer un comportement étrange de certaines applications de bureau. Si cela se produit, la résolution points par pouce du système par processus doit être désactivée.
 
-L’activation de ce paramètre vous permet de spécifier la valeur par défaut au niveau du système pour les applications de bureau, ainsi que des remplacements par application. Si vous désactivez ou ne configurez pas ce paramètre, la prise en charge DPI système par processus ne s’applique à aucun processus sur le système.
+L'activation de ce paramètre vous permet de spécifier la valeur par défaut à l'échelle du système des applications de bureau ainsi que les remplacements par application. Si vous désactivez ou ne configurez pas ce paramètre, la résolution points par pouce du système par processus ne s’applique à aucun processus du le système.
 
 </string>
       <string id="DisplayPerProcessSystemDpiSettings">Paramètres de configuration de la prise en charge DPI système par processus</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">Activer</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">Désactiver</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">Clonage</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">Par défaut</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">Étendre</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">Interne uniquement</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">Externe uniquement</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">Par défaut</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">Interne</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">Externe</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">Activer la prise en charge DPI système par processus pour les applications</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">Désactiver la prise en charge DPI système par processus pour les applications</string>
     </stringTable>
@@ -66,6 +83,12 @@ L’activation de ce paramètre vous permet de spécifier la valeur par défaut 
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>Désactivez la prise en charge DPI système par processus pour les applications suivantes. Utilisez le chemin d'accès complet de l’application ou le nom et l’extension de l’application. Séparez les applications par un point-virgule.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">Clonez, étendez, InternalOnly, ExternalOnly ou Continuez avec les paramètres Windows par défaut comme configuration pour le mode d’affichage multiple.</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">Définissez la résolution par défaut utilisée par Windows pour les nouveaux écrans clonés comme résolution interne, externe ou paramètres Windows par défaut.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

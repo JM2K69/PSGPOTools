@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2006 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Grupprincipinställningar för Windows Connection Manager</displayName>
   <description>Grupprincipinställningar för Windows Connection Manager</description>
@@ -22,7 +22,7 @@ Manuella anslutningsförsök
 Om du inaktiverar eller inte konfigurerar den här principinställningen tillåts datorerna att ansluta till både domänbaserade och icke-domänbaserade nätverk samtidigt.
       </string>
       <string id="WCM_DisableRoaming">Förbjud anslutning till roamingleverantörers mobila bredbandsnätverk (Prohibit connection to roaming Mobile Broadband networks)</string>
-      <string id="WCM_DisableRoaming_Help">Den här principinställningen hindrar klienter från att ansluta till mobila bredbandsnätverk när de är registrerade i en roamingleverantörs nätverk. 
+      <string id="WCM_DisableRoaming_Help">Den här principinställningen hindrar klienter från att ansluta till mobila bredbandsnätverk när de är registrerade i en roamingleverantörs nätverk.
 
 Om den här principinställningen är aktiverad blockeras alla automatiska och manuella anslutningsförsök till roamingleverantören tills klienten registrerar sig i hemnätverket.
 
@@ -47,7 +47,7 @@ Om du inaktiverar eller inte konfigurerar den här principinställningen tillåt
         Den här principinställningen är besläktad med principinställningen "Låt Windows göra en mjuk frånkoppling av en dator från ett nätverk".
       </string>
       <string id="WCM_DisablePowerManagement">Inaktivera energisparfunktioner vid vänteläge med anslutning (Disable power management in connected standby mode)</string>
-      <string id="WCM_DisablePowerManagement_Help">Den här principinställningen gör att energisparfunktionerna inaktiveras när datorn försätts i anslutet vänteläge. 
+      <string id="WCM_DisablePowerManagement_Help">Den här principinställningen gör att energisparfunktionerna inaktiveras när datorn försätts i anslutet vänteläge.
 
 Om den här principinställningen är aktiverad hanterar Windows Connection Manager inte trådlösa adapteranslutningar för att minska energiförbrukningen när datorn försätts i anslutet vänteläge.
 

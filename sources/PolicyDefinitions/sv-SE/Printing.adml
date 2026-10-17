@@ -53,21 +53,21 @@ Anmärkningar:
           TCP/IP-skrivare: 0
           Webbtjänstskrivare: 0
           Bluetooth-skrivare: 10
-          Delade skrivare: 0
+          Delade skrivare:  0
 
           Aktivera nätverksidentifiering om du vill visa tillgängliga webbtjänstskrivare i nätverket. Om du vill aktivera nätverksidentifiering klickar du på Start och Kontrollpanelen. Sedan klickar du på Nätverk och Internet. På sidan Nätverk och Internet klickar du på Nätverks- och delningscenter. På sidan Nätverks- och delningscenter klickar du på Ändra avancerade delningsinställningar. På sidan Avancerade delningsinställningar klickar du på pilen bredvid pilen Domän, sedan på Aktivera nätverksidentifiering och sist på Spara ändringar.
 
           Om du inte vill visa en viss typ av skrivare aktiverar du principen och ställer in antalet skrivare till 0.
 
           I Windows 10 och senare går det endast att visa TCP/IP-skrivare i den här guiden. Om du aktiverar den här principinställningen tillämpas endast gränsen för antalet TCP/IP-skrivare. Om du inaktiverar eller låter bli att konfigurera principinställningen i Windows 10 tillämpas standardgränsen.
-          
-          I Windows 8 och senare visas inte Bluetooth-skrivare så dess maxgräns tillämpas inte för de versionerna av Windows.
+
+          In Windows 8 och senare visas inte Bluetooth-skrivare så dess maxgräns tillämpas inte för de versionerna av Windows.
       </string>
       <string id="DomainPrinters">Guiden Lägg till skrivare - sidan för nätverkssökning (hanterat nätverk)</string>
       <string id="DownlevelBrowse">Bläddra i nätverket för att hitta skrivare</string>
       <string id="DownlevelBrowse_Help">Ger användarna möjlighet att söka igenom nätverket efter delade skrivare med guiden Lägg till skrivare.
 
-Om du aktiverar eller låter bli att konfigurera den här inställningen visar guiden Lägg till skrivare en lista med delade skrivare i nätverket och låter användaren välja en skrivare i den, under följande förutsättningar:Användaren väljer att lägga till en nätverksskrivare genom att markera alternativknappen "En nätverksskrivare eller skrivare som är ansluten till en annan dator" på den andra sidan i guiden Lägg till skrivare, markerar dessutom alternativknappen "Anslut till den här skrivaren (välj detta alternativ och klicka på Nästa om du vill bläddra)" på den tredje sidan i guiden och anger inte något skrivarnamn i textrutan "Namn".
+Om du aktiverar den här inställningen eller väljer att inte konfigurera den, kommer guiden Lägg till skrivare att visa en lista med delade skrivare i nätverket och användaren får möjlighet att välja en skrivare från listan, under följande förutsättningar: användare väljer att lägga till en nätverksskrivare genom att markera alternativknappen "En nätverksskrivare eller skrivare som är ansluten till en annan dator" på sidan 2 i guiden Lägg till skrivare, markerar dessutom alternativknappen "Anslut till den här skrivaren (välj detta alternativ och klicka på Nästa om du vill bläddra)" på sidan 3 i guiden och anger inte något skrivarnamn i textrutan "Namn".
 
 Om du inaktiverar den här inställningen, tas sidan där det är möjligt att bläddra efter nätverksskrivare bort från guiden Lägg till skrivare och användarna kan inte söka igenom nätverket, utan måste ange skrivarens namn.
 
@@ -134,11 +134,11 @@ Obs! Om den här principen aktiveras, inaktiveras befintliga drivrutiner i kerne
           Den här inställningen hindrar inte användarna från att köra andra program för att ta bort en skrivare.
 
           Om den här principen är inaktiverad eller inte konfigureras, kan användarna ta bort skrivare med de metoder som beskrivs här ovan.</string>
-      <string id="NonDomainDisplayPrinters_Help">Den här principen anger maximalt antal skrivare (av varje typ) som guiden Lägg till skrivare ska visa på en dator i ett ohanterat nätverk (när datorn inte kan kontakta en domänkontrollant, till exempel en domänansluten bärbar dator i ett hemnätverk).
+      <string id="NonDomainDisplayPrinters_Help">Den här principen anger det maximala antalet skrivare (av varje typ) som guiden Lägg till skrivare ska visa på en dator i ett ohanterat nätverk (när datorn inte kan nå en domänkontrollant, t.ex. en domänansluten bärbar dator i ett hemnätverk.)
 
-Om den här inställningen är inaktiverad visas inte sidan för nätverkssökning.
+Om den här inställningen är inaktiverad visas inte sidan för nätverksgenomsökning.
 
-Om du inte har konfigurerat den här inställningen visas standardantalet skrivare av varje typ i guiden Lägg till skrivare:
+Om den här inställningen inte konfigureras visas standardantalet skrivare av varje typ i guiden Lägg till skrivare:
 TCP/IP-skrivare: 50
 Webbtjänstskrivare: 50
 Bluetooth-skrivare: 10
@@ -146,9 +146,9 @@ Delade skrivare: 50
 
 Om du inte vill visa skrivare av en viss typ aktiverar du den här principen och anger antalet skrivare som ska visas till 0.
 
-I Windows 10 och senare går det endast att visa TCP/IP-skrivare i den här guiden. Om du aktiverar den här principinställningen tillämpas endast gränsen för antalet TCP/IP-skrivare. Om du inaktiverar eller låter bli att konfigurera principinställningen i Windows 10 tillämpas standardgränsen.
-          
-I Windows 8 och senare visas inte Bluetooth-skrivare så dess maxgräns tillämpas inte för de versionerna av Windows.</string>
+I Windows 10 och senare versioner kan endast TCP/IP-skrivare visas i guiden. Om du aktiverar den här principinställningen gäller endast TCP/IP-skrivargränser. Om du inaktiverar eller låter bli att konfigurera den här principinställningen tillämpas standardgränsen endast på Windows 10.
+
+I Windows 8 och senare visas inte Bluetooth-skrivare så dess gräns gäller inte för de versionerna av Windows.</string>
       <string id="NonDomainPrinters">Guiden Lägg till skrivare - sidan för nätverkssökning (ohanterat nätverk)</string>
       <string id="PackagePointAndPrintOnly">Använd endast paketering av Peka och skriv ut</string>
       <string id="PackagePointAndPrintOnly_Help">Den här principen gör att klientdatorer endast kan använda paketering av Peka och skriv ut.
@@ -278,19 +278,241 @@ Som standard fortsätter Windows Ultimate, Professional och Home att söka efter
 
         Om du inaktiverar eller låter bli att konfigurera den här principinställningen får alla tillägg för skrivare som installerats lov att köras.</string>
       <string id="MXDWUseLegacyOutputFormatMSXPS">Ändra formatet för standardutdata i MXDW (Microsoft XPS Document Writer) så att det överensstämmer med det äldre Microsoft XPS-formatet (*.xps)</string>
-      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">MXDW (Microsoft XPS Document Writer) genererar OpenXPS-filer (*.oxps) som standard i Windows 10, Windows 10 Server och Windows Server 2019.
+      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">MXDW (Microsoft XPS Document Writer) genererar OpenXPS-filer (*.oxps) som standard i Windows 10, Windows 10 och Windows Server 2025.
 
-          Om du aktiverar den här grupprincipinställningen används det äldre Microsoft XPS-formatet (*.xps) som standard för utdata i MXDW.
+Om du aktiverar den här grupprincipinställningen används äldre Microsoft XPS (*.xps) som standardformat för MXDW-utdata.
 
-          Om du inaktiverar eller låter bli att konfigurera principinställningen används OpenXPS (*.oxps) som standard för utdata i MXDW.</string>
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen är standardformatet för MXDW OpenXPS (*.oxps).</string>
       <string id="SetDefaultPrinterMRUModeOff">Inaktivera Windows hantering av standardskrivare</string>
-      <string id="SetDefaultPrinterMRUModeOff_Help">Med den här inställningen kan du ändra hanteringen av standardskrivare.
+      <string id="SetDefaultPrinterMRUModeOff_Help">Med den här inställningen kan du ändra standardhantering av skrivare.
 
-Om du aktiverar inställningen hanterar Windows inte standardskrivaren.
- 
-Om du inaktiverar inställningen hanterar Windows standardskrivaren.
+Om du aktiverar den här inställningen hanterar Windows inte standardskrivaren.
 
-Om du inte konfigurerar inställningen ändras inte hanteringen av standardskrivare. </string>
+Om du inaktiverar den här inställningen hanterar Windows standardskrivaren.
+
+Om du inte konfigurerar den här inställningen ändras inte standardhantering av skrivare. </string>
+      <string id="EnableDeviceControl">Aktivera utskriftsbegränsningar för enhetskontroll</string>
+      <string id="EnableDeviceControl_Help">
+Avgör om utskriftsbegränsningar för enhetskontroll ska gälla för utskrift på den här datorn.
+
+Som standard finns det inga begränsningar för utskrift baserat på anslutningstyp eller skrivarens märke/modell.
+
+Om den här inställningen aktiveras begränsas utskriften till skrivaranslutningar i företagsnätverket eller godkända USB-anslutna skrivare.
+
+Om du inaktiverar eller låter bli att konfigurera den här inställningen finns det inga begränsningar för att skriva ut baserat på anslutningstyp eller skrivarens märke/modell.</string>
+      <string id="ApprovedUsbPrintDevices">Lista över godkända USB-anslutna utskriftsenheter</string>
+      <string id="ApprovedUsbPrintDevices_Help">
+
+Den här inställningen är en komponent i begränsningarna för utskrifts tjänsten enhets kontroll. Aktivera enhets kontroll genom att aktivera inställningen Aktivera begränsningar för utskrifts enheter om du vill använda den här inställningen.
+
+När enhets kontrolls utskrift är aktiverat använder systemet den angivna listan med vid/PID-värden för att avgöra om den aktuella USB-anslutna skrivaren är godkänd för lokal utskrift.
+
+Ange alla kombinationer av godkänd vid/PID (avgränsade med kommatecken) som motsvarar godkända USB-skrivardrivrutiner. När en användare försöker skriva ut till en USB-skrivarkö kommer enheten vid/PID att jämföras med den godkända listan.
+      </string>
+      <string id="RestrictDriverInstallationToAdministrators">Begränsar installationen av skrivardrivrutiner till administratörer</string>
+      <string id="RestrictDriverInstallationToAdministrators_Help">
+Anger om användare som inte är administratörer kan installera skrivardrivrutiner på den här datorn.
+
+Som standard kan användare som inte är administratörer inte installera skrivardrivrutiner på den här datorn.
+
+Om du aktiverar eller låter bli att konfigurera den här inställningen begränsas installationen av skrivardrivrutiner till administratörer på den här datorn.
+
+Om du inaktiverar den här inställningen begränsas inte installationen av skrivardrivrutiner på den här datorn.
+        </string>
+      <string id="CopyFilesPolicy">Hantera bearbetning av köspecifika filer</string>
+      <string id="CopyFilesPolicy_AllowAll">Tillåt alla köspecifikationsfiler</string>
+      <string id="CopyFilesPolicy_Disabled">Tillåt inte köspecifika filer</string>
+      <string id="CopyFilesPolicy_Help">
+Hanterar hur köspecifika filer bearbetas under skrivarinstallationen. Vid skrivarinstallationen kan ett installationsprogram som tillhandahålls av en leverantör ange en uppsättning filer av alla typer som ska associeras med en viss utskriftskö. Filerna laddas ned till varje klient som ansluter till utskriftsservern.
+
+Du kan aktivera den här inställningen om du vill ändra standardbeteendet för köspecifika filer. Om du vill använda den här inställningen väljer du ett av alternativen nedan i rutan Hantera bearbetning av köspecifika filer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen används standardinställningen Begränsa köspecifika filer till färgprofiler.
+
+-- "Tillåt inte köspecifika filer" anger att inga köspecifika filer tillåts/bearbetas under installationen av utskriftskön/skrivaranslutningen.
+
+-- "Begränsa köspecifika filer till färgprofiler" anger att endast köspecifika filer som följer standardfärgprofilschemat tillåts. Det här innebär att poster som använder registernyckeln CopyFiles\ICM, som innehåller katalogvärdet COLOR och stöder mscms.dll som modulvärde. "Begränsa köspecifika filer till färgprofiler" är standardbeteendet.
+
+-- "Tillåt alla köspecifika filer" anger att alla köspecifika filer tillåts/bearbetas under installationen av utskriftskön/skrivaranslutningen.
+      </string>
+      <string id="CopyFilesPolicy_ICMOnly">Begränsa köspecifika filer till färgprofiler</string>
+      <string id="DriverValidationLevel_Inbox">Kräv inkorgssignerade drivrutiner</string>
+      <string id="DriverValidationLevel_Legacy">Tillåt alla giltigt signerade drivrutiner</string>
+      <string id="DriverValidationLevel_Trusted">Tillåt signerade drivrutiner för Inkorgen och Print Drivers Trusted Store</string>
+      <string id="DriverValidationLevel_TrustedShared">Tillåt inkorg, betrodd arkiv för skrivardrivrutiner, WHQL och betrodda publisher store-signerade drivrutiner</string>
+      <string id="DriverValidationLevel_WHQL">Tillåt inkorg, betrodd arkiv för skrivardrivrutiner och WHQL-signerade drivrutiner</string>
+      <string id="DriverValidationLevel">Hantera verifiering av skrivardrivrutinens signatur</string>
+      <string id="DriverValidationLevel_Help">
+          Den här principinställningen styr verifieringen av skrivardrivrutinens signatur. Den här principen styr vilken typ av digital signatur som krävs för att en skrivardrivrutin ska anses vara giltig och installerad i systemet.
+
+          Under den här verifieringen verifieras katalogen/den inbäddade signaturen och alla filer i drivrutinen måste vara en del av katalogen eller ha en egen inbäddad signatur som kan användas för verifiering.
+
+          Du kan aktivera den här inställningen om du vill ändra standardmetoden för signaturverifiering. Om du vill använda den här inställningen markerar du ett av alternativen nedan i rutan Välj signaturmekanism för drivrutin för den här datorn.
+
+          Om du inaktiverar eller låter bli att konfigurera den här principinställningen är standardmetoden Tillåt alla giltigt signerade drivrutiner.
+
+          -- "Kräv inkorgssignerade drivrutiner" anger att endast drivrutiner som levereras som en del av en Windows-avbildning tillåts på den här datorn.
+
+          -- "Tillåt signerade drivrutiner för Inkorgen och PrintDrivers Trusted Store" anger endast drivrutiner som levereras som en del av en Windows-avbildning eller -drivrutiner som är signerade av certifikat som är installerade i certifikatarkivet för PrintDrivers på den här datorn.
+
+          -- "Tillåt inkorgen, PrintDrivers Trusted Store och WHQL-signerade drivrutiner" anger att de enda drivrutiner som tillåts på den här datorn är: levererade som en del av en Windows-avbildning, signerade av certifikat som är installerade i certifikatarkivet PrintDrivers eller signerade av Windows Hardware Quality Lab (WHQL).
+
+          -- "Tillåt signerade drivrutiner för Inkorgen, PrintDrivers Trusted Store, WHQL och Trusted Publishers Store" anger de enda drivrutiner som tillåts på den här datorn: levererade som en del av en Windows-avbildning, signerade av certifikat som är installerade i certifikatarkivet PrintDrivers, signerade av WHQL (Windows Hardware Quality Lab) eller signerade av certifikat som är installerade i certifikatarkivet Betrodda utgivare.
+
+          -- "Tillåt alla giltigt signerade drivrutiner" anger att alla skrivardrivrutiner som har en giltig inbäddad signatur eller kan verifieras mot skrivardrivrutinskatalogen kan installeras på den här datorn.
+
+          Certifikatarkivet PrintDrivers måste skapas av en administratör på den lokala datorns lagringsplats.
+
+          Certifikatarkivet Betrodda utgivare kan innehålla certifikat från källor som inte är relaterade till skrivardrivrutiner.
+
+      </string>
+      <string id="DriverValidationLevelTitle">Välj drivrutinssignaturmekanismen för den här datorn</string>
+      <string id="DriverExclusionList">Hantera undantagslista för skrivardrivrutin</string>
+      <string id="DriverExclusionList_Help">
+Den här principinställningen styr undantagslistan för skrivardrivrutiner. Med undantagslistan kan en administratör skapa en lista över skrivardrivrutiner som inte får installeras på datorn.
+
+Den här kontrollen överskrider signaturkontrollen och tillåter att drivrutiner som har en giltig signaturnivå för verifieringsprincipen för skrivardrivrutinens signatur undantas.
+
+Poster i undantagslistan består av en SHA256-hash (eller SHA1-hash för Win7) av INF-filen och/eller huvuddrivrutinens DLL-fil för drivrutinen och filens namn.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen tas registernyckeln och värdena som är kopplade till den här principinställningen bort, om det för närvarande är inställt på ett värde.
+
+      </string>
+      <string id="RpcListenerPolicy">Konfigurera inställningar för RPC-lyssnare</string>
+      <string id="RpcOverNamedPipes">RPC över namngivna pipes</string>
+      <string id="RpcOverTcp">SMB över TCP</string>
+      <string id="RpcOverNamedPipesAndTcp">RPC över namngivna pipes och TCP</string>
+      <string id="RpcAuthenticationProtocol_Negotiate">Förhandla</string>
+      <string id="RpcAuthenticationProtocol_Kerberos">Kerberos</string>
+      <string id="RpcListenerPolicy_Help">
+Den här principinställningen styr vilka protokoll som inkommande RPC-anslutningar till utskriftshanteraren får använda.
+
+Som standard aktiveras RPC över TCP och Negotiate används för autentiseringsprotokollet.
+
+Protokoll som tillåter inkommande RPC-anslutningar:
+    -- "RPC över namngivna pipes": Inkommande RPC-anslutningar tillåts endast över namngivna pipes
+    -- "RPC över TCP": Inkommande RPC-anslutningar tillåts endast över TCP (standardalternativet)
+    -- "RPC över namngivna pipes och TCP": Inkommande RPC-anslutningar tillåts över TCP och namngivna pipes
+
+Autentiseringsprotokoll som ska användas för inkommande RPC-anslutningar:
+    -- "Förhandla": Använd Negotiate-autentiseringsprotokollet (standardalternativet)
+    -- "Kerberos": Använd Kerberos-autentiseringsprotokollet
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen används standardvärdena ovan.
+      </string>
+      <string id="RpcConnectionPolicy">Konfigurera RPC-anslutningsinställningar</string>
+      <string id="RpcConnectionAuthenticationDefault">Standard</string>
+      <string id="RpcConnectionAuthenticationEnabled">Autentisering har aktiverats</string>
+      <string id="RpcConnectionAuthenticationDisabled">Autentisering har inaktiverats</string>
+      <string id="RpcConnectionPolicy_Help">
+Den här principinställningen styr vilka protokoll och protokollinställningar som ska användas för utgående RPC-anslutningar till en fjärrutskriftshanterare.
+
+Som standard används RPC över TCP och autentisering är alltid aktiverat. För RPC över namngivna pipes är autentisering alltid aktiverat för domänanslutna datorer men inaktiverat för icke-domänanslutna datorer.
+
+Protokoll som ska användas för utgående RPC-anslutningar:
+    -- "RPC över TCP": Använd RPC över TCP för utgående RPC-anslutningar till en fjärrutskriftshanterare
+    -- "RPC över namngivna pipes": Använd RPC över namngivna pipes för utgående RPC-anslutningar till en fjärrutskriftshanterare
+
+Använd autentisering för utgående RPC-anslutningar över namngivna pipes:
+    -- "Standard": Som standard aktiverar domänanslutna datorer RPC-autentisering över namngivna pipes medan datorer som inte är domänanslutna inaktiverar RPC-autentisering över namngivna pipes
+    -- "Autentisering aktiverad": RPC-autentisering kommer att användas för utgående RPC-anslutningar över namngivna pipes
+    -- "Autentisering inaktiverad": RPC-autentisering används inte för utgående RPC-anslutningar över namngivna pipes
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen används standardvärdena ovan.
+      </string>
+      <string id="RpcTcpPortPolicy">Konfigurera RPC över TCP-port</string>
+      <string id="RpcTcpPortPolicy_Help">
+Den här principinställningen styr vilken port som används för RPC över TCP för inkommande anslutningar till utskriftshanteraren och utgående anslutningar till fjärrutskriftshanterare.
+
+Dynamiska TCP-portar används som standard.
+
+RPC över TCP-port:
+    -- Porten som ska användas för RPC över TCP. Standardvärdet 0 är standardvärdet och anger att dynamiska TCP-portar används
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen används dynamiska TCP-portar.
+      </string>
+      <string id="RpcIncomingAuthenticationLevelPolicy">Konfigurera sekretessinställning på RPC-paketnivå för inkommande anslutningar</string>
+      <string id="RpcIncomingAuthenticationLevelPolicy_Help">
+Den här principinställningen styr om sekretess på paketnivå ska aktiveras för RPC för inkommande anslutningar.
+
+Som standard aktiveras sekretess på paketnivå för RPC för inkommande anslutningar.
+
+Om du aktiverar eller låter bli att konfigurera den här principinställningen aktiveras sekretess på paketnivå för RPC för inkommande anslutningar.
+      </string>
+      <string id="AlwaysSendIppPageCounts">Skicka alltid information om antal jobbsidor för IPP-skrivare</string>
+      <string id="AlwaysSendIppPageCounts_Help">
+Anger om sidantalsinformation alltid ska skickas i redovisningssyfte för skrivare som använder Microsoft IPP-klassdrivrutinen.
+
+Som standard skickas sidor till skrivaren så snart de återges och sidantalsinformation inte skickas till skrivaren såvida inte sidor måste ordnas om.
+
+Om du aktiverar den här inställningen renderar systemet alla utskriftsjobbsidor framför skrivaren och det totala antalet utskriftssidor skickas till skrivaren.
+
+Om du inaktiverar eller inte konfigurerar den här inställningen skrivs sidor ut så snart de återges och sidantal skickas endast när sidordning krävs för att jobbet ska kunna bearbetas.
+      </string>
+      <string id="RequireIpps">Kräv IPPS för IPP-skrivare</string>
+      <string id="RequireIpps_Help">Anger om kommunikation med skrivare som använder Microsoft IPP-klassdrivrutinen måste använda IPPS (som använder TLS för säker kommunikation).
+
+Om du aktiverar den här principinställningen kan endast IPP-skrivare som stöder IPPS installeras.
+
+Om du inaktiverar eller låter bli att konfigurera den här inställningen tillåts installation av IPP-skrivare som inte stöder IPPS.
+      </string>
+      <string id="IppTlsCertificatePolicy">Ange TLS/SSL-säkerhetsprincip för IPP-skrivare</string>
+      <string id="IppTlsCertificatePolicy_Help">
+Fastställer TLS/SSL-säkerhetsprincipen (WINHTTP_OPTION_SECURITY_FLAGS) för skrivare som använder Microsoft IPP-klassdrivrutinen.
+
+Som standard är säkerhetsprincipen inställd på att ignorera alla certifikatfel, vilket tillåter användning av självsignerade certifikat för skrivare.
+
+Om du aktiverar den här inställningen aktiverar systemet som standard alla certifikatkontroll, vilket nekar certifikatfel. Specifik certifikatkontroll kan anges med de angivna kryssrutorna.
+
+Om du inaktiverar den här inställningen eller inte konfigurerar den är standardinställningen att ignorera alla certifikatfel (alla kryssrutor är avmarkerade).
+      </string>
+      <string id="RedirectionGuardPolicy">Konfigurera Redirection Guard</string>
+      <string id="RedirectionGuardPolicy_Disabled">Redirection Guard har inaktiverats</string>
+      <string id="RedirectionGuardPolicy_Enabled">Redirection Guard har aktiverats</string>
+      <string id="RedirectionGuardPolicy_AuditOnly">Endast granskning av Redirection Guard</string>
+      <string id="RedirectionGuardPolicy_Help">
+Anger om Redirection Guard är aktiverat för utskriftshanteraren.
+
+Du kan aktivera den här inställningen om du vill konfigurera principen Redirection Guard som tillämpas på utskriftshanteraren.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen används Redirection Guard som standard Enabled.
+
+Om du aktiverar den här inställningen kan du välja följande alternativ:
+
+-- Aktiverad: Redirection Guard förhindrar att filomdirigeringar följs
+
+-- Avaktiverat: Redirection Guard aktiveras inte och filomdirigeringar kan användas i utskriftshanterarprocessen
+
+-- Granskning: Redirection Guard loggar händelser som om de var aktiverade men förhindrar inte att filomdirigeringar används i utskriftshanteraren.
+      </string>
+      <string id="WindowsProtectedPrintPolicy">Konfigurera Windows protected print</string>
+      <string id="WindowsProtectedPrintPolicy_Help">
+Anger om Windows-skyddad utskrift är aktiverat på den här datorn.
+
+Windows-skyddad utskrift är som standard inte aktiverad och det finns inga begränsningar för vilka skrivardrivrutiner som kan installeras eller skriva ut.
+
+Om du aktiverar den här inställningen körs datorn i Windows-skyddat utskriftsläge, vilket endast tillåter utskrift till skrivare som stöder en delmängd windows-skrivardrivrutiner i inkorgen.
+
+Om du inaktiverar eller inte konfigurerar den här inställningen finns det inga begränsningar för vilka skrivardrivrutiner som kan installeras eller skriva ut.
+
+Mer information finns i https://learn.microsoft.com/en-us/windows-hardware/drivers/print/windows-protected-print-mode
+      </string>
+      <string id="WindowsReadyPrintDriverRanking">Konfigurera drivrutinsrankning för Windows Ready Print</string>
+      <string id="WindowsReadyPrintDriverRanking_Help">
+Anger om rakning av Windows Ready Print är aktiverat på den här datorn.
+
+När det är aktiverat föredrar Windows Microsoft IPP-klassdrivrutinen för skrivare som stöder IPP (Internet Printing Protocol). Detta gäller både nätverksanslutna IPP-skrivare och USB-anslutna skrivare som stöder IPP via USB.
+
+Om du aktiverar den här inställningen prioriterar Windows Microsoft IPP-klassdrivrutinen under det automatiska valet av drivrutin för berättigade skrivare.
+
+Om du inaktiverar den här inställningen använder Windows det standard beteendet för val av drivrutin.
+
+Om du inte konfigurerar den här inställningen används den lokala administratörsinställningen i stället. Om ingen av inställningarna har konfigurerats är rankning av modern Ready Print aktiverad som standard.
+
+Obs! Den här grupprincip inställningen har företräde framför den lokala administratörsinställningen. Den här inställningen påverkar bara valet av automatisk drivrutin under den första skrivarinstallationen. Befintliga skrivarinstallationer har inte ändrats. En fullständig avinstallation och ominstallation av en skrivare krävs för att en ändring i den här inställningen ska börja gälla.
+
+Mer information finns i https://go.microsoft.com/fwlink/?linkid=2364024.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="CustomizedSupportUrl">
@@ -327,7 +549,7 @@ Om du inte konfigurerar inställningen ändras inte hanteringen av standardskriv
       </presentation>
       <presentation id="PhysicalLocation">
         <text>Ange datorns plats</text>
-        <text>Exempelvis: Stad/Byggnad 2/Våning 2/Kontor 1 800</text>
+        <text>Exempelvis: Stad/Byggnad 2/Våning 1/Kontor 1 800</text>
         <textBox refId="PhysicalLocation_Name">
           <label>Plats</label>
         </textBox>
@@ -350,6 +572,50 @@ Om du inte konfigurerar inställningen ändras inte hanteringen av standardskriv
           <label>Standardsökväg i Active Directory</label>
         </textBox>
         <text>exempel --&gt; LDAP://DC=Doman1,DC=MinFirma,DC=com.</text>
+      </presentation>
+      <presentation id="ApprovedUsbPrintDevices">
+        <text>Ange listan över godkända USB-anslutna skrivarenheter.</text>
+        <text>Listan är en kommaseparerad lista över USB vid / pid-värden. Exempel: 0351 / 0872,135E / 2179</text>
+        <textBox refId="ApprovedUsbPrintDevices_List">
+          <label>vid/pid</label>
+        </textBox>
+      </presentation>
+      <presentation id="CopyFilesPolicy">
+        <text>Välj den metod som köspecifika filer ska bearbetas med.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="CopyFilesPolicy_Enum">Hantera bearbetning av köspecifika filer:</dropdownList>
+      </presentation>
+      <presentation id="DriverValidationLevel">
+        <dropdownList defaultItem="4" noSort="true" refId="DriverValidationLevel_Enum">Välj drivrutinssignaturmekanismen för den här datorn:</dropdownList>
+      </presentation>
+      <presentation id="DriverExclusionList">
+        <text>  </text>
+        <text>Ange en filhash som är kopplad till namnet på filen som hashen representerar nedan.</text>
+        <text>  </text>
+        <listBox refId="Driver_ExclusionListEntry">Filhashfilnamn:</listBox>
+      </presentation>
+      <presentation id="RpcListenerPolicy">
+        <text>Konfigurera protokollalternativ för inkommande RPC-anslutningar.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RpcListenerProtocols_Enum">Protokoll som tillåter inkommande RPC-anslutningar:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcAuthenticationProtocol_Enum">Autentiseringsprotokoll som ska användas för inkommande RPC-anslutningar:</dropdownList>
+      </presentation>
+      <presentation id="RpcConnectionPolicy">
+        <text>Konfigurera protokollalternativ för utgående RPC-anslutningar.</text>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionProtocol_Enum">Protokoll som ska användas för utgående RPC-anslutningar:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionAuthentication_Enum">Använd autentisering för utgående RPC-anslutningar:</dropdownList>
+      </presentation>
+      <presentation id="RpcTcpPortPolicy">
+        <text>Konfigurera porten som ska användas för RPC över TCP.</text>
+        <decimalTextBox defaultValue="0" refId="RpcTcpPort">RPC över TCP-port:</decimalTextBox>
+      </presentation>
+      <presentation id="IppTlsCertificatePolicy">
+        <checkBox refId="SecurityFlagsBlockUnknownCA" defaultChecked="true">Tillåt inte ogiltig certifikatutfärdare</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertWrongUsage" defaultChecked="true">Tillåt inte icke-servercertifikat</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertCNInvalid" defaultChecked="true">Tillåt inte ogiltigt eget certifikatnamn</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertDateInvalid" defaultChecked="true">Tillåt inte ogiltigt certifikatdatum</checkBox>
+      </presentation>
+      <presentation id="RedirectionGuardPolicy">
+        <text>Konfigurera alternativ för Redirection Guard</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RedirectionGuardPolicy_Enum">Alternativ för Redirection Guard</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

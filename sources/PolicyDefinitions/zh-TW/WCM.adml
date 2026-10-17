@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2006 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Windows 連線管理員群組原則設定</displayName>
   <description>Windows 連線管理員群組原則設定</description>
@@ -22,11 +22,11 @@
 若此原則設定已停用或未設定，會允許電腦同時連線至網域型網路與非網域型網路。
       </string>
       <string id="WCM_DisableRoaming">禁止漫遊行動寬頻網路的連線</string>
-      <string id="WCM_DisableRoaming_Help">此原則設定會在用戶端已於漫遊提供者網路上註冊時，禁止用戶端連線至行動寬頻網路。
+      <string id="WCM_DisableRoaming_Help">這個原則設定會防止用戶端在已於漫遊提供者網路上註冊的情況下連線至行動寬頻網路。
 
-若啟用此原則設定，會禁止所有對漫遊提供者網路的自動與手動連線嘗試，直到用戶端向家用提供者網路註冊為止。
+如果已啟用此原則設定，則對漫遊提供者網路的所有自動和手動連線常識都會受到禁止，直到用戶端向主提供者網路註冊為止。
 
-若此原則已停用或未設定，則允許用戶端連線至漫遊提供者行動寬頻網路。
+如果此原則設定未設定或已停用，則允許用戶端連線至漫遊提供者行動寬頻網路。
       </string>
       <string id="WCM_MinimizeConnections">最小化網際網路或 Windows 網域的同時連線數目</string>
       <string id="WCM_MinimizeConnections_AllowAllConnections">0 = 允許同時連線</string>
@@ -47,25 +47,25 @@
         此原則設定與 [Enable Windows to soft-disconnect a computer from a network] (允許 Windows 彈性中斷電腦對網路的連線) 原則設定相關。
       </string>
       <string id="WCM_DisablePowerManagement">停用連線待命模式的電源管理</string>
-      <string id="WCM_DisablePowerManagement_Help">此原則設定會指定在電腦進入連線待命模式時停用電源管理。
+      <string id="WCM_DisablePowerManagement_Help">這個原則設定會指定電腦進入已連線待命模式時是否停用電源管理。
 
-若啟用此原則設定，Windows 連線管理員不會在電腦進入連線待命模式時，管理介面卡的無線通訊來降低耗電量。
+如果已啟用此原則設定，則 Windows 連線管理員不會於電腦進入已連線待命模式時，管理介面卡的無線通訊來降低耗電。
 
-若此原則已停用或未設定，則會在電腦進入連線待命模式時啟用電源管理。
+如果此原則設定未設定或已停用，則會在電腦進入已連線待命模式時啟用店員管理。
       </string>
       <string id="WCM_EnableSoftDisconnect">可讓 Windows 彈性中斷電腦的網路連線</string>
-      <string id="WCM_EnableSoftDisconnect_Help">此原則設定會決定 Windows 是否會彈性中斷電腦對網路的連線。
+      <string id="WCM_EnableSoftDisconnect_Help">這個原則設定會決定 Windows 是否會將電腦從網路彈性中斷連線。
 
-若此原則已啟用或未設定，Windows 會在判斷電腦不應再連線至網路時，彈性中斷電腦對網路的連線。
+如果此原則設定已啟用或未設定，Windows 就會在認為電腦不應再連線至網路時予以彈性中斷連線。
 
-若此原則已停用，則 Windows 會在判斷電腦不應再連線至網路時，立即中斷電腦對網路的連線。
+如果這個原則已停用，則 Windows 會在認為電腦不應再連線至網路時立即予以中斷連線。
 
 當彈性中斷連線啟用時:
-- 當 Windows 決定電腦不應再連線至網路時，會等候流量放置在該網路上。現有的 TCP 工作階段將會繼續而不受干擾。
-- Windows 之後會定期檢查網路的流量等級。若流量等級超過特定閾值，就不會採取進一步動作。電腦會保持對網路的連線並繼續使用網路。例如: 若網路連線正用於下載網際網路的檔案，就會使用該網路連線繼續下載檔案。
-- 當網路流量下降而低於此閾值時，就會中斷電腦對網路的連線。即使不會積極使用網路 (例如電子郵件應用程式)，但仍會保持網路連線處於正在使用狀態的應用程式可能會失去它們的連線。若發生此情形，則這些應用程式必須透過其他網路重新建立它們的連線。
+- 當 Windows 決定電腦不應再連線至網路時，會等待該網路上的流量穩定。現有的 TCP 工作階段會繼續而不中斷。
+- Windows 接著會定期檢查網路上的流量等級。如果流量等級超過特定閾值，並不會採取進一步動作。電腦會保持與網路的連線並繼續加以使用。舉例來說，如果網路連線目前正用於從網際網路下載檔案，則會使用該網路連線繼續下載檔案。
+- 當網路流量低於此閾值時，電腦會從網路中斷連線。即使未持續使用網路連線 (例如: 電子郵件應用程式)，但仍會將網路連線保持在使用中狀態的應用程式可能會失去連線。如果發生這種情形，則這些應用程式應透過其他網路重新建立它們的連線。
 
-此原則設定會相依於其他群組原則設定。例如，若 [Minimize the number of simultaneous connections to the Internet or a Windows Domain] (將網際網路或 Windows 網域的同時連線數最小化) 已停用，Windows 就不會中斷對任何網路的連線。
+這個原則設定會因其他群組原則設定變更而受到影響。舉例來說，如果停用 [將對網際網路或 Windows 網域的同時連線數最小化] (Minimize the number of simultaneous connections to the Internet or a Windows Domain)，則 Windows 就不會從任何網路中斷連線。
       </string>
     </stringTable>
     <presentationTable>

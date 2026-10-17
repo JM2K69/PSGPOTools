@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>escriba aquí el nombre para mostrar</displayName>
+  <description>escriba aquí la descripción</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Arranque seguro</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Implementación de certificados mediante el lanzamiento controlado de características</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">Las empresas que quieran recibir ayuda para implementar los nuevos certificados de arranque seguro en sus dispositivos pueden habilitar esta configuración.
+
+ 
+
+Nota: El dispositivo debe enviar los datos de diagnóstico necesarios a Microsoft para usar esta característica.
+
+ 
+
+Para más información, consulta: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Implementación automática de certificados a través de actualizaciones</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">En el caso de los dispositivos para los que se dispone de resultados de pruebas que indican que el dispositivo puede procesar correctamente las actualizaciones de certificados, estas se iniciarán automáticamente como parte de las actualizaciones de mantenimiento. Esta directiva está habilitada de forma predeterminada. Las empresas que quieran administrar la actualización automática pueden usar esta directiva para habilitar o deshabilitar explícitamente la característica.
+
+ 
+
+Para más información, consulta: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Habilitar la implementación de certificados de arranque seguro</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Esta configuración de directiva permite habilitar o deshabilitar el proceso de implementación de certificados de arranque seguro en los dispositivos. Cuando se habilita, Windows iniciará automáticamente el proceso de implementación de certificados en los dispositivos en los que se haya aplicado esta directiva. 
+
+ 
+
+Nota: Esta configuración del Registro no se almacena en una clave de directiva y se considera una preferencia. Por lo tanto, si alguna vez se quita el objeto directiva de grupo que implementa esta configuración, esta configuración del Registro permanecerá. 
+
+ 
+
+Nota: La tarea de Windows que ejecuta y procesa esta configuración se ejecuta cada 12 horas. En algunos casos, las actualizaciones se mantendrán hasta que el sistema se reinicie para secuenciar las actualizaciones de forma segura. 
+
+ 
+
+Nota: Una vez que los certificados se aplican al firmware, no se pueden deshacer de Windows. Si es necesario borrar los certificados, debe realizarse desde la interfaz de menú de firmware. 
+
+ 
+
+Para obtener más información, consulta: https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Limitar los datos de servicio necesarios de Arranque seguro</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Esta configuración de directiva controla si el sistema operativo emite el evento diario de datos del servicio de arranque seguro requerido. El evento contiene información sobre la configuración de arranque seguro del dispositivo y el estado de las variables de firmware, y normalmente se envía independientemente del nivel de datos de diagnóstico Permitir telemetría porque se clasifica como necesario para la seguridad.
+
+ 
+
+Al habilitar esta configuración de directiva, no se emitirá el evento diario de datos de servicio de arranque seguro requerido. Está pensado para empresas que operan en la línea de base de funcionalidad limitada de tráfico restringido de Windows.
+
+ 
+
+Si deshabilitas o no estableces esta configuración de directiva, el sistema operativo seguirá emitiendo el evento de datos de servicio necesario de arranque seguro según las reglas de permisos de telemetría existentes.</string>
+
+      <string id="SUPPORTED_Windows8">Al menos Windows Server 2012, Windows 8 o Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

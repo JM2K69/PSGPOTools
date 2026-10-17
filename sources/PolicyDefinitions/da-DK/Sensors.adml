@@ -36,6 +36,92 @@
       
       </string>
       <string id="LocationAndSensors">Placering og sensorer</string>
+      <string id="HumanPresence">Menneskelig tilstedeværelse</string>
+      <string id="ForceInstantWake_DisplayName">Gennemtving hurtigsøgning</string>
+      <string id="ForceInstantWake_ExplainText">Afgør, om Wake On Arrival tvinges til/fra af MDM-politikken. Brugeren kan ikke ændre denne indstilling, og indstillingen i brugergrænsefladen bliver nedtonet.</string>
+      <string id="ForceInstantWake_0">Brugervalg sættes som standard</string>
+      <string id="ForceInstantWake_1">Tvunget til</string>
+      <string id="ForceInstantWake_2">Nødt til at gå af</string>
+      <string id="ForceInstantLock_DisplayName">Gennemtving Hurtiglås</string>
+      <string id="ForceInstantLock_ExplainText">Afgør, om Lås, når du går tvinges til/fra af MDM-politikken. Brugeren kan ikke ændre denne indstilling, og indstillingen i brugergrænsefladen bliver nedtonet.</string>
+      <string id="ForceInstantLock_0">Brugervalg sættes som standard</string>
+      <string id="ForceInstantLock_1">Tvunget til</string>
+      <string id="ForceInstantLock_2">Nødt til at gå af</string>
+      <string id="ForceLockTimeout_DisplayName">Timeout for lås</string>
+      <string id="ForceLockTimeout_ExplainText">Bestemmer timeouten for Lås, når du går tvunget af MDM-politikken. Brugeren kan ikke ændre denne indstilling, og indstillingen i brugergrænsefladen bliver nedtonet.</string>
+      <string id="ForceLockTimeout_0">Brugervalg sættes som standard</string>
+      <string id="ForceLockTimeout_1">10 sekunder</string>
+      <string id="ForceLockTimeout_2">30 sekunder</string>
+      <string id="ForceLockTimeout_3">2 minutter</string>
+      <string id="ForceLockTimeout_4">Straks</string>
+      <string id="ForceInstantDim_DisplayName">Gennemtving øjeblikkelig nedtoning</string>
+      <string id="ForceInstantDim_ExplainText">Afgør, om Opmærksomhedsbaseret nedtoning af visning tvinges til/fra af MDM-politikken. Brugeren kan ikke ændre denne indstilling, og indstillingen i brugergrænsefladen bliver nedtonet.</string>
+      <string id="ForceInstantDim_0">Brugervalg sættes som standard</string>
+      <string id="ForceInstantDim_1">Tvunget til</string>
+      <string id="ForceInstantDim_2">Nødt til at gå af</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_DisplayName">Gennemtving Deaktiver aktivering, når strømsparetilstand er slået til</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_ExplainText">Bestemmer, om Tillad, aktivér, når du er nær, når Strømsparetilstand er aktiveret-afkrydsningsfeltet er tvunget markeret/ikke markeret af MDM-politikken. Brugeren kan ikke ændre denne indstilling, og afkrydsningsfeltet i brugergrænsefladen bliver nedtonet.</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_0">Brugervalg sættes som standard</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_1">Tvunget markeret</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_2">Tvunget ikke-markeret</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_DisplayName">Gennemtving Tillad aktivering, når ekstern skærm er tilsluttet</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_ExplainText">Bestemmer, om Tillad, aktivér, når du er nær, når ekstra skærm er tilsluttet-afkrydsningsfeltet er tvunget markeret/ikke markeret af MDM-politikken. Brugeren kan ikke ændre denne indstilling, og afkrydsningsfeltet i brugergrænsefladen bliver nedtonet.</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_0">Brugervalg sættes som standard</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_1">Tvunget markeret</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_2">Tvunget ikke-markeret</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_DisplayName">Gennemtving Tillad lås, når ekstern skærm er tilsluttet</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_ExplainText">Bestemmer, om afkrydsningsfeltet Tillad lås ved forlad, når der er oprettet forbindelse til ekstern skærm tvinges til at blive kontrolleret/fjernet af MDM-politikken. Brugeren kan ikke ændre denne indstilling, og afkrydsningsfeltet i brugergrænsefladen bliver nedtonet.</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_0">Brugervalg sættes som standard</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_1">Tvunget markeret</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_2">Tvunget ikke-markeret</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_DisplayName">Gennemtving Tillad nedtoning, når ekstern skærm er tilsluttet</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_ExplainText">Bestemmer, om afkrydsningsfeltet Tillad tilpasset nedtoning gennemtvinges, når afkrydsningsfeltet Tilsluttet ekstern skærm tvinges til at være markeret/fjernet af MDM-politikken. Brugeren kan ikke ændre denne indstilling, og afkrydsningsfeltet i brugergrænsefladen bliver nedtonet.</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_0">Brugervalg sættes som standard</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_1">Tvunget markeret</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_2">Tvunget ikke-markeret</string>
+      <string id="ForceOnlookerDetection_DisplayName">Gennemtving registrering af tilskuer</string>
+      <string id="ForceOnlookerDetection_ExplainText">Bestemmer, om funktionen Registrering af onlooker tvinges til/fra af MDM-politikken. Brugeren kan ikke ændre denne indstilling, og til/fra-knappen i brugergrænsefladen bliver nedtonet.</string>
+      <string id="ForceOnlookerDetection_0">Brugervalg sættes som standard</string>
+      <string id="ForceOnlookerDetection_1">Tvunget til</string>
+      <string id="ForceOnlookerDetection_2">Nødt til at gå af</string>
+      <string id="ForceOnlookerDetectionAction_DisplayName">Gennemtving handlingen registrering af tilskuer</string>
+      <string id="ForceOnlookerDetectionAction_ExplainText">Bestemmer, om handlingen Registrering af onlooker gennemtvinges af MDM-politikken. Brugeren kan ikke ændre denne indstilling, og til/fra-knappen i brugergrænsefladen bliver nedtonet.</string>
+      <string id="ForceOnlookerDetectionAction_0">Brugervalg sættes som standard</string>
+      <string id="ForceOnlookerDetectionAction_1">Nedtonet</string>
+      <string id="ForceOnlookerDetectionAction_2">Give besked</string>
+      <string id="ForceOnlookerDetectionAction_3">Nedton og giv besked</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ForceInstantWake">
+        <dropdownList refId="ForceInstantWakeDropdown" noSort="true" defaultItem="0">Vælg en af følgende handlinger</dropdownList>
+      </presentation>
+      <presentation id="ForceInstantLock">
+        <dropdownList refId="ForceInstantLockDropdown" noSort="true" defaultItem="0">Vælg en af følgende handlinger</dropdownList>
+      </presentation>
+      <presentation id="ForceLockTimeout">
+        <dropdownList refId="ForceLockTimeoutDropdown" noSort="true" defaultItem="1">Vælg en af følgende timeouts</dropdownList>
+      </presentation>
+      <presentation id="ForceInstantDim">
+        <dropdownList refId="ForceInstantDimDropdown" noSort="true" defaultItem="0">Vælg en af følgende handlinger</dropdownList>
+      </presentation>
+      <presentation id="ForceDisableWakeWhenBatterySaverOn">
+        <dropdownList refId="ForceDisableWakeWhenBatterySaverOnDropdown" noSort="true" defaultItem="0">Vælg en af følgende handlinger</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowWakeWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowWakeWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">Vælg en af følgende handlinger</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowLockWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowLockWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">Vælg en af følgende handlinger</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowDimWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowDimWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">Vælg en af følgende handlinger</dropdownList>
+      </presentation>
+      <presentation id="ForceOnlookerDetection">
+        <dropdownList refId="ForceOnlookerDetectionDropdown" noSort="true" defaultItem="0">Vælg en af følgende handlinger</dropdownList>
+      </presentation>
+      <presentation id="ForceOnlookerDetectionAction">
+        <dropdownList refId="ForceOnlookerDetectionActionDropdown" noSort="true" defaultItem="0">Vælg en af følgende handlinger</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

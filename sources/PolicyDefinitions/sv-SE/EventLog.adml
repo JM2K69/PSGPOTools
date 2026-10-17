@@ -80,20 +80,37 @@ Om du inaktiverar eller inte konfigurerar den här principinställningen använd
       <string id="Channel_LogMaxSize">Ange maximal loggfilsstorlek (kB)</string>
       <string id="Channel_LogMaxSize_Help">Den här principinställningen anger maximal storlek för loggfilen i kB.
 
-Om du aktiverar den här principinställningen kan du konfigurera den maximala loggfilstorleken till mellan 1 MB (1024 kB) och 2 TB (2147483647 kB) i kilobytesteg.
+Om du aktiverar den här principinställningen kan du konfigurera den maximala loggfilstorleken till mellan 1 megabyte (1024 kilobyte) och 2 terabyte (2147483647 kilobyte) i kilobytesteg.
 
-Om du inaktiverar eller inte konfigurerar principinställningen anges loggfilens maximala storlek till det lokalt konfigurerade värdet. Det här värdet kan ändras av den lokala administratören i dialogrutan Egenskaper för logg och standardvärdet är 1 MB.</string>
+Om du inaktiverar eller inte konfigurerar principinställningen anges loggfilens maximala storlek till det lokalt konfigurerade värdet. Det här värdet kan ändras av den lokala administratören i dialogrutan Egenskaper för logg och standardvärdet är 20 MB.</string>
       <string id="Channel_LogMaxSizeSecurity_Help">Den här principinställningen anger maximal storlek för loggfilen i kB.
 
 Om du aktiverar den här principinställningen kan du konfigurera den maximala loggfilstorleken till mellan 20 MB (20480 kB) och 2 TB (2147483647 kB) i kilobytesteg.
 
-Om du inaktiverar eller inte konfigurerar principinställningen anges loggfilens maximala storlek till det lokalt konfigurerade värdet. Det här värdet kan ändras av den lokala administratören i dialogrutan Egenskaper för logg och standardvärdet är 20 MB.</string>
+Om du inaktiverar eller inte konfigurerar principinställningen anges loggfilens maximala storlek till det lokalt konfigurerade värdet. Det här värdet kan ändras av den lokala administratören i dialogrutan Egenskaper för logg och standardvärdet är 40 MB.</string>
       <string id="ChannelName_Help">Konfigurationsinställningar för logg</string>
       <string id="EventLog_Application">Program</string>
       <string id="EventLog_Security">Säkerhet</string>
       <string id="EventLog_Setup">Installation</string>
       <string id="EventLog_System">System</string>
       <string id="EventLogCategory">Händelseloggtjänsten</string>
+      <string id="Service_RpcAccess_Remote">Begränsa fjärråtkomst till händelseloggstjänsten</string>
+      <string id="Service_RpcAccess_Remote_Help">Den här principinställningen styr vilka fjärranvändare som får ansluta till händelseloggstjänsten på den här datorn.
+
+Om du aktiverar den här principen kan du begränsa vilken grupp fjärranvändare måste vara medlemmar i för att kunna ansluta till händelseloggstjänsten på den här datorn. Du kan kräva att fjärranvändare är medlemmar i någon av följande inbyggda grupper:
+
+• Autentiserade användare
+• EventLog-läsare
+• Administratörer
+
+Om du inaktiverar eller inte konfigurerar den här principen kommer standardvärdet att vara Autentiserade användare.
+
+I tidigare versioner av Windows fanns det endast stöd för autentiserade användare. För att upprätthålla bakåtkompatibilitet tillåts alltid lokala anslutningar till tjänsten från Autentiserade användare.
+
+Den här inställningen styr inte åtkomsten till enskilda loggar. När en fjärranslutning tillåts behöver den fortfarande åtkomst till de specifika resurser som den försöker använda.</string>
+      <string id="Service_RpcAccess_Remote_AU">Autentiserade användare</string>
+      <string id="Service_RpcAccess_Remote_ER">Händelseloggläsare</string>
+      <string id="Service_RpcAccess_Remote_AD">Administratörer</string>
     </stringTable>
     <presentationTable>
       <presentation id="Channel_Log_FileLogAccess_1">
@@ -157,16 +174,19 @@ Om du inaktiverar eller inte konfigurerar principinställningen anges loggfilens
         </textBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_1">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maximal loggstorlek (kB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maximal loggstorlek (kB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_2">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maximal loggstorlek (kB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="40960">Maximal loggstorlek (kB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_3">
         <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maximal loggstorlek (kB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_4">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maximal loggstorlek (kB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maximal loggstorlek (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="Service_RpcAccess_Remote">
+        <dropdownList refId="RpcAccess_Remote_Setting" noSort="true" defaultItem="0">Välj en av följande inställningar:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

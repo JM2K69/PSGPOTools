@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>ange visningsnamn här</displayName>
+  <description>ange beskrivning här</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Inaktivera Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot_Help">Med den här principinställningen kan du inaktivera Windows Copilot.
+
+Om du aktiverar den här principinställningen kan användarna inte använda Copilot. Copilot-ikonen visas inte heller i Aktivitetsfältet.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan användarna använda Copilot när den är tillgänglig för dem.
+      </string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="DisableAIDataAnalysis">Inaktivera sparande av ögonblicksbilder för användning med Tillbakablick
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Med den här principinställningen kan du bestämma om ögonblicksbilder av skärmen kan sparas för användning med Tillbakablick. Ögonblicksbilder för Tillbakablick är inte aktiverade som standard för hanterade enheter. IT-administratörer kan inte på egen hand aktivera sparande av ögonblicksbilder åt sina användare. Alternativet för att aktivera sparande av ögonblicksbilder kräver individuellt användarmedgivande.
+
+Om principen inte konfigureras sparas inte ögonblicksbilder för användning med Tillbakablick.
+
+Om du aktiverar den här principen sparas inte ögonblicksbilder för användning med Tillbakablick. Om ögonblicksbilder tidigare har sparats på enheten tas de bort när den här principen är aktiverad.
+
+Om du ställer in den här principen på inaktiverad kan slutanvändarna välja att spara ögonblicksbilder av skärmen och använda Tillbakablick för att hitta saker de har sett på sina enheter.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Ange maximalt lagringsutrymme för ögonblicksbilder som används av Tillbakablick
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Med den här principinställningen kan du styra hur mycket diskutrymme som kan användas av Windows för att spara ögonblicksbilder för Tillbakablick.
+
+Du kan ange maximalt diskutrymme för ögonblicksbilder till 10, 25, 50, 75, 100 eller 150 GB.
+
+När den här inställningen inte har konfigurerats konfigurerar operativsystemet lagringsallokeringen för ögonblicksbilder baserat på enhetens lagringskapacitet om inte den aktuella användaren anger ett annat värde.
+
+25 GB allokeras när enhetens lagringskapacitet är 256 GB. 75 GB allokeras när enhetens lagringskapacitet är 512 GB. 150 GB allokeras när enhetens lagringskapacitet är 1 TB eller högre.
+
+Om både maximal lagringstid och maximalt lagringsutrymme har angetts för återkallande tas ögonblicksbilder bort när det första maxvärdet nås.
+
+Viktigt: Den här inställningen gäller endast för Enterprise- och Education-klient-SKU:er.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Låt operativsystemet definiera den maximala lagringsmängden baserat på hårddiskens lagringsstorlek</string>
+      <string id="SetMaximumStorageSpace_10GB">10 GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25 GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50 GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75 GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100 GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150 GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Ange maximal varaktighet för lagring av ögonblicksbilder som används av Tillbakablick
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Med den här principinställningen kan du styra hur lång tid (i dagar) som Windows sparar ögonblicksbilder för Tillbakablick.
+
+När principen är aktiverad kan du konfigurera den maximala lagringstiden till 30, 60, 90 eller 180 dagar.
+
+När den här principen inte har konfigurerats är den maximala lagringsvaraktigheten 90 dagar om inte den aktuella användaren anger ett annat värde.
+
+Om både maximal lagringstid och maximalt lagringsutrymme har angetts för återkallande tas ögonblicksbilder bort när det första maxvärdet nås.
+
+Viktigt: Den här inställningen gäller endast för Enterprise- och Education-klient-SKU:er.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">Låt operativsystemet definiera den maximala tid som ögonblicksbilderna ska sparas
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 dagar</string>
+      <string id="SetMaximumStorageDuration_60Days">60 dagar</string>
+      <string id="SetMaximumStorageDuration_90Days">90 dagar</string>
+      <string id="SetMaximumStorageDuration_180Days">180 dagar</string>
+      <string id="SetDenyAppListForRecall">Ange en lista över appar som ska filtreras från ögonblicksbilder för Tillbakablick
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Med den här principen kan du definiera en lista över appar som inte tas med i ögonblicksbilder för Tillbakablick.
+
+Användare kommer att kunna lägga till ytterligare program som ska undantas från ögonblicksbilder med hjälp av Tillbakablick inställningar.
+
+Listan kan innehålla programanvändarmodell-ID:n (AUMID) eller namnet på den körbara filen.
+
+Använd en semikolonavgränsad lista över appar för att definiera listan över nekade appar för Tillbakablick.
+
+Exempel: code.exe; Microsoft.WindowsNotepad_8wekyb3d8bbwe! App;ms-teams.exe
+
+Viktigt! Den här inställningen gäller endast Enterprise- och Education-klient-SKU:er. När du konfigurerar den här principinställningen börjar ändringarna inte gälla förrän enheten startas om.
+      </string>
+      <string id="SetDenyUriListForRecall">Ange en lista över URI:er som ska filtreras från ögonblicksbilder för Tillbakablick
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Med den här principinställningen kan du definiera en lista över URI:er som inte tas med i ögonblicksbilder för Tillbakablick när en webbläsare som stöds används. Personer i organisationen kan använda Tillbakablick inställningar för att lägga till fler webbplatser i listan. Definiera listan med semikolon för att avgränsa URI:er.
+
+Exempel: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+Om du lägger till https://www.WoodgroveBank.com i listan filtreras även https://Account.WoodgroveBank.com och https://www.WoodgroveBank.com/Account.
+
+Viktigt! Den här inställningen gäller endast Enterprise- och Education-klient-SKU:er. Ändringar av den här principen börjar gälla efter att enheten har startats om.
+      </string>
+      <string id="SetDataLossPreventionProvider">Ange DLP-leverantörens ID för Tillbakablick
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Med den här principen kan en administratör ange en DLP-provider, som Tillbakablick använder om providern är korrekt installerad. Du måste hämta strängen för detta från din leverantör. Det ser ut ungefär som "key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; värde:InstallPath; binary:contosoDLP.dll" (utan citattecken i värdet).
+
+Viktigt: Den här inställningen gäller endast för Enterprise- och Education-klient-SKU:er.
+      </string>
+      <string id="SetCopilotHardwareKey">Ange Copilot-maskinvarutangent</string>
+      <string id="SetCopilotHardwareKey_Help">Den här principinställningen bestämmer vilken app som öppnas när användaren trycker på Copilot-tangenten på tangentbordet. Om principen är aktiverad öppnas den angivna appen när användaren trycker på Copilot-tangenten. Användare kan ändra tangenttilldelningen i Inställningar. Om principen inte är konfigurerad öppnas Copilot om den är tillgänglig i det landet eller den regionen.
+      </string>
+      <string id="AllowRecallEnablement">Tillåt att Tillbakablick aktiveras
+      </string>
+      <string id="AllowRecallEnablement_Help">Med den här principinställningen kan du bestämma om den Tillbakablick valfria komponenten är tillgänglig för slutanvändarna att aktivera på sina enheter. Som standard är Tillbakablick inaktiverat för hanterade kommersiella enheter. Tillbakablick är inte tillgängligt på hanterade enheter som standard och enskilda användare kan inte aktivera Tillbakablick på egen hand.
+
+Om den här principen inte konfigureras får slutanvändarna den Tillbakablick komponenten inaktiverad.
+
+Om du inaktiverar den här principen inaktiveras Tillbakablick komponenten och bitarna för Tillbakablick tas bort från enheten. Om ögonblicksbilder tidigare har sparats på enheten tas de bort när principen inaktiveras. Om du tar bort Tillbakablick måste enheten startas om.
+
+Om principen är aktiverad har slutanvändarna Tillbakablick tillgängliga på sina enheter. Beroende på tillståndet för principen DisableAIDataAnalysis (inaktivera sparande av ögonblicksbilder för användning med Tillbakablick) kan slutanvändarna välja om de vill spara ögonblicksbilder av skärmen och använda Tillbakablick för att hitta saker de har sett på sina enheter.
+      </string>
+      <string id="DisableClickToDo">Inaktivera Klicka för att göra</string>
+      <string id="DisableClickToDo_Help">Med Klicka för att göra kan användarna vidta åtgärder på innehåll på sina skärmar. När den är aktiverad tar den en skärmbild av skärmen och analyserar den för att presentera åtgärder. Klicka för att göra avslutas när användaren stänger den, och den kan inte ta skärmbilder när den är stängd. Skärmbildsanalys utförs alltid lokalt på enheten. Som standard är Klicka för att göra aktiverad för användare.
+
+Denna principinställning gör att du kan avgöra om Klicka för att göra är tillgängligt för användare på deras enhet.
+
+När principen är aktiverad kommer komponenten Klicka för att göra och ingångspunkterna inte att vara tillgängliga för användare.
+
+När principen är inaktiverad kommer användarna att ha Klicka för att göra tillgängligt på sina enheter.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">Inaktivera Bildskapare</string>
+      <string id="DisableImageCreator_Help">Med den här principinställningen kan du styra om Bildskapare funktioner ska inaktiveras i Windows Paint-appen. Om den här principen är aktiverad kan Bildskapare inte användas i Paint-appen. Om principen är inaktiverad eller inte konfigurerad kan användarna komma åt Bildskapare funktioner.</string>
+      <string id="DisableCocreator">Inaktivera Cocreator</string>
+      <string id="DisableCocreator_Help">Med den här principinställningen kan du ange om Cocreator-funktioner ska inaktiveras i Windows Paint-appen. Om den här principen är aktiverad går det inte att komma åt Cocreator-funktionerna i Paint-appen. Om principen är inaktiverad eller inte konfigurerad kan användarna komma åt Cocreator-funktionerna.</string>
+      <string id="DisableGenerativeFill">Inaktivera generativ fyllning</string>
+      <string id="DisableGenerativeFill_Help">Med den här principinställningen kan du styra om generativa fyllningsfunktioner ska inaktiveras i Windows Paint-appen. Om den här principen är aktiverad går det inte att komma åt generativa fyllningsfunktioner i Paint-appen. Om den här principen är inaktiverad eller inte konfigurerad kan användarna komma åt generativa fyllningsfunktioner.</string>
+      <string id="AllowRecallExport">Tillåt export av information om Tillbakablick och ögonblicksbilder</string>
+      <string id="AllowRecallExport_Help">Med den här principen kan du avgöra om användarna kan exportera sin egen information om återkallande och ögonblicksbilder. Med export kan användare dela sin information om återkallande och ögonblicksbilder med betrodda appar eller webbplatser. Användare kan exportera från Inställningar &gt; Sekretess &amp; Säkerhet &gt; Tillbakablick &amp; Ögonblicksbilder &gt; Avancerade inställningar &gt; Exportera ögonblicksbilder &gt; Exportera tidigare ögonblicksbilder &gt; Exportera.
+
+Användare kan också välja att kontinuerligt exportera sina ögonblicksbilder om de aktiverar alternativet att exportera ögonblicksbilder från och med nu från Inställningar &gt; Integritet &amp; säkerhet &gt; Tillbakablick &amp; ögonblicksbilder &gt; Avancerade inställningar &gt; Exportera ögonblicksbilder &gt; Exportera.
+
+Innan du startar en export måste användaren autentisera sig med Windows Hello, och de meddelas om att deras exporterade ögonblicksbilder är krypterade eftersom de kan innehålla känslig information. Användaren informeras också om att de måste ange sin Tillbakablick-exportkod om de vill ge betrodda appar eller webbplatser åtkomst till exporterade ögonblicksbilder. Återkallelseexportkoden visas för användare under återkallningskonfigurationen även om den här principen är inställd på inaktiverad eller inte konfigurerad. För hanterade enheter:
+
+När du anger den här principen till aktiverad kan användare exportera informationen i Tillbakablick och ögonblicksbilder.
+
+Om principen är inställd på inaktiverad eller inte konfigurerad kan användarna inte exportera sin information i Tillbakablick och ögonblicksbilder.
+
+Viktigt: Den här inställningen gäller endast enheter inom Europeiska ekonomiska samarbetsområdet (EES). Export av Tillbakablick- och ögonblicksbildsinformation är en användarinitierad process och sker per användare. IT-administratörer eller andra användare kan inte initiera en export å någon annans vägnar.
+      </string>
+      <string id="DisableSettingsAgent">Inaktivera agentsökupplevelse för inställningar</string>
+      <string id="DisableSettingsAgent_Help">Inställningarnas agentiska upplevelse förbättrar sökresultaten i appen Inställningar genom att aktivera naturligt språk. När den är aktiverad använder den en AI-modell för att ge intelligenta sökförslag för Inställningar.
+
+        Med den här principinställningen kan du avgöra om den agentiska sökupplevelsen för Inställningar är tillgänglig för användare på deras enhet.
+
+        När principen är aktiverad inaktiveras den agentiska sökupplevelsen för Inställningar, vilket begränsar sökresultaten till statiskt indexerade sökningar och semantiska sökningar.
+
+        När principen är inaktiverad kommer användarna att ha den agentiska sökupplevelsen för Inställningar tillgänglig på sin enhet.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Loggningsnivå för register på enheten</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Med den här principinställningen kan du konfigurera loggningsnivån för registeråtgärder på enheten.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Fel eller högre</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Information eller högre</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Felsök eller högre</string>
+      <string id="RemoveMicrosoftCopilotApp">Ta bort Microsoft Copilot-appen</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Den här principinställningen låter dig avinstallera Microsoft Copilot för användare på ett riktat sätt. Den gäller för enheter/användare som uppfyller följande villkor:
+
+• både Microsoft 365 Copilot och Microsoft Copilot är installerade
+
+• Microsoft Copilot-appen installerades inte av användaren
+
+• Microsoft Copilot-appen har inte startats under de senaste 28 dagarna
+ 
+Om den här principen är aktiverad avinstalleras Microsoft Copilot-appen. Användare kan fortfarande installera om den om de vill. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>Ange app-AUMID</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Ange listan över nekade appar:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Ange listan över nekade URI:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>Ange DLP-leverantörens ID:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Välj maximalt lagringsutrymme:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Välj maximal lagringstid:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Loggningsnivå för register på enheten: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

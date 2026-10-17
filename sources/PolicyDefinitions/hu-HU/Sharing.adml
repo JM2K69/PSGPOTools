@@ -25,6 +25,10 @@ Ez a házirend-beállítás alapértelmezés szerint nincs beállítva.
 A házirend-beállítás érvénybe léptetéséhez újra kell indítania a számítógépet.</string>
       <string id="HomeGroup">Otthoni csoport</string>
       <string id="HomeGroup_Help">Az otthoni csoport működését szabályozó beállítások.</string>
+      <string id="DisableShareAppPromotions">DisableShareAppPromotions</string>
+      <string id="DisableShareAppPromotions_Help">Ezzel a házirend-beállítással a rendszergazdák szabályozhatják, hogy a promóciós alkalmazások megjelenjenek-e a ShareSheetben. Ha engedélyezi ezt a házirendet, a Windows nem jelenít meg promóciós alkalmazásokat a ShareSheetben. Ha letiltja vagy nem konfigurálja ezt a házirendet, a ShareSheet megnyitásakor alkalmazásjavaslatokat és promóciókat jeleníthet meg.</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

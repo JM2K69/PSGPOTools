@@ -135,21 +135,22 @@
     </string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts">Konfigurer tilpassede meddelelser</string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts_Explain">
-        Få vist angivne kontaktoplysninger for lokale brugere i meddelelser fra Windows Sikkerhed.
+        Vis de angivne kontaktoplysninger til lokale brugere i Windows Sikkerhed-meddelelser.
 
-	Aktiveret:
+        Aktiveret:
         Firmaets kontaktoplysninger vises i meddelelser, der kommer fra Windows Sikkerhed.
 
-	Når denne indstilling er aktiveret, skal du konfigurere indstillingen Angiv navn på kontaktperson for gruppepolitik og mindst én af følgende gruppepolitikindstillinger:
-        -Angiv kontakts telefonnummer eller Skype-id
-        -Angiv kontakts mailnummer eller mail-id
-        -Angiv kontakts websted
-
-	Deaktiveret:
+        Når du har slået denne indstilling til, skal du konfigurere gruppepolitikindstillingen Angiv firmanavn for kontakt og mindst en af følgende gruppepolitikindstillinger:
+        -Angiv telefonnummer eller Skype-id for kontakten
+        -Angiv mailnummer eller mail-id for kontakten
+        -Angiv et kontaktwebsted
+        Bemærk, at vi i nogle tilfælde vil begrænse de kontaktindstillinger, der vises, på basis af den tilgængelige meddelelsesplads.
+        
+        Deaktiveret:
         Der vises ingen kontaktoplysninger i meddelelser.
 
-	Ikke konfigureret:
-        Samme som deaktiveret.
+        Ikke konfigureret:
+        Det samme som deaktiveret.
     </string>
     <string id="EnterpriseCustomization_EnableInAppCustomization">Konfigurer brugerdefinerede kontaktoplysninger</string>
     <string id="EnterpriseCustomization_EnableInAppCustomization_Explain">

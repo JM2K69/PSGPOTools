@@ -129,6 +129,12 @@ Als u deze instelling niet configureert, kunnen werknemers kiezen om Pop-upblokk
 Als deze optie is ingeschakeld, is afdrukken toegestaan.
 
 Als deze optie is uitgeschakeld, is afdrukken niet toegestaan.</string>
+      <string id="AllowMixedModePrintingInPdf">Druk PDF-bestanden met zowel liggende als staande pagina's af in hun eigen afdrukstand.</string>
+      <string id="AllowMixedModePrintingInPdf_Explain">Met dit beleid kunt u PDF-bestanden afdrukken op basis van de afdrukstand van de afzonderlijke pagina's in Microsoft Edge.
+
+Als deze optie is ingeschakeld, is afdrukken in gemengde modus toegestaan.
+
+Als deze optie is uitgeschakeld, is afdrukken in gemengde modus niet toegestaan.</string>
       <string id="AllowSavingHistory">Geschiedenis opslaan toestaan</string>
       <string id="AllowSavingHistory_Explain">Microsoft Edge slaat de browsegeschiedenis van de gebruikers op, die is opgebouwd uit informatie over de websites die ze met hun apparaten bezoeken.
 
@@ -512,9 +518,14 @@ Als u dit beleid instelt op 0, maakt Microsoft Edge geen gebruik van een timer v
 Als dit beleid is uitgeschakeld of niet is geconfigureerd, is de standaardwaarde 5 minuten.
 
 Als u Microsoft Edge niet in toegewezen toegang configureert, wordt dit beleid niet van kracht.</string>
-    </stringTable>
+      <string id="SuppressEdgeDeprecationNotification">De weergave van de Edge-beëindigingsmelding onderdrukken</string>
+      <string id="SuppressEdgeDeprecationNotification_Explain">U kunt Microsoft Edge configureren om de weergave van de melding te onderdrukken die gebruikers informeert dat de ondersteuning van deze versie van Microsoft Edge is beëindigd op 9 maart 2021. Als dit is ingeschakeld, wordt de melding niet meer weergegeven.
 
+Als dit is uitgeschakeld of niet geconfigureerd, wordt de melding elke keer weergegeven wanneer Edge wordt gestart. </string>
+
+    </stringTable>
     <!-- Presentation -->
+    
     <presentationTable>
       <presentation id="ConfiguredFavorites_Presentation">
         <textBox refId="ConfiguredFavoritesPrompt">

@@ -2,7 +2,7 @@
 <!--  (c) 2006 Microsoft Corporation  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>OOBE グループ ポリシー</displayName>
-  <description>グループポリシー管理サービスを使用して OOBE 設定を管理するために定義されたポリシー。</description>
+  <description>グループ ポリシー管理サービスを使用して、OOBE 設定を管理するために定義されたポリシー。</description>
   <resources>
     <stringTable>
       <string id="OOBECategory_DisplayName">OOBE</string>
@@ -14,6 +14,19 @@
 このポリシーを有効にした場合、新しく作成されたユーザー アカウントまたはアップグレード後にプライバシー設定を選択するように求められるアカウントに対して、プライバシー エクスペリエンスは起動されません。
 
 このポリシーが無効または未構成の場合は、新しく作成されたユーザー アカウントまたはアップグレード後にプライバシー設定を選択するように求められるアカウントに対して、プライバシー エクスペリエンスを起動できます。</string>
+
+      <string id="AllowOOBEUpdates">OOBE で Updates を許可する</string>
+      <string id="AllowOOBEUpdates_Explain">このポリシーを使用すると、新しいデバイスが最初の実行エクスペリエンス中に緊急更新プログラムを取得するかどうかを構成できます。
+
+このポリシーを無効にした場合、または構成しなかった場合、新しいデバイスは最初の実行エクスペリエンス中に緊急更新プログラムを受信しません。
+
+このポリシーを有効にすると、新しいデバイスは最初の実行エクスペリエンス中に承認されている最新の緊急更新プログラムを受け取ります。
+
+注: 
+このポリシーは、OOBE におけるゼロデイ パッチ (ZDP) 更新プログラムのページを制御しません。
+
+Windows 品質更新プログラムの延期と一時停止のポリシーを通じて品質更新プログラムを一時停止した場合、最初の実行エクスペリエンス中に品質更新プログラムは配信されません。
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

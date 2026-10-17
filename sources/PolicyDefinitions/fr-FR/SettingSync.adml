@@ -119,6 +119,51 @@ Si vous ne définissez pas ou si vous désactivez ce paramètre, la synchronisat
         Si vous ne configurez pas ce paramètre de stratégie ou si vous le désactivez, la synchronisation du groupe « Disposition de démarrage » est activée par défaut et configurable par l’utilisateur.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">Ne pas synchroniser les paramètres d’accessibilité</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        Empêcher la synchronisation du groupe « accessibilité » avec ce PC. Cette option désactive le groupe « accessibilité » sur la page des paramètres « Sauvegarde Windows » dans Paramètres du PC.
+
+Si vous activez ce paramètre de stratégie, le groupe « accessibilité » n’est pas synchronisé.
+
+Utilisez l’option « Autoriser les utilisateurs à activer la synchronisation de l’accessibilité » pour que la synchronisation soit désactivée par défaut, mais pas désactivée.
+
+Si vous ne définissez pas ou désactivez ce paramètre, la synchronisation du groupe « accessibilité » est activée par défaut et configurable par l’utilisateur.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">Ne pas synchroniser les paramètres des préférences linguistiques</string>
+      <string id="DisableLanguageSettingSync_Help">
+        Empêcher la synchronisation du groupe « Préférences linguistiques » avec ce PC. Cette option désactive le groupe « Préférences de langues » sur la page des paramètres « Sauvegarde Windows » dans Paramètres du PC.
+
+Si vous activez ce paramètre de stratégie, le groupe « Préférences linguistiques » n’est pas synchronisé.
+
+Utilisez l’option « Autoriser les utilisateurs à activer la synchronisation des préférences linguistiques » pour que la synchronisation soit désactivée par défaut, mais pas désactivée.
+
+Si vous ne définissez pas ou désactivez ce paramètre, la synchronisation du groupe « Préférences linguistiques » est activée par défaut et configurable par l’utilisateur.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Activer Sauvegarde Windows</string>
+      <string id="EnableWindowsBackup_Help">Ce paramètre de stratégie permet aux administrateurs de configurer et de gérer la sauvegarde des paramètres Windows pour leur organization.
+
+Si vous activez ce paramètre de stratégie, la sauvegarde des paramètres Windows est effectuée régulièrement.
+
+Si vous désactivez ce paramètre de stratégie, la sauvegarde des paramètres Windows n’a pas lieu.
+
+Si ce paramètre de stratégie n’est pas configuré, la sauvegarde des paramètres Windows est effectuée périodiquement en fonction de l’éligibilité.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Activer la restauration Windows</string>
+      <string id="EnableWindowsRestore_Help">Ce paramètre de stratégie permet aux administrateurs de configurer et de gérer la restauration des paramètres Windows pour leur organisation.
+
+Si vous activez ce paramètre de stratégie, la restauration des paramètres Windows est activée.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, la restauration des paramètres Windows est désactivée.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Si vous ne définissez pas ou si vous désactivez ce paramètre, la synchronisat
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">Autoriser les utilisateurs à activer la synchronisation du groupe « Disposition de démarrage ».</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Autoriser les utilisateurs à activer la synchronisation en fonction de « l'accessibilité ».</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Autoriser les utilisateurs à activer la synchronisation des « préférences linguistiques ».</checkBox>
       </presentation>
 
     </presentationTable>

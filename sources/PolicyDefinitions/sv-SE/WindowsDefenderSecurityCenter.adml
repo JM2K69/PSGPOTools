@@ -135,18 +135,19 @@
     </string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts">Konfigurera anpassade meddelanden</string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts_Explain">
-        Visa kontaktinformation för lokala användare i aviseringar från Windows-säkerhet.
+        Visa kontaktinformation för lokala användare i Windows-säkerhetsmeddelanden.
 
         Aktiverad:
-        Ditt företags kontaktinformation visas i aviseringar från Windows-säkerhet.
+        Ditt företags kontaktinformation visas i meddelanden från Windows-säkerhet.
 
         När du aktiverar den här inställningen måste du konfigurera grupprincipinställningen Ange företagsnamn för kontakt och minst en av följande grupprincipinställningar:
         - Ange telefonnummer eller Skype-ID för kontakt
         - Ange e-postadress eller e-post-ID för kontakt
         - Ange webbplats för kontakt
-
+        Observera att i vissa fall begränsar vi kontaktalternativen som visas beroende på det tillgängliga meddelandeutrymmet.
+        
         Inaktiverad:
-        Ingen kontaktinformation visas i aviseringar.
+        Ingen kontaktinformation visas i meddelanden.
 
         Inte konfigurerad:
         Samma som Inaktiverad.

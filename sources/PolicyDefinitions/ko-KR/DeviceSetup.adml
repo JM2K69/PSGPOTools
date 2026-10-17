@@ -70,13 +70,13 @@
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Search Windows Update(Windows 업데이트 검색)</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Search Managed Server(관리되는 서버 검색)</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Search Managed Server, then WU(관리되는 서버를 검색한 후 WU 검색)</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">인터넷에서 장치 메타데이터 검색 금지</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">이 정책 설정으로 Windows가 인터넷에서 장치 메타데이터를 검색하지 않게 할 수 있습니다.
-          
-이 정책 설정을 사용하면 Windows는 설치된 장치에 대한 장치 메타데이터를 인터넷에서 검색하지 않습니다. 이 정책 설정은 장치 설치 설정 대화 상자(제어판 &gt; 시스템 및 보안 &gt; 시스템 &gt; 고급 시스템 설정 &gt; 하드웨어 탭)의 설정보다 우선합니다.
 
-이 정책 설정을 사용하지 않거나 구성하지 않으면 장치 설치 설정 대화 상자의 설정에 따라 Windows가 인터넷에서 장치 메타데이터를 검색할지 여부가 결정됩니다.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">장치 메타데이터와 연결된 응용 프로그램의 자동 다운로드 방지</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">이 정책 설정을 통해 Windows에서 장치 메타데이터와 연결된 응용 프로그램을 다운로드하지 못하도록 할 수 있습니다.
+
+이 정책 설정을 사용하면 설치된 장치에 대한 장치 메타데이터와 연결된 응용 프로그램이 다운로드되지 않습니다. 이 정책 설정은 장치 설치 설정 대화 상자(제어판 &gt; 시스템 및 보안 &gt; 시스템 &gt; 고급 시스템 설정 &gt; 하드웨어 탭)의 설정을 재정의합니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 [장치 설치 설정] 대화 상자의 설정이 Windows에서 장치 메타데이터와 연결된 응용 프로그램을 다운로드할지 여부를 제어합니다.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

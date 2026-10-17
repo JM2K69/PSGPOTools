@@ -27,7 +27,7 @@ Nota: as informações sobre inícios de sessão anteriores só são fornecidas 
 
 </string>
       <string id="CbacAndArmor">Suporte KDC para afirmações, autenticação composta e proteção Kerberos</string>
-      <string id="CbacAndArmor_explain">Esta definição de política permite-lhe configurar um controlador de domínio para suportar afirmações e autenticação composta para Controlo de Acesso Dinâmico e proteção Kerberos utilizando a autenticação Kerberos.
+      <string id="CbacAndArmor_explain">Esta definição de política permite-lhe configurar um controlador de domínio para suportar afirmações e autenticação composta para Controlo de Acesso Dinâmico e proteção Kerberos utilizando a autenticação Kerberos.
 
 Se ativar esta definição de política, os computadores cliente com suporte para afirmações e autenticação composta para Controlo de Acesso Dinâmico e com suporte de proteção Kerberos utilizarão esta funcionalidade para mensagens de autenticação Kerberos. Esta política deverá ser aplicada em todos os controladores de domínio para garantir a aplicação consistente da política no domínio. 
 
@@ -35,12 +35,12 @@ Se desativar ou não configurar esta definição de política, o controlador de 
 
 Se configurar a opção "Não suportado", o controlador de domínio não suportará afirmações, autenticação composta, nem proteção, que é o comportamento predefinido para os controladores de domínio com Windows Server 2008 R2 ou sistemas operativos anteriores.
 
-Nota: para que as seguintes opções desta política KDC produzam efeitos, a Política de Grupo Kerberos "Suporte de cliente Kerberos para afirmações, autenticação composta e proteção Kerberos" tem de estar ativadas nos sistemas suportados. Se a definição de política Kerberos não estiver ativada, as mensagens de autenticação Kerberos não utilizarão estas funcionalidades.  
+Nota: para que as seguintes opções desta política KDC produzam efeitos, a Política de Grupo Kerberos "Suporte de cliente Kerberos para afirmações, autenticação composta e proteção Kerberos" tem de estar ativadas nos sistemas suportados. Se a definição de política Kerberos não estiver ativada, as mensagens de autenticação Kerberos não utilizarão estas funcionalidades.
 
-Se configurar "Suportado", o controlador de domínio suportará afirmações, autenticação composta e proteção Kerberos. O controlador de domínio anuncia aos computadores cliente Kerberos que o domínio suporta afirmações e autenticação composta para Controlo de Acesso Dinâmico e proteção Kerberos. 
+Se configurar "Suportado", o controlador de domínio suportará afirmações, autenticação composta e proteção Kerberos. O controlador de domínio anuncia aos computadores cliente Kerberos que o domínio suporta afirmações e autenticação composta para Controlo de Acesso Dinâmico e proteção Kerberos.
 
 Requisitos de nível funcional do domínio
-Para as opções "Fornecer sempre afirmações" e "Falhar pedidos de autenticação sem proteção", quando o nível funcional do domínio está definido como Windows Server 2008 R2 ou anterior, os controladores de domínio têm um comportamento como se a opção "Suportado" estivesse selecionada. 
+Para as opções "Fornecer sempre afirmações" e "Falhar pedidos de autenticação sem proteção", quando o nível funcional do domínio está definido como Windows Server 2008 R2 ou anterior, os controladores de domínio têm um comportamento como se a opção "Suportado" estivesse selecionada.
 
 Quando o nível funcional do domínio está definido como Windows Server 2012, o controlador de domínio anuncia aos computadores cliente Kerberos que o domínio suporta afirmações e autenticação composta para Controlo de Acesso Dinâmico e proteção Kerberos, e:
    - se definir a opção "Fornecer sempre afirmações", serão sempre devolvidas afirmações para as contas e é suportado o comportamento RFC para anunciar o túnel seguro de autenticação flexível (FAST).
@@ -54,7 +54,6 @@ Impacto no desempenho dos controladores de domínio quando esta definição de p
    - é necessária deteção da função de domínio Kerberos seguro, o que resulta em trocas de mensagens adicionais.
    - as afirmações e a autenticação composta para Controlo de Acesso Dinâmico aumentam o tamanho e a complexidade dos dados na mensagem, o que resulta aumento do tempo de processamento e num aumento do tamanho da permissão de serviço Kerberos.
    - a proteção Kerberos encripta totalmente as mensagens Kerberos e assina os erros Kerberos, o que resulta num aumento do tempo de processamento, mas não altera o tamanho da permissão de serviço.
-
 </string>
       <string id="NoCbacAndArmor">Não suportado</string>
       <string id="MixModeCbacAndArmor">Suportado</string>
@@ -94,6 +93,47 @@ Se desativar ou não definir esta definição de política, o DC nunca oferecer�
       <string id="NoPKINITFreshness">Desativado</string>
       <string id="SupportPKINITFreshness">Suportado</string>
       <string id="RequirePKINITFreshness">Obrigatório</string>
+      <string id="PKINITHashAlgorithmConfiguration">Configurar algoritmos hash para início de sessão certificado</string>
+      <string id="PKINITHashAlgorithmConfiguration_explain">Esta definição de política controla os algoritmos hash ou de soma de verificação utilizados pelo cliente Kerberos ao efetuar a autenticação de certificados.
+
+Se ativar esta política, poderá configurar um de quatro estados para cada algoritmo:
+
+- "Predefinido" define o algoritmo para o estado recomendado.
+
+- "Suportado" permite a utilização do algoritmo. A ativação de algoritmos que foram desativados por predefinição poderá reduzir a sua segurança.
+
+- "Auditado" ativa a utilização do algoritmo e comunica um evento (ID 309) sempre que for utilizado. Este estado destina-se a verificar que o algoritmo não está a ser utilizado e pode ser desativado com segurança.
+
+- "Não suportado" desativa a utilização do algoritmo. Este estado destina-se a algoritmos que são considerados não seguros.
+
+Se desativar ou não configurar esta política, cada algoritmo irá assumir o estado "Predefinido".
+Podem ser encontradas mais informações sobre os algoritmos de hash e de soma de verificação suportados pelo cliente Windows Kerberos e respetivos estados predefinidos em https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Eventos gerados por esta configuração: 309, 310.
+</string>
+      <string id="PKINITHashAlgorithm_Default">Predefinido</string>
+      <string id="PKINITHashAlgorithm_Supported">Suportado</string>
+      <string id="PKINITHashAlgorithm_Audited">Auditado</string>
+      <string id="PKINITHashAlgorithm_NotSupported">Não Suportado</string>
+      <string id="StrongNameMatches">Permitir mapeamentos seguros baseados em nomes para certificados</string>
+      <string id="StrongNameMatches_explain">Esta definição de política permite a utilização de identificadores alternativos baseados em nomes para mapear fortemente certificados emitidos para contas de utilizador do Active Directory de forma rigorosa e especifica que certificados mapeiam para que contas. Sem esta definição ativada, os certificados têm de cumprir os critérios de "mapeamento forte" especificados em aka.ms/StrongCertMapKB, que geralmente não permitem identificadores baseados em nomes.
+
+Cada mapeamento especificado nesta política tem de incluir um OID de política juntamente com um IssuerSubject e/ou um Sufixo UPN de acordo com a sintaxe especificada abaixo. Se não for possível encontrar um mapeamento válido para um determinado certificado nesta política, o Active Directory tentará localizar uma correspondência com base os critérios de mapeamento forte existentes especificados em KB5014754. Os mapeamentos de certificados que não estejam em conformidade com os critérios de "mapeamento forte de nomes" (esta política) ou com os critérios de "mapeamento forte" existentes serão considerados inválidos para autenticação.
+
+O formato geral da política e alguns exemplos encontram-se listados abaixo. Esta política aplica-se apenas a contas de utilizador do Active Directory.
+
+Sintaxe geral
+==============
+&lt;thumbprint&gt;; &lt;lista de oids&gt;; &lt;métodos de correspondência de nomes&gt;
+
+Exemplos
+==============
+IssuerThumbprint1; oid1, oid2, oid3; UpnSuffix=domain.com
+IssuerThumbprint2; oid1; UpnSuffix=domain.com, UpnSuffix=other.domain.com, IssuerSubject
+IssuerThumbprint3; oid1, oid2; IssuerSubject
+
+A política tem de conter exatamente um thumbprint de certificado por regra, sendo que cada regra deverá ser representada como uma cadeia de identificação. Os thumbprints têm de ser exclusivos e não podem ser repetidos em várias regras. As secções de cada cadeia de identificação separadas por ponto e vírgula têm de estar na ordem indicada, ao passo que os campos separados por vírgulas podem estar por qualquer ordem. As próprias regras estão separadas por novas linhas.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="emitlili">
@@ -121,6 +161,15 @@ Se desativar ou não definir esta definição de política, o DC nunca oferecer�
       </presentation>
       <presentation id="PKINITFreshness">
         <dropdownList refId="PKINITFreshness_Levels" noSort="true" defaultItem="1">Opções de Extensão de Atualização PKInit:</dropdownList>
+      </presentation>
+      <presentation id="PKINITHashAlgorithmConfiguration">
+        <dropdownList refId="PKINITHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
+      </presentation>
+      <presentation id="StrongNameMatches">
+          <multiTextBox refId="StrongNameMatchesList">Regras Rigorosas de Correspondência de Nomes:</multiTextBox>
       </presentation>
     </presentationTable>
   </resources>

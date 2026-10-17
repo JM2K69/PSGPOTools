@@ -246,13 +246,13 @@ När den här principen är inaktiverad eller inte har konfigurerats hanteras in
 
 När den här principen är inaktiverad eller inte har konfigurerats anges standardinställningarna till .bmp;.emf;.gif;.jpg;.jpeg;.png;.wmf;.wrn;.txt;.err;.xml;.cpp;.c;.h;.cxx;.hxx;.idl;.cs;.vb;.idl;.xsd;.doc;.docx;.xls;.xlsx;.ppt;.pptx;.vsd;.xlsb;.xltx;.dot;.rtf</string>
       <string id="PreventUnwantedAddins">Förhindra oönskade iFilter och protokollhanterare</string>
-      <string id="PreventUnwantedAddins_Explain">Om du aktiverar den här principen förhindras Windows Search från att använda iFilter och protokollhanterare om de inte anges i listan Tillåt. Den här principen förhindrar emellertid inte att iFilter eller protokollhanterare installeras eller att de används av andra program eller tjänster. 
-Du kan också ange en lista över tillåtna tillägg genom att ange strängen classID eller ProgId. Om du exempelvis tänker distribuera ett visst iFilter kontrollerar du att det finns i listan Tillåt, antingen som ett GUID som {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} (inkludera klammerparenteserna) eller ett ProgID som VisFilter.CFilter.1.
+      <string id="PreventUnwantedAddins_Explain">Om du aktiverar den här principen förhindras Windows Search från att använda iFilter och protokollhanterare om de inte anges i listan över tillåtna. Den här principen förhindrar emellertid inte att iFilter eller protokollhanterare installeras eller att de används av andra program eller tjänster. 
+Du kan också ange en lista över tillåtna tillägg genom att ange strängen classID eller ProgId. Om du exempelvis tänker distribuera ett visst iFilter kontrollerar du att det finns i listan över tillåtna, antingen som ett GUID som {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} (inkludera klammerparenteserna) eller ett ProgID som VisFilter.CFilter.1.
 
 Om du använder en låst skrivbordsmiljö är den här inställningen överflödig, eftersom användare som inte är administratörer inte har behörighet att installera nya komponenter. Om användarna har administratörsbehörigheter eller kan installera programvara förhindrar den här principen dem specifikt från att använda tillägg relaterade till Windows Search.
 
-Obs! På grund av en begränsning i redigeraren för grupprincipobjekt måste du lägga till minst en post i listan Tillåt, även om du vill aktivera den här principen utan listan Tillåt. Skapa en listpost genom att ange ett blanksteg i namnfältet och ett blanksteg i värdefältet och sedan spara. Detta skapar en platshållarpost som ignoreras av programmet.</string>
-      <string id="PreventUnwantedAddins_AllowList">Listan Tillåt</string>
+Obs! På grund av en begränsning i redigeraren för grupprincipobjekt måste du lägga till minst en post i listan över tillåtna, även om du vill aktivera den här principen utan listan över tillåtna. Skapa en listpost genom att ange ett blanksteg i namnfältet och ett blanksteg i värdefältet och sedan spara. Detta skapar en platshållarpost som ignoreras av programmet.</string>
+      <string id="PreventUnwantedAddins_AllowList">Lista över tillåtna</string>
       <string id="ExcludedExtensionsMultiline">Förhindra indexering av vissa filtyper</string>
       <string id="ExcludedExtensionsMultiline_Explain">Om du aktiverar den här principen kan du redigera listan över filtyper som ska undantas från indexering. Slutanvändarna kan inte ändra den här listan. Du ska avgränsa varje filnamnstillägg med ett semikolon.
 
@@ -275,6 +275,8 @@ Om du inaktiverar eller låter bli att konfigurera den här principinställninge
 Om du aktiverar eller låter bli att konfigurera den här principinställningen tillåts Cortana på enheten. Om du inaktiverar inställningen stängs Cortana av. 
  
 Användarna kan fortfarande söka efter och hitta saker på enheten även om Cortana är avstängd.</string>
+      <string id="EnableDynamicContentInWSB">Tillåt sökmarkeringar</string>
+      <string id="ExplainEnableDynamicContentInWSB">Om du inaktiverar den här inställningen inaktiveras sökmarkeringar i start-menyn sökruta och i sökhemmet. Om du aktiverar eller inte konfigurerar den här inställningen aktiveras sökmarkeringar i start-menyn sökruta och i sökhemmet.</string>
       <string id="AllowCortanaAboveLock">Tillåt Cortana när systemet är låst</string>
       <string id="ExplainAllowCortanaAboveLock">Den här principinställningen anger om användaren kan interagera med Cortana genom att tala när systemet är låst.
 
@@ -294,6 +296,27 @@ Om den aktiveras får sökfunktionen och Cortana tillgång till positionsinforma
       <string id="AllowCortanainAADEnabled">Aktivera Cortana-sidan i AAD</string>
       <string id="AllowCloudSearchEnabled">Aktivera molnsökning</string>
       <string id="AllowCloudSearchControlledByUser">Användarvald</string>
+      <string id="DisableSearch_DisplayName">Inaktivera sökgränssnittet helt</string>
+      <string id="DisableSearch_ExplainText">Om du aktiverar den här principen inaktiveras användargränssnittet för sökning tillsammans med alla startpunkter, till exempel kortkommandon, pekplattegester och skriv-till-sökning i Start-menyn. Sökrutan i Start-menyn och knappen Sök i Aktivitetsfältet döljs också.
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen kan användaren öppna användargränssnittet för sökning och dess olika startpunkter visas.</string>
+      <string id="ConfigureSearchOnTaskbarMode">Konfigurerar sökning i Aktivitetsfältet</string>
+      <string id="ConfigureSearchOnTaskbarMode_Help">Med den här principinställningen kan du konfigurera sökning i aktivitetsfältet.
+
+Om du aktiverar den här principinställningen och anger att den ska döljas kommer sökning att döljas i aktivitetsfältet som standard. Användare kan inte ändra detta under inställningarna.
+
+Om du aktiverar den här principinställningen och ställer in den på endast sökikon kommer sökikonen att visas i aktivitetsfältet som standard. Användare kan inte ändra detta under inställningarna.
+
+Om du aktiverar den här principinställningen och ställer in den på sökikon och etikett kommer sökikonen och etiketten att visas i aktivitetsfältet som standard. Användare kan inte ändra detta under inställningarna.
+
+Om du aktiverar den här principinställningen och ställer in den på sökruta kommer sökrutan att visas i aktivitetsfältet som standard. Användare kan inte ändra detta under inställningarna.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen konfigureras sökning i aktivitetsfältet enligt standardinställningarna för din Windows-utgåva. Användarna kommer att kunna ändra sökning i aktivitetsfältet under inställningarna.
+      </string>
+      <string id="SearchOnTaskbarModeEnum_Hidden">Dölj</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconOnly">Endast sökikon</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconAndLabel">Sökikon och etikett</string>
+      <string id="SearchOnTaskbarModeEnum_SearchBox">Sökfält</string>
     </stringTable>
     <presentationTable>
       <presentation id="RichAttachmentPreviews">
@@ -333,7 +356,7 @@ Om den aktiveras får sökfunktionen och Cortana tillgång till positionsinforma
         <decimalTextBox refId="LimitEnableThrottlingOnlineMailboxes" defaultValue="120">Antal objekt per minut</decimalTextBox>
       </presentation>
       <presentation id="PreventUnwantedAddins">
-        <listBox refId="PreventUnwantedAddins_AllowList">Listan Tillåt</listBox>
+        <listBox refId="PreventUnwantedAddins_AllowList">Lista över tillåtna</listBox>
       </presentation>
       <presentation id="PreventIndexingCertainPaths_1">
         <listBox refId="PreventIndexingCertainPaths">Förhindra indexering av vissa sökvägar</listBox>
@@ -382,6 +405,9 @@ Om den aktiveras får sökfunktionen och Cortana tillgång till positionsinforma
       </presentation>
       <presentation id="AllowCortanaAAD">
         <dropdownList refId="AllowCortanaAAD_Dropdown" noSort="true" defaultItem="0">Inställning för Cortana i AAD</dropdownList>
+      </presentation>
+      <presentation id="ConfigureSearchOnTaskbarMode">
+        <dropdownList refId="ConfigureSearchOnTaskbarMode_Dropdown" noSort="true" defaultItem="0">Sök i Aktivitetsfältet</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

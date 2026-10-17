@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>A hálózati kapcsolat állapotjelzőjének csoportházirend-beállításai</displayName>
   <description>A hálózati kapcsolat állapotjelzőjének csoportházirend-beállításai</description>
@@ -73,7 +73,7 @@
       </presentation>
       <presentation id="NCSI_PassivePolling">
         <text>A következő jelölőnégyzet bejelölésével letiltja a hálózati kapcsolat állapotjelzőjének passzív lekérdezési viselkedését.   Ez javítja a kiszolgálókon és más, statikus hálózati kapcsolattal rendelkező gépeken a processzor terhelését.</text>
-        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Passzív lekérdezés letiltása</checkBox>  
+        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Passzív lekérdezés letiltása</checkBox>
       </presentation>
       <presentation id="NCSI_GlobalDns">
         <text>A következő jelölőnégyzettel letiltható a felületkötés, amikor DNS-kereséseket végeznek az NCSI-ben. Így az NCSI jobb működésre lehet képes különleges hálózati konfigurációk esetén, például ha egy DNS-kiszolgáló a localhost állomáson fut.</text>

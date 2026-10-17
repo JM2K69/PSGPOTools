@@ -5,6 +5,8 @@
   <description>请在此处输入描述</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">启用自动订阅</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">控制用户应自动订阅的 URL 的列表</string>
       <string id="TS_SUPPORTED_Windows10">至少为 Windows 10 或 Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">Windows 8 或 Windows RT 及以上版本</string>
       <string id="TS_SUPPORTED_Windows8_Server">至少为 Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">仅限 Windows XP 和 Windows Server 2003</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">Windows Server 2008 或 Windows 7 及以上版本</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  仅限 Windows Server 2008 R2</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 版本1903、Windows 10 版本1909和 Windows 10 版本2004</string>
       <string id="TS_TERMINAL_SERVER">远程桌面会话主机</string>
       <string id="TS_TERMINAL_SERVER_Help">控制远程桌面会话主机服务器的配置</string>
       <string id="TS_LICENSE_SERVER">RD 授权</string>
@@ -128,22 +131,22 @@
 如果启用此设置，则将禁用远程桌面连接中的凭据保存复选框，并且用户无法再保存密码。用户使用远程桌面连接打开 RDP 文件并保存设置时，将删除之前已存在于 RDP 文件中的密码。
 
 如果禁用或未配置此设置，则用户将可以使用远程桌面连接保存密码</string>
-      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">此策略设置指定是否阻止远程桌面服务会话中客户端驱动器的映射(驱动器重定向)。
+      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">此策略设置指定是否阻止在远程桌面服务会话中映射客户端驱动器(驱动器重定向)。
 
-默认情况下，RD 会话主机服务器在连接时自动映射客户端驱动器。映射驱动器以 &lt;computername&gt; 上的 &lt;driveletter&gt; 格式出现在文件资源管理器或“我的电脑”中的会话文件夹树中。可以使用此策略设置覆盖此行为。
+默认情况下，RD 会话主机服务器在连接时自动映射客户端驱动器。映射驱动器以 &lt;driveletter&gt;  &lt;computername&gt;格式出现在文件资源管理器或计算机的会话文件夹树中。可以使用此策略设置替代此行为。
 
-如果启用此策略设置，远程桌面服务会话不允许客户端驱动器重定向，而且运行 Windows Server 2003、Windows 8 和 Windows XP 的计算机也不允许剪贴板文件复制重定向。
+如果启用此策略设置，则不允许在远程桌面服务会话中进行客户端驱动器重定向，并且在运行 Windows XP、Windows Server 2003、Windows Server 2012 (及更高版本的计算机上不允许剪贴板文件复制重定向)或Windows 8 (及更高版本)。
 
-如果禁用此策略设置，则始终允许客户端驱动器重定向。此外，如果允许剪贴板重定向，则始终允许剪贴板文件副本重定向。
+如果禁用此策略设置，则始终允许客户端驱动器重定向。此外，如果允许剪贴板重定向，则始终允许剪贴板文件复制重定向。
 
-如果未配置此策略设置，则在“组策略”级别上不指定客户端驱动器重定向和剪贴板文件副本重定向。
-
+如果未配置此策略设置，则在组策略级别上不指定客户端驱动器重定向和剪贴板文件副本重定向。
 </string>
       <string id="TS_CLIENT_DRIVE_M">不允许驱动器重定向</string>
       <string id="TS_CLIENT_HELP">控制远程桌面连接客户端设置</string>
       <string id="TS_CLIENT_LPT">不允许 LPT 端口重定向</string>
       <string id="TS_CLIENT_PNP">不允许受支持的即插即用设备重定向</string>
       <string id="TS_CAMERA_REDIRECTION">不允许视频捕获重定向</string>
+      <string id="TS_LOCATION_REDIRECTION">不允许位置重定向</string>
       <string id="TS_CLIENT_PRINTER">不允许客户端打印机重定向</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">此策略设置指定是否在远程桌面服务会话期间阻止远程计算机与客户端计算机之间的剪贴板内容共享(剪贴板重定向)。
 
@@ -208,6 +211,15 @@ c.	客户端请求的值
 
 如果禁用或不配置此策略设置，用户可以将视频捕获设备重定向到远程计算机。用户可使用“远程桌面连接”的“本地资源”选项卡上的“更多”选项选择要重定向到远程计算机的视频捕获设备。
 
+</string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">此策略设置让你能够控制在远程桌面服务会话中将位置数据重定向到远程计算机。
+
+默认情况下，远程桌面服务允许重定向位置数据。
+
+如果启用此策略设置，则用户无法将其位置数据重定向到远程计算机。
+
+如果禁用或未配置此策略设置，则用户可以将其位置数据重定向到远程计算机。
+          
 </string>
       <string id="TS_MAXMONITOR_EXPLAIN">使用此策略设置，可以限制用户可用于显示远程桌面服务会话的监视器数目。通过限制用于显示远程桌面服务会话的监视器数目，可以提高连接性能(尤其对于慢速链接)，还可以降低服务器负载。
 
@@ -390,13 +402,13 @@ RD 会话主机服务器客户端与 RD 会话主机服务器断开连接后，R
 
 可以使用此策略设置控制远程桌面许可证服务器向哪些 RD 会话主机服务器颁发 RDS CAL。默认情况下，许可证服务器向任何请求许可证的 RD 会话主机服务器颁发 RDS CAL。
 
-如果启用此策略设置并且此策略设置应用于远程桌面许可证服务器，则该许可证服务器仅响应来自其计算机帐户是该许可证服务器上的 RDS 终结点服务器的会员的 RD 会话主机服务器的 RDS CAL 请求。
+如果启用此策略设置并且此策略设置应用于远程桌面许可证服务器，则该许可证服务器仅响应来自其计算机账户是该许可证服务器上的 RDS 终结点服务器的会员的 RD 会话主机服务器的 RDS CAL 请求。
 
 默认情况下，RDS 终结点服务器组为空。
 
 如果禁用或未配置此策略设置，则远程桌面许可证服务器会向任何请求许可证的 RD 会话主机服务器颁发 RDS CAL。禁用或未配置此策略设置，不会以任何方式删除或更改 RDS 终结点服务器组。
 
-注意: 应该只在许可证服务器是某个域的成员时启用此策略设置。如果许可证服务器是某个域的成员，则仅可将 RD 会话主机服务器的计算机帐户添加到 RDS 终结点服务器组中。</string>
+注意: 应该只在许可证服务器是某个域的成员时启用此策略设置。如果许可证服务器是某个域的成员，则仅可将 RD 会话主机服务器的计算机账户添加到 RDS 终结点服务器组中。</string>
       <string id="TS_LICENSE_SERVERS">使用指定的远程桌面许可证服务器</string>
       <string id="TS_LICENSE_SERVERS_Help">控制远程桌面许可证服务器的配置</string>
       <string id="TS_LICENSE_SERVERS_EXPLAIN">使用此策略设置，可以指定 RD 会话主机服务器尝试定位远程桌面许可证服务器所采用的顺序。
@@ -420,19 +432,19 @@ RD 会话主机服务器客户端与 RD 会话主机服务器断开连接后，R
 如果禁用或未配置此策略设置，则以本地管理员身份登录之后，将在 RD 会话主机服务器上显示这些通知。</string>
       <string id="TS_LICENSING_MODE">设置远程桌面授权模式</string>
       <string id="TS_LICENSING_MODE_EXPLAIN">
-        使用此策略设置，可以指定连接到此 RD 会话主机服务器所需的远程桌面服务客户端访问许可证(RDS CAL)的类型。
+        通过使用此策略设置，可以指定连接到此 RD 会话主机服务器所需的远程桌面服务客户端访问许可证(RDS CAL)的类型。
 
-        可以使用此策略设置选择以下三种授权模式之一:“每用户”、“每设备”或“每用户 AAD”。
+        可以使用此策略设置选择以下两种授权模式之一:“每用户”或“每设备”。
 
-        每用户授权模式要求连接到此 RD 会话主机服务器的每个用户帐户都有一个从 RD 授权服务器发放的 RDS - 每用户 CAL。
+        “每用户”授权模式要求连接到此 RD 会话主机服务器的每个用户账户都有一个从 RD 授权服务器颁发的 RDS 每用户 CAL。
 
-        每设备授权模式要求连接到此 RD 会话主机服务器的每个设备都有一个从 RD 授权服务器发放的 RDS - 每设备 CAL。
+        “每设备”授权模式要求连接到此 RD 会话主机服务器的每个设备都有一个从 RD 授权服务器颁发的 RDS 每设备 CAL。
 
-        每用户 AAD 授权模式要求连接到此 RD 会话主机服务器的每个用户帐户都有一项支持在 AAD 中分配的 RDS 许可证的服务计划。
-        
-        如果启用此策略设置，则远程桌面授权服务器和 RD 会话主机将遵循指定的远程桌面授权模式。
+        如果启用此策略设置，则远程桌面授权服务器和 RD 会话主机将遵守指定的远程桌面授权模式。
 
-        如果禁用或未配置此策略设置，则在“组策略”级别不指定授权模式。
+        如果禁用或未配置此策略设置，则在“组策略”级别上不指定授权模式。
+
+        注意: Windows 11 及更高版本已弃用 AAD 每用户模式。
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">按设备</string>
       <string id="TS_LICENSING_MODE_PER_USER">按用户</string>
@@ -588,7 +600,7 @@ RD 会话主机服务器客户端与 RD 会话主机服务器断开连接后，R
 
      2. 除非启用了加入 RD 连接代理策略设置，否则此策略设置不会有效。
 
-     3. 若要成为 RD 会话主机服务器场的活动成员，该场中每个 RD 会话主机服务器的计算机帐户必须是 RD 连接代理服务器中以下本地组之一的成员: 会话目录计算机、会话代理计算机或 RDS 终结点服务器。
+     3. 若要成为 RD 会话主机服务器场的活动成员，该场中每个 RD 会话主机服务器的计算机账户必须是 RD 连接代理服务器中以下本地组之一的成员: 会话目录计算机、会话代理计算机或 RDS 终结点服务器。
 
 </string>
       <string id="TS_SD_Node">RD 连接 Broker</string>
@@ -609,6 +621,17 @@ RD 会话主机服务器客户端与 RD 会话主机服务器断开连接后，R
       <string id="TS_SECURITY_LAYER_POLICY">远程 (RDP) 连接要求使用指定的安全层</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">启用 Microsoft Entra ID 身份验证强制措施</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">使用此策略设置，可以指定是否要求服务器端强制执行Microsoft Entra ID身份验证。
+
+如果启用此策略设置，则所有远程桌面服务客户端必须使用 RDS AAD 身份验证才能向RD 会话主机服务器进行身份验证。
+
+此策略不允许回退到其他身份验证方法。
+
+若要使此策略生效，需要启用网络级别身份验证 (NLA)。请参阅“使用网络级别身份验证进行远程连接所需的用户身份验证”策略。
+
+如果禁用或未配置此策略设置，则不强制Microsoft Entra ID身份验证强制。
+</string>
       <string id="TS_Session_End_On_Limit">达到时间限制时终止会话</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">此策略设置指定是否终止超时的远程桌面服务会话，而不是将其断开连接。
 
@@ -789,6 +812,79 @@ RD 会话主机服务器客户端与 RD 会话主机服务器断开连接后，R
 如果禁用或未配置此策略设置，则可以指定在客户端连接到远程计算机后在远程计算机上运行的初始程序。如果未指定初始程序，则在客户端连接到远程计算机后总是在远程计算机上显示桌面。
 
 注意: 如果启用此策略设置，则将忽略“连接时启动程序”策略设置。</string>
+      <string id="TS_UIA">允许 AI 自动化重定向</string>
+      <string id="TS_UIA_EXPLAIN">此策略设置确定在本地计算机上运行的 (UI) 的用户界面是否可以访问服务器上的 UI 元素。
+
+UI 自动化使程序可以访问大多数 UI 元素，这使您可以使用需要与 UI 交互的辅助技术产品（如放大镜和讲述人）才能正常工作。UI 信息还允许自动测试脚本与 UI 交互。
+
+远程桌面会话当前不支持 UI 自动化重定向。
+
+如果启用或未配置此策略设置，则本地计算机上的任何 UI 自动化客户端都可以与远程应用进行交互。例如，可以使用本地计算机的 "讲述人" 和 "放大镜" 客户端与您在远程会话中打开的网页上的 UI 交互。
+
+如果禁用此策略设置，则在本地计算机上运行的 UI 自动化客户端无法与远程应用交互。
+</string>
+      <string id="TS_WEBAUTHN">不允许 WebAuthn 重定向</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">通过此策略设置，可以控制从远程桌面会话到本地设备的 Web 身份验证(WebAuthn)请求的重定向。此重定向使用户能够使用其本地 身份验证器(例如 Windows Hello 企业版、安全密钥或其他)对远程桌面会话中的资源进行身份验证。
+
+默认情况下，远程桌面允许重定向 WebAuthn 请求。
+
+如果启用此策略设置，用户无法在远程桌面会话中使用其本地身份验证器。
+
+如果禁用或不配置此策略设置，则用户可以在远程桌面会话中使用本地身份验证器。
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">禁用从服务器到客户端的剪贴板传输</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">禁用从客户端到服务器的剪贴板传输</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">允许纯文本</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">允许纯文本和图像</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">允许纯文本、图像和 RTF 格式</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">允许纯文本、图像、RTF 格式和 HTML</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">限制从服务器到客户端的剪贴板传输</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">使用此策略设置，可以限制从服务器到客户端的剪贴板数据传输。
+
+如果启用此策略设置，则必须从以下行为中进行选择：
+
+- 禁用从服务器到客户端的剪贴板传输。
+
+- 允许从服务器到客户端的纯文本复制。
+
+- 允许从服务器复制到客户端的纯文本和图像。
+
+- 允许将纯文本、图像和 RTF 格式从服务器复制到客户端。
+
+- 允许从服务器到客户端的纯文本、图像、RTF 格式和 HTML 复制。
+
+如果禁用或未配置此策略设置，则如果启用剪贴板重定向，则用户可以将任意内容从服务器复制到客户端。
+
+注意： 此策略设置同时出现在“计算机配置”和“用户配置”中。如果同时配置了两个策略设置，则将使用更严格的限制。
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">限制从客户端到服务器的剪贴板传输</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">使用此策略设置，可以限制从客户端到服务器的剪贴板数据传输。
+
+如果启用此策略设置，则必须从以下行为中进行选择：
+
+- 禁用从客户端到服务器的剪贴板传输。
+
+- 允许从客户端到服务器的纯文本复制。
+
+- 允许从客户端复制到服务器的纯文本和图像。
+
+- 允许将纯文本、图像和 RTF 格式从客户端复制到服务器。
+
+- 允许从客户端到服务器的纯文本、图像、RTF 格式和 HTML 复制。
+
+如果禁用或未配置此策略设置，则如果启用剪贴板重定向，则用户可以将任意内容从客户端复制到服务器。
+
+注意： 此策略设置同时出现在“计算机配置”和“用户配置”中。如果同时配置了两个策略设置，则将使用更严格的限制。
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">禁用服务器到客户端数据传输的云剪贴板集成</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">使用此策略设置，可以控制是否将使用剪贴板重定向从远程会话传输到客户端的数据添加到客户端云剪贴板。
+
+默认情况下，远程桌面禁止与客户端云剪贴板集成，以便使用剪贴板重定向从远程会话传输数据。
+
+如果启用或未配置此策略设置，则在远程会话中复制并粘贴在客户端上的数据将不会添加到客户端云剪贴板。
+
+如果禁用此策略设置，则在远程会话中复制并粘贴在客户端上的数据将添加到客户端云剪贴板(如果启用)。
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">使用此策略设置，可以指定是否要求使用网络级别的身份验证对与 RD 会话主机服务器进行远程连接的用户进行身份验证。此策略设置通过要求在远程连接过程的前期对用户进行身份验证来增强安全性。
 
 如果启用此策略设置，则只有支持网络级别身份验证的客户端计算机才能连接到 RD 会话主机服务器。
@@ -803,6 +899,24 @@ RD 会话主机服务器客户端与 RD 会话主机服务器断开连接后，R
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">要求使用网络级别的身份验证对远程连接的用户进行身份验证</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> 在锁定时断开远程会话以进行旧身份验证</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">此策略设置允许你在远程桌面会话被用户或策略锁定时配置用户体验。可以指定远程会话在远程会话锁定时是显示远程锁屏界面还是断开连接。断开远程会话的连接可确保远程会话不能保留在锁屏界面上，并且由于网络连接丢失而无法自动重新连接。
+
+仅当使用旧式身份验证对远程电脑进行身份验证时，此策略才适用。旧式身份验证仅限于用户名和密码，或智能卡等证书。旧式身份验证不会利用 Microsoft 标识平台，如 Microsoft Entra ID。旧式身份验证包括 NTLM、CredSSP、RDSTLS、TLS 和 RDP 基本身份验证协议。
+
+如果启用此策略设置，则在远程会话锁定时，使用旧式身份验证的远程桌面连接将断开远程会话的连接。用户可以在准备就绪时重新连接，并在出现提示时重新输入凭据。
+
+如果禁用或未配置此策略设置，则在远程会话锁定时，使用旧式身份验证的远程桌面连接将显示远程锁屏界面。用户可以使用其用户名和密码或证书解锁远程会话。
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">在锁定时断开远程会话的连接以进行Microsoft 标识平台身份验证</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">使用此策略设置，可以在用户或策略锁定远程桌面会话时配置用户体验。你可以指定远程会话在远程会话锁定时是显示远程锁屏界面还是断开连接。断开远程会话的连接可确保远程会话不能留在锁屏界面上，并且由于网络连接丢失而无法自动重新连接。
+
+仅当使用使用Microsoft 标识平台（如Microsoft Entra ID）对远程电脑进行身份验证的标识提供程序时，此策略才适用。使用包括 NTLM、CredSSP、RDSTLS、TLS 和 RDP 基本身份验证协议的旧身份验证时，此策略不适用。
+
+如果启用或未配置此策略设置，则在远程会话锁定时，使用Microsoft 标识平台的远程桌面连接将断开远程会话。用户可以在准备就绪后重新连接，如果已配置，则可以使用无密码身份验证。
+
+如果禁用此策略设置，则在远程会话锁定时，使用Microsoft 标识平台的远程桌面连接将显示远程锁屏界面。用户可以使用用户名和密码或证书解锁远程会话。
+</string>
       <string id="TS_User_Help">控制如何配置用于对运行基于 Windows 的程序或运行完整 Windows 桌面的服务器进行访问的远程桌面服务技术</string>
       <string id="TS_USER_HOME">设置远程桌面服务用户主目录</string>
       <string id="TS_USER_HOME_EXPLAIN">指定远程桌面服务是否使用指定的网络共享或本地目录路径作为用户远程桌面服务会话主目录的根目录。
@@ -820,11 +934,11 @@ RD 会话主机服务器客户端与 RD 会话主机服务器断开连接后，R
 
 默认情况下，远程桌面服务将所有用户配置文件都在本地存储在 RD 会话主机服务器上。可以使用此策略设置指定可以集中存储用户配置文件的网络共享，这样，对于为用户配置文件配置使用网络共享的所有 RD 会话主机服务器上的会话，用户可以访问同一个配置文件。
 
-如果启用此策略设置，则远程桌面服务使用指定路径作为所有用户配置文件的根目录。配置文件存放在为每个用户的帐户名命名的子文件夹中。
+如果启用此策略设置，则远程桌面服务使用指定路径作为所有用户配置文件的根目录。配置文件存放在为每个用户的账户名命名的子文件夹中。
 
-若要配置此策略设置，请采用“\\计算机名\共享名”格式键入网络共享的路径。不要为用户帐户名指定占位符，因为当用户登录并且创建配置文件时，远程桌面服务会自动添加此占位符。如果指定的网络共享不存在，则远程桌面服务将在 RD 会话主机服务器上显示错误消息，并且将在 RD 会话主机服务器上在本地存储用户配置文件。
+若要配置此策略设置，请采用“\\计算机名\共享名”格式键入网络共享的路径。不要为用户账户名指定占位符，因为当用户登录并且创建配置文件时，远程桌面服务会自动添加此占位符。如果指定的网络共享不存在，则远程桌面服务将在 RD 会话主机服务器上显示错误消息，并且将在 RD 会话主机服务器上在本地存储用户配置文件。
 
-如果禁用或未配置此策略设置，则用户配置文件在本地存储在 RD 会话主机服务器上。可以在用户帐户的“属性”对话框的“远程桌面服务配置文件”选项卡上配置用户的配置文件路径。
+如果禁用或未配置此策略设置，则用户配置文件在本地存储在 RD 会话主机服务器上。可以在用户账户的“属性”对话框的“远程桌面服务配置文件”选项卡上配置用户的配置文件路径。
 
 注意:
 1.此策略设置启用的漫游用户配置文件仅适用于远程桌面服务连接。用户还可以配置 Windows 漫游用户配置文件。远程桌面服务漫游用户配置文件在远程桌面服务会话中始终占优。
@@ -903,34 +1017,44 @@ RD 会话主机服务器客户端与 RD 会话主机服务器断开连接后，R
 注意: 可以在“计算机配置”节点或“用户配置”节点中定义此策略设置。如果为计算机配置了此策略设置，则计算机上的所有用户都会受到影响。
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">指定表示受信任 .rdp 发行者的 SHA1 证书指纹</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">使用此策略设置可指定表示受信任的远程桌面协议(.rdp)文件发行者的安全哈希算法 1 (SHA1)证书指纹列表。
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">指定表示受信任 .rdp 发行者的证书指纹</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">此策略设置允许你指定一个证书指纹列表，这些指纹代表受信任的远程桌面协议(.rdp)文件发布者。支持 SHA-256、SHA-384 和 SHA-512 指纹。SHA-1 指纹已弃用: SHA-1 不再被视为安全，并且在即将到来的安全更新中，对 SHA-1 指纹的支持将默认禁用。管理员应尽快将所有指纹条目迁移到 SHA-256 或更高版本。
 
-如果启用此策略设置，则具有与该列表上的指纹匹配的 SHA1 指纹的任何证书都被认为是受信任的证书。如果用户尝试启动由受信任证书签名的 .rdp 文件，则该用户启动此文件时将不会接收到任何警告消息。若要获得指纹，请查看证书的详细信息，然后单击“指纹”字段。
+指纹可加上用于生成它们的哈希算法作为前缀。支持的前缀是 "sha256:"、"sha384:" 和 "sha512:" (不区分大小写)。例如: sha256:AB0356F2...如果未指定前缀，则该条目被视为旧版 SHA-1 指纹。
 
-如果禁用或未配置此策略设置，则不会将任何发行者视为受信任的 .rdp 发行者。
+如果选中“不允许 SHA-1 指纹”复选框，会忽略无前缀的条目。仅匹配 SHA-256、SHA-384 和 SHA-512 指纹。强烈建议立即启用此复选框，以便为即将到来的默认更改做好准备。
+
+如果启用此策略设置，则任何指纹与列表中指纹匹配的证书都将被视为受信任。如果用户尝试启动由受信任证书签名的 .rdp 文件，则在启动该文件时不会收到任何警告消息。
+
+如果禁用或未配置此策略设置，则不会将任何发布者视为受信任的 .rdp 发布者。
 
 注意:
 
-可以在“计算机配置”节点或“用户配置”节点中定义此策略设置。如果为计算机配置了此策略设置，则将被某个用户视为受信任证书指纹列表是为该计算机定义的列表和为该用户定义的列表的组合。
+可在计算机配置节点或用户配置节点中定义此策略设置。如果为计算机配置此策略设置，则用户受信任的证书指纹列表是为计算机定义的列表和为用户定义的列表的组合。
 
-此策略设置会覆盖“允许来自有效发行者的 .rdp 文件和用户的默认 .rdp 设置”策略设置的行为。
+此策略设置会覆盖“允许来自有效发布者和用户默认 .rdp 设置的 .rdp 文件”策略设置的行为。
 
-如果列表包含不是证书指纹的字符串，将忽略该列表。
+如果列表中包含不是证书指纹的字符串，则会忽略该字符串。
 
+有关详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=2368223。
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">使用此策略设置可指定表示受信任的远程桌面协议(.rdp)文件发行者的安全哈希算法 1 (SHA1)证书指纹列表。
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">此策略设置允许你指定一个证书指纹列表，这些指纹代表受信任的远程桌面协议(.rdp)文件发布者。支持 SHA-256、SHA-384 和 SHA-512 指纹。SHA-1 指纹已弃用: SHA-1 不再被视为安全，并且在即将到来的安全更新中，对 SHA-1 指纹的支持将默认禁用。用户应尽快将所有指纹条目迁移到 SHA-256 或更高版本。
 
-如果启用此策略设置，则具有与该列表上的指纹匹配的 SHA1 指纹的任何证书都被认为是受信任的证书。如果用户尝试启动由受信任证书签名的 .rdp 文件，则该用户启动此文件时将不会接收到任何警告消息。若要获得指纹，请查看证书的详细信息，然后单击“指纹”字段。
+指纹可加上用于生成它们的哈希算法作为前缀。支持的前缀是 "sha256:"、"sha384:" 和 "sha512:" (不区分大小写)。例如: sha256:AB0356F2...如果未指定前缀，则该条目被视为旧版 SHA-1 指纹。
 
-如果禁用或未配置此策略设置，则不会将任何发行者视为受信任的 .rdp 发行者。
+如果启用此策略设置，则任何指纹与列表中指纹匹配的证书都将被视为受信任。如果用户尝试启动由受信任证书签名的 .rdp 文件，则在启动该文件时不会收到任何警告消息。
 
-注意: 可以在“计算机配置”节点或“用户配置”节点中定义此策略设置。如果为计算机配置了此策略设置，则将被某个用户视为受信任证书指纹列表是为该计算机定义的列表和为该用户定义的列表的组合。
+如果禁用或未配置此策略设置，则不会将任何发布者视为受信任的 .rdp 发布者。
 
-此策略设置会覆盖“允许来自有效发行者的 .rdp 文件和用户的默认 .rdp 设置”策略设置的行为。
+注意:
 
-如果列表包含不是证书指纹的字符串，将忽略该列表。
+可在计算机配置节点或用户配置节点中定义此策略设置。如果为计算机配置此策略设置，则用户受信任的证书指纹列表是为计算机定义的列表和为用户定义的列表的组合。
 
+此策略设置会覆盖“允许来自有效发布者和用户默认 .rdp 设置的 .rdp 文件”策略设置的行为。
+
+如果列表中包含不是证书指纹的字符串，则会忽略该字符串。
+
+有关详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=2368223。
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">在客户端计算机上提示提供凭据</string>
@@ -1020,6 +1144,14 @@ RD 会话主机服务器客户端与 RD 会话主机服务器断开连接后，R
 
     </string>
 
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">为 RemoteApp 实现增强的 shell 体验</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">此策略设置可为 RemoteApp 会话实现增强的 shell 体验，从而为默认文件关联、Run/RunOnce 注册表项等提供支持。此策略设置仅适用于 RemoteApp 会话，不适用于远程桌面会话。
+
+如果启用或未配置此策略设置，终端服务器上的 RemoteApp 会话将会具有增强的 shell 体验。
+
+如果禁用此策略设置，RemoteApp 会话将不会具有增强的 shell 体验，并将使用旧版 shell 行为。如果已发布的 RemoteApp 程序中出现兼容性问题，可能需要执行此操作。
+    </string>
+
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
     <string id="TS_SERVER_WDDM_GRAPHICS_DRIVER">为远程桌面连接使用 WDDM 图形显示驱动程序</string>
     <string id="TS_SERVER_WDDM_GRAPHICS_DRIVER_DEFAULT_OFF_EXPLAIN">通过使用此策略设置，可以为远程桌面连接启用 WDDM 图形显示驱动程序。
@@ -1086,11 +1218,9 @@ RD 会话主机服务器客户端与 RD 会话主机服务器断开连接后，R
 
 如果启用此策略设置，则可选择对计算机上的所有用户或是对计算机上的“管理员”组内用户提供整个 RDP 上的其他受支持的 RemoteFX USB 设备的重定向功能。
 
-如果禁用或未配置此策略设置，则不允许使用任何用户帐户对其他受支持的 RemoteFX USB 设备进行 RDP 重定向。
+如果禁用或未配置此策略设置，则不允许使用任何用户账户对其他受支持的 RemoteFX USB 设备进行 RDP 重定向。
 
 若要此更改生效，则必须重新启动 Windows。
-
-    
 
     </string>
     <string id="UsbMode_AdminsOnly">仅管理员</string>
@@ -1146,26 +1276,24 @@ RD 会话主机服务器客户端与 RD 会话主机服务器断开连接后，R
 
 如果禁用或未配置此策略设置，则用户不具有默认连接 URL。
 
-注意: 通过 RemoteApp 和桌面连接从不受信任的服务器上安装的 RemoteApp 程序可损害用户帐户的安全性。
-      
+注意: 通过 RemoteApp 和桌面连接从不受信任的服务器上安装的 RemoteApp 程序可损害用户账户的安全性。
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">选择 RDP 传输协议</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">使用此策略设置，可以指定用于远程桌面协议(RDP)访问此服务器的协议。
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">使用此策略设置，可以指定哪些协议可用于远程桌面协议 (RDP) 访问此服务器。
 
-如果启用此策略设置，则必须指定是否使用 RDP 以使用 UDP。
+如果启用此策略设置，则必须指定是否希望 RDP 使用 UDP。
 
-可以选择以下选项之一:“同时使用 UDP 和 TCP (默认)”、“仅使用 TCP”或“使用 UDP 或 TCP”
+可以选择以下选项之一：“使用 UDP 或 TCP (默认)”或“仅使用 TCP”
 
-如果选择“使用 UDP 或 TCP”并且 UDP 成功连接，则大部分 RDP 流量将使用 UDP。
+如果选择“使用 UDP 或 TCP”并且 UDP 连接成功，则大多数 RDP 流量都将使用 UDP。
 
-如果 UDP 连接不成功或者选择了“仅使用 TCP”，则所有 RDP 流量将使用 TCP。
+如果 UDP 连接不成功或选择“仅使用 TCP”，则所有 RDP 流量都将使用 TCP。
 
-如果禁用或未配置此策略设置，则 RDP 将选择最佳协议以便带来最佳用户体验。
+如果禁用或未配置此策略设置，则 RDP 将选择提供最佳用户体验的最佳协议。
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">同时使用 UDP 和 TCP</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">仅使用 TCP</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">使用 UDP 或 TCP</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">仅使用 TCP</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">在服务器上选择网络检测</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">使用此策略设置，可以指定远程桌面协议如何尝试检测网络质量(带宽和延迟)。
@@ -1344,12 +1472,13 @@ RD 会话主机服务器客户端与 RD 会话主机服务器断开连接后，R
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>以逗号分隔的受信任的 SHA1 证书指纹列表:</label>
+          <label>受信任证书指纹的逗号分隔列表(前缀为 sha256:、sha384: 或 sha512:):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">不允许 SHA-1 指纹</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>以逗号分隔的受信任的 SHA1 证书指纹列表:</label>
+          <label>受信任证书指纹的逗号分隔列表(前缀为 sha256:、sha384: 或 sha512:):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1387,6 +1516,12 @@ RD 会话主机服务器客户端与 RD 会话主机服务器断开连接后，R
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">选择传输类型</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">限制从服务器到客户端的剪贴板传输：</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">限制从客户端到服务器的剪贴板传输：</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

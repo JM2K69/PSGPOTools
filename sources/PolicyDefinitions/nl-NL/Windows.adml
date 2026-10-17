@@ -45,6 +45,7 @@
       <string id="SUPPORTED_Windows_10_0">Minimaal Windows Server 2016, Windows 10</string>
       <string id="SUPPORTED_Windows_10_0_RS2ToVista">Alleen Windows Server 2016 versie 1703, Windows 10 versie 1703, Windows 10, Windows 8.1, Windows 8, Windows 7 en Windows Vista</string>
       <string id="SUPPORTED_Windows_10_0_RS3ToVista">Alleen Windows Server 2016 versie 1709, Windows 10 versie 1709, Windows Server 2016 versie 1703, Windows 10 versie 1703, Windows 10, Windows 8.1, Windows 8, Windows 7 en Windows Vista</string>
+      <string id="SUPPORTED_Windows_10_0_RS3ToWindows7">Alleen Windows Server 2016 versie 1709, Windows 10 versie 1709, Windows Server 2016 versie 1703, Windows 10 versie 1703, Windows 10, Windows 8.1, Windows 8 en Windows 7</string>
       <string id="SUPPORTED_Windows_10_0_UP_TO_RS2">Windows Server 2016, Windows 10 tot versie 1703</string>
       <string id="SUPPORTED_Windows_10_0_RS1">Minimaal Windows Server 2016, Windows 10 versie 1607</string>
       <string id="SUPPORTED_Windows_10_0_RS2">Minimaal Windows Server 2016, Windows 10 versie 1703</string>
@@ -54,10 +55,28 @@
       <string id="SUPPORTED_Windows_10_0_RS6">Minimaal Windows Server 2016, Windows 10 versie 1903</string>
       <string id="SUPPORTED_Windows_10_0_RS6_NOSERVER">Minimaal Windows 10 versie 1903</string>
       <string id="SUPPORTED_Windows_10_0_RS7">Minimaal Windows Server 2016, Windows 10 versie 1909</string>
+      <string id="SUPPORTED_Windows_10_0_RS7_NOSERVER">Minimaal Windows 10 versie 1909</string>
+      <string id="SUPPORTED_Windows_10_0_20H1">Minimaal Windows Server 2019, Windows 10 versie 2004</string>
+      <string id="SUPPORTED_Windows_10_0_20H1_NOSERVER">Minimaal Windows 10 versie 2004</string>
+      <string id="SUPPORTED_Windows_10_0_VB_Only_NOSERVER">Windows 10 alleen met ten minste Windows 10 versie 2004</string>
+      <string id="SUPPORTED_Windows_10_0_20H2_SERVER_20H2">Minimaal Windows Server 20H2, Windows 10 versie 20H2</string>
+      <string id="SUPPORTED_Windows_10_0_21H2">Minimaal Windows Server 2016, Windows 10 versie 2106</string>
+      <string id="SUPPORTED_Windows_10_0_21H2_NOSERVER">Minimaal Windows 10 versie 2106</string>
       <string id="SUPPORTED_Windows_10_0_NOARM">Minimaal Windows Server 2016 of Windows 10</string>
       <string id="SUPPORTED_Windows_10_0_NOSERVER">Minimaal Windows 10</string>
       <string id="SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION">Windows 10 Enterprise, Windows 10 Education of hoger</string>
+      <string id="SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION_MDAG">Windows 10 Enterprise of Windows 10 Education met Microsoft Defender Application Guard in de ondernemingsmodus</string>
+      <string id="SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION_MDAG_EDGE">Microsoft Edge in Windows 10 Enterprise of Windows 10 Education met Microsoft Defender Application Guard in de ondernemingsmodus</string>
       <string id="SUPPORTED_Windows_10_0_SERVER">Minimaal Windows Server 2016</string>
+      <string id="SUPPORTED_Windows_11_0_SE">Windows 11 SE</string>
+      <string id="SUPPORTED_Windows_11_0_22H2_NOSERVER">Minimaal Windows 11 versie 22H2</string>
+      <string id="SUPPORTED_Windows_11_0_22H2">Minimaal Windows 11 versie 22H2</string>
+      <string id="SUPPORTED_Windows_11_0_23H2">Minimaal Windows 11 versie 23H2</string>
+      <string id="SUPPORTED_Windows_11_0_24H2">Minimaal Windows 11 versie 24H2</string>
+      <string id="SUPPORTED_Windows_11_0_25H2">Minimaal Windows 11 versie 25H2</string>
+      <string id="SUPPORTED_Windows_11_0_25H2_NOSERVER_ENTERPRISE_EDUCATION">Minimaal Windows 11 versie 25H2 Enterprise of Windows 11 versie 25H2 Education</string>
+      <string id="SUPPORTED_Windows_11_0_NOSERVER_ENTERPRISE_EDUCATION_PRO_SANDBOX">Ten minste Windows 11 Pro, Enterprise of Education met Windows Sandbox</string>
+      <string id="SUPPORTED_Windows_11_0_NOSERVER">Minimaal Windows 11</string>
       <string id="SUPPORTED_Windows8_Or_IE10">Minimaal Windows Server 2012, Windows 8 of Windows RT of minimaal Internet Explorer 10</string>
       <string id="SUPPORTED_WindowsVistaTo2k">Windows Server 2008, Windows Server 2003, Windows Vista, Windows XP, en Windows 2000</string>
       <string id="SUPPORTED_WindowsVistaToXP">Windows Server 2008, Windows Server 2003, Windows Vista, en Windows XP</string>
@@ -66,6 +85,7 @@
       <string id="SUPPORTED_Windows7ToVista">Windows Server 2008, Windows 7, en Windows Vista</string>
       <string id="SUPPORTED_Windows7ToXP">Windows Server 2008, Windows Server 2003, Windows 7, Windows Vista, en Windows XP</string>
       <string id="SUPPORTED_Windows7To2k">Windows Server 2008, Windows Server 2003, Windows 7, Windows Vista, Windows XP, en Windows 2000</string>
+      <string id="SUPPORTED_Windows7To1122H2">Minimaal Windows Server 2008 R2 of Windows 7 tot en met Windows Server 2022 of Windows 11 versie 22H2</string>
       <string id="SUPPORTED_Windows81To2k">Minimaal Windows 2000 tot en met Windows 8.1 of Windows Server 2012 R2</string>
       <string id="SUPPORTED_Windows81To7">Minimaal Windows 7 tot en met Windows 8.1 of Windows Server 2012 R2</string>
       <string id="SUPPORTED_Windows7ToVistaAndWindows10">Windows Server 2008, Windows 7, Windows Vista en Windows 10</string>
@@ -84,7 +104,7 @@
       <string id="WindowsExplorer">Bestandenverkenner</string>
       <string id="WindowsExplorer_Help">Hiermee kunt u instellingen voor Bestandenverkenner beheren. Hiertoe behoren onder meer shelleigenschappen, mapopties, bestandsmenu's en beschikbare stations.</string>
       <string id="TabletPC">Tablet PC</string>
-      <string id="DataCollectionAndPreviewBuilds">Gegevensverzameling en preview-versies</string>
+      <string id="DataCollectionAndPreviewBuilds">Gegevensverzameling en preview-builds</string>
       <string id="Network">Netwerk</string>
       <string id="Network_Help">Hiermee kunt u de onderdelen van het besturingssysteem configureren die een clientcomputer gebruikt om verbinding met een netwerk te maken. Hiertoe behoren onder meer DNS-instellingen en offlinebestanden.</string>
       <string id="SharedFolders">Gedeelde mappen</string>
@@ -97,6 +117,7 @@
       <string id="ControlPanel_Help">Bevat instellingen om de configuratie van het Configuratiescherm toe te staan, met inbegrip van de items die wel of niet worden weergegeven.</string>
       <string id="Desktop">Bureaublad</string>
       <string id="Desktop_Help">Bevat instellingen waarmee u het gedrag van het bureaublad van gebruikers kunt beheren en kunt bepalen welke standaardpictogrammen op het bureaublad worden weergegeven.</string>
+      <string id="SUPPORTED_Windows_11_0_24H2_NOSERVER_ENTERPRISE_EDUCATION">Minimaal Windows 11 versie 24H2 Enterprise of Windows 11 versie 24H2 Education</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

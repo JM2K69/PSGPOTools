@@ -169,7 +169,7 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, kan
       <string id="UILang4">Deutsch</string>
       <string id="UILang5">Chinesisch (vereinfacht)</string>
       <string id="UILang6">Chinesisch (traditionell)</string>
-      <string id="UILang34">Chinesisch, traditionell (Hongkong)</string>
+      <string id="UILang34">Traditionelles Chinesisch (Hongkong SAR)</string>
       <string id="UILang35">Chinesisch, traditionell (Taiwan)</string>
       <string id="UILang7">Französisch</string>
       <string id="UILang8">Spanisch</string>
@@ -284,6 +284,21 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, int
         Wenn diese Richtlinie aktiviert oder nicht konfiguriert ist, haben die Benutzer die Kontrolle. Sie können auswählen, ob sie über die Einstellungen Sprachdienste aktivieren wollen.
         
         Wenn diese Richtlinie deaktiviert ist, werden die Sprachdienste deaktiviert und die Benutzer können die Sprachdienste nicht über Einstellungen aktivieren.
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Installation von Sprachpaket und Sprachfeatures einschränken</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        Diese Richtlinieneinstellung schränkt allen Benutzern die Installation von Sprachpaketen und Sprachfeatures bei Anforderungspaketen ein. Diese Richtlinie schränkt das Umschalten der Windows Sprache nicht ein, wenn Sie die Windows- Sprache einschränken möchten verwenden Sie die folgende Richtlinie: "schränkt die Benutzeroberflächensprachen ein, die von Windows für alle protokollierten Benutzer verwendet werden."  
+
+        Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Installation der Sprachpakete und Sprachfeatures für  alle Benutzer verhindert.
+
+        Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, gibt es keine Sprachpakete oder-Feature Installations- Einschränkungen für Benutzer.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        Diese Richtlinieneinstellung schränkt den Benutzer am Installieren von Sprachpaketen und Sprachfeatures auf Abruf ein. Diese Richtlinie schränkt das Wechseln zwischen Windows- Sprache  nicht ein, wenn Sie die Windows- Sprache einschränken möchten verwenden Sie die folgende Richtlinie: "schränkt die Benutzeroberflächensprachen ein, die von Windows für den ausgewählten Benutzer verwendet werden sollen."  
+
+        wenn Sie diese Richtlinie aktivieren, wird die  Installation der Sprachpakete und Sprachfeatures für den Benutzer  verhindert.  
+
+        Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, gibt es keine Sprachpakete oder-Sprachfeatures Installation Einschränkung für den Benutzer.  
       </string>
     </stringTable>
     <presentationTable>

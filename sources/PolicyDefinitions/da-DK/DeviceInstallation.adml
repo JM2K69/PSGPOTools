@@ -19,30 +19,73 @@ Hvis du aktiverer eller undlader at konfigurere denne politikindstilling, priori
 Hvis du deaktiverer denne indstilling, vælges de drivere, der er signeret med et Microsoft Windows Publisher-certifikat, til installation frem for de drivere, der er signeret med andre Authenticode-certifikater.</string>
       <string id="DeviceInstall_Category">Installation af enhed</string>
       <string id="DeviceInstall_Classes_Allow">Tillad installation af enheder, der bruger drivere, som svarer til disse enhedskonfigurationsklasser</string>
-      <string id="DeviceInstall_Classes_Allow_Help">Med denne politikindstilling kan du angive en liste over enhedsklassekonfigurationens GUID'er for enhedsdrivere, som Windows må installere. Brug kun denne indstilling, når politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger" er aktiveret. Andre politikindstillinger, som forhindrer installation af enheder, har forrang for denne.
+      <string id="DeviceInstall_Classes_Allow_Help">Du kan bruge denne politikindstilling til at angive en liste over enhedskonfigurationsklasse globalt entydige identifikatorer (GUIDs) til driverpakker, som Windows har tilladelse til at installere. Denne politikindstilling er beregnet til kun at blive brugt, når politikindstillingen "Anvend lagdelt rækkefølge af evaluering af tilladelse og forhindring af enhedsinstallation" på "tværs af alle enhedens søgekriterier" er aktiveret, men den kan også bruges sammen med politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger", for gamle politikdefinitioner.
 
-Hvis du aktiverer denne politikindstilling, kan enhedsdrivere, hvis enhedskonfigurationsklasse-GUID'er findes på den liste, du opretter, installeres eller opdateres, medmindre en anden politikindstilling specifikt forbyder installation (f.eks. politikindstillingerne "Forbyd installation af enheder, der svarer til en af disse enheds-id'er", "Forbyd installation af enheder, der svarer til en af disse enhedsklasser" eller "Forbyd installation af flytbare enheder"). Hvis du aktiverer denne politikindstilling på en fjernskrivebordsserver, påvirker indstillingen omdirigering af de angivne enheder fra en fjernskrivebordsklient til fjernskrivebordsserveren.
+Når denne politikindstilling er aktiveret sammen med politikindstillingen "Anvend lagdelt rækkefølge af evaluering for Tillad og Forbyd installation af enhedsinstallation på tværs af alle enhedens søgekriterier", har Windows tilladelse til at installere eller opdatere driverpakker, hvis klasse-GUID'er for enhedskonfiguration vises på den liste, du opretter, medmindre en anden politikindstilling i det samme eller et højere lag i hierarkiet specifikt forhindrer installationen, f. eks. følgende politikindstillinger:
+- Forhindre installation af enheder til disse enhedsklasser
+- Forhindre installation af enheder, der svarer til en af disse enheds-id'er
+- Forhindre installation af enheder, der matcher et af disse enhedsforekomst-id'er.
+Hvis politikindstillingen "Anvend lagdelt evalueringsrækkefølge for Tillad og Forbyd enhedsinstallationspolitikker på tværs af alle enhedskriterier" ikke er aktiveret med denne politikindstilling, har andre politikindstillinger, der specifikt forhindrer installation, forrang.
 
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, eller ingen anden politikindstilling beskriver enheden, bestemmer politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger", om enheden kan installeres.</string>
+BEMÆRK: Politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger" er blevet erstattet af politikindstillingen "Anvend lagdelt rækkefølge af evaluering for Tillad og Forbyd installation af enhedsinstallation på tværs af alle enhedens søgekriterier" for understøttede målversioner af Windows 10. Det anbefales, at du bruger politikindstillingen "Anvend lagdelt rækkefølge af evaluering for at tillade og forhindre installationspolitikker for enheder på tværs af alle enhedens søgekriterier", hvis det er muligt.
+
+Alternativt, hvis denne politikindstilling aktiveres sammen med politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger", kan Windows har tilladelse til at installere eller opdatere driverpakker, hvis GUID'er til enhedskonfiguration vises på den liste, du opretter, medmindre en anden politikindstilling specifikt forhindrer installation (f. eks. indstillingerne "Forbyd installation af enheder, der svarer til en af disse enhedsklasser", "Forbyd installation af enheder til disse enhedsklasser", "Forbyd installation af enheder, der svarer til en af disse enhedsforekomst-id'er", eller "Forbyd installation af flytbare enheder").
+
+Hvis du aktiverer denne politikindstilling på en server for fjernskrivebord, påvirker politikindstillingen omdirigering af de angivne enheder fra en klient for fjernskrivebord til serveren for fjernskrivebord.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, og ingen andre politikindstillinger beskriver enheden, bestemmer politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger", om enheden kan installeres.</string>
       <string id="DeviceInstall_Classes_Deny">Forbyd installation af enheder, der bruger drivere, som svarer til disse enhedskonfigurationsklasser</string>
-      <string id="DeviceInstall_Classes_Deny_Help">Angiver en liste med Plug and Play-enhedsklassekonfigurationens GUID'er, der beskriver enheder, som Windows ikke kan installere. Denne politikindstilling har højere prioritet i forhold til andre politikindstillinger, der tillader, at en enhed kan installeres.
- 
-Hvis du aktiverer denne politikindstilling, kan nye enhedsdrivere ikke installeres, og eksisterende enhedsdrivere kan ikke opdateres, hvis deres enhedskonfigurationsklasse-GUID'er står på den liste, du opretter. Hvis du aktiverer denne politikindstilling på en fjernskrivebordsserver, påvirker indstillingen omdirigering af de angivne enheder fra en fjernskrivebordsklient til fjernskrivebordsserveren.
+      <string id="DeviceInstall_Classes_Deny_Help">Du kan bruge denne politikindstilling til at angive en liste over enhedskonfigurationsklasse-GUID'er (GUID) for driverpakker, som Windows ikke kan installere. Denne politikindstilling har som standard højere prioritet i forhold til andre politikindstillinger, der gør det muligt for Windows at installere en enhed.
 
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan enheder installeres eller opdateres alt efter tilladelserne i andre politikindstillinger.</string>
+Bemærk! Hvis du vil aktivere politikindstillingen "Tillad installation af enheder, der svarer til et af disse enhed-id'er" og "Tillad installation af enheder, der svarer til en af disse enhedsforekomst-id'er", skal du aktivere politikindstillingen "Anvend lagdelt rækkefølge for Tillad og Forbyd enheds installations politikker på tværs af alle enheds søgekriterier".
+ 
+Hvis du aktiverer denne politikindstilling, kan der ikke installeres eller opdateres driverpakker, hvis enhedsinstallationsklasse-GUID'ER vises på den liste, du opretter. Hvis du aktiverer denne politikindstilling på en fjernskrivebordsserver, påvirker politikindstillingen omdirigering af de angivne enheder fra en Fjernskrivebordsklient til fjernskrivebordsserveren.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan enheder installeres og opdateres, som den er tilladt eller forhindret af andre politikindstillinger.</string>
       <string id="DeviceInstall_Help">Politikindstillinger, der kontrollerer installation af enheder.</string>
       <string id="DeviceInstall_IDs_Allow">Tillad installation af enheder, der svarer til en af disse enhed-id'er</string>
-      <string id="DeviceInstall_IDs_Allow_Help">Med denne politikindstilling kan du angive en liste med Plug and Play-hardware-id'er og kompatible id'er for enheder, som Windows må installere. Brug kun denne indstilling, når politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger" er aktiveret. Andre politikindstillinger, som forhindrer installation af enheder, har forrang for denne.
+      <string id="DeviceInstall_IDs_Allow_Help">Du kan bruge denne politikindstilling til at angive en liste med plug and Play hardware-id'er og kompatible id'er for enheder, som Windows har tilladelse til at installere. Denne politikindstilling er beregnet til kun at blive brugt, når politikindstillingen "Anvend lagdelt rækkefølge af evaluering af tilladelse og forhindring af enhedsinstallation" på "tværs af alle enhedens søgekriterier" er aktiveret, men den kan også bruges sammen med politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger", for gamle politikdefinitioner.
 
-Hvis du aktiverer denne politikindstilling, kan enhedsdrivere, hvis Plug and Play-hardware-id eller et kompatibelt id vises på den liste, du opretter, installeres eller opdateres, medmindre en anden politikindstilling specifikt forbyder denne installation (f.eks. politikindstillingerne "Forbyd installation af enheder, der svarer til nogen af disse enheds-id'er", "Forbyd installation af enheder, der svarer til en af disse enhedsklasser" eller "Forbyd installation af flytbare enheder"). Hvis du aktiverer denne politikindstilling på en fjernskrivebordsserver, påvirker indstillingen omdirigering af de angivne enheder fra en fjernskrivebordsklient til fjernskrivebordsserveren.
+Når denne politikindstilling er aktiveret sammen med politikindstillingen "Anvend lagdelt rækkefølge af evaluering for Tillad og Forbyd installation af enhedsinstallation på tværs af alle enhedens søgekriterier", kan Windows installere eller opdatere enheder, hvis Plug and Play hardware-id eller kompatible id'er vises på den liste, du opretter, medmindre en anden politikindstilling i det samme eller et højere lag i hierarkiet specifikt forhindrer installationen, f. eks. følgende politikindstillinger:
+-Forbyd installation af enheder, der svarer til en af disse enheds-id'er
+- Forhindre installation af enheder, der matcher et af disse enhedsforekomst-id'er.
+Hvis politikindstillingen "Anvend lagdelt evalueringsrækkefølge for Tillad og Forbyd enhedsinstallationspolitikker på tværs af alle enhedskriterier" ikke er aktiveret med denne politikindstilling, har andre politikindstillinger, der specifikt forhindrer installation, forrang.
 
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, eller ingen anden politikindstilling beskriver enheden, bestemmer politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger", om enheden kan installeres.</string>
+BEMÆRK: Politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger" er blevet erstattet af politikindstillingen "Anvend lagdelt rækkefølge af evaluering for Tillad og Forbyd installation af enhedsinstallation på tværs af alle enhedens søgekriterier" for understøttede målversioner af Windows 10. Det anbefales, at du bruger politikindstillingen "Anvend lagdelt rækkefølge af evaluering for at tillade og forhindre installationspolitikker for enheder på tværs af alle enhedens søgekriterier", hvis det er muligt.
+
+Alternativt, hvis denne politikindstilling aktiveres sammen med politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger", kan Windows installere eller opdatere en enhed, hvis Plug and Play-hardware-id eller kompatibel id'er vises på den liste, du opretter, medmindre en anden politikindstilling specifikt forhindrer installationen (f. eks. indstillingerne "Forbyd installation af enheder, der svarer til en af disse enhedsklasser", "Forbyd installation af enheder til disse enhedsklasser", "Forbyd installation af enheder, der svarer til en af disse enhedsforekomst-id'er", eller "Forbyd installation af flytbare enheder").
+
+Hvis du aktiverer denne politikindstilling på en server for fjernskrivebord, påvirker politikindstillingen omdirigering af de angivne enheder fra en klient for fjernskrivebord til serveren for fjernskrivebord.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, og ingen andre politikindstillinger beskriver enheden, bestemmer politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger", om enheden kan installeres.</string>
       <string id="DeviceInstall_IDs_Deny">Forbyd installation af enheder, der svarer til et af disse enheds-id'er</string>
-      <string id="DeviceInstall_IDs_Deny_Help">Med denne politikindstilling kan du angive en liste med Plug and Play-hardware-id'er og kompatible id'er for enheder, som ikke må installeres. Denne politikindstilling har højere prioritet i forhold til andre politikindstillinger, der tillader, at en enhed kan installeres.
+      <string id="DeviceInstall_IDs_Deny_Help">Denne politikindstilling gør det muligt at angive en liste over Plug and Play-hardware-id'er og kompatible id'er for enheder, som Windows er forhindret i at installere. Denne politikindstilling tilsidesætter som standard eventuelle andre politikindstillinger, der gør det muligt for Windows at installere en enhed.
 
-Hvis du aktiverer denne politikindstilling, kan en enhed ikke installeres, hvis dens hardware-id eller kompatible id'er vises på den liste, du opretter. Hvis du aktiverer denne politikindstilling på en fjernskrivebordsserver, påvirker indstillingen omdirigering af de angivne enheder fra en fjernskrivebordsklient til fjernskrivebordsserveren.
+BEMÆRK: Hvis du vil aktivere politikindstillingen "Tillad installation af enheder, der svarer til en af disse enhedsforekomst-id'er", for at erstatte denne politikindstilling for relevante enheder, skal du aktivere politikindstillingen "Anvend lagdelt evalueringsrækkefølge for Tillad og Forbyd enhedsinstallationspolitikker på tværs af alle enhedskriterier".
 
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan enheder installeres og opdateres alt efter tilladelserne i andre politikindstillinger.</string>
+Hvis du aktiverer denne politikindstilling, er Windows forhindret i at installere en enhed, hvis hardware-id eller kompatible id vises på den liste, du opretter. Hvis du aktiverer denne politikindstilling på en server til fjernskrivebord, påvirker politikindstillingen omdirigering af de angivne enheder fra en klient for fjernskrivebord til serveren for fjernskrivebord.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, kan enheder installeres og opdateres som tilladt eller forhindret af andre politikindstillinger.</string>
+      <string id="DeviceInstall_Instance_IDs_Allow">Tillad installation af enheder, der svarer til et af disse enhedsforekomst-id'er</string>
+      <string id="DeviceInstall_Instance_IDs_Allow_Help">Du kan bruge denne politikindstilling til at angive en liste med Plug and Play enhedsforekomst-id'er for enheder, som Windows har tilladelse til at installere. Denne politikindstilling er beregnet til kun at blive brugt, når politikindstillingen "Anvend lagdelt rækkefølge af evaluering af tilladelse og forhindring af enhedsinstallation" på "tværs af alle enhedens søgekriterier" er aktiveret, men den kan også bruges sammen med politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger", for gamle politikdefinitioner.
+
+Når denne politikindstilling er aktiveret sammen med politikindstillingen "Anvend lagdelt rækkefølge af evaluering for Tillad og Forbyd installation af enhedsinstallation på tværs af alle enhedens søgekriterier", kan Windows installere eller opdatere enheder, hvis Plug and Play enhedsforekomst-id'er vises på den liste, du opretter, medmindre en anden politikindstilling i det samme eller et højere lag i hierarkiet specifikt forhindrer installationen, f. eks. følgende politikindstillinger:
+-Forbyd installation af enheder, der svarer til en af disse enhedsforekomst-id'er
+Hvis politikindstillingen "Anvend lagdelt evalueringsrækkefølge for Tillad og Forbyd enhedsinstallationspolitikker på tværs af alle enhedskriterier" ikke er aktiveret med denne politikindstilling, har andre politikindstillinger, der specifikt forhindrer installation, forrang.
+
+BEMÆRK: Politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger" er blevet erstattet af politikindstillingen "Anvend lagdelt rækkefølge af evaluering for Tillad og Forbyd installation af enhedsinstallation på tværs af alle enhedens søgekriterier" for understøttede målversioner af Windows 10. Det anbefales, at du bruger politikindstillingen "Anvend lagdelt rækkefølge af evaluering for at tillade og forhindre installationspolitikker for enheder på tværs af alle enhedens søgekriterier", hvis det er muligt.
+
+Alternativt, hvis denne politikindstilling aktiveres sammen med politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger", kan Windows installere eller opdatere en enhed, hvis Plug and Play enhedsforekomst-id'er vises på den liste, du opretter, medmindre en anden politikindstilling specifikt forhindrer installationen (f. eks. indstillingerne "Forbyd installation af enheder, der svarer til en af disse enhedsklasser", "Forbyd installation af enheder til disse enhedsklasser", "Forbyd installation af enheder, der svarer til en af disse enhedsforekomst-id'er", eller "Forbyd installation af flytbare enheder").
+
+Hvis du aktiverer denne politikindstilling på en server for fjernskrivebord, påvirker politikindstillingen omdirigering af de angivne enheder fra en klient for fjernskrivebord til serveren for fjernskrivebord.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, og ingen andre politikindstillinger beskriver enheden, bestemmer politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger", om enheden kan installeres.</string>
+      <string id="DeviceInstall_Instance_IDs_Deny">Forbyd installation af enheder, der svarer til et af disse enhedsforekomst-id'er</string>
+      <string id="DeviceInstall_Instance_IDs_Deny_Help">Denne politikindstilling giver dig mulighed for at angive en liste over Plug and Play-enhedsforekomst-id'er for enheder, som Windows ikke må installere. Denne politikindstilling har forrang for andre politikindstillinger, der tillader, at Windows installerer en enhed.
+
+Hvis du aktiverer denne politikindstilling, forhindres Windows i at installere en enhed, hvis enhedsforekomst-id vises på den liste, som du opretter. Hvis du aktiverer denne politikindstilling på en fjernskrivebordsserver, påvirker politikindstillingen omdirigering af de angivne enheder fra en fjernskrivebordsklient til fjernskrivebordsserveren.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan enheder installeres og opdateres som tilladt eller forbudt af andre politikindstillinger.</string>
       <string id="DeviceInstall_InstallTimeout">Konfigurer timeout for installation af enhed</string>
       <string id="DeviceInstall_InstallTimeout_Help">Med denne politikindstilling kan du konfigurere det antal sekunder, som Windows skal vente på, at en enhedsinstallation udføres. 
 
@@ -50,11 +93,13 @@ Hvis du aktiverer denne politikindstilling, venter Windows det antal sekunder, d
 
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, venter Windows i 240 sekunder på, at installationen af enheden afsluttes, inden installationen afbrydes.</string>
       <string id="DeviceInstall_Removable_Deny">Forbyd installation af flytbare enheder</string>
-      <string id="DeviceInstall_Removable_Deny_Help">Denne politikindstilling giver dig mulighed for at forhindre, at Windows installerer flytbare enheder. En enhed er flytbar, når driveren til den enhed, som den er tilsluttet, angiver, at enheden kan fjernes. En USB-enhed angives f.eks. som flytbar af driverne til den USB-hub, som enheden er tilsluttet. Denne politikindstilling har højere prioritet i forhold til andre politikindstillinger, der tillader, at en enhed kan installeres.
+      <string id="DeviceInstall_Removable_Deny_Help">Denne politikindstilling gør det muligt at forhindre Windows i at installere flytbare enheder. En enhed betragtes som flytbar, når driveren for den enhed, som den er tilsluttet, angiver, at enheden er flytbar. En USB-enhed (Universal Serial Bus) er f.eks. rapporteret til at være flytbar af driverne til det USB-hub, som enheden er tilsluttet. Denne politikindstilling tilsidesætter som standard eventuelle andre politikindstillinger, der gør det muligt for Windows at installere en enhed.
 
-Hvis du aktiverer denne politikindstilling, kan flytbare enheder ikke installeres under Windows, og driverne til eksisterende flytbare enheder kan ikke opdateres. Hvis du aktiverer denne politikindstilling på en fjernskrivebordsserver, påvirker politikindstillingen omdirigering af de flytbare enheder fra en fjernskrivebordsklient til fjernskrivebordsserveren.
+BEMÆRK: Hvis du vil aktivere indstillingen "Tillad installation af enheder ved hjælp af drivere, der svarer til disse enhedskonfigurationsklasser", "Tillad installation af enheder, der svarer til en af disse enheds-id'er", og "Tillad installation af enheder, der svarer til en af disse enhedsforekomst-id'er". Hvis du vil tilsidesætte denne politikindstilling for de aktuelle enheder, skal du aktivere politikindstillingen "Anvend lagdelt rækkefølge for Tillad og Forbyd installationspolitikker for en enhed på tværs af alle enhedens søgekriterier".
 
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan enhedsdrivere til flytbare enheder installeres og opdateres ifølge tilladelserne i andre politikindstillinger.</string>
+Hvis du aktiverer denne politikindstilling, er Windows forhindret i at installere flytbare enheder, og eksisterende flytbare enheder kan ikke få deres drivere opdateret. Hvis du aktiverer denne politikindstilling på en fjernskrivebord-server, påvirker politikindstillingen omdirigering af flytbare enheder fra en klient til fjernskrivebord til serveren for fjernskrivebordet.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, kan Windows installere og opdatere driverpakker til flytbare enheder som tilladt eller forhindret af andre politikindstillinger.</string>
       <string id="DeviceInstall_Restrictions_Category">Begrænsninger for installation af enhed</string>
       <string id="DeviceInstall_Restrictions_Help">Politikindstillinger, der beskriver, hvilke enheder der kan og ikke kan installeres.</string>
       <string id="DeviceInstall_SystemRestore">Undgå, at der oprettes et systemgendannelsespunkt under enhedsaktivitet, som normalt ville medføre oprettelsen af et gendannelsespunkt</string>
@@ -63,18 +108,43 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan 
 Hvis du aktiverer denne politikindstilling, oprettes der ikke et systemgendannelsespunkt, når der ellers normalt ville blive oprettet et.
 
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, oprettes der et systemgendannelsespunkt på normal vis.</string>
-	  <string id="DeviceManagement_RPCInterface_Allow">Tillad fjernadgang til PnP-grænsefladen</string>
+      <string id="DeviceManagement_RPCInterface_Allow">Tillad fjernadgang til PnP-grænsefladen</string>
       <string id="DeviceManagement_RPCInterface_Allow_Help">Med denne politikindstilling kan du vælge, om fjernadgang til Plug and Play-grænsefladen skal være tilladt. 
 	  
 Hvis du aktiverer denne politikindstilling, er fjernforbindelser til Plug and Play-grænsefladen tilladt.
 	  
 Hvis du deaktiverer eller undlader at konfigurere denne indstilling, er fjernforbindelser til Plug and Play-grænsefladen ikke tilladt.</string>
       <string id="DeviceInstall_Unspecified_Deny">Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger</string>
-      <string id="DeviceInstall_Unspecified_Deny_Help">Med denne politikindstilling kan du forhindre, at der installeres enheder, som ikke er specifikt beskrevet af en anden politikindstilling.
+      <string id="DeviceInstall_Unspecified_Deny_Help">Denne politikindstilling gør det muligt at forhindre installation af enheder, der ikke er specifikt er beskrevet af andre politikindstillinger.
 
-Hvis du aktiverer denne politikindstilling, er der ingen enhedsdrivere, der installeres og opdateres, medmindre de er beskrevet i politikindstillingen "Tillad installation af enheder, der svarer til et af disse enheds-id'er" eller "Tillad installation af enheder, der svarer til en af disse enhedsklasser".
+BEMÆRK: Denne politikindstilling er blevet erstattet af politikindstillingen "Anvend lagvis evalueringsrækkefølge for Tillad og Forbyd installation af enheder på tværs af alle kriterier for enheder" for at give mere detaljeret kontrol. Det anbefales, at du bruger politikindstillingen "Anvend lagvis evalueringsrækkefølge for Tillad og Forbyd installation af enhed på tværs af alle kriterier for enheder" i stedet for denne politikindstilling.
 
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, installeres og opdateres enhedsdriverne for alle de enheder, der ikke er beskrevet i politikindstillingen "Forbyd installation af enheder, der svarer til et af disse enhed-id'er", "Forbyd installation af enheder, der svarer til en af disse enhedsklasser" eller "Forbyd installation af flytbare enheder".</string>
+Hvis du aktiverer denne politikindstilling, er Windows forhindret i at installere eller opdatere driverpakken til enhver enhed, der ikke beskrives med enten "Tillad installation af enheder, der svarer til en af disse enheds-id'er", "Tillad installation af enheder til disse enhedsklasser" eller "Tillad installation af enheder, der svarer til en af disse enhedsforekomst-id'er".
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, har Windows tilladelse til at installere eller opdatere driverpakken for enhver enhed, der ikke er beskrevet i politikindstillingen "Undgå installation af enheder, der svarer til en af disse enheds-id'er", "Undgå installation af enheder for disse enhedsklasser", "Undgå installation af enheder, der svarer til en af disse enhedsforekomster", eller "Undgå installation af flytbare enheder".</string>
+      <string id="DeviceInstall_Allow_Deny_Layered">Anvend lagdelt rækkefølge til evaluering af Tillad, og undgå politikker for enhedsinstallation på tværs af alle enheds søgekriterier</string>
+      <string id="DeviceInstall_Allow_Deny_Layered_Help">Denne politikindstilling ændrer den evaluerings rækkefølge, hvor tilladelse til at tillade eller forhindre politikindstillinger anvendes, når mere end én installationspolitik indstilling gælder for en given enhed. Aktivér denne politikindstilling for at sikre, at overlappende enheds søgekriterier anvendes baseret på et oprettet hierarki, hvor mere specifikke søgekriterier tilsidesætter mindre specifikke søgekriterier. Den hierarkiske evaluerings rækkefølge for politikindstillinger, der angiver enheds søgekriterier, er som følger:
+
+Enhedsforekomst-id'er &gt; Enheds-id'er &gt; Enhedskonfigurationsklasse &gt; Flytbare enheder
+
+Enhedsforekomst-id'er
+1. Forbyd installation af enheder installation af enheder, der bruger drivere, som svarer til disse enhedsforekomst-id'er
+2. Tillad installation af enheder, der bruger drivere, som svarer til disse enhedsforekomst-id'er
+
+Enheds-id'er
+3. Forbyd installation af enheder, der bruger drivere, som svarer til disse enheds-id'er
+4. Tillad installation af enheder, der bruger drivere, som svarer til disse enhedsforekomst-id'er
+
+Enhedskonfigurationsklasse
+5. Forbyd installation af enheder, der bruger drivere, som svarer til disse enhedskonfigurationsklasser
+6. Tillad installation af enheder, der bruger drivere, der svarer til disse enhedskonfigurationsklasser
+
+Flytbare enheder
+7. Forbyd installation af flytbare enheder
+
+Bemærk! denne politikindstilling indeholder mere detaljeret kontrol end politikindstillingen "Forbyd installation af enheder, der ikke er beskrevet af andre politikindstillinger". Hvis disse politikindstillinger for konflikter er aktiveret på samme tid, aktiveres politikindstillingen "Anvend lagdelt rækkefølge af evaluering af tilladte og forhindrer installation af enhedsinstallation på tværs af alle enheds søgekriterier", og den anden politikindstilling ignoreres.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, bruges standard evalueringen. Politikindstillingerne "Forbyd installations..." har som standard højere prioritet end andre politikindstillinger, der tillader, at Windows installerer en enhed.</string>
       <string id="DeviceInstall_DeniedPolicy_SimpleText">Vis en brugerdefineret meddelelsestitel, når installation af en enhed forhindres af en politikindstilling</string>
       <string id="DeviceInstall_DeniedPolicy_SimpleText_Help">Du kan bruge denne politikindstilling til at vise en brugerdefineret meddelelsestitel i en besked, når en enhed installeres, og en politikindstilling forhindrer installationen.
 
@@ -89,17 +159,17 @@ Hvis du aktiverer denne politikindstilling, vises den tekst, du skriver, i felte
 Hvis du deaktiverer eller undlader at konfigurere denne indstilling, vises der en standardmeddelelse i Windows, når en politikindstilling forhindrer installation af en enhed.</string>
       <string id="DriverInstall_Category">Installation af driver</string>
       <string id="DriverInstall_Classes_AllowUser">Tillad brugere at installere drivere til disse enhedskonfigurationsklasser</string>
-      <string id="DriverInstall_Classes_AllowUser_Help">Denne politikindstilling angiver en liste over de enhedskonfigurationsklasse-GUID'er, som beskriver de enhedsdrivere, som medlemmer af gruppen med indbyggede brugere (ikke administratorer), må installere på systemet.
+      <string id="DriverInstall_Classes_AllowUser_Help">Denne politikindstilling angiver en liste over de enhedskonfigurationsklasse-GUID'er, som beskriver de driverpakker, som medlemmer af gruppen med indbyggede brugere (ikke administratorer), må installere på systemet.
 
 Hvis du aktiverer denne politikindstilling, må medlemmer af brugergruppen installere nye drivere for de angivne enhedskonfigurationsklasser. Driverne skal være signeret ifølge politikken Windows-driversignering eller være signeret af de udgivere, der allerede er lageret til udgivere, der er tillid til.
 
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, er det kun medlemmer af administratorgruppen, der må installere nye enhedsdrivere på systemet.</string>
-      <string id="DriverInstall_Help">Politikindstillinger kontrollerer installation af enhedsdrivere på systemet.</string>
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, er det kun medlemmer af administratorgruppen, der må installere nye driverpakker på systemet.</string>
+      <string id="DriverInstall_Help">Politikindstillinger styrer installationen af driverpakker på systemet.</string>
       <string id="DriverSign_Block">Bloker</string>
       <string id="DriverSign_None">Ignorer</string>
       <string id="DriverSign_Warn">Advar</string>
-      <string id="DriverSigning">Kodesignering af enhedsdrivere</string>
-      <string id="DriverSigning_Help">Fastslår, hvordan systemet skal reagere, når en bruger forsøger at installere enhedsdriverfiler, der ikke er signeret digitalt.
+      <string id="DriverSigning">Kodesignering af driverpakker</string>
+      <string id="DriverSigning_Help">Fastslår, hvordan systemet skal reagere, når en bruger forsøger at installere driverpakkefiler, der ikke er signeret digitalt.
 
 Denne indstilling definerer det mindst sikre svar, der er tilladt på systemet for brugerne i gruppen. Brugerne kan ved hjælp af System i Kontrolpanel vælge en mere sikker indstilling, men når denne indstilling er aktiveret, implementerer systemet ikke nogen indstilling, der er mindre sikker end den indstilling, der defineres af denne indstilling.
 
@@ -148,6 +218,19 @@ Bemærk! Hvis en genstart ikke gennemtvinges, vil begrænsningen af enhedsinstal
         <text>(f.eks. gendisk, USB\COMPOSITE, USB\Class_ff).</text>
         <checkBox refId="DeviceInstall_IDs_Deny_Retroactive">Anvend også på tilsvarende enheder, som allerede er installeret.</checkBox>
       </presentation>
+      <presentation id="DeviceInstall_Instance_IDs_Allow">
+        <listBox refId="DeviceInstall_Instance_IDs_Allow_List">Tillad installation af enheder, der svarer til et af disse enhedsforekomst-id'er:</listBox>
+        <text>Hvis du vil oprette en liste over enheder, skal du klikke på Vis. I kolonnen Værdi i dialogboksen Vis indhold</text>
+        <text>skal du skrive et Plug and Play-enhedsforekomst-id</text>
+        <text>(f.eks. USB\VID_045E&amp;&amp;PID_0123\01234567890123456789).</text>
+      </presentation>
+      <presentation id="DeviceInstall_Instance_IDs_Deny">
+        <listBox refId="DeviceInstall_Instance_IDs_Deny_List">Forbyd installation af enheder, der svarer til et af disse enhedsforekomst-id'er:</listBox>
+        <text>Hvis du vil oprette en liste over enheder, skal du klikke på Vis. I kolonnen Værdi i dialogboksen Vis indhold</text>
+        <text>skal du skrive et Plug and Play-enhedsforekomst-id</text>
+        <text>(f.eks. USB\VID_045E&amp;&amp;PID_0123\01234567890123456789).</text>
+        <checkBox refId="DeviceInstall_Instance_IDs_Deny_Retroactive">Anvend også på tilsvarende enheder, som allerede er installeret.</checkBox>
+      </presentation>
       <presentation id="DeviceInstall_InstallTimeout">
         <decimalTextBox refId="DeviceInstall_InstallTimeout_Time" defaultValue="300" spinStep="15">Timeout for installation af enhed (i sekunder)</decimalTextBox>
       </presentation>
@@ -167,7 +250,7 @@ Bemærk! Hvis en genstart ikke gennemtvinges, vil begrænsningen af enhedsinstal
         </textBox>
       </presentation>
       <presentation id="DriverInstall_Classes_AllowUser">
-        <listBox refId="DriverInstall_Classes_AllowUser_List">Tillad brugere at installere enhedsdrivere til disse klasser:</listBox>
+        <listBox refId="DriverInstall_Classes_AllowUser_List">Tillad brugere at installere driverpakker til disse klasser:</listBox>
         <text>Hvis du vil oprette en liste med enhedsklasser, skal du klikke på Vis. I kolonnen Værdi i dialogboksen Vis indhold</text>
         <text>skal du angive en GUID, som repræsenterer en klasse til installation af enheder</text>
         <text>(f.eks. {25DBCE51-6C8F-4A72-8A6D-B54C2B4FC835}).</text>

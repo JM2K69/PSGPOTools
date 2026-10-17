@@ -70,13 +70,13 @@
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Windows Update を検索する</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">管理されたサーバーを検索する</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">管理されたサーバーを検索し、WU を検索する</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">デバイス メタデータをインターネットから取得しない</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">このポリシー設定を使用すると、デバイス メタデータをインターネットから取得しないようにすることができます。
-          
-このポリシー設定を有効にした場合、インストールされたデバイスのデバイス メタデータがインターネットから取得されなくなります。このポリシー設定は、[デバイスのインストール設定] ダイアログ ボックス ([コントロール パネル]、[システムとセキュリティ]、[システム]、[システムの詳細設定]、[ハードウェア] タブの順に移動) の設定より優先されます。
 
-このポリシー設定を無効にした場合、または構成しなかった場合、デバイス メタデータをインターネットから取得するかどうかは [デバイスのインストール設定] ダイアログ ボックスの設定によって決まります。</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">デバイス メタデータに関連付けられているアプリケーションの自動ダウンロードを禁止する</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">このポリシー設定を使用すると、デバイス メタデータに関連付けられているアプリケーションを Windows がダウンロードできないようにすることができます。
+
+このポリシー設定を有効にした場合、インストールされているデバイスのデバイス メタデータに関連付けられているアプリケーションはダウンロードされません。このポリシー設定は、[デバイスのインストール設定] ダイアログ ボックス ([システムとセキュリティ] コントロール パネル &gt; &gt; [システムとセキュリティ] &gt; [システムの詳細設定] &gt; [ハードウェア] タブ) の設定よりも優先されます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合は、[デバイスのインストール設定] ダイアログ ボックスの設定によって、デバイス メタデータに関連付けられているアプリケーションをダウンロードするかどうかを制御します。</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

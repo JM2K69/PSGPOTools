@@ -5,15 +5,15 @@
   <description>buraya tanımı girin</description>
   <resources>
     <stringTable>
-      <string id="Soundrec_DiableApplication_TitleText">Ses Kaydedicisi'nin çalıştırılmasına izin verme</string>
-      <string id="Soundrec_DisableApplication_DescriptionText">Ses Kaydedicisi'nin çalışıp çalışmayacağını belirtir.
+      <string id="Soundrec_DiableApplication_TitleText">Ses Kaydedici'nin çalıştırılmasına izin verme</string>
+      <string id="Soundrec_DisableApplication_DescriptionText">Ses Kaydedici'nin çalışıp çalışmayacağını belirtir.
 
-Ses Kaydedicisi, Microsoft Windows Vista'da bir ses giriş aygıtından ses kaydetmek için kullanılan ve kaydedilen sesin bir ses dosyası olarak kodlandığı ve kaydedildiği bir özelliktir.
+Ses Kaydedici, Microsoft Windows Vista'da bir ses giriş aygıtından ses kaydetmek için kullanılan ve kaydedilen sesin bir ses dosyası olarak kodlandığı ve kaydedildiği bir özelliktir.
 
-Bu ilke ayarını etkinleştirirseniz, Ses Kaydedicisi çalışmaz.
+Bu ilke ayarını etkinleştirirseniz, Ses Kaydedici çalışmaz.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, Ses Kaydedicisi çalıştırılabilir.</string>
-      <string id="Soundrec_GroupPolicyCategory">Ses Kaydedicisi</string>
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, Ses Kaydedici çalıştırılabilir.</string>
+      <string id="Soundrec_GroupPolicyCategory">Ses Kaydedici</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

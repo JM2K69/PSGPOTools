@@ -246,13 +246,13 @@ Hvis denne politik er deaktiveret eller ikke er konfigureret, styres indeksets s
 
 Hvis denne politik er deaktiveret eller ikke er konfigureret, er standardindstillingen følgende .bmp;.emf;.gif;.jpg;.jpeg;.png;.wmf;.wrn;.txt;.err;.xml;.cpp;.c;.h;.cxx;.hxx;.idl;.cs;.vb;.idl;.xsd;.doc;.docx;.xls;.xlsx;.ppt;.pptx;.vsd;.xlsb;.xltx;.dot;.rtf</string>
       <string id="PreventUnwantedAddins">Undgå uønskede iFilters og uønsket protokolhåndtering</string>
-      <string id="PreventUnwantedAddins_Explain">Hvis du aktiverer denne politikindstilling, kan Windows-pc-søgning ikke bruge iFilters og protokolhåndtering, medmindre de er angivet på tilladelseslisten. Denne politik forhindrer dog ikke iFilters eller protokolhåndteringer i at blive installeret, og de forhindres heller ikke i at blive brugt af andre programmer eller tjenester. 
-Du kan også angive en tilladelsesliste over tilføjelsesprogrammer ved at angive classID- eller ProgId-strengen. Hvis du f.eks. skal installere et bestemt iFilter, skal du sørge for, at dette iFilter står på tilladelseslisten, enten som GUID såsom {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} (medtag klammeparenteserne) eller et ProgID som f.eks. VisFilter.CFilter.1.
+      <string id="PreventUnwantedAddins_Explain">Hvis du aktiverer denne politikindstilling, kan Windows-pc-søgning ikke bruge iFilters og protokolhåndtering, medmindre de er angivet på tilladt-listen. Denne politik forhindrer dog ikke iFilters eller protokolhåndteringer i at blive installeret, og de forhindres heller ikke i at blive brugt af andre programmer eller tjenester. 
+Du kan også angive en tilladt-lliste over tilføjelsesprogrammer ved at angive classID- eller ProgId-strengen. Hvis du f.eks. skal installere et bestemt iFilter, skal du sørge for, at dette iFilter står på tilladt-listen, enten som GUID såsom {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} (medtag klammeparenteserne) eller et ProgID som f.eks. VisFilter.CFilter.1.
 
 Hvis du har et låst skrivebordsmiljø, er denne indstilling overflødig, fordi ikke-administrative brugere ikke har tilladelse til at installere nye komponenter. Hvis dine brugere har administratorrettigheder eller kan installere software, forhindrer denne politik dem i at bruge Windows-pc-søgning-relaterede tilføjelsesprogrammer.
 
-Bemærk! Grundet en begrænsning i redigeringsprogrammet til gruppepolitik skal du tilføje mindst ét punkt på tilladelseslisten, selvom du vil aktivere denne politik uden en tilladelsesliste. Opret et punkt på listen ved at indsætte et mellemrum i navnefeltet og et mellemrum i værdifeltet og derefter gemme det. Det opretter et pladsholderelement, der ignoreres af programmet.</string>
-      <string id="PreventUnwantedAddins_AllowList">Liste over tilladte</string>
+Bemærk! Grundet en begrænsning i redigeringsprogrammet til gruppepolitik skal du tilføje mindst ét punkt på tilladt-listen, selvom du vil aktivere denne politik uden en tilladt-liste. Opret et punkt på listen ved at indsætte et mellemrum i navnefeltet og et mellemrum i værdifeltet oterg derefter gemme det. Det opretter et pladsholderelement, der ignoreres af programmet.</string>
+      <string id="PreventUnwantedAddins_AllowList">Tilladt-liste</string>
       <string id="ExcludedExtensionsMultiline">Forbyd indeksering af bestemte filtyper</string>
       <string id="ExcludedExtensionsMultiline_Explain">Hvis denne politik aktiveres, kan du redigere listen over filtyper, som skal udelades ved indeksering. Slutbrugeren kan ikke redigere denne liste. Du skal adskille hvert filtypenavn med et semikolon.
 
@@ -275,6 +275,8 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, får
 Hvis du aktiverer eller undlader at konfigurere denne indstilling, er Cortana tilladt på enheden. Hvis du deaktiverer indstillingen, slås Cortana fra. 
  
 Når Cortana er slået fra, kan brugerne stadig anvende søgning til at finde ting på enheden.</string>
+      <string id="EnableDynamicContentInWSB">Tillad søgefremhævninger</string>
+      <string id="ExplainEnableDynamicContentInWSB">Hvis du deaktiverer denne indstilling, deaktiveres søgehøjdepunkter i søgefeltet i menuen Start og i startsiden for søgning. Hvis du aktiverer eller undlader at konfigurere denne indstilling, aktiveres søgehøjdepunkter i søgefeltet i menuen Start og i startsiden for søgning.</string>
       <string id="AllowCortanaAboveLock">Tillad Cortana over låseskærm</string>
       <string id="ExplainAllowCortanaAboveLock">Denne politikindstilling bestemmer, om brugeren kan interagere med Cortana ved hjælp af tale, mens systemet er låst.
 
@@ -294,6 +296,27 @@ Hvis den er aktiveret, har søgning og Cortana adgang til placeringsoplysninger.
       <string id="AllowCortanainAADEnabled">Aktivér Cortana-side i AAD</string>
       <string id="AllowCloudSearchEnabled">Aktivér cloudsøgning</string>
       <string id="AllowCloudSearchControlledByUser">Brugervalgt</string>
+      <string id="DisableSearch_DisplayName">Deaktiver søgegrænsefladen fuldstændigt</string>
+      <string id="DisableSearch_ExplainText">Hvis du aktiverer denne politik, deaktiveres søgegrænsefladen sammen med alle indtastningspunkter, f.eks. tastaturgenveje, berøringspladebevægelser og skriv-for-at-søge i menuen Start. Søgefeltet i menuen Start og knappen Søg på proceslinjen skjules også.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan brugeren åbne søgegrænsefladen, og dens forskellige indtastningspunkter vises.</string>
+      <string id="ConfigureSearchOnTaskbarMode">Konfigurerer søgning på proceslinjen</string>
+      <string id="ConfigureSearchOnTaskbarMode_Help">Med denne politikindstilling kan du konfigurere søgning på proceslinjen.
+
+Hvis du aktiverer denne politikindstilling og angiver den til at skjule, skjules søgning på proceslinjen som standard. Brugerne kan ikke ændre det i Indstillinger.
+
+Hvis du aktiverer denne politikindstilling og kun indstiller den til søgeikonet, vises søgeikonet som standard på proceslinjen. Brugerne kan ikke ændre det i Indstillinger.
+
+Hvis du aktiverer denne politikindstilling og angiver den til søgeikon og -mærkat, vises søgeikonet og -mærkaten som standard på proceslinjen. Brugerne kan ikke ændre det i Indstillinger.
+
+Hvis du aktiverer denne politikindstilling og angiver den til et søgefelt, vises søgefeltet som standard på proceslinjen. Brugerne kan ikke ændre det i Indstillinger.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, konfigureres søgning på proceslinjen i overensstemmelse med standardindstillingerne for din Udgave af Windows. Brugerne kan ændre søgning på proceslinjen i Indstillinger.
+      </string>
+      <string id="SearchOnTaskbarModeEnum_Hidden">Skjul</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconOnly">Kun søgeikon</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconAndLabel">Søgeikon og -mærkat</string>
+      <string id="SearchOnTaskbarModeEnum_SearchBox">Søgefelt</string>
     </stringTable>
     <presentationTable>
       <presentation id="RichAttachmentPreviews">
@@ -333,7 +356,7 @@ Hvis den er aktiveret, har søgning og Cortana adgang til placeringsoplysninger.
         <decimalTextBox refId="LimitEnableThrottlingOnlineMailboxes" defaultValue="120">Antal elementer i minuttet</decimalTextBox>
       </presentation>
       <presentation id="PreventUnwantedAddins">
-        <listBox refId="PreventUnwantedAddins_AllowList">Liste over tilladte</listBox>
+        <listBox refId="PreventUnwantedAddins_AllowList">Tilladt-liste</listBox>
       </presentation>
       <presentation id="PreventIndexingCertainPaths_1">
         <listBox refId="PreventIndexingCertainPaths">Forbyd indeksering af bestemte stier</listBox>
@@ -382,6 +405,9 @@ Hvis den er aktiveret, har søgning og Cortana adgang til placeringsoplysninger.
       </presentation>
       <presentation id="AllowCortanaAAD">
         <dropdownList refId="AllowCortanaAAD_Dropdown" noSort="true" defaultItem="0">Indstillingen Cortana i AAD</dropdownList>
+      </presentation>
+      <presentation id="ConfigureSearchOnTaskbarMode">
+        <dropdownList refId="ConfigureSearchOnTaskbarMode_Dropdown" noSort="true" defaultItem="0">Søgning på proceslinjen</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

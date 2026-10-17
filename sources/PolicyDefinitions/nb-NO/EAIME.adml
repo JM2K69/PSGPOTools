@@ -9,11 +9,11 @@
       <string id="L_TurnOnMisconversionLoggingForMisconversionReport">Deaktiver logging av feilkonvertering for feilkonverteringsrapporten</string>
       <string id="L_TurnOnMisconversionLoggingForMisconversionReportExplain">Med denne policyinnstillingen kan du aktivere logging av feilkonvertering for feilkonverteringsrapporten.
 
-Hvis du aktiverer denne policyinnstillingen, er logging av feilkonvertering aktivert.
+Hvis du aktiverer denne policyinnstillingen, aktiveres logging av feilkonvertering.
 
-Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, er logging av feilkonvertering deaktivert.
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, deaktiveres logging av feilkonvertering.
 
-Denne policyinnstillingen gjelder japansk Microsoft IME.</string>
+Denne policyinnstillingen gjelder for Microsoft IME for japansk og IME for tradisjonell kinesisk.</string>
       <string id="L_TurnOffSavingAutoTuningDataToFile">Deaktiver lagring av data for automatisk justering til fil</string>
       <string id="L_TurnOffSavingAutoTuningDataToFileExplain">Med denne policyinnstillingen kan du deaktivere lagring av data for automatisk justering til fil.
 
@@ -57,15 +57,17 @@ Obs!  Endringer i denne innstillingen trer ikke i kraft før brukeren logger av
       <string id="L_TurnOffCustomDictionary">Deaktiver egendefinert ordliste</string>
       <string id="L_TurnOffCustomDictionaryExplain">Med denne policyinnstillingen kan du deaktivere muligheten til å bruke en egendefinert ordliste.
 
-Hvis du aktiverer denne policyinnstillingen, kan du ikke legge til, redigere og slette ord i den egendefinerte ordlisten, enten med GUI-verktøy eller API-er. Et ord som er registrert i den egendefinerte ordlisten før denne policyinnstillingen aktiveres, kan fortsatt brukes til konvertering.
+Hvis du aktiverer denne policyinnstillingen, kan du ikke legge til, redigere og slette ord i den egendefinerte ordlisten, enten med GUI-verktøy eller API-er. Et ord som er registrert i den egendefinerte ordlisten før du aktiverer denne policyinnstillingen, kan fortsatt brukes til konvertering.
 
 Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan den egendefinerte ordlisten brukes som standard.
 
-For Microsoft IME for japansk fungerer [Fjern automatisk justeringsinformasjon] selv om denne policyinnstillingen er aktivert, og den fjerner egendefinerte ord fra den egendefinerte ordlisten.
+[Fjern informasjon om automatisk justering] fjerner selvjusterte ord fra den egendefinerte ordlisten selv om en gruppepolicyinnstilling er aktivert. Hvis du vil gjøre dette, velger du Innstillinger &gt; Tid og språk &gt; Japansk-alternativer &gt; Alternativer for Microsoft IME. Hvis kompatibilitetsmodus er aktivert, velger du avanserte alternativer &gt; Ordliste / Automatisk justering &gt; [Fjern informasjon om automatisk justering].
 
-Denne policyinnstillingen brukes på Microsoft IME for japansk.
+[Fjern inndatalogg] fjerner selvjusterte ord fra den egendefinerte ordlisten selv om en gruppepolicyinnstilling er aktivert. Hvis du vil gjøre dette, velger du Innstillinger &gt; Tid og språk &gt; Japansk-alternativer &gt; Alternativer for Microsoft IME &gt; Opplærings og ordliste &gt; [Tøm inndatalogg].
 
-Obs!  Endringer i denne innstillingen trer ikke i kraft før brukeren logger av.</string>
+Denne policyinnstillingen brukes på japansk Microsoft IME.
+
+Obs! Endringer i denne innstillingen vil ikke tre i kraft før brukeren logger seg av.</string>
       <string id="L_RestrictCharacterCodeRangeOfConversion">Begrens tegnkodeintervallet som konverteres</string>
       <string id="L_RestrictCharacterCodeRangeOfConversionExplain">Denne policyinnstillingen lar deg begrense tegnkodeintervallet som konverteres, ved å angi tegnfilter.
 
@@ -118,26 +120,54 @@ Hvis du deaktiverer denne policyinnstillingen, deaktiveres funksjonaliteten som 
 Hvis du ikke konfigurerer denne policyinnstillingen, deaktiveres den som standard, og brukeren kan aktivere og deaktivere skykandidatfunksjonen.
 
 Denne policyinnstillingen gjelder bare for Microsoft CHS Pinyin IME.</string>
-      <string id="L_TurnOnLiveSticker">Aktiver dynamisk etikett</string>
-      <string id="L_TurnOnLiveStickerExplain">Denne policyinnstillingen styrer funksjonen for dynamiske etiketter, som bruker en elektronisk tjeneste til å tilby etiketter på nettet.
+      <string id="L_ConfigureSimplifiedChineseImeVersion">Konfigurer forenklet kinesisk IME-versjon</string>
+      <string id="L_ConfigureSimplifiedChineseImeVersionExplain">Denne policyinnstillingen kontrollerer versjonen av Microsoft IME.
 
-Hvis du aktiverer denne policyinnstillingen, aktiveres funksjonaliteten som er tilknyttet denne funksjonen, brukerens tastaturinndata sendes til Microsoft for å generere de dynamiske etikettene, og brukeren kan ikke deaktivere dette.
+Hvis du ikke konfigurerer denne policyinnstillingen, kan brukeren kontrollere IME-versjonen som brukes. Den nye Microsoft IME er aktivert som standard.
 
-Hvis du deaktiverer denne policyinnstillingen, deaktiveres funksjonaliteten som er tilknyttet denne funksjonen, og brukeren kan ikke aktivere den.
+Hvis du aktiverer dette, har ikke brukeren tillatelse til å kontrollere IME-versjonen som brukes. Den forrige versjonen av Microsoft IME er alltid valgt.
 
-Hvis du ikke konfigurerer denne policyinnstillingen, deaktiveres den som standard, og brukeren kan aktivere og deaktivere funksjonen for dynamiske etiketter.
+Hvis du deaktiverer dette, har ikke brukeren tillatelse til å kontrollere IME-versjonen som brukes. Den nye Microsoft IME er alltid valgt.
 
-Denne policyinnstillingen gjelder bare for Microsoft CHS Pinyin IME.</string>
-      <string id="L_TurnOnLexiconUpdate">Aktiver leksikonoppdatering</string>
-      <string id="L_TurnOnLexiconUpdateExplain">Denne policyinnstillingen kontrollerer funksjonen for leksikonoppdatering, som laster ned leksikon med aktuelle og populære ord til lokal PC.
+Denne policyinnstillingen gjelder bare for Microsoft IME for forenklet kinesisk.
 
-Hvis du aktiverer denne policyinnstillingen, aktiveres funksjonaliteten som er knyttet til denne funksjonen, leksikon med aktuelle og populære ord kan lastes ned til lokal PC, og brukeren kan aktivere eller deaktivere i innstillingene.
+Obs!  Endringer i denne innstillingen trer ikke i kraft før brukeren logger av.</string>
+      <string id="L_ConfigureTraditionalChineseImeVersion">Konfigurer tradisjonell kinesisk IME-versjon</string>
+      <string id="L_ConfigureTraditionalChineseImeVersionExplain">Denne policyinnstillingen kontrollerer versjonen av Microsoft IME.
 
-Hvis du deaktiverer denne policyinnstillingen, deaktiveres funksjonaliteten som er knyttet til denne funksjonen, og brukeren kan ikke aktivere den.
+Hvis du ikke konfigurerer denne policyinnstillingen, kan brukeren kontrollere IME-versjonen som brukes. Den nye Microsoft IME er aktivert som standard.
 
-Hvis du ikke konfigurerer denne policyinnstillingen, aktiveres den som standard, og brukeren kan aktivere og deaktivere funksjonen for leksikonoppdatering.
+Hvis du aktiverer dette, har ikke brukeren tillatelse til å kontrollere IME-versjonen som brukes. Den forrige versjonen av Microsoft IME er alltid valgt.
 
-Denne policyinnstillingen gjelder bare for Microsoft CHS Pinyin IME.</string>
+Hvis du deaktiverer dette, har ikke brukeren tillatelse til å kontrollere IME-versjonen som brukes. Den nye Microsoft IME er alltid valgt.
+
+Denne policyinnstillingen gjelder bare for Microsoft IME for tradisjonell kinesisk.
+
+Obs!  Endringer i denne innstillingen trer ikke i kraft før brukeren logger av.</string>
+      <string id="L_ConfigureJapaneseImeVersion">Konfigurer japansk IME-versjon</string>
+      <string id="L_ConfigureJapaneseImeVersionExplain">Denne policyinnstillingen kontrollerer versjonen av Microsoft IME.
+
+Hvis du ikke konfigurerer denne policyinnstillingen, kan brukeren kontrollere IME-versjonen som brukes. Den nye Microsoft IME er aktivert som standard.
+
+Hvis du aktiverer dette, har ikke brukeren tillatelse til å kontrollere IME-versjonen som brukes. Den forrige versjonen av Microsoft IME er alltid valgt.
+
+Hvis du deaktiverer dette, har ikke brukeren tillatelse til å kontrollere IME-versjonen som brukes. Den nye Microsoft IME er alltid valgt.
+
+Denne policyinnstillingen gjelder bare for Microsoft IME for japansk.
+
+Obs!  Endringer i denne innstillingen trer ikke i kraft før brukeren logger av.</string>
+      <string id="L_ConfigureKoreanImeVersion">Konfigurer koreansk IME-versjon</string>
+      <string id="L_ConfigureKoreanImeVersionExplain">Denne policyinnstillingen kontrollerer versjonen av Microsoft IME.
+
+Hvis du ikke konfigurerer denne policyinnstillingen, kan brukeren kontrollere IME-versjonen som brukes. Den nye Microsoft IME er aktivert som standard.
+
+Hvis du aktiverer dette, har ikke brukeren tillatelse til å kontrollere IME-versjonen som brukes. Den forrige versjonen av Microsoft IME er alltid valgt.
+
+Hvis du deaktiverer dette, har ikke brukeren tillatelse til å kontrollere IME-versjonen som brukes. Den nye Microsoft IME er alltid valgt.
+
+Denne policyinnstillingen gjelder bare for Microsoft IME for koreansk.
+
+Obs!  Endringer i denne innstillingen trer ikke i kraft før brukeren logger av.</string>
     </stringTable>
     <presentationTable>
       <presentation id="L_RestrictCharacterCodeRangeOfConversion">

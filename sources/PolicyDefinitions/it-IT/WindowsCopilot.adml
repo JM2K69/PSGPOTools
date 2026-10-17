@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>immettere qui il nome visualizzato</displayName>
+  <description>immettere qui la descrizione</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Disattiva Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot_Help">Questa impostazione dei criteri consente di disattivare Windows Copilot.
+
+Se abiliti questa impostazione dei criteri, gli utenti non potranno usare Copilot. Anche l'icona Copilot non verrà visualizzata sulla barra delle applicazioni.
+
+Se disabiliti o non configuri questa impostazione dei criteri, gli utenti potranno usare Copilot quando sarà disponibile.
+      </string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="DisableAIDataAnalysis">Disattiva il salvataggio degli snapshot per l'uso con Richiamo
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Questa impostazione dei criteri consente di determinare se è possibile salvare gli snapshot dello schermo per l'utilizzo con Richiamo. Per i dispositivi gestiti, gli snapshot per Richiamo non sono abilitati per impostazione predefinita. Gli amministratori IT non possono abilitare autonomamente il salvataggio degli snapshot per conto degli utenti. La scelta per abilitare il salvataggio degli snapshot richiede il consenso esplicito dei singoli utenti.
+
+Se il criterio non è configurato, gli snapshot non verranno salvati per l'uso con Richiamo.
+
+Se si abilita questo criterio, gli snapshot non verranno salvati per l'uso con Richiamo. Se gli snapshot sono stati salvati in precedenza nel dispositivo, verranno eliminati quando questo criterio è abilitato.
+
+Se si imposta questo criterio su Disabilitato, gli utenti finali potranno scegliere di salvare gli snapshot dello schermo e usare Richiamo per trovare gli elementi visualizzati nel dispositivo.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Imposta lo spazio di archiviazione massimo per gli snapshot usati da Richiamo
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Questa impostazione di criteri consente di controllare la quantità massima di spazio su disco che può essere utilizzata da Windows per salvare gli snapshot per Richiamo.
+
+È possibile impostare la quantità massima di spazio su disco per gli snapshot su 10, 25, 50, 75, 100 o 150 GB.
+
+Quando questa impostazione non è configurata, il sistema operativo configura l'allocazione della memoria per gli snapshot in base alla capacità di archiviazione del dispositivo a meno che l'utente corrente non specifichi un valore diverso.
+
+Vengono allocati 25 GB quando la capacità di archiviazione del dispositivo è di 256 GB. Vengono allocati 75 GB quando la capacità di archiviazione del dispositivo è di 512 GB. Vengono allocati 150 GB quando la capacità di archiviazione del dispositivo è 1 TB o superiore.
+
+Se sia la durata massima di archiviazione che lo spazio massimo di archiviazione sono impostati per Richiamo, gli snapshot vengono eliminati quando viene raggiunto il primo limite massimo.
+
+Importante: questa impostazione si applica solo agli SKU client Enterprise ed Education.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Consenti al sistema operativo di definire lo spazio massimo di archiviazione in base alle dimensioni dello spazio di archiviazione dell'unità disco rigido</string>
+      <string id="SetMaximumStorageSpace_10GB">10 GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25 GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50 GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75 GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100 GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150 GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Imposta la durata massima per l'archiviazione degli snapshot usati da Richiamo
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Questa impostazione di criteri consente di controllare la durata massima (in giorni) di archiviazione degli snapshot salvati da Windows per Richiamo.
+
+Quando il criterio è abilitato, è possibile configurare la durata massima di archiviazione su 30, 60, 90 o 180 giorni.
+
+Quando questo criterio non è configurato, la durata massima di archiviazione è di 90 giorni, a meno che l'utente corrente non specifichi un valore diverso.
+
+Se sia la durata massima di archiviazione che lo spazio massimo di archiviazione sono impostati per Richiamo, gli snapshot vengono eliminati quando viene raggiunto il primo limite massimo.
+
+Importante: questa impostazione si applica solo agli SKU client Enterprise ed Education.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">Consenti al sistema operativo di definire la durata massima di conservazione degli snapshot salvati
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 giorni</string>
+      <string id="SetMaximumStorageDuration_60Days">60 giorni</string>
+      <string id="SetMaximumStorageDuration_90Days">90 giorni</string>
+      <string id="SetMaximumStorageDuration_180Days">180 giorni</string>
+      <string id="SetDenyAppListForRecall">Imposta un elenco di app da filtrare dagli snapshot per Richiamo
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Questo criterio consente di definire un elenco di app che non verranno incluse negli snapshot per Richiamo.
+
+Gli utenti potranno aggiungere altre applicazioni da escludere dagli snapshot usando le impostazioni di Richiamo.
+
+L'elenco può includere gli ID modello utente applicazione (AUMID) o il nome del file eseguibile.
+
+Usare un elenco di app delimitati da punto e virgola per definire l'elenco di app non consentite per Richiamo.
+
+Ad esempio: code.exe; Microsoft.WindowsNotepad_8wekyb3d8bbwe! App;ms-teams.exe
+
+Importante: questa impostazione si applica solo agli SKU client Enterprise e Education. Durante la configurazione di questa impostazione dei criteri, le modifiche diventeranno effettive solo dopo il riavvio del dispositivo.
+      </string>
+      <string id="SetDenyUriListForRecall">Imposta un elenco di URI da filtrare dagli snapshot per Richiamo
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Questa impostazione dei criteri consente di definire un elenco di URI che non verranno inclusi negli snapshot per Richiamo quando viene usato un browser supportato. Persone all'interno dell'organizzazione possono usare le impostazioni Richiamo per aggiungere altri siti Web all'elenco. Definire l'elenco utilizzando un punto e virgola per separare gli URI.
+
+Ad esempio: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+L'aggiunta di https://www.WoodgroveBank.com all'elenco consente anche di filtrare https://Account.WoodgroveBank.com e https://www.WoodgroveBank.com/Account.
+
+Importante: questa impostazione si applica solo agli SKU client Enterprise e Education. Le modifiche apportate a questo criterio diventano effettive dopo il riavvio del dispositivo.
+      </string>
+      <string id="SetDataLossPreventionProvider">Imposta l'ID del provider DLP per Richiamo
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Questo criterio consente a un amministratore di specificare un provider DLP, che Richiamo userà se il provider è installato correttamente. Sarà necessario ottenere la stringa per questa operazione dal provider. Avrà un aspetto simile a 'key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll' (senza virgolette nel valore).
+
+Importante: questa impostazione si applica solo agli SKU client Enterprise ed Education.
+      </string>
+      <string id="SetCopilotHardwareKey">Imposta la chiave hardware di Copilot</string>
+      <string id="SetCopilotHardwareKey_Help">Questa impostazione dei criteri determina quale app viene aperta quando l'utente preme il tasto Copilot sulla tastiera. Se il criterio è abilitato, l'app specificata verrà aperta quando l'utente preme il tasto Copilot. Gli utenti possono modificare l'assegnazione tasti in Impostazioni. Se il criterio non è configurato, Copilot verrà aperto se è disponibile in tale paese o area geografica.
+      </string>
+      <string id="AllowRecallEnablement">Consenti l'abilitazione del Richiamo.
+      </string>
+      <string id="AllowRecallEnablement_Help">Questa impostazione dei criteri consente di determinare se il componente facoltativo Richiamo è disponibile per l'abilitazione degli utenti finali nel dispositivo. Per impostazione predefinita, Richiamo è disabilitato per i dispositivi commerciali gestiti. Richiamo non è disponibile nei dispositivi gestiti per impostazione predefinita e i singoli utenti non possono abilitare Richiamo autonomamente.
+
+Se questo criterio non è configurato, gli utenti finali avranno il componente Richiamo in uno stato disabilitato.
+
+Se questo criterio è disabilitato, il componente Richiamo sarà disabilitato e i bit per Richiamo verranno rimossi dal dispositivo. Se gli snapshot sono stati salvati in precedenza nel dispositivo, verranno eliminati quando questo criterio è disabilitato. Per rimuovere Richiamo è necessario riavviare il dispositivo.
+
+Se il criterio è abilitato, gli utenti finali avranno Richiamo disponibili nel proprio dispositivo. A seconda dello stato dei criteri DisableAIDataAnalysis (disattiva il salvataggio degli snapshot per l'uso con Richiamo), gli utenti finali potranno scegliere se salvare gli snapshot dello schermo e usare Richiamo per trovare gli elementi visualizzati nel dispositivo.
+      </string>
+      <string id="DisableClickToDo">Disabilita Azioni con un clic</string>
+      <string id="DisableClickToDo_Help">Azioni con un clic consente agli utenti di intervenire sui contenuti visualizzati sui loro schermi. Quando è attivato, acquisisce uno screenshot dello schermo e lo analizza per presentare le azioni. Azioni con un clic termina quando viene chiuso e non è possibile acquisire screenshot mentre è chiuso. L'analisi dello screenshot viene sempre eseguita in locale nel dispositivo. Per impostazione predefinita, Azioni con un clic è abilitato per gli utenti.
+
+Questa impostazione dei criteri consente di determinare se Azioni con un clic è disponibile per gli utenti nel dispositivo.
+
+Quando il criterio è abilitato, il componente Azioni con un clic e i punti di ingresso non saranno disponibili per gli utenti.
+
+Quando il criterio è disabilitato, Azioni con un clic sarà disponibile per gli utenti nei loro dispositivi.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">Disabilita Image Creator</string>
+      <string id="DisableImageCreator_Help">Questa impostazione dei criteri consente di controllare se Image Creator funzionalità è disabilitata nell'app Windows Paint. Se questo criterio è abilitato, Image Creator funzionalità non sarà accessibile nell'app Paint. Se questo criterio è disabilitato o non è configurato, gli utenti potranno accedere Image Creator funzionalità.</string>
+      <string id="DisableCocreator">Disabilita Cocreator</string>
+      <string id="DisableCocreator_Help">Questa impostazione dei criteri consente di controllare se la funzionalità Cocreator è disabilitata nell'app Windows Paint. Se questo criterio è abilitato, la funzionalità cocreatore non sarà accessibile nell'app Paint. Se questo criterio è disabilitato o non è configurato, gli utenti potranno accedere alla funzionalità cocreatore.</string>
+      <string id="DisableGenerativeFill">Disabilita riempimento generativo</string>
+      <string id="DisableGenerativeFill_Help">Questa impostazione dei criteri consente di controllare se la funzionalità di riempimento generativo è disabilitata nell'app Windows Paint. Se questo criterio è abilitato, la funzionalità di riempimento generativo non sarà accessibile nell'app Paint. Se questo criterio è disabilitato o non è configurato, gli utenti potranno accedere alla funzionalità di riempimento generativo.</string>
+      <string id="AllowRecallExport">Consenti l'esportazione di informazioni su Richiamo e snapshot</string>
+      <string id="AllowRecallExport_Help">Questo criterio consente di determinare se gli utenti possono esportare autonomamente le informazioni su Richiamo e snapshot. L'esportazione consente agli utenti di condividere le informazioni su Richiamo e snapshot con app o siti Web attendibili. Gli utenti possono esportare da Impostazioni &gt; Privacy e sicurezza &gt; Richiamo e snapshot &gt; Impostazioni avanzate &gt; Esporta snapshot &gt; Esporta.
+
+Gli utenti possono anche scegliere di esportare continuamente gli snapshot attivando l'apposita opzione da Impostazioni &gt; Privacy e sicurezza &gt; Richiamo e snapshot &gt; Impostazioni avanzate &gt; Esporta snapshot &gt; Esporta.
+
+Prima di avviare un'esportazione, l'utente deve autenticarsi con Windows Hello. A quel punto, riceve una notifica relativa al fatto che gli snapshot esportati sono crittografati, in quanto potrebbero contenere informazioni sensibili. All'utente viene anche comunicato che dovrà specificare il codice di esportazione di Richiamo se vuole consentire ad app o siti Web attendibili di accedere agli snapshot esportati. Il codice di esportazione di Richiamo viene visualizzato agli utenti durante la configurazione di Richiamo, anche se questo criterio è impostato su Disabilitato o Non configurato. Nessun dispositivo gestito: 
+
+Impostando questo criterio su Abilitato, gli utenti potranno esportare le informazioni su Richiamo e snapshot.
+
+Se il criterio è impostato su Disabilitato o Non configurato, gli utenti non potranno esportare le informazioni su Richiamo e snapshot.
+
+Importante: questa impostazione si applica solo ai dispositivi nello Spazio economico europeo (SEE). L'esportazione delle informazioni su Richiamo e snapshot è un processo avviato dall'utente ed è relativo a ogni singolo utente. Gli amministratori IT o altri utenti non possono avviare un'esportazione per conto di un altro.
+      </string>
+      <string id="DisableSettingsAgent">Disabilita l'esperienza di ricerca agentic di Impostazioni</string>
+      <string id="DisableSettingsAgent_Help">L'esperienza agentic di Impostazioni migliora i risultati della ricerca all'interno dell'app Impostazioni abilitando il linguaggio naturale. Quando è attivata, usa un modello di intelligenza artificiale per fornire suggerimenti intelligenti per la ricerca in Impostazioni.
+
+        Questa impostazione di criteri consente di determinare se l'esperienza di ricerca agentic di Impostazioni è disponibile per gli utenti sul loro dispositivo.
+
+        Se questo criterio è abilitato, l'esperienza di ricerca agentic di Impostazioni è disabilitata, limitando i risultati della ricerca a ricerche semantiche e ricerche indicizzate staticamente.
+
+        Se questo criterio è disabilitato, l'esperienza di ricerca agentic di Impostazioni sarà disponibile sui dispositivi degli utenti.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Livello di registrazione del registro di sistema sul dispositivo</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Questa impostazione dei criteri consente di configurare il livello di registrazione per le operazioni del Registro di sistema nel dispositivo.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Errore o superiore</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Informazioni o superiore</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Debug o superiore</string>
+      <string id="RemoveMicrosoftCopilotApp">Rimuovi l'app Microsoft Copilot</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Questa impostazione dei criteri ti consente di disinstallare Microsoft Copilot per gli utenti in modo mirato. Si applicherà ai dispositivi/utenti che soddisfano le condizioni seguenti:
+
+• Microsoft 365 Copilot e Microsoft Copilot sono entrambi installati
+
+• L'app Microsoft Copilot non è stata installata dall'utente
+
+• L'app Microsoft Copilot non è stata avviata negli ultimi 28 giorni
+ 
+Se questo criterio è abilitato, l'app Microsoft Copilot verrà disinstallata. Gli utenti possono comunque reinstallare se lo scelgono. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>Immettere l'AUMID dell'app</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Immettere l'elenco di app non consentite:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Immettere l'elenco degli URI non consentiti:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>Immettere l'ID provider DLP:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Selezionare lo spazio di archiviazione massimo:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Selezionare la durata di archiviazione massima:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Livello di registrazione del registro di sistema sul dispositivo: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

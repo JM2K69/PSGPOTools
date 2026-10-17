@@ -146,11 +146,11 @@ GPO C: C.cmd、C.ps1
 
 注意: 从 Windows Vista 操作系统开始，启动时不再显示配置为异步运行的脚本，而不管是否启用此策略设置。</string>
       <string id="Allow_Logon_Script_NetbiosDisabled">禁用 NetBIOS 或 WINS 时允许登录脚本</string>
-      <string id="Allow_Logon_Script_NetbiosDisabled_Explain">使用此策略设置，用户登录脚本可以在登录跨林，不配置 DNS 后缀且禁用 NetBIOS 或 WINS 时运行。此策略设置影响以交互方式登录到该计算机的所有用户帐户。
+      <string id="Allow_Logon_Script_NetbiosDisabled_Explain">使用此策略设置，用户登录脚本可以在登录跨林，不配置 DNS 后缀且禁用 NetBIOS 或 WINS 时运行。此策略设置影响以交互方式登录到该计算机的所有用户账户。
 
 如果启用此策略设置，则如果登录跨林过程中禁用 NetBIOS 或 WINS，而未配置 DNS 后缀，则用户登录脚本将运行。
 
-如果禁用或未配置此策略设置，则用户帐户将跨林，如果禁用 NetBIOS 或 WINS 且未配置 DNS 后缀，则交互登录将无法运行登录脚本。</string>
+如果禁用或未配置此策略设置，则用户账户将跨林，如果禁用 NetBIOS 或 WINS 且未配置 DNS 后缀，则交互登录将无法运行登录脚本。</string>
       <string id="Scripts">脚本</string>
     </stringTable>
     <presentationTable>

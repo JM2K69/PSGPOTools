@@ -44,24 +44,24 @@ Opmerkingen:
           Zie ook de instellingen Afdrukken via het Internet activeren en Bladeren op een algemene website om printers te zoeken in Gebruikersconfiguratie\Beheersjablonen\Configuratiescherm\Printers.
 
           De webweergave wordt beïnvloed door de instellingen Klassieke shell inschakelen en 'Openen van mapopties met de optieknop op het tabblad Beeld op het lint niet toestaan' in Gebruikersconfiguratie\Beheersjablonen\Windows-onderdelen\Windows Verkenner, en door de instelling Active Desktop inschakelen in Gebruikersconfiguratie\Beheersjablonen\Bureaublad\Active Desktop.</string>
-      <string id="DomainDisplayPrinters_Help">Als u deze beleidsinstelling inschakelt, stelt u het maximumaantal printers in (van elk type) dat in de wizard Printer toevoegen wordt weergegeven op een computer in een beheerd netwerk (als de computer een domeincontroller kan bereiken, bijvoorbeeld een laptop die lid is van een domein in een bedrijfsnetwerk).
+      <string id="DomainDisplayPrinters_Help">Als u deze beleidsinstelling inschakelt, wordt het maximum aantal printers (van elk type) ingesteld dat in de wizard Printer toevoegen wordt weergegeven op een computer in een beheerd netwerk (wanneer de computer een domeincontroller kan bereiken, bijvoorbeeld een laptop die lid is van een domein in een bedrijfsnetwerk).
 
-          Als u deze beleidsinstelling uitschakelt, wordt de pagina van de netwerkscan niet weergegeven.
+          Als deze beleidsinstelling is uitgeschakeld, wordt de pagina van de netwerkscan niet weergegeven.
 
-          Als deze beleidsinstelling niet is geconfigureerd, wordt het standaardaantal printers van elk type weergegeven in de wizard Printer toevoegen:
+          Als deze beleidsinstelling niet is geconfigureerd, wordt in de wizard Printer toevoegen het standaardaantal printers van elk type weergegeven:
           Directory-printers: 20
           TCP/IP-printers: 0
           Printers van webservices: 0
           Bluetooth printers: 10
-          Gedeelde printers: 0
+ Gedeelde printers: 0
 
-          Zorg ervoor dat netwerkdetectie is ingeschakeld om beschikbare Web Services-printers op uw netwerk weer te geven. Klik achtereenvolgens op Start, Configuratiescherm en Netwerk en internet om netwerkdetectie in te schakelen. Klik op de pagina Netwerk en internet op Netwerkcentrum. Klik op de pagina Netwerkcentrum op Geavanceerde instellingen voor delen wijzigen. Klik op de pagina Geavanceerde instellingen voor delen wijzigen op de pijl naast Domein, klik op Netwerkdetectie inschakelen en klik op Wijzigingen opslaan.
+          Zorg ervoor dat netwerkdetectie is ingeschakeld om beschikbare printers van webservices op uw netwerk weer te geven. Klik achtereenvolgens op Start, Configuratiescherm en Netwerk en internet om netwerkdetectie in te schakelen. Klik op de pagina Netwerk en internet op Netwerkcentrum. Klik op de pagina Netwerkcentrum op Geavanceerde instellingen voor delen wijzigen. Klik op de pagina Geavanceerde instellingen voor delen wijzigen op de pijl naast Domein, klik op Netwerkdetectie inschakelen en klik vervolgens op Wijzigingen opslaan.
 
           Als u printers van een bepaald type niet wilt weergeven, schakelt u dit beleid in en stelt u het aantal printers dat moet worden weergegeven in op 0.
 
-          In Windows 10 en hoger kunnen alleen TCP/IP-printers worden weergegeven in de wizard. Als u deze beleidsinstelling inschakelt, zijn alleen TCP/IP-printerlimieten van applicatie. Alleen in Windows 10 wordt de standaardlimiet toegepast als u deze beleidsinstelling uitschakelt of niet configureert.
-          
-          In Windows 8 en hoger worden Bluetooth-printers niet weergegeven, waardoor de limiet van de beleidsinstelling niet geldt voor deze Windows-versies.
+          In Windows 10 en hoger kunnen alleen TCP/IP-printers worden weergegeven in de wizard. Als u deze beleidsinstelling inschakelt, zijn alleen TCP/IP-printerlimieten van toepassing. Alleen in Windows 10 wordt de standaardlimiet toegepast als u deze beleidsinstelling uitschakelt of niet configureert.
+ 
+          In Windows 8 en hoger worden Bluetooth-printers niet weergegeven, waardoor de limiet van de beleidsinstelling niet geldt voor deze Windows-versies.
       </string>
       <string id="DomainPrinters">Wizard Printer toevoegen - Netwerkscanpagina (beheerd netwerk)</string>
       <string id="DownlevelBrowse">In het netwerk zoeken naar printers</string>
@@ -134,9 +134,9 @@ Opmerking: als u dit beleid toepast, worden bestaande kernel-modusstuurprogramma
           Met deze instelling kunt u niet voorkomen dat gebruikers andere programma's gebruiken om een printer te verwijderen.
 
           Als dit beleid is uitgeschakeld of niet wordt geconfigureerd, kunnen gebruikers printers verwijderen met de methoden die hiervoor zijn beschreven.</string>
-      <string id="NonDomainDisplayPrinters_Help">Met dit beleid stelt u het maximumaantal printers in (van elk type) dat in de wizard Printer toevoegen wordt weergegeven op een computer in een niet-beheerd netwerk (als de computer geen domeincontroller kan bereiken, bijvoorbeeld een laptop die lid is van een domein in een thuisnetwerk).
+      <string id="NonDomainDisplayPrinters_Help">Met dit beleid wordt het maximum aantal printers (van elk type) ingesteld dat in de wizard Printer toevoegen wordt weergegeven op een computer in een niet-beheerd netwerk (wanneer de computer geen domeincontroller kan bereiken, bijvoorbeeld een laptop die lid is van een domein in een thuisnetwerk).
 
-Als u deze instelling uitschakelt, wordt de pagina van de netwerkscan niet weergegeven.
+Als deze instelling is uitgeschakeld, wordt de pagina van de netwerkscan niet weergegeven.
 
 Als deze instelling niet is geconfigureerd, wordt in de wizard Printer toevoegen het standaardaantal printers van elk type weergegeven:
 TCP/IP-printers: 50
@@ -146,9 +146,9 @@ Gedeelde printers: 50
 
 Als u printers van een bepaald type niet wilt weergeven, schakelt u dit beleid in en stelt u het aantal printers dat moet worden weergegeven in op 0.
 
-In Windows 10 en hoger kunnen alleen TCP/IP-printers worden weergegeven in de wizard. Als u deze beleidsinstelling inschakelt, zijn alleen TCP/IP-printerlimieten van applicatie. Alleen in Windows 10 wordt de standaardlimiet toegepast als u deze beleidsinstelling uitschakelt of niet configureert.
-          
-In Windows 8 en hoger worden Bluetooth-printers niet weergegeven, waardoor de limiet van de beleidsinstelling niet geldt voor deze Windows-versies.</string>
+In Windows 10 en hoger kunnen alleen TCP/IP-printers worden weergegeven in de wizard. Als u deze beleidsinstelling inschakelt, zijn alleen TCP/IP-printerlimieten van toepassing. Alleen in Windows 10 wordt de standaardlimiet toegepast als u deze beleidsinstelling uitschakelt of niet configureert.
+ 
+In Windows 8 en hoger worden Bluetooth-printers niet weergegeven, waardoor de limiet van de beleidsinstelling niet geldt voor deze Windows-versies.</string>
       <string id="NonDomainPrinters">Wizard Printer toevoegen - Netwerkscanpagina (niet-beheerd netwerk)</string>
       <string id="PackagePointAndPrintOnly">Alleen point-and-print voor pakketten gebruiken</string>
       <string id="PackagePointAndPrintOnly_Help">Met dit beleid kunnen clients alleen point-and-print voor pakketten gebruiken.
@@ -278,19 +278,241 @@ De standaardinstelling is dat computers met Windows Ultimate, Professional en Ho
 
         Als u deze beleidsinstelling uitschakelt of niet configureert, mogen alle geïnstalleerde printerextensies uitgevoerd worden.</string>
       <string id="MXDWUseLegacyOutputFormatMSXPS">De standaard Microsoft XPS Document Writer (MXDW) uitvoerindeling wijzigen naar de oude Microsoft XPS-indeling (*.xps)</string>
-      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Met Microsoft XPS Document Writer (MXDW) worden standaard OpenXPS-bestanden (*.oxps) gegenereerd in Windows 10, Windows 10 en Windows Server 2019.
+      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Met Microsoft XPS Document Writer (MXDW) worden standaard OpenXPS-bestanden (*.oxps) gegenereerd in Windows 10, Windows 10 en Windows Server 2025.
 
-          Als u deze groepsbeleidsinstelling inschakelt, wordt de oudere Microsoft XPS-indeling (*.xps) gebruikt als standaard-MXDW-uitvoerindeling.
+Als u deze groepsbeleidsinstelling inschakelt, is de standaard-MXDW-uitvoerindeling de verouderde Microsoft XPS (*.xps).
 
-          Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de OpenXPS-indeling (*.oxps) gebruikt als standaard-MXDW-uitvoerindeling.</string>
+Als u deze beleidsinstelling uitschakelt of niet configureert, is de standaard-MXDW-uitvoerindeling OpenXPS (*.oxps).</string>
       <string id="SetDefaultPrinterMRUModeOff">Standaardprinterbeheer van Windows uitschakelen</string>
-      <string id="SetDefaultPrinterMRUModeOff_Help">Met deze voorkeur kunt u aanpassen hoe de standaardprinter wordt beheerd.
+      <string id="SetDefaultPrinterMRUModeOff_Help">Met deze voorkeur kunt u het standaardprinterbeheer wijzigen.
 
-Als u deze instelling inschakelt, wordt de standaardprinter niet beheerd door Windows.
- 
-Als u deze instelling uitschakelt, zorgt Windows voor het beheer van de standaardprinter.
+Als u deze instelling inschakelt, wordt de standaardprinter niet beheerd.
 
-Als u deze instelling niet configureert, blijft de instelling voor het standaardprinterbeheer ongewijzigd. </string>
+Als u deze instelling uitschakelt, wordt de standaardprinter beheerd.
+
+Als u deze instelling niet configureert, wordt het standaardprinterbeheer niet gewijzigd. </string>
+      <string id="EnableDeviceControl">Afdrukbeperkingen voor apparaatbesturing inschakelen</string>
+      <string id="EnableDeviceControl_Help">
+Hiermee wordt bepaald of afdrukbeperkingen van Apparaatbesturing worden afgedwongen om op deze computer te kunnen afdrukken.
+
+          Standaard zijn er geen beperkingen voor afdrukken op basis van het verbindingstype of het merk/model van de printer.
+
+          Als u deze instelling inschakelt, wordt het afdrukken op printerverbindingen in het bedrijfsnetwerk of goedgekeurde printers met USB-verbindingen door de computer beperkt.
+
+          Als u deze instelling uitschakelt of niet configureert, zijn er geen beperkingen voor het afdrukken op basis van het verbindingstype of het merk/model van de printer.</string>
+      <string id="ApprovedUsbPrintDevices">Lijst met goedgekeurde afdrukapparaten met USB-aansluiting</string>
+      <string id="ApprovedUsbPrintDevices_Help">
+
+Deze instelling is een onderdeel van de afdrukbeperkingen voor apparaatbesturing. Als u deze instelling wilt gebruiken, schakelt u Afdrukken met apparaatbesturing in door de instelling Afdrukbeperkingen apparaatbesturing inschakelen in te schakelen.
+
+Wanneer Afdrukken via apparaatbesturing is ingeschakeld, gebruikt het systeem de opgegeven lijst met vid/pid-waarden om te bepalen of de huidige via USB verbonden printer is goedgekeurd voor lokaal afdrukken.
+
+Typ alle goedgekeurde vid/pid-combinaties (gescheiden door komma's) die overeenkomen met goedgekeurde USB-printermodellen. Wanneer een gebruiker probeert af te drukken naar een USB-printerwachtrij, wordt de vid/pid van het apparaat vergeleken met de goedgekeurde lijst.
+      </string>
+      <string id="RestrictDriverInstallationToAdministrators">Beperkt de installatie van printerstuurprogramma's tot beheerders</string>
+      <string id="RestrictDriverInstallationToAdministrators_Help">
+Hiermee wordt bepaald of gebruikers die geen beheerder zijn, printerstuurprogramma's op deze computer kunnen installeren.
+
+Standaard kunnen gebruikers die geen beheerder zijn, geen printerstuurprogramma's op deze computer installeren.
+
+Als u deze instelling inschakelt of niet configureert, beperkt het systeem de installatie van printerstuurprogramma's tot beheerders van deze computer.
+
+Als u deze instelling uitschakelt, wordt de installatie van printerstuurprogramma's op deze computer niet beperkt.
+        </string>
+      <string id="CopyFilesPolicy">Verwerking van wachtrijspecifieke bestanden beheren</string>
+      <string id="CopyFilesPolicy_AllowAll">Alle wachtrijspecifieke bestanden toestaan</string>
+      <string id="CopyFilesPolicy_Disabled">Wachtrijspecifieke bestanden niet toestaan</string>
+      <string id="CopyFilesPolicy_Help">
+Hiermee beheert u hoe wachtrijspecifieke bestanden worden verwerkt tijdens de printerinstallatie. Tijdens de printerinstallatie kan een door de leverancier geleverde installatietoepassing een set bestanden van elk type opgeven die aan een bepaalde afdrukwachtrij moet worden gekoppeld. De bestanden worden gedownload naar elke client die verbinding maakt met de afdrukserver.
+
+U kunt deze instelling inschakelen om het standaardgedrag voor wachtrijspecifieke bestanden te wijzigen. Als u deze instelling wilt gebruiken, selecteert u een van de onderstaande opties in het vak "Verwerking van wachtrijspecifieke bestanden beheren".
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, is het standaardgedrag "Wachtrijspecifieke bestanden beperken tot kleurprofielen".
+
+--  "Wachtrijspecifieke bestanden niet toestaan" geeft aan dat er geen wachtrijspecifieke bestanden worden toegestaan/verwerkt tijdens de installatie van de afdrukwachtrij/printerverbinding.
+
+--  "Wachtrijspecifieke bestanden beperken tot kleurprofielen" geeft aan dat alleen wachtrijspecifieke bestanden die voldoen aan het standaard kleurprofielschema zijn toegestaan. Dit betekent dat vermeldingen die gebruikmaken van de registersleutel CopyFiles\ICM een directorywaarde van COLOR bevatten en mscms.dll ondersteunen als modulewaarde. "Wachtrijspecifieke bestanden beperken tot kleurprofielen" is het standaardgedrag.
+
+--  "Alle wachtrijspecifieke bestanden toestaan" geeft aan dat alle wachtrijspecifieke bestanden worden toegestaan/verwerkt tijdens de installatie van de afdrukwachtrij/printerverbinding.
+      </string>
+      <string id="CopyFilesPolicy_ICMOnly">Wachtrijspecifieke bestanden beperken tot kleurprofielen</string>
+      <string id="DriverValidationLevel_Inbox">Vereist ondertekende stuurprogramma's voor Postvak IN</string>
+      <string id="DriverValidationLevel_Legacy">Alle geldig ondertekende stuurprogramma's toestaan</string>
+      <string id="DriverValidationLevel_Trusted">Ondertekende stuurprogramma's voor Postvak IN en PrintDrivers Trusted Store toestaan</string>
+      <string id="DriverValidationLevel_TrustedShared">Ondertekende stuurprogramma's voor Postvak IN, PrintDrivers Trusted Store, WHQL en Trusted Publishers Store toestaan</string>
+      <string id="DriverValidationLevel_WHQL">Ondertekende stuurprogramma's voor Postvak IN, PrintDrivers Trusted Store en WHQL toestaan</string>
+      <string id="DriverValidationLevel">Handtekeningvalidatie voor printerstuurprogramma beheren</string>
+      <string id="DriverValidationLevel_Help">
+          Met deze beleidsinstelling wordt het validatiemechanisme voor ondertekening van het printerstuurprogramma bepaald. Dit beleid bepaalt het type digitale handtekening dat vereist is om een printerstuurprogramma als geldig te beschouwen en op het systeem te installeren.
+
+          Als onderdeel van deze validatie wordt de catalogus/ingesloten handtekening geverifieerd en moeten alle bestanden in het stuurprogramma deel uitmaken van de catalogus of een eigen ingesloten handtekening hebben die kan worden gebruikt voor validatie.
+
+          U kunt deze instelling inschakelen om de standaard validatiemethode voor handtekeningen te wijzigen. Als u deze instelling wilt gebruiken, selecteert u een van de onderstaande opties in het vak "Stuurprogrammaondertekeningsmechanisme voor deze computer selecteren".
+
+          Als u deze beleidsinstelling uitschakelt of niet configureert, is de standaardmethode "Alle geldig ondertekende stuurprogramma's toestaan".
+
+          -- "Vereist ondertekende stuurprogramma's voor Postvak IN" geeft aan dat alleen stuurprogramma's die worden geleverd als onderdeel van een Windows-installatiekopie zijn toegestaan op deze computer.
+
+          -- "Ondertekende stuurprogramma's voor Postvak IN en PrintDrivers Trusted Store toestaan" geeft aan dat alleen stuurprogramma's die worden geleverd als onderdeel van een Windows-installatiekopie of stuurprogramma's die zijn ondertekend door certificaten die zijn geïnstalleerd in het certificaatarchief 'PrintDrivers', zijn toegestaan op deze computer.
+
+          -- "Ondertekende stuurprogramma's voor Postvak IN, PrintDrivers Trusted Store en WHQL toestaan" geeft aan dat de enige toegestane stuurprogramma's op deze computer zijn: geleverd als onderdeel van een Windows-installatiekopie, ondertekend door certificaten die zijn geïnstalleerd in het certificaatarchief 'PrintDrivers' of ondertekend door het Windows Hardware Quality Lab (WHQL).
+
+          -- "Ondertekende stuurprogramma's voor Postvak IN, PrintDrivers Trusted Store, WHQL en Trusted Publishers Store toestaan" geeft aan dat de enige toegestane stuurprogramma's op deze computer zijn: geleverd als onderdeel van een Windows-installatiekopie, ondertekend door certificaten die zijn geïnstalleerd in het certificaatarchief 'PrintDrivers', ondertekend door het Windows Hardware Quality Lab (WHQL) of ondertekend door certificaten die zijn geïnstalleerd in het certificaatarchief 'Trusted Publishers'.
+
+          -- "Alle geldig ondertekende stuurprogramma's toestaan' geeft aan dat elk printerstuurprogramma met een geldige ingesloten handtekening of die kan worden gevalideerd op basis van de catalogus met printerstuurprogramma's, op deze computer kan worden geïnstalleerd.
+
+          Het certificaatarchief 'PrintDrivers' moet worden gemaakt door een beheerder op de locatie van het lokale computerarchief.
+
+          Het certificaatarchief 'Trusted Publishers' kan certificaten bevatten van bronnen die niet gerelateerd zijn aan printerstuurprogramma's.
+
+      </string>
+      <string id="DriverValidationLevelTitle">Selecteer het stuurprogrammaondertekeningsmechanisme voor deze computer</string>
+      <string id="DriverExclusionList">Lijst met uitsluitingen van printerstuurprogramma's beheren</string>
+      <string id="DriverExclusionList_Help">
+Met deze beleidsinstelling beheert u de uitsluitingslijst voor printerstuurprogramma's. Met de uitsluitingslijst kan een beheerder een lijst met printerstuurprogramma's cureren die niet op het systeem mogen worden geïnstalleerd.
+
+Hiermee wordt de handtekeningcontrole gecontroleerd en kunnen stuurprogramma's met een geldig handtekeningniveau voor het validatiebeleid voor printerstuurprogramma's worden uitgesloten.
+
+Vermeldingen in de uitsluitingslijst bestaan uit een SHA256-hash (of SHA1-hash voor Win7) van het INF-bestand en/of het DLL-bestand van het hoofdstuurprogramma van het stuurprogramma en de naam van het bestand.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, worden de registersleutel en waarden die aan deze beleidsinstelling zijn gekoppeld, verwijderd als deze momenteel zijn ingesteld op een waarde.
+
+      </string>
+      <string id="RpcListenerPolicy">RPC-instellingen voor luisteraar configureren</string>
+      <string id="RpcOverNamedPipes">RPC via named pipes</string>
+      <string id="RpcOverTcp">RPC via TCP</string>
+      <string id="RpcOverNamedPipesAndTcp">RPC via named pipes en TCP</string>
+      <string id="RpcAuthenticationProtocol_Negotiate">Onderhandelen</string>
+      <string id="RpcAuthenticationProtocol_Kerberos">Kerberos</string>
+      <string id="RpcListenerPolicy_Help">
+Met deze beleidsinstelling bepaalt u welke protocollen binnenkomende RPC-verbindingen met de afdrukspooler mogen gebruiken.
+
+RPC via TCP is standaard ingeschakeld en Onderhandelen wordt gebruikt voor het verificatieprotocol.
+
+protocollen om binnenkomende RPC-verbindingen toe te staan:
+    -- "RPC via named pipes": binnenkomende RPC-verbindingen zijn alleen toegestaan via named pipes
+    -- "RPC over TCP": binnenkomende RPC-verbindingen zijn alleen toegestaan via TCP (de standaardoptie)
+    -- "RPC via named pipes en TCP":  Binnenkomende RPC-verbindingen worden toegestaan via TCP en named pipes
+
+Verificatieprotocol dat moet worden gebruikt voor binnenkomende RPC-verbindingen:
+    -- "Onderhandelen": Gebruik het Onderhandelen-verificatieprotocol (de standaardoptie)
+    -- "Kerberos": Gebruik het Kerberos-verificatieprotocol
+
+Als u het uitschakelt of deze beleidsinstelling niet configureert, worden de bovenstaande standaardwaarden gebruikt.
+      </string>
+      <string id="RpcConnectionPolicy">RPC-verbindingsinstellingen configureren</string>
+      <string id="RpcConnectionAuthenticationDefault">Standaard</string>
+      <string id="RpcConnectionAuthenticationEnabled">Verificatie ingeschakeld</string>
+      <string id="RpcConnectionAuthenticationDisabled">Verificatie is uitgeschakeld</string>
+      <string id="RpcConnectionPolicy_Help">
+Met deze beleidsinstelling bepaalt u welke protocol- en protocolinstellingen moeten worden gebruikt voor uitgaande RPC-verbindingen met een externe afdrukspooler.
+
+Standaard wordt RPC over TCP gebruikt en is authenticatie altijd ingeschakeld. Voor RPC via named pipes is authenticatie altijd ingeschakeld voor machines die lid zijn van een domein, maar uitgeschakeld voor machines die geen lid zijn van een domein.
+
+Protocol te gebruiken voor uitgaande RPC-verbindingen:
+ -- 'RPC over TCP': gebruik RPC over TCP voor uitgaande RPC-verbindingen naar een externe afdrukspooler
+ -- 'RPC over named pipes': gebruik RPC over named pipes voor uitgaande RPC-verbindingen naar een externe print spooler
+
+Gebruik authenticatie voor uitgaande RPC via named pipes-verbindingen:
+ -- 'Standaard': Standaard schakelen computers die lid zijn van een domein RPC-authenticatie in voor RPC via named pipes, terwijl computers die geen lid zijn van een domein RPC-authenticatie uitschakelen voor RPC via named pipes
+ -- 'Verificatie ingeschakeld' : RPC-authenticatie wordt gebruikt voor uitgaande RPC via named pipes-verbindingen
+ -- 'Verificatie uitgeschakeld': RPC-authenticatie wordt niet gebruikt voor uitgaande RPC via named pipes-verbindingen
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, worden de bovenstaande standaardwaarden gebruikt.
+      </string>
+      <string id="RpcTcpPortPolicy">RPC via TCP-poort configureren</string>
+      <string id="RpcTcpPortPolicy_Help">
+Met deze beleidsinstelling wordt bepaald welke poort wordt gebruikt voor RPC via TCP voor binnenkomende verbindingen met de afdrukspooler en uitgaande verbindingen met externe afdrukspoolers.
+
+Standaard worden dynamische TCP-poorten gebruikt.
+
+RPC via TCP-poort:
+    -- De poort die moet worden gebruikt voor RPC via TCP. De waarde 0 is de standaardwaarde en geeft aan dat dynamische TCP-poorten worden gebruikt
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, worden dynamische TCP-poorten gebruikt.
+      </string>
+      <string id="RpcIncomingAuthenticationLevelPolicy">Privacy-instelling op RPC-pakketniveau configureren voor binnenkomende verbindingen</string>
+      <string id="RpcIncomingAuthenticationLevelPolicy_Help">
+Met deze beleidsinstelling bepaalt u of de privacy op pakketniveau is ingeschakeld voor RPC voor binnenkomende verbindingen.
+
+Standaard is privacy op pakketniveau ingeschakeld voor RPC voor binnenkomende verbindingen.
+
+Als u deze beleidsinstelling inschakelt of niet configureert, wordt de privacy op pakketniveau ingeschakeld voor RPC voor binnenkomende verbindingen.
+      </string>
+      <string id="AlwaysSendIppPageCounts">Gegevens over het aantal taakpagina's altijd verzenden voor IPP-printers</string>
+      <string id="AlwaysSendIppPageCounts_Help">
+Hiermee wordt bepaald of gegevens over het aantal pagina's altijd moeten worden verzonden voor accountingdoeleinden voor printers die het Microsoft IPP-klassestuurprogramma gebruiken.
+
+Pagina's worden standaard naar de printer verzonden zodra ze worden gerenderd en informatie over het aantal pagina's wordt niet naar de printer verzonden, tenzij pagina's opnieuw moeten worden geordend.
+
+Als u deze instelling inschakelt, worden alle afdruktaakpagina's vooraan weergegeven en wordt het totale aantal pagina's voor de afdruktaak naar de printer verzonden.
+
+Als u deze instelling uitschakelt of niet configureert, worden pagina's afgedrukt zodra ze worden gerenderd en worden paginaaantallen alleen verzonden wanneer het opnieuw ordenen van pagina's vereist is om de taak te verwerken.
+      </string>
+      <string id="RequireIpps">IPPS vereisen voor IPP-printers</string>
+      <string id="RequireIpps_Help">Hiermee wordt bepaald of communicatie met printers die gebruikmaken van het Microsoft IPP-klassestuurprogramma IPPS moet gebruiken (waarmee TLS wordt gebruikt voor veilige communicatie).
+
+Als u deze beleidsinstelling inschakelt, kunnen alleen IPP-printers worden geïnstalleerd die IPPS ondersteunen.
+
+Als u deze instelling uitschakelt of niet configureert, is het standaard toegestaan IPP-printers te installeren die IPPS niet ondersteunen.
+      </string>
+      <string id="IppTlsCertificatePolicy">TLS/SSL-beveiligingsbeleid instellen voor IPP-printers</string>
+      <string id="IppTlsCertificatePolicy_Help">
+Bepaalt het TLS/SSL-beveiligingsbeleid (WINHTTP_OPTION_SECURITY_FLAGS) voor printers met behulp van het Microsoft IPP-klassestuurprogramma.
+
+Standaard is het beveiligingsbeleid zo ingesteld dat alle certificaatfouten worden genegeerd, waardoor het gebruik van zelfondertekende certificaten voor printers is toegestaan.
+
+Als je deze instelling inschakelt, schakelt het systeem standaard alle certificaatcontrole in, waardoor certificaatfouten niet worden toegestaan. Specifieke certificaatcontrole kan worden ingesteld met de opgegeven selectievakjes.
+
+Als je deze instelling uitschakelt of niet configureert, worden standaard alle certificaatfouten genegeerd (alle selectievakjes uitgeschakeld).
+      </string>
+      <string id="RedirectionGuardPolicy">Omleidingsbeveiliging configureren</string>
+      <string id="RedirectionGuardPolicy_Disabled">Omleidingsbeveiliging uitgeschakeld</string>
+      <string id="RedirectionGuardPolicy_Enabled">Omleidingsbeveiliging ingeschakeld</string>
+      <string id="RedirectionGuardPolicy_AuditOnly">Alleen audit voor Omleidingsbeveiliging</string>
+      <string id="RedirectionGuardPolicy_Help">
+Hiermee wordt bepaald of Redirection Guard is ingeschakeld voor de afdrukspooler.
+
+U kunt deze instelling inschakelen om het Redirection Guard-beleid te configureren dat wordt toegepast op de spooler.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, wordt Redirection Guard standaard ingeschakeld.
+
+Als u deze instelling inschakelt, kunt u de volgende opties selecteren:
+
+-- Ingeschakeld: Redirection Guard voorkomt dat bestandsomleidingen worden gevolgd
+
+-- Uitgeschakeld: Redirection Guard wordt niet ingeschakeld en bestandsomleidingen kunnen worden gebruikt in het spoolerproces
+
+-- Controle: Redirection Guard registreert gebeurtenissen alsof deze zijn ingeschakeld, maar voorkomt niet dat bestandsomleidingen worden gebruikt in de spooler.
+      </string>
+      <string id="WindowsProtectedPrintPolicy">Beveiligd afdrukken met Windows configureren</string>
+      <string id="WindowsProtectedPrintPolicy_Help">
+Hiermee wordt bepaald of beveiligd afdrukken met Windows is ingeschakeld op deze computer.
+
+Beveiligd afdrukken met Windows is standaard niet ingeschakeld en er zijn geen beperkingen voor de printerstuurprogramma's die kunnen worden geïnstalleerd of afdrukfunctionaliteit.
+
+Als u deze instelling inschakelt, werkt de computer in de beveiligde afdrukmodus van Windows, waardoor alleen afdrukken mogelijk is voor printers die een subset van de Windows-printerstuurprogramma's van Het Postvak IN ondersteunen.
+
+Als u deze instelling uitschakelt of niet configureert, gelden er geen beperkingen voor de printerstuurprogramma's die kunnen worden geïnstalleerd of afdrukfunctionaliteit.
+
+Zie https://learn.microsoft.com/en-us/windows-hardware/drivers/print/windows-protected-print-mode voor meer informatie
+      </string>
+      <string id="WindowsReadyPrintDriverRanking">Windows Ready Print-stuurprogrammaprioriteit configureren</string>
+      <string id="WindowsReadyPrintDriverRanking_Help">
+Hiermee bepaal je of de rangschikking van Windows Ready Print-stuurprogramma is ingeschakeld op deze computer.
+
+Als deze optie is ingeschakeld, geeft Windows de voorkeur aan het Microsoft IPP Klassestuurprogramma voor printers die het Internet Printing Protocol (IPP) ondersteunen. Dit geldt voor zowel IPP-printers met netwerkaansluiting als printers met USB-aansluiting die IPP via USB ondersteunen.
+
+Als je deze instelling inschakelt, geeft Windows tijdens de automatische selectie van stuurprogramma's voor in aanmerking komende printers prioriteit aan het Microsoft IPP Class Driver.
+
+Als je deze instelling uitschakelt, gebruikt Windows het standaard stuurprogrammaselectiegedrag.
+
+Als je deze instelling niet configureert, wordt in plaats daarvan de instelling van de lokale beheerder gebruikt. Als geen van beide instellingen is geconfigureerd, is de rangschikking van Windows Ready Print-stuurprogramma's standaard ingeschakeld.
+
+Opmerking: deze groepsbeleidsinstelling heeft voorrang op de instelling van de lokale beheerder. Deze instelling is alleen van invloed op de automatische selectie van stuurprogramma's tijdens de eerste printerconfiguratie. Bestaande printerinstallaties worden niet gewijzigd. Voor deze wijziging moet een printer volledig worden verwijderd en opnieuw worden geïnstalleerd voordat deze instelling ingaat.
+
+Zie https://go.microsoft.com/fwlink/?linkid=2364024 voor meer informatie.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="CustomizedSupportUrl">
@@ -327,7 +549,7 @@ Als u deze instelling niet configureert, blijft de instelling voor het standaard
       </presentation>
       <presentation id="PhysicalLocation">
         <text>Geef de locatie van deze computer op, </text>
-        <text>bijvoorbeeld: Stad/Gebouw 2/Verdieping 1/Kantoor 1800</text>
+        <text>Bijvoorbeeld: Stad/Gebouw 2/Verdieping 1/Kantoor 1800</text>
         <textBox refId="PhysicalLocation_Name">
           <label>Locatie</label>
         </textBox>
@@ -350,6 +572,50 @@ Als u deze instelling niet configureert, blijft de instelling voor het standaard
           <label>Standaardpad in Active Directory</label>
         </textBox>
         <text>voorbeeld --&gt; LDAP://DC=Domein1,DC=MijnBedrijf,DC=com.</text>
+      </presentation>
+      <presentation id="ApprovedUsbPrintDevices">
+        <text>Geef de lijst met goedgekeurde afdrukapparaten met USB-aansluiting op.</text>
+        <text>De lijst is een door komma's gescheiden lijst met USB vid/PID-waarden. Voorbeeld: 0351/0872, 135E/2179</text>
+        <textBox refId="ApprovedUsbPrintDevices_List">
+          <label>vid/pid</label>
+        </textBox>
+      </presentation>
+      <presentation id="CopyFilesPolicy">
+        <text>Selecteer de methode waarmee wachtrijspecifieke bestanden worden verwerkt.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="CopyFilesPolicy_Enum">Verwerking van wachtrijspecifieke bestanden beheren:</dropdownList>
+      </presentation>
+      <presentation id="DriverValidationLevel">
+        <dropdownList defaultItem="4" noSort="true" refId="DriverValidationLevel_Enum">Selecteer het stuurprogrammaondertekeningsmechanisme voor deze computer:</dropdownList>
+      </presentation>
+      <presentation id="DriverExclusionList">
+        <text>  </text>
+        <text>Voer een bestands-hash in die is gekoppeld aan de naam van het bestand dat de hash hieronder vertegenwoordigt.</text>
+        <text>  </text>
+        <listBox refId="Driver_ExclusionListEntry">Bestandshash   Bestandsnaam:</listBox>
+      </presentation>
+      <presentation id="RpcListenerPolicy">
+        <text>Protocolopties configureren voor binnenkomende RPC-verbindingen.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RpcListenerProtocols_Enum">Protocollen voor het toestaan van binnenkomende RPC-verbindingen:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcAuthenticationProtocol_Enum">Verificatieprotocol dat moet worden gebruikt voor binnenkomende RPC-verbindingen:</dropdownList>
+      </presentation>
+      <presentation id="RpcConnectionPolicy">
+        <text>Protocolopties configureren voor uitgaande RPC-verbindingen.</text>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionProtocol_Enum">Protocol dat moet worden gebruikt voor uitgaande RPC-verbindingen:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionAuthentication_Enum">Verificatie gebruiken voor uitgaande RPC-verbindingen:</dropdownList>
+      </presentation>
+      <presentation id="RpcTcpPortPolicy">
+        <text>Configureer de poort die moet worden gebruikt voor RPC via TCP.</text>
+        <decimalTextBox defaultValue="0" refId="RpcTcpPort">RPC via TCP-poort:</decimalTextBox>
+      </presentation>
+      <presentation id="IppTlsCertificatePolicy">
+        <checkBox refId="SecurityFlagsBlockUnknownCA" defaultChecked="true">Ongeldige certificaatautoriteit weigeren</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertWrongUsage" defaultChecked="true">Niet-servercertificaten weigeren</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertCNInvalid" defaultChecked="true">Algemene naam van ongeldige certificaatautoriteit weigeren</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertDateInvalid" defaultChecked="true">Ongeldige certificaatdatum weigeren</checkBox>
+      </presentation>
+      <presentation id="RedirectionGuardPolicy">
+        <text>Opties configureren voor Omleidingsbeveiliging</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RedirectionGuardPolicy_Enum">Opties voor Omleidingsbeveiliging</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

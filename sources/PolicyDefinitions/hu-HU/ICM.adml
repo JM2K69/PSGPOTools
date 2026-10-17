@@ -108,11 +108,13 @@ Ez a házirend-beállítás hatástalanítja a hibajelentésre vonatkozóan a fe
 
 Lásd még a „Hibajelentés konfigurálása”, a „Hibaértesítések megjelenítése” és a „Windows hibajelentés letiltása” házirend-beállításokat a Számítógép konfigurációja/Felügyeleti sablonok/Windows-összetevők/Windows hibajelentés helyen.</string>
       <string id="RemoveWindowsUpdate_ICM">Minden Windows Update szolgáltatás elérésének kikapcsolása</string>
-      <string id="RemoveWindowsUpdate_ICM_Help">Ezen házirend-beállítás segítségével letilthatja a Windows Update webhelyhez való hozzáférést.
+      <string id="RemoveWindowsUpdate_ICM_Help">Ezen házirend-beállítás segítségével letilthatja a Windows Update szolgáltatáshoz való hozzáférést.
 
-Ha engedélyezi ezt a házirend-beállítást, akkor a Windows Update szolgáltatásai nem érhetők el. A felhasználók nem érhetik el a Windows Update webhelyet sem a http://windowsupdate.microsoft.com címen sem a Start menü Windows Update hivatkozása vagy az Internet Explorer Eszközök menüje segítségével. A Windows automatikus frissítése is le van tiltva. A felhasználók nem kapnak sem értesítéseket, sem pedig fontos frissítéseket a Windows Update szolgáltatástól. A házirend-beállítás hatására az Eszközkezelő sem telepíti automatikusan az illesztőprogramok frissítéseit a Windows Update webhelyről.
+Ha engedélyezi ezt a házirend-beállítást, akkor a Windows Update funkciói nem érhetők el. A felhasználók nem érhetik el a Windows Update webhelyet sem a http://windowsupdate.microsoft.com címen, sem a Start menü Windows Update hivatkozása vagy az Internet Explorer Eszközök menüje segítségével. A Windows automatikus frissítése is le van tiltva. A felhasználók nem kapnak sem értesítéseket, sem pedig fontos frissítéseket a Windows Update szolgáltatástól. A házirend-beállítás hatására az Eszközkezelő sem telepíti automatikusan az illesztőprogramok frissítéseit a Windows Update webhelyről.
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasználók elérhetik a Windows Update webhelyet, és az automatikus frissítés értesítéseinek fogadása és a fontos frissítések telepítése a Windows Update webhelyről engedélyezett lesz.</string>
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasználók elérhetik a Windows Update webhelyet, és engedélyezett lesz az automatikus frissítéssel kapcsolatos értesítések fogadása és a fontos frissítések lekérése a Windows Update szolgáltatásból.
+
+Megjegyzés: A házirendnek csak akkor van hatása, ha a számítógép úgy van beállítva, hogy kapcsolódjon egy intranetes frissítési szolgáltatáshoz „Az intranetes Microsoft Update szolgáltatás helyének megadása” házirend használatával.</string>
       <string id="SearchCompanion_DisableFileUpdates">A Kereső tartalomfrissítési szolgáltatásának kikapcsolása</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">Ez a házirend-beállítás megadja, hogy a Search Companion automatikusan letöltsön-e tartalomfrissítéseket a helyi vagy internetes keresések során.
 

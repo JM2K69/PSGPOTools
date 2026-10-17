@@ -37,14 +37,30 @@ Nota: abilitando questa impostazione dei criteri non si impedisce all'utente di 
       <string id="DisableRoamedProfileInit_Help">Questa impostazione dei criteri consente agli amministratori che hanno configurato il profilo mobile in combinazione con l'impostazione di Criteri di gruppo Elimina profilo mobile memorizzato nella cache di assicurarsi che Esplora risorse non reinizializzi le associazioni dei programmi predefinite e altre impostazioni sui valori predefiniti. 
 
 Se si abilita questa impostazione dei criteri in un computer che non contiene tutti i programmi installati nello stesso modo del computer a cui si è connesso l'utente l'ultima volta, potrebbe verificarsi un comportamento imprevisto. </string>
+      <string id="DisableGraphRecentItems">Mostra i file in base all'attività dell'account e del provider di servizi cloud</string>
+      <string id="DisableGraphRecentItems_Help">La disattivazione di questa impostazione impedirà a Esplora risorse di richiedere i metadati dei file nel cloud e di visualizzarli nella pagina iniziale e in altre visualizzazioni di Esplora risorse. Tutte le informazioni dettagliate e i file basati sull'attività del provider di servizi cloud o dell'account non saranno presentati nelle viste quali Recenti, Consigliati, Preferiti, Condivisi e così via.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Disattiva integrazione origine impostazioni avanzate in Esplora file</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">La disabilitazione dell'integrazione dell'origine Impostazioni avanzate impedirà a Esplora file di visualizzare le informazioni sul repository dal componente sistema impostazioni avanzate</string>
+      <string id="DisableFileExplorerPrelaunch">Disabilita Esplora file funzionalità per il preavvio di una finestra in background</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Questo criterio impedisce agli utenti di abilitare la funzionalità di preavvio in Esplora file, che crea una finestra in background per accelerare l'esperienza di avvio e migliorare la velocità di risposta.</string>
+      <string id="MakePrintScreenKeyYieldable">Rendi il tasto STAMP sensibile</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Questa impostazione di criteri determina se il tasto STAMP può essere utilizzato da altre applicazioni.
+
+Se abiliti questa impostazione di criteri, il tasto STAMP potrà essere intercettato dalle applicazioni e la funzionalità predefinita per l'acquisizione di screenshot verrà ignorata.
+
+Se disabiliti questa impostazione di criteri, il tasto STAMP manterrà il comportamento legacy per l'acquisizione di screenshot e non potrà essere intercettato dalle applicazioni.
+
+Se questo criterio non è configurato, il tasto STAMP potrà essere intercettato dalle applicazioni, consentendo di eseguire l'override della funzionalità predefinita per gli screenshot, così come il comportamento abilitato.
+
+Nota: per rendere effettiva questa impostazione potrebbe essere necessario riavviare il sistema.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>URL della pagina Web del supporto tecnico</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>URL della pagina Web del supporto tecnico</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

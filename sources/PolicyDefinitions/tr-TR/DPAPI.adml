@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>DPAPI</displayName>
+  <description>DPAPI ayarlarını yapılandırın</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod">DPAPI yedekleme anahtarlarını düzenli değiştirme süresini ayarlayın</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">Bu ilke ayarı, DPAPI yedekleme anahtarlarını döndürme dönemi belirtir. 
+Varsayılan 90 günlük değeri geçersiz kılmak için bu ayarı kullanın. DPAPI yedekleme anahtarlarını döndürmeyi devre dışı bırakmak için 0'a ayarlayın. 
+Bu ilke ayarını etkinleştirirseniz yeni bir DPAPI yedekleme anahtarı oluşturmadan önce sistemin beklemesi için gün sayısını ayarlar. 
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız varsayılan değer olan 90 gün kullanılır.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">DPAPI yedekleme anahtarlarını düzenli değiştirme süresini gün olarak belirtin. 
+DPAPI yedekleme anahtarları düzenli değiştirme ayarını devre dışı bırakmak için 0 olarak ayarlayın.</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

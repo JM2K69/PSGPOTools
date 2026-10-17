@@ -112,7 +112,9 @@ HTTP 인쇄를 설정하려면 HTTP를 통해 추가 드라이버를 다운로�
 
 이 정책 설정을 사용하면 모든 Windows 업데이트 기능이 제거됩니다. 이 경우 시작 메뉴에 있는 Windows 업데이트 하이퍼링크 또는 Internet Explorer의 도구 메뉴에서 실행할 수 있는 Windows 업데이트 웹 사이트(http://windowsupdate.microsoft.com)에 대한 액세스가 차단됩니다. Windows 자동 업데이트 기능도 해제되기 때문에 Windows 업데이트에서 제공하는 중요 업데이트는 물론 그에 대한 알림도 받을 수 없습니다. 또한 장치 관리자에서 Windows 업데이트 웹 사이트로부터 드라이버 업데이트를 자동으로 설치하는 기능도 사용할 수 없습니다.
 
-이 정책 설정을 사용하지 않거나 구성하지 않으면 Windows 업데이트 웹 사이트에 액세스하고 Windows 업데이트에서 알림과 중요 업데이트를 받도록 자동 업데이트를 활성화할 수 있습니다.</string>
+이 정책 설정을 사용하지 않거나 구성하지 않으면 Windows 업데이트 웹 사이트에 액세스하고 Windows 업데이트에서 알림과 중요 업데이트를 받도록 자동 업데이트를 활성화할 수 있습니다.
+
+참고: 이 정책은 이 PC가 "인트라넷 Microsoft 업데이트 서비스 위치 지정" 정책을 사용하여 인트라넷 업데이트 서비스에 연결하도록 구성된 경우에만 적용됩니다.</string>
       <string id="SearchCompanion_DisableFileUpdates">검색 도우미의 콘텐츠 파일을 업데이트하지 않음</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">이 정책 설정은 검색 도우미가 로컬 및 인터넷 검색을 수행하는 동안 콘텐츠 업데이트를 자동으로 다운로드해야 하는지 지정합니다.
 

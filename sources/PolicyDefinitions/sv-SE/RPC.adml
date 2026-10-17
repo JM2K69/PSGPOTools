@@ -27,17 +27,17 @@ I den utökade felinformationen ingår lokal tid då felet inträffade, RPC-vers
 
 Om du inaktiverar den här principinställningen genererar RPC-körningsmiljön endast en statuskod om ett feltillstånd uppstår.
 
-Om du inte konfigurerar den här principinställningen fortsätter den att vara inaktiverad.  RPC genererar endast en statuskod om ett feltillstånd uppstår.
+Om du inte konfigurerar den här principinställningen fortsätter den att vara inaktiverad. RPC genererar endast en statuskod om ett feltillstånd uppstår.
 
-Om du aktiverar den här principinställningen genererar RPC-körningsmiljön utökad felinformation.  Du måste välja en felsvarstyp i listrutan.
+Om du aktiverar den här principinställningen genererar RPC-körningsmiljön utökad felinformation. Du måste välja en felsvarstyp i listrutan.
 
---  "Av" inaktiverar all utökad felinformation för alla processer. RPC skapar endast en felkod.
+-- "Av" inaktiverar all utökad felinformation för alla processer. RPC skapar endast en felkod.
 
---  På med undantag aktiverar utökad felinformation, men låter dig inaktivera det för enskilda processer. Om du vill inaktivera utökad felinformation för en process när den här inställningen tillämpas måste det kommando som startar processen börja med en av de strängar som anges i fältet Undantag för utökad felinformation.
+-- På med undantag aktiverar utökad felinformation, men låter dig inaktivera det för enskilda processer. Om du vill inaktivera utökad felinformation för en process när den här inställningen tillämpas måste det kommando som startar processen börja med en av de strängar som anges i fältet Undantag för utökad felinformation.
 
---  Av med undantag inaktiverar utökad felinformation, men låter dig aktivera det för enskilda processer Om du vill aktivera utökad felinformation för en process när den här inställningen tillämpas måste det kommando som startar processen börja med en av de strängar som anges i fältet Undantag för utökad felinformation.
+-- Av med undantag inaktiverar utökad felinformation, men låter dig aktivera det för enskilda processer Om du vill aktivera utökad felinformation för en process när den här inställningen tillämpas måste det kommando som startar processen börja med en av de strängar som anges i fältet Undantag för utökad felinformation.
 
---  "På" aktiverar utökad felinformation för alla processer.
+-- "På" aktiverar utökad felinformation för alla processer.
 
 Obs! Mer information om fältet Undantag för utökad felinformation finns i Windows Software Development Kit (SDK).
 

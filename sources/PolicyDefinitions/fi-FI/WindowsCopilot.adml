@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>kirjoita näyttönimi tähän</displayName>
+  <description>kirjoita kuvaus tähän</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Poista Windows Copilot käytöstä</string>
+      <string id="TurnOffWindowsCopilot_Help">Tämän käytäntöasetuksen avulla voit poistaa Windows Copilotin käytöstä.
+
+Jos otat tämän käytäntöasetuksen käyttöön, käyttäjät eivät voi käyttää Copilotia. Copilot-kuvake ei myöskään näy tehtäväpalkissa.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjät voivat käyttää Copilotia, kun se on heidän käytettävissään.
+      </string>
+      <string id="WindowsAI">Windows-tekoäly</string>
+      <string id="DisableAIDataAnalysis">Poista käytöstä tilannevedosten tallentaminen käytettäväksi Muistelu-ominaisuuden kanssa
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Tämän käytäntöasetuksen avulla voit määrittää, voidaanko tilannevedoksia näytöstä tallentaa Recall varten. Recall tilannevedokset eivät ole oletusarvoisesti käytössä hallituissa laitteissa. IT-järjestelmänvalvojat eivät voi itse ottaa käyttöön tilannevedosten tallentamista käyttäjien puolesta. Tilannevedosten tallentamisen käyttöönotto edellyttää yksittäisen käyttäjän suostumusta.
+
+Jos käytäntöä ei ole määritetty, tilannevedoksia ei tallenneta Recall varten.
+
+Jos otat käytännön käyttöön, tilannevedoksia ei tallenneta Recall varten. Jos tilannevedokset tallennettiin laitteeseen aiemmin, ne poistetaan, kun tämä käytäntö otetaan käyttöön.
+
+Jos määrität käytännön asetuksesi poissa käytöstä, käyttäjät voivat halutessaan tallentaa tilannevedoksia näytöstään ja etsiä laitteellaan näkemiään asioita Recall avulla.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Aseta enimmäistallennustila Muistelu-ominaisuuden käyttämille tilannevedoksille
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Tämän käytäntöasetuksen avulla voit hallita, kuinka paljon levytilaa Windows voi käyttää tilannevedosten tallentamiseen Recall-ominaisuutta varten.
+
+Voit määrittää tilannevedosten enimmäislevytilaksi 10, 25, 50, 75, 100 tai 150 Gt.
+
+Kun tätä asetusta ei ole määritetty, käyttöjärjestelmä määrittää tilannevedosten tallennustilan varauksen laitteen tallennuskapasiteetin perusteella.
+
+25 Gt varataan, kun laitteen tallennuskapasiteetti on 256 Gt. 75 Gt varataan, kun laitteen tallennuskapasiteetti on 512 Gt. 150 Gt varataan, kun laitteen tallennuskapasiteetti on vähintään 1 Tt.
+
+Jos sekä enimmäissäilytysaika että enimmäistallennustila on asetettu Recallille, tilannevedokset poistetaan, kun ensimmäinen enimmäisarvo saavutetaan.
+
+Tärkeää: Tämä asetus koskee vain Enterprise- ja Education-asiakasohjelmistoja.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Anna käyttöjärjestelmän määrittää tallennustilan enimmäismäärä kiintolevyn tallennustilan koon perusteella</string>
+      <string id="SetMaximumStorageSpace_10GB">10 Gt</string>
+      <string id="SetMaximumStorageSpace_25GB">25 Gt</string>
+      <string id="SetMaximumStorageSpace_50GB">50 Gt</string>
+      <string id="SetMaximumStorageSpace_75GB">75 Gt</string>
+      <string id="SetMaximumStorageSpace_100GB">100 Gt</string>
+      <string id="SetMaximumStorageSpace_150GB">150 Gt</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Aseta Muistelu-ominaisuuden käyttämien tilannevedosten tallennuksen enimmäiskesto
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Tämän käytäntöasetuksen avulla voit hallita enimmäisaikaa (päivinä), jonka Windows säilyttää tilannevedokset Muistelu-ominaisuutta varten.
+
+Kun käytäntö on käytössä, voit määrittää säilytyksen enimmäiskestoksi 30, 60, 90 tai 180 päivää.
+
+Kun tätä käytäntöä ei ole määritetty, enimmäissäilytysaika on 90 päivää, ellei nykyinen käyttäjä määritä toista arvoa.
+
+Jos sekä enimmäissäilytysaika että enimmäistallennustila on asetettu Recallille, tilannevedokset poistetaan, kun ensimmäinen enimmäisarvo saavutetaan.
+
+Tärkeää: Tämä asetus koskee vain Enterprise- ja Education-asiakasohjelmistoja.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">Anna käyttöjärjestelmän määrittää tilannevedosten enimmäistallennusaika
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 päivää</string>
+      <string id="SetMaximumStorageDuration_60Days">60 päivää</string>
+      <string id="SetMaximumStorageDuration_90Days">90 päivää</string>
+      <string id="SetMaximumStorageDuration_180Days">180 päivää</string>
+      <string id="SetDenyAppListForRecall">Määritä luettelo sovelluksista, jotka suodatetaan pois tilannevedoksista Muistelu-ominaisuutta varten
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Tämän käytännön avulla voit määrittää luettelon sovelluksista, joita ei sisällytetä tilannevedoksiin Recall-ominaisuutta varten.
+
+Käyttäjät voivat lisätä muita sovelluksia, jotka jätetään pois tilannevedoksista, käyttämällä Recall-asetuksia.
+
+Luettelo voi sisältää sovelluksen käyttäjämallin tunnukset (AUMID) tai suoritettavan tiedoston nimen.
+
+Käytä puolipisteillä erotettua sovellusluetteloa Recall-ominaisuuden estoluettelon määrittämiseen.
+
+Esimerkki: code.exe;Microsoft.WindowsNotepad_8wekyb3d8bbwe!App;ms-teams.exe
+
+Tärkeää: Tämä asetus koskee vain Enterprise- ja Education-asiakasohjelmistoja. Tämän käytäntöasetuksen määrityksen jälkeen muutokset tulevat voimaan vasta, kun laite käynnistetään uudelleen.
+      </string>
+      <string id="SetDenyUriListForRecall">Määritä luettelo URI-tunnuksista, jotka suodatetaan pois tilannevedoksista Muistelu-ominaisuutta varten
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Tämän käytäntöasetuksen avulla voit määrittää luettelon URI-tunnuksista, joita ei sisällytetä tilannevedoksiin Muistelu, kun tuettua selainta käytetään. organisaation sisäiset Ihmiset voivat Muistelu asetusten avulla lisätä sivustoja luetteloon. Määritä luettelo puolipisteellä eroteltuina URI-tunnuksista.
+
+Esimerkki: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+https://www.WoodgroveBank.com lisääminen luetteloon suodattaisi myös https://Account.WoodgroveBank.com ja https://www.WoodgroveBank.com/Account.
+
+Tärkeää: Tämä asetus koskee vain Enterprise- ja Education-asiakkaan varastointiyksiköitä. Tähän käytäntöön tehdyt muutokset tulevat voimaan laitteen uudelleenkäynnistyksen jälkeen.
+      </string>
+      <string id="SetDataLossPreventionProvider">Määritä DLP-palvelutarjoajan tunnus Recallia varten
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Tämän käytännön avulla järjestelmänvalvoja voi määrittää Recallin käyttämän DLP-palveluntarjoajan, jos palvelu on asennettu oikein. Sinun on hankittava merkkijono palveluntarjoajaltasi. Se näyttää esimerkiksi tältä: ”key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll” (ilman lainausmerkkejä arvossa).
+
+Tärkeää: Tämä asetus koskee vain Enterprise- ja Education-asiakasohjelmistoja.
+      </string>
+      <string id="SetCopilotHardwareKey">Määritä Copilot-laitteistonäppäin</string>
+      <string id="SetCopilotHardwareKey_Help">Tämä käytäntöasetus määrittää, mikä sovellus avautuu, kun käyttäjä painaa näppäimistön Copilot-näppäintä. Jos käytäntö on käytössä, määritetty sovellus avautuu, kun käyttäjä painaa Copilot-näppäintä. Käyttäjät voivat muuttaa näppäimen määritystä asetuksissa. Jos käytäntöä ei ole määritetty, Copilot avautuu, jos se on käytettävissä kyseisessä maassa tai kyseisellä alueella.
+      </string>
+      <string id="AllowRecallEnablement">Salli Muistelu-ominaisuuden käyttöönotto
+      </string>
+      <string id="AllowRecallEnablement_Help">Tämän käytäntöasetuksen avulla voit määrittää, voivatko käyttäjät ottaa valinnaisen Muistelu-osan käyttöön laitteessaan. Oletusarvon mukaan Muistelu on poistettu käytöstä hallituissa kaupallisissa laitteissa. Muistelu ei ole oletusarvoisesti käytettävissä hallituissa laitteissa, eivätkä yksittäiset käyttäjät voi ottaa Muistelu käyttöön itse.
+
+Jos tätä käytäntöä ei määritetä, loppukäyttäjien Muistelu osa on käytöstä poistetussa tilassa.
+
+Jos tämä käytäntö poistetaan käytöstä, Muistelu-osa on poissa käytöstä ja Muistelu bitit poistetaan laitteesta. Jos laitteelle tallennettiin tilannevedoksia aiemmin, ne poistetaan, kun tämä käytäntö poistetaan käytöstä. Muistelu poistaminen edellyttää laitteen uudelleenkäynnistystä.
+
+Jos käytäntö otetaan käyttöön, loppukäyttäjät ovat Muistelu käytettävissä laitteessaan. Riippuen DisableAIDataAnalysis-käytännön tilasta (Poista käytöstä tilannevedosten tallentaminen käytettäväksi Muistelu kanssa), loppukäyttäjät voivat valita, haluavatko he tallentaa tilannevedokset näytöstä, ja etsiä laitteellaan näkemänsä kohteet Muistelu avulla.
+      </string>
+      <string id="DisableClickToDo">Poista Tee napsauttamalla käytöstä</string>
+      <string id="DisableClickToDo_Help">Tee napsauttamalla -toiminnon avulla käyttäjät voivat tehdä toimia näytöillään olevalle sisällölle. Kun se aktivoidaan, se ottaa näyttökuvan näytöstä ja analysoi sen esittääkseen toimintoja. Tee napsauttamalla -toiminto päättyy, kun käyttäjä poistuu siitä, eikä se voi ottaa näyttökuvia suljettuna. Näyttökuva-analyysi suoritetaan aina paikallisesti laitteessa. Oletusarvoisesti Tee napsauttamalla on käytössä käyttäjille.
+
+Tämä käytäntöasetus mahdollistaa sen määrittämisen, onko Tee napsauttamalla -toiminto käytettävissä käyttäjien laitteessa.
+
+Kun käytäntö on käytössä, Tee napsauttamalla -komponentti ja aloituspisteet eivät ole käyttäjien käytettävissä.
+
+Kun käytäntö on poistettu käytöstä, käyttäjillä on Tee napsauttamalla -toiminto käytettävissään laitteessaan.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">Poista Image Creator käytöstä</string>
+      <string id="DisableImageCreator_Help">Tämän käytäntöasetuksen avulla voit määrittää, onko Image Creator käytöstä Windows Paint -sovelluksessa. Jos tämä käytäntö otetaan käyttöön, Image Creator toiminnot eivät ole käytettävissä Paint-sovelluksessa. Jos tämä käytäntö poistetaan käytöstä tai jätetään määrittämättä, käyttäjät voivat käyttää Image Creator toimintoja.</string>
+      <string id="DisableCocreator">Poista Cocreator käytöstä</string>
+      <string id="DisableCocreator_Help">Tämän käytäntöasetuksen avulla voit määrittää, onko Cocreator-toiminnot poistettu käytöstä Windows Paint -sovelluksessa. Jos tämä käytäntö otetaan käyttöön, Cocreator-toiminnot eivät ole käytettävissä Paint-sovelluksessa. Jos tämä käytäntö poistetaan käytöstä tai jätetään määrittämättä, käyttäjät voivat käyttää cocreator-toimintoa.</string>
+      <string id="DisableGenerativeFill">Poista generatiivinen täyttö käytöstä</string>
+      <string id="DisableGenerativeFill_Help">Tämän käytäntöasetuksen avulla voit määrittää, onko muodostava täyttötoiminto poistettu käytöstä Windows Paint -sovelluksessa. Jos tämä käytäntö otetaan käyttöön, generatiivinen täyttötoiminto ei ole käytettävissä Paint-sovelluksessa. Jos tämä käytäntö poistetaan käytöstä tai jätetään määrittämättä, käyttäjät voivat käyttää luovia täyttötoimintoja.</string>
+      <string id="AllowRecallExport">Salli Recall- ja tilannevedostietojen vienti</string>
+      <string id="AllowRecallExport_Help">Tämän käytännön avulla voit määrittää, voivatko käyttäjät viedä omia Recall- ja tilannevedostietojaan. Viennin avulla käyttäjät voivat jakaa Recall- ja tilannevedostietojaan luotettujen sovellusten tai verkkosivustojen kanssa. Käyttäjät voivat viedä valitsemalla Asetukset &gt; Tietosuoja ja suojaus &gt; Recall ja tilannevedokset &gt; Lisäasetukset &gt; Vie tilannevedokset &gt; Vie aiemmat tilannevedokset &gt; Vie.
+
+Käyttäjät voivat myös valita jatkuvan tilannevedosten viennin, jos he ottavat käyttöön tilannevedosten vientivaihtoehdon kohdasta Asetukset &gt; Tietosuoja ja suojaus &gt; Recall ja tilannevedokset &gt; Lisäasetukset &gt; Vie tilannevedokset &gt; Vie.
+
+Ennen viennin aloittamista käyttäjän on todennettava Windows Hellon avulla, ja hänelle ilmoitetaan, että hänen viedyt tilannevedoksensa on salattu, koska ne saattavat sisältää arkaluonteisia tietoja. Käyttäjälle ilmoitetaan myös, että hänen on annettava Recall-vientikoodinsa, jos hän haluaa sallia luotettujen sovellusten tai verkkosivustojen käyttää vietyjä tilannevedoksia. Recall-vientikoodi näytetään käyttäjille Recall määrittämisen aikana, vaikka tämä käytäntö olisi poistettu käytöstä tai sitä ei olisi määritetty. Hallitut laitteet:
+
+Kun määrität tämän käytännön käyttöön, käyttäjät voivat viedä Recall- ja tilannevedostietoja.
+
+Jos käytäntö on poistettu käytöstä tai sitä ei ole määritetty, käyttäjät eivät voi viedä Recall- ja tilannevedostietojaan.
+
+Tärkeää: Tämä asetus koskee vain Euroopan talousaluetta (ETA). Recall- ja tilannevedostietojen vienti on käyttäjän käynnistämä prosessi, ja se on käyttäjäkohtainen. IT-järjestelmänvalvojat tai muut käyttäjät eivät voi aloittaa vientiä toisen puolesta.
+      </string>
+      <string id="DisableSettingsAgent">Poista asetusten agentin hakukokemus käytöstä</string>
+      <string id="DisableSettingsAgent_Help">Asetusten agenttikokemus parantaa hakutuloksia Asetukset-sovelluksessa ottamalla luonnollisen kielen käyttöön. Kun se on aktivoitu, se käyttää tekoälymallia älykkäiden asetusten hakuehdotusten tarjoamiseen.
+
+        Tämän käytäntöasetuksen avulla voit määrittää, onko asetusten agentin hakukokemus käyttäjien käytettävissä heidän laitteessaan.
+
+        Kun käytäntö on käytössä, asetusten agentin hakukokemus poistetaan käytöstä, jolloin hakutulokset rajoitetaan staattisesti indeksoituihin hakuihin ja semanttisiin hakuihin.
+
+        Kun käytäntö on poistettu käytöstä, käyttäjillä on asetusten agentin hakukokemus käytettävissä laitteessaan.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Laitteen rekisterin lokiin kirjaamistaso</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Tämä käytäntöasetus antaa mahdollisuuden määrittää lokiin kirjaamistaso laitteen rekisteritoiminnoille.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Virhe tai sitä vakavampi</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Tiedot tai sitä vakavampi</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Virheenkorjaus tai sitä vakavampi</string>
+      <string id="RemoveMicrosoftCopilotApp">Poista Microsoft Copilot -sovellus</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Tämän käytäntöasetuksen avulla voit poistaa Microsoft Copilotin käyttäjiltä kohdennetusti. Se koskee laitteita ja käyttäjiä, jotka täyttävät seuraavat ehdot:
+
+• Microsoft 365 Copilot ja Microsoft Copilot ovat molemmat asennettu
+
+• Käyttäjä ei ole asentanut Microsoft Copilot -sovellusta
+
+• Microsoft Copilot -sovellusta ei ole käynnistetty viimeisten 28 päivän aikana
+ 
+Jos tämä käytäntö otetaan käyttöön, Microsoft Copilot -sovellus poistetaan. Käyttäjät voivat halutessaan asentaa sen uudelleen. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>Anna sovelluksen AUMID</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Anna estettyjen sovellusten luettelo:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Anna estettyjen URI:en luettelo:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>Anna DLP-palveluntarjoajan tunnus:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Valitse tallennustilan enimmäiskoko:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Valitse tallennustilan enimmäiskesto:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Laitteen rekisterin lokiin kirjaamistaso: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

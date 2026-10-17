@@ -12,6 +12,8 @@ Tämä koskee sekä laitteen nykyisiä käyttäjiä että mahdollisia uusia lis�
 Tämä asetus kannattaa ottaa käyttöön, ennen kuin kukaan käyttäjistä kirjautuu laitteeseen, jotta laitteessa ei ole välimuistiin tallentuneita tunnuksia. Jos tämä asetus poistetaan käytöstä tai sitä ei määritetä, sovellukset ja palvelut voivat käyttää Microsoft-tilejä todentamiseen.  
 Tämä asetus on oletusarvoisesti poissa käytöstä. Tämä asetus ei vaikuta siihen, voiko käyttäjä kirjautua laitteisiin Microsoft-tilin avulla tai voiko hän käyttää Microsoft-tiliä selaimessa verkkopohjaisten sovellusten todentamisessa. 
         </string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnly">Salli laitteen todennus vain Microsoft-tilin kirjautumisavustajalle</string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnlyExplain">Tämä asetus määrittää, sallitaanko yrityslaitteen todennus vain Microsoft-tilin kirjautumisavustajapalvelulle (wlidsvc). Tämä asetus on oletusarvoisesti poissa käytöstä, ja sekä käyttäjän että laitteen todennus sallitaan. Kun arvoksi on määritetty 1, vain laitteen todennus sallitaan ja käyttäjän todennus estetään.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

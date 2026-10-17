@@ -58,33 +58,34 @@ Varken datorn eller några tjänster behöver startas om för att den här princ
 
 </string>
 <string id="TroubleshootingAllowRecommendations">Felsökning: Tillåt användare att använda rekommenderad felsökning för kända problem</string>
-<string id="TroubleshootingAllowRecommendationsExplain">Den här principinställningen tillämpar rekommenderad felsökning för kända problem och låter administratörer konfigurera hur den ska tillämpas i sina domäner/IT-miljöer.
-Om du inte konfigurerar den här principinställningen tillåts användarna konfigurera rekommenderad felsökning.
+<string id="TroubleshootingAllowRecommendationsExplain">Den här principinställningen konfigurerar hur felsökning av kända problem kan tillämpas på enheten och låter administratörer konfigurera hur den tillämpas på deras domäner/IT-miljöer.
 
-Om du aktiverar den här principen kan du konfigurera hur rekommenderad felsökning tillämpas på användarnas enheter. Du kan välja något av följande värden:
-0 = Inaktivera den här funktionen.
-1 = Inaktivera den här funktionen men kör fortfarande felsökning för kritiska problem.
-2 = Meddela användarna när rekommenderad felsökning är tillgänglig och låt sedan användarna välja att köra eller ignorera den.
-3 = Kör rekommenderad felsökning automatiskt och meddela användarna när den är klar.
-4 = Kör rekommenderad felsökning automatiskt utan att meddela användarna.
-5 = Låt användarna välja inställningar för rekommenderad felsökning.
+Om du inte konfigurerar den här principinställningen kan användaren konfigurera hur felsökning tillämpas.
 
-När du har konfigurerat den här nya inställningen följer du anvisningarna nedan för att utlösa rekommenderad felsökning för enheter i din domän:
-1. Skapa ett bat-skript med följande innehåll:
-rem Följande batchskript utlöser rekommenderad felsökning.
-C:\Windows\System32\mitigationscanner.exe
+Om du aktiverar den här principen kan du konfigurera hur felsökning tillämpas på användarens enhet. Du kan välja något av följande värden:
+0 = Tillåt inte användare, systemfunktioner eller Microsoft att tillämpa felsökning 
+1 = Använd endast automatisk felsökning för kritiska problem av systemfunktioner och Microsoft
+2 = Använd automatiskt felsökning för kritiska problem av systemfunktioner och Microsoft. Meddela användare när felsökning efter andra problem är tillgänglig och tillåt dem att välja att använda den eller ignorera den.
+3 = Använd automatisk felsökning för viktiga problem och andra problem av systemfunktioner och Microsoft. Meddela användarna när felsökningen har löst ett problem.
+4 = Använd automatisk felsökning för viktiga problem och andra problem av systemfunktioner och Microsoft. Meddela inte användarna när felsökningen har löst ett problem.
+5 = Tillåt att användaren väljer sina egna felsökningsinställningar.
 
-2. om du vill skapa en ny omedelbar aktivitet går du till Redigeraren för grupprinciphantering &gt; Datorkonfiguration &gt; Inställningar och väljer Kontrollpanelsinställningar. 
-3. Högerklicka på Schemalagda aktiviteter under Kontrollpanelsinställningar och välj Ny. Välj Omedelbar aktivitet (Windows 7 och senare).
-4. Ange ett lämpligt namn och en beskrivning. Sätt sedan användarkontot till System under Säkerhetsalternativ och markera kryssrutan Kör med högsta behörighet.
-5. Skapa en ny åtgärd på fliken Åtgärder, välj Starta ett program som typ och ange filen som skapades i steg 1.
-6. Konfigurera aktiviteten för distribution i din domän.</string>
-<string id="RecommendationsDropDown_DoNothing">Inaktivera den här funktionen</string>
-<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Inaktivera den här funktionen men kör fortfarande felsökning för kritiska problem.</string>
-<string id="RecommendationsDropDown_AskFirst">Meddela användarna när rekommenderad felsökning är tillgänglig och låt sedan användarna välja att köra eller ignorera den.</string>
-<string id="RecommendationsDropDown_ApplyThenNotify">Kör rekommenderad felsökning automatiskt och meddela användarna när den är klar.</string>
-<string id="RecommendationsDropDown_ApplySilently">Kör rekommenderad felsökning automatiskt utan att meddela användarna.</string>
-<string id="RecommendationsDropDown_DeferToUser">Låt användarna välja inställningar för rekommenderad felsökning.</string>
+När du har angett den här principen kan du använda följande instruktioner för att kontrollera om det finns tillgänglig felsökning från Microsoft för enheter i domänen:
+1. skapa ett BAT-skript med följande innehåll:
+rem följande kommandoskript utlöser Rekommenderad felsökning
+SCHTASKS/Run/TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner"
+
+2. Om du vill skapa en ny omedelbar aktivitet går du till redigeraren för hantering av grupprinciper &gt; datorkonfiguration &gt; inställningar och väljer inställningar för kontrollpanelen. 
+3. Högerklicka på schemalagda aktiviteter under kontrollpanelens inställningar och välj Nytt. Välj omedelbar aktivitet (Windows 7 och senare).
+4. Ange ett namn och en beskrivning. Ange sedan användarkontot till System och markera kryssrutan Kör med högsta behörighet under säkerhetsalternativen.
+5. Skapa en ny åtgärd på fliken Åtgärder, välj Starta ett program som typ och ange sedan den fil som skapades i steg 1.
+6. Konfigurera aktiviteten så att den distribueras till din domän.</string>
+<string id="RecommendationsDropDown_DoNothing">Tillåt inte användare, systemfunktioner och Microsoft att använda felsökning.</string>
+<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Endast automatiskt använda felsökning för kritiska problem genom systemfunktioner och Microsoft.</string>
+<string id="RecommendationsDropDown_AskFirst">Använd felsökning automatiskt för kritiska problem med systemfunktioner och Microsoft. Meddela användare när felsökning för andra problem är tillgänglig och låt användare välja att använda eller ignorera.</string>
+<string id="RecommendationsDropDown_ApplyThenNotify">Använd automatisk fel sökning för viktiga och andra problem av systemfunktioner och Microsoft. Meddela användarna när fel sökningen löste ett problem.</string>
+<string id="RecommendationsDropDown_ApplySilently">Använd automatisk fel sökning för viktiga och andra problem av systemfunktioner och Microsoft. Meddela inte användarna när fel sökningen löste ett problem.</string>
+<string id="RecommendationsDropDown_DeferToUser">Låt användaren välja inställningar för felsökning.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MsdtToolDownloadPolicy">

@@ -14,8 +14,15 @@
       <string id="WU_SUPPORTED_Windows7_To_Win2kSP3_Or_XPSP1">Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2003, Windows XP SP2, Windows XP SP1 , Windows 2000 SP4, Windows 2000 SP3</string>
       <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_NoWinRT">Mindst Windows XP Professional Service Pack 1 eller Windows 2000 Service Pack 3, eksklusive Windows RT</string>
       <string id="WU_SUPPORTED_WindowsXPSP1_NoWinRT">Mindst Windows Server 2003-operativsystemer eller Windows XP Professional med SP1, eksklusive Windows RT</string>
-      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Mindst Windows XP Professional Service Pack 1 eller mindst Windows 2000 Service Pack 3 til og med Windows 8.1 eller Windows Server 2012 R2 med den mest aktuelle servicepakke</string>
-      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Mindst Windows Vista til og med Windows 8.1 eller Windows Server 2012 R2 med den mest aktuelle servicepakke</string>
+      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Mindst Windows XP Professional Service Pack 1 eller mindst Windows 2000 Service Pack 3 til og med Windows 8.1 eller Windows Server 2012 R2 med den nyeste servicepakke. Understøttes ikke på Windows 10 og derover.</string>
+      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Mindst Windows Vista til og med Windows 8.1 eller Windows Server 2012 R2 med den nyeste servicepakke. Understøttes ikke på Windows 10 og derover.</string>
+      <string id="WU_SUPPORTED_XPSP1_or_Win2kSP3_AUOption7_SUPPORTED_Server2016">Mindst Windows XP Professional Service Pack 1 eller mindst Windows 2000 Service Pack 3
+Indstilling 7 understøttes kun på servere med mindst Windows Server 2016 Edition​</string>
+      <string id="WU_SUPPORTED_Server2016_Through_Server2022_Or_Windows10">Windows Server 2016 til og med Windows Server 2022 eller Windows 10</string>
+      <string id="WU_SUPPORTED_Windows_Server_2019_Windows_10_0_1809">Mindst Windows Server 2019 eller Windows 10 Version 1809​</string>
+      <string id="WU_SUPPORTED_Windows_Server_2022_Windows_10_0_2004">Mindst Windows Server 2022 eller Windows 10 Version 2004​</string>
+      <string id="WU_SUPPORTED_WinServer2025_Win1021H2_Win1122H2">Mindst Windows Server 2025, Windows 10 version 21H2 eller Windows 11 version 22H2</string>
+      <string id="WU_SUPPORTED_Win11_24H2">Mindst Windows 11 version 24H2</string>
       <string id="AUDontShowUasHelp">Denne politik giver dig mulighed for at administrere, om indstillingen Installer opdateringer og luk computeren skal vises i dialogboksen Luk Windows.
 
 Hvis du aktiverer denne politikindstilling, vises Installer opdateringer og luk computeren ikke vises som en indstilling i dialogboksen Luk Windows, heller ikke selvom der er opdateringer klar til installation, når brugeren vælger indstillingen Luk computeren i menuen Start.
@@ -60,32 +67,37 @@ Hvis denne politik er aktiveret i Windows 8 og Windows RT, vises kun beskeder i 
 
 Bemærk! Denne politikindstilling gælder ikke for Windows RT.
 
-Med denne indstilling kan du angive, om automatiske opdateringer er aktiveret på denne computer. Hvis tjenesten er aktiveret, skal du vælge en af de fire indstillinger i indstillingen for GruppePolitik:
+Med denne indstilling kan du angive, om automatiske opdateringer er aktiveret på denne computer. Hvis tjenesten er aktiveret, skal du vælge en af de fire indstillinger i gruppepolitikindstillingen:
 
         2 = Giv besked, før der hentes og installeres opdateringer.
 
         Når Windows finder opdateringer, der gælder for denne computer, får brugerne besked om, at opdateringerne er klar til at blive downloadet. Når brugerne starter til Windows Update, kan de downloade og installere alle tilgængelige opdateringer.
 
-        3 = (standardindstilling) Download opdateringerne automatisk, og giv besked, når de er klar til at blive installeret
+        3 = (standardindstilling) Download opdateringerne automatisk, og giv besked, når de er klar til at blive installeret.
 
         Windows finder opdateringer, der gælder for computeren og downloader dem i baggrunden (brugeren underrettes ikke og bliver ikke afbrudt). Når downloaden er fuldført, får brugerne besked om, at de er klar til at blive installeret. Efter at have startet Windows Update kan brugerne installere dem.
 
-        4 = Download automatisk opdateringer, og installer dem efter planen, der er angivet nedenfor.
+        4 = Download automatisk opdateringer, og installér dem efter planen, der er angivet nedenfor.
 
-        Når "automatisk" er valgt som den planlagte installationstid, vil Windows automatisk kontrollere, downloade og installere opdateringer. Enheden genstartes ifølge Windows-standardindstillinger, medmindre det er konfigureret af gruppepolitik. (Gælder for Windows 10, version 1809 og højere)
+        Når "automatisk" er valgt som den planlagte installationstid, vil Windows automatisk kontrollere, downloade og installere opdateringer. Enheden genstartes ifølge Windows-standardindstillinger, medmindre det er konfigureret af gruppepolitik. (Gælder for Windows 10, version 1809 og højere).
 
-        Angiv tidsplanen ved hjælp af indstillingerne i Indstilling for gruppepolitik. For version 1709 og senere er der et ekstra valg til at begrænse opdatering til en ugentlig, to-ugentlig eller månedlig forekomst. Hvis der ikke angives en tidsplan, vil standardplanen for alle installationer være hver dag kl. 3:00. Hvis opdateringer kræver genstart for at fuldføre installationen, vil Windows genstarte computeren automatisk. (Hvis en bruger er logget på computeren, når Windows er klar til at genstarte, får brugeren besked, og får mulighed for at udskyde genstarten).
+        Angiv tidsplanen ved hjælp af indstillingerne i gruppepolitikindstillingen. For version 1709 og senere er der et ekstra valg til at begrænse opdatering til en ugentlig, to-ugentlig eller månedlig forekomst. Hvis der ikke angives en tidsplan, vil standardplanen for alle installationer være hver dag kl. 3:00. Hvis opdateringer kræver genstart for at fuldføre installationen, vil Windows genstarte computeren automatisk. (Hvis en bruger er logget på computeren, når Windows er klar til at genstarte, får brugeren besked, og får mulighed for at udskyde genstarten).
 
         I Windows 8 og nyere versioner kan du angive opdateringer, der skal installeres under automatisk vedligeholdelse i stedet for en bestemt tidsplan. Automatisk vedligeholdelse installerer opdateringer, når computeren ikke er i brug og undgår at gøre det, når computeren kører på batteristrøm. Hvis automatisk vedligeholdelse ikke kan installere opdateringer i 2 dage, installerer Windows Update dem med det samme. Brugerne får derefter besked om en kommende genstart, og genstart vil kun finde sted, hvis der ikke er nogen mulighed for at miste data.
 
-        5 = Giv lokale administratorer tilladelse til at vælge den konfigurationstilstand, hvor automatiske opdateringer giver besked om og installerer opdateringer. (Denne indstilling er ikke overført til nogen version på Windows 10)
+        5 = Giv lokale administratorer tilladelse til at vælge den konfigurationstilstand, hvor automatiske opdateringer giver besked om og installerer opdateringer. (Denne indstilling er ikke overført til nogen version på Windows 10).
 
         Med denne indstilling vil lokale administratorer have tilladelse til at bruge Windows Update-kontrolpanelet til at vælge deres egen konfigurationsindstilling. Lokale administratorer vil ikke have tilladelse til at deaktivere konfigurationen for automatiske opdateringer.
 
-Hvis status for denne politik er deaktiveret, skal alle opdateringer, der er tilgængelige på Windows Update, downloades og installeres manuelt. Det kan du gøre ved at søge efter Windows Update vha. Start.
+        7 = Giv besked om installation, og giv besked om genstart. (kun Windows Server).
 
-Hvis status er angivet til Ikke konfigureret, er brug af automatiske opdateringer ikke angivet på Gruppepolitikniveau. En administrator kan dog stadig konfigurere automatiske opdateringer via kontrolpanel.</string>
+        Med denne indstilling fra Windows Server 2016, der kun gælder for Server SKU-enheder, kan lokale administratorer bruge Windows Update til at fortsætte med installationer eller genstarter manuelt.
 
+Hvis status for denne politik er angivet til Deaktiveret, skal alle opdateringer, der er tilgængelige på Windows Update, downloades og installeres manuelt. Det kan du gøre ved at søge efter Windows Update vha. Start.
+
+Hvis status er angivet til Ikke konfigureret, er brug af automatiske opdateringer ikke angivet på Gruppepolitikniveau. En administrator kan dog stadig konfigurere automatiske opdateringer via Kontrolpanel.</string>
+
+      <string id="AutoUpdateModeNotifyToInstallNotifyToReboot">7 – Download automatisk, Giv besked for at installere, Giv besked for at genstarte</string>
       <string id="AutoUpdateModeAdminChooses">5 – Tillad, at en lokal administrator vælger indstillingen</string>
       <string id="AutoUpdateModeAuto">4 – Hent automatisk, og planlæg installationen</string>
       <string id="AutoUpdateModeDownload">3 – Hent automatisk, og giv besked om installation</string>
@@ -129,11 +141,11 @@ Hvis status er angivet til Ikke konfigureret, er brug af automatiske opdateringe
 
         Denne indstilling gør det muligt at angive en server på netværket, der skal fungere som en intern opdateringstjeneste. Klienten til automatiske opdateringer søger på denne tjeneste efter opdateringer, der gælder for computerne i netværket.
 
-        For at kunne bruge denne indstilling skal du angive to værdier for servernavn: den server, hvorfra klienten til automatiske opdateringer identificerer og downloader opdateringer, og den server, som opdaterede arbejdsstationer uploader statistikker til. Du kan angive begge værdier til at være den samme server. En valgfri værdi for servernavn kan angives for at konfigurere Windows Update-agenten til at downloade opdateringer fra en alternativ downloadserver i stedet for opdateringstjenesten på intranettet.
+        For at kunne bruge denne indstilling, skal du angive to værdier for servernavn: den server, hvorfra klienten til automatiske opdateringer identificerer og downloader opdateringer, og den server, som opdaterede arbejdsstationer uploader statistikker til. Du kan angive begge værdier til at være den samme server. En valgfri værdi for servernavn kan angives for at konfigurere Windows Update-agenten til at downloade opdateringer fra en alternativ downloadserver i stedet for opdateringstjenesten på intranettet.
 
         Hvis status er angivet til Aktiveret, vil klienten til automatiske opdateringer oprette forbindelse til den angivne intranetbaserede Microsoft-opdateringstjeneste (eller alternative downloadserver), i stedet for Windows Update, for at søge efter og downloade opdateringer. Hvis du aktiverer denne indstilling, betyder det, at slutbrugere i din organisation ikke behøver at gå gennem en firewall for at få opdateringer, og du får mulighed for at teste opdateringer, inden de udrulles.
 
-        Hvis status er angivet til Deaktiveret eller Ikke konfigureret, og hvis automatiske opdateringer ikke er deaktiveret af en politik eller brugerpræference, vil klienten til automatiske opdateringer oprette direkte forbindelse til Windows Update-websitet på internettet.
+        Hvis status er angivet til Deaktiveret eller Ikke konfigureret, og hvis automatiske opdateringer ikke er deaktiveret af en politik eller brugerpræference, vil klienten til automatiske opdateringer oprette direkte forbindelse til Windows Update-webstedet på internettet.
 
         Den alternative downloadserver konfigurerer Windows Update-agenten til at downloade filer fra en alternativ downloadserver i stedet for opdateringstjenesten på intranettet.
 
@@ -145,7 +157,25 @@ Hvis status er angivet til Ikke konfigureret, er brug af automatiske opdateringe
 
         Bemærk! Indstillingen "Download filer uden URL-adresse..." bruges kun, hvis "Alternativ downloadserver" er angivet.
 
-        Bemærk! Denne politik understøttes ikke på Windows RT. Angivelse af politikken har ingen effekt på Windows RT-pc'er.</string>
+        Bemærk! Denne politik understøttes ikke på Windows RT. Angivelse af politikken har ingen effekt på Windows RT-pc'er.
+
+        For at sørge for den bedst mulige sikkerhed, anbefaler Microsoft at sikre WSUS med TLS/SSL-protokol, hvorved der bruges HTTPS-baserede intranetservere til at holde systemerne sikre. Hvis der kræves en proxy, anbefaler vi at konfigurere en systemproxy. For at sikre de højeste sikkerhedsniveauer yderligere benyttes fastgørelse af WSUS TLS-certifikat på alle enheder.
+
+         For at holde klienter sikre, tillader vi ikke længere intranetservere som standard at benytte brugerproxy til at registrere opdateringer. Hvis du har brug for at benytte brugerproxy til registrering af opdateringer, mens du bruger en intranetserver, trods de sårbarheder det medfører, skal du konfigurere proxyadfærd til "Tillad, at brugerproxy bruges som fallback, hvis registrering ved hjælp af systemproxy mislykkes".
+
+       Registrering af opdateringer imod intranetservere vil mislykkes, hvis en brugerproxy er nødvendig som fallback, og den alternative proxyadfærd ikke er konfigureret.</string>
+      <string id="OnlyUseSystemProxyForUpdateDetection">Brug kun systemproxy til at registrere opdateringer (standard)</string>
+      <string id="AllowUserProxyAsFallbackForUpdateDetection">Tillad, at brugerproxy bruges som fallback, hvis registrering ved hjælp af systemproxy mislykkes</string>
+      <string id="UpdateClassPolicySource_Title">Angiv kildetjeneste for bestemte klasser af Windows Updates</string>
+      <string id="UpdateClassPolicySource_Help">Når denne politik er aktiveret, modtager enheder Windows-opdateringer for de klasser, der er angivet fra den angivne opdateringskilde: enten Windows Update eller Windows Server Update-tjenesten.
+
+Bemærk! Hvis du vil modtage opdateringer fra Windows Server Update-tjenesten, skal du have konfigureret en microsoft-opdateringstjenesteplacering på intranettet korrekt via politikken "Angiv placeringen af Microsoft-opdateringstjenesten på intranettet".
+
+Hvis denne politik ikke er konfigureret eller er deaktiveret, vil enheden fortsætte med at registrere opdateringer i henhold til dine andre politikkonfigurationer.
+
+Bemærk! Hvis du bruger "Tillad ikke, at politikker for udskydelse medfører scanninger mod Windows Update" i øjeblikket for at sikre, at enheder kun scannes mod den angivne server, anbefaler vi, at du konfigurerer denne politik i stedet for eller ud over en sådan.</string>
+      <string id="UpdateClassPolicySourceSelectionWU">Windows Update</string>
+      <string id="UpdateClassPolicySourceSelectionWSUS">Windows Server Update Services</string>
       <string id="DetectionFrequency_Help">Angiver det antal timer, Windows bruger på at fastslå, hvor lang tid der skal ventes, før der kontrolleres for tilgængelige opdateringer. Den nøjagtige ventetid er summen af den angivne værdi og en tilfældig variant på 0-4 timer.
 
         Hvis status er angivet til Aktiveret, undersøger Windows, om der er tilgængelige opdateringer med det angivne interval.
@@ -289,6 +319,12 @@ Bemærk! Denne politik gælder kun, når Microsoft-opdateringstjenesten for denn
 Bemærk! Denne politikindstilling understøttes ikke i Windows RT. Hvis du angiver denne politik., påvirkes Windows RT-pc'er ikke.</string>
       <string id="TargetGroup_Title">Aktiver individuel klientopdatering</string>
       <string id="WindowsUpdateCat">Windows Update</string>
+      <!--Category sub-folders-->
+      <string id="WindowsUpdateOffering">Administrer opdateringer, der tilbydes fra Windows Update</string>
+      <string id="WSUSOffering">Administrer opdateringer, der tilbydes af Windows Server Update Service</string>
+      <string id="WindowsUpdateExperience">Administrer slutbrugeroplevelse</string>
+      <string id="PreSV">Ældre politikker</string>
+
       <string id="TrustedPublisher_Title">Tillad signerede opdateringer fra en placering af Microsoft-opdateringstjenesten på intranettet  </string>
       <string id="TrustedPublisher_Help">Denne politikindstilling giver dig mulighed for at angive, om Automatiske opdateringer skal acceptere opdateringer, der er signeret af andre end Microsoft, når opdateringen kommer fra en Microsoft-opdateringstjeneste på intranettet.
 
@@ -304,48 +340,34 @@ Bemærk! Denne politikindstilling understøttes ikke i Windows RT. Hvis du angiv
 Ved aktivering af denne politikindstilling deaktiveres denne funktionalitet, og det kan bevirke, at forbindelser til offentlige tjenester som f.eks. Windows Store holder op med at fungere.
 
 Bemærk! Denne politikindstilling gælder kun, når denne pc er konfigureret til at oprette forbindelse til en opdateringstjeneste, der bruger politikindstillingen "Angiv placeringen af Microsoft-opdateringstjenesten på intranettet".</string>
-      <string id="DeferUpdateCat">Windows Update til virksomheder</string>
       <string id="ManagePreviewBuilds_Title">Administrer eksempelbuilds</string>
-      <string id="ManagePreviewBuilds_Help">Hvis du vælger "Slå eksempelbuilds fra", bliver der ikke installeret eksempelbuilds på enheden. Dette vil forhindre, at brugere kan tilmelde sig Windows Insider Program via Indstillinger -&gt; Opdatering og sikkerhed.
+      <string id="ManagePreviewBuilds_Help">Aktivér denne politik for at administrere, hvilke opdateringer du modtager, inden opdateringen frigives til hele verden.
 
-Hvis du vælger "Slå eksempelbuilds fra, når den næste udgave er offentliggjort", bliver der ikke installeret eksempelbuilds, når den næste udgave af Windows bliver offentliggjort. Denne indstilling er praktisk, når din enhed er konfigureret til at installere eksempelbuilds, og du vil afmelde enheden fra flighting. Denne indstilling vil sikre, at eksempelbuilds installeres, indtil enheden når den næste offentlige udgivelse.
+Udviklingskanal
+Ideel til meget tekniske brugere. Insiders i Udviklingskanalen modtager builds fra vores aktive udviklingsafdeling, der er tidligst i en udviklingscyklus. Disse builds matcher ikke nogen bestemt Windows 10-udgivelse.
 
-Hvis du vælger "Slå eksempelbuilds til", bliver der installeret eksempelbuilds på enheden. Brugere kan downloade og installere Windows-eksempelbuilds på deres enheder ved at tilmelde sig via Indstillinger -&gt; Opdatering og sikkerhed -&gt; Windows Insider Program. Administratorer kan også bruge politikker til at administrere flightindstillingerne på vegne af brugerne, når denne værdi er angivet.</string>
-      <string id="DisablePreviewBuilds">Slå eksempelbuilds fra</string>
-      <string id="DisablePreviewBuildsAndOptOut">Slå eksempelbuilds fra, når den næste udgave er offentliggjort</string>
-      <string id="EnablePreviewBuilds">Slå eksempelbuilds til</string>
-      <string id="PreviewBuildFastFeatureUpdates">Eksempelbuild - Hurtig</string>
-      <string id="PreviewBuildSlowFeatureUpdates">Eksempelbuild - Langsom</string>
-      <string id="ReleasePreviewBranchFeatureUpdates">Release-eksempel</string>
-      <string id="SemiAnnualChannelFeatureUpdates">Halvårlig kanal</string>
-      <string id="SemiAnnualChannelFeatureUpdatesDeprecated">Halvårlig kanal for 1809 og derunder (frarådet)</string>
-      <string id="SemiAnnualChannelFeatureUpdatesTargetedDeprecated">Halvårlig kanal (målrettet) til 1809 og derunder (frarådet)</string>
+Beta-kanal
+Ideel til dem, som elsker at udforske funktioner, og som gerne vil se kommende Windows 10-funktioner. Din feedback er særlig vigtig her, eftersom den vil hjælpe vores udviklere med at løse de vigtigste problemer inden en større udgivelse.
+
+Release Preview-kanal (standard)
+Insiders i Release Preview-kanalen vil have adgang til den kommende udgivelse af Windows 10, inden den udgives til hele verden. Disse builds understøttes af Microsoft. Release Preview-kanalen er det sted, hvor vi anbefaler virksomheder at gennemse og validere kommende Windows 10-udgivelser, inden de rulles fuldt ud i organisationen.
+
+Release Preview-kanal – kun kvalitetsopdateringer
+Ideel til dem, som ønsker at validere de funktioner og rettelser, der snart kommer til deres nuværende version. Bemærk, at udgivne funktionsopdateringer fortsat tilbydes i overensstemmelse med konfigurerede politikker, når denne indstilling er valgt.
+
+Bemærk! Registrering af forhåndsvisningbuilds kræver en indstilling på telemetriniveau på 2 eller højere, og at dit domæne er registreret på insider.windows.com. Du kan finde flere oplysninger om forhåndsvisningbuilds på: https://aka.ms/wipforbiz
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, tilbyder Windows Update dig ikke foreløbige opdateringer, og du vil først modtage sådant indhold, når det er frigivet til hele verden. Deaktivering af denne politik medfører, at alle enheder, der i øjeblikket er på et foreløbigt build, fravælger og forbliver på den nyeste funktionsopdatering, når den er udgivet.</string>
+      <string id="DevChannel">Dev-kanal</string>
+      <string id="BetaChannel">Beta-kanal</string>
+      <string id="ReleasePreviewChannel">Release Preview-kanal</string>
+      <string id="ReleasePreviewQualityOnly">Frigiv kun forhåndsvisning af kvalitetsopdateringer</string>
       <string id="DeferFeatureUpdates_Title">Vælg, hvornår eksempelbuilds og funktionsopdateringer skal modtages</string>
-      <string id="DeferFeatureUpdates_Help">Aktivér denne politik for at angive niveauet af de Eksempelbuilds eller Funktionsopdateringer, der skal modtages, og hvornår.
+      <string id="DeferFeatureUpdates_Help">Aktiver denne politik for at angive, hvornår funktionsopdateringerne skal modtages.
 
-* Eksempelbuild - Hurtig: Enheder, der er indstillet til dette niveau, vil være de første til at modtage nye builds af Windows med funktioner, der endnu ikke er tilgængelige for offentligheden. Vælg Hurtig for at deltage i at identificere og rapportere problemer til Microsoft og give forslag til nye funktioner.
-* Eksempelbuild - Langsom: Enheder, der er indstillet til dette niveau, modtager nye builds af Windows, før de er tilgængelige for offentligheden, men med en langsommere hastighed end dem, der er indstillet til Hurtig, og med ændringer og rettelser, der er identificeret i tidligere builds.
-* Release-eksempel: Modtag builds af Windows, lige før Microsoft frigiver dem til offentligheden.
-* Halvårlig kanal: Modtag funktionsopdateringer, når de frigives til offentligheden.
+Udskyd opdateringer | Dette gør det muligt for enheder at udsætte at tage den næste funktionsopdatering, der er tilgængelig for deres nuværende produkt (eller et nyt produkt, hvis det er angivet i politikken for Vælg målversionen til funktionsopdateringen). Du kan udskyde en funktionsopdatering i op til 14 dage for alle foreløbige kanaler og op til 365 dage for Almen tilgængelighedskanalen. For at lære mere om de aktuelle udgivelser, se venligst aka.ms/WindowsTargetVersioninfo
 
-Følgende niveauer af Windows-parathed er blevet frarådet og er kun tilgængelig for 1809 og herunder:
-* Halvårlig kanal (målrettet) til 1809 og tidligere: Funktionsopdateringer er blevet frigivet.
-* Halvårlig kanal for 1809 og tidligere: Funktionsopdateringer er erklæret halvårlig kanal, og det er en betegnelse, der angiver, at udgivelsen er klar til omfattende installation.
-Gennemse siden med versionsoplysninger på http://aka.ms/ReleaseInformationPage for den halvårlige kanal (målrettet) og halvårlig kanalens udgivelsesdatoer.
-
-Når du vælger et eksempelbuild:
-    -Du kan udskyde modtagelsen af eksempelbuilds i op til 14 dage.
-    -Hvis du vil undgå, at eksempelbuilds modtages på det planlagte tidspunkt, kan du midlertidigt afbryde dem. Pausen vil forblive i kraft i 35 dage fra det angivne starttidspunkt.
-    -Hvis du vil genoptage modtagelsen af funktionsopdateringer, som er stoppet midlertidigt, skal du rydde feltet Startdato.
-
-Tilmelding af eksempelbuild kræver en telemetriniveauindstilling på 2 eller højere, og dit domæne skal være registreret på insider.windows.com. Yderligere oplysninger om eksempelbuilds finder du under: https://aka.ms/wipforbiz
-
-Ved valg af halvårlig kanal:
-    -Du kan udskyde modtagelsen af funktionsopdateringer i op til 365 dage.
-    -Hvis du vil forhindre, at funktionsopdateringer modtages på det planlagte tidspunkt, kan du midlertidigt afbryde midlertidigt. Pausen vil forblive i kraft i 35 dage fra det angivne starttidspunkt.
-    -Hvis du vil genoptage modtagelsen af funktionsopdateringer, som er stoppet midlertidigt, skal du rydde feltet Startdato.
-
-Hvis du deaktiverer eller undlader at konfigurere denne politik, vil Windows Update ikke ændre funktionsmåden.</string>
+Afbryd opdateringer midlertidigt | For at forhindre funktionsopdateringer i at blive tilbudt enheden, kan du midlertidigt sætte funktionsopdateringer på pause. Denne pause forbliver i kraft i 35 dage fra den angivne startdato, eller indtil feltet er ryddet. Bemærk, kvalitetsopdateringer vil stadig blive tilbudt, selvom funktionsopdateringer er sat på pause.</string>
       <string id="DeferQualityUpdates_Title">Vælg, hvornår kvalitetsopdateringer skal modtages</string>
       <string id="DeferQualityUpdates_Help">Aktivér denne politik for at angive, hvornår du vil modtage kvalitetsopdateringer.
 
@@ -356,6 +378,20 @@ Hvis du vil forhindre, at kvalitetsopdateringer modtages på det planlagte tidsp
 Hvis du vil genoptage modtagelsen af kvalitetsopdateringer, der er midlertidigt afbrudt, skal du rydde feltet Startdato.
 
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vil Windows Update ikke ændre funktionsmåden.</string>
+      <string id="TargetReleaseVersion_Title">Vælg opdateringsversion for målfunktion</string>
+      <string id="TargetReleaseVersion_Help">Angiv produktet og versionen som angivet på siden for Windows Update målversion:
+
+                        aka.ms/WindowsTargetVersioninfo
+
+Enheden vil anmode om at Windows opdaterer produkt og version i efterfølgende scanninger.
+
+Når jeg angiver et målprodukt og klikker på OK eller Anvend, accepterer jeg produktets Licensvilkår for Microsoft-software, fundet på aka.ms/WindowsTargetVersioninfo. Hvis en organisation licenserer softwaren, er jeg autoriseret til at binde organisationen.
+
+Hvis du angiver en ugyldig værdi, forbliver du på din nuværende version, indtil du retter værdierne til et understøttet produkt og en understøttet version.</string>
+      <string id="DisableWUfBSafeguards">Deaktiver sikkerhedsforanstaltninger for funktionsopdateringer</string>
+      <string id="DisableWUfBSafeguards_Help">
+          Aktivér denne indstilling, når funktionsopdateringer skal installeres p enheder uden at blokere sikkerhedsforanstaltninger. Sikkerhedsforanstaltninger er kendte kompatibilitetsproblemer, der blokerer opgraderingen, så de ikke kan installeres på de berørte enheder, før problemet er løst. Hvis denne politik aktiveres, har en organisation mulighed for at installere funktionsopdateringen på enheder med henblik på test eller at installere funktionsopdateringen uden at blokere for sikkerhedsforanstaltninger.
+      </string>
       <string id="ExcludeWUDriversInQualityUpdate_Title">Medtag ikke drivere i Windows-opdateringer</string>
       <string id="ExcludeWUDriversInQualityUpdate_Help">Aktivér denne politik for ikke at medtage drivere sammen Windows-kvalitetsopdateringer.
 
@@ -448,6 +484,16 @@ Hvis du aktiverer denne indstilling, fjernes brugernes adgang til at gennemsøge
       <string id="DisablePauseUXAccess_Help">Denne indstilling gør det muligt at fjerne adgangen til funktionen "Afbryd opdateringer midlertidigt".
 
 Når indstillingen er aktiveret, fjernes brugernes adgang til at afbryde opdateringer midlertidigt.
+      </string>
+
+      <string id="MaxPauseDays_Title">Konfigurer det maksimale antal dage, opdateringer kan sættes på pause</string>
+      <string id="MaxPauseDays_Help">Denne politik styrer det maksimale antal dage, som slutbrugere kan afbryde opdateringer midlertidigt.
+
+Understøttede værdier er 1-35. Standardværdien er 35 (dage).
+
+Når politikken er konfigureret, kan brugerne kun afbryde opdateringer midlertidigt indtil slutningen af den tidsperiode, der er angivet af politikken. Når den konfigurerede grænse er nået, kan brugerne ikke længere forlænge pausen.
+
+Hvis politikken er deaktiveret eller ikke konfigureret, gælder standardfunktionsmåden for midlertidig afbrydelse – så brugerne løbende kan afbryde opdateringer midlertidigt i op til 35 dage ad gangen. Denne politik deaktiverer ikke Sæt opdateringer på pause helt. Hvis du vil fjerne adgangen til Afbryd opdateringer midlertidigt, skal du bruge politikken "Fjern adgang til funktionen Afbryd opdateringer midlertidigt".
       </string>
 
       <string id="ActiveHoursMaxRange_Title">Angiv interval for aktive timer ved automatisk genstart</string>
@@ -582,30 +628,51 @@ Bemærk: Denne politik gælder kun, når Microsoft Update-tjenesten på intranet
       </string>
       <string id="UpdateNotificationLevel_Title">Visningsindstillinger for opdateringsmeddelelser</string>
       <string id="UpdateNotificationLevel_Help">0 (standard) – Brug standardmeddelelserne i Windows Update
-1 – Slå alle meddelelser fra på nær advarsler om genstart
-2 – Slå alle meddelelser fra, også meddelelser om genstart
+1 – Slå alle meddelelser fra, undtagen advarsler om genstart
+2 – Slå alle meddelelser fra, herunder advarsler om genstart
 
-Du kan bruge denne politik til at definere, hvad brugere af Windows Update-meddelelser ser. Politikken kontrollerer ikke, hvordan og hvornår opdateringer downloades og installeres.
+Denne politik giver dig mulighed for at definere, hvilke Windows Update-meddelelser brugerne får vist. Denne politik styrer ikke, hvordan og hvornår opdateringer downloades og installeres.
 
-Vigtigt! Hvis du vælger ikke at få opdateringsmeddelelser og også definerer en anden gruppepolitik, så enheder ikke automatisk får opdateringer, vil hverken du eller enhedsbrugerne være opmærksomme på vigtige sikkerheds-, kvalitets- eller funktionsopdateringer, og enhederne kan måske være i fare.
+Vigtigt! Hvis du vælger ikke at få opdateringsmeddelelser og også definerer en anden gruppepolitik, så enheder ikke automatisk får opdateringer, vil hverken du eller brugerne af enhederne være klar over vigtige sikkerheds-, kvalitets- eller funktionsopdateringer, og dine enheder kan være i fare.
+
+Hvis du vælger "Anvend kun i aktive timer" sammen med valgmulighed 1 eller 2, deaktiveres meddelelser kun i aktive timer. Du kan angive aktive timer ved at indstille "Slå automatisk genstart fra for opdateringer i løbet af aktive timer" eller tillade, at enheden angiver aktive timer baseret på brugeradfærd. For at sikre at enheden forbliver sikker, vises der stadig en meddelelse, hvis denne indstilling vælges, når deadlinen "Angiv deadlines for automatiske opdateringer og genstarter" er nået, hvis den er konfigureret uanset aktive timer.
       </string>
       <string id="DefaultNotification">0 (standard) – Standardmeddelelser fra operativsystemet i Windows Update</string>
       <string id="ExcludingRebootWarnings">1 – Deaktiver alle meddelelser på nær advarsler om genstart</string>
       <string id="IncludingRebootWarnings">2 – Deaktiver alle meddelelser, også advarsler om genstart</string>
-      <string id="ComplianceDeadline_Title">Angiv deadlines for automatiske opdateringer og genstarter</string>
-      <string id="ComplianceDeadline_Help">Med denne politikindstilling kan du angive det antal dage, som en bruger har, før kvalitets- og funktionsopdateringer automatisk installeres på deres enheder, og en respitperiode, hvorefter de nødvendige genstarter udføres automatisk. Opdateringer og genstarter udføres, uanset de aktive timer, og brugeren kan ikke planlægge igen.
+      <string id="ComplianceDeadlineForFU_Title">Specify deadline for automatic updates and restarts for feature update</string>
+      <string id="ComplianceDeadlineForFU_Help">This policy lets you specify the number of days before feature updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
 
-Deadlines for funktions- og kvalitetsopdateringer kan være op til 30 dage. Respitperioden for automatisk genstart kan være fra 0 til 7 dage.
+Set deadlines for feature updates and quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
 
-Du kan også deaktivere automatisk genstart indtil afslutningen af respitperioden for automatisk genstart.
+Set a grace period for feature updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
 
-Hvis du deaktiverer eller undlader at konfigurere denne politik, vil enheder hente opdateringer og genstarte i henhold til standardplanen.
+You can set the device to delay restarting until both the deadline and grace period have expired.
 
-Denne politik tilsidesætter følgende politikker:
-1. Angiv deadline før automatisk genstart for opdateringsinstallation
-2. Angiv genstartstidspunktets overgang og beskedtidsplan for opdateringer
-3. Genstart altid automatisk på det planlagte tidspunkt
-4. Ingen automatisk genstart hos brugere, der er logget på, for planlagte installationer af automatiske opdateringer
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
+      </string>
+      <string id="ComplianceDeadlineForQU_Title">Specify deadline for automatic updates and restarts for quality update</string>
+      <string id="ComplianceDeadlineForQU_Help">This policy lets you specify the number of days before quality updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
+
+Set deadlines for quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
+
+Set a grace period for quality updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
+
+You can set the device to delay restarting until both the deadline and grace period have expired.
+
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
       </string>
       <string id="ComplianceDeadlineDay0">0</string>
       <string id="ComplianceDeadlineDay1">1</string>
@@ -638,6 +705,103 @@ Denne politik tilsidesætter følgende politikker:
       <string id="ComplianceDeadlineDay28">28</string>
       <string id="ComplianceDeadlineDay29">29</string>
       <string id="ComplianceDeadlineDay30">30</string>
+
+      <string id="AllowTemporaryEnterpriseFeatureControl_Title">Aktivér funktioner, der introduceres via vedligeholdelse, som er slået fra som standard</string>
+      <string id="AllowTemporaryEnterpriseFeatureControl_Help">Funktioner, der introduceres via vedligeholdelse (uden for den årlige funktionsopdatering), er som standard slået fra på enheder, hvor deres Windows-opdateringer administreres*.
+
+Hvis denne politik er konfigureret til " Aktiveret", vil alle funktioner, der er tilgængelige i den seneste månedlige kvalitetsopdatering, være slået til.
+
+Hvis denne politik er indstillet til " Ikke konfigureret" eller "Deaktiveret" forbliver funktioner, der sendes via en månedlig kvalitetsopdatering (vedligeholdelse), slået fra, indtil funktionsopdateringen, der indeholder disse funktioner, er installeret.
+
+ *Administrerede Windows Update-enheder er dem, der har deres Windows-opdateringer administreret via politik; uanset om det er via skymiljøet ved hjælp af Windows Update til virksomheder eller i det lokale miljø med Windows Server Update Services (WSUS).
+      </string>
+      <string id="AllowOptionalContent_Title">Aktivér valgfrie opdateringer</string>
+      <string id="AllowOptionalContent_Help">Denne politik gør det muligt for enheder at få valgfrie opdateringer (herunder gradvise funktionsudrulninger (CFR'er) – få mere at vide ved at besøge aka.ms/AllowOptionalContent)
+
+Når politikken er konfigureret
+
+• Hvis "Modtag automatisk valgfrie opdateringer (herunder CFR'er)" er markeret, får enheden automatisk de seneste valgfrie opdateringer hensyn i overensstemmelse med de konfigurerede udsættelser af kvalitetsopdateringen. Dette omfatter valgfrie kumulative opdateringer og gradvise funktionsudrulninger (CFR'er).
+
+• Hvis "Modtag automatisk valgfrie opdateringer" er markeret, får enheden kun automatisk valgfrie akkumulerede opdateringer i overensstemmelse med udsættelserne af kvalitetsopdateringen.
+
+• Hvis "Brugerne kan vælge, hvilke opdateringer, der skal modtages", kan brugerne vælge, hvilke valgfrie opdateringer der skal hentes, ved at gå til Indstillinger &gt; Windows Update &gt; Avancerede indstillinger &gt; Valgfrie opdateringer. Brugerne kan også aktivere til/fra-knappen "Hent de nyeste opdateringer, så snart de er tilgængelige" for automatisk at modtage valgfrie opdateringer og gradvise funktionsudrulninger.
+      </string>
+      <string id="DonotReceiveOptionalContent">Modtag ikke valgfrie opdateringer</string>
+      <string id="ReceiveOptionalContentWithAutoApproval">Modtag automatisk valgfrie opdateringer (inklusiv CFR'er)</string>
+      <string id="ReceiveOptionalLCUWithAutoApproval">Modtag automatisk valgfrie opdateringer</string>
+      <string id="ReceiveOptionalContentNeedUserApproval">Brugere kan vælge, hvilke valgfrie opdateringer, der skal modtages</string>
+
+      <string id="MaintenanceWindow_Title">Konfigurer vedligeholdelsesvinduer til automatiske opdateringer</string>
+      <string id="MaintenanceWindow_Help">Aktivér denne politik for at angive gentagne vedligeholdelsesvinduer, hvor enheden kan udføre angivne opdateringshandlinger.
+
+Når denne politik er aktiveret, udfører Windows Update kun den angivne opdateringshandling i det konfigurerede vedligeholdelsesvindue. Opdateringshandlinger uden for vedligeholdelsesvinduet udskydes, indtil det næste vedligeholdelsesvindue begynder.
+
+• Opdateringshandlinger: Vælg, hvilke opdateringshandlinger der kun må udføres i vedligeholdelsesvinduet. Hvis en opdateringshandling ikke er valgt, kan den udføres uden for vedligeholdelsesvinduet.
+    - Download, installer og genstart: Fuldfør opdateringscyklus, herunder download, installation og genstart af systemet
+    - Installer og genstart: Installer allerede downloadede opdateringer og genstart enheden
+    - Kun genstart: Udfør kun en systemgenstart for ventende opdateringer
+
+• Grundlæggende konfiguration af tidsplan:
+    - Startdato: Angiv den første dato, hvor det første vedligeholdelsesvindue begynder (format: dd-mm-åååå, eksempel: 30-10-2025)
+      * Feltet Startdato træder kun i kraft, hvis tilbagevendende tidsplan er sat til "Ingen"
+    - Starttidspunkt: Angiv tidspunktet, hvor vedligeholdelsesvinduet starter (format: tt:mm, eksempel: 23:30 for 11:30 PM)
+    - Varighed: Definer, hvor længe hvert vedligeholdelsesvindue varer i timer (eksempel: 2 for et 2-timers vindue)
+
+• Indstillinger for tilbagevendende tidsplan:
+    - Ingen gentagelse: Engangsvedligeholdelsesvindue på den angivne startdato
+    - Dagligt: Vedligeholdelsesvinduet gentages hver dag
+    - Ugentligt: Vedligeholdelsesvinduet gentages ugentligt på valgte ugedage
+    - Månedligt: Vedligeholdelsesvinduet gentages månedligt på en bestemt dag
+
+• Indstillinger for ugentlig tidsplan (når Ugentligt er valgt):
+    - Valg af ugedag: Vælg, hvilke dage i ugen vedligeholdelsesvinduet skal forekomme:
+        * Søndag til lørdag: Afkrydsningsfelter til at vælge specifikke dage i ugen for vedligeholdelsesvinduet
+
+• Indstillinger for månedlig tidsplan (når Månedlig er valgt):
+    - Type af månedlig tidsplan: 
+        * Datobaseret: Vedligeholdelsesvinduet forekommer på en bestemt dag i måneden (eksempel: 15. dag i hver måned)
+        * Ugebaseret: Vedligeholdelsesvinduet forekommer på en bestemt ugedag i måneden (eksempel: 2. tirsdag i hver måned)
+        * Sidste dag i måneden: Vedligeholdelsesvinduet forekommer på den sidste dag i måneden
+    - Dag i måneden: Ved datobaseret planlægning angives hvilken dag i måneden (1-28)
+    - Forekomst i måneden: Ved ugebaseret planlægning vælges hvilken uge i måneden (Første, Anden, Tredje, Fjerde eller Sidste)
+    - Dag i ugen: Når du bruger ugebaseret planlægning, skal du vælge, hvilken ugedag (søndag til lørdag)
+
+Eksempler på månedlige konfigurationer:
+    - Datobaseret: "3. dag i hver måned" = Dag i måneden: 3
+    - Ugebaseret: "Anden tirsdag i hver måned" = Forekomst: Anden, Ugedag: Tirsdag
+    - Ugebaseret: "Sidste fredag i hver måned" = Forekomst: Sidste, Ugedag: Fredag
+    - Sidste dag i måneden: "Sidste dag i hver måned"
+
+Efter et ikke-gentaget vedligeholdelsesvindue skal det næste vedligeholdelsesvindue planlægges om 3 måneder. Hvis startdatoen for et ikke-gentaget vedligeholdelsesvindue er mere end 3 måneder gammel, ignoreres denne politik, og opdateringer planlægges efter standardindstillingerne.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, vil Windows Update følge standardfunktionsmåden for planlægning.</string>
+      <!-- MaintenanceWindowUpdateActionsID dropdown options -->
+      <string id="MaintenanceWindowUpdateActions_DownloadInstallRestart">Download, installér og genstart</string>
+      <string id="MaintenanceWindowUpdateActions_InstallRestart">Installér og genstart</string>
+      <string id="MaintenanceWindowUpdateActions_RestartOnly">Genstart kun</string>
+      <!-- MaintenanceWindowRepeatScheduleOption dropdown options -->
+      <string id="MaintenanceWindowRepeatSchedule_NoRepeat">Ingen gentagelse</string>
+      <string id="MaintenanceWindowRepeatSchedule_Daily">Dagligt</string>
+      <string id="MaintenanceWindowRepeatSchedule_Weekly">Ugentligt</string>
+      <string id="MaintenanceWindowRepeatSchedule_Monthly">Månedligt</string>
+      <!-- MaintenanceWindowMonthlyScheduleID dropdown options -->
+      <string id="MaintenanceWindowMonthlySchedule_MonthBased">Datobaseret</string>
+      <string id="MaintenanceWindowMonthlySchedule_WeekBased">Ugebaseret</string>
+      <string id="MaintenanceWindowMonthlySchedule_LastDay">Sidste dag i måneden</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_First">Første</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Second">Sekund</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Third">Tredje</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Fourth">Fjerde</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Last">Sidste</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedDayOfTheWeek dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Sunday">Søndag</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Monday">Mandag</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Tuesday">Tirsdag</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Wednesday">Onsdag</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Thursday">Torsdag</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Friday">Fredag</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Saturday">Lørdag</string>
     </stringTable>
 
     <presentationTable>
@@ -669,21 +833,28 @@ Denne politik tilsidesætter følgende politikker:
         <textBox refId="CorpWUContentHost_Name">
           <label>Angiv alternativ downloadserver:</label>
         </textBox>
-        <text>(eksempel: http://IntranetUpd01)</text>
+        <text>(eksempel: https://IntranetUpd01)</text>
         <checkBox refId="CorpWUFillEmptyContentUrls" defaultChecked="false">Download filer uden URL-adresse i metadataene, hvis den alternative downloadserver er angivet.</checkBox>
+        <checkBox refId="CorpWUDoNotEnforceEnterpriseTLSCertPinningForUpdateDetection" defaultChecked="false">Gennemtving ikke fastgørelse af TLS-certifikat for Windows Update-klienten til registrering af opdateringer.</checkBox>
+        <dropdownList refId="SetProxyBehaviorForUpdateDetection" noSort="true" defaultItem="0">Vælg proxy funktionen for Windows Update-klienten til registrering af opdateringer:</dropdownList>
+      </presentation>
+      <presentation id="UpdateClassPolicySource_Title">
+        <text>Angiv kildetjeneste for følgende klasser af Windows Updates:</text>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForFeatureUpdates" noSort="true" defaultItem="0">Funktionsopdateringer</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForQualityUpdates" noSort="true" defaultItem="0">Kvalitetsopdateringer</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForDriverUpdates" noSort="true" defaultItem="0">Driveropdateringer</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForOtherUpdates" noSort="true" defaultItem="0">Andre opdateringer</dropdownList>
       </presentation>
       <presentation id="DetectionFrequency_Title">
         <text>Kontroller, om der er opdateringer med følgende</text>
         <decimalTextBox refId="DetectionFrequency_Hour2" defaultValue="22">interval (timer):  </decimalTextBox>
       </presentation>
       <presentation id="RebootRelaunchTimeout_Title">
-        <text>Vent den følgende periode, inden</text>
-        <text>der spørges igen med en planlagt</text>
+        <text>Vent i følgende periode, før du vil spørges igen med en planlagt</text>
         <decimalTextBox refId="RebootRelaunchTimeout_Minutes3" defaultValue="10">genstart (minutter):  </decimalTextBox>
       </presentation>
       <presentation id="RebootWarningTimeout_Title">
-        <text>Vent den følgende periode, inden</text>
-        <text>der fortsættes med en planlagt</text>
+        <text>Vent i følgende periode, før du fortsætter med en planlagt</text>
         <decimalTextBox refId="RebootWarningTimeout_Minutes3" defaultValue="5">genstart (minutter):  </decimalTextBox>
       </presentation>
       <presentation id="RescheduleWaitTime_Title">
@@ -695,22 +866,23 @@ Denne politik tilsidesætter følgende politikker:
           <label>Destinationsgruppenavn for denne computer</label>
         </textBox>
       </presentation>
-      <presentation id="IdleShutdownTimerDuration_Title">
-        <text>Vent den følgende periode, inden</text>
-        <text>tjenesten lukkes, hvis den</text>
-        <decimalTextBox refId="IdleShutdownTimerDuration_Minutes" defaultValue="10">ikke er i brug (minutter):  </decimalTextBox>
-      </presentation>
       <presentation id="AlwaysAutoRebootAtScheduledTime_Presentation">
-        <text>Genstarttimeren giver brugerne</text>
-        <text>så meget tid til at gemme deres</text>
+        <text>Genstarttimeren giver brugerne så lang tid til at gemme deres</text>
         <decimalTextBox refId="AlwaysAutoRebootAtScheduledTime_Minutes" defaultValue="15">arbejde (minutter):  </decimalTextBox>
       </presentation>
+      <presentation id="TargetReleaseVersion">
+        <textBox refId="ProductVersionId">
+          <label>Hvilken Windows-produktversion vil du modtage funktionsopdateringer for? f.eks. Windows 10</label>
+        </textBox>
+        <textBox refId="TargetReleaseVersionId">
+          <label>Målversion for funktionsopdateringer</label>
+        </textBox>
+      </presentation>
       <presentation id="ManagePreviewBuilds">
-        <dropdownList refId="ManagePreviewBuildsId" noSort="true" defaultItem="2">Angiv funktionen for at modtage eksempelbuilds:</dropdownList>
+        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Vælg niveauet for Windows-forgreningsparathed til de opdateringer, du vil modtage:</dropdownList>
       </presentation>
       <presentation id="DeferFeatureUpdates">
-        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Vælg niveauet for Windows-forgreningsparathed til de opdateringer, du vil modtage:</dropdownList>
-        <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">Efter et eksempelbuild eller en funktionsopdatering er frigivet, skal du udskyde modtagelsen af det/den i dette antal dage:</decimalTextBox>
+       <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">Hvor mange dage efter frigivelsen af en funktionsopdatering vil du udsætte opdateringen, før den tilbydes til enheden?</decimalTextBox>
         <textBox refId="PauseFeatureUpdatesStartId">
           <label>Afbryd eksempelbuilds eller funktionsopdateringer midlertidigt:</label>
         </textBox>
@@ -732,6 +904,10 @@ Denne politik tilsidesætter følgende politikker:
         <text>Angiv antal dage, før der automatisk udføres en ventende genstart uden for de aktive timer: </text>
         <dropdownList refId="AutoRestartDeadline" noSort="true" defaultItem="5">Kvalitetsopdateringer (dage): </dropdownList>
         <dropdownList refId="AutoRestartDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Funktionsopdateringer (dage): </dropdownList>
+      </presentation>
+      <presentation id="MaxPauseDays_Title">
+        <text>Angiv, hvor mange dage brugerne kan afbryde opdateringer midlertidigt:</text>
+        <decimalTextBox refId="SetMaxPauseDays" noSort="true" defaultValue="35">Max. antal dage på pause: </decimalTextBox>
       </presentation>
       <presentation id="ActiveHoursMaxRange_Title">
         <text>Angiv intervallet for det maksimale antal aktive timer:</text>
@@ -768,16 +944,50 @@ Denne politik tilsidesætter følgende politikker:
       </presentation>
       <presentation id="UpdateNotificationLevel_Title">
         <dropdownList refId="UpdateNotificationLevel" noSort="true" defaultItem="0">Angiv indstillinger for visning af opdateringsmeddelelser:</dropdownList>
+        <text></text>
+        <checkBox refId="NoUpdateNotificationsDuringActiveHours" defaultChecked="false">Anvend kun i aktive timer</checkBox>
       </presentation>
-      <presentation id="ComplianceDeadline_Title">
-        <text>Angiv det antal dage (op til 30 dage), som en bruger har, før opdateringer køres automatisk, uanset aktive timer, uden mulighed for at planlægge igen.</text>
-        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="5">Kvalitetsopdateringer (dage):</dropdownList>
-        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Funktionsopdateringer (dage):</dropdownList>
+       <presentation id="ComplianceDeadlineForFU_Title">
+        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="2">Deadline (dage):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriodForFeatureUpdates" noSort="true" defaultItem="7">Udvidet periode (dage):</dropdownList>
         <text></text>
-        <text>Angiv en udvidet periode for automatisk genstart (0 til 7 dage), fra det tidspunkt, hvor en genstart kræves, indtil enheden automatisk genstarter. Enheder genstartes uafhængigt af de aktive timer, og det er ikke muligt at ændre tidsplanen.</text>
-        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Respitperiode (dage)</dropdownList>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForFeatureUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="ComplianceDeadlineForQU_Title">
+        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="7">Deadline (dage):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Udvidet periode (dage):</dropdownList>
         <text></text>
-        <checkBox refId="ConfigureDeadlineNoAutoReboot" defaultChecked="false">Genstart ikke automatisk, før fristen er udløbet</checkBox>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForQualityUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="AllowOptionalContent_Title">
+        <dropdownList refId="AllowOptionalContent" noSort="true" defaultItem="0">Vælg, hvordan brugere skal modtage valgfrie opdateringer:</dropdownList>
+      </presentation>
+      <presentation id="MaintenanceWindow_Title">
+        <text>Vedligeholdelsesvindue:</text>
+        <dropdownList refId="MaintenanceWindowUpdateActionsID" noSort="true" defaultItem="1">Opdateringshandlinger er kun tilladt i vedligeholdelsesvinduet:</dropdownList>
+        <textBox refId="MaintenanceWindowStartDateID">
+            <label>Startdato (Format: åååå-mm-dd eksempel: 2025-10-30)</label>
+        </textBox>
+        <textBox refId="MaintenanceWindowStartTimeID">
+            <label>Starttidspunkt (Format: tt:mm eksempel: 23:30 for 11:30 PM)</label>
+        </textBox>
+        <decimalTextBox refId="MaintenanceWindowDurationHoursID" defaultValue="2">Varighed (timer):</decimalTextBox>
+        <dropdownList refId="MaintenanceWindowRepeatScheduleOptionID" noSort="true" defaultItem="1">Vælg gentagelsesplan:</dropdownList>
+        <text>Følgende indstillinger er kun påkrævet og gældende, hvis Ugentligt er valgt:</text>
+        <checkBox refId="MaintenanceWindowWeeklySundayID" defaultChecked="false">Søndag</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyMondayID" defaultChecked="false">Mandag</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyTuesdayID" defaultChecked="false">Tirsdag</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyWednesdayID" defaultChecked="false">Onsdag</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyThursdayID" defaultChecked="false">Torsdag</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyFridayID" defaultChecked="false">Fredag</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklySaturdayID" defaultChecked="false">Lørdag</checkBox>
+        <text>Følgende indstillinger er kun påkrævet og gældende, hvis Månedligt er valgt:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyScheduleID" noSort="true" defaultItem="1">Type af månedlig tidsplan:</dropdownList>
+        <text>Følgende indstillinger er kun påkrævet og gældende, hvis datobaseret type er valgt:</text>
+        <decimalTextBox refId="MaintenanceWindowMonthlyMonthBasedDayOfMonthID" defaultValue="1">Dag i måneden:</decimalTextBox>
+        <text>Følgende indstillinger er kun påkrævet og gældende, hvis ugebaseret type er valgt:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonthID" noSort="true" defaultItem="1">Forekomst i måned</dropdownList>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedDayOfTheWeekID" noSort="true" defaultItem="1">Ugedag</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

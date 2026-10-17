@@ -27,15 +27,15 @@ As informações de erro expandidas incluem a hora local a que o erro ocorreu, a
 
 Se desativar esta definição de política, o Runtime de RPC só gera um código de estado para indicar uma condição de erro.
 
-Se não configurar esta definição de política, permanecerá desativada.  Só gerará um código de estado para indicar uma condição de erro.
+Se não configurar esta definição de política, permanecerá desativada. Só gerará um código de estado para indicar uma condição de erro.
 
-Se ativar esta definição de política, o runtime de RPC gerará informações de erro expandidas.  Tem de selecionar um tipo de resposta de erro na caixa pendente.
+Se ativar esta definição de política, o runtime de RPC gerará informações de erro expandidas. Tem de selecionar um tipo de resposta de erro na caixa pendente.
 
 -- "Desativar" desativa todas as informações de erro expandidas para todos os processos. A RPC só gera um código de erro.
 
---  "Ativar com Exceções" ativa as informações de erro expandidas, mas permite desativá-las para processos selecionados. Para desativar as informações de erro expandidas para um processo quando esta definição de política está ativada, o comando que inicia o processo tem de começar com uma das cadeias de carateres no campo Exceções de Informações de Erro Expandidas.
+-- "Ativar com Exceções" ativa as informações de erro expandidas, mas permite desativá-las para processos selecionados. Para desativar as informações de erro expandidas para um processo quando esta definição de política está ativada, o comando que inicia o processo tem de começar com uma das cadeias de carateres no campo Exceções de Informações de Erro Expandidas.
 
---  "Desativar com Exceções" desativa as informações de erro expandidas, mas permite ativá-las para processos selecionados. Para ativar as informações de erro expandidas para um processo quando esta definição de política está ativada, o comando que inicia o processo tem de começar com uma das cadeias de carateres no campo Exceções de Informações de Erro Expandidas.
+-- "Desativar com Exceções" desativa as informações de erro expandidas, mas permite ativá-las para processos selecionados. Para ativar as informações de erro expandidas para um processo quando esta definição de política está ativada, o comando que inicia o processo tem de começar com uma das cadeias de carateres no campo Exceções de Informações de Erro Expandidas.
 
 -- "Ativar" ativa as informações de erro expandidas para todos os processos.
 

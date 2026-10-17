@@ -55,6 +55,15 @@ Not: Bu ayar, Active Desktop'ı devre dışı bırakmaz. Kullanıcılar masaüst
 Varsayılan değer olarak kullanıcı, Belgeler, Müzik v.b gibi bireysel profil klasörlerinin yerini, klasörün Özellikler iletişim kutusundaki Konumlar sekmesine yeni bir yol yazarak değiştirebilir.
 
 Bu ayarı etkinleştirirseniz kullanıcılar Hedef kutusuna yeni bir yol yazamaz.</string>
+      <string id="EnableThemeFileRemoteResource">Ağ konumlarından tema dosyalarına izin verin</string>
+      <string id="EnableThemeFileRemoteResource_Help">Bu ilke ayarı, uzak yolların bir Windows masaüstü teması (.theme/.themepack) dosyası içindeki kaynaklar için kullanılıp kullanılamayacağını belirler.
+
+Bu ilke ayarını etkinleştirirseniz, tema dosyaları ağ paylaşımlarında veya diğer uzak konumlarda bulunan kaynaklara (görüntüler, sesler ve simgeler gibi) başvurabilir. Kullanıcılar, uzak kaynaklar içeren temaları uygulayabilir.
+
+Bu ilke ayarını devre dışı bırakırsanız, tema dosyaları uzak kaynakları kullanamaz. Uzak kaynaklara başvuran tema dosyaları bu kaynakları yükleyemez ve yalnızca yerel kaynaklar görüntülenir.
+
+Bu ilke ayarını yapılandırmazsanız, varsayılan davranış, tema dosyalarındaki uzak kaynakları güvenlik nedeniyle engellemektir.</string>
+
       <string id="ForceActiveDesktopOn">Active Desktop'ı Etkinleştir</string>
       <string id="ForceActiveDesktopOn_Help">Active Desktop'ı etkinleştirir ve kullanıcının devre dışı bırakmasını önler.
 

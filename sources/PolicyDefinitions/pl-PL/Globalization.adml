@@ -285,6 +285,20 @@ Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane
         
         Jeśli ta zasada zostanie wyłączona, usługi mowy będą wyłączone, a użytkownicy nie będą mogli ich włączyć za pomocą aplikacji Ustawienia.
       </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Ograniczanie możliwości instalowania pakietów językowych i funkcji językowych</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        To ustawienie zasad powoduje, że wszyscy użytkownicy mogą instalować pakiety językowe i funkcje językowe na pakietach na żądanie. Ta zasada nie ograniczy przełączania języka systemu Windows, jeśli chcesz ograniczyć użycie języka systemu Windows zgodnie z następującymi zasadami: "Ogranicz języki interfejsu użytkownika używane przez system Windows dla wszystkich zalogowanych użytkowników".   
+Jeśli to ustawienie zasad zostanie włączone, Instalacja pakietów językowych i funkcji językowych będzie niedostępna dla wszystkich użytkowników.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, nie ma ograniczeń dotyczących pakietów językowych ani instalacji funkcji dla żadnego użytkownika.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        To ustawienie zasad ogranicza użytkownikowi możliwość instalowania pakietów językowych i funkcji językowych na żądanie. Te zasady nie ograniczają przełączania języka systemu Windows, jeśli chcesz ograniczyć użycie języka systemu Windows  zgodnie z następującymi zasadami: „Ogranicza języki interfejsu użytkownika, które powinny być używane przez system Windows dla wybranego użytkownika”.  
+
+        Jeśli włączysz to ustawienie zasad, użytkownik nie będzie mógł zainstalować pakietów językowych i funkcji językowych .  
+
+        Jeśli wyłączysz to ustawienie zasad lub nie skonfigurujesz tego ustawienia, w stosunku do użytkownika nie będą występowały żadne ograniczenia dotyczące instalowania pakietów językowych lub funkcji językowych.  
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LocaleSystemRestrict">

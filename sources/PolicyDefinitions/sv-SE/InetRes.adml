@@ -18,7 +18,7 @@
       <string id="InternetCPL_Programs">Sidan Program</string>
       <string id="AddonManagement_AddOnList">Lista över tillägg</string>
       <string id="AddonManagement_ManagementMode">Blockera alla tillägg förutom de som uttryckligen anges i Lista över tillägg</string>
-      <string id="AddonManagement_RestrictCrashDetection">Inaktivera identifiering av krascher</string>
+      <string id="AddonManagement_RestrictCrashDetection">Inaktivera krockidentifiering</string>
       <string id="AddonManagement_RestrictExtensionManagement">Låt inte användare aktivera eller inaktivera tilläggskomponenter</string>
       <string id="AddSearchProvider">Lägg till en specifik lista över sökleverantörer i användarens lista över sökleverantörer</string>
       <string id="AdminApproved">Kontroller som godkänns av administratören</string>
@@ -270,7 +270,7 @@ Om du aktiverar den här principinställningen kan du ange en lista med webbplat
 
 Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan du inte skapa en standardundantagslista för blockering av popup-fönster.
 
-Obs! Du kan hindra användaren från att lägga till eller ta bort webbplatser i undantagslistan genom att aktivera principen Inaktivera listan för hantering av tillåtna popup-fönster.</string>
+Obs! Du kan hindra användaren från att lägga till eller ta bort webbplatser i undantagslistan genom att aktivera principen Inaktivera hantering av listan över tillåtna popup-fönster.</string>
       <string id="ExplainScriptPaste_AllProcs_Explain">Med den här principinställningen kan du inaktivera meddelanden när ett skript som körs i en process på datorn försöker utföra en åtgärd som involverar Urklipp (ta bort, kopiera eller klistra in).
 
 Om du aktiverar den här principinställningen visas inget meddelande för användaren när ett skript som körs i en process på datorn utför en åtgärd som involverar Urklipp. Det betyder att om inställningen Fråga har aktiverats för zonens beteende så kringgås inställningen när principinställningen aktiveras.
@@ -355,7 +355,7 @@ Om du inaktiverar den här principinställningen startar inte guiden Internetans
 
 Om du inte konfigurerar den här principinställningen kan användaren bestämma om guiden Internetanslutning ska starta automatiskt.</string>
       <string id="ICWSettings">Inställningar för guiden Internetanslutning</string>
-      <string id="Identities">Identitetshanteraren: Hindra användare från att använda Identiteter</string>
+      <string id="Identities">Identity Manager: Hindra användare från att använda Identiteter</string>
       <string id="IDN_Always">Konvertera alltid till IDN-format</string>
       <string id="IDN_Intranet">Konvertera intranätadresser till IDN-format</string>
       <string id="IDN_Never">Konvertera aldrig till IDN-format</string>
@@ -415,17 +415,17 @@ Om du inte konfigurerar den här principinställningen kan användaren byta plat
 
 Om du aktiverar den här principinställningen uppmanas inte användaren att aktivera nätfiskefiltret. Du måste ange vilket läge som ska användas för nätfiskefiltret: manuellt, automatiskt eller av.
 
-Om du väljer manuellt läge utförs endast lokala analyser av nätfiskefiltret och användaren tillfrågas innan data skickas till Microsoft. Om funktionen är helt aktiverad skickas alla webbplatsadresser som inte finns med i filtrets lista med tillåtna adresser automatiskt till Microsoft utan att användaren tillfrågas.
+Om du väljer manuellt läge utförs endast lokala analyser av nätfiskefiltret och användaren tillfrågas innan data skickas till Microsoft. Om funktionen är helt aktiverad skickas alla webbplatsadresser som inte finns med i filtrets lista över tillåtna adresser automatiskt till Microsoft utan att användaren tillfrågas.
 
 Om du inaktiverar eller låter bli att konfigurera den här principinställningen uppmanas användaren att välja läge för nätfiskefiltret.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter">Med den här principinställningen kan användaren aktivera SmartScreen-filtret, som varnar användaren om den webbplats som han eller hon besöker är känd för att i bedrägligt syfte försöka samla in personlig information via nätfiske, eller om den är känd för att innehålla skadlig programvara.
 
-Om du aktiverar den här principinställningen uppmanas inte användaren att aktivera SmartScreen-filtret. Du måste ange vilket läge som ska användas för SmartScreen-filtret: på eller av. Alla webbplatsadresser som inte finns med i filtrets lista med tillåtna adresser skickas automatiskt till Microsoft utan att användaren tillfrågas.
+Om du aktiverar den här principinställningen uppmanas inte användaren att aktivera SmartScreen-filtret. Du måste ange vilket läge som ska användas för SmartScreen-filtret: på eller av. Alla webbplatsadresser som inte finns med i filtrets lista över tillåtna adresser skickas automatiskt till Microsoft utan att användaren tillfrågas.
 
 Om du inaktiverar eller låter bli att konfigurera den här principinställningen uppmanas användaren att ange om SmartScreen-filtret ska aktiveras fösta gången programmet körs.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter_IE9">Den här principinställningen hindrar användaren från att hantera SmartScreen-filtret, som varnar användaren om den webbplats som han eller hon besöker är känd för att i bedrägligt syfte försöka samla in personlig information via nätfiske, eller om den är känd för att innehålla skadlig programvara.
 
-Om du aktiverar den här principinställningen uppmanas inte användaren att aktivera SmartScreen-filtret. Alla webbplatsadresser som inte finns med i filtrets lista med tillåtna adresser skickas automatiskt till Microsoft utan att användaren tillfrågas.
+Om du aktiverar den här principinställningen uppmanas inte användaren att aktivera SmartScreen-filtret. Alla webbplatsadresser som inte finns med i filtrets lista över tillåtna adresser skickas automatiskt till Microsoft utan att användaren tillfrågas.
 
 Om du inaktiverar eller låter bli att konfigurera den här principinställningen uppmanas användaren att ange om SmartScreen-filtret ska aktiveras fösta gången programmet körs.</string>
       <string id="IE_Explain_DisableSecuritySettingsCheck">Den här principinställningen inaktiverar funktionen för kontroll av säkerhetsinställningar, som kontrollerar säkerhetsinställningarna i Internet Explorer och avgör när inställningarna kan utgöra en säkerhetsrisk.
@@ -501,11 +501,11 @@ Om du aktiverar den här principinställningen tillåter Internet Explorer bara 
 Om du inaktiverar eller låter bli att konfigurera den här inställningen kan användare använda funktionen Hantera tillägg för att tillåta eller blockera tillägg som inte anges i inställningen Lista över tillägg.
 
 Obs! Om ett tillägg anges i inställningen Lista över tillägg kan funktionen Hantera tilläggskomponenter inte användas för att ändra komponentens tillstånd (om inte värdet tillåter att användaren hanterar komponenten - mer information finns i beskrivningen för Lista över tillägg).</string>
-      <string id="IE_ExplainAddonManagement_RestrictCrashDetection">Du kan använda den här principinställningen för att hantera identifiering av krascher i Tilläggshantering.
+      <string id="IE_ExplainAddonManagement_RestrictCrashDetection">Du kan använda den här principinställningen för att hantera krockidentifiering i Tilläggshantering.
 
 Om du aktiverar den här principinställningen undersöks funktioner i Windows XP Professional Service Pack 1 och i tidigare version vid en krasch i Internet Explorer, för att anropa felrapporteringstjänsten i Windows. Alla principinställningar för felrapporteringstjänsten fortsätter att tillämpas.
 
-Om du inaktiverar eller låter bli att konfigurera den här principinställningen aktiveras identifiering av krascher för tilläggskomponenter.</string>
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen aktiveras krockidentifiering för tilläggskomponenter.</string>
       <string id="IE_ExplainAddonManagement_RestrictExtensionManagement">Med den här principinställningen anger du om användare kan tillåta eller neka tillägg via Hantera tillägg.
 
 Om du aktiverar den här principinställningen kan användarna inte aktivera eller inaktivera tillägg via Hantera tillägg.
@@ -806,9 +806,9 @@ Varning! Även om du aktiverar den här principen tas inte tipsen för Netscape-
 Om du aktiverar den här principen tas kommandot "Dagens tips" bort från Hjälp-menyn.
 
 Om du inaktiverar den här principen eller låter bli att konfigurera den kan användare aktivera och inaktivera "Dagens tips", som visas längst ned i webbläsaren.</string>
-      <string id="IE_ExplainIdentities">Hindrar användare från att konfigurera unika identiteter med hjälp av Identitetshanteraren.
+      <string id="IE_ExplainIdentities">Hindrar användare från att konfigurera unika identiteter med hjälp av Identity Manager.
 
-Identitetshanteraren gör att användare kan skapa flera konton, t.ex. e-postkonton, på samma dator. Varje användare har en unik identitet med olika lösenord och olika programinställningar.
+Identity Manager gör att användare kan skapa flera konton, t.ex. e-postkonton, på samma dator. Varje användare har en unik identitet med olika lösenord och olika programinställningar.
 
 Om du aktiverar den här principen kan inte användare skapa nya identiteter, hantera befintliga identiteter eller byta identitet. Alternativet "Byt identitet" tas bort från Arkiv-menyn i adressboken.
 
@@ -3018,7 +3018,7 @@ Den här funktionen gäller endast versioner av Internet Explorer upp till och m
       <string id="Persistence_FileLimits4">Filstorleksbegränsning för zonen Ej betrodda platser</string>
       <string id="PhishingOff">Av</string>
       <string id="PhishingOn">På</string>
-      <string id="PopupBlocker_AllowList">Lista över platser som tillåts visa popup-fönster</string>
+      <string id="PopupBlocker_AllowList">Lista över tillåtna popup-fönster</string>
       <string id="Printing">Skriver ut</string>
       <string id="Printing_Explain">Den här principinställningen anger om Internet Explorer ska skriva ut bakgrundsfärger och bilder när användaren skriver ut en webbsida. Beroende på skrivaren kan utskriften gå långsammare och kvaliteten bli sämre om bakgrundsfärger och bilder skrivs ut.
 
@@ -3578,37 +3578,42 @@ Om du inaktiverar eller låter bli att konfigurera den här principinställninge
 
 Obs! Den här principen stöds inte längre från och med Windows 10 version 1607.</string>
       <string id="Protocols_None">Använd inte säkra protokoll</string>
-      <string id="Protocols_SSL2">Använd endast SSL 2.0</string>
+      <string id="Protocols_SSL2">[Föråldrad] Använd endast SSL 2.0</string>
       <string id="Protocols_SSL3">Använd endast SSL 3.0</string>
-      <string id="Protocols_SSL2_SSL3">Använd SSL 2.0 och SSL 3.0</string>
+      <string id="Protocols_SSL2_SSL3">[Föråldrad] Använd SSL 2.0 och SSL 3.0</string>
       <string id="Protocols_TLS10">Använd bara TLS 1.0</string>
-      <string id="Protocols_SSL2_TLS10">Använd SSL 2.0 och TLS 1.0</string>
+      <string id="Protocols_SSL2_TLS10">[Föråldrad] Använd SSL 2.0 och TLS 1.0</string>
       <string id="Protocols_SSL3_TLS10">Använd SSL 3.0 och TLS 1.0</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">Använd SSL 2.0, SSL 3.0 och TLS 1.0</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[Föråldrad] Använd SSL 2.0, SSL 3.0 och TLS 1.0</string>
       <string id="Protocols_TLS11">Använd bara TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS11">Använd SSL 2.0 och TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS11">[Föråldrad] Använd SSL 2.0 och TLS 1.1</string>
       <string id="Protocols_SSL3_TLS11">Använd SSL 3.0 och TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">Använd SSL 2.0, SSL 3.0 och TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[Föråldrad] Använd SSL 2.0, SSL 3.0 och TLS 1.1</string>
       <string id="Protocols_TLS10_TLS11">Använd TLS 1.0 och TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">Använd SSL 2.0, TLS 1.0 och TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[Föråldrad] Använd SSL 2.0, TLS 1.0 och TLS 1.1</string>
       <string id="Protocols_SSL3_TLS10_TLS11">Använd SSL 3.0, TLS 1.0 och TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">Använd SSL 2.0, SSL 3.0, TLS 1.0 och TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[Föråldrad] Använd SSL 2.0, SSL 3.0, TLS 1.0 och TLS 1.1</string>
       <string id="Protocols_TLS12">Använd bara TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS12">Använd SSL 2.0 och TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS12">[Föråldrad] Använd SSL 2.0 och TLS 1.2</string>
       <string id="Protocols_SSL3_TLS12">Använd SSL 3.0 och TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">Använd SSL 2.0, SSL 3.0 och TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[Föråldrad] Använd SSL 2.0, SSL 3.0 och TLS 1.2</string>
       <string id="Protocols_TLS10_TLS12">Använd TLS 1.0 och TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">Använd SSL 2.0, TLS 1.0 och TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[Föråldrad] Använd SSL 2.0, TLS 1.0 och TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS12">Använd SSL 3.0, TLS 1.0 och TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">Använd SSL 2.0, SSL 3.0, TLS 1.0 och TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[Föråldrad] Använd SSL 2.0, SSL 3.0, TLS 1.0 och TLS 1.2</string>
       <string id="Protocols_TLS11_TLS12">Använd TLS 1.1 och TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">Använd SSL 2.0, TLS 1.1 och TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[Föråldrad] Använd SSL 2.0, TLS 1.1 och TLS 1.2</string>
       <string id="Protocols_SSL3_TLS11_TLS12">Använd SSL 3.0, TLS 1.1 och TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">Använd SSL 2.0, SSL 3.0, TLS 1.1 och TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[Föråldrad] Använd SSL 2.0, SSL 3.0, TLS 1.1 och TLS 1.2</string>
       <string id="Protocols_TLS10_TLS11_TLS12">Använd TLS 1.0, TLS 1.1 och TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">Använd SSL 2.0, TLS 1.0, TLS 1.1 och TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[Föråldrad] Använd SSL 2.0, TLS 1.0, TLS 1.1 och TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">Använd SSL 3.0, TLS 1.0, TLS 1.1 och TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">Använd SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 och TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[Föråldrad] Använd SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 och TLS 1.2</string>
+      <string id="Protocols_TLS13">Använd endast TLS 1.3</string>
+      <string id="Protocols_TLS12_TLS13">Använd TLS 1.2 och TLS 1.3</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">Använd TLS 1.1, TLS 1.2 och TLS 1.3</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">Använd TLS 1.0, TLS 1.1, TLS 1.2 och TLS 1.3</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">Använd SSL 3.0, TLS 1.0, TLS 1.1, TLS 1.2 och TLS 1.3</string>
       <string id="LockToolbars">Lås alla verktygsfält</string>
       <string id="MoveStopRefresh">Lås placeringen av knapparna Stoppa och Uppdatera</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3921,6 +3926,120 @@ Obs! Om du även aktiverar principinställningen Administrativa mallar\Windows-k
 Om du aktiverar inställningen visas en extra sida i Internet Explorer 11 som indikerar att en webbplats har öppnats med Microsoft Edge i företagsläge.
 
 Om du inaktiverar eller låter bli att konfigurera inställningen visas ingen extra sida.</string>
+      <string id="NeedEdgeBrowser">Ange vilken Microsoft Edge-kanal som ska användas när omdirigerade webbplatser öppnas</string>
+      <string id="IE_ExplainNeedEdgeBrowser">Gör att du kan ställa in upp till tre versioner av Microsoft Edge som ska öppna en omdirigerad webbplats (i den ordning du föredrar). Använd den här principen om er miljö är inställd på att omdirigera webbplatser från Internet Explorer 11 till Microsoft Edge. Om någon av de valda versionerna inte är installerad på enheten ignoreras den.
+
+Om både Windows Update för nästa version av Microsoft Edge* och Microsoft Edge Stable-kanalen är installerade sker följande:
+- Om du inaktiverar eller låter bli att konfigurera principen så används Microsoft Edge Stable-kanalen. Detta sker som standard.
+- Om du aktiverar principen kan du ställa in att omdirigerade webbplatser ska öppnas i upp till tre av följande kanaler:
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta version 77 eller senare
+    3 = Microsoft Edge Dev version 77 eller senare
+    4 = Microsoft Edge Canary version 77 eller senare
+
+Om Windows Update för nästa version av Microsoft Edge* eller Microsoft Edge Stable-kanalen inte är installerade sker följande:
+- Om du inaktiverar eller låter bli att konfigurera principen så används Microsoft Edge version 45 eller tidigare automatiskt. Detta sker som standard.
+- Om du aktiverar principen kan du ställa in att omdirigerade webbplatser ska öppnas i upp till tre av följande kanaler:
+    0 = Microsoft Edge version 45 eller tidigare
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta version 77 eller senare
+    3 = Microsoft Edge Dev version 77 eller senare
+    4 = Microsoft Edge Canary version 77 eller senare
+
+*Mer information om Windows Update för nästa version av Microsoft Edge samt hur du inaktiverar det hittar du i https://go.microsoft.com/fwlink/?linkid=2102115. Den här uppdateringen gäller endast Windows 10 version 1709 och senare.</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta version 77 eller senare</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev version 77 eller senare</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary version 77 eller senare</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge Dev version 45 eller tidigare</string>
+      <string id="KeepIntranetSitesInInternetExplorer">Behåll alla intranätplatser i Internet Explorer</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">Förhindrar att webbplatser öppnas i andra webbläsare än Internet Explorer. Observera att den här principen har ingen verkan om principen Skicka alla webbplatser som inte ingår i listan över webbplatser i företagsläge till Microsoft Edge (RestrictIE) inte är aktiverad.
+
+Om du aktiverar den här principen öppnas alla intranätplatser i Internet Explorer 11. De enda undantagen är webbplatserna i listan över webbplatser i företagsläge.
+
+Om du inaktiverar eller låter bli att konfigurera den här principen öppnas alla intranätplatser automatiskt i Microsoft Edge.
+
+Vi rekommenderar att du håller den här principen i synk med principen Skicka alla intranätplatser till Internet Explorer (SendIntranetToInternetExplorer). Det är också bäst att bara aktivera den här principen om dina intranätplatser har kända kompatibilitetsproblem med Microsoft Edge.
+
+Relaterade principer:
+- Skicka alla intranätplatser till Internet Explorer (SendIntranetToInternetExplorer)
+- Skicka alla webbplatser som inte ingår i listan över webbplatser i företagsläge till Microsoft Edge (RestrictIE)
+
+Mer information om hur du använder den här principen ihop med andra relaterade principer för att skapa den optimala konfigurationen för din organisation hittar du i https://go.microsoft.com/fwlink/?linkid=2094210.</string>
+      <string id="AllowSaveTargetAsInIEMode">Tillåt "Spara mål som" i Internet Explorer-läge</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">Med den här princip inställningen kan administratörer aktivera snabb menyn "Spara mål som" i Internet Explorer-läge.
+
+Om du aktiverar den här principen visas "Spara mål som" i snabb menyn för Internet Explorer och fungerar på samma sätt som i Internet Explorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här princip inställningen visas inte "Spara mål som" i snabb menyn för Internet Explorer-läge.
+
+Mer information finns i https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="EnableGlobalWindowListInIEMode">Aktivera global fönsterlista i Internet Explorer-läge</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">Med den här inställningen kan Internet Explorer läge använda den globala fönsterlistan som aktiverar delningstillstånd med andra program.
+Inställningen börjar bara gälla när Internet Explorer 11 är inaktiverad som fristående webbläsare.
+
+Om du aktiverar den här principen används den globala fönsterlistan i Internet Explorer läge.
+
+Om du inaktiverar eller låter bli att konfigurera den här principen fortsätter Internet Explorer läge att behålla en separat fönsterlista.
+
+Mer information om Internet Explorer läge finns i https://go.microsoft.com/fwlink/?linkid=2102921
+Mer information om hur du inaktiverar Internet Explorer 11 som fristående webbläsare finns i https://go.microsoft.com/fwlink/?linkid=2168340</string>
+      <string id="EnableExtendedIEModeHotkeys">Aktivera utökade snabbtangenter i Internet Explorer-läge</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">Med den här principinställningen kan administratörer aktivera utökade snabbtangenter för Internet Explorer-läget i Microsoft Edge, till exempel funktioner som "Ctrl + S" för att få "Spara som".
+
+Om du aktiverar den här principen aktiveras utökade funktioner för snabbtangenter i Internet Explorer-läge och fungerar på samma sätt som Internet Explorer.
+
+Om du inaktiverar eller inte konfigurerar den här principen fungerar inte utökade snabbtangenter i Internet Explorer-läge.
+
+Mer information finns i https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="AllowLegacyURLFields">Tillåt äldre funktionalitet för Internet-genvägsfiler</string>
+      <string id="IE_ExplainAllowLegacyURLFields">Med den här principinställningen kan du använda vissa inaktiverade funktioner, t.ex. WorkingDirectory-fält eller protokollhantering som kan anslutas, i InternetGenvägar.
+
+Om du aktiverar den här principen återaktiveras inaktiverade funktioner för Internetgenvägar.
+
+Om du inaktiverar eller låter bli att konfigurera den här principen inaktiveras vissa funktioner för Internetgenvägar, till exempel fältet WorkingDirectory eller protokollhantering som kan anslutas.</string>
+      <string id="ResetZoomForDialogInIEMode">Återställ zoomning till standard för HTML-dialogrutor i Internet Explorer läge</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">Med den här principinställningen kan administratörer återställa zoomning till standard för HTML-dialogrutor i Internet Explorer läge.
+
+Om du aktiverar den här principen sprids inte zoomningen av en HTML-dialogruta i Internet Explorer läge från den överordnade sidan.
+
+Om du inaktiverar eller låter bli att konfigurera den här principen anges zoomningen av en HTML-dialogruta i Internet Explorer läge baserat på zoomningen på den överordnade sidan.
+
+Mer information finns i https://go.microsoft.com/fwlink/?linkid=2220107</string>
+      <string id="DisableInternetExplorerApp">Inaktivera Internet Explorer 11 som fristående webbläsare</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">Med den här principen kan du begränsa hur Internet Explorer startas som en fristående webbläsare.
+
+Om du aktiverar den här principen:
+– Förhindrar den att Internet Explorer 11 startas som en fristående webbläsare.
+– Begränsas användningen av Internet Explorer till det inbyggda Internet Explorer-läget i Microsoft Edge.
+– Omdirigeras alla försök att starta Internet Explorer 11 till webbläsaren Microsoft Edge Stable-kanal.
+– Åsidosätts alla andra principer som omdirigerar till Internet Explorer 11.
+
+Även med den här principen aktiverad kan Internet Explorer 11 fortfarande startas via COM-automation. Om du vill inaktivera att COM-automation startar Internet Explorer 11 kan du använda grupprincipen Inaktivera COM-automation för Internet Explorer 11.
+
+Om du inaktiverar eller låter bli att konfigurera principen öppnas alla webbplatser med befintliga aktiva webbläsarinställningar. Obs! Microsoft Edge Stable-kanalen måste installeras för att den här principen ska börja gälla.</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">Inaktivera Internet Explorer 11-start via COM Automation</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">Med den här principen kan du begränsa start av Internet Explorer med COM-automatisering.
+
+Om du aktiverar den här principen hindras Internet Explorer 11 från att startas med COM-automatisering.
+
+Om du inaktiverar eller låter bli att konfigurera den här principen tillåts Internet Explorer 11 COM-automatiseringsstarter.</string>
+      <string id="DisableIEAppDeprecationNotification">Dölj meddelande om att Internet Explorer 11 tas ur bruk</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">Med den här principinställningen kan du ange om påminnelsen i meddelandefältet om att Internet Explorer tas ur bruk visas. Meddelandefältet visas som standard i Internet Explorer 11.
+
+Om du aktiverar den här principinställningen visas inte meddelandefältet i Internet Explorer 11.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen visas meddelandefältet i Internet Explorer 11.</string>
+      <string id="NotifyDisableIEOptions_Never">Aldrig</string>
+      <string id="NotifyDisableIEOptions_Always">Alltid</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">En gång per användare</string>
+      <string id="JScriptReplacement">Ersätt JScript genom att läsa in JScript9Legacy i stället för JScript.</string>
+      <string id="IE_ExplainJScriptReplacement">Den här principinställningen anger om JScript eller JScript9Legacy har lästs in.
+      
+Om du aktiverar eller låter bli att konfigurera den här principinställningen läses JScript9Legacy in i situationer där JScript instansieras.
+
+Om du inaktiverar den här principen används JScript.</string>
       <string id="VerMgmtDisable">Inaktivera blockering av inaktuella ActiveX-kontroller för Internet Explorer</string>
       <string id="IE_ExplainVerMgmtDisable">Den här principinställningen anger om Internet Explorer blockerar specifika inaktuella ActiveX-kontroller. Inaktuella ActiveX-kontroller blockeras aldrig i zonen Intranät.
 
@@ -4122,6 +4241,12 @@ Om du aktiverar inställningen stoppar IE nedladdningen av uppdaterade versioner
 Om du inaktiverar eller låter bli att konfigurera inställningen fortsätter IE ladda ned uppdaterade versioner av VersionList.XML.
 
 Mer information finns på sidan Out-of-date ActiveX control blocking i TechNet-biblioteket för Internet Explorer.</string>
+      <string id="DisableHTMLApplication">Inaktivera HTML-program</string>
+      <string id="DisableHTMLApplication_Explain">Den här principinställningen anger om körningen av HTML-programmet (HTA-filen) är blockerad eller tillåten.
+
+Om du aktiverar den här principinställningen som kör HTML-programmet (HTA-filen) kommer att blockeras.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen tillåts körning av HTML-programmet (HTA-filen).</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
@@ -4791,6 +4916,14 @@ Mer information finns på sidan Out-of-date ActiveX control blocking i TechNet-b
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">Domänlista</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">I första hand</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">I andra hand</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">I tredje hand</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">Meddela om att webbläsaren Internet Explorer 11 är inaktiverad</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

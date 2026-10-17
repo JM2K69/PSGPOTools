@@ -129,6 +129,12 @@ Hvis du ikke konfigurerer denne innstillingen, kan ansatte velge om de vil bruke
 Hvis dette er aktivert, er utskrift tillatt.
 
 Hvis dette er deaktivert, tillates ikke utskrift.</string>
+      <string id="AllowMixedModePrintingInPdf">For PDF-filer som har både liggende og stående sider, skriver du ut hver med sin egen retning.</string>
+      <string id="AllowMixedModePrintingInPdf_Explain">Med denne policyen kan du skrive ut PDF-filer basert på per side-retning i Microsoft Edge.
+
+Hvis dette er aktivert, tillates utskrift av blandet modus.
+
+Hvis dette er deaktivert, tillates ikke blandet modus-utskrift.</string>
       <string id="AllowSavingHistory">Tillat å lagre loggen</string>
       <string id="AllowSavingHistory_Explain">Microsoft Edge lagrer brukerens nettleserlogg, som består av informasjon om nettsteder de besøker på enhetene sine.
 
@@ -512,9 +518,14 @@ Hvis du setter denne policyen til 0, bruker ikke Microsoft Edge inaktivitetstidt
 Hvis den er deaktivert eller ikke konfigurert, er standardverdien 5 minutter.
 
 Hvis du ikke konfigurerer Microsoft Edge med tilordnet tilgang, kommer ikke policyen til å tre i kraft.</string>
-    </stringTable>
+      <string id="SuppressEdgeDeprecationNotification">Undertrykk varsel om foreldet versjon av Microsoft Edge</string>
+      <string id="SuppressEdgeDeprecationNotification_Explain">Du kan konfigurere Microsoft Edge til å undertrykke visningen av varselet som informerer brukere om at støtte for denne versjonen av Microsoft Edge opphørte den 9. mars 2021. Hvis den er aktivert, vises ikke varslingen.
 
+Hvis den er deaktivert eller ikke konfigurert, vises varslingen hver gang Edge startes. </string>
+
+    </stringTable>
     <!-- Presentation -->
+    
     <presentationTable>
       <presentation id="ConfiguredFavorites_Presentation">
         <textBox refId="ConfiguredFavoritesPrompt">

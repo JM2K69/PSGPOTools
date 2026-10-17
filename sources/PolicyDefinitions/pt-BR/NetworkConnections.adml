@@ -49,10 +49,10 @@ Observação: os usuários que não são administradores (excluindo operadores d
 Dica: para abrir a caixa de diálogo Configurações TCP/IP Avançadas, na pasta Conexões de Rede, clique com o botão direito do mouse em um ícone de conexão e clique em Propriedades. Para conexões de acesso remoto, clique na guia Rede.  Na caixa "Os componentes marcados serão usados por esta conexão", clique em Protocolo Internet (TCP/IP), clique no botão Propriedades e, em seguida, no botão Avançado.
 
 Observação: alterar essa configuração de Habilitado para Não Configurado não habilitará o botão Avançado até que o usuário faça logoff.</string>
-      <string id="NC_AllowNetBridge_NLA">Proibir instalação e configuração de ponte de rede na rede do domínio DNS</string>
+      <string id="NC_AllowNetBridge_NLA">Proibir a instalação e a configuração de ponte de rede em sua rede.</string>
       <string id="NC_AllowNetBridge_NLA_Help">Determina se um usuário pode instalar e configurar a ponte de rede.
 
-Importante: esta configuração reconhece o local. Ela só se aplica quando um computador está conectado à mesma rede de domínio DNS a que estava conectado quando a configuração foi atualizada nesse computador. Se um computador estiver conectado a uma rede de domínio DNS diferente daquela a que estava conectado quando a configuração foi atualizada, esta configuração não será aplicada.
+Importante: essa configuração tem reconhecimento de localização em dispositivos ingressados no domínio do AD. Ela só se aplica quando um computador está conectado à mesma rede de domínio DNS a que estava conectado quando a configuração foi atualizada nesse computador. Se um computador estiver conectado a uma rede de domínio DNS diferente da que foi conectada quando a configuração foi atualizada, essa configuração não se aplicará. Em dispositivos ingressados no Entra, essa configuração será aplicada a todas as redes.
 
 A ponte de rede permite que os usuários criem uma ponte de camada dois MAC, permitindo a interconexão de dois ou mais segmentos de rede. Essa conexão aparece na pasta Conexões de Rede.
 

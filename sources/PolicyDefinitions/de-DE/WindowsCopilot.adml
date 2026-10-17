@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Anzeigenamen hier eingeben</displayName>
+  <description>Beschreibung hier eingeben</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Windows Copilot deaktivieren</string>
+      <string id="TurnOffWindowsCopilot_Help">Mit dieser Richtlinieneinstellung können Sie Windows Copilot deaktivieren.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Benutzer Copilot nicht verwenden. Das Copilot-Symbol wird auch nicht auf der Taskleiste angezeigt.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer Copilot verwenden, wenn es für sie verfügbar ist.
+      </string>
+      <string id="WindowsAI">Windows-KI</string>
+      <string id="DisableAIDataAnalysis">Speichern von Momentaufnahmen für die Verwendung mit Recall deaktivieren
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Mit dieser Richtlinieneinstellung können Sie bestimmen, ob Momentaufnahmen des Bildschirms für die Verwendung mit Recall gespeichert werden können. Für verwaltete Geräte sind Momentaufnahmen für Recall standardmäßig nicht aktiviert. IT-Administratoren können das Speichern von Momentaufnahmen im Namen ihrer Benutzer nicht selbst aktivieren. Für die Auswahl zum Aktivieren des Speicherns von Momentaufnahmen ist die Zustimmung des einzelnen Benutzers erforderlich.
+
+Wenn die Richtlinie nicht konfiguriert ist, werden Momentaufnahmen nicht für die Verwendung mit Recall gespeichert.
+
+Wenn Sie diese Richtlinie aktivieren, werden Momentaufnahmen nicht zur Verwendung mit Recall gespeichert. Wenn Momentaufnahmen zuvor auf dem Gerät gespeichert wurden, werden sie gelöscht, wenn diese Richtlinie aktiviert ist.
+
+Wenn Sie diese Richtlinie auf "Deaktiviert" festlegen, haben Endbenutzer die Wahl, Momentaufnahmen ihres Bildschirms zu speichern und Recall zu verwenden, um Dinge zu finden, die sie auf ihrem Gerät gesehen haben.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Festlegen des maximalen Speichers für von Recall verwendete Momentaufnahmen
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Mit dieser Richtlinieneinstellung können Sie den maximalen Speicherplatz auf dem Datenträger steuern, der von Windows zum Speichern von Momentaufnahmen für Recall verwendet werden kann.
+
+Sie können den maximalen Speicherplatz für Momentaufnahmen auf 10, 25, 50, 75, 100 oder 150 GB festlegen.
+
+Wenn diese Einstellung nicht konfiguriert ist, konfiguriert das Betriebssystem die Speicherzuordnung für Momentaufnahmen basierend auf der Speicherkapazität des Geräts.
+
+Wenn die Speicherkapazität des Geräts 256 GB beträgt, werden 25 GB zugeordnet. Wenn die Speicherkapazität des Geräts 512 GB beträgt, werden 75 GB zugeordnet. Wenn die Speicherkapazität des Geräts 1 TB oder mehr beträgt, werden 150 GB zugeordnet.
+
+Wenn sowohl die maximale Speicherdauer als auch der maximale Speicherplatz für Recall festgelegt sind, werden Momentaufnahmen gelöscht, wenn das erste Maximum erreicht ist.
+
+Wichtig: Diese Einstellung gilt nur für Enterprise- und Education-Client-SKUs.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Lassen Sie das Betriebssystem die maximale Speichermenge basierend auf der Festplattenspeichergröße definieren.</string>
+      <string id="SetMaximumStorageSpace_10GB">10 GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25 GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50 GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75 GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100 GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150 GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Festlegen der maximalen Dauer zum Speichern von Momentaufnahmen, die von Recall verwendet werden
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Mit dieser Richtlinieneinstellung können Sie die maximale Zeit (in Tagen) steuern, die Windows Momentaufnahmen für Recall speichert.
+
+Wenn die Richtlinie aktiviert ist, können Sie die maximale Speicherdauer auf 30, 60, 90 oder 180 Tage konfigurieren.
+
+Wenn diese Richtlinie nicht konfiguriert ist, beträgt die maximale Speicherdauer 90 Tage, es sei denn, der aktuelle Benutzer gibt einen anderen Wert an.
+
+Wenn sowohl die maximale Speicherdauer als auch der maximale Speicherplatz für Recall festgelegt sind, werden Momentaufnahmen gelöscht, wenn das erste Maximum erreicht ist.
+
+Wichtig: Diese Einstellung gilt nur für Enterprise- und Education-Client-SKUs.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">Lasse Sie das Betriebssystem den maximalen Zeitraum definieren, für den die Momentaufnahmen gespeichert werden.
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 Tage</string>
+      <string id="SetMaximumStorageDuration_60Days">60 Tage</string>
+      <string id="SetMaximumStorageDuration_90Days">90 Tage</string>
+      <string id="SetMaximumStorageDuration_180Days">180 Tage</string>
+      <string id="SetDenyAppListForRecall">Festlegen einer Liste von Apps, die aus Momentaufnahmen für Recall herausgefiltert werden sollen
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Mit dieser Richtlinie können Sie eine Liste von Apps definieren, die nicht in Momentaufnahmen für Recall eingeschlossen werden.
+
+Benutzer können mithilfe Recall Einstellungen zusätzliche Anwendungen hinzufügen, die von Momentaufnahmen ausgeschlossen werden sollen.
+
+Die Liste kann Anwendungsbenutzermodell-IDs (AUMID) oder den Namen der ausführbaren Datei enthalten.
+
+Verwenden Sie eine durch Semikolons getrennte Liste von Apps, um die Liste der Ablehnungs-Apps für Recall zu definieren.
+
+Beispiel: code.exe; Microsoft.WindowsNotepad_8wekyb3d8bbwe! App;ms-teams.exe
+
+Wichtig: Diese Einstellung gilt nur für Enterprise- und Education-Client-SKUs. Beim Konfigurieren dieser Richtlinieneinstellung werden Änderungen erst nach einem Neustart des Geräts wirksam.
+      </string>
+      <string id="SetDenyUriListForRecall">Festlegen einer Liste von URIs, die aus Momentaufnahmen für Recall herausgefiltert werden sollen
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Mit dieser Richtlinieneinstellung können Sie eine Liste von URIs definieren, die bei Verwendung eines unterstützten Browsers nicht in Momentaufnahmen für Recall eingeschlossen werden. Personen in Ihrem organization können Recall Einstellungen verwenden, um der Liste weitere Websites hinzuzufügen. Definieren Sie die Liste mithilfe eines Semikolons, um URIs zu trennen.
+
+Beispiel: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+Durch das Hinzufügen https://www.WoodgroveBank.com zur Liste werden auch https://Account.WoodgroveBank.com und https://www.WoodgroveBank.com/Account. gefiltert.
+
+Wichtig: Diese Einstellung gilt nur für Enterprise- und Education-Client-SKUs. Änderungen an dieser Richtlinie werden nach dem Neustart des Geräts wirksam.
+      </string>
+      <string id="SetDataLossPreventionProvider">DLP-Anbieter-ID für Recall festlegen
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Mit dieser Richtlinie kann ein Administrator einen DLP-Anbieter angeben, den Recall verwendet, wenn der Anbieter ordnungsgemäß installiert ist. Sie müssen die Zeichenfolge dafür von Ihrem Anbieter abrufen. Sie sieht etwa so aus: „key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll“ (ohne Anführungszeichen im Wert).
+
+Wichtig: Diese Einstellung gilt nur für Enterprise- und Education-Client-SKUs.
+      </string>
+      <string id="SetCopilotHardwareKey">Copilot-Hardwareschlüssel festlegen</string>
+      <string id="SetCopilotHardwareKey_Help">Diese Richtlinieneinstellung legt fest, welche App geöffnet wird, wenn der Benutzer die Copilot-Taste auf der Tastatur drückt. Wenn die Richtlinie aktiviert ist, wird die angegebene App geöffnet, wenn der Benutzer die Copilot-Taste drückt. Benutzer können die Schlüsselzuweisung in den Einstellungen ändern. Wenn die Richtlinie nicht konfiguriert ist, wird Copilot geöffnet, wenn er in diesem Land oder dieser Region verfügbar ist.
+      </string>
+      <string id="AllowRecallEnablement">Aktivieren von Recall zulassen
+      </string>
+      <string id="AllowRecallEnablement_Help">Mit dieser Richtlinieneinstellung können Sie bestimmen, ob die Recall optionale Komponente für Endbenutzer auf ihrem Gerät aktiviert werden kann. Standardmäßig ist Recall für verwaltete kommerzielle Geräte deaktiviert. Recall ist standardmäßig auf verwalteten Geräten nicht verfügbar, und einzelne Benutzer können Recall nicht selbst aktivieren.
+
+Wenn diese Richtlinie nicht konfiguriert ist, haben Endbenutzer die Recall Komponente in einem deaktivierten Zustand.
+
+Wenn diese Richtlinie deaktiviert ist, befindet sich die Recall Komponente im deaktivierten Zustand, und die Bits für Recall werden vom Gerät entfernt. Wenn Momentaufnahmen zuvor auf dem Gerät gespeichert wurden, werden sie gelöscht, wenn diese Richtlinie deaktiviert ist. Das Entfernen Recall erfordert einen Geräteneustart.
+
+Wenn die Richtlinie aktiviert ist, haben Endbenutzer Recall auf ihrem Gerät verfügbar. Abhängig vom Status der Richtlinie "DisableAIDataAnalysis" (Speichern von Momentaufnahmen für die Verwendung mit Recall deaktivieren) können Endbenutzer auswählen, ob sie Momentaufnahmen ihres Bildschirms speichern möchten, und Recall verwenden, um Dinge zu finden, die sie auf ihrem Gerät gesehen haben.
+      </string>
+      <string id="DisableClickToDo">Aktion per Mausklick deaktivieren</string>
+      <string id="DisableClickToDo_Help">Aktion per Mausklick ermöglicht es Personen, auf Inhalte auf ihren Bildschirmen zuzugreifen. Wenn es aktiviert ist, wird ein Screenshot des Bildschirms erstellt und analysiert, um Aktionen anzuzeigen. Aktion per Mausklick endet, wenn es geschlossen wird, und es können keine Screenshots erstellt werden, während es geschlossen ist. Die Screenshotanalyse erfolgt immer lokal auf ihrem Gerät. Standardmäßig ist Aktion per Mausklick für Benutzende aktiviert.
+
+Diese Richtlinieneinstellung ermöglicht es Ihnen zu bestimmen, ob Aktion per Mausklick für Benutzende auf ihren Geräten verfügbar ist.
+
+Wenn die Richtlinie aktiviert ist, sind die Komponente Aktion per Mausklick und die Einstiegspunkte für Benutzende nicht verfügbar.
+
+Wenn die Richtlinie deaktiviert ist, steht Aktion per Mausklick Benutzenden auf ihren Geräten zur Verfügung.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">Image Creator deaktivieren</string>
+      <string id="DisableImageCreator_Help">Mit dieser Richtlinieneinstellung können Sie steuern, ob Image Creator Funktionalität in der Windows Paint-App deaktiviert ist. Wenn diese Richtlinie aktiviert ist, ist Image Creator Funktionalität in der Paint-App nicht verfügbar. Wenn diese Richtlinie deaktiviert oder nicht konfiguriert ist, können Benutzer auf Image Creator Funktionalität zugreifen.</string>
+      <string id="DisableCocreator">Cocreator deaktivieren</string>
+      <string id="DisableCocreator_Help">Mit dieser Richtlinieneinstellung können Sie steuern, ob die Cocreatorfunktion in der Windows Paint-App deaktiviert ist. Wenn diese Richtlinie aktiviert ist, kann in der Paint-App nicht auf die Cocreator-Funktionalität zugegriffen werden. Wenn diese Richtlinie deaktiviert oder nicht konfiguriert ist, können Benutzer auf die Cocreator-Funktionalität zugreifen.</string>
+      <string id="DisableGenerativeFill">Generative Füllung deaktivieren</string>
+      <string id="DisableGenerativeFill_Help">Mit dieser Richtlinieneinstellung können Sie steuern, ob die Funktion zum generierenden Ausfüllen in der Windows Paint-App deaktiviert ist. Wenn diese Richtlinie aktiviert ist, ist die Funktion zum generierenden Ausfüllen in der Paint-App nicht verfügbar. Wenn diese Richtlinie deaktiviert oder nicht konfiguriert ist, können Benutzer auf die Generative Fill-Funktionalität zugreifen.</string>
+      <string id="AllowRecallExport">Export von Recall- und Momentaufnahmeinformationen zulassen</string>
+      <string id="AllowRecallExport_Help">Mit dieser Richtlinie können Sie festlegen, ob Benutzer ihre eigenen Recall- und Momentaufnahmeinformationen exportieren können. Durch das Exportieren können Benutzer ihre Recall- und Momentaufnahmeinformationen mit vertrauenswürdigen Apps oder Websites teilen. Benutzer können über Einstellungen &gt; Datenschutz und Sicherheit &gt; Recall und Momentaufnahmen &gt; Erweiterte Einstellungen &gt; Momentaufnahmen exportieren &gt; Frühere Momentaufnahmen exportieren &gt; Export exportieren.
+
+Benutzer können ihre Momentaufnahmen auch fortlaufend exportieren, wenn sie die Option zum Exportieren von Momentaufnahmen von jetzt an über Einstellungen &gt; Datenschutz und Sicherheit &gt; Recall und Momentaufnahmen &gt; Erweiterte Einstellungen &gt; Exportieren von Momentaufnahmen &gt; Export aktivieren.
+
+Vor dem Start eines Exports muss sich der Benutzer bei Windows Hello authentifizieren und er wird darüber informiert, dass die exportierten Momentaufnahmen verschlüsselt sind, da sie möglicherweise vertrauliche Informationen enthalten. Der Benutzer wird außerdem darüber informiert, dass er seinen Recall-Exportcode angeben muss, wenn er vertrauenswürdigen Apps oder Websites Zugriff auf die exportierten Momentaufnahmen gewähren möchte. Der Recall-Exportcode wird den Benutzern während des Recall-Setup angezeigt, auch wenn diese Richtlinie deaktiviert oder nicht konfiguriert ist. Für verwaltete Geräte:
+
+Wenn Sie diese Richtlinie auf „Aktiviert“ festlegen, können Benutzer Recall- und Momentaufnahmeinformationen exportieren.
+
+Wenn die Richtlinie deaktiviert oder nicht konfiguriert ist, können Benutzer ihre Recall- und Momentaufnahmeinformationen nicht exportieren.
+
+Wichtig: Diese Einstellung gilt nur für Geräte im Europäischen Wirtschaftsraum (EWR). Der Export von Recall- und Momentaufnahmeinformationen ist ein benutzerinitiierter Prozess und erfolgt pro Benutzer. IT-Administratoren oder andere Benutzer können keinen Export im Auftrag eines anderen initiieren.
+      </string>
+      <string id="DisableSettingsAgent">Agentische Sucherfahrung für Einstellungen deaktivieren</string>
+      <string id="DisableSettingsAgent_Help">Die agentische Erfahrung in den Einstellungen verbessert die Suchergebnisse innerhalb der App "Einstellungen", indem sie natürliche Sprache ermöglicht. Bei Aktivierung wird ein KI-Modell verwendet, um intelligente Suchvorschläge für Einstellungen bereitzustellen.
+
+        Mit dieser Richtlinieneinstellung können Sie bestimmen, ob die Agent-Suchoberfläche "Einstellungen" für Benutzer auf ihrem Gerät verfügbar ist.
+
+        Wenn die Richtlinie aktiviert ist, ist die Agent-Suchoberfläche "Einstellungen" deaktiviert, wodurch die Suchergebnisse auf statisch indizierte Suchen und semantische Suchen beschränkt werden.
+
+        Wenn die Richtlinie deaktiviert ist, steht den Benutzern die agentische Suche in den Einstellungen auf ihrem Gerät zur Verfügung.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Protokolliergrad der Registrierung auf dem Gerät</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Mit dieser Richtlinieneinstellung können Sie den Protokolliergrad für Registrierungsvorgänge auf dem Gerät konfigurieren.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Fehler oder höher</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Information oder höher</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Debug oder höher</string>
+      <string id="RemoveMicrosoftCopilotApp">Microsoft Copilot-App entfernen</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Mit dieser Richtlinieneinstellung können Sie Microsoft Copilot für Benutzer auf eine gezielte Weise deinstallieren. Sie gilt für Geräte/Benutzer, die die folgenden Bedingungen erfüllen:
+
+• Microsoft 365 Copilot und Microsoft Copilot sind beide installiert
+
+• Die Microsoft Copilot-App wurde nicht vom Benutzer installiert
+
+• Die Microsoft Copilot-App wurde nicht in den letzten 28 Tagen gestartet
+ 
+Wenn diese Richtlinie aktiviert ist, wird die Microsoft Copilot-App deinstalliert. Benutzer können sie bei Bedarf weiterhin neu installieren. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>App-AUMID eingeben</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Verweigerungs-App-Liste eingeben:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Verweigerungs-URI-Liste eingeben:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>DLP-Anbieter-ID eingeben:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Maximalen Speicherplatz auswählen:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Maximale Speicherdauer auswählen:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Protokolliergrad der Registrierung auf dem Gerät: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

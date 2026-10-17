@@ -3,10 +3,12 @@
 <description>kirjoita kuvaus tähän</description>
 <resources>
     <stringTable>
-    <string id="AntiSpywareDefender">Windows Defenderin virustentorjunta</string>
+    <string id="AntiSpywareDefender">Microsoft Defenderin virustentorjunta</string>
     <string id="AntiSpyware">Endpoint Protection</string>
     <string id="Exclusions">Poikkeukset</string>
-    <string id="ExploitGuard">Windows Defenderin hyökkäyssuoja</string>
+    <string id="Features">Ominaisuudet</string>
+    <string id="DeviceControl">Laitehallinta</string>
+    <string id="ExploitGuard">Microsoft Defenderin hyökkäyssuoja</string>
     <string id="ExploitGuard_ASR">Hyökkäysalueen Pienentäminen</string>
     <string id="ExploitGuard_ControlledFolderAccess">Hallittu kansion käyttö</string>
     <string id="ExploitGuard_NetworkProtection">Verkon suojaus</string>
@@ -15,6 +17,9 @@
     <string id="Quarantine">Karanteeni</string>
     <string id="RealtimeProtection">Reaaliaikainen suojaus</string>
     <string id="Remediation">Korjaus</string>
+    <string id="Remediation_BNB">Käyttäytymisen verkkolohkot</string>
+    <string id="Remediation_BNB_REP">Etäsalaussuojaus</string>
+    <string id="Remediation_BNB_BFP">Brute-Force Protection</string>
     <string id="Reporting">Raportointi</string>
     <string id="Scan">Tarkistus</string>
     <string id="SignatureUpdate">Suojaustietopäivitykset</string>
@@ -29,15 +34,68 @@ Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, haitt
 
 Jos poistat tämän käytäntöasetuksen käytöstä, haittaohjelmien torjuntapalvelu latautuu pienen prioriteetin tehtävänä.</string>
 
+    <string id="MeteredConnectionUpdates">Sallii Microsoft Defenderin virustentorjunnan päivittää ja viestiä käytön mukaan laskutettavan yhteyden kautta.</string>
+    <string id="MeteredConnectionUpdates_Explain">
+    Poistettu käytöstä (oletus): 
+    Päivityksiä ja viestintää ei sallita käytön mukaan laskutettavia yhteyksiä käytettäessä.
+
+Käytössä 
+    Salli hallittujen laitteiden päivittäminen käytön mukaan laskutettavia yhteyksiä käytettäessä. Data yhteyden käytöstä saatetaan veloittaa.</string>
+    <string id="HideExclusionsFromLocalAdmins">Määritä, näkyvätkö poikkeukset paikallisille järjestelmänvalvojille.</string>
+    <string id="HideExclusionsFromLocalAdmins_Explain">
+    Tämä käytäntöasetus määrittää, näkyvätkö poikkeukset paikallisille järjestelmänvalvojille.  Paikalliset käyttäjät, jotka eivät ole paikallisia järjestelmänvalvojia, eivät näe poikkeuksia riippumatta siitä, onko tämä asetus otettu käyttöön.
+    Ei käytössä (oletus):
+        Jos poistat tämän asetuksen käytöstä tai et määritä sitä, paikalliset järjestelmänvalvojat näkevät poikkeukset Windowsin suojaus -sovelluksessa ja PowerShellissä.
+
+    Käytössä: 
+        Jos otat tämän asetuksen käyttöön, paikalliset järjestelmänvalvojat eivät enää näe poikkeusluetteloa Windowsin suojaus -sovelluksessa tai PowerShellissä.
+        Huomautus: Tämän asetuksen ottaminen käyttöön ei poista poikkeuksia, vaan pelkästään estää niiden näkymisen paikallisille järjestelmänvalvojille. Tämä näkyy myös kohteessa Get-MpPreference.</string>
+    <string id="HideExclusionsFromLocalUsers">Määritä, näkyvätkö poikkeukset paikallisille käyttäjille</string>
+    <string id="HideExclusionsFromLocalUsers_Explain">
+    Tämä käytäntöasetus määrittää, näkyvätkö poikkeukset laitteen paikallisille käyttäjille.
+    HideExclusionsFromLocalAdmins-käytäntöasetuksen avulla voit piilottaa poikkeukset sekä paikallisilta tavallisilta käyttäjiltä että järjestelmänvalvojilta.</string>
+    <string id="AllowNetworkProtectionOnWinServer">Tämä asetus määrittää, voidaanko verkon suojaus määrittää Windows-palvelimen estämis- tai valvontatilaan.</string>
+    <string id="AllowNetworkProtectionOnWinServer_Explain">
+    Poistettu käytöstä (oletus): 
+    Jos asetusta ei ole määritetty tai poistettu käytöstä, verkon suojausta ei voi määrittää estämään esto-tai valvonta-tilassa Windows Serverissä.
+
+Käytössä 
+    Jos tämä asetus on käytössä, järjestelmänvalvojat voivat määrittää, voiko verkko suojaus määrittää esto-tai valvonta tilaan Windows Serverissä.
+    Huomaa, että tämä määritys on riippuvainen EnableNetworkProtection kokoonpanosta. Jos tämä määritys on EPÄTOSI, EnableNetworkProtection ohitetaan. muussa tapa uksessa verkon suojaus käynnistetään Windows Serverissä sen EnableNetworkProtection arvon mukaan.</string>
+    <string id="DisableDatagramProcessing">Tämä asetus hallitsee verkon suojauksen datagrammin käsittelyä.</string>
+    <string id="DisableDatagramProcessing_Explain">
+    Ei käytössä (oletus): 
+    Jos asetusta ei määritetä tai se on poistettu käytöstä, datagrammin käsittely on käytössä verkon suojausta varten.
+
+    Käytössä: 
+    Jos asetus on käytössä, datagrammikäsittely poistetaan käytöstä verkon suojausta varten.</string>
+    <string id="EnableConvertWarnToBlock">Muunna varoituspäätös estettäväksi</string>
+    <string id="EnableConvertWarnToBlock_Explain">
+    Verkon suojaus tarkistaa verkkoliikenteen ja määrittää, salliiko vai estääkö se liikenteen vai näyttääkö se varoituksen.
+    
+    Ei käytössä (oletus): 
+    Jos asetusta ei määritetä tai se on poistettu käytöstä, verkon suojaus näyttää varoituksen varoituspäätöksistä.
+
+    Käytössä: 
+    Jos tämä asetus on käytössä, verkon suojaus estää verkkoliikenteen varoituksen näyttämisen sijaan.</string>
+    <string id="AllowSwitchToAsyncInspection">Ota asynkroninen tarkastus käyttöön</string>
+    <string id="AllowSwitchToAsyncInspection_Explain">
+    Määritä, voiko verkon suojaus parantaa suorituskykyä siirtymällä reaaliaikaisesta tarkastuksesta asynkroniseen tarkastukseen.
+
+    Ei käytössä (oletus): 
+    Jos asetusta ei ole määritetty tai se on poistettu käytöstä, asynkronista tarkastusta ei oteta käyttöön verkon suojaukselle.
+
+    Käytössä: 
+    Jos asetus on käytössä, siirtyminen asynkroniseen tarkastukseen sallitaan verkon suojaukselle.</string>
     <string id="DisableAutoExclusions">Ota käyttöön automaattiset poikkeukset</string>
     <string id="DisableAutoExclusions_Explain">
-        Sallii järjestelmänvalvojan määrittää, pitääkö palvelimen SKU:iden automaattisten poikkeusten ominaisuus poistaa käytöstä.
+        Sallii järjestelmänvalvojan määrittää, pitääkö palvelimen SKU:iden automaattisten poikkeuksien ominaisuus poistaa käytöstä.
 
         Poistettu käytöstä (oletus):
-        Windows Defender jättää ennalta määritetyt polkuluettelot skannaamatta tehokkuuden parantamiseksi.
+        Microsoft Defender jättää ennalta määritetyt polkuluettelot skannaamatta tehokkuuden parantamiseksi.
 
         Käytössä:
-        Windows Defender ei jätä ennalta määritettyjä polkuluetteloita skannaamatta. Joissakin tapauksissa tämä voi vaikuttaa koneen tehokkuuteen.
+        Microsoft Defender ei jätä ennalta määritettyjä polkuluetteloita skannaamatta. Joissakin tapauksissa tämä voi vaikuttaa koneen tehokkuuteen.
 
         Ei määritetty:
         Sama kuin Poistettu käytöstä.
@@ -49,14 +107,14 @@ Jos poistat tämän käytäntöasetuksen käytöstä, haittaohjelmien torjuntapa
 
     Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Endpoint Protection on oletusarvon mukaisesti toiminnassa ja tietokoneet tarkistetaan haittaohjelmien tai muiden mahdollisten ei-toivottujen ohjelmien varalta.
     </string>
-    <string id="DisableAntiSpywareDefender">Poista Windows Defenderin virustentorjunta käytöstä</string>
-    <string id="DisableAntiSpywareDefender_Explain">Tämä käytäntöasetus poistaa Windows Defenderin virustentorjunnan käytöstä.
+    <string id="DisableAntiSpywareDefender">Poista Microsoft Defenderin virustentorjunta käytöstä</string>
+    <string id="DisableAntiSpywareDefender_Explain">Tämä käytäntöasetus poistaa Microsoft Defenderin virustentorjunnan käytöstä.
     
-    Jos otat tämän käytäntöasetuksen käyttöön, Windows Defenderin virustentorjunta ei toimi eikä tarkista tietokoneita haittaohjelmien tai muiden mahdollisten ei-toivottujen ohjelmien varalta.
+    Jos otat tämän käytäntöasetuksen käyttöön, Microsoft Defenderin virustentorjunta ei toimi eikä tarkista tietokoneita haittaohjelmien tai muiden mahdollisten ei-toivottujen ohjelmien varalta.
 
-    Jos poistat tämän käytäntöasetuksen käytöstä, Windows Defenderin virustentorjunta suoritetaan muihin asennettuihin virustentorjuntatuotteisiin katsomatta.
+    Jos poistat tämän käytäntöasetuksen käytöstä, Microsoft Defenderin virustentorjunta suoritetaan muihin asennettuihin virustentorjuntatuotteisiin katsomatta.
 
-    Jos et määritä tätä käytäntöasetusta, Windows hallitsee Windows Defenderin virustentorjuntaa sisäisesti. Jos asennat toisen virustentorjuntaohjelman, Windows poistaa Windows Defenderin virustentorjunnan automaattisesti käytöstä. Muussa tapauksessa Windows Defenderin virustentorjunta tarkistaa tietokoneesi haittaohjelmien tai muiden mahdollisten ei-toivottujen ohjelmien varalta.
+    Jos et määritä tätä käytäntöasetusta, Windows hallitsee Microsoft Defenderin virustentorjuntaa sisäisesti. Jos asennat toisen virustentorjuntaohjelman, Windows poistaa Microsoft Defenderin virustentorjunnan automaattisesti käytöstä. Muussa tapauksessa Microsoft Defenderin virustentorjunta tarkistaa tietokoneesi haittaohjelmien tai muiden mahdollisten ei-toivottujen ohjelmien varalta.
 
     Tämän käytännön ottaminen käyttöön tai poistaminen käytöstä voi johtaa odottamattomaan tai tukemattomaan toimintaan. Suosittelemme, että jätät tämän käytäntöasetuksen määrittämättä.</string>
     <string id="DisableLocalAdminMerge">Määritä paikallisen järjestelmänvalvojan luetteloiden yhdistämistoiminta</string>
@@ -67,11 +125,11 @@ Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, ryhm�
 Jos poistat tämän käytäntöasetuksen käytöstä, ainoastaan ryhmäkäytännön määrittämiä kohteita käytetään tulokseksi saatavassa voimassa olevassa käytännössä. Ryhmäkäytännön asetukset kumoavat paikallisen järjestelmänvalvojan määrittämät asetukset.</string>
     <string id="DisableRoutinelyTakingAction">Poista rutiinin korjaus käytöstä</string>
     <string id="DisableRoutinelyTakingActionDefender_Explain">
-    Tämän käytäntöasetuksen avulla voit määrittää, tekeekö Windows Defenderin virustentorjunta automaattisesti toimintoja kaikille havaituille uhkille. Kullekin uhkalle tehtävä toiminto määräytyy käytännön määrittämän toiminnon, käyttäjän määrittämän toiminnon ja allekirjoituksen määrittämän toiminnon yhdistelmän perusteella.
+    Tämän käytäntöasetuksen avulla voit määrittää, tekeekö Microsoft Defenderin virustentorjunta automaattisesti toimintoja kaikille havaituille uhille. Kullekin uhalle tehtävä toiminto määräytyy käytännön määrittämän toiminnon, käyttäjän määrittämän toiminnon ja allekirjoituksen määrittämän toiminnon yhdistelmän perusteella.
 
-    Jos otat tämän käytäntöasetuksen käyttöön, Windows Defenderin virustentorjunta ei tee automaattisesti toimintoja havaituille uhkille, vaan näyttää käyttäjille kehotteen valita kullekin uhkalle käytettävissä olevista toiminnoista.
+    Jos otat tämän käytäntöasetuksen käyttöön, Microsoft Defenderin virustentorjunta ei tee automaattisesti toimintoja havaituille uhkille, vaan näyttää käyttäjille kehotteen valita jonkin käytettävissä olevista toiminnoista kullekin uhalle.
 
-    Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Windows Defenderin virustentorjunta tekee automaattisesti toimintoja kaikille havaituille uhkille, kun on kulunut noin viiden sekunnin viive (jota ei voi muuttaa).</string>
+    Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Microsoft Defenderin virustentorjunta tekee automaattisesti toimintoja kaikille havaituille uhille, kun on kulunut noin viiden sekunnin viive (jota ei voi muuttaa).</string>
     <string id="DisableRoutinelyTakingAction_Explain">
         Tämän käytäntöasetuksen avulla voit määrittää, tekeekö Endpoint Protection automaattisesti toimintoja kaikille havaituille uhkille. Kullekin uhkalle tehtävä toiminto määräytyy käytännön määrittämän toiminnon, käyttäjän määrittämän toiminnon ja allekirjoituksen määrittämän toiminnon yhdistelmän perusteella.
 
@@ -109,11 +167,19 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, v�
       Jos poistat tämän asetuksen käytöstä tai et määritä sitä, välityspalvelin ohittaa tämän varavaiheen edellä mainitussa järjestyksessä.
     </string>
     <string id="RandomizeScheduleTaskTimes">Satunnaista ajoitettujen tehtävien ajat</string>
-    <string id="RandomizeScheduleTaskTimes_Explain">Tämän käytäntöasetuksen avulla voit ottaa käyttöön tai poistaa käytöstä aikataulun mukaisen tarkistuksen aloitusajan ja ajoitetun suojaustietopäivityksen aloitusajan satunnaistamisen. Tämän käytäntöasetuksen avulla voit jakaa tarkistuksen resurssivaikutuksen. Tätä käytäntöasetusta voidaan esimerkiksi käyttää vierasvirtuaalikoneissa, joilla on yhteinen isäntä. Sen avulla voidaan estää se, että useat vierasvirtuaalikoneet aloittavat paljon levyä käyttäviä toimintoja samanaikaisesti.
+    <string id="RandomizeScheduleTaskTimes_Explain">Tämän käytäntöasetuksen avulla voit määrittää aikataulun mukaisen tarkistuksen alkamisajan ja ajoitetun kuvauspäivityksen alkamisajan satunnaistamisen.
 
-    Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, ajoitetut tehtävät alkavat satunnaisena ajankohtana 30 minuutin välein ennen määritettyä aloitusaikaa ja sen jälkeen.
+Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä etkä asettanut satunnaistamisikkunaa Määritä ajoitetun tehtävän ajan satunnaistamisikkuna -asetukseen, satunnaistaminen lisätään 0–4 tunnin kuluttua.
+        Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä ja määrität satunnaistamisikkunan Määritä ajoitetun tehtävän ajan satunnaistaminen -ikkuna-asetukseen, käytetään määritettyä satunnaistamisikkunaa.
+        Jos poistat tämän käytäntöasetuksen käytöstä mutta määrität ajoitetun tehtävän ajan satunnaistamisikkunan, satunnaistamista ei tehdä. 
+    </string>
+    <string id="SchedulerRandomizationTime">Määritä ajoitettavien tehtäväaikojen satunnaistamisikkuna</string>
+    <string id="SchedulerRandomizationTime_Explain">Tämän käytäntöasetuksen avulla voit määrittää ajoitetun tehtävän tarkistuksen alkamisajan ja ajoitetun suojaustietopäivityksen aloitusaikaikkunan tunteina. Tämä asetus vaikuttaa Satunnaista ajoitettujen tehtävien ajat -määritykseen.
 
-    Jos poistat tämän käytäntöasetuksen käytöstä, ajoitetut tehtävät alkavat määritettynä aloitusaikana.</string>
+        Jos otat tämän asetuksen käyttöön, sinun on valittava satunnaistamisikkuna tunteina. Mahdollinen satunnaistamisikkunan aikaväli on 1–23 tuntia. Satunnaistamisväli on välillä 0 ja määritetty arvo. 
+        Kun otat tämän asetuksen käyttöön, Satunnaista ajoitettujen tehtävien ajat -asetukset käyttävät tässä määritysasetuksessa määritettyä satunnaistamisikkunaa. 
+        Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Satunnaista ajoitettujen tehtävien ajat -asetukset satunnaistavat ajoitettujen tehtävien ajat 0–4 tunnin väliltä.</string>
+
     <string id="ServiceKeepAlive">Salli haittaohjelmien torjuntapalvelun olla aina käynnissä</string>
     <string id="ServiceKeepAlive_Explain">Tämän käytäntöasetuksen avulla voit määrittää, pysyykö haittaohjelmien torjuntapalvelu käynnissä, kun virustentorjunnan ja vakoiluohjelmien suojaustiedot poistetaan käytöstä. Tämän käytäntöasetuksen on suositeltavaa olla poissa käytöstä.
 
@@ -135,12 +201,20 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, v�
         Ei määritetty:
         Sama kuin Ei käytössä.
     </string>
+    <string id="SupportLogLocation">Määritä hakemiston polku lokitiedostojen kopioimista varten</string>
+    <string id="SupportLogLocation_Explain">Tämän käytäntö asetuksen avulla voit määrittää hakemisto polun, johon tuki loki tiedostot kopioidaan. Tämän asetuksen arvon on oltava kelvollinen hakemisto polku.
+
+Jos otat tämän asetuksen käyttöön, tuki loki tiedostot kopioidaan määritettyyn tuki lokin sijainti polkuun.
+
+Jos poistat tämän asetuksen käytöstä tai et määritä sitä, tuki loki tiedostoja ei kopioida mihinkään sijaintiin.</string>
     <string id="Exclusions_Extensions">Tunnistepoikkeukset</string>
     <string id="Exclusions_Extensions_Explain">Tämän käytäntöasetuksen avulla voit määrittää niiden tiedostotyyppien luettelon, jotka on jätettävä pois aikataulun mukaisesta, mukautetusta ja reaaliaikaisesta tarkistuksesta. Tiedostotyypit on lisättävä tämän käytäntöasetuksen Asetukset-kohdassa. Kukin merkintä on lueteltava nimi-arvoparina, jossa nimi on esitettävä tiedostotyypin tunnisteen merkkijonona (kuten obj tai lib). Arvoa ei käytetä, ja tämän käytäntöasetuksen arvoksi on suositeltavaa määrittää arvo 0.</string>
     <string id="Exclusions_Paths">Polkupoikkeukset</string>
     <string id="Exclusions_Paths_Explain">Tämän käytäntöasetuksen avulla voit poistaa käytöstä määritetyissä poluissa olevien tiedostojen tai määritettyjen täydellisten resurssien aikataulun mukaisen ja reaaliaikaisen tarkistuksen. Polut on lisättävä tämän käytäntöasetuksen Asetukset-kohdassa. Kukin merkintä on lueteltava nimi-arvoparina, jossa nimi on esitettävä polun tai täydellisen resurssin nimen merkkijonona. Polku voidaan esimerkiksi määrittää muodossa c:\Windows, kun kyseisen hakemiston kaikki tiedostot halutaan jättää pois. Täydellinen resurssin nimi voidaan esimerkiksi määrittää muodossa C:\Windows\App.exe. Arvoa ei käytetä, ja tämän käytäntöasetuksen arvoksi on suositeltavaa määrittää arvo 0.</string>
     <string id="Exclusions_Processes">Prosessipoikkeukset</string>
-    <string id="Exclusions_Processes_Explain">Tämän käytäntöasetuksen avulla voit poistaa käytöstä minkä tahansa määritetyn prosessin avaaman tiedoston aikataulun mukaisen ja reaaliaikaisen tarkistuksen. Itse prosessia ei jätetä pois. Voit jättää prosessin pois käyttämällä polkupoikkeusta. Prosessit on lisättävä tämän käytäntöasetuksen Asetukset-kohdassa. Kukin merkintä on lueteltava nimi-arvoparina, jossa nimi on esitettävä prosessivedoksen polun merkkijonona. Huomaa, että vain suoritettavat tiedostot voidaan jättää pois. Prosessi voidaan esimerkiksi määrittää muodossa c:\windows\app.exe. Arvoa ei käytetä, ja tämän käytäntöasetuksen arvoksi on suositeltavaa määrittää arvo 0.</string>
+    <string id="Exclusions_Processes_Explain">Tämän käytäntöasetuksen avulla voit poistaa käytöstä minkä tahansa määritetyn prosessin avaaman tiedoston reaaliaikaisen tarkistuksen. Tämä käytäntö ei koske aikataulutettuja tarkistuksia. Itse prosessia ei jätetä pois. Voit jättää prosessin pois käyttämällä polkupoikkeusta. Prosessit on lisättävä tämän käytäntöasetuksen Asetukset-kohdassa. Kukin merkintä on lueteltava nimi-arvoparina, jossa nimi on esitettävä prosessivedoksen polun merkkijonona. Huomaa, että vain suoritettavat tiedostot voidaan jättää pois. Prosessi voidaan esimerkiksi määrittää muodossa c:\windows\app.exe. Arvoa ei käytetä, ja tämän käytäntöasetuksen arvoksi on suositeltavaa määrittää arvo 0.</string>
+    <string id="Exclusions_IpAddresses">IP-osoitteen poikkeukset</string>
+    <string id="Exclusions_IpAddresses_Explain">Sallii järjestelmänvalvojan poistaa käytöstä wdnisdrv tekemän verkkopakettien tarkistuksen, jotka on tehty tietyssä IP-osoitteissa.</string>
     <string id="Nis_DisableProtocolRecognition">Ota protokollan tunnistaminen käyttöön</string>
     <string id="Nis_DisableProtocolRecognition_Explain">Tämän käytäntöasetuksen avulla voit määrittää tunnetuilta heikkouksia hyödyntäviltä ohjelmilta suojaavan verkon suojauksen protokollan tunnistamisen.
 
@@ -167,6 +241,30 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, ry
 Jos otat tämän käytäntöasetuksen käyttöön, kohteet poistetaan karanteenikansiosta määritetyn päivien määrän jälkeen.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, kohteet säilytetään karanteenikansiossa toistaiseksi eikä niitä poisteta automaattisesti.</string>
+
+    <string id="RealtimeProtection_DisableSriptScanning">Ota komentosarjojen tarkistus käyttöön</string>
+    <string id="RealtimeProtection_DisableSriptScanning_Explain">Tämän käytäntö asetuksen avulla voit määrittää komento sarjojen tarkistuksen.
+
+Jos otat tämän käytäntö asetuksen käyttöön tai et määritä sitä, komento sarjojen tarkistus otetaan käyttöön.
+
+Jos poistat tämän asetuksen käytöstä, komento sarjojen tarkistus poistetaan käytöstä.</string>
+
+    <string id="RealtimeProtection_OobeEnableRtpAndSigUpdate">Määritä reaaliaikainen suojaus ja suojaustietopäivitykset OOBE:n aikana</string>
+    <string id="RealtimeProtection_OobeEnableRtpAndSigUpdate_Explain">Tämän käytäntöasetuksen avulla voit määrittää, ovatko reaaliaikainen suojaus ja suojaustietopäivitykset käytössä tervetuloa-ohjelman (OOBE) aikana.
+ 
+    Jos otat tämän asetuksen käyttöön, reaaliaikainen suojaus ja suojaustietopäivitykset otetaan käyttöön OOBE:n aikana.
+ 
+    Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, reaaliaikaista suojausta ja suojaustietopäivityksiä ei oteta käyttöön OOBE:n aikana.</string>
+
+    <string id="RealtimeProtection_PerformanceModeStatus">Määritä suorituskykytilan tila</string>
+    <string id="RealtimeProtection_PerformanceModeStatus_Explain">Tämä käytäntö ohjaa Microsoft Defenderin virustentorjunnan kehitysasemien suorituskykytilaa.
+
+    Dev Drive on levyasema, joka on optimoitu ohjelmistokehitysskenaarioiden suorituskyvyn parantamiseksi. Kun tämä käytäntö on käytössä tai sitä ei ole määritetty, suorituskykytila otetaan käyttöön Microsoft Defenderin virustentorjunnassa. Suorituskykytilassa Microsoft Defenderin virustentorjunnan kehitysasemille tallennetun sisällön suojaustarkistukset suoritetaan asynkronisesti suorituskyvyn parantamiseksi. Suorituskykytila edellyttää, että myös seuraavat käytännöt ovat käytössä: Ota kehitysasema käyttöön ja Kehitysaseman suodattimen liittämiskäytäntö.
+
+    Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, suorituskykytila on käytössä.
+
+    Jos poistat tämän käytäntöasetuksen käytöstä, suorituskykytila poistetaan käytöstä ja Microsoft Defenderin virustentorjunta suojaa kehitysasemaa samalla tavalla kuin muita asemia.</string>
+
     <string id="RealtimeProtection_DisableBehaviorMonitoring">Ota toiminnan valvonta käyttöön</string>
     <string id="RealtimeProtection_DisableBehaviorMonitoring_Explain">Tämän käytäntöasetuksen avulla voit määrittää toiminnan valvonnan.
 
@@ -192,13 +290,13 @@ Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, raw-a
 
 Jos poistat tämän käytäntöasetuksen käytöstä, raw-aseman kirjoitusilmoitukset poistetaan käytöstä.</string>
     <string id="DisableRealtimeMonitoring">Poista reaaliaikainen suojaus käytöstä</string>
-    <string id="DisableRealtimeMonitoringDefender_Explain">Tämä käytäntöasetus poistaa käytöstä reaaliaikaisen suojauksen kehotteet tunnettujen haittaohjelmien havaitsemisesta.
+    <string id="DisableRealtimeMonitoringDefender_Explain">Tämä käytäntö poistaa reaaliaikaisen suojauksen käytöstä Microsoft Defenderin virustentorjunnassa.
 
-    Windows Defenderin virustentorjunta näyttää ilmoituksen, kun vakoiluohjelma tai mahdollisesti ei-toivottu ohjelma yrittää asentaa itsensä tietokoneeseen tai yritetään suorittaa tietokoneessa.
+    Reaaliaikainen suojaus koostuu aina käytössä olevasta tarkistuksesta sekä tiedostojen ja prosessien toiminnan valvonnasta ja heuristiikasta. Kun reaaliaikainen suojaus on käytössä, Microsoft Defenderin virustentorjunta havaitsee haittaohjelmat ja mahdollisesti ei-toivotut ohjelmat, jotka yrittävät asentaa itsensä tai toimia laitteessasi, ja kehottaa ryhtymään toimiin haittaohjelmien havaitsemisen suhteen.
 
-    Jos otat tämän käytäntöasetuksen käyttöön, Windows Defenderin virustentorjunta ei näytä käyttäjille kehotetta toimintojen tekemisestä haittaohjelmien havaitsemisen yhteydessä.
+    Jos otat tämän käytäntöasetuksen käyttöön, reaaliaikainen suojaus poistetaan käytöstä. 
 
-    Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Windows Defenderin virustentorjunta näyttää käyttäjille kehotteen toimintojen tekemisestä haittaohjelmien havaitsemisen yhteydessä.</string>
+    Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, reaaliaikainen suojaus otetaan käyttöön.</string>
     <string id="DisableRealtimeMonitoring_Explain">
     Tämä käytäntöasetus poistaa käytöstä reaaliaikaisen suojauksen kehotteet tunnettujen haittaohjelmien havaitsemisesta.
 
@@ -306,6 +404,92 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, ko
 Jos otat tämän käytäntöasetuksen käyttöön, korjaus viimeistellään suorittamalla aikataulun mukainen täysi tarkistus määritettynä kellonaikana.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, korjaus viimeistellään suorittamalla aikataulun mukainen täysi tarkistus oletusaikana.</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState">Määritä etäsalaussuojauksen tila</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_Explain">
+    Määritä Microsoft Defenderin virustentorjunnan etäsalaussuojauksen tila, joka voi havaita ja estää yritykset korvata paikalliset tiedostot toisen laitteen salatuilla versioilla. 
+
+    Tuetut asetukset:
+    * 0 - Ei määritetty tai oletus: Käytä oletusasetuksia, jotka voivat vaihdella virustentorjuntaohjelman version ja käyttöympäristön mukaan
+    * 1 - Estä: estä epäilyttävät ja haitalliset toiminnat
+    * 2 - Valvonta: luo EDR-tunnistuksia estämättä
+    * 4 - Ei käytössä: ominaisuus ei ole käytössä eikä se vaikuta suorituskykyyn
+    </string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_0">Oletus</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_1">Esto</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_2">Valvonta</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState_3">Ei käytössä</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_MaxBlockTime">Määritä etäsalaussuojauksen estoaika</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_MaxBlockTime_Explain">
+    Määritä enimmäisaika, jonka etäsalaussuojaus estää IP-osoitteen käytön. Tämän jälkeen estetyt IP-osoitteet voivat muodostaa yhteyksiä uudelleen. 
+
+Tuetut asetukset:
+    * 0 - Ei mitään: Sisäinen ominaisuuslogiikka määrittää todellisen estoajan
+    * Määritä muut ajat 15 minuutin lisäyksin
+    </string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness">Määritä, miten aggressiivisesti etäsalaussuojaus estää uhat</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness_Explain">
+    Määritä ehdot, joiden mukaan etäsalaussuojaus estää IP-osoitteet.
+
+Tuetut asetukset:
+    *0 - Pieni: Estä vain, kun luottamustaso on 100% (oletus)
+    *1 - Keskitaso: käytä pilvikoostetta ja estä, kun luottamustaso on 99%
+    *2 - Korkea: käytä pilviälyä ja kontekstia ja estä, kun luottamustaso on 90%
+    </string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness_0">Heikko</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness_1">Normaali</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness_2">Suuri</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtectionExclusions"> Määritä etäsalaussuojauksen poikkeukset</string>
+    <string id="Remediation_BNB_REP_RemoteEncryptionProtectionExclusions_Explain">
+    Määritä IP-osoitteet, aliverkot ja toimialuenimet, jotka jätetään pois etäsalaussuojauksesta. Huomaa, että hyökkääjät voivat väärentää pois jätettyjä osoitteita ja nimiä ohittaakseen suojauksen.
+
+    Kirjoita jokainen osoite tai aliverkko uudelle riville nimi-arvo-parina:
+    - Nimisarake: anna IP-osoite tai aliverkon nimi. Esimerkiksi ""1.1.127.0"" jättää tämän IP-osoitteen estämisen ulkopuolelle.
+    - Arvosarake: kirjoita ""0"" kullekin kohteelle
+    </string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState">Määritä Brute-Force Protection -tila</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_Explain">
+    Määritä Microsoft Defenderin virustentorjunnan Brute-Force Protectionin tila, joka voi havaita ja estää yritykset aloittaa sisäänkirjautuminen ja aloittaa istuntoja pakotuksella.
+
+    Tuetut asetukset:
+    * 0 - Ei määritetty tai oletus: Käytä oletusasetuksia, jotka voivat vaihdella virustentorjuntaohjelman version ja käyttöympäristön mukaan
+    * 1 - Estä: estä epäilyttävät ja haitalliset toiminnat
+    * 2 - Valvonta: luo EDR-tunnistuksia estämättä
+    * 4 - Ei käytössä: ominaisuus ei ole käytössä eikä se vaikuta suorituskykyyn
+    </string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_0">Oletus</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_1">Esto</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_2">Valvonta</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState_3">Ei käytössä</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_MaxBlockTime">Määritä Brute-Force Protectionin estoaika</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_MaxBlockTime_Explain">
+    Määritä enimmäisaika, jonka Brute-Force suojaus estää IP-osoitteen. Tämän jälkeen estetyt IP-osoitteet voivat kirjautua sisään ja aloittaa istuntoja.
+
+Tuetut asetukset:
+    * 0 - Ei mitään: Sisäinen ominaisuuslogiikka määrittää todellisen estoajan
+    * Määritä muut ajat 15 minuutin lisäyksin
+    </string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness">Määritä Brute-Force Protectionin aggressiivisuus</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness_Explain">
+    Määritä ehdot, joiden mukaan Brute-Force Suojaus estää IP-osoitteet.
+
+Tuetut asetukset:
+    *0 - Pieni: Estä vain, kun luottamustaso on 100% (oletus)
+    *1 - Keskitaso: käytä pilvikoostetta ja estä, kun luottamustaso on 99%
+    *2 - Korkea: käytä pilviälyä ja kontekstia ja estä, kun luottamustaso on 90%
+    </string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness_0">Heikko</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness_1">Normaali</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness_2">Suuri</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtectionExclusions">Määritä Brute-Force Protectionin poikkeukset</string>
+    <string id="Remediation_BNB_BFP_BruteForceProtectionExclusions_Explain">
+    Määritä IP-osoitteet, aliverkot tai työasemien nimet, jotka jätetään pois Brute-Force Protectionista. Pois jätettyjä IP-osoitteita ei tarkisteta mahdollisen väsytyshyökkäyksen osalta.
+    
+    Huomaa, että hyökkääjät voivat väärentää pois jätettyjä osoitteita ja nimiä ohittaakseen suojauksen. Varmista, että nimet ovat yksilöllisiä ja että hyökkääjät eivät todennäköisesti arvaa niitä.
+
+    Kirjoita jokainen osoite tai aliverkko uudelle riville nimi-arvo-parina:
+    - Nimisarake: anna IP-osoite, aliverkon nimi tai työaseman nimi. Esimerkiksi "1.1.127.0" jättää tämän IP-osoitteen BFP:n estämisen ulkopuolelle.
+    - Arvosarake: syötä "0" kullekin kohteelle
+    </string>
     <string id="Reporting_AdditionalActionTimeout">Määritä lisätoiminnon vaativien tunnistusten aikakatkaisu</string>
     <string id="Reporting_AdditionalActionTimeout_Explain">Tämä käytäntöasetus määrittää sen ajan minuutteina, jonka jälkeen lisätoiminto-tilassa oleva tunnistus siirtyy selvitetty-tilaan.</string>
     <string id="Reporting_CriticalFailureTimeout">Määritä vakavasti epäonnistunut -tilassa olevien tunnistusten aikakatkaisu</string>
@@ -331,13 +515,26 @@ Jos poistat tämän käytäntöasetuksen käytöstä, Watson-tapahtumia ei lähe
     4 - Virheenkorjaus</string>
     <string id="Reporting_DisableEnhancedNotifications">Poista laajennetut ilmoitukset käytöstä</string>
     <string id="Reporting_DisableEnhancedNotifications_Explain">
-      Tämän käytäntöasetuksen avulla voit määrittää Windows Defenderin virustentorjunnan laajennettujen ilmoitusten näyttämisen asiakaskoneissa.
+      Tämän käytäntöasetuksen avulla voit määrittää Microsoft Defenderin virustentorjunnan laajennettujen ilmoitusten näyttämisen asiakaskoneissa.
       
-      Jos poistat asetuksen käytöstä tai et määritä sitä, Windows Defenderin virustentorjunnan laajennetut ilmoitukset näytetään asiakaskoneissa.
+      Jos poistat asetuksen käytöstä tai et määritä sitä, Microsoft Defenderin virustentorjunnan laajennetut ilmoitukset näytetään asiakaskoneissa.
       
-      Jos otat asetuksen käyttöön, Windows Defenderin virustentorjunnan laajennettuja ilmoituksia ei näytetä asiakaskoneissa.
+       Jos otat asetuksen käyttöön, Microsoft Defenderin virustentorjunnan laajennettuja ilmoituksia ei näytetä asiakaskoneissa.
     </string>
+    <string id="Reporting_ServiceHealthReportInterval">Määritä palvelun kuntaraporttien aikaväli</string>
+    <string id="Reporting_ServiceHealthReportInterval_Explain">Tämä käytäntöasetus määrittää aikavälin (minuutteina), jonka palvelun kuntoraportit lähetetään päätepisteistä.
 
+Jos poistat tämän asetuksen käytöstä tai et määritä sitä, käytetään oletusarvoa. Oletusarvoksi määritetään 60 minuuttia (1 tunti).
+
+Jos määrität tämän asetuksen arvoksi 0, palvelun kuntoraportteja ei lähetetä.
+
+Enimmäisarvo, joka voidaan määrittää, on 14 400 minuuttia (10 päivää).</string>
+    <string id="Reporting_EnableDynamicSignatureDroppedEventReporting">Määritä, raportoidaanko dynaamisen allekirjoituksen hylkäämistapahtumat</string>
+    <string id="Reporting_EnableDynamicSignatureDroppedEventReporting_Explain">Tämä käytäntöasetus määrittää, raportoidaanko dynaamisen allekirjoituksen hylkäämistä tapahtumista.
+
+ Jos et määritä tätä asetusta, oletusarvo otetaan käyttöön. Oletusarvo on poistettu käytöstä (tällaisia tapahtumia ei raportoida).
+ Jos määrität tämän asetuksen käyttöön, dynaamisen allekirjoituksen hylkäämät tapahtumat raportoidaan.
+ Jos määrität tämän asetuksen käytöstä poistetuksi, dynaamisen allekirjoituksen hylkäämistä tapahtumista ei raportoida.</string>
       <string id="Scan_AllowPause">Salli käyttäjien keskeyttää tarkistus</string>
     <string id="Scan_AllowPause_Explain">Tämän käytäntöasetuksen avulla voit hallita sitä, voivatko käyttäjät keskeyttää käynnissä olevan tarkistuksen.
 
@@ -351,7 +548,7 @@ Jos otat tämän käytäntöasetuksen käyttöön, arkistotiedostoja tarkistetaa
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, arkistotiedostoja tarkistetaan hakemiston syvyyden oletustasoon asti.</string>
     <string id="Scan_ArchiveMaxSize">Määritä tarkistettavien arkistotiedostojen enimmäiskoko</string>
-    <string id="Scan_ArchiveMaxSize_Explain">Tämän käytäntöasetuksen avulla voit määrittää tarkistettavien arkistotiedostojen (kuten .ZIP- tai .CAB-tiedostojen) enimmäiskoon. Arvo määrittää tiedoston koon kilotavuina (kt) Oletusarvo on 0, mikä tarkoittaa, ettei tarkistuksen arkistointikokoa ole rajoitettu.
+    <string id="Scan_ArchiveMaxSize_Explain">Tämän käytäntöasetuksen avulla voit määrittää tarkistettavien arkistotiedostojen (kuten .ZIP- tai .CAB-tiedostojen) enimmäiskoon. Arvo määrittää tiedoston koon kilotavuina (kt). Oletusarvo on 0, mikä tarkoittaa, ettei tarkistuksen arkistointikokoa ole rajoitettu.
 
 Jos otat tämän käytäntöasetuksen käyttöön, arkistotiedostot, jotka ovat pienempiä tai yhtä suuria kuin määritetty koko, tarkistetaan.
 
@@ -365,7 +562,7 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, su
     <string id="CheckForSignaturesBeforeRunningScan">Tarkista uusimmat virusten ja vakoiluohjelmien suojaustiedot ennen ajoitetun tarkistuksen suorittamista</string>
     <string id="CheckForSignaturesBeforeRunningScan_Explain">Tämän käytäntöasetuksen avulla voit hallita sitä, tarkistetaanko uudet virusten ja vakoiluohjelmien suojaustiedot ennen tarkistuksen suorittamista. 
 
-    Tämä käytäntöasetus koskee aikataulun mukaisia tarkistuksia sekä komentorivin komentoa mpcmdrun -SigUpdate. Se ei kuitenkaan vaikuta tarkistuksiin, jotka aloitetaan manuaalisesti käyttöliittymästä.
+    Tämä käytäntöasetus koskee aikataulun mukaisia tarkistuksia. Se ei kuitenkaan vaikuta tarkistuksiin, jotka aloitetaan manuaalisesti käyttöliittymästä, tai komentoriviltä mpcmdrun -Scan -komennolla aloitettuihin tarkistuksiin.
 
     Jos otat tämän käytäntöasetuksen käyttöön, uudet suojaustiedot tarkistetaan ennen tarkistuksen suorittamista.
 
@@ -373,27 +570,39 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, su
     <string id="Scan_DisableArchiveScanning">Tarkista arkistoidut tiedostot</string>
     <string id="Scan_DisableArchiveScanning_Explain">Tämän käytäntöasetuksen avulla voit määrittää arkistotiedostojen (kuten .ZIP- tai .CAB-tiedostojen) tarkistamisen haittaohjelmien ja ei-toivottujen ohjelmistojen varalta.
 
-Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, arkistotiedostot tarkistetaan.
+    Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, arkistotiedostot tarkistetaan.
 
-Jos poistat tämän käytäntöasetuksen käytöstä, arkistotiedostoja ei tarkisteta.</string>
+    Jos poistat tämän käytäntöasetuksen käytöstä, arkistotiedostoja ei tarkisteta. Ohjattujen tarkistusten aikana arkistot kuitenkin tarkistetaan aina.</string>
     <string id="Scan_DisableCatchupFullScan">Ota käyttöön korvaava täysi tarkistus</string>
     <string id="Scan_DisableCatchupFullScan_Explain">Tämän käytäntöasetuksen avulla voit määrittää aikataulun mukaisten täydellisten tarkistusten korvaavat tarkistukset. Korvaava tarkistus on tarkistus, joka aloitetaan, koska säännöllinen aikataulun mukainen tarkistus on jäänyt suorittamatta. Tavallisesti aikataulun mukaiset tarkistukset jätetään suorittamatta, koska tietokone on ollut sammutettuna ajoitettuna aikana. 
 
     Jos otat tämän asetuksen käyttöön, aikataulun mukaisten täydellisten tarkistusten korvaavat tarkistukset otetaan käyttöön. Jos tietokone on offline-tilassa kahden peräkkäisen aikataulun mukaisen tarkistuksen aikana, korvaava tarkistus käynnistetään seuraavan tietokoneeseen kirjautumisen yhteydessä. Jos aikataulun mukaista tarkistusta ei ole määritetty, korvaavaa tarkistusta ei suoriteta.
 
     Jos poistat tämän asetuksen käytöstä tai et määritä sitä, aikataulun mukaisten täydellisten tarkistusten korvaavat tarkistukset poistetaan käytöstä.</string>
+    <string id="Scan_ThrottleForScheduledScanOnly">Suorittimen rajoittamisen tyyppi</string>
+    <string id="Scan_ThrottleForScheduledScanOnly_Explain">Tämä käytäntöasetus määrittää, koskeeko tarkistuksen aikana sallittu suorittimen käytön enimmäisprosenttimäärä vain ajoitettuja tarkistuksia vai sekä ajoitettuja että mukautettuja tarkistuksia (mutta ei reaaliaikaista suojausta). Suorittimen enimmäiskäytön rajoitusta kutsutaan myös suorittimen rajoittamiseksi tai suorittimen käyttörajoitukseksi.
+
+    Tämän käytäntöasetuksen oletusarvo on True, mikä tarkoittaa sitä, että suorittimen rajoitusta käytetään vain ajoitetuissa tarkistuksissa.
+
+    Jos otat tämän asetuksen käyttöön tai et määritä sitä, suorittimen rajoittamista käytetään vain ajoitetuissa tarkistuksissa.
+
+    Jos poistat tämän asetuksen käytöstä, suorittimen rajoittamista käytetään ajoitetuissa ja mukautetuissa tarkistuksissa.</string>
     <string id="Scan_DisableCatchupQuickScan">Ota käyttöön korvaava pikatarkistus</string>
     <string id="Scan_DisableCatchupQuickScan_Explain">Tämän käytäntöasetuksen avulla voit määrittää aikataulun mukaisten pikatarkistusten korvaavat tarkistukset. Korvaava tarkistus on tarkistus, joka aloitetaan, koska säännöllinen aikataulun mukainen tarkistus on jäänyt suorittamatta.  Tavallisesti aikataulun mukaiset tarkistukset jätetään suorittamatta, koska tietokone on ollut sammutettuna ajoitettuna aikana. 
 
 Jos otat tämän käytäntöasetuksen käyttöön, aikataulun mukaisten pikatarkistusten korvaavat tarkistukset otetaan käyttöön. Jos tietokone on offline-tilassa kahden peräkkäisen aikataulun mukaisen tarkistuksen aikana, korvaava tarkistus käynnistetään seuraavan kirjautumisen yhteydessä.  Jos aikataulun mukaista tarkistusta ei ole määritetty, korvaavaa tarkistusta ei suoriteta.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, aikataulun mukaisten pikatarkistusten korvaavat tarkistukset poistetaan käytöstä.</string>
+    <string id="Scan_DaysUntilAggressiveCatchupQuickScan">Käynnistä pikatarkistus X päivän kuluttua ilman skannauksia</string>
+    <string id="Scan_DaysUntilAggressiveCatchupQuickScan_Explain">Tämä käytäntöasetus määrittää, kuinka monta päivää voi kulua edellisestä tarkistuksesta, ennen kuin aggressiivinen korvaamisen pikatarkistus käynnistetään automaattisesti. Arvo edustaa niiden päivien määrää, jotka voivat olla käyttämättä mitään skannauksia, ennen kuin aggressiivinen pikatarkistus käynnistetään.
+    
+Kelvolliset arvot ovat 7–60 päivää. Jos tätä ei määritetä, aggressiiviset pikatarkistukset poistetaan käytöstä. Oletusarvon mukaan arvoksi määritetään 25 päivää, kun se on käytössä.</string>
     <string id="Scan_DisableEmailScanning">Ota käyttöön sähköpostin tarkistus</string>
-    <string id="Scan_DisableEmailScanning_Explain">Tämän käytäntöasetuksen avulla voit määrittää sähköpostin tarkistuksen. Kun sähköpostin tarkistus otetaan käyttöön, moduuli analysoi sähköpostiviestien leipätekstit ja liitteet jäsentämällä postilaatikon ja sähköpostitiedostot niiden muodon mukaan. Tällä hetkellä tuettuna on useita sähköpostimuotoja, kuten pst (Outlook), dbx, mbx, mime (Outlook Express) ja binhex (Mac).
+    <string id="Scan_DisableEmailScanning_Explain">Tämän käytäntöasetuksen avulla voit määrittää sähköpostin tarkistuksen. Kun sähköpostin tarkistus otetaan käyttöön, moduuli analysoi sähköpostiviestien leipätekstit ja liitteet jäsentämällä postilaatikon ja sähköpostitiedostot niiden muodon mukaan. Tällä hetkellä tuettuna on useita sähköpostimuotoja, kuten pst (Outlook), dbx, mbx, mime (Outlook Express) ja binhex (Mac). Sähköpostin tarkistusta ei tueta nykyaikaisissa sähköpostiohjelmissa.
+    
+    Jos otat tämän käytäntöasetuksen käyttöön, sähköpostin tarkistus otetaan käyttöön.
 
-Jos otat tämän käytäntöasetuksen käyttöön, sähköpostin tarkistus otetaan käyttöön.
-
-Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, sähköpostin tarkistus poistetaan käytöstä.</string>
+    Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, sähköpostin tarkistus poistetaan käytöstä.</string>
     <string id="Scan_DisableHeuristics">Ota käyttöön heuristiikka</string>
     <string id="Scan_DisableHeuristics_Explain">Tämän käytäntöasetuksen avulla voit määrittää heuristiikan. Epäilyttävät havainnot piilotetaan juuri ennen raportoimista moduulin asiakkaaseen. Heuristiikan poistaminen käytöstä estää uusien uhkien merkitsemistä. Heuristiikkaa ei ole suositeltavaa poistaa käytöstä.
 
@@ -430,12 +639,12 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, järjestelmä
 Jos otat tämän käytäntöasetuksen käyttöön, yhdistetyt verkkoasemat tarkistetaan.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, yhdistettyjä verkkoasemia ei tarkisteta.</string>
-    <string id="Scan_DisableScanningNetworkFiles">Tarkista verkkotiedostot</string>
-    <string id="Scan_DisableScanningNetworkFiles_Explain">Tämän käytäntöasetuksen avulla voit määrittää verkkotiedostojen tarkistuksen. Tätä käytäntöasetusta ei ole suositeltavaa ottaa käyttöön.
+    <string id="Scan_DisableScanningNetworkFiles">Määritä verkkotiedostojen tarkistus</string>
+    <string id="Scan_DisableScanningNetworkFiles_Explain">Tämän käytäntöasetuksen avulla voit tarkistaa verkkotiedostot käyttöoikeuden suojauksen avulla. Oletusasetus on käytössä. Suositellaan, että se pysyy käytössä useimmissa tapauksissa.
 
-Jos otat tämän käytäntöasetuksen käyttöön, verkkotiedostot tarkistetaan.
+Jos otat tämän asetuksen käyttöön tai et määritä sitä, verkkotiedostot tarkistetaan.
 
-Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, verkkotiedostoja ei tarkisteta.</string>
+Jos poistat tämän asetuksen käytöstä, verkkotiedostoja ei tarkistu.</string>
     <string id="Scan_LocalSettingOverrideAvgCPULoadFactor">Määritä suoritinkäytön enimmäisprosenttimäärän paikallisen asetuksen ohitus</string>
     <string id="Scan_LocalSettingOverrideAvgCPULoadFactor_Explain">Tämä käytäntöasetus määrittää tarkistuksen aikaisen suoritinkäytön enimmäisprosenttimäärän kokoonpanon paikallisen ohituksen. Tämä käytäntöasetus voidaan määrittää vain ryhmäkäytännön avulla.
 
@@ -547,18 +756,30 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, ai
 
         Jos tämä asetus poistetaan käytöstä tai sitä ei määritetä, ajoitettujen tarkistusten suoritinprioriteetti ei muutu.
     </string>
+
+    <string id="Scan_QuickScanIncludeExclusions">Tarkista pois jätetyt tiedostot ja hakemistot pikatarkistusten aikana</string>
+    <string id="Scan_QuickScanIncludeExclusions_Explain">
+        Tämän käytäntöasetuksen avulla voit tarkistaa pois jätetyt tiedostot ja hakemistot pikatarkistusten aikana.
+
+        Jos määrität tämän käytäntöasetuksen arvoksi 1, pikatarkistuksen aikana tarkistetaan kaikki tiedostot ja hakemistot, jotka jätetään pois reaaliaikaiseen suojaukseen kontekstipoikkeuksien avulla.
+
+        Jos määrität tämän käytännön arvoksi 0 tai et määritä sitä, poisjättöjä ei tarkisteta pikatarkistusten aikana.
+    </string>
+	<string id="Scan_QuickScanIncludeExclusions_Disabled">0</string>
+	<string id="Scan_QuickScanIncludeExclusions_RtpExclusions">1</string>
+
     <string id="SignatureUpdate_ASSignatureDue">Määritä niiden päivien määrä, jonka jälkeen vakoiluohjelmien suojaustietoja pidetään vanhentuneina</string>
-    <string id="SignatureUpdate_ASSignatureDue_Explain">Tämän käytäntöasetuksen avulla voit määrittää niiden päivien määrän, jonka jälkeen vakoiluohjelmien suojaustietoja pidetään vanhentuneina. Jos suojaustiedot määritetään vanhentuneiksi, tämä tila voi aiheuttaa useita lisätoimintoja, kuten palaamisen vaihtoehtoiseen päivityslähteeseen tai varoituskuvakkeen näyttämisen käyttöliittymässä. Oletusarvon mukaan arvoksi määritetään 14 päivää.
+    <string id="SignatureUpdate_ASSignatureDue_Explain">Tämän käytäntö asetuksen avulla voit määrittää niiden päivien määrän, jonka jälkeen vakoilu ohjelmien suoja uksen tietoja pidetään vanhentuneina. Jos tieto suoja tiedot on määritetty vanhentuneiksi, tämä tila voi aiheuttaa useita lisä toimintoja, kuten palaamisen vaihtoehtoiseen päivitys lähteeseen tai varoitus kuvakkeen näyttämisen käyttö liittymässä. Oletus arvon mukaan arvoksi määritetään 7 päivää.
 
-    Jos otat tämän käytäntöasetuksen käyttöön, vakoiluohjelmien suojaustietoja pidetään vanhentuneina, kun määritetty määrä päiviä on kulunut ilman päivittämistä.
+Jos otat tämän asetuksen käyttöön, vakoilu ohjelmien suoja uksen tietoja pidetään vanhentuneina, kun määritetty määrä päiviä on kulunut ilman päivitystä.
 
-    Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, vakoiluohjelmien suojaustietoja pidetään vanhentuneina, kun oletusmäärä päiviä on kulunut ilman päivittämistä.</string>
+Jos poistat tämän asetuksen käytöstä tai et määritä sitä, vakoilu ohjelmien suoja uksen tietoja pidetään vanhentuneina, kun oletus päivien määrä on kulunut ilman päivitystä.</string>
     <string id="SignatureUpdate_AVSignatureDue">Määritä niiden päivien määrä, jonka jälkeen virusten suojaustietoja pidetään vanhentuneina</string>
-    <string id="SignatureUpdate_AVSignatureDue_Explain">Tämän käytäntöasetuksen avulla voit määrittää niiden päivien määrän, jonka jälkeen virusten suojaustietoja pidetään vanhentuneina. Jos suojaustiedot määritetään vanhentuneiksi, tämä tila voi aiheuttaa useita lisätoimintoja, kuten palaamisen vaihtoehtoiseen päivityslähteeseen tai varoituskuvakkeen näyttämisen käyttöliittymässä. Oletusarvon mukaan arvoksi määritetään 14 päivää.
+    <string id="SignatureUpdate_AVSignatureDue_Explain">Tämän käytäntö asetuksen avulla voit määrittää, kuinka monta päivää ennen kuin virusten tieto suoja tietoja pidetään vanhentuneina. Jos tieto suoja tiedot on määritetty vanhentuneiksi, tämä tila voi aiheuttaa useita lisä toimintoja, kuten palaamisen vaihtoehtoiseen päivitys lähteeseen tai varoitus kuvakkeen näyttämisen käyttö liittymässä. Oletus arvon mukaan arvoksi määritetään 7 päivää.
 
-    Jos otat tämän käytäntöasetuksen käyttöön, virusten suojaustietoja pidetään vanhentuneina, kun määritetty määrä päiviä on kulunut ilman päivittämistä.
+Jos otat tämän asetuksen käyttöön, virusten tieto suoja tietoja pidetään vanhentuneina, kun määritetty määrä päiviä on kulunut ilman päivitystä.
 
-    Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, virusten suojaustietoja pidetään vanhentuneina, kun oletusmäärä päiviä on kulunut ilman päivittämistä.</string>
+Jos poistat tämän asetuksen käytöstä tai et määritä sitä, virusten tieto suoja tietoja pidetään vanhentuneina, kun oletus päivien määrä on kulunut ilman päivitystä.</string>
     <string id="SignatureUpdate_DefinitionUpdateFileSharesSources">Määritä tiedostoresurssit suojaustietopäivitysten lataamista varten</string>
     <string id="SignatureUpdate_DefinitionUpdateFileSharesSources_Explain">Tämän käytäntöasetuksen avulla voit määrittää UNC-tiedostoresurssin lähteet suojaustietopäivitysten lataamista varten. Lähteisiin muodostetaan yhteys määritetyssä järjestyksessä. Tämän käytäntöasetuksen arvo on kirjoitettava pystyviivoin eroteltuna merkkijonona, jossa luetellaan suojaustietopäivityslähteet. Esimerkiksi {\\unc1 | \\unc2 }. Luettelo on oletusarvon mukaan tyhjä.
 
@@ -569,6 +790,13 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, ai
     <string id="SignatureUpdate_SharedSignaturesLocation_Explain">Tämän käytäntöasetuksen avulla voit määrittää VDI-tietokoneiden suojaustietojen sijainnin.
 
     Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, suojaustiedot haetaan oletusarvoisesta paikallisesta lähteestä.</string>
+    <string id="SignatureUpdate_SharedSignaturesLocationUpdateAtScheduledTimeOnly">Määritä suojaustietopäivitykset VDI-asiakkaiden ajoituksen mukaan.</string>
+    <string id="SignatureUpdate_SharedSignaturesLocationUpdateAtScheduledTimeOnly_Explain">Tämän käytäntöasetuksen avulla voit määrittää suojaustietopäivitykset VDI-määritettyjen tietokoneiden ajoituksen mukaan. Sitä käytetään yhdessä jaetun suojaustietosijainnin (SharedSignaturesLocation) kanssa.
+
+    Jos otat tämän käytäntöasetuksen käyttöön ja määrität SharedSignaturesLocationin, määritetyn sijainnin päivitykset tehdään vain aiemmin määritettynä ajoitettuna päivitysaikana.
+
+    Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, päivityksiä tehdään aina, kun uusi suojaustietopäivitys havaitaan SharedSignaturesLocationin määrittämässä sijainnissa.
+    </string>
     <string id="SignatureUpdate_DisableScanOnUpdate">Ota tarkistus käyttöön suojaustietopäivityksen jälkeen</string>
     <string id="SignatureUpdate_DisableScanOnUpdate_Explain">Tämän käytäntöasetuksen avulla voit määrittää automaattisen tarkistuksen, joka alkaa suojaustietopäivityksen jälkeen.
 
@@ -756,61 +984,70 @@ Kelvollisia korjaustoiminnon arvoja ovat seuraavat:
       Jos otat tämän asetuksen käyttöön, AM:n käyttöliittymä ei näytä uudelleenkäynnistyksen ilmoituksia.
     </string>
     <string id="UX_Configuration_Notification_Suppress">Estä kaikki ilmoitukset</string>
-    <string id="UX_Configuration_Notification_Suppress_Explain">Tämän käytäntöasetuksen avulla voit määrittää Windows Defenderin virustentorjunnan ilmoitusten näyttämisen asiakaskoneissa.
-      Jos poistat asetuksen käytöstä tai et määritä sitä, Windows Defenderin virustentorjunnan ilmoitukset näytetään asiakaskoneissa.
+    <string id="UX_Configuration_Notification_Suppress_Explain">Tämän käytäntöasetuksen avulla voit määrittää Microsoft Defenderin virustentorjunnan ilmoitusten näyttämisen asiakaskoneissa.
+      Jos poistat asetuksen käytöstä tai et määritä sitä, Microsoft Defenderin virustentorjunnan ilmoitukset näytetään asiakaskoneissa.
 
-      Jos otat asetuksen käyttöön, Windows Defenderin virustentorjunnan ilmoituksia ei näytetä asiakaskoneissa.
+      Jos otat asetuksen käyttöön, Microsoft Defenderin virustentorjunnan ilmoituksia ei näytetä asiakaskoneissa.
     </string>
-    <string id="UX_Configuration_CustomDefaultActionToastString">Näytä lisäteksti asiakkaille, kun heidän on suoritettava toiminto</string>
-    <string id="UX_Configuration_CustomDefaultActionToastString_Explain">Tämän käytäntöasetuksen avulla voit määrittää, näytetäänkö asiakkaille lisäteksti, kun heidän on suoritettava toiminto. Teksti näytetään mukautettuna järjestelmänvalvojan määrittämänä merkkijonona. Esimerkiksi puhelinnumero, jotta asiakas voi soittaa yrityksen asiakaspalveluun. Asiakasliittymä näyttää enintään 1 024 merkkiä. Jos merkkimäärä ylittyy, merkkijono katkaistaan ennen näyttämistä.
-
-Jos otat tämän käytäntöasetuksen käyttöön, määritetty lisäteksti näytetään.
-
-Jos poistat tämän asetuksen käytöstä tai et määritä sitä, lisätekstiä ei näytetä.</string>
     <string id="MpCloudBlockLevel">Valitse pilvipalvelun suojaustaso</string>
     <string id="MpCloudBlockLevel_Explain">
-      Tämä käytäntöasetus määrittää, kuinka aggressiivisesti Windows Defenderin virustentorjunta estää ja skannaa epäilyttäviä tiedostoja.
+      Tämä käytäntöasetus määrittää, kuinka aggressiivisesti Microsoft Defenderin virustentorjunta estää ja skannaa epäilyttäviä tiedostoja.
 
-       Jos asetus on käytössä, Windows Defenderin virustentorjunta tunnistaa estettävät ja skannattavat epäilyttävät tiedostot aggressiivisemmin. Muussa tapauksessa se ei ole niin aggressiivinen ja estää ja skannaa harvemmin. 
+      Jos asetus on käytössä, Microsoft Defenderin virustentorjunta tunnistaa estettävät ja skannattavat epäilyttävät tiedostot aggressiivisemmin. Muussa tapauksessa se ei ole niin aggressiivinen ja estää ja skannaa harvemmin. 
       
-       Lisätietoa tuetuista arvoista on Windows Defenderin virustentorjunnan ohjesivustolla.
+      Lisätietoa tuetuista arvoista on Microsoft Defenderin virustentorjunnan ohjesivustolla.
 
-      Huomaa: jotta ominaisuus toimii, Liity Microsoft MAPSiin -asetuksen pitää olla käytössä.
+      Huomaa: Jotta ominaisuus toimii, Liity Microsoft MAPSiin -asetuksen on oltava käytössä.
 
-      Mahdollisia vaihtoehtoja ovat seuraavat:
-      (0x0) Windows Defenderin oletusestotaso
-      (0x2) Estotaso Korkea: estää tuntemattomat aggressiivisesti ja optimoi samalla asiakaspuolen tehokkuutta (suurempi mahdollisuus virheellisiin positiivisiin tuloksiin)
-      (0x4) Estotaso Korkea+: estää tuntemattomat aggressiivisesti ja käyttää lisäsuojaustoimenpiteitä (saattaa vaikuttaa asiakaspuolen tehokkuuteen)
-      (0x6) Estotaso Nollatoleranssi: estää kaikki tuntemattomat exe-tiedostot.
+      Mahdolliset asetukset ovat seuraavat:
+      (0x0) Microsoft Defenderin virustentorjunnan oletusarvoinen estotaso
+      (0x1) Kohtalainen Microsoft Defenderin virustentorjunnan estotaso: Tekee päätöksen vain luotettavien tunnistusten perusteella
+      (0x2) Korkea estotaso: Estää tuntemattomat aggressiivisesti ja optimoi samalla asiakaspuolen suorituskykyä (suurempi mahdollisuus virheellisiin positiivisiin tuloksiin)
+      (0x4) Korkea+ estotaso: Estää tuntemattomat aggressiivisesti ja käyttää lisäsuojaustoimenpiteitä (saattaa vaikuttaa asiakaspuolen suorituskykyyn)
+      (0x6) Nollatoleranssi-estotaso: Estää kaikki tuntemattomat exe-tiedostot
     </string>
-    <string id="MpCloudBlockLevel_Default_Level">Windows Defenderin virustentorjunnan eston oletustaso</string>
+    <string id="MpCloudBlockLevel_Default_Level">Oletusarvoinen estotaso</string>
+    <string id="MpCloudBlockLevel_Moderate_Level">Estotaso Kohtalainen</string>
     <string id="MpCloudBlockLevel_High_Level">Korkea eston taso</string>
     <string id="MpCloudBlockLevel_High_Plus_Level">Estotaso Korkea+</string>
     <string id="MpCloudBlockLevel_Zero_Tolerance_Level">Estotaso Nollatoleranssi</string>
     <string id="MpBafsExtendedTimeout">Määritä laajennettu pilvipalvelun tarkistusominaisuus</string>
     <string id="MpBafsExtendedTimeout_Explain">
-      Tämän ominaisuuden avulla Windows Defenderin virustentorjunta voi asettaa epäilyttävän tiedoston estoon 60 sekunnin ajaksi ja varmistua sen turvallisuudesta skannaamalla sen pilvipalvelussa.
+      Tämän ominaisuuden avulla Microsoft Defenderin virustentorjunta voi asettaa epäilyttävän tiedoston estoon 60 sekunnin ajaksi ja varmistua sen turvallisuudesta skannaamalla sen pilvipalvelussa.
       
       Pilvipalvelun aikakatkaisuaika on yleensä 10 sekuntia. Voit ottaa käyttöön laajennetun pilvipalvelun tarkistusominaisuuden määrittämällä laajennetun ajan sekunneissa, korkeintaan 50 lisäsekuntiin saakka.
 
       Jos haluttu aikakatkaisuaika on esimerkiksi 60 sekuntia, määritä tässä asetuksessa 50 sekuntia. Tämä määritys ottaa käyttöön laajennetun pilvipalvelun tarkistusominaisuuden ja nostaa kokonaisajan 60 sekuntiin.
 
-      Huomautus: tämä toiminto on riippuvainen kolmesta muusta MAPS-asetuksesta: käytössä pitää olla Määritä Estä ensi näkemältä -ominaisuus, Liity Microsoft MAPSiin ja Lähetä tiedostonäytteitä, kun lisäanalyysi on tarpeen.
+      Huomautus: Tämä toiminto on riippuvainen kolmesta muusta MAPS-asetuksesta: ominaisuuksien Määritä Estä ensi näkemältä, Liity Microsoft MAPSiin ja Lähetä tiedostonäytteitä, kun lisäanalyysi on tarpeen on oltava käytössä.
+    </string>
+    <string id="MpEngine_EnableFileHashComputation">Ota käyttöön tiedostojen hajautuksen arvojen laskenta -ominaisuus</string>
+    <string id="MpEngine_EnableFileHashComputation_Explain">
+        Ota käyttöön tai poista käytöstä tiedostojen hajautuksen arvojen laskenta -ominaisuus.
+
+        Käytössä:
+        Kun tämä ominaisuus on käytössä, Microsoft Defender laskee arvoja tiedostoille skannauksen aikana.
+
+        Poistettu käytöstä:
+        Tiedoston hajautuksen arvoa ei lasketa
+        
+        Ei määritetty:
+        Sama kuin Poistettu käytöstä.
     </string>
     <string id="ExploitGuard_EnableNetworkProtection">Estää käyttäjien ja sovellusten pääsyn vaarallisille verkkosivustoille.</string>
     <string id="ExploitGuard_EnableNetworkProtection_Explain">
-    Ota käyttöön tai poista käytöstä Windows Defenderin hyökkäyssuojan verkon suojaus, jolla estetään työntekijöitä pääsemästä vaarallisille toimialueille millään sovelluksilla. Tällaisilla toimialueilla voidaan esimerkiksi toteuttaa tietojen kalasteluhuijauksia, ja niillä voidaan ylläpitää hyväksikäyttösivustoja tai muuta haitallista sisältöä.
+    Ota käyttöön tai poista käytöstä Microsoft Defenderin hyökkäyssuoja ja estä työntekijöitä pääsemästä vaarallisiin verkkotunnuksiin millään sovelluksilla. Tällaisissa verkkotunnuksissa voi olla esimerkiksi phishing-huijauksia, hyväksikäyttösivustoja tai muuta haitallista sisältöä.
 
-    Käytössä:
-    Määritä tila Valinnat-osiossa:
-    - Esto: Käyttäjillä ja sovelluksilla ei ole pääsyä vaarallisille toimialueille.
-    - Tarkistus-tila: Käyttäjät ja sovellukset pystyvät muodostamaan yhteyden vaarallisille toimialueille. Tämä ominaisuus olisi kuitenkin estänyt pääsyn, jos sen tilaksi olisi ollut valittuna Esto. Tällöin tapahtuma olisi myös tallentunut tapahtumalokeihin.
+        Käytössä:
+        Määritä tila  Valinnat-osiossa:
+        - Esto: Käyttäjillä ja sovelluksilla ei ole pääsyä vaarallisiin verkkotunnuksiin.
+        - Tarkistus: Käyttäjät ja sovellukset eivät voi muodostaa yhteyttä vaarallisiin verkkotunnuksiin. Tämä ominaisuus olisi kuitenkin estänyt pääsyn, jos sen tilaksi olisi ollut valittuna Estä. Tällöin tapahtuma olisi myös tallentunut Microsoft Defender Security Centeriin.
 
-    Poistettu käytöstä:
-    Käyttäjiä ja sovelluksia ei estetä muodostamasta yhteyttä vaarallisille toimialueille.
+        Poistettu käytöstä:
+        Käyttäjiä ja sovelluksia estetään muodostamasta yhteys vaarallisiin verkkotunnuksiin.
 
-    Ei määritetty:
-    Sama kuin Poistettu käytöstä.
+        Ei määritetty:
+        Sama kuin Poistettu käytöstä.
     </string>
     <string id="ExploitGuard_ASR_ASROnlyExclusions">Sulje pois tiedostoja ja polkuja Attack Surface Reduction -säännöistä</string>
     <string id="ExploitGuard_ASR_ASROnlyExclusions_Explain">
@@ -830,17 +1067,32 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, lisätekstiä
 
     Voit määrittää ASR-sääntöjä GP-asetuksessa Määritä Attack Surface Reduction -sääntöjä.
     </string>
+    <string id="ExploitGuard_ASR_ASROnlyPerRuleExclusions">Käytä poikkeusluetteloa tiettyihin hyökkäyspinta-alan rajoittamissääntöihin (ASR)</string>p
+    <string id="ExploitGuard_ASR_ASROnlyPerRuleExclusions_Explain">
+    Tämän käytännön avulla järjestelmänvalvoja voi määrittää luettelon poikkeuksista tietyille ASR-säännöille.
+    Kukin merkintä on nimi-arvo-pari. Avain ilmaisee säännön GUID-tunnuksen, ja arvo on joukko kokonaisia polkuja, jotka on erotettu &gt; -merkillä, mikä ilmaisee kyseisen ASR-säännön poikkeukset.
+
+    HUOMAUTUS: GUID-tunnus on AVAIN, ei ole arvo.
+
+    Esimerkki:
+    AVAIN: "{75668C1F-73B5-4CF0-BB93-3ECF5DB7C484}"
+    ARVO: "C:\Notepad.exe&gt;c:\regedit.exe&gt;C:\SomeFolder\test.exe"
+    </string>
     <string id="ExploitGuard_ASR_Rules">Määritä Attack Surface Reduction -sääntöjä</string>
     <string id="ExploitGuard_ASR_Rules_Explain">
     Määritä kunkin Attack Surface Reduction (ASR) -säännön tila.
 
-    Kun tämä asetus on otettu käyttöön, voit määrittää kullekin säännölle seuraavat tilat Valinnat-osiossa:
+   Kun tämä asetus on otettu käyttöön, voit määrittää kullekin säännölle seuraavat tilat Valinnat-osiossa:
     - Esto: Sääntö on käytössä.
     - Tarkistus-tila: Jos sääntö aiheuttaisi normaalisti tapahtuman, se tallennetaan (vaikka sääntöä ei käytännössä toteutetakaan).
-    - Pois päältä: Sääntö ei ole käytössä.
+   - Pois päältä: Sääntö ei ole käytössä.
+    - Ei määritetty: sääntö on käytössä oletusarvoilla
+ -Varoita: sääntö on käytössä ja käyttäjällä on mahdollisuus ohittaa esto
+
+    Jos ASR-sääntö on pois käytöstä, valvontatapahtumien osanäytteet kerätään ASR-säännöille määrittämättömillä arvoilla.
 
     Käytössä:
-    Määritä kunkin ASR-säännön tila tämän asetuksen Valinnat-osiossa.
+     Määritä kunkin ASR-säännön tila tämän asetuksen Valinnat-osiossa.
     Määritä kukin sääntö uudella rivillä nimi-arvo-parina:
     - Nimi-sarake: Anna voimassa oleva ASR-säännön tunnus.
     - Arvo-sarake: Anna sen tilan tunnus, jonka haluat määrittää liitetylle säännölle.
@@ -849,6 +1101,9 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, lisätekstiä
     - 1 (Esto)
     - 0 (Pois päältä)
     - 2 (Tarkistus)
+    - 5 (Ei määritetty)
+    - 6 (Varoita)
+
     
     Esimerkki:
     xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx            0
@@ -865,55 +1120,55 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, lisätekstiä
     </string>
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess">Määritä hallittu kansion käyttö</string>
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess_Explain">
-    Ota käyttöön tai poista käytöstä hallittu kansion käyttö sovelluksissa, joihin ei luoteta. Voit estää, valvoa tai sallia yritykset sovelluksista, joihin ei luoteta:
-    - Muokata tai poistaa tiedostoja suojatuissa kansioissa, kuten Tiedostot-kansiossa
-    - Kirjoittaa levyn sektoreihin
+        Ota käyttöön tai poista käytöstä hallittu kansion käyttö sovelluksissa, joihin ei luoteta. Voit estää, valvoa tai sallia yritykset sovelluksista, joihin ei luoteta:
+        - Muokata tai poistaa tiedostoja suojatuissa kansioissa, kuten Tiedostot-kansiossa
+        - Kirjoittaa levyn sektoreihin
 
-    Voit myös valita, että vain kirjoittaminen levyn sektoreihin estetään tai tarkistetaan, mutta edelleen sallia tiedostojen muuttaminen tai poistaminen suojatuissa kansioissa.
+        Voit myös valita, että vain kirjoittaminen levyn sektoreihin estetään tai tarkistetaan, mutta edelleen sallia tiedostojen muuttamisen tai poistamisen suojatuissa kansioissa.
 
-    Windows Defenderin virustentorjunta määrittää automaattisesti, mihin sovelluksiin voidaan luottaa. Voit lisätä luotettuja sovelluksia GP-asetuksessa Määritä sallitut sovellukset.
-    Oletusjärjestelmäkansiot ovat automaattisesti suojattuja, mutta voit lisätä kansioita GP-asetuksessa Määritä suojatut kansiot.
+        Microsoft Defenderin virustentorjunta määrittää automaattisesti, mihin sovelluksiin voidaan luottaa. Voit lisätä luotettuja sovelluksia GP-asetuksessa Määritä sallitut sovellukset.
+        Oletusjärjestelmäkansiot ovat automaattisesti suojattuja, mutta voit lisätä kansioita GP-asetuksessa Määritä suojatut kansiot.
 
-    Estä:
-    Seuraavat estetään:
-    - Ei-luotettujen sovellusten yritykset muokata tai poistaa tiedostoja suojatuissa kansioissa
-    - Ei-luotettujen sovellusten yritykset kirjoittaa levyjen sektoreihin
-    Windowsin tapahtumaloki tallentaa nämä estot kohtaan Sovellus- ja palvelulokit &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Toiminnassa &gt; Tunnus 1123.
-
-
-    Ei käytettävissä:
-    Seuraavia ei estetä ja ne voidaan suorittaa:
-    - Ei-luotettujen sovellusten yritykset muokata tai poistaa tiedostoja suojatuissa kansioissa
-    - Ei-luotettujen sovellusten yritykset kirjoittaa levyn sektoreihin
-    Näitä yrityksiä ei tallenneta Windowsin tapahtumalokiin.
+        Estä:
+        Seuraavat estetään:
+        - Ei-luotettujen sovellusten yritykset muokata tai poistaa tiedostoja suojatuissa kansioissa
+        - Ei-luotettujen sovellusten yritykset kirjoittaa levyjen sektoreihin
+        Windowsin tapahtumaloki tallentaa nämä estot kohtaan Sovellus- ja palvelulokit &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Toiminnassa &gt; Tunnus 1123.
 
 
-    Tarkistustila:
-    Seuraavia ei estetä ja ne voidaan suorittaa:
-    - Ei-luotettujen sovellusten yritykset muokata tai poistaa tiedostoja suojatuissa kansioissa
-    -Ei-luotettujen sovellusten yritykset kirjoittaa levyn sektoreihin
-    Windowsin tapahtumaloki tallentaa nämä yritykset kohtaan Sovellus- ja palvelulokit &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Toiminnassa &gt; Tunnus 1124.
+        Poistettu käytöstä:
+        Seuraavia ei estetä ja ne voidaan suorittaa:
+        - Ei-luotettujen sovellusten yritykset muokata tai poistaa tiedostoja suojatuissa kansioissa
+        - Ei-luotettujen sovellusten yritykset kirjoittaa levyn sektoreihin
+        Näitä yrityksiä ei tallenneta Windowsin tapahtumalokiin.
 
 
-    Estä vain levyn muokkaaminen:
-    Seuraavat estetään:
-    - Ei-luotettujen sovellusten yritykset kirjoittaa levyn sektoreihin
-    Windowsin tapahtumaloki tallentaa nämä yritykset kohtaan Sovellus- ja palvelulokit &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Toiminnassa &gt; Tunnus 1123.
-
-    Seuraavia ei estetä ja ne voidaan suorittaa:
-    - Ei-luotettujen sovellusten yritykset muokata tai poistaa tiedostoja suojatuissa kansioissa
-    Näitä yrityksiä ei tallenneta Windowsin tapahtumalokiin.
+        Tarkistustila:
+        Seuraavia ei estetä ja ne voidaan suorittaa:
+        - Ei-luotettujen sovellusten yritykset muokata tai poistaa tiedostoja suojatuissa kansioissa
+        -Ei-luotettujen sovellusten yritykset kirjoittaa levyn sektoreihin
+        Windowsin tapahtumaloki tallentaa nämä yritykset kohtaan Sovellus- ja palvelulokit &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Toiminnassa &gt; Tunnus 1124.
 
 
-    Tarkista vain levyn muokkaaminen:
-    Seuraavia ei estetä ja ne voidaan suorittaa:
-    - Ei-luotettujen sovellusten yritykset kirjoittaa levyn sektoreihin
-    - Ei-luotettujen sovellusten yritykset muokata tai poistaa tiedostoja suojatuissa kansioissa
-    Windowsin tapahtumalokiin kirjataan vain yritykset kirjoittaa levyn suojattuihin sektoreihin (kohtaan Sovellus- ja palvelulokit &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Toiminnassa &gt; Tunnus 1124).
-    Yrityksiä muokata tai poistaa tiedostoja suojatuissa kansioissa ei tallenneta.
+        Estä vain levyn muokkaaminen:
+        Seuraavat estetään:
+        - Ei-luotettujen sovellusten yritykset kirjoittaa levyn sektoreihin
+        Windowsin tapahtumaloki tallentaa nämä yritykset kohtaan Sovellus- ja palvelulokit &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Toiminnassa &gt; Tunnus 1123.
 
-    Ei määritetty:
-    Sama kuin Ei käytössä.
+        Seuraavia ei estetä ja ne voidaan suorittaa:
+        - Ei-luotettujen sovellusten yritykset muokata tai poistaa tiedostoja suojatuissa kansioissa
+        Näitä yrityksiä ei tallenneta Windowsin tapahtumalokiin.
+
+
+        Tarkista vain levyn muokkaaminen:
+        Seuraavia ei estetä ja ne voidaan suorittaa:
+        - Ei-luotettujen sovellusten yritykset kirjoittaa levyn sektoreihin
+        - Ei-luotettujen sovellusten yritykset muokata tai poistaa tiedostoja suojatuissa kansioissa
+        Windowsin tapahtumalokiin kirjataan vain yritykset kirjoittaa levyn suojattuihin sektoreihin (kohtaan Sovellus- ja palvelulokit &gt; Microsoft &gt; Windows &gt; Windows Defender &gt; Toiminnassa &gt; Tunnus 1124).
+        Yrityksiä muokata tai poistaa tiedostoja suojatuissa kansioissa ei tallenneta.
+
+        Ei määritetty:
+        Sama kuin Poistettu käytöstä.
     </string>
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess_Disable">Poistettu käytöstä (oletus)</string>
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess_Block">Esto</string>
@@ -922,47 +1177,188 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, lisätekstiä
     <string id="ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess_AuditDiskModifications">Tarkista vain levyn muokkaaminen</string>
     <string id="ExploitGuard_ControlledFolderAccess_AllowedApplications">Määritä sallitut sovellukset</string>
     <string id="ExploitGuard_ControlledFolderAccess_AllowedApplications_Explain">
-    Lisää sovelluksia, joita hallitun kansion käytön tulee pitää luotettuina.
+    Lisää sovelluksia, joita hallitun hakemistoon pääsyn tulee pitää luotettuina.
 
-    Nämä sovellukset saavat muokata tai poistaa tiedostoja hallitun kansion käytön kansioissa.
+    Nämä sovellukset saavat muokata tai poistaa tiedostoja hallitun hakemistoon pääsyn hakemistoissa.
 
-    Windows Defenderin virustentorjunta määrittää automaattisesti, mihin sovelluksiin voidaan luottaa. Voit lisätä sovelluksia tällä asetuksella.
+    Microsoft Defenderin virustentorjunta määrittää automaattisesti, mihin sovelluksiin voidaan luottaa. Voit lisätä sovelluksia tällä asetuksella.
 
     Käytössä:
     Määritä muita sallittuja sovelluksia Valinnat-osiossa.
 
     Poistettu käytöstä:
-    Luotettujen luetteloon ei voi lisätä sovelluksia.
+    Luotettujen luetteloon ei voida lisätä sovelluksia.
 
     Ei määritetty:
     Sama kuin Poistettu käytöstä.
 
-    Voit ottaa hallitun kansion käytön käyttöön GP-asetuksessa Määritä hallittu kansion käyttö.
+    Voit ottaa hallitun pääsyn hakemistoon GP-asetuksella Määritä hallittu pääsy kansioon.
 
-    Oletusjärjestelmäkansiot ovat automaattisesti suojattuja, mutta voit lisätä kansioita GP-asetuksessa Määritä suojatut kansiot.
+    Oletusjärjestelmäkansiot on suojattu automaattisesti, mutta voit lisätä kansioita GP-asetuksessa Määritä suojatut kansiot.
     </string>
     <string id="ExploitGuard_ControlledFolderAccess_ProtectedFolders">Määritä suojatut kansiot</string>
     <string id="ExploitGuard_ControlledFolderAccess_ProtectedFolders_Explain">
-    Määritä lisää kansioita, jotka tulee suojata hallittu kansion käyttö -ominaisuudella.
+    Määritä lisää kansioita, jotka tulee suojata suojatun kansioon pääsyn ominaisuudella.
 
-    Sovellukset, jotka eivät ole luotettuja, eivät voi muokata tai poistaa näiden kansioiden tiedostoja.
+    Sovellukset, jotka eivät ole luotettuja, eivät voi muokata tai poistaa tiedostoja näissä kansioissa.
 
-    Oletusjärjestelmäkansiot ovat automaattisesti suojattuja. Voit lisätä kansioita tällä asetuksella. 
-    Suojattujen oletusjärjestelmäkansioiden luettelo näkyy Windowsin suojauksessa.
+    Oletusjärjestelmäkansiot on suojattu automaattisesti. Voit lisätä kansioita tällä asetuksella.
+    Suojattujen oletusjärjestelmäkansioiden luettelo näytetään Windowsin suojaus Centerissä.
 
     Käytössä:
     Määritä muita suojattavia kansioita Valinnat-osiossa.
 
-    Ei käytössä:
+    Poistettu käytöstä:
     Muita kansioita ei suojata.
 
     Ei määritetty:
-    Sama kuin Ei käytössä.
+    Sama kuin Poistettu käytöstä.
 
-    Voit ottaa käyttöön hallitun kansion käytön Määritä hallittu kansion käyttö -GP-asetuksessa.
+    Voit ottaa hallitun pääsyn kansioon GP-asetuksella Määritä hallittu pääsy kansioon.
 
-    Windows Defenderin virustentorjunta määrittää automaattisesti, mihin sovelluksiin voidaan luottaa. Voit lisätä luotettuja sovelluksia Määritä sallitut sovellukset -GP-asetuksessa.
+    Microsoft Defenderin virustentorjunta määrittää automaattisesti, mihin sovelluksiin voidaan luottaa. Voit lisätä luotettuja sovelluksia GP-asetuksessa Määritä sallitut sovellukset.
     </string>
+    <string id="DeviceControl_PolicyGroups">Määritä laitehallintakäytännön ryhmät</string>
+    <string id="DeviceControl_PolicyGroups_Explain">
+        Seuraa laitteenhallinnan käytäntöryhmien XML-rakennetta, jos haluat täyttää käytäntöryhmien tiedot. 
+        Vaihtoehtoisesti voit käyttää tiedostopolkua, joka sisältää XML-ryhmien tiedot.
+    </string>
+    <string id="DeviceControl_PolicyRules">Määritä laitehallintakäytännön säännöt</string>
+    <string id="DeviceControl_PolicyRules_Explain">
+        Seuraa laitteenhallinnan käytäntösääntöjen XML-rakennetta, jos haluat täyttää käytäntösääntöjen tiedot. 
+        Vaihtoehtoisesti voit käyttää tiedostopolkua, joka sisältää XML-sääntöjen tiedot.
+    </string>
+    <string id="Root_PlatformUpdateChannel">Valitse kanava Microsoft Defenderin kuukausittaisille ympäristöpäivityksille [poistumassa käytöstä]</string>
+    <string id="Root_PlatformUpdateChannel_Explain">Ota tämä käytäntö käyttöön, jos haluat määrittää, milloin laitteet vastaanottavat Microsoft Defender -suojausmoottorin päivityksiä kuukausittaisen asteittaisen käyttöönoton aikana.​
+
+        Beetakanava: Tähän kanavaan määritetyt laitteet saavat uudet kuukausittaiset päivitykset ensimmäisinä. Valitse beetakanava, jotta voit osallistua ongelmien tunnistamiseen ja niistä raportoimiseen Microsoftille. Windows Insider -ohjelman laitteet kuuluvat oletusarvoisesti tähän kanavaan. Tarkoitettu käytettäväksi vain testiympäristöissä.
+        Ajantasainen kanava (esikatselu): Tälle kanavalle määritetyille laitteille tarjotaan päivitykset aikaisin kuukausittaisen asteittaisen julkaisujakson aikana. Ehdotettu testiympäristöille.
+        Ajantasainen kanava (vaiheistettu): Laitteille tarjotaan päivityksiä kuukausittaisen asteittaisen julkaisujakson jälkeen. Ehdotettu pienelle, edustavalle osalle tuotantopopulaatiostasi (noin 10 %).
+        Ajantasainen kanava (laaja): Laitteille tarjotaan päivityksiä vasta asteittaisen julkaisujakson päätyttyä. Ehdotettu laajalle laitejoukolle tuotantopopulaatiossasi (noin 10–100 %).
+        Kriittinen – Aikaviive: Laitteille tarjotaan päivityksiä 48 tunnin viiveellä. Ehdotettu vain kriittisille ympäristöille.
+
+        Jos poistat tämän käytännön käytöstä tai et määritä sitä, laite pysyy ajan tasalla automaattisesti asteittaista julkaisujaksoa käytettäessä. Soveltuu useimmille laitteille.
+    </string>
+    <string id="Root_EngineUpdateChannel">Valitse kanava Microsoft Defenderin kuukausittaisille moduulipäivityksille [poistumassa käytöstä]</string>
+    <string id="Root_EngineUpdateChannel_Explain">[vanhentuu] Ota tämä käytäntö käyttöön, jos haluat määrittää, milloin laitteet vastaanottavat Microsoft Defender -suojausmoottorin päivityksiä kuukausittaisen asteittaisen käyttöönoton aikana.​
+
+        Beetakanava: Tähän kanavaan määritetyt laitteet saavat uudet kuukausittaiset päivitykset ensimmäisinä. Valitse beetakanava, jotta voit osallistua ongelmien tunnistamiseen ja niistä raportoimiseen Microsoftille. Windows Insider -ohjelman laitteet kuuluvat oletusarvoisesti tähän kanavaan. Tarkoitettu käytettäväksi vain testiympäristöissä.
+        Ajantasainen kanava (esikatselu): Tälle kanavalle määritetyille laitteille tarjotaan päivitykset aikaisin kuukausittaisen asteittaisen julkaisujakson aikana. Ehdotettu testiympäristöille.
+        Ajantasainen kanava (vaiheistettu): Laitteille tarjotaan päivityksiä kuukausittaisen asteittaisen julkaisujakson jälkeen. Ehdotettu pienelle, edustavalle osalle tuotantopopulaatiostasi (noin 10 %).
+        Ajantasainen kanava (laaja): Laitteille tarjotaan päivityksiä vasta asteittaisen julkaisujakson päätyttyä. Ehdotettu laajalle laitejoukolle tuotantopopulaatiossasi (noin 10–100 %).
+        Kriittinen – Aikaviive: Laitteille tarjotaan päivityksiä 48 tunnin viiveellä. Ehdotettu vain kriittisille ympäristöille.
+
+        Jos poistat tämän käytännön käytöstä tai et määritä sitä, laite pysyy ajan tasalla automaattisesti asteittaista julkaisujaksoa käytettäessä. Soveltuu useimmille laitteille.
+    </string>
+    <string id="Root_SecurityIntelligenceUpdateChannel">Valitse kanava Microsoft Defenderin päivittäisille suojaustietopäivityksille</string>
+    <string id="Root_SecurityIntelligenceUpdateChannel_Explain">Ota tämä käytäntö käyttöön, jos haluat määrittää, milloin laitteet vastaanottavat Microsoft Defenderin suojaustietopäivityksiä päivittäisen asteittaisten käyttöönoton aikana.
+
+        Ajantasainen kanava (vaiheistettu): Laitteille tarjotaan päivityksiä julkaisujakson jälkeen. Ehdotetaan koskevan pientä, edustavaa osaa tuotantopopulaatiosta (noin 10 %).
+        Ajantasainen kanava (laaja): Laitteille tarjotaan päivityksiä vasta asteittaisen julkaisujakson päätyttyä. Ehdotetaan koskevan laajaa laitejoukkoa tuotantopopulaatiossasi (noin 10–100 %).
+         Kriittinen – Aikaviive: Laitteille tarjotaan päivityksiä 48 tunnin viiveellä. Ehdotettu vain kriittisille ympäristöille.
+
+        Jos poistat tämän käytännön käytöstä tai et määritä sitä, laite pysyy automaattisesti ajan tasalla päivittäisen julkaisujakson aikana. Soveltuu useimmille laitteille.
+    </string>
+    <string id="Root_UpdateChannel_Dropdown_Beta">Beetakanava</string>
+    <string id="Root_UpdateChannel_Dropdown_Preview">Ajantasainen kanava (esikatselu)</string>
+    <string id="Root_UpdateChannel_Dropdown_Staged">Ajantasainen kanava (vaiheistettu)</string>
+    <string id="Root_UpdateChannel_Dropdown_Broad">Ajantasainen kanava (laaja)</string>
+    <string id="Root_UpdateChannel_Dropdown_Delayed">Kriittinen – Aikaviive</string>
+    <string id="Root_DeploymentChannel">Valitse Microsoft Defenderin turvallisen käyttöönoton kanava</string>
+    <string id="Root_DeploymentChannel_Explain">Ota tämä käytäntö käyttöön, jotta voit määrittää, milloin laitteet saavat Microsoft Defender -binaaripäivitykset.
+
+        Vahvistuskanava: Tähän kanavaan asetetut laitteet saavat ensimmäisinä uudet kuukausittaiset binaaripäivitykset (alusta- ja moottoripäivitykset). Uusien ongelmien riski on suurempi. Lisää tähän kanavaan vain laitteet, joiden riskinsietokyky on suurin. Suositus on yksi prosentti tai vähemmän ympäristön laitteista.
+        Julkaisukanava – Varhainen: Tämä kanava sopii useimmille tuotantoympäristön laitteille. Tähän kanavaan asetetut laitteet saavat päivitykset julkaisukanavan aikaisimmassa vaiheessa. Jaa laitteet varhaiseen, nopeaan ja laajaan kanavaan niiden riskinsietokyvyn mukaan. Lisää laitteita aikaisempiin kanaviin, jotta ongelmat tulevat esiin aiemmin etkä vaikuta muuhun ympäristöön.
+        Julkaisukanava – Nopea: Tämä kanava sopii useimmille tuotantoympäristön laitteille. Laitteet saavat päivitykset myöhemmin asteittaisen julkaisusyklin aikana. Jaa laitteet varhaiseen, nopeaan ja laajaan kanavaan niiden riskinsietokyvyn mukaan. Käytä aikaisempien kanavien laitteita, jotta ongelmat tulevat esiin aiemmin etkä vaikuta muuhun ympäristöön.
+        Julkaisukanava – Laaja: Tämä kanava sopii useimmille tuotantoympäristön laitteille. Tämän kanavan laitteet saavat päivitykset asteittaisen julkaisusyklin lopussa. Jaa laitteet varhaiseen, nopeaan ja laajaan kanavaan niiden riskinsietokyvyn mukaan. Käytä aikaisempien kanavien laitteita, jotta ongelmat tulevat esiin aiemmin etkä vaikuta muuhun ympäristöön.
+        Viivästetty kanava: Tämän kanavan laitteet saavat päivitykset noin 48 tuntia sen jälkeen, kun julkaisukanavan (laaja) laitteet ovat saaneet ne. Käytä tätä kanavaa kriittiselle infrastruktuurille ja arvokkaille omaisuuserille. Suositus on noin yksi prosentti tai vähemmän laitteista.
+
+        Jos et määritä tätä käytäntöä, laitteet lisätään julkaisukanavaan. Microsoft päättää, saavatko laitteet päivitykset julkaisukanavan sisällä aikaisemmin vai myöhemmin.
+    </string>
+    <string id="Root_DeploymentChannel_Dropdown_Validation">Vahvistuskanava</string>
+    <string id="Root_DeploymentChannel_Dropdown_Early">Julkaisukanava – aikainen</string>
+    <string id="Root_DeploymentChannel_Dropdown_Fast">Julkaisukanava – nopea</string>
+    <string id="Root_DeploymentChannel_Dropdown_Broad">Julkaisukanava – laaja</string>
+    <string id="Root_DeploymentChannel_Dropdown_Delayed">Viivästetty kanava</string>
+    <string id="MpEngine_DisableGradualRelease">Poista Microsoft Defender -päivitysten asteittainen käyttöönotto käytöstä.</string>
+    <string id="MpEngine_DisableGradualRelease_Explain">Ota tämä käytäntö käyttöön, jos haluat poistaa Defender-päivitysten asteittaisen käyttöönoton käytöstä.
+
+        Ajantasainen kanava (laaja): Tälle kanavalle määritetyille laitteille tarjotaan päivitykset viimeisenä asteittaisen julkaisujakson aikana. Sopii parhaiten palvelinkeskuksen koneille, joihin asennetaan vain rajallisesti päivityksiä.
+
+        Huomautus: tätä asetusta sovelletaan sekä kuukausittaisiin että päivittäisiin Defender-päivityksiin, ja se ohittaa käyttöympäristö- ja moduulipäivitysten aiemmin määritetyt kanavavalinnat.
+
+        Jos poistat tämän käytännön käytöstä tai et ota sitä käyttöön, laite pysyy Ajantasaisella kanavalla (oletus), ellei sitä erikseen määritetä tietylle kanavalle käyttöympäristö- tai moduulipäivityksiä varten. Pysyt automaattisesti ajan tasalla asteittaisen julkaisujakson aikana. Soveltuu useimmille laitteille.</string>
+    <string id="DeviceControl_DefaultEnforcement">Valitse laitehallinnan oletusvalvontakäytäntö</string>
+    <string id="DeviceControl_DefaultEnforcement_Explain">
+        Oletusarvon mukainen salliminen: Jos valitset tämän oletus pakotuksen, liitetyissä laitteissa voi suorittaa toimintoja, jos vastaavia käytäntösääntöjä ei löydy.
+        Oletusesto: Jos valitset tämän oletus pakotuksen, liitetyissä laitteissa tapahtuvat toiminnot estetään, jos vastaavia käytäntösääntöjä ei löydy.
+
+Oletusvalvonta määrittää, mikä päätös tulisi tehdä laitehallinnan käyttöoikeustarkistusten aikana, kun mikään käytäntösäännöistä ei täsmää.
+    </string>
+    <string id="DeviceControl_DefaultEnforcement_DefaultAllow">Oletusarvon mukainen salliminen</string>
+    <string id="DeviceControl_DefaultEnforcement_DefaultDeny">Oletusesto</string>
+    <string id="DeviceControl_DataDuplicationRemoteLocation">Määritä laitehallinnan todistetietojen etäsijainti</string>
+    <string id="DeviceControl_DataDuplicationRemoteLocation_Explain">
+        Määritä todistetiedoston etäsijainti, johon laitehallintapalvelu siirtää todistetiedot, jotka on siepattu.
+
+Varmista tätä asetusta määritettäessä, että Laitehallinta on käytössä ja että annettu polku on etäpolku, jota käyttäjä voi käyttää.
+    </string>
+	<string id="DeviceControl_DataDuplicationLocalRetentionPeriod">Määritä paikallisen laitehallinnan välimuistissa olevien tiedostojen säilytysaika</string>
+    <string id="DeviceControl_DataDuplicationLocalRetentionPeriod_Explain">
+        Tämä käytäntöasetus määrittää, kuinka kauan laitehallinta säilyttää tiedostoja todisteina laitteen paikallisessa välimuistissa. Laitehallinta säilyttää tiedoston paikallisessa välimuistissa vain, jos se ei pysty lataamaan tiedostoa määritettyyn jaettuun verkkoresurssiin tai Azure-tallennustilaan. 
+
+        Laitehallinta säilyttää tiedostoja paikallisessa välimuistissa oletusarvoisesti 60 päivän ajan.
+    </string>
+	<string id="DeviceControl_SecuredDevicesConfiguration">Ota laitehallinta käyttöön tietyille laitetyypeille</string>
+    <string id="DeviceControl_SecuredDevicesConfiguration_Explain">
+        Tämä käytäntöasetus määrittää, mitkä laitetyypit ovat ensisijaisilla tunnuksillaan käytössä. Jos otat tämän asetuksen käyttöön tietyille laitetyypeille, laitehallinta rajoittaa kyseisten laitteiden käyttöä vastaavan mukautetun käytännön perusteella. Laitehallinta poistetaan käytöstä kaikissa muissa tuetuissa laitteissa, vaikka kyseisille laitteille olisi määritetty mukautettuja suojauskäytäntöjä.
+ 
+Tämä asetus tukee tällä hetkellä seuraavia laitetyyppejä: RemovableMediaDevices, CdRomDevices, WpdDevices ja PrinterDevices. 
+ 
+Jos otat tämän käytäntöasetuksen käyttöön mutta et määritä ensisijaisia tunnuksia, laitehallinta poistetaan käytöstä kaikissa tuetuissa laitetyypeissä.
+ 
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, laitehallintaa käytetään kaikissa tuetuissa laitteissa, jotka perustuvat niihin vastaaviin mukautettuihin käytäntöihin.
+    </string>
+	<string id="DeviceControl_CustomSupportLink">Määritä laitehallinnan ilmoitusten tukilinkki</string>
+    <string id="DeviceControl_CustomSupportLink_Explain">
+        Tämän asetuksen avulla organisaatiosi voi määrittää Hae tukea -linkin laitehallintailmoituksissa. 
+		
+		Kun tämä on määritetty, Hae tukea -painike siirtyy automaattisesti määritettyyn linkkiin.
+    </string>
+	<string id="DeviceControl_PolicyRefreshFailureInterval">Määritä käytännön virkistystaajuus</string>
+    <string id="DeviceControl_PolicyRefreshFailureInterval_Explain">
+        Tämä asetus määrittää minuutteina aikavälin, jolla laite yrittää ladata käytäntömääritystä uudelleen siltä varalta, että on ilmennyt virhe eikä käytäntöä voitu ladata.
+	</string>
+	<string id="DeviceControl_AzureAdRefreshInterval">Määritä Azure AD:n virkistystaajuus</string>
+    <string id="DeviceControl_AzureAdRefreshInterval_Explain">
+        Tämä asetus määrittää minuutteina aikavälin, jolla laite kyselee Azure AD liittyvien asetusten, määritysten ja ryhmien jäsenyyksien päivittämistä varten.
+	</string>
+	<string id="DeviceControl_DataDuplicationMaximumQuota">Määritä tietojen monistamisen rajoitus (Mt)</string>
+    <string id="DeviceControl_DataDuplicationMaximumQuota_Explain">
+        Tämä asetus määrittää enimmäismäärän tietoja, jotka voidaan monistaa laitehallintaa varten. 
+		
+		Kun raja on saavutettu, siirrettävään tallennusvälineeseen kopioituja tiedostoja ei kopioida tietokoneeseen.
+	</string>
+    <string id="Features_DeviceControlEnabled">Laitehallinta</string>
+    <string id="DeviceControl_DeviceControlEnabled_Explain">
+        Ota Defender Device Control käyttöön tai poista se käytöstä tässä tietokoneessa.
+ Huomautus: Sinun on oltava rekisteröitynyt E3- tai E5-muodossa, jotta laitehallinta voidaan ottaa käyttöön.
+    </string>
+    <string id="Features_TDTFeatureEnabled">Intel TDT -integrointitaso</string>
+    <string id="Features_TDTFeatureEnabled_Explain">Tämä käytäntöasetus määrittää Intel TDT -integrointitason Intel TDT:tä käyttäville laitteille.
+
+        Jos et määritä tätä asetusta, käytetään oletusarvoa. Oletusarvoa ohjaavat Microsoftin suojaustietopäivitykset. Microsoft ottaa Intel TDT:n käyttöön, jos tunnettu uhka on olemassa.
+        Jos määrität tämän asetuksen otettavaksi käyttöön, Intel TDT -integrointi otetaan käyttöön.
+        Jos määrität tämän asetuksen poistettavaksi käytöstä, Intel TDT -integrointi poistetaan käytöstä.</string>
+    <string id="Features_PassiveRemediation">Ota EDR käyttöön estotilassa</string>
+    <string id="Features_PassiveRemediation_Explain">Tämä käytäntöasetus ottaa EDR:n käyttöön tai poistaa sen käytöstä estotilassa (tunnetaan myös nimellä passiivinen korjaus). EDR:ää suositellaan lohkotilassa laitteille, joissa on Microsoft Defenderin virustentorjunta passiivisessa tilassa. Käytettävissä käyttöympäristön versiossa 4.18.2202.X
+
+        Tietotyyppi on kokonaisluku
+
+        Tuetut arvot:
+
+        1: EDR:n ottaminen käyttöön estotilassa
+        0: EDR:n poistaminen käytöstä estotilassa</string>
     </stringTable>
     <presentationTable>
     <presentation id="ProxyBypass">
@@ -980,6 +1376,11 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, lisätekstiä
         <label>Määritä välityspalvelin verkkoyhteyden muodostamista varten</label>
     </textBox>
     </presentation>
+    <presentation id="SupportLogLocation">
+    <textBox refId="SupportLogLocation">
+        <label>Määritä hakemiston polku lokitiedostojen kopioimista varten</label>
+    </textBox>
+    </presentation>
     <presentation id="Exclusions_Extensions">
     <listBox refId="Exclusions_ExtensionsList">Tunnistepoikkeukset</listBox>
     </presentation>
@@ -988,6 +1389,9 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, lisätekstiä
     </presentation>
     <presentation id="Exclusions_Processes">
     <listBox refId="Exclusions_ProcessesList">Prosessipoikkeukset</listBox>
+    </presentation>
+    <presentation id="Exclusions_IpAddresses">
+    <listBox refId="Exclusions_IpAddressesList">IP-osoitteen poikkeukset</listBox>
     </presentation>
     <presentation id="Nis_Consumers_IPS_sku_differentiation_Signature_Set_Guid">
     <listBox refId="Nis_Consumers_IPS_sku_differentiation_Signature_Set_GuidList">Määritä verkkoliikenteen tarkastuksen lisäkuvausjoukot</listBox>
@@ -1001,11 +1405,38 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, lisätekstiä
     <presentation id="RealtimeProtection_RealtimeScanDirection">
     <dropdownList refId="RealtimeProtection_RealtimeScanDirection" noSort="true" defaultItem="0">Määritä saapuvien ja lähtevien tiedostojen ja ohjelmien toimintojen valvonta</dropdownList>
     </presentation>
+    <presentation id="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState">
+        <dropdownList refId="Remediation_BNB_REP_RemoteEncryptionProtection_ConfiguredState" noSort="true" defaultItem="0">Määritä etäsalaussuojauksen tila</dropdownList>
+    </presentation>
+    <presentation id="Remediation_BNB_REP_RemoteEncryptionProtection_MaxBlockTime">
+        <decimalTextBox refId="Remediation_BNB_REP_RemoteEncryptionProtection_MaxBlockTime" defaultValue="15">Määritä minuutteina, kuinka kauan havainnot estetään</decimalTextBox>
+    </presentation>
+    <presentation id="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness">
+        <dropdownList refId="Remediation_BNB_REP_RemoteEncryptionProtection_Aggressiveness" noSort="true" defaultItem="0">Määritä, miten aggressiivisesti etäsalaussuojaus estää uhat</dropdownList>
+    </presentation>
+    <presentation id="Remediation_BNB_REP_RemoteEncryptionProtectionExclusions">
+        <listBox refId="Remediation_BNB_REP_RemoteEncryptionProtectionExclusions">Etäsalaussuojauksen poikkeukset</listBox>
+    </presentation>
+    <presentation id="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState">
+        <dropdownList refId="Remediation_BNB_BFP_BruteForceProtection_ConfiguredState" noSort="true" defaultItem="0">Määritä Brute-Force Protectionin tila</dropdownList>
+    </presentation>
+    <presentation id="Remediation_BNB_BFP_BruteForceProtection_MaxBlockTime">
+        <decimalTextBox refId="Remediation_BNB_BFP_BruteForceProtection_MaxBlockTime" defaultValue="15">Määritä minuutteina, kuinka kauan havainnot estetään</decimalTextBox>
+    </presentation>
+    <presentation id="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness">
+        <dropdownList refId="Remediation_BNB_BFP_BruteForceProtection_Aggressiveness" noSort="true" defaultItem="0">Määritä, kuinka aggressiivisesti Brute-Force Protection estää uhat</dropdownList>
+    </presentation>
+    <presentation id="Remediation_BNB_BFP_BruteForceProtectionExclusions">
+        <listBox refId="Remediation_BNB_BFP_BruteForceProtectionExclusions">Brute-Force Protectionin poikkeukset</listBox>
+    </presentation>
     <presentation id="Remediation_Scan_ScheduleDay">
     <dropdownList refId="Remediation_Scan_ScheduleDay" noSort="true" defaultItem="0">Määritä viikonpäivä, jolloin korjaus viimeistellään suorittamalla aikataulun mukainen täysi tarkistus</dropdownList>
     </presentation>
     <presentation id="Remediation_Scan_ScheduleTime">
     <decimalTextBox refId="Remediation_Scan_ScheduleTime" defaultValue="120">Määritä kellonaika, jolloin korjaus viimeistellään suorittamalla aikataulun mukainen täysi tarkistus</decimalTextBox>
+    </presentation>
+    <presentation id="Scan_DaysUntilAggressiveCatchupQuickScan">
+    <decimalTextBox refId="Scan_DaysUntilAggressiveCatchupQuickScan" defaultValue="25">Määritä, kuinka monta päivää ilman skannauksia tulisi läpäistä, ennen kuin aggressiivinen pikatarkistus käynnistyy</decimalTextBox>
     </presentation>
     <presentation id="Scan_MissedScheduledScanCountBeforeCatchup">
     <decimalTextBox refId="Scan_MissedScheduledScanCountBeforeCatchup" defaultValue="2">Määritä, montako ajoitettua tarkistusta voidaan ohittaa, ennen kuin korvaava tarkistus pakotetaan</decimalTextBox>
@@ -1027,6 +1458,9 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, lisätekstiä
     </presentation>
     <presentation id="Reporting_WppTracingLevel">
     <decimalTextBox refId="Reporting_WppTracingLevel" defaultValue="0">Määritä Windowsin esikäsittelytoiminnon seurantataso</decimalTextBox>
+    </presentation>
+    <presentation id="Reporting_ServiceHealthReportInterval">
+    <decimalTextBox refId="Reporting_ServiceHealthReportInterval" defaultValue="60">Määritä palvelun kuntaraporttien aikaväli</decimalTextBox>
     </presentation>
     <presentation id="Scan_ArchiveMaxDepth">
     <decimalTextBox refId="Scan_ArchiveMaxDepth" defaultValue="0">Määritä enimmäissyvyys, johon asti arkistotiedostoja tarkistetaan</decimalTextBox>
@@ -1056,10 +1490,10 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, lisätekstiä
     <decimalTextBox refId="Scan_ScheduleTime" defaultValue="120">Määritä kellonaika, jolloin aikataulun mukainen tarkistus suoritetaan</decimalTextBox>
     </presentation>
     <presentation id="SignatureUpdate_ASSignatureDue">
-    <decimalTextBox refId="SignatureUpdate_ASSignatureDue" defaultValue="14">Määritä niiden päivien määrä, jonka jälkeen vakoiluohjelmien suojaustietoja pidetään vanhentuneina</decimalTextBox>
+    <decimalTextBox refId="SignatureUpdate_ASSignatureDue" defaultValue="7">Määritä niiden päivien määrä, jonka jälkeen vakoiluohjelmien suojaustietoja pidetään vanhentuneina</decimalTextBox>
     </presentation>
     <presentation id="SignatureUpdate_AVSignatureDue">
-    <decimalTextBox refId="SignatureUpdate_AVSignatureDue" defaultValue="14">Määritä niiden päivien määrä, jonka jälkeen virusten suojaustietoja pidetään vanhentuneina</decimalTextBox>
+    <decimalTextBox refId="SignatureUpdate_AVSignatureDue" defaultValue="7">Määritä niiden päivien määrä, jonka jälkeen virusten suojaustietoja pidetään vanhentuneina</decimalTextBox>
     </presentation>
     <presentation id="SignatureUpdate_DefinitionUpdateFileSharesSources">
     <textBox refId="SignatureUpdate_DefinitionUpdateFileSharesSources">
@@ -1100,11 +1534,6 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, lisätekstiä
     <presentation id="Threats_ThreatSeverityDefaultAction">
     <listBox refId="Threats_ThreatSeverityDefaultActionList">Määritä uhkan hälytystasot, jolloin oletustoimintoa ei suoriteta, kun uhka havaitaan</listBox>
     </presentation>
-    <presentation id="UX_Configuration_CustomDefaultActionToastString">
-    <textBox refId="UX_Configuration_CustomDefaultActionToastString">
-        <label>Näytä lisäteksti asiakkaille, kun heidän on suoritettava toiminto</label>
-    </textBox>
-    </presentation>
     <presentation id="SignatureUpdate_ExpiryNotificationIntervalDays">
         <decimalTextBox refId="SignatureUpdate_ExpiryNotificationIntervalDays">Määritä vanhentumisilmoitusten aikaväli</decimalTextBox>
     </presentation>
@@ -1119,6 +1548,9 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, lisätekstiä
     </presentation>
     <presentation id="ExploitGuard_ASR_ASROnlyExclusions">
         <listBox refId="ExploitGuard_ASR_ASROnlyExclusions">ASR-säännöt eivät koske seuraavia:</listBox>
+    </presentation>
+    <presentation id="ExploitGuard_ASR_ASROnlyPerRuleExclusions">
+        <listBox refId="ExploitGuard_ASR_ASROnlyPerRuleExclusions">Kunkin ASR-säännön poikkeukset:</listBox>
     </presentation>
     <presentation id="ExploitGuard_ASR_Rules">
         <listBox refId="ExploitGuard_ASR_Rules">Aseta kunkin ASR-säännön tila:</listBox>
@@ -1135,6 +1567,70 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, lisätekstiä
     <presentation id="Root_PUAProtection">
         <dropdownList refId="Root_PUAProtection" noSort="true" defaultItem="0"></dropdownList>
     </presentation>
+    <presentation id="Scan_QuickScanIncludeExclusions">
+        <dropdownList refId="Scan_QuickScanIncludeExclusions" noSort="true" defaultItem="0"></dropdownList>
+    </presentation>
+    <presentation id="DeviceControl_PolicyGroups">
+    <textBox refId="DeviceControl_PolicyGroups">
+        <label>Määritä käytäntöryhmät täällä</label>
+    </textBox>
+    </presentation>
+    <presentation id="DeviceControl_PolicyRules">
+    <textBox refId="DeviceControl_PolicyRules">
+        <label>Määritä käytännön säännöt tässä</label>
+    </textBox>
+    </presentation>
+    <presentation id="SchedulerRandomizationTime">
+        <decimalTextBox refId="SchedulerRandomizationTime" defaultValue="4">Määritä ajoituksen satunnaistamisikkuna tunneissa.</decimalTextBox>
+    </presentation>
+    <presentation id="PlatformUpdateChannelsDropDown">
+    <dropdownList refId="UpdateChannelsDropDown" noSort="true" defaultItem="0">Valitse Kanava Microsoft Defenderin kuukausittaisille ympäristöpäivityksille:</dropdownList>
+    </presentation>
+    <presentation id="EngineUpdateChannelsDropDown">
+    <dropdownList refId="UpdateChannelsDropDown" noSort="true" defaultItem="0">Valitse kanava Microsoft Defenderin kuukausittaisille moduulipäivityksille:</dropdownList>
+    </presentation>
+    <presentation id="SecurityIntelligenceUpdateChannelsDropDown">
+    <dropdownList refId="UpdateChannelsDropDown" noSort="true" defaultItem="0">Valitse kanava Microsoft Defenderin päivittäisille suojaustietopäivityksille:</dropdownList>
+    </presentation>
+    <presentation id="DeploymentChannelsDropDown">
+    <dropdownList refId="DeploymentChannelsDropDown" noSort="true" defaultItem="0">Valitse Microsoft Defenderin turvallisen käyttöönoton kanava:</dropdownList>
+    </presentation>
+    <presentation id="DeviceControlDefaultEnforcementDropDown">
+    <dropdownList refId="DeviceControlDefaultEnforcementDropDown" noSort="true" defaultItem="0">Valitse laitehallinnan oletusvalvontakäytäntö</dropdownList>
+    </presentation>
+    <presentation id="DeviceControl_DataDuplicationRemoteLocation">
+    <textBox refId="DeviceControl_DataDuplicationRemoteLocation">
+        <label>Määritä laitehallinnan tietojen kaksoiskappaleiden etäsijainti.</label>
+    </textBox>
+    </presentation>
+	<presentation id="DeviceControl_DataDuplicationLocalRetentionPeriod">
+		<decimalTextBox refId="DeviceControl_DataDuplicationLocalRetentionPeriod" defaultValue="60">Määritä paikallisen laitehallinnan välimuistissa olevien tiedostojen säilytysaika</decimalTextBox>
+    </presentation>
+	<presentation id="DeviceControl_SecuredDevicesConfiguration">
+    <textBox refId="DeviceControl_SecuredDevicesConfiguration">
+        <label>Ota laitehallinta käyttöön tietyille laitetyypeille</label>
+    </textBox>
+    </presentation>
+	<presentation id="DeviceControl_CustomSupportLink">
+    <textBox refId="DeviceControl_CustomSupportLink">
+        <label>Määritä laitehallinnan ilmoitusten tukilinkki</label>
+    </textBox>
+    </presentation>
+	<presentation id="DeviceControl_PolicyRefreshFailureInterval">
+    <textBox refId="DeviceControl_PolicyRefreshFailureInterval">
+        <label>Määritä käytännön virkistystaajuus</label>
+    </textBox>
+	</presentation>
+	<presentation id="DeviceControl_AzureAdRefreshInterval">
+    <textBox refId="DeviceControl_AzureAdRefreshInterval">
+        <label>Määritä Azure AD:n virkistystaajuus</label>
+    </textBox>
+	</presentation>
+	<presentation id="DeviceControl_DataDuplicationMaximumQuota">
+    <textBox refId="DeviceControl_DataDuplicationMaximumQuota">
+        <label>Määritä tietojen monistamisen rajoitus (Mt)</label>
+    </textBox>
+	</presentation>
    </presentationTable>
 </resources>
 </policyDefinitionResources>

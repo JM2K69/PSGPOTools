@@ -77,6 +77,14 @@ Jos tämä käytäntöasetus poistetaan käytöstä tai sitä ei määritetä, j
 Huomautus: Tämä käytäntöasetus ja muut tähän liittyvät asetukset tässä kansiossa määrittävät, miten järjestelmä reagoi, kun palvelimessa sijaitsevien profiilien lataaminen on hidasta. Voit määrittää Microsoft Windows Vista -käyttöjärjestelmää aiemmissa järjestelmissä, miten paljon aikaa käyttäjällä on reagoida tähän ilmoitukseen, käyttämällä Valintaikkunoiden aikakatkaisu -asetusta.
 
 Tärkeää: Jos Älä tunnista hitaita verkkoyhteyksiä -asetus on käytössä, tämä käytäntöasetus ohitetaan. Jos Poista välimuistiin tallennetut kopiot palvelimessa sijaitsevista profiileista -käytäntöasetus on käytössä, palvelimessa sijaitsevasta profiilista ei myöskään ole olemassa paikallista kopiota, joka voitaisiin ladata järjestelmän havaitessa hitaan yhteyden.</string>
+      <string id="AllowNonStandardUserProfilePaths">Salli käyttäjäprofiilin rekisterirakenteet ja AppData muilta kuin vakiopoluilta</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Tämä käytäntöasetus määrittää, saavatko käyttäjäprofiilin rekisterirakenteet ja AppData-kansioiden sijainnit hyväksyä muut kuin vakiopolkumuodot.
+
+Jos otat tämän käytäntöasetuksen käyttöön, käyttäjäprofiilien sijainnit hyväksyvät laajemman valikoiman tiedostopolkuja.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjäprofiilien sijainnit hyväksyvät vain Windowsin vakiosijaintipolut.
+
+Huomautus: Tämän asetuksen ottaminen käyttöön voi altistaa järjestelmän tietoturvariskeille. Ota se käyttöön vain, jos jokin organisaatiosi sovellus sitä vaatii, ja vasta sen jälkeen, kun olet arvioinut kaikki ympäristösi riskit.</string>
       <string id="ExcludeDirectories">Jätä hakemistot pois palvelimella sijaitsevasta profiilista</string>
       <string id="ExcludeDirectories_Help">Tämän käytäntöasetuksen avulla voit jättää pois kansioita, jotka normaalisti sisältyvät käyttäjän profiiliin. Tämän seurauksena näitä kansioita ei ole tarpeen säilyttää verkkopalvelimessa, jossa käyttäjän profiili sijaitsee, eivätkä ne seuraa käyttäjiä muihin tietokoneisiin.
 
@@ -321,7 +329,6 @@ Käyttäjän ensisijaisen tietokoneen nimeäminen edellyttää, että järjestel
 Jos otat tämän käytäntöasetuksen käyttöön ja käyttäjällä on palvelimessa sijaitseva profiili, palvelinprofiili ladataan vain käyttäjän ensisijaiseen tietokoneeseen.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä ja käyttäjällä on palvelimessa sijaitseva profiili, palvelinprofiili ladataan kaikkiin tietokoneisiin, joihin käyttäjä kirjautuu.
-      
       </string>
       <string id="USER_HOME">Määritä käyttäjän kotikansio</string>
       <string id="USER_HOME_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää käyttäjän kotikansion sijainnin ja juuren (jaettu tiedostoresurssi tai paikallinen polku) kirjautumisistunnossa.

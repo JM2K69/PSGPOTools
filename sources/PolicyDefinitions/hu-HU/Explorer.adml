@@ -37,14 +37,30 @@ Megjegyzés: Ezen a házirend-beállítás engedélyezése nem gátolja meg a fe
       <string id="DisableRoamedProfileInit_Help">Ezzel a házirend-beállítással azok a rendszergazdák, akik a Központi profilok gyorsítótárba helyezett példányainak törlése csoportházirendhez kapcsolódóan központi profilt konfiguráltak, megakadályozhatják, hogy a Fájlkezelő újrainicializálja az alapértelmezett programtársításokat és egyéb beállításokat az alapértelmezett értékekkel. 
 
 Ha olyan számítógépen engedélyezi ezt a házirend-beállítást, amelyen nincs minden program ugyanúgy telepítve, mint azon a gépen, amelyen a felhasználó utoljára bejelentkezett, akkor váratlan viselkedés következhet be. </string>
+      <string id="DisableGraphRecentItems">Fájlok megjelenítése a fiókja és a felhőszolgáltató tevékenysége alapján</string>
+      <string id="DisableGraphRecentItems_Help">Ha kikapcsolja ezt a beállítást, a Fájlkezelő nem kérheti felhőbeli fájl metaadatait, és nem jelenítheti meg azokat a kezdőlapon és a Fájlkezelő egyéb nézeteiben. A fiók- vagy felhőszolgáltatói tevékenységen alapuló megállapítások és fájlok le lesznek állítva a következő nézetekben: Legutóbbi, Ajánlott, Kedvencek, Megosztott stb.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">A Speciális beállítások forrásintegrációjának kikapcsolása a Fájlkezelőben</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">A Speciális beállítások forrásintegrációjának letiltása megakadályozza, hogy a Fájlkezelő megjelenítse a Speciális beállítások rendszerösszetevő adattáradatait</string>
+      <string id="DisableFileExplorerPrelaunch">Az ablak háttérben való előzetes elindításának letiltása a Fájlkezelő funkcióban</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Ez a szabályzat megakadályozza, hogy a felhasználók engedélyezhessék az előzetes indítási funkciót a Fájlkezelőben, amely egy ablakot hoz létre a háttérben az indítási élmény felgyorsítása és a válaszképesség javítása érdekében.</string>
+      <string id="MakePrintScreenKeyYieldable">A Print Screen billentyű átadhatóvá tétele</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Ez a házirend-beállítás meghatározza, hogy a Print Screen billentyű átadható-e más alkalmazásoknak.
+
+Ha engedélyezi ezt a házirend-beállítást, az alkalmazások elfoghatják a Print Screen billentyűt, így felülbírálhatják az alapértelmezett képernyőkép-készítési funkciót.
+
+Ha letiltja ezt a házirend-beállítást, a Print Screen billentyű megőrzi a hagyományos működését a képernyőképek készítésénél, és az alkalmazások nem tudják elfogni.
+
+Ha nem konfigurálja ezt a házirend-beállítást, az alkalmazások elfoghatják a Print Screen billentyűt, így felülbírálhatják az alapértelmezett képernyőkép-készítési funkciót, az engedélyezett viselkedéssel megegyező módon.
+
+Megjegyzés: Előfordulhat, hogy a beállítás érvénybe lépéséhez újra kell indítani a rendszert.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>Támogatási weblap URL-címe</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>Támogatási weblap URL-címe</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

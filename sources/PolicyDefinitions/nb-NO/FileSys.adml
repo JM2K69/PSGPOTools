@@ -18,14 +18,23 @@ Se Windows Hjelp hvis du vil ha mer informasjon
 
 Obs! Hvis denne policyen deaktiveres eller ikke konfigureres, kan lokale administratorer velge hvilke typer symbolske koblinger som skal evalueres.</string>
       <string id="SymlinkEvaluation">Selektivt tillate evaluering av en symbolsk kobling</string>
+
       <string id="DisableCompression">Ikke tillat komprimering på alle NTFS-volumer</string>
-      <string id="DisableCompressionText">Komprimering kan gjøre filsystemoperasjoner tyngre å behandle.  Aktivering av denne innstillingen vil forhindre tilgang til og opprettelse av komprimerte filer.  </string>
+      <string id="DisableCompressionText">Komprimering kan legge til i fil system operasjoner som behandler indirekte drift.  Hvis du aktiverer denne innstillingen, vil du forhindre tilgang til og opprettelse av komprimerte filer.
+
+Maskinen må startes på nytt for at denne innstillingen skal tre i kraft</string>
+
       <string id="DisableEncryption">Ikke tillat kryptering på alle NTFS-volumer</string>
-      <string id="DisableEncryptionText">Kryptering kan gjøre filsystemoperasjoner tyngre å behandle.  Aktivering av denne innstillingen vil forhindre tilgang til og opprettelse av krypterte filer.</string>
+      <string id="DisableEncryptionText">Kryptering kan legge til i fil system operasjoner som behandler indirekte drift.  Hvis du aktiverer denne innstillingen, hindres tilgang til og oppretting av krypterte filer.
+
+Maskinen må startes på nytt for at denne innstillingen skal tre i kraft</string>
+
       <string id="EnablePagefileEncryption">Aktiver NTFS-kryptering av sidevekslingsfil</string>
       <string id="EnablePagefileEncryptionText">Kryptering av sidevekslingsfilen forhindrer ondsinnede brukere fra å lese data som har blitt sidevekslet til disk, men det gjør også filsystemoperasjoner tyngre å behandle.  Aktivering av denne innstillingen vil føre til at sidevekslingsfilene krypteres.</string>
+
       <string id="LongPathsEnabled">Aktiver lange Win32-baner</string>
-      <string id="LongPathsEnabledText">Med lange Win32-baner kan manifesterte win32-programmer og Windows Store-programmer få tilgang til baner utover den vanlige grensen på 260 tegn per node i filsystemer som støtter det. Hvis du aktiverer denne innstillingen, blir de lange banene tilgjengelige internt i prosessen.</string>
+      <string id="LongPathsEnabledText">Med lange Win32-baner kan manifesterte win32-programmer og pakkede Microsoft Store-programmer å få tilgang til baner utover standardgrensen på 260 tegn.  Hvis du aktiverer denne innstillingen, blir de lange banene tilgjengelige i prosessen.</string>
+
       <string id="ShortNameCreationSettings">Opprettelsesalternativer for kortnavn</string>
       <string id="ShortNameCreationSettingsText">Disse innstillingene styrer om kortnavn blir generert under opprettelse av filer.  Enkelte programmer krever kortnavn for kompatibilitet, men kortnavn virker negativt inn på systemytelsen.
 
@@ -34,14 +43,60 @@ Hvis du aktiverer kortnavn på alle volumer, blir kortnavn alltid generert.  Hvi
       <string id="ShortNameCreationSetting_1">Deaktiver på alle volumer</string>
       <string id="ShortNameCreationSetting_2">Aktiver/deaktiver per volum</string>
       <string id="ShortNameCreationSetting_3">Deaktiver på alle datavolumer</string>
+
       <string id="DisableDeleteNotification">Deaktiver slettevarslinger på alle volumer</string>
       <string id="DisableDeleteNotificationText">Slettevarsling er en funksjon som varsler den underliggende lagringsenheten om klynger som er frigjort på grunn av sletting av filer.
 
 Verdien 0, som er standardverdien, vil aktivere slettevarslinger for alle volumer. 
 Verdien 1 vil deaktivere slettevarslinger for alle volumer.</string>
+
       <string id="TxfDeprecatedFunctionality">Aktiver/deaktiver funksjoner som er avskrevet i TXF</string>
-      <string id="TxfDeprecatedFunctionalityText">Funksjoner som er avskrevet i TXF omfatter lagringspunkter, sekundær RM, miniversjon og fremoverrulling. Aktiver dem hvis du ønsker å bruke APIene.</string>
+      <string id="TxfDeprecatedFunctionalityText">Funksjoner som er avskrevet i TXF omfatter lagringspunkter, sekundær RM, miniversjon og fremoverrulling. Aktiver dem hvis du ønsker å bruke disse API-ene.</string>
+
+      <string id="NtfsForceNonPagedPoolAllocation">Aktiver bruk av ikke-vekslebart minne for NTFS</string>
+      <string id="NtfsForceNonPagedPoolAllocationExplain">NTFS tildeler som standard minnet fra både vekslebart og ikke-vekslebart minne etter behov.  Hvis du aktiverer denne innstillingen, kan NTFS bruke ikke-vekslebart minne til alle tildelinger.  I NTFS endres også alle kode delene for å være ikke-vekslebart.
+
+Fordelen med å aktivere denne funksjonen er å redusere bruken av side-faults og Stack med kostnads fritt ekstra minne forbruk.
+
+Maskinen må startes på nytt for at denne innstillingen skal tre i kraft</string>
+
+      <string id="NtfsParallelFlushThreshold">Tersker for parallell NTFS-tømming</string>
+      <string id="NtfsParallelFlushThresholdExplain">Når du sletter endrede fildata fra minnet, velger NTFS å bruke én eller flere tråder basert på hvor mange filer som er åpne.  Denne innstillingen gir kontroll over den åpne fil terskelen som brukes til å utløse parallell tømming.</string>
+
+      <string id="NtfsParallelFlushWorkers">Parallelle NTFS-arbeidstråder</string>
+      <string id="NtfsParallelFlushWorkersExplain">Når du tømmer endrede tildata fra minnet, velger NTFS å bruke én eller flere tråder basert på hvor mange filer som er åpne for øyeblikket.
+
+Når denne verdien angis høyere kan det redusere tiden det tar for å tømme volumet, men tømmingen kan ha større påvirkning på andre samtidige IU-operasjoner.
+
+Verdier med spesiell betydning:
+    0: Bruk systemberegnet standard
+    1: Deaktiver parallell tømming
+
+Standardverdien og -grensen for denne innstillingen varierer i henhold til antallet tilgjengelige prosessorer på det aktuelle systemet:
+    – Standard verdiberegning er:  (([NumProcessors]/2) + 1)
+    – Standard maksimal verdiberegning er: ([NumProcessors]*2)</string>
+
+      <string id="NtfsDefaultTier">Standard nivå for NTFS</string>
+      <string id="NtfsDefaultTierExplain">For lagvise NTFS-volumer styrer dette nivået som nye tildelinger går til som standard.
+
+Klientsystemer bruker ytelsesnivået som standard.
+Serversystemer bruker kapasitetsnivået som standard.</string>
+      <string id="DefaultTierSetting_1">Kapasitetsnivå</string>
+      <string id="DefaultTierSetting_2">Ytelsesnivå</string>
+
+      <string id="ClfsAuthenticationChecking">Aktiver/deaktiver godkjenning av CLFS-loggfil</string>
+      <string id="ClfsAuthenticationCheckingExplain">Denne policyinnstillingen konfigurerer CLFS-loggfilgodkjenning, en sikkerhetsfunksjon som har som mål å forsterke loggfilanalyse.
+
+Loggfilgodkjenning gir CLFS-driveren muligheten til å oppdage skadelige endringer som er gjort i loggfiler. Hvis endringer oppdages, anser CLFS loggfilen som usikker for analyse og returnerer en feil til oppkalleren. CLFS kan oppdage endringer ved å skrive godkjenningskoder til loggfiler, som kombinerer fildata med en systemunik kryptografisk nøkkel. 
+
+En bivirkning av loggfilgodkjenning er at CLFS ikke kan åpne loggfiler som ble opprettet på andre systemer, da disse loggfilene inneholder godkjenningskoder opprettet ved hjelp av en systemunik kryptografisk nøkkel. Hvis du vil åpne en loggfil som ble opprettet på et annet system, må en administrator først bruke kommandoen fsutil.exe clfs authenticate for å korrigere godkjenningskodene.
+
+Hvis du aktiverer eller ikke konfigurerer denne innstillingen, refererer CLFS til lokale registerinnstillinger for å avgjøre om loggfilgodkjenning skal utføres eller ikke. CLFS utfører loggfilgodkjenning som standard. Du finner de lokale registerinnstillingene for denne funksjonen på HKLM:\SYSTEM\CurrentControlSet\Services\CLFS\Authentication. 
+
+Hvis du deaktiverer innstillingen, utfører ikke CLFS loggfilgodkjenning lenger. Loggfiler kan flyttes og åpnes på tvers av systemer uten administrative handlinger. CLFS åpner og analyserer imidlertid alle loggfiler, inkludert skadelige loggfiler som kan kompromittere systemet.</string>
+
     </stringTable>
+
     <presentationTable>
       <presentation id="SymlinkEvaluation">
         <checkBox refId="SymLinkClassL2L">Lokal kobling til et lokalt mål</checkBox>
@@ -58,6 +113,21 @@ Verdien 1 vil deaktivere slettevarslinger for alle volumer.</string>
       </presentation>
       <presentation id="DeleteNotificationOptions"/>
       <presentation id="TxfDeprecatedFunctionalityOptions"/>
+      <presentation id="NtfsForceNonPagedPoolAllocationOptions"/>
+      <presentation id="NtfsParallelFlushThresholdOptions">
+        <decimalTextBox refId="NtfsParallelFlushThresholdID" defaultValue="1000">Åpen filterskel:</decimalTextBox>
+      </presentation>
+
+      <presentation id="NtfsParallelFlushWorkersOptions">
+        <decimalTextBox refId="NtfsParallelFlushWorkersID" defaultValue="5">Åpen filterskel:</decimalTextBox>
+      </presentation>
+
+      <presentation id="NtfsDefaultTierOptions">
+          <dropdownList refId="NtfsDefaultTier_Levels" noSort="true" defaultItem="1">Alternativer for standard nivå for NTFS</dropdownList>
+      </presentation>
+
+      <presentation id="ClfsAuthenticationCheckingOptions"/>
+
     </presentationTable>
   </resources>
 </policyDefinitionResources>

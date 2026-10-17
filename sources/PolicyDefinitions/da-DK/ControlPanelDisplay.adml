@@ -173,6 +173,12 @@ Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, vil bruger
 Brugerne kan som standard ændre det baggrundsbillede, der vises, når computeren er låst, eller når logonskærmen vises.
 
 Hvis du aktiverer denne indstilling, vil brugerne ikke kunne ændre billedet på deres låseskærm og logonskærm, og de vil i stedet få vist standardbilledet.</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">Undgå baggrundsbevægelse på låseskærm</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">Denne politikindstilling styrer, om billedet på låseskærmen er statisk eller har en dæmpet panorerings effekt, der styres af enhedens accelerometersensor-output.
+
+Hvis du aktiverer denne indstilling, forhindres bevægelse, og brugeren får vist baggrundsbilledet med den traditionelle statiske låseskærm.
+
+Hvis du deaktiverer denne indstilling (og enheden har en accelerometersensor), vil brugeren se låseskærmens baggrundsbillede omkring et still-billede, når de fysisk flytter deres enhed.</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">Gennemtving et bestemt standardbillede til låseskærmen og logonskærmen</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">Med denne indstilling kan du gennemtvinge et bestemt billede på låseskærmen og logonskærmen, der bruges som standard, ved at angive stien (placeringen) til billedfilen. Det samme billede bruges til både låseskærmen og logonskærmen.
 

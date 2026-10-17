@@ -110,9 +110,11 @@ Consulte também as definições "Configurar Relatório de Erros", "Apresentar N
       <string id="RemoveWindowsUpdate_ICM">Desligar o acesso a todas as funcionalidades do Windows Update</string>
       <string id="RemoveWindowsUpdate_ICM_Help">Esta definição de política permite-lhe remover o acesso ao Windows Update.
 
-Se ativar esta definição de política, todas as funcionalidades do Windows Update são removidas. Isto inclui bloquear o acesso ao Web site Windows Update, em http://windowsupdate.microsoft.com, a partir da hiperligação do Windows Update no menu Iniciar e do menu Ferramentas no Internet Explorer. A atualização automática do Windows também é desativada; deixará de ser notificado e deixará de receber as atualizações críticas do Windows Update. Esta definição de política também impede que o Gestor de Dispositivos instale automaticamente atualizações de controladores a partir do Web site Windows Update.
+Se ativar esta definição de política, todas as funcionalidades do Windows Update são removidas. Isto inclui o bloqueio do acesso ao Web site Windows Update em http://windowsupdate.microsoft.com, a partir da hiperligação do Windows Update no menu Iniciar e também no menu Ferramentas do Internet Explorer. A atualização automática do Windows também é desativada; não será notificado nem receberá atualizações críticas do Windows Update. Esta definição de política também impede que o Gestor de Dispositivos instale automaticamente atualizações de controladores a partir do Web site Windows Update.
 
-Se desativar ou não configurar esta definição de política, os utilizadores podem aceder ao Web site Windows Update e ativar a atualização automática para receber notificações e atualizações críticas do Windows Update.</string>
+Se desativar ou não configurar esta definição de política, os utilizadores podem aceder ao Web site Windows Update e ativar a atualização automática para receber notificações e atualizações críticas do Windows Update.
+
+Nota: esta política só se aplica quando este PC está configurado para se ligar a um serviço de atualização na intranet através da política "Especificar localização do serviço de atualização da Microsoft na intranet".</string>
       <string id="SearchCompanion_DisableFileUpdates">Desligar as atualizações de ficheiros de conteúdo do Assistente de Pesquisa</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">Esta definição de política especifica se o Assistente de Pesquisa deve transferir automaticamente atualizações de conteúdo durante pesquisas locais e na Internet.
 

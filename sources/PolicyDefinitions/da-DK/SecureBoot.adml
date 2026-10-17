@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>indtast det viste navn her</displayName>
+  <description>indtast beskrivelsen her</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Sikker bootstart</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Certifikatudrulning via kontrolleret funktionsudrulning</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">For virksomheder, der ønsker hjælp til at implementere de nye certifikater for sikker bootstart på deres enheder, kan denne indstilling aktiveres.
+
+ 
+
+Bemærk! Enheden skal sende de nødvendige diagnosticeringsdata til Microsoft for at kunne bruge denne funktion.
+
+ 
+
+Få mere at vide på: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Automatisk udrulning af certifikater via opdateringer</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">For enheder, hvor testresultater viser, at enheden kan håndtere certifikatopdateringerne korrekt, startes opdateringerne automatisk som en del af serviceopdateringerne. Denne politik er som standard aktiveret. For virksomheder, der ønsker at styre automatisk opdatering, skal du bruge denne politik til eksplicit at aktivere eller deaktivere funktionen.
+
+ 
+
+Få mere at vide på: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Aktivér udrulning af certifikat til sikker bootstart</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Med denne politikindstilling kan du aktivere eller deaktivere processen for udrulning af certifikat til sikker bootstart på enheder. Når den er aktiveret, starter Windows automatisk udrulningen af certifikater på de enheder, hvor denne politik er anvendt. 
+
+ 
+
+Bemærk: Denne registreringsdatabaseindstilling gemmes ikke i en politiknøgle og betragtes som en præference. Derfor forbliver denne registreringsdatabaseindstilling, hvis det gruppepolitikobjekt, der implementerer den, fjernes. 
+
+ 
+
+Bemærk: Den Windows-opgave, der kører og behandler denne indstilling, kører hver 12. time. I nogle tilfælde tilbageholdes opdateringerne, indtil systemet genstartes for at sikre en sikker rækkefølge af opdateringerne. 
+
+ 
+
+Bemærk! Når certifikaterne er anvendt i firmwaren, kan du ikke fortryde dem via Windows. Hvis det er nødvendigt at fjerne certifikaterne, skal det gøres via firmwaremenuens brugergrænseflade. 
+
+ 
+
+Få mere at vide på: https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Begræns påkrævede tjenestedata for sikker start</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Denne politikindstilling styrer, om operativsystemet udsender den daglige tjenestedatahændelse, der kræves af sikker start. Hændelsen indeholder oplysninger om enhedens konfiguration af sikker start og firmwarevariabeltilstand og sendes normalt uanset niveauet for diagnosticeringsdata i Tillad telemetri, da den er klassificeret som påkrævet for sikkerhed.
+
+ 
+
+Hvis du aktiverer denne politikindstilling, udsendes den daglige tjenestedatahændelse, der kræves af sikker start, ikke. Dette er beregnet til virksomheder, der opererer under Windows Restricted Traffic Limited Functionality Baseline.
+
+ 
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, fortsætter operativsystemet med at udsende tjenestedatahændelsen, der kræves af sikker start, i overensstemmelse med de eksisterende tilladelsesregler for telemetri.</string>
+
+      <string id="SUPPORTED_Windows8">Mindst Windows Server 2012, Windows 8 eller Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

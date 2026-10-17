@@ -21,20 +21,19 @@ Om du inaktiverar den här principinställningen tas listan över värdnamn-till
 
 Om du inte konfigurerar den här principinställningen använder systemet värdnamn-till-Kerberos-domänmappningarna i det lokala registret, om de har definierats.</string>
       <string id="MitRealms">Definiera kompatibla Kerberos V5-domäninställningar</string>
-      <string id="MitRealms_explain">Den här principinställningen konfigurerar Kerberos-klienten så att den kan autentisera med kompatibla Kerberos V5-domäner, enligt den här grupprincipen.
-      
-Om du aktiverar den här inställningen kan du visa och ändra listan över kompatibla Kerberos V5-domäner och deras inställningar. Om du vill visa listan över kompatibla Kerberos V5-domäner kan du aktivera principinställningen och sedan klicka på knappen Visa. Om du vill lägga till en kompatibel Kerberos V5-domän aktiverar du principinställningen, noterar syntaxen och klickar på knappen Visa. Ange det kompatibla Kerberos V5-domännamnet i kolumnen Värdenamn i dialogrutan Visa innehåll. Ange domänflaggorna och värdnamnen för KDC:erna i kolumnen i rätt syntaxformat. Om du vill ta bort ett kompatibelt Kerberos V5-domännamn eller en värdepost från listan klickar du på posten och trycker sedan DEL-tangenten. Om du vill redigera en mappning kan du ta bort posten från listan och sedan lägga till en ny definition med andra parametrar.
+      <string id="MitRealms_explain">Den här principinställningen konfigurerar Kerberos-klienten så den kan autentisera med kompatibla Kerberos V5-sfärer enligt den här grupprincipen.
 
-Om du inaktiverar den här principinställningen tas de kompatibla Kerberos V5-domäninställningarna som har definierats i grupprincipen bort.
+Om du aktiverar den här inställningen kan du visa och ändra listan över kompatibla Kerberos V5-sfärer och deras inställningar. Om du vill visa listan över kompatibla Kerberos V5-sfärer kan du aktivera principinställningen och sedan klicka på knappen Visa. Om du vill lägga till en kompatibel Kerberos V5-sfär aktiverar du principinställningen, noterar syntaxen och klickar på knappen Visa. Ange namnet på den kompatibla Kerberos V5-sfären i kolumnen Värdenamn i dialogrutan Visa innehåll. Ange sfärflaggorna och värdnamnen för KDC:erna i kolumnen i rätt syntaxformat. Om du vill ta bort ett kompatibelt Kerberos V5-sfärnamn eller en värdepost från listan klickar du på posten och trycker sedan DEL-tangenten. Om du vill redigera en mappning kan du ta bort posten från listan och sedan lägga till en ny definition med andra parametrar.
 
-Om du inte konfigurerar den här principinställningen använder systemet de interoperabla Kerberos V5-inställningarna i det lokala registret, om de har definierats.</string>
+Om du inaktiverar den här principinställningen tas de kompatibla Kerberos V5-sfärinställningarna som har definierats i grupprincipen bort.
+
+Om du inte konfigurerar den här principinställningen använder systemet de kompatibla Kerberos V5-sfärinställningarna i det lokala registret, om de har definierats.</string>
       <string id="ValidateKDC">Kräv strikt KDC-validering</string>
-      <string id="ValidateKDC_explain">Den här principinställningen styr Kerberos-klientens beteende vid verifiering av KDC-certifikatet för inloggning med smartkort och systemcertifikat.  
+      <string id="ValidateKDC_explain">Den här principinställningen styr Kerberos-klientens beteende vid verifiering av KDC-certifikatet för inloggning med smartkort och systemcertifikat.
 
-Om du aktiverar den här principinställningen kräver Kerberos-klienten att KDC:ns X.509-certifikat innehåller huvudobjektidentifieraren för KDC i tilläggen Utökad nyckelanvändning, samt att KDC:ns X.509-certifikat innehåller ett dNSName subjectAltName-tillägg (SAN) som matchar domänens DNS-namn. Om datorn är ansluten till en domän kräver Kerberos-klienten att X.509-certifikatet för KDC signeras av en certifikatutfärdare i NTAuth-arkivet. Om datorn inte tillhör en domän tillåter Kerberos-klienten att rotcertifikatutfärdaren på smartkortet används i sökvägsvalideringen på KDC:ns X.509-certifikat.
+Om du aktiverar den här principinställningen kräver Kerberos-klienten att KDCn:s X.509-certifikat innehåller huvudobjektidentifieraren för KDC i tilläggen förbättrad nyckelanvändning, samt att KDC:ns X.509-certifikat innehåller ett dNSName subjectAltName-tillägg (SAN) som matchar domänens DNS-namn. Om datorn är ansluten till en domän kräver Kerberos-klienten att X.509-certifikatet för KDC signeras av en certifikatutfärdare i NTAuth-arkivet. Om datorn inte tillhör en domän tillåter Kerberos-klienten att rotcertifikatutfärdaren på smartkortet används i sökvägsvalideringen på KDC:ns X.509-certifikat.
 
-Om du inaktiverar eller låter bli att konfigurera den här principinställningen kräver Kerberos-klienten bara att KDC-certifikatet innehåller objektidentifieraren för serverautentisering i EKU-tilläggen som kan utfärdas till valfri server.
-
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen kräver Kerberos-klienten endast att KDC-certifikatet innehåller objektidentifieraren för serverautentisering i EKU-tilläggen som kan utfärdas till valfri server.
 </string>
       <string id="StrictTarget">Kräv strikt målmatchning för SPN vid RPC (Remote Procedure Calls)</string>
       <string id="StrictTarget_explain">  Den här principinställningen gör det möjligt att konfigurera servern så att Kerberos kan kryptera en biljett som innehåller det systemgenererade SPN:et. När ett program försöker skicka ett RPC-anrop till den här servern med ett NULL-värde för SPN-namnet försöker datorer som kör Windows 7 eller senare att använda Kerberos genom att generera ett SPN.
@@ -94,16 +93,14 @@ Om du inte konfigurerar den här principinställningen används Automatiskt.
 
       <string id="MaxTokenSize">Ange största buffertstorlek för SSPI-kontexttoken i Kerberos (Set maximum Kerberos SSPI context token buffer size)</string>
       <string id="MaxTokenSize_explain">Med den här principinställningen kan du ange det värde som ska returneras till program som begär den största tillåtna storleken för SSPI-kontexttokens buffertstorlek.
-              
-Storleken på bufferten för kontexttoken avgör den största storleken på SSPI-kontexttoken som förväntas och allokeras av ett program. Beroende på bearbetningen av autentiseringsbegäranden och gruppmedlemskap kan bufferten vara mindre än SSPI-kontexttokens faktiska storlek. 
 
-Om du aktiverar den här principinställningen använder Kerberos-klienten eller -servern det konfigurerade värdet, eller det högsta värde som tillåts lokalt, beroende på vilket som är lägst.
+Storleken på bufferten för kontexttoken avgör den största storleken på SSPI-kontexttoken som förväntas och allokeras av ett program. Beroende på bearbetningen av autentiseringsbegäranden och gruppmedlemskap kan bufferten vara mindre än SSPI-kontexttokens faktiska storlek.
 
-Om du inaktiverar eller låter bli att konfigurera den här principinställningen använder Kerberos-klienten eller -servern det lokalt konfigurerade värdet eller standardvärdet. 
+Om du aktiverar den här principinställningen använder Kerberos-klienten eller -servern det konfigurerade värdet eller det högsta värde som tillåts lokalt, beroende på vilket som är lägst.
 
-Obs! Med den här principinställningen konfigureras det befintliga MaxTokenSize-registervärdet i HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters, som lades till i Windows XP och Windows Server 2003, med standardvärdet 12 000 byte. Från och med Windows 8 är standardvärdet 48 000 byte. På grund av base64-kodningen av kontexttoken för autentisering i HTTP rekommenderar vi ett högsta värde på 48 000 byte.
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen använder Kerberos-klienten eller -servern det lokalt konfigurerade värdet eller standardvärdet.
 
-
+Obs! Med den här principinställningen konfigureras det befintliga MaxTokenSize-registervärdet i HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters, som lades till i Windows XP och Windows Server 2003, med standardvärdet 12 000 byte. Från och med Windows 8 är standardvärdet 48 000 byte. På grund av base64-kodningen av kontexttoken för autentisering i HTTP rekommenderar vi ett högsta värde på 48 000 byte.
 
 </string>
       <string id="EnableCbacAndArmor">Kerberosklientstöd för anspråk, sammansatt autentisering och Kerberos-skydd</string>
@@ -111,7 +108,7 @@ Obs! Med den här principinställningen konfigureras det befintliga MaxTokenSize
 Om du aktiverar den här principinställningen kommer klientdatorerna begära anspråk, lämna den information som krävs för att skapa sammansatt autentisering och skydda Kerberos-meddelanden i domäner som stöder anspråk och sammansatt autentisering för dynamisk åtkomstkontroll och Kerberos-skydd.
 
 Om du inaktiverar eller inte konfigurerar den här principinställningen begär klientenheter inte anspråk, lämnar inte den information som krävs för att skapa sammansatt autentisering eller skyddar Kerberos-meddelanden. Tjänster på enheten kommer inte att kunna hämta anspråk åt klienter som använder Kerberos-protokollöverföring.  
-  
+
 </string>
       <string id="AlwaysSendCompoundId">Skicka alltid sammansatt autentisering först</string>
       <string id="AlwaysSendCompoundId_explain">Den här principinställningen bestämmer om en enhet alltid ska skicka en begäran om sammansatt autentisering när resursdomänen begär sammansatt ID.
@@ -124,7 +121,7 @@ Om du inaktiverar eller inte konfigurerar den här principinställningen och res
 
 </string>
       <string id="DevicePKInitEnabled">Stöd för enhetsautentisering med certifikat</string>
-      <string id="DevicePKInitEnabled_explain">Det krävs anslutning till en domänkontrollant i enhetskontots domän som stöder certifikatautentisering för datorkonton för att kunna ge stöd åt enhetsautentisering med certifikat. 
+      <string id="DevicePKInitEnabled_explain">Det krävs anslutning till en domänkontrollant i enhetskontots domän som stöder certifikatautentisering för datorkonton för att kunna ge stöd åt enhetsautentisering med certifikat.
 
 Med den här principinställningen kan du ange stöd för Kerberos att försöka autentisera med enhetscertifikatet i domänen.
 
@@ -136,9 +133,54 @@ Framtvinga: Enheten autentiserar alltid med dess certifikat. Autentiseringen mis
 
 Om du inaktiverar principinställningen används aldrig certifikat.
 Om du låter bli att konfigurera principinställningen används alternativet Automatiskt.
+
+Följ den här guiden för att konfigurera företags-PKI: https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">Automatiskt</string>
       <string id="DevicePKInitBehavior_Force">Framtvinga</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">Tillåt hämtning av Azure AD Kerberos Ticket Granting Ticket under inloggning</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">Med den här principinställningen kan du hämta Azure AD Kerberos Ticket Granting Ticket under inloggningen.
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen hämtas inte Azure AD Kerberos Ticket Granting Ticket under inloggningen.
+
+Om du aktiverar den här principinställningen hämtas Azure AD Kerberos Ticket Granting Ticket under inloggningen.</string>
+      <string id="PKInitHashAlgorithmConfiguration">Konfigurera hash-algoritmer för certifikatinloggning</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">Den här principinställningen styr hash- eller kontrollsummealgoritmer som används av Kerberos-klienten när certifikatautentisering utförs.
+
+Om du aktiverar den här principen kan du konfigurera ett av fyra tillstånd för varje algoritm:
+
+- ”Standard” anger algoritmen till det rekommenderade tillståndet.
+
+- ”Stöds” aktiverar användning av algoritmen. Om du aktiverar algoritmer som har inaktiverats som standard kan det minska säkerheten.
+
+- ”Granskad” aktiverar användning av algoritmen och rapporterar en händelse (ID 206) varje gång den används. Detta tillstånd är avsett att verifiera att algoritmen inte används och kan inaktiveras på ett säkert sätt.
+
+- ”Stöds inte” inaktiverar användningen av algoritmen. Det här tillståndet är avsett för algoritmer som anses vara osäkra.
+
+Om du inaktiverar eller låter bli att konfigurera den här principen antar varje algoritm standardtillståndet.
+Mer information om de hash- och kontrollsummealgoritmer som stöds av Windows Kerberos-klienten och deras standardtillstånd finns på https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Händelser som genererats av denna konfiguration: 205, 206, 207, 208.
+</string>
+      <string id="PKInitHashAlgorithm_Default">Standard</string>
+      <string id="PKInitHashAlgorithm_Supported">Stöds</string>
+      <string id="PKInitHashAlgorithm_Audited">Granskade</string>
+      <string id="PKInitHashAlgorithm_NotSupported">Stöds inte</string>
+      
+      <string id="DelegatedMSAEnabled">Aktivera inloggningar för delegerade hanterade tjänstkonton</string>
+      <string id="DelegatedMSAEnabled_explain">Den här principinställningen aktiverar eller inaktiverar inloggningar för delegerade hanterade tjänstkonton för den här datorn.
+
+Om du aktiverar den här principinställningen stöds inloggningar för delegerade hanterade tjänstkonton av Kerberos-klienten. Observera att det finns vissa krav för den här principen. Krav och anvisningar för att skapa ett nytt delegerat hanterat tjänstkonto finns på https://go.microsoft.com/fwlink/?linkid=2250379.
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen stöds inte inloggningar för delegerade hanterade tjänstkonton av Kerberos-klienten. 
+</string>
+      <string id="EnableTryIPSPN">Tillåt IP-adressbaserade SPN under Kerberos-autentisering</string>
+      <string id="EnableTryIPSPN_explain">Med den här principinställningen kan du konfigurera Kerberos att använda IP-adressbaserade SPN (Service Principal Name).
+
+Om du aktiverar den här principinställningen försöker Kerberos-klienten använda IP-adressbaserade SPN vid anslutning till en tjänst.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen kommer Kerberos inte att försöka använda IP-adressbaserade SPN.
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -181,6 +223,16 @@ Om du låter bli att konfigurera principinställningen används alternativet Aut
         <text>Ett annat exempel:</text>
         <text>Värdenamn: REALM.FABRIKAM.COM</text>
         <text>Värde: &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">Sfärer:</multiTextBox>
+        <text>Syntax:</text>
+        <text>Ange en lista över sfärer där det kan finnas DMSA:er.</text>
+        <text>Ange både det fullständiga domännamnet (FQDN) och det korta namnet.</text>
+        <text>Ange en sfär per rad.</text>
+        <text>Information:</text>
+        <text>Kerberos-klienten försöker hitta en DMSA-kompatibel domänkontrollant för de angivna sfärerna.</text>
+        <text>Om inga sfärer anges försöker Kerberos-klienten hitta en DMSA-kompatibel domänkontrollant för alla sfärer.</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">Läge:</dropdownList>
@@ -225,7 +277,7 @@ Om du låter bli att konfigurera principinställningen används alternativet Aut
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Aktivera stöd för auktorisering med klientenhetsinformation (Support authorization with client device information):</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Aktivera stöd för auktorisering med klientenhetsinformation (Support authorization with client device information):</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">Största storlek</decimalTextBox>
@@ -233,7 +285,13 @@ Om du låter bli att konfigurera principinställningen används alternativet Aut
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Enhetsautentisering med certifikat:</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Enhetsautentisering med certifikat:</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

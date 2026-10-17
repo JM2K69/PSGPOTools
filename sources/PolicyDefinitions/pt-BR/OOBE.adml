@@ -14,6 +14,19 @@
 Se esta política estiver habilitada, a experiência de privacidade não será iniciada para contas de usuário recém-criadas ou para contas solicitadas a escolherem suas configurações de privacidade após um upgrade.
 
 Se esta política estiver desabilitada ou não for configurada, a experiência de privacidade poderá ser iniciada para contas de usuário recém-criadas ou para contas que devem ser solicitadas a escolherem suas configurações de privacidade após um upgrade.</string>
+
+      <string id="AllowOOBEUpdates">Permitir Atualizações no OOBE</string>
+      <string id="AllowOOBEUpdates_Explain">Essa política permite que você configure se um novo dispositivo receberá atualizações críticas durante a tela de apresentação.
+
+Se você desabilitar ou não definir esta política, novos dispositivos não receberão atualizações críticas durante a tela de apresentação.
+
+Se você habilitar a política, novos dispositivos receberão as atualizações críticas aprovadas mais recentes durante a tela de apresentação.
+
+Observações:
+Essa política não controla a página de atualizações de patch de dia zero (ZDP) no OOBE.
+
+Se você tiver pausado as atualizações de qualidade por meio das políticas de adiamento e pausa de atualizações de qualidade do Windows, nenhuma atualização de qualidade será entregue durante a tela de apresentação.
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

@@ -27,12 +27,11 @@ Se desativar ou não configurar esta política, a ligação "Ver todos os result
 Se desativar ou não configurar esta política, a ligação "Ver mais resultados" será mostrada quando o utilizador efetuar uma procura na caixa de procura do menu Iniciar.  Se estiver instalado um processador de protocolos de terceiros, será mostrada uma ligação "Procurar em Todos os Locais" em vez da uma ligação "Ver mais resultados".</string>
       <string id="AddSearchInternetLinkInStartMenu">Adicionar ligação Procurar na Internet ao Menu Iniciar</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
+Se ativar esta política, será mostrada uma ligação "procurar na Internet" quando o utilizador efetuar uma procura na caixa de procura do menu iniciar.  Este botão inicia o browser predefinido com os termos de pesquisa.
 
-Se ativar esta política, é mostrada uma ligação "Procurar na Internet" quando o utilizador efetuar uma procura na caixa de procura do menu iniciar.  Este botão inicia o browser predefinido com os termos da procura.
+Se desativar esta política, não existirá uma ligação "Pesquisar na Internet" quando o utilizador efetuar uma procura na caixa de procura do menu iniciar.
 
-Se desativar esta política, não existirá uma ligação "Procurar na Internet" quando o utilizador efetuar uma procura na caixa de procura do menu iniciar.
-          
-Se não configurar esta política (predefinição), não existirá uma ligação "Procurar na Internet" no menu iniciar.</string>
+Se não configurar esta política (predefinição), não existirá uma ligação "Pesquisar na Internet" no menu iniciar.</string>
       <string id="NoSearchFilesInStartMenu">Não procurar ficheiros</string>
       <string id="NoSearchFilesInStartMenu_Help">Se ativar esta definição de política, a caixa de procura do menu Iniciar não procurará ficheiros.
 
@@ -207,6 +206,19 @@ No Explorador de Ficheiros, o item Procurar continua a aparece na barra de ferra
 Esta definição de política só afeta os elementos da interface de utilizador especificados. Não afeta o Internet Explorer e não impede que o utilizador use outros métodos de pesquisa.
 
 Se desativar ou não configurar esta definição de política, a ligação Procurar fica disponível no menu Iniciar.</string>
+      <string id="ShowOrHideMostUsedApps">Mostrar ou ocultar a lista "mais utilizados" do menu iniciar</string>
+      <string id="ShowOrHideMostUsedApps_Help">Se ativar esta definição de política, pode configurar o menu iniciar para mostrar ou ocultar as aplicações mais usadas pelo utilizador, independentemente das definições do utilizador.
+
+Selecionar "Mostrar" irá forçar a apresentação da lista "Mais utilizados" e o utilizador não poderá altera-la para ocultá-la utilizando a aplicação Definições.
+
+Ao selecionar "Ocultar", vai forçar a lista "Mais utilizados" para ser ocultada e o utilizador não pode alterar para apresentá-la utilizando a aplicação Definições.
+
+Ao selecionar "Não configurado", ou se desativar ou não configurar esta definição de política, todos permitirão os utilizadores a ativar ou desativar a apresentação da lista "Mais utilizados" utilizando a aplicação Definições. Este é o comportamento predefinido.
+
+Nota: a configuração desta política para "Mostrar" ou "Ocultar" em versões suportadas do Windows 10 vai substituir qualquer definição de política do menu "Remover lista de programas frequentes do menu iniciar" (que gere a mesma parte do menu iniciar, mas com menos opções).</string>
+      <string id="MFU_NotConfigured">Não Configurado</string>
+      <string id="MFU_Show">Mostrar</string>
+      <string id="MFU_Hide">Ocultar</string>
       <string id="NoFrequentUsedPrograms">Remover lista de programas utilizados frequentemente do Menu Iniciar</string>
       <string id="NoFrequentUsedPrograms_Help">Se ativar esta definição, a lista de programas utilizados com frequência será removida do menu Iniciar.
 
@@ -243,7 +255,7 @@ Se desativar ou não configurar esta definição, a lista de todas as aplicaçõ
       <string id="APPLIST_NONE">Nenhuma</string>
       <string id="APPLIST_COLLAPSE">Fechar</string>
       <string id="APPLIST_COLLAPSESETTING">Fechar e desativar definição</string>
-      <string id="APPLIST_REMOVESETTING">Remover e desativar definição</string>    
+      <string id="APPLIST_REMOVESETTING">Remover e desativar definição</string>
 
       <string id="NoNetAndDialupConnect">Remover Ligações de Rede do Menu Iniciar</string>
       <string id="NoNetAndDialupConnect_Help">Esta definição de política permite-lhe remover Ligações de Rede do menu Iniciar.
@@ -258,11 +270,11 @@ Se desativar ou não configurar esta definição de política, Ligações de Red
 
 Consulte também as definições de política "Desativar programas no menu Definições" e "Desativar o Painel de Controlo", bem como as definições de política na pasta Ligações de Rede (Configuração do Computador e Configuração do Utilizador\Modelos Administrativos\Rede\Ligações de Rede).</string>
       <string id="NoPinnedPrograms">Remover lista de programas afixados do Menu Iniciar</string>
-      <string id="NoPinnedPrograms_Help">Se ativar esta definição, a lista "Programas Afixados" é removida do menu Iniciar. Os utilizadores não podem afixar programas no menu Iniciar. 
+      <string id="NoPinnedPrograms_Help">Se ativar esta definição, a lista "programas afixados" é removida do menu iniciar. Os utilizadores não podem afixar programas no menu iniciar.
 
-No Windows XP e Windows Vista, as caixas de verificação de Internet e correio eletrónico são removidas do diálogo 'Personalizar o menu Iniciar'. 
+No Windows XP e Windows Vista, as caixas de verificação de Internet e e-mail são removidas do diálogo ' Personalizar menu Iniciar '.
 
-Se desativar esta definição ou não a configurar, a lista "Programas Afixados" permanece no menu Iniciar. Os utilizadores podem afixar e remover programas no menu Iniciar.</string>
+Se desativar esta definição ou não a configurar, a lista "programas afixados" permanece no menu iniciar. Os utilizadores podem afixar e remover programas no menu iniciar.</string>
       <string id="NoRecentDocsHistory">Não manter histórico dos documentos recentemente abertos</string>
       <string id="NoRecentDocsHistory_Help">Impede o sistema operativo e os programas instalados de criarem e apresentarem atalhos para os documentos recentemente abertos.
 
@@ -326,15 +338,15 @@ Se ativar esta definição, terão lugar as seguintes alterações:
 
 (2) O comando Nova Tarefa (Executar) é removido do Gestor de Tarefas.
 
-(3) O utilizador será impedido de introduzir o seguinte na barra Endereço do Internet Explorer:
+(3) O utilizador será impedido de introduzir o seguinte na Barra de Endereço do Internet Explorer:
 
---- Um caminho UNC: \\&lt;servidor&gt;\&lt;partilha&gt; 
+--- Um caminho UNC: \\&lt;server&gt;\&lt;share&gt;
 
 ---Aceder às unidade locais :  por exemplo, C:
 
 --- Aceder às pastas locais: por exemplo, \temp&gt;
 
-Para além disso, os utilizadores com teclados expandidos deixarão de poder visualizar a caixa de diálogo Executar premindo a tecla de Aplicação (a tecla com o logótipo do Windows) + R.
+Além disso, os utilizadores com teclados expandidos deixarão de poder visualizar a caixa de diálogo Executar premindo a tecla de Aplicação (a tecla com o logótipo do Windows) + R.
 
 Se desativar ou não configurar esta definição, os utilizadores poderão aceder ao comando Executar no menu Iniciar e no Gestor de Tarefas e utilizar a Barra de Endereço do Internet Explorer.
 
@@ -599,9 +611,9 @@ Se ativar esta definição de política, o ecrã inicial será apresentado no mo
 
 Se desativar ou não configurar esta definição de política, o ecrã inicial será sempre apresentado no monitor principal quando o utilizador premir a tecla do logótipo do Windows. Os utilizadores continuarão a conseguir abrir o ecrã inicial noutros monitores premindo o botão Iniciar nesse ecrã. O utilizador também conseguirá configurar esta definição.</string>
       <string id="ForceStartSize_DisplayName">Forçar Iniciar em tamanho de menu ou tamanho de ecrã inteiro</string>
-      <string id="ForceStartSize_ExplainText">Se ativar esta política e a definir para menu Iniciar ou Iniciar em ecrã inteiro, Iniciar será apresentado nesse mesmo tamanho e os utilizadores não poderão alterar o tamanho de Iniciar em Definições. 
+      <string id="ForceStartSize_ExplainText">Se ativar esta política e a definir para menu Iniciar ou Iniciar em ecrã inteiro, Iniciar será apresentado nesse mesmo tamanho e os utilizadores não poderão alterar o tamanho de Iniciar nas Definições.
 
-Se desativar ou não configurar esta definição de política, o Windows irá selecionar automaticamente o tamanho com base no fator de forma do hardware e os utilizadores poderão alterar o tamanho de Iniciar em Definições.</string>
+Se desativar ou não configurar esta definição de política, o Windows irá selecionar automaticamente o tamanho com base no fator de forma do hardware e os utilizadores poderão alterar o tamanho de Iniciar nas Definições.</string>
       <string id="ForceLauncherSize_Collapsed">Menu Iniciar</string>
       <string id="ForceLauncherSize_Expanded">Iniciar em ecrã inteiro</string>
       <string id="HidePeopleBar_DisplayName">Remover a Barra Pessoas da barra de tarefas</string>
@@ -612,10 +624,44 @@ Se ativar esta política, o ícone de pessoas é removido da barra de tarefas, o
       <string id="HideRecentlyAddedApps_Help">Esta política permite-lhe impedir que o Menu Iniciar apresente uma lista de aplicações instaladas recentemente.
 
 Se ativar esta política, o Menu Iniciar já não apresentará a lista "Adicionados recentemente". A definição correspondente também será desativada em Definições.</string>
+      <string id="HideRecommendedSection">Remover a secção Recomendado do Menu Iniciar</string>
+      <string id="HideRecommendedSection_Help">Esta política permite impedir que o menu iniciar apresenta uma lista de aplicações e ficheiros recomendados.
+
+Se ativar esta definição de política, o menu iniciar deixa de mostrar a secção que contém uma lista de ficheiros e aplicações recomendados.</string>
+ <string id="HideCategoryView">Ocultar vista de categoria no Menu Iniciar</string>
+ <string id="HideCategoryView_Help">Esta definição de política permite ocultar a vista de categoria no Menu Iniciar.
+ 
+Se ativar esta definição de política, o Menu Iniciar deixará de mostrar a vista de categoria como uma opção e será predefinido para a vista de grelha.</string>
+
+ <string id="ConfigureStartPins">Configurar Marcadores de Início</string>
+      <string id="ConfigureStartPins_Help">Permite que o administrador substitua os itens predefinidos afixados ao Início.
+
+Esta definição permite-lhe especificar os itens predefinidos afixados a Iniciar.</string>
+
+      <string id="HideRecommendedPersonalizedSites">Remover Recomendações Personalizadas do Site da secção Recomendado no Menu Iniciar</string>
+      <string id="HideRecommendedPersonalizedSites_Help">Esta definição de política permite ocultar os Web sites personalizados na secção recomendada do Menu Iniciar. 
+      
+Se ativar esta definição de política, o Menu Iniciar deixará de mostrar recomendações personalizadas do Web site na secção recomendada.</string>
       <string id="DisableContextMenusInStart">Desativar os menus de contexto no Menu Iniciar</string>
       <string id="DisableContextMenusInStart_Help">Esta política permite-lhe impedir que os utilizadores possam abrir menus de contexto no Menu Iniciar.
 
 Se ativar esta política, as invocações de menus de contexto dentro do Menu Iniciar serão ignoradas.</string>
+      <string id="SimplifyQuickSettings_DisplayName">Simplificar o Esquema de Definições Rápidas</string>
+      <string id="SimplifyQuickSettings_ExplainText">Se ativar esta política, as Definições Rápidas serão reduzidas para que apenas estejam disponíveis os botões Wi-Fi, Bluetooth, Acessibilidade e VPN; os controlos de deslize da luminosidade e de volume; o indicador de bateria e a ligação para a aplicação Definições.
+
+Se desativar ou não configurar esta definição de política, o esquema de Definições Rápidas normal será exibido sempre que as Definições Rápidas forem invocadas.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">Desativar a Edição de Definições Rápidas</string>
+      <string id="DisableEditingQuickSettings_ExplainText">Se ativar esta política, o utilizador não poderá modificar as definições rápidas.
+
+Se desativar ou não configurar esta definição de política, o utilizador poderá editar definições rápidas, tais como afixar ou a Desafixar botões.</string>
+      <string id="DisableControlCenter">Remover Definições Rápidas</string>
+      <string id="DisableControlCenter_Help">Esta definição de política Remove definições rápidas da área direita inferior na barra de tarefas.
+
+A área de definições rápidas está localizada na parte esquerda do relógio na barra de tarefas e inclui ícones para a rede e o volume atuais.
+
+Se esta definição estiver ativada, as definições rápidas não serão apresentadas na área de definições rápidas. 
+
+É necessário reiniciar para que esta definição de política produza efeitos.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +678,22 @@ Se ativar esta política, as invocações de menus de contexto dentro do Menu In
           <label>Ficheiro de Esquema do Ecrã Inicial</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">Reaplicar esquema a cada início de sessão</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">Escolher um dos seguintes tamanhos</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">Escolher uma das seguintes ações</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>Ficheiro de Esquema de Marcadores de Início</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">Ocultar vista de categoria</checkBox>
       </presentation>
     </presentationTable>
   </resources>

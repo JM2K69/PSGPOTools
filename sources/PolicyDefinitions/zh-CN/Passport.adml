@@ -10,8 +10,10 @@
         <string id="MSPassport_UsePassportForWork">使用 Windows Hello 企业版</string>
         <!-- Add support for certificate trust deployments -->
         <string id="WHFB_UseCertificateForOnPremAuth">使用证书进行本地身份验证</string>
+        <!-- Add support for cloud trust deployments -->
+        <string id="WHFB_UseCloudTrustForOnPremAuth">使用云信任进行本地身份验证</string>
         <!-- DropdownList Button strings -->
-        <string id="MSPassport_UsePassportForWorkExplain">Windows Hello 企业版是使用 Active Directory 或 Azure Active Directory 帐户登录到 Windows 的替代方法，可以取代密码、智能卡和虚拟智能卡。
+        <string id="MSPassport_UsePassportForWorkExplain">Windows Hello 企业版是使用 Active Directory 或 Azure Active Directory 账户登录到 Windows 的替代方法，可以取代密码、智能卡和虚拟智能卡。
 
 如果启用此策略，则设备将使用密钥或证书为所有用户预配 Windows Hello 企业版。
 
@@ -34,13 +36,13 @@
 如果禁用或未配置此策略设置，则仍会首选 TPM，但所有设备都可以使用软件来预配 Windows Hello 企业版(如果 TPM 无法正常运行或不可用)。
         </string>
         <string id="MSPassport_MinimumPINLength">最小 PIN 长度</string>
-        <string id="MSPassport_MinimumPINLengthExplain">“最小 PIN 长度”配置 PIN 所需的最小字符数。可为此策略设置配置的最小数字是 4。可以配置的最大数字必须小于“最大 PIN 长度”策略设置中配置的数字或数字 127 (取两者中最小的)。
+        <string id="MSPassport_MinimumPINLengthExplain">最小 PIN 长度配置 PIN 所需的最小字符数。 可为此策略设置配置的最小数字为 4。 可配置的最大数字必须小于在"最大 PIN 长度"策略设置中配置的数字或以最小数为准的 127。
 
-如果配置了此策略设置，则 PIN 长度必须大于或等于此数字。
+如果配置此策略设置，则 PIN 长度必须大于或等于此数字。
 
-如果禁用或未配置此策略设置，则 PIN 长度必须大于或等于 4。
+如果禁用或未配置此策略设置，则 PIN 长度必须大于或等于 6。
 
-注意: 如果不满足上述指定的最小 PIN 长度的条件，则最大和最小 PIN 长度将使用默认值。
+注意： 如果不符合上述指定的最小 PIN 长度条件，则默认值将同时用于最大和最小 PIN 长度。
         </string>
         <string id="MSPassport_MaximumPINLength">最大 PIN 长度</string>
         <string id="MSPassport_MaximumPINLengthExplain">“最大 PIN 长度”配置 PIN 所允许的最大字符数。可为此策略设置配置的最大数字是 127。可以配置的最小数字必须大于“最小 PIN 长度”策略设置中配置的数字或数字 4 (取两者中较大的)。
@@ -56,31 +58,39 @@
 
 如果启用此策略设置，Windows 将要求用户在其 PIN 中至少包含一个大写字母。
 
-如果禁用或未配置此策略设置，Windows 将不允许用户在其 PIN 中使用大写字母。
+如果禁用此策略设置，Windows 将不允许用户在其 PIN 中包含大写字母。
+
+如果未配置此策略设置，则 Windows 允许但不要求在 PIN 中使用大写字母。
         </string>
         <string id="MSPassport_LowercaseLetters">要求包含小写字母</string>
         <string id="MSPassport_LowercaseLettersExplain">使用此策略设置可配置 PIN 中小写字母的使用。
 
 如果启用此策略设置，Windows 将要求用户在其 PIN 中至少包含一个小写字母。
 
-如果禁用或未配置此策略设置，Windows 将不允许用户在其 PIN 中使用小写字母。
+如果禁用此策略设置，Windows 将不允许用户在其 PIN 中包含小写字母。
+
+如果未配置此策略设置，则 Windows 允许但不要求在 PIN 中使用小写字母。
         </string>
         <string id="MSPassport_SpecialCharacters">要求包含特殊字符</string>
-        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[使用此策略设置可配置 PIN 中特殊字符的使用。允许的特殊字符包括: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ 。
+        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[使用此策略设置可配置 PIN 中特殊字符的使用。允许的特殊字符包括: ! " # $ % & ' ( ) * + 、- . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~。
 
 如果启用此策略设置，Windows 将要求用户在其 PIN 中至少包含一个特殊字符。
 
-如果禁用或未配置此策略设置，Windows 将不允许用户在其 PIN 中使用特殊字符。]]>
+如果禁用此策略设置，Windows 将不允许用户在其 PIN 中包含特殊字符。
+
+如果未配置此策略设置，则 Windows 允许但不要求在 PIN 中使用特殊字符。]]>
         </string>
         <string id="MSPassport_Digits">要求包含数字</string>
         <string id="MSPassport_DigitsExplain">使用此策略设置可配置 PIN 中数字的使用。
 
-如果启用或未配置此策略设置，Windows 将要求用户在其 PIN 中至少包含一个数字。
+如果启用此策略设置，Windows 将要求用户在其 PIN 中至少包含一个数字。
 
-如果禁用此策略设置，Windows 将不允许用户在其 PIN 中使用数字。
+如果禁用此策略设置，Windows 将不允许用户在其 PIN 中包含数字。
+
+如果未配置此策略设置，则 Windows 允许但不要求在 PIN 中使用数字。
         </string>
         <string id="MSPassport_PINHistory">历史记录</string>
-        <string id="MSPassport_PINHistoryExplain">此设置指定可以关联到不可重用用户帐户的以往 PIN 数。管理员可以通过此策略来确保不会持续重复使用旧 PIN，从而增强安全性。无法通过 PIN 重置来保留 PIN 历史记录。
+        <string id="MSPassport_PINHistoryExplain">此设置指定可以关联到不可重用用户账户的以往 PIN 数。管理员可以通过此策略来确保不会持续重复使用旧 PIN，从而增强安全性。无法通过 PIN 重置来保留 PIN 历史记录。
 
 该值必须为 0 到 50 个 PIN。如果此策略设置为 0，则不需要存储以前的 PIN。
 
@@ -98,25 +108,47 @@
 
 如果禁用此策略设置，Windows Hello 企业版将阻止使用生物特征手势。
 
-注意: 禁用此策略将在所有帐户类型的设备上阻止使用生物特征手势。
+注意: 禁用此策略将在所有账户类型的设备上阻止使用生物特征手势。
+        </string>
+        <string id="MSPassport_EnableEnhancedSignInSecurity">对支持的外围设备启用 ESS</string>
+        <string id="MSPassport_EnableEnhancedSignInSecurityExplain">增强的登录安全性(ESS)将 Windows Hello 生物识别(面部和指纹)模板数据和匹配操作隔离到受信任的硬件或指定的内存区域，这意味着操作系统的其余部分无法访问或篡改它们。由于传感器和算法之间的通信通道也是安全的，因此恶意软件无法注入或重播数据来模拟用户登录或将用户锁定在其计算机之外。
+如果启用此策略，则它可能具有以下可能值:
+
+0 - 使用外围传感器禁用增强的登录安全性
+将在具有功能强大的软件和硬件的系统上禁用 ESS。允许支持 Windows Hello 的外围设备的身份验证操作，但受当前功能限制。
+
+1 - 启用增强的登录安全性，不使用外围传感器(默认并推荐)
+按照 Windows 中现有的默认行为，将在具有功能的软件和硬件的系统上启用 ESS。任何外围生物识别设备的身份验证操作都将被阻止，并且不适用于 Windows Hello。
+
+如果禁用或未配置此策略，则非 ESS 传感器将在 ESS 设备上被阻止。
+
         </string>
         <string id="MSPassport_EnablePinRecovery">使用PIN恢复</string>
-        <string id="MSPassport_EnablePinRecoveryExplain">PIN 恢复允许用户在忘记 PIN 时，使用 Windows Hello 企业版PIN恢复服务更换一个新的 PIN，而不会丢失任何相关凭据或证书，包括设备上与用户个人账户相关联的任何密钥。为达到这一目的，基于 Azure 的 PIN 恢复服务将存储在设备上的恢复机密加密，要求 PIN 恢复服务和设备均解密。PIN 恢复要求用户对 Azure Active Directory 进行多因子身份验证。
+        <string id="MSPassport_EnablePinRecoveryExplain">PIN 恢复允许用户在忘记 PIN 时，使用 Windows Hello 企业版 PIN 恢复服务更换一个新的 PIN，而不会丢失任何相关凭据或证书，包括设备上与用户个人账户相关联的任何密钥。为达到这一目的，基于 Azure 的 PIN 恢复服务将存储在设备上的恢复机密加密，要求 PIN 恢复服务和设备均解密。PIN 恢复要求用户对 Azure Active Directory 进行多重身份验证。
 
 如果启用此策略设置，Windows Hello 企业版將使用 PIN 恢复服务。
 
 如果禁用或不配置此策略设置，Windows 则不创建或存储 PIN 恢复机密。若用户忘记 PIN，则需删除已有 PIN 并创建新 PIN，对任何使用旧 PIN 进行访问的服务将需要重新注册。
 
-注意：此政策仅适用于注册到 Azure Active Directory 的设备。
+注意: 此政策仅适用于注册到 Azure Active Directory 的设备。
         </string>
         <!-- Explain Text for UseCertificateForOnPremAuth -->
         <string id="WHFB_UseCertificateForOnPremAuthExplain">使用此策略设置可配置 Windows Hello 企业版，以注册用于本地身份验证的登录证书。
 
 如果启用此策略设置，Windows Hello 企业版将注册用于本地身份验证的登录证书。
 
-如果禁用或未配置此策略设置，Windows Hello 企业版将注册用于本地身份验证的密钥。
+如果禁用或未配置此策略设置，Windows Hello 企业版将使用密钥或 Kerberos 票证 (，具体取决于用于本地身份验证的其他策略设置)。
 
-注意: 禁用或不配置此策略设置并启用“使用 Windows Hello 企业版”策略设置要求环境具有一个或多个 Windows Server 2016 域控制器，以防止 Windows Hello 企业版身份验证失败。
+注意：禁用或未配置此策略设置并启用 "使用 Windows Hello 企业版" 策略设置要求环境具有一个或多个 Windows Server 2016 域控制器，以防止 Windows Hello 企业版身份验证失败。
+        </string>
+        <!-- Explain Text for UseCloudTrustForOnPremAuth -->
+        <string id="WHFB_UseCloudTrustForOnPremAuthExplain">使用此策略设置可将 Windows Hello 企业版配置为使用 Azure AD Kerberos 进行本地身份验证。
+
+如果启用此策略设置，Windows Hello 企业版将使用检索到 Azure 的 Kerberos 票证进行本地身份验证。
+
+如果禁用或未配置此策略设置，Windows Hello 企业版将使用密钥或证书 (根据本地身份验证的其他策略设置)。
+ 
+注意：启用此策略设置和 "使用 Windows Hello 企业版" 策略设置的环境需要一个或多个 Windows Server 2016 域控制器。否则，Windows Hello 企业版身份验证将失败。
         </string>
         <!-- Explain text for device unlock policy -->
         <string id="MSPassport_UseDeviceUnlock">配置设备解锁凭据</string>
@@ -173,6 +205,9 @@
         </string>
     </stringTable>
     <presentationTable>
+        <presentation id="MSPassport_EnableEnhancedSignInSecurityControl">
+            <decimalTextBox refId="MSPassport_EnableEnhancedSignInSecurityDataType" spin="true" spinStep="1" defaultvalue="1">对支持的外围设备启用 ESS</decimalTextBox>
+        </presentation>
         <presentation id="MSPassport_MinimumPINLengthControl">
             <decimalTextBox refId="MSPassport_MinimumPINLengthDataType" spin="true" spinStep="1" defaultvalue="6">最小 PIN 长度</decimalTextBox>
         </presentation>

@@ -129,6 +129,12 @@ Jeśli to ustawienie nie zostanie skonfigurowane, pracownicy będą mogli włąc
 Jeśli ta zasada zostanie włączona, drukowanie będzie dozwolone.
 
 Jeśli ta zasada zostanie wyłączona, drukowanie nie będzie dozwolone.</string>
+      <string id="AllowMixedModePrintingInPdf">Podczas drukowania plików PDF, które zawierają strony o orientacji poziomej i pionowej, drukuj każdą stronę w jej orientacji.</string>
+      <string id="AllowMixedModePrintingInPdf_Explain">Dzięki tej zasadzie możesz drukować pliki PDF w przeglądarce Microsoft Edge zgodnie z orientacją poszczególnych stron.
+
+Jeśli włączysz tę zasadę, drukowanie w trybie mieszanym będzie dozwolone.
+
+Jeśli wyłączysz tę zasadę, drukowanie w trybie mieszanym nie będzie dozwolone.</string>
       <string id="AllowSavingHistory">Zezwalaj na zapisywanie historii</string>
       <string id="AllowSavingHistory_Explain">Przeglądarka Microsoft Edge zapisuje historię przeglądania użytkownika składającą się z informacji na temat witryn internetowych, które użytkownik odwiedził na swoich urządzeniach.
 
@@ -512,9 +518,14 @@ Jeśli ustawisz dla tej zasady wartość 0, przeglądarka Microsoft Edge nie bę
 Jeśli ta zasada zostanie wyłączona lub nie zostanie skonfigurowana, będzie używana wartość domyślna równa 5 minut.
 
 Jeśli nie skonfigurujesz przeglądarki Microsoft Edge do działania w trybie przypisanego dostępu, ta zasada nie będzie obowiązywać.</string>
-    </stringTable>
+      <string id="SuppressEdgeDeprecationNotification">Pomiń wyświetlanie powiadomienia informującego o przestarzałej wersji przeglądarki Microsoft Edge</string>
+      <string id="SuppressEdgeDeprecationNotification_Explain">Możesz skonfigurować przeglądarkę Microsoft Edge, aby pomijała wyświetlanie powiadomienia informującego użytkowników, że obsługa tej wersji przeglądarki Microsoft Edge zakończyła się 9 marca 2021 r.. Jeśli te zasady są włączone, powiadomienie nie będzie wyświetlane.
 
+Jeśli te zasady zostaną wyłączone lub nie zostaną skonfigurowane, powiadomienie będzie wyświetlane przy każdym uruchomieniu przeglądarki Microsoft Edge. </string>
+
+    </stringTable>
     <!-- Presentation -->
+    
     <presentationTable>
       <presentation id="ConfiguredFavorites_Presentation">
         <textBox refId="ConfiguredFavoritesPrompt">

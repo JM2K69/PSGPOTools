@@ -27,12 +27,11 @@
 如果禁用或未配置此策略，则当用户在“开始”菜单搜索框中执行搜索时，将显示“查看更多结果”链接。 如果安装了第三方协议处理程序，则将显示“搜索所有位置”链接而不是“查看更多结果”链接。</string>
       <string id="AddSearchInternetLinkInStartMenu">将“搜索 Internet”链接添加到“开始”菜单</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
+如果启用此策略，则当用户在"开始"菜单搜索框中执行搜索时，将显示"搜索 Internet"链接。 此按钮使用搜索词启动默认浏览器。
 
-如果启用此策略，则当用户在“开始”菜单搜索框中执行搜索时，将显示“搜索 Internet”链接。 此按钮通过搜索词启动默认浏览器。
+如果禁用此策略，则当用户在"开始"菜单搜索框中执行搜索时，将不会显示"搜索 Internet"链接。
 
-如果禁用此策略，则当用户在“开始”菜单搜索框中执行搜索时，将不会显示“搜索 Internet”链接。
-          
-如果未配置此策略(默认)，则“开始”菜单上不显示“搜索 Internet”链接。</string>
+如果未(默认)配置此策略，则"开始"菜单上将不会有"搜索 Internet"链接。</string>
       <string id="NoSearchFilesInStartMenu">不搜索文件</string>
       <string id="NoSearchFilesInStartMenu_Help">如果启用此策略，则“开始”菜单搜索框将不会搜索文件。
 
@@ -207,6 +206,19 @@ Windows 可以通过将最近使用的菜单项移至菜单顶部，并且隐藏
 此策略设置只影响指定的用户界面元素,不影响 Internet Explorer，也不会阻止用户使用其他方法进行搜索。
 
 如果禁用或未配置此策略设置，则“开始”菜单中可显示“搜索”链接。</string>
+      <string id="ShowOrHideMostUsedApps">从“开始”菜单显示或隐藏“最常用”列表</string>
+      <string id="ShowOrHideMostUsedApps_Help">如果启用此策略设置，则可以配置 "开始" 菜单以显示或隐藏用户最使用的应用列表（与用户设置无关）。
+
+选择 "显示" 将强制显示 "最常用" 列表，用户无法更改此设置以使用 "设置" 应用隐藏它。
+
+选择 "隐藏" 将强制 "最常用" 列表处于隐藏状态，用户无法使用 "设置" 应用更改为显示它。
+
+选择 "未配置"，或者如果禁用或未配置此策略设置，则所有用户都将允许用户使用 "设置" 应用打开或关闭 "最常用" 列表的显示。这是默认行为。
+
+注意：在支持的 Windows 10 版本中，将此策略配置为 "显示" 或 "隐藏" 将取代任何策略设置 "从 ' 开始 ' 菜单中删除常用程序列表" (该策略设置可管理同一部分 "开始" 菜单，但是) 较少的选项。</string>
+      <string id="MFU_NotConfigured">未配置</string>
+      <string id="MFU_Show">显示</string>
+      <string id="MFU_Hide">隐藏</string>
       <string id="NoFrequentUsedPrograms">从“开始”菜单中删除常用程序列表</string>
       <string id="NoFrequentUsedPrograms_Help">如果启用此设置，常用的程序列表将从“开始”菜单中删除。
 
@@ -243,7 +255,7 @@ Windows 可以通过将最近使用的菜单项移至菜单顶部，并且隐藏
       <string id="APPLIST_NONE">无</string>
       <string id="APPLIST_COLLAPSE">折叠</string>
       <string id="APPLIST_COLLAPSESETTING">折叠并禁用设置</string>
-      <string id="APPLIST_REMOVESETTING">删除并禁用设置</string>    
+      <string id="APPLIST_REMOVESETTING">删除并禁用设置</string>
 
       <string id="NoNetAndDialupConnect">从“开始”菜单中删除“网络连接”</string>
       <string id="NoNetAndDialupConnect_Help">使用此策略设置，可以从“开始”菜单删除“网络连接”。
@@ -260,7 +272,7 @@ Windows 可以通过将最近使用的菜单项移至菜单顶部，并且隐藏
       <string id="NoPinnedPrograms">从“开始”菜单中删除附加的程序列表</string>
       <string id="NoPinnedPrograms_Help">如果启用此设置，“固定的程序”列表将从“开始”菜单中删除。用户不能将程序固定到“开始”菜单。
 
-在 Windows XP 和 Windows Vista 中，“Internet”复选框和“电子邮件”复选框将从“自定义‘开始’菜单”对话框中删除。
+在 Windows XP 和 Windows Vista 中，“Internet”复选框和“电子邮件”复选框将从“自定义开始菜单”对话框中删除。
 
 如果禁用或未配置此设置，“固定的程序”列表将保留在“开始”菜单上。用户可以在“开始”菜单中固定和取消固定程序。</string>
       <string id="NoRecentDocsHistory">不保留最近打开文档的历史</string>
@@ -318,31 +330,29 @@ Windows 可以通过将最近使用的菜单项移至菜单顶部，并且隐藏
 
 请参阅“漫游时禁止跟踪外壳程序快捷方式”和“解析外壳程序快捷方式时不要使用基于搜索的方法”策略设置。</string>
       <string id="NoRun">从“开始”菜单中删除“运行”菜单</string>
-      <string id="NoRun_Help">允许从“开始”菜单、Internet Explorer 和任务管理器中删除“运行”命令。
+      <string id="NoRun_Help">允许从“开始”菜单、Internet Explorer和任务管理器中删除"运行"命令。
 
-如果启用此设置，则会发生以下更改:
+如果启用此设置，则会发生以下更改：
 
-(1) 从“开始”菜单中删除“运行”命令。
+(1)"运行"命令已从“开始”菜单中删除。
 
-(2) 从任务管理器中删除“新建任务(运行)”命令。
+(2)"新建任务(运行)"命令已从任务管理器中删除。
 
-(3) 阻止用户在 Internet Explorer 地址栏中输入以下内容:
+(3)将阻止用户将以下内容输入Internet Explorer地址栏：
 
---- UNC 路径: \\&lt;server&gt;\&lt;share&gt; 
+--- UNC 路径： \\&lt;server&gt;\&lt;share&gt;
 
---- 访问本地驱动器: 例如 C:
+---Accessing 本地驱动器： 例如，C：
 
---- 访问本地文件夹: 例如 \temp&gt;
+--- 访问本地文件夹：例如\temp&gt;
 
-而且，使用扩展式键盘的用户无法再通过按应用程序键(带有 Windows 徽标的键)+R 来显示“运行”对话框。
+此外，具有扩展键盘的用户将无法再通过按应用程序键(Windows 徽标) R 键来显示"运行"对话框。
 
-如果禁用或未配置此设置，则用户可以访问“开始”菜单和任务管理器中的“运行”命令，以及使用 Internet Explorer 地址栏。
+如果禁用或未配置此设置，则用户将能够访问“开始”菜单和任务管理器中的"运行"命令，并使用Internet Explorer地址栏。
 
+注意： 此设置仅影响指定的接口。它不会阻止用户使用其他方法运行程序。
 
-
-注意: 此设置仅影响指定的界面。但不会阻止用户使用其他方法运行程序。
-
-注意: 对于具有 Windows 2000 或更新版本证书的第三方应用程序，需要遵循此设置。</string>
+注意： 具有 Windows 2000 或更高版本认证的第三方应用程序必须遵循此设置。</string>
       <string id="NoSetFolders">从“设置”菜单删除程序</string>
       <string id="NoSetFolders_Help">使用此策略设置，可删除“设置”菜单中的程序。
 
@@ -507,7 +517,7 @@ Windows 更新是 Windows 的联机扩展，提供软件更新以使用户的系
 如果将该按钮设置为“睡眠”或“休眠”，但计算机不支持该状态，则该按钮将退而实现“关闭”操作。
 
 如果禁用或未配置此设置，在默认情况下，“开始”菜单电源按钮将设置为“关闭”，用户可以将此设置更改为其他操作。</string>
-      <string id="SHTDN_LOGOFF">注销</string>
+      <string id="SHTDN_LOGOFF">退出登录</string>
       <string id="SHTDN_SHUTDOWN">关机</string>
       <string id="SHTDN_RESTART">重新启动</string>
       <string id="SHTDN_SLEEP">睡眠</string>
@@ -599,9 +609,9 @@ Windows 更新是 Windows 的联机扩展，提供软件更新以使用户的系
 
 如果禁用或未配置此策略设置，当用户按 Windows 徽标键时，“开始”屏幕将始终显示在主显示器上。用户仍然可以通过按其他显示器上的“开始”按钮，打开该显示器上的“开始”屏幕。此外，用户也可以对此设置进行配置。</string>
       <string id="ForceStartSize_DisplayName">将“开始”菜单强制为全屏大小或菜单大小</string>
-      <string id="ForceStartSize_ExplainText">如果你启用此策略并对“开始”菜单或全屏“开始”菜单设置此策略，则“开始”菜单将采用这种大小，用户将无法在“设置”中更改“开始”菜单的大小。
+      <string id="ForceStartSize_ExplainText">如果启用此策略并将其设置为“开始”菜单或全屏“开始”，则“开始”将采用该尺寸，用户将无法在“设置”中更改“开始”的尺寸。
 
-如果你禁用或未配置此策略设置，Windows 将根据硬件外形规格自动选择大小，并且用户可以在“设置”中更改“开始”菜单的大小。</string>
+如果禁用或未配置此策略设置，Windows 将根据硬件外形规格自动选择大小，并且用户可以在“设置”中更改“开始”的尺寸。</string>
       <string id="ForceLauncherSize_Collapsed">“开始”菜单</string>
       <string id="ForceLauncherSize_Expanded">全屏“开始”菜单</string>
       <string id="HidePeopleBar_DisplayName">从任务栏中删除"人脉"栏</string>
@@ -612,10 +622,44 @@ Windows 更新是 Windows 的联机扩展，提供软件更新以使用户的系
       <string id="HideRecentlyAddedApps_Help">此策略可防止在“开始”菜单上显示最近安装的应用程序列表。
 
 如果启用此策略，“开始”菜单将不再显示“最近添加”列表。相应设置也会在“设置”中禁用。</string>
+      <string id="HideRecommendedSection">从“开始”菜单中删除“建议”部分</string>
+      <string id="HideRecommendedSection_Help">通过此策略，您可以阻止"开始"菜单显示建议的应用程序和文件列表。
+
+如果启用此策略设置，"开始"菜单将不再显示包含推荐文件和应用列表的部分。</string>
+ <string id="HideCategoryView">隐藏“开始”菜单中的“类别”视图</string>
+ <string id="HideCategoryView_Help">使用此策略设置，可以隐藏“开始”菜单中的类别视图。
+ 
+如果启用此策略设置，“开始”菜单将不再将类别视图显示为选项，并将默认为网格视图。</string>
+
+ <string id="ConfigureStartPins">配置“开始”菜单固定项</string>
+      <string id="ConfigureStartPins_Help">允许管理员替代固定到“开始”屏幕的默认项目。
+
+此设置允许你指定固定到“开始”屏幕的默认项目。</string>
+
+      <string id="HideRecommendedPersonalizedSites">从“开始”菜单的“建议”部分中删除个性化网站建议</string>
+      <string id="HideRecommendedPersonalizedSites_Help">使用此策略设置，可以隐藏“开始”菜单推荐部分中的个性化网站。
+      
+如果启用此策略设置，“开始”菜单将不再在推荐的分区中显示个性化网站建议。</string>
       <string id="DisableContextMenusInStart">在“开始”菜单中禁用上下文菜单</string>
       <string id="DisableContextMenusInStart_Help">此策略可禁止用户在“开始”菜单中打开上下文菜单。
 
 如果启用此策略，“开始”菜单中的上下文菜单调用将被忽略。</string>
+      <string id="SimplifyQuickSettings_DisplayName">简化快速设置布局</string>
+      <string id="SimplifyQuickSettings_ExplainText">如果启用此策略，则快速设置将缩减为仅具有 WiFi、蓝牙、辅助功能和 VPN 按钮;亮度和音量滑块;和电池指示器并链接到"设置"应用。
+
+如果禁用或未配置此策略设置，则每当调用快速设置时都会显示常规快速设置布局。</string>
+      <string id="DisableEditingQuickSettings_DisplayName">禁用编辑快速设置</string>
+      <string id="DisableEditingQuickSettings_ExplainText">如果启用此策略，则用户将无法修改快速设置。
+
+如果禁用或未配置此策略设置，则用户将能够编辑快速设置，如固定或取消固定按钮。</string>
+      <string id="DisableControlCenter">删除快速设置</string>
+      <string id="DisableControlCenter_Help">此策略设置从任务栏右下角区域删除快速设置。
+
+快速设置区域位于任务栏中时钟左侧，包括当前网络和卷的图标。
+
+如果启用此设置，则在快速设置区域中不显示快速设置。
+
+需要重新启动才能使此策略设置生效。</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +676,22 @@ Windows 更新是 Windows 的联机扩展，提供软件更新以使用户的系
           <label>“开始”屏幕布局文件</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">每次登录时重新应用布局</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">在下面选择一种大小</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">请选择下列操作之一</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>“开始”菜单固定项布局文件</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">隐藏“类别”视图</checkBox>
       </presentation>
     </presentationTable>
   </resources>

@@ -169,7 +169,7 @@ Si deshabilita o no configura esta configuración de directiva, el usuario que h
       <string id="UILang4">Alemán</string>
       <string id="UILang5">Chino simplificado</string>
       <string id="UILang6">Chino tradicional</string>
-      <string id="UILang34">Chino tradicional (Hong Kong RAE)</string>
+      <string id="UILang34">Chino tradicional (RAE de Hong Kong)</string>
       <string id="UILang35">Chino tradicional (Taiwán)</string>
       <string id="UILang7">Francés</string>
       <string id="UILang8">Español</string>
@@ -284,6 +284,19 @@ Si deshabilita o no establece esta configuración de directiva, Windows no inter
         Si habilitas o configuras esta directiva, se otorga el control a los usuarios y ellos pueden elegir si habilitar los servicios de voz mediante la configuración.
         
         Si deshabilitas esta directiva, los servicios de voz se deshabilitarán y los usuarios no podrán habilitar los servicios de voz mediante la configuración.
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Restringir la instalación de paquetes de idioma y de características de idioma</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        Esta configuración de directiva impide que todos los usuarios instalen paquetes de idioma y características de idioma en paquetes de demanda. esta Directiva no restringe el cambio de idioma de Windows. Si quieres restringir el idioma de Windows, usa la siguiente directiva: "restringe los idiomas de la interfaz de usuario que Windows usa para todos los usuarios registrados".   
+Si habilita esta configuración de Directiva, se impedirá la instalación de paquetes de idioma y características de idioma para todos los usuarios.
+
+Si deshabilita o no establece esta configuración de Directiva, no hay ningún paquete de idioma ni restricción de instalación de características para ningún usuario.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        Esta configuración de directiva impide que el usuario instale paquetes de idioma y características de idioma a petición. esta Directiva no restringe el cambio de idioma de Windows. Si quiere restringir el idioma de Windows, use la siguiente directiva: "restringe los idiomas de la interfaz de usuario que Windows debe usar para el usuario seleccionado".   
+Si habilita esta configuración de Directiva, se impedirá la instalación de paquetes de idioma y características de idioma para el usuario.  
+
+Si deshabilita o no establece esta configuración de Directiva, no hay ningún paquete de idioma ni restricción de instalación de características de idioma para el usuario.  
       </string>
     </stringTable>
     <presentationTable>

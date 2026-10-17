@@ -15,7 +15,16 @@
 このポリシー設定を無効にした場合、または構成しなかった場合、アプリケーションで GDI DPI スケールは有効になりません。ただし、ApplicationCompatibility データベース、ApplicationCompatibility UI システム (拡張) 設定、またはアプリケーション マニフェストによってアプリケーションが有効になっている場合は例外です。
 
 GDI DPI スケールについてアプリケーションを無効にする構成と有効にする構成の両方が行われている場合、そのアプリケーションは無効になります。</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">GDI DPI スケールは、DPI 対応ではないアプリケーションでモニターごとの DPI に対応できるようになります。
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">このポリシーを有効にすると、追加のモニターを接続する際の既定の動作を上書きすることができます。これにより、ディスプレイがプライマリ画面を自動的にクローン (ミラー) するか、デスクトップを拡張するかを制御できます。
+拡張を選ぶと、ディスプレイが 2 台目のモニターに広がり、それぞれの画面に異なるコンテンツを表示できるようになります。クローンを選ぶと、プライマリ ディスプレイが 2 台目のモニターに複製され、両方の画面に同じコンテンツが表示されます。内部  既定では、Windows の設定によって決定されるシステムの既定の動作が使用されます。</string>
+<string id="DisplayConfigureMultipleDisplayMode"> 複数のディスプレイ モードを構成する</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">このポリシーを有効にすると、追加のモニターを接続する際の既定の動作を上書きすることができます。これにより、クローンされたディスプレイで、内部と外部のどちらのモニターを優先するか、つまり、優先する解像度ソースの設定を制御できます。
+内部は、両方の画面でメイン ディスプレイの解像度をソースとして設定します。外部は、両方の画面で接続された (外部) ディスプレイの解像度をソースとして設定します。既定では、Windows の設定によって決定されるシステムの既定の動作が使用されます。</string>
+<string id="DisplaySetClonePreferredResolutionSource"> 複製したモニターに優先される解像度ソースを設定する</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">GDI DPI スケールは、DPI 対応ではないアプリケーションでモニターごとの DPI に対応できるようになります。
 
 このポリシー設定では、GDI DPI スケールを無効にするレガシ アプリケーションを指定できます。
 
@@ -26,24 +35,32 @@ GDI DPI スケールについてアプリケーションを無効にする構成
 GDI DPI スケールについてアプリケーションを無効にする構成と有効にする構成の両方が行われている場合、そのアプリケーションは無効になります。</string>
       <string id="DisplayTurnOnGdiDPIScaling">アプリケーションの GdiDPIScaling を有効にします</string>
       <string id="DisplayTurnOffGdiDPIScaling">アプリケーションの GdiDPIScaling を無効にします</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">プロセス単位システム DPI は、表示倍率 (DPI) 変更後に正しくレンダリングされないデスクトップ アプリケーション用のアプリケーション互換性機能です。プライマリ ディスプレイの表示倍率が変更された場合 (表示倍率 (DPI) の異なるディスプレイを接続した場合や切り離した場合、表示倍率の異なるデバイスからリモート接続した場合、手動で表示倍率を変更した場合など)、多くのデスクトップ アプリケーションで表示がぼやけることがあります。このシナリオで正しく表示されるように更新されていないデスクトップ アプリケーションは、ユーザーが Windows からいったんログアウトし、ログインし直すまで、ぼやけた表示になります。
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">プロセス単位システム DPI は、ディスプレイ スケール ファクター (DPI) の変更後に適切にレンダリングされないデスクトップ アプリケーション向けのアプリケーション互換性機能です。プライマリ ディスプレイのディスプレイ スケール ファクターが変更されると (これは、ディスプレイ スケール ファクター (DPI) が異なるディスプレイを接続または切断した場合、異なるディスプレイ スケール ファクターを持つデバイスからリモート接続した場合、または手動でディスプレイ スケール ファクターを変更した場合に発生することがあります)、多くのデスクトップ アプリケーションがぼやけて表示されることがあります。このシナリオで正しく表示されるように更新されていないデスクトップ アプリケーションは、ユーザーが Windows からいったんログアウトして再ログインするまで、ぼやけて表示されます。
 
-このポリシーを有効にすると、一部のぼやけた表示のアプリケーションは再起動後に鮮明に表示され、ユーザーが Windows からログアウトしてログインし直す必要はありません。
+このポリシーを有効にすると、一部のぼやけたアプリケーションが、ユーザーが Windows からログアウトして再ログインしなくても、再起動するだけで鮮明に表示されるようになります。
 
-次の点に注意してください:
+次の点にご注意ください:
 
-プロセス単位システム DPI は、プライマリ ディスプレイに配置されたデスクトップ アプリケーションのレンダリングのみを改善します。一部のデスクトップ アプリケーションは、表示倍率の異なるセカンダリ ディスプレイ上では、ぼやけた表示のままになります。
+プロセス単位システム DPI を使用すると、プライマリ ディスプレイに配置されているデスクトップ アプリケーションのレンダリングのみが向上します。一部のデスクトップ アプリケーションは、ディスプレイ スケール ファクターが異なるセカンダリ ディスプレイでは依然としてぼやけて表示されることがあります。
 
-プロセス単位システム DPI は、すべてのアプリケーションで有効とは限りません。以前のデスクトップ アプリケーションは、高 DPI ディスプレイでは常にぼやけた表示になる場合があります。
+プロセス単位システム DPI はすべてのアプリケーションに対応するわけではありません。一部の古いデスクトップ アプリケーションは、高 DPI ディスプレイ上では常にぼやけて表示されます。
 
-場合によっては、一部のデスクトップ アプリケーションで異常な動作が見られることがあります。その場合はプロセス単位システム DPI を無効にしてください。
+場合によっては、一部のデスクトップ アプリケーションで異常な動作が見られることがあります。その場合は、プロセス単位システム DPI を無効にする必要があります。
 
-この設定を有効にすると、デスクトップ アプリケーションに適用するシステム全体での既定の動作と、アプリケーション単位の優先動作を指定できます。この設定を無効にした場合、または構成しなかった場合、プロセス単位システム DPI はシステムのどのプロセスにも適用されません。
+この設定を有効にすると、デスクトップ アプリケーションのシステム全体の既定値と、アプリケーションごとのオーバーライドを指定できます。この設定を無効にするか構成しない場合、プロセス単位システム DPI はシステム上のどのプロセスにも適用されません。
 
 </string>
       <string id="DisplayPerProcessSystemDpiSettings">プロセス単位システム DPI 設定の構成</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">有効化</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">無効化</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">複製</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">既定値</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">拡張</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">内部のみ</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">外部のみ</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">既定値</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">内部</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">外部</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">アプリケーションのプロセス単位システム DPI を有効にします</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">アプリケーションのプロセス単位システム DPI を無効にします</string>
     </stringTable>
@@ -66,6 +83,12 @@ GDI DPI スケールについてアプリケーションを無効にする構成
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>次のアプリケーションに対してプロセス単位システム DPI を無効にします。アプリケーションの完全なパスまたはアプリケーションのファイル名と拡張子のいずれかを使用します。アプリケーションはセミコロンで区切ります。</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">複製、拡張、InternalOnly、ExternalOnly、またはマルチ ディスプレイ モードの構成として既定の Windows 設定で続行します。</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">新しく複製されたディスプレイに対して Windows が使用する既定の解像度を、内部、外部、または既定の Windows の設定として設定します。</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

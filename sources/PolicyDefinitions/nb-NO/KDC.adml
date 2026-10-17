@@ -27,34 +27,33 @@ Obs!  Informasjon om tidligere pålogginger gis bare hvis domenefunksjonsnivå
 
 </string>
       <string id="CbacAndArmor">KDC-støtte for krav, sammensatt godkjenning og Kerberos-forsterkning</string>
-      <string id="CbacAndArmor_explain">Med denne policyinnstillingen kan du konfigurere en domenekontroller som støtter krav og sammensatt godkjenning for dynamisk tilgangskontroll og Kerberos-forsterkning ved hjelp av Kerberos-godkjenning.
+      <string id="CbacAndArmor_explain">Denne policyinnstillingen lar deg konfigurere en domenekontroller for å støtte krav og sammensatt godkjenning for dynamisk tilgangskontroll og Kerberos-forsterkning ved hjelp av Kerberos-godkjenning.
 
-Hvis du aktiverer denne policyinnstillingen, vil klientdatamaskiner som støtter krav og sammensatt godkjenning for dynamisk tilgangskontroll og er aktivert for Kerberos-forsterkning, bruke denne funksjonen for Kerberos-godkjenningsmeldinger. Policyinnstillingen bør brukes for alle domenekontrollere for å sikre konsekvent policybruk i domenet. 
+Hvis du aktiverer denne policyinnstillingen, vil klientdatamaskiner som støtter krav og sammensatt godkjenning for dynamisk tilgangskontroll og er aktivert for Kerberos-forsterkning bruke denne funksjonen for Kerberos-godkjenningsmeldinger. Denne policyen bør brukes for alle domenekontrollere for å sikre konsekvent policybruk i domenet.
 
 Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, støtter ikke domenekontrolleren krav, sammensatt godkjenning eller forsterkning.
 
-Hvis du konfigurerer alternativet Støttes ikke, støtter ikke domenekontrolleren krav, sammensatt godkjenning eller forsterkning, noe som er standard virkemåte for domenekontrollere som kjører Windows Server 2008 R2 eller tidligere operativsystemer.
+Hvis du konfigurerer alternativet «Støttes ikke», støtter ikke domenekontrolleren krav, sammensatt godkjenning eller forsterkning, noe som er standard virkemåte for domenekontrollere som kjører Windows Server 2008 R2 eller tidligere operativsystemer.
 
-Obs!  For at de følgende alternativene for denne KDC-policyen skal tre i kraft, må Kerberos-gruppepolicy: Kerberos-klientstøtte for krav, sammensatt godkjenning og Kerberos forsterkning aktiveres på støttede systemer. Hvis Kerberos-policyinnstillingen ikke er aktivert, vil ikke Kerberos-godkjenningsmeldinger bruke disse funksjonene.  
+Merk: For at de følgende alternativene for denne KDC-policyen skal tre i kraft, må Kerberos-gruppepolicyen «Kerberos-klientstøtte for krav, sammensatt godkjenning og Kerberos-forsterkning» være aktivert på støttede systemer. Hvis Kerberos-policyinnstillingen ikke er aktivert, vil ikke Kerberos-godkjenningsmeldinger bruke disse funksjonene.
 
-Hvis du konfigurerer alternativet Støttes, støtter domenekontrolleren krav, sammensatt godkjenning og Kerberos-forsterkning. Domenekontrolleren varsler Kerberos-klientdatamaskiner om at domenet støtter krav og sammensatt godkjenning for dynamisk tilgangskontroll og Kerberos-forsterkning. 
+Hvis du konfigurerer «Støttes», støtter domenekontrolleren krav, sammensatt godkjenning og Kerberos-forsterkning. Domenekontrolleren varsler Kerberos-klientdatamaskiner at domenet støtter krav og sammensatt godkjenning for dynamisk tilgangskontroll og Kerberos-forsterkning.
 
 Krav på domenefunksjonsnivå
-Når domenefunksjonsnivået er satt til Windows Server 2008 R2 eller tidligere for alternativene Angi alltid om krav støttes og Avvis godkjenningsforespørsler uten forsterkning, fungerer domenekontrollerne som om Støttes er valgt. 
+For alternativene «Angi alltid om  krav støttes» og «Avvis godkjenningsforespørsler uten forsterkning», når domenefunksjonsnivået er satt til Windows Server 2008 R2 eller tidligere, vil domenekontrollerne opptre som om alternativet «Støttet» er valgt.
 
-Når domenefunksjonsnivået er satt til Windows Server 2012, varsler domenekontrolleren Kerberos-klientdatamaskiner om at domenet er aktivert for krav og sammensatt godkjenning for dynamisk tilgangskontroll og Kerberos-forsterkning, og:
-   – Hvis du angir alternativet Angi alltid om krav støttes, returnerer domenekontrollerne også alltid krav for kontoer og støtter RFC-virkemåte for varsling om FAST (Flexible Authentication Secure Tunneling).
-   – Hvis du angir alternativet Avvis godkjenningsforespørsler uten forsterkning, avvises meldinger uten Kerberos-forsterkning.
+Når domenefunksjonsnivået er satt til Windows Server 2012, vil domenekontrolleren varsle Kerberos-klientdatamaskiner om at domenet støtter krav og sammensatt godkjenning for dynamisk tilgangskontroll og Kerberos-forsterkning, og:
+   - Hvis du angir alternativet «Angi alltid om krav støttes», vil krav alltid returneres for kontoer og støtte RFC-adferden for å varsle om sikker tunneling av fleksibel godkjenning (FAST).
+   - Hvis du angir alternativet «Avvis godkjenningsforespørsler uten forsterkning», vil Kerberos-meldinger uten forsterkning avvises.
 
-Advarsel!  Når Avvis godkjenningsforespørsler uten forsterkning er angitt, kan ikke klientdatamaskiner som ikke støtter Kerberos-forsterkning, godkjennes i domenekontrolleren.
+Advarsel: Når «Avvis godkjenningsforespørsler uten forsterkning» er angitt, vil ikke klientdatamaskiner som ikke støtter Kerberos-forsterkning kunne godkjennes hos domenekontrolleren.
 
-For å få en effektiv funksjon og kunne håndtere godkjenningsforespørsler, må du distribuere et tilstrekkelig antall domenekontrollere som støtter krav og sammensatt godkjenning for dynamisk tilgangskontroll og Kerberos-forsterkning. Et utilstrekkelig antall domenekontrollere som støtter denne policyen, fører til mislykkede godkjenningsforsøk når dynamisk tilgangskontroll eller Kerberos-forsterkning kreves (det vil si at alternativet Støttes er aktivert).
+For å sikre at denne funksjonen er effektiv, må du distribuere et tilstrekkelig antall domenekontrollere som støtter krav og sammensatt godkjenning for dynamisk tilgangskontroll og Kerberos-forsterkning for å kunne håndtere godkjenningsforespørslene. Et utilstrekkelig antall domenekontrollere som støtter denne policyen fører til godkjenningsfeil når dynamisk tilgangskontroll eller Kerberos-forsterkning kreves (det vil si at alternativet «Støttes» er aktivert).
 
 Påvirkning på domenekontrollerens ytelse når denne policyinnstillingen er aktivert:
-   – Sikker gjenkjenning av Kerberos-domenefunksjonalitet kreves, noe som fører til ekstra meldingsutveksling.
-   – Krav og sammensatt godkjenning for dynamisk tilgangskontroll øker størrelsen og kompleksiteten for dataene i meldingen, noe som fører til lengre behandlingstid og større Kerberos-tjenestebillett.
-   – Kerberos-forsterkning krypterer Kerberos-meldinger fullstendig og signerer Kerberos-feil, noe som fører til lengre behandlingstid. Størrelsen på tjenestebilletten påvirkes imidlertid ikke.
-
+   - Sikker gjenkjenning av Kerberos-domenefunksjonalitet kreves, noe som fører til ekstra meldingsutveksling.
+   - Krav og sammensatt godkjenning for dynamisk tilgangskontroll  øker størrelsen og kompleksiteten for dataene i meldingen, som fører til lengre behandlingstid og større Kerberos-tjenestebilletter.
+   - Kerberos-forsterkning krypterer Kerberos-meldinger fullstendig, og signerer Kerberos-feil, noe som fører til lengre behandlingstid, men ikke endrer størrelsen på tjenestebillettene.
 </string>
       <string id="NoCbacAndArmor">Støttes ikke</string>
       <string id="MixModeCbacAndArmor">Støttes</string>
@@ -94,6 +93,47 @@ Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, vil domen
       <string id="NoPKINITFreshness">Deaktivert</string>
       <string id="SupportPKINITFreshness">Støttes</string>
       <string id="RequirePKINITFreshness">Obligatorisk</string>
+      <string id="PKINITHashAlgorithmConfiguration">Konfigurer hash-algoritmer for sertifikatpålogging</string>
+      <string id="PKINITHashAlgorithmConfiguration_explain">Denne policyinnstillingen kontrollerer hash- eller kontrollsumalgoritmer som brukes av Kerberos-klienten når sertifikatgodkjenning utføres.
+
+Hvis du aktiverer denne policyen, kan du konfigurere én av fire tilstander for hver algoritme:
+
+ – «Standard» angir algoritmen til den anbefalte tilstanden.
+
+ – «Støttes» aktiverer bruk av algoritmen. Aktivering av algoritmer, som er deaktivert som standard, kan redusere sikkerheten.
+
+ – «Overvåket» aktiverer bruk av algoritmen og rapporterer en hendelse (ID 309) hver gang den brukes. Denne tilstanden er ment å kontrollere at algoritmen ikke brukes og trygt kan deaktiveres.
+
+ – «Støttes ikke» deaktiverer bruk av algoritmen. Denne tilstanden er ment for algoritmer som anses å være usikre.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyen, vil hver algoritme anta Standard-tilstanden.
+Du kan finne mer informasjon om hash- og kontrollsumalgoritmene som støttes av Windows Kerberos-klienten, og standardtilstandene på https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Hendelser som genereres av denne konfigurasjonen: 309 og 310.
+</string>
+      <string id="PKINITHashAlgorithm_Default">Standard</string>
+      <string id="PKINITHashAlgorithm_Supported">Støttes</string>
+      <string id="PKINITHashAlgorithm_Audited">Revidert</string>
+      <string id="PKINITHashAlgorithm_NotSupported">Støttes ikke</string>
+      <string id="StrongNameMatches">Tillat navnebaserte sterke tilordninger for sertifikater</string>
+      <string id="StrongNameMatches_explain">Denne policyinnstillingen aktiverer bruk av alternative, navnebaserte identifikatorer for å tilordne sertifikater som er utstedt til Active Directory-brukerkontoer, og angir hvilke sertifikater som tilordnes hvilke kontoer. Uten at denne innstillingen er aktivert, må sertifikater oppfylle kriteriene for «sterk tilordning» som er angitt i aka.ms/StrongCertMapKB, som vanligvis ikke tillater navnebaserte identifikatorer.
+
+Hver tilordning som er angitt i denne policyen, må inneholde en policy-OID sammen med en IssuerSubject og/eller et brukerhovednavn-suffiks ved hjelp av syntaksen som er angitt nedenfor. Hvis en gyldig tilordning for et gitt sertifikat ikke finnes i denne policyen, prøver Active Directory å finne et treff ved hjelp av de eksisterende kriteriene for sterk tilordning som er angitt i KB5014754. Sertifikattilordninger som ikke samsvarer med kriteriene for tilordning av sterkt navn (denne policyen), eller de eksisterende kriteriene for sterk tilordning, anses som ugyldige for godkjenning.
+
+Det generelle policyformatet og noen eksempler er oppført nedenfor. Denne policyen gjelder bare for Active Directory-brukerkontoer.
+
+Generell syntaks
+==============
+&lt;thumbprint&gt;; &lt;liste over oid-er&gt;; &lt;metode for navnesamsvar&gt;
+
+Eksempler
+==============
+IssuerThumbprint1; oid1, oid2, oid3; UpnSuffix=domain.com
+IssuerThumbprint2; oid1; UpnSuffix=domain.com, UpnSuffix=other.domain.com, IssuerSubject
+IssuerThumbprint3; oid1, oid2; IssuerSubject
+
+Policyen må inneholde nøyaktig ett sertifikatavtrykk per regel, der hver regel representeres som en tuppel. Avtrykk må være unike og kan ikke gjentas i flere regler. Delene i hver tuppel som er atskilt med semikolon, må være i angitt rekkefølge, mens feltene atskilt med komma, kan være i hvilken som helst rekkefølge. Selve reglene er atskilt med ny linje.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="emitlili">
@@ -121,6 +161,15 @@ Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, vil domen
       </presentation>
       <presentation id="PKINITFreshness">
         <dropdownList refId="PKINITFreshness_Levels" noSort="true" defaultItem="1">Alternativer for PKInit Freshness-utvidelse:</dropdownList>
+      </presentation>
+      <presentation id="PKINITHashAlgorithmConfiguration">
+        <dropdownList refId="PKINITHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
+      </presentation>
+      <presentation id="StrongNameMatches">
+          <multiTextBox refId="StrongNameMatchesList">Regler for sterkt navnesamsvar:</multiTextBox>
       </presentation>
     </presentationTable>
   </resources>

@@ -33,6 +33,11 @@
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">사용할 자격 증명 유형 선택:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>MDM 응용 프로그램 ID:</label>
+        </textBox>
+        <text>MDM 응용 프로그램 ID는 Azure AD에서 구성한 MDM 응용 프로그램의 ID를 나타냅니다. 이 기능은 선택 사항이며 여러 다중 MDM 응용 프로그램을 Azure AD에서 구성하는 경우 장치 자격 증명을 사용하여 자동 MDM에 등록 할 때만 필요합니다.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

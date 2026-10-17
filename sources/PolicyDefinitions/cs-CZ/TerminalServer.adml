@@ -5,6 +5,8 @@
   <description>Sem zadejte popis.</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Povolit automatický odběr</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Řídí seznam adres URL, k jejichž odběru by měl být uživatel automaticky přihlášen</string>
       <string id="TS_SUPPORTED_Windows10">Minimálně Windows 10 nebo Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">Minimálně systém Windows 8 nebo Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">Minimálně Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">Minimálně systém Windows XP a pouze systém Windows Server 2003</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">Minimálně systém Windows Server 2008 nebo Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  Pouze systém Windows Server 2008 R2</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 verze 1903, Windows 10 verze 1909 a Windows 10 verze 2004</string>
       <string id="TS_TERMINAL_SERVER">Hostitel relací vzdálené plochy</string>
       <string id="TS_TERMINAL_SERVER_Help">Řídí konfiguraci serveru hostitele relací vzdálené plochy.</string>
       <string id="TS_LICENSE_SERVER">Licencování VP</string>
@@ -132,18 +135,18 @@ Pokud toto nastavení zakážete nebo nenakonfigurujete, uživatelé budou moci 
 
 Ve výchozím nastavení mapuje server hostitele relací VP jednotky klienta automaticky při navázání spojení. Mapované jednotky se objeví ve stromu složek relací v Průzkumníkovi souborů nebo v okně Počítač ve formátu &lt;písmeno jednotky&gt; na &lt;název počítače&gt;. Pomocí tohoto nastavení zásad můžete toto chování změnit.
 
-Pokud toto nastavení zásad povolíte, nebude v relacích služby Vzdálená plocha povoleno přesměrování jednotky klienta a v počítačích se systémem Windows Server 2003, Windows 8 a Windows XP nebude povoleno přesměrování kopie souboru ze schránky.
+Pokud toto nastavení zásad povolíte, nebude v relacích služby Vzdálená plocha povoleno přesměrování jednotky klienta a v počítačích se systémem Windows XP, Windows Server 2003, Windows Server 2012 (and novější) nebo Windows 8 (a novější) nebude povoleno přesměrování kopie souboru ze schránky.
 
 Pokud toto nastavení zásad zakážete, je přesměrování jednotek klienta vždy povoleno. Kromě toho je přesměrování kopie souboru ze schránky povoleno vždy, když je povoleno přesměrování schránky.
 
 Pokud toto nastavení zásad nenakonfigurujete, není přesměrování jednotek klienta a přesměrování kopií souborů ze schránky určeno na úrovni zásad skupiny.
-
 </string>
       <string id="TS_CLIENT_DRIVE_M">Nepovolit přesměrování jednotek</string>
       <string id="TS_CLIENT_HELP">Řídí nastavení klienta Připojení ke vzdálené ploše</string>
       <string id="TS_CLIENT_LPT">Nepovolit přesměrování portu LPT</string>
       <string id="TS_CLIENT_PNP">Nepovolit přesměrování podporovaného zařízení plug and play</string>
       <string id="TS_CAMERA_REDIRECTION">Nepovolit přesměrování pro digitalizaci videa</string>
+      <string id="TS_LOCATION_REDIRECTION">Nepovolit přesměrování umístění</string>
       <string id="TS_CLIENT_PRINTER">Nepovolit přesměrování tiskárny klienta</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">Nastavení této zásady určuje, zda má být během relace služby Vzdálená plocha zakázáno sdílení obsahu schránky (přesměrování schránky) mezi vzdáleným a klientským počítačem.
 
@@ -209,6 +212,15 @@ Pokud tuto zásadu povolíte, nemůžou uživatelé přesměrovat zařízení pr
 Pokud tuto zásadu zakážete nebo nenakonfigurujete, uživatelé můžou zařízení pro digitalizaci videa přesměrovat na vzdálený počítač. Uživatelé můžou zvolit zařízení pro digitalizaci videa, která se mají přesměrovat na vzdálený počítač, a to pomocí možnosti Další na kartě Místní prostředky v okně Připojení ke vzdálené ploše.
 
 </string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">Nastavení této zásady umožňuje řídit přesměrování dat umístění do vzdáleného počítače v relaci služby Vzdálená plocha.
+
+Služba Vzdálená plocha ve výchozím nastavení umožňuje přesměrování dat umístění.
+
+Pokud toto nastavení zásad povolíte, nebudou uživatelé moci přesměrovat data jejich umístění do vzdáleného počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, budou moci uživatelé přesměrovat data jejich umístění do vzdáleného počítače.
+          
+</string>
       <string id="TS_MAXMONITOR_EXPLAIN">Nastavení této zásady umožňuje omezit počet monitorů, které může uživatel použít k zobrazení relace služby Vzdálená plocha. Omezením počtu monitorů k zobrazení relace služby Vzdálená plocha lze zlepšit kvalitu zobrazení, a to zejména u pomalých připojení, a snížit zatížení serveru.
 
 Pokud nastavení této zásady povolíte, můžete zadat počet monitorů, které lze použít k zobrazení relace služby Vzdálená plocha. Můžete zadat číslo v rozmezí od 1 do 16.
@@ -229,7 +241,6 @@ Pokud nastavení této zásady nenakonfigurujete, určí služba Vzdálená ploc
 Poznámka: Nastavením zásady Vyžadovat pro vzdálená připojení ověření uživatele na úrovni sítě ve složce Konfigurace počítače\Šablony pro správu\Součásti systému Windows\Služba Vzdálená plocha\Hostitel relace vzdálené plochy\Zabezpečení lze omezit, kteří klienti se budou moci vzdáleně připojit pomocí služby Vzdálená plocha. 
 
 Nastavením zásady Omezit počet připojení ve složce Konfigurace počítače\Šablony pro správu\Součásti systému Windows\Služba Vzdálená plocha\Hostitel relace vzdálené plochy\Připojení nebo nastavením zásady Maximální počet připojení pomocí zprostředkovatele WMI hostitele relace Vzdálené plochy lze omezit počet současně připojených uživatelů.
-
 </string>
       <string id="TS_MAXDISPLAYRES">Omezit maximální rozlišení obrazovky</string>
       <string id="TS_MAXDISPLAYRES_EXPLAIN">Nastavení této zásady umožňuje zadat maximální rozlišení obrazovky, které může každý monitor použít k zobrazení relace služby Vzdálená plocha. Omezením rozlišení použitého k zobrazení relace služby Vzdálená plocha lze zlepšit kvalitu zobrazení, a to zejména u pomalých připojení, a snížit zatížení serveru.
@@ -408,7 +419,6 @@ Pokud nastavení této zásady povolíte, pokusí se server hostitele relací VP
     2. Licenční servery Vzdálené plochy, které jsou nainstalovány na řadičích domény ve stejné doméně jako server hostitele relací VP
 
 Pokud nastavení této zásady zakážete nebo nenakonfigurujete, nebude server hostitele relací VP určovat licenční server na úrovni zásad skupiny.
-
 </string>
       <string id="TS_LICENSE_TOOLTIP">Skrýt upozornění na problémy služby Licencování VP, které mají vliv na server hostitele relací VP</string>
       <string id="TS_LICENSE_TOOLTIP_EXPLAIN">Nastavení této zásady určuje, zda se na serveru hostitele relací VP budou zobrazovat upozornění, pokud dojde k problémům se službou Licencování VP ovlivňujícím server hostitele relací VP.
@@ -420,19 +430,19 @@ Pokud toto nastavení povolíte, tato upozornění se nebudou na serveru hostite
 Pokud toto nastavení zakážete nebo nenakonfigurujete, budou se tato upozornění zobrazovat na serveru hostitele relací VP poté, co se přihlásíte jako místní správce.</string>
       <string id="TS_LICENSING_MODE">Nastavit licenční režim služby Vzdálená plocha</string>
       <string id="TS_LICENSING_MODE_EXPLAIN">
-        Nastavení této zásady umožňuje určit typ licence pro klientský přístup k Vzdálené ploše (licence VP CAL), který je vyžadován pro připojení k tomuto serveru Hostitele relace VP.
+        Nastavení této zásady umožňuje určit typ licence pro klientský přístup k vzdálené ploše (VP CAL), který se vyžaduje pro připojení k tomuto serveru hostitele relací VP.
 
-        Pomocí této zásady můžete vybrat jeden ze tří režimů licencování: Vázaná na uživatele, Vázaná na zařízení a Vázaná na uživatele podle AAD.
+        Nastavení této zásady můžete použít k výběru jednoho ze dvou režimů licencování: licence vázané na uživatele nebo vázané na zařízení.
 
-        Licencování v režimu Vázaná na uživatele vyžaduje, aby byla pro každý uživatelský účet připojující se k tomuto serveru Hostitele relace VP vystavena licence VP CAL vázaná na uživatele ze serveru Licencování VP.
+        Režim licence vázané na uživatele vyžaduje, aby měl každý uživatelský účet připojující se k tomuto serveru hostitele relací VP licenci VP CAL vázanou na uživatele vydanou na serveru služby Licencování VP.
 
-        Licencování v režimu Vázaná na zařízení vyžaduje, aby byla pro každé zařízení připojující se k tomuto serveru Hostitele relace VP vystavena licence VP CAL vázaná na zařízení.
+        Režim licence vázané na zařízení vyžaduje, aby mělo každé zařízení připojující se k tomuto serveru hostitele relací VP licenci VP CAL vázanou na zařízení vystavenou serverem služby Licencování VP.
 
-        Licencování v režimu Vázaná na uživatele podle AAD vyžaduje, aby měl každý uživatelský účet připojující se k tomuto serveru Hostitele relace VP plán služeb, který podporuje licence na VP přiřazené v AAD.
-        
-        Pokud tuto zásadu povolíte, bude vámi zadaný režim licencování Vzdálené plochy respektován licenčním serverem Vzdálené plochy a Hostitelem relace VP.
+        Pokud toto nastavení zásad povolíte, bude licenční server vzdálené plochy a hostitel relací VP určen k zadanému režimu licencování vzdálené plochy.
 
-        Pokud tuto zásadu zakážete nebo nenakonfigurujete, nebude režim licencování určen na úrovni zásad skupiny.
+        Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, nebude režim licencování určen na úrovni zásad skupiny.
+
+        Poznámka: Režim AAD vázané na uživatele se u Windows 11 a vyšších už nepoužívá.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Podle zařízení</string>
       <string id="TS_LICENSING_MODE_PER_USER">Podle uživatele</string>
@@ -559,7 +569,6 @@ Poznámky:
      1. Nastavení této zásady neplatí, dokud není pomocí zásad skupiny povolena a nakonfigurována zásada Připojit ke službě Zprostředkovatel připojení k VP a Konfigurovat název serveru služby Zprostředkovatel připojení k VP.
 
      2. V systému Windows Server 2008 je nastavení této zásady podporováno minimálně ve verzi Windows Server 2008 Standard.
-
 </string>
       <string id="TS_SD_EXPOSE_ADDRESS">Použít přesměrování IP adresy</string>
       <string id="TS_SD_EXPOSE_ADDRESS_Explain">Nastavení této zásady umožňuje určit způsob přesměrování, který se má použít při opakovaném připojení klientského zařízení k existující relaci Vzdálené plochy ve farmě serverů hostitelů relací VP s vyrovnáváním zatížení. Toto nastavení platí pro server hostitelů relací VP, který je nakonfigurován tak, aby používal Zprostředkovatele připojení k VP, nikoli pro server Zprostředkovatele připojení k VP.
@@ -609,6 +618,17 @@ Pokud nastavení této zásady zakážete nebo nenakonfigurujete, není metoda z
       <string id="TS_SECURITY_LAYER_POLICY">Vyžadovat použití určité vrstvy zabezpečení pro připojení vzdálené plochy</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Povolit vynucení ověřování Microsoft Entra ID</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">Toto nastavení zásad umožňuje určit, zda má být vyžadováno vynucení ověřování Microsoft Entra ID na straně serveru.
+
+Pokud toto nastavení zásad povolíte, všichni klienti služby Vzdálená plocha musí k ověření na serverech Hostitele relace VP použít ověřování RDS AAD. 
+
+Tato zásada neumožňuje přechod na jiné metody ověřování. 
+
+Aby byla tato zásada účinná, musí být povoleno ověřování na úrovni sítě (NLA). Podívejte se na zásadu „Vyžadovat pro vzdálená připojení ověření uživatele na úrovni sítě“.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, vynucování ověřování Microsoft Entra ID nebude aktivní.
+</string>
       <string id="TS_Session_End_On_Limit">Při vypršení časových limitů ukončit relaci</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">Nastavení této zásady určuje, jestli se má relace Vzdálené plochy s vypršeným časovým limitem ukončit místo toho, aby se odpojila.
 
@@ -787,6 +807,79 @@ Pokud nastavení této zásady povolíte, plocha se po připojení klienta ke vz
 Pokud nastavení této zásady zakážete nebo nenakonfigurujete, bude možné určit úvodní program, který se bude spouštět ve vzdáleném počítači po připojení klienta. Pokud není určen žádný program, bude po připojení ke vzdálenému počítači vždy zobrazena plocha.
 
 Poznámka:Pokud je nastavení této zásady povoleno, nastavení Při připojení spustit program bude ignorováno.</string>
+      <string id="TS_UIA">Povolit přesměrování automatizace uživatelského rozhraní</string>
+      <string id="TS_UIA_EXPLAIN">Toto nastavení zásad určuje, jestli klientské aplikace automatizace uživatelského rozhraní (UI) spuštěné v místním počítači můžou přistupovat k prvkům uživatelského rozhraní na serveru. 
+
+Automatizace uživatelského rozhraní poskytuje programům přístup k většině prvků uživatelského rozhraní, což vám umožňuje používat produkty s asistenčními technologiemi, jako je Lupa a Předčítání, které potřebují interagovat s uživatelským rozhraním, aby správně fungovaly. Informace o uživatelském rozhraní také umožňují interakci automatických testovacích skriptů s uživatelským rozhraním.
+
+Relace vzdálené plochy aktuálně nepodporují přesměrování automatizace uživatelského rozhraní.
+
+Pokud toto nastavení zásad povolíte nebo nenakonfigurujete, můžou všichni klienti automatizace uživatelského rozhraní ve vašem místním počítači komunikovat se vzdálenými aplikacemi. Můžete například použít Předčítání a Lupu místního počítače k interakci s uživatelským rozhraním na webové stránce, kterou jste otevřeli ve vzdálené relaci.
+
+Pokud toto nastavení zásad zakážete, klienti automatizace uživatelského rozhraní spuštění v místním počítači nebudou moct komunikovat se vzdálenými aplikacemi.
+</string>
+      <string id="TS_WEBAUTHN">Nepovolovat přesměrování WebAuthn</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">Toto nastavení zásad umožňuje řídit přesměrování žádostí webového ověřování (WebAuthn) z relace vzdálené plochy na místní zařízení. Toto přesměrování umožňuje uživatelům ověřovat prostředky v relaci vzdálené plochy pomocí místního ověřování (např. Windows Hello pro firmy, klíč zabezpečení a podobně).
+
+Vzdálená plocha umožňuje ve výchozím nastavení přesměrování požadavků WebAuthn.
+
+Pokud toto nastavení zásad povolíte, uživatelé nebudou moct v relaci vzdálené plochy používat místní ověřování.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, budou uživatelé moci v relaci vzdálené plochy používat místní ověřování.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">Zakázat přenosy ze schránky ze serveru do klienta</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">Zakázat přenosy ze schránky z klienta na server</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Povolit prostý text</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Povolit prostý text a obrázky</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Povolit prostý text, obrázky a formát RTF</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Povolit prostý text, obrázky, formát RTF a HTML</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">Omezit přenos schránky ze serveru do klienta</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">Toto nastavení zásad umožňuje omezit přenosy dat ze schránky ze serveru do klienta.
+
+Pokud toto nastavení zásad povolíte, musíte zvolit následující chování:
+
+– Zakázat přenosy schránky ze serveru do klienta.
+
+– Povolit kopírování prostého textu ze serveru do klienta.
+
+– Povolit kopírování prostého textu a obrázků ze serveru do klienta.
+
+– Povolit prostý text, obrázky a kopírování ve formátu RTF ze serveru do klienta.
+
+– Povolí prostý text, obrázky, formát RTF a kopírování HTML ze serveru do klienta.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, uživatelé mohou kopírovat libovolný obsah ze serveru do klienta, pokud je povoleno přesměrování schránky.
+
+Poznámka: Toto nastavení zásad se zobrazí v konfiguraci počítače i konfiguraci uživatele. Pokud jsou nakonfigurovaná obě nastavení zásad, použije se přísnější omezení.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">Omezit přenos schránky z klienta na server</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">Toto nastavení zásad umožňuje omezit přenosy dat ze schránky z klienta na server. 
+
+Pokud toto nastavení zásad povolíte, musíte zvolit následující chování:
+
+– Zakázat přenosy schránky z klienta na server.
+
+– Povolit kopírování prostého textu z klienta na server.
+
+– Povolit kopírování prostého textu a obrázků z klienta na server.
+
+– Povolit prostý text, obrázky a kopírování ve formátu RTF z klienta na server.
+
+– Povolí kopírování ve formátu prostého textu, obrázků, formátu RTF a HTML z klienta na server.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, uživatelé mohou kopírovat libovolný obsah z klienta na server, pokud je povoleno přesměrování schránky.
+
+Poznámka: Toto nastavení zásad se zobrazí v konfiguraci počítače i konfiguraci uživatele. Pokud jsou nakonfigurovaná obě nastavení zásad, použije se přísnější omezení.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Zakázat integraci cloudové schránky pro přenos dat mezi servery a klienty</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">Toto nastavení zásad umožňuje určit, jestli se data přenesená ze vzdálené relace do klienta pomocí přesměrování schránky přidají do cloudové schránky na straně klienta.
+
+Vzdálená plocha ve výchozím nastavení zakáže integraci s cloudovou schránkou na straně klienta pro data přenášená ze vzdálené relace pomocí přesměrování schránky.
+
+Pokud toto nastavení zásad povolíte nebo nenakonfigurujete, data zkopírovaná ve vzdálené relaci a vložená do klienta se nepřidají do cloudové schránky na straně klienta.
+
+Pokud toto nastavení zásad zakážete, data zkopírovaná ve vzdálené relaci a vložená do klienta se přidají do cloudové schránky na straně klienta (pokud je taková možnost povolená).
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">Toto nastavení zásad umožňuje určit, zda se má u vzdálených připojení k serveru hostitele relací VP požadovat ověřování uživatelů na úrovni sítě. Nastavení této zásady zvyšuje zabezpečení tím, že vyžaduje, aby ověřování uživatelů probíhalo dříve v procesu vzdáleného připojení.
 
 Pokud nastavení této zásady povolíte, mohou se k serveru hostitele relací VP připojit pouze klientské počítače podporující ověřování na úrovni sítě.
@@ -801,6 +894,24 @@ Důležité: Jestliže toto nastavení zásad zakážete, sníží se úroveň z
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Vyžadovat pro vzdálená připojení ověření uživatele na úrovni sítě</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Odpojit vzdálenou relaci při uzamčení pro starší verzi ověřování</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">Toto nastavení zásad umožňuje konfigurovat uživatelské prostředí, když je relace Vzdálené plochy uzamčena uživatelem nebo zásadami. Můžete určit, jestli vzdálená relace zobrazí vzdálenou zamykací obrazovku nebo jestli má dojít k odpojení, když je vzdálená relace zamknuta. Odpojení vzdálené relace zajišťuje, že vzdálená relace nemůže zůstat na uzamčené obrazovce a nemůže se automaticky znovu připojit z důvodu ztráty síťového připojení.
+
+Tyto zásady platí jenom v případě, že se k ověření na vzdáleném počítači používá starší verze ověřování. Starší verze ověřování je omezená na uživatelské jméno a heslo nebo certifikáty, jako jsou čipové karty. Starší verze ověřování nevyužívá platformu Microsoft Identity Platform, jako je Microsoft Entra ID. Starší verze ověřování zahrnuje protokoly základního ověřování NTLM, CredSSP, RDSTLS, TLS a RDP.
+
+Pokud toto nastavení zásad povolíte, připojení ke vzdálené ploše používající starší verzi ověřování odpojí vzdálenou relaci, když je vzdálená relace uzamčena. Uživatelé se můžou znovu připojit, až budou připraveni, a po zobrazení výzvy můžou znovu zadat svoje přihlašovací údaje.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, připojení ke vzdálené ploše používající starší verzi ověřování zobrazí vzdálenou zamykací obrazovku, když je vzdálená relace zamknutá. Uživatelé můžou vzdálenou relaci odemknout pomocí svého uživatelského jména a hesla nebo certifikátů.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Odpojit vzdálenou relaci při uzamčení pro ověřování platformy Microsoft Identity Platform</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">Toto nastavení zásad umožňuje nakonfigurovat uživatelské prostředí, když je relace Vzdálené plochy uzamčena uživatelem nebo zásadou. Můžete určit, zda bude vzdálená relace zobrazovat vzdálenou zamykací obrazovku nebo zda bude odpojena, když je vzdálená relace uzamčena. Odpojení vzdálené relace zajišťuje, že vzdálenou relaci nelze ponechat na zamykací obrazovce a nelze se automaticky znovu připojit z důvodu ztráty připojení k síti.
+
+Tyto zásady platí pouze v případě, že se ke vzdálenému počítači používá zprostředkovatel identity, který používá Microsoft identity platform, například Microsoft Entra ID. Tato zásada neplatí při použití starší verze ověřování, které zahrnuje základní ověřovací protokoly NTLM, CredSSP, RDSTLS, TLS a RDP.
+
+Pokud toto nastavení zásad povolíte nebo nenakonfigurujete, připojení ke Vzdálené ploše používající Microsoft identity platform odpojí vzdálenou relaci, pokud je vzdálená relace uzamčena. Uživatelé se můžou znovu připojit, až budou připravení, a pokud je nakonfigurované, můžou používat ověřování bez hesla.
+
+Pokud toto nastavení zásad zakážete, připojení Ke vzdálené ploše používající Microsoft identity platform se při uzamčení vzdálené relace zobrazí vzdálená zamykací obrazovka. Uživatelé mohou vzdálenou relaci odemknout pomocí svého uživatelského jména, hesla nebo certifikátů.
+</string>
       <string id="TS_User_Help">Řídí konfiguraci technologií služby Vzdálená plocha poskytující přístup k serveru s programy pro systém Windows nebo k úplné ploše systému Windows.</string>
       <string id="TS_USER_HOME">Nastavit domovský adresář uživatele služby Vzdálená plocha</string>
       <string id="TS_USER_HOME_EXPLAIN">Určuje, zda se pro relaci Vzdálené plochy bude jako kořenová složka domovského adresáře uživatele používat zadaná síťová sdílená složka nebo zadaný místní adresář.
@@ -901,36 +1012,44 @@ Pokud nastavení této zásady zakážete, nebudou uživatelé moci spustit soub
 Poznámka: Nastavení této zásady lze definovat v uzlu Konfigurace počítače nebo v uzlu Konfigurace uživatele. Pokud nakonfigurujete nastavení této zásady pro počítač, bude to mít vliv na všechny uživatele daného počítače.
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Zadat kryptografické otisky certifikátů SHA1 představující důvěryhodné vydavatele souborů RDP</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Nastavení této zásady umožňuje zadat seznam kryptografických otisků certifikátů SHA1 (Secure Hash Algorithm 1), které představují důvěryhodné vydavatele souborů RDP (Remote Desktop Protocol).
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Zadejte kryptografické otisky certifikátů pro důvěryhodné vydavatele souborů .rdp</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Toto nastavení zásady umožňuje zadat seznam kryptografických otisků certifikátů, které představují důvěryhodné vydavatele souborů protokol RDP (Remote Desktop Protocol) (RDP). Jsou podporovány kryptografické otisky SHA-256, SHA-384 a SHA-512. Kryptografické otisky SHA-1 jsou zastaralé: SHA-1 se už nepovažuje za bezpečnou volbu a podpora kryptografických otisků SHA-1 se v nadcházející aktualizaci zabezpečení ve výchozím nastavení zakáže. Správci by měli co nejdříve migrovat všechny položky kryptografického otisku na SHA-256 nebo silnější.
 
-Pokud toto nastavení povolíte, bude každý certifikát s kryptografickým otiskem SHA1 odpovídajícím kryptografickému otisku v seznamu považován za důvěryhodný. Pokud se uživatel pokusí o spuštění souboru RDP, který je podepsán důvěryhodným certifikátem, neobdrží při spuštění souboru žádné varovné zprávy. Chcete-li získat kryptografický otisk, zobrazte podrobnosti o certifikátu a potom klikněte na pole Kryptografický otisk.
+Kryptografické otisky můžou mít předponu hashovacího algoritmu, který se používá k jejich vytvoření. Podporované předpony jsou sha256:, sha384: a sha512: (nerozlišují se velká a malá písmena). Příklad: sha256:AB0356F2... Pokud není zadána žádná předpona, bude položka považována za starší kryptografický otisk SHA-1.
 
-Pokud toto nastavení zakážete nebo nenakonfigurujete, nebude za důvěryhodného vydavatele souborů RDP považován žádný vydavatel.
+Pokud je zaškrtnuté políčko Nepovolovat kryptografické otisky SHA-1, budou se položky bez předpony ignorovat. Budou se porovnávat jen kryptografické otisky SHA-256, SHA-384 a SHA-512. Důrazně doporučujeme toto zaškrtávací políčko povolit, abyste se připravili na nadcházející změnu výchozího nastavení.
+
+Pokud toto nastavení zásady povolíte, každý certifikát s kryptografickým otiskem, který odpovídá kryptografickému otisku v seznamu, bude důvěryhodný. Pokud se uživatel pokusí o spuštění souboru RDP, který je podepsán důvěryhodným certifikátem, neobdrží při spuštění souboru žádné varovné zprávy.
+
+Pokud toto nastavení zásady zakážete nebo nenakonfigurujete, žádný vydavatel nebude považován za důvěryhodného vydavatele .rdp.
 
 Poznámky:
 
-Nastavení této zásady lze definovat v uzlu Konfigurace počítače nebo v uzlu Konfigurace uživatele. Pokud pro počítač toto nastavení nakonfigurujete, bude seznam kryptografických otisků certifikátů považovaných za důvěryhodné pro uživatele zahrnovat seznam definovaný pro počítač a seznam definovaný pro uživatele.
+Toto nastavení zásady můžete definovat v uzlu Konfigurace počítače nebo v uzlu Konfigurace uživatele. Pokud toto nastavení zásady nakonfigurujete pro počítač, bude seznam kryptografických otisků certifikátů důvěryhodných pro uživatele kombinací seznamu definovaného pro počítač a seznamu definovaného pro uživatele.
 
-Nastavení této zásady potlačí chování souborů Allow.rdp od platných vydavatelů a výchozí nastavení uživatele pro soubory RDP.
+Toto nastavení zásady přepíše chování nastavení zásady Povolit soubory RDP od platných vydavatelů a výchozích nastavení protokolu RDP uživatele.
 
-Pokud seznam obsahuje řetězec nepředstavující kryptografický otisk certifikátu, bude ignorován.
+Pokud seznam obsahuje řetězec, který není kryptografickým otiskem certifikátu, bude ignorován.
 
+Další informace najdete na https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Nastavení této zásady umožňuje zadat seznam kryptografických otisků certifikátů SHA1 (Secure Hash Algorithm 1), které představují důvěryhodné vydavatele souborů RDP (Remote Desktop Protocol).
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Toto nastavení zásady umožňuje zadat seznam kryptografických otisků certifikátů, které představují důvěryhodné vydavatele souborů protokol RDP (Remote Desktop Protocol) (RDP). Jsou podporovány kryptografické otisky SHA-256, SHA-384 a SHA-512. Kryptografické otisky SHA-1 jsou zastaralé: SHA-1 se už nepovažuje za bezpečnou volbu a podpora kryptografických otisků SHA-1 se v nadcházející aktualizaci zabezpečení ve výchozím nastavení zakáže. Uživatelé by měli co nejdříve migrovat všechny položky kryptografického otisku na SHA-256 nebo silnější.
 
-Pokud toto nastavení povolíte, bude každý certifikát s kryptografickým otiskem SHA1 odpovídajícím kryptografickému otisku v seznamu považován za důvěryhodný. Pokud se uživatel pokusí o spuštění souboru RDP, který je podepsán důvěryhodným certifikátem, neobdrží při spuštění souboru žádné varovné zprávy. Chcete-li získat kryptografický otisk, zobrazte podrobnosti o certifikátu a potom klikněte na pole Kryptografický otisk.
+Kryptografické otisky můžou mít předponu hashovacího algoritmu, který se používá k jejich vytvoření. Podporované předpony jsou sha256:, sha384: a sha512: (nerozlišují se velká a malá písmena). Příklad: sha256:AB0356F2... Pokud není zadána žádná předpona, bude položka považována za starší kryptografický otisk SHA-1.
 
-Pokud toto nastavení zakážete nebo nenakonfigurujete, nebude za důvěryhodného vydavatele souborů RDP považován žádný vydavatel.
+Pokud toto nastavení zásady povolíte, každý certifikát s kryptografickým otiskem, který odpovídá kryptografickému otisku v seznamu, bude důvěryhodný. Pokud se uživatel pokusí o spuštění souboru RDP, který je podepsán důvěryhodným certifikátem, neobdrží při spuštění souboru žádné varovné zprávy.
+
+Pokud toto nastavení zásady zakážete nebo nenakonfigurujete, žádný vydavatel nebude považován za důvěryhodného vydavatele .rdp.
 
 Poznámka:
 
-Nastavení této zásady lze definovat v uzlu Konfigurace počítače nebo v uzlu Konfigurace uživatele. Pokud pro počítač toto nastavení nakonfigurujete, bude seznam kryptografických otisků certifikátů považovaných za důvěryhodné pro uživatele zahrnovat seznam definovaný pro počítač a seznam definovaný pro uživatele.
+Toto nastavení zásady můžete definovat v uzlu Konfigurace počítače nebo v uzlu Konfigurace uživatele. Pokud toto nastavení zásady nakonfigurujete pro počítač, bude seznam kryptografických otisků certifikátů důvěryhodných pro uživatele kombinací seznamu definovaného pro počítač a seznamu definovaného pro uživatele.
 
-Nastavení této zásady potlačí chování souborů Allow.rdp od platných vydavatelů a výchozí nastavení uživatele pro soubory RDP.
+Toto nastavení zásady přepíše chování nastavení zásady Povolit soubory RDP od platných vydavatelů a výchozích nastavení protokolu RDP uživatele.
 
-Pokud seznam obsahuje řetězec nepředstavující kryptografický otisk certifikátu, bude ignorován.
+Pokud seznam obsahuje řetězec, který není kryptografickým otiskem certifikátu, bude ignorován.
 
+Další informace najdete na https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">Dotázat se na přihlašovací údaje v klientském počítači</string>
@@ -1018,6 +1137,14 @@ Pokud toto nastavení zásad zakážete, nebudou aplikace RemoteApp publikované
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">Povolit rozšířené možnosti prostředí pro vzdálenou aplikaci RemoteApp</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">Toto nastavení zásad poskytuje rozšířené možnosti prostředí pro relace vzdálené aplikace RemoteApp Terminálové služby, které nabízí podporu pro výchozí přidružení souborů, klíče registru Run/RunOnce a další. Toto nastavení zásad se vztahuje pouze na relace vzdálené aplikace RemoteApp Terminálové služby a nevztahuje se na relace vzdálené plochy.
+
+Pokud toto nastavení zásad povolíte nebo nenakonfigurujete, relace vzdálené aplikace RemoteApp Terminálové služby na terminálových serverech budou mít rozšířené možnosti prostředí.
+
+Pokud toto nastavení zásad zakážete, relace vzdálené aplikace RemoteApp Terminálové služby nebudou mít rozšířené možnosti prostředí a budou používat starší chování prostředí. To může být potřeba, pokud v publikovaných programech vzdálené aplikace RemoteApp Terminálové služby dojde k problémům s kompatibilitou.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1147,25 +1274,23 @@ Pokud nastavení této zásady povolíte, je zadaná adresa URL nakonfigurována
 Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, nemá uživatel žádnou výchozí adresu URL připojení.
 
 Poznámka: Aplikace RemoteApp nainstalované prostřednictvím Připojení k aplikacím RemoteApp a vzdálené ploše z nedůvěryhodného serveru mohou ohrozit zabezpečení účtu uživatele.
-      
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">Vybrat přenosové protokoly RDP</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Nastavení této zásady umožňuje určit, jaké protokoly je možné použít pro přístup k tomuto serveru přes protokol RDP (Remote Desktop Protocol).
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Toto nastavení zásad umožňuje určit, které protokoly lze použít pro přístup protokol RDP (Remote Desktop Protocol) (RDP) k tomuto serveru.
 
-Pokud nastavení této zásady povolíte, musíte určit, jestli má protokol RDP používat protokol UDP.
+Pokud toto nastavení zásad povolíte, je nutné určit, zda má protokol RDP používat protokol UDP.
 
-Můžete vybrat jednu z těchto možností: Použít protokol UDP i TCP, Použít pouze protokol TCP nebo Použít buď protokol UDP, nebo TCP (výchozí). 
+Můžete vybrat jednu z následujících možností: Použít protokol UDP nebo TCP (výchozí) nebo Použít pouze protokol TCP. 
 
-Pokud je připojení přes protokol UDP úspěšné při výběru možnosti Použít buď protokol UDP, nebo TCP, bude se u většiny přenosů RDP používat protokol UDP.
+Pokud vyberete možnost Použít protokol UDP nebo TCP a připojení UDP bude úspěšné, bude většina přenosů RDP používat protokol UDP.
 
-Pokud připojení přes protokol UDP není úspěšné nebo pokud vyberete možnost Použít pouze protokol TCP, bude se u veškerých přenosů RDP používat protokol TCP.
+Pokud připojení UDP není úspěšné nebo vyberete možnost Použít pouze protokol TCP, budou všechny přenosy PROTOKOLU RDP používat protokol TCP.
 
-Pokud nastavení této zásady zakážete nebo nenakonfigurujete, zvolí protokol RDP optimální protokoly pro zajištění nejlepšího výkonu.
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, protokol RDP zvolí optimální protokoly pro zajištění optimálního uživatelského prostředí.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">Použít protokol UDP i TCP</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Použít pouze protokol TCP</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">Použít buď protokol UDP, nebo TCP</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Použít pouze protokol TCP</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Vybrat zjišťování sítě na serveru</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">Nastavení této zásady umožňuje určit, jak se protokol RDP (Remote Desktop Protocol) bude snažit zjistit kvalitu sítě (šířku pásma a latenci).
@@ -1344,12 +1469,13 @@ POZNÁMKA: Na počítači s více nainstalovanými grafickými procesory (GPU) n
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Čárkami oddělený seznam kryptografických otisků certifikátů SHA1:</label>
+          <label>Seznam důvěryhodných otisků certifikátů oddělených čárkami (s předponou sha256:, sha384: nebo sha512:):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">Nepovolit otisky SHA-1</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Čárkami oddělený seznam kryptografických otisků certifikátů SHA1:</label>
+          <label>Seznam důvěryhodných otisků certifikátů oddělených čárkami (s předponou sha256:, sha384: nebo sha512:):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1387,6 +1513,12 @@ POZNÁMKA: Na počítači s více nainstalovanými grafickými procesory (GPU) n
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Vybrat typ přenosu</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Omezit přenos schránky ze serveru do klienta:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Omezit přenos schránky z klienta na server:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

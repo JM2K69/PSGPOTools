@@ -6,6 +6,8 @@
   <resources>
     <stringTable>
       <string id="NotificationsCategory">Notifications</string>
+      <string id="WnsEndpoint">Active la stratégie de groupe pour le nom de domaine complet WNS</string>
+      <string id="WnsEndpointExplain">Cette stratégie définit un nom de domaine complet WNS spécial pour des environnements spécifiques.</string>
       <string id="NoTileNotification">Désactiver les notifications par vignette</string>
       <string id="NoTileNotificationExplain">
           Ce paramètre de stratégie désactive les notifications par vignette.
@@ -116,6 +118,18 @@
 
           La prise en compte de ce paramètre de stratégie ne nécessite aucun redémarrage d’appareil ou de service.
       </string>
+      <string id="ExpandedToastNotifications">Activer plusieurs notifications toast développées dans centre de notifications</string>
+      <string id="ExpandedToastNotificationsExplain">
+          Ce paramètre de stratégie active plusieurs notifications toast développées dans centre de notifications.
+
+Si vous activez ce paramètre de stratégie, les trois premières notifications de chaque application sont développées par défaut dans centre de notifications.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, seule la première notification de chaque application est développée par défaut dans centre de notifications.
+
+Windows 10 uniquement. Ceci sera immédiatement déprécié pour Windows 11.
+
+Aucun redémarrage de redémarrage du service ou de redémarrage du service n’est nécessaire pour que ce paramètre de stratégie prenne effet.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="QuietHoursBeginTimePicker">
@@ -123,6 +137,11 @@
       </presentation>
       <presentation id="QuietHoursEndTimePicker">
         <decimalTextBox refId="QuietHoursDailyEndMinuteControl" defaultValue="360">Minutes après minuit :</decimalTextBox>
+      </presentation>
+      <presentation id="WnsEndpoint">
+        <textBox refId="WnsEndpoint_FQDN">
+          <label>FQDN pour WNS</label>
+        </textBox>
       </presentation>
     </presentationTable>
   </resources>

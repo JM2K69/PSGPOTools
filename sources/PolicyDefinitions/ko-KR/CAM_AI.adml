@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>CAM(기능 액세스 관리자) AI 정책</displayName>
+  <description>AI 기능 및 동의 관리에 관련된 정책입니다.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">AI 동의</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">컨트롤의 사용자</string>
+      <string id="ForceEnable">강제 사용</string>
+      <string id="ForceDisable">강제 사용 안 함</string>
+      <string id="AgentConsentDuration_Name">에이전트 동의 기간</string>
+      <string id="AgentConsentDuration_Explain">사용자에게 동의를 다시 요청하기 전까지, 에이전트 기능에 대한 '허용' 동의 응답이 유효하게 유지되는 기간(시간)을 지정합니다.
+
+이 정책을 사용하도록 설정하면 값은 1(1시간)~8760(1년)이어야 합니다. 구성된 값은 에이전트 기능에 대한 모든 "허용" 동의 응답의 기본 만료 시간으로 사용됩니다.
+
+이 정책을 구성하지 않았거나 값이 허용 범위를 벗어나면 기본값은 720시간(30일)입니다.</string>
+      <string id="ConfigureAgentConnectors_Name">에이전트 커넥터 구성</string>
+      <string id="ConfigureAgentConnectors_Explain">에이전트 커넥터를 사용하거나 사용하지 않도록 설정합니다.</string>
+      <string id="AgentConnectorAccessPolicy_Name">에이전트 커넥터 액세스 정책</string>
+      <string id="AgentConnectorAccessPolicy_Explain">이 정책 설정을 사용하면 MCP 호스트와 MCP 서버 간에 허용되는 연결 목록을 정의할 수 있습니다.
+
+이 목록의 형식은 https://go.microsoft.com/fwlink/?LinkId=2363700에 있는 스키마를 따르는 JSON 문자열입니다.
+
+이 정책을 구성하지 않으면 MCP 호스트는 사용자 동의를 얻어 모든 MCP 서버에 연결할 수 있습니다.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> 에이전트 커넥터 구성: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> 동의 기간(시간): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>허용되는 MCP 호스트/서버 연결 구성:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

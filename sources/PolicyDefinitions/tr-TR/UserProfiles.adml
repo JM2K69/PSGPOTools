@@ -77,6 +77,14 @@ Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız siste
 Not: Bu ilke ayarı ve bu klasördeki ilgili ilke ayarları, gezici kullanıcı profillerinin indirilmesi yavaş olduğunda sistemin yanıtını tanımlar. Microsoft Windows Vista öncesi işletim sistemlerinde bu bildirimi kullanıcının yanıtlama süresini ayarlamak için "İletişim kutuları için zaman aşımı" ilke ayarını kullanın.
 
 Önemli: "Yavaş ağ bağlantılarını algılama" ayarı etkinleştirilmişse, bu ilke ayarı yoksayılır. Ayrıca, "Gezici profillerin önbelleğe alınmış kopyalarını sil" ilke ayarı etkinleştirilmişse, sistem yavaş bir bağlantı algıladığında gezici profillerin yüklenecek yerel kopyası olmayacaktır.</string>
+      <string id="AllowNonStandardUserProfilePaths">Kullanıcı profili kayıt defteri kovanlarının ve AppData'nın standart olmayan yollardan kullanılmasına izin ver</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Bu ilke ayarı, kullanıcı profili kayıt defteri kovanlarının ve AppData klasör konumlarının standart olmayan yol biçimlerini kabul etmesine izin verilip verilmeyeceğini denetler.
+
+Bu ilke ayarını etkinleştirirseniz, kullanıcı profili konumları daha geniş bir dosya yolu biçimi aralığını kabul eder.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, kullanıcı profili konumları yalnızca standart Windows klasör yollarını kabul eder.
+
+Not: Bu ayar etkinleştirildiğinde, sistemi güvenlik risklerine açık hale gelebilir. Yalnızca kuruluşunuzdaki belirli bir uygulama bunu gerektiriyorsa ve yalnızca ortamınızdaki tüm riskleri değerlendirdikten sonra etkinleştirin.</string>
       <string id="ExcludeDirectories">Gezici profildeki dizinleri çıkar</string>
       <string id="ExcludeDirectories_Help">Bu ilke ayarı, normalde kullanıcının profili kapsamında olan klasörleri dışarıda bırakmanızı sağlar. Sonuç olarak bu klasörler, profilin bulunduğu ağ sunucusu tarafından saklanırlar ve kullanıcılarla birlikte diğer bilgisayarlara gitmezler.
 

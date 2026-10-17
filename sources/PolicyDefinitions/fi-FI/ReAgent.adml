@@ -13,6 +13,13 @@
     Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, kohteet Käytä aiemmin luomaasi järjestelmän näköistiedostoa tietokoneen palauttamiseen ja Asenna Windows uudelleen (tai Palauta tietokone sen alkutilaan (tehdasasetukset)) tulevat näkyviin Ohjauspaneelin Palauttaminen-työkalun Palautuksen lisämenetelmät -sivulle ja antavat käyttäjän palauttaa tietokoneen sen alkuperäiseen tilaan tai käyttäjän luomasta järjestelmän näköistiedostosta. Tämä on oletusasetus.
 
     Jos poistat tämän käytäntöasetuksen käytöstä, kohteet Käytä aiemmin luomaasi järjestelmän näköistiedostoa tietokoneen palauttamiseen ja Asenna Windows uudelleen (tai Palauta tietokone sen alkutilaan (tehdasasetukset)) eivät ole käytettävissä Ohjauspaneelin Palauttaminen-työkalussa. Jos tämä käytäntöasetus on poistettu käytöstä, käyttäjät pystyvät kuitenkin edelleen palauttamaan tietokoneen sen alkuperäiseen tilaan tai käyttäjän luomasta järjestelmän näköistiedostosta käynnistämällä tietokoneen uudelleen ja käyttämällä Järjestelmän palautusasetukset -valikkoa, jos se on käytettävissä.</string>
+      <string id="AllowTrustedOfflineScan">Salli offline-tarkistus luotetusta Windowsin palautusympäristöstä</string>
+      <string id="AllowTrustedOfflineScan_help">    Vaatimukset: Windows 10
+    Kuvaus: Tämä käytäntöasetus määrittää, sallitaanko offline-tarkistus luotetusta Windowsin palautusympäristöstä.
+
+    Jos otat tämän käytäntöasetuksen käyttöön, offline-tarkistus suoritetaan kysymättä BitLocker-palautusavainta, kunhan BitLocker pitää Windowsin palautusympäristöä luotettavana.
+
+    Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, offline-tarkistus pyytää käyttäjältä BitLocker-palautusavainta käyttöjärjestelmäaseman lukituksen avaamiseksi. Jos käyttäjä ohittaa käyttöjärjestelmäaseman lukituksen avaamisen, offline-tarkistusta ei suoriteta. Tämä on oletusasetus.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

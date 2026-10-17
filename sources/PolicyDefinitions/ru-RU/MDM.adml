@@ -33,6 +33,11 @@
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">Выберите тип учетных данных для использования:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>ИД приложения MDM:</label>
+        </textBox>
+        <text>ИД приложения MDM — это ИД приложения MDM, настроенного в Azure AD. Это необязательный параметр, который требуется только для автоматической регистрации MDM с использованием учетных данных устройства, если в Azure AD настроено несколько приложений MDM.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

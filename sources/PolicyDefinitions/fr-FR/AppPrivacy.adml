@@ -99,6 +99,67 @@ Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les employ
 
 Si une application est ouverte lorsque cet objet de stratégie de groupe est appliqué à un appareil, les employés doivent redémarrer l’application ou l’appareil pour que les modifications de stratégie soient appliquées à l’application.
       </string>
+      <string id="LetAppsAccessSystemAIModels_Name">Autoriser les applications Windows à utiliser les fonctionnalités de génération de texte et d’image de Windows</string>
+      <string id="LetAppsAccessSystemAIModels_Explain">
+Ce paramètre de stratégie spécifie si les applications Windows peuvent utiliser les fonctionnalités de génération de texte et d'images de Windows.
+
+Vous pouvez spécifier un paramètre par défaut pour toutes les applications ou un paramètre par application en spécifiant un nom de famille de packages. Vous pouvez obtenir le nom de la famille de packages pour une application à l’aide de l’applet de commande Windows PowerShell Get-AppPackage. Un paramètre par application remplace le paramètre par défaut.
+
+Si vous choisissez l'option « L'utilisateur a le contrôle », les employés de votre organisation peuvent décider si les applications Windows peuvent utiliser la génération de texte et d'images en utilisant Paramètres &gt; Confidentialité sur l'appareil.
+
+Si vous choisissez l'option « Forcer l'autorisation », les applications Windows sont autorisées à utiliser les fonctionnalités de génération de texte et d'images de Windows et les employés de votre organisation ne peuvent pas le modifier.
+
+Si vous choisissez l'option « Forcer le refus », les applications Windows ne sont pas autorisées à utiliser les fonctionnalités de génération de texte et d'images de Windows et les employés de votre organisation ne peuvent pas le modifier.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les employés de votre organisation peuvent décider si les applications Windows peuvent utiliser les fonctionnalités de génération de texte et d’images de Windows en utilisant Paramètres &gt; Confidentialité sur l’appareil.
+
+Si une application est ouverte lorsque cet objet de stratégie de groupe est appliqué sur un appareil, les employés doivent redémarrer l'application ou l'appareil pour que les modifications de stratégie soient appliquées à l'application.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Name">Permettre aux Windows applications de prendre des captures d’écran de plusieurs fenêtres ou affichages</string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Explain">Ce paramètre de stratégie spécifie si les applications Windows peuvent prendre des captures d’écran de plusieurs fenêtres ou affichages.
+
+Vous pouvez spécifier un paramètre par défaut pour toutes les applications ou un paramètre par application en spécifiant le nom de la famille de packages. Vous pouvez obtenir le nom de la famille de packages pour une application en utilisant l’applet de commande Get-AppPackage de Windows PowerShell. Un paramètre par application remplace le paramètre par défaut.
+
+Si vous choisissez l’option « L’utilisateur est sous contrôle », les employés au sein de votre organisation peuvent décider si les applications Windows peuvent prendre des captures d’écran de plusieurs fenêtres ou affichages à l’aide des Paramètres. Confidentialité sur l’appareil.
+
+Si vous choisissez l’option « Forcer l’autorisation », les applications Windows sont autorisées à prendre des captures d’écran de plusieurs fenêtres ou affichages. Les employés de votre organisation ne peuvent pas la modifier.
+
+Si vous choisissez l’option « Forcer le refus », les applications Windows ne sont pas autorisées à prendre des captures d’écran de plusieurs fenêtres ou affichages. Les employés de votre organisation ne peuvent pas la modifier.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les employés au sein de votre organisation peuvent décider si les applications Windows peuvent prendre des captures d’écran de plusieurs fenêtres ou affichages à l’aide des paramètres de confidentialité sur l’appareil.
+
+Si une application est ouverte lorsque cet objet de stratégie de groupe est appliqué sur un appareil, les employés doivent redémarrer l’application ou l’appareil pour que les modifications de stratégie soient appliquées à l’application.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Name">Permettre aux applications Windows de désactiver la bordure de la capture d’écran</string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Explain">Ce paramètre de stratégie spécifie si les applications Windows peuvent désactiver la bordure de capture d’écran.
+
+Vous pouvez spécifier un paramètre par défaut pour toutes les applications ou un paramètre par application en spécifiant le nom de la famille de packages. Vous pouvez obtenir le nom de la famille de packages pour une application en utilisant l’applet de commande Get-AppPackage de Windows PowerShell. Un paramètre par application remplace le paramètre par défaut.
+
+Si vous choisissez l’option « L’utilisateur est sous contrôle », les employés au sein de votre organisation peuvent décider si les applications Windows peuvent désactiver la bordure de capture d’écran à l’aide des Paramètres. Confidentialité sur l’appareil.
+
+Si vous choisissez l’option « Forcer l’autorisation », les applications Windows sont autorisées à désactiver la bordure de capture d’écran. Les employés de votre organisation ne peuvent pas la modifier.
+
+Si vous choisissez l’option « Forcer le refus », les applications Windows ne sont pas autorisées à désactiver la bordure de capture d’écran. Les employés de votre organisation ne peuvent pas la modifier.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les employés au sein de votre organisation peuvent décider si les applications Windows peuvent désactiver la bordure de capture d’écran à l’aide des paramètres de confidentialité sur l’appareil.
+
+Si une application est ouverte lorsque cet objet de stratégie de groupe est appliqué sur un appareil, les employés doivent redémarrer l’application ou l’appareil pour que les modifications de stratégie soient appliquées à l’application.
+      </string>
+      <string id="LetAppsAccessHumanPresence_Name">Autoriser les applications Windows à accéder à la détection de présence</string>
+      <string id="LetAppsAccessHumanPresence_Explain">Ce paramètre de stratégie spécifie si les applications Windows peuvent accéder à la détection de présence.
+
+Vous pouvez spécifier un paramètre par défaut pour toutes les applications ou un paramètre par application en spécifiant un nom de la famille de packages. Vous pouvez obtenir le nom de la famille de packages pour une application à l’aide de l’applet de commande Windows PowerShell Get-AppPackage. Un paramètre par application remplace le paramètre par défaut.
+
+Si vous choisissez l’option « Sous le contrôle de l’utilisateur », les employés de votre organisation peuvent décider si les applications Windows peuvent accéder à la détection de présence à l’aide de Paramètres &gt; Confidentialité sur l’appareil.
+
+Si vous choisissez l’option « Forcer l’autorisation », les applications Windows sont autorisées à accéder à la détection de présence et les employés de votre organisation ne peuvent pas la modifier.
+
+Si vous choisissez l’option « Forcer le refus », les applications Windows ne sont pas autorisées à accéder à la détection de présence et les employés de votre organisation ne peuvent pas la modifier.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les employés de votre organisation peuvent décider si les applications Windows peuvent accéder à la détection de présence à l’aide de Paramètres &gt; Confidentialité sur l’appareil.
+
+Si une application est ouverte lorsque cet objet de stratégie de groupe est appliqué sur un appareil, les employés doivent redémarrer l’application ou l’appareil pour que les modifications de stratégie soient appliquées à l’application.
+      </string>
       <string id="LetAppsAccessLocation_Name">Permettre aux applications Windows d’accéder à la localisation</string>
       <string id="LetAppsAccessLocation_Explain">Ce paramètre de stratégie spécifie si les applications Windows peuvent accéder à la localisation.
 
@@ -173,6 +234,36 @@ Si vous choisissez l’option Forcer le refus, les applications Windows ne sont 
 Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les employés de votre organisation peuvent décider si les applications Windows peuvent accéder aux notifications dans Paramètres &gt; Confidentialité sur l’appareil.
 
 Si une application est ouverte lorsque cet objet de stratégie de groupe est appliqué à un appareil, les employés doivent redémarrer l’application ou l’appareil pour que les modifications de stratégie soient appliquées à l’application.
+      </string>
+      <string id="LetAppsAccessPasskeys_Name">Permettre aux applications Windows d’accéder aux clés d’accès</string>
+      <string id="LetAppsAccessPasskeys_Explain">Ce paramètre de stratégie spécifie si les applications peuvent accéder aux clés d’accès.
+
+Vous pouvez spécifier un paramètre par défaut pour toutes les applications ou un paramètre par application en spécifiant un nom de famille de packages. Vous pouvez obtenir le nom de la famille de packages pour une application à l’aide de la cmdlet Windows PowerShell Get-AppPackage. Un paramètre par application remplace le paramètre par défaut.
+
+Si vous choisissez l’option « Sous le contrôle de l’utilisateur », les employés de votre organisation peuvent décider si les applications peuvent accéder aux clés d’accès dans Paramètres &gt; Confidentialité sur l’appareil.
+
+Si vous choisissez l’option « Forcer l’autorisation », les applications sont autorisées à accéder aux clés d’accès et les employés de votre organisation ne peuvent pas la modifier.
+
+Si vous choisissez l’option « Forcer le refus », les applications ne sont pas autorisées à accéder aux clés d’accès et les employés de votre organisation ne peuvent pas la modifier.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les employés de votre organisation peuvent décider si les applications peuvent accéder aux clés d’accès à l’aide de Paramètres &gt; Confidentialité sur l’appareil.
+
+Si une application est ouverte lorsque cet objet de stratégie de groupe est appliqué sur un appareil, les employés doivent redémarrer l’application ou l’appareil pour que les modifications de stratégie soient appliquées à l’application.
+      </string>
+      <string id="LetAppsAccessPasskeysEnumeration_Name">Autorisez les applications Windows à remplir automatiquement des clés d’accès</string>
+      <string id="LetAppsAccessPasskeysEnumeration_Explain">Ce paramètre de stratégie spécifie si les applications peuvent remplir automatiquement les clés d’accès.
+
+Vous pouvez spécifier un paramètre par défaut pour toutes les applications ou un paramètre par application en spécifiant un nom de famille de packages. Vous pouvez obtenir le nom de la famille de packages pour une application à l’aide de la cmdlet Windows PowerShell Get-AppPackage. Un paramètre par application remplace le paramètre par défaut.
+
+Si vous choisissez l’option « Sous le contrôle de l’utilisateur », les employés de votre organisation peuvent décider si les applications peuvent remplir automatiquement les clés d’accès dans Paramètres &gt; Confidentialité sur l’appareil.
+
+Si vous choisissez l’option « Forcer l’autorisation », les applications sont autorisées à remplir automatiquement les clés d’accès et les employés de votre organisation ne peuvent pas modifier cela.
+
+Si vous choisissez l’option « Forcer le refus », les applications ne sont pas autorisées à remplir automatiquement les clés d’accès et les employés de votre organisation ne peuvent pas modifier cela.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les employés de votre organisation peuvent décider si les applications peuvent remplir automatiquement les clés d’accès à l’aide de Paramètres &gt; Confidentialité sur l’appareil.
+
+Si une application est ouverte lorsque cet objet de stratégie de groupe est appliqué sur un appareil, les employés doivent redémarrer l’application ou l’appareil pour que les modifications de stratégie soient appliquées à l’application.
       </string>
       <string id="LetAppsAccessPhone_Name">Permettre aux applications Windows d’effectuer des appels téléphoniques</string>
       <string id="LetAppsAccessPhone_Explain">Ce paramètre de stratégie détermine si les applications Windows peuvent ou non effectuer des appels téléphoniques.
@@ -279,18 +370,18 @@ Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les employ
 
 Si une application est ouverte lorsque cet objet de stratégie de groupe est appliqué à un appareil, les employés doivent redémarrer l’application ou l’appareil pour que les modifications de stratégie soient appliquées à l’application.
       </string>
-      <string id="LetAppsAccessGazeInput_Name">Permettre aux applications Windows d'accéder à un appareil de suivi visuel</string>
-      <string id="LetAppsAccessGazeInput_Explain">Ce paramètre de stratégie spécifie si les applications Windows peuvent accéder au dispositif de suivi visuel.
+      <string id="LetAppsAccessGazeInput_Name">Permettre aux applications Windows d'accéder à un appareil de suivi oculaire</string>
+      <string id="LetAppsAccessGazeInput_Explain">Ce paramètre de stratégie spécifie si les applications Windows peuvent accéder au dispositif de suivi oculaire.
 
 Vous pouvez spécifier un paramètre par défaut pour toutes les applications ou un seul paramètre par application en spécifiant un nom de famille de packages. Vous pouvez obtenir le nom de famille de packages pour une application à l’aide de l’applet de commande Get-AppPackage Windows PowerShell. Un seul paramètre par application remplace le paramètre par défaut.
 
-Si vous choisissez l’option « L'utilisateur est sous contrôle », les employés de votre organisation peuvent décider si les applications Windows peuvent accéder au dispositif de suivi visuel à l’aide des paramètres &gt; Confidentialité sur l’appareil.
+Si vous choisissez l’option « L'utilisateur est sous contrôle », les employés de votre organisation peuvent décider si les applications Windows peuvent accéder au dispositif de suivi oculaire à l’aide des paramètres &gt; Confidentialité sur l’appareil.
 
-Si vous choisissez l’option « Forcer l’autorisation », les applications Windows sont autorisées à accéder au dispositif de suivi visuel et les employés de votre organisation ne peuvent pas le modifier.
+Si vous choisissez l’option « Forcer l’autorisation », les applications Windows sont autorisées à accéder au dispositif de suivi oculaire et les employés de votre organisation ne peuvent pas le modifier.
 
-Si vous choisissez l’option « Forcer le refus », les applications Windows ne sont pas autorisées à accéder au dispositif de suivi visuel, et les employés de votre organisation ne peuvent pas le modifier.
+Si vous choisissez l’option « Forcer le refus », les applications Windows ne sont pas autorisées à accéder au dispositif de suivi oculaire, et les employés de votre organisation ne peuvent pas le modifier.
 
-Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les employés de votre organisation peuvent décider si les applications Windows peuvent accéder au dispositif de suivi visuel à l’aide de Paramètres et Confidentialité sur l’appareil.
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les employés de votre organisation peuvent décider si les applications Windows peuvent accéder au dispositif de suivi oculaire à l’aide de Paramètres et Confidentialité sur l’appareil.
 
 Si une application est ouverte lorsque cet objet de stratégie de groupe est appliqué à un appareil, les employés doivent redémarrer l’application ou l’appareil pour que les modifications soient appliquées à l’application.
       </string>
@@ -320,6 +411,35 @@ Si vous choisissez l’option « Forcer le refus », les utilisateurs ne peuvent
 Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les employés de votre organisation peuvent décider si les utilisateurs peuvent interagir avec les applications à l’aide de la voix alors que le système est verrouillé dans Paramètres &gt; Confidentialité sur l’appareil.
 
 Cette stratégie est appliquée aux applications Windows et à Cortana. Elle est prioritaire sur la stratégie « Autoriser Cortana malgré le verrouillage ». Cette stratégie n’est applicable que lorsque la stratégie « Autoriser l’activation vocale » est configurée pour permettre aux applications d’être activées par la voix.
+      </string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Name">Autoriser les applications Windows à accéder aux mouvements de l'utilisateur pendant l'exécution en arrière-plan</string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Explain">Ce paramètre de stratégie spécifie si les applications Windows peuvent accéder au mouvement de la tête, des mains, des contrôleurs de mouvement de l’utilisateur et d’autres objets suivis, alors que les applications s’exécutent en arrière-plan.
+
+Vous pouvez spécifier un paramètre par défaut pour toutes les applications ou un paramètre par application en attribuant un nom de la famille de packages. Vous pouvez obtenir le nom de la famille de packages pour une application à l’aide de l’applet de commande Get-AppPackage Windows PowerShell. Un paramètre par application remplace le paramètre par défaut.
+
+Si vous choisissez l’option « Sous le contrôle de l’utilisateur », les employés de votre organisation peuvent décider si les applications Windows peuvent accéder aux mouvements de l’utilisateur pendant que les applications s’exécutent en arrière-plan à l'aide de Paramètres &gt; Confidentialité sur l’appareil.
+
+Si vous choisissez l’option « Forcer l’autorisation », les applications Windows ne sont pas autorisées à accéder aux mouvements de l’utilisateur pendant que les applications s’exécutent en arrière-plan et les employés de votre organisation ne peuvent pas la modifier.
+
+Si vous choisissez l’option « Forcer le refus », les applications Windows ne sont pas autorisées à accéder aux mouvements de l’utilisateur pendant que les applications s’exécutent en arrière-plan et les employés de votre organisation ne peuvent pas la modifier.
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, les employés de votre organisation peuvent décider si les applications Windows peuvent accéder aux mouvements de l’utilisateur pendant que les applications s’exécutent en arrière-plan à l'aide de Paramètres &gt; Confidentialité sur l’appareil.
+
+Si une application est ouverte lorsque cet objet de stratégie de groupe est appliqué sur un appareil, les employés doivent redémarrer l’application ou l’appareil pour que les modifications de stratégie soient appliquées à l’application.
+      </string>
+      <string id="LetAppsAccessForegroundText_Name">Autoriser les applications Windows à accéder au contenu texte à partir des applications de premier plan</string>
+      <string id="LetAppsAccessForegroundText_Explain">Ce paramètre de stratégie spécifie si les applications Windows peuvent accéder au contenu texte à partir d’applications de premier plan.
+Vous pouvez spécifier un paramètre par défaut pour toutes les applications ou un paramètre par application en spécifiant un nom de famille de packages. Vous pouvez obtenir le nom de la famille de packages pour une application à l’aide de la cmdlet Windows PowerShell Get-AppPackage. Un paramètre par application remplace le paramètre par défaut.
+
+Si vous choisissez l’option « Sous le contrôle de l’utilisateur », les employés de votre organisation peuvent décider si les applications Windows peuvent accéder au contenu texte à partir d’applications de premier plan à l’aide de Paramètres &gt; Confidentialité sur l’appareil.
+
+Si vous choisissez l’option « Forcer l’autorisation », les applications Windows sont autorisées à accéder au contenu texte des applications de premier plan et les employés de votre organisation ne peuvent pas le modifier.
+
+Si vous choisissez l’option « Forcer le refus », les applications Windows ne sont pas autorisées à accéder au contenu texte des applications de premier plan et les employés de votre organisation ne peuvent pas le modifier.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les employés de votre organisation peuvent décider si les applications Windows peuvent accéder au contenu texte à partir d’applications de premier plan à l’aide de Paramètres &gt; Confidentialité sur l’appareil.
+
+Si une application est ouverte lorsque cet objet de stratégie de groupe est appliqué sur un appareil, les employés doivent redémarrer l'application ou l'appareil pour que les modifications de stratégie soient appliquées à l'application.
       </string>
     </stringTable>
     <presentationTable>
@@ -377,6 +497,42 @@ Cette stratégie est appliquée aux applications Windows et à Cortana. Elle est
         <text>Forcer le refus pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsAccessEmail_ForceDenyTheseApps_List"/>
       </presentation>
+      <presentation id="LetAppsAccessSystemAIModels">
+        <dropdownList refId="LetAppsAccessSystemAIModels_Enum" noSort="true" defaultItem="0">Valeur par défaut de toutes les applications :</dropdownList>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_UserInControlOfTheseApps_List"/>
+        <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceAllowTheseApps_List"/>
+        <text>Forcer le refus pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureProgrammatic">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureProgrammatic_Enum" noSort="true" defaultItem="0">Valeur par défaut sur toutes les applications :</dropdownList>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_UserInControlOfTheseApps_List"/>
+        <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceAllowTheseApps_List"/>
+        <text>Forcer le refus pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureWithoutBorder">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureWithoutBorder_Enum" noSort="true" defaultItem="0">Valeur par défaut sur toutes les applications :</dropdownList>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_UserInControlOfTheseApps_List"/>
+        <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceAllowTheseApps_List"/>
+        <text>Forcer le refus pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessHumanPresence">
+        <dropdownList refId="LetAppsAccessHumanPresence_Enum" noSort="true" defaultItem="0">Valeur par défaut de toutes les applications :</dropdownList>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_UserInControlOfTheseApps_List"/>
+        <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceAllowTheseApps_List"/>
+        <text>Forcer le refus pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceDenyTheseApps_List"/>
+      </presentation>
       <presentation id="LetAppsAccessLocation">
         <dropdownList refId="LetAppsAccessLocation_Enum" noSort="true" defaultItem="0">Valeur par défaut pour toutes les applications :</dropdownList>
         <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
@@ -424,7 +580,7 @@ Cette stratégie est appliquée aux applications Windows et à Cortana. Elle est
       </presentation>
       <presentation id="LetAppsAccessRadios">
         <dropdownList refId="LetAppsAccessRadios_Enum" noSort="true" defaultItem="0">Valeur par défaut pour toutes les applications :</dropdownList>
-        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsAccessRadios_UserInControlOfTheseApps_List"/>
         <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsAccessRadios_ForceAllowTheseApps_List"/>
@@ -433,7 +589,7 @@ Cette stratégie est appliquée aux applications Windows et à Cortana. Elle est
       </presentation>
       <presentation id="LetAppsAccessAccountInfo">
         <dropdownList refId="LetAppsAccessAccountInfo_Enum" noSort="true" defaultItem="0">Valeur par défaut pour toutes les applications :</dropdownList>
-        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsAccessAccountInfo_UserInControlOfTheseApps_List"/>
         <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsAccessAccountInfo_ForceAllowTheseApps_List"/>
@@ -442,25 +598,25 @@ Cette stratégie est appliquée aux applications Windows et à Cortana. Elle est
       </presentation>
       <presentation id="LetAppsSyncWithDevices">
         <dropdownList refId="LetAppsSyncWithDevices_Enum" noSort="true" defaultItem="0">Valeur par défaut pour toutes les applications :</dropdownList>
-        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsSyncWithDevices_UserInControlOfTheseApps_List"/>
-        <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsSyncWithDevices_ForceAllowTheseApps_List"/>
-        <text>Forcer le refus pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Forcer le refus pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsSyncWithDevices_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessTasks">
         <dropdownList refId="LetAppsAccessTasks_Enum" noSort="true" defaultItem="0">Valeur par défaut pour toutes les applications :</dropdownList>
-        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsAccessTasks_UserInControlOfTheseApps_List"/>
-        <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Autoriser de force ces applications spécifiques (utiliser des noms de familles de packages) :</text>
         <multiTextBox refId="LetAppsAccessTasks_ForceAllowTheseApps_List"/>
-        <text>Forcer le refus pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Forcer le refus pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsAccessTasks_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessTrustedDevices">
         <dropdownList refId="LetAppsAccessTrustedDevices_Enum" noSort="true" defaultItem="0">Valeur par défaut pour toutes les applications :</dropdownList>
-        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsAccessTrustedDevices_UserInControlOfTheseApps_List"/>
         <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsAccessTrustedDevices_ForceAllowTheseApps_List"/>
@@ -469,29 +625,29 @@ Cette stratégie est appliquée aux applications Windows et à Cortana. Elle est
       </presentation>
       <presentation id="LetAppsRunInBackground">
         <dropdownList refId="LetAppsRunInBackground_Enum" noSort="true" defaultItem="0">Valeur par défaut pour toutes les applications :</dropdownList>
-        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsRunInBackground_UserInControlOfTheseApps_List"/>
-        <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Forcer l’autorisation pour ces applications particulières (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsRunInBackground_ForceAllowTheseApps_List"/>
-        <text>Forcer le refus pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Forcer le refus pour ces applications particulières (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsRunInBackground_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsGetDiagnosticInfo">
         <dropdownList refId="LetAppsGetDiagnosticInfo_Enum" noSort="true" defaultItem="0">Valeur par défaut pour toutes les applications :</dropdownList>
-        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_UserInControlOfTheseApps_List"/>
-        <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Forcer l’autorisation pour ces applications particulières (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_ForceAllowTheseApps_List"/>
-        <text>Forcer le refus pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Forcer le refus pour ces applications particulières (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessGazeInput">
         <dropdownList refId="LetAppsAccessGazeInput_Enum" noSort="true" defaultItem="0">Valeur par défaut pour toutes les applications :</dropdownList>
-        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsAccessGazeInput_UserInControlOfTheseApps_List"/>
-        <text>Autoriser de force ces applications spécifiques (utiliser des noms de familles de packages) :</text>
+        <text>Forcer l’autorisation pour ces applications particulières (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsAccessGazeInput_ForceAllowTheseApps_List"/>
-        <text>Forcer le refus pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <text>Forcer le refus pour ces applications particulières (utiliser les noms de la famille de packages) :</text>
         <multiTextBox refId="LetAppsAccessGazeInput_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsActivateWithVoice">
@@ -499,6 +655,42 @@ Cette stratégie est appliquée aux applications Windows et à Cortana. Elle est
       </presentation>
       <presentation id="LetAppsActivateWithVoiceAboveLock">
         <dropdownList refId="LetAppsActivateWithVoiceAboveLock_Enum" noSort="true" defaultItem="0">Valeur par défaut pour toutes les applications :</dropdownList>
+      </presentation>
+      <presentation id="LetAppsAccessBackgroundSpatialPerception">
+        <dropdownList refId="LetAppsAccessBackgroundSpatialPerception_Enum" noSort="true" defaultItem="0">Valeur par défaut pour toutes les applications :</dropdownList>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_UserInControlOfTheseApps_List"/>
+        <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps_List"/>
+        <text>Forcer le refus pour ces applications particulières (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessForegroundText">
+        <dropdownList refId="LetAppsAccessForegroundText_Enum" noSort="true" defaultItem="0">Valeur par défaut de toutes les applications :</dropdownList>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_UserInControlOfTheseApps_List"/>
+        <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceAllowTheseApps_List"/>
+        <text>Forcer le refus pour ces applications particulières (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeys">
+        <dropdownList refId="LetAppsAccessPasskeys_Enum" noSort="true" defaultItem="0">Valeur par défaut de toutes les applications :</dropdownList>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_UserInControlOfTheseApps_List"/>
+        <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceAllowTheseApps_List"/>
+        <text>Forcer le refus pour ces applications particulières (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeysEnumeration">
+        <dropdownList refId="LetAppsAccessPasskeysEnumeration_Enum" noSort="true" defaultItem="0">Valeur par défaut de toutes les applications :</dropdownList>
+        <text>Sous le contrôle de l’utilisateur pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_UserInControlOfTheseApps_List"/>
+        <text>Forcer l’autorisation pour ces applications spécifiques (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceAllowTheseApps_List"/>
+        <text>Forcer le refus pour ces applications particulières (utiliser les noms de la famille de packages) :</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceDenyTheseApps_List"/>
       </presentation>
     </presentationTable>
   </resources>

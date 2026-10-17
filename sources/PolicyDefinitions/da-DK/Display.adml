@@ -15,7 +15,16 @@ Hvis du aktiverer denne politikindstilling, er GDI DPI-skala slået til for alle
 Hvis du deaktiverer denne politikindstilling eller undlader at konfigurere den, bliver GDI DPI-skala ikke aktiveret for et program, undtagen når et program er aktiveret ved hjælp af ApplicationCompatibility-databasen, indstillingen ApplicationCompatibility UI System (Enhanced) eller et programmanifest.
 
 Hvis GDI DPI-skala er konfigureret til at slå et program fra og til, vil programmet være slået fra.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">GDI DPI-skala gør det muligt for programmer, som ikke er DPI-aktiverede at blive DPI-aktiveret pr. skærm.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">Aktivering af denne politik gør det muligt at tilsidesætte standardfunktionsmåden, når der oprettes forbindelse til en ekstra skærm. Det giver kontrol over, om skærmen automatisk kloner (spejler) den primære skærm eller udvider skrivebordet.
+Udvid udvider visningen til den anden skærm, så der er forskelligt indhold på hver skærm. Kloner dubletter af den primære skærm på den anden skærm, der viser det samme indhold på begge skærme. Intern standard bruger systemets standardfunktionsmåde, der bestemmes af Windows-indstillinger.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> Konfigurer tilstand for flere skærme</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">Aktivering af denne politik gør det muligt at tilsidesætte standardfunktionsmåden, når der oprettes forbindelse til en ekstra skærm. Den giver kontrol over, om en klonet skærm prioriterer den interne eller eksterne skærm, dvs. angivelse af den foretrukne opløsningskilde.
+Intern angiver opløsningen af hovedskærmen som kilde på begge skærme. Ekstern angiver opløsningen af den tilsluttede (eksterne) skærm som kilde på begge skærme. Standard bruger systemets standardfunktionsmåde, der bestemmes af Windows-indstillinger.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> Angiv den klonede skærms foretrukne løsningskilde</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">GDI DPI-skala gør det muligt for programmer, som ikke er DPI-aktiverede at blive DPI-aktiveret pr. skærm.
 
 Denne politikindstilling gør det muligt at angive ældre programmer, der har GDI DPI-skala slået fra.
 
@@ -26,15 +35,15 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vil 
 Hvis GDI DPI Scaling er konfigureret til at slå et program fra og til, vil programmet være slået fra.</string>
       <string id="DisplayTurnOnGdiDPIScaling">Slå GdiDPIScaling til for programmer</string>
       <string id="DisplayTurnOffGdiDPIScaling">Slå GdiDPIScaling fra for programmer</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">Per Proces System DPI er en funktion til programkompatibilitet for pc-programmer, der ikke gengives korrekt efter en ændring af skærmskaleringsfaktoren (DPI). Når skærmskaleringsfaktoren af den primære skærm ændres (der kan ske, når du tilslutter eller afbryder en skærm, der har en anden skærmskaleringsfaktor (DPI), opretter fjernforbindelse fra en enhed med en anden skærmskaleringsfaktor eller manuelt ændrer skærmskaleringsfaktoren), kan mange pc-programmer vises slørede. Pc-programmer, der ikke er opdateret til at blive vist korrekt i dette scenario, vil være sløret, indtil brugeren logger af og på Windows. 
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">Per Proces System DPI er en funktion til programkompatibilitet for pc-programmer, der ikke gengives korrekt efter en ændring af skærmskaleringsfaktoren (DPI). Når skærmskaleringsfaktoren af den primære skærm ændres (der kan ske, når du tilslutter eller afbryder en skærm, der har en anden skærmskaleringsfaktor (DPI), opretter fjernforbindelse fra en enhed med en anden skærmskaleringsfaktor eller manuelt ændrer skærmskaleringsfaktoren), kan mange pc-programmer vises slørede. Pc-programmer, der ikke er opdateret til at blive vist korrekt i dette scenarie, vil være sløret, indtil brugeren logger af og på Windows.
 
-Når du aktiverer denne politik, vil nogle slørede programmer vil være skarpe, når de genstartes, uden at brugeren skal logge af og på Windows igen. 
+Når du aktiverer denne politik, vil nogle slørede programmer vil være skarpe, når de genstartes, uden at brugeren skal logge af og på Windows igen.
 
 Vær opmærksom på følgende: 
 
-Per Process System DPI vil kun forbedre gengivelsen af pc-programmer, der er vises på den primære skærm. Nogle pc-programmer kan stadig være sløret på sekundære skærme, der har en anden skærmskaleringsfaktorer. 
+Per Process System DPI vil kun forbedre gengivelsen af pc-programmer, der er vises på den primære skærm. Nogle pc-programmer kan stadig være sløret på sekundære skærme, der har en anden skærmskaleringsfaktor.
 
-Per Process System DPI fungerer ikke for alle programmer, da nogle ældre pc-programmer altid vil være slørede på skærme med høj DPI. 
+Per Process System DPI fungerer ikke for alle programmer, da nogle ældre pc-programmer altid vil være slørede på skærme med høj DPI.
 
 I nogle tilfælde vil du muligvis få en uventet funktionsmåde i nogle programmer. Hvis det sker, skal Per Process System DPI deaktiveres.
 
@@ -44,6 +53,14 @@ Hvis du aktiverer denne indstilling, kan du angive systemstandarder for pc-progr
       <string id="DisplayPerProcessSystemDpiSettings">Konfigurer indstillinger for Per-Proces System DPI</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">Aktivér</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">Deaktiver</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">Klon</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">Standard</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">Udvid</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">Kun internt</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">Kun ekstern</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">Standard</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">Intern</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">Ekstern</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">Aktivér Per-Process System DPI for programmer</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">Deaktiver Per-Process System DPI for programmer</string>
     </stringTable>
@@ -66,6 +83,12 @@ Hvis du aktiverer denne indstilling, kan du angive systemstandarder for pc-progr
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>Deaktiver Per-Process System DPI for følgende programmer. Brug den fulde sti eller filnavn til programmet og filtypen. Adskil programmer med et semikolon.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">Klon, udvid, InternalOnly, ExternalOnly eller fortsæt med standardindstillingerne i Windows som konfiguration for tilstanden Flere skærme.</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">Angiv den standardopløsning, som Windows skal bruge til nye klonede skærme, som interne, eksterne eller standardindstillinger for Windows.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

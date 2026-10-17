@@ -77,6 +77,14 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wir
 Hinweis: Diese Richtlinieneinstellung und die verwandten Richtlinieneinstellungen in diesem Ordner definieren die Vorgehensweise des Systems, wenn servergespeicherte Benutzerprofile nur langsam heruntergeladen werden. Mit der Richtlinieneinstellung "Zeitlimit für Dialogfelder" in den Vorgängerbetriebssystemen von Microsoft Windows Vista können Sie festlegen, innerhalb welcher Zeitspanne der Benutzer auf diese Benachrichtigung reagieren muss.
 
 Wichtig: Diese Richtlinieneinstellung wird ignoriert, falls die Einstellung "Langsame Netzwerkverbindungen nicht erkennen" aktiviert ist. Beachten Sie außerdem, dass keine lokale Kopie des servergespeicherten Profils im Falle einer erkannten langsamen Verbindung verfügbar ist, wenn die Richtlinieneinstellung "Zwischengespeicherte Kopien von servergespeicherten Profilen löschen" aktiviert ist.</string>
+      <string id="AllowNonStandardUserProfilePaths">Registrierungspfade für Benutzerprofile und AppData von nicht standardmäßigen Pfaden zulassen</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Diese Richtlinieneinstellung legt fest, ob für die Registrierungshives der Benutzerprofile und die Speicherorte der AppData-Ordner nicht standardmäßige Pfadformate zugelassen werden dürfen.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, akzeptieren die Speicherorte für Benutzerprofile eine größere Bandbreite an Dateipfadformaten.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, akzeptieren die Speicherorte für Benutzerprofile nur standardmäßige Windows-Ordnerpfade.
+
+Hinweis: Die Aktivierung dieser Einstellung kann das System Sicherheitsrisiken aussetzen. Aktivieren Sie diese Einstellung nur, wenn eine bestimmte Anwendung in Ihrer Organisation dies erfordert, und erst nach einer sorgfältigen Bewertung aller Risiken für Ihre Umgebung.</string>
       <string id="ExcludeDirectories">Verzeichnisse aus servergespeichertem Profil ausschließen</string>
       <string id="ExcludeDirectories_Help">Mit dieser Richtlinieneinstellung können Sie Ordner ausschließen, die normalerweise im Profil des Benutzers enthalten sind. Diese Ordner werden somit nicht von dem jeweiligen Netzwerkserver mit den Profilen gespeichert, und sie folgen Benutzern nicht auf andere Computer.
 
@@ -334,7 +342,7 @@ Geben Sie im Pfad keine Umgebungsvariablen oder Ellipsen an. Geben Sie auch kein
 
 Hinweis: Wenn Sie in der Liste mit den Orten die Option "Auf dem lokalen Computer" auswählen, wird das Feld "Laufwerkbuchstabe" ignoriert. Wenn Sie "Auf dem lokalen Computer" auswählen und eine Dateifreigabe eingeben, befindet sich der Basisordner des Benutzers an der Netzwerkadresse, und der Dateifreigabe wird kein Laufwerkbuchstabe zugeordnet.
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird der Basisordner des Benutzers gemäß den Angaben im Active Directory-Domänendienstekonto des Benutzers konfiguriert.
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird der Basisordner des Benutzers gemäß den Angaben im Active Directory Domain Services Konto des Benutzers konfiguriert.
 
 Ist die Richtlinieneinstellung "Basisverzeichnis für Remotedesktopdienste-Benutzer festlegen" aktiviert, hat die Richtlinieneinstellung "Basisordner für Benutzer festlegen" keine Wirkung.</string>
       <string id="on_the_Local_Computer">Auf dem lokalen Computer</string>

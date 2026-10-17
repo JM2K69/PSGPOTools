@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>NTLM-inställningar</displayName>
+  <description>Konfigurationsinställningar för NTLM-säkerhetspaketet.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">Utökad loggning för NTLM</string>
+      <string id="EnhancedAuditsId_Explain">Den här principinställningen gör att NTLM-säkerhetspaketet kan logga de nya, förbättrade granskningsloggarna för både klienter och servrar.
+
+      Dessa utökade loggar innehåller information om vad som använder NTLM, varför NTLM används och målet för NTLM-autentiseringsbegäran. De innehåller också information om NTLMv1-användning och andra säkerhetsnedgraderingar.
+
+      Om du har aktiverat eller inte konfigurerar denna princip kommer de nya granskningsloggarna att genereras. Om du inaktiverar principen kommer de nya loggarna inte att genereras.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">NTLM-förbättrad blockering</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Med den här principinställningen kan NTLM-säkerhetspaketet blockera NTLM-autentiseringsbegäranden baserat på de nya, förbättrade blockeringsprinciperna på datornivå.
+
+      Med de här utökade blockeringsprinciperna kan du blockera NTLM-autentisering baserat på nya kriterier, till exempel typ av konto, enhetens roll eller typ av program.
+
+      Om den övergripande principen är inställd på "Inaktiverad" eller "Inte konfigurerad" börjar inte underinställningarna nedan att gälla. Om den övergripande principen är inställd på "Aktiverad" börjar underprinciperna nedan att gälla baserat på deras konfiguration.
+
+      Om de inte har konfigurerats är alla principer inställda på granskningsläge. Principer som är inställda på "Granska" loggar en varning om den NTLM-begäran som kan blockeras, men blockerar den inte. Flera principer som är markerade som "Granska" kan aktiveras samtidigt och de loggas i en enhetlig händelselogg.
+
+      Om någon princip markeras som "Aktiverad" blockeras NTLM-autentiseringsbegäran om den matchar principens villkor. Om flera principer markeras som "Aktiverad" blockeras NTLM-autentiseringsbegäran om den matchar villkoren för någon av principerna. En händelselogg genereras för den första principen som blockerar NTLM-autentiseringen. 
+
+      I scenarier där det finns principer för både "Granskning" och "Aktiverad" prioriteras principen "Aktiverad".
+
+      Alla utökade blockeringsprinciper som beskrivs här delar samma lista över tillåtna, som anger de konton, enheter och program som tillåts använda NTLM-autentisering. Listan över tillåtna kan innehålla en serie målnamn eller SPN för att tillåta autentisering. 
+
+      Mer information finns i aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Inaktiverad</string>
+      <string id="Audit">Granska</string>
+      <string id="Enabled">Aktiverad</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Blockera NTLM för domänkonton med enkel inloggning</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">Blockera NTLM för domänkontrollanter</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">Blockera NTLM när datorbindningen misslyckas</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Blockera all NTLM-autentisering</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Ange listan över tillåtna för utökade blockeringsprinciper:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

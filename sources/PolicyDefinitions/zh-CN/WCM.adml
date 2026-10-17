@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2006 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Windows 连接管理器组策略设置</displayName>
   <description>Windows 连接管理器组策略设置</description>
@@ -47,11 +47,11 @@
         此策略设置与“启用 Windows 以从网络软断开计算机连接”策略设置相关。
       </string>
       <string id="WCM_DisablePowerManagement">在连接备用模式下禁用电源管理</string>
-      <string id="WCM_DisablePowerManagement_Help">此策略设置指定在计算机进入连接备用模式时禁用电源管理。
+      <string id="WCM_DisablePowerManagement_Help">此策略设置指定在计算机进入连接待机模式时禁用电源管理。
 
-如果启用此策略设置，当计算机进入连接备用模式时，Windows 连接管理器将不会管理适配器单选项，以减少电源消耗。
+如果启用此策略设置，当计算机进入连接待机模式时，Windows 连接管理器将不会管理适配器广播以减少电源消耗。
 
-如果未配置或已禁用此策略设置，当计算机进入连接备用模式时，将启用电源管理。
+如果未配置或禁用此策略设置，当计算机进入连接待机模式时，将启用电源管理。
       </string>
       <string id="WCM_EnableSoftDisconnect">启用 Windows 以从网络软断开计算机连接</string>
       <string id="WCM_EnableSoftDisconnect_Help">此策略设置决定 Windows 是否将从网络软断开计算机连接。

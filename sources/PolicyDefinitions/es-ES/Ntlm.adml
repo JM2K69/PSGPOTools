@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Configuración de la NTLM</displayName>
+  <description>Opciones de configuración para el paquete de seguridad NTLM.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">Registro mejorado de NTLM</string>
+      <string id="EnhancedAuditsId_Explain">Esta configuración de directiva permite que el paquete de seguridad NTLM registre los nuevos registros de auditoría mejorados para clientes y servidores.
+
+      Estos registros mejorados tienen información sobre lo que usa NTLM, por qué se usa NTLM y el destino de la solicitud de autenticación NTLM. También tienen información sobre el uso de NTLMv1 y otras degradaciones de seguridad.
+
+      Si habilitas o no configuras esta directiva, se generarán los nuevos registros de auditoría. Si deshabilitas la directiva, no se generarán los nuevos registros.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">Bloqueo mejorado de NTLM</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Esta configuración de directiva permite que el paquete de seguridad NTLM bloquee las solicitudes de autenticación NTLM en función de las nuevas directivas de bloqueo mejoradas en el nivel de Máquina.
+
+      Estas directivas de bloqueo mejoradas permiten bloquear la autenticación NTLM en función de nuevos criterios, como el tipo de cuenta, el rol del dispositivo o el tipo de aplicación.
+
+      Si la directiva general se establece en "Deshabilitado" o "No configurado", los subconjuntos siguientes no entrarán en vigor. Si la directiva general se establece en "Habilitado", las subdirectivas siguientes entrarán en vigor en función de su configuración.
+
+      A menos que se configure, todas las directivas se establecen en modo "Auditoría". Las directivas que se establecen en "Auditoría" registrarán una advertencia sobre la solicitud NTLM que se podría bloquear, pero no la bloquearán. Se pueden habilitar al mismo tiempo varias directivas marcadas como "Auditoría" y se registrarán en un registro de eventos unificado.
+
+      Si alguna directiva está marcada como "Habilitada", la solicitud de autenticación NTLM se bloqueará si coincide con los criterios de la directiva. Si hay varias directivas marcadas como "Habilitadas", la solicitud de autenticación NTLM se bloqueará si coincide con los criterios de cualquiera de las directivas. Se generará un registro de eventos para la primera directiva que bloquee la autenticación NTLM. 
+
+      En escenarios en los que haya directivas de "Auditoría" y "Habilitada", la directiva "Habilitada" tendrá prioridad.
+
+      Todas las directivas de bloqueo mejoradas que se describen aquí comparten la misma lista de permitidos, que especifica las cuentas, los dispositivos y las aplicaciones que pueden usar la autenticación NTLM. La lista de permitidos puede contener una serie de nombres de destino o SPN para permitir la autenticación. 
+
+      Para obtener más información, visita aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Deshabilitado</string>
+      <string id="Audit">Auditoría</string>
+      <string id="Enabled">Habilitado</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Bloquear el inicio de sesión único de NTLM para cuentas de dominio</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">Bloquear NTLM para controladores de dominio</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">Bloquear NTLM cuando se produce un error en el enlace de máquina</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Bloquear toda la autenticación NTLM</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Especifique la lista de permitidos para las directivas de bloqueo mejoradas:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

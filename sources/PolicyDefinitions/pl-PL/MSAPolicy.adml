@@ -12,6 +12,8 @@ Dotyczy to zarówno istniejących użytkowników urządzenia, jak i nowych użyt
 Zalecane jest włączenie tego ustawienia, zanim użytkownik zaloguje się do urządzenia, w celu zapobieżenia używaniu buforowanych tokenów. Jeśli to ustawienie będzie wyłączone lub nie zostanie skonfigurowane, aplikacje i usługi będą mogły używać kont Microsoft do uwierzytelniania.  
 Domyślna wartość tego ustawienia to Wyłączone. To ustawienie nie ma wpływu na możliwość logowania się użytkowników do urządzeń za pomocą kont Microsoft ani możliwość używania przez nich kont Microsoft w przeglądarce w celu logowania się do aplikacji sieci web. 
         </string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnly">Zezwalaj na uwierzytelnianie urządzenia tylko dla Asystenta logowania za pomocą konta Microsoft</string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnlyExplain">To ustawienie określa, czy zezwalać na uwierzytelnianie urządzenia w przedsiębiorstwie tylko dla usługi Asystent logowania za pomocą konta Microsoft (wlidsvc). Domyślnie to ustawienie jest wyłączone i umożliwia uwierzytelnianie użytkowników i urządzeń. Gdy wartość jest ustawiona na 1, zezwala tylko na uwierzytelnianie urządzenia i blokuje uwierzytelnianie użytkownika.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

@@ -80,20 +80,37 @@
       <string id="Channel_LogMaxSize">ログ ファイルの最大サイズ (KB) を指定する</string>
       <string id="Channel_LogMaxSize_Help">このポリシー設定では、ログ ファイルの最大サイズを KB 単位で指定します。
 
-このポリシー設定を有効にした場合、ログ ファイルの最大サイズを KB 単位で 1 MB (1024 KB) から 2 TB (2147483647 KB) までの範囲で構成できます。
+このポリシー設定を有効にした場合、ログ ファイルの最大サイズを 1 MB (1024 KB) から 2 TB (2147483647 KB) までの範囲で、KB 単位の増分で構成できます。
 
-このポリシー設定を無効にするか、未構成にした場合、ログ ファイルの最大サイズはローカルで構成された値に設定されます。この値は、ローカル管理者が [ログのプロパティ] ダイアログ ボックスを使用して変更でき、既定では 1 MB になります。</string>
+このポリシー設定を無効にするか構成しない場合には、ログ ファイルの最大サイズはローカルで構成された値に設定されます。この値は、ローカル管理者が [ログのプロパティ] ダイアログ ボックスを使用して変更でき、既定では 20 MB に設定されます。</string>
       <string id="Channel_LogMaxSizeSecurity_Help">このポリシー設定では、ログ ファイルの最大サイズを KB 単位で指定します。
 
-このポリシー設定を有効にした場合、ログ ファイルの最大サイズを KB 単位で 20 MB (20480 KB) から 2 TB (2147483647 KB) までの範囲で構成できます。
+このポリシー設定を有効にした場合、ログ ファイルの最大サイズを 20 MB (20480 KB) から 2 TB (2147483647 KB) までの範囲で、KB 単位の増分で構成できます。
 
-このポリシー設定を無効にするか、未構成にした場合、ログ ファイルの最大サイズはローカルで構成された値に設定されます。この値は、ローカル管理者が [ログのプロパティ] ダイアログ ボックスを使用して変更でき、既定では 20 MB になります。</string>
+このポリシー設定を無効にするか構成しない場合には、ログ ファイルの最大サイズはローカルで構成された値に設定されます。この値は、ローカル管理者が [ログのプロパティ] ダイアログ ボックスを使用して変更でき、既定では 40 MB に設定されます。</string>
       <string id="ChannelName_Help">ログの構成設定</string>
       <string id="EventLog_Application">アプリケーション</string>
       <string id="EventLog_Security">セキュリティ</string>
       <string id="EventLog_Setup">セットアップ</string>
       <string id="EventLog_System">システム</string>
       <string id="EventLogCategory">イベント ログ サービス</string>
+      <string id="Service_RpcAccess_Remote">イベント ログ サービスへのリモート アクセスを制限する</string>
+      <string id="Service_RpcAccess_Remote_Help">このポリシー設定は、どのリモート ユーザーにこのマシン上のイベント ログ サービスへの接続を許可するかを制御します。
+
+このポリシーを有効にすると、このマシン上のイベント ログ サービスに接続するためにはリモート ユーザーはどのグループのメンバーでなければならないかを制限できます。リモート ユーザーが以下の組み込みグループのいずれかのメンバーであることを必須条件にできます。
+
+• 認証されたユーザー
+• イベントログ リーダー
+• 管理者
+
+このポリシーを無効にするかポリシーを構成しない場合、既定値は "認証されたユーザー" になります。
+
+以前のバージョンの Windows では、"認証されたユーザー" のみがサポートされていました。下位互換性を維持するためには、"認証されたユーザー" からこのサービスへのローカル接続を常に許可する必要があります。
+
+この設定は、個別のログへのアクセスを制御するものではありません。リモート接続が許可された場合でも、使用しようとする特定のリソースへのアクセスは別途必要になります。</string>
+      <string id="Service_RpcAccess_Remote_AU">認証されたユーザー</string>
+      <string id="Service_RpcAccess_Remote_ER">イベント ログ リーダー</string>
+      <string id="Service_RpcAccess_Remote_AD">管理者</string>
     </stringTable>
     <presentationTable>
       <presentation id="Channel_Log_FileLogAccess_1">
@@ -157,16 +174,19 @@
         </textBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_1">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">最大ログ サイズ (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">最大ログ サイズ (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_2">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">最大ログ サイズ (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="40960">最大ログ サイズ (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_3">
         <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">最大ログ サイズ (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_4">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">最大ログ サイズ (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">最大ログ サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="Service_RpcAccess_Remote">
+        <dropdownList refId="RpcAccess_Remote_Setting" noSort="true" defaultItem="0">次のいずれかの設定を選択してください:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

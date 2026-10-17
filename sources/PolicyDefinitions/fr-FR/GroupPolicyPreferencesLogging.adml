@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>Stratégie de groupe : stratégies de préférences de journalisation</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">Configurer le suivi et la journalisation de l’extension de préférence Applications</string>
+      <string id="CSE_Applications_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Applications et d’activer le suivi de l’extension Applications. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation des événements et activer le suivi de l’extension Applications pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, par défaut, la journalisation des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.
+</string>
+      <string id="CSE_DataSources_Logging">Configurer le suivi et la journalisation de l’extension de préférence Sources de données</string>
+      <string id="CSE_DataSources_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Sources de données et d’activer le suivi de l’extension Sources de données. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Sources de données pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_Devices_Logging">Configurer le suivi et la journalisation de l’extension de préférence Périphériques</string>
+      <string id="CSE_Devices_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Périphériques et d’activer le suivi de l’extension Périphériques. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Périphériques pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_Drives_Logging">Configurer le suivi et la journalisation de l’extension de préférence Mappages de lecteurs</string>
+      <string id="CSE_Drives_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Mappages de lecteurs et d’activer le suivi de l’extension Mappages de lecteurs. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Mappages de lecteurs pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_Environment_Logging">Configurer le suivi et la journalisation de l’extension de préférence Environnement</string>
+      <string id="CSE_Environment_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Environnement et d’activer le suivi de l’extension Environnement. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Environnement pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_Files_Logging">Configurer le suivi et la journalisation de l’extension de préférence Fichiers</string>
+      <string id="CSE_Files_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Fichiers et d’activer le suivi de l’extension Fichiers. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Fichiers pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_FolderOptions_Logging">Configurer le suivi et la journalisation de l’extension de préférence Options des dossiers</string>
+      <string id="CSE_FolderOptions_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Options des dossiers et d’activer le suivi de l’extension Options des dossiers. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Options des dossiers pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_Folders_Logging">Configurer le suivi et la journalisation de l’extension de préférence Dossiers</string>
+      <string id="CSE_Folders_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Dossiers et d’activer le suivi de l’extension Dossiers. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Dossiers pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_IniFiles_Logging">Configurer le suivi et la journalisation de l’extension de préférence Fichiers .ini</string>
+      <string id="CSE_IniFiles_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Fichiers .ini et d’activer le suivi de l’extension Fichiers .ini. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Fichiers .ini pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_Internet_Logging">Configurer le suivi et la journalisation de l’extension de préférence Paramètres Internet</string>
+      <string id="CSE_Internet_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Paramètres Internet et d’activer le suivi de l’extension Paramètres Internet. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Paramètres Internet pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">Configurer le suivi et la journalisation de l’extension de préférence Utilisateurs et groupes locaux</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Utilisateurs et groupes locaux et d’activer le suivi de l’extension Utilisateurs et groupes locaux. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Utilisateurs et groupes locaux pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_NetworkOptions_Logging">Configurer le suivi et la journalisation de l’extension de préférence Options réseau</string>
+      <string id="CSE_NetworkOptions_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Options réseau et d’activer le suivi de l’extension Options réseau. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Options réseau pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_NetShares_Logging">Configurer le suivi et la journalisation de l’extension de préférence Partages réseau</string>
+      <string id="CSE_NetShares_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Partages réseau et d’activer le suivi de l’extension Partages réseau. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Partages réseau pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_PowerOptions_Logging">Configurer le suivi et la journalisation de l’extension de préférence Options d’alimentation</string>
+      <string id="CSE_PowerOptions_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Options d’alimentation et d’activer le suivi de l’extension Options d’alimentation. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Options d’alimentation pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_Printers_Logging">Configurer le suivi et la journalisation de l’extension de préférence Imprimantes</string>
+      <string id="CSE_Printers_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Imprimantes et d’activer le suivi de l’extension Imprimantes. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Imprimantes pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_RegionalOptions_Logging">Configurer le suivi et la journalisation de l’extension de préférence Options régionales</string>
+      <string id="CSE_RegionalOptions_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Options régionales et d’activer le suivi de l’extension Options régionales. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Options régionales pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_PrefRegistry_Logging">Configurer le suivi et la journalisation de l’extension de préférence Registre</string>
+      <string id="CSE_PrefRegistry_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Registre et d’activer le suivi de l’extension Registre. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation des événements et activer le suivi de l’extension de Registre pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_ScheduledTasks_Logging">Configurer le suivi et la journalisation de l’extension de préférence Tâches planifiées</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Tâches planifiées et d’activer le suivi de l’extension Tâches planifiées. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Tâches planifiées pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_Services_Logging">Configurer le suivi et la journalisation de l’extension de préférence Services</string>
+      <string id="CSE_Services_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Services et d’activer le suivi de l’extension Services. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Services pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_Shortcuts_Logging">Configurer le suivi et la journalisation de l’extension de préférence Raccourcis</string>
+      <string id="CSE_Shortcuts_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Raccourcis et d’activer le suivi de l’extension Raccourcis. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Raccourcis pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_StartMenu_Logging">Configurer le suivi et la journalisation de l’extension de préférence Menu Démarrer</string>
+      <string id="CSE_StartMenu_Logging_Help">Ce paramètre de stratégie vous permet de configurer le niveau de détail des informations consignées dans le journal des événements pour l’extension de préférence Menu Démarrer et d’activer le suivi de l’extension Menu Démarrer. La journalisation et le suivi servent à établir un diagnostic lors de la résolution des problèmes.
+
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la journalisation et activer le suivi de l’extension Menu Démarrer pour les ordinateurs clients.
+
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, par défaut, le journal des événements pour cette extension contient uniquement des avertissements et des erreurs et la fonction de suivi est désactivée.
+
+Avertissement de sécurité : 
+Sécurisez le partage réseau configuré en lui accordant uniquement les autorisations minimales requises. N’utilisez pas d’accès large (par exemple, n’importe quel compte standard ou Tout le monde avec un contrôle total), car cela peut entraîner un accès non autorisé aux données de journalisation et de suivi
+
+Remarques :
+
+1. Suivi Configuration utilisateur : pour assurer le suivi des éléments de cette extension de préférence indiqués sous Configuration utilisateur, vous devez spécifier, dans la zone « Suivi utilisateur », le chemin d’accès au fichier de suivi utilisateur à créer sur l’ordinateur client, puis activer l’option « Suivi ». Si aucun élément de préférence n’est répertorié sous Configuration utilisateur pour cette extension, aucun fichier de suivi utilisateur n’est créé.
+
+2. Suivi Configuration ordinateur : cette extension de préférence est disponible uniquement sous Configuration utilisateur (le suivi de la configuration ordinateur n’est donc pas possible).
+
+3. Suivi de la requête Modélisation de stratégie de groupe : pour assurer le suivi des éléments de cette extension de préférence lors de l’exécution d’une requête de modélisation de stratégie de groupe, vous devez spécifier, dans la zone « Planification du suivi », le chemin d’accès au fichier de suivi de planification à créer sur l’ordinateur sur lequel la modélisation est prévue, puis activer l’option « Suivi ». Si vous n’effectuez aucune modélisation de stratégie de groupe ou si aucun élément de préférence n’est défini pour cette extension, aucun fichier de suivi de planification n’est créé.</string>
+      <string id="CSE_NOCHANGES">Traiter même si les objets de stratégie de groupe n’ont pas changé</string>
+      <string id="CSE_NOBACKGROUND">Ne pas appliquer lors d’un traitement en arrière-plan régulier</string>
+      <string id="CSE_ALLOWSLOWLINK">Autoriser le traitement sur une connexion réseau lente</string>
+      <string id="CSE_TRACELEVEL">Suivi</string>
+      <string id="CSE_TRACEFILEPATHUSER">Suivi utilisateur</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">Suivi ordinateur</string>
+      <string id="CSE_TRACEFILEPATH">Fichier de suivi</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">Planification du suivi</string>
+      <string id="CSE_TRACEFILEMAXSIZE">Taille maximale du fichier de suivi (Ko)</string>
+      <string id="CSE_TRACELEVELNORMAL">Désactivé</string>
+      <string id="CSE_TRACELEVELVERBOSE">Activé</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">Priorité de l’arrière-plan</string>
+      <string id="CSE_PRILEVEL_NORMAL">Normal</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">Inférieur à la normale</string>
+      <string id="CSE_PRILEVEL_LOWEST">Le plus bas</string>
+      <string id="CSE_PRILEVEL_IDLE">Inactif</string>
+      <string id="CSE_LOGLEVEL">Journalisation des événements</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">Informations, avertissements et erreurs</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">Avertissements et erreurs</string>
+      <string id="CSE_LOGLEVEL_ERRORS">Erreurs uniquement</string>
+      <string id="CSE_LOGLEVEL_NONE">Aucune</string>
+      <string id="CSE_Logging">Journalisation et suivi</string>
+      <string id="CSE_Logging_Help">Vous permet de configurer la journalisation et le suivi pour les composants Préférence.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Suivi ordinateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Journalisation des événements</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Suivi</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Suivi utilisateur</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planification du suivi</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Taille maximale du fichier de suivi (Ko)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

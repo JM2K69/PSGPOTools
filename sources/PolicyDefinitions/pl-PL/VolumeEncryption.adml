@@ -322,6 +322,18 @@ Uwaga: niektóre komputery mogą być niezgodne z tą zasadą, jeśli oprogramow
       </string>
       <string id="DisableExternalDMAUnderLock_Name">Wyłącz nowe urządzenia DMA, gdy ten komputer jest zablokowany</string>
 
+      <string id="DisableWinRETrust_Help">To ustawienie zasad określa, czy funkcja BitLocker ufa środowisku odzyskiwania systemu Windows (WinRE).
+
+Gdy funkcja BitLocker ufa środowisku WinRE, środowisko to może uzyskiwać dostęp do woluminu systemu operacyjnego chronionego funkcją BitLocker bez wymagania klucza odzyskiwania funkcji BitLocker. Umożliwia to operacje odzyskiwania wymagające dostępu do woluminu systemu operacyjnego.
+
+Ważne: włączenie tej zasady zmienia zachowanie podczas odzyskiwania. Jeśli włączysz to ustawienie zasad, funkcja BitLocker nie będzie ufać środowisku WinRE. Klucz odzyskiwania funkcji BitLocker jest wymagany dla każdej operacji środowiska WinRE wymagającej dostępu do woluminu systemu operacyjnego chronionego funkcją BitLocker. Operacje odzyskiwania zależne od dostępu środowiska WinRE do woluminu systemu operacyjnego mogą wymagać interwencji użytkownika lub administratora i mogą nie zostać ukończone automatycznie. Dotyczy to m.in. funkcji Naprawa podczas uruchamiania, Quick Machine Recovery, Odzyskiwanie przyciskiem oraz zainicjowanego przez usługę MDM zdalnego resetowania lub czyszczenia przy użyciu dostawcy CSP RemoteWipe.
+
+Jeśli wyłączysz to ustawienie zasad lub go nie skonfigurujesz, funkcja BitLocker będzie ufać zweryfikowanemu obrazowi środowiska WinRE, dzięki czemu będzie ono mogło uzyskiwać dostęp do woluminu systemu operacyjnego chronionego funkcją BitLocker bez klucza odzyskiwania.
+
+To ustawienie zasad jest wymuszane tylko wtedy, gdy funkcja BitLocker lub szyfrowanie urządzenia jest włączone.</string>
+
+      <string id="DisableWinRETrust_Name">Wyłącz zaufanie BitLocker do środowiska odzyskiwania systemu Windows (WinRE)</string>
+
       <string id="FVEOSCategory">Dyski z systemem operacyjnym</string>
       <string id="FVEFDVCategory">Stałe dyski danych</string>
       <string id="FVERDVCategory">Wymienne dyski danych</string>
@@ -719,7 +731,6 @@ Jeśli te zasady są włączone, a sprzęt obsługuje bezpieczny rozruch w scena
 Uwaga: jeśli ustawienie zasad grupy „Konfiguruj profil weryfikacji platformy modułu TPM dla konfiguracji natywnego oprogramowania układowego UEFI” jest włączone z pominięciem indeksu PCR 7, funkcja BitLocker nie może weryfikować integralności platformy ani danych konfiguracji rozruchu (BCD) za pomocą bezpiecznego rozruchu.
 
 Ostrzeżenie: ustawienie tych zasad może skutkować odzyskiwaniem funkcji BitLocker po zaktualizowaniu oprogramowania układowego. W przypadku wyłączenia tych zasad należy wstrzymać funkcję BitLocker przed zastosowaniem aktualizacji oprogramowania układowego.
-    
       </string>
       <string id="SUPPORTED_Windows8NoARM">Co najmniej system Windows Server 2012 lub Windows 8</string>  
       <string id="SUPPORTED_Windows_6_3ToVista">Windows Server 2012 R2, Windows 8.1, Windows Server 2012, Windows 8, Windows Server 2008, Windows 7 i Windows Vista</string>

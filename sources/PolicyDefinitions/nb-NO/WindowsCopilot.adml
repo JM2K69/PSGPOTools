@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>skriv inn visningsnavn her</displayName>
+  <description>skriv inn beskrivelse her</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Deaktiver Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot_Help">Med denne policyinnstillingen kan du deaktivere Windows Copilot.
+
+Hvis du aktiverer denne policyinnstillingen, kan ikke brukerne bruke Copilot. Copilot-ikonet vises heller ikke på oppgavelinjen.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan brukerne bruke Copilot når den er tilgjengelig for dem.
+      </string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="DisableAIDataAnalysis">Deaktiver lagring av øyeblikksbilder for bruk med Recall
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Med denne policyinnstillingen kan du bestemme om øyeblikksbilder av skjermen kan lagres for bruk med Recall. Øyeblikksbilder for Recall er ikke aktivert som standard for administrerte enheter. IT-administratorer kan ikke aktivere lagring av øyeblikksbilder på vegne av brukerne på egen hånd. Valget om å aktivere lagring av øyeblikksbilder krever samtykke for individuell brukervalg.
+
+Hvis policyen ikke er konfigurert, lagres ikke øyeblikksbilder for bruk med Recall.
+
+Hvis du aktiverer denne policyen, lagres ikke øyeblikksbilder for bruk med Recall. Hvis øyeblikksbilder tidligere ble lagret på enheten, slettes de når denne policyen er aktivert.
+
+Hvis du angir denne policyen til deaktivert, kan sluttbrukere velge å lagre øyeblikksbilder av skjermen og bruke Recall til å finne ting de har sett på enheten.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Angi maksimal lagringsplass for øyeblikksbilder som brukes av Recall
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Med denne policyinnstillingen kan du kontrollere den maksimale mengden diskplass som Windows kan bruke til å lagre øyeblikksbilder for Recall.
+
+Du kan angi maksimal diskplass for øyeblikksbilder til 10, 25, 50, 75, 100 eller 150 GB.
+
+Når denne innstillingen ikke er konfigurert, konfigurerer operativsystemet lagringstildelingen for øyeblikksbilder basert på enhetens lagringskapasitet, med mindre gjeldende bruker angir en annen verdi.
+
+25 GB tildeles når enhetens lagringskapasitet er 256 GB. 75 GB tildeles når enhetens lagringskapasitet er 512 GB. 150 GB er allokert når enhetens lagringskapasiteten er 1 TB eller høyere.
+
+Hvis både maksimal lagringsvarighet og maksimal lagringsplass er angitt for Recall, slettes øyeblikksbilder når den første maksimumsgrensen er nådd.
+
+Viktig: Denne innstillingen gjelder bare for Enterprise- og Education-klient-SKU-er.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">La operativsystemet definere den maksimale lagringsmengden basert på lagringsstørrelsen på harddisken</string>
+      <string id="SetMaximumStorageSpace_10GB">10 GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25 GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50 GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75 GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100 GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Angi maksimal varighet for lagring av øyeblikksbilder som brukes av Recall
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Med denne policyinnstillingen kan du kontrollere den maksimale mengden tid (i dager) som Windows kan bruke til å lagre øyeblikksbilder for Recall.
+
+Når policyen er aktivert, kan du konfigurere den maksimale lagringsvarigheten til 30, 60, 90 eller 180 dager.
+
+Når denne policyen ikke er konfigurert, er maksimal lagringsvarighet 90 dager med mindre gjeldende bruker angir en annen verdi.
+
+Hvis både maksimal lagringsvarighet og maksimal lagringsplass er angitt for Recall, slettes øyeblikksbilder når den første maksimumsgrensen er nådd.
+
+Viktig: Denne innstillingen gjelder bare for Enterprise- og Education-klient-SKU-er.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">La operativsystemet definere den maksimale tiden øyeblikksbildene skal lagres
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 dager</string>
+      <string id="SetMaximumStorageDuration_60Days">60 dager</string>
+      <string id="SetMaximumStorageDuration_90Days">90 dager</string>
+      <string id="SetMaximumStorageDuration_180Days">180 dager</string>
+      <string id="SetDenyAppListForRecall">Angi en liste over apper som skal filtreres fra øyeblikksbilder for Recall
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Med denne policyen kan du definere en liste over apper som ikke inkluderes i øyeblikksbilder for Recall.
+
+Brukere kan legge til flere programmer som skal utelates fra øyeblikksbilder ved hjelp av Recall innstillingene.
+
+Listen kan inneholde AUMID (Application User Model ID) eller navnet på den kjørbare filen.
+
+Bruk en semikolondelt liste over apper til å definere listen over blokkeringsapper for Recall.
+
+Eksempel: code.exe; Microsoft.WindowsNotepad_8wekyb3d8bbwe! App;ms-teams.exe
+
+Viktig! Denne innstillingen gjelder bare for enterprise- og utdanningsklient-SKU-er. Når du konfigurerer denne policyinnstillingen, trer ikke endringene i kraft før enheten startes på nytt.
+      </string>
+      <string id="SetDenyUriListForRecall">Angi en liste over URI-er som skal filtreres fra øyeblikksbilder for Recall
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Med denne policyinnstillingen kan du definere en liste over URIer som ikke inkluderes i øyeblikksbilder for Recall når en nettleser som støttes, brukes. Folk i organisasjonen kan bruke Recall innstillingene til å legge til flere nettsteder i listen. Definer listen ved hjelp av semikolon for å skille URIer.
+
+Eksempel: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+Hvis https://www.WoodgroveBank.com legges til i listen, filtreres også https://Account.WoodgroveBank.com og https://www.WoodgroveBank.com/Account.
+
+Viktig! Denne innstillingen gjelder bare for enterprise- og utdanningsklient-SKU-er. Endringer i denne policyen trer i kraft etter omstart av enheten.
+      </string>
+      <string id="SetDataLossPreventionProvider">Angi DLP-leverandør-ID for Recall
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Denne policyen tillater en administrator å angi en DLP-leverandør, som Recall vil bruke hvis leverandøren er riktig installert. Du må få strengen for dette fra leverandøren. Den vil se omtrent slik ut: 'key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll' (uten anførselstegn i verdien).
+
+Viktig: Denne innstillingen gjelder bare for Enterprise- og Education-klient-SKU-er.
+      </string>
+      <string id="SetCopilotHardwareKey">Angi Copilot-maskinvarenøkkel</string>
+      <string id="SetCopilotHardwareKey_Help">Denne policyinnstillingen bestemmer hvilken app som åpnes når brukeren trykker på Copilot-tasten på tastaturet. Hvis policyen aktiveres, åpnes den angitte appen når brukeren trykker på Copilot-tasten. Brukere kan endre tastetilordningen i Innstillinger. Hvis policyen ikke er konfigurert, åpnes Copilot hvis den er tilgjengelig i det landet eller området.
+      </string>
+      <string id="AllowRecallEnablement">Tillat at Recall aktiveres
+      </string>
+      <string id="AllowRecallEnablement_Help">Med denne policyinnstillingen kan du bestemme om den Recall valgfrie komponenten skal være tilgjengelig for sluttbrukere å aktivere på enheten. Som standard er Recall deaktivert for administrerte kommersielle enheter. Recall er ikke tilgjengelig på administrerte enheter som standard, og individuelle brukere kan ikke aktivere Recall på egen hånd.
+
+Hvis denne policyen ikke er konfigurert, får sluttbrukerne Recall komponenten i deaktivert tilstand.
+
+Hvis denne policyen deaktiveres, vil Recall komponenten være i deaktivert tilstand, og bitene for Recall fjernes fra enheten. Hvis øyeblikksbilder tidligere ble lagret på enheten, slettes de når denne policyen er deaktivert. Fjerning av Recall krever omstart av enheten.
+
+Hvis policyen aktiveres, vil sluttbrukere ha Recall tilgjengelig på enheten. Avhengig av tilstanden til policyen DisableAIDataAnalysis (Deaktiver lagring av øyeblikksbilder for bruk med Recall), kan sluttbrukere velge om de vil lagre øyeblikksbilder av skjermen og bruke Recall til å finne ting de har sett på enheten.
+      </string>
+      <string id="DisableClickToDo">Deaktiver Klikk for å handle</string>
+      <string id="DisableClickToDo_Help">Klikk for å handle lar folk utføre handlinger på innholdet på skjermene sine. Når den er aktivert, tar den et skjermbilde av skjermen og analyserer det for å presentere handlinger. Klikk for å handle avsluttes når de lukker det, og det kan ikke ta skjermbilder når det er stengt. Skjermbildeanalysen utføres alltid lokalt på enheten deres. Som standard er Klikk for å handle aktivert for brukere.
+
+Denne policyinnstillingen lar deg bestemme om Klikk for å handle er tilgjengelig for brukere på enheten deres.
+
+Når policyen er aktivert, vil ikke Klikk for å handle-komponenten og inngangspunktene være tilgjengelige for brukere.
+
+Når policyen er deaktivert, vil brukerne ha Klikk for å handle tilgjengelig på enheten.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">Deaktiver Bildeskaper</string>
+      <string id="DisableImageCreator_Help">Med denne policyinnstillingen kan du kontrollere om Bildeskaper funksjonalitet er deaktivert i Windows Paint-appen. Hvis denne policyen aktiveres, vil Bildeskaper ikke være tilgjengelig i Paint-appen. Hvis denne policyen er deaktivert eller ikke konfigurert, får brukerne tilgang til Bildeskaper funksjonalitet.</string>
+      <string id="DisableCocreator">Deaktiver Cocreator</string>
+      <string id="DisableCocreator_Help">Med denne policyinnstillingen kan du kontrollere om Cocreator-funksjonalitet er deaktivert i Windows Paint-appen. Hvis denne policyen aktiveres, vil ikke Cocreator-funksjonalitet være tilgjengelig i Paint-appen. Hvis denne policyen er deaktivert eller ikke konfigurert, kan brukerne få tilgang til cocreator-funksjonalitet.</string>
+      <string id="DisableGenerativeFill">Deaktiver generativ utfylling</string>
+      <string id="DisableGenerativeFill_Help">Med denne policyinnstillingen kan du kontrollere om generative fill-funksjonalitet er deaktivert i Windows Paint-appen. Hvis denne policyen aktiveres, vil ikke generative fill-funksjonalitet være tilgjengelig i Paint-appen. Hvis denne policyen er deaktivert eller ikke konfigurert, får brukerne tilgang til generative fyllfunksjoner.</string>
+      <string id="AllowRecallExport">Tillat eksport av informasjon om Recall og øyeblikksbilde</string>
+      <string id="AllowRecallExport_Help">Med denne policyen kan du bestemme om brukere kan eksportere sin egen Recall- og øyeblikksbildeinformasjon. Eksportering gjør det mulig for brukere å dele Recall- og øyeblikksbildeinformasjon med klarerte apper eller nettsteder. Brukere kan eksportere fra Innstillinger &gt; Personvern og sikkerhet &gt; Recall og øyeblikksbilder &gt; Avanserte innstillinger &gt; Eksporter øyeblikksbilder &gt; Eksporter tidligere øyeblikksbilder &gt; Eksporter.
+
+Brukere kan også velge å eksportere øyeblikksbildene kontinuerlig hvis de aktiverer alternativet for å eksportere øyeblikksbilder fra nå av, fra Innstillinger &gt; Personvern og sikkerhet &gt; Recall og øyeblikksbilder &gt; Avanserte innstillinger &gt; Eksporter øyeblikksbilder &gt; Eksporter.
+
+Før en eksport må brukeren autentisere seg med Windows Hello, og vedkommende blir varslet om at de eksporterte øyeblikksbildene krypteres fordi de kan inneholde sensitiv informasjon. Brukeren blir også informert om at vedkommende må oppgi Recall-eksportkoden sin hvis vedkommende ønsker å gi klarerte apper eller nettsteder tilgang til de eksporterte øyeblikksbildene. Recall-eksportkoden vises til brukere under konfigurering av Recall, selv om denne policyen er satt til deaktivert eller ikke konfigurert. For administrerte enheter:
+
+Når du angir at denne policyen skal være aktivert, kan brukerne eksportere Recall- og øyeblikksbildeinformasjon.
+
+Hvis policyen er satt til deaktivert eller ikke er konfigurert, kan ikke brukerne eksportere Recall- og øyeblikksbildeinformasjonen sin.
+
+Viktig: Denne innstillingen gjelder bare for enheter i Det europeiske økonomiske samarbeidsområdet (EØS). Eksport av Recall- og øyeblikksbildeinformasjon er en brukerinitiert prosess og gjelder per bruker. IT-administratorer eller andre brukere kan ikke starte en eksport på vegne av hverandre.
+      </string>
+      <string id="DisableSettingsAgent">Deaktiver agentisk søkeopplevelse i Innstillinger</string>
+      <string id="DisableSettingsAgent_Help">Agentisk søkeopplevelse i Innstillinger forbedrer søkeresultatene i Innstillinger-appen ved å aktivere naturlig språk. Når den er aktivert, bruker den en KI-modell for å levere intelligente søkeforslag i Innstillinger.
+
+        Med denne policyinnstillingen kan du bestemme om agentisk søkeopplevelse for Innstillinger er tilgjengelig for brukere på deres enhet.
+
+        Når policyen er aktivert vil den agentiske søkeopplevelsen for Innstillinger være deaktivert, og begrense søkeresultatene til statistisk indekserte søk og semantiske søk.
+
+        Når policyen er deaktivert vil brukerne ha den agentiske søkeopplevelsen for Innstillinger tilgjengelig på enheten sin.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Loggnivå for register på enheten</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Med denne policyinnstillingen kan du konfigurere loggingsnivået for registeroperasjoner på enheten.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Feil eller høyere</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Informasjon eller høyere</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Feilsøking eller høyere</string>
+      <string id="RemoveMicrosoftCopilotApp">Fjern Microsoft Copilot-appen</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Denne policyinnstillingen lar deg avinstallere Microsoft Copilot for brukere på en målrettet måte. Den gjelder for enheter/brukere som oppfyller følgende betingelser:
+
+• Både Microsoft 365 Copilot og Microsoft Copilot er installert
+
+• Microsoft Copilot-appen ble ikke installert av brukeren
+
+• Microsoft Copilot-appen har ikke blitt åpnet de siste 28 dagene
+ 
+Hvis denne policyen aktiveres, blir Microsoft Copilot-appen avinstallert. Brukere kan fortsatt installere den på nytt hvis de ønsker det. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>Skriv inn app-AUMID</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Angi avslå-appliste:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Angi avslå-URI-liste:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>Angi DLP-leverandør-ID:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Velg maksimal lagringsplass:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Velg maksimal lagringsvarighet:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Loggnivå for register på enheten: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

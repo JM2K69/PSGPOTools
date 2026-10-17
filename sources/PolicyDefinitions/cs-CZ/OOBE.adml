@@ -14,6 +14,19 @@
 Pokud je tato zásada povolena, nespustí se toto prostředí pro nově vytvořené uživatelské účty ani pro účty, které by byly po upgradu vyzvány k volbě nastavení ochrany osobních údajů.
 
 Pokud je tato zásada zakázána nebo není nakonfigurována, může se stát, že se u nově vytvořených uživatelských účtů nebo u účtů, u kterých se má po upgradu zobrazit výzva k volbě nastavení ochrany osobních údajů, spustí příslušné prostředí.</string>
+
+      <string id="AllowOOBEUpdates">Povolit aktualizace v počátečním nastavení počítače</string>
+      <string id="AllowOOBEUpdates_Explain">Tyto zásady umožňují nakonfigurovat, jestli bude nové zařízení během počátečního nastavení dostávat důležité aktualizace.
+
+Pokud tyto zásady zakážete nebo nenakonfigurujete, nebudou nová zařízení během počátečního nastavení počítače dostávat důležité aktualizace.
+
+Pokud tyto zásady povolíte, budou nová zařízení během počátečního nastavení počítače dostávat nejnovější schválené důležité aktualizace.
+
+Poznámky:
+Tyto zásady neřídí stránku aktualizací oprav nultého dne (ZDP) v počátečním nastavení počítače.
+
+Pokud jste pozastavili aktualizace pro zvýšení kvality prostřednictvím odložení aktualizací pro zvýšení kvality Windows a pozastavíte zásady, nebudou se během počátečního nastavení počítače doručovat žádné aktualizace pro zvýšení kvality.
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

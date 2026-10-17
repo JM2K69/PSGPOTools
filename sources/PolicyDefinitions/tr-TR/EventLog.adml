@@ -80,18 +80,35 @@ Bu ilke ayarını devre dışı bırakır ve yapılandırmazsanız Olay Günlü�
 
 Bu ilke ayarını etkinleştirirseniz günlük dosyasının en büyük boyutunu kilobayt olarak artırımlarla 1 megabayt (1024 kilobayt) ile 2 terabayt (2147483647 kilobayt) arasında bir değer olarak yapılandırabilirsiniz.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız günlük dosyasının boyut üst sınırı için yerel olarak yapılandırılmış değer ayarlanır. Bu değer, yerel yönetici tarafından Günlük Özellikleri iletişim kutusu kullanılarak değiştirilebilir ve varsayılan olarak 1 megabayttır.</string>
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız günlük dosyasının boyut üst sınırı için yerel olarak yapılandırılmış değer ayarlanır. Bu değer, yerel yönetici tarafından Günlük Özellikleri iletişim kutusu kullanılarak değiştirilebilir ve varsayılan olarak 20 megabayttır.</string>
       <string id="Channel_LogMaxSizeSecurity_Help">Bu ilke ayarı, kilobayt olarak en fazla günlük dosyası boyutunu belirtir.
 
 Bu ilke ayarını etkinleştirirseniz günlük dosyasının en büyük boyutunu kilobayt olarak artırımlarla 20 megabayt (20480 kilobayt) ile 2 terabayt (2147483647 kilobayt) arasında bir değer olarak yapılandırabilirsiniz.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız günlük dosyasının boyut üst sınırı için yerel olarak yapılandırılmış değer ayarlanır. Bu değer, yerel yönetici tarafından Günlük Özellikleri iletişim kutusu kullanılarak değiştirilebilir ve varsayılan olarak 20 megabayttır.</string>
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız günlük dosyasının boyut üst sınırı için yerel olarak yapılandırılmış değer ayarlanır. Bu değer, yerel yönetici tarafından Günlük Özellikleri iletişim kutusu kullanılarak değiştirilebilir ve varsayılan olarak 40 megabayttır.</string>
       <string id="ChannelName_Help">Günlük Yapılandırma Ayarları</string>
       <string id="EventLog_Application">Uygulama</string>
       <string id="EventLog_Security">Güvenlik</string>
       <string id="EventLog_Setup">Kur</string>
       <string id="EventLog_System">Sistem</string>
       <string id="EventLogCategory">Olay Günlüğü Hizmeti</string>
+      <string id="Service_RpcAccess_Remote">Olay Günlüğü Hizmeti'ne uzaktan erişimi sınırla</string>
+      <string id="Service_RpcAccess_Remote_Help">Bu ilke ayarı, bu makinede hangi uzak kullanıcıların Olay Günlüğü hizmetine bağlanmasına izin verileceğini denetler.
+
+Bu ilkeyi etkinleştirirseniz, uzak kullanıcıların bu makinede Olay Günlüğü Hizmetine bağlanması için hangi grubun üyesi olmasını belirleyebilirsiniz. Uzak kullanıcıların aşağıdaki yerleşik gruplardan birinin üyesi olmasını gerekli kılabilirsiniz:
+
+• Kimliği Doğrulanmış Kullanıcılar
+• Olay Günlüğü Okuyucuları
+• Yöneticiler
+
+Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız, Kimliği Doğrulanmış Kullanıcılar varsayılan değer olur.
+
+Önceki Windows sürümleri için yalnızca Kimliği Doğrulanmış Kullanıcılar destekleniyordu. Geriye dönük uyumluluğu korumak için Kimliği Doğrulanmış Kullanıcıların hizmetle yerel bağlantı kurmasına her zaman izin verilir.
+
+Bu ayar, belirli bir günlüğe erişimi denetlemez. Bir uzak bağlantıya izin verildiğinde, yine de bu bağlantının kullanmaya çalıştığı belirli kaynaklara erişmesi gerekir.</string>
+      <string id="Service_RpcAccess_Remote_AU">Kimliği Doğrulanmış Kullanıcılar</string>
+      <string id="Service_RpcAccess_Remote_ER">Olay Günlüğü Okuyucuları</string>
+      <string id="Service_RpcAccess_Remote_AD">Yöneticiler</string>
     </stringTable>
     <presentationTable>
       <presentation id="Channel_Log_FileLogAccess_1">
@@ -155,16 +172,19 @@ Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız günl
         </textBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_1">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">En Fazla Günlük Boyutu (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">En Fazla Günlük Boyutu (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_2">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">En Fazla Günlük Boyutu (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="40960">En Fazla Günlük Boyutu (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_3">
         <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">En Fazla Günlük Boyutu (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_4">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">En Fazla Günlük Boyutu (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">En Fazla Günlük Boyutu (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="Service_RpcAccess_Remote">
+        <dropdownList refId="RpcAccess_Remote_Setting" noSort="true" defaultItem="0">Aşağıdaki ayarlardan birini seçin:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

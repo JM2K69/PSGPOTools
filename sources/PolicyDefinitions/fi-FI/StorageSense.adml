@@ -63,26 +63,26 @@ Tallennusseuranta poistaa käyttäjän roskakorista oletusarvoisesti tiedostot, 
     </string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold">Määritä ladattujen tiedostojen poistamisen raja-arvo tallennusseurantaa varten</string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold_Explain">
-Kun tallennusseurantaa suoritetaan, tallennusseuranta voi poistaa käyttäjän ladattujen tiedostojen kansiosta tiedostoja, jos tiedostot ovat olleet kansiossa tietyn ajan.
+Kun tallennusseuranta on käytössä, se voi poistaa käyttäjän Ladatut tiedostot -kansiosta tiedostoja, jotka ovat olleet avaamattomina tietyn ajan.
 
 Jos Salli tallennusseuranta -käytäntö on poistettu käytöstä, tällä käytännöllä ei ole vaikutusta.
 
 Käytössä:
-Määritä tiedoston kansiossa olon vähimmäisaika (päivinä), minkä jälkeen tallennusseuranta saa poistaa tiedoston. Tuettuja arvoja ovat 0–365.
-Jos määrität arvoksi nollan, tallennusseuranta ei poista tiedostoja käyttäjän ladattujen tiedostojen kansiosta. Oletusarvona on nolla. (Ladattujen tiedostojen kansiosta ei koskaan poisteta tiedostoja.)
+Määritä, kuinka monta päivää tiedosto voi olla avaamattomana, ennen kuin tallennusseuranta poistaa sen Ladatut tiedostot -kansiosta. Tuettuja arvoja ovat 0–365.
+Jos määrität arvoksi nollan, tallennusseuranta ei poista tiedostoja käyttäjän Ladatut tiedostot -kansiosta. Oletusarvona on 0. (Ladattujen tiedostojen kansiosta ei koskaan poisteta tiedostoja.)
 
 Ei käytössä tai Ei määritetty:
-Tallennusseuranta ei oletusarvoisesti poista tiedostoja käyttäjän ladattujen tiedostojen kansiosta. Käyttäjät voivat määrittää tämän asetuksen tallennustilan asetuksissa.
+Tallennusseuranta ei oletusarvoisesti poista tiedostoja käyttäjän Ladatut tiedostot -kansiosta. Käyttäjät voivat määrittää tämän asetuksen tallennustilan asetuksissa.
     </string>
     <string id="SS_ConfigStorageSenseCloudContentDehydrationThreshold">Määritä pilveen varmuuskopioidun paikallisen sisällön poistamisen raja-arvo tallennusseurantaa varten</string>
     <string id="SS_ConfigStorageSenseCloudContentDehydrationThreshold_Explain">
-Kun tallennusseurantaa suoritetaan, tallennusseuranta voi poistaa laitteesta paikallista käyttämätöntä sisältöä, joka on varmuuskopioitu pilvipalveluun. Paikallinen sisältö poistetaan, jos se on ollut avaamattomana tietyn ajan.
+Kun tallennusseuranta on käytössä, se voi poistaa laitteesta paikallista pilvipalveluun varmuuskopioitua sisältöä, joka on ollut avaamattomana tietyn ajan.
 
 Jos Salli tallennusseuranta -käytäntö on poistettu käytöstä, tällä käytännöllä ei ole vaikutusta.
 
 Käytössä:
-Määritä, kuinka monta päivää pilvipalveluun varmuuskopioidun tiedoston on oltava avaamattomana, kunnes tallennusseuranta saa poistaa sen paikallisesti. Tuettuja arvoja ovat 0–365.
-Jos määrität arvoksi nollan, tallennusseuranta ei poista mitään paikallista pilvipalveluun varmuuskopioitua sisältöä. Oletusarvona on nolla. (Paikallista pilvipalveluun varmuuskopioitua sisältöä ei koskaan poisteta.)
+Määritä, kuinka monta päivää pilvipalveluun varmuuskopioidun tiedoston on oltava avaamattomana, ennen kuin tallennusseuranta voi poistaa sen synkronoinnin päähakemistosta. Tuettuja arvoja ovat 0–365.
+Jos määrität arvoksi nollan, tallennusseuranta ei poista mitään paikallista pilvipalveluun varmuuskopioitua sisältöä. Oletusarvona on 0. (Paikallista pilvipalveluun varmuuskopioitua sisältöä ei koskaan poisteta.)
 
 Ei käytössä tai Ei määritetty:
 Tallennusseuranta ei oletusarvoisesti poista mitään paikallista pilvipalveluun varmuuskopioitua sisältöä. Käyttäjät voivat määrittää tämän asetuksen tallennustilan asetuksissa.

@@ -58,25 +58,24 @@ Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Admin
       <string id="DriverSearchPlaces_SearchOrderConfiguration_NeverCheckWu">Windows Update'te arama</string>
 
       <string id="DriverSearchPlaces_SearchServerConfiguration">Aygıt sürücüsü güncelleştirmeleri için arama sunucusunu belirt</string>
-      <string id="DriverSearchPlaces_SearchServerConfiguration_Help">Bu ilke ayarı Windows'un aygıt sürücülerinin güncelleştirmelerini bulmak için kullandığı arama sunucusunu belirtmenize olanak tanır.
+      <string id="DriverSearchPlaces_SearchServerConfiguration_Help">Bu ilke ayarı Windows'un cihaz sürücülerinin güncelleştirmelerini bulmak için kullandığı arama sunucusunu belirtmenize olanak tanır.
 
 Bu ilke ayarını etkinleştirirseniz Windows'un Windows Update'te arama yapmasını, Yönetilen Sunucu'da arama yapmasını veya ikisinin bileşimini seçebilirsiniz.
 
-Her ikisi de belirtilirse, Windows'in ilk olarak Windows Server Update Services (WSUS) sunucusu gibi bir Yönetilen Sunucu'da arama yapacağını aklınızda bulundurun. Windows, yalnızca hiçbir güncelleştirme bulunmaması durumunda Windows Update'te de arama yapar.
+Her ikisi de belirtilirse, Windows'un ilk olarak Windows Server Update Services (WSUS) sunucusu gibi bir Yönetilen Sunucu'da arama yapacağını aklınızda bulundurun. Windows, yalnızca hiçbir güncelleştirme bulunmaması durumunda Windows Update'te de arama yapar.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Administrators grubunun üyeleri aygıt sürücülerinin aranması için hangi sunucunun kullanılacağını belirtebilir.
-      
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Administrators grubunun üyeleri cihaz sürücülerinin aranması için hangi sunucunun kullanılacağını belirtebilir.
       </string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Windows Update'te ara</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Yönetilen Sunucu'da ara</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Yönetilen Sunucu'da, sonra WU'da ara</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Aygıt meta verilerinin Internet'ten alınmasını önle</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Bu ilke ayarı, Windows'un Internet'ten aygıt meta verilerini almasını önlemenizi sağlar.
-          
-Bu ilke ayarını etkinleştirirseniz Windows yüklenmiş aygıtların meta verilerini Internet'ten almaz. Bu ilke ayarı Aygıt Yükleme Ayarları iletişim kutusundaki ayarı (Denetim Masası &gt; Sistem ve Güvenlik &gt; Sistem &gt; Gelişmiş Sistem Ayarları &gt; Donanım sekmesi) geçersiz kılar.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Windows'un Internet'ten aygıt meta verilerini çekip çekmeyeceğini Aygıt Yükleme Ayarları iletişim kutusu denetler.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Cihaz meta verileriyle ilişkili uygulamaların otomatik olarak indirilmesini önle</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Bu ilke ayarı, Windows'un cihaz meta verileriyle ilişkili uygulamaları indirmesini engellemenizi sağlar.
+
+Bu ilke ayarını etkinleştirirseniz Windows yüklü cihazlar için cihaz meta verileriyle ilişkili uygulamaları indirmez. Bu ilke ayarı, Cihaz Yükleme Ayarları iletişim kutusundaki (Denetim Masası &gt; System and Security &gt; System &gt; Advanced System Settings &gt; Hardware sekmesi) ayarını geçersiz kılar.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Aygıt Yükleme Ayarları iletişim kutusundaki ayar, Windows'un cihaz meta verileriyle ilişkili uygulamaları karşıdan yükleyerek yüklemez.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

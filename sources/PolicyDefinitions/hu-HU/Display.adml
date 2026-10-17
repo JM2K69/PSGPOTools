@@ -15,7 +15,16 @@ Ha engedélyezi a házirend-beállítást, a GDI DPI-méretezés a listában sze
 Ha letiltja, vagy nem konfigurálja a házirend-beállítást, a GDI DPI-méretezés csak azoknál az alkalmazásoknál lesz engedélyezve, amelyek engedélyezve vannak az alkalmazáskompatibilitási adatbázisban, az alkalmazáskompatibilitási felhasználói felület „Rendszer (kibővített)” beállításában vagy egy alkalmazásjegyzékben.
 
 Ha a GDI DPI-méretezés az alkalmazás kikapcsolására és bekapcsolására egyaránt konfigurálva van, akkor az alkalmazás ki lesz kapcsolva.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">A GDI DPI-méretezés lehetővé teszi, hogy a nem DPI-figyelő alkalmazások monitoronként DPI-figyelővé váljanak.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">A házirend engedélyezése lehetővé teszi az alapértelmezett viselkedés felülbírálását egy további monitor csatlakoztatásakor. Lehetővé teszi annak szabályozását, hogy a kijelző automatikusan klónozza (tükrözze) az elsődleges képernyőt, vagy bővítse ki az asztalt.
+A Kiterjesztés kibővíti a kijelzőt a második monitorra, így minden képernyőn eltérő tartalom jelenhet meg. A Klónozás duplikálja az elsődleges kijelzőt a második monitoron, és ugyanazt a tartalmat jeleníti meg mindkét képernyőn. Belső  Az Alapértelmezett a rendszer Windows-beállítások által meghatározott alapértelmezett viselkedését használja.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> Többszörös megjelenítési mód konfigurálása</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">A házirend engedélyezése lehetővé teszi az alapértelmezett viselkedés felülbírálását egy további monitor csatlakoztatásakor. Lehetővé teszi annak szabályozását, hogy a klónozott kijelző előnyben részesítse-e a belső vagy a külső monitort, azaz az annak az előnyben részesített felbontásforrását állítsa-e be.
+A Belső a fő kijelző felbontását állítja be forrásként mindkét képernyő forrásaként. A Külső a csatlakoztatott (külső) kijelző felbontását állítja be forrásként mindkét képernyő forrásaként. Az Alapértelmezett a rendszer Windows-beállítások által meghatározott alapértelmezett viselkedését használja.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> Klónozott monitor előnyben részesített felbontási forrásának beállítása</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">A GDI DPI-méretezés lehetővé teszi, hogy a nem DPI-figyelő alkalmazások monitoronként DPI-figyelővé váljanak.
 
 Ezzel a házirend-beállítással megadhatja, hogy mely örökölt alkalmazásoknál legyen kikapcsolva a GDI DPI-méretezés.
 
@@ -26,15 +35,15 @@ Ha letiltja, vagy nem konfigurálja a házirend-beállítást, a GDI DPI-mérete
 Ha a GDI DPI-méretezés az alkalmazás kikapcsolására és bekapcsolására egyaránt konfigurálva van, akkor az alkalmazás ki lesz kapcsolva.</string>
       <string id="DisplayTurnOnGdiDPIScaling">A GDI DPI-méretezés bekapcsolása az alkalmazásokhoz</string>
       <string id="DisplayTurnOffGdiDPIScaling">A GDI DPI-méretezés kikapcsolása az alkalmazásokhoz</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">A Folyamatonkénti rendszer DPI egy alkalmazáskompatibilitási szolgáltatás, amely azokra az asztali alkalmazásokra vonatkozik, amelyek nem jelennek meg megfelelően a kijelzőméretezési tényező (DPI) módosítása után. Ha az elsődleges kijelző kijelzőméretezési tényezője módosul (ami akkor fordulhat elő, ha olyan kijelzőt csatlakoztat vagy választ le, amelynek más a kijelzőméretezési tényezője (DPI), távolról csatlakoztatja a kijelzőt olyan eszközről, amelynek más a kijelzőméretezési tényezője, vagy manuálisan módosítja a kijelzőméretezési tényezőt), számos asztali alkalmazás elmosódottan jelenhet meg. Azok az asztali alkalmazások, amelyek ilyen esetben nem frissülnek és nem jelennek meg megfelelően, mindaddig elmosódottak lesznek, amíg a felhasználó ki nem jelentkezik, majd újból vissza nem jelentkezik a Windowsba. 
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">A Folyamatonkénti rendszer DPI egy alkalmazáskompatibilitási szolgáltatás, amely azokra az asztali alkalmazásokra vonatkozik, amelyek nem jelennek meg megfelelően a kijelzőméretezési tényező (DPI) módosítása után. Ha az elsődleges kijelző kijelzőméretezési tényezője módosul (ami akkor fordulhat elő, ha olyan kijelzőt csatlakoztat vagy választ le, amelynek más a kijelzőméretezési tényezője (DPI), távolról csatlakoztatja a kijelzőt olyan eszközről, amelynek más a kijelzőméretezési tényezője, vagy manuálisan módosítja a kijelzőméretezési tényezőt), számos asztali alkalmazás elmosódottan jelenhet meg. Azok az asztali alkalmazások, amelyek ilyen esetben nem frissülnek és nem jelennek meg megfelelően, mindaddig elmosódottak lesznek, amíg a felhasználó ki nem jelentkezik, majd újból vissza nem jelentkezik a Windowsba.
 
-Ha engedélyezi ezt a házirendet, néhány elmosódott alkalmazás anélkül is élessé válik újraindítás után, hogy a felhasználónak ki kellene jelentkeznie, majd újból vissza kellene jelentkeznie a Windowsba. 
+Ha engedélyezi ezt a házirendet, néhány elmosódott alkalmazás anélkül is élessé válik újraindítás után, hogy a felhasználónak ki kellene jelentkeznie, majd újból vissza kellene jelentkeznie a Windowsba.
 
 Felhívjuk a figyelmét a következőkre:
 
-A Folyamatonkénti rendszer DPI csak azon asztali alkalmazások megjelenését javítja, amelyek az elsődleges kijelzőn vannak elhelyezve. Bizonyos asztali alkalmazások továbbra is elmosódottan jelenhetnek meg a más kijelzőméretezési tényezővel rendelkező másodlagos kijelzőkön. 
+A Folyamatonkénti rendszer DPI csak azon asztali alkalmazások megjelenését javítja, amelyek az elsődleges kijelzőn vannak elhelyezve. Bizonyos asztali alkalmazások továbbra is elmosódottan jelenhetnek meg a más kijelzőméretezési tényezővel rendelkező másodlagos kijelzőkön.
 
-A Folyamatonkénti rendszer DPI nem működik minden alkalmazás esetében, néhány régebbi asztali alkalmazás mindig elmosódott lesz a nagy DPI-értékű kijelzőkön. 
+A Folyamatonkénti rendszer DPI nem működik minden alkalmazás esetében, néhány régebbi asztali alkalmazás mindig elmosódott lesz a nagy DPI-értékű kijelzőkön.
 
 Előfordulhat, hogy néhány asztali alkalmazás szokatlanul működik. Ilyen esetben le kell tiltani a Folyamatonkénti rendszer DPI szolgáltatást.
 
@@ -44,6 +53,14 @@ A beállítás engedélyezésével megadhatja az asztali alkalmazások teljes re
       <string id="DisplayPerProcessSystemDpiSettings">A Folyamatonkénti rendszer DPI beállításainak konfigurálása</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">Engedélyezés</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">Letiltás</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">Klónozás</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">Alapértelmezett</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">Kiterjesztés</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">Csak belső</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">Csak külső</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">Alapértelmezett</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">Belső</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">Külső</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">A Folyamatonkénti rendszer DPI engedélyezése az alkalmazásokhoz</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">A Folyamatonkénti rendszer DPI letiltása az alkalmazásokhoz</string>
     </stringTable>
@@ -66,6 +83,12 @@ A beállítás engedélyezésével megadhatja az asztali alkalmazások teljes re
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>A Folyamatonkénti rendszer DPI szolgáltatás letiltása a következő alkalmazásokhoz. Adja meg az alkalmazás teljes elérési útját vagy az alkalmazás fájlnevét és kiterjesztését. Pontosvesszővel válassza el az alkalmazásokat.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">Klónozás, Kiterjesztés, InternalOnly, ExternalOnly vagy Folytatás az alapértelmezett Windows-beállításokkal több megjelenítési mód konfigurációjaként.</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">Állítsa be a Windows által az új klónozott kijelzőkhöz használt alapértelmezett felbontást a Belső, Külső vagy Alapértelmezett Windows-beállítások közül.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -13,6 +13,13 @@
     Se si abilita o non si configura questa impostazione dei criteri, gli elementi "Utilizza un'immagine di sistema creata in precedenza per ripristinare il computer" e "Reinstalla Windows" (oppure "Ripristina impostazioni del produttore del computer") verranno visualizzati nella pagina "Metodi di ripristino avanzati" in Ripristino (nel Pannello di controllo), consentendo all'utente di ripristinare lo stato originale del computer o l'immagine del sistema creata dall'utente. Questa è l'impostazione predefinita.
 
     Se si disabilita questa impostazione dei criteri, gli elementi "Utilizza un'immagine di sistema creata in precedenza per ripristinare il computer" e "Reinstalla Windows" (oppure "Ripristina impostazioni del produttore del computer") in Ripristino (nel Pannello di controllo) non saranno disponibili. Quando questa impostazione dei criteri è disabilitata, gli utenti possono tuttavia ripristinare lo stato originale del computer o l'immagine del sistema creata dall'utente riavviando il computer e accedendo al menu Opzioni ripristino di sistema, se disponibile.</string>
+      <string id="AllowTrustedOfflineScan">Consenti l'analisi offline da Ambiente ripristino Windows attendibile</string>
+      <string id="AllowTrustedOfflineScan_help">    Requisiti: Windows 10
+    Descrizione: questa impostazione di criteri controlla se deve essere consentita l'analisi offline da un Ambiente ripristino Windows attendibile.
+
+    Se abiliti questa impostazione di criteri, l'analisi offline verrà eseguita senza richiedere la chiave di ripristino di BitLocker, purché l'Ambiente ripristino Windows sia considerato attendibile da BitLocker.
+
+    Se disabiliti o non configuri questa impostazione di criteri, durante l'analisi offline verrà richiesta all'utente la chiave di ripristino di BitLocker per sbloccare il volume del sistema operativo. Se l'utente ignora lo sblocco del volume del sistema operativo, l'analisi offline non verrà eseguita. Questa è l'impostazione predefinita.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

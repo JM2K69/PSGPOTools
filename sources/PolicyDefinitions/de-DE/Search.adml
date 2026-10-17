@@ -247,7 +247,7 @@ Wenn diese Richtlinie deaktiviert oder nicht konfiguriert ist, verwaltet die Win
 Wenn diese Richtlinie deaktiviert oder nicht konfiguriert ist, besteht die Standardeinstellung aus folgenden Dateitypen:  .bmp;.emf;.gif;.jpg;.jpeg;.png;.wmf;.wrn;.txt;.err;.xml;.cpp;.c;.h;.cxx;.hxx;.idl;.cs;.vb;.idl;.xsd;.doc;.docx;.xls;.xlsx;.ppt;.pptx;.vsd;.xlsb;.xltx;.dot;.rtf</string>
       <string id="PreventUnwantedAddins">Unerwünschte iFilter und Protokollhandler verhindern</string>
       <string id="PreventUnwantedAddins_Explain">Das Aktivieren dieser Richtlinie verhindert die Verwendung von iFiltern und Protokollhandlern durch die Windows-Desktopsuche, sofern sie nicht in der Zulassungsliste angegeben sind. Diese Richtlinie verhindert jedoch nicht die Installation von iFiltern oder Protokollhandlern, noch verhindert sie ihre Verwendung durch andere Anwendungen oder Dienste. 
-Außerdem kann eine Liste zugelassener Add-Ins durch Angabe der classID- oder ProgId-Zeichenfolge angegeben werden. Wenn Sie beispielsweise planen, einen bestimmten iFilter bereitzustellen, stellen Sie sicher, dass dieser iFilter sich in der Zulassungsliste befindet, entweder als GUID, wie etwa {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} (einschließlich der geschweiften Klammern) oder als ProgID, wie etwa 'VisFilter.CFilter.1'.
+Außerdem kann eine Zulassungsliste von Add-Ins durch Angabe der classID- oder ProgId-Zeichenfolge angegeben werden. Wenn Sie beispielsweise planen, einen bestimmten iFilter bereitzustellen, stellen Sie sicher, dass dieser iFilter sich in der Zulassungsliste befindet, entweder als GUID, wie etwa {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} (einschließlich der geschweiften Klammern) oder als ProgID, wie etwa 'VisFilter.CFilter.1'.
 
 Wenn Sie eine Umgebung mit gesperrten Desktops verwalten, ist diese Einstellung überflüssig, weil Benutzer ohne Administratorberechtigungen keine neuen Komponenten installieren können. Wenn Ihre Benutzer über Administratorberechtigungen verfügen oder Software installieren können, hindert sie diese Richtlinie spezifisch an der Verwendung von Add-Ins für die Windows-Desktopsuche.
 
@@ -275,6 +275,8 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, erh
 Wenn Sie diese Einstellung aktivieren oder nicht konfigurieren, wird Cortana auf dem Gerät zugelassen. Wenn Sie die Einstellung deaktivieren, wird Cortana ausgeschaltet. 
  
 Wenn Cortana ausgeschaltet ist, können Benutzer mithilfe der Suchfunktion trotzdem Informationen auf dem Gerät suchen.</string>
+      <string id="EnableDynamicContentInWSB">Suchhervorhebungen zulassen</string>
+      <string id="ExplainEnableDynamicContentInWSB">Wenn Sie diese Einstellung deaktivieren, werden die Suchhighlights im Suchfeld des Startmenüs und im Suchstartfeld deaktiviert. Wenn Sie diese Einstellung aktivieren oder nicht konfigurieren, werden die Suchhighlights im Suchfeld des Startmenüs und auf der Startseite der Suche aktiviert.</string>
       <string id="AllowCortanaAboveLock">Cortana auf Sperrbildschirm zulassen</string>
       <string id="ExplainAllowCortanaAboveLock">Die Richtlinieneinstellung bestimmt, ob der Benutzer mittels Sprache mit Cortana interagieren kann, während das System gesperrt ist.
 
@@ -294,6 +296,27 @@ Wenn diese Option aktiviert ist, können die Suche und Cortana auf Positionsdate
       <string id="AllowCortanainAADEnabled">Cortana-Seite in AAD aktivieren</string>
       <string id="AllowCloudSearchEnabled">Cloudsuche aktivieren</string>
       <string id="AllowCloudSearchControlledByUser">Vom Benutzer ausgewählt</string>
+      <string id="DisableSearch_DisplayName">Die Search-Benutzeroberfläche vollständig deaktivieren</string>
+      <string id="DisableSearch_ExplainText">Wenn Sie diese Richtlinie aktivieren, wird die Benutzeroberfläche für die Suche zusammen mit allen Einstiegspunkten deaktiviert, z. B. Tastenkombinationen, Touchpadgesten und Typ-zu-Suche in der Startmenü. Das Suchfeld und die Schaltfläche "Taskleiste suchen" des Startmenü werden ebenfalls ausgeblendet.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, kann der Benutzer die Benutzeroberfläche für die Suche öffnen, und die unterschiedlichen Einstiegspunkte werden angezeigt.</string>
+      <string id="ConfigureSearchOnTaskbarMode">Konfiguriert die Suche auf der Taskleiste</string>
+      <string id="ConfigureSearchOnTaskbarMode_Help">Mit dieser Richtlinieneinstellung können Sie die Suche auf der Taskleiste konfigurieren.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren und auf "Ausblenden" festlegen, wird die Suche standardmäßig auf der Taskleiste ausgeblendet. Benutzer können dies in den Einstellungen nicht ändern.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren und nur auf "Suchsymbol" festlegen, wird das Suchsymbol standardmäßig auf der Taskleiste angezeigt. Benutzer können dies in den Einstellungen nicht ändern.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren und auf "Suchsymbol und Bezeichnung" festlegen, werden das Suchsymbol und die Bezeichnung standardmäßig auf der Taskleiste angezeigt. Benutzer können dies in den Einstellungen nicht ändern.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren und auf "Suchfeld" festlegen, wird das Suchfeld standardmäßig auf der Taskleiste angezeigt. Benutzer können dies in den Einstellungen nicht ändern.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird die Suche auf der Taskleiste gemäß den Standardeinstellungen für Ihre Windows-Edition konfiguriert. Benutzer können die Suche auf der Taskleiste in den Einstellungen ändern.
+      </string>
+      <string id="SearchOnTaskbarModeEnum_Hidden">Ausblenden</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconOnly">Nur Suchsymbol</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconAndLabel">Suchsymbol und Bezeichnung</string>
+      <string id="SearchOnTaskbarModeEnum_SearchBox">Suchfeld</string>
     </stringTable>
     <presentationTable>
       <presentation id="RichAttachmentPreviews">
@@ -382,6 +405,9 @@ Wenn diese Option aktiviert ist, können die Suche und Cortana auf Positionsdate
       </presentation>
       <presentation id="AllowCortanaAAD">
         <dropdownList refId="AllowCortanaAAD_Dropdown" noSort="true" defaultItem="0">Einstellung "Cortana in AAD"</dropdownList>
+      </presentation>
+      <presentation id="ConfigureSearchOnTaskbarMode">
+        <dropdownList refId="ConfigureSearchOnTaskbarMode_Dropdown" noSort="true" defaultItem="0">Auf der Taskleiste suchen</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

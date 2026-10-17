@@ -19,30 +19,73 @@ Si vous activez ce paramètre de stratégie ou si vous ne le configurez pas, les
 Si vous désactivez ce paramètre de stratégie, les pilotes qui sont signés par un certificat Microsoft Windows Publisher sont installés de préférence par rapport à ceux signés par d’autres certificats Authenticode.</string>
       <string id="DeviceInstall_Category">Installation de périphériques</string>
       <string id="DeviceInstall_Classes_Allow">Permettre l’installation de périphériques à l’aide de pilotes correspondant à ces classes d’installation de périphériques</string>
-      <string id="DeviceInstall_Classes_Allow_Help">Ce paramètre de stratégie permet de spécifier une liste de GUID de classe d’installation de périphériques décrivant les pilotes de périphériques que Windows est en mesure d’installer. Utilisez ce paramètre de stratégie seulement lorsque le paramètre « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie » est activé. Les autres paramètres de stratégie qui empêchent l’installation d’un périphérique sont prioritaires sur celui-ci.
+      <string id="DeviceInstall_Classes_Allow_Help">Ce paramètre de stratégie vous permet de spécifier une liste d’ID d’instance de périphérique Plug-and-Play pour les appareils que Windows est autorisé à installer. Ce paramètre de stratégie doit être utilisé uniquement lorsque le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » est activé. Toutefois, il peut également être utilisé avec le paramètre de stratégie « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie » pour les définitions de stratégie héritées.
 
-Si vous activez ce paramètre de stratégie, Windows est en mesure d’installer ou de mettre à jour tout pilote de périphérique dont le GUID de classe d’installation de périphériques de matériel figure dans la liste créée, à condition qu’aucun autre paramètre n’interdise spécifiquement cette installation (comme le paramètre de stratégie « Empêcher l’installation de périphériques correspondant à ces ID de périphériques » ou « Empêcher l’installation de périphériques pour ces classes de périphériques »). Si vous activez ce paramètre de stratégie sur un serveur Bureau à distance, il a une incidence sur la redirection des périphériques spécifiés depuis un client Bureau à distance vers le serveur Bureau à distance.
+Lorsque ce paramètre de stratégie est activé en même temps que le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques », Windows est autorisé à installer ou à mettre à jour les packages de pilotes dont les GUID de classe de configuration de périphériques apparaissent dans la liste que vous avez créée, sauf si un autre paramètre de stratégie au même niveau ou à un niveau supérieur dans la hiérarchie empêche spécifiquement cette installation, comme les paramètres de stratégie suivants :
+– Empêcher l’installation de périphériques pour ces classes de périphériques
+– Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques
+– Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques
+Si le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » n’est pas activé avec ce paramètre de stratégie, tous les autres paramètres de stratégie empêchant spécifiquement l’installation seront prioritaires.
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, et si aucun autre paramètre de stratégie ne décrit le périphérique, le paramètre « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie » détermine si le périphérique peut être installé.</string>
+REMARQUE : le paramètre de stratégie « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie » a été remplacé par le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » pour les versions cibles de Windows 10 prises en charge. Il est recommandé d’utiliser le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » lorsque cela est possible.
+
+Sinon, si ce paramètre de stratégie est activé avec le paramètre de stratégie « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie », Windows est autorisé à installer ou à mettre à jour les packages de pilotes dont les GUID de classe de configuration de périphérique apparaissent dans la liste que vous avez créée, sauf si un autre paramètre de stratégie empêche spécifiquement cette installation (par exemple, le paramètre de stratégie « Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques », le paramètre de stratégie « Empêcher l’installation des périphériques pour ces classes de périphériques », le paramètre de stratégie « Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques » ou le paramètre de stratégie « Empêcher l’installation de périphériques amovibles »).
+
+Si vous activez ce paramètre de stratégie sur un serveur Bureau à distance, celui-ci affecte la redirection des périphériques spécifiés d’un client Bureau à distance vers le serveur Bureau à distance.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie et qu’aucun autre paramètre de stratégie ne décrit le périphérique, le paramètre de stratégie « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie » détermine si le périphérique peut être installé.</string>
       <string id="DeviceInstall_Classes_Deny">Empêcher l’installation de périphériques à l’aide de pilotes correspondant à ces classes d’installation de périphériques</string>
-      <string id="DeviceInstall_Classes_Deny_Help">Ce paramètre de stratégie permet de spécifier une liste de GUID de classe d’installation de périphériques décrivant les pilotes de périphériques que Windows n’est pas en mesure d’installer. Ce paramètre de stratégie prévaut sur tout autre paramètre de stratégie autorisant l’installation de périphériques par Windows.
- 
-Si vous activez ce paramètre, Windows ne peut pas installer ou mettre à jour les pilotes de périphériques dont les GUID de classe d’installation de périphériques figurent dans la liste que vous créez. Si vous activez ce paramètre de stratégie sur un serveur Bureau à distance, il a une incidence sur la redirection des périphériques spécifiés depuis un client Bureau à distance vers le serveur Bureau à distance.
+      <string id="DeviceInstall_Classes_Deny_Help">Ce paramètre de stratégie vous permet de spécifier une liste d’identificateurs globaux uniques (GUID) de classe d’installation de périphérique pour les packages de pilotes que Windows ne peut pas installer. Par défaut, ce paramètre de stratégie prévaut sur tous les autres paramètres de stratégie qui permettent à Windows d’installer un périphérique.
 
-Si vous désactivez ce paramètre ou ne le configurez pas, Windows peut installer ou mettre à jour les périphériques existants conformément aux autorisations ou interdictions prévues par d’autres paramètres de stratégie.</string>
+REMARQUE : Pour activer les paramètres de stratégie « Autoriser l’installation de périphériques correspondant à l’un de ces ID de périphériques » et « Autoriser l’installation de périphériques correspondant à l’un de ces ID d’instance de périphériques » afin de remplacer ce paramètre de stratégie pour les appareils applicables, activez le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques ».
+ 
+Si vous activez ce paramètre de stratégie, Windows ne peut pas installer ou mettre à jour les packages de pilotes dont les GUID de classe de configuration de périphérique apparaissent dans la liste que vous avez créée. Si vous activez ce paramètre de stratégie sur un serveur Bureau à distance, celui-ci affecte la redirection des périphériques spécifiés d’un client Bureau à distance vers le serveur Bureau à distance.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, Windows peut installer et mettre à jour les périphériques désignés comme autorisés ou bloqués par d’autres paramètres de stratégie.</string>
       <string id="DeviceInstall_Help">Paramètres de stratégie qui contrôlent l’installation de périphériques.</string>
       <string id="DeviceInstall_IDs_Allow">Autoriser l’installation de périphériques correspondant à l’un de ces ID de périphériques</string>
-      <string id="DeviceInstall_IDs_Allow_Help">Ce paramètre de stratégie permet de spécifier une liste d’ID de matériel Plug-and-Play et d’ID compatibles de périphériques que Windows peut installer. Utilisez ce paramètre de stratégie seulement lorsque le paramètre « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie » est activé. Les autres paramètres de stratégie qui empêchent l’installation d’un périphérique sont prioritaires sur celui-ci.
+      <string id="DeviceInstall_IDs_Allow_Help">Ce paramètre de stratégie vous permet de spécifier une liste d’ID de matériel Plug-and-Play et d’ID compatibles pour les appareils que Windows est autorisé à installer. Ce paramètre de stratégie doit être utilisé uniquement lorsque le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » est activé. Toutefois, il peut également être utilisé avec le paramètre de stratégie « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie » pour les définitions de stratégie héritées.
 
-Si vous activez ce paramètre de stratégie, Windows est en mesure d’installer ou de mettre à jour tout pilote de périphérique dont l’ID de matériel Plug-and-Play ou l’ID compatible figure dans la liste créée, à condition qu’aucun autre paramètre n’interdise spécifiquement cette installation (comme le paramètre de stratégie « Empêcher l’installation de périphériques correspondant à ces ID de périphériques », « Empêcher l’installation de périphériques pour ces classes de périphériques » ou «Empêcher l’installation de périphériques amovibles »). Si vous activez ce paramètre de stratégie sur un serveur Bureau à distance, il a une incidence sur la redirection des périphériques spécifiés depuis un client Bureau à distance vers le serveur Bureau à distance.
+Lorsque ce paramètre de stratégie est activé en même temps que le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques », Windows est autorisé à installer ou à mettre à jour les appareils dont l’ID de matériel Plug-and-Play et l’ID compatibles apparaît dans la liste que vous avez créée, sauf si un autre paramètre de stratégie au même niveau ou à un niveau supérieur dans la hiérarchie empêche spécifiquement cette installation, comme les paramètres de stratégie suivants :
+– Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques
+– Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques
+Si le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » n’est pas activé avec ce paramètre de stratégie, tous les autres paramètres de stratégie empêchant spécifiquement l’installation seront prioritaires.
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, et si aucun autre paramètre de stratégie ne décrit le périphérique, le paramètre « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie » détermine si le périphérique peut être installé.</string>
+REMARQUE : le paramètre de stratégie « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie » a été remplacé par le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » pour les versions cibles de Windows 10 prises en charge. Il est recommandé d’utiliser le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » lorsque cela est possible.
+
+Sinon, si ce paramètre de stratégie est activé avec le paramètre de stratégie « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie », Windows est autorisé à installer ou à mettre à jour les appareils dont l’ID de matériel Plug-and-Play ou l’ID compatibles apparaît dans la liste que vous avez créée, sauf si un autre paramètre de stratégie empêche spécifiquement cette installation (par exemple, le paramètre de stratégie « Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques », le paramètre de stratégie « Empêcher l’installation des périphériques pour ces classes de périphériques », le paramètre de stratégie « Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques » ou le paramètre de stratégie « Empêcher l’installation de périphériques amovibles »).
+
+Si vous activez ce paramètre de stratégie sur un serveur Bureau à distance, celui-ci affecte la redirection des périphériques spécifiés d’un client Bureau à distance vers le serveur Bureau à distance.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie et qu’aucun autre paramètre de stratégie ne décrit le périphérique, le paramètre de stratégie « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie » détermine si le périphérique peut être installé.</string>
       <string id="DeviceInstall_IDs_Deny">Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques</string>
-      <string id="DeviceInstall_IDs_Deny_Help">Ce paramètre de stratégie permet de spécifier une liste d’ID de matériel Plug-and-Play et d’ID compatibles de périphériques que Windows ne peut pas installer. Ce paramètre de stratégie prévaut sur tout autre paramètre de stratégie autorisant l’installation de périphériques par Windows.
+      <string id="DeviceInstall_IDs_Deny_Help">Ce paramètre de stratégie vous permet de spécifier une liste d’ID de matériel Plug-and-Play et d’ID compatibles pour les appareils que Windows ne peut pas installer. Par défaut, ce paramètre de stratégie prévaut sur tous les autres paramètres de stratégie qui permettent à Windows d’installer un périphérique.
 
-Si vous activez ce paramètre de stratégie, Windows n’est pas autorisé à installer un périphérique dont l’ID de matériel ou l’ID compatible figure dans la liste que vous créez. Si vous activez ce paramètre de stratégie sur un serveur Bureau à distance, il a une incidence sur la redirection des périphériques spécifiés depuis un client Bureau à distance vers le serveur Bureau à distance.
+REMARQUE : Pour activer le paramètre de stratégie « Autoriser l’installation de périphériques correspondant à l’un de ces ID de périphériques » afin de remplacer ce paramètre de stratégie pour les appareils applicables, activez le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques ».
 
-Si vous désactivez ce paramètre ou ne le configurez pas, les périphériques peuvent être installés ou mis à jour conformément aux autorisations ou interdictions d’autres paramètres de stratégie.</string>
+Si vous activez ce paramètre de stratégie, Windows ne peut pas installer un périphérique dont l’ID matériel ou l’ID compatible apparaît dans la liste que vous avez créée. Si vous activez ce paramètre de stratégie sur un serveur Bureau à distance, celui-ci affecte la redirection des périphériques spécifiés d’un client Bureau à distance vers le serveur Bureau à distance.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les périphériques peuvent être installés et mis à jour comme étant autorisés ou bloqués par d’autres paramètres de stratégie.</string>
+      <string id="DeviceInstall_Instance_IDs_Allow">Autoriser l’installation de périphériques correspondant à l’un de ces ID d’instance de périphérique</string>
+      <string id="DeviceInstall_Instance_IDs_Allow_Help">Ce paramètre de stratégie vous permet de spécifier une liste d’ID d’instance de périphérique Plug-and-Play pour les appareils que Windows est autorisé à installer. Ce paramètre de stratégie doit être utilisé uniquement lorsque le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » est activé. Toutefois, il peut également être utilisé avec le paramètre de stratégie « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie » pour les définitions de stratégie héritées.
+
+Lorsque ce paramètre de stratégie est activé en même temps que le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques », Windows est autorisé à installer ou à mettre à jour les appareils dont l’ID d’instance de périphérique Plug-and-Play apparaît dans la liste que vous avez créée, sauf si un autre paramètre de stratégie au même niveau ou à un niveau supérieur dans la hiérarchie empêche spécifiquement cette installation, comme les paramètres de stratégie suivants :
+– Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques
+Si le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » n’est pas activé avec ce paramètre de stratégie, tous les autres paramètres de stratégie empêchant spécifiquement l’installation seront prioritaires.
+
+REMARQUE : le paramètre de stratégie « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie » a été remplacé par le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » pour les versions cibles de Windows 10 prises en charge. Il est recommandé d’utiliser le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » lorsque cela est possible.
+
+Sinon, si ce paramètre de stratégie est activé avec le paramètre de stratégie « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie », Windows est autorisé à installer ou à mettre à jour les appareils dont l’ID d’instance de périphérique Plug-and-Play apparaît dans la liste que vous avez créée, sauf si un autre paramètre de stratégie empêche spécifiquement cette installation (par exemple, le paramètre de stratégie « Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques », le paramètre de stratégie « Empêcher l’installation des périphériques pour ces classes de périphériques », le paramètre de stratégie « Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques » ou le paramètre de stratégie « Empêcher l’installation de périphériques amovibles »).
+
+
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie et qu’aucun autre paramètre de stratégie ne décrit le périphérique, le paramètre de stratégie « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie » détermine si le périphérique peut être installé.</string>
+      <string id="DeviceInstall_Instance_IDs_Deny">Empêcher l’installation de périphériques correspondant à l’un de ces ID d’instance de périphérique</string>
+      <string id="DeviceInstall_Instance_IDs_Deny_Help">Ce paramètre de stratégie vous permet de spécifier une liste d’ID d’instances de périphérique Plug-and-Play pour les périphériques que Windows ne peut pas installer. Ce paramètre de stratégie prévaut sur tout autre paramètre de stratégie autorisant l’installation d’un périphérique par Windows.
+
+Si vous activez ce paramètre de stratégie, Windows ne peut pas installer un périphérique dont l’ID d’instance de périphérique apparaît dans la liste que vous créez. Si vous activez ce paramètre de stratégie sur un serveur Bureau à distance, ce paramètre de stratégie a une incidence sur la redirection des périphériques spécifiés depuis un client Bureau à distance vers le serveur Bureau à distance.
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, les périphériques peuvent être installés et mis à jour conformément aux autorisations ou interdictions prévues par d’autres paramètres de stratégie.</string>
       <string id="DeviceInstall_InstallTimeout">Configurer le délai d’attente d’installation de périphérique</string>
       <string id="DeviceInstall_InstallTimeout_Help">Ce paramètre de stratégie permet de configurer le nombre de secondes pendant lesquelles Windows attend la fin d’une tâche d’installation d'appareil. 
 
@@ -50,11 +93,13 @@ Si vous activez ce paramètre de stratégie, Windows attend pendant le nombre de
 
 Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, Windows attend pendant 240 secondes la fin de la tâche d'installation avant d'y mettre fin.</string>
       <string id="DeviceInstall_Removable_Deny">Empêcher l’installation de périphériques amovibles</string>
-      <string id="DeviceInstall_Removable_Deny_Help">Ce paramètre de stratégie empêche Windows d’installer des périphériques amovibles. Un périphérique est considéré comme étant amovible lorsque le pilote du périphérique auquel il est connecté indique que le périphérique est amovible. Par exemple, un périphérique USB (Universal Serial Bus) est déclaré amovible par les pilotes du concentrateur USB auquel le périphérique est connecté. Ce paramètre de stratégie prévaut sur tout autre paramètre de stratégie autorisant l’installation de périphériques par Windows.
+      <string id="DeviceInstall_Removable_Deny_Help">Ce paramètre de stratégie vous permet d’empêcher Windows d’installer des périphériques amovibles. Un périphérique est considéré comme amovible lorsque le pilote du périphérique auquel il est connecté indique que le périphérique est amovible. Par exemple, un périphérique USB est signalé comme étant amovible par les pilotes du concentrateur USB auquel le périphérique est connecté. Par défaut, ce paramètre de stratégie prévaut sur tous les autres paramètres de stratégie qui permettent à Windows d’installer un périphérique.
 
-Si vous activez ce paramètre de stratégie, Windows ne peut pas installer de périphériques amovibles et les pilotes des périphériques amovibles existants ne peuvent pas être mis à jour. Si vous activez ce paramètre de stratégie sur un serveur Bureau à distance, il a une incidence sur la redirection des périphériques amovibles spécifiés depuis un client Bureau à distance vers le serveur Bureau à distance.
+REMARQUE : Pour activer les paramètres de stratégie « Autoriser l’installation de périphériques à l’aide de pilotes correspondant à ces classes d’installation de périphériques », « Autoriser l’installation de périphériques correspondant à l’un de ces ID de périphériques » et « Autoriser l’installation de périphériques correspondant à l’un de ces ID d’instance de périphériques » afin de remplacer ce paramètre de stratégie pour les appareils applicables, activez le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques ».
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, Windows peut installer ou mettre à jour les pilotes des périphériques amovibles conformément aux autorisations ou interdictions prévues par d’autres paramètres de stratégie.</string>
+Si vous activez ce paramètre de stratégie, Windows ne peut pas installer de périphériques amovibles et les pilotes des périphériques amovibles existants ne peuvent pas être mis à jour. Si vous activez ce paramètre de stratégie sur un serveur Bureau à distance, celui-ci affecte la redirection des périphériques spécifiés d’un client Bureau à distance vers le serveur Bureau à distance.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, Windows peut installer et mettre à jour les packages de pilotes pour les périphériques amovibles désignés comme autorisés ou bloqués par d’autres paramètres de stratégie.</string>
       <string id="DeviceInstall_Restrictions_Category">Restrictions d’installation de périphériques</string>
       <string id="DeviceInstall_Restrictions_Help">Paramètres de stratégie qui décrivent quels périphériques peuvent ou ne peuvent pas être installés.</string>
       <string id="DeviceInstall_SystemRestore">Empêcher la création de point de restauration système lors d’une activité d’un périphérique demandant habituellement la création d’un point de restauration</string>
@@ -63,18 +108,44 @@ Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, Windows
 Si vous activez ce paramètre de stratégie, Windows ne crée pas de point de restauration système lors des activités généralement associées à la création de points de restauration.
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, Windows crée un point de restauration système comme d’habitude.</string>
-	  <string id="DeviceManagement_RPCInterface_Allow">Autoriser l’accès distant à l’interface Plug-and-Play</string>
+      <string id="DeviceManagement_RPCInterface_Allow">Autoriser l’accès distant à l’interface Plug-and-Play</string>
       <string id="DeviceManagement_RPCInterface_Allow_Help">Ce paramètre de stratégie permet d’autoriser ou d’interdire l’accès distant à l’interface Plug-and-Play. 
 	  
 Si vous activez ce paramètre de stratégie, les connexions à distance à l’interface Plug-and-Play sont autorisées.
 	  
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, les connexions à distance à l’interface Plug-and-Play sont interdites.</string>
       <string id="DeviceInstall_Unspecified_Deny">Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie</string>
-      <string id="DeviceInstall_Unspecified_Deny_Help">Ce paramètre de stratégie permet d’empêcher l’installation de périphériques qui ne sont pas spécifiquement décrits par un autre paramètre de stratégie.
+      <string id="DeviceInstall_Unspecified_Deny_Help">Ce paramètre de stratégie vous permet d’empêcher l’installation de périphériques qui ne sont spécifiquement décrits par aucun autre paramètre de stratégie.
 
-Si vous activez ce paramètre de stratégie, Windows ne peut installer ou mettre à jour le pilote de périphérique d’un périphérique qui n’est pas décrit par le paramètre de stratégie « Autoriser l’installation de périphériques correspondant à ces ID de périphériques » ou « Autoriser l’installation de périphériques pour ces classes de périphériques ».
+REMARQUE : ce paramètre de stratégie a été remplacé par le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » afin de fournir un contrôle plus précis. Il est recommandé d’utiliser le paramètre de stratégie « Appliquer un ordre d’évaluation par couches pour les stratégies Autoriser et Empêcher l’installation de périphériques sur tous les critères de correspondance des périphériques » plutôt que ce paramètre de stratégie.
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, Windows est autorisé à installer ou à mettre à jour le pilote dont le périphérique n’est pas décrit par le paramètre de stratégie « Empêcher l’installation de périphériques correspondant à ces ID de périphériques », « Empêcher l’installation de périphériques pour ces classes de périphériques » ou « Refuser l’installation de périphériques amovibles ».</string>
+Si vous activez ce paramètre de stratégie, Windows ne peut pas installer ou mettre à jour le package de pilotes pour tout périphérique qui n’est pas décrit par les paramètres de stratégie « Autoriser l’installation de périphériques correspondant à l’un de ces ID de périphériques », « Autoriser l’installation de périphériques pour ces classes de périphériques », ou « Autoriser l’installation de périphériques correspondant à l’un de ces ID de périphériques ». 
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, Windows est autorisé à installer ou à mettre à jour le package de pilotes pour tout périphérique non décrit par les paramètres de stratégies « Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques », « Empêcher l’installation de périphériques pour ces classes de périphériques », « Empêcher l’installation de périphériques correspondant à l’un de ces ID de périphériques » ou « Empêcher l’installation de périphériques amovibles ».</string>
+      <string id="DeviceInstall_Allow_Deny_Layered">Appliquer un ordre superposé de niveaux d’évaluation pour autoriser et empêcher les stratégies d’installation d’appareils sur tous les critères de correspondance des appareils</string>
+      <string id="DeviceInstall_Allow_Deny_Layered_Help">Ce paramètre de stratégie modifie l’ordre d’évaluation dans lequel les paramètres de stratégie d’autorisation et d’interdiction sont appliqués lorsque plusieurs paramètres de stratégie d’installation sont applicables à un appareil. Activez ce paramètre de stratégie pour vérifier que les critères de correspondance des appareils qui se chevauchent sont appliqués en fonction d’une hiérarchie établie où les critères de correspondance plus spécifiques remplacent des critères de correspondance moins spécifiques. L’ordre hiérarchique d’évaluation pour les paramètres de stratégie qui spécifient des critères de correspondance de périphérique est le suivant :
+
+ID d’instance de périphérique &gt; ID de périphérique &gt; classe d’installation de périphérique &gt; des périphériques amovibles
+
+ID d’instance de périphérique
+1. empêcher l’installation de périphériques à l’aide de pilotes correspondant à ces ID d’instance de périphérique
+2. autoriser l’installation de périphériques à l’aide de pilotes correspondant à ces ID d’instance de périphérique
+
+ID de l’appareil
+3. empêcher l’installation de périphériques à l’aide de pilotes qui correspondent à ces ID de périphériques
+4. autoriser l’installation de périphériques à l’aide de pilotes qui correspondent à ces ID de périphériques
+
+Classe d’installation de périphérique
+5. empêcher l’installation de périphériques à l’aide de pilotes correspondant à ces classes d’installation de périphériques
+6. autoriser l’installation de périphériques à l’aide de pilotes correspondant à ces classes d’installation de périphériques
+
+Périphériques amovibles
+7. empêcher l’installation de périphériques amovibles
+
+
+Remarque : ce paramètre de stratégie fournit un contrôle plus granulaire que le paramètre de stratégie « Empêcher l’installation de périphériques non décrits par d’autres paramètres de stratégie ». Si ces paramètres de stratégie conflictuels sont activés en même temps, le paramètre de stratégie « Appliquer un ordre de tri superposé pour autoriser et empêcher les stratégies d’installation de périphériques sur tous les critères de correspondance des appareils » sera activé et l’autre paramètre de stratégie sera ignoré.
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, l’évaluation par défaut est utilisée. Par défaut, tous les paramètres de stratégie « Empêcher l’installation... » ont priorité sur tout autre paramètre de stratégie qui permet à Windows d’installer un périphérique.</string>
       <string id="DeviceInstall_DeniedPolicy_SimpleText">Afficher un message personnalisé lorsque l’installation d’un périphérique est empêchée par un paramètre de stratégie</string>
       <string id="DeviceInstall_DeniedPolicy_SimpleText_Help">Ce paramètre de stratégie permet d’afficher un message personnalisé dans le titre d’une notification lorsqu’un paramètre de stratégie empêche l’installation d’un périphérique.
 
@@ -89,17 +160,17 @@ Si vous activez ce paramètre de stratégie, Windows affiche le texte que vous a
 Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, Windows affiche un message par défaut lorsqu’un paramètre de stratégie empêche l’installation d’un périphérique.</string>
       <string id="DriverInstall_Category">Installation de pilotes</string>
       <string id="DriverInstall_Classes_AllowUser">Autoriser les non-administrateurs à installer des pilotes pour ces classes d’installation de périphériques</string>
-      <string id="DriverInstall_Classes_AllowUser_Help">Ce paramètre de stratégie spécifie la liste des GUID de classes d’installation de périphériques que les membres non-administrateurs du groupe Utilisateurs intégré peuvent installer sur le système.
+      <string id="DriverInstall_Classes_AllowUser_Help">Ce paramètre de stratégie spécifie une liste de GUID de classe d’installation de périphérique décrivant les packages de pilotes que les membres non administrateurs du groupe Utilisateurs intégré peuvent installer sur le système.
 
-Si vous activez ce paramètre de stratégie, les membres du groupe Utilisateurs peuvent installer de nouveaux pilotes pour les classes d’installation de périphériques spécifiées. Les pilotes doivent être signés conformément à la stratégie de signature de pilote Windows, ou être signés par les éditeurs figurant déjà dans le magasin d’éditeurs approuvés.
+Si vous activez ce paramètre de stratégie, les membres du groupe Utilisateurs peuvent installer de nouveaux pilotes pour les classes de configuration de périphérique spécifiées. Les pilotes doivent être signés conformément à la Politique de signature des pilotes Windows ou être signés par des éditeurs déjà présent dans le store TrustedPublisher.
 
-Si vous désactivez ce paramètre ou ne le configurez pas, seuls les membres du groupe Administrateurs sont autorisés à installer de nouveaux pilotes de périphériques sur le système.</string>
-      <string id="DriverInstall_Help">Paramètres de stratégie contrôlant l’installation de pilotes de périphériques sur le système.</string>
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, seuls les membres du groupe Administrateurs sont autorisés à installer de nouveaux packages de pilotes sur le système.</string>
+      <string id="DriverInstall_Help">Paramètres de stratégie contrôlant l’installation des packages de pilotes sur le système.</string>
       <string id="DriverSign_Block">Bloquer</string>
       <string id="DriverSign_None">Ignorer</string>
       <string id="DriverSign_Warn">Avertir</string>
-      <string id="DriverSigning">Signature du code des pilotes de périphériques</string>
-      <string id="DriverSigning_Help">Détermine la façon dont le système répond lorsqu’un utilisateur essaie d’installer des fichiers pilote de périphérique qui n’ont pas été signés numériquement.
+      <string id="DriverSigning">Signature de code pour les packages de pilotes</string>
+      <string id="DriverSigning_Help">Détermine la façon dont le système répond lorsqu’un utilisateur essaie d’installer des fichiers de package de pilotes qui n’ont pas été signés numériquement.
 
 Ce paramètre établit la réponse la moins sécurisée permise sur les systèmes des utilisateurs du groupe. Les utilisateurs peuvent utiliser l’application Système dans le Panneau de configuration pour sélectionner un paramètre plus sécurisé, mais lorsque ce paramètre est activé, le système n’implémente aucun paramétrage moins sécurisé que celui établi par le paramètre.
 
@@ -148,6 +219,19 @@ Remarque : si aucun redémarrage forcé n’est prévu, la stratégie de restri
         <text>(par exemple, gendisk, USB\COMPOSITE, USB\Class_ff).</text>
         <checkBox refId="DeviceInstall_IDs_Deny_Retroactive">Appliquer également aux périphériques correspondants déjà installés.</checkBox>
       </presentation>
+      <presentation id="DeviceInstall_Instance_IDs_Allow">
+        <listBox refId="DeviceInstall_Instance_IDs_Allow_List">Autoriser l’installation de périphériques correspondant à l’un de ces ID d’instance de périphérique :</listBox>
+        <text>Pour créer une liste d'appareils, cliquez sur Afficher. Dans la boîte de dialogue Afficher le contenu, dans la colonne Valeur,</text>
+        <text>taper un ID d’instance d'appareil Plug-and-Play</text>
+        <text>(par exemple, USB\VID_045E&amp;&amp;PID_0123\01234567890123456789).</text>
+      </presentation>
+      <presentation id="DeviceInstall_Instance_IDs_Deny">
+        <listBox refId="DeviceInstall_Instance_IDs_Deny_List">Empêcher l’installation de périphériques correspondant à l’un de ces ID d’instance de périphérique :</listBox>
+        <text>Pour créer une liste d'appareils, cliquez sur Afficher. Dans la boîte de dialogue Afficher le contenu, dans la colonne Valeur,</text>
+        <text>taper un ID d’instance d'appareil Plug-and-Play</text>
+        <text>(par exemple, USB\VID_045E&amp;&amp;PID_0123\01234567890123456789).</text>
+        <checkBox refId="DeviceInstall_Instance_IDs_Deny_Retroactive">Appliquer également aux périphériques correspondants déjà installés.</checkBox>
+      </presentation>
       <presentation id="DeviceInstall_InstallTimeout">
         <decimalTextBox refId="DeviceInstall_InstallTimeout_Time" defaultValue="300" spinStep="15">Délai d’attente d’installation de périphérique (en secondes)</decimalTextBox>
       </presentation>
@@ -167,7 +251,7 @@ Remarque : si aucun redémarrage forcé n’est prévu, la stratégie de restri
         </textBox>
       </presentation>
       <presentation id="DriverInstall_Classes_AllowUser">
-        <listBox refId="DriverInstall_Classes_AllowUser_List">Autoriser les utilisateurs à installer des pilotes de périphériques pour ces classes :</listBox>
+        <listBox refId="DriverInstall_Classes_AllowUser_List">Autoriser les utilisateurs à installer des packages de pilotes pour ces classes :</listBox>
         <text>Pour créer une liste de classes de périphériques, cliquez sur Afficher. Dans la boîte de dialogue Afficher le contenu, dans la colonne Valeur,</text>
         <text>entrez un GUID représentant une classe d’installation de périphériques</text>
         <text>(par exemple, {25DBCE51-6C8F-4A72-8A6D-B54C2B4FC835}).</text>

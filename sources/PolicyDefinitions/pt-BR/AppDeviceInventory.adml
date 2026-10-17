@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) Microsoft Corporation. All rights reserved.
+-->
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>digite o nome para exibição aqui</displayName>
+  <description>digite a descrição aqui</description>
+  <resources>
+    <stringTable>
+      <string id="AppDeviceInventory">Inventário de Aplicativos e Dispositivos</string>
+      <string id="AppDeviceInventoryTurnOffInstallTracing">Desativar o Rastreamento de Instalação</string>
+      <string id="AppDeviceInventoryTurnOffInstallTracing_Help">Essa política controla o estado do Rastreamento de Instalação. O Rastreamento de Instalação é um mecanismo que rastreia as instalações de aplicativos para ajudar a diagnosticar problemas de compatibilidade.
+
+Se você habilitar essa política, o Rastreamento de Instalação não será executado.
+
+Se você desabilitar ou não configurar essa política, o Rastreamento de Instalação será ativado.
+      </string>
+      <string id="AppDeviceInventoryTurnOffAPISampling">Desativar a Amostragem de API</string>
+      <string id="AppDeviceInventoryTurnOffAPISampling_Help">Essa política controla o estado da Amostragem de API. A Amostragem de API monitora a coleção amostrada de interfaces de programação de aplicativos usadas durante o runtime do sistema para ajudar a diagnosticar problemas de compatibilidade.
+
+Se você habilitar essa política, a Amostragem de API não será executada.
+
+Se você desabilitar ou não configurar essa política, a Amostragem de API será ativada.
+      </string>
+      <string id="AppDeviceInventoryTurnOffApplicationFootprint">Desativar o volume de memória do aplicativo</string>
+      <string id="AppDeviceInventoryTurnOffApplicationFootprint_Help">Essa política controla o estado do Volume de Memória do Aplicativo. O Volume de Memória do Aplicativo monitora a coleção de amostras do uso do registro e do arquivo para ajudar a diagnosticar problemas de compatibilidade.
+
+Se você habilitar essa política, o Volume de Memória do Aplicativo não será executado.
+
+Se você desabilitar ou não configurar essa política, o Volume de Memória do Aplicativo será ativado.
+      </string>
+      <string id="AppDeviceInventoryTurnOffWin32AppBackup">Desativar a verificação de compatibilidade para aplicativos de backup</string>
+      <string id="AppDeviceInventoryTurnOffWin32AppBackup_Help">Essa política controla o estado da verificação de compatibilidade para aplicativos de backup. A verificação de compatibilidade para aplicativos de backup avalia problemas de compatibilidade em aplicativos instalados. 
+
+Se você habilitar essa política, a verificação de compatibilidade para aplicativos de backup não será executada. 
+
+Se você desabilitar ou não configurar essa política, a verificação de compatibilidade para aplicativos de backup será executada.
+      </string>
+      <string id="AppDeviceInventoryTurnOffApplicationInboxDependencyData">Desligar componente de dependência da caixa de entrada do aplicativo</string>
+      <string id="AppDeviceInventoryTurnOffApplicationInboxDependencyData_Help">Esta política controla o estado do componente de dependência da caixa de entrada do aplicativo. O componente de dependência da caixa de entrada do aplicativo rastreia dependências de aplicativos para problemas de compatibilidade.
+
+Se você habilitar esta política, o componente de dependência da caixa de entrada do aplicativo não será executado.
+
+Se você desabilitar ou não configurar esta política, o componente de dependência da caixa de entrada do aplicativo poderá ser executado.
+      </string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

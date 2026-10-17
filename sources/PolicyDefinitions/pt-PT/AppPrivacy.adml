@@ -99,6 +99,67 @@ Se desativar esta definição de política ou não a configurar, os funcionário
 
 Caso uma aplicação esteja aberta quando este objeto de Política de Grupo for aplicado a um dispositivo, os funcionários têm de reiniciar a aplicação ou o dispositivo para que as alterações de política sejam aplicadas à aplicação.
       </string>
+      <string id="LetAppsAccessSystemAIModels_Name">Permitir que as aplicações do Windows utilizem as funcionalidades de geração de texto e imagem do Windows</string>
+      <string id="LetAppsAccessSystemAIModels_Explain">
+Esta definição de política especifica se as aplicações do Windows podem utilizar as funcionalidades de Geração de texto e imagens do Windows.
+
+Pode especificar uma predefinição para todas as aplicações ou uma definição por aplicação ao especificar um Nome da Família de Pacotes. Pode obter o Nome da Família de Pacotes para uma aplicação através do cmdlet Get-AppPackage do Windows PowerShell. Uma definição por aplicação substitui a predefinição.
+
+Se escolher a opção “O controlo está a cargo do utilizador”, os colaboradores na sua organização podem decidir se as aplicações do Windows podem utilizar a Geração de texto e imagens ao utilizar Definições &gt; Privacidade no dispositivo.
+
+Se escolher a opção “Forçar Permissão”, as aplicações do Windows podem utilizar as funcionalidades de Geração de texto e imagens do Windows, e os colaboradores na sua organização não podem alterá-la.
+
+Se escolher a opção “Forçar Negação”, as aplicações do Windows não podem utilizar as funcionalidades de Geração de texto e imagens do Windows, e os colaboradores na sua organização não podem alterá-la.
+
+Se desativar ou não configurar esta definição de política, os colaboradores na sua organização podem decidir se as aplicações do Windows podem utilizar as funcionalidades de geração de texto e imagens do Windows ao utilizar Definições &gt; Privacidade no dispositivo.
+
+Se uma aplicação estiver aberta quando este objeto de Política de Grupo for aplicado num dispositivo, os colaboradores têm de reiniciar a aplicação ou o dispositivo para que as alterações de política sejam aplicadas à aplicação.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Name">Permitir as aplicações Windows tirar fotografias de várias janelas ou ecrãs</string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Explain">Esta definição de política especifica se as aplicações do Windows podem efetuar capturas de ecrã de várias janelas ou ecrãs.
+
+Pode especificar uma predefinição para todas as aplicações ou uma definição por aplicação, especificando um Nome de Família de Pacotes. Pode obter o Nome de Família do Pacotes para uma aplicação através do cmdlet Get-AppPackage do Windows PowerShell. Uma definição por aplicação substituirá a definição padrão.
+
+Se escolher a opção "O controlo está a cargo do utilizador", os colaboradores da sua organização podem decidir se as aplicações do Windows podem efetuar as capturas de ecrã em várias janelas ou ecrãs, através das Definições e Privacidade no dispositivo.
+
+Se escolher a opção "Forçar Permissão", as aplicações do Windows podem efetuar capturas de ecrã em várias janelas ou ecrãs, e os funcionários da sua organização não podem alterá-la.
+
+Se escolher a opção "Forçar Negação", as aplicações do Windows não estarão autorizadas a efetuar capturas de ecrã de várias janelas ou ecrãs, e os funcionários da sua organização não podem alterá-la.
+
+Se desativar ou não configurar esta definição de política, os colaboradores da sua organização podem decidir se as aplicações do Windows podem efetuar capturas de ecrã de várias janelas ou ecrãs, através das Definições e Privacidade no dispositivo.
+
+Se uma aplicação estiver aberta quando este objeto de Política de Grupo for aplicado num dispositivo, os colaboradores devem reiniciar a aplicação ou dispositivo para que as alterações de política sejam refletidas na aplicação.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Name">Permitir as aplicações Windows desligarem a moldura de captura de ecrã</string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Explain">Esta definição de política especifica se as aplicações do Windows podem desligar o limite de captura de ecrã.
+
+Pode especificar uma predefinição para todas as aplicações ou uma definição por aplicação, especificando um Nome de Família de Pacote. Pode obter o Nome de Família do Pacote para uma aplicação utilizando o cmdlet Get-AppPackage Windows PowerShell. Uma definição por aplicação sobrepõe-se à definição padrão.
+
+Se escolher a opção "Utilizador está no controlo", os colaboradores da sua organização podem decidir se as aplicações do Windows podem desligar o limite de captura de ecrã utilizando Definições &gt; Privacidade no dispositivo.
+
+Se escolher a opção "Forçar Permissão", as aplicações do Windows podem desligar o limite de captura de ecrã e os funcionários da sua organização não podem alterá-la.
+
+Se escolher a opção "Forçar Negação", as aplicações do Windows não estarão autorizadas a desligar o limite de captura de ecrã e os funcionários da sua organização não podem alterá-la.
+
+Se desativar ou não configurar esta definição de política, os colaboradores da sua organização podem decidir se as aplicações do Windows podem desligar o limite de captura de ecrã utilizando Definições &gt; Privacidade no dispositivo.
+
+Se uma aplicação estiver aberta quando este objeto de Política de Grupo for aplicado num dispositivo, os colaboradores devem reiniciar a aplicação ou dispositivo para que as alterações de política sejam aplicadas à aplicação da aplicação.
+      </string>
+      <string id="LetAppsAccessHumanPresence_Name">Permitir que as aplicações do Windows acedam à deteção de presença</string>
+      <string id="LetAppsAccessHumanPresence_Explain">Esta definição de política especifica se as aplicações do Windows podem aceder à deteção de presença.
+
+Pode especificar uma predefinição para todas as aplicações ou uma definição por aplicação ao especificar um Nome da Família de Pacotes. Pode obter o Nome da Família de Pacotes de uma aplicação ao utilizar o cmdlet do Windows PowerShell Get-AppPackage. Uma definição por aplicação substitui a predefinição.
+
+Se escolher a opção "O utilizador tem o controlo", os colaboradores da sua organização podem decidir se as aplicações do Windows podem aceder à deteção de presença ao utilizar Definições e Privacidade no dispositivo.
+
+Se escolher a opção "Forçar Permissão", as aplicações do Windows podem aceder à deteção de presença, mas os colaboradores da sua organização não podem fazer alterações.
+
+Se escolher a opção "Forçar Negação", as aplicações do Windows não podem aceder à deteção de presença e os colaboradores da sua organização não podem fazer alterações.
+
+Se desativar ou não a configurar esta definição de política, os colaboradores da sua organização podem decidir se as aplicações do Windows podem aceder à deteção de presença ao utilizar Definições e Privacidade no dispositivo.
+
+Se uma aplicação estiver aberta quando este objeto de Política de Grupo for aplicado a um dispositivo, os colaboradores têm de reiniciar a aplicação ou o dispositivo para que as alterações de política sejam aplicadas à aplicação.
+      </string>
       <string id="LetAppsAccessLocation_Name">Permitir que as aplicações do Windows acedam à localização</string>
       <string id="LetAppsAccessLocation_Explain">Esta definição de política especifica se as aplicações do Windows podem aceder à localização.
 
@@ -173,6 +234,36 @@ Caso escolha a opção "Forçar Negação", as aplicações do Windows não pode
 Se desativar esta definição de política ou não a configurar, os funcionários da sua organização podem decidir se as aplicações do Windows podem aceder às notificações utilizando Definições &gt; Privacidade no dispositivo.
 
 Caso uma aplicação esteja aberta quando este objeto de Política de Grupo for aplicado a um dispositivo, os funcionários têm de reiniciar a aplicação ou o dispositivo para que as alterações de política sejam aplicadas à aplicação.
+      </string>
+      <string id="LetAppsAccessPasskeys_Name">Permitir que as aplicações do Windows acedam às chaves de acesso</string>
+      <string id="LetAppsAccessPasskeys_Explain">Esta definição de política especifica se as aplicações podem aceder a chaves de acesso.
+
+Pode especificar uma predefinição para todas as aplicações ou uma definição por aplicação ao especificar um Nome da Família de Pacotes. Pode obter o Nome da Família de Pacotes de uma aplicação ao utilizar o cmdlet Get-AppPackage do Windows PowerShell. Uma definição por aplicação substitui a predefinição.
+
+Se escolher a opção "O utilizador tem o controlo", os colaboradores da sua organização podem decidir se as aplicações podem aceder a chaves de acesso ao utilizar Definições &gt; Privacidade no dispositivo.
+
+Se escolher a opção "Forçar Permitir", as aplicações podem aceder a chaves de acesso e os colaboradores da sua organização não podem alterar esta definição.
+
+Se escolher a opção "Forçar Negar", as aplicações não podem aceder a chaves de acesso e os colaboradores da sua organização não podem alterar esta definição.
+
+Se desativar ou não configurar esta definição de política, os colaboradores da sua organização podem decidir se as aplicações podem aceder a chaves de acesso ao utilizar Definições &gt; Privacidade no dispositivo.
+
+Se uma aplicação estiver aberta quando este objeto de Política de Grupo for aplicado num dispositivo, os colaboradores têm de reiniciar a aplicação ou o dispositivo para que as alterações à política sejam aplicadas à aplicação.
+      </string>
+      <string id="LetAppsAccessPasskeysEnumeration_Name">Permitir que as aplicações do Windows preencham automaticamente as chaves de acesso</string>
+      <string id="LetAppsAccessPasskeysEnumeration_Explain">Esta definição de política especifica se as aplicações podem preencher chaves de acesso automaticamente.
+
+Pode especificar uma predefinição para todas as aplicações ou uma definição por aplicação ao especificar um Nome da Família de Pacotes. Pode obter o Nome da Família de Pacotes de uma aplicação ao utilizar o cmdlet Get-AppPackage do Windows PowerShell. Uma definição por aplicação substitui a predefinição.
+
+Se escolher a opção "O utilizador tem o controlo", os colaboradores da sua organização podem decidir se as aplicações podem preencher chaves de acesso automaticamente ao utilizar Definições &gt; Privacidade no dispositivo.
+
+Se escolher a opção "Forçar Permitir", as aplicações podem preencher chaves de acesso automaticamente e os colaboradores da sua organização não podem alterar esta definição.
+
+Se escolher a opção "Forçar Negar", as aplicações não podem preencher chaves de acesso automaticamente e os colaboradores da sua organização não podem alterar esta definição.
+
+Se desativar ou não configurar esta definição de política, os colaboradores da sua organização podem decidir se as aplicações podem preencher chaves de acesso automaticamente ao utilizar Definições &gt; Privacidade no dispositivo.
+
+Se uma aplicação estiver aberta quando este objeto de Política de Grupo for aplicado num dispositivo, os colaboradores têm de reiniciar a aplicação ou o dispositivo para que as alterações à política sejam aplicadas à aplicação.
       </string>
       <string id="LetAppsAccessPhone_Name">Permitir que as aplicações do Windows façam chamadas telefónicas</string>
       <string id="LetAppsAccessPhone_Explain">Esta definição de política especifica se as aplicações do Windows podem efetuar chamadas telefónicas.
@@ -321,6 +412,35 @@ Se desativar ou não configurar esta definição de política, os colaboradores 
 
 Esta política é aplicável a aplicações do Windows e à Cortana. Prevalece sobre a política "Permitir Cortana acima do bloqueio". Esta política apenas é aplicável quando a política "Permitir ativação por voz" estiver configurada para permitir que as aplicações sejam ativadas por voz.
       </string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Name">Permitir que as aplicações do Windows acedam a movimentos do utilizador durante a execução em segundo plano</string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Explain">Esta definição de política especifica se as aplicações do Windows podem aceder ao movimento da cabeça do utilizador, das mãos, dos comandos de movimento e de outros objetos registados, enquanto as aplicações estão a ser executadas em segundo plano.
+
+Pode especificar uma predefinição para todas as aplicações ou uma definição por aplicação especificando um Nome da Família de Pacotes. Pode obter o Nome da Família de Pacotes para uma aplicação utilizando o cmdlet do Windows PowerShell Get-AppPackage. Uma definição por aplicação substitui a predefinição.
+
+Caso escolha a opção "O controlo está a cargo do utilizador", os funcionários da sua organização podem decidir se as aplicações do Windows podem aceder aos movimentos do utilizador enquanto as aplicações estão a ser executadas em segundo plano utilizando Definições &gt; Privacidade no dispositivo.
+
+Se escolher a opção "Forçar Permissão", as aplicações do Windows podem aceder aos movimentos dos utilizadores enquanto as aplicações estão a ser executadas em segundo plano e os funcionários da sua organização não podem fazer alterações.
+
+Caso escolha a opção "Forçar Negação", as aplicações do Windows não podem aceder aos movimentos do utilizador enquanto as aplicações estão a ser executadas em segundo plano e os funcionários da sua organização não podem fazer alterações.
+
+Se desativar ou não configurar esta definição de política, os funcionários da sua organização podem decidir se as aplicações do Windows podem aceder aos movimentos do utilizador enquanto as aplicações estão a ser executadas em segundo plano utilizando Definições &gt; Privacidade no dispositivo.
+
+Caso uma aplicação esteja aberta quando este objeto de Política de Grupo for aplicado a um dispositivo, os funcionários têm de reiniciar a aplicação ou o dispositivo para que as alterações de política sejam aplicadas à aplicação.
+      </string>
+      <string id="LetAppsAccessForegroundText_Name">Permitir que as aplicações do Windows acedam ao conteúdo de texto a partir de aplicações em primeiro plano</string>
+      <string id="LetAppsAccessForegroundText_Explain">Esta definição de política especifica se as aplicações Windows podem aceder a conteúdo de texto a partir de aplicações em primeiro plano.
+Pode especificar uma predefinição para todas as aplicações ou uma definição por aplicação ao especificar um Nome da Família de Pacotes. Pode obter o Nome da Família de Pacotes para uma aplicação ao utilizar o cmdlet do Windows PowerShell Get-AppPackage. Uma definição por aplicação substitui a predefinição.
+
+Caso escolha a opção “O controlo está a cargo do utilizador”, os colaboradores da sua organização podem decidir se as aplicações do Windows podem aceder a conteúdo de texto de aplicações em primeiro plano ao utilizar Definições e Privacidade no dispositivo.
+
+Se escolher a opção “Forçar Permissão”, as aplicações do Windows podem aceder a conteúdo de texto de aplicações em primeiro plano e os colaboradores da sua organização não podem fazer alterações.
+
+Se escolher a opção “Forçar Negação”, as aplicações do Windows não podem aceder a conteúdo de texto de aplicações em primeiro plano e os colaboradores da sua organização não podem fazer alterações.
+
+Se desativar ou não configurar esta definição de política, os colaboradores da sua organização podem decidir se as aplicações do Windows podem aceder a conteúdo de texto de aplicações em primeiro plano ao utilizar Definições e Privacidade no dispositivo.
+
+Se uma aplicação estiver aberta quando este GPO for aplicado num dispositivo, os colaboradores têm de reiniciar a aplicação ou o dispositivo para que as alterações de política sejam aplicadas à aplicação.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LetAppsAccessCalendar">
@@ -376,6 +496,42 @@ Esta política é aplicável a aplicações do Windows e à Cortana. Prevalece s
         <multiTextBox refId="LetAppsAccessEmail_ForceAllowTheseApps_List"/>
         <text>Forçar a negação destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
         <multiTextBox refId="LetAppsAccessEmail_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessSystemAIModels">
+        <dropdownList refId="LetAppsAccessSystemAIModels_Enum" noSort="true" defaultItem="0">Predefinição para todas as aplicações:</dropdownList>
+        <text>Dar ao utilizador o controlo destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_UserInControlOfTheseApps_List"/>
+        <text>Forçar a permissão destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceAllowTheseApps_List"/>
+        <text>Forçar a negação destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureProgrammatic">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureProgrammatic_Enum" noSort="true" defaultItem="0">Predefinição para todas as aplicações:</dropdownList>
+        <text>Dar ao utilizador o controlo destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_UserInControlOfTheseApps_List"/>
+        <text>Forçar a permissão destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceAllowTheseApps_List"/>
+        <text>Forçar a negação destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureWithoutBorder">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureWithoutBorder_Enum" noSort="true" defaultItem="0">Predefinição para todas as aplicações:</dropdownList>
+        <text>Dar ao utilizador o controlo destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_UserInControlOfTheseApps_List"/>
+        <text>Forçar a permissão destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceAllowTheseApps_List"/>
+        <text>Forçar a negação destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessHumanPresence">
+        <dropdownList refId="LetAppsAccessHumanPresence_Enum" noSort="true" defaultItem="0">Predefinição para todas as aplicações:</dropdownList>
+        <text>Dar ao utilizador o controlo destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_UserInControlOfTheseApps_List"/>
+        <text>Forçar a permissão destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceAllowTheseApps_List"/>
+        <text>Forçar a negação destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessLocation">
         <dropdownList refId="LetAppsAccessLocation_Enum" noSort="true" defaultItem="0">Predefinição para todas as aplicações:</dropdownList>
@@ -473,7 +629,7 @@ Esta política é aplicável a aplicações do Windows e à Cortana. Prevalece s
         <multiTextBox refId="LetAppsRunInBackground_UserInControlOfTheseApps_List"/>
         <text>Forçar a permissão destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
         <multiTextBox refId="LetAppsRunInBackground_ForceAllowTheseApps_List"/>
-        <text>Forçar a negação destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <text>Forçar negação destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
         <multiTextBox refId="LetAppsRunInBackground_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsGetDiagnosticInfo">
@@ -482,7 +638,7 @@ Esta política é aplicável a aplicações do Windows e à Cortana. Prevalece s
         <multiTextBox refId="LetAppsGetDiagnosticInfo_UserInControlOfTheseApps_List"/>
         <text>Forçar a permissão destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_ForceAllowTheseApps_List"/>
-        <text>Forçar a negação destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <text>Forçar negação destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessGazeInput">
@@ -499,6 +655,42 @@ Esta política é aplicável a aplicações do Windows e à Cortana. Prevalece s
       </presentation>
       <presentation id="LetAppsActivateWithVoiceAboveLock">
         <dropdownList refId="LetAppsActivateWithVoiceAboveLock_Enum" noSort="true" defaultItem="0">Predefinição para todas as aplicações:</dropdownList>
+      </presentation>
+      <presentation id="LetAppsAccessBackgroundSpatialPerception">
+        <dropdownList refId="LetAppsAccessBackgroundSpatialPerception_Enum" noSort="true" defaultItem="0">Predefinição para todas as aplicações:</dropdownList>
+        <text>Dar ao utilizador o controlo destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_UserInControlOfTheseApps_List"/>
+        <text>Forçar a permissão destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps_List"/>
+        <text>Forçar negação destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessForegroundText">
+        <dropdownList refId="LetAppsAccessForegroundText_Enum" noSort="true" defaultItem="0">Predefinição para todas as aplicações:</dropdownList>
+        <text>Dar ao utilizador o controlo destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_UserInControlOfTheseApps_List"/>
+        <text>Forçar a permissão destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceAllowTheseApps_List"/>
+        <text>Forçar negação destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeys">
+        <dropdownList refId="LetAppsAccessPasskeys_Enum" noSort="true" defaultItem="0">Predefinição para todas as aplicações:</dropdownList>
+        <text>Dar ao utilizador o controlo destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_UserInControlOfTheseApps_List"/>
+        <text>Forçar a permissão destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceAllowTheseApps_List"/>
+        <text>Forçar negação destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeysEnumeration">
+        <dropdownList refId="LetAppsAccessPasskeysEnumeration_Enum" noSort="true" defaultItem="0">Predefinição para todas as aplicações:</dropdownList>
+        <text>Dar ao utilizador o controlo destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_UserInControlOfTheseApps_List"/>
+        <text>Forçar a permissão destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceAllowTheseApps_List"/>
+        <text>Forçar negação destas aplicações específicas (utilizar Nomes da Família de Pacotes):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceDenyTheseApps_List"/>
       </presentation>
     </presentationTable>
   </resources>

@@ -183,7 +183,7 @@
       <string id="AllowX-ForestPolicy-and-RUP">允许跨林的用户策略和漫游用户配置文件</string>
       <string id="AllowX-ForestPolicy-and-RUP_Help">此策略设置允许基于用户的策略处理、漫游用户配置文件以及用于跨林交互登录的用户对象登录脚本。
 
-如果存在跨林信任或双向林信任，此策略设置会影响交互式登录到位于不同林的计算机的所有用户帐户。
+如果存在跨林信任或双向林信任，此策略设置会影响交互式登录到位于不同林的计算机的所有用户账户。
 
 如果未配置此策略设置:
 -  不会应用用户林中任何基于用户的策略设置。
@@ -538,7 +538,7 @@ RSoP 记录有关已应用到客户端的组策略设置的信息。此信息中
 
 如果禁用或未配置此设置，则用户的组策略对象将确定应用哪些用户设置。
 
-注意: 只有当计算机帐户和用户帐户都位于 Windows 2000 及以上版本的域中时，此设置才有效。</string>
+注意: 只有当计算机账户和用户账户都位于 Windows 2000 及以上版本的域中时，此设置才有效。</string>
       <string id="UserPolicyMode_Merge">合并</string>
       <string id="UserPolicyMode_Replace">替换</string>
       <string id="CorpConnSyncWaitTime">指定策略处理的工作区连接等待时间</string>

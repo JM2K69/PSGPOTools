@@ -15,7 +15,7 @@ Jos olet valinnut Sisällytä yrityksen tapahtumanäytön sisältö -valintaruud
 
 Jos poistat tämän käytäntöasetuksen käytöstä, Windowsin tapahtumanäyttö poistetaan käytöstä ja käyttäjät eivät enää voi valita sitä lukitusnäytöksi. Käyttäjät näkevät lukitusnäytön oletuskuvan ja voivat valita toisen kuvan, jos et ole valinnut Estä lukitusnäytön kuvan muuttaminen -käytäntöä.
 
-Jos et määritä tätä käytäntöä, Windowsin tapahtumanäyttö on käytettävissä lukitusnäytössä ja se valitaan oletusarvona, ellet ole määrittänyt muuta lukitusnäytön oletuskuvaa Pakota tietty lukitusnäytön oletuskuva -käytännön avulla.
+Jos et määritä tätä käytäntöä, Windowsin tapahtumanäyttö on käytettävissä lukitusnäytössä ja se valitaan oletusarvona, ellet ole määrittänyt muuta lukitusnäytön oletuskuvaa Pakota tietty lukitusnäytön oletuskuva ja kirjautumiskuva -käytännön avulla.
 
 Huomautus: tämä käytäntö on käytettävissä vain Enterprise-tuoteversioissa</string>
       <string id="DisableWindowsSpotlightFeatures">Poista käytöstä kaikki Windowsin tapahtumanäytön ominaisuudet</string>
@@ -66,6 +66,43 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Wi
 Jos otat tämän käytäntöasetuksen käyttöön, Windowsin Tervetuloa-ohjelmaa ei enää avata, kun Windowsiin ja sen sovelluksiin on tullut päivityksiä ja muutoksia.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Windowsin Tervetuloa-ohjelma käynnistetään, jotta käyttäjät voivat sen avulla tutustua Windowsiin sekä sen uusiin, muuttuneisiin ja ehdotettuihin ominaisuuksiin.</string>
+      <string id="DisableCloudOptimizedContent">Pilvipohjaisen optimoidun sisällön poistaminen käytöstä</string>
+      <string id="DisableCloudOptimizedContent_Help">Tämän käytäntöasetuksen avulla voit poistaa käytöstä pilvipohjaisen optimoidun sisällön kaikista Windowsin käyttökokemuksista.
+
+Jos otat tämän käytännön käyttöön, Windowsin käyttökokemukset, jotka käyttävät pilvipohjaisen optimoidun sisällön asiakaskomponenttia, näyttävät sen sijaan oletusarvoista varasisältöä.
+
+Jos poistat tämän käytännön käytöstä tai et määritä sitä, Windowsin käyttökokemus voi käyttää pilvipohjaista optimoitua sisältöä.</string>
+      <string id="DisableSpotlightCollectionOnDesktop">Poista Spotlight-kokoelma käytöstä työpöydällä</string>
+      <string id="DisableSpotlightCollectionOnDesktop_Help">Tämä käytäntöasetus poistaa käytöstä Spotlight-kokoelma-asetuksen mukauttamisen, joka aiheuttaa sen, käyttäjä ei voi valita ja sitten ladata päivittäisiä kuvat Microsoftilta työpöydälle.
+
+Jos otat tämän käytännön käyttöön, Spotlight-kokoelma ei ole käytettävissä mukautusasetusten vaihtoehtona.
+
+Jos poistat tämän käytännön käytöstä tai et määritä sitä, Spotlight-kokoelma tulee näkyviin mukautusasetuksissa vaihtoehdon avulla, jolloin käyttäjä voi valita Spotlight-kokoelman ja näyttää päivittäiset kuvat Microsoftilta työpöydällä.</string>
+      <string id="DisableConsumerAccountStateContent">Poista käytöstä pilvipalveluiden kuluttajatilin tilasisältö</string>
+      <string id="DisableConsumerAccountStateContent_Help">Tämän käytäntöasetuksen avulla voit poistaa pilvipalveluiden kuluttajatilin tilasisällön kaikista Windowsin käyttökokemuksista.
+
+Jos otat käyttöön tämän käytännön, pilvipalveluiden kuluttajatilin tilasisällön asiakaskomponenttia käyttävät Windows-käyttökokemukset näyttävät sen sijaan oletusarvoista varasisältöä.
+
+Jos poistat tämän käytännön tai et määritä sitä, Windows voi käyttää pilvipalveluiden kuluttajatilin tilasisältöä.
+        </string>
+      <string id="EnableOrganizationalMessagesContent">Ota organisaation viestit käyttöön</string>
+      <string id="EnableOrganizationalMessagesContent_Help">Organisaation viestien avulla järjestelmänvalvojat voivat toimittaa viestejä käyttäjilleen valituissa Windows 11 -käyttökokemuksissa. Organisaatioviestit ovat järjestelmänvalvojien käytettävissä esimerkiksi Microsoft Endpoint Managerin kautta.
+
+Tämä käytäntö on oletusarvoisesti poissa käytöstä. Jos otat tämän käytännön käyttöön, nämä kokemukset näyttävät järjestelmänvalvojien varaaman sisällön.
+
+Tämän käytännön ottaminen käyttöön ei vaikuta olemassa oleviin MDM-käytäntöasetuksiin, jotka ohjaavat Microsoftin sisällön toimittamista Windowsissa.</string>
+      <string id="DisableGetStartedContent">Poista Aloitusopas käytöstä</string>
+      <string id="DisableGetStartedContent_Help">Tämä käytäntöasetus poistaa Windowsin aloitusopas -kokemuksen käytöstä.
+
+Jos otat tämän käytäntöasetuksen käyttöön, Aloitusopas ei käynnisty automaattisesti ja sulkeutuu heti, jos se käynnistetään manuaalisesti. Liittyviä taustatehtäviä ei suoriteta.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Aloitusopas on edelleen käytettävissä ja voi auttaa käyttäjiä tutustumaan Windowsiin.</string>
+      <string id="DisableCopilotPinScreenContent">Poista Copilotin kiinnitysnäyttö käytöstä</string>
+      <string id="DisableCopilotPinScreenContent_Help">Estää Windowsia näyttämästä Microsoft 365 Copilotin suosituksia sisäänkirjautumisen yhteydessä. Tämä ei poista Copilotia käytöstä eikä vaikuta käyttöoikeuksiin.
+
+Jos otat tämän käytäntöasetuksen käyttöön, Microsoft 365 Copilotin määritysohjeet eivät käynnisty automaattisesti sisäänkirjautumisen yhteydessä.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Microsoft 365 Copilotin määritysohjeet saattavat näkyä sisäänkirjautumisen yhteydessä, jotta käyttäjät voivat löytää ja määrittää Copilotin.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureWindowsSpotlight">

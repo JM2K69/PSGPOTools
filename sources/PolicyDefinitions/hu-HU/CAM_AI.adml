@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>CAM (Képesség hozzáférés-kezelő) AI-házirendek</displayName>
+  <description>Az AI-képességekkel és azok hozzájárulásainak kezelésével kapcsolatos szabályzatok.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">AI-hozzájárulás</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">Irányító felhasználó</string>
+      <string id="ForceEnable">Engedélyezés kényszerítése</string>
+      <string id="ForceDisable">Letiltás kényszerítése</string>
+      <string id="AgentConsentDuration_Name">Ügynöki hozzájárulás időtartama</string>
+      <string id="AgentConsentDuration_Explain">Megadja, hogy az ügynökképességekre vonatkozó „Engedélyezés” hozzájárulási válasz hány óráig marad érvényes, mielőtt a rendszer újra megkérdezi a felhasználót.
+
+Ha ez a szabályzat engedélyezve van, az értéknek 1 (1 óra) és 8760 (1 év) között kell lennie. A konfigurált érték lesz az ügynökképességekre vonatkozó összes „Engedélyezés” hozzájárulási válasz alapértelmezett lejárati ideje.
+
+Ha ez a szabályzat nincs konfigurálva, vagy ha az érték kívül esik az engedélyezett tartományon, az alapértelmezett érték 720 óra (30 nap).</string>
+      <string id="ConfigureAgentConnectors_Name">Ügynökösszekötők konfigurálása</string>
+      <string id="ConfigureAgentConnectors_Explain">Ügynökösszekötők engedélyezése vagy letiltása.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Ügynökösszekötő-hozzáférési szabályzat</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Ez a szabályzatbeállítás lehetővé teszi, hogy megadjon egy listát az MCP-gazdagépek és MCP-kiszolgálók közötti engedélyezett kapcsolatokról.
+
+A lista formátuma a https://go.microsoft.com/fwlink/?LinkId=2363700 webhelyen található sémának megfelelő JSON-sztring lesz.
+
+Ha ez a szabályzat nincs konfigurálva, az MCP-gazdagép felhasználói hozzájárulással bármely MCP-kiszolgálóhoz csatlakozhat.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Ügynökösszekötők konfigurálása: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Hozzájárulás időtartama (óra): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Engedélyezett MCP-gazdagép-/kiszolgálókapcsolatok konfigurálása:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

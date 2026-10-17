@@ -2,39 +2,47 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>Gestionnaire de package Appx</displayName> 
+  <displayName>Gestionnaire de package Appx</displayName>
   <description>Gestionnaire de package Appx</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">Déploiement de package Appx</string>
       <string id="AppxDeploymentAllowAllTrustedApps">Autoriser l’installation des applications approuvées</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Ce paramètre de stratégie vous permet de gérer l’installation d’applications métier ou signées par les développeurs approuvées du Windows Store.
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Ce paramètre de stratégie vous permet de gérer l’installation d’applications métier approuvées ou d’applications Microsoft Store packagées signées par le développeur.
 
-Si vous activez ce paramètre de stratégie, vous pouvez installer n’importe quelle application métier ou signée par les développeurs du Windows Store (laquelle doit être signée avec une chaîne de certificats pouvant être validée par l’ordinateur local).
+Si vous activez ou ne configurez pas ce paramètre de stratégie, vous pouvez installer n’importe quelle application Microsoft Store empaquetée signée par le développeur ou LOB (qui doit être signée avec une chaîne de certificats qui peut être validée avec succès par l’ordinateur local).
 
-Si vous désactivez ou ne configurez pas ce paramètre de stratégie, vous ne pouvez pas installer d’applications métier ou signées par les développeurs du Windows Store.</string>
+Si vous désactivez ce paramètre de stratégie, vous ne pouvez pas installer la LOB ou les applications Microsoft Store packagées signées par le développeur.</string>
+      <string id="AllowAutomaticAppArchiving">Archiver les applications peu utilisées</string>
+      <string id="AllowAutomaticAppArchivingExplanation">Ce paramètre de stratégie contrôle si le système peut archiver les applications peu utilisées.
+
+Si vous activez ce paramètre de stratégie, le système recherche régulièrement et archive les applications qui ne sont pas fréquemment utilisées.
+
+Si vous désactivez ce paramètre de stratégie, le système n’archive aucune application.
+
+Si vous ne configurez pas ce paramètre de stratégie (par défaut), le système suit le comportement par défaut, qui consiste à vérifier régulièrement les applications peu utilisées et à les archiver, et l’utilisateur peut configurer ce paramètre eux-mêmes.</string>
       <string id="AllowDeploymentInSpecialProfiles">Permettre le déploiement dans des profils spécifiques</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">Ce paramètre de stratégie vous permet de gérer le déploiement d’applications du Windows Store lorsque l’utilisateur est connecté sous un profil spécifique. Les profils spécifiques incluent les profils utilisateur suivants, où les modifications apportées sont annulées après la déconnexion de l’utilisateur :
+      <string id="AllowDeploymentInSpecialProfilesExplanation">Ce paramètre de stratégie vous permet de gérer le déploiement d’applications empaquetées du Microsoft Store lorsque l’utilisateur est connecté sous un profil spécifique. Les profils spécifiques incluent les profils utilisateur suivants, où les modifications apportées sont annulées après la déconnexion de l’utilisateur :
 
-Profils utilisateur itinérants auxquels le paramètre de stratégie de groupe « Supprimer les copies mises en cache des profils itinérants » s’applique
+Profils utilisateur itinérants auxquels le paramètre de stratégie de groupe « Supprimer les copies mises en cache des profils itinérants » s’applique
 
-Profils utilisateur obligatoires et super obligatoires, lesquels sont créés par un administrateur
+Profils utilisateur obligatoires et absolument obligatoires, lesquels sont créés par un administrateur
 
 Profils utilisateur temporaires, lesquels sont créés lorsqu’une erreur empêche le chargement du profil approprié
 
 Profils utilisateur pour le compte Invité et les membres du groupe Invités
 
 
-Si vous activez ce paramètre de stratégie, la stratégie de groupe autorise les opérations de déploiement (ajout, inscription, mise en lots, mise à jour ou suppression d’un package d’applications) d’applications du Windows Store lorsqu’un profil spécifique est utilisé.
+Si vous activez ce paramètre de stratégie, la stratégie de groupe autorise les opérations de déploiement (ajout, inscription, mise en lots, mise à jour ou suppression d’un package d’applications) d’applications empaquetées du Microsoft Store lorsqu’un profil spécifique est utilisé.
 
-Si vous désactivez ou ne configurez pas ce paramètre de stratégie, la stratégie de groupe bloque les opérations de déploiement d’applications du Windows Store lorsqu’un profil spécifique est utilisé.</string>
-      <string id="AllowDevelopmentWithoutDevLicense">Autorise le développement d’applications du Windows Store et leur installation depuis un environnement de développement intégré</string>
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, la stratégie de groupe bloque les opérations de déploiement d’applications empaquetées du Microsoft Store lorsqu’un profil spécifique est utilisé.</string>
+      <string id="AllowDevelopmentWithoutDevLicense">Autorise le développement d’applications empaquetées du Microsoft Store et leur installation à partir d’un environnement de développement intégré (IDE)</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        Autorise ou refuse le développement d’applications du Windows Store et leur installation directement depuis un environnement de développement intégré.
+        Autorise ou refuse le développement d’applications du Microsoft Store et leur installation directement depuis un environnement de développement intégré.
 
-        Si vous activez ce paramètre et la stratégie de groupe « Autoriser l’installation des applications approuvées », vous pouvez développer des applications du Windows Store et les installer directement depuis un environnement de développement intégré.
-        
-        Si vous désactivez ce paramètre ou ne le configurez pas, vous ne pourrez pas développer d'applications du Windows Store ni en installer directement depuis un environnement de développement intégré.      
+        Si vous activez ce paramètre et la stratégie de groupe « Autoriser l’installation des applications approuvées », vous pouvez développer des applications du Microsoft Store et les installer directement depuis un environnement de développement intégré.
+
+        Si vous désactivez ce paramètre ou ne le configurez pas, vous ne pourrez pas développer d'applications du Microsoft Store ni en installer directement depuis un environnement de développement intégré.
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">Désactiver l'installation d'applications Windows pour les volumes non-système</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -53,12 +61,150 @@ Si vous activez ce paramètre, toutes les données d'applications des utilisateu
 Si vous désactivez ou ne configurez pas ce paramètre, lorsqu'une application est déplacée vers un autre volume, les données d'applications des utilisateurs sont également déplacées vers ce volume.
       </string>
       <string id="AllowSharedLocalAppData">Autoriser une application Windows à partager des données d'applications entre les utilisateurs</string>
-      <string id="AllowSharedLocalAppDataExplanation">Gère la possibilité pour une application Windows de partager des données entre les utilisateurs ayant installé l'application.
-        
-Si vous activez cette stratégie, les applications Windows peuvent partager des données d'applications avec d'autres instances de ces applications. Les données sont partagées grâce à un dossier SharedLocal. Ce dossier est accessible via l'API Windows.Storage.
+      <string id="AllowSharedLocalAppDataExplanation">Gère la possibilité pour une application Windows de partager des données entre les utilisateurs qui ont installé l’application.
 
-Si vous désactivez cette stratégie, les applications Windows ne peuvent pas partager des données d'applications avec d'autres instances des ces applications. Si cette stratégie était activée auparavant, toutes les données d'applications partagées précédemment seront conservées dans le dossier SharedLocal. 
+        Si vous activez ce paramètre de stratégie, une application Windows peut partager des données d’application avec d’autres instances de cette application. Les données sont partagées dans le dossier SharedLocal. Ce dossier est accessible via l’API Windows. Storage API.
+
+        Si vous désactivez ce paramètre de stratégie, les applications Windows ne peuvent pas partager des données d’applications avec d’autres instances de cette application. Si cette stratégie était activée précédemment, toutes les données d’application partagées précédemment sont conservées dans le dossier SharedLocal.
       </string>
+      <string id="BlockNonAdminUserInstall">Empêcher les utilisateurs non administrateurs d’installer des applications Windows empaquetées</string>
+      <string id="BlockNonAdminUserInstallExplanation">Gère la capacité des utilisateurs non-administrateurs à installer des packages d’applications Windows.
+
+        Si vous activez cette stratégie, les non-administrateurs ne peuvent pas initier l’installation des packages d’applications Windows. Les administrateurs qui souhaitent installer une application devront effectuer cette opération à partir d’un contexte d’administrateur (par exemple, une fenêtre PowerShell d’administrateur). Tous les utilisateurs pourront toujours installer des packages d’applications Windows via le Microsoft Store, si cela est autorisé par d’autres stratégies.
+
+        Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, tous les utilisateurs peuvent lancer l’installation des packages d’applications Windows.
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">Définir les domaines autorisés pour l’authentification HTTPS dans l’installation de streaming MSIX</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">Ce paramètre de stratégie détermine si un jeton OAuth Deid doit être inclus dans les communications HTTPS vers un nom de domaine complet spécifié pour effectuer une installation de streaming MSIX.
+
+Si vous activez ce paramètre de stratégie, les communications HTTPS vers les domaines complets prédéfinis incorporent le jeton OAuth De l’utilisateur lors d’une installation MSIX de streaming. La valeur fournie est une expression régulière (script ECMA) qui sera utilisée pour établir une correspondance avec le domaine complet en majuscules de l’URL.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, le jeton OAuth DeId de l’utilisateur est partagé uniquement avec les domaines configurés par défaut.
+      </string>
+      <string id="DisableBackgroundAutoUpdates">Ne pas autoriser la mise à jour automatique des applications en arrière-plan</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">Gère la fonctionnalité de mise à jour automatique en arrière-plan des applications chargées en version test.
+
+        Si vous activez ce paramètre de stratégie, les applications chargées en version test ne sont pas mises à jour automatiquement en arrière-plan.
+
+        Si vous désactivez cette stratégie, les applications chargées en version test sont mises à jour automatiquement en arrière-plan.
+
+        La valeur par défaut est « Désactivé » (clé absente).
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">Ne pas autoriser la mise à jour automatique des applications version test en arrière-plan sur un réseau limité</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">Gère une fonctionnalité de mise à jour automatique des applications version test en arrière-plan sur un réseau limité.
+
+        Si vous activez ce paramètre de stratégie, les applications version test ne sont pas mises à jour automatiquement en arrière-plan sur un réseau limité.
+
+        Si vous désactivez ce paramètre de stratégie, les applications version test sont mises à jour automatiquement en arrière-plan sur un réseau limité.
+
+        La valeur par défaut est « Désactivé » (clé absente).
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">Ne pas autoriser l’installation des packages non signés par utilisateur par défaut (nécessite explicitement l’autorisation par installation)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">Ne pas autoriser l’installation des packages non signés par utilisateur par défaut (nécessite explicitement l’autorisation par installation)
+
+Si vous activez cette stratégie, l’option AllowUnsigned a la valeur par défaut « false ».
+
+Si vous désactivez cette stratégie, l’option AllowUnsigned a la valeur par défaut « true ».
+
+La valeur par défaut est 'disabled' (clé absente).
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">Noms de la famille de packages autorisés pour l’installation d’utilisateurs non administrateurs</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">Noms de la famille de packages autorisés pour l’installation de package d’application Windows non administrateur.
+
+Si vous activez ce paramètre de stratégie, vous pouvez entrer une liste de packages d’applications Windows pour lesquels les non-administrateurs peuvent lancer l’installation, quelle que soit la stratégie configurée « Empêcher les utilisateurs non administrateurs d’installer des applications Windows empaquetées ».
+
+Les valeurs fournies seront traitées comme des expressions régulières (script ECMA). Un nom de famille de packages tel que Contoso.ContosoApp_8wekyb3d8bbwe est lui-même une expression régulière valide qui correspondra à tous les packages de cette famille. Une expression régulière telle que ^Contoso.*_8wekyb3d8bbwe$ correspondra également à Contoso.ContosoApp_8wekyb3d8bbwe
+
+Si le nom de la famille de packages d’un package d’application Windows d’installation correspond à une règle, il n’est pas bloqué par la stratégie « Empêcher les utilisateurs non administrateurs d’installer des applications Windows empaquetées ». L’installation peut toujours être bloquée par d’autres paramètres ou stratégie.
+
+Si vous désactivez ou ne configurez pas cette stratégie, tous les packages d’applications Windows sont soumis à la stratégie « Empêcher les utilisateurs non administrateurs d’installer des applications Windows empaquetées ».
+
+La valeur par défaut est 'disabled' (clé absente).
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">Supprimez du système les packages par défaut du Microsoft Store.</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">Supprime les packages du Microsoft Store par défaut du système.
+
+Si vous activez cette stratégie, les applications du Microsoft Store sélectionnées dans la liste fournie seront désinstallées du système. Vous pouvez ajuster les paramètres par défaut.
+
+Les applications non sélectionnées de la liste ne seront pas supprimées.
+
+* Il s’agit d’une application sans périphérique de contrôle (sans interface utilisateur)
+
+** Cette application est le gestionnaire par défaut d’un type de fichier ou d’un protocole commun. La suppression de cette application peut entraîner une dégradation de l’expérience utilisateur. Nous vous déconseillons de supprimer cette application.
+
+Si vous activez cette stratégie, vous pouvez aussi supprimer une application en saisissant le nom de famille du package de l’application (par exemple, Microsoft.WindowsCalculator_8wekyb3d8bbwe) dans la liste dynamique sous « Spécifier des noms de familles de packages supplémentaires à supprimer. ».
+
+Si cette stratégie est activée, la réinstallation d’une application précédemment supprimée nécessite de désélectionner l’application de la liste fournie ou de retirer le nom de famille du package de l’application de la liste dynamique.
+
+Vous ne pouvez pas supprimer les composants système Windows via la liste dynamique de suppression d’applications.
+
+La validation des noms de famille de packages de la liste dynamique de suppression d’applications s’effectue lors de la connexion de l’utilisateur, et non au moment de la configuration de la stratégie.
+
+La valeur par défaut est « désactivée » (clé absente).
+
+Si la stratégie est désactivée ou non configurée, aucune application par défaut ne sera supprimée du système.
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">Supprime du système les packages par défaut du Microsoft Store.</string>
+      <string id="EnableMsixAllowedZones">Activez les zones autorisées pour les packages MSIX</string>
+      <string id="EnableMsixAllowedZonesExplanation">Cette stratégie contrôle l’installation des packages MSIX provenant de zones URL spécifiques. L’origine d’un package est déterminée par son URI et si un Mart-of-the-Web (MotW) est présent. Si plusieurs URI sont impliqués, tous sont pris en compte ;
+
+Si vous activez cette stratégie, les utilisateurs peuvent installer des packages MSIX en fonction de la configuration de chaque zone.
+
+Si vous désactivez ou ne configurez pas cette stratégie, les utilisateurs peuvent installer des packages MSIX à partir de n’importe quelle zone, sauf pour les packages non approuvés.</string>
+      <string id="ZoneAllowed">Autoriser</string>
+      <string id="ZoneBlocked">Bloquer</string>
+      <string id="EnableMsixSmartScreenCheck">Activer les vérifications Microsoft SmartScreen pour les packages MSIX</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">Cette stratégie contrôle si la vérification Microsoft SmartScreen est effectuée lors de l’installation de packages MSIX à partir de zones URL spécifiques.
+
+Si vous activez ou ne configurez pas cette stratégie, l’URI du package est évalué avec Microsoft SmartScreen avant l’installation. Cette vérification est effectuée uniquement pour les packages provenant d’Internet.
+
+Si vous désactivez cette stratégie, Microsoft SmartScreen ne sera pas consulté avant l’installation d’un package.</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>Expression</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">Noms de la famille de packages autorisés pour l’installation d’utilisateurs non administrateurs</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>Supprime du système les packages par défaut du Microsoft Store.</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">Hub de commentaires</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">Microsoft 365 Copilot</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft News</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Photos Microsoft **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Pense-bêtes Microsoft</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">Microsoft To Do</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN Météo</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Outlook pour Windows</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">Paint</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">Assistance rapide</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">Outil Capture d’écran</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Calculatrice de Windows</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Caméra Windows **</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Lecteur multimédia Windows **</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Bloc-notes Windows **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Magnétophone Windows</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Terminal Windows</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">Application de jeu Xbox</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Xbox Identity Provider *</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Superposition de reconnaissance vocale Xbox *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">Spécifiez des noms de famille de packages supplémentaires à supprimer</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">Ordinateur local</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">Intranet</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">Sites de confiance</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">Internet</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">Sites non approuvés</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

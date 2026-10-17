@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>Grupprincip-inställningar för loggningsprinciper</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">Konfigurera inställningar för loggning och spårning av program</string>
+      <string id="CSE_Applications_Logging_Help">Den här principinställningen gör att du kan konfigurera nivån på detaljer som spelas in av händelseloggningen i tillägg till inställningar för Program och att aktivera spårning för Programtillägg. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägget Program på klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för grupprincipmodellering: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för grupprincipmodellering måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Grupprincipmodellering eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.
+
+</string>
+      <string id="CSE_DataSources_Logging">Konfigurera inställningar för loggning och spårning av datakällor</string>
+      <string id="CSE_DataSources_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för Datakällor och för att aktivera spårning för tillägg till Datakällor. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Datakällor för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_Devices_Logging">Konfigurera inställningar för loggning och spårning av enheter</string>
+      <string id="CSE_Devices_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för Enheter och aktivera spårning för tillägg till Enheter. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Enheter för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_Drives_Logging">Konfigurera inställningar för loggning och spårning av enhetsmappningar</string>
+      <string id="CSE_Drives_Logging_Help">Med den här principinställningen kan du konfigurera ange önskad detaljnivå vid händelseloggning för tillägg till inställningar för Enhetsmappning och aktivera spårning för tillägg till Enhetsmappning. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Enhetsmappning för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_Environment_Logging">Konfigurera inställningar för loggning och spårning av miljö</string>
+      <string id="CSE_Environment_Logging_Help">Du kan använda den här principinställningen för att ange önskad detaljnivå vid händelseloggning för tillägg till inställningar för Miljö och för att aktivera spårning för tillägg till Miljö. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Miljö för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_Files_Logging">Konfigurera inställningar för loggning och spårning av filer</string>
+      <string id="CSE_Files_Logging_Help">Du kan använda den här principinställningen för att ange önskad detaljnivå vid händelseloggning för tillägg till inställningar för Filer och för att aktivera spårning för tillägg till Filer. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Filer för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_FolderOptions_Logging">Konfigurera inställningar för loggning och spårning av mappalternativ</string>
+      <string id="CSE_FolderOptions_Logging_Help">Du kan använda den här principinställningen för att ange önskad detaljnivå vid händelseloggning för tillägg till inställningar för Mappalternativ och för att aktivera spårning för tillägg till Mappalternativ. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Mappalternativ för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_Folders_Logging">Konfigurera inställningar för loggning och spårning av mappar</string>
+      <string id="CSE_Folders_Logging_Help">Du kan använda den här principinställningen för att ange önskad detaljnivå vid händelseloggning för tillägg till inställningar för Mappar och för att aktivera spårning för tillägg till Mappar. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Mappar för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_IniFiles_Logging">Konfigurera inställningar för loggning och spårning av Ini-filer</string>
+      <string id="CSE_IniFiles_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för INI-filer och aktivera spårning för tillägg till INI-filer. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till INI-filer för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_Internet_Logging">Konfigurera inställningar för loggning och spårning av Internetinställningar</string>
+      <string id="CSE_Internet_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för Internetinställningar och aktivera spårning för tillägg till Internetinställningar. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Internetinställningar för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">Konfigurera inställningar för loggning och spårning av lokala användare och grupper</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för Lokala användare och grupper och aktivera spårning för tillägg till Lokala användare och grupper. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Lokala användare och grupper för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_NetworkOptions_Logging">Konfigurera inställningar för loggning och spårning av nätverksalternativ</string>
+      <string id="CSE_NetworkOptions_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för Nätverksalternativ och aktivera spårning för tillägg till Nätverksalternativ. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Nätverksalternativ för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_NetShares_Logging">Konfigurera inställningar för loggning och spårning av nätverksresurser</string>
+      <string id="CSE_NetShares_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för Nätverksresurser och aktivera spårning för tillägg till Nätverksresurser. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Nätverksresurser för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_PowerOptions_Logging">Konfigurera inställningar för loggning och spårning av energialternativ</string>
+      <string id="CSE_PowerOptions_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för Energialternativ och aktivera spårning för tillägg till Energialternativ. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Energialternativ för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_Printers_Logging">Konfigurera inställningar för loggning och spårning av skrivare</string>
+      <string id="CSE_Printers_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för Skrivare och aktivera spårning för tillägg till Skrivare. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Skrivare för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_RegionalOptions_Logging">Konfigurera inställningar för loggning och spårning av nationella inställningar</string>
+      <string id="CSE_RegionalOptions_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för Nationella inställningar och aktivera spårning för tillägg till Nationella inställningar. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Nationella inställningar för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_PrefRegistry_Logging">Konfigurera inställningar för loggning och spårning av registret</string>
+      <string id="CSE_PrefRegistry_Logging_Help">Du kan använda den här principinställningen för att ange önskad detaljnivå vid händelseloggning för tillägg till inställningar för Register och för att aktivera spårning för tillägg till Register. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Register för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_ScheduledTasks_Logging">Konfigurera inställningar för loggning och spårning av schemalagda aktiviteter</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för Schemalagda aktiviteter och aktivera spårning för tillägg till Schemalagda aktiviteter. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Schemalagda aktiviteter för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_Services_Logging">Konfigurera inställningar för loggning och spårning av tjänster</string>
+      <string id="CSE_Services_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för Tjänster och aktivera spårning för tillägg till Tjänster. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Tjänster för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_Shortcuts_Logging">Konfigurera inställningar för loggning och spårning av genvägar</string>
+      <string id="CSE_Shortcuts_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för Genvägar och aktivera spårning för tillägg till Genvägar. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Genvägar för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_StartMenu_Logging">Konfigurera inställningar för loggning och spårning av Start-menyn</string>
+      <string id="CSE_StartMenu_Logging_Help">Med den här principinställningen kan du konfigurera önskad detaljnivå vid händelseloggning för tillägg till inställningar för Start-menyn och aktivera spårning för tillägg till Start-menyn. Loggning och spårning tillhandahåller diagnosinformation för felsökning.
+
+Om du aktiverar den här principinställningen kan du konfigurera händelseloggning och aktivera spårning för tillägg till Start-menyn för klientdatorer.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen omfattar som standard händelseloggning för det här tillägget bara varningar och fel medan spårning för tillägget inaktiveras.
+
+Säkerhetsvarning: 
+Skydda den konfigurerade nätverksresursen med minsta nödvändiga behörigheter. Använd inte bred åtkomst (t.ex. alla standardkonton eller alla med fullständig behörighet), eftersom detta kan leda till obehörig åtkomst till loggnings- och spårningsdata
+
+Anmärkningar:
+
+1. Användarkonfiguration-spårning: Om du vill spåra objekt i det här tillägget till inställningar som ingår i listan under Användarkonfiguration måste du ange en sökväg i rutan Användarspårning till den plats där en användarspårningsfil kan skapas på klientdatorn och du måste även aktivera alternativet Spårning. Om det inte visas några inställningsobjekt under Användarkonfiguration i det här tillägget skapas ingen användarspårningsfil.
+
+2. Datorkonfiguration-spårning: Det här tillägget till inställningar är bara tillgängligt under Användarkonfiguration. Datorkonfiguration-spårning är inte tillämpligt.
+
+3. Spårning av fråga för modellering av grupprincip: Om du vill spåra objekt i det här tillägget till inställningar när du utför en fråga för modellering av grupprincip måste du ange en sökväg i rutan Planera spårning till den plats där en fil för planerad spårning kan skapas på datorn där du kör modellering och du måste även aktivera alternativet Spårning. Om du inte utför Modellering av grupprincip eller om det inte finns några inställningsobjekt i det här tillägget skapas ingen fil för planerad spårning.</string>
+      <string id="CSE_NOCHANGES">Behandla även om grupprincipobjekten inte har ändrats</string>
+      <string id="CSE_NOBACKGROUND">Använd inte under regelbunden behandling i bakgrunden</string>
+      <string id="CSE_ALLOWSLOWLINK">Tillåt behandling över långsam nätverksanslutning</string>
+      <string id="CSE_TRACELEVEL">Spårning</string>
+      <string id="CSE_TRACEFILEPATHUSER">Användarspårning</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">Datorspårning</string>
+      <string id="CSE_TRACEFILEPATH">Spårningsfil</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">Planera spårning</string>
+      <string id="CSE_TRACEFILEMAXSIZE">Maximal storlek på spårningsfil (kB)</string>
+      <string id="CSE_TRACELEVELNORMAL">Av</string>
+      <string id="CSE_TRACELEVELVERBOSE">På</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">Bakgrundsprioritet</string>
+      <string id="CSE_PRILEVEL_NORMAL">Normal</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">Lägre än normal</string>
+      <string id="CSE_PRILEVEL_LOWEST">Lägsta</string>
+      <string id="CSE_PRILEVEL_IDLE">Ledig</string>
+      <string id="CSE_LOGLEVEL">Händelseloggning</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">Information, varningar och fel</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">Varningar och fel</string>
+      <string id="CSE_LOGLEVEL_ERRORS">Endast fel</string>
+      <string id="CSE_LOGLEVEL_NONE">Ingen</string>
+      <string id="CSE_Logging">Loggning och spårning</string>
+      <string id="CSE_Logging_Help">Används för att konfigurera loggning och spårning för komponenter i Inställningar.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Datorspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Dator.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Händelseloggning</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Spårning</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Användarspårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Användare.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planera spårning</label>
+          <defaultValue>%COMMONAPPDATA%\Grupprincip\Inställningar\Spåra\Planering.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximal storlek på spårningsfil (kB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

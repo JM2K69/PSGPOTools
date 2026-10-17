@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2006 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Windows 接続マネージャーのグループ ポリシーの設定</displayName>
   <description>Windows 接続マネージャーのグループ ポリシーの設定</description>
@@ -22,9 +22,9 @@
 このポリシー設定を構成しなかった場合、または無効にした場合、コンピューターはドメイン ネットワークと非ドメイン ネットワークの両方に同時に接続できます。
       </string>
       <string id="WCM_DisableRoaming">ローミング モバイル ブロードバンド ネットワークへの接続を禁止する</string>
-      <string id="WCM_DisableRoaming_Help">このポリシー設定は、クライアントがローミング プロバイダー ネットワークにクライアントが登録されている場合に、クライアントがモバイル ブロードバンド ネットワークに接続できないようにします。
+      <string id="WCM_DisableRoaming_Help">このポリシー設定は、クライアントがローミング プロバイダー ネットワークに登録されているときにモバイル ブロードバンド ネットワークに接続することを禁止します。
 
-このポリシー設定を有効にした場合、クライアントがホーム プロバイダー ネットワークに登録されるまで、ローミング プロバイダー ネットワークへの自動および手動の接続試行はすべてブロックされます。
+このポリシー設定を有効にした場合、クライアントがホーム プロバイダー ネットワークに登録されるまで、ローミング プロバイダー ネットワークへの自動および手動の接続試行がすべてブロックされます。
 
 このポリシー設定を構成しなかった場合、または無効にした場合、クライアントはローミング プロバイダーのモバイル ブロードバンド ネットワークに接続できます。
       </string>

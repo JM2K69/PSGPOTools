@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Ağ Bağlantısı Durum Göstergesi Grup İlkesi Ayarları</displayName>
   <description>Ağ Bağlantısı Durum Göstergesi Grup İlkesi Ayarları</description>
@@ -73,7 +73,7 @@
       </presentation>
       <presentation id="NCSI_PassivePolling">
         <text>Aşağıdaki onay kutusu NCSI'de pasif yoklama mekanizmasını devre dışı bırakır.   Sunucularda ve ağ bağlantısı statik olan diğer makinelerde CPU iş yükünü geliştirebilirsiniz.</text>
-        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Pasif yoklamayı devre dışı bırak</checkBox>  
+        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Pasif yoklamayı devre dışı bırak</checkBox>
       </presentation>
       <presentation id="NCSI_GlobalDns">
         <text>Aşağıdaki onay kutusu, NCSI'da DNS aramaları yaparken arabirim bağlamayı devre dışı bırakır.   Bu, NCSI'nın localhost'ta çalıştırılan DNS sunucusu gibi özel ağ yapılandırmaları ile daha iyi çalışmasını sağlayabilir.</text>

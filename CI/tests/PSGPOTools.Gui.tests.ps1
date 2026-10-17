@@ -1201,7 +1201,8 @@ InModuleScope -ModuleName PSGPOTools {
 
                 # The policy editor works as before (by ID: an earlier test reloads the ADMX files).
                 $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsPolicy] -and $n.Tag.ID -eq 'DisableAntiSpywareDefender' }
-                $Ui.settingTitleTextBlock.Text | Should -Be 'Turn off Windows Defender Antivirus'
+                # Its name in the ADML of Windows 11 26H2.
+                $Ui.settingTitleTextBlock.Text | Should -Be 'Turn off Microsoft Defender Antivirus'
 
                 Invoke-Click $Ui.managementButton
                 $Ui.managementView.IsVisible | Should -BeTrue
@@ -1695,7 +1696,8 @@ InModuleScope -ModuleName PSGPOTools {
                 $Ui.statusTextBlock.Text | Should -Match '^\d+ ADMX files, \d+ languages\.$'
                 $Ui.loadButton.IsEnabled | Should -BeTrue
 
-                $Ui.cultureComboBox.SelectedItem = 'fr-FR'
+                # The folder as it is named: fr-fr in the ADMX of Windows 11 26H2.
+                $Ui.cultureComboBox.SelectedItem = @($Ui.cultureComboBox.ItemsSource | Where-Object { $_ -eq 'fr-FR' })[0]
                 Invoke-Click $Ui.loadButton
                 $Ui.statusTextBlock.Text | Should -BeLike 'Loading the ADMX files of*in fr-FR...'
                 $Ui.loadButton.IsEnabled | Should -BeFalse

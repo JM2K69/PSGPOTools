@@ -14,6 +14,19 @@
 Si cette stratégie est activée, l'expérience de confidentialité n'est pas lancée pour les comptes d'utilisateurs qui viennent d'être créés ni pour les comptes qui auraient été invités à choisir leurs paramètres de confidentialité après une mise à jour.
 
 Si cette stratégie est désactivée ou n'est pas configurée, l'expérience de confidentialité peut se lancer pour les comptes d'utilisateurs qui viennent d'être créés ou pour les comptes qui doivent être invités à choisir leurs paramètres de confidentialité après une mise à jour.</string>
+
+      <string id="AllowOOBEUpdates">Autoriser les mises à jour dans OOBE</string>
+      <string id="AllowOOBEUpdates_Explain">Cette stratégie vous permet de configurer si un nouvel appareil reçoit des mises à jour critiques lors de l'expérience prête à l'emploi.
+
+Si vous désactivez ou ne configurez pas cette stratégie, les nouveaux appareils ne recevront pas de mises à jour critiques pendant l’expérience de première exécution.
+
+Si vous activez la stratégie, les nouveaux appareils recevront les dernières mises à jour critiques approuvées lors de l'expérience prête à l'emploi.
+
+Remarques :
+Cette stratégie ne contrôle pas la page de mises à jour du correctif vulnérabilité zero-day (ZDP) dans OOBE.
+
+Si vous avez suspendu les mises à jour de qualité via les reports de mises à jour de qualité Windows et les stratégies de suspension, aucune mise à jour de qualité ne sera fournie pendant l'expérience prête à l'emploi.
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

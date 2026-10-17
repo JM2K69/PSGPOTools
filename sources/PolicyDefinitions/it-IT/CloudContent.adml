@@ -15,7 +15,7 @@ Inoltre, se si seleziona la casella di controllo "Includi contenuti da Contenuti
 
 Se si disabilita questa impostazione dei criteri, Contenuti in evidenza di Windows sarà disattivato e gli utenti non potranno più selezionare questa opzione per la schermata di blocco. Gli utenti visualizzeranno l'immagine predefinita per la schermata di blocco e potranno selezionare un'altra immagine, a meno che non sia stato abilitato il criterio "Impedisci modifica dell'immagine della schermata di blocco".
 
-Se non si configura questa impostazione dei criteri, Contenuti in evidenza di Windows sarà disponibile nella schermata di blocco e sarà selezionato per impostazione predefinita, a meno che non sia stata configurata un'altra immagine predefinita della schermata di blocco usando il criterio "Imponi immagine specifica per la schermata di blocco predefinita".
+Se non si configura questa impostazione dei criteri, Contenuti in evidenza di Windows sarà disponibile nella schermata di blocco e sarà selezionato per impostazione predefinita, a meno che non sia stata configurata un'altra immagine predefinita della schermata di blocco usando il criterio "Imponi immagine specifica per la schermata di blocco e di accesso predefinita".
 
 Nota: questo criterio è disponibile solo per le SKU Enterprise</string>
       <string id="DisableWindowsSpotlightFeatures">Disattiva tutte le funzionalità di Contenuti in evidenza di Windows</string>
@@ -65,6 +65,43 @@ Se disabiliti o non configuri questo criterio, le funzionalità di Contenuti in 
 Se abiliti questo criterio, Configurazione e personalizzazione di Windows non verrà più visualizzato quando sono presenti aggiornamenti e modifiche di Windows e delle relative app.
 
 Se disabiliti o non configuri questo criterio, verrà avviato Configurazione e personalizzazione di Windows per facilitare l'onboarding degli utenti in Windows segnalando loro novità, modifiche e suggerimenti.</string>
+      <string id="DisableCloudOptimizedContent">Disattiva il contenuto ottimizzato per il cloud</string>
+      <string id="DisableCloudOptimizedContent_Help">Questa impostazione dei criteri consente di disattivare il contenuto ottimizzato per il cloud in tutte le esperienze di Windows.
+
+Se si Abilita questo criterio, le esperienze di Windows che utilizzano il componente client del contenuto ottimizzato per il cloud, verranno eseguite come contenuto di fallback predefinito.
+
+Se si disabilita o non si configura questa impostazione dei criteri, le esperienze di Windows potranno utilizzare contenuto ottimizzato per il cloud.</string>
+      <string id="DisableSpotlightCollectionOnDesktop">Disattiva Raccolta di contenuti in evidenza nel desktop</string>
+      <string id="DisableSpotlightCollectionOnDesktop_Help">Questa impostazione dei criteri rimuove l'impostazione della raccolta di contenuti in evidenza in Personalizzazione, non consentendo all'utente di selezionare l’opzione e conseguentemente di scaricare le immagini giornaliere da Microsoft sul desktop.
+
+Se abiliti questo criterio, "Raccolta di contenuti in evidenza" non sarà disponibile come opzione nelle impostazioni di Personalizzazione.
+
+Se disabiliti o non configuri questo criterio, "Raccolta di contenuti in evidenza" sarà disponibile nelle impostazioni di Personalizzazione, consentendo all'utente di selezionare l’opzione come provider desktop e di visualizzare le immagini giornaliere da Microsoft sul desktop.</string>
+      <string id="DisableConsumerAccountStateContent">Disattiva il contenuto dell'account utente cloud</string>
+      <string id="DisableConsumerAccountStateContent_Help">Questa impostazione dei criteri ti consente di disattivare il contenuto dello stato dell'account consumer cloud in tutte le esperienze di Windows.
+
+Se abiliti questo criterio, le esperienze di Windows che utilizzano il componente client del contenuto dello stato dell'account consumer del cloud, verranno invece presenti il contenuto di fallback predefinito.
+
+Se si disabilita o non si configura questa impostazione dei criteri, le esperienze di Windows potranno utilizzare il contenuto dello stato dell'account consumer del cloud.
+        </string>
+      <string id="EnableOrganizationalMessagesContent">Abilita messaggi dell'organizzazione</string>
+      <string id="EnableOrganizationalMessagesContent_Help">I messaggi dell'organizzazione consentono agli amministratori di recapitare i messaggi agli utenti finali in determinate esperienze di Windows 11. I messaggi dell'organizzazione sono disponibili per gli amministratori tramite servizi come Microsoft Endpoint Manager.
+
+Per impostazione predefinita, questo criterio è disabilitato. Se si abilita questo criterio, queste esperienze mostreranno i contenuti prenotati dagli amministratori.
+
+L'abilitazione di questo criterio non avrà alcun impatto sulle impostazioni dei criteri MDM esistenti che regolano la distribuzione di contenuti da Microsoft nelle esperienze Windows.</string>
+      <string id="DisableGetStartedContent">Disabilita Attività iniziali</string>
+      <string id="DisableGetStartedContent_Help">Questa impostazione dei criteri disabilita l'esperienza Informazioni di base Windows.
+
+Se abiliti questa impostazione di criteri, Informazioni di base non si avvierà automaticamente e si chiuderà immediatamente se avviato manualmente. Le attività in background correlate non verranno eseguite.
+
+Se disabiliti o non configuri questa impostazione di criteri, Informazioni di base rimarrà disponibile e potrà apparire per aiutare gli utenti a conoscere Windows.</string>
+      <string id="DisableCopilotPinScreenContent">Disabilita la schermata di accesso di Copilot</string>
+      <string id="DisableCopilotPinScreenContent_Help">Impedisce a Windows di visualizzare i suggerimenti di Microsoft 365 Copilot all'accesso. Non disabilita Copilot e non influisce sulle licenze.
+
+Se abiliti questa impostazione, la guida alla configurazione di Microsoft 365 Copilot non si avvierà automaticamente all'accesso.
+
+Se disabiliti questa impostazione o non la configuri, la guida alla configurazione di Microsoft 365 Copilot potrebbe apparire all'accesso per aiutare gli utenti a scoprire e configurare Copilot.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureWindowsSpotlight">

@@ -2,39 +2,47 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>Appx-paketinhallinta</displayName> 
+  <displayName>Appx-paketinhallinta</displayName>
   <description>Appx-paketinhallinta</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">Sovelluspaketin hallinta</string>
       <string id="AppxDeploymentAllowAllTrustedApps">Salli kaikkien luotettujen sovellusten asennus</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Tämän käytäntöasetuksen avulla voit hallita luotettuja liiketoiminta-alueita (LOB) vastaavien tai kehittäjän allekirjoittamien Windows-kaupan sovellusten asennusta.
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Tämän käytäntöasetuksen avulla voit hallita luotettujen toimialakohtaisten sovellusten tai kehittäjän allekirjoittamien paketoitujen Microsoft Store -sovellusten asentamista.
 
-Jos otat tämän käytäntöasetuksen käyttöön, voit asentaa luotettuja liiketoiminta-alueita vastaavia tai kehittäjän allekirjoittamia Windows-kaupan sovelluksia (joiden allekirjoituksen varmenneketjutuksen paikallisen tietokoneen on voitava vahvistaa).
+Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, voit asentaa minkä tahansa LOB:n tai kehittäjän allekirjoittaman paketoidun Microsoft Store -sovelluksen (joka on allekirjoitettava varmenneketjulla, jonka paikallinen tietokone voi vahvistaa onnistuneesti).
 
-Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, et voi asentaa luotettuja liiketoiminta-alueita vastaavia tai kehittäjän allekirjoittamia Windows-kaupan sovelluksia.</string>
+Jos poistat tämän käytäntöasetuksen käytöstä, et voi asentaa toimialakohtaisia tai kehittäjien allekirjoittamia paketoituja Microsoft Store sovelluksia.</string>
+      <string id="AllowAutomaticAppArchiving">Arkistoi harvoin käytetyt sovellukset</string>
+      <string id="AllowAutomaticAppArchivingExplanation">Tämä käytäntö asetus määrittää, voiko järjestelmä arkistoida harvoin käytössä olevia sovelluksia.
+
+Jos otat tämän käytäntö asetuksen käyttöön, järjestelmä tarkistaa ja Arkistoi harvoin käytetyt sovellukset säännöllisesti.
+
+Jos poistat tämän käytäntö asetuksen käytöstä, järjestelmä ei arkistoi mitään sovelluksia.
+
+Jos et määritä tätä käytäntö asetusta (oletus), järjestelmä seuraa oletus toimintaa, joka on säännöllisesti tarkistaa ja Arkistoi harvoin sovelluksia, ja käyttäjä voi määrittää tämän asetuksen itse.</string>
       <string id="AllowDeploymentInSpecialProfiles">Salli erityisprofiilien käyttöönottotoiminnot</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">Tämän käytäntöasetuksen avulla voit hallita Windows-kaupan sovellusten käyttöönottoa, kun käyttäjä on kirjautunut käyttämään erityisprofiilia. Erityisprofiileja ovat seuraavat käyttäjäprofiilit, joissa muutokset hylätään käyttäjän kirjauduttua ulos:
+      <string id="AllowDeploymentInSpecialProfilesExplanation">Tämän käytäntöasetuksen avulla voit hallita Microsoft Storen sovellusten käyttöönottoa, kun käyttäjä on kirjautunut käyttämään erityisprofiilia. Erityisprofiileja ovat seuraavat käyttäjäprofiilit, joissa tehdyt muutokset hylätään käyttäjän uloskirjautumisen jälkeen:
 
-Palvelimessa sijaitsevat käyttäjäprofiilit, joita koskee Poista välimuistiin tallennetut kopiot palvelimessa sijaitsevista profiileista -ryhmäkäytäntöasetus
+Palvelimessa sijaitsevat käyttäjäprofiilit, joita varten käytetään Poista välimuistiin tallennetut kopiot palvelimessa sijaitsevista profiileista -ryhmäkäytäntöasetusta
 
-Pakolliset käyttäjäprofiilit ja super-mandatory (erittäin pakolliset) -käyttäjäprofiilit, jotka järjestelmänvalvoja luo
+Järjestelmänvalvojan luomat pakolliset käyttäjäprofiilit ja super-mandatory (erittäin pakolliset) -käyttäjäprofiilit
 
 Tilapäiset käyttäjäprofiilit, jollainen luodaan silloin, kun virhe estää oikean profiilin lataamisen
 
 Käyttäjäprofiilit vierastiliä ja vierasryhmän jäseniä varten
 
 
-Jos otat tämän käytäntöasetuksen käyttöön, ryhmäkäytäntö sallii Windows-kaupan sovellusten käyttöönottotoiminnot (sovelluspakettien lisääminen, rekisteröiminen, valmisteleminen, päivittäminen tai poistaminen), kun käyttäjä käyttää erityisprofiilia.
+Jos otat tämän käytäntöasetuksen käyttöön, ryhmäkäytäntö sallii Microsoft Storen sovellusten käyttöönottotoiminnot (sovelluspakettien lisäämisen, rekisteröimisen, valmistelemisen, päivittämisen tai poistamisen), kun käyttäjän käytössä on erityisprofiili.
 
-Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, ryhmäkäytäntö estää Windows-kaupan sovellusten käyttöönottotoiminnot, kun käyttäjä käyttää erityisprofiilia.</string>
-      <string id="AllowDevelopmentWithoutDevLicense">Sallii Windows-kaupan sovellusten kehittämisen ja asentamisen integroidusta kehitysympäristöstä (IDE)</string>
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, ryhmäkäytäntö estää Microsoft Storen sovellusten käyttöönottotoiminnot, kun käyttäjän käytössä on erityisprofiili.</string>
+      <string id="AllowDevelopmentWithoutDevLicense">Sallii paketoitujen Microsoft Storen sovellusten kehittämisen ja asentamisen integroidusta kehitysympäristöstä (IDE)</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        Sallii tai estää Windows-kaupan sovellusten kehittämisen ja asentamisen suoraan integroidusta kehitysympäristöstä.
+        Sallii tai estää Microsoft Storen sovellusten kehittämisen ja asentamisen suoraan integroidusta kehitysympäristöstä.
 
-        Jos otat tämän asetuksen käyttöön ja jos otat käyttöön Salli kaikkien luotettujen sovellusten asennus -ryhmäkäytännön, voit kehittää Windows-kaupan sovelluksia ja asentaa niitä suoraan integroidusta kehitysympäristöstä.
-        
-        Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, et voi kehittää Windows-kaupan sovelluksia tai asentaa niitä suoraan integroidusta kehitysympäristöstä.
+        Jos otat tämän asetuksen käyttöön ja jos otat käyttöön Salli kaikkien luotettujen sovellusten asennus -ryhmäkäytännön, voit kehittää Microsoft Storen sovelluksia ja asentaa niitä suoraan integroidusta kehitysympäristöstä.
+
+        Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, et voi kehittää Microsoft Storen sovelluksia tai asentaa niitä suoraan integroidusta kehitysympäristöstä.
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">Poista käytöstä Windows-sovellusten asentaminen muihin kuin järjestelmäasemiin</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -53,12 +61,150 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, ry
         Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjien sovellustiedot siirretään mukana, kun sovellus siirretään eri asemaan.
       </string>
       <string id="AllowSharedLocalAppData">Salli Windows-sovelluksen jakaa sovellustietoja käyttäjien välillä</string>
-      <string id="AllowSharedLocalAppDataExplanation">Hallitsee Windows-sovelluksen kykyä jakaa tietoja sovelluksen asentaneiden käyttäjien välillä.
-      
-        Jos otat tämän käytännön käyttöön, Windows-sovellus voi jakaa tietoja kyseisen sovelluksen muiden esiintymien kanssa. Tiedot jaetaan SharedLocal-kansion kautta. Tämä kansio on käytettävissä Windows.Storage-ohjelmointirajapinnan kautta.
+      <string id="AllowSharedLocalAppDataExplanation">Hallinnoi Windows-sovelluksen kykyä jakaa tietoja sovelluksen asentaneiden käyttäjien välillä.
 
-        Jos poistat tämän käytännön käytöstä, Windows-sovellus ei voi jakaa sovellustietoja kyseisen sovelluksen muiden esiintymien kanssa. Jos tämä käytäntö oli otettu käyttöön aiemmin, aiemmin jaetut sovellustiedot pysyvät SharedLocal-kansiossa. 
+        Jos otat tämän käytännön käyttöön, Windows-sovellus pystyy jakamaan sovellustietoja kyseisen sovelluksen muiden esiintymien kanssa. Tiedot jaetaan SharedLocal-kansion kautta. Tämä kansio on käytettävissä Windows.Storage-ohjelmointirajapinnan kautta.
+
+        Jos poistat tämän käytännön käytöstä, Windows-sovellus ei pysty jakamaan sovellustietoja kyseisen sovelluksen muiden esiintymien kanssa. Jos tämä käytäntö on otettu aiemmin käyttöön, aiemmin jaetut sovellustiedot pysyvät SharedLocal-kansiossa.
       </string>
+      <string id="BlockNonAdminUserInstall">Estä muita kuin järjestelmänvalvojaa asentamasta paketoituja Windows-sovelluksia</string>
+      <string id="BlockNonAdminUserInstallExplanation">Hallinnoi muiden kuin järjestelmänvalvojien mahdollisuutta asentaa Windows-sovelluspaketteja.
+
+        Jos otat tämän käytännön käyttöön, muut kuin järjestelmänvalvojat eivät voi asentaa Windows-sovelluspaketteja. Kun järjestelmänvalvoja haluaa asentaa sovelluksen, hänen on tehtävä se järjestelmänvalvojaympäristössä (esimerkiksi järjestelmänvalvojan PowerShell-ikkunassa). Kaikki käyttäjät voivat edelleen asentaa Windows-sovelluspaketteja Microsoft Storesta, jos muut käytännöt sallivat sen.
+
+        Jos poistat tämän käytännön käytöstä tai et määritä sitä, kaikki käyttäjät pystyvät asentamaan Windows-sovelluspaketteja.
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">Määritä valtuutetut verkkotunnukset HTTPS-todennusta varten MSIX-suoratoistoasennuksessa</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">Tämä käytäntöasetus määrittää, sisällytetäänkö EntraID OAuth -tunnus HTTPS-tietoliikenneeseen määritettyyn täydelliseen toimialuenimeen MSIX-virtautettavan asennuksen suorittamista varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, HTTPS-tietoliikenne esimääritettyihin täydelliseen toimialueeseen sisältää käyttäjän EntraID OAuth -tunnuksen suoritettaessa MSIX-suoratoistoasennusta. Annettu arvo on säännöllinen lauseke (ECMA Script), jota käytetään vastaamaan URL-osoitteen isoilla kirjaimilla kirjoitettua, täysin määritettyä toimialuetta.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjän EntraID OAuth -tunnus jaetaan vain määritettyjen oletustoimialueiden kanssa.
+      </string>
+      <string id="DisableBackgroundAutoUpdates">Ei salli ohiladattujen sovellusten automaattista päivitystä taustalla</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">Hallitsee ohiladatun sovelluksen kykyä päivittää automaattisesti taustalla.
+
+Jos otat tämän käytännön käyttöön, ohiladatut sovellukset eivät päivity automaattisesti taustalla.
+
+Jos poistat tämän käytännön käytöstä, ohiladatut sovellukset päivitetään automaattisesti taustalla.
+
+Oletusarvo on ei käytössä (avainta ei ole).
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">Ei salli ohiladattujen sovellusten automaattista päivitystä taustalla käytön mukaan laskutettavassa verkossa</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">Hallitsee ohiladatun sovelluksen kykyä päivittää automaattisesti taustalla käytön mukaan laskutettavassa verkossa.
+
+Jos otat tämän käytännön käyttöön, ohiladatut sovellukset eivät päivity automaattisesti taustalla käytön mukaan laskutettavassa verkossa.
+
+Jos poistat tämän käytännön käytöstä, ohiladatut sovellukset päivitetään automaattisesti taustalla käytön mukaan laskutettavassa verkossa.
+
+Oletusarvo on ei käytössä (avainta ei ole).
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">Ei salli käyttäjäkohtaisten allekirjoittamattomien pakettien asentamista oletusarvoisesti (edellyttää erikseen sallimista asennusta kohden)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">Ei salli käyttäjäkohtaisten allekirjoittamattomien pakettien asentamista oletusarvoisesti (edellyttää erikseen sallimista asennuskohtaisesti)
+
+        Jos otat tämän käytännön käyttöön, AllowUnsigned-asetuksen oletusarvo on False.
+
+        Jos poistat tämän käytännön käytöstä, AllowUnsigned-asetuksen oletusarvo on True.
+
+        Oletus on poistettu käytöstä (avainta ei ole).
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">Muiden kuin järjestelmänvalvojien käyttäjäasennusten sallitut pakettiperheiden nimet</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">Muiden kuin järjestelmänvalvojien Windows-sovelluspaketin asennuksen sallitut pakettiperheiden nimet.
+
+Jos otat tämän käytännön käyttöön, voit antaa luettelon Windows-sovelluspaketeista, jotka eivät ole järjestelmänvalvojia ja jotka voivat aloittaa asennuksen riippumatta määritetystä Estä muita kuin järjestelmänvalvojia asentamasta paketoituja Windows-sovelluksia -käytäntöasetuksesta riippumatta.
+
+Annettuja arvoja käsitellään säännönmukaisena lausekkeina (ECMA Script). Pakettiperheen nimi, kuten Contoso.ContosoApp_8wekyb3d8bbwe, on kelvollinen säännönmukainen lauseke, joka vastaa kaikkia kyseisen perheen paketteja. Säännöllinen lauseke, kuten ^Contoso.*_8wekyb3d8bbwe$ vastaa myös Contoso.ContosoApp_8wekyb3d8bbwe
+
+Jos asennettavan Windows-sovelluspaketin pakettiperheen nimi vastaa mitä tahansa sääntöä, Estä muita kuin järjestelmänvalvojakäyttäjiä asentamasta paketoituja Windows-sovelluksia -käytäntö ei estä sitä. Muut käytännöt tai asetukset saattavat yhä estää asennuksen.
+
+Jos poistat tämän käytännön käytöstä tai et määritä sitä, kaikkia Windows-sovelluspaketteja koskee määritetty Estä muita kuin järjestelmänvalvojakäyttäjiä asentamasta paketoituja Windows-sovelluksia -käytäntö.
+
+Oletusarvo on ei käytössä (avainta ei ole).
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">Poista Microsoft Store -oletuspaketit järjestelmästä.</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">Poistaa Microsoft Store -oletuspaketit järjestelmästä.
+
+Jos otat tämän käytännön käyttöön, valitut Microsoft Store -sovellukset poistetaan järjestelmästä. Voit muuttaa oletusasetuksia.
+
+Luettelosta ei poisteta valitsemattomia sovelluksia.
+
+* Tämä on oheislaitteeton sovellus (ei käyttöliittymää)
+
+** Tämä sovellus on yleisen tiedostotyypin tai protokollan oletuskäsittelijä. Tämän sovelluksen poistaminen saattaa heikentää käyttökokemusta. Tämän sovelluksen poistamista ei suositella.
+
+Jos otat tämän käytännön käyttöön, voit myös poistaa sovelluksen kirjoittamalla sovelluksen pakettiperheen nimen (esim. Microsoft.WindowsCalculator_8wekyb3d8bbwe) dynaamiseen luetteloon kohtaan "Määritä lisäpakettiperheiden nimet, jotka haluat poistaa".
+
+Jos tämä käytäntö on käytössä, aiemmin poistetun sovelluksen uudelleenasennus edellyttää sovelluksen valinnan poistamista annetusta luettelosta tai sovelluksen pakettiperheen nimen poistamista dynaamisesta luettelosta.
+
+Et voi poistaa Windowsin järjestelmäkomponentteja dynaamisen sovelluksen poistoluettelon kautta.
+
+Pakettiperheen nimien vahvistus dynaamisessa sovelluksen poistoluettelossa tapahtuu käyttäjän kirjautuessa sisään, ei käytännön määritysvaiheessa.
+
+Oletusasetus on "ei käytössä" (avainta ei ole).
+
+Jos käytäntö on pois käytöstä tai sitä ei ole määritetty, mitään oletussovelluksia ei poisteta järjestelmästä.
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">Poistaa Microsoft Store -oletuspaketit järjestelmästä.</string>
+      <string id="EnableMsixAllowedZones">Ota MSIX-pakettien sallitut vyöhykkeet käyttöön</string>
+      <string id="EnableMsixAllowedZonesExplanation">Tämä käytäntö määrittää, sallitaanko tietyistä URL-vyöhykkeistä peräisin olevien MSIX-pakettien asennus. Paketin alkuperä määräytyy sen URI-tunnuksen mukaan ja sen mukaan, onko Mart-of-the-Web (MotW) olemassa. Jos tähän liittyy useita URI-tunnuksia, kaikkia niistä harkitaan;
+
+Jos tämä käytäntöasetus otetaan käyttöön, käyttäjät voivat asentaa MSIX-paketteja kunkin vyöhykkeen määritysten mukaisesti.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjät voivat asentaa MSIX-paketteja mistä tahansa vyöhykkeestä lukuun ottamatta ei-luotettuja.</string>
+      <string id="ZoneAllowed">Salli</string>
+      <string id="ZoneBlocked">Estä</string>
+      <string id="EnableMsixSmartScreenCheck">Ota MSIX-pakettien Microsoft SmartScreen -tarkistukset käyttöön</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">Tämä käytäntö määrittää, suoritetaanko Microsoft SmartScreen -tarkistus, kun asennetaan MSIX-paketteja tietyiltä URL-vyöhykkeiltä.
+
+Jos otat tämän käytännön käyttöön tai et määritä sitä, paketin URI arvioidaan Microsoft SmartScreenin avulla ennen asennusta. Tämä tarkistus tehdään vain Internetistä tuleville paketeille.
+
+Jos poistat tämän käytöstä, Microsoft SmartScreeniä ei konsultoida ennen paketin asentamista.</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>Lauseke</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">Muiden kuin järjestelmänvalvojien käyttäjäasennusten sallitut pakettiperheiden nimet</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>Poistaa Microsoft Store -oletuspaketit järjestelmästä.</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">Palautekeskus</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">Microsoft 365 Copilot</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft News</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Microsoftin valokuvat **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Microsoftin Muistilaput</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">Microsoft To Do</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN Sää</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Outlook for Windows</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">Paint</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">Pikatuki</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">Kuvakaappaustyökalu</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Windows Laskin</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Windowsin kamera **</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Windows Media Player **</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Windows Muistio **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Windowsin ääninauhuri</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Windows-pääte</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">Xbox-pelisovellus</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Xbox Identity Provider</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Xboxin puhe tekstiksi -peittokuva *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">Määritä lisäpakettiperheiden nimet, jotka haluat poistaa</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">Paikallinen tietokone</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">Intranet</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">Luotettavat sivustot</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">Internet</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">Ei-luotetut sivustot</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

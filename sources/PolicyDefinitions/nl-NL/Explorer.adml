@@ -37,14 +37,30 @@ Opmerking: als u deze beleidsinstelling inschakelt, voorkomt u niet dat gebruike
       <string id="DisableRoamedProfileInit_Help">Met deze beleidsinstelling kunnen beheerders die zwervende profielen hebben geconfigureerd in combinatie met de instelling 'In cache opgeslagen beleid voor zwervende profielgroep verwijderen' ervoor zorgen dat Explorer standaardprogrammakoppelingen en andere instellingen niet opnieuw initialiseert op basis van de standaardwaarden. 
 
 Als u deze beleidsinstelling hebt ingeschakeld op een computer waarop niet alle programma's zijn geïnstalleerd op dezelfde manier als op de computer waarop de gebruiker zich voor het laatst heeft aangemeld, kan onverwacht gedrag optreden. </string>
+      <string id="DisableGraphRecentItems">Bestanden weergeven op basis van de activiteit van uw account en cloudprovider</string>
+      <string id="DisableGraphRecentItems_Help">Als u deze instelling uitschakelt, wordt voorkomen dat Verkenner metagegevens van cloudbestanden aanvraagt en weergeeft op de startpagina en andere weergaven in Verkenner. Inzichten en bestanden op basis van activiteiten van accounts of cloudproviders worden gestopt in weergaven zoals Recent, Aanbevolen, Favorieten, Gedeeld, enzovoort.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Geavanceerde instellingen voor bronintegratie in Bestandenverkenner uitschakelen</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">Als u de bronintegratie van geavanceerde instellingen uitschakelt, kan Bestandenverkenner geen opslagplaatsgegevens van het onderdeel Geavanceerde instellingen weergeven</string>
+      <string id="DisableFileExplorerPrelaunch">De functie Verkenner uitschakelen om een venster op de achtergrond vooraf te starten</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Met dit beleid voorkomt u dat gebruikers de functie Vooraf starten inschakelen in Bestandenverkenner, waarmee een venster op de achtergrond wordt gemaakt om de opstartervaring te versnellen en de reactietijd te verbeteren.</string>
+      <string id="MakePrintScreenKeyYieldable">PRINT-SCRN-toets bruikbaar maken</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Met deze beleidsinstelling wordt bepaald of de toets Afdrukscherm kan worden gebruikt voor andere toepassingen.
+
+Als u deze beleidsinstelling inschakelt, kan de afdrukschermsleutel worden onderschept door toepassingen, zodat deze de standaardfunctionaliteit voor schermopnamen kunnen overschrijven.
+
+Als u deze beleidsinstelling uitschakelt, blijft het verouderde gedrag voor het maken van schermopnamen behouden en kan deze niet worden onderschept door toepassingen.
+
+Als dit beleid niet is geconfigureerd, kan de afdrukschermsleutel worden onderschept door toepassingen, zodat deze de standaardfunctionaliteit voor schermopnamen kunnen overschrijven, hetzelfde als het ingeschakelde gedrag.
+
+Opmerking: voor deze instelling moet het systeem mogelijk opnieuw worden opgestart.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>URL van webpagina voor ondersteuning</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>URL van webpagina voor ondersteuning</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

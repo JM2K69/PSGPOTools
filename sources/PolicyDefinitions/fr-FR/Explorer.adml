@@ -37,14 +37,30 @@ Remarque : l’activation de ce paramètre de stratégie n’empêche pas l’u
       <string id="DisableRoamedProfileInit_Help">Ce paramètre de stratégie permet aux administrateurs ayant configuré un profil itinérant conjointement avec le paramètre de stratégie de groupe Supprimer le profil itinérant en cache de s'assurer que l'Explorateur ne va pas réinitialiser les associations de programmes par défaut et d'autres paramètres à leurs valeurs par défaut. 
 
 Si vous activez ce paramètre de stratégie sur un ordinateur dont les programmes ne sont pas configurés de la même manière que sur l'ordinateur à partir duquel l'utilisateur s'est connecté pour la dernière fois, un comportement inattendu peut se produire. </string>
+      <string id="DisableGraphRecentItems">Afficher les fichiers en fonction de l’activité de votre compte et de votre fournisseur cloud</string>
+      <string id="DisableGraphRecentItems_Help">La désactivation de ce paramètre empêche l’Explorateur de fichiers de demander les métadonnées du fichier cloud et de les afficher dans la page d’accueil et dans d’autres vues de l’Explorateur de fichiers. Tous les insights et fichiers basés sur l’activité du compte ou du fournisseur de cloud seront suspendus dans les vues telles que Récents, Recommandés, Favoris, Partagés, etc.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Désactiver l’intégration source des paramètres avancés dans Explorateur de fichiers</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">La désactivation de l’intégration source des paramètres avancés empêche Explorateur de fichiers d’afficher les informations de dépôt du composant sytem Paramètres avancés</string>
+      <string id="DisableFileExplorerPrelaunch">Désactivez la fonctionnalité d’Explorer permettant de précharger une fenêtre en arrière-plan</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Cette stratégie empêche les utilisateurs d’activer la fonctionnalité De prélancement dans Explorateur de fichiers, qui crée une fenêtre en arrière-plan pour accélérer l’expérience de lancement et améliorer la réactivité.</string>
+      <string id="MakePrintScreenKeyYieldable">Rendre la touche Impr écran réactive</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Ce paramètre de stratégie détermine si la touche Impr. écran peut être retournée à d’autres applications.
+
+Si vous activez ce paramètre de stratégie, la touche Impr. écran peut être interceptée par les applications, ce qui leur permet de remplacer la fonctionnalité de capture d’écran par défaut.
+
+Si vous désactivez ce paramètre de stratégie, la touche Impr. écran conserve son comportement hérité pour prendre des captures d’écran et ne peut pas être interceptée par les applications.
+
+Si cette stratégie n’est pas configurée, la touche Impr. écran peut être interceptée par les applications, ce qui leur permet de remplacer la fonctionnalité de capture d’écran par défaut, identique au comportement activé.
+
+Remarque : ce paramètre peut nécessiter un redémarrage du système pour prendre effet.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>Prendre en charge l’URL de la page Web</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>Prendre en charge l’URL de la page Web</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

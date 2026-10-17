@@ -44,34 +44,34 @@ Bemærk!
           Se også indstillingen "Aktivér internetudskrivning" i denne indstillingsmappe og indstillingen "Gennemse et fælles websted for at søge efter printere" i Brugerkonfiguration\Administrative skabeloner\Kontrolpanel\Printere.
 
           Webvisning påvirkes af indstillingerne "Slå klassisk brugergrænseflade til" og "Tillad ikke, at Mappeindstillinger åbnes fra knappen Indstillinger under fanen Vis på båndet" i Brugerkonfiguration\Administrative skabeloner\Windows-komponenter\Windows Stifinder og af indstillingen "Aktivér Active Desktop" i Brugerkonfiguration\Administrative skabeloner\Skrivebord\Active Desktop.</string>
-      <string id="DomainDisplayPrinters_Help">Hvis du aktiverer denne politikindstilling, angiver politikken det maksimale antal printere (af hver type), som guiden Tilføj printer viser på en computer i et administreret netværk (når computeren kan oprette forbindelse til en domænecontroller, f.eks. en domænebaseret bærbar computer i et firmanetværk.)
+      <string id="DomainDisplayPrinters_Help">Hvis du aktiverer denne politikindstilling, angives det maksimale antal printere (af hver type), som guiden Tilføj printer vises på en computer på et administreret netværk (når computeren kan oprette forbindelse til en domænecontroller, f.eks. en domæneforbundet bærbar computer på et firmanetværk).
 
-          Hvis denne politikindstilling er deaktiveret, vises siden til gennemsøgning af netværk ikke.
+          Hvis denne politikindstilling er deaktiveret,  netværksscanningssiden vises ikke.
 
-          Hvis politikindstillingen ikke er konfigureret, viser guiden Tilføj printer standardantallet af printere for hver type:
+          Hvis denne politikindstilling ikke er konfigureret, viser guiden Tilføj printer standardantallet af printere af hver type:
           Katalogprintere: 20
           TCP/IP-printere: 0
-          Webtjenesteprintere: 0
+          Web Services-printere:  0
           Bluetooth-printere: 10
           Delte printere: 0
 
-          Når du vil se de tilgængelige webtjenesteprintere på netværket, skal du sørge for, at netværksregistrering er slået til. Det gør du ved at klikke på "Start", klikke på "Kontrolpanel" og derefter klikke på "Netværk og internet". Klik på "Netværk og delingscenter" på siden "Netværk og internet". Klik på "Rediger avancerede delingsindstillinger" på siden Netværks- og delingscenter. Klik på pilen ud for "Domæne" på siden Avancerede delingsindstillinger, klik på "Slå netværksregistrering til", og klik derefter på "Gem ændringer".
+          Hvis du vil have vist tilgængelige webtjenesteprintere på netværket, skal du sikre dig, at netværksregistrering er slået til. Hvis du vil slå netværksregistrering til, skal du klikke på "Start", klikke på "Kontrolpanel" og derefter klikke på "Netværk og internet". Klik på "Netværks- og delingscenter" på siden "Netværk og internet". Klik på "Skift avancerede indstillinger for deling" på siden Netværks- og delingscenter. På siden Avancerede indstillinger for deling skal du klikke på pilen ud for pilen "Domæne", klikke på "Slå netværksregistrering til" og derefter klikke på "Gem ændringer".
 
-          Hvis du vil ikke vise printere af en bestemt type, skal du aktivere denne politik og indstille antallet af printere, der skal vises, til 0.
+          Hvis du ikke vil have vist printere af en bestemt type, skal du aktivere denne politik og angive antallet af printere, der skal vises, til 0.
 
-          I Windows 10 og nyere er det kun TCP/IP-printere, som kan vises i guiden. Hvis du aktiverer denne politikindstilling, gælder kun TCP/IP-printerbegrænsninger. Hvis du i Windows 10 deaktiverer eller undlader at konfigurere denne politikindstilling, anvendes standardgrænsen.
-          
-          I Windows 8 eller senere vises Bluetooth-printere ikke, så grænsen gælder ikke for disse versioner af Windows.
+          I Windows 10 og nyere kan kun TCP/IP-printere vises i guiden. Hvis du aktiverer denne politikindstilling, er det kun TCP/IP-printergrænser, der er gældende. Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling på Windows 10, anvendes standardgrænsen.
+
+          I Windows 8 og nyere vises Bluetooth-printere ikke, så dens grænse gælder ikke for disse versioner af Windows.
       </string>
       <string id="DomainPrinters">Guiden Tilføj printere – side for scanning af netværk (administreret netværk)</string>
       <string id="DownlevelBrowse">Gennemse netværket for at søge efter printere</string>
       <string id="DownlevelBrowse_Help">Giver brugerne mulighed for at bruge guiden Tilføj printer til at søge efter delte printere på netværket.
 
-Hvis du aktiverer denne indstilling eller undlader at konfigurere den, viser guiden Tilføj printer en liste over delte printere på netværket og beder brugerne om at vælge en printer på den viste liste, når de vælger at tilføje en netværksprinter ved at markere alternativknappen "En netværksprinter eller en printer, der er tilsluttet en anden computer" på side to i guiden Tilføj printer og desuden markerer alternativknappen "Opret forbindelse til denne printer (eller vælg denne indstilling, og klik på Næste, hvis du vil søge efter en printer)" på side tre i guiden Tilføj printer uden at angive et navn på printeren i feltet "Navn".
+Hvis du aktiverer denne indstilling eller undlader at konfigurere den, når brugerne vælger at tilføje en netværksprinter ved hjælp af alternativknappen "En netværksprinter eller en printer, der er knyttet til en anden computer" på side 2 i guiden Tilføj printer, og desuden markerer alternativknappen "Opret forbindelse til denne printer (eller vælg denne indstilling, og klik på Næste, hvis du vil søge efter en printer)" på side 3 i guiden Tilføj printer uden at angive et navn på printeren i feltet "Navn", så viser guiden Tilføj printer listen over delte printere på netværket og inviterer til valg af en printer på den viste liste.
 
-Hvis du deaktiverer denne indstilling, fjernes siden til søgning efter netværksprintere i guiden Tilføj printer. Brugerne kan derfor ikke søge på netværket, men skal i stedet skrive navnet på en printer.
+Hvis du deaktiverer denne indstilling, fjernes siden til søgning efter netværksprintere i guiden Tilføj printer, og brugerne kan ikke søge på netværket, men skal i stedet skrive navnet på en printer.
 
-Bemærk! Indstillingen påvirker kun guiden Tilføj printer. Den forhindrer ikke brugerne i at anvende andre programmer til at søge efter delte printere eller oprette forbindelse til netværksprintere.</string>
+Bemærk! Denne indstilling påvirker kun guiden Tilføj printer. Den forhindrer ikke brugerne i at anvende andre programmer til at søge efter delte printere eller oprette forbindelse til netværksprintere.</string>
       <string id="EMFDespooling">Gengiv altid udskriftsjob på serveren</string>
       <string id="EMFDespooling_Help">Når der udskrives via en printerserver, fastslår denne indstilling, om printspooleren på klienten selv behandler udskriftsjob eller sender dem videre til serveren.
 
@@ -134,21 +134,21 @@ Bemærk! Når du anvender denne politik, deaktiveres eksisterende kernetilstands
           Indstillingen forhindrer ikke brugerne i at køre andre programmer for at slette en printer.
 
           Hvis denne politik er deaktiveret eller ikke er konfigureret, kan brugere slette printere vha. de metoder, der er beskrevet ovenfor.</string>
-      <string id="NonDomainDisplayPrinters_Help">Denne politik angiver det maksimale antal printere (af hver type), som guiden Tilføj printer viser på en computer i et ikke-administreret netværk (når computeren ikke kan oprette forbindelse til en domænecontroller, f.eks. en domænebaseret bærbar computer i et hjemmenetværk.)
+      <string id="NonDomainDisplayPrinters_Help">Denne politikindstilling angiver det maksimale antal printere (af hver type), som guiden Tilføj printer viser på en computer på et ikke-administreret netværk (når computeren ikke kan oprette forbindelse til en domænecontroller, f.eks. en domænetilknyttet bærbar computer på et hjemmenetværk).
 
-Hvis denne indstilling er deaktiveret, vises siden for gennemsøgning af netværk ikke.
+Hvis denne indstilling er deaktiveret, vises siden netværksscanning ikke.
 
-Hvis indstillingen ikke er konfigureret, viser guiden Tilføj printer standardantallet af printere for hver type:
+Hvis denne indstilling ikke er konfigureret, viser guiden Tilføj printer standard antallet af printere af hver type:
 TCP/IP-printere: 50
 Webtjenesteprintere: 50
 Bluetooth-printere: 10
 Delte printere: 50
 
-Hvis du ikke vil vise printere af en bestemt type, kan du aktivere denne politik og indstille antallet af printere, der skal vises, til 0.
+Hvis du ikke vil vise printere af en bestemt type, skal du aktivere denne politik og indstille antallet af printere, der skal vises, til 0.
 
-I Windows 10 og nyere er det kun TCP/IP-printere, der kan vises i guiden. Hvis du aktiverer denne politikindstilling, gælder kun TCP/IP-printerbegrænsninger. Hvis du på Windows 10 deaktiverer eller undlader at konfigurere denne politikindstilling, anvendes standardgrænsen.
-          
-I Windows 8 eller senere vises Bluetooth-printere ikke, så grænsen gælder ikke for disse versioner af Windows.</string>
+I Windows 10 og nyere er det kun TCP/IP-printere, der kan vises i guiden. Hvis du aktiverer denne politikindstilling, gælder kun TCP/IP-printergrænser. Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling på Windows 10, anvendes standardgrænsen.
+
+I Windows 8 og nyere vises Bluetooth-printere ikke, så grænsen gælder ikke for disse versioner af Windows.</string>
       <string id="NonDomainPrinters">Guiden Tilføj printere – side for scanning af netværk (ikke-administreret netværk)</string>
       <string id="PackagePointAndPrintOnly">Brug kun pakning af pegning og udskrivning</string>
       <string id="PackagePointAndPrintOnly_Help">Denne politik begrænser klientcomputere til at kun at bruge pakning af pegning og udskrivning.
@@ -278,19 +278,241 @@ Som standard fortsætter SKU'er til Windows Ultimate, Professional og Home med a
 
         Hvis du deaktiverer denne politikindstilling, eller hvis du undlader at konfigurere den, vil alle printerudvidelser, der er installeret, have tilladelse til at køre.</string>
       <string id="MXDWUseLegacyOutputFormatMSXPS">Skift fra standardformatet Microsoft XPS Document Writer (MXDW) til det ældre Microsoft XPS-format (*.xps)</string>
-      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Microsoft XPS Document Writer (MXDW) opretter OpenXPS-filer (*.oxps) som standard i Windows 10, Windows RT 10 og Windows Server 2019.
+      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Microsoft XPS Document Writer (MXDW) genererer OpenXPS-filer (*.oxps) som standard i Windows 10, Windows 10 og Windows Server 2025.
 
-          Hvis du aktiverer denne gruppepolitikindstilling, er standardformatet for MXDW-output det ældre Microsoft XPS (*.xps).
+Hvis du aktiverer denne gruppepolitikindstilling, er standardformatet for MXDW-output det ældre Microsoft XPS (*.xps).
 
-          Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, er standardformatet for MXDW-output OpenXPS (*.oxps).</string>
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, er standardformatet for MXDW-output OpenXPS (*.oxps).</string>
       <string id="SetDefaultPrinterMRUModeOff">Slå standardprinterstyring i Windows fra</string>
-      <string id="SetDefaultPrinterMRUModeOff_Help">Denne præference giver dig mulighed for at ændre standardprinterstyring.
+      <string id="SetDefaultPrinterMRUModeOff_Help">Denne indstilling giver dig mulighed for at ændre standardprinterstyring.
 
-Hvis du aktiverer denne indstilling styrer Windows ikke standardprinteren.
- 
-Hvis du deaktiverer denne indstilling, styrer Windows standardprinteren.
+Hvis du aktiverer denne indstilling, administrerer Windows ikke standardprinteren.
 
-Hvis du ikke konfigurerer denne indstilling, ændres standardprinterstyring ikke. </string>
+Hvis du deaktiverer denne indstilling, administrerer Windows standardprinteren.
+
+Hvis du undlader at konfigurere denne indstilling, ændres standardprinterstyring ikke. </string>
+      <string id="EnableDeviceControl">Aktivér udskrivningsbegrænsninger for enhedskontrol</string>
+      <string id="EnableDeviceControl_Help">
+Fastslår, om udskrivningsbegrænsninger for enhedskontrol skal håndhæves for udskrivning på denne computer.
+
+          Der er som standard ingen begrænsninger for udskrivning baseret på forbindelsestype eller printerens fabrikat/model.
+
+          Hvis du aktiverer denne indstilling, vil computeren begrænse udskrivning til printerforbindelser på virksomhedens netværk eller godkendte USB-tilsluttede printere.
+
+          Hvis du deaktiverer denne indstilling eller undlader at konfigurere den, er der ingen begrænsninger for udskrivning på basis af forbindelsestype eller printerens fabrikat/model.</string>
+      <string id="ApprovedUsbPrintDevices">Liste over godkendte USB-tilsluttede udskriftsenheder</string>
+      <string id="ApprovedUsbPrintDevices_Help">
+
+Denne indstilling er en komponent i udskrivningsbegrænsninger for enhedskontrol. Hvis du vil bruge denne indstilling, skal du aktivere udskrivning for enhedskontrol ved at aktivere indstillingen "Aktivér udskrivningsbegrænsninger for enhedskontrol".
+
+            Når udskrivning for enhedskontrol er aktiveret, bruger systemet den angivne liste over vid/pid-værdier til at fastslå, om den aktuelle USB-tilsluttede printer er godkendt til lokal udskrivning.
+
+            Skriv alle godkendte vid/pid-kombinationer (adskilt af kommaer), der svarer til godkendte USB-printermodeller. Når en bruger forsøger at udskrive til en USB-printerkø, sammenlignes enhedens vid/pid med den godkendte liste.
+      </string>
+      <string id="RestrictDriverInstallationToAdministrators">Begrænser installation af printerdriver til administratorer</string>
+      <string id="RestrictDriverInstallationToAdministrators_Help">
+Fastslår, om brugere, der ikke er administratorer, kan installere printerdrivere på denne computer.
+
+Brugere, der ikke er administratorer, kan som standard ikke installere printerdrivere på denne computer.
+
+Hvis du aktiverer denne indstilling eller undlader at konfigurere den, begrænser systemet installationen af printerdrivere til administratorer af denne computer.
+
+Hvis du deaktiverer denne indstilling, begrænser systemet ikke installationen af printerdrivere til denne computer.
+        </string>
+      <string id="CopyFilesPolicy">Administrer behandling af køspecifikke filer</string>
+      <string id="CopyFilesPolicy_AllowAll">Tillad alle kø-specifikke filer</string>
+      <string id="CopyFilesPolicy_Disabled">Tillad ikke køspecifikke filer</string>
+      <string id="CopyFilesPolicy_Help">
+Administrerer, hvordan køspecifikke filer behandles under printerinstallation. På tidspunktet for printerinstallation kan et installationsprogram, der leveres af leverandøren, angive et sæt filer af enhver type, der skal knyttes til en bestemt udskriftskø. Filerne downloades til hver klient, der opretter forbindelse til printerserveren.
+
+Du kan aktivere denne indstilling til at ændre standardadfærden, der involverer køspecifikke filer. For at bruge denne indstilling skal du vælge en af nedenstående muligheder i feltet "Administrer behandling af køspecifikke filer".
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, er standardadfærden "Begræns køspecifikke filer til farveprofiler".
+
+--  "Tillad ikke køspecifikke filer" angiver, at ingen køspecifikke filer vil blive tilladt/behandlet under installation af udskriftskø/printerforbindelse.
+
+--  "Begræns køspecifikke filer til farveprofiler" angiver, at kun køspecifikke filer, der overholder standard farveprofilskemaet, er tilladt. Dette betyder poster, der bruger registreringsnøglen CopyFiles\ICM, der indeholder en mappeværdi på FARVE og understøtter mscms.dll som modulværdi. "Begræns kø-specifikke filer til farveprofiler" er standardadfærden.
+
+--  "Tillad alle køspecifikke filer" angiver, at alle køspecifikke filer vil blive tilladt/behandlet under installation af udskriftskø/printerforbindelse.
+      </string>
+      <string id="CopyFilesPolicy_ICMOnly">Begræns køspecifikke filer til Farveprofiler</string>
+      <string id="DriverValidationLevel_Inbox">Kræv indbakke-signerede drivere</string>
+      <string id="DriverValidationLevel_Legacy">Tillad alle gyldigt signerede drivere</string>
+      <string id="DriverValidationLevel_Trusted">Tillad indbakke- og Print Drivers Trusted Store-signerede drivere</string>
+      <string id="DriverValidationLevel_TrustedShared">Tillad indbakke-, Print Drivers Trusted Store-, WHQL- og Trusted Publisher Store-signerede drivere</string>
+      <string id="DriverValidationLevel_WHQL">Tillad indbakke-, Print Drivers Trusted Store- og WHQL-signerede drivere</string>
+      <string id="DriverValidationLevel">Administrer validering af printerdriverens signatur</string>
+      <string id="DriverValidationLevel_Help">
+          Denne politikindstilling styrer mekanismen til validering af printerdriverens signatur. Denne politik styrer den type digital signatur, der kræves for at en printerdriver kan betragtes som gyldig og installeret på systemet.
+
+          Som en del af denne validering verificeres kataloget/den integrerede signatur, og alle filer i driveren skal være en del af kataloget eller have deres egen integrerede signatur, der kan bruges til validering.
+
+          Du kan aktivere denne indstilling for at ændre valideringsmetoden for standardsignatur. For at bruge denne indstilling skal du vælge en af nedenstående muligheder i feltet "Vælg driverens signaturmekanisme til denne computer".
+
+          Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, er standardmetoden "Tillad alle gyldigt signerede drivere".
+
+          -- "Kræv indbakke-signerede drivere" angiver kun drivere, der sendes som en del af en Windows-afbildning, der er tilladt på denne computer.
+
+          -- "Tillad indbakke- og PrintDrivers Trusted Store-signerede drivere" angiver kun drivere, der sendes som en del af en Windows-afbildning, eller drivere, der er signeret med certifikater, der er installeret i 'PrintDrivers'-certifikatlager, er tilladt på denne computer.
+
+          -- "Tillad indbakke-, PrintDrivers Trusted Store- og WHQL-signerede drivere" angiver, at de eneste drivere, der er tilladt på denne computer, er dem, der er: afsendt som en del af en Windows-afbildning, signeret med certifikater installeret i 'PrintDrivers'-certifikatlager eller signeret af Windows Hardware Quality Lab (WHQL).
+
+          -- "Tillad indbakke-, PrintDrivers Trusted Store-, WHQL- og Trusted Publishers Store-signerede drivere" angiver, at de eneste drivere, der er tilladt på denne computer, er dem, der er: afsendt som en del af en Windows-afbildning, signeret med certifikater installeret i 'PrintDrivers'-certifikatlager, signeret af Windows Hardware Quality Lab (WHQL) eller signeret med certifikater installeret i certifikatlageret 'Udgivere, der er tillid til'.
+
+          -- "Tillad alle gyldigt signerede drivere" angiver, at enhver printerdriver, der har en gyldig integreret signatur eller kan valideres i forhold til printerdriverkataloget, kan installeres på denne computer.
+
+          'PrintDrivers'-certifikatlageret skal oprettes af en administrator under den lokale computerbutiks placering.
+
+          Certifikatlageret 'Udgivere, der er tillid til' kan indeholde certifikater fra kilder, der ikke er relateret til printerdrivere.
+
+      </string>
+      <string id="DriverValidationLevelTitle">Vælg driverens signaturmekanisme til denne computer</string>
+      <string id="DriverExclusionList">Administrer udeladelsesliste for printerdrivere</string>
+      <string id="DriverExclusionList_Help">
+Denne politikindstilling styrer listen over printerdriverundtagelser. Udeladelseslisten gør det muligt for en administrator at administrere en liste over printerdrivere, der ikke må installeres på systemet.
+
+Denne kontrol udløser signaturkontrollen og gør det muligt at udelade drivere med et gyldigt signaturniveau for politikken til validering af printerdriversignaturer.
+
+Poster på udeladelseslisten består af en SHA256-hash (eller SHA1-hash for Win7) af INF-filen og/eller den primære driver-DLL-fil for driveren og navnet på filen.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, slettes den registreringsdatabasenøgle og de værdier, der er knyttet til denne politikindstilling, hvis den aktuelt er indstillet til en værdi.
+
+      </string>
+      <string id="RpcListenerPolicy">Konfigurer indstillinger for RPC-lyttefunktion</string>
+      <string id="RpcOverNamedPipes">RPC over navngivne pipes</string>
+      <string id="RpcOverTcp">SMB over TCP</string>
+      <string id="RpcOverNamedPipesAndTcp">RPC over navngivne pipes og TCP</string>
+      <string id="RpcAuthenticationProtocol_Negotiate">Forhandl</string>
+      <string id="RpcAuthenticationProtocol_Kerberos">Kerberos</string>
+      <string id="RpcListenerPolicy_Help">
+Denne politikindstilling styrer, hvilke protokoller indgående RPC-forbindelser til printspooleren må bruge.
+
+RPC over TCP er som standard aktiveret, og Negotiate bruges til godkendelsesprotokollen.
+
+Protokoller, der skal tillades for indgående RPC-forbindelser:
+    -- "RPC over navngivne pipes": Indgående RPC-forbindelser er kun tilladt over navngivne pipes
+    -- "RPC over TCP": Indgående RPC-forbindelser er kun tilladt via TCP (standardindstillingen)
+    -- "RPC over navngivne pipes og TCP": Indgående RPC-forbindelser tillades via TCP og navngivne pipes
+
+Godkendelsesprotokol, der skal bruges til indgående RPC-forbindelser:
+    -- "Negotiate": Brug Negotiate-godkendelsesprotokollen (standardindstillingen)
+    -- "Kerberos": Brug Kerberos-godkendelsesprotokollen
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, bruges ovenstående standarder.
+      </string>
+      <string id="RpcConnectionPolicy">Konfigurer indstillinger for RPC-forbindelse</string>
+      <string id="RpcConnectionAuthenticationDefault">Standard</string>
+      <string id="RpcConnectionAuthenticationEnabled">Godkendelse aktiveret</string>
+      <string id="RpcConnectionAuthenticationDisabled">Godkendelse deaktiveret</string>
+      <string id="RpcConnectionPolicy_Help">
+Denne politikindstilling styrer, hvilke protokol- og protokolindstillinger der skal bruges til udgående RPC-forbindelser til en ekstern printspooler.
+
+RPC over TCP bruges som standard, og godkendelse er altid aktiveret for RPC over navngivne pipes, godkendelse er altid aktiveret for domænetilknyttede computere, men deaktiveret for ikke-domænetilknyttede maskiner.
+
+Protokol, der skal bruges til udgående RPC-forbindelse:
+    -- "RPC over TCP": Brug RPC over TCP til udgående RPC-forbindelser til en ekstern printspooler
+    -- "RPC over navngivne pipes": Brug RPC over navngivne pipes til udgående RPC-forbindelser til en ekstern printspooler
+
+Brug godkendelse til udgående RPC-forbindelser over navngivne forbindelser:
+    -- "Standard": Som standard aktiverer domænetilknyttede computere RPC-godkendelse over navngivne forbindelser, mens ikke-domænetilknyttede computere deaktiverer RPC-godkendelse over navngivne forbindelser
+    -- "Godkendelse aktiveret": RPC-godkendelse vil blive brugt til udgående RPC-forbindelser over navngivne forbindelser
+    -- "Godkendelse deaktiveret": RPC-godkendelse vil ikke blive brugt til udgående RPC-forbindelser over navngivne pipes
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, bruges ovenstående standarder.
+      </string>
+      <string id="RpcTcpPortPolicy">Konfigurer RPC over TCP-port</string>
+      <string id="RpcTcpPortPolicy_Help">
+Denne politikindstilling styrer, hvilken port der bruges til RPC over TCP til indgående forbindelser til printspooleren og udgående forbindelser til eksterne printspoolere.
+
+Dynamiske TCP-porte bruges som standard.
+
+RPC over TCP-port:
+    -- Den port, der skal bruges til RPC over TCP. En værdi på 0 er standarden og angiver, at dynamiske TCP-porte bruges
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, bruges dynamiske TCP-porte.
+      </string>
+      <string id="RpcIncomingAuthenticationLevelPolicy">Konfigurer indstillingen for beskyttelse af personlige oplysninger på RPC-pakkeniveau for indgående forbindelser</string>
+      <string id="RpcIncomingAuthenticationLevelPolicy_Help">
+Denne politikindstilling styrer, om beskyttelse af personlige oplysninger på pakkeniveau er aktiveret for RPC for indgående forbindelser.
+
+Beskyttelse af personlige oplysninger på pakkeniveau er som standard aktiveret for RPC for indgående forbindelser.
+
+Hvis du aktiverer eller undlader at konfigurere denne politikindstilling, aktiveres beskyttelse af personlige oplysninger på pakkeniveau for RPC for indgående forbindelser.
+      </string>
+      <string id="AlwaysSendIppPageCounts">Send altid oplysninger om antal jobsider for IPP-printere</string>
+      <string id="AlwaysSendIppPageCounts_Help">
+Bestemmer, om der altid skal sendes oplysninger om sideantal til revisionsformål for printere ved hjælp af Microsoft IPP-klassedriveren.
+
+Sider sendes som standard til printeren, så snart de gengives, og oplysninger om sideantal sendes ikke til printeren, medmindre siderne skal omarrangeres.
+
+Hvis du aktiverer denne indstilling, gengiver systemet alle udskriftsjobsider foran og sender printeren det samlede antal sider for udskriftsjobbet.
+
+Hvis du deaktiverer denne indstilling eller undlader at konfigurere den, udskrives siderne, så snart de gengives, og sidetællinger sendes kun, når der kræves omarrangering af sider for at kunne behandle jobbet.
+      </string>
+      <string id="RequireIpps">Kræv IPPS til IPP-printere</string>
+      <string id="RequireIpps_Help">Fastslår, om kommunikation med printere, der bruger Microsoft IPP-klassedriveren, skal bruge IPPS (som bruger TLS til sikker kommunikation).
+
+Hvis du aktiverer denne politikindstilling, kan kun IPP-printere, der understøtter IPPS, installeres.
+
+Hvis du deaktiverer eller undlader at konfigurere denne indstilling, tillades installation af IPP-printere, der ikke understøtter IPPS, som standard.
+      </string>
+      <string id="IppTlsCertificatePolicy">Angiv TLS/SSL sikkerhedspolitik for IPP-printere</string>
+      <string id="IppTlsCertificatePolicy_Help">
+Bestemmer TLS/SSL-sikkerhedspolitik (WINHTTP_OPTION_SECURITY_FLAGS) for printere ved hjælp af Microsoft IPP Class Driver.
+
+Som standard er sikkerhedspolitik indstillet til at ignorere alle certifikatfejl, hvilket tillader brug af selvsignerede certifikater til printere.
+
+Hvis du aktiverer denne indstilling, aktiverer systemet som standard al certifikatkontrol, og det tillader ikke certifikatfejl. Specifik certifikatkontrol kan angives med de angivne afkrydsningsfelter.
+
+Hvis du deaktiverer denne indstilling eller ikke konfigurerer den, er standardindstillingen at ignorere alle certifikatfejl (alle afkrydsningsfelter er ikke markeret).
+      </string>
+      <string id="RedirectionGuardPolicy">Konfigurer Omdirigeringsbeskyttelse</string>
+      <string id="RedirectionGuardPolicy_Disabled">Omdirigeringsbeskyttelse er deaktiveret</string>
+      <string id="RedirectionGuardPolicy_Enabled">Omdirigeringsbeskyttelse er aktiveret</string>
+      <string id="RedirectionGuardPolicy_AuditOnly">Kun overvågning af omdirigeringsbeskyttelse</string>
+      <string id="RedirectionGuardPolicy_Help">
+Bestemmer, om Redirection Guard er aktiveret for printspooleren.
+
+Du kan aktivere denne indstilling for at konfigurere politikken Redirection Guard, der anvendes på spooler.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vil Redirection Guard som standard være "Aktiveret".
+
+Hvis du aktiverer denne indstilling, kan du vælge følgende indstillinger:
+
+-- Aktiveret: Omdirigeringsbeskyttelse forhindrer, at filomdirigeringer følges
+
+-- Fjernet: Omdirigeringsbeskyttelse aktiveres ikke, og filomdirigeringer kan bruges i spoolerprocessen
+
+-- Overvåg: Redirection Guard logfører hændelser, som om den var aktiveret, men forhindrer ikke, at der bruges filomdirigeringer i spooleren.
+      </string>
+      <string id="WindowsProtectedPrintPolicy">Konfigurer Windows Protected Print</string>
+      <string id="WindowsProtectedPrintPolicy_Help">
+Fastslår, om Windows-beskyttet udskrivning er aktiveret på denne computer.
+
+Windows-beskyttet udskrivning er som standard ikke aktiveret, og der er ingen begrænsninger på printerdriverne, der kan installeres eller udskrives.
+
+Hvis du aktiverer denne indstilling, vil computeren køre i Windows-beskyttet udskriftstilstand, som kun tillader udskrivning til printere, der understøtter et undersæt af Windows-printerdrivere til indbakken.
+
+Hvis du deaktiverer indstillingen eller undlader at konfigurere den, er der ingen begrænsninger på printerdriverne, der kan installeres eller udskrives.
+
+Du kan få flere oplysninger i https://learn.microsoft.com/en-us/windows-hardware/drivers/print/windows-protected-print-mode
+      </string>
+      <string id="WindowsReadyPrintDriverRanking">Konfigurer Windows Ready Print-driverrangering</string>
+      <string id="WindowsReadyPrintDriverRanking_Help">
+Bestemmer, om rangering af Windows Ready Print-driver er aktiveret på denne computer.
+
+Når indstillingen er aktiveret, foretrækker Windows Microsoft IPP-klassedriveren til printere, der understøtter Internet Printing Protocol (IPP). Det gælder både IPP-printere, der er forbundet til netværket, og printere, der er tilsluttet via USB, og som understøtter IPP over USB.
+
+Hvis du aktiverer denne indstilling, prioriterer Windows Microsoft IPP-klassedriveren under automatisk drivervalg for understøttede printere.
+
+Hvis du deaktiverer denne indstilling, bruger Windows standardfunktionsmåden til valg af drivere.
+
+Hvis du ikke konfigurerer denne indstilling, bruges den lokale administratorindstilling i stedet. Hvis ingen af indstillingerne er konfigureret, er rangering af Windows Ready Print-driver aktiveret som standard.
+
+Bemærk! Denne gruppepolitikindstilling har forrang for den lokale administratorindstilling. Denne indstilling påvirker kun automatisk drivervalg under den indledende printeropsætning. Eksisterende printerinstallationer ændres ikke. Du skal afinstallere og geninstallere en printer helt, før en ændring af denne indstilling træder i kraft.
+
+Du kan få mere at vide på https://go.microsoft.com/fwlink/?linkid=2364024.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="CustomizedSupportUrl">
@@ -350,6 +572,50 @@ Hvis du ikke konfigurerer denne indstilling, ændres standardprinterstyring ikke
           <label>Standardsti i Active Directory</label>
         </textBox>
         <text>eksempel --&gt; LDAP://DC=Domæne1,DC=Firma,DC=com.</text>
+      </presentation>
+      <presentation id="ApprovedUsbPrintDevices">
+        <text>Angiv listen over godkendte USB-tilsluttede printerenheder.</text>
+        <text>Listen er en kommasepareret liste over USB vid/PID-værdier. Eksempel: 0351/0872, 135E/2179</text>
+        <textBox refId="ApprovedUsbPrintDevices_List">
+          <label>vid/pid</label>
+        </textBox>
+      </presentation>
+      <presentation id="CopyFilesPolicy">
+        <text>Vælg den metode, hvorpå køspecifikke filer skal behandles.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="CopyFilesPolicy_Enum">Administrer behandling af køspecifikke filer:</dropdownList>
+      </presentation>
+      <presentation id="DriverValidationLevel">
+        <dropdownList defaultItem="4" noSort="true" refId="DriverValidationLevel_Enum">Vælg driverens signaturmekanisme til denne computer:</dropdownList>
+      </presentation>
+      <presentation id="DriverExclusionList">
+        <text>  </text>
+        <text>Indtast en Filhash parret med navnet på den fil, Hash repræsenterer nedenfor.</text>
+        <text>  </text>
+        <listBox refId="Driver_ExclusionListEntry">Filhash Filnavn:</listBox>
+      </presentation>
+      <presentation id="RpcListenerPolicy">
+        <text>Konfigurer protokolindstillinger for indgående RPC-forbindelser.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RpcListenerProtocols_Enum">Protokoller, der tillader indgående RPC-forbindelser:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcAuthenticationProtocol_Enum">Godkendelsesprotokol, der skal bruges til indgående RPC-forbindelser:</dropdownList>
+      </presentation>
+      <presentation id="RpcConnectionPolicy">
+        <text>Konfigurer protokolindstillinger for udgående RPC-forbindelser.</text>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionProtocol_Enum">Protokol, der skal bruges til udgående RPC-forbindelser:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionAuthentication_Enum">Brug godkendelse til udgående RPC-forbindelser:</dropdownList>
+      </presentation>
+      <presentation id="RpcTcpPortPolicy">
+        <text>Konfigurer den port, der skal bruges til RPC over TCP.</text>
+        <decimalTextBox defaultValue="0" refId="RpcTcpPort">RPC over TCP-port:</decimalTextBox>
+      </presentation>
+      <presentation id="IppTlsCertificatePolicy">
+        <checkBox refId="SecurityFlagsBlockUnknownCA" defaultChecked="true">Tillad ikke ugyldigt nøglecenter</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertWrongUsage" defaultChecked="true">Tillad ikke ikke-servercertifikater</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertCNInvalid" defaultChecked="true">Tillad ikke ugyldigt nøglecenter fælles navn</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertDateInvalid" defaultChecked="true">Tillad ikke ugyldig nøglecenterdato</checkBox>
+      </presentation>
+      <presentation id="RedirectionGuardPolicy">
+        <text>Konfigurer indstillinger for Omdirigeringsbeskyttelse</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RedirectionGuardPolicy_Enum">Indstillinger for Omdirigeringsbeskyttelse</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

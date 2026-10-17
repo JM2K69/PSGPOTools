@@ -270,7 +270,7 @@ Se si abilita questa impostazione dei criteri, sarà possibile immettere un elen
 
 Se si disabilita o non si configura questa impostazione dei criteri, gli utenti non potranno specificare un elenco delle eccezioni predefinito per Blocco popup.
 
-Nota: è possibile impedire agli utenti di aggiungere o rimuovere siti Web dall'elenco di eccezioni abilitando l'impostazione dei criteri "Disattiva gestione Elenco popup consentiti".</string>
+Nota: è possibile impedire agli utenti di aggiungere o rimuovere siti Web dall'elenco di eccezioni abilitando il criterio "Disattiva gestione Elenco autorizzati per popup".</string>
       <string id="ExplainScriptPaste_AllProcs_Explain">Questa impostazione dei criteri consente di ignorare la richiesta di conferma quando uno script in esecuzione in qualsiasi processo nel computer cerca di eseguire un'operazione con gli Appunti (Elimina, Copia o Incolla).
 
 Se si abilita questa impostazione dei criteri, all'utente non verrà richiesta conferma quando uno script in esecuzione in qualsiasi processo nel computer esegue un'operazione con gli Appunti. Questo significa che se il comportamento dell'area è attualmente impostato per la richiesta di conferma verrà ignorato e si procederà all'abilitazione.
@@ -355,7 +355,7 @@ Se si disabilita questa impostazione dei criteri, la Connessione guidata Interne
 
 Se non si configura questa impostazione dei criteri, l'utente potrà decidere se avviare automaticamente la Connessione guidata Internet.</string>
       <string id="ICWSettings">Impostazioni della Connessione guidata Internet</string>
-      <string id="Identities">Gestione identità: impedisci l'utilizzo delle identità</string>
+      <string id="Identities">Identity Manager: impedisci l'utilizzo delle identità</string>
       <string id="IDN_Always">Converti sempre nel formato IDN</string>
       <string id="IDN_Intranet">Converti gli indirizzi Internet nel formato IDN</string>
       <string id="IDN_Never">Non convertire mai nel formato IDN</string>
@@ -415,17 +415,17 @@ Se non si configura questa impostazione dei criteri, l'utente potrà scambiare l
 
 Se si abilita questa impostazione dei criteri, non verrà visualizzata alcuna richiesta di abilitazione del filtro anti-phishing. L'amministratore deve specificare la modalità del filtro anti-phishing scegliendo tra le seguenti: manuale, automatico o disattivato.
 
-Se si seleziona la modalità manuale, il filtro anti-phishing eseguirà solo analisi locali e verrà visualizzata una richiesta di conferma prima dell'invio di qualsiasi dato a Microsoft. Se la funzionalità viene abilitata completamente, tutti gli indirizzi di siti Web non inclusi nell'elenco di quelli consentiti saranno automaticamente inviati a Microsoft senza richiedere conferma all'utente.
+Se si seleziona la modalità manuale, il filtro anti-phishing eseguirà solo analisi locali e verrà visualizzata una richiesta di conferma prima dell'invio di qualsiasi dato a Microsoft. Se la funzionalità viene abilitata completamente, tutti gli indirizzi di siti Web non inclusi nell'elenco autorizzati saranno automaticamente inviati a Microsoft senza richiedere conferma all'utente.
 
 Se si disabilita o non si configura questa impostazione dei criteri, l'utente potrà scegliere la modalità di funzionamento desiderata per il filtro anti-phishing.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter">Questa impostazione dei criteri consente di abilitare il filtro SmartScreen, che avviserà l'utente se il sito Web visitato è noto per aver eseguito tentativi fraudolenti di raccogliere informazioni personali attraverso il "phishing" o per contenere malware.
 
-Se si abilita questa impostazione dei criteri, all'utente non verrà richiesto di attivare il filtro SmartScreen. L'amministratore deve specificare la modalità del filtro SmartScreen scegliendo tra le seguenti: abilitato o disabilitato. Tutti gli indirizzi di siti Web non inclusi nell'elenco di quelli consentiti saranno automaticamente inviati a Microsoft senza richiedere conferma all'utente.
+Se si abilita questa impostazione dei criteri, all'utente non verrà richiesto di attivare il filtro SmartScreen. L'amministratore deve specificare la modalità del filtro SmartScreen scegliendo tra le seguenti: abilitato o disabilitato. Tutti gli indirizzi di siti Web non inclusi nell'elenco autorizzati del filtro saranno automaticamente inviati a Microsoft senza richiedere conferma all'utente.
 
 Se si disabilita o non si configura questa impostazione dei criteri, l'utente potrà scegliere di attivare il filtro SmartScreen alla prima esecuzione.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter_IE9">Questa impostazione dei criteri impedisce all'utente di gestire il filtro SmartScreen, che avviserà l'utente se il sito Web visitato è noto per aver eseguito tentativi fraudolenti di raccogliere informazioni personali attraverso il "phishing" o per contenere malware.
 
-Se si abilita questa impostazione dei criteri, all'utente non verrà richiesto di attivare il filtro SmartScreen. Tutti gli indirizzi di siti Web non inclusi nell'elenco di quelli consentiti saranno automaticamente inviati a Microsoft senza richiedere conferma all'utente.
+Se si abilita questa impostazione dei criteri, all'utente non verrà richiesto di attivare il filtro SmartScreen. Tutti gli indirizzi di siti Web non inclusi nell'elenco autorizzati saranno automaticamente inviati a Microsoft senza richiedere conferma all'utente.
 
 Se si disabilita o non si configura questa impostazione dei criteri, l'utente potrà scegliere di attivare il filtro SmartScreen alla prima esecuzione.</string>
       <string id="IE_Explain_DisableSecuritySettingsCheck">Questa impostazione dei criteri consente di disattivare la funzionalità di verifica delle impostazioni di sicurezza, che controlla le impostazioni di sicurezza di Internet Explorer per determinare quando comportano dei rischi per Internet Explorer.
@@ -805,9 +805,9 @@ Attenzione: l'abilitazione di questo criterio non rimuove i suggerimenti per gli
 Se si abilita questo criterio, il comando Suggerimenti utili verrà rimosso dal menu ?.
 
 Se si disabilita o non si configura questo criterio, gli utenti potranno abilitare o disabilitare l'interfaccia Suggerimenti utili, visualizzata nella parte inferiore della finestra del browser.</string>
-      <string id="IE_ExplainIdentities">Impedisce agli utenti di configurare identità univoche tramite Gestione identità.
+      <string id="IE_ExplainIdentities">Impedisce agli utenti di configurare identità univoche tramite Identity Manager.
 
-Gestione identità consente agli utenti di creare più account, ad esempio account di posta elettronica, nello stesso computer. Ogni utente ha un'identità univoca, con una password diversa e preferenze di programma diverse.
+Identity Manager consente agli utenti di creare più account, ad esempio account di posta elettronica, nello stesso computer. Ogni utente ha un'identità univoca, con una password diversa e preferenze di programma diverse.
 
 Se si abilita questo criterio, gli utenti non potranno creare nuove identità, gestire identità esistenti o cambiare identità. Il comando Cambia identità verrà rimosso dal menu File della Rubrica.
 
@@ -1345,7 +1345,7 @@ Se si abilita questa impostazione dei criteri, l'utente non potrà aggiungere n�
 
 Se si disabilita o non si configura questa impostazione dei criteri, l'utente potrà aggiungere o rimuovere siti Web nell'elenco delle eccezioni.
 
-Nota: abilitando l'impostazione dei criteri "Elenco popup consentiti" è possibile specificare un elenco di siti Web a cui è consentito aprire finestre popup indipendentemente dalle impostazioni Blocco popup di Internet Explorer.</string>
+Nota: abilitando l'impostazione dei criteri "Elenco autorizzati per popup" è possibile specificare un elenco di siti Web a cui è consentito aprire finestre popup indipendentemente dalle impostazioni Blocco popup di Internet Explorer.</string>
       <string id="IE_ExplainRestrictPopupManagement">Questa impostazione dei criteri consente di controllare la funzionalità di gestione dei popup in Internet Explorer.
 
 Se si abilita questa impostazione dei criteri, le informazioni del Pannello di controllo relative alla gestione dei componenti aggiuntivi non saranno disponibili (appariranno in grigio) e controlli, notifiche e finestre di dialogo relative alla gestione componenti aggiuntivi non verranno visualizzati. Le finestre popup continueranno a funzionare come in Windows XP Service Pack 1 e versioni precedenti, ma le finestre visualizzate al di fuori della schermata verranno riposizionate all'interno della schermata.
@@ -3014,7 +3014,7 @@ Questa funzionalità è valida solo per le versioni di Internet Explorer fino a 
       <string id="Persistence_FileLimits4">Limiti dimensioni file per l'area siti con restrizioni</string>
       <string id="PhishingOff">Disattiva</string>
       <string id="PhishingOn">Attivati</string>
-      <string id="PopupBlocker_AllowList">Elenco popup consentiti</string>
+      <string id="PopupBlocker_AllowList">Elenco autorizzati per popup</string>
       <string id="Printing">Stampa</string>
       <string id="Printing_Explain">Questa impostazione dei criteri consente di specificare se quando l'utente stampa una pagina Web, verranno stampati anche i colori e le immagini di sfondo. La stampa di colori e immagini di sfondo può rallentare la velocità di stampa della pagina e compromettere la qualità della stampa in base alle funzionalità della stampante in uso.
 
@@ -3574,37 +3574,42 @@ Se questa impostazione dei criteri viene disabilitata o non viene configurata, i
 
 Nota: questo criterio non è più supportato a partire da Windows 10 versione 1607.</string>
       <string id="Protocols_None">Non usare protocolli sicuri</string>
-      <string id="Protocols_SSL2">Usa solo SSL 2.0</string>
+      <string id="Protocols_SSL2">[Obsoleto] Usare solo SSL 2.0</string>
       <string id="Protocols_SSL3">Usa solo SSL 3.0</string>
-      <string id="Protocols_SSL2_SSL3">Usa SSL 2.0 e SSL 3.0</string>
+      <string id="Protocols_SSL2_SSL3">[Obsoleto] Usare SSL 2.0 e SSL 3.0</string>
       <string id="Protocols_TLS10">Usa solo TLS 1.0</string>
-      <string id="Protocols_SSL2_TLS10">Usa SSL 2.0 e TLS 1.0</string>
+      <string id="Protocols_SSL2_TLS10">[Obsoleto] Usa SSL 2.0 e TLS 1.0</string>
       <string id="Protocols_SSL3_TLS10">Usa SSL 3.0 e TLS 1.0</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">Usa SSL 2.0, SSL 3.0 e TLS 1.0</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[Obsoleto] Usa SSL 2.0, SSL 3.0 e TLS 1.0</string>
       <string id="Protocols_TLS11">Usa solo TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS11">Usa SSL 2.0 e TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS11">[Obsoleto] Usa SSL 2.0 e TLS 1.1</string>
       <string id="Protocols_SSL3_TLS11">Usa SSL 3.0 e TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">Usa SSL 2.0, SSL 3.0 e TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[Obsoleto] Usa SSL 2.0, SSL 3.0 e TLS 1.1</string>
       <string id="Protocols_TLS10_TLS11">Usa TLS 1.0 e TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">Usa SSL 2.0, TLS 1.0 e TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[Obsoleto] Usa SSL 2.0, TLS 1.0 e TLS 1.1</string>
       <string id="Protocols_SSL3_TLS10_TLS11">Usa SSL 3.0, TLS 1.0 e TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">Usa SSL 2.0, SSL 3.0, TLS 1.0 e TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[Obsoleto] Usare SSL 2.0, SSL 3.0, TLS 1.0 e TLS 1.1</string>
       <string id="Protocols_TLS12">Usa solo TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS12">Usa SSL 2.0 e TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS12">[Obsoleto] Usa SSL 2.0 e TLS 1.2</string>
       <string id="Protocols_SSL3_TLS12">Usa SSL 3.0 e TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">Usa SSL 2.0, SSL 3.0 e TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[Obsoleto] Usa SSL 2.0, SSL 3.0 e TLS 1.2</string>
       <string id="Protocols_TLS10_TLS12">Usa TLS 1.0 e TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">Usa SSL 2.0, TLS 1.0 e TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[Obsoleto] Usa SSL 2.0, TLS 1.0 e TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS12">Usa SSL 3.0, TLS 1.0 e TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">Usa SSL 2.0, SSL 3.0, TLS 1.0 e TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[Obsoleto] Usare SSL 2.0, SSL 3.0, TLS 1.0 e TLS 1.2</string>
       <string id="Protocols_TLS11_TLS12">Usa TLS 1.1 e TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">Usa SSL 2.0, TLS 1.1 e TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[Obsoleto] Usa SSL 2.0, TLS 1.1 e TLS 1.2</string>
       <string id="Protocols_SSL3_TLS11_TLS12">Usa SSL 3.0, TLS 1.1 e TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">Usa SSL 2.0, SSL 3.0, TLS 1.1 e TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[Obsoleto] Usare SSL 2.0, SSL 3.0, TLS 1.1 e TLS 1.2</string>
       <string id="Protocols_TLS10_TLS11_TLS12">Usa TLS 1.0, TLS 1.1 e TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">Usa SSL 2.0, TLS 1.0, TLS 1.1 e TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[Obsoleto] Usa SSL 2.0, TLS 1.0, TLS 1.1 e TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">Usa SSL 3.0, TLS 1.0, TLS 1.1 e TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">Usa SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 e TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[Obsoleto] Usare SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 e TLS 1.2</string>
+      <string id="Protocols_TLS13">Usare solo TLS 1.3</string>
+      <string id="Protocols_TLS12_TLS13">Usa TLS 1.2 e TLS 1.3</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">Usa TLS 1.1, TLS 1.2 e TLS 1.3</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">Usa TLS 1.0, TLS 1.1, TLS 1.2 e TLS 1.3</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">Usa SSL 3.0, TLS 1.0, TLS 1.1, TLS 1.2 e TLS 1.3</string>
       <string id="LockToolbars">Blocca tutte le barre degli strumenti</string>
       <string id="MoveStopRefresh">Blocca la posizione dei pulsanti Interrompi e Aggiorna</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3903,7 +3908,7 @@ Se si disabilita o non si configura questa impostazione dei criteri, gli utenti 
 Se si attiva questa impostazione, gli utenti potranno visualizzare e utilizzare l'opzione Modalità Enterprise dal menu Strumenti. Se si attiva questa impostazione ma non si specifica un percorso per i rapporti, la modalità Enterprise sarà comunque disponibile per gli utenti ma non si riceveranno i rapporti.
 
 Se si disabilita o non si configura questa impostazione, l'opzione di menu non verrà visualizzata e gli utenti non saranno in grado di eseguire siti Web in modalità Enterprise.</string>
-      <string id="RestrictInternetExplorer">Invia a Microsoft Edge tutti i siti non inclusi nell'elenco siti modalità Enterprise.</string>
+      <string id="RestrictInternetExplorer">Invia a Microsoft Edge tutti i siti non inclusi nell'elenco siti modalità Enterprise</string>
       <string id="IE_ExplainRestrictInternetExplorer">Questa impostazione consente di decidere se aprire in Microsoft Edge tutti i siti non inclusi nell'elenco siti modalità Enterprise. Se si usa questa impostazione, è necessario attivare anche l'impostazione dei criteri Modelli amministrativi\Componenti di Windows\Internet Explorer\Usa elenco siti Web di Internet Explorer modalità Enterprise e includere almeno un sito nell'elenco siti modalità Enterprise.
 
 Se si abilita questa impostazione, vengono aperti automaticamente in Microsoft Edge tutti i siti non inclusi nell'elenco siti modalità Enterprise.
@@ -3917,6 +3922,120 @@ Nota: se è stata abilitata anche l'impostazione Modelli amministrativi\Componen
 Se si abilita questa impostazione, i dipendenti visualizzano una pagina aggiuntiva in Internet Explorer 11, in cui viene indicato che un sito è stato aperto tramite Microsoft Edge con la modalità Enterprise.
 
 Se si disabilita o non si configura questa impostazione, viene applicato il comportamento predefinito dell'app e non è visualizzata alcuna pagina aggiuntiva.</string>
+      <string id="NeedEdgeBrowser">Configura il canale di Microsoft Edge da utilizzare per l'apertura dei siti reindirizzati</string>
+      <string id="IE_ExplainNeedEdgeBrowser">Consente di configurare fino a tre versioni di Microsoft Edge per aprire un sito reindirizzato (in ordine di preferenza). Utilizza questi criteri se l'ambiente è configurato per reindirizzare i siti da Internet Explorer 11 a Microsoft Edge. Se una delle versioni scelte non è installata nel dispositivo, la preferenza verrà ignorata.
+
+Se Windows Update è installato per la versione successiva del canale Microsoft Edge* e canale stabile Microsoft Edge, si verificano i seguenti comportamenti:
+- Se disabiliti o non configuri questi criteri, viene utilizzato il canale stabile Microsoft Edge. Questo è il comportamento predefinito.
+- Se abiliti questi criteri, puoi configurare l'apertura dei siti reindirizzati in un massimo di tre dei seguenti canali:
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta 77 o versione successiva
+    3 = Microsoft Edge Dev 77 o versione successiva
+    4 = Microsoft Edge Canary 77 o versione successiva
+
+Se Windows Update non è installato per la versione successiva del canale Microsoft Edge* o canale stabile Microsoft Edge, si verificano i seguenti comportamenti:
+- Se disabiliti o non configuri questi criteri, viene automaticamente utilizzato Microsoft Edge 45 o versione precedente. Questo è il comportamento predefinito.
+- Se abiliti questi criteri, puoi configurare l'apertura dei siti reindirizzati in un massimo di tre dei seguenti canali:
+    0 = Microsoft Edge 45 o versione precedente
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta 77 o versione successiva
+    3 = Microsoft Edge Dev 77 o versione successiva
+    4 = Microsoft Edge Canary 77 o versione successiva
+
+*Per ulteriori informazioni sull'aggiornamento di Windows per la versione successiva di Microsoft Edge, incluse quelle per disabilitarlo, vedi https://go.microsoft.com/fwlink/?linkid=2102115. Questo aggiornamento si applica solo a Windows 10 1709 e versione successiva.</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta 77 o versione successiva</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev 77 o versione successiva</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary 77 o versione successiva</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge 45 o versione precedente</string>
+      <string id="KeepIntranetSitesInInternetExplorer">Mantieni tutti i siti Intranet in Internet Explorer</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">Impedisce ai siti Intranet di essere aperti da qualsiasi altro browser che non sia Internet Explorer. Nota che se i criteri "Invia a Microsoft Edge tutti i siti non inclusi nell'elenco siti modalità Enterprise" ("RestrictIE") non sono abilitati, questi criteri non hanno effetto.
+
+Se abiliti questi criteri, tutti i siti Intranet vengono aperti in Internet Explorer 11. Le uniche eccezioni sono i siti elencati nell'elenco dei siti in modalità Enterprise.
+
+Se questi criteri sono disabilitati o non configurati, tutti i siti Intranet vengono aperti automaticamente in Microsoft Edge.
+
+Ti consigliamo di mantenere sincronizzati questi criteri con i criteri "Invia tutti i siti Intranet a Internet Explorer" ("SendIntranetToInternetExplorer"). Inoltre, sarebbe opportuno abilitare questi criteri solo se i tuoi siti Intranet mostrano problemi di compatibilità noti con Microsoft Edge.
+
+Criteri correlati:
+- Invia tutti i siti Intranet a Internet Explorer ("SendIntranetToInternetExplorer")
+- Invia tutti i siti non inclusi nell'elenco siti in modalità Enterprise in Microsoft Edge ("RestrictIE")
+
+Per ulteriori informazioni sulla modalità di utilizzo di questi criteri insieme ad altri criteri per creare la configurazione ottimale per la tua organizzazione, vedi https://go.microsoft.com/fwlink/?linkid=2094210.</string>
+      <string id="AllowSaveTargetAsInIEMode">Consenti a "Salva destinazione con nome" in modalità Internet Explorer</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">Questa impostazione dei criteri consente agli amministratori di abilitare il menu di scelta rapida "Salva destinazione come" nella modalità di Internet Explorer.
+
+Se si Abilita questo criterio, l'impostazione "Salva destinazione con nome" verrà visualizzata nel menu di scelta rapida della modalità di Internet Explorer e funzionerà come Internet Explorer.
+
+Se si disattiva o non si configura questa impostazione di criterio, "Salva destinazione con nome" non verrà visualizzato nel menu di scelta rapida della modalità di Internet Explorer.
+
+Per altre informazioni, Vedi https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="EnableGlobalWindowListInIEMode">Abilita l'elenco delle finestre globali in modalità Internet Explorer</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">Questa impostazione consente Internet Explorer modalità di utilizzare l'elenco delle finestre globale che consente la condivisione dello stato con altre applicazioni.
+L'impostazione diventerà effettiva solo quando Internet Explorer 11 è disabilitato come browser autonomo.
+
+Se si abilita questo criterio, Internet Explorer modalità utilizzerà l'elenco delle finestre globali.
+
+Se si disabilita o non si configura questo criterio, Internet Explorer modalità continuerà a mantenere un elenco di finestre separato.
+
+Per altre informazioni sulla modalità Internet Explorer, vedere https://go.microsoft.com/fwlink/?linkid=2102921
+Per altre informazioni sulla disabilitazione di Internet Explorer 11 come browser autonomo, vedere https://go.microsoft.com/fwlink/?linkid=2168340</string>
+      <string id="EnableExtendedIEModeHotkeys">Abilita tasti di scelta rapida estesi nella modalità Internet Explorer</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">Questa impostazione dei criteri consente agli amministratori di abilitare la modalità estesa per i tasti di scelta rapida di Microsoft Edge Internet Explorer, ad esempio "CTRL+S" per la funzionalità "Salva con nome".
+
+Se si abilita questo criterio, la funzionalità per i tasti di scelta rapida estesa sarà abilitata in modalità Internet Explorer e funzionerà come Internet Explorer.
+
+Se si disabilita o non si configura questa impostazione dei criteri, i tasti di scelta rapida estesi non funzioneranno in modalità Internet Explorer.
+
+Per altre informazioni, vedere https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="AllowLegacyURLFields">Consenti funzionalità legacy per i file di collegamento Internet</string>
+      <string id="IE_ExplainAllowLegacyURLFields">Questa impostazione dei criteri consente di utilizzare alcune funzionalità disabilitate, ad esempio il campo WorkingDirectory o la gestione dei protocolli collegabili, nei file di Collegamento Internet.
+
+Se si abilita questo criterio, la funzionalità disabilitata per i file di Collegamento Internet verrà riabilitata.
+
+Se si disabilita o non si configura questo criterio, alcune funzionalità per i file di collegamento Internet, ad esempio il campo WorkingDirectory o la gestione dei protocolli collegabili, verranno disabilitate.</string>
+      <string id="ResetZoomForDialogInIEMode">Ripristinare il valore predefinito dello zoom per le finestre di dialogo HTML in modalità Internet Explorer</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">Questa impostazione dei criteri consente agli amministratori di reimpostare lo zoom predefinito per le finestre di dialogo HTML in modalità Internet Explorer.
+
+Se si abilita questo criterio, lo zoom di una finestra di dialogo HTML in modalità Internet Explorer non verrà propagato dalla relativa pagina padre.
+
+Se si disabilita o non si configura questo criterio, lo zoom di una finestra di dialogo HTML in modalità Internet Explorer verrà impostato in base allo zoom della pagina padre.
+
+Per altre informazioni, vedere https://go.microsoft.com/fwlink/?linkid=2220107</string>
+      <string id="DisableInternetExplorerApp">Disabilita Internet Explorer 11 come browser autonomo</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">Questo criterio ti consente di limitare l'avvio di Internet Explorer come browser autonomo.
+
+Attivandolo, questo criterio:
+- Impedisce l'avvio di Internet Explorer 11 come browser autonomo.
+- Limita l'utilizzo di Internet Explorer alla "modalità Internet Explorer" nativa di Microsoft Edge.
+- Reindirizza i tentativi di avvio di Internet Explorer 11 al browser del canale stabile Microsoft Edge.
+- Sostituisce qualsiasi altro criterio che reindirizza a Internet Explorer 11.
+
+Anche con questo criterio attivato, l'avvio di Internet Explorer 11 tramite automazione COM sarà comunque consentito. Per disabilitare gli avvii di Internet Explorer 11 tramite automazione COM, utilizza il criterio di gruppo "Disabilita l'automazione COM di Internet Explorer 11".
+
+Se disattivi o non configuri questo criterio, tutti i siti verranno aperti utilizzando le impostazioni correnti del browser attivo. Nota: per rendere effettivo questo criterio, è necessario installare il canale stabile Microsoft Edge.</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">Disabilita avvio Internet Explorer 11 tramite automazione COM</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">Questo criterio consente di limitare l'avvio di Internet Explorer tramite l'automazione COM.
+
+Se si abilita questo criterio, non sarà possibile avviare Internet Explorer 11 usando l'automazione COM.
+
+Se si disabilita o non si configura questo criterio, sono consentiti Internet Explorer avvii di automazione COM 11.</string>
+      <string id="DisableIEAppDeprecationNotification">Nascondi notifica di ritiro di Internet Explorer 11</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">Questa impostazione dei criteri consente di gestire la visualizzazione del promemoria della barra di notifica per il ritiro di Internet Explorer. Per impostazione predefinita, la barra di notifica viene visualizzata in Internet Explorer 11.
+
+Se si abilita questa impostazione dei criteri, la barra di notifica non verrà visualizzata in Internet Explorer 11.
+
+Se si disabilita o non si configura questa impostazione dei criteri, la barra di notifica verrà visualizzata in Internet Explorer 11.</string>
+      <string id="NotifyDisableIEOptions_Never">Mai</string>
+      <string id="NotifyDisableIEOptions_Always">Sempre</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">Una volta per utente</string>
+      <string id="JScriptReplacement">Sostituire JScript caricando JScript9Legacy al posto di JScript.</string>
+      <string id="IE_ExplainJScriptReplacement">Questa impostazione dei criteri specifica se è stato caricato JScript o JScript9Legacy.
+      
+Se si abilita o non si configura questa impostazione dei criteri, JScript9Legacy verrà caricato nelle situazioni in cui viene creata un'istanza di JScript.
+
+Se si disabilita questo criterio, verrà utilizzato JScript.</string>
       <string id="VerMgmtDisable">Disattiva blocco dei controlli ActiveX obsoleti per Internet Explorer</string>
       <string id="IE_ExplainVerMgmtDisable">Questa impostazione dei criteri determina se Internet Explorer blocca specifici controlli ActiveX obsoleti. I controlli ActiveX obsoleti non vengono mai bloccati nell'area Intranet.
 
@@ -4118,10 +4237,16 @@ Se si abilita questa impostazione, Internet Explorer interrompe il download dell
 Se si disabilita o non si configura questa impostazione, Internet Explorer continua a scaricare le versioni aggiornate del file VersionList.XML.
 
 Per altre informazioni, vedi l'argomento relativo al blocco dei controlli ActiveX non aggiornati nella libreria TechNet di Internet Explorer.</string>
+      <string id="DisableHTMLApplication">Disabilita applicazione HTML</string>
+      <string id="DisableHTMLApplication_Explain">Questa impostazione dei criteri specifica se l'esecuzione dell'applicazione HTML (file HTA) è bloccata o consentita.
+
+Se si abilita questa impostazione dei criteri, l'esecuzione dell'applicazione HTML (file HTA) verrà bloccata.
+
+Se si disabilita o non si configura questa impostazione dei criteri, l'esecuzione del file HTA (HTML Application) sarà consentita.</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
-        <listBox refId="DomainList">Elenco domini consentiti</listBox>
+        <listBox refId="DomainList">Elenco autorizzati per dominio</listBox>
       </presentation>
       <presentation id="AddonManagement_AddOnList_1">
         <listBox refId="AddOnList">Elenco componenti aggiuntivi</listBox>
@@ -4787,6 +4912,14 @@ Per altre informazioni, vedi l'argomento relativo al blocco dei controlli Active
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">Elenco dei domini</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">Prima scelta</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">Seconda scelta</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">Terza scelta</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">Notifica che il browser Internet Explorer 11 è disabilitato</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

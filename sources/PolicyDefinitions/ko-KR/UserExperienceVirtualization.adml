@@ -947,7 +947,7 @@ SyncMethod가 "없음"으로 설정되면 UE-V 에이전트에서 동기화 공�
 이 정책 설정을 구성하지 않은 경우 정의된 모든 값이 삭제됩니다.
 참고: 사용자가 컴퓨터의 Microsoft 계정을 연결하는 경우 UE-V Agent는 Windows 앱을 동기화하지 않습니다. Windows 앱은 기본적으로 Windows에서 설정 구성 동기화에 구성된 설정으로 지정됩니다.
       </string>
-      <string id="Win8AppsList">Windows 앱 동기화</string>
+      <string id="Win8AppsList">Windows App 동기화</string>
       <string id="Win8AppsList_Help">이 정책 설정은 UE-V(User Experience Virtualization)이 지정된 Windows 앱에 대한 설정을 동기화할지 여부를 구성합니다. 기본적으로 UE-V Agent는 Windows 앱에 대한 설정을 동기화하지 않습니다. 이 정책 설정을 통해 패키지 제품군 이름을 기준으로 Windows 앱을 나열할 수 있습니다. UE-V는 동일한 Windows 앱을 실행하는 각 사용자의 작업 컴퓨터 간에 나열된 앱 설정을 동기화합니다. 이 정책 설정을 사용하도록 설정하고 Windows 앱 패키지 제품군 이름을 나열하는 경우 UE-V Agent에서 나열된 앱에 대한 설정을 동기화합니다. 
 이 정책을 사용하지 않도록 설정하는 경우 Windows 앱에서 설정을 동기화하지 않습니다. 
 이 정책 설정을 구성하지 않은 경우 정의된 모든 값이 삭제됩니다.
@@ -960,10 +960,10 @@ SyncMethod가 "없음"으로 설정되면 UE-V 에이전트에서 동기화 공�
 이 정책 설정을 구성하지 않은 경우 정의된 모든 값이 삭제됩니다.
       </string>
       <string id="SyncUnlistedWindows8Apps">나열되지 않은 Windows 앱 동기화</string>
-      <string id="SyncUnlistedWindows8Apps_Help">이 정책은 Windows 앱 목록에 명시적으로 나열되지 않은 Windows 앱용 UE-V(User Experience Virtualization) Agent의 기본 설정 동기화 동작을 정의합니다.
-기본적으로 UE-V Agent는 Windows 앱 목록에 포함된 Windows 앱의 설정만 동기화합니다.
-이 설정을 사용하면 Windows 앱 목록에서 명시적으로 사용하지 않도록 설정되지 않은 모든 Windows 앱의 설정이 동기화됩니다.
-이 설정을 사용하지 않으면 Windows 앱 목록에서 동기화되도록 설정된 Windows 앱의 설정만 동기화됩니다.
+      <string id="SyncUnlistedWindows8Apps_Help">이 정책은 Windows App 목록에 명시적으로 나열되지 않은 Windows App용 UE-V(User Experience Virtualization) Agent의 기본 설정 동기화 동작을 정의합니다.
+기본적으로 UE-V Agent는 Windows App 목록에 포함된 Windows App의 설정만 동기화합니다.
+이 설정을 사용하면 Windows App 목록에서 명시적으로 사용하지 않도록 설정되지 않은 모든 Windows App의 설정이 동기화됩니다.
+이 설정을 사용하지 않으면 Windows App 목록에서 동기화되도록 설정된 Windows App의 설정만 동기화됩니다.
 이 정책 설정을 구성하지 않으면 정의된 모든 값이 삭제됩니다.
       </string>
       <string id="SyncSettingsOverMetered">유료 연결을 통한 설정 동기화</string>

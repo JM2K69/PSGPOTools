@@ -101,6 +101,13 @@ Si vous désactivez ou ne configurez pas ce paramètre, l'authentification autom
       <string id="ConfigAutomaticRestartSignOn_EnableIfSecure">Activé si BitLocker est activé et non suspendu</string>
       <string id="ConfigAutomaticRestartSignOn_EnableAlways">Toujours activé</string>
 
+      <string id="EnableMPRNotifications">Configurez la transmission du mot de passe de l’utilisateur dans le contenu des notifications MPR envoyées par winlogon.</string>
+      <string id="EnableMPRNotifications_Help">Cette stratégie contrôle si le mot de passe de l’utilisateur est inclus dans le contenu des notifications MPR envoyées par winlogon dans le système.
+
+Si vous désactivez ce paramètre ou si vous ne le configurez pas, winlogon envoie des notifications MPR avec des champs de mot de passe vides des informations d’authentification de l’utilisateur.
+
+Si vous activez ce paramètre, winlogon envoie des notifications MPR contenant le mot de passe de l’utilisateur dans les informations d’authentification.</string>
+
     </stringTable>
     <presentationTable>
       <presentation id="LogonHoursPolicyDescription">

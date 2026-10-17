@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Configurações de NTLM</displayName>
+  <description>Definição de configurações para o pacote de segurança NTLM.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">Registro em Log Avançado de NTLM</string>
+      <string id="EnhancedAuditsId_Explain">Essa configuração de política permite que o pacote de segurança NTLM registre os novos logs de auditoria aprimorados tanto para clientes quanto para servidores.
+
+      Esses logs aprimorados contêm informações sobre o que está utilizando NTLM, por que o NTLM está sendo utilizado e o destino da solicitação de autenticação NTLM. Também incluem informações sobre o uso de NTLMv1 e outros downgrades de segurança.
+
+      Se você habilitar ou não configurar essa política, os novos logs de auditoria serão gerados. Se você desabilitar a política, os novos logs não serão gerados.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">Bloqueio Aprimorado de NTLM</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Esta configuração de política permite que o pacote de segurança NTLM bloqueie as solicitações de autenticação NTLM com base nas novas políticas de bloqueio aprimoradas no nível do Computador.
+
+      Essas políticas de bloqueio aprimoradas permitem bloquear a autenticação NTLM com base em novos critérios, como o tipo de conta, a função do dispositivo ou o tipo de aplicativo.
+
+      Se a política geral estiver definida como "Desabilitada" ou "Não Configurada", as subconfigurações abaixo não entrarão em vigor. Se a política geral for definida como "Habilitada", as subpolíticas abaixo entrarão em vigor com base em sua configuração.
+
+      A menos que configurado, todas as políticas são definidas para o modo "Auditoria". As políticas definidas como "Auditoria" registrarão um aviso sobre a solicitação NTLM que pode ser bloqueada, mas não a bloquearão. Várias políticas marcadas como "Auditoria" podem ser habilitadas ao mesmo tempo e serão registradas em um log de eventos unificado.
+
+      Se alguma política estiver marcada como "Habilitada", a solicitação de autenticação NTLM será bloqueada se corresponder aos critérios da política. Se várias políticas forem marcadas como "Habilitadas", a solicitação de autenticação NTLM será bloqueada se corresponder aos critérios de uma das políticas. Um log de eventos será gerado para a primeira política que bloqueia a autenticação NTLM. 
+
+      Em cenários em que há políticas de "Auditoria" e "Habilitadas", a política "Habilitada" terá precedência.
+
+      Todas as políticas de bloqueio aprimoradas descritas aqui compartilham a mesma lista de permissões, que especifica as contas, dispositivos e aplicativos que têm permissão para usar a autenticação NTLM. A lista de permissões pode conter uma série de nomes de destino ou SPNs para permitir a autenticação. 
+
+      Para obter mais informações, visite aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Desabilitado</string>
+      <string id="Audit">Auditoria</string>
+      <string id="Enabled">Habilitado</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Bloquear NTLM para Logon Único de Contas de Domínio</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">Bloquear NTLM para Controladores de Domínio</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">Bloquear NTLM quando a associação do Computador falhar</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Bloquear toda a autenticação NTLM</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Especifique a lista de permissões para políticas de bloqueio aprimoradas:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

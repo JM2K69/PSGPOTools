@@ -29,6 +29,12 @@ Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane,
 Jeśli to ustawienie zasad zostanie włączone, ikona funkcji Zabezpieczenia i konserwacja nie będzie wyświetlana w obszarze powiadomień systemu.
 
 Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, ikona funkcji Zabezpieczenia i konserwacja będzie wyświetlana w obszarze powiadomień systemu.</string>
+      <string id="HideSCAMeetNow">Usuń ikonę Rozpocznij spotkanie teraz</string>
+      <string id="HideSCAMeetNow_Help">To ustawienie zasad umożliwia usunięcie ikony Rozpocznij spotkanie teraz z obszaru kontroli systemu.
+
+Jeśli to ustawienie zasad zostanie włączone, ikona Rozpocznij spotkanie teraz nie będzie wyświetlana w obszarze powiadomień systemu.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, ikona Rozpocznij spotkanie teraz będzie wyświetlana w obszarze powiadomień systemu.</string>
       <string id="TaskbarLockAll">Zablokuj wszystkie ustawienia paska zadań</string>
       <string id="TaskbarLockAll_Help">To ustawienie zasad umożliwia zablokowanie wszystkich ustawień paska narzędzi.
 
@@ -90,11 +96,11 @@ Jeśli to ustawienie zasad zostanie włączone, nowo dodane ikony powiadomień n
 
 Jeśli to ustawienie zasad zostanie włączone lub nie zostanie skonfigurowane, nowo dodane ikony powiadomień będą tymczasowo przenoszone na pasek zadań.</string>
       <string id="EnableLegacyBalloonNotifications">Wyłącz wyświetlanie powiadomień w dymkach w postaci wyskakujących powiadomień.</string>
-      <string id="EnableLegacyBalloonNotifications_Help">To ustawienie zasad wyłącza funkcję konwertującą dymki na wyskakujące powiadomienia. 
+      <string id="EnableLegacyBalloonNotifications_Help">To ustawienie zasad wyłącza funkcję konwertującą dymki na wyskakujące powiadomienia.
 
-Jeśli to ustawienie zasad zostanie włączone, powiadomienia aplikacji i systemu będą wyświetlane w dymkach, a nie w formie wyskakujących powiadomień. 
+Jeśli to ustawienie zasad zostanie włączone, powiadomienia aplikacji i systemu będą wyświetlane w dymkach, a nie w formie wyskakujących powiadomień.
 
-Włącz to ustawienie zasad, jeśli określona aplikacja lub określony składnik systemu korzystający z powiadomień w dymkach ma problemy ze zgodnością z wyskakującymi powiadomieniami. 
+Włącz to ustawienie zasad, jeśli określona aplikacja lub określony składnik systemu korzystający z powiadomień w dymkach ma problemy ze zgodnością z wyskakującymi powiadomieniami.
 
 Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, wszystkie powiadomienia będą wyświetlane jako wyskakujące powiadomienia.
 
@@ -129,14 +135,14 @@ Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, użyt
 Jeśli to ustawienie zasad zostanie włączone, użytkownicy nie mogą wyświetlać pasków narzędzi na więcej niż jednym ekranie. Sekcja dotycząca wielu ekranów nie jest włączona w oknie dialogowym właściwości paska zadań.
 
 Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, użytkownicy będą mogli wyświetlać paski narzędzi na więcej niż jednym ekranie.</string>
-        <string id="ShowWindowsStoreAppsOnTaskbar">Pokaż aplikacje ze Sklepu Windows na pasku zadań</string>
+        <string id="ShowWindowsStoreAppsOnTaskbar">Pokaż pakiety aplikacji Microsoft Store na pasku zadań</string>
         <string id="ShowWindowsStoreAppsOnTaskbar_Help">
-To ustawienie zasad umożliwia użytkownikom wyświetlanie aplikacji ze Sklepu Windows na pasku zadań.
- 
-Jeśli to ustawienie zasad zostanie włączone, użytkownicy będą mogli wyświetlać aplikacje ze Sklepu Windows na pasku zadań.
- 
-Jeśli to ustawienie zasad zostanie wyłączone, użytkownicy nie będą mogli wyświetlać aplikacji ze Sklepu Windows na pasku zadań.
- 
+To ustawienie zasad umożliwia użytkownikom wyświetlanie pakietów aplikacji ze sklepu Microsoft Store na pasku zadań.
+
+Jeśli to ustawienie zasad zostanie włączone, użytkownicy będą mogli wyświetlać pakiety aplikacji ze sklepu Microsoft Store na pasku zadań.
+
+Jeśli to ustawienie zasad zostanie wyłączone, użytkownicy nie będą mogli wyświetlać pakietów aplikacji ze sklepu Microsoft Store na pasku zadań.
+
 Jeśli to ustawienie zasad nie zostanie skonfigurowane, zostanie użyte domyślne ustawienie urządzenia użytkownika i użytkownik będzie mógł je zmienić.</string>
       <string id="DisableNotificationCenter">Usuń Centrum powiadomień i akcji</string>
       <string id="DisableNotificationCenter_Help">To ustawienie zasad usuwa Centrum powiadomień i akcji z obszaru powiadomień na pasku zadań.
@@ -148,7 +154,7 @@ Jeśli to ustawienie zasad zostanie włączone, Centrum powiadomień i akcji nie
 Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, na pasku zadań będą wyświetlane powiadomienia funkcji Zabezpieczenia i konserwacja. 
 
 W celu zastosowania tego ustawienia zasad jest wymagany ponowny rozruch.</string>
-      <string id="NoPinningStoreToTaskbar">Nie zezwalaj na przypinanie aplikacji Store do paska zadań</string> 
+      <string id="NoPinningStoreToTaskbar">Nie zezwalaj na przypinanie aplikacji Store do paska zadań</string>
       <string id="NoPinningStoreToTaskbar_Help">
 To ustawienie zasad umożliwia kontrolowanie przypinania aplikacji Store do paska zadań.
 
@@ -165,10 +171,81 @@ Jeśli wyłączysz to ustawienie zasad, użytkownicy nie będą mogli wyświetli
 Jeśli nie skonfigurujesz tego ustawienia zasad, kalendarz zostanie ustawiony zgodnie z domyślną logiką.</string>
       <string id="ConfigureTaskbarCalendar_SimplifiedChinese">Chiński uproszczony (księżycowy)</string>
       <string id="ConfigureTaskbarCalendar_TraditionalChinese">Chiński tradycyjny (księżycowy)</string>
+      <string id="Chat">Czat</string>
+      <string id="ConfigureChatIcon">Konfiguruje ikonę Czat na pasku zadań</string>
+      <string id="ConfigureChatIcon_Help">To ustawienie zasad umożliwia skonfigurowanie ikony Czat na pasku zadań.
+
+Jeśli to ustawienie zasad zostanie włączone i zostanie ustawione na wartość Pokaż, ikona Czat będzie domyślnie wyświetlana na pasku zadań. Użytkownicy mogą go wyświetlać lub ukrywać w ustawieniach.
+
+Jeśli to ustawienie zasad zostanie włączone i zostanie ustawione na wartość Ukryj, ikona Czat będzie domyślnie ukryta. Użytkownicy mogą go wyświetlać lub ukrywać w ustawieniach.
+
+Jeśli to ustawienie zasad zostanie włączone i zostanie ustawione na wartość Wyłączone, ikona Czat nie będzie wyświetlana, a użytkownicy nie będą mogli jej wyświetlać ani ukrywać w ustawieniach.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, ikona Czat będzie konfigurowana zgodnie z ustawieniami domyślnymi wersji systemu Windows.</string>
+      <string id="ChatEnum_Show">Pokaż</string>
+      <string id="ChatEnum_Hide">Ukryj</string>
+      <string id="ChatEnum_Disabled">Wyłączone</string>
+      <string id="HideTaskViewButton">Ukryj przycisk Widok zadań</string>
+      <string id="HideTaskViewButton_Help">To ustawienie zasad umożliwia ukrycie przycisku Widok zadań.
+
+Jeśli to ustawienie zasad zostanie włączone, przycisk Widok zadań będzie ukryty i przełącznik Ustawienia będzie wyłączony.</string>
+      <string id="AlwaysShowNotificationIcon">Pokaż ikonę dzwonka powiadomienia</string>
+      <string id="AlwaysShowNotificationIcon_Help">
+To ustawienie zasad umożliwia wyświetlenie ikony dzwonka powiadomień na pasku zadań.
+
+Jeśli to ustawienie zasad zostanie włączone, ikona powiadomień będzie zawsze wyświetlana. W przeciwnym razie ikona powiadomienia będzie wyświetlana tylko wtedy, gdy będzie dostępny specjalny status (na przykład status Nie przeszkadzać jest włączony).
+
+Aby to ustawienie zasad zostało zastosowane, wymagany jest ponowny rozruch.
+      </string>
+      <string id="TurnOffAbbreviatedDateTimeFormat">Wyłącz skrócony format godziny i daty</string>
+      <string id="TurnOffAbbreviatedDateTimeFormat_Help">
+To ustawienie zasad umożliwia wyświetlenie na pasku zadań dłuższego formatu godziny i daty.
+
+Jeśli to ustawienie zostanie włączone, format godziny będzie zawierał znacznik czasu AM/PM, a data będzie zawierać rok.
+
+Aby to ustawienie zasad zostało zastosowane, wymagany jest ponowny rozruch.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior">ConfigureTaskbarSmallButtonBehavior</string>  
+      <string id="ConfigureTaskbarSmallButtonBehavior_DisplayName">Konfiguruj zachowanie małych przycisków na pasku zadań</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Help">To ustawienie zasad pozwala skonfigurować zachowanie małych przycisków paska zadań.
+      
+Po ustawieniu na:
+      — Zawsze: Pasek zadań zawsze używa małych przycisków.
+      — Gdy pasek zadań jest pełny: pasek zadań dynamicznie przełącza się między małymi i standardowymi rozmiarami przycisków w zależności od dostępnego miejsca.
+      — Nigdy: pasek zadań nigdy nie używa małych przycisków. Będą używane tylko przyciski o standardowych rozmiarach.
+
+Gdy ta zasada jest włączona, jedna z powyższych opcji musi być wybrana, a użytkownicy nie mogą zmienić opcji „Pokaż mniejsze przyciski paska zadań” w interfejsie użytkownika ustawień.
+
+Gdy ta zasada jest wyłączona lub nie jest skonfigurowana, żadna opcja nie jest stosowana przez zasady grupy. Domyślnym zachowaniem systemu Windows jest „Gdy pasek zadań jest pełny”, a użytkownicy mogą ręcznie zmienić to ustawienie w interfejsie użytkownika ustawień.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Always">Zawsze</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_WhenTaskbarIsFull">Gdy pasek zadań jest pełny</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Never">Nigdy</string>
+      <string id="DisableTaskbarPosition">Wyłącz możliwość zmiany położenia paska zadań</string>
+      <string id="DisableTaskbarPosition_Help">To ustawienie zasad uniemożliwia użytkownikom zmienianie położenia paska zadań.
+
+Jeśli włączysz to ustawienie zasad, pasek zadań zostanie przeniesiony na dół ekranu, a ustawienie położenia paska zadań w aplikacji Ustawienia będzie wyszarzone.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, użytkownicy będą mogli zmieniać położenie paska zadań w aplikacji Ustawienia.</string>
+      <string id="DisableTaskbarSize">Wyłącz możliwość zmiany rozmiaru paska zadań</string>
+      <string id="DisableTaskbarSize_Help">To ustawienie zasad uniemożliwia użytkownikom zmienianie rozmiaru paska narzędzi.
+
+Jeśli włączysz to ustawienie zasad, na pasku zadań zostanie ustawiony rozmiar domyślny, a ustawienie rozmiaru paska zadań w aplikacji Ustawienia będzie wyszarzone.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, użytkownicy będą mogli zmieniać rozmiar paska zadań w aplikacji Ustawienia.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureTaskbarCalendar">
         <dropdownList refId="ConfigureTaskbarCalendar_Dropdown" defaultItem="0">Kalendarz:</dropdownList>
+      </presentation>
+      <presentation id="ConfigureChatIcon">
+          <text>Konfigurowanie ustawienia ikony czatu</text>
+          <text> </text>
+          <dropdownList refId="ConfigureChatIcon_Action" noSort="true" defaultItem="1">Stan: </dropdownList>
+          <text> </text>
+      </presentation>
+      <presentation id="ConfigureTaskbarSmallButtonBehavior">
+        <dropdownList refId="ConfigureTaskbarSmallButtonBehavior_Dropdown" noSort="true" defaultItem="1">Wybierz, kiedy mają być wyświetlane mniejsze przyciski paska zadań: </dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -45,6 +45,7 @@
       <string id="SUPPORTED_Windows_10_0">Legalább Windows Server 2016 vagy Windows 10</string>
       <string id="SUPPORTED_Windows_10_0_RS2ToVista">Csak Windows Server 2016 1703-as verzió, Windows 10 1703-as verzió, Windows 10, Windows 8.1, Windows 8, Windows 7 és Windows Vista</string>
       <string id="SUPPORTED_Windows_10_0_RS3ToVista">Kizárólag a Windows Server 2016 1709-es verziója, a Windows 10 1709-es verziója, a Windows Server 2016 1703-as verziója, a Windows 10 1703-as verziója, valamint a Windows 10, Windows 8.1, Windows 8, Windows 7 és Windows Vista rendszer esetén</string>
+      <string id="SUPPORTED_Windows_10_0_RS3ToWindows7">Kizárólag a Windows Server 2016 1709-es verziója, a Windows 10 1709-es verziója, a Windows Server 2016 Version 1703-as verziója, a Windows 10 1703-as verziója, valamint a Windows 10, a Windows 8.1, a Windows 8 és a Windows 7 rendszer esetén.</string>
       <string id="SUPPORTED_Windows_10_0_UP_TO_RS2">Windows Server 2016, Windows 10 a 1703-as verzióig</string>
       <string id="SUPPORTED_Windows_10_0_RS1">Legalább Windows Server 2016 vagy a Windows 10 1607-es verziója szükséges</string>
       <string id="SUPPORTED_Windows_10_0_RS2">Legalább Windows Server 2016, Windows 10 1703 verzió</string>
@@ -54,10 +55,28 @@
       <string id="SUPPORTED_Windows_10_0_RS6">Legalább Windows Server 2016 vagy a Windows 10 1903-as verziója szükséges</string>
       <string id="SUPPORTED_Windows_10_0_RS6_NOSERVER">Legalább Windows 10 1903-as verzió</string>
       <string id="SUPPORTED_Windows_10_0_RS7">Legalább Windows Server 2016 vagy a Windows 10 1909-es verziója szükséges</string>
+      <string id="SUPPORTED_Windows_10_0_RS7_NOSERVER">Legalább Windows 10 1909-es verzió</string>
+      <string id="SUPPORTED_Windows_10_0_20H1">Legalább Windows Server 2019, Windows 10 2004-es verzió</string>
+      <string id="SUPPORTED_Windows_10_0_20H1_NOSERVER">Legalább Windows 10 2004-es verzió</string>
+      <string id="SUPPORTED_Windows_10_0_VB_Only_NOSERVER">A Windows 10 csak legalább Windows 10 2004-es verzióval</string>
+      <string id="SUPPORTED_Windows_10_0_20H2_SERVER_20H2">Legalább Windows Server 20H2, Windows 10 20H2-es verzió</string>
+      <string id="SUPPORTED_Windows_10_0_21H2">Legalább Windows Server 2016, Windows 10 2106-os verzió</string>
+      <string id="SUPPORTED_Windows_10_0_21H2_NOSERVER">Legalább Windows 10 2106-os verzió</string>
       <string id="SUPPORTED_Windows_10_0_NOARM">Legalább Windows Server 2016 vagy Windows 10</string>
       <string id="SUPPORTED_Windows_10_0_NOSERVER">Legalább Windows 10</string>
       <string id="SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION">Windows 10 Enterprise, Windows 10 Education vagy újabb kiadás</string>
+      <string id="SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION_MDAG">Windows 10 Enterprise vagy Windows 10 Education Microsoft Defender alkalmazásőrrel vállalati módban</string>
+      <string id="SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION_MDAG_EDGE">Microsoft Edge Windows 10 Enterprise vagy Windows 10 Education rendszeren Microsoft Defender alkalmazásőrrel vállalati módban</string>
       <string id="SUPPORTED_Windows_10_0_SERVER">Legalább Windows Server 2016</string>
+      <string id="SUPPORTED_Windows_11_0_SE">Windows 11 SE</string>
+      <string id="SUPPORTED_Windows_11_0_22H2_NOSERVER">Legalább Windows 11 22H2-es verzió</string>
+      <string id="SUPPORTED_Windows_11_0_22H2">Legalább Windows 11 22H2-es verzió</string>
+      <string id="SUPPORTED_Windows_11_0_23H2">Legalább Windows 11 23H2-es verzió</string>
+      <string id="SUPPORTED_Windows_11_0_24H2">Legalább Windows 11 24H2-es verzió</string>
+      <string id="SUPPORTED_Windows_11_0_25H2">Legalább Windows 11 25H2-es verzió</string>
+      <string id="SUPPORTED_Windows_11_0_25H2_NOSERVER_ENTERPRISE_EDUCATION">Legalább Windows 11 25H2 Enterprise vagy Windows 11 25H2 Education verzió</string>
+      <string id="SUPPORTED_Windows_11_0_NOSERVER_ENTERPRISE_EDUCATION_PRO_SANDBOX">Legalább Windows 11 Pro, Enterprise vagy Education Windows Tesztkörnyezettel</string>
+      <string id="SUPPORTED_Windows_11_0_NOSERVER">Legalább Windows 11</string>
       <string id="SUPPORTED_Windows8_Or_IE10">Legalább Windows Server 2012, Windows 8 vagy Windows RT, illetve legalább Internet Explorer 10</string>
       <string id="SUPPORTED_WindowsVistaTo2k">Windows Server 2008, Windows Vista, Windows Server 2003, Windows XP és Windows 2000</string>
       <string id="SUPPORTED_WindowsVistaToXP">Windows Server 2008, Windows Vista, Windows Server 2003 és Windows XP</string>
@@ -66,6 +85,7 @@
       <string id="SUPPORTED_Windows7ToVista">Windows Server 2008, Windows 7 és Windows Vista</string>
       <string id="SUPPORTED_Windows7ToXP">Windows Server 2008, Windows Server 2003, Windows 7, Windows Vista és Windows XP</string>
       <string id="SUPPORTED_Windows7To2k">Windows Server 2008, Windows Server 2003, Windows 7, Windows Vista, Windows XP és Windows 2000</string>
+      <string id="SUPPORTED_Windows7To1122H2">Legalább Windows Server 2008 R2, Windows 7–Windows Server 2022 vagy Windows 11 22H2 verzió</string>
       <string id="SUPPORTED_Windows81To2k">Legalább Windows 2000 vagy újabb verzió Windows 8.1-ig, illetve Windows Server 2012 R2</string>
       <string id="SUPPORTED_Windows81To7">Legalább Windows 7 vagy újabb verzió Windows 8.1-ig, illetve Windows Server 2012 R2</string>
       <string id="SUPPORTED_Windows7ToVistaAndWindows10">Windows Server 2008, Windows 7, Windows Vista és Windows 10</string>
@@ -97,6 +117,7 @@
       <string id="ControlPanel_Help">A Vezérlőpult konfigurálására szolgáló beállításokat tartalmazza, beleértve az egyes megjelenítendő és meg nem jelenítendő elemeket is.</string>
       <string id="Desktop">Asztal</string>
       <string id="Desktop_Help">A felhasználó asztalának viselkedését szabályozó beállításokat tartalmazza, valamint azt, hogy mely alapértelmezett ikonok jelenjenek meg az asztalon.</string>
+      <string id="SUPPORTED_Windows_11_0_24H2_NOSERVER_ENTERPRISE_EDUCATION">Legalább Windows 11 24H2 Enterprise vagy Windows 11 24H2 Education verzió</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

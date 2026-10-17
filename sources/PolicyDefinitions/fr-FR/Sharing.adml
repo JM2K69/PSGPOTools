@@ -25,6 +25,10 @@ Ce paramètre de stratégie n’est pas configuré par défaut.
 Vous devez redémarrer l’ordinateur pour que ce paramètre de stratégie soit pris en compte.</string>
       <string id="HomeGroup">Groupe résidentiel</string>
       <string id="HomeGroup_Help">Contient les paramètres de définition du comportement du groupe résidentiel.</string>
+      <string id="DisableShareAppPromotions">Désactiver les promotions des applications partagées</string>
+      <string id="DisableShareAppPromotions_Help">Ce paramètre de stratégie permet aux administrateurs informatiques de contrôler si les applications promotionnelles sont affichées dans la feuille ShareSheet. Si vous activez ce paramètre de stratégie, Windows n’affiche pas les applications promotionnelles dans ShareSheet. Si vous désactivez ou ne configurez pas cette stratégie, ShareSheet peut afficher des suggestions d’application et des promotions lorsque la feuille ShareSheet est ouverte.</string>
+      <string id="DisableInlineCompose">Désactiver la rédaction en ligne</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

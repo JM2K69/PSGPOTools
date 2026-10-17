@@ -25,6 +25,10 @@ Bu ilke ayarı varsayılan olarak yapılandırılmamıştır.
 Bu ilkenin devreye girmesi için bilgisayarı yeniden başlatmanız gerekir.</string>
       <string id="HomeGroup">EvGrubu</string>
       <string id="HomeGroup_Help">EvGrubunun davranışlarını denetleyen ayarları içerir.</string>
+      <string id="DisableShareAppPromotions">DisableShareAppPromotions</string>
+      <string id="DisableShareAppPromotions_Help">Bu ilke ayarı, BT yöneticilerinin promosyon uygulamalarının ShareSheet'te görüntülenip görüntülenmeyeceklerini kontrol edin. Bu ilkeyi etkinleştirirseniz Windows, Promosyon uygulamalarını ShareSheet'te göstermez. Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız ShareSheet açıldığında ShareSheet uygulama önerilerini ve promosyonları  gösterene kadar kullanılabilir.</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

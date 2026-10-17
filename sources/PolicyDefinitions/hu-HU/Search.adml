@@ -246,13 +246,13 @@ Ha le van tiltva vagy nincs beállítva a házirend, a Windows asztali kereső a
 
 Ha le van tiltva vagy nincs beállítva a házirend, a kiterjesztések alapértelmezett listája a következő: .bmp;.emf;.gif;.jpg;.jpeg;.png;.wmf;.wrn;.txt;.err;.xml;.cpp;.c;.h;.cxx;.hxx;.idl;.cs;.vb;.idl;.xsd;.doc;.docx;.xls;.xlsx;.ppt;.pptx;.vsd;.xlsb;.xltx;.dot;.rtf</string>
       <string id="PreventUnwantedAddins">Nemkívánatos iFilter szűrők és protokollkezelők vezérlése</string>
-      <string id="PreventUnwantedAddins_Explain">Ha engedélyezi ezt a házirendet, a Windows asztali kereső csak akkor használhat iFilter szűrőket és protokollkezelőket, ha azok szerepelnek a biztonságos elemek listájában. A házirend azonban nem akadályozza meg iFilter szűrők és protokollkezelők telepítését, és azt sem tiltja, hogy más alkalmazások vagy szolgáltatások használják azokat. 
-A biztonságos beépülő modulok listája a classID vagy a ProgId karakterlánc megadásával is megadható: ha például egy adott iFilter szűrőt szeretne telepíteni központilag, győződjön meg arról, hogy a szűrő szerepel a biztonságos elemek listájában, akár GUID azonosítóként (például kapcsos zárójelek közötti {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} alakban), akár ProgID elemként (például VisFilter.CFilter.1).
+      <string id="PreventUnwantedAddins_Explain">Ha engedélyezi ezt a házirendet, a Windows asztali kereső csak akkor használhat iFilter szűrőket és protokollkezelőket, ha azok szerepelnek az engedélyezési listában. A házirend azonban nem akadályozza meg iFilter szűrők és protokollkezelők telepítését, és azt sem tiltja, hogy más alkalmazások vagy szolgáltatások használják azokat. 
+A biztonságos beépülő modulok listája a classID vagy a ProgId karakterlánc megadásával is megadható: ha például egy adott iFilter szűrőt szeretne telepíteni központilag, győződjön meg arról, hogy a szűrő szerepel az engedélyezési listában, akár GUID azonosítóként (például kapcsos zárójelek közötti {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} alakban), akár ProgID elemként (például VisFilter.CFilter.1).
 
 Zárolt asztali környezet alkalmazása esetén nem szükséges ez a beállítás, mivel a rendszergazdai jogosultságokkal nem rendelkező felhasználók nem jogosultak új összetevőket telepíteni. Rendszergazdai vagy szoftvertelepítési engedélyekkel rendelkező felhasználók esetén ezzel a házirenddel akadályozhatja meg, hogy e felhasználók a Windows asztali keresőhöz kapcsolódó bővítményeket használjanak.
 
-Megjegyzés: a Csoportházirend-szerkesztő egyik korlátozásának következtében a biztonságos elemek listájához legalább egy elemet hozzá kell adni még akkor is, ha ilyen lista nélkül szeretné engedélyezni a házirendet. Listabejegyzés készítéséhez írjon be egy szóközt a névmezőbe és az értékmezőbe, és mentse a változtatásokat. Ezzel a módszerrel olyan helyőrző bejegyzés hozható létre, amelyet a program figyelmen kívül hagy.</string>
-      <string id="PreventUnwantedAddins_AllowList">Biztonságos elemek listája</string>
+Megjegyzés: a Csoportházirend-szerkesztő egyik korlátozásának következtében az engedélyezési listához legalább egy elemet hozzá kell adni még akkor is, ha ilyen lista nélkül szeretné engedélyezni a házirendet. Listabejegyzés készítéséhez írjon be egy szóközt a névmezőbe és az értékmezőbe, és mentse a változtatásokat. Ezzel a módszerrel olyan helyőrző bejegyzés hozható létre, amelyet a program figyelmen kívül hagy.</string>
+      <string id="PreventUnwantedAddins_AllowList">Engedélyezési lista</string>
       <string id="ExcludedExtensionsMultiline">Egyes fájltípusok indexelésének letiltása</string>
       <string id="ExcludedExtensionsMultiline_Explain">E házirend engedélyezésével szerkeszthető az indexelésből kizárandó fájltípusok listája. A végfelhasználók nem módosíthatják a listát. Az egyes kiterjesztéstípusokat pontosvesszővel kell elválasztani.
 
@@ -275,6 +275,8 @@ Ha letiltja vagy nem konfigurálja a házirend-beállítást, a felhasználók s
 Ha nem engedélyezi vagy nem konfigurálja ezt a beállítást, Cortana be lesz kapcsolva az eszközön. Ha letiltja a beállítást, Cortana ki lesz kapcsolva. 
  
 Ha Cortana ki van kapcsolva, a felhasználók továbbra is kereshetnek az eszközön.</string>
+      <string id="EnableDynamicContentInWSB">Kiemeltek keresésének engedélyezése</string>
+      <string id="ExplainEnableDynamicContentInWSB">A beállítás letiltásával kikapcsolja a kiemeltek keresése lehetőséget a Start menü keresőmezőjében és a keresés kezdőlapjában. Ha engedélyezi vagy nem konfigurálja ezt a beállítást, bekapcsolja a kiemeltek keresése lehetőséget a Start menü keresőmezőjében és a keresés kezdőlapján.</string>
       <string id="AllowCortanaAboveLock">Cortana zárolt állapotban is működhet</string>
       <string id="ExplainAllowCortanaAboveLock">Ez a házirend-beállítás szabja meg, hogy zárolt eszköz esetén is működnek-e Cortana beszédfelismerési funkciói.
 
@@ -294,6 +296,27 @@ Ha ez a beállítás engedélyezve van, a keresés és a Cortana hozzáférhet a
       <string id="AllowCortanainAADEnabled">A Cortana lap engedélyezése az AAD-ben</string>
       <string id="AllowCloudSearchEnabled">Felhőalapú keresés engedélyezése</string>
       <string id="AllowCloudSearchControlledByUser">Kijelölt felhasználó</string>
+      <string id="DisableSearch_DisplayName">A keresési felhasználói felület teljes letiltása</string>
+      <string id="DisableSearch_ExplainText">Ha engedélyezi ezt a szabályzatot, a keresési felhasználói felület le lesz tiltva az összes belépési pontjával együtt, például billentyűparancsok, érintőpárna kézmozdulatai és gépeléssel való keresés a Start menüben. A Start menü keresőmezője és a tálca Keresés gombja is el lesz rejtve.
+
+Ha letiltja vagy nem konfigurálja ezt a szabályzat-beállítást, a felhasználó megnyithatja a Keresési felhasználói felületet, és megjelennek annak különböző belépési pontjai.</string>
+      <string id="ConfigureSearchOnTaskbarMode">Keresés konfigurálása a tálcán</string>
+      <string id="ConfigureSearchOnTaskbarMode_Help">Ezzel a házirend-beállítással konfigurálhatja a keresést a tálcán.
+
+Ha engedélyezi ezt a házirend-beállítást, és elrejti, a tálcán való keresés alapértelmezés szerint el lesz rejtve. A felhasználók nem módosíthatják a Beállításokban.
+
+Ha engedélyezi ezt a házirend-beállítást, és csak keresés ikonra állítja be, a keresés ikon alapértelmezés szerint megjelenik a tálcán. A felhasználók nem módosíthatják a Beállításokban.
+
+Ha engedélyezi ezt a házirend-beállítást, és a keresés ikon és címke lehetőséget állítja be, a keresés ikon és címke alapértelmezés szerint megjelenik a tálcán. A felhasználók nem módosíthatják a Beállításokban.
+
+Ha engedélyezi ezt a házirend-beállítást, és keresőmezőre állítja, a keresőmező alapértelmezés szerint megjelenik a tálcán. A felhasználók nem módosíthatják a Beállításokban.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a tálcán való keresés a Windows-kiadás alapértelmezett értékei szerint lesz konfigurálva. A felhasználók módosíthatják a keresést a tálcán a Beállításokban.
+      </string>
+      <string id="SearchOnTaskbarModeEnum_Hidden">Elrejtés</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconOnly">Csak Keresés ikon</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconAndLabel">Keresés ikon és címke</string>
+      <string id="SearchOnTaskbarModeEnum_SearchBox">Keresőmező</string>
     </stringTable>
     <presentationTable>
       <presentation id="RichAttachmentPreviews">
@@ -333,7 +356,7 @@ Ha ez a beállítás engedélyezve van, a keresés és a Cortana hozzáférhet a
         <decimalTextBox refId="LimitEnableThrottlingOnlineMailboxes" defaultValue="120">Elemek száma percenként</decimalTextBox>
       </presentation>
       <presentation id="PreventUnwantedAddins">
-        <listBox refId="PreventUnwantedAddins_AllowList">Biztonságos elemek listája</listBox>
+        <listBox refId="PreventUnwantedAddins_AllowList">Engedélyezési lista</listBox>
       </presentation>
       <presentation id="PreventIndexingCertainPaths_1">
         <listBox refId="PreventIndexingCertainPaths">Egyes elérési utak indexelésének letiltása</listBox>
@@ -382,6 +405,9 @@ Ha ez a beállítás engedélyezve van, a keresés és a Cortana hozzáférhet a
       </presentation>
       <presentation id="AllowCortanaAAD">
         <dropdownList refId="AllowCortanaAAD_Dropdown" noSort="true" defaultItem="0">Cortana az AAD-ben beállítás</dropdownList>
+      </presentation>
+      <presentation id="ConfigureSearchOnTaskbarMode">
+        <dropdownList refId="ConfigureSearchOnTaskbarMode_Dropdown" noSort="true" defaultItem="0">Keresés a tálcán</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

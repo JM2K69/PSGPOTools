@@ -169,7 +169,7 @@ Om du inaktiverar eller inte konfigurerar den här principinställningen kommer 
       <string id="UILang4">Tyska</string>
       <string id="UILang5">Kinesiska, förenklad</string>
       <string id="UILang6">Kinesiska, traditionell</string>
-      <string id="UILang34">Traditionell Kinesiska (Hongkong)</string>
+      <string id="UILang34">Traditionell kinesiska (Hongkong SAR)</string>
       <string id="UILang35">Traditionell Kinesiska (Taiwan)</string>
       <string id="UILang7">Franska</string>
       <string id="UILang8">Spanska</string>
@@ -284,6 +284,20 @@ Om du inaktiverar eller inte konfigurerar den här principinställningen tolkar 
         Om principen är aktiverad eller inte konfigurerad kan användarna välja att aktivera taltjänster via inställningarna.
         
         Om principen är inaktiverad så inaktiveras även taltjänster och användarna kan inte aktivera taltjänster via inställningarna.
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Begränsa språkpaketet och installationen av språkfunktioner</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        Denna policyinställning begränsar alla användare från att installera språkpaket och språkfunktioner på efterfrågepaket. Denna policy begränsar inte växlingen av Windows språket ,om du vill begränsa Windows språket använd följande policy: "Begränsar användargränssnittsspråken som Windows använder för alla loggade användare."  
+
+        Om du aktiverar denna policyinställning förhindras installation av språkpaket och språkfunktioner   för alla användare
+
+       om du inaktiverar eller inte konfigurerar denna policyinställning finns det inga språkpaket eller funktions installations begränsningar för någon användare.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        Den här princip inställningen hindrar användaren från att installera språk paket och språk funktioner på begäran. den här principen begränsar inte byte av Windows-språk, om du vill begränsa Windows-språket använder du följande princip: "begränsar de GRÄNSSNITTs språk Windows ska använda för den markerade användaren."   
+Om du aktiverar den här princip inställningen förhindras installation av språk paket och språk funktioner för användaren.  
+
+Om du inaktiverar eller låter bli att konfigurera den här princip inställningen finns det inga språk uppdateringar eller språk funktioner som kan installeras av användaren.  
       </string>
     </stringTable>
     <presentationTable>

@@ -14,8 +14,15 @@
       <string id="WU_SUPPORTED_Windows7_To_Win2kSP3_Or_XPSP1">Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2003, Windows XP SP2, Windows XP SP1 , Windows 2000 SP4, Windows 2000 SP3</string>
       <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_NoWinRT">At least Windows XP Professional Service Pack 1 or Windows 2000 Service Pack 3, excluding Windows RT</string>
       <string id="WU_SUPPORTED_WindowsXPSP1_NoWinRT">At least Windows Server 2003 operating systems or Windows XP Professional with SP1, excluding Windows RT</string>
-      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">At least Windows XP Professional Service Pack 1 or At least Windows 2000 Service Pack 3 through Windows 8.1 or Windows Server 2012 R2 with most current service pack</string>
-      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">At least Windows Vista through Windows 8.1 or Windows Server 2012 R2 with most current service pack</string>
+      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">At least Windows XP Professional Service Pack 1 or At least Windows 2000 Service Pack 3 through Windows 8.1 or Windows Server 2012 R2 with most current service pack. Not supported on Windows 10 and above.</string>
+      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">At least Windows Vista through Windows 8.1 or Windows Server 2012 R2 with most current service pack. Not supported on Windows 10 and above.</string>
+      <string id="WU_SUPPORTED_XPSP1_or_Win2kSP3_AUOption7_SUPPORTED_Server2016">Windows XP Professional Service Pack 1 or At least Windows 2000 Service Pack 3
+Option 7 only supported on servers of at least Windows Server 2016 edition​</string>
+      <string id="WU_SUPPORTED_Server2016_Through_Server2022_Or_Windows10">Windows Server 2016 through Windows Server 2022, or Windows 10​</string>
+      <string id="WU_SUPPORTED_Windows_Server_2019_Windows_10_0_1809">At least Windows Server 2019, or Windows 10 Version 1809​</string>
+      <string id="WU_SUPPORTED_Windows_Server_2022_Windows_10_0_2004">At least Windows Server 2022, or Windows 10 Version 2004​</string>
+      <string id="WU_SUPPORTED_WinServer2025_Win1021H2_Win1122H2">At least Windows Server 2025, Windows 10 Version 21H2, or Windows 11 Version 22H2</string>
+      <string id="WU_SUPPORTED_Win11_24H2">At least Windows 11 Version 24H2</string>
       <string id="AUDontShowUasHelp">This policy setting allows you to manage whether the 'Install Updates and Shut Down' option is displayed in the Shut Down Windows dialog box.
 
 If you enable this policy setting, 'Install Updates and Shut Down' will not appear as a choice in the Shut Down Windows dialog box, even if updates are available for installation when the user selects the Shut Down option in the Start menu.
@@ -82,10 +89,15 @@ This setting lets you specify whether automatic updates are enabled on this comp
 
         With this option, local administrators will be allowed to use the Windows Update control panel to select a configuration option of their choice. Local administrators will not be allowed to disable the configuration for Automatic Updates.
 
+        7 = Notify for install and notify for restart. (Windows Server only)
+
+        With this option from Windows Server 2016, applicable only to Server SKU devices, local administrators will be allowed to use Windows Update to proceed with installations or reboots manually.
+
 If the status for this policy is set to Disabled, any updates that are available on Windows Update must be downloaded and installed manually. To do this, search for Windows Update using Start.
 
 If the status is set to Not Configured, use of Automatic Updates is not specified at the Group Policy level. However, an administrator can still configure Automatic Updates through Control Panel.</string>
 
+      <string id="AutoUpdateModeNotifyToInstallNotifyToReboot">7 - Auto Download, Notify to install, Notify to Restart</string>
       <string id="AutoUpdateModeAdminChooses">5 - Allow local admin to choose setting</string>
       <string id="AutoUpdateModeAuto">4 - Auto download and schedule the install</string>
       <string id="AutoUpdateModeDownload">3 - Auto download and notify for install</string>
@@ -145,7 +157,25 @@ If the status is set to Not Configured, use of Automatic Updates is not specifie
 
         Note: The option to "Download files with no Url..." is only used if the "Alternate Download Server" is set.
 
-        Note: This policy is not supported on Windows RT. Setting this policy will not have any effect on Windows RT PCs.</string>
+        Note: This policy is not supported on Windows RT. Setting this policy will not have any effect on Windows RT PCs.
+
+        To ensure the highest level of security, Microsoft recommends securing WSUS with TLS/SSL protocol, thereby using HTTPS based intranet servers to keep systems secure. If a proxy is required, we recommend configuring system proxy. To ensure highest levels of security, additionally leverage WSUS TLS certificate pinning on all devices.
+
+        In order to keep clients inherently secure, we are no longer allowing intranet servers to leverage user proxy by default for detecting updates. If you need to leverage user proxy for detecting updates while using an intranet server despite the vulnerabilities it presents, you must configure the proxy behavior to "Allow user proxy to be used as a fallback if detection using system proxy fails".
+
+        Detection for updates against intranet servers will fail when user proxy is needed as a fallback and the alternate proxy behavior is not configured.</string>
+      <string id="OnlyUseSystemProxyForUpdateDetection">Only use system proxy for detecting updates (default)</string>
+      <string id="AllowUserProxyAsFallbackForUpdateDetection">Allow user proxy to be used as a fallback if detection using system proxy fails</string>
+      <string id="UpdateClassPolicySource_Title">Specify source service for specific classes of Windows Updates</string>
+      <string id="UpdateClassPolicySource_Help">When this policy is enabled, devices will receive Windows updates for the classes listed from the specified update source: either Windows Update or Windows Server Update Service.
+
+        Note: To receive any updates from the Windows Server Update Service you must have properly configured an intranet Microsoft update service location via the “Specify intranet Microsoft update service location” policy.
+
+        If this policy is not configured or is disabled, the device will continue to detect updates per your other policy configurations.
+
+        Note: If you are using “Do not allow deferral policies to cause scans against Windows Update” currently to ensure devices only scan against your specified server, we recommend configuring this policy instead or in addition to such.</string>
+      <string id="UpdateClassPolicySourceSelectionWU">Windows Update</string>
+      <string id="UpdateClassPolicySourceSelectionWSUS">Windows Server Update Services</string>
       <string id="DetectionFrequency_Help">Specifies the hours that Windows will use to determine how long to wait before checking for available updates. The exact wait time is a sum of the specific value and a random variant of 0-4 hours.
 
         If the status is set to Enabled, Windows will check for available updates at the specified interval.
@@ -287,6 +317,12 @@ Note: This policy applies only when the intranet Microsoft update service this c
 Note: This policy is not supported on Windows RT. Setting this policy will not have any effect on Windows RT PCs.</string>
       <string id="TargetGroup_Title">Enable client-side targeting</string>
       <string id="WindowsUpdateCat">Windows Update</string>
+      <!--Category sub-folders-->
+      <string id="WindowsUpdateOffering">Manage updates offered from Windows Update</string>
+      <string id="WSUSOffering">Manage updates offered from Windows Server Update Service</string>
+      <string id="WindowsUpdateExperience">Manage end user experience</string>
+      <string id="PreSV">Legacy Policies</string>
+
       <string id="TrustedPublisher_Title">Allow signed updates from an intranet Microsoft update service location </string>
       <string id="TrustedPublisher_Help">This policy setting allows you to manage whether Automatic Updates accepts updates signed by entities other than Microsoft when the update is found on an intranet Microsoft update service location.
 
@@ -302,48 +338,34 @@ Note: This policy is not supported on Windows RT. Setting this policy will not h
 Enabling this policy will disable that functionality, and may cause connection to public services such as the Windows Store to stop working.
 
 Note: This policy applies only when this PC is configured to connect to an intranet update service using the "Specify intranet Microsoft update service location" policy.</string>
-      <string id="DeferUpdateCat">Windows Update for Business</string>
       <string id="ManagePreviewBuilds_Title">Manage preview builds</string>
-      <string id="ManagePreviewBuilds_Help">Selecting "Disable preview builds" will prevent preview builds from installing on the device. This will prevent users from opting into the Windows Insider Program, through Settings -&gt; Update and Security.
+      <string id="ManagePreviewBuilds_Help">Enable this policy to manage which updates you receive prior to the update being released to the world.
 
-Selecting "Disable preview builds once next release is public" will prevent preview builds from installing once the next Windows release is public. This option is useful when your device is set up to install preview and you want to gracefully opt out the device for flighting. This option will provide preview builds until devices reaches the next public release.
+Dev Channel
+Ideal for highly technical users. Insiders in the Dev Channel will receive builds from our active development branch that is earliest in a development cycle. These builds are not matched to a specific Windows 10 release.
 
-Selecting "Enable preview builds" will enable preview builds installation on the device. Users can download and install Windows preview builds on their devices by opting-in through Settings -&gt; Update and Security -&gt; Windows Insider Program. Admins can also use other policies to manage flight settings on behalf of users when this value is set.</string>
-      <string id="DisablePreviewBuilds">Disable preview builds</string>
-      <string id="DisablePreviewBuildsAndOptOut">Disable preview builds once next release is public</string>
-      <string id="EnablePreviewBuilds">Enable preview builds</string>
-      <string id="PreviewBuildFastFeatureUpdates">Preview Build - Fast</string>
-      <string id="PreviewBuildSlowFeatureUpdates">Preview Build - Slow</string>
-      <string id="ReleasePreviewBranchFeatureUpdates">Release Preview</string>
-      <string id="SemiAnnualChannelFeatureUpdates">Semi-Annual Channel</string>
-      <string id="SemiAnnualChannelFeatureUpdatesDeprecated">Semi-Annual Channel for 1809 and below (Deprecated)</string>
-      <string id="SemiAnnualChannelFeatureUpdatesTargetedDeprecated">Semi-Annual Channel (Targeted) for 1809 and below (Deprecated)</string>
+Beta Channel
+Ideal for feature explorers who want to see upcoming Windows 10 features. Your feedback will be especially important here as it will help our engineers ensure key issues are fixed before a major release.
+
+Release Preview Channel (default)
+Insiders in the Release Preview Channel will have access to the upcoming release of Windows 10 prior to it being released to the world. These builds are supported by Microsoft. The Release Preview Channel is where we recommend companies preview and validate upcoming Windows 10 releases before broad deployment within their organization.
+
+Release Preview Channel, Quality Updates Only
+Ideal for those who want to validate the features and fixes coming soon to their current version. Note, released feature updates will continue to be offered in accordance with configured policies when this option is selected.
+
+Note: Preview Build enrollment requires a telemetry level setting of 2 or higher and your domain registered on insider.windows.com. For additional information on Preview Builds, see: https://aka.ms/wipforbiz
+
+If you disable or do not configure this policy, Windows Update will not offer you any pre-release updates and you will receive such content once released to the world. Disabling this policy will cause any devices currently on a pre-release build to opt out and stay on the latest Feature Update once released.</string>
+      <string id="DevChannel">Dev Channel</string>
+      <string id="BetaChannel">Beta Channel</string>
+      <string id="ReleasePreviewChannel">Release Preview Channel</string>
+      <string id="ReleasePreviewQualityOnly">Release Preview of Quality Updates Only</string>
       <string id="DeferFeatureUpdates_Title">Select when Preview Builds and Feature Updates are received</string>
-      <string id="DeferFeatureUpdates_Help">Enable this policy to specify the level of Preview Build or Feature Updates to receive, and when.
+      <string id="DeferFeatureUpdates_Help">Enable this policy to specify when to receive Feature Updates.
 
-* Preview Build - Fast: Devices set to this level will be the first to receive new builds of Windows with features not yet available to the general public. Select Fast to participate in identifying and reporting issues to Microsoft, and provide suggestions on new functionality.
-* Preview Build - Slow: Devices set to this level receive new builds of Windows before they are available to the general public, but at a slower cadence than those set to Fast, and with changes and fixes identified in earlier builds.
-* Release Preview: Receive builds of Windows just before Microsoft releases them to the general public.
-* Semi-Annual Channel: Receive feature updates when they are released to the general public.
+Defer Updates | This enables devices to defer taking the next Feature Update available for their current product (or a new product if specified in the Select the target Feature Update version policy). You can defer a Feature Update for up to 14 days for all pre-release channels and up to 365 days for the General Availability Channel. To learn more about the current releases, please see aka.ms/WindowsTargetVersioninfo
 
-The following Windows Readiness levels have been deprecated and are only applicable to 1809 and below:
-* Semi-Annual Channel (Targeted) for 1809 and below: Feature updates have been released.
-* Semi-Annual Channel for 1809 and below: Feature updates have been declared Semi-Annual Channel, a designation indicating the release is ready for broad deployment.
-Please review the release information page at http://aka.ms/ReleaseInformationPage for the Semi-Annual Channel (Targeted) and Semi-Annual Channel release dates.
-
-When selecting a Preview Build:
-    - You can defer receiving Preview Builds for up to 14 days.
-    - To prevent Preview Builds from being received on their scheduled time, you can temporarily pause them. The pause will remain in effect for 35 days from the start time provided.
-    - To resume receiving Feature Updates which are paused, clear the start date field.
-
-Preview Build enrollment requires a telemetry level setting of 2 or higher and your domain registered on insider.windows.com. For additional information on Preview Builds, see: https://aka.ms/wipforbiz
-
-When Selecting Semi-Annual Channel:
-    - You can defer receiving Feature Updates for up to 365 days.
-    - To prevent Feature Updates from being received on their scheduled time, you can temporarily pause them. The pause will remain in effect for 35 days from the start time provided.
-    - To resume receiving Feature Updates which are paused, clear the start date field.
-
-If you disable or do not configure this policy, Windows Update will not alter its behavior.</string>
+Pause Updates | To prevent Feature Updates from being offered to the device, you can temporarily pause Feature Updates. This pause will remain in effect for 35 days from the specified start date or until the field is cleared. Note, Quality Updates will still be offered even if Feature Updates are paused.</string>
       <string id="DeferQualityUpdates_Title">Select when Quality Updates are received</string>
       <string id="DeferQualityUpdates_Help">Enable this policy to specify when to receive quality updates.
 
@@ -354,6 +376,20 @@ To prevent quality updates from being received on their scheduled time, you can 
 To resume receiving Quality Updates which are paused, clear the start date field.
 
 If you disable or do not configure this policy, Windows Update will not alter its behavior.</string>
+      <string id="TargetReleaseVersion_Title">Select the target Feature Update version</string>
+      <string id="TargetReleaseVersion_Help">Enter the product and version as listed on the Windows Update target version page:
+
+                        aka.ms/WindowsTargetVersioninfo
+
+The device will request that Windows Update product and version in subsequent scans.
+
+Entering a target product and clicking OK or Apply means I accept the Microsoft Software License Terms for it found at aka.ms/WindowsTargetVersioninfo. If an organization is licensing the software, I am authorized to bind the organization.
+
+If you enter an invalid value, you will remain on your current version until you correct the values to a supported product and version.</string>
+      <string id="DisableWUfBSafeguards">Disable safeguards for Feature Updates</string>
+      <string id="DisableWUfBSafeguards_Help">
+          Enable this setting when Feature Updates should be deployed to devices without blocking on any safeguard holds. Safeguard holds are known compatibility issues that block the upgrade from being deployed to affected devices until the issue is resolved. Enabling this policy can allow an organization to deploy the Feature Update to devices for testing, or to deploy the Feature Update without blocking on safeguard holds.
+      </string>
       <string id="ExcludeWUDriversInQualityUpdate_Title">Do not include drivers with Windows Updates</string>
       <string id="ExcludeWUDriversInQualityUpdate_Help">Enable this policy to not include drivers with Windows quality updates.
 
@@ -446,6 +482,16 @@ If you enable this setting user access to Windows Update scan, download and ins
       <string id="DisablePauseUXAccess_Help">This setting allows to remove access to "Pause updates" feature.
 
 Once enabled user access to pause updates is removed.
+      </string>
+
+      <string id="MaxPauseDays_Title">Configure the maximum number of days that updates can be paused</string>
+      <string id="MaxPauseDays_Help">This policy controls the maximum number of days that end users can pause updates.
+
+Supported values are 1-35. The default value is 35 (days).
+
+When the policy is configured, users can only pause updates up until the end of the time period specified by the policy. Once the configured limit is reached, users can no longer extend the pause.
+
+If the policy is disabled or not configured, the default pause behavior applies - enabling users to continuously pause updates for up to 35 days at a time. This policy does not disable the Pause updates entirely. To remove access to Pause updates, use the "Remove access to 'Pause updates' feature" policy.
       </string>
 
       <string id="ActiveHoursMaxRange_Title">Specify active hours range for auto-restarts</string>
@@ -586,16 +632,20 @@ Note: This policy applies only when the intranet Microsoft update service this c
 This policy allows you to define what Windows Update notifications users see. This policy doesn’t control how and when updates are downloaded and installed.
 
 Important: if you choose not to get update notifications and also define other Group policy so that devices aren’t automatically getting updates, neither you nor device users will be aware of critical security, quality, or feature updates, and your devices may be at risk.
+
+If you select “Apply only during active hours” in conjunction with Option 1 or 2, then notifications will only be disabled during active hours. You can set active hours by setting “Turn off auto-restart for updates during active hours” or allow the device to set active hours based on user behavior. To ensure that the device stays secure, a notification will still be shown if this option is selected once “Specify deadlines for automatic updates and restarts” deadline has been reached if configured, regardless of active hours.
       </string>
       <string id="DefaultNotification">0 (default) – Default OS Windows Update notifications</string>
       <string id="ExcludingRebootWarnings">1 – Disable all notifications, excluding restart warnings</string>
       <string id="IncludingRebootWarnings">2 – Disable all notifications, including restart warnings</string>
-      <string id="ComplianceDeadline_Title">Specify deadlines for automatic updates and restarts</string>
-      <string id="ComplianceDeadline_Help">This policy lets you specify the number of days that a user has before quality and feature updates are installed on their devices automatically, and a grace period after which required restarts occur automatically.  Updates and restarts will occur regardless of active hours, and the user will not be able to reschedule.
+      <string id="ComplianceDeadlineForFU_Title">Specify deadline for automatic updates and restarts for feature update</string>
+      <string id="ComplianceDeadlineForFU_Help">This policy lets you specify the number of days before feature updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
 
-Deadlines for feature updates and quality updates can be up to 30 days.  The auto-restart grace period can be from 0 to 7 days.
+Set deadlines for feature updates and quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
 
-You can also disable auto-restarts until the end of the auto-restart grace period.
+Set a grace period for feature updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
+
+You can set the device to delay restarting until both the deadline and grace period have expired.
 
 If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
 
@@ -603,7 +653,24 @@ This policy will override the following policies:
 1.  Specify deadline before auto restart for update installation
 2.  Specify Engaged restart transition and notification schedule for updates
 3.  Always automatically restart at the scheduled time
-4.  No auto-restart with logged on users for scheduled automatic updates installation
+4.  Configure Automatic Updates
+      </string>
+      <string id="ComplianceDeadlineForQU_Title">Specify deadline for automatic updates and restarts for quality update</string>
+      <string id="ComplianceDeadlineForQU_Help">This policy lets you specify the number of days before quality updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
+
+Set deadlines for quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
+
+Set a grace period for quality updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
+
+You can set the device to delay restarting until both the deadline and grace period have expired.
+
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
       </string>
       <string id="ComplianceDeadlineDay0">0</string>
       <string id="ComplianceDeadlineDay1">1</string>
@@ -636,6 +703,103 @@ This policy will override the following policies:
       <string id="ComplianceDeadlineDay28">28</string>
       <string id="ComplianceDeadlineDay29">29</string>
       <string id="ComplianceDeadlineDay30">30</string>
+
+      <string id="AllowTemporaryEnterpriseFeatureControl_Title">Enable features introduced via servicing that are off by default</string>
+      <string id="AllowTemporaryEnterpriseFeatureControl_Help">Features introduced via servicing (outside of the annual feature update) are off by default for devices that have their Windows updates managed*.
+
+If this policy is configured to “Enabled”, then all features available in the latest monthly quality update installed will be on.
+
+If this policy is set to “Not Configured” or “Disabled” then features that are shipped via a monthly quality update (servicing) will remain off until the feature update that includes these features is installed.
+
+ *Windows update managed devices are those that have their Windows updates managed via policy; whether via the cloud using Windows Update for Business or on-premises with Windows Server Update Services (WSUS).
+      </string>
+      <string id="AllowOptionalContent_Title">Enable optional updates</string>
+      <string id="AllowOptionalContent_Help">This policy enables devices to get optional updates (including gradual feature rollouts (CFRs) - learn more by visiting aka.ms/AllowOptionalContent)
+
+When the policy is configured
+
+• If "Automatically receive optional updates (including CFRs)" is selected, the device will get the latest optional updates automatically in line with the configured quality update deferrals. This includes optional cumulative updates and gradual feature rollouts (CFRs).
+
+• If "Automatically receive optional updates" is selected, the device will only get optional cumulative updates automatically, in line with the quality update deferrals.
+
+• If "Users can select which optional updates to receive" is selected, users can select which optional updates to get by visiting Settings &gt; Windows Update &gt; Advanced options &gt; Optional updates. Users can also enable the toggle "Get the latest updates as soon as they're available" to automatically receive optional updates and gradual feature rollouts.
+      </string>
+      <string id="DonotReceiveOptionalContent">Don't receive optional updates</string>
+      <string id="ReceiveOptionalContentWithAutoApproval">Automatically receive optional updates (including CFRs)</string>
+      <string id="ReceiveOptionalLCUWithAutoApproval">Automatically receive optional updates</string>
+      <string id="ReceiveOptionalContentNeedUserApproval">Users can select which optional updates to receive</string>
+
+      <string id="MaintenanceWindow_Title">Configure maintenance windows for automatic updates</string>
+      <string id="MaintenanceWindow_Help">Enable this policy to specify repeatable maintenance windows for the device to perform specified update actions.
+
+When this policy is enabled, Windows Update will only perform the specified update action during the configured maintenance window. Specified update actions outside maintenance window will be deferred until the next maintenance window begins.
+
+• Update Actions: Select which update actions are only allowed during maintenance window. If an update action is not selected, that action can happen outside of maintenance window.
+    - Download, install, and restart: Complete update cycle including download, installation, and system restart
+    - Install and restart: Install already downloaded updates and restart the device
+    - Restart only: Only perform a system restart for pending updates
+
+• Basic Schedule Configuration:
+    - Start Date: Specify the initial date when the first maintenance window begins (format: yyyy-mm-dd, example: 2025-10-30)
+      * Start Date field only takes effect if Recurring schedule is set to “None”
+    - Start Time: Set the time when the maintenance window starts (format: hh:mm, example: 23:30 for 11:30 PM)
+    - Duration: Define how long each maintenance window lasts in hours (example: 2 for a 2-hour window)
+
+• Recurring Schedule Options:
+    - No repeat: One-time maintenance window on the specified start date only
+    - Daily: Maintenance window will be repeated every day
+    - Weekly: Maintenance window will be repeated weekly on selected days of the week
+    - Monthly: Maintenance window will be repeated monthly on a specific day
+
+• Weekly Schedule Settings (when Weekly is selected):
+    - Day of the week Selection: Choose which days of the week the maintenance window occurs:
+        * Sunday through Saturday: Check boxes to select specific day(s) of the week for the maintenance window
+
+• Monthly Schedule Settings (when Monthly is selected):
+    - Monthly Schedule Type:
+        * Date-based: Maintenance window occurs on a specific day of the month (example: 15th day of each month)
+        * Week-based:  Maintenance window occurs on a specific weekday occurrence within the month (example: 2nd Tuesday of each month)
+        * Last day of the month: Maintenance window occurs on the last day of the month
+    - Day of Month: When using date-based scheduling, specify which day of the month (1-28)
+    - Occurrence in Month: When using week-based scheduling, select which week of the month (First, Second, Third, Fourth, or Last)
+    - Day of the Week: When using week-based scheduling, select which day of the week (Sunday through Saturday)
+
+Examples of Monthly Configurations:
+    - Date-based: "3rd day of every month" = Day of Month: 3
+    - Week-based: "Second Tuesday of every month" = Occurrence: Second, Day of Week: Tuesday
+    - Week-based: "Last Friday of every month" = Occurrence: Last, Day of Week: Friday
+    - Last day of the month: "Last day of every month"
+
+After a non-repeating maintenance window occurs, the next maintenance window must be scheduled in 3 months. If the start date of a non-repeating maintenance window is more than 3 months in the past, this policy will be disregarded, and updates will be scheduled according to default settings.
+
+If you disable or do not configure this policy, Windows Update will follow its default scheduling behavior.</string>
+      <!-- MaintenanceWindowUpdateActionsID dropdown options -->
+      <string id="MaintenanceWindowUpdateActions_DownloadInstallRestart">Download, install, and restart</string>
+      <string id="MaintenanceWindowUpdateActions_InstallRestart">Install and restart</string>
+      <string id="MaintenanceWindowUpdateActions_RestartOnly">Restart only</string>
+      <!-- MaintenanceWindowRepeatScheduleOption dropdown options -->
+      <string id="MaintenanceWindowRepeatSchedule_NoRepeat">No repeat</string>
+      <string id="MaintenanceWindowRepeatSchedule_Daily">Daily</string>
+      <string id="MaintenanceWindowRepeatSchedule_Weekly">Weekly</string>
+      <string id="MaintenanceWindowRepeatSchedule_Monthly">Monthly</string>
+      <!-- MaintenanceWindowMonthlyScheduleID dropdown options -->
+      <string id="MaintenanceWindowMonthlySchedule_MonthBased">Date-based</string>
+      <string id="MaintenanceWindowMonthlySchedule_WeekBased">Week-based</string>
+      <string id="MaintenanceWindowMonthlySchedule_LastDay">Last day of the month</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_First">First</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Second">Second</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Third">Third</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Fourth">Fourth</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Last">Last</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedDayOfTheWeek dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Sunday">Sunday</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Monday">Monday</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Tuesday">Tuesday</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Wednesday">Wednesday</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Thursday">Thursday</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Friday">Friday</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Saturday">Saturday</string>
     </stringTable>
 
     <presentationTable>
@@ -667,21 +831,28 @@ This policy will override the following policies:
         <textBox refId="CorpWUContentHost_Name">
           <label>Set the alternate download server:</label>
         </textBox>
-        <text>(example: http://IntranetUpd01)</text>
+        <text>(example: https://IntranetUpd01)</text>
         <checkBox refId="CorpWUFillEmptyContentUrls" defaultChecked="false">Download files with no Url in the metadata if alternate download server is set.</checkBox>
+        <checkBox refId="CorpWUDoNotEnforceEnterpriseTLSCertPinningForUpdateDetection" defaultChecked="false">Do not enforce TLS certificate pinning for Windows Update client for detecting updates.</checkBox>
+        <dropdownList refId="SetProxyBehaviorForUpdateDetection" noSort="true" defaultItem="0">Select the proxy behavior for Windows Update client for detecting updates:</dropdownList>
+      </presentation>
+      <presentation id="UpdateClassPolicySource_Title">
+        <text>Specify source service for the following classes of Windows updates:</text>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForFeatureUpdates" noSort="true" defaultItem="0">Feature Updates</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForQualityUpdates" noSort="true" defaultItem="0">Quality Updates</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForDriverUpdates" noSort="true" defaultItem="0">Driver Updates</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForOtherUpdates" noSort="true" defaultItem="0">Other Updates</dropdownList>
       </presentation>
       <presentation id="DetectionFrequency_Title">
         <text>Check for updates at the following</text>
         <decimalTextBox refId="DetectionFrequency_Hour2" defaultValue="22">interval (hours): </decimalTextBox>
       </presentation>
       <presentation id="RebootRelaunchTimeout_Title">
-        <text>Wait the following period before</text>
-        <text>prompting again with a scheduled</text>
+        <text>Wait the following period before prompting again with a scheduled</text>
         <decimalTextBox refId="RebootRelaunchTimeout_Minutes3" defaultValue="10">restart (minutes): </decimalTextBox>
       </presentation>
       <presentation id="RebootWarningTimeout_Title">
-        <text>Wait the following period before</text>
-        <text>proceeding with a scheduled</text>
+        <text>Wait the following period before proceeding with a scheduled</text>
         <decimalTextBox refId="RebootWarningTimeout_Minutes3" defaultValue="5">restart (minutes): </decimalTextBox>
       </presentation>
       <presentation id="RescheduleWaitTime_Title">
@@ -693,22 +864,23 @@ This policy will override the following policies:
           <label>Target group name for this computer</label>
         </textBox>
       </presentation>
-      <presentation id="IdleShutdownTimerDuration_Title">
-        <text>Wait the following period before</text>
-        <text>shutting down the service when</text>
-        <decimalTextBox refId="IdleShutdownTimerDuration_Minutes" defaultValue="10">idle (minutes): </decimalTextBox>
-      </presentation>
       <presentation id="AlwaysAutoRebootAtScheduledTime_Presentation">
-        <text>The restart timer will give users</text>
-        <text>this much time to save their</text>
+        <text>The restart timer will give users this much time to save their</text>
         <decimalTextBox refId="AlwaysAutoRebootAtScheduledTime_Minutes" defaultValue="15">work (minutes): </decimalTextBox>
       </presentation>
+      <presentation id="TargetReleaseVersion">
+        <textBox refId="ProductVersionId">
+          <label>Which Windows product version would you like to receive feature updates for? e.g., Windows 10</label>
+        </textBox>
+        <textBox refId="TargetReleaseVersionId">
+          <label>Target Version for Feature Updates</label>
+        </textBox>
+      </presentation>
       <presentation id="ManagePreviewBuilds">
-        <dropdownList refId="ManagePreviewBuildsId" noSort="true" defaultItem="2">Set the behavior for receiving preview builds:</dropdownList>
+        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Select the Windows readiness level for the updates you want to receive:</dropdownList>
       </presentation>
       <presentation id="DeferFeatureUpdates">
-        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Select the Windows readiness level for the updates you want to receive:</dropdownList>
-        <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">After a Preview Build or Feature Update is released, defer receiving it for this many days:</decimalTextBox>
+       <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">How many days after a Feature Update is released would you like to defer the update before it is offered to the device?</decimalTextBox>
         <textBox refId="PauseFeatureUpdatesStartId">
           <label>Pause Preview Builds or Feature Updates starting:</label>
         </textBox>
@@ -730,6 +902,10 @@ This policy will override the following policies:
         <text>Specify the number of days before a pending restart will automatically be executed outside of active hours: </text>
         <dropdownList refId="AutoRestartDeadline" noSort="true" defaultItem="5">Quality Updates (days): </dropdownList>
         <dropdownList refId="AutoRestartDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Feature Updates (days): </dropdownList>
+      </presentation>
+      <presentation id="MaxPauseDays_Title">
+        <text>Specify how many days users can pause updates for:</text>
+        <decimalTextBox refId="SetMaxPauseDays" noSort="true" defaultValue="35">Max pause days: </decimalTextBox>
       </presentation>
       <presentation id="ActiveHoursMaxRange_Title">
         <text>Specify the max active hours range:</text>
@@ -766,16 +942,50 @@ This policy will override the following policies:
       </presentation>
       <presentation id="UpdateNotificationLevel_Title">
         <dropdownList refId="UpdateNotificationLevel" noSort="true" defaultItem="0">Specify the update notifications display options :</dropdownList>
+        <text></text>
+        <checkBox refId="NoUpdateNotificationsDuringActiveHours" defaultChecked="false">Apply only during active hours</checkBox>
       </presentation>
-      <presentation id="ComplianceDeadline_Title">
-        <text>Specify the number of days (up to 30 days) that a user has before updates run automatically, regardless of active hours, with no ability to reschedule.</text>
-        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="5">Quality updates (days):</dropdownList>
-        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Feature updates (days):</dropdownList>
+       <presentation id="ComplianceDeadlineForFU_Title">
+        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="2">Deadline (days):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriodForFeatureUpdates" noSort="true" defaultItem="7">Grace Period (days):</dropdownList>
         <text></text>
-        <text>Specify an auto-restart grace period (0 to 7 days), from the time a restart is required until the device automatically restarts.  Devices will restart regardless of active hours, with no ability to reschedule.</text>
-        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Grace period (days)</dropdownList>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForFeatureUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="ComplianceDeadlineForQU_Title">
+        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="7">Deadline (days):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Grace period (days):</dropdownList>
         <text></text>
-        <checkBox refId="ConfigureDeadlineNoAutoReboot" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForQualityUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="AllowOptionalContent_Title">
+        <dropdownList refId="AllowOptionalContent" noSort="true" defaultItem="0">Select how users receive optional updates:</dropdownList>
+      </presentation>
+      <presentation id="MaintenanceWindow_Title">
+        <text>Maintenance Window:</text>
+        <dropdownList refId="MaintenanceWindowUpdateActionsID" noSort="true" defaultItem="1">Update actions only allowed inside the maintenance window:</dropdownList>
+        <textBox refId="MaintenanceWindowStartDateID">
+            <label>Start date (Format: yyyy-mm-dd example: 2025-10-30)</label>
+        </textBox>
+        <textBox refId="MaintenanceWindowStartTimeID">
+            <label>Start time (Format: hh:mm example: 23:30 for 11:30 PM)</label>
+        </textBox>
+        <decimalTextBox refId="MaintenanceWindowDurationHoursID" defaultValue="2">Duration (hours):</decimalTextBox>
+        <dropdownList refId="MaintenanceWindowRepeatScheduleOptionID" noSort="true" defaultItem="1">Select repeat schedule:</dropdownList>
+        <text>The following settings are only required and applicable if Weekly is selected:</text>
+        <checkBox refId="MaintenanceWindowWeeklySundayID" defaultChecked="false">Sunday</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyMondayID" defaultChecked="false">Monday</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyTuesdayID" defaultChecked="false">Tuesday</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyWednesdayID" defaultChecked="false">Wednesday</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyThursdayID" defaultChecked="false">Thursday</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyFridayID" defaultChecked="false">Friday</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklySaturdayID" defaultChecked="false">Saturday</checkBox>
+        <text>The following settings are only required and applicable if Monthly is selected:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyScheduleID" noSort="true" defaultItem="1">Monthly Schedule Type:</dropdownList>
+        <text>The following settings are only required and applicable if Date-based type is selected:</text>
+        <decimalTextBox refId="MaintenanceWindowMonthlyMonthBasedDayOfMonthID" defaultValue="1">Day of the Month:</decimalTextBox>
+        <text>The following settings are only required and applicable if Week-based type is selected:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonthID" noSort="true" defaultItem="1">Occurrence in Month</dropdownList>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedDayOfTheWeekID" noSort="true" defaultItem="1">Day of the Week</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

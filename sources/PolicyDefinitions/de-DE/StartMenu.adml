@@ -27,12 +27,11 @@ Wenn Sie diese Richtlinie deaktivieren oder nicht konfigurieren, wird der Link "
 Wenn Sie diese Richtlinie deaktivieren oder nicht konfigurieren, wird der Link "Weitere Ergebnisse anzeigen" angezeigt, wenn der Benutzer eine Suche im Feld "Suchen" des Startmenüs ausführt.  Wenn ein Drittanbieter-Protokollhandler installiert wird, wird anstelle des Links "Weitere Ergebnisse anzeigen" der Link "Überall suchen" angezeigt.</string>
       <string id="AddSearchInternetLinkInStartMenu">Link "Internet durchsuchen" in das Startmenü aufnehmen</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
+Wenn Sie diese Richtlinie aktivieren, wird ein Link "Internet durchsuchen" angezeigt, wenn der Benutzer eine Suche im Suchfeld des Startmenüs durchführt.  Mit dieser Schaltfläche wird der Standardbrowser mit den Suchbegriffen gestartet.
 
-Wenn Sie diese Richtlinie aktivieren, wird der Link "Internet durchsuchen" angezeigt, wenn der Benutzer eine Suche im Feld "Suchen" des Startmenüs ausführt.  Durch diese Schaltfläche wird der Standardbrowser mit bereits eingegebenen Suchbegriffen gestartet.
+Wenn Sie diese Richtlinie deaktivieren, gibt es keinen Link "Internet durchsuchen", wenn der Benutzer eine Suche im Suchfeld des Startmenüs durchführt.
 
-Wenn Sie diese Richtlinie deaktivieren, wird kein Link "Internet durchsuchen" angezeigt, wenn der Benutzer eine Suche im Feld "Suchen" des Startmenüs ausführt.
-          
-Wenn Sie diese Richtlinie nicht konfigurieren (Standard), wird kein Link "Internet durchsuchen" im Startmenü angezeigt.</string>
+Wenn Sie diese Richtlinie nicht konfigurieren (Standardeinstellung), wird im Startmenü kein Link "Internet durchsuchen" angezeigt.</string>
       <string id="NoSearchFilesInStartMenu">Keine Dateien suchen</string>
       <string id="NoSearchFilesInStartMenu_Help">Wenn Sie diese Richtlinieneinstellung aktivieren, wird im Feld "Suchen" des Startmenüs nicht nach Dateien gesucht.
 
@@ -207,6 +206,19 @@ Der Eintrag "Suchen" wird zwar im Datei-Explorer nach wie vor auf der Symbolleis
 Diese Richtlinieneinstellung betrifft ausschließlich die angegebenen Elemente der Benutzeroberfläche. Internet Explorer ist davon nicht betroffen, und die Verwendung anderer Suchmethoden wird nicht verhindert.
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, ist der Link "Suchen" im Startmenü verfügbar.</string>
+      <string id="ShowOrHideMostUsedApps">Liste „am häufigsten verwendet“ im Startmenü ein- oder ausblenden</string>
+      <string id="ShowOrHideMostUsedApps_Help">Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie das Startmenü so konfigurieren, dass die Liste der vom Benutzer am häufigsten verwendeten Apps ein- oder ausgeblendet wird, unabhängig von den Benutzereinstellungen.
+
+Wenn Sie „Einblenden“ auswählen, wird die Liste „Am häufigsten verwendet“ angezeigt, und der Nutzer kann sie nicht über die Einstellungen ausblenden.
+
+Wenn Sie „Ausblenden“ auswählen, wird die Liste „Am häufigsten verwendet“ ausgeblendet, und der Benutzer kann sie nicht über die Einstellungen einblenden.
+
+Indem Sie „Nicht konfiguriert“ auswählen, oder diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, ermöglichen Sie es dem Benutzer, die Liste „Am häufigsten verwendet“ in den Einstellungen ein- oder auszublenden. Dabei handelt es sich um das Standardverhalten.
+
+Hinweis: Die Konfiguration dieser Richtlinie zu „Einblenden“ oder „Ausblenden“ in unterstützten Windows 10-Versionen ersetzt sämtliche Einstellungen der Richtlinie „Liste häufig verwendeter Programme aus dem Startmenü entfernen“ (welche denselben Teil des Startmenüs verwaltet, jedoch weniger Optionen bietet).</string>
+      <string id="MFU_NotConfigured">Nicht konfiguriert</string>
+      <string id="MFU_Show">Anzeigen</string>
+      <string id="MFU_Hide">Ausblenden</string>
       <string id="NoFrequentUsedPrograms">Liste häufig verwendeter Programme aus dem Startmenü entfernen</string>
       <string id="NoFrequentUsedPrograms_Help">Wenn Sie diese Einstellung aktivieren, wird die Liste häufig verwendeter Programme aus dem Startmenü entfernt.
 
@@ -243,7 +255,7 @@ Wenn Sie die Einstellung deaktivieren oder nicht konfigurieren, wird die Liste "
       <string id="APPLIST_NONE">Keine</string>
       <string id="APPLIST_COLLAPSE">Reduzieren</string>
       <string id="APPLIST_COLLAPSESETTING">Reduzieren und Einstellung deaktivieren</string>
-      <string id="APPLIST_REMOVESETTING">Entfernen und Einstellung deaktivieren</string>    
+      <string id="APPLIST_REMOVESETTING">Entfernen und Einstellung deaktivieren</string>
 
       <string id="NoNetAndDialupConnect">Menüeintrag "Netzwerkverbindungen" aus dem Startmenü entfernen</string>
       <string id="NoNetAndDialupConnect_Help">Diese Richtlinieneinstellung ermöglicht Ihnen das Entfernen des Eintrags "Netzwerkverbindungen" aus dem Startmenü.
@@ -252,17 +264,17 @@ Wenn Sie diese Richtlinieneinstellung aktivieren, können Benutzer "Netzwerkverb
 
 Durch Aktivieren dieser Richtlinieneinstellung wird das Öffnen des Ordners "Netzwerkverbindungen" verhindert. Außerdem wird mit dieser Richtlinieneinstellung der Eintrag "Netzwerkverbindungen" aus dem Startmenü unter "Einstellungen" entfernt.
 
-In der Systemsteuerung und im Datei-Explorer bleibt der Eintrag ""Netzwerkverbindungen" erhalten. Wenn jedoch ein Benutzer darauf klickt, wird eine Meldung mit dem Hinweis angezeigt, dass die Aktion aufgrund einer Einstellung nicht ausgeführt werden kann.
+In der Systemsteuerung und im Datei-Explorer bleibt der Eintrag "Netzwerkverbindungen" erhalten. Wenn jedoch ein Benutzer darauf klickt, wird eine Meldung mit dem Hinweis angezeigt, dass die Aktion aufgrund einer Einstellung nicht ausgeführt werden kann.
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, ist der Eintrag "Netzwerkverbindungen" im Startmenü verfügbar.
 
 Weitere Informationen finden Sie unter den Richtlinieneinstellungen "Programme im Menü 'Einstellungen' deaktivieren" und "Systemsteuerung deaktivieren" und unter den Einstellungen im Ordner "Netzwerkverbindungen" (unter "Computerkonfiguration" bzw. "Benutzerkonfiguration\Administrative Vorlagen\Netzwerk\Netzwerkverbindungen").</string>
       <string id="NoPinnedPrograms">Liste angehefteter Programme aus dem Startmenü entfernen</string>
-      <string id="NoPinnedPrograms_Help">Wenn Sie diese Einstellung aktivieren, wird die Liste angehefteter Programme aus dem Startmenü entfernt. Benutzer können keine Programme an das Startmenü anheften. 
+      <string id="NoPinnedPrograms_Help">Wenn Sie diese Einstellung aktivieren, wird die Liste "Angeheftete Programme" aus dem Startmenü entfernt. Benutzer können keine Programme an die Startmenü anheften.
 
-Außerdem werden die Kontrollkästchen "Internet" und "E-Mail" in Windows XP und Windows Vista aus dem Dialogfeld "Startmenü anpassen" entfernt. 
+In Windows XP und Windows Vista werden die Kontrollkästchen "Internet" und "E-Mail" aus dem Dialogfeld "Startmenü anpassen" entfernt.
 
-Wenn Sie diese Einstellung deaktivieren oder nicht konfigurieren, bleibt die Liste angehefteter Programme im Startmenü erhalten. Benutzer können Programme an das Startmenü anheften oder davon lösen.</string>
+Wenn Sie diese Einstellung deaktivieren oder nicht konfigurieren, bleibt die Liste "Angeheftete Programme" auf dem Startmenü. Benutzer können Programme im Startmenü anheften und lösen.</string>
       <string id="NoRecentDocsHistory">Liste der zuletzt geöffneten Dokumente nicht beibehalten</string>
       <string id="NoRecentDocsHistory_Help">Verhindert, dass das Betriebssystem und die installierten Programme Verknüpfungen zu den zuletzt geöffneten Dokumenten erstellen und anzeigen.
 
@@ -318,25 +330,25 @@ Hinweis: Diese Richtlinieneinstellung gilt nur für die Zieldateien auf NTFS-Par
 
 Weitere Informationen finden Sie unter den Richtlinieneinstellungen "Shellshortcuts beim Zwischenspeichern auf dem Server nicht nachverfolgen" und "Beim Zuordnen von Shellshortcuts nicht die suchbasierte Methode verwenden".</string>
       <string id="NoRun">Menüeintrag "Ausführen" aus dem Startmenü entfernen</string>
-      <string id="NoRun_Help">Ermöglicht das Entfernen des Befehls "Ausführen" aus dem Startmenü, aus Internet Explorer und aus dem Task-Manager.
+      <string id="NoRun_Help">Ermöglicht das Entfernen des Befehls „Ausführen“ aus dem Startmenü, aus Internet Explorer und aus dem Task-Manager.
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, werden die folgenden Änderungen vorgenommen:
+Wenn Sie diese Einstellung aktivieren, werden die folgenden Änderungen vorgenommen:
 
-(1) Der Befehl "Ausführen" wird aus dem Startmenü entfernt.
+(1) Der Befehl „Ausführen“ wird aus dem Startmenü entfernt.
 
-(2) Der Befehl "Neuer Task (Ausführen)" wird aus dem Task-Manager entfernt.
+(2) Der Befehl „Neue Task (Ausführen)“ wird aus dem Task-Manager entfernt.
 
 (3) Der Benutzer kann Folgendes nicht in die Adressleiste von Internet Explorer eingeben:
 
---- Ein UNC-Pfad: \\&lt;Server&gt;\&lt;Freigabe&gt; 
+--- einen UNC-Pfad: \\&lt;server&gt;\&lt;share&gt;
 
---- Zugriff auf lokale Laufwerke: z. B. "C:"
+--- Zugriff auf lokale Laufwerke: z. B. „C:“
 
---- Zugriff auf lokale Ordner: z. B. "\temp&gt;"
+--- Zugriff auf lokale Ordner: z. B. „\temp&gt;“
 
-Benutzer mit erweiterter Tastatur können außerdem das Dialogfeld "Ausführen" nicht mehr über die Tastenkombination Anwendungstaste (die Taste mit dem Windows-Logo)+R aufrufen.
+Benutzer mit erweiterter Tastatur können außerdem das Dialogfeld „Ausführen“ nicht mehr über die Tastenkombination Anwendungstaste (die Taste mit dem Windows-Logo)+R aufrufen.
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer auf den Befehl "Ausführen" im Startmenü und im Task-Manager zugreifen und die Adressleiste von Internet Explorer verwenden.
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer auf den Befehl „Ausführen“ im Startmenü und im Task-Manager zugreifen und die Adressleiste von Internet Explorer verwenden.
 
 
 
@@ -599,9 +611,9 @@ Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Startseite auf dem vo
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird immer die Startseite auf dem Hauptbildschirm angezeigt wird, wenn der Benutzer die Windows-Logo-Taste drückt. Benutzer können die Startseite weiterhin auf anderen Bildschirmen öffnen, indem Sie auf die Schaltfläche "Start" drücken. Außerdem kann der Benutzer diese Einstellung konfigurieren.</string>
       <string id="ForceStartSize_DisplayName">Volle Bildschirm- oder Menügröße für "Start" erzwingen</string>
-      <string id="ForceStartSize_ExplainText">Wenn Sie diese Richtlinie aktivieren und auf das Startmenü oder "'Start' im Vollbildmodus" festlegen, weist "Start" die entsprechende Größe auf, und die Benutzer sind nicht in der Lage, die Größe von "Start" in den Einstellungen zu ändern. 
+      <string id="ForceStartSize_ExplainText">Wenn Sie diese Richtlinie aktivieren und auf Startmenü oder Den Vollbildstart festlegen, entspricht "Start" dieser Größe, und Benutzer können die Größe von "Start" in den Einstellungen nicht ändern.
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wählt Windows die Größe automatisch nach dem Hardwareformfaktor aus, und die Benutzer sind in der Lage, die Größe von "Start" in den Einstelllungen zu ändern.</string>
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wählt Windows die Größe automatisch basierend auf dem Hardwareformfaktor aus, und Benutzer können die Größe von "Start" in den Einstellungen ändern.</string>
       <string id="ForceLauncherSize_Collapsed">Startmenü</string>
       <string id="ForceLauncherSize_Expanded">"Start" im Vollbildmodus</string>
       <string id="HidePeopleBar_DisplayName">Kontakteleiste von der Taskleiste entfernen</string>
@@ -612,10 +624,44 @@ Wenn Sie die Richtlinie aktivieren, werden das Kontakte-Symbol von der Taskleist
       <string id="HideRecentlyAddedApps_Help">Mit dieser Richtlinie können Sie verhindern, dass im Startmenü eine Liste der zuletzt installierten Anwendungen angezeigt wird.
 
 Wenn Sie die Richtlinie aktivieren, wird die Liste "Zuletzt hinzugefügt" nicht mehr im Startmenü angezeigt. Außerdem wird die entsprechende Einstellung unter "Einstellungen" deaktiviert.</string>
+      <string id="HideRecommendedSection">Abschnitt „Empfohlen“ aus dem Startmenü entfernen</string>
+      <string id="HideRecommendedSection_Help">Mit dieser Richtlinie können Sie verhindern, dass im Startmenü eine Liste der empfohlenen Anwendungen und Dateien angezeigt wird.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird der Abschnitt mit empfohlenen Dateien und Apps nicht mehr im Startmenü angezeigt.</string>
+ <string id="HideCategoryView">Kategorieansicht im Startmenü ausblenden</string>
+ <string id="HideCategoryView_Help">Mit dieser Richtlinieneinstellung können Sie die Kategorieansicht im Startmenü ausblenden.
+ 
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Kategorieansicht im Startmenü nicht mehr als Option angezeigt, und standardmäßig wird die Rasteransicht verwendet.</string>
+
+ <string id="ConfigureStartPins">Start-Pins konfigurieren</string>
+      <string id="ConfigureStartPins_Help">Ermöglicht dem Administrator das Überschreiben der an "Start" angehefteten Standardelemente.
+
+Mit dieser Einstellung können Sie die Standardelemente angeben, die an "Start" angeheftet sind.</string>
+
+      <string id="HideRecommendedPersonalizedSites">Personalisierte Website-Empfehlungen aus dem Abschnitt „Empfohlen“ im Startmenü entfernen</string>
+      <string id="HideRecommendedPersonalizedSites_Help">Mit dieser Richtlinieneinstellung können Sie die personalisierten Websites im empfohlenen Abschnitt des Startmenüs ausblenden. 
+      
+Wenn Sie diese Richtlinieneinstellung aktivieren, werden im Startmenü keine personalisierten Websiteempfehlungen mehr im empfohlenen Abschnitt angezeigt.</string>
       <string id="DisableContextMenusInStart">Kontextmenüs im Startmenü deaktivieren</string>
       <string id="DisableContextMenusInStart_Help">Diese Richtlinie verhindert, dass Benutzer Kontextmenüs im Startmenü öffnen können.
 
 Wenn Sie die Richtlinie aktivieren, werden Aufrufe der Kontextmenüs innerhalb des Startmenüs ignoriert.</string>
+      <string id="SimplifyQuickSettings_DisplayName">Vereinfachen des Layouts für Schnelleinstellungen</string>
+      <string id="SimplifyQuickSettings_ExplainText">Wenn Sie diese Richtlinie aktivieren, werden die Schnelleinstellungen auf die Schaltflächen "WLAN", "Bluetooth", "Barrierefreiheit" und "VPN" reduziert. die Helligkeits- und Lautstärkeregler; und Akkuanzeige und Link zur App "Einstellungen".
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird das reguläre Schnelleinstellungslayout angezeigt, wenn Schnelleinstellungen aufgerufen werden.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">Bearbeiten von Schnelleinstellungen deaktivieren</string>
+      <string id="DisableEditingQuickSettings_ExplainText">Wenn Sie diese Richtlinie aktivieren, kann der Benutzer die Schnelleinstellungen nicht ändern.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, kann der Benutzer Schnelleinstellungen bearbeiten, z. B. das Anheften oder Lösen von Schaltflächen.</string>
+      <string id="DisableControlCenter">Schnelleinstellungen entfernen</string>
+      <string id="DisableControlCenter_Help">Mit dieser Richtlinieneinstellung werden Schnelleinstellungen aus dem unteren rechten Bereich auf der Taskleiste entfernt.
+
+Der Schnelleinstellungsbereich befindet sich links von der Uhr auf der Taskleiste und enthält Symbole für das aktuelle Netzwerk und die aktuelle Lautstärke.
+
+Wenn diese Einstellung aktiviert ist, werden die Schnelleinstellungen nicht im Bereich "Schnelleinstellungen" angezeigt. 
+
+Damit diese Richtlinieneinstellung wirksam wird, ist ein Neustart erforderlich.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +678,22 @@ Wenn Sie die Richtlinie aktivieren, werden Aufrufe der Kontextmenüs innerhalb d
           <label>Startlayoutdatei</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">Layout bei jeder Anmeldung erneut anwenden</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">Eine der folgenden Größen auswählen</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">Wählen Sie eine der folgenden Aktionen aus</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>Start-Pins-Layout-Datei</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">Kategorieansicht ausblenden</checkBox>
       </presentation>
     </presentationTable>
   </resources>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>insira o nome de exibição aqui</displayName>
+  <description>digite a descrição aqui</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Desativar o Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot_Help">Essa configuração de política permite desligar o Windows Copilot.
+
+Se você habilitar essa configuração de política, os usuários não poderão usar o Copilot. O ícone do Copilot também não aparecerá na barra de tarefas.
+
+Se você desabilitar ou não definir essa configuração de política, os usuários poderão usar o Copilot quando ele estiver disponível para eles.
+      </string>
+      <string id="WindowsAI">IA do Windows</string>
+      <string id="DisableAIDataAnalysis">Desativar a gravação de instantâneos para uso com o Relembrar
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Essa configuração de política permite determinar se as capturas de tela podem ser salvas para uso com o Relembrar. Para dispositivos gerenciados, as capturas de tela para Relembrar não estão habilitadas por padrão. Os administradores de TI não podem, por conta própria, habilitar a gravação de capturas de tela em nome de seus usuários. A escolha de habilitar a gravação de capturas de tela requer o consentimento de aceitação do usuário individual.
+
+Se a política não for configurada, as capturas de tela não serão salvas para uso com o Relembrar.
+
+Se você habilitar essa política, as capturas de tela não serão salvas para uso com o Relembrar. Se as capturas de tela tiverem sido salvas anteriormente no dispositivo, elas serão excluídas quando essa política for habilitada.
+
+Se você definir essa política como desabilitada, os usuários finais terão a opção de salvar capturas de tela e usar o Relembrar para encontrar itens que já viram no dispositivo.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Definir o armazenamento máximo para os instantâneos usados pelo Relembrar
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Essa configuração de política permite controlar a quantidade máxima de espaço em disco que pode ser usada pelo Windows para salvar instantâneos para o Relembrar.
+
+Você pode definir a quantidade máxima de espaço em disco para instantâneos como 10, 25, 50, 75, 100 ou 150 GB.
+
+Quando essa configuração não está definida, o sistema operacional define a alocação de armazenamento para instantâneos com base na capacidade de armazenamento do dispositivo, a menos que o usuário atual especifique um valor diferente.
+
+São alocados 25 GB quando a capacidade de armazenamento do dispositivo for 256 GB. São alocados 75 GB quando a capacidade de armazenamento do dispositivo for 512 GB. 150 GB são alocados quando a capacidade de armazenamento do dispositivo for 1 TB ou superior.
+
+Se a duração máxima do armazenamento e o espaço máximo de armazenamento forem definidos para Relembrar, os instantâneos serão excluídos quando o primeiro máximo for atingido.
+
+Importante: essa configuração se aplica apenas a SKUs cliente Enterprise e Education.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Permitir que o sistema operacional defina a quantidade máxima de armazenamento com base no tamanho de armazenamento do disco rígido</string>
+      <string id="SetMaximumStorageSpace_10GB">10 GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25 GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50 GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75 GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100 GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150 GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Definir a duração máxima para armazenamento de instantâneos usados pelo Relembrar
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Essa configuração de política permite controlar a quantidade máxima de tempo (em dias) durante o qual o Windows salva instantâneos para o Relembrar.
+
+Quando a política estiver habilitada, você poderá configurar a duração máxima do armazenamento para 30, 60, 90 ou 180 dias.
+
+Quando essa política não está configurada, a duração máxima do armazenamento é de 90 dias, a menos que o usuário atual especifique um valor diferente.
+
+Se a duração máxima do armazenamento e o espaço máximo de armazenamento forem definidos para o Relembrar, os instantâneos serão excluídos quando o primeiro máximo for atingido.
+
+Importante: essa configuração se aplica apenas a SKUs cliente Enterprise e Education.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">Permitir que o sistema operacional defina a duração máxima de armazenamento dos instantâneos
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 dias</string>
+      <string id="SetMaximumStorageDuration_60Days">60 dias</string>
+      <string id="SetMaximumStorageDuration_90Days">90 dias</string>
+      <string id="SetMaximumStorageDuration_180Days">180 dias</string>
+      <string id="SetDenyAppListForRecall">Definir uma lista de aplicativos a serem filtrados dos instantâneos para o Relembrar
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Essa política permite definir uma lista de aplicativos que não serão incluídos em instantâneos para Relembrar.
+
+Os usuários poderão adicionar outros aplicativos a serem excluídos dos instantâneos usando as configurações do Relembrar.
+
+A lista pode incluir IDs de Modelo de Usuário de Aplicativo (AUMID) ou o nome do arquivo executável.
+
+Use uma lista de aplicativos separada por ponto e vírgula para definir a lista de aplicativos negados para Relembrar.
+
+Por exemplo: code.exe;Microsoft.WindowsNotepad_8wekyb3d8bbwe!App;ms-teams.exe
+
+Importante: essa configuração se aplica apenas a SKUs cliente Enterprise e Education. Ao configurar essa política, as alterações não entrarão em vigor até que o dispositivo seja reiniciado.
+      </string>
+      <string id="SetDenyUriListForRecall">Definir uma lista de URIs a serem filtrados dos instantâneos para Relembrar
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Essa configuração de política permite definir uma lista de URIs que não serão incluídos em instantâneos para Relembrar quando um navegador com suporte for usado. Pessoas em sua organização pode usar Relembrar configurações para adicionar mais sites à lista. Defina a lista usando ponto e vírgula para separar URIs.
+
+Por exemplo: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+Adicionar https://www.WoodgroveBank.com à lista também filtraria https://Account.WoodgroveBank.com e https://www.WoodgroveBank.com/Account.
+
+Importante: esta configuração se aplica somente a SKUs de cliente Enterprise e Education. As alterações nesta política entrarão em vigor após a reinicialização do dispositivo.
+      </string>
+      <string id="SetDataLossPreventionProvider">Defina o ID do provedor de DLP para o Recall
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Essa política permite que um administrador especifique um Provedor DLP, que o Relembrar usará se o provedor estiver instalado corretamente. Você precisará obter a cadeia de caracteres do seu provedor. Ela será semelhante a ''key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll'' (sem aspas no valor).
+
+Importante: esta configuração se aplica apenas aos SKUs de cliente Enterprise e Education.
+      </string>
+      <string id="SetCopilotHardwareKey">Definir Chave de Hardware do Copilot</string>
+      <string id="SetCopilotHardwareKey_Help">Essa definição de política determina qual o aplicativo que abre quando o usuário pressiona a tecla Copilot no teclado. Se a política estiver habilitada, o aplicativo especificado será aberto quando o usuário pressionar a tecla Copilot. Os usuários podem alterar a atribuição de teclas em Configurações. Se a política não estiver configurada, o Copilot será aberto se estiver disponível naquele país ou região.
+      </string>
+      <string id="AllowRecallEnablement">Permitir que o Relembrar seja habilitado
+      </string>
+      <string id="AllowRecallEnablement_Help">Essa configuração de política permite determinar se Relembrar componente opcional está disponível para que os usuários finais habilitem em seus dispositivos. Por padrão, o Relembrar é desabilitado para dispositivos comerciais gerenciados. Relembrar não está disponível em dispositivos gerenciados por padrão, e usuários individuais não podem habilitar Relembrar por conta própria.
+
+Se esta política não for configurada, os usuários finais terão o Relembrar em um estado desabilitado.
+
+Se esta política estiver desabilitada, Relembrar componente ficará no estado desabilitado e os bits para Relembrar serão removidos do dispositivo. Se os instantâneos foram salvos anteriormente no dispositivo, eles serão excluídos quando esta política estiver desabilitada. A remoção Relembrar requer a reinicialização do dispositivo.
+
+Se a política estiver habilitada, os usuários finais Relembrar disponíveis em seus dispositivos. Dependendo do estado da política DisableAIDataAnalysis (desative o salvamento de instantâneos para uso com o Relembrar), os usuários finais poderão escolher se eles desejarão salvar instantâneos da tela e usar o Relembrar para encontrar o que eles viram no dispositivo.
+      </string>
+      <string id="DisableClickToDo">Desabilitar Click to Do</string>
+      <string id="DisableClickToDo_Help">Ação com um clique permite que as pessoas ajam sobre o conteúdo em suas telas. Quando ativado, ele tira uma captura de tela e a analisa para apresentar ações. Ação com um clique termina quando eles o fecham e não pode tirar capturas de tela enquanto estiver fechado. A análise da captura de tela é sempre realizada localmente no dispositivo. Por padrão, o Ação com um clique está habilitado para os usuários.
+
+Esta configuração de política permite que você determine se o Ação com um clique estará disponível para os usuários em seus dispositivos.
+
+Quando a política é habilitada, o componente Ação com um clique e os pontos de entrada não estarão disponíveis para os usuários.
+
+Quando a política é desabilitada, os usuários terão o Ação com um clique disponível em seus dispositivos.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">Desabilitar Criador de Imagem</string>
+      <string id="DisableImageCreator_Help">Essa configuração de política permite controlar se Criador de imagens funcionalidade está desabilitada no aplicativo Windows Paint. Se esta política estiver habilitada, Criador de imagens funcionalidade não estará acessível no aplicativo Paint. Se esta política estiver desabilitada ou não configurada, os usuários poderão acessar Criador de imagens funcionalidade.</string>
+      <string id="DisableCocreator">Desabilitar Cocriador</string>
+      <string id="DisableCocreator_Help">Esta configuração de política permite controlar se a funcionalidade Cocreator está desabilitada no aplicativo Windows Paint. Se esta política estiver habilitada, a funcionalidade Cocreator não estará acessível no aplicativo Paint. Se esta política estiver desabilitada ou não configurada, os usuários poderão acessar a funcionalidade Cocreator.</string>
+      <string id="DisableGenerativeFill">Desabilitar o preenchimento generativo</string>
+      <string id="DisableGenerativeFill_Help">Essa configuração de política permite controlar se a funcionalidade de preenchimento gerando está desabilitada no aplicativo Windows Paint. Se esta política estiver habilitada, a funcionalidade de preenchimento gerando não estará acessível no aplicativo Paint. Se esta política estiver desabilitada ou não configurada, os usuários poderão acessar a funcionalidade de preenchimento gerando.</string>
+      <string id="AllowRecallExport">Permitir a exportação de informações de Relembrar e instantâneos</string>
+      <string id="AllowRecallExport_Help">Esta política permite que você determine se os usuários podem exportar suas próprias informações de instantâneos e do Relembrar. A exportação permite que os usuários compartilhem suas informações de instantâneos e do Relembrar com aplicativos ou sites confiáveis. Os usuários podem exportar a partir de Configurações &gt; Privacidade e segurança &gt; Relembrar e instantâneos &gt; Configurações avançadas &gt; Exportar instantâneos &gt; Exportar instantâneos anteriores &gt; Exportar.
+
+Os usuários também podem optar por exportar continuamente seus instantâneos se ativarem a opção Exportar instantâneos a partir de agora em Configurações &gt; Privacidade e segurança &gt; Relembrar e instantâneos &gt; Configurações avançadas &gt; Exportar instantâneos &gt; Exportar.
+
+Antes de iniciar uma exportação, os usuários devem se autenticar com o Windows Hello e serão notificados de que seus instantâneos exportados estão criptografados, pois podem conter informações confidenciais. Os usuários também serão notificados de que precisarão fornecer seu código de exportação do Relembrar caso queiram permitir que aplicativos ou sites confiáveis acessem os instantâneos exportados. O código de exportação do Relembrar é exibido aos usuários durante a configuração do Relembrar, mesmo que essa política esteja definida como desabilitada ou não configurada. Para dispositivos gerenciados: 
+
+Se você definir essa política como habilitada, os usuários poderão exportar informações de instantâneos e do Relembrar.
+
+Se a política estiver definida como desabilitada ou não configurada, os usuários não poderão exportar suas informações de instantâneos e do Relembrar.
+
+Importante: esta configuração se aplica apenas a dispositivos no Espaço Econômico Europeu (EEE). A exportação de informações de instantâneos e do Relembrar é um processo individual iniciado pelo próprio usuário. Administradores de TI ou usuários não podem iniciar uma exportação em nome de outros usuários.
+      </string>
+      <string id="DisableSettingsAgent">Desabilitar a experiência de pesquisa agêntica de Configurações</string>
+      <string id="DisableSettingsAgent_Help">A experiência agêntica de Configurações aprimora os resultados de pesquisa dentro do aplicativo Configurações ao permitir linguagem natural. Quando ativada, ela utiliza um modelo de IA para fornecer sugestões inteligentes de pesquisa nas Configurações.
+
+        Essa configuração de política permite determinar se a experiência de pesquisa agêntica nas Configurações estará disponível para os usuários em seus dispositivos.
+
+        Quando a política está habilitada, a experiência de pesquisa agêntica nas Configurações é desativada, limitando os resultados de pesquisa a pesquisas indexadas estaticamente e pesquisas semânticas.
+
+        Quando a política está desativada, os usuários terão a experiência de pesquisa agêntica nas Configurações disponível em seus dispositivos.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Nível de Log do Registro no Dispositivo</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Essa configuração de política permite configurar o nível de log para operações de registro no dispositivo.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Erro ou mais grave</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Informação ou superior</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Depuração ou superior</string>
+      <string id="RemoveMicrosoftCopilotApp">Remover Aplicativo Microsoft Copilot</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Esta configuração de política permite desinstalar o Microsoft Copilot para usuários de forma direcionada. Ela será aplicada a dispositivos/usuários que atendam às condições abaixo:
+
+• Microsoft 365 Copilot e Microsoft Copilot estão instalados
+
+• O aplicativo Microsoft Copilot não foi instalado pelo usuário
+
+• O aplicativo Microsoft Copilot não foi iniciado nos últimos 28 dias
+ 
+Se esta política estiver habilitada, o aplicativo Microsoft Copilot será desinstalado. Os usuários ainda podem reinstalar, se desejarem. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>Introduzir AUMID do Aplicativo</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Insira a lista de negação de aplicativos:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Insira a lista de negação de URIs :</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>Insira o ID do provedor de DLP:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Selecione o espaço de armazenamento máximo:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Selecione a duração máxima do armazenamento:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Nível de Log do Registro no Dispositivo: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

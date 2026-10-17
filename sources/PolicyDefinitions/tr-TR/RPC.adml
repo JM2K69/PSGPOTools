@@ -27,19 +27,19 @@ Uzatılmış hata bilgileri, hatanın oluştuğu yerel saati, RPC sürümünü v
 
 Bu ilke ayarını devre dışı bırakırsanız, RPC Çalıştırma Zamanı hata durumunu göstermek üzere yalnızca bir durum kodu oluşturur.
 
-Bu ilke ayarını yapılandırmazsanız devre dışı kalır.  Hata koşulunu belirtmek için yalnızca durum kodu oluşturur.
+Bu ilke ayarını yapılandırmazsanız devre dışı kalır. Hata koşulunu belirtmek için yalnızca durum kodu oluşturur.
 
-Bu ilke ayarını etkinleştirirseniz RPC çalışma zamanı uzatılmış hata bilgileri oluşturur.  Açılan kutuda bir hata yanıtı türü seçmeniz gerekir.
+Bu ilke ayarını etkinleştirirseniz RPC çalışma zamanı uzatılmış hata bilgileri oluşturur. Açılan kutuda bir hata yanıtı türü seçmeniz gerekir.
 
---  "Kapalı", tüm işlemler için uzatılmış hata bilgilerini devre dışı bırakır. RPC yalnızca hata kodu oluşturur.
+-- "Kapalı", tüm işlemler için uzatılmış hata bilgilerini devre dışı bırakır. RPC yalnızca hata kodu oluşturur.
 
---  "Özel Durumlarla Açık", uzatılmış hata bilgilerini etkinleştirir ancak seçili işlemler için devre dışı bırakmanızı sağlar. Bu ilke ayarı etkin olduğu sırada bir işleme ilişkin uzatılmış hata bilgilerini devre dışı bırakmak için, işlemi başlatan komut Uzatılmış Hata Bilgileri Özel Durum alanındaki dizelerden biriyle başlamalıdır.
+-- "Özel Durumlarla Açık", uzatılmış hata bilgilerini etkinleştirir ancak seçili işlemler için devre dışı bırakmanızı sağlar. Bu ilke ayarı etkin olduğu sırada bir işleme ilişkin uzatılmış hata bilgilerini devre dışı bırakmak için, işlemi başlatan komut Uzatılmış Hata Bilgileri Özel Durum alanındaki dizelerden biriyle başlamalıdır.
 
---  "Özel Durumlarla Kapalı", uzatılmış hata bilgilerini devre dışı bırakır ancak seçili işlemler için etkinleştirmenizi sağlar. Bu ilke ayarı etkin olduğu sırada bir işleme ilişkin uzatılmış hata bilgilerini devre dışı bırakmak için, işlemi başlatan komut Uzatılmış Hata Bilgileri Özel Durum alanındaki dizelerden biriyle başlamalıdır.
+-- "Özel Durumlarla Kapalı", uzatılmış hata bilgilerini devre dışı bırakır ancak seçili işlemler için etkinleştirmenizi sağlar. Bu ilke ayarı etkin olduğu sırada bir işleme ilişkin uzatılmış hata bilgilerini devre dışı bırakmak için, işlemi başlatan komut Uzatılmış Hata Bilgileri Özel Durum alanındaki dizelerden biriyle başlamalıdır.
 
---  "Açık", uzatılmış hata bilgilerini tüm işlemler için etkinleştirir.
+-- "Açık", uzatılmış hata bilgilerini tüm işlemler için etkinleştirir.
 
-Not: Uzatılmış Hata Bilgileri Özel Durum alanı hakkında bilgi için bkz: Windows Software Development Kit (SDK).
+Not: Uzatılmış Hata Bilgileri Özel Durum alanı hakkında bilgi için bkz: Windows Yazılım Geliştirme Seti (SDK).
 
 Not: Uzatılmış hata bilgileri diğer işletim sistemleri ve eski Microsoft işletim sistemleriyle uyumlu olacak şekilde biçimlendirilmiştir, ancak bilgileri yalnızca daha yeni Microsoft işletim sistemleri okuyabilir ve yanıtlayabilir.
 

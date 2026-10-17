@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>キーボード フィルターのグループ ポリシー</displayName>
+  <description>キーボード フィルターのグループ ポリシー設定</description>
+  <resources>
+    <stringTable>
+      <string id="KeyboardFilter">キーボード フィルター</string>
+      <string id="AllowKbFilterInRemoteSessions">リモート セッションでキーボード フィルターを許可する</string>
+      <string id="AllowKbFilterInRemoteSessions_Text">キーボード フィルターは通常、ローカル セッションにのみ適用されます。
+      
+この設定を有効にすると、リモート セッションによってコンピューターに接続するユーザーにキーボード フィルターを適用できるようになります。</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

@@ -99,6 +99,67 @@ Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız kuruluşunu
 
 Bu Grup İlkesi nesnesi cihazda uygulandığında açık olan uygulama varsa, ilke değişikliklerinin cihaza uygulanabilmesi için çalışanların uygulamayı veya cihazı yeniden başlatmaları gerekecektir.
       </string>
+      <string id="LetAppsAccessSystemAIModels_Name">Windows uygulamalarının Windows'un Metin ve görüntü oluşturma özelliklerini kullanmasına izin ver</string>
+      <string id="LetAppsAccessSystemAIModels_Explain">
+Bu ilke ayarı, Windows uygulamalarının Windows'un Metin ve görüntü oluşturma özelliklerini kullanıp kullanamayacağını belirler.
+
+Bir Paket Aile Adı belirterek, tüm uygulamalar için varsayılan bir ayar veya uygulama başına bir ayar belirleyebilirsiniz. Get-AppPackage Windows PowerShell cmdlet'ini kullanarak bir uygulama için Paket Aile Adını alabilirsiniz. Uygulama başına ayar varsayılan ayarı geçersiz kılar.
+
+"Kontrol Kullanıcıda" seçeneğini belirlerseniz, kuruluşunuzdaki çalışanlar cihazdaki Ayarlar &gt; Gizlilik'i kullanarak Windows uygulamalarının Metin ve görüntü oluşturmayı kullanıp kullanamayacağına karar verebilir.
+
+"İzin Vermeye Zorla" seçeneğini seçerseniz, Windows uygulamalarının Windows'un Metin ve görüntü oluşturma özelliklerini kullanmasına izin verilir ve kuruluşunuzdaki çalışanlar bunu değiştiremez.
+
+"Reddetmeye Zorla" seçeneğini seçerseniz, Windows uygulamalarının Windows'un Metin ve görüntü oluşturma özelliklerini kullanmasına izin verilmez ve kuruluşunuzdaki çalışanlar bunu değiştiremez.
+
+Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, kuruluşunuzdaki çalışanlar cihazdaki Ayarlar &gt; Gizlilik'i kullanarak Windows uygulamalarının Windows'un Metin ve görüntü oluşturma özelliklerini kullanıp kullanamayacağına karar verebilir.
+
+Bu Grup İlkesi nesnesi bir cihaza uygulandığında bir uygulama açıksa, ilke değişikliklerinin uygulamaya uygulanması için çalışanların uygulamayı veya cihazı yeniden başlatması gerekir.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Name">Windows uygulamalarının çeşitli pencere ve ekranların ekran görüntülerini almasına izin ver</string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Explain">Bu ilke ayarı, Windows uygulamalarının çeşitli pencerelerin veya ekranların ekran görüntülerini alıp alamayacağını belirtir.
+
+Bir Paket Aile Adı belirterek, tüm uygulamalar için varsayılan bir ayar veya her uygulama için bir ayar belirtebilirsiniz. Get-AppPackage Windows PowerShell cmdlet'ini kullanarak bir uygulama için Paket Aile Adını alabilirsiniz. Uygulama bazında bir ayar, varsayılan ayarı geçersiz kılar.
+
+"Kontrol kullanıcının elinde" seçeneğini belirlerseniz, kuruluşunuzdaki çalışanlar Windows uygulamalarının çeşitli pencerelerin ekran görüntüleri alıp alamayacağına veya cihazda Ayarlar &gt; Gizlilik seçeneği kullanılarak görüntülenir.
+
+"İzin Vermeye Zorla" seçeneğini belirlerseniz, Windows uygulamalarının çeşitli pencerelerin veya ekranların ekran görüntülerini almasına izin verilir ve kuruluşunuzdaki çalışanlar değiştiremez.
+
+"Zorla Reddet" seçeneğini seçerseniz, Windows uygulamalarının çeşitli pencerelerin veya ekranların ekran görüntülerini almasına izin verilmez ve kuruluşunuzdaki çalışanlar bunu değiştiremez.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, kuruluşunuzdaki çalışanlar, cihazdaki Ayarlar &gt; Gizlilik seçeneğini kullanarak Windows uygulamalarının çeşitli pencerelerin veya ekranların ekran görüntülerini alıp alamayacağına karar verebilir.
+
+Bu Grup İlkesi nesnesi bir cihaza uygulandığında bir uygulama açıksa, ilke değişikliklerinin uygulamaya yansıması için çalışanların uygulamayı veya cihazı yeniden başlatması gerekir.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Name">Windows uygulamalarının ekran görüntüsü kenarlığını kapatmasına izin ver</string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Explain">Bu ilke ayarı Windows uygulamalarının ekran görüntüsü kenarlığını devre dışı bırakıp bırakamayacağını belirtir.
+
+Bütün uygulamalar için varsayılan bir ayar veya bir Paket Aile Adı belirleyerek uygulama başına bir ayar belirleyebilirsiniz. Get-AppPackage Windows PowerShell cmdlet kullanarak uygulamalar için Paket Aile Adı alabilirsiniz. Uygulama başına ayar varsayılan ayarı geçersiz kılar.
+
+"Kullanıcı denetiminde" seçeneğini belirlerseniz, kuruluşunuzdaki çalışanlar cihaz üzerinde Ayarlar &gt; Gizlilik seçeneğini kullanarak Windows uygulamalarının ekran görüntüsü kenarlığını devre dışı bırakıp bırakamayacağına karar verebilirler.
+
+"İzin Vermeye Zorla" seçeneğini belirlerseniz, Windows uygulamalarının ekran görüntüsü kenarlığını devre dışı bırakmasına izin verilir ve kuruluşunuzdaki çalışanlar bunu değiştiremez.
+
+"Reddetmeye Zorla" seçeneğini belirlerseniz, Windows uygulamalarının ekran görüntüsü kenarlığını devre dışı bırakmasına izin verilmez ve kuruluşunuzdaki çalışanlar bunu değiştiremez.
+
+Bu ilke ayarını devre dışı bıraktığınız veya yapılandırmadığınız takdirde, kuruluşunuzdaki çalışanlar cihaz üzerinde Ayarlar &gt; Gizlilik seçeneğini kullanarak Windows uygulamalarının ekran görüntüsü kenarlığını devre dışı bırakıp bırakamayacağına karar verebilirler.
+
+Bir cihazda bu Grup İlkesi nesnesi uygulandığında açık olan bir uygulama varsa, ilke değişikliklerinin uygulamaya yansıması için çalışanların uygulamayı veya cihazı yeniden başlatması gerekir.
+      </string>
+      <string id="LetAppsAccessHumanPresence_Name">Windows uygulamalarının kişi algılamaya erişmesine izin verme</string>
+      <string id="LetAppsAccessHumanPresence_Explain">Bu ilke ayarı Windows uygulamalarının kişi algılamaya erişip erişemeyeceğini belirtir.
+
+Bütün uygulamalar için varsayılan bir ayar veya bir Paket Aile Adı belirterek her bir uygulama için ayrı bir ayar belirleyebilirsiniz. Get-AppPackage Windows PowerShell cmdlet komutunu kullanarak uygulamalar için Paket Uygulama Adlarını alabilirsiniz. Uygulamaya özel ayarlama yapıldığında varsayılan ayar devre dışı bırakılır.
+
+"Kullanıcının denetiminde" seçeneğini seçerseniz, kuruluşunuzdaki çalışanlar Windows uygulamalarının kişi algılamaya erişip erişemeyeceğine cihaz üzerinde Ayarlar &gt; Gizlilik’i kullanarak karar verebilirler.
+
+"İzin Vermeye Zorla" seçeneğini seçerseniz, Windows uygulamalarının kişi algılamaya erişmesine izin verilir ve kuruluşunuzdaki çalışanlar bunu değiştiremezler.
+
+"Reddetmeye Zorla" seçeneğini seçerseniz, Windows uygulamalarının kişi algılamaya erişmesine izin verilmez ve kuruluşunuzdaki çalışanlar bunu değiştiremezler.
+
+Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız kuruluşunuzdaki çalışanlar Windows uygulamalarının kişi algılamaya erişip erişemeyeceğine cihaz üzerinde Ayarlar &gt; Gizlilik’i kullanarak karar verebilirler.
+
+Bu Grup İlkesi nesnesi cihazda uygulandığında açık olan uygulama varsa, ilke değişikliklerinin uygulamaya uygulanabilmesi için çalışanların uygulamayı veya cihazı yeniden başlatmaları gerekir.
+      </string>
       <string id="LetAppsAccessLocation_Name">Windows uygulamalarının konuma erişmesine izin ver</string>
       <string id="LetAppsAccessLocation_Explain">Bu ilke ayarı Windows uygulamalarının konuma erişip erişemeyeceğini belirtir.
 
@@ -173,6 +234,36 @@ Bütün uygulamalar için varsayılan bir ayar veya bir Paket Aile Adı belirley
 Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız kuruluşunuzdaki çalışanlar Windows uygulamalarının bildirimlere erişip erişemeyeceğine cihaz üzerinde Ayarlar &gt; Gizlilik'i kullanarak karar verebilirler.
 
 Bu Grup İlkesi nesnesi cihazda uygulandığında açık olan uygulama varsa, ilke değişikliklerinin cihaza uygulanabilmesi için çalışanların uygulamayı veya cihazı yeniden başlatmaları gerekecektir.
+      </string>
+      <string id="LetAppsAccessPasskeys_Name">Windows uygulamalarının geçiş anahtarlarına erişmesine izin ver</string>
+      <string id="LetAppsAccessPasskeys_Explain">Bu ilke ayarı uygulamaların geçiş anahtarlarına erişip erişemeyeceğini belirtir.
+
+Paket Aile Adı belirterek, tüm uygulamalar için varsayılan bir ayar veya uygulama başına bir ayar belirleyebilirsiniz. Get-AppPackage Windows PowerShell cmdlet'ini kullanarak bir uygulama için Paket Aile Adını alabilirsiniz. Uygulama başına ayar varsayılan ayarı geçersiz kılar.
+
+"Kullanıcının denetiminde" seçeneğini belirtirseniz, kuruluşunuzdaki çalışanlar uygulamaların geçiş anahtarlarına erişip erişemeyeceğine cihaz üzerindeki Ayarlar ve Gizlilik bölümünü kullanarak karar verebilir.
+
+"İzin Vermeye Zorla" seçeneğini belirtirseniz, uygulamaların geçiş anahtarlarına erişmesine izin verilir ve kuruluşunuzdaki çalışanlar bunu değiştiremez.
+
+"Reddetmeye Zorla" seçeneğini belirtirseniz, uygulamaların geçiş anahtarlarına erişmesine izin verilmez ve kuruluşunuzdaki çalışanlar bunu değiştiremez.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, kuruluşunuzdaki çalışanlar uygulamaların geçiş anahtarlarına erişip erişemeyeceğine cihaz üzerindeki Ayarlar ve Gizlilik bölümünü kullanarak karar verebilir.
+
+Bu Grup İlkesi nesnesi bir cihaza uygulandığı sırada bir uygulama açıksa, uygulamaya ilke değişikliklerinin uygulanması için çalışanların uygulamayı veya cihazı yeniden başlatması gerekir.
+      </string>
+      <string id="LetAppsAccessPasskeysEnumeration_Name">Windows uygulamalarının geçiş anahtarlarını otomatik olarak doldurmasına izin ver</string>
+      <string id="LetAppsAccessPasskeysEnumeration_Explain">Bu ilke ayarı uygulamaların geçiş anahtarı alanlarını otomatik olarak doldurup dolduramayacağını belirtir.
+
+Paket Aile Adı belirterek, tüm uygulamalar için varsayılan bir ayar veya uygulama başına bir ayar belirleyebilirsiniz. Get-AppPackage Windows PowerShell cmdlet'ini kullanarak bir uygulama için Paket Aile Adını alabilirsiniz. Uygulama başına ayar varsayılan ayarı geçersiz kılar.
+
+"Kullanıcının denetiminde" seçeneğini belirtirseniz, kuruluşunuzdaki çalışanlar uygulamaların geçiş anahtarı alanlarını otomatik olarak doldurup dolduramayacağına cihaz üzerindeki Ayarlar ve Gizlilik bölümünü kullanarak karar verebilir.
+
+"İzin Vermeye Zorla" seçeneğini belirtirseniz, uygulamaların geçiş anahtarı alanlarını otomatik olarak doldurmasına izin verilir ve kuruluşunuzdaki çalışanlar bunu değiştiremez.
+
+"Reddetmeye Zorla" seçeneğini belirtirseniz, uygulamaların geçiş anahtarı alanlarını otomatik olarak doldurmasına izin verilmez ve kuruluşunuzdaki çalışanlar bunu değiştiremez.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, kuruluşunuzdaki çalışanlar uygulamaların geçiş anahtarı alanlarını otomatik olarak doldurup dolduramayacağına cihaz üzerindeki Ayarlar ve Gizlilik bölümünü kullanarak karar verebilir.
+
+Bu Grup İlkesi nesnesi bir cihaza uygulandığı sırada bir uygulama açıksa, uygulamaya ilke değişikliklerinin uygulanması için çalışanların uygulamayı veya cihazı yeniden başlatması gerekir.
       </string>
       <string id="LetAppsAccessPhone_Name">Windows uygulamalarının telefon aramaları yapmasına izin ver</string>
       <string id="LetAppsAccessPhone_Explain">Bu ilke ayarı Windows uygulamalarının telefon araması yapıp yapamayacağını belirtir.
@@ -321,6 +412,35 @@ Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kurul
 
 Bu ilke, Windows uygulamalarına ve Cortana'ya uygulanır. "Cortana'ya kilit ekranı üzerinde izin ver" ilkesini önceliklidir. Bu ilke yalnızca, "Sesle etkinleştirmeye izin ver" ilkesi, uygulamaların sesle etkinleştirilmesini sağlayacak şekilde yapılandırıldığında uygulanabilir.
       </string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Name">Arka planda çalışırken Windows uygulamalarının kullanıcı hareketlerine erişmesine izin ver</string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Explain">Bu ilke ayarı, Windows uygulamaları arka planda çalışırken uygulamaların kullanıcının kafa ve el hareketlerine, hareket denetleyicilerine ve diğer izlenen nesnelere erişip erişemeyeceğini belirler.
+
+Bütün uygulamalar için varsayılan bir ayar veya bir Paket Aile Adı belirleyerek her bir uygulama için ayrı bir ayar belirleyebilirsiniz. Get-AppPackage Windows PowerShell cmdlet'i kullanarak uygulamalar için Paket Aile Adı alabilirsiniz. Uygulama başına ayarı varsayılan ayarı devre dışı bırakır.
+
+"Kullanıcının denetiminde" seçeneğini belirlerseniz kuruluşunuzdaki çalışanlar, arka planda çalışan Windows uygulamalarının kullanıcının hareketlerine erişip erişemeyeceğine cihaz üzerinde Ayarlar &gt; Gizlilik'i kullanarak karar verebilirler.
+
+"İzin Vermeye Zorla" seçeneğini belirlerseniz Windows uygulamaları arka planda çalışırken uygulamaların kullanıcı hareketlerine erişimine izin verilir ve kuruluşunuzdaki çalışanlar bunu değiştiremez.
+
+"Zorla Reddet" seçeneğini belirlerseniz Windows uygulamaları arka planda çalışırken uygulamaların kullanıcı hareketlerine erişimine izin verilmez ve kuruluşunuzdaki çalışanlar bunu değiştiremezler.
+
+Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız kuruluşunuzdaki çalışanlar, arka planda çalışan Windows uygulamalarının kullanıcı hareketlerine erişip erişemeyeceğine cihaz üzerinde Ayarlar &gt; Gizlilik'i kullanarak karar verebilirler.
+
+Bu Grup İlkesi nesnesi cihazda uygulandığında açık olan bir uygulama varsa ilke değişikliklerinin cihaza uygulanabilmesi için çalışanların uygulamayı veya cihazı yeniden başlatmaları gerekecektir.
+      </string>
+      <string id="LetAppsAccessForegroundText_Name">Windows uygulamalarının ön plan uygulamalarından metin içeriğine erişmesine izin ver</string>
+      <string id="LetAppsAccessForegroundText_Explain">Bu ilke ayarı Windows uygulamalarının ön plandaki uygulamalardan metin içeriğine erişip erişemeyeceğini belirtir.
+Bir Paket Aile Adı belirterek, tüm uygulamalar için varsayılan bir ayar veya uygulama başına bir ayar belirleyebilirsiniz. Get-AppPackage Windows PowerShell cmdlet'ini kullanarak bir uygulama için Paket Aile Adını alabilirsiniz. Uygulama başına ayar varsayılan ayarı geçersiz kılar.
+
+"Kullanıcının denetiminde" seçeneğini seçerseniz, kuruluşunuzdaki çalışanlar Windows uygulamalarının ön plandaki uygulamalardan metin içeriğine erişip erişemeyeceğine, cihaz üzerinde Ayarlar &gt; Gizlilik'i kullanarak karar verebilir.
+
+"İzin Vermeye Zorla" seçeneğini seçerseniz, Windows uygulamalarının ön plandaki uygulamalardan metin içeriğine erişmesine izin verilir ve kuruluşunuzdaki çalışanlar bunu değiştiremez.
+
+"Reddetmeye Zorla" seçeneğini seçerseniz, Windows uygulamalarının ön plandaki uygulamalardan metin içeriğine erişmesine izin verilmez ve kuruluşunuzdaki çalışanlar bunu değiştiremez.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kuruluşunuzdaki çalışanlar Windows uygulamalarının ön plandaki uygulamalardan metin içeriğine erişip erişemeyeceğine, cihaz üzerinde Ayarlar &gt; Gizlilik'i kullanarak karar verebilir.
+
+Bu Grup İlkesi nesnesi bir cihaza uygulandığında bir uygulama açıksa, ilke değişikliklerinin uygulamaya uygulanması için çalışanların uygulamayı veya cihazı yeniden başlatması gerekir.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LetAppsAccessCalendar">
@@ -377,9 +497,45 @@ Bu ilke, Windows uygulamalarına ve Cortana'ya uygulanır. "Cortana'ya kilit ekr
         <text>Belirli uygulamaları (Paket Aile Adlarını kullanın) reddetmeye zorla:</text>
         <multiTextBox refId="LetAppsAccessEmail_ForceDenyTheseApps_List"/>
       </presentation>
+      <presentation id="LetAppsAccessSystemAIModels">
+        <dropdownList refId="LetAppsAccessSystemAIModels_Enum" noSort="true" defaultItem="0">Tüm uygulamalar için varsayılan:</dropdownList>
+        <text>Belirli uygulamaların (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_UserInControlOfTheseApps_List"/>
+        <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceAllowTheseApps_List"/>
+        <text>Belirli uygulamaları (Paket Aile Adlarını kullanın) reddetmeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureProgrammatic">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureProgrammatic_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
+        <text>Belirli uygulamaların (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_UserInControlOfTheseApps_List"/>
+        <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceAllowTheseApps_List"/>
+        <text>Belirli uygulamaları (Paket Aile Adlarını kullanın) reddetmeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureWithoutBorder">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureWithoutBorder_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
+        <text>Belirli uygulamaların denetimini kullanıcıya ver (Paket Aile Adlarını kullanın):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_UserInControlOfTheseApps_List"/>
+        <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceAllowTheseApps_List"/>
+        <text>Belirli uygulamaları (Paket Aile Adlarını kullanın) reddetmeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessHumanPresence">
+        <dropdownList refId="LetAppsAccessHumanPresence_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
+        <text>Belirli uygulamaların denetimini kullanıcıya ver (Paket Aile Adlarını kullanın):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_UserInControlOfTheseApps_List"/>
+        <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceAllowTheseApps_List"/>
+        <text>Belirli uygulamaları (Paket Aile Adlarını kullanın) reddetmeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceDenyTheseApps_List"/>
+      </presentation>
       <presentation id="LetAppsAccessLocation">
         <dropdownList refId="LetAppsAccessLocation_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
-        <text>Belirli uygulamaların (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
+        <text>Belirli uygulamaların denetimini kullanıcıya ver (Paket Aile Adlarını kullanın):</text>
         <multiTextBox refId="LetAppsAccessLocation_UserInControlOfTheseApps_List"/>
         <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
         <multiTextBox refId="LetAppsAccessLocation_ForceAllowTheseApps_List"/>
@@ -388,7 +544,7 @@ Bu ilke, Windows uygulamalarına ve Cortana'ya uygulanır. "Cortana'ya kilit ekr
       </presentation>
       <presentation id="LetAppsAccessMessaging">
         <dropdownList refId="LetAppsAccessMessaging_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
-        <text>Belirli uygulamaların (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
+        <text>Belirli uygulamalarrın (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
         <multiTextBox refId="LetAppsAccessMessaging_UserInControlOfTheseApps_List"/>
         <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
         <multiTextBox refId="LetAppsAccessMessaging_ForceAllowTheseApps_List"/>
@@ -397,7 +553,7 @@ Bu ilke, Windows uygulamalarına ve Cortana'ya uygulanır. "Cortana'ya kilit ekr
       </presentation>
       <presentation id="LetAppsAccessMicrophone">
         <dropdownList refId="LetAppsAccessMicrophone_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
-        <text>Belirli uygulamaların denetimini kullanıcıya ver (Paket Aile Adlarını kullanın):</text>
+        <text>Belirli uygulamalarrın (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
         <multiTextBox refId="LetAppsAccessMicrophone_UserInControlOfTheseApps_List"/>
         <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
         <multiTextBox refId="LetAppsAccessMicrophone_ForceAllowTheseApps_List"/>
@@ -406,7 +562,7 @@ Bu ilke, Windows uygulamalarına ve Cortana'ya uygulanır. "Cortana'ya kilit ekr
       </presentation>
       <presentation id="LetAppsAccessMotion">
         <dropdownList refId="LetAppsAccessMotion_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
-        <text>Belirli uygulamaların denetimini kullanıcıya ver (Paket Aile Adlarını kullanın):</text>
+        <text>Belirli uygulamaların (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
         <multiTextBox refId="LetAppsAccessMotion_UserInControlOfTheseApps_List"/>
         <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
         <multiTextBox refId="LetAppsAccessMotion_ForceAllowTheseApps_List"/>
@@ -415,7 +571,7 @@ Bu ilke, Windows uygulamalarına ve Cortana'ya uygulanır. "Cortana'ya kilit ekr
       </presentation>
       <presentation id="LetAppsAccessNotifications">
         <dropdownList refId="LetAppsAccessNotifications_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
-        <text>Belirli uygulamaların denetimini kullanıcıya ver (Paket Aile Adlarını kullanın):</text>
+        <text>Belirli uygulamaların (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
         <multiTextBox refId="LetAppsAccessNotifications_UserInControlOfTheseApps_List"/>
         <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
         <multiTextBox refId="LetAppsAccessNotifications_ForceAllowTheseApps_List"/>
@@ -424,7 +580,7 @@ Bu ilke, Windows uygulamalarına ve Cortana'ya uygulanır. "Cortana'ya kilit ekr
       </presentation>
       <presentation id="LetAppsAccessRadios">
         <dropdownList refId="LetAppsAccessRadios_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
-        <text>Belirli uygulamalarrın (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
+        <text>Belirli uygulamaların (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
         <multiTextBox refId="LetAppsAccessRadios_UserInControlOfTheseApps_List"/>
         <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
         <multiTextBox refId="LetAppsAccessRadios_ForceAllowTheseApps_List"/>
@@ -433,7 +589,7 @@ Bu ilke, Windows uygulamalarına ve Cortana'ya uygulanır. "Cortana'ya kilit ekr
       </presentation>
       <presentation id="LetAppsAccessAccountInfo">
         <dropdownList refId="LetAppsAccessAccountInfo_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
-        <text>Belirli uygulamalarrın (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
+        <text>Belirli uygulamaların (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
         <multiTextBox refId="LetAppsAccessAccountInfo_UserInControlOfTheseApps_List"/>
         <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
         <multiTextBox refId="LetAppsAccessAccountInfo_ForceAllowTheseApps_List"/>
@@ -471,23 +627,23 @@ Bu ilke, Windows uygulamalarına ve Cortana'ya uygulanır. "Cortana'ya kilit ekr
         <dropdownList refId="LetAppsRunInBackground_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
         <text>Belirli uygulamaların (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
         <multiTextBox refId="LetAppsRunInBackground_UserInControlOfTheseApps_List"/>
-        <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
+        <text>Şu belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
         <multiTextBox refId="LetAppsRunInBackground_ForceAllowTheseApps_List"/>
-        <text>Belirli uygulamaları (Paket Aile Adlarını kullanın) reddetmeye zorla:</text>
+        <text>Şu belirli uygulamaları (Paket Aile Adlarını kullanın) reddetmeye zorla:</text>
         <multiTextBox refId="LetAppsRunInBackground_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsGetDiagnosticInfo">
         <dropdownList refId="LetAppsGetDiagnosticInfo_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
         <text>Belirli uygulamaların (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_UserInControlOfTheseApps_List"/>
-        <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
+        <text>Şu belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_ForceAllowTheseApps_List"/>
-        <text>Belirli uygulamaları (Paket Aile Adlarını kullanın) reddetmeye zorla:</text>
+        <text>Şu belirli uygulamaları (Paket Aile Adlarını kullanın) reddetmeye zorla:</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessGazeInput">
         <dropdownList refId="LetAppsAccessGazeInput_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
-        <text>Belirli uygulamaların (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
+        <text>Belirli uygulamalarrın (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
         <multiTextBox refId="LetAppsAccessGazeInput_UserInControlOfTheseApps_List"/>
         <text>Belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
         <multiTextBox refId="LetAppsAccessGazeInput_ForceAllowTheseApps_List"/>
@@ -499,6 +655,42 @@ Bu ilke, Windows uygulamalarına ve Cortana'ya uygulanır. "Cortana'ya kilit ekr
       </presentation>
       <presentation id="LetAppsActivateWithVoiceAboveLock">
         <dropdownList refId="LetAppsActivateWithVoiceAboveLock_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
+      </presentation>
+      <presentation id="LetAppsAccessBackgroundSpatialPerception">
+        <dropdownList refId="LetAppsAccessBackgroundSpatialPerception_Enum" noSort="true" defaultItem="0">Bütün uygulamalar için varsayılan:</dropdownList>
+        <text>Belirli uygulamalarrın (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_UserInControlOfTheseApps_List"/>
+        <text>Şu belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps_List"/>
+        <text>Şu belirli uygulamaları (Paket Aile Adlarını kullanın) reddetmeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessForegroundText">
+        <dropdownList refId="LetAppsAccessForegroundText_Enum" noSort="true" defaultItem="0">Tüm uygulamalar için varsayılan:</dropdownList>
+        <text>Belirli uygulamalarrın (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_UserInControlOfTheseApps_List"/>
+        <text>Şu belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceAllowTheseApps_List"/>
+        <text>Şu belirli uygulamaları (Paket Aile Adlarını kullanın) reddetmeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeys">
+        <dropdownList refId="LetAppsAccessPasskeys_Enum" noSort="true" defaultItem="0">Tüm uygulamalar için varsayılan:</dropdownList>
+        <text>Belirli uygulamalarrın (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_UserInControlOfTheseApps_List"/>
+        <text>Şu belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceAllowTheseApps_List"/>
+        <text>Şu belirli uygulamaları (Paket Aile Adlarını kullanın) reddetmeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeysEnumeration">
+        <dropdownList refId="LetAppsAccessPasskeysEnumeration_Enum" noSort="true" defaultItem="0">Tüm uygulamalar için varsayılan:</dropdownList>
+        <text>Belirli uygulamalarrın (Paket Aile Adlarını kullanın) denetimini kullanıcıya ver:</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_UserInControlOfTheseApps_List"/>
+        <text>Şu belirli uygulamalara (Paket Aile Adlarını kullanın) izin vermeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceAllowTheseApps_List"/>
+        <text>Şu belirli uygulamaları (Paket Aile Adlarını kullanın) reddetmeye zorla:</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceDenyTheseApps_List"/>
       </presentation>
     </presentationTable>
   </resources>

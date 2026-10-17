@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Datenschutz-API</displayName>
+  <description>Datenschutz-API-Einstellungen konfigurieren</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">Datenschutz-API</string>
+      <string id="DomainBackupKeyRotationPeriod">Rotationszeitraum für Datenschutz-API-Sicherungsschlüssel festlegen</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">Diese Richtlinieneinstellung gibt den Rotationszeitraum für DPAPI-Sicherungsschlüssel an. 
+Mit dieser Einstellung können Sie den Standardwert von 90 Tagen außer Kraft setzen. Legen Sie 0 fest, um die Rotation der DPAPI-Sicherungsschlüssel zu deaktivieren. 
+Wenn Sie diese Richtlinieneinstellung aktivieren, legen Sie die Anzahl der Tage fest, die das System wartet, bevor ein neuer DPAPI-Sicherungsschlüssel generiert wird. 
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird der Standardwert von 90 Tagen verwendet.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">Geben Sie den Rotationszeitraum für die Datenschutz-API-Sicherungsschlüssel in Tagen an. 
+Legen Sie 0 fest, um die Rotation der Datenschutz-API-Sicherungsschlüssel zu deaktivieren.</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

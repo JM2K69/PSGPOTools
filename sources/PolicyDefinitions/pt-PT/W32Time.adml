@@ -12,7 +12,7 @@ Se ativar esta definição de política, o Serviço W32time em computadores de d
 Para obter mais informações sobre parâmetros individuais, combinações de valores de parâmetros e definições de sinalizadores, consulte https://go.microsoft.com/fwlink/?linkid=847809.
 
         FrequencyCorrectRate
-Este parâmetro controla a regularidade com que o W32time corrige a frequência do relógio local. Valores inferiores dão origem a correções mais lentas; valores superiores dão origem a correções mais frequentes. Predefinição: 4 (escalar).
+Este parâmetro controla a regularidade com que o W32time corrige a frequência do relógio local. Valores inferiores dão origem a correções maiores; valores superiores dão origem a correções menores. Predefinição: 4 (escalar).
 
         HoldPeriod
 Este parâmetro indica quantas amostras de hora consistentes o computador cliente tem de receber em série para que amostras de hora subsequentes sejam avaliadas como potenciais picos. Predefinição: 5
@@ -21,7 +21,7 @@ Este parâmetro indica quantas amostras de hora consistentes o computador client
 Se uma amostra de hora for diferente do relógio local do computador cliente num valor superior ao de LargePhaseOffset, considera-se que o relógio local se desviou consideravelmente ou, por outras palavras, atingiu um pico. Predefinição: 50.000.000 unidades de 100 nanossegundos (ns), que são 5 segundos.
 
         MaxAllowedPhaseOffset
-Se for recebida uma resposta que tenha uma variação horária superior a este valor de parâmetro, o W32time define imediatamente o relógio local do computador cliente com a hora aceite como certa do servidor NTP (Network Time Protocol). Se a variação horária for inferior a este valor, o relógio local do computador cliente será corrigido gradualmente. Predefinição: 300 segundos.
+Se for recebida uma resposta que tenha uma variação horária superior a este valor de parâmetro, o W32time definirá imediatamente o relógio local do computador cliente com a hora aceite como certa do servidor NTP (Network Time Protocol). Se a variação horária for inferior a este valor, o relógio local do computador cliente será corrigido gradualmente. Predefinição: 300 segundos.
 
         MaxNegPhaseCorrection
 Se for recebida uma amostra de hora que indique uma hora no passado (em comparação com o relógio local do computador cliente) e tenha uma diferença horária superior ao valor de MaxNegPhaseCorrection, a amostra de hora será eliminada. Predefinição: 172.800 segundos.
@@ -30,7 +30,7 @@ Se for recebida uma amostra de hora que indique uma hora no passado (em compara�
 Se for recebida uma amostra de hora que indique uma hora no futuro (em comparação com o relógio local do computador cliente) e tenha uma diferença horária superior ao valor de MaxPosPhaseCorrection, a amostra de hora será eliminada. Predefinição: 172.800 segundos.
 
         PhaseCorrectRate
-Este parâmetro controla a rapidez com que o W32time corrige a diferença do relógio local do computador cliente de forma a coincidir com as amostras de hora aceites como precisas do servidor NTP. Valores inferiores fazem com que o relógio seja corrigido mais lentamente; valores superiores fazem com que o relógio seja corrigido mais rapidamente. Predefinição: 7 (escalar).
+Este parâmetro controla a rapidez com que o W32time corrige a diferença do relógio local do computador cliente de forma a coincidir com as amostras de hora aceites como precisas do servidor NTP. Valores inferiores fazem com que o relógio seja corrigido mais rapidamente; valores superiores fazem com que o relógio seja corrigido mais lentamente. Predefinição: 7 (escalar).
 
         PollAdjustFactor
 Este parâmetro controla a rapidez com que o W32time altera os intervalos de consulta. Quando as respostas são consideradas precisas, o intervalo de consulta é automaticamente expandido. Quando as respostas são consideradas imprecisas, o intervalo de consulta é automaticamente encurtado. Predefinição: 5 (escalar).
@@ -68,7 +68,7 @@ Este parâmetro controla se o DC responderá ou não a pedidos de sincronizaçã
 Este parâmetro controla se o W32time utiliza dados de hora calculados a partir de tráfego SSL na máquina como dados adicionais para corrigir o relógio local. Predefinição: 1 booleano (ativado)
 
         ClockAdjustmentAuditLimit
-Este parâmetro especifica os ajustes mais pequenos do relógio local que podem ser registados no registo de eventos do serviço W32time na máquina de destino. Predefinição: 800 Partes por milhão (PPM).
+Este parâmetro especifica os menores ajustes do relógio local que podem ser registados no registo de eventos do serviço W32time nos computadores de destino. Por defeito: 800 partes por milhão (PPM).
 
         Parâmetros RODC:
 
@@ -82,7 +82,7 @@ Este parâmetro controla o número máximo de entradas permitidas na tabela de e
 Este parâmetro controla o número máximo de entradas permitidas na tabela de encadeamento para um determinado sistema anfitrião. Predefinição: 4 entradas.
 
         ChainDisable
-Este parâmetro controla se o mecanismo de encadeamento está desativado. Se o encadeamento estiver desativado (definido como 0), o RODC poderá sincronizar com qualquer controlador de domínio, mas os sistemas anfitrião que não tenham as palavras-passe em cache no RODC não conseguirão sincronizar com o RODC. Predefinição: 0 booleano.
+Este parâmetro controla se o mecanismo de encadeamento deve ou não estar desativado. Se o encadeamento estiver desativado (definido como 0), o RODC poderá sincronizar com qualquer controlador de domínio, mas os sistemas anfitrião que não tenham as palavras-passe em cache no RODC não conseguirão sincronizar com o RODC. Predefinição: 0 booleano.
 
         ChainLoggingRate
 Este parâmetro controla a frequência com que um evento que indica o número de tentativas de encadeamento com e sem êxito é registado no registo do Sistema do Visualizador de Eventos. Predefinição: 30 minutos.

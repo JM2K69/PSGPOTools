@@ -20,7 +20,7 @@ Se si disabilita o non si configura questa impostazione dei criteri, non verrà 
 Nota: durante l'installazione di BitLocker potrebbe verificarsi l'inizializzazione del TPM (Trusted Platform Module). Abilitare l'impostazione "Attiva backup TPM su Servizi di dominio Active Directory" in Sistema\Servizi Trusted Platform Module per garantire che venga eseguito il backup anche delle informazioni TPM.
       
       </string>
-      <string id="ActiveDirectoryBackup_Name">Archivia informazioni di ripristino di BitLocker in Servizi di dominio Active Directory (Windows Server 2008 e Windows Vista)</string>
+      <string id="ActiveDirectoryBackup_Name">Archivia informazioni di ripristino di BitLocker in Active Directory Domain Services (Windows Server 2008 e Windows Vista)</string>
       <string id="ActiveDirectoryBackupDropDown_1">Recupera password e pacchetti della chiave</string>
       <string id="ActiveDirectoryBackupDropDown_2">Recupera solo password</string>
 
@@ -35,7 +35,6 @@ Nei computer senza un TPM compatibile è necessaria un'unità flash USB contenen
 Se si abilita questa impostazione dei criteri, la procedura guidata visualizzerà la pagina per consentire all'utente di configurare opzioni di avvio avanzate per BitLocker. È possibile configurare ulteriormente le opzioni relative alle impostazioni per i computer con e senza un TPM.
 
 Se si disabilita o non si configura questa impostazione dei criteri, la configurazione guidata BitLocker visualizzerà i passaggi di base che consentono agli utenti di attivare BitLocker nei computer con un TPM. In questa procedura di base non è possibile configurare chiavi o PIN di avvio aggiuntivi.
-
 </string>
 
       <string id="ConfigureStartupUsage_Name">Richiedi autenticazione aggiuntiva all'avvio (Windows Server 2008 e Windows Vista)</string>
@@ -100,9 +99,7 @@ Nota: se è richiesta l'inizializzazione del TPM (Trusted Platform Module) duran
 
 Nota: la password di ripristino di 48 cifre non sarà disponibile in modalità conformità FIPS.
 
-Importante: questa impostazione fornisce un metodo amministrativo per ripristinare i dati crittografati da BitLocker in modo da evitare che vadano perduti per mancanza delle informazioni sulla chiave. Se non viene consentita nessuna delle opzioni di ripristino, è necessario abilitare l'impostazione dei criteri "Archivia informazioni di ripristino di BitLocker in Servizi di dominio Active Directory (Windows Server 2008 e Windows Vista)". In caso contrario si verificherà un errore dei criteri.
-
-      
+Importante: questa impostazione fornisce un metodo amministrativo per ripristinare i dati crittografati da BitLocker in modo da evitare che vadano perduti per mancanza delle informazioni sulla chiave. Se non viene consentita nessuna delle opzioni di ripristino, è necessario abilitare l'impostazione dei criteri "Archivia informazioni di ripristino di BitLocker in Active Directory Domain Services (Windows Server 2008 e Windows Vista)". In caso contrario si verificherà un errore dei criteri.
 
       </string>
 
@@ -124,17 +121,15 @@ In "Configurazione archiviazione delle informazioni di ripristino di BitLocker d
 
 Selezionare "Escludi opzioni di ripristino dalla configurazione guidata BitLocker" per impedire agli utenti di specificare le opzioni di ripristino quando abilitano BitLocker su un'unità. In tal caso, gli utenti non sono in grado di specificare l'opzione di ripristino da utilizzare quando abilitano BitLocker e le opzioni di ripristino di BitLocker per l'unità sono determinate dall'impostazione dei criteri.
 
-In "Salva informazioni di ripristino di BitLocker in Servizi di dominio Active Directory" scegliere le informazioni di ripristino di BitLocker da archiviare in Servizi di dominio Active Directory per le unità del sistema operativo. Se si seleziona "Esegui backup delle password di ripristino e dei pacchetti della chiave", la password di ripristino e il pacchetto della chiave di BitLocker verranno archiviati in Servizi di dominio Active Directory. L'archiviazione del pacchetto della chiave consente il ripristino dei dati da un'unità che ha subito danni fisici. Se si seleziona "Esegui backup solo delle password di ripristino", solo la password di ripristino verrà archiviata in Servizi di dominio Active Directory.
+In "Salva informazioni di ripristino di BitLocker in Active Directory Domain Services" scegliere le informazioni di ripristino di BitLocker da archiviare in Active Directory Domain Services per le unità del sistema operativo. Se si seleziona "Esegui backup delle password di ripristino e dei pacchetti della chiave", la password di ripristino e il pacchetto della chiave di BitLocker verranno archiviati in Active Directory Domain Services. L'archiviazione del pacchetto della chiave consente il ripristino dei dati da un'unità che ha subito danni fisici. Se si seleziona "Esegui backup solo delle password di ripristino", solo la password di ripristino verrà archiviata in Active Directory Domain Services.
 
-Selezionare la casella di controllo "Non abilitare BitLocker finché le informazioni di ripristino non vengono archiviate in Servizi di dominio Active Directory per le unità del sistema operativo" se si desidera impedire agli utenti di abilitare BitLocker finché il computer non sia connesso a un dominio e il backup delle informazioni di ripristino di BitLocker su Servizi di dominio Active Directory non abbia esito positivo.
+Selezionare la casella di controllo "Non abilitare BitLocker finché le informazioni di ripristino non vengono archiviate in Active Directory Domain Services per le unità del sistema operativo" se si desidera impedire agli utenti di abilitare BitLocker finché il computer non sia connesso a un dominio e il backup delle informazioni di ripristino di BitLocker su Active Directory Domain Services non abbia esito positivo.
 
-Nota: se la casella di controllo "Non abilitare BitLocker finché le informazioni di ripristino non vengono archiviate in Servizi di dominio Active Directory per le unità del sistema operativo" è selezionata, verrà generata automaticamente una password di ripristino.
+Nota: se la casella di controllo "Non abilitare BitLocker finché le informazioni di ripristino non vengono archiviate in Active Directory Domain Services per le unità del sistema operativo" è selezionata, verrà generata automaticamente una password di ripristino.
 
 Se si abilita questa impostazione dei criteri, sarà possibile definire le modalità a disposizione degli utenti per ripristinare i dati dalle unità del sistema operativo protette con BitLocker.
 
-Se si disabilita o non si configura questa impostazione dei criteri, per il ripristino di BitLocker verranno rese disponibili le opzioni di ripristino predefinite. Per impostazione predefinita, è consentito l'utilizzo dell'agente recupero dati, gli utenti possono specificare le opzioni di ripristino, incluse la password e la chiave di ripristino, e non viene eseguito il backup delle informazioni di ripristino su Servizi di dominio Active Directory.
-
-
+Se si disabilita o non si configura questa impostazione dei criteri, per il ripristino di BitLocker verranno rese disponibili le opzioni di ripristino predefinite. Per impostazione predefinita, è consentito l'utilizzo dell'agente recupero dati, gli utenti possono specificare le opzioni di ripristino, incluse la password e la chiave di ripristino, e non viene eseguito il backup delle informazioni di ripristino su Active Directory Domain Services.
 
 </string>
 
@@ -155,17 +150,15 @@ In "Configurazione archiviazione delle informazioni di ripristino di BitLocker d
 
 Selezionare "Escludi opzioni di ripristino dalla configurazione guidata BitLocker" per impedire agli utenti di specificare le opzioni di ripristino quando abilitano BitLocker su un'unità. In tal caso, gli utenti non sono in grado di specificare l'opzione di ripristino da utilizzare quando abilitano BitLocker e le opzioni di ripristino di BitLocker per l'unità sono determinate dall'impostazione dei criteri.
 
-In "Salva informazioni di ripristino di BitLocker in Servizi di dominio Active Directory" scegliere le informazioni di ripristino di BitLocker da archiviare in Servizi di dominio Active Directory per le unità dati fisse. Se si seleziona "Esegui backup delle password di ripristino e dei pacchetti della chiave", la password di ripristino e il pacchetto della chiave di BitLocker verranno archiviati in Servizi di dominio Active Directory. L'archiviazione del pacchetto della chiave consente il ripristino dei dati da un'unità che ha subito danni fisici. Se si seleziona "Esegui backup solo delle password di ripristino", solo la password di ripristino verrà archiviata in Servizi di dominio Active Directory.
+In "Salva informazioni di ripristino di BitLocker in Active Directory Domain Services" scegliere le informazioni di ripristino di BitLocker da archiviare in Active Directory Domain Services per le unità dati fisse. Se si seleziona "Esegui backup delle password di ripristino e dei pacchetti della chiave", la password di ripristino e il pacchetto della chiave di BitLocker verranno archiviati in Active Directory Domain Services. L'archiviazione del pacchetto della chiave consente il ripristino dei dati da un'unità che ha subito danni fisici. Se si seleziona "Esegui backup solo delle password di ripristino", solo la password di ripristino verrà archiviata in Active Directory Domain Services.
 
-Selezionare la casella di controllo "Non abilitare BitLocker finché le informazioni di ripristino non vengono archiviate in Servizi di dominio Active Directory per le unità dati fisse" se si desidera impedire agli utenti di abilitare BitLocker finché il computer non sia connesso a un dominio e il backup delle informazioni di ripristino di BitLocker su Servizi di dominio Active Directory non abbia esito positivo.
+Selezionare la casella di controllo "Non abilitare BitLocker finché le informazioni di ripristino non vengono archiviate in Active Directory Domain Services per le unità dati fisse" se si desidera impedire agli utenti di abilitare BitLocker finché il computer non sia connesso a un dominio e il backup delle informazioni di ripristino di BitLocker su Active Directory Domain Services non abbia esito positivo.
 
-Nota: se la casella di controllo "Non abilitare BitLocker finché le informazioni di ripristino non vengono archiviate in Servizi di dominio Active Directory per le unità dati fisse" è selezionata, verrà generata automaticamente una password di ripristino.
+Nota: se la casella di controllo "Non abilitare BitLocker finché le informazioni di ripristino non vengono archiviate in Active Directory Domain Services per le unità dati fisse" è selezionata, verrà generata automaticamente una password di ripristino.
 
 Se si abilita questa impostazione dei criteri, sarà possibile definire le modalità a disposizione degli utenti per ripristinare i dati dalle unità dati fisse protette con BitLocker.
 
-Se si disabilita o non si configura questa impostazione dei criteri, per il ripristino di BitLocker verranno rese disponibili le opzioni di ripristino predefinite. Per impostazione predefinita, è consentito l'utilizzo dell'agente recupero dati, gli utenti possono specificare le opzioni di ripristino, incluse la password e la chiave di ripristino, e non viene eseguito il backup delle informazioni di ripristino su Servizi di dominio Active Directory.
-
-
+Se si disabilita o non si configura questa impostazione dei criteri, per il ripristino di BitLocker verranno rese disponibili le opzioni di ripristino predefinite. Per impostazione predefinita, è consentito l'utilizzo dell'agente recupero dati, gli utenti possono specificare le opzioni di ripristino, incluse la password e la chiave di ripristino, e non viene eseguito il backup delle informazioni di ripristino su Active Directory Domain Services.
 
 </string>
 
@@ -179,24 +172,23 @@ Se si disabilita o non si configura questa impostazione dei criteri, per il ripr
 
       <string id="RDVRecoveryUsage_Name">Scegli modalità di ripristino delle unità rimovibili protette con BitLocker</string>
 
-      <string id="RDVRecoveryUsage_Help">Questa impostazione dei criteri consente di definire le modalità di ripristino delle unità dati rimovibili protette con BitLocker in mancanza delle credenziali richieste. Questa impostazione dei criteri viene applicata quando si abilita BitLocker.
+      <string id="RDVRecoveryUsage_Help">Questa impostazione dei criteri consente di definire le modalità di ripristino delle unità dati fisse protette con BitLocker in mancanza delle credenziali richieste. Questa impostazione dei criteri viene applicata quando si abilita BitLocker.
 
-Utilizzare la casella di controllo "Consenti agente recupero dati" per permettere o meno l'utilizzo di un agente recupero dati con le unità dati rimovibili protette con BitLocker. Per utilizzare un agente recupero dati è innanzitutto necessario aggiungerlo dalla voce Criteri chiave pubblica in Console Gestione Criteri di gruppo o in Editor Criteri di gruppo locali. Per ulteriori informazioni sull'aggiunta di agenti recupero dati, consultare il documento BitLocker Drive Encryption Deployment Guide su Microsoft TechNet.
+Utilizzare la casella di controllo "Consenti agente recupero dati" per permettere o meno l'utilizzo di un agente recupero dati con le unità dati fisse protette con BitLocker. Per utilizzare un agente recupero dati è innanzitutto necessario aggiungerlo dalla voce Criteri chiave pubblica in Console Gestione Criteri di gruppo o in Editor Criteri di gruppo locali. Per ulteriori informazioni sull'aggiunta di agenti recupero dati, consultare il documento BitLocker Drive Encryption Deployment Guide su Microsoft TechNet.
 
 In "Configurazione archiviazione delle informazioni di ripristino di BitLocker da parte degli utenti" scegliere se consentire, imporre o non consentire agli utenti la generazione di una password di ripristino di 48 cifre o di una chiave di ripristino a 256 bit.
 
 Selezionare "Escludi opzioni di ripristino dalla configurazione guidata BitLocker" per impedire agli utenti di specificare le opzioni di ripristino quando abilitano BitLocker su un'unità. In tal caso, gli utenti non sono in grado di specificare l'opzione di ripristino da utilizzare quando abilitano BitLocker e le opzioni di ripristino di BitLocker per l'unità sono determinate dall'impostazione dei criteri.
 
-In "Salva informazioni di ripristino di BitLocker in Servizi di dominio Active Directory" scegliere le informazioni di ripristino di BitLocker da archiviare in Servizi di dominio Active Directory per le unità dati rimovibili. Se si seleziona "Esegui backup delle password di ripristino e dei pacchetti della chiave", la password di ripristino e il pacchetto della chiave di BitLocker verranno archiviati in Servizi di dominio Active Directory. Se si seleziona "Esegui backup solo delle password di ripristino", solo la password di ripristino verrà archiviata in Servizi di dominio Active Directory.
+In "Salva informazioni di ripristino di BitLocker in Active Directory Domain Services" scegliere le informazioni di ripristino di BitLocker da archiviare in Active Directory Domain Services per le unità dati fisse. Se si seleziona "Esegui backup delle password di ripristino e dei pacchetti della chiave", la password di ripristino e il pacchetto della chiave di BitLocker verranno archiviati in Active Directory Domain Services. L'archiviazione del pacchetto della chiave consente il ripristino dei dati da un'unità che ha subito danni fisici. Se si seleziona "Esegui backup solo delle password di ripristino", solo la password di ripristino verrà archiviata in Active Directory Domain Services.
 
-Selezionare la casella di controllo "Non abilitare BitLocker finché le informazioni di ripristino non vengono archiviate in Servizi di dominio Active Directory per le unità dati rimovibili" se si desidera impedire agli utenti di abilitare BitLocker finché il computer non sia connesso a un dominio e il backup delle informazioni di ripristino di BitLocker su Servizi di dominio Active Directory non abbia esito positivo.
+Selezionare la casella di controllo "Non abilitare BitLocker finché le informazioni di ripristino non vengono archiviate in Active Directory Domain Services per le unità dati fisse" se si desidera impedire agli utenti di abilitare BitLocker finché il computer non sia connesso a un dominio e il backup delle informazioni di ripristino di BitLocker su Active Directory Domain Services non abbia esito positivo.
 
-Nota: se la casella di controllo "Non abilitare BitLocker finché le informazioni di ripristino non vengono archiviate in Servizi di dominio Active Directory per le unità dati fisse" è selezionata, verrà generata automaticamente una password di ripristino.
+Nota: se la casella di controllo "Non abilitare BitLocker finché le informazioni di ripristino non vengono archiviate in Active Directory Domain Services per le unità dati fisse" è selezionata, verrà generata automaticamente una password di ripristino.
 
-Se si abilita questa impostazione dei criteri, sarà possibile definire le modalità a disposizione degli utenti per ripristinare i dati dalle unità dati rimovibili protette con BitLocker.
+Se si abilita questa impostazione dei criteri, sarà possibile definire le modalità a disposizione degli utenti per ripristinare i dati dalle unità dati fisse protette con BitLocker.
 
-Se si disabilita o non si configura questa impostazione dei criteri, per il ripristino di BitLocker verranno rese disponibili le opzioni di ripristino predefinite. Per impostazione predefinita, è consentito l'utilizzo dell'agente recupero dati, gli utenti possono specificare le opzioni di ripristino, incluse la password e la chiave di ripristino, e non viene eseguito il backup delle informazioni di ripristino su Servizi di dominio Active Directory.
-      
+Se si disabilita o non si configura questa impostazione dei criteri, per il ripristino di BitLocker verranno rese disponibili le opzioni di ripristino predefinite. Per impostazione predefinita, è consentito l'utilizzo dell'agente recupero dati, gli utenti possono specificare le opzioni di ripristino, incluse la password e la chiave di ripristino, e non viene eseguito il backup delle informazioni di ripristino su Active Directory Domain Services.
       </string>
       <string id="RDVRecoveryPasswordUsageDropDown_Require">Richiedi password di ripristino di 48 cifre</string>
       <string id="RDVRecoveryPasswordUsageDropDown_Allow">Consenti password di ripristino di 48 cifre</string>
@@ -287,19 +279,19 @@ Avviso: la modifica del profilo di convalida predefinito della piattaforma influ
 
       <string id="PlatformValidation_UEFI_Help">Questa impostazione dei criteri consente di configurare la modalità di protezione della chiave di crittografia di BitLocker da parte del modulo TPM (Trusted Platform Module) del computer. Questa impostazione dei criteri non si applica se il computer non è provvisto di un TPM compatibile o se BitLocker è già stato abilitato con protezione TPM.
 
-Importante: questa impostazione dei Criteri di gruppo si applica solo ai computer con una configurazione del firmware UEFI nativo. Nei computer con configurazioni del firmware basate su BIOS o UEFI con un modulo CSM (Compatibility Service Module) abilitato vengono archiviati valori diversi nei registri PCR. Utilizzare l'impostazione dei Criteri di gruppo "Configurazione profilo di convalida della piattaforma TPM per configurazioni del firmware basate su BIOS" per configurare il profilo PCR TPM per i computer con configurazioni del firmware basate su BIOS o UEFI con un modulo CSM abilitato.
+Importante: questa impostazione dei Criteri di gruppo si applica solo ai computer con una configurazione del firmware UEFI nativo. Nei computer con configurazioni del firmware basate su BIOS o UEFI con un modulo CSM (Compatibility Service Module) abilitato vengono archiviati valori diversi nei registri PCR. Utilizza l'impostazione dei Criteri di gruppo "Configurazione profilo di convalida della piattaforma TPM per configurazioni del firmware basate su BIOS" per configurare il profilo PCR TPM per i computer con configurazioni del firmware basate su BIOS o UEFI con un modulo CSM abilitato.
 
-Se si abilita questa impostazione dei criteri prima dell'abilitazione di BitLocker, sarà possibile configurare i componenti di avvio che saranno convalidati dal TPM prima di sbloccare l'accesso all'unità del sistema operativo crittografata con BitLocker. Se uno o più di tali componenti vengono modificati mentre la protezione BitLocker è attiva, il TPM non rilascia la chiave di crittografia per sbloccare l'unità e il computer visualizza invece la console di ripristino di BitLocker e richiede l'immissione della password o della chiave di ripristino per sbloccare l'unità.
+Se abiliti questa impostazione dei criteri prima dell'abilitazione di BitLocker, potrai configurare i componenti di avvio che saranno convalidati dal TPM prima di sbloccare l'accesso all'unità del sistema operativo crittografata con BitLocker. Se uno o più di tali componenti vengono modificati mentre la protezione BitLocker è attiva, il TPM non rilascerà la chiave di crittografia per sbloccare l'unità e il computer visualizzerà invece la console di ripristino di BitLocker e richiederà l'immissione della password o della chiave di ripristino per sbloccare l'unità.
 
-Se si disabilita o non si configura questa impostazione dei criteri, BitLocker utilizzerà il profilo di convalida predefinito della piattaforma per l'hardware disponibile oppure il profilo specificato dallo script di configurazione. Un profilo di convalida della piattaforma è costituito da un set di indici di registri PCR (Platform Configuration Register) nell'intervallo compreso tra 0 e 23. 
+Se disabiliti o non configuri questa impostazione dei criteri, BitLocker utilizzerà il profilo di convalida predefinito della piattaforma per l'hardware disponibile oppure il profilo specificato dallo script di configurazione. Un profilo di convalida della piattaforma è costituito da un set di indici di registri PCR (Platform Configuration Register) nell'intervallo compreso tra 0 e 23. 
 
 Sui PC senza il supporto Stato avvio protetto (PCR 7), il profilo di convalida della piattaforma predefinito protegge la chiave di crittografia dalle modifiche al codice eseguibile del firmware del sistema principale (PCR 0), al codice eseguibile esteso o modulare (PCR 2), a Boot Manager (PCR 4) e al controllo di accesso BitLocker (PCR 11).
 
 Quando il supporto Stato avvio protetto (PCR7) è disponibile, il profilo di convalida della piattaforma predefinito protegge la chiave di crittografia usando Stato avvio protetto (PCR 7) e il controllo di accesso BitLocker (PCR 11). 
 
-Avviso: la modifica del profilo di convalida predefinito della piattaforma influisce sulla sicurezza e la gestibilità del computer. La sensibilità di BitLocker alle modifiche apportate alla piattaforma (autorizzate o dovute ad attacchi di utenti malintenzionati) aumenta o si riduce a seconda rispettivamente dell'inclusione o dell'esclusione di registri PCR. Nello specifico, se si configura questa impostazione dei criteri omettendo PCR 7, l'impostazione di Criteri di gruppo "Consenti avvio protetto per la convalida dell'integrità" verrà sovrascritta, impedendo a BitLocker di utilizzare l'avvio protetto per la convalida dell'integrità della piattaforma o dei dati configurazione di avvio (BCD). L'impostazione di questa impostazione dei criteri potrebbe comportare il ripristino di BitLocker in caso di aggiornamento del firmware. Se si impostano questi criteri per l'inclusione di PCR 0, sospendere BitLocker prima di applicare gli aggiornamenti del firmware.
+Avviso: la modifica del profilo di convalida predefinito della piattaforma influisce sulla sicurezza e la gestibilità del computer. La sensibilità di BitLocker alle modifiche apportate alla piattaforma (autorizzate o dovute ad attacchi di utenti malintenzionati) aumenta o si riduce a seconda rispettivamente dell'inclusione o dell'esclusione di registri PCR. Nello specifico, se configuri questa impostazione dei criteri omettendo PCR 7, l'impostazione di Criteri di gruppo "Consenti avvio protetto per la convalida dell'integrità" verrà sovrascritta, impedendo a BitLocker di utilizzare l'avvio protetto per la convalida dell'integrità della piattaforma o dei dati configurazione di avvio (BCD). L'impostazione di questa impostazione dei criteri potrebbe comportare il ripristino di BitLocker in caso di aggiornamento del firmware. Se imposti questi criteri per l'inclusione di PCR 0, sospendi BitLocker prima di applicare gli aggiornamenti del firmware.
 
-Si consiglia di non configurare questo criterio per consentire a Windows di selezionare il profilo PCR per la migliore combinazione di sicurezza e usabilità in base all'hardware disponibile in ogni PC.
+È consigliabile non configurare questo criterio per consentire a Windows di selezionare il profilo PCR per la migliore combinazione di sicurezza e usabilità in base all'hardware disponibile in ogni PC.
       </string>
 
       <string id="PlatformValidation_UEFI_Name">Configurazione profilo di convalida della piattaforma TPM per configurazioni del firmware UEFI nativo</string>
@@ -321,6 +313,18 @@ Nota: alcuni PC potrebbero non essere compatibili con questi criteri se il firmw
 
       </string>
       <string id="DisableExternalDMAUnderLock_Name">Disabilita nuovi dispositivi DMA quando il computer è bloccato</string>
+
+      <string id="DisableWinRETrust_Help">Questa impostazione di criteri controlla se BitLocker considera attendibile Ambiente ripristino Windows (WinRE).
+
+Quando BitLocker considera WinRE attendibile, WinRE può accedere al volume del sistema operativo protetto tramite BitLocker senza richiedere la chiave di ripristino di BitLocker. Questa funzionalità supporta le operazioni di ripristino che richiedono l'accesso al volume del sistema operativo.
+
+Importante: l'abilitazione di questo criterio modifica il comportamento di ripristino. Se abiliti questa impostazione di criteri, BitLocker non considera WinRE attendibile. La chiave di ripristino di BitLocker è obbligatoria per qualsiasi operazione di WinRE che richiede l'accesso al volume del sistema operativo protetto tramite BitLocker. Le operazioni di ripristino che si basano sull'accesso di WinRE al volume del sistema operativo potrebbero richiedere l'intervento dell'utente o dell'amministratore e potrebbero non essere completate automaticamente, tra cui ripristino all'avvio, ripristino rapido del computer, ripristino PBC e ripristino o cancellazione da remoto avviati tramite MDM usando il CSP RemoteWipe.
+
+Se disabiliti o non configuri questa impostazione di criteri, BitLocker considera attendibile un'immagine di WinRE convalidata, in modo che WinRE possa accedere al volume del sistema operativo protetto tramite BitLocker senza la chiave di ripristino.
+
+Questa impostazione di criteri viene applicata solo quando abiliti BitLocker o la crittografia dispositivo.</string>
+
+      <string id="DisableWinRETrust_Name">Disabilita l'attendibilità di BitLocker per Windows Recovery Environment (WinRE)</string>
 
       <string id="FVEOSCategory">Unità del sistema operativo</string>
       <string id="FVEFDVCategory">Unità dati fisse</string>
@@ -710,16 +714,15 @@ Se questo criterio non è abilitato, verranno applicate le opzioni del criterio 
 
 L'avvio protetto assicura che l'ambiente di preavvio del PC carichi solo firmware firmato digitalmente da autori di software autorizzati. Offre inoltre maggiore flessibilità per la gestione della configurazione dell'ambiente di preavvio rispetto ai controlli di integrità BitLocker legacy.
 
-Se si abilita o non si configura questa impostazione dei criteri, BitLocker utilizzerà l'avvio protetto per l'integrità della piattaforma, se la piattaforma supporta la convalida dell'integrità basata sull'avvio protetto.
+Se abiliti o non configuri questa impostazione dei criteri, BitLocker utilizzerà l'avvio protetto per l'integrità della piattaforma, se la piattaforma supporta la convalida dell'integrità basata sull'avvio protetto.
 
-Se si disabilita questa impostazione dei criteri, BitLocker utilizzerà la convalida dell'integrità della piattaforma legacy anche nei sistemi che supportano la convalida dell'integrità basata sull'avvio protetto.
+Se disabiliti questa impostazione dei criteri, BitLocker utilizzerà la convalida dell'integrità della piattaforma legacy anche nei sistemi che supportano la convalida dell'integrità basata sull'avvio protetto.
 
 Quando questa impostazione dei criteri è abilitata e l'hardware supporta l'uso dell'avvio protetto per gli scenari BitLocker, l'impostazione del Criterio di gruppo "Usa profilo di convalida dei dati di configurazione di avvio avanzata" verrà ignorata e l'avvio protetto verificherà le impostazioni BCD in base all'impostazione dei criteri di avvio protetto, che viene configurato all'esterno di BitLocker.
 
 Nota: se l'impostazione del Criterio di gruppo "Configurazione profilo di convalida della piattaforma TPM per configurazioni del firmware UEFI nativo" è abilitata ma l'impostazione PCR 7 è stata omessa, BitLocker non sarà in grado di utilizzare l'avvio protetto per la convalida dell'integrità della piattaforma o dei dati della configurazione di avvio (BCD).
 
-Avviso: la disabilitazione di questa impostazione dei criteri potrebbe comportare il ripristino di BitLocker in caso di aggiornamento del firmware. Se si disabilita questa impostazione dei criteri, sospendere BitLocker prima di applicare aggiornamenti del firmware.
-    
+Avviso: la disabilitazione di questa impostazione dei criteri potrebbe comportare il ripristino di BitLocker in caso di aggiornamento del firmware. Se disabiliti questa impostazione dei criteri, sospendi BitLocker prima di applicare aggiornamenti del firmware.
       </string>
       <string id="SUPPORTED_Windows8NoARM">Almeno Windows Server 2012 o Windows 8</string>  
       <string id="SUPPORTED_Windows_6_3ToVista">Windows Server 2012 R2, Windows 8.1, Windows Server 2012, Windows 8, Windows Server 2008, Windows 7 e Windows Vista</string>

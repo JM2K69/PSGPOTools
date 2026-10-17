@@ -2,39 +2,47 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>AppX-pakethanterare</displayName> 
+  <displayName>AppX-pakethanterare</displayName>
   <description>AppX-pakethanterare</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">Distribution av appaket</string>
       <string id="AppxDeploymentAllowAllTrustedApps">Tillåt att alla betrodda appar installeras</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Med den här principinställningen kan du hantera installationen av betrodda verksamhetsspecifika (LOB) eller utvecklarsignerade Windows Store-appar.
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Med den här principinställningen kan du hantera installationen av betrodda verksamhetsspecifika (LOB) eller utvecklarsignerade paketerade Microsoft Store-appar.
 
-Om du aktiverar den här principinställningen kan du installera alla verksamhetsspecifika eller utvecklarsignerade Windows Store-appar (apparna måste vara signerade med en certifikatkedja som kan verifieras av den lokala datorn).
+Om du aktiverar eller inte konfigurerar den här principinställningen kan du installera valfri verksamhetsspecifik eller utvecklarsignerad paketerad Microsoft Store-app (som måste signeras med en certifikatkedja som kan verifieras av den lokala datorn).
 
-Om du inaktiverar eller låter bli att konfigurera principinställningen kan du inte installera verksamhetsspecifika eller utvecklarsignerade Windows Store-appar.</string>
+Om du inaktiverar den här principinställningen kan du inte installera verksamhetsspecifika eller utvecklarsignerade paketerade Microsoft Store-appar.</string>
+      <string id="AllowAutomaticAppArchiving">Arkivera appar som används sällan</string>
+      <string id="AllowAutomaticAppArchivingExplanation">Den här princip inställningen styr om systemet kan arkivera appar som inte används sällan.
+
+Om du aktiverar den här princip inställningen söker systemet regelbundet efter och arkivera appar som inte används sällan.
+
+Om du inaktiverar den här princip inställningen kommer inga appar att arkiveras i systemet.
+
+Om du inte konfigurerar den här princip inställningen (standard) följer systemet standard beteendet, vilket är att regelbundet söka efter och arkivera appar som inte används sällan, och användaren kan konfigurera den här inställningen.</string>
       <string id="AllowDeploymentInSpecialProfiles">Tillåt distributionsåtgärder i specialprofiler</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">Med den här principinställningen kan du hantera distributionen av Windows Store-appar när användaren är inloggad med en specialprofil. Specialprofiler är följande användarprofiler, där ändringar ignoreras när användaren loggar ut:
+      <string id="AllowDeploymentInSpecialProfilesExplanation">Med den här principinställningen kan du hantera distributionen av paketerade Microsoft Store-appar när användaren är inloggad med en specialprofil. Specialprofiler är följande användarprofiler där ändringar ignoreras när användaren loggar ut:
 
-Centrala användarprofiler som grupprincipinställningen "Ta bort cachelagrade kopior av centrala profiler" gäller för
+Roaminganvändarprofiler som grupprincipinställningen "Ta bort cachelagrade kopior av roamingprofiler" gäller för
 
-Obligatoriska användarprofiler och super-obligatoriska profiler, som skapas av en administratör
+Obligatoriska användarprofiler och super-obligatoriska profiler som skapas av en administratör
 
-Tillfälliga användarprofiler, som skapas när ett fel förhindrar att rätt profil läses in
+Tillfälliga användarprofiler som skapas när ett fel förhindrar att rätt profil läses in
 
 Användarprofiler för gästkontot och medlemmar i gruppen Gäster
 
 
-Om du aktiverar den här principinställningen tillåter grupprincipen distributionsåtgärder (lägga till, registrera, mellanlagra, uppdatera eller ta bort ett appaket) för Windows Store-appar när en specialprofil används.
+Om du aktiverar den här principinställningen tillåter grupprincipen distributionsåtgärder (lägga till, registrera, mellanlagra, uppdatera eller ta bort ett appaket) för paketerade Microsoft Store-appar när en specialprofil används.
 
-Om du inaktiverar eller låter bli att konfigurera principinställningen blockeras distributionsåtgärder för Windows Store-appar av grupprincipen när en specialprofil används.</string>
-      <string id="AllowDevelopmentWithoutDevLicense">Tillåt utveckling av Windows Store-appar och installation av dem från en Integrated Development Environment (IDE)</string>
+Om du inaktiverar eller låter bli att konfigurera principinställningen blockeras distributionsåtgärder för paketerade Microsoft Store-appar av grupprincipen när en specialprofil används.</string>
+      <string id="AllowDevelopmentWithoutDevLicense">Tillåter utveckling av paketerade Microsoft Store-appar och installation av dem från en integrerad utvecklingsmiljö (Integrated Development Environment)</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        Tillåter eller nekar utveckling av Windows Store-appar och installation av dem direkt från en IDE.
+        Tillåter eller nekar utveckling av Microsoft Store-appar och installation av dem direkt från en IDE.
 
-        Om du aktiverar den här inställningen och aktiverar grupprincipen Tillåt att alla betrodda appar installeras kan du utveckla Windows Store-appar och installera dem direkt från en IDE.
-        
-        Om du inaktiverar eller låter bli att konfigurera inställningen kan du inte utveckla Windows Store-appar eller installera dem direkt från en IDE.
+        Om du aktiverar den här inställningen och aktiverar grupprincipen Tillåt att alla betrodda appar installeras kan du utveckla Microsoft Store-appar och installera dem direkt från en IDE.
+
+        Om du inaktiverar eller låter bli att konfigurera inställningen kan du inte utveckla Microsoft Store-appar eller installera dem direkt från en IDE.
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">Inaktivera installation av Windows-appar på volymer som inte är systemvolymer</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -54,11 +62,149 @@ Om du inaktiverar eller låter bli att konfigurera principinställningen blocker
       </string>
       <string id="AllowSharedLocalAppData">Tillåt att Windows-appar delar programdata mellan användare</string>
       <string id="AllowSharedLocalAppDataExplanation">Hanterar en Windows-apps funktioner för att dela data mellan användare som har installerat appen.
-      
+
         Om du aktiverar den här principen kan en Windows-app dela appdata med andra instanser av den appen. Data delas via mappen SharedLocal. Den här mappen är tillgänglig via Windows.Storage API.
 
-        Om du inaktiverar principen kan en Windows-app inte dela appdata med andra instanser av den appen. Om principen tidigare var aktiverad behålls redan delade appdata i mappen SharedLocal. 
+        Om du inaktiverar principen kan en Windows-app inte dela appdata med andra instanser av den appen. Om principen tidigare var aktiverad behålls redan delade appdata i mappen SharedLocal.
       </string>
+      <string id="BlockNonAdminUserInstall">Förhindra att användare som inte är administratörer installerar paketerade Windows-appar</string>
+      <string id="BlockNonAdminUserInstallExplanation">Reglerar möjligheten för användare som inte är administratörer att installera Windows-appaket.
+
+        Om du aktiverar den här principen kan användare som inte är administratörer inte starta installationer av Windows-appaket. Administratörer som vill installera en app måste göra det i en administratörskontext (till exempel i ett PowerShell-fönster för administratörer). Alla användare kan fortfarande installera Windows-appaket via Microsoft Store, om det tillåts av andra principer.
+
+        Om du inaktiverar eller låter bli att konfigurera den här principen kan alla användare starta installationer av Windows-appaket.
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">Ange auktoriserade domäner för HTTPS-autentisering i MSIX-direktuppspelningsinstallationen</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">Den här principinställningen bestämmer om en EntraID OAuth-token ska ingå i HTTPS-kommunikation med ett angivet fullständigt domännamn för att utföra en msix-direktuppspelningsinstallation.
+
+Om du aktiverar den här principinställningen kommer HTTPS-kommunikation till de fördefinierade fullständiga domänerna att innehålla användarens EntraID OAuth-token när en MSIX-installation för direktuppspelning utförs. Det angivna värdet är ett reguljärt uttryck (ECMA-skript) som används för att matcha url:ens fullständiga domän med versaler.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen delas användarens EntraID OAuth-token endast med de standardkonfigurerade domänerna.
+      </string>
+      <string id="DisableBackgroundAutoUpdates">Tillåt inte att sidoladdade appar uppdateras automatiskt i bakgrunden</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">Hanterar en sidoladdad apps möjlighet att automatiskt uppdatera i bakgrunden. 
+
+        Om du aktiverar den här principen uppdateras inte sidoladdade appar automatiskt i bakgrunden.
+
+        Om du inaktiverar den här principen uppdateras sidoladdade appar automatiskt i bakgrunden.
+
+        Standard är “inaktiverad” (nyckel saknas).
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">Tillåt inte att sidoladdade appar uppdateras automatiskt i bakgrunden i ett nätverk med datapriser</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">Hanterar en sidoladdad apps möjlighet att automatiskt uppdatera i bakgrunden i ett nätverk med datapriser. 
+
+        Om du aktiverar den här principen uppdateras inte sidoladdade appar automatiskt i bakgrunden på ett nätverk med datapriser.
+
+        Om du inaktiverar den här principen uppdateras sidoladdade appar automatiskt i bakgrunden på ett nätverk med datapriser.
+
+        Standard är “inaktiverad” (nyckel saknas).
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">Tillåt inte att osignerade paket per användare installeras som standard (kräver uttryckligen tillåten per installation)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">Tillåt inte att osignerade paket per användare installeras som standard (kräver uttryckligen tillåten per installation)
+
+Om du aktiverar den här principen används false som standardalternativet AllowUnsigned.
+
+Om du inaktiverar den här principen används true som standardalternativet AllowUnsigned.
+
+Standardvärdet är inaktiverat (nyckeln finns inte).
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">Tillåtna paketfamiljenamn för installation av icke-administratörsanvändare</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">Tillåtna paketfamiljenamn för installation av Windows-appaket som inte är administratörsanvändare.
+
+Om du aktiverar den här principen kan du ange en lista över windows-appaket som inte är administratörer kan initiera installationen oavsett den konfigurerade principen Förhindra användare som inte är administratörer från att installera paketerade Windows-appar.
+
+De angivna värdena behandlas som reguljära uttryck (ECMA-skript). Ett paketfamiljenamn som Contoso.ContosoApp_8wekyb3d8bbwe är i sig ett giltigt reguljärt uttryck som matchar alla paket i den familjen. Ett reguljärt uttryck som ^Contoso.*_8wekyb3d8bbwe$ kommer också att matcha Contoso.ContosoApp_8wekyb3d8bbwe
+
+Om paketserienamnet för ett installerat Windows-appaket matchar någon regel blockeras det inte av principen Förhindra användare som inte är administratörer från att installera paketerade Windows-appar. Installationen kan fortfarande blockeras av en annan princip eller andra inställningar.
+
+Om du inaktiverar eller låter bli att konfigurera den här principen omfattas alla Windows-appaket av den konfigurerade principen Förhindra användare som inte är administratörer från att installera paketerade Windows-appar.
+
+Standardvärdet är inaktiverat (nyckeln finns inte).
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">Ta bort standardpaket Microsoft Store från systemet.</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">Tar bort standardpaket för Microsoft Store från systemet.
+
+Om du aktiverar den här principen avinstalleras de valda Microsoft Store apparna i den angivna listan från systemet. Du kan göra justeringar i standardinställningarna.
+
+Omarkerade appar i listan tas inte bort.
+
+* Det här är en huvudlös app (inget användargränssnitt)
+
+** Den här appen är standardhanteraren för en gemensam filtyp eller ett gemensamt protokoll. Om du tar bort den här appen kan användarupplevelsen försämras. Vi rekommenderar inte att du tar bort den här appen.
+
+Om du aktiverar den här principen kan du också ta bort en app genom att ange appens paketfamiljenamn (t.ex. Microsoft.WindowsCalculator_8wekyb3d8bbwe) i den dynamiska listan under "Ange ytterligare paketfamiljenamn att ta bort".
+
+Om den här principen är aktiverad måste ominstallation av en tidigare borttagen app avvälja appen från den angivna listan eller ta bort appens paketfamiljenamn från den dynamiska listan.
+
+Du kan inte ta bort Windows System-komponenter via borttagningslistan för dynamiska appar.
+
+Verifiering av paketfamiljenamn i listan över borttagning av dynamiska appar sker vid användarinloggning, inte vid principkonfigurationen.
+
+Standardvärdet är inaktiverat (nyckeln finns inte).
+
+Om principen är inaktiverad eller inte konfigurerad tas inga standardappar bort från systemet.
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">Tar bort standardpaket för Microsoft Store från systemet.</string>
+      <string id="EnableMsixAllowedZones">Aktivera tillåtna zoner för MSIX-paket</string>
+      <string id="EnableMsixAllowedZonesExplanation">Den här principen styr om MSIX-paket från specifika URL-zoner får installeras. Ett pakets ursprung bestäms av dess URI och om det finns en Mart-of-the-Web (MotW). Om flera URI:er är inblandade anses alla vara;
+
+Om du aktiverar den här principen kan användarna installera MSIX-paket enligt konfigurationen för varje zon.
+
+Om du inaktiverar eller låter bli att konfigurera den här principen kan användarna installera MSIX-paket från alla zoner utom Ej betrodda.</string>
+      <string id="ZoneAllowed">Tillåt</string>
+      <string id="ZoneBlocked">Blockera</string>
+      <string id="EnableMsixSmartScreenCheck">Aktivera Microsoft SmartScreen-kontroller för MSIX-paket</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">Den här principen styr om Microsoft SmartScreen-kontrollen utförs vid installation av MSIX-paket från specifika URL-zoner.
+
+Om du aktiverar eller inte konfigurerar den här principen utvärderas paket-URI:n med Microsoft SmartScreen före installationen. Den här kontrollen görs bara för paket som kommer från Internet.
+
+Om du inaktiverar kommer Microsoft SmartScreen inte att inhämtas innan du installerar ett paket.</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>Uttryck</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">Tillåtna paketfamiljenamn för installation av icke-administratörsanvändare</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>Tar bort standardpaket för Microsoft Store från systemet.</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">Feedbackhubben</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">Microsoft 365 Copilot</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft News</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Microsoft Foton **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Microsoft-fästisar</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">Microsoft To Do</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN Väder</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Outlook för Windows</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">Paint</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">Snabbhjälp</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">Skärmklippverktyget</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Windows Kalkylatorn</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Windows Kamera **</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Windows Media Player **</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Windows Notepad **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Windows Ljudinspelaren</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Windows-terminal</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">Xbox Gaming App</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Xbox Identity Provider *</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Överlägg för Xbox tal till text *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">Ange ytterligare paketfamiljenamn att ta bort</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">Lokal dator</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">Intranät</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">Betrodda platser</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">Internet</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">Ej betrodda webbplatser</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

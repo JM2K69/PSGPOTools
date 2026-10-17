@@ -10,6 +10,8 @@
         <string id="MSPassport_UsePassportForWork">Brug Windows Hello til virksomheder</string>
         <!-- Add support for certificate trust deployments -->
         <string id="WHFB_UseCertificateForOnPremAuth">Brug certifikat til godkendelse lokalt</string>
+        <!-- Add support for cloud trust deployments -->
+        <string id="WHFB_UseCloudTrustForOnPremAuth">Brug Hav tillid til clouden for godkendelse i det lokale miljø</string>
         <!-- DropdownList Button strings -->
         <string id="MSPassport_UsePassportForWorkExplain">Windows Hello til virksomheder er en alternativ metode til at logge på Windows ved hjælp af din Active Directory- eller Azure Active Directory-konto. Metoden erstatter adgangskoder, chipkort og virtuelle chipkort.
 
@@ -34,13 +36,13 @@ Hvis du aktiverer denne politikindstilling, konfigureres Windows Hello til virks
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, prioriteres TPM'et, men alle enheder kan konfigurere Windows Hello til virksomheder ved hjælp af software, hvis TPM'et ikke fungerer eller ikke er tilgængeligt.
         </string>
         <string id="MSPassport_MinimumPINLength">Minimumlængde for pinkode</string>
-        <string id="MSPassport_MinimumPINLengthExplain">Minimumlængde på pinkode konfigurerer det minimumantal tegn, der kræves til pinkoden. Det laveste antal, du kan konfigurere for denne politikindstilling, er 4. Det største antal, du kan konfigurere, skal være mindre end det antal, der er konfigureret i politikindstillingen for maksimumlængde af pinkode, eller antallet 127, alt efter hvilket af de to der er lavest.
+        <string id="MSPassport_MinimumPINLengthExplain">Minimumlængde for pinkode konfigurerer det mindste antal tegn, der kræves til pinkoden.  Det laveste antal, du kan konfigurere for denne politikindstilling, er 4.  Det største antal, du kan konfigurere, skal være mindre end det antal, der er konfigureret i politikindstillingen for maksimumlængde af pinkode, eller tallet 127, afhængigt af hvad der er lavest.
 
 Hvis du konfigurerer denne politikindstilling, skal længden på pinkoden være større end eller lig med dette antal.
 
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, skal længden af pinkode være større end eller lig med 4.
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, skal længden af pinkoden være større end eller lig med 6.
 
-BEMÆRK! Hvis de betingelser for minimumlængden af pinkoden, der er angivet herover, ikke er overholdt, anvendes der standardværdier for både maksimum- og minimumlængden af pinkoder.
+BEMÆRK! Hvis ovenstående angivne betingelser for minimumlængden af pinkoden ikke er opfyldt, bruges der standardværdier for både maksimum- og minimumlængden for pinkoder.
         </string>
         <string id="MSPassport_MaximumPINLength">Maksimumlængde for pinkode</string>
         <string id="MSPassport_MaximumPINLengthExplain">Maksimumlængde på pinkode konfigurerer det maksimumantal tegn, der er tilladt for pinkoden. Det største antal, du kan konfigurere for denne politikindstilling, er 127. Det laveste antal, du kan konfigurere, skal være større end det antal, der er konfigureret i politikindstillingen for minimumlængde af pinkode, eller antallet 4, alt efter hvilket af de to der er størst.
@@ -54,30 +56,38 @@ BEMÆRK! Hvis de betingelser for maksimumlængden af pinkoden, der er angivet he
         <string id="MSPassport_UppercaseLetters">Kræv store bogstaver</string>
         <string id="MSPassport_UppercaseLettersExplain">Brug denne politikindstilling til at konfigurere brugen af store bogstaver i pinkoden.
 
-Hvis du aktiverer denne politikindstilling, kræver Windows, at brugerne skal medtage mindst ét stort bogstav i deres pinkode.
+Hvis du aktiverer denne politikindstilling, kræver Windows, at brugeren skal medtage mindst ét stort bogstav i deres pinkode.
 
-Hvis du deaktiverer eller undlader at konfigurere denne indstilling, giver Windows ikke brugerne mulighed for at bruge store bogstaver i deres pinkode.
+Hvis du deaktiverer denne politikindstilling, giver Windows ikke brugeren tilladelse til at medtage store bogstaver i deres pinkode.
+
+Hvis du undlader at konfigurere denne politikindstilling, tillader Windows, men store bogstaver i pinkoden er ikke påkrævet.
         </string>
         <string id="MSPassport_LowercaseLetters">Kræv små bogstaver</string>
         <string id="MSPassport_LowercaseLettersExplain">Brug denne politikindstilling til at konfigurere brugen af små bogstaver i pinkoden.
 
-Hvis du aktiverer denne politikindstilling, kræver Windows, at brugerne skal medtage mindst ét lille bogstav i deres pinkode.
+Hvis du aktiverer denne politikindstilling, kræver Windows, at brugeren skal medtage mindst ét lille bogstav i deres pinkode.
 
-Hvis du deaktiverer eller undlader at konfigurere denne indstilling, giver Windows ikke brugerne mulighed for at bruge små bogstaver i deres pinkode.
+Hvis du deaktiverer denne politikindstilling, tillader Windows ikke, at brugeren medtager små bogstaver i deres pinkode.
+
+Hvis du undlader at konfigurere denne politikindstilling, tillader Windows, men små bogstaver i pinkoden er ikke påkrævet.
         </string>
         <string id="MSPassport_SpecialCharacters">Kræv specialtegn</string>
-        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Brug denne politikindstilling til at konfigurere brugen af specialtegn i pinkoden. Følgende tegn er tilladt: ! " # $ %  ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
+        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Brug denne politikindstilling til at konfigurere brugen af specialtegn i pinkoden. De tilladte specialtegn er: ! " # $ % & ' ( ) * + , - . / : ; < = >? @ [ \ ] ^ _ ` { | } ~ .
 
-.Hvis du aktiverer denne politikindstilling, kræver Windows, at brugerne skal medtage mindst ét specialtegn i deres pinkode.
+Hvis du aktiverer denne politikindstilling, kræver Windows, at brugeren skal medtage mindst ét specialtegn i deres pinkode.
 
-Hvis du deaktiverer eller undlader at konfigurere denne indstilling, giver Windows ikke brugerne mulighed for at bruge specialtegn i deres pinkode.]]>
+Hvis du deaktiverer denne politikindstilling, giver Windows ikke brugeren mulighed for at medtage specialtegn i deres pinkode.
+
+Hvis du undlader at konfigurere denne politikindstilling, tillader Windows, men kræver ikke specialtegn i pinkoden.]]>
         </string>
         <string id="MSPassport_Digits">Kræv tal</string>
         <string id="MSPassport_DigitsExplain">Brug denne politikindstilling til at konfigurere brugen af tal i pinkoden.
 
-Hvis du aktiverer eller undlader at konfigurere denne politikindstilling, kræver Windows, at brugerne skal medtage mindst ét tal i deres pinkode.
+Hvis du aktiverer denne politikindstilling, kræver Windows, at brugeren skal medtage mindst ét tal i deres pinkode.
 
-Hvis du deaktiverer denne politikindstilling, giver Windows ikke brugerne mulighed for at bruge tal i deres pinkode.
+Hvis du deaktiverer denne politikindstilling, tillader Windows ikke, at brugeren inkluderer tal i deres pinkoder.
+
+Hvis du undlader at konfigurere denne politikindstilling, tillader Windows, men kræver ikke cifre i pinkoden.
         </string>
         <string id="MSPassport_PINHistory">Oversigt</string>
         <string id="MSPassport_PINHistoryExplain">Denne indstilling angiver antallet af tidligere pinkoder, der kan knyttes til en brugerkonto, og som ikke kan genbruges. Denne politik gør det muligt for administratorer at øge sikkerheden ved at sikre, at gamle pinkoder ikke genbruges konstant. Oversigten over pinkoder bevares ikke ved nulstilling af pinkoder.
@@ -100,6 +110,19 @@ Hvis du deaktiverer denne politikindstilling, forhindrer Windows Hello til virks
 
 Bemærk! Hvis du deaktiverer denne politik, kan brugerne ikke bruge biometrikbevægelser på enheden, og det gælder alle kontotyper.
         </string>
+        <string id="MSPassport_EnableEnhancedSignInSecurity">Aktiver ESS med understøttet eksternt udstyr</string>
+        <string id="MSPassport_EnableEnhancedSignInSecurityExplain">Forbedret loginsikkerhed (Enhanced Sign-in Security – ESS) isolerer Windows Hello biometriske (ansigts- og fingeraftryk) skabelondata og matchende handlinger til hardware, der er tillid til, eller angivne hukommelsesområder, hvilket betyder, at resten af operativsystemet ikke kan få adgang til eller ændre dem. Da kanalen for kommunikation mellem sensorerne og algoritmen også er sikret, er det umuligt for malware at indsætte eller genafspille data for at simulere en bruger, der logger på eller låse en bruger ud af maskinen.
+Hvis du aktiverer denne politik, kan den have følgende mulige værdier:
+
+0 – Forbedret loginsikkerhed er deaktiveret med ydre enheders sensorer
+ESS vil være deaktiveret på systemer med kompatibel software og hardware. Godkendelseshandlinger for eksterne Windows Hello kompatible enheder vil være tilladt med de aktuelle funktionsbegrænsninger.
+
+1 – Forbedret loginsikkerhed er aktiveret uden sensorer for eksterne enheder (standard og anbefalet)
+ESS vil være aktiveret på systemer med kompatibel software og hardware, der følger den eksisterende standardfunktionsmåde i Windows. Godkendelseshandlinger for enhver ekstern biometrisk blokeres og er ikke tilgængelige for Windows Hello.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, blokeres ikke-ESS sensorer på ESS-enheden.
+
+        </string>
         <string id="MSPassport_EnablePinRecovery">Brug genoprettelse med pinkode</string>
         <string id="MSPassport_EnablePinRecoveryExplain">Med denne politik kan en bruger bruge tjenesten til genoprettelse med pinkode i Windows Hello til virksomheder til at ændre en glemt pinkode uden at miste tilknyttede legitimationsoplysninger eller certifikater, herunder nøgler, der er knyttet til brugerens personlige konti på enheden. Dette opnås ved, at den Azure-baserede tjeneste til genoprettelse med pinkode krypterer en genoprettelseshemmelighed, som lagres på enheden, og at der stilles krav om, at både tjenesten til genoprettelse med pinkode og enheden benytter kryptering. Ved genoprettelse med pinkode skal brugeren udføre multifaktorgodkendelse med Azure Active Directory.
 
@@ -110,13 +133,22 @@ Hvis du deaktiverer eller undlader at konfigurere politikindstillingen, opretter
 Bemærk! Denne politik kan kun anvendes på enheder, som er registreret i Azure Active Directory.
         </string>
         <!-- Explain Text for UseCertificateForOnPremAuth -->
-        <string id="WHFB_UseCertificateForOnPremAuthExplain">Du kan bruge denne politikindstilling til at konfigurere Windows Hello til virksomheder til at registrere et logoncertifikat til lokal godkendelse.
+        <string id="WHFB_UseCertificateForOnPremAuthExplain">Brug denne politikindstilling til at konfigurere Windows Hello til virksomheder til at registrere et logoncertifikat, der bruges til lokal godkendelse.
 
-Hvis du aktiverer denne politikindstilling, registrerer Windows Hello til virksomheder et logoncertifikat til lokal godkendelse.
+Hvis du aktiverer denne politikindstilling, registrerer Windows Hello til virksomheder et logoncertifikat, der bruges til lokal godkendelse.
 
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, registrerer Windows Hello til virksomheder en nøgle, der bruges til lokal godkendelse.
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vil Windows Hello til virksomheder bruge en nøgle eller en Kerberos-billet (afhængigt af andre politikindstillinger) for godkendelse i det lokale miljø.
 
-Bemærk! Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, men aktiverer politikindstillingen "Brug Windows Hello til virksomheder", skal der findes en eller flere Windows Server 2016-domænecontrollere, for at godkendelse med Windows Hello til virksomheder skal lykkes.
+Bemærk! Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, og du aktiverer politikindstillingen "Brug Windows Hello til virksomheder", skal du have en eller flere Windows Server 2016-domænecontrollere for at forhindre, at Windows Hello til virksomheder-godkendelse mislykkes.
+        </string>
+        <!-- Explain Text for UseCloudTrustForOnPremAuth -->
+        <string id="WHFB_UseCloudTrustForOnPremAuthExplain">Brug denne politikindstilling til at konfigurere Windows Hello til virksomheder til at bruge Azure AD Kerberos til lokal godkendelse.
+
+Hvis du aktiverer denne politikindstilling, bruger Windows Hello til virksomheder en Kerberos-billet, der er hentet fra godkendelse til Azure til lokal godkendelse.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, bruger Windows Hello til virksomheder en nøgle eller et certifikat (afhængigt af andre politikindstillinger) for godkendelse i det lokale miljø. 
+ 
+Bemærk! et miljø, der aktiverer denne politikindstilling, og politikindstillingen "Brug Windows Hello til virksomheder" kræver en eller flere Windows Server 2016-domænecontrollere. Ellers vil Windows Hello til virksomheder-godkendelse ikke fungere korrekt.
         </string>
         <!-- Explain text for device unlock policy -->
         <string id="MSPassport_UseDeviceUnlock">Konfigurer faktorer for at låse enhed op</string>
@@ -173,6 +205,9 @@ Windows kræver, at en bruger låser og låser op for sessionen, når du har æn
         </string>
     </stringTable>
     <presentationTable>
+        <presentation id="MSPassport_EnableEnhancedSignInSecurityControl">
+            <decimalTextBox refId="MSPassport_EnableEnhancedSignInSecurityDataType" spin="true" spinStep="1" defaultvalue="1">Aktiver ESS med understøttet eksternt udstyr</decimalTextBox>
+        </presentation>
         <presentation id="MSPassport_MinimumPINLengthControl">
             <decimalTextBox refId="MSPassport_MinimumPINLengthDataType" spin="true" spinStep="1" defaultvalue="6">Minimumlængde for pinkode</decimalTextBox>
         </presentation>

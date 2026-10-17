@@ -12,7 +12,7 @@ Jos otat tämän asetuksen käyttöön, voit valita, että tiettyjä asetuksia e
 
 Jos haluat piilottaa Ohjauspaneeli-kohteen, ota tämä käytäntöasetus käyttöön ja tuo näkyviin sallittujen Ohjauspaneeli-kohteiden luettelo valitsemalla Näytä. Kirjoita Ohjauspaneelin kohteen kanoninen nimi Näytä sisältö -valintaikkunan Arvo-sarakkeeseen. Kirjoita esimerkiksi Microsoft.Mouse (Hiirisovellus), Microsoft.System (Järjestelmäsovellus) tai Microsoft.Personalization (Mukauttaminen-sovellus).
 
-Huomautus: Jos käytössä on Windows Vista, Windows Server 2008 tai Windowsin aiempi versio, kirjoita moduulin nimi, kuten timedate.cpl tai inetcpl.cpl. Jos Ohjauspaneelin kohteella ei ole CPL-tiedostoa tai jos CPL-tiedosto sisältää useita sovelmia, anna moduulin nimen ja merkkijonon resurssin tunnistenumero. Anna esimerkiksi @systemcpl.dll,-1 Järjestelmä-sovellukselle tai @themecpl.dll,-1 Mukauttaminen-sovellukselle. Kanonisten nimien ja moduulinimien täydellinen luettelo on MSDN:ssä. Voit tuoda sen näkyviin hakemalla tekstiä Ohjauspaneelin kohteet (tai englanniksi Control Panel items). 
+Huomautus: Jos käytössä on Windows Vista, Windows Server 2008 tai Windowsin aiempi versio, kirjoita moduulin nimi, kuten timedate.cpl tai inetcpl.cpl. Jos Ohjauspaneelin kohteella ei ole CPL-tiedostoa tai jos CPL-tiedosto sisältää useita sovelmia, anna moduulin nimen ja merkkijonon resurssin tunnistenumero. Anna esimerkiksi @systemcpl.dll,-1 Järjestelmä-sovellukselle tai @themecpl.dll,-1 Mukauttaminen-sovellukselle. Kanonisten nimien ja moduulinimien täydellinen luettelo on MSDN:ssä. Voit tuoda sen näkyviin hakemalla tekstiä Ohjauspaneelin kohteet (tai englanniksi Control Panel items).
 
 Jos Piilota määritetyt Ohjauspaneelin kohteet -asetus ja Näytä vain määritetyt Ohjauspaneelin kohteet -asetus ovat molemmat käytössä, Näytä vain määritetyt Ohjauspaneelin kohteet -asetusta ei oteta huomioon.
 
@@ -69,11 +69,19 @@ showonly:about;bluetooth
 
 Esimerkki: Jos haluat, että ainoastaan Bluetooth-sivu piilotetaan (sivun URI-osoite on ms-settings:bluetooth), määritä seuraava käytännön merkkijono:
 
-hide:bluetooth</string>
+hide:bluetooth
+
+Käyttäjäkohtaisen tuen käytettävyys on dokumentoitu täällä: https://go.microsoft.com/fwlink/?linkid=2102995</string>
       <string id="AllowOnlineTips">Salli online-vinkit</string>
       <string id="AllowOnlineTips_Help">Ottaa käyttöön tai poistaa käytöstä Asetukset-sovellusta koskevien online-vinkkien ja -ohjeiden noutamisen.
 
 Jos toiminto poistetaan käytöstä, Asetukset-sovellus ei nouda vinkkejä eikä ohjesisältöä Microsoftin sisältöpalvelusta.</string>
+      <string id="HideUnsupportedHardwareNotifications">Piilota sanomat, kun Windowsin järjestelmävaatimukset eivät täyty</string>
+      <string id="HideUnsupportedHardwareNotificationsExplain">Tämä käytäntö ohjaa sanomia, jotka näytetään, kun Windowsia suoritetaan laitteessa, joka ei täytä tämän käyttöjärjestelmäversion vähimmäisvaatimuksia.
+
+Jos otat tämän käytäntöasetuksen käyttöön, näitä viestejä ei koskaan näytetä työpöydällä tai Asetukset-sovelluksessa.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, nämä sanomat näkyvät työpöydällä ja Asetukset-sovelluksessa, kun Windowsia käytetään laitteessa, joka ei täytä tämän käyttöjärjestelmäversion järjestelmän vähimmäisvaatimuksia.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DisallowCpls">

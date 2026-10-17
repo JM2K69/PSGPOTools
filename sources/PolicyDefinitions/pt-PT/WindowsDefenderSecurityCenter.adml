@@ -68,13 +68,13 @@
     </string>
     <string id="AppBrowserProtection_DisallowExploitProtectionOverride">Impedir os utilizadores de modificarem definições</string>
     <string id="AppBrowserProtection_DisallowExploitProtectionOverride_Explain">
-        Impeça que os utilizadores façam alterações na área de definições de Exploit protection na Segurança do Windows.
+        Impeça que os utilizadores façam alterações na área de definições de Exploit Protection na Segurança do Windows.
 
         Ativado:
-        Os utilizadores locais não podem fazer alterações na área de definições de Exploit protection.
+        Os utilizadores locais não podem fazer alterações na área de definições de Exploit Protection.
 
         Desativado:
-        Os utilizadores locais podem fazer alterações na área de definições de Exploit protection.
+        Os utilizadores locais podem fazer alterações na área de definições de Exploit Protection.
 
         Não configurado:
         O mesmo que Desativado.
@@ -135,18 +135,19 @@
     </string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts">Configurar notificações personalizadas</string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts_Explain">
-        Apresente informações de contacto especificadas a utilizadores locais nas notificações da Segurança do Windows.
+        Apresentar informações de contacto especificadas a utilizadores locais nas notificações de Segurança do Windows.
 
-        Ativado:
+        Ativado
         As informações de contacto da sua empresa serão apresentadas em notificações provenientes da Segurança do Windows.
 
-        Depois de definir como Ativado, tem de configurar a definição de GP de Especificar o nome da empresa de contacto e, pelo menos, uma das seguintes definições de GP:
-        -Especificar o número de telefone de contacto ou ID de Skype
-        -Especificar o número de e-mail de contacto ou ID de e-mail
-        -Especificar o site de contacto
-
-        Desativado:
-        Não será apresentada qualquer informação de contacto nas notificações.
+        Depois de definir como Ativado, tem de configurar a definição de GP especificar nome da empresa de contacto e, pelo menos, uma das seguintes definições de GP:
+        -Especificar número de telefone de contacto ou ID de Skype
+        -Especificar número de e-mail de contacto ou ID de e-mail
+        -Especificar site de contacto
+        Tenha em atenção que, em alguns casos, iremos limitar as opções de contacto apresentadas com base no espaço de notificação disponível.
+        
+        Desativado
+        Não serão apresentadas informações de contacto nas notificações.
 
         Não configurado:
         O mesmo que Desativado.

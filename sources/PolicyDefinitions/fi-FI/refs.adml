@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>ReFS-ryhmäkäytäntö</displayName>
+  <description>ReFS:n ryhmäkäytäntöasetukset</description>
+  <resources>
+    <stringTable>
+      <string id="ReFS">ReFS</string>
+      <string id="EnableDevDrive">Ota kehittäjäasema käyttöön</string>
+      <string id="EnableDevDriveText">Kehittäjäasema tarkoittaa optimoitua asemaa, joka on optimoitu kehittäjäskenaarioissa tarvittavaa suorituskykyä varten. Kehittäjäaseman avulla järjestelmänvalvoja voi valita asemaan liitettävät tiedostojärjestelmän suodattimet.
+
+Tämän asetuksen poistaminen käytöstä estää uusien kehittäjäasemien luomisen. Olemassa olevat kehittäjäasemat otetaan käyttöön tavallisina asemina.
+
+Jos tätä asetusta ei määritetä, kehittäjäasemat otetaan oletuskäytännön mukaisesti käyttöön ja virustorjuntasuodattimen liittäminen kehittäjäasemaan sallitaan.  Lisäksi, jos asetusta ei määritetä, paikallinen järjestelmänvalvoja voi halutessaan päättää, että virustorjuntasuodatinta ei liitetä kehittäjäasemaan.
+
+Tämä asetus tulee voimaan vasta, kun tietokone käynnistetään uudelleen.</string>
+      <string id="ModeOff">Ei käytössä</string>
+      <string id="ModeAudit">Vain valvonta</string>
+      <string id="ModeBlock">Estä</string>
+      <string id="BlockExternalBusMount">Hallitse ReFS-taltioiden liittämistä USB- ja IEEE 1394 -levyillä</string>
+      <string id="BlockExternalBusMountText">Määrittää, sallitaanko ReFS-levyjen liittäminen USB- tai IEEE 1394 -liitännällä kytkettyihin levyihin. ReFS-asetusta ei tueta kuumavaihdettavissa tai irrotettavissa levyissä.
+
+Estä estää liittämisen ja kirjaa tapahtuman Järjestelmälokiin.
+
+Valvonta sallii liittämisen, mutta kirjaa saman tapahtuman. Näin tämän käytännön käyttöönoton vaikutus voidaan arvioida ennen sen pakottamista.
+
+Pois päältä ei tee valvontaa eikä estä liittämistä.
+
+Storage Spaces -tallennusyksikön osalta tarkistus koskee tallennuspoolin taustalla olevia fyysisiä levyjä, ei itse tallennustilaa.
+
+Jos tätä käytäntöasetusta ei ole määritetty, käytetään tämän tietokoneen paikallista asetusta. Jos paikallista asetusta ei ole, käytetään tämän Windows-version oletusasetusta.
+
+ReFS lukee tämän asetuksen, kun se ladataan, joten muutoksen voimaantulo edellyttää uudelleenkäynnistystä. Asetusta arvioidaan sitten aina, kun tietovarasto liitetään, joten jo liitetty tietovarasto säilyttää nykyisen tilansa, kunnes se irrotetaan ja liitetään uudelleen.</string>
+      <string id="BlockHotplugMount">ReFS-levyjen liittämisen hallinta kuumavaihdettavissa olevissa levyissä</string>
+      <string id="BlockHotplugMountText">Määrittää, sallitaanko ReFS-levyjen liittäminen levyille, jotka tallennusjärjestelmä ilmoittaa kuumavaihdettavaksi, riippumatta siitä, mihin väylään ne on kytketty. ReFS-tiedostojärjestelmää ei tueta kuumavaihdettavissa tai irrotettavissa levyissä.
+
+Estä estää liittämisen ja kirjaa tapahtuman Järjestelmälokiin.
+
+Valvonta sallii liittämisen, mutta kirjaa saman tapahtuman. Näin tämän käytännön käyttöönoton vaikutus voidaan arvioida ennen sen pakottamista.
+
+Pois päältä ei tee valvontaa eikä estä liittämistä.
+
+Storage Spaces -tallennusyksikön osalta tarkistus koskee tallennuspoolin taustalla olevia fyysisiä levyjä, ei itse tallennustilaa.
+
+Jos tätä käytäntöasetusta ei ole määritetty, käytetään tämän tietokoneen paikallista asetusta. Jos paikallista asetusta ei ole, käytetään tämän Windows-version oletusasetusta.
+
+ReFS lukee tämän asetuksen, kun se ladataan, joten muutoksen voimaantulo edellyttää uudelleenkäynnistystä. Asetusta arvioidaan sitten aina, kun tietovarasto liitetään, joten jo liitetty tietovarasto säilyttää nykyisen tilansa, kunnes se irrotetaan ja liitetään uudelleen.</string>
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="EnableDevDriveOptions">
+        <checkBox refId="DevDriveAllowAntivirusFilter" defaultChecked="true">Salli virustentorjuntasuodattimen suojata kehittäjäasemia</checkBox>
+      </presentation>
+      <presentation id="BlockExternalBusMountOptions">
+        <dropdownList refId="BlockExternalBusMountMode" defaultItem="0">Toiminto ReFS-tallennusyksiköille USB- tai IEEE 1394 -levyillä</dropdownList>
+      </presentation>
+      <presentation id="BlockHotplugMountOptions">
+        <dropdownList refId="BlockHotplugMountMode" defaultItem="0">Toiminto ReFS-tallennusyksiköille kuumavaihdettavilla levyillä</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

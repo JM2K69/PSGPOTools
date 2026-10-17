@@ -14,6 +14,19 @@
 Als dit beleid is ingeschakeld, worden de privacyschermen niet weergegeven voor nieuw gemaakte accounts of voor accounts waarvoor na een upgrade privacyinstellingen moeten worden gekozen.
 
 Als dit beleid is uitgeschakeld of niet is geconfigureerd, kunnen de privacyschermen worden weergegeven voor nieuw gemaakte gebruikersaccounts of voor accounts waarvoor na een upgrade privacyinstellingen moeten worden gekozen.</string>
+
+      <string id="AllowOOBEUpdates">Updates in OOBE toestaan</string>
+      <string id="AllowOOBEUpdates_Explain">Met dit beleid kun je configureren of een nieuw apparaat kritieke updates ontvangt tijdens de Out-Of-Box Experience.
+
+Als je dit beleid uitschakelt of niet configureert, ontvangen nieuwe apparaten geen essentiële updates tijdens de out-of-box-ervaring.
+
+Als je het beleid inschakelt, ontvangen nieuwe apparaten de nieuwste goedgekeurde kritieke updates tijdens de Out-Of-Box Experience.
+
+Opmerkingen:
+De pagina voor ZDP-updates (zero-day patch) in OOBE wordt niet beheerd met dit beleid.
+
+Als je kwaliteitsupdates hebt onderbroken via het Windows-beleid voor uitstel en onderbreking van kwaliteitsupdates, worden er geen kwaliteitsupdates geleverd tijdens de Out-Of-Box Experience.
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

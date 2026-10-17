@@ -29,6 +29,12 @@ Pokud nastavení této zásady zakážete nebo nenakonfigurujete, zobrazí se ik
 Pokud nastavení této zásady povolíte, nezobrazí se ikona Zabezpečení a údržba v oznamovací oblasti systému.
 
 Pokud nastavení této zásady zakážete nebo nenakonfigurujete, zobrazí se ikona Zabezpečení a údržba v oznamovací oblasti systému.</string>
+      <string id="HideSCAMeetNow">Odebrat ikonu Schůzka</string>
+      <string id="HideSCAMeetNow_Help">Nastavení této zásady umožňuje odebrat ikonu Schůzky z oblasti řízení systému.
+
+Pokud nastavení této zásady povolíte, nezobrazí se ikona Schůzky v oznamovací oblasti systému.
+
+Pokud nastavení této zásady zakážete nebo nenakonfigurujete, zobrazí se ikona Schůzky v oznamovací oblasti systému.</string>
       <string id="TaskbarLockAll">Uzamknout všechna nastavení hlavního panelu</string>
       <string id="TaskbarLockAll_Help">Nastavení této zásady umožňuje zamknout všechna nastavení hlavního panelu.
 
@@ -121,7 +127,6 @@ Pokud nastavení této zásady zakážete nebo nenakonfigurujete, budou uživate
 Pokud nastavení této zásady povolíte, nebudou uživatelé moci připínat soubory, složky, weby a další položky do svých seznamů odkazů v nabídce Start a na hlavním panelu. Uživatelé nebudou ani moci odepnout existující položky ze svých seznamů odkazů. Existující položky, které již mají uživatelé ve svých seznamech odkazů připnuty, se budou i nadále zobrazovat.
 
 Pokud nastavení této zásady zakážete nebo nenakonfigurujete, mohou uživatelé připínat soubory, složky, weby a další položky do seznamu odkazů programu, aby se tyto položky v této nabídce vždy zobrazily.
-
 </string>
       <string id="TaskbarNoMultimon">Nepovolovat zobrazování hlavních panelů na více displejích</string>
       <string id="TaskbarNoMultimon_Help">Nastavení této zásady umožňuje zakázat zobrazování hlavních panelů na více než jednom monitoru.
@@ -129,7 +134,7 @@ Pokud nastavení této zásady zakážete nebo nenakonfigurujete, mohou uživate
 Pokud nastavení této zásady povolíte, uživatelé nebudou moci zobrazovat hlavní panely na více než jednom displeji. V dialogovém okně vlastností hlavního panelu není povolena možnost více displejů.
 
 Pokud nastavení této zásady zakážete nebo nenakonfigurujete, budou uživatelé moci zobrazit hlavní panely na více než jednom displeji.</string>
-        <string id="ShowWindowsStoreAppsOnTaskbar">Zobrazit aplikace pro Windows Store na hlavním panelu</string>
+        <string id="ShowWindowsStoreAppsOnTaskbar">Zobrazit zabalené aplikace Microsoft Store na hlavním panelu</string>
         <string id="ShowWindowsStoreAppsOnTaskbar_Help">
 Toto nastavení zásad umožňuje uživatelům vidět aplikace pro Windows Store na hlavním panelu.
  
@@ -148,7 +153,7 @@ Pokud je toto nastavení povolené, Centrum akcí a oznámení se v oznamovací 
 Pokud nastavení této zásady zakážete nebo nenakonfigurujete, zobrazí se na hlavním panelu oznámení, zabezpečení a údržba. 
 
 Aby se toto nastavení projevilo, musí se restartovat počítač.</string>
-      <string id="NoPinningStoreToTaskbar">Nepovolit připnutí aplikace Store na hlavní panel</string> 
+      <string id="NoPinningStoreToTaskbar">Nepovolit připnutí aplikace Store na hlavní panel</string>
       <string id="NoPinningStoreToTaskbar_Help">
 Nastavení této zásady umožňuje určit, jestli bude možné aplikaci Store připnout na hlavní panel.
 
@@ -165,10 +170,81 @@ Pokud toto nastavení zásad zakážete, nebudou uživatelé moci zobrazit dalš
 Pokud toto nastavení zásad nenakonfigurujete, bude kalendář nastaven podle výchozí logiky.</string>
       <string id="ConfigureTaskbarCalendar_SimplifiedChinese">Zjednodušená čínština (lunární)</string>
       <string id="ConfigureTaskbarCalendar_TraditionalChinese">Tradiční čínština (lunární)</string>
+      <string id="Chat">Chat</string>
+      <string id="ConfigureChatIcon">Nakonfiguruje ikonu chatu na hlavním panelu.</string>
+      <string id="ConfigureChatIcon_Help">Toto nastavení zásad umožňuje nakonfigurovat ikonu chatu na hlavním panelu.
+
+Pokud toto nastavení zásad povolíte a nastavíte na možnost Zobrazit, ikona chatu se ve výchozím nastavení zobrazí na hlavním panelu. Uživatelé ji můžou zobrazit nebo skrýt v Nastavení.
+
+Pokud toto nastavení zásad povolíte a nastavíte na možnost Skrýt, ikona chatu bude ve výchozím nastavení skrytá. Uživatelé ji můžou zobrazit nebo skrýt v Nastavení.
+
+Pokud toto nastavení zásad povolíte a nastavíte na možnost Zakázáno, ikona chatu se nezobrazí a uživatelé ji nebudou moct zobrazit ani skrýt v Nastavení.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, ikona chatu se nakonfiguruje podle výchozího nastavení pro vaši edici Windows. </string>
+      <string id="ChatEnum_Show">Zobrazit</string>
+      <string id="ChatEnum_Hide">Skrýt</string>
+      <string id="ChatEnum_Disabled">Zakázáno</string>
+      <string id="HideTaskViewButton">Skrýt tlačítko pro zobrazení úloh</string>
+      <string id="HideTaskViewButton_Help">Toto nastavení zásad umožňuje skrýt tlačítko Zobrazení úloh.
+
+Pokud toto nastavení zásad povolíte, tlačítko Zobrazení úloh bude skryto a přepínač Nastavení bude zakázán.</string>
+      <string id="AlwaysShowNotificationIcon">Zobrazit ikonu zvonku oznámení</string>
+      <string id="AlwaysShowNotificationIcon_Help">
+Toto nastavení zásad umožňuje zobrazit ikonu zvonku oznámení na hlavním panelu systému.
+
+Pokud toto nastavení zásad povolíte, bude ikona oznámení vždy zobrazena. V opačném případě se ikona oznámení zobrazí pouze v případě, že je nastaven zvláštní stav (například je zapnutý režim Nerušit).
+
+Aby se toto nastavení zásad projevilo, je nutné restartovat počítač.
+      </string>
+      <string id="TurnOffAbbreviatedDateTimeFormat">Vypnout zkrácený formát času a data</string>
+      <string id="TurnOffAbbreviatedDateTimeFormat_Help">
+Toto nastavení zásad umožňuje zobrazit delší formát času a data na hlavním panelu systému.
+
+Pokud je toto nastavení povolené, formát času bude obsahovat značku času dopoledku/odp. a datum bude zahrnovat rok.
+
+Aby se toto nastavení zásad projevilo, je nutné restartovat počítač.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior">ConfigureTaskbarSmallButtonBehavior</string>  
+      <string id="ConfigureTaskbarSmallButtonBehavior_DisplayName">Konfigurovat chování malého tlačítka hlavního panelu</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Help">Toto nastavení zásad umožňuje konfigurovat chování malých tlačítek na hlavním panelu.
+      
+Při nastavení na: 
+      - Vždy: Hlavní panel vždy používá malá tlačítka.
+      - Když je hlavní panel plný: Hlavní panel se dynamicky přepíná mezi malými tlačítky a standardní velikostí tlačítek na základě dostupného místa.
+      - Nikdy: Hlavní panel nikdy nepoužívá malá tlačítka. Použijí se jenom tlačítka standardní velikosti.
+
+Pokud je tato zásada povolená, musí se vybrat jedna z výše uvedených možností a uživatelé nemůžou v uživatelském rozhraní Nastavení změnit možnost Zobrazit menší tlačítka na hlavním panelu.
+
+Pokud je tato zásada zakázaná nebo nenakonfigurovaná, zásady skupiny nepoužijí žádnou možnost. Ve výchozím nastavení Windows používá chování „Když je hlavní panel plný“ a uživatelé můžou toto nastavení ručně změnit v uživatelském rozhraní Nastavení.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Always">Vždy</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_WhenTaskbarIsFull">Při zaplnění hlavního panelu</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Never">Nikdy</string>
+      <string id="DisableTaskbarPosition">Zakázat změnu umístění hlavního panelu</string>
+      <string id="DisableTaskbarPosition_Help">Nastavení této zásady umožňuje zabránit uživatelům ve změně umístění hlavního panelu.
+
+Pokud toto nastavení zásad povolíte, hlavní panel se přesune do dolní části obrazovky a nastavení polohy hlavního panelu bude v aplikaci Nastavení neaktivní.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, uživatelé budou moct pozici hlavního panelu v aplikaci Nastavení změnit.</string>
+      <string id="DisableTaskbarSize">Zakázat změnu velikosti hlavního panelu</string>
+      <string id="DisableTaskbarSize_Help">Nastavení této zásady umožňuje zabránit uživatelům ve změně velikosti hlavního panelu.
+
+Pokud nastavení této zásady povolíte, hlavní panel se nastaví na výchozí velikost a nastavení velikosti hlavního panelu bude v aplikaci Nastavení neaktivní.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, uživatelé budou moct změnit velikost hlavního panelu v aplikaci Nastavení.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureTaskbarCalendar">
         <dropdownList refId="ConfigureTaskbarCalendar_Dropdown" defaultItem="0">Kalendář:</dropdownList>
+      </presentation>
+      <presentation id="ConfigureChatIcon">
+          <text>Konfigurovat nastavení ikony chatu</text>
+          <text> </text>
+          <dropdownList refId="ConfigureChatIcon_Action" noSort="true" defaultItem="1">Stav: </dropdownList>
+          <text> </text>
+      </presentation>
+      <presentation id="ConfigureTaskbarSmallButtonBehavior">
+        <dropdownList refId="ConfigureTaskbarSmallButtonBehavior_Dropdown" noSort="true" defaultItem="1">Zvolte, kdy se mají zobrazovat menší tlačítka na hlavním panelu: </dropdownList>
       </presentation>
     </presentationTable>
   </resources>

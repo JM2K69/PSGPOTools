@@ -119,6 +119,51 @@
         如果未设置或禁用此设置，则默认情况下同步“开始布局”组处于开启状态，且可由用户配置。
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">不同步辅助功能设置</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        阻止“辅助功能”组与这台电脑同步和从这台电脑同步。这将关闭并禁用电脑设置中“Windows 备份”设置页上的“辅助功能”组。
+
+如果启用此策略设置，将不会同步“辅助功能”组。
+
+使用选项“允许用户启用辅助功能同步”，以便默认情况下同步处于关闭状态，但未禁用。
+
+如果未设置或禁用此设置，则默认情况下同步“辅助功能”组处于打开状态，用户可进行配置。
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">不同步语言首选项设置</string>
+      <string id="DisableLanguageSettingSync_Help">
+        阻止“语言首选项”组与此电脑进行双向同步。这将关闭并禁用电脑设置中“Windows 备份”设置页上的“语言首选项”组。
+
+如果启用此策略设置，将不会同步“语言首选项”组。
+
+使用选项“允许用户启用语言首选项同步”，以便默认关闭但不禁用同步。
+
+如果未设置或禁用此设置，则“语言首选项”组的同步默认处于启用状态，并且可由用户配置。
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">启用 Windows 备份</string>
+      <string id="EnableWindowsBackup_Help">此策略设置允许管理员为其组织配置和管理 Windows 设置备份。
+
+如果启用此策略设置，则将定期进行 Windows 设置备份。
+
+如果禁用此策略设置，则不会进行 Windows 设置备份。
+
+如果未配置此策略设置，则会根据资格定期进行 Windows 设置备份。
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">启用 Windows 还原</string>
+      <string id="EnableWindowsRestore_Help">通过此策略设置，管理员可为其组织配置和管理 Windows 设置还原。
+
+如果启用此策略设置，将启用 Windows 设置还原。
+
+如果禁用或未配置此策略设置，将禁用 Windows 设置还原。
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">允许用户启用“开始布局”同步。</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">允许用户启用“辅助功能”同步。</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">允许用户启用“语言首选项”同步。</checkBox>
       </presentation>
 
     </presentationTable>

@@ -173,6 +173,12 @@ Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, użytkownikom
 Domyślnie użytkownicy mogą zmienić obraz tła pokazywany, gdy komputer jest zablokowany lub gdy jest wyświetlany ekran logowania.
 
 Jeśli to ustawienie zasad zostanie włączone, użytkownik nie będzie mógł zmienić swojego obrazu ekranu blokady i logowania — będzie wyświetlany obraz domyślny.</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">Zapobiegaj ruchom w tle ekranu blokady</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">To ustawienie zasad określa, czy obraz na ekranie blokady jest statyczny, czy też ma efekt subtelnego przesuwania, który jest sterowany przez wyjście przyspieszeniomierza na urządzeniu.
+
+Jeśli włączysz to ustawienie, nie będzie można uniknąć ruchu, a użytkownik będzie widział tradycyjny obraz tła ekranu blokady.
+
+Jeśli to ustawienie zostanie wyłączone (a urządzenie będzie miało przyspieszeniomierz), zobaczy tło ekranu blokady wokół obrazu nieruchomego, w którym fizyczny przeniesie urządzenie.</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">Wymuś określony domyślny obraz ekranu blokady i logowania</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">To ustawienie umożliwia wymuszenie użycia określonego domyślnego obrazu ekranu blokady i logowania przez wprowadzenie ścieżki (lokalizacji) pliku obrazu. Będzie on używany jako obraz ekranu blokady i logowania.
 

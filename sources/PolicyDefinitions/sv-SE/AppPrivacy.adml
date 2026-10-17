@@ -99,6 +99,67 @@ Om du inaktiverar eller låter bli att konfigurera den här principinställninge
 
 Om en app är öppen när det här grupprincipobjektet tillämpas på en enhet måste anställda starta om appen eller enheten för att principändringarna ska börja gälla för appen.
       </string>
+      <string id="LetAppsAccessSystemAIModels_Name">Låt Windows-appar använda text- och bildgenereringsfunktioner i Windows</string>
+      <string id="LetAppsAccessSystemAIModels_Explain">
+Den här principinställningen anger om Windows-appar kan använda generering av text och bild i Windows.
+
+Du kan ange antingen en standardinställning för alla appar eller en inställning per app genom att ange ett paketfamiljenamn. Du kan hitta ett programs paketfamiljenamn genom att använda Windows PowerShell cmdleten Get-AppPackage. En inställning per app åsidosätter standardinställningen.
+
+Om du väljer alternativet "Användaren har kontroll" kan anställda i organisationen bestämma om Windows-appar kan använda generering av text och bild med hjälp av Inställningar &gt; Sekretess på enheten.
+
+Om du väljer alternativet "Tvinga tillåt" tillåts Windows-appar att använda funktioner för generering av text och bild i Windows och anställda i din organisation kan inte ändra det.
+
+Om du väljer alternativet "Tvinga neka" tillåts inte Windows-appar att använda funktioner för generering av text och bild i Windows och anställda i din organisation kan inte ändra det.
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen kan anställda i din organisation bestämma om Windows-appar kan använda funktioner för generering av text och bild i Windows med hjälp av Inställningar &gt; Sekretess på enheten.
+
+Om en app är öppen när det här grupprincip objektet tillämpas på en enhet måste anställda starta om appen eller enheten för att principändringarna ska tillämpas på appen.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Name">Låt Windows-appar ta skärmbilder av olika fönster eller bildskärmar</string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Explain">Den här principinställningen anger om Windows-appar kan ta skärmbilder av olika fönster eller bildskärmar.
+
+Du kan antingen ange en standardinställning för alla program eller inställningar för varje program genom att ange ett paketfamiljenamn. Du kan hitta ett programs paketfamiljenamn genom att använda Windows PowerShell cmdleten Get-AppPackage. En inställning för varje program ersätter standardinställningen.
+
+Om du väljer ”Användaren har kontrollen” kan anställda i din organisation själva bestämma om Windows-appar kan inaktivera skärmbild i godtyckliga fönster eller bildskärmar via Inställningar &gt; Sekretess på sina enheter.
+
+Om du väljer ”Tvinga tillåt” så tillåts Windows-appar att utföra skärmbild i godtyckliga fönster eller bildskärmar och anställda i din organisation kan inte ändra det.
+
+Om du väljer ”Tvinga neka” så tillåts Windows-appar inte att utföra skärmbild i godtyckliga fönster eller bildskärmar och anställda i din organisation kan inte ändra det.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan anställda i din organisation själva bestämma om Windows-appar utföra skärmbild i godtyckliga fönster eller bildskärmar via Inställningar &gt; Sekretess på sina enheter.
+
+Om en app är öppen när det här grupprincipobjektet tillämpas på en enhet måste anställda starta om appen eller enheten för att principändringarna ska börja gälla för appen.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Name">Låt Windows-appar stänga av skärmbildens kantlinje</string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Explain">Den här principinställningen anger om Windows-appar kan inaktivera skärmbildens kantlinje.
+
+Du kan antingen ange en standardinställning för alla appar eller en inställning per app genom att ange ett paketfamiljenamn. Du kan erhålla paketfamiljenamnet för en app med hjälp av Windows PowerShell-cmdleten Get-AppPackage. Inställning per app ersätter standardinställningen.
+
+Om du väljer Användaren har kontrollen kan anställda i din organisation själva bestämma om Windows-appar kan inaktivera skärmbildens kantlinje via Inställningar &gt; Sekretess på sina enheter.
+
+Om du väljer Tvinga tillåt så tillåts Windows-appar inaktivera skärmbildens kantlinje och anställda i din organisation kan inte ändra det.
+
+Om du väljer Tvinga neka så tillåts Windows-appar inte inaktivera skärmbildens kantlinje och anställda i din organisation kan inte ändra det.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan anställda i din organisation själva bestämma om Windows-appar kan inaktivera skärmbildens kantlinje via Inställningar &gt; Sekretess på sina enheter.
+
+Om en app är öppen när det här grupprincipobjektet tillämpas på en enhet måste anställda starta om appen eller enheten för att principändringarna ska börja gälla för appen.
+      </string>
+      <string id="LetAppsAccessHumanPresence_Name">Ge Windows-appar åtkomst till närvaroavkänning</string>
+      <string id="LetAppsAccessHumanPresence_Explain">Den här principinställningen anger om Windows-appar kan komma åt närvaroavkänning.
+
+Du kan ange antingen en standardinställning för alla appar eller en inställning per app genom att ange ett paketfamiljenamn. Du kan hämta paketfamiljenamnet för en app med hjälp av cmdleten Get-AppPackage Windows PowerShell. En inställning per app åsidosätter standardinställningen.
+
+Om du väljer alternativet "Användaren har kontroll" kan anställda i organisationen bestämma om Windows-appar kan komma åt närvaroavkänning med hjälp av Inställningar &gt; Sekretess på enheten.
+
+Om du väljer alternativet "Tvinga tillåt" får Windows-appar åtkomst till närvaroavkänning och anställda i organisationen kan inte ändra det.
+
+Om du väljer alternativet "Tvinga neka" tillåts inte Windows-appar att komma åt närvaroavkänning och anställda i din organisation kan inte ändra det.
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen kan anställda i organisationen bestämma om Windows-appar kan komma åt närvaroavkänning med hjälp av Inställningar &gt; Sekretess på enheten.
+
+Om en app är öppen när det här grupprincipobjektet tillämpas på en enhet måste anställda starta om appen eller enheten för att principändringarna ska tillämpas på appen.
+      </string>
       <string id="LetAppsAccessLocation_Name">Låt Windows-appar få tillgång till positionsdata</string>
       <string id="LetAppsAccessLocation_Explain">Den här principinställningen anger om Windows-appar kan komma åt positionsdata.
 
@@ -173,6 +234,36 @@ Om du väljer Tvinga neka så tillåts Windows-appar inte komma åt meddelanden 
 Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan anställda i din organisation själva bestämma om Windows-appar kan komma åt meddelanden via Inställningar &gt; Sekretess på sina enheter.
 
 Om en app är öppen när det här grupprincipobjektet tillämpas på en enhet måste anställda starta om appen eller enheten för att principändringarna ska börja gälla för appen.
+      </string>
+      <string id="LetAppsAccessPasskeys_Name">Ge Windows-appar åtkomst till nycklar</string>
+      <string id="LetAppsAccessPasskeys_Explain">Den här principinställningen anger om appar kan komma åt nycklar.
+
+Du kan ange antingen en standardinställning för alla appar eller en inställning per app genom att ange ett paketfamiljenamn. Du kan erhålla paketfamiljenamnet för en app med hjälp av Windows PowerShell-cmdleten Get-AppPackage. En inställning per app åsidosätter standardinställningen.
+
+Om du väljer alternativet "Användaren har kontrollen", kan anställda i din organisation själva bestämma om appar kan komma åt Lösenordsnycklar via Inställningar &gt; Sekretess på enheten.
+
+Om du väljer alternativet "Tvinga tillåt" så tillåts appar komma åt Lösenordsnycklar och anställda i din organisation kan inte ändra det.
+
+Om du väljer alternativet "Tvinga neka" så tillåts appar inte komma åt Lösenordsnycklar och anställda i din organisation kan inte ändra det.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan anställda i din organisation själva bestämma om appar kan komma åt Lösenordsnycklar via Inställningar &gt; Sekretess på sina enheter.
+
+Om en app är öppen när det här grupprincipobjektet tillämpas på en enhet måste anställda starta om appen eller enheten för att principändringarna ska tillämpas på appen.
+      </string>
+      <string id="LetAppsAccessPasskeysEnumeration_Name">Låt Windows-appar fylla i nycklar automatiskt</string>
+      <string id="LetAppsAccessPasskeysEnumeration_Explain">Den här principinställningen anger om appar kan fylla i nycklar automatiskt.
+
+Du kan ange antingen en standardinställning för alla appar eller en inställning per app genom att ange ett paketfamiljenamn. Du kan erhålla paketfamiljenamnet för en app med hjälp av Windows PowerShell-cmdleten Get-AppPackage. En inställning per app åsidosätter standardinställningen.
+
+Om du väljer alternativet "Användaren har kontroll" kan anställda i organisationen bestämma om appar kan fylla i nycklar automatiskt med hjälp av Inställningar &gt; Sekretess på enheten.
+
+Om du väljer alternativet "Tvinga tillåt" tillåts appar att automatiskt fylla i nycklar och anställda i din organisation kan inte ändra det.
+
+Om du väljer alternativet "Tvinga neka" tillåts inte appar att fylla i nycklar automatiskt och anställda i organisationen kan inte ändra det.
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen kan anställda i organisationen bestämma om appar kan fylla i nycklar automatiskt med hjälp av Inställningar &gt; Sekretess på enheten.
+
+Om en app är öppen när det här grupprincipobjektet tillämpas på en enhet måste anställda starta om appen eller enheten för att principändringarna ska tillämpas på appen.
       </string>
       <string id="LetAppsAccessPhone_Name">Låt Windows-appar ringa telefonsamtal</string>
       <string id="LetAppsAccessPhone_Explain">Den här principinställningen anger om Windows-appar kan ringa telefonsamtal.
@@ -321,6 +412,35 @@ Om du inaktiverar eller låter bli att konfigurera den här principinställninge
 
 Den här principen gäller för Windows-appar och Cortana. Den åsidosätter principen Tillåt Cortana när systemet är låst. Den här principen kan endast tillämpas när principen Tillåt röstaktivering är konfigurerad för att låta appar aktiveras med röstkommandon.
       </string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Name">Låt Windows-appar få tillgång till användarnas rörelsedata när apparna körs i bakgrunden</string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Explain">Med den här principinställningen anger du om Windows-appar får tillgång till användarnas rörelsedata beträffande huvud, händer, rörelsekontroller och andra spårade objekt när apparna körs i bakgrunden.
+
+Du kan antingen ange en standardinställning för alla appar eller en inställning per app genom att ange ett paketfamiljenamn. Du kan erhålla paketfamiljenamnet för en app med hjälp av Windows PowerShell-cmdleten Get-AppPackage. Inställning per app ersätter standardinställningen.
+
+Om du väljer Användaren har kontrollen kan anställda i din organisation själva bestämma om Windows-appar får tillgång till deras rörelsedata när apparna körs i bakgrunden via Inställningar &gt; Sekretess på enheten.
+
+Om du väljer Tvinga tillåt så får Windows-appar tillgång till användarnas rörelsedata när apparna körs i bakgrunden och anställda i din organisation kan inte ändra det.
+
+Om du väljer Tvinga neka så får Windows-appar inte tillgång till användarnas rörelsedata när apparna körs i bakgrunden och anställda i din organisation kan inte ändra det.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan anställda i din organisation själva bestämma om Windows-appar får tillgång till deras rörelsedata när apparna körs i bakgrunden via Inställningar &gt; Sekretess på enheten.
+
+Om en app är öppen när det här grupprincipobjektet tillämpas på en enhet måste anställda starta om appen eller enheten för att principändringarna ska börja gälla för appen.
+      </string>
+      <string id="LetAppsAccessForegroundText_Name">Låt Windows-appar komma åt textinnehåll från förgrundsprogram</string>
+      <string id="LetAppsAccessForegroundText_Explain">Den här principinställningen anger om Windows-appar kan komma åt textinnehåll från förgrundsprogram.
+Du kan ange antingen en standardinställning för alla appar eller en inställning per app genom att ange ett paketfamiljenamn. Du kan hitta ett programs paketfamiljenamn genom att använda Windows PowerShell cmdleten Get-AppPackage. En inställning per app åsidosätter standardinställningen.
+
+Om du väljer alternativet "Användaren har kontroll" kan anställda i organisationen bestämma om Windows-appar kan komma åt textinnehåll från förgrundsprogram med hjälp av Inställningar &gt; Sekretess på enheten.
+
+Om du väljer alternativet "Tvinga tillåt" får Windows-appar åtkomst till textinnehåll från förgrundsprogram och anställda i organisationen kan inte ändra det.
+
+Om du väljer alternativet "Tvinga neka" får Windows-appar inte komma åt textinnehåll från förgrundsprogram och anställda i organisationen kan inte ändra det.
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen kan anställda i organisationen bestämma om Windows-appar kan komma åt textinnehåll från förgrundsprogram med hjälp av Inställningar &gt; Sekretess på enheten.
+
+Om en app är öppen när det här grupprincip objektet tillämpas på en enhet måste anställda starta om appen eller enheten för att principändringarna ska tillämpas på appen.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LetAppsAccessCalendar">
@@ -376,6 +496,42 @@ Den här principen gäller för Windows-appar och Cortana. Den åsidosätter pri
         <multiTextBox refId="LetAppsAccessEmail_ForceAllowTheseApps_List"/>
         <text>Tvinga neka för dessa specifika appar (använd paketfamiljenamn):</text>
         <multiTextBox refId="LetAppsAccessEmail_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessSystemAIModels">
+        <dropdownList refId="LetAppsAccessSystemAIModels_Enum" noSort="true" defaultItem="0">Standard för alla appar:</dropdownList>
+        <text>Låt användaren ha kontrollen över dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_UserInControlOfTheseApps_List"/>
+        <text>Tvinga tillåt för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceAllowTheseApps_List"/>
+        <text>Tvinga neka för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureProgrammatic">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureProgrammatic_Enum" noSort="true" defaultItem="0">Standard för alla appar:</dropdownList>
+        <text>Låt användaren ha kontrollen över dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_UserInControlOfTheseApps_List"/>
+        <text>Tvinga tillåt för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceAllowTheseApps_List"/>
+        <text>Tvinga neka för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureWithoutBorder">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureWithoutBorder_Enum" noSort="true" defaultItem="0">Standard för alla appar:</dropdownList>
+        <text>Låt användaren ha kontrollen över dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_UserInControlOfTheseApps_List"/>
+        <text>Tvinga tillåt för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceAllowTheseApps_List"/>
+        <text>Tvinga neka för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessHumanPresence">
+        <dropdownList refId="LetAppsAccessHumanPresence_Enum" noSort="true" defaultItem="0">Standard för alla appar:</dropdownList>
+        <text>Låt användaren ha kontrollen över dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_UserInControlOfTheseApps_List"/>
+        <text>Tvinga tillåt för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceAllowTheseApps_List"/>
+        <text>Tvinga neka för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessLocation">
         <dropdownList refId="LetAppsAccessLocation_Enum" noSort="true" defaultItem="0">Standard för alla appar:</dropdownList>
@@ -499,6 +655,42 @@ Den här principen gäller för Windows-appar och Cortana. Den åsidosätter pri
       </presentation>
       <presentation id="LetAppsActivateWithVoiceAboveLock">
         <dropdownList refId="LetAppsActivateWithVoiceAboveLock_Enum" noSort="true" defaultItem="0">Standard för alla appar:</dropdownList>
+      </presentation>
+      <presentation id="LetAppsAccessBackgroundSpatialPerception">
+        <dropdownList refId="LetAppsAccessBackgroundSpatialPerception_Enum" noSort="true" defaultItem="0">Standard för alla appar:</dropdownList>
+        <text>Låt användaren ha kontrollen över dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_UserInControlOfTheseApps_List"/>
+        <text>Tvinga tillåt för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps_List"/>
+        <text>Tvinga neka för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessForegroundText">
+        <dropdownList refId="LetAppsAccessForegroundText_Enum" noSort="true" defaultItem="0">Standard för alla appar:</dropdownList>
+        <text>Låt användaren ha kontrollen över dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_UserInControlOfTheseApps_List"/>
+        <text>Tvinga tillåt för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceAllowTheseApps_List"/>
+        <text>Tvinga neka för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeys">
+        <dropdownList refId="LetAppsAccessPasskeys_Enum" noSort="true" defaultItem="0">Standard för alla appar:</dropdownList>
+        <text>Låt användaren ha kontrollen över dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_UserInControlOfTheseApps_List"/>
+        <text>Tvinga tillåt för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceAllowTheseApps_List"/>
+        <text>Tvinga neka för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeysEnumeration">
+        <dropdownList refId="LetAppsAccessPasskeysEnumeration_Enum" noSort="true" defaultItem="0">Standard för alla appar:</dropdownList>
+        <text>Låt användaren ha kontrollen över dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_UserInControlOfTheseApps_List"/>
+        <text>Tvinga tillåt för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceAllowTheseApps_List"/>
+        <text>Tvinga neka för dessa specifika appar (använd paketfamiljenamn):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceDenyTheseApps_List"/>
       </presentation>
     </presentationTable>
   </resources>

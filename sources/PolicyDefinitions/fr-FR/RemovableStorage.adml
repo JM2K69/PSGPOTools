@@ -63,19 +63,19 @@ Si vous activez ce paramètre de stratégie, l’accès en exécution est refus�
 
 Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, l’accès en exécution est autorisé pour cette classe de stockage amovible.</string>
       <string id="PAPDevices_DenyRead_Access">Lecteurs PAP : refuser l’accès en lecture</string>
-      <string id="PAPDevices_DenyRead_Access_help">Ce paramètre de stratégie refuse l’accès en lecture aux disques amovibles, y compris éventuellement aux baladeurs multimédias.
+      <string id="PAPDevices_DenyRead_Access_help">Ce paramètre de stratégie refuse l’accès en lecture aux disques amovibles, y compris éventuellement aux lecteurs multimédia portables.
 
 Si vous activez ce paramètre de stratégie, l’accès en lecture est refusé à cette classe de stockage amovible.
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, l’accès en lecture est autorisé pour cette classe de stockage amovible.</string>
       <string id="PAPDevices_DenyWrite_Access">Lecteurs PAP : refuser l’accès en écriture</string>
-      <string id="PAPDevices_DenyWrite_Access_help">Ce paramètre de stratégie refuse l’accès en écriture aux disques amovibles, y compris éventuellement aux baladeurs multimédias.
+      <string id="PAPDevices_DenyWrite_Access_help">Ce paramètre de stratégie refuse l’accès en écriture aux disques amovibles, y compris éventuellement aux lecteurs multimédia portables.
 
 Si vous activez ce paramètre de stratégie, l’accès en écriture est refusé à cette classe de stockage amovible.
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, l’accès en écriture est autorisé pour cette classe de stockage amovible.</string>
       <string id="PAPDevices_DenyExecute_Access">Lecteurs PAP : refuser l’accès en exécution</string>
-      <string id="PAPDevices_DenyExecute_Access_help">Ce paramètre de stratégie refuse l’accès en exécution aux disques amovibles, y compris éventuellement aux baladeurs multimédias.
+      <string id="PAPDevices_DenyExecute_Access_help">Ce paramètre de stratégie refuse l’accès en exécution aux disques amovibles, y compris éventuellement aux lecteurs multimédia portables.
 
 Si vous activez ce paramètre de stratégie, l’accès en exécution est refusé à cette classe de stockage amovible.
 
@@ -127,13 +127,13 @@ Si vous activez ce paramètre de stratégie, l’accès en exécution est refus�
 
 Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, l’accès en exécution est autorisé pour cette classe de stockage amovible.</string>
       <string id="WPDDevices_DenyRead_Access">Périphériques WPD : refuser l’accès en lecture</string>
-      <string id="WPDDevices_DenyRead_Access_help">Ce paramètre de stratégie refuse l’accès en lecture aux disques amovibles, y compris éventuellement aux baladeurs multimédias, aux téléphones cellulaires, aux affichages auxiliaires et aux appareils Windows CE.
+      <string id="WPDDevices_DenyRead_Access_help">Ce paramètre de stratégie refuse l’accès en lecture aux disques amovibles, y compris éventuellement aux baladeurs multimédias, aux téléphones cellulaires, aux affichages auxiliaires et aux appareils CE.
 
 Si vous activez ce paramètre de stratégie, l’accès en lecture est refusé à cette classe de stockage amovible.
 
 Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, l’accès en lecture est autorisé pour cette classe de stockage amovible.</string>
       <string id="WPDDevices_DenyWrite_Access">Périphériques WPD : refuser l’accès en écriture</string>
-      <string id="WPDDevices_DenyWrite_Access_help">Ce paramètre de stratégie refuse l’accès en écriture aux disques amovibles, y compris éventuellement aux baladeurs multimédias, aux téléphones cellulaires, aux affichages auxiliaires et aux appareils Windows CE.
+      <string id="WPDDevices_DenyWrite_Access_help">Ce paramètre de stratégie refuse l’accès en écriture aux disques amovibles, y compris éventuellement aux baladeurs multimédias, aux téléphones cellulaires, aux affichages auxiliaires et aux appareils CE.
 
 Si vous activez ce paramètre de stratégie, l’accès en écriture est refusé à cette classe de stockage amovible.
 

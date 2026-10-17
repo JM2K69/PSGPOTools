@@ -90,7 +90,7 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, kö
       <string id="NC_NoRegistration">Registrierung deaktivieren, wenn sich die URL-Verbindung auf "Microsoft.com" bezieht</string>
       <string id="NC_NoRegistration_Help">Diese Richtlinieneinstellung legt fest, ob der Windows-Registrier-Assistent für die Onlineregistrierung eine Verbindung mit "Microsoft.com" herstellt.
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, werden Benutzer daran gehindert, für die Onlineregistrierung eine Verbindung mit "Microsoft.com" herzustellen.Dadurch können Benutzer ihre Kopie von Windows nicht online registrieren.
+Wenn Sie diese Richtlinieneinstellung aktivieren, werden Benutzer daran gehindert, für die Onlineregistrierung eine Verbindung mit "Microsoft.com" herzustellen. Dadurch können Benutzer ihre Kopie von Windows nicht online registrieren.
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer eine Verbindung mit "Microsoft.com" herstellen und die Windows-Onlineregistrierung durchführen.
 
@@ -112,7 +112,9 @@ Weitere Informationen erhalten Sie unter den Richtlinieneinstellungen "Fehlerber
 
 Wenn Sie diese Richtlinieneinstellung aktivieren, werden alle Windows Update-Funktionen entfernt. Dies umfasst auch die Blockierung des Zugangs zur Windows Update-Website unter "http://windowsupdate.microsoft.com" vom Hyperlink "Windows Update" im Startmenü und im Menü "Extras" des Internet Explorer. Die automatische Aktualisierung von Windows wird ebenfalls deaktiviert; Sie erhalten über Windows Update keine wichtigen Updates und werden auch nicht über neue Updates informiert. Durch diese Richtlinieneinstellung wird auch verhindert, dass der Geräte-Manager automatisch Treiberaktualisierungen von der Windows Update-Website installiert.
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer auf die Windows Update-Website zugreifen und Benachrichtigungen über kritische Aktualisierungen von Windows Update erhalten.</string>
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer auf die Windows Update-Website zugreifen und Benachrichtigungen über wichtige Updates von Windows Update erhalten.
+
+Hinweis: Diese Richtlinie gilt nur, wenn dieser PC so konfiguriert ist, dass die Verbindung mit einem Updatedienst im Intranet mithilfe der Richtlinie "Internen Pfad für den Microsoft Updatedienst angeben" hergestellt wird.</string>
       <string id="SearchCompanion_DisableFileUpdates">Inhaltdateiupdates des Such-Assistenten deaktivieren</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">Diese Richtlinieneinstellung legt fest, ob der Such-Assistent Inhaltaktualisierungen automatisch bei lokalen and Internetsuchen herunterladen soll.
 

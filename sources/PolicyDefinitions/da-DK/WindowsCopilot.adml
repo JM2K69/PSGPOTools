@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>indtast det viste navn her</displayName>
+  <description>indtast beskrivelsen her</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Deaktiver Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot_Help">Med denne politikindstilling kan du slå Windows Copilot fra.
+
+Hvis du aktiverer denne politikindstilling, kan brugerne ikke bruge Copilot. Copilot-ikonet vises heller ikke på proceslinjen.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan brugerne bruge Copilot, når den er tilgængelig for dem.
+      </string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="DisableAIDataAnalysis">Slå lagring af snapshots fra til brug med Genkald
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Med denne politikindstilling kan du bestemme, om øjebliksbilleder af skærmen kan gemmes til brug sammen med Genkald. Snapshots for Genkald er som standard ikke aktiveret for administrerede enheder. It-administratorer kan ikke selv aktivere lagring af øjebliksbilleder på vegne af deres brugere. Valget til at aktivere lagring af øjebliksbilleder kræver samtykke fra individuel bruger.
+
+Hvis politikken ikke er konfigureret, gemmes øjebliksbilleder ikke til brug sammen med Genkald.
+
+Hvis du aktiverer denne politik, gemmes øjebliksbilleder ikke til brug sammen med Genkald. Hvis der tidligere er gemt øjebliksbilleder på enheden, slettes de, når denne politik er aktiveret.
+
+Hvis du indstiller denne politik til deaktiveret, kan slutbrugerne vælge at gemme øjebliksbilleder af deres skærm og bruge Genkald til at finde ting, de har set på deres enhed.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Angiv det maksimale lager til snapshots, der bruges af Genkald
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Med denne politikindstilling kan du styre den maksimale mængde diskplads, der kan bruges af Windows til at gemme øjebliksbilleder til Genkald.
+
+Du kan indstille den maksimale mængde diskplads til øjebliksbilleder til 10, 25, 50, 75, 100 eller 150 GB.
+
+Når denne indstilling ikke er konfigureret, konfigurerer operativsystemet lagerpladstildelingen for øjebliksbilleder baseret på enhedens lagerkapacitet.
+
+25 GB tildeles, når enhedens lagerkapacitet er 256 GB. 75 GB tildeles, når enhedens lagerkapacitet er 512 GB. 150 GB tildeles, når enhedens lagerkapacitet er 1 TB eller mere.
+
+Hvis både den maksimale lagervarighed og den maksimale lagerplads er indstillet for Genkald, slettes øjebliksbilleder, når det første maksimum er nået.
+
+Vigtigt: Denne indstilling gælder kun for klient-SKU'er af typerne Enterprise og Education.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Lad operativsystemet definere den maksimale lagermængde baseret på harddiskens lagerstørrelse</string>
+      <string id="SetMaximumStorageSpace_10GB">10GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Angiv den maksimale varighed for lagring af snapshots, der bruges af Genkald
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Med denne politikindstilling kan du styre den maksimale tid (i dage), hvori Windows gemmer øjebliksbilleder til Genkald.
+
+Når politikken er aktiveret, kan du konfigurere den maksimale lagervarighed til 30, 60, 90 eller 180 dage.
+
+Når denne politik ikke er konfigureret, er den maksimale lagervarighed 90 dage, medmindre den nuværende bruger angiver en anden værdi.
+
+Hvis både den maksimale lagervarighed og den maksimale lagerplads er indstillet for Genkald, slettes øjebliksbilleder, når det første maksimum er nået.
+
+Vigtigt: Denne indstilling gælder kun for klient-SKU'er af typerne Enterprise og Education.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">Lad operativsystemet definere den maksimale tid, snapshotsene gemmes
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 dage</string>
+      <string id="SetMaximumStorageDuration_60Days">60 dage</string>
+      <string id="SetMaximumStorageDuration_90Days">90 dage</string>
+      <string id="SetMaximumStorageDuration_180Days">180 dage</string>
+      <string id="SetDenyAppListForRecall">Angiv en liste over apps, der skal filtreres fra snapshots for Genkald
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Denne politik giver dig mulighed for at definere en liste over apps, der ikke medtages i øjebliksbilleder for Genkald.
+
+Brugerne kan tilføje yderligere programmer, der skal udelades fra øjebliksbilleder, ved hjælp af Genkald-indstillinger.
+
+Listen kan indeholde PROGRAMBRUGERMODEL-id'er (AUMID) eller navnet på den eksekverbare fil.
+
+Brug en semikolonsepareret liste over apps til at definere listen over afvis apps for Genkald.
+
+Eksempel: code.exe; Microsoft.WindowsNotepad_8wekyb3d8bbwe! App;ms-teams.exe
+
+Vigtigt! Denne indstilling gælder kun for Enterprise- og Education-klient-SKU'er. Når denne politikindstilling konfigureres, træder ændringerne først i kraft, når enheden genstartes.
+      </string>
+      <string id="SetDenyUriListForRecall">Angiv en liste over URI'er, der skal filtreres fra snapshots for Genkald
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Med denne politikindstilling kan du definere en liste over URI'er, der ikke medtages i øjebliksbilleder for Genkald, når der bruges en understøttet browser. Mennesker i organisationen kan bruge Genkald indstillinger til at føje flere websteder til listen. Definer listen ved hjælp af et semikolon til at adskille URI'er.
+
+Eksempel: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+Tilføjelse af https://www.WoodgroveBank.com på listen vil også filtrere https://Account.WoodgroveBank.com og https://www.WoodgroveBank.com/Account.
+
+Vigtigt! Denne indstilling gælder kun for Enterprise- og Education-klient-SKU'er. Ændringer af denne politik træder i kraft, når enheden er genstartet.
+      </string>
+      <string id="SetDataLossPreventionProvider">Angiv DLP-udbyder-id'et for Genkald
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Denne politik gør det muligt for en administrator at angive en DLP-udbyder, som Genkald vil bruge, hvis udbyderen er installeret korrekt. Du skal hente strengen til dette fra din udbyder. Det ser nogenlunde sådan ud:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; værdi:InstallPath; binary:contosoDLP.dll' (uden anførselstegn i værdien).
+
+Vigtigt: Denne indstilling gælder kun for klient-SKU'er for virksomhed og uddannelse.
+      </string>
+      <string id="SetCopilotHardwareKey">Angiv Copilot-hardwaretast</string>
+      <string id="SetCopilotHardwareKey_Help">Denne politikindstilling bestemmer, hvilken app der åbnes, når brugeren trykker på Copilot-tasten på tastaturet. Hvis politikken er aktiveret, åbnes den angivne app, når brugeren trykker på Copilot-tasten. Brugere kan ændre tasttildelingen i Indstillinger. Hvis politikken ikke er konfigureret, åbnes Copilot, hvis den er tilgængelig i det pågældende land eller område.
+      </string>
+      <string id="AllowRecallEnablement">Tillad, at Genkald aktiveres
+      </string>
+      <string id="AllowRecallEnablement_Help">Med denne politikindstilling kan du bestemme, om den Genkald valgfri komponent er tilgængelig, så slutbrugerne kan aktivere den på deres enhed. Som standard er Genkald deaktiveret for administrerede kommercielle enheder. Genkald er som standard ikke tilgængelig på administrerede enheder, og individuelle brugere kan ikke selv aktivere Genkald.
+
+Hvis denne politik ikke er konfigureret, vil slutbrugerne have komponenten Genkald deaktiveret.
+
+Hvis denne politik er deaktiveret, deaktiveres den Genkald komponent, og bit for Genkald fjernes fra enheden. Hvis der tidligere er gemt øjebliksbilleder på enheden, slettes de, når denne politik er deaktiveret. Fjernelse af Genkald kræver genstart af enheden.
+
+Hvis politikken er aktiveret, vil slutbrugerne have Genkald tilgængelige på deres enhed. Afhængigt af tilstanden af politikken DisableAIDataAnalysis (slå lagring af øjebliksbilleder fra til brug med Genkald) kan slutbrugerne vælge, om de vil gemme øjebliksbilleder af skærmen og bruge Genkald til at finde ting, de har set på deres enhed.
+      </string>
+      <string id="DisableClickToDo">Deaktiver Klik for at handle</string>
+      <string id="DisableClickToDo_Help">Klik for at handle giver personer mulighed for at udføre handlinger på indhold på deres skærme. Når det aktiveres, tager det et skærmbillede af deres skærm og analyserer det for at præsentere handlinger. Klik for at handle afsluttes, når de lukker den, og det kan ikke tage skærmbilleder, mens det er lukket. Analyse af skærmbillede udføres altid lokalt på deres enhed. Som standard er Klik for at handle aktiveret for brugere.
+
+Denne politikindstilling giver dig mulighed for at bestemme, om Klik for at handle er tilgængeligt for brugere på deres enhed.
+
+Når politikken er aktiveret, vil Klik for at handle-komponenten og indgangspunkterne ikke være tilgængelige for brugerne.
+
+Når politikken er deaktiveret, vil brugerne have Klik for at handle tilgængeligt på deres enhed.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">Deaktiver Image Creator</string>
+      <string id="DisableImageCreator_Help">Du kan bruge denne politikindstilling til at styre, om Image Creator funktionalitet er deaktiveret i Windows Paint-appen. Hvis denne politik er aktiveret, vil Image Creator funktionalitet ikke være tilgængelig i Paint-appen. Hvis denne politik er deaktiveret eller ikke er konfigureret, kan brugerne få adgang til Image Creator funktionalitet.</string>
+      <string id="DisableCocreator">Deaktiver Cocreator</string>
+      <string id="DisableCocreator_Help">Du kan bruge denne politikindstilling til at styre, om cocreatorfunktionen er deaktiveret i Windows Paint-appen. Hvis denne politik er aktiveret, vil Cocreator-funktionaliteten ikke være tilgængelig i Paint-appen. Hvis denne politik er deaktiveret eller ikke er konfigureret, kan brugerne få adgang til cocreator-funktionaliteten.</string>
+      <string id="DisableGenerativeFill">Deaktiver genererende udfyldning</string>
+      <string id="DisableGenerativeFill_Help">Du kan bruge denne politikindstilling til at styre, om funktionen til oprettelse af fyld er deaktiveret i Windows Paint-appen. Hvis denne politik er aktiveret, vil funktionen til genererende udfyldning ikke være tilgængelig i Paint-appen. Hvis denne politik er deaktiveret eller ikke er konfigureret, kan brugerne få adgang til funktionen til generative fill.</string>
+      <string id="AllowRecallExport">Tillad eksport af oplysninger i Genkald og snapshots</string>
+      <string id="AllowRecallExport_Help">Denne politik giver dig mulighed for at bestemme om brugere kan eksportere deres egne oplysninger fra Genkald og snapshots. Eksport giver brugerne mulighed for at dele deres Genkald- og snapshotoplysninger med betroede apps eller websteder. Brugerne kan eksportere fra Indstillinger &gt; Beskyttelse af personlige oplysninger og sikkerhed &gt; Genkald og snapshots &gt; Avancerede indstillinger &gt; Eksportér dine Genkald- og snapshotoplysninger.
+
+Brugerne kan også vælge at eksportere deres snapshots kontinuerligt, hvis de aktiverer muligheden for at eksportere snapshots fra nu af i Indstillinger &gt; Beskyttelse af personlige oplysninger og sikkerhed &gt; Genkald og snapshots &gt; Avancerede indstillinger &gt; Eksportér snapshots &gt; Eksportér.
+
+Før en eksport kan starte, skal brugeren godkende med Windows Hello, og de får besked om, at deres eksporterede snapshots er krypterede, da de kan indeholde følsomme oplysninger. Brugeren får også besked om, at de skal angive deres Genkald-eksportkode, hvis de ønsker at give betroede apps eller websteder adgang til de eksporterede snapshots. Genkald-eksportkoden vises for brugerne under konfiguration af Genkald, selvom denne politik er indstillet til deaktiveret eller ikke konfigureret. For administrerede enheder:
+
+Når du angiver denne politik til aktiveret, kan brugerne eksportere oplysninger i Genkald og snapshots.
+
+Hvis politikken er indstillet til deaktiveret eller ikke konfigureret, kan brugerne ikke eksportere deres oplysninger fra Genkald og snapshots.
+
+Vigtigt: Denne indstilling gælder kun for enheder i Det Europæiske Økonomiske Samarbejdsområde (EØS). Eksport af Genkald- og snapshotoplysninger er en brugerinitieret proces og er pr. bruger. It-administratorer eller andre brugere kan ikke starte en eksport på vegne af en anden.
+      </string>
+      <string id="DisableSettingsAgent">Deaktiver agentisk søgeoplevelse i Indstillinger</string>
+      <string id="DisableSettingsAgent_Help">Agentisk oplevelse i Indstillinger forbedrer søgeresultaterne i appen Indstillinger ved at aktivere naturligt sprog. Når den er aktiveret, bruger den en AI-model til at give intelligente søgeforslag i Indstillinger.
+
+        Denne politikindstilling giver dig mulighed for at bestemme, om agentisk søgeoplevelse i Indstillinger er tilgængelig for brugere på deres enhed.
+
+        Når politikken er aktiveret, deaktiveres agentisk søgeoplevelse i Indstillinger, hvilket begrænser søgeresultaterne til statisk indekserede søgninger og semantiske søgninger.
+
+        Når politikken er deaktiveret, vil agentisk søgeoplevelse i Indstillinger være tilgængelig på brugernes enhed.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Logføringsniveau for registreringsdatabasen på enheden</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Med denne politikindstilling kan du konfigurere logføringsniveauet for handlinger i registreringsdatabasen på enheden.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Fejl eller højere</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Information eller højere</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Fejlsøgning eller højere</string>
+      <string id="RemoveMicrosoftCopilotApp">Fjern Microsoft Copilot-appen</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Med denne politikindstilling kan du afinstallere Microsoft Copilot for brugere på en målrettet måde. Den gælder for enheder/brugere, der opfylder følgende betingelser:
+
+• Microsoft 365 Copilot og Microsoft Copilot er begge installeret
+
+• Microsoft Copilot-appen blev ikke installeret af brugeren
+
+• Microsoft Copilot-appen er ikke blevet åbnet inden for de sidste 28 dage
+ 
+Hvis denne politik er aktiveret, afinstalleres Microsoft Copilot-appen. Brugerne kan stadig vælge at geninstallere den. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>Angiv App AUMID</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Angiv liste over afvis app:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Angiv liste over afvis URI:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>Indtast DLP-udbyder-id'et:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Vælg maksimal lagerplads:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Vælg maksimal varighed af lager:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Logføringsniveau for registreringsdatabasen på enheden: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

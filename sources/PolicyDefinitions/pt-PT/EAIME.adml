@@ -7,13 +7,13 @@
     <stringTable>
       <string id="L_IME">IME</string>
       <string id="L_TurnOnMisconversionLoggingForMisconversionReport">Ativar registo de conversões incorretas para o relatório de conversões incorretas</string>
-      <string id="L_TurnOnMisconversionLoggingForMisconversionReportExplain">Esta definição de política permite-lhe ligar o registo de conversões incorretas para o relatório de conversões incorretas.
+      <string id="L_TurnOnMisconversionLoggingForMisconversionReportExplain">Esta definição de política permite ativar o registo de conversões incorretas para o relatório de conversões incorretas.
 
-Se ativar esta definição de política, o registo de conversões incorretas é ligado.
+Se ativar esta definição de política, o registo de conversões incorretas é ativado.
 
-Se desativar ou não configurar esta definição de política, o registo de conversões incorretas é desligado.
+Se desativar ou não configurar esta definição de política, o registo de conversões incorretas é desativado.
 
-Esta definição de política aplica-se ao Microsoft IME em japonês.</string>
+Esta definição de política aplica-se ao Microsoft IME em Japonês e ao IME em Chinês Tradicional.</string>
       <string id="L_TurnOffSavingAutoTuningDataToFile">Desativar o registo dos dados da otimização automática no ficheiro</string>
       <string id="L_TurnOffSavingAutoTuningDataToFileExplain">Esta definição de política permite desativar a funcionalidade para guardar o resultado da otimização automática num ficheiro.
 
@@ -55,17 +55,19 @@ Esta definição de política aplica-se ao Microsoft IME em japonês.
 
 Nota: As alterações a esta definição não entrarão em vigor enquanto o utilizador não terminar sessão.</string>
       <string id="L_TurnOffCustomDictionary">Desativar dicionário personalizado</string>
-      <string id="L_TurnOffCustomDictionaryExplain">Esta definição de política permite-lhe desativar a capacidade de utilizar um dicionário personalizado.
+      <string id="L_TurnOffCustomDictionaryExplain">Esta definição de política permite desativar a capacidade de utilizar um dicionário personalizado.
 
-Se ativar esta definição de política, não é possível adicionar, editar e eliminar palavras no dicionário personalizado com APIs ou ferramentas da GUI. Uma palavra registada no dicionário personalizado antes de ativar esta definição de política pode continuar a ser utilizada na conversão.
+Se ativar esta definição de política, não poderá adicionar, editar e eliminar palavras no dicionário personalizado com APIs ou ferramentas da GUI. Uma palavra registada no dicionário personalizado antes de ativar esta definição de política pode continuar a ser utilizada para conversão.
 
 Se desativar ou não configurar esta definição de política, o dicionário personalizado pode ser utilizado por predefinição.
 
-Para o Microsoft IME em japonês, [Limpar informações de otimização automática] funciona, mesmo que esta definição de política esteja ativada e limpa do dicionário personalizado as palavras com otimização automática.
+[Limpar informações de otimização automática] remove palavras otimizadas automaticamente do dicionário personalizado, mesmo que uma definição de política de grupo esteja ativada. Para fazer isso, selecione Configurações &gt; Tempo &amp; Idioma &gt; Opções de japonês &gt; Opções do Microsoft IME. Se o modo de compatibilidade estiver ativado, selecione Opções avançadas &gt; Dicionário/Otimização automática &gt; [Limpar informações de otimização automática].
 
-Esta definição de política é aplicada ao Microsoft IME em japonês.
+[Limpar histórico de entrada] remove palavras que otimizadas automaticamente do dicionário personalizado, mesmo que uma definição de política de grupo esteja ativada. Para fazer isso, selecione Definições &gt; Tempo &amp; Idioma &gt; Opções em Japonês &gt; Opções do Microsoft IME &gt; Aprendizagem e dicionário &gt; [Limpar histórico de entrada].
 
-Nota: As alterações a esta definição não produzirão efeitos enquanto o utilizador não terminar sessão.</string>
+Esta definição de política é aplicada ao Microsoft IME em Japonês.
+
+Nota: as alterações a esta definição só entrarão em vigor quando o utilizador terminar sessão.</string>
       <string id="L_RestrictCharacterCodeRangeOfConversion">Restringir o intervalo de conversão de códigos de carateres</string>
       <string id="L_RestrictCharacterCodeRangeOfConversionExplain">Esta definição de política permite restringir o intervalo de conversão de códigos de carateres através da definição do filtro de carateres.
 
@@ -118,26 +120,54 @@ Se desativar esta definição de política, a funcionalidade associada é desati
 Se não configurar esta definição de política, esta será desativada por predefinição e o utilizador pode ativar e desativar a funcionalidade de candidatos na nuvem.
 
 Esta definição de Política aplica-se apenas ao IME em CHS Pinyin da Microsoft.</string>
-      <string id="L_TurnOnLiveSticker">Ligar Autocolante Dinâmico</string>
-      <string id="L_TurnOnLiveStickerExplain">Esta definição de política controla a funcionalidade de autocolante dinâmico, que utiliza um serviço online para fornecer autocolantes online.
+      <string id="L_ConfigureSimplifiedChineseImeVersion">Configurar a versão do IME em Chinês Simplificado</string>
+      <string id="L_ConfigureSimplifiedChineseImeVersionExplain">Esta definição de política controla a versão do Microsoft IME.​
 
-Se ativar esta definição de política, a funcionalidade associada é ativada, a introdução por teclado do utilizador é enviada para a Microsoft para gerar autocolantes dinâmicos e o utilizador não poderá desativá-la.
+Se não configurar esta definição de política, o utilizador pode controlar a versão do IME que vai ser utilizada. O novo Microsoft IME está ativado por predefinição.​
 
-Se desativar esta definição de política, a funcionalidade associada é desativada e o utilizador não poderá ativá-la.
+Se ativar esta opção, o utilizador não tem autorização para controlar a versão do IME que vai ser utilizada. A versão anterior do Microsoft IME está sempre selecionada.​
 
-Se não configurar esta definição de política, esta será desativada por predefinição e o utilizador pode ativar e desativar a funcionalidade de autocolante dinâmico.
+Se desativar esta opção, o utilizador não tem autorização para controlar a versão do IME que vai ser utilizada. O novo Microsoft IME está sempre selecionado.
 
-Esta definição de Política aplica-se apenas ao IME em CHS Pinyin da Microsoft.</string>
-      <string id="L_TurnOnLexiconUpdate">Ativar atualização de léxico</string>
-      <string id="L_TurnOnLexiconUpdateExplain">Esta definição de política controla a funcionalidade de atualização de léxico, que transfere léxicos de palavras mais utilizadas e populares para o PC local.
+Esta definição de Política aplica-se apenas ao Microsoft IME em Chinês Simplificado.
 
-Se ativar esta definição de política, a funcionalidade associada é ativada, os léxicos de palavras mais utilizadas e populares podem ser transferidos para o PC local e o utilizador poderá proceder à respetiva ativação ou desativação nas definições.
+Nota: As alterações a esta definição não terão efeito até que o utilizador termine sessão.</string>
+      <string id="L_ConfigureTraditionalChineseImeVersion">Configurar a versão do IME em Chinês Tradicional</string>
+      <string id="L_ConfigureTraditionalChineseImeVersionExplain">Esta definição de política controla a versão do Microsoft IME.​
 
-Se desativar esta definição de política, a funcionalidade associada é desativada e o utilizador não poderá ativá-la.
+Se não configurar esta definição de política, o utilizador pode controlar a versão do IME que vai ser utilizada. O novo Microsoft IME está ativado por predefinição.​
 
-Se não configurar esta definição de política, esta será ativada por predefinição e o utilizador pode ativar e desativar a funcionalidade de atualização de léxico.
+Se ativar esta opção, o utilizador não tem autorização para controlar a versão do IME que vai ser utilizada. A versão anterior do Microsoft IME está sempre selecionada.​
 
-Esta definição de Política aplica-se apenas ao IME em CHS Pinyin da Microsoft.</string>
+Se desativar esta opção, o utilizador não tem autorização para controlar a versão do IME que vai ser utilizada. O novo Microsoft IME está sempre selecionado.
+
+Esta definição de Política aplica-se apenas ao Microsoft IME em Chinês Tradicional.
+
+Nota: As alterações a esta definição não terão efeito até que o utilizador termine sessão.</string>
+      <string id="L_ConfigureJapaneseImeVersion">Configurar a versão do IME em Japonês</string>
+      <string id="L_ConfigureJapaneseImeVersionExplain">Esta definição de política controla a versão do Microsoft IME.​
+
+Se não configurar esta definição de política, o utilizador pode controlar a versão do IME que vai ser utilizada. O novo Microsoft IME está ativado por predefinição.​
+
+Se ativar esta opção, o utilizador não tem autorização para controlar a versão do IME que vai ser utilizada. A versão anterior do Microsoft IME está sempre selecionada.​
+
+Se desativar esta opção, o utilizador não tem autorização para controlar a versão do IME que vai ser utilizada. O novo Microsoft IME está sempre selecionado.
+
+Esta definição de Política aplica-se apenas ao Microsoft IME em Japonês.
+
+Nota: As alterações a esta definição não terão efeito até que o utilizador termine sessão.</string>
+      <string id="L_ConfigureKoreanImeVersion">Configurar a versão do IME Coreano</string>
+      <string id="L_ConfigureKoreanImeVersionExplain">Esta definição de política controla a versão do Microsoft IME.​
+
+Se não configurar esta definição de política, o utilizador pode controlar a versão do IME que vai ser utilizada. O novo Microsoft IME está ativado por predefinição.​
+
+Se ativar esta opção, o utilizador não tem autorização para controlar a versão do IME que vai ser utilizada. A versão anterior do Microsoft IME está sempre selecionada.​
+
+Se desativar esta opção, o utilizador não tem autorização para controlar a versão do IME que vai ser utilizada. O novo Microsoft IME está sempre selecionado.
+
+Esta definição de Política aplica-se apenas ao Microsoft IME em Coreano.
+
+Nota: As alterações a esta definição não terão efeito até que o utilizador termine sessão.</string>
     </stringTable>
     <presentationTable>
       <presentation id="L_RestrictCharacterCodeRangeOfConversion">

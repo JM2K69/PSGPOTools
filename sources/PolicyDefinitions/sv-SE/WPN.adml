@@ -6,6 +6,8 @@
   <resources>
     <stringTable>
       <string id="NotificationsCategory">Meddelanden</string>
+      <string id="WnsEndpoint">Aktiverar grupprincip för WNS-FQDN</string>
+      <string id="WnsEndpointExplain">Den här principen anger ett särskilt WNS-FQDN för specifika miljöer.</string>
       <string id="NoTileNotification">Inaktivera panelmeddelanden</string>
       <string id="NoTileNotificationExplain">
           
@@ -118,6 +120,18 @@
 
           Varken datorn eller några tjänster behöver startas om för att den här principinställningen ska börja gälla.
       </string>
+      <string id="ExpandedToastNotifications">Aktivera flera utökade toast-meddelanden i åtgärdscentret</string>
+      <string id="ExpandedToastNotificationsExplain">
+          Den här principinställningen aktiverar flera utökade popup-meddelanden i åtgärdscenter.
+
+Om du aktiverar den här principinställningen visas de tre första meddelandena för varje program som standard i åtgärdscenter.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen visas endast det första meddelandet för varje program som standard i åtgärdscenter.
+
+endast Windows 10. Detta blir omedelbart inaktuellt för Windows 11.
+
+Inga omstarter eller tjänstomstarter krävs för att den här principinställningen ska börja gälla.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="QuietHoursBeginTimePicker">
@@ -125,6 +139,11 @@
       </presentation>
       <presentation id="QuietHoursEndTimePicker">
         <decimalTextBox refId="QuietHoursDailyEndMinuteControl" defaultValue="360">Minuter efter midnatt:</decimalTextBox>
+      </presentation>
+      <presentation id="WnsEndpoint">
+        <textBox refId="WnsEndpoint_FQDN">
+          <label>FQDN för WNS</label>
+        </textBox>
       </presentation>
     </presentationTable>
   </resources>

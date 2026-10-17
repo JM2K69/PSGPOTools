@@ -110,9 +110,11 @@ Se også policyinnstillingene Konfigurer feilrapportering, Vis feilvarsling og D
       <string id="RemoveWindowsUpdate_ICM">Slå av tilgang til alle Windows Update-funksjoner</string>
       <string id="RemoveWindowsUpdate_ICM_Help">Med denne policyinnstillingen kan du fjerne tilgang til Windows Update.
 
-Hvis du aktiverer denne policyinnstillingen, fjernes alle Windows Update-funksjoner. Det gjør at tilgangen til webområdet for Windows Update på http://windowsupdate.microsoft.com/ blokkeres fra Windows Update-hyperkoblingen på Start-menyen og fra Verktøy-menyen i Internet Explorer. Automatiske Windows-oppdateringer deaktiveres også, og du vil verken få varsler om eller motta viktige oppdateringer fra Windows Update. Policyinnstillingen forhindrer dessuten at Enhetsbehandling installerer driveroppdateringer automatisk fra webområdet for Windows Update.
+Hvis du aktiverer denne policyinnstillingen, fjernes alle Windows Update-funksjoner. Dette omfatter blokkering av tilgang til webområdet for Windows Update på http://windowsupdate.microsoft.com, fra hyperkoblingen til Windows Update på Start-menyen og også på Verktøy-menyen i Internet Explorer. Automatisk oppdatering av Windows er også deaktivert. Du vil verken bli varslet om eller motta kritiske oppdateringer fra Windows Update. Denne policyinnstillingen hindrer også enhetsbehandling fra å installere driveroppdateringer automatisk fra webområdet for Windows Update.
 
-Hvis du deaktiverer denne policyinnstillingen eller ikke konfigurerer den, får brukerne tilgang til webområdet for Windows Update og kan aktivere automatiske oppdateringer for å motta varsler og viktige oppdateringer fra Windows Update.</string>
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, får brukerne tilgang til webområdet for Windows Update og kan aktivere automatiske oppdateringer for å motta varsler og viktige oppdateringer fra Windows Update.
+
+Obs!  Denne policyen gjelder bare når denne PC-en er konfigurert til å koble til en oppdateringstjeneste på intranett ved hjelp av policyen Angi en plassering på intranettet på Microsofts oppdateringstjeneste.</string>
       <string id="SearchCompanion_DisableFileUpdates">Slå av oppdatering av innholdsfil for søkehjelperen</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">Denne policyinnstillingen angir om søkehjelperen automatisk skal laste ned innholdsoppdateringer under lokale søk og Internett-søk.
 

@@ -58,25 +58,24 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, kunnen leden van 
       <string id="DriverSearchPlaces_SearchOrderConfiguration_NeverCheckWu">Niet zoeken op Windows Update</string>
 
       <string id="DriverSearchPlaces_SearchServerConfiguration">Specificeer de zoekserver voor updates van apparaatstuurprogramma's</string>
-      <string id="DriverSearchPlaces_SearchServerConfiguration_Help">Met deze beleidsinstelling kunt u de zoekserver specificeren waarin Windows naar updates van apparaatstuurprogramma's moet zoeken.
+      <string id="DriverSearchPlaces_SearchServerConfiguration_Help">Met deze beleidsinstelling kunt u de zoekserver opgeven waarmee Windows naar updates van apparaatstuurprogramma's moet zoeken.
 
 Als u deze beleidsinstelling inschakelt, kunt u aangeven of Windows moet zoeken op Windows Update (WU), op een beheerde server of een combinatie van beide.
 
-Opmerking: indien beide is gespecificeerd, zal Windows eerst op de beheerde server, zoals een Windows Server Update Services (WSUS) server zoeken. Alleen als er geen update wordt aangetroffen zal Windows ook zoeken op Windows Update.
+Opmerking: Als beide zijn opgegeven, zoekt Windows eerst op de beheerde server, bijvoorbeeld een WSUS-server (Windows Server Update Services). Alleen als er geen update wordt aangetroffen, zoekt Windows ook op Windows Update.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, kunnen leden van de groep Administrators de server bepalen, die wordt gebruikt voor het zoeken naar apparaatstuurprogramma's.
-      
+Als u deze beleidsinstelling uitschakelt of niet configureert, kunnen leden van de groep Administrators de server bepalen die wordt gebruikt voor het zoeken naar apparaatstuurprogramma's.
       </string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Windows Update doorzoeken</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Beheerde server doorzoeken</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Beheerde server doorzoeken, dan WU</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Ophalen van apparaatmetagegevens van internet voorkomen</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Met deze beleidsinstelling kunt u voorkomen dat Windows metagegevens van een apparaat ophaalt van internet.
-          
-Als u deze beleidsinstelling inschakelt, haalt Windows geen metagegevens voor geïnstalleerde apparaten op van internet. Deze beleidsinstelling heeft prioriteit boven de instelling in het dialoogvenster Instellingen voor apparaatinstallatie (Configuratiescherm &gt; Systeem en beveiliging &gt; Systeem &gt; Geavanceerde systeeminstellingen &gt; tabblad Hardware).
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, bepaalt de instelling in het dialoogvenster Instellingen voor apparaatinstallatie of Windows metagegevens van apparaten ophaalt van internet.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Automatisch downloaden van toepassingen die zijn gekoppeld aan metagegevens van het apparaat voorkomen</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Met deze beleidsinstelling kunt u voorkomen dat Windows toepassingen downloadt die zijn gekoppeld aan metagegevens van het apparaat.
+
+Als u deze beleidsinstelling inschakelt, downloadt Windows geen toepassingen die zijn gekoppeld aan apparaatmetagegevens voor geïnstalleerde apparaten. Deze beleidsinstelling overschrijft de instelling in het dialoogvenster Instellingen voor apparaatinstallatie (Configuratiescherm &gt; tabblad Systeem en beveiliging &gt; Systeem &gt; Geavanceerde systeeminstellingen &gt; Hardware).
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, bepaalt de instelling in het dialoogvenster Instellingen voor apparaatinstallatie of Windows toepassingen downloadt die zijn gekoppeld aan metagegevens van het apparaat.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

@@ -101,6 +101,13 @@ Si deshabilitas o no estableces esta configuración, el inicio de sesión autom�
       <string id="ConfigAutomaticRestartSignOn_EnableIfSecure">Habilitado si BitLocker está activado y no suspendido</string>
       <string id="ConfigAutomaticRestartSignOn_EnableAlways">Siempre habilitado</string>
 
+      <string id="EnableMPRNotifications">Configure la transmisión de la contraseña del usuario en el contenido de las notificaciones de MPR enviadas por winlogon.</string>
+      <string id="EnableMPRNotifications_Help">Esta directiva controla si la contraseña del usuario se incluye en el contenido de las notificaciones de MPR enviadas por winlogon en el sistema.
+
+Si deshabilita esta opción o no la configura, winlogon envía notificaciones de MPR con campos de contraseña vacíos de la información de autenticación del usuario.
+
+Si habilita esta configuración, winlogon envía notificaciones de MPR que contienen la contraseña del usuario en la información de autenticación.</string>
+
     </stringTable>
     <presentationTable>
       <presentation id="LogonHoursPolicyDescription">

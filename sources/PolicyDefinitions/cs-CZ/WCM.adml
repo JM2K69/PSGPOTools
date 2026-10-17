@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2006 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Nastavení zásad skupiny pro službu Správce připojení systému Windows</displayName>
   <description>Nastavení zásad skupiny pro službu Správce připojení systému Windows</description>
@@ -22,7 +22,7 @@ Pokusy o ruční připojení
 Pokud tuto zásadu zakážete nebo nenakonfigurujete, počítače se můžou současně připojit jak k sítím založeným na doméně, tak i k sítím, které nejsou založené na doméně.
       </string>
       <string id="WCM_DisableRoaming">Zakázat připojení k mobilním širokopásmovým sítím při roamingu</string>
-      <string id="WCM_DisableRoaming_Help">Nastavení této zásady klientům brání v připojení k mobilním širokopásmovým sítím, když je klient registrován v síti roamingového operátora. 
+      <string id="WCM_DisableRoaming_Help">Tato zásada klientům brání v připojení k mobilním širokopásmovým sítím, když je klient registrován v síti roamingového operátora.
 
 Pokud tuto zásadu povolíte, budou se blokovat všechny pokusy o automatické a ruční připojení k sítím roamingových operátorů, dokud se klient nezaregistruje do sítě domovského operátora.
 
@@ -47,14 +47,14 @@ Pokud tuto zásadu zakážete nebo nenakonfigurujete, klienti se můžou připoj
         Tato zásada souvisí se zásadou Povolit systému Windows měkké odpojení počítače od sítě.
       </string>
       <string id="WCM_DisablePowerManagement">Zakázat řízení spotřeby v pohotovostním režimu s připojením</string>
-      <string id="WCM_DisablePowerManagement_Help">Nastavení této zásady určuje, že se při přechodu počítače do úsporného režimu s připojením zakáže řízení spotřeby. 
+      <string id="WCM_DisablePowerManagement_Help">Tato zásada určuje, že se při přechodu počítače do úsporného režimu s připojením zakáže řízení spotřeby.
 
 Pokud tuto zásadu povolíte, Správce připojení systému Windows při přechodu počítače do úsporného režimu s připojením nebude řídit radiové moduly adaptéru s cílem snížit spotřebu energie.
 
 Pokud tuto zásadu zakážete nebo nenakonfigurujete, řízení spotřeby se při přechodu počítače do úsporného režimu povolí.
       </string>
       <string id="WCM_EnableSoftDisconnect">Povolit systému Windows měkké odpojení počítače od sítě</string>
-      <string id="WCM_EnableSoftDisconnect_Help">Nastavení této zásady určuje, jestli systém Windows provede měkké odpojení počítače od sítě.
+      <string id="WCM_EnableSoftDisconnect_Help">Tato zásada určuje, jestli systém Windows provede měkké odpojení počítače od sítě.
 
 Pokud tuto zásadu povolíte nebo nenakonfigurujete, systém Windows provede měkké odpojení počítače od sítě, když zjistí, že by už neměl být k síti připojený.
 
@@ -65,7 +65,7 @@ Pokud je měkké odpojení povolené:
 - Systém Windows pak pravidelně kontroluje úroveň provozu v síti. Pokud je úroveň provozu nad určitou prahovou hodnotou, neproběhne žádná další akce. Počítač zůstane připojený k síti a bude ji dál používat. Pokud se například přes síťové připojení aktuálně stahují soubory z internetu, bude tento proces pokračovat.
 - Pokud síťový provoz klesne pod prahovou hodnotu, počítač se od sítě odpojí. Aplikace, které udržují síťové připojení aktivní, i když ho aktivně nepoužívají (například e-mailové aplikace), můžou ztratit připojení. Pokud k tomu dojde, měly by tyto aplikace obnovit připojení přes jinou síť. 
 
-Nastavení této zásady závisí na nastavení jiných zásad skupiny. Pokud je například zakázaná zásada Minimalizovat počet současných připojení k internetu nebo doméně systému Windows, neodpojí se systém Windows od žádných sítí.
+Nastavení této zásady závisí na nastavení jiných skupin zásad. Pokud je například zakázaná zásada Minimalizovat počet současných připojení k internetu nebo doméně systému Windows, neodpojí se systém Windows od žádných sítí.
       </string>
     </stringTable>
     <presentationTable>

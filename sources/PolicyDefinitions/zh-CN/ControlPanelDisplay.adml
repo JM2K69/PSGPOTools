@@ -173,6 +173,12 @@
 默认情况下，用户可以更改计算机锁定时或显示登录屏幕时屏幕上显示的背景图像。
 
 如果启用此设置，用户将无法更改其锁屏界面图像和登录图像，看到的将是默认图像。</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">禁止锁屏界面背景移动</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">此策略设置可控制锁屏界面是静态图像还是具有由设备的加速计输出驱动的细微平移效果。
+
+如果启用此设置，将禁止背景移动，并且用户将看到传统的静态锁屏界面背景图像。
+
+如果禁用此设置 (并且设备具有加速计)，则在物理移动其设备时，用户将会看到锁屏界面的背景在静止图像周围平移。</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">强制显示特定的默认锁屏界面图像和登录图像</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">使用此设置，可以通过输入图像文件的路径(位置)来强制显示特定的默认锁屏界面图像和登录图像。同一图像将用于锁屏界面和登录屏幕。
 

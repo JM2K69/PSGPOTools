@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>请在此处输入显示名称</displayName>
+  <description>请在此处输入描述</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">关闭 Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot_Help">此策略设置允许关闭 Windows Copilot。
+
+如果启用此策略设置，用户将无法使用 Copilot。Copilot 图标也不会显示在任务栏上。
+
+如果禁用或未配置此策略设置，用户将能够在 Copilot 可供他们使用时使用它。
+      </string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="DisableAIDataAnalysis">关闭保存快照以用于回顾的功能
+      </string>
+      <string id="DisableAIDataAnalysis_Help">使用此策略设置，可以确定是否可以保存屏幕快照以用于回顾。对于托管设备，默认情况下不启用回顾快照。IT 管理员无法自行启用代表其用户保存快照。选择启用保存快照需要单个用户选择加入同意。
+
+如果未配置策略，则不会保存快照以用于回顾。
+
+如果启用此策略，则不会保存快照以用于回顾。如果快照以前保存在设备上，则在启用此策略时将删除它们。
+
+如果将此策略设置为“已禁用”，则最终用户可以选择保存其屏幕的快照，并使用回顾查找他们在设备上看到的内容。
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">为回顾使用的快照设置存储空间上限
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">此策略设置让你可以控制 Windows 可以用于保存回顾快照的磁盘空间量上限。
+
+可以将快照的磁盘空间量上限设置为 10、25、50、75、100 或 150 GB。
+
+如果未配置此设置，OS 会根据设备存储容量为快照配置存储分配，除非当前用户指定其他值。
+
+当设备存储容量为 256 GB 时，将分配 25 GB。当设备存储容量为 512 GB 时，将分配 75 GB。当设备存储容量为 1 TB 或更高时，将分配 150 GB。
+
+如果同时为回顾功能设置了最大存储持续时间和最大存储空间，则在达到第一个最大值时会删除快照。
+
+重要提示: 此设置仅适用于企业版和教育版客户端 SKU。
+      </string>
+      <string id="SetMaximumStorageSpace_Default">让 OS 根据硬盘驱动器存储大小定义存储量上限</string>
+      <string id="SetMaximumStorageSpace_10GB">10GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">设置回顾使用的存储快照的持续时间上限
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">此策略设置让你可以控制 Windows 为回顾保存快照的时长上限(以天为单位)。
+
+启用此策略后，可以将存储持续时间上限配置为 30 天、60 天、90 天或 180 天。
+
+如果未配置此策略，则最大存储持续时间为 90 天，除非当前用户指定了其他值。
+
+如果同时为回顾功能设置了最大存储持续时间和最大存储空间，则在达到第一个最大值时会删除快照。
+
+重要提示: 此设置仅适用于企业版和教育版客户端 SKU。
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">让 OS 定义保存快照的最长时间
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 天</string>
+      <string id="SetMaximumStorageDuration_60Days">60 天</string>
+      <string id="SetMaximumStorageDuration_90Days">90 天</string>
+      <string id="SetMaximumStorageDuration_180Days">180 天</string>
+      <string id="SetDenyAppListForRecall">设置要从“回顾”的快照中过滤的应用列表
+      </string>
+      <string id="SetDenyAppListForRecall_Help">使用此策略，可以定义不会包含在快照中用于回顾的应用列表。
+
+用户将能够使用回顾设置添加要从快照中排除的其他应用程序。
+
+列表可以包含可执行文件的 AUMID) 或名称 (应用程序用户模型 ID。
+
+使用分号分隔的应用列表来定义回顾的拒绝应用列表。
+
+例如： code.exe;Microsoft.WindowsNotepad_8wekyb3d8bbwe！应用;ms-teams.exe
+
+重要提示： 此设置仅适用于企业和教育版客户端 SKU。配置此策略设置时，在设备重启之前，更改不会生效。
+      </string>
+      <string id="SetDenyUriListForRecall">设置要从“回顾”的快照中过滤的 URI 列表
+      </string>
+      <string id="SetDenyUriListForRecall_Help">使用此策略设置，可以定义在使用受支持的浏览器时不会包含在回顾快照中的 URI 列表。组织内的人员可以使用回顾设置向列表添加更多网站。使用分号定义列表以分隔 URI。
+
+例如： https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+将 https://www.WoodgroveBank.com 添加到列表也会筛选 https://Account.WoodgroveBank.com 和 https://www.WoodgroveBank.com/Account.
+
+重要提示： 此设置仅适用于企业和教育版客户端 SKU。对此策略所做的更改将在设备重启后生效。
+      </string>
+      <string id="SetDataLossPreventionProvider">设置用于回顾的 DLP 提供程序 ID
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">使用此策略，管理员可以指定 DLP 提供程序，回顾在正确安装提供程序时使用该 ID。需要从提供程序获取此字符串。它将类似于 "key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll"(值中没有任何引号)。
+
+重要提示: 此设置仅适用于企业版和教育版客户端 SKU。
+      </string>
+      <string id="SetCopilotHardwareKey">设置 Copilot 硬件键</string>
+      <string id="SetCopilotHardwareKey_Help">此策略设置决定当用户按键盘上的 Copilot 键时打开哪个应用。如果启用此策略，则当用户按 Copilot 键时，指定的应用将打开。用户可以在“设置”中更改键分配。如果未配置此策略，则 Copilot 将在该国家或地区提供的情况下打开。
+      </string>
+      <string id="AllowRecallEnablement">允许启用回顾
+      </string>
+      <string id="AllowRecallEnablement_Help">使用此策略设置，可以确定回顾可选组件是否可供最终用户在其设备上启用。默认情况下，对托管商业设备禁用回顾。默认情况下，回顾在托管设备上不可用，单个用户无法自行启用回顾。
+
+如果未配置此策略，则最终用户的回顾组件将处于禁用状态。
+
+如果禁用此策略，回顾组件将处于禁用状态，并且将从设备中删除回顾位。如果快照以前保存在设备上，则当禁用此策略时，将删除它们。删除回顾需要重启设备。
+
+如果启用此策略，最终用户在其设备上将回顾可用。根据 DisableAIDataAnalysis 策略的状态 (关闭保存快照以供回顾)使用，最终用户将能够选择是否要保存屏幕快照，并使用回顾查找其设备上看到的内容。
+      </string>
+      <string id="DisableClickToDo">禁用“单击以执行”</string>
+      <string id="DisableClickToDo_Help">通过“单击以执行”，用户可操作屏幕上的内容。激活后，它会创建屏幕的屏幕截图并进行分析以显示操作。“单击以执行”在退出时结束，关闭时无法创建屏幕截图。屏幕截图分析始终在设备上本地执行。默认情况下，已对用户启用“单击以执行”。
+
+此策略设置允许你确定用户在设备上是否可使用“单击以执行”。
+
+策略启用后，用户将无法访问“单击以执行”组件和入口点。
+
+策略禁用后，用户可在设备上使用“单击以执行”。
+      </string>
+      <string id="Paint">画图</string>
+      <string id="DisableImageCreator">禁用图像创建器</string>
+      <string id="DisableImageCreator_Help">使用此策略设置，可以控制是否在 Windows 画图应用中禁用图像创建器功能。如果启用此策略，图像创建器功能将无法在画图应用中访问。如果禁用或未配置此策略，则用户将能够访问图像创建器功能。</string>
+      <string id="DisableCocreator">禁用共同创建器</string>
+      <string id="DisableCocreator_Help">使用此策略设置，可以控制是否在 Windows 画图应用中禁用 Cocreator 功能。如果启用此策略，则“画图”应用中将无法访问 Cocreator 功能。如果禁用或未配置此策略，则用户将能够访问 Cocreator 功能。</string>
+      <string id="DisableGenerativeFill">禁用生成式填充</string>
+      <string id="DisableGenerativeFill_Help">使用此策略设置，可以控制是否在 Windows 画图应用中禁用生成填充功能。如果启用此策略，则“画图”应用中将无法访问生成填充功能。如果禁用或未配置此策略，则用户将能够访问生成填充功能。</string>
+      <string id="AllowRecallExport">允许导出回顾和快照信息</string>
+      <string id="AllowRecallExport_Help">此策略允许你确定用户是否可以导出其自己的回顾和快照信息。导出功能使用户能够与受信任的应用或网站共享其回顾和快照信息。用户可以通过“设置 &gt; 隐私和安全 &gt; 回顾和快照 &gt; 高级设置 &gt; 导出快照 &gt; 导出过去的快照 &gt; 导出”进行导出。
+
+用户还可以选择在“设置 &gt; 隐私和安全 &gt; 回顾和快照 &gt; 高级设置 &gt; 导出快照 &gt; 导出”中启用“从现在起导出快照”选项，以持续导出其快照。
+
+在开始导出之前，用户必须使用 Windows Hello 进行身份验证，并会被通知其导出的快照已加密，因为这些快照可能包含敏感信息。如果用户希望允许受信任的应用或网站访问导出的快照，则还需要提供其回顾导出代码。回顾导出代码在回顾设置期间向用户显示，即使此策略设置为禁用或未配置也是如此。对于托管设备:
+
+将此策略设置为“启用”时，用户将能够导出回顾和快照信息。
+
+如果策略设置为禁用或未配置，用户将无法导出其回顾和快照信息。
+
+重要提示: 此设置仅适用于欧洲经济区(EEA)中的设备。导出回顾和快照信息是用户发起的过程，并且是针对每个用户的。IT 管理员或其他用户无法代表其他用户发起导出。
+      </string>
+      <string id="DisableSettingsAgent">禁用设置代理搜索体验</string>
+      <string id="DisableSettingsAgent_Help">设置智能体体验支持自然语言，增强了“设置”应用中的搜索结果。激活后，它将利用 AI 模型提供智能的“设置”搜索建议。
+
+        通过此策略设置可以决定用户是否能在其设备上体验“设置”智能体搜索。
+
+        启用此策略后，将禁用“设置”智能体搜索体验，搜索结果只限于静态索引搜索和语义搜索。
+
+        禁用此策略后，用户可以在其设备上体验“设置”智能体搜索。
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">设备上的注册表日志记录级别</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">使用此策略设置，可以配置设备上注册表操作的日志记录级别。</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">错误或更高级别</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">信息或更高级别</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">调试或更高级别</string>
+      <string id="RemoveMicrosoftCopilotApp">移除 Microsoft Copilot 应用</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">此策略设置允许你以针对性方式卸载用户的 Microsoft Copilot。它将应用于满足以下条件的设备/用户: 
+
+• 已安装智能 Microsoft 365 Copilot 副驾驶® 和 Microsoft Copilot
+
+• 用户未安装 Microsoft Copilot 应用
+
+• Microsoft Copilot 应用在过去 28 天内未启动
+ 
+如果启用此策略，则将卸载 Microsoft Copilot 应用。如果用户选择重新安装，他们仍然可以进行此操作。 </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>输入应用 AUMID</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>输入拒绝应用列表:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>输入拒绝 URI 列表:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>输入 DLP 提供程序 ID:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">选择存储空间上限:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">选择存储持续时间上限:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> 设备上的注册表日志记录级别: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

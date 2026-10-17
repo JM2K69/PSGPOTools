@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Grupprincip för tangentbordsfilter</displayName>
+  <description>Inställningar för grupprinciper för tangentbordsfilter</description>
+  <resources>
+    <stringTable>
+      <string id="KeyboardFilter">Tangentbordsfilter</string>
+      <string id="AllowKbFilterInRemoteSessions">Tillåt tangentbordsfilter i fjärrsessioner</string>
+      <string id="AllowKbFilterInRemoteSessions_Text">Tangentbordsfilter gäller vanligtvis bara för lokala sessioner.
+      
+Om du aktiverar den här inställningen tillämpas tangentbordsfiltret på användare som ansluter till datorn via fjärrsessioner.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

@@ -129,6 +129,12 @@ Hvis du ikke konfigurerer denne indstilling, kan medarbejderne vælge, om de vil
 Hvis indstillingen er aktiveret, er udskrivning tilladt.
 
 Hvis indstillingen er deaktiveret, er udskrivning ikke tilladt.</string>
+      <string id="AllowMixedModePrintingInPdf">Udskriv for PDF-filer, der har både liggende og stående sider, i sin egen retning.</string>
+      <string id="AllowMixedModePrintingInPdf_Explain">Med denne politik kan du udskrive PDF-filer baseret på retningen pr. side i Microsoft Edge.
+
+Hvis indstillingen er aktiveret, er det tilladt at udskrive i blandet tilstand.
+
+Hvis indstillingen er deaktiveret, er det ikke tilladt at udskrive i blandet tilstand.</string>
       <string id="AllowSavingHistory">Tillad lagring af historik</string>
       <string id="AllowSavingHistory_Explain">Microsoft Edge gemmer brugernes browserdata, som består af oplysninger om de websteder, de besøger, på deres enheder.
 
@@ -491,7 +497,7 @@ Hvis du forhindrer start på forhånd, vil Microsoft Edge ikke starte på forhå
       <string id="AllowPrelaunchDropdown_AllowPrelaunch">Tillad start på forhånd</string>
       <string id="AllowPrelaunchDropdown_PreventPrelaunch">Undgå start på forhånd</string>
 
-      <string id="ConfigureKioskMode">Konfigurer fuld skærm</string>
+      <string id="ConfigureKioskMode">Konfigurer kiosk</string>
       <string id="ConfigureKioskMode_Explain">Konfigurer, hvordan Microsoft Edge skal fungere, når det kører i fuld skærm med tildelt adgang, enten som en enkelt app eller som en af flere apps på kioskenheden. Du kan styre, om Microsoft Edge kører InPrivate i fuld skærm, InPrivate med flere faner og begrænset funktionalitet eller normal Microsoft Edge.
 
 Du skal konfigurere Microsoft Edge i tildelt adgang, for at denne politik kan træde i kraft. Ellers ignoreres disse indstillinger. Hvis du vil vide mere om tildelt adgang og kioskkonfiguration, kan du gå til "Konfigurer kioskenheder og delte enheder, der kører Windows-skrivebordsudgaver" (https://aka.ms/E489vw - artiklen er muligvis på engelsk).
@@ -512,9 +518,14 @@ Hvis du angiver denne politik til 0, bruger Microsoft Edge ikke en timer for ina
 Hvis indstillingen er deaktiveret eller ikke er konfigureret, er standardværdien 5 minutter.
 
 Hvis du undlader at konfigurere Microsoft Edge i tildelt adgang, træder denne politik ikke i kraft.</string>
-    </stringTable>
+      <string id="SuppressEdgeDeprecationNotification">Slet meddelelse om visning af forældet Edge</string>
+      <string id="SuppressEdgeDeprecationNotification_Explain">Du kan konfigurere Microsoft Edge til at slette den meddelelsesvisning, der informerer brugere om, at understøttelse af denne version af Microsoft Edge blev afsluttet den 9. marts 2021. Hvis indstillingen er aktiveret, vises meddelelsen ikke.
 
+Hvis indstillingen er deaktiveret eller ikke er konfigureret, vises meddelelsen, hver gang Microsoft Edge startes. </string>
+
+    </stringTable>
     <!-- Presentation -->
+    
     <presentationTable>
       <presentation id="ConfiguredFavorites_Presentation">
         <textBox refId="ConfiguredFavoritesPrompt">

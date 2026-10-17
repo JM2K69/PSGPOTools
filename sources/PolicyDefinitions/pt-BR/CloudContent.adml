@@ -67,6 +67,43 @@ Se você desabilitar ou não configurar esta política, os recursos de destaque 
 Se você habilitar essa política, a Experiência de Boas-vindas do Windows não será mais exibida quando houver atualizações e alterações para o Windows e seus aplicativos.
 
 Se você desabilitar ou não configurar essa política, a Experiência de Boas-vindas do Windows será iniciada para ajudar a carregar os usuários para o Windows, informando-os sobre novidades, alterações e sugestões.</string>
+      <string id="DisableCloudOptimizedContent">Desativar o conteúdo otimizado em nuvem</string>
+      <string id="DisableCloudOptimizedContent_Help">Essa configuração de política permite desativar o conteúdo otimizado em nuvem em todas as experiências do Windows.
+
+Se você habilitar essa política, as experiências do Windows que usam o componente cliente de conteúdo otimizado na nuvem, em vez disso, apresentarão o conteúdo de fallback padrão.
+
+Se você desabilitar ou não configurar essa política, as experiências do Windows poderão usar o conteúdo otimizado na nuvem.</string>
+      <string id="DisableSpotlightCollectionOnDesktop">Desativar coleção de Destaque na Área de trabalho</string>
+      <string id="DisableSpotlightCollectionOnDesktop_Help">Esta configuração de política remove a configuração da coleção de Destaque na Personalização, renderizando o usuário inapto de selecionar e subsequentemente baixar imagens diárias da Microsoft na área de trabalho.
+
+Se você habilitar essa política, a "coleção de Destaque" não estará disponível como uma opção nas configurações de Personalização.
+
+Se você desabilitar ou não configurar essa política, a "coleção de Destaque" aparecerá como uma opção nas configurações de Personalização, permitindo que o usuário selecione "coleção de destaque" como provedor de Área de trabalho e exiba imagens diárias da Microsoft na área de trabalho.</string>
+      <string id="DisableConsumerAccountStateContent">Desligue o conteúdo do estado da conta do consumidor na nuvem</string>
+      <string id="DisableConsumerAccountStateContent_Help">Esta configuração de política permite que você desative o conteúdo de estado da conta de consumidor na nuvem em todas as experiências do Windows.
+
+Se você habilitar essa política, as experiências do Windows que usam o componente cliente de conteúdo de estado da conta de consumidor de nuvem, em vez disso, apresentarão o conteúdo de fallback padrão.
+
+Se você desabilitar ou não configurar essa política, as experiências do Windows poderão usar o conteúdo de estado da conta de consumidor na nuvem.
+        </string>
+      <string id="EnableOrganizationalMessagesContent">Habilitar Mensagens Organizacionais</string>
+      <string id="EnableOrganizationalMessagesContent_Help">As mensagens organizacionais permitem que os administradores entreguem mensagens aos usuários finais em experiências selecionadas do Windows 11. As mensagens organizacionais estão disponíveis para administradores por meio de serviços como o Microsoft Endpoint Manager.
+
+Por padrão, essa política é desabilitada. Se você habilitar essa política, essas experiências mostrarão o conteúdo reservado por Administradores.
+
+A criação dessa política não terá impacto sobre as configurações de política de MDM existentes que regem a entrega de conteúdo da Microsoft em experiências do Windows.</string>
+      <string id="DisableGetStartedContent">Desabilitar Introdução</string>
+      <string id="DisableGetStartedContent_Help">Esta configuração de política desativa a experiência de Introdução do Windows.
+
+Se você habilitar esta configuração de política, a Introdução não será iniciada automaticamente e será fechada imediatamente se for iniciada manualmente. As tarefas em segundo plano relacionadas não serão executadas.
+
+Se você desabilitar ou não configurar esta configuração de política, a Introdução permanecerá disponível e poderá ser exibida para ajudar os usuários a aprender sobre o Windows.</string>
+      <string id="DisableCopilotPinScreenContent">Desativar tela de fixação do Copilot</string>
+      <string id="DisableCopilotPinScreenContent_Help">Impede que o Windows mostre recomendações do Microsoft 365 Copilot na entrada. Isso não desabilita o Copilot nem afeta o licenciamento.
+
+Se você habilitar essa configuração de política, as diretrizes de configuração do Microsoft 365 Copilot não serão iniciadas automaticamente na entrada.
+
+Se você desabilitar ou não definir essa configuração de política, as diretrizes de configuração do Microsoft 365 Copilot poderão aparecer na entrada para ajudar os usuários a descobrir e configurar o Copilot.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureWindowsSpotlight">

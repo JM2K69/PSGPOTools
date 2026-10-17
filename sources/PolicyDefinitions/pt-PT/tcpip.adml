@@ -27,19 +27,17 @@
       <string id="IPHTTPS_ClientState">Definir Estado IP-HTTPS</string>
       <string id="IPHTTPS_ClientUrl">Url de IP-HTTPS</string>
 
-      <string id="ISATAP_State_Help">Esta definição de política permite-lhe configurar o ISATAP (Intra-Site Automatic Tunnel Addressing Protocol), uma tecnologia automática de túnel endereço a router e anfitrião a anfitrião, anfitrião a router e router a anfitrião utilizada para fornecer conectividade IPv6 unicast entre anfitriões IPv6 através de uma intranet IPv4.
+      <string id="ISATAP_State_Help">Esta definição de política permite-lhe configurar o ISATAP (Intra-Site Automatic Tunnel Addressing Protocol), uma tecnologia automática de túnel endereço a router e anfitrião a anfitrião, anfitrião a router e router a anfitrião, utilizada para fornecer conectividade IPv6 unicast entre anfitriões IPv6 através de uma intranet IPv4.
 
 Se desativar ou não configurar esta definição de política, é utilizada a definição do anfitrião local.
 
 Se ativar esta definição de política, pode configurar o ISATAP com uma das seguintes definições:
 
-Estado Predefinido da Política: se o nome do router ISATAP for resolvido com êxito, o anfitrião terá o ISATAP configurado com um endereço de ligação local e um endereço para cada prefixo recebido do router ISATAP através da configuração automática de endereços sem monitorização de estado. Se o nome do router ISATAP não for resolvido com êxito, a conectividade ISATAP não está disponível no anfitrião utilizando o endereço IPv4 correspondente.
+Estado Predefinido da Política: não existem interfaces ISATAP no sistema anfitrião.
 
-Estado de Ativado da Política: se o nome do router ISATAP for resolvido com êxito, o anfitrião terá o ISATAP configurado com um endereço de ligação local e um endereço para cada prefixo recebido do router ISATAP através da configuração automática de endereços sem monitorização de estado. Se o nome ISATAP não for resolvido com êxito, o anfitrião terá uma interface ISATAP configurada com um endereço de ligação local.
+Estado Ativado da Política: se o nome ISATAP for resolvido com êxito, o anfitrião terá o ISATAP configurado com um endereço de ligação local e um endereço para cada prefixo recebido do router ISATAP através da configuração automática de endereços sem monitorização de estado. Se o nome ISATAP não for resolvido com êxito, o anfitrião terá uma interface ISATAP configurada com um endereço de ligação local.
 
-Estado de Desativado da Política: não estão presentes no anfitrião interfaces ISATAP.
-
-
+Estado Desativado da Política: não existem interfaces ISATAP no sistema anfitrião.
 
 </string>
 
@@ -54,19 +52,17 @@ Se desativar ou não configurar esta definição de política, será utilizada a
 </string>
 
 
-      <string id="6to4_State_Help">Esta definição de política permite-lhe configurar o 6to4, uma tecnologia automática de túnel router a router e de atribuição de endereços utilizada para fornecer conectividade IPv6 unicast entre Web sites e anfitriões IPv6 através da Internet IPv4. O 6to4 utiliza o prefixo de endereço global: 2002:WWXX:YYZZ::/48, no qual as letras são uma representação hexadecimal do endereço IPv4 global (w.x.y.z) atribuído a um Web site.
+      <string id="6to4_State_Help">Esta definição de política permite-lhe configurar o 6to4, uma tecnologia automática de túnel router a router e de atribuição de endereços utilizada para fornecer conectividade IPv6 unicast entre sites e anfitriões IPv6 através da Internet IPv4. O 6to4 utiliza o prefixo de endereço global: 2002:WWXX:YYZZ::/48, no qual as letras são uma representação hexadecimal do endereço IPv4 global (w.x.y.z) atribuído a um site.
 
 Se desativar ou não configurar esta definição de política, é utilizada a definição do anfitrião local.
 
 Se ativar esta definição de política, pode configurar o 6to4 com uma das seguintes definições:
 
-Estado Predefinido da Política: o 6to4 está ativado se o anfitrião tiver apenas conectividade IPv6 de ligação local e um endereço IPv4 público. Se não estiver presente nenhum endereço IPv6 global nem nenhum endereço IPv4 global, o anfitrião não terá uma interface 6to4. Se não estiver presente nenhum endereço IPv6 global e existir um endereço IPv4 global, o anfitrião terá uma interface 6to4.
+Estado Predefinido da Política: o 6to4 está desativado e a conectividade com o 6to4 não estará disponível.
 
-Estado de Ativado da Política: se estiver presente um endereço IPv4 global, o anfitrião terá uma interface 6to4. Se não estiver presente um endereço IPv4 global, o anfitrião não terá uma interface 6to4.
+Estado Ativado da Política: se estiver presente um endereço IPv4 global, o anfitrião terá uma interface 6to4. Se não estiver presente um endereço IPv4 global, o anfitrião não terá uma interface 6to4.
 
-Estado de Desativado da Política: o 6to4 está desativado e a conectividade com 6to4 não estará disponível.
-
-
+Estado Desativado da Política: o 6to4 está desativado e a conectividade com 6to4 não estará disponível.
 
 </string>
 
@@ -188,6 +184,45 @@ Se ativar ou não configurar esta definição de política, os Limites de Config
 Se desativar esta definição de política, os Limites de Configuração Automática Sem Monitorização de Estado de IP serão desativados e o sistema não limitará o número de endereços e rotas configurados automaticamente.
 
 
+
+</string>
+
+      <string id="IPxlatCfg_PermitNonCellularCLAT">Definir Permissão CLAT</string>
+      <string id="IPxlatCfg_PermitNonCellularCLAT_Help">Esta definição de política permite-lhe ativar ou desativar o tradutor do lado do cliente para 464XLAT (CLAT) globalmente para interfaces não celulares.
+
+Se ativar esta definição de política, o CLAT é globalmente permitido e pode ser ativado em interfaces de rede.
+
+Se desativar esta definição de política, o CLAT não é globalmente permitido e não pode ser ativado.
+
+Se não configurar esta definição de política, é utilizada a definição de anfitrião local.
+
+Não são necessários reinícios ou reinícios de serviço para que esta definição de política produza efeitos.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromRA">Definir Obtenção de Informações de Prefixo CLAT a partir de RA</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromRA_Help">Esta definição de política permite que os anúncios de router (RA) sejam utilizados como origem de informações de prefixo para CLAT não celulares.
+
+Se ativar esta definição de política, o CLAT terá permissão para detetar prefixos NAT64 através de RA. Se ambos os métodos de deteção de prefixos NAT64 estiverem ativados, a ordem de precedência é (RA, DNS).
+
+Se desativar esta definição de política, o CLAT não terá permissão para detetar prefixos NAT64 através de RA.
+
+Se não configurar esta definição de política, é utilizada a definição de anfitrião local.
+
+É necessário um reinício para que esta definição de política produza efeitos.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS">Definir Obtenção de Informações de Prefixo CLAT a partir de DNS</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS_Help">Esta definição de política permite que o DNS seja utilizado como origem de informações de prefixo para CLAT não celulares.
+
+Se ativar esta definição de política, o CLAT terá permissão para detetar prefixos NAT64 através de DNS. Se ambos os métodos de deteção de prefixos NAT64 estiverem ativados, a ordem de precedência é (RA, DNS).
+
+Se desativar esta definição de política, o CLAT não terá permissão para detetar prefixos NAT64 através de DNS.
+
+Se não configurar esta definição de política, é utilizada a definição de anfitrião local.
+
+É necessário um reinício para que esta definição de política produza efeitos.
 
 </string>
 

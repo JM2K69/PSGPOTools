@@ -46,7 +46,7 @@ Remarque : lorsque ce paramètre de stratégie est activé, le comportement est
 
 Si vous activez ce paramètre de stratégie, le système utilise les définitions de Windows NT 4.0. %HOMESHARE% stocke uniquement le partage réseau (comme \\serveur\partage). %HOMEPATH% stocke le reste du chemin d’accès complet au répertoire de base (par exemple \dir1\dir2\Rép_base). Par conséquent, les utilisateurs peuvent accéder à tous les répertoires sur le partage de base en utilisant la lettre de lecteur du répertoire de base.
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, le système utilise les définitions introduites avec Windows 2000. %HOMEPATH% stocke le chemin d’accès complet au répertoire de base (par exemple \dir1\dir2\Rép_base). Les utilisateurs peuvent accéder au répertoire de base et à chacun de ses sous-répertoires à partir de la lettre du lecteur de base, mais ils ne peuvent pas afficher ou accéder à ses répertoires parents. %HOMEPATH% stocke une barre oblique inverse finale et est inclus pour des raisons de compatibilité avec des systèmes antérieurs.</string>
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, le système utilise les définitions introduites avec Windows 2000. %HOMESHARE% stocke le chemin d’accès complet au répertoire de base (par exemple \dir1\dir2\Rép_base). Les utilisateurs peuvent accéder au répertoire de base et à chacun de ses sous-répertoires à partir de la lettre du lecteur de base, mais ils ne peuvent pas afficher ou accéder à ses répertoires parents. %HOMEPATH% stocke une barre oblique inverse finale et est inclus pour des raisons de compatibilité avec des systèmes antérieurs.</string>
       <string id="DeleteRoamingCachedProfiles">Supprimer les copies mises en cache des profils itinérants</string>
       <string id="DeleteRoamingCachedProfiles_Help">Ce paramètre de stratégie détermine si Windows conserve une copie du profil itinérant de l’utilisateur sur le disque dur de l’ordinateur local lorsque l’utilisateur ferme sa session. 
 
@@ -77,6 +77,14 @@ Si vous désactivez ce paramètre de stratégie ou ne configurez pas, le systèm
 Remarque : ce paramètre et les paramètres de stratégie associés de ce dossier définissent ensemble la réponse du système lorsque le téléchargement des profils utilisateur itinérants est lent. Pour définir le délai dans lequel l’utilisateur doit répondre à cette notification dans les systèmes d’exploitation antérieurs à Microsoft Windows Vista, utilisez le paramètre de stratégie « Délai d’expiration pour les boîtes de dialogue ».
 
 Important : si le paramètre « Ne pas détecter les connexions réseau lentes » est activé, ce paramètre de stratégie est ignoré. De même, si le paramètre de stratégie « Supprimer les copies mises en cache des profils itinérants » est activé, aucune copie locale du profil itinérant n’est chargée lorsque le système détecte une connexion lente.</string>
+      <string id="AllowNonStandardUserProfilePaths">Autoriser les ruches du Registre du profil utilisateur et AppData depuis des chemins non standard</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Ce paramètre de stratégie contrôle si les branches de registre des profils utilisateur et les emplacements des dossiers AppData peuvent accepter des formats de chemin non standard.
+
+Si vous activez ce paramètre de stratégie, les emplacements des profils utilisateur acceptent une gamme plus large de formats de chemin d’accès aux fichiers.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les emplacements des profils utilisateur n’acceptent que les chemins d’accès standard aux dossiers Windows.
+
+Remarque : activer ce paramètre peut exposer le système à des risques de sécurité. Activez-le uniquement si une application spécifique de votre entreprise l’exige, et seulement après avoir évalué tous les risques pour votre environnement.</string>
       <string id="ExcludeDirectories">Exclure des répertoires dans les profils itinérants</string>
       <string id="ExcludeDirectories_Help">Ce paramètre de stratégie permet d’exclure des dossiers qui sont normalement inclus dans le profil de l’utilisateur. Par conséquent, ces dossiers n’ont pas besoin d’être stockés sur le serveur réseau sur lequel se trouve le profil et ils ne suivent pas les utilisateurs vers d’autres ordinateurs.
 
@@ -316,12 +324,11 @@ Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas,
       <string id="PrimaryComputerRup">Télécharger les profils itinérants sur les ordinateurs principaux uniquement</string>
       <string id="PrimaryComputerRup_Help">Ce paramètre de stratégie contrôle pour chaque ordinateur si les profils itinérants sont téléchargés sur les ordinateurs principaux de l’utilisateur uniquement. Ce paramètre de stratégie permet d’améliorer les performances d’accès et la sécurité des données utilisateur sur les ordinateurs lorsque l’utilisateur ne souhaite pas télécharger de données privées, par exemple sur l’ordinateur d’une salle de réunion ou d’un bureau distant
 
-Pour désigner les ordinateurs principaux d’un utilisateur, un administrateur doit utiliser un logiciel de gestion ou un script pour ajouter des attributs d’ordinateur principal au compte de l’utilisateur dans les services de domaine Active Directory (AD DS). Ce paramètre de stratégie nécessite également la version Windows Server 2012 du schéma Active Directory pour fonctionner.
+Pour désigner les ordinateurs principaux d’un utilisateur, un administrateur doit utiliser un logiciel de gestion ou un script pour ajouter des attributs d’ordinateur principal au compte de l’utilisateur dans les Services de domaine Active Directory (AD DS). Ce paramètre de stratégie nécessite également la version Windows Server 2012 du schéma Active Directory pour fonctionner.
 
 Si vous activez ce paramètre de stratégie et que l’utilisateur possède un profil itinérant, ce profil est téléchargé uniquement sur l’ordinateur principal de l’utilisateur.
 
 Si vous désactivez ce paramètre de stratégie ou ne le configurez pas et que l’utilisateur possède un profil itinérant, ce profil est téléchargé sur chaque ordinateur sur lequel l’utilisateur ouvre une session.
-      
       </string>
       <string id="USER_HOME">Définir le dossier de base de l’utilisateur</string>
       <string id="USER_HOME_EXPLAIN">Ce paramètre de stratégie vous permet de spécifier l’emplacement et la racine (partage de fichiers ou chemin d’accès local) du dossier de base d’un utilisateur pour une session ouverte.
@@ -334,7 +341,7 @@ Ne spécifiez pas de variables d’environnement ou d’ellipses dans le chemin 
 
 Remarque : la zone Lettre de lecteur est ignorée si vous choisissez « Sur l’ordinateur local » dans la liste Emplacement. Si vous choisissez « Sur l’ordinateur local » et entrez un partage de fichiers, le dossier de base de l’utilisateur est placé à l’emplacement réseau sans mappage du partage de fichiers à une lettre de lecteur.
 
-Si vous désactivez ou ne configurez pas ce paramètre de stratégie, le dossier de base de l’utilisateur est configuré tel que spécifié dans le compte des services de domaine Active Directory de l’utilisateur.
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, le dossier de base de l’utilisateur est configuré tel que spécifié dans le compte des Services de domaine Active Directory de l’utilisateur.
 
 Si le paramètre de stratégie « Définir le répertoire de base de l’utilisateur des services Bureau à distance » est activé, le paramètre de stratégie « Définir le dossier de base de l’utilisateur » n’a aucun effet.</string>
       <string id="on_the_Local_Computer">Sur l’ordinateur local</string>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Criteri di gruppo filtro tastiera</displayName>
+  <description>Impostazioni di Criteri di gruppo per filtro tastiera</description>
+  <resources>
+    <stringTable>
+      <string id="KeyboardFilter">Filtro tastiera</string>
+      <string id="AllowKbFilterInRemoteSessions">Consenti filtro tastiera nelle sessioni remote</string>
+      <string id="AllowKbFilterInRemoteSessions_Text">Il filtro della tastiera si applica in genere solo alle sessioni locali.
+      
+L'abilitazione di questa impostazione consentirà di applicare il filtro della tastiera agli utenti che si connettono al computer tramite sessioni remote.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

@@ -2,19 +2,27 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>Appx Paketi Yöneticisi</displayName> 
+  <displayName>Appx Paketi Yöneticisi</displayName>
   <description>Appx Paketi Yöneticisi</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">Uygulama Paketi Dağıtımı</string>
       <string id="AppxDeploymentAllowAllTrustedApps">Tüm güvenilir uygulamaların yüklenmesine izin ver</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Bu ilke ayarı, güvenilen iş kolunuzun (LOB) veya geliştirici imzalı Windows Mağazası uygulamalarının yüklenmesini yönetmenize olanak sağlar.
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Bu ilke ayarı, güvenilir iş kolu (LOB) veya geliştirici imzalı paketlenmiş Microsoft Store uygulamalarının kurulumunu yönetmenize olanak sağlar.
 
-Bu ilke ayarını etkinleştirirseniz, iş kolu veya geliştirici imzalı Windows Mağazası uygulamasını (yerel bilgisayar tarafından başarıyla doğrulanabilecek bir sertifika zinciriyle imzalanmış olması gerekir) yükleyebilirsiniz.
+Bu ilke ayarını etkinleştirirseniz veya yapılandırmazsanız, herhangi bir LOB veya geliştirici tarafından imzalanmış paketlenmiş Microsoft Store uygulamasını (yerel bilgisayar tarafından başarıyla doğrulanabilen bir sertifika zinciriyle imzalanması gerekir) yükleyebilirsiniz.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, iş kolu veya Windows Mağazası uygulamalarını yükleyemezsiniz.</string>
+Bu ilke ayarını devre dışı bırakırsanız, LOB'u veya geliştirici imzalı paketlenmiş Microsoft Store uygulamalarını yükleyemezsiniz.</string>
+      <string id="AllowAutomaticAppArchiving">Sık kullanılmayan uygulamaları arşivleyin</string>
+      <string id="AllowAutomaticAppArchivingExplanation">Bu ilke ayarı, sistemin sık kullanılan uygulamaları arşivleyebilir olduğunu denetler.
+
+Bu ilke ayarını etkinleştirirseniz sistem sık kullanılmayan uygulamaları düzenli olarak denetler ve arşivleyecektir.
+
+Bu ilke ayarını devre dışı bırakırsanız, sistem hiçbir uygulamayı arşivlememek için kullanılır.
+
+Bu ilke ayarını yapılandırmazsanız (varsayılan), sistem sık kullanılan uygulamaları düzenli olarak denetleyecek ve arşivleyecek olan varsayılan davranışı takip eder ve Kullanıcı bu ayarı kendileri yapılandırabilir.</string>
       <string id="AllowDeploymentInSpecialProfiles">Özel profillerde dağıtım işlemlerine izin ver</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">Bu ilke ayarı, kullanıcı özel bir profil kullanarak oturum açtığında Windows Mağazası uygulamalarının dağıtımını yönetmenize olanak sağlar. Özel profiller, kullanıcı oturumunu kapattıktan sonra değişikliklerin atıldığı aşağıdaki şu kullanıcı profilleridir:
+      <string id="AllowDeploymentInSpecialProfilesExplanation">Bu ilke ayarı, kullanıcı özel bir profil kullanarak oturum açtığında paketlenmiş Microsoft Store uygulamalarının dağıtımını yönetmenize olanak sağlar. Özel profiller, kullanıcı oturumunu kapattıktan sonra değişikliklerin atıldığı şu kullanıcı profilleridir:
 
 "Gezici profillerin önbelleğe alınmış kopyalarını sil" Grup İlkesi ayarının uygulandığı gezici kullanıcı profilleri
 
@@ -22,19 +30,19 @@ Bir yönetici tarafından oluşturulan zorunlu kullanıcı profilleri ve süper 
 
 Doğru profilin yüklenmesi bir hata tarafından engellendiğinde oluşturulan geçici kullanıcı profilleri
 
-Konuk hesabı ve Konuklar grubunun üyeleri için olan kullanıcı profilleri
+Konuk hesabı ve Konuklar grubunun üyeleri için kullanıcı profilleri
 
 
-Bu ilke ayarını etkinleştirirseniz Grup İlkesi, dağıtım işlemlerine (bir uygulama paketini ekleme, kaydetme, hazırlama, güncelleştirme veya kaldırma) izin verir.
+Bu ilke ayarını etkinleştirirseniz, Grup İlkesi, özel bir profil kullanırken, paketlenmiş Microsoft Store dağıtım işlemlerine (bir uygulama paketini ekleme, kaydetme, hazırlama, güncelleştirme veya kaldırma) izin verir.
 
-Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız özel profil kullanıldığında Grup İlkesi Windows Mağazası uygulamalarının dağıtım işlemlerini engeller.</string>
-      <string id="AllowDevelopmentWithoutDevLicense">Windows Mağazası uygulamalarının geliştirilmesine ve bir tümleşik geliştirme ortamından (IDE) yüklenmesine izin verir</string>
+Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız özel profil kullanıldığında Grup İlkesi paketlenmiş Microsoft Store uygulamalarının dağıtım işlemlerini engeller.</string>
+      <string id="AllowDevelopmentWithoutDevLicense">Paketlenmiş Microsoft Store uygulamalarının geliştirilmesine ve bir tümleşik geliştirme ortamından (IDE) yüklenmesine izin verir</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        Windows Mağazası uygulamalarının geliştirilmesine ve doğrudan bir IDE'den yüklenmesine izin verir veya bunu engeller.
+        Microsoft Store uygulamalarının geliştirilmesine ve bunların bir IDE kullanılarak doğrudan yüklenmesine izin verir veya bunu reddeder.
 
-        Bu ayarı ve "Tüm güvenilen uygulamaların yüklenmesine izin ver" Grup İlkesini etkinleştirirseniz, Windows Mağazası uygulamaları geliştirebilirsiniz ve onları doğrudan bir IDE'den yükleyebilirsiniz.
-        
-        Bu ayarı devre dışı bırakır veya yapılandırmazsanız, Windows Mağazası uygulamaları geliştiremez veya onları doğrudan bir IDE'den yükleyemezsiniz.
+        Bu ayarı ve “Tüm güvenilen uygulamaların yüklenmesine izin ver” grup ilkesini etkinleştirirseniz Microsoft Store uygulaması geliştirebilir ve bunları bir IDE kullanarak doğrudan yükleyebilirsiniz.
+
+        Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız, Microsoft Store uygulaması geliştiremezsiniz veya bir IDE kullanarak bunları doğrudan yükleyemezsiniz.
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">Windows uygulamalarının sistem dışı birimlere yüklenmesini devre dışı bırak</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -53,12 +61,150 @@ Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız özel profi
         Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız, bir uygulama farklı bir birime taşındığında, kullanıcıların uygulama verileri de o birime taşınır.
       </string>
       <string id="AllowSharedLocalAppData">Windows uygulamasının kullanıcılar arasında uygulama verileri paylaşmasına izin ver</string>
-      <string id="AllowSharedLocalAppDataExplanation">Windows uygulamasının, uygulamayı yükleyen kullanıcılar arasında veri paylaşımı yapabilmesini yönetir.
+      <string id="AllowSharedLocalAppDataExplanation">Bir Windows uygulamasının, uygulamayı yükleyen kullanıcılar arasında veri paylaşımı yapabilmesini yönetir.
 
-        Bu ilkeyi etkinleştirirseniz, Windows uygulaması, o uygulamanın diğer örnekleriyle uygulama verilerini paylaşabilir. Veriler SharedLocal klasörü aracılığıyla paylaşılır. Bu klasöre, Windows.Storage API'sinden erişilebilir.
+        Bu ilkeyi etkinleştirirseniz Windows uygulaması, o uygulamanın diğer örnekleriyle uygulama verilerini paylaşabilir. Veriler SharedLocal klasörü aracılığıyla paylaşılır. Bu klasöre, Windows.Storage API'sinden erişilebilir.
 
-        Bu ilkeyi devre dışı bırakırsanız, Windows uygulaması, o uygulamanın diğer örnekleriyle uygulama verilerini paylaşamaz. Bu ilke daha önce etkinleştirilmişse, daha önce paylaşılan uygulama verileri SharedLocal klasöründe kalır. 
+        Bu ilkeyi devre dışı bırakırsanız Windows uygulaması, o uygulamanın diğer örnekleriyle uygulama verilerini paylaşamaz. Bu ilke daha önce etkinleştirilmişse daha önce paylaşılan uygulama verileri SharedLocal klasöründe kalır.
       </string>
+      <string id="BlockNonAdminUserInstall">Yönetici olmayan kullanıcıların paketlenmiş Windows uygulamalarını yüklemesini engelle</string>
+      <string id="BlockNonAdminUserInstallExplanation">Yönetici olmayan kullanıcıların Windows uygulama paketlerini yükleme yeteneğini yönetir.
+
+        Bu ilkeyi etkinleştirirseniz Yönetici olmayanlar, Windows uygulama paketlerinin yüklenmesini başlatamaz. Uygulama yüklemek isteyen Yöneticilerin bir Yönetici bağlamından (örneğin, bir Yönetici PowerShell penceresinden) bu işlemi yapması gerekir. Diğer ilkeler tarafından izin verilirse tüm kullanıcılar, Windows uygulama paketlerini Microsoft Store aracılığıyla yüklemeye devam edebilir.
+
+        Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız tüm kullanıcılar, Windows uygulama paketlerinin yüklemesini başlatabilirler.
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">MSIX akış yüklemesinde HTTPS kimlik doğrulaması için yetkili etki alanlarını ayarla</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">Bu ilke ayarı, MSIX akış yüklemesi gerçekleştirmek için belirtilen tam etki alanı adına HTTPS iletişimlerinin bir EntraID OAuth belirtecinin ekli olup olmadığını belirtir.
+
+Bu ilke ayarını etkinleştirirseniz önceden tanımlanmış tam etki alanlarına yapılan HTTPS iletişimleri, akış MSIX yüklemesi gerçekleştirirken kullanıcının EntraID OAuth belirtecini kullanır. Sağlanan değer, URL'nin büyük harfli, tam etki alanıyla eşleştirmek için kullanılacak normal bir ifadedir (ECMA Betiği).
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kullanıcının EntraID OAuth belirteci yalnızca varsayılan yapılandırılmış etki alanlarıyla paylaşılacaktır.
+      </string>
+      <string id="DisableBackgroundAutoUpdates">Dışarıdan yüklenen uygulamaların arka planda otomatik olarak güncellenmesine izin verme</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">Dışarıdan yüklenmiş uygulamaların arka planda otomatik güncellenebilmesini yönetir. 
+
+        Bu ilkeyi etkinleştirirseniz dışarıdan yüklenen uygulamalar arka planda otomatik olarak güncellenmeyecek.
+
+        Bu ilkeyi devre dışı bırakırsanız dışarıdan yüklenen uygulamalar arka planda otomatik olarak güncellenecek.
+
+      Varsayılan 'devre dışıdır' (anahtar mevcut değil).
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">Tarifeli bir ağda, dışarıdan yüklenen uygulamaların arka planda otomatik olarak güncellenmesine izin verme</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">Bir dışarıdan yüklenmiş uygulamaların tarifeli bir ağda arka planda otomatik güncelleştirme yeteneğini yönetir.
+
+        Bu ilkeyi etkinleştirirseniz dışarıdan yüklenen uygulamalar tarifeli bir ağda arka planda otomatik olarak güncelleyemeyecek.
+
+        Bu ilkeyi devre dışı bırakırsanız, dışarıdan yüklenen uygulamalar tarifeli bir ağda arka planda otomatik olarak güncelleştirilir.
+
+        Varsayılan: 'Devre dışı' (anahtar yok).
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">Kullanıcı başına imzalanmamış paketlerin varsayılan olarak yüklenmesine izin vermeme (yükleme başına açık izin gerektirir)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">Kullanıcı başına imzalanmamış paketlerin varsayılan olarak yüklenmesine izin vermeme (yükleme başına açık izin gerektirir)
+
+        Bu ilkeyi etkinleştirirseniz AllowUnsigned seçeneği varsayılan olarak 'false' değerini alır.
+
+       Bu ilkeyi devre dışı bırakırsanız AllowUnsigned seçeneği varsayılan olarak 'true' değerini alır.
+
+       Varsayılan: 'disabled' (anahtar yok).
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">Yönetici olmayan kullanıcı yüklemesi için izin verilen paket ailesi adları</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">Yönetici olmayan kullanıcı Windows uygulama paketi yüklemesi için izin verilen paket ailesi adları.
+
+Bu ilkeyi etkinleştirirseniz, yapılandırılmış "Yönetici olmayan kullanıcıların paketlenmiş Windows uygulamalarını yüklemesini engelle" ilkesine bakılmaksızın, Yönetici olmayan kullanıcıların yüklemeyi başlatabileceği Windows uygulama paketlerinin listesini girebilirsiniz.
+
+Sağlanan değerler normal ifade (ECMA Betiği) olarak kabul edilir. Contoso.ContosoApp_8wekyb3d8bbwe gibi bir paket ailesi adı, kendi başına söz konusu ailedeki tüm paketlerle eşleşecek geçerli bir normal ifadededir. ^Contoso.*_8wekyb3d8bbwe$ gibi bir normal ifade Contoso.ContosoApp_8wekyb3d8bbwe ile de eşleşir
+
+Yüklenen Windows uygulama paketinin paket ailesi adı herhangi bir kuralla eşleşirse, "Yönetici olmayan kullanıcıların paketlenmiş Windows uygulamalarını yüklemesini engelle" ilkesi tarafından engellenmez. Yine de yükleme diğer ilke veya ayarlar tarafından engellenebilir.
+
+Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız, tüm Windows uygulama paketleri yapılandırılan "Yönetici olmayan kullanıcıların paketlenmiş Windows uygulamalarını yüklemesini engelle" ilkesine tabi olur.
+
+Varsayılan olarak 'devre dışı' bırakılır (anahtar yok).
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">Varsayılan Microsoft Store paketlerini sistemden kaldırın.</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">Varsayılan Microsoft Store paketlerini sistemden kaldırır.
+
+Bu ilkeyi etkinleştirirseniz, sağlanan listedeki seçili Microsoft Store uygulamaları sistemden kaldırılacaktır. Varsayılan ayarlarda değişiklikler yapabilirsiniz.
+
+Listede seçilmeyen uygulamalar kaldırılmayacaktır.
+
+* Bu, gözetimsiz bir uygulamadır (kullanıcı arabirimi yok)
+
+** Bu uygulama, yaygın bir dosya türü veya protokol için varsayılan işleyicidir. Bu uygulamanın kaldırılması, bozuk bir kullanıcı deneyimine neden olabilir. Bu uygulamanın kaldırılması önerilmez.
+
+Bu ilkeyi etkinleştirirseniz, "Kaldırılacak ek paket aile adlarını belirtin" altındaki dinamik listeye uygulamanın paket ailesi adını (örneğin, Microsoft.WindowsCalculator_8wekyb3d8bbwe) girerek uygulamayı da kaldırabilirsiniz. 
+
+Bu ilke etkinleştirilirse, önceden kaldırılmış bir uygulamanın yeniden yüklenmesi için, sağlanan listeden uygulamanın seçimini kaldırmak veya dinamik listeden uygulamanın paket ailesi adını kaldırmak gereklidir.
+
+Dinamik uygulama kaldırma listesi aracılığıyla Windows Sistem bileşenlerini kaldıramazsınız.
+
+Dinamik uygulama kaldırma listesindeki paket ailesi adlarının doğrulanması, ilke yapılandırma sırasında değil, kullanıcı oturum açtığında gerçekleşir.
+
+Varsayılan değer: 'devre dışı bırakıldı' (anahtar mevcut değil).
+
+İlke devre dışı bırakılırsa veya yapılandırılmazsa, varsayılan uygulamalar sistemden kaldırılmaz.
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">Varsayılan Microsoft Store paketlerini sistemden kaldırır.</string>
+      <string id="EnableMsixAllowedZones">MSIX Paketleri için İzin Verilen Alanları etkinleştir</string>
+      <string id="EnableMsixAllowedZonesExplanation">Bu ilke, belirli URL Bölgelerinden gelen MSIX paketlerinin yüklenmesine izin verili olup olmadığını kontrol eder. Bir paketin kaynağı, URI'si tarafından belirlenir ve Bir Mart-of-Web (MotW) olup olmadığını belirtir. Birden çok URI dahilse, tümü kabul edilir;
+
+Bu ilkeyi etkinleştirirseniz kullanıcılar her bölgenin yapılandırmasına göre MSIX paketlerini yüklerini yüklerini.
+
+Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız kullanıcılar Güvenilmeyenler dışında herhangi bir bölgeye MSIX paketleri yüklenemez.</string>
+      <string id="ZoneAllowed">İzin Ver</string>
+      <string id="ZoneBlocked">Engelle</string>
+      <string id="EnableMsixSmartScreenCheck">MSIX Paketleri için Microsoft SmartScreen denetimlerini etkinleştir</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">Bu ilke, belirli URL bölgelerinden MSIX paketleri yüklenirken Microsoft SmartScreen denetiminin gerçekleştirilip gerçekleştirilmeyeceğini kontrol eder.
+
+Bu ilkeyi etkinleştirirseniz veya yapılandırmazsanız, paket URI'si yükleme öncesi Microsoft SmartScreen ile değerlendirilir. Bu denetim yalnızca internetten gelen paketler için yapılır.
+
+Devre dışı bırakırsanız, paket yüklenmeden önce Microsoft SmartScreen'e danışılmayacaktır.</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>İfade</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">Yönetici olmayan kullanıcı yüklemesi için izin verilen paket ailesi adları</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>Varsayılan Microsoft Store paketlerini sistemden kaldırır.</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">Geri Bildirim Merkezi</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">Microsoft 365 Copilot</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft News</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Microsoft Fotoğraflar **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Microsoft Yapışkan Notlar</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">Microsoft To Do</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN Hava Durumu</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Windows için Outlook</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">Paint</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">Hızlı Yardım</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">Ekran Alıntısı Aracı</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Windows Hesap Makinesi</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Windows Kamera</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Windows Medya Oynatıcı</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Windows Not Defteri **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Windows Ses Kaydedicisi</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Windows Terminal</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">Xbox Oyun Uygulaması</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Xbox Identity Provider</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Xbox Konuşmayı Metne Dönüştürme Katmanı *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">Kaldırılacak ek paket ailesi adlarını belirtin</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">Yerel Makine</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">Intranet</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">Güvenilen siteler</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">İnternet</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">Güvenilmeyen Siteler</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

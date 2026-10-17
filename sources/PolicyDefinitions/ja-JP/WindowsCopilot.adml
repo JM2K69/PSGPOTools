@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>表示名をここに入力する</displayName>
+  <description>説明をここに入力する</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Windows Copilot をオフにする</string>
+      <string id="TurnOffWindowsCopilot_Help">このポリシー設定により、Windows Copilot をオフにすることができます。
+
+このポリシー設定を有効にすると、ユーザーは Copilot を使用できなくなります。Copilot アイコンもタスクバーに表示されません。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、ユーザーは Copilot が利用可能なときにそれを使用できるようになります。
+      </string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="DisableAIDataAnalysis">リコールで使用するスナップショットの保存を無効にする
+      </string>
+      <string id="DisableAIDataAnalysis_Help">このポリシー設定では、リコールで使用するために画面のスナップショットを保存できるかどうかを指定できます。マネージド デバイスでは、リコールのスナップショットは既定では有効になっていません。IT 管理者は、自分でユーザーの代わりにスナップショットの保存を有効にすることはできません。スナップショットの保存を有効にする選択には、個々のユーザーのオプトインの同意が必要です。
+
+ポリシーが構成されていない場合、スナップショットはリコールで使用するために保存されません。
+
+このポリシーを有効にした場合、スナップショットはリコールで使用するために保存されません。スナップショットが以前にデバイスに保存されている場合、このポリシーが有効になると削除されます。
+
+このポリシーを無効に設定すると、エンド ユーザーは自分の画面のスナップショットを保存し、リコールを使用してデバイスで見たものを見つけることができます。
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">リコールで使用されるスナップショットの最大保存量を設定する
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">このポリシー設定を使用すると、Windows がリコール用のスナップショットを保存するために使用できる、最大のディスク領域を制御できます。
+
+このスナップショット用のディスク領域の最大量は、10、25、50、75、100、または 150 GB に設定できます。
+
+この設定が構成されていない場合、現在のユーザーが別の値を指定しない限り、OS はデバイスのストレージ容量に基づいてスナップショットのストレージ割り当てを構成します。
+
+デバイスのストレージ容量が 256 GB の場合は、25 GB が割り当てられます。デバイスのストレージ容量が 512 GB の場合は、75 GB が割り当てられます。デバイスのストレージ容量が 1 TB 以上の場合には、150 GB が割り当てられます。
+
+最大ストレージ期間と最大ストレージ領域の両方がリコールに設定されている場合、最初の最大値に達するとスナップショットが削除されます。
+
+重要: この設定は、Enterprise および Education クライアントの SKU にのみ適用されます。
+      </string>
+      <string id="SetMaximumStorageSpace_Default">OS がハード ドライブのストレージ サイズに基づいて最大ストレージ容量を定義できるようにする</string>
+      <string id="SetMaximumStorageSpace_10GB">10 GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25 GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50 GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75 GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100 GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150 GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">リコールで使用されるスナップショットを保存するための最大期間を設定する
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">このポリシー設定を使用すると、Windows がリコール用にスナップショットを保存する、最大の期間 (日単位) を制御できます。
+
+このポリシーが有効な場合、最大ストレージ期間を 30、60、90、または 180 日に構成することができます。
+
+このポリシーが構成されていない場合、現在のユーザーが別の値を指定しない限り、最大ストレージ期間は 90 日です。
+
+最大ストレージ期間と最大ストレージ領域の両方が呼び戻しに設定されている場合、最初の最大値に達するとスナップショットが削除されます。
+
+重要: この設定は、Enterprise および Education クライアントの SKU にのみ適用されます。
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">スナップショットを保存する最大期間を OS で定義できるようにする
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 日間</string>
+      <string id="SetMaximumStorageDuration_60Days">60 日間</string>
+      <string id="SetMaximumStorageDuration_90Days">90 日間</string>
+      <string id="SetMaximumStorageDuration_180Days">180 日間</string>
+      <string id="SetDenyAppListForRecall">リコールのスナップショットからフィルターするアプリのリストを設定する
+      </string>
+      <string id="SetDenyAppListForRecall_Help">このポリシーを使用すると、リコールのスナップショットに含まれていないアプリの一覧を定義できます。
+
+ユーザーは、リコール設定を使用して、スナップショットから除外するアプリケーションを追加できます。
+
+一覧には、アプリケーション ユーザー モデル ID (AUMID) または実行可能ファイルの名前を含めることができます。
+
+セミコロンで区切られたアプリの一覧を使用して、リコールの拒否アプリの一覧を定義します。
+
+例: code.exe;Microsoft.WindowsNotepad_8wekyb3d8bbwe!アプリ;ms-teams.exe
+
+重要: この設定は、Enterprise および Education クライアント SKU にのみ適用されます。このポリシー設定を構成すると、デバイスが再起動されるまで変更は有効になりません。
+      </string>
+      <string id="SetDenyUriListForRecall">リコール用のスナップショットからフィルターする URI のリストを設定する
+      </string>
+      <string id="SetDenyUriListForRecall_Help">このポリシー設定では、サポートされているブラウザーが使用されている場合にリコールのスナップショットに含まれていない URI の一覧を定義できます。organization内のPeopleは、リコール設定を使用して、リストに Web サイトをさらに追加できます。URI を区切るには、セミコロンを使用してリストを定義します。
+
+例: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+一覧に https://www.WoodgroveBank.com を追加すると、https://Account.WoodgroveBank.com と https://www.WoodgroveBank.com/Account. もフィルター処理されます
+
+重要: この設定は、Enterprise および Education クライアント SKU にのみ適用されます。このポリシーに対する変更は、デバイスの再起動後に有効になります。
+      </string>
+      <string id="SetDataLossPreventionProvider">DLP プロバイダー ID をリコール用に設定する
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">このポリシーにより、管理者は DLP プロバイダーを指定できます。プロバイダーが正しくインストールされている場合は、リコールでこれが使用されます。この文字列はプロバイダーから取得する必要があります。'key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll' のようになります (値に引用符は含まれません)。
+
+重要: この設定は、Enterprise および Education クライアントの SKU にのみ適用されます。
+      </string>
+      <string id="SetCopilotHardwareKey">Copilot ハードウェア キーの設定</string>
+      <string id="SetCopilotHardwareKey_Help">このポリシー設定では、ユーザーがキーボードの Copilot キーを押したときに開くアプリを決定します。ポリシーが有効になっている場合、ユーザーが Copilot キーを押すと指定されたアプリが開きます。ユーザーは [設定] でキーの割り当てを変更できます。ポリシーが構成されていない場合、その国または地域で利用可能だと Copilot が開きます。
+      </string>
+      <string id="AllowRecallEnablement">リコールの有効化を許可します。
+      </string>
+      <string id="AllowRecallEnablement_Help">このポリシー設定を使用すると、エンド ユーザーがデバイスでリコールオプションコンポーネントを有効にできるかどうかを指定できます。既定では、リコールはマネージド 商用デバイスでは無効になっています。既定では、リコールはマネージド デバイスでは使用できず、個々のユーザーは自分でリコールを有効にすることはできません。
+
+このポリシーが構成されていない場合、エンド ユーザーはリコール コンポーネントを無効な状態にします。
+
+このポリシーを無効にすると、リコール コンポーネントが無効な状態になり、リコールのビットがデバイスから削除されます。スナップショットが以前にデバイスに保存されている場合、このポリシーが無効になると削除されます。リコールを削除するには、デバイスを再起動する必要があります。
+
+ポリシーが有効になっている場合、エンド ユーザーはデバイスで使用リコール。DisableAIDataAnalysis ポリシーの状態 (リコールで使用するスナップショットの保存をオフにする) に応じて、エンド ユーザーは、画面のスナップショットを保存するかどうかを選択し、リコールを使用してデバイスで見たものを見つけることができます。
+      </string>
+      <string id="DisableClickToDo">[クリックして実行] を無効にする</string>
+      <string id="DisableClickToDo_Help">[クリックで実行] をクリックすると、ユーザーは画面のコンテンツに対してアクションを実行できます。アクティブにすると、画面のスクリーンショットが撮られ、分析されてアクションが表示されます。[クリックで実行] は、ユーザーが終了するまで続き、閉じている間はスクリーンショットを撮ることはできません。スクリーンショット分析は、常にデバイス上でローカルで実行されます。既定では、ユーザーに対して [クリックで実行] が有効になっています。
+
+このポリシー設定を使用すると、ユーザーが自分のデバイスで [クリックで実行] を利用できるかどうかを決定できます。
+
+ポリシーを有効にすると、ユーザは [クリックで実行] コンポーネントとエントリ ポイントを利用できなくなります。
+
+ポリシーを無効にすると、ユーザーは自分のデバイスで [クリックで実行] を利用できるようになります。
+      </string>
+      <string id="Paint">ペイント</string>
+      <string id="DisableImageCreator">Image Creator を無効にする</string>
+      <string id="DisableImageCreator_Help">このポリシー設定を使用すると、Windows ペイント アプリでImage Creator機能を無効にするかどうかを制御できます。このポリシーを有効にすると、ペイント アプリでImage Creator機能にアクセスできなくなります。このポリシーを無効にした場合、または構成しなかった場合、ユーザーはImage Creator機能にアクセスできます。</string>
+      <string id="DisableCocreator">Cocreator を無効にする</string>
+      <string id="DisableCocreator_Help">このポリシー設定を使用すると、Windows ペイント アプリで Cocreator 機能を無効にするかどうかを制御できます。このポリシーを有効にすると、ペイント アプリで Cocreator 機能にアクセスできなくなります。このポリシーを無効にした場合、または構成しなかった場合、ユーザーは Cocreator 機能にアクセスできます。</string>
+      <string id="DisableGenerativeFill">生成フィルを無効にする</string>
+      <string id="DisableGenerativeFill_Help">このポリシー設定を使用すると、Windows ペイント アプリで生成可能な塗りつぶし機能を無効にするかどうかを制御できます。このポリシーを有効にした場合、ペイント アプリで生成可能な塗りつぶし機能にアクセスできなくなります。このポリシーを無効にした場合、または構成しなかった場合、ユーザーは生成可能な塗りつぶし機能にアクセスできます。</string>
+      <string id="AllowRecallExport">リコールとスナップショット情報のエクスポートを許可する</string>
+      <string id="AllowRecallExport_Help">このポリシーを使用すると、ユーザーが独自のリコールとスナップショット情報をエクスポートできるかどうかを判断できます。エクスポートにより、ユーザーは信頼できるアプリや Web サイトとリコールおよびスナップショット情報を共有できます。ユーザーは、[設定] &gt; [プライバシーとセキュリティ] &gt; [リコールとスナップショット] &gt; [詳細設定] &gt; [スナップショットのエクスポート] &gt; [過去のスナップショットのエクスポート] &gt; [エクスポート] からエクスポートできます。
+
+ユーザーは、[設定] &gt; [プライバシーとセキュリティ] &gt; [リコールとスナップショット] &gt; [詳細設定] &gt; [スナップショットのエクスポート] &gt; [エクスポート] から [今後はスナップショットをエクスポートする] オプションをオンにすると、スナップショットを継続的にエクスポートすることもできます。
+
+エクスポートを開始する前に、ユーザーは Windows Hello で認証する必要があり、エクスポートされたスナップショットには機密情報が含まれている可能性があるため暗号化されることが通知されます。また、信頼できるアプリや Web サイトがエクスポートされたスナップショットにアクセスできるようにするには、リコール エクスポート コードを提供する必要があることがユーザーに通知されます。このポリシーが無効に設定されているか未構成であっても、リコールのセットアップ中にリコール エクスポート コードがユーザーに表示されます。マネージド デバイスの場合:
+
+このポリシーを有効に設定すると、ユーザーはリコールとスナップショットの情報をエクスポートできるようになります。
+
+ポリシーが無効に設定されている場合、または構成されていない場合、ユーザーはリコールとスナップショットの情報をエクスポートできません。
+
+重要: この設定は、欧州経済領域 (EEA) 内のデバイスにのみ適用されます。リコールとスナップショット情報のエクスポートは、ユーザーが開始したプロセスであり、ユーザーごとに行われます。IT 管理者または他のユーザーは、別のユーザーに代わってエクスポートを開始することはできません。
+      </string>
+      <string id="DisableSettingsAgent">設定エージェント検索エクスペリエンスを無効にします</string>
+      <string id="DisableSettingsAgent_Help">設定エージェント エクスペリエンスで自然言語を有効にすると、設定アプリ内の検索結果が強化されます。アクティブ化すると、AI モデルを利用してインテリジェントな設定検索候補が提供されます。
+
+        このポリシー設定では、ユーザーのデバイス上で設定エージェント検索エクスペリエンスが利用可能かどうかを判断できます。
+
+        ポリシーを有効にすると、設定エージェント検索エクスペリエンスが無効になり、検索結果が静的にインデックスが作成された検索とセマンティック検索に制限されます。
+
+        ポリシーを無効にすると、ユーザーは自身のデバイスで設定エージェント検索エクスペリエンスを利用できるようになります。
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">デバイス上のレジストリのログ レベル</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">このポリシー設定を使用すると、デバイス上のレジストリ操作のログ レベルを構成できます。</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">エラー以上</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">情報以上</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">デバッグ以上</string>
+      <string id="RemoveMicrosoftCopilotApp">Microsoft Copilot アプリの削除</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">このポリシー設定では、対象ユーザーに対して Microsoft Copilot を選択的にアンインストールできます。以下の条件を満たすデバイス/ユーザーに適用されます。
+
+• Microsoft 365 Copilot と Microsoft Copilot の両方がインストールされている
+
+• Microsoft Copilot アプリがユーザーによってインストールされていない
+
+• Microsoft Copilot アプリが過去 28 日間起動されていない
+ 
+このポリシーを有効にすると、Microsoft Copilot アプリがアンインストールされます。その場合でも、ユーザーは、必要に応じて再インストールできます。 </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>アプリ AUMID の入力</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>拒否アプリ一覧を入力してください:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>拒否 URI 一覧を入力してください:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>DLP プロバイダー ID を入力してください:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">最大記憶領域を選択してください:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">最大ストレージ期間を選択してください:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> デバイス上のレジストリのログ レベル: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

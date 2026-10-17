@@ -10,6 +10,8 @@
         <string id="MSPassport_UsePassportForWork">Používat Windows Hello pro firmy</string>
         <!-- Add support for certificate trust deployments -->
         <string id="WHFB_UseCertificateForOnPremAuth">Používat certifikát k místnímu ověřování</string>
+        <!-- Add support for cloud trust deployments -->
+        <string id="WHFB_UseCloudTrustForOnPremAuth">Použití důvěryhodnosti cloudu pro místní ověřování</string>
         <!-- DropdownList Button strings -->
         <string id="MSPassport_UsePassportForWorkExplain">Windows Hello pro firmy je alternativní metoda pro přihlašování do Windows s použitím účtu Active Directory nebo Azure Active Directory, kterou můžete nahradit hesla, čipové karty a virtuální čipové karty.
 
@@ -34,13 +36,13 @@ Pokud nastavení této zásady povolíte, dojde ke zřízení Windows Hello pro 
 Pokud nastavení této zásady zakážete nebo nenakonfigurujete, bude se čip TPM dál preferovat, ale Windows Hello pro firmy si budou moct zřídit všechna zařízení, a to softwarově, v případě, že čip TPM bude nefunkční nebo nedostupný.
         </string>
         <string id="MSPassport_MinimumPINLength">Minimální délka PIN kódu</string>
-        <string id="MSPassport_MinimumPINLengthExplain">Minimální délka PIN kódu nakonfiguruje minimální počet znaků požadovaných pro PIN. Nejmenší počet znaků, který můžete pro toto nastavení zásad nakonfigurovat, je 4. Největší počet, který můžete nakonfigurovat, musí být menší než počet znaků nakonfigurovaný v nastavení zásady Maximální délka PIN kódu, nebo 127, podle toho, co je nižší.
+        <string id="MSPassport_MinimumPINLengthExplain">Minimální délka PIN kódu nakonfiguruje minimální počet znaků požadovaných pro PIN. Nejmenší počet znaků, který můžete pro toto nastavení zásad nakonfigurovat, je 4. Největší počet, který můžete nakonfigurovat, musí být menší než počet znaků nakonfigurovaný v nastavení zásad „Maximální délka PIN kódu“, nebo 127, podle toho, co je nižší.
 
 Pokud toto nastavení zásad nakonfigurujete, musí být délka PINu větší nebo rovná tomuto počtu znaků.
 
-Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, musí být délka PIN kódu větší než nebo rovná 4.
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, musí být délka PIN kódu větší než nebo rovná 6.
 
-POZNÁMKA: Pokud nejsou výše uvedené podmínky pro minimální délku PINu splněné, použijí se jak pro maximální, tak pro minimální délku PINu výchozí hodnoty.
+POZNÁMKA: Pokud nejsou výše uvedené podmínky pro minimální délku PINu splněny, použijí se jak pro maximální, tak pro minimální délku PINu výchozí hodnoty.
         </string>
         <string id="MSPassport_MaximumPINLength">Maximální délka PIN kódu</string>
         <string id="MSPassport_MaximumPINLengthExplain">Maximální délka PIN kódu nakonfiguruje maximální počet znaků povolených pro PIN. Největší počet znaků, který můžete pro toto nastavení zásad nakonfigurovat, je 127. Nejmenší počet znaků, který můžete nakonfigurovat, musí být větší než počet znaků nakonfigurovaný v nastavení zásad Minimální délka PIN kódu, nebo 4, podle toho, co je větší.
@@ -52,32 +54,40 @@ Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, musí být délk
 POZNÁMKA: Pokud nejsou výše uvedené podmínky pro maximální délku PINu splněné, použijí se jak pro maximální, tak pro minimální délku PINu výchozí hodnoty.
         </string>
         <string id="MSPassport_UppercaseLetters">Vyžadovat velká písmena</string>
-        <string id="MSPassport_UppercaseLettersExplain">Nastavením této zásady můžete nakonfigurovat používání velkých písmen v PINu.
+        <string id="MSPassport_UppercaseLettersExplain">Nastavením této zásady můžete nakonfigurovat používání velkých písmen v PIN kódu.
 
-Pokud nastavení této zásady povolíte, bude systém Windows od uživatelů vyžadovat, aby ve svém PINu měli aspoň jedno velké písmeno.
+Pokud tuto zásadu povolíte, bude systém Windows od uživatelů vyžadovat, aby ve svém PIN kódu měli aspoň jedno velké písmeno.
 
-Pokud nastavení této zásady zakážete nebo nenakonfigurujete, systém Windows uživatelům používání velkých písmen v PINech nepovolí.
+Pokud tuto zásadu zakážete, systém Windows uživatelům použití velkých písmen v PIN kódu nepovolí.
+
+Pokud tuto zásadu nenakonfigurujete, systém Windows použití velkých písmen v PIN kódu povolí, ale nebude ho vyžadovat.
         </string>
         <string id="MSPassport_LowercaseLetters">Vyžadovat malá písmena</string>
-        <string id="MSPassport_LowercaseLettersExplain">Nastavením této zásady můžete nakonfigurovat používání malých písmen v PINu.
+        <string id="MSPassport_LowercaseLettersExplain">Nastavením této zásady můžete nakonfigurovat používání malých písmen v PIN kódu.
 
-Pokud nastavení této zásady povolíte, bude systém Windows od uživatelů vyžadovat, aby ve svém PINu měli aspoň jedno malé písmeno.
+Pokud tuto zásadu povolíte, bude systém Windows od uživatelů vyžadovat, aby ve svém PIN kódu měli aspoň jedno malé písmeno.
 
-Pokud nastavení této zásady zakážete nebo nenakonfigurujete, systém Windows uživatelům používání malých písmen v PINech nepovolí.
+Pokud tuto zásadu zakážete, systém Windows uživatelům použití malých písmen v PIN kódu nepovolí.
+
+Pokud tuto zásadu nenakonfigurujete, systém Windows použití malých písmen v PIN kódu povolí, ale nebude ho vyžadovat.
         </string>
         <string id="MSPassport_SpecialCharacters">Vyžadovat speciální znaky</string>
-        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Nastavením této zásady můžete nakonfigurovat používání speciálních znaků v PINu. Povolené speciální znaky: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
+        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Nastavením této zásady můžete nakonfigurovat používání zvláštních znaků v PIN kódu. Povolené zvláštní znaky: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~
 
-Pokud nastavení této zásady povolíte, bude systém Windows od uživatelů vyžadovat, aby ve svém PINu měli aspoň jeden speciální znak.
+Pokud tuto zásadu povolíte, bude systém Windows od uživatelů vyžadovat, aby ve svém PIN kódu měli aspoň jeden zvláštní znak.
 
-Pokud nastavení této zásady zakážete nebo nenakonfigurujete, systém Windows uživatelům používání speciálních znaků v PINech nepovolí.]]>
+Pokud tuto zásadu zakážete, systém Windows uživatelům použití zvláštních znaků v PIN kódu nepovolí.
+
+Pokud tuto zásadu nenakonfigurujete, systém Windows použití zvláštních znaků v PIN kódu povolí, ale nebude ho vyžadovat.]]>
         </string>
         <string id="MSPassport_Digits">Vyžadovat číslice</string>
-        <string id="MSPassport_DigitsExplain">Nastavením této zásady můžete nakonfigurovat používání číslic v PINu.
+        <string id="MSPassport_DigitsExplain">Nastavením této zásady můžete nakonfigurovat používání číslic v PIN kódu.
 
-Pokud nastavení této zásady povolíte nebo nenakonfigurujete, bude systém Windows od uživatelů vyžadovat, aby ve svém PINu měli aspoň jednu číslici.
+Pokud tuto zásadu povolíte, bude systém Windows od uživatelů vyžadovat, aby ve svém PIN kódu měli aspoň jednu číslici.
 
-Pokud nastavení této zásady zakážete, systém Windows uživatelům používání číslic v PINech nepovolí.
+Pokud tuto zásadu zakážete, systém Windows uživatelům použití číslic v PIN kódu nepovolí.
+
+Pokud tuto zásadu nenakonfigurujete, systém Windows použití číslic v PIN kódu povolí, ale nebude ho vyžadovat.
         </string>
         <string id="MSPassport_PINHistory">Historie</string>
         <string id="MSPassport_PINHistoryExplain">Toto nastavení určuje počet bývalých PINů, které nejde k uživatelskému účtu opakovaně přiřadit. Díky této zásadě můžou správci zvýšit zabezpečení, protože znemožní neustálé opakování starých PINů. Historie PINů se nezachovává při resetování PINu.
@@ -100,6 +110,19 @@ Pokud toto nastavení zásad zakážete, Windows Hello pro firmy používání b
 
 POZNÁMKA: Pokud je tato zásada zakázaná, nebude moct uživatel na zařízení používat biometrická gesta pro žádné typy účtů.
         </string>
+        <string id="MSPassport_EnableEnhancedSignInSecurity">Povolit ESS s podporovanými periferními zařízeními</string>
+        <string id="MSPassport_EnableEnhancedSignInSecurityExplain">Rozšířené zabezpečení přihlašování (ESS) izoluje data biometrických šablon Windows Hello (obličeje a otisku prstu) a odpovídající operace v důvěryhodném hardwaru nebo určených oblastech paměti, což znamená, že zbytek operačního systému k nim nemá přístup a ani s nimi nemůže manipulovat. Vzhledem k tomu, že kanál komunikace mezi senzory a algoritmem je také zabezpečený, malware nemůže vkládat ani přehrávat data, aby simuloval přihlášení uživatele nebo znepřístupnil počítač uživateli.
+Pokud tuto zásadu povolíte, může mít následující hodnoty:
+
+0 – Rozšířené zabezpečení přihlašování zakázáno s periferními senzory
+Rozšířené zabezpečení přihlašování bude zakázáno v systémech s kompatibilním softwarem a hardwarem. Operace ověřování pomocí periferních zařízení s podporou Windows Hello budou povoleny v souladu s aktuálními omezeními funkcí.
+
+1 – Rozšířené zabezpečení přihlašování povoleno bez periferních senzorů (výchozí a doporučené)
+Rozšířené zabezpečení přihlašování bude povoleno v systémech s kompatibilním softwarem a hardwarem podle stávajícího výchozího chování ve Windows. Operace ověřování pomocí jakéhokoli periferního biometrického zařízení budou blokovány a nebudou k dispozici pro Windows Hello.
+
+Pokud tuto zásadu zakážete nebo nenakonfigurujete, senzory jiné než ESS se na zařízení ESS zablokují.
+
+        </string>
         <string id="MSPassport_EnablePinRecovery">Použít obnovení PIN kódu</string>
         <string id="MSPassport_EnablePinRecoveryExplain">Obnovení PIN kódu umožňuje uživateli změnit zapomenutý PIN kód pomocí služby pro obnovení PIN kódu ve Windows Hello pro firmy, a to bez ztráty přidružených přihlašovacích údajů nebo certifikátů, včetně případných klíčů přidružených k osobním účtům uživatele na zařízení. Aby to bylo možné, zašifruje služba pro obnovení PIN kódu, která je založena na Azure, tajný kód pro obnovení, který se uloží na zařízení a k dešifrování vyžaduje službu pro obnovení PIN kódu i samotné zařízení. Obnovení PIN kódu vyžaduje, aby uživatel provedl vícefaktorové ověření v Azure Active Directory.
 
@@ -110,13 +133,22 @@ Pokud tuto zásadu zakážete nebo nenakonfigurujete, systém Windows nevytvoř�
 POZNÁMKA: Tuto zásadu je možné použít jen u zařízení zaregistrovaných v Azure Active Directory.
         </string>
         <!-- Explain Text for UseCertificateForOnPremAuth -->
-        <string id="WHFB_UseCertificateForOnPremAuthExplain">Nastavením této zásady můžete nakonfigurovat, aby Windows Hello pro firmy zaregistrovalo přihlašovací certifikát sloužící k místnímu ověřování.
+        <string id="WHFB_UseCertificateForOnPremAuthExplain">Nastavení této zásady slouží ke konfiguraci Windows Hello pro firmy, aby se zaregistroval přihlašovací certifikát používaný pro místní ověřování.
 
-Když nastavení této zásady povolíte, zaregistruje Windows Hello pro firmy přihlašovací certifikát, který se používá k místnímu ověřování.
+Pokud toto nastavení zásad povolíte, zaregistruje Windows Hello pro firmy přihlašovací certifikát, který se používá k místnímu ověřování.
 
-Když nastavení této zásady zakážete nebo nenakonfigurujete, zaregistruje Windows Hello pro firmy klíč, který slouží k místnímu ověřování.
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude Windows Hello pro firmy používat klíč nebo lístek protokolu Kerberos (v závislosti na nastavení jiných zásad) pro místní ověřování.
 
-POZNÁMKA: Když nastavení této zásady zakážete nebo nenakonfigurujete a povolíte nastavení zásady Používat Windows Hello pro firmy, musí prostředí obsahovat aspoň jeden řadič domény s Windows Serverem 2016, aby ověřování přes Windows Hello pro firmy neselhalo.
+Poznámka: Pokud toto nastavení zásad zakážete nebo nenakonfigurujete a povolíte nastavení použít zásady používat Windows Hello pro firmy, musí mít prostředí pro jeden nebo více řadičů domény se systémem Windows Server 2016, aby se zabránilo ověřování Windows Hello pro firmy.
+        </string>
+        <!-- Explain Text for UseCloudTrustForOnPremAuth -->
+        <string id="WHFB_UseCloudTrustForOnPremAuthExplain">Nastavením této zásady můžete nakonfigurovat, aby Windows Hello pro firmy používal k místnímu ověřování Kerberos Azure AD. 
+
+Když nastavení této zásady povolíte, použije Windows Hello pro firmy k místnímu ověřování lístek Kerberos získaný z ověření pro Azure. 
+
+Když nastavení této zásady zakážete nebo nenakonfigurujete, použije Windows Hello pro firmy k místnímu ověřování klíč nebo certifikát (v závislosti na nastavení dalších zásad). 
+
+POZNÁMKA: Prostředí, které povoluje jak tohle nastavení zásady, tak nastavení zásady Používat Windows Hello pro firmy, vyžaduje, aby mělo prostředí aspoň jeden řadič domény s Windows Serverem 2016, jinak Windows Hello pro firmy selže.
         </string>
         <!-- Explain text for device unlock policy -->
         <string id="MSPassport_UseDeviceUnlock">Nakonfigurovat faktory pro odemknutí zařízení</string>
@@ -173,6 +205,9 @@ Systém Windows vyžaduje, aby uživatel (pokud je aktuálně přihlášený) po
         </string>
     </stringTable>
     <presentationTable>
+        <presentation id="MSPassport_EnableEnhancedSignInSecurityControl">
+            <decimalTextBox refId="MSPassport_EnableEnhancedSignInSecurityDataType" spin="true" spinStep="1" defaultvalue="1">Povolit ESS s podporovanými periferními zařízeními</decimalTextBox>
+        </presentation>
         <presentation id="MSPassport_MinimumPINLengthControl">
             <decimalTextBox refId="MSPassport_MinimumPINLengthDataType" spin="true" spinStep="1" defaultvalue="6">Minimální délka PIN kódu</decimalTextBox>
         </presentation>

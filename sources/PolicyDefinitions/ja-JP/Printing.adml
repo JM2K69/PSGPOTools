@@ -46,7 +46,7 @@
           Web の表示に影響を与えるのは、"ユーザーの構成\管理用テンプレート\Windows コンポーネント\エクスプローラー" にある [クラシック表示のシェルをオンにする] 設定と [リボンの [表示] タブの [オプション] ボタンから [フォルダー オプション] を開くことを許可しない] 設定、および "ユーザーの構成\管理用テンプレート\デスクトップ\Active Desktop" にある [Active Desktop を有効にする] 設定です。</string>
       <string id="DomainDisplayPrinters_Help">このポリシー設定を有効にすると、管理されたネットワーク上のコンピューターでプリンターの追加ウィザードに表示する各種のプリンターの最大数を設定します (企業のネットワークでドメインに参加しているノート PC など、ドメイン コントローラーに接続できるコンピューターの場合)。
 
-          このポリシー設定を無効にすると、ネットワーク スキャン ページが表示されなくなります。
+         このポリシー設定を無効にすると、ネットワーク スキャン ページが表示されなくなります。
 
           このポリシー設定を構成しない場合、プリンターの追加ウィザードには、各種プリンターが既定の数だけ表示されます。
           ディレクトリ プリンター: 20
@@ -55,12 +55,12 @@
           Bluetooth プリンター: 10
           共有プリンター: 0
 
-          ネットワーク上の利用可能な Web サービス プリンターを表示するには、ネットワーク探索が有効になっているか確認します。ネットワーク探索を有効にするには、[スタート] ボタンをクリックし、[コントロール パネル]、[ネットワークとインターネット] の順にクリックします。[ネットワークとインターネット] ページで、[ネットワークと共有センター] をクリックします。[ネットワークと共有センター] ページで、[詳細共有設定の変更] をクリックします。[共有の詳細設定] ページで、[ドメイン] の矢印の横にある矢印をクリックして [ネットワーク探索を有効にする] をクリックし、[変更の保存] をクリックします。
+          ネットワーク上で利用可能なWebサービスプリンターを表示するには、ネットワーク検出がオンになっていることを確認してください。 ネットワーク検出をオンにするには、[スタート]、[コントロールパネル]、[ネットワークとインターネット]の順にクリックします。[ネットワークとインターネット] ページで、[ネットワークと共有センター] をクリックします。[共有の詳細設定] ページで、[ドメイン] 矢印の横にある矢印をクリックし、[ネットワーク検出をオンにする]をクリックして、[変更を保存] をクリックします。
 
-          特定の種類のプリンターを表示しない場合は、このポリシーを有効にして、その種類のプリンターの表示数を 0 に設定します。
+          特定の種類のプリンタ ーを表示しない場合は、このポリシーを有効にして、その種類のプリンターの表示数を 0 に設定します。
 
           Windows 10 以降では、ウィザードに表示できるのは TCP/IP プリンターだけです。このポリシー設定を有効にした場合、適用できるのは TCP/IP プリンターの制限だけです。Windows 10 では、このポリシー設定を無効にするか、または構成しなかった場合、既定の制限が適用されます。
-          
+
           Windows 8 以降では、Bluetooth プリンターが表示されないため、その制限はそれらのバージョンの Windows には適用されません。
       </string>
       <string id="DomainPrinters">プリンターの追加ウィザード - ネットワーク スキャン ページ (管理されたネットワーク)</string>
@@ -134,21 +134,21 @@ Windows Server 2003 ファミリでこの設定を構成しなかった場合、
           この設定を有効にした場合でも、ユーザーは他のプログラムを使ってプリンターを削除することができます。
 
           このポリシーが無効になっている場合、または構成されていない場合は、ユーザーは上で説明した方法でプリンターを削除できます。</string>
-      <string id="NonDomainDisplayPrinters_Help">このポリシーは、管理されていないネットワーク上のコンピューターでプリンターの追加ウィザードに表示する各種のプリンターの最大数を設定します (自宅のネットワークでドメインに参加しているノート PC など、ドメイン コントローラーに接続できるコンピューターの場合)。
+      <string id="NonDomainDisplayPrinters_Help">このポリシーでは、管理されていないネットワーク上のコンピューターにプリンターの追加ウィザードで表示されるプリンターの最大数 (ホーム ネットワーク上のドメインに参加しているノート PC など) を設定します。
 
-この設定を無効にすると、ネットワーク スキャン ページが表示されなくなります。
+この設定を無効にすると、ネットワーク スキャン ページは表示されません。
 
-この設定を構成しない場合、プリンターの追加ウィザードには、各種プリンターが既定の数だけ表示されます。
+この設定を構成しなかった場合、プリンターの追加ウィザードには、各種類のプリンターの既定の数が表示されます:
 TCP/IP プリンター: 50
 Web サービス プリンター: 50
 Bluetooth プリンター: 10
-共有プリンター 50
+共有プリンター: 50
 
-特定の種類のプリンターを表示しない場合は、このポリシーを有効にして、その種類のプリンターの表示数を 0 に設定します。
+特定の種類のプリンターを表示しない場合は、このポリシーを有効にして、表示するプリンターの数を 0 に設定します。
 
-Windows 10 以降では、ウィザードに表示できるのは TCP/IP プリンターだけです。このポリシー設定を有効にした場合、適用できるのは TCP/IP プリンターの制限だけです。Windows 10 では、このポリシー設定を無効にするか、または構成しなかった場合、既定の制限が適用されます。
-          
-Windows 8 以降では、Bluetooth プリンターが表示されないため、その制限はそれらのバージョンの Windows には適用されません。</string>
+Windows 10以降では、ウィザードに表示できるのは TCP/IP プリンターのみです。このポリシー設定を有効にした場合、TCP/IP プリンターの制限のみが適用されます。Windows 10でのみ、このポリシー設定を無効にするか、未構成にした場合、既定の制限が適用されます。
+
+Windows 8以降では、Bluetooth プリンターは表示されないため、その制限はそれらのバージョンの Windows には適用されません。</string>
       <string id="NonDomainPrinters">プリンターの追加ウィザード - ネットワーク スキャン ページ (管理されていないネットワーク)</string>
       <string id="PackagePointAndPrintOnly">ポイント アンド プリントの実装のみを使用する</string>
       <string id="PackagePointAndPrintOnly_Help">このポリシーは、クライアント コンピューターがポイント アンド プリントの実装のみを使用するように制限します。
@@ -278,19 +278,241 @@ Windows Ultimate、Professional、および Home の SKU では、既定で、�
 
         このポリシー設定を無効にした場合、または構成しなかった場合は、インストールされているすべてのプリンター拡張の実行が許可されます。</string>
       <string id="MXDWUseLegacyOutputFormatMSXPS">Microsoft XPS ドキュメント ライター (MXDW) の既定の出力形式をレガシ Microsoft XPS 形式 (*.xps) に変更する</string>
-      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Windows 10 と Windows Server 2019 では、Microsoft XPS ドキュメント ライター (MXDW) により既定で OpenXPS (*.oxps) ファイルが生成されます。
+      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Microsoft XPS ドキュメント ライター (MXDW) は、既定で Windows 10、Windows 10、Windows Server 2025 で OpenXPS (*.oxps) ファイルを生成します。
 
-          このグループ ポリシー設定を有効にした場合、既定の MXDW 出力形式はレガシ Microsoft XPS (*.xps) になります。
+このグループ ポリシー設定を有効にした場合、既定の MXDW 出力形式はレガシ Microsoft XPS (*.xps) になります。
 
-          このポリシー設定を無効にした場合、または構成しなかった場合は、既定の MXDW 出力形式は OpenXPS (*.oxps) になります。</string>
+このポリシー設定を無効にした場合、または構成しなかった場合、既定の MXDW 出力形式は OpenXPS (*.oxps) になります。</string>
       <string id="SetDefaultPrinterMRUModeOff">Windows での通常使うプリンターの管理を無効にします</string>
-      <string id="SetDefaultPrinterMRUModeOff_Help">この基本設定では、通常使うプリンターの管理を変更できます。
+      <string id="SetDefaultPrinterMRUModeOff_Help">この設定では、既定のプリンター管理を変更できます。
 
-この設定を有効にした場合、Windows で通常使うプリンターは管理されません。
- 
-この設定を無効にした場合、Windows で通常使うプリンターが管理されます。
+この設定を有効にした場合、既定のプリンターは管理されません。
 
-この設定を構成しなかった場合、通常使うプリンターの管理は変更されません。 </string>
+この設定を無効にすると、既定のプリンターが管理されます。
+
+この設定を構成しなかった場合、既定のプリンター管理は変更されません。 </string>
+      <string id="EnableDeviceControl">デバイス コントロールの印刷制限を有効にする</string>
+      <string id="EnableDeviceControl_Help">
+このコンピューター上での印刷にデバイス コントロールの印刷制限が適用されるかどうかを指定します。
+
+          既定では、接続の種類やプリンターのメーカー/モデルによる印刷の制限はありません。
+
+          この設定を有効にすると、コンピューターは企業ネットワーク上のプリンター接続や承認済みの USB 接続プリンターに対する印刷を制限します。
+
+          この設定を無効にしているか、設定していない場合、接続の種類やプリンターのメーカー/モデルによる印刷の制限はありません。</string>
+      <string id="ApprovedUsbPrintDevices">許可された USB 接続印刷デバイスのリスト</string>
+      <string id="ApprovedUsbPrintDevices_Help">
+
+この設定は、デバイス コントロールの印刷制限のコンポーネントです。この設定を使用するには、[デバイス コントロールの印刷制限を有効にする] 設定を有効にして、デバイス コントロール印刷を有効にしてください。
+
+デバイス コントロール印刷が有効になっている場合、指定された vid/pid 値の一覧を使用して、現在 USB に接続されているプリンターがローカル印刷用に承認されているかどうかを判断します。
+
+承認済みの USB プリンター モデルに対応するすべての承認済み vid/pid の組み合わせをコンマで区切って入力します。ユーザーが USB プリンター キューに印刷しようとすると、デバイス vid/pid が承認済みリストと比較されます。
+      </string>
+      <string id="RestrictDriverInstallationToAdministrators">プリンター ドライバーのインストールを管理者に限定する</string>
+      <string id="RestrictDriverInstallationToAdministrators_Help">
+管理者ではないユーザーがこのコンピューターに印刷ドライバーをインストールできるかどうかを決定します。
+
+既定では、管理者ではないユーザーはこのコンピューターに印刷ドライバーをインストールできません。
+
+この設定を有効にした場合、または構成しなかった場合は、印刷ドライバーのインストールがこのコンピューターの管理者に制限されます。
+
+この設定を無効にした場合、印刷ドライバーのインストールはこのコンピューターに制限されません。
+        </string>
+      <string id="CopyFilesPolicy">キュー固有のファイルの処理を管理する</string>
+      <string id="CopyFilesPolicy_AllowAll">すべてのキュー固有のファイルを許可する</string>
+      <string id="CopyFilesPolicy_Disabled">キュー固有のファイルを許可しない</string>
+      <string id="CopyFilesPolicy_Help">
+プリンタのインストール中にキュー固有のファイルがどのように処理されるかを管理します。 プリンターのインストール時に、ベンダー提供のインストール アプリケーションは、特定の印刷キューに関連付ける任意の種類のファイルのセットを指定できます。 ファイルは、プリンター サーバーに接続する各クライアントにダウンロードされます。
+
+この設定を有効にすると、キュー固有のファイルに関連する既定の動作を変更できます。 この設定を使用するには、[キュー固有のファイルの処理を管理する] ボックスから以下のオプションのいずれかを選択します。
+
+このポリシー設定を無効にするか構成しない場合、規定の動作は ”キュー固有のファイルをカラー プロファイルに制限する” になります。
+
+--  "キュー固有のファイルを許可しない" は、印刷キュー/プリンター接続のインストール中にキュー固有のファイルが許可/処理されないことを指定します。
+
+--  "キュー固有のファイルをカラー プロファイルに制限する" は、標準のカラー プロファイル スキームに準拠するキュー固有のファイルのみが許可されることを指定します。 これは、レジストリ キー CopyFiles\ICM を使用し、ディレクトリ値 COLOR を含み、モジュール値として mscms.dll をサポートするエントリを意味します。 "キュー固有のファイルをカラー プロファイルに制限する" は既定の動作です。
+
+--  "すべてのキュー固有のファイルを許可する" は、すべてのキュー固有のファイルが印刷キュー / プリンター接続のインストール中に許可 / 処理されることを指定します。
+      </string>
+      <string id="CopyFilesPolicy_ICMOnly">キュー固有のファイルをカラー プロファイルに制限する</string>
+      <string id="DriverValidationLevel_Inbox">受信トレイで署名されたドライバーが必要</string>
+      <string id="DriverValidationLevel_Legacy">有効な署名されたドライバーをすべて許可する</string>
+      <string id="DriverValidationLevel_Trusted">信頼済みストアで署名されたドライバーの受信トレイと印刷ドライバーを許可する</string>
+      <string id="DriverValidationLevel_TrustedShared">受信トレイ、印刷ドライバーの信頼済みストア、WHQL、および信頼済み発行元ストアの署名付きドライバーを許可する</string>
+      <string id="DriverValidationLevel_WHQL">受信トレイ、印刷ドライバーの信頼済みストア、および WHQL 署名付きドライバーを許可する</string>
+      <string id="DriverValidationLevel">プリンター ドライバーの署名検証を管理する</string>
+      <string id="DriverValidationLevel_Help">
+          このポリシー設定は、プリンター ドライバーの署名検証メカニズムを制御します。 このポリシーは、プリンター ドライバーが有効であると見なされてシステムにインストールされるために必要なデジタル署名のタイプを制御します。
+
+          この検証の一環として、カタログ/埋め込み署名が検証済みであり、ドライバー内のすべてのファイルがカタログの一部であるか、検証に使用できる独自の埋め込み署名を持っている必要があります。
+
+          この設定を有効にして、既定の署名検証方法を変更できます。 この設定を使用するには、[このコンピューターのドライバー署名メカニズムを選択する] ボックスから以下のオプションのいずれかを選択します。
+
+          このポリシー設定を無効にするか、構成しない場合、既定の方法は "有効な署名されたドライバーをすべて許可する" です。
+
+          --  "受信トレイの署名付きドライバーが必要" は、Windows イメージの一部として出荷されたドライバーのみがこのコンピューターで許可されることを指定します。
+
+          -- "受信トレイと PrintDrivers の信頼できるストアの署名付きドライバーを許可する" は、Windows イメージの一部として出荷されるドライバー、または "PrintDrivers" 証明書ストアにインストールされた証明書によって署名されたドライバーのみがこのコンピューターで許可されることを指定します。
+
+          -- "受信トレイ、PrintDrivers Trusted Store、WHQL、およびTrusted Publishers Store の署名付きドライバーを許可する" は、このコンピューターで許可されるドライバーが、Windows イメージの一部として出荷されているか、"PrintDrivers" 証明書ストアにインストールされた証明書によって署名されているか、Windows Hardware Quality Lab (WHQL) によって署名されているか、"TrustedPublishers" 証明書ストアにインストールされている証明書によって署名されているもののみであることを指定します。
+
+          -- "受信トレイ、PrintDrivers Trusted Store、WHQL、および Trusted Publishers Store の署名付きドライバーを許可する" は、このコンピューターで許可されるドライバーが、Windows イメージの一部として出荷されているか、"PrintDrivers" 証明書ストアにインストールされた証明書によって署名されているか、Windows Hardware Quality Lab (WHQL) によって署名されているか、「TrustedPublishers」証明書ストアにインストール済みの証明書によって署名されているもののみであることを指定します。
+
+"すべての有効に署名されたドライバーを許可する" とは、有効な埋め込み署名があるか、印刷ドライバー カタログに対して検証できるすべての印刷ドライバーをこのコンピューターにインストールできることを指定します。
+
+          "PrintDrivers" 証明書ストアは、管理者がローカル コンピューター ストアの配下に作成する必要があります。
+
+          信頼できる発行元" の証明書ストアには、印刷ドライバーに関連しないソースからの証明書を含めることができます。
+
+      </string>
+      <string id="DriverValidationLevelTitle">このコンピューターのドライバー署名メカニズムを選択します</string>
+      <string id="DriverExclusionList">プリント ドライバーの除外リストを管理する</string>
+      <string id="DriverExclusionList_Help">
+このポリシー設定では、プリンター ドライバーの除外一覧を制御します。除外一覧を使用すると、管理者は、システムへのインストールが許可されていないプリンター ドライバーの一覧を選別できます。
+
+このチェックでは、署名チェックが除外され、印刷ドライバー署名検証ポリシーの有効な署名レベルを持つドライバーを除外できます。
+
+除外リスト内のエントリは、INF ファイルの SHA256 ハッシュ (Win7 の SHA1 ハッシュ)、ドライバーのメイン ドライバー DLL ファイル、およびファイルの名前で構成されます。
+
+このポリシー設定を無効にするか、未構成にした場合、現在値に設定されている場合、このポリシー設定に関連付けられているレジストリ キーと値は削除されます。
+
+      </string>
+      <string id="RpcListenerPolicy">RPC リスナー設定の構成</string>
+      <string id="RpcOverNamedPipes">名前付きパイプ経由の RPC</string>
+      <string id="RpcOverTcp">RPC over TCP</string>
+      <string id="RpcOverNamedPipesAndTcp">名前付きパイプと TCP 経由の RPC</string>
+      <string id="RpcAuthenticationProtocol_Negotiate">ネゴシエート</string>
+      <string id="RpcAuthenticationProtocol_Kerberos">Kerberos</string>
+      <string id="RpcListenerPolicy_Help">
+このポリシー設定は、プリント スプーラへの着信 RPC 接続が使用できるプロトコルを制御します。
+
+既定では、RPC over TCP が有効になっており、認証プロトコルにはネゴシエートが使用されます。
+
+着信 RPC 接続を許可するプロトコル: 
+    -- "名前付きパイプを経由の RPC": 着信 RPC 接続は名前付きパイプを経由でのみ許可されます
+    -- "RPC over TCP": 着信 RPC 接続は TCP を経由でのみ許可されます (既定オプション)
+    -- "名前付きパイプおよび TCP を経由のRPC": 着信 RPC 接続は TCP および名前付きパイプを介して許可されます
+
+着信 RPC 接続に使用する認証プロトコル:
+    -- "ネゴシエート ": ネゴシエート認証プロトコルを使用します (既定オプション)
+    -- "Kerberos":  Kerberos 認証プロトコルを使用します
+
+このポリシー設定を無効にするか、構成しない場合、上記の既定が使用されます。
+      </string>
+      <string id="RpcConnectionPolicy">RPC 接続設定を構成する</string>
+      <string id="RpcConnectionAuthenticationDefault">既定値</string>
+      <string id="RpcConnectionAuthenticationEnabled">認証が有効になりました</string>
+      <string id="RpcConnectionAuthenticationDisabled">認証が無効になっています</string>
+      <string id="RpcConnectionPolicy_Help">
+このポリシー設定は、リモート 印刷スプーラーへの発信 RPC 接続に使用するプロトコルとプロトコル設定を制御します。
+
+既定では、RPC over TCP が使用され、認証は常に有効になっています。名前付きパイプを介した RPC の場合、ドメインに参加しているマシンに対して認証が常に有効になりますが、ドメインに参加していないマシンでは無効になっています。
+
+発信 RPC 接続に使用するプロトコル: 
+    -- "RPC over TCP": リモート 印刷スプーラーへの発信 RPC 接続に RPC over TCP を使用します
+    -- "名前付きパイプを経由の RPC": リモート 印刷スプーラーへの名前付きパイプを経由する発信 RPC 接続に名前付きパイプを経由の RPC を使用します
+
+発信 RPC 接続に認証を使用します:
+    -- "既定": 既定では、ドメインに参加しているコンピューターは名前付きパイプを経由の RPC の RPC 認証を有効にし、ドメインに参加していないコンピューターは 名前付きパイプを経由の RPC 認証を無効にします
+    -- "認証が有効になりました": RPC 認証は名前付きパイプを経由の発信 RPC 接続に使用されます
+    -- "認証が無効になっています": RPC 認証は名前付きパイプを経由の発信 RPC 接続には使用されません
+
+このポリシー設定を無効にするか、構成しない場合は、上記の既定設定が使用されます。
+      </string>
+      <string id="RpcTcpPortPolicy">RPC over TCP ポートの構成</string>
+      <string id="RpcTcpPortPolicy_Help">
+このポリシー設定では、印刷スプーラーへの着信接続とリモート印刷スプーラーへの発信接続に RPC over TCP に使用するポートを制御します。
+
+既定では、動的 TCP ポートが使用されます。
+
+TCP ポート経由の RPC:
+    -- RPC over TCP に使用するポート。値 0 は既定値で、動的 TCP ポートが使用されることを示します
+
+このポリシー設定を無効にするか、未構成にした場合、動的 TCP ポートが使用されます。
+      </string>
+      <string id="RpcIncomingAuthenticationLevelPolicy">着信接続の RPC パケット レベルのプライバシー設定を構成する</string>
+      <string id="RpcIncomingAuthenticationLevelPolicy_Help">
+このポリシー設定では、着信接続の RPC に対してパケット レベルのプライバシーを有効にするかどうかを制御します。
+
+既定では、着信接続の RPC に対してパケット レベルのプライバシーが有効になっています。
+
+このポリシー設定を有効にするか、未構成にした場合、着信接続の RPC ではパケット レベルのプライバシーが有効になります。
+      </string>
+      <string id="AlwaysSendIppPageCounts">IPP プリンターのジョブ ページ カウント情報を常に送信する</string>
+      <string id="AlwaysSendIppPageCounts_Help">
+Microsoft IPP クラス ドライバーを使用して、プリンターのアカウンティング目的で常にページ数情報を送信するかどうかを決定します。
+
+既定では、ページはレンダリング後すぐにプリンターに送信され、ページ数の情報は、ページの順序を変更する必要がない限り、プリンターに送信されません。
+
+この設定を有効にした場合、すべての印刷ジョブ ページが前面に表示され、印刷ジョブの合計ページ数がプリンターに送信されます。
+
+この設定を無効にした場合、または構成しなかった場合、ページはレンダリング後すぐに印刷され、ジョブの処理にページの並べ替えが必要な場合にのみページ数が送信されます。
+      </string>
+      <string id="RequireIpps">IPP プリンターに IPPS を要求する</string>
+      <string id="RequireIpps_Help">Microsoft IPP クラス ドライバーを使用するプリンターとの通信で、セキュリティで保護された通信に TLS を使用する IPPS を使用する必要があるかどうかを決定します。
+
+このポリシー設定を有効にした場合、IPPS をサポートする IPP プリンターのみをインストールできます。
+
+この設定を無効にした場合、または構成しなかった場合、IPPS をサポートしていない IPP プリンターのインストールが既定で許可されます。
+      </string>
+      <string id="IppTlsCertificatePolicy">IPP プリンターの TLS/SSL セキュリティ ポリシーを設定する</string>
+      <string id="IppTlsCertificatePolicy_Help">
+Microsoft IPP クラス ドライバーを使用してプリンターの TLS/SSL セキュリティ ポリシー (WINHTTP_OPTION_SECURITY_FLAGS) を決定します。
+
+既定では、セキュリティ ポリシーはすべての証明書エラーを無視するように設定されているため、プリンターに自己署名証明書を使用できます。
+
+この設定を有効にすると、既定ですべての証明書チェックが有効になり、証明書エラーが禁止されます。特定の証明書チェックは、指定されたチェック ボックスを使用して設定できます。
+
+この設定を無効にする場合、または構成しない場合、既定では、すべての証明書エラーが無視されます (すべてのチェック ボックスがオフです)。
+      </string>
+      <string id="RedirectionGuardPolicy">リダイレクト ガードの構成</string>
+      <string id="RedirectionGuardPolicy_Disabled">リダイレクト ガードが無効です</string>
+      <string id="RedirectionGuardPolicy_Enabled">リダイレクト ガードが有効です</string>
+      <string id="RedirectionGuardPolicy_AuditOnly">リダイレクト ガード監査のみ</string>
+      <string id="RedirectionGuardPolicy_Help">
+印刷スプーラーに対して Redirection Guard を有効にするかどうかを決定します。
+
+この設定を有効にすると、スプーラーに適用される Redirection Guard ポリシーを構成できます。
+
+このポリシー設定を無効にするか、未構成にした場合、Redirection Guard の既定値は '有効' になります。
+
+この設定を有効にした場合、次のオプションを選択できます。
+
+-- 有効 : Redirection Guard は、ファイル リダイレクトのフォローを禁止します
+
+-- 問題 : Redirection Guard は有効にされず、スプーラー プロセス内でファイル リダイレクトが使用される可能性があります
+
+-- 監査 : Redirection Guard はイベントを有効にしたかのようにログに記録しますが、実際にはスプーラー内でファイル リダイレクトが使用されるのを妨げるものではありません。
+      </string>
+      <string id="WindowsProtectedPrintPolicy">Windows 保護印刷を構成する</string>
+      <string id="WindowsProtectedPrintPolicy_Help">
+このコンピューターで Windows で保護された印刷を有効にするかどうかを決定します。
+
+既定では、Windows で保護された印刷は有効ではなく、インストールまたは印刷機能を使用できる印刷ドライバーに制限はありません。
+
+この設定を有効にした場合、コンピューターは Windows 保護印刷モードで動作します。このモードでは、受信トレイの Windows 印刷ドライバーのサブセットをサポートするプリンターへの印刷のみが許可されます。
+
+この設定を無効にした場合、または構成しなかった場合、インストールまたは印刷機能を使用できる印刷ドライバーに制限はありません。
+
+詳細については、https://learn.microsoft.com/en-us/windows-hardware/drivers/print/windows-protected-print-mode を参照してください
+      </string>
+      <string id="WindowsReadyPrintDriverRanking">Windows Ready Print ドライバーの優先順位を構成する</string>
+      <string id="WindowsReadyPrintDriverRanking_Help">
+このコンピューターで Windows Ready Print ドライバーのランク付けを有効にするかどうかを決定します。
+
+有効にすると、Windows は、インターネット印刷プロトコル (IPP) をサポートするプリンターに対して Microsoft IPP クラス ドライバーを優先します。これは、ネットワーク接続された IPP プリンターと、IPP over USB をサポートする USB 接続プリンターの両方に適用されます。
+
+この設定を有効にすると、Windows は、対象プリンターのドライバーの自動選択時に Microsoft IPP クラス ドライバーを優先します。
+
+この設定を無効にすると、Windows は、既定のドライバー選択動作を使用します。
+
+この設定を構成しない場合、代わりにローカル管理者設定が使用されます。どちらの設定も構成されていない場合、Windows Ready Print ドライバーのランク付けが既定で有効になります。
+
+注: このグループ ポリシー設定は、ローカル管理者設定よりも優先されます。この設定は、プリンターの初期セットアップ時のドライバーの自動選択にのみ影響します。既存のプリンターのインストールは変更されません。この設定の変更を有効にするには、プリンターの完全なアンインストールと再インストールが必要です。
+
+詳細については、https://go.microsoft.com/fwlink/?linkid=2364024 を参照してください。
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="CustomizedSupportUrl">
@@ -350,6 +572,50 @@ Windows Ultimate、Professional、および Home の SKU では、既定で、�
           <label>既定の Active Directory パス</label>
         </textBox>
         <text>例 --&gt; LDAP://DC=Domain1,DC=MyCompany,DC=com</text>
+      </presentation>
+      <presentation id="ApprovedUsbPrintDevices">
+        <text>許可された USB 接続プリンターデバイスの一覧を指定します。</text>
+        <text>リストは、USB vid/pid の値をコンマで区切ったリストです。例: 0351/0872, 135E/2179</text>
+        <textBox refId="ApprovedUsbPrintDevices_List">
+          <label>vid/pid</label>
+        </textBox>
+      </presentation>
+      <presentation id="CopyFilesPolicy">
+        <text>キュー固有のファイルを処理する方法を選択します。</text>
+        <dropdownList defaultItem="1" noSort="true" refId="CopyFilesPolicy_Enum">キュー固有のファイルの処理を管理する:</dropdownList>
+      </presentation>
+      <presentation id="DriverValidationLevel">
+        <dropdownList defaultItem="4" noSort="true" refId="DriverValidationLevel_Enum">このコンピューターのドライバー署名メカニズムを選択してください:</dropdownList>
+      </presentation>
+      <presentation id="DriverExclusionList">
+        <text>  </text>
+        <text>以下にハッシュが表すファイルの名前とペアになっているファイル ハッシュを入力します。</text>
+        <text>  </text>
+        <listBox refId="Driver_ExclusionListEntry">ファイル ハッシュ ファイル名:</listBox>
+      </presentation>
+      <presentation id="RpcListenerPolicy">
+        <text>発信 RPC 接続のプロトコル オプションを構成します。</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RpcListenerProtocols_Enum">着信 RPC 接続を許可するプロトコル:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcAuthenticationProtocol_Enum">着信 RPC 接続に使用する認証プロトコル:</dropdownList>
+      </presentation>
+      <presentation id="RpcConnectionPolicy">
+        <text>発信 RPC 接続のプロトコル オプションを構成します。</text>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionProtocol_Enum">発信 RPC 接続に使用するプロトコル:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionAuthentication_Enum">発信 RPC 接続に認証を使用する:</dropdownList>
+      </presentation>
+      <presentation id="RpcTcpPortPolicy">
+        <text>RPC over TCP に使用するポートを構成します。</text>
+        <decimalTextBox defaultValue="0" refId="RpcTcpPort">RPC over TCP port:</decimalTextBox>
+      </presentation>
+      <presentation id="IppTlsCertificatePolicy">
+        <checkBox refId="SecurityFlagsBlockUnknownCA" defaultChecked="true">無効な認証局を許可しない</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertWrongUsage" defaultChecked="true">サーバー以外の証明書を許可しない</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertCNInvalid" defaultChecked="true">無効な証明書共通名を許可しない</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertDateInvalid" defaultChecked="true">無効な証明書日付を許可しない</checkBox>
+      </presentation>
+      <presentation id="RedirectionGuardPolicy">
+        <text>リダイレクト ガードのオプションを構成する</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RedirectionGuardPolicy_Enum">リダイレクト ガードのオプション</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

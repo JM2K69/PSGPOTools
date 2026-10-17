@@ -5,21 +5,20 @@
   <description>digite a descrição aqui</description>
   <resources>
     <stringTable>
-      <string id="AllowTelemetry">Permitir Telemetria</string>
-      <string id="AllowTelemetry_0">0 - Segurança [Somente Empresa]</string>
-      <string id="AllowTelemetry_1">1 - Básico</string>
-      <string id="AllowTelemetry_2">2 - Aprimorado</string>
-      <string id="AllowTelemetry_3">3 - Total</string>
-      <string id="AllowTelemetry_Explain">Esta configuração de política determina o nível mais alto de dados de diagnóstico do Windows enviados à Microsoft. Ao definir esta configuração, você não impede as pessoas de alterarem suas Configurações de Telemetria; no entanto, você as impede de escolher um nível mais alto do que você definiu para a organização. As configurações de dados de diagnóstico do Windows 10 se aplicam apenas ao sistema operacional Windows e aos aplicativos fornecidos com o Windows. Essas configurações não se aplicam a aplicativos de terceiros executados no Windows 10.
+      <string id="AllowTelemetry">Permitir Dados de Diagnóstico</string>
+      <string id="AllowTelemetry_0">Dados de diagnóstico desativados (não recomendado)</string>
+      <string id="AllowTelemetry_1">Enviar dados de diagnóstico necessários</string>
+      <string id="AllowTelemetry_3">Enviar dados de diagnóstico opcionais</string>
+      <string id="AllowTelemetry_Explain">Ao definir essa configuração de política, você pode ajustar quais dados de diagnóstico são coletados do Windows. Essa configuração de política também restringe o usuário de aumentar a quantidade de coleta de dados de diagnóstico por meio do aplicativo Configurações. Os dados de diagnóstico coletados nesta política afetam o sistema operacional e aplicativos que são considerados parte do Windows e não se aplicam a outros aplicativos instalados pela sua organização.
 
-Se habilitar esta configuração, você pode decidir que nível de dados de diagnóstico enviar à Microsoft, incluindo:
+    - Dados de diagnóstico desativados (não recomendado). Usando esse valor, nenhum dado de diagnóstico do dispositivo será enviado. Esse valor só tem suporte em edições Enterprise, Education e Server.
+    - Enviar dados de diagnóstico obrigatórios. Estes são os dados mínimos de diagnóstico necessários para manter o Windows seguro, atualizado e executando conforme o esperado.O  uso desse valor desativa o controle “Dados de diagnóstico opcionais” no aplicativo Configurações.
+    - Enviar  dados de diagnóstico opcionais. São coletados dados de diagnóstico adicionais que nos ajudam a detectar, diagnosticar e corrigir problemas, bem como de fazer melhorias no produto. Os dados de diagnóstico obrigatórios sempre serão incluídos quando você optar por enviar dados de diagnóstico opcionais.  Os dados de diagnóstico opcionais também podem incluir arquivos de log de diagnóstico e despejo de memória. Use as políticas “Limitar Coleta de Despejo” e “Limitar Coleta de Log de Diagnóstico” para obter um controle mais granular de quais dados de diagnóstico opcionais são enviados.
 
-  - 0 (Segurança). Envia apenas uma quantidade mínima de dados à Microsoft, necessários para ajudar a manter o Windows seguro. Os componentes de segurança do Windows, como a Ferramenta de Remoção de Software Mal-Intencionado (MSRT) e o Windows Defender, podem enviar dados à Microsoft nesse nível, se habilitados. A definição do valor 0 aplica-se a dispositivos que executam apenas as Enterprise, Education, IoT ou Windows Server. A definição do valor 0 para outras edições equivale à definição do valor 1.
-  - 1 (Básico). Envia os mesmos dados que o valor 0, além de uma quantidade muito limitada de dados de diagnóstico, como informações básicas do dispositivo, dados relacionados à qualidade e informações de compatibilidade de aplicativos. Observe que a definição de valores 0 ou 1 prejudicará certas experiências no dispositivo.
-  - 2 (Avançado). Envia os mesmos dados que o valor 1, além de dados adicionais, do tipo como o Windows, Windows Server, System Center e apps são usados, qual é o desempenho deles e dados de confiabilidade avançados.
-  - 3 (Completo). Envia os mesmos dados que o valor 2, além de dados avançados de diagnóstico usados para diagnosticar e corrigir problemas em dispositivos, incluindo os arquivos e conteúdo que podem ter causado um problema com o dispositivo.
+se você desabilitar ou não definir essa configuração de política, o dispositivo enviará os dados de diagnóstico obrigatórios e o usuário final poderá escolher se deseja enviar os dados de diagnóstico opcionais a partir do aplicativo Configurações.
 
-Se você desabilitar ou não configurar esta política, as configurações de telemetria poderão ser definidas individualmente em Configurações.
+Observação:
+A política de grupo "Definir configurações de aceitação de dados de diagnóstico da interface do usuário", pode ser usada para impedir que os usuários finais alterem suas configurações.
       </string>
 
       <string id="TelemetryProxy">Configurar Experiências do Usuário Conectado e Telemetria</string>
@@ -31,9 +30,9 @@ O formato para essa configuração é &lt;servidor&gt;:&lt;porta&gt;
       </string>
 
       <string id="CommercialId">Configurar ID Comercial</string>
-      <string id="CommercialId_Explain">Essa configuração de política define o identificador usado para associar exclusivamente dados de telemetria deste dispositivo como pertencentes a determinada organização. Se sua organização estiver participando de um programa que requer que este dispositivo seja identificado como pertencente à organização, use essa configuração para fornecer essa identificação. O valor dessa configuração será fornecido pela Microsoft como parte do processo de integração do programa. 
+      <string id="CommercialId_Explain">Esta configuração de política define o identificador usado para associar exclusivamente os dados de dados de diagnóstico deste dispositivo como pertencentes a uma determinada organização. Se sua organização estiver participando de um programa que requer que este dispositivo seja identificado como pertencente à sua organização, use essa configuração para fornecer essa identificação. O valor dessa configuração será fornecido pela Microsoft como parte do processo de integração do programa. 
 
-Se você desabilitar ou não definir essa configuração de política, a Microsoft não poderá usar esse identificador para associar este computador e os dados de telemetria da organização.
+Se você desabilitar ou não definir essa configuração de política, a Microsoft não poderá usar esse identificador para associar este computador e seus dados de diagnóstico de dados à sua organização.
       </string>
 
       <string id="DisableEnterpriseAuthProxy">Configurar uso de Proxy Autenticado para o serviço Experiência do Usuário Conectado e Telemetria</string>
@@ -41,21 +40,20 @@ Se você desabilitar ou não definir essa configuração de política, a Microso
       <string id="DisableEnterpriseAuthProxy_2">Desabilitar o uso de Proxy Autenticado</string>
       <string id="DisableEnterpriseAuthProxy_Explain">Essa configuração de política impede que o serviço Experiência do Usuário Conectado e Telemetria use automaticamente um proxy autenticado ao enviar dados para a Microsoft no Windows 10. Se você desabilitar ou não definir essa configuração de política, o serviço Experiência do Usuário Conectado e Telemetria usará automaticamente um proxy autenticado para enviar dados para a Microsoft. A habilitação dessa política impedirá o serviço Experiência do Usuário Conectado e Telemetria de usar um proxy autenticado automaticamente.</string>
 
-      <string id="LimitEnhancedDiagnosticDataWindowsAnalytics">Limitar dados do diagnóstico avançado ao mínimo exigido pelo Windows Analytics</string>
-      <string id="LimitEnhancedDiagnosticDataWindowsAnalytics_1">Habilitar coleção de Análise do Windows</string>
-      <string id="LimitEnhancedDiagnosticDataWindowsAnalytics_2">Desabilitar coleção de Análise do Windows</string>
-      <string id="LimitEnhancedDiagnosticDataWindowsAnalytics_Explain">Esta configuração de política, em combinação com a configuração de política Permitir Telemetria, permite que as organizações enviem à Microsoft um conjunto específico de dados de diagnóstico para insights de TI pelos serviços do Windows Analytics. Ao definir esta configuração, você não impede as pessoas de alterarem suas Configurações de Telemetria; no entanto, você as impede de escolher um nível mais alto do que você definiu para a organização.
+      <string id="LimitEnhancedDiagnosticDataWindowsAnalytics">Limitar dados de diagnóstico opcionais para Análise de Área de Trabalho</string>
+      <string id="LimitEnhancedDiagnosticDataWindowsAnalytics_1">Habilitar coleção de Análise de Área de Trabalho</string>
+      <string id="LimitEnhancedDiagnosticDataWindowsAnalytics_2">Desabilitar coleção de Análise de Área de Trabalho</string>
+      <string id="LimitEnhancedDiagnosticDataWindowsAnalytics_Explain">Esta configuração de política, combinada com a configuração de política "Permitir dados de diagnóstico", permite que as organizações enviem os dados mínimos necessários para a Análise de Área de Trabalho.
 
-Para habilitar esse comportamento, você deve concluir duas etapas:
-
+Para habilitar o comportamento descrito acima, complete as seguintes etapas:
     1. Habilite esta configuração de política
-    2. Defina Permitir Telemetria para o nível 2 (Avançado)
+    2. Defina a política "Permitir dados de diagnóstico" para "Enviar dados de diagnóstico opcionais"
+    3. Habilite a política "Limitar coleta de despejo" 
+    4. Habilite a política "Limitar a coleta de log de diagnóstico"
 
-Se você definir essas configurações de políticas ao mesmo tempo, enviará o nível Básico de dados de diagnóstico mais quaisquer eventos adicionais necessários para o Windows Analytics, à Microsoft. Os eventos adicionais são documentados aqui: https://go.Microsoft.com/fwlink/?linked=847594.
+Quando essas políticas estiverem configuradas, a Microsoft coletará somente os dados de diagnóstico necessários e os eventos necessários para a Análise de Área de Trabalho, que podem ser exibidos em https://go.microsoft.com/fwlink/?linkid=2116020.
 
-Se você habilitar os dados de diagnóstico no nível Avançado na configuração de política Permitir Telemetria, mas não configurar esta política, você enviará os eventos necessários para o Windows Analytics, mais quaisquer dados adicionais de telemetria de nível Avançado para a Microsoft. Esta configuração não tem efeito em computadores configurados para enviar dados de diagnóstico de nível Completo, Básico ou Segurança à Microsoft.
-
-Se você desabilitar ou não configurar esta política, o nível dos dados de diagnóstico enviados à Microsoft será determinado pela configuração de política Permitir Telemetria.
+Se você desabilitar ou não definir esta configuração de política, a coleta de dados de diagnóstico será determinada pela configuração de política "Permitir dados de diagnóstico" ou pelo usuário final do aplicativo Configurações.
       </string>
 
       <string id="AllowDeviceNameInDiagnosticData">Permitir que o nome do dispositivo seja enviado nos dados de diagnóstico do Windows</string>
@@ -64,55 +62,135 @@ Se você desabilitar ou não configurar esta política, o nível dos dados de di
 Se você desabilitar ou não definir esta configuração de política, o nome do dispositivo não será enviado à Microsoft como parte dos dados de diagnóstico do Windows.
       </string>
 
-      <string id="ConfigureTelemetryOptInSettingsUx">Configure a interface do usuário de configuração de permissão de telemetria.</string>
-      <string id="ConfigureTelemetryOptInSettingsUx_1">Desabilitar configurações de permissão de telemetria</string>
-      <string id="ConfigureTelemetryOptInSettingsUx_2">Habilitar configurações de permissão de telemetria</string>
-      <string id="ConfigureTelemetryOptInSettingsUx_Explain">Esta configuração de política determina se as pessoas podem alterar os próprios níveis de telemetria em Configurações. Esta configuração deve ser usada em conjunto com as configurações de Permitir Telemetria.
+      <string id="ConfigureTelemetryOptInSettingsUx">Configure a interface do usuário de configuração de aceitação de dados de diagnóstico.</string>
+      <string id="ConfigureTelemetryOptInSettingsUx_1">Desabilitar configurações de aceitação de dados de diagnóstico</string>
+      <string id="ConfigureTelemetryOptInSettingsUx_2">Habilitar configurações de aceitação de dados de diagnóstico</string>
+      <string id="ConfigureTelemetryOptInSettingsUx_Explain">Essa configuração de política determina se um usuário final pode alterar as configurações de dados de diagnóstico no aplicativo Configurações.
 
-Se você definir esta configuração de política para "Desabilitar configurações de permissão de telemetria", os níveis de telemetria serão desabilitados em Configurações, impedindo que as pessoas os alterem.
+Se você definir esta configuração de política como "Desabilitar configurações de aceitação de dados de diagnóstico", as configurações de dados de diagnóstico serão desativadas no aplicativo Configurações.
 
-Se você definir esta configuração de política como "Habilitar configurações de permissão de telemetria" ou não configurar esta política, as pessoas poderão alterar os próprios níveis de telemetria em Configurações.
+Se você não definir essa configuração de política ou defini-la como "Habilitar configurações de ativação de dados de diagnóstico", os usuários finais poderão alterar as configurações de diagnóstico do dispositivo no aplicativo Configurações.
 
 Observação:
-Defina a configuração de política Permitir Telemetria para impedir que as pessoas enviem dados de diagnóstico à Microsoft além do limite de sua organização.
+Para definir um limite na quantidade de dados de diagnóstico enviados à Microsoft pela sua organização, use a configuração de política "Permitir dados de diagnóstico".
       </string>
 
-      <string id="ConfigureTelemetryOptInChangeNotification">Configure as notificações de alteração de permissão de telemetria.</string>
-      <string id="ConfigureTelemetryOptInChangeNotification_1">Desabilitar notificações de alteração de telemetria</string>
-      <string id="ConfigureTelemetryOptInChangeNotification_2">Habilitar notificações de alteração de telemetria</string>
-      <string id="ConfigureTelemetryOptInChangeNotification_Explain">
-          Esta configuração de política controla se um dispositivo mostra notificações sobre níveis de telemetria às pessoas no primeiro logon ou quando ocorrem alterações em Configurações. 
-          Se você definir esta configuração de política para "Desabilitar notificações de alteração de telemetria", as notificações de nível de telemetria não aparecerão mais.
-          Se você definir esta configuração de política para "Habilitar notificações de alteração de telemetria" ou não configurar esta política, as notificações de telemetria serão exibidas no primeiro logon e quando ocorrerem alterações em Configurações.
+      <string id="ConfigureTelemetryOptInChangeNotification">Configurar notificações de alteração de aceitação de dados de diagnóstico.</string>
+      <string id="ConfigureTelemetryOptInChangeNotification_1">Desabilitar notificações de alteração de dados de diagnóstico</string>
+      <string id="ConfigureTelemetryOptInChangeNotification_2">Habilitar notificações de alteração de dados de diagnóstico</string>
+      <string id="ConfigureTelemetryOptInChangeNotification_Explain">Essa configuração de política controla se as notificações são exibidas, após uma alteração nas configurações de consentimento de dados de diagnóstico, no primeiro logon e quando as alterações ocorrem nas configurações. 
+
+Se você definir esta política como "Desativar notificações de alteração de dados de diagnóstico", as notificações de alteração de inclusão de dados de diagnóstico não serão exibidas. 
+
+Se você definir esta configuração de política como "Habilitar notificações de alteração de dados de diagnóstico" ou não definir essa configuração de política, as notificações de alteração de consentimento de dados de diagnóstico aparecerão no primeiro logon e quando as alterações ocorrerem em Configurações.
       </string>
 
-      <string id="DisableDeviceDelete">Desabilitar a exclusão de dados de diagnóstico </string>
-      <string id="DisableDeviceDelete_Explain">
-          Esta configuração de política controla se o botão Excluir dados de diagnóstico é habilitado na página Configurações de Diagnóstico e Comentários.
+      <string id="DisableDeviceDelete">Desabilitar a exclusão de dados de diagnóstico</string>
+      <string id="DisableDeviceDelete_Explain">Esta configuração de política controla se o botão Excluir dados de diagnóstico é habilitado na página Configurações de Diagnóstico e Comentários.
           Se você habilitar esta configuração de política, o botão Excluir Dados de Diagnóstico será desabilitado na página Configurações, impedindo a exclusão de dados de diagnóstico coletados pela Microsoft do dispositivo. 
           Se você desabilitar ou não definir esta configuração de política, o botão Excluir dados de diagnóstico será habilitado na página Configurações, que permite que as pessoas apaguem todos os dados de diagnóstico coletados pela Microsoft desse dispositivo.
       </string>
 
-      <string id="DisableDiagnosticDataViewer">Desabilite o visualizador de dados de diagnóstico. </string>
-      <string id="DisableDiagnosticDataViewer_Explain">
-          Esta configuração de política controla se os usuários podem habilitar e iniciar o Visualizador de Dados de Diagnóstico na página Configurações de Diagnóstico e Comentários.
+      <string id="DisableDiagnosticDataViewer">Desabilite o visualizador de dados de diagnóstico.</string>
+      <string id="DisableDiagnosticDataViewer_Explain">Esta configuração de política controla se os usuários podem habilitar e iniciar o Visualizador de Dados de Diagnóstico na página Configurações de Diagnóstico e Comentários.
           Se você habilitar esta configuração de política, o Visualizador de Dados de Diagnóstico não será habilitado na página Configurações e impedirá que o visualizador exiba dados de diagnóstico coletados pela Microsoft do dispositivo.  
           Se você desabilitar ou não definir esta configuração de política, o Visualizador de Dados de Diagnóstico será habilitado na página Configurações.
       </string>
 
       <string id="ConfigureMicrosoft365UploadEndpoint">Configurar dados de diagnóstico para upload de ponto de extremidade para a Análise de Área de Trabalho</string>
-      <string id="ConfigureMicrosoft365UploadEndpoint_Explain">
-          Essa política define o ponto de extremidade de upload para os dados de diagnóstico deste dispositivo como parte do programa Análise de Área de Trabalho.
+      <string id="ConfigureMicrosoft365UploadEndpoint_Explain">Essa política define o ponto de extremidade de upload para os dados de diagnóstico deste dispositivo como parte do programa Análise de Área de Trabalho.
           Se sua organização estiver participando do programa e tiver sido instruída a configurar um ponto de extremidade de upload personalizado, use essa configuração para definir esse ponto de extremidade.
           O valor dessa configuração será fornecido pela Microsoft como parte do processo de integração do programa. 
       </string>
 
+      <string id="AllowUpdateComplianceProcessing">Permitir Processamento de Conformidade da Atualização</string>
+      <string id="AllowUpdateComplianceProcessing_Explain">
+Esta política foi preterida e funcionará apenas no Windows 10 versão 1809. A configuração dessa política não terá efeito para outras versões com suporte do Windows.
+
+Essa configuração de política, em combinação com Permitir Telemetria e Configurar ID Comercial, permite que as organizações configurem o dispositivo para que a Microsoft seja o processador dos dados de diagnóstico do Windows coletados do dispositivo, sujeito aos Termos do Produto em https://go.microsoft.com/fwlink/?linkid=2185086.
+Para habilitar este comportamento:
+    1. Habilite esta configuração de política
+    2. Ingresse em uma conta do Microsoft Azure AD no dispositivo
+    3. Defina Permitir Telemetria para o valor 1 - Obrigatório ou superior
+    4. Defina a configuração Definir ID Comercial para seu workspace de Conformidade de Atualizações
+
+Quando essas políticas forem configuradas, os dados de diagnóstico do Windows coletados do dispositivo estarão sujeitos aos compromissos do processador da Microsoft.
+Se você desabilitar ou não definir essa configuração de política, os dispositivos não aparecerão na Conformidade de Atualizações.
+      </string>
+
+      <string id="AllowDesktopAnalyticsProcessing">Permitir Processamento da Análise de Área de Trabalho</string>
+      <string id="AllowDesktopAnalyticsProcessing_Explain">
+Esta política foi preterida e funcionará apenas no Windows 10 versão 1809. A configuração dessa política não terá efeito para outras versões com suporte do Windows.
+
+Essa configuração de política, em combinação com Permitir Telemetria e Configurar ID Comercial, permite que as organizações configurem o dispositivo para que a Microsoft seja o processador dos dados de diagnóstico do Windows coletados do dispositivo, sujeito aos Termos do Produto em https://go.microsoft.com/fwlink/?linkid=2185086.
+Para habilitar esse comportamento:
+    1. Habilite esta configuração de política
+    2. Ingresse em uma conta do Microsoft Azure AD no dispositivo
+    3. Defina Permitir Telemetria para o valor 1- Obrigatório ou superior
+    4. Defina a configuração Configurar ID Comercial para seu workspace de Análise de Área de Trabalho
+
+Quando essas políticas forem configuradas, os dados de diagnóstico do Windows coletados do dispositivo estarão sujeitos aos compromissos do processador da Microsoft.
+Essa configuração não tem efeito nos dispositivos, a menos que estejam registrados corretamente na Análise de Área de Trabalho. Se você desabilitar essa configuração de política, os dispositivos não aparecerão na Análise de Área de Trabalho.
+      </string>
+
+      <string id="AllowWUfBCloudProcessing">Permitir Processamento de Nuvem WUfB</string>
+      <string id="AllowWUfBCloudProcessing_Explain">
+Esta política foi preterida e funcionará apenas no Windows 10 versão 1809. A configuração dessa política não terá efeito para outras versões com suporte do Windows.
+
+Essa configuração de política configura um dispositivo associado ao Microsoft Azure AD para que a Microsoft seja o processador dos dados de diagnóstico do Windows coletados do dispositivo, sujeito aos Termos do Produto em https://go.microsoft.com/fwlink/?linkid=2185086.
+Para habilitar esse comportamento:
+    1. Habilite esta configuração de política
+    2.Ingresse em uma conta do Microsoft Azure AD no dispositivo
+    3. Defina Permitir Telemetria para o valor 1- Obrigatório ou superior
+
+Quando essas políticas forem configuradas, os dados de diagnóstico do Windows coletados do dispositivo estarão sujeitos aos compromissos do processador da Microsoft.
+Se você desabilitar ou não definir essa configuração de política, os dispositivos registrados no serviço de implantação do Windows Update para Empresas não poderão tirar proveito de alguns recursos do serviço de implantação.
+      </string>
+
       <string id="AllowCommercialDataPipeline">Permitir pipeline de dados comerciais</string>
       <string id="AllowCommercialDataPipeline_Explain">
-          AllowCommercialDataPipeline inclui o dispositivo no pipeline de dados corporativos do Windows.
-          Se você habilitar esta configuração, os dados coletados do dispositivo serão aceitos no pipeline de dados corporativos do Windows.
-          Se você desabilitar ou não definir esta configuração, todos os dados do dispositivo serão coletados e processados de acordo com as políticas do pipeline de dados padrão do Windows.
-          Definir esta configuração não altera o nível de coleta de telemetria nem a capacidade do usuário de alterar o nível. Esta configuração aplica-se apenas ao sistema operacional Windows e aos apps incluídos no Windows, a não a apps ou serviços de terceiros em execução no Windows 10.
+Esta política foi preterida e funcionará apenas no Windows 10 versão 1809. A configuração dessa política não terá efeito para outras versões com suporte do Windows.
+
+AllowCommercialDataPipeline configura um dispositivo ingressado no Azure Active Directory para que a Microsoft seja o processador dos dados de diagnóstico do Windows coletados do dispositivo, sujeito aos Termos do Produto em https://go.microsoft.com/fwlink/?linkid=2185086.
+Para habilitar esse comportamento:
+    1. Habilite esta configuração de política
+    2. Ingresse uma conta do Azure Active Directory no dispositivo
+
+Os dados de diagnóstico do Windows são coletados quando a definição da política Permitir Telemetria está definida como valor 1  - Obrigatório ou superior. Definir essa configuração não altera o nível de coleta de dados de diagnóstico do Windows definido para o dispositivo.
+Se você desabilitar ou não definir essa configuração, a Microsoft será a controladora dos dados de diagnóstico do Windows coletados do dispositivo e processados de acordo com a declaração de privacidade da Microsoft em https://go.microsoft.com/fwlink/?LinkId=521839, a menos que você tenha habilitado políticas como 'Permitir  o Processamento de Conformidade de Atualizações' ou 'Permitir o Processamento de Análise de Área de Trabalho'.
+Consulte a documentação em https://go.microsoft.com/fwlink/?linkid=2011107 para obter informações sobre essa e outras políticas que resultarão no processamento de dados de diagnóstico do Windows pela Microsoft.
+      </string>
+
+      <string id="LimitDiagnosticLogCollection">Limitar Coleta de Logs de Diagnóstico</string>
+      <string id="LimitDiagnosticLogCollection_Explain">Essa configuração de política controla se os logs de diagnóstico adicionais serão coletados quando mais informações forem necessárias para solucionar um problema no dispositivo. Os logs de diagnóstico só serão enviados quando o dispositivo tiver sido configurado para enviar dados de diagnóstico opcionais.
+
+Ao habilitar essa configuração de política, os logs de diagnóstico não serão coletados.
+
+Se você desabilitar ou não definir essa configuração de política, ocasionalmente poderemos coletar logs de diagnóstico se o dispositivo tiver sido configurado para enviar dados de diagnóstico opcionais.
+      </string>
+
+      <string id="LimitDumpCollection">Limitar Coleta de Despejo</string>
+      <string id="LimitDumpCollection_Explain">Esta configuração de política limita os tipos de despejos que podem ser coletados quando mais informações são necessárias para solucionar um problema.Os despejos serão enviados somente quando o dispositivo estiver configurado para enviar dados de diagnóstico opcionais.
+
+Ao habilitar essa configuração, o Relatório de Erros do Windows é limitado ao envio de minidespejos do kernel e despejos de triagem do modo de usuário.
+
+Se você desabilitar ou não definir essa configuração de política, poderemos ocasionalmente coletar despejos completos ou de heap se o usuário quiser enviar dados de diagnóstico opcionais.
+      </string>
+
+      <string id="EnableOneSettingsAuditing">Habilitar Auditoria OneSettings</string>
+      <string id="EnableOneSettingsAuditing_Explain">Esta configuração de política controla se os registros do Windows tentam se conectar com o serviço OneSettings ao EventLog.
+
+Se você habilitar essa política, o Windows gravará as tentativas de conexão com do serviço OneSettings ao canal de Log de Eventos Microsoft\Windows\Privacy-Auditing\Operational.
+
+Se você desativar ou não configurar essa configuração de política, o Windows não gravará as tentativas de conexão com do serviço OneSettings ao canal de Log de Eventos.
+      </string>
+
+      <string id="DisableOneSettingsDownloads">Desabilitar Downloads OneSettings</string>
+      <string id="DisableOneSettingsDownloads_Explain">Esta configuração de política controla se o Windows tenta se conectar com o serviço OneSettings.
+
+Se você habilitar essa política, o Windows não tentará se conectar com o serviço OneSettings.
+
+Se você desabilitar ou não definir essa configuração de política, o Windows tentará periodicamente se conectar com o serviço OneSettings para baixar as definições de configuração.
       </string>
     </stringTable>
     <presentationTable>

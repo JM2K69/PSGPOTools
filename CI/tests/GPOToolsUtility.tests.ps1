@@ -11,6 +11,8 @@ BeforeDiscovery {
 InModuleScope -ModuleName PSGPOTools {
     BeforeAll {
         $script:PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path
+        # fr-FR, or fr-fr as in the ADMX of Windows 11 26H2: the case matters on Linux.
+        $script:French = (Get-ChildItem -LiteralPath $script:PolicyDefinitions -Directory | Where-Object Name -EQ 'fr-FR' | Select-Object -First 1).Name
     }
 
     Describe 'GpoToolsAdmx class' {
@@ -100,13 +102,19 @@ InModuleScope -ModuleName PSGPOTools {
                     'WU_SUPPORTED_Win2kSP3_Or_XPSP1_NoWinRT',
                     'WU_SUPPORTED_WindowsXPSP1_NoWinRT',
                     'WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2',
-                    'WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2'
+                    'WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2',
+                    'WU_SUPPORTED_XPSP1_or_Win2kSP3_AUOption7_SUPPORTED_Server2016',
+                    'WU_SUPPORTED_Server2016_Through_Server2022_Or_Windows10',
+                    'WU_SUPPORTED_Windows_Server_2019_Windows_10_0_1809',
+                    'WU_SUPPORTED_Windows_Server_2022_Windows_10_0_2004',
+                    'WU_SUPPORTED_WinServer2025_Win1021H2_Win1122H2',
+                    'WU_SUPPORTED_Win11_24H2'
                 )
                 $PolTab = @(
                     @{ Name = 'NoAutoUpdate'; Class = 'User'; RegKey = 'Software\Microsoft\Windows\CurrentVersion\Policies\Explorer'
                        ValueName = 'NoAutoUpdate'; ParentCategory = @{ prefix = 'windows'; name = 'System' } },
                     @{ Name = 'AUDontShowUasPolicy'; Class = 'Both'; RegKey = 'Software\Policies\Microsoft\Windows\WindowsUpdate\AU'
-                       ValueName = 'NoAUShutdownOption'; ParentCategory = @{ prefix = 'wuau'; name = 'WindowsUpdateCat' } }
+                       ValueName = 'NoAUShutdownOption'; ParentCategory = @{ prefix = 'wuau'; name = 'PreSV' } }
                 )
             }
 
@@ -124,7 +132,8 @@ InModuleScope -ModuleName PSGPOTools {
             }
 
             It 'Reads the categories and their parent references' {
-                $ADMX.Categories.Name | Should -Be @('WindowsUpdateCat', 'DeferUpdateCat')
+                # The ADMX of Windows 11 26H2.
+                $ADMX.Categories.Name | Should -Be @('WindowsUpdateCat', 'WindowsUpdateOffering', 'WSUSOffering', 'WindowsUpdateExperience', 'PreSV')
                 $ADMX.Categories[0].ParentCategory.prefix | Should -Be 'windows'
                 $ADMX.Categories[0].ParentCategory.name | Should -Be 'WindowsComponents'
                 # An unprefixed reference resolves to the file's own prefix.
@@ -133,7 +142,7 @@ InModuleScope -ModuleName PSGPOTools {
             }
 
             It 'Reads the policies' {
-                $ADMX.Policies.Count | Should -Be 40
+                $ADMX.Policies.Count | Should -Be 48
                 for ($i = 0; $i -lt $PolTab.Count; $i++) {
                     $Policy = $ADMX.Policies[$i]
                     $Policy.Name | Should -Be $PolTab[$i].Name
@@ -149,7 +158,7 @@ InModuleScope -ModuleName PSGPOTools {
 
     Describe 'GpoToolsAdml class' {
         BeforeAll {
-            $ADMLFile = Get-Item -Path (Join-Path $PolicyDefinitions 'fr-FR' 'WindowsBackup.adml')
+            $ADMLFile = Get-Item -Path (Join-Path $PolicyDefinitions $French 'WindowsBackup.adml')
             $ADML = [GPOToolsAdml]::new($ADMLFile.FullName)
         }
 
@@ -179,7 +188,7 @@ InModuleScope -ModuleName PSGPOTools {
     Describe 'GPOToolsSupportedOn class' {
         BeforeAll {
             $ADMX = [GpoToolsAdmx]::new((Join-Path $PolicyDefinitions 'Windows.admx'))
-            $ADML = [GpoToolsAdml]::new((Join-Path $PolicyDefinitions 'fr-FR' 'Windows.adml'))
+            $ADML = [GpoToolsAdml]::new((Join-Path $PolicyDefinitions $French 'Windows.adml'))
         }
 
         It 'Resolves the localized display name' {
@@ -199,7 +208,7 @@ InModuleScope -ModuleName PSGPOTools {
     Describe 'GPOToolsCategory class' {
         BeforeAll {
             $ADMX = [GpoToolsAdmx]::new((Join-Path $PolicyDefinitions 'Windows.admx'))
-            $ADML = [GpoToolsAdml]::new((Join-Path $PolicyDefinitions 'fr-FR' 'Windows.adml'))
+            $ADML = [GpoToolsAdml]::new((Join-Path $PolicyDefinitions $French 'Windows.adml'))
         }
         BeforeEach {
             [GPOToolsUtility]::RemoveAll()
@@ -249,7 +258,7 @@ InModuleScope -ModuleName PSGPOTools {
 
         It 'GetADMLPathFromADMX builds the culture path' {
             [GPOToolsUtility]::GetADMLPathFromADMX($ADMXFile, [cultureinfo]'fr-FR') |
-                Should -Be (Join-Path $PolicyDefinitions 'fr-FR' 'WindowsBackup.adml')
+                Should -Be (Join-Path $PolicyDefinitions $French 'WindowsBackup.adml')
         }
 
         It 'GetADMLPathFromADMX ignores the case of the culture folder and of the ADML file' {

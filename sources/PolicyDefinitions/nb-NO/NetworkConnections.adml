@@ -49,14 +49,14 @@ Obs! Ikke-systemansvarlige (ekskludert nettverkskonfigurasjonsoperatører) har i
 Tips! Hvis du vil åpne dialogboksen Avansert TCP/IP-innstilling i mappen nettverkstilkobling, høyreklikker du et tilkoblingsikon og klikker Egenskaper. For tilkobling for ekstern pålogging, klikker du kategorien Nettverk.  I boksen Merkede komponenter brukes av denne tilkoblingen klikker du Internett-protokoll (TCP/IP), knappen Egenskaper og deretter knappen Avansert.
 
 Obs! Hvis du endrer innstillingen fra Aktivert til Ikke konfigurert, blir ikke knappen Avansert aktivert før brukeren logger av.</string>
-      <string id="NC_AllowNetBridge_NLA">Hindre installasjon og konfigurasjon av nettverksbro på DNS-domenenettverket</string>
+      <string id="NC_AllowNetBridge_NLA">Hindre installasjon og konfigurasjon av nettverksbro på nettverket ditt.</string>
       <string id="NC_AllowNetBridge_NLA_Help">Angir om en bruker kan installere og konfigurere nettverksbroen.
 
-Viktig! Denne innstillingen bestemmes av plasseringen. Den gjelder bare når en datamaskin er koblet til det samme DNS-domenenettverket den var koblet til da innstillingen ble oppdatert på datamaskinen. Hvis en datamaskin er koblet til et annet DNS-domenenettverk enn det den var koblet til da innstillingen ble oppdatert, gjelder ikke innstillingen.
+Viktig: Denne innstillingen er stedsavhengig på AD-domene-tilknyttede enheter. Den gjelder bare når en datamaskin er koblet til det samme DNS-domenenettverket som den var koblet til da innstillingen ble oppdatert på den datamaskinen. Hvis en datamaskin er koblet til et DNS-domenenettverk annet enn det den var koblet til da innstillingen ble oppdatert, gjelder ikke denne innstillingen. På Entra-tilknyttede enheter gjelder denne innstillingen for alle nettverk.
 
-Nettverksbroen gjør at brukere kan opprette en lag 2-MAC-bro, noe som gjør at de kan koble sammen to eller flere nettverkssegmenter. Denne tilkoblingen vises i mappen Nettverkstilkoblinger.
+Nettverksbroen gjør at brukere kan opprette en lag 2-MAC-bro, som gjør det mulig å koble sammen to eller flere nettverkssegmenter. Denne tilkoblingen vises i mappen Nettverkstilkoblinger.
 
-Hvis du deaktiverer denne innstillingen eller lar være å konfigurere den, kan brukeren opprette og endre konfigurasjonen av en nettverksbro. Aktivering av innstillingen fjerner ikke eksisterende nettverksbroer fra brukerens datamaskiner.</string>
+Hvis du deaktiverer denne innstillingen eller ikke konfigurerer den, kan brukeren opprette og endre konfigurasjonen av en nettverksbro. Å aktivere denne innstillingen fjerner ikke en eksisterende nettverksbro fra brukerens datamaskin.</string>
       <string id="NC_ChangeBindState">Hindre aktivering/deaktivering av komponenter i en LAN-tilkobling</string>
       <string id="NC_ChangeBindState_Help">Angir om administratorer kan aktivere og deaktivere komponentene som brukes av LAN-tilkoblinger.
 
@@ -94,7 +94,7 @@ Hvis du aktiverer denne innstillingen (og aktiverer innstillingen Aktiver nettve
 
 Viktig!  Hvis Aktiver nettverkstilkoblingsinnstillinger for administratorer er deaktivert eller ikke konfigurert, gjelder ikke denne innstillingen for administratorer på datamaskiner med senere operativsystemer enn Windows 2000.
 
-Hvis du deaktiverer eller lar være å konfigurere denne innstillingen, kan alle brukere slette sine private tilkoblinger for ekstern pålogging. Private tilkoblinger er de som bare er tilgjengelige for en bruker. (Som standard kan bare administratorer og nettverkskonfigurasjonsoperatører slette tilkoblinger som er tilgjengelig for alle brukere, men du kan endre standard ved å bruke innstillingen Tilgang til å slette alle tilkoblinger for ekstern pålogging for bruker".)
+Hvis du deaktiverer eller lar være å konfigurere denne innstillingen, kan alle brukere slette sine private tilkoblinger for ekstern pålogging. Private tilkoblinger er de som bare er tilgjengelige for en bruker. (Som standard kan bare administratorer og nettverkskonfigurasjonsoperatører slette tilkoblinger som er tilgjengelig for alle brukere, men du kan endre standard ved å bruke innstillingen Tilgang til å slette alle tilkoblinger for ekstern pålogging for bruker.)
 
 Viktig! Når denne innstillingen er aktivert, overstyrer den innstillingen "Tilgang til å slette alle tilkoblinger for ekstern pålogging for bruker". Brukere kan ikke slette noen tilkoblinger for ekstern pålogging og innstillingen Tilgang til å slette alle tilkoblinger for ekstern pålogging for bruker ignoreres.
 

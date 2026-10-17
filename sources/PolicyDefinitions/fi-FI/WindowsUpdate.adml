@@ -14,8 +14,15 @@
       <string id="WU_SUPPORTED_Windows7_To_Win2kSP3_Or_XPSP1">Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2003, Windows XP SP2, Windows XP SP1, Windows 2000 SP4, Windows 2000 SP3</string>
       <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_NoWinRT">Vähintään Windows XP Professional Service Pack 1 tai Windows 2000 Service Pack 3, pois lukien Windows RT</string>
       <string id="WU_SUPPORTED_WindowsXPSP1_NoWinRT">Vähintään Windows Server 2003 -käyttöjärjestelmät tai Windows XP Professional SP1, pois lukien Windows RT</string>
-      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Vähintään Windows XP Professional Service Pack 1 tai vähintään Windows 2000 Service Pack 3 – Windows 8.1 tai Windows Server 2012 R2, jossa on uusin Service Pack -paketti</string>
-      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Vähintään Windows Vista – Windows 8.1 tai Windows Server 2012 R2, jossa on uusin Service Pack -paketti</string>
+      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Vähintään Windows XP Professional Service Pack 1 tai vähintään Windows 2000 Service Pack 3 - Windows 8.1 tai Windows Server 2012 R2, jossa on uusin Service Pack. Ei tueta Windows 10 tai uudemmissa.</string>
+      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Vähintään Windows Vista - Windows 8.1 tai Windows Server 2012 R2, jossa on uusin Service Pack. Ei tueta Windows 10 tai uudemmissa.</string>
+      <string id="WU_SUPPORTED_XPSP1_or_Win2kSP3_AUOption7_SUPPORTED_Server2016">Windows XP Professional Service Pack 1 tai vähintään Windows 2000 Service Pack 3
+Asetusta 7 tuetaan vain palvelimissa, joissa on vähintään versio Windows Server 2016</string>
+      <string id="WU_SUPPORTED_Server2016_Through_Server2022_Or_Windows10">Windows Server 2016–Windows Server 2022 tai Windows 10​</string>
+      <string id="WU_SUPPORTED_Windows_Server_2019_Windows_10_0_1809">Vähintään Windows Server 2019 tai Windows 10 versio 1809​</string>
+      <string id="WU_SUPPORTED_Windows_Server_2022_Windows_10_0_2004">Vähintään Windows Server 2022 tai Windows 10 versio 2004​</string>
+      <string id="WU_SUPPORTED_WinServer2025_Win1021H2_Win1122H2">Vähintään Windows Server 2025, Windows 10 versio 21H2 tai Windows 11 versio 22H2</string>
+      <string id="WU_SUPPORTED_Win11_24H2">Vähintään Windows 11:n versio 24H2</string>
       <string id="AUDontShowUasHelp">Tällä käytäntöasetuksella määritetään, näytetäänkö Asenna päivitykset ja sammuta -vaihtoehto Sammuta Windows -valintaikkunassa.
 
 Jos tämä käytäntöasetus otetaan käyttöön, Asenna päivitykset ja sammuta ei näy vaihtoehtona Sammuta Windows -valintaikkunassa, vaikka asennettavia päivityksiä olisi käytettävissä, kun käyttäjä valitsee Sammuta-vaihtoehdon Käynnistä-valikossa.
@@ -82,10 +89,15 @@ Tämän käytäntöasetuksen avulla voit määrittää, ovatko automaattiset pä
 
         Tätä vaihtoehtoa käytettäessä paikalliset järjestelmänvalvojat voivat valita haluamansa määritysvaihtoehdon Windows Updaten ohjauspaneelissa. Paikalliset järjestelmänvalvojat eivät voi poistaa automaattisten päivitysten määritystä käytöstä.
 
+        7 = Ilmoita ennen asentamista ja ilmoita uudelleenkäynnistyksestä. (vain Windows Server)
+
+        Käytettäessä tätä Windows Server 2016:n vaihtoehtoa, jota sovelletaan ainoastaan palvelimen SKU-laitteisiin, paikalliset järjestelmänvalvojat saavat käyttää Windows Updatea asennusten tai uudelleenkäynnistysten jatkamiseksi manuaalisesti.
+
 Jos tämän käytäntöasetuksen tilaksi on määritetty Ei käytössä, mahdolliset Windows Updatessa käytettävissä olevat päivitykset on ladattava ja asennettava manuaalisesti. Voit tehdä tämän hakemalla Windows Updatea Käynnistä-valikon kautta.
 
 Jos tilana on Ei määritetty, automaattisten päivitysten käyttöä ei ole määritetty ryhmäkäytäntötasolla. Järjestelmänvalvoja voi kuitenkin määrittää automaattiset päivitykset ohjauspaneelin kautta.</string>
 
+      <string id="AutoUpdateModeNotifyToInstallNotifyToReboot">7 - Automaattinen lataus, ilmoita asennuksesta, ilmoita uudelleenkäynnistyksestä</string>
       <string id="AutoUpdateModeAdminChooses">5 - Anna paikallisten järjestelmänvalvojien valita asetus</string>
       <string id="AutoUpdateModeAuto">4 - Lataa automaattisesti ja ajoita asentaminen</string>
       <string id="AutoUpdateModeDownload">3 - Lataa automaattisesti ja ilmoita ennen asentamista</string>
@@ -137,7 +149,7 @@ Jos tilana on Ei määritetty, automaattisten päivitysten käyttöä ei ole mä
 
         Vaihtoehtoinen latauspalvelin määrittää Windows Update -agentin lataamaan tiedostot vaihtoehtoisesta latauspalvelimesta intranet-päivityspalvelun sijasta.
 
-        Puuttuvia URL-osoitteita sisältävien tiedostojen latausasetus mahdollistaa sisältöjen lataamisen vaihtoehtoisesta latauspalvelimesta, kun päivityksen metatiedoissa ei ole annettu tiedostojen URL-latausosoitteita. Tätä asetusta tulee käyttää vain silloin, kun intranet-päivityspalvelu ei ilmoita vaihtoehtoisessa latauspalvelimessa olevien tiedostojen URL-latausosoitteita päivityksen metatiedoissa.
+        Puuttuvia URL-osoitteita sisältävien tiedostojen latausasetus mahdollistaa sisällön lataamisen vaihtoehtoisesta latauspalvelimesta, kun päivityksen metatiedoissa ei ole annettu tiedostojen URL-latausosoitteita. Tätä asetusta tulee käyttää vain silloin, kun intranet-päivityspalvelu ei ilmoita vaihtoehtoisessa latauspalvelimessa olevien tiedostojen URL-latausosoitteita päivityksen metatiedoissa.
 
         Huomautus: Jos Määritä automaattiset päivitykset -käytäntö on poistettu käytöstä, tällä käytännöllä ei ole vaikutusta.
 
@@ -145,7 +157,25 @@ Jos tilana on Ei määritetty, automaattisten päivitysten käyttöä ei ole mä
 
         Huomautus: Lataa tiedostot ilman metatiedoissa annettua URL-osoitetta -asetusta käytetään vain silloin, kun Vaihtoehtoinen latauspalvelin -asetus on määritetty.
 
-        Huomautus: Windows RT ei tue tätä käytäntöä. Tämän käytännön määrittämisellä ei ole vaikutusta Windows RT -tietokoneissa.</string>
+        Huomautus: Windows RT ei tue tätä käytäntöä. Tämän käytännön määrittämisellä ei ole vaikutusta Windows RT -tietokoneissa.
+
+        Varmistaaksesi korkeimman turvallisuus tason, on suositeltavaa varmistaa WSUS TLS/SSL -protokollalla, joka käyttää HTTPS-pohjaista intranetiä pitämään järjestelmät suojattuna. Jos välityspalvelin vaaditaan, suosittelemme määrittämään järjestelmän välityspalvelimen. Korkeimman tason suojausta varten, ota lisäksi käyttöön WSUS TLS -sertifikaattien kiinnitys kaikilla laitteilla.
+
+        Asiakasohjelmien turvaamiseksi emme salli enää intranet-palvelinten ottaa käyttöön käyttäjän välityspalvelin oletuksena päivitysten tunnistamiseen. Jos sinun tarvitsee ottaa käyttöön käyttäjän välityspalvelin käyttäessäsi intranet-palvelinta, sinun on määriteltävä välityspalvelimen vaihtoehto “Salli käyttäjän välityspalvelimen käyttö siltä varalta jos järjestelmän välityspalvelin ei toimi.”  
+
+         Päivitysten havaitseminen intranet-palvelimilta epäonnistuu, kun käyttäjän asetuspalvelinta tarvitaan varalta ja vaihtoehtoista välityspalvelinta ei ole määritelty.</string>
+      <string id="OnlyUseSystemProxyForUpdateDetection">Käytä päivitysten tunnistamiseen vain järjestelmän välityspalvelinta (oletus)</string>
+      <string id="AllowUserProxyAsFallbackForUpdateDetection">Salli käyttäjän välityspalvelimen käyttö varalla, jos tunnistus epäonnistuu järjestelmän välityspalvelimella</string>
+      <string id="UpdateClassPolicySource_Title">Määritä lähdepalvelu tiettyjen Windows-päivitysten luokille</string>
+      <string id="UpdateClassPolicySource_Help">Kun tämä käytäntö on käytössä, laitteet saavat Windows-päivitykset määritetystä päivityslähteestä lueteltuihin luokkiin: joko Windows Update tai Windows Server Update -palveluun.
+
+Huomautus: Jos haluat vastaanottaa päivityksiä Windows Server Update -palvelusta, sinun on määritettävä intranetin Microsoft Update -palvelun sijainti Määritä Microsoft Update -palvelun sijainti intranetissä -käytännön avulla.
+
+Jos tätä käytäntöasetusta ei määritetä tai se poistetaan käytöstä, laite havaitsee edelleen muiden käytäntömääritystesi päivitykset.
+
+Huomautus: Jos käytät Älä salli lykkäyskäytäntöjen aiheuttaa Windows Update vastaisia skannauksia tällä hetkellä varmistaaksesi, että laitteet skannaavat vain määritettyä palvelinta vasten, suosittelemme määrittämään tämän käytännön sen sijaan tai sen lisäksi.</string>
+      <string id="UpdateClassPolicySourceSelectionWU">Windows Update</string>
+      <string id="UpdateClassPolicySourceSelectionWSUS">Windows Server Update Services</string>
       <string id="DetectionFrequency_Help">Määrittää, montako tuntia Windows odottaa ennen saatavina olevien päivitysten tarkistamista. Tarkka odotusaika on tietyn arvon sekä 0 ja 4 tunnin välisen satunnaisen muuttujan summa.
 
         Jos tila on Käytössä, Windows tarkistaa saatavina olevat päivitykset määritetyin aikavälein.
@@ -289,6 +319,12 @@ Huomautus: Tämä käytäntö on voimassa vain, kun intranetin Microsoft Update 
 Huomautus: Windows RT ei tue tätä käytäntöä. Tämän käytännön määrittämisellä ei ole vaikutusta Windows RT -tietokoneissa.</string>
       <string id="TargetGroup_Title">Ota asiakaspuolen kohdentaminen käyttöön</string>
       <string id="WindowsUpdateCat">Windows Update</string>
+      <!--Category sub-folders-->
+      <string id="WindowsUpdateOffering">Hallitse Windows Updaten tarjoamia päivityksiä</string>
+      <string id="WSUSOffering">Windows Server Update -palvelun tarjoamien päivitysten hallinta</string>
+      <string id="WindowsUpdateExperience">Loppukäyttäjän käyttökokemuksen hallinta</string>
+      <string id="PreSV">Vanhat käytännöt</string>
+
       <string id="TrustedPublisher_Title">Salli allekirjoitetut päivitykset intranetin Microsoft-päivityspalvelusta  </string>
       <string id="TrustedPublisher_Help">Tämän käytäntöasetuksen avulla voit määrittää, hyväksyykö Automaattiset päivitykset -toiminto muiden kuin Microsoftin allekirjoittamia päivityksiä, kun päivitys tulee intranetin Microsoft Update -palvelun sijainnista.
 
@@ -304,48 +340,34 @@ Huomautus: Windows RT ei tue tätä käytäntöä. Tämän käytännön määrit
 Jos otat tämän käytäntöasetuksen käyttöön, kyseinen toiminto poistetaan käytöstä. Tällöin yhteydet julkisiin palveluihin, kuten Windows-kauppaan, eivät ehkä enää toimi.
 
 Huomautus: tämä käytäntöasetus on voimassa vain, kun tämä tietokone on määritetty muodostamaan yhteys intranetin päivityspalveluun Määritä Microsoft Update -palvelun sijainti intranetissä -käytäntöasetuksen avulla.</string>
-      <string id="DeferUpdateCat">Windows Update yrityksille</string>
       <string id="ManagePreviewBuilds_Title">Esiversioiden hallinta</string>
-      <string id="ManagePreviewBuilds_Help">Jos valitset "Poista esiversiot käytöstä", laitteeseen ei voi asentaa esiversioita. Käyttäjät eivät voi ilmoittautua Windows Insider Program -ohjelmaan kohdassa Asetukset -&gt; Päivittäminen ja suojaus.
+      <string id="ManagePreviewBuilds_Help">Ota tämä käytäntö käyttöön, jos haluat hallita, mitä päivityksiä saat ennen päivityksen julkaisemista maailmalle.
 
-Jos valitset "Poista esiversiot käytöstä, kun seuraava versio on julkinen", esiversioita ei enää voi asentaa seuraavan Windows-version julkistamisen jälkeen. Tästä asetuksesta on hyötyä, kun laite on määritetty asentamaan esiversio, ja haluat poistua ohjelmasta väliversiotestausta varten. Tätä asetusta käytettäessä esiversioita toimitetaan, kunnes seuraava julkinen versio on saatavilla laitteisiin.
+Kehittäjäkanava
+Suositellaan erittäin teknisille käyttäjille. Kehittäjäkanavan sisäiset käyttäjät saavat koontiversiot aktiiviselta, kehitysjaksossa varhaisimmalta kehityshaaraltamme. Näitä koontiversioita ei kohdisteta tiettyyn Windows 10 -julkaisuversioon.
 
-Jos valitset "Ota esiversiot käyttöön", laitteeseen voi asentaa esiversioita. Käyttäjät voivat ladata ja asentaa laitteisiinsa Windowsin esiversioita ilmoittautumalla ohjelmaan kohdassa Asetukset -&gt; Päivittäminen ja suojaus -&gt; Windows Insider Program. Kun tämä arvo on määritetty, järjestelmänvalvojat voivat hallita väliversion asetuksia käyttäjien puolesta myös muiden käytäntöjen avulla.</string>
-      <string id="DisablePreviewBuilds">Poista esiversiot käytöstä</string>
-      <string id="DisablePreviewBuildsAndOptOut">Poista esiversiot käytöstä, kun seuraava versio on julkinen</string>
-      <string id="EnablePreviewBuilds">Ota esiversiot käyttöön</string>
-      <string id="PreviewBuildFastFeatureUpdates">Esiversio – Nopea</string>
-      <string id="PreviewBuildSlowFeatureUpdates">Esiversio – Hidas</string>
-      <string id="ReleasePreviewBranchFeatureUpdates">Julkaisuesiversio</string>
-      <string id="SemiAnnualChannelFeatureUpdates">Puolivuosittainen kanava</string>
-      <string id="SemiAnnualChannelFeatureUpdatesDeprecated">Osavuosittainen kanava versiota 1809 ja sitä vanhempia versioita varten (vanhentunut)</string>
-      <string id="SemiAnnualChannelFeatureUpdatesTargetedDeprecated">Osavuosittainen kanava (kohdennettu) versiota 1809 ja sitä vanhempia versioita varten (vanhentunut)</string>
+Beetakanava
+Suositellaan ominaisuuksien tutkijoille, jotka haluavat tutustua tuleviin Windows 10 -ominaisuuksiin. Palautteesi on erityisen tärkeää, sillä se auttaa suunnittelijoitamme varmistamaan, että merkittävimmät ongelmat korjataan ennen varsinaista julkaisuversiota.
+
+Esiversiokanava (oletus)
+Julkaisuversion esikatselukanavan sisäiset käyttäjät saavat Windows 10:n tulevan julkaisuversion ennen sen julkaisemista maailmalle. Nämä koontiversiot ovat Microsoftin tukemia. Suosittelemme yrityksiä esikatselemaan ja vahvistamaan tulevat Windows 10 -julkaisuversiot julkaisuversion esikatselukanavalla ennen niiden laajempaa käyttöönottoa organisaatiossa.
+
+Esiversiokanava, vain laatupäivitykset
+Täydellinen niille, jotka haluavat vahvistaa nykyiseen versioon tulevat ominaisuudet ja korjaukset. Huomaa, että julkaistuja ominaisuuspäivityksiä tarjotaan jatkossakin määritettyjen päivitysten mukaisesti, kun tämä vaihtoehto on valittuna.
+
+Huomautus: Esiversiorekisteröityminen edellyttää vähintään telemetriatason asetusta 2 sekä toimialueen rekisteröintiä osoitteessa insider.windows.com. Saat lisätietoa esiversioista osoitteesta https://aka.ms/wipforbiz
+
+Jos poistat tämän käytännön käytöstä tai et määritä sitä, Windows Update ei tarjoa sinulle esiversiopäivityksiä, ja saat tällaista sisältöä vasta, kun se julkaistaan maailmalle. Tämän käytännön poistaminen käytöstä poistaa esiversiota käyttävien laitteiden osallistumisen ja jättää voimaan viimeisimmän ominaisuuspäivityksen julkaisun jälkeen.</string>
+      <string id="DevChannel">Dev-kanava</string>
+      <string id="BetaChannel">Beta-kanava</string>
+      <string id="ReleasePreviewChannel">Julkaisun esikatselukanava</string>
+      <string id="ReleasePreviewQualityOnly">Julkaise vain laatupäivitysten esikatselu</string>
       <string id="DeferFeatureUpdates_Title">Valitse, milloin esiversiot ja ominaisuuspäivitykset vastaanotetaan</string>
-      <string id="DeferFeatureUpdates_Help">Kun otat tämän käytännön käyttöön, voit määrittää vastaanotettavien esiversioiden tai ominaisuuspäivitysten tason ja vastaanottoajankohdan.
+      <string id="DeferFeatureUpdates_Help">Jos otat tämän käytännön käyttöön, voit määrittää ominaisuuspäivitysten vastaanottoajankohdan.
 
-* Esiversio – nopea: Tälle tasolle asetetut laitteet saavat ensimmäisinä Windowsin uudet esiversiot ja ominaisuudet, jotka eivät vielä ole saatavilla suurelle yleisölle. Valitse Nopea, jos haluat osallistua ongelmien tunnistamiseen ja niiden raportointiin Microsoftille sekä antaa ehdotuksia uusista toiminnoista.
-* Esiversio – hidas: Tälle tasolle asetetut laitteet saavat Windowsin uudet esiversiot ennen suurta yleisöä, mutta hitaammin kuin Nopea-vaihtoehdon valinneet. Esiversiot sisältävät aiemman esiversion muutokset ja korjaukset.
-* Esiversio: Saat Windowsin esiversiot juuri ennen kuin Microsoft julkaisee ne suurelle yleisölle.
-* Osavuosittainen kanava: Saat ominaisuuspäivitykset, kun ne julkaistaan suurelle yleisölle.
+Lykkää päivityksiä | Tämän avulla laitteet voivat lykätä seuraavaa ominaisuuspäivitystä, joka on saatavilla tämän hetkiselle tuotteelle (tai uudelle tuotteelle, jos se on määritetty Valitse ominaisuuspäivityksen kohdeversio -käytännössä). Voit lykätä ominaisuuspäivitystä enintään 14 päivällä kaikkien ennakkoversiokanavien osalta ja jopa 365 päivällä Yleisen saatavuuden kanavan osalta. Jos haluat lisätietoja nykyisistä julkaisuversioista, siirry osoitteeseen aka.ms/WindowsTargetVersioninfo
 
-Seuraavat Windowsin valmiustasot ovat vanhentuneita, ja ne koskevat vain versiota 1809 ja sitä vanhempia versioita:
-* Osavuosittainen kanava (kohdennettu) versiota 1809 ja sitä vanhempia versioita varten: Ominaisuuspäivitykset on julkaistu.
-* Osavuosittainen kanava versiota 1809 ja sitä vanhempia versioita varten: Ominaisuuspäivitykset on ilmoitettu osavuosittaiseksi kanavaksi, mikä tarkoittaa, että julkaisu on valmis laajaan käyttöönottoon.
-Tarkista osavuosittaisen kanavan sekä kohdennetun osavuosittaisen kanavan julkaisupäivät osoitteesta http://aka.ms/ReleaseInformationPage.
-
-Esiversiota valittaessa:
-    - Voit lykätä esiversioiden vastaanottamista korkeintaan 14 päivää.
-    - Voit estää esiversioiden vastaanottamisen aikataulun mukaisesti keskeyttämällä ne väliaikaisesti. Keskeytys on voimassa 35 päivää annetusta aloitusajankohdasta.
-    - Jos haluat jatkaa keskeytettyjen ominaisuuspäivitysten vastaanottamista, tyhjennä aloituspäiväkenttä.
-
-Esiversion rekisteröinti edellyttää, että telemetriatason asetuksena on vähintään 2 ja että toimialue on rekisteröity osoitteessa insider.windows.com. Lisätietoa esiversioista on osoitteessa https://aka.ms/wipforbiz
-
-Osavuosittaista kanavaa valittaessa:
-    - Voit lykätä ominaisuuspäivitysten vastaanottamista korkeintaan 365 päivää.
-    - Voit estää ominaisuuspäivitysten vastaanottamisen aikataulun mukaisesti keskeyttämällä ne väliaikaisesti. Keskeytys on voimassa 35 päivää annetusta aloitusajankohdasta.
-    - Jos haluat jatkaa keskeytettyjen ominaisuuspäivitysten vastaanottamista, tyhjennä aloituspäiväkenttä.
-
-Jos poistat tämän käytännön käytöstä tai et määritä sitä, Windows Update ei muuta toimintaansa.</string>
+Keskeytä päivitykset | Voit estää ominaisuuspäivitysten tarjoamisen laitteelle keskeyttämällä ominaisuuspäivitykset tilapäisesti. Tämä tauko on voimassa 35 päivää määritetystä aloituspäivästä alkaen tai siihen asti, kun kenttä tyhjennetään. Huomaa, että laatupäivityksiä tarjotaan edelleen, vaikka ominaisuuspäivitykset olisi keskeytetty.</string>
       <string id="DeferQualityUpdates_Title">Valitse, milloin laatupäivitykset vastaanotetaan</string>
       <string id="DeferQualityUpdates_Help">Kun otat tämän käytäntöasetuksen käyttöön, voit määrittää laatupäivitysten vastaanottoajankohdan.
 
@@ -356,6 +378,20 @@ Voit estää laatupäivitysten vastaanottamisen ajoitettuna ajankohtana keskeytt
 Voit jatkaa keskeytettyjen laatupäivitysten vastaanottamista tyhjentämällä aloituspäivämääräkentän tiedot.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Windows Update ei muuta toimintaansa.</string>
+      <string id="TargetReleaseVersion_Title">Valitse ominaisuuspäivityksen kohdeversio</string>
+      <string id="TargetReleaseVersion_Help">Anna tuote ja versio Windows Update -kohdeversiosivulla luetellulla tavalla:
+
+aka.ms/WindowsTargetVersioninfo
+
+Laite pyytää sitä Windows Update -tuotetta ja -versiota myöhemmissä tarkistuksissa.
+
+Kun syötät kohdetuotteen ja valitset OK tai Käytä, hyväksyt Microsoft-ohjelmiston käyttöoikeussopimuksen ehdot, jotka löytyvät osoitteesta aka.ms/WindowsTargetVersioninfo. Jos organisaatio myöntää ohjelmistolle käyttöoikeuden, sinulla on valtuudet sitoa organisaatio.
+
+Jos annat virheellisen arvon, pysyt nykyisessä versiossasi, kunnes korjaat arvot tuettuun tuotteeseen ja versioon.</string>
+      <string id="DisableWUfBSafeguards">Ominaisuuspäivitysten suojaustoimien poistaminen käytöstä</string>
+      <string id="DisableWUfBSafeguards_Help">
+          Ota tämä asetus käyttöön, kun ominaisuuspäivitykset tulee ottaa käyttöön laitteissa estämättä suojausmääräyksiä. Suojausmääräykset ovat tunnettuja yhteensopivuusongelmia, jotka estävät päivityksen asentamisen laitteisiin, ennen kuin ongelma ratkaistaan. Jos tämä käytäntö otetaan käyttöön, organisaatio voi ottaa ominaisuuspäivityksen käyttöön laitteissa testausta varten tai estämättä suojausmääräyksiä.
+      </string>
       <string id="ExcludeWUDriversInQualityUpdate_Title">Älä sisällytä ohjaimia Windows-päivityksiin</string>
       <string id="ExcludeWUDriversInQualityUpdate_Help">Kun otat tämän käytäntöasetuksen käyttöön, voit sulkea ohjaimet pois Windowsin laatupäivityksistä.
 
@@ -448,6 +484,16 @@ Jos otat tämän asetuksen käyttöön, Windows Update -tarkistukset, -lataukset
       <string id="DisablePauseUXAccess_Help">Tällä asetuksella voit poistaa käyttöoikeuden Keskeytä päivitykset -ominaisuuteen.
 
 Käyttäjän käyttöoikeus päivitysten keskeyttämiseen poistetaan.
+      </string>
+
+      <string id="MaxPauseDays_Title">Määritä päivitysten keskeytyksen enimmäispituus päivinä</string>
+      <string id="MaxPauseDays_Help">Tämä käytäntö määrittää, kuinka monta päivää loppukäyttäjät voivat keskeyttää päivitykset.
+
+Tuetut arvot ovat 1–35. Oletusarvo on 35 (päivää).
+
+Kun käytäntö on määritetty, käyttäjät voivat keskeyttää päivitykset vain käytännössä määritetyn ajanjakson loppuun asti. Kun määritetty raja saavutetaan, käyttäjät eivät voi enää jatkaa keskeytystä.
+
+Jos käytäntö on poistettu käytöstä tai sitä ei ole määritetty, käytetään oletusarvoista keskeytystoimintaa, jolloin käyttäjät voivat keskeyttää päivitykset jatkuvasti enintään 35 päivän ajaksi kerrallaan. Tämä käytäntö ei poista päivitysten keskeytystä kokonaan käytöstä. Jos haluat poistaa Keskeytä päivitykset -ominaisuuden käyttöoikeuden, käytä Poista Keskeytä päivitykset -ominaisuuden käyttöoikeus -käytäntöä.
       </string>
 
       <string id="ActiveHoursMaxRange_Title">Määritä automaattisten uudelleenkäynnistysten aktiivisen ajan aikaväli</string>
@@ -582,30 +628,51 @@ Huomautus: Tämä käytäntö on voimassa vain, kun intranetin Microsoft Update 
       </string>
       <string id="UpdateNotificationLevel_Title">Päivitysilmoitusten näyttöasetukset</string>
       <string id="UpdateNotificationLevel_Help">0 (oletus) – Käytä Windows Updaten oletusilmoituksia
-1 – Poista käytöstä kaikki ilmoitukset, uudelleenkäynnistyksen varoituksia lukuun ottamatta
-2 – Poista käytöstä kaikki ilmoitukset, uudelleenkäynnistyksen varoitukset mukaan lukien
+1 – Poista käytöstä kaikki ilmoitukset, pois lukien uudelleenkäynnistysvaroitukset
+2 – Poista käytöstä kaikki ilmoitukset, mukaan lukien uudelleenkäynnistysvaroitukset
 
-Tämän käytännön avulla voit määrittää, mitä Windows Update -ilmoituksia käyttäjät näkevät. Tämä käytäntö ei määritä, miten ja milloin päivitykset ladataan ja asennetaan.
+Tämän käytännön avulla voit määrittää, mitä Windows Update -ilmoituksia käyttäjät näkevät. Tämä käytäntö ei hallitse sitä, miten ja milloin päivitykset ladataan ja asennetaan.
 
-Tärkeää: Jos et halua saada päivitysilmoituksia ja määrität toisen ryhmäkäytännön niin, että laitteet eivät saa automaattisesti päivityksiä, niin sinä tai laitteen käyttäjät ette ole tietoisia tärkeistä tietoturva-, laatu- tai ominaisuuspäivityksistä ja laitteenne voivat olla vaarassa.
+Tärkeää: jos valitset ettet halua saada päivitysilmoituksia ja määrität myös muita ryhmäkäytäntöjä, jotta laitteet eivät saa päivityksiä automaattisesti, sinä tai laitteen käyttäjät ette ole tietoisia kriittisistä suojaus-, laatu- tai ominaisuuspäivityksistä, ja laitteesi saattavat olla vaarassa.
+
+Jos valitset Käytä vain aktiivisena aikana yhdessä vaihtoehdon 1 tai 2 kanssa, ilmoitukset poistetaan käytöstä vain aktiivisena aikana. Voit määrittää aktiivisen ajan määrittämällä Poista käytöstä automaattinen uudelleenkäynnistys päivityksiä aktiivisena aikana tai sallimalla laitteen määrittää aktiivisen ajan käyttäjän toiminnan perusteella. Laitteen suojauksen varmistamiseksi näytetään edelleen ilmoitus, jos tämä vaihtoehto valitaan, kun Määritä automaattisten päivitysten ja uudelleenkäynnistysten määräaika on saavutettu, jos se on määritetty, aktiivisesta ajasta riippumatta.
       </string>
       <string id="DefaultNotification">0 (oletus) – Käyttöjärjestelmän Windows Updaten oletusilmoitukset</string>
       <string id="ExcludingRebootWarnings">1 – Poista käytöstä kaikki ilmoitukset, uudelleenkäynnistyksen varoituksia lukuun ottamatta</string>
       <string id="IncludingRebootWarnings">2 – Poista käytöstä kaikki ilmoitukset, uudelleenkäynnistyksen varoitukset mukaan lukien</string>
-      <string id="ComplianceDeadline_Title">Määritä automaattisten päivitysten ja uudelleenkäynnistysten määräajat</string>
-      <string id="ComplianceDeadline_Help">Tämä käytäntö antaa sinun määrittää, kuinka monta päivää käyttäjällä on, ennen kuin laatu- ja ominaisuuspäivitykset asennetaan hänen laitteeseensa automaattisesti, ja mikä on lisäaika, jonka jälkeen tarvittavat uudelleenkäynnistykset suoritetaan automaattisesti. Päivitykset ja uudelleenkäynnistykset suoritetaan aktiivisiin aikoihin katsomatta, eikä käyttäjä voi muuttaa niiden ajankohtaa.
+      <string id="ComplianceDeadlineForFU_Title">Specify deadline for automatic updates and restarts for feature update</string>
+      <string id="ComplianceDeadlineForFU_Help">This policy lets you specify the number of days before feature updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
 
-Ominaisuuspäivitysten ja laatupäivitysten määräajat voivat olla jopa 30 päivää. Automaattisen uudelleenkäynnistyksen lisäaika voi olla 0–7 päivää.
+Set deadlines for feature updates and quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
 
-Voit myös poistaa automaattiset uudelleenkäynnistykset käytöstä automaattisen uudelleenkäynnistyksen lisäajan päättymiseen asti.
+Set a grace period for feature updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
 
-Jos tämä käytäntö poistetaan käytöstä tai sitä ei määritetä, laitteet saavat päivitykset ja käynnistyvät uudelleen oletusaikataulun mukaisesti.
+You can set the device to delay restarting until both the deadline and grace period have expired.
 
-Tämä käytäntö korvaa seuraavat käytännöt:
-1.  Määritä määräaika ennen päivitysasennuksen automaattista uudelleenkäynnistystä
-2.  Määritä päivitysten itsenäisen uudelleenkäynnistyksen siirtymä- ja ilmoitusaikataulu
-3.  Käynnistä aina automaattisesti uudelleen ajoitettuna aikana
-4.  Ei automaattista uudelleenkäynnistystä, jos käyttäjiä on kirjautuneina päivitysten ajoitettua automaattista asennusta varten
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
+      </string>
+      <string id="ComplianceDeadlineForQU_Title">Specify deadline for automatic updates and restarts for quality update</string>
+      <string id="ComplianceDeadlineForQU_Help">This policy lets you specify the number of days before quality updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
+
+Set deadlines for quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
+
+Set a grace period for quality updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
+
+You can set the device to delay restarting until both the deadline and grace period have expired.
+
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
       </string>
       <string id="ComplianceDeadlineDay0">0</string>
       <string id="ComplianceDeadlineDay1">1</string>
@@ -638,6 +705,103 @@ Tämä käytäntö korvaa seuraavat käytännöt:
       <string id="ComplianceDeadlineDay28">28</string>
       <string id="ComplianceDeadlineDay29">29</string>
       <string id="ComplianceDeadlineDay30">30</string>
+
+      <string id="AllowTemporaryEnterpriseFeatureControl_Title">Ota käyttöön ylläpidon kautta käyttöön ottavia ominaisuuksia, jotka ovat oletusarvoisesti poissa käytöstä</string>
+      <string id="AllowTemporaryEnterpriseFeatureControl_Help">Ylläpidon kautta esitellyt ominaisuudet (vuosittaisen ominaisuuspäivityksen ulkopuolella) ovat oletusarvoisesti poissa käytöstä laitteissa, joiden Windows-päivityksiä hallitaan*.
+
+Jos tämä käytäntö on käytössä“”, kaikki uusimman kuukausittaisen laatupäivityksen käytettävissä olevat ominaisuudet ovat käytössä.
+
+Jos tämän käytännön asetus on " Ei määritetty" tai "Poistettu käytöstä" sen jälkeen ominaisuudet, jotka toimitetaan kuukausittaisen laatupäivityksen (ylläpidon) kautta, pysyvät poissa käytöstä, kunnes ominaisuuspäivitys, joka sisältää nämä ominaisuudet, on asennettu.
+
+*Windows Updaten hallitut laitteet ovat niitä, joiden Windows-päivityksiä hallitaan käytännön kautta; joko pilvipalvelun kautta käyttämällä Windows Update yrityksille tai paikallisesti Windows Server Update Services (WSUS) kanssa.
+      </string>
+      <string id="AllowOptionalContent_Title">Ota valinnaiset päivitykset käyttöön</string>
+      <string id="AllowOptionalContent_Help">Tämän käytännön avulla laitteet voivat saada valinnaisia päivityksiä (mukaan lukien vaiheittaiset ominaisuuksien käyttöönotot (CFR:t) – saat lisätietoja käymällä osoitteessa aka.ms/AllowOptionalContent)
+
+Kun käytäntö on määritetty
+
+• Jos "Vastaanota valinnaiset päivitykset automaattisesti (mukaan lukien CFR:t)" on valittuna, laite saa uusimmat valinnaiset päivitykset automaattisesti määritettyjen laatupäivitysten lykkäysten mukaisesti. Tämä sisältää valinnaiset kumulatiiviset päivitykset ja vaiheittaiset ominaisuuksien käyttöönotot.
+
+• Jos "Vastaanota valinnaiset päivitykset automaattisesti" on valittuna, laite saa valinnaiset kumulatiiviset päivitykset vain automaattisesti laatupäivityksen lykkäysten mukaisesti.
+
+• Jos "Käyttäjät voivat valita, mitkä valinnaiset päivitykset vastaanotetaan" on valittuna, käyttäjät voivat valita, mitä valinnaisia päivityksiä he saavat valitsemalla Asetukset &gt; Windows Update &gt; Lisäasetukset &gt; Valinnaiset päivitykset. Käyttäjät voivat myös ottaa käyttöön "Hanki uusimmat päivitykset heti, kun ne ovat saatavilla", jotta he saavat automaattisesti valinnaisia päivityksiä ja toimintojen vaiheittaisia käyttöönottoja.
+      </string>
+      <string id="DonotReceiveOptionalContent">Älä vastaanota valinnaisia päivityksiä</string>
+      <string id="ReceiveOptionalContentWithAutoApproval">Vastaanota valinnaiset päivitykset automaattisesti (CFR-päivitykset mukaan lukien)</string>
+      <string id="ReceiveOptionalLCUWithAutoApproval">Vastaanota valinnaiset päivitykset automaattisesti</string>
+      <string id="ReceiveOptionalContentNeedUserApproval">Käyttäjät voivat valita vastaanotettavat valinnaiset päivitykset</string>
+
+      <string id="MaintenanceWindow_Title">Automaattisten päivitysten ylläpitoikkunoiden määrittäminen</string>
+      <string id="MaintenanceWindow_Help">Ota tämä käytäntö käyttöön, jos haluat määrittää laitteelle toistuvat ylläpidon ajankohdat määritettyjen päivitystoimintojen suorittamista varten.
+
+Kun käytäntö on käytössä, Windows Update suorittaa määritetyn päivitystoiminnon vain määritetyn ylläpidon ajankohdan aikana. Määritetyt päivitystoiminnot ajankohdan ulkopuolella siirtyvät seuraavaan ylläpidon ajankohtaan.
+
+• Päivitystoiminnot: valitse, mitkä päivitystoiminnot ovat sallittuja ainoastaan ylläpidon ajankohdan aikana. Jos päivitystoimintoa ei valita, se voi tapahtua myös ylläpidon ajankohdan ulkopuolella.
+    – Lataa, asenna ja käynnistä uudelleen: suorita päivitysjakso loppuun, mukaan lukien lataus, asennus ja järjestelmän uudelleenkäynnistys
+    – Asenna ja käynnistä uudelleen: asenna jo ladatut päivitykset ja käynnistä laite uudelleen
+    – Vain uudelleenkäynnistys: suorita järjestelmän uudelleenkäynnistys ainoastaan odottaville päivityksille
+
+• Aikataulun perusmääritys:
+    – Alkamispäivä: määritä ensimmäisen ylläpidon ajankohdan alkamispäivä (muoto: vvvv-kk-pp, esimerkki: 2025-10-30)
+      * Alkamispäivä tulee voimaan vain, jos toistuvan aikataulun arvoksi on asetettu Ei mitään
+    – Aloitusaika: määritä ylläpidon ajankohdan alkamisaika (muoto: tt:mm, esimerkki: 23:30)
+    – Kesto: määritä, kuinka kauan kukin ylläpidon ajankohta kestää tunteina (esimerkki: 2 tarkoittaa kahden tunnin kestoa)
+
+• Toistuvan aikataulun asetukset:
+    – Ei toistoa: ylläpidon ajankohta on kertaluonteinen ja alkaa ainoastaan määritettynä alkamispäivänä
+    – Päivittäin: ylläpidon ajankohta toistuu joka päivä
+    – Viikoittain: ylläpidon ajankohta toistuu viikoittain valittuina viikonpäivinä
+    – Kuukausittain: ylläpidon ajankohta toistuu kuukausittain tiettynä päivänä
+
+• Viikoittaisen aikataulun asetukset (kun Viikoittain on valittuna):
+    – Viikonpäivän valinta: valitse, minä viikonpäivinä ylläpidon ajankohta on:
+        * Sunnuntaista lauantaihin: valitse ylläpidon ajankohdan viikonpäivät valintaruuduista
+
+• Kuukausittaisen aikataulun asetukset (kun Kuukausittain on valittuna):
+    – Kuukausittaisen aikataulun tyyppi:
+        * Päivämääräperusteinen: ylläpidon ajankohta on tiettynä kuukauden päivänä (esimerkki: kuukauden 15. päivä)
+        * Viikkopohjainen: ylläpidon ajankohta on tietyn viikonpäivän esiintymä kuukauden sisällä (esimerkki: kuukauden toinen tiistai)
+        * Kuukauden viimeinen päivä: ylläpidon ajankohta on kuukauden viimeisenä päivänä
+    – Kuukauden päivä: päivämääräperusteisessa aikataulussa määritä kuukauden päivä (1–28)
+    – Kuukauden esiintymä: viikkopohjaisessa aikataulussa valitse viikon esiintymä kuukaudessa (ensimmäinen, toinen, kolmas, neljäs tai viimeinen)
+    – Viikon päivä: viikkopohjaisessa aikataulussa valitse viikonpäivä (sunnuntaista lauantaihin)
+
+Esimerkkejä kuukausittaisista määrityksistä:
+    – Päivämääräperusteinen: Joka kuukauden kolmas päivä = Kuukauden päivä: 3
+    – Viikkopohjainen: Joka kuukauden toinen tiistai = Esiintymä: toinen, Viikonpäivä: tiistai
+    – Viikkopohjainen: Jokaisen kuukauden viimeinen perjantai = Esiintymä: viimeinen, Viikonpäivä: perjantai
+    – Kuukauden viimeinen päivä: Jokaisen kuukauden viimeinen päivä
+
+Kun kertaluonteinen ylläpidon ajankohta on päättynyt, seuraava ajankohta on ajoitettava kolmen kuukauden päähän. Jos kertaluonteisen ylläpidon ajankohdan alkamispäivä on yli kolme kuukautta aiemmin, tätä käytäntöä ei oteta huomioon, ja päivitykset ajoitetaan oletusasetusten mukaisesti.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Windows Update noudattaa oletusarvoista aikataulutoimintaansa.</string>
+      <!-- MaintenanceWindowUpdateActionsID dropdown options -->
+      <string id="MaintenanceWindowUpdateActions_DownloadInstallRestart">Lataa, asenna ja käynnistä uudelleen</string>
+      <string id="MaintenanceWindowUpdateActions_InstallRestart">Asenna ja käynnistä uudelleen</string>
+      <string id="MaintenanceWindowUpdateActions_RestartOnly">Käynnistä vain uudelleen</string>
+      <!-- MaintenanceWindowRepeatScheduleOption dropdown options -->
+      <string id="MaintenanceWindowRepeatSchedule_NoRepeat">Ei toistoa</string>
+      <string id="MaintenanceWindowRepeatSchedule_Daily">Päivittäin</string>
+      <string id="MaintenanceWindowRepeatSchedule_Weekly">Viikoittain</string>
+      <string id="MaintenanceWindowRepeatSchedule_Monthly">Kuukausittain</string>
+      <!-- MaintenanceWindowMonthlyScheduleID dropdown options -->
+      <string id="MaintenanceWindowMonthlySchedule_MonthBased">Päivämäärään perustuva</string>
+      <string id="MaintenanceWindowMonthlySchedule_WeekBased">Viikkopohjainen</string>
+      <string id="MaintenanceWindowMonthlySchedule_LastDay">Kuukauden viimeinen päivä</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_First">ensimmäinen</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Second">sekunti</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Third">kolmas</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Fourth">neljäs</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Last">Viimeinen</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedDayOfTheWeek dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Sunday">sunnuntai</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Monday">maanantai</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Tuesday">tiistai</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Wednesday">keskiviikko</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Thursday">torstai</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Friday">perjantai</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Saturday">lauantai</string>
     </stringTable>
 
     <presentationTable>
@@ -669,21 +833,28 @@ Tämä käytäntö korvaa seuraavat käytännöt:
         <textBox refId="CorpWUContentHost_Name">
           <label>Määritä vaihtoehtoinen latauspalvelin:</label>
         </textBox>
-        <text>(esimerkki: http://IntranetUpd01)</text>
+        <text>(esimerkki: https://IntranetUpd01)</text>
         <checkBox refId="CorpWUFillEmptyContentUrls" defaultChecked="false">Lataa tiedostot ilman metatiedoissa annettua URL-osoitetta, jos vaihtoehtoinen latauspalvelin on määritetty.</checkBox>
+        <checkBox refId="CorpWUDoNotEnforceEnterpriseTLSCertPinningForUpdateDetection" defaultChecked="false">Älä pakota TLS-varmenteen kiinnittämistä Windows Update-asiakasohjelmille päivitysten tunnistamiseen.</checkBox>
+        <dropdownList refId="SetProxyBehaviorForUpdateDetection" noSort="true" defaultItem="0">Valitse välityspalvelimen toiminta Windows Update -asiakkaalle, jos haluat tunnistaa päivitykset:</dropdownList>
+      </presentation>
+      <presentation id="UpdateClassPolicySource_Title">
+        <text>Määritä lähdepalvelu seuraaville Windows-päivitysten luokille:</text>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForFeatureUpdates" noSort="true" defaultItem="0">Ominaisuuspäivitykset</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForQualityUpdates" noSort="true" defaultItem="0">Laatupäivitykset</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForDriverUpdates" noSort="true" defaultItem="0">Ohjainpäivitykset</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForOtherUpdates" noSort="true" defaultItem="0">Muut päivitykset</dropdownList>
       </presentation>
       <presentation id="DetectionFrequency_Title">
         <text>Tarkista päivitykset seuraavin</text>
         <decimalTextBox refId="DetectionFrequency_Hour2" defaultValue="22">aikavälein (tuntia):  </decimalTextBox>
       </presentation>
       <presentation id="RebootRelaunchTimeout_Title">
-        <text>Odota seuraava aika ennen</text>
-        <text>uuden kehotteen tuomista näyttöön ajoitetun</text>
+        <text>Odota, että seuraava ajanjakso ennen pyydät ajoitettua uudelleen</text>
         <decimalTextBox refId="RebootRelaunchTimeout_Minutes3" defaultValue="10">uudelleenkäynnistyksen yhteydessä (minuuttia):  </decimalTextBox>
       </presentation>
       <presentation id="RebootWarningTimeout_Title">
-        <text>Odota seuraava aika ennen</text>
-        <text>ajoitettua</text>
+        <text>Odota, että seuraava ajanjakso ennen kuin siirryt ajoitettuun</text>
         <decimalTextBox refId="RebootWarningTimeout_Minutes3" defaultValue="5">uudelleenkäynnistystä (minuuttia):  </decimalTextBox>
       </presentation>
       <presentation id="RescheduleWaitTime_Title">
@@ -695,22 +866,23 @@ Tämä käytäntö korvaa seuraavat käytännöt:
           <label>Tämän tietokoneen kohderyhmän nimi</label>
         </textBox>
       </presentation>
-      <presentation id="IdleShutdownTimerDuration_Title">
-        <text>Odota seuraava aika ennen</text>
-        <text>palvelun sulkemista</text>
-        <decimalTextBox refId="IdleShutdownTimerDuration_Minutes" defaultValue="10">käyttämättömänä (minuuttia):  </decimalTextBox>
-      </presentation>
       <presentation id="AlwaysAutoRebootAtScheduledTime_Presentation">
-        <text>Uudelleenkäynnistyksen ajastin antaa käyttäjille</text>
-        <text>tämän verran aikaa tallentaa</text>
+        <text>Uudelleenkäynnistyksen ajastin antaa käyttäjille tämän verran aikaa tallennusta varten</text>
         <decimalTextBox refId="AlwaysAutoRebootAtScheduledTime_Minutes" defaultValue="15">työnsä (minuuttia): </decimalTextBox>
       </presentation>
+      <presentation id="TargetReleaseVersion">
+        <textBox refId="ProductVersionId">
+          <label>Mihin Windows-tuoteversioon haluat saada ominaisuuspäivityksiä? Esimerkiksi Windows 10:een.</label>
+        </textBox>
+        <textBox refId="TargetReleaseVersionId">
+          <label>Ominaisuuspäivitysten kohdeversio</label>
+        </textBox>
+      </presentation>
       <presentation id="ManagePreviewBuilds">
-        <dropdownList refId="ManagePreviewBuildsId" noSort="true" defaultItem="2">Määritä Insider-esiversioiden vastaanoton toimintatapa:</dropdownList>
+        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Valitse Windowsin valmiustaso, jonka mukaiset päivitykset haluat:</dropdownList>
       </presentation>
       <presentation id="DeferFeatureUpdates">
-        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Valitse Windowsin valmiustaso, jonka mukaiset päivitykset haluat:</dropdownList>
-        <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">Kun esiversio tai ominaisuuspäivitys julkaistaan, lykkää sen vastaanottoa näin monella päivällä:</decimalTextBox>
+       <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">Kuinka monta päivää ominaisuuspäivityksen jälkeen haluat lykätä päivitystä ennen kuin sitä tarjotaan laitteellesi?</decimalTextBox>
         <textBox refId="PauseFeatureUpdatesStartId">
           <label>Keskeytä esiversioiden tai ominaisuuspäivitysten käynnistyminen:</label>
         </textBox>
@@ -732,6 +904,10 @@ Tämä käytäntö korvaa seuraavat käytännöt:
         <text>Määritä päivien määrä, ennen kuin odottava uudelleenkäynnistys suoritetaan automaattisesti aktiivisen ajan ulkopuolella: </text>
         <dropdownList refId="AutoRestartDeadline" noSort="true" defaultItem="5">Laatupäivitykset (päivää): </dropdownList>
         <dropdownList refId="AutoRestartDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Ominaisuuspäivitykset (päivää): </dropdownList>
+      </presentation>
+      <presentation id="MaxPauseDays_Title">
+        <text>Määritä, kuinka monen päivän ajaksi käyttäjät voivat keskeyttää päivitykset:</text>
+        <decimalTextBox refId="SetMaxPauseDays" noSort="true" defaultValue="35">Keskeytyspäivien enimmäismäärä: </decimalTextBox>
       </presentation>
       <presentation id="ActiveHoursMaxRange_Title">
         <text>Määritä aktiivisen ajan enimmäisaikaväli:</text>
@@ -768,16 +944,50 @@ Tämä käytäntö korvaa seuraavat käytännöt:
       </presentation>
       <presentation id="UpdateNotificationLevel_Title">
         <dropdownList refId="UpdateNotificationLevel" noSort="true" defaultItem="0">Määritä päivitysilmoitusten näyttöasetukset:</dropdownList>
+        <text></text>
+        <checkBox refId="NoUpdateNotificationsDuringActiveHours" defaultChecked="false">Käytä vain aktiivisena aikana</checkBox>
       </presentation>
-      <presentation id="ComplianceDeadline_Title">
-        <text>Määritä päivien määrä (enintään 30 päivää), jonka jälkeen päivitykset suoritetaan automaattisesti aktiivisiin aikoihin katsomatta, eikä käyttäjällä ole mahdollisuutta ajoittaa niitä uudelleen.</text>
-        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="5">Laatupäivitykset (päivää):</dropdownList>
-        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Ominaisuuspäivitykset (päivää):</dropdownList>
+       <presentation id="ComplianceDeadlineForFU_Title">
+        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="2">Määräaika (päivinä):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriodForFeatureUpdates" noSort="true" defaultItem="7">Lisäaika (päivää):</dropdownList>
         <text></text>
-        <text>Määritä automaattisen uudelleenkäynnistyksen lisäaika (0–7 päivää) siitä ajankohdasta, kun uudelleenkäynnistystä tarvitaan, aina laitteen automaattiseen uudelleenkäynnistykseen asti. Laitteet käynnistetään uudelleen aktiivisiin aikoihin katsomatta, eikä tätä voi ajoittaa uudelleen.</text>
-        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Lisäaika (päivää)</dropdownList>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForFeatureUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="ComplianceDeadlineForQU_Title">
+        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="7">Määräaika (päivinä):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Lisäaika (päivää):</dropdownList>
         <text></text>
-        <checkBox refId="ConfigureDeadlineNoAutoReboot" defaultChecked="false">Älä käynnistä automaattisesti uudelleen ennen lisäajan päättymistä</checkBox>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForQualityUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="AllowOptionalContent_Title">
+        <dropdownList refId="AllowOptionalContent" noSort="true" defaultItem="0">Valitse tapa, jolla käyttäjät vastaanottavat valinnaisia päivityksiä:</dropdownList>
+      </presentation>
+      <presentation id="MaintenanceWindow_Title">
+        <text>Ylläpitoikkuna:</text>
+        <dropdownList refId="MaintenanceWindowUpdateActionsID" noSort="true" defaultItem="1">Päivitystoiminnot sallitaan vain ylläpitoikkunan sisällä:</dropdownList>
+        <textBox refId="MaintenanceWindowStartDateID">
+            <label>Alkamispäivä (muoto: vvvv-kk-pv, esimerkki: 2025-10-30)</label>
+        </textBox>
+        <textBox refId="MaintenanceWindowStartTimeID">
+            <label>Alkamisaika (muoto: hh:mm, esimerkki: 23:30, joka tarkoittaa 11:30 PM)</label>
+        </textBox>
+        <decimalTextBox refId="MaintenanceWindowDurationHoursID" defaultValue="2">Kesto (tunteina):</decimalTextBox>
+        <dropdownList refId="MaintenanceWindowRepeatScheduleOptionID" noSort="true" defaultItem="1">Valitse toistuva aikataulu:</dropdownList>
+        <text>Seuraavia asetuksia tarvitaan vain, jos valitaan vaihtoehto Viikottainen:</text>
+        <checkBox refId="MaintenanceWindowWeeklySundayID" defaultChecked="false">sunnuntai</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyMondayID" defaultChecked="false">maanantai</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyTuesdayID" defaultChecked="false">tiistai</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyWednesdayID" defaultChecked="false">keskiviikko</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyThursdayID" defaultChecked="false">torstai</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyFridayID" defaultChecked="false">perjantai</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklySaturdayID" defaultChecked="false">lauantai</checkBox>
+        <text>Seuraavia asetuksia tarvitaan vain, jos valitaan vaihtoehto Kuukausittain:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyScheduleID" noSort="true" defaultItem="1">Kuukausittainen aikataulutyyppi:</dropdownList>
+        <text>Seuraavat asetukset ovat pakollisia ja käytettävissä vain, jos päivämääräpohjainen tyyppi on valittuna:</text>
+        <decimalTextBox refId="MaintenanceWindowMonthlyMonthBasedDayOfMonthID" defaultValue="1">Kuukauden päivä:</decimalTextBox>
+        <text>Seuraavia asetuksia tarvitaan vain, jos valitaan vaihtoehto Viikkopohjainen:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonthID" noSort="true" defaultItem="1">Esiintymä kuussa</dropdownList>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedDayOfTheWeekID" noSort="true" defaultItem="1">Viikon päivä</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

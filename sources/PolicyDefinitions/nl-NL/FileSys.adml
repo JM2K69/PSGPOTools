@@ -18,14 +18,23 @@ Zie de Windows Help voor meer informatie.
 
 Opmerking: als dit beleid is uitgeschakeld of niet is geconfigureerd, kunnen de typen symbolische koppelingen die moeten worden geëvalueerd door lokale beheerders worden geselecteerd.</string>
       <string id="SymlinkEvaluation">De evaluatie van een symbolische koppeling selectief toestaan</string>
+
       <string id="DisableCompression">Compressie niet op alle NTFS-volumes toestaan</string>
-      <string id="DisableCompressionText">Compressie kan betekenen dat er meer verwerkingstijd nodig is voor bewerkingen van het bestandssysteem.  Als u deze instelling inschakelt, voorkomt u dat er gecomprimeerde bestanden worden gemaakt of geopend.  </string>
+      <string id="DisableCompressionText">Compressie kan betekenen dat er meer verwerkingstijd nodig is voor bewerkingen van het bestandssysteem.  Als u deze instelling inschakelt, voorkomt u dat er gecomprimeerde bestanden worden gemaakt of geopend.
+
+Opnieuw opstarten is vereist om deze instelling van kracht te laten worden</string>
+
       <string id="DisableEncryption">Versleuteling niet op alle NTFS-volumes toestaan</string>
-      <string id="DisableEncryptionText">Versleuteling kan betekenen dat er meer verwerkingstijd nodig is voor bewerkingen van het bestandssysteem.  Als u deze instelling inschakelt, voorkomt u dat er versleutelde bestanden worden gemaakt of geopend.</string>
+      <string id="DisableEncryptionText">Versleuteling kan betekenen dat er meer verwerkingstijd nodig is voor bewerkingen van het bestandssysteem.  Als u deze instelling inschakelt, voorkomt u dat er versleutelde bestanden worden gemaakt of geopend.
+
+Opnieuw opstarten is vereist om deze instelling van kracht te laten worden</string>
+
       <string id="EnablePagefileEncryption">Versleutelen van NTFS-wisselbestand inschakelen</string>
       <string id="EnablePagefileEncryptionText">Het versleutelen van het wisselbestand voorkomt dat kwaadwillende gebruikers gegevens kunnen lezen die op schijf zijn opgeslagen in een wisselbestand, maar betekent ook dat de verwerkingstijd van bewerkingen van het bestandssysteem toeneemt.  Als u deze instelling inschakelt, worden de wisselbestanden versleuteld.</string>
+
       <string id="LongPathsEnabled">Lange Win32-paden inschakelen</string>
-      <string id="LongPathsEnabledText">Met Lange Win32-paden inschakelen hebben gemanifesteerde win32-toepassingen en Windows Store-toepassingen toegang tot paden die langer zijn dan de limiet van 260 tekens per knooppunt op bestandssystemen die deze optie ondersteunen. Als u deze instelling inschakelt, zijn de lange paden toegankelijk binnen het proces.</string>
+      <string id="LongPathsEnabledText">Als u lange paden inschakelt in Win32, kunnen gemanifesteerde win32-toepassingen en verpakte Microsoft Store-toepassingen toegang krijgen tot paden die langer zijn dan de limiet van 260 tekens. Als u deze instelling inschakelt, zijn de lange paden toegankelijk binnen het proces.</string>
+
       <string id="ShortNameCreationSettings">Opties voor genereren van korte namen</string>
       <string id="ShortNameCreationSettingsText">Met deze instellingen kunt u aangeven of er tijdens het maken van bestanden korte namen moeten worden gegenereerd.  Sommige toepassingen hebben korte namen nodig voor compatibiliteit, maar korte namen hebben ook een negatieve invloed op de systeemprestaties.
 
@@ -34,14 +43,60 @@ Als u Inschakelen op alle volumes kiest, worden er altijd korte namen gegenereer
       <string id="ShortNameCreationSetting_1">Uitschakelen op alle volumes</string>
       <string id="ShortNameCreationSetting_2">In-/uitschakelen per volume</string>
       <string id="ShortNameCreationSetting_3">Uitschakelen op alle gegevensvolumes</string>
+
       <string id="DisableDeleteNotification">Meldingen bij verwijderen uitschakelen op alle volumes</string>
       <string id="DisableDeleteNotificationText">Meldingen bij verwijderen is een functie waarmee het onderliggende opslagapparaat een melding krijgt als er clusters vrij zijn gekomen door het verwijderen van bestanden.
 
 Met de waarde 0, de standaardwaarde, wordt Meldingen bij verwijderen voor alle volumes ingeschakeld. 
 Gebruik de waarde 1 om Meldingen bij verwijderen uit te schakelen voor alle volumes.</string>
+
       <string id="TxfDeprecatedFunctionality">TXF-ondersteunde functies inschakelen/uitschakelen</string>
-      <string id="TxfDeprecatedFunctionalityText">TXF-ondersteunde functies zijn inclusief savepoints, secondaire RM, miniversie en roll forward. Inschakelen a.u.b. wanneer u de API's wilt gaan gebruiken.</string>
+      <string id="TxfDeprecatedFunctionalityText">Verouderde functies in TXF waren onder meer opslagpunten, secundaire RM, miniversie en roll-forward. Schakel het in als u deze API's wilt gebruiken.</string>
+
+      <string id="NtfsForceNonPagedPoolAllocation">Gebruik van niet-wisselbaar NTFS-geheugen inschakelen</string>
+      <string id="NtfsForceNonPagedPoolAllocationExplain">Standaard wijst NTFS indien nodig geheugen toe uit zowel wisselbaar als niet-wisselbaar geheugen. Als u deze instelling inschakelt, kan NTFS niet-wisselbaar geheugen gebruiken voor alle toewijzingen. Het is ook mogelijk dat alle code-secties van NTFS worden gewijzigd in niet-wisselbaar.
+
+Het voordeel van het inschakelen van deze functie is een vermindering van paginafouten en stapelgebruik ten koste van extra geheugengebruik.
+
+Opnieuw opstarten is vereist om deze instelling van kracht te laten worden</string>
+
+      <string id="NtfsParallelFlushThreshold">Parallelle spoeldrempel voor NTFS</string>
+      <string id="NtfsParallelFlushThresholdExplain">Bij het wissen van gewijzigde bestandsgegevens uit het geheugen, kiest NTFS ervoor om een of meer threads te gebruiken op basis van het aantal geopende bestanden. Deze instelling geeft controle over de drempelwaarde voor open bestanden die wordt gebruikt om parallelle spoeling te activeren.</string>
+
+      <string id="NtfsParallelFlushWorkers">NTFS parallelle spoelwerk-threads</string>
+      <string id="NtfsParallelFlushWorkersExplain">Bij het wissen van gewijzigde bestandsgegevens uit het geheugen, kiest NTFS ervoor om een of meer threads te gebruiken op basis van het aantal geopende bestanden.  Met deze instelling kunt u bepalen hoeveel threads er worden gebruikt.
+
+Als u deze waarde groter maakt, kan dit de tijd die nodig is om een volume te wissen verkorten, maar het wissen kan een grotere impact hebben op andere actieve IO-bewerkingen.
+
+Waarden met een speciale betekenis:
+    0: Door het systeem berekende standaardwaarde gebruiken
+    1: Parallel wissen uitschakelen
+
+De standaardwaarde en limiet voor deze instelling varieert op basis van het aantal beschikbare processors op een bepaald systeem:
+    - Standaardwaardeberekening is: (([NumProcessors]/2) + 1)
+    - Standaardberekening van maximale waarde is: ([NumProcessors]*2)</string>
+
+      <string id="NtfsDefaultTier">NTFS-standaardlaag</string>
+      <string id="NtfsDefaultTierExplain">Voor met NTFS gelaagde volumes wordt hiermee de laag beheerd waar nieuwe toewijzingen standaard heen gaan.
+
+Clientsystemen gebruiken standaard de prestatielaag.
+Serversystemen gebruiken standaard de capaciteitslaag.</string>
+      <string id="DefaultTierSetting_1">Capaciteitslaag</string>
+      <string id="DefaultTierSetting_2">Prestatielaag</string>
+
+      <string id="ClfsAuthenticationChecking">Verificatie van CLFS-logboekbestand in- of uitschakelen</string>
+      <string id="ClfsAuthenticationCheckingExplain">Met deze beleidsinstelling configureer je de verificatie van CLFS-logboekbestanden, een beveiligingsfunctie bedoeld om het parseren van logboekbestanden te beperken.
+
+Door verificatie van logboekbestanden kan het CLFS-stuurprogramma schadelijke wijzigingen in logboekbestanden detecteren. Als er wijzigingen worden gedetecteerd, beschouwt CLFS het logboekbestand als onveilig voor parseren en wordt er een fout geretourneerd naar de aanroeper. CLFS kan wijzigingen detecteren door verificatiecodes naar logboekbestanden te schrijven, waarbij bestandsgegevens worden gecombineerd met een cryptografische sleutel die uniek is voor het systeem. 
+
+Een neveneffect van verificatie van logboekbestanden is dat CLFS geen logboekbestanden kan openen die zijn gemaakt op andere systemen, omdat deze logboekbestanden verificatiecodes bevatten die zijn gemaakt met een systeemeigen cryptografische sleutel. Als je een logboekbestand gemaakt op een ander systeem wilt openen, moet een beheerder eerst de opdracht 'fsutil.exe clfs authenticate' gebruiken om de verificatiecodes te corrigeren.
+
+Als je deze instelling inschakelt of niet configureert, raadpleegt CLFS de lokale registerinstellingen om te bepalen of verificatie van logboekbestanden wel of niet moet worden uitgevoerd. CLFS voert de verificatie van logboekbestanden standaard wel uit. De lokale registerinstellingen voor deze functie vind je hier: HKLM:\SYSTEM\CurrentControlSet\Services\CLFS\Authentication. 
+
+Als je deze instelling uitschakelt, voert CLFS geen verificatie van logboekbestanden meer uit. Logboekbestanden kunnen zonder beheeractie worden verplaatst en geopend in verschillende systemen. CLFS opent en parseert echter alle logboekbestanden, inclusief schadelijke logboekbestanden die het systeem in gevaar kunnen brengen.</string>
+
     </stringTable>
+
     <presentationTable>
       <presentation id="SymlinkEvaluation">
         <checkBox refId="SymLinkClassL2L">Lokale koppeling naar lokaal doel</checkBox>
@@ -58,6 +113,21 @@ Gebruik de waarde 1 om Meldingen bij verwijderen uit te schakelen voor alle volu
       </presentation>
       <presentation id="DeleteNotificationOptions"/>
       <presentation id="TxfDeprecatedFunctionalityOptions"/>
+      <presentation id="NtfsForceNonPagedPoolAllocationOptions"/>
+      <presentation id="NtfsParallelFlushThresholdOptions">
+        <decimalTextBox refId="NtfsParallelFlushThresholdID" defaultValue="1000">Drempelwaarde voor openen bestand:</decimalTextBox>
+      </presentation>
+
+      <presentation id="NtfsParallelFlushWorkersOptions">
+        <decimalTextBox refId="NtfsParallelFlushWorkersID" defaultValue="5">Drempelwaarde voor openen bestand:</decimalTextBox>
+      </presentation>
+
+      <presentation id="NtfsDefaultTierOptions">
+          <dropdownList refId="NtfsDefaultTier_Levels" noSort="true" defaultItem="1">Opties voor NTFS-standaardlagen</dropdownList>
+      </presentation>
+
+      <presentation id="ClfsAuthenticationCheckingOptions"/>
+
     </presentationTable>
   </resources>
 </policyDefinitionResources>

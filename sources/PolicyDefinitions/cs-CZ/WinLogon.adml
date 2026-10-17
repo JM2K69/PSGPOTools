@@ -99,7 +99,14 @@ Pokud tuto zásadu povolíte, můžete zvolit jednu z následujících dvou mož
 Pokud toto nastavení zakážete nebo nenakonfigurujete, bude se automatické přihlašování chovat podle výchozí hodnoty Povoleno se zapnutým a nepozastaveným nástrojem BitLocker.</string>
 
       <string id="ConfigAutomaticRestartSignOn_EnableIfSecure">Povoleno se zapnutým a nepozastaveným nástrojem BitLocker</string>
-      <string id="ConfigAutomaticRestartSignOn_EnableAlways">Povoleno vždy</string>
+      <string id="ConfigAutomaticRestartSignOn_EnableAlways">Vždy povoleno</string>
+
+      <string id="EnableMPRNotifications">Nakonfigurujte přenos hesla uživatele v obsahu oznámení MPR odeslaných přihlášením do systému Windows.</string>
+      <string id="EnableMPRNotifications_Help">Tato zásada určuje, jestli je heslo uživatele zahrnuté v obsahu oznámení MPR odeslaných přihlášením do systému.
+
+Pokud toto nastavení zakážete nebo nenakonfigurujete, bude přihlašování do systému Windows posílat oznámení MPR s prázdnými poli hesla ověřovacích údajů uživatele.
+
+Pokud toto nastavení povolíte, bude přihlašování do systému Windows posílat oznámení MPR obsahující heslo uživatele v ověřovacích informacích.</string>
 
     </stringTable>
     <presentationTable>

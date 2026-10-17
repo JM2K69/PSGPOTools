@@ -49,10 +49,10 @@ Nota: los usuarios que no sean administradores (excluidos los Operadores de conf
 Sugerencia: para abrir el cuadro de diálogo de Configuración avanzada de TCP/IP, en la carpeta conexiones de red, haga clic con el botón secundario del mouse en un icono de conexión y haga clic en Propiedades. Para conexiones de acceso remoto, haga clic en la pestaña Funciones de red.  En el cuadro "Esta conexión usa los componentes seleccionados", haga clic en Protocolo Internet (TCP/IP), haga clic en el botón Propiedades y luego en el botón Opciones avanzadas.
 
 Nota: cambiar esta opción de Habilitada a No configurada no habilita el botón Opciones avanzadas hasta que el usuario cierra la sesión.</string>
-      <string id="NC_AllowNetBridge_NLA">Prohibir la instalación y configuración de puentes de red en su red de dominio DNS</string>
+      <string id="NC_AllowNetBridge_NLA">Prohibir la instalación y configuración de Puente de red en la red.</string>
       <string id="NC_AllowNetBridge_NLA_Help">Determina si un usuario puede instalar y configurar el Puente de red.
 
-Importante: esta opción reconoce la ubicación. Solo se aplicará cuando un equipo esté conectado a la misma red de dominio DNS a la que estaba conectado cuando se actualizó la configuración en ese equipo. Si un equipo está conectado a una red de dominio DNS distinta a la que estaba conectado cuando se actualizó la opción, dicha opción no se aplicará.
+Importante: Esta configuración es compatible con la ubicación en dispositivos unidos a un dominio de AD. Solo se aplicará cuando un equipo esté conectado a la misma red de dominio DNS a la que estaba conectado cuando se actualizó la configuración en ese equipo. Si un equipo está conectado a una red de dominio DNS distinta a la que estaba conectado cuando se actualizó la configuración, esta configuración no se aplica. En los dispositivos unidos a Entra, esta configuración se aplicará a todas las redes.
 
 El Puente de red permite a los usuarios crear un puente MAC de capa 2, lo que permite conectar dos o más dos o más segmentos de red. Esta conexión aparece en la carpeta Conexiones de red.
 
@@ -188,7 +188,7 @@ Nota: cambiar esta opción de Habilitada a No configurada no restablece el icono
 
 Nota: esta opción no impide que los usuarios usen otros programas como Internet Explorer para eludir esta configuración.</string>
       <string id="NC_PersonalFirewallConfig">Prohibir el uso del Firewall de conexión a Internet en su red de dominio DNS</string>
-      <string id="NC_PersonalFirewallConfig_Help">Prohíbe el uso del Firewall de conexión a Internet en su red de dominio DNS.
+      <string id="NC_PersonalFirewallConfig_Help">Prohíbe el uso del Firewall de conexión a Internet en tu red de dominio DNS.
 
 Determina si los usuarios pueden habilitar la característica Firewall de conexión a Internet en una conexión y si el servicio Firewall de conexión a Internet puede ejecutarse en un equipo.
 
@@ -196,11 +196,11 @@ Importante: esta opción reconoce la ubicación. Solo se aplicará cuando un equ
 
 Firewall de conexión a Internet es un filtro de paquetes para usuarios domésticos y de oficinas pequeñas diseñado para protegerlos de amenazas de seguridad en Internet.
 
-Si habilita esta opción, los usuarios (incluidos los administradores) no podrán habilitar ni configurar el Firewall de conexión a Internet, y éste no se podrá ejecutar en el equipo. La opción para habilitar el Firewall de conexión a Internet a través de la pestaña Opciones avanzadas, se quitará. Adicionalmente, el Firewall de conexión a Internet no estará habilitado para conexiones de acceso remoto creadas con el Asistente para conexión nueva. Se deshabilitará el Asistente para configuración de red.
+Si habilitas esta opción, los usuarios (incluidos los administradores) no podrán habilitar ni configurar el Firewall de conexión a Internet, y éste no se podrá ejecutar en el equipo. La opción para habilitar el Firewall de conexión a Internet a través de la pestaña Opciones avanzadas, se quitará. Adicionalmente, el Firewall de conexión a Internet no estará habilitado para conexiones de acceso remoto creadas con el Asistente para conexión nueva. Se deshabilitará el Asistente para configuración de red.
 
-Nota: si habilita la configuración de directiva "Firewall de Windows: proteger todas las conexiones de red", la configuración de directiva "Prohibir el uso del Firewall de conexión a Internet en su red de dominio DNS" no tendrá efecto en los equipos que ejecuten el Firewall de Windows, el cual reemplaza al Firewall de conexión a Internet cuando se instala Windows XP Service Pack 2.
+Nota: si habilitas la configuración de directiva "Firewall de Windows: proteger todas las conexiones de red", la configuración de directiva "Prohibir el uso del Firewall de conexión a Internet en su red de dominio DNS" no tendrá efecto en los equipos que ejecuten el Firewall de Windows, el cual reemplaza al Firewall de conexión a Internet cuando se instala Windows XP Service Pack 2.
 
-Si deshabilita esta opción o no la configura, el Firewall de conexión a Internet estará deshabilitado cuando se cree una conexión LAN o VPN, pero los usuarios podrán usar la pestaña Opciones avanzadas en las propiedades de conexión para habilitarlo. El Firewall de conexión a Internet está habilitado de forma predeterminada en la conexión para la que está habilitada la Conexión compartida a Internet. Adicionalmente, las conexiones de acceso remoto creadas a través del Asistente para conexión nueva tendrán habilitado el Firewall de conexión a Internet.</string>
+Si deshabilitas esta opción o no la configuras, el Firewall de conexión a Internet estará deshabilitado cuando se cree una conexión LAN o VPN, pero los usuarios podrán usar la pestaña Opciones avanzadas en las propiedades de conexión para habilitarlo. El Firewall de conexión a Internet está habilitado de forma predeterminada en la conexión para la que está habilitada la Conexión compartida a Internet. Adicionalmente, las conexiones de acceso remoto creadas a través del Asistente para conexión nueva tendrán habilitado el Firewall de conexión a Internet.</string>
       <string id="NC_RasAllUserProperties">Capacidad para cambiar las propiedades de una conexión de acceso remoto para todos los usuarios</string>
       <string id="NC_RasAllUserProperties_Help">Determina si un usuario puede ver y cambiar las propiedades de conexiones de acceso remoto que están disponibles para todos los usuarios del equipo.
 

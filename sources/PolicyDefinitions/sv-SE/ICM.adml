@@ -110,9 +110,11 @@ Se även principinställningarna Konfigurera felrapportering, Visa felmeddelande
       <string id="RemoveWindowsUpdate_ICM">Inaktivera åtkomst till alla funktioner på Windows Update</string>
       <string id="RemoveWindowsUpdate_ICM_Help">Den här principinställningen används för att förhindra åtkomst till Windows Update.
 
-Om du aktiverar den här principinställningen nekas åtkomst till alla Windows Update-funktioner. Detta innebär bland annat att åtkomst till webbplatsen Windows Update på adressen http://windowsupdate.microsoft.com nekas och att länken Windows Update på Start-menyn och på Verktyg-menyn i Internet Explorer tas bort. Dessutom inaktiveras den automatiska uppdateringen i Windows.Du informeras inte om och kommer inte heller att få viktiga uppdateringar från Windows Update. Den här principinställningen förhindrar även att Enhetshanteraren automatiskt installerar uppdaterade drivrutiner från webbplatsen Windows Update.
+Om du aktiverar den här principinställningen tas alla Windows Update-funktioner bort. Detta innebär bland annat att åtkomst till Windows Update-webbplatsen på http://windowsupdate.microsoft.com nekas och att länken Windows Update på Start-menyn och på Verktyg-menyn i Internet Explorer tas bort. Automatiska uppdateringar i Windows inaktiveras också, och du informeras inte om och kommer inte att få viktiga uppdateringar från Windows Update. Den här principinställningen hindrar även Enhetshanteraren från att installera drivrutinsuppdateringar automatiskt från Windows Update-webbplatsen.
 
-Om du inaktiverar eller inte konfigurerar den här principinställningen kommer användarna åt webbplatsen Windows Update och kan aktivera automatiska uppdateringar för att få meddelanden och kritiska uppdateringar från Windows Update.</string>
+Om du inaktiverar eller låter bli att konfigurera principinställningen kommer användarna åt Windows Update-webbplatsen och kan aktivera automatiska uppdateringar för att få meddelanden och viktiga uppdateringar från Windows Update.
+
+Obs! Den här principen gäller endast när datorn är konfigurerad att ansluta till en uppdateringstjänst på intranätet med principen "Ange sökväg till tjänsten Microsoft Update på intranätet".</string>
       <string id="SearchCompanion_DisableFileUpdates">Inaktivera uppdatering av innehållsfiler för Sökassistenten</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">Den här principinställningen anger om Sökassistenten automatiskt ska hämta innehållsuppdateringar under lokala sökningar och Internetsökningar.
 

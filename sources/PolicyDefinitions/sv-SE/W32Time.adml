@@ -5,7 +5,7 @@
   <description>ange beskrivning här</description>
   <resources>
     <stringTable>
-      <string id="W32TIME_CONFIG_EXPLAIN">Med den här principinställningen kan du ange värdena för Klockdisciplin och Allmän för tjänsten Windows Time (W32time) för domänkontrollanter. Det gäller även skrivskyddade domänkontrollanter (RODC).
+      <string id="W32TIME_CONFIG_EXPLAIN">Med den här principinställningen kan du ange värdena för Klockdisciplin och Allmän för tjänsten Windows Time (W32time) för domänkontrollanter. Det gäller även skrivskyddade domänkontrollanter.
 
 Om den här principinställningen är aktiverad använder W32time-tjänsten på måldatorerna inställningarna som anges här. I annat fall använder tjänsten på måldatorerna lokalt konfigurerade inställningar.
 
@@ -24,7 +24,7 @@ Om en tidssampling skiljer sig från klientdatorns lokala klocka med mer än Lar
 Om ett svar tas emot med en tidsvariation som överstiger det här parametervärdet ställer W32time in klientdatorns lokala klocka omedelbart på den tid som anses vara den rätta från NTP-servern (Network Time Protocol). Om tidsvariationen understiger det här värdet korrigeras klientdatorns lokala klocka gradvis. Standard: 300 sekunder.
 
         MaxNegPhaseCorrection
-Om en tidssampling tas emot och indikerar en tid i det förflutna (jämfört med klientdatorns lokala klocka) med en tidsskillnad som överstiger värdet på MaxNegPhaseCorrection tas ingen hänsyn till samplingen. Standard: 172 800 sekunder.
+Om en tidssampling tas emot och indikerar en tid i framtiden (jämfört med klientdatorns lokala klocka) med en tidsskillnad som överstiger värdet på MaxPosPhaseCorrection tas ingen hänsyn till samplingen. Standard: 172 800 sekunder.
 
         MaxPosPhaseCorrection
 Om en tidssampling tas emot och indikerar en tid i framtiden (jämfört med klientdatorns lokala klocka) med en tidsskillnad som överstiger värdet på MaxPosPhaseCorrection tas ingen hänsyn till samplingen. Standard: 172 800 sekunder.
@@ -53,22 +53,22 @@ Den här parametern styr särskilda händelser som kan loggas i loggen System i 
 Den här parametern anger det maximala felet i sekunder som rapporteras av NTP-servern till klienter som begär en tidssampling. (Gäller endast när NTP-servern använder samma tid som den lokala CMOS-klockan.) Standard: 10 sekunder.
 
         MaxPollInterval
-Den här parametern bestämmer det maximala avsökningsintervallet, som definierar den längsta tiden mellan en peers avsökningar. Standard: 10 i logaritmisk bas 2, vilket är lika med 1 024 sekunder. (Värden högre än 15 bör inte anges.)
+Den här parametern bestämmer det maximala avsökningsintervallet, som definierar den längsta tiden mellan en peers avsökningar. Standard: 10 i logaritmisk bas 2, vilket är lika med 1024 sekunder. (Värden högre än 15 bör inte anges.)
 
         MinPollInterval
 Den här parametern bestämmer det minsta avsökningsintervallet, som definierar den kortaste tiden mellan en peers avsökningar. Standard: 6 i logaritmisk bas 2, vilket är lika med 64 sekunder.
 
         ClockHoldoverPeriod
-Den här parametern indikerar det maximala antalet sekunder en systemklocka kan bibehålla sin precision utan att synkroniseras med en tidkälla. Om den här tidsperioden passerar utan att W32time erhåller nya tidssamplingar initierar W32time en sökning efter tidkällor igen. Standard: 7 800 sekunder.
+Den här parametern indikerar det maximala antalet sekunder en systemklocka kan bibehålla sin precision utan att synkroniseras med en tidkälla. Om den här tidsperioden passerar utan att W32time erhåller nya tidssamplingar initierar W32time en sökning efter tidkällor igen. Standard: 7 800 sekunder.
 
         RequireSecureTimeSyncRequests
 Den här parametern bestämmer huruvida domänkontrollanten svarar på tidssynkroniseringsbegäranden med äldre autentiseringsprotokoll eller inte. Om den är aktiverad (har värdet 1) svarar domänkontrollanten inte på begäranden som görs med sådana protokoll. Standard: 0 (boolesk).
 
         UtilizeSslTimeData
-Den här parametern bestämmer huruvida W32time använder tidsdata som beräknats utifrån SSL-trafik på datorn som ytterligare indata för korrigering av den lokala klockan. Standard: 1 (d.v.s. aktiverad)
+Den här parametern bestämmer huruvida W32time använder tidsdata som beräknats utifrån SSL-trafik på datorn som ytterligare indata för korrigering av den lokala klockan. Standard: 1 (d.v.s. aktiverad) boolesk
 
-        ClockAdjustmentAuditLimit
-Den här parametern anger de minsta lokala klockjusteringarna som kan loggas i W32time-tjänstens händelselogg på måldatorn. Standard: 800 ppm (parts per million).
+         ClockAdjustmentAuditLimit
+Den här parametern anger den minsta lokala klockjusteringen som kan loggas i W32time-händelseloggen på måldatorn. Standard: 800 delar av en miljon (PPM).
 
         RODC-parametrar:
 

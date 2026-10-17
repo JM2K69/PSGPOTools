@@ -59,21 +59,29 @@ Bemærk! Hvis du vil skjule sider i appen Systemindstillinger, skal du bruge ind
       <string id="SettingsPageVisibility">Synlighed på indstillingsside</string>
       <string id="SettingsPageVisibility_Help">Angiver listen over sider, der skal vises eller skjules i appen Systemindstillinger.
 
-Denne politik giver administratoren mulighed for at blokere et bestemt udvalg af sider fra appen Systemindstillinger. Blokerede sider kan ikke ses i appen, og hvis alle sider i en kategori er blokeret, bliver kategorien også skjult. Direkte navigation til en blokeret side via URI'en, genvejsmenuen i Stifinder eller på anden måde medfører, at forsiden af Indstillinger vises i stedet for.
+Denne politik gør det muligt for en administrator at blokere et bestemt sæt sider fra appen Systemindstillinger. Blokerede sider vises ikke i appen, og hvis alle sider i en kategori er blokeret, vil kategorien også blive skjult. Direkte navigation til en blokeret side via URI-adressen, genvejsmenuen i Stifinder eller på anden måde medfører, at den forreste side med Indstillinger vises i stedet.
 
-Denne politik har to tilstande: Den kan enten angive en liste over indstillingssider, der skal vises, eller en liste over sider, der skal skjules. Hvis du vil angive en liste over sider, der skal vises, skal politikstrengen begynde med "showonly:" (uden anførselstegn), og hvis du vil angive en liste over sider, der skal skjules, skal den begynde med "hide:". Hvis en side på en showonly-liste normalt ville være skjult af andre grunde (f.eks. en manglende hardwareenhed), gennemtvinger denne politik ikke, at siden vises. Derefter skal politikstrengen indeholde en semikolonsepareret liste over indstillingsside-id'er. Id'et for en bestemt indstillingsside er den udgivne URI for den pågældende side minus "ms-settings:"-protokoldelen.
+Denne politik har to tilstande: den kan angive en liste over indstillingssider, der skal vises, eller en liste over sider, der skal skjules. Hvis du vil angive en liste over sider, der skal vises, skal politikstrengen begynde med "showonly:" (uden anførselstegn), og hvis du vil angive en liste over sider, der skal skjules, skal den begynde med "hide:". Hvis en side på en showonly-liste normalt er skjult af andre årsager (f.eks. en manglende hardwareenhed), tvinger denne politik ikke siden til at blive vist. Derefter skal politikstrengen indeholde en semikolonsepareret liste over side-id'er for indstillinger. Id'et for en given Indstillingsside er den udgivne URI-adresse for den pågældende side, minus "ms-settings:"-protokoldelen.
 
-Eksempel: Sådan angiver du, at det kun er Om- og Bluetooth-siderne, der skal vises (deres respektive URI'er er ms-settings:about og ms-settings:bluetooth), og at alle andre sider skal skjules:
+Eksempel: Sådan angiver du, at kun Om- og Bluetooth-siderne skal vises (deres respektive URI-adresser er ms-settings:about og ms-settings:bluetooth) og alle andre sider er skjult:
 
 showonly:about;bluetooth
 
-Eksempel: Sådan angiver du, at det kun Bluetooth-siden (som har URI'en ms-settings:bluetooth), der skal skjules:
+Eksempel: Sådan angiver du, at det kun Bluetooth-siden (som har URI-adressen ms-settings:bluetooth), der skal skjules:
 
-hide:bluetooth</string>
+hide:bluetooth
+
+Tilgængeligheden af support pr. bruger er dokumenteret her: https://go.microsoft.com/fwlink/?linkid=2102995</string>
       <string id="AllowOnlineTips">Tillad Onlinetips</string>
       <string id="AllowOnlineTips_Help">Aktiverer eller deaktiverer modtagelse af onlinetips og hjælp for appen Indstillinger.
 
 Hvis deaktiveret vil Indstillinger ikke kontakte Microsoft-indholdstjenester for at modtage tips og hjælp-indhold.</string>
+      <string id="HideUnsupportedHardwareNotifications">Skjul meddelelser, når Systemkrav til Windows ikke er opfyldt</string>
+      <string id="HideUnsupportedHardwareNotificationsExplain">Denne politik styrer meddelelser, der vises, når Windows kører på en enhed, der ikke opfylder minimumsystemkravene for denne os-version.
+
+Hvis du aktiverer denne politikindstilling, vises disse meddelelser aldrig på skrivebordet eller i appen Indstillinger.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vises disse meddelelser på skrivebordet og i appen Indstillinger, når Windows kører på en enhed, der ikke opfylder minimumkravene til systemet for denne os-version.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DisallowCpls">

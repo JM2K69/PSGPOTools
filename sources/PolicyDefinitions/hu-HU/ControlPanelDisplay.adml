@@ -173,6 +173,12 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor azok a f
 Alapértelmezés szerint a felhasználók megváltoztathatják a zárolási és a bejelentkezési képernyő háttérképét.
 
 Ha engedélyezi ezt a beállítást, a felhasználó nem tudja megváltoztatni a zárolási és a bejelentkezési képernyő képét, és az alapértelmezett képet látja.</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">Zárolási képernyő háttérmozgásának megakadályozása</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">Ezzel a házirend-beállítással azt szabályozhatja, hogy a zárolási képernyő képe statikus-e, vagy az eszköz gyorsulásérzékelő kimenetével vezérelt finom panoráma effektust használja.
+
+Ha engedélyezi ezt a beállítást, a rendszer letiltja az mozgás használatát, és a felhasználó a hagyományos statikus zárolási képernyő háttérképét fogja látni.
+
+Ha letiltja ezt a beállítást (és az eszköz rendelkezik gyorsulásérzékelővel), a felhasználó a zárolási képernyő egy statikus háttérkép körül fog pásztázni, ahogy az eszköz változtatja a fizikai helyét.</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">Megadott zárolási képernyő és bejelentkezési kép kötelező használata</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">Ez a beállítás a megfelelő képfájl elérési útjának (helyének) megadásával lehetővé teszi a zárolási képernyőn és a bejelentkezési képernyőn megjelenő alapértelmezett kép kötelező jellegű használatát. A bejelentkezési és a zárolási képernyőn ugyanaz a kép jelenik meg.
 

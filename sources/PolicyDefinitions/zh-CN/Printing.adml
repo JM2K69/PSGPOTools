@@ -46,28 +46,28 @@
           影响 Web 视图的设置有“用户配置\管理模板\Windows 组件\Windows Explorer”中“启用经典 shell”和“不允许通过彩带的‘视图’选项卡上的‘选项’按钮打开的文件夹选项”设置，以及“用户配置\管理模板\桌面\Active Desktop”中的“启用 Active Desktop”设置。</string>
       <string id="DomainDisplayPrinters_Help">如果启用此策略设置，它将设置添加打印机向导将在托管网络(计算机可以到达域控制器时，例如企业网络中加入域的笔记本电脑)中的计算机上显示的(各种类型的)打印机最大数目。
 
-          如果禁用此策略设置，将不会显示网络扫描页。
+ 如果禁用此策略设置，将不会显示网络扫描页。
 
-          如果未配置此策略设置，则添加打印机向导将显示每种类型打印机的默认数目:
-          目录打印机: 20
-          TCP/IP 打印机: 0
-          Web 服务打印机: 0
-          蓝牙打印机: 10
-          共享打印机: 0
+ 如果未配置此策略设置，则添加打印机向导将显示每种类型打印机的默认数目:
+ 目录打印机: 20
+ TCP/IP 打印机: 0
+ Web 服务打印机: 0
+ 蓝牙打印机: 10
+ 共享打印机: 0
 
-          若要查看网络上可用的 Web 服务打印机，请确保已启用网络发现。若要启用网络发现，请依次单击“开始”、“控制面板”和“网络和 Internet”。在“网络和 Internet”页上，单击“网络和共享中心”。在“网络和共享中心”页上，单击“更改高级共享设置”。在“高级共享设置”页上，单击“域”箭头旁的箭头，单击“启用网络发现”，然后单击“保存更改”。
+ 若要查看网络上可用的 Web 服务打印机，请确保已启用网络发现。若要启用网络发现，请依次单击“开始”、“控制面板”和“网络和 Internet”。在“网络和 Internet”页上，单击“网络和共享中心”。在“网络和共享中心”页上，单击“更改高级共享设置”。在“高级共享设置”页上，单击“域”箭头旁的箭头，单击“启用网络发现”，然后单击“保存更改”。
 
-          如果希望不显示特定类型的打印机，请启用此策略并将显示的打印机数目设置为 0。
+ 如果希望不显示特定类型的打印机，请启用此策略并将显示的打印机数目设置为 0。
 
-          在 Windows 10 和更高版本中，向导中只能显示 TCP/IP 打印机。如果启用此策略设置，则只有 TCP/IP 打印机限制适用。仅在 Windows 10 中，如果禁用或不配置此策略设置，将应用默认限制。
-          
-          在 Windows 8 和更高版本中，不显示蓝牙打印机，因此其限制不适用于这些版本的 Windows。
+ 在 Windows 10 和更高版本中，向导中只能显示 TCP/IP 打印机。如果启用此策略设置，则只有 TCP/IP 打印机限制适用。仅在 Windows 10 中，如果禁用或不配置此策略设置，将应用默认限制。
+ 
+ 在 Windows 8 和更高版本中，不显示蓝牙打印机，因此其限制不适用于这些版本的 Windows。
       </string>
       <string id="DomainPrinters">添加打印机向导 — 网络扫描页(托管网络)</string>
       <string id="DownlevelBrowse">浏览网络以便查找打印机</string>
       <string id="DownlevelBrowse_Help">允许用户使用添加打印机向导来搜索网络上共享的打印机。
 
-如果启用或未配置此设置，当用户通过在添加打印机向导的第二页上选择“网络打印机，或者在另一台计算机上的打印机”选项来添加网络打印机后，选中添加打印机向导第三页上的“连接到此打印机(或浏览打印机，选择此选项并单击‘下一步’)”选项，并且没有在旁边的“名称”编辑框中指定打印机名称，则添加打印机向导会显示网络上共享的打印机列表，可从显示的列表中选择打印机。
+如果启用或未配置此设置，当用户通过在添加打印机向导的第二页上选择“网络打印机，或者在另一台计算机上的打印机”选项来添加网络打印机后，选中添加打印机向导第三页上的“连接到此打印机”(或浏览打印机，选择此选项并单击“下一步”)选项，并且没有在旁边的“名称”编辑框中指定打印机名称，则添加打印机向导会显示网络上共享的打印机列表，可从显示的列表中选择打印机。
 
 如果禁用此设置，则网络打印机浏览页将从添加打印机向导中删除，从而用户将无法搜索网络打印机，但必须键入打印机名称。
 
@@ -134,21 +134,21 @@
           这个设置无法阻止用户使用其他程序删除打印机。
 
           如果禁用或未配置此策略，则用户可以使用上述方法删除打印机。</string>
-      <string id="NonDomainDisplayPrinters_Help">此策略可设置添加打印机向导将在非托管网络(当计算机无法连接域控制器时，如家庭网络中加入域的笔记本电脑)中的计算机上显示的(各种类型的)打印机最大数目。
+      <string id="NonDomainDisplayPrinters_Help">此策略设置当计算机无法访问域控制器时，添加打印机向导将显示在非托管网络(上计算机上的每)种类型的打印机(的最大数目，例如家庭网络上加入域的笔记本电脑。)
 
-如果禁用此设置，将不会显示网络扫描页。
+如果禁用此设置，则不会显示网络扫描页面。
 
-如果未配置此设置，则添加打印机向导将显示每种类型打印机的默认数目:
-TCP/IP 打印机: 50
-Web 服务打印机: 50
-蓝牙打印机: 10
-共享打印机: 50
+如果未配置此设置，则添加打印机向导将显示每种类型的默认打印机数：
+TCP/IP 打印机： 50
+Web 服务打印机： 50
+蓝牙打印机： 10
+共享打印机： 50
 
-如果不希望显示特定类型的打印机，请启用此策略并将显示的打印机数目设置为 0。
+如果不希望显示特定类型的打印机，请启用此策略并将显示的打印机数设置为 0。
 
-在 Windows 10 和更高版本中，向导中只能显示 TCP/IP 打印机。如果启用此策略设置，则只有 TCP/IP 打印机限制适用。仅在 Windows 10 中，如果禁用或不配置此策略设置，将应用默认限制。
-          
-在 Windows 8 和更高版本中，不显示蓝牙打印机，因此其限制不适用于这些版本的 Windows。</string>
+在Windows 10及更高版本中，向导中只能显示 TCP/IP 打印机。如果启用此策略设置，则仅适用 TCP/IP 打印机限制。仅当Windows 10时，如果禁用或未配置此策略设置，则应用默认限制。
+
+在Windows 8及更高版本中，不显示蓝牙打印机，因此其限制不适用于这些版本的 Windows。</string>
       <string id="NonDomainPrinters">添加打印机向导 — 网络扫描页(未受管理网络)</string>
       <string id="PackagePointAndPrintOnly">仅使用程序包指向并打印</string>
       <string id="PackagePointAndPrintOnly_Help">此策略限制客户端计算机仅使用程序包指向并打印。
@@ -278,19 +278,243 @@ Web 服务打印机: 50
 
         如果禁用或未配置此策略设置，则系统将允许运行所有已安装的打印机扩展。</string>
       <string id="MXDWUseLegacyOutputFormatMSXPS">将 Microsoft XPS 文档写入程序(MXDW)默认输出格式更改为旧版 Microsoft XPS 格式(*.xps)</string>
-      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">默认情况下，Microsoft XPS 文档写入程序(MXDW)在 Windows 10、Windows 10 和 Windows Server 2019 中生成 OpenXPS (*.oxps)文件。
+      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">默认情况下，Microsoft XPS 文档编写器 (MXDW) 在 Windows 10、Windows 10 和 Windows Server 2025 中生成 OpenXPS (*.oxps) 文件。
 
-          如果启用此组策略设置，则默认 MXDW 输出格式为旧版 Microsoft XPS (*.xps)。
+如果启用此组策略设置，则默认 MXDW 输出格式为旧版 Microsoft XPS (*.xps)。
 
-          如果禁用或未配置此策略设置，则默认 MXDW 输出格式为 OpenXPS (*.oxps)。</string>
+如果禁用或未配置此策略设置，则默认 MXDW 输出格式为 OpenXPS (*.oxps)。</string>
       <string id="SetDefaultPrinterMRUModeOff">关闭 Windows 默认打印机管理</string>
-      <string id="SetDefaultPrinterMRUModeOff_Help">此首选项允许你更改默认打印机管理。
+      <string id="SetDefaultPrinterMRUModeOff_Help">使用此首选项，可以更改默认打印机管理。
 
 如果启用此设置，Windows 将不会管理默认打印机。
- 
+
 如果禁用此设置，Windows 将管理默认打印机。
 
 如果未配置此设置，则默认打印机管理将不会更改。 </string>
+      <string id="EnableDeviceControl">启用设备控制打印限制</string>
+      <string id="EnableDeviceControl_Help">
+确定是否对此计算机上的打印强制实施设备控制打印限制。
+
+          默认情况下，不会根据连接类型或打印机制造商/型号限制打印。
+
+          如果启用此设置，则计算机将限制打印到公司网络上的打印机连接或批准的 USB 连接的打印机。
+
+          如果禁用此设置或未配置此设置，则不会根据连接类型或打印机制造商/型号限制打印。</string>
+      <string id="ApprovedUsbPrintDevices">已批准 USB 连接的打印设备列表</string>
+      <string id="ApprovedUsbPrintDevices_Help">
+
+此设置是设备控制打印限制的组件。若要使用此设置，请启用“启用设备控制打印限制”设置来启用设备控制打印。
+
+            启用设备控制打印时，系统使用指定的 vid/pid 值列表来确定是否已批准当前 USB 连接的打印机进行本地打印。
+
+            键入与批准的 USB 打印机型号相对应的所有已批准 vid/pid 组合(以逗号分隔)。当用户尝试打印到 USB 打印机队列时，会将设备 vid/pid 与批准列表进行比较。
+      </string>
+      <string id="RestrictDriverInstallationToAdministrators">限制打印驱动程序安装权限为管理员</string>
+      <string id="RestrictDriverInstallationToAdministrators_Help">
+确定不是管理员的用户是否可以在此计算机上安装打印驱动程序。
+
+默认情况下，不是管理员的用户无法在此计算机上安装打印驱动程序。
+
+如果启用或未配置此设置，则系统会将打印驱动程序的安装限制为此计算机的管理员。
+
+如果禁用此设置，则系统不会限制将打印驱动程序安装到此计算机。
+        </string>
+      <string id="CopyFilesPolicy">管理队列特定文件的处理</string>
+      <string id="CopyFilesPolicy_AllowAll">允许所有队列特定文件</string>
+      <string id="CopyFilesPolicy_Disabled">不允许队列特定文件</string>
+      <string id="CopyFilesPolicy_Help">
+管理打印机安装期间队列特定文件的处理方式。在打印机安装时，供应商提供的安装应用程序可以指定要与特定打印队列关联的任何类型的文件集。这些文件将下载到连接到打印服务器的每个客户端。
+
+可以启用此设置以更改涉及队列特定文件的默认行为。若要使用此设置，请从"管理队列特定文件的处理"框中选择以下选项之一。
+
+如果禁用或未配置此策略设置，则默认行为是"将队列特定文件限制为颜色配置文件"。
+
+-- "不允许队列特定文件"指定在安装打印队列/打印机连接期间不允许/处理任何队列特定文件。
+
+-- "将队列特定文件限制为颜色配置文件"指定只允许使用符合标准配色方案的队列特定文件。这意味着使用注册表项 CopyFiles\ICM 的项，其中包含 COLOR 的目录值并支持 mscms.dll 为模块值。"将队列特定文件限制为颜色配置文件"是默认行为。
+
+-- "允许所有队列特定文件"指定在安装打印队列/打印机连接期间允许/处理所有队列特定文件。
+      </string>
+      <string id="CopyFilesPolicy_ICMOnly">将队列特定文件限制为颜色配置文件</string>
+      <string id="DriverValidationLevel_Inbox">需要收件箱签名的驱动程序</string>
+      <string id="DriverValidationLevel_Legacy">允许所有经过有效签名的驱动程序</string>
+      <string id="DriverValidationLevel_Trusted">允许收件箱和打印驱动程序受信任存储签名的驱动程序</string>
+      <string id="DriverValidationLevel_TrustedShared">允许收件箱、打印驱动程序受信任存储、WHQL 和受信任发布者存储签名的驱动程序</string>
+      <string id="DriverValidationLevel_WHQL">允许收件箱、打印驱动程序受信任存储和 WHQL 签名的驱动程序</string>
+      <string id="DriverValidationLevel">管理打印驱动程序签名验证</string>
+      <string id="DriverValidationLevel_Help">
+          此策略设置控制打印驱动程序签名验证机制。此策略控制将打印驱动程序视为有效且安装在系统上所需的数字签名类型。
+
+在此验证过程中，将验证目录/嵌入式签名，并且驱动程序中的所有文件都必须是目录的一部分，或者具有它们自己的可用于验证的嵌入式签名。
+
+可以启用此设置以更改默认的签名验证方法。若要使用此设置，请从"为此计算机选择驱动程序签名机制"框中选择以下选项之一。
+
+如果禁用或未配置此策略设置，则默认方法为"允许所有有效签名的驱动程序"。
+
+-- "需要收件箱签名的驱动程序"指定此计算机上只允许作为 Windows 映像的一部分提供的驱动程序。
+
+-- "允许收件箱和打印驱动程序受信任存储签名的驱动程序"指定此计算机上只允许使用作为 Windows 映像的一部分提供的驱动程序，或者 "打印驱动程序" 证书存储中安装的证书签名的驱动程序。
+
+-- "允许收件箱、打印驱动程序受信任存储和 WHQL 签名的驱动程序"指定此计算机上唯一允许的驱动程序是： 作为 Windows 映像的一部分提供、由 "打印驱动程序" 证书存储中安装的证书签名或者由 Windows 硬件质量实验室(WHQL)签名的驱动程序。
+
+-- "允许收件箱、打印驱动程序受信任存储、WHQL 和受信任发布者存储签名的驱动程序"指定此计算机上允许的驱动程序是： 作为 Windows 映像的一部分提供、由安装在 "打印驱动程序" 证书存储中安装的证书签名、由 Windows 硬件质量实验室(WHQL) 签名或由 "受信任发布者" 证书存储中安装的证书签名的驱动程序。
+
+-- "允许所有经过有效签名的驱动程序"指定可以在此计算机上安装任何具有有效嵌入式签名或可以根据打印驱动程序目录进行验证的打印驱动程序。
+
+"打印驱动程序" 证书存储需要由管理员在本地计算机存储位置创建。
+
+"受信任发布者"证书存储可以包含来自与打印驱动程序无关的源的证书。
+
+      </string>
+      <string id="DriverValidationLevelTitle">选择此计算机的驱动程序签名机制</string>
+      <string id="DriverExclusionList">管理打印驱动程序排除列表</string>
+      <string id="DriverExclusionList_Help">
+此策略设置控制打印驱动程序排除列表。排除列表允许管理员策展不允许在系统上安装的打印机驱动程序的列表。
+
+此检查超过了签名检查，并允许排除具有打印驱动程序签名验证策略的有效签名级别的驱动程序。
+
+排除列表中的条目由 INF 文件的 WIN7)和/或主驱动程序 DLL 文件的 SHA256 哈希(或 SHA1 哈希以及该文件的名称组成。
+
+如果禁用或未配置此策略设置，如果当前设置为值，则将删除与此策略设置关联的注册表项和值。
+
+      </string>
+      <string id="RpcListenerPolicy">配置 RPC 侦听器设置</string>
+      <string id="RpcOverNamedPipes">命名管道上的 RPC</string>
+      <string id="RpcOverTcp">TCP 上的 RPC</string>
+      <string id="RpcOverNamedPipesAndTcp">命名管道和 TCP 上的 RPC</string>
+      <string id="RpcAuthenticationProtocol_Negotiate">协商</string>
+      <string id="RpcAuthenticationProtocol_Kerberos">Kerberos</string>
+      <string id="RpcListenerPolicy_Help">
+此策略设置控制允许使用到后台处理程序的传入 RPC 连接的协议。
+
+默认情况下，启用 TCP 上的 RPC，Negotiate 用于身份验证协议。
+
+允许传入 RPC 连接的协议：
+    -- "命名管道上的 RPC"： 只允许通过命名管道进行传入 RPC 连接
+    -- "TCP 上的 RPC"： 仅允许通过 TCP 进行传入 RPC 连接(默认选项)
+    -- "命名管道和 TCP 上的 RPC"： 将允许通过 TCP 和命名管道进行传入 RPC 连接
+
+用于传入 RPC 连接的身份验证协议：
+    --"协商"： 使用协商身份验证协议(默认选项)
+    -- "Kerberos"： 使用 Kerberos 身份验证协议
+
+如果禁用或未配置此策略设置，将使用上述默认值。
+      </string>
+      <string id="RpcConnectionPolicy">配置 RPC 连接设置</string>
+      <string id="RpcConnectionAuthenticationDefault">默认</string>
+      <string id="RpcConnectionAuthenticationEnabled">已启用身份验证</string>
+      <string id="RpcConnectionAuthenticationDisabled">已禁用身份验证</string>
+      <string id="RpcConnectionPolicy_Help">
+该策略设置控制在向外发送 RPC 连接到远程打印轮转机时使用的协议和协议设置。
+
+默认情况下，使用 TCP 上的 RPC，并始终启用身份验证。对于通过命名管道的 RPC，始终为已加入域的计算机启用身份验证，但对于未加入域的计算机禁用身份验证。
+
+用于传出 RPC 连接的协议:
+    -- “PRC”over“TCP”: 使用 RPC over TCP 连接到远程打印后台处理程序
+    -- “命名管道上的 RPC”: 为将 PRC 连接到远程打印后台处理程序使用命名管道上的 RPC
+
+对通过命名管道连接的传出 RPC 使用身份验证:
+    --“默认”: 默认情况下，加入域的计算机启用 RPC 身份验证，而未加入域的计算机则禁用 RPC 身份验证
+    -- “已启用身份验证”: RPC 身份验证将用于通过命名管道连接传出 RPC
+    --“已禁用身份验证”: RPC 身份验证将不用于通过命名管道连接传出 RPC
+
+如果禁用或未配置此策略设置，则将使用上述默认值。
+      </string>
+      <string id="RpcTcpPortPolicy">通过 TCP 端口配置 RPC</string>
+      <string id="RpcTcpPortPolicy_Help">
+此策略设置控制用于通过 TCP 进行 RPC 的端口，用于传入到后台打印程序的连接以及到远程后台打印程序的传出连接。
+
+默认情况下使用动态 TCP 端口。
+
+TCP 端口的 RPC：
+    -- 用于 TCP 上的 RPC 的端口。值 0 是默认值，指示将使用动态 TCP 端口
+
+如果禁用或未配置此策略设置，则使用动态 TCP 端口。
+      </string>
+      <string id="RpcIncomingAuthenticationLevelPolicy">为传入连接配置 RPC 数据包级别隐私设置</string>
+      <string id="RpcIncomingAuthenticationLevelPolicy_Help">
+此策略设置控制是否为传入连接的 RPC 启用数据包级别隐私。
+
+默认情况下，为传入连接的 RPC 启用数据包级别隐私。
+
+如果启用或未配置此策略设置，则会为传入连接的 RPC 启用数据包级别隐私。
+      </string>
+      <string id="AlwaysSendIppPageCounts">始终发送 IPP 打印机的作业页计数信息</string>
+      <string id="AlwaysSendIppPageCounts_Help">
+确定是否始终使用 Microsoft IPP 类 Driver.
+发送页计数信息以供打印机记帐。
+
+默认情况下， 页面在呈现后立即发送到打印机，并且页面计数信息不会发送到打印机除非必须重新排序 pages.
+
+ 
+ 如果启用此设置，系统将预先呈现所有打印作业页，并向打印机发送打印作业的总页计数。
+
+如果禁用或未配置此设置， 页面在呈现后立即打印，并且仅在需要页面重新排序来处理作业时才发送页面计数。
+      </string>
+      <string id="RequireIpps">要求 IPP 打印机使用 IPPS</string>
+      <string id="RequireIpps_Help">确定使用 Microsoft IPP 类驱动程序与打印机的通信是否必须使用使用 TLS 进行安全通信) 的 IPPS (。
+
+如果启用此策略设置，则只能安装支持 IPPS 的 IPP 打印机。
+
+如果禁用或未配置此设置，则默认允许安装不支持 IPPS 的 IPP 打印机。
+      </string>
+      <string id="IppTlsCertificatePolicy">为 IPP 打印机设置 TLS/SSL 安全策略</string>
+      <string id="IppTlsCertificatePolicy_Help">
+使用 Microsoft IPP 类驱动程序确定打印机的 TLS/SSL 安全策略(WINHTTP_OPTION_SECURITY_FLAGS)。
+
+默认情况下，安全策略设置为忽略所有证书错误，从而支持为打印机使用自签名证书。
+
+如果启用此设置，系统将默认启用所有证书检查，禁止任何证书错误。可以使用给定的复选框设置特定证书检查。
+
+如果禁用或未配置此设置，则默认为忽略所有证书错误（即未选中所有复选框）。
+      </string>
+      <string id="RedirectionGuardPolicy">配置重定向防护</string>
+      <string id="RedirectionGuardPolicy_Disabled">已禁用重定向防护</string>
+      <string id="RedirectionGuardPolicy_Enabled">已启用重定向防护</string>
+      <string id="RedirectionGuardPolicy_AuditOnly">仅重定向防护审核</string>
+      <string id="RedirectionGuardPolicy_Help">
+确定是否为打印后台处理程序启用重定向防护。
+
+可以启用此设置来配置要应用于后台处理程序的重定向防护策略。
+
+如果禁用或未配置此策略设置，则重定向防护将默认为“已启用”。
+
+如果启用此设置，则可以选择以下选项：
+
+-- 已启用: 重定向防护将阻止执行任何文件重定向
+
+-- 禁用: 将不会启用重定向防护，并且可以在后台处理程序进程中使用文件重定向
+
+-- 审核: 重定向防护将记录事件，就像它已启用一样，但实际上不会阻止在后台处理程序中使用文件重定向。
+      </string>
+      <string id="WindowsProtectedPrintPolicy">配置 Windows 保护打印</string>
+      <string id="WindowsProtectedPrintPolicy_Help">
+确定此计算机上是否启用了受 Windows 保护的打印。
+
+默认情况下，未启用受 Windows 保护的打印，并且对可安装或打印功能的打印驱动程序没有任何限制。
+
+如果启用此设置，则计算机将在受 Windows 保护的打印模式下运行，这仅允许打印到支持一部分收件箱 Windows 打印驱动程序的打印机。
+
+如果禁用或未配置此设置，则对可安装或打印功能的打印驱动程序没有任何限制。
+
+有关详细信息，请参阅 https://learn.microsoft.com/en-us/windows-hardware/drivers/print/windows-protected-print-mode
+      </string>
+      <string id="WindowsReadyPrintDriverRanking">配置 Windows Ready Print 驱动程序优先级</string>
+      <string id="WindowsReadyPrintDriverRanking_Help">
+确定此计算机上是否启用 Windows Ready Print 驱动程序优先级。
+
+启用后，对于支持 Internet 打印协议(IPP)的打印机，Windows 将优先使用 Microsoft IPP 类驱动程序。这适用于网络连接的 IPP 打印机以及支持 IPP over USB 的 USB 连接打印机。
+
+如果启用此设置，Windows 在为符合条件的打印机自动选择驱动程序时将优先使用 Microsoft IPP 类驱动程序。
+
+如果禁用此设置，Windows 将使用默认驱动程序选择行为。
+
+如果未配置此设置，将改用本地管理员设置。如果两项设置均未配置，则默认启用 Windows Ready Print 驱动程序优先级。
+
+注意: 此组策略设置优先于本地管理员设置。此设置仅影响初始打印机安装期间的驱动程序自动选择。现有打印机安装不会更改。此设置的更改需要完全卸载并重新安装打印机才能生效。
+
+有关详细信息，请参阅 https://go.microsoft.com/fwlink/?linkid=2364024。
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="CustomizedSupportUrl">
@@ -350,6 +574,50 @@ Web 服务打印机: 50
           <label>默认 Active Directory 路径</label>
         </textBox>
         <text>示例 --&gt; LDAP://DC=Domain1,DC=MyCompany,DC=com。</text>
+      </presentation>
+      <presentation id="ApprovedUsbPrintDevices">
+        <text>指定已批准 USB 连接的打印机设备的列表。</text>
+        <text>此列表是一个以逗号分隔的 USB vid/pid 值列表。示例： 0351/0872、135E/2179</text>
+        <textBox refId="ApprovedUsbPrintDevices_List">
+          <label>vid/pid</label>
+        </textBox>
+      </presentation>
+      <presentation id="CopyFilesPolicy">
+        <text>选择处理队列特定文件的方法。</text>
+        <dropdownList defaultItem="1" noSort="true" refId="CopyFilesPolicy_Enum">管理队列特定文件的处理：</dropdownList>
+      </presentation>
+      <presentation id="DriverValidationLevel">
+        <dropdownList defaultItem="4" noSort="true" refId="DriverValidationLevel_Enum">选择此计算机的驱动程序签名机制：</dropdownList>
+      </presentation>
+      <presentation id="DriverExclusionList">
+        <text>  </text>
+        <text>输入与下面哈希表示的文件名配对的文件哈希。</text>
+        <text>  </text>
+        <listBox refId="Driver_ExclusionListEntry">文件哈希文件名：</listBox>
+      </presentation>
+      <presentation id="RpcListenerPolicy">
+        <text>为传入的 RPC 连接配置协议选项。</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RpcListenerProtocols_Enum">允许传入 RPC 连接的协议：</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcAuthenticationProtocol_Enum">用于传入 RPC 连接的身份验证协议：</dropdownList>
+      </presentation>
+      <presentation id="RpcConnectionPolicy">
+        <text>配置传出 RPC 连接的协议选项。</text>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionProtocol_Enum">用于传出 RPC 连接的协议：</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionAuthentication_Enum">对传出 RPC 连接使用身份验证：</dropdownList>
+      </presentation>
+      <presentation id="RpcTcpPortPolicy">
+        <text>配置要用于 TCP 上的 RPC 的端口。</text>
+        <decimalTextBox defaultValue="0" refId="RpcTcpPort">通过 TCP 端口的 RPC：</decimalTextBox>
+      </presentation>
+      <presentation id="IppTlsCertificatePolicy">
+        <checkBox refId="SecurityFlagsBlockUnknownCA" defaultChecked="true">禁止无效的证书颁发机构</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertWrongUsage" defaultChecked="true">禁止非服务器证书</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertCNInvalid" defaultChecked="true">禁止无效的证书公用名</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertDateInvalid" defaultChecked="true">禁止无效的证书日期</checkBox>
+      </presentation>
+      <presentation id="RedirectionGuardPolicy">
+        <text>配置重定向防护选项</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RedirectionGuardPolicy_Enum">重定向防护选项</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

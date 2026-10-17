@@ -29,6 +29,13 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, wordt het pictogr
 Als u deze instelling inschakelt, wordt het pictogram Beveiliging en onderhoud niet weergegeven in het systeemvak.
 
 Als u deze instelling uitschakelt of niet configureert, wordt het pictogram Beveiliging en onderhoud weergegeven in het systeemvak.</string>
+      <string id="HideSCAMeetNow">Het pictogram voor Nu vergaderen verwijderen</string>
+      <string id="HideSCAMeetNow_Help">Met deze beleidsinstelling kunt u het pictogram Nu vergaderen uit het systeemvak
+ verwijderen. 
+
+Als u deze beleidsinstelling inschakelt, wordt het pictogram Nu vergaderen niet weergegeven in het systeemvak.
+
+ Als u deze beleidsinstelling uitschakelt of niet configureert, wordt het pictogram Nu vergaderen weergegeven in het systeemvak.</string>
       <string id="TaskbarLockAll">Alle taakbalkinstellingen vergrendelen</string>
       <string id="TaskbarLockAll_Help">Met deze beleidsinstelling kunt u alle taakbalkinstellingen vergrendelen
 
@@ -128,13 +135,13 @@ Als u deze instelling uitschakelt of niet configureert, kunnen gebruikers bestan
 Als u deze beleidsinstelling inschakelt, kunnen gebruikers geen taakbalken op meer dan een scherm weergeven. Weergave op meerdere schermen is niet ingeschakeld voor het dialoogvenster Taakbalkeigenschappen.
 
 Als u deze beleidsinstelling uitschakelt of niet configureert, kunnen gebruikers taakbalken op meer dan een scherm weergeven.</string>
-        <string id="ShowWindowsStoreAppsOnTaskbar">Windows Store-apps weergeven op de taakbalk</string>
+        <string id="ShowWindowsStoreAppsOnTaskbar">Verpakte Microsoft Store-apps weergeven op de taakbalk</string>
         <string id="ShowWindowsStoreAppsOnTaskbar_Help">
-Met deze beleidsinstelling kunnen gebruikers Windows Store-apps weergeven op de taakbalk.
+Met deze beleidsinstelling kunnen gebruikers verpakte Microsoft Store-apps weergeven op de taakbalk.
  
-Als u deze beleidsinstelling inschakelt, kunnen gebruikers Windows Store-apps zien op de taakbalk.
+Als u deze beleidsinstelling inschakelt, kunnen gebruikers verpakte Microsoft Store-apps zien op de taakbalk.
  
-Als u deze beleidsinstelling uitschakelt, kunnen gebruikers geen Windows Store-apps zien op de taakbalk.
+Als u deze beleidsinstelling uitschakelt, kunnen gebruikers geen verpakte Microsoft Store-apps zien op de taakbalk.
  
 Als u deze beleidsinstelling niet configureert, wordt de standaardinstelling gebruikt voor het apparaat van de gebruiker en kan de gebruiker deze instelling zelf aanpassen.</string>
       <string id="DisableNotificationCenter">Meldingen en Actiecentrum verwijderen</string>
@@ -147,7 +154,7 @@ Als deze instelling is ingeschakeld, worden meldingen en Actiecentrum niet weerg
 Als u deze beleidsinstelling uitschakelt of niet configureert, worden meldingen, beveiliging en onderhoud weergegeven op de taakbalk. 
 
 De computer moet opnieuw worden opgestart voordat deze beleidsinstelling van kracht wordt.</string>
-      <string id="NoPinningStoreToTaskbar">Microsoft Store-app aan taakbalk vastmaken niet toestaan</string> 
+      <string id="NoPinningStoreToTaskbar">Microsoft Store-app aan taakbalk vastmaken niet toestaan</string>
       <string id="NoPinningStoreToTaskbar_Help">
 Met deze beleidsinstelling kunt u bepalen of de Microsoft Store-app aan de taakbalk kan worden vastgemaakt.
 
@@ -164,10 +171,81 @@ Als u deze beleidsinstelling uitschakelt, kunnen gebruikers geen extra agenda we
 Als u deze beleidsinstelling niet configureert, wordt de agenda ingesteld volgens de standaardlogica.</string>
       <string id="ConfigureTaskbarCalendar_SimplifiedChinese">Vereenvoudigd Chinees (maan)</string>
       <string id="ConfigureTaskbarCalendar_TraditionalChinese">Traditioneel Chinees (maan)</string>
+      <string id="Chat">Chatten</string>
+      <string id="ConfigureChatIcon">Hiermee configureert u het chatpictogram op de taakbalk</string>
+      <string id="ConfigureChatIcon_Help">Met deze beleidsinstelling kunt u het chatpictogram op de taakbalk configureren.
+
+Als u deze beleidsinstelling inschakelt en instelt op Weergeven, wordt het pictogram Chat standaard weergegeven op de taakbalk. Gebruikers kunnen het weergeven of verbergen in Instellingen.
+
+Als u deze beleidsinstelling inschakelt en instelt op Verbergen, wordt het chatpictogram standaard verborgen. Gebruikers kunnen het weergeven of verbergen in Instellingen.
+
+Als u deze beleidsinstelling inschakelt en instelt op Uitgeschakeld, wordt het chatpictogram niet weergegeven en kunnen gebruikers het niet weergeven of verbergen in Instellingen.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, wordt het pictogram Chat geconfigureerd volgens de standaardinstellingen voor uw Windows-editie.</string>
+      <string id="ChatEnum_Show">Weergeven</string>
+      <string id="ChatEnum_Hide">Verbergen</string>
+      <string id="ChatEnum_Disabled">Uitgeschakeld</string>
+      <string id="HideTaskViewButton">De knop Taakweergave verbergen</string>
+      <string id="HideTaskViewButton_Help">Met deze beleidsinstelling kunt u de knop Taakweergave verbergen.
+
+Als u deze beleidsinstelling inschakelt, wordt de knop Taakweergave verborgen en wordt de wisselknop Instellingen uitgeschakeld.</string>
+      <string id="AlwaysShowNotificationIcon">Belpictogram voor melding weergeven</string>
+      <string id="AlwaysShowNotificationIcon_Help">
+Met deze beleidsinstelling kunt u het pictogram meldingsbel weergeven in het systeemvak.
+
+Als u deze beleidsinstelling inschakelt, wordt het meldingspictogram altijd weergegeven. Anders wordt het meldingspictogram alleen weergegeven als er een speciale status is (bijvoorbeeld: Niet storen is ingeschakeld).
+
+De computer moet opnieuw worden opgestart om deze beleidsinstelling van kracht te laten worden.
+      </string>
+      <string id="TurnOffAbbreviatedDateTimeFormat">Verkorte tijd- en datumnotatie uitschakelen</string>
+      <string id="TurnOffAbbreviatedDateTimeFormat_Help">
+Met deze beleidsinstelling kunt u de langere tijd- en datumnotatie in het systeemvak weergeven.
+
+Als deze instelling is ingeschakeld, bevat de tijdnotatie de tijdmarkering AM/PM en bevat de datum het jaar.
+
+De computer moet opnieuw worden opgestart om deze beleidsinstelling van kracht te laten worden.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior">ConfigureTaskbarSmallButtonBehavior</string>  
+      <string id="ConfigureTaskbarSmallButtonBehavior_DisplayName">Configureer het gedrag van kleine taakbalkknoppen</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Help">Met deze beleidsinstelling kun je het gedrag van kleine taakbalkknoppen configureren.
+      
+Indien ingesteld op:
+      - Altijd: de taakbalk gebruikt altijd kleine knoppen.
+      - Wanneer de taakbalk vol is: de taakbalk schakelt dynamisch tussen kleine knoppen en standaardknopgrootten op basis van de beschikbare ruimte.
+      - Nooit: de taakbalk gebruikt nooit kleine knoppen. Alleen knoppen van standaardformaat worden gebruikt.
+
+Als dit beleid is ingeschakeld, moet een van de bovenstaande opties worden geselecteerd en kunnen gebruikers de optie 'Kleinere taakbalkknoppen weergeven' niet wijzigen in de instellingen.
+
+Als dit beleid is uitgeschakeld of niet is geconfigureerd, wordt er geen optie toegepast door het groepsbeleid. Windows wordt standaard ingesteld op het gedrag 'Wanneer de taakbalk vol is', en gebruikers kunnen deze instelling handmatig wijzigen in de instellingen.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Always">Altijd</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_WhenTaskbarIsFull">Wanneer taakbalk vol is </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Never">Nooit</string>
+      <string id="DisableTaskbarPosition">Het wijzigen van de taakbalkpositie uitschakelen</string>
+      <string id="DisableTaskbarPosition_Help">Met deze beleidsinstelling kunt u voorkomen dat gebruikers de positie van de taakbalk wijzigen.
+
+Als u deze beleidsinstelling inschakelt, wordt de taakbalk naar de onderkant van het scherm verplaatst en wordt de positie van de taakbalk grijs weergegeven in de app Instellingen.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, kunnen gebruikers de positie van de taakbalk wijzigen in de app Instellingen.</string>
+      <string id="DisableTaskbarSize">Het wijzigen van de taakbalkgrootte uitschakelen</string>
+      <string id="DisableTaskbarSize_Help">Met deze beleidsinstelling kunt u voorkomen dat gebruikers de grootte van de taakbalk wijzigen.
+
+Als u deze beleidsinstelling inschakelt, wordt de standaardgrootte van de taakbalk ingesteld en wordt de instelling van de taakbalkgrootte grijs weergegeven in de app Instellingen.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, kunnen gebruikers de grootte van de taakbalk wijzigen in de app Instellingen.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureTaskbarCalendar">
         <dropdownList refId="ConfigureTaskbarCalendar_Dropdown" defaultItem="0">Agenda:</dropdownList>
+      </presentation>
+      <presentation id="ConfigureChatIcon">
+          <text>De instelling voor het chatpictogram configureren</text>
+          <text> </text>
+          <dropdownList refId="ConfigureChatIcon_Action" noSort="true" defaultItem="1">Status: </dropdownList>
+          <text> </text>
+      </presentation>
+      <presentation id="ConfigureTaskbarSmallButtonBehavior">
+        <dropdownList refId="ConfigureTaskbarSmallButtonBehavior_Dropdown" noSort="true" defaultItem="1">Kies wanneer je kleinere taakbalkknoppen wilt weergeven: </dropdownList>
       </presentation>
     </presentationTable>
   </resources>

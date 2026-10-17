@@ -15,7 +15,16 @@ Hvis du aktiverer denne policyinnstillingen, aktiveres PPT-skalering for GDI for
 Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, aktiveres ikke PPT-skalering for GDI for et program bortsett fra når et program er aktivert ved hjelp av ApplicationCompatibility-databasen, innstillingen System (forbedret) for ApplicationCompatibility-brukergrensesnitt eller et programmanifest.
 
 Hvis PPT-skalering for GDI er konfigurert til å aktivere og deaktivere et program, deaktiveres programmet.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">PPT-skalering for GDI gjør at programmer som ikke bruker PPT bruker PPT per skjerm.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">Hvis du aktiverer denne policyen, kan du overstyre standardvirkemåten når du kobler til en ekstra skjerm. Den lar deg kontrollere om skjermen automatisk kloner (speiler) hovedskjermen eller om den utvider skrivebordet.
+Med Utvid-alternativet utvides skjermen til den andre skjermen, slik at du kan ha forskjellig innhold på hver skjerm. Med Klon-alternativet dupliserer hovedskjermen på den andre skjermen, slik at det samme innholdet vises på begge skjermene. Intern-standarden bruker systemets standardvirkemåte som bestemmes av Windows-innstillingene.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> Konfigurer modus for flere visninger</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">Hvis du aktiverer denne policyen, kan du overstyre standardvirkemåten når du kobler til en ekstra skjerm. Den lar deg kontrollere om en klonet skjerm skal prioriterer den interne eller eksterne skjermen, dvs. ved å angi skjermens foretrukne oppløsningskilde.
+Intern-alternativet gjør at oppløsningen til hovedskjermen angis som kilde på begge skjermene. Ekstern-alternativet gjør at oppløsningen til den tilkoblede (eksterne) skjermen angis som kilde på begge skjermene. Standard-alternativet bruker systemets standardvirkemåte som bestemmes av Windows-innstillingene.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> Angi kilde for foretrukket oppløsning for klonet skjerm</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">PPT-skalering for GDI gjør at programmer som ikke bruker PPT bruker PPT per skjerm.
 
 Denne policyinnstillingen lar deg angi eldre programmer som har PPT-skalering for GDI deaktivert.
 
@@ -26,24 +35,32 @@ Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan PPT-s
 Hvis PPT-skalering for GDI er konfigurert til å deaktivere og aktivere et program, deaktiveres programmet.</string>
       <string id="DisplayTurnOnGdiDPIScaling">Aktiver GdiDPIScaling for programmer</string>
       <string id="DisplayTurnOffGdiDPIScaling">Deaktiver GdiDPIScaling for programmer</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">Per Process System DPI er en app for kompatibilitet for skrivebordsprogrammer som ikke gjengis riktig når du endrer en visningsskalafaktor (ppt). Når visningsskalafaktoren for primærvisningen endres (som kan skje når du kobler til eller fra en skjerm som har en annen visningsskalafaktor (ppt), kobler til eksternt fra en enhet med en annen visningsskalafaktor eller manuelt endrer visningsskalafaktoren), kan mange skrivebordsprogrammer vises uklare. Skrivebordsprogrammer som ikke har blitt oppdatert for å vises riktig i dette scenariet, vil være uklare til brukeren logger av og på Windows igjen. 
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">Per Process System DPI er et program for kompatibilitet for skrivebordsprogrammer som ikke gjengis på riktig måte etter at du har endret en skjermskaleringsfaktor (ppt). Når skjermskaleringsfaktoren for hovedskjermen endres (noe som kan skje når du kobler til eller fra en skjerm som har en annen skjermskaleringsfaktor (ppt), kobler til eksternt fra en enhet med en annen skjermskaleringsfaktor eller manuelt endrer skjermskaleringsfaktoren), kan mange skrivebordsprogrammer vises uklare. Skrivebordsprogrammer som ikke har blitt oppdatert for å vises riktig i dette scenarioet, vil være uklare til brukeren logger av og på Windows igjen.
 
-Når du aktiverer denne policyen, blir noen uklare apper skarpe når de startes på nytt, uten at brukeren må logge av og på Windows igjen. 
+Når du aktiverer denne policyen, blir noen uklare programmer skarpe når de startes på nytt, uten at brukeren må logge av og på Windows igjen.
 
 Vær oppmerksom på følgende:
 
-Per Process System DPI vil bare forbedre gjengivelsen av skrivebordsprogrammer som er plassert på primærskjermen. Enkelte skrivebordsprogrammer kan være uklare på sekundærskjermer som har en annen visningsskalafaktor. 
+Per Process System DPI vil bare forbedre gjengivelsen av skrivebordsprogrammer som er plassert på hovedskjermen. Enkelte skrivebordsprogrammer kan fortsatt være uklare på sekundære skjermer med en annen skjermskaleringsfaktor.
 
-Per Process System DPI vil ikke fungere for alle apper, da noen eldre skrivebordsprogrammer alltid vil vises uskarpe på skjermer med høy ppt. 
+Per Process System DPI vil ikke fungere for alle programmer siden noen eldre skrivebordsprogrammer alltid vil vises uskarpe på skjermer med høy ppt.
 
 I noen tilfeller kan du se uvanlig virkemåte i enkelte skrivebordsprogrammer. Hvis dette skjer, bør Per Process System DPI deaktiveres.
 
-Hvis du aktiverer denne innstillingen, kan du angi standardinnstilling for skrivebordsprogrammer over hele systemet samt overstyringer per app. Hvis du deaktiverer eller ikke konfigurerer denne innstillingen, brukes ikke Per Process System DPI for noen prosesser i systemet.
+Hvis du aktiverer denne innstillingen, kan du angi standardinnstilling for skrivebordsprogrammer over hele systemet samt overstyringer per program. Hvis du deaktiverer eller ikke konfigurerer denne innstillingen, brukes ikke Per Process System DPI for noen prosesser i systemet.
 
 </string>
       <string id="DisplayPerProcessSystemDpiSettings">Konfigurer innstillinger for Per Process System DPI</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">Aktiver</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">Deaktiver</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">Klone</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">Standard</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">Utvid</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">Bare internt</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">Kun eksternt</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">Standard</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">Intern</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">Ekstern</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">Aktiver Per Process System DPI for apper</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">Deaktiver Per Process System DPI for apper</string>
     </stringTable>
@@ -66,6 +83,12 @@ Hvis du aktiverer denne innstillingen, kan du angi standardinnstilling for skriv
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>Deaktiver Per Process System DPI for følgende apper. Bruk enten den fullstendige appbanen eller appfilnavnet og filtypen. Separer apper med et semikolon.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">Klon, utvid, internt, eksternt eller fortsett med standard Windows-innstillinger som konfigurasjon for modus for flere visninger.</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">Angi standardoppløsningen Windows skal bruke for nye klonede skjermer som interne, eksterne eller standard Windows-innstillinger.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

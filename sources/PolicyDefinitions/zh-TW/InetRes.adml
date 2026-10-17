@@ -18,7 +18,7 @@
       <string id="InternetCPL_Programs">程式集畫面</string>
       <string id="AddonManagement_AddOnList">附加元件清單</string>
       <string id="AddonManagement_ManagementMode">除非附加元件清單中特別允許，否則拒絕所有附加元件</string>
-      <string id="AddonManagement_RestrictCrashDetection">關閉當機偵測</string>
+      <string id="AddonManagement_RestrictCrashDetection">關閉碰撞偵測</string>
       <string id="AddonManagement_RestrictExtensionManagement">不允許使用者啟用或停用附加元件</string>
       <string id="AddSearchProvider">將特定的搜尋提供者清單加入便用者的搜尋提供者清單</string>
       <string id="AdminApproved">系統管理員允許的控制項</string>
@@ -270,7 +270,7 @@
 
 如果您停用或未設定這個原則設定，則將無法提供預設的快顯封鎖程式例外清單。
 
-注意: 您可以透過停用 [關閉管理允許快顯清單] 原則，來禁止使用者新增或移除例外清單中的網站。</string>
+注意: 您可以透過停用 [關閉管理快顯允許清單] 原則，來禁止使用者新增或移除例外清單中的網站。</string>
       <string id="ExplainScriptPaste_AllProcs_Explain">這個原則設定可讓您在電腦上某個處理程序執行的指令碼嘗試執行剪貼簿作業 (刪除、複製或貼上) 時略過提示。
 
 如果您啟用這個原則設定，使用者將不會在電腦上某個處理程序執行的指令碼執行剪貼簿作業時收到提示。也就是說，如果區域行為目前設為 [提示]，則這個設定會被略過和啟用。
@@ -355,7 +355,7 @@
 
 如果您未設定這個原則設定，使用者可以決定是否應該自動啟動 [網際網路連線精靈]。</string>
       <string id="ICWSettings">網際網路連線精靈設定</string>
-      <string id="Identities">身分管理員:防止使用者使用識別</string>
+      <string id="Identities">Identity Manager: 防止使用者使用識別</string>
       <string id="IDN_Always">自動轉換成 IDN 格式</string>
       <string id="IDN_Intranet">將內部網路位址轉換成 IDN 格式</string>
       <string id="IDN_Never">永不轉換成 IDN 格式</string>
@@ -420,7 +420,7 @@
 如果您停用或未設定這個原則設定，將會提示使用者決定網路釣魚篩選工具的作業模式。</string>
       <string id="IE_Explain_DisableManagingSafetyFilter">這個原則設定可讓使用者啟用 [SmartScreen 篩選工具]，如果所造訪的網站已知會透過「網路釣魚」意圖詐騙個人資訊、或已知為裝載惡意軟體，這個功能會警告使用者。
 
-如果您啟用這個原則設定，將不會提示使用者開啟 [SmartScreen 篩選工具]。您必須指定 [SmartScreen 篩選工具] 使用的模式: 開啟或關閉。不在篩選工具允許的清單上的所有網址將會自動傳送到 Microsoft，而且不會提示使用者。
+如果您啟用這個原則設定，將不會提示使用者開啟 [SmartScreen 篩選工具]。您必須指定 [SmartScreen 篩選工具] 使用的模式: 開啟或關閉。不在篩選工具允許清單上的所有網址將會自動傳送到 Microsoft，而且不會提示使用者。
 
 如果您停用或未設定這個原則設定，將會提示使用者決定是否在初次執行體驗時開啟 [SmartScreen 篩選工具]。</string>
       <string id="IE_Explain_DisableManagingSafetyFilter_IE9">這個原則設定可防止使用者管理 [SmartScreen 篩選工具]，如果所造訪的網站已知會透過「網路釣魚」意圖詐騙個人資訊、或已知為裝載惡意軟體，這個功能會警告使用者。
@@ -805,9 +805,9 @@ Microsoft Agent 是一組在 Microsoft Windows 介面中，支援將軟體助理
 如果您啟用這個原則，將會移除 [說明] 功能表上的 [每日小秘訣] 命令。
 
 如果您停用或未設定這個原則，使用者可以啟用或停用顯示在瀏覽器底部的 [每日小秘訣]。</string>
-      <string id="IE_ExplainIdentities">防止使用者使用 [身分管理員] 來設定唯一身分。
+      <string id="IE_ExplainIdentities">防止使用者使用 [Identity Manager] 來設定唯一身分。
 
-[身分管理員] 可以讓使用者在同一台電腦上建立多個帳戶 (例如，多個電子郵件帳戶)。每一位使用者都有唯一的身分，各有不同的密碼和程式喜好設定。
+[Identity Manager] 可以讓使用者在同一台電腦上建立多個帳戶 (例如，多個電子郵件帳戶)。每一位使用者都有唯一的身分，各有不同的密碼和程式喜好設定。
 
 如果您啟用這個原則，使用者將無法建立新的身分、管理現存的身分或切換身分。將會移除 [通訊錄] 中 [檔案] 功能表上的 [切換身分] 選項。
 
@@ -874,13 +874,13 @@ Microsoft Agent 是一組在 Microsoft Windows 介面中，支援將軟體助理
 
 4.在 [執行 ActiveX 控制項與外掛程式] 區域中，按一下 [系統管理員已批准]。</string>
       <string id="IE_ExplainMenusCategory">包含顯示或隱藏 Internet Explorer 中的功能表和功能表選項的設定。</string>
-      <string id="IE_ExplainMicrosoft_Chat">將 Microsoft Chat ActiveX 控制項指定為系統管理員已批准。
+      <string id="IE_ExplainMicrosoft_Chat">將 Microsoft Chat ActiveX 控制項指定為系統管理員已核准。
 
 網頁作者使用這個控制項建立以文字與圖形為基礎的聊天室，以便在網路上進行即時通訊。
 
 如果您啟用這個原則，則在您指定可以執行系統管理員已批准之控制項的安全性區域中，可以執行這個控制項。
 
-如果您停用或未設定這個原則，這個控制項將不會被指定為系統管理員已批准。
+如果您停用或未設定這個原則，這個控制項將不會被指定為系統管理員已核准。
 
 如果要指定每個安全性區域處理系統管理員已批准控制項的方式，請執行下列步驟:
 
@@ -1345,7 +1345,7 @@ Microsoft Agent 是一組在 Microsoft Windows 介面中，支援將軟體助理
 
 如果您停用或未設定這個原則設定，使用者可以在例外清單中新增或移除網站。
 
-注意: 您可以透過啟用 [指定允許快顯清單] 原則設定，來允許預設清單中的網站開啟快顯視窗，而不理會 Internet Explorer 處理程序的快顯封鎖程式設定。</string>
+注意: 您可以透過啟用 [指定快顯允許清單] 原則設定，來允許預設清單中的網站開啟快顯視窗，而不理會 Internet Explorer 處理程序的快顯封鎖程式設定。</string>
       <string id="IE_ExplainRestrictPopupManagement">這個原則設定可讓您管理 Internet Explorer 中的快顯管理功能。
 
 如果您啟用這個原則設定，則與快顯管理相關的 [控制台] 資訊將無法使用 (變成灰色)，而且所有其他快顯管理員控制項、通知和對話方塊將不會出現。雖然啟動超出螢幕的視窗仍將會重新定位到螢幕內，不過，如同它們在 Windows XP Service Pack 1 或較舊版本中一樣，快顯視窗將會繼續運作。
@@ -2037,16 +2037,16 @@ Internet Explorer 有 4 個安全性區域，編號為 1-4，而這個原則設�
 若啟用此原則設定，將無法從此區域中的網站執行 TDC ActiveX 控制項。
 
 若停用此原則設定，將從此區域中的所有網站執行 TDC ActiveX 控制項。</string>
-      <string id="IZ_Policy_AllowDynsrcPlayback">允許使用舊版媒體播放程式網頁上的視訊和動畫</string>
-      <string id="IZ_Policy_AllowDynsrcPlayback_Explain">這個原則設定可允許在指定區域中使用舊版媒體播放程式播放視訊和動畫。透過物件標籤來播放視訊和動畫仍有可能被允許，因為這需要外部控制項或媒體播放程式。
+      <string id="IZ_Policy_AllowDynsrcPlayback">允許使用舊版媒體播放器網頁上的視訊和動畫</string>
+      <string id="IZ_Policy_AllowDynsrcPlayback_Explain">這個原則設定可允許在指定區域中使用舊版媒體播放器播放視訊和動畫。透過物件標籤來播放視訊和動畫仍有可能被允許，因為這需要外部控制項或媒體播放器。
 
-img 標籤的 dynsrc 屬性指定的是舊版媒體播放程式。此外，在 Internet Explorer 8 中，這個原則設定還控制參照音訊和視訊檔的 HTML+TIME 媒體元件。
+img 標籤的 dynsrc 屬性指定的是舊版媒體播放器。此外，在 Internet Explorer 8 中，這個原則設定還控制參照音訊和視訊檔的 HTML+TIME 媒體元件。
 
-如果您啟用這個原則設定，視訊和動畫將可以透過指定區域中舊版媒體播放程式播放。
+如果您啟用這個原則設定，視訊和動畫將可以透過指定區域中舊版媒體播放器播放。
 
-如果您停用這個原則設定，將無法透過舊版媒體播放程式播放視訊和動畫。
+如果您停用這個原則設定，將無法透過舊版媒體播放器播放視訊和動畫。
 
-如果您未設定這個原則設定，將可以透過指定區域中舊版媒體播放程式播放視訊和動畫。</string>
+如果您未設定這個原則設定，將可以透過指定區域中舊版媒體播放器播放視訊和動畫。</string>
       <string id="IZ_Policy_AllowScriptlets">允許程式碼片段</string>
       <string id="IZ_Policy_AllowScriptlets_Explain">這個原則設定可讓您管理使用者是否可以執行程式碼片段。
 
@@ -3014,7 +3014,7 @@ img 標籤的 dynsrc 屬性指定的是舊版媒體播放程式。此外，在 I
       <string id="Persistence_FileLimits4">受限制的網站區域檔案大小限制</string>
       <string id="PhishingOff">關閉</string>
       <string id="PhishingOn">開啟</string>
-      <string id="PopupBlocker_AllowList">允許快顯清單</string>
+      <string id="PopupBlocker_AllowList">快顯允許清單</string>
       <string id="Printing">列印中</string>
       <string id="Printing_Explain">這個原則設定可指定使用者列印網頁時，是否要 Internet Explorer 列印背景色彩與影像。視印表機的功能而定，包括背景色彩及映像可能會降低網頁列印速度及列印品質。
 
@@ -3574,37 +3574,42 @@ Internet Explorer 9 和 10:
 
 注意: 自 Windows 10 版本 1607 起不再支援這個原則。</string>
       <string id="Protocols_None">不使用安全通訊協定</string>
-      <string id="Protocols_SSL2">僅使用 SSL 2.0</string>
+      <string id="Protocols_SSL2">[已淘汰] 僅使用 SSL 2.0</string>
       <string id="Protocols_SSL3">僅使用 SSL 3.0</string>
-      <string id="Protocols_SSL2_SSL3">使用 SSL 2.0 與 SSL 3.0</string>
+      <string id="Protocols_SSL2_SSL3">[已淘汰] 使用 SSL 2.0 與 SSL 3.0</string>
       <string id="Protocols_TLS10">僅使用 TLS 1.0</string>
-      <string id="Protocols_SSL2_TLS10">使用 SSL 2.0 與 TLS 1.0</string>
+      <string id="Protocols_SSL2_TLS10">[已淘汰] 使用 SSL 2.0 與 TLS 1.0</string>
       <string id="Protocols_SSL3_TLS10">使用 SSL 3.0 與 TLS 1.0</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">使用 SSL 2.0、SSL 3.0 與 TLS 1.0</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[已过时]使用 SSL 2.0、SSL 3.0 与 TLS 1.0</string>
       <string id="Protocols_TLS11">僅使用 TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS11">使用 SSL 2.0 與 TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS11">[已淘汰] 使用 SSL 2.0 與 TLS 1.1</string>
       <string id="Protocols_SSL3_TLS11">使用 SSL 3.0 與 TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">使用 SSL 2.0、SSL 3.0 與 TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[已过时]使用 SSL 2.0、SSL 3.0 与 TLS 1.1</string>
       <string id="Protocols_TLS10_TLS11">使用 TLS 1.0 與 TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">使用 SSL 2.0、TLS 1.0 與 TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[已过时]使用 SSL 2.0、TLS 1.0 与 TLS 1.1</string>
       <string id="Protocols_SSL3_TLS10_TLS11">使用 SSL 3.0、TLS 1.0 與 TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">使用 SSL 2.0、SSL 3.0、TLS 1.0 與 TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[已过时]使用 SSL 2.0、SSL 3.0、TLS 1.0 与 TLS 1.1</string>
       <string id="Protocols_TLS12">僅使用 TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS12">使用 SSL 2.0 與 TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS12">[已淘汰] 使用 SSL 2.0 與 TLS 1.2</string>
       <string id="Protocols_SSL3_TLS12">使用 SSL 3.0 與 TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">使用 SSL 2.0、SSL 3.0 與 TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[已过时]使用 SSL 2.0、SSL 3.0 与 TLS 1.2</string>
       <string id="Protocols_TLS10_TLS12">使用 TLS 1.0 與 TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">使用 SSL 2.0、TLS 1.0 與 TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[已过时]使用 SSL 2.0、TLS 1.0 与 TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS12">使用 SSL 3.0、TLS 1.0 與 TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">使用 SSL 2.0、SSL 3.0、TLS 1.0 與 TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[已过时]使用 SSL 2.0、SSL 3.0、TLS 1.0 和 TLS 1.2</string>
       <string id="Protocols_TLS11_TLS12">使用 TLS 1.1 與 TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">使用 SSL 2.0、TLS 1.1 與 TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[已过时]使用 SSL 2.0、TLS 1.1 与 TLS 1.2</string>
       <string id="Protocols_SSL3_TLS11_TLS12">使用 SSL 3.0、TLS 1.1 與 TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">使用 SSL 2.0、SSL 3.0、TLS 1.1 與 TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[已过时]使用 SSL 2.0、SSL 3.0、TLS 1.1 和 TLS 1.2</string>
       <string id="Protocols_TLS10_TLS11_TLS12">使用 TLS 1.0、TLS 1.1 與 TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">使用 SSL 2.0、TLS 1.0、TLS 1.1 與 TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[已过时]使用 SSL 2.0、TLS 1.0、TLS 1.1 和 TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">使用 SSL 3.0、TLS 1.0、TLS 1.1 與 TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">使用 SSL 2.0、SSL 3.0、TLS 1.0、TLS 1.1 與 TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[已淘汰] 使用 SSL 2.0、SSL 3.0、TLS 1.0、TLS 1.1 與 TLS 1.2</string>
+      <string id="Protocols_TLS13">僅使用 TLS 1.3</string>
+      <string id="Protocols_TLS12_TLS13">使用 TLS 1.2 與 TLS 1.3</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">使用 TLS 1.1、TLS 1.2 与 TLS 1.3</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">使用 TLS 1.0、TLS 1.1、TLS 1.2 与 TLS 1.3</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">使用 SSL 3.0、TLS 1.0、TLS 1.1、TLS 1.2 和 TLS 1.3</string>
       <string id="LockToolbars">鎖定所有工具列</string>
       <string id="MoveStopRefresh">鎖定 [停止] 和 [重新整理] 按鈕的位置</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3903,7 +3908,7 @@ Internet Explorer 9 和 10:
 若開啟此設定，使用者將可以在 [工具] 功能表上看到 [企業模式] 選項並使用此選項。若開啟此設定，但並未指定報告位置，您的使用者仍將能使用「企業模式」，但您將無法取得任何報告。
 
 若停用或未設定此原則設定，將不會顯示該功能表選項，且使用者將無法在「企業模式」中執行網站。</string>
-      <string id="RestrictInternetExplorer">將企業模式網站清單中沒有包含的所有網站傳送到 Microsoft Edge。</string>
+      <string id="RestrictInternetExplorer">將 [企業模式網站清單] 中未包含的所有網站傳送到 Microsoft Edge。</string>
       <string id="IE_ExplainRestrictInternetExplorer">此設定讓您決定是否在 Microsoft Edge 中開啟企業模式網站清單中未包含的所有網站。若使用此設定，則也必須開啟「系統管理範本\Windows 元件\Internet Explorer\使用企業模式 IE 網站清單」原則設定，而且企業模式網站清單中必須至少包含一個網站。
 
 啟用此設定會自動在 Microsoft Edge 中開啟企業模式網站清單中未包含的所有網站。
@@ -3917,6 +3922,120 @@ Internet Explorer 9 和 10:
 若啟用此設定，員工會在 Internet Explorer 11 中看到額外的頁面，說明已使用 Microsoft Edge 搭配「企業模式」開啟網站。
 
 若停用或未設定此設定，會發生預設 App 行為，而且不會顯示額外的頁面。</string>
+      <string id="NeedEdgeBrowser">設定用於開啟重新導向網站的 Microsoft Edge 通道</string>
+      <string id="IE_ExplainNeedEdgeBrowser">可讓您設定最多三個版本的 Microsoft Edge 來開啟重新導向的網站 (按優先順序排列)。如果您的環境設定為將網站從 Internet Explorer 11 重新導向到 Microsoft Edge，請使用此原則。如果裝置上未安裝任何選定版本，則將忽略此優先順序。
+
+如果同時安裝了 Microsoft Edge * 下一版本的 Windows Update 與 Microsoft Edge 穩定通道，則會發生下列行為：
+-如果停用或不設定此原則，則使用 Microsoft Edge 穩定通道。此為預設行為。
+-如果啟用此原則，則可以將重新導向的網站設定為在下列最多三個通道中開啟，其通道為：
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta 77 版或更新版本
+    3 = Microsoft Edge Dev 77 版或更新版本
+    4 = Microsoft Edge Canary 77 版或更新版本
+
+如果未安裝 Microsoft Edge * 下一版本的 Windows Update 或 Microsoft Edge 穩定通道，則會發生下列行為：
+-如果停用或未設定此原則，則會自動使用 Microsoft Edge 45 版本或更早版本。此為預設行為。
+-如果啟用此原則，則可以將重新導向的網站設定為在下列最多三個通道中開啟，其通道為：
+    0 = Microsoft Edge 45 版或更早版本
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta 77 版或更新版本
+    3 = Microsoft Edge Dev 77 版或更新版本
+    4 = Microsoft Edge Canary 77 版或更新版本
+
+*有關 Microsoft Edge 下一版本的 Windows Update 詳細資訊 (包括停用方法)，請參閱 https://go.microsoft.com/fwlink/?linkid=2102115。此更新僅適用於 Windows 10 1709 版及更新版本。</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta 77 版或更新版本</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev 77 版或更新版本</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary 77 版或更新版本</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge 45 版或更早版本</string>
+      <string id="KeepIntranetSitesInInternetExplorer">保留 Internet Explorer 中所有的內部網路網站</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">防止在 Internet Explorer 之外的任何瀏覽器中開啟內部網路網站。但請注意，如果未啟用 [將未包含在企業模式網站清單中的所有網站，傳送到 Microsoft Edge] ([RestrictIE]) 原則，則此原則將無效。
+
+如果啟用此原則，則所有內部網路網站都將在 Internet Explorer 11 中開啟。僅企業模式網站清單中所列的網站除外。
+
+如果停用或未設定此原則，則所有內部網路網站都將自動在 Microsoft Edge 中開啟。
+
+我們強烈建議將此原則與 [將所有內部網路網站傳送到 Internet Explorer]([SendIntranetToInternetExplorer]) 原則保持同步。此外，最好僅在您的內部網路網站與 Microsoft Edge 存在已知的相容性問題時，才啟用此原則。
+
+相關原則: 
+-將所有內部網路網站傳送到 Internet Explorer ([SendIntranetToInternetExplorer]) 
+-將未包含在企業模式網站清單中的所有網站，傳送到 Microsoft Edge ([RestrictIE])
+
+有關如何將此原則與其他相關原則一起使用，以為您的組織建立最佳設定的詳細資訊，請參閱 https://go.microsoft.com/fwlink/?linkid=2094210。</string>
+      <string id="AllowSaveTargetAsInIEMode">允許在 Internet Explorer 模式中「另存目標」</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">這個原則設定可讓系統管理員在 Internet Explorer 模式中啟用 [將目標另存成] 操作功能表。
+
+如果您啟用這個原則，將會在 Internet Explorer 模式操作功能表中顯示 [將目標另存新檔]，並與 Internet Explorer 相同。
+
+如果您停用或未設定這個原則設定，[將目標另存目標] 將不會顯示在 Internet Explorer 模式的操作功能表中。
+
+如需詳細資訊，請參閱 https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="EnableGlobalWindowListInIEMode">啟用 Internet Explorer 模式的全域視窗清單</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">此設定允許 Internet Explorer 模式使用可與其他應用程式共用狀態的全域視窗清單。
+只有在將 Internet Explorer 11 停用為獨立瀏覽器時，設定才會生效。
+
+如果您啟用這個原則，Internet Explorer 模式會使用全域視窗清單。
+
+如果停用或未設定此原則，則 Internet Explorer 模式會繼續保持個別的視窗清單。
+
+若要深入了解 Internet Explorer 模式，請參閱 https://go.microsoft.com/fwlink/?linkid=2102921
+若要深入了解停用 Internet Explorer 11 做為獨立瀏覽器，請參閱 https://go.microsoft.com/fwlink/?linkid=2168340</string>
+      <string id="EnableExtendedIEModeHotkeys">在 Internet Explorer 模式中啟用延伸快速鍵</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">此原則設定可讓系統管理員啟用延伸的 Microsoft Edge Internet Explorer 模式快速鍵，例如「Ctrl+S」以擁有「另存新檔」功能。
+
+如果您啟用這個原則，Internet Explorer 模式會啟用延伸的快速鍵功能，而且工作方式與 Internet Explorer 相同。
+
+如果您停用或未設定這個原則，延伸的快速鍵將無法在 Internet Explorer 模式中運作。
+
+如需詳細資訊，請參閱 https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="AllowLegacyURLFields">允許網際網路捷徑檔案的舊版功能</string>
+      <string id="IE_ExplainAllowLegacyURLFields">這個原則設定允許在因特網快捷方式檔案中使用某些已停用的功能，例如 WorkingDirectory 字段或可插入的通訊協議處理。
+
+如果您啟用這個原則，將會重新啟用因特網快捷方式檔案的停用功能。
+
+如果您停用或未設定這個原則，將會停用因特網快捷方式檔案的某些功能，例如 WorkingDirectory 字段或可插入的通訊協議處理。</string>
+      <string id="ResetZoomForDialogInIEMode">在 Internet Explorer 模式中將 HTML 對話方塊的縮放重設為預設值</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">此原則設定可讓系統管理員在Internet Explorer模式中將 HTML 對話方塊的縮放重設為預設值。
+
+如果啟用此原則，則在Internet Explorer模式中縮放 HTML 對話方塊將不會從其上層頁面傳播。
+
+如果停用或未設定此原則，則會根據父頁面的縮放，設定Internet Explorer模式中 HTML 對話方塊的縮放。
+
+如需詳細資訊，請參閱https://go.microsoft.com/fwlink/?linkid=2220107</string>
+      <string id="DisableInternetExplorerApp">停用 Internet Explorer 11 做為獨立瀏覽器</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">此原則可讓您限制以獨立瀏覽器的形式啟動 Internet Explorer。
+
+如果您啟用此原則，它會:
+- 防止 Internet Explorer 11 以獨立瀏覽器的形式啟動。
+- 僅允許在 Microsoft Edge 的原生「Internet Explorer 模式」下使用 Internet Explorer。
+- 將啟動 Internet Explorer 11 的嘗試重新導向至 Microsoft Edge 穩定通道瀏覽器。
+- 覆寫任何其他重新導向至 Internet Explorer 11 的原則。
+
+即使啟用此原則，仍然允許使用 COM 自動化啟動 Internet Explorer 11。若要停用 Internet Explorer 11 的 COM 自動化啟動，請使用「停用 Internet Explorer 11 COM 自動化」群組原則。
+
+如果您停用或未設定此原則，所有網站都會使用目前作用中的瀏覽器設定來開啟。注意: 必須安裝 Microsoft Edge 穩定通道，這項原則才會生效。</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">停用透過 COM 自動化Internet Explorer 11 啟動</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">此原則可讓您限制使用 COM 自動化啟動Internet Explorer。
+
+如果您啟用這個原則，它會防止Internet Explorer 11 使用 COM 自動化啟動。
+
+如果停用或未設定此原則，則允許 Internet Explorer 11 個 COM 自動化啟動。</string>
+      <string id="DisableIEAppDeprecationNotification">隱藏 Internet Explorer 11 淘汰通知</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">這個原則設定可讓您管理是否顯示淘汰Internet Explorer的通知列提醒。根據預設，通知列會顯示在 Internet Explorer 11 中。
+
+如果您啟用這個原則設定，則不會在 Internet Explorer 11 中顯示 [通知列]。
+
+如果您停用或未設定這個原則設定，則通知列會顯示在 Internet Explorer 11 中。</string>
+      <string id="NotifyDisableIEOptions_Never">永不停用</string>
+      <string id="NotifyDisableIEOptions_Always">永遠顯示</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">每個使用者一次</string>
+      <string id="JScriptReplacement">取代 JScript，可透過載入 JScript9Legacy 來取代 JScript。</string>
+      <string id="IE_ExplainJScriptReplacement">這個原則設定指定要載入JScript或 JScript9Legacy。
+      
+如果您啟用或未設定這個原則設定，JScript9Legacy 將會在JScript具現化的狀況中載入。
+
+如果停用此原則，則會使用JScript。</string>
       <string id="VerMgmtDisable">為 Internet Explorer 關閉封鎖已過期的 ActiveX 控制項。</string>
       <string id="IE_ExplainVerMgmtDisable">這個原則設定決定 Internet Explorer 是否會封鎖特定已過期的 ActiveX 控制項。「內部網路區域」永不會封鎖已過期的 ActiveX 控制項。
 
@@ -4078,7 +4197,7 @@ Internet Explorer 9 和 10:
       <string id="IE_Explain_SiteDiscoveryEnableWMI">這個原則設定可讓您管理 Internet Explorer 站台探索工具組 (SDTK) 的 WMI 輸出功能。當啟用這個功能時，會寫入資料收集到可透過用戶端管理方案 (SCCM)，或透過其他方式彙總的 WMI 類別。當停用時，則不會有任何資料寫入 WMI 類別。啟用或停用這個設定不會影響 SDTK 其他的輸出方法。</string>
       <string id="IE_Explain_SiteDiscoveryDomainAllowList">這個原則設定可讓您控制包含在 Internet Explorer 網站探索工具組 (SDTK) 探索功能中的網域。當啟用這個功能時，會從設定在原則內網域部分的網站收集資料。當停用、或未設定時，網站探索將包含所有網域。這個原則可與其他原則結合控制包含在網站探索的網站。
 
-若要設定包含在 IE 網站探索工具組資料集合的網域，請單行輸入單個網域到文字方塊。例如:
+若要設定包含在 IE 網站探索工具組資料集合的網域，請單行輸入單個網域到文字輸入框。例如:
 
 microsoft.sharepoint.com
 outlook.com
@@ -4118,6 +4237,12 @@ LOBApp.contoso.com</string>
 若停用或未設定此設定，IE 會繼續下載已更新的 VersionList.XML 版本。
 
 如需詳細資訊，請參閱 TechNet library 文件庫中的「封鎖過時的 ActiveX 控制項」。</string>
+      <string id="DisableHTMLApplication">停用 HTML 應用程式</string>
+      <string id="DisableHTMLApplication_Explain">這個原則設定指定是否封鎖或允許執行 HTML 應用程式(HTA 檔案)。
+
+如果您啟用這個原則設定，將封鎖執行 HTML 應用程式(HTA 檔案)。
+
+如果您停用或未設定這個原則設定，則允許執行 HTML 應用程式(HTA 檔案)。</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
@@ -4225,7 +4350,7 @@ LOBApp.contoso.com</string>
         <dropdownList refId="IZ_Partname120c" noSort="true" defaultItem="1">只允許核准的網域使用 TDC ActiveX 控制項</dropdownList>
       </presentation>
       <presentation id="IZ_Policy_AllowDynsrcPlayback_1">
-        <dropdownList refId="IZ_Partname120A" noSort="true" defaultItem="0">允許使用舊版媒體播放程式之網頁上的視訊及動畫</dropdownList>
+        <dropdownList refId="IZ_Partname120A" noSort="true" defaultItem="0">允許使用舊版媒體播放器之網頁上的視訊及動畫</dropdownList>
       </presentation>
       <presentation id="IZ_Policy_AllowScriptlets_1">
         <dropdownList refId="IZ_Partname1209" noSort="true" defaultItem="0">程式碼片段</dropdownList>
@@ -4787,6 +4912,14 @@ LOBApp.contoso.com</string>
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">網域清單</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">首選</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">次要選擇</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">第三選擇</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">通知 Internet Explorer 11 瀏覽器已停用</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

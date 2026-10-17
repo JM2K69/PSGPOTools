@@ -119,6 +119,51 @@ Wenn Sie diese Einstellung nicht festlegen oder deaktivieren, kann die Synchroni
         Wenn Sie diese Richtlinieneinstellung nicht festlegen oder deaktivieren, ist die Synchronisierung der Gruppe "Startlayout" standardmäßig eingeschaltet und kann vom Benutzer konfiguriert werden.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">Barrierefreiheitseinstellungen nicht synchronisieren</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        Hiermit wird verhindert, dass die Gruppe "Barrierefreiheit" mit diesem PC synchronisiert wird. Hiermit wird die Gruppe "Barrierefreiheit" auf der Einstellungsseite "Windows-Sicherung" in PC-Einstellungen deaktiviert.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Gruppe "Barrierefreiheit" nicht synchronisiert.
+
+Verwenden Sie die Option "Benutzern das Aktivieren der Synchronisierung von Barrierefreiheit gestatten", sodass die Synchronisierung standardmäßig deaktiviert, aber nicht deaktiviert ist.
+
+Wenn Sie diese Einstellung nicht festlegen oder deaktivieren, ist die Synchronisierung der Gruppe "Barrierefreiheit" standardmäßig aktiviert und kann vom Benutzer konfiguriert werden.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">Spracheinstellungen nicht synchronisieren</string>
+      <string id="DisableLanguageSettingSync_Help">
+        Verhindern Sie, dass die Gruppe "Spracheinstellungen" mit diesem PC synchronisiert wird. Hiermit wird die Gruppe "Spracheneinstellungen" auf der Einstellungsseite "Windows-Sicherung" in PC-Einstellungen deaktiviert.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Gruppe "Spracheinstellungen" nicht synchronisiert.
+
+Verwenden Sie die Option "Benutzern das Aktivieren der Synchronisierung von Spracheinstellungen gestatten", sodass die Synchronisierung standardmäßig deaktiviert, aber nicht deaktiviert ist.
+
+Wenn Sie diese Einstellung nicht festlegen oder deaktivieren, ist die Synchronisierung der Gruppe "Spracheinstellungen" standardmäßig aktiviert und kann vom Benutzer konfiguriert werden.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Windows-Sicherung aktivieren</string>
+      <string id="EnableWindowsBackup_Help">Diese Richtlinieneinstellung ermöglicht Administratoren das Konfigurieren und Verwalten der Sicherung von Windows-Einstellungen für ihre Organisation.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, erfolgt die Sicherung der Windows-Einstellungen regelmäßig.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren, wird keine Sicherung der Windows-Einstellungen durchgeführt.
+
+Wenn diese Richtlinieneinstellung nicht konfiguriert ist, erfolgt die Sicherung der Windows-Einstellungen regelmäßig, abhängig von der Berechtigung.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Windows-Wiederherstellung aktivieren</string>
+      <string id="EnableWindowsRestore_Help">Diese Richtlinieneinstellung ermöglicht Admins, die Wiederherstellung von Windows-Einstellungen für ihre Organisation zu konfigurieren und zu verwalten.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Wiederherstellung von Windows-Einstellungen aktiviert.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird die Wiederherstellung von Windows-Einstellungen deaktiviert.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Wenn Sie diese Einstellung nicht festlegen oder deaktivieren, kann die Synchroni
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">Benutzern das Einschalten der Synchronisierung des Startlayouts ermöglichen</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Gestatten Sie Benutzern, die Synchronisierung für die Barrierefreiheit zu aktivieren.</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Benutzern das Aktivieren der Synchronisierung von "Spracheinstellungen" gestatten.</checkBox>
       </presentation>
 
     </presentationTable>

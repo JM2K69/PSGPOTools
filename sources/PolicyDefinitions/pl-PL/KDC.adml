@@ -29,32 +29,31 @@ Uwaga: informacje o poprzednich logowaniach są dostarczane tylko wtedy, gdy poz
       <string id="CbacAndArmor">Obsługa oświadczeń, tożsamości złożonej i ochrony protokołu Kerberos w centrum dystrybucji kluczy</string>
       <string id="CbacAndArmor_explain">To ustawienie zasad umożliwia skonfigurowanie kontrolera domeny pod kątem obsługi oświadczeń i tożsamości złożonej na potrzeby dynamicznej kontroli dostępu, a także ochrony protokołu Kerberos podczas używania uwierzytelniania Kerberos.
 
-Jeśli to ustawienie zasad zostanie włączone, komputery klienckie obsługujące oświadczenia i tożsamość złożoną na potrzeby dynamicznej kontroli dostępu, a także ochronę protokołu Kerberos będą używać tej funkcji dla komunikatów uwierzytelniania Kerberos. Te zasady należy wprowadzić na wszystkich kontrolerach domeny w celu zapewnienia ich spójnego stosowania w domenie. 
+Jeśli to ustawienie zasad zostanie włączone, komputery klienckie obsługujące oświadczenia i tożsamość złożoną na potrzeby dynamicznej kontroli dostępu, a także ochronę protokołu Kerberos będą używać tej funkcji dla komunikatów uwierzytelniania Kerberos. Te zasady należy wprowadzić na wszystkich kontrolerach domeny w celu zapewnienia ich spójnego stosowania w domenie.
 
 Jeśli to ustawienie zostanie wyłączone lub pozostanie nieskonfigurowane, kontroler domeny nie będzie obsługiwać oświadczeń, tożsamości złożonej ani ochrony protokołu.
 
 Jeśli zostanie skonfigurowana opcja „Nieobsługiwany”, kontroler domeny nie będzie obsługiwać oświadczeń, tożsamości złożonej ani ochrony protokołu, co jest domyślnym zachowaniem kontrolerów domeny z systemem operacyjnym Windows Server 2008 R2 lub wcześniejszymi wersjami.
 
-Uwaga: aby poniższe opcje tej zasady dotyczącej centrum dystrybucji kluczy działały, zasady grupy protokołu Kerberos „Obsługa oświadczeń, tożsamości złożonej i ochrony protokołu Kerberos przez klienta protokołu Kerberos” musi być włączona w obsługiwanych systemach. Jeśli ustawienie zasad protokołu Kerberos nie jest włączone, komunikaty uwierzytelniania Kerberos nie będą używały tych funkcji.  
+Uwaga: Aby poniższe opcje tej zasady dotyczącej centrum dystrybucji kluczy działały, zasady grupy protokołu Kerberos „Obsługa oświadczeń, tożsamości złożonej i ochrony protokołu Kerberos przez klienta protokołu Kerberos” musi być włączona w obsługiwanych systemach. Jeśli ustawienie zasad protokołu Kerberos nie jest włączone, komunikaty uwierzytelniania Kerberos nie będą używały tych funkcji.
 
-Jeśli zostanie skonfigurowana opcja „Obsługiwany”, kontroler domeny będzie obsługiwać oświadczenia, tożsamość złożoną i ochronę protokołu Kerberos. Kontroler domeny anonsuje komputerom klienckim protokołu Kerberos, że domena obsługuje oświadczenia i tożsamość złożoną na potrzeby dynamicznej kontroli dostępu oraz ochronę protokołu Kerberos. 
+Jeśli zostanie skonfigurowana opcja „Obsługiwany”, kontroler domeny będzie obsługiwać oświadczenia, tożsamość złożoną i ochronę protokołu Kerberos. Kontroler domeny anonsuje komputerom klienckim protokołu Kerberos, że domena obsługuje oświadczenia i tożsamość złożoną na potrzeby dynamicznej kontroli dostępu oraz ochronę protokołu Kerberos.
 
 Wymagania poziomu funkcjonalności domeny
-W przypadku opcji „Zawsze dostarczaj oświadczenia” i „Odrzucaj niechronione żądania uwierzytelniania” ustawienie poziomu funkcjonalności domeny na system Windows Server 2008 R2 lub wcześniejszą wersję powoduje, że zachowanie kontrolerów domeny jest takie, jak gdyby była zaznaczona opcja „Obsługiwany”. 
+W przypadku opcji „Zawsze dostarczaj oświadczenia” i „Odrzucaj niechronione żądania uwierzytelniania” ustawienie poziomu funkcjonalności domeny na system Windows Server 2008 R2 lub wcześniejszą wersję powoduje, że zachowanie kontrolerów domeny jest takie, jak gdyby była zaznaczona opcja „Obsługiwany”.
 
 Gdy poziom funkcjonalności domeny jest ustawiony na system Windows Server 2012, kontroler domeny anonsuje komputerom klienckim protokołu Kerberos, że domena obsługuje oświadczenia i tożsamość złożoną na potrzeby dynamicznej kontroli dostępu oraz ochronę protokołu Kerberos, a także:
  – Jeśli ustawiono opcję „Zawsze dostarczaj oświadczenia”, kontroler domeny będzie zawsze zwracać oświadczenia także dla kont i będzie obsługiwać zachowanie zgodne ze specyfikacją RFC na potrzeby anonsowania protokołu FAST (Flexible Authentication Secure Tunneling).
     – Jeśli ustawiono opcję „Odrzucaj niechronione żądania uwierzytelniania”, kontroler domeny będzie odrzucać niechronione komunikaty Kerberos.
 
-Ostrzeżenie: ustawienie opcji „Odrzucaj niechronione żądania uwierzytelniania” powoduje, że na kontrolerze domeny nie można uwierzytelniać komputerów klienckich nieobsługujących ochrony protokołu Kerberos.
+Ostrzeżenie: Ustawienie opcji „Odrzucaj niechronione żądania uwierzytelniania” powoduje, że na kontrolerze domeny nie można uwierzytelniać komputerów klienckich nieobsługujących ochrony protokołu Kerberos.
 
 Aby zapewnić efektywne działanie tej funkcji, należy wdrożyć wystarczającą liczbę kontrolerów domeny obsługujących oświadczenia i tożsamość złożoną na potrzeby dynamicznej kontroli dostępu oraz ochronę protokołu Kerberos, aby mogły obsłużyć żądania uwierzytelnienia. Niewystarczająca liczba kontrolerów domeny obsługujących te zasady spowoduje niepowodzenia uwierzytelniania przy każdym żądaniu wymagającym użycia dynamicznej kontroli dostępu lub ochrony protokołu Kerberos (to znaczy przy włączonej opcji „Obsługiwany”).
 
 Wpływ na wydajność kontrolera domeny, jeśli to ustawienie zasad jest włączone:
- – Wymagane jest bezpieczne odnajdowanie możliwości domeny protokołu Kerberos, co powoduje dodatkową wymianę komunikatów.
+    – Wymagane jest bezpieczne odnajdowanie możliwości domeny protokołu Kerberos, co powoduje dodatkową wymianę komunikatów.
     – Oświadczenia i uwierzytelnianie złożone na potrzeby dynamicznej kontroli dostępu zwiększają ilość i złożoność danych w komunikacie, co powoduje wydłużenie czasu przetwarzania i zwiększenie rozmiaru biletu usługi Kerberos.
     – Ochrona protokołu Kerberos umożliwia pełne szyfrowanie komunikatów Kerberos i podpisywanie błędów protokołu Kerberos, co powoduje wydłużenie czasu przetwarzania, ale nie powoduje zmiany rozmiaru biletu usługi.
-
 </string>
       <string id="NoCbacAndArmor">Nieobsługiwany</string>
       <string id="MixModeCbacAndArmor">Obsługiwany</string>
@@ -94,6 +93,47 @@ Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane,
       <string id="NoPKINITFreshness">Wyłączone</string>
       <string id="SupportPKINITFreshness">Obsługiwane</string>
       <string id="RequirePKINITFreshness">Wymagane</string>
+      <string id="PKINITHashAlgorithmConfiguration">Konfiguruj algorytmy wyznaczania wartości skrótu dla logowania certyfikatu</string>
+      <string id="PKINITHashAlgorithmConfiguration_explain">To ustawienie zasad kontroluje algorytmami skrótu lub sumy kontrolnej używanymi przez klienta protokołu Kerberos podczas uwierzytelniania certyfikatu.
+
+Jeśli te zasady zostaną włączone, będzie można skonfigurować jeden z czterech stanów dla każdego algorytmu:
+
+- „Domyślny” ustawia algorytm na zalecany stan.
+
+- „Obsługiwany” umożliwia użycie algorytmu. Włączenie algorytmów, które zostały domyślnie wyłączone, może zmniejszyć bezpieczeństwo.
+
+- „Poddany inspekcji” umożliwia użycie algorytmu i zgłasza zdarzenie (identyfikator 309) za każdym razem, gdy jest on używany. Ten stan ma na celu sprawdzenie, czy algorytm nie jest używany i można go bezpiecznie wyłączyć.
+
+- „Nieobsługiwany” wyłącza użycie algorytmu. Ten stan jest przeznaczony dla algorytmów uznanych za niezabezpieczone.
+
+Jeśli te zasady zostaną wyłączone lub nie zostaną skonfigurowane, każdy algorytm przyjmie stan „Domyślny”.
+tów i sum kontrolnych obsługiwanych przez klienta protokołu Kerberos systemu Windows oraz ich stanach domyślnych można znaleźć na stronie https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Zdarzenia generowane przez tę konfigurację: 309, 310.
+</string>
+      <string id="PKINITHashAlgorithm_Default">Domyślny</string>
+      <string id="PKINITHashAlgorithm_Supported">Obsługiwany</string>
+      <string id="PKINITHashAlgorithm_Audited">Poddane inspekcji</string>
+      <string id="PKINITHashAlgorithm_NotSupported">Nieobsługiwany</string>
+      <string id="StrongNameMatches">Zezwalaj na silne mapowania certyfikatów oparte na nazwach</string>
+      <string id="StrongNameMatches_explain">To ustawienie zasad umożliwia użycie alternatywnych identyfikatorów opartych na nazwach do silnego mapowania certyfikatów wydanych dla kont użytkowników usługi Active Directory i określa, które certyfikaty mapują się na poszczególne konta. Jeśli to ustawienie nie jest włączone, certyfikaty muszą spełniać kryteria „silnego mapowania” określone w witrynie aka.ms/StrongCertMapKB, co zazwyczaj nie zezwala na identyfikatory oparte na nazwach.
+
+Każde mapowanie określone w tych zasadach musi zawierać identyfikator OID zasad wraz z elementem IssuerSubject i/lub sufiksem głównej nazwy użytkownika przy użyciu składni określonej poniżej. Jeśli w tych zasadach nie można odnaleźć prawidłowego mapowania dla danego certyfikatu, usługa Active Directory podejmie próbę znalezienia dopasowania przy użyciu istniejących kryteriów silnego mapowania określonych w KB5014754. Mapowania certyfikatów niezgodne z kryteriami „mapowania silnych nazw” (te zasady) lub istniejącymi kryteriami „silnego mapowania” zostaną uznane za nieprawidłowe na potrzeby uwierzytelniania.
+
+Ogólny format zasad i kilka przykładów wymieniono poniżej. Te zasady dotyczą tylko kont użytkowników usługi Active Directory.
+
+Składnia ogólna
+==============
+&lt;thumbprint&gt;; &lt;lista identyfikatorów OID&gt;; &lt;metody dopasowywania nazw&gt;
+
+Przykłady
+==============
+IssuerThumbprint1; oid1, oid2, oid3; UpnSuffix=domain.com
+IssuerThumbprint2; oid1; UpnSuffix=domain.com, UpnSuffix=other.domain.com, IssuerSubject
+IssuerThumbprint3; oid1, oid2; IssuerSubject
+
+Zasady muszą zawierać dokładnie jeden odcisk palca certyfikatu na regułę, a każda reguła jest reprezentowana jako krotka. Odciski palców muszą być unikatowe i nie mogą być powtarzane w wielu regułach. Sekcje każdej krotki rozdzielone średnikami muszą mieć określoną kolejność, natomiast pola rozdzielone przecinkami mogą być uporządkowane w dowolnej kolejności. Same reguły są rozdzielone znakami nowego wiersza.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="emitlili">
@@ -121,6 +161,15 @@ Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane,
       </presentation>
       <presentation id="PKINITFreshness">
         <dropdownList refId="PKINITFreshness_Levels" noSort="true" defaultItem="1">Opcje rozszerzenia aktualności PKInit:</dropdownList>
+      </presentation>
+      <presentation id="PKINITHashAlgorithmConfiguration">
+        <dropdownList refId="PKINITHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
+      </presentation>
+      <presentation id="StrongNameMatches">
+          <multiTextBox refId="StrongNameMatchesList">Reguły dopasowania silnej nazwy:</multiTextBox>
       </presentation>
     </presentationTable>
   </resources>

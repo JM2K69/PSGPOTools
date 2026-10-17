@@ -13,11 +13,11 @@
 
 また、組織が Azure でエンタープライズ スポットライト コンテンツ サービスを設定している場合に [エンタープライズ スポットライトのコンテンツを含める] チェック ボックスをオンにすると、そのサービスで設定されている組織内のメッセージや連絡事項 (使用可能な場合) がロック画面に表示されます。組織でエンタープライズ スポットライト コンテンツ サービスを利用していない場合、チェック ボックスは有効になりません。
 
-このポリシー設定を無効にした場合は、Windows スポットライトが無効になり、ユーザーはロック画面として Windows スポットライトを選択できなくなります。ユーザーには既定のロック画面イメージが表示されます。[ロック画面イメージを変更できないようにする] ポリシーを有効にしていない限り、別のイメージを選択できます。
+このポリシー設定を無効にした場合は、Windows スポットライトが無効になり、ユーザーはロック画面として Windows スポットライトを選択できなくなります。ユーザーには既定のロック画面イメージが表示されます。[ロック画面イメージを変更できないようにする] ポリシーを有効にしていない限り、ユーザーは別のイメージを選択できます。
 
-このポリシーを構成しなかった場合は、[特定の既定のロック画面イメージを強制する] ポリシーを使用して既定のロック画面イメージを別途構成していない限り、Windows スポットライトがロック画面で使用可能になり、既定で選択されます。
+このポリシーを構成しなかった場合は、[特定の既定のロック画面とログオン イメージを強制する] ポリシーを使用して既定のロック画面イメージを別途構成していない限り、Windows スポットライトがロック画面で使用可能になり、既定で選択されます。
 
-注意: このポリシーは Enterprise SKU でのみ使用できます。</string>
+注: このポリシーは Enterprise SKU でのみ使用できます。</string>
       <string id="DisableWindowsSpotlightFeatures">Windows スポットライト機能をすべて無効にする</string>
       <string id="DisableWindowsSpotlightFeatures_Help">このポリシー設定を使用すると、Windows スポットライト機能をまとめて無効にすることができます。
 
@@ -49,13 +49,13 @@
 
 注意: この設定は、Enterprise SKU と Education SKU にのみ適用されます。</string>
       <string id="DisableSoftLanding">Windows のヒントを表示しない</string>
-      <string id="DisableSoftLanding_Help">このポリシー設定では、ユーザーに表示される Windows のヒントを無効にします。
-
-このポリシー設定を有効にした場合、ユーザーに Windows のヒントが表示されなくなります。
-
-このポリシー設定を無効にした場合または構成しなかった場合、コンテキストに応じて Windows の使用方法を説明するポップアップがユーザーに表示されることがあります。どのようなヒントが表示されるかは、Microsoft で使われている診断データによって決まります。
-
-注意: このポリシー設定を無効にした場合または構成しなかった場合に、"Computer Configuration\Administrative Templates\Windows Components\Data Collection and Preview Builds\Allow Telemetry" ポリシー設定が "基本" 以下のレベルで有効であれば、一部のヒントがユーザーに表示されることがあります。
+      <string id="DisableSoftLanding_Help">このポリシー設定では、ユーザーに表示される Windows のヒントを無効にします。&amp;#xD;
+&amp;#xD;
+このポリシー設定を有効にした場合、ユーザーに Windows のヒントが表示されなくなります。&amp;#xD;
+&amp;#xD;
+このポリシー設定を無効にした場合または構成しなかった場合、コンテキストに応じて Windows の使用方法を説明するポップアップがユーザーに表示されることがあります。どのようなヒントが表示されるかは、Microsoft で使われている診断データと使用状況データによって決まります。&amp;#xD;
+&amp;#xD;
+注意: このポリシー設定を無効にした場合または構成しなかった場合に、"Computer Configuration\Administrative Templates\Windows Components\Data Collection and Preview Builds\Allow Telemetry" ポリシー設定が "基本" 以下のレベルで有効であれば、一部のヒントがユーザーに表示されることがあります。&amp;#xD;
 また、この設定は、Enterprise SKU と Education SKU にのみ適用されます。</string>
       <string id="DisableThirdPartySuggestions">Windows スポットライトではサードパーティのコンテンツを提案しない</string>
       <string id="DisableThirdPartySuggestions_Help">このポリシーを有効にした場合、スタート メニューまたは Windows のヒントでアプリを提案したロック画面スポットライトなどの Windows スポット ロック機能は、サードパーティのソフトウェア発行者からのアプリとコンテンツを提案しなくなります。それでも、ユーザーは提案とヒントを見て、Microsoft の機能とアプリで生産性を高めることができます。
@@ -67,6 +67,43 @@
 このポリシーを有効にした場合は、Windows や含まれているアプリに更新や変更があっても、[Windows へようこそ] の情報が表示されなくなります。
 
 このポリシーを無効にした場合または構成しなかった場合は、[Windows へようこそ] のエクスペリエンスが起動され、Windows のオンボーディング ユーザーに新機能、変更、おすすめの内容が示されます。</string>
+      <string id="DisableCloudOptimizedContent">クラウド最適化コンテンツをオフにする</string>
+      <string id="DisableCloudOptimizedContent_Help">このポリシー設定を使用すると、すべての Windows エクスペリエンスでクラウド最適化コンテンツを無効にすることができます。
+
+このポリシーを有効にすると、クラウドに最適化されたコンテンツクライアントコンポーネントを使用する Windows エクスペリエンスでは、代わりに既定のフォールバックコンテンツが表示されます。
+
+このポリシーを無効にした場合、または構成しなかった場合は、Windows エクスペリエンスではクラウド最適化コンテンツを使用できます。</string>
+      <string id="DisableSpotlightCollectionOnDesktop">デスクトップ上のスポットライトコレクションをオフにする</string>
+      <string id="DisableSpotlightCollectionOnDesktop_Help">このポリシー設定は、個人用設定のスポットライトの収集設定を削除します。これにより、Microsoft からデスクトップに毎日のイメージを選択してからダウンロードすることができなくなります。
+
+このポリシーを有効にした場合、個人用設定のオプションとして "スポットライトコレクション" は利用できません。
+
+このポリシーを無効にした場合、または構成しなかった場合は、個人用設定のオプションとして "スポットライトコレクション" が表示され、ユーザーはデスクトッププロバイダーとして "スポットライトコレクション" を選択し、Microsoft からの毎日のイメージをデスクトップに表示することができます。</string>
+      <string id="DisableConsumerAccountStateContent">クラウド コンシューマー アカウントの状態コンテンツを無効にする</string>
+      <string id="DisableConsumerAccountStateContent_Help">このポリシー設定を使用すると、すべての Windows エクスペリエンスのクラウドコンシューマーアカウントの状態のコンテンツを無効にすることができます。
+
+このポリシーを有効にした場合、クラウドコンシューマーアカウント状態コンテンツクライアントコンポーネントを使用する Windows エクスペリエンスでは、代わりに既定のフォールバックコンテンツが表示されます。
+
+このポリシーを無効にした場合、または構成しなかった場合、Windows エクスペリエンスではクラウドコンシューマーのアカウント状態コンテンツを使用できます。
+        </string>
+      <string id="EnableOrganizationalMessagesContent">組織のメッセージを有効にする</string>
+      <string id="EnableOrganizationalMessagesContent_Help">組織のメッセージを使用すると、管理者は選択した Windows 11 エクスペリエンスでエンド ユーザーにメッセージを配信できます。組織のメッセージは、Microsoft エンドポイント マネージャーなどのサービスを介して管理者が利用できます。
+
+既定では、このポリシーは無効になっています。このポリシーを有効にした場合、これらのエクスペリエンスで管理者によって予約されたコンテンツが表示されます。
+
+このポリシーを有効にしても、Windows エクスペリエンスでの Microsoft からのコンテンツの配信を管理する既存の MDM ポリシー設定には影響しません。</string>
+      <string id="DisableGetStartedContent">Microsoft はじめにを無効にする</string>
+      <string id="DisableGetStartedContent_Help">このポリシー設定は、Microsoft はじめにエクスペリエンスを無効にします。
+
+このポリシー設定を有効にすると、Microsoft はじめには自動的に起動せず、手動で起動した場合は直ちに閉じられます。関連するバックグラウンド タスクも実行されません。
+
+このポリシー設定を無効にするか未構成のままにすると、Microsoft はじめには引き続き利用可能で、ユーザーが Windows について学習するのに役立つ場合があります。</string>
+      <string id="DisableCopilotPinScreenContent">Copilot のピン留め画面を無効にする</string>
+      <string id="DisableCopilotPinScreenContent_Help">サインイン時に Windows で Microsoft 365 Copilot の推奨事項が表示されないようにします。これにより、Copilot が無効になったり、ライセンスに影響が出たりすることはありません。
+
+このポリシー設定を有効にすると、サインイン時に Microsoft 365 Copilot セットアップ ガイダンスが自動的に起動しなくなります。
+
+このポリシー設定を無効にするか未構成の場合、ユーザーが Copilot を見つけて設定できるように、サインイン時に Microsoft 365 Copilot セットアップ ガイダンスが表示されることがあります。。</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureWindowsSpotlight">

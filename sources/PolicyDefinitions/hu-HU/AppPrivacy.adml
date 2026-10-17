@@ -99,6 +99,67 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a dolgozók sa
 
 Ha egy alkalmazás meg van nyitva, amikor a csoportházirend-objektumot az eszközre alkalmazzák, a dolgozóknak a házirend-módosítás életbe lépéséhez újra kell indítaniuk az alkalmazást vagy az eszközt.
       </string>
+      <string id="LetAppsAccessSystemAIModels_Name">A Windows-alkalmazások kihasználhatják a Windows szöveg- és képgenerálási funkcióit</string>
+      <string id="LetAppsAccessSystemAIModels_Explain">
+Ez a szabályzatbeállítás azt határozza meg, hogy a Windows-alkalmazások használhatják-e a Windows szöveg- és képgenerálási funkcióit.
+
+A csomagcsalád nevének megadásával megadhat egy alapértelmezett beállítást az összes alkalmazáshoz, vagy egy alkalmazásonkénti beállítást. Egy alkalmazáshoz tartozó csomagcsaládnevet a Get-AppPackage Windows PowerShell-parancsmaggal kérdezhet le. Az alkalmazásonkénti beállítás felülbírálja az alapértelmezett beállítást.
+
+Ha „A felhasználó döntheti el” lehetőséget választja, a szervezet alkalmazottai eldönthetik, hogy a Windows-alkalmazások használhatják-e a szöveg- és képgenerálást a Gépház &gt; Adatvédelem használatával az eszközön.
+
+Ha a „Mindig engedélyezve” lehetőséget választja, a Windows-alkalmazások használhatják a Windows szöveg- és képgenerálási funkcióit, és a szervezet alkalmazottai nem módosíthatják azt.
+
+Ha a „Mindig letiltva” lehetőséget választja, a Windows-alkalmazások nem használhatják a Windows szöveg- és képgenerálási funkcióit, és a szervezet alkalmazottai nem módosíthatják azt.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a szervezet alkalmazottai eldönthetik, hogy a Windows-alkalmazások használhatják-e a Windows szöveg- és képgenerálási funkcióit a Gépház &gt; Adatvédelem használatával az eszközön.
+
+Ha egy alkalmazás nyitva van, amikor ezt a csoportházirend-objektumot alkalmazzák egy eszközön, az alkalmazottaknak újra kell indítaniuk az alkalmazást vagy az eszközt ahhoz, hogy a házirend módosításait alkalmazzák az alkalmazásra.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Name">A Windows-alkalmazások képernyőképeket készíthetnek különböző ablakokról és megjelenítésekről</string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Explain">Ez a házirend-beállítás azt határozza meg, hogy a Windows-alkalmazások készíthetnek-e képernyőképet különböző ablakokról vagy megjelenített tartalomról.
+
+Megadhat egy minden alkalmazásra vonatkozó alapértelmezett beállítást, illetve egy csomagcsalád nevének beírásával megadhat alkalmazásonkénti beállítást. Egy alkalmazáshoz tartozó csomagcsaládnevet a Get-AppPackage Windows PowerShell-parancsmaggal kérdezhet le. Az alkalmazásonkénti beállítás felülbírálja az alapértelmezett beállítást.
+
+Ha „A felhasználó döntheti el“ lehetőséget választja, a szervezet alkalmazottai a Gépház &gt; Adatvédelem párbeszédpanelen eldönthetik, hogy a Windows-alkalmazások készíthetnek-e az eszközön a képernyőképet különböző ablakokról vagy megjelenített tartalomról.
+
+Ha az „Engedélyezés kényszerítése“ lehetőséget választja, a Windows-alkalmazások készíthetnek képernyőképet különböző ablakokról vagy megjelenített tartalomról, és a szervezet alkalmazottai nem változtathatják meg ezt a beállítást.
+
+Ha a „Tiltás kényszerítése“ lehetőséget választja, a Windows-alkalmazások nem készíthetnek képernyőképet különböző ablakokról vagy megjelenített tartalomról, és a szervezet alkalmazottai nem változtathatják meg ezt a beállítást.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a szervezet alkalmazottai dönthetik el az eszközön a Gépház &gt; Adatvédelem párbeszédpanel használatával, hogy a Windows-alkalmazások készíthetnek-e képernyőképet különböző ablakokról vagy megjelenített tartalomról.
+
+Ha egy alkalmazás meg van nyitva, amikor alkalmazzák ezt a csoportházirend-objektumot egy eszközön, az alkalmazottaknak újra kell indítaniuk az alkalmazást vagy az eszközt ahhoz, hogy az alkalmazásra vonatkozóan érvénybe lépjenek a házirend-módosítások.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Name">A Windows-alkalmazások kikapcsolhatják a képernyőképszegélyt</string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Explain">Ez a házirend-beállítás azt határozza meg, hogy a Windows-alkalmazások ki tudják-e kapcsolni a képernyőkép szegélyét.
+
+Megadhatja, hogy az összes alkalmazás vagy egy alkalmazás alapértelmezett beállítása egy csomagcsalád-név megadásával történjen-e. Az AppPackage a Windows PowerShell-parancsmag használatával is megszerezheti egy-egy alkalmazáscsomag nevét. A per-app beállítás felülbírálja az alapértelmezett beállítást.
+
+Ha a "Felhasználói felügyelet" lehetőséget választja, a szervezet alkalmazottai eldönthetik, hogy a Windows-alkalmazások kikapcsolják-e a képernyőkép &gt; szegélyét az eszközön az adatvédelmi beállításokkal.
+
+Az „Engedélyezés kényszerítése“ lehetőséget választva a Windows-alkalmazások kikapcsolják a képernyőkép szegélyét, és a szervezet alkalmazottai nem változtathatják meg.
+
+Ha a "Megtagadás kényszerítése" lehetőséget választja, a Windows-alkalmazások nem tudják letiltani a képernyőfelvétel szegélyét, és a szervezet alkalmazottai nem változtathatják meg.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a szervezet alkalmazottai eldönthetik, hogy a Windows-alkalmazások kikapcsolják-e a &gt; képernyőkép szegélyét az eszközön az adatvédelmi beállításokkal.
+
+Ha egy alkalmazás akkor nyílik meg, ha egy eszközön alkalmazza ezt a csoportházirend-objektumot, az alkalmazottaknak újra kell indítaniuk az alkalmazást vagy eszközt ahhoz, hogy érvénybe lépjenek az alkalmazásra vonatkozó házirend-módosítások.
+      </string>
+      <string id="LetAppsAccessHumanPresence_Name">Jelenlétérzékeléshez való hozzáférés engedélyezése a Windows-alkalmazások számára</string>
+      <string id="LetAppsAccessHumanPresence_Explain">Ezzel a házirend-beállítással megadhatja, hogy a Windows-alkalmazások hozzáférhetnek-e a jelenlétérzékeléshez.
+
+Megadhat az összes alkalmazásra érvényes alapértelmezett beállítást, vagy a csomagcsalád nevének megadásával alkalmazásonként is konfigurálhatja a viselkedést. Egy adott alkalmazáshoz a csomagcsalád nevét a Get-AppPackage Windows PowerShell parancsmaggal lehet megállapítani. Az egyes alkalmazásokra vonatkozó beállítás felülbírálja az alapértelmezett beállítást.
+
+Ha „A felhasználó döntheti el” lehetőséget választja, a dolgozók saját maguk választhatják meg az eszközön a Gépház Adatvédelem szakaszában, hogy a Windows-alkalmazások hozzáférhetnek-e a jelenlétérzékeléshez.
+
+Ha a „Mindig engedélyezve” lehetőséget választja, akkor a Windows-alkalmazások hozzáférhetnek a jelenlétérzékeléshez, és a dolgozók nem módosíthatják a beállítást.
+
+Ha a „Mindig letiltva” lehetőséget választja, akkor a Windows-alkalmazások nem férhetnek hozzá a jelenlétérzékeléshez, és a dolgozók nem módosíthatják a beállítást.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a dolgozók saját maguk választhatják meg az eszközön a Gépház Adatvédelem szakaszában, hogy a Windows-alkalmazások hozzáférhetnek-e a jelenlétérzékeléshez.
+
+Ha egy alkalmazás meg van nyitva, amikor a csoportházirend-objektumot az eszközre alkalmazzák, a dolgozóknak a házirend-módosítás életbe lépéséhez újra kell indítaniuk az alkalmazást vagy az eszközt.
+      </string>
       <string id="LetAppsAccessLocation_Name">A Windows-alkalmazások hozzáférhetnek a tartózkodási helyhez</string>
       <string id="LetAppsAccessLocation_Explain">Ezzel a házirend-beállítással megadhatja, hogy a Windows-alkalmazások hozzáférhetnek-e a tartózkodási helyhez.
 
@@ -173,6 +234,36 @@ Ha a „Tiltás kényszerítése” lehetőséget választja, akkor a Windows-al
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a dolgozók saját maguk választhatják meg az eszközön a Gépház Adatvédelem szakaszában, hogy a Windows-alkalmazások hozzáférhetnek-e az értesítésekhez.
 
 Ha egy alkalmazás meg van nyitva, amikor a csoportházirend-objektumot az eszközre alkalmazzák, a dolgozóknak a házirend-módosítás életbe lépéséhez újra kell indítaniuk az alkalmazást vagy az eszközt.
+      </string>
+      <string id="LetAppsAccessPasskeys_Name">Hozzáférési kulcsok elérésének engedélyezése a Windows-alkalmazások számára</string>
+      <string id="LetAppsAccessPasskeys_Explain">Ez a házirend-beállítás azt adja meg, hogy az alkalmazások elérhessék-e a hozzáférési kulcsokat.
+
+Megadhat egy összes alkalmazásra vonatkozó alapértelmezett beállítást, de a csomagcsaládnév megadásával alkalmazásonként is beállíthatja a kívánt értéket. Az alkalmazások csomagcsaládnevét a Get-AppPackage Windows PowerShell-parancsmaggal kérdezheti le. Az alkalmazásonkénti beállítás felülbírálja az alapértelmezett beállítást.
+
+Ha „A felhasználó döntheti el” lehetőséget választja, a szervezet alkalmazottai az eszközükön, a Gépház &gt; Adatvédelem és biztonság lapon eldönthetik, hogy engedélyezik-e az alkalmazásoknak a hozzáférési kulcsok elérését.
+
+Ha a „Mindig engedélyezve” lehetőséget választja, akkor az alkalmazások elérhetik a hozzáférési kulcsokat, és az alkalmazottak nem módosíthatják a beállítást.
+
+Ha a „Mindig letiltva” lehetőséget választja, akkor az alkalmazások nem érhetik el a hozzáférési kulcsokat, és az alkalmazottak nem módosíthatják a beállítást.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a szervezet alkalmazottai az eszközükön, a Gépház &gt; Adatvédelem és biztonság lapon eldönthetik, hogy engedélyezik-e az alkalmazásoknak a hozzáférési kulcsok elérését.
+
+Ha egy alkalmazás meg van nyitva, amikor ezt a csoportházirend-objektumot alkalmazzák egy adott eszközre, az alkalmazottaknak újra kell indítaniuk az alkalmazást vagy az eszközt ahhoz, hogy a házirend módosításai érvénybe lépjenek az alkalmazásra vonatkozóan.
+      </string>
+      <string id="LetAppsAccessPasskeysEnumeration_Name">A Windows-alkalmazások automatikusan kitölthetik a hozzáférési kulcsokat</string>
+      <string id="LetAppsAccessPasskeysEnumeration_Explain">Ez a házirend-beállítás megadja, hogy az alkalmazások automatikusan kitölthetik-e a hozzáférési kulcsokat.
+
+Megadhat egy összes alkalmazásra vonatkozó alapértelmezett beállítást, de a csomagcsaládnév megadásával alkalmazásonként is beállíthatja a kívánt értéket. Az alkalmazások csomagcsaládnevét a Get-AppPackage Windows PowerShell-parancsmaggal kérdezheti le. Az alkalmazásonkénti beállítás felülbírálja az alapértelmezett beállítást.
+
+Ha „A felhasználó döntheti el” lehetőséget választja, a szervezet alkalmazottai az eszközükön, a Gépház &gt; Adatvédelem és biztonság lapon eldönthetik, hogy engedélyezik-e az alkalmazásoknak a hozzáférési kulcsok automatikus kitöltését.
+
+Ha a „Mindig engedélyezve” lehetőséget választja, akkor az alkalmazások automatikusan kitölthetik a hozzáférési kulcsokat, és az alkalmazottak nem módosíthatják a beállítást.
+
+Ha a „Mindig letiltva” lehetőséget választja, akkor az alkalmazások nem tölthetik ki automatikusan a hozzáférési kulcsokat, és az alkalmazottak nem módosíthatják a beállítást.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a szervezet alkalmazottai az eszközükön, a Gépház &gt; Adatvédelem és biztonság lapon eldönthetik, hogy engedélyezik-e az alkalmazásoknak a hozzáférési kulcsok automatikus kitöltését.
+
+Ha egy alkalmazás meg van nyitva, amikor ezt a csoportházirend-objektumot alkalmazzák egy adott eszközre, az alkalmazottaknak újra kell indítaniuk az alkalmazást vagy az eszközt ahhoz, hogy a házirend módosításai érvénybe lépjenek az alkalmazásra vonatkozóan.
       </string>
       <string id="LetAppsAccessPhone_Name">Telefonhívások kezdeményezésének engedélyezése a Windows-alkalmazások számára</string>
       <string id="LetAppsAccessPhone_Explain">Ezzel a házirend-beállítással megadhatja, hogy a Windows-alkalmazások kezdeményezhetnek-e telefonhívást.
@@ -294,7 +385,7 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a szervezet al
 
 Ha egy alkalmazás meg van nyitva, amikor alkalmazzák ezt a csoportházirend-objektumot egy eszközön, az alkalmazottaknak a házirend-módosítás érvénybe léptetéséhez újra kell indítaniuk az alkalmazást vagy az eszközt.
       </string>
-      <string id="LetAppsActivateWithVoice_Name">A Windows-alkalmazások hangparancsokkal aktiválhatók</string>
+      <string id="LetAppsActivateWithVoice_Name"> A Windows-alkalmazások aktiválása hanggal</string>
       <string id="LetAppsActivateWithVoice_Explain">Ezzel a házirend-beállítással meghatározhatja, hogy a Windows-alkalmazások aktiválhatók-e hangparancsokkal.
 
 Ha „A felhasználó döntheti el” lehetőséget választja, a szervezet alkalmazottai az eszköz Gépház &gt; Adatvédelem lapján megadhatják, hogy a Windows-alkalmazások aktiválhatók-e hangkulcsszóval.
@@ -320,6 +411,35 @@ Ha a „Mindig letiltva” lehetőséget választja, a felhasználók nem vezér
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a szervezet alkalmazottai az eszköz Gépház &gt; Adatvédelem lapján megadhatják, hogy a felhasználók vezérelhetik-e az alkalmazásokat hangparancsokkal, amikor a rendszer zárolva van.
 
 Ezt a házirendet a Windows-alkalmazásokra és a Cortana szolgáltatásra alkalmazza a rendszer. Ez a beállítás elsőbbséget élvez a „Cortana zárolt állapotban is működhet” házirenddel szemben. Ez a házirend csak akkor lép érvénybe, ha a „Hangaktiválás engedélyezése” házirend az alkalmazások hangparancsokkal való aktiválásának engedélyezésére van konfigurálva.
+      </string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Name">A Windows-alkalmazások hozzáférhetnek a felhasználók mozgásához, amikor a háttérben futnak</string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Explain">Ezzel a házirend-beállítással megadhatja, hogy a Windows-alkalmazások hozzáférhetnek-e a felhasználók fejének és kezének mozgásához, a mozgásvezérlőkhöz, valamint más követett tárgyakhoz, amikor a háttérben futnak.
+
+Megadhat egy alapértelmezett beállítást az összes alkalmazáshoz, vagy a csomagcsalád nevének megadásával alkalmazásonként is megadhatja a beállítást. Az alkalmazáshoz tartozó csomagcsaládnevet Get-AppPackage Windows PowerShell-parancsmag használatával tekintheti meg. Az alkalmazásonkénti beállítás felülírja az alapértelmezett beállítást.
+
+Ha megadja „A felhasználó döntheti el” lehetőséget, a szervezet alkalmazottai az eszköz adatvédelmi beállításaiban megadhatják, hogy a Windows-alkalmazások hozzáférhetnek-e a felhasználók mozgásához, amikor a háttérben futnak.
+
+Ha a „Mindig engedélyezve” lehetőséget választja, akkor a Windows-alkalmazások hozzáférhetnek a felhasználók mozgásához, amikor a háttérben futnak, és a szervezet alkalmazottai nem módosíthatják ezt a beállítást.
+
+Ha a „Mindig letiltva” lehetőséget választja, akkor a Windows-alkalmazások nem férhetnek hozzá a felhasználók mozgásához, amikor a háttérben futnak, és a szervezet alkalmazottai nem módosíthatják ezt a beállítást.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a szervezet alkalmazottai saját maguk adhatják meg az eszköz adatvédelmi beállításaiban, hogy a Windows-alkalmazások hozzáférhetnek-e a felhasználók mozgásához, amikor a háttérben futnak.
+
+Ha egy alkalmazás meg van nyitva, amikor ezt a csoportházirend-objektumot az eszközre alkalmazzák, az alkalmazottaknak a házirend módosításainak életbe léptetéséhez újra kell indítaniuk az alkalmazást vagy az eszközt.
+      </string>
+      <string id="LetAppsAccessForegroundText_Name">Engedélyezze a Windows-alkalmazások számára, hogy hozzáférjenek az előtérben futó alkalmazások szöveges tartalmához</string>
+      <string id="LetAppsAccessForegroundText_Explain">Ez a házirend-beállítás megadja, hogy a Windows-alkalmazások hozzáférhetnek-e az előtérben futó alkalmazások szöveges tartalmához.
+A csomagcsalád nevének megadásával megadhat egy alapértelmezett beállítást az összes alkalmazáshoz, vagy egy alkalmazásonkénti beállítást. Egy alkalmazáshoz tartozó csomagcsaládnevet a Get-AppPackage Windows PowerShell-parancsmaggal kérdezhet le. Az alkalmazásonkénti beállítás felülbírálja az alapértelmezett beállítást.
+
+Ha „A felhasználó döntheti el” lehetőséget választja, a szervezet alkalmazottai saját maguk választhatják meg az eszközön a Gépház Adatvédelem szakaszában, hogy a Windows-alkalmazások hozzáférhetnek-e az előtérben futó alkalmazások szöveges tartalmához.
+
+Ha a „Mindig engedélyezve” lehetőséget választja, akkor a Windows-alkalmazások hozzáférhetnek az előtérben futó alkalmazások szöveges tartalmához, és a szervezet alkalmazottai nem módosíthatják a beállítást.
+
+Ha a „Mindig letiltva” lehetőséget választja, akkor a Windows-alkalmazások nem férhetnek hozzá az előtérben futó alkalmazások szöveges tartalmához, és a szervezet alkalmazottai nem módosíthatják a beállítást.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a dolgozók saját maguk választhatják meg az eszközön a Gépház Adatvédelem szakaszában, hogy a Windows-alkalmazások hozzáférhetnek-e az előtérben futó alkalmazások szöveges tartalmához.
+
+Ha egy alkalmazás meg van nyitva, amikor ezt a csoportházirend-objektumot alkalmazzák egy eszközön, az alkalmazottaknak újra kell indítaniuk az alkalmazást vagy az eszközt ahhoz, hogy a házirend módosításait érvényesítsék az alkalmazásra.
       </string>
     </stringTable>
     <presentationTable>
@@ -376,6 +496,42 @@ Ezt a házirendet a Windows-alkalmazásokra és a Cortana szolgáltatásra alkal
         <multiTextBox refId="LetAppsAccessEmail_ForceAllowTheseApps_List"/>
         <text>Tiltás kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
         <multiTextBox refId="LetAppsAccessEmail_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessSystemAIModels">
+        <dropdownList refId="LetAppsAccessSystemAIModels_Enum" noSort="true" defaultItem="0">Az összes alkalmazásra vonatkozó alapértelmezett beállítás:</dropdownList>
+        <text>A következő alkalmazásokat a felhasználó felügyelheti (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_UserInControlOfTheseApps_List"/>
+        <text>Engedélyezés kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceAllowTheseApps_List"/>
+        <text>Tiltás kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureProgrammatic">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureProgrammatic_Enum" noSort="true" defaultItem="0">Az összes alkalmazásra vonatkozó alapértelmezett beállítás:</dropdownList>
+        <text>A következő alkalmazásokat a felhasználó felügyelheti (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_UserInControlOfTheseApps_List"/>
+        <text>Engedélyezés kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceAllowTheseApps_List"/>
+        <text>Tiltás kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureWithoutBorder">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureWithoutBorder_Enum" noSort="true" defaultItem="0">Alapértelmezett az összes alkalmazáshoz:</dropdownList>
+        <text>A következő alkalmazásokat a felhasználó felügyelheti (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_UserInControlOfTheseApps_List"/>
+        <text>Engedélyezés kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceAllowTheseApps_List"/>
+        <text>Tiltás kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessHumanPresence">
+        <dropdownList refId="LetAppsAccessHumanPresence_Enum" noSort="true" defaultItem="0">Az összes alkalmazásra vonatkozó alapértelmezett beállítás:</dropdownList>
+        <text>A következő alkalmazásokat a felhasználó felügyelheti (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_UserInControlOfTheseApps_List"/>
+        <text>Engedélyezés kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceAllowTheseApps_List"/>
+        <text>Tiltás kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessLocation">
         <dropdownList refId="LetAppsAccessLocation_Enum" noSort="true" defaultItem="0">Alapértelmezett az összes alkalmazáshoz:</dropdownList>
@@ -480,9 +636,9 @@ Ezt a házirendet a Windows-alkalmazásokra és a Cortana szolgáltatásra alkal
         <dropdownList refId="LetAppsGetDiagnosticInfo_Enum" noSort="true" defaultItem="0">Alapértelmezett az összes alkalmazáshoz:</dropdownList>
         <text>A következő alkalmazásokat a felhasználó felügyelheti (a csomagcsaládok nevének használatával):</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_UserInControlOfTheseApps_List"/>
-        <text>Engedélyezés kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <text>Engedélyezés kényszerítése a következő alkalmazásoknál (a csomagcsaládok nevének használatával):</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_ForceAllowTheseApps_List"/>
-        <text>Tiltás kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <text>Tiltás kényszerítése a következő alkalmazásoknál (a csomagcsaládok nevének használatával):</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessGazeInput">
@@ -499,6 +655,42 @@ Ezt a házirendet a Windows-alkalmazásokra és a Cortana szolgáltatásra alkal
       </presentation>
       <presentation id="LetAppsActivateWithVoiceAboveLock">
         <dropdownList refId="LetAppsActivateWithVoiceAboveLock_Enum" noSort="true" defaultItem="0">Alapértelmezett az összes alkalmazáshoz:</dropdownList>
+      </presentation>
+      <presentation id="LetAppsAccessBackgroundSpatialPerception">
+        <dropdownList refId="LetAppsAccessBackgroundSpatialPerception_Enum" noSort="true" defaultItem="0">Alapértelmezett az összes alkalmazáshoz:</dropdownList>
+        <text>A következő alkalmazásokat a felhasználó felügyelheti (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_UserInControlOfTheseApps_List"/>
+        <text>Engedélyezés kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps_List"/>
+        <text>Tiltás kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessForegroundText">
+        <dropdownList refId="LetAppsAccessForegroundText_Enum" noSort="true" defaultItem="0">Az összes alkalmazásra vonatkozó alapértelmezett beállítás:</dropdownList>
+        <text>A következő alkalmazásokat a felhasználó felügyelheti (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_UserInControlOfTheseApps_List"/>
+        <text>Engedélyezés kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceAllowTheseApps_List"/>
+        <text>Tiltás kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeys">
+        <dropdownList refId="LetAppsAccessPasskeys_Enum" noSort="true" defaultItem="0">Az összes alkalmazásra vonatkozó alapértelmezett beállítás:</dropdownList>
+        <text>A következő alkalmazásokat a felhasználó felügyelheti (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_UserInControlOfTheseApps_List"/>
+        <text>Engedélyezés kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceAllowTheseApps_List"/>
+        <text>Tiltás kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeysEnumeration">
+        <dropdownList refId="LetAppsAccessPasskeysEnumeration_Enum" noSort="true" defaultItem="0">Az összes alkalmazásra vonatkozó alapértelmezett beállítás:</dropdownList>
+        <text>A következő alkalmazásokat a felhasználó felügyelheti (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_UserInControlOfTheseApps_List"/>
+        <text>Engedélyezés kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceAllowTheseApps_List"/>
+        <text>Tiltás kényszerítése a következő alkalmazásokhoz (a csomagcsaládok nevének használatával):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceDenyTheseApps_List"/>
       </presentation>
     </presentationTable>
   </resources>

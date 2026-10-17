@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Zasady grupy ReFS</displayName>
+  <description>Ustawienia zasad grupy dla systemu plików ReFS</description>
+  <resources>
+    <stringTable>
+      <string id="ReFS">System plików ReFS</string>
+      <string id="EnableDevDrive">Włącz dysk deweloperski</string>
+      <string id="EnableDevDriveText">Dysk lub wolumin deweloperski to wolumin zoptymalizowany pod kątem wydajności scenariuszy deweloperskich. Wolumin deweloperski umożliwia administratorowi wybranie filtrów systemu plików dołączonych do woluminu.
+
+Wyłączenie tego ustawienia spowoduje uniemożliwienie tworzenia nowych woluminów deweloperskich. Istniejące woluminy deweloperskie zostaną zainstalowane jako zwykłe woluminy.
+
+Jeśli to ustawienie nie zostanie skonfigurowane, zasady domyślne będą włączać woluminy deweloperskie, zezwalając filtrowi antywirusowemu na dołączanie do woluminu deweloperskiego. Ponadto, jeśli nie zostanie skonfigurowane, administrator lokalny będzie mógł zdecydować, aby nie dołączać filtru antywirusowego do woluminu deweloperskiego.
+
+Aby to ustawienie zostało zastosowane, wymagany jest ponowny rozruch.</string>
+      <string id="ModeOff">Wyłączone</string>
+      <string id="ModeAudit">Tylko inspekcja</string>
+      <string id="ModeBlock">Zablokuj</string>
+      <string id="BlockExternalBusMount">Kontrola instalowania woluminów ReFS na dyskach USB i IEEE 1394</string>
+      <string id="BlockExternalBusMountText">Określa, czy woluminy ReFS mogą być instalowane na dyskach podłączonych przez USB lub IEEE 1394. System ReFS nie jest obsługiwany w przypadku dysków wymiennych ani dysków obsługujących funkcję Hot-Plug.
+
+Opcja Blokuj odrzuca instalowanie i rejestruje zdarzenie w dzienniku systemowym.
+
+Opcja Tylko inspekcja zezwala na instalowanie i rejestruje to samo zdarzenie, dzięki czemu efekt włączenia tych zasad można ocenić przed ich wymuszeniem.
+
+Opcja Wyłączone nie powoduje inspekcji ani blokowania.
+
+W przypadku woluminu Miejsc do magazynowania sprawdzenie dotyczy dysków fizycznych obsługujących pulę, a nie samej przestrzeni.
+
+Jeśli to ustawienie zasad nie zostanie skonfigurowane, zostanie użyte ustawienie lokalne na tym komputerze. Jeśli ustawienie lokalne nie istnieje, zostanie użyte zachowanie domyślne dla tej wersji systemu Windows.
+
+System ReFS odczytuje to ustawienie podczas ładowania, więc przed zastosowaniem zmiany wymagane jest ponowne uruchomienie. Ustawienie jest następnie oceniane przy każdym instalowaniu woluminu, więc wolumin, który jest już zainstalowany, zachowuje swój bieżący stan do czasu jego odinstalowania i ponownego zainstalowania.</string>
+      <string id="BlockHotplugMount">Kontrola instalowania woluminów ReFS na dyskach obsługujących funkcję Hot-Plug</string>
+      <string id="BlockHotplugMountText">Określa, czy woluminy ReFS mogą być instalowane na dyskach, które stos magazynu zgłasza jako obsługujące funkcję Hot-Plug, niezależnie od magistrali, do której są podłączone. System ReFS nie jest obsługiwany w przypadku dysków wymiennych ani dysków obsługujących funkcję Hot-Plug.
+
+Opcja Blokuj odrzuca instalowanie i rejestruje zdarzenie w dzienniku systemowym.
+
+Opcja Tylko inspekcja zezwala na instalowanie i rejestruje to samo zdarzenie, dzięki czemu efekt włączenia tych zasad można ocenić przed ich wymuszeniem.
+
+Opcja Wyłączone nie powoduje inspekcji ani blokowania.
+
+W przypadku woluminu Miejsc do magazynowania sprawdzenie dotyczy dysków fizycznych obsługujących pulę, a nie samej przestrzeni.
+
+Jeśli to ustawienie zasad nie zostanie skonfigurowane, zostanie użyte ustawienie lokalne na tym komputerze. Jeśli ustawienie lokalne nie istnieje, zostanie użyte zachowanie domyślne dla tej wersji systemu Windows.
+
+System ReFS odczytuje to ustawienie podczas ładowania, więc przed zastosowaniem zmiany wymagane jest ponowne uruchomienie. Ustawienie jest następnie oceniane przy każdym instalowaniu woluminu, więc wolumin, który jest już zainstalowany, zachowuje swój bieżący stan do czasu jego odinstalowania i ponownego zainstalowania.</string>
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="EnableDevDriveOptions">
+        <checkBox refId="DevDriveAllowAntivirusFilter" defaultChecked="true">Zezwalaj na ochronę dysków deweloperskich przez filtr antywirusowy</checkBox>
+      </presentation>
+      <presentation id="BlockExternalBusMountOptions">
+        <dropdownList refId="BlockExternalBusMountMode" defaultItem="0">Akcja dla woluminów ReFS na dyskach USB lub IEEE 1394</dropdownList>
+      </presentation>
+      <presentation id="BlockHotplugMountOptions">
+        <dropdownList refId="BlockHotplugMountMode" defaultItem="0">Akcja dla woluminów ReFS na dyskach obsługujących funkcję Hot-Plug</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

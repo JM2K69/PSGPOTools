@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2006 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Impostazioni di Criteri di gruppo per Windows Connection Manager</displayName>
   <description>Impostazioni di Criteri di gruppo per Windows Connection Manager</description>
@@ -22,11 +22,11 @@ Tentativi di connessione manuale
 Se questa impostazione dei criteri non è configurata o è disabilitata, i computer potranno connettersi simultaneamente a reti di dominio e non di dominio.
       </string>
       <string id="WCM_DisableRoaming">Proibisci connessione a reti Mobile Broadband di provider di roaming</string>
-      <string id="WCM_DisableRoaming_Help">Questa impostazione dei criteri impedisce ai client di connettersi alle reti Mobile Broadband quando il client viene registrato in una rete di provider di roaming. 
+      <string id="WCM_DisableRoaming_Help">Questa impostazione dei criteri impedisce ai client di connettersi a reti Mobile Broadband quando il client è registrato su una rete di un provider di roaming.
 
-Se questa impostazione dei criteri è abilitata, tutti i tentativi di connessione automatica e manuale per le reti del provider di roaming vengono bloccati fino a quando il client non viene registrato nella rete del provider principale.
+Se si abilita questa impostazione dei criteri, tutti i tentativi di connessione automatica e manuale a reti di provider di roaming verranno bloccati finché il client non si registra con la rete del provider principale.
 
-Se questa impostazione dei criteri non è configurata o è disabilitata, i client potranno connettersi alle reti Mobile Broadband del provider di roaming.
+Se si disabilita o non si configura questa impostazione dei criteri, ai client verrà consentito di connettersi a reti Mobile Broadband di provider di roaming.
       </string>
       <string id="WCM_MinimizeConnections">Riduci al minimo il numero di connessioni simultanee a Internet o a un dominio Windows</string>
       <string id="WCM_MinimizeConnections_AllowAllConnections">0 = Consenti connessioni simultanee</string>
@@ -47,25 +47,25 @@ Se questa impostazione dei criteri non è configurata o è disabilitata, i clien
         Questa impostazione dei criteri è correlata all'impostazione del criterio "Consenti a Windows di effettuare la disconnessione del software di un computer da una rete".
       </string>
       <string id="WCM_DisablePowerManagement">Disabilita risparmio energia in modalità di standby connesso</string>
-      <string id="WCM_DisablePowerManagement_Help">Questa impostazione dei criteri specifica la disabilitazione del risparmio energia quando il computer entra in modalità di standby connesso. 
+      <string id="WCM_DisablePowerManagement_Help">Questa impostazione dei criteri specifica la disabilitazione del risparmio energia quando il computer entra in modalità di standby connesso.
 
-Se si abilita questa impostazione dei criteri, Windows Connection Manager non gestirà i radio adattatori per ridurre il consumo energetico quando il computer entra in modalità di standby connesso.
+Se si abilita questa impostazione dei criteri, Gestione connessioni Windows non gestirà i radio adattatori per ridurre il consumo energetico quando il computer entrerà in modalità di standby connesso.
 
-Se si disabilita o non si configura questa impostazione dei criteri, il risparmio energia verrà abilitato quando il computer entra in modalità di standby connesso.
+Se si disabilita o non si configura questa impostazione dei criteri, il risparmio energia verrà abilitato quando il computer entrerà in modalità di standby connesso.
       </string>
       <string id="WCM_EnableSoftDisconnect">Consenti a Windows di effettuare la disconnessione del software di un computer da una rete</string>
       <string id="WCM_EnableSoftDisconnect_Help">Questa impostazione dei criteri determina se Windows disconnette automaticamente il software di un computer da una rete.
 
-Se questa impostazione dei criteri è abilitata o non configurata, Windows disconnette automaticamente un computer da una rete quando determina che il computer non deve più essere connesso a una rete.
+Se questa impostazione dei criteri è abilitata o non configurata, Windows disconnetterà automaticamente un computer da una rete quando determinerà che il computer non dovrà più essere connesso a una rete.
 
-Se questa impostazione dei criteri è disabilitata, Windows disconnette immediatamente un computer da una rete quando determina che il computer non deve più essere connesso a una rete.
+Se questa impostazione dei criteri è disabilitata, Windows disconnetterà immediatamente un computer da una rete quando determinerà che il computer non dovrà più essere connesso a una rete.
 
-      Quando la disconnessione del software è abilitata:
- - Quando Windows decide che il computer non deve più essere connesso a una rete, attende che il traffico si stabilizzi su quella rete. La sessione TCP esistente continuerà senza interruzioni.
- - Windows controlla quindi periodicamente il livello del traffico sulla rete. Se il livello di traffico supera una certa soglia, non viene intrapresa alcuna ulteriore azione. Il computer rimane connesso alla rete e continua a utilizzarla. Ad esempio, se la connessione di rete è attualmente in uso per scaricare file da Internet, i file continueranno a essere scaricati utilizzando quella connessione di rete.
- - Quando il traffico di rete scende al di sotto di questa soglia, il computer verrà disconnesso dalla rete. Le app che mantengono attiva una connessione di rete anche quando non la utilizzano attivamente (ad esempio, le app di posta elettronica) potrebbero perdere la connessione. Se ciò accade, queste app dovrebbero ristabilire la connessione su una rete diversa. 
+Quando la disconnessione del software è abilitata:
+- Quando Windows decide che il computer non deve più essere connesso a una rete, attende che il traffico si stabilizzi su quella rete. La sessione TCP esistente continuerà senza interruzioni.
+- Windows controlla quindi periodicamente il livello del traffico sulla rete. Se il livello di traffico supera una certa soglia, non viene intrapresa alcuna ulteriore azione. Il computer rimane connesso alla rete e continua a utilizzarla. Ad esempio, se la connessione di rete è attualmente in uso per scaricare file da Internet, i file continueranno a essere scaricati utilizzando quella connessione di rete.
+- Quando il traffico di rete scende al di sotto di questa soglia, il computer verrà disconnesso dalla rete. Le app che mantengono attiva una connessione di rete anche quando non la utilizzano attivamente (ad esempio, le app di posta elettronica) potrebbero perdere la connessione. Se ciò accade, queste app dovrebbero ristabilire la connessione su una rete diversa.
 
-Questa impostazione dei criteri dipende da altre impostazioni dei criteri di gruppo. Ad esempio, se "Riduci al minimo il numero di connessioni simultanee a Internet o a un dominio Windows" è disabilitato, Windows non si disconnetterà da alcuna rete.
+Questa impostazione dei criteri dipende da altre impostazioni dei criteri di gruppo. Ad esempio, se l'opzione "Riduci al minimo il numero di connessioni simultanee a Internet o a un dominio Windows" è disabilitata, Windows non si disconnetterà da alcuna rete.
       </string>
     </stringTable>
     <presentationTable>

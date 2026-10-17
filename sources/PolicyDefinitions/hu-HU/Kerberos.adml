@@ -22,19 +22,18 @@ A házirend-beállítás letiltásával a csoportházirend használatával megha
 Ha nem konfigurálja a házirend-beállítást, a rendszer a helyi beállításjegyzékben (amennyiben van ilyen) megadott Kerberos-tartomány állomásnév társításait használja.</string>
       <string id="MitRealms">Egy együttműködésre képes Kerberos V5-tartomány beállításainak meghatározása</string>
       <string id="MitRealms_explain">Ez a házirend beállítás konfigurálja a Kerberos-ügyfelet, amely így a házirend-beállításban meghatározott módon hitelesíthető az együttműködésre képes Kerberos V5-tartományok használatával.
-      
+
 A házirend beállítás engedélyezésével megtekintheti és módosíthatja az együttműködésre képes Kerberos V5-tartományok listáját és a beállításait. Az együttműködésre képes Kerberos V5-tartományok listájának megtekintéséhez engedélyezze a házirend beállítást, majd kattintson a Megjelenítés gombra. Együttműködésre képes Kerberos V5-tartomány megadásához engedélyezze a házirend-beállítást, jegyezze fel a szintaxist, majd kattintson a Megjelenítés gombra. A Tartalom megjelenítése párbeszédpanel Érték neve oszlopába írja be az együttműködésre képes Kerberos V5-tartomány nevét. Az Érték oszlopba írja be a gazda kulcsszolgáltatók tartományjelzőjét és állomásnevét a megfelelő szintaxis formátumának használatával. Egy együttműködésre képes Kerberos V5-tartomány eltávolításához kattintson annak bejegyzésére, majd nyomja meg a DELETE billentyűt. Társítás szerkesztéséhez távolítsa el a jelenlegi bejegyzést a listából, és adja hozzá a módosított paraméterekkel rendelkezőt.
 
 A házirend beállítás letiltásával a csoportházirend használatával meghatározott együttműködésre képes Kerberos V5-tartomány beállításai törlődnek.
 
 Ha nem konfigurálja a házirend-beállítást, a rendszer a helyi beállításjegyzékben (amennyiben van ilyen) megadott együttműködésre képes Kerberos V5-tartomány beállításait használja.</string>
       <string id="ValidateKDC">A Kerberos-tartományvezérlő szigorú érvényesítésének előírása</string>
-      <string id="ValidateKDC_explain">Ez a házirend-beállítás vezérli a Kerberos-ügyfél viselkedését a KDC tanúsítvány intelligens kártya és rendszertanúsítvány bejelentkezéshez történő érvényesítéséhez.  
+      <string id="ValidateKDC_explain">Ez a házirend-beállítás vezérli a Kerberos-ügyfél viselkedését a KDC tanúsítvány intelligens kártya és rendszertanúsítvány bejelentkezéshez történő érvényesítéséhez. 
 
 A házirend beállítás engedélyezésével a Kerberos-ügyfél előírja, hogy a KDC X.509 jelű tanúsítványa tartalmazza a kibővített kulcshasználat (EKU) kiegészítő mezőiben található KDC kulcscélobjektum azonosítóját, és tartalmazza a tartomány DNS-nevéhez illeszkedő DNSName subjectAltName (SAN) kiegészítő mezőt. Ha a számítógép csatlakoztatva van a tartományhoz, a Kerberos-ügyfél előírja, hogy a KDC X.509 tanúsítványa rendelkezzen az NTAuth tárolóban található hitelesítésszolgáltató (CA) aláírásával. Ha a számítógép nincs csatlakoztatva tartományhoz, a Kerberos-ügyfél lehetővé teszi az intelligens kártyán lévő felső szintű hitelesítésszolgáltatók tanúsítványainak használatát a KDC X.509-tanúsítványlánc érvényességének ellenőrzése közben.
 
 Ha letiltja vagy nem konfigurálja a házirend-beállítást, a Kerberos-ügyfél előírása mindössze annyi, hogy a KDC tanúsítvány tartalmazza az EKU kiterjesztésekben található kiszolgálóhitelesítési célobjektum azonosítóját, amely bármelyik kiszolgálóra kiállítható.
-
 </string>
       <string id="StrictTarget">A cél SPN szigorú egyezése szükséges távoli eljáráshívások esetén</string>
       <string id="StrictTarget_explain">  Ezzel a házirend-beállítással úgy állíthatja be a kiszolgálót, hogy a Kerberos vissza tudja fejteni az olyan jegyet, amely ezt a rendszer által létrehozott SPN nevet tartalmazza. Amikor egy alkalmazás távoli eljáráshívást (RPC) próbál végrehajtani a kiszolgáló irányában úgy, hogy az egyszerű szolgáltatásnév (SPN) értéke NULL, akkor a Windows 7 vagy újabb rendszert futtató számítógépek megkísérlik a Kerberos használatát egy SPN-név létrehozásával.
@@ -64,12 +63,11 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Kerberos-üg
 
 Figyelmeztetés: Amikor egy tartomány nem támogatja a Kerberos-védelmet „A dinamikus hozzáférés-vezérlés és a Kerberos-védelem támogatása” engedélyezésével, akkor az összes felhasználó hitelesítése meghiúsul az ezen házirend-beállítással rendelkező számítógépekről.
 
-Ha engedélyezi ezt a házirend-beállítást, a tartományban lévő ügyfélszámítógépek csak a tartományvezérlővel történő hitelesítési szolgáltatási és jegykiadó szolgáltatási üzenetváltások esetén kényszerítik ki a Kerberos-védelem használatát. 
+Ha engedélyezi ezt a házirend-beállítást, a tartományban lévő ügyfélszámítógépek csak a tartományvezérlővel történő hitelesítési szolgáltatási és jegykiadó szolgáltatási üzenetváltások esetén kényszerítik ki a Kerberos-védelem használatát.
 
-Megjegyzés: a Kerberos-védelem támogatásához „A jogcímek, az összetett hitelesítés és a Kerberos-védelem Kerberos-ügyfelek általi támogatása" Kerberos-csoportházirendet is engedélyezni kell. 
+Megjegyzés: a Kerberos-védelem támogatásához „A jogcímek, az összetett hitelesítés és a Kerberos-védelem Kerberos-ügyfelek általi támogatása” Kerberos-csoportházirendet is engedélyezni kell. 
 
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a tartományban lévő ügyfélszámítógépek a céltartomány által támogatott összes helyzetben kikényszerítik a Kerberos-védelem használatát.
-
 </string>
       <string id="ServerAcceptsCompound">Összetett hitelesítés támogatása</string>
       <string id="ServerAcceptsCompound_explain">Ezen házirend-beállítás segítségével szabályozható az eszköz Active Directory-fiókjának összetett hitelesítésre történő konfigurálása.
@@ -94,7 +92,7 @@ Ha nem konfigurálja ezt a házirend-beállítást, a rendszer az Automatikus be
 
       <string id="MaxTokenSize">A Kerberos SSPI környezeti token maximális pufferméretének beállítása</string>
       <string id="MaxTokenSize_explain">Ezen házirend-beállítás segítségével megadhatja az azon alkalmazások számára visszaadott értéket, amelyek az SSPI környezeti token maximális pufferméretét kérik.
-              
+
 A környezeti token puffermérete határozza meg az SSPI környezeti tokenek alkalmazások által várt és lefoglalt maximális méretét. A hitelesítési kérelem feldolgozásától és a csoporttagságoktól függően előfordulhat, hogy a puffer mérete kisebb, mint az SSPI környezeti token tényleges mérete. 
 
 Ha engedélyezi ezt a házirend-beállítást, a Kerberos-ügyfél vagy -kiszolgáló a konfigurált értéket vagy a helyileg megengedett maximális értéket használja (amelyik kisebb).
@@ -103,15 +101,13 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Kerberos-üg
 
 Megjegyzés: Ez a házirend-beállítás konfigurálja a(z) HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters helyen található meglévő MaxTokenSize beállításjegyzék-értéket, amely esetében Windows XP és Windows Server 2003 rendszereken az alapértelmezett 12 000 bájtos érték van megadva. A Windows 8 rendszertől kezdve ennek alapértelmezett értéke 48 000 bájt. A hitelesítési környezeti tokenek HTTP base64 kódolása miatt nem ajánlott 48 000 bájtnál nagyobbra állítani ezt az értéket.
 
-
-
 </string>
       <string id="EnableCbacAndArmor">A jogcímek, az összetett hitelesítés és a Kerberos-védelem Kerberos-ügyfelek általi támogatása</string>
       <string id="EnableCbacAndArmor_explain">Ez a házirend-beállítás azt szabályozza, hogy kérjék-e az eszközök a jogcímeket és az összetett hitelesítést a dinamikus hozzáférés-vezérléshez, illetve a Kerberos-hitelesítés használatával történő Kerberos-védelmet az ezen funkciókat támogató tartományokban. 
 Ha engedélyezi ezt a házirend-beállítást, az ügyfélszámítógépek lekérik a jogcímeket, kiadják az összetett hitelesítéshez szükséges információkat, illetve védelemmel látják el a Kerberos-üzeneteket azokban a tartományokban, melyek támogatják a dinamikus hozzáférés-vezérléshez tartozó jogcímeket és összetett hitelesítést, valamint a Kerberos-védelmet.
 
 Ha letiltja vagy nem konfigurálja a házirend-beállítást, az ügyféleszközök nem kérik a jogcímeket, nem biztosítanak összetett hitelesítéshez szükséges adatokat, illetve nem látják el védelemmel a Kerberos-üzeneteket. Az adott eszközön elérhető szolgáltatások nem lesznek képesek jogcímeket beolvasni a Kerberos-protokollátmenetet használó ügyfelek esetében.  
-  
+
 </string>
       <string id="AlwaysSendCompoundId">Először mindig összetett hitelesítés kérése</string>
       <string id="AlwaysSendCompoundId_explain">Ez a házirend-beállítás azt szabályozza, hogy az eszközök mindig összetett hitelesítéssel válaszoljanak-e, ha az erőforrás-tartomány összetett hitelesítést kér.
@@ -124,7 +120,7 @@ Ha letiltja vagy nem konfigurálja a házirend-beállítást, és az erőforrás
 
 </string>
       <string id="DevicePKInitEnabled">Tanúsítványalapú eszközhitelesítés támogatása</string>
-      <string id="DevicePKInitEnabled_explain">A tanúsítványalapú eszközhitelesítés támogatásához szükséges, hogy a számítógép olyan tartományvezérlőhöz tudjon csatlakozni az eszközfiók tartományában, amely támogatja a számítógépfiókok tanúsítványalapú hitelesítését. 
+      <string id="DevicePKInitEnabled_explain">A tanúsítványalapú eszközhitelesítés támogatásához szükséges, hogy a számítógép olyan tartományvezérlőhöz tudjon csatlakozni az eszközfiók tartományában, amely támogatja a számítógépfiókok tanúsítványalapú hitelesítését.
 
 Ezzel a házirend-beállítással beállíthatja, hogy a számítógép támogassa az eszköz adott tartományhoz tartozó tanúsítványának Kerberos-hitelesítési kísérleteit.
 
@@ -132,13 +128,58 @@ Ha engedélyezi ezt a házirend-beállítást, akkor a rendszer a következő be
 
 Automatikus: Az eszköz a saját tanúsítványával próbálja meg hitelesíteni magát. Ha a tartományvezérlő nem támogatja a számítógépfiókok tanúsítványalapú hitelesítését, akkor az eszköz jelszavas hitelesítéssel próbálkozik.
 
-Kényszerített: Az eszköz mindig a tanúsítványával fogja hitelesíteni magát. Ha nem található olyan tartományvezérlő, amely támogatja a számítógépfiókok tanúsítványalapú hitelesítését, akkor a hitelesítés sikertelen lesz.
+Kényszerített: Az eszköz mindig a saját tanúsítványával fogja hitelesíteni magát. Ha nem található olyan tartományvezérlő, amely támogatja a számítógépfiókok tanúsítványalapú hitelesítését, akkor a hitelesítés sikertelen lesz.
 
 Ha letiltja ezt a házirend-beállítást, akkor a rendszer soha nem fog tanúsítványt használni.
 Ha nem konfigurálja ezt a házirend-beállítást, akkor a rendszer az Automatikus beállítást fogja használni.
+
+A vállalati nyilvános kulcsokra épülő infrastruktúra konfigurálásához kövesse az alábbi útmutatót: https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">Automatikus</string>
       <string id="DevicePKInitBehavior_Force">Kényszerített</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">Az Azure Active Directory Kerberos-jegymegadási jegy beolvasásának engedélyezése bejelentkezéskor</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">Ez a házirend-beállítás lehetővé teszi az Azure Active Directory Kerberos-jegymegadási jegy beolvasását bejelentkezéskor.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a rendszer nem olvassa be az Azure Active Directory Kerberos-jegymegadási-jegyet bejelentkezéskor.
+
+Ha engedélyezi ezt a házirend-beállítást, a rendszer beolvassa az Azure Active Directory Kerberos-jegymegadási jegyet bejelentkezéskor.</string>
+      <string id="PKInitHashAlgorithmConfiguration">Kivonatoló algoritmusok konfigurálása tanúsítványt alkalmazó bejelentkezéshez</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">Ez a házirend-beállítás szabályozza a Kerberos-ügyfél által a tanúsítványhitelesítés elvégzésekor használt kivonatoló vagy ellenőrzőösszeg-algoritmusokat.
+
+Ha engedélyezi ezt a házirendet, konfigurálhatja a következő négy állapot egyikét mindegyik algoritmushoz:
+
+- Az „Alapértelmezett” beállítás az ajánlott állapotra állítja be az algoritmust.
+
+A „Támogatott” beállítás engedélyezi az algoritmus használatát. Az alapértelmezés szerint letiltott algoritmusok engedélyezése csökkentheti a biztonságot.
+
+- Az „Auditálva” beállítás engedélyezi az algoritmus használatát, és minden egyes használatakor jelentést küld egy eseményről (azonosító: 206). Ez az állapot annak ellenőrzésére szolgál, hogy az algoritmus nincs-e használatban, és biztonságosan letiltható-e.
+
+- A „Nem támogatott” beállítás letiltja az algoritmus használatát. Ez az állapot a nem biztonságosnak ítélt algoritmusok megjelölésére szolgál.
+
+Ha letiltja vagy nem konfigurálja ezt a házirendet, mindegyik algoritmus „Alapértelmezett” állapotot vesz fel.
+A Windows Kerberos-ügyfél által támogatott kivonatoló és ellenőrzőösszeg-algoritmusokról, valamint azok alapértelmezett állapotáról a https://go.microsoft.com/fwlink/?linkid=2169037 címen olvashat bővebben.
+
+A konfiguráció által generált események: 205, 206, 207, 208.
+</string>
+      <string id="PKInitHashAlgorithm_Default">Alapértelmezett</string>
+      <string id="PKInitHashAlgorithm_Supported">Támogatott</string>
+      <string id="PKInitHashAlgorithm_Audited">Vizsgálva</string>
+      <string id="PKInitHashAlgorithm_NotSupported">Nem támogatott</string>
+      
+      <string id="DelegatedMSAEnabled">Delegált felügyelt szolgáltatásfiók-bejelentkezések engedélyezése</string>
+      <string id="DelegatedMSAEnabled_explain">Ez a házirend-beállítás engedélyezi vagy letiltja a felügyelt szolgáltatásfiókok delegált bejelentkezéseit ezen a gépen.
+
+Ha engedélyezi ezt a házirend-beállítást, a Kerberos-ügyfél támogatja a felügyelt szolgáltatásfiókok delegált bejelentkezéseit. Ne feledje, hogy ez a házirendnek bizonyos előkövetelményei vannak. Az új delegált felügyelt szolgáltatásfiók létrehozásának előfeltételeiért és útmutatóiért lásd: https://go.microsoft.com/fwlink/?linkid=2250379.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felügyelt szolgáltatásfiókok delegált bejelentkezései nem lesznek támogatottak. 
+</string>
+      <string id="EnableTryIPSPN">IP-cím alapú SPN-ek engedélyezése a Kerberos-hitelesítés során</string>
+      <string id="EnableTryIPSPN_explain">Ez a házirend-beállítás lehetővé teszi, hogy a Kerberos IP-cím alapú szolgáltatásnév (SPN) használatára legyen konfigurálva.
+
+Ha engedélyezi ezt a házirend-beállítást, a Kerberos-ügyfél megpróbál IP-cím alapú SPN-eket használni a szolgáltatáshoz való csatlakozáskor.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Kerberos nem fog IP-cím alapú SPN-ek használatára törekedni.
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -181,6 +222,16 @@ Ha nem konfigurálja ezt a házirend-beállítást, akkor a rendszer az Automati
         <text>Másik példa:</text>
         <text>Azonosítónév: REALM.FABRIKAM.COM</text>
         <text>Érték: &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">Tartományok:</multiTextBox>
+        <text>Szintaxis:</text>
+        <text>Adja meg azon tartományok listáját, ahol DMSA-k létezhetnek.</text>
+        <text>Adja meg a teljes tartománynevet (FQDN), valamint a rövid nevet is.</text>
+        <text>Soronként egy tartományt adjon meg.</text>
+        <text>Részletek:</text>
+        <text>A Kerberos-ügyfél megpróbál DMSA-kompatibilis tartományvezérlőt találni a felsorolt tartományokhoz.</text>
+        <text>Ha nincs megadva tartomány, a Kerberos-ügyfél megkísérli megkeresni a DMSA-kompatibilis tartományvezérlőt az összes tartományhoz.</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">Mód:</dropdownList>
@@ -225,7 +276,7 @@ Ha nem konfigurálja ezt a házirend-beállítást, akkor a rendszer az Automati
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Engedélyezés támogatása az ügyfél eszközinformációival:</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Engedélyezés támogatása az ügyfél eszközinformációival:</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">Maximális méret</decimalTextBox>
@@ -233,7 +284,13 @@ Ha nem konfigurálja ezt a házirend-beállítást, akkor a rendszer az Automati
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Eszközhitelesítés működése tanúsítvány használata esetén:</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Eszközhitelesítés működése tanúsítvány használata esetén:</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>introduza o nome a apresentar aqui</displayName>
+  <description>introduza a descrição aqui</description>
+  <resources>
+    <stringTable>
+      <string id="NewsAndInterests">Widgets</string>
+      <string id="AllowNewsAndInterests">Permitir widgets</string>
+      <string id="Explain_AllowNewsAndInterests">Esta política especifica se a funcionalidade dos widgets é permitida no dispositivo.
+Os widgets serão ativados por predefinição a não ser que altere esta política nas suas definições.
+Se ativou esta funcionalidade anteriormente, permanecerá ativada automaticamente a menos que a desative.</string>
+      <string id="DisableWidgetsOnLockScreen">Desativar Widgets no Ecrã de Bloqueio</string>
+      <string id="Explain_DisableWidgetsOnLockScreen">Esta política especifica se a funcionalidade Widgets deve ser desativada no ecrã de bloqueio.
+Se desativar ou não configurar esta definição de política, os widgets serão apresentados no ecrã de bloqueio e poderão ser geridos na aplicação Definições do Windows.
+Se ativar esta definição de política, os widgets não serão apresentados no ecrã de bloqueio.</string>
+      <string id="DisableWidgetsBoard">Desativar Quadro de Widgets</string>
+      <string id="Explain_DisableWidgetsBoard">Esta política especifica se deve desativar a experiência do Widgets Board. 
+Se desativar ou não configurar esta definição de política, poderá invocar o Widgets Board e ver o ponto de entrada na barra de tarefas. A experiência Widgets Board pode ser gerida nas Definições de Widgets cujo ponto de entrada está localizado no Widgets Board.
+Se ativar esta definição de política, não poderá invocar o quadro de Widgets e o respetivo ponto de entrada deixará de aparecer na barra de tarefas.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

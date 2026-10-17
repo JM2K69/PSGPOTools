@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>kirjoita näyttönimi tähän</displayName>
+  <description>kirjoita kuvaus tähän</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Suojattu käynnistys</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Varmenteen käyttöönotto hallitun ominaisuuden käyttöönoton kautta</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">Tämä asetus voidaan ottaa käyttöön yrityksille, jotka haluavat apua uusien suojatun käynnistyksen varmenteiden käyttöönotossa laitteissaan.
+
+ 
+
+Huomautus: laitteen on lähetettävä vaaditut diagnostiikkatiedot Microsoftille, jotta tätä ominaisuutta voi käyttää.
+
+ 
+
+Lisätietoja on osoitteessa https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Automaattinen varmenteiden käyttöönotto päivitysten kautta</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">Päivitykset suoritetaan automaattisesti osana ylläpitopäivityksiä laitteissa, joista on saatavilla testituloksia, jotka osoittavat, että laite pystyy käsittelemään varmennepäivitykset onnistuneesti. Tämä käytäntö on oletuksena käytössä. Käytä tätä käytäntöä ominaisuuden käyttöönottoon tai käytöstä poistamiseen yrityksille, jotka haluavat hallita automaattisia päivityksiä.
+
+ 
+
+Lisätietoja on osoitteessa https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Ota käyttöön suojatun käynnistyksen varmenteiden käyttöönotto</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Tämän käytäntöasetuksen avulla suojatun käynnistyksen varmenteiden käyttöönoton voi ottaa käyttöön tai poistaa käytöstä laitteissa. Kun asetus on käytössä, Windows aloittaa varmenteiden käyttöönoton automaattisesti niissä laitteissa, joissa käytäntö on käytössä. 
+
+ 
+
+Huomautus: tätä rekisteriasetusta ei ole tallennettu käytäntöavaimeen, joten sitä pidetään määrityksenä. Vaikka tämän asetuksen toteuttava ryhmäkäytäntöobjekti poistetaan, rekisteriasetus säilyy silti voimassa. 
+
+ 
+
+Huomautus: Windowsin tehtävä, joka suorittaa ja käsittelee tämän asetuksen, käynnistyy 12 tunnin välein. Joissakin tapauksissa päivitykset odottavat, kunnes järjestelmä käynnistyy uudelleen, jotta päivitykset voidaan suorittaa turvallisessa järjestyksessä. 
+
+ 
+
+Huomautus: kun varmenteet on otettu käyttöön laiteohjelmistossa, niitä ei voi peruuttaa Windowsissa. Jos varmenteet täytyy poistaa, se on tehtävä laiteohjelmiston valikosta. 
+
+ 
+
+Lisätietoja on osoitteessa https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Rajoita suojatun käynnistyksen pakollisia palvelutietoja</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Tämä käytäntöasetus määrittää, lähettääkö käyttöjärjestelmä päivittäisen Secure Boot -vaaditun palvelutietotapahtuman. Tapahtuma sisältää tietoja laitteen Secure Boot -määrityksistä ja laiteohjelmistomuuttujien tilasta, ja se lähetetään tavallisesti riippumatta Salli telemetria -diagnostiikkatietotason asetuksesta, koska se on luokiteltu tietoturvan kannalta vaadituksi.
+
+ 
+
+Kun otat tämän käytäntöasetuksen käyttöön, päivittäistä Secure Boot -vaadittua palvelutietotapahtumaa ei lähetetä. Tämä on tarkoitettu organisaatioille, jotka toimivat Windows Restricted Traffic Limited Functionality Baseline -perusasetuksen mukaisesti.
+
+ 
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttöjärjestelmä jatkaa Secure Boot -vaaditun palvelutietotapahtuman lähettämistä nykyisten telemetrian sallimissääntöjen mukaisesti.</string>
+
+      <string id="SUPPORTED_Windows8">Vähintään Windows Server 2012, Windows 8 tai Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

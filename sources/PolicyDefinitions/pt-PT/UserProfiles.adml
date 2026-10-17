@@ -77,6 +77,14 @@ Se desativar ou não configurar esta definição de política, o sistema não co
 Nota: esta definição de política e as definições de políticas relacionadas presentes nesta pasta definem a resposta do sistema quando os perfis de utilizador itinerantes demoram a ser transferidos. Para ajustar o tempo durante o qual o utilizador tem de responder a este aviso nos sistemas operativos anteriores ao Microsoft Windows Vista, utilize a definição de política "Tempo limite para as caixas de diálogo".
 
 Importante: se a definição "Não detetar ligações de rede lentas" estiver ativada, esta definição de política é ignorada. Para além disso, se a definição de política "Eliminar as cópias de perfis itinerantes em cache" estiver ativada, não existe nenhuma cópia local do perfil itinerante para carregamento quando o sistema detetar uma ligação lenta.</string>
+      <string id="AllowNonStandardUserProfilePaths">Permitir ramos de registo do perfil de utilizador e AppData a partir de caminhos não padrão</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Esta definição de política controla se os ramos de registo do perfil de utilizador e as localizações das pastas AppData podem aceitar formatos de caminho não padrão.
+
+Se ativar esta definição de política, as localizações do perfil de utilizador aceitam uma gama mais ampla de formatos de caminho de ficheiro.
+
+Se desativar ou não configurar esta definição de política, as localizações do perfil de utilizador aceitam apenas caminhos de pastas padrão do Windows.
+
+Nota: ativar esta definição pode expor o sistema a riscos de segurança. Ative-a apenas se uma aplicação específica na sua organização a exigir e apenas após avaliar todos os riscos para o seu ambiente.</string>
       <string id="ExcludeDirectories">Excluir diretórios no perfil itinerante</string>
       <string id="ExcludeDirectories_Help">Esta definição de política permite-lhe excluir pastas que normalmente estão incluídas no perfil do utilizador. Como resultado, estas pastas não precisam de ser armazenadas pelo servidor de rede onde reside o perfil e não acompanham os utilizadores para outros computadores.
 
@@ -334,7 +342,7 @@ Não especifique variáveis de ambiente nem reticências no caminho. Não especi
 
 Nota: a caixa Letra de unidade é ignorada se escolher “No computador local” a partir da lista Localização. Se escolher “No computador local” e introduzir uma partilha de ficheiros, a pasta raiz do utilizador será colocada na localização de rede sem mapear a partilha de ficheiros para uma letra de unidade.
 
-Se desativar ou não configurar esta definição de política, a pasta raiz do utilizador é configurada tal como é especificado na conta do Serviços de Domínio do Active Directory do utilizador.
+Se desativar ou não configurar esta definição de política, a pasta raiz do utilizador é configurada tal como é especificado na conta do Active Directory Domain Services do utilizador.
 
 Se a definição de política "Definir Diretório de Raiz dos Serviços de Ambiente de Trabalho Remoto" estiver ativada, a definição de política “Definir pasta raiz do utilizador” não produzirá efeitos.</string>
       <string id="on_the_Local_Computer">No computador local</string>

@@ -22,19 +22,18 @@ Se si disabilita questa impostazione, i mapping dei nomi host all'area di autent
 Se non si configura questa impostazione, se presenti, verranno utilizzati i mapping dei nomi host all'area di autenticazione Kerberos definiti nel Registro di sistema locale.</string>
       <string id="MitRealms">Definisci impostazioni per le aree di autenticazione interoperative Kerberos V5</string>
       <string id="MitRealms_explain">Questa impostazione configura il client Kerberos per consentire l'autenticazione con le aree di autenticazione interoperative Kerberos V5 definite nell'impostazione dei criteri.
-      
+
 Se si abilita questa impostazione, sarà possibile visualizzare e modificare l'elenco delle aree di autenticazione interoperative Kerberos V5 e le relative impostazioni. Per visualizzare l'elenco delle aree di autenticazione interoperative Kerberos V5, abilitare l'impostazione dei criteri e quindi fare clic sul pulsante Mostra. Per aggiungere un'area di autenticazione interoperativa Kerberos V5, abilitare l'impostazione dei criteri, esaminare la sintassi, quindi fare clic sul pulsante Mostra. Nella colonna Nome valore della finestra di dialogo Mostra contenuto digitare il nome dell'area di autenticazione interoperativa Kerberos V5. Nella colonna Valore digitare i contrassegni dell'area di autenticazione e i nomi host dei KDC dell'host utilizzando il formato della sintassi appropriata. Per rimuovere dall'elenco la voce relativa al valore o al nome del valore di un'area di autenticazione interoperativa Kerberos V5, fare clic sulla voce, quindi premere CANC. Per modificare un mapping, rimuovere la voce corrente dall'elenco e aggiungere una nuova voce con parametri diversi.
 
 Se si disabilita questa impostazione dei criteri, le impostazioni dell'area di autenticazione interoperativa Kerberos V5 definite nel Criterio di gruppo verranno eliminate.
 
 Se non si configura questa impostazione dei criteri, se presenti, verranno utilizzate le impostazioni dell'area di autenticazione interoperativa Kerberos V5 definite nel Registro di sistema locale.</string>
       <string id="ValidateKDC">Richiedi convalida KDC ristretta</string>
-      <string id="ValidateKDC_explain">Questa impostazione dei criteri controlla il comportamento del client Kerberos durante la convalida del certificato KDC per l'accesso tramite smart card e certificati di sistema.  
+      <string id="ValidateKDC_explain">Questa impostazione dei criteri controlla il comportamento del client Kerberos durante la convalida del certificato KDC per l'accesso tramite smart card e certificati di sistema.
 
 Se si abilita questa impostazione dei criteri, il client Kerberos richiederà che il certificato X.509 di KDC contenga l'identificatore di oggetto con scopo delle chiavi KDC nelle estensioni EKU (utilizzo chiavi esteso) e che il certificato X.509 di KDC contenga un'estensione dNSName SAN (subjectAltName) corrispondente al nome DNS del dominio. Se il computer appartiene a un dominio, il client Kerberos richiederà che il certificato X.509 di KDC sia firmato da un'Autorità di certificazione nell'archivio NTAuth. Se il computer non appartiene a un dominio, il client Kerberos consentirà l'utilizzo del certificato CA radice sulla smart card durante la convalida del percorso del certificato X.509 di KDC.
 
 Se si disabilita o non si configura questa impostazione dei criteri, il client Kerberos richiederà solo che il certificato KDC contenga l'identificatore di oggetto con scopo Autenticazione server nelle estensioni EKU, che è possibile rilasciare a qualsiasi server.
-
 </string>
       <string id="StrictTarget">Richiedi corrispondenza SPN destinazione ristretta in chiamate a procedure remote</string>
       <string id="StrictTarget_explain">  Questa impostazione dei criteri consente di configurare questo server in modo che Kerberos possa decrittografare un ticket che contiene l'SPN generato da questo sistema. Quando un'applicazione tenta di eseguire una chiamata RPC a questo server con un valore NULL per il nome dell'entità servizio (SPN), i computer che eseguono Windows 7 o versione successiva tenteranno di utilizzare Kerberos mediante la generazione di un SPN.
@@ -94,16 +93,14 @@ Se non si configura questa impostazione, verrà utilizzata l'opzione Automatico.
 
       <string id="MaxTokenSize">Imposta dimensione massima buffer del token di contesto SSPI di Kerberos</string>
       <string id="MaxTokenSize_explain">Questa impostazione dei criteri consente di impostare il valore restituito alle applicazioni che richiedono la dimensione massima del buffer del token di contesto SSPI.
-              
-La dimensione del buffer del token di contesto determina la dimensione massima che un'applicazione prevederà ed allocherà per i token di contesto SSPI. A seconda dell'appartenenza ai gruppi e dell'elaborazione delle richieste di autenticazione, la dimensione del buffer potrebbe essere inferiore alla dimensione effettiva del token di contesto SSPI. 
+
+La dimensione del buffer del token di contesto determina la dimensione massima che un'applicazione prevederà ed allocherà per i token di contesto SSPI. A seconda dell'appartenenza ai gruppi e dell'elaborazione delle richieste di autenticazione, la dimensione del buffer potrebbe essere inferiore alla dimensione effettiva del token di contesto SSPI.
 
 Se si abilita questa impostazione dei criteri, il server o il client Kerberos utilizzerà il valore minore tra quello configurato e il valore massimo consentito a livello locale.
 
-Se si disabilita o non si configura questa impostazione, il server o il client Kerberos utilizzerà il valore configurato a livello locale oppure il valore predefinito. 
+Se si disabilita o non si configura questa impostazione, il server o il client Kerberos utilizzerà il valore configurato a livello locale oppure il valore predefinito.
 
 Nota: questa impostazione dei criteri configura il valore esistente di MaxTokenSize del Registro di sistema in HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters, aggiunto a Windows XP e Windows Server 2003 con un valore predefinito pari a 12.000 byte. A partire da Windows 8 il valore predefinito è 48.000 byte. A causa della codifica base64 di HTTP per i token di contesto dell'autenticazione, non è consigliabile impostare un valore maggiore di 48.000 byte.
-
-
 
 </string>
       <string id="EnableCbacAndArmor">Supporto client Kerberos per attestazioni, autenticazione composta e blindatura Kerberos</string>
@@ -111,7 +108,7 @@ Nota: questa impostazione dei criteri configura il valore esistente di MaxTokenS
 Se si abilita questa impostazione dei criteri, i computer client richiederanno attestazioni, forniranno le informazioni richieste per creare l'autenticazione composta e blinderanno i messaggi Kerberos nei domini che supportano le attestazioni e l'autenticazione composta per il controllo dinamico degli accessi e la blindatura Kerberos.
 
 Se si disabilita o non si configura questa impostazione dei criteri, i dispositivi client non richiederanno attestazioni, non forniranno le informazioni richieste per creare l'autenticazione composta e non blinderanno i messaggi Kerberos. I servizi ospitati sul dispositivo non saranno in grado di recuperare attestazioni per i client che utilizzano la transizione del protocollo Kerberos.  
-  
+
 </string>
       <string id="AlwaysSendCompoundId">Invia sempre l'autenticazione composta per prima</string>
       <string id="AlwaysSendCompoundId_explain">Questa impostazione dei criteri determina se un dispositivo deve sempre inviare una richiesta di autenticazione composta quando il dominio delle risorse richiede l'identità composta.
@@ -126,19 +123,64 @@ Se si disabilita o non si configura questa impostazione dei criteri e il dominio
       <string id="DevicePKInitEnabled">Supporta autenticazione dei dispositivi tramite certificato</string>
       <string id="DevicePKInitEnabled_explain">Per il supporto dell'autenticazione dei dispositivi tramite certificato sarà necessaria la connettività a un controller di dominio nel dominio dell'account del dispositivo che supporta l'autenticazione del certificato per gli account computer. 
 
-Questa impostazione dei criteri consente di impostare il supporto per Kerberos per i tentativi di autenticazione tramite il certificato per il dispositivo nel dominio.
+Questa impostazione di criteri consente di impostare il supporto per Kerberos per i tentativi di autenticazione tramite il certificato per il dispositivo nel dominio.
 
-Se si abilita questa impostazione dei criteri, le credenziali dei dispositivi verranno selezionate in base alle opzioni seguenti:
+Se si abilita questa impostazione di criteri, le credenziali dei dispositivi verranno selezionate in base alle opzioni seguenti:
 
 Automatico: il dispositivo tenterà l'autenticazione tramite il relativo certificato. Se il controller di dominio non supporta l'autenticazione di account computer tramite certificati, verrà tentata l'autenticazione con password.
 
 Forza: il dispositivo eseguirà sempre l'autenticazione tramite il relativo certificato. Se non è possibile trovare un controller di dominio che supporta l'autenticazione di account computer tramite certificati, l'autenticazione avrà esito negativo.
 
-Se si disabilita questa impostazione dei criteri, i certificati non verranno mai usati.
-Se non si configura questa impostazione dei criteri, verrà usata l'opzione Automatico.
+Se si disabilita questa impostazione di criteri, i certificati non verranno mai usati.
+Se non si configura questa impostazione di criteri, verrà usata l'opzione Automatico.
+
+Segui questa guida per configurare la PKI aziendale: https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">Automatico</string>
       <string id="DevicePKInitBehavior_Force">Forza</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">Consenti il recupero del ticket di concessione ticket Kerberos Azure AD durante l'accesso</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">Questa impostazione dei criteri consente di recuperare il ticket di concessione ticket Kerberos Azure AD durante l'accesso.
+
+Se si disabilita o non si configura questa impostazione dei criteri, il ticket di concessione ticket Kerberos Azure AD non verrà recuperato durante l'accesso.
+
+Se si abilita questa impostazione dei criteri, il ticket di concessione ticket Kerberos Azure AD verrà recuperato durante l'accesso.</string>
+      <string id="PKInitHashAlgorithmConfiguration">Configurare algoritmi hash per l'accesso al certificato</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">Questa impostazione dei criteri controlla gli algoritmi hash o checksum usati dal client Kerberos durante l'esecuzione dell'autenticazione del certificato.
+
+Se si abilita questo criterio, sarà possibile configurare uno dei quattro stati per ogni algoritmo:
+
+- Lo stato “Predefinito” imposta l'algoritmo sullo stato consigliato.
+
+- “Supportato” consente l'utilizzo dell'algoritmo. L'abilitazione degli algoritmi disabilitati per impostazione predefinita può ridurre la sicurezza.
+
+- “Monitorato” abilita l'utilizzo dell'algoritmo e segnala un evento (ID 206) ogni volta che viene usato. Questo stato ha lo scopo di verificare che l'algoritmo non venga usato e che possa essere disabilitato in modo sicuro.
+
+- “Non supportato” disabilita l'utilizzo dell'algoritmo. Questo stato è destinato ad algoritmi considerati non sicuri.
+
+Se si disabilita o non si configura questo criterio, ogni algoritmo assumerà lo stato “Predefinito”.
+Altre informazioni sugli algoritmi hash e checksum supportati dal client Kerberos di Windows e sui relativi stati predefiniti sono disponibili all’indirizzo https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Eventi generati da questa configurazione: 205, 206, 207, 208.
+</string>
+      <string id="PKInitHashAlgorithm_Default">Impostazione predefinita</string>
+      <string id="PKInitHashAlgorithm_Supported">Supportato</string>
+      <string id="PKInitHashAlgorithm_Audited">Monitorato</string>
+      <string id="PKInitHashAlgorithm_NotSupported">Non supportato</string>
+      
+      <string id="DelegatedMSAEnabled">Abilita gli accessi dell'account del servizio gestito delegato</string>
+      <string id="DelegatedMSAEnabled_explain">Questa impostazione dei criteri abilita o disabilita gli accessi con account del servizio gestito con delega per questo computer.
+
+Se si abilita questa impostazione dei criteri, gli accessi con account del servizio gestito con delega saranno supportati dal client Kerberos. Si noti che questo criterio ha determinati prerequisiti. I prerequisiti e le istruzioni per la creazione di un nuovo account del servizio gestito con delega sono disponibili in https://go.microsoft.com/fwlink/?linkid=2250379.
+
+Se si disabilita o non si configura questa impostazione dei criteri, gli accessi con account del servizio gestito con delega non saranno supportati. 
+</string>
+      <string id="EnableTryIPSPN">Consenti SPN basati su indirizzi IP durante l'autenticazione di Kerberos</string>
+      <string id="EnableTryIPSPN_explain">Questa impostazione dei criteri consente di configurare Kerberos per l'utilizzo di nomi principali di servizio (SPN) basati su indirizzo IP.
+
+Se si abilita questa impostazione dei criteri, il client Kerberos tenterà di utilizzare nomi SPN basati su indirizzo IP durante la connessione a un servizio.
+
+Se si disabilita o non si configura questa impostazione dei criteri, Kerberos non tenterà di utilizzare nomi SPN basati su indirizzi IP.
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -181,6 +223,16 @@ Se non si configura questa impostazione dei criteri, verrà usata l'opzione Auto
         <text>Altro esempio:</text>
         <text>Nome valore: AREAAUTENT.FABRIKAM.COM</text>
         <text>Valore: &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">Aree autenticazione:</multiTextBox>
+        <text>Sintassi:</text>
+        <text>Immettere un elenco di aree autenticazione in cui potrebbero esistere account del servizio gestito delegati.</text>
+        <text>Immettere sia il nome di dominio completo (FQDN) che il nome breve.</text>
+        <text>Immettere un'area autenticazione per riga.</text>
+        <text>Dettagli:</text>
+        <text>Il client Kerberos tenterà di trovare un controller di dominio con supporto DMSA per le aree di autenticazione elencate.</text>
+        <text>Se non viene specificata alcuna area di autenticazione, il client Kerberos tenterà di trovare un controller di dominio con supporto DMSA per tutte le aree di autenticazione.</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">Modalità:</dropdownList>
@@ -225,7 +277,7 @@ Se non si configura questa impostazione dei criteri, verrà usata l'opzione Auto
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Autorizzazione supporto con informazioni sul dispositivo client:</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Autorizzazione supporto con informazioni sul dispositivo client:</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">Dimensioni massime</decimalTextBox>
@@ -233,7 +285,13 @@ Se non si configura questa impostazione dei criteri, verrà usata l'opzione Auto
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Comportamento di autenticazione del dispositivo tramite certificato:</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Comportamento di autenticazione del dispositivo tramite certificato:</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

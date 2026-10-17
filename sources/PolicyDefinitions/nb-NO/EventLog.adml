@@ -80,20 +80,37 @@ Hvis denne policyinnstillingen deaktiveres eller ikke konfigureres, brukes mappe
       <string id="Channel_LogMaxSize">Angi den maksimale loggfilstørrelsen (kB)</string>
       <string id="Channel_LogMaxSize_Help">Denne policyinnstillingen angir maksimal størrelse på loggfilen i kilobyte.
 
-Hvis du aktiverer denne policyinnstillingen, kan du konfigurere maksimum loggfilstørrelse til mellom 1 megabyte (1024 kilobyte) og 2 terabyte (2147483647 kilobyte) i kilobytetrinn.
+Hvis du aktiverer denne policyinnstillingen, kan du konfigurere maksimum loggfilstørrelse til mellom 1 megabyte (1024 kilobyte) og 2 terabyte (2147483647 kilobyte), i kilobyte-inkrementer.
 
-Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, angis den maksimale størrelsen for loggfilen til den lokalt konfigurerte verdien. Denne verdien kan endres av den lokale administratoren med dialogboksen Loggegenskaper og er som standard på 1 megabyte.</string>
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, angis den maksimale størrelsen for loggfilen til den lokalt konfigurerte verdien. Denne verdien kan endres av den lokale administratoren med dialogboksen Loggegenskaper, og den er som standard på 20 megabyte.</string>
       <string id="Channel_LogMaxSizeSecurity_Help">Denne policyinnstillingen angir maksimal størrelse på loggfilen i kilobyte.
 
 Hvis du aktiverer denne policyinnstillingen, kan du konfigurere maksimum loggfilstørrelse til mellom 20 megabyte (20480 kilobyte) og 2 terabyte (2147483647 kilobyte) i kilobytetrinn.
 
-Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, angis den maksimale størrelsen for loggfilen til den lokalt konfigurerte verdien. Denne verdien kan endres av den lokale administratoren med dialogboksen Loggegenskaper og er som standard på 20 megabyte.</string>
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, angis den maksimale størrelsen for loggfilen til den lokalt konfigurerte verdien. Denne verdien kan endres av den lokale administratoren med dialogboksen Loggegenskaper og er som standard på 40 megabyte.</string>
       <string id="ChannelName_Help">Konfigurasjonsinnstillinger for logg</string>
       <string id="EventLog_Application">Program</string>
       <string id="EventLog_Security">Sikkerhet</string>
       <string id="EventLog_Setup">Installasjon</string>
       <string id="EventLog_System">System</string>
       <string id="EventLogCategory">Tjenesten Event Log</string>
+      <string id="Service_RpcAccess_Remote">Begrens ekstern tilgang til hendelsesloggtjenesten</string>
+      <string id="Service_RpcAccess_Remote_Help">Denne policyinnstillingen styrer hvilke eksterne brukere som kan koble til hendelsesloggtjenesten på denne maskinen.
+
+Hvis du aktiverer denne policyen, kan du begrense hvilken gruppe eksterne brukere må være medlem av for å kunne koble til hendelsesloggtjenesten på denne maskinen. Du kan kreve at eksterne brukere er medlem av en av følgende innebygde grupper:
+
+• Godkjente brukere
+• Hendelseslogglesere
+• Administratorer
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyen, vil standardverdien være Godkjente brukere.
+
+Bare Godkjente brukere ble støttet for tidligere versjoner av Windows. For å opprettholde bakoverkompatibilitet, vil lokale tilkoblinger til tjenesten alltid være tillatt fra Godkjente brukere.
+
+Denne innstillingen styrer ikke tilgang til individuelle logger. Når en ekstern tilkobling er tillatt, vil den fortsatt trenge tilgang til de bestemte ressursene den prøver å bruke.</string>
+      <string id="Service_RpcAccess_Remote_AU">Godkjente brukere</string>
+      <string id="Service_RpcAccess_Remote_ER">Hendelseslogglesere</string>
+      <string id="Service_RpcAccess_Remote_AD">Administratorer</string>
     </stringTable>
     <presentationTable>
       <presentation id="Channel_Log_FileLogAccess_1">
@@ -157,16 +174,19 @@ Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, angis den
         </textBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_1">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maksimal loggstørrelse (kB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maksimal loggstørrelse (kB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_2">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maksimal loggstørrelse (kB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="40960">Maksimal loggstørrelse (kB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_3">
         <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maksimal loggstørrelse (kB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_4">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maksimal loggstørrelse (kB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maksimal loggstørrelse (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="Service_RpcAccess_Remote">
+        <dropdownList refId="RpcAccess_Remote_Setting" noSort="true" defaultItem="0">Velg én av følgende policyinnstillinger:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

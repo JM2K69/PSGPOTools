@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>表示名をここに入力する</displayName>
+  <description>説明をここに入力する</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">セキュア ブート</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">制御された機能ロールアウト経由での証明書の展開</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">新しいセキュア ブート証明書のデバイスへの展開についてサポートを希望する企業は、この設定を有効にできます。
+
+ 
+
+メモ: この機能を利用するには、デバイスが必要な診断データを Microsoft に送信している必要があります。
+
+ 
+
+詳細情報については、https://aka.ms/GetSecureBoot を参照してください </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">更新プログラム経由での証明書の自動展開</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">デバイスで、証明書の更新を正常に処理できることを示すテスト結果が出力されていれば、更新はサービス更新プログラムの一部として自動的に開始されます。このポリシーは既定で有効です。自動更新の管理を希望する企業は、このポリシーを使用して機能を明示的に有効または無効にできます。
+
+ 
+
+詳細情報については、https://aka.ms/GetSecureBoot を参照してください </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">セキュア ブート証明書の展開を有効にする</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">このポリシー設定を使用すると、デバイス上でのセキュア ブート証明書の展開プロセスを、有効または無効にすることができます。有効にすると、Windows は、このポリシーが適用されているデバイスへの証明書の展開プロセスを、自動的に開始します。
+
+ 
+
+注: このレジストリ設定はポリシー キーには格納されず、個人用設定であると見なされます。したがって、この設定を実装するグループ ポリシー オブジェクトが削除された場合にも、このレジストリ設定は維持されます。
+
+ 
+
+注: この設定を実行および処理する Windows タスクは、12 時間ごとに実行されます。場合によっては、更新シーケンスを安全に行なうために、システムが再起動するまでこの更新は保留されます。
+
+ 
+
+注: 一度ファームウェアに適用された証明書を、Windows から取り消すことはできません。証明書をクリアする必要がある場合は、ファームウェア メニュー インターフェイスからそれを行う必要があります。
+
+ 
+
+詳細情報については、https://aka.ms/GetSecureBoot を参照してください </string>
+
+      <string id="LimitSecureBootRequiredServiceData">セキュア ブートに必要なサービス データを制限する</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">このポリシー設定は、オペレーティング システムが毎日のセキュア ブート必須サービス データ イベントを送信するかどうかを制御します。このイベントには、デバイスのセキュア ブート構成とファームウェア変数の状態に関する情報が含まれており、セキュリティ上必須と分類されているため、通常はテレメトリを許可する診断データ レベルに関係なく送信されます。
+
+ 
+
+このポリシー設定を有効にすると、毎日のセキュア ブート必須サービス データ イベントは送信されません。これは、Windows 制限付きトラフィック制限機能ベースラインで運用している企業を対象としています。
+
+ 
+
+このポリシー設定を無効にした場合、または構成しなかった場合、オペレーティング システムは、既存のテレメトリ アクセス許可ルールに従って、セキュア ブート必須サービス データ イベントを引き続き送信します。</string>
+
+      <string id="SUPPORTED_Windows8">Windows Server 2012、Windows 8、Windows RT またはそれ以降</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

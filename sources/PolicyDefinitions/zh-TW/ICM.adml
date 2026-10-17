@@ -108,11 +108,13 @@
 
 此外，您也可以參閱 [電腦設定/系統管理範本/Windows 元件/Windows 錯誤報告] 中的 [設定錯誤報告]、[顯示錯誤通知] 和 [停用 Windows 錯誤報告] 原則設定。</string>
       <string id="RemoveWindowsUpdate_ICM">關閉對所有 Windows Update 功能的存取</string>
-      <string id="RemoveWindowsUpdate_ICM_Help">這個原則設定允許您移除對 Windows Update 的存取。
+      <string id="RemoveWindowsUpdate_ICM_Help">此原則設定可讓您移除對 Windows Update 的存取。
 
-如果您啟用這個原則設定，所有 Windows Update 功能都會移除。這包含禁止存取 Windows Update 網站 (網址為 http://windowsupdate.microsoft.com)，以及從 [開始] 功能表及 Internet Explorer 中的 [工具] 功能表存取 Windows Update 超連結。Windows 自動更新也會停用; 您將不會收到 Windows Update 的重大更新通知，也不會收到重大更新。這個原則設定也會防止 [裝置管理員] 從 Windows Update 網站自動安裝驅動程式更新。
+如果您啟用此原則設定，將會移除所有 Windows Update 功能。包括會封鎖從 [開始] 功能表和 Internet Explorer 中 [工具] 功能表上的 Windows Update 超連結 http://windowsupdate.microsoft.com 存取 Windows Update 的功能。Windows 自動更新也會停用；您不會收到通知，也不會接到來自 Windows Update 的重大更新。此原則設定也會防止 [裝置管理員] 自動從 Windows Update 網站安裝驅動程式更新。
 
-如果您停用或未設定這個原則設定，使用者將能存取 Windows Update 網站，並啟用自動更新功能以接收來自 Windows Update 的通知和重大更新。</string>
+如果您停用或未設定此原則設定，使用者將可以存取 Windows Update 網站，並啟用自動更新功能以接收來自 Windows Update 的通知和重大更新。
+
+注意：只有當此電腦設定為透過「指定內部網路 Microsoft 更新服務位置」原則連線至內部網路更新服務時，此原則才適用。</string>
       <string id="SearchCompanion_DisableFileUpdates">關閉搜尋小幫手內容檔更新</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">這個原則設定指定搜尋小幫手是否應該在本機和網際網路進行搜尋時，自動下載內容更新。
 

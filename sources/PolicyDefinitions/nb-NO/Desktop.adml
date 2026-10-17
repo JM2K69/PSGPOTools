@@ -55,6 +55,15 @@ Obs!  Denne innstillingen deaktiverer ikke Active Desktop. Brukere kan fortsatt 
 Standardinnstillingen er at en bruker kan endre plasseringen av egne profilmapper som Dokumenter, Musikk og så videre, ved å skrive inn en ny bane i kategorien Plasseringer i dialogboksen Egenskaper til mappen.
 
 Hvis du aktiverer denne innstillingen, vil brukere ikke kunne skrive inn en ny plassering i Mål-boksen.</string>
+      <string id="EnableThemeFileRemoteResource">Tillat temafiler fra nettverksplasseringer</string>
+      <string id="EnableThemeFileRemoteResource_Help">Denne policyinnstillingen bestemmer om eksterne baner kan brukes til ressurser i en Windows-skrivebordstema-fil (.theme/.themepack).
+
+Hvis du aktiverer denne policyinnstillingen, kan temafiler referere til ressurser (for eksempel bilder, lyder og ikoner) som ligger på delte nettverksressurser eller andre eksterne plasseringer. Brukere kan bruke temaer som inneholder eksterne ressurser.
+
+Hvis du deaktiverer denne policyinnstillingen, kan ikke temafiler bruke eksterne ressurser. Alle temafiler som refererer til eksterne ressurser, vil ikke kunne laste inn disse ressursene, og bare lokale ressurser vil bli vist.
+
+Hvis du ikke konfigurerer denne policyinnstillingen, er standardvirkemåten å blokkere eksterne ressurser i temafiler av sikkerhetsgrunner.</string>
+
       <string id="ForceActiveDesktopOn">Aktiver Active Desktop</string>
       <string id="ForceActiveDesktopOn_Help">Aktiverer Active Desktop og hindrer at brukere deaktiverer den.
 

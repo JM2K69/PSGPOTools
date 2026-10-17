@@ -27,12 +27,11 @@ Si cette stratégie est désactivée ou n’est pas configurée, le lien « Aff
 Si vous désactivez cette stratégie ou ne la configurez pas, le lien « Voir plus de résultats » apparaît lorsque l’utilisateur effectue une recherche dans la zone de recherche du menu Démarrer.  Si un gestionnaire de protocole tiers est installé, le lien « Rechercher partout » est proposé à la place du lien « Voir plus de résultats ».</string>
       <string id="AddSearchInternetLinkInStartMenu">Ajouter le lien Rechercher sur Internet au menu Démarrer</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
+Si vous activez ce paramètre de stratégie, un lien « Rechercher sur Internet » s’affiche lorsque l’utilisateur effectue une recherche dans la zone de recherche du menu Démarrer.  Ce bouton lance le navigateur par défaut avec les termes de recherche.
 
-Si vous activez cette stratégie, le lien « Rechercher sur Internet » s’affiche dès qu’un utilisateur lance une recherche dans la zone de recherche du menu Démarrer.  Ce bouton a pour effet de démarrer le navigateur par défaut avec les termes recherchés.
+Si vous désactivez cette stratégie, il n’y a pas de lien « Rechercher sur Internet » lorsque l’utilisateur effectue une recherche dans la zone de recherche du menu Démarrer.
 
-Si vous désactivez cette stratégie, l’utilisateur n’a pas accès au lien « Rechercher sur Internet » lorsqu’il lance une recherche dans la zone de recherche du menu Démarrer.
-          
-Si vous ne configurez pas cette stratégie (paramètre par défaut), le menu Démarrer ne contient pas de lien « Rechercher sur Internet ».</string>
+Si vous ne configurez pas cette stratégie (par défaut), il n’y a pas de lien « Rechercher sur Internet » dans le menu Démarrer.</string>
       <string id="NoSearchFilesInStartMenu">Ne pas rechercher les fichiers</string>
       <string id="NoSearchFilesInStartMenu_Help">Si vous activez ce paramètre de stratégie, la zone de recherche du menu Démarrer ne recherche pas les fichiers.
 
@@ -207,6 +206,19 @@ Dans l’Explorateur de fichiers, l’élément Rechercher s’affiche toujours 
 Ce paramètre de stratégie affecte uniquement les éléments de l’interface utilisateur spécifiés. Il n’affecte pas Internet Explorer et n’empêche pas l’utilisateur de recourir à d’autres méthodes de recherche.
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, le lien Rechercher est disponible dans le menu Démarrer.</string>
+      <string id="ShowOrHideMostUsedApps">Afficher ou masquer la liste « Les plus utilisés » dans le menu Démarrer</string>
+      <string id="ShowOrHideMostUsedApps_Help">Si vous activez ce paramètre de stratégie, vous pouvez configurer le menu Démarrer pour afficher ou masquer la liste des applications les plus utilisées de l’utilisateur, quels que soient les paramètres utilisateur.
+
+La sélection de l’option « Afficher » entraîne l’affichage de la liste la plus utilisée et l’utilisateur ne peut pas la modifier à l’aide de l’application paramètres.
+
+La sélection de « masquer » force le masquage de la liste la plus utilisée, et l’utilisateur ne peut pas la modifier à l’aide de l’application paramètres.
+
+Si vous sélectionnez « non configuré » ou si vous désactivez ou ne configurez pas ce paramètre de stratégie, tous les utilisateurs pourront activer ou désactiver l’affichage de la liste la plus utilisée à l’aide de l’application paramètres. Il s’agit du comportement par défaut.
+
+Remarque : la configuration de cette stratégie sur « Afficher » ou « masquer » sur les versions prises en charge de Windows 10 supplantera tout paramètre de stratégie « supprimer la liste des programmes fréquents du menu Démarrer » (qui gère la même partie du menu Démarrer mais avec moins d’options).</string>
+      <string id="MFU_NotConfigured">Non configuré</string>
+      <string id="MFU_Show">Afficher</string>
+      <string id="MFU_Hide">Masquer</string>
       <string id="NoFrequentUsedPrograms">Supprimer la liste de programmes fréquents du menu Démarrer</string>
       <string id="NoFrequentUsedPrograms_Help">Si vous activez ce paramètre, la liste de programmes fréquemment utilisés est supprimée du menu Démarrer.
 
@@ -243,7 +255,7 @@ Si vous désactivez ou ne configurez pas ce paramètre, la liste de toutes les a
       <string id="APPLIST_NONE">Aucun</string>
       <string id="APPLIST_COLLAPSE">Réduire</string>
       <string id="APPLIST_COLLAPSESETTING">Réduire et désactiver le paramètre</string>
-      <string id="APPLIST_REMOVESETTING">Supprimer et désactiver le paramètre</string>    
+      <string id="APPLIST_REMOVESETTING">Supprimer et désactiver le paramètre</string>
 
       <string id="NoNetAndDialupConnect">Supprimer les Connexions réseau du menu Démarrer</string>
       <string id="NoNetAndDialupConnect_Help">Ce paramètre de stratégie vous permet de supprimer Connexions réseau du menu Démarrer.
@@ -258,11 +270,11 @@ Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas,
 
 Consultez également les paramètres de stratégie « Désactiver les programmes du menu paramètres » et « Désactiver le Panneau de configuration », ainsi que les paramètres de stratégie dans le dossier Connexions réseau (Configuration de l’ordinateur et Configuration de l’utilisateur\Modèles d’administration\Réseau\Connexions réseau).</string>
       <string id="NoPinnedPrograms">Supprimer la liste de programmes en attente du menu Démarrer</string>
-      <string id="NoPinnedPrograms_Help">Si vous activez ce paramètre, la liste des « Programmes affichés » est retirée du menu Démarrer. Les utilisateurs ne peuvent plus dès lors épingler des programmes dans le menu Démarrer. 
+      <string id="NoPinnedPrograms_Help">Si vous activez ce paramètre, la liste « Programmes épinglés » est supprimée du menu Démarrer. Les utilisateurs ne peuvent pas épingler de programmes au menu Démarrer.
 
-Sous Windows XP et Windows Vista, les cases à cocher Internet et Courrier électronique sont supprimées de la boîte de dialogue Personnaliser le menu Démarrer. 
+Dans Windows XP et Windows Vista, les cases à cocher Internet et e-mail sont supprimées de la boîte de dialogue Personnaliser le menu Démarrer.
 
-Si vous désactivez ce paramètre ou si vous ne le configurez pas, la liste des « Programmes affichés » est conservée dans le menu Démarrer. Les utilisateurs sont libres d’épingler ou non des programmes dans le menu Démarrer.</string>
+Si vous désactivez ce paramètre ou si vous ne le configurez pas, la liste « Programmes épinglés » reste dans le menu Démarrer. Les utilisateurs peuvent épingler et détacher des programmes dans le menu Démarrer.</string>
       <string id="NoRecentDocsHistory">Ne pas conserver d’historique des documents récemment ouverts</string>
       <string id="NoRecentDocsHistory_Help">Empêche le système d’exploitation et les programmes installés de créer et d’afficher les raccourcis vers les documents ouverts récemment.
 
@@ -318,31 +330,29 @@ Remarque : ce paramètre de stratégie s’applique uniquement aux fichiers cib
 
 Consultez également les paramètres de stratégie « Ne pas rechercher les raccourcis de l’environnement lors de l’exploration » et « Ne pas utiliser la méthode basée sur la recherche pour déterminer les raccourcis de l’environnement ».</string>
       <string id="NoRun">Supprimer le menu Exécuter du menu Démarrer</string>
-      <string id="NoRun_Help">Vous permet de supprimer la commande Exécuter du menu Démarrer, d’Internet Explorer et du Gestionnaire des tâches.
+      <string id="NoRun_Help">Vous permet de supprimer la commande Exécuter des menu Démarrer, Internet Explorer et Gestionnaire des tâches.
 
-Si vous activez ce paramètre, les modifications suivantes se produisent :
+Si vous activez ce paramètre, les modifications suivantes se produisent :
 
 (1) La commande Exécuter est supprimée du menu Démarrer.
 
-(2) La commande Nouvelle tâche (Exécuter) est supprimée du Gestionnaire des tâches.
+(2) La commande Nouvelle tâche (Exécuter) est supprimée de Gestionnaire des tâches.
 
-(3) L’utilisateur ne peut pas entrer les types d’accès suivants dans la barre d’adresses Internet Explorer :
+(3) L’utilisateur ne pourra pas entrer les éléments suivants dans la barre d’adresses Internet Explorer :
 
---- Un chemin d’accès UNC : \\&lt;serveur&gt;\&lt;partage&gt; 
+--- un chemin d’accès UNC : \\&lt;server&gt;\&lt;share&gt;
 
---- Accès aux lecteurs locaux : C:, par exemple
+---Accessing des lecteurs locaux : par ex., C :
 
---- Accès aux dossiers locaux : \temp&gt;, par exemple
+--- l’accès aux dossiers locaux : par ex., \temp&gt;
 
-De même, les utilisateurs qui disposent de claviers étendus ne peuvent plus afficher la boîte de dialogue Exécuter en appuyant sur la touche Application (la touche portant le logo Windows) + R.
+De plus, les utilisateurs dotés de claviers étendus ne pourront plus afficher la boîte de dialogue Exécuter en appuyant sur la touche Application (la touche avec le logo Windows) + R.
 
-Si vous désactivez ou que vous ne configurez pas ce paramètre, les utilisateurs pourront accéder à la commande Exécuter du menu Démarrer et du Gestionnaire des tâches, et utiliser la barre d’adresses Internet Explorer.
+Si vous désactivez ou ne configurez pas ce paramètre, les utilisateurs peuvent accéder à la commande Exécuter dans le menu Démarrer et dans Gestionnaire des tâches et utiliser la barre d’adresses Internet Explorer.
 
+Remarque : ce paramètre affecte uniquement l’interface spécifiée. Cela n’empêche pas les utilisateurs d’utiliser d’autres méthodes pour exécuter des programmes.
 
-
-Remarque : ce paramètre n’affecte que l’interface spécifiée. Il n’empêche pas les utilisateurs de recourir à d’autres méthodes pour exécuter les programmes.
-
-Remarque : les applications tierces sous Windows 2000 ou un niveau de certification supérieur doivent respecter ce paramètre.</string>
+Remarque : les applications tierces disposant d’une certification Windows 2000 ou ultérieure doivent respecter ce paramètre.</string>
       <string id="NoSetFolders">Supprimer les programmes du menu Paramètres</string>
       <string id="NoSetFolders_Help">Ce paramètre de stratégie vous permet de supprimer des programmes du menu Démarrer.
 
@@ -484,9 +494,9 @@ Consultez également le paramètre de stratégie « Masquer l’option Ajouter 
 
 Si vous désactivez ce paramètre ou si vous ne le configurez pas, le bouton « Retirer » est conservé dans le menu Démarrer simple ; par ailleurs, votre PC ne peut être retiré de sa station d’accueil.</string>
       <string id="StartMenuLogOff">Supprimer la fermeture de session dans le menu Démarrer</string>
-      <string id="StartMenuLogOff_Help">Ce paramètre de stratégie vous permet de supprimer l’élément « Fermer la session &lt;nom_utilisateur » du menu Démarrer et empêche les utilisateurs de le restaurer.
+      <string id="StartMenuLogOff_Help">Ce paramètre de stratégie vous permet de supprimer l’élément « Fermer la session &lt;nom_utilisateur&gt; du menu Démarrer et empêche les utilisateurs de le restaurer.
 
-Si vous activez ce paramètre de stratégie, l’élément Fermer la session &lt;nom_utilisateur&gt; n’apparaît pas dans le menu Démarrer. Ce paramètre de stratégie supprime également l’élément Afficher l’invite de fermeture de session des options du menu Démarrer. Par conséquent, les utilisateurs ne peuvent pas restaurer l’élément Fermer la session &lt;nom d’utilisateur&gt; dans le menu Démarrer.
+Si vous activez ce paramètre de stratégie, l’élément Fermer la session &lt;nom_utilisateur&gt; n’apparaît pas dans le menu Démarrer. Ce paramètre de stratégie supprime également l’élément Afficher l’invite de fermeture de session des options du menu Démarrer. Par conséquent, les utilisateurs ne peuvent pas restaurer l’élément Fermer la session &lt;nom_utilisateur&gt; dans le menu Démarrer.
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, les utilisateurs peuvent utiliser l’élément Afficher l’invite de fermeture de session pour ajouter et supprimer l’élément Fermer la session.
 
@@ -599,9 +609,9 @@ Si vous activez ce paramètre de stratégie, l’écran de démarrage apparaît 
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, l’écran de démarrage est toujours affiché sur l’écran principal quand l’utilisateur appuie sur la touche Windows. Les utilisateurs peuvent toujours ouvrir l’écran de démarrage sur d’autres écrans en appuyant sur le bouton Démarrer sur l’écran en question. De plus, l’utilisateur peut configurer ce paramètre.</string>
       <string id="ForceStartSize_DisplayName">Forcer le démarrage à la taille plein écran ou taille de menu</string>
-      <string id="ForceStartSize_ExplainText">Si vous activez cette stratégie et la définissez sur Menu Démarrer ou Plein écran de démarrage, le démarrage prendra cette taille et les utilisateurs ne pourront pas modifier la taille de démarrage dans les paramètres. 
+      <string id="ForceStartSize_ExplainText">Si vous activez ce paramètre de stratégie et si vous le définissez sur menu Démarrer ou le démarrage en mode plein écran, la taille du démarrage est égale à celle de l’écran de démarrage et les utilisateurs ne peuvent pas modifier la taille du menu Démarrer dans les paramètres.
 
-Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, Windows va sélectionner automatiquement la taille en fonction du facteur de forme matérielle et les utilisateurs ne pourront pas modifier la taille de démarrage dans les paramètres.</string>
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, Windows sélectionne automatiquement la taille en fonction du facteur de forme matérielle et les utilisateurs peuvent modifier la taille du menu Démarrer dans les paramètres.</string>
       <string id="ForceLauncherSize_Collapsed">Menu Démarrer</string>
       <string id="ForceLauncherSize_Expanded">Plein écran de démarrage</string>
       <string id="HidePeopleBar_DisplayName">Supprimer la barre Contacts de la barre des tâches</string>
@@ -612,10 +622,44 @@ Si vous activez cette stratégie, l'icône des contacts est supprimée de la bar
       <string id="HideRecentlyAddedApps_Help">Cette stratégie vous permet d’empêcher le menu Démarrer d’afficher la liste des applications installées récemment.
 
 Si vous activez cette stratégie, le menu Démarrer n'affichera plus la liste « Récemment ajoutées ». Le paramètre correspondant sera également désactivé dans Paramètres.</string>
+      <string id="HideRecommendedSection">Supprimer la section Recommandée du menu Démarrer</string>
+      <string id="HideRecommendedSection_Help">Cette stratégie vous permet d’empêcher le menu Démarrer d’afficher la liste des applications et fichiers recommandés.
+
+Si vous activez ce paramètre de stratégie, le menu Démarrer n’affiche plus la section contenant la liste des fichiers et applications recommandés.</string>
+ <string id="HideCategoryView">Masquer l’affichage des catégories dans le menu Démarrer</string>
+ <string id="HideCategoryView_Help">Ce paramètre de stratégie vous permet de masquer l’affichage des catégories dans le menu Démarrer.
+ 
+Si vous activez ce paramètre de stratégie, le menu Démarrer n’affiche plus l’affichage des catégories en tant qu’option et est défini par défaut sur l’affichage grille.</string>
+
+ <string id="ConfigureStartPins">Configurer les épingles de démarrage</string>
+      <string id="ConfigureStartPins_Help">Permet à l’administrateur de remplacer les éléments par défaut épinglés à l’écran d’accueil.
+
+Ce paramètre vous permet de spécifier les éléments par défaut épinglés à l’écran d’accueil.</string>
+
+      <string id="HideRecommendedPersonalizedSites">Supprimer les recommandations de sites web personnalisées de la section de Recommandations dans le menu Démarrer</string>
+      <string id="HideRecommendedPersonalizedSites_Help">Ce paramètre de stratégie vous permet de masquer les sites web personnalisés dans la section recommandée du menu Démarrer. 
+      
+Si vous activez ce paramètre de stratégie, le menu Démarrer n’affiche plus de recommandations de site web personnalisées dans la section recommandée.</string>
       <string id="DisableContextMenusInStart">Désactiver les menus contextuels dans le menu Démarrer</string>
       <string id="DisableContextMenusInStart_Help">Cette stratégie vous permet d’empêcher les utilisateurs d’ouvrir des menus contextuels dans le menu Démarrer.
 
 Si vous activez cette stratégie, les appels de menus contextuels dans le menu Démarrer seront ignorés.</string>
+      <string id="SimplifyQuickSettings_DisplayName">Simplifier la disposition des paramètres rapides</string>
+      <string id="SimplifyQuickSettings_ExplainText">Si vous activez ce paramètre de stratégie, les paramètres rapides sont limités aux boutons WiFi, Bluetooth, Accessibilité et VPN uniquement ; la luminosité et les curseurs de volume ; et lier l’indicateur de batterie à l’application Paramètres.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, la disposition des paramètres rapides standard s’affiche chaque fois que les paramètres rapides sont appelés.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">Désactiver la modification des paramètres rapides</string>
+      <string id="DisableEditingQuickSettings_ExplainText">Si vous activez cette stratégie, l’utilisateur ne peut pas modifier les paramètres rapides.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, l’utilisateur peut modifier les paramètres rapides, tels que l’épinglage ou l’épinglage de boutons.</string>
+      <string id="DisableControlCenter">Supprimer les paramètres rapides</string>
+      <string id="DisableControlCenter_Help">Ce paramètre de stratégie supprime les paramètres rapides de la zone inférieure droite de la barre des tâches.
+
+La zone des paramètres rapides se trouve à gauche de l’horloge dans la barre des tâches et inclut des icônes pour le réseau et le volume actuels.
+
+Si ce paramètre est activé, les paramètres rapides ne s’affichent pas dans la zone paramètres rapides. 
+
+Un redémarrage est nécessaire pour que ce paramètre de stratégie prenne effet.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +676,22 @@ Si vous activez cette stratégie, les appels de menus contextuels dans le menu D
           <label>Fichier de disposition de démarrage</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">Réappliquer la mise en page à chaque connexion</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">Choisissez un des formats suivants</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">Choisir l’une des actions suivantes</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>Démarrer le fichier de disposition des épingles</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">Masquer l’affichage des catégories</checkBox>
       </presentation>
     </presentationTable>
   </resources>

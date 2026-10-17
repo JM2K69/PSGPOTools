@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Definições de NTLM</displayName>
+  <description>Definições de configuração para o pacote de segurança NTLM.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">Registo Melhorado de NTLM</string>
+      <string id="EnhancedAuditsId_Explain">Esta definição de política permite que o pacote de segurança NTLM registe os novos e melhorados relatórios de auditoria para clientes e servidores. 
+
+      Estes registos melhorados têm informações sobre o que é utilizar o NTLM, o motivo pelo qual o NTLM está a ser utilizado e o destino do pedido de autenticação NTLM. Também incluem informações sobre a utilização do NTLMv1 e outras reduções de segurança.
+
+      Se ativar ou não configurar esta política, os novos relatórios de auditoria serão gerados. Se desativar a política, os novos dados não serão gerados.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">Bloqueio NTLM Melhorado</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Esta definição de política permite que o pacote de segurança NTLM bloqueie pedidos de autenticação NTLM com base nas novas e melhoradas políticas de bloqueio ao nível do Computador.
+
+      Estas políticas de bloqueio melhoradas permitem-lhe bloquear a autenticação NTLM com base em novos critérios, como o tipo de conta, a função do dispositivo ou o tipo de aplicação.
+
+      Se a política geral estiver definida como “Desativada” ou “Não Configurada”, as subdefinições abaixo não produzirão efeitos. Se a política geral estiver definida como “Ativada”, as subpolíticas abaixo produzirão efeitos com base na configuração.
+
+      A menos que sejam configuradas, todas as políticas são definidas para o modo “Auditoria”. As políticas definidas como “Auditoria” registarão um aviso sobre o pedido NTLM que pode ser bloqueado, mas não o bloqueará. Várias políticas marcadas como “Auditoria” podem ser ativadas ao mesmo tempo e serão registadas num registo de eventos unificado.
+
+      Se alguma política estiver marcada como “Ativada”, o pedido de autenticação NTLM será bloqueado se corresponder aos critérios da política. Se várias políticas estiverem marcadas como “Ativada”, o pedido de autenticação NTLM será bloqueado se corresponder aos critérios de qualquer uma das políticas. Será gerado um registo de eventos para a primeira política que bloquear a autenticação NTLM. 
+
+      Em cenários em que há políticas de “Auditoria” e “Ativada”, a política “Ativada” terá primazia.
+
+      Todas as políticas de bloqueio melhoradas aqui descritas partilham a mesma lista de permissões, que especifica as contas, os dispositivos e as aplicações que têm permissão para utilizar a autenticação NTLM. A lista de permissões pode conter uma série de nomes de destino ou SPN para permitir a autenticação. 
+
+      Para obter mais informações, visite aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Desativado</string>
+      <string id="Audit">Auditar</string>
+      <string id="Enabled">Ativado</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Bloquear NTLM para Contas de Domínio com Início de Sessão Único</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">Bloquear NTLM para Controladores de Domínio</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">Bloquear NTLM quando a ligação do Computador falhar</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Bloquear toda a autenticação NTLM</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Especifique a lista de permissões para políticas de bloqueio avançadas:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

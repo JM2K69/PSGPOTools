@@ -13,6 +13,13 @@
     Om du aktiverar eller låter bli att konfigurera den här principinställningen visas objekten Återställ datorn med hjälp av en systemavbildning som du har skapat tidigare och Installera om Windows (eller Återställ datorn till fabriksinställningar) på sidan Avancerade återställningsmetoder i Återställning (på Kontrollpanelen) och användaren kan återställa datorn till dess ursprungliga läge eller från en systemavbildning som har skapats av en användare. Det här är standardinställningen.
 
     Om du inaktiverar principinställningen är inte objekten Återställ datorn med hjälp av en systemavbildning som du har skapat tidigare och Installera om Windows (eller Återställ datorn till fabriksinställningar) i Återställning (på Kontrollpanelen) tillgängliga. Om principinställningen är inaktiverad kan användare fortfarande återställa datorn till det ursprungliga läget från en systemavbildning som har skapats av en användare genom att starta om datorn och använda Systemåterställningsalternativ-menyn om den är tillgänglig.</string>
+      <string id="AllowTrustedOfflineScan">Tillåt offlinesökning från betrodd Windows Återställningsmiljö</string>
+      <string id="AllowTrustedOfflineScan_help">    Krav: Windows 10
+    Beskrivning: Den här principinställningen styr om offlinegenomsökning ska tillåtas från en betrodd Windows Recovery Environment.
+
+    Om du aktiverar den här principinställningen körs offlinegenomsökning utan att du uppmanas att ange BitLocker-återställningsnyckeln, så länge Windows Recovery Environment är betrodd av BitLocker.
+
+    Om du inaktiverar eller inte konfigurerar den här principinställningen uppmanar offlinesökning användaren att ange BitLocker-återställningsnyckeln för att låsa upp OS-volymen. Om användaren hoppar över att låsa upp OS-volymen körs inte offlinegenomsökningen. Det här är standardinställningen.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

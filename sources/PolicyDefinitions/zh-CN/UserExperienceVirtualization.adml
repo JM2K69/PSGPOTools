@@ -945,9 +945,9 @@ Microsoft Word 2013 具有一些在计算机之间备份而不是同步的用户
 如果启用此策略设置，UE-V Agent 将不会同步 Windows 应用的设置。
 如果禁用此策略设置，UE-V Agent 将同步 Windows 应用的设置。
 如果不配置此策略设置，则将删除任何定义的值。
-注意: 如果用户为其计算机连接其 Microsoft 帐户，则 UE-V Agent 将不会同步 Windows 应用。不管在 Windows 的“同步你的设置”配置中配置了什么设置，Windows 应用都将默认使用这些设置。
+注意: 如果用户为其计算机连接其 Microsoft 账户，则 UE-V Agent 将不会同步 Windows 应用。不管在 Windows 的“同步你的设置”配置中配置了什么设置，Windows 应用都将默认使用这些设置。
       </string>
-      <string id="Win8AppsList">Windows 应用同步</string>
+      <string id="Win8AppsList">Windows App 同步</string>
       <string id="Win8AppsList_Help">此策略设置配置 User Experience Virtualization (UE-V) 是否同步指定 Windows 应用的设置。默认情况下，UE-V Agent 不同步 Windows 应用的设置。此策略设置允许你按 Windows 应用的包系列名称列出这些应用。UE-V 在运行同一 Windows 应用的每个用户的工作计算机之间同步列出的应用设置。如果启用此策略设置并列出 Windows 应用包系列名称，则 UE-V Agent 将同步所列出的应用的设置。
 如果禁用此策略，则任何 Windows 应用都不会同步其设置。
 如果未配置此策略设置，则将删除任何定义的值。r

@@ -9,15 +9,15 @@
       
       <!-- prevent file sync-->
       <string id="AllowProjectionToPC">Nie zezwalaj na projekcję na tym komputerze</string>
-      <string id="AllowProjectionToPC_help">To ustawienie zasad umożliwia wyłączenie projekcji na komputerze.
+      <string id="AllowProjectionToPC_help">To ustawienie zasad umożliwia wyłączenie projekcji na komputerze.  
 
  
 
-Jeśli to ustawienie zostanie włączone, nie będzie można wykryć komputera i wyświetlać na nim obrazu, o ile użytkownik nie uruchomi ręcznie aplikacji Połączenie.
+Jeśli to ustawienie zostanie włączone, nie będzie można wykryć komputera i wyświetlać na nim obrazu, o ile użytkownik nie uruchomi ręcznie aplikacji Ekran bezprzewodowy.  
 
  
 
-Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, będzie można wykryć komputer i wyświetlać na nim obraz tylko na powyższym ekranie blokady. Użytkownik może też na stałe włączyć lub wyłączyć to ustawienie z wyjątkiem ręcznego uruchomienia połączenia.</string>
+Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, będzie można wykryć komputer i wyświetlać na nim obraz tylko na powyższym ekranie blokady. Użytkownik może też na stałe włączyć lub wyłączyć to ustawienie z wyjątkiem ręcznego uruchomienia.</string>
 
       <string id="RequirePinForPairing">Wymagaj numeru PIN do parowania</string>
       <string id="RequirePinForPairing_help">To ustawienie zasad umożliwia włączenie wymagania kodu PIN podczas parowania.  

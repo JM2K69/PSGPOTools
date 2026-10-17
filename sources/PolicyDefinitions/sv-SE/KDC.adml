@@ -33,20 +33,20 @@ Om du aktiverar den här principinställningen kommer klientdatorer som har stö
 
 Om du inaktiverar eller låter bli att konfigurera den här principinställningen har inte domänkontrollanten stöd för anspråk, sammansatt autentisering och Kerberos-skydd.
 
-Om du konfigurerar alternativet Stöds inte (Not supported) kan domänkontrollanten inte hantera anspråk, sammansatt autentisering eller skydd som är standardbeteendet för domänkontrollanter som kör Windows Server 2008 R2 eller tidigare operativsystem.
+Om du konfigurerar alternativet Stöds inte (Not supported) kan domänkontrollanten inte hantera anspråk, sammansatt autentisering eller skydd, vilket är standardbeteendet för domänkontrollanter som kör Windows Server 2008 R2 eller tidigare operativsystem.
 
-Obs! Om de följande alternativen till KDC-principen ska fungeras måste Kerberos-grupprincipen Kerberosklientstöd för anspråk, sammansatt autentisering och Kerberos-skydd vara aktiverad på de system som stöds. Om Kerberos-principinställningen inte är aktiverad används inte dessa funktioner i Kerberos-autentiseringsmeddelanden.  
+Obs! Om följande alternativ för KDC-principen ska fungera måste Kerberos-grupprincipen Kerberosklientstöd för anspråk, sammansatt autentisering och Kerberos-skydd vara aktiverad på de system som stöds. Om Kerberos-principinställningen inte är aktiverad används inte dessa funktioner i Kerberos-autentiseringsmeddelanden.
 
-Om du konfigurerar alternativet Stöds (Supported) kan domänkontrollanten hantera anspråk, sammansatt autentisering och Kerberos-skydd. Domänkontrollanten meddelar Kerberos-klientdatorerna att domänen kan hantera anspråk och sammansatt autentisering för dynamisk åtkomstkontroll samt Kerberos-skydd. 
+Om du konfigurerar alternativet Stöds (Supported) kan domänkontrollanten hantera anspråk, sammansatt autentisering och Kerberos-skydd. Domänkontrollanten meddelar Kerberos-klientdatorerna att domänen kan hantera anspråk och sammansatt autentisering för dynamisk åtkomstkontroll samt Kerberos-skydd.
 
 Krav på domänfunktionsnivå
-Om domänfunktionsnivån är Windows Server 2008 R2 eller tidigare beter sig domänkontrollanterna som om alternativet Stöds (Supported) har valts för alternativen Tillhandahåll alltid anspråk (Always provide claims) och Avböj oskyddade autentiseringsbegäranden (Fail unarmored authentication requests). 
+Om domänfunktionsnivån är Windows Server 2008 R2 eller tidigare beter sig domänkontrollanterna som om alternativet Stöds (Supported) har valts för alternativen Tillhandahåll alltid anspråk (Always provide claims) och Avböj oskyddade autentiseringsbegäranden (Fail unarmored authentication requests).
 
 När domänfunktionsnivån är inställd på Windows Server 2012 meddelar domänkontrollanten Kerberos-klientdatorerna att domänen kan hantera anspråk och sammansatt autentisering för dynamisk åtkomstkontroll samt Kerberos-skydd och:
    – Om du anger alternativet Tillhandahåll alltid anspråk (Always provide claims) returnerar domänkontrollanterna dessutom alltid anspråk för konton samt stöder RFC-funktioner för FAST-annonsering (Flexible Authentication Secure Tunneling).
    – Om du väljer alternativet Avböj oskyddade autentiseringsbegäranden (Fail unarmored authentication requests) avvisar domänkontrollanterna oskyddade Kerberos-meddelanden.
 
-Varning! Om du väljer Avböj oskyddade autentiseringsbegäranden (Fail unarmored authentication requests) misslyckas autentiseringen av domänkontrollanten för klientdatorer som inte stöder Kerberos-skydd.
+Varning! Om du väljer Avböj oskyddade autentiseringsbegäranden (Fail unarmored authentication requests) kommer autentiseringen av domänkontrollanten för klientdatorer som inte stöder Kerberos-skydd att misslyckas.
 
 För att funktionen ska vara effektiv är det dock viktigt att tillräckligt många domänkontrollanter har stöd för anspråk och sammansatt autentisering för dynamisk åtkomstkontroll samt har Kerberos-skydd för hantering av autentiseringsbegäranden. Om inte tillräckligt många domänkontrollanter har för stöd för principen misslyckas autentiseringen när dynamisk åtkomstkontroll eller Kerberos-skydd krävs (d.v.s. alternativet Stöds (Supported) är aktiverat).
 
@@ -54,7 +54,6 @@ Prestandakonsekvenser för domänkontrollanter när den här principinställning
  – Funktionsidentifiering för säkra Kerberos-domäner krävs, vilket leder till ytterligare meddelandeutbyten.
    – Med anspråk och sammansatt autentisering för dynamisk åtkomstkontroll ökar storleken och komplexiteten på data i meddelandet, vilket leder till längre bearbetningstid och större storlek på Kerberos-tjänstbiljetter.
    – Med Kerberos-skydd krypteras Kerberos-meddelanden helt och Kerberos-fel signeras, vilket leder till ökad bearbetningstid. Storleken på tjänstbiljetterna ändras dock inte.
-
 </string>
       <string id="NoCbacAndArmor">Stöds inte (Not supported)</string>
       <string id="MixModeCbacAndArmor">Stöds</string>
@@ -94,6 +93,47 @@ Om du inaktiverar eller låter bli att konfigurera principinställningen tillhan
       <string id="NoPKINITFreshness">Inaktiverat</string>
       <string id="SupportPKINITFreshness">Stöds</string>
       <string id="RequirePKINITFreshness">Krävs</string>
+      <string id="PKINITHashAlgorithmConfiguration">Konfigurera hash-algoritmer för certifikatinloggning</string>
+      <string id="PKINITHashAlgorithmConfiguration_explain">Den här principinställningen styr hash- eller kontrollsummealgoritmer som används av Kerberos-klienten när certifikatautentisering utförs.
+
+Om du aktiverar den här principen kan du konfigurera ett av fyra tillstånd för varje algoritm:
+
+- ”Standard” anger algoritmen till det rekommenderade tillståndet.
+
+- ”Stöds” aktiverar användning av algoritmen. Om du aktiverar algoritmer som har inaktiverats som standard kan det minska säkerheten.
+
+- ”Granskad” aktiverar användning av algoritmen och rapporterar en händelse (ID 309) varje gång den används. Detta tillstånd är avsett att verifiera att algoritmen inte används och kan inaktiveras på ett säkert sätt.
+
+- ”Stöds inte” inaktiverar användningen av algoritmen. Det här tillståndet är avsett för algoritmer som anses vara osäkra.
+
+Om du inaktiverar eller låter bli att konfigurera den här principen antar varje algoritm standardtillståndet.
+Mer information om de hash- och kontrollsummealgoritmer som stöds av Windows Kerberos-klienten och deras standardtillstånd finns på https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Händelser som genererats av denna konfiguration: 309, 310.
+</string>
+      <string id="PKINITHashAlgorithm_Default">Standard</string>
+      <string id="PKINITHashAlgorithm_Supported">Stöds</string>
+      <string id="PKINITHashAlgorithm_Audited">Granskade</string>
+      <string id="PKINITHashAlgorithm_NotSupported">Stöds inte</string>
+      <string id="StrongNameMatches">Tillåt namnbaserade starka mappningar för certifikat</string>
+      <string id="StrongNameMatches_explain">Med den här principinställningen kan du använda alternativa, namnbaserade identifierare för att starkt mappa certifikat som utfärdats till Active Directory-användarkonton och anger vilka certifikat som mappas till vilka konton. Utan den här inställningen aktiverad måste certifikaten uppfylla kriterierna för stark mappning som anges i aka.ms/StrongCertMapKB, vilket vanligtvis inte tillåter namnbaserade identifierare.
+
+Varje mappning som anges i den här principen måste innehålla ett princip-OID tillsammans med ett IssuerSubject och/eller ett UPN-suffix med den syntax som anges nedan. Om det inte går att hitta en giltig mappning för ett visst certifikat i den här principen försöker Active Directory hitta en matchning med hjälp av de befintliga kriterierna för stark mappning som anges i KB5014754. Certifikatmappningar som inte överensstämmer med antingen kriterier för ”stark namnmappning” (den här principen) eller befintliga kriterier för ”stark mappning” som anses vara ogiltiga för autentisering.
+
+Det allmänna principformatet och några exempel visas nedan. Den här principen gäller endast för Active Directory-användarkonton.
+
+Allmän syntax
+==============
+&lt;tumavtryck&gt;; &lt;lista med oider&gt;; &lt;namnmatchningsmetoder&gt;
+
+Exempel
+==============
+IssuerThumbprint1; oid1, oid2, oid3; UpnSuffix=domain.com
+IssuerThumbprint2; oid1; UpnSuffix=domain.com, UpnSuffix=other.domain.com, IssuerSubject
+IssuerThumbprint3; oid1, oid2; IssuerSubject
+
+Principen måste innehålla exakt ett certifikattumavtryck per regel, där varje regel representeras som en tuple. Tumavtryck måste vara unika och kan inte upprepas i flera regler. Avsnitten i varje tuple som avgränsas med semikolon måste vara i angiven ordning, medan fälten som avgränsas med kommatecken kan vara i valfri ordning. Själva reglerna avgränsas med ny rad.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="emitlili">
@@ -121,6 +161,15 @@ Om du inaktiverar eller låter bli att konfigurera principinställningen tillhan
       </presentation>
       <presentation id="PKINITFreshness">
         <dropdownList refId="PKINITFreshness_Levels" noSort="true" defaultItem="1">Alternativ för PKInit Freshness Extension:</dropdownList>
+      </presentation>
+      <presentation id="PKINITHashAlgorithmConfiguration">
+        <dropdownList refId="PKINITHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
+      </presentation>
+      <presentation id="StrongNameMatches">
+          <multiTextBox refId="StrongNameMatchesList">Matchningsregler för starkt namn:</multiTextBox>
       </presentation>
     </presentationTable>
   </resources>

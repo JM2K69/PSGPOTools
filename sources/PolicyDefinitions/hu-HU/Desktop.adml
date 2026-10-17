@@ -55,6 +55,15 @@ Megjegyzés: Ez a beállítás az Active Desktop felületet nem tiltja le. A fel
 Alapértelmezés szerint a felhasználó úgy módosíthatja az egyéni profil mappák helyét – például Dokumentumok, Zene stb. –, hogy a mappához tartozó Tulajdonságok párbeszédpanelen található Helyek lapon egy új elérési utat ad meg.
 
 Ezen beállítás engedélyezésével a felhasználók az új helyet nem tudják beírni a Cél mezőbe.</string>
+      <string id="EnableThemeFileRemoteResource">Témafájlok engedélyezése hálózati helyekről</string>
+      <string id="EnableThemeFileRemoteResource_Help">Ez a házirend-beállítás meghatározza, hogy távoli elérési utak használhatók-e a Windows asztali témafájljában (.theme/.themepack) lévő erőforrásokhoz.
+
+Ha engedélyezi ezt a házirend-beállítást, a témafájlok hivatkozhatnak a hálózati megosztásokon vagy más távoli helyeken található erőforrásokra (például képekre, hangokra és ikonokra). A felhasználók alkalmazhatják azokat a témákat, amelyek távoli erőforrásokat tartalmaznak.
+
+Ha letiltja ezt a házirend-beállítást, a témafájlok nem használhatnak távoli erőforrásokat. A távoli erőforrásokra hivatkozó témafájlok nem fogják tudni betölteni ezeket az erőforrásokat, és csak a helyi erőforrások jelennek meg.
+
+Ha nem konfigurálja ezt a házirend-beállítást, az alapértelmezett viselkedés a témafájlokban található távoli erőforrások biztonsági okokból történő letiltása.</string>
+
       <string id="ForceActiveDesktopOn">Az Active Desktop engedélyezése</string>
       <string id="ForceActiveDesktopOn_Help">Az Active Desktop felület engedélyezése, és a felhasználó által történő letiltásának megakadályozása.
 

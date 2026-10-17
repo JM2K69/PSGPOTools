@@ -18,7 +18,7 @@
       <string id="InternetCPL_Programs">Programok lap</string>
       <string id="AddonManagement_AddOnList">Bővítménylista</string>
       <string id="AddonManagement_ManagementMode">Az összes bővítmény tiltása a bővítménylistában külön engedélyezett bővítmények kivételével</string>
-      <string id="AddonManagement_RestrictCrashDetection">Összeomlás-észlelés kikapcsolása</string>
+      <string id="AddonManagement_RestrictCrashDetection">Ütközésészlelés kikapcsolása</string>
       <string id="AddonManagement_RestrictExtensionManagement">Bővítmények felhasználók általi engedélyezésének vagy letiltásának tiltása</string>
       <string id="AddSearchProvider">Adott keresésszolgáltatókból álló lista hozzáadása a felhasználó keresésszolgáltató-listájához</string>
       <string id="AdminApproved">Rendszergazda által jóváhagyott vezérlők</string>
@@ -270,7 +270,7 @@ Ha engedélyezi ezt a házirend-beállítást, akkor megadhatja azon webhelyek l
 
 Ha ezt a házirend-beállítást letiltja vagy nem konfigurálja, nem adhat meg alapértelmezett Előugró ablakok blokkolása kivétellistát.
 
-Megjegyzés: „Az engedélyezett előugró ablakokat tartalmazó lista konfigurálásának kikapcsolása” házirend engedélyezésével letilthatja, hogy a felhasználók módosítsák a kivétellistán szereplő webhelyeket.</string>
+Megjegyzés: Az Előugró ablakok engedélyezési listája konfigurálásának kikapcsolása” házirend engedélyezésével letilthatja, hogy a felhasználók módosítsák a kivétellistán szereplő webhelyeket.</string>
       <string id="ExplainScriptPaste_AllProcs_Explain">Ezzel a házirend-beállítással kikerülheti a rákérdezést, amikor a számítógépen egy bármilyen folyamatban futó parancsfájl vágólap-műveletet (törlést, másolást vagy beillesztést) kísérel meg végrehajtani.
 
 Ha engedélyezi ezt a házirend-beállítást, a rendszer nem kérdez rá, amikor a számítógépen egy bármilyen folyamatban futó parancsfájl vágólap-műveletet hajt végre. Ez azt jelenti, hogy ha a zóna viselkedése rákérdezésre van állítva, a rendszer megkerüli ezt a beállítást, és engedélyezi a vágólap-műveleteket.
@@ -355,7 +355,7 @@ Ha letiltja ezt a házirend-beállítást, akkor az Internetcsatlakozás varázs
 
 Ha nem konfigurálja ezt a házirend-beállítást, akkor a felhasználó döntheti el, hogy az Internetcsatlakozás varázsló automatikusan induljon-e.</string>
       <string id="ICWSettings">Az Internetkapcsolat varázsló beállításai</string>
-      <string id="Identities">Identitáskezelő: A felhasználók nem használhatnak identitásokat</string>
+      <string id="Identities">Identity Manager: A felhasználók nem használhatnak identitásokat</string>
       <string id="IDN_Always">Konvertálás mindig IDN-formátumba</string>
       <string id="IDN_Intranet">Intranetes címek konvertálása IDN-formátumba</string>
       <string id="IDN_Never">IDN-formátumba konvertálás mellőzése</string>
@@ -415,17 +415,17 @@ Ha nem konfigurálja ezt a házirend-beállítást, a felhasználók felcserélh
 
 Ha engedélyezi ezt a házirend-beállítást, a rendszer nem szólítja fel a felhasználót az adathalászat-szűrő engedélyezésére. Meg kell adnia, hogy az adathalászat-szűrő melyik módot használja: manuális, automatikus vagy kikapcsolt.
 
-Ha a manuális módot választja, az adathalászat-szűrő csak helyi elemzést végez, és a rendszer minden információ esetében felszólítja a felhasználót, hogy engedélyezze az adatok elküldését a Microsoftnak. Ha a szolgáltatást teljesen engedélyezi, akkor a szűrő engedélyezett elemeket tartalmazó listáján nem szereplő összes webhelycímet a rendszer automatikusan elküldi a Microsoftnak a felhasználó megkérdezése nélkül.
+Ha a manuális módot választja, az adathalászat-szűrő csak helyi elemzést végez, és a rendszer minden információ esetében felszólítja a felhasználót, hogy engedélyezze az adatok elküldését a Microsoftnak. Ha a szolgáltatást teljesen engedélyezi, akkor a szűrő engedélyezési listáján nem szereplő összes webhelycímet a rendszer automatikusan elküldi a Microsoftnak a felhasználó megkérdezése nélkül.
 
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a rendszer felszólítja a felhasználót, hogy határozza meg az adathalászat-szűrő üzemmódot.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter">A házirend-beállítás révén a felhasználó engedélyezhet egy SmartScreen szűrőt, amely figyelmezteti a felhasználót, ha ismert, hogy a meglátogatott webhely adathalász, csaló kísérleteket tett személyes adatok gyűjtésére, vagy kártevő programok találhatók rajta.
 
-Ha engedélyezi ezt a házirend-beállítást, a rendszer nem szólítja fel a felhasználót a SmartScreen szűrő bekapcsolására. Meg kell adnia azt az üzemmódot, amelyet a SmartScreen szűrő használ: be- vagy kikapcsolt. A szűrő engedélyezett elemeket tartalmazó listáján nem szereplő összes webhelycímet a rendszer automatikusan elküldi a Microsoftnak a felhasználó megkérdezése nélkül.
+Ha engedélyezi ezt a házirend-beállítást, a rendszer nem szólítja fel a felhasználót a SmartScreen szűrő bekapcsolására. Meg kell adnia azt az üzemmódot, amelyet a SmartScreen szűrő használ: be- vagy kikapcsolt. A szűrő engedélyezési listáján nem szereplő összes webhelycímet a rendszer automatikusan elküldi a Microsoftnak a felhasználó megkérdezése nélkül.
 
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a rendszer felszólítja a felhasználót, hogy döntse el, bekapcsolja-e a SmartScreen szűrőt az első indításkor.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter_IE9">Ez a házirend-beállítás megakadályozza, hogy a felhasználó kezelhesse a SmartScreen szűrőt, amely figyelmezteti a felhasználót, ha ismert, hogy a meglátogatott webhely adathalász, csaló kísérleteket tett személyes adatok gyűjtésére, vagy kártevő programok találhatók rajta.
 
-Ha engedélyezi ezt a házirend-beállítást, a rendszer nem szólítja fel a felhasználót a SmartScreen szűrő bekapcsolására. A szűrő engedélyezett elemeket tartalmazó listáján nem szereplő összes webhelycímet a rendszer automatikusan elküldi a Microsoftnak a felhasználó megkérdezése nélkül.
+Ha engedélyezi ezt a házirend-beállítást, a rendszer nem szólítja fel a felhasználót a SmartScreen szűrő bekapcsolására. A szűrő engedélyezési listáján nem szereplő összes webhelycímet a rendszer automatikusan elküldi a Microsoftnak a felhasználó megkérdezése nélkül.
 
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a rendszer felszólítja a felhasználót, hogy döntse el, bekapcsolja-e a SmartScreen szűrőt az első indításkor.</string>
       <string id="IE_Explain_DisableSecuritySettingsCheck">Ez a házirend-beállítás kikapcsolja a biztonsági beállításokat ellenőrző szolgáltatást, amely ellenőrzi, hogy az Internet Explorer biztonsági beállításai kockázatnak teszik-e ki az Internet Explorer alkalmazást.
@@ -501,7 +501,7 @@ Ha engedélyezi ezt a házirend-beállítást, az Internet Explorer csak azokat 
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasználók továbbra is engedélyezhetik vagy letilthatják a „Bővítménylista” házirend-beállításban nem szereplő bővítményeket a Bővítménykezelővel.
 
 Megjegyzés: Ha valamelyik bővítmény fel van sorolva a „Bővítménylista” házirend-beállításban, a felhasználók nem módosíthatják annak állapotát a Bővítménykezelővel (kivéve, ha a házirendben a bővítményre vonatkozó beállítás engedélyezi a felhasználók általi kezelést – további részletekért tekintse meg a „Bővítménylista” házirend leírását).</string>
-      <string id="IE_ExplainAddonManagement_RestrictCrashDetection">Ezzel a házirend-beállítással kezelheti a bővítménykezelő összeomlás-észlelő szolgáltatását.
+      <string id="IE_ExplainAddonManagement_RestrictCrashDetection">Ezzel a házirend-beállítással kezelheti a bővítménykezelő ütközésészlelési szolgáltatását.
 
 Ha engedélyezi ezt a házirend-beállítást, az Internet Explorer összeomlása a Windows XP Professional Service Pack 1 és a korábbi verziókhoz hasonlóan a Windows hibajelentés szolgáltatást indítja el. A Windows hibajelentésre vonatkozó összes házirend-beállítás továbbra is érvényes marad.
 
@@ -805,9 +805,9 @@ Figyelmeztetés: A házirend engedélyezése nem törli a Netscape felhasználó
 Ha engedélyezi ezt a házirendet, A nap tippje parancs nem jelenik meg a Súgó menüben.
 
 Ha letiltja vagy nem konfigurálja ezt a házirendet, a felhasználók engedélyezhetik vagy letilthatják A nap tippje felületet, amely a böngésző alján jelenik meg.</string>
-      <string id="IE_ExplainIdentities">A felhasználók nem konfigurálhatnak egyedi identitásokat az Identitáskezelővel.
+      <string id="IE_ExplainIdentities">A felhasználók nem konfigurálhatnak egyedi identitásokat az Identity Managerrel.
 
-Az Identitáskezelővel a felhasználók többszörös fiókokat, például e-mail-fiókokat hozhatnak létre ugyanazon a számítógépen. Minden egyes felhasználónak egyedi identitása van, különböző jelszóval és különböző programbeállításokkal.
+Az Identity Managerrel a felhasználók többszörös fiókokat, például e-mail-fiókokat hozhatnak létre ugyanazon a számítógépen. Minden egyes felhasználónak egyedi identitása van, különböző jelszóval és különböző programbeállításokkal.
 
 Ha engedélyezi ezt a házirendet, a felhasználók nem tudnak új identitást létrehozni, a meglévő identitásokat kezelni vagy identitást váltani. Az Identitás váltása beállítás nem jelenik meg a Címjegyzék Fájl menüjében.
 
@@ -1345,7 +1345,7 @@ Ha engedélyezi ezt a házirend-beállítást, a felhasználó nem adhat hozzá 
 
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasználó hozzáadhat webhelyeket a kivétellistához, illetve eltávolíthat arról webhelyeket.
 
-Megjegyzés: Az „Engedélyezett előugró ablakok listájának megadása” házirend-beállítás engedélyezésével engedélyezhet egy olyan oldalakat tartalmazó alapértelmezett listát, amelyek az Internet Explorer folyamat Előugró ablakok blokkolása beállításaitól függetlenül megnyithatnak előugró ablakokat.</string>
+Megjegyzés: Az Előugró ablakok engedélyezési listájának megadása” házirend-beállítás engedélyezésével engedélyezhet egy olyan oldalakat tartalmazó alapértelmezett listát, amelyek az Internet Explorer folyamat Előugró ablakok blokkolása beállításaitól függetlenül megnyithatnak előugró ablakokat.</string>
       <string id="IE_ExplainRestrictPopupManagement">Ezzel a házirend-beállítással kezelheti az előugró ablakok kezelése funkciót az Internet Explorer programban.
 
 Ha engedélyezi ezt a házirendet, az előugró ablakok kezelésével kapcsolatos Vezérlőpult információk nem lesznek elérhetők (halványan jelennek meg) és a többi, előugró ablakokat kezelő vezérlő, értesítés és párbeszédpanel nem jelenik meg. Az előugró ablakok úgy fognak működni, mint a Windows XP Service Pack 1 vagy korábbi verziókban, bár a képernyőn kívül elindított ablakokat továbbra is a képernyőn helyezi el újra a rendszer.
@@ -3014,7 +3014,7 @@ Ez a szolgáltatás csak az Internet Explorer 8-as és azt megelőző verzióira
       <string id="Persistence_FileLimits4">Fájlméretkorlátok a Tiltott helyek zónában</string>
       <string id="PhishingOff">Ki</string>
       <string id="PhishingOn">Be</string>
-      <string id="PopupBlocker_AllowList">Engedélyezett előugró ablakok listája</string>
+      <string id="PopupBlocker_AllowList">Előugró ablakok engedélyezési listája</string>
       <string id="Printing">Nyomtatás</string>
       <string id="Printing_Explain">Ez a házirend-beállítás határozza meg, hogy az Internet Explorer kinyomtassa-e a háttérszíneket és -képeket, amikor a felhasználó weblapot nyomtat. A háttérszínek és -képek belefoglalása csökkentheti az oldalak nyomtatásának sebességét, és a nyomtató képességeitől függően hatással van a nyomtatás minőségére is.
 
@@ -3574,37 +3574,42 @@ Ha letiltja, vagy nem konfigurálja a házirend-beállítást, az Internet Explo
 
 Megjegyzés: A Windows 10 1607-es verziójától kezdve ez a házirend nem használható.</string>
       <string id="Protocols_None">Ne használjon biztonságos protokollokat</string>
-      <string id="Protocols_SSL2">Csak SSL 2.0 használata</string>
+      <string id="Protocols_SSL2">[Elavult] Csak SSL 2.0 használata</string>
       <string id="Protocols_SSL3">Csak SSL 3.0 használata</string>
-      <string id="Protocols_SSL2_SSL3">SSL 2.0 és SSL 3.0 használata</string>
+      <string id="Protocols_SSL2_SSL3">[Elavult] SSL 2.0 és SSL 3.0 használata</string>
       <string id="Protocols_TLS10">Csak TLS 1.0 használata</string>
-      <string id="Protocols_SSL2_TLS10">SSL 2.0 és TLS 1.0 használata</string>
+      <string id="Protocols_SSL2_TLS10">[Elavult] SSL 2.0 és TLS 1.0 használata</string>
       <string id="Protocols_SSL3_TLS10">SSL 3.0 és TLS 1.0 használata</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">SSL 2.0, SSL 3.0 és TLS 1.0 használata</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[Elavult] SSL 2.0, SSL 3.0 és TLS 1.0 használata</string>
       <string id="Protocols_TLS11">Csak TLS 1.1 használata</string>
-      <string id="Protocols_SSL2_TLS11">SSL 2.0 és TLS 1.1 használata</string>
+      <string id="Protocols_SSL2_TLS11">[Elavult] SSL 2.0 és TLS 1.1 használata</string>
       <string id="Protocols_SSL3_TLS11">SSL 3.0 és TLS 1.1 használata</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">SSL 2.0, SSL 3.0 és TLS 1.1 használata</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[Elavult] SSL 2.0, SSL 3.0 és TLS 1.1 használata</string>
       <string id="Protocols_TLS10_TLS11">TLS 1.0 és TLS 1.1 használata</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">SSL 2.0, TLS 1.0 és TLS 1.1 használata</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[Elavult] SSL 2.0, TLS 1.0 és TLS 1.1 használata</string>
       <string id="Protocols_SSL3_TLS10_TLS11">SSL 3.0, TLS 1.0 és TLS 1.1 használata</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">SSL 2.0, SSL 3.0, TLS 1.0 és TLS 1.1 használata</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[Elavult] SSL 2.0, SSL 3.0, TLS 1.0 és TLS 1.1 használata</string>
       <string id="Protocols_TLS12">Csak TLS 1.2 használata</string>
-      <string id="Protocols_SSL2_TLS12">SSL 2.0 és TLS 1.2 használata</string>
+      <string id="Protocols_SSL2_TLS12">[Elavult] SSL 2.0 és TLS 1.2 használata</string>
       <string id="Protocols_SSL3_TLS12">SSL 3.0 és TLS 1.2 használata</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">SSL 2.0, SSL 3.0 és TLS 1.2 használata</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[Elavult] SSL 2.0, SSL 3.0 és TLS 1.2 használata</string>
       <string id="Protocols_TLS10_TLS12">TLS 1.0 és TLS 1.2 használata</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">SSL 2.0, TLS 1.0 és TLS 1.2 használata</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[Elavult] SSL 2.0, TLS 1.0 és TLS 1.2 használata</string>
       <string id="Protocols_SSL3_TLS10_TLS12">SSL 3.0, TLS 1.0 és TLS 1.2 használata</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">SSL 2.0, SSL 3.0, TLS 1.0 és TLS 1.2 használata</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[Elavult] SSL 2.0, SSL 3.0, TLS 1.0 és TLS 1.2 használata</string>
       <string id="Protocols_TLS11_TLS12">TLS 1.1 és TLS 1.2 használata</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">SSL 2.0, TLS 1.1 és TLS 1.2 használata</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[Elavult] SSL 2.0, TLS 1.1 és TLS 1.2 használata</string>
       <string id="Protocols_SSL3_TLS11_TLS12">SSL 3.0, TLS 1.1 és TLS 1.2 használata</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">SSL 2.0, SSL 3.0, TLS 1.1 és TLS 1.2 használata</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[Elavult] SSL 2.0, SSL 3.0, TLS 1.1 és TLS 1.2 használata</string>
       <string id="Protocols_TLS10_TLS11_TLS12">TLS 1.0, TLS 1.1 és TLS 1.2 használata</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">SSL 2.0, TLS 1.0, TLS 1.1 és TLS 1.2 használata</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[Elavult] SSL 2.0, TLS 1.0, TLS 1.1 és TLS 1.2 használata</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">SSL 3.0, TLS 1.0, TLS 1.1 és TLS 1.2 használata</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 és TLS 1.2 használata</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[Elavult] SSL 2.0, SSL 3.0, TLS 1.0 és TLS 1.1 és TLS 1.2 használata</string>
+      <string id="Protocols_TLS13">Csak TLS 1.3 használata</string>
+      <string id="Protocols_TLS12_TLS13">TLS 1.2 és TLS 1.3 használata</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">TLS 1.1, TLS 1.2 és TLS 1.3 használata</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">TLS 1.0, TLS 1.1, TLS 1.2 és TLS 1.3 használata</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">SSL 3.0, TLS 1.0, TLS 1.1, TLS 1.2 és TLS 1.3 használata</string>
       <string id="LockToolbars">Az összes eszköztár zárolása</string>
       <string id="MoveStopRefresh">A Leállítás és Frissítés gombok helyének zárolása</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3903,10 +3908,10 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasznál�
 Ha bekapcsolja ezt a beállítást, a felhasználók láthatják és használhatják az Eszközök menüben a Vállalati mód parancsot. Ha bekapcsolja a beállítást, de nem adja meg a jelentések helyét, a vállalati mód elérhető lesz a felhasználók számára, de jelentések nem készülnek.
 
 Ha letiltja vagy nem konfigurálja a házirend-beállítást, a felhasználók nem látják a menüparancsot, és nem tudják a webhelyeket vállalati módban megnyitni.</string>
-      <string id="RestrictInternetExplorer">A vállalati mód webhelylistáján nem szereplő webhelyek megnyitása a Microsoft Edge-ben</string>
-      <string id="IE_ExplainRestrictInternetExplorer">Ezzel a beállítással adható meg, hogy a Microsoft Edge-ben nyíljanak-e meg a vállalati mód webhelylistáján nem szereplő webhelyek. Ha engedélyezi ezt a beállítást, a Felügyeleti sablonok\Windows-összetevők\Internet Explorer\A vállalati mód webhelylistájának használata házirend-beállítást is be kell kapcsolnia, és legalább egy webhelyet fel kell vennie a webhelylistára.
+      <string id="RestrictInternetExplorer">A nagyvállalati módú webhelyek listáján nem szereplő webhelyek megnyitása a Microsoft Edge-ben</string>
+      <string id="IE_ExplainRestrictInternetExplorer">Ezzel a beállítással adható meg, hogy a Microsoft Edge-ben nyíljanak-e meg a nagyvállalati módú webhelyek listáján nem szereplő webhelyek. Ha engedélyezi ezt a beállítást, a Felügyeleti sablonok\Windows-összetevők\Internet Explorer\A nagyvállalati módú webhelyek listájának használata házirend-beállítást is be kell kapcsolnia, és legalább egy webhelyet fel kell vennie a webhelylistára.
 
-A beállítás engedélyezése után a vállalati mód webhelylistáján nem szereplő webhelyek automatikusan a Microsoft Edge-ben nyílnak meg.
+A beállítás engedélyezése után a nagyvállalati módú webhelyek listáján nem szereplő webhelyek automatikusan a Microsoft Edge-ben nyílnak meg.
 
 Ha letiltja a beállítást, vagy nem konfigurálja azt, minden webhely az alapértelmezettként beállított böngészőben nyílik meg.
 
@@ -3917,6 +3922,120 @@ Megjegyzés: Amennyiben a Felügyeleti sablonok\Windows-összetevők\Microsoft E
 Ha engedélyezi ezt a beállítást, külön oldal jelzi az Internet Explorer 11-ben, hogy a Microsoft Edge vállalati módjában nyílt meg a webhely.
 
 Ha letiltja a beállítást, vagy nem konfigurálja azt, az alapértelmezett módon működik a böngésző, azaz nem jelenik meg külön értesítő oldal.</string>
+      <string id="NeedEdgeBrowser">Az átirányított webhelyek megnyitásához használandó Microsoft Edge-csatorna beállítása</string>
+      <string id="IE_ExplainNeedEdgeBrowser">Lehetővé teszi akár három Microsoft Edge-verzió konfigurálását az átirányított webhelyek megnyitására (a preferencia sorrendjében). Akkor használja ezt a házirendet, ha a környezete úgy van konfigurálva, hogy a webhelyek át legyenek irányítva az Internet Explorer 11-ből a Microsoft Edge-be. Ha a kiválasztott verziók valamelyike nincs telepítve az eszközön, akkor az adott preferenciát megkerüli a rendszer.
+
+Ha telepítve van a Microsoft Edge következő verziójához kapcsolódó Windows Update-frissítés* és a Microsoft Edge stabil csatorna egyaránt, az alábbi viselkedés figyelhető meg:
+– Ha letiltja vagy nem konfigurálja ezt a házirendet, a rendszer a Microsoft Edge stabil csatornát használja. Ez az alapértelmezett viselkedés.
+– Ha engedélyezi ezt a házirendet, az átirányított webhelyek megnyitásához konfigurálhat legfeljebb hármat az alábbi csatornákból, ahol:
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta, 77-es vagy újabb verzió
+    3 = Microsoft Edge Dev, 77-es vagy újabb verzió
+    4 = Microsoft Edge Canary, 77-es vagy újabb verzió
+
+Ha nincs telepítve a Microsoft Edge következő verziójához kapcsolódó Windows Update-frissítés* vagy a Microsoft Edge stabil csatorna, az alábbi viselkedés figyelhető meg:
+– Ha letiltja vagy nem konfigurálja ezt a házirendet, a rendszer automatikusan a Microsoft Edge 45-ös vagy korábbi verzióját használja. Ez az alapértelmezett viselkedés.
+– Ha engedélyezi ezt a házirendet, az átirányított webhelyek megnyitásához konfigurálhat legfeljebb hármat az alábbi csatornákból, ahol:
+    0 = Microsoft Edge, 45-ös vagy korábbi verzió
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta, 77-es vagy újabb verzió
+    3 = Microsoft Edge Dev, 77-es vagy újabb verzió
+    4 = Microsoft Edge Canary, 77-es vagy újabb verzió
+
+*A Microsoft Edge következő verziójához kapcsolódó Windows-frissítéssel, illetve annak letiltásával kapcsolatos további információért lásd: https://go.microsoft.com/fwlink/?linkid=2102115. Ez a frissítés kizárólag a Windows 10 1709-es és újabb verzióira érvényes.</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta, 77-es vagy újabb verzió</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev, 77-es vagy újabb verzió</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary, 77-es vagy újabb verzió</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge, 45-ös vagy korábbi verzió</string>
+      <string id="KeepIntranetSitesInInternetExplorer">Az összes intranethely megtartása az Internet Explorerben</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">Megakadályozza, hogy az intranethelyeket meg lehessen nyitni az Internet Explorertől eltérő böngészőben. Azonban vegye figyelembe, hogy ha „A nagyvállalati módú webhelyek listáján nem szereplő webhelyek megnyitása a Microsoft Edge-ben” (RestrictIE) házirend nincs engedélyezve, akkor a jelen házirendnek nincs semmilyen hatása.
+
+Ha engedélyezi ezt a házirendet, az összes intranethely az Internet Explorer 11 verzióban nyílik meg. Ez alól kivételt jelentenek a nagyvállalati módú webhelyek listáján felsorolt webhelyek.
+
+Ha letiltja vagy nem konfigurálja ezt a házirendet, az összes intranethely automatikusan a Microsoft Edge-ben nyílik meg.
+
+Kifejezetten javasoljuk, hogy ezt a házirendet a „Minden intranethely elküldése az Internet Explorernek” (SendIntranetToInternetExplorer) házirenddel megegyező módon kezelje. Ezenkívül csak akkor érdemes engedélyeznie ezt a házirendet, ha az intranethelyeinek ismert kompatibilitási problémája van a Microsoft Edge-dzsel.
+
+Kapcsolódó házirendek:
+– Minden intranethely elküldése az Internet Explorernek (SendIntranetToInternetExplorer)
+– A nagyvállalati módú webhelyek listáján nem szereplő webhelyek megnyitása a Microsoft Edge-ben (RestrictIE)
+
+Ha további információt szeretne olvasni arról, hogyan használhatja ezt a házirendet a többi kapcsolódó házirenddel együtt, hogy optimális konfigurációt biztosítson szervezete számára, keresse fel a https://go.microsoft.com/fwlink/?linkid=2094210 webhelyet.</string>
+      <string id="AllowSaveTargetAsInIEMode">A Cél mentése másként parancs engedélyezése Internet Explorer üzemmódban</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">Ezzel a házirend-beállítással a rendszergazdák engedélyezhetik a helyi menü Cél mentése másként parancsát.
+
+Ha engedélyezi ezt a házirend-beállítást, a Cél mentése másként parancs meg fog jelenni az Internet Explorer üzemmód helyi menüjében, és az Internet Explorerben megszokott módon fog működni.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Cél mentése másként parancs nem fog megjelenni az Internet Explorer üzemmód helyi menüjében.
+
+További információ https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="EnableGlobalWindowListInIEMode">Globális ablaklista engedélyezése Internet Explorer módban</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">Ez a beállítás lehetővé teszi az Internet Explorer mód számára a globális ablaklista használatát, amely lehetővé teszi az állapot megosztását más alkalmazásokkal.
+A beállítás csak akkor lép érvénybe, ha az Internet Explorer 11 le van tiltva önálló böngészőként.
+
+Ha engedélyezi ezt a házirendet, az Internet Explorer mód a globális ablaklistát fogja használni.
+
+Ha letiltja vagy nem konfigurálja ezt a házirendet, az Internet Explorer mód továbbra is külön ablaklistát fog fenntartani.
+
+Az Internet Explorer móddal kapcsolatos további információért lásd: https://go.microsoft.com/fwlink/?linkid=2102921
+Az Internet Explorer 11 önálló böngészőként való letiltásával kapcsolatos további információért lásd: https://go.microsoft.com/fwlink/?linkid=2168340</string>
+      <string id="EnableExtendedIEModeHotkeys">Kiterjesztett gyorsbillentyűk engedélyezése Internet Explorer módban</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">Ez a házirend-beállítás lehetővé teszi a rendszergazdák számára, hogy bővített Microsoft Edge böngészővel Internet Explorer üzemmódú gyorsbillentyűket engedélyezzenek, például a „Ctrl + S“ billentyűparancs a „Mentés másként“ funkcióhoz.
+
+Ha engedélyezi ezt a házirendet, a bővített gyorsbillentyű-funkciók engedélyezve vannak Internet Explorer üzemmódban, és az Internet Explorerrel megegyezően működnek.
+
+Ha letiltja vagy nem konfigurálja ezt a házirendet, a bővített gyorsbillentyűk nem fognak működni az Internet Explorer üzemmódban.
+
+További információ: https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="AllowLegacyURLFields">Örökölt funkciók engedélyezése az Internet-parancsikonfájlokhoz</string>
+      <string id="IE_ExplainAllowLegacyURLFields">Ez a házirendbeállítás lehetővé teszi bizonyos letiltott funkciók, például a WorkingDirectory mező vagy a csatlakoztatható protokollok kezelését az Internet-parancsikonfájlokban.
+
+Ha engedélyezi ezt a házirendet, az Internet-parancsikonfájlok letiltott funkciói újra engedélyezve lesznek.
+
+Ha letiltja vagy nem konfigurálja ezt a házirendet, az Internet-parancsikonfájlok bizonyos funkciói, például a WorkingDirectory-mező vagy a csatlakoztatható protokoll kezelése le lesz tiltva.</string>
+      <string id="ResetZoomForDialogInIEMode">A nagyítás alapértelmezettre állítása HTML párbeszédpanelek esetén Internet Explorer módban</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">Ez a házirend-beállítás lehetővé teszi a rendszergazdák számára, hogy Internet Explorer módban a HTML párbeszédpanelek nagyítását alapértelmezettre állítsák vissza.
+
+Ha engedélyezi ezt a házirendet, egy HTML párbeszédpanel nagyítása Internet Explorer módban nem továbbítódik a szülőoldalról.
+
+Ha letiltja, vagy nem konfigurálja ezt a házirendet, az Internet Explorer módban lévő HTML párbeszédpanel nagyítása a szülőoldal nagyítása alapján kerül beállításra.
+
+További információért lásd: https://go.microsoft.com/fwlink/?linkid=2220107</string>
+      <string id="DisableInternetExplorerApp">Az Internet Explorer 11 letiltása önálló böngészőként</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">Ezzel a házirenddel korlátozhatja az Internet Explorer indítását önálló böngészőként.
+
+Ha engedélyezi ezt a házirendet:
+- Az Internet Explorer 11-et nem tudja önálló böngészőként elindítani.
+- Korlátozza az Internet Explorer használatát a Microsoft Edge „natív Internet Explorer“ üzemmódjában.
+– A 11-es Internet Explorer Microsoft Edge Stabil csatorna böngészőre való indítási kísérletek átirányítása.
+- Minden egyéb házirendet felülbírálja az Internet Explorer 11 átirányításáról.
+
+Még ha ez a szabályzat is engedélyezve van, a 11-Internet Explorer COM-automatizálással való indítása továbbra is engedélyezett lesz. Az Internet Explorer 11 COM automatizálásának letiltásához használja a "Disable Internet Explorer 11 COM Automation" csoportházirendet.
+
+Ha letiltja vagy nem konfigurálja ezt a házirendet, az összes webhely az aktuális aktív böngésző-beállításokkal nyílik meg. Megjegyzés: a Microsoft Edge stabil csatornát telepíteni kell a házirend érvénybe lépéséhez.</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">Az Internet Explorer 11 indításának letiltása a COM automatizáláson keresztül</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">Ezzel a szabályzattal korlátozhatja az Internet Explorer indítását a COM-automatizálás használatával.
+
+Ha engedélyezi ezt a házirendet, megakadályozza, hogy az Internet Explorer 11 COM-automatizálással elinduljon.
+
+Ha letiltja, vagy nem konfigurálja ezt a házirendet, az Internet Explorer 11 COM-automatizálási indításai engedélyezettek.</string>
+      <string id="DisableIEAppDeprecationNotification">Az Internet Explorer 11 kivezetéséről szóló értesítés elrejtése</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">Ezzel a szabályzatbeállítással kezelheti, hogy megjelenjen-e az értesítési sávban az emlékeztető az Internet Explorer kivezetéséről. Alapértelmezés szerint az Értesítési sáv megjelenik az Internet Explorer 11-ben.
+
+Ha engedélyezi ezt a szabályzatbeállítást, az Értesítési sáv nem jelenik meg az Internet Explorer 11-ben.
+
+Ha letiltja vagy nem konfigurálja ezt a szabályzatbeállítást, az Értesítési sáv megjelenik az Internet Explorer 11-ben.</string>
+      <string id="NotifyDisableIEOptions_Never">Soha</string>
+      <string id="NotifyDisableIEOptions_Always">Mindig</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">Felhasználónként egyszer</string>
+      <string id="JScriptReplacement">Cserélje le a JScript-t a JScript9Legacy betöltésével a JScript helyett.</string>
+      <string id="IE_ExplainJScriptReplacement">Ezzel a házirend-beállítással megadhatja, hogy a JScript vagy JScript9Legacy legyen-e betöltve.
+      
+Ha engedélyezi vagy nem konfigurálja ezt a házirend-beállítást, a rendszer a JScript9Legacy-t tölti be, amikor JScript-példány jön létre.
+
+Ha letiltja ezt a házirend-beállítást, akkor JScript lesz használva.</string>
       <string id="VerMgmtDisable">Elavult ActiveX-vezérlők blokkolásának kikapcsolása az Internet Explorerben</string>
       <string id="IE_ExplainVerMgmtDisable">Ez a házirend-beállítás meghatározza, hogy az Internet Explorer blokkol-e bizonyos elavult ActiveX-vezérlőket. Az Intranet zónában soha nincsenek blokkolva az elavult ActiveX-vezérlők.
 
@@ -4118,10 +4237,16 @@ Ha engedélyezi a beállítást, az Internet Explorer nem tölti le a VersionLis
 Ha letiltja vagy nem konfigurálja a beállítást, az Internet Explorer továbbra is letölti a VersionList.xml fájl újabb verzióit.
 
 Ha további információra van szüksége, keressen rá az „Elavult ActiveX-vezérlők blokkolása” kifejezésre a TechNet Internet Explorerrel foglalkozó részében.</string>
+      <string id="DisableHTMLApplication">HTML-alkalmazás letiltása</string>
+      <string id="DisableHTMLApplication_Explain">Ez a házirend-beállítás határozza meg, hogy a HTML-alkalmazás (HTA-fájl) futtatása letiltva vagy engedélyezve van-e.
+
+Ha engedélyezi ezt a házirend-beállítást, a HTML-alkalmazás (HTA-fájl) futtatása le lesz tiltva.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a HTML-alkalmazás (HTA-fájl) futtatása engedélyezett.</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
-        <listBox refId="DomainList">Tartományengedélyezési lista</listBox>
+        <listBox refId="DomainList">Tartományi engedélyezési lista</listBox>
       </presentation>
       <presentation id="AddonManagement_AddOnList_1">
         <listBox refId="AddOnList">Bővítménylista</listBox>
@@ -4787,6 +4912,14 @@ Ha további információra van szüksége, keressen rá az „Elavult ActiveX-ve
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">Tartománylista</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">Első választási lehetőség</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">Második választási lehetőség</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">Harmadik választási lehetőség</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">Értesítés, hogy az Internet Explorer 11 böngésző le van tiltva</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

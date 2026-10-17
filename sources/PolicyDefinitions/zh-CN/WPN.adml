@@ -6,6 +6,8 @@
   <resources>
     <stringTable>
       <string id="NotificationsCategory">通知</string>
+      <string id="WnsEndpoint">为 WNS FQDN 启用组策略</string>
+      <string id="WnsEndpointExplain">此策略为特定环境设置特殊 WNS FQDN。</string>
       <string id="NoTileNotification">关闭所有通知</string>
       <string id="NoTileNotificationExplain">
           
@@ -118,6 +120,18 @@
 
           此策略设置的生效无需重新启动设备或服务。
       </string>
+      <string id="ExpandedToastNotifications">在操作中心打开多个扩展的 toast 通知</string>
+      <string id="ExpandedToastNotificationsExplain">
+          此策略设置在操作中心中打开多个展开的 toast 通知。
+
+如果启用此策略设置，则默认情况下，每个应用程序的前三个通知将在操作中心中展开。
+
+如果禁用或未配置此策略设置，则默认情况下，操作中心中将仅展开每个应用程序的第一个通知。
+
+仅Windows 10。这将立即为Windows 11弃用。
+
+此策略设置无需重新启动或重新启动服务即可生效。
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="QuietHoursBeginTimePicker">
@@ -125,6 +139,11 @@
       </presentation>
       <presentation id="QuietHoursEndTimePicker">
         <decimalTextBox refId="QuietHoursDailyEndMinuteControl" defaultValue="360">午夜后（以分钟计）：</decimalTextBox>
+      </presentation>
+      <presentation id="WnsEndpoint">
+        <textBox refId="WnsEndpoint_FQDN">
+          <label>用于WNS 的 FQDN</label>
+        </textBox>
       </presentation>
     </presentationTable>
   </resources>

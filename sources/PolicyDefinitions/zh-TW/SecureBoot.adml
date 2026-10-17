@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>在此輸入顯示名稱</displayName>
+  <description>在此輸入描述</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">安全開機</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">透過受控功能逐步推出進行憑證部署</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">對於需要協助將新的安全開機憑證部署到裝置的企業，可以啟用此設定。
+
+ 
+
+注意: 裝置必須傳送必要的診斷資料給 Microsoft 才能使用此功能。
+
+ 
+
+如需詳細資訊，請參閱: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">透過更新自動部署憑證</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">對於測試結果顯示裝置能成功處理憑證更新的裝置，更新將作為服務更新的一部分自動啟動。此原則預設為啟用。若企業希望管理自動更新，請使用此原則明確啟用或停用該功能。
+
+ 
+
+如需詳細資訊，請參閱: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">啟用安全開機憑證部署</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">此原則設定可讓您啟用或停用裝置上的安全開機憑證部署程序。啟用時，Windows 會自動開始憑證部署程序至已套用此原則的裝置。
+
+ 
+
+注意: 這個註冊設定不會儲存在原則金鑰中，屬於偏好設定。因此，若實作此設定的群組原則物件遭到移除，則此登錄設定仍會保留。
+
+ 
+
+注意: 執行及處理此設定的 Windows 工作會每 12 小時執行一次。在某些情況下，更新會保留至系統重新啟動後，才能安全地依序完成。
+
+ 
+
+注意: 一旦憑證套用至該韌體，您就無法從 Windows 復原它們。如要清除憑證，則必須從韌體選單介面操作。
+
+ 
+
+如需詳細資訊，請參閱: https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">限制安全開機所需的服務資料</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">這個原則設定會控制作業系統是否發出每日的「安全開機」必要服務資料事件。此事件包含裝置的「安全開機」組態和韌體變數狀態相關資訊，且通常會不受「允許遙測」診斷資料層級影響而傳送，因為它歸類為安全性必要。
+
+ 
+
+啟用這個原則設定後，作業系統就不會發出每日的「安全開機」必要服務資料事件。這適用於在「Windows 受限流量有限功能基準」下作業的企業。
+
+ 
+
+如果您停用或未設定這個原則設定，作業系統會依照現有的遙測權限規則，繼續發出「安全開機」必要服務資料事件。</string>
+
+      <string id="SUPPORTED_Windows8">至少需要 Windows Server 2012、Windows 8 或 Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

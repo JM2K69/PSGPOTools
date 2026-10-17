@@ -9,15 +9,15 @@
       
       <!-- prevent file sync-->
       <string id="AllowProjectionToPC">Erre a gépre nem lehet tartalmat kivetítetni</string>
-      <string id="AllowProjectionToPC_help">Ezzel a házirend-beállítással kikapcsolható a tartalmak számítógépre történő kivetítése.
+      <string id="AllowProjectionToPC_help">Ez a szabályzatbeállítás lehetővé teszi a tartalmak számítógépre történő kivetítésének kikapcsolását.  
 
+ 
 
+Ha bekapcsolja, a számítógép nem észlelhető, és nem vetíthető rá ki tartalom, kivéve, ha a felhasználó manuálisan elindítja a Vezeték nélküli kijelző alkalmazást.  
 
-Ha engedélyezi ezt a beállítást, a gép nem észlelhető, és csak akkor lehet rá tartalmakat kivetíteni, ha a felhasználó manuálisan indítja el a Csatlakozás nevű alkalmazást.
+ 
 
-
-
-Ha letiltja vagy nem konfigurálja ezt a beállítást, a gép észlelhető lesz, és csak zárolt állapotban lehet rá tartalmakat kivetíteni. A felhasználó (a manuális indítás esetét kivéve) azt is megadhatja, hogy a kivetítés mindig engedélyezett vagy mindig tiltott legyen-e.</string>
+Ha kikapcsolja vagy nem konfigurálja, a számítógép észlelhető, és csak a zárolási képernyőn lehet rá tartalmakat kivetíteni. A felhasználó (a manuális indítás esetét kivéve) azt is megadhatja, hogy a kivetítés mindig be vagy ki legyen-e kapcsolva.</string>
 
       <string id="RequirePinForPairing">PIN-kód kérése párosításkor</string>
       <string id="RequirePinForPairing_help">Ezzel a házirend-beállítással írható elő, hogy csak PIN-kód beírásával lehessen elvégezni a párosítást.

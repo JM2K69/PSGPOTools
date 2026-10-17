@@ -55,6 +55,15 @@ Nota: Esta definição não desativa o Active Desktop. Os utilizadores continuar
 Por predefinição, um utilizador pode alterar a localização das respetivas pastas de perfil individuais, tal como Documentos, Música, etc., escrevendo um caminho novo no separador Localizações da caixa de diálogo Propriedades da pasta.
 
 Se ativar esta definição, os utilizadores não poderão escrever uma localização nova na caixa Destino.</string>
+      <string id="EnableThemeFileRemoteResource">Permitir ficheiros de tema a partir de locais de rede</string>
+      <string id="EnableThemeFileRemoteResource_Help">Esta definição de política determina se os caminhos remotos podem ser utilizados para recursos dentro de um ficheiro de tema de ambiente de trabalho do Windows (.theme/.themepack).
+
+Se ativar esta definição de política, os ficheiros de tema podem fazer referência a recursos (como imagens, sons e ícones) localizados em partilhas de rede ou noutras localizações remotas. Os utilizadores poderão aplicar temas que contenham recursos remotos.
+
+Se desativar esta definição de política, os ficheiros de tema não poderão utilizar recursos remotos. Qualquer ficheiro de tema que faça referência a recursos remotos não conseguirá carregar esses recursos e apenas os recursos locais serão apresentados.
+
+Se não configurar esta definição de política, o comportamento predefinido é bloquear recursos remotos em ficheiros de tema por razões de segurança.</string>
+
       <string id="ForceActiveDesktopOn">Ativar o Active Desktop</string>
       <string id="ForceActiveDesktopOn_Help">Ativa o Active Desktop e impede os utilizadores de desativá-lo.
 

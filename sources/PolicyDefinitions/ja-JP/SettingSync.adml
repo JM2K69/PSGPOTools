@@ -118,6 +118,51 @@
         このポリシー設定を構成しなかった場合、または無効にした場合、[スタート画面のレイアウト] グループの同期は既定でオンになり、ユーザーが構成できます。
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">アクセシビリティ設定を同期しない</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        "accessibility" グループがこの PC と同期しないようにします。これにより、PC 設定の [Windows バックアップ] 設定ページの [アクセシビリティ] グループがオフになり、無効になります。
+
+このポリシー設定を有効にした場合、"accessibility" グループは同期されません。
+
+[ユーザーがアクセシビリティの同期をオンにできるようにする] オプションを使用すると、同期は既定で無効になりますが、無効になりません。
+
+この設定を設定しなかった場合、または無効にした場合、"accessibility" グループの同期は既定でオンになり、ユーザーが構成できます。
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">言語設定を同期しない</string>
+      <string id="DisableLanguageSettingSync_Help">
+        [言語設定] グループがこの PC と同期しないようにします。これにより、PC 設定の [Windows バックアップ] 設定ページの [言語の基本設定] グループがオフになり、無効になります。
+
+このポリシー設定を有効にした場合、[言語設定] グループは同期されません。
+
+[ユーザーが言語設定の同期をオンにできるようにする] オプションを使用すると、同期は既定で無効になりますが、無効になりません。
+
+この設定を設定しなかった場合、または無効にした場合、既定では "言語設定" グループの同期が有効になり、ユーザーが構成できます。
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Windows バックアップを有効にする</string>
+      <string id="EnableWindowsBackup_Help">このポリシー設定を使用すると、管理者は組織の Windows 設定のバックアップを構成および管理できます。
+
+このポリシー設定を有効にした場合、Windows 設定のバックアップは定期的に行われます。
+
+このポリシー設定を無効にした場合、Windows 設定のバックアップは行われません。
+
+このポリシー設定が構成されていない場合、Windows 設定のバックアップは適格性に基づいて定期的に行われます。
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Windows の復元を有効にする</string>
+      <string id="EnableWindowsRestore_Help">このポリシー設定を使用すると、管理者は組織の Windows 設定の復元を構成および管理できます。
+
+このポリシー設定を有効にすると、Windows 設定の復元が有効になります。
+
+このポリシー設定を無効にするか、または未構成の場合、Windows 設定の復元は無効になります。
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -164,6 +209,16 @@
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">ユーザーが [スタート画面のレイアウト] の同期をオンにできるようにします。</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">ユーザーが "ユーザー補助" の同期をオンにできるようにします。</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">ユーザーが "言語設定" の同期をオンにすることを許可します。</checkBox>
       </presentation>
 
     </presentationTable>

@@ -14,8 +14,15 @@
       <string id="WU_SUPPORTED_Windows7_To_Win2kSP3_Or_XPSP1">Windows 7、Windows Server 2008 R2、Windows Vista、Windows Server 2003、Windows XP SP2、Windows XP SP1、Windows 2000 SP4、Windows 2000 SP3</string>
       <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_NoWinRT">Windows XP Professional Service Pack 1 または Windows 2000 Service Pack 3 以降 (Windows RT を除く)</string>
       <string id="WU_SUPPORTED_WindowsXPSP1_NoWinRT">Windows Server 2003 オペレーティング システムまたは Windows XP Professional SP1 以降 (Windows RT を除く)</string>
-      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Windows XP Professional Service Pack 1 以降、または Windows 2000 Service Pack 3 から最新の Service Pack が適用された Windows 8.1 または Windows Server 2012 R2 以降</string>
-      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Windows Vista から最新の Service Pack が適用された Windows 8.1 または Windows Server 2012 R2 以降</string>
+      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Windows XP Professional Service Pack 1 以降、または Windows 2000 Service Pack 3 ~ Windows 8.1 または最新の Service Pack を搭載した Windows Server 2012 R2 以降。Windows 10以上ではサポートされていません。</string>
+      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Windows Vista から Windows 8.1、または最新の Service Pack を搭載した Windows Server 2012 R2 以降。Windows 10以上ではサポートされていません。</string>
+      <string id="WU_SUPPORTED_XPSP1_or_Win2kSP3_AUOption7_SUPPORTED_Server2016">Windows XP Professional Service Pack 1 または Windows 2000 Service Pack 3 以降
+オプション 7 は Windows Server 2016 エディション以降のサーバーでのみサポートされています</string>
+      <string id="WU_SUPPORTED_Server2016_Through_Server2022_Or_Windows10">Windows Server 2016 から Windows Server 2022、または Windows 10​</string>
+      <string id="WU_SUPPORTED_Windows_Server_2019_Windows_10_0_1809">Windows Server 2019 以降、または Windows 10 バージョン 1809 以降​</string>
+      <string id="WU_SUPPORTED_Windows_Server_2022_Windows_10_0_2004">Windows Server 2022 以降、または Windows 10 バージョン 2004 以降​</string>
+      <string id="WU_SUPPORTED_WinServer2025_Win1021H2_Win1122H2">Windows Server 2025、Windows 10 Version 21H2、または Windows 11 Version 22H2 以降</string>
+      <string id="WU_SUPPORTED_Win11_24H2">Windows 11 バージョン 24H2 以降</string>
       <string id="AUDontShowUasHelp">このポリシー設定で、[Windows のシャットダウン] ダイアログ ボックスに [更新をインストールしてシャットダウン] オプションを表示するかどうか管理します。
 
 このポリシー設定を有効にすると、ユーザーが [スタート] メニューの [シャットダウン] を選択したとき、インストールできる更新がある場合でも、[更新をインストールしてシャットダウン] は [Windows のシャットダウン] ダイアログ ボックスに選択肢として表示されません。
@@ -72,20 +79,25 @@ Windows 8 および Windows RT では、このポリシーが有効な場合、�
 
         4 = 更新プログラムを自動的にダウンロードし、以下に指定されたスケジュールでインストールする。
 
-        インストールを実行する時間として [自動] を選択すると、更新プログラムの確認、ダウンロード、インストールが Windows によって自動的に実行されます。グループ ポリシーで構成されている場合を除き、Windows の既定の設定に従ってデバイスが再起動されます (Windows 10 バージョン 1809 以上に適用)。
+        インストールを実行する時間として [自動] を選択すると、更新プログラムの確認、ダウンロード、インストールが Windows によって自動的に実行されます。グループ ポリシーで構成されている場合を除き、Windows の既定の設定に従ってデバイスが再起動されます (Windows 10 Version 1809 以上に適用)。
 
         グループ ポリシー設定のオプションを使用してスケジュールを指定します。バージョン 1709 およびそれ以降では、更新を毎週、隔週、または毎月行うように制限する追加の選択項目があります。スケジュールが指定されていない場合は、すべてのインストールに使用される既定のスケジュールは、毎日 3:00 AM です。更新プログラムのインストールを完了するために再起動が必要な場合、コンピューターは自動的に再起動されます (Windows の再起動が準備できた時点でユーザーがコンピューターにサインインしている場合は、ユーザーに通知が表示され、再起動を延期するオプションが表示されます)。
 
-        Windows 8 以降では、特定のスケジュールではなく自動メンテナンス時にインストールするように更新プログラムを設定できます。自動メンテナンスでは、更新プログラムはコンピューターを使用していないときにインストールされます。また、コンピューターがバッテリで動作している場合はインストールされません。自動メンテナンスで更新プログラムをインストールできない状態が 2 日間続くと、Windows Update にｙとってすぐに更新プログラムがインストールされます。その後、もうすぐ再起動されることがユーザーに通知されます。この再起動は、誤ってデータが失われる可能性がない場合にのみ実行されます。その後、もうすぐ再起動されることがユーザーに通知されます。この再起動は、誤ってデータが失われる可能性がない場合にのみ実行されます。
+        Windows 8 以降では、特定のスケジュールではなく自動メンテナンス時にインストールするように更新プログラムを設定できます。自動メンテナンスでは、更新プログラムはコンピューターを使用していないときにインストールされます。また、コンピューターがバッテリで動作している場合はインストールされません。自動メンテナンスで更新プログラムをインストールできない状態が 2 日間続くと、Windows Update によってすぐに更新プログラムがインストールされます。その後、もうすぐ再起動されることがユーザーに通知されます。この再起動は、誤ってデータが失われる可能性がない場合にのみ実行されます。その後、もうすぐ再起動されることがユーザーに通知されます。この再起動は、誤ってデータが失われる可能性がない場合にのみ実行されます。
 
         5 = ローカルの管理者が構成モードを選択し、自動更新による更新の通知とインストールを実行できるようにする (このオプションは、Windows 10 バージョンではサポートされていません)。
 
         このオプションを使用すると、ローカルの管理者は Windows Update コントロール パネルを使用して任意の構成オプションを選択できます。ローカルの管理者が自動更新の構成を無効にすることはできません。
 
-このポリシーの状態が無効に設定されている場合、Windows Update に利用できる更新プログラムがあるときは、手動でダウンロードしてインストールする必要があります。。これを行うには、スタート画面を使用して「Windows Update」を検索します。
+        7 = インストールと再起動について通知します (Windows Server 専用)。
+
+        Server SKU デバイスのみに適用される、Windows Server 2016 のこのオプションを使用すると、ローカルの管理者は Windows Update を使用して手動でインストールまたは再起動を進めることができます。
+
+このポリシーの状態が無効に設定されている場合、Windows Update で利用できる更新プログラムがあるときは、手動でダウンロードしてインストールする必要があります。これを行うには、[スタート] を使用して「Windows Update」を検索します。
 
 状態が未構成に設定されている場合は、自動更新の使用はグループ ポリシー レベルでは指定されません。ただし、管理者はコントロール パネルを使用して自動更新を構成できます。</string>
 
+      <string id="AutoUpdateModeNotifyToInstallNotifyToReboot">7 - 自動ダウンロード、インストール時に通知、再起動を通知</string>
       <string id="AutoUpdateModeAdminChooses">5 - ローカルの管理者の設定選択を許可</string>
       <string id="AutoUpdateModeAuto">4 - 自動ダウンロードしインストール日時を指定</string>
       <string id="AutoUpdateModeDownload">3 - 自動ダウンロードしインストールを通知</string>
@@ -125,27 +137,45 @@ Windows 8 および Windows RT では、このポリシーが有効な場合、�
       <string id="AutoUpdateSchTimeAuto">自動</string>
       <string id="CorpWuURL">イントラネットの Microsoft 更新サービスの場所を指定する</string>
       <string id="CorpWuURL_Help">
-        Microsoft Update からの更新プログラムをホストするイントラネット サーバーを指定します。この更新サービスを使用して、ネットワーク上のコンピューターを自動的に更新できます。
+        Microsoft Update からの更新プログラムをホストするイントラネット サーバーを指定します。その後、この更新サービスを使用して、ネットワーク上のコンピューターを自動的に更新できます。
 
-        この設定を使うと、内部の更新サービスとして機能する、ネットワーク上のサーバーを指定できます。自動更新のクライアントは、このサービスにアクセスし、ネットワーク上のコンピューターに適用できる更新プログラムを検索します。
+           この設定を使うと、内部の更新サービスとして機能する、ネットワーク上のサーバーを指定できます。自動更新クライアントは、このサービスでネットワーク上のコンピューターに適用される更新プログラムを検索します。
 
-        この設定を使用するには、2 つのサーバー名を設定する必要があります。自動更新のクライアントが更新プログラムを検出してダウンロードするためのサーバー、そして更新が完了したワークステーションが統計をアップロードするためのサーバーです。両方に同じサーバーを設定することもできます。オプションのサーバー名の値を指定することにより、イントラネットの更新サービスではなく代替ダウンロード サーバーから更新プログラムがダウンロードされるように Windows Update エージェントを構成することもできます。
+            この設定を使用するには、2 つのサーバー名の値を設定する必要があります。自動更新クライアントが更新プログラムを検出してダウンロードするためのサーバー、そして更新が完了したワークステーションが統計をアップロードするためのサーバーです。両方の値を同じサーバーに設定することもできます。オプションのサーバー名の値を指定して、イントラネットの更新サービスの代わりに代替ダウンロード サーバーから更新プログラムがダウンロードされるように Windows Update エージェントを構成できます。
 
-        状態が有効に設定されている場合、自動更新のクライアントは Windows Update ではなく、指定されたイントラネットの Microsoft 更新サービス (または代替ダウンロード サーバー) に接続し、更新プログラムの検索およびダウンロードを行います。この設定を有効にすると、組織内のエンド ユーザーはファイアウォール経由で更新プログラムを入手する必要がなくなります。また、管理者は更新プログラムを展開する前にテストできるようになります。
+            状態が有効に設定されている場合、自動更新クライアントは、Windows Update ではなく、指定されたイントラネットの Microsoft 更新サービス (または代替ダウンロード サーバー) に接続し、更新プログラムの検索およびダウンロードを行います。この設定を有効にすると、組織のエンド ユーザーがファイアウォールを通過して更新プログラムを取得する必要がなくなり、更新プログラムを展開前にテストできるようになります。
 
-        状態が無効または未構成に設定されている場合で、ポリシーまたはユーザー設定で自動更新が無効になっていない場合は、自動更新のクライアントは直接インターネットの Windows Update サイトにアクセスします。
+          状態が無効または未構成に設定されていて、ポリシーまたはユーザー設定で自動更新が無効になっていない場合は、自動更新クライアントが直接インターネットの Windows Update サイトにアクセスします。
 
-        代替ダウンロード サーバーは、イントラネットの更新サービスではなく、ダウンロード代替サーバーからファイルをダウンロードする Windows Update エージェントを構成します。
+            代替ダウンロード サーバーは、イントラネットの更新サービスの代わりに代替ダウンロード サーバーからファイルをダウンロードするよう Windows Update エージェントを構成します。
 
-        URL がないファイルをダウンロードするオプションを使うと、更新プログラムのメタデータにファイル ダウンロード用 URL が示されていないときに、代替ダウンロード サーバーからダウンロードできます。このオプションは、イントラネットの更新サービスが、代替ダウンロード サーバー上に存在するファイルのダウンロード用 URL を更新プログラムのメタデータで提供しない場合にのみ使用してください。
+            URL がないファイルをダウンロードするオプションを使うと、更新プログラムのメタデータにファイル ダウンロード用 URL が指定されていない場合に、代替ダウンロード サーバーからコンテンツをダウンロードできます。このオプションは、イントラネットの更新サービスが、代替ダウンロード サーバー上に存在するファイルの更新用メタデータでダウンロード URL を提供しない場合にのみ使用してください。
 
-        注意: "自動更新を構成する" ポリシーが無効になっている場合、このポリシーには効力がありません。
+           注: "自動更新を構成する" ポリシーが無効になっている場合、このポリシーには効力がありません。
 
-        注意:  "代替ダウンロード サーバー" が設定されていない場合は、更新プログラムのダウンロードには既定でイントラネットの更新サービスが使用されます。
+            注: "代替ダウンロード サーバー" が設定されていない場合、更新プログラムのダウンロードには既定でイントラネットの更新サービスが使用されます。
 
-        注意: "URL のないファイルをダウンロードする" オプションは、"代替ダウンロード サーバー" が設定されている場合にのみ使用されます。
+           注: "URL のないファイルをダウンロードする" オプションは、"代替ダウンロード サーバー" が設定されている場合にのみ使用されます。
 
-        注意: このポリシーは、Windows RT ではサポートされていません。このポリシーを設定しても、Windows RT PC に影響はありません。</string>
+            注: このポリシーは、Windows RT ではサポートされていません。このポリシーを設定しても、Windows RT PC に影響はありません。
+
+            最高レベルのセキュリティを確保するために、Microsoft では TLS/SSL プロトコルを使用して WSUS をセキュリティで保護し、HTTPS ベースのイントラネット サーバーを使用してシステムの安全性を確保することを推奨しています。プロキシが必要な場合には、システム プロキシを構成することをお勧めします。最高レベルのセキュリティを確保するために、追加的に WSUS TLS 証明書をすべてのデバイスにピン留めして利用してください。
+
+        クライアントの本質的な安全性を確保するために、イントラネット サーバーに対して、更新プログラムの検出にユーザー プロキシを既定で利用することを禁止しました。ユーザー プロキシに脆弱性が存在するにもかかわらず、イントラネット サーバーの使用中に更新プログラムを検出するためにユーザー プロキシを利用する必要がある場合には、プロキシの動作を "システム プロキシを使用した検出が失敗した場合に、ユーザーのプロキシをフォールバックとして使用できるようにする" ように構成する必要があります。
+
+            フォールバックとしてユーザー プロキシが必要で、代替プロキシの動作が構成されていない場合、イントラネット サーバーに対する更新プログラムの検出は失敗します。</string>
+      <string id="OnlyUseSystemProxyForUpdateDetection">更新プログラムを検出するためにのみシステムプロキシを使用する (既定)</string>
+      <string id="AllowUserProxyAsFallbackForUpdateDetection">システム プロキシを使用した検出が失敗した場合に、ユーザーのプロキシをフォールバックとして使用できるようにする</string>
+      <string id="UpdateClassPolicySource_Title">Windows Update の特定のクラスにソースサービスを指定する</string>
+      <string id="UpdateClassPolicySource_Help">このポリシーを有効にすると、デバイスは、指定された更新元から一覧表示されたクラス (Windows Update または Windows Server Update Service) の Windows 更新プログラムを受信します。
+
+注: Windows Server Update サービスから更新プログラムを受け取るには、[イントラネットの Microsoft 更新サービスの場所を指定する] ポリシーを使用してイントラネットの Microsoft 更新サービスの場所を正しく構成する必要があります。
+
+このポリシーが構成されていないか、無効になっている場合、デバイスは他のポリシー構成に従って更新プログラムを引き続き検出します。
+
+注: 現在、[延期ポリシーを許可しない] を使用してWindows Updateに対するスキャンを実行し、デバイスが指定されたサーバーに対してのみスキャンされるようにする場合は、代わりに、またはこれに加えてこのポリシーを構成することをお勧めします。</string>
+      <string id="UpdateClassPolicySourceSelectionWU">Windows Update</string>
+      <string id="UpdateClassPolicySourceSelectionWSUS">Windows Server Update Services</string>
       <string id="DetectionFrequency_Help">利用可能な更新を確認する前の待機時間を決定するための時間を指定します。正確な待機時間は、特定の値とランダムな可変数値 (0 - 4 時間) を合計した時間になります。
 
         状態が有効に設定されている場合、指定した間隔で使用可能な更新が確認されます。
@@ -289,6 +319,12 @@ Windows Update は、更新を自動的にインストールするように構�
 注: このポリシーは、Windows RT ではサポートされていません。このポリシーを設定しても、Windows RT PC に影響はありません。</string>
       <string id="TargetGroup_Title">クライアント側のターゲットを有効にする</string>
       <string id="WindowsUpdateCat">Windows Update</string>
+      <!--Category sub-folders-->
+      <string id="WindowsUpdateOffering">Windows Update から提供される更新プログラムの管理</string>
+      <string id="WSUSOffering">Windows Server Update Service から提供される更新プログラムの管理</string>
+      <string id="WindowsUpdateExperience">エンド ユーザー エクスペリエンスの管理</string>
+      <string id="PreSV">従来のポリシー</string>
+
       <string id="TrustedPublisher_Title">イントラネットの Microsoft 更新サービスの保存場所にある署名済み更新を許可する  </string>
       <string id="TrustedPublisher_Help">このポリシー設定では、Microsoft 以外のエンティティによって署名された更新がイントラネットの Microsoft 更新サービスの保存場所で見つかったときに自動更新がそれを受け入れるかどうかを管理できます。
 
@@ -304,48 +340,34 @@ Windows Update は、更新を自動的にインストールするように構�
 このポリシーを有効にすると、その機能は無効になり、Windows ストアなど公開されているサービスへの接続が動作しなくなる可能性があります。
 
 注: このポリシーは、"イントラネットの Microsoft 更新サービスの場所を指定する" ポリシーを使用してイントラネットの更新サービスに接続するようにこの PC が構成されているときにのみ適用されます。</string>
-      <string id="DeferUpdateCat">Windows Update for Business</string>
       <string id="ManagePreviewBuilds_Title">プレビュー ビルドを管理にする</string>
-      <string id="ManagePreviewBuilds_Help">[プレビュー ビルドを無効にする] を選択すると、このデバイスにプレビュー ビルドがインストールされることを防止します。これで、ユーザーが [設定] -&gt; [更新とセキュリティ] によって Windows Insider Program を選択することを防止します。
+      <string id="ManagePreviewBuilds_Help">このポリシーを有効にして、更新が一般にリリースされる前に受け取る更新プログラムを管理します。
 
-[次のリリースが公開された時にはプレビュー ビルドを無効にする] を選択することにより、次の Windows リリースが公開されると、プレビュー ビルドがインストールされることを防止します。デバイスがプレビューをインストールするように設定されていて、フライティングのデバイスを体好く辞めたいときに、このオプションは便利です。このオプションは、デバイスが次の公開リリースに達するまで、プレビュー リリースを提供します。
+Dev チャネル
+高度に技術的なユーザーに最適です。Dev チャネルの Insider は、開発サイクルの最初に位置するアクティブな開発ブランチからビルドを受け取ります。これらのビルドは、特定の Windows 10 リリースに対応していません。
 
-[プレビュー ビルドを有効にする] を選択すると、このデバイスにプレビュー ビルドがインストールされることを有効にします。[設定] -&gt; [更新とセキュリティ] -&gt; [Windows Insider Program] で選択することにより、デバイスに Windows プレビュー ビルドをダウンロードして、インストールすることができます。管理者は、この値が設定されているときには、ユーザーに代わって、その他の方策を使ってフライティング設定を管理することもできます。</string>
-      <string id="DisablePreviewBuilds">プレビュー ビルドを無効にする</string>
-      <string id="DisablePreviewBuildsAndOptOut">次のリリースが公開されたらプレビュー ビルドを無効にします</string>
-      <string id="EnablePreviewBuilds">プレビュー ビルドを有効にする</string>
-      <string id="PreviewBuildFastFeatureUpdates">プレビュー ビルド - ファスト</string>
-      <string id="PreviewBuildSlowFeatureUpdates">プレビュー ビルド - スロー</string>
-      <string id="ReleasePreviewBranchFeatureUpdates">リリース プレビュー</string>
-      <string id="SemiAnnualChannelFeatureUpdates">半期チャネル</string>
-      <string id="SemiAnnualChannelFeatureUpdatesDeprecated">1809 またはそれ以前の半期チャネル (非推奨)</string>
-      <string id="SemiAnnualChannelFeatureUpdatesTargetedDeprecated">1809 またはそれ以前の半期チャネル (対象指定) (非推奨)</string>
+ベータ チャネル
+今後予定されている Windows 10 の機能を確認し、探求したいユーザーに最適です。ここでは、メジャー リリースの前にエンジニアが主要な問題を確実に修正するのに役立つため、フィードバックが特に重要です。
+
+リリース プレビュー チャネル (既定)
+リリース プレビュー チャネルの Insider は、一般にリリースされる前に Windows 10 の次のリリースにアクセスできます。これらのビルドは Microsoft によってサポートされています。リリース プレビュー チャネルでは、組織内で広範囲に展開する前に、今後の Windows 10 リリースをプレビューおよび検証することをお勧めします。
+
+リリース プレビュー チャネル、品質更新プログラムのみ
+現在のバージョンに追加される予定の機能と修正を検証したいユーザーに最適です。このオプションが選択されている場合、構成されているポリシーに従って、リリースされた機能更新プログラムの提供が継続されることに留意してください。
+
+注: プレビュー ビルドの登録には、テレメトリ レベルの設定が 2 以上で、ドメインが insider.windows.com に登録されている必要があります。プレビュー ビルドの詳細については、https://aka.ms/wipforbiz を参照してください。
+
+このポリシーを無効にするか、構成しない場合、Windows Update はプレリリースの更新プログラムを提供せず、一般にリリースされるときにそのようなコンテンツを受け取ります。このポリシーを無効にすると、現在プレリリース ビルドのすべてのデバイスがオプトアウトされ、リリース後の最新の機能更新プログラムが適用されます。</string>
+      <string id="DevChannel">Dev チャネル</string>
+      <string id="BetaChannel">ベータ チャネル</string>
+      <string id="ReleasePreviewChannel">リリース プレビュー チャネル</string>
+      <string id="ReleasePreviewQualityOnly">品質更新プログラムのみのリリース プレビュー</string>
       <string id="DeferFeatureUpdates_Title">プレビュー ビルドや機能更新プログラムをいつ受信するかを選択してください</string>
-      <string id="DeferFeatureUpdates_Help">このポリシーを有効にすると、どのレベルのプレビュー ビルドまたは機能更新プログラムをいつ受け取るかを指定できます。
+      <string id="DeferFeatureUpdates_Help">このポリシーを有効にして、機能更新プログラムを受信するタイミングを指定します。
 
-* プレビュー ビルド - ファスト: このレベルに設定したデバイスは、一般公開前の機能を含む Windows の新しいビルドを最初に受け取ります。問題を見つけて Microsoft に報告し、新機能についての提案を送るには、[ファスト] を選択してプレビューに参加します。
-* プレビュー ビルド - スロー: このレベルに設定したデバイスは、一般公開前の機能を含む Windows の新しいビルドを受け取りますが、[ファスト] に設定したデバイスよりも受信の頻度が少なくなります。受け取るビルドには、それ以前のビルドで見つかった変更や修正が組み込まれます。
-* リリース プレビュー: Microsoft が一般公開する Windows のビルドを一般公開の直前に受け取ります。
-* 半期チャネル: 機能更新プログラムを、一般公開されたときに受け取ります。
+更新プログラムの延期 | これにより、デバイスは、現在の製品で利用可能な次の機能更新プログラム (またはターゲットの機能更新プログラムのバージョンの選択ポリシーで指定されている場合は新しい製品) の取得を延期できます。すべてのプレリリース チャネルでは最大 14 日間、一般提供チャネルでは最大 365 日間、機能更新プログラムを延期できます。現在のリリースの詳細については、「更新プログラムの一時停止 aka.ms/WindowsTargetVersioninfo
 
-以下に示す Windows 更新準備レベルは非推奨となっており、1809 またはそれ以前のプレビューのみに適用されます。
-* 1809 またはそれ以前の半期チャネル (対象指定): 機能更新プログラムがリリースされました。
-* 1809 またはそれ以前の半期チャネル: 機能更新プログラムに半期チャネルが宣言されています。これは、リリースが広範囲に展開できると判断されたことを意味します。
-半期チャネル (対象指定) と半期チャネルのリリース日については、リリース情報のページ (http://aka.ms/ReleaseInformationPage) をご確認ください。
-
-プレビュー ビルドを選択する場合:
-    - プレビュー ビルドの受信を最大 14 日間延期できます。
-    - スケジュールした時刻になってもプレビュー ビルドが受信されないようにする場合は、プレビュー ビルドを一時的に停止できます。一時停止は、指定した開始日から 35 日間有効です。
-    - 一時停止した機能更新プログラムの受信を再開するには、開始日フィールドをクリアします。
-
-プレビュー ビルドに登録するには、利用統計情報レベルの設定が 2 以上になっていること、insider.windows.com でドメインを登録済みであることが必要です。プレビュー ビルドの詳細については、次の情報を参照してください: https://aka.ms/wipforbiz
-
-半期チャネルを選択する場合:
-    - 機能更新プログラムの受信を最大 365 日延期できます。
-    - スケジュールした時刻になっても機能更新プログラムを受信しないようにするには、機能更新プログラムを一時的に停止できます。一時停止は、指定した開始日から 35 日間有効です。
-    - 一時停止した機能更新プログラムの受信を再開するには、開始日フィールドをクリアします。
-
-このポリシーを無効にした場合、または構成しなかった場合は、Windows Update の動作は変更されません。</string>
+」を参照してください | 機能更新プログラムがデバイスに提供されないようにするには、機能更新プログラムを一時的に一時停止できます。この一時停止は、指定した開始日から 35 日間、またはフィールドがクリアされるまで有効です。機能更新プログラムが一時停止されている場合でも、品質更新プログラムは引き続き提供されることに注意してください。</string>
       <string id="DeferQualityUpdates_Title">品質更新プログラムをいつ受信するかを選択してください</string>
       <string id="DeferQualityUpdates_Help">品質更新プログラムを受信するタイミングを指定するには、このポリシーを有効にします。
 
@@ -356,6 +378,20 @@ Windows Update は、更新を自動的にインストールするように構�
 一時停止している品質更新プログラムの受信を再開するには、開始日フィールドをクリアします。
 
 このポリシーを無効にした場合、または構成しなかった場合は、Windows Update の動作は変更されません。</string>
+      <string id="TargetReleaseVersion_Title">ターゲット機能更新プログラムのバージョンを選択する</string>
+      <string id="TargetReleaseVersion_Help">Windows Update の対象バージョンのページに記載されている通りに製品とバージョンを入力してください。
+
+                        aka.ms/WindowsTargetVersioninfo
+
+デバイスは、以降のスキャンで製品とバージョンを更新するよう Windows に要求します。
+
+対象の製品を入力して  [OK] または [適用] をクリックすると、aka.ms/WindowsTargetVersioninfo にある Microsoft ソフトウェアライセンス条項に同意したとみなされます。組織がソフトウェアのライセンスを提供している場合、その組織に義務を負わせる権限があることを認めたことになります。
+
+無効な値を入力した場合、その値をサポートされている製品とバージョンの値に修正するまで、現在のバージョンが維持されます。</string>
+      <string id="DisableWUfBSafeguards">機能更新プログラムに対するセーフガードを無効にする</string>
+      <string id="DisableWUfBSafeguards_Help">
+          セーフガード ホールドによるブロックを行わずに機能更新プログラムをデバイスに展開する必要がある場合に、この設定を有効にしてください。 セーフガード ホールドは、問題が解決されるまでは、影響を受けるデバイスにアップグレードが展開されないようになる、互換性に関する既知の問題です。 このポリシーを有効にすると、組織はテスト用に機能更新プログラムをデバイスに展開したり、セーフガード ホールドによるブロックを行わずに機能更新プログラムを展開したりできるようになります。
+      </string>
       <string id="ExcludeWUDriversInQualityUpdate_Title">Windows Update からドライバーを除外する</string>
       <string id="ExcludeWUDriversInQualityUpdate_Help">Windows 品質更新プログラムにドライバーを含めないようにするには、このポリシーを有効にします。
 
@@ -448,6 +484,16 @@ Windows Update は、更新を自動的にインストールするように構�
       <string id="DisablePauseUXAccess_Help">この機能では、"更新の一時停止" 機能へのアクセスを削除できます。
 
 有効にすると、更新の一時停止に対するユーザー アクセスが削除されます。
+      </string>
+
+      <string id="MaxPauseDays_Title">更新プログラムを一時停止できる最大日数を構成する</string>
+      <string id="MaxPauseDays_Help">このポリシーは、エンド ユーザーが更新プログラムを一時停止できる最大日数を制御します。
+
+サポートされている値は 1 から 35 です。既定値は 35 (日) です。
+
+ポリシーが構成されている場合、ユーザーは、ポリシーで指定された期間が終了するまでのみ更新を一時停止できます。構成された制限に達すると、ユーザーは一時停止を延長できなくなります。
+
+ポリシーが無効になっているか、構成されていない場合は、既定の一時停止動作が適用され、ユーザーは一度に最大 35 日間更新を継続的に一時停止できます。このポリシーは、更新の一時停止を完全に無効にするわけではありません。更新の一時停止へのアクセスを削除するには、['更新の一時停止' 機能へのアクセスを削除する] ポリシーを使用します。
       </string>
 
       <string id="ActiveHoursMaxRange_Title">自動再起動のアクティブ時間範囲を指定する</string>
@@ -581,31 +627,52 @@ Windows Update は、更新を自動的にインストールするように構�
 注: このポリシーが適用されるのは、このコンピューターに指定されているイントラネットの Microsoft 更新サービスが、クライアント側のターゲット設定をサポートするように構成されている場合のみです。"イントラネットの Microsoft 更新サービスの場所を指定する" ポリシーが無効になっているか、未構成の場合、このポリシーは無効です。
       </string>
       <string id="UpdateNotificationLevel_Title">更新通知の表示オプション</string>
-      <string id="UpdateNotificationLevel_Help">0 (既定値) – 既定の Windows Update 通知を使用する
+      <string id="UpdateNotificationLevel_Help">0 (既定) – 既定のWindows Update通知を使用する
 1 - 再起動の警告を除くすべての通知をオフにする
 2 - 再起動の警告を含むすべての通知をオフにする
 
-このポリシーを使用すると、ユーザーに表示される Windows Update 通知を定義できます。このポリシーでは、更新プログラムをダウンロードしてインストールする方法やタイミングは制御しません。
+このポリシーを使用すると、ユーザーに表示される Windows Update 通知を定義できます。このポリシーでは、更新プログラムのダウンロードとインストールの方法と時点は制御されません。
 
-重要: 更新の通知を受け取らないことを選択し、デバイスが更新プログラムを自動的に取得しないように他のグループ ポリシーを定義した場合、管理者とデバイスのユーザーが重大なセキュリティ、品質、機能更新プログラムを把握できなくなり、デバイスが危険にさらされるおそれがあります。
+重要: 更新通知を受け取らないよう設定し、さらに他のグループ ポリシーでもデバイスが更新プログラムを自動的に取得しないように定義した場合、管理者もデバイス ユーザーも重大なセキュリティ、品質、機能の更新を認識できず、デバイスが危険にさらされる可能性があります。
+
+オプション 1 または 2 と組み合わせて [アクティブな時間帯にのみ適用] を選択した場合、通知はアクティブ時間中にのみ無効になります。アクティブ時間を設定するには、[アクティブ時間内の更新プログラムの自動再起動をオフにします] を設定するか、ユーザーの動作に基づいてデバイスでアクティブ時間を設定できるようにします。デバイスのセキュリティを維持するために、このオプションを選択すると、アクティブ時間に関係なく、[自動更新と再起動の期限を指定する] の期限 (構成されている場合) に達すると通知が表示されます。
       </string>
       <string id="DefaultNotification">0 (既定) – 既定の OS の Windows Update 通知</string>
       <string id="ExcludingRebootWarnings">1 – 再起動警告を除くすべての通知を無効にする</string>
       <string id="IncludingRebootWarnings">2 – 再起動警告を含むすべての通知を無効にする</string>
-      <string id="ComplianceDeadline_Title">自動更新と再起動の期限を指定する</string>
-      <string id="ComplianceDeadline_Help">このポリシーを使用すると、品質更新プログラムおよび機能更新プログラムが自動的にインストールされるまでの日数と、必要な再起動が自動的に実行されるまでの猶予期間を指定できます。更新と再起動はアクティブ時間に関係なく行われます。ユーザーがスケジュールを変更することはできません。
+      <string id="ComplianceDeadlineForFU_Title">Specify deadline for automatic updates and restarts for feature update</string>
+      <string id="ComplianceDeadlineForFU_Help">This policy lets you specify the number of days before feature updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
 
-機能更新プログラムと品質更新プログラムの期限は最大 30 日です。自動再起動の猶予期間は、0 日から 7 日です。
+Set deadlines for feature updates and quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
 
-自動再起動の猶予期間が終了するまで、自動再起動を無効にすることもできます。
+Set a grace period for feature updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
 
-このポリシーを無効にした場合、または構成しなかった場合、デバイスは更新プログラムを取得し、既定のスケジュールに従って再起動します。
+You can set the device to delay restarting until both the deadline and grace period have expired.
 
-このポリシーによって、次のポリシーがオーバーライドされます。
-1.  更新プログラムをインストールするための自動再起動の期限を指定する
-2.  更新プログラムのための再起動猶予期間を移行および通知するスケジュールを指定する
-3.  スケジュールされた時刻に常に自動的に再起動する
-4.  スケジュールされた自動更新のインストールで、ログオンしているユーザーがいる場合には自動的に再起動しない
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
+      </string>
+      <string id="ComplianceDeadlineForQU_Title">Specify deadline for automatic updates and restarts for quality update</string>
+      <string id="ComplianceDeadlineForQU_Help">This policy lets you specify the number of days before quality updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
+
+Set deadlines for quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
+
+Set a grace period for quality updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
+
+You can set the device to delay restarting until both the deadline and grace period have expired.
+
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
       </string>
       <string id="ComplianceDeadlineDay0">0</string>
       <string id="ComplianceDeadlineDay1">1</string>
@@ -638,6 +705,103 @@ Windows Update は、更新を自動的にインストールするように構�
       <string id="ComplianceDeadlineDay28">28</string>
       <string id="ComplianceDeadlineDay29">29</string>
       <string id="ComplianceDeadlineDay30">30</string>
+
+      <string id="AllowTemporaryEnterpriseFeatureControl_Title">既定でオフになっているサービスによって導入された機能を有効にする</string>
+      <string id="AllowTemporaryEnterpriseFeatureControl_Help">サービスによって導入された機能 (年間機能更新プログラム以外) は、Windows Update が管理されているデバイスでは既定でオフになっています*。
+
+このポリシーが "有効" に構成されている場合、インストールされている最新の月次品質更新プログラムで利用可能なすべての機能がオンになります。
+
+このポリシーが [未構成] または [無効] に設定されている場合、これらの機能を含む機能更新プログラムがインストールされるまで、月次品質更新プログラム (サービス) を通じて出荷される機能はオフのままになります。
+
+*Windows Update が管理されているデバイスとは、Windows Update がポリシーによって管理されているデバイスです。Windows Update for Business を使用するクラウド経由でも、Windows Server Update Services (WSUS) を使用したオンプレミスでも使用できます。
+      </string>
+      <string id="AllowOptionalContent_Title">オプションの更新プログラムを有効にする</string>
+      <string id="AllowOptionalContent_Help">このポリシーにより、デバイスはオプションの更新プログラムを取得できます (段階的な機能ロールアウト (CFR) を含む - 詳細については、aka.ms/AllowOptionalContent をご覧ください)
+
+ポリシーが構成されたとき
+
+• [オプションの更新プログラム (CFR を含む) を自動的に受信する] が選択されている場合、デバイスは、構成されている品質更新プログラムの延期に従って、最新のオプションの更新プログラムを自動的に取得します。これには、オプションのセキュリティ以外の累積的な更新プログラムと段階的な機能ロールアウト (CFR) が含まれます。
+
+• [オプションの更新プログラムを自動的に受信する] が選択されている場合、デバイスは、品質更新プログラムの延期に従って、オプションの累積的な更新プログラムのみを自動的に取得します。
+
+• [受信するオプションの更新プログラムをユーザーが選択できる] を選択した場合は、[設定] &gt; [Windows Update] &gt; [詳細オプション] &gt; [オプションの更新プログラム] にアクセスして、どのオプションの更新プログラムを取得するかをユーザーが選択できます。また、ユーザーは、[利用可能になったらすぐに最新の更新プログラムを入手する] の切り替えを有効にして、オプションの更新プログラムと段階的な機能ロールアウトを自動的に受信することもできます。
+      </string>
+      <string id="DonotReceiveOptionalContent">オプションの更新プログラムを受信しない</string>
+      <string id="ReceiveOptionalContentWithAutoApproval">オプションの更新プログラム (CFR を含む) を自動的に受信する</string>
+      <string id="ReceiveOptionalLCUWithAutoApproval">オプションの更新プログラムを自動的に受信する</string>
+      <string id="ReceiveOptionalContentNeedUserApproval">ユーザーは、受信するオプションの更新プログラムを選択できます</string>
+
+      <string id="MaintenanceWindow_Title">自動更新のためのメンテナンス期間を構成する</string>
+      <string id="MaintenanceWindow_Help">このポリシーを有効にして、指定された更新操作を実行するための反復可能なメンテナンス期間をデバイスに対して指定します。
+
+このポリシーを有効にすると、Windows Update は、構成されたメンテナンス期間中にのみ、指定された更新操作を実行します。指定された更新操作がメンテナンス期間外にあたる場合、次のメンテナンス期間が始まるまで延期されます。
+
+• 更新操作: メンテナンス期間中にのみ実行できる更新操作を選択します。更新操作が選択されていない場合、その操作はメンテナンス期間外に実行される可能性があります。
+    - ダウンロード、インストール、再起動: ダウンロード、インストール、システムの再起動を含む更新サイクルを完了します
+    - インストールと再起動: すでにダウンロードされた更新プログラムをインストールし、デバイスを再起動します
+    - 再起動のみ: 保留中の更新プログラムについてのみシステムの再起動を実行します
+
+• 基本スケジュールの構成:
+    - 開始日: 最初のメンテナンス期間の開始日を指定します (形式: yyyy-mm-dd、例: 2025-10-30)
+      * [開始日] フィールドは、定期スケジュールが [なし] に設定されている場合にのみ有効になります
+    - 開始時刻: メンテナンス期間の開始時刻を設定します (形式: hh:mm、例: 午後 11:30 の場合は 23:30)
+    - 期間: 各メンテナンス期間の長さを定義します (時間単位で指定、例: 2 時間の場合は 2)
+
+• 定期スケジュールのオプション:
+    - 繰り返しなし: 指定した開始日のみの 1 回限りのメンテナンス期間
+    - 毎日: メンテナンス期間は毎日繰り返されます
+    - 毎週: メンテナンス期間は毎週選択した曜日に繰り返されます
+    - 毎月: メンテナンス期間は毎月特定の日に繰り返されます
+
+• 毎週のスケジュール設定 ([毎週] を選択した場合):
+    - 曜日の選択: メンテナンス期間が発生する曜日を選択します:
+        * 日曜日から土曜日: チェックボックスをオンにして、メンテナンス期間に対して特定の曜日を選択します
+
+• 毎月のスケジュール設定 ([毎月] を選択した場合):
+    - 毎月のスケジュール タイプ:
+        * 日付単位: メンテナンス期間は月の特定の日に発生します (例: 毎月 15 日)
+        * 週単位:  メンテナンス期間は月の特定の曜日に発生します (例: 毎月第 2 火曜日)
+        * 月の最終日: メンテナンス期間は月の最終日に発生します
+    - 月の日付: 日付単位のスケジュールを使用する場合は、月内の日付を指定します (1 から 28)
+    - 月内の発生: 週単位のスケジュール設定を使用する場合は、月内の週 (1 週目、2 週目、3 週目、4 週目、最終週) を選択します
+    - 曜日: 週単位のスケジュールを使用する場合は、曜日 (日曜日から土曜日) を選択します
+
+毎月の構成例:
+    - 日付単位: "毎月 3 日" = 月の日付: 3
+    - 週単位: "毎月第 2 火曜日" = 発生: 2 週目、曜日: 火曜日
+    - 週単位: "毎月最終金曜日" = 発生: 最終週、曜日: 金曜日
+    - 月の最終日: "毎月の最終日"
+
+繰り返しなしのメンテナンス期間終了後、次のメンテナンス期間を 3 か月以内にスケジュールする必要があります。繰り返しなしのメンテナンス期間の開始日が 3 か月以上前の場合、このポリシーは無視され、更新プログラムは既定の設定に従ってスケジュールされます。
+
+このポリシーを無効にするか、構成しない場合、Windows Update は既定のスケジュール設定の動作に従います。</string>
+      <!-- MaintenanceWindowUpdateActionsID dropdown options -->
+      <string id="MaintenanceWindowUpdateActions_DownloadInstallRestart">ダウンロード、インストール、再起動</string>
+      <string id="MaintenanceWindowUpdateActions_InstallRestart">インストールと再起動</string>
+      <string id="MaintenanceWindowUpdateActions_RestartOnly">再起動のみ</string>
+      <!-- MaintenanceWindowRepeatScheduleOption dropdown options -->
+      <string id="MaintenanceWindowRepeatSchedule_NoRepeat">繰り返しなし</string>
+      <string id="MaintenanceWindowRepeatSchedule_Daily">日単位</string>
+      <string id="MaintenanceWindowRepeatSchedule_Weekly">毎週</string>
+      <string id="MaintenanceWindowRepeatSchedule_Monthly">毎月</string>
+      <!-- MaintenanceWindowMonthlyScheduleID dropdown options -->
+      <string id="MaintenanceWindowMonthlySchedule_MonthBased">日付ベース</string>
+      <string id="MaintenanceWindowMonthlySchedule_WeekBased">週単位</string>
+      <string id="MaintenanceWindowMonthlySchedule_LastDay">月の最終日</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_First">第 1</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Second">秒</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Third">第 3</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Fourth">第 4</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Last">最新</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedDayOfTheWeek dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Sunday">日曜日</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Monday">月曜日</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Tuesday">火曜日</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Wednesday">水曜日</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Thursday">木曜日</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Friday">金曜日</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Saturday">土曜日</string>
     </stringTable>
 
     <presentationTable>
@@ -669,21 +833,28 @@ Windows Update は、更新を自動的にインストールするように構�
         <textBox refId="CorpWUContentHost_Name">
           <label>代替ダウンロード サーバーの設定:</label>
         </textBox>
-        <text>(例: http://IntranetUpd01)</text>
+        <text>(例: https://IntranetUpd01)</text>
         <checkBox refId="CorpWUFillEmptyContentUrls" defaultChecked="false">代替ダウンロード サーバーが設定されている場合は、メタデータに URL が示されていないファイルをダウンロードします。</checkBox>
+        <checkBox refId="CorpWUDoNotEnforceEnterpriseTLSCertPinningForUpdateDetection" defaultChecked="false">更新プログラムの検出のために、Windows Update クライアントへの TLS 証明書のピン留めを強制しません。</checkBox>
+        <dropdownList refId="SetProxyBehaviorForUpdateDetection" noSort="true" defaultItem="0">更新プログラムを検出するための Windows Update クライアントのプロキシ動作を選択してください:</dropdownList>
+      </presentation>
+      <presentation id="UpdateClassPolicySource_Title">
+        <text>次のクラスの Windows Update のソース サービスを指定します。</text>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForFeatureUpdates" noSort="true" defaultItem="0">機能更新プログラム</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForQualityUpdates" noSort="true" defaultItem="0">品質更新プログラム</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForDriverUpdates" noSort="true" defaultItem="0">ドライバー更新プログラム</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForOtherUpdates" noSort="true" defaultItem="0">その他の更新プログラム</dropdownList>
       </presentation>
       <presentation id="DetectionFrequency_Title">
         <text>更新を確認する時間</text>
         <decimalTextBox refId="DetectionFrequency_Hour2" defaultValue="22">間隔 (時間):  </decimalTextBox>
       </presentation>
       <presentation id="RebootRelaunchTimeout_Title">
-        <text>スケジュールされた再起動を再度確認するまでの</text>
-        <text>待ち時間</text>
+        <text>次の期間待ってから、スケジュールされたプロンプトを再度表示します</text>
         <decimalTextBox refId="RebootRelaunchTimeout_Minutes3" defaultValue="10">再起動 (分):  </decimalTextBox>
       </presentation>
       <presentation id="RebootWarningTimeout_Title">
-        <text>スケジュールされた再起動を実行するまでの</text>
-        <text>待ち時間</text>
+        <text>次の期間待機してからスケジュールされたタスクを続行する</text>
         <decimalTextBox refId="RebootWarningTimeout_Minutes3" defaultValue="5">再起動 (分):  </decimalTextBox>
       </presentation>
       <presentation id="RescheduleWaitTime_Title">
@@ -695,22 +866,23 @@ Windows Update は、更新を自動的にインストールするように構�
           <label>このコンピューターのグループ名をターゲットにする</label>
         </textBox>
       </presentation>
-      <presentation id="IdleShutdownTimerDuration_Title">
-        <text>スケジュールされた再起動を再度確認するまでの</text>
-        <text>サービスをシャットダウンする</text>
-        <decimalTextBox refId="IdleShutdownTimerDuration_Minutes" defaultValue="10">アイドル状態 (分):  </decimalTextBox>
-      </presentation>
       <presentation id="AlwaysAutoRebootAtScheduledTime_Presentation">
-        <text>再起動のタイマーで指定される、</text>
-        <text>作業内容の保存にかかる</text>
+        <text>再開タイマーによって、ユーザーにはこれだけの時間が与えられます</text>
         <decimalTextBox refId="AlwaysAutoRebootAtScheduledTime_Minutes" defaultValue="15">時間 (分):  </decimalTextBox>
       </presentation>
+      <presentation id="TargetReleaseVersion">
+        <textBox refId="ProductVersionId">
+          <label>どの Windows 製品のバージョンから機能更新プログラムを受け取りますか? 例: Windows 10</label>
+        </textBox>
+        <textBox refId="TargetReleaseVersionId">
+          <label>機能更新プログラムのターゲット バージョン</label>
+        </textBox>
+      </presentation>
       <presentation id="ManagePreviewBuilds">
-        <dropdownList refId="ManagePreviewBuildsId" noSort="true" defaultItem="2">プレビュー ビルドを受信する方法を設定します:</dropdownList>
+        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">受信する更新プログラムの Windows 準備レベルを選択してください:</dropdownList>
       </presentation>
       <presentation id="DeferFeatureUpdates">
-        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">受信する更新プログラムの Windows 準備レベルを選択してください:</dropdownList>
-        <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">プレビュー ビルドまたは機能更新プログラムがリリースされた後、受信を延期する日数:</decimalTextBox>
+       <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">機能更新プログラムがリリースされてからデバイスに提供されるまでに、更新を保留する日数を指定してください。</decimalTextBox>
         <textBox refId="PauseFeatureUpdatesStartId">
           <label>プレビュー ビルドまたは機能更新プログラム一時停止の開始日:</label>
         </textBox>
@@ -732,6 +904,10 @@ Windows Update は、更新を自動的にインストールするように構�
         <text>保留中の再起動がアクティブ時間外に自動実行されるまでの日数を指定します。 </text>
         <dropdownList refId="AutoRestartDeadline" noSort="true" defaultItem="5">品質更新プログラム (日数): </dropdownList>
         <dropdownList refId="AutoRestartDeadlineForFeatureUpdates" noSort="true" defaultItem="5">機能更新プログラム (日数): </dropdownList>
+      </presentation>
+      <presentation id="MaxPauseDays_Title">
+        <text>ユーザーが更新プログラムを一時停止できる日数を指定します:</text>
+        <decimalTextBox refId="SetMaxPauseDays" noSort="true" defaultValue="35">最大一時停止日数: </decimalTextBox>
       </presentation>
       <presentation id="ActiveHoursMaxRange_Title">
         <text>最大アクティブ時間範囲を指定します。</text>
@@ -768,16 +944,50 @@ Windows Update は、更新を自動的にインストールするように構�
       </presentation>
       <presentation id="UpdateNotificationLevel_Title">
         <dropdownList refId="UpdateNotificationLevel" noSort="true" defaultItem="0">更新通知の表示オプションを指定:</dropdownList>
+        <text></text>
+        <checkBox refId="NoUpdateNotificationsDuringActiveHours" defaultChecked="false">アクティブな時間帯にのみ適用</checkBox>
       </presentation>
-      <presentation id="ComplianceDeadline_Title">
-        <text>アクティブ時間に関係なく、スケジュールを変更できない更新を自動的に実行するまでの日数 (最大 30 日) を指定します。</text>
-        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="5">品質更新プログラム (日数):</dropdownList>
-        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="5">機能更新プログラム (日数):</dropdownList>
+       <presentation id="ComplianceDeadlineForFU_Title">
+        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="2">期限 (日数):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriodForFeatureUpdates" noSort="true" defaultItem="7">猶予期間 (日数):</dropdownList>
         <text></text>
-        <text>再起動が必要になってからデバイスが自動的に再起動されるまでの、自動再起動の猶予期間 (0 日から 7 日) を指定します。デバイスはアクティブ時間に関係なく再起動されます。スケジュールを変更することはできません。</text>
-        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">猶予期間 (日数)</dropdownList>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForFeatureUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="ComplianceDeadlineForQU_Title">
+        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="7">期限 (日数):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">猶予期間 (日数):</dropdownList>
         <text></text>
-        <checkBox refId="ConfigureDeadlineNoAutoReboot" defaultChecked="false">猶予期間が終了するまで自動的に再起動しない</checkBox>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForQualityUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="AllowOptionalContent_Title">
+        <dropdownList refId="AllowOptionalContent" noSort="true" defaultItem="0">オプションの更新プログラムをユーザーが受信する方法を選択する:</dropdownList>
+      </presentation>
+      <presentation id="MaintenanceWindow_Title">
+        <text>メンテナンス期間:</text>
+        <dropdownList refId="MaintenanceWindowUpdateActionsID" noSort="true" defaultItem="1">更新操作はメンテナンス期間内でのみ許可されます:</dropdownList>
+        <textBox refId="MaintenanceWindowStartDateID">
+            <label>開始日 (形式: yyyy-mm-dd 例: 2025-10-30)</label>
+        </textBox>
+        <textBox refId="MaintenanceWindowStartTimeID">
+            <label>開始時刻 (形式: hh:mm 例: 午後 11 時 30 分の場合は 23:30)</label>
+        </textBox>
+        <decimalTextBox refId="MaintenanceWindowDurationHoursID" defaultValue="2">期間 (時間):</decimalTextBox>
+        <dropdownList refId="MaintenanceWindowRepeatScheduleOptionID" noSort="true" defaultItem="1">繰り返しスケジュールを選択:</dropdownList>
+        <text>以下の設定が必要なのは (適用されるのは)、[Weekly] を選択した場合だけです。</text>
+        <checkBox refId="MaintenanceWindowWeeklySundayID" defaultChecked="false">日曜日</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyMondayID" defaultChecked="false">月曜日</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyTuesdayID" defaultChecked="false">火曜日</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyWednesdayID" defaultChecked="false">水曜日</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyThursdayID" defaultChecked="false">木曜日</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyFridayID" defaultChecked="false">金曜日</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklySaturdayID" defaultChecked="false">土曜日</checkBox>
+        <text>以下の設定は、[毎月] を選択した場合にのみ必要であり、かつ適用されます。</text>
+        <dropdownList refId="MaintenanceWindowMonthlyScheduleID" noSort="true" defaultItem="1">- 毎月のスケジュール タイプ:</dropdownList>
+        <text>次の設定は必須であり、日付ベースの種類が選択されている場合にのみ適用されます:</text>
+        <decimalTextBox refId="MaintenanceWindowMonthlyMonthBasedDayOfMonthID" defaultValue="1">月の日:</decimalTextBox>
+        <text>以下の設定が必要なのは (適用されるのは)、[Week-based type] を選択した場合だけです。</text>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonthID" noSort="true" defaultItem="1">月内の発生</dropdownList>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedDayOfTheWeekID" noSort="true" defaultItem="1">曜日</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -137,9 +137,9 @@ Se non si configura questa impostazione dei criteri, essa non verrà applicata a
       <string id="Netlogon_ExpectedDialupDelay">Specifica ritardo previsto accesso alla rete in connessione remota</string>
       <string id="Netlogon_ExpectedDialupDelay_Help">Questa impostazione dei criteri specifica il periodo di tempo supplementare che il computer lascia trascorrere in attesa della risposta del controller di dominio durante la procedura di accesso alla rete.
 
-Per specificare il valore relativo al ritardo previsto nell'accesso alla rete in connessione remota, selezionare Abilitato e quindi immettere il valore desiderato espresso in secondi.Il valore 60 corrisponde ad esempio a un minuto.
+Per specificare il valore relativo al ritardo previsto nell'accesso alla rete in connessione remota, seleziona Abilitato e quindi specifica il valore desiderato espresso in secondi. Il valore 60 corrisponde ad esempio a un minuto.
 
-Se non si configura questa impostazione dei criteri, essa non verrà applicata ai computer, nei quali verrà pertanto utilizzata la configurazione locale.</string>
+Se non la configuri, questa impostazione dei criteri non verrà applicata ai computer nei quali verrà pertanto utilizzata la configurazione locale.</string>
       <string id="Netlogon_GcSiteCoverage">Specifica siti inclusi dai record DNS SRV di tipo GC Locator</string>
       <string id="Netlogon_GcSiteCoverage_Help">Questa impostazione dei criteri specifica i siti per i quali i cataloghi globali (GC) devono registrare i record di risorse DNS SRV di tipo GC Locator specifici del sito. Questi record vengono registrati in aggiunta ai record SRV specifici registrati per il sito in cui risiede il catalogo globale e a quelli registrati da un catalogo globale configurato per la registrazione dei record DNS SRV di tipo GC Locator per i siti ad esso più vicini che non dispongono di catalogo globale. 
 
@@ -298,6 +298,7 @@ Questa impostazione dei criteri è consigliata per ridurre la superficie di atta
 Se si abilita questa impostazione dei criteri, il controller di dominio non elaborerà i messaggi mailslot in ingresso utilizzati per l'individuazione del controller di dominio basata sul nome di dominio NetBIOS.
 
 Se si disabilita o non si configura questa impostazione dei criteri, il controller di dominio elaborerà i messaggi mailslot in ingresso. Si tratta del comportamento predefinito del servizio di individuazione dei controller di dominio.</string>
+
       <string id="Netlogon_AvoidFallbackNetbiosDiscovery">Non utilizzare l'individuazione basata su NetBIOS per il rilevamento dei controller di dominio quando non riesce l'individuazione basata su DNS</string>
       <string id="Netlogon_AvoidFallbackNetbiosDiscovery_Help">Questa impostazione dei criteri consente di controllare l'algoritmo di percorso del controller di dominio. Per impostazione predefinita, l'algoritmo di percorso del controller di dominio preferisce l'individuazione basata su DNS se il nome di dominio DNS è noto. Se l'individuazione basata su DNS non riesce e il nome di dominio NetBIOS è noto, l'algoritmo utilizzerà l'individuazione basata su NetBIOS come meccanismo di fallback.
 
@@ -307,7 +308,18 @@ Si noti che questa impostazione dei criteri non influirà sull'individuazione ba
 
 Se si abilita o non si configura questa impostazione dei criteri, l'algoritmo di percorso del controller di dominio non utilizzerà l'individuazione basata su NetBIOS come meccanismo di fallback quando l'individuazione basata su DNS ha esito negativo. Questo è il comportamento predefinito.
 
-Se si disabilita questa impostazione dei criteri, l'algoritmo di percorso del controller di dominio potrà utilizzare l'individuazione basata su NetBIOS come meccanismo di fallback quando l'individuazione basata su DNS ha esito negativo.</string>
+Se si disabilita questa impostazione dei criteri, l'algoritmo di percorso del controller di dominio potrà utilizzare l'individuazione basata su NetBIOS come meccanismo di fallback quando l'individuazione basata su DNS ha esito negativo.
+
+Questa impostazione non ha effetto se l'impostazione BlockNetbiosDiscovery non è disabilitata. Il rilevamento basato su NetBIOS è considerato non sicuro, ha molte limitazioni e sarà deprecato in una release futura. Per questi motivi, il rilevamento basato su NetBIOS non è consigliato. Per ulteriori informazioni, vedere https://aka.ms/dclocatornetbiosdeprecation.</string>
+
+      <string id="Netlogon_BlockNetbiosDiscovery">Blocca l'individuazione basata su NetBIOS per il percorso del controller di dominio</string>
+      <string id="Netlogon_BlockNetbiosDiscovery_Help">Questa impostazione dei criteri consente di controllare se l'algoritmo di percorso del controller di dominio utilizza NetBIOS_based individuazione per il percorso del controller di dominio.
+
+Se si abilita o non si configura questa impostazione dei criteri, l'algoritmo di percorso del controller di dominio non utilizzerà mai l'individuazione basata su NetBIOS. Questo è il comportamento predefinito.
+
+Se si disabilita questa impostazione dei criteri, l'algoritmo di percorso del controller di dominio potrà utilizzare l'individuazione basata su NetBIOS quando necessario. Il comportamento finale è ulteriormente regolato dall'impostazione AvoidFallbackNetbiosDiscovery.
+
+L'individuazione basata su NetBIOS è considerata non sicura, presenta molte limitazioni e verrà deprecata in una versione futura. Per questi motivi, l'individuazione basata su NetBIOS non è consigliata. Per altre informazioni, vedere https://aka.ms/dclocatornetbiosdeprecation.</string>
 
       <string id="Netlogon_AddressLookupOnPingBehavior">Specifica comportamento ricerca di indirizzi per il ping di localizzazione controller di dominio</string>
       <string id="Netlogon_AddressLookupOnPingBehavior_Help">Questa impostazione dei criteri configura il comportamento di un controller di dominio quando risponde a un client il cui indirizzo IP non è mappato ad alcun sito configurato.
@@ -337,6 +349,33 @@ I valori consentiti per questa impostazione generano i comportamenti seguenti:
 Per specificare questo comportamento, fare clic su Abilitata e quindi immettere un valore. L'intervallo di valori è compreso tra 1 e 2.
 
 Se non si configura questa impostazione dei criteri, essa non verrà applicata ai computer, nei quali verrà pertanto utilizzata la configurazione locale.</string>
+
+      <string id="Netlogon_DnsSrvRecordUseLowerCaseHostNames">Usa nomi host DNS minuscoli durante la registrazione dei record SRV del controller di dominio</string>
+      <string id="Netlogon_DnsSrvRecordUseLowerCaseHostNames_Help">Questa impostazione dei criteri consente di stabilire se i controller di dominio a cui viene applicata questa impostazione consentiranno di specificare in minuscolo il nome host DNS durante la registrazione dei record SRV.
+
+Se abilitato, i controller di dominio specificano in minuscolo il nome host DNS durante la registrazione dei record SRV del controller di dominio. Verrà effettuato un tentativo migliore per eliminare tutti i record SRV precedentemente registrati che contengono nomi host DNS con maiuscoli e minuscoli. Per altre informazioni e le possibili procedure di pulizia manuale, vedi il collegamento seguente.
+
+Se questa impostazione è disabilitata, i controller di dominio utilizzano il nome host DNS configurato così com'è durante la registrazione dei record SRV del controller di dominio.
+
+Se non è configurata, i controller di dominio utilizzano la configurazione locale.
+
+La configurazione locale predefinita è abilitata.
+
+Per rendere effettive le modifiche apportate a questa impostazione, non è necessario riavviare il sistema.
+
+Ulteriori informazioni sono disponibili all'indirizzo https://aka.ms/lowercasehostnamesrvrecord
+      </string>
+      <string id="Netlogon_EnhancedDomainNtlmLogs">Registra log NTLM avanzati a livello di dominio</string>
+      <string id="Netlogon_EnhancedDomainNtlmLogs_Help">Questa impostazione di criteri configura se i controller di dominio a cui viene applicata questa impostazione registreranno nuovi log NTLM avanzati a livello di dominio. Questi log contengono informazioni più dettagliate sull'autenticazione NTLM a livello di dominio, incluso l'uso di NTLMv1.
+
+Se abilitato, i controller di dominio registreranno i nuovi log NTLM a livello di dominio.
+
+Se disabilitato, i controller di dominio non registreranno i nuovi log NTLM a livello di dominio.
+
+Se non configurato, i controller di dominio registreranno per impostazione predefinita i nuovi log NTLM a livello di dominio.
+
+Altre informazioni sono disponibili su aka.ms/ntlmlogandblock.
+      </string>
 
     </stringTable>
     <presentationTable>

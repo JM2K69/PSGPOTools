@@ -5,30 +5,29 @@
   <description>entrer la description ici</description>
   <resources>
     <stringTable>
-      <string id="ActiveDirectoryBackup_Help">Ce paramètre de stratégie permet de gérer la sauvegarde des informations de récupération de chiffrement de lecteur BitLocker dans les services de domaine Active Directory (AD DS). Il fournit une méthode administrative de récupération des données chiffrées par BitLocker pour éviter la perte de données en l’absence d’informations de clé. Ce paramètre de stratégie n’est applicable qu’aux ordinateurs Windows Server 2008 et Windows Vista.
+      <string id="ActiveDirectoryBackup_Help">Ce paramètre de stratégie permet de gérer la sauvegarde des informations de récupération de chiffrement de lecteur BitLocker dans les Services de domaine Active Directory (AD DS). Il fournit une méthode administrative de récupération des données chiffrées par BitLocker pour éviter la perte de données en l’absence d’informations de clé. Ce paramètre de stratégie n’est applicable qu’aux ordinateurs Windows Server 2008 et Windows Vista.
 
-Si vous activez ce paramètre de stratégie, les informations de récupération BitLocker sont sauvegardées automatiquement et silencieusement dans les services de domaine Active Directory quand BitLocker est activé sur un ordinateur. Ce paramètre de stratégie est appliqué lorsque vous activez BitLocker.
+Si vous activez ce paramètre de stratégie, les informations de récupération BitLocker sont sauvegardées automatiquement et silencieusement dans les Services de domaine Active Directory quand BitLocker est activé sur un ordinateur. Ce paramètre de stratégie est appliqué lorsque vous activez BitLocker.
 
 Remarque : vous devrez peut-être configurer les extensions de schéma et les paramètres de contrôle d’accès appropriés pour le domaine pour que la sauvegarde AD DS puisse réussir. Vous trouverez plus d’informations sur la sauvegarde AD DS pour BitLocker sur Microsoft TechNet.
 
 Les informations de récupération BitLocker incluent le mot de passe de récupération et des données d’identificateur unique. Vous pouvez également inclure un package qui contient une clé de chiffrement du lecteur protégé par BitLocker. Ce package de clé est sécurisé par un ou plusieurs mots de passe de récupération et peut aider à effectuer une récupération spécialisée quand le disque est endommagé ou altéré.
 
-Si vous sélectionnez l’option « Exiger la sauvegarde BitLocker vers les services de domaine Active Directory (AD DS) », BitLocker ne peut pas être activé sans que l’ordinateur soit connecté au domaine et que la sauvegarde des informations de récupération BitLocker vers les services de domaine Active Directory réussisse. Cette option est sélectionnée par défaut de façon à garantir que la récupération BitLocker est possible. Dans le cas contraire, la sauvegarde des services de domaine Active Directory est tentée mais des échecs réseau ou d’autres échecs de sauvegarde n’ont pas d’impact sur la configuration BitLocker. La sauvegarde n’est pas automatiquement essayée à nouveau et le mot de passe de récupération peut ne pas avoir été stocké dans les services de domaine Active Directory lors de la configuration BitLocker.
+Si vous sélectionnez l’option « Exiger la sauvegarde BitLocker vers les Services de domaine Active Directory (AD DS) », BitLocker ne peut pas être activé sans que l’ordinateur soit connecté au domaine et que la sauvegarde des informations de récupération BitLocker vers les Services de domaine Active Directory réussisse. Cette option est sélectionnée par défaut de façon à garantir que la récupération BitLocker est possible. Dans le cas contraire, la sauvegarde des Services de domaine Active Directory est tentée mais des échecs réseau ou d’autres échecs de sauvegarde n’ont pas d’impact sur la configuration BitLocker. La sauvegarde n’est pas automatiquement essayée à nouveau et le mot de passe de récupération peut ne pas avoir été stocké dans les Services de domaine Active Directory lors de la configuration BitLocker.
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, les informations de récupération BitLocker ne seront pas sauvegardées dans les services de domaine Active Directory.
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, les informations de récupération BitLocker ne seront pas sauvegardées dans les Services de domaine Active Directory.
 
-Remarque : l’initialisation du module de plateforme sécurisée peut être nécessaire lors de la configuration de BitLocker. Activez le paramètre de stratégie « Activer la sauvegarde du module de plateforme sécurisée dans les services de domaine Active Directory (AD DS) » dans Système\Services de module de plateforme sécurisée\ pour faire en sorte que les informations du module de plateforme sécurisée soient également sauvegardées.
-      
+Remarque : l’initialisation du module de plateforme sécurisée peut être nécessaire lors de la configuration de BitLocker. Activez le paramètre de stratégie « Activer la sauvegarde du module de plateforme sécurisée dans les Services de domaine Active Directory (AD DS) » dans Système\Services de module de plateforme sécurisée\ pour faire en sorte que les informations du module de plateforme sécurisée soient également sauvegardées.
       </string>
-      <string id="ActiveDirectoryBackup_Name">Enregistrer les informations de récupération BitLocker dans les services de domaine Active Directory (Windows Server 2008 et Windows Vista)</string>
+      <string id="ActiveDirectoryBackup_Name">Enregistrer les informations de récupération BitLocker dans les Services de domaine Active Directory (Windows Server 2008 et Windows Vista)</string>
       <string id="ActiveDirectoryBackupDropDown_1">Mots de passe et packages de clés de récupération</string>
       <string id="ActiveDirectoryBackupDropDown_2">Mots de passe de récupération uniquement</string>
 
       <string id="ConfigureStartupUsage_Help">Ce paramètre de stratégie vous permet d’indiquer si l’Assistant Installation du chiffrement de lecteur BitLocker peut configurer une méthode d’authentification supplémentaire qui est demandée à chaque démarrage de l’ordinateur. Ce paramètre de stratégie est appliqué lorsque vous activez BitLocker.
 
-Remarque : ce paramètre de stratégie n’est applicable qu’aux ordinateurs Windows Server 2008 et Windows Vista.
+Remarque : ce paramètre de stratégie n’est applicable qu’aux ordinateurs Windows Server 2008 et Windows Vista.
 
-Sur un ordinateur avec un module de plateforme sécurisée, deux méthodes d’authentification peuvent être utilisées au démarrage pour offrir une protection renforcée des données chiffrées. Lorsque l’ordinateur démarre, il peut demander à l’utilisateur d’insérer un lecteur flash USB contenant une clé de démarrage. Il peut également demander à l’utilisateur d’entrer un code PIN de démarrage constitué de 4 à 20 chiffres.
+Sur un ordinateur avec un module de plateforme sécurisée, deux méthodes d’authentification peuvent être utilisées au démarrage pour offrir une protection renforcée des données chiffrées. Lorsque l’ordinateur démarre, il peut demander à l’utilisateur d’insérer un lecteur flash USB contenant une clé de démarrage. Il peut également demander à l’utilisateur d’entrer un code PIN de démarrage constitué de 4 à 20 chiffres.
 
 Un lecteur flash USB contenant une clé de démarrage est nécessaire sur les ordinateurs sans module de plateforme sécurisée compatible. Sans module de plateforme sécurisée, les données chiffrées par BitLocker sont protégées seulement par le support de gestion des clés qui se trouve sur ce lecteur flash USB.
 
@@ -97,9 +96,7 @@ Remarque : si l’initialisation du module de plateforme sécurisée est néces
 
 Remarque : le mot de passe de récupération de 48 chiffres ne sera pas disponible en mode de compatibilité FIPS.
 
-Important : ce paramètre de stratégie fournit une méthode administrative de récupération des données chiffrées avec BitLocker pour éviter la perte de données due à l’absence des informations de clé. Si vous n’autorisez pas les deux options de récupération, vous devez activer le paramètre de stratégie « Enregistrer les informations de récupération BitLocker dans les services de domaine Active Directory (Windows Server 2008 et Windows Vista) » pour éviter toute erreur de stratégie.
-
-      
+Important : ce paramètre de stratégie fournit une méthode administrative de récupération des données chiffrées avec BitLocker pour éviter la perte de données due à l’absence des informations de clé. Si vous n’autorisez pas les deux options de récupération, vous devez activer le paramètre de stratégie « Enregistrer les informations de récupération BitLocker dans les Services de domaine Active Directory (Windows Server 2008 et Windows Vista) » pour éviter toute erreur de stratégie.
 
       </string>
 
@@ -121,17 +118,15 @@ Dans « Configurer le stockage par les utilisateurs des informations de récup�
 
 Sélectionnez « Supprimer les options de configuration de l’Assistant d’installation BitLocker » pour empêcher les utilisateurs de spécifier des options de récupération lorsqu’ils activent BitLocker sur un lecteur. Cela signifie que vous ne pouvez pas indiquer quelle option de récupération utiliser lorsque vous activez BitLocker. Les options de récupération BitLocker pour le lecteur sont alors déterminées par le paramètre de stratégie.
 
-Dans « Enregistrer les informations de récupération BitLocker dans les services de domaine Active Directory pour les lecteurs du système d’exploitation », sélectionnez les informations de récupération BitLocker à enregistrer dans les services de domaine Active Directory pour les lecteurs du système d’exploitation. Si vous sélectionnez « Sauvegarder les mots de passe de récupération et les packages de clés », le mot de passe de récupération BitLocker et le package de clés sont stockés dans les services de domaine Active Directory. Le stockage du package de clés prend en charge la récupération de données à partir d’un lecteur physiquement endommagé. Si vous sélectionnez « Sauvegarder les mots de passe de récupération uniquement », seul le mot de passe de récupération est stocké dans les services de domaine Active Directory.
+Dans « Enregistrer les informations de récupération BitLocker dans les Services de domaine Active Directory pour les lecteurs du système d’exploitation », sélectionnez les informations de récupération BitLocker à enregistrer dans les Services de domaine Active Directory pour les lecteurs du système d’exploitation. Si vous sélectionnez « Sauvegarder les mots de passe de récupération et les packages de clés », le mot de passe de récupération BitLocker et le package de clés sont stockés dans les Services de domaine Active Directory. Le stockage du package de clés prend en charge la récupération de données à partir d’un lecteur physiquement endommagé. Si vous sélectionnez « Sauvegarder les mots de passe de récupération uniquement », seul le mot de passe de récupération est stocké dans les Services de domaine Active Directory.
 
-Activez la case à cocher « N’activer BitLocker qu’une fois les informations de récupération stockées dans les services de domaine Active Directory pour les lecteurs du système d’exploitation » pour autoriser les utilisateurs à n’activer BitLocker que si l’ordinateur est connecté au domaine et que la sauvegarde des informations de récupération BitLocker dans les services de domaine Active Directory a réussi.
+Activez la case à cocher « N’activer BitLocker qu’une fois les informations de récupération stockées dans les Services de domaine Active Directory pour les lecteurs du système d’exploitation » pour autoriser les utilisateurs à n’activer BitLocker que si l’ordinateur est connecté au domaine et que la sauvegarde des informations de récupération BitLocker dans les Services de domaine Active Directory a réussi.
 
-Remarque : si la case à cocher « N’activer BitLocker qu’une fois les informations de récupération stockées dans les services de domaine Active Directory pour les lecteurs du système d’exploitation » est activée, un mot de passe de récupération est généré automatiquement.
+Remarque : si la case à cocher « N’activer BitLocker qu’une fois les informations de récupération stockées dans les Services de domaine Active Directory pour les lecteurs du système d’exploitation » est activée, un mot de passe de récupération est généré automatiquement.
 
 Si vous activez ce paramètre de stratégie, vous pouvez contrôler les méthodes mises à disposition des utilisateurs pour récupérer les données des lecteurs du système d’exploitation protégés par BitLocker.
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, les options de récupération par défaut sont prises en charge pour la récupération BitLocker. Par défaut, les agents de récupération de données sont autorisés, l’utilisateur peut définir les options de récupération, y compris le mot de passe de récupération et le package de clé, et les informations de récupération ne sont pas sauvegardées dans les services de domaine Active Directory.
-
-
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, les options de récupération par défaut sont prises en charge pour la récupération BitLocker. Par défaut, les agents de récupération de données sont autorisés, l’utilisateur peut définir les options de récupération, y compris le mot de passe de récupération et le package de clé, et les informations de récupération ne sont pas sauvegardées dans les Services de domaine Active Directory.
 
 </string>
 
@@ -152,17 +147,15 @@ Dans « Configurer le stockage par les utilisateurs des informations de récup�
 
 Sélectionnez « Supprimer les options de configuration de l’Assistant d’installation BitLocker » pour empêcher les utilisateurs de spécifier des options de récupération lorsqu’ils activent BitLocker sur un lecteur. Cela signifie que vous ne pouvez pas indiquer quelle option de récupération utiliser lorsque vous activez BitLocker. Les options de récupération BitLocker pour le lecteur sont alors déterminées par le paramètre de stratégie.
 
-Dans « Enregistrer les informations de récupération BitLocker dans les services de domaine Active Directory pour les lecteurs de données fixes », sélectionnez les informations de récupération BitLocker à enregistrer dans les services de domaine Active Directory pour les lecteurs de données fixes. Si vous sélectionnez « Sauvegarder les mots de passe de récupération et les packages de clés », le mot de passe de récupération BitLocker et le package de clés sont stockés dans les services de domaine Active Directory. Le stockage du package de clés prend en charge la récupération de données à partir d’un lecteur physiquement endommagé. Si vous sélectionnez « Sauvegarder les mots de passe de récupération uniquement », seul le mot de passe de récupération est stocké dans les services de domaine Active Directory.
+Dans « Enregistrer les informations de récupération BitLocker dans les Services de domaine Active Directory pour les lecteurs de données fixes », sélectionnez les informations de récupération BitLocker à enregistrer dans les Services de domaine Active Directory pour les lecteurs de données fixes. Si vous sélectionnez « Sauvegarder les mots de passe de récupération et les packages de clés », le mot de passe de récupération BitLocker et le package de clés sont stockés dans les Services de domaine Active Directory. Le stockage du package de clés prend en charge la récupération de données à partir d’un lecteur physiquement endommagé. Si vous sélectionnez « Sauvegarder les mots de passe de récupération uniquement », seul le mot de passe de récupération est stocké dans les Services de domaine Active Directory.
 
-Activez la case à cocher « N’activer BitLocker qu’une fois les informations de récupération stockées dans les services de domaine Active Directory pour les lecteurs de données fixes » pour autoriser les utilisateurs à n’activer BitLocker que si l’ordinateur est connecté au domaine et que la sauvegarde des informations de récupération BitLocker dans les services de domaine Active Directory a réussi.
+Activez la case à cocher « N’activer BitLocker qu’une fois les informations de récupération stockées dans les Services de domaine Active Directory pour les lecteurs de données fixes » pour autoriser les utilisateurs à n’activer BitLocker que si l’ordinateur est connecté au domaine et que la sauvegarde des informations de récupération BitLocker dans les Services de domaine Active Directory a réussi.
 
-Remarque : si la case à cocher « N’activer BitLocker qu’une fois les informations de récupération stockées dans les services de domaine Active Directory pour les lecteurs de données fixes » est activée, un mot de passe de récupération est généré automatiquement.
+Remarque : si la case à cocher « N’activer BitLocker qu’une fois les informations de récupération stockées dans les Services de domaine Active Directory pour les lecteurs de données fixes » est activée, un mot de passe de récupération est généré automatiquement.
 
 Si vous activez ce paramètre de stratégie, vous pouvez contrôler les méthodes mises à disposition des utilisateurs pour récupérer les données des lecteurs de données fixes protégés par BitLocker.
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, les options de récupération par défaut sont prises en charge pour la récupération BitLocker. Par défaut, un agent de réplication de répertoire est autorisé, les options de récupération peuvent être spécifiées par l’utilisateur, y compris le mot de passe et la clé de récupération, et les informations de récupération ne sont pas sauvegardées dans les services de domaine Active Directory.
-
-
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, les options de récupération par défaut sont prises en charge pour la récupération BitLocker. Par défaut, un agent de réplication de répertoire est autorisé, les options de récupération peuvent être spécifiées par l’utilisateur, y compris le mot de passe et la clé de récupération, et les informations de récupération ne sont pas sauvegardées dans les Services de domaine Active Directory.
 
 </string>
 
@@ -184,16 +177,15 @@ Dans « Configurer le stockage par les utilisateurs des informations de récup�
 
 Sélectionnez « Supprimer les options de configuration de l’Assistant d’installation BitLocker » pour empêcher les utilisateurs de spécifier des options de récupération lorsqu’ils activent BitLocker sur un lecteur. Cela signifie que vous ne pouvez pas indiquer quelle option de récupération utiliser lorsque vous activez BitLocker. Les options de récupération BitLocker pour le lecteur sont alors déterminées par le paramètre de stratégie.
 
-Dans « Enregistrer les informations de récupération BitLocker dans les services de domaine Active Directory pour les lecteurs de données amovibles », sélectionnez les informations de récupération BitLocker à enregistrer dans les services de domaine Active Directory pour les lecteurs de données amovibles. Si vous sélectionnez « Sauvegarder les mots de passe de récupération et les packages de clés », le mot de passe de récupération BitLocker et le package de clés sont stockés dans les services de domaine Active Directory. Si vous sélectionnez « Sauvegarder les mots de passe de récupération uniquement », seul le mot de passe est stocké dans les services de domaine Active Directory.
+Dans « Enregistrer les informations de récupération BitLocker dans les Services de domaine Active Directory pour les lecteurs de données amovibles », sélectionnez les informations de récupération BitLocker à enregistrer dans les Services de domaine Active Directory pour les lecteurs de données amovibles. Si vous sélectionnez « Sauvegarder les mots de passe de récupération et les packages de clés », le mot de passe de récupération BitLocker et le package de clés sont stockés dans les Services de domaine Active Directory. Si vous sélectionnez « Sauvegarder les mots de passe de récupération uniquement », seul le mot de passe est stocké dans les Services de domaine Active Directory.
 
-Activez la case à cocher « N’activer BitLocker qu’une fois les informations de récupération enregistrées dans les services de domaine Active Directory pour les lecteurs de données amovibles » pour autoriser les utilisateurs à n’activer BitLocker que si l’ordinateur est connecté au domaine et que les informations de récupération BitLocker sont sauvegardées dans les services de domaine Active Directory.
+Activez la case à cocher « N’activer BitLocker qu’une fois les informations de récupération enregistrées dans les Services de domaine Active Directory pour les lecteurs de données amovibles » pour autoriser les utilisateurs à n’activer BitLocker que si l’ordinateur est connecté au domaine et que les informations de récupération BitLocker sont sauvegardées dans les Services de domaine Active Directory.
 
-Remarque : si la case à cocher « N’activer BitLocker qu’une fois les informations de récupération stockées dans les services de domaine Active Directory pour les lecteurs de données fixes » est activée, un mot de passe de récupération est généré automatiquement.
+Remarque : si la case à cocher « N’activer BitLocker qu’une fois les informations de récupération stockées dans les Services de domaine Active Directory pour les lecteurs de données fixes » est activée, un mot de passe de récupération est généré automatiquement.
 
 Si vous activez ce paramètre de stratégie, vous pouvez contrôler les méthodes mises à disposition des utilisateurs pour récupérer les données des lecteurs de données amovibles protégés par BitLocker.
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, les options de récupération par défaut sont prises en charge pour la récupération BitLocker. Par défaut, un agent de réplication de répertoire est autorisé, les options de récupération peuvent être spécifiées par l’utilisateur, y compris le mot de passe et la clé de récupération, et les informations de récupération ne sont pas sauvegardées dans les services de domaine Active Directory.
-      
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, les options de récupération par défaut sont prises en charge pour la récupération BitLocker. Par défaut, un agent de réplication de répertoire est autorisé, les options de récupération peuvent être spécifiées par l’utilisateur, y compris le mot de passe et la clé de récupération, et les informations de récupération ne sont pas sauvegardées dans les Services de domaine Active Directory.
       </string>
       <string id="RDVRecoveryPasswordUsageDropDown_Require">Exiger un mot de passe de récupération de 48 chiffres</string>
       <string id="RDVRecoveryPasswordUsageDropDown_Allow">Autoriser un mot de passe de récupération de 48 chiffres</string>
@@ -318,6 +310,18 @@ Remarque : certains ordinateurs ne sont peut-être pas compatibles avec cette s
 
       </string>
       <string id="DisableExternalDMAUnderLock_Name">Désactiver les nouveaux périphériques DMA lorsque cet ordinateur est verrouillé</string>
+
+      <string id="DisableWinRETrust_Help">Ce paramètre de stratégie contrôle si BitLocker fait confiance à l’Environnement de récupération Windows (WinRE).
+
+Lorsque BitLocker fait confiance à l’Environnement de récupération Windows (WinRE), celui-ci peut accéder au volume du système d’exploitation protégé par BitLocker sans nécessiter la clé de récupération BitLocker. Cela prend en charge les opérations de récupération qui nécessitent l’accès au volume du système d’exploitation.
+
+Important : l’activation de cette stratégie modifie le comportement de récupération. Si vous activez ce paramètre de stratégie, BitLocker ne fait pas confiance à l’Environnement de récupération Windows (WinRE). La clé de récupération BitLocker est requise pour toute opération d’Environnement de récupération Windows (WinRE) qui doit accéder au volume du système d’exploitation protégé par BitLocker. Les opérations de récupération qui reposent sur l’accès de l’Environnement de récupération Windows (WinRE) au volume du système d’exploitation peuvent nécessiter l’intervention de l’utilisateur ou de l’administrateur et ne pas s’effectuer automatiquement, notamment la réparation du démarrage, la récupération rapide de la machine, la récupération par bouton-poussoir et la réinitialisation à distance initiée par MDM ou l’effacement à distance à l’aide du fournisseur de services de configuration RemoteWipe.
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, BitLocker fait confiance à une image d’Environnement de récupération Windows (WinRE) validée pour que l’Environnement de récupération Windows (WinRE) puisse accéder au volume du système d’exploitation protégé par BitLocker sans clé de récupération.
+
+Ce paramètre de stratégie est appliqué seulement lorsque BitLocker ou le chiffrement de l’appareil est activé.</string>
+
+      <string id="DisableWinRETrust_Name">Désactiver l’approbation BitLocker de l’Environnement de récupération Windows (WinRE)</string>
 
       <string id="FVEOSCategory">Lecteurs du système d’exploitation</string>
       <string id="FVEFDVCategory">Lecteurs de données fixes</string>
@@ -572,15 +576,13 @@ Si vous ne configurez pas ce paramètre de stratégie, les cartes à puce sont a
       <string id="EnhancedPIN_Name">Autoriser les codes confidentiels améliorés au démarrage</string>
       <string id="EnhancedPIN_Help">Ce paramètre de stratégie permet de configurer si les codes confidentiels améliorés peuvent être utilisés avec BitLocker au démarrage.
 
-Les codes confidentiels de démarrage améliorés permettent l’utilisation de caractères comme les majuscules et les minuscules, les symboles, les chiffres et les espaces. Ce paramètre de stratégie est appliqué lorsque vous activez BitLocker.
+Les codes confidentiels de démarrage améliorés permettent l’utilisation de caractères comme les capitales et les minuscules, les symboles, les chiffres et les espaces. Ce paramètre de stratégie est appliqué lorsque vous activez BitLocker.
 
 Si vous activez ce paramètre de stratégie, tous les nouveaux codes confidentiels de démarrage BitLocker seront des codes améliorés.
 
 Remarque : tous les ordinateurs ne prennent pas en charge les codes confidentiels améliorés dans l’environnement préalable au démarrage. Il est fortement conseillé que les utilisateurs réalisent une vérification système pendant l’installation de BitLocker.
 
 Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, les codes confidentiels améliorés ne sont pas autorisés.
-
-      
 
       </string>
 

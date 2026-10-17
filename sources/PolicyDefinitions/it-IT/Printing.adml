@@ -44,24 +44,24 @@ Note:
           Vedere anche l'impostazione "Attiva stampa Internet" in questa cartella delle impostazioni e "Trova stampanti in un sito Web comune" in Configurazione utente\Modelli amministrativi\Pannello di controllo\Stampanti.
 
           Per impostare la visualizzazione Web, utilizzare le impostazioni "Passa a Shell classica" e "Non consentire l'apertura di Opzioni cartella dal pulsante Opzioni della scheda Visualizza della barra multifunzione" in Configurazione utente\Modelli amministrativi\Componenti di Windows\Esplora risorse e l'impostazione "Abilita Active Desktop" in Configurazione utente\Modelli amministrativi\Desktop\Active Desktop.</string>
-      <string id="DomainDisplayPrinters_Help">Se si abilita questa impostazione dei criteri, verrà impostato il numero massimo di stampanti (per ogni tipo) visualizzate nell'Installazione guidata stampante di un computer in una rete gestita, ovvero quando il computer può raggiungere un controller di dominio, ad esempio un computer portatile aggiunto al dominio in una rete aziendale.
+      <string id="DomainDisplayPrinters_Help">Se si abilita questa impostazione dei criteri, verrà impostato il numero massimo di stampanti (per ogni tipo) visualizzate nell'Installazione guidata stampante di un computer di una rete gestita, ossia quando il computer può raggiungere un controller di dominio, ad esempio un computer portatile aggiunto al dominio in una rete aziendale.
 
-          Se questa impostazione dei criteri è disabilitata, non verrà visualizzata la pagina di scansione di rete.
+           Se questa impostazione dei criteri è disabilitata, non verrà visualizzata la pagina di analisi della rete.
 
            Se questa impostazione dei criteri non è configurata, nell'Installazione guidata stampante verrà visualizzato il numero predefinito di stampanti di ogni tipo:
-          Stampanti directory: 20
+ Stampanti directory: 20
           Stampanti TCP/IP: 0
           Stampanti servizi Web: 0
           Stampanti Bluetooth: 10
           Stampanti condivise: 0
 
-          Per visualizzare le stampanti per servizi Web disponibili nella rete, assicurarsi che l'individuazione della rete sia attivata. Per attivarla, fare clic su "Start", quindi su "Pannello di controllo" e infine su "Rete e Internet". In "Rete e Internet" fare clic su "Centro connessioni di rete e condivisione". In "Centro connessioni di rete e condivisione" fare clic su "Modifica impostazioni di condivisione avanzate". In "Modifica impostazioni di condivisione avanzate" fare clic sulla freccia accanto a "Dominio", quindi su "Attiva individuazione rete" e infine su "Salva modifiche".
+          Per visualizzare le stampanti dei servizi Web disponibili nella rete, assicurarsi che l'individuazione della rete sia attivata. Per attivarla, fare clic su "Start", quindi su "Pannello di controllo" e infine su "Rete e Internet". In "Rete e Internet" fare clic su "Centro connessioni di rete e condivisione". In "Centro connessioni di rete e condivisione" fare clic su "Modifica impostazioni di condivisione avanzate". In "Modifica impostazioni di condivisione avanzate" fare clic sulla freccia accanto a "Dominio", quindi su "Attiva individuazione rete" e infine su "Salva modifiche".
 
           Se non si desidera visualizzare le stampanti di un determinato tipo, abilitare questa impostazione dei criteri e impostare 0 come numero di stampanti da visualizzare.
 
           In Windows 10 e versioni successive, nella procedura guidata è possibile visualizzare solo le stampanti TCP/IP. Se si abilita questo criterio, sono applicabili sono i limiti per le stampanti TCP/IP. Solo in Windows 10, se questo criterio viene disabilitato o non viene configurato, viene applicato il limite predefinito.
-          
-          In Windows 8 e versioni successive le stampanti Bluetooth non vengono visualizzate, pertanto il relativo limite non si applica a queste versioni di Windows.
+ 
+          In Windows 8 e versioni successive, le stampanti Bluetooth non vengono visualizzate, pertanto il relativo limite non si applica a queste versioni di Windows.
       </string>
       <string id="DomainPrinters">Installazione guidata stampante - pagina di scansione di rete (rete gestita)</string>
       <string id="DownlevelBrowse">Sfoglia la rete per cercare le stampanti</string>
@@ -134,21 +134,21 @@ Nota: applicando questo criterio, i driver in modalità kernel esistenti verrann
           L'impostazione non impedisce agli utenti di eseguire altri programmi per eliminare una stampante.
 
           Se si disabilita o non si configura questa impostazione, gli utenti potranno eliminare le stampanti utilizzando i metodi sopra descritti.</string>
-      <string id="NonDomainDisplayPrinters_Help">Questo criterio imposta il numero massimo di stampanti (di ciascun tipo) che vengono visualizzate su un computer tramite Installazione guidata stampante in una rete non gestita (quando il computer non può raggiungere un controller di dominio, ad esempio un computer portatile aggiunto al dominio in una rete domestica).
+      <string id="NonDomainDisplayPrinters_Help">Questo criterio consente di impostare il numero massimo di stampanti (di ogni tipo) che verranno visualizzate in un computer in una rete non gestita (quando il computer non riesce a raggiungere un controller di dominio, ad esempio un computer portatile aggiunto a un dominio in una rete domestica).
 
-Se si disabilita questa impostazione, non verrà visualizzata la pagina di scansione di rete.
+Se questa impostazione è disabilitata, la pagina di analisi della rete non verrà visualizzata.
 
-Se non si configura questa impostazione, nell'Installazione guidata stampante verrà visualizzato il numero predefinito di stampanti di ogni tipo:
+Se questa impostazione non è configurata, l'Installazione guidata stampante visualizzerà il numero predefinito di stampanti di ogni tipo:
 Stampanti TCP/IP: 50
 Stampanti servizi Web: 50
 Stampanti Bluetooth: 10
 Stampanti condivise: 50
 
-Se non si desidera visualizzare un tipo di stampante, abilitare questo criterio e impostare 0 come numero di stampanti da visualizzare.
+Se non si desidera visualizzare stampanti di un determinato tipo, abilitare questo criterio e impostare il numero di stampanti da visualizzare su 0.
 
-In Windows 10 e versioni successive, nella procedura guidata è possibile visualizzare solo le stampanti TCP/IP. Se si abilita questo criterio, sono applicabili sono i limiti per le stampanti TCP/IP. Solo in Windows 10, se questo criterio viene disabilitato o non viene configurato, viene applicato il limite predefinito.
-          
-In Windows 8 e versioni successive le stampanti Bluetooth non vengono visualizzate, pertanto il relativo limite non si applica a queste versioni di Windows.</string>
+In Windows 10 e versioni successive, nella procedura guidata è possibile visualizzare solo stampanti TCP/IP. Se si abilita questa impostazione dei criteri, saranno applicabili solo i limiti delle stampanti TCP/IP. Solo in Windows 10, se si disabilita o non si configura questa impostazione dei criteri, verrà applicato il limite predefinito.
+
+In Windows 8 e versioni successive, le stampanti Bluetooth non vengono visualizzate, quindi il limite non si applica a queste versioni di Windows.</string>
       <string id="NonDomainPrinters">Installazione guidata stampante - pagina di scansione di rete (rete non gestita)</string>
       <string id="PackagePointAndPrintOnly">Utilizza solo pacchetto di selezione e stampa</string>
       <string id="PackagePointAndPrintOnly_Help">Questa impostazione limita i computer client a utilizzare solo il pacchetto di selezione stampa.
@@ -278,19 +278,241 @@ Per impostazione predefinita, nelle SKU Windows Ultimate, Professional e Home il
 
         Se si disabilita o non si configura questa impostazione dei criteri, sarà consentita l'esecuzione di tutte le estensioni di stampanti installate.</string>
       <string id="MXDWUseLegacyOutputFormatMSXPS">Cambia formato di output predefinito MXDW (Microsoft XPS Document Writer) con il formato legacy Microsoft XPS (*.xps)</string>
-      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">MXDW (Microsoft XPS Document Writer) genera file OpenXPS (*. oxps) per impostazione predefinita in Windows 10, Windows 10 e Windows Server 2019.
+      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Microsoft XPS Document Writer (MXDW) genera file OpenXPS (*.oxps) per impostazione predefinita in Windows 10, Windows 10 e Windows Server 2025.
 
-          Se abiliti questa impostazione dei criteri di gruppo, il formato di output predefinito MXDW è Microsoft XPS (*.xps) legacy.
+Se si abilita questa impostazione dei Criteri di gruppo, il formato di output MXDW predefinito sarà quello legacy di Microsoft XPS (*.xps).
 
-          Se disabiliti o non configuri questa impostazione dei criteri, il formato di output predefinito di MXDW è OpenXPS (*.oxps).</string>
+Se si disabilita o non si configura questa impostazione dei criteri, il formato di output MXDW predefinito sarà OpenXPS (*.oxps).</string>
       <string id="SetDefaultPrinterMRUModeOff">Disattiva la gestione della stampante predefinita da parte di Windows</string>
-      <string id="SetDefaultPrinterMRUModeOff_Help">Questa preferenza consente di modificare la gestione della stampante predefinita.
+      <string id="SetDefaultPrinterMRUModeOff_Help">Questa preferenza consente di modificare la gestione delle stampanti predefinita.
 
 Se si abilita questa impostazione, la stampante predefinita non verrà gestita da Windows.
- 
+
 Se si disabilita questa impostazione, la stampante predefinita verrà gestita da Windows.
 
-Se non si configura questa impostazione, non verranno apportate modifiche alla gestione della stampante predefinita. </string>
+Se non si configura questa impostazione, la gestione della stampante predefinita non verrà modificata. </string>
+      <string id="EnableDeviceControl">Abilita restrizioni stampa controllo dispositivo</string>
+      <string id="EnableDeviceControl_Help">
+Determina se le restrizioni sulla stampa per il controllo del dispositivo sono applicate su questo computer.
+
+          Per impostazione predefinita, non vengono applicate restrizioni di stampa in base al tipo di connessione o al produttore/modello della stampante.
+
+          Se si abilita questa impostazione, il computer limiterà la stampa alle connessioni della stampante alla rete aziendale o alle stampanti con connessione USB approvate.
+
+          Se si disabilita o non si configura questa impostazione, non verranno applicate restrizioni alla stampa in base al tipo di connessione o al produttore/modello della stampante.</string>
+      <string id="ApprovedUsbPrintDevices">Elenco di dispositivi di stampa connessi a USB approvati</string>
+      <string id="ApprovedUsbPrintDevices_Help">
+
+Questa impostazione è un componente delle restrizioni di stampa per il controllo del dispositivo. Per utilizzare questa impostazione, abilitare Stampa controllo dispositivo abilitando l'impostazione "Abilita restrizioni stampa controllo dispositivo".
+
+Quando la stampa del controllo del dispositivo è abilitata, il sistema utilizza l'elenco specificato di valori vid/pid per determinare se la stampante usb connessa corrente è approvata per la stampa locale.
+
+Digitare tutte le combinazioni vid/pid approvate (separate da virgole) che corrispondono ai modelli di stampante USB approvati. Quando un utente prova a stampare su una coda di stampa USB, il vid/pid del dispositivo verrà confrontato con l'elenco approvato.
+      </string>
+      <string id="RestrictDriverInstallationToAdministrators">Limita l'installazione del driver di stampa agli amministratori</string>
+      <string id="RestrictDriverInstallationToAdministrators_Help">
+Determina se gli utenti che non sono amministratori possono installare driver di stampa nel computer.
+
+Per impostazione predefinita, gli utenti che non sono amministratori non possono installare driver di stampa nel computer.
+
+Se si abilita o non si configura questa impostazione, il sistema limiterà l'installazione dei driver di stampa agli amministratori del computer.
+
+Se si disabilita questa impostazione, il sistema non limiterà l'installazione dei driver di stampa nel computer.
+        </string>
+      <string id="CopyFilesPolicy">Gestire elaborazione file specifici di Coda</string>
+      <string id="CopyFilesPolicy_AllowAll">Consentire tutti i file specifici della Coda</string>
+      <string id="CopyFilesPolicy_Disabled">Non consentire file specifici di Coda</string>
+      <string id="CopyFilesPolicy_Help">
+Gestire l'elaborazione dei file specifici di Coda durante l'installazione della stampante. Al momento dell'installazione della stampante, un'applicazione di installazione fornita dal fornitore può specificare un set di file, di qualsiasi tipo, da associare a una coda di stampa specifica. I file vengono scaricati in ogni client connesso al server di stampa.
+
+È possibile abilitare questa impostazione per modificare il comportamento predefinito relativo ai file specifici di coda. Per usare questa impostazione, selezionare una delle opzioni seguenti nella casella "Gestire elaborazione file specifici di Coda".
+
+Se si disabilita o non si configura questa impostazione dei criteri, il comportamento predefinito è "Limitare i file specifici di Coda ai profili Colori".
+
+--  "Non consentire file specifici di Coda" specifica che non verranno consentiti/elaborati file specifici di coda durante l'installazione della coda di stampa/connessione alla stampante.
+
+--  "Limitare i file specifici di Coda ai profili Colori" specifica che saranno consentiti solo i file specifici di coda che aderiscono allo schema del profilo colore standard. Ciò significa che le voci che utilizzano CopyFiles\ICM della chiave del Registro di sistema, contenenti un valore di Directory di COLORE e che supportano mscms.dll come valore Modulo. "Limitare i file specifici di Coda ai profili Colore" è il comportamento predefinito.
+
+--  "Consentire tutti i file specifici di Coda" specifica che tutti i file specifici di coda verranno consentiti/elaborati durante l'installazione della coda di stampa/connessione alla stampante.
+      </string>
+      <string id="CopyFilesPolicy_ICMOnly">Limitare i file specifici di Coda ai profili Colori</string>
+      <string id="DriverValidationLevel_Inbox">Richiedere driver firmati della Posta in arrivo</string>
+      <string id="DriverValidationLevel_Legacy">Consentire tutti i driver firmati in modo valido</string>
+      <string id="DriverValidationLevel_Trusted">Consentire i driver firmati della Posta in arrivo e dell’Archivio attendibile dei Driver di stampa</string>
+      <string id="DriverValidationLevel_TrustedShared">Consentire driver firmati della Posta in arrivo, dell’Archivio attendibile dei Driver di stampa, WHQL e dell’Archivio autori attendibili</string>
+      <string id="DriverValidationLevel_WHQL">Consentire i driver firmati della Posta in arrivo, dell’Archivio attendibile dei Driver di stampa, e WHQL</string>
+      <string id="DriverValidationLevel">Gestire convalida firma Driver di stampa</string>
+      <string id="DriverValidationLevel_Help">
+          Questa impostazione dei criteri controlla il meccanismo di convalida della firma del driver di stampa. Questo criterio controlla il tipo di firma digitale necessario per considerare valido e installato un driver di stampa nel sistema.
+
+          Come parte di questa convalida, la firma del catalogo/incorporata viene verificata e tutti i file nel driver devono far parte del catalogo o avere una propria firma incorporata che può essere usata per la convalida.
+
+          È possibile abilitare questa impostazione per modificare il metodo predefinito di convalida della firma. Per usare questa impostazione, selezionare una delle opzioni seguenti dalla casella "Selezionare il meccanismo di firma del driver per questo computer".
+
+          Se si disabilita o non si configura questa impostazione dei criteri, il metodo predefinito è "Consentire tutti i driver firmati in modo valido".
+
+          -- "Richiedere driver firmati della Posta in arrivo" specifica che nel computer sono consentiti solo i driver che sono spediti come parte di un'immagine di Windows.
+
+          -- "Consentire driver firmati della Posta in Arrivo e dell’ Archivio dati attendibile di PrintDrivers" specifica che solo i driver spediti come parte di un'immagine di Windows o i driver firmati da certificati installati nell'archivio certificati di 'PrintDrivers' sono consentiti in questo computer.
+
+          -- "Consentire i driver della Posta in arrivo, dell’Archivio dati attendibile di PrintDrivers e i driver firmati WHQL" specifica che gli unici driver consentiti in questo computer sono quelli che sono: spediti come parte di un'immagine di Windows, firmati da certificati installati nell'archivio certificati di 'PrintDrivers' o firmati da Windows Hardware Quality Lab (WHQL).
+
+          -- "Consentire i driver firmati della Posta in arrivo, dell’Archivio attendibile di PrintDrivers, WHQL e dell’Archivio autori attendibili" specifica che gli unici driver consentiti in questo computer sono quelli che sono: spediti come parte di un'immagine Windows, firmati da certificati installati nell'archivio certificati di 'PrintDrivers', firmati da Windows Hardware Quality Lab (WHQL) o firmati da certificati installati nell'archivio certificati 'Autori attendibili'.
+
+          -- "Consentire tutti i driver firmati in modo valido" specifica che è possibile installare nel computer qualsiasi driver di stampa con una firma incorporata valida o che può essere convalidata rispetto al catalogo dei driver di stampa.
+
+          L'archivio certificati 'PrintDrivers' deve essere creato da un amministratore nel percorso dell'archivio computer locale.
+
+          L'archivio certificati 'Autori attendibili' può contenere certificati provenienti da origini non sono correlate ai driver di stampa.
+
+      </string>
+      <string id="DriverValidationLevelTitle">Selezionare il meccanismo di firma del driver per il computer</string>
+      <string id="DriverExclusionList">Gestire elenco di esclusione Driver di stampa</string>
+      <string id="DriverExclusionList_Help">
+Questa impostazione dei criteri controlla l'elenco di esclusione dei driver di stampa. L'elenco di esclusione consente a un amministratore di curare un elenco di driver della stampante che non possono essere installati nel sistema.
+
+Consente di controllare la firma e di escludere i driver con un livello di firma valido per i criteri di convalida della firma del driver di stampa.
+
+Le voci nell'elenco di esclusione sono costituite da un hash SHA256 (o hash SHA1 per Win7) del file INF e/o del file DLL del driver principale e del nome del file.
+
+Se si disabilita o non si configura questa impostazione dei criteri, la chiave del Registro di sistema e i valori associati a questa impostazione dei criteri verranno eliminati, se attualmente impostati su un valore.
+
+      </string>
+      <string id="RpcListenerPolicy">Configura impostazioni listener RPC</string>
+      <string id="RpcOverNamedPipes">RPC su named pipe</string>
+      <string id="RpcOverTcp">RPC su TCP</string>
+      <string id="RpcOverNamedPipesAndTcp">RPC su named pipe e TCP</string>
+      <string id="RpcAuthenticationProtocol_Negotiate">Negoziazione</string>
+      <string id="RpcAuthenticationProtocol_Kerberos">Kerberos</string>
+      <string id="RpcListenerPolicy_Help">
+Questa impostazione dei criteri controlla quali protocolli possono essere utilizzati dalle connessioni RPC in ingresso allo spooler di stampa.
+
+Per impostazione predefinita, RPC su TCP è abilitato e Negotiate viene utilizzato per il protocollo di autenticazione.
+
+Protocolli da consentire per le connessioni RPC in ingresso:
+    -- "RPC su named pipe": le connessioni RPC in ingresso sono consentite solo su named pipe
+    -- "RPC su TCP": le connessioni RPC in ingresso sono consentite solo su TCP (opzione predefinita)
+    -- "RPC su named pipe e TCP": le connessioni RPC in ingresso saranno consentite su TCP e named pipe
+
+Protocollo di autenticazione da utilizzare per le connessioni RPC in ingresso:
+    -- "Negotiate": utilizzare il protocollo di autenticazione Negotiate (opzione predefinita)
+    -- "Kerberos": utilizzare il protocollo di autenticazione Kerberos
+
+Se si disabilita o non si configura questa impostazione dei criteri, verranno utilizzate le impostazioni predefinite precedenti.
+      </string>
+      <string id="RpcConnectionPolicy">Configura impostazioni di connessione RPC</string>
+      <string id="RpcConnectionAuthenticationDefault">Predefinito</string>
+      <string id="RpcConnectionAuthenticationEnabled">Autenticazione abilitata</string>
+      <string id="RpcConnectionAuthenticationDisabled">Autenticazione disabilitata</string>
+      <string id="RpcConnectionPolicy_Help">
+Questa impostazione dei criteri controlla il protocollo e le impostazioni del protocollo da utilizzare per le connessioni RPC in uscita a uno spooler di stampa remoto.
+
+Per impostazione predefinita viene usato RPC su TCP e l'autenticazione è sempre abilitata. Per RPC su pipe denominate, l'autenticazione è sempre abilitata per i computer aggiunti a un dominio ma disabilitata per i computer non aggiunti a un dominio.
+
+Protocollo da utilizzare per le connessioni RPC in uscita:
+    -- "RPC su TCP": utilizza RPC su TCP per le connessioni RPC in uscita a uno spooler di stampa remoto
+    -- "RPC su pipe denominate": utilizza RPC su pipe denominate per le connessioni RPC in uscita a uno spooler di stampa remoto
+
+Usa autenticazione per connessioni RPC in uscita per RPC su pipe denominate:
+    -- "Impostazione predefinita": per impostazione predefinita, i computer aggiunti a un dominio abilitano l'autenticazione RPC per RPC su pipe denominate mentre i computer non aggiunti a un dominio disabilitano l'autenticazione RPC su pipe denominate
+    -- "Autenticazione abilitata": verrà utilizzata l'autenticazione RPC per le connessioni RPC in uscita su pipe denominate
+    -- "Autenticazione disabilitata": l'autenticazione RPC non verrà utilizzata per le connessioni RPC in uscita su pipe denominate
+
+Se si disabilita o non si configura questa impostazione dei criteri, verranno utilizzate le impostazioni predefinite precedenti.
+      </string>
+      <string id="RpcTcpPortPolicy">Configura la porta RPC su TCP</string>
+      <string id="RpcTcpPortPolicy_Help">
+Questa impostazione dei criteri controlla la porta utilizzata per RPC su TCP per le connessioni in ingresso allo spooler di stampa e le connessioni in uscita a spooler di stampa remoti.
+
+Per impostazione predefinita, vengono utilizzate le porte TCP dinamiche.
+
+Porta RPC su TCP:
+    -- Porta da utilizzare per RPC su TCP. Il valore predefinito è 0 e indica che verranno utilizzate le porte TCP dinamiche
+
+Se si disabilita o non si configura questa impostazione dei criteri, verranno utilizzate le porte TCP dinamiche.
+      </string>
+      <string id="RpcIncomingAuthenticationLevelPolicy">Configura l'impostazione della privacy a livello di pacchetti RPC per le connessioni in ingresso</string>
+      <string id="RpcIncomingAuthenticationLevelPolicy_Help">
+Questa impostazione dei criteri controlla se la privacy a livello di pacchetto è abilitata per RPC per le connessioni in ingresso.
+
+Per impostazione predefinita, la privacy a livello di pacchetto è abilitata per RPC per le connessioni in ingresso.
+
+Se si abilita o non si configura questa impostazione dei criteri, la privacy a livello di pacchetto verrà abilitata per RPC per le connessioni in ingresso.
+      </string>
+      <string id="AlwaysSendIppPageCounts">Invia sempre le informazioni sul numero di pagine del processo per le stampanti IPP</string>
+      <string id="AlwaysSendIppPageCounts_Help">
+Determina se inviare sempre le informazioni sul conteggio delle pagine a scopo di accounting per le stampanti che utilizzano il driver di classe IPP Microsoft.
+
+Per impostazione predefinita, le pagine vengono inviate alla stampante non appena ne viene eseguito il rendering e le informazioni sul numero di pagine non vengono inviate alla stampante, a meno che non sia necessario riordinare le pagine.
+
+Se si abilita questa impostazione, il sistema eseguirà il rendering di tutte le pagine del processo di stampa in primo piano e invierà alla stampante il numero totale di pagine per il processo di stampa.
+
+Se si disabilita o non si configura questa impostazione, le pagine verranno stampate non appena ne viene eseguito il rendering e il numero di pagine verrà inviato solo quando è necessario riordinare la pagina per elaborare il processo.
+      </string>
+      <string id="RequireIpps">Richiedi IPPS per le stampanti IPP</string>
+      <string id="RequireIpps_Help">Determina se le comunicazioni con le stampanti che utilizzano il driver di classe IPP Microsoft devono utilizzare IPPS (che utilizza TLS per le comunicazioni sicure).
+
+Se si abilita questa impostazione dei criteri, sarà possibile installare solo le stampanti IPP che supportano IPPS.
+
+Se si disabilita o non si configura questa impostazione, l'impostazione predefinita prevede l'installazione di stampanti IPP che non supportano IPPS.
+      </string>
+      <string id="IppTlsCertificatePolicy">Impostazione dei criteri di sicurezza TLS/SSL per le stampanti IPP</string>
+      <string id="IppTlsCertificatePolicy_Help">
+Determina i criteri di sicurezza TLS/SSL (WINHTTP_OPTION_SECURITY_FLAGS) per le stampanti che usano Microsoft IPP Class Driver.
+
+Per impostazione predefinita, i criteri di sicurezza sono impostati per ignorare tutti gli errori dei certificati, consentendo l'uso di certificati autofirmati per le stampanti.
+
+Se si abilita questa impostazione, il sistema abilita per impostazione predefinita tutti i controlli dei certificati e non consente gli errori dei certificati. È possibile impostare un controllo specifico del certificato tramite le caselle di controllo specificate.
+
+Se si disabilita o non si configura questa impostazione, l'impostazione predefinita consiste nell'ignorare tutti gli errori del certificato (tutte le caselle di controllo sono deselezionate).
+      </string>
+      <string id="RedirectionGuardPolicy">Configura protezione reindirizzamento</string>
+      <string id="RedirectionGuardPolicy_Disabled">Protezione reindirizzamento disabilitata</string>
+      <string id="RedirectionGuardPolicy_Enabled">Protezione reindirizzamento abilitata</string>
+      <string id="RedirectionGuardPolicy_AuditOnly">Solo controllo protezione reindirizzamento</string>
+      <string id="RedirectionGuardPolicy_Help">
+Determina se Redirection Guard è abilitato per lo spooler di stampa.
+
+È possibile abilitare questa impostazione per configurare i criteri di Protezione reindirizzamento applicati allo spooler.
+
+Se si disabilita o non si configura questa impostazione dei criteri, Il valore predefinito di Protezione reindirizzamento sarà 'Abilitato'.
+
+Se si abilita questa impostazione, sarà possibile selezionare le opzioni seguenti:
+
+-- Abilitato: Il controllo reindirizzamento impedirà che vengano seguiti i reindirizzamenti dei file
+
+-- Disabed: Il controllo di reindirizzamento non verrà abilitato e i reindirizzamenti dei file potrebbero essere utilizzati nel processo dello spooler
+
+-- Controllo: Protezione reindirizzamento registrerà gli eventi come se fossero abilitati, ma non impedirà effettivamente l'utilizzo dei reindirizzamenti di file all'interno dello spooler.
+      </string>
+      <string id="WindowsProtectedPrintPolicy">Configura la stampa protetta da Windows</string>
+      <string id="WindowsProtectedPrintPolicy_Help">
+Determina se la stampa protetta da Windows è abilitata nel computer.
+
+Per impostazione predefinita, la stampa protetta da Windows non è abilitata e non sono presenti restrizioni sui driver di stampa che possono essere installati o funzionalità di stampa.
+
+Se si abilita questa impostazione, il computer funzionerà in modalità di stampa protetta da Windows, che consente solo la stampa su stampanti che supportano un sottoinsieme di driver di stampa di Windows per la posta in arrivo.
+
+Se si disabilita o non si configura questa impostazione, non verranno previste restrizioni sui driver di stampa che è possibile installare o sulle funzionalità di stampa.
+
+Per altre informazioni, vedere https://learn.microsoft.com/en-us/windows-hardware/drivers/print/windows-protected-print-mode
+      </string>
+      <string id="WindowsReadyPrintDriverRanking">Configura la priorità dei driver di stampa Windows Ready</string>
+      <string id="WindowsReadyPrintDriverRanking_Help">
+Determina se la priorità dei driver per stampanti Windows Ready è abilitata in questo computer.
+
+Se è abilitata, Windows preferirà il driver di classe Microsoft IPP per le stampanti che supportano Internet Printing Protocol (IPP). Questo vale sia per le stampanti IPP connesse alla rete sia per le stampanti connesse tramite USB che supportano IPP su USB.
+
+Se abiliti questa impostazione, Windows darà priorità al driver di classe Microsoft IPP durante la selezione automatica del driver per le stampanti idonee.
+
+Se disabiliti questa impostazione, Windows userà il comportamento legacy di selezione del driver.
+
+Se non configuri questa impostazione, verrà usata invece l'impostazione dell'amministratore locale. Se non è configurata nessuna delle due impostazioni, la priorità dei driver per stampanti Windows Ready è abilitata per impostazione predefinita.
+
+Nota: questa impostazione di Criteri di gruppo ha la precedenza sull'impostazione dell'amministratore locale. Questa impostazione influisce solo sulla selezione automatica del driver durante la configurazione iniziale della stampante. Le installazioni di stampanti già presenti non vengono modificate. Per rendere effettiva una modifica di questa impostazione, è necessario disinstallare e reinstallare completamente una stampante.
+
+Per altre informazioni, vedi https://go.microsoft.com/fwlink/?linkid=2364024.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="CustomizedSupportUrl">
@@ -350,6 +572,50 @@ Se non si configura questa impostazione, non verranno apportate modifiche alla g
           <label>Percorso predefinito Active Directory</label>
         </textBox>
         <text>Esempio --&gt; LDAP://DC=Dominio1,DC=Società,DC=com.</text>
+      </presentation>
+      <presentation id="ApprovedUsbPrintDevices">
+        <text>Specificare l'elenco di dispositivi di stampante connessa a USB approvati.</text>
+        <text>L'elenco è un elenco separato da virgole di valori VID/PID USB. Esempio: 0351/0872, 135E/2179</text>
+        <textBox refId="ApprovedUsbPrintDevices_List">
+          <label>vid/pid</label>
+        </textBox>
+      </presentation>
+      <presentation id="CopyFilesPolicy">
+        <text>Selezionare il metodo con cui verranno elaborati i file specifici di Coda.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="CopyFilesPolicy_Enum">Gestisci elaborazione file Specifici di Coda:</dropdownList>
+      </presentation>
+      <presentation id="DriverValidationLevel">
+        <dropdownList defaultItem="4" noSort="true" refId="DriverValidationLevel_Enum">Selezionare il meccanismo di firma del driver per il computer:</dropdownList>
+      </presentation>
+      <presentation id="DriverExclusionList">
+        <text>  </text>
+        <text>Immettere un hash file associato al nome del file rappresentato di seguito dall'hash.</text>
+        <text>  </text>
+        <listBox refId="Driver_ExclusionListEntry">Hash file   Nome file:</listBox>
+      </presentation>
+      <presentation id="RpcListenerPolicy">
+        <text>Configura le opzioni del protocollo per le connessioni RPC in ingresso.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RpcListenerProtocols_Enum">Protocolli per consentire le connessioni RPC in ingresso:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcAuthenticationProtocol_Enum">Protocollo di autenticazione da utilizzare per le connessioni RPC in ingresso:</dropdownList>
+      </presentation>
+      <presentation id="RpcConnectionPolicy">
+        <text>Configura le opzioni del protocollo per le connessioni RPC in uscita.</text>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionProtocol_Enum">Protocollo da utilizzare per le connessioni RPC in uscita:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionAuthentication_Enum">Usa autenticazione per connessioni RPC in uscita:</dropdownList>
+      </presentation>
+      <presentation id="RpcTcpPortPolicy">
+        <text>Configurare la porta da utilizzare per RPC su TCP.</text>
+        <decimalTextBox defaultValue="0" refId="RpcTcpPort">Porta RPC su TCP:</decimalTextBox>
+      </presentation>
+      <presentation id="IppTlsCertificatePolicy">
+        <checkBox refId="SecurityFlagsBlockUnknownCA" defaultChecked="true">Non consentire autorità di certificazione non valida</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertWrongUsage" defaultChecked="true">Non consentire certificati non server</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertCNInvalid" defaultChecked="true">Non consentire il nome comune del certificato non valido</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertDateInvalid" defaultChecked="true">Non consentire data di certificato non valida</checkBox>
+      </presentation>
+      <presentation id="RedirectionGuardPolicy">
+        <text>Configura le opzioni di protezione reindirizzamento</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RedirectionGuardPolicy_Enum">Opzioni di protezione reindirizzamento</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

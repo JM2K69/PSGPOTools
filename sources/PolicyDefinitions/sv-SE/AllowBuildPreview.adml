@@ -5,8 +5,8 @@
   <description>ange beskrivning här</description>
   <resources>
     <stringTable>
-      <string id="AllowBuildPreview">Låt användare få kontroll över Insider-versioner</string>
-      <string id="AllowBuildPreview_Explain">Den här principinställningen avgör om användare kan komma åt förhandsversioner av Windows genom att konfigurera kontroller i Inställningar &gt; Uppdatering och säkerhet &gt; Windows Insider Program.
+      <string id="AllowBuildPreview">Växla användarkontroll över Insider-versioner</string>
+      <string id="AllowBuildPreview_Explain">Den här principinställningen avgör om användare kan få tillgång till förhandsversioner av Windows genom att konfigurera kontroller i Inställningar &gt; Uppdatering och säkerhet &gt; Windows Insider Program.
 
 Om du aktiverar eller låter bli att konfigurera den här principinställningen kan användare ladda ned och installera förhandsversioner av Windows genom att konfigurera inställningar för Windows Insider Program.
 

@@ -169,7 +169,7 @@ Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, får den 
       <string id="UILang4">Tysk</string>
       <string id="UILang5">Kinesisk (forenklet)</string>
       <string id="UILang6">Kinesisk (tradisjonell)</string>
-      <string id="UILang34">Kinesisk (tradisjonell (Hongkong))</string>
+      <string id="UILang34">Tradisjonell kinesisk (Hongkong SAR)</string>
       <string id="UILang35">Kinesisk (tradisjonell (Taiwan))</string>
       <string id="UILang7">Fransk</string>
       <string id="UILang8">Spansk</string>
@@ -284,6 +284,19 @@ Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, tolker ik
         Hvis denne policyen er aktivert eller ikke konfigurert, blir kontrollen utsatt for brukere, og brukerne kan velge om taletjenester skal aktiveres via innstillinger.
         
         Hvis policyen deaktiveres, blir taletjenester deaktivert, og brukere kan ikke aktivere taletjenester via innstillinger.
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Begrens språkpakke og installasjon av språkfunksjoner</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        Denne policy innstillingen begrenser alle brukere fra å installere språk pakker og språk funksjoner på forespørsels pakker. denne policyen begrenser ikke bytting av Windows-språk hvis du vil begrense Windows-språket Bruk følgende policy: "begrenser grensesnitt språkene Windows bruker for alle påloggede brukere."   
+Hvis du aktiverer denne policy innstillingen, forhindres installasjon av språk pakker og språk funksjoner for alle brukere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policy innstillingen, finnes det ingen språk pakker eller funksjons installasjons begrensning for noen brukere.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        Denne policy innstillingen begrenser brukeren fra å installere språk pakker og språk funksjoner ved forespørsel. denne policyen begrenser ikke bytting av Windows-språk hvis du vil begrense Windows-språket Bruk følgende policy: begrenser grensesnitt språkene som Windows bruker for den valgte brukeren.»   
+Hvis du aktiverer denne policy innstillingen, forhindres installasjon av språk pakker og språk funksjoner for brukeren.  
+
+Hvis du deaktiverer eller ikke konfigurerer denne policy innstillingen, finnes det ingen språk pakker eller installasjons begrensninger for språk funksjoner for brukeren.  
       </string>
     </stringTable>
     <presentationTable>

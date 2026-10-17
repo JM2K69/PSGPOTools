@@ -22,19 +22,18 @@ Bu ilke ayarını etkinleştirirseniz Grup İlkesi tarafından tanımlandığı 
 Bu ilke ayarını yapılandırmazsanız sistem yerel kayıt defterinde tanımlanmış olan ana bilgisayar adı - Kerberos bölgesi eşlemelerini (varsa) kullanır.</string>
       <string id="MitRealms">Birlikte çalışabilen Kerberos V5 bölgesi ayarlarını tanımlama</string>
       <string id="MitRealms_explain">Bu ilke ayarı, Kerberos istemcisini, bu ilke ayarında tanımlandığı biçimde birlikte çalışabilen Kerberos V5 bölgelerinde kimlik doğrulamasına olanak verecek şekilde yapılandırır.
-      
+
 Bu ilke ayarını etkinleştirirseniz birlikte çalışabilen Kerberos V5 bölgelerinin listesini ve ayarlarını görebilir ve değiştirebilirsiniz. Birlikte çalışabilen Kerberos V5 bölgelerinin listesini görmek için, ilke ayarını etkinleştirin ve Göster düğmesini tıklatın. Birlikte çalışabilir Kerberos V5 bölgesi eklemek için ilke ayarını etkinleştirin, sözdizimini not edin ve sonra Göster'i tıklatın. İçeriği Göster iletişim kutusunda, Değer Adı sütununa bir birlikte çalışabilir Kerberos V5 bölgesinin adını yazın. Değer sütununa, uygun sözdizimi biçimini kullanarak ana bilgisayar KDC'lerinin bölge bayraklarını ve ana bilgisayar adlarını yazın. Listeden bir birlikte çalışabilir Kerberos V5 bölgesi Değer Adı veya Değer girişini kaldırmak için girişi tıklatın ve sonra DELETE tuşuna basın. Eşlemeyi düzenlemek için, listeden geçerli girişi kaldırın ve farklı parametrelerle yeni bir tane ekleyin.
 
 Bu ilke ayarını devre dışı bırakırsanız, Grup İlkesi tarafından tanımlanan birlikte çalışabilen Kerberos V5 bölgesi ayarları silinir.
 
 Bu ilke ayarını yapılandırmazsanız sistem yerel kayıt defteri tarafından tanımlanan birlikte çalışabilen Kerberos V5 bölgesi ayarlarını (varsa) kullanır.</string>
       <string id="ValidateKDC">Katı KDC doğrulaması iste</string>
-      <string id="ValidateKDC_explain">Bu ilke ayarı, akıllı kart ve sistem sertifikası oturumu için KDC sertifikasını doğrulama sırasında Kerberos istemcisinin davranışını denetler.  
+      <string id="ValidateKDC_explain">Bu ilke ayarı, akıllı kart ve sistem sertifikası oturumu için KDC sertifikasını doğrulama sırasında Kerberos istemcisinin davranışını denetler.
 
 Bu ilke ayarını etkinleştirirseniz Kerberos istemcisi, KDC'nin X.509 sertifikasının Uzatılmış Anahtar Kullanımı (EKU) uzantıları içinde KDC anahtarı amacı nesne tanımlayıcı içermesini ve KDC'nin X.509 sertifikasının etki alanının DNS adıyla eşleşen bir dNSName subjectAltName (SAN) uzantısı içermesini gerektirir. Bilgisayar bir etki alanına katılmışsa, Kerberos istemcisi, KDC'nin X.509 sertifikasının NTAuth deposundaki bir Sertifika Yetkilisi (CA) tarafından imzalanmasını gerektirir. Bilgisayar etki alanına dahil değilse, Kerberos istemcisi, akıllı karttaki kök CA sertifikasının KDC'nin X.509 sertifikasının yol doğrulamasında kullanılmasına izin verir.
 
 Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Kerberos istemcisi yalnızca KDC sertifikasının EKU uzantılarında Sunucu Kimlik Doğrulaması amaçlı nesne tanımlayıcısını bulundurmasını ister.
-
 </string>
       <string id="StrictTarget">Uzaktan yordam çağrılarında katı hedef SPN'si eşleştirme iste</string>
       <string id="StrictTarget_explain">  Bu ilke ayarı, bu sunucuyu, Kerberos bu sistem tarafından üretilen SPN'yi içeren bir anahtarın şifresini çözebilecek şekilde yapılandırmanızı sağlar. Bir uygulama hizmet asıl adı (SPN) için NULL değer kullanarak bu sunucuya bir uzaktan yordam çağrısı (RPC) yapma girişiminde bulunursa, Windows 7 çalıştıran bilgisayarlar bir SPN üreterek Kerberos kullanmaya çalışır.
@@ -94,16 +93,14 @@ Bu ilke ayarını yapılandırmazsanız Otomatik seçeneği kullanılır.
 
       <string id="MaxTokenSize">Kerberos SSPI bağlamı belirteci arabellek boyutu üst sınırını ayarla</string>
       <string id="MaxTokenSize_explain">Bu ilke ayarı, SSPI bağlamı belirteci arabellek boyutu üst sınırını isteyen uygulamalara döndürülecek değeri ayarlamanızı sağlar.
-              
-Bağlam belirteci arabelleğinin boyutu, uygulamanın SSPI bağlamı belirteçleri için bekleyeceği ve ayıracağı en büyük boyutu belirler. Kimlik doğrulama isteğinin işlenmesine ve grup üyeliklerine bağlı olarak, arabellek SSPI bağlamı belirtecinin gerçek boyutundan daha küçük olabilir. 
+
+Bağlam belirteci arabelleğinin boyutu, uygulamanın SSPI bağlamı belirteçleri için bekleyeceği ve ayıracağı en büyük boyutu belirler. Kimlik doğrulama isteğinin işlenmesine ve grup üyeliklerine bağlı olarak, arabellek SSPI bağlamı belirtecinin gerçek boyutundan daha küçük olabilir.
 
 Bu ilke ayarını etkinleştirirseniz, Kerberos istemcisi veya sunucusu yapılandırılan değeri veya yerel olarak izin verilen en büyük değeri (hangisi daha küçükse) kullanır.
 
-Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, Kerberos istemcisi veya sunucusu yerel olarak yapılandırılan değeri veya varsayılan değeri kullanır. 
+Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, Kerberos istemcisi veya sunucusu yerel olarak yapılandırılan değeri veya varsayılan değeri kullanır.
 
 Not: Bu ilke ayarı, Windows XP ve Windows Server 2003'te eklenen ve HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters altında bulunan, varsayılan değeri 12.000 bayt olan MaxTokenSize kayıt defteri değerini yapılandırır. Windows 8'den başlayarak, varsayılan değer 48.000 bayttır. HTTP kimlik doğrulaması bağlamı belirteçleri için base64 kodlaması kullandığından, bu değeri 48.000 bayttan büyük bir değere ayarlamamanız önerilir.
-
-
 
 </string>
       <string id="EnableCbacAndArmor">Talepler, bileşik kimlik doğrulaması ve Kerberos koruması için Kerberos istemci desteği</string>
@@ -111,7 +108,7 @@ Not: Bu ilke ayarı, Windows XP ve Windows Server 2003'te eklenen ve HKEY_LOCAL_
 Bu ilke ayarını etkinleştirirseniz, istemci bilgisayarlar talep ister, Dinamik Erişim Denetimi için talepleri ve bileşik kimlik doğrulamasını ve Kerberos korumasını destekleyen etki alanlarında bileşik kimlik doğrulaması oluşturmak ve Kerberos iletilerini korumak için gereken bilgileri sağlar.
 
 Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, istemci aygıtlar talep istemez, bileşik kimlik doğrulaması oluşturmak ve Kerberos iletilerini korumak için gereken bilgileri sağlar. Aygıtta barındırılan hizmetler, istemciler için Kerberos protokol geçişi kullanarak talepleri alamaz.  
-  
+
 </string>
       <string id="AlwaysSendCompoundId">Her zaman önce bileşik kimlik doğrulamasını gönder</string>
       <string id="AlwaysSendCompoundId_explain">Bu ilke ayarı, kaynak etki alanı bileşik kimlik istediğinde aygıtın her zaman bileşik kimlik doğrulaması isteği gönderip göndermeyeceğini denetler.
@@ -124,21 +121,66 @@ Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız ve ka
 
 </string>
       <string id="DevicePKInitEnabled">Sertifika kullanan cihaz kimlik doğrulamasını destekle</string>
-      <string id="DevicePKInitEnabled_explain">Sertifika kullanan cihaz kimlik doğrulaması için destek, bilgisayar hesapları için sertifika doğrulamasını destekleyen cihaz hesabı etki alanında DC bağlantısı gerektiriyor. 
+      <string id="DevicePKInitEnabled_explain">Sertifika kullanarak cihaz kimlik doğrulaması yapmak için destek, bilgisayar hesapları için sertifika doğrulamasını destekleyen cihaz hesabı etki alanında DC bağlantısı gerektiriyor. 
 
-Bu ilke ayarı, cihaz için etki alanına sertifika kullanarak kimlik doğrulaması denemek için Kerberos desteği kurmanızı sağlar.
+Bu ilke ayarı, cihaz için etki alanına sertifika kullanarak kimlik doğrulaması yapmayı denemek için Kerberos desteği kurmanızı sağlar.
 
 Bu ilke ayarını etkinleştirirseniz, cihazların kimlik bilgileri aşağıdaki seçeneklere göre seçilir:
 
-Otomatik: Cihaz, sertifikasını kullanarak kimlik doğrulaması dener. DC, sertifika kullanan bilgisayar hesabı kimlik doğrulamasını desteklemezse, o zaman parola ile kimlik doğrulama denenir.
+Otomatik: Cihaz, sertifikasını kullanarak kimlik doğrulaması yapmayı dener. DC, sertifika kullanan bilgisayar hesabı kimlik doğrulamasını desteklemezse, o zaman parola ile kimlik doğrulaması denenir.
 
-Zorlamalı: Cihaz, kimlik doğrulamasını her zaman sertifikasını kullanarak yapar. Sertifika kullanan bilgisayar hesabı kimlik doğrulamasını destekleyen bir DC bulunamazsa, o zaman kimlik doğrulama başarısız olur.
+Zorlamalı: Cihaz, kimlik doğrulamasını her zaman sertifikasını kullanarak yapar. Sertifika kullanarak bilgisayar hesabı kimlik doğrulaması yapmayı destekleyen bir DC bulunamazsa, kimlik doğrulaması başarısız olur.
 
 Bu ilke ayarını devre dışı bırakırsanız, sertifikalar bir daha kullanılamaz.
-Bu ilke ayarını yapılandırmazsanız, Otomatik seçeneği kullanılır.
+Bu ilke ayarını yapılandırmazsanız, Otomatik kullanılır.
+
+Kurumsal PKI'yı yapılandırmak için bu kılavuzu izleyin: https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">Otomatik</string>
       <string id="DevicePKInitBehavior_Force">Zorlamalı</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">Oturum açma sırasında Azure AD Kerberos Anahtar Verme Anahtarının alınmasına izin ver</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">Bu ilke ayarı, oturum açma sırasında Azure AD Kerberos Anahtar Verme Anahtarının alınmasına olanak sağlar.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız oturum açma sırasında Azure AD Kerberos Anahtar Verme Anahtarı alınmaz.
+
+Bu ilke ayarını etkinleştirirseniz oturum açma sırasında Azure AD Kerberos Anahtar Verme Anahtarı alınır.</string>
+      <string id="PKInitHashAlgorithmConfiguration">Sertifika oturum açma için karma algoritmalarını yapılandır</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">Bu ilke ayarı, sertifika doğrulaması yapılırken Kerberos istemcisi tarafından kullanılan karma veya sağlama toplamı algoritmalarını denetler.
+
+Bu ilkeyi etkinleştirirseniz her bir algoritmada dört durumdan birini yapılandırabilirsiniz:
+
+- “Varsayılan”, algoritmayı önerilen duruma ayarlar.
+
+- “Destekleniyor”, algoritmanın kullanılmasını sağlar. Varsayılan olarak devre dışı bırakılan algoritmaların etkinleştirilmesi güvenliğinizi azaltabilir.
+
+- “Denetlenmiyor”, algoritmanın kullanılmasını sağlar ve algoritma her kullanıldığında bir olay (ID 206) raporlar. Bu durum, algoritmanın kullanılmadığını ve güvenli bir şekilde devre dışı bırakılabileceğini doğrulamaya yöneliktir.
+
+- “Desteklenmiyor”, algoritmanın kullanımını devre dışı bırakır. Bu durum, güvenli olmadığı düşünülen algoritmalara yöneliktir.
+
+Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız, her bir algoritma “Varsayılan” durumunu alır.
+Windows Kerberos istemcisi tarafından desteklenen karma ve sağlama toplamı algoritmaları ile bunların varsayılan durumları hakkında daha fazla bilgiyi https://go.microsoft.com/fwlink/?linkid=2169037 adresinde bulabilirsiniz.
+
+Bu yapılandırma tarafından oluşturulan olaylar: 205, 206, 207, 208.
+</string>
+      <string id="PKInitHashAlgorithm_Default">Varsayılan</string>
+      <string id="PKInitHashAlgorithm_Supported">Destekleniyor</string>
+      <string id="PKInitHashAlgorithm_Audited">Denetlendi</string>
+      <string id="PKInitHashAlgorithm_NotSupported">Desteklenmiyor</string>
+      
+      <string id="DelegatedMSAEnabled">Temsilcili Yönetilen Hizmet Hesabı için oturum açma işlemlerini etkinleştir</string>
+      <string id="DelegatedMSAEnabled_explain">Bu ilke ayarı, bu makine için temsilci ile yönetilen hizmet hesabı oturum açma işlemlerini etkinleştirir veya devre dışı bırakır.
+
+Bu ilke ayarını etkinleştirirseniz, temsilci ile yönetilen hizmet hesabı oturum açmaları Kerberos istemcisi tarafından desteklenir. Bu ilkenin belirli önkoşullara sahip olduğunu unutmayın. Yeni bir temsilci ile yönetilen hizmet hesabı oluşturma önkoşulları ve yol tarifleri şu https://go.microsoft.com/fwlink/?linkid=2250379.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, temsilci ile yönetilen hizmet hesabı oturum açmaları desteklenmez. 
+</string>
+      <string id="EnableTryIPSPN">Kerberos kimlik doğrulaması sırasında IP adresine dayalı SPN'lere izin ver</string>
+      <string id="EnableTryIPSPN_explain">Bu ilke ayarı, Kerberos'u IP adresi tabanlı hizmet asıl adlarını (SPN) kullanacak şekilde yapılandırmanıza olanak tanır.
+
+Bu ilke ayarını etkinleştirirseniz, Kerberos istemcisi bir hizmete bağlanırken IP adresi tabanlı SPN'leri kullanmayı dener.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, Kerberos IP adresi tabanlı SPN'leri kullanmaya çalışmaz.
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -181,6 +223,16 @@ Bu ilke ayarını yapılandırmazsanız, Otomatik seçeneği kullanılır.
         <text>Diğer Bir Örnek:</text>
         <text>Değer Adı: REALM.FABRIKAM.COM</text>
         <text>Değer: &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">Bölgeler:</multiTextBox>
+        <text>Sözdizimi:</text>
+        <text>DMSA'ların varolmayacağı bölge listesini girin.</text>
+        <text>Hem Tam Etki Alanı Adını (FQDN) hem de kısa adı girin.</text>
+        <text>Satır başına bir bölge girin.</text>
+        <text>Ayrıntılar:</text>
+        <text>Kerberos istemcisi, listelenen bölgelere yönelik DMSA özellikli bir Etki Alanı Denetleyicisi'ne erişmeye çalışır.</text>
+        <text>Bölge belirtilmezse, Kerberos istemcisi tüm bölgelere yönelik DMSA özellikli bir Etki Alanı Denetleyicisi'ne erişmeye çalışır.</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">Mod:</dropdownList>
@@ -225,7 +277,7 @@ Bu ilke ayarını yapılandırmazsanız, Otomatik seçeneği kullanılır.
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">İstemci aygıt bilgileriyle yetkilendirmeyi destekle:</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">İstemci aygıt bilgileriyle yetkilendirmeyi destekle:</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">Boyut üst sınırı</decimalTextBox>
@@ -233,7 +285,13 @@ Bu ilke ayarını yapılandırmazsanız, Otomatik seçeneği kullanılır.
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Sertifika kullanan cihaz kimlik doğrulaması davranışı:</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Sertifika kullanan cihaz kimlik doğrulaması davranışı:</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

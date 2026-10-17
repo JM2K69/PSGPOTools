@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--  (c) 2006 Microsoft Corporation  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
-  <displayName>Windows Defender Application Guard</displayName>
-  <description>Windows Defender Application Guard'ı Yönetilen Mod'da aç</description>
+  <displayName>Microsoft Defender Application Guard</displayName>
+  <description>Microsoft Defender Application Guard'ı Yönetilen Mod'da aç</description>
   <resources>
     <stringTable>
-        <string id="AppHVSICat_DisplayName">Windows Defender Application Guard</string>
-        <string id="AppHVSI_AllowAppHVSI_DisplayName">Windows Defender Application Guard'ı Yönetilen Mod'da aç</string>
-        <string id="AppHVSI_AllowAppHVSI_Explain">Bu ilke ayarı, Windows Defender Application Guard (Application Guard) üzerinden uygulama yalıtımını etkinleştirir.
+        <string id="AppHVSICat_DisplayName">Microsoft Defender Application Guard</string>
+        <string id="AppHVSI_AllowAppHVSI_DisplayName">Microsoft Defender Application Guard'ı Yönetilen Mod'da aç</string>
+        <string id="AppHVSI_AllowAppHVSI_Explain">Bu ilke ayarı, Microsoft Defender Application Guard üzerinden uygulama yalıtımını etkinleştirir.
 
 Application Guard, sanallaştırma tabanlı güvenlik yalıtımını kullanmak üzere yapılandırılmış uygulamalar için Windows Hiper Yönetici kullanarak sanallaştırılmış bir ortam yaratır. Yalıtılmışken, düzgün olmayan kullanıcı etkileşimleri ve uygulama güvenlik açıkları çekirdeği veya sanallaştırılmış ortam dışında çalışan diğer uygulamaları tehlikeye sokamaz.
 
-Bu ayarı etkinleştirirseniz, Application Guard kuruluşunuz için açık duruma gelecektir.
+Bu ayarı etkinleştirirseniz Application Guard, kuruluşunuz için açık duruma getirilir.
         </string>
-        <string id="AppHVSI_ClipboardSettings_DisplayName">Windows Defender Application Guard pano ayarlarını yapılandırma</string>
-        <string id="AppHVSI_ClipboardSettings_Explain">Bu ilke ayarı, panonun Windows Defender Application Guard (Application Guard) içerisindeyken nasıl davranacağına karar vermenize olanak sağlar.
+        <string id="AppHVSI_ClipboardSettings_DisplayName">Microsoft Defender Application Guard pano ayarlarını yapılandır</string>
+        <string id="AppHVSI_ClipboardSettings_Explain">Bu ilke ayarı, Microsoft Defender Application Guard içindeyken panonun nasıl davranacağına karar vermenize olanak sağlar.
 
-Bu ayarı etkinleştirirseniz, aşağıdaki davranışlardan birini seçmeniz gerekir:
+Bu ayarı etkinleştirirseniz aşağıdaki davranışlardan birini seçmelisiniz:
 
-- Ana bilgisayar ile Application Guard arasındaki pano işlevini tümüyle devre dışı bırak
+- Ana bilgisayar ve Application Guard arasında pano işlevini tümüyle devre dışı bırakın
 
-- Panonun, Application Guard içerisinden ana bilgisayara içerik kopyalamasına izin ver
+- Panonun, Application Guard'dan ana bilgisayara içerik kopyalamasını etkinleştirin
 
-- Panonun, ana bilgisayardan Application Guard içerisine içerik kopyalamasına izin ver
+- Panonun, ana bilgisayardan Application Guard'a içerik kopyalamasını etkinleştirin
 
 Not:
-Ana bilgisayardan Application Guard'a kopyalamayı etkinleştirmemenizi öneririz. Bu işlevi etkinleştirirseniz, potansiyel olarak güvenliği tehlikeye atılmış olan bir Application Guard oturumunun ana bilgisayar cihazının panosuna ve içeriğine erişimi olacaktır.
+Ana bilgisayardan Application Guard'a kopyalamayı etkinleştirmemenizi öneririz. Bu işlevi etkinleştirirseniz potansiyel olarak güvenliği aşılmış bir Application Guard oturumu, ana bilgisayar cihazının panosuna ve içeriğine erişebilir.
 
-Kopyalamayı etkinleştirmeyi seçerseniz, içerik seçeneklerini kullanarak kopyalanabilecek içeriğin türünü de seçmelisiniz:
+Kopyalamayı etkinleştirmeyi seçerseniz içerik seçeneklerini kullanarak kopyalanabilecek içeriğin türünü de seçmelisiniz:
 
 - 1. Metin kopyalamaya izin verir.
 
@@ -35,124 +35,101 @@ Kopyalamayı etkinleştirmeyi seçerseniz, içerik seçeneklerini kullanarak kop
 
 - 3 Hem metin hem de resim kopyalamaya izin verir.
 
-Bu ayarı devre dışı bırakır veya yapılandırmazsanız, Application Guard içerisindeki tüm pano işlevleri kapatılır.
+Bu ayarı devre dışı bırakır veya yapılandırmazsanız Application Guard'da tüm pano işlevleri kapatılır.
         </string>
         <string id="AppHVSI_ClipboardSettings_DropdownList_Option_OperationDisabled">Pano işlemlerini engelle (varsayılan)</string>
         <string id="AppHVSI_ClipboardSettings_DropdownList_Option_ContainerToHostEnabled">Bir yalıtılmış oturumdan ana bilgisayara pano işlemlerini etkinleştir</string>
         <string id="AppHVSI_ClipboardSettings_DropdownList_Option_HostToContainerEnabled">Bir ana bilgisayardan, yalıtılmış oturuma pano işlemlerini etkinleştir</string>
         <string id="AppHVSI_ClipboardSettings_DropdownList_Option_BothDirectionsEnabled">Pano işlemlerini her iki yöne etkinleştir</string>
-        <string id="AppHVSI_PrintingSettings_DisplayName">Windows Defender Application Guard yazdırma ayarlarını yapılandırma</string>
-        <string id="AppHVSI_PrintingSettings_Explain">Bu ilke ayarı, yazdırma işlevinin Windows Defender Application Guard (Application Guard) içerisinde nasıl davranacağını belirtmenize olanak sağlar.
+        <string id="AppHVSI_PrintingSettings_DisplayName">Microsoft Defender Application Guard yazdırma ayarlarını yapılandır</string>
+        <string id="AppHVSI_PrintingSettings_Explain">Bu ilke ayarı, yazdırma işlevinin Microsoft Defender Application Guard'da nasıl davranacağını belirlemenize olanak sağlar.
 
-Bu ayarı etkinleştirirseniz, aşağıdaki davranışlardan birini ya da daha fazlasını seçmeniz gerekir:
+Bu ayarı etkinleştirirseniz aşağıdaki davranışlardan birini ya da daha fazlasını seçmelisiniz:
 
-- Application Guard içerisinde tüm yazdırma işlevini devre dışı bırak.
+- Application Guard'da tüm yazdırma işlevini devre dışı bırakın.
 
-- Var olan ağ yazıcılarına yazdırmaya izin ver.
+- Mevcut ağ yazıcılarına yazdırmayı etkinleştirin.
 
-- Yerel yazıcılara yazdırmaya izin ver.
+- Yerel yazıcılara yazdırmaya izin verin.
 
-- PDF'e yazdırmaya izin ver, PDF olarak yazdırmaya ve ortaya çıkan dosyayı ana bilgisayarda kaydetmeye izin verir.
+- PDF'e yazdırmayı etkinleştirerek, insanların PDF'e yazdırmasını ve ortaya çıkan dosyayı ana bilgisayarda kaydetmesine olanak sağlayın.
 
-- XPS'e yazdırmaya izin ver, XPS olarak yazdırmaya ve ortaya çıkan dosyayı ana bilgisayarda kaydetmeye izin verir.
+- XPS'e yazdırmayı etkileştirerek, insanların XPS olarak yazdırmasına ve ortaya çıkan dosyayı ana bilgisayarda kaydetmesine olanak sağlayın.
 
-Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, tüm yazdırma işlevi Application Guard içerisinde kapatılır.
+Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız Application Guard'da tüm yazdırma işlevleri kapatılır.
         </string>
 
-        <string id="AppHVSI_CertificateThumbprints_DisplayName">Windows Defender Application Guard'ın kullanıcının cihazından Kök Sertifika Yetkilileri'ni kullanmasına izin ver</string>
-        <string id="AppHVSI_CertificateThumbprints_Explain">Bu ilke ayarı, bazı Kök Sertifikaların Windows Defender Application Guard kapsayıcısı ile paylaşılmasını sağlar.
+        <string id="AppHVSI_CertificateThumbprints_DisplayName">Microsoft Defender Application Guard'ın kullanıcının cihazından Kök Sertifika Yetkilileri'ni kullanmasına izin ver</string>
+        <string id="AppHVSI_CertificateThumbprints_Explain">Bu ilke ayarı, bazı cihaz düzeyindeki Kök Sertifikaların Microsoft Defender Application Guard kapsayıcısı ile paylaşılmasını sağlar.
 
 Bu ayarı etkinleştirirseniz, belirtilenlerle eşleşen bir parmak izine sahip olan sertifikalar kapsayıcıya aktarılır. Aktarılmasını istediğiniz her sertifika için, parmak izlerini ayırmak amacıyla virgül kullanılarak birden fazla sertifika belirlenebilir.
 
-Bu ayarı devre dışı bırakır veya yapılandırmazsanız sertifikalar, Windows Defender Application Guard kapsayıcısı ile paylaşılmaz.
+Bu ayarı devre dışı bırakır veya yapılandırmazsanız sertifikalar, Microsoft Defender Application Guard kapsayıcısı ile paylaşılmaz.
 
 Örnek:  b4e72779a8a362c860c36a6461f31e3aa7e58c14,1b1d49f06d2a697a544a1059bd59a7b058cda924
         </string>
 
         <string id="AppHVSI_BlockNonEnterpriseContent_DisplayName">Kurumsal web sitelerinin, kurumsal olmayan içeriği Microsoft Edge ve Internet Explorer içerisinde yüklemesini engelle</string>
-        <string id="AppHVSI_BlockNonEnterpriseContent_Explain">Bu ilke ayarı, web sitelerinin kurumsal olmayan içeriği Microsoft Edge ve Internet Explorer içerisine yükleyip yükleyemeyeceğine karar vermenize olanak sağlar.
+        <string id="AppHVSI_BlockNonEnterpriseContent_Explain">Bu ilke ayarı, web sitelerinin kurumsal olmayan içeriği Microsoft Edge ve Internet Explorer'da yükleyip yükleyemeyeceğine karar vermenize olanak sağlar.
 
-Bu ayarı etkinleştirirseniz, kurumsal sitelerdeki gömülü kurumsal olmayan içeriklerin Internet Explorer veya Microsoft Edge içerisinde, Windows Defender Application Guard dışında açılması durdurulur.
+Bu ayarı etkinleştirirseniz kurumsal sitelerdeki gömülü kurumsal olmayan içeriğin Internet Explorer veya Microsoft Edge'de, Microsoft Defender Application Guard dışında açılması durdurulur.
 
-Bu ayarı devre dışı bırakır veya yapılandırmazsanız, kurumsal olmayan siteler Windows Defender Application Guard kapsayıcısının dışında, doğrudan Internet Explorer ve Microsoft Edge içerisinde açılabilir.
+Bu ayarı devre dışı bırakır veya yapılandırmazsanız kurumsal olmayan siteler Microsoft Defender Application Guard kapsayıcısının dışında, doğrudan Internet Explorer ve Microsoft Edge'de açılabilir.
         </string>
-        <string id="AppHVSI_AllowCameraMicrophoneRedirection_DisplayName">Windows Defender Application Guard'da kamera ve mikrofon erişimine izin ver</string>
-        <string id="AppHVSI_AllowCameraMicrophoneRedirection_Explain">Bu ilke, kullanıcının cihazında bu ayarlar etkinleştirildiğinde Windows Defender Application Guard içerisindeki uygulamaların cihazın kamera ve mikrofonuna erişip erişemeyeceğini belirlemenize olanak sağlar.
+        <string id="AppHVSI_AllowCameraMicrophoneRedirection_DisplayName">Microsoft Defender Application Guard'da kamera ve mikrofon erişimine izin ver</string>
+        <string id="AppHVSI_AllowCameraMicrophoneRedirection_Explain">Bu ilke, kullanıcının cihazında bu ayarlar etkinleştirildiğinde Microsoft Defender Application Guard'da uygulamaların cihazın kamera ve mikrofonuna erişip erişemeyeceğini belirlemenize olanak sağlar.
 
-Bu ilkeyi etkinleştirirseniz Windows Defender Application Guard içerisindeki uygulamalar, kullanıcının cihazındaki kamera ve mikrofona erişebilir.
+Bu ilkeyi etkinleştirirseniz Microsoft Defender Application Guard'daki uygulamalar, kullanıcının cihazındaki kamera ve mikrofona erişebilir.
 
-Bu ilkeyi devre dışı bırakır veya yapılandırmazsanız Windows Defender Application Guard içerisindeki uygulamalar, kullanıcının cihazındaki kamera ve mikrofona erişemez.
+Bu ilkeyi devre dışı bırakır veya yapılandırmazsanız Microsoft Defender Application Guard'daki uygulamalar, kullanıcının cihazındaki kamera ve mikrofona erişemez.
 
 Önemli: Bu ilkeyi açtığınızda gizliliği tehlikeye giren bir kapsayıcı, kamera ve mikrofon izinlerini atlayabilir ve kullanıcının bilgisi olmadan kamera ve mikrofona erişebilir. Yetkisiz erişimi önlemek için kullanıcının cihazında gerekli olmadığı zamanlarda kamera ve mikrofon gizliliği ayarlarının kapalı olmasını öneririz.
         </string>
-        <string id="AppHVSI_AllowPersistence_DisplayName">Windows Defender Application Guard için verilerin kalıcı olmasına izin ver</string>
-        <string id="AppHVSI_AllowPersistence_Explain">Bu ilke ayarı, verilerin Windows Defender Application Guard (Application Guard) içerisinde farklı oturumlar arasında kalıcı olup olmayacağına karar vermenize olanak sağlar.
+        <string id="AppHVSI_AllowPersistence_DisplayName">Microsoft Defender Application Guard için verilerin kalıcı olmasına izin ver</string>
+        <string id="AppHVSI_AllowPersistence_Explain">Bu ilke ayarı, verilerin Microsoft Defender Application Guard'da farklı oturumlar arasında kalıcı olup olmayacağına karar vermenize olanak sağlar.
 
-Bu ayarı etkinleştirirseniz, Application Guard kullanıcı tarafından indirilen dosyaları ve diğer öğeleri (örneğin tanımlama bilgileri, Sık Kullanılanlar ve benzeri) gelecekteki Application Guard oturumlarında kullanılmak üzere kaydeder.
-
-Note
-Bu ayarı etkinleştirirseniz, bir kullanıcının verisini belirli bir cihazdan Reset-ApplicationGuard PowerShell komutunu kullanarak yine de silebilirsiniz. Bu komutu çalıştırmak, yapılandırmadan bağımsız olarak tüm çalışan verisini siler ve çalışan için veri kaybına yol açabilir.
-
-Bu ayarı devre dışı bırakır veya yapılandırmazsanız Application Guard, Application Guard kapsayıcısı içindeki tüm kullanıcı verisini siler.
-        </string>
-        <string id="AppHVSI_AllowVirtualGPU_DisplayName">Windows Defender Application Guard için donanım hızlandırmalı işleme izin verin</string>
-        <string id="AppHVSI_AllowVirtualGPU_Explain">Bu ilke ayarı, Windows Defender Application Guard'ın donanım veya yazılım hızlandırma kullanarak grafik oluşturup oluşturmayacağını belirler.
-
-Bu ayarı etkinleştirirseniz Windows Defender Application Guard desteklenen, yüksek güvenlikli grafik işleme donanımına (GPU'lar) erişmek için Hyper V kullanır. Bu GPU'lar Windows Defender Application Guard kullanılırken, özellikle video kayıttan yürütme ve diğer yoğun grafikli kullanım durumunda işleme performansını ve pil ömrünü iyileştirir. Herhangi bir yüksek güvenlikli grafik işleme donanımına bağlanmadan bu ayarı etkinleştirirseniz Windows Defender Application Guard otomatik olarak yazılım tabanlı (CPU) işlemeye dönecektir.
+Bu ayarı etkinleştirirseniz Application Guard, kullanıcı tarafından indirilen dosyaları ve diğer öğeleri (örneğin tanımlama bilgileri, Sık Kullanılanlar ve benzeri) gelecekteki Application Guard oturumlarında kullanılmak üzere kaydeder.
 
 Not:
-Bu ayarın potansiyel tehlikeli grafik cihazları veya sürücüleri ile etkinleştirilmesi ana bilgisayar cihazı için bir risk oluşturabileceğini unutmayın.
+Bu ayarı etkinleştirirseniz bir kullanıcının verilerini belirli bir cihazdan Reset-ApplicationGuard PowerShell komutunu kullanarak yine de silebilirsiniz. Bu komutu çalıştırmak, yapılandırmadan bağımsız olarak çalışanın tüm verilerini siler ve çalışan için veri kaybına yol açabilir.
 
-Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız Windows Defender Application Guard yazılım tabanlı işleme (CPU) kullanır ve herhangi bir üçüncü taraf grafik sürücüsü yüklemez veya bağlı grafik donanımı ile etkileşim kurmaz.
+Bu ayarı devre dışı bırakır veya yapılandırmazsanız Application Guard, tüm kullanıcı verilerini Application Guard kapsayıcısı içinden siler.
         </string>
-        <string id="AppHVSI_AuditApplicationGuard_DisplayName">Windows Defender Application Guard içerisinde denetim olaylarına izin ver</string>
-        <string id="AppHVSI_AuditApplicationGuard_Explain">Bu ilke ayarı, denetim olaylarının Windows Defender Application Guard'dan alınıp alınamayacağına karar vermenize olanak sağlar.
+        <string id="AppHVSI_AllowVirtualGPU_DisplayName">Microsoft Defender Application Guard için donanım hızlandırmalı işleme izin ver</string>
+        <string id="AppHVSI_AllowVirtualGPU_Explain">Bu ilke ayarı, Microsoft Defender Application Guard'ın donanım veya yazılım hızlandırma kullanarak grafik oluşturup oluşturmayacağını belirler.
+
+Bu ayarı etkinleştirirseniz Microsoft Defender Application Guard desteklenen, yüksek güvenlikli grafik işleme donanımına (GPU'lar) erişmek için Hyper-V kullanır. Bu GPU'lar Microsoft Defender Application Guard kullanılırken, özellikle video kayıttan yürütme ve diğer yoğun grafikli kullanım durumunda işleme performansını ve pil ömrünü iyileştirir. Herhangi bir yüksek güvenlikli grafik işleme donanımına bağlanmadan bu ayarı etkinleştirirseniz Microsoft Defender Application Guard otomatik olarak yazılım tabanlı (CPU) işlemeye dönecektir.
+
+Not:
+Bu ayarı potansiyel tehlikeli grafik cihazları veya sürücüleri ile etkinleştirmenin ana bilgisayar cihazı için bir risk oluşturabileceğini unutmayın.
+
+Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız Microsoft Defender Application Guard yazılım tabanlı işleme (CPU) kullanır ve herhangi bir üçüncü taraf grafik sürücüsü yüklemez veya bağlı grafik donanımı ile etkileşim kurmaz.
+        </string>
+        <string id="AppHVSI_AuditApplicationGuard_DisplayName">Microsoft Defender Application Guard içerisinde denetim olaylarına izin ver</string>
+        <string id="AppHVSI_AuditApplicationGuard_Explain">Bu ilke ayarı, denetim olaylarının Microsoft Defender Application Guard'dan alınıp alınamayacağına karar vermenize olanak sağlar.
 
 Bu ayarı etkinleştirirseniz Application Guard, denetim ilkelerini cihazınızdan devralır ve sistem olaylarını Application Guard kapsayıcısından ana bilgisayarınıza kaydeder.
 
-Bu ayarı devre dışı bırakır veya yapılandırmazsanız, olay günlükleri Application Guard kapsayıcısından alınmaz.
+Bu ayarı devre dışı bırakır veya yapılandırmazsanız olay günlükleri Application Guard kapsayıcısından alınmaz.
         </string>
 
-        <string id="AppHVSI_SaveFilesToHost_DisplayName">Dosyaların indirilmesine ve Windows Defender Application Guard'dan konak işletim sistemine kaydedilmesine izin ver</string>
-        <string id="AppHVSI_SaveFilesToHost_Explain">Bu ilke ayarı, indirilen dosyaların Windows Defender Application Guard kapsayıcısından ana bilgisayar işletim sistemine kaydedilip kaydedilmeyeceğini belirler.
+        <string id="AppHVSI_SaveFilesToHost_DisplayName">Dosyaların indirilmesine ve Microsoft Defender Application Guard'dan konak işletim sistemine kaydedilmesine izin ver</string>
+        <string id="AppHVSI_SaveFilesToHost_Explain">Bu ilke ayarı, indirilen dosyaların Microsoft Defender Application Guard kapsayıcısından ana bilgisayar işletim sistemine kaydedilip kaydedilmeyeceğini belirler.
 
-Bu ayarı etkinleştirirseniz kişiler, indirilen dosyaları Windows Defender Application Guard kapsayıcısından ana bilgisayar işletim sistemine kaydedebilirler.
+Bu ayarı etkinleştirirseniz kişiler, indirilen dosyaları Microsoft Defender Application Guard kapsayıcısından ana bilgisayar işletim sistemine kaydedebilirler.
 
-Bu ayarı devre dışı bırakır veya yapılandırmazsanız kişiler, indirilen dosyaları Windows Defender Application Guard kapsayıcısından ana bilgisayar işletim sistemine kaydedemezler.
+Bu ayarı devre dışı bırakır veya yapılandırmazsanız kişiler, indirilen dosyaları Microsoft Defender Application Guard kapsayıcısından ana bilgisayar işletim sistemine kaydedemezler.
         </string>
-        <string id="AppHVSI_FileTrustCriteria_DisplayName">Kullanıcıların Windows Defender Application Guard'da açılan dosyalara güvenmesine izin ver</string>
-        <string id="AppHVSI_FileTrustCriteria_Explain">Bu ilke ayarı, kullanıcıların Application Guard’da açılan dosyalara güvenmesini sağlayan gerekli işlemleri ve doğrulamaları yapılandırmanızı sağlar. Yapılandırma başarıyla tamamlandıktan sonra dosyalar ana bilgisayarda açılacaktır. 
-
-Bu ayarı etkinleştirirseniz aşağıdakilerden birini veya daha fazlasını seçmeniz gerekir:
-0. Kullanıcıların dosyalara elle güvenmesine izin verme: Kullanıcılara dosyalara güvenme seçeneği sunulmaz.
-1. Kullanıcıların dosyalara elle güvenmesine izin ver: Kullanıcılar Windows’ta, seçilen dosyalara özel olarak izin vermelerini sağlayan UI'yi açabilirler.
-2. Virüse karşı koruma denetimi yapıldıktan sonra kullanıcıların elle güvenmesine izin ver: Kullanıcılar Windows’ta, seçilen dosyalara özel olarak izin vermelerini sağlayan UI'yi açabilirler. Dosyalara ancak kullanıcının cihazında yüklü olan virüsten koruma programı dosyaların temiz olduğunu bildirdikten sonra güvenilir.
-
-Bu ayarı devre dışı bırakır veya yapılandırmazsanız kullanıcılar Application Guard’da açılan dosyalara güvenmeyi seçemez.
-</string>
-
-        <string id="AppHVSI_FileTrustOrigin_DisplayName">Windows Defender Application Guard'da güvenilmeyen dosyalar için ek kaynaklar yapılandırın.</string>
-        <string id="AppHVSI_FileTrustOrigin_Explain">Bu ilke ayarı, güvenilmeyen dosyalar için ek kaynakları yapılandırmanıza olanak sağlar.
-Bu ayarı etkinleştirirseniz aşağıdakilerden birini veya birkaçını seçmeniz gerekir:
-1. Çıkarılabilir medya: Çıkarılabilir medyadan açılan veya kopyalanan dosyalar her zaman Windows Defender Application Guard'da açılır.
-
-2. Ağ paylaşımları: Ağ paylaşımlarından açılan veya kopyalanan dosyalar her zaman Windows Defender Application Guard'da açılır. Bir ağ konumuna açıkça güvenmek ve o konumdan gelen dosyaları Application Guard'da açmayı önlemek isterseniz Ağ Yalıtımı ilkelerinden birini kullanabilirsiniz.
-
-3. Web İşareti (MotW) bulunan dosyalar: MotW damgalı dosyalar, her zaman Windows Defender Application Guard'da açılır.
-
-Bu ayarı devre dışı bırakır veya yapılandırmazsanız yalnızca Microsoft Edge için Application Guard'dan indirilen dosyalar Microsoft Word, Excel veya PowerPoint için Application Guard'da açılır.
-</string>
-
     </stringTable>
     <presentationTable>
       <presentation id="AppHVSI_AllowAppHVSI_Presentation">
         <decimalTextBox refId="AppHVSI_AllowAppHVSI_TextBox" defaultValue="1"></decimalTextBox>
         <text>
 Seçenekler:
-0. Windows Defender Application Guard'ı devre dışı bırak
-1. Windows Defender Application Guard'ı YALNIZCA Microsoft Edge için etkinleştir
-2. Windows Defender Application Guard'ı YALNIZCA Microsoft Office için etkinleştir
-3. Windows Defender Application Guard'ı Microsoft Edge VE Microsoft Office için etkinleştir
+0. Microsoft Defender Application Guard'ı devre dışı bırakın
+1. Microsoft Defender Application Guard'ı YALNIZCA Microsoft Edge için etkinleştirin
+2. Microsoft Defender Application Guard'ı YALNIZCA yalıtılmış Windows ortamları için etkinleştirin
+3. Microsoft Defender Application Guard'ı Microsoft Edge VE yalıtılmış Windows ortamları için etkinleştirin
         </text>
       </presentation>
     <presentation id="AppHVSIClipboardSettings_Presentation">
@@ -182,19 +159,6 @@ Seçenekler:
      - 15. Tüm yazdırmayı etkinleştirir.
         </text>
       </presentation>
-      <presentation id="AppHVSI_FileTrustCriteria_Presentation">
-        <decimalTextBox refId="AppHVSI_FileTrustCriteria_TextBox" defaultValue="0"></decimalTextBox>
-        <text>Güvenilir olmayan bir dosyayı yükseltmek ve kullanıcının cihazında açmak, görüntülemek ve düzenlemek için son kullanıcı tarafından tamamlanması gereken eylemleri ve doğrulamaları yapılandırın.
-0. Kullanıcıların dosyalara manuel olarak güvenmelerine izin verme
-1. Kullanıcıların dosyalara manuel olarak güvenmelerine izin ver
-2. Kullanıcıların virüsten koruma denetimi yapıldıktan sonra dosyalara manuel olarak güvenmelerine izin ver</text>
-      </presentation>
-      <presentation id="AppHVSI_FileTrustOrigin_Presentation">
-         <checkBox refId="AppHVSI_FileTrustOrigin_RemovableMedia_Checkbox" defaultChecked="true">Çıkarılabilir medya</checkBox>
-         <checkBox refId="AppHVSI_FileTrustOrigin_NetworkShares_Checkbox" defaultChecked="true">Ağ paylaşımları</checkBox>
-         <checkBox refId="AppHVSI_FileTrustOrigin_MOTW_Checkbox" defaultChecked="true">Web İşareti Olan Dosyalar</checkBox>
-      </presentation>
-
       <presentation id="AppHVSICertificateThumbprints_Presentation">
         <textBox refId="AppHVSICertificateThumbprints_TextBox">
           <label>Paylaşılacak sertifikaların parmak izleri</label>

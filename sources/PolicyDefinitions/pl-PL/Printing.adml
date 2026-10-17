@@ -44,30 +44,30 @@ Uwaga:
           Zobacz też ustawienie „Aktywuj drukowanie internetowe” w tym folderze ustawień i ustawienie „Przeglądaj wspólną witrynę sieci Web w poszukiwaniu drukarek” w lokalizacji Konfiguracja użytkownika\Szablony administracyjne\Panel sterowania\Drukarki.
 
           Na widok sieci Web mają wpływ ustawienia „Włącz powłokę klasyczną” i „Nie zezwalaj na otwieranie pozycji Opcje folderów za pomocą przycisku Opcje na karcie Wyświetlanie na wstążce” w lokalizacji Konfiguracja użytkownika\Szablony administracyjne\Składniki systemu Windows\Eksplorator Windows, a także ustawienie „Włącz pulpit Active Desktop” w lokalizacji Konfiguracja użytkownika\Szablony administracyjne\Pulpit\Active Desktop.</string>
-      <string id="DomainDisplayPrinters_Help">Jeśli to włączysz to ustawienie zasad, będzie ono określać maksymalną liczbę drukarek (każdego typu) wyświetlanych przez Kreatora dodawania drukarki na komputerze w sieci zarządzanej (gdy komputer ma możliwość nawiązania połączenia z kontrolerem domeny, jak np. laptop przyłączony do domeny w sieci firmowej).
+      <string id="DomainDisplayPrinters_Help">To ustawienie określa maksymalną liczbę drukarek (każdego typu) wyświetlanych przez Kreatora dodawania drukarki na komputerze w zarządzanej sieci (gdy komputer ma możliwość nawiązania połączenia z kontrolerem domeny, jak np. laptop podłączony do domeny w sieci firmowej).
 
-          Jeśli to ustawienie zasad zostanie wyłączone, strona skanowania sieci nie będzie wyświetlana.
+ Jeśli to ustawienie zostanie wyłączone, strona skanowania sieci nie będzie wyświetlana.
 
-          Jeśli to ustawienie zasad nie zostanie skonfigurowane, Kreator dodawania drukarki będzie wyświetlać domyślną liczbę drukarek każdego typu:
-          Drukarki w usłudze katalogowej: 20
-          Drukarki TCP/IP: 0
-          Drukarki w usługach sieci Web: 0
-          Drukarki Bluetooth: 10
-          Drukarki udostępnione: 0
+ Jeśli to ustawienie nie zostanie skonfigurowane, Kreator dodawania drukarki będzie wyświetlać domyślną liczbę drukarek każdego typu:
+ Drukarki w usłudze katalogowej: 20
+ Drukarki TCP/IP: 0
+ Drukarki w usługach sieci Web: 0
+ Drukarki Bluetooth: 10
+ Drukarki udostępnione: 0
 
-          Aby wyświetlić dostępne drukarki w usługach sieci Web w swojej sieci, upewnij się, że odnajdowanie sieci jest włączone. Aby włączyć odnajdowanie sieci, kliknij przycisk Start, kliknij polecenie Panel sterowania, a następnie kliknij link Sieć i Internet. Na stronie Sieć i Internet kliknij link Centrum sieci i udostępniania. Na stronie Centrum sieci i udostępniania kliknij link Zmień zaawansowane ustawienia udostępniania. Na stronie Zaawansowane ustawienia udostępniania kliknij strzałkę obok pozycji Domena, kliknij pozycję Włącz odnajdowanie sieci, a następnie kliknij przycisk Zapisz zmiany.
+ Aby wyświetlić dostępne drukarki w usługach sieci Web w swojej sieci, upewnij się, że odnajdowanie sieci jest włączone. Aby włączyć odnajdowanie sieci, kliknij przycisk Start, kliknij polecenie Panel sterowania, a następnie kliknij link Sieć i Internet. Na stronie Sieć i Internet kliknij link Centrum sieci i udostępniania, a następnie kliknij link Zmień zaawansowane ustawienia udostępniania. Na stronie Zaawansowane ustawienia udostępniania kliknij strzałkę obok pozycji Domena, kliknij pozycję Włącz odnajdowanie sieci, a następnie kliknij przycisk Zapisz zmiany.
 
-          Jeśli nie chcesz wyświetlać drukarek określonego typu, włącz tę zasadę i ustaw liczbę wyświetlanych drukarek tego typu równą 0.
+ Jeśli nie chcesz wyświetlać drukarek określonego typu, włącz tę funkcję i ustaw liczbę wyświetlanych drukarek tego typu równą 0.
 
-          W systemie Windows 10 i nowszych w kreatorze mogą być wyświetlane tylko drukarki TCP/IP. Jeśli włączysz to ustawienie zasad, będą stosowane tylko limity dotyczące drukarek TCP/IP. W systemie Windows 10, jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, będzie stosowany limit domyślny.
-          
-          W systemie Windows 8 i nowszych drukarki Bluetooth nie są wyświetlane, więc ich limit nie ma zastosowania w tych wersjach systemu Windows.
+ W systemie Windows 10 i nowszych mogą być wyświetlane tylko drukarki TCP/IP. Jeśli włączysz to ustawienie, będą stosowane tylko limity dotyczące drukarek TCP/IP. W systemie Windows 10, jeśli wyłączysz to ustawienie albo go nie skonfigurujesz, będzie stosowany limit domyślny.
+ 
+ W systemie Windows 8 i nowszych drukarki Bluetooth nie są wyświetlane, więc ich limit nie ma zastosowania w tych wersjach systemu Windows.
       </string>
       <string id="DomainPrinters">Kreator dodawania drukarki — strona skanowania sieci (sieć zarządzana)</string>
       <string id="DownlevelBrowse">Przeglądaj sieć w poszukiwaniu drukarek</string>
       <string id="DownlevelBrowse_Help">Pozwala użytkownikom korzystać z Kreatora dodawania drukarki w celu wyszukiwania w sieci drukarek udostępnionych.
 
-Jeśli to ustawienie zostanie włączone lub nie zostanie skonfigurowane, kiedy użytkownicy wybiorą dodanie drukarki sieciowej, zaznaczając przycisk radiowy „Drukarka sieciowa lub drukarka podłączona do innego komputera” na 2 stronie Kreatora dodawania drukarki oraz przycisk radiowy „Podłącz do tej drukarki (lub zaznacz tę opcję i kliknij przycisk Dalej, aby znaleźć drukarkę)” na 3 stronie Kreatora dodawania drukarki, nie określając nazwy drukarki w sąsiednim polu edycji „Nazwa”, Kreator dodawania drukarki wyświetli listę udostępnionych drukarek w sieci i wyświetli monit o wybranie drukarki z wyświetlonej listy.
+Jeśli to ustawienie zostanie włączone lub nie zostanie skonfigurowane, kiedy użytkownicy wybiorą dodanie drukarki sieciowej, zaznaczając przycisk radiowy Drukarka sieciowa lub drukarka podłączona do innego komputera” na 2 stronie Kreatora dodawania drukarki oraz przycisk radiowy „Podłącz do tej drukarki (lub zaznacz tę opcję i kliknij przycisk Dalej, aby znaleźć drukarkę)” na 3 stronie Kreatora dodawania drukarki, nie określając nazwy drukarki w sąsiednim polu edycji „Nazwa”, Kreator dodawania drukarki wyświetli listę udostępnionych drukarek w sieci i wyświetli monit o wybranie drukarki z wyświetlonej listy.
 
 Jeśli to ustawienie zostanie wyłączone, strona przeglądania drukarek sieciowych zostanie usunięta z Kreatora dodawania drukarki i użytkownicy nie będą mogli przeszukiwać sieci, a zamiast tego będą musieli wpisać nazwę drukarki.
 
@@ -134,21 +134,21 @@ Uwaga: w wyniku stosowania tych zasad istniejące sterowniki trybu jądra będą
           To ustawienie nie zapobiega uruchamianiu przez użytkowników innych programów w celu usunięcia drukarki.
 
           Jeśli te zasady zostaną wyłączone lub nie zostaną skonfigurowane, użytkownicy będą mogli usuwać drukarki, używając opisanych wyżej metod.</string>
-      <string id="NonDomainDisplayPrinters_Help">Ta zasada określa maksymalną liczbę drukarek (każdego typu), które Kreator dodawania drukarki będzie wyświetlał na komputerze w sieci niezarządzanej (gdy komputer nie może skontaktować się z kontrolerem domeny, na przykład przyłączony do domeny laptop w sieci domowej).
+      <string id="NonDomainDisplayPrinters_Help">Te zasady określają maksymalną liczbę drukarek (każdego typu), które Kreator dodawania drukarki będzie wyświetlać na komputerze w sieci niezarządzanej (gdy komputer nie może połączyć się z kontrolerem domeny, np. laptop przyłączony do domeny w sieci domowej).
 
-Jeśli to ustawienie zostanie wyłączone, nie będzie wyświetlana strona skanowania sieci.
+Jeśli to ustawienie zostanie wyłączone, strona skanowania sieci nie będzie wyświetlana.
 
-Jeśli to ustawienie nie zostanie skonfigurowane, Kreator dodawania drukarki będzie wyświetlał domyślną liczbę drukarek każdego typu:
+Jeśli to ustawienie nie zostanie skonfigurowane, Kreator dodawania drukarki wyświetli domyślną liczbę drukarek każdego typu:
 Drukarki TCP/IP: 50
-Drukarki w usługach sieci Web: 50
+Drukarki usług sieci Web: 50
 Drukarki Bluetooth: 10
 Drukarki udostępnione: 50
 
-Jeśli nie chcesz wyświetlać drukarek określonego typu, włącz tę zasadę i ustaw liczbę wyświetlanych drukarek równą 0.
+Jeśli chcesz nie wyświetlać drukarek określonego typu, włącz tę zasadę i ustaw liczbę wyświetlanych drukarek na 0.
 
-W systemie Windows 10 i nowszych w kreatorze mogą być wyświetlane tylko drukarki TCP/IP. Jeśli włączysz to ustawienie zasad, będą stosowane tylko limity dotyczące drukarek TCP/IP. W systemie Windows 10, jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, będzie stosowany limit domyślny.
-          
-W systemie Windows 8 i nowszych drukarki Bluetooth nie są wyświetlane, więc ich limit nie ma zastosowania w tych wersjach systemu Windows.</string>
+W Windows 10 i nowszych kreatorze można wyświetlać tylko drukarki TCP/IP. Jeśli to ustawienie zasad zostanie włączone, będą stosowane tylko limity drukarek TCP/IP. Tylko w Windows 10, jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, zostanie zastosowany limit domyślny.
+
+W Windows 8 i nowszych drukarki Bluetooth nie są wyświetlane, więc ich limit nie dotyczy tych wersji systemu Windows.</string>
       <string id="NonDomainPrinters">Kreator dodawania drukarki — strona skanowania sieci (sieć niezarządzana)</string>
       <string id="PackagePointAndPrintOnly">Wskazywanie i drukowanie wyłącznie pakietów</string>
       <string id="PackagePointAndPrintOnly_Help">Te zasady nakładają na komputery klienckie ograniczenie dopuszczające stosowanie tylko pakietowej funkcji drukowania i wskazywania.
@@ -278,19 +278,241 @@ Domyślnie wersje Ultimate, Professional i Home systemu Windows w razie potrzeby
 
         Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, będzie można uruchamiać wszystkie zainstalowane rozszerzenia drukarek.</string>
       <string id="MXDWUseLegacyOutputFormatMSXPS">Zmień domyślny format wyjściowy drukarki Moduł zapisywania dokumentów XPS firmy Microsoft (MXDW) na starszy format Microsoft XPS (*.xps)</string>
-      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">W systemach Windows 10, Windows 10 i Windows Server 2019 drukarka Moduł zapisywania dokumentów XPS firmy Microsoft (MXDW) domyślnie generuje pliki OpenXPS (*.oxps).
+      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Moduł zapisywania dokumentów XPS firmy Microsoft (MXDW) domyślnie generuje pliki OpenXPS (*.oxps) w systemach Windows 10, Windows 10 i Windows Server 2025.
 
-          Jeśli włączysz to ustawienie zasad grupy, domyślnym formatem danych wyjściowych drukarki MXDW będzie starszy format Microsoft XPS (*.xps).
+Jeśli to ustawienie zasad grupy zostanie włączone, domyślnym formatem danych wyjściowych MXDW będzie starszy system Microsoft XPS (*.xps).
 
-          Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, domyślnym formatem danych wyjściowych drukarki MXDW będzie format OpenXPS (*.oxps).</string>
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślnym formatem danych wyjściowych MXDW będzie OpenXPS (*.oxps).</string>
       <string id="SetDefaultPrinterMRUModeOff">Wyłącz zarządzanie drukarką domyślną przez system Windows</string>
-      <string id="SetDefaultPrinterMRUModeOff_Help">To ustawienie preferencji umożliwia zmianę zarządzania drukarką domyślną.
+      <string id="SetDefaultPrinterMRUModeOff_Help">Ta preferencja umożliwia zmianę domyślnego zarządzania drukarkami.
 
-Jeśli zostanie ono włączone, system Windows nie będzie zarządzać drukarką domyślną.
- 
-Jeśli zostanie ono wyłączone, system Windows będzie zarządzać drukarką domyślną.
+Jeśli to ustawienie zostanie włączone, system Windows nie będzie zarządzał drukarką domyślną.
 
-Jeśli nie zostanie ono skonfigurowane, zarządzanie drukarką domyślną nie zmieni się. </string>
+Jeśli to ustawienie zostanie wyłączone, system Windows będzie zarządzał drukarką domyślną.
+
+Jeśli to ustawienie pozostanie nieskonfigurowane, domyślne zarządzanie drukarkami nie zostanie zmienione. </string>
+      <string id="EnableDeviceControl">Włącz ograniczenia drukowania w ramach sterowania urządzeniem</string>
+      <string id="EnableDeviceControl_Help">
+Określa, czy ograniczenia drukowania w ramach sterowania urządzaniami są wymuszane podczas drukowania na tym komputerze.
+
+          Domyślnie nie ma żadnych ograniczeń dotyczących drukowania zależnie od typu połączenia lub marki/modelu drukarki.
+
+          Jeśli to ustawienie zostanie włączone, komputer ograniczy drukowanie do połączeń drukarek w sieci firmowej lub zatwierdzonych drukarek podłączonych przez port USB.
+
+          Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, nie będzie żadnych ograniczeń drukowania zależnie od typu połączenia lub marki/modelu drukarki.</string>
+      <string id="ApprovedUsbPrintDevices">Lista zatwierdzonych urządzeń drukujących podłączonych przy użyciu portu USB</string>
+      <string id="ApprovedUsbPrintDevices_Help">
+
+To ustawienie jest składnikiem ograniczeń drukowania sterowania urządzeniami. Aby użyć tego ustawienia, włącz funkcję Drukowanie sterowania urządzeniem, włączając ustawienie "Włącz ograniczenia drukowania sterowania urządzeniami".
+
+Po włączeniu drukowania sterowania urządzeniami system używa określonej listy wartości identyfikatora vid/pid do określenia, czy bieżąca drukarka podłączona do portu USB jest zatwierdzona do drukowania lokalnego.
+
+Wpisz wszystkie zatwierdzone kombinacje identyfikatorów vid/pid (oddzielone przecinkami) odpowiadające zatwierdzonym modelom drukarek USB. Gdy użytkownik spróbuje drukować do kolejki drukarek USB, identyfikator vid/pid urządzenia zostanie porównany z listą zatwierdzonych.
+      </string>
+      <string id="RestrictDriverInstallationToAdministrators">Ogranicza instalację sterownika drukarki do administratorów</string>
+      <string id="RestrictDriverInstallationToAdministrators_Help">
+Określa, czy użytkownicy, którzy nie są administratorami, mogą instalować sterowniki drukarek na tym komputerze.
+
+Domyślnie użytkownicy, którzy nie są administratorami, nie mogą instalować sterowników drukarek na tym komputerze.
+
+Jeśli to ustawienie zostanie włączone lub nie zostanie skonfigurowane, system ograniczy instalację sterowników drukarek do administratorów tego komputera.
+
+Jeśli to ustawienie zostanie wyłączone, system nie będzie ograniczał instalacji sterowników drukarek do tego komputera.
+        </string>
+      <string id="CopyFilesPolicy">Zarządzanie przetwarzaniem plików specyficznych dla kolejki</string>
+      <string id="CopyFilesPolicy_AllowAll">Zezwalaj na wszystkie pliki specyficzne dla kolejki</string>
+      <string id="CopyFilesPolicy_Disabled">Nie zezwalaj na pliki specyficzne dla kolejki</string>
+      <string id="CopyFilesPolicy_Help">
+Zarządza sposobem przetwarzania plików specyficznych dla kolejki podczas instalacji drukarki. W czasie instalacji drukarki aplikacja instalacyjna dostarczona przez dostawcę może określić zestaw plików dowolnego typu do skojarzenia z określoną kolejką wydruku. Pliki są pobierane do każdego klienta łączącego się z serwerem wydruku.
+
+Możesz włączyć to ustawienie, aby zmienić domyślne zachowanie dotyczące plików specyficznych dla kolejki. Aby użyć tego ustawienia, wybierz jedną z poniższych opcji w polu "Zarządzanie przetwarzaniem plików specyficznych dla kolejki".
+
+Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, zachowanie domyślne to "Ogranicz pliki specyficzne dla kolejki do profilów kolorów".
+
+— Opcja "Nie zezwalaj na pliki specyficzne dla kolejki" określa, że żadne pliki specyficzne dla kolejki nie będą dozwolone/przetwarzane podczas instalacji kolejki wydruku/połączenia drukarki.
+
+— Ustawienie "Ogranicz pliki specyficzne dla kolejki do profilów kolorów" określa, że dozwolone będą tylko pliki specyficzne dla kolejki, które są zgodne ze standardowym schematem profilu kolorów. Oznacza to wpisy używające klucza rejestru CopyFiles\ICM, które zawierają wartość katalogu COLOR i obsługują mscms.dll jako wartość modułu. Domyślnym zachowaniem jest ustawienie "Ogranicz pliki specyficzne dla kolejki do profilów kolorów".
+
+— Opcja "Zezwalaj na wszystkie pliki specyficzne dla kolejki" określa, że wszystkie pliki specyficzne dla kolejki będą dozwolone/przetwarzane podczas instalacji kolejki wydruku/połączenia drukarki.
+      </string>
+      <string id="CopyFilesPolicy_ICMOnly">Ogranicz pliki specyficzne dla kolejki do profilów kolorów</string>
+      <string id="DriverValidationLevel_Inbox">Wymaga podpisanych sterowników skrzynki odbiorczej</string>
+      <string id="DriverValidationLevel_Legacy">Zezwalaj na wszystkie prawidłowo podpisane sterowniki</string>
+      <string id="DriverValidationLevel_Trusted">Zezwalaj na sterowniki w skrzynce odbiorczej i sterowniki drukarek podpisane przez zaufany magazyn</string>
+      <string id="DriverValidationLevel_TrustedShared">Zezwalaj na sterowniki skrzynki odbiorczej, zaufanego magazynu sterowników drukarek, WHQL i magazynu zaufanych wydawców</string>
+      <string id="DriverValidationLevel_WHQL">Zezwalaj na sterowniki skrzynki odbiorczej, zaufane sterowniki sterowników drukarek i podpisane sterowniki WHQL</string>
+      <string id="DriverValidationLevel">Zarządzaj sprawdzaniem poprawności podpisu sterownika drukarki</string>
+      <string id="DriverValidationLevel_Help">
+          To ustawienie zasad steruje mechanizmem sprawdzania poprawności podpisu sterownika drukarki. Te zasady kontrolują typ podpisu cyfrowego, który jest wymagany, aby sterownik drukarki był uznawany za prawidłowy i zainstalowany w systemie.
+
+          W ramach tej weryfikacji zweryfikowano wykaz/osadzony podpis i wszystkie pliki w sterowniku muszą być częścią wykazu lub mieć własny osadzony podpis, którego można użyć do weryfikacji.
+
+          Możesz włączyć to ustawienie, aby zmienić domyślną metodę sprawdzania poprawności podpisu. Aby użyć tego ustawienia, wybierz jedną z poniższych opcji w polu "Wybierz mechanizm podpisu sterownika dla tego komputera".
+
+          Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślną metodą będzie "Zezwalaj na wszystkie prawidłowo podpisane sterowniki".
+
+          -- Opcja "Wymagaj sterowników podpisanych przez skrzynkę odbiorczą" określa, że na tym komputerze są dozwolone tylko sterowniki dostarczane jako część obrazu systemu Windows.
+
+          -- Opcja "Zezwalaj na sterowniki podpisane przez zaufany magazyn dla skrzynki odbiorczej i sterowników drukowania" określa tylko sterowniki dostarczane jako część obrazu systemu Windows lub sterowniki podpisane za pomocą certyfikatów zainstalowanych w magazynie certyfikatów "PrintDrivers" są dozwolone na tym komputerze.
+
+          -- Opcja "Zezwalaj na sterowniki skrzynki odbiorczej, zaufanego magazynu sterowników PrintDriver i WHQL" określa, że jedynymi dozwolonymi sterownikami na tym komputerze są następujące sterowniki, które są dostarczane jako część obrazu systemu Windows, podpisane certyfikatami zainstalowanymi w magazynie certyfikatów "PrintDrivers" lub podpisane przez Laboratorium jakości sprzętu systemu Windows (WHQL).
+
+          -- Opcja "Zezwalaj na sterowniki podpisane przez skrzynkę odbiorczą, zaufany magazyn sterowników PrintDrivers, WHQL i zaufanych wydawców" określa, że jedynymi sterownikami dozwolonymi na tym komputerze są następujące sterowniki: dostarczane jako część obrazu systemu Windows, podpisane certyfikatami zainstalowanymi w magazynie certyfikatów "PrintDrivers", podpisane przez Laboratorium jakości sprzętu systemu Windows (WHQL) lub podpisane za pomocą certyfikatów zainstalowanych w magazynie certyfikatów "Zaufani wydawcy".
+
+          -- Specyfikacja "Zezwalaj na wszystkie prawidłowo podpisane sterowniki" określa, że na tym komputerze można zainstalować dowolny sterownik drukarki, który ma prawidłowy podpis osadzony lub który można zweryfikować względem wykazu sterowników drukarek.
+
+          Magazyn certyfikatów "PrintDrivers" musi zostać utworzony przez administratora w lokalizacji magazynu komputera lokalnego.
+
+          Magazyn certyfikatów "Zaufani wydawcy" może zawierać certyfikaty ze źródeł, które nie są powiązane ze sterownikami drukarek.
+
+      </string>
+      <string id="DriverValidationLevelTitle">Wybierz mechanizm podpisu sterownika dla tego komputera</string>
+      <string id="DriverExclusionList">Zarządzaj listą wykluczeń sterowników drukarki</string>
+      <string id="DriverExclusionList_Help">
+To ustawienie zasad steruje listą wykluczeń sterowników drukarek. Lista wykluczeń umożliwia administratorowi selekcję listy sterowników drukarek, których nie można instalować w systemie.
+
+Ta operacja wyewidencjonowuje sprawdzanie podpisu i umożliwia wykluczenie sterowników o prawidłowym poziomie podpisu dla zasad weryfikacji podpisu sterownika drukarki.
+
+Wpisy na liście wykluczeń składają się z skrótu SHA256 (lub skrótu SHA1 dla systemu Win7) pliku INF i/lub pliku DLL sterownika głównego sterownika oraz nazwy pliku.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, klucz rejestru i wartości skojarzone z tym ustawieniem zasad zostaną usunięte, jeśli są obecnie ustawione na wartość.
+
+      </string>
+      <string id="RpcListenerPolicy">Konfiguruj ustawienia odbiornika RPC</string>
+      <string id="RpcOverNamedPipes">Zdalne wywołanie procedury przez nazwane potoki</string>
+      <string id="RpcOverTcp">Zdalne wywołanie procedury przez TCP</string>
+      <string id="RpcOverNamedPipesAndTcp">Zdalne wywołanie procedury przez nazwane potoki i protokół TCP</string>
+      <string id="RpcAuthenticationProtocol_Negotiate">Negocjuj</string>
+      <string id="RpcAuthenticationProtocol_Kerberos">Kerberos</string>
+      <string id="RpcListenerPolicy_Help">
+To ustawienie zasad określa, które protokoły przychodzące połączeń RPC z buforem wydruku mogą być używane.
+
+Domyślnie protokół RPC przez TCP jest włączony i protokół Negotiate jest używany dla protokołu uwierzytelniania.
+
+Protokoły zezwalające na przychodzące połączenia RPC:
+    — "RPC przez nazwane potoki": Przychodzące połączenia RPC są dozwolone tylko przez nazwane potoki
+    — "RPC przez TCP": Przychodzące połączenia RPC są dozwolone tylko za pośrednictwem protokołu TCP (opcja domyślna)
+    — "RPC przez potoki nazwane i TCP": Przychodzące połączenia RPC będą dozwolone za pośrednictwem protokołu TCP i potoków nazwanych
+
+Protokół uwierzytelniania do użycia dla przychodzących połączeń RPC:
+    -- "Negocjuj": użyj protokołu uwierzytelniania negocjowanego (opcja domyślna)
+    — "Kerberos": użyj protokołu uwierzytelniania Kerberos
+
+Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, będą używane powyższe wartości domyślne.
+      </string>
+      <string id="RpcConnectionPolicy">Skonfiguruj ustawienia połączenia RPC</string>
+      <string id="RpcConnectionAuthenticationDefault">Domyślne</string>
+      <string id="RpcConnectionAuthenticationEnabled">Uwierzytelnianie włączone</string>
+      <string id="RpcConnectionAuthenticationDisabled">Uwierzytelnianie wyłączone</string>
+      <string id="RpcConnectionPolicy_Help">
+To ustawienie zasad określa, który protokół i jego ustawienia mają być używane do wychodzących połączeń RPC ze zdalnym buforem wydruku.
+
+Domyślnie jest używana usługa RPC przez protokół TCP, a uwierzytelnianie jest zawsze włączone. W przypadku wywołań RPC przez nazwane potoki, uwierzytelnianie jest zawsze włączone dla maszyn przyłączonych do domeny, ale wyłączone dla maszyn nie przyłączonych do domeny.
+
+Protokół do użycia dla wychodzących połączeń RPC:
+    — „RPC przez TCP”: Użyj protokołu RPC przez TCP w przypadku wychodzących połączeń RPC ze zdalnym buforem wydruku
+    — „RPC przez nazwane potoki”: użyj wywołania RPC przez nazwane potoki w przypadku wychodzących połączeń RPC ze zdalnym buforem wydruku
+
+Użyj uwierzytelniania dla wychodzących połączeń RPC przez potoki nazwane:
+    — „Domyślne”: Domyślnie komputery przyłączone do domeny włączają uwierzytelnianie RPC przez nazwane potoki, podczas gdy komputery niepołączone z domeną wyłączają uwierzytelnianie RPC dla wywołań RPS przez nazwane potoki
+    — „Uwierzytelnianie włączone”: uwierzytelnianie RPC będzie używane dla wychodzących połączeń RPC przez nazwane potoki
+    — „Uwierzytelnianie wyłączone”: uwierzytelnianie RPC nie będzie używane dla wychodzących połączeń RPC przez nazwane potoki
+
+Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, będą używane powyższe wartości domyślne.
+      </string>
+      <string id="RpcTcpPortPolicy">Konfiguruj zdalne wywołanie procedury przez port TCP</string>
+      <string id="RpcTcpPortPolicy_Help">
+To ustawienie zasad określa, który port jest używany dla protokołu RPC przez TCP dla połączeń przychodzących z buforem wydruku i połączeń wychodzących do zdalnych buforów wydruku.
+
+Domyślnie używane są dynamiczne porty TCP.
+
+RPC przez port TCP:
+ — port do użycia na potrzeby wywołania RPC przez TCP. Wartość 0 jest wartością domyślną i wskazuje, że będą używane dynamiczne porty TCP
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, używane będą dynamiczne porty TCP.
+      </string>
+      <string id="RpcIncomingAuthenticationLevelPolicy">Konfigurowanie ustawień prywatności na poziomie pakietów RPC dla połączeń przychodzących</string>
+      <string id="RpcIncomingAuthenticationLevelPolicy_Help">
+To ustawienie zasad określa, czy dla połączeń przychodzących jest włączona prywatność na poziomie pakietów dla usługi RPC.
+
+Domyślnie dla połączeń przychodzących włączona jest prywatność na poziomie pakietów dla protokołu RPC.
+
+Jeśli to ustawienie zasad zostanie włączone lub pozostanie nieskonfigurowane, dla połączeń przychodzących będzie włączona prywatność na poziomie pakietów.
+      </string>
+      <string id="AlwaysSendIppPageCounts">Zawsze wysyłaj informacje o liczbie stron zadań dla drukarek IPP</string>
+      <string id="AlwaysSendIppPageCounts_Help">
+Określa, czy zawsze mają być wysyłane informacje o liczbie stron na potrzeby ewidencjonowania aktywności drukarek przy użyciu sterownika klasy IPP firmy Microsoft.
+
+Domyślnie, strony są wysyłane do drukarki natychmiast po ich renderowaniu, bez informacji o ich liczbie, chyba że należy zmienić kolejność stron w zadaniu.
+
+Jeśli to ustawienie zostanie włączone, system najpierw będzie renderować wszystkie strony zadania oraz wyśle drukarce informację o ich łącznej liczbie.
+
+Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, strony będą drukowane natychmiast po ich renderowaniu, a ich liczba będzie wysyłana tylko wtedy, gdy do przetworzenia zadania będzie wymagana nowa kolejność stron.
+      </string>
+      <string id="RequireIpps">Wymagaj protokołu IPPS dla drukarek IPP</string>
+      <string id="RequireIpps_Help">Określa, czy komunikacja z drukarkami korzystającymi ze sterownika klasy IPP firmy Microsoft musi używać protokołu IPPS (który używa protokołu TLS do bezpiecznej komunikacji).
+
+Jeśli to ustawienie zasad zostanie włączone, będzie można instalować tylko drukarki IPP obsługujące usługi IPPS.
+
+Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, domyślnie dozwolone jest instalowanie drukarek IPP, które nie obsługują protokołu IPPS.
+      </string>
+      <string id="IppTlsCertificatePolicy">Ustaw zasady bezpieczeństwa protokołu TLS/SSL dla drukarek IPP</string>
+      <string id="IppTlsCertificatePolicy_Help">
+Określa zasady bezpieczeństwa TLS/SSL (WINHTTP_OPTION_SECURITY_FLAGS) dla drukarek korzystających ze sterownika Microsoft IPP Class Driver.
+
+Domyślnie zasady zabezpieczeń są ustawione tak, aby ignorować wszystkie błędy certyfikatów, umożliwiając korzystanie z samodzielnie podpisanych certyfikatów dla drukarek.
+
+Po włączeniu tego ustawienia system domyślnie włącza sprawdzanie wszystkich certyfikatów, nie zezwalając na błędy certyfikatów. Określone sprawdzanie certyfikatu można ustawić przy użyciu podanych pól wyboru.
+
+Jeśli wyłączysz to ustawienie lub go nie skonfigurujesz, domyślnie zignorujesz wszystkie błędy certyfikatów (niezaznaczone wszystkie pola wyboru).
+      </string>
+      <string id="RedirectionGuardPolicy">Konfiguruj funkcję Redirection Guard</string>
+      <string id="RedirectionGuardPolicy_Disabled">Wyłączono funkcję Redirection Guard</string>
+      <string id="RedirectionGuardPolicy_Enabled">Włączono funkcje Redirection Guard</string>
+      <string id="RedirectionGuardPolicy_AuditOnly">Tylko inspekcja funkcji Redirection Guard</string>
+      <string id="RedirectionGuardPolicy_Help">
+Określa, czy funkcja Redirection Guard jest włączona dla bufora wydruku.
+
+Możesz włączyć to ustawienie, aby skonfigurować zasady ochrony przekierowań stosowane do bufora.
+
+Jeśli wyłączysz lub nie skonfigurujesz tego ustawienia, domyślnie będzie ono miało wartość „Włączone”.
+
+Jeśli włączysz to ustawienie, możesz wybrać następujące opcje:
+
+-- Włączone: funkcja Redirection Guard uniemożliwi obserwowanie przekierowań plików
+
+-- Wyłączone: funkcja Redirection Guard nie jest włączona i przekierowania plików mogą być używane w procesie bufora
+
+-- Inspekcja: funkcja Redirection Guard będzie rejestrować zdarzenia tak, jakby była włączona, ale w rzeczywistości nie zapobiega użyciu przekierowań plików w procesie bufora.
+      </string>
+      <string id="WindowsProtectedPrintPolicy">Konfiguruj drukowanie chronione w systemie Windows</string>
+      <string id="WindowsProtectedPrintPolicy_Help">
+Określa, czy na tym komputerze jest włączona funkcja drukowania chronionego przez system Windows.
+
+Domyślnie drukowanie chronione przez system Windows nie jest włączone i nie ma żadnych ograniczeń dotyczących sterowników drukarek, które można zainstalować lub które można wydrukować.
+
+Jeśli to ustawienie zostanie włączone, komputer będzie działał w trybie drukowania chronionego przez system Windows, który umożliwia drukowanie tylko na drukarkach obsługujących podzbiór sterowników drukowania systemu Windows w skrzynce odbiorczej.
+
+Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, nie będą obowiązywać żadne ograniczenia dotyczące sterowników drukarek, które można zainstalować lub wydrukować.
+
+Aby uzyskać więcej informacji, zobacz https://learn.microsoft.com/en-us/windows-hardware/drivers/print/windows-protected-print-mode
+      </string>
+      <string id="WindowsReadyPrintDriverRanking">Konfiguruj klasyfikację sterowników systemu Windows Ready Print</string>
+      <string id="WindowsReadyPrintDriverRanking_Help">
+Określa, czy klasyfikacja sterowników systemu Windows Ready Print jest włączona na tym komputerze.
+
+Gdy ta opcja jest włączona, system Windows będzie preferować sterownik Microsoft IPP Class Driver dla drukarek obsługujących protokół IPP (Internet Printing Protocol). Dotyczy to zarówno drukarek IPP podłączonych do sieci, jak i drukarek podłączonych przez USB obsługujących protokół IPP przez USB.
+
+Jeśli włączysz to ustawienie, system Windows będzie nadawać priorytet sterownikowi klasy IPP firmy Microsoft podczas automatycznego wyboru sterownika dla odpowiednich drukarek.
+
+Jeśli wyłączysz to ustawienie, system Windows będzie używać domyślnego zachowania przy wyborze sterowników.
+
+Jeśli nie skonfigurujesz tego ustawienia, zostanie użyte ustawienie administratora lokalnego. Jeśli żadne z ustawień nie zostanie skonfigurowane, klasyfikacja sterowników systemu Windows Ready Print będzie domyślnie włączona.
+
+Uwaga: To ustawienie zasad grupy ma pierwszeństwo przed ustawieniem administratora lokalnego. To ustawienie wpływa tylko na automatyczny wybór sterownika podczas wstępnej konfiguracji drukarki. Istniejące instalacje drukarek nie zostaną zmienione. Aby zmiana tego ustawienia odniosła skutek, wymagane jest pełne odinstalowanie i ponowne zainstalowanie drukarki.
+
+Aby uzyskać więcej informacji, zobacz https://go.microsoft.com/fwlink/?linkid=2364024.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="CustomizedSupportUrl">
@@ -350,6 +572,50 @@ Jeśli nie zostanie ono skonfigurowane, zarządzanie drukarką domyślną nie zm
           <label>Ścieżka domyślna usługi Active Directory</label>
         </textBox>
         <text>przykład --&gt; LDAP://DC=Domena1,DC=MojaFirma,DC=com.</text>
+      </presentation>
+      <presentation id="ApprovedUsbPrintDevices">
+        <text>Określ listę zaakceptowanych urządzeń drukujących podłączonych przy użyciu portu USB.</text>
+        <text>To jest lista oddzielanych przecinkami wartości parametrów vid/PID (USB). Przykład: 0351/0872, 135E/2179</text>
+        <textBox refId="ApprovedUsbPrintDevices_List">
+          <label>Identyfikator VID/PID</label>
+        </textBox>
+      </presentation>
+      <presentation id="CopyFilesPolicy">
+        <text>Wybierz metodę przetwarzania plików specyficznych dla kolejki.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="CopyFilesPolicy_Enum">Zarządzanie przetwarzaniem plików specyficznych dla kolejki:</dropdownList>
+      </presentation>
+      <presentation id="DriverValidationLevel">
+        <dropdownList defaultItem="4" noSort="true" refId="DriverValidationLevel_Enum">Wybierz mechanizm podpisu sterownika dla tego komputera:</dropdownList>
+      </presentation>
+      <presentation id="DriverExclusionList">
+        <text>  </text>
+        <text>Wprowadź skrót pliku sparowany z nazwą pliku reprezentowanego przez skrót poniżej.</text>
+        <text>  </text>
+        <listBox refId="Driver_ExclusionListEntry">Skrótu pliku   Nazwa pliku:</listBox>
+      </presentation>
+      <presentation id="RpcListenerPolicy">
+        <text>Skonfiguruj opcje protokołu dla przychodzących połączeń RPC.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RpcListenerProtocols_Enum">Protokoły zezwalające na przychodzące połączenia RPC:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcAuthenticationProtocol_Enum">Protokół uwierzytelniania do użycia dla przychodzących połączeń RPC:</dropdownList>
+      </presentation>
+      <presentation id="RpcConnectionPolicy">
+        <text>Skonfiguruj opcje protokołu dla wychodzących połączeń RPC.</text>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionProtocol_Enum">Protokół do użycia dla wychodzących połączeń RPC:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionAuthentication_Enum">Użyj uwierzytelniania dla wychodzących połączeń RPC:</dropdownList>
+      </presentation>
+      <presentation id="RpcTcpPortPolicy">
+        <text>Skonfiguruj port do użycia na potrzeby zdalnego wywołania procedury RPC przez protokół TCP.</text>
+        <decimalTextBox defaultValue="0" refId="RpcTcpPort">Zdalne wywołanie procedury przez port TCP:</decimalTextBox>
+      </presentation>
+      <presentation id="IppTlsCertificatePolicy">
+        <checkBox refId="SecurityFlagsBlockUnknownCA" defaultChecked="true">Nie zezwalaj na nieprawidłowy urząd certyfikacji</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertWrongUsage" defaultChecked="true">Nie zezwalaj na certyfikaty spoza serwera</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertCNInvalid" defaultChecked="true">Nie zezwalaj na nieprawidłową nazwę pospolitą certyfikatu</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertDateInvalid" defaultChecked="true">Nie zezwalaj na nieprawidłową datę certyfikatu</checkBox>
+      </presentation>
+      <presentation id="RedirectionGuardPolicy">
+        <text>Konfiguruj opcje funkcji Redirection Guard</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RedirectionGuardPolicy_Enum">Opcje funkcji Redirection Guard</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

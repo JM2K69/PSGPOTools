@@ -252,7 +252,7 @@ Můžete také vytvořit seznam povolených doplňků tak, že zadáte řetězce
 Pokud používáte prostředí uzamčeného systému, je nastavení této zásady zbytečné, protože uživatelé bez oprávnění pro správu nemohou instalovat nové součásti. V případě, že uživatelé mají oprávnění pro správu nebo mohou instalovat software, zabrání jim tato zásada konkrétně v použití doplňků souvisejících se službou Windows Desktop Search.
 
 Poznámka: Z důvodu omezení v editoru zásad skupiny je třeba do seznamu povolených přidat nejméně jednu položku, a to i když chcete tuto zásadu povolit bez seznamu povolených. Položku seznamu vytvoříte tak, že jak do pole názvu, tak i do pole hodnoty vložíte mezeru a poté seznam uložíte. Tím vytvoříte zástupný text, který je programem ignorován.</string>
-      <string id="PreventUnwantedAddins_AllowList">Seznam povolených položek</string>
+      <string id="PreventUnwantedAddins_AllowList">Seznam povolených</string>
       <string id="ExcludedExtensionsMultiline">Zabránit indexování určitých typů souborů</string>
       <string id="ExcludedExtensionsMultiline_Explain">Povolením této zásady můžete upravit seznam typů souborů, které chcete vyloučit z indexování. Koncový uživatel tento seznam nemůže upravovat. Každý typ přípony je nutné oddělit středníkem.
 
@@ -275,6 +275,8 @@ Pokud nastavení této zásady zakážete nebo nenakonfigurujete, budou se v pod
 Pokud toto nastavení povolíte nebo nenakonfigurujete, bude Cortana v zařízení povolená. Pokud toto nastavení zakážete, bude Cortana vypnutá.
  
 Když je Cortana vypnutá, budou moct uživatelé i tak najít věci v tomto zařízení přes hledání.</string>
+      <string id="EnableDynamicContentInWSB">Povolit zvýraznění hledání</string>
+      <string id="ExplainEnableDynamicContentInWSB">Když se toto nastavení zakáže, vypne se zvýraznění hledání ve vyhledávacím poli v nabídce Start a na domovské stránce vyhledávání. Když se toto nastavení povolí nebo nenakonfiguruje, zapne se zvýraznění hledání ve vyhledávacím poli v nabídce Start a na domovské stránce vyhledávání.</string>
       <string id="AllowCortanaAboveLock">Povolit Cortanu nad zamykací obrazovkou</string>
       <string id="ExplainAllowCortanaAboveLock">Toto nastavení zásad určuje, jestli může uživatel ovládat Cortanu řečí, když je systém zamknutý.
 
@@ -294,6 +296,27 @@ Pokud bude toto nastavení povolené, budou mít vyhledávání i Cortana k info
       <string id="AllowCortanainAADEnabled">Povolit stránku Cortany v AAD</string>
       <string id="AllowCloudSearchEnabled">Povolit hledání v cloudu</string>
       <string id="AllowCloudSearchControlledByUser">Vybraný uživatel</string>
+      <string id="DisableSearch_DisplayName">Úplně zakázat uživatelské rozhraní vyhledávání</string>
+      <string id="DisableSearch_ExplainText">Pokud tuto zásadu povolíte, uživatelské rozhraní vyhledávání se zakáže spolu se všemi jeho vstupními body, jako jsou klávesové zkratky, gesta touchpadu a funkce Napište, co hledáte v nabídce Start. Skryje se i vyhledávací pole nabídky Start a tlačítko Hledat na hlavním panelu.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, uživatel bude moct otevřít uživatelské rozhraní vyhledávání a zobrazí se jeho různé vstupní body.</string>
+      <string id="ConfigureSearchOnTaskbarMode">Konfiguruje hledání na hlavním panelu.</string>
+      <string id="ConfigureSearchOnTaskbarMode_Help">Toto nastavení zásad umožňuje konfigurovat vyhledávání na hlavním panelu.
+
+Pokud toto nastavení zásad povolíte a nastavíte na skrytí, bude vyhledávání na hlavním panelu ve výchozím nastavení skryto. Uživatelé to nemůžou změnit v Nastavení.
+
+Pokud toto nastavení zásad povolíte a nastavíte pouze na ikonu vyhledávání, bude ikona hledání ve výchozím nastavení zobrazena na hlavním panelu. Uživatelé to nemůžou změnit v Nastavení.
+
+Pokud toto nastavení zásad povolíte a nastavíte na ikonu a popisek vyhledávání, ikona hledání a popisek se ve výchozím nastavení zobrazí na hlavním panelu. Uživatelé to nemůžou změnit v Nastavení.
+
+Pokud toto nastavení zásad povolíte a nastavíte na vyhledávací pole, vyhledávací pole se ve výchozím nastavení zobrazí na hlavním panelu. Uživatelé to nemůžou změnit v Nastavení.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude vyhledávání na hlavním panelu nakonfigurováno podle výchozích nastavení pro edici Windows. Uživatelé budou moct změnit hledání na hlavním panelu v Nastavení.
+      </string>
+      <string id="SearchOnTaskbarModeEnum_Hidden">Skrýt</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconOnly">Jen ikona hledání</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconAndLabel">Ikona hledání a popisek</string>
+      <string id="SearchOnTaskbarModeEnum_SearchBox">Vyhledávací pole</string>
     </stringTable>
     <presentationTable>
       <presentation id="RichAttachmentPreviews">
@@ -333,7 +356,7 @@ Pokud bude toto nastavení povolené, budou mít vyhledávání i Cortana k info
         <decimalTextBox refId="LimitEnableThrottlingOnlineMailboxes" defaultValue="120">Počet položek za minutu</decimalTextBox>
       </presentation>
       <presentation id="PreventUnwantedAddins">
-        <listBox refId="PreventUnwantedAddins_AllowList">Seznam povolených položek</listBox>
+        <listBox refId="PreventUnwantedAddins_AllowList">Seznam povolených</listBox>
       </presentation>
       <presentation id="PreventIndexingCertainPaths_1">
         <listBox refId="PreventIndexingCertainPaths">Zabránit indexování určitých cest</listBox>
@@ -382,6 +405,9 @@ Pokud bude toto nastavení povolené, budou mít vyhledávání i Cortana k info
       </presentation>
       <presentation id="AllowCortanaAAD">
         <dropdownList refId="AllowCortanaAAD_Dropdown" noSort="true" defaultItem="0">Cortana v nastavení AAD</dropdownList>
+      </presentation>
+      <presentation id="ConfigureSearchOnTaskbarMode">
+        <dropdownList refId="ConfigureSearchOnTaskbarMode_Dropdown" noSort="true" defaultItem="0">Hledat na hlavním panelu</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

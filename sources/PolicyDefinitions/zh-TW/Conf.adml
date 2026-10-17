@@ -36,7 +36,7 @@
       <string id="EnableAutoConfiguration">啟用自動設定</string>
       <string id="EnableAutoConfiguration_Help">設定 NetMeeting 以便在每次啟動時下載使用者設定。
 
-這些設定是從列於 [設定 URL:] 文字方塊中的 URL 所下載的。
+這些設定是從列於 [設定 URL] 文字輸入框中的 URL 所下載的。
 
 以群組原則為根據的設定將會優先於任何從這個 URL 所下載而設定、但發生衝突的設定。</string>
       <string id="NetMeeting">NetMeeting</string>

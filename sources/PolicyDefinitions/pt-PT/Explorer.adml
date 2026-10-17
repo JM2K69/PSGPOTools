@@ -37,14 +37,30 @@ Notas: A ativação desta definição de política não impede o utilizador de a
       <string id="DisableRoamedProfileInit_Help">Esta definição de política permite aos administradores que tenham configurado o perfil itinerante juntamente com a definição "Eliminar Perfil Itinerante em Cache" da Política de Grupo garantir que o Explorador não reinicializará as associações do programa predefinido e outras definições para os valores predefinidos.
 
 Se ativar esta definição de política num computador que não contenha todos os programas instalados da mesma forma que no computador do último utilizador que iniciou sessão, poderá ocorrer um comportamento inesperado. </string>
+      <string id="DisableGraphRecentItems">Mostrar ficheiros com base na sua conta e atividade do fornecedor de cloud</string>
+      <string id="DisableGraphRecentItems_Help">Desativar esta definição impedirá o Explorador de Ficheiros de pedir metadados de ficheiros na nuvem e de apresentá-los na home page e noutras vistas no Explorador de Ficheiros. Quaisquer informações e ficheiros baseados na atividade da conta ou do fornecedor de cloud serão interrompidos em vistas como Recentes, Recomendados, Favoritos, Partilhados, etc.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Desativar a integração de origem de Definições Avançadas no Explorador de Ficheiros</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">Desativar a integração de origem de Definições Avançadas impedirá Explorador de Ficheiros de mostrar informações do repositório a partir do componente do sistema de Definições Avançadas</string>
+      <string id="DisableFileExplorerPrelaunch">Desativar Explorador de Ficheiros funcionalidade para pré-iniciar uma janela em segundo plano</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Esta política impede que os utilizadores ativem a funcionalidade Pré-iniciação no Explorador de Ficheiros, o que cria uma janela em segundo plano para acelerar a experiência de lançamento e melhorar a capacidade de resposta.</string>
+      <string id="MakePrintScreenKeyYieldable">Tornar a tecla Print Screen utilizável</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Esta definição de política determina se a chave de Ecrã de Impressão pode ser entregue a outras aplicações.
+
+Se ativar esta definição de política, a chave de ecrã de impressão pode ser intercetado pelas aplicações, permitindo-lhes substituir a funcionalidade de captura de ecrã predefinida.
+
+Se desativar esta definição de política, a chave de ecrã de impressão manterá o respetivo comportamento legado para efetuar capturas de ecrã e não poderá ser intercetado pelas aplicações.
+
+Se esta política não estiver configurada, a chave de ecrã de impressão pode ser intercetado pelas aplicações, permitindo-lhes substituir a funcionalidade de captura de ecrã predefinida, tal como o comportamento ativado.
+
+Nota: esta definição pode necessitar de um reinício do sistema para entrar em vigor.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>URL da página Web de suporte</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>URL da página Web de suporte</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

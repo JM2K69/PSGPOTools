@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Πολιτική ομάδας φίλτρου πληκτρολογίου</displayName>
+  <description>Ρυθμίσεις πολιτικής ομάδας για το φίλτρο πληκτρολογίου</description>
+  <resources>
+    <stringTable>
+      <string id="KeyboardFilter">Φίλτρο πληκτρολογίου</string>
+      <string id="AllowKbFilterInRemoteSessions">Να επιτρέπεται το φίλτρο πληκτρολογίου σε απομακρυσμένες περιόδους λειτουργίας</string>
+      <string id="AllowKbFilterInRemoteSessions_Text">Το φίλτρο πληκτρολογίου εφαρμόζεται συνήθως μόνο σε τοπικές περιόδους λειτουργίας.
+      
+Η ενεργοποίηση αυτής της ρύθμισης θα επιτρέψει την εφαρμογή του φίλτρου πληκτρολογίου σε χρήστες που συνδέονται στον υπολογιστή από απομακρυσμένες περιόδους λειτουργίας.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>
