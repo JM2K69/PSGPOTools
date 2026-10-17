@@ -164,6 +164,23 @@ jobs:
           echo "$CI_ADMIN_PASSWORD" | kinit administrator@CI.TEST
           klist
 
+      - name: Read the domain once
+        # What the tests need first: a clear error here rather than in each test.
+        shell: pwsh
+        run: |
+          $PSVersionTable | Format-Table -AutoSize | Out-String | Write-Host
+          ./CI/03_Build.ps1 *> $null
+          Import-Module ./PSGPOTools/PSGPOTools.psd1
+          & (Get-Module PSGPOTools) { Get-PSGPOPlatform | Format-List | Out-String | Write-Host }
+          try {
+              $directory = Get-PSGPODirectory -Server dc.ci.test -Verbose
+              "Read $($directory.DomainName) from $($directory.Server) as $($directory.Account): $($directory.Gpos.Count) GPOs."
+          } catch {
+              $_ | Format-List * -Force | Out-String | Write-Host
+              $_.Exception.GetBaseException() | Format-List * -Force | Out-String | Write-Host
+              throw
+          }
+
       - name: Build and test against the domain
         # -Command, not -File: -File passes the list of test files as separate arguments.
         run: pwsh -NoProfile -Command "./CI/Invoke-Tests.ps1 -Path ./CI/tests/PSGPOTools.Ldap.tests.ps1, ./CI/tests/PSGPOTools.RegistryPol.tests.ps1 -OutputPath TestResults-samba.xml"
