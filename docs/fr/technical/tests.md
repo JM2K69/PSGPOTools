@@ -52,7 +52,7 @@ SYSVOL échoue, les permissions retirées et signalées. Le workflow complet, qu
 
 | Job | Lance |
 |---|---|
-| `test` | tous les tests sur `windows-latest`, la fenêtre comprise |
+| `test` | PSScriptAnalyzer sur `Code/` (`PSScriptAnalyzerSettings.psd1` : aucune erreur, aucun avertissement), puis tous les tests sur `windows-latest`, la fenêtre comprise |
 | `test-linux` | tous les tests sur `ubuntu-latest`, la fenêtre comprise (Avalonia sur Xvfb) |
 | `test-samba` | les tests qui écrivent dans un domaine, contre un contrôleur Samba AD provisionné sur la machine de la CI (`CI.TEST`), avec un ticket Kerberos de son administrateur |
 

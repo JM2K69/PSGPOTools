@@ -32,6 +32,12 @@ Les préfixes ne peuvent être ni vides, ni contenir un caractère interdit dans
 Une étiquette fait au plus 64 caractères, sans virgule, tabulation ni saut de ligne ; les deux
 étiquettes sont différentes.
 
+## Audit
+
+| Réglage | Défaut | |
+|---|---|---|
+| `Audit.Path` | vide | dossier du [journal d'audit](../features/backup-history.md#journal-daudit), le même pour toutes les consoles : un partage où écrivent les administrateurs des GPO (`\\serveur\gpo-audit`) ; vide : le dossier `Audit` des sauvegardes du compte |
+
 ## Workflow
 
 Le [workflow d'approbation](../workflows/approval.md).

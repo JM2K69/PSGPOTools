@@ -20,6 +20,14 @@ the domain support `-WhatIf` and `-Confirm`.
 | `Remove-PSGPO -Name [-BackupPath] [-NoBackup]` | deletes GPOs and their links, backed up first |
 | `Approve-PSGPO -Name [-CreatorRights ReadOnly\|EditSettings] [-ApplyTo] [-DenyTo] [-CreateFilteringGroups] [-GroupContainer] [-BackupPath]` | approves GPOs waiting for their approval, with their security filtering (and its groups) |
 | `Initialize-PSGPOWorkflow [-Apply]` | checks, and with `-Apply` sets, the delegation of the creation of GPOs to the creators |
+| `New-PSGPOLink -Name -Target [-Enforced] [-Disabled]` | links GPOs to the domain or an OU, with the lowest precedence |
+| `Set-PSGPOLink -Name -Target [-Enabled] [-Enforced] [-Order]` | enables, disables, enforces or moves links |
+| `Remove-PSGPOLink -Name -Target` | deletes links, the GPOs kept |
+| `Set-PSGPOInheritance -Target -Blocked` | blocks the inheritance of the domain or an OU, or not |
+| `Set-PSGPO -Name [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter]` | sets the status and the WMI filter of GPOs |
+| `Get-PSGPOWmiFilter [-Name]` | the WMI filters of the domain, their queries and their GPOs |
+| `New-PSGPOWmiFilter -Name -Query [-Namespace] [-Description]` | creates a WMI filter |
+| `Remove-PSGPOWmiFilter -Name` | deletes WMI filters no GPO uses |
 
 A name given with `-Name` is the name of the GPO, brackets included (`Servers [Lyon]`); with `*` or `?` it is a wildcard pattern. Two GPOs with the same name are each taken.
 
@@ -42,6 +50,7 @@ Approve-PSGPO -Directory $Directory -Name 'T1 - Servers - Proxy' -ApplyTo 'APPLY
 | `Restore-PSGPO -Backup [-NoBackup] [-RestoreLink]` | puts a GPO back as a backup has it, or creates a deleted GPO again |
 | `Set-PSGPOBackup -Backup [-Comment] [-AddLabel] [-RemoveLabel] [-Approve] [-Unapprove]` | changes the notes of a backup |
 | `Get-PSGPODrift -Path [-Name] [-Label]` | compares each GPO to its approved version: `InSync`, `Drifted`, `NotApproved` |
+| `Get-PSGPOAuditLog [-Path] [-Domain] [-Name] [-Action] [-Account] [-After] [-Before]` | what the consoles and the commands changed in the domain, newest first |
 
 ```powershell
 Backup-PSGPO -Path /srv/gpo-backups -Comment 'Nightly'
@@ -67,9 +76,12 @@ Get-PSGPOPolicy -Scope Machine | Where-Object DisplayName -Like '*biometrics*' |
 | Type | From | Main properties |
 |---|---|---|
 | `GPOToolsDirectory` | `Get-PSGPODirectory`, `Import-PSGPODirectory` | `DomainName`, `Domain`, `Gpos`, `Account`, `CanCreateGpo`, `Workflow` |
-| `GPOToolsGpo` | `.Gpos`, `New-PSGPO` | `DisplayName`, `Id`, `Version`, `Flags`, `SecurityFiltering`, `DeniedTo`, `CanEdit`, `Owner`, `ApprovalState`, `RemovedAtApproval` |
+| `GPOToolsGpo` | `.Gpos`, `New-PSGPO` | `DisplayName`, `Id`, `Version`, `Flags`, `SecurityFiltering`, `DeniedTo`, `CanEdit`, `Owner`, `ApprovalState`, `RemovedAtApproval`, `WmiFilterId` |
 | `PSGPOTools.Backup` | `Backup-PSGPO`, `Get-PSGPOBackup` | `Path`, `Id`, `DisplayName`, `BackedUp`, `BackedUpBy`, `Modified`, `Comment`, `Labels`, `Files` |
 | `PSGPOTools.SettingChange` | `Compare-PSGPOBackup`, `Get-PSGPODrift` | `Change`, `Scope`, `Path`, `Name`, `Before`, `After` |
 | `PSGPOTools.Drift` | `Get-PSGPODrift` | `DisplayName`, `State`, `Approved`, `ApprovedBy`, `Changes` |
 | `PSGPOTools.Restore` | `Restore-PSGPO` | `DisplayName`, `Id`, `Version`, `BackupBefore`, `CreatedAgain`, `Linked`, `Problems` |
+| `PSGPOTools.Link` | `New-PSGPOLink`, `Set-PSGPOLink` | `DisplayName`, `Target`, `Order`, `Enabled`, `Enforced` |
+| `PSGPOTools.AuditEntry` | `Get-PSGPOAuditLog` | `Time`, `Account`, `Computer`, `Server`, `Action`, `Target`, `GpoName`, `GpoId`, `Details` |
+| `PSGPOTools.WmiFilter` | `Get-PSGPOWmiFilter`, `New-PSGPOWmiFilter` | `Name`, `Id`, `Description`, `Queries`, `Gpos`, `DistinguishedName` |
 | `PSGPOTools.Approval` | `Approve-PSGPO` | `DisplayName`, `Owner`, `CreatedBy`, `CreatorRights`, `AppliedBy`, `DeniedTo`, `GroupsCreated`, `RemovedPermissions`, `Backup` |

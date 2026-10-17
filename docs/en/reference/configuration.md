@@ -31,6 +31,12 @@ nor be the same.
 
 A label has at most 64 characters, without comma, tab or line break; the two labels differ.
 
+## Audit
+
+| Setting | Default | |
+|---|---|---|
+| `Audit.Path` | empty | folder of the [audit log](../features/backup-history.md#audit-log), the same for every console: a share the administrators of the GPOs write (`\\server\gpo-audit`); empty: the folder `Audit` of the backups of the account |
+
 ## Workflow
 
 The [approval workflow](../workflows/approval.md).

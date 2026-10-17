@@ -12,6 +12,7 @@ The view it opens on, as GPMC:
   first, the highest precedence). An OU that blocks inheritance says so, and has its own icon.
   A link says when it is **enforced** or **disabled**.
 - **Group Policy Objects**: every GPO of the domain your account can see.
+- **WMI Filters**: the WMI filters of the domain ([WMI filters](gpo-management.md#wmi-filters)).
 - **Deleted GPOs**: the GPOs deleted from the domain that have a backup, to restore them
   ([recycle bin](gpo-management.md#the-recycle-bin)).
 
@@ -21,7 +22,8 @@ The details of a node depend on what it is:
 |---|---|
 | Domain | distinguished name, domain controller and directory service, the account connected, its delegation, its role in the approval workflow, the GPOs linked |
 | OU | distinguished name, block inheritance, your rights there, the GPOs linked |
-| GPO, link | unique ID, status, approval state and owner, your rights, security filtering, versions, distinguished name, SYSVOL path, every link of the GPO |
+| GPO, link | unique ID, status, approval state and owner, your rights, security filtering, WMI filter, versions, distinguished name, SYSVOL path, every link of the GPO |
+| WMI filter | description, queries, the GPOs using it, unique ID, distinguished name |
 | Deleted GPO | its last backup, by whom, its comment, status, security filtering, where it was linked |
 
 A GPO also has two tabs:
@@ -31,6 +33,11 @@ A GPO also has two tabs:
 - **History**: its backups as a timeline ([backups and history](backup-history.md)).
 
 ![The Settings tab](../assets/screenshots/03-gpo-settings.png)
+
+**Refresh** (or F5) reads the domain again, from the same domain controller with the same account,
+as GPMC does: the changes of the other consoles and of GPMC show, the tree keeping what is
+expanded and selected. The console reads the domain once otherwise; a GPO changed since it was
+read is not written over ([policy editor](policy-editor.md)): refresh, then make the change again.
 
 ## Policy editor
 

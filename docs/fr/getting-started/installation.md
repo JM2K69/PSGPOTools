@@ -88,6 +88,14 @@ Aucun mot de passe n'est jamais donné à `samba-tool` ni à `smbclient`, ni env
 clair : avec `-Credential`, utilisez `-UseSsl` (LDAPS), et les modifications demandent tout de
 même un ticket Kerberos.
 
+!!! note "-Credential sous Windows"
+    Sous Windows, un domaine lu avec `-Credential` (et `-UseSsl`) est modifié avec ce compte dans
+    l'annuaire **et dans SYSVOL** : la console ouvre une connexion SMB à `\\<dc>\SYSVOL` avec
+    lui, comme `net use \\<dc>\SYSVOL /user:...`. Windows n'a qu'un compte par serveur dans une
+    session : si la session atteint déjà ce serveur avec un autre compte, la console le dit
+    (`net use \\<dc>\* /delete` ferme ces connexions). Créer et supprimer une GPO passent par RSAT,
+    qui ne connaît que l'identité de la session : ils sont refusés avec `-Credential`.
+
 ## Vérifier l'installation
 
 ```powershell

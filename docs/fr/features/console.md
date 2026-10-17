@@ -12,6 +12,7 @@ La vue sur laquelle elle s'ouvre, comme GPMC :
   (l'ordre 1 d'abord, la plus haute priorité). Une OU qui bloque l'héritage le dit, et a sa propre
   icône. Un lien dit quand il est **appliqué** (enforced) ou **désactivé**.
 - **Group Policy Objects** : toutes les GPO du domaine que votre compte peut voir.
+- **WMI Filters** : les filtres WMI du domaine ([filtres WMI](gpo-management.md#les-filtres-wmi)).
 - **Deleted GPOs** : les GPO supprimées du domaine qui ont une sauvegarde, pour les restaurer
   ([corbeille](gpo-management.md#la-corbeille)).
 
@@ -21,7 +22,8 @@ Les détails d'un nœud dépendent de ce qu'il est :
 |---|---|
 | Domaine | nom distinctif, contrôleur de domaine et service d'annuaire, le compte connecté, sa délégation, son rôle dans le workflow d'approbation, les GPO liées |
 | OU | nom distinctif, blocage de l'héritage, vos droits à cet endroit, les GPO liées |
-| GPO, lien | identifiant unique, statut, état d'approbation et propriétaire, vos droits, filtrage de sécurité, versions, nom distinctif, chemin SYSVOL, tous les liens de la GPO |
+| GPO, lien | identifiant unique, statut, état d'approbation et propriétaire, vos droits, filtrage de sécurité, filtre WMI, versions, nom distinctif, chemin SYSVOL, tous les liens de la GPO |
+| Filtre WMI | description, requêtes, les GPO qui l'utilisent, identifiant unique, nom distinctif |
 | GPO supprimée | sa dernière sauvegarde, par qui, son commentaire, statut, filtrage de sécurité, où elle était liée |
 
 Une GPO a aussi deux onglets :
@@ -32,6 +34,12 @@ Une GPO a aussi deux onglets :
 - **History** : ses sauvegardes en frise ([sauvegardes et historique](backup-history.md)).
 
 ![L'onglet Settings](../assets/screenshots/03-gpo-settings.png)
+
+**Refresh** (ou F5) relit le domaine, sur le même contrôleur de domaine avec le même compte, comme
+GPMC : les modifications des autres consoles et de GPMC apparaissent, l'arbre gardant ce qui est
+déplié et sélectionné. Sinon la console lit le domaine une fois ; une GPO modifiée depuis sa
+lecture n'est pas écrasée ([éditeur de stratégies](policy-editor.md)) : rafraîchissez, puis refaites
+la modification.
 
 ## Éditeur de stratégies
 
