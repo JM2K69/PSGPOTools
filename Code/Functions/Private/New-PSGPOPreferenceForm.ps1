@@ -88,7 +88,7 @@ function New-PSGPOPreferenceForm {
             }
             'Password' {
                 if ($Item -and $Item.HasPassword) {
-                    $Warning = & $NewLabel 'A password is stored in this item. Any user of the domain can read it (MS14-025): it is kept as it is, and this console never writes passwords. Remove it with GPMC, or delete the item.'
+                    $Warning = & $NewLabel (Get-PSGPOText 'A password is stored in this item. Any user of the domain can read it (MS14-025): it is kept as it is, and this console never writes passwords. Remove it with GPMC, or delete the item.')
                     $Warning.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
                     $Panel.Children.Add($Warning)
                 }
@@ -108,7 +108,7 @@ function New-PSGPOPreferenceForm {
                 $Getters[$Name] = { "$($Box.Text)" }.GetNewClosure()
             }
             'Members' {
-                $Panel.Children.Add((& $NewLabel "$($Property.Label): one per line, ADD or REMOVE then the name (and its SID, S-1-...)"))
+                $Panel.Children.Add((& $NewLabel (Get-PSGPOText '{0}: one per line, ADD or REMOVE then the name (and its SID, S-1-...)' $Property.Label)))
                 $Box = [Avalonia.Controls.TextBox]::new()
                 $Box.AcceptsReturn = $true
                 $Box.TextWrapping = [Avalonia.Media.TextWrapping]::NoWrap
@@ -139,7 +139,7 @@ function New-PSGPOPreferenceForm {
     }
 
     # Common tab
-    $Header = & $NewLabel 'Common options'
+    $Header = & $NewLabel (Get-PSGPOText 'Common options')
     $Header.FontWeight = [Avalonia.Media.FontWeight]::SemiBold
     $Header.Margin = [Avalonia.Thickness]::new(0, 12, 0, 0)
     $Panel.Children.Add($Header)
@@ -149,20 +149,20 @@ function New-PSGPOPreferenceForm {
             @{ Name = 'userContext'; Label = "Run in the logged-on user's security context" }
             @{ Name = 'removePolicy'; Label = 'Remove this item when it is no longer applied' })) {
         $Check = [Avalonia.Controls.CheckBox]::new()
-        $Check.Content = $Option.Label
+        $Check.Content = Get-PSGPOText $Option.Label
         $Check.IsChecked = if ($Item) { [bool]$Item.PSObject.Properties[$Option.Name.Substring(0, 1).ToUpperInvariant() + $Option.Name.Substring(1)].Value } else { $false }
         $Panel.Children.Add($Check)
         $Controls[$Option.Name] = $Check
         $Common[$Option.Name] = { if ($Check.IsChecked) { '1' } else { '0' } }.GetNewClosure()
     }
-    $Panel.Children.Add((& $NewLabel 'Description'))
+    $Panel.Children.Add((& $NewLabel (Get-PSGPOText 'Description')))
     $Description = [Avalonia.Controls.TextBox]::new()
     $Description.Text = if ($Item) { $Item.Description } else { '' }
     $Panel.Children.Add($Description)
     $Controls['desc'] = $Description
     $Common['desc'] = { "$($Description.Text)".Trim() }.GetNewClosure()
     if ($Item -and $Item.FilterCount) {
-        $Panel.Children.Add((& $NewLabel "Item-level targeting: $($Item.FilterCount) filter(s), kept as they are (edit them with GPMC)."))
+        $Panel.Children.Add((& $NewLabel (Get-PSGPOText 'Item-level targeting: {0} filter(s), kept as they are (edit them with GPMC).' $Item.FilterCount)))
     }
 
     $GetValues = {

@@ -76,7 +76,7 @@ function New-PSGPOConfigurationWindow {
     </Grid>
 </Window>
 '@
-    $Window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse($xaml)
+    $Window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse((ConvertTo-PSGPOLocalizedXaml -Xaml $xaml))
     $Controls = @{ Window = $Window }
     foreach ($Name in 'pathTextBlock', 'settingsList', 'keyComboBox', 'descriptionTextBlock', 'valueTextBox', 'valueComboBox', 'setButton', 'removeButton', 'statusTextBlock', 'saveButton', 'closeButton') {
         $Controls[$Name] = Get-PSGPOAvaloniaControl $Window $Name
@@ -90,6 +90,7 @@ function New-PSGPOConfigurationWindow {
     $MergeConfiguration = ${function:Merge-PSGPOConfiguration}
     $Unflatten = ${function:ConvertFrom-PSGPOFlatConfiguration}
     $SaveConfiguration = ${function:Save-PSGPODomainConfiguration}
+    $T = ${function:Get-PSGPOText}
     $RowType = [AvaloniaConfigurationRow]
 
     # The values of the configuration of the domain, by key, as edited (saved with Save).
@@ -100,15 +101,15 @@ function New-PSGPOConfigurationWindow {
     foreach ($setting in @(Get-PSGPOConfigurationSetting)) { if ($setting.IsSet) { $State.Values[$setting.Key] = $setting.Value } }
     $canSave = $Directory -and -not $Directory.IsReadOnly
     $Controls.pathTextBlock.Text = if ($Directory) {
-        "Configuration of the domain $($Directory.DomainName), for every console of the domain: $($domainState.Path)$(if (-not $domainState.Exists) { ' (not created yet)' })." +
-            $(if ($canSave) { ' Only the administrators of the domain can save it.' } else { ' This directory cannot be written: the configuration is shown, not saved.' }) +
-            " Defaults: $(Get-PSGPODefaultConfigurationPath)."
+        (Get-PSGPOText $(if ($domainState.Exists) { 'Configuration of the domain {0}, for every console of the domain: {1}.' } else { 'Configuration of the domain {0}, for every console of the domain: {1} (not created yet).' }) $Directory.DomainName $domainState.Path) +
+            (Get-PSGPOText $(if ($canSave) { ' Only the administrators of the domain can save it.' } else { ' This directory cannot be written: the configuration is shown, not saved.' })) +
+            (Get-PSGPOText ' Defaults: {0}.' (Get-PSGPODefaultConfigurationPath))
     } else {
-        "No domain: the defaults of the module apply ($(Get-PSGPODefaultConfigurationPath))."
+        Get-PSGPOText 'No domain: the defaults of the module apply ({0}).' (Get-PSGPODefaultConfigurationPath)
     }
     $Controls.saveButton.IsEnabled = [bool]$canSave
     $red = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
-    $Text = { param($Value) if ($Value -is [bool]) { if ($Value) { 'True' } else { 'False' } } elseif ("$Value" -eq '') { '(empty)' } else { "$Value" } }
+    $Text = { param($Value) if ($Value -is [bool]) { if ($Value) { 'True' } else { 'False' } } elseif ("$Value" -eq '') { Get-PSGPOText '(empty)' } else { "$Value" } }
 
     $SetStatus = {
         param([string]$Message, [switch]$Problem)
@@ -122,9 +123,9 @@ function New-PSGPOConfigurationWindow {
         $Controls.settingsList.ItemsSource = @(foreach ($setting in $State.Settings) {
                 $row = $RowType::new()
                 $row.Key = $setting.Key
-                $row.Value = "Value: $(& $Text $setting.Value)"
-                $row.Default = "Default: $(& $Text $setting.Default)$(if ($setting.Description) { " - $($setting.Description)" })"
-                $row.Source = if ($setting.IsSet) { 'Set for the domain' } else { 'Default' }
+                $row.Value = & $T 'Value: {0}' (& $Text $setting.Value)
+                $row.Default = (& $T 'Default: {0}' (& $Text $setting.Default)) + $(if ($setting.Description) { " - $($setting.Description)" })
+                $row.Source = & $T $(if ($setting.IsSet) { 'Set for the domain' } else { 'Default' })
                 $row.SourceBrush = if ($setting.IsSet) { '#0078D4' } else { '#8A8886' }
                 $row.Setting = $setting
                 $row
@@ -166,7 +167,7 @@ function New-PSGPOConfigurationWindow {
     $Controls.setButton.Add_Click({
         $key = "$($Controls.keyComboBox.SelectedItem)"
         $setting = $State.Settings | Where-Object Key -EQ $key | Select-Object -First 1
-        if (-not $setting) { & $SetStatus 'Choose a setting.' -Problem; return }
+        if (-not $setting) { & $SetStatus (& $T 'Choose a setting.') -Problem; return }
         $value = switch ($setting.Kind) {
             'Bool' { "$($Controls.valueComboBox.SelectedItem)" -eq 'True' }
             'Choice' { "$($Controls.valueComboBox.SelectedItem)" }
@@ -182,7 +183,7 @@ function New-PSGPOConfigurationWindow {
         $State.Dirty = $true
         $State.CloseAsked = $false
         & $Refresh $key
-        & $SetStatus "$key = $(& $Text $value): not saved yet."
+        & $SetStatus (& $T '{0} = {1}: not saved yet.' $key (& $Text $value))
     }.GetNewClosure())
 
     # Delete: the default applies again.
@@ -194,16 +195,16 @@ function New-PSGPOConfigurationWindow {
         $State.CloseAsked = $false
         & $Refresh $key
         & $ShowSetting $key
-        & $SetStatus "$key removed from the configuration of the domain: the default applies. Not saved yet."
+        & $SetStatus (& $T '{0} removed from the configuration of the domain: the default applies. Not saved yet.' $key)
     }.GetNewClosure())
 
     $Controls.saveButton.Add_Click({
         try {
             & $SaveConfiguration -Directory $State.Directory -Values $State.Values -Confirm:$false
             $State.Dirty = $false
-            & $SetStatus "Saved: $($State.Directory.GetConfigurationPath())$(if (-not $State.Values.Count) { ' removed, the defaults apply' })."
+            & $SetStatus (& $T $(if ($State.Values.Count) { 'Saved: {0}.' } else { 'Saved: {0} removed, the defaults apply.' }) $State.Directory.GetConfigurationPath())
         } catch {
-            & $SetStatus "Not saved: $($_.Exception.Message)" -Problem
+            & $SetStatus (& $T 'Not saved: {0}' $_.Exception.Message) -Problem
         }
     }.GetNewClosure())
 
@@ -213,7 +214,7 @@ function New-PSGPOConfigurationWindow {
         if ($State.Dirty -and -not $State.CloseAsked) {
             $Arguments.Cancel = $true
             $State.CloseAsked = $true
-            & $SetStatus 'Your changes are not saved: Save them, or Close again to drop them.' -Problem
+            & $SetStatus (& $T 'Your changes are not saved: Save them, or Close again to drop them.') -Problem
         }
     }.GetNewClosure())
     $Controls.closeButton.Add_Click({ $Window.Close() }.GetNewClosure())

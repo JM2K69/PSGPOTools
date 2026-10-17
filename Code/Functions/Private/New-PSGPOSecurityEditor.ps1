@@ -95,12 +95,12 @@ function New-PSGPOSecurityEditor {
             $GetValue = { if ($Combo.SelectedIndex -ge 0) { [long]$Choices[$Combo.SelectedIndex].Value } }.GetNewClosure()
         }
         'Audit' {
-            $Panel.Children.Add((& $NewText 'Audit these attempts:'))
+            $Panel.Children.Add((& $NewText (Get-PSGPOText 'Audit these attempts:')))
             $Success = [Avalonia.Controls.CheckBox]::new()
-            $Success.Content = 'Success'
+            $Success.Content = Get-PSGPOText 'Success'
             $Success.IsChecked = ([long]$Value -band 1) -eq 1
             $Failure = [Avalonia.Controls.CheckBox]::new()
-            $Failure.Content = 'Failure'
+            $Failure.Content = Get-PSGPOText 'Failure'
             $Failure.IsChecked = ([long]$Value -band 2) -eq 2
             foreach ($Box in $Success, $Failure) {
                 $Box.add_IsCheckedChanged({ & $OnChange }.GetNewClosure())
@@ -148,11 +148,11 @@ function New-PSGPOSecurityEditor {
             $InputRow.Spacing = 6
             $NameInput = [Avalonia.Controls.TextBox]::new()
             $NameInput.MinWidth = 260
-            $NameInput.Watermark = if ($Display -eq 'Accounts') { 'DOMAIN\account or *S-1-5-32-544' } else { 'New value' }
+            $NameInput.Watermark = Get-PSGPOText $(if ($Display -eq 'Accounts') { 'DOMAIN\account or *S-1-5-32-544' } else { 'New value' })
             $AddButton = [Avalonia.Controls.Button]::new()
-            $AddButton.Content = 'Add'
+            $AddButton.Content = Get-PSGPOText 'Add'
             $RemoveButton = [Avalonia.Controls.Button]::new()
-            $RemoveButton.Content = 'Remove'
+            $RemoveButton.Content = Get-PSGPOText 'Remove'
             foreach ($Child in $NameInput, $AddButton, $RemoveButton) { $InputRow.Children.Add($Child) }
             $AddButton.add_Click({
                 $Entry = "$($NameInput.Text)".Trim()
@@ -175,7 +175,7 @@ function New-PSGPOSecurityEditor {
             $GetValue = { [string[]]@($Items) }.GetNewClosure()
         }
         default {
-            $Panel.Children.Add((& $NewText "This setting ($Display) cannot be edited here."))
+            $Panel.Children.Add((& $NewText (Get-PSGPOText 'This setting ({0}) cannot be edited here.' $Display)))
             $GetValue = { $Value }.GetNewClosure()
         }
     }

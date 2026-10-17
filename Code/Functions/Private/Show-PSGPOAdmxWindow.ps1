@@ -49,7 +49,7 @@ function Show-PSGPOAdmxWindow {
     </StackPanel>
 </Window>
 '@
-    $window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse($xaml)
+    $window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse((ConvertTo-PSGPOLocalizedXaml -Xaml $xaml))
     $controls = @{ Window = $window }
     foreach ($name in 'candidateComboBox', 'pathTextBox', 'browseButton', 'cultureComboBox', 'statusTextBlock', 'cancelButton', 'loadButton') {
         $controls[$name] = Get-PSGPOAvaloniaControl $window $name
@@ -76,10 +76,10 @@ function Show-PSGPOAdmxWindow {
         $path = "$($pathTextBox.Text)".Trim()
         $cultureComboBox.ItemsSource = $null
         $loadButton.IsEnabled = $false
-        if (-not $path) { Set-Status 'Choose a PolicyDefinitions folder.'; return }
-        if (-not (Test-Path -LiteralPath $path -PathType Container)) { Set-Status "The folder '$path' does not exist." -Problem; return }
+        if (-not $path) { Set-Status (Get-PSGPOText 'Choose a PolicyDefinitions folder.'); return }
+        if (-not (Test-Path -LiteralPath $path -PathType Container)) { Set-Status (Get-PSGPOText "The folder '{0}' does not exist." $path) -Problem; return }
         $admx = @(Get-ChildItem -LiteralPath $path -File -Filter '*.admx' -ErrorAction SilentlyContinue).Count
-        if (-not $admx) { Set-Status "No .admx file in '$path': choose the PolicyDefinitions folder itself." -Problem; return }
+        if (-not $admx) { Set-Status (Get-PSGPOText "No .admx file in '{0}': choose the PolicyDefinitions folder itself." $path) -Problem; return }
         try {
             $language = Resolve-PSGPOAdmxCulture -Path $path
         } catch {
@@ -119,7 +119,7 @@ function Show-PSGPOAdmxWindow {
     $browseButton.IsVisible = $null -ne $window.StorageProvider -and $window.StorageProvider.CanPickFolder
     $browseButton.Add_Click({
         $options = [Avalonia.Platform.Storage.FolderPickerOpenOptions]::new()
-        $options.Title = 'PolicyDefinitions folder'
+        $options.Title = Get-PSGPOText 'PolicyDefinitions folder'
         $options.AllowMultiple = $false
         # In $state: the handlers run once this one has returned.
         $state.Picking = $window.StorageProvider.OpenFolderPickerAsync($options)
@@ -144,7 +144,7 @@ function Show-PSGPOAdmxWindow {
         $state.Busy = $true
         $loadButton.IsEnabled = $false
         $cancelButton.IsEnabled = $false
-        Set-Status "Loading the ADMX files of $($state.Path) in $($state.Culture)..."
+        Set-Status (Get-PSGPOText 'Loading the ADMX files of {0} in {1}...' $state.Path $state.Culture)
         # Posted after the rendering, so that the message shows while the files load.
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {
             try {
@@ -153,7 +153,7 @@ function Show-PSGPOAdmxWindow {
                 $state.Loaded = $true
                 $window.Close()
             } catch {
-                Set-Status "The ADMX files cannot be loaded: $($_.Exception.GetBaseException().Message)" -Problem
+                Set-Status (Get-PSGPOText 'The ADMX files cannot be loaded: {0}' $_.Exception.GetBaseException().Message) -Problem
                 $state.Busy = $false
                 $loadButton.IsEnabled = $true
                 $cancelButton.IsEnabled = $true

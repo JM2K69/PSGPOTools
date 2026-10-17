@@ -21,16 +21,21 @@ function Start-PSGPOManagerWindow {
         [ValidateSet('Management', 'Editor')]
         [string]$StartView = 'Management',
 
+        # Language of the interface (Resources/Strings); English by default, so that the tests do
+        # not depend on the language of the computer: Show-GPOManagerAvalonia gives the one of the session.
+        [string]$Language = 'en-US',
+
         [scriptblock]$OnShown
     )
 
     Initialize-PSGPOAvaloniaRuntime
+    $null = Set-PSGPOLanguage -Language $Language
 
     $xaml = Get-PSGPOManagerWindowXaml
 
     # The configuration of PSGPOTools for the domain shown (SYSVOL of its domain controller).
     Use-PSGPODomainConfiguration -Directory $Directory -Force
-    $window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse($xaml)
+    $window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse((ConvertTo-PSGPOLocalizedXaml -Xaml $xaml))
 
     $treeView = Get-PSGPOAvaloniaControl $window 'treeView'
     $themeToggleButton = Get-PSGPOAvaloniaControl $window 'themeToggleButton'
@@ -269,7 +274,7 @@ function Start-PSGPOManagerWindow {
             if ($state -eq 'Enabled') {
                 try {
                     $row = [AvaloniaPreviewRow]::new()
-                    $row.Title = 'Set in GptTmpl.inf'
+                    $row.Title = Get-PSGPOText 'Set in GptTmpl.inf'
                     $row.Key = "[$($editing.Security.Section)]"
                     $row.ValueName = $editing.Security.Key
                     $row.Data = $editing.Security.ConvertToRaw((& $editing.Editor.GetValue))
@@ -280,7 +285,7 @@ function Start-PSGPOManagerWindow {
             }
             $registryPreviewList.ItemsSource = $rows
             $previewEmptyTextBlock.IsVisible = $rows.Count -eq 0
-            $previewEmptyTextBlock.Text = if ($settingErrorTextBlock.Text) { 'Fix the value above to see the line of GptTmpl.inf.' } else { 'Not defined: nothing is written to GptTmpl.inf.' }
+            $previewEmptyTextBlock.Text = Get-PSGPOText $(if ($settingErrorTextBlock.Text) { 'Fix the value above to see the line of GptTmpl.inf.' } else { 'Not defined: nothing is written to GptTmpl.inf.' })
             Update-ApplyButton
             return
         }
@@ -295,9 +300,9 @@ function Start-PSGPOManagerWindow {
         }
         $registryPreviewList.ItemsSource = $rows
         $previewEmptyTextBlock.IsVisible = $rows.Count -eq 0
-        $previewEmptyTextBlock.Text = if (-not $policy) { 'Select a policy in the tree.' }
+        $previewEmptyTextBlock.Text = Get-PSGPOText $(if (-not $policy) { 'Select a policy in the tree.' }
             elseif ($settingErrorTextBlock.Text) { 'Fix the options above to see the registry values.' }
-            else { 'Not configured: nothing is written to the registry.' }
+            else { 'Not configured: nothing is written to the registry.' })
         Update-ApplyButton
     }
 
@@ -315,9 +320,9 @@ function Start-PSGPOManagerWindow {
                 $Directory.WriteSecurityTemplate($editing.Gpo, $copy.ToBytes())
                 $editing.Template = $copy
                 $editing.Saved = Get-SecuritySignature
-                $applyStatusTextBlock.Text = "Saved: $($setting.FormatValue($value)) in GptTmpl.inf (version $($editing.Gpo.GetComputerVersion()))."
+                $applyStatusTextBlock.Text = Get-PSGPOText 'Saved: {0} in GptTmpl.inf (version {1}).' $setting.FormatValue($value) $editing.Gpo.GetComputerVersion()
             } catch {
-                $applyStatusTextBlock.Text = "Not saved: $($_.Exception.GetBaseException().Message)"
+                $applyStatusTextBlock.Text = Get-PSGPOText 'Not saved: {0}' $_.Exception.GetBaseException().Message
             }
             Update-ApplyButton
             return
@@ -334,9 +339,9 @@ function Start-PSGPOManagerWindow {
             $editing.Pol[$scope] = $copy
             $editing.Saved = Get-SettingSignature $policy $state $value
             $version = if ($scope -eq 'Machine') { $editing.Gpo.GetComputerVersion() } else { $editing.Gpo.GetUserVersion() }
-            $applyStatusTextBlock.Text = "Saved: $state in $scope\Registry.pol (version $version)."
+            $applyStatusTextBlock.Text = Get-PSGPOText 'Saved: {0} in {1}\Registry.pol (version {2}).' (Get-PSGPOText $state) $scope $version
         } catch {
-            $applyStatusTextBlock.Text = "Not saved: $($_.Exception.GetBaseException().Message)"
+            $applyStatusTextBlock.Text = Get-PSGPOText 'Not saved: {0}' $_.Exception.GetBaseException().Message
         }
         Update-ApplyButton
     })
@@ -353,7 +358,7 @@ function Start-PSGPOManagerWindow {
     $themeToggleIcon = Get-PSGPOAvaloniaControl $window 'themeToggleIcon'
     $themeToggleText = Get-PSGPOAvaloniaControl $window 'themeToggleText'
     $updateThemeButton = {
-        $themeToggleText.Text = if ($script:isDarkTheme) { 'Light mode' } else { 'Dark mode' }
+        $themeToggleText.Text = Get-PSGPOText $(if ($script:isDarkTheme) { 'Light mode' } else { 'Dark mode' })
         $themeToggleIcon.Data = [Avalonia.Media.Geometry]::Parse((Get-PSGPOIconData -Name $(if ($script:isDarkTheme) { 'weather-sunny' } else { 'weather-moon' })))
     }
     & $updateThemeButton
@@ -407,13 +412,13 @@ function Start-PSGPOManagerWindow {
         if ($editing.Template) { $read = Get-PSGPOSecurityValue -Template $editing.Template -Setting $Setting }
         $editing.Policy = $null
         $editing.Saved = if ($read.Defined) { $read.Raw } else { $notDefinedMark }
-        $notConfiguredRadio.Content = 'Not Defined'
-        $enabledRadio.Content = 'Define this policy setting'
+        $notConfiguredRadio.Content = Get-PSGPOText 'Not Defined'
+        $enabledRadio.Content = Get-PSGPOText 'Define this policy setting'
         $disabledRadio.IsVisible = $false
-        $previewHeaderTextBlock.Text = 'GptTmpl.inf Preview'
+        $previewHeaderTextBlock.Text = Get-PSGPOText 'GptTmpl.inf Preview'
         if ($read.Defined -and -not $read.Problem) { $enabledRadio.IsChecked = $true } else { $notConfiguredRadio.IsChecked = $true }
         $applyStatusTextBlock.Text = if ($read.Problem) { $read.Problem }
-            elseif ($editing.Template) { "$(if ($read.Defined) { 'Defined' } else { 'Not defined' }) in GptTmpl.inf" }
+            elseif ($editing.Template) { Get-PSGPOText $(if ($read.Defined) { 'Defined in GptTmpl.inf' } else { 'Not defined in GptTmpl.inf' }) }
             elseif ($editing.Gpo -and $editing.PolError) { $editing.PolError } else { '' }
 
         $editing.Security = $Setting
@@ -422,19 +427,19 @@ function Start-PSGPOManagerWindow {
         $optionsHost.Content = $editing.Editor.Panel
 
         $displayNameTextBox.Text = $Setting.Name
-        $descriptionTextBox.Text = "Security setting of the computer, in GptTmpl.inf (Machine\Microsoft\Windows NT\SecEdit).$(if ($Setting.Reference) { "`n`nReference: $($Setting.Reference)" })"
+        $descriptionTextBox.Text = (Get-PSGPOText 'Security setting of the computer, in GptTmpl.inf (Machine\Microsoft\Windows NT\SecEdit).') + $(if ($Setting.Reference) { "`n`n" + (Get-PSGPOText 'Reference: {0}' $Setting.Reference) })
         $scopeTextBox.Text = 'Machine'
         $registryPathTextBox.Text = "GptTmpl.inf [$($Setting.Section)]"
         $registryKeyTextBox.Text = $Setting.Key
         $registryValuesList.ItemsSource = @(
             foreach ($pair in @(
                     @('Category', ($Setting.Path -join ' > '))
-                    @('Value', $(if ($Setting.Kind -eq 'RegistryValue') { "$($Setting.Display), registry type $($Setting.RegistryType)" } else { $Setting.Kind }))
-                    @('Range', $(if ($null -ne $Setting.Min -or $null -ne $Setting.Max) { "$($Setting.Min) to $($Setting.Max) $($Setting.Unit)".Trim() }))
+                    @('Value', $(if ($Setting.Kind -eq 'RegistryValue') { Get-PSGPOText '{0}, registry type {1}' $Setting.Display $Setting.RegistryType } else { $Setting.Kind }))
+                    @('Range', $(if ($null -ne $Setting.Min -or $null -ne $Setting.Max) { (Get-PSGPOText '{0} to {1} {2}' $Setting.Min $Setting.Max $Setting.Unit).Trim() }))
                     @('Values', (@($Setting.Choices | ForEach-Object { "$($_.Value): $($_.Text)" }) -join '; ')))) {
                 if (-not $pair[1]) { continue }
                 $row = [AvaloniaRegistryRow]::new()
-                $row.Key = $pair[0]
+                $row.Key = Get-PSGPOText $pair[0]
                 $row.Value = $pair[1]
                 $row
             })
@@ -484,11 +489,11 @@ function Start-PSGPOManagerWindow {
         $preferences.Node = $Node
         $preferences.File = $null
         $extension = $Node.Extension
-        $scopeLabel = if ($Node.Scope -eq 'Machine') { 'Computer Configuration' } else { 'User Configuration' }
+        $scopeLabel = Get-PSGPOText $(if ($Node.Scope -eq 'Machine') { 'Computer Configuration' } else { 'User Configuration' })
         $preferencesTitleTextBlock.Text = "$($extension.Name) ($scopeLabel)"
         $types = @($extension.Items | Where-Object { $_.Properties -and -not $_.IsCollection })
-        $preferencesInfoTextBlock.Text = "Preferences > $($extension.Group) > $($extension.Name): Preferences\$($extension.Path) in the $($Node.Scope) folder of the GPO, client-side extension $($extension.Cse)." +
-            $(if (-not $types.Count) { ' Its items are created with GPMC: the console shows them, keeps them as they are and deletes them.' })
+        $preferencesInfoTextBlock.Text = (Get-PSGPOText 'Preferences > {0} > {1}: Preferences\{2} in the {3} folder of the GPO, client-side extension {4}.' $extension.Group $extension.Name $extension.Path $Node.Scope $extension.Cse) +
+            $(if (-not $types.Count) { Get-PSGPOText ' Its items are created with GPMC: the console shows them, keeps them as they are and deletes them.' })
         $preferencesFormBorder.IsVisible = $false
         $preferencesDeletePanel.IsVisible = $false
         $preferencesNewTypeComboBox.ItemsSource = @($types.Label)
@@ -498,7 +503,7 @@ function Start-PSGPOManagerWindow {
         $rows = @()
         $problem = $null
         if (-not $editing.Gpo) {
-            $preferencesEmptyTextBlock.Text = 'Edit a GPO (Group Policy Management view) to see and configure its preferences.'
+            $preferencesEmptyTextBlock.Text = Get-PSGPOText 'Edit a GPO (Group Policy Management view) to see and configure its preferences.'
         } else {
             try {
                 $preferences.File = Get-PreferenceFile $Node
@@ -507,16 +512,16 @@ function Start-PSGPOManagerWindow {
                         $row.Name = "$(if ($item.Collection) { "$($item.Collection) > " })$(if ($item.Name) { $item.Name } else { $item.Label })"
                         $row.Summary = Get-PSGPOPreferenceSummary -Item $item
                         $row.Flags = (@(
-                                if ($item.Disabled) { 'Disabled' }
-                                if ($item.FilterCount) { "$($item.FilterCount) targeting filter(s)" }
-                                if ($item.HasPassword) { 'Stores a password readable by any user of the domain (MS14-025)' }
-                                if (-not $item.Editable) { 'Edited with GPMC' }) -join ' - ')
+                                if ($item.Disabled) { Get-PSGPOText 'Disabled' }
+                                if ($item.FilterCount) { Get-PSGPOText '{0} targeting filter(s)' $item.FilterCount }
+                                if ($item.HasPassword) { Get-PSGPOText 'Stores a password readable by any user of the domain (MS14-025)' }
+                                if (-not $item.Editable) { Get-PSGPOText 'Edited with GPMC' }) -join ' - ')
                         $row.Item = $item
                         $row
                     })
-                $preferencesEmptyTextBlock.Text = if ($rows.Count) { '' } else { "This GPO has no $($extension.Name) item for the $(if ($Node.Scope -eq 'Machine') { 'computers' } else { 'users' })." }
+                $preferencesEmptyTextBlock.Text = if ($rows.Count) { '' } else { Get-PSGPOText $(if ($Node.Scope -eq 'Machine') { 'This GPO has no {0} item for the computers.' } else { 'This GPO has no {0} item for the users.' }) $extension.Name }
             } catch {
-                $problem = "The preferences cannot be read: $($_.Exception.GetBaseException().Message)"
+                $problem = Get-PSGPOText 'The preferences cannot be read: {0}' $_.Exception.GetBaseException().Message
                 $preferencesEmptyTextBlock.Text = ''
             }
         }
@@ -542,7 +547,7 @@ function Start-PSGPOManagerWindow {
         $editing.Preferences["$($node.Scope)|$($node.Extension.Id)"] = $copy
         $settingsCache.Remove("$($editing.Gpo.Id)")
         $version = if ($node.Scope -eq 'Machine') { $editing.Gpo.GetComputerVersion() } else { $editing.Gpo.GetUserVersion() }
-        Show-PreferenceType -Node $node -Status "$Done in Preferences\$($node.Extension.Path) ($($node.Scope) version $version)." -SelectUid $(if ($uid) { $uid } else { $SelectUid })
+        Show-PreferenceType -Node $node -Status (Get-PSGPOText '{0} in Preferences\{1} ({2} version {3}).' $Done $node.Extension.Path $node.Scope $version) -SelectUid $(if ($uid) { $uid } else { $SelectUid })
         $null
     }
 
@@ -557,7 +562,7 @@ function Start-PSGPOManagerWindow {
         $preferences.Item = $Item
         $preferences.Form = New-PSGPOPreferenceForm -Type $Type -Scope $preferences.Node.Scope -Item $Item
         $preferencesFormHost.Content = $preferences.Form.Panel
-        $preferencesFormTitleTextBlock.Text = if ($Item) { "$($Type.Label): $($Item.Name)" } else { "New $($Type.Label)" }
+        $preferencesFormTitleTextBlock.Text = if ($Item) { "$($Type.Label): $($Item.Name)" } else { Get-PSGPOText 'New {0}' $Type.Label }
         $preferencesFormErrorTextBlock.Text = ''
         $preferencesDeletePanel.IsVisible = $false
         $preferencesFormBorder.IsVisible = $true
@@ -589,12 +594,12 @@ function Start-PSGPOManagerWindow {
             return
         }
         $problem = if ($item) {
-            Save-PreferenceFile -Done "$($type.Label) saved" -SelectUid $item.Uid -Change {
+            Save-PreferenceFile -Done (Get-PSGPOText '{0} saved' $type.Label) -SelectUid $item.Uid -Change {
                 param($Copy)
                 Set-PSGPOPreferenceElement -Element (Find-PreferenceElement $Copy $item.Uid) -Type $type -Values $values -Common $common
             }
         } else {
-            Save-PreferenceFile -Done "$($type.Label) created" -Change {
+            Save-PreferenceFile -Done (Get-PSGPOText '{0} created' $type.Label) -Change {
                 param($Copy)
                 (New-PSGPOPreferenceItem -File $Copy -Type $type -Values $values -Common $common).GetAttribute('uid')
             }
@@ -604,7 +609,7 @@ function Start-PSGPOManagerWindow {
     $preferencesDeleteButton.Add_Click({
         $row = $preferencesList.SelectedItem
         if (-not $row) { return }
-        $preferencesDeleteTextBlock.Text = "Delete the item '$($row.Name)' from the GPO? The computers and users stop applying it; what it already changed stays, unless it removes itself (Remove this item when it is no longer applied)."
+        $preferencesDeleteTextBlock.Text = Get-PSGPOText "Delete the item '{0}' from the GPO? The computers and users stop applying it; what it already changed stays, unless it removes itself (Remove this item when it is no longer applied)." $row.Name
         $preferencesFormBorder.IsVisible = $false
         $preferencesDeletePanel.IsVisible = $true
     })
@@ -613,24 +618,24 @@ function Start-PSGPOManagerWindow {
         $row = $preferencesList.SelectedItem
         $preferencesDeletePanel.IsVisible = $false
         if (-not $row) { return }
-        $problem = Save-PreferenceFile -Done "'$($row.Name)' deleted" -Change {
+        $problem = Save-PreferenceFile -Done (Get-PSGPOText "'{0}' deleted" $row.Name) -Change {
             param($Copy)
             Remove-PSGPOPreferenceElement -Element (Find-PreferenceElement $Copy $row.Item.Uid)
             $null
         }
-        if ($problem) { Set-PreferenceStatus "Not deleted: $problem" -Problem }
+        if ($problem) { Set-PreferenceStatus (Get-PSGPOText 'Not deleted: {0}' $problem) -Problem }
     })
     # Not GetNewClosure for the handlers: the functions of this window would not be found.
     function Move-PreferenceItem {
         param([string]$Direction)
         $row = $preferencesList.SelectedItem
         if (-not $row) { return }
-        $problem = Save-PreferenceFile -Done "'$($row.Name)' moved $($Direction.ToLowerInvariant())" -SelectUid $row.Item.Uid -Change {
+        $problem = Save-PreferenceFile -Done (Get-PSGPOText $(if ($Direction -eq 'Up') { "'{0}' moved up" } else { "'{0}' moved down" }) $row.Name) -SelectUid $row.Item.Uid -Change {
             param($Copy)
             Move-PSGPOPreferenceElement -Element (Find-PreferenceElement $Copy $row.Item.Uid) -Direction $Direction
             $null
         }
-        if ($problem) { Set-PreferenceStatus "Not moved: $problem" -Problem }
+        if ($problem) { Set-PreferenceStatus (Get-PSGPOText 'Not moved: {0}' $problem) -Problem }
     }
     $preferencesUpButton.Add_Click({ Move-PreferenceItem -Direction Up })
     $preferencesDownButton.Add_Click({ Move-PreferenceItem -Direction Down })
@@ -645,7 +650,7 @@ function Start-PSGPOManagerWindow {
             $pathParts.Insert(0, $current.Header)
             $current = $current.Parent
         }
-        $breadcrumbTextBlock.Text = if ($pathParts.Count -gt 0) { $pathParts -join ' > ' } else { 'Select a policy to see its path' }
+        $breadcrumbTextBlock.Text = if ($pathParts.Count -gt 0) { $pathParts -join ' > ' } else { Get-PSGPOText 'Select a policy to see its path' }
 
         $policy = if ($selected) { $selected.Tag } else { $null }
         $editing.Security = $null
@@ -653,7 +658,7 @@ function Start-PSGPOManagerWindow {
         $isPreference = $policy -is [GPOToolsPreferenceNode]
         $preferencesPanel.IsVisible = $isPreference
         $detailsTabs.IsVisible = -not $isPreference
-        $detailsTitleTextBlock.Text = if ($isPreference) { 'Preference Items' } else { 'Policy Details' }
+        $detailsTitleTextBlock.Text = Get-PSGPOText $(if ($isPreference) { 'Preference Items' } else { 'Policy Details' })
         if ($isPreference) {
             $editing.Policy = $null
             $editing.Editor = $null
@@ -665,10 +670,10 @@ function Start-PSGPOManagerWindow {
             return
         }
         # A policy: Not Configured / Enabled / Disabled.
-        $notConfiguredRadio.Content = 'Not Configured'
-        $enabledRadio.Content = 'Enabled'
+        $notConfiguredRadio.Content = Get-PSGPOText 'Not Configured'
+        $enabledRadio.Content = Get-PSGPOText 'Enabled'
         $disabledRadio.IsVisible = $true
-        $previewHeaderTextBlock.Text = 'Registry Preview'
+        $previewHeaderTextBlock.Text = Get-PSGPOText 'Registry Preview'
         # The setting of the policy in the Registry.pol of the edited GPO, else not configured.
         $read = [pscustomobject]@{ State = 'NotConfigured'; Value = @{} }
         $pol = if ($policy -is [GPOToolsPolicy]) { $editing.Pol["$($policy.Scope)"] }
@@ -682,7 +687,7 @@ function Start-PSGPOManagerWindow {
             'Disabled' { $disabledRadio.IsChecked = $true }
             default { $notConfiguredRadio.IsChecked = $true }
         }
-        $applyStatusTextBlock.Text = if ($pol) { "$($read.State) in $($policy.Scope)\Registry.pol" } elseif ($editing.Gpo -and $editing.PolError) { $editing.PolError } else { '' }
+        $applyStatusTextBlock.Text = if ($pol) { Get-PSGPOText '{0} in {1}\Registry.pol' (Get-PSGPOText $read.State) $policy.Scope } elseif ($editing.Gpo -and $editing.PolError) { $editing.PolError } else { '' }
         if ($policy -is [GPOToolsPolicy]) {
             $editing.Policy = $policy
             $settingTitleTextBlock.Text = $policy.DisplayName
@@ -690,28 +695,28 @@ function Start-PSGPOManagerWindow {
             $optionsHost.Content = $editing.Editor.Panel
 
             $displayNameTextBox.Text = $policy.DisplayName
-            $descriptionTextBox.Text = if ($policy.Description) { $policy.Description } else { '(No description available)' }
+            $descriptionTextBox.Text = if ($policy.Description) { $policy.Description } else { Get-PSGPOText '(No description available)' }
             $scopeTextBox.Text = $policy.Scope.ToString()
 
             if ($policy.Registry) {
-                $registryPathTextBox.Text = if ($policy.Registry.Path) { $policy.Registry.Path } else { '(No registry path defined)' }
-                $registryKeyTextBox.Text = if ($policy.Registry.Key) { $policy.Registry.Key } else { '(No registry value name defined)' }
+                $registryPathTextBox.Text = if ($policy.Registry.Path) { $policy.Registry.Path } else { Get-PSGPOText '(No registry path defined)' }
+                $registryKeyTextBox.Text = if ($policy.Registry.Key) { $policy.Registry.Key } else { Get-PSGPOText '(No registry value name defined)' }
 
                 $rows = @(Get-PSGPOPolicyRegistryRow -Policy $policy)
                 if ($rows.Count -gt 0) {
                     $registryValuesList.ItemsSource = $rows
                 } else {
                     $row = [AvaloniaRegistryRow]::new()
-                    $row.Key = 'Information'
-                    $row.Value = '(No registry value available for this policy)'
+                    $row.Key = Get-PSGPOText 'Information'
+                    $row.Value = Get-PSGPOText '(No registry value available for this policy)'
                     $registryValuesList.ItemsSource = @($row)
                 }
             } else {
-                $registryPathTextBox.Text = '(This policy does not use the registry)'
-                $registryKeyTextBox.Text = '(No registry value name)'
+                $registryPathTextBox.Text = Get-PSGPOText '(This policy does not use the registry)'
+                $registryKeyTextBox.Text = Get-PSGPOText '(No registry value name)'
                 $row = [AvaloniaRegistryRow]::new()
-                $row.Key = 'Information'
-                $row.Value = '(This policy does not store data in the registry)'
+                $row.Key = Get-PSGPOText 'Information'
+                $row.Value = Get-PSGPOText '(This policy does not store data in the registry)'
                 $registryValuesList.ItemsSource = @($row)
             }
         } else {
@@ -724,7 +729,7 @@ function Start-PSGPOManagerWindow {
             $editing.Policy = $null
             $editing.Editor = $null
             $optionsHost.Content = $null
-            $settingTitleTextBlock.Text = 'Select a policy in the tree'
+            $settingTitleTextBlock.Text = Get-PSGPOText 'Select a policy in the tree'
         }
         Update-RegistryPreview
     })
@@ -755,7 +760,7 @@ function Start-PSGPOManagerWindow {
         }
         $treeView.ItemsSource = New-PSGPOPolicyTree -Filter $searchTextBox.Text -Only $only
         if ($only -and -not @($treeView.ItemsSource).Count) {
-            $breadcrumbTextBlock.Text = if ($searchTextBox.Text) { 'No configured setting matches the search' } else { 'This GPO configures no setting' }
+            $breadcrumbTextBlock.Text = Get-PSGPOText $(if ($searchTextBox.Text) { 'No configured setting matches the search' } else { 'This GPO configures no setting' })
         }
     }
     $configuredOnlyCheckBox.add_IsCheckedChanged({ Update-PolicyTree })
@@ -764,7 +769,7 @@ function Start-PSGPOManagerWindow {
     Update-PolicyTree
     if ([GPOToolsUtility]::Policies.Count -eq 0) {
         Write-Warning 'No ADMX policy loaded: run Initialize-PSGPOAdmx before Show-GPOManagerAvalonia for the Administrative Templates.'
-        $breadcrumbTextBlock.Text = 'No ADMX policy loaded (Initialize-PSGPOAdmx): only the security settings are shown'
+        $breadcrumbTextBlock.Text = Get-PSGPOText 'No ADMX policy loaded (Initialize-PSGPOAdmx): only the security settings are shown'
     }
 
     $searchButton.Add_Click({ Update-PolicyTree })
@@ -787,14 +792,15 @@ function Start-PSGPOManagerWindow {
         $refreshButton.IsVisible = $View -eq 'Management' -and $Directory -is [GPOToolsLdapDirectory]
         $searchPanel.IsVisible = $View -eq 'Editor'
         $subtitleTextBlock.Text = if ($View -eq 'Management') {
-            if (-not $Directory) { 'Group Policy Management' }
-            elseif ($Directory.IsDemonstration) { "Group Policy Management - $($Directory.DomainName) (demonstration)" }
+            if (-not $Directory) { Get-PSGPOText 'Group Policy Management' }
+            elseif ($Directory.IsDemonstration) { Get-PSGPOText 'Group Policy Management - {0} (demonstration)' $Directory.DomainName }
             elseif ($Directory -is [GPOToolsLdapDirectory]) {
-                "Group Policy Management - $($Directory.DomainName) ($($Directory.ServerType))$(if ($Directory.Account) { " - connected as $($Directory.Account)" })"
+                if ($Directory.Account) { Get-PSGPOText 'Group Policy Management - {0} ({1}) - connected as {2}' $Directory.DomainName $Directory.ServerType $Directory.Account }
+                else { Get-PSGPOText 'Group Policy Management - {0} ({1})' $Directory.DomainName $Directory.ServerType }
             }
-            elseif ($Directory.IsReadOnly) { "Group Policy Management - $($Directory.DomainName) (read-only)" }
-            else { "Group Policy Management - $($Directory.DomainName)" }
-        } elseif ($editing.Gpo) { "Editing the GPO $($editing.Gpo.DisplayName)" } else { 'Explore and manage Group Policy Objects' }
+            elseif ($Directory.IsReadOnly) { Get-PSGPOText 'Group Policy Management - {0} (read-only)' $Directory.DomainName }
+            else { Get-PSGPOText 'Group Policy Management - {0}' $Directory.DomainName }
+        } elseif ($editing.Gpo) { Get-PSGPOText 'Editing the GPO {0}' $editing.Gpo.DisplayName } else { Get-PSGPOText 'Explore and manage Group Policy Objects' }
     }
 
     # Opens the policy editor on a GPO ($null: browse the ADMX policies, outside any GPO).
@@ -814,7 +820,7 @@ function Start-PSGPOManagerWindow {
                 # Its security settings: GptTmpl.inf, a new empty template when the GPO has none.
                 $editing.Template = [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($Gpo))
             } catch {
-                $editing.PolError = "The settings of the GPO cannot be read: $($_.Exception.GetBaseException().Message)"
+                $editing.PolError = Get-PSGPOText 'The settings of the GPO cannot be read: {0}' $_.Exception.GetBaseException().Message
                 $editing.Pol = @{}
                 $editing.Template = $null
             }
@@ -826,8 +832,8 @@ function Start-PSGPOManagerWindow {
         elseif ($configuredOnlyCheckBox.IsChecked) { Update-PolicyTree }
         $editingBanner.IsVisible = $null -ne $Gpo
         $editingGpoTextBlock.Text = if (-not $Gpo) { '' }
-            elseif ($editing.PolError) { "Editing the GPO '$($Gpo.DisplayName)' [$($Directory.DomainName)]: $($editing.PolError)" }
-            else { "Editing the GPO '$($Gpo.DisplayName)' [$($Directory.DomainName)]" }
+            elseif ($editing.PolError) { Get-PSGPOText "Editing the GPO '{0}' [{1}]: {2}" $Gpo.DisplayName $Directory.DomainName $editing.PolError }
+            else { Get-PSGPOText "Editing the GPO '{0}' [{1}]" $Gpo.DisplayName $Directory.DomainName }
         Update-ApplyButton
         Show-View 'Editor'
     }
@@ -897,7 +903,7 @@ function Start-PSGPOManagerWindow {
     function Open-NewGpoForm {
         param([GPOToolsSom]$Som)
         $newGpo.Som = $Som
-        $newGpoTitleTextBlock.Text = if ($Som) { "New GPO in $($Directory.DomainName), linked to $($Som.Name)" } else { "New GPO in $($Directory.DomainName)" }
+        $newGpoTitleTextBlock.Text = if ($Som) { Get-PSGPOText 'New GPO in {0}, linked to {1}' $Directory.DomainName $Som.Name } else { Get-PSGPOText 'New GPO in {0}' $Directory.DomainName }
         # What the configuration proposes (Get-PSGPOConfiguration): name, status, groups.
         $configuration = (Get-PSGPOConfigurationData).NewGpo
         $newGpo.Groups = $configuration.SecurityFilteringGroups
@@ -908,8 +914,8 @@ function Start-PSGPOManagerWindow {
         # The templates: the backups with the template label, newest first.
         Update-BackupList -Force
         $newGpo.Templates = @($backupLists.Templates)
-        $newGpoTemplateComboBox.ItemsSource = @('Empty GPO') + @(foreach ($template in $newGpo.Templates) {
-                "$($template.DisplayName), backup of $(Format-HistoryDate $template.BackedUp)$(if ($template.Domain -and $template.Domain -ne $Directory.DomainName) { " ($($template.Domain))" })"
+        $newGpoTemplateComboBox.ItemsSource = @(Get-PSGPOText 'Empty GPO') + @(foreach ($template in $newGpo.Templates) {
+                (Get-PSGPOText '{0}, backup of {1}' $template.DisplayName (Format-HistoryDate $template.BackedUp)) + $(if ($template.Domain -and $template.Domain -ne $Directory.DomainName) { " ($($template.Domain))" })
             })
         $newGpoTemplateComboBox.SelectedIndex = 0
         $newGpoStatusComboBox.SelectedIndex = [array]::IndexOf(@('Enabled', 'ComputerOnly', 'UserOnly'), $configuration.Status)
@@ -918,7 +924,7 @@ function Start-PSGPOManagerWindow {
         $newGpoGroupsCheckBox.IsVisible = -not $creator
         $newGpoGroupsCheckBox.IsChecked = [bool]$newGpo.Groups.Create -and -not $creator
         $newGpoGroupsPanel.IsVisible = [bool]$newGpoGroupsCheckBox.IsChecked
-        if ($creator) { $newGpoTitleTextBlock.Text += ': it waits for the approval of an approver, and applies to nobody until then' }
+        if ($creator) { $newGpoTitleTextBlock.Text += Get-PSGPOText ': it waits for the approval of an approver, and applies to nobody until then' }
         # The groups go to the container of the configuration, else the users container, or to an OU.
         $configured = Resolve-PSGPOGroupContainer -Directory $Directory -Container $newGpo.Groups.Container
         $containers = [System.Collections.Generic.List[string]]::new()
@@ -945,7 +951,7 @@ function Start-PSGPOManagerWindow {
             $settings = if ($newGpo.Groups) { $newGpo.Groups } else { (Get-PSGPOConfigurationData).NewGpo.SecurityFilteringGroups }
             $apply = Get-PSGPOFilteringGroupName -Role Apply -GpoName $newGpoNameTextBox.Text -Settings $settings
             $deny = Get-PSGPOFilteringGroupName -Role Deny -GpoName $newGpoNameTextBox.Text -Settings $settings
-            $newGpoGroupsTextBlock.Text = "$apply`: only its members apply the GPO (add the computers or users to it). $deny`: its members never apply it. Authenticated Users keep reading the GPO."
+            $newGpoGroupsTextBlock.Text = Get-PSGPOText '{0}: only its members apply the GPO (add the computers or users to it). {1}: its members never apply it. Authenticated Users keep reading the GPO.' $apply $deny
         } catch {
             $newGpoGroupsTextBlock.Text = $_.Exception.Message
         }
@@ -966,23 +972,23 @@ function Start-PSGPOManagerWindow {
         }
         $done = [System.Collections.Generic.List[string]]::new()
         $problems = [System.Collections.Generic.List[string]]::new()
-        $done.Add("GPO '$($gpo.DisplayName)' created.")
-        if ($gpo.ApprovalState -eq 'Pending') { $done.Add("It waits for the approval of $($Directory.Workflow.Approvers -join ', '): it applies to nobody until then.") }
+        $done.Add((Get-PSGPOText "GPO '{0}' created." $gpo.DisplayName))
+        if ($gpo.ApprovalState -eq 'Pending') { $done.Add((Get-PSGPOText 'It waits for the approval of {0}: it applies to nobody until then.' ($Directory.Workflow.Approvers -join ', '))) }
         if ($template) {
             try {
                 Copy-PSGPOBackupSetting -Directory $Directory -Gpo $gpo -Backup $template
-                $done.Add("Settings of the template '$($template.DisplayName)' copied.")
+                $done.Add((Get-PSGPOText "Settings of the template '{0}' copied." $template.DisplayName))
             } catch {
-                $problems.Add("The settings of the template are not copied: $($_.Exception.GetBaseException().Message)")
+                $problems.Add((Get-PSGPOText 'The settings of the template are not copied: {0}' $_.Exception.GetBaseException().Message))
             }
         }
         $flags = [int]"$($newGpoStatusComboBox.SelectedItem.Tag)"
         if ($flags) {
             try {
                 $Directory.SetGpoStatus($gpo, $flags)
-                $done.Add("GPO status: $($gpo.GetStatus()).")
+                $done.Add((Get-PSGPOText 'GPO status: {0}.' (Get-PSGPOText $gpo.GetStatus())))
             } catch {
-                $problems.Add("Its status is not set: $($_.Exception.GetBaseException().Message)")
+                $problems.Add((Get-PSGPOText 'Its status is not set: {0}' $_.Exception.GetBaseException().Message))
             }
         }
         $filtered = $true
@@ -990,22 +996,22 @@ function Start-PSGPOManagerWindow {
             try {
                 $container = "$($newGpoGroupsContainerComboBox.SelectedItem)"
                 $groups = $Directory.NewFilteringGroups($gpo, $container)
-                $done.Add("Security filtering groups $(@($groups.Name) -join ' and ') created in $container.")
+                $done.Add((Get-PSGPOText 'Security filtering groups {0} created in {1}.' (@($groups.Name) -join (Get-PSGPOText ' and ')) $container))
             } catch {
                 $filtered = $false
-                $problems.Add("Its security filtering groups are not set: $($_.Exception.GetBaseException().Message)")
+                $problems.Add((Get-PSGPOText 'Its security filtering groups are not set: {0}' $_.Exception.GetBaseException().Message))
             }
         }
         $select = $gpo
         if ($newGpo.Som) {
             if (-not $filtered) {
-                $problems.Add("It is not linked to $($newGpo.Som.Name), so that it does not apply to everyone: link it once its security filtering is set.")
+                $problems.Add((Get-PSGPOText 'It is not linked to {0}, so that it does not apply to everyone: link it once its security filtering is set.' $newGpo.Som.Name))
             } else {
                 try {
                     $select = $Directory.NewLink($newGpo.Som, $gpo)
-                    $done.Add("Linked to $($newGpo.Som.Name).")
+                    $done.Add((Get-PSGPOText 'Linked to {0}.' $newGpo.Som.Name))
                 } catch {
-                    $problems.Add("It is not linked to $($newGpo.Som.Name): $($_.Exception.GetBaseException().Message)")
+                    $problems.Add((Get-PSGPOText 'It is not linked to {0}: {1}' $newGpo.Som.Name $_.Exception.GetBaseException().Message))
                 }
             }
         }
@@ -1032,8 +1038,7 @@ function Start-PSGPOManagerWindow {
         if (-not $node -or $node.Tag -isnot [GPOToolsGpoLink] -or $node.Parent.Tag -isnot [GPOToolsSom]) { return }
         $deleteLink.Link = $node.Tag
         $deleteLink.Som = $node.Parent.Tag
-        $deleteLinkTextBlock.Text = "Delete the link of the GPO '$($node.Tag.GetDisplayName())' to $($node.Parent.Tag.Name)? " +
-            'The GPO itself is not deleted: it stays in Group Policy Objects, with its other links.'
+        $deleteLinkTextBlock.Text = Get-PSGPOText "Delete the link of the GPO '{0}' to {1}? The GPO itself is not deleted: it stays in Group Policy Objects, with its other links." $node.Tag.GetDisplayName() $node.Parent.Tag.Name
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
         $deleteLinkPanel.IsVisible = $true
@@ -1053,11 +1058,11 @@ function Start-PSGPOManagerWindow {
         $approveGpo.Gpo = $gpo
         # What the approver approves: where it is linked, and whether someone made it apply already.
         $links = @($Directory.GetLinksOf($gpo))
-        $approveGpoTextBlock.Text = "Approve the GPO '$($gpo.DisplayName)'$(if ($gpo.Owner) { ", created by $($gpo.Owner)" })? " +
-            "Its owner becomes $($Directory.Workflow.ApprovedOwner), in the directory and in SYSVOL, and its permissions are rebuilt: its creator cannot give itself its rights back. " +
-            "It applies to the group below from then on, and is backed up as its approved version. " +
-            $(if ($links.Count) { "It is linked to $(@($links | ForEach-Object { $_.Som.Name }) -join ', ')." } else { 'It is not linked.' }) +
-            $(if ($gpo.AppliesWhilePending()) { " Warning: it applies already, to $($gpo.SecurityFiltering -join ', '): someone gave 'Apply Group Policy' back while it was pending." })
+        $approveGpoTextBlock.Text = $(if ($gpo.Owner) { Get-PSGPOText "Approve the GPO '{0}', created by {1}? " $gpo.DisplayName $gpo.Owner } else { Get-PSGPOText "Approve the GPO '{0}'? " $gpo.DisplayName }) +
+            (Get-PSGPOText 'Its owner becomes {0}, in the directory and in SYSVOL, and its permissions are rebuilt: its creator cannot give itself its rights back. ' $Directory.Workflow.ApprovedOwner) +
+            (Get-PSGPOText 'It applies to the group below from then on, and is backed up as its approved version. ') +
+            $(if ($links.Count) { Get-PSGPOText 'It is linked to {0}.' (@($links | ForEach-Object { $_.Som.Name }) -join ', ') } else { Get-PSGPOText 'It is not linked.' }) +
+            $(if ($gpo.AppliesWhilePending()) { Get-PSGPOText " Warning: it applies already, to {0}: someone gave 'Apply Group Policy' back while it was pending." ($gpo.SecurityFiltering -join ', ') })
         $approveGpoRightsComboBox.SelectedIndex = if ($Directory.Workflow.CreatorRights -eq 'EditSettings') { 1 } else { 0 }
         # Its own groups when they exist; else the approver may create them, as the New GPO form.
         $existing = Find-PSGPOFilteringGroup -Directory $Directory -Gpo $gpo
@@ -1067,9 +1072,8 @@ function Start-PSGPOManagerWindow {
         $approveGpoGroupsCheckBox.IsVisible = -not ($existing.Apply -or $existing.Deny)
         $approveGpoGroupsCheckBox.IsChecked = $approveGpoGroupsCheckBox.IsVisible -and [bool]$approveGpo.Groups.Create
         $approveGpoGroupsTextBlock.Text = if ($approveGpoGroupsCheckBox.IsVisible) {
-            "$(Get-PSGPOFilteringGroupName -Role Apply -GpoName $gpo.DisplayName -Settings $approveGpo.Groups) applies it, $(Get-PSGPOFilteringGroupName -Role Deny -GpoName $gpo.DisplayName -Settings $approveGpo.Groups) is denied it; " +
-                "created in $(Resolve-PSGPOGroupContainer -Directory $Directory -Container $approveGpo.Groups.Container) ($($approveGpo.Groups.Scope))."
-        } else { "Its groups exist: $(@($existing.Apply, $existing.Deny | Where-Object { $_ } | ForEach-Object Name) -join ', ')." }
+            Get-PSGPOText '{0} applies it, {1} is denied it; created in {2} ({3}).' (Get-PSGPOFilteringGroupName -Role Apply -GpoName $gpo.DisplayName -Settings $approveGpo.Groups) (Get-PSGPOFilteringGroupName -Role Deny -GpoName $gpo.DisplayName -Settings $approveGpo.Groups) (Resolve-PSGPOGroupContainer -Directory $Directory -Container $approveGpo.Groups.Container) $approveGpo.Groups.Scope
+        } else { Get-PSGPOText 'Its groups exist: {0}.' (@($existing.Apply, $existing.Deny | Where-Object { $_ } | ForEach-Object Name) -join ', ') }
         Update-ApproveGpoGroupState
         $approveGpoErrorTextBlock.Text = ''
         Hide-DirectoryForm
@@ -1106,10 +1110,12 @@ function Start-PSGPOManagerWindow {
         $settingsCache.Remove("$($gpo.Id)")
         $history.Current = @{}
         Update-DirectoryTree -Select $gpo
-        $lines = @("GPO '$($gpo.DisplayName)' approved: owned by $($result.Owner), applied by $($result.AppliedBy)$(if ($result.DeniedTo) { ", denied to $($result.DeniedTo)" }), the creators $(if ($rights -eq 'EditSettings') { 'edit its settings' } else { 'read it' }).")
-        if ($result.GroupsCreated.Count) { $lines += "Security filtering groups created: $($result.GroupsCreated -join '; ')." }
-        if ($result.RemovedPermissions.Count) { $lines += "Permissions added while it was pending, removed: $($result.RemovedPermissions -join ' '). Find out who added them." }
-        if ($result.Backup) { $lines += 'Backed up as its approved version.' }
+        $creators = Get-PSGPOText $(if ($rights -eq 'EditSettings') { 'the creators edit its settings' } else { 'the creators read it' })
+        $lines = @($(if ($result.DeniedTo) { Get-PSGPOText "GPO '{0}' approved: owned by {1}, applied by {2}, denied to {3}, {4}." $gpo.DisplayName $result.Owner $result.AppliedBy $result.DeniedTo $creators }
+                else { Get-PSGPOText "GPO '{0}' approved: owned by {1}, applied by {2}, {3}." $gpo.DisplayName $result.Owner $result.AppliedBy $creators }))
+        if ($result.GroupsCreated.Count) { $lines += Get-PSGPOText 'Security filtering groups created: {0}.' ($result.GroupsCreated -join '; ') }
+        if ($result.RemovedPermissions.Count) { $lines += Get-PSGPOText 'Permissions added while it was pending, removed: {0}. Find out who added them.' ($result.RemovedPermissions -join ' ') }
+        if ($result.Backup) { $lines += Get-PSGPOText 'Backed up as its approved version.' }
         if ($result.Problem) { $lines += $result.Problem }
         Show-DirectoryResult -Text ($lines -join [Environment]::NewLine) -Problem:([bool]($result.Problem -or $result.RemovedPermissions.Count))
     }
@@ -1122,9 +1128,10 @@ function Start-PSGPOManagerWindow {
         if ($gpo -isnot [GPOToolsGpo]) { return }
         $deleteGpo.Gpo = $gpo
         $links = @($Directory.GetLinksOf($gpo))
-        $deleteGpoTextBlock.Text = "Delete the GPO '$($gpo.DisplayName)'? " +
-            $(if ($links.Count) { "Its $($links.Count) link$(if ($links.Count -gt 1) { 's' }) ($(@($links | ForEach-Object { $_.Som.Name }) -join ', ')) $(if ($links.Count -gt 1) { 'are' } else { 'is' }) deleted too. " } else { 'It is not linked. ' }) +
-            "It is backed up first in $(Get-HistoryRoot): Deleted GPOs keeps it, to restore it."
+        $linkNames = @($links | ForEach-Object { $_.Som.Name }) -join ', '
+        $deleteGpoTextBlock.Text = (Get-PSGPOText "Delete the GPO '{0}'? " $gpo.DisplayName) +
+            $(if ($links.Count -gt 1) { Get-PSGPOText 'Its {0} links ({1}) are deleted too. ' $links.Count $linkNames } elseif ($links.Count) { Get-PSGPOText 'Its 1 link ({0}) is deleted too. ' $linkNames } else { Get-PSGPOText 'It is not linked. ' }) +
+            (Get-PSGPOText 'It is backed up first in {0}: Deleted GPOs keeps it, to restore it.' (Get-HistoryRoot))
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
         $deleteGpoPanel.IsVisible = $true
@@ -1139,14 +1146,16 @@ function Start-PSGPOManagerWindow {
         } catch {
             # Some links may be gone already.
             Update-DirectoryTree -Select $gpo
-            Show-DirectoryResult -Text "The GPO '$($gpo.DisplayName)' is not deleted: $($_.Exception.GetBaseException().Message)" -Problem
+            Show-DirectoryResult -Text (Get-PSGPOText "The GPO '{0}' is not deleted: {1}" $gpo.DisplayName $_.Exception.GetBaseException().Message) -Problem
             return
         }
         $settingsCache.Remove("$($gpo.Id)")
         Update-BackupList -Force
         Update-DirectoryTree -Select $Directory.Domain
         $count = @($removed.Links).Count
-        Show-DirectoryResult -Text "GPO '$($gpo.DisplayName)' deleted$(if ($count) { ", with its $count link$(if ($count -gt 1) { 's' })" }). Its backup is in Deleted GPOs, to restore it."
+        Show-DirectoryResult -Text $(if ($count -gt 1) { Get-PSGPOText "GPO '{0}' deleted, with its {1} links. Its backup is in Deleted GPOs, to restore it." $gpo.DisplayName $count }
+            elseif ($count) { Get-PSGPOText "GPO '{0}' deleted, with its 1 link. Its backup is in Deleted GPOs, to restore it." $gpo.DisplayName }
+            else { Get-PSGPOText "GPO '{0}' deleted. Its backup is in Deleted GPOs, to restore it." $gpo.DisplayName })
     }
 
     # A deleted GPO created again from its newest backup; linked again where it was, when its
@@ -1156,15 +1165,14 @@ function Start-PSGPOManagerWindow {
         $backup = if ($domainTreeView.SelectedItem) { $domainTreeView.SelectedItem.Tag }
         if (-not $backup -or $backup.PSObject.TypeNames -notcontains 'PSGPOTools.Backup') { return }
         $restoreGpo.Backup = $backup
-        $restoreGpoTextBlock.Text = "Create the deleted GPO '$($backup.DisplayName)' again from its backup of $(Format-HistoryDate $backup.BackedUp)? " +
-            'It gets a new unique ID from the domain, and the settings, status and client-side extensions of the backup. Its security filtering is not restored: it applies to Authenticated Users.'
+        $restoreGpoTextBlock.Text = Get-PSGPOText "Create the deleted GPO '{0}' again from its backup of {1}? It gets a new unique ID from the domain, and the settings, status and client-side extensions of the backup. Its security filtering is not restored: it applies to Authenticated Users." $backup.DisplayName (Format-HistoryDate $backup.BackedUp)
         $links = @($backup.Links).Count
         $filtering = (@($backup.SecurityFiltering) -join '|') -eq 'Authenticated Users' -and -not @($backup.DeniedTo | Where-Object { $_ }).Count
         $restoreGpoLinkCheckBox.IsVisible = $links -gt 0
         $restoreGpoLinkCheckBox.IsEnabled = $filtering
         $restoreGpoLinkCheckBox.IsChecked = $filtering
-        $restoreGpoLinkCheckBox.Content = if ($filtering) { "Link it again where it was ($links link$(if ($links -gt 1) { 's' }))" }
-            else { "Not linked again: its security filtering was $(@($backup.SecurityFiltering) -join ', '), set it first" }
+        $restoreGpoLinkCheckBox.Content = if ($filtering) { Get-PSGPOText $(if ($links -gt 1) { 'Link it again where it was ({0} links)' } else { 'Link it again where it was ({0} link)' }) $links }
+            else { Get-PSGPOText 'Not linked again: its security filtering was {0}, set it first' (@($backup.SecurityFiltering) -join ', ') }
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
         $restoreGpoPanel.IsVisible = $true
@@ -1178,14 +1186,14 @@ function Start-PSGPOManagerWindow {
             $files = Get-PSGPOVerifiedBackupFile -Backup $backup
             $result = Restore-PSGPODeletedGpo -Directory $Directory -Backup $backup -Files $files -RestoreLink:([bool]($restoreGpoLinkCheckBox.IsVisible -and $restoreGpoLinkCheckBox.IsChecked))
         } catch {
-            Show-DirectoryResult -Text "The GPO '$($backup.DisplayName)' is not restored: $($_.Exception.GetBaseException().Message)" -Problem
+            Show-DirectoryResult -Text (Get-PSGPOText "The GPO '{0}' is not restored: {1}" $backup.DisplayName $_.Exception.GetBaseException().Message) -Problem
             return
         }
         $gpo = $Directory.Gpos | Where-Object Id -EQ $result.Id | Select-Object -First 1
         Update-BackupList -Force
         Update-DirectoryTree -Select $gpo
-        $lines = @("GPO '$($result.DisplayName)' restored from its backup of $(Format-HistoryDate $backup.BackedUp), as {$($result.Id.ToString().ToUpperInvariant())}.")
-        if ($result.Linked.Count) { $lines += "Linked again to $(@($result.Linked | ForEach-Object { $Directory.FindSom($_).Name }) -join ', ')." }
+        $lines = @(Get-PSGPOText "GPO '{0}' restored from its backup of {1}, as {2}." $result.DisplayName (Format-HistoryDate $backup.BackedUp) "{$($result.Id.ToString().ToUpperInvariant())}")
+        if ($result.Linked.Count) { $lines += Get-PSGPOText 'Linked again to {0}.' (@($result.Linked | ForEach-Object { $Directory.FindSom($_).Name }) -join ', ') }
         Show-DirectoryResult -Text ((@($lines) + @($result.Problems)) -join [Environment]::NewLine) -Problem:($result.Problems.Count -gt 0)
     }
 
@@ -1197,12 +1205,12 @@ function Start-PSGPOManagerWindow {
             $Directory.RemoveLink($som, $link)
         } catch {
             $deleteLinkPanel.IsVisible = $false
-            Show-DirectoryResult -Text "The link of the GPO '$($link.GetDisplayName())' to $($som.Name) is not deleted: $($_.Exception.GetBaseException().Message)" -Problem
+            Show-DirectoryResult -Text (Get-PSGPOText "The link of the GPO '{0}' to {1} is not deleted: {2}" $link.GetDisplayName() $som.Name $_.Exception.GetBaseException().Message) -Problem
             return
         }
         $deleteLinkPanel.IsVisible = $false
         Update-DirectoryTree -Select $som
-        Show-DirectoryResult -Text "Link of the GPO '$($link.GetDisplayName())' to $($som.Name) deleted."
+        Show-DirectoryResult -Text (Get-PSGPOText "Link of the GPO '{0}' to {1} deleted." $link.GetDisplayName() $som.Name)
     }
 
     # Link of an existing GPO to the selected domain or OU, as GPMC "Link an Existing GPO...": the
@@ -1211,7 +1219,7 @@ function Start-PSGPOManagerWindow {
     function Open-LinkGpoForm {
         param([GPOToolsSom]$Som)
         $linkGpo.Som = $Som
-        $linkGpoTitleTextBlock.Text = "Link an existing GPO of $($Directory.DomainName) to $($Som.Name)"
+        $linkGpoTitleTextBlock.Text = Get-PSGPOText 'Link an existing GPO of {0} to {1}' $Directory.DomainName $Som.Name
         $linkGpoErrorTextBlock.Text = ''
         $directoryResultTextBlock.Text = ''
         Hide-DirectoryForm
@@ -1237,8 +1245,8 @@ function Start-PSGPOManagerWindow {
         $linkGpoList.SelectedIndex = if ($gpos.Count -eq 1) { 0 } else { -1 }
         $linkGpoConfirmButton.IsEnabled = $null -ne $linkGpoList.SelectedItem
         $linkGpoErrorTextBlock.Text = if ($gpos.Count) { '' }
-            elseif ($filter) { "No GPO named like '$filter' can be linked to $($som.Name)." }
-            else { "Every GPO of $($Directory.DomainName) is already linked to $($som.Name)." }
+            elseif ($filter) { Get-PSGPOText "No GPO named like '{0}' can be linked to {1}." $filter $som.Name }
+            else { Get-PSGPOText 'Every GPO of {0} is already linked to {1}.' $Directory.DomainName $som.Name }
     }
 
     function Submit-LinkGpo {
@@ -1253,7 +1261,7 @@ function Start-PSGPOManagerWindow {
         }
         $linkGpoPanel.IsVisible = $false
         Update-DirectoryTree -Select $link
-        Show-DirectoryResult -Text "GPO '$($gpo.DisplayName)' linked to $($som.Name), link order $($link.Order)."
+        Show-DirectoryResult -Text (Get-PSGPOText "GPO '{0}' linked to {1}, link order {2}." $gpo.DisplayName $som.Name $link.Order)
     }
 
     # Settings tab of the selected GPO: its Registry.pol files read once per version of the GPO.
@@ -1292,17 +1300,17 @@ function Start-PSGPOManagerWindow {
                     }
                 }
             } catch {
-                $cached.Error = "The settings of the GPO cannot be read: $($_.Exception.GetBaseException().Message)"
+                $cached.Error = Get-PSGPOText 'The settings of the GPO cannot be read: {0}' $_.Exception.GetBaseException().Message
             }
             $settingsCache["$($gpo.Id)"] = $cached
         }
         $settingsStatusTextBlock.Text = if ($cached.Error) { $cached.Error }
-            elseif ([GPOToolsUtility]::Policies.Count -eq 0) { 'No ADMX loaded (Initialize-PSGPOAdmx): the values are shown as Extra Registry Settings.' }
-            else { "Settings of $($gpo.DisplayName) (version: computer $($gpo.GetComputerVersion()), user $($gpo.GetUserVersion()))" }
-        $computerState = if ($gpo.Flags -band 2) { 'Disabled' } else { 'Enabled' }
-        $userState = if ($gpo.Flags -band 1) { 'Disabled' } else { 'Enabled' }
-        $computerSettingsHeader.Text = "Computer Configuration ($computerState)$(if (-not $cached.Machine.Count) { ': no settings defined' })"
-        $userSettingsHeader.Text = "User Configuration ($userState)$(if (-not $cached.User.Count) { ': no settings defined' })"
+            elseif ([GPOToolsUtility]::Policies.Count -eq 0) { Get-PSGPOText 'No ADMX loaded (Initialize-PSGPOAdmx): the values are shown as Extra Registry Settings.' }
+            else { Get-PSGPOText 'Settings of {0} (version: computer {1}, user {2})' $gpo.DisplayName $gpo.GetComputerVersion() $gpo.GetUserVersion() }
+        $computerState = Get-PSGPOText $(if ($gpo.Flags -band 2) { 'Disabled' } else { 'Enabled' })
+        $userState = Get-PSGPOText $(if ($gpo.Flags -band 1) { 'Disabled' } else { 'Enabled' })
+        $computerSettingsHeader.Text = Get-PSGPOText $(if ($cached.Machine.Count) { 'Computer Configuration ({0})' } else { 'Computer Configuration ({0}): no settings defined' }) $computerState
+        $userSettingsHeader.Text = Get-PSGPOText $(if ($cached.User.Count) { 'User Configuration ({0})' } else { 'User Configuration ({0}): no settings defined' }) $userState
         $computerSettingsList.ItemsSource = $cached.Machine
         $userSettingsList.ItemsSource = $cached.User
     }
@@ -1328,14 +1336,14 @@ function Start-PSGPOManagerWindow {
 
     function Format-HistoryDate {
         param($Date)
-        if ($null -eq $Date) { return 'unknown date' }
+        if ($null -eq $Date) { return Get-PSGPOText 'unknown date' }
         ([datetime]$Date).ToLocalTime().ToString('g')
     }
 
     function Get-ChangeSummary {
         param([object[]]$Changes)
         $count = { param($Kind) @($Changes | Where-Object Change -EQ $Kind).Count }
-        if (-not $Changes.Count) { return 'no setting changed' }
+        if (-not $Changes.Count) { return Get-PSGPOText 'no setting changed' }
         '+{0}  ~{1}  -{2}' -f (& $count 'Added'), (& $count 'Changed'), (& $count 'Removed')
     }
 
@@ -1367,9 +1375,9 @@ function Start-PSGPOManagerWindow {
                 $node = [AvaloniaHistoryNode]::new()
                 $node.Backup = $backup
                 $node.Title = Format-HistoryDate $(if ($backup.Modified) { $backup.Modified } else { $backup.BackedUp })
-                $node.Subtitle = "version $($backup.ComputerVersion) / $($backup.UserVersion)"
+                $node.Subtitle = Get-PSGPOText 'version {0} / {1}' $backup.ComputerVersion $backup.UserVersion
                 $node.Changes = @(Compare-PSGPOSettingReport -Reference $previous -Difference $report)
-                $node.Summary = if ($nodes.Count) { Get-ChangeSummary $node.Changes } else { 'first backup' }
+                $node.Summary = if ($nodes.Count) { Get-ChangeSummary $node.Changes } else { Get-PSGPOText 'first backup' }
                 $node.Previous = $previousDate
                 # The approved version in green, its labels under it, its comment as its tool tip.
                 $node.IsApproved = $backup.Labels -contains $approvedLabel
@@ -1402,10 +1410,10 @@ function Start-PSGPOManagerWindow {
             if ($changes.Count -or -not $nodes.Count) {
                 $node = [AvaloniaHistoryNode]::new()
                 $node.IsCurrent = $true
-                $node.Title = 'Now'
-                $node.Subtitle = "version $($gpo.GetComputerVersion()) / $($gpo.GetUserVersion())"
+                $node.Title = Get-PSGPOText 'Now'
+                $node.Subtitle = Get-PSGPOText 'version {0} / {1}' $gpo.GetComputerVersion() $gpo.GetUserVersion()
                 $node.Changes = $changes
-                $node.Summary = if ($nodes.Count) { "$(Get-ChangeSummary $changes), not backed up" } else { 'not backed up' }
+                $node.Summary = if ($nodes.Count) { Get-PSGPOText '{0}, not backed up' (Get-ChangeSummary $changes) } else { Get-PSGPOText 'not backed up' }
                 $node.Previous = $previousDate
                 $node.NodeFill = 'Transparent'
                 $node.NodeStroke = '#CA5010'
@@ -1413,15 +1421,17 @@ function Start-PSGPOManagerWindow {
                 $nodes.Add($node)
             }
         } catch {
-            $problem = "The history cannot be read: $($_.Exception.GetBaseException().Message)"
+            $problem = Get-PSGPOText 'The history cannot be read: {0}' $_.Exception.GetBaseException().Message
         }
 
         $historyTimelineList.ItemsSource = $nodes
         $backed = @($nodes | Where-Object { -not $_.IsCurrent }).Count
         if ($problem) { Set-HistoryStatus $problem -Problem }
-        elseif (-not $backed) { Set-HistoryStatus "No backup of this GPO in $root yet: Back up now keeps its settings as they are." }
-        elseif ($nodes[-1].IsCurrent) { Set-HistoryStatus "$backed backup$(if ($backed -gt 1) { 's' }) in $root. The GPO changed since the last one (Now)." }
-        else { Set-HistoryStatus "$backed backup$(if ($backed -gt 1) { 's' }) in $root. The last one is up to date." }
+        elseif (-not $backed) { Set-HistoryStatus (Get-PSGPOText 'No backup of this GPO in {0} yet: Back up now keeps its settings as they are.' $root) }
+        else {
+            $count = Get-PSGPOText $(if ($backed -gt 1) { '{0} backups in {1}.' } else { '{0} backup in {1}.' }) $backed $root
+            Set-HistoryStatus ($count + ' ' + (Get-PSGPOText $(if ($nodes[-1].IsCurrent) { 'The GPO changed since the last one (Now).' } else { 'The last one is up to date.' })))
+        }
         Update-HistoryDrift -Backed $backed -Label $approvedLabel
         # The node asked for, else the newest one; the branch scrolled to it.
         $index = $nodes.Count - 1
@@ -1444,15 +1454,15 @@ function Start-PSGPOManagerWindow {
         if (-not $Backed) { return }
         $brush = '#8A8886'
         $historyDriftTextBlock.Text = if (-not $drift) {
-            "No approved version yet: check '$Label' in the notes of a backup to see what changes after it."
+            Get-PSGPOText "No approved version yet: check '{0}' in the notes of a backup to see what changes after it." $Label
         } else {
-            $by = if ($drift.ApprovedBy) { ", by $($drift.ApprovedBy)" }
+            $approved = if ($drift.ApprovedBy) { Get-PSGPOText '{0}, by {1}' (Format-HistoryDate $drift.Approved) $drift.ApprovedBy } else { Format-HistoryDate $drift.Approved }
             if ($drift.State -eq 'Drifted') {
                 $brush = '#CA5010'
-                "Changed since its approved version of $(Format-HistoryDate $drift.Approved)$by ($(Get-ChangeSummary $drift.Changes))."
+                Get-PSGPOText 'Changed since its approved version of {0} ({1}).' $approved (Get-ChangeSummary $drift.Changes)
             } else {
                 $brush = '#107C10'
-                "The GPO is its approved version of $(Format-HistoryDate $drift.Approved)$by."
+                Get-PSGPOText 'The GPO is its approved version of {0}.' $approved
             }
         }
         $historyDriftBorder.BorderBrush = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse($brush))
@@ -1473,16 +1483,16 @@ function Start-PSGPOManagerWindow {
             return
         }
         $historyCompareTextBlock.Text = if ($Title) { $Title }
-            elseif ($Node.IsCurrent -and $Node.Previous) { "Changes since the backup of $($Node.Previous), not backed up yet" }
-            elseif ($Node.IsCurrent) { 'The settings of the GPO now, never backed up' }
-            elseif ($Node.Previous) { "Changes from $($Node.Previous) to $($Node.Title)" }
-            else { "First backup, $($Node.Title): the settings of the GPO then" }
-        if (-not $Node.Changes.Count) { $historyCompareTextBlock.Text += ': no setting changed (the version or the files did)' }
-        $scopes = @{ GPO = 'GPO'; Computer = 'Computer Configuration'; User = 'User Configuration'; Files = 'Files' }
+            elseif ($Node.IsCurrent -and $Node.Previous) { Get-PSGPOText 'Changes since the backup of {0}, not backed up yet' $Node.Previous }
+            elseif ($Node.IsCurrent) { Get-PSGPOText 'The settings of the GPO now, never backed up' }
+            elseif ($Node.Previous) { Get-PSGPOText 'Changes from {0} to {1}' $Node.Previous $Node.Title }
+            else { Get-PSGPOText 'First backup, {0}: the settings of the GPO then' $Node.Title }
+        if (-not $Node.Changes.Count) { $historyCompareTextBlock.Text += Get-PSGPOText ': no setting changed (the version or the files did)' }
+        $scopes = @{ GPO = 'GPO'; Computer = Get-PSGPOText 'Computer Configuration'; User = Get-PSGPOText 'User Configuration'; Files = Get-PSGPOText 'Files' }
         $brushes = @{ Added = '#107C10'; Removed = '#D13438'; Changed = '#CA5010' }
         $historyChangesList.ItemsSource = @(foreach ($change in $Node.Changes) {
                 $row = [AvaloniaChangeRow]::new()
-                $row.Change = $change.Change
+                $row.Change = Get-PSGPOText $change.Change
                 $row.ChangeBrush = $brushes[$change.Change]
                 $row.Location = "$($scopes[$change.Scope]) > $($change.Path)"
                 $row.Name = $change.Name
@@ -1503,13 +1513,15 @@ function Start-PSGPOManagerWindow {
         $historyNotesPanel.IsVisible = [bool]$backup
         if (-not $backup) { return }
         $label = Get-PSGPOApprovedLabel
-        $info = "Backed up$(if ($backup.BackedUpBy) { " by $($backup.BackedUpBy)" }) on $(Format-HistoryDate $backup.BackedUp)."
-        if ($backup.NotesUpdated) { $info += " Notes changed$(if ($backup.NotesUpdatedBy) { " by $($backup.NotesUpdatedBy)" }) on $(Format-HistoryDate $backup.NotesUpdated)." }
+        $info = if ($backup.BackedUpBy) { Get-PSGPOText 'Backed up by {0} on {1}.' $backup.BackedUpBy (Format-HistoryDate $backup.BackedUp) } else { Get-PSGPOText 'Backed up on {0}.' (Format-HistoryDate $backup.BackedUp) }
+        if ($backup.NotesUpdated) {
+            $info += ' ' + $(if ($backup.NotesUpdatedBy) { Get-PSGPOText 'Notes changed by {0} on {1}.' $backup.NotesUpdatedBy (Format-HistoryDate $backup.NotesUpdated) } else { Get-PSGPOText 'Notes changed on {0}.' (Format-HistoryDate $backup.NotesUpdated) })
+        }
         $historyNotesInfoTextBlock.Text = $info
         $historyNotesCommentTextBox.Text = $backup.Comment
         $template = Get-PSGPOTemplateLabel
         $historyNotesLabelsTextBox.Text = @($backup.Labels | Where-Object { $_ -ne $label -and $_ -ne $template }) -join ', '
-        $historyNotesApprovedCheckBox.Content = "$label version"
+        $historyNotesApprovedCheckBox.Content = Get-PSGPOText '{0} version' $label
         $historyNotesApprovedCheckBox.IsChecked = $backup.Labels -contains $label
         $historyNotesTemplateCheckBox.Content = $template
         $historyNotesTemplateCheckBox.IsChecked = $backup.Labels -contains $template
@@ -1526,11 +1538,11 @@ function Start-PSGPOManagerWindow {
         try {
             $saved = Save-PSGPOBackupNote -Backup $backup -Comment $historyNotesCommentTextBox.Text -Label $labels -Account $Directory.Account
         } catch {
-            Set-HistoryStatus "The notes are not saved: $($_.Exception.GetBaseException().Message)" -Problem
+            Set-HistoryStatus (Get-PSGPOText 'The notes are not saved: {0}' $_.Exception.GetBaseException().Message) -Problem
             return
         }
         Update-HistoryTab -SelectPath $saved.Path
-        Set-HistoryStatus "Notes of the backup of $(Format-HistoryDate $(if ($saved.Modified) { $saved.Modified } else { $saved.BackedUp })) saved."
+        Set-HistoryStatus (Get-PSGPOText 'Notes of the backup of {0} saved.' (Format-HistoryDate $(if ($saved.Modified) { $saved.Modified } else { $saved.BackedUp })))
     }
 
     # Backs up GPOs in the folder of the history, with the comment typed; what was done in the status.
@@ -1541,7 +1553,7 @@ function Start-PSGPOManagerWindow {
         $counts = @{ Created = 0; Unchanged = 0 }
         $errors = [System.Collections.Generic.List[string]]::new()
         try { $null = New-Item -ItemType Directory -Path $root -Force -ErrorAction Stop }
-        catch { Set-HistoryStatus "The folder of the backups cannot be created: $($_.Exception.GetBaseException().Message)" -Problem; return }
+        catch { Set-HistoryStatus (Get-PSGPOText 'The folder of the backups cannot be created: {0}' $_.Exception.GetBaseException().Message) -Problem; return }
         Set-PSGPOUserSetting -Values @{ BackupPath = $root }
         foreach ($gpo in $Gpos) {
             try {
@@ -1556,13 +1568,13 @@ function Start-PSGPOManagerWindow {
         # The comment went with the new backups.
         if ($counts.Created) { $historyCommentTextBox.Text = '' }
         $text = if ($Gpos.Count -eq 1 -and -not $errors.Count) {
-            if ($counts.Created) { "Backed up in $root." }
-            elseif ($comment) { 'Not backed up again: the GPO did not change since its last backup. Its comment is in the notes of that backup.' }
-            else { 'Not backed up again: the GPO did not change since its last backup.' }
+            if ($counts.Created) { Get-PSGPOText 'Backed up in {0}.' $root }
+            elseif ($comment) { Get-PSGPOText 'Not backed up again: the GPO did not change since its last backup. Its comment is in the notes of that backup.' }
+            else { Get-PSGPOText 'Not backed up again: the GPO did not change since its last backup.' }
         } else {
-            "$($counts.Created) GPO(s) backed up, $($counts.Unchanged) unchanged since their last backup, in $root."
+            Get-PSGPOText '{0} GPO(s) backed up, {1} unchanged since their last backup, in {2}.' $counts.Created $counts.Unchanged $root
         }
-        if ($errors.Count) { Set-HistoryStatus "$text Not backed up: $($errors -join '; ')" -Problem } else { Set-HistoryStatus $text }
+        if ($errors.Count) { Set-HistoryStatus ($text + ' ' + (Get-PSGPOText 'Not backed up: {0}' ($errors -join '; '))) -Problem } else { Set-HistoryStatus $text }
     }
 
     # Restore of the selected backup, once confirmed; the GPO as it is now is backed up first.
@@ -1570,9 +1582,7 @@ function Start-PSGPOManagerWindow {
         $node = $historyTimelineList.SelectedItem
         $gpo = Get-SelectedGpo
         if (-not $node -or $node.IsCurrent -or -not $gpo) { return }
-        $historyRestoreTextBlock.Text = "Restore the GPO '$($gpo.DisplayName)' as it was on $($node.Title)? Its files, status and client-side extensions are replaced, " +
-            'and its version increases so that the computers apply it again. Its links and security filtering do not change. ' +
-            'The GPO as it is now is backed up first.'
+        $historyRestoreTextBlock.Text = Get-PSGPOText "Restore the GPO '{0}' as it was on {1}? Its files, status and client-side extensions are replaced, and its version increases so that the computers apply it again. Its links and security filtering do not change. The GPO as it is now is backed up first." $gpo.DisplayName $node.Title
         $historyRestorePanel.IsVisible = $true
     })
     $historyRestoreCancelButton.Add_Click({ $historyRestorePanel.IsVisible = $false })
@@ -1584,7 +1594,7 @@ function Start-PSGPOManagerWindow {
         try {
             $result = Restore-PSGPO -Backup $node.Backup -Directory $Directory -Confirm:$false
         } catch {
-            Set-HistoryStatus "The GPO is not restored: $($_.Exception.GetBaseException().Message)" -Problem
+            Set-HistoryStatus (Get-PSGPOText 'The GPO is not restored: {0}' $_.Exception.GetBaseException().Message) -Problem
             return
         }
         # Its settings, details and history as they are now.
@@ -1593,7 +1603,7 @@ function Start-PSGPOManagerWindow {
         Update-DirectoryTree -Select $domainTreeView.SelectedItem.Tag
         $directoryTabs.SelectedItem = $historyTab
         Update-HistoryTab
-        Set-HistoryStatus "GPO restored as it was on $($node.Title) (version $($result.Version)); its state before was backed up."
+        Set-HistoryStatus (Get-PSGPOText 'GPO restored as it was on {0} (version {1}); its state before was backed up.' $node.Title $result.Version)
     })
     $historyTimelineList.add_SelectionChanged({ Show-HistoryChange $historyTimelineList.SelectedItem })
     $historyNotesSaveButton.Add_Click({ Save-HistoryNote })
@@ -1604,7 +1614,7 @@ function Start-PSGPOManagerWindow {
         $node = [AvaloniaHistoryNode]::new()
         $node.IsCurrent = $true
         $node.Changes = $drift.Changes
-        Show-HistoryChange $node -Title "Changes since the approved version of $(Format-HistoryDate $drift.Approved)"
+        Show-HistoryChange $node -Title (Get-PSGPOText 'Changes since the approved version of {0}' (Format-HistoryDate $drift.Approved))
     })
     $historyBackupButton.Add_Click({ $gpo = Get-SelectedGpo; if ($gpo) { Invoke-HistoryBackup -Gpos @($gpo) } })
     $historyBackupAllButton.Add_Click({ Invoke-HistoryBackup -Gpos @($Directory.GetVisibleGpos()) })
@@ -1736,7 +1746,7 @@ function Start-PSGPOManagerWindow {
         $wmiFilterMenuItem.Items.Clear()
         foreach ($choice in @($null) + @($Directory.WmiFilters)) {
             $item = [Avalonia.Controls.MenuItem]::new()
-            $item.Header = if ($choice) { $choice.Name } else { '(none)' }
+            $item.Header = if ($choice) { $choice.Name } else { Get-PSGPOText '(none)' }
             $item.ToggleType = [Avalonia.Controls.MenuItemToggleType]::Radio
             $item.GroupName = 'wmiFilter'
             $item.IsChecked = if ($choice) { $Gpo.WmiFilterId -eq $choice.Id } else { $null -eq $Gpo.WmiFilterId }
@@ -1752,7 +1762,7 @@ function Start-PSGPOManagerWindow {
         if (-not $gpo) { return }
         if ("$($gpo.WmiFilterId)" -eq "$(if ($Filter) { $Filter.Id })") { return }
         $select = $domainTreeView.SelectedItem.Tag
-        Invoke-DirectoryChange -Select $select -Done "'$($gpo.DisplayName)' $(if ($Filter) { "is linked to the WMI filter '$($Filter.Name)': the computers apply it only when $($Filter.GetQueryText()) returns something" } else { 'is linked to no WMI filter' })." `
+        Invoke-DirectoryChange -Select $select -Done $(if ($Filter) { Get-PSGPOText "'{0}' is linked to the WMI filter '{1}': the computers apply it only when {2} returns something." $gpo.DisplayName $Filter.Name $Filter.GetQueryText() } else { Get-PSGPOText "'{0}' is linked to no WMI filter." $gpo.DisplayName }) `
             -Change { $Directory.SetWmiFilter($gpo, $Filter) }
     }
     # New WMI Filter... on WMI Filters, as GPMC.
@@ -1779,7 +1789,7 @@ function Start-PSGPOManagerWindow {
         }
         $newWmiFilterPanel.IsVisible = $false
         Update-DirectoryTree -Select $filter
-        Show-DirectoryResult -Text "WMI filter '$($filter.Name)' created. Link a GPO to it with WMI Filter in the context menu of the GPO."
+        Show-DirectoryResult -Text (Get-PSGPOText "WMI filter '{0}' created. Link a GPO to it with WMI Filter in the context menu of the GPO." $filter.Name)
     }
     # Delete WMI filter... on a filter, once confirmed; refused while a GPO uses it.
     $deleteWmiFilter = @{ Filter = $null }
@@ -1788,8 +1798,8 @@ function Start-PSGPOManagerWindow {
         if ($filter -isnot [GPOToolsWmiFilter]) { return }
         $deleteWmiFilter.Filter = $filter
         $users = @($Directory.Gpos | Where-Object { $_.WmiFilterId -eq $filter.Id } | ForEach-Object DisplayName)
-        $deleteWmiFilterTextBlock.Text = "Delete the WMI filter '$($filter.Name)'? " +
-            $(if ($users.Count) { "It is used by $($users -join ', '): unlink them first (WMI Filter > (none)), it is not deleted otherwise." } else { 'No GPO uses it.' })
+        $deleteWmiFilterTextBlock.Text = (Get-PSGPOText "Delete the WMI filter '{0}'? " $filter.Name) +
+            $(if ($users.Count) { Get-PSGPOText 'It is used by {0}: unlink them first (WMI Filter > (none)), it is not deleted otherwise.' ($users -join ', ') } else { Get-PSGPOText 'No GPO uses it.' })
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
         $deleteWmiFilterPanel.IsVisible = $true
@@ -1798,7 +1808,7 @@ function Start-PSGPOManagerWindow {
         $filter = $deleteWmiFilter.Filter
         if (-not $filter) { return }
         $deleteWmiFilterPanel.IsVisible = $false
-        Invoke-DirectoryChange -Select 'WmiFilters' -Done "WMI filter '$($filter.Name)' deleted." -Change { $Directory.RemoveWmiFilter($filter) }
+        Invoke-DirectoryChange -Select 'WmiFilters' -Done (Get-PSGPOText "WMI filter '{0}' deleted." $filter.Name) -Change { $Directory.RemoveWmiFilter($filter) }
     }
     $newWmiFilterMenuItem.Add_Click({ Open-NewWmiFilterForm })
     $newWmiFilterCreateButton.Add_Click({ Submit-NewWmiFilter })
@@ -1815,14 +1825,14 @@ function Start-PSGPOManagerWindow {
         $pair = Get-SelectedLink
         if (-not $pair) { return }
         $enforced = -not $pair.Link.Enforced
-        Invoke-DirectoryChange -Select $pair.Link -Done "The link of '$($pair.Link.GetDisplayName())' to $($pair.Som.Name) is $(if ($enforced) { 'enforced: it applies even where the inheritance is blocked' } else { 'no longer enforced' })." `
+        Invoke-DirectoryChange -Select $pair.Link -Done (Get-PSGPOText $(if ($enforced) { "The link of '{0}' to {1} is enforced: it applies even where the inheritance is blocked." } else { "The link of '{0}' to {1} is no longer enforced." }) $pair.Link.GetDisplayName() $pair.Som.Name) `
             -Change { $Directory.SetLink($pair.Som, $pair.Link, $pair.Link.Enabled, $enforced) }
     })
     $enabledLinkMenuItem.Add_Click({
         $pair = Get-SelectedLink
         if (-not $pair) { return }
         $enabled = -not $pair.Link.Enabled
-        Invoke-DirectoryChange -Select $pair.Link -Done "The link of '$($pair.Link.GetDisplayName())' to $($pair.Som.Name) is $(if ($enabled) { 'enabled' } else { 'disabled: the GPO no longer applies there' })." `
+        Invoke-DirectoryChange -Select $pair.Link -Done (Get-PSGPOText $(if ($enabled) { "The link of '{0}' to {1} is enabled." } else { "The link of '{0}' to {1} is disabled: the GPO no longer applies there." }) $pair.Link.GetDisplayName() $pair.Som.Name) `
             -Change { $Directory.SetLink($pair.Som, $pair.Link, $enabled, $pair.Link.Enforced) }
     })
     # Not GetNewClosure: the closure would not see the functions of the window.
@@ -1831,7 +1841,7 @@ function Start-PSGPOManagerWindow {
         $pair = Get-SelectedLink
         if (-not $pair) { return }
         $order = $pair.Link.Order + $Step
-        Invoke-DirectoryChange -Select $pair.Link -Done "The link of '$($pair.Link.GetDisplayName())' to $($pair.Som.Name) has the link order $order." `
+        Invoke-DirectoryChange -Select $pair.Link -Done (Get-PSGPOText "The link of '{0}' to {1} has the link order {2}." $pair.Link.GetDisplayName() $pair.Som.Name $order) `
             -Change { $Directory.MoveLink($pair.Som, $pair.Link, $order) }
     }
     $moveLinkUpMenuItem.Add_Click({ Move-SelectedLink -Step -1 })
@@ -1840,7 +1850,7 @@ function Start-PSGPOManagerWindow {
         $som = $domainTreeView.SelectedItem.Tag
         if ($som -isnot [GPOToolsSom]) { return }
         $blocked = -not $som.BlockInheritance
-        Invoke-DirectoryChange -Select $som -Done "The inheritance of $($som.Name) is $(if ($blocked) { 'blocked: the GPOs linked above apply there only when their link is enforced' } else { 'no longer blocked' })." `
+        Invoke-DirectoryChange -Select $som -Done (Get-PSGPOText $(if ($blocked) { 'The inheritance of {0} is blocked: the GPOs linked above apply there only when their link is enforced.' } else { 'The inheritance of {0} is no longer blocked.' }) $som.Name) `
             -Change { $Directory.SetBlockInheritance($som, $blocked) }
     })
     foreach ($statusItem in $gpoStatusEnabledMenuItem, $gpoStatusUserDisabledMenuItem, $gpoStatusComputerDisabledMenuItem, $gpoStatusAllDisabledMenuItem) {
@@ -1851,7 +1861,7 @@ function Start-PSGPOManagerWindow {
             $flags = [int]$control.Tag
             $select = $domainTreeView.SelectedItem.Tag
             if (($gpo.Flags -band 3) -eq $flags) { return }
-            Invoke-DirectoryChange -Select $select -Done "The status of '$($gpo.DisplayName)' is: $(@('Enabled', 'User configuration settings disabled', 'Computer configuration settings disabled', 'All settings disabled')[$flags])." `
+            Invoke-DirectoryChange -Select $select -Done (Get-PSGPOText "The status of '{0}' is: {1}." $gpo.DisplayName (Get-PSGPOText @('Enabled', 'User configuration settings disabled', 'Computer configuration settings disabled', 'All settings disabled')[$flags])) `
                 -Change { $Directory.SetGpoStatus($gpo, $flags) }
         })
     }
@@ -1901,14 +1911,14 @@ function Start-PSGPOManagerWindow {
         $refresh.Item = if ($selected) { $selected.Tag }
         $refresh.LinkSom = if ($refresh.Item -is [GPOToolsGpoLink] -and $selected.Parent.Tag -is [GPOToolsSom]) { $selected.Parent.Tag.DistinguishedName }
         $refreshButton.IsEnabled = $false
-        Show-DirectoryResult -Text "Reading the domain again from $($Directory.Server)..."
+        Show-DirectoryResult -Text (Get-PSGPOText 'Reading the domain again from {0}...' $Directory.Server)
         # Posted: the text shows before the window waits for the domain.
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {
                 try {
                     Update-PSGPODirectoryFromDomain -Directory $Directory
                 } catch {
                     $refreshButton.IsEnabled = $true
-                    Show-DirectoryResult -Text "The domain is not read again: $($_.Exception.GetBaseException().Message)" -Problem
+                    Show-DirectoryResult -Text (Get-PSGPOText 'The domain is not read again: {0}' $_.Exception.GetBaseException().Message) -Problem
                     return
                 }
                 $settingsCache.Clear()
@@ -1916,7 +1926,7 @@ function Start-PSGPOManagerWindow {
                 $backupLists.Root = $null
                 Update-DirectoryTree -Select (Find-PSGPODirectoryItem -Directory $Directory -Item $refresh.Item -LinkSom $refresh.LinkSom)
                 $refreshButton.IsEnabled = $true
-                Show-DirectoryResult -Text "The domain is read again from $($Directory.Server), at $((Get-Date).ToString('T'))."
+                Show-DirectoryResult -Text (Get-PSGPOText 'The domain is read again from {0}, at {1}.' $Directory.Server (Get-Date).ToString('T'))
             }, [Avalonia.Threading.DispatcherPriority]::Background)
     }
     $refreshButton.Add_Click({ Invoke-DirectoryRefresh })
@@ -1925,15 +1935,15 @@ function Start-PSGPOManagerWindow {
         if ($e.Key -eq [Avalonia.Input.Key]::F5 -and $managementView.IsVisible) { Invoke-DirectoryRefresh; $e.Handled = $true }
     })
 
-    $directoryHint = if ($Directory.IsReadOnly) { "Read-only: $($Directory.Source)" } else { 'Right-click a domain or an OU to create a GPO' }
+    $directoryHint = if ($Directory.IsReadOnly) { Get-PSGPOText 'Read-only: {0}' $Directory.Source } else { Get-PSGPOText 'Right-click a domain or an OU to create a GPO' }
     $directoryBreadcrumbTextBlock.Text = $directoryHint
     $directoryEmptyTextBlock.IsVisible = -not $Directory
     $demoBanner.IsVisible = [bool]$Directory.IsDemonstration
     $domainTreeView.IsVisible = [bool]$Directory
     if ($DirectoryError) {
-        $directoryEmptyTextBlock.Text = "The domain could not be read.`n`n$DirectoryError"
+        $directoryEmptyTextBlock.Text = (Get-PSGPOText 'The domain could not be read.') + "`n`n$DirectoryError"
         $directoryEmptyTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
-        $directoryBreadcrumbTextBlock.Text = 'Domain not read'
+        $directoryBreadcrumbTextBlock.Text = Get-PSGPOText 'Domain not read'
     }
     if ($Directory) { Update-DirectoryTree }
     Show-View $StartView
