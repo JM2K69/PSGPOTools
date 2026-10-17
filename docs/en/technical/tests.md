@@ -51,7 +51,7 @@ Tier 1), was tested step by step in the lab, `kinit` changing the account betwee
 
 | Job | Runs |
 |---|---|
-| `test` | every test on `windows-latest`, the window included |
+| `test` | PSScriptAnalyzer on `Code/` (`PSScriptAnalyzerSettings.psd1`: no error, no warning), then every test on `windows-latest`, the window included |
 | `test-linux` | every test on `ubuntu-latest`, the window included (Avalonia on Xvfb) |
 | `test-samba` | the tests that write to a domain, against a Samba AD DC provisioned on the runner (`CI.TEST`), with a Kerberos ticket of its administrator |
 

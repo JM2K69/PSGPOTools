@@ -57,7 +57,7 @@ GPMC :
    extensions côté client sont ceux de la sauvegarde.
 4. Sa version augmente dans les deux étendues, pour que les ordinateurs l'appliquent de nouveau.
 
-Ses liens et ses droits ne changent pas.
+Ses liens et ses droits ne changent pas ; son filtre WMI est celui de la sauvegarde, si ce filtre est encore dans le domaine.
 
 Une sauvegarde n'est jamais restaurée dans un autre domaine, même sur une GPO qui a son GUID : la
 Default Domain Policy et la Default Domain Controllers Policy ont le même GUID dans tous les
@@ -107,3 +107,33 @@ Get-PSGPODrift -Path /srv/gpo-backups | Where-Object State -EQ 'Drifted'
 ```
 
 Voir [le workflow d'écart](../workflows/drift.md) et le [workflow d'approbation](../workflows/approval.md).
+
+## Journal d'audit
+
+Chaque modification acceptée par le domaine, depuis la console ou une commande, est une ligne du
+journal d'audit :
+
+| Champ | |
+|---|---|
+| `Time` | quand (UTC) |
+| `Account`, `Computer`, `Server` | qui, depuis quel ordinateur, sur quel contrôleur de domaine |
+| `Action` | `NewGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SaveGpoFile`, `RestoreGpo`, `RemoveGpo`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration` |
+| `Target`, `GpoName`, `GpoId` | sur quoi : la GPO, le domaine ou l'OU, la configuration |
+| `Details` | comment : les options de lien changées, le fichier enregistré avec son SHA-256 et la nouvelle version, les droits des créateurs et les permissions retirées à une approbation… |
+
+Les lignes sont seulement ajoutées, jamais réécrites : un fichier par domaine et par mois,
+`<domaine>-<aaaa-MM>.jsonl`, dans `Audit.Path` de la [configuration](configuration.md) (un partage
+où écrivent les administrateurs des GPO, le même pour toutes les consoles) ; par défaut dans le
+dossier `Audit` des sauvegardes du compte, que seule sa console voit. Un journal qui ne peut pas
+être écrit n'annule pas la modification, qui est faite : la console le dit.
+
+```powershell
+Get-PSGPOAuditLog -After (Get-Date).AddDays(-7) | Format-Table Time, Account, Action, GpoName, Target
+Get-PSGPOAuditLog -Name 'C - Servers - Baseline' -Action SaveGpoFile, ApproveGpo
+```
+
+!!! note
+    Le journal dit ce que les consoles et les commandes de PSGPOTools ont modifié, pas ce que
+    GPMC ou un autre outil a modifié. Qui peut écrire dans son dossier peut le modifier : ne donnez
+    le partage qu'aux administrateurs des GPO, et gardez-en une copie là où ils n'écrivent pas (un
+    SIEM).

@@ -85,6 +85,14 @@ klist
 A password is never given to `samba-tool` or `smbclient`, and never sent over plain LDAP: with
 `-Credential`, use `-UseSsl` (LDAPS), and the changes still need a Kerberos ticket.
 
+!!! note "-Credential on Windows"
+    On Windows, a domain read with `-Credential` (and `-UseSsl`) is changed with that account in
+    the directory **and in SYSVOL**: the console opens an SMB connection to `\\<dc>\SYSVOL` with
+    it, as `net use \\<dc>\SYSVOL /user:...` does. Windows has one account per server in a
+    session: if the session already reaches that server with another account, the console says so
+    (`net use \\<dc>\* /delete` closes those connections). Creating and deleting a GPO use RSAT,
+    which only knows the identity of the session: they are refused with `-Credential`.
+
 ## Check the installation
 
 ```powershell

@@ -66,13 +66,91 @@ Objects with its other links, and the links after it move up one link order.
 The links are written in the `gPLink` attribute over LDAP: the old value is removed and the new
 one added in one request, so that a link someone added meanwhile is never lost.
 
+## Links and inheritance
+
+The context menu of a link has the items of GPMC:
+
+| Item | Does |
+|---|---|
+| **Enforced** | the GPO applies even below an OU that blocks the inheritance, and wins over the GPOs linked below |
+| **Link Enabled** | unchecked, the GPO no longer applies there; the link stays, to enable it again |
+| **Move link up** / **Move link down** | changes its link order: 1 is applied last, so it wins over the others |
+
+and the context menu of the domain or an OU, **Block Inheritance**: the GPOs linked above no
+longer apply there, but for the enforced links. The tree shows them as GPMC does: a lock for an
+enforced link, a crossed link for a disabled one, a crossed folder for an OU that blocks the
+inheritance.
+
+![The links of an OU: one enforced, one disabled](../assets/screenshots/19-links-enforced.png)
+
+![An OU that blocks the inheritance](../assets/screenshots/20-block-inheritance.png)
+
+Each change is written to the domain at once, and only what changes: the console reads the
+`gPLink` (or the `gPOptions`) again, changes its link, and writes it in one request that also
+removes the value read. A change another console made meanwhile is kept, a link order another
+console changed in between is refused rather than lost. The same delegation as for linking GPOs
+is needed ("Link GPOs" of GPMC: write `gPLink` and `gPOptions`).
+
+```powershell
+New-PSGPOLink -Name 'C - Servers - Baseline' -Target 'OU=Servers,DC=contoso,DC=com' -Enforced
+Set-PSGPOLink -Name 'U - Lyon - Printers' -Target Lyon -Enabled $false
+Set-PSGPOLink -Name 'C - Servers - Baseline' -Target Servers -Order 1
+Set-PSGPOInheritance -Target 'OU=Kiosks,DC=contoso,DC=com' -Blocked $true
+Remove-PSGPOLink -Name 'U - Lyon - Printers' -Target Lyon
+```
+
+`-Target` is a distinguished name, the name of the domain, or the name of an OU when only one OU
+has it.
+
 ## GPO status and security filtering
+
+**GPO Status** in the context menu of a GPO sets which part of it the computers apply, as in
+GPMC: all its settings, those of the computers only (User Configuration Settings Disabled), those
+of the users only, or none (`Set-PSGPO -Status`).
 
 The details of a GPO show its **status** and its **security filtering**, as the Scope tab of
 GPMC: who applies it ("Apply Group Policy") and who is denied it. The security filtering groups of
 a new GPO are created with the prefixes, scope and descriptions of the
 [configuration](configuration.md); Authenticated Users keep reading the GPO, as the computers must
 (MS16-072).
+
+## WMI filters
+
+A WMI filter makes the computers apply a GPO only when one of its WQL queries returns something
+(the workstations only, a version of Windows, the laptops...), as the WMI Filtering of the Scope
+tab of GPMC. The filters are objects of the domain (`msWMI-Som` in
+`CN=SOM,CN=WMIPolicy,CN=System`), which Samba AD keeps for the Windows computers; a GPO names its
+filter in `gPCWQLFilter`.
+
+**WMI Filters**, in the tree below Group Policy Objects, lists the filters of the domain with
+their queries, as GPMC does. A filter shows its description, its queries, the GPOs that use it
+and its distinguished name:
+
+![The WMI filters of the domain](../assets/screenshots/23-wmi-filter-details.png)
+
+**New WMI Filter...** in the context menu of WMI Filters creates one: its name, a description,
+the WMI namespace (`root\CIMv2`) and its WQL queries, one per line. **Delete WMI filter...** in
+the context menu of a filter deletes it, once no GPO uses it.
+
+![A new WMI filter](../assets/screenshots/24-new-wmi-filter.png)
+
+**WMI Filter** in the context menu of a GPO lists the filters of the domain: the one checked is
+the filter of the GPO, **(none)** unlinks it. Its details show the filter and its queries, or say
+that the filter of a GPO is not in the domain anymore (the computers then ignore the GPO).
+
+![A GPO linked to a WMI filter](../assets/screenshots/21-wmi-filter.png)
+
+```powershell
+New-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' -Description 'Windows workstations, not the servers'
+Set-PSGPO -Name 'T2 - Workstations - Baseline' -WmiFilter 'Workstations'
+Get-PSGPOWmiFilter | Format-Table Name, Queries, Gpos
+Set-PSGPO -Name 'T2 - Workstations - Baseline' -NoWmiFilter
+Remove-PSGPOWmiFilter -Name 'Workstations'
+```
+
+A filter a GPO uses is not deleted, those GPOs your account cannot see included. The backups keep
+the filter of a GPO (its name and queries): the drift shows when it changed, and a restore links
+the GPO to it again when it is still in the domain, or says it is not.
 
 ## Delete a GPO
 

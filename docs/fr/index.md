@@ -14,7 +14,7 @@ Directory**.
 - **Vue Group Policy Management**
 
     Le domaine, ses OU et leurs liens de GPO, les Group Policy Objects, comme GPMC les montre :
-    créer, lier, supprimer et restaurer des GPO, avec leur statut et leur filtrage de sécurité à la création.
+    créer, lier, supprimer et restaurer des GPO, appliquer (Enforced), désactiver et ordonner leurs liens, bloquer l'héritage, régler leur statut et leur filtrage de sécurité.
     [La console](features/console.md)
 
 - **Éditeur de stratégies**

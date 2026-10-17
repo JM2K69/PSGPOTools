@@ -69,13 +69,94 @@ Les liens sont écrits dans l'attribut `gPLink` en LDAP : l'ancienne valeur est 
 nouvelle ajoutée dans une seule requête, si bien qu'un lien ajouté par quelqu'un d'autre entre-temps
 n'est jamais perdu.
 
+## Liens et héritage
+
+Le menu contextuel d'un lien a les éléments de GPMC :
+
+| Élément | Fait |
+|---|---|
+| **Enforced** | la GPO s'applique même sous une OU qui bloque l'héritage, et l'emporte sur les GPO liées en dessous |
+| **Link Enabled** | décoché, la GPO ne s'applique plus là ; le lien reste, pour le réactiver |
+| **Move link up** / **Move link down** | change son ordre de lien : 1 est appliqué en dernier, il l'emporte donc sur les autres |
+
+et le menu contextuel du domaine ou d'une OU, **Block Inheritance** : les GPO liées au-dessus ne
+s'y appliquent plus, sauf les liens appliqués (Enforced). L'arbre les montre comme GPMC : un cadenas
+pour un lien appliqué, un lien barré pour un lien désactivé, un dossier barré pour une OU qui bloque
+l'héritage.
+
+![Les liens d'une OU : l'un appliqué, l'autre désactivé](../assets/screenshots/19-links-enforced.png)
+
+![Une OU qui bloque l'héritage](../assets/screenshots/20-block-inheritance.png)
+
+Chaque modification est écrite tout de suite dans le domaine, et seulement ce qui change : la
+console relit le `gPLink` (ou le `gPOptions`), modifie son lien, et l'écrit dans une seule requête
+qui retire aussi la valeur lue. Une modification faite entre-temps par une autre console est
+conservée ; un ordre de lien changé entre la lecture et l'écriture est refusé plutôt que perdu. Il
+faut la même délégation que pour lier des GPO (« Link GPOs » de GPMC : écrire `gPLink` et
+`gPOptions`).
+
+```powershell
+New-PSGPOLink -Name 'C - Servers - Baseline' -Target 'OU=Servers,DC=contoso,DC=com' -Enforced
+Set-PSGPOLink -Name 'U - Lyon - Printers' -Target Lyon -Enabled $false
+Set-PSGPOLink -Name 'C - Servers - Baseline' -Target Servers -Order 1
+Set-PSGPOInheritance -Target 'OU=Kiosks,DC=contoso,DC=com' -Blocked $true
+Remove-PSGPOLink -Name 'U - Lyon - Printers' -Target Lyon
+```
+
+`-Target` est un nom distinctif, le nom du domaine, ou le nom d'une OU quand une seule OU le porte.
+
 ## Statut et filtrage de sécurité
+
+**GPO Status**, dans le menu contextuel d'une GPO, règle quelle partie les ordinateurs en
+appliquent, comme dans GPMC : tous ses paramètres, ceux des ordinateurs seulement (User
+Configuration Settings Disabled), ceux des utilisateurs seulement, ou aucun (`Set-PSGPO -Status`).
 
 Les détails d'une GPO montrent son **statut** et son **filtrage de sécurité**, comme l'onglet
 Étendue de GPMC : qui l'applique (« Appliquer la stratégie de groupe ») et à qui elle est refusée.
 Les groupes de filtrage d'une nouvelle GPO sont créés avec les préfixes, l'étendue et les
 descriptions de la [configuration](configuration.md) ; Authenticated Users garde la lecture de la
 GPO, comme les ordinateurs en ont besoin (MS16-072).
+
+## Les filtres WMI
+
+Un filtre WMI fait appliquer une GPO par les ordinateurs seulement quand l'une de ses requêtes WQL
+renvoie quelque chose (les postes de travail seulement, une version de Windows, les portables…),
+comme le filtrage WMI de l'onglet Étendue de GPMC. Les filtres sont des objets du domaine
+(`msWMI-Som` dans `CN=SOM,CN=WMIPolicy,CN=System`), que Samba AD conserve pour les ordinateurs
+Windows ; une GPO désigne son filtre dans `gPCWQLFilter`.
+
+**WMI Filters**, dans l'arbre sous Group Policy Objects, liste les filtres du domaine avec leurs
+requêtes, comme GPMC. Un filtre montre sa description, ses requêtes, les GPO qui l'utilisent et son
+nom distinctif :
+
+![Les filtres WMI du domaine](../assets/screenshots/23-wmi-filter-details.png)
+
+**New WMI Filter...**, dans le menu contextuel de WMI Filters, en crée un : son nom, une
+description, l'espace de noms WMI (`root\CIMv2`) et ses requêtes WQL, une par ligne.
+**Delete WMI filter...**, dans le menu contextuel d'un filtre, le supprime quand plus aucune GPO ne
+l'utilise.
+
+![Un nouveau filtre WMI](../assets/screenshots/24-new-wmi-filter.png)
+
+**WMI Filter**, dans le menu contextuel d'une GPO, liste les filtres du domaine : celui qui est
+coché est le filtre de la GPO, **(none)** la délie. Ses détails montrent le filtre et ses requêtes,
+ou disent que le filtre d'une GPO n'est plus dans le domaine (les ordinateurs ignorent alors la
+GPO).
+
+![Une GPO liée à un filtre WMI](../assets/screenshots/21-wmi-filter.png)
+
+```powershell
+New-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' -Description 'Les postes Windows, pas les serveurs'
+Set-PSGPO -Name 'T2 - Workstations - Baseline' -WmiFilter 'Workstations'
+Get-PSGPOWmiFilter | Format-Table Name, Queries, Gpos
+Set-PSGPO -Name 'T2 - Workstations - Baseline' -NoWmiFilter
+Remove-PSGPOWmiFilter -Name 'Workstations'
+```
+
+Un filtre qu'utilise une GPO n'est pas supprimé, y compris les GPO que votre compte ne voit pas.
+Les sauvegardes gardent le filtre d'une GPO (son nom et ses requêtes) : l'écart montre quand il a
+changé, et une restauration relie la GPO à son filtre s'il est encore dans le domaine, ou dit qu'il
+n'y est plus.
 
 ## Supprimer une GPO
 

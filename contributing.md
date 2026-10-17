@@ -50,6 +50,7 @@ always edit `Code/`, then build.
 pwsh -File CI/03_Build.ps1
 pwsh -File CI/Invoke-Tests.ps1                                   # every test (Pester 5.5+)
 pwsh -File CI/Invoke-Tests.ps1 -Path CI/tests/PSGPOTools.Backup.tests.ps1
+Invoke-ScriptAnalyzer -Path ./Code -Recurse -Settings ./PSScriptAnalyzerSettings.psd1   # no error, no warning
 ```
 
 The GUI tests open the real window; they are skipped when the Avalonia runtime is not installed

@@ -54,7 +54,7 @@ Compare-PSGPOBackup -ReferenceBackup $Backups[1] -DifferenceBackup $Backups[0]
    client-side extensions are those of the backup.
 4. Its version increases in both scopes, so that the computers apply it again.
 
-Its links and its permissions do not change.
+Its links and its permissions do not change; its WMI filter is the one of the backup, when that filter is still in the domain.
 
 A backup is never restored in another domain, even on a GPO with its GUID: the Default Domain
 Policy and the Default Domain Controllers Policy have the same GUID in every domain. Use it as a
@@ -104,3 +104,31 @@ Get-PSGPODrift -Path /srv/gpo-backups | Where-Object State -EQ 'Drifted'
 ```
 
 See [the drift workflow](../workflows/drift.md) and the [approval workflow](../workflows/approval.md).
+
+## Audit log
+
+Each change the domain accepted, from the console or a command, is a line of the audit log:
+
+| Field | |
+|---|---|
+| `Time` | when (UTC) |
+| `Account`, `Computer`, `Server` | who, from which computer, on which domain controller |
+| `Action` | `NewGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SaveGpoFile`, `RestoreGpo`, `RemoveGpo`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration` |
+| `Target`, `GpoName`, `GpoId` | on what: the GPO, the domain or OU, the configuration |
+| `Details` | how: the link options changed, the file saved with its SHA-256 and the new version, the rights of the creators and the permissions removed at an approval... |
+
+The lines are only added, never rewritten: one file per domain and month,
+`<domain>-<yyyy-MM>.jsonl`, in `Audit.Path` of the [configuration](configuration.md) (a share the
+administrators of the GPOs write, the same for every console); by default in the folder `Audit` of
+the backups of the account, which only its console sees. A log that cannot be written does not
+undo the change, which is made: the console says so.
+
+```powershell
+Get-PSGPOAuditLog -After (Get-Date).AddDays(-7) | Format-Table Time, Account, Action, GpoName, Target
+Get-PSGPOAuditLog -Name 'C - Servers - Baseline' -Action SaveGpoFile, ApproveGpo
+```
+
+!!! note
+    The log says what the consoles and the commands of PSGPOTools changed, not what GPMC or
+    another tool changed. Whoever can write its folder can change it: give the share to the
+    administrators of the GPOs only, and keep a copy where they cannot write (a SIEM).
