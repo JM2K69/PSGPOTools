@@ -28,35 +28,35 @@ function Get-PSGPOStatusBarItem {
     # This computer: its name, its system, and its role when it is a domain controller.
     $system = if ($Platform.OperatingSystemDescription) { $Platform.OperatingSystemDescription } else { $Platform.OperatingSystem }
     $hostText = "$($Platform.ComputerName) - $system"
-    if ($Platform.IsDomainController) { $hostText += " ($($Platform.DomainControllerType) domain controller)" }
-    New-StatusItem 'desktop' $hostText "This computer: $Platform"
+    if ($Platform.IsDomainController) { $hostText += Get-PSGPOText ' ({0} domain controller)' $Platform.DomainControllerType }
+    New-StatusItem 'desktop' $hostText (Get-PSGPOText 'This computer: {0}' "$Platform")
 
     $addresses = @($Platform.IPAddresses | Where-Object { $_ })
     if ($addresses.Count) {
-        New-StatusItem 'location' "IP $($addresses -join ', ')" "Addresses of this computer: $($addresses -join ', ')"
+        New-StatusItem 'location' "IP $($addresses -join ', ')" (Get-PSGPOText 'Addresses of this computer: {0}' ($addresses -join ', '))
     } else {
-        New-StatusItem 'location' 'No network address' 'No network interface of this computer is up.'
+        New-StatusItem 'location' (Get-PSGPOText 'No network address') (Get-PSGPOText 'No network interface of this computer is up.')
     }
 
-    $domain = if ($Platform.DomainName) { "Domain $($Platform.DomainName)" } else { 'Not in a domain' }
+    $domain = if ($Platform.DomainName) { Get-PSGPOText 'Domain {0}' $Platform.DomainName } else { Get-PSGPOText 'Not in a domain' }
     New-StatusItem 'globe' $domain
 
     # The domain controller the directory comes from, and the account it was read with.
     if ($Directory -is [GPOToolsLdapDirectory]) {
-        New-StatusItem 'server' "DC $($Directory.Server) ($($Directory.ServerType))" "Directory $($Directory.Source)"
+        New-StatusItem 'server' "DC $($Directory.Server) ($($Directory.ServerType))" (Get-PSGPOText 'Directory {0}' $Directory.Source)
         if ($Directory.Account) {
             $limited = $Directory.IsLimited()
-            New-StatusItem 'person' "Connected as $($Directory.Account)$(if ($limited) { ' (delegated rights)' })" $(
-                if ($limited) { "The directory is read as $($Directory.Account): only the OUs and GPOs it manages are shown." }
-                else { "The directory is read as $($Directory.Account), which manages every OU and GPO." })
+            New-StatusItem 'person' (Get-PSGPOText $(if ($limited) { 'Connected as {0} (delegated rights)' } else { 'Connected as {0}' }) $Directory.Account) $(
+                if ($limited) { Get-PSGPOText 'The directory is read as {0}: only the OUs and GPOs it manages are shown.' $Directory.Account }
+                else { Get-PSGPOText 'The directory is read as {0}, which manages every OU and GPO.' $Directory.Account })
         }
     } elseif ($Directory.IsDemonstration) {
-        New-StatusItem 'server' 'No domain controller: demonstration directory' 'No Active Directory or Samba AD domain was discovered: the directory shown is sample data.'
+        New-StatusItem 'server' (Get-PSGPOText 'No domain controller: demonstration directory') (Get-PSGPOText 'No Active Directory or Samba AD domain was discovered: the directory shown is sample data.')
     } elseif ($Directory) {
-        New-StatusItem 'server' "No domain controller: $($Directory.DomainName) offline" "Directory $($Directory.Source)"
+        New-StatusItem 'server' (Get-PSGPOText 'No domain controller: {0} offline' $Directory.DomainName) (Get-PSGPOText 'Directory {0}' $Directory.Source)
     } elseif ($DirectoryError) {
-        New-StatusItem 'server' 'Domain controller not reached' $DirectoryError
+        New-StatusItem 'server' (Get-PSGPOText 'Domain controller not reached') $DirectoryError
     } else {
-        New-StatusItem 'server' 'No directory read'
+        New-StatusItem 'server' (Get-PSGPOText 'No directory read')
     }
 }

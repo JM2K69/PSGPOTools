@@ -25,7 +25,7 @@ function New-PSGPOPolicyTree {
 
     foreach ($scope in [Enum]::GetValues([ScopePolicy])) {
         $scopeNode = [AvaloniaTreeNode]::new()
-        $scopeNode.Header = $scope.ToString()
+        $scopeNode.Header = Get-PSGPOText $scope.ToString()
         # User and Machine, shown as the User / Computer Configuration of the Group Policy editor.
         Set-PSGPOTreeNodeIcon -Node $scopeNode -Name $(if ($scope -eq [ScopePolicy]::User) { 'person' } else { 'desktop' })
         $scopeNode.Tag = $scope
@@ -83,13 +83,13 @@ function New-PSGPOPolicyTree {
             })
             if ($security.Count) {
                 $windowsNode = [AvaloniaTreeNode]::new()
-                $windowsNode.Header = 'Windows Settings'
+                $windowsNode.Header = Get-PSGPOText 'Windows Settings'
                 Set-PSGPOTreeNodeIcon -Node $windowsNode -Name 'folder'
                 $windowsNode.Tag = 'WindowsSettings'
                 $windowsNode.IsExpanded = $expand
                 $windowsNode.Parent = $scopeNode
                 $securityNode = [AvaloniaTreeNode]::new()
-                $securityNode.Header = 'Security Settings'
+                $securityNode.Header = Get-PSGPOText 'Security Settings'
                 Set-PSGPOTreeNodeIcon -Node $securityNode -Name 'shield'
                 $securityNode.Tag = 'SecuritySettings'
                 $securityNode.IsExpanded = $expand
@@ -134,7 +134,7 @@ function New-PSGPOPolicyTree {
             })
         if ($preferences.Count) {
             $preferencesNode = [AvaloniaTreeNode]::new()
-            $preferencesNode.Header = 'Preferences'
+            $preferencesNode.Header = Get-PSGPOText 'Preferences'
             Set-PSGPOTreeNodeIcon -Node $preferencesNode -Name 'toolbox'
             $preferencesNode.Tag = "Preferences:$scope"
             $preferencesNode.IsExpanded = $expand

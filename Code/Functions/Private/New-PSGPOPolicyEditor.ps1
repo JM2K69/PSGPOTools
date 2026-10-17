@@ -116,7 +116,7 @@ function New-PSGPOPolicyEditor {
                     $TextBox.AcceptsReturn = $true
                     $TextBox.TextWrapping = [Avalonia.Media.TextWrapping]::Wrap
                     $TextBox.MinHeight = 80
-                    $TextBox.Watermark = 'One entry per line'
+                    $TextBox.Watermark = Get-PSGPOText 'One entry per line'
                     if ($null -ne $Default) { $TextBox.Text = @($Default) -join [Environment]::NewLine }
                 } else {
                     $TextBox.MaxLength = [int][Math]::Min($Element.MaxLength, [int]::MaxValue)
@@ -157,15 +157,15 @@ function New-PSGPOPolicyEditor {
                 $InputRow.Spacing = 6
                 $NameInput = [Avalonia.Controls.TextBox]::new()
                 $NameInput.MinWidth = 220
-                $NameInput.Watermark = if ($Explicit) { 'Value name' } else { 'New entry' }
+                $NameInput.Watermark = Get-PSGPOText $(if ($Explicit) { 'Value name' } else { 'New entry' })
                 $ValueInput = [Avalonia.Controls.TextBox]::new()
                 $ValueInput.MinWidth = 220
-                $ValueInput.Watermark = 'Value'
+                $ValueInput.Watermark = Get-PSGPOText 'Value'
                 $ValueInput.IsVisible = $Explicit
                 $AddButton = [Avalonia.Controls.Button]::new()
-                $AddButton.Content = 'Add'
+                $AddButton.Content = Get-PSGPOText 'Add'
                 $RemoveButton = [Avalonia.Controls.Button]::new()
-                $RemoveButton.Content = 'Remove'
+                $RemoveButton.Content = Get-PSGPOText 'Remove'
                 foreach ($Child in $NameInput, $ValueInput, $AddButton, $RemoveButton) { $InputRow.Children.Add($Child) }
 
                 $AddButton.add_Click({

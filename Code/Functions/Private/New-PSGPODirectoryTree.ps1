@@ -50,18 +50,18 @@ function New-PSGPODirectoryTree {
 
     function Add-Som {
         param([GPOToolsSom]$Som, [AvaloniaTreeNode]$Parent)
-        $Header = if ($Som.BlockInheritance) { "$($Som.Name) (blocks inheritance)" } else { $Som.Name }
+        $Header = if ($Som.BlockInheritance) { Get-PSGPOText '{0} (blocks inheritance)' $Som.Name } else { $Som.Name }
         $Icon = if ($Som.Kind -eq [GPOToolsSomKind]::Domain) { 'globe' } elseif ($Som.BlockInheritance) { 'folder-prohibited' } else { 'folder' }
         $Node = New-Node $Header $Icon $Som $Parent
         # Only the path to the OUs the account manages: greyed, without its links.
         if (-not $Som.CanLink) { $Node.IconBrush = '#8A8886' }
 
         foreach ($Link in @($Som.Links | Where-Object { $Som.CanLink } | Sort-Object Order)) {
-            $LinkHeader = $Link.GetDisplayName()
-            if ($Link.Gpo -and $Link.Gpo.AppliesWhilePending()) { $LinkHeader += ' (waiting for approval, but it applies)' }
-            elseif ($Link.Gpo -and $Link.Gpo.ApprovalState -eq 'Pending') { $LinkHeader += ' (waiting for approval)' }
-            if ($Link.Enforced) { $LinkHeader += ' (enforced)' }
-            if (-not $Link.Enabled) { $LinkHeader += ' (link disabled)' }
+            $LinkHeader = if ($Link.Gpo) { $Link.Gpo.DisplayName } else { Get-PSGPOText 'GPO not found ({0})' $Link.GpoDistinguishedName }
+            if ($Link.Gpo -and $Link.Gpo.AppliesWhilePending()) { $LinkHeader += Get-PSGPOText ' (waiting for approval, but it applies)' }
+            elseif ($Link.Gpo -and $Link.Gpo.ApprovalState -eq 'Pending') { $LinkHeader += Get-PSGPOText ' (waiting for approval)' }
+            if ($Link.Enforced) { $LinkHeader += Get-PSGPOText ' (enforced)' }
+            if (-not $Link.Enabled) { $LinkHeader += Get-PSGPOText ' (link disabled)' }
             $LinkIcon = if (-not $Link.Enabled) { 'link-dismiss' } elseif ($Link.Enforced) { 'lock-closed' } else { 'link' }
             [void](New-Node $LinkHeader $LinkIcon $Link $Node)
         }
@@ -73,10 +73,10 @@ function New-PSGPODirectoryTree {
     $DomainNode = Add-Som $Directory.Domain $null
     $DomainNode.IsExpanded = $true
 
-    $GposNode = New-Node 'Group Policy Objects' 'library' 'GroupPolicyObjects' $DomainNode
+    $GposNode = New-Node (Get-PSGPOText 'Group Policy Objects') 'library' 'GroupPolicyObjects' $DomainNode
     foreach ($Gpo in $Directory.GetVisibleGpos()) {
         if ($Gpo.ApprovalState -eq 'Pending') {
-            $Label = if ($Gpo.AppliesWhilePending()) { "$($Gpo.DisplayName) (waiting for approval, but it applies)" } else { "$($Gpo.DisplayName) (waiting for approval)" }
+            $Label = $Gpo.DisplayName + $(if ($Gpo.AppliesWhilePending()) { Get-PSGPOText ' (waiting for approval, but it applies)' } else { Get-PSGPOText ' (waiting for approval)' })
             $Node = New-Node $Label 'document-settings' $Gpo $GposNode
             $Node.IconBrush = if ($Gpo.AppliesWhilePending()) { '#C50F1F' } else { '#CA5010' }
         } else {
@@ -84,10 +84,10 @@ function New-PSGPODirectoryTree {
         }
     }
     # WMI Filters, as GPMC: every filter of the domain.
-    $WmiNode = New-Node 'WMI Filters' 'filter' 'WmiFilters' $DomainNode
+    $WmiNode = New-Node (Get-PSGPOText 'WMI Filters') 'filter' 'WmiFilters' $DomainNode
     foreach ($Filter in $Directory.WmiFilters) { [void](New-Node $Filter.Name 'filter' $Filter $WmiNode) }
     if ($null -ne $DeletedGpo) {
-        $DeletedNode = New-Node 'Deleted GPOs' 'delete' 'DeletedGpos' $DomainNode
+        $DeletedNode = New-Node (Get-PSGPOText 'Deleted GPOs') 'delete' 'DeletedGpos' $DomainNode
         foreach ($Backup in $DeletedGpo) {
             $Node = New-Node $Backup.DisplayName 'document-settings' $Backup $DeletedNode
             $Node.IconBrush = '#8A8886'

@@ -43,9 +43,16 @@ function Show-GPOManagerAvalonia {
         PolicyDefinitions folder to load the ADMX files from, without asking (see Initialize-PSGPOAdmx).
     .PARAMETER UICulture
         Language of the ADML files of -PolicyDefinitions (en-US, fr-FR...); detected when not given.
+    .PARAMETER Language
+        Language of the interface: en-US, or a language of Resources/Strings (fr-FR); by default
+        the language of the session, English when the module has no translation for it. The
+        commands, their messages and errors stay in English.
     .PARAMETER NoDirectory
         Neither reads the domain nor shows the sample directory: the window opens on the policy
         editor to browse the ADMX policies.
+    .EXAMPLE
+        # The console in French
+        Show-GPOManagerAvalonia -Language fr-FR
     .EXAMPLE
         # The domain of the computer (Windows session, or a Kerberos ticket on Linux)
         Initialize-PSGPOAdmx -UICulture 'en-US'
@@ -82,8 +89,13 @@ function Show-GPOManagerAvalonia {
         [ValidateScript( { Test-Path -Path $_ -PathType Container })]
         [string]$PolicyDefinitions,
 
-        [string]$UICulture
+        [string]$UICulture,
+
+        [string]$Language = [cultureinfo]::CurrentUICulture.Name
     )
+
+    # The language of the interface, for the ADMX window too.
+    $Language = Set-PSGPOLanguage -Language $Language
 
     # The ADMX files first: asked for in a window when none is loaded.
     if ($PolicyDefinitions -or $UICulture) {
@@ -125,5 +137,5 @@ function Show-GPOManagerAvalonia {
     }
 
     $startView = if ($NoDirectory) { 'Editor' } else { 'Management' }
-    Start-PSGPOManagerWindow -Directory $Directory -DirectoryError $directoryError -StartView $startView
+    Start-PSGPOManagerWindow -Directory $Directory -DirectoryError $directoryError -StartView $startView -Language $Language
 }
