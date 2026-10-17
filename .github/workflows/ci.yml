@@ -165,7 +165,8 @@ jobs:
           klist
 
       - name: Build and test against the domain
-        run: pwsh -NoProfile -File ./CI/Invoke-Tests.ps1 -Path ./CI/tests/PSGPOTools.Ldap.tests.ps1, ./CI/tests/PSGPOTools.RegistryPol.tests.ps1 -OutputPath TestResults-samba.xml
+        # -Command, not -File: -File passes the list of test files as separate arguments.
+        run: pwsh -NoProfile -Command "./CI/Invoke-Tests.ps1 -Path ./CI/tests/PSGPOTools.Ldap.tests.ps1, ./CI/tests/PSGPOTools.RegistryPol.tests.ps1 -OutputPath TestResults-samba.xml"
 
       - name: Upload test results
         if: always()
