@@ -66,6 +66,19 @@ compte connecté.
 La barre d'outils bascule entre les thèmes clair et sombre, et ouvre la fenêtre **Settings** : la
 [configuration du domaine](configuration.md).
 
+## Langue
+
+La console est dans la langue de la session PowerShell : en français sur un système français, en
+anglais sinon, et `-Language` la choisit. Les textes viennent de `Resources/Strings/<langue>.psd1`
+du module (`fr-FR.psd1`, avec les termes de la GPMC française) ; un texte qu'il ne traduit pas reste
+en anglais. Les commandes, leurs messages et leurs erreurs restent en anglais, comme ceux de
+PowerShell, ainsi que les noms des paramètres de sécurité et des types de préférences.
+
+```powershell
+Show-GPOManagerAvalonia -Language fr-FR
+Show-GPOManagerAvalonia -Language en-US   # en anglais sur un système français
+```
+
 ## Environnement de démonstration
 
 Sans domaine, la fenêtre montre `Samples/Directory.sample.json` sous un bandeau : un domaine fictif

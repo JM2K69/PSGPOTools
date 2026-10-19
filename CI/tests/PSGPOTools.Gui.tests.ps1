@@ -409,6 +409,30 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
+        It 'Shows the console in French with -Language fr-FR, the names of the directory as they are' {
+            try {
+                Start-PSGPOManagerWindow -Directory $Directory -Language 'fr-FR' -OnShown {
+                    param($Ui)
+                    # From the XAML, and from the code.
+                    $Ui.themeToggleText.Text | Should -BeIn @('Mode sombre', 'Mode clair') -Because 'it follows the theme of the system'
+                    $Ui.historyTab.Header | Should -Be 'Historique'
+                    $Ui.subtitleTextBlock.Text | Should -Be 'Gestion de stratégie de groupe - corp.contoso.com'
+                    $Domain = @($Ui.domainTreeView.ItemsSource)[0]
+                    @($Domain.Children[-3..-1].Header) | Should -Be @('Objets de stratégie de groupe', 'Filtres WMI', 'GPO supprimés')
+
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Paris', 'Workstations'
+                    $Ui.linksHeaderTextBlock.Text | Should -Be 'Objets de stratégie de groupe liés (3)'
+                    @($Ui.linksList.ItemsSource.Name)[0] | Should -Be 'C - Workstations - Security Baseline Windows 11' -Because 'the names of the GPOs are not translated'
+                    ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Nom unique').Value | Should -Be 'OU=Workstations,OU=Paris,OU=Sites,DC=corp,DC=contoso,DC=com'
+                    ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Type').Value | Should -Be "Unité d'organisation"
+
+                    $Ui.treeView.ItemsSource.Header | Should -Be @('Utilisateur', 'Ordinateur')
+                }
+            } finally {
+                $null = Set-PSGPOLanguage -Language 'en-US'
+            }
+        }
+
         It 'Shows the links of the selected OU and only its context menu items' {
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {
                 param($Ui)
@@ -1796,6 +1820,8 @@ InModuleScope -ModuleName PSGPOTools {
         }
         BeforeEach {
             $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
+            # Show-GPOManagerAvalonia sets the language of the session (French on a French computer).
+            $null = Set-PSGPOLanguage -Language 'en-US'
         }
         AfterAll {
             $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore

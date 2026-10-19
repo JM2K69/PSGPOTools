@@ -9,7 +9,7 @@ the domain support `-WhatIf` and `-Confirm`.
 |---|---|
 | `Get-PSGPODirectory [-Server] [-Credential] [-UseSsl] [-Port]` | reads the domain over LDAP: its OUs, GPOs, links, the rights of the account, the configuration of the domain and its approval workflow |
 | `Import-PSGPODirectory -Path` | reads a domain from a JSON description (offline, demonstrations, tests) |
-| `Show-GPOManagerAvalonia [-Server] [-Credential] [-UseSsl] [-Directory] [-NoDirectory] [-PolicyDefinitions] [-UICulture]` | opens the console |
+| `Show-GPOManagerAvalonia [-Server] [-Credential] [-UseSsl] [-Directory] [-NoDirectory] [-PolicyDefinitions] [-UICulture] [-Language]` | opens the console |
 | `Get-PSGPOConfiguration [-Directory] [-Server]` | the configuration in use, and where it comes from |
 
 ## GPOs
