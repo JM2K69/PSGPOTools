@@ -64,6 +64,19 @@ account connected.
 The toolbar switches between the light and dark themes, and opens the **Settings** window: the
 [configuration of the domain](configuration.md).
 
+## Language
+
+The console is in the language of the PowerShell session: French on a French system, English
+otherwise, and `-Language` chooses it. The texts come from `Resources/Strings/<language>.psd1`
+of the module (`fr-FR.psd1`, with the words of the French GPMC); a text it does not translate
+stays in English. The commands, their messages and their errors stay in English, as those of
+PowerShell, and so do the names of the security settings and of the preference types.
+
+```powershell
+Show-GPOManagerAvalonia -Language fr-FR
+Show-GPOManagerAvalonia -Language en-US   # in English on a French system
+```
+
 ## Demonstration environment
 
 Without a domain, the window shows `Samples/Directory.sample.json` under a banner: a fictitious

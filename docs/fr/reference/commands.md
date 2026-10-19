@@ -9,7 +9,7 @@ qui modifient le domaine acceptent `-WhatIf` et `-Confirm`.
 |---|---|
 | `Get-PSGPODirectory [-Server] [-Credential] [-UseSsl] [-Port]` | lit le domaine en LDAP : ses OU, GPO, liens, les droits du compte, la configuration du domaine et son workflow d'approbation |
 | `Import-PSGPODirectory -Path` | lit un domaine depuis une description JSON (hors ligne, démonstrations, tests) |
-| `Show-GPOManagerAvalonia [-Server] [-Credential] [-UseSsl] [-Directory] [-NoDirectory] [-PolicyDefinitions] [-UICulture]` | ouvre la console |
+| `Show-GPOManagerAvalonia [-Server] [-Credential] [-UseSsl] [-Directory] [-NoDirectory] [-PolicyDefinitions] [-UICulture] [-Language]` | ouvre la console |
 | `Get-PSGPOConfiguration [-Directory] [-Server]` | la configuration utilisée, et d'où elle vient |
 
 ## Les GPO
