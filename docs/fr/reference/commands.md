@@ -52,6 +52,11 @@ Approve-PSGPO -Directory $Directory -Name 'T1 - Servers - Proxy' -ApplyTo 'APPLY
 | `Restore-PSGPO -Backup [-NoBackup] [-RestoreLink]` | remet une GPO comme une sauvegarde la contient, ou recrée une GPO supprimée |
 | `Set-PSGPOBackup -Backup [-Comment] [-AddLabel] [-RemoveLabel] [-Approve] [-Unapprove]` | modifie les notes d'une sauvegarde |
 | `Get-PSGPODrift -Path [-Name] [-Label]` | compare chaque GPO à sa version approuvée : `InSync`, `Drifted`, `NotApproved` |
+| `Get-PSGPOGpmcBackup -Path [-Name]` | les sauvegardes de GPMC (`Backup-GPO`) d'un dossier |
+| `Import-PSGPO -Path -TargetName [-SourceName] [-BackupId] [-MigrationTable] [-Exclusive] [-CreateIfNeeded] [-BackupPath] [-NoBackup]` | importe les paramètres d'une sauvegarde (GPMC ou PSGPOTools) dans une GPO, avec une table de migration |
+| `Get-PSGPOMigrationEntry -Path [-Name] [-IncludePermission]` | les comptes et chemins UNC que référencent les paramètres de sauvegardes |
+| `New-PSGPOMigrationTable -Path -BackupPath [-Name] [-IncludePermission] [-MapByRelativeName] [-Force]` | écrit une table de migration (`.migtable`) pour des sauvegardes, comme GPMC l'écrit |
+| `Get-PSGPOMigrationTable -Path` | lit une table de migration de GPMC, vérifiée |
 | `Get-PSGPOAuditLog [-Path] [-Domain] [-Name] [-Action] [-Account] [-After] [-Before]` | ce que les consoles et les commandes ont modifié dans le domaine, le plus récent d'abord |
 
 ```powershell

@@ -230,6 +230,9 @@ $iconResources
                                 <MenuItem Name='approveGpoMenuItem' Header='Approve...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.shield}'/></MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Name='importGpoMenuItem' Header='Import Settings...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.document-copy}'/></MenuItem.Icon>
+                                </MenuItem>
                                 <MenuItem Name='deleteGpoMenuItem' Header='Delete GPO...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.delete}'/></MenuItem.Icon>
                                 </MenuItem>
@@ -377,6 +380,30 @@ $iconResources
                                             <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
                                                 <Button Name='restoreGpoConfirmButton' Content='Restore' Width='110'/>
                                                 <Button Name='restoreGpoCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Import Settings, as GPMC: the settings of a backup (GPMC or PSGPOTools), with a migration table -->
+                                    <Border Name='importGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='importGpoTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBlock Text='Folder of the backups (GPMC or PSGPOTools)' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                            <Grid ColumnDefinitions='*,Auto'>
+                                                <TextBox Grid.Column='0' Name='importGpoPathTextBox' Watermark='C:\backupGPO'/>
+                                                <Button Grid.Column='1' Name='importGpoReadButton' Content='Read the backups' Margin='8,0,0,0'/>
+                                            </Grid>
+                                            <ComboBox Name='importGpoSourceComboBox' HorizontalAlignment='Stretch' PlaceholderText='No backup read yet'/>
+                                            <TextBlock Text='Migration table (.migtable), optional' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                            <TextBox Name='importGpoTableTextBox' Watermark='C:\backupGPO\production.migtable'/>
+                                            <CheckBox Name='importGpoExclusiveCheckBox' Content='Use the migration table exclusively: every account and path of the settings must be in it'/>
+                                            <TextBlock Name='importGpoTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBlock Name='importGpoErrorTextBlock' TextWrapping='Wrap' Foreground='#D13438'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='importGpoConfirmButton' Content='Import' Width='110' Classes='accent' IsEnabled='False'/>
+                                                <Button Name='importGpoCancelButton' Content='Cancel' Width='100'/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>

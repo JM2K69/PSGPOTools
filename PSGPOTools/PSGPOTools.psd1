@@ -72,12 +72,14 @@ PowerShellVersion = '7.4'
 FunctionsToExport = 'Approve-PSGPO', 'Backup-PSGPO', 'Compare-PSGPOBackup', 
                'Get-PSGPOAuditLog', 'Get-PSGPOBackup', 'Get-PSGPOCategory', 
                'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 'Get-PSGPODrift', 
-               'Get-PSGPOPermission', 'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 
-               'Get-PSGPOWmiFilter', 'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 
+               'Get-PSGPOGpmcBackup', 'Get-PSGPOMigrationEntry', 
+               'Get-PSGPOMigrationTable', 'Get-PSGPOPermission', 'Get-PSGPOPolicy', 
+               'Get-PSGPOSupportedOn', 'Get-PSGPOWmiFilter', 'Import-PSGPO', 
+               'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 
                'Initialize-PSGPOWorkflow', 'New-PSGPO', 'New-PSGPOLink', 
-               'New-PSGPOWmiFilter', 'Remove-PSGPO', 'Remove-PSGPOLink', 
-               'Remove-PSGPOWmiFilter', 'Restore-PSGPO', 'Set-PSGPO', 
-               'Set-PSGPOBackup', 'Set-PSGPOInheritance', 'Set-PSGPOLink', 
+               'New-PSGPOMigrationTable', 'New-PSGPOWmiFilter', 'Remove-PSGPO', 
+               'Remove-PSGPOLink', 'Remove-PSGPOWmiFilter', 'Restore-PSGPO', 
+               'Set-PSGPO', 'Set-PSGPOBackup', 'Set-PSGPOInheritance', 'Set-PSGPOLink', 
                'Set-PSGPOPermission', 'Show-GPOManagerAvalonia'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

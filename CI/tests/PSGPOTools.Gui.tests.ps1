@@ -768,6 +768,43 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
+        It 'Imports the settings of a GPMC backup into a GPO with Import Settings, a migration table that cannot be applied refused' {
+            $Fixture = Join-Path $PSScriptRoot 'Fixtures' 'GpmcBackup'
+            $Root = Join-Path $TestDrive "import-$([guid]::NewGuid())"
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.historyPathTextBox.Text = $Root
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'C - Servers - Security Baseline'
+                $Ui.importGpoMenuItem.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.importGpoMenuItem
+                $Ui.importGpoPanel.IsVisible | Should -BeTrue
+                $Ui.importGpoPathTextBox.Text | Should -Be $Root -Because 'the folder of the History tab by default'
+                $Ui.importGpoConfirmButton.IsEnabled | Should -BeFalse -Because 'that folder holds no backup yet'
+
+                $Ui.importGpoPathTextBox.Text = $Fixture
+                Invoke-Click $Ui.importGpoReadButton
+                @($Ui.importGpoSourceComboBox.ItemsSource).Count | Should -Be 4
+                $Ui.importGpoSourceComboBox.SelectedIndex = [array]::IndexOf(@($Ui.importGpoSourceComboBox.ItemsSource | ForEach-Object { $_ -like 'Default Domain Controllers Policy - GPMC backup of *' }), $true)
+
+                # A table whose destination is not an account of this domain: nothing is imported.
+                $Wrong = Join-Path $TestDrive "wrong-$([guid]::NewGuid()).migtable"
+                Save-PSGPOMigrationTable -Path $Wrong -Entry @([pscustomobject]@{ Type = 'Unknown'; Source = 'Backup Operators'; Destination = 'OTHER\Group'; Mode = 'Explicit' })
+                $Ui.importGpoTableTextBox.Text = $Wrong
+                Invoke-Click $Ui.importGpoConfirmButton
+                $Ui.importGpoErrorTextBlock.Text | Should -BeLike "*'Backup Operators' cannot be found*"
+                $Ui.importGpoPanel.IsVisible | Should -BeTrue
+
+                # The table of the lab: Backup Operators becomes Server Operators.
+                $Ui.importGpoTableTextBox.Text = Join-Path $Fixture 'test.migtable'
+                Invoke-Click $Ui.importGpoConfirmButton
+                $Ui.importGpoPanel.IsVisible | Should -BeFalse
+                $Ui.directoryResultTextBlock.Text | Should -BeLike "Settings of 'Default Domain Controllers Policy' imported into 'C - Servers - Security Baseline' (version *).*Backup Operators -> Server Operators*"
+                $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+                [System.Text.Encoding]::Unicode.GetString($Directory.ReadSecurityTemplate($Gpo)) | Should -BeLike '*SeBackupPrivilege = `*S-1-5-32-549,`*S-1-5-32-544*'
+                @(Get-PSGPOBackup -Path $Root).Comment | Should -BeLike "Before the import of the settings of 'Default Domain Controllers Policy'*"
+            }
+        }
+
         It 'Changes the security filtering and the delegation of a GPO in its Delegation tab' {
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {
                 param($Ui)
