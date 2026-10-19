@@ -133,7 +133,7 @@ Describe 'After Initialize-PSGPOAdmx' {
         It 'Places every policy under its own category' {
             InModuleScope PSGPOTools {
                 $Roots = New-PSGPOPolicyTree
-                $Roots.Header | Should -Be @('User', 'Machine')
+                $Roots.Header | Should -Be @('Machine', 'User')
 
                 $PolicyNodes = 0
                 $Stack = [System.Collections.Generic.Stack[object]]::new()

@@ -23,7 +23,8 @@ function New-PSGPOPolicyTree {
     $folderData = Get-PSGPOIconData -Name 'folder'
     $policyData = Get-PSGPOIconData -Name 'document'
 
-    foreach ($scope in [Enum]::GetValues([ScopePolicy])) {
+    # Computer Configuration first, then User Configuration, as the Group Policy editor shows them.
+    foreach ($scope in [ScopePolicy]::Machine, [ScopePolicy]::User) {
         $scopeNode = [AvaloniaTreeNode]::new()
         $scopeNode.Header = Get-PSGPOText $scope.ToString()
         # User and Machine, shown as the User / Computer Configuration of the Group Policy editor.
