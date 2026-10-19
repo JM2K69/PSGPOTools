@@ -55,4 +55,6 @@ Tier 1), was tested step by step in the lab, `kinit` changing the account betwee
 | `test-linux` | every test on `ubuntu-latest`, the window included (Avalonia on Xvfb) |
 | `test-samba` | the tests that write to a domain, against a Samba AD DC provisioned on the runner (`CI.TEST`), with a Kerberos ticket of its administrator |
 
-The documentation is built and published by `.github/workflows/docs.yml`.
+The documentation is built and published by `.github/workflows/docs.yml`. It makes the Changelog page from
+`CHANGELOG.md`, and puts the version of the module (`ModuleVersion` of its manifest) and the commit the
+site is built from in the footer of every page.

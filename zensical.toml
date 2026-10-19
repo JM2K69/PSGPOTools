@@ -54,6 +54,8 @@ nav = [
     "reference/commands.md",
     "reference/configuration.md",
   ] },
+  # Made from CHANGELOG.md by .github/workflows/docs.yml, with the version of the module.
+  { "Changelog" = "changelog.md" },
 ]
 
 [project.extra]
