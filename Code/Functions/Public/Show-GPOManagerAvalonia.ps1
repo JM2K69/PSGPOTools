@@ -136,6 +136,9 @@ function Show-GPOManagerAvalonia {
         }
     }
 
+    # The first start of the console by an administrator creates the configuration of the domain.
+    if ($Directory -and -not $Directory.IsDemonstration) { $null = Initialize-PSGPODomainConfiguration -Directory $Directory }
+
     $startView = if ($NoDirectory) { 'Editor' } else { 'Management' }
     Start-PSGPOManagerWindow -Directory $Directory -DirectoryError $directoryError -StartView $startView -Language $Language
 }

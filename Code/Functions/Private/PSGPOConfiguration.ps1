@@ -270,8 +270,9 @@ function ConvertTo-PSGPODataText {
 }
 
 # Writes the configuration of the domain of $Directory: the values it sets (by key), checked first
-# with the defaults; nothing is written when one is wrong. No value: the file is removed. Only
-# the administrators of the domain can write it (SYSVOL). The configuration is then read again.
+# with the defaults; nothing is written when one is wrong. No value: an empty configuration, every
+# setting with its default. Only the administrators of the domain can write it (SYSVOL). The
+# configuration is then read again.
 function Save-PSGPODomainConfiguration {
     [CmdletBinding(SupportsShouldProcess)]
     param(
@@ -290,17 +291,14 @@ function Save-PSGPODomainConfiguration {
     if ($problems.Count) { throw ($problems -join ' ') }
     $path = $Directory.GetConfigurationPath()
     if (-not $PSCmdlet.ShouldProcess($path, 'Save the configuration of the domain')) { return }
-    $bytes = $null
-    if ($Values.Count) {
-        $by = if ($Directory.Account) { $Directory.Account } else { [Environment]::UserName }
-        $text = "# Configuration of PSGPOTools for the domain $($Directory.DomainName), for every console of the domain:`r`n" +
-            "# the settings changed from the defaults of the module (Get-PSGPOConfiguration shows them all).`r`n" +
-            "# Written by $by with the console; read as data.`r`n" +
-            (ConvertTo-PSGPODataText -Data $override) + "`r`n"
-        $bytes = [System.Text.UTF8Encoding]::new($false).GetBytes($text)
-        # Read back before it replaces the file.
-        $null = ConvertFrom-PSGPOConfigurationByte -Bytes $bytes
-    }
+    $by = if ($Directory.Account) { $Directory.Account } else { [Environment]::UserName }
+    $text = "# Configuration of PSGPOTools for the domain $($Directory.DomainName), for every console of the domain:`r`n" +
+        "# the settings changed from the defaults of the module (Get-PSGPOConfiguration shows them all).`r`n" +
+        "# Written by $by with the console; read as data.`r`n" +
+        (ConvertTo-PSGPODataText -Data $override) + "`r`n"
+    $bytes = [System.Text.UTF8Encoding]::new($false).GetBytes($text)
+    # Read back before it replaces the file.
+    $null = ConvertFrom-PSGPOConfigurationByte -Bytes $bytes
     try {
         $Directory.WriteConfigurationFile($bytes)
     } catch {
@@ -309,4 +307,48 @@ function Save-PSGPODomainConfiguration {
         throw "The configuration of the domain $path is not saved: $message"
     }
     Use-PSGPODomainConfiguration -Directory $Directory -Force
+}
+
+# The configuration of the domain created at the first start of the console, empty (every setting
+# with its default), when the account is an administrator of the domain: from then on it is the
+# file every console of the domain reads, and the Settings window changes. Returns whether it was
+# created; a domain whose configuration cannot be read is left as it is.
+function Initialize-PSGPODomainConfiguration {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param([Parameter(Mandatory)] [GPOToolsDirectory]$Directory)
+
+    Use-PSGPODomainConfiguration -Directory $Directory
+    $state = $script:PSGPOConfigurationState
+    if ($state.Exists -or $state.Problem -or $Directory.IsReadOnly -or -not $Directory.IsDomainAdministrator) { return $false }
+    try {
+        Save-PSGPODomainConfiguration -Directory $Directory -Values @{} -Confirm:$false
+    } catch {
+        Write-Warning "The configuration of the domain $($state.Path) is not created: $($_.Exception.Message)"
+        return $false
+    }
+    Write-Verbose "Configuration of the domain created: $($state.Path)"
+    $true
+}
+
+# The account of $Connection is an administrator of the domain: Domain Admins or Enterprise Admins
+# (by the SID of the group, whatever its name in the language of the domain controller), or
+# Administrators, in its groups (tokenGroups). $false when they cannot be read.
+function Test-PSGPODomainAdministrator {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [Parameter(Mandatory)] $Connection,
+        [Parameter(Mandatory)] [string]$DomainDistinguishedName,
+        [string]$Account
+    )
+
+    if (-not $Account -or $Account -eq 'Anonymous') { return $false }
+    try {
+        $sids = Get-PSGPOAccountGroupSid -Connection $Connection -DomainDistinguishedName $DomainDistinguishedName -Account $Account
+    } catch {
+        Write-Verbose "The groups of $Account cannot be read: $($_.Exception.Message)"
+        return $false
+    }
+    [bool]@($sids | Where-Object { $_ -match '^S-1-5-21-\d+-\d+-\d+-(512|519)$' -or $_ -eq 'S-1-5-32-544' }).Count
 }

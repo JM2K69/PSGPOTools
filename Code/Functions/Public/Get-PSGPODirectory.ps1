@@ -87,6 +87,8 @@ function Get-PSGPODirectory {
         $directory = ConvertTo-PSGPOLdapDirectory -Server $(if ($dnsHostName) { $dnsHostName } else { $Server }) -VendorName (Get-PSGPOLdapValue $rootDse 'vendorName') -DomainEntry $domain `
             -OrganizationalUnitEntry $organizationalUnits -GpoEntry $gpos -PoliciesEntry $policies -EffectiveRights
         $directory.Account = $account
+        # The configuration of PSGPOTools for the domain is changed by its administrators only.
+        $directory.IsDomainAdministrator = Test-PSGPODomainAdministrator -Connection $connection -DomainDistinguishedName $domainDN -Account $account
         # Security filtering of the GPOs, as GPMC shows it: not a reason to fail the reading.
         try {
             Read-PSGPODomainSecurityFiltering -Connection $connection -Directory $directory

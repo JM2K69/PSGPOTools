@@ -1890,8 +1890,14 @@ function Start-PSGPOManagerWindow {
         elseif ($e.Key -eq [Avalonia.Input.Key]::Escape) { $newGpoPanel.IsVisible = $false }
     })
     $managementButton.Add_Click({ Show-View 'Management' })
-    # The configuration window (New-PSGPOConfigurationWindow), one at a time, owned by the console.
+    # The configuration window (New-PSGPOConfigurationWindow), one at a time, owned by the console;
+    # for the administrators of the domain only, who change the configuration every console reads.
     $configurationWindow = @{ Ui = $null }
+    $configurationButton.IsEnabled = $Directory -and -not $Directory.IsReadOnly -and $Directory.IsDomainAdministrator
+    if (-not $configurationButton.IsEnabled) {
+        [Avalonia.Controls.ToolTip]::SetTip($configurationButton, (Get-PSGPOText $(if ($Directory) { 'Only the administrators of the domain change the configuration of PSGPOTools' } else { 'No domain: the defaults of the module apply.' })))
+        [Avalonia.Controls.ToolTip]::SetShowOnDisabled($configurationButton, $true)
+    }
     $configurationButton.Add_Click({
         if ($configurationWindow.Ui -and $configurationWindow.Ui.Window.IsVisible) { $configurationWindow.Ui.Window.Activate(); return }
         $configurationWindow.Ui = New-PSGPOConfigurationWindow -Directory $Directory

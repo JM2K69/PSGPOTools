@@ -76,8 +76,53 @@ InModuleScope -ModuleName PSGPOTools {
             (Get-PSGPOConfigurationData).NewGpo.Status | Should -Be 'UserOnly'
             Get-PSGPOTemplateLabel | Should -Be 'Model'
             Save-PSGPODomainConfiguration -Directory $Domain -Values @{}
-            $Domain.ReadConfigurationFile() | Should -BeNullOrEmpty -Because 'no value: the file is removed'
+            $Text = [System.Text.Encoding]::UTF8.GetString($Domain.ReadConfigurationFile())
+            $Text | Should -BeLike '# Configuration of PSGPOTools*@{*}*' -Because 'no value: an empty configuration, the file stays'
+            (ConvertFrom-PSGPOConfigurationByte -Bytes $Domain.ReadConfigurationFile()).Count | Should -Be 0
             (Get-PSGPOConfigurationData).NewGpo.Status | Should -Be 'Enabled'
+        }
+
+        It 'Creates the configuration of the domain at the first start, for an administrator of the domain only' {
+            $Domain = Set-DomainConfiguration $null
+            $Domain.IsDomainAdministrator = $false
+            Initialize-PSGPODomainConfiguration -Directory $Domain | Should -BeFalse
+            $Domain.ReadConfigurationFile() | Should -BeNullOrEmpty -Because 'only an administrator of the domain writes it'
+            $Domain.IsDomainAdministrator = $true
+            $Domain.IsReadOnly = $true
+            Initialize-PSGPODomainConfiguration -Directory $Domain | Should -BeFalse
+            $Domain.ReadConfigurationFile() | Should -BeNullOrEmpty
+            $Domain.IsReadOnly = $false
+
+            Initialize-PSGPODomainConfiguration -Directory $Domain | Should -BeTrue
+            (ConvertFrom-PSGPOConfigurationByte -Bytes $Domain.ReadConfigurationFile()).Count | Should -Be 0 -Because 'every setting has its default'
+            (Get-PSGPOConfiguration).DomainFileExists | Should -BeTrue
+
+            # Created once: the settings saved later are kept.
+            Save-PSGPODomainConfiguration -Directory $Domain -Values @{ 'NewGpo.Status' = 'UserOnly' }
+            Initialize-PSGPODomainConfiguration -Directory $Domain | Should -BeFalse
+            (Get-PSGPOConfigurationData).NewGpo.Status | Should -Be 'UserOnly'
+        }
+
+        It 'Leaves a configuration that cannot be read as it is' {
+            $Domain = Set-DomainConfiguration 'not data ('
+            Initialize-PSGPODomainConfiguration -Directory $Domain 3>$null | Should -BeFalse
+            [System.Text.Encoding]::UTF8.GetString($Domain.ReadConfigurationFile()) | Should -Be 'not data ('
+        }
+
+        It 'Knows an administrator of the domain by the SIDs of Domain Admins, Enterprise Admins or Administrators' -ForEach @(
+            @{ Sids = @('S-1-5-21-1-2-3-1105', 'S-1-5-21-1-2-3-512'); Expected = $true }
+            @{ Sids = @('S-1-5-21-1-2-3-1105', 'S-1-5-21-9-8-7-519'); Expected = $true }
+            @{ Sids = @('S-1-5-21-1-2-3-1105', 'S-1-5-32-544'); Expected = $true }
+            @{ Sids = @('S-1-5-21-1-2-3-1105', 'S-1-5-21-1-2-3-513', 'S-1-5-21-1-2-3-5120'); Expected = $false }
+        ) {
+            Mock Get-PSGPOAccountGroupSid { , [string[]]$Sids }
+            Test-PSGPODomainAdministrator -Connection 'ldap' -DomainDistinguishedName 'DC=contoso,DC=com' -Account 'CONTOSO\user1' | Should -Be $Expected
+        }
+
+        It 'Is not an administrator when its groups cannot be read, or without an account' {
+            Mock Get-PSGPOAccountGroupSid { throw 'no access' }
+            Test-PSGPODomainAdministrator -Connection 'ldap' -DomainDistinguishedName 'DC=contoso,DC=com' -Account 'CONTOSO\user1' | Should -BeFalse
+            Test-PSGPODomainAdministrator -Connection 'ldap' -DomainDistinguishedName 'DC=contoso,DC=com' -Account 'Anonymous' | Should -BeFalse
         }
 
         It 'Reads the configuration of the domain of the directory used, not of another' {

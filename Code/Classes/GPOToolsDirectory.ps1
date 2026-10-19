@@ -180,6 +180,10 @@ class GPOToolsDirectory {
     [string]$Account
     # The account can create GPOs (groupPolicyContainer objects in CN=Policies)
     [bool]$CanCreateGpo = $true
+    # The account is an administrator of the domain (Domain Admins, Enterprise Admins,
+    # Administrators): it changes the configuration of PSGPOTools for the domain. In memory, the
+    # directory is the one of its user.
+    [bool]$IsDomainAdministrator = $true
     # WMI filters of the domain
     [System.Collections.Generic.List[GPOToolsWmiFilter]]$WmiFilters
     # Approval workflow of the domain (Update-PSGPODomainWorkflow): Enabled, IsApprover,
