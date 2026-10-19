@@ -768,6 +768,66 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
+        It 'Changes the security filtering and the delegation of a GPO in its Delegation tab' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'C - Servers - Security Baseline'
+                $Ui.delegationTab.IsVisible | Should -BeTrue
+                $Ui.directoryTabs.SelectedItem = $Ui.delegationTab
+                @($Ui.filteringList.ItemsSource.Name) | Should -Be @('Authenticated Users')
+                # What the list draws, not only its items: Avalonia shows nothing of a row wrapped in a PSObject.
+                $Ui.Window.UpdateLayout()
+                $Drawn = [Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($Ui.filteringList.ContainerFromIndex(0)) | Where-Object { $_ -is [Avalonia.Controls.TextBlock] }
+                @($Drawn.Text) | Should -Contain 'Authenticated Users'
+                $Admins = @($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'Domain Admins'
+                $Admins.PermissionText | Should -Be 'Edit settings, delete, modify security'
+                $Admins.InheritedText | Should -Be 'No'
+                (@($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'ENTERPRISE DOMAIN CONTROLLERS').PermissionText | Should -Be 'Read'
+
+                # Security filtering: a group in, Authenticated Users out (it keeps reading the GPO).
+                $Ui.filteringNameTextBox.Text = 'Servers-Paris'
+                Invoke-Click $Ui.filteringAddButton
+                $Ui.delegationStatusTextBlock.Text | Should -Be "'Servers-Paris' applies the GPO now."
+                $Ui.filteringList.SelectedItem = @($Ui.filteringList.ItemsSource) | Where-Object Name -EQ 'Authenticated Users'
+                $Ui.filteringRemoveButton.IsEnabled | Should -BeTrue
+                Invoke-Click $Ui.filteringRemoveButton
+                @($Ui.filteringList.ItemsSource.Name) | Should -Be @('Servers-Paris')
+                (@($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'Authenticated Users').PermissionText | Should -Be 'Read' -Because 'the computers must read every GPO (MS16-072)'
+                $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+                $Gpo.SecurityFiltering | Should -Be @('Servers-Paris')
+                ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Security filtering').Value | Should -Be 'Servers-Paris' -Because 'the details show it at once'
+
+                # Delegation: an editor, its level changed, then removed.
+                $Ui.delegationNameTextBox.Text = 'GPO-Tier1-Admins'
+                $Ui.delegationPermissionComboBox.SelectedIndex = 1
+                Invoke-Click $Ui.delegationSetButton
+                $Ui.delegationStatusTextBlock.Text | Should -Be "'GPO-Tier1-Admins' has the permission Edit settings now."
+                $Ui.delegationList.SelectedItem = @($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'GPO-Tier1-Admins'
+                $Ui.delegationNameTextBox.Text | Should -Be 'GPO-Tier1-Admins'
+                $Ui.delegationPermissionComboBox.SelectedIndex | Should -Be 1
+                $Ui.delegationPermissionComboBox.SelectedIndex = 2
+                Invoke-Click $Ui.delegationSetButton
+                (@($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'GPO-Tier1-Admins').PermissionText | Should -Be 'Edit settings, delete, modify security'
+                $Ui.delegationList.SelectedItem = @($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'GPO-Tier1-Admins'
+                Invoke-Click $Ui.delegationRemoveButton
+                @($Ui.delegationList.ItemsSource.Name) | Should -Not -Contain 'GPO-Tier1-Admins'
+
+                # Nobody reads it for the computers anymore: said at once.
+                $Ui.delegationList.SelectedItem = @($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'Authenticated Users'
+                Invoke-Click $Ui.delegationRemoveButton
+                $Ui.delegationStatusTextBlock.Text | Should -BeLike "*The permissions of 'Authenticated Users' are removed.*MS16-072*"
+
+                # A GPO waiting for its approval: its permissions are set when it is approved.
+                $Gpo.ApprovalState = 'Pending'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'C - Servers - Security Baseline'
+                $Ui.directoryTabs.SelectedItem = $Ui.delegationTab
+                $Ui.delegationSetButton.IsEnabled | Should -BeFalse
+                $Ui.filteringAddButton.IsEnabled | Should -BeFalse
+                $Ui.delegationStatusTextBlock.Text | Should -BeLike 'The GPO waits for its approval*'
+            }
+        }
+
         It 'Greys Settings for an account that is not an administrator of the domain, and for a directory that cannot be written' {
             try {
                 $Directory.IsDomainAdministrator = $false

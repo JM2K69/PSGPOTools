@@ -19,7 +19,8 @@ InModuleScope -ModuleName PSGPOTools {
             # The keys the code gives by a value (Get-PSGPOText $state).
             foreach ($Key in 'Enabled', 'Disabled', 'NotConfigured', 'Added', 'Changed', 'Removed', 'Category', 'Value', 'Range', 'Values', 'User', 'Machine',
                 'User configuration settings disabled', 'Computer configuration settings disabled', 'All settings disabled',
-                'Continue processing the other items of this type after an error', "Run in the logged-on user's security context", 'Remove this item when it is no longer applied') {
+                'Continue processing the other items of this type after an error', "Run in the logged-on user's security context", 'Remove this item when it is no longer applied',
+                'Read', 'Read (from Security Filtering)', 'Edit settings', 'Edit settings, delete, modify security', 'Custom') {
                 [void]$Keys.Add($Key)
             }
         }

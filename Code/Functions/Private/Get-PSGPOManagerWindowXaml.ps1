@@ -535,6 +535,60 @@ $iconResources
                                 </StackPanel>
                             </ScrollViewer>
                         </TabItem>
+                        <!-- Permissions of the GPO, as the Scope (security filtering) and Delegation tabs of GPMC -->
+                        <TabItem Name='delegationTab' Header='Delegation' IsVisible='False'>
+                            <ScrollViewer>
+                                <StackPanel Margin='16,8' Spacing='6'>
+                                    <TextBlock Text='Security Filtering' FontSize='14' FontWeight='SemiBold' Foreground='{DynamicResource TextBrush}'/>
+                                    <TextBlock Text='The settings in this GPO apply only to the following groups, users, and computers:' TextWrapping='Wrap'
+                                               Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                    <ListBox Name='filteringList' MaxHeight='160'>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text='{Binding Name}'/>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <Grid ColumnDefinitions='*,Auto,Auto'>
+                                        <TextBox Grid.Column='0' Name='filteringNameTextBox' Watermark='Group, user or computer (PC01`$)'/>
+                                        <Button Grid.Column='1' Name='filteringAddButton' Content='Add' Margin='8,0,0,0'/>
+                                        <Button Grid.Column='2' Name='filteringRemoveButton' Content='Remove' Margin='8,0,0,0' IsEnabled='False'/>
+                                    </Grid>
+                                    <TextBlock Text='Delegation' FontSize='14' FontWeight='SemiBold' Margin='0,12,0,0' Foreground='{DynamicResource TextBrush}'/>
+                                    <TextBlock Text='These groups and users have the specified permission for this GPO:' TextWrapping='Wrap'
+                                               Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                    <Grid ColumnDefinitions='*,280,90' Margin='12,0,12,0'>
+                                        <TextBlock Grid.Column='0' Text='Name' FontWeight='SemiBold'/>
+                                        <TextBlock Grid.Column='1' Text='Allowed Permissions' FontWeight='SemiBold'/>
+                                        <TextBlock Grid.Column='2' Text='Inherited' FontWeight='SemiBold'/>
+                                    </Grid>
+                                    <ListBox Name='delegationList' MaxHeight='280'>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid ColumnDefinitions='*,280,90'>
+                                                    <TextBlock Grid.Column='0' Text='{Binding Name}' TextTrimming='CharacterEllipsis'/>
+                                                    <TextBlock Grid.Column='1' Text='{Binding PermissionText}'/>
+                                                    <TextBlock Grid.Column='2' Text='{Binding InheritedText}'/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <Grid ColumnDefinitions='*,Auto'>
+                                        <TextBox Grid.Column='0' Name='delegationNameTextBox' Watermark='Group, user or computer (PC01`$)'/>
+                                        <ComboBox Grid.Column='1' Name='delegationPermissionComboBox' Margin='8,0,0,0' MinWidth='300' SelectedIndex='0'>
+                                            <ComboBoxItem Content='Read' Tag='GpoRead'/>
+                                            <ComboBoxItem Content='Edit settings' Tag='GpoEdit'/>
+                                            <ComboBoxItem Content='Edit settings, delete, modify security' Tag='GpoEditDeleteModifySecurity'/>
+                                        </ComboBox>
+                                    </Grid>
+                                    <StackPanel Orientation='Horizontal' HorizontalAlignment='Right' Spacing='8'>
+                                        <Button Name='delegationSetButton' Content='Set the permission'/>
+                                        <Button Name='delegationRemoveButton' Content='Remove' IsEnabled='False'/>
+                                    </StackPanel>
+                                    <TextBlock Name='delegationStatusTextBlock' TextWrapping='Wrap' Margin='0,4,0,0'/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </TabItem>
                         <!-- History of the GPO: its backups as a timeline (oldest on the left), and what
                              changed at the selected one -->
                         <TabItem Name='historyTab' Header='History' IsVisible='False'>

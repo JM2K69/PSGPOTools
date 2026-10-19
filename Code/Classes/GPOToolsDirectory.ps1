@@ -520,6 +520,54 @@ class GPOToolsDirectory {
         $Gpo.WmiFilterId = if ($Filter) { $Filter.Id } else { $null }
     }
 
+    # Permissions of a GPO, as the Delegation tab of GPMC (PSGPOPermission.ps1): one row per account,
+    # Sid, Name, Permission (GpoRead, GpoApply, GpoEdit, GpoEditDeleteModifySecurity, GpoCustom),
+    # Inherited, Applies, Denied.
+    [object[]] GetGpoPermissions([GPOToolsGpo]$Gpo) {
+        $Rows = @(Get-PSGPOPermissionFromDescriptor -Descriptor $this.LoadGpoDescriptor($Gpo))
+        $Names = $this.ResolveSidNames([string[]]@($Rows | ForEach-Object Sid))
+        foreach ($Row in $Rows) { $Row | Add-Member -NotePropertyName Name -NotePropertyValue $Names[$Row.Sid] -Force }
+        return $Rows
+    }
+
+    # Gives an account ($Sid) one level of GPMC on a GPO, None removing it, as the Delegation tab.
+    [void] SetGpoPermission([GPOToolsGpo]$Gpo, [string]$Sid, [string]$Permission) {
+        $Levels = 'GpoRead', 'GpoApply', 'GpoEdit', 'GpoEditDeleteModifySecurity', 'None'
+        if ($Levels -notcontains $Permission) { throw "Unknown permission '$Permission': $($Levels -join ', ')." }
+        $this.AssertCanChangePermissions($Gpo)
+        $this.UpdateSecurityFiltering($Gpo, $this.SaveGpoPermissions($Gpo, 'Permission', $Sid, $Permission))
+    }
+
+    # Adds an account to the security filtering of a GPO ($Apply), or removes it, as the Scope tab.
+    [void] SetGpoSecurityFiltering([GPOToolsGpo]$Gpo, [string]$Sid, [bool]$Apply) {
+        $this.AssertCanChangePermissions($Gpo)
+        $this.UpdateSecurityFiltering($Gpo, $this.SaveGpoPermissions($Gpo, 'Filtering', $Sid, "$Apply"))
+    }
+
+    # Names of SIDs, as the directory knows them; a SID it does not know keeps its string form.
+    [hashtable] ResolveSidNames([string[]]$Sids) {
+        $Names = @{}
+        foreach ($Sid in @($Sids)) {
+            $Names[$Sid] = if ([GPOToolsSecurityDescriptor]::WellKnownNames.ContainsKey($Sid)) { [GPOToolsSecurityDescriptor]::WellKnownNames[$Sid] } else { $Sid }
+        }
+        return $Names
+    }
+
+    hidden [void] AssertCanChangePermissions([GPOToolsGpo]$Gpo) {
+        $this.AssertWritable()
+        if (-not $Gpo.CanEdit) { throw "The account $($this.Account) cannot edit the GPO '$($Gpo.DisplayName)'." }
+        # Its permissions are rebuilt when it is approved: a change now would be lost, or would make it apply.
+        if ($Gpo.ApprovalState -eq 'Pending') { throw "The GPO '$($Gpo.DisplayName)' waits for its approval: its permissions are set when it is approved." }
+    }
+
+    # The security filtering of the GPO, from the descriptor written.
+    hidden [void] UpdateSecurityFiltering([GPOToolsGpo]$Gpo, [GPOToolsSecurityDescriptor]$Descriptor) {
+        $Filtering = $Descriptor.GetSecurityFiltering()
+        $Names = $this.ResolveSidNames([string[]]@(@($Filtering.Apply) + @($Filtering.Deny)))
+        $Gpo.SecurityFiltering = @($Filtering.Apply | ForEach-Object { $Names[$_] })
+        $Gpo.DeniedTo = @($Filtering.Deny | ForEach-Object { $Names[$_] })
+    }
+
     # Creates a WMI filter: its queries are WQL queries of a namespace (root\CIMv2).
     [GPOToolsWmiFilter] NewWmiFilter([string]$Name, [string]$Description, [object[]]$Queries) {
         $this.AssertWritable()
@@ -735,6 +783,19 @@ class GPOToolsDirectory {
     hidden [void] SaveLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link, [Nullable[bool]]$Enabled, [Nullable[bool]]$Enforced, [int]$Order) {}
     hidden [void] SaveBlockInheritance([GPOToolsSom]$Som, [bool]$Blocked) {}
     hidden [void] SaveWmiFilter([GPOToolsGpo]$Gpo, [GPOToolsWmiFilter]$Filter) {}
+    # The permissions of the GPOs in memory, from the default ones of a new GPO.
+    hidden [hashtable]$GpoDescriptors = @{}
+    hidden [GPOToolsSecurityDescriptor] LoadGpoDescriptor([GPOToolsGpo]$Gpo) {
+        $Key = "$($Gpo.Id)"
+        if (-not $this.GpoDescriptors.ContainsKey($Key)) { $this.GpoDescriptors[$Key] = New-PSGPODefaultDescriptor -Gpo $Gpo }
+        return $this.GpoDescriptors[$Key]
+    }
+    # Changes the permissions of the GPO (Invoke-PSGPOPermissionChange) and returns its descriptor.
+    hidden [GPOToolsSecurityDescriptor] SaveGpoPermissions([GPOToolsGpo]$Gpo, [string]$Operation, [string]$Sid, [string]$Value) {
+        $Descriptor = $this.LoadGpoDescriptor($Gpo)
+        Invoke-PSGPOPermissionChange -Descriptor $Descriptor -Operation $Operation -Sid $Sid -Value $Value
+        return $Descriptor
+    }
     hidden [void] SaveNewWmiFilter([GPOToolsWmiFilter]$Filter) {}
     hidden [void] SaveRemovedWmiFilter([GPOToolsWmiFilter]$Filter) {}
     # A GPO of a creator, made to wait for its approval: it applies to nobody.
@@ -870,6 +931,26 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
     hidden [void] SaveWmiFilter([GPOToolsGpo]$Gpo, [GPOToolsWmiFilter]$Filter) {
         Set-PSGPODomainWmiFilterLink -Directory $this -Gpo $Gpo -Filter $Filter
         Write-PSGPOAuditEntry -Directory $this -Action 'SetWmiFilter' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details @{ WmiFilter = $(if ($Filter) { $Filter.Name }); WmiFilterId = $(if ($Filter) { $Filter.Id.ToString() }) }
+    }
+
+    hidden [GPOToolsSecurityDescriptor] LoadGpoDescriptor([GPOToolsGpo]$Gpo) {
+        $Connection = New-PSGPODirectoryConnection -Directory $this
+        try { return Get-PSGPODomainSecurityDescriptor -Connection $Connection -DistinguishedName $Gpo.DistinguishedName }
+        finally { $Connection.Dispose() }
+    }
+
+    hidden [GPOToolsSecurityDescriptor] SaveGpoPermissions([GPOToolsGpo]$Gpo, [string]$Operation, [string]$Sid, [string]$Value) {
+        $Descriptor = Set-PSGPODomainGpoPermission -Directory $this -Gpo $Gpo -Operation $Operation -Sid $Sid -Value $Value
+        $Name = $this.ResolveSidNames([string[]]@($Sid))[$Sid]
+        Write-PSGPOAuditEntry -Directory $this -Action $(if ($Operation -eq 'Filtering') { 'SetGpoSecurityFiltering' } else { 'SetGpoPermission' }) -Target $Gpo.DistinguishedName -Gpo $Gpo `
+            -Details ([ordered]@{ Account = $Name; Sid = $Sid; Value = $Value })
+        return $Descriptor
+    }
+
+    [hashtable] ResolveSidNames([string[]]$Sids) {
+        $Connection = New-PSGPODirectoryConnection -Directory $this
+        try { return Resolve-PSGPODomainSid -Connection $Connection -DomainDistinguishedName $this.Domain.DistinguishedName -Sid @($Sids) }
+        finally { $Connection.Dispose() }
     }
 
     hidden [void] SaveNewWmiFilter([GPOToolsWmiFilter]$Filter) {

@@ -121,3 +121,15 @@ class AvaloniaConfigurationRow {
     [string]$SourceBrush
     [object]$Setting
 }
+
+# One account of the permissions of a GPO (Delegation tab, Get-PSGPOPermissionFromDescriptor)
+class AvaloniaPermissionRow {
+    [string]$Name
+    [string]$Sid
+    # GpoRead, GpoApply, GpoEdit, GpoEditDeleteModifySecurity or GpoCustom
+    [string]$Permission
+    # As GPMC shows it, in the language of the interface
+    [string]$PermissionText
+    [bool]$Inherited
+    [string]$InheritedText
+}

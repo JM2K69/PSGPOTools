@@ -16,7 +16,7 @@ Describe 'Module manifest' {
 
     It 'Exports only the public functions' {
         (Get-Module PSGPOTools).ExportedCommands.Keys | Sort-Object |
-            Should -Be @('Approve-PSGPO', 'Backup-PSGPO', 'Compare-PSGPOBackup', 'Get-PSGPOAuditLog', 'Get-PSGPOBackup', 'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 'Get-PSGPODrift', 'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 'Get-PSGPOWmiFilter', 'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 'Initialize-PSGPOWorkflow', 'New-PSGPO', 'New-PSGPOLink', 'New-PSGPOWmiFilter', 'Remove-PSGPO', 'Remove-PSGPOLink', 'Remove-PSGPOWmiFilter', 'Restore-PSGPO', 'Set-PSGPO', 'Set-PSGPOBackup', 'Set-PSGPOInheritance', 'Set-PSGPOLink', 'Show-GPOManagerAvalonia')
+            Should -Be @('Approve-PSGPO', 'Backup-PSGPO', 'Compare-PSGPOBackup', 'Get-PSGPOAuditLog', 'Get-PSGPOBackup', 'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 'Get-PSGPODrift', 'Get-PSGPOPermission', 'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 'Get-PSGPOWmiFilter', 'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 'Initialize-PSGPOWorkflow', 'New-PSGPO', 'New-PSGPOLink', 'New-PSGPOWmiFilter', 'Remove-PSGPO', 'Remove-PSGPOLink', 'Remove-PSGPOWmiFilter', 'Restore-PSGPO', 'Set-PSGPO', 'Set-PSGPOBackup', 'Set-PSGPOInheritance', 'Set-PSGPOLink', 'Set-PSGPOPermission', 'Show-GPOManagerAvalonia')
         (Get-Module PSGPOTools).ExportedVariables.Count | Should -Be 0
     }
 
