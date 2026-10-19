@@ -768,17 +768,30 @@ InModuleScope -ModuleName PSGPOTools {
             }
         }
 
-        It 'Shows the configuration without saving it for a directory that cannot be written' {
-            $Directory.IsReadOnly = $true
+        It 'Greys Settings for an account that is not an administrator of the domain, and for a directory that cannot be written' {
             try {
+                $Directory.IsDomainAdministrator = $false
                 Start-PSGPOManagerWindow -Directory $Directory -OnShown {
                     param($Ui)
-                    Invoke-Click $Ui.configurationButton
-                    $C = $Ui.Configuration.Ui.Controls
-                    $C.saveButton.IsEnabled | Should -BeFalse
-                    $C.pathTextBlock.Text | Should -BeLike '*cannot be written: the configuration is shown, not saved*'
-                    $Ui.Configuration.Ui.Window.Close()
+                    $Ui.configurationButton.IsEnabled | Should -BeFalse
+                    [Avalonia.Controls.ToolTip]::GetTip($Ui.configurationButton) | Should -Be 'Only the administrators of the domain change the configuration of PSGPOTools'
+                    # Opened anyway, it shows the configuration without saving it.
+                    $Settings = New-PSGPOConfigurationWindow -Directory $Directory
+                    $Settings.Controls.saveButton.IsEnabled | Should -BeFalse
+                    $Settings.Controls.pathTextBlock.Text | Should -BeLike '*Only the administrators of the domain change it: the configuration is shown, not saved.'
+                    $Settings.Window.Close()
                 }
+                $Directory.IsDomainAdministrator = $true
+                $Directory.IsReadOnly = $true
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    $Ui.configurationButton.IsEnabled | Should -BeFalse
+                    $Settings = New-PSGPOConfigurationWindow -Directory $Directory
+                    $Settings.Controls.saveButton.IsEnabled | Should -BeFalse
+                    $Settings.Controls.pathTextBlock.Text | Should -BeLike '*cannot be written: the configuration is shown, not saved*'
+                    $Settings.Window.Close()
+                }
+                Start-PSGPOManagerWindow -StartView Editor -OnShown { param($Ui) $Ui.configurationButton.IsEnabled | Should -BeFalse }
             } finally {
                 Use-PSGPODomainConfiguration -Directory $null
             }

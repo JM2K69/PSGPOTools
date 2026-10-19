@@ -309,6 +309,7 @@ InModuleScope -ModuleName PSGPOTools {
             Mock Get-PSGPODirectory { New-TestLdapDirectory }
             # The ADMX files as loaded: no window asking for them.
             Mock Show-PSGPOAdmxWindow { $true }
+            Mock Initialize-PSGPODomainConfiguration { $true }
         }
         AfterAll { $script:PSGPOPlatform = $null }
 
@@ -319,6 +320,7 @@ InModuleScope -ModuleName PSGPOTools {
             $script:Opened.Directory.DomainName | Should -Be 'hardenbox.labo'
             $script:Opened.StartView | Should -Be 'Management'
             $script:Opened.DirectoryError | Should -BeNullOrEmpty
+            Should -Invoke Initialize-PSGPODomainConfiguration -Times 1 -Exactly -ParameterFilter { $Directory.DomainName -eq 'hardenbox.labo' } -Because 'the first start creates the configuration of the domain'
         }
 
         It 'Shows the sample directory as a demonstration when no domain is discovered' {
@@ -328,6 +330,7 @@ InModuleScope -ModuleName PSGPOTools {
             $script:Opened.Directory.DomainName | Should -Be 'corp.contoso.com'
             $script:Opened.Directory.IsDemonstration | Should -BeTrue
             $script:Opened.DirectoryError | Should -BeNullOrEmpty
+            Should -Invoke Initialize-PSGPODomainConfiguration -Times 0 -Exactly
         }
 
         It 'Opens without directory, and warns, when the sample directory cannot be read' {
@@ -613,6 +616,8 @@ InModuleScope -ModuleName PSGPOTools {
         It 'Is read by Show-GPOManagerAvalonia at launch' {
             Mock Start-PSGPOManagerWindow { $script:Launched = $Directory }
             Mock Show-PSGPOAdmxWindow { $true }
+            # Not the configuration of the domain of the lab.
+            Mock Initialize-PSGPODomainConfiguration { $false }
             Show-GPOManagerAvalonia -Server $env:PSGPOTOOLS_TEST_LDAP_SERVER
             $script:Launched | Should -BeOfType ([GPOToolsLdapDirectory])
             $script:Launched.Domain.DistinguishedName | Should -Be $Directory.Domain.DistinguishedName
@@ -633,6 +638,7 @@ InModuleScope -ModuleName PSGPOTools {
             # The tests run as a domain administrator: every right, nothing hidden.
             $Directory.IsLimited() | Should -BeFalse -Because "$($Directory.Account) manages every OU and GPO"
             $Directory.CanCreateGpo | Should -BeTrue
+            $Directory.IsDomainAdministrator | Should -BeTrue -Because 'it changes the configuration of the domain'
         }
     }
 

@@ -99,13 +99,13 @@ function New-PSGPOConfigurationWindow {
     Use-PSGPODomainConfiguration -Directory $Directory -Force
     $domainState = $script:PSGPOConfigurationState
     foreach ($setting in @(Get-PSGPOConfigurationSetting)) { if ($setting.IsSet) { $State.Values[$setting.Key] = $setting.Value } }
-    $canSave = $Directory -and -not $Directory.IsReadOnly
+    $canSave = $Directory -and -not $Directory.IsReadOnly -and $Directory.IsDomainAdministrator
     $Controls.pathTextBlock.Text = if ($Directory) {
         (Get-PSGPOText $(if ($domainState.Exists) { 'Configuration of the domain {0}, for every console of the domain: {1}.' } else { 'Configuration of the domain {0}, for every console of the domain: {1} (not created yet).' }) $Directory.DomainName $domainState.Path) +
-            (Get-PSGPOText $(if ($canSave) { ' Only the administrators of the domain can save it.' } else { ' This directory cannot be written: the configuration is shown, not saved.' })) +
-            (Get-PSGPOText ' Defaults: {0}.' (Get-PSGPODefaultConfigurationPath))
+            $(if ($Directory.IsReadOnly) { Get-PSGPOText ' This directory cannot be written: the configuration is shown, not saved.' }
+                elseif (-not $Directory.IsDomainAdministrator) { Get-PSGPOText ' Only the administrators of the domain change it: the configuration is shown, not saved.' })
     } else {
-        Get-PSGPOText 'No domain: the defaults of the module apply ({0}).' (Get-PSGPODefaultConfigurationPath)
+        Get-PSGPOText 'No domain: the defaults of the module apply.'
     }
     $Controls.saveButton.IsEnabled = [bool]$canSave
     $red = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
@@ -202,7 +202,7 @@ function New-PSGPOConfigurationWindow {
         try {
             & $SaveConfiguration -Directory $State.Directory -Values $State.Values -Confirm:$false
             $State.Dirty = $false
-            & $SetStatus (& $T $(if ($State.Values.Count) { 'Saved: {0}.' } else { 'Saved: {0} removed, the defaults apply.' }) $State.Directory.GetConfigurationPath())
+            & $SetStatus (& $T $(if ($State.Values.Count) { 'Saved: {0}.' } else { 'Saved: {0}, every setting with its default.' }) $State.Directory.GetConfigurationPath())
         } catch {
             & $SetStatus (& $T 'Not saved: {0}' $_.Exception.Message) -Problem
         }
