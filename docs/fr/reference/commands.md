@@ -25,6 +25,8 @@ qui modifient le domaine acceptent `-WhatIf` et `-Confirm`.
 | `Remove-PSGPOLink -Name -Target` | supprime des liens, les GPO restent |
 | `Set-PSGPOInheritance -Target -Blocked` | bloque l'héritage du domaine ou d'une OU, ou non |
 | `Set-PSGPO -Name [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter]` | règle le statut et le filtre WMI de GPO |
+| `Get-PSGPOPermission -Name` | les autorisations de GPO, comme l'onglet Délégation de GPMC : chaque compte et son niveau |
+| `Set-PSGPOPermission -Name -Account [-Permission GpoRead\|GpoApply\|GpoEdit\|GpoEditDeleteModifySecurity\|None] [-SecurityFiltering Add\|Remove]` | donne un niveau à un compte sur des GPO, ou change leur filtrage de sécurité, dans l'annuaire et dans SYSVOL |
 | `Get-PSGPOWmiFilter [-Name]` | les filtres WMI du domaine, leurs requêtes et leurs GPO |
 | `New-PSGPOWmiFilter -Name -Query [-Namespace] [-Description]` | crée un filtre WMI |
 | `Remove-PSGPOWmiFilter -Name` | supprime des filtres WMI qu'aucune GPO n'utilise |
@@ -77,6 +79,7 @@ Get-PSGPOPolicy -Scope Machine | Where-Object DisplayName -Like '*biom*' | Selec
 |---|---|---|
 | `GPOToolsDirectory` | `Get-PSGPODirectory`, `Import-PSGPODirectory` | `DomainName`, `Domain`, `Gpos`, `Account`, `CanCreateGpo`, `Workflow` |
 | `GPOToolsGpo` | `.Gpos`, `New-PSGPO` | `DisplayName`, `Id`, `Version`, `Flags`, `SecurityFiltering`, `DeniedTo`, `CanEdit`, `Owner`, `ApprovalState`, `RemovedAtApproval`, `WmiFilterId` |
+| `PSGPOTools.Permission` | `Get-PSGPOPermission`, `Set-PSGPOPermission` | `GpoName`, `GpoId`, `Trustee`, `Sid`, `Permission`, `Inherited`, `Denied` |
 | `PSGPOTools.Backup` | `Backup-PSGPO`, `Get-PSGPOBackup` | `Path`, `Id`, `DisplayName`, `BackedUp`, `BackedUpBy`, `Modified`, `Comment`, `Labels`, `Files` |
 | `PSGPOTools.SettingChange` | `Compare-PSGPOBackup`, `Get-PSGPODrift` | `Change`, `Scope`, `Path`, `Name`, `Before`, `After` |
 | `PSGPOTools.Drift` | `Get-PSGPODrift` | `DisplayName`, `State`, `Approved`, `ApprovedBy`, `Changes` |

@@ -114,6 +114,37 @@ a new GPO are created with the prefixes, scope and descriptions of the
 [configuration](configuration.md); Authenticated Users keep reading the GPO, as the computers must
 (MS16-072).
 
+## Permissions of a GPO (Delegation tab)
+
+The **Delegation** tab of a GPO shows and changes its permissions, as the Scope and Delegation
+tabs of GPMC.
+
+![The Delegation tab of a GPO](../assets/screenshots/25-delegation.png)
+
+- **Security Filtering**: the groups, users and computers that apply the GPO. **Add** one (its
+  name, `DOMAIN\name`, a computer as `PC01$`): it reads and applies the GPO, a denial that named it
+  removed. **Remove** one: it no longer applies the GPO, and no longer reads it when that was all
+  it did. Authenticated Users keeps reading it: the computers must read every GPO (MS16-072).
+- **Delegation**: every account of the permissions of the GPO with its level, as GPMC names it:
+  **Read**, **Read (from Security Filtering)**, **Edit settings**, **Edit settings, delete, modify
+  security**, or **Custom** (other rights, or a denial). Choose a level and **Set the permission**
+  for an account, or **Remove** it. An editor that applied the GPO keeps applying it. The
+  inherited permissions come from the Policies container of the domain: they are shown, not
+  changed.
+
+A change is written on the GPO in the directory (its DACL read again first: a change another
+console made is kept), then on its SYSVOL folder and everything in it, with the ACL derived from
+the directory as GPMC and `samba-tool` do. The tab says when no computer can read the GPO anymore.
+A GPO waiting for its approval is not changed: its permissions are set when it is approved. Every
+change goes to the [audit log](backup-history.md).
+
+```powershell
+Get-PSGPOPermission -Name 'C - Workstations - BitLocker'
+Set-PSGPOPermission -Name 'C - Workstations - BitLocker' -Account 'GPO-Tier2-Admins' -Permission GpoEdit
+Set-PSGPOPermission -Name 'C - Workstations - BitLocker' -Account 'Paris-Workstations' -SecurityFiltering Add
+Set-PSGPOPermission -Name 'C - Workstations - BitLocker' -Account 'Authenticated Users' -SecurityFiltering Remove
+```
+
 ## WMI filters
 
 A WMI filter makes the computers apply a GPO only when one of its WQL queries returns something

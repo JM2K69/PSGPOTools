@@ -165,6 +165,17 @@ function Start-PSGPOManagerWindow {
     $directoryTabs = Get-PSGPOAvaloniaControl $window 'directoryTabs'
     $settingsTab = Get-PSGPOAvaloniaControl $window 'settingsTab'
     $historyTab = Get-PSGPOAvaloniaControl $window 'historyTab'
+    $delegationTab = Get-PSGPOAvaloniaControl $window 'delegationTab'
+    $filteringList = Get-PSGPOAvaloniaControl $window 'filteringList'
+    $filteringNameTextBox = Get-PSGPOAvaloniaControl $window 'filteringNameTextBox'
+    $filteringAddButton = Get-PSGPOAvaloniaControl $window 'filteringAddButton'
+    $filteringRemoveButton = Get-PSGPOAvaloniaControl $window 'filteringRemoveButton'
+    $delegationList = Get-PSGPOAvaloniaControl $window 'delegationList'
+    $delegationNameTextBox = Get-PSGPOAvaloniaControl $window 'delegationNameTextBox'
+    $delegationPermissionComboBox = Get-PSGPOAvaloniaControl $window 'delegationPermissionComboBox'
+    $delegationSetButton = Get-PSGPOAvaloniaControl $window 'delegationSetButton'
+    $delegationRemoveButton = Get-PSGPOAvaloniaControl $window 'delegationRemoveButton'
+    $delegationStatusTextBlock = Get-PSGPOAvaloniaControl $window 'delegationStatusTextBlock'
     $historyPathTextBox = Get-PSGPOAvaloniaControl $window 'historyPathTextBox'
     $historyBackupButton = Get-PSGPOAvaloniaControl $window 'historyBackupButton'
     $historyBackupAllButton = Get-PSGPOAvaloniaControl $window 'historyBackupAllButton'
@@ -1631,10 +1642,121 @@ function Start-PSGPOManagerWindow {
         }
     })
 
+    # --- Delegation tab: the permissions of the GPO, as the Scope and Delegation tabs of GPMC --------
+
+    $delegation = @{ Gpo = $null; Editable = $false }
+    function Update-DelegationTab {
+        param([string]$Status, [switch]$Problem)
+        $gpo = Get-SelectedGpo
+        $delegationTab.IsVisible = [bool]$gpo
+        if (-not $gpo) {
+            if ($directoryTabs.SelectedItem -eq $delegationTab) { $directoryTabs.SelectedIndex = 0 }
+            return
+        }
+        if ($directoryTabs.SelectedItem -ne $delegationTab) { return }
+        $delegation.Gpo = $gpo
+        $delegation.Editable = $gpo.CanEdit -and -not $Directory.IsReadOnly -and $gpo.ApprovalState -ne 'Pending'
+        $rows = @()
+        $lines = [System.Collections.Generic.List[string]]::new()
+        try {
+            $rows = @($Directory.GetGpoPermissions($gpo))
+        } catch {
+            $lines.Add((Get-PSGPOText 'The permissions of the GPO cannot be read: {0}' $_.Exception.GetBaseException().Message))
+            $Problem = $true
+        }
+        $permissionRows = @(foreach ($row in $rows) {
+                $item = [AvaloniaPermissionRow]::new()
+                $item.Name = $row.Name
+                $item.Sid = $row.Sid
+                $item.Permission = $row.Permission
+                $item.PermissionText = Get-PSGPOText (Get-PSGPOPermissionText -Permission $row.Permission)
+                $item.Inherited = $row.Inherited
+                $item.InheritedText = Get-PSGPOText $(if ($row.Inherited) { 'Yes' } else { 'No' })
+                $item
+            })
+        $delegationList.ItemsSource = $permissionRows
+        # The security filtering: who applies the GPO (an inherited right counts too). Not through
+        # the pipeline: it wraps the rows in PSObjects, which Avalonia cannot show.
+        $filtering = [System.Collections.Generic.List[AvaloniaPermissionRow]]::new()
+        foreach ($item in $permissionRows) {
+            $applies = @($rows | Where-Object { $_.Sid -eq $item.Sid -and $_.Applies -and -not $_.Denied }).Count
+            if ($applies -and -not @($filtering | Where-Object Sid -EQ $item.Sid).Count) { $filtering.Add($item) }
+        }
+        $filteringList.ItemsSource = $filtering
+        foreach ($control in $filteringNameTextBox, $filteringAddButton, $delegationNameTextBox, $delegationPermissionComboBox, $delegationSetButton) { $control.IsEnabled = $delegation.Editable }
+        Update-DelegationButton
+        if ($gpo.ApprovalState -eq 'Pending') { $lines.Add((Get-PSGPOText 'The GPO waits for its approval: its permissions are set when it is approved.')) }
+        elseif (-not $delegation.Editable) { $lines.Add((Get-PSGPOText 'Read only: the account cannot change the permissions of this GPO.')) }
+        if ($rows.Count -and -not (Test-PSGPOComputerReadable -Permission $rows)) {
+            $lines.Add((Get-PSGPOText 'Warning: neither Authenticated Users nor Domain Computers read this GPO, so no computer applies it (MS16-072). Give one of them Read in the delegation.'))
+            $Problem = $true
+        }
+        if ($Status) { $lines.Insert(0, $Status) }
+        $delegationStatusTextBlock.Text = $lines -join [Environment]::NewLine
+        if ($Problem) { $delegationStatusTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438')) }
+        else { $delegationStatusTextBlock.ClearValue([Avalonia.Controls.TextBlock]::ForegroundProperty) }
+    }
+
+    # Remove is for an account of the GPO itself: the inherited permissions come from CN=Policies.
+    function Update-DelegationButton {
+        $filteringRemoveButton.IsEnabled = $delegation.Editable -and $null -ne $filteringList.SelectedItem
+        $delegationRemoveButton.IsEnabled = $delegation.Editable -and $delegationList.SelectedItem -and -not $delegationList.SelectedItem.Inherited
+    }
+
+    # One change of the permissions of the GPO: an account by its name (or its row), then the tab and
+    # the details shown again, with what was done or why not.
+    function Invoke-PermissionChange {
+        param([string]$Account, [AvaloniaPermissionRow]$Row, [ValidateSet('Permission', 'Filtering')] [string]$Operation, [string]$Value)
+        $gpo = $delegation.Gpo
+        if (-not $gpo) { return }
+        try {
+            $principal = if ($Row) { [pscustomobject]@{ Name = $Row.Name; Sid = $Row.Sid } }
+                elseif ("$Account".Trim()) { Resolve-PSGPOApplyTo -Directory $Directory -Name $Account }
+                else { throw (Get-PSGPOText 'Give a group, a user or a computer.') }
+            if ($Operation -eq 'Filtering') { $Directory.SetGpoSecurityFiltering($gpo, $principal.Sid, $Value -eq 'True') }
+            else { $Directory.SetGpoPermission($gpo, $principal.Sid, $Value) }
+        } catch {
+            Update-DelegationTab -Status (Get-PSGPOText 'Not changed: {0}' $_.Exception.GetBaseException().Message) -Problem
+            return
+        }
+        $done = if ($Operation -eq 'Filtering') { Get-PSGPOText $(if ($Value -eq 'True') { "'{0}' applies the GPO now." } else { "'{0}' no longer applies the GPO." }) $principal.Name }
+            elseif ($Value -eq 'None') { Get-PSGPOText "The permissions of '{0}' are removed." $principal.Name }
+            else { Get-PSGPOText "'{0}' has the permission {1} now." $principal.Name (Get-PSGPOText (Get-PSGPOPermissionText -Permission $Value)) }
+        # The details (security filtering) and the history (the GPO now) show the change.
+        $history.Current = @{}
+        $filteringNameTextBox.Text = ''
+        $delegationNameTextBox.Text = ''
+        Update-DirectoryTree -Select $domainTreeView.SelectedItem.Tag
+        $directoryTabs.SelectedItem = $delegationTab
+        Update-DelegationTab -Status $done
+    }
+
+    $filteringList.add_SelectionChanged({ Update-DelegationButton })
+    $delegationList.add_SelectionChanged({
+        $row = $delegationList.SelectedItem
+        if ($row) {
+            # The account and its level, to change them.
+            $delegationNameTextBox.Text = $row.Name
+            $index = @('GpoRead', 'GpoEdit', 'GpoEditDeleteModifySecurity').IndexOf($row.Permission)
+            if ($index -ge 0) { $delegationPermissionComboBox.SelectedIndex = $index }
+        }
+        Update-DelegationButton
+    })
+    $filteringAddButton.Add_Click({ Invoke-PermissionChange -Account $filteringNameTextBox.Text -Operation Filtering -Value 'True' })
+    $filteringRemoveButton.Add_Click({ if ($filteringList.SelectedItem) { Invoke-PermissionChange -Row $filteringList.SelectedItem -Operation Filtering -Value 'False' } })
+    $delegationSetButton.Add_Click({
+        $level = "$($delegationPermissionComboBox.SelectedItem.Tag)"
+        $row = $delegationList.SelectedItem
+        # The selected account when its name is the one typed (its SID, a name may not resolve).
+        if ($row -and $row.Name -eq "$($delegationNameTextBox.Text)".Trim() -and -not $row.Inherited) { Invoke-PermissionChange -Row $row -Operation Permission -Value $level }
+        else { Invoke-PermissionChange -Account $delegationNameTextBox.Text -Operation Permission -Value $level }
+    })
+    $delegationRemoveButton.Add_Click({ if ($delegationList.SelectedItem) { Invoke-PermissionChange -Row $delegationList.SelectedItem -Operation Permission -Value 'None' } })
+
     $directoryTabs.add_SelectionChanged({
         param($control, $e)
         # Only the selection of a tab, not of a control inside one.
-        if ([object]::ReferenceEquals($e.Source, $directoryTabs)) { Update-SettingsTab; Update-HistoryTab }
+        if ([object]::ReferenceEquals($e.Source, $directoryTabs)) { Update-SettingsTab; Update-DelegationTab; Update-HistoryTab }
     })
 
     function Get-SelectedGpo {
@@ -1696,6 +1818,7 @@ function Start-PSGPOManagerWindow {
         $approveGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.ApprovalState -eq 'Pending' -and -not $Directory.IsReadOnly -and
             $Directory.Workflow -and $Directory.Workflow.IsApprover
         Update-SettingsTab
+        Update-DelegationTab
         Update-HistoryTab
     })
     # Nothing to offer on this node: do not open an empty menu.
@@ -1991,6 +2114,8 @@ function Start-PSGPOManagerWindow {
             'approveGpoDenyToTextBox', 'approveGpoGroupsCheckBox', 'approveGpoGroupsTextBlock', 'approveGpoFilteringGrid',
             'historyCommentTextBox', 'historyDriftBorder', 'historyDriftTextBlock', 'historyDriftButton', 'historyNotesPanel', 'historyNotesInfoTextBlock',
             'historyNotesCommentTextBox', 'historyNotesLabelsTextBox', 'historyNotesApprovedCheckBox', 'historyNotesSaveButton', 'historyTab', 'historyPathTextBox', 'historyBackupButton',
+            'delegationTab', 'filteringList', 'filteringNameTextBox', 'filteringAddButton', 'filteringRemoveButton', 'delegationList', 'delegationNameTextBox',
+            'delegationPermissionComboBox', 'delegationSetButton', 'delegationRemoveButton', 'delegationStatusTextBlock',
             'historyBackupAllButton', 'historyStatusTextBlock', 'historyTimelineList', 'historyCompareTextBlock', 'historyChangesList',
             'historyRestoreButton', 'historyRestorePanel', 'historyRestoreTextBlock', 'historyRestoreConfirmButton', 'historyRestoreCancelButton',
             'detailsTitleTextBlock', 'configurationButton', 'preferencesPanel', 'preferencesTitleTextBlock', 'preferencesInfoTextBlock', 'preferencesNewTypeComboBox',

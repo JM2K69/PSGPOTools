@@ -686,6 +686,33 @@ InModuleScope -ModuleName PSGPOTools {
             $Again.GetStatus() | Should -Be 'Enabled'
         }
 
+        It 'Changes the permissions of the GPO in the domain and in its SYSVOL folder' {
+            $Gpo = $Directory.FindGpo($GpoName)
+            $Users = Resolve-PSGPOApplyTo -Directory $Directory -Name 'Domain Users'
+            $Computers = Resolve-PSGPOApplyTo -Directory $Directory -Name 'Domain Computers'
+            $Location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
+
+            (Set-PSGPOPermission -Name $GpoName -Directory $Directory -Account 'Domain Users' -Permission GpoEdit -Confirm:$false).Permission | Should -Be 'GpoEdit'
+            (Get-PSGPOPermission -Name $GpoName -Server $Server | Where-Object Sid -EQ $Users.Sid).Permission | Should -Be 'GpoEdit' -Because 'the domain stored it'
+            $Folder = Get-PSGPOSysvolItemAcl -Directory $Directory -Share $Location.Share -Path $Location.Path
+            @($Folder.Dacl | Where-Object Sid -EQ $Users.Sid).Count | Should -Be 1 -Because 'the SYSVOL folder takes the ACL of the GPO'
+
+            Set-PSGPOPermission -Name $GpoName -Directory $Directory -Account 'Domain Computers' -SecurityFiltering Add -Confirm:$false | Out-Null
+            Set-PSGPOPermission -Name $GpoName -Directory $Directory -Account 'Authenticated Users' -SecurityFiltering Remove -Confirm:$false | Out-Null
+            $Read = (Get-PSGPODirectory -Server $Server).FindGpo($GpoName)
+            $Read.SecurityFiltering | Should -Be @($Computers.Name)
+
+            # As it was: only Authenticated Users applies it, Domain Users has no permission.
+            Set-PSGPOPermission -Name $GpoName -Directory $Directory -Account 'Authenticated Users' -SecurityFiltering Add -Confirm:$false | Out-Null
+            Set-PSGPOPermission -Name $GpoName -Directory $Directory -Account 'Domain Computers' -Permission None -Confirm:$false | Out-Null
+            Set-PSGPOPermission -Name $GpoName -Directory $Directory -Account 'Domain Users' -Permission None -Confirm:$false | Out-Null
+            $Rows = @(Get-PSGPOPermission -Name $GpoName -Server $Server)
+            $Rows.Sid | Should -Not -Contain $Users.Sid
+            ($Rows | Where-Object Sid -EQ 'S-1-5-11').Permission | Should -Be 'GpoApply'
+            $Folder = Get-PSGPOSysvolItemAcl -Directory $Directory -Share $Location.Share -Path $Location.Path
+            @($Folder.Dacl | Where-Object Sid -EQ $Users.Sid).Count | Should -Be 0
+        }
+
         It 'Links the GPO to the OU with the lowest precedence' {
             $Gpo = $Directory.FindGpo($GpoName)
             $Link = $Directory.NewLink($Ou, $Gpo)

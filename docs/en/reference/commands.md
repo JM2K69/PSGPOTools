@@ -25,6 +25,8 @@ the domain support `-WhatIf` and `-Confirm`.
 | `Remove-PSGPOLink -Name -Target` | deletes links, the GPOs kept |
 | `Set-PSGPOInheritance -Target -Blocked` | blocks the inheritance of the domain or an OU, or not |
 | `Set-PSGPO -Name [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter]` | sets the status and the WMI filter of GPOs |
+| `Get-PSGPOPermission -Name` | the permissions of GPOs, as the Delegation tab of GPMC: each account and its level |
+| `Set-PSGPOPermission -Name -Account [-Permission GpoRead\|GpoApply\|GpoEdit\|GpoEditDeleteModifySecurity\|None] [-SecurityFiltering Add\|Remove]` | gives an account a level on GPOs, or changes their security filtering, in the directory and in SYSVOL |
 | `Get-PSGPOWmiFilter [-Name]` | the WMI filters of the domain, their queries and their GPOs |
 | `New-PSGPOWmiFilter -Name -Query [-Namespace] [-Description]` | creates a WMI filter |
 | `Remove-PSGPOWmiFilter -Name` | deletes WMI filters no GPO uses |
@@ -77,6 +79,7 @@ Get-PSGPOPolicy -Scope Machine | Where-Object DisplayName -Like '*biometrics*' |
 |---|---|---|
 | `GPOToolsDirectory` | `Get-PSGPODirectory`, `Import-PSGPODirectory` | `DomainName`, `Domain`, `Gpos`, `Account`, `CanCreateGpo`, `Workflow` |
 | `GPOToolsGpo` | `.Gpos`, `New-PSGPO` | `DisplayName`, `Id`, `Version`, `Flags`, `SecurityFiltering`, `DeniedTo`, `CanEdit`, `Owner`, `ApprovalState`, `RemovedAtApproval`, `WmiFilterId` |
+| `PSGPOTools.Permission` | `Get-PSGPOPermission`, `Set-PSGPOPermission` | `GpoName`, `GpoId`, `Trustee`, `Sid`, `Permission`, `Inherited`, `Denied` |
 | `PSGPOTools.Backup` | `Backup-PSGPO`, `Get-PSGPOBackup` | `Path`, `Id`, `DisplayName`, `BackedUp`, `BackedUpBy`, `Modified`, `Comment`, `Labels`, `Files` |
 | `PSGPOTools.SettingChange` | `Compare-PSGPOBackup`, `Get-PSGPODrift` | `Change`, `Scope`, `Path`, `Name`, `Before`, `After` |
 | `PSGPOTools.Drift` | `Get-PSGPODrift` | `DisplayName`, `State`, `Approved`, `ApprovedBy`, `Changes` |

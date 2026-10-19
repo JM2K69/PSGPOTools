@@ -42,7 +42,8 @@ function Get-PSGPOTextKey {
         $text = [System.IO.File]::ReadAllText($file.FullName)
         if ($text -notmatch '<Window\b|<Grid\b|<StackPanel\b') { continue }
         foreach ($match in [regex]::Matches($text, "\b(Header|Text|Content|Watermark|PlaceholderText|ToolTip\.Tip|Title)='([^'{]*)'")) {
-            $value = [System.Net.WebUtility]::HtmlDecode($match.Groups[2].Value)
+            # A $ of an expandable here-string is written `$.
+            $value = [System.Net.WebUtility]::HtmlDecode($match.Groups[2].Value.Replace('`$', '$'))
             if ($value -and $value -notmatch '^\$|\$\(') { [void]$keys.Add($value) }
         }
     }

@@ -592,8 +592,10 @@ function Resolve-PSGPOApplyTo {
     )
 
     $Name = $Name.Trim()
-    if ($Name -in 'Authenticated Users', 'NT AUTHORITY\Authenticated Users', [GPOToolsSecurityDescriptor]::AuthenticatedUsers) {
-        return [pscustomobject]@{ Name = 'Authenticated Users'; Sid = [GPOToolsSecurityDescriptor]::AuthenticatedUsers }
+    # The well-known accounts (Authenticated Users, SYSTEM...), by name, NT AUTHORITY\name or SID.
+    $short = ($Name -split '\\')[-1]
+    foreach ($known in [GPOToolsSecurityDescriptor]::WellKnownNames.GetEnumerator()) {
+        if ($Name -eq $known.Key -or $short -eq $known.Value) { return [pscustomobject]@{ Name = $known.Value; Sid = $known.Key } }
     }
     if ($Directory -isnot [GPOToolsLdapDirectory]) { return [pscustomobject]@{ Name = $Name; Sid = $Name } }
     $connection = New-PSGPODirectoryConnection -Directory $Directory

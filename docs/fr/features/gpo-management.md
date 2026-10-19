@@ -117,6 +117,40 @@ Les groupes de filtrage d'une nouvelle GPO sont créés avec les préfixes, l'é
 descriptions de la [configuration](configuration.md) ; Authenticated Users garde la lecture de la
 GPO, comme les ordinateurs en ont besoin (MS16-072).
 
+## Les autorisations d'une GPO (onglet Délégation)
+
+L'onglet **Délégation** d'une GPO montre et modifie ses autorisations, comme les onglets Étendue
+et Délégation de GPMC.
+
+![L'onglet Délégation d'une GPO](../assets/screenshots/25-delegation.png)
+
+- **Filtrage de sécurité** : les groupes, utilisateurs et ordinateurs qui appliquent la GPO.
+  **Ajouter** un compte (son nom, `DOMAINE\nom`, un ordinateur sous la forme `PC01$`) : il lit et
+  applique la GPO, un refus qui le nommait est retiré. **Supprimer** un compte : il n'applique plus
+  la GPO, et ne la lit plus quand c'était tout ce qu'il faisait. Utilisateurs authentifiés garde
+  la lecture : les ordinateurs doivent lire chaque GPO (MS16-072).
+- **Délégation** : chaque compte des autorisations de la GPO avec son niveau, tel que GPMC le
+  nomme : **Lecture**, **Lecture (à partir du filtrage de sécurité)**, **Modifier les paramètres**,
+  **Modifier les paramètres, supprimer, modifier la sécurité**, ou **Personnalisé** (d'autres
+  droits, ou un refus). Choisissez un niveau et **Définir l'autorisation** pour un compte, ou
+  **Supprimer** le compte. Un éditeur qui appliquait la GPO continue de l'appliquer. Les
+  autorisations héritées viennent du conteneur Policies du domaine : elles sont affichées, pas
+  modifiées.
+
+Une modification est écrite sur la GPO dans l'annuaire (sa DACL relue d'abord : la modification
+d'une autre console est gardée), puis sur son dossier SYSVOL et tout ce qu'il contient, avec l'ACL
+dérivée de l'annuaire comme le font GPMC et `samba-tool`. L'onglet signale quand plus aucun
+ordinateur ne peut lire la GPO. Une GPO en attente d'approbation n'est pas modifiée : ses
+autorisations sont fixées à son approbation. Chaque modification va dans le
+[journal d'audit](backup-history.md).
+
+```powershell
+Get-PSGPOPermission -Name 'C - Workstations - BitLocker'
+Set-PSGPOPermission -Name 'C - Workstations - BitLocker' -Account 'GPO-Tier2-Admins' -Permission GpoEdit
+Set-PSGPOPermission -Name 'C - Workstations - BitLocker' -Account 'Paris-Workstations' -SecurityFiltering Add
+Set-PSGPOPermission -Name 'C - Workstations - BitLocker' -Account 'Authenticated Users' -SecurityFiltering Remove
+```
+
 ## Les filtres WMI
 
 Un filtre WMI fait appliquer une GPO par les ordinateurs seulement quand l'une de ses requêtes WQL
