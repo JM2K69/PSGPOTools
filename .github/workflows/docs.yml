@@ -8,6 +8,8 @@ on:
     branches: [main, master, avalonia]
     paths:
       - 'docs/**'
+      - 'CHANGELOG.md'
+      - 'PSGPOTools/PSGPOTools.psd1'
       - 'zensical.toml'
       - 'zensical.fr.toml'
       - '.github/workflows/docs.yml'
@@ -41,6 +43,34 @@ jobs:
         run: |
           cp -r docs/assets docs/en/assets
           cp -r docs/assets docs/fr/assets
+
+      # The version of the module (its manifest) and the commit the site is built from: in the
+      # footer of every page, and over the Changelog page, made from CHANGELOG.md.
+      - name: Changelog and version
+        run: |
+          version=$(sed -n "s/^ModuleVersion *= *'\(.*\)'.*/\1/p" PSGPOTools/PSGPOTools.psd1)
+          commit=$(git rev-parse --short HEAD)
+          commit_url="https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
+          day=$(date -u +%Y-%m-%d)
+          history=$(tail -n +2 CHANGELOG.md)
+          {
+            echo '# Changelog'
+            echo
+            echo "Version of the module: **${version}**. This documentation is built from the commit [${commit}](${commit_url}) of the branch \`${GITHUB_REF_NAME}\`, on ${day}."
+            echo
+            echo "$history"
+          } > docs/en/changelog.md
+          {
+            echo '# Historique des versions'
+            echo
+            echo "Version du module : **${version}**. Cette documentation est construite à partir du commit [${commit}](${commit_url}) de la branche \`${GITHUB_REF_NAME}\`, le ${day}. L'historique est écrit en anglais."
+            echo
+            echo "$history"
+          } > docs/fr/changelog.md
+          for config in zensical.toml zensical.fr.toml; do
+            sed -i "s|^copyright = \"\(.*\)\"|copyright = \"\1 \&middot; PSGPOTools ${version} (<a href='${commit_url}'>${commit}</a>)\"|" "$config"
+          done
+          grep '^copyright' zensical.toml zensical.fr.toml
 
       - name: Build the English site
         run: zensical build --clean
