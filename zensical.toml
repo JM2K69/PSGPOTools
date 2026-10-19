@@ -109,5 +109,7 @@ anchor_linenums = true
 custom_fences = [
   { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
 ]
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
 [project.markdown_extensions.pymdownx.tabbed]
 alternate_style = true
