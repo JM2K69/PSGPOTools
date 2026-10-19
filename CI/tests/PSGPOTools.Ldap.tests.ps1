@@ -652,6 +652,7 @@ InModuleScope -ModuleName PSGPOTools {
             $GpoName = "PSGPOTools test GPO $Stamp"
             $SecondName = "PSGPOTools test GPO 2 $Stamp"
             $TerminalName = "PSGPOTools test GPO terminal $Stamp"
+            $ImportName = "PSGPOTools test GPO import $Stamp"
             # An OU of the test, then the directory read again to have it.
             $null = Invoke-PSGPOSambaTool -ArgumentList 'ou', 'add', $OuDN, '-H', "ldap://$Server", '--use-kerberos=required'
             $Directory = Get-PSGPODirectory -Server $Server
@@ -663,7 +664,7 @@ InModuleScope -ModuleName PSGPOTools {
 
         AfterAll {
             # Everything the tests created, whatever failed.
-            foreach ($Name in $GpoName, $SecondName, $TerminalName) {
+            foreach ($Name in $GpoName, $SecondName, $TerminalName, $ImportName) {
                 $Gpo = (Get-PSGPODirectory -Server $Server).FindGpo($Name)
                 if (-not $Gpo) { continue }
                 $Id = '{' + $Gpo.Id.ToString().ToUpperInvariant() + '}'
@@ -711,6 +712,29 @@ InModuleScope -ModuleName PSGPOTools {
             ($Rows | Where-Object Sid -EQ 'S-1-5-11').Permission | Should -Be 'GpoApply'
             $Folder = Get-PSGPOSysvolItemAcl -Directory $Directory -Share $Location.Share -Path $Location.Path
             @($Folder.Dacl | Where-Object Sid -EQ $Users.Sid).Count | Should -Be 0
+        }
+
+        It 'Imports the settings of a GPMC backup of another domain into a new GPO, with a migration table' {
+            # The backup of the GPO TEST of the Windows lab, given a user right for APPLY_TEST of that domain.
+            $Root = Join-Path $TestDrive 'gpmc'
+            $Folder = Join-Path $Root '{CDACBF0D-55B7-453B-B0E6-29AA70A61AAF}'
+            $SecEdit = Join-Path $Folder 'DomainSysvol' 'GPO' 'Machine' 'microsoft' 'windows nt' 'SecEdit'
+            $null = New-Item -ItemType Directory -Path $SecEdit -Force
+            foreach ($Name in 'Backup.xml', 'bkupInfo.xml') { Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'Fixtures' 'GpmcBackup' '{CDACBF0D-55B7-453B-B0E6-29AA70A61AAF}' $Name) -Destination $Folder }
+            [System.IO.File]::WriteAllText((Join-Path $SecEdit 'GptTmpl.inf'),
+                "[Unicode]`r`nUnicode=yes`r`n[Privilege Rights]`r`nSeBatchLogonRight = *S-1-5-21-204864384-581126797-2929775416-1108,*S-1-5-32-551`r`n[Version]`r`nsignature=""`$CHICAGO`$""`r`nRevision=1`r`n",
+                [System.Text.UnicodeEncoding]::new($false, $true))
+            $Table = Join-Path $TestDrive 'lab.migtable'
+            Save-PSGPOMigrationTable -Path $Table -Entry @([pscustomobject]@{ Type = 'GlobalGroup'; Source = 'APPLY_TEST@powershell.labo'; Destination = 'Domain Users'; Mode = 'Explicit' })
+            $Users = Resolve-PSGPOApplyTo -Directory $Directory -Name 'Domain Users'
+
+            # Its own GPO: the tests that follow write to a GPO without settings.
+            $Result = Import-PSGPO -Path $Root -TargetName $ImportName -CreateIfNeeded -MigrationTable $Table -Directory $Directory -NoBackup -Confirm:$false
+            $Result.Source.Kind | Should -Be 'GPMC'
+            $Read = (Get-PSGPODirectory -Server $Server).FindGpo($ImportName)
+            $Template = [System.Text.Encoding]::Unicode.GetString($Directory.ReadSecurityTemplate($Read))
+            $Template | Should -BeLike "*SeBatchLogonRight = ``*$($Users.Sid),``*S-1-5-32-551*" -Because 'APPLY_TEST of the other domain is Domain Users of this one'
+            $Read.MachineExtensionNames | Should -BeLike '*827D319E-6EAC-11D2-A4EA-00C04F79F83A*' -Because 'the computers apply the security settings it has now'
         }
 
         It 'Links the GPO to the OU with the lowest precedence' {

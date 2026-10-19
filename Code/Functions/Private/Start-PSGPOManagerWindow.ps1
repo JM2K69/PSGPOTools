@@ -166,6 +166,18 @@ function Start-PSGPOManagerWindow {
     $settingsTab = Get-PSGPOAvaloniaControl $window 'settingsTab'
     $historyTab = Get-PSGPOAvaloniaControl $window 'historyTab'
     $delegationTab = Get-PSGPOAvaloniaControl $window 'delegationTab'
+    $importGpoMenuItem = Get-PSGPOAvaloniaControl $window 'importGpoMenuItem'
+    $importGpoPanel = Get-PSGPOAvaloniaControl $window 'importGpoPanel'
+    $importGpoTitleTextBlock = Get-PSGPOAvaloniaControl $window 'importGpoTitleTextBlock'
+    $importGpoPathTextBox = Get-PSGPOAvaloniaControl $window 'importGpoPathTextBox'
+    $importGpoReadButton = Get-PSGPOAvaloniaControl $window 'importGpoReadButton'
+    $importGpoSourceComboBox = Get-PSGPOAvaloniaControl $window 'importGpoSourceComboBox'
+    $importGpoTableTextBox = Get-PSGPOAvaloniaControl $window 'importGpoTableTextBox'
+    $importGpoExclusiveCheckBox = Get-PSGPOAvaloniaControl $window 'importGpoExclusiveCheckBox'
+    $importGpoTextBlock = Get-PSGPOAvaloniaControl $window 'importGpoTextBlock'
+    $importGpoErrorTextBlock = Get-PSGPOAvaloniaControl $window 'importGpoErrorTextBlock'
+    $importGpoConfirmButton = Get-PSGPOAvaloniaControl $window 'importGpoConfirmButton'
+    $importGpoCancelButton = Get-PSGPOAvaloniaControl $window 'importGpoCancelButton'
     $filteringList = Get-PSGPOAvaloniaControl $window 'filteringList'
     $filteringNameTextBox = Get-PSGPOAvaloniaControl $window 'filteringNameTextBox'
     $filteringAddButton = Get-PSGPOAvaloniaControl $window 'filteringAddButton'
@@ -1057,7 +1069,7 @@ function Start-PSGPOManagerWindow {
 
     # The forms of the details, one at a time.
     function Hide-DirectoryForm {
-        foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel, $approveGpoPanel, $newWmiFilterPanel, $deleteWmiFilterPanel) { $panel.IsVisible = $false }
+        foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel, $approveGpoPanel, $newWmiFilterPanel, $deleteWmiFilterPanel, $importGpoPanel) { $panel.IsVisible = $false }
     }
 
     # Approval of the selected GPO (approval workflow): what the creators may still do, who
@@ -1129,6 +1141,67 @@ function Start-PSGPOManagerWindow {
         if ($result.Backup) { $lines += Get-PSGPOText 'Backed up as its approved version.' }
         if ($result.Problem) { $lines += $result.Problem }
         Show-DirectoryResult -Text ($lines -join [Environment]::NewLine) -Problem:([bool]($result.Problem -or $result.RemovedPermissions.Count))
+    }
+
+    # Import Settings... of a GPO, as GPMC: the settings of a backup of GPMC or of PSGPOTools, of this
+    # domain or another, with a migration table; the GPO backed up first in the folder of the History tab.
+    $importGpo = @{ Gpo = $null; Sources = @() }
+    function Open-ImportGpoForm {
+        $gpo = Get-SelectedGpo
+        if (-not $gpo) { return }
+        $importGpo.Gpo = $gpo
+        $importGpoTitleTextBlock.Text = Get-PSGPOText "Import settings into the GPO '{0}'" $gpo.DisplayName
+        if (-not "$($importGpoPathTextBox.Text)".Trim()) { $importGpoPathTextBox.Text = Get-HistoryRoot }
+        $importGpoTextBlock.Text = Get-PSGPOText 'Its settings are replaced by those of the backup, with the migration table applied; it is backed up first in {0}. Its links, permissions, status and WMI filter do not change.' (Get-HistoryRoot)
+        $importGpoErrorTextBlock.Text = ''
+        Hide-DirectoryForm
+        $directoryResultTextBlock.Text = ''
+        $importGpoPanel.IsVisible = $true
+        Read-ImportSource
+    }
+
+    # The backups of the folder typed, to choose the one to import.
+    function Read-ImportSource {
+        $importGpo.Sources = @()
+        $importGpoErrorTextBlock.Text = ''
+        try {
+            $importGpo.Sources = @(Get-PSGPOImportSource -Path "$($importGpoPathTextBox.Text)".Trim() 3>$null)
+        } catch {
+            $importGpoErrorTextBlock.Text = $_.Exception.GetBaseException().Message
+        }
+        $importGpoSourceComboBox.ItemsSource = @(foreach ($source in $importGpo.Sources) {
+                Get-PSGPOText '{0} - {1} backup of {2} ({3})' $source.DisplayName $source.Kind (Format-HistoryDate $source.BackedUp) $source.Domain
+            })
+        $importGpoSourceComboBox.SelectedIndex = if ($importGpo.Sources.Count) { 0 } else { -1 }
+        $importGpoConfirmButton.IsEnabled = $importGpo.Sources.Count -gt 0
+        if (-not $importGpo.Sources.Count -and -not $importGpoErrorTextBlock.Text) { $importGpoErrorTextBlock.Text = Get-PSGPOText 'No backup of GPMC or of PSGPOTools in this folder.' }
+    }
+
+    function Submit-ImportGpo {
+        $gpo = $importGpo.Gpo
+        $source = if ($importGpoSourceComboBox.SelectedIndex -ge 0) { $importGpo.Sources[$importGpoSourceComboBox.SelectedIndex] }
+        if (-not $gpo -or -not $source) { return }
+        $table = "$($importGpoTableTextBox.Text)".Trim()
+        try {
+            $import = @{ Directory = $Directory; Source = $source; Gpo = $gpo; Exclusive = [bool]$importGpoExclusiveCheckBox.IsChecked; BackupPath = (Get-HistoryRoot) }
+            if ($table) { $import.MigrationTable = $table }
+            $result = Invoke-PSGPOImport @import
+        } catch {
+            $importGpoErrorTextBlock.Text = $_.Exception.GetBaseException().Message
+            return
+        }
+        $importGpoPanel.IsVisible = $false
+        $settingsCache.Remove("$($gpo.Id)")
+        $history.Current = @{}
+        Update-BackupList -Force
+        Update-DirectoryTree -Select $domainTreeView.SelectedItem.Tag
+        $lines = [System.Collections.Generic.List[string]]::new()
+        $lines.Add((Get-PSGPOText "Settings of '{0}' imported into '{1}' (version {2})." $source.DisplayName $gpo.DisplayName $gpo.Version))
+        foreach ($item in @($result.Migration | Where-Object Mode -In 'ByRelativeName', 'Explicit')) { $lines.Add((Get-PSGPOText '{0} -> {1}' $item.Source $item.Destination.QualifiedName)) }
+        foreach ($item in @($result.Migration | Where-Object Mode -EQ 'None')) { $lines.Add((Get-PSGPOText '{0}: removed' $item.Source)) }
+        $kept = @($result.Migration | Where-Object Mode -EQ 'NotInTable' | ForEach-Object Source)
+        if ($kept.Count) { $lines.Add((Get-PSGPOText 'Kept as they are (not in the migration table): {0}' ($kept -join ', '))) }
+        Show-DirectoryResult -Text ($lines -join [Environment]::NewLine)
     }
 
     # Deletion of the selected GPO, once confirmed, as GPMC: its links too; backed up first in
@@ -1813,6 +1886,7 @@ function Start-PSGPOManagerWindow {
         $wmiFilterMenuItem.IsVisible = $gpoStatusMenuItem.IsVisible -and ($Directory.WmiFilters.Count -or $null -ne $detail.Gpo.WmiFilterId)
         if ($wmiFilterMenuItem.IsVisible) { Update-WmiFilterMenu -Gpo $detail.Gpo }
         # Delete a GPO from Group Policy Objects, as GPMC; never a default GPO of the domain.
+        $importGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit -and -not $Directory.IsReadOnly
         $deleteGpoMenuItem.IsVisible = $item -is [GPOToolsGpo] -and -not $Directory.IsReadOnly -and $item.CanEdit -and [GPOToolsDirectory]::DefaultGpoIds -notcontains $item.Id
         $restoreDeletedGpoMenuItem.IsVisible = $canRestore
         $approveGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.ApprovalState -eq 'Pending' -and -not $Directory.IsReadOnly -and
@@ -1826,7 +1900,7 @@ function Start-PSGPOManagerWindow {
         param($control, $e)
         if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
                 $blockInheritanceMenuItem.IsVisible -or $gpoStatusMenuItem.IsVisible -or $wmiFilterMenuItem.IsVisible -or $newWmiFilterMenuItem.IsVisible -or $deleteWmiFilterMenuItem.IsVisible -or
-                $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible -or $approveGpoMenuItem.IsVisible) -or
+                $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible -or $approveGpoMenuItem.IsVisible -or $importGpoMenuItem.IsVisible) -or
             -not $domainTreeView.SelectedItem) { $e.Cancel = $true }
     })
 
@@ -1989,6 +2063,14 @@ function Start-PSGPOManagerWindow {
         })
     }
     $deleteGpoMenuItem.Add_Click({ Open-DeleteGpoForm })
+    $importGpoMenuItem.Add_Click({ Open-ImportGpoForm })
+    $importGpoReadButton.Add_Click({ Read-ImportSource })
+    $importGpoPathTextBox.Add_KeyDown({
+        param($control, $e)
+        if ($e.Key -eq [Avalonia.Input.Key]::Enter) { Read-ImportSource }
+    })
+    $importGpoConfirmButton.Add_Click({ Submit-ImportGpo })
+    $importGpoCancelButton.Add_Click({ $importGpoPanel.IsVisible = $false })
     $approveGpoMenuItem.Add_Click({ Open-ApproveGpoForm })
     $approveGpoConfirmButton.Add_Click({ Submit-ApproveGpo })
     $approveGpoGroupsCheckBox.add_IsCheckedChanged({ Update-ApproveGpoGroupState })
@@ -2114,6 +2196,8 @@ function Start-PSGPOManagerWindow {
             'approveGpoDenyToTextBox', 'approveGpoGroupsCheckBox', 'approveGpoGroupsTextBlock', 'approveGpoFilteringGrid',
             'historyCommentTextBox', 'historyDriftBorder', 'historyDriftTextBlock', 'historyDriftButton', 'historyNotesPanel', 'historyNotesInfoTextBlock',
             'historyNotesCommentTextBox', 'historyNotesLabelsTextBox', 'historyNotesApprovedCheckBox', 'historyNotesSaveButton', 'historyTab', 'historyPathTextBox', 'historyBackupButton',
+            'importGpoMenuItem', 'importGpoPanel', 'importGpoTitleTextBlock', 'importGpoPathTextBox', 'importGpoReadButton', 'importGpoSourceComboBox', 'importGpoTableTextBox',
+            'importGpoExclusiveCheckBox', 'importGpoTextBlock', 'importGpoErrorTextBlock', 'importGpoConfirmButton', 'importGpoCancelButton',
             'delegationTab', 'filteringList', 'filteringNameTextBox', 'filteringAddButton', 'filteringRemoveButton', 'delegationList', 'delegationNameTextBox',
             'delegationPermissionComboBox', 'delegationSetButton', 'delegationRemoveButton', 'delegationStatusTextBlock',
             'historyBackupAllButton', 'historyStatusTextBlock', 'historyTimelineList', 'historyCompareTextBlock', 'historyChangesList',

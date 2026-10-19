@@ -53,6 +53,11 @@ Approve-PSGPO -Directory $Directory -Name 'T1 - Servers - Proxy' -ApplyTo 'APPLY
 | `Set-PSGPOBackup -Backup [-Comment] [-AddLabel] [-RemoveLabel] [-Approve] [-Unapprove]` | changes the notes of a backup |
 | `Get-PSGPODrift -Path [-Name] [-Label]` | compares each GPO to its approved version: `InSync`, `Drifted`, `NotApproved` |
 | `Get-PSGPOAuditLog [-Path] [-Domain] [-Name] [-Action] [-Account] [-After] [-Before]` | what the consoles and the commands changed in the domain, newest first |
+| `Get-PSGPOGpmcBackup -Path [-Name]` | the backups of GPMC (`Backup-GPO`) of a folder |
+| `Import-PSGPO -Path -TargetName [-SourceName] [-BackupId] [-MigrationTable] [-Exclusive] [-CreateIfNeeded] [-BackupPath] [-NoBackup]` | imports the settings of a backup (GPMC or PSGPOTools) into a GPO, with a migration table |
+| `Get-PSGPOMigrationEntry -Path [-Name] [-IncludePermission]` | the accounts and UNC paths the settings of backups reference |
+| `New-PSGPOMigrationTable -Path -BackupPath [-Name] [-IncludePermission] [-MapByRelativeName] [-Force]` | writes a migration table (`.migtable`) for backups, as GPMC writes it |
+| `Get-PSGPOMigrationTable -Path` | reads a migration table of GPMC, checked |
 
 ```powershell
 Backup-PSGPO -Path /srv/gpo-backups -Comment 'Nightly'

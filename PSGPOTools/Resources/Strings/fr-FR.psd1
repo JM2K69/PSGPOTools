@@ -512,4 +512,23 @@
     'Read only: the account cannot change the permissions of this GPO.' = 'Lecture seule : le compte ne peut pas modifier les autorisations de ce GPO.'
     'The GPO waits for its approval: its permissions are set when it is approved.' = 'Le GPO attend son approbation : ses autorisations sont définies à son approbation.'
     'Warning: neither Authenticated Users nor Domain Computers read this GPO, so no computer applies it (MS16-072). Give one of them Read in the delegation.' = 'Attention : ni Utilisateurs authentifiés ni Ordinateurs du domaine ne lisent ce GPO, aucun ordinateur ne l''applique donc (MS16-072). Donnez la Lecture à l''un d''eux dans la délégation.'
+
+    # --- Import Settings ------------------------------------------------------------------------
+    'Import Settings...' = 'Importer des paramètres...'
+    'Import settings into the GPO ''{0}''' = 'Importer des paramètres dans le GPO « {0} »'
+    'Folder of the backups (GPMC or PSGPOTools)' = 'Dossier des sauvegardes (GPMC ou PSGPOTools)'
+    'C:\backupGPO' = 'C:\backupGPO'
+    'Read the backups' = 'Lire les sauvegardes'
+    'No backup read yet' = 'Aucune sauvegarde lue'
+    'Migration table (.migtable), optional' = 'Table de migration (.migtable), facultative'
+    'C:\backupGPO\production.migtable' = 'C:\backupGPO\production.migtable'
+    'Use the migration table exclusively: every account and path of the settings must be in it' = 'Utiliser exclusivement la table de migration : chaque compte et chemin des paramètres doit y figurer'
+    'Import' = 'Importer'
+    '{0} - {1} backup of {2} ({3})' = '{0} - sauvegarde {1} du {2} ({3})'
+    'Its settings are replaced by those of the backup, with the migration table applied; it is backed up first in {0}. Its links, permissions, status and WMI filter do not change.' = 'Ses paramètres sont remplacés par ceux de la sauvegarde, avec la table de migration appliquée ; il est d''abord sauvegardé dans {0}. Ses liens, autorisations, état et filtre WMI ne changent pas.'
+    'No backup of GPMC or of PSGPOTools in this folder.' = 'Aucune sauvegarde de GPMC ou de PSGPOTools dans ce dossier.'
+    'Settings of ''{0}'' imported into ''{1}'' (version {2}).' = 'Paramètres de « {0} » importés dans « {1} » (version {2}).'
+    '{0} -> {1}' = '{0} -> {1}'
+    '{0}: removed' = '{0} : retiré'
+    'Kept as they are (not in the migration table): {0}' = 'Gardés tels quels (absents de la table de migration) : {0}'
 }
