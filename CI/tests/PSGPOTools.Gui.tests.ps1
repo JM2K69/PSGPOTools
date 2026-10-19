@@ -85,11 +85,11 @@ InModuleScope -ModuleName PSGPOTools {
     }
 
     Describe 'Show-GPOManagerAvalonia window' -Skip:$AvaloniaMissing {
-        It 'Opens with the User and Machine scopes and the default breadcrumb' {
+        It 'Opens with the Machine then User scopes and the default breadcrumb' {
             Start-PSGPOManagerWindow -OnShown {
                 param($Ui)
                 $Ui.Window.IsVisible | Should -BeTrue
-                $Ui.treeView.ItemsSource.Header | Should -Be @('User', 'Machine')
+                $Ui.treeView.ItemsSource.Header | Should -Be @('Machine', 'User')
                 $Ui.breadcrumbTextBlock.Text | Should -Be 'Select a policy to see its path'
                 @(Get-TreePolicy $Ui.treeView.ItemsSource).Count | Should -Be ([GPOToolsUtility]::Policies.Count)
             }
@@ -209,9 +209,9 @@ InModuleScope -ModuleName PSGPOTools {
                     param($Ui)
                     # The security settings do not come from the ADMX files (Linux without ADMX).
                     # The preferences do not either: both scopes have them.
-                    $Ui.treeView.ItemsSource.Header | Should -Be @('User', 'Machine')
-                    @($Ui.treeView.ItemsSource)[0].Children.Header | Should -Be @('Preferences')
-                    @($Ui.treeView.ItemsSource)[1].Children.Header | Should -Be @('Windows Settings', 'Preferences')
+                    $Ui.treeView.ItemsSource.Header | Should -Be @('Machine', 'User')
+                    @($Ui.treeView.ItemsSource)[0].Children.Header | Should -Be @('Windows Settings', 'Preferences')
+                    @($Ui.treeView.ItemsSource)[1].Children.Header | Should -Be @('Preferences')
                     $Ui.breadcrumbTextBlock.Text | Should -BeLike 'No ADMX policy loaded*'
                     $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsSecuritySetting] -and $n.Tag.Key -eq 'MinimumPasswordLength' }
                     $Ui.settingTitleTextBlock.Text | Should -Be 'Minimum password length'
@@ -426,7 +426,7 @@ InModuleScope -ModuleName PSGPOTools {
                     ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Nom unique').Value | Should -Be 'OU=Workstations,OU=Paris,OU=Sites,DC=corp,DC=contoso,DC=com'
                     ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Type').Value | Should -Be "Unité d'organisation"
 
-                    $Ui.treeView.ItemsSource.Header | Should -Be @('Utilisateur', 'Ordinateur')
+                    $Ui.treeView.ItemsSource.Header | Should -Be @('Ordinateur', 'Utilisateur')
                 }
             } finally {
                 $null = Set-PSGPOLanguage -Language 'en-US'
@@ -1671,13 +1671,13 @@ InModuleScope -ModuleName PSGPOTools {
                 $Ui.configuredOnlyCheckBox.IsChecked = $true
                 @(Get-TreePolicy $Ui.treeView.ItemsSource).ID | Should -Be @('DisallowCpls')
                 @(Get-TreeSecurity $Ui.treeView.ItemsSource).Key | Should -Be @('MinimumPasswordLength')
-                $Ui.treeView.ItemsSource.Header | Should -Be @('User', 'Machine')
+                $Ui.treeView.ItemsSource.Header | Should -Be @('Machine', 'User')
                 # Expanded down to the settings, to see them at once.
                 $Node = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsSecuritySetting] }
                 for ($Parent = $Node.Parent; $Parent; $Parent = $Parent.Parent) { $Parent.IsExpanded | Should -BeTrue -Because "$($Parent.Header) leads to the setting" }
                 # The tree items themselves, not only the model.
                 $Ui.Window.UpdateLayout()
-                $Machine = $Ui.treeView.ContainerFromItem(@($Ui.treeView.ItemsSource)[1])
+                $Machine = $Ui.treeView.ContainerFromItem(@($Ui.treeView.ItemsSource)[0])
                 $Machine | Should -Not -BeNullOrEmpty
                 $Machine.IsExpanded | Should -BeTrue
 

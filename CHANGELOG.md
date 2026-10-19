@@ -120,6 +120,7 @@
 
 ### Changed
 
+* The policy editor shows Computer Configuration (Machine) first, then User Configuration, as the Group Policy editor does
 * CI: PSScriptAnalyzer checks the sources (`PSScriptAnalyzerSettings.psd1`, no error and no warning allowed), and a test that every command that writes supports -WhatIf and -Confirm; `Backup-PSGPO` now does. Fixed what it found: comparisons with $null on the right, ConvertTo-Json without -InputObject, a dynamic member call, empty catch blocks, `$sender` assigned in event handlers, private functions with plural nouns
 * Performance: the Settings tab of a GPO and the comparison of backups read a Registry.pol of a security baseline (380 entries) in under a second, instead of 34 s: the registry values of each policy are computed once for the loaded ADMX, and its entries found by key. Reading a domain of 2 000 GPOs sorts them once (it sorted them at each one: 140 s), and resolves the links and the OUs by distinguished name; the GPOs a delegated account sees are found in one pass over the tree
 * The ADMX of Windows 11 26H2 in `sources/PolicyDefinitions` (236 ADMX files, the language folders in lower case)
