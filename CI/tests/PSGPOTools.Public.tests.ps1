@@ -83,9 +83,7 @@ Describe 'Help of the commands' {
             $Table = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot '..' '..' 'docs' $Language 'reference' 'commands.md')
             foreach ($Command in $Commands) {
                 $Page = "$($Command.ToLowerInvariant()).md"
-                ((Get-Content -Raw -LiteralPath (Join-Path $Pages $Page)) -replace '
-') | Should -Be ((Get-Content -Raw -LiteralPath (Join-Path $Generated $Language $Page)) -replace '
-') -Because "the page of $Command is its help: run CI/Update-CommandReference.ps1 after a change of the help"
+                ((Get-Content -Raw -LiteralPath (Join-Path $Pages $Page)) -replace "`r") | Should -Be ((Get-Content -Raw -LiteralPath (Join-Path $Generated $Language $Page)) -replace "`r") -Because "the page of $Command is its help: run CI/Update-CommandReference.ps1 after a change of the help"
                 $Menu | Should -BeLike "*""reference/commands/$Page""*"
                 $Table.Contains("[``$Command``](commands/$Page)") | Should -BeTrue -Because "the table links $Command to its page"
             }
