@@ -1,7 +1,7 @@
 #Requires -Version 7.4
 <#
 .SYNOPSIS
-    Delegates from Linux to the technicians of Tier 1 and Tier 2 of the PSGPOTools lab the
+    Delegates from Linux, finely, to the technicians of Tier 1 and Tier 2 of the PSGPOTools lab the
     creation of GPOs, and the links of GPOs to the OUs of their tier.
 .DESCRIPTION
     After New-PSGPOTierLab.ps1, for each tier, to its group (GPO-Tier1-Admins with tiers1,
@@ -9,14 +9,13 @@
 
     - Link GPOs, as the Delegation tab of GPMC gives it on an OU: read and write of gPLink and
       gPOptions on the OU of the tier and the OUs below it.
-    - The creation of GPOs, by -CreationRight:
-      - Workflow (by default, as in the lab): the approval workflow of PSGPOTools. The GPOs the
-        technicians create wait for the approval of a domain administrator. The configuration of
-        the domain must have the workflow enabled with both groups as its creators (the console:
-        Settings, Workflow); Initialize-PSGPOWorkflow -Apply then gives them the right to create
-        GPOs, in the directory and in SYSVOL.
-      - GroupPolicyCreatorOwners: both groups in Group Policy Creator Owners, as GPMC delegates
-        the creation of GPOs, without approval.
+    - The creation of GPOs, through the approval workflow of PSGPOTools: a fine delegation,
+      never Group Policy Creator Owners (which creates GPOs outside the workflow). The
+      configuration of the domain must have the workflow enabled with both groups as its
+      creators (the console: Settings, Workflow); Initialize-PSGPOWorkflow -Apply then gives
+      them the right to create groupPolicyContainer objects in CN=Policies,CN=System and
+      their folder in the Policies folder of SYSVOL. The GPOs they create wait for the
+      approval of a domain administrator.
 
     What is there is kept: the script can run again. -WhatIf shows what it would change.
 
@@ -24,19 +23,16 @@
     PSGPOTools module for the workflow.
 .PARAMETER Server
     The domain controller of the domain.
-.PARAMETER CreationRight
-    Workflow (approval of PSGPOTools) or GroupPolicyCreatorOwners (GPMC, no approval).
 .EXAMPLE
     ./Grant-PSGPOTierDelegation.ps1 -Server dc.hardenbox.labo
 .EXAMPLE
-    ./Grant-PSGPOTierDelegation.ps1 -Server dc.hardenbox.labo -CreationRight GroupPolicyCreatorOwners -WhatIf
+    ./Grant-PSGPOTierDelegation.ps1 -Server dc.hardenbox.labo -WhatIf
 .LINK
     https://jm2k69.github.io/PSGPOTools/en/getting-started/lab/
 #>
 [CmdletBinding(SupportsShouldProcess)]
 param(
-    [Parameter(Mandatory)] [string]$Server,
-    [ValidateSet('Workflow', 'GroupPolicyCreatorOwners')] [string]$CreationRight = 'Workflow'
+    [Parameter(Mandatory)] [string]$Server
 )
 
 $ErrorActionPreference = 'Stop'
@@ -82,6 +78,16 @@ $domainDN = Get-DomainDistinguishedName -Server $Server
 if (-not $domainDN) { throw "No distinguished name of the domain read from $Server." }
 Write-Host "Domain $domainDN, domain controller $Server"
 
+# The workflow first: without it, nothing is changed.
+$groups = @($tiers | ForEach-Object { $_.Group })
+if (-not (Get-Module PSGPOTools)) { Import-Module PSGPOTools -ErrorAction Stop }
+# Read only: -WhatIf is for the changes.
+$workflow = (& { $WhatIfPreference = $false; Get-PSGPOConfiguration -Server $Server }).Configuration.Workflow
+$creators = @("$($workflow.Creators)" -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+if (-not $workflow.Enabled -or @($groups | Where-Object { $creators -notcontains $_ }).Count) {
+    throw "The approval workflow of the domain must be enabled, with $($groups -join ' and ') as its creators: in the console, Settings, Workflow (Enabled, Creators = '$($groups -join ', ')'), then run this script again."
+}
+
 foreach ($tier in $tiers) {
     $ouDN = "OU=$($tier.Ou),$domainDN"
     $sid = "$(@(Invoke-SambaTool 'group', 'show', $tier.Group, '--attributes=objectSid' -AllowFailure) -match '^objectSid: ' | Select-Object -First 1)" -replace '^objectSid: '
@@ -98,25 +104,6 @@ foreach ($tier in $tiers) {
     }
 }
 
-# The creation of GPOs.
-$groups = @($tiers | ForEach-Object { $_.Group })
-if ($CreationRight -eq 'GroupPolicyCreatorOwners') {
-    $members = @(Invoke-SambaTool 'group', 'listmembers', 'Group Policy Creator Owners')
-    foreach ($group in $groups) {
-        if ($members -contains $group) { Write-Host "  $group is in Group Policy Creator Owners"; continue }
-        if (-not $PSCmdlet.ShouldProcess('Group Policy Creator Owners', "Add $group")) { continue }
-        $null = Invoke-SambaTool 'group', 'addmembers', 'Group Policy Creator Owners', $group
-        Write-Host "  $group added to Group Policy Creator Owners"
-    }
-} else {
-    if (-not (Get-Module PSGPOTools)) { Import-Module PSGPOTools -ErrorAction Stop }
-    # Read only: -WhatIf is for the changes.
-    $workflow = (& { $WhatIfPreference = $false; Get-PSGPOConfiguration -Server $Server }).Configuration.Workflow
-    $creators = @("$($workflow.Creators)" -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
-    if (-not $workflow.Enabled -or @($groups | Where-Object { $creators -notcontains $_ }).Count) {
-        throw "The approval workflow of the domain must be enabled, with $($groups -join ' and ') as its creators: in the console, Settings, Workflow (Enabled, Creators = '$($groups -join ', ')'), then run this script again. Or give -CreationRight GroupPolicyCreatorOwners."
-    }
-    # The right to create GPOs, in the directory and in SYSVOL: what is missing, added.
-    Initialize-PSGPOWorkflow -Server $Server -Apply -WhatIf:$WhatIfPreference | Format-Table Target, Account, State -AutoSize
-}
+# The creation of GPOs: the right to create GPOs, in the directory and in SYSVOL: what is missing, added.
+Initialize-PSGPOWorkflow -Server $Server -Apply -WhatIf:$WhatIfPreference | Format-Table Target, Account, State -AutoSize
 Write-Host 'Next: kinit tiers1 (or tiers2), then open the console: Show-GPOManagerAvalonia.'

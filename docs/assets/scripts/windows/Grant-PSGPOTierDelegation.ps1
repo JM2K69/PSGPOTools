@@ -1,7 +1,7 @@
 #Requires -Version 7.4
 <#
 .SYNOPSIS
-    Delegates from Windows to the technicians of Tier 1 and Tier 2 of the PSGPOTools lab the
+    Delegates from Windows, finely, to the technicians of Tier 1 and Tier 2 of the PSGPOTools lab the
     creation of GPOs, and the links of GPOs to the OUs of their tier.
 .DESCRIPTION
     After New-PSGPOTierLab.ps1, for each tier, to its group (GPO-Tier1-Admins with tiers1,
@@ -9,14 +9,13 @@
 
     - Link GPOs, as the Delegation tab of GPMC gives it on an OU: read and write of gPLink and
       gPOptions on the OU of the tier and the OUs below it.
-    - The creation of GPOs, by -CreationRight:
-      - Workflow (by default, as in the lab): the approval workflow of PSGPOTools. The GPOs the
-        technicians create wait for the approval of a domain administrator. The configuration of
-        the domain must have the workflow enabled with both groups as its creators (the console:
-        Settings, Workflow); Initialize-PSGPOWorkflow -Apply then gives them the right to create
-        GPOs, in the directory and in SYSVOL.
-      - GroupPolicyCreatorOwners: both groups in Group Policy Creator Owners, as GPMC delegates
-        the creation of GPOs, without approval.
+    - The creation of GPOs, through the approval workflow of PSGPOTools: a fine delegation,
+      never Group Policy Creator Owners (which creates GPOs outside the workflow). The
+      configuration of the domain must have the workflow enabled with both groups as its
+      creators (the console: Settings, Workflow); Initialize-PSGPOWorkflow -Apply then gives
+      them the right to create groupPolicyContainer objects in CN=Policies,CN=System and
+      their folder in the Policies folder of SYSVOL. The GPOs they create wait for the
+      approval of a domain administrator.
 
     What is there is kept: the script can run again. -WhatIf shows what it would change.
 
@@ -25,19 +24,16 @@
     the PSGPOTools module for the workflow.
 .PARAMETER Server
     A domain controller of the domain; the domain of the computer by default.
-.PARAMETER CreationRight
-    Workflow (approval of PSGPOTools) or GroupPolicyCreatorOwners (GPMC, no approval).
 .EXAMPLE
     .\Grant-PSGPOTierDelegation.ps1
 .EXAMPLE
-    .\Grant-PSGPOTierDelegation.ps1 -Server ADDS.powershell.labo -CreationRight GroupPolicyCreatorOwners -WhatIf
+    .\Grant-PSGPOTierDelegation.ps1 -Server ADDS.powershell.labo -WhatIf
 .LINK
     https://jm2k69.github.io/PSGPOTools/en/getting-started/lab/
 #>
 [CmdletBinding(SupportsShouldProcess)]
 param(
-    [string]$Server,
-    [ValidateSet('Workflow', 'GroupPolicyCreatorOwners')] [string]$CreationRight = 'Workflow'
+    [string]$Server
 )
 
 $ErrorActionPreference = 'Stop'
@@ -52,10 +48,14 @@ $linkAttributes = [ordered]@{ gPLink = [guid]'f30e3bbe-9ff0-11d1-b603-0000f80367
 $readWrite = [System.DirectoryServices.ActiveDirectoryRights]'ReadProperty, WriteProperty'
 
 # An object of the directory, on the domain controller, with Kerberos, signed and sealed.
+# The members of a DirectoryEntry are read through psbase: PowerShell adapts the object to its
+# LDAP attributes, and .Children or .Properties would be $null.
 $prefix = if ($Server) { "LDAP://$Server/" } else { 'LDAP://' }
 function Get-Entry {
     param([string]$DistinguishedName)
-    [System.DirectoryServices.DirectoryEntry]::new("$prefix$DistinguishedName", $null, $null, [System.DirectoryServices.AuthenticationTypes]'Secure, Signing, Sealing')
+    # [NullString]::Value, not $null: PowerShell would pass an empty user name and password, an
+    # anonymous bind; a null one is the identity of the session.
+    [System.DirectoryServices.DirectoryEntry]::new("$prefix$DistinguishedName", [NullString]::Value, [NullString]::Value, [System.DirectoryServices.AuthenticationTypes]'Secure, Signing, Sealing')
 }
 function Find-Account {
     param([string]$Name)
@@ -65,59 +65,45 @@ function Find-Account {
 }
 
 $rootDse = Get-Entry 'RootDSE'
-$domainDN = "$($rootDse.Properties['defaultNamingContext'].Value)"
+$domainDN = "$($rootDse.psbase.Properties['defaultNamingContext'].Value)"
 if (-not $domainDN) { throw "No distinguished name of the domain read from $(if ($Server) { $Server } else { 'the domain of the computer' })." }
-if (-not $Server) { $Server = "$($rootDse.Properties['dnsHostName'].Value)" }
+if (-not $Server) { $Server = "$($rootDse.psbase.Properties['dnsHostName'].Value)" }
 Write-Host "Domain $domainDN, domain controller $Server"
+
+# The workflow first: without it, nothing is changed.
+$groups = @($tiers | ForEach-Object { $_.Group })
+if (-not (Get-Module PSGPOTools)) { Import-Module PSGPOTools -ErrorAction Stop }
+# Read only: -WhatIf is for the changes.
+$workflow = (& { $WhatIfPreference = $false; Get-PSGPOConfiguration -Server $Server }).Configuration.Workflow
+$creators = @("$($workflow.Creators)" -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+if (-not $workflow.Enabled -or @($groups | Where-Object { $creators -notcontains $_ }).Count) {
+    throw "The approval workflow of the domain must be enabled, with $($groups -join ' and ') as its creators: in the console, Settings, Workflow (Enabled, Creators = '$($groups -join ', ')'), then run this script again."
+}
 
 foreach ($tier in $tiers) {
     $ouDN = "OU=$($tier.Ou),$domainDN"
     $groupDN = Find-Account $tier.Group
     if (-not $groupDN) { throw "No group $($tier.Group): run New-PSGPOTierLab.ps1 first." }
-    $sid = [System.Security.Principal.SecurityIdentifier]::new([byte[]](Get-Entry $groupDN).Properties['objectSid'].Value, 0)
+    $sid = [System.Security.Principal.SecurityIdentifier]::new([byte[]](Get-Entry $groupDN).psbase.Properties['objectSid'].Value, 0)
 
     # Link GPOs: read and write of gPLink and gPOptions, on the OU and the OUs below it.
     foreach ($attribute in $linkAttributes.GetEnumerator()) {
         $ou = Get-Entry $ouDN
-        $present = @($ou.ObjectSecurity.GetAccessRules($true, $false, [System.Security.Principal.SecurityIdentifier]) | Where-Object {
+        $present = @($ou.psbase.ObjectSecurity.GetAccessRules($true, $false, [System.Security.Principal.SecurityIdentifier]) | Where-Object {
                 $_.IdentityReference -eq $sid -and $_.AccessControlType -eq 'Allow' -and $_.ObjectType -eq $attribute.Value -and
                 $_.InheritanceType -eq 'All' -and ($_.ActiveDirectoryRights -band $readWrite) -eq $readWrite
             }).Count
         if ($present) { Write-Host "  $($tier.Group) writes $($attribute.Key) of $ouDN"; continue }
         if (-not $PSCmdlet.ShouldProcess($ouDN, "Let $($tier.Group) write $($attribute.Key), on this OU and the OUs below it")) { continue }
-        $ou.ObjectSecurity.AddAccessRule([System.DirectoryServices.ActiveDirectoryAccessRule]::new($sid, $readWrite,
+        $ou.psbase.ObjectSecurity.AddAccessRule([System.DirectoryServices.ActiveDirectoryAccessRule]::new($sid, $readWrite,
                 [System.Security.AccessControl.AccessControlType]::Allow, $attribute.Value, [System.DirectoryServices.ActiveDirectorySecurityInheritance]::All))
         # The DACL only: the owner and the audit are left as they are.
-        $ou.Options.SecurityMasks = [System.DirectoryServices.SecurityMasks]::Dacl
-        $ou.CommitChanges()
+        $ou.psbase.Options.SecurityMasks = [System.DirectoryServices.SecurityMasks]::Dacl
+        $ou.psbase.CommitChanges()
         Write-Host "  $($tier.Group) now writes $($attribute.Key) of $ouDN"
     }
 }
 
-# The creation of GPOs.
-$groups = @($tiers | ForEach-Object { $_.Group })
-if ($CreationRight -eq 'GroupPolicyCreatorOwners') {
-    # Group Policy Creator Owners by its SID (<domain SID>-520): its name is translated in some domains.
-    $domainSid = [System.Security.Principal.SecurityIdentifier]::new([byte[]](Get-Entry $domainDN).Properties['objectSid'].Value, 0)
-    $creatorOwners = Get-Entry "<SID=$($domainSid.Value)-520>"
-    $members = @($creatorOwners.Properties['member'] | ForEach-Object { "$_" })
-    foreach ($group in $groups) {
-        $groupDN = Find-Account $group
-        if ($members -contains $groupDN) { Write-Host "  $group is in Group Policy Creator Owners"; continue }
-        if (-not $PSCmdlet.ShouldProcess('Group Policy Creator Owners', "Add $group")) { continue }
-        $null = $creatorOwners.Properties['member'].Add($groupDN)
-        $creatorOwners.CommitChanges()
-        Write-Host "  $group added to Group Policy Creator Owners"
-    }
-} else {
-    if (-not (Get-Module PSGPOTools)) { Import-Module PSGPOTools -ErrorAction Stop }
-    # Read only: -WhatIf is for the changes.
-    $workflow = (& { $WhatIfPreference = $false; Get-PSGPOConfiguration -Server $Server }).Configuration.Workflow
-    $creators = @("$($workflow.Creators)" -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
-    if (-not $workflow.Enabled -or @($groups | Where-Object { $creators -notcontains $_ }).Count) {
-        throw "The approval workflow of the domain must be enabled, with $($groups -join ' and ') as its creators: in the console, Settings, Workflow (Enabled, Creators = '$($groups -join ', ')'), then run this script again. Or give -CreationRight GroupPolicyCreatorOwners."
-    }
-    # The right to create GPOs, in the directory and in SYSVOL: what is missing, added.
-    Initialize-PSGPOWorkflow -Server $Server -Apply -WhatIf:$WhatIfPreference | Format-Table Target, Account, State -AutoSize
-}
+# The creation of GPOs: the right to create GPOs, in the directory and in SYSVOL: what is missing, added.
+Initialize-PSGPOWorkflow -Server $Server -Apply -WhatIf:$WhatIfPreference | Format-Table Target, Account, State -AutoSize
 Write-Host 'Next: log on as tiers1 (or tiers2), then open the console: Show-GPOManagerAvalonia.'

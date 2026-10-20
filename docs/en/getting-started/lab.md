@@ -83,14 +83,14 @@ the group of its tier.
 
 - **Link GPOs** to the OU of its tier and the OUs below it, as the Delegation tab of GPMC: read
   and write of `gPLink` and `gPOptions`;
-- **the creation of GPOs**, by `-CreationRight`:
-    - `Workflow` (by default, as in the lab): the [approval workflow](../workflows/approval.md).
-      First, in the console, **Settings**, **Workflow**: enabled, with `GPO-Tier1-Admins, GPO-Tier2-Admins`
-      as its creators; the script then runs `Initialize-PSGPOWorkflow -Apply`, which gives them the
-      right to create GPOs in the directory and in SYSVOL. Their GPOs wait for the approval of a
-      domain administrator.
-    - `GroupPolicyCreatorOwners`: both groups in Group Policy Creator Owners, as GPMC delegates
-      the creation of GPOs, without approval.
+- **the creation of GPOs**, through the [approval workflow](../workflows/approval.md): a fine
+  delegation, never Group Policy Creator Owners, whose members create GPOs outside the workflow.
+  `Initialize-PSGPOWorkflow -Apply` gives them the right to create `groupPolicyContainer` objects
+  in `CN=Policies,CN=System` and their folder in the `Policies` folder of SYSVOL; their GPOs wait
+  for the approval of a domain administrator.
+
+First, in the console, **Settings**, **Workflow**: enabled, with `GPO-Tier1-Admins, GPO-Tier2-Admins`
+as its creators. Without it, the script stops before changing anything.
 
 === "Windows"
 
@@ -98,8 +98,8 @@ the group of its tier.
 
     ```powershell
     Import-Module PSGPOTools
+    .\Grant-PSGPOTierDelegation.ps1 -WhatIf
     .\Grant-PSGPOTierDelegation.ps1
-    .\Grant-PSGPOTierDelegation.ps1 -CreationRight GroupPolicyCreatorOwners
     ```
 
     ??? example "windows/Grant-PSGPOTierDelegation.ps1"
@@ -114,8 +114,8 @@ the group of its tier.
 
     ```powershell
     Import-Module PSGPOTools
+    ./Grant-PSGPOTierDelegation.ps1 -Server dc.hardenbox.labo -WhatIf
     ./Grant-PSGPOTierDelegation.ps1 -Server dc.hardenbox.labo
-    ./Grant-PSGPOTierDelegation.ps1 -Server dc.hardenbox.labo -CreationRight GroupPolicyCreatorOwners
     ```
 
     ??? example "linux/Grant-PSGPOTierDelegation.ps1"
