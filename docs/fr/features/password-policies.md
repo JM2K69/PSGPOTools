@@ -105,6 +105,12 @@ Les groupes qui transmettent un PSO à leurs membres diffèrent selon le contrô
       celui qu'applique le contrôleur de domaine lu ; un PSO **Ignoré** atteint le compte par un
       groupe qui ne le transmet pas.
 
+    Sur le domaine Windows `powershell.labo` du labo, un PSO de priorité 5 appliqué au groupe local
+    de domaine `VPN Users` est ignoré pour `tiers1`, son membre : le PSO de son groupe global
+    s'applique.
+
+    ![Un PSO ignoré par un groupe local de domaine, sur un contrôleur de domaine Windows](../assets/screenshots/37-pso-ignored.fr.png)
+
 L'état de chaque PSO le dit : **S'applique**, **Non appliqué** (un autre passe avant, ou un PSO
 appliqué directement l'emporte), **Ignoré** (appliqué par un groupe qui ne transmet pas de PSO).
 Pour un utilisateur, le contrôleur de domaine a le dernier mot : la console affiche le PSO qu'il

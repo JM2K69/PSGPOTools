@@ -72,6 +72,12 @@ Windows, les groupes de sécurité globaux seulement.
       celui qu'applique le contrôleur de domaine lu ; un PSO **Ignoré** atteint le compte par un
       groupe qui ne le transmet pas.
 
+    Sur le domaine Windows `powershell.labo` du labo, un PSO de priorité 5 appliqué au groupe local
+    de domaine `VPN Users` est ignoré pour `tiers1`, son membre : le PSO de son groupe global
+    s'applique.
+
+    ![Un PSO ignoré par un groupe local de domaine, sur un contrôleur de domaine Windows](../assets/screenshots/37-pso-ignored.fr.png)
+
 ![S'applique directement à](../assets/screenshots/34-pso-applies-to.fr.png)
 
 **OK** vérifie les paramètres, crée le PSO et le sélectionne dans la liste.

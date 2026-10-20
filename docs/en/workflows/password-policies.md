@@ -68,6 +68,11 @@ group but the built-in ones; on Windows, the global security groups only.
       controller you read applies; a PSO **Ignored** reaches the account through a group that does
       not pass it on there.
 
+    On the Windows domain `powershell.labo` of the lab, a PSO of precedence 5 applied to the domain
+    local group `VPN Users` is ignored for `tiers1`, its member: the PSO of its global group applies.
+
+    ![A PSO ignored through a domain local group, on a Windows domain controller](../assets/screenshots/37-pso-ignored.png)
+
 ![Directly Applies To](../assets/screenshots/34-pso-applies-to.png)
 
 **OK** checks the settings, creates the PSO and selects it in the list.
