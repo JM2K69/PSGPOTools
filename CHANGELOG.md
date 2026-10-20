@@ -5,6 +5,13 @@
 ### Changed
 
 * The Project Site of the module on the PowerShell Gallery is the documentation site (ProjectUri), and its icon the logo of HGPM (IconUri)
+* The data files of the languages of the interface hold more than 500 texts: read with `-SkipLimitCheck`
+
+### Added
+
+* `Show-PSOManagerAvalonia`: a second console, for the fine-grained password policies (password settings objects, PSO), as the Active Directory Administrative Center manages them, for Windows and Samba AD (4.9 and later) domains, from Windows and Linux, over LDAP. Its Password Settings view lists the PSOs by order of priority with the password policy of the domain; New, Properties and Delete open the fields of "Create Password Settings" (precedence, minimum length, history, complexity, reversible encryption, minimum and maximum ages, lockout until a duration or until an administrator unlocks the account, protection from accidental deletion, description, Directly Applies To with a search of the users and groups), checked as the domain controllers check them. Its Resultant Password Settings view shows, for a user or a group, every PSO that concerns it (directly, or through which groups, nested ones included) by order of priority, the one that applies and why the others do not; the domain controller has the last word for a user (msDS-ResultantPSO). The groups that pass a PSO on follow the domain controller: global security groups for Windows, every security group but the built-in ones for Samba AD. Sample policies when no domain is discovered, the interface in French, the changes in the audit log, a change refused when another console made one meanwhile
+* The commands of the PSOs: `Get-PSGPOFineGrainedPasswordPolicy`, `New-`, `Set-` and `Remove-PSGPOFineGrainedPasswordPolicy`, `Add-` and `Remove-PSGPOFineGrainedPasswordPolicySubject`, `Get-PSGPODefaultPasswordPolicy` and `Get-PSGPOResultantPasswordPolicy`
+* Documentation: Features > Password policies, and the workflow "Password policies of the tiers" on the groups of the lab, step by step with the screenshots of both views and of the window of a PSO, in English and in French
 
 ## 0.1.3 - alpha
 

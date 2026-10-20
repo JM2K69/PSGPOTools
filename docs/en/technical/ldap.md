@@ -59,3 +59,26 @@ The creation and the deletion of a GPO go through the tools of the platform (`Ne
 `Remove-GPO`, `samba-tool gpo create / del`), which create or delete its container **and** its SYSVOL
 folder with their permissions, as GPMC does. Then the console reads the GPO as the directory has
 it, or checks that it is gone (a search of a missing object returns nothing with `-AllowMissing`).
+
+## Fine-grained password policies
+
+The PSOs of [the PSO console](../features/password-policies.md) are `msDS-PasswordSettings` objects of
+`CN=Password Settings Container,CN=System,<domain>`, read in one search with their
+`allowedAttributesEffective` (the account may change them) and their DACL (protection from
+accidental deletion); the password policy of the domain is read from the domain object
+(`minPwdLength`, `pwdProperties`, `maxPwdAge`...). Windows and Samba AD (4.9 and later) have the
+same schema.
+
+- **Durations** are negative numbers of 100-nanosecond intervals; `-9223372036854775808` means
+  never (a password that does not expire, a lockout until an administrator unlocks the account), as
+  the Administrative Center writes it.
+- **A change** removes the value read and adds the new one in one modify request: the domain refuses
+  it when another console changed the value meanwhile. A new name is a modify DN request.
+- **Protection from accidental deletion**: an explicit ACE denies Everyone *Delete* and *Delete
+  subtree* on the PSO, and another *Delete all child objects* on the container (without it, who may
+  delete the children of the container would still delete it).
+- **The PSO that applies** to a user is `msDS-ResultantPSO`, computed by the domain controller. The
+  console also orders every PSO that concerns the account, through its groups (`memberOf`, nested,
+  and the primary group): Windows passes a PSO on through global security groups only ("account
+  groups" of [MS-DRSR] 4.1.8.1.3), Samba AD through every security group but the built-in ones
+  (`get_group_sids`, `ACCOUNT_GROUPS`).

@@ -80,6 +80,25 @@ Initialize-PSGPOAdmx -Path C:\Windows\PolicyDefinitions -UICulture fr-FR
 Get-PSGPOPolicy -Scope Machine | Where-Object DisplayName -Like '*biom*' | Select-Object DisplayName, Registry
 ```
 
+## Stratégies de mot de passe
+
+| Commande | Fait |
+|---|---|
+| [`Show-PSOManagerAvalonia`](commands/show-psomanageravalonia.md) `[-Server] [-Credential] [-UseSsl] [-View Policies\|Resultant] [-Language]` | ouvre la console des stratégies de mot de passe affinées (PSO) |
+| [`Get-PSGPOFineGrainedPasswordPolicy`](commands/get-psgpofinegrainedpasswordpolicy.md) `[-Name]` | les PSO du domaine, par ordre de priorité, avec les utilisateurs et groupes auxquels ils s'appliquent |
+| [`Get-PSGPODefaultPasswordPolicy`](commands/get-psgpodefaultpasswordpolicy.md) | la stratégie de mot de passe du domaine, pour les comptes qu'aucun PSO ne concerne |
+| [`New-PSGPOFineGrainedPasswordPolicy`](commands/new-psgpofinegrainedpasswordpolicy.md) `-Name -Precedence [-MinPasswordLength] [-MaxPasswordAge] [-LockoutThreshold] [-AppliesTo]...` | crée un PSO, avec par défaut les paramètres du Centre d'administration |
+| [`Set-PSGPOFineGrainedPasswordPolicy`](commands/set-psgpofinegrainedpasswordpolicy.md) `-Name [-NewName] [-Precedence] [-ProtectedFromAccidentalDeletion]...` | modifie, renomme, protège des PSO |
+| [`Remove-PSGPOFineGrainedPasswordPolicy`](commands/remove-psgpofinegrainedpasswordpolicy.md) `-Name` | supprime des PSO non protégés contre la suppression accidentelle |
+| [`Add-PSGPOFineGrainedPasswordPolicySubject`](commands/add-psgpofinegrainedpasswordpolicysubject.md) `-Name -Subject` | applique des PSO à des utilisateurs et des groupes |
+| [`Remove-PSGPOFineGrainedPasswordPolicySubject`](commands/remove-psgpofinegrainedpasswordpolicysubject.md) `-Name -Subject` | cesse de les appliquer |
+| [`Get-PSGPOResultantPasswordPolicy`](commands/get-psgporesultantpasswordpolicy.md) `-Identity` | le PSO qui s'applique à un utilisateur ou un groupe, et pourquoi pas les autres |
+
+```powershell
+New-PSGPOFineGrainedPasswordPolicy -Name 'PSO - Tier 1 Admins' -Precedence 10 -MinPasswordLength 16 -AppliesTo 'GPO-Tier1-Admins'
+(Get-PSGPOResultantPasswordPolicy -Identity tiers1).Candidates | Format-Table Order, Name, Precedence, AppliesThrough, Status
+```
+
 ## Ce qu'elles renvoient
 
 | Type | Venant de | Propriétés principales |

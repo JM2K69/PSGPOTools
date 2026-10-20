@@ -60,3 +60,28 @@ La création et la suppression d'une GPO passent par les outils de la plateforme
 dossier SYSVOL avec leurs droits, comme GPMC. Ensuite la console lit la GPO telle que l'annuaire
 l'a, ou vérifie qu'elle a disparu (une recherche d'un objet absent ne renvoie rien avec
 `-AllowMissing`).
+
+## Stratégies de mot de passe affinées
+
+Les PSO de [la console des PSO](../features/password-policies.md) sont des objets
+`msDS-PasswordSettings` de `CN=Password Settings Container,CN=System,<domaine>`, lus en une recherche
+avec leur `allowedAttributesEffective` (le compte peut les modifier) et leur DACL (protection contre
+la suppression accidentelle) ; la stratégie de mot de passe du domaine est lue sur l'objet domaine
+(`minPwdLength`, `pwdProperties`, `maxPwdAge`...). Windows et Samba AD (4.9 et suivants) ont le même
+schéma.
+
+- **Les durées** sont des nombres négatifs d'intervalles de 100 nanosecondes ;
+  `-9223372036854775808` signifie jamais (un mot de passe qui n'expire pas, un verrouillage jusqu'au
+  déverrouillage par un administrateur), comme l'écrit le Centre d'administration.
+- **Une modification** retire la valeur lue et ajoute la nouvelle dans une seule requête : le
+  domaine la refuse quand une autre console a changé la valeur entre-temps. Un nouveau nom est une
+  requête de changement de DN.
+- **La protection contre la suppression accidentelle** : une ACE explicite refuse à Tout le monde
+  *Supprimer* et *Supprimer la sous-arborescence* sur le PSO, et une autre *Supprimer tous les objets
+  enfants* sur le conteneur (sans elle, qui peut supprimer les enfants du conteneur le supprimerait
+  quand même).
+- **Le PSO qui s'applique** à un utilisateur est `msDS-ResultantPSO`, calculé par le contrôleur de
+  domaine. La console ordonne aussi tous les PSO qui concernent le compte, par ses groupes
+  (`memberOf`, imbriqués, et le groupe principal) : Windows transmet un PSO par les groupes de
+  sécurité globaux seulement (« account groups » de [MS-DRSR] 4.1.8.1.3), Samba AD par tous les
+  groupes de sécurité sauf les groupes intégrés (`get_group_sids`, `ACCOUNT_GROUPS`).

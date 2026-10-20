@@ -28,6 +28,9 @@ It was named PSGPOTools: the module is published on the PowerShell Gallery as `H
 - **Delegation**: each technician sees and changes only what the domain lets their account
   manage.
 - **Central configuration**: one file in the SYSVOL of the domain, the same for every console.
+- **Password policies (PSO)**: a second console, `Show-PSOManagerAvalonia`, for the fine-grained
+  password policies as the Active Directory Administrative Center, and the one that applies to a
+  user or a group, and why.
 
 Everything the console does is also a PowerShell command (`Get-PSGPODirectory`, `New-PSGPO`,
 `Backup-PSGPO`, `Approve-PSGPO`...): see the

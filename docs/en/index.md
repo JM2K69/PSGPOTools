@@ -34,6 +34,13 @@ Linux**, and manages the GPOs of **Samba AD** and **Windows Active Directory** d
     the domain (SYSVOL), and the workflow relies on the ACLs of the directory and of SYSVOL only.
     [Delegation](features/delegation.md)
 
+- **Password policies (PSO)**
+
+    A second console, `Show-PSOManagerAvalonia`, for the fine-grained password policies, as the
+    Active Directory Administrative Center: create and apply them, and see which one applies to a
+    user or a group, and why.
+    [Password policies](features/password-policies.md)
+
 </div>
 
 ## At a glance
