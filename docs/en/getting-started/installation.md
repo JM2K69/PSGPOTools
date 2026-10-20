@@ -43,6 +43,31 @@ anything, then puts them in place at once.
 
 The commands that do not open a window (backups, drift, approval...) never need Avalonia.
 
+## The ADMX files
+
+The module does not ship ADMX files: the console reads those of the central store of the domain
+(`\domain\SYSVOL\domain\Policies\PolicyDefinitions`), of Windows (`%windir%\PolicyDefinitions`)
+or of the SYSVOL of a Samba domain controller, else asks for a folder. Where there are none (a
+Linux computer, a domain without a central store), `Install-PSGPOAdmx` downloads the copy of the
+repository from GitHub (`sources/PolicyDefinitions`: 236 `.admx` files, their `.adml` files in 22
+languages), at the tag of the version of the module. Each set of files (the `.admx` files, each
+language) is checked against the SHA-256 the module pins before anything is written.
+
+```powershell
+Install-PSGPOAdmx                                    # en-US and the language of the session, next to the module
+Install-PSGPOAdmx -UICulture en-US, fr-FR            # the languages chosen
+Install-PSGPOAdmx -AllLanguages -Path ~/PolicyDefinitions
+Install-PSGPOAdmx -CentralStore -Server dc.hardenbox.labo -UICulture en-US, fr-FR   # the central store of the domain
+```
+
+Without `-Path`, the files go next to the module when it can be written to, else into the data
+folder of the user (`PSGPOTools/PolicyDefinitions`): the console finds them there. With
+`-CentralStore`, they go into `SYSVOL\<domain>\Policies\PolicyDefinitions` of the domain
+controller (an account allowed to write SYSVOL: a domain administrator), as for GPMC: every
+console of the domain then reads them. The ADMX files already there are kept, those of the same
+name replaced; with files already there, give `-Force`. Before the first release of a version
+(no tag yet), give the branch: `-Ref avalonia`.
+
 ## Windows
 
 | Need | Why | How |

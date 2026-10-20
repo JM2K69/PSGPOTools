@@ -45,6 +45,31 @@ catalogue nuget.org) avant d'extraire quoi que ce soit, puis les met en place d'
 Les commandes qui n'ouvrent pas de fenêtre (sauvegardes, écart, approbation…) n'ont jamais besoin
 d'Avalonia.
 
+## Les fichiers ADMX
+
+Le module n'embarque pas de fichiers ADMX : la console lit ceux du magasin central du domaine
+(`\domaine\SYSVOL\domaine\Policies\PolicyDefinitions`), de Windows (`%windir%\PolicyDefinitions`)
+ou du SYSVOL d'un contrôleur de domaine Samba, sinon demande un dossier. Là où il n'y en a pas (un
+ordinateur Linux, un domaine sans magasin central), `Install-PSGPOAdmx` télécharge la copie du
+dépôt depuis GitHub (`sources/PolicyDefinitions` : 236 fichiers `.admx`, leurs fichiers `.adml` en
+22 langues), au tag de la version du module. Chaque ensemble de fichiers (les `.admx`, chaque
+langue) est vérifié avec le SHA-256 que le module épingle avant que rien ne soit écrit.
+
+```powershell
+Install-PSGPOAdmx                                    # en-US et la langue de la session, à côté du module
+Install-PSGPOAdmx -UICulture en-US, fr-FR            # les langues choisies
+Install-PSGPOAdmx -AllLanguages -Path ~/PolicyDefinitions
+Install-PSGPOAdmx -CentralStore -Server dc.hardenbox.labo -UICulture en-US, fr-FR   # le magasin central du domaine
+```
+
+Sans `-Path`, les fichiers vont à côté du module quand on peut y écrire, sinon dans le dossier de
+données de l'utilisateur (`PSGPOTools/PolicyDefinitions`) : la console les y trouve. Avec
+`-CentralStore`, ils vont dans `SYSVOL\<domaine>\Policies\PolicyDefinitions` du contrôleur de
+domaine (un compte qui peut écrire SYSVOL : un administrateur du domaine), comme pour GPMC : toutes
+les consoles du domaine les lisent alors. Les fichiers ADMX déjà présents sont gardés, ceux de même
+nom remplacés ; s'il y en a déjà, ajoutez `-Force`. Avant la première publication d'une version
+(pas encore de tag), donnez la branche : `-Ref avalonia`.
+
 ## Windows
 
 | Besoin | Pourquoi | Comment |

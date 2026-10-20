@@ -58,7 +58,7 @@ function Resolve-PSGPOAdmxCulture {
 
 # PolicyDefinitions folders found on this computer, the most relevant first: the central store of
 # the domain (Windows), the folder chosen last, the folder of Windows, the SYSVOL of a Samba
-# domain controller when readable, and the copy next to the module.
+# domain controller when readable, and the copy next to the module or of Install-PSGPOAdmx.
 function Get-PSGPOAdmxCandidate {
     [CmdletBinding()]
     [OutputType([string])]
@@ -80,6 +80,8 @@ function Get-PSGPOAdmxCandidate {
     foreach ($base in $PSScriptRoot, (Split-Path -Parent $PSScriptRoot)) {
         $paths.Add((Join-Path $base 'sources' 'PolicyDefinitions'))
     }
+    # Those of Install-PSGPOAdmx in the data folder of the user.
+    $paths.Add(@(Get-PSGPOAdmxInstallFolder)[-1])
 
     $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($path in $paths) {

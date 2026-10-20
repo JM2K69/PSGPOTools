@@ -60,6 +60,17 @@ written from its help by `CI/Update-CommandReference.ps1`, after `CI/03_Build.ps
 the help of a command is its page, which `Get-Help <command> -Online` opens. A test checks that the pages
 are those of the help.
 
+`Install-PSGPOAdmx` downloads `sources/PolicyDefinitions` from GitHub and installs only the files that
+`PSGPOTools/Resources/PolicyDefinitions.json` pins (each set, the `.admx` files and each language: its
+number of files and a SHA-256, line endings and case of the names aside). After a change of
+`sources/PolicyDefinitions`, `CI/Update-AdmxCatalog.ps1` writes the catalog again; a test checks it.
+
+`.github/workflows/release.yml` publishes the module on the PowerShell Gallery for a tag of a version
+(`v0.1.2-alpha`) only, never for a commit: it runs the three jobs of the CI on the tagged commit, then
+`CI/04_Publish.ps1` (the tag is the version of the manifest, `CHANGELOG.md` has its section, the gallery
+does not have it yet) with the secret `PSGALLERY_API_KEY` of the environment `psgallery`, and creates the
+release of GitHub with the notes of the version.
+
 The documentation is built and published by `.github/workflows/docs.yml`. It makes the Changelog page from
 `CHANGELOG.md`, and puts the version of the module (`ModuleVersion` of its manifest) and the commit the
 site is built from in the footer of every page.

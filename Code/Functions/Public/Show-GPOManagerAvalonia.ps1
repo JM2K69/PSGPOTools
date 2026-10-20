@@ -106,7 +106,7 @@ function Show-GPOManagerAvalonia {
         if ($UICulture) { $admx.UICulture = $UICulture }
         Initialize-PSGPOAdmx @admx -WarningAction SilentlyContinue
     } elseif ([GPOToolsUtility]::Policies.Count -eq 0 -and -not (Show-PSGPOAdmxWindow)) {
-        Write-Warning 'No ADMX file loaded: the console is not opened. Choose a PolicyDefinitions folder, or give -PolicyDefinitions.'
+        Write-Warning 'No ADMX file loaded: the console is not opened. Choose a PolicyDefinitions folder, give -PolicyDefinitions, or download the ADMX files of PSGPOTools with Install-PSGPOAdmx.'
         return
     }
 
