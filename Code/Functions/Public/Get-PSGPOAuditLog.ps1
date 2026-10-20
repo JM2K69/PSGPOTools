@@ -30,6 +30,8 @@ function Get-PSGPOAuditLog {
         Get-PSGPOAuditLog -Name 'C - Servers - Baseline' -Action SaveGpoFile
     .OUTPUTS
         PSGPOTools.AuditEntry
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/get-psgpoauditlog/
     #>
     [CmdletBinding()]
     [OutputType('PSGPOTools.AuditEntry')]

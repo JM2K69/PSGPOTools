@@ -24,7 +24,7 @@ Describe 'Module manifest' {
         $Data = (Import-PowerShellDataFile -Path $ModuleManifest).PrivateData.PSData
         $Data.ProjectUri | Should -Be 'https://github.com/JM2K69/PSGPOTools'
         $Data.LicenseUri | Should -BeLike 'https://github.com/JM2K69/PSGPOTools/*LICENSE'
-        $Data.ReleaseNotes | Should -BeLike '*CHANGELOG.md'
+        $Data.ReleaseNotes | Should -Be 'https://jm2k69.github.io/PSGPOTools/en/changelog/' -Because 'the Changelog page of the site, made from CHANGELOG.md'
     }
 }
 
@@ -51,6 +51,36 @@ Describe 'Help of the commands' {
         foreach ($Parameter in (Get-Command $Command).Parameters.Keys | Where-Object { $_ -notin $Common }) {
             $Text = @($Help.Parameters.Parameter | Where-Object Name -EQ $Parameter)[0].Description.Text
             "$Text".Trim() | Should -Not -BeNullOrEmpty -Because "-$Parameter of $Command is described"
+        }
+    }
+
+    It '<Command> opens its page of the documentation site with Get-Help -Online' -ForEach @(
+        (Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1')).FunctionsToExport | ForEach-Object { @{ Command = $_ } }
+    ) {
+        # Get-Help -Online opens the first link of the help.
+        @((Get-Help -Name $Command -Full).relatedLinks.navigationLink)[0].uri | Should -Be "https://jm2k69.github.io/PSGPOTools/en/reference/commands/$($Command.ToLowerInvariant())/"
+    }
+
+    It 'Has the page of each command on the documentation site, as its help is, in its menu and its table' {
+        $Generated = Join-Path $TestDrive 'pages'
+        $Script = Join-Path $PSScriptRoot '..' 'Update-CommandReference.ps1'
+        # In another session: the script imports the module again.
+        $null = pwsh -NoProfile -NonInteractive -File $Script -OutputPath $Generated
+        $LASTEXITCODE | Should -Be 0
+        $Commands = @((Get-Module PSGPOTools).ExportedFunctions.Keys)
+        foreach ($Language in 'en', 'fr') {
+            $Pages = Join-Path $PSScriptRoot '..' '..' 'docs' $Language 'reference' 'commands'
+            @(Get-ChildItem -LiteralPath $Pages -Filter '*.md').Count | Should -Be $Commands.Count
+            $Menu = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot '..' '..' $(if ($Language -eq 'en') { 'zensical.toml' } else { 'zensical.fr.toml' }))
+            $Table = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot '..' '..' 'docs' $Language 'reference' 'commands.md')
+            foreach ($Command in $Commands) {
+                $Page = "$($Command.ToLowerInvariant()).md"
+                ((Get-Content -Raw -LiteralPath (Join-Path $Pages $Page)) -replace '
+') | Should -Be ((Get-Content -Raw -LiteralPath (Join-Path $Generated $Language $Page)) -replace '
+') -Because "the page of $Command is its help: run CI/Update-CommandReference.ps1 after a change of the help"
+                $Menu | Should -BeLike "*""reference/commands/$Page""*"
+                $Table.Contains("[``$Command``](commands/$Page)") | Should -BeTrue -Because "the table links $Command to its page"
+            }
         }
     }
 }

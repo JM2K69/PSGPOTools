@@ -14,6 +14,8 @@ function Get-PSGPOGpmcBackup {
         Get-PSGPOGpmcBackup -Path C:\backupGPO
     .OUTPUTS
         PSGPOTools.GpmcBackup
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/get-psgpogpmcbackup/
     #>
     [CmdletBinding()]
     [OutputType('PSGPOTools.GpmcBackup')]

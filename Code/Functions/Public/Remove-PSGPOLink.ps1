@@ -17,6 +17,8 @@ function Remove-PSGPOLink {
     .EXAMPLE
         Remove-PSGPOLink -Name 'U - Lyon - Printers' -Target Lyon
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/remove-psgpolink/
+    .LINK
         New-PSGPOLink
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]

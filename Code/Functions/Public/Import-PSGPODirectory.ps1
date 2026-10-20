@@ -21,6 +21,8 @@ function Import-PSGPODirectory {
     .EXAMPLE
         $Directory = Import-PSGPODirectory -Path (Join-Path (Split-Path (Get-Module PSGPOTools).Path) 'Samples' 'Directory.sample.json')
         Show-GPOManagerAvalonia -Directory $Directory
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/import-psgpodirectory/
     #>
     [CmdletBinding()]
     [OutputType([GPOToolsDirectory])]

@@ -12,6 +12,8 @@ function Get-PSGPOSupportedOn {
     .OUTPUTS
         GPOToolsSupportedOn
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/get-psgposupportedon/
+    .LINK
         Initialize-PSGPOAdmx
     #>
     [CmdletBinding()]

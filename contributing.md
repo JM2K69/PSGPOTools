@@ -66,6 +66,9 @@ describes the suite.
 - Tests: a bug fix comes with the test that failed before it; a feature with tests of what it
   does and of what it refuses.
 - The documentation (`docs/en` and `docs/fr`) and the `CHANGELOG.md` follow the change.
+- A public command has a comment-based help (synopsis, each parameter, an example) whose first `.LINK` is
+  its page on the site; after a change of a help, `./CI/03_Build.ps1; ./CI/Update-CommandReference.ps1`
+  writes the pages of the commands again (a test checks they are those of the help).
 - Write like the code around: its names, its comments (why, not what), its error messages (what
   happened and what to do).
 - The CI must pass on Windows, Linux and against Samba.

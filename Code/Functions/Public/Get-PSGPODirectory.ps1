@@ -39,6 +39,8 @@ function Get-PSGPODirectory {
         Get-PSGPODirectory -Server dc.hardenbox.labo
     .EXAMPLE
         Get-PSGPODirectory -Server dc.contoso.com -Credential (Get-Credential) -UseSsl
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/get-psgpodirectory/
     #>
     [CmdletBinding()]
     [OutputType([GPOToolsDirectory])]

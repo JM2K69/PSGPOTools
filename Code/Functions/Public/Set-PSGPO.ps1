@@ -26,6 +26,8 @@ function Set-PSGPO {
         Set-PSGPO -Name 'C - Workstations - *' -WmiFilter 'Workstations'
     .OUTPUTS
         GPOToolsGpo
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/set-psgpo/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([GPOToolsGpo])]

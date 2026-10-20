@@ -67,6 +67,8 @@ function Show-GPOManagerAvalonia {
         $Sample = Join-Path (Split-Path (Get-Module PSGPOTools).Path) 'Samples' 'Directory.sample.json'
         Show-GPOManagerAvalonia -Directory (Import-PSGPODirectory -Path $Sample)
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/show-gpomanageravalonia/
+    .LINK
         Get-PSGPODirectory
     #>
     [CmdletBinding(DefaultParameterSetName = 'Domain')]

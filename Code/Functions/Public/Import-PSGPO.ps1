@@ -45,6 +45,8 @@ function Import-PSGPO {
         Import-PSGPO -Path C:\backupGPO -SourceName 'TEST' -TargetName 'C - Test' -CreateIfNeeded -WhatIf
     .OUTPUTS
         PSGPOTools.ImportResult
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/import-psgpo/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType('PSGPOTools.ImportResult')]

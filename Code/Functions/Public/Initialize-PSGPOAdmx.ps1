@@ -18,6 +18,8 @@ Function Initialize-PSGPOAdmx {
     .EXAMPLE
         # Linux: a copy of the PolicyDefinitions folder, in the language of the session
         Initialize-PSGPOAdmx -Path ~/PolicyDefinitions
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/initialize-psgpoadmx/
     #>
     [cmdletbinding()]
     Param(

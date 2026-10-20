@@ -56,6 +56,11 @@ SYSVOL échoue, les permissions retirées et signalées. Le workflow complet, qu
 | `test-linux` | tous les tests sur `ubuntu-latest`, la fenêtre comprise (Avalonia sur Xvfb) |
 | `test-samba` | les tests qui écrivent dans un domaine, contre un contrôleur Samba AD provisionné sur la machine de la CI (`CI.TEST`), avec un ticket Kerberos de son administrateur |
 
+La page de chaque commande publique (`docs/<langue>/reference/commands/`, et son entrée dans le menu) est
+écrite à partir de son aide par `CI/Update-CommandReference.ps1`, après `CI/03_Build.ps1` ; le premier
+`.LINK` de l'aide d'une commande est sa page, que `Get-Help <commande> -Online` ouvre. Un test vérifie que
+les pages sont celles de l'aide.
+
 La documentation est construite et publiée par `.github/workflows/docs.yml`. Il fait la page Historique des
 versions à partir de `CHANGELOG.md`, et met la version du module (`ModuleVersion` de son manifeste) et le
 commit à partir duquel le site est construit en pied de chaque page.

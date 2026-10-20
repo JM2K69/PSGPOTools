@@ -15,6 +15,8 @@ function Get-PSGPOPolicy {
     .OUTPUTS
         GPOToolsPolicy
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/get-psgpopolicy/
+    .LINK
         Initialize-PSGPOAdmx
     #>
     [CmdletBinding()]

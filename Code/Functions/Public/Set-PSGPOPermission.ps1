@@ -35,6 +35,8 @@ function Set-PSGPOPermission {
         Set-PSGPOPermission -Name 'C - Workstations - BitLocker' -Account 'Paris-Workstations' -SecurityFiltering Add
     .OUTPUTS
         PSGPOTools.Permission
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/set-psgpopermission/
     #>
     [CmdletBinding(SupportsShouldProcess, DefaultParameterSetName = 'Permission')]
     [OutputType('PSGPOTools.Permission')]

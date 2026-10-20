@@ -39,6 +39,8 @@ function Restore-PSGPO {
         Get-PSGPOBackup -Path /srv/gpo-backups -Name 'T1 - Servers - Baseline' |
             Where-Object { $_.Modified.Date -eq [datetime]'2026-10-15' } | Select-Object -First 1 | Restore-PSGPO
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/restore-psgpo/
+    .LINK
         Backup-PSGPO
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]

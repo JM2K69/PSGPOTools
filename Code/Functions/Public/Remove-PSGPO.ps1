@@ -25,6 +25,8 @@ function Remove-PSGPO {
     .EXAMPLE
         Remove-PSGPO -Name 'U - Lyon - Printers' -BackupPath /srv/gpo-backups
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/remove-psgpo/
+    .LINK
         Get-PSGPOBackup
     .LINK
         Restore-PSGPO

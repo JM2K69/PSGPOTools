@@ -17,6 +17,8 @@ function Set-PSGPOInheritance {
         Domain controller to read the domain from, without -Directory.
     .EXAMPLE
         Set-PSGPOInheritance -Target 'OU=Kiosks,DC=contoso,DC=com' -Blocked $true
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/set-psgpoinheritance/
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param(

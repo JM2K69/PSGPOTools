@@ -23,6 +23,8 @@ function Set-PSGPOBackup {
         Get-PSGPOBackup -Path /srv/gpo-backups -Name 'Default Domain Policy' | Select-Object -First 1 |
             Set-PSGPOBackup -Approve -Comment 'Reviewed with the security team'
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/set-psgpobackup/
+    .LINK
         Get-PSGPOBackup
     .LINK
         Get-PSGPODrift

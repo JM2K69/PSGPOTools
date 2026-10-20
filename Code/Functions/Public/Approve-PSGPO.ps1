@@ -50,6 +50,8 @@ function Approve-PSGPO {
     .EXAMPLE
         Approve-PSGPO -Name 'T1 - *' -CreatorRights EditSettings
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/approve-psgpo/
+    .LINK
         Initialize-PSGPOWorkflow
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]

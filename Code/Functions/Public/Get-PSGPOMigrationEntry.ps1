@@ -21,6 +21,8 @@ function Get-PSGPOMigrationEntry {
         Get-PSGPOMigrationEntry -Path C:\backupGPO | Format-Table Type, Source, Gpos
     .OUTPUTS
         PSGPOTools.MigrationReference
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/get-psgpomigrationentry/
     #>
     [CmdletBinding()]
     [OutputType('PSGPOTools.MigrationReference')]
