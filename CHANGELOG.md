@@ -1,11 +1,12 @@
 # HGPM Release History
 
-## Unreleased
+## 0.1.4 - alpha
 
 ### Changed
 
 * The Project Site of the module on the PowerShell Gallery is the documentation site (ProjectUri), and its icon the logo of HGPM (IconUri)
 * The data files of the languages of the interface hold more than 500 texts: read with `-SkipLimitCheck`
+* The "Edit" links of the documentation site open the pages on master; the technical pages (architecture, user interface, tests) and the first steps cover the console of the password policies
 
 ### Added
 

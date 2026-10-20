@@ -20,7 +20,8 @@ Invoke-Pester -Configuration $Config
 | `PSGPOTools.Workflow.tests.ps1` | the approval workflow |
 | `PSGPOTools.Delegation.tests.ps1` | the rights read from the directory |
 | `PSGPOTools.Ldap.tests.ps1` | LDAP, gPLink, samba-tool, RSAT (mocked), and against a domain controller |
-| `PSGPOTools.Gui.tests.ps1` | the real window (`-OnShown`) |
+| `PSGPOTools.PasswordPolicy.tests.ps1` | the fine-grained password policies: the values of the directory, the checks, the PSO that applies and why, the commands |
+| `PSGPOTools.Gui.tests.ps1` | the real windows of both consoles (`-OnShown`) |
 | `PSGPOTools.Public.tests.ps1` | the commands exported |
 
 ## Against a domain controller
@@ -37,7 +38,10 @@ pwsh -c 'Invoke-Pester CI/tests'
 
 With `PSGPOTOOLS_TEST_LDAP_WRITE=1`, they create an OU and GPOs named `PSGPOTools test ...`, link
 them, write their settings, delete and restore one, and delete everything they created at the end,
-whatever failed.
+whatever failed. For the password policies (Linux, `samba-tool`), they create a user, a global and
+a domain local security group, and PSOs named `PSO test ...`: protected from accidental deletion,
+renamed, applied directly and through the groups, a change made meanwhile refused, the PSO the
+console finds compared with `msDS-ResultantPSO`; then they delete them.
 
 With `PSGPOTOOLS_TEST_LAB_SCRIPTS=1` too (Linux), they run the Linux scripts of the
 [lab](../getting-started/lab.md), `New-PSGPOTierLab.ps1` and `Grant-PSGPOTierDelegation.ps1`, twice

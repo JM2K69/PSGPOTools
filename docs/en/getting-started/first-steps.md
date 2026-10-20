@@ -46,6 +46,20 @@ Show-GPOManagerAvalonia
   themes.
 - **Bottom**: this computer, its domain, and the domain controller with its directory service.
 
+## The console of the password policies
+
+`Show-PSOManagerAvalonia` opens the second console of HGPM, for the fine-grained password policies
+(PSO) of the domain, as the Active Directory Administrative Center: the same `-Server`, `-Credential`,
+`-UseSsl` and `-Language`.
+
+```powershell
+Show-PSOManagerAvalonia -Server dc.hardenbox.labo
+```
+
+![The console of the password policies](../assets/screenshots/29-pso-list.png)
+
+See [password policies](../features/password-policies.md).
+
 ## From the command line
 
 Everything the window does is also a command, for scripts and scheduled tasks:

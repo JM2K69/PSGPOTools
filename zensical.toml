@@ -12,8 +12,8 @@ site_url = "https://jm2k69.github.io/PSGPOTools/en/"
 copyright = "&copy; JM2K69 and the HGPM contributors"
 repo_url = "https://github.com/JM2K69/PSGPOTools"
 repo_name = "JM2K69/PSGPOTools"
-# The branch of the "Edit" links: avalonia until it is merged into the main branch, then that one.
-edit_uri = "edit/avalonia/docs/en/"
+# The branch of the "Edit" links: master, where the work happens.
+edit_uri = "edit/master/docs/en/"
 docs_dir = "docs/en"
 site_dir = "site/en"
 

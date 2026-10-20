@@ -49,6 +49,20 @@ Show-GPOManagerAvalonia
 - **En bas** : cet ordinateur, son domaine, et le contrôleur de domaine avec son service
   d'annuaire.
 
+## La console des stratégies de mot de passe
+
+`Show-PSOManagerAvalonia` ouvre la deuxième console de HGPM, pour les stratégies de mot de passe
+affinées (PSO) du domaine, comme le Centre d'administration Active Directory : les mêmes `-Server`,
+`-Credential`, `-UseSsl` et `-Language`.
+
+```powershell
+Show-PSOManagerAvalonia -Server dc.hardenbox.labo -Language fr-FR
+```
+
+![La console des stratégies de mot de passe](../assets/screenshots/29-pso-list.fr.png)
+
+Voir [stratégies de mot de passe](../features/password-policies.md).
+
 ## En ligne de commande
 
 Tout ce que fait la fenêtre est aussi une commande, pour les scripts et les tâches planifiées :

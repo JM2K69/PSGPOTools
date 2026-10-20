@@ -42,10 +42,16 @@ desktops have no font to draw them.
 !!! note "The pipeline"
     The output of the pipeline wraps objects in `PSObject`, which Avalonia cannot bind: the lists
     are built with `List[T]` and `foreach`. `if (...) { @(...) }` unrolls a list of one item: the
-    lists are assigned inside the branches.
+    lists are assigned inside the branches. `Select-Object` wraps its objects too: a list made
+    from it takes `.PSObject.BaseObject` of each item.
+
+!!! note "The button of the view shown"
+    The class `accent` of the Fluent theme does not color a button here: the windows share the
+    style `Button.active` (`Get-PSGPOWindowResourceXaml`, with the brushes of both themes).
 
 ## Tests of the window
 
-`Start-PSGPOManagerWindow -OnShown { param($Ui) ... }` opens the real window and runs the block
+`Start-PSGPOManagerWindow -OnShown { param($Ui) ... }` (and `Start-PSGPOPasswordPolicyWindow` for
+the PSO console, its window of a PSO in `$Ui.Editor`) opens the real window and runs the block
 once it is shown, with its controls by name: the GUI tests click, type and check what the window
 shows, then the window closes. They run on Windows and in the X session of a Linux computer.

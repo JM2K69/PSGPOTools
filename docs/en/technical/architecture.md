@@ -16,7 +16,7 @@ HGPM/
   HGPM.psm1           built: the classes, then the private and public functions (never edited)
   Resources/          Configuration.psd1, Preferences.json, AvaloniaPackages.json, Icons/
   Avalonia/           Get-AvaloniaBinaries.ps1, and bin/ (the runtime, not committed)
-  Samples/            Directory.sample.json (the demonstration environment)
+  Samples/            Directory.sample.json, PasswordPolicy.sample.json (the demonstration environments)
 docs/                 this documentation (en, fr, assets)
 ```
 
@@ -67,6 +67,15 @@ default GPOs...), then call a hidden `Save*` / `Load*` method that does the work
 So the window and the commands are the same code for a domain and for the tests, and a change the
 domain refuses leaves the model as it was.
 
+The fine-grained password policies follow the same pattern, without the GPOs:
+`GPOToolsPasswordPolicyStore` holds the PSOs (`GPOToolsPasswordPolicy`), the password policy of the
+domain and, in memory, the users and groups (`GPOToolsPasswordAccount`); its methods `NewPolicy`,
+`SetPolicy`, `RemovePolicy`, `AddSubject`, `RemoveSubject` check, then call `Save*`.
+`GPOToolsLdapPasswordPolicyStore` (`Connect-PSGPOPasswordPolicyStore`, used by
+`Show-PSOManagerAvalonia` and the commands) writes them over LDAP. `Resolve-PSGPOPasswordPolicy`
+orders the PSOs that concern an account, with the groups each domain controller counts
+([LDAP](ldap.md#fine-grained-password-policies)).
+
 ### The platform
 
 `Get-PSGPOPlatform` detects once what the computer is: Windows or Linux, member of a domain or
@@ -80,6 +89,7 @@ Each operation then takes the way of its platform:
 | SYSVOL permissions | .NET access control | Samba Python bindings (`libsmb`) |
 | Create and delete GPOs | `New-GPO`, `Remove-GPO` (RSAT) | `samba-tool gpo create / del` |
 | Links, status, security filtering, workflow | LDAP | LDAP |
+| Fine-grained password policies | LDAP | LDAP |
 
 ## Principles
 
