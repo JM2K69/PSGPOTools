@@ -1,5 +1,11 @@
 # HGPM Release History
 
+## Unreleased
+
+### Changed
+
+* The Project Site of the module on the PowerShell Gallery is the documentation site (ProjectUri), and its icon the logo of HGPM (IconUri)
+
 ## 0.1.3 - alpha
 
 ### Changed
