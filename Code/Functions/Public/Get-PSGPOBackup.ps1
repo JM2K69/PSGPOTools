@@ -28,6 +28,8 @@ function Get-PSGPOBackup {
     .EXAMPLE
         Get-PSGPOBackup -Path /srv/gpo-backups -Deleted | Restore-PSGPO -RestoreLink
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/get-psgpobackup/
+    .LINK
         Backup-PSGPO
     .LINK
         Compare-PSGPOBackup

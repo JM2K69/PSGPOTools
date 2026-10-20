@@ -25,6 +25,8 @@ function New-PSGPOWmiFilter {
     .OUTPUTS
         PSGPOTools.WmiFilter
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/new-psgpowmifilter/
+    .LINK
         Get-PSGPOWmiFilter
     .LINK
         Set-PSGPO

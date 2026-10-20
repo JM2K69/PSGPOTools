@@ -12,7 +12,7 @@
 RootModule = 'PSGPOTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.1'
+ModuleVersion = '0.1.2'
 
 # Supported PSEditions
 CompatiblePSEditions = 'Core'
@@ -27,7 +27,7 @@ Author = 'JM2K69, NicolasBn'
 CompanyName = 'JM2K69'
 
 # Copyright statement for this module
-Copyright = '(c) 2019-2026 NicolasBn, JM2K69. MIT License.'
+Copyright = '(c) 2019-2026 JM2K69, NicolasBn. MIT License.'
 
 # Description of the functionality provided by this module
 Description = 'A console like GPMC for Samba AD and Windows AD, on Windows and Linux (PowerShell 7 and Avalonia): the GPOs of a domain, their links, settings (administrative templates, security settings, preferences), security filtering, backups, recycle bin, templates, drift from their approved version, and an approval workflow built on the rights of the domain.'
@@ -69,17 +69,17 @@ PowerShellVersion = '7.4'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Approve-PSGPO', 'Backup-PSGPO', 'Compare-PSGPOBackup', 
-               'Get-PSGPOAuditLog', 'Get-PSGPOBackup', 'Get-PSGPOCategory', 
-               'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 'Get-PSGPODrift', 
-               'Get-PSGPOGpmcBackup', 'Get-PSGPOMigrationEntry', 
-               'Get-PSGPOMigrationTable', 'Get-PSGPOPermission', 'Get-PSGPOPolicy', 
-               'Get-PSGPOSupportedOn', 'Get-PSGPOWmiFilter', 'Import-PSGPO', 
-               'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 
-               'Initialize-PSGPOWorkflow', 'New-PSGPO', 'New-PSGPOLink', 
-               'New-PSGPOMigrationTable', 'New-PSGPOWmiFilter', 'Remove-PSGPO', 
-               'Remove-PSGPOLink', 'Remove-PSGPOWmiFilter', 'Restore-PSGPO', 
-               'Set-PSGPO', 'Set-PSGPOBackup', 'Set-PSGPOInheritance', 'Set-PSGPOLink', 
+FunctionsToExport = 'Approve-PSGPO', 'Backup-PSGPO', 'Compare-PSGPOBackup',
+               'Get-PSGPOAuditLog', 'Get-PSGPOBackup', 'Get-PSGPOCategory',
+               'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 'Get-PSGPODrift',
+               'Get-PSGPOGpmcBackup', 'Get-PSGPOMigrationEntry',
+               'Get-PSGPOMigrationTable', 'Get-PSGPOPermission', 'Get-PSGPOPolicy',
+               'Get-PSGPOSupportedOn', 'Get-PSGPOWmiFilter', 'Import-PSGPO',
+               'Import-PSGPODirectory', 'Initialize-PSGPOAdmx',
+               'Initialize-PSGPOWorkflow', 'New-PSGPO', 'New-PSGPOLink',
+               'New-PSGPOMigrationTable', 'New-PSGPOWmiFilter', 'Remove-PSGPO',
+               'Remove-PSGPOLink', 'Remove-PSGPOWmiFilter', 'Restore-PSGPO',
+               'Set-PSGPO', 'Set-PSGPOBackup', 'Set-PSGPOInheritance', 'Set-PSGPOLink',
                'Set-PSGPOPermission', 'Show-GPOManagerAvalonia'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -118,7 +118,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'https://github.com/JM2K69/PSGPOTools/blob/master/CHANGELOG.md'
+        ReleaseNotes = 'https://jm2k69.github.io/PSGPOTools/en/changelog/'
 
         # Prerelease string of this module
         Prerelease = 'alpha'

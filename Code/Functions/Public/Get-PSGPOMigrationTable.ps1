@@ -14,6 +14,8 @@ function Get-PSGPOMigrationTable {
         Get-PSGPOMigrationTable -Path C:\backupGPO\prod.migtable | Where-Object Mode -NE SameAsSource
     .OUTPUTS
         PSGPOTools.MigrationEntry
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/get-psgpomigrationtable/
     #>
     [CmdletBinding()]
     [OutputType('PSGPOTools.MigrationEntry')]

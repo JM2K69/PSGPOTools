@@ -14,6 +14,8 @@ function Remove-PSGPOWmiFilter {
         Domain controller to read the domain from, without -Directory.
     .EXAMPLE
         Remove-PSGPOWmiFilter -Name 'Windows 7'
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/remove-psgpowmifilter/
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param(

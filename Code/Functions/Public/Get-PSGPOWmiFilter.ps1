@@ -16,6 +16,8 @@ function Get-PSGPOWmiFilter {
         Get-PSGPOWmiFilter | Format-Table Name, Queries, Gpos
     .OUTPUTS
         PSGPOTools.WmiFilter
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/get-psgpowmifilter/
     #>
     [CmdletBinding()]
     [OutputType('PSGPOTools.WmiFilter')]

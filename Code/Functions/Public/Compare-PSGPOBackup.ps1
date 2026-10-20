@@ -16,6 +16,8 @@ function Compare-PSGPOBackup {
         $Backups = Get-PSGPOBackup -Path /srv/gpo-backups -Name 'Default Domain Policy'
         Compare-PSGPOBackup -ReferenceBackup $Backups[1] -DifferenceBackup $Backups[0]
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/compare-psgpobackup/
+    .LINK
         Backup-PSGPO
     #>
     [CmdletBinding()]

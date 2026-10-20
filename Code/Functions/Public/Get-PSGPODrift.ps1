@@ -27,6 +27,8 @@ function Get-PSGPODrift {
     .EXAMPLE
         (Get-PSGPODrift -Path D:\GPO_Backup -Name 'Default Domain Policy').Changes | Format-Table Change, Path, Name, Before, After
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/get-psgpodrift/
+    .LINK
         Backup-PSGPO
     .LINK
         Set-PSGPOBackup

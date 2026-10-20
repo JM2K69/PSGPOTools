@@ -55,6 +55,11 @@ Tier 1), was tested step by step in the lab, `kinit` changing the account betwee
 | `test-linux` | every test on `ubuntu-latest`, the window included (Avalonia on Xvfb) |
 | `test-samba` | the tests that write to a domain, against a Samba AD DC provisioned on the runner (`CI.TEST`), with a Kerberos ticket of its administrator |
 
+The page of each public command (`docs/<language>/reference/commands/`, and its entry in the menu) is
+written from its help by `CI/Update-CommandReference.ps1`, after `CI/03_Build.ps1`; the first `.LINK` of
+the help of a command is its page, which `Get-Help <command> -Online` opens. A test checks that the pages
+are those of the help.
+
 The documentation is built and published by `.github/workflows/docs.yml`. It makes the Changelog page from
 `CHANGELOG.md`, and puts the version of the module (`ModuleVersion` of its manifest) and the commit the
 site is built from in the footer of every page.

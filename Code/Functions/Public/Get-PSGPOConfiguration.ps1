@@ -27,6 +27,8 @@ function Get-PSGPOConfiguration {
         # An administrator of the domain: the groups of the new GPOs in OU=GPO,OU=Groups
         $Path = (Get-PSGPOConfiguration).DomainPath
         Set-Content -Path $Path -Value "@{ NewGpo = @{ SecurityFilteringGroups = @{ Create = `$true; Container = 'OU=GPO,OU=Groups' } } }"
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/get-psgpoconfiguration/
     #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]

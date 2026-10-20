@@ -12,6 +12,8 @@ function Get-PSGPOCategory {
     .OUTPUTS
         GPOToolsCategory
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/get-psgpocategory/
+    .LINK
         Initialize-PSGPOAdmx
     #>
     [CmdletBinding()]

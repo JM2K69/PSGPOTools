@@ -26,6 +26,8 @@ function New-PSGPOMigrationTable {
         New-PSGPOMigrationTable -Path C:\backupGPO\prod.migtable -BackupPath C:\backupGPO -MapByRelativeName
     .OUTPUTS
         PSGPOTools.MigrationEntry
+    .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/new-psgpomigrationtable/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType('PSGPOTools.MigrationEntry')]

@@ -24,6 +24,8 @@ function New-PSGPOLink {
     .OUTPUTS
         PSGPOTools.Link
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/new-psgpolink/
+    .LINK
         Set-PSGPOLink
     .LINK
         Remove-PSGPOLink

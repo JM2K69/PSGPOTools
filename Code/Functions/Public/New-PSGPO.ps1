@@ -25,6 +25,8 @@ function New-PSGPO {
         $Template = Get-PSGPOBackup -Path /srv/gpo-backups -Template -Name 'Template - Servers' | Select-Object -First 1
         New-PSGPO -Name 'C - Servers - Lyon' -Template $Template
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/new-psgpo/
+    .LINK
         Remove-PSGPO
     .LINK
         Get-PSGPOBackup

@@ -40,6 +40,8 @@ function Backup-PSGPO {
     .EXAMPLE
         Backup-PSGPO -Path D:\GPO_Backup -Name 'C - *' -Server dc1.contoso.com
     .LINK
+        https://jm2k69.github.io/PSGPOTools/en/reference/commands/backup-psgpo/
+    .LINK
         Get-PSGPOBackup
     .LINK
         Compare-PSGPOBackup
