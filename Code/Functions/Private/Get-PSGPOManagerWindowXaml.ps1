@@ -79,13 +79,20 @@ $iconResources
                 BorderThickness='0,0,0,1'
                 BorderBrush='{DynamicResource BorderBrush}'
                 Padding='20,16'>
-            <Grid ColumnDefinitions='Auto,*'>
-                <StackPanel Grid.Column='0' VerticalAlignment='Center'>
-                    <TextBlock Text='GPO Policy Manager' FontSize='22' FontWeight='Bold'
-                               Foreground='{DynamicResource TextBrush}'/>
-                    <TextBlock Name='subtitleTextBlock' Text='Explore and manage Group Policy Objects' FontSize='12'
-                               Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,2,0,0'/>
-                </StackPanel>
+            <!-- The buttons keep their width; the title takes the rest, trimmed when the window is narrow. -->
+            <Grid ColumnDefinitions='*,Auto'>
+                <Grid Grid.Column='0' ColumnDefinitions='Auto,*' VerticalAlignment='Center' Margin='0,0,16,0'>
+                    <!-- The logo of HGPM (Resources/hgpm.png), set when the window opens. -->
+                    <Image Grid.Column='0' Name='logoImage' Width='44' Height='44' VerticalAlignment='Center' Margin='0,0,12,0'
+                           RenderOptions.BitmapInterpolationMode='HighQuality'/>
+                    <StackPanel Grid.Column='1' VerticalAlignment='Center'>
+                        <TextBlock Text='GPO Policy Manager' FontSize='22' FontWeight='Bold' TextTrimming='CharacterEllipsis'
+                                   Foreground='{DynamicResource TextBrush}'/>
+                        <TextBlock Name='subtitleTextBlock' Text='Explore and manage Group Policy Objects' FontSize='12'
+                                   TextTrimming='CharacterEllipsis' ToolTip.Tip='{Binding Text, RelativeSource={RelativeSource Self}}'
+                                   Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,2,0,0'/>
+                    </StackPanel>
+                </Grid>
 
                 <StackPanel Grid.Column='1' Orientation='Horizontal'
                             HorizontalAlignment='Right' VerticalAlignment='Center' Spacing='12'>

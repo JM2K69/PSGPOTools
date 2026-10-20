@@ -36,6 +36,10 @@ function Start-PSGPOManagerWindow {
     # The configuration of HGPM for the domain shown (SYSVOL of its domain controller).
     Use-PSGPODomainConfiguration -Directory $Directory -Force
     $window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse((ConvertTo-PSGPOLocalizedXaml -Xaml $xaml))
+    # The logo of HGPM: the icon of the window and the image of its header.
+    Set-PSGPOWindowIcon -Window $window
+    $logoImage = Get-PSGPOAvaloniaControl $window 'logoImage'
+    $logoImage.Source = New-PSGPOLogoBitmap
 
     $treeView = Get-PSGPOAvaloniaControl $window 'treeView'
     $themeToggleButton = Get-PSGPOAvaloniaControl $window 'themeToggleButton'
@@ -2177,7 +2181,7 @@ function Start-PSGPOManagerWindow {
     $onShownState = @{ Error = $null }
     if ($OnShown) {
         $controls = @{ Window = $window; Editing = $editing; Clipboard = $clipboard; Directory = $Directory; Configuration = $configurationWindow }
-        foreach ($name in 'treeView', 'themeToggleButton', 'breadcrumbTextBlock', 'searchTextBox', 'searchButton', 'configuredOnlyCheckBox',
+        foreach ($name in 'treeView', 'logoImage', 'themeToggleButton', 'breadcrumbTextBlock', 'searchTextBox', 'searchButton', 'configuredOnlyCheckBox',
             'displayNameTextBox', 'descriptionTextBox', 'scopeTextBox', 'registryPathTextBox',
             'registryKeyTextBox', 'registryValuesList', 'settingTitleTextBlock', 'previewEmptyTextBlock', 'detailsTabs', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
             'notConfiguredRadio', 'enabledRadio', 'disabledRadio', 'optionsHost', 'settingErrorTextBlock', 'registryPreviewList',

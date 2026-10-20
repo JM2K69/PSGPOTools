@@ -77,6 +77,7 @@ function New-PSGPOConfigurationWindow {
 </Window>
 '@
     $Window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse((ConvertTo-PSGPOLocalizedXaml -Xaml $xaml))
+    Set-PSGPOWindowIcon -Window $Window
     $Controls = @{ Window = $Window }
     foreach ($Name in 'pathTextBlock', 'settingsList', 'keyComboBox', 'descriptionTextBlock', 'valueTextBox', 'valueComboBox', 'setButton', 'removeButton', 'statusTextBlock', 'saveButton', 'closeButton') {
         $Controls[$Name] = Get-PSGPOAvaloniaControl $Window $Name
