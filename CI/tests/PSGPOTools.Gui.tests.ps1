@@ -381,6 +381,28 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Shows the logo of HGPM as the icon of its windows and in the header of the console' {
+            (Get-Item -LiteralPath (Get-PSGPOLogoPath)).Directory.Name | Should -Be 'Resources'
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.Window.Icon | Should -Not -BeNullOrEmpty -Because 'the logo is the icon of the window'
+                $Ui.logoImage.Source | Should -Not -BeNullOrEmpty
+                $Ui.logoImage.Source.PixelSize.Width | Should -Be 256
+                $Ui.logoImage.IsVisible | Should -BeTrue
+                $Ui.logoImage.Bounds.Width | Should -Be 44 -Because 'the logo is drawn beside the title'
+
+                # A narrow window: the title is trimmed, the buttons keep their place.
+                $Ui.subtitleTextBlock.Text = 'Group Policy Management - hardenbox.labo (Samba AD) - connected as HARDENBOX\Administrator'
+                $Ui.Window.Width = 900
+                $Ui.Window.UpdateLayout()
+                $Buttons = $Ui.browseAdmxButton.Parent
+                $SubtitleRight = [Avalonia.VisualExtensions]::TranslatePoint($Ui.subtitleTextBlock, [Avalonia.Point]::new($Ui.subtitleTextBlock.Bounds.Width, 0), $Ui.Window).X
+                $ButtonsLeft = [Avalonia.VisualExtensions]::TranslatePoint($Buttons, [Avalonia.Point]::new(0, 0), $Ui.Window).X
+                $SubtitleRight | Should -BeLessThan $ButtonsLeft -Because 'the subtitle never runs under the buttons'
+                [Avalonia.Controls.ToolTip]::GetTip($Ui.subtitleTextBlock) | Should -Be $Ui.subtitleTextBlock.Text -Because 'the whole subtitle is in its tooltip'
+            }
+        }
+
         It 'Opens on the domain tree, the domain expanded' {
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {
                 param($Ui)

@@ -50,6 +50,7 @@ function Show-PSGPOAdmxWindow {
 </Window>
 '@
     $window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse((ConvertTo-PSGPOLocalizedXaml -Xaml $xaml))
+    Set-PSGPOWindowIcon -Window $window
     $controls = @{ Window = $window }
     foreach ($name in 'candidateComboBox', 'pathTextBox', 'browseButton', 'cultureComboBox', 'statusTextBlock', 'cancelButton', 'loadButton') {
         $controls[$name] = Get-PSGPOAvaloniaControl $window $name
