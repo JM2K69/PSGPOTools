@@ -33,11 +33,10 @@ Everything the console does is also a PowerShell command (`Get-PSGPODirectory`, 
 
 ## Quick start
 
-PowerShell **7.4 or later**, on Windows or Linux. The console is on the `avalonia` branch until
-its first release on the PowerShell Gallery:
+PowerShell **7.4 or later**, on Windows or Linux. From the repository:
 
 ```powershell
-git clone -b avalonia https://github.com/JM2K69/PSGPOTools.git
+git clone https://github.com/JM2K69/PSGPOTools.git
 cd PSGPOTools
 pwsh -File CI/03_Build.ps1          # builds HGPM/HGPM.psm1 from Code/
 Import-Module ./HGPM/HGPM.psd1

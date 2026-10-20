@@ -53,7 +53,7 @@ Tier 1), was tested step by step in the lab, `kinit` changing the account betwee
 
 ## CI
 
-`.github/workflows/ci.yml` runs three jobs on each push to `master`, `main` and `avalonia`:
+`.github/workflows/ci.yml` runs three jobs on each push to `master` and `main`, and on each pull request:
 
 | Job | Runs |
 |---|---|

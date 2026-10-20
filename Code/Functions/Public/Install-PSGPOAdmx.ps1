@@ -121,7 +121,7 @@ function Install-PSGPOAdmx {
     try {
         Write-Progress -Activity 'Installing the ADMX files' -Status $uri
         try { Invoke-WebRequest -Uri $uri -OutFile $archive -UseBasicParsing -ErrorAction Stop }
-        catch { throw "Cannot download $uri ($($_.Exception.Message)): a version not released has no tag yet, give -Ref with a branch (-Ref avalonia)." }
+        catch { throw "Cannot download $uri ($($_.Exception.Message)): a version not released has no tag yet, give -Ref with a branch (-Ref master)." }
         Expand-PSGPOAdmxArchive -Archive $archive -Folder $staging -Language $languages -Catalog $catalog
         $files = @(Get-ChildItem -LiteralPath $staging -File -Recurse).Count
         if ($CentralStore) {
