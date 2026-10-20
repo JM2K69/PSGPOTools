@@ -123,7 +123,7 @@ PrivateData = @{
         ProjectUri = 'https://jm2k69.github.io/PSGPOTools/'
 
         # A URL to an icon representing this module.
-        IconUri = 'https://raw.githubusercontent.com/JM2K69/PSGPOTools/master/docs/assets/logo/hgpm.png'
+        IconUri = 'https://raw.githubusercontent.com/JM2K69/PSGPOTools/master/docs/assets/logo/hgpm-85.png'
 
         # ReleaseNotes of this module
         ReleaseNotes = 'https://jm2k69.github.io/PSGPOTools/en/changelog/'

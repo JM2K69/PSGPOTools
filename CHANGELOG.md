@@ -8,6 +8,7 @@
 
 ### Changed
 
+* The icon of the module on the PowerShell Gallery (IconUri) is the logo of HGPM at 85 x 85 pixels with a transparent background, as the Gallery recommends (docs/assets/logo/hgpm-85.png)
 * Documentation: the module is installed with PSResourceGet (`Install-PSResource -Name HGPM -Prerelease`, `Update-PSResource`), the module of PowerShell 7.4 that replaces PowerShellGet (`Install-Module`); the PowerShell Gallery is the first way in the installation page and in the README
 
 ## 0.1.4 - alpha

@@ -23,7 +23,7 @@ Describe 'Module manifest' {
     It 'Points to this repository, its license and its changes' {
         $Data = (Import-PowerShellDataFile -Path $ModuleManifest).PrivateData.PSData
         $Data.ProjectUri | Should -Be 'https://jm2k69.github.io/PSGPOTools/' -Because 'the Project Site of the PowerShell Gallery is the documentation'
-        $Data.IconUri | Should -Be 'https://raw.githubusercontent.com/JM2K69/PSGPOTools/master/docs/assets/logo/hgpm.png' -Because 'the logo of HGPM, in the repository'
+        $Data.IconUri | Should -Be 'https://raw.githubusercontent.com/JM2K69/PSGPOTools/master/docs/assets/logo/hgpm-85.png' -Because 'the logo of HGPM, in the repository'
         $Data.LicenseUri | Should -BeLike 'https://github.com/JM2K69/PSGPOTools/*LICENSE'
         $Data.ReleaseNotes | Should -Be 'https://jm2k69.github.io/PSGPOTools/en/changelog/' -Because 'the Changelog page of the site, made from CHANGELOG.md'
     }
