@@ -86,6 +86,9 @@ repository (Settings > Environments), whose rules (a reviewer to approve) apply 
 - A public command has a comment-based help (synopsis, each parameter, an example) whose first `.LINK` is
   its page on the site; after a change of a help, `./CI/03_Build.ps1; ./CI/Update-CommandReference.ps1`
   writes the pages of the commands again (a test checks they are those of the help).
+
+- After a change of the ADMX files of the repository (`sources/PolicyDefinitions`),
+  `./CI/03_Build.ps1; ./CI/Update-AdmxCatalog.ps1` pins them again for `Install-PSGPOAdmx`.
 - Write like the code around: its names, its comments (why, not what), its error messages (what
   happened and what to do).
 - The CI must pass on Windows, Linux and against Samba.

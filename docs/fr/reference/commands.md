@@ -70,6 +70,7 @@ Get-PSGPODrift -Path /srv/gpo-backups | Where-Object State -EQ 'Drifted' | ForEa
 | Commande | Fait |
 |---|---|
 | [`Initialize-PSGPOAdmx`](commands/initialize-psgpoadmx.md) `-Path [-UICulture]` | charge les fichiers ADMX et ADML d'un dossier (PolicyDefinitions local ou magasin central) |
+| [`Install-PSGPOAdmx`](commands/install-psgpoadmx.md) `[-UICulture] [-AllLanguages] [-Path] [-CentralStore] [-Ref] [-Force]` | télécharge les fichiers ADMX de PSGPOTools depuis GitHub (vérifiés), dans un dossier ou le magasin central du domaine |
 | [`Get-PSGPOPolicy`](commands/get-psgpopolicy.md) `[-Scope Machine\|User]` | les stratégies chargées |
 | [`Get-PSGPOCategory`](commands/get-psgpocategory.md) | leurs catégories |
 | [`Get-PSGPOSupportedOn`](commands/get-psgposupportedon.md) | les plateformes qu'elles prennent en charge |

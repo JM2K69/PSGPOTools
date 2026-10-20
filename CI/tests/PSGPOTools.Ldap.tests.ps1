@@ -674,6 +674,26 @@ InModuleScope -ModuleName PSGPOTools {
             try { $null = Invoke-PSGPOSambaTool -ArgumentList 'ou', 'delete', $OuDN, '-H', "ldap://$Server", '--use-kerberos=required', '--force-subtree-delete' } catch { Write-Warning $_ }
         }
 
+        It 'Copies ADMX files into Policies of SYSVOL, as Install-PSGPOAdmx -CentralStore does' {
+            # A folder of the test beside the central store, not the central store of the domain.
+            $Folder = "PSGPOTools test admx $Stamp"
+            $Source = Join-Path $TestDrive 'admx'
+            $null = New-Item -ItemType Directory -Path (Join-Path $Source 'en-US') -Force
+            [System.IO.File]::WriteAllText((Join-Path $Source 'Test.admx'), '<policyDefinitions/>')
+            [System.IO.File]::WriteAllText((Join-Path $Source 'en-US' 'Test.adml'), '<policyDefinitionResources/>')
+            try {
+                $Store = Copy-PSGPOAdmxCentralStore -Directory $Directory -Source $Source -Folder $Folder
+                $Store | Should -Be "\\$($Directory.Server)\SYSVOL\$($Directory.DomainName)\Policies\$Folder"
+                $Read = Read-PSGPOSysvolItem -Directory $Directory -Share 'SYSVOL' -Path "$($Directory.DomainName)\Policies\$Folder\en-US\Test.adml"
+                [System.Text.Encoding]::UTF8.GetString($Read) | Should -Be '<policyDefinitionResources/>'
+                # Again: the files there are replaced, the folders kept.
+                $null = Copy-PSGPOAdmxCentralStore -Directory $Directory -Source $Source -Folder $Folder
+            } finally {
+                if ($IsWindows) { Remove-Item -LiteralPath "\\$($Directory.Server)\SYSVOL\$($Directory.DomainName)\Policies\$Folder" -Recurse -Force -ErrorAction SilentlyContinue }
+                else { try { $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share 'SYSVOL' -Command ('deltree "{0}\Policies\{1}"' -f $Directory.DomainName, $Folder) } catch { Write-Warning $_ } }
+            }
+        }
+
         It 'Creates a GPO in the domain, with its folder in SYSVOL' {
             $Ou | Should -Not -BeNullOrEmpty -Because 'the OU of the test was created'
             $Gpo = $Directory.NewGpo($GpoName)
