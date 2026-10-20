@@ -24,6 +24,7 @@ Invoke-Pester -Configuration $Config
 | `PSGPOTools.PasswordPolicy.tests.ps1` | les stratégies de mot de passe affinées : les valeurs de l'annuaire, les vérifications, le PSO qui s'applique et pourquoi, les commandes |
 | `PSGPOTools.Gui.tests.ps1` | les vraies fenêtres des deux consoles (`-OnShown`) |
 | `PSGPOTools.Public.tests.ps1` | les commandes exportées |
+| `PSGPOTools.Update.tests.ps1` | les versions de HGPM et `Test-PSGPOUpdate` (la Gallery simulée) |
 
 ## Face à un contrôleur de domaine
 

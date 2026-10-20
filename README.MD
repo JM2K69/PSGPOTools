@@ -38,7 +38,14 @@ Everything the console does is also a PowerShell command (`Get-PSGPODirectory`, 
 
 ## Quick start
 
-PowerShell **7.4 or later**, on Windows or Linux. From the repository:
+PowerShell **7.4 or later**, on Windows or Linux. From the PowerShell Gallery:
+
+```powershell
+Install-PSResource -Name HGPM -Prerelease -Scope CurrentUser
+Show-GPOManagerAvalonia             # the domain of the computer, or -Server dc.example.com
+```
+
+Or from the repository:
 
 ```powershell
 git clone https://github.com/JM2K69/PSGPOTools.git

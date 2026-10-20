@@ -7,6 +7,19 @@ else it needs depends on what you do with it and where.
 
 Install it from the PowerShell Gallery, or build it from the repository (the branch `master`):
 
+=== "PowerShell Gallery"
+
+    With PSResourceGet, the module of PowerShell 7.4 and later that replaces PowerShellGet
+    (`Install-Module`):
+
+    ```powershell
+    Install-PSResource -Name HGPM -Prerelease -Scope CurrentUser   # alpha versions
+    Import-Module HGPM
+    ```
+
+    `-Prerelease` while HGPM has alpha versions only. Later, `Update-PSResource -Name HGPM -Prerelease`
+    installs a newer version ([updates](#updates)).
+
 === "From the repository"
 
     ```powershell
@@ -14,13 +27,6 @@ Install it from the PowerShell Gallery, or build it from the repository (the bra
     cd PSGPOTools
     pwsh -File CI/03_Build.ps1          # builds HGPM/HGPM.psm1 from Code/
     Import-Module ./HGPM/HGPM.psd1
-    ```
-
-=== "PowerShell Gallery (once released)"
-
-    ```powershell
-    Install-Module HGPM -Scope CurrentUser -AllowPrerelease   # alpha versions
-    Import-Module HGPM
     ```
 
 ## The Avalonia runtime
@@ -127,3 +133,25 @@ Get-PSGPODirectory -Server dc.hardenbox.labo | Select-Object DomainName, Account
 
 The status bar of the window also says what the console found: this computer, its domain, the
 domain controller and its directory service.
+
+## Updates
+
+`Test-PSGPOUpdate` tells whether a newer version of HGPM is published on the PowerShell Gallery,
+and gives the command that installs it. It compares the version loaded with the latest of the
+Gallery as semantic versions: `0.1.4-alpha` comes before `0.1.4-beta`, itself before `0.1.4`. The
+prereleases count when the version loaded is one (or with `-Prerelease`).
+
+```powershell
+Test-PSGPOUpdate
+# Name             : HGPM
+# InstalledVersion : 0.1.4-alpha
+# LatestVersion    : 0.1.5-alpha
+# UpdateAvailable  : True
+# UpdateCommand    : Update-PSResource -Name HGPM -Prerelease
+
+if (Test-PSGPOUpdate -Quiet) { Update-PSResource -Name HGPM -Prerelease }
+```
+
+A module built from the repository is updated with `git pull` and `CI/03_Build.ps1`; the command
+then suggests `Install-PSResource`, to install the version of the Gallery beside it. The changes of
+each version are in the [changelog](../changelog.md).
