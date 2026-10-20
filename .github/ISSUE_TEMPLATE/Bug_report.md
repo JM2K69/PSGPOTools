@@ -29,12 +29,15 @@ If applicable, add screenshots or PowerShell transcripts to help explain your pr
 
 **System Details**
 
-- Operating System: [Windows | Linux | MacOS]
-- Operating System Version (Version and Build, eg Windows 10 Build 1709):
-- PowerShell Version: [Use ```Get-Host```]
-- Architecture for PowerShell Session: [64bit | 32bit]
-- Is this system an Azure Automation Worker?: [No, Hybrid Worker, Azure Worker]
-- Other loaded modules: [Include the output of ```Get-Module```]
+- PSGPOTools version or commit:
+- PowerShell version (`$PSVersionTable.PSVersion`):
+- The console runs on: [Windows | Linux] and its version
+- The domain controller: [Samba AD (`samba -V`) | Windows Server] and its version
+- The account: [Domain Admins | a delegated account | a creator of the approval workflow]
+- The whole error: `$Error[0] | Format-List * -Force`
+
+Remove what is private (names, SIDs, addresses), and say where you did. A security issue goes
+to a private security advisory, not here (see SECURITY.md).
 
 **Additional context**
 Add any other context about the problem here. Is there any other information like system configuration or data that might help us understand the problem.

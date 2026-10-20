@@ -1,9 +1,13 @@
+#Requires -Version 7.4
+# PSGPOTools runs on PowerShell 7.4+ (pwsh), not Windows PowerShell 5.1 (powershell.exe).
 Write-Host "[BUILD][START] Launching Build Process" -ForegroundColor RED -BackgroundColor White
 
 # Retrieve parent folder
 $Current = (Split-Path -Path $MyInvocation.MyCommand.Path)
 $Root = ((Get-Item $Current).Parent).FullName
-$ModuleName = split-Path -Path $root -Leaf
+# The module is PSGPOTools whatever the folder of the repository is called (a GitHub archive is
+# extracted as PSGPOTools-<branch>, a worktree can have any name).
+$ModuleName = 'PSGPOTools'
 Write-Host "[BUILD][START] Working on module $($ModuleName)" -ForegroundColor RED -BackgroundColor White
 
 $ModuleFolderPath = Join-Path -Path $Root -ChildPath $ModuleName
@@ -24,14 +28,14 @@ $MainPSM1Contents = @()
 
 
 
-$ClassFolderPath = "$CodeSourcePath\Classes\"
+$ClassFolderPath = Join-Path -Path $CodeSourcePath -ChildPath 'Classes'
 If(Test-Path $ClassFolderPath){
     $PublicClasses = Get-ChildItem -Path $ClassFolderPath -Filter *.ps1 | sort-object Name
     $MainPSM1Contents += $PublicClasses
 }
 
-$PrivateFunctionsFolderPath = "$CodeSourcePath\Functions\Private"
-$PublicFunctionsFolderPath = "$CodeSourcePath\Functions\Public"
+$PrivateFunctionsFolderPath = Join-Path -Path $CodeSourcePath -ChildPath 'Functions' -AdditionalChildPath 'Private'
+$PublicFunctionsFolderPath = Join-Path -Path $CodeSourcePath -ChildPath 'Functions' -AdditionalChildPath 'Public'
 If(Test-Path $PrivateFunctionsFolderPath){
 
     $PrivateFunctions = Get-ChildItem -Path $PrivateFunctionsFolderPath -Filter *.ps1
@@ -80,10 +84,18 @@ If(test-Path $PostContentPath){
 
 Write-Host "[BUILD][START][PSD1] Adding functions to export" -ForegroundColor RED -BackgroundColor White
 
-$FunctionsToExport = $PublicFunctions.BaseName
+$FunctionsToExport = @($PublicFunctions.BaseName | Sort-Object)
 $Manifest = Join-Path -Path $ModuleFolderPath -ChildPath "$($ModuleName).psd1"
-$Tags = @( 'PSEdition_Core','PSEdition_Desktop','psgpotools','gpo','admx','adml' )
-Update-ModuleManifest -Path $Manifest -FunctionsToExport $FunctionsToExport -Tags $Tags
+# Only when the public functions changed: Update-ModuleManifest rewrites the whole file (its date
+# included), so a build would otherwise always leave the manifest changed.
+$Exported = @((Import-PowerShellDataFile -Path $Manifest).FunctionsToExport | Sort-Object)
+if (($Exported -join ',') -ne ($FunctionsToExport -join ',')) {
+    Update-ModuleManifest -Path $Manifest -FunctionsToExport $FunctionsToExport
+    # Update-ModuleManifest comments out empty exports, which would fall back to '*'
+    (Get-Content -Path $Manifest) -replace '^# VariablesToExport = @\(\)', 'VariablesToExport = @()' |
+        Set-Content -Path $Manifest -Encoding utf8
+    Write-Host "[BUILD][PSD1] FunctionsToExport updated" -ForegroundColor RED -BackgroundColor White
+}
 
 Write-Host "[BUILD][END][MAIN PSM1] building main PSM1 " -ForegroundColor RED -BackgroundColor White
 
