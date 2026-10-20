@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/assets/logo/hgpm.png" alt="HGPM" width="128"></p>
+
 # HGPM
 
 [![CI](https://github.com/JM2K69/PSGPOTools/actions/workflows/ci.yml/badge.svg)](https://github.com/JM2K69/PSGPOTools/actions/workflows/ci.yml)
