@@ -43,7 +43,7 @@ ont créé à la fin, quoi qui ait échoué.
 Avec aussi `PSGPOTOOLS_TEST_LAB_SCRIPTS=1` (Linux), ils lancent les scripts Linux du
 [labo](../getting-started/lab.md), `New-PSGPOTierLab.ps1` et `Grant-PSGPOTierDelegation.ps1`, deux fois
 chacun : les OU, groupes et comptes des tiers, le mot de passe du labo (un ticket Kerberos de
-`tiers1`), la délégation des liens et Group Policy Creator Owners. Ils changent le domaine pour de
+`tiers1`), la délégation des liens et de la création de GPO (le workflow activé pour le test). Ils changent le domaine pour de
 bon : le job `test-samba` de la CI le définit, sur son domaine jetable seulement.
 
 Les écritures d'une approbation (`PSGPOTools.Hardening.tests.ps1`) sont testées avec des mocks :

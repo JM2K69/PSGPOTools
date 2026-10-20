@@ -85,14 +85,14 @@ de son tier.
 
 - **Lier des GPO** à l'OU de son tier et aux OU en dessous, comme l'onglet Délégation de GPMC :
   lecture et écriture de `gPLink` et `gPOptions` ;
-- **la création de GPO**, selon `-CreationRight` :
-    - `Workflow` (par défaut, comme dans le labo) : le [workflow d'approbation](../workflows/approval.md).
-      D'abord, dans la console, **Settings**, **Workflow** : activé, avec `GPO-Tier1-Admins, GPO-Tier2-Admins`
-      comme créateurs ; le script lance ensuite `Initialize-PSGPOWorkflow -Apply`, qui leur donne le
-      droit de créer des GPO dans l'annuaire et dans SYSVOL. Leurs GPO attendent l'approbation d'un
-      administrateur du domaine.
-    - `GroupPolicyCreatorOwners` : les deux groupes dans Group Policy Creator Owners, comme GPMC
-      délègue la création de GPO, sans approbation.
+- **la création de GPO**, par le [workflow d'approbation](../workflows/approval.md) : une délégation
+  fine, jamais Group Policy Creator Owners, dont les membres créent des GPO hors du workflow.
+  `Initialize-PSGPOWorkflow -Apply` leur donne le droit de créer des objets `groupPolicyContainer`
+  dans `CN=Policies,CN=System` et leur dossier dans le dossier `Policies` de SYSVOL ; leurs GPO
+  attendent l'approbation d'un administrateur du domaine.
+
+D'abord, dans la console, **Settings**, **Workflow** : activé, avec `GPO-Tier1-Admins, GPO-Tier2-Admins`
+comme créateurs. Sans cela, le script s'arrête avant de rien changer.
 
 === "Windows"
 
@@ -100,8 +100,8 @@ de son tier.
 
     ```powershell
     Import-Module PSGPOTools
+    .\Grant-PSGPOTierDelegation.ps1 -WhatIf
     .\Grant-PSGPOTierDelegation.ps1
-    .\Grant-PSGPOTierDelegation.ps1 -CreationRight GroupPolicyCreatorOwners
     ```
 
     ??? example "windows/Grant-PSGPOTierDelegation.ps1"
@@ -116,8 +116,8 @@ de son tier.
 
     ```powershell
     Import-Module PSGPOTools
+    ./Grant-PSGPOTierDelegation.ps1 -Server dc.hardenbox.labo -WhatIf
     ./Grant-PSGPOTierDelegation.ps1 -Server dc.hardenbox.labo
-    ./Grant-PSGPOTierDelegation.ps1 -Server dc.hardenbox.labo -CreationRight GroupPolicyCreatorOwners
     ```
 
     ??? example "linux/Grant-PSGPOTierDelegation.ps1"

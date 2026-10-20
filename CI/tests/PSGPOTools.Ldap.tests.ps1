@@ -17,7 +17,7 @@ InModuleScope -ModuleName PSGPOTools {
     $LdapServer = $env:PSGPOTOOLS_TEST_LDAP_SERVER
     $LdapWrite = $LdapServer -and $env:PSGPOTOOLS_TEST_LDAP_WRITE -eq '1'
     # The scripts of the lab (docs/assets/scripts) create OUs, groups and accounts, and change
-    # Group Policy Creator Owners: only on the throwaway domain of the CI.
+    # the configuration of the domain (its workflow, for a moment): only on the throwaway domain of the CI.
     $LabScripts = $LdapWrite -and -not $IsWindows -and $env:PSGPOTOOLS_TEST_LAB_SCRIPTS -eq '1'
 
     BeforeAll {
@@ -682,23 +682,39 @@ InModuleScope -ModuleName PSGPOTools {
             $Again.Output | Should -Not -Match 'created|added' -Because 'what is there is kept'
         }
 
-        It 'Delegates the links of the tier OUs and the creation of GPOs, then keeps them' {
-            # The workflow first: the domain of the CI has no configuration with its creators.
-            $Workflow = Invoke-LabScript 'Grant-PSGPOTierDelegation.ps1'
-            $Workflow.ExitCode | Should -Not -Be 0
-            $Workflow.Output | Should -Match 'approval workflow of the domain must be enabled'
-
-            $Run = Invoke-LabScript 'Grant-PSGPOTierDelegation.ps1' '-CreationRight', 'GroupPolicyCreatorOwners'
-            $Run.ExitCode | Should -Be 0 -Because $Run.Output
+        It 'Delegates finely the links of the tier OUs and the creation of GPOs, never Group Policy Creator Owners, then keeps them' {
             $Sid = "$((Invoke-PSGPOSambaTool -ArgumentList 'group', 'show', 'GPO-Tier1-Admins', '--attributes=objectSid', '-H', "ldap://$Server", '--use-kerberos=required') -match '^objectSid: ' | Select-Object -First 1)" -replace '^objectSid: '
-            $Acl = (Invoke-PSGPOSambaTool -ArgumentList 'dsacl', 'get', "--objectdn=OU=Tier 1,$DomainDN", '-H', "ldap://$Server", '--use-kerberos=required') -join "`n"
-            $Acl | Should -BeLike "*(OA;CI;RPWP;f30e3bbe-9ff0-11d1-b603-0000f80367c1;;$Sid)*"
-            $Acl | Should -BeLike "*(OA;CI;RPWP;f30e3bbf-9ff0-11d1-b603-0000f80367c1;;$Sid)*"
-            (Invoke-PSGPOSambaTool -ArgumentList 'group', 'listmembers', 'Group Policy Creator Owners', '-H', "ldap://$Server", '--use-kerberos=required') -join "`n" | Should -Match 'GPO-Tier2-Admins'
+            $LinkAce = "(OA;CI;RPWP;f30e3bbe-9ff0-11d1-b603-0000f80367c1;;$Sid)"
+            $ReadAcl = { (Invoke-PSGPOSambaTool -ArgumentList 'dsacl', 'get', "--objectdn=OU=Tier 1,$DomainDN", '-H', "ldap://$Server", '--use-kerberos=required') -join "`n" }
 
-            $Again = Invoke-LabScript 'Grant-PSGPOTierDelegation.ps1' '-CreationRight', 'GroupPolicyCreatorOwners'
-            $Again.ExitCode | Should -Be 0 -Because $Again.Output
-            $Again.Output | Should -Not -Match 'now writes|added' -Because 'what is there is kept'
+            # Without the workflow of the creators, it stops before any change.
+            $Refused = Invoke-LabScript 'Grant-PSGPOTierDelegation.ps1'
+            $Refused.ExitCode | Should -Not -Be 0
+            $Refused.Output | Should -Match 'approval workflow of the domain must be enabled'
+            (& $ReadAcl) | Should -Not -BeLike "*$LinkAce*" -Because 'nothing is changed without the workflow'
+
+            # The workflow of the lab, for the test only.
+            Save-PSGPODomainConfiguration -Directory $Directory -Values @{ 'Workflow.Enabled' = $true; 'Workflow.Creators' = 'GPO-Tier1-Admins, GPO-Tier2-Admins' } -Confirm:$false
+            try {
+                $Run = Invoke-LabScript 'Grant-PSGPOTierDelegation.ps1'
+                $Run.ExitCode | Should -Be 0 -Because $Run.Output
+                $Acl = & $ReadAcl
+                $Acl | Should -BeLike "*$LinkAce*"
+                $Acl | Should -BeLike "*(OA;CI;RPWP;f30e3bbf-9ff0-11d1-b603-0000f80367c1;;$Sid)*"
+                # The rights of the creation of GPOs, all there.
+                $Rights = @(Initialize-PSGPOWorkflow -Server $Server)
+                $Rights.Count | Should -BeGreaterThan 0
+                @($Rights | Where-Object State -NE 'Present') | Should -BeNullOrEmpty -Because 'the script gave every right of the creation of GPOs'
+                # Never Group Policy Creator Owners.
+                (Invoke-PSGPOSambaTool -ArgumentList 'group', 'listmembers', 'Group Policy Creator Owners', '-H', "ldap://$Server", '--use-kerberos=required') -join "`n" | Should -Not -Match 'GPO-Tier'
+
+                $Again = Invoke-LabScript 'Grant-PSGPOTierDelegation.ps1'
+                $Again.ExitCode | Should -Be 0 -Because $Again.Output
+                $Again.Output | Should -Not -Match 'now writes|Added' -Because 'what is there is kept'
+            } finally {
+                # The configuration of the domain back to the defaults, for the other tests.
+                Save-PSGPODomainConfiguration -Directory $Directory -Values @{} -Confirm:$false
+            }
         }
     }
 

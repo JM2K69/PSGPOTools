@@ -42,7 +42,7 @@ whatever failed.
 With `PSGPOTOOLS_TEST_LAB_SCRIPTS=1` too (Linux), they run the Linux scripts of the
 [lab](../getting-started/lab.md), `New-PSGPOTierLab.ps1` and `Grant-PSGPOTierDelegation.ps1`, twice
 each: the OUs, groups and accounts of the tiers, the password of the lab (a Kerberos ticket of
-`tiers1`), the delegation of the links and Group Policy Creator Owners. They change the domain for
+`tiers1`), the delegation of the links and of the creation of GPOs (the workflow enabled for the test). They change the domain for
 good: the job `test-samba` of the CI sets it, on its throwaway domain only.
 
 The writes of an approval (`PSGPOTools.Hardening.tests.ps1`) are tested with mocks: their order
