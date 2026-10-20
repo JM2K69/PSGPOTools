@@ -89,8 +89,13 @@ the group of its tier.
   in `CN=Policies,CN=System` and their folder in the `Policies` folder of SYSVOL; their GPOs wait
   for the approval of a domain administrator.
 
-First, in the console, **Settings**, **Workflow**: enabled, with `GPO-Tier1-Admins, GPO-Tier2-Admins`
-as its creators. Without it, the script stops before changing anything.
+First, enable the workflow of the domain with both groups as its creators: in the console, as a
+domain administrator, **Settings**: `Workflow.Enabled` = `True`, `Workflow.Creators` =
+`GPO-Tier1-Admins, GPO-Tier2-Admins`, **Save** (step by step in
+[Approval workflow](../workflows/approval.md#1-configure-the-workflow-tier-0-once)). Without it,
+the script stops before changing anything, and says what it read.
+
+![Workflow.Creators with the groups of the scripts](../assets/screenshots/28-settings-workflow-creators.png)
 
 === "Windows"
 
