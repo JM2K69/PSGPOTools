@@ -66,9 +66,9 @@ A commit never publishes the module: the CI only tests it. A version is publishe
 [PowerShell Gallery](https://www.powershellgallery.com/packages/HGPM) when its tag is pushed:
 
 1. In `HGPM/HGPM.psd1`, `ModuleVersion` (and `Prerelease`, `alpha` while the module is
-   one); in `CHANGELOG.md`, the changes under `## <ModuleVersion> - <Prerelease>` (`## 0.1.2 - alpha`).
-2. Check it: `./CI/03_Build.ps1; ./CI/04_Publish.ps1 -Tag v0.1.2-alpha` (without `-ApiKey`, nothing is sent).
-3. Tag the commit and push the tag: `git tag v0.1.2-alpha; git push origin v0.1.2-alpha`.
+   one); in `CHANGELOG.md`, the changes under `## <ModuleVersion> - <Prerelease>` (`## 0.1.3 - alpha`).
+2. Check it: `./CI/03_Build.ps1; ./CI/04_Publish.ps1 -Tag v0.1.3-alpha` (without `-ApiKey`, nothing is sent).
+3. Tag the commit and push the tag: `git tag v0.1.3-alpha; git push origin v0.1.3-alpha`.
 
 The Release workflow (`.github/workflows/release.yml`) runs every test of the CI on the tagged
 commit, then `CI/04_Publish.ps1`: the tag must be the version of the manifest, the version must have

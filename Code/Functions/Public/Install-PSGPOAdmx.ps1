@@ -37,7 +37,7 @@ function Install-PSGPOAdmx {
         With -CentralStore: the domain controller to read the domain from and write to.
     .PARAMETER Ref
         The tag, branch or commit of the repository to download; the tag of the version of the
-        module (v0.1.2-alpha) by default. Its files must be those the module pins.
+        module (v0.1.3-alpha) by default. Its files must be those the module pins.
     .PARAMETER Force
         Writes even when ADMX files are already there.
     .EXAMPLE

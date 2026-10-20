@@ -1,6 +1,6 @@
 name: Release
 
-# Publishes the module on the PowerShell Gallery, only for a tag of a version (v0.1.2-alpha): the
+# Publishes the module on the PowerShell Gallery, only for a tag of a version (v0.1.3-alpha): the
 # commits of the branches run the tests (CI), never a publication.
 on:
   push:
