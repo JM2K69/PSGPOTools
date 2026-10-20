@@ -1,7 +1,7 @@
 #Requires -Version 7.4
 <#
 .SYNOPSIS
-    Creates the tiering of the PSGPOTools lab from Windows: the OUs of Tier 1 and Tier 2, their
+    Creates the tiering of the HGPM lab from Windows: the OUs of Tier 1 and Tier 2, their
     groups, and a technician account per tier.
 .DESCRIPTION
     In the domain of the computer, or of the domain controller -Server, whatever its name (its

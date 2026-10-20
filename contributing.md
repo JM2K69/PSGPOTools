@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for taking the time to contribute. PSGPOTools changes the Group Policy of real domains,
+Thanks for taking the time to contribute. HGPM changes the Group Policy of real domains,
 often with the rights of a Tier 0 account: every change is reviewed with that in mind.
 
 ## Code of Conduct
@@ -43,7 +43,7 @@ AGPM, a script), and how it would work on Samba AD and on Windows AD.
 ### Build and tests
 
 The sources are in `Code/` (`Classes`, `Functions/Private`, `Functions/Public`).
-`CI/03_Build.ps1` concatenates them into `PSGPOTools/PSGPOTools.psm1`, which is not versioned:
+`CI/03_Build.ps1` concatenates them into `HGPM/HGPM.psm1`, which is not versioned:
 always edit `Code/`, then build.
 
 ```powershell
@@ -54,7 +54,7 @@ Invoke-ScriptAnalyzer -Path ./Code -Recurse -Settings ./PSScriptAnalyzerSettings
 ```
 
 The GUI tests open the real window; they are skipped when the Avalonia runtime is not installed
-(`PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1`, after the build). The tests that write to a
+(`HGPM/Avalonia/Get-AvaloniaBinaries.ps1`, after the build). The tests that write to a
 domain run when `PSGPOTOOLS_TEST_LDAP_SERVER` names a domain controller and
 `PSGPOTOOLS_TEST_LDAP_WRITE=1` (with a Kerberos ticket on Linux): use a test domain, they create
 and delete GPOs. The [technical documentation](https://jm2k69.github.io/PSGPOTools/en/technical/tests/)
@@ -63,9 +63,9 @@ describes the suite.
 ### Releases
 
 A commit never publishes the module: the CI only tests it. A version is published on the
-[PowerShell Gallery](https://www.powershellgallery.com/packages/PSGPOTools) when its tag is pushed:
+[PowerShell Gallery](https://www.powershellgallery.com/packages/HGPM) when its tag is pushed:
 
-1. In `PSGPOTools/PSGPOTools.psd1`, `ModuleVersion` (and `Prerelease`, `alpha` while the module is
+1. In `HGPM/HGPM.psd1`, `ModuleVersion` (and `Prerelease`, `alpha` while the module is
    one); in `CHANGELOG.md`, the changes under `## <ModuleVersion> - <Prerelease>` (`## 0.1.2 - alpha`).
 2. Check it: `./CI/03_Build.ps1; ./CI/04_Publish.ps1 -Tag v0.1.2-alpha` (without `-ApiKey`, nothing is sent).
 3. Tag the commit and push the tag: `git tag v0.1.2-alpha; git push origin v0.1.2-alpha`.

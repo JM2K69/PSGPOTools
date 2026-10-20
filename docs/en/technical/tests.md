@@ -67,7 +67,7 @@ the help of a command is its page, which `Get-Help <command> -Online` opens. A t
 are those of the help.
 
 `Install-PSGPOAdmx` downloads `sources/PolicyDefinitions` from GitHub and installs only the files that
-`PSGPOTools/Resources/PolicyDefinitions.json` pins (each set, the `.admx` files and each language: its
+`HGPM/Resources/PolicyDefinitions.json` pins (each set, the `.admx` files and each language: its
 number of files and a SHA-256, line endings and case of the names aside). After a change of
 `sources/PolicyDefinitions`, `CI/Update-AdmxCatalog.ps1` writes the catalog again; a test checks it.
 

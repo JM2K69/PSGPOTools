@@ -85,6 +85,6 @@ Sans domaine, la fenêtre montre `Samples/Directory.sample.json` sous un bandeau
 avec des OU, des liens et des GPO, pour découvrir la console. Ses modifications restent en mémoire.
 
 ```powershell
-$Sample = Join-Path (Split-Path (Get-Module PSGPOTools).Path) 'Samples' 'Directory.sample.json'
+$Sample = Join-Path (Split-Path (Get-Module HGPM).Path) 'Samples' 'Directory.sample.json'
 Show-GPOManagerAvalonia -Directory (Import-PSGPODirectory -Path $Sample)
 ```

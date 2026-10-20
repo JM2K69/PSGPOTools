@@ -3,14 +3,14 @@
 # Group Policy Preferences ([MS-GPPREF]): the catalog of the preference types, the XML files and
 # their items as GPMC writes them, and the preferences in the settings report of a GPO.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     BeforeAll {
-        $SamplePath = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Samples' 'Directory.sample.json'
+        $SamplePath = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json'
         $Registry = Get-PSGPOPreferenceExtension -Id Registry
         $RegistryItem = $Registry.Items | Where-Object Element -EQ 'Registry'
         $Groups = Get-PSGPOPreferenceExtension -Id Groups

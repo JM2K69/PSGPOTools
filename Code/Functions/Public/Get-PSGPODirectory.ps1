@@ -8,7 +8,7 @@ function Get-PSGPODirectory {
         (gPOptions), and the group policy containers (GPOs). Works with Windows and Samba domain
         controllers, from Windows and Linux, through System.DirectoryServices.Protocols.
 
-        The configuration of PSGPOTools for the domain (Get-PSGPOConfiguration: SYSVOL\<domain>\
+        The configuration of HGPM for the domain (Get-PSGPOConfiguration: SYSVOL\<domain>\
         PSGPOTools\Configuration.psd1) is read with it, and used from then on.
 
         Its changes are written to the domain: NewGpo creates a GPO with New-GPO of RSAT on
@@ -89,7 +89,7 @@ function Get-PSGPODirectory {
         $directory = ConvertTo-PSGPOLdapDirectory -Server $(if ($dnsHostName) { $dnsHostName } else { $Server }) -VendorName (Get-PSGPOLdapValue $rootDse 'vendorName') -DomainEntry $domain `
             -OrganizationalUnitEntry $organizationalUnits -GpoEntry $gpos -PoliciesEntry $policies -EffectiveRights
         $directory.Account = $account
-        # The configuration of PSGPOTools for the domain is changed by its administrators only.
+        # The configuration of HGPM for the domain is changed by its administrators only.
         $directory.IsDomainAdministrator = Test-PSGPODomainAdministrator -Connection $connection -DomainDistinguishedName $domainDN -Account $account
         # Security filtering of the GPOs, as GPMC shows it: not a reason to fail the reading.
         try {
@@ -115,7 +115,7 @@ function Get-PSGPODirectory {
     foreach ($value in @($domain.Attributes['wellKnownObjects'])) {
         if ("$value" -match '^B:32:A9D1CA15768811D1ADED00C04FD8D5CD:(.+)$') { $directory.UsersContainer = $Matches[1] }
     }
-    # The configuration of PSGPOTools for this domain, from its SYSVOL, and its approval workflow.
+    # The configuration of HGPM for this domain, from its SYSVOL, and its approval workflow.
     Use-PSGPODomainConfiguration -Directory $directory
     if ((Get-PSGPOWorkflowSetting).Enabled) {
         $connection = New-PSGPODirectoryConnection -Directory $directory

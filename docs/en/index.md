@@ -1,6 +1,6 @@
-# PSGPOTools
+# HGPM
 
-**PSGPOTools** is a Group Policy management console, in the spirit of GPMC, written in
+**HGPM** is a Group Policy management console, in the spirit of GPMC, written in
 PowerShell 7 with an [Avalonia](https://avaloniaui.net/) interface. It runs on **Windows and
 Linux**, and manages the GPOs of **Samba AD** and **Windows Active Directory** domains alike.
 

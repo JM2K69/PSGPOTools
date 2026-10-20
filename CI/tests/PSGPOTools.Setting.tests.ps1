@@ -3,12 +3,12 @@
 # Get-PSGPOPolicyRegistryChange: registry values written by a policy setting, i.e. the
 # future content of Registry.pol, for a state and the values entered for its elements.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     BeforeAll {
         $PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path
         Initialize-PSGPOAdmx -Path $PolicyDefinitions -UICulture 'en-US' 3>$null

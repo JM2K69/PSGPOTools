@@ -7,12 +7,12 @@
 # The tests that write to that domain (an OU and a GPO of their own, deleted at the end) also
 # need PSGPOTOOLS_TEST_LDAP_WRITE=1, samba-tool and an account allowed to create GPOs.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     # Evaluated during discovery, in the module scope (see PSGPOTools.Gui.tests.ps1).
     $LdapServer = $env:PSGPOTOOLS_TEST_LDAP_SERVER
     $LdapWrite = $LdapServer -and $env:PSGPOTOOLS_TEST_LDAP_WRITE -eq '1'
@@ -292,7 +292,7 @@ InModuleScope -ModuleName PSGPOTools {
             @{ Case = 'a domain that could not be read'; Demo = $null; Error = 'LDAP connection failed'; Expected = 'Domain controller not reached' }
             @{ Case = 'no directory'; Demo = $null; Error = $null; Expected = 'No directory read' }
         ) {
-            $Directory = if ($null -ne $Demo) { Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Samples' 'Directory.sample.json') }
+            $Directory = if ($null -ne $Demo) { Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json') }
             if ($Demo) { $Directory.IsDemonstration = $true }
             $Items = @(Get-PSGPOStatusBarItem -Platform $Workstation -Directory $Directory -DirectoryError $Error)
             $Items[3].Text | Should -Be $Expected
@@ -649,7 +649,7 @@ InModuleScope -ModuleName PSGPOTools {
         BeforeAll {
             $Server = $env:PSGPOTOOLS_TEST_LDAP_SERVER
             $Scripts = Join-Path $PSScriptRoot '..' '..' 'docs' 'assets' 'scripts' 'linux'
-            $Module = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
+            $Module = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
             $Directory = Get-PSGPODirectory -Server $Server
             $DomainDN = $Directory.Domain.DistinguishedName
             function Invoke-LabScript {
@@ -1103,10 +1103,10 @@ InModuleScope -ModuleName PSGPOTools {
         It 'Creates a GPO from a terminal without waiting for a password (the window froze)' -Skip:(-not (Get-Command script -ErrorAction SilentlyContinue)) {
             # samba-tool gpo create asks for a password on the terminal, even with Kerberos.
             $Script = Join-Path $TestDrive 'create-from-terminal.ps1'
-            $Module = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
+            $Module = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
             Set-Content -LiteralPath $Script -Value @"
 Import-Module '$Module'
-& (Get-Module PSGPOTools) { Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'create', '$TerminalName', '-H', 'ldap://$Server', '--use-kerberos=required' }
+& (Get-Module HGPM) { Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'create', '$TerminalName', '-H', 'ldap://$Server', '--use-kerberos=required' }
 "@
             $Pwsh = (Get-Process -Id $PID).Path
             # A pseudo-terminal as standard input, as when the window is started from a shell.

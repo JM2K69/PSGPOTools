@@ -7,7 +7,7 @@
     Where: the Avalonia\bin\<rid> folder of the module when it can be written to, else the data
     folder of the user (%LOCALAPPDATA% on Windows, ~/.local/share on Linux), so that a module
     installed for all users needs no administrator. PSGPOTOOLS_AVALONIA_NO_DOWNLOAD=1 forbids the
-    download (computers without internet: run PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1 on a
+    download (computers without internet: run HGPM/Avalonia/Get-AvaloniaBinaries.ps1 on a
     computer with it, then copy the folder).
 #>
 
@@ -58,7 +58,7 @@ function Install-PSGPOAvaloniaRuntime {
     )
 
     if ($env:PSGPOTOOLS_AVALONIA_NO_DOWNLOAD -eq '1') {
-        throw "The Avalonia runtime ($Rid) is not installed and PSGPOTOOLS_AVALONIA_NO_DOWNLOAD=1 forbids its download: run PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1 -Rid $Rid on a computer with internet, then copy its bin\$Rid folder to $(@(Get-PSGPOAvaloniaFolder -Rid $Rid)[0])."
+        throw "The Avalonia runtime ($Rid) is not installed and PSGPOTOOLS_AVALONIA_NO_DOWNLOAD=1 forbids its download: run HGPM/Avalonia/Get-AvaloniaBinaries.ps1 -Rid $Rid on a computer with internet, then copy its bin\$Rid folder to $(@(Get-PSGPOAvaloniaFolder -Rid $Rid)[0])."
     }
     if (-not $Destination) {
         foreach ($candidate in @(Get-PSGPOAvaloniaFolder -Rid $Rid)) {

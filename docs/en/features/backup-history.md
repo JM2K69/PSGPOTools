@@ -1,6 +1,6 @@
 # Backups and history
 
-PSGPOTools keeps the history of each GPO as backups, in a folder you choose (by default
+HGPM keeps the history of each GPO as backups, in a folder you choose (by default
 `PSGPOTools Backups` in your documents). The **History** tab of a GPO shows them as a timeline.
 
 ![The History tab](../assets/screenshots/04-history.png)
@@ -129,6 +129,6 @@ Get-PSGPOAuditLog -Name 'C - Servers - Baseline' -Action SaveGpoFile, ApproveGpo
 ```
 
 !!! note
-    The log says what the consoles and the commands of PSGPOTools changed, not what GPMC or
+    The log says what the consoles and the commands of HGPM changed, not what GPMC or
     another tool changed. Whoever can write its folder can change it: give the share to the
     administrators of the GPOs only, and keep a copy where they cannot write (a SIEM).

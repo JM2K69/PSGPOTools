@@ -80,7 +80,7 @@ function Resolve-PSGPOAdmxLanguage {
     if ($Language) {
         foreach ($name in $Language) {
             $found = & $pick $name
-            if (-not $found) { throw "No '$name' language in the ADMX files of PSGPOTools: $($Available -join ', ')." }
+            if (-not $found) { throw "No '$name' language in the ADMX files of HGPM: $($Available -join ', ')." }
             $found
         }
         return
@@ -130,7 +130,7 @@ function Expand-PSGPOAdmxArchive {
         if (-not $pinned) { throw "No '$name' set in the catalog of the ADMX files." }
         if (-not $got) { throw "The download has none of ${label}: nothing is installed." }
         if ($got.Files -ne $pinned.Files -or $got.Sha256 -ne $pinned.Sha256) {
-            throw "The download is not the ADMX files of this version of PSGPOTools ($label differ: $($got.Files) files, $($pinned.Files) expected): nothing is installed."
+            throw "The download is not the ADMX files of this version of HGPM ($label differ: $($got.Files) files, $($pinned.Files) expected): nothing is installed."
         }
     }
 }

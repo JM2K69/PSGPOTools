@@ -35,8 +35,8 @@ jobs:
       - name: Cache Avalonia runtime
         uses: actions/cache@v4
         with:
-          path: PSGPOTools/Avalonia/bin
-          key: avalonia-win-x64-${{ hashFiles('PSGPOTools/Resources/AvaloniaPackages.json') }}
+          path: HGPM/Avalonia/bin
+          key: avalonia-win-x64-${{ hashFiles('HGPM/Resources/AvaloniaPackages.json') }}
 
       - name: Build the module
         # Get-AvaloniaBinaries.ps1 loads the module, which is built from Code/ (not in the repository).
@@ -45,7 +45,7 @@ jobs:
 
       - name: Stage Avalonia runtime
         shell: pwsh
-        run: ./PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1 -Rid win-x64
+        run: ./HGPM/Avalonia/Get-AvaloniaBinaries.ps1 -Rid win-x64
 
       - name: Build and test
         shell: pwsh
@@ -76,8 +76,8 @@ jobs:
       - name: Cache Avalonia runtime
         uses: actions/cache@v4
         with:
-          path: PSGPOTools/Avalonia/bin
-          key: avalonia-linux-x64-${{ hashFiles('PSGPOTools/Resources/AvaloniaPackages.json') }}
+          path: HGPM/Avalonia/bin
+          key: avalonia-linux-x64-${{ hashFiles('HGPM/Resources/AvaloniaPackages.json') }}
 
       - name: Build the module
         # Get-AvaloniaBinaries.ps1 loads the module, which is built from Code/ (not in the repository).
@@ -86,7 +86,7 @@ jobs:
 
       - name: Stage Avalonia runtime
         shell: pwsh
-        run: ./PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1 -Rid linux-x64
+        run: ./HGPM/Avalonia/Get-AvaloniaBinaries.ps1 -Rid linux-x64
 
       - name: Build and test
         # 1920x1080 screen: the default Xvfb screen (640x480) is smaller than the tested windows.
@@ -180,8 +180,8 @@ jobs:
         run: |
           $PSVersionTable | Format-Table -AutoSize | Out-String | Write-Host
           ./CI/03_Build.ps1 *> $null
-          Import-Module ./PSGPOTools/PSGPOTools.psd1
-          & (Get-Module PSGPOTools) { Get-PSGPOPlatform | Format-List | Out-String | Write-Host }
+          Import-Module ./HGPM/HGPM.psd1
+          & (Get-Module HGPM) { Get-PSGPOPlatform | Format-List | Out-String | Write-Host }
           try {
               $directory = Get-PSGPODirectory -Server dc.ci.test -Verbose
               "Read $($directory.DomainName) from $($directory.Server) as $($directory.Account): $($directory.Gpos.Count) GPOs."

@@ -29,7 +29,7 @@ A backup is written only when the GPO changed, so the same command can run every
     ```powershell
     $Action = New-ScheduledTaskAction -Execute 'pwsh.exe' -Argument '-NoProfile -Command "Backup-PSGPO -Path D:\GPO_Backup"'
     $Trigger = New-ScheduledTaskTrigger -Once -At 00:00 -RepetitionInterval (New-TimeSpan -Hours 1)
-    Register-ScheduledTask -TaskName 'PSGPOTools backup' -Action $Action -Trigger $Trigger -User 'CONTOSO\gpo-backup' -Password (Read-Host)
+    Register-ScheduledTask -TaskName 'HGPM backup' -Action $Action -Trigger $Trigger -User 'CONTOSO\gpo-backup' -Password (Read-Host)
     ```
 
 The account needs to read the GPOs and their SYSVOL folders; Authenticated Users can.

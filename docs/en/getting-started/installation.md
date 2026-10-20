@@ -1,6 +1,6 @@
 # Installation
 
-PSGPOTools is a PowerShell module. It needs **PowerShell 7.4 or later** on every platform; what
+HGPM is a PowerShell module. It needs **PowerShell 7.4 or later** on every platform; what
 else it needs depends on what you do with it and where.
 
 ## The module
@@ -13,15 +13,15 @@ the PowerShell Gallery):
     ```powershell
     git clone -b avalonia https://github.com/JM2K69/PSGPOTools.git
     cd PSGPOTools
-    pwsh -File CI/03_Build.ps1          # builds PSGPOTools/PSGPOTools.psm1 from Code/
-    Import-Module ./PSGPOTools/PSGPOTools.psd1
+    pwsh -File CI/03_Build.ps1          # builds HGPM/HGPM.psm1 from Code/
+    Import-Module ./HGPM/HGPM.psd1
     ```
 
 === "PowerShell Gallery (once released)"
 
     ```powershell
-    Install-Module PSGPOTools -Scope CurrentUser -AllowPrerelease   # alpha versions
-    Import-Module PSGPOTools
+    Install-Module HGPM -Scope CurrentUser -AllowPrerelease   # alpha versions
+    Import-Module HGPM
     ```
 
 ## The Avalonia runtime
@@ -38,7 +38,7 @@ anything, then puts them in place at once.
   the module: from the repository, build it first (`CI/03_Build.ps1`).
 
 ```powershell
-./PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1 -Rid linux-x64
+./HGPM/Avalonia/Get-AvaloniaBinaries.ps1 -Rid linux-x64
 ```
 
 The commands that do not open a window (backups, drift, approval...) never need Avalonia.
@@ -121,8 +121,8 @@ A password is never given to `samba-tool` or `smbclient`, and never sent over pl
 ## Check the installation
 
 ```powershell
-Import-Module PSGPOTools
-Get-Command -Module PSGPOTools        # the public commands
+Import-Module HGPM
+Get-Command -Module HGPM        # the public commands
 Get-PSGPODirectory -Server dc.hardenbox.labo | Select-Object DomainName, Account, Source
 ```
 

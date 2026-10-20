@@ -1,7 +1,7 @@
 #Requires -Version 7.4
 <#
 .SYNOPSIS
-    Delegates from Linux, finely, to the technicians of Tier 1 and Tier 2 of the PSGPOTools lab the
+    Delegates from Linux, finely, to the technicians of Tier 1 and Tier 2 of the HGPM lab the
     creation of GPOs, and the links of GPOs to the OUs of their tier.
 .DESCRIPTION
     After New-PSGPOTierLab.ps1, for each tier, to its group (GPO-Tier1-Admins with tiers1,
@@ -9,7 +9,7 @@
 
     - Link GPOs, as the Delegation tab of GPMC gives it on an OU: read and write of gPLink and
       gPOptions on the OU of the tier and the OUs below it.
-    - The creation of GPOs, through the approval workflow of PSGPOTools: a fine delegation,
+    - The creation of GPOs, through the approval workflow of HGPM: a fine delegation,
       never Group Policy Creator Owners (which creates GPOs outside the workflow). The
       configuration of the domain must have the workflow enabled with both groups as its
       creators (the console: Settings, Workflow); Initialize-PSGPOWorkflow -Apply then gives
@@ -20,7 +20,7 @@
     What is there is kept: the script can run again. -WhatIf shows what it would change.
 
     Needs samba-tool and a Kerberos ticket of a domain administrator (kinit administrator); the
-    PSGPOTools module for the workflow.
+    HGPM module for the workflow.
 .PARAMETER Server
     The domain controller of the domain.
 .EXAMPLE
@@ -80,7 +80,7 @@ Write-Host "Domain $domainDN, domain controller $Server"
 
 # The workflow first: without it, nothing is changed.
 $groups = @($tiers | ForEach-Object { $_.Group })
-if (-not (Get-Module PSGPOTools)) { Import-Module PSGPOTools -ErrorAction Stop }
+if (-not (Get-Module HGPM)) { Import-Module HGPM -ErrorAction Stop }
 # Read only: -WhatIf is for the changes.
 $configuration = & { $WhatIfPreference = $false; Get-PSGPOConfiguration -Server $Server }
 $workflow = $configuration.Configuration.Workflow

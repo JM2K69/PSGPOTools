@@ -2,12 +2,12 @@
 
 # Audit log: each change a domain accepted is a line of the log, read by Get-PSGPOAuditLog.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     Describe 'Audit log of the changes' {
         BeforeEach {
             $script:Log = Join-Path $TestDrive "audit-$([guid]::NewGuid())"

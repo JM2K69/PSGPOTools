@@ -11,17 +11,17 @@ Code/
 CI/
   03_Build.ps1        builds the module from Code/
   tests/              the Pester tests (and their fixtures)
-PSGPOTools/
-  PSGPOTools.psd1     the manifest (FunctionsToExport written by the build)
-  PSGPOTools.psm1     built: the classes, then the private and public functions (never edited)
+HGPM/
+  HGPM.psd1           the manifest (FunctionsToExport written by the build)
+  HGPM.psm1           built: the classes, then the private and public functions (never edited)
   Resources/          Configuration.psd1, Preferences.json, AvaloniaPackages.json, Icons/
   Avalonia/           Get-AvaloniaBinaries.ps1, and bin/ (the runtime, not committed)
   Samples/            Directory.sample.json (the demonstration environment)
 docs/                 this documentation (en, fr, assets)
 ```
 
-`CI/03_Build.ps1` concatenates the classes and the functions into `PSGPOTools.psm1` and writes the
-public functions in the manifest. The module name is always `PSGPOTools`, whatever the folder of
+`CI/03_Build.ps1` concatenates the classes and the functions into `HGPM.psm1` and writes the
+public functions in the manifest. The module name is always `HGPM`, whatever the folder of
 the repository is called.
 
 ## Layers

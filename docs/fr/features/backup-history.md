@@ -1,6 +1,6 @@
 # Sauvegardes et historique
 
-PSGPOTools garde l'historique de chaque GPO sous forme de sauvegardes, dans un dossier de votre
+HGPM garde l'historique de chaque GPO sous forme de sauvegardes, dans un dossier de votre
 choix (par défaut `PSGPOTools Backups` dans vos documents). L'onglet **History** d'une GPO les
 montre en frise.
 
@@ -133,7 +133,7 @@ Get-PSGPOAuditLog -Name 'C - Servers - Baseline' -Action SaveGpoFile, ApproveGpo
 ```
 
 !!! note
-    Le journal dit ce que les consoles et les commandes de PSGPOTools ont modifié, pas ce que
+    Le journal dit ce que les consoles et les commandes de HGPM ont modifié, pas ce que
     GPMC ou un autre outil a modifié. Qui peut écrire dans son dossier peut le modifier : ne donnez
     le partage qu'aux administrateurs des GPO, et gardez-en une copie là où ils n'écrivent pas (un
     SIEM).

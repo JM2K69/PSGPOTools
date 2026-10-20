@@ -181,7 +181,7 @@ class GPOToolsDirectory {
     # The account can create GPOs (groupPolicyContainer objects in CN=Policies)
     [bool]$CanCreateGpo = $true
     # The account is an administrator of the domain (Domain Admins, Enterprise Admins,
-    # Administrators): it changes the configuration of PSGPOTools for the domain. In memory, the
+    # Administrators): it changes the configuration of HGPM for the domain. In memory, the
     # directory is the one of its user.
     [bool]$IsDomainAdministrator = $true
     # WMI filters of the domain
@@ -365,7 +365,7 @@ class GPOToolsDirectory {
         return $this.SaveApprovalGroups($Gpo, (Resolve-PSGPOGroupContainer -Directory $this -Container $Container))
     }
 
-    # Configuration of PSGPOTools for the domain (Use-PSGPODomainConfiguration): Configuration.psd1
+    # Configuration of HGPM for the domain (Use-PSGPODomainConfiguration): Configuration.psd1
     # in SYSVOL\<domain>\PSGPOTools; its bytes, $null when the domain has none.
     [byte[]] ReadConfigurationFile() {
         return $this.LoadConfigurationFile()

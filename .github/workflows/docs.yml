@@ -9,7 +9,7 @@ on:
     paths:
       - 'docs/**'
       - 'CHANGELOG.md'
-      - 'PSGPOTools/PSGPOTools.psd1'
+      - 'HGPM/HGPM.psd1'
       - 'zensical.toml'
       - 'zensical.fr.toml'
       - '.github/workflows/docs.yml'
@@ -48,7 +48,7 @@ jobs:
       # footer of every page, and over the Changelog page, made from CHANGELOG.md.
       - name: Changelog and version
         run: |
-          version=$(sed -n "s/^ModuleVersion *= *'\(.*\)'.*/\1/p" PSGPOTools/PSGPOTools.psd1)
+          version=$(sed -n "s/^ModuleVersion *= *'\(.*\)'.*/\1/p" HGPM/HGPM.psd1)
           commit=$(git rev-parse --short HEAD)
           commit_url="https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
           day=$(date -u +%Y-%m-%d)
@@ -68,7 +68,7 @@ jobs:
             echo "$history"
           } > docs/fr/changelog.md
           for config in zensical.toml zensical.fr.toml; do
-            sed -i "s|^copyright = \"\(.*\)\"|copyright = \"\1 \&middot; PSGPOTools ${version} (<a href='${commit_url}'>${commit}</a>)\"|" "$config"
+            sed -i "s|^copyright = \"\(.*\)\"|copyright = \"\1 \&middot; HGPM ${version} (<a href='${commit_url}'>${commit}</a>)\"|" "$config"
           done
           grep '^copyright' zensical.toml zensical.fr.toml
 
@@ -85,11 +85,11 @@ jobs:
           <html lang="en">
           <head>
             <meta charset="utf-8">
-            <title>PSGPOTools</title>
+            <title>HGPM</title>
             <meta http-equiv="refresh" content="0; url=en/">
             <link rel="canonical" href="en/">
           </head>
-          <body><a href="en/">PSGPOTools documentation</a> - <a href="fr/">documentation en français</a></body>
+          <body><a href="en/">HGPM documentation</a> - <a href="fr/">documentation en français</a></body>
           </html>
           EOF
 

@@ -1,17 +1,17 @@
 #Requires -Modules @{ ModuleName = 'Pester'; ModuleVersion = '5.5.0' }
 
-# Configuration of PSGPOTools (Get-PSGPOConfiguration): the defaults of the module, the
+# Configuration of HGPM (Get-PSGPOConfiguration): the defaults of the module, the
 # configuration of the domain over them (SYSVOL\<domain>\PSGPOTools\Configuration.psd1, here in a
 # directory in memory), and what they set for a new GPO.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     BeforeAll {
-        $SamplePath = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Samples' 'Directory.sample.json'
+        $SamplePath = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json'
         # A domain in memory with the configuration $Content (none when empty), in use.
         function Set-DomainConfiguration {
             param([string]$Content)
@@ -72,12 +72,12 @@ InModuleScope -ModuleName PSGPOTools {
             $Domain.ReadConfigurationFile() | Should -BeNullOrEmpty -Because 'nothing is written when a value is wrong'
             Save-PSGPODomainConfiguration -Directory $Domain -Values @{ 'NewGpo.Status' = 'UserOnly'; 'Backup.TemplateLabel' = 'Model' }
             $Text = [System.Text.Encoding]::UTF8.GetString($Domain.ReadConfigurationFile())
-            $Text | Should -BeLike '# Configuration of PSGPOTools for the domain corp.contoso.com, for every console of the domain*'
+            $Text | Should -BeLike '# Configuration of HGPM for the domain corp.contoso.com, for every console of the domain*'
             (Get-PSGPOConfigurationData).NewGpo.Status | Should -Be 'UserOnly'
             Get-PSGPOTemplateLabel | Should -Be 'Model'
             Save-PSGPODomainConfiguration -Directory $Domain -Values @{}
             $Text = [System.Text.Encoding]::UTF8.GetString($Domain.ReadConfigurationFile())
-            $Text | Should -BeLike '# Configuration of PSGPOTools*@{*}*' -Because 'no value: an empty configuration, the file stays'
+            $Text | Should -BeLike '# Configuration of HGPM*@{*}*' -Because 'no value: an empty configuration, the file stays'
             (ConvertFrom-PSGPOConfigurationByte -Bytes $Domain.ReadConfigurationFile()).Count | Should -Be 0
             (Get-PSGPOConfigurationData).NewGpo.Status | Should -Be 'Enabled'
         }

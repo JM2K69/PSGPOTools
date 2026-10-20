@@ -107,7 +107,7 @@ $iconResources
                             <TextBlock Text='Browse the ADMX policies' VerticalAlignment='Center'/>
                         </StackPanel>
                     </Button>
-                    <Button Name='configurationButton' Height='36' ToolTip.Tip='Configuration of PSGPOTools (Configuration.psd1)'>
+                    <Button Name='configurationButton' Height='36' ToolTip.Tip='Configuration of HGPM (Configuration.psd1)'>
                         <StackPanel Orientation='Horizontal' Spacing='8'>
                             <PathIcon Data='{StaticResource Icon.settings}'/>
                             <TextBlock Text='Settings' VerticalAlignment='Center'/>
@@ -384,13 +384,13 @@ $iconResources
                                         </StackPanel>
                                     </Border>
 
-                                    <!-- Import Settings, as GPMC: the settings of a backup (GPMC or PSGPOTools), with a migration table -->
+                                    <!-- Import Settings, as GPMC: the settings of a backup (GPMC or HGPM), with a migration table -->
                                     <Border Name='importGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
                                             BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
                                             Background='{DynamicResource SecondaryBackgroundBrush}'>
                                         <StackPanel Spacing='8'>
                                             <TextBlock Name='importGpoTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
-                                            <TextBlock Text='Folder of the backups (GPMC or PSGPOTools)' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                            <TextBlock Text='Folder of the backups (GPMC or HGPM)' Foreground='{DynamicResource SecondaryTextBrush}'/>
                                             <Grid ColumnDefinitions='*,Auto'>
                                                 <TextBox Grid.Column='0' Name='importGpoPathTextBox' Watermark='C:\backupGPO'/>
                                                 <Button Grid.Column='1' Name='importGpoReadButton' Content='Read the backups' Margin='8,0,0,0'/>

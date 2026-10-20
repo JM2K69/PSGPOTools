@@ -1,7 +1,7 @@
 function Get-PSGPOConfiguration {
     <#
     .SYNOPSIS
-        Shows the configuration of PSGPOTools for the domain, and where it comes from.
+        Shows the configuration of HGPM for the domain, and where it comes from.
     .DESCRIPTION
         The configuration is the Resources/Configuration.psd1 of the module (every setting with its
         default, commented), with over it the configuration of the domain: Configuration.psd1 in

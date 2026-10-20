@@ -1,6 +1,6 @@
 # Configuration of the domain
 
-The configuration of PSGPOTools is **the one of the domain**, the same for every console of the
+The configuration of HGPM is **the one of the domain**, the same for every console of the
 domain:
 
 ```text

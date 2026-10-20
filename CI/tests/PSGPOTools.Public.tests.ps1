@@ -1,9 +1,9 @@
 #Requires -Modules @{ ModuleName = 'Pester'; ModuleVersion = '5.5.0' }
 
 BeforeAll {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
     $PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path
-    Get-Module PSGPOTools | Remove-Module -Force
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
@@ -15,9 +15,9 @@ Describe 'Module manifest' {
     }
 
     It 'Exports only the public functions' {
-        (Get-Module PSGPOTools).ExportedCommands.Keys | Sort-Object |
+        (Get-Module HGPM).ExportedCommands.Keys | Sort-Object |
             Should -Be @('Approve-PSGPO', 'Backup-PSGPO', 'Compare-PSGPOBackup', 'Get-PSGPOAuditLog', 'Get-PSGPOBackup', 'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 'Get-PSGPODrift', 'Get-PSGPOGpmcBackup', 'Get-PSGPOMigrationEntry', 'Get-PSGPOMigrationTable', 'Get-PSGPOPermission', 'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 'Get-PSGPOWmiFilter', 'Import-PSGPO', 'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 'Initialize-PSGPOWorkflow', 'Install-PSGPOAdmx', 'New-PSGPO', 'New-PSGPOLink', 'New-PSGPOMigrationTable', 'New-PSGPOWmiFilter', 'Remove-PSGPO', 'Remove-PSGPOLink', 'Remove-PSGPOWmiFilter', 'Restore-PSGPO', 'Set-PSGPO', 'Set-PSGPOBackup', 'Set-PSGPOInheritance', 'Set-PSGPOLink', 'Set-PSGPOPermission', 'Show-GPOManagerAvalonia')
-        (Get-Module PSGPOTools).ExportedVariables.Count | Should -Be 0
+        (Get-Module HGPM).ExportedVariables.Count | Should -Be 0
     }
 
     It 'Points to this repository, its license and its changes' {
@@ -38,7 +38,7 @@ Describe 'Module manifest' {
 
 Describe 'Commands that write' {
     It '<Command> supports -WhatIf and -Confirm' -ForEach @(
-        (Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1')).FunctionsToExport |
+        (Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1')).FunctionsToExport |
             Where-Object { $_ -match '^(New|Set|Remove|Restore|Approve|Backup|Install|Initialize-PSGPOWorkflow)' } | ForEach-Object { @{ Command = $_ } }
     ) {
         # PSScriptAnalyzer leaves the private functions out of this rule: the commands ask.
@@ -50,7 +50,7 @@ Describe 'Commands that write' {
 Describe 'Help of the commands' {
     It '<Command> has a synopsis, an example and the help of each of its parameters' -ForEach @(
         # At discovery: the module is imported after it.
-        (Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1')).FunctionsToExport | ForEach-Object { @{ Command = $_ } }
+        (Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1')).FunctionsToExport | ForEach-Object { @{ Command = $_ } }
     ) {
         $Help = Get-Help -Name $Command -Full
         "$($Help.Synopsis)".Trim() | Should -Not -BeLike "$Command*" -Because 'a command without help shows its syntax as synopsis'
@@ -63,7 +63,7 @@ Describe 'Help of the commands' {
     }
 
     It '<Command> opens its page of the documentation site with Get-Help -Online' -ForEach @(
-        (Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1')).FunctionsToExport | ForEach-Object { @{ Command = $_ } }
+        (Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1')).FunctionsToExport | ForEach-Object { @{ Command = $_ } }
     ) {
         # Get-Help -Online opens the first link of the help.
         @((Get-Help -Name $Command -Full).relatedLinks.navigationLink)[0].uri | Should -Be "https://jm2k69.github.io/PSGPOTools/en/reference/commands/$($Command.ToLowerInvariant())/"
@@ -75,7 +75,7 @@ Describe 'Help of the commands' {
         # In another session: the script imports the module again.
         $null = pwsh -NoProfile -NonInteractive -File $Script -OutputPath $Generated
         $LASTEXITCODE | Should -Be 0
-        $Commands = @((Get-Module PSGPOTools).ExportedFunctions.Keys)
+        $Commands = @((Get-Module HGPM).ExportedFunctions.Keys)
         foreach ($Language in 'en', 'fr') {
             $Pages = Join-Path $PSScriptRoot '..' '..' 'docs' $Language 'reference' 'commands'
             @(Get-ChildItem -LiteralPath $Pages -Filter '*.md').Count | Should -Be $Commands.Count
@@ -93,7 +93,7 @@ Describe 'Help of the commands' {
 
 Describe 'Before Initialize-PSGPOAdmx' {
     BeforeAll {
-        InModuleScope PSGPOTools { [GPOToolsUtility]::RemoveAll() }
+        InModuleScope HGPM { [GPOToolsUtility]::RemoveAll() }
     }
 
     It '<Command> warns that nothing is loaded' -ForEach @(
@@ -167,7 +167,7 @@ Describe 'After Initialize-PSGPOAdmx' {
 
     Context 'GUI policy tree (New-PSGPOPolicyTree)' {
         It 'Places every policy under its own category' {
-            InModuleScope PSGPOTools {
+            InModuleScope HGPM {
                 $Roots = New-PSGPOPolicyTree
                 $Roots.Header | Should -Be @('Machine', 'User')
 
@@ -189,7 +189,7 @@ Describe 'After Initialize-PSGPOAdmx' {
         }
 
         It 'Filters on the display name, case-insensitively and without wildcards' {
-            InModuleScope PSGPOTools {
+            InModuleScope HGPM {
                 $Expected = @([GPOToolsUtility]::Policies | Where-Object { $_.DisplayName -like '*bitlocker*' }).Count
                 $Expected | Should -BeGreaterThan 0
 

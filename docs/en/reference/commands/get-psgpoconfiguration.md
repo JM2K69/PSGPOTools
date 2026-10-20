@@ -1,6 +1,6 @@
 # Get-PSGPOConfiguration
 
-Shows the configuration of PSGPOTools for the domain, and where it comes from.
+Shows the configuration of HGPM for the domain, and where it comes from.
 
 _The help of the command, as `Get-Help Get-PSGPOConfiguration -Full` gives it._
 

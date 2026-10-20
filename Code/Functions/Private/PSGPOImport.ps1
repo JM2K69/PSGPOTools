@@ -4,7 +4,7 @@
 
     The backups: those of GPMC (Backup-GPO, the Backup command of GPMC: a folder per backup, named
     by its ID, with bkupInfo.xml, Backup.xml and DomainSysvol\GPO\Machine|User), and those of
-    PSGPOTools (Backup-PSGPO). Backup.xml lists the accounts of the GPO (SecurityGroups: SID,
+    HGPM (Backup-PSGPO). Backup.xml lists the accounts of the GPO (SecurityGroups: SID,
     sAMAccountName, type, NetBIOS and DNS domain, UPN) and its client-side extensions.
 
     The migration table, as the Migration Table Editor of GPMC writes it (UTF-16):
@@ -130,7 +130,7 @@ function Read-PSGPOGpmcBackupFile {
 }
 
 # The backups a folder holds that can be imported: those of GPMC, and the newest backup of each
-# GPO of PSGPOTools. Kind, DisplayName, Id, Domain, BackedUp, Comment, BackupId, Path...
+# GPO of HGPM. Kind, DisplayName, Id, Domain, BackedUp, Comment, BackupId, Path...
 function Get-PSGPOImportSource {
     [CmdletBinding()]
     param([Parameter(Mandatory)] [string]$Path)
@@ -545,7 +545,7 @@ function Select-PSGPOImportSource {
     param([Parameter(Mandatory)] [string]$Path, [string]$Name, [string]$BackupId)
 
     $sources = @(Get-PSGPOImportSource -Path $Path)
-    if (-not $sources.Count) { throw "No backup of GPMC or of PSGPOTools in '$Path'." }
+    if (-not $sources.Count) { throw "No backup of GPMC or of HGPM in '$Path'." }
     if ($BackupId) { $sources = @($sources | Where-Object { "$($_.BackupId)".Trim('{', '}') -eq $BackupId.Trim('{', '}') }) }
     if ($Name) { $sources = @($sources | Where-Object { Test-PSGPONameMatch -Name $_.DisplayName -Pattern $Name }) }
     $names = @($sources | ForEach-Object DisplayName | Select-Object -Unique)

@@ -1,6 +1,6 @@
 # Configuration du domaine
 
-La configuration de PSGPOTools est **celle du domaine**, la même pour toutes les consoles du
+La configuration de HGPM est **celle du domaine**, la même pour toutes les consoles du
 domaine :
 
 ```text

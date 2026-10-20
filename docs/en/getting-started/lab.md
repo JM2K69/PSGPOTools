@@ -102,7 +102,7 @@ the script stops before changing anything, and says what it read.
     [Download windows/Grant-PSGPOTierDelegation.ps1](../assets/scripts/windows/Grant-PSGPOTierDelegation.ps1){ download }
 
     ```powershell
-    Import-Module PSGPOTools
+    Import-Module HGPM
     .\Grant-PSGPOTierDelegation.ps1 -WhatIf
     .\Grant-PSGPOTierDelegation.ps1
     ```
@@ -118,7 +118,7 @@ the script stops before changing anything, and says what it read.
     [Download linux/Grant-PSGPOTierDelegation.ps1](../assets/scripts/linux/Grant-PSGPOTierDelegation.ps1){ download }
 
     ```powershell
-    Import-Module PSGPOTools
+    Import-Module HGPM
     ./Grant-PSGPOTierDelegation.ps1 -Server dc.hardenbox.labo -WhatIf
     ./Grant-PSGPOTierDelegation.ps1 -Server dc.hardenbox.labo
     ```

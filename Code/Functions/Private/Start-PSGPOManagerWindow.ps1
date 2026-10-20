@@ -33,7 +33,7 @@ function Start-PSGPOManagerWindow {
 
     $xaml = Get-PSGPOManagerWindowXaml
 
-    # The configuration of PSGPOTools for the domain shown (SYSVOL of its domain controller).
+    # The configuration of HGPM for the domain shown (SYSVOL of its domain controller).
     Use-PSGPODomainConfiguration -Directory $Directory -Force
     $window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse((ConvertTo-PSGPOLocalizedXaml -Xaml $xaml))
 
@@ -1143,7 +1143,7 @@ function Start-PSGPOManagerWindow {
         Show-DirectoryResult -Text ($lines -join [Environment]::NewLine) -Problem:([bool]($result.Problem -or $result.RemovedPermissions.Count))
     }
 
-    # Import Settings... of a GPO, as GPMC: the settings of a backup of GPMC or of PSGPOTools, of this
+    # Import Settings... of a GPO, as GPMC: the settings of a backup of GPMC or of HGPM, of this
     # domain or another, with a migration table; the GPO backed up first in the folder of the History tab.
     $importGpo = @{ Gpo = $null; Sources = @() }
     function Open-ImportGpoForm {
@@ -1174,7 +1174,7 @@ function Start-PSGPOManagerWindow {
             })
         $importGpoSourceComboBox.SelectedIndex = if ($importGpo.Sources.Count) { 0 } else { -1 }
         $importGpoConfirmButton.IsEnabled = $importGpo.Sources.Count -gt 0
-        if (-not $importGpo.Sources.Count -and -not $importGpoErrorTextBlock.Text) { $importGpoErrorTextBlock.Text = Get-PSGPOText 'No backup of GPMC or of PSGPOTools in this folder.' }
+        if (-not $importGpo.Sources.Count -and -not $importGpoErrorTextBlock.Text) { $importGpoErrorTextBlock.Text = Get-PSGPOText 'No backup of GPMC or of HGPM in this folder.' }
     }
 
     function Submit-ImportGpo {
@@ -2100,7 +2100,7 @@ function Start-PSGPOManagerWindow {
     $configurationWindow = @{ Ui = $null }
     $configurationButton.IsEnabled = $Directory -and -not $Directory.IsReadOnly -and $Directory.IsDomainAdministrator
     if (-not $configurationButton.IsEnabled) {
-        [Avalonia.Controls.ToolTip]::SetTip($configurationButton, (Get-PSGPOText $(if ($Directory) { 'Only the administrators of the domain change the configuration of PSGPOTools' } else { 'No domain: the defaults of the module apply.' })))
+        [Avalonia.Controls.ToolTip]::SetTip($configurationButton, (Get-PSGPOText $(if ($Directory) { 'Only the administrators of the domain change the configuration of HGPM' } else { 'No domain: the defaults of the module apply.' })))
         [Avalonia.Controls.ToolTip]::SetShowOnDisabled($configurationButton, $true)
     }
     $configurationButton.Add_Click({

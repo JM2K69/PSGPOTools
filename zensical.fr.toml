@@ -1,12 +1,12 @@
-# Documentation de PSGPOTools, en français : https://jm2k69.github.io/PSGPOTools/fr/
+# Documentation de HGPM, en français : https://jm2k69.github.io/PSGPOTools/fr/
 # La version anglaise est zensical.toml ; les deux sont construites par .github/workflows/docs.yml.
 
 [project]
-site_name = "PSGPOTools"
+site_name = "HGPM"
 site_description = "Console de gestion des stratégies de groupe pour Samba AD et Active Directory, sous Windows et Linux, en PowerShell 7 et Avalonia."
 site_author = "JM2K69"
 site_url = "https://jm2k69.github.io/PSGPOTools/fr/"
-copyright = "&copy; JM2K69 and the PSGPOTools contributors"
+copyright = "&copy; JM2K69 and the HGPM contributors"
 repo_url = "https://github.com/JM2K69/PSGPOTools"
 repo_name = "JM2K69/PSGPOTools"
 # La branche des liens « Modifier » : avalonia jusqu’à sa fusion dans la branche principale, puis celle-ci.
