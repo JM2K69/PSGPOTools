@@ -92,6 +92,19 @@ Les groupes qui transmettent un PSO à leurs membres diffèrent selon le contrô
 | Windows | les groupes de **sécurité globaux** seulement (un PSO appliqué à un groupe local de domaine ou universel ne s'applique à personne) |
 | Samba AD | tous les groupes de **sécurité**, sauf les groupes intégrés |
 
+!!! warning "Samba AD et Windows n'appliquent pas le même PSO"
+    Un PSO appliqué à un groupe de sécurité **local de domaine** ou **universel** s'applique à ses
+    membres sur un domaine **Samba AD**, et à **personne** sur un domaine **Windows**. Les mêmes
+    groupes et les mêmes PSO peuvent alors donner une autre stratégie de mot de passe au même
+    utilisateur, par exemple après une migration de Samba AD vers Windows, ou avec des contrôleurs
+    de domaine Windows et Samba côte à côte.
+
+    - Appliquez les PSO à des utilisateurs, ou à des **groupes de sécurité globaux** : les deux
+      contrôleurs de domaine les transmettent.
+    - Vérifiez le résultat dans **Paramètres de mot de passe résultants** : le PSO de l'encadré est
+      celui qu'applique le contrôleur de domaine lu ; un PSO **Ignoré** atteint le compte par un
+      groupe qui ne le transmet pas.
+
 L'état de chaque PSO le dit : **S'applique**, **Non appliqué** (un autre passe avant, ou un PSO
 appliqué directement l'emporte), **Ignoré** (appliqué par un groupe qui ne transmet pas de PSO).
 Pour un utilisateur, le contrôleur de domaine a le dernier mot : la console affiche le PSO qu'il
