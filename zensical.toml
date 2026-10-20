@@ -104,6 +104,9 @@ alternate = [
 ]
 
 [project.theme]
+# The logo of HGPM in the header of the site, and as the icon of its tabs (docs/assets/logo).
+logo = "assets/logo/hgpm.png"
+favicon = "assets/logo/favicon.png"
 language = "en"
 features = [
   "content.code.copy",
