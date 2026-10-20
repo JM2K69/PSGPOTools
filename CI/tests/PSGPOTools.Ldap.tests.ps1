@@ -1179,4 +1179,101 @@ Import-Module '$Module'
             @((Get-PSGPODirectory -Server $Server).FindSom($OuDN).Links.Gpo.DisplayName) | Should -Contain $TerminalName
         }
     }
+
+    Describe 'Fine-grained password policies written to a domain controller' -Skip:(-not $LdapWrite -or $IsWindows) {
+        BeforeAll {
+            $Server = $env:PSGPOTOOLS_TEST_LDAP_SERVER
+            $Stamp = Get-Date -Format 'MMddHHmmss'
+            $Ldap = "ldap://$Server"
+            # A user of the test, in a global and in a domain local security group of the test.
+            $UserName = "psotest$Stamp"
+            $GlobalName = "PSO test global $Stamp"
+            $LocalName = "PSO test local $Stamp"
+            $PolicyName = "PSO test $Stamp"
+            $RenamedName = "PSO test renamed $Stamp"
+            $LocalPolicyName = "PSO test local $Stamp"
+            $null = Invoke-PSGPOSambaTool -ArgumentList 'user', 'add', $UserName, '--random-password', '-H', $Ldap, '--use-kerberos=required'
+            $null = Invoke-PSGPOSambaTool -ArgumentList 'group', 'add', $GlobalName, '--group-scope=Global', '--group-type=Security', '-H', $Ldap, '--use-kerberos=required'
+            $null = Invoke-PSGPOSambaTool -ArgumentList 'group', 'add', $LocalName, '--group-scope=Domain', '--group-type=Security', '-H', $Ldap, '--use-kerberos=required'
+            foreach ($Group in $GlobalName, $LocalName) { $null = Invoke-PSGPOSambaTool -ArgumentList 'group', 'addmembers', $Group, $UserName, '-H', $Ldap, '--use-kerberos=required' }
+            $script:AuditLog = Join-Path $TestDrive 'audit'
+            Mock Get-PSGPOAuditPath { $script:AuditLog }
+        }
+
+        AfterAll {
+            # Everything the tests created, whatever failed.
+            $Store = Connect-PSGPOPasswordPolicyStore -Server $Server
+            foreach ($Name in $PolicyName, $RenamedName, $LocalPolicyName) {
+                $Policy = $Store.FindPolicy($Name)
+                if (-not $Policy) { continue }
+                try {
+                    if ($Policy.ProtectedFromAccidentalDeletion) { $Changed = $Policy.Clone(); $Changed.ProtectedFromAccidentalDeletion = $false; $null = $Store.SetPolicy($Policy, $Changed) }
+                    $Store.RemovePolicy($Policy)
+                } catch { Write-Warning $_ }
+            }
+            foreach ($Group in $GlobalName, $LocalName) { try { $null = Invoke-PSGPOSambaTool -ArgumentList 'group', 'delete', $Group, '-H', $Ldap, '--use-kerberos=required' } catch { Write-Warning $_ } }
+            try { $null = Invoke-PSGPOSambaTool -ArgumentList 'user', 'delete', $UserName, '-H', $Ldap, '--use-kerberos=required' } catch { Write-Warning $_ }
+        }
+
+        It 'Reads the password policy of the domain, and how its groups pass a PSO on' {
+            $Store = Connect-PSGPOPasswordPolicyStore -Server $Server
+            $Store.DomainPolicy.IsDefault | Should -BeTrue
+            $Store.DomainPolicy.PasswordHistoryCount | Should -BeGreaterOrEqual 0
+            $Store.CanCreate | Should -BeTrue -Because 'the account of the tests administers the domain'
+            $Store.GroupRule | Should -Be $(if ($Store.ServerType -eq 'Samba AD') { 'Security' } else { 'GlobalSecurity' })
+            $Default = Get-PSGPODefaultPasswordPolicy -Server $Server
+            $Default.MinPasswordLength | Should -Be $Store.DomainPolicy.MinPasswordLength
+        }
+
+        It 'Creates a PSO applied to a group, protected from accidental deletion, as the domain controller applies it' {
+            $New = New-PSGPOFineGrainedPasswordPolicy -Server $Server -Name $PolicyName -Precedence 50 -MinPasswordLength 15 -MaxPasswordAge 0 -LockoutThreshold 5 -LockoutDuration 0 -AppliesTo $GlobalName -Description 'HGPM test' -Confirm:$false
+            $New.Id | Should -Not -Be ([guid]::Empty)
+            $Read = Get-PSGPOFineGrainedPasswordPolicy -Server $Server -Name $PolicyName
+            $Read.MinPasswordLength | Should -Be 15
+            $Read.MaxPasswordAge | Should -Be ([TimeSpan]::Zero)
+            $Read.LockoutDuration | Should -Be ([TimeSpan]::Zero)
+            $Read.ProtectedFromAccidentalDeletion | Should -BeTrue -Because 'the domain stored the deny ACE of Everyone'
+            $Read.AppliesTo | Should -HaveCount 1
+            $Result = Get-PSGPOResultantPasswordPolicy -Server $Server -Identity $UserName
+            $Result.Source | Should -Be 'DomainController'
+            $Result.AppliedPolicy | Should -Be $PolicyName
+            $Result.Differs | Should -BeFalse -Because 'the computation finds what the domain controller applies'
+            Remove-PSGPOFineGrainedPasswordPolicy -Server $Server -Name $PolicyName -Confirm:$false -ErrorVariable Problem -ErrorAction SilentlyContinue
+            "$Problem" | Should -BeLike '*protected from accidental deletion*'
+            $Audit = @(Get-Content -LiteralPath (Get-ChildItem -LiteralPath $script:AuditLog -Filter '*.jsonl')[0].FullName | ConvertFrom-Json)
+            ($Audit | Where-Object Action -EQ 'NewPasswordPolicy').Details.MinPasswordLength | Should -Be 15
+        }
+
+        It 'Renames it and applies it directly, and refuses a change made meanwhile' {
+            $Set = Set-PSGPOFineGrainedPasswordPolicy -Server $Server -Name $PolicyName -NewName $RenamedName -Precedence 40 -Confirm:$false
+            $Set.DistinguishedName | Should -BeLike "CN=$RenamedName,CN=Password Settings Container,*"
+            (Add-PSGPOFineGrainedPasswordPolicySubject -Server $Server -Name $RenamedName -Subject $UserName -Confirm:$false).AppliesTo | Should -HaveCount 2
+            $Result = Get-PSGPOResultantPasswordPolicy -Server $Server -Identity $UserName
+            $Result.AppliedPolicy | Should -Be $RenamedName
+            $Result.Candidates[0].AppliesThrough | Should -Contain 'Direct'
+            # Read here, then changed by another console: the first one is refused.
+            $Store = Connect-PSGPOPasswordPolicyStore -Server $Server
+            $Policy = $Store.FindPolicy($RenamedName)
+            $null = Set-PSGPOFineGrainedPasswordPolicy -Server $Server -Name $RenamedName -MinPasswordLength 16 -Confirm:$false
+            $Changed = $Policy.Clone(); $Changed.MinPasswordLength = 17
+            { $Store.SetPolicy($Policy, $Changed) } | Should -Throw -ExpectedMessage '*changed in the domain meanwhile*'
+            (Get-PSGPOFineGrainedPasswordPolicy -Server $Server -Name $RenamedName).MinPasswordLength | Should -Be 16
+        }
+
+        It 'Finds the PSO the domain controller applies through a domain local group' {
+            $null = New-PSGPOFineGrainedPasswordPolicy -Server $Server -Name $LocalPolicyName -Precedence 1 -AppliesTo $LocalName -ProtectedFromAccidentalDeletion $false -Confirm:$false
+            $null = Remove-PSGPOFineGrainedPasswordPolicySubject -Server $Server -Name $RenamedName -Subject $UserName -Confirm:$false
+            $Result = Get-PSGPOResultantPasswordPolicy -Server $Server -Identity $UserName
+            $Result.Differs | Should -BeFalse -Because 'Samba AD and Windows count their own groups, and the computation follows the domain controller'
+            $Expected = if ((Connect-PSGPOPasswordPolicyStore -Server $Server).ServerType -eq 'Samba AD') { $LocalPolicyName } else { $RenamedName }
+            $Result.AppliedPolicy | Should -Be $Expected
+        }
+
+        It 'Deletes a PSO once its protection is cleared' {
+            $null = Set-PSGPOFineGrainedPasswordPolicy -Server $Server -Name $RenamedName -ProtectedFromAccidentalDeletion $false -Confirm:$false
+            (Get-PSGPOFineGrainedPasswordPolicy -Server $Server -Name $RenamedName).ProtectedFromAccidentalDeletion | Should -BeFalse
+            Remove-PSGPOFineGrainedPasswordPolicy -Server $Server -Name $RenamedName, $LocalPolicyName -Confirm:$false
+            @(Get-PSGPOFineGrainedPasswordPolicy -Server $Server -Name "PSO test*$Stamp") | Should -BeNullOrEmpty
+        }
+    }
 }

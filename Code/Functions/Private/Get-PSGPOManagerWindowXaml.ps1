@@ -7,11 +7,6 @@ function Get-PSGPOManagerWindowXaml {
     [OutputType([string])]
     param()
 
-    # Icons of Resources/Icons as geometry resources: {StaticResource Icon.<name>}
-    $iconResources = (Get-PSGPOIconName | ForEach-Object {
-        "            <StreamGeometry x:Key='Icon.$_'>$(Get-PSGPOIconData -Name $_)</StreamGeometry>"
-    }) -join [Environment]::NewLine
-
     @"
 <Window xmlns='https://github.com/avaloniaui'
         xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
@@ -22,54 +17,7 @@ function Get-PSGPOManagerWindowXaml {
         Background='{DynamicResource BackgroundBrush}'
         Name='MainWindow'>
 
-    <Window.Styles>
-        <Style Selector='PathIcon'>
-            <Setter Property='Width' Value='16'/>
-            <Setter Property='Height' Value='16'/>
-        </Style>
-    </Window.Styles>
-
-    <Window.Resources>
-        <ResourceDictionary>
-$iconResources
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key='Light'>
-                    <SolidColorBrush x:Key='PrimaryBrush'>#0078D4</SolidColorBrush>
-                    <SolidColorBrush x:Key='PrimaryHoverBrush'>#106EBE</SolidColorBrush>
-                    <SolidColorBrush x:Key='PrimaryPressedBrush'>#005A9E</SolidColorBrush>
-                    <SolidColorBrush x:Key='AccentBrush'>#00BCF2</SolidColorBrush>
-                    <SolidColorBrush x:Key='BackgroundBrush'>#FFFFFF</SolidColorBrush>
-                    <SolidColorBrush x:Key='SecondaryBackgroundBrush'>#F5F5F5</SolidColorBrush>
-                    <SolidColorBrush x:Key='BorderBrush'>#E1E1E1</SolidColorBrush>
-                    <SolidColorBrush x:Key='TextBrush'>#1F1F1F</SolidColorBrush>
-                    <SolidColorBrush x:Key='SecondaryTextBrush'>#605E5C</SolidColorBrush>
-                    <SolidColorBrush x:Key='TreeViewHoverBrush'>#F3F2F1</SolidColorBrush>
-                    <SolidColorBrush x:Key='IconFolderBrush'>#FDB900</SolidColorBrush>
-                    <SolidColorBrush x:Key='IconFileBrush'>#0078D4</SolidColorBrush>
-                    <SolidColorBrush x:Key='IconScopeBrush'>#107C10</SolidColorBrush>
-                    <SolidColorBrush x:Key='HeaderBackgroundBrush'>#F3F2F1</SolidColorBrush>
-                    <SolidColorBrush x:Key='HeaderTextBrush'>#1F1F1F</SolidColorBrush>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key='Dark'>
-                    <SolidColorBrush x:Key='PrimaryBrush'>#0086F0</SolidColorBrush>
-                    <SolidColorBrush x:Key='PrimaryHoverBrush'>#3399FF</SolidColorBrush>
-                    <SolidColorBrush x:Key='PrimaryPressedBrush'>#0066CC</SolidColorBrush>
-                    <SolidColorBrush x:Key='AccentBrush'>#00D4FF</SolidColorBrush>
-                    <SolidColorBrush x:Key='BackgroundBrush'>#1E1E1E</SolidColorBrush>
-                    <SolidColorBrush x:Key='SecondaryBackgroundBrush'>#2D2D30</SolidColorBrush>
-                    <SolidColorBrush x:Key='BorderBrush'>#3F3F46</SolidColorBrush>
-                    <SolidColorBrush x:Key='TextBrush'>#FFFFFF</SolidColorBrush>
-                    <SolidColorBrush x:Key='SecondaryTextBrush'>#CCCCCC</SolidColorBrush>
-                    <SolidColorBrush x:Key='TreeViewHoverBrush'>#2D2D30</SolidColorBrush>
-                    <SolidColorBrush x:Key='IconFolderBrush'>#FFD700</SolidColorBrush>
-                    <SolidColorBrush x:Key='IconFileBrush'>#64B5F6</SolidColorBrush>
-                    <SolidColorBrush x:Key='IconScopeBrush'>#81C784</SolidColorBrush>
-                    <SolidColorBrush x:Key='HeaderBackgroundBrush'>#252526</SolidColorBrush>
-                    <SolidColorBrush x:Key='HeaderTextBrush'>#FFFFFF</SolidColorBrush>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
+$(Get-PSGPOWindowResourceXaml)
 
     <Grid RowDefinitions='Auto,*,Auto'>
 
@@ -1048,5 +996,73 @@ $iconResources
         </Border>
     </Grid>
 </Window>
+"@
+}
+
+# The styles and resources of the windows of the consoles: the icons of Resources/Icons as geometry
+# resources ({StaticResource Icon.<name>}) and the brushes of the light and dark themes.
+function Get-PSGPOWindowResourceXaml {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param()
+
+    $iconResources = (Get-PSGPOIconName | ForEach-Object {
+        "            <StreamGeometry x:Key='Icon.$_'>$(Get-PSGPOIconData -Name $_)</StreamGeometry>"
+    }) -join [Environment]::NewLine
+
+    @"
+    <Window.Styles>
+        <Style Selector='PathIcon'>
+            <Setter Property='Width' Value='16'/>
+            <Setter Property='Height' Value='16'/>
+        </Style>
+        <!-- The button of the view shown -->
+        <Style Selector='Button.active'>
+            <Setter Property='Background' Value='{DynamicResource PrimaryBrush}'/>
+            <Setter Property='Foreground' Value='White'/>
+        </Style>
+    </Window.Styles>
+
+    <Window.Resources>
+        <ResourceDictionary>
+$iconResources
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key='Light'>
+                    <SolidColorBrush x:Key='PrimaryBrush'>#0078D4</SolidColorBrush>
+                    <SolidColorBrush x:Key='PrimaryHoverBrush'>#106EBE</SolidColorBrush>
+                    <SolidColorBrush x:Key='PrimaryPressedBrush'>#005A9E</SolidColorBrush>
+                    <SolidColorBrush x:Key='AccentBrush'>#00BCF2</SolidColorBrush>
+                    <SolidColorBrush x:Key='BackgroundBrush'>#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key='SecondaryBackgroundBrush'>#F5F5F5</SolidColorBrush>
+                    <SolidColorBrush x:Key='BorderBrush'>#E1E1E1</SolidColorBrush>
+                    <SolidColorBrush x:Key='TextBrush'>#1F1F1F</SolidColorBrush>
+                    <SolidColorBrush x:Key='SecondaryTextBrush'>#605E5C</SolidColorBrush>
+                    <SolidColorBrush x:Key='TreeViewHoverBrush'>#F3F2F1</SolidColorBrush>
+                    <SolidColorBrush x:Key='IconFolderBrush'>#FDB900</SolidColorBrush>
+                    <SolidColorBrush x:Key='IconFileBrush'>#0078D4</SolidColorBrush>
+                    <SolidColorBrush x:Key='IconScopeBrush'>#107C10</SolidColorBrush>
+                    <SolidColorBrush x:Key='HeaderBackgroundBrush'>#F3F2F1</SolidColorBrush>
+                    <SolidColorBrush x:Key='HeaderTextBrush'>#1F1F1F</SolidColorBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key='Dark'>
+                    <SolidColorBrush x:Key='PrimaryBrush'>#0086F0</SolidColorBrush>
+                    <SolidColorBrush x:Key='PrimaryHoverBrush'>#3399FF</SolidColorBrush>
+                    <SolidColorBrush x:Key='PrimaryPressedBrush'>#0066CC</SolidColorBrush>
+                    <SolidColorBrush x:Key='AccentBrush'>#00D4FF</SolidColorBrush>
+                    <SolidColorBrush x:Key='BackgroundBrush'>#1E1E1E</SolidColorBrush>
+                    <SolidColorBrush x:Key='SecondaryBackgroundBrush'>#2D2D30</SolidColorBrush>
+                    <SolidColorBrush x:Key='BorderBrush'>#3F3F46</SolidColorBrush>
+                    <SolidColorBrush x:Key='TextBrush'>#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key='SecondaryTextBrush'>#CCCCCC</SolidColorBrush>
+                    <SolidColorBrush x:Key='TreeViewHoverBrush'>#2D2D30</SolidColorBrush>
+                    <SolidColorBrush x:Key='IconFolderBrush'>#FFD700</SolidColorBrush>
+                    <SolidColorBrush x:Key='IconFileBrush'>#64B5F6</SolidColorBrush>
+                    <SolidColorBrush x:Key='IconScopeBrush'>#81C784</SolidColorBrush>
+                    <SolidColorBrush x:Key='HeaderBackgroundBrush'>#252526</SolidColorBrush>
+                    <SolidColorBrush x:Key='HeaderTextBrush'>#FFFFFF</SolidColorBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 "@
 }

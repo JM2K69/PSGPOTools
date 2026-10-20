@@ -133,3 +133,41 @@ class AvaloniaPermissionRow {
     [bool]$Inherited
     [string]$InheritedText
 }
+
+# One PSO of the list of Show-PSOManagerAvalonia (Password Settings view)
+class AvaloniaPasswordPolicyRow {
+    [string]$Precedence
+    [string]$Name
+    [string]$Description
+    # Settings in short: length, history, maximum age, lockout
+    [string]$Summary
+    # Number of users and groups it directly applies to
+    [string]$AppliesTo
+    [bool]$IsProtected
+    # The PSO (GPOToolsPasswordPolicy)
+    [object]$Policy
+}
+
+# One user or group: a subject of a PSO, a result of a search (Show-PSOManagerAvalonia)
+class AvaloniaPasswordAccountRow {
+    [string]$Name
+    # User, or the scope and kind of a group, in the language of the interface
+    [string]$Kind
+    [string]$IconData
+    [string]$DistinguishedName
+    # The account (GPOToolsPasswordAccount); $null for a subject the domain does not have anymore
+    [object]$Account
+}
+
+# One PSO that concerns an account, in the order of priority (Resultant Password Settings view)
+class AvaloniaPasswordCandidateRow {
+    [string]$Order
+    [string]$Name
+    [string]$Precedence
+    # Directly, through which groups
+    [string]$Through
+    [string]$Status
+    [string]$StatusBrush
+    [string]$Reason
+    [bool]$IsApplied
+}

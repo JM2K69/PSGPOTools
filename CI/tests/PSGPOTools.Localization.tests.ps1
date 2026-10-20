@@ -27,13 +27,13 @@ InModuleScope -ModuleName HGPM {
         AfterAll { $null = Set-PSGPOLanguage -Language 'en-US' }
 
         It 'Has a translation of every text in <Language>' -ForEach $Languages {
-            $Texts = Import-PowerShellDataFile -LiteralPath $File
+            $Texts = Import-PowerShellDataFile -LiteralPath $File -SkipLimitCheck
             @($Keys | Where-Object { -not $Texts.ContainsKey($_) } | Sort-Object) | Should -BeNullOrEmpty
             @($Texts.Keys | Where-Object { -not $Texts[$_] }) | Should -BeNullOrEmpty -Because 'an empty text would hide the English one'
         }
 
         It 'Keeps the values of each text in <Language>' -ForEach $Languages {
-            $Texts = Import-PowerShellDataFile -LiteralPath $File
+            $Texts = Import-PowerShellDataFile -LiteralPath $File -SkipLimitCheck
             $Different = foreach ($Key in $Texts.Keys) {
                 $Expected = @([regex]::Matches($Key, '\{\d+\}').Value | Sort-Object -Unique) -join ','
                 $Actual = @([regex]::Matches($Texts[$Key], '\{\d+\}').Value | Sort-Object -Unique) -join ','
@@ -45,7 +45,7 @@ InModuleScope -ModuleName HGPM {
 
         It 'Parses the windows once translated in <Language>' -ForEach $Languages {
             $null = Set-PSGPOLanguage -Language $Language
-            foreach ($Xaml in (Get-PSGPOManagerWindowXaml)) {
+            foreach ($Xaml in (Get-PSGPOManagerWindowXaml), (Get-PSGPOPasswordPolicyWindowXaml), (Get-PSGPOPasswordPolicyEditorXaml)) {
                 { [xml](ConvertTo-PSGPOLocalizedXaml -Xaml $Xaml) } | Should -Not -Throw
             }
         }

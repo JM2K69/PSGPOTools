@@ -40,7 +40,8 @@ function Set-PSGPOLanguage {
     $file = $available | Where-Object { $_ -eq $culture.Name } | Select-Object -First 1
     if (-not $file) { $file = $available | Where-Object { ([cultureinfo]::GetCultureInfo($_)).TwoLetterISOLanguageName -eq $culture.TwoLetterISOLanguageName } | Select-Object -First 1 }
     if (-not $file) { return $script:PSGPOLanguage }
-    $texts = Import-PowerShellDataFile -LiteralPath (Join-Path $PSScriptRoot 'Resources' 'Strings' "$file.psd1")
+    # More than 500 texts: past the limit of a data file without -SkipLimitCheck.
+    $texts = Import-PowerShellDataFile -LiteralPath (Join-Path $PSScriptRoot 'Resources' 'Strings' "$file.psd1") -SkipLimitCheck
     $script:PSGPOTexts = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($key in $texts.Keys) { $script:PSGPOTexts[$key] = $texts[$key] }
     $script:PSGPOLanguage = $file
