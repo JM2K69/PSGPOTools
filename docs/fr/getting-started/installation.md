@@ -20,7 +20,7 @@ version sur la PowerShell Gallery) :
 === "PowerShell Gallery (une fois publié)"
 
     ```powershell
-    Install-Module PSGPOTools -Scope CurrentUser
+    Install-Module PSGPOTools -Scope CurrentUser -AllowPrerelease   # versions alpha
     Import-Module PSGPOTools
     ```
 

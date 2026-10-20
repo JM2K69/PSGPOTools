@@ -20,7 +20,7 @@ the PowerShell Gallery):
 === "PowerShell Gallery (once released)"
 
     ```powershell
-    Install-Module PSGPOTools -Scope CurrentUser
+    Install-Module PSGPOTools -Scope CurrentUser -AllowPrerelease   # alpha versions
     Import-Module PSGPOTools
     ```
 
