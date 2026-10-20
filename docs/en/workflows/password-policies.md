@@ -57,6 +57,17 @@ Under **Directly Applies To**, search `GPO-Tier`, select `GPO-Tier1-Admins`, **A
 to the members of the group. The window says which groups pass a PSO on: on Samba AD, every security
 group but the built-in ones; on Windows, the global security groups only.
 
+!!! warning "Samba AD and Windows do not apply the same PSO"
+    A PSO applied to a **domain local** or **universal** security group applies to its members on
+    a **Samba AD** domain, and to **nobody** on a **Windows** domain. The same groups and the same
+    PSOs can then give another password policy to the same user, for instance after a migration
+    from Samba AD to Windows, or with Windows and Samba domain controllers side by side.
+
+    - Apply the PSOs to users, or to **global security groups**: both domain controllers pass them on.
+    - Check the result in **Resultant Password Settings**: the PSO in the frame is the one the domain
+      controller you read applies; a PSO **Ignored** reaches the account through a group that does
+      not pass it on there.
+
 ![Directly Applies To](../assets/screenshots/34-pso-applies-to.png)
 
 **OK** checks the settings, creates the PSO and selects it in the list.

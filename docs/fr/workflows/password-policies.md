@@ -59,6 +59,19 @@ Sous **S'applique directement à**, recherchez `GPO-Tier`, sélectionnez `GPO-Ti
 transmettent un PSO : avec Samba AD, tous les groupes de sécurité sauf les groupes intégrés ; avec
 Windows, les groupes de sécurité globaux seulement.
 
+!!! warning "Samba AD et Windows n'appliquent pas le même PSO"
+    Un PSO appliqué à un groupe de sécurité **local de domaine** ou **universel** s'applique à ses
+    membres sur un domaine **Samba AD**, et à **personne** sur un domaine **Windows**. Les mêmes
+    groupes et les mêmes PSO peuvent alors donner une autre stratégie de mot de passe au même
+    utilisateur, par exemple après une migration de Samba AD vers Windows, ou avec des contrôleurs
+    de domaine Windows et Samba côte à côte.
+
+    - Appliquez les PSO à des utilisateurs, ou à des **groupes de sécurité globaux** : les deux
+      contrôleurs de domaine les transmettent.
+    - Vérifiez le résultat dans **Paramètres de mot de passe résultants** : le PSO de l'encadré est
+      celui qu'applique le contrôleur de domaine lu ; un PSO **Ignoré** atteint le compte par un
+      groupe qui ne le transmet pas.
+
 ![S'applique directement à](../assets/screenshots/34-pso-applies-to.fr.png)
 
 **OK** vérifie les paramètres, crée le PSO et le sélectionne dans la liste.

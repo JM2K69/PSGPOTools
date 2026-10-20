@@ -87,6 +87,17 @@ The groups that pass a PSO on to their members differ between the domain control
 | Windows | the **global security** groups only (a PSO applied to a domain local or universal group applies to nobody) |
 | Samba AD | every **security** group but the built-in ones |
 
+!!! warning "Samba AD and Windows do not apply the same PSO"
+    A PSO applied to a **domain local** or **universal** security group applies to its members on
+    a **Samba AD** domain, and to **nobody** on a **Windows** domain. The same groups and the same
+    PSOs can then give another password policy to the same user, for instance after a migration
+    from Samba AD to Windows, or with Windows and Samba domain controllers side by side.
+
+    - Apply the PSOs to users, or to **global security groups**: both domain controllers pass them on.
+    - Check the result in **Resultant Password Settings**: the PSO in the frame is the one the domain
+      controller you read applies; a PSO **Ignored** reaches the account through a group that does
+      not pass it on there.
+
 The status of each PSO says it: **Applies**, **Not applied** (another one comes first, or one
 applied directly wins), **Ignored** (applied through a group that passes no PSO on). For a user, the
 domain controller has the last word: the console shows the PSO it applies (`msDS-ResultantPSO`),
