@@ -16,6 +16,9 @@ InModuleScope -ModuleName PSGPOTools {
     # Evaluated during discovery, in the module scope (see PSGPOTools.Gui.tests.ps1).
     $LdapServer = $env:PSGPOTOOLS_TEST_LDAP_SERVER
     $LdapWrite = $LdapServer -and $env:PSGPOTOOLS_TEST_LDAP_WRITE -eq '1'
+    # The scripts of the lab (docs/assets/scripts) create OUs, groups and accounts, and change
+    # Group Policy Creator Owners: only on the throwaway domain of the CI.
+    $LabScripts = $LdapWrite -and -not $IsWindows -and $env:PSGPOTOOLS_TEST_LAB_SCRIPTS -eq '1'
 
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Fixtures' 'LdapDirectory.ps1')
@@ -639,6 +642,63 @@ InModuleScope -ModuleName PSGPOTools {
             $Directory.IsLimited() | Should -BeFalse -Because "$($Directory.Account) manages every OU and GPO"
             $Directory.CanCreateGpo | Should -BeTrue
             $Directory.IsDomainAdministrator | Should -BeTrue -Because 'it changes the configuration of the domain'
+        }
+    }
+
+    Describe 'Scripts of the lab' -Skip:(-not $LabScripts) {
+        BeforeAll {
+            $Server = $env:PSGPOTOOLS_TEST_LDAP_SERVER
+            $Scripts = Join-Path $PSScriptRoot '..' '..' 'docs' 'assets' 'scripts' 'linux'
+            $Module = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
+            $Directory = Get-PSGPODirectory -Server $Server
+            $DomainDN = $Directory.Domain.DistinguishedName
+            function Invoke-LabScript {
+                param([string]$Name, [string[]]$Argument)
+                $Output = pwsh -NoProfile -NonInteractive -Command "Import-Module '$Module'; & '$(Join-Path $Scripts $Name)' -Server '$Server' $($Argument -join ' ')" 2>&1
+                [pscustomobject]@{ ExitCode = $LASTEXITCODE; Output = ($Output | ForEach-Object { "$_" }) -join "`n" }
+            }
+        }
+
+        It 'Creates the OUs of the tiers, their groups and the accounts of the technicians, then keeps them' {
+            $Run = Invoke-LabScript 'New-PSGPOTierLab.ps1'
+            $Run.ExitCode | Should -Be 0 -Because $Run.Output
+            $Read = Get-PSGPODirectory -Server $Server
+            foreach ($Ou in 'OU=Servers,OU=Tier 1', 'OU=Groups,OU=Tier 1', 'OU=Workstations,OU=Tier 2', 'OU=Users,OU=Tier 2', 'OU=Groups,OU=Tier 2') {
+                $Read.FindSom("$Ou,$DomainDN") | Should -Not -BeNullOrEmpty -Because "$Ou was created"
+            }
+            (Invoke-PSGPOSambaTool -ArgumentList 'group', 'listmembers', 'GPO-Tier1-Admins', '-H', "ldap://$Server", '--use-kerberos=required') -join "`n" | Should -Match 'tiers1'
+            (Invoke-PSGPOSambaTool -ArgumentList 'group', 'listmembers', 'GPO-Tier2-Admins', '-H', "ldap://$Server", '--use-kerberos=required') -join "`n" | Should -Match 'tiers2'
+
+            # The password of the lab: tiers1 gets a ticket, in a cache of its own.
+            $Cache = $env:KRB5CCNAME
+            try {
+                $env:KRB5CCNAME = "FILE:$(Join-Path $TestDrive 'tiers1.ccache')"
+                $null = 'H@rdenB0x!' | kinit "tiers1@$($Directory.DomainName.ToUpperInvariant())" 2>&1
+                $LASTEXITCODE | Should -Be 0 -Because 'tiers1 has the password of the lab'
+            } finally { $env:KRB5CCNAME = $Cache }
+
+            $Again = Invoke-LabScript 'New-PSGPOTierLab.ps1'
+            $Again.ExitCode | Should -Be 0 -Because $Again.Output
+            $Again.Output | Should -Not -Match 'created|added' -Because 'what is there is kept'
+        }
+
+        It 'Delegates the links of the tier OUs and the creation of GPOs, then keeps them' {
+            # The workflow first: the domain of the CI has no configuration with its creators.
+            $Workflow = Invoke-LabScript 'Grant-PSGPOTierDelegation.ps1'
+            $Workflow.ExitCode | Should -Not -Be 0
+            $Workflow.Output | Should -Match 'approval workflow of the domain must be enabled'
+
+            $Run = Invoke-LabScript 'Grant-PSGPOTierDelegation.ps1' '-CreationRight', 'GroupPolicyCreatorOwners'
+            $Run.ExitCode | Should -Be 0 -Because $Run.Output
+            $Sid = "$((Invoke-PSGPOSambaTool -ArgumentList 'group', 'show', 'GPO-Tier1-Admins', '--attributes=objectSid', '-H', "ldap://$Server", '--use-kerberos=required') -match '^objectSid: ' | Select-Object -First 1)" -replace '^objectSid: '
+            $Acl = (Invoke-PSGPOSambaTool -ArgumentList 'dsacl', 'get', "--objectdn=OU=Tier 1,$DomainDN", '-H', "ldap://$Server", '--use-kerberos=required') -join "`n"
+            $Acl | Should -BeLike "*(OA;CI;RPWP;f30e3bbe-9ff0-11d1-b603-0000f80367c1;;$Sid)*"
+            $Acl | Should -BeLike "*(OA;CI;RPWP;f30e3bbf-9ff0-11d1-b603-0000f80367c1;;$Sid)*"
+            (Invoke-PSGPOSambaTool -ArgumentList 'group', 'listmembers', 'Group Policy Creator Owners', '-H', "ldap://$Server", '--use-kerberos=required') -join "`n" | Should -Match 'GPO-Tier2-Admins'
+
+            $Again = Invoke-LabScript 'Grant-PSGPOTierDelegation.ps1' '-CreationRight', 'GroupPolicyCreatorOwners'
+            $Again.ExitCode | Should -Be 0 -Because $Again.Output
+            $Again.Output | Should -Not -Match 'now writes|added' -Because 'what is there is kept'
         }
     }
 
