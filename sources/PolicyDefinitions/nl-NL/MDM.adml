@@ -33,6 +33,11 @@ Als u deze beleidsinstelling uitschakelt, wordt MDM-implementatie voor alle gebr
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">Selecteer het referentietype dat u wilt gebruiken:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>MDM-toepassings-id:</label>
+        </textBox>
+        <text>De MDM-toepassings-id is de id van uw MDM-toepassing die in Azure AD is geconfigureerd. Dit is optioneel en alleen vereist voor automatische MDM-inschrijving met apparaatreferenties wanneer er meerdere MDM-toepassingen in zijn geconfigureerd in Azure AD.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

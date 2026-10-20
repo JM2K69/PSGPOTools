@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Interfejs API ochrony danych</displayName>
+  <description>Konfigurowanie ustawień interfejsu API ochrony danych</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">Interfejs API ochrony danych</string>
+      <string id="DomainBackupKeyRotationPeriod">Ustawianie okresu rotacji kluczy kopii zapasowych interfejsu API ochrony danych</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">To ustawienie zasad określa okres rotacji kluczy kopii zapasowych DPAPI. 
+Za pomocą tego ustawienia można zastąpić wartość domyślną wynoszącą 90 dni. Ustaw wartość 0, aby wyłączyć obracanie kluczy kopii zapasowych DPAPI. 
+Jeśli to ustawienie zasad zostanie włączone, należy ustawić liczbę dni oczekiwania systemu przed wygenerowaniem nowego klucza kopii zapasowej DPAPI. 
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, będzie używana wartość domyślna wynosząca 90 dni.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">Określ okres rotacji kluczy kopii zapasowych interfejsu API ochrony danych w dniach. 
+Ustaw wartość 0, aby wyłączyć rotację kluczy kopii zapasowych interfejsu API ochrony danych.</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

@@ -15,14 +15,23 @@
 
 注意: 如果禁用或未配置此策略，本地管理员可以选择要评估的符号链接类型。</string>
       <string id="SymlinkEvaluation">有选择地允许对符号链接进行评估</string>
+
       <string id="DisableCompression">所有 NTFS 卷上都不允许压缩</string>
-      <string id="DisableCompressionText">压缩会加重文件系统操作的处理开销。 启用此设置将防止创建压缩文件和对压缩文件的访问。 </string>
+      <string id="DisableCompressionText">压缩会增加文件系统操作的处理开销。 启用此设置将阻止压缩文件的访问和创建。
+
+需要重新启动才能使此设置生效</string>
+
       <string id="DisableEncryption">所有 NTFS 卷上都不允许加密</string>
-      <string id="DisableEncryptionText">加密会加重文件系统操作的处理开销。 启用此设置将防止创建加密文件和对加密文件的访问</string>
+      <string id="DisableEncryptionText">加密可以增加文件系统操作的处理开销。 启用此设置将阻止加密文件的访问和创建。
+
+需要重新启动才能使此设置生效</string>
+
       <string id="EnablePagefileEncryption">启用 NTFS 页面文件加密</string>
       <string id="EnablePagefileEncryptionText">加密页面文件可防止恶意用户读取已分页到磁盘的数据，但同时会加重文件系统操作的处理开销。 启用此设置将使页面文件得到加密。</string>
+
       <string id="LongPathsEnabled">启用 Win32 长路径</string>
-      <string id="LongPathsEnabledText">启用 Win32 长路径后，列入清单的 win32 应用程序和 Windows 应用商店应用程序即可在支持每节点 260 个字符标准限制的文件系统上访问超出该限制的路径。启用此设置将导致在进程中可以访问长路径。</string>
+      <string id="LongPathsEnabledText">启用 Win32 长路径后，列入清单的 win32 应用程序和 打包 Windows Store 应用程序即可访问超出标准 260 个字符限制的路径。启用此设置将导致在进程中可以访问长路径。</string>
+
       <string id="ShortNameCreationSettings">短名称创建选项</string>
       <string id="ShortNameCreationSettingsText">这些设置可控制是否在创建文件的过程中生成短名称。 一些应用程序要求使用短名称来实现兼容性，但短名称会对系统性能产生负面影响。
 
@@ -31,14 +40,60 @@
       <string id="ShortNameCreationSetting_1">对所有卷禁用</string>
       <string id="ShortNameCreationSetting_2">以各个卷为基础启用 / 禁用</string>
       <string id="ShortNameCreationSetting_3">对所有数据卷禁用</string>
+
       <string id="DisableDeleteNotification">对所有卷禁用删除通知</string>
       <string id="DisableDeleteNotificationText">删除通知功能可在发生了文件删除操作从而释放了簇时，通知基础存储设备。
 
 值为 0(默认值)时，将对所有卷启用删除通知。
 值为 1 时，将对所有卷禁用删除通知。</string>
+
       <string id="TxfDeprecatedFunctionality">启用/禁用 TXF 弃用的功能</string>
       <string id="TxfDeprecatedFunctionalityText">TXF 弃用的功能包括保存点、辅助 RM、迷你版本和前滚。如果希望使用这些 API，请启用它。</string>
+
+      <string id="NtfsForceNonPagedPoolAllocation">启用 NTFS 非分页缓冲池使用情况</string>
+      <string id="NtfsForceNonPagedPoolAllocationExplain">默认情况下，NTFS 根据需要从分页内存和不可分页内存中分配内存。 如果启用此设置，则会通知 NTFS 为所有分配使用非分页内存。 NTFS 还会将其所有代码节更改为不可分页。
+
+启用此功能的好处是减少了页故障和堆栈使用，代价是增加了额外的内存使用量。
+
+需要重新启动才能使此设置生效</string>
+
+      <string id="NtfsParallelFlushThreshold">NTFS 并行刷新阈值</string>
+      <string id="NtfsParallelFlushThresholdExplain">从内存中刷新已修改的文件数据时，NTFS 根据当前打开的文件数量选择使用一个或多个线程。 此设置允许控制用于触发并行刷新的开放文件阈值。</string>
+
+      <string id="NtfsParallelFlushWorkers">NTFS 并行刷新工作线程</string>
+      <string id="NtfsParallelFlushWorkersExplain">从内存刷新修改的文件数据时，NTFS 会根据当前打开的文件数量选择使用一个或多个线程。此设置可控制将使用的线程数。
+
+增大此值可能会缩短刷新卷所需的时间，但刷新可能会对其他并发 IO 操作产生更大的影响。
+
+具有特殊含义的值:
+    0: 使用系统计算的默认值
+    1: 禁用并行刷新
+
+此设置的默认值和限制因给定系统上可用处理器的数量而异:
+    - 默认值计算为: (([NumProcessors]/2) + 1)
+    - 默认最大值计算为: ([NumProcessors]*2)</string>
+
+      <string id="NtfsDefaultTier">NTFS 默认层</string>
+      <string id="NtfsDefaultTierExplain">对于 NTFS 分层卷，此控制默认情况下新分配所转的层。
+
+客户端系统默认为性能层。
+服务器系统默认为容量层。</string>
+      <string id="DefaultTierSetting_1">容量层</string>
+      <string id="DefaultTierSetting_2">性能层</string>
+
+      <string id="ClfsAuthenticationChecking">启用/禁用 CLFS 日志文件身份验证</string>
+      <string id="ClfsAuthenticationCheckingExplain">此策略设置配置 CLFS 日志文件身份验证，这是一项旨在强化日志文件分析的安全功能。
+
+日志文件身份验证使 CLFS 驱动程序能够检测对日志文件的恶意修改。如果检测到修改，CLFS 会将日志文件视为对分析来说不安全，并向调用方返回错误。CLFS 可以通过将身份验证代码写入日志文件来检测修改，日志文件将文件数据与系统唯一的加密密钥相结合。
+
+日志文件身份验证的副作用是 CLFS 无法打开在其他系统上创建的日志文件，因为这些日志文件包含使用系统唯一加密密钥创建的身份验证代码。若要打开在另一个系统上创建的日志文件，管理员必须首先使用 "fsutil.exe clfs authenticate" 命令来更正身份验证代码。
+
+如果启用或未配置此设置，CLFS 将参考本地注册表设置，了解是否应执行日志文件身份验证。默认情况下，CLFS 将执行日志文件身份验证。可在 "HKLM:\SYSTEM\CurrentControlSet\Services\CLFS\Authentication" 中找到此功能的本地注册表设置。
+
+如果禁用此设置，CLFS 将不再执行日志文件身份验证。在没有管理操作的情况下，可以跨系统移动和打开日志文件。但是，CLFS 将打开并分析所有日志文件，包括恶意生成的可能危害系统的日志文件。</string>
+
     </stringTable>
+
     <presentationTable>
       <presentation id="SymlinkEvaluation">
         <checkBox refId="SymLinkClassL2L">到本地目标的本地链接</checkBox>
@@ -55,6 +110,21 @@
       </presentation>
       <presentation id="DeleteNotificationOptions"/>
       <presentation id="TxfDeprecatedFunctionalityOptions"/>
+      <presentation id="NtfsForceNonPagedPoolAllocationOptions"/>
+      <presentation id="NtfsParallelFlushThresholdOptions">
+        <decimalTextBox refId="NtfsParallelFlushThresholdID" defaultValue="1000">打开文件阈值：</decimalTextBox>
+      </presentation>
+
+      <presentation id="NtfsParallelFlushWorkersOptions">
+        <decimalTextBox refId="NtfsParallelFlushWorkersID" defaultValue="5">打开文件阈值：</decimalTextBox>
+      </presentation>
+
+      <presentation id="NtfsDefaultTierOptions">
+          <dropdownList refId="NtfsDefaultTier_Levels" noSort="true" defaultItem="1">NTFS 默认层选项</dropdownList>
+      </presentation>
+
+      <presentation id="ClfsAuthenticationCheckingOptions"/>
+
     </presentationTable>
   </resources>
 </policyDefinitionResources>

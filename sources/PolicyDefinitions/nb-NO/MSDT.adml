@@ -60,33 +60,34 @@ Det er ikke nødvendig å starte systemet eller tjenestene på nytt for at denne
 
 </string>
 <string id="TroubleshootingAllowRecommendations">Feilsøking: Gi brukere tilgang til anbefalt feilsøking for kjente problemer</string>
-<string id="TroubleshootingAllowRecommendationsExplain">Denne policyinnstillingen aktiverer anbefalt feilsøking for kjente problemer på enheten, og lar administratorer konfigurere hvordan den brukes i domenene/IT-miljøene.
-Hvis du ikke konfigurerer denne policyinnstillingen, kan brukeren konfigurere om og hvor anbefalt feilsøking brukes.
+<string id="TroubleshootingAllowRecommendationsExplain">Denne policyinnstillingen konfigurerer hvordan feilsøking for kjente problemer kan brukes på enheten, og lar administratorer konfigurere hvordan den brukes i domenene/IT-miljøene.
 
-Hvis du aktiverer denne policyen, kan du konfigurere hvor anbefalt feilsøking skal brukes på brukerens enhet. Du kan velge fra en av følgende verdier:
-0 = Slå av denne funksjonen.
-1 = Slå av denne funksjonen, men bruk fortsatt kritisk feilsøking.
-2 = Varsle brukere når anbefalt feilsøking er tilgjengelig, og la brukeren kjøre eller ignorere den.
-3 = Kjør anbefalt feilsøking automatisk, og varsle brukeren når den er kjørt.
-4 = Kjør anbefalt feilsøking automatisk uten å gi beskjed til brukeren.
-5 = La brukeren velge sine egne anbefalte feilsøkingsinnstillinger.
+Hvis du ikke konfigurerer denne policyinnstillingen, kan brukeren konfigurere hvordan feilsøking brukes.
 
-Når du har angitt denne nye innstillingen, må du følge disse instruksjonene når du skal utløse anbefalt feilsøking for enheter i domenet:
+Hvis du aktiverer denne policyen, kan du konfigurere hvordan feilsøking brukes på brukerens enhet. Du kan velge en av følgende verdier:
+0 = Ikke tillat at brukere, systemfunksjoner eller Microsoft bruker feilsøking 
+1 = Bruk feilsøking automatisk bare for kritiske problemer med systemfunksjoner og Microsoft
+2 = Bruk feilsøking automatisk for kritiske problemer med systemfunksjoner og Microsoft. Varsle brukere når feilsøking for andre problemer er tilgjengelig, og la brukere velge om de vil bruke eller ignorere.
+3 = Bruk feilsøking automatisk for kritiske og andre problemer med systemfunksjoner og Microsoft. Varsle brukere når feilsøking har løst et problem.
+4 = Bruk feilsøking automatisk for kritiske og andre problemer med systemfunksjoner og Microsoft. Ikke varsle brukere når feilsøking har løst et problem.
+5 = La brukeren velge sine egne feilsøkingsinnstillinger.
+
+Når du har angitt denne policyen, kan du bruke følgende instruksjoner til å kontrollere enheter i domenet for tilgjengelig feilsøking fra Microsoft:
 1. Opprett et bat-skript med følgende innhold:
-REM følgende satsvise skript utløser anbefalt feilsøking
-C:\Windows\System32\mitigationscanner.exe
+REM, følgende satsvise skript, utløser anbefalt feilsøking
+schtasks /run/TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner"
 
-2. Hvis du vil opprette en ny umiddelbar oppgave, navigerer du til redigeringsprogrammet for gruppepolicybehandling &gt; Datamaskinkonfigurasjon &gt; Innstillinger og velger Innstillinger for kontrollpanel. 
-3. Under Innstillinger for kontrollpanel høyreklikker du på Planlagte oppgaver og velger Ny. Velg Umiddelbar oppgave (minst Windows 7).
-4. Oppgi navn og beskrivelse etter behov, og velg Kjør under Sikkerhetsalternativer angitt brukerkontoen til System og velg Kjør med høyeste rettigheter-avmerkingsboksen.
-5. I Handlinger-fanen oppretter du en ny handling, velger Start et program som type, og angir filen opprettet i trinn 1.
-6. Konfigurer oppgaven som skal distribueres til domenet ditt.</string>
-<string id="RecommendationsDropDown_DoNothing">Deaktiver denne funksjonen</string>
-<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Slå av denne funksjonen, men bruk fortsatt kritisk feilsøking.</string>
-<string id="RecommendationsDropDown_AskFirst">Varsle brukere når anbefalt feilsøking er tilgjengelig, og la brukeren kjøre eller ignorere den.</string>
-<string id="RecommendationsDropDown_ApplyThenNotify">Kjør anbefalt feilsøking automatisk, og varsle brukeren når den er kjørt.</string>
-<string id="RecommendationsDropDown_ApplySilently">Kjør anbefalt feilsøking automatisk uten å gi beskjed til brukeren.</string>
-<string id="RecommendationsDropDown_DeferToUser">Tillat at brukeren velger sine egne anbefalte feilsøkingsinnstillinger.</string>
+2. Hvis du vil opprette en ny umiddelbar oppgave, går du til redigeringsprogrammet for gruppepolicybehandling &gt; datamaskinkonfigurasjon &gt; Innstillinger og velger Kontrollpanelinnstillinger. 
+3. Høyreklikk på Planlagte oppgaver, under Kontrollpanelinnstillinger, og velg Ny. Velg Umiddelbar oppgave (minst Windows 7).
+4. Angi navn og beskrivelse etter behov. Deretter, under Sikkerhetsalternativer, angir du brukerkontoen til System og merker av for Kjør med høyeste rettigheter.
+5. Opprett en ny handling, i Handlinger-fanen, velg Start et program som denne typen, og angi filen som ble opprettet i trinn 1.
+6. Konfigurer oppgaven til å distribueres til domenet ditt.</string>
+<string id="RecommendationsDropDown_DoNothing">Ikke Tillat at brukere, System funksjoner eller Microsoft bruker feil søking.</string>
+<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Bruk bare feil søking for kritiske problemer automatisk av System funksjoner og Microsoft.</string>
+<string id="RecommendationsDropDown_AskFirst">Bruk feilsøking automatisk for kritiske problemer ved systemfunksjoner og Microsoft. Varsle brukere når feilsøking for andre problemer er tilgjengelig og tillat at brukere kan velge å bruke eller ignorere.</string>
+<string id="RecommendationsDropDown_ApplyThenNotify">Bruk automatisk feil søking for kritiske og andre problemer av System funksjoner og Microsoft. Varsle brukere når feil søking har løst et problem.</string>
+<string id="RecommendationsDropDown_ApplySilently">Bruk automatisk feil søking for kritiske og andre problemer av System funksjoner og Microsoft. Ikke varsle brukere når feil søking har løst et problem.</string>
+<string id="RecommendationsDropDown_DeferToUser">Tillat at brukeren velger sine egne feil søkings innstillinger.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MsdtToolDownloadPolicy">

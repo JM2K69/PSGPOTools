@@ -37,14 +37,30 @@
       <string id="DisableRoamedProfileInit_Help">這個原則設定可讓群組管理員確保，當已設定漫遊設定檔與「刪除快取的漫遊設定檔」群組原則設定一起使用時，Explorer 不會將預設的程式關聯及其他設定，重新初始化為預設值。
 
 如果您啟用此原則設定的電腦其安裝任何程式的方式與使用者最後登入的電腦不同，就可能發生未預期的行為。 </string>
+      <string id="DisableGraphRecentItems">根據您的帳戶和雲端供應商活動顯示檔案</string>
+      <string id="DisableGraphRecentItems_Help">關閉此設定會讓檔案總管無法要求雲端檔案中繼資料，並在首頁以及檔案總管中的其他檢視中顯示。任何以帳戶或雲端提供者活動為基礎的深入解析與檔案，都會在例如 [最近使用]、[建議項目]、[我的最愛]、[共用] 等檢視中停止。</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">關閉 檔案總管 中的進階設定來源整合</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">停用進階設定來源整合會讓 檔案總管 無法從 [進階設定] 系統元件顯示存放庫資訊</string>
+      <string id="DisableFileExplorerPrelaunch">停用檔案總管中於背景預先啟動視窗的功能</string>
+      <string id="DisableFileExplorerPrelaunch_Help">此原則可防止使用者啟用檔案總管的預先啟動功能，該功能會在背景建立視窗，以加速啟動體驗並提升回應。</string>
+      <string id="MakePrintScreenKeyYieldable">使 PRINT SCREEN 鍵可讓渡</string>
+      <string id="MakePrintScreenKeyYieldable_Help">此原則設定決定是否允許將 PRINT SCREEN 鍵可讓渡給其他應用程式。
+
+如果您啟用此原則設定，應用程式可以攔截 PRINT SCREEN 鍵，讓應用程式可以覆寫預設螢幕擷取畫面功能。
+
+如果您停用此原則設定，PRINT SCREEN 鍵將維持舊版擷取螢幕擷取畫面的行為，無法被應用程式攔截。
+
+如果此原則未設定，應用程式可以攔截 PRINT SCREEN 鍵，讓應用程式可以覆寫預設螢幕擷取畫面功能，與已啟用的行為相同。
+
+注意: 此設定可能需要重新啟動系統才能生效。</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>支援網頁 URL</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>支援網頁 URL</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

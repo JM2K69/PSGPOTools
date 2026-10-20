@@ -169,7 +169,7 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan 
       <string id="UILang4">Tysk</string>
       <string id="UILang5">Kinesisk (forenklet)</string>
       <string id="UILang6">Kinesisk (traditionelt)</string>
-      <string id="UILang34">Traditionelt kinesisk (Hongkong)</string>
+      <string id="UILang34">Kinesisk (traditionelt) (SAR Hongkong)</string>
       <string id="UILang35">Traditionelt kinesisk (Taiwan)</string>
       <string id="UILang7">Fransk</string>
       <string id="UILang8">Spansk</string>
@@ -284,6 +284,19 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, fort
         Hvis politikken er aktiveret eller ikke konfigureret, overlades kontrollen til brugerne, som kan vælge, om de vil aktivere taletjenester via indstillinger.
         
         Hvis politikken er deaktiveret, vil taletjenester være deaktiveret, og brugerne kan ikke aktivere taletjenester via indstillinger.
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Begræns installation af sprogpakke og sprogfunktion</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        Denne politikindstilling begrænser alle brugere i at installere sprogpakker og sprogfunktioner på behovs pakker. denne politikindstilling begrænser ikke skift af Windows-sproget. Hvis du vil begrænse Windows-sproget, skal du benytte følgende politik: "begrænser de brugergrænsefladesprog, som Windows bruger til alle logførte brugere."   
+Hvis du aktiverer denne politikindstilling, forhindres alle brugere i at installere sprogpakker og sprogfunktioner.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, er der ingen sprogpakker eller begrænsninger for funktions installation for nogen bruger.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        Denne politikindstilling begrænser, at brugeren kan installere sprogpakker og sprogfunktioner efter behov. denne politikindstilling begrænser ikke skift af Windows-sproget. Hvis du vil begrænse Windows-sproget, skal du benytte følgende politik: "begrænser sprog vinduerne i BRUGERGRÆNSEFLADEN, som Windows skal bruge til den valgte bruger."   
+Hvis du aktiverer denne politikindstilling, forhindres brugeren i at installere sprogpakker og sprogfunktioner.  
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, er der ingen sprogpakker eller sprog, som er installations begrænsning for brugeren.  
       </string>
     </stringTable>
     <presentationTable>

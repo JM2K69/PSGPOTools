@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>API de Proteção de Dados</displayName>
+  <description>Configurar as configurações da API de Proteção de Dados</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">API de Proteção de Dados</string>
+      <string id="DomainBackupKeyRotationPeriod">Definir o período de rotação das chaves de backup da API de Proteção de Dados</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">Essa configuração de política especifica o período de rotação das chaves de backup DPAPI. 
+Você pode usar essa configuração para substituir o valor padrão de 90 dias. Defina 0 para desabilitar a rotação de chaves de backup DPAPI. 
+Se você habilitar essa configuração de política, defina o número de dias que o sistema aguarda antes de gerar uma nova chave de backup de DPAPI. 
+Se você desabilitar ou não definir essa configuração de política, o valor padrão de 90 dias será usado.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">Especificar o período de rotação das chaves de backup da API de Proteção de Dados em dias. 
+Defina 0 para desabilitar a rotação das chaves de backup da API de Proteção de Dados.</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

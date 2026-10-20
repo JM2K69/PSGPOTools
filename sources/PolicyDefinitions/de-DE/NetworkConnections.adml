@@ -49,12 +49,12 @@ Hinweis: Unabhängig von dieser Einstellung verfügt kein Benutzer ohne Administ
 Tipp: Um das Dialogfeld "Erweiterte TCP/IP-Einstellungen" anzuzeigen, klicken Sie im Ordner "Netzwerkverbindungen" mit der rechten Maustaste auf ein Verbindungssymbol und klicken dann auf "Eigenschaften". Im Falle von RAS-Verbindungen klicken Sie auf die Registerkarte "Netzwerk".  Klicken Sie im Feld "Aktivierte Komponenten werden von dieser Verbindung verwendet" zuerst auf "Internetprotokoll (TCP/IP)", dann auf die Schaltfläche "Eigenschaften" und schließlich auf die Schaltfläche "Erweitert".
 
 Hinweis: Wenn Sie diese Einstellung von "Aktiviert" in "Nicht konfiguriert" ändern, bleibt die Schaltfläche "Erweitert" bis zur Abmeldung des Benutzers nicht aktiviert.</string>
-      <string id="NC_AllowNetBridge_NLA">Installation und Konfiguration der Netzwerkbridge im eigenen DNS-Domänennetzwerk nicht zulassen</string>
+      <string id="NC_AllowNetBridge_NLA">Installation und Konfiguration der Netzwerkbrücke im eigenen Netzwerk nicht zulassen</string>
       <string id="NC_AllowNetBridge_NLA_Help">Legt fest, ob ein Benutzer die Netzwerkbrücke installieren und konfigurieren kann.
 
-Wichtig: Diese Einstellung ist standortabhängig. Sie ist nur gültig, wenn ein Computer mit demselben DNS-Domänennetzwerk verbunden ist, mit dem er zu dem Zeitpunkt verbunden war, als die Einstellung auf diesem Computer aktualisiert wurde. Wenn ein Computer mit einem anderen DNS-Domänennetzwerk verbunden ist als dem, mit dem er zum Zeitpunkt der Aktualisierung der Einstellung verbunden war, ist diese Einstellung ungültig.
+Wichtig: Diese Einstellung ist standortabhängig bei in AD-Domänen eingebundenen Geräten. Sie ist nur gültig, wenn ein Computer mit demselben DNS-Domänennetzwerk verbunden ist, mit dem er zu dem Zeitpunkt verbunden war, als die Einstellung auf diesem Computer aktualisiert wurde. Wenn ein Computer mit einem anderen DNS-Domänennetzwerk verbunden ist als dem, mit dem er zum Zeitpunkt der Aktualisierung der Einstellung verbunden war, ist diese Einstellung ungültig. Auf in Entra eingebundenen Geräten gilt diese Einstellung für alle Netzwerke.
 
-Die Netzwerkbrücke ermöglicht Benutzern das Erstellen einer Layer-2-MAC-Brücke, die ihnen das Verbinden von zwei oder mehr Netzwerksegmenten erlaubt. Diese Verbindung wird im Ordner "Netzwerkverbindungen" angezeigt.
+Die Netzwerkbrücke ermöglicht Benutzern das Erstellen einer Layer-2-MAC-Brücke, die ihnen das Verbinden von zwei oder mehr Netzwerksegmenten erlaubt. Diese Verbindung wird im Ordner „Netzwerkverbindungen“ angezeigt.
 
 Wenn Sie diese Einstellung deaktivieren oder nicht konfigurieren, kann der Benutzer die Konfiguration einer Netzwerkbrücke erstellen und ändern. Durch Aktivierung dieser Einstellung wird eine vorhandene Netzwerkbrücke nicht vom Computer des Benutzers entfernt.</string>
       <string id="NC_ChangeBindState">Aktivieren/Deaktivieren der Komponenten einer LAN-Verbindung nicht zulassen</string>

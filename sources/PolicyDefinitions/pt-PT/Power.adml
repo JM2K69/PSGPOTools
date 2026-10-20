@@ -296,6 +296,8 @@ Se não configurar esta definição de política, os utilizadores controlam esta
 Se ativar esta definição de política, a Limitação de Potência será desativada.
 
 Se desativar ou não configurar esta definição de política, esta definição será controlada pelos utilizadores.</string>
+      <string id="EnableEnergySaver">Definir a Poupança de Energia para estar Sempre Ativada</string>
+      <string id="EnableEnergySaverExplain">Esta política prolongará a duração da bateria e reduzirá o consumo de energia, permitindo que a Poupança de Energia esteja sempre ligada. </string>
     </stringTable>
     <presentationTable>
       <presentation id="ACHibernateTimeOut_1">

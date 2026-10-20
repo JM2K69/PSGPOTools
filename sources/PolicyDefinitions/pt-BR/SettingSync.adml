@@ -119,6 +119,51 @@ Se você não definir ou desabilitar essa configuração, "sincronizar em conex�
         Quando você não define ou desabilita essa configuração de política, o grupo "Layout da página inicial" fica habilitado por padrão e pode ser configurado pelo usuário.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">Não sincronizar as configurações de acessibilidade</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        Impeça que o grupo "acessibilidade" sincronize de e para este computador. Isso desativa e desabilita o grupo "acessibilidade" na página de configurações "Backup do Windows" no configurações do PC.
+
+Se você habilitar essa configuração de política, o grupo "acessibilidade" não será sincronizado.
+
+Use a opção "Permitir que os usuários ativem a sincronização de acessibilidade" para que a sincronização seja desativada por padrão, mas não desabilitada.
+
+Se você não definir ou desabilitar essa configuração, a sincronização do grupo "acessibilidade" será ativada por padrão e configurável pelo usuário.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">Não sincronizar configurações de preferências de idioma</string>
+      <string id="DisableLanguageSettingSync_Help">
+        Impeça que o grupo "preferências de idioma" sincronize de e para este computador. Isso desativa e desabilita o grupo "preferências de idiomas" na página de configurações "Backup do Windows" no configurações do PC.
+
+Se você habilitar essa configuração de política, o grupo "preferências de idioma" não será sincronizado.
+
+Use a opção "Permitir que os usuários ativem a sincronização de preferências de idioma" para que a sincronização seja desativada por padrão, mas não desabilitada.
+
+Se você não definir ou desabilitar essa configuração, a sincronização do grupo "preferências de idioma" será ativada por padrão e configurável pelo usuário.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Habilitar o Backup do Windows</string>
+      <string id="EnableWindowsBackup_Help">Esta configuração de política permite que os administradores configurem e gerenciem o backup de configurações do Windows para sua organização.
+
+Se você habilitar esta configuração de política, o backup das configurações do Windows ocorrerá periodicamente.
+
+Se você desabilitar esta configuração de política, o backup das configurações do Windows não ocorrerá.
+
+Se esta configuração de política não for definida, o backup das configurações do Windows ocorrerá periodicamente com base na qualificação.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Habilitar Restauração do Windows</string>
+      <string id="EnableWindowsRestore_Help">Esta configuração de política permite que os administradores configurem e gerenciem a restauração de configurações do Windows para a organização.
+
+Se você habilitar esta configuração de política, a restauração de configurações do Windows será habilitada.
+
+Se você desabilitar ou não configurar esta configuração de política, a restauração de configurações do Windows será desabilitada.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Se você não definir ou desabilitar essa configuração, "sincronizar em conex�
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">Permitir que os usuários habilitem a sincronização de "Layout da página inicial".</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Permitir que os usuários ativem a sincronização de "acessibilidade".</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Permitir que os usuários ativem a sincronização de "preferências de idioma".</checkBox>
       </presentation>
 
     </presentationTable>

@@ -25,6 +25,10 @@ Deze beleidsinstelling is niet standaard geconfigureerd.
 Deze beleidsinstelling wordt pas van kracht nadat de computer opnieuw is opgestart.</string>
       <string id="HomeGroup">Thuisgroep</string>
       <string id="HomeGroup_Help">Bevat instellingen om de werking van de thuisgroep te bepalen.</string>
+      <string id="DisableShareAppPromotions">DisableShareAppPromotions</string>
+      <string id="DisableShareAppPromotions_Help">Met deze beleidsinstelling kunnen IT-beheerders bepalen of promotie-apps worden weergegeven in het ShareSheet. Als u dit beleid inschakelt, worden in Windows geen promotie-apps weergegeven in het ShareSheet. Als u dit beleid uitschakelt of niet configureert, worden in ShareSheet mogelijk app-suggesties en promoties weergegeven wanneer ShareSheet wordt geopend.</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

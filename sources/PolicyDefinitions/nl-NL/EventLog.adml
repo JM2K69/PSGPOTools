@@ -82,20 +82,37 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, gebruikt het gebe
       <string id="Channel_LogMaxSize">Geeft de maximale grootte van het logboekbestand aan (in kB)</string>
       <string id="Channel_LogMaxSize_Help">Deze beleidsinstelling bepaalt de maximale grootte van het logboekbestand in kilobytes.
 
-Als u deze beleidsinstelling inschakelt, kunt u de maximale grootte van het logboekbestand instellen op een waarde tussen 1 megabyte (1024 kilobytes) en 2 terabyte (2147483647 kilobytes) in stappen van een kilobyte.
+Als je deze beleidsinstelling inschakelt, kun je de maximale grootte van het logboekbestand configureren op een waarde tussen 1 megabyte (1024 kilobytes) en 2 terabytes (2147483647 kilobytes) in stappen van een kilobyte.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de maximale grootte van het logboekbestand ingesteld op de lokaal ingestelde configuratiewaarde. Deze waarde kan door de lokale beheerder worden gewijzigd in het dialoogvenster met logboekeigenschappen en de standaardwaarde is 1 megabyte.</string>
+Als je deze beleidsinstelling uitschakelt of niet configureert, wordt de maximale grootte van het logboekbestand geconfigureerd op de lokaal ingestelde configuratiewaarde. Deze waarde kan door de lokale beheerder worden gewijzigd in het dialoogvenster met logboekeigenschappen en de standaardwaarde is 20 megabyte.</string>
       <string id="Channel_LogMaxSizeSecurity_Help">Deze beleidsinstelling bepaalt de maximale grootte van het logboekbestand in kilobytes.
 
-Als u deze beleidsinstelling inschakelt, kunt u de maximale grootte van het logboekbestand instellen op een waarde tussen 20 megabyte (20480 kilobytes) en 2 terabyte (2147483647 kilobytes) in stappen van een kilobyte.
+Als je deze beleidsinstelling inschakelt, kun je de maximale grootte van het logboekbestand instellen op een waarde tussen 20 megabyte (20480 kilobytes) en 2 terabyte (2147483647 kilobytes) in stappen van een kilobyte.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de maximale grootte van het logboekbestand ingesteld op de lokaal ingestelde configuratiewaarde. Deze waarde kan door de lokale beheerder worden gewijzigd in het dialoogvenster met logboekeigenschappen en de standaardwaarde is 20 megabyte.</string>
+Als je deze beleidsinstelling uitschakelt of niet configureert, wordt de maximale grootte van het logboekbestand ingesteld op de lokaal ingestelde configuratiewaarde. Deze waarde kan door de lokale beheerder worden gewijzigd in het dialoogvenster met logboekeigenschappen en de standaardwaarde is 40 megabyte.</string>
       <string id="ChannelName_Help">Configuratie-instellingen voor logboek</string>
       <string id="EventLog_Application">Toepassing</string>
       <string id="EventLog_Security">Beveiliging</string>
       <string id="EventLog_Setup">Setup</string>
       <string id="EventLog_System">Systeem</string>
       <string id="EventLogCategory">Gebeurtenissenlogboekservice</string>
+      <string id="Service_RpcAccess_Remote">Externe toegang tot de service voor gebeurtenislogboeken beperken</string>
+      <string id="Service_RpcAccess_Remote_Help">Met deze beleidsinstelling bepaalt u welke externe gebruikers verbinding mogen maken met de gebeurtenislogboekservice op deze computer.
+
+Als u dit beleid inschakelt, kunt u beperken tot welke groep externe gebruikers lid moeten zijn om verbinding te kunnen maken met de Gebeurtenislogboekservice op deze computer. U kunt vereisen dat externe gebruikers lid zijn van een van de volgende ingebouwde groepen:
+
+• Geverifieerde gebruikers
+• EventLog-lezers
+• Beheerders
+
+Als u dit beleid uitschakelt of niet configureert, is de standaardwaarde Geverifieerde gebruikers.
+
+Voor eerdere versies van Windows werd alleen Geverifieerde gebruikers ondersteund. Als u terugwerkende compatibiliteit wilt behouden, zijn lokale verbindingen met de service altijd toegestaan vanuit geverifieerde gebruikers.
+
+Met deze instelling wordt de toegang tot afzonderlijke logboeken niet bepaald. Zodra een externe verbinding is toegestaan, heeft deze nog steeds toegang nodig tot de specifieke bronnen die deze probeert te gebruiken.</string>
+      <string id="Service_RpcAccess_Remote_AU">Geverifieerde gebruikers</string>
+      <string id="Service_RpcAccess_Remote_ER">Lezers van gebeurtenislogboeken</string>
+      <string id="Service_RpcAccess_Remote_AD">Beheerders</string>
     </stringTable>
     <presentationTable>
       <presentation id="Channel_Log_FileLogAccess_1">
@@ -159,16 +176,19 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de maximale
         </textBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_1">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maximale grootte van logboek (in kB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maximale grootte van logboek (in kB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_2">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maximale grootte van logboek (in kB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="40960">Maximale grootte van logboek (in kB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_3">
         <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maximale grootte van logboek (in kB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_4">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maximale grootte van logboek (in kB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maximale grootte van logboek (in kB)</decimalTextBox>
+      </presentation>
+      <presentation id="Service_RpcAccess_Remote">
+        <dropdownList refId="RpcAccess_Remote_Setting" noSort="true" defaultItem="0">Kies een van de volgende instellingen:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -14,6 +14,19 @@
 Jeśli ta zasada będzie włączona, środowisko prywatności nie będzie wyświetlane dla nowo utworzonych kont użytkowników ani dla kont, po uaktualnieniu których byłyby wyświetlane monity o wybranie ustawień prywatności.
 
 Jeśli ta zasada będzie wyłączona lub nie zostanie skonfigurowana, środowisko prywatności może być wyświetlane dla nowo utworzonych kont użytkowników oraz dla kont, po uaktualnieniu których powinny być wyświetlane monity o wybranie ustawień prywatności.</string>
+
+      <string id="AllowOOBEUpdates">Zezwalaj na aktualizacje w trybie OOBE</string>
+      <string id="AllowOOBEUpdates_Explain">Ta zasada pozwala skonfigurować, czy nowe urządzenie otrzymuje krytyczne aktualizacje podczas pierwszego uruchomienia.
+
+Jeśli wyłączysz lub nie skonfigurujesz tej zasady, nowe urządzenia nie będą otrzymywać krytycznych aktualizacji podczas pierwszego uruchomienia.
+
+Jeśli włączysz tę zasadę, nowe urządzenia będą otrzymywać najnowsze zatwierdzone aktualizacje krytyczne podczas pierwszego uruchomienia.
+
+Uwagi:
+Ta zasada nie kontrolują strony aktualizacji poprawek luk w zabezpieczeniach zero-day (ZDP) w trybie OOBE.
+
+Jeśli aktualizacje dotyczące jakości zostały wstrzymane za pośrednictwem opóźnień aktualizacji jakości systemu Windows i zasad wstrzymywania, żadne aktualizacje dotyczące jakości nie będą dostarczane podczas pierwszego uruchomienia.
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

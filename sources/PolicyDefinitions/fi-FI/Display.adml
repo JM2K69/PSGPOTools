@@ -15,7 +15,16 @@ Jos otat tämän käytäntöasetuksen käyttöön, Graphics Device Interface -oh
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Graphics Device Interface -ohjelman DPI-skaalausta ei oteta sovelluksessa käyttöön, ellei kyseisen sovelluksen käyttöönotossa ole käytetty sovellusten yhteensopivuustietokantaa, sovelluksen yhteensopivuuden käyttöliittymän Järjestelmä (laajennettu) -asetusta tai sovellusvaatimustiedostoa.
 
 Jos Graphics Device Interface -ohjelman DPI-skaalaus on määritetty sekä poistamaan sovellus käytöstä että ottamaan se käyttöön, sovellus poistetaan käytöstä.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">Graphics Device Interface -ohjelman DPI-skaalauksella sovellukset, jotka eivät ole DPI-arvoon mukautuvia, saadaan näytön DPI-arvoon mukautuviksi.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">Tämän käytännön ottaminen käyttöön mahdollistaa oletustoiminnan ohittamisen lisänäyttöä yhdistettäessä. Sen avulla voit hallita sitä, kloonataanko (peilataanko) ensisijainen näyttö automaattisesti vai laajennetaanko työpöytää.
+Laajenna näyttö toiseen näyttöön, jolloin kullakin näytöllä on eri sisältö. Kloonaa ensisijaisen näytön toiseen näyttöön, jossa näkyy sama sisältö molemmissa näytöissä. Sisäinen oletus käyttää Windowsin asetusten määrittämää järjestelmän oletustoimintaa.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> Määritä usean näytön tila</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">Tämän käytännön ottaminen käyttöön mahdollistaa oletustoiminnan ohittamisen lisänäyttöä yhdistettäessä. Sen avulla voidaan hallita sitä, priorisoidaanko kloonatussa näytössä sisäinen vai ulkoinen näyttö, eli määritetäänkö sen ensisijainen tarkkuuslähde.
+Sisäinen määrittää päänäytön tarkkuuden lähteeksi molemmissa näytöissä. Ulkoinen määrittää yhdistetyn (ulkoisen) näytön tarkkuuden lähteeksi molemmissa näytöissä. Oletusarvo käyttää Windowsin asetusten määrittämää järjestelmän oletustoimintaa.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> Aseta kloonatun näytön ensisijaisen tarkkuuden lähde</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">Graphics Device Interface -ohjelman DPI-skaalauksella sovellukset, jotka eivät ole DPI-arvoon mukautuvia, saadaan näytön DPI-arvoon mukautuviksi.
 
 Tämän käytäntöasetuksen avulla voit määrittää, että Graphics Device Interface -ohjelman DPI-skaalaus poistetaan käytöstä vanhoissa sovelluksissa.
 
@@ -26,24 +35,32 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Gr
 Jos Graphics Device Interface -ohjelman DPI-skaalaus on määritetty sekä poistamaan sovellus käytöstä että ottamaan se käyttöön, sovellus poistetaan käytöstä.</string>
       <string id="DisplayTurnOnGdiDPIScaling">Ota Graphics Device Interface -ohjelman DPI-skaalaus käyttöön sovelluksissa</string>
       <string id="DisplayTurnOffGdiDPIScaling">Poista Graphics Device Interface -ohjelman DPI-skaalaus käytöstä sovelluksissa</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">Prosessikohtainen järjestelmän DPI on sovellusten yhteensopivuusominaisuus työpöytäsovelluksille, joissa hahmonnus ei toimi oikein sen jälkeen, kun näytön skaalauskerrointa (DPI:tä) on muutettu. Kun ensisijaisen näytön skaalauskerroin muuttuu, monet työpöytäsovellukset voivat näkyä epätarkkoina. Ensisijaisen näytön skaalauskerroin voi muuttua esimerkiksi silloin, kun näyttöön yhdistetään tai siitä irrotetaan näyttö, jonka skaalauskerroin (DPI) on erilainen, kun siihen muodostetaan etäyhteys laitteesta, jonka näytön skaalauskerroin (DPI) on erilainen, tai kun näytön skaalauskerrointa muutetaan manuaalisesti. Jos työpöytäsovelluksia ei ole päivitetty näkymään tällaisissa tilanteissa oikein, ne näkyvät epätarkkoina, kunnes käyttäjä kirjautuu ulos Windowsista ja kirjautuu sitten takaisin sisään. 
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">Prosessikohtainen järjestelmän DPI on sovellusten yhteensopivuusominaisuus työpöytäsovelluksille, joissa hahmonnus ei toimi oikein sen jälkeen, kun näytön skaalauskerrointa (DPI:tä) on muutettu. Kun ensisijaisen näytön skaalauskerroin muuttuu (mikä voi tapahtua, kun yhdistät tai irrotat näytön, jonka skaalauskerroin (DPI) on erilainen, muodostat etäyhteyden laitteesta, jonka näytön skaalauskerroin on erilainen, tai muutat näytön skaalauskerrointa manuaalisesti), monet työpöytäsovellukset voivat näkyä epätarkkoina. Työpöytäsovellukset, joita ei ole päivitetty näkymään oikein tässä tilanteessa, näkyvät epätarkkoina, kunnes käyttäjä kirjautuu ulos Windowsista ja takaisin sisään.
 
-Kun tämä käytäntö otetaan käyttöön, jotkin epätarkat sovellukset näkyvät terävinä sovelluksen uudelleenkäynnistyksen jälkeen eikä käyttäjän ole tarpeen kirjautua ulos ja takaisin sisään Windowsiin. 
+Kun otat tämän käytännön käyttöön, jotkin epätarkat sovellukset ovat selkeitä uudelleenkäynnistyksen jälkeen ilman, että käyttäjän on kirjauduttava ulos ja takaisin Windowsiin.
 
 Huomaa seuraavat asiat:
 
-Prosessikohtainen järjestelmän DPI parantaa vain ensisijaiseen näyttöön sijoitettujen työpöytäsovellusten hahmontamista. Jotkin toissijaisten näyttöjen työpöytäsovellukset voivat edelleen näkyä epätarkkoina, jos toissijaisissa näytöissä on erilaiset skaalauskertoimet. 
+Prosessijärjestelmän DPI parantaa vain ensisijaiseen näyttöön sijoitettujen työpöytäsovellusten hahmontamista. Jotkin työpöytäsovellukset voivat edelleen näkyä epätarkkoina toissijaisilla näytöillä, joilla on erilaiset skaalauskertoimet.
 
-Prosessikohtainen järjestelmän DPI ei toimi kaikissa sovelluksissa, koska jotkin vanhat työpöytäsovellukset näkyvät aina epätarkkoina suuria DPI-arvoja käyttävissä näytöissä. 
+Prosessikohtainen järjestelmän DPI ei toimi kaikissa sovelluksissa, sillä jotkin vanhat työpöytäsovellukset näkyvät aina epätarkkoina suurilla DPI-näytöillä.
 
-Joissakin tapauksissa joidenkin työpöytäsovellusten toiminta voi olla epätavallista. Jos tällaista ilmenee, prosessikohtainen järjestelmän DPI tulee poistaa käytöstä.
+Joissakin tapauksissa saatat huomata outoa käyttäytymistä joissakin työpöytäsovelluksissa. Jos näin tapahtuu, prosessikohtainen järjestelmän DPI tulee poistaa käytöstä.
 
-Kun tämä asetus otetaan käyttöön, työpöytäsovelluksille pystytään määrittämään koko järjestelmän laajuiset oletusasetukset sekä sovelluskohtaiset ohitukset. Jos asetus poistetaan käytöstä tai sitä ei määritetä, prosessikohtaista järjestelmän DPI:tä ei käytetä missään järjestelmän prosesseissa.
+Kun otat tämän asetuksen käyttöön, voit määrittää koko järjestelmän oletusarvon työpöytäsovelluksille sekä sovelluskohtaisille ohituksille. Jos poistat tämän asetuksen käytöstä tai et määritä sitä, prosessin järjestelmäkohtaista DPI:tä ei sovelleta järjestelmän prosesseihin.
 
 </string>
       <string id="DisplayPerProcessSystemDpiSettings">Määritä prosessikohtaiset järjestelmän DPI-asetukset</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">Ota käyttöön</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">Poista käytöstä</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">Kloonaa</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">Oletus</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">Laajenna</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">Vain sisäinen</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">Vain ulkoinen</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">Oletus</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">Sisäinen</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">Ulkoinen</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">Ota käyttöön sovellusten prosessikohtainen järjestelmän DPI</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">Poista käytöstä sovellusten prosessikohtainen järjestelmän DPI</string>
     </stringTable>
@@ -66,6 +83,12 @@ Kun tämä asetus otetaan käyttöön, työpöytäsovelluksille pystytään mä�
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>Poista käytöstä prosessikohtainen järjestelmän DPI seuraavissa sovelluksissa. Käytä joko koko sovelluspolkua tai sovelluksen tiedostonimeä ja tarkennetta. Erota sovellukset toisistaan puolipisteellä.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">Kloonaa, laajenna, sisäisesti, ulkoisesti tai jatka Windowsin oletusasetuksin usean näyttötilan määrityksenä.</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">Määritä oletustarkkuus, jota Windows käyttää uusille kloonatuille näytöille sisäisinä, ulkoisina tai Windowsin oletusasetuksina.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

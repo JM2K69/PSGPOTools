@@ -27,12 +27,11 @@ Pokud tuto zásadu zakážete nebo nenakonfigurujete, při vyhledávání v poli
 Pokud tuto zásadu zakážete nebo nenakonfigurujete, zobrazí se odkaz Zobrazit další výsledky při vyhledávání v poli Hledat nabídky Start.  Jestliže je nainstalován popisovač protokolu od jiného dodavatele, zobrazí se místo odkazu Zobrazit další výsledky odkaz Hledat všude.</string>
       <string id="AddSearchInternetLinkInStartMenu">Přidat do nabídky Start odkaz Vyhledat v Internetu</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
+Pokud toto nastavení povolíte, zobrazí se při hledání v poli Hledat nabídky Start odkaz Vyhledat v Internetu.  Toto tlačítko spustí výchozí prohlížeč s hledanými termíny.
 
-Pokud tuto zásadu povolíte, zobrazí se odkaz Vyhledat v Internetu při vyhledávání v poli Hledat nabídky Start.  Toto tlačítko spustí vyhledávání hledaných termínů ve výchozím prohlížeči.
+Pokud toto nastavení zakážete, nebude při hledání v poli Hledat nabídky Start k dispozici odkaz Hledat v Internetu.
 
-Pokud tuto zásadu zakážete, nezobrazí se při vyhledávání v poli Hledat nabídky Start odkaz Vyhledat v Internetu.
-          
-Jestliže tuto zásadu nenakonfigurujete (výchozí nastavení), nezobrazí se v nabídce Start odkaz Vyhledat v Internetu.</string>
+Pokud toto nastavení zásad nenakonfigurujete (výchozí), nebude v nabídce Start odkaz Hledat v Internetu.</string>
       <string id="NoSearchFilesInStartMenu">Nehledat soubory</string>
       <string id="NoSearchFilesInStartMenu_Help">Pokud toto nastavení povolíte, pole Hledat nabídky Start nebude možné použít pro vyhledávání souborů.
 
@@ -207,6 +206,19 @@ V Průzkumníkovi souborů bude položka Hledat stále k dispozici na standardn�
 Toto nastavení zásad ovlivní pouze uvedené prvky uživatelského rozhraní. Neovlivní aplikaci Internet Explorer a nebrání uživateli použít k hledání jiné metody.
 
 Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude příkaz Hledat v nabídce Start dostupný.</string>
+      <string id="ShowOrHideMostUsedApps">Zobrazit nebo skrýt seznam nejčastěji používaných položek z nabídky Start</string>
+      <string id="ShowOrHideMostUsedApps_Help">Pokud toto nastavení zásad povolíte, můžete nakonfigurovat nabídku Start a zobrazit nebo skrýt seznam aplikací, které jsou pro uživatele nejčastěji používány, a to bez ohledu na uživatelská nastavení.
+
+Výběrem možnosti Zobrazit vynutíte zobrazení seznamu nejčastěji používaných položek a uživatel ho nebude moci změnit, aby ho skryl pomocí nastavení aplikace.
+
+Výběrem možnosti skrýt vynutíte skrytí seznamu nejčastěji používaných položek a uživatel ho nebude moci změnit a zobrazit pomocí aplikace nastavení.
+
+Vyberete-li možnost není nakonfigurováno, nebo pokud toto nastavení zásad zakážete nebo nenakonfigurujete, budou všichni uživatelé moci zapnout nebo vypnout zobrazení seznamu nejčastěji používaných položek pomocí aplikace nastavení. Toto je výchozí chování.
+
+Poznámka: konfigurace této zásady na Zobrazit nebo skrýt v podporovaných verzích Windows 10 nahrazuje všechna nastavení zásad odebrat seznam častých programů z nabídky Start (který spravuje stejnou část nabídky Start, ale s menším počtem možností).</string>
+      <string id="MFU_NotConfigured">Nekonfigurováno</string>
+      <string id="MFU_Show">Zobrazit</string>
+      <string id="MFU_Hide">Skrýt</string>
       <string id="NoFrequentUsedPrograms">Odebrat seznam často používaných programů z nabídky Start</string>
       <string id="NoFrequentUsedPrograms_Help">Pokud toto nastavení povolíte, bude z nabídky Start odebrán seznam často používaných programů.
 
@@ -243,7 +255,7 @@ Pokud toto nastavení zakážete nebo nenakonfigurujete, bude seznam všech apli
       <string id="APPLIST_NONE">Žádné</string>
       <string id="APPLIST_COLLAPSE">Sbalit</string>
       <string id="APPLIST_COLLAPSESETTING">Sbalit a zakázat nastavení</string>
-      <string id="APPLIST_REMOVESETTING">Odebrat a zakázat nastavení</string>    
+      <string id="APPLIST_REMOVESETTING">Odebrat a zakázat nastavení</string>
 
       <string id="NoNetAndDialupConnect">Odebrat síťová připojení z nabídky Start</string>
       <string id="NoNetAndDialupConnect_Help">Toto nastavení zásad umožňuje odebrat položku Síťová připojení z nabídky Start.
@@ -258,11 +270,11 @@ Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude položka S�
 
 Další informace najdete v popisu nastavení zásad „Zakázat programy v nabídce Nastavení“ a „Zakázat přístup k Ovládacím panelům“ a nastavení zásad ve složce Síťová připojení (Konfigurace počítače a Konfigurace uživatele\Šablony pro správu\Síť\Síťová připojení).</string>
       <string id="NoPinnedPrograms">Odebrat připojené programy z nabídky Start</string>
-      <string id="NoPinnedPrograms_Help">Pokud toto nastavení povolíte, bude z nabídky Start odebrán seznam připojených programů. Uživatelé nemohou připojovat programy do nabídky Start. 
+      <string id="NoPinnedPrograms_Help">Pokud toto nastavení povolíte, bude seznam Připnuté programy odebrán z nabídka Start. Uživatelé nemohou připínat programy k nabídka Start.
 
-V systému Windows XP a Windows Vista budou z dialogovém okna Upravit nabídku Start odebrána zaškrtávací políčka Internet a E-mail. 
+V systému Windows XP a Windows Vista jsou z dialogového okna Přizpůsobit nabídku Start odebrána zaškrtávací políčka Internet a e-mail.
 
-Jestliže toto nastavení zakážete nebo nenakonfigurujete, seznam připojených programů zůstane v nabídce Start. Uživatelé mohou programy připojovat do nabídky Start nebo je z ní odpojovat.</string>
+Pokud toto nastavení zakážete nebo nenakonfigurujete, seznam Připnuté programy zůstane na nabídka Start. Uživatelé mohou připínat a odepnout programy v nabídce Start.</string>
       <string id="NoRecentDocsHistory">Neudržovat historii naposledy otevřených dokumentů</string>
       <string id="NoRecentDocsHistory_Help">Zabrání operačnímu systému a instalovaným programů ve vytváření a zobrazování zástupců naposledy otevřených dokumentů.
 
@@ -318,31 +330,29 @@ Poznámka: Toto nastavení zásad ovlivňuje pouze cílové soubory v oddílech 
 
 Další informace najdete v popisu nastavení zásad Nekontrolovat cíle zástupců během cestování a Při určování cíle zástupců prostředí nepoužívat metody založené na vyhledávání.</string>
       <string id="NoRun">Odebrat příkaz Spustit z nabídky Start</string>
-      <string id="NoRun_Help">Umožňuje odebrat příkaz Spustit z nabídky Start, z aplikace Internet Explorer a ze Správce úloh.
+      <string id="NoRun_Help">Umožňuje odebrat příkaz Spustit z nabídka Start, Internet Explorer a Správce úloh.
 
 Pokud toto nastavení povolíte, dojde k následujícím změnám:
 
-(1) Příkaz Spustit bude odebrán z nabídky Start.
+(1) Příkaz Spustit se odebere z nabídka Start.
 
-(2) Příkaz Nová úloha (spustit) bude odebrán ze Správce úloh.
+(2) Příkaz Nová úloha (Spustit) je odebrán z Správce úloh.
 
-(3) Uživatel nebude moci zadat do panelu Adresa aplikace Internet Explorer následující možnosti:
+(3) Uživateli se zablokuje vstup do Internet Explorer panelu Adresa:
 
---- Cesta UNC: \\&lt;server&gt;\&lt;sdílená_položka&gt; 
+--- Cesta UNC: \\&lt;server&gt;\&lt;share&gt;
 
---- Přístup k místním jednotkám: např. C:
+---Přístup k místním jednotkám: např. C:
 
 --- Přístup k místním složkám: např. \temp&gt;
 
-Uživatelé s rozšířenými klávesnicemi již nebudou moci zobrazit dialogové okno Spustit stisknutím kláves Windows+R.
+Uživatelé s rozšířenými klávesnicemi již nebudou moci zobrazit dialogové okno Spustit stisknutím klávesy Aplikace (klávesa s logem Windows) + R.
 
-Pokud toto nastavení zakážete nebo nenakonfigurujete, budou mít uživatelé přístup k příkazu Spustit v nabídce Start a ve Správci úloh a budou moci používat panel Adresa v rámci aplikace Internet Explorer.
+Pokud toto nastavení zakážete nebo nenakonfigurujete, uživatelé budou mít přístup k příkazu Spustit v nabídka Start a v Správce úloh a budou moci používat panel Adresa Internet Explorer.
 
+Poznámka: Toto nastavení ovlivní pouze zadané rozhraní. Nezabrání uživatelům ve spouštění programů jinými způsoby.
 
-
-Poznámka: Toto nastavení ovlivní pouze určené rozhraní. Nebrání uživatelům spouštět programy jinými způsoby.
-
-Poznámka: Všechny aplikace třetích stran s certifikací Windows 2000 nebo vyšší musí používat toto nastavení.</string>
+Poznámka: Aby aplikace třetích stran s certifikací Windows 2000 nebo novější dodržovaly toto nastavení, je nutné je dodržovat.</string>
       <string id="NoSetFolders">Odebrat programy v nabídce Nastavení</string>
       <string id="NoSetFolders_Help">Toto nastavení zásad umožňuje odebrat programy z nabídky Nastavení.
 
@@ -599,9 +609,9 @@ Pokud toto nastavení zásad povolíte, zobrazí se po stisknutí klávesy s log
 
 Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, úvodní obrazovka se po stisknutí klávesy s logem Windows vždy zobrazí na hlavním displeji. Uživatelé budou i nadále moci otevírat úvodní obrazovku na jiných displejích stisknutím tlačítka Start na daném displeji. Toto nastavení může nakonfigurovat také uživatel.</string>
       <string id="ForceStartSize_DisplayName">Vynucovat otevření obrazovky Start buď v plné velikosti, nebo ve velikosti nabídky</string>
-      <string id="ForceStartSize_ExplainText">Pokud povolíte tuto zásadu a nastavíte ji na Nabídka Start nebo Obrazovka Start v plné velikosti, bude se úvodní obrazovka otevírat v této velikosti a uživatelé si nebudou moct její velikost změnit v Nastavení. 
+      <string id="ForceStartSize_ExplainText">Pokud povolíte tuto zásadu a nastavíte ji na Nabídka Start nebo Start na plnou obrazovku, bude se Start otevírat v této velikosti a uživatelé nebudou moct jeho velikost změnit v Nastavení.
 
-Pokud tuto zásadu zakážete nebo nenakonfigurujete, vybere systém Windows velikost automaticky podle parametrů hardwaru a uživatelé ji budou moct změnit v Nastavení.</string>
+Pokud tuto zásadu zakážete nebo nenakonfigurujete, systém Windows vybere velikost automaticky podle parametrů hardwaru a uživatelé ji budou moct změnit v Nastavení.</string>
       <string id="ForceLauncherSize_Collapsed">Nabídka Start</string>
       <string id="ForceLauncherSize_Expanded">Obrazovka Start v plné velikosti</string>
       <string id="HidePeopleBar_DisplayName">Odebrat panel Moji blízcí z hlavního panelu</string>
@@ -612,10 +622,44 @@ Pokud tyto zásady aktivujete, odstraní se z hlavního panelu ikona Lidé, ze s
       <string id="HideRecentlyAddedApps_Help">Touto zásadou můžete znemožnit zobrazení seznamu nedávno nainstalovaných aplikací v nabídce Start.
 
 Pokud tuto zásadu povolíte, nebude už nabídka Start zobrazovat seznam Nedávno přidané. Odpovídající nastavení se zakáže i v Nastavení.</string>
+      <string id="HideRecommendedSection">Odebrat doporučený oddíl z nabídky Start</string>
+      <string id="HideRecommendedSection_Help">Tato zásada umožňuje zabránit zobrazení seznamu doporučených aplikací a souborů v nabídce Start.
+
+Pokud toto nastavení zásad povolíte, nebude se v nabídce Start zobrazovat oddíl se seznamem doporučených souborů a aplikací.</string>
+ <string id="HideCategoryView">Skrýt zobrazení Kategorie v nabídce Start</string>
+ <string id="HideCategoryView_Help">Toto nastavení zásad umožňuje skrýt zobrazení kategorie v nabídce Start.
+ 
+Pokud toto nastavení zásad povolíte, nebude již nabídka Start zobrazovat zobrazení kategorie jako možnost a bude ve výchozím nastavení zobrazena v mřížce.</string>
+
+ <string id="ConfigureStartPins">Konfigurovat připnutí na Start</string>
+      <string id="ConfigureStartPins_Help">Umožňuje správci přepsat výchozí položky připnuté na Start.
+
+Toto nastavení umožňuje zadat výchozí položky připnuté na úvodní obrazovce.</string>
+
+      <string id="HideRecommendedPersonalizedSites">Odebrat doporučení přizpůsobených webů z části Doporučené v nabídce Start</string>
+      <string id="HideRecommendedPersonalizedSites_Help">Toto nastavení zásad umožňuje skrýt přizpůsobené weby v části s doporučeními v nabídce Start. 
+      
+Pokud toto nastavení zásad povolíte, v nabídce Start se vám už v části s doporučeními nebudou zobrazovat individuální doporučení webů.</string>
       <string id="DisableContextMenusInStart">Zakázat místní nabídky v nabídce Start</string>
       <string id="DisableContextMenusInStart_Help">Pomocí této zásady můžete uživatelům znemožnit otevírání místních nabídek v nabídce Start.
 
 Pokud tuto zásadu povolíte, bude se vyvolávání místních nabídek v nabídce Start ignorovat.</string>
+      <string id="SimplifyQuickSettings_DisplayName">Zjednodušit Rozložení Rychlých Nastavení</string>
+      <string id="SimplifyQuickSettings_ExplainText">Pokud tuto zásadu povolíte, bude rychlé nastavení omezeno pouze na tlačítka Wi-Fi, Bluetooth, Přístupnost a VPN. posuvníky jasu a hlasitosti; a indikátorem baterie a odkazem na aplikaci Nastavení.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude se při každém vyvolání rychlého nastavení zobrazovat běžné rozložení rychlého nastavení.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">Zakázat Úpravy Rychlých Nastavení</string>
+      <string id="DisableEditingQuickSettings_ExplainText">Pokud tuto zásadu povolíte, uživatel nebude moct upravit rychlá nastavení.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, uživatel bude moct upravit rychlá nastavení, například připnutí nebo odepnutí tlačítek.</string>
+      <string id="DisableControlCenter">Odebrat rychlá nastavení</string>
+      <string id="DisableControlCenter_Help">Toto nastavení zásad odebere rychlé nastavení z pravé dolní oblasti hlavního panelu.
+
+Oblast rychlého nastavení je umístěna vlevo od hodin na hlavním panelu a obsahuje ikony pro aktuální síť a hlasitost.
+
+Pokud je toto nastavení povoleno, nezobrazí se rychlé nastavení v oblasti rychlého nastavení. 
+
+Aby se toto nastavení zásad projevilo, je nutné restartovat počítač.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +676,22 @@ Pokud tuto zásadu povolíte, bude se vyvolávání místních nabídek v nabíd
           <label>Soubor rozložení úvodní obrazovky</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">Použít rozložení znovu při každém přihlášení</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">Vyberte jednu z následujících velikostí:</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">Zvolit jednu z následujících akcí</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>Spustit soubor rozložení připínáčků</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">Skrýt zobrazení kategorií</checkBox>
       </presentation>
     </presentationTable>
   </resources>

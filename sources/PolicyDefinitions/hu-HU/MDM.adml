@@ -33,6 +33,11 @@ Ha letiltja a házirend-beállítást, minden felhasználó regisztrálhatja az 
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">Válassza ki a használandó hitelesítőadat-típust:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>MDM-alkalmazás azonosítója:</label>
+        </textBox>
+        <text>A mobileszköz-kezelési alkalmazás azonosítója az Azure AD-ben beállított MDM-alkalmazás AZONOSÍTÓJÁT jelenti. Nem kötelező megadni; csak az eszköz hitelesítő adataival történő automatikus MDM-regisztráció esetén szükséges, amikor több MDM-alkalmazás van beállítva az Azure AD-ben.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

@@ -296,6 +296,8 @@ Jeśli to ustawienie zasad nie zostanie skonfigurowane, użytkownicy będą mogl
 Jeśli to ustawienie zasad zostanie włączone, funkcja ograniczenia zasilania zostanie wyłączona.
 
 Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, użytkownicy będą mogli kontrolować to ustawienie.</string>
+      <string id="EnableEnergySaver">Włącz funkcję oszczędzania energii, aby zawsze była włączona</string>
+      <string id="EnableEnergySaverExplain">Te zasady wydłużą czas pracy baterii i zredukują zużycie energii przez włączenie funkcji Oszczędzanie energii. </string>
     </stringTable>
     <presentationTable>
       <presentation id="ACHibernateTimeOut_1">

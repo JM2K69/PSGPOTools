@@ -27,11 +27,10 @@
 如果停用或未設定這個原則，當使用者在 [開始] 功能表的 [搜尋] 方塊中執行搜尋時，會顯示 [查看更多結果] 連結。 如果已安裝第三方通訊協定處理常式，則會顯示 [搜尋每個地方] 連結，而不是 [查看更多結果] 連結。</string>
       <string id="AddSearchInternetLinkInStartMenu">新增 [搜尋網際網路] 連結到 [開始] 功能表</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
-
 如果啟用這個原則，當使用者在 [開始] 功能表的 [搜尋] 方塊中執行搜尋時，會顯示 [搜尋網際網路] 連結。 這個按鈕會啟動預設瀏覽器及搜尋字詞功能。
 
 如果停用這個原則，當使用者在 [開始] 功能表的 [搜尋] 方塊中執行搜尋時，不會顯示 [搜尋網際網路] 連結。
-          
+
 如果未設定這個原則 (預設)，則 [開始] 功能表上沒有 [搜尋網際網路] 連結。</string>
       <string id="NoSearchFilesInStartMenu">不搜尋檔案</string>
       <string id="NoSearchFilesInStartMenu_Help">如果您啟用這個原則設定，[開始] 功能表的 [搜尋] 方塊不會搜尋檔案。
@@ -207,6 +206,19 @@ XML 檔案產生並移到想要的檔案路徑之後，請輸入 XML 檔案的�
 這個原則設定只會影響指定的使用者介面項目。並不會影響 Internet Explorer，也不會防止使用者使用其他方法進行搜尋。
 
 如果您停用或未設定這個原則設定，則可在 [開始] 功能表中使用 [搜尋] 連結。</string>
+      <string id="ShowOrHideMostUsedApps">顯示或隱藏 [開始] 功能表中的 [最常用] 清單</string>
+      <string id="ShowOrHideMostUsedApps_Help">如果您啟用這個原則設定，您可以設定 [開始] 功能表以顯示或隱藏使用者最常使用之應用程式的清單（無論使用者設定為何）。
+
+選取 [顯示] 會強制顯示 [最常用] 清單，而且使用者無法使用 [設定] 應用程式變更為隱藏它。
+
+選取 [隱藏] 會強制隱藏 [最常用] 清單，而且使用者無法使用 [設定] 應用程式變更為顯示它。
+
+選取 [未設定]，如果您停用或未設定這個原則設定，則所有使用者都可以使用 [設定] 應用程式開啟或關閉 [最常用] 清單的顯示。這是預設行為。
+
+注意：在支援的 Windows 10 版本中，將此原則設定為 [顯示] 或 [隱藏]，將會取代 [從 [開始] 功能表中移除常用程式清單] 的任何原則設定，(可以管理與 [開始] 功能表相同的部分，但使用較少的選項)。</string>
+      <string id="MFU_NotConfigured">尚未設定</string>
+      <string id="MFU_Show">顯示</string>
+      <string id="MFU_Hide">隱藏</string>
       <string id="NoFrequentUsedPrograms">從 [開始] 功能表中移除常用程式清單</string>
       <string id="NoFrequentUsedPrograms_Help">如果您啟用這個設定，則會從 [開始] 功能表中移除常用程式清單。
 
@@ -243,7 +255,7 @@ XML 檔案產生並移到想要的檔案路徑之後，請輸入 XML 檔案的�
       <string id="APPLIST_NONE">無</string>
       <string id="APPLIST_COLLAPSE">摺疊</string>
       <string id="APPLIST_COLLAPSESETTING">摺疊並停用設定</string>
-      <string id="APPLIST_REMOVESETTING">移除並停用設定</string>    
+      <string id="APPLIST_REMOVESETTING">移除並停用設定</string>
 
       <string id="NoNetAndDialupConnect">從 [開始] 功能表中移除 [網路連線]</string>
       <string id="NoNetAndDialupConnect_Help">這個原則設定可讓您移除 [開始] 功能表中的 [網路連線]。
@@ -260,7 +272,7 @@ XML 檔案產生並移到想要的檔案路徑之後，請輸入 XML 檔案的�
       <string id="NoPinnedPrograms">從 [開始] 功能表上移除釘選出現的程式清單</string>
       <string id="NoPinnedPrograms_Help">如果您啟用這個設定，[釘選出現的程式] 清單會從 [開始] 功能表中移除。使用者無法將程式釘選到 [開始] 功能表。
 
-在 Windows XP 和 Windows Vista 中，[網際網路] 和 [電子郵件] 核取方塊會從 [自訂 [開始] 功能表] 對話方塊中移除。
+Windows XP 和 Windows Vista 中，[網際網路] 和 [電子郵件] 核取方塊會從 [自訂 [開始] 功能表] 對話方塊中移除。
 
 如果您停用或未設定這個設定，則 [釘選出現的程式] 清單仍會保留在 [開始] 功能表上。使用者可以在 [開始] 功能表上釘選和取消釘選程式。</string>
       <string id="NoRecentDocsHistory">不保留最近開啟文件的記錄</string>
@@ -328,7 +340,7 @@ XML 檔案產生並移到想要的檔案路徑之後，請輸入 XML 檔案的�
 
 (3) 使用者會被禁止在 Internet Explorer 位址列中輸入以下各項:
 
---- UNC 路徑: \\&lt;伺服器&gt;\&lt;共用&gt; 
+--- UNC 路徑: \\&lt;伺服器&gt;\&lt;共用&gt;
 
 ---存取本機磁碟機，例如 C:
 
@@ -612,10 +624,44 @@ Windows Update 是 Windows 的線上延伸，提供軟體更新讓使用者的�
       <string id="HideRecentlyAddedApps_Help">此原則可讓您防止 [開始] 功能表顯示最近安裝的應用程式清單。
 
 如果您啟用這個原則，[開始] 功能表將不會再顯示 [最近新增] 清單，而 [設定] 中也會停用對應的設定。</string>
+      <string id="HideRecommendedSection">從 [開始] 功能表移除建議區段</string>
+      <string id="HideRecommendedSection_Help">此原則可讓您防止 [開始] 功能表顯示建議的應用程式和檔案清單。
+
+如果您啟用此原則設定，則 [開始] 功能表將不再顯示包含建議檔案和應用程式清單的章節。</string>
+ <string id="HideCategoryView">隱藏 [開始] 功能表中的類別檢視</string>
+ <string id="HideCategoryView_Help">這個原則設定可讓您隱藏 [開始] 功能表中的類別檢視。
+ 
+如果您啟用這個原則設定，[開始] 功能表將不再以選項顯示類別檢視，並且預設為方格檢視。</string>
+
+ <string id="ConfigureStartPins">設定 [開始] 功能表釘選項目</string>
+      <string id="ConfigureStartPins_Help">允許系統管理員覆寫釘選到 [開始] 的默認專案。
+
+此設定可讓您指定釘選到 [開始] 的預設專案。</string>
+
+      <string id="HideRecommendedPersonalizedSites">從 [開始] 功能表的 [建議] 區段移除 [個人化網站建議]</string>
+      <string id="HideRecommendedPersonalizedSites_Help">這個原則設定可讓您在 [開始] 功能表的建議區段中隱藏個人化網站。
+      
+如果您啟用這個原則設定，[開始] 功能表將不會再在建議的區段中顯示個人化網站建議。</string>
       <string id="DisableContextMenusInStart">停用 [開始] 功能表中的操作功能表</string>
       <string id="DisableContextMenusInStart_Help">此原則可讓您防止使用者在 [開始] 功能表中開啟操作功能表。
 
 如果您啟用這個原則，則會忽略在 [開始] 功能表中對操作功能表的叫用。</string>
+      <string id="SimplifyQuickSettings_DisplayName">簡化快速設定版面配置</string>
+      <string id="SimplifyQuickSettings_ExplainText">如果您啟用此原則，快速設定將會減少為只有 WiFi、藍牙、協助工具和 VPN 按鈕：亮度和音量滑杆;和電池指示器，並連結至設定應用程式。
+
+如果您停用或不設定此原則設定，每當啟動快速設定時，就會顯示一般快速設定配置。</string>
+      <string id="DisableEditingQuickSettings_DisplayName">停用編輯快速設定</string>
+      <string id="DisableEditingQuickSettings_ExplainText">如果您啟用此原則，使用者將無法修改快速設定。
+
+如果您停用或未設定此原則設定，使用者將可以編輯快速設定，例如釘選或取消釘選按鈕。</string>
+      <string id="DisableControlCenter">移除 [快速設定]</string>
+      <string id="DisableControlCenter_Help">此原則設定會從工作列右下方區域移除 [快速設定]。
+
+快速設定區域位於工作列的時鐘左側，內含目前網路和音量的圖示。
+
+如果啟用此設定，[快速設定] 不會顯示在快速設定區域之中。
+
+需要重新開機，此原則設定才會生效。</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +678,22 @@ Windows Update 是 Windows 的線上延伸，提供軟體更新讓使用者的�
           <label>啟動配置檔案</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">每次登入時重新套用版面配置</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">選擇下列其中一個大小</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">選擇下列其中一個動作</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>[開始] 功能表配置檔案</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">隱藏類別檢視</checkBox>
       </presentation>
     </presentationTable>
   </resources>

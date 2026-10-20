@@ -108,11 +108,13 @@ HTTP 経由の印刷をセットアップするには、付属していないド
 
 また、"コンピューターの構成/管理用テンプレート/Windows コンポーネント/Windows エラー報告" の "エラー報告の構成"、"エラー通知の表示"、および "Windows エラー報告を無効にする" ポリシー設定も参照してください。</string>
       <string id="RemoveWindowsUpdate_ICM">Windows Update のすべての機能へのアクセスをオフにする</string>
-      <string id="RemoveWindowsUpdate_ICM_Help">このポリシー設定では、Windows Update へのアクセスを削除できます。
+      <string id="RemoveWindowsUpdate_ICM_Help">このポリシー設定を使用すると、Windows Update へのアクセスを削除できます。
 
-このポリシー設定を有効にした場合、Windows Update のすべての機能が削除されます。このポリシー設定には、[スタート] メニューの Windows Update および Internet Explorer の [ツール] メニューのハイパーリンクからの Windows Update Web サイト (http://windowsupdate.microsoft.com) へのアクセスのブロックが含まれています。Windows 自動更新も無効になります。Windows Update からの緊急更新プログラムの通知を受けず、受信もしません。また、デバイス マネージャーで Windows Update Web サイトからドライバーの更新プログラムを自動的にインストールすることもありません。
+このポリシー設定を有効にすると、Windows Update のすべての機能が削除されます。これには、http://windowsupdate.microsoft.com の Windows Update Web サイト、スタート メニューの Windows Update ハイパーリンク、Internet Explorer の [ツール] メニューから Windows Update Web サイトへのアクセスが含まれます。Windows 自動更新も無効になっています。Windows Update からの重要な更新プログラムまたはその受信についても通知されません。このポリシー設定を使うと、デバイス マネージャーが Windows Update Web サイトからドライバーの更新プログラムを自動的にインストールすることもできなくなります。
 
-このポリシー設定を無効にした場合、または構成しなかった場合、ユーザーは Windows Update Web サイトにアクセスして自動更新を有効にし、Windows Update からの通知と緊急更新プログラムを受信できます。</string>
+このポリシー設定を無効にした場合、または構成しなかった場合、ユーザーは Windows Update Web サイトにアクセスして自動更新を有効にし、Windows Update からの通知と緊急更新プログラムを受け取ることができます。
+
+注: このポリシーは、[イントラネットの Microsoft 更新サービスの場所を指定する] ポリシーを使用してイントラネットの更新サービスに接続するようにこの PC が構成されている場合にのみ適用されます。</string>
       <string id="SearchCompanion_DisableFileUpdates">検索コンパニオンの内容ファイルの更新をオフにする</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">このポリシー設定では、ローカルおよびインターネット検索時に、検索コンパニオンの内容の更新を自動的にダウンロードするかどうかを指定します。
 

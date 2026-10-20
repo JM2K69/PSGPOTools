@@ -21,20 +21,19 @@ Hvis du deaktiverer denne policyinnstillingen, slettes listen over tilordninger 
 
 Hvis du ikke konfigurerer denne policyinnstillingen, bruker systemet tilordningene fra vertsnavn til Kerberos-ressurs som er definert i det lokale registret, hvis de finnes.</string>
       <string id="MitRealms">Definer interoperable Kerberos V5-ressursinnstillinger</string>
-      <string id="MitRealms_explain">Denne policyinnstillingen konfigurerer Kerberos-klienten for godkjenning med interoperable Kerberos V5-ressurser, som definert av policyinnstillingen.
-      
-Hvis du aktiverer denne policyinnstillingen, kan du vise og endre listen over interoperable Kerberos V5-ressurser og tilhørende innstillinger. Hvis du vil vise listen over interoperable Kerberos V5-ressurser, aktiverer du policyinnstillingen og klikker deretter Vis. Hvis du vil legge til en interoperabel Kerberos V5-ressurs, aktiverer du policyinnstillingen, noterer deg syntaksen og klikker deretter Vis. Skriv inn navnet på den interoperable Kerberos V5-ressursen i Verdinavn-kolonnen i dialogboksen Vis innhold. Skriv inn ressursflaggene og vertsnavnene for verts-KDCene i Verdi-kolonnen, med det aktuelle syntaksformatet. Hvis du vil fjerne et verdinavn eller en verdioppføring for en interoperabel Kerberos V5-ressurs fra listen, klikker du oppføringen og trykker deretter DELETE. Hvis du vil redigere en tilordning, fjerner du gjeldende oppføring fra listen og legger til en ny med andre parametere.
+      <string id="MitRealms_explain">Denne policyinnstillingen konfigurerer Kerberos-klienten slik at den kan autentiseres med interoperable Kerberos V5-områder, som definert av denne policyinnstillingen.
 
-Hvis du deaktiverer denne policyinnstillingen, slettes innstillingene for den interoperable Kerberos V5-ressursen som er definert av gruppepolicyen.
+Hvis du aktiverer denne policyinnstillingen, kan du vise og endre listen over interoperable Kerberos V5-områder og deres innstillinger. For å se listen over interoperable Kerberos V5-områder, aktiverer du policyinnstillingen og klikker på Vis-knappen. For å legge til et interoperabelt Kerberos V5-område, aktiverer du policyinnstillingen, merker deg syntaksen og klikker på Vis. I dialogboksen Vis innhold i kolonnen Verdinavn angir du navnet på det interoperable Kerberos V5-området. I Verdi-kolonnen angir du områdeflaggene og vertsnavnene for verts-KDC-ene med det aktuelle syntaksformatet. For å fjerne et interoperabelt Kerberos V5-områdes verdinavn eller verdioppføring fra listen, klikker du på oppføringen og trykker på DELETE-tasten. For å redigere en tilordning, fjerner du den gjeldende oppføringen fra listen og legger til en ny med andre parametere.
 
-Hvis du ikke konfigurerer denne policyinnstillingen, bruker systemet innstillingene for den interoperable Kerberos V5-ressursen som er definert i det lokale registret, hvis de finnes.</string>
+Hvis du deaktiverer denne policyinnstillingen, slettes innstillingene for det interoperable Kerberos V5-området som er definert av gruppepolicyen.
+
+Hvis du ikke konfigurerer denne policyinnstillingen, bruker systemet innstillingene for det interoperable Kerberos V5-området som er definert i det lokale registeret, hvis de finnes.</string>
       <string id="ValidateKDC">Krev streng KDC-godkjenning</string>
-      <string id="ValidateKDC_explain">Denne policyinnstillingen angir hvordan Kerberos-klienten validerer KDC-sertifikatet for pålogging med smartkort og systemsertifikat.  
+      <string id="ValidateKDC_explain">Denne policyinnstillingen angir hvordan Kerberos-klienten validerer KDC-sertifikatet for pålogging med smartkort og systemsertifikat.
 
-Hvis du aktiverer denne policyinnstillingen, krever Kerberos-klienten at X.509-sertifikatet for KDC inneholder KDC-nøkkelens objektidentifikator i EKU-utvidelsene (Extended Key Usage), og at X.509-sertifikatet for KDC inneholder en DNSName-SAN-utvidelse (SubjectAltName) som samsvarer med domenets DNS-navn. Hvis datamaskinen inngår i et domene, krever Kerberos-klienten at x.509-sertifikatet for KDC må signeres av en sertifiseringsinstans (CA) i NTAUTH-lageret. Hvis datamaskinen ikke inngår i et domene, tillater Kerberos-klienten at CA-rotsertifikatet på smartkortet brukes til å validere banen til X.509-sertifikatet for KDC.
+Hvis du aktiverer denne policyinnstillingen, krever Kerberos-klienten at X.509-sertifikatet for KDC inneholder KDC-nøkkelens objektidentifikator i EKU-utvidelsene (Extended Key Usage), og at X.509-sertifikatet for KDC inneholder en dNSName subjectAltName (SAN)-utvidelse som samsvarer med domenets DNS-navn. Hvis datamaskinen inngår i et domene, krever Kerberos-klienten at X.509-sertifikatet for KDC er signert av en sertifiseringsinstans (CA) i NTAuth-lageret. Hvis datamaskinen ikke inngår i et domene, tillater Kerberos-klienten at CA-rotsertifikatet på smartkortet brukes til å validere banen til X.509-sertifikatet for KDC.
 
-Hvis du deaktiverer denne policyinnstillingen eller ikke konfigurerer den, krever Kerberos-klienten bare at KDC-sertifikatet inneholder objektidentifikatoren for servergodkjenning i EKU-utvidelsene, for utstedelse til en hvilken som helst server.
-
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, krever Kerberos-klienten bare at KDC-sertifikatet inneholder objektidentifikatoren for servergodkjenning i EKU-utvidelsene, som kan utstedes til en hvilken som helst server.
 </string>
       <string id="StrictTarget">Krev strengt treff for mål-SPN ved eksterne prosedyrekall</string>
       <string id="StrictTarget_explain">  Med denne policyinnstillingen kan du konfigurere serveren slik at Kerberos kan dekryptere en billett som inneholder det systemgenererte SPNet. Når et program prøver å foreta et eksternt prosedyrekall (RPC) til denne serveren med en NULL-verdi for tjenestens hovednavn (SPN), vil datamaskiner som kjører Windows 7 eller senere, prøve å bruke Kerberos ved å generere et SPN.
@@ -94,16 +93,14 @@ Hvis du ikke konfigurerer denne policyinnstillingen, brukes Automatisk.
 
       <string id="MaxTokenSize">Angi maksimal bufferstørrelse for Kerberos SSPI-konteksttoken</string>
       <string id="MaxTokenSize_explain">Med denne policyinnstillingen kan du angi verdien som skal returneres til programmer som ber om maksimal bufferstørrelse for SSPI-konteksttoken.
-              
-Bufferstørrelsen for konteksttoken bestemmer maksimumsstørrelsen for SSPI-konteksttokener som et program forventer og tildeler. Bufferen kan være mindre enn den faktiske størrelsen på SSPI-konteksttokenet, avhengig av gruppemedlemskap og hvordan godkjenningsforespørsler behandles. 
 
-Hvis du aktiverer denne policyinnstillingen, bruker Kerberos-klienten eller -serveren den konfigurerte verdien eller den lokalt tillatte maksimumsverdien, avhengig av hva som er minst.
+Bufferstørrelsen for konteksttoken bestemmer maksimumsstørrelsen for SSPI-konteksttokener som et program forventer og tildeler. Bufferen kan være mindre enn den faktiske størrelsen på SSPI-konteksttokenet, avhengig av gruppemedlemskap og hvordan godkjenningsforespørsler behandles.
 
-Hvis du deaktiverer denne policyinnstillingen eller ikke konfigurerer den, bruker Kerberos-klienten eller -serveren den lokalt konfigurerte verdien eller standardverdien. 
+Hvis du aktiverer denne policyinnstillingen, bruker Kerberos-klienten eller -serveren den konfigurerte verdien, eller den lokalt tillatte maksimumsverdien, avhengig av hva som er minst.
 
-Obs!  Denne policyinnstillingen konfigurerer eksisterende MaxTokenSize-registerverdi i HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters, som ble lagt til i Windows XP og Windows Server 2003, med en standardverdi på 12 000 byte. Fra og med Windows 8 er standardverdien 48 000 byte. Ettersom HTTP bruker base64-koding i konteksttokener for godkjenning, bør du ikke sette denne verdien til mer enn 48 000 byte.
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, bruker Kerberos-klienten eller -serveren den lokalt konfigurerte verdien eller standardverdien.
 
-
+Merk: Denne policyinnstillingen konfigurerer eksisterende MaxTokenSize-registerverdien i HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters, som ble lagt til i Windows XP og Windows Server 2003, med en standardverdi på 12 000 byte. Fra Windows 8 er standarden 48 000 byte. Ettersom HTTP bruker base64-koding i konteksttokener for godkjenning, bør du ikke sette denne verdien til mer enn 48 000 byte.
 
 </string>
       <string id="EnableCbacAndArmor">Kerberos klientstøtte for krav, sammensatt godkjenning og Kerberos-forsterkning</string>
@@ -111,7 +108,7 @@ Obs!  Denne policyinnstillingen konfigurerer eksisterende MaxTokenSize-registe
 Hvis du aktiverer denne policyinnstillingen, vil klientdatamaskiner be om krav, gi informasjon som kreves for å opprette sammensatt godkjenning, og forsterke Kerberos-meldinger i domener som støtter krav og sammensatt godkjenning for dynamisk tilgangskontroll og Kerberos-forsterkning.
 
 Hvis du deaktiverer denne policyinnstillingen eller ikke konfigurerer den, vil ikke klientenhetene be om krav, gi informasjon som kreves for å opprette sammensatt godkjenning, og forsterke Kerberos-meldinger. Tjenester som enheten er vert for, kan ikke hente krav for klienter som bruker Kerberos-protokollovergang.  
-  
+
 </string>
       <string id="AlwaysSendCompoundId">Send alltid sammensatt godkjenning først</string>
       <string id="AlwaysSendCompoundId_explain">Denne policyinnstillingen avgjør om en enhet alltid sender en forespørsel om sammensatt godkjenning når ressursdomenet ber om sammensatt identitet.
@@ -124,7 +121,7 @@ Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen og ressurs
 
 </string>
       <string id="DevicePKInitEnabled">Støtte for enhetsgodkjenning ved hjelp av sertifikat</string>
-      <string id="DevicePKInitEnabled_explain">Støtte for enhetsgodkjenning ved hjelp av sertifikat krever tilkobling til en domenekontroller i enhetskontodomenet som støtter sertifikatgodkjenning for datamaskinkontoer. 
+      <string id="DevicePKInitEnabled_explain">Støtte for enhetsgodkjenning ved hjelp av sertifikat krever tilkobling til en domenekontroller i enhetskontodomenet som støtter sertifikatgodkjenning for datamaskinkontoer.
 
 Ved hjelp av denne policyinnstillingen kan du angi støtte for Kerberos for å prøve godkjenning ved hjelp av sertifikatet for enheten til domenet.
 
@@ -136,9 +133,54 @@ Tvang: Enheten godkjenner alltid ved hjelp av enhetssertifikatet. Hvis en domene
 
 Hvis du deaktiverer denne policyinnstillingen, blir aldri sertifikater brukt.
 Hvis du ikke konfigurerer denne policyinnstillingen, brukes Automatisk.
+
+Følg denne veiledningen for å konfigurere bedrifts-PKI (Public Key Infrastructure): https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">Automatisk</string>
       <string id="DevicePKInitBehavior_Force">Tving</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">Tillat henting av Azure AD Kerberos-billetttildelingsbillett under pålogging</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">Denne policyinnstillingen tillater henting av Azure AD Kerberos-billetttildelingsbillett under pålogging.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, hentes ikke Azure AD Kerberos Ticket Granting Ticket under pålogging.
+
+Hvis du aktiverer denne policyinnstillingen, hentes tildelingsbilletten for Azure AD Kerberos-billett under pålogging.</string>
+      <string id="PKInitHashAlgorithmConfiguration">Konfigurer hash-algoritmer for sertifikatpålogging</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">Denne policyinnstillingen kontrollerer hash- eller kontrollsumalgoritmer som brukes av Kerberos-klienten når sertifikatgodkjenning utføres.
+
+Hvis du aktiverer denne policyen, kan du konfigurere én av fire tilstander for hver algoritme:
+
+ – «Standard» angir algoritmen til den anbefalte tilstanden.
+
+ – «Støttes» aktiverer bruk av algoritmen. Aktivering av algoritmer, som er deaktivert som standard, kan redusere sikkerheten.
+
+ – «Overvåket» aktiverer bruk av algoritmen og rapporterer en hendelse (ID 206) hver gang den brukes. Denne tilstanden er ment å kontrollere at algoritmen ikke brukes og trygt kan deaktiveres.
+
+ – «Støttes ikke» deaktiverer bruk av algoritmen. Denne tilstanden er ment for algoritmer som anses å være usikre.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyen, vil hver algoritme anta Standard-tilstanden.
+Du kan finne mer informasjon om hash- og kontrollsumalgoritmene som støttes av Windows Kerberos-klienten, og standardtilstandene på https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Hendelser som genereres av denne konfigurasjonen: 205, 206, 207 og 208.
+</string>
+      <string id="PKInitHashAlgorithm_Default">Standard</string>
+      <string id="PKInitHashAlgorithm_Supported">Støttes</string>
+      <string id="PKInitHashAlgorithm_Audited">Revidert</string>
+      <string id="PKInitHashAlgorithm_NotSupported">Støttes ikke</string>
+      
+      <string id="DelegatedMSAEnabled">Aktiver pålogginger for delegert administrert tjenestekonto</string>
+      <string id="DelegatedMSAEnabled_explain">Denne policyinnstillingen aktiverer eller deaktiverer delegerte kontopålogginger for administrerte tjenester for denne maskinen.
+
+Hvis du aktiverer denne policyinnstillingen, støttes delegerte kontopålogginger for administrerte tjenester av Kerberos-klienten. Vær oppmerksom på at denne policyen har visse forutsetninger. Forutsetningene og instruksjonene for å opprette en ny delegert forvaltet tjenestekonto finnes på https://go.microsoft.com/fwlink/?linkid=2250379.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, støttes ikke pålogginger for delegerte administrerte tjenestekontoer. 
+</string>
+      <string id="EnableTryIPSPN">Tillat SPN-er basert på IP-adresse under Kerberos-autentisering</string>
+      <string id="EnableTryIPSPN_explain">Med denne policyinnstillingen kan du konfigurere Kerberos til å bruke IP-adressebaserte SPNer (Service Principal Name – hovednavn for tjeneste).
+
+Hvis du aktiverer denne policyinnstillingen, prøver Kerberos-klienten å bruke IP-adressebaserte SPNer ved tilkobling til en tjeneste.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, prøver ikke Kerberos å bruke IP-adressebaserte SPNer.
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -181,6 +223,16 @@ Hvis du ikke konfigurerer denne policyinnstillingen, brukes Automatisk.
         <text>Et annet eksempel:</text>
         <text>Verdinavn: REALM.FABRIKAM.COM</text>
         <text>Verdi: &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">Realms:</multiTextBox>
+        <text>Syntaks:</text>
+        <text>Angi en liste over områder der DMSAer kan finnes.</text>
+        <text>Angi både det fullstendige domenenavnet (FQDN) og det korte navnet.</text>
+        <text>Angi ett område per linje.</text>
+        <text>Detaljer:</text>
+        <text>Kerberos-klienten vil prøve å finne en DMSA-kompatibel domenekontroller for de oppførte området.</text>
+        <text>Hvis ingen områder er angitt, prøver Kerberos-klienten å finne en DMSA-kompatibel domenekontroller for alle områder.</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">Modus:</dropdownList>
@@ -225,7 +277,7 @@ Hvis du ikke konfigurerer denne policyinnstillingen, brukes Automatisk.
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Støtt godkjenning med klientenhetsinformasjon:</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Støtt godkjenning med klientenhetsinformasjon:</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">Maksimumsstørrelse</decimalTextBox>
@@ -233,7 +285,13 @@ Hvis du ikke konfigurerer denne policyinnstillingen, brukes Automatisk.
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Virkemåte for enhetsgodkjenning ved hjelp av sertifikat:</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Virkemåte for enhetsgodkjenning ved hjelp av sertifikat:</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

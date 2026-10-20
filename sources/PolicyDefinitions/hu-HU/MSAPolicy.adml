@@ -12,6 +12,8 @@ Ez az eszköz meglévő felhasználóira és az esetleg újonnan felvettekre egy
 A gyorsítótárazott jogkivonatok jelenlétének elkerülése érdekében ezt a beállítást az előtt javasolt engedélyezni, mielőtt bármely felhasználó bejelentkezne az eszközre. Ha ez a beállítás le van tiltva vagy nincs konfigurálva, akkor az alkalmazások és a szolgáltatások használhatnak Microsoft-fiókokat a hitelesítéshez. 
 Ez a beállítás alapértelmezés szerint le van tiltva. Ez a beállítás nem befolyásolja a felhasználók azon képességét, hogy Microsoft-fiókok használatával bejelentkezzenek eszközökre, illetve hogy böngészőn keresztül Microsoft-fiókokat adjanak meg webalapú alkalmazásokban való hitelesítéshez. 
         </string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnly">Csak az eszközök hitelesítésének engedélyezése a Microsoft-fiók bejelentkezési segédjében</string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnlyExplain">Ez a beállítás határozza meg, hogy a Microsoft-fiók bejelentkezési segédjében (wlidsvc) csak a vállalati eszközök hitelesítése legyen-e engedélyezve. Alapértelmezés szerint ez a beállítás le van tiltva, így a felhasználók és az eszközök hitelesítése egyaránt engedélyezett. Ha a beállítás értéke 1, csak az eszközhitelesítés engedélyezett, a felhasználók hitelesítése pedig le lesz tiltva.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

@@ -22,19 +22,18 @@ Als u deze beleidsinstelling uitschakelt, wordt de lijst met toewijzingen van he
 ls u deze beleidsinstelling niet configureert, maakt het systeem, als deze bestaan, gebruik van de toewijzingen van het type hostnaam-naar-Kerberos-realm, zoals deze zijn gedefinieerd in het lokale register.</string>
       <string id="MitRealms">Instellingen voor interoperabele Kerberos V5-realms definiëren</string>
       <string id="MitRealms_explain">U kunt deze beleidsinstelling gebruiken als u de Kerberos-client zo wil configureren dat verificatie bij interoperabele Kerberos V5-realms mogelijk wordt, zoals gedefinieerd via deze beleidsinstelling.
-      
+
 Als u deze beleidsinstelling inschakelt, kunt u de lijst met interoperabele Kerberos V5-realms en de bijbehorende instellingen weergeven en wijzigen. Als u de lijst met interoperabele Kerberos V5 realms wilt weergeven, schakelt u de beleidsinstelling in en klikt u vervolgens op de knop Weergeven. Als u een interoperabel Kerberos V5-realm wilt toevoegen, schakelt u de beleidsinstelling in, noteert u de syntaxis en klikt u op Weergeven. Typ in de kolom Waardenaam in het dialoogvenster Inhoud weergeven de naam van het interoperabele Kerberos V5-realm. Gebruik de juiste syntaxis om in de kolom Waarde de realm-vlaggen en hostnamen van de host-KDC's te typen. Als u de waardenaam of waarde van een interoperabel Kerberos V5-realm wilt verwijderen uit de lijst, klikt u op de desbetreffende vermelding en drukt u op Delete. Als u een toewijzing wilt bewerken, verwijdert u de huidige vermelding uit de lijst en vervolgens voegt u een nieuwe vermelding met andere parameters toe.
 
 Als u deze beleidsinstelling uitschakelt, worden de instellingen voor interoperabele Kerberos V5-realms, zoals deze via groepsbeleid zijn gedefinieerd, verwijderd.
 
 Als u deze beleidsinstelling niet configureert, maakt het systeem, als deze bestaan, gebruik van de toewijzingen van het type hostnaam-naar-Kerberos-realm, zoals deze zijn gedefinieerd in het lokale register.</string>
       <string id="ValidateKDC">Strikte KDC-validatie verplicht stellen</string>
-      <string id="ValidateKDC_explain">Deze beleidsinstelling bepaalt het gedrag van de client van Kerberos bij het valideren van het KDC-certificaat voor het aanmelden van de smartcard en het systeemcertificaat.  
+      <string id="ValidateKDC_explain">Deze beleidsinstelling bepaalt het gedrag van de Kerberos-client bij het valideren van het KDC-certificaat voor het aanmelden van de smartcard en het systeemcertificaat.
 
-Als u deze beleidsinstelling inschakelt, wordt er door de Kerberos-client vereist dat het X.509-certificaat van de KDC de benodigde object-id in de EKU-extensies (Extended Key Usage) bevat en dat het X.509-certificaat van de KDC een SAN-extensie (dNSName subjectAltName) bevat die overeenkomt met de DNS-naam van het domein. Als de computer lid van een domein is, vergt de Kerberos-client dat het X.509-certificaat van de KDC is ondertekend door een certificeringsinstantie uit het NTAUTH-archief. Als de computer geen lid van een domein is, staat de Kerberos-client toe dat het basis-CA-certificaat op de smartcard wordt gebruikt tijdens de validatie van het pad van het X.509-certificaat van de KDC.
+Als u deze beleidsinstelling inschakelt, wordt er door de Kerberos-client vereist dat het X.509-certificaat van de KDC de benodigde object-id in de EKU-extensies (Extended Key Usage) bevat en dat het X.509-certificaat van de KDC een SAN-extensie (dNSName subjectAltName) bevat die overeenkomt met de DNS-naam van het domein. Als de computer lid van een domein is, vereist de Kerberos-client dat het X.509-certificaat van de KDC is ondertekend door een certificeringsinstantie uit het NTAUTH-archief. Als de computer geen lid van een domein is, staat de Kerberos-client toe dat het basis-CA-certificaat op de smartcard wordt gebruikt tijdens de validatie van het pad van het X.509-certificaat van de KDC.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, vergt de Kerberos-client alleen dat de object-id voor serververificatiedoeleinden in de EKU-extensies van het KDC-certificaat is opgenomen, die aan elke server kan worden uitgegeven.
-
+Als u deze beleidsinstelling uitschakelt of niet configureert, vereist de Kerberos-client alleen dat de object-id voor serververificatiedoeleinden in de EKU-extensies van het KDC-certificaat is opgenomen, die aan elke server kan worden uitgegeven.
 </string>
       <string id="StrictTarget">Strikte overeenkomst van doel-SPN vereist voor RPC</string>
       <string id="StrictTarget_explain">  Met deze beleidsinstelling kunt u deze server zo configureren dat Kerberos het ticket met deze door het systeem gegenereerde SPN kan ontsleutelen. Wanneer een toepassing een RPC (Remote Procedure Call) verstuurt naar deze server met een NULL-waarde voor de SPN (Service Principal Name), wordt op computers met Windows 7 geprobeerd Kerberos te gebruiken door een SPN te genereren.
@@ -94,7 +93,7 @@ Als u deze beleidsinstelling niet configureert, zal Automatisch gebruikt worden.
 
       <string id="MaxTokenSize">Instellen maximale buffergrootte van contexttoken voor Kerberos SSPI</string>
       <string id="MaxTokenSize_explain">Met deze beleidsinstelling kunt u de waarde instellen die aan toepassingen wordt geretourneerd, die de maximale buffergrootte van het contexttoken voor Kerberos SSPI aanvragen.
-              
+
 De buffergrootte van de contexttoken bepaalt de maximale grootte van SSPI-contexttokens die een toepassing verwacht en toewijst. Afhankelijk van de verwerking van verificatieaanvragen en groepslidmaatschappen, kan de buffer kleiner zijn dan de werkelijke grootte van de SSPI-contexttoken. 
 
 Als u deze beleidsinstelling inschakelt, gebruikt de Kerberos-client of server de geconfigureerde waarde of de plaatselijk toegestane maximale waarde, afhankelijk van welke kleiner is.
@@ -103,15 +102,13 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, gebruikt de Kerbe
 
 Opmerking: met deze beleidsinstelling wordt de bestaande MaxTokenSize-registerwaarde in HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters geconfigureerd, die was toegevoegd aan Windows XP en Windows Server 2003, met een standaardwaarde van 12.000 bytes. Vanaf Windows 8 is de standaardwaarde 48.000 bytes. Op grond van de base64-codering voor contexttokens ter verificatie van HTTP, is het niet raadzaam om deze waarde in te stellen op meer dan 48.000 bytes.
 
-
-
 </string>
       <string id="EnableCbacAndArmor">Kerberos-clientondersteuning voor claims, samengestelde authenticatie en Kerberos-beveiliging</string>
       <string id="EnableCbacAndArmor_explain">Met deze beleidsinstelling wordt geregeld of er op een apparaat wordt verzocht om claims en samengestelde authenticatie voor dynamisch toegangsbeheer en Kerberos-beveiliging met behulp van Kerberos-authenticatie met domeinen waarin deze onderdelen worden ondersteund. 
 Als u deze beleidsinstelling inschakelt, wordt er op clientcomputers verzocht om claims en worden vereiste gegevens verstrekt voor het opstellen van berichten voor samengestelde authenticatie en Kerberos-beveiliging in domeinen waarin claims en samengestelde authenticatie worden ondersteund voor dynamisch toegangsbeheer en Kerberos-beveiliging.
 
 Als u deze beleidsinstelling uitschakelt of niet configureert, wordt er op de clientapparaten niet verzocht om claims en worden er geen vereiste gegevens voor het samenstellen van berichten voor samengestelde authenticatie en Kerberos-beveiliging. Bij services die op het apparaat worden gehost, kunnen geen claims voor clients worden opgehaald met behulp van Kerberos-protocolovergang.  
-  
+
 </string>
       <string id="AlwaysSendCompoundId">Altijd eerst samengestelde authenticatie verzenden</string>
       <string id="AlwaysSendCompoundId_explain">Met deze beleidsinstelling bepaalt u of een apparaat altijd eerst een aanvraag voor samengestelde authenticatie verzendt wanneer het brondomein om samengestelde identiteit vraagt.
@@ -124,22 +121,66 @@ Als u deze beleidsinstelling uitschakelt of niet configureert en het brondomein 
 
 </string>
       <string id="DevicePKInitEnabled">Apparaatverificatie via certificaten ondersteunen</string>
-      <string id="DevicePKInitEnabled_explain">Voor ondersteuning van apparaatverificatie via certificaten is een verbinding vereist met een domeincontroller in het accountdomein van het apparaat waarop certificaatverificatie van computeraccounts wordt ondersteund. 
+      <string id="DevicePKInitEnabled_explain">Voor ondersteuning van apparaatverificatie via certificaten is een verbinding vereist met een domeincontroller in het accountdomein van het apparaat waarop certificaatverificatie van computeraccounts wordt ondersteund.
 
-Met deze beleidsinstelling kunt u ondersteuning voor Kerberos instellen om verificatie via certificaten te proberen voor het apparaat in het domein.
+Met deze beleidsinstelling kun je ondersteuning voor Kerberos instellen om verificatie via certificaten te proberen voor het apparaat in het domein.
 
-Als u deze beleidsinstelling inschakelt, worden de apparaatreferenties geselecteerd op basis van de volgende opties:
+Als je deze beleidsinstelling inschakelt, worden de apparaatreferenties geselecteerd op basis van de volgende opties:
 
 Automatisch: het apparaat zal verificatie proberen uit te voeren via certificaten. Als de domeincontroller geen verificatie van computeraccounts via certificaten ondersteunt, wordt vervolgens wachtwoordverificatie geprobeerd.
 
 Forceren: het apparaat voert verificatie altijd uit via certificaten. Als er geen domeincontroller kan worden gevonden die verificatie van computeraccounts via certificaten ondersteunt, mislukt de verificatie.
 
-Als u deze beleidsinstelling uitschakelt, wordt Uitschakelen gebruikt.
-Als u deze beleidsinstelling uitschakelt, worden certificaten nooit gebruikt.
-Als u deze beleidsinstelling niet configureert, wordt Automatisch gebruikt.
+Als je deze beleidsinstelling uitschakelt, worden certificaten nooit gebruikt.
+Als je deze beleidsinstelling niet configureert, wordt Automatisch gebruikt.
+
+Volg deze handleiding om enterprise PKI te configureren: https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">Automatisch</string>
       <string id="DevicePKInitBehavior_Force">Forceren</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">Ophalen van het Azure AD Kerberos-ticket toestaan. Ticket aanbieden tijdens aanmelding</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">Met deze beleidsinstelling kunt u het Azure AD Kerberos-ticket voor het verlenen van tickets ophalen tijdens het aanmelden.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, wordt het Azure AD Kerberos Ticket Granting Ticket niet opgehaald tijdens het aanmelden.
+
+Als u deze beleidsinstelling inschakelt, wordt het Azure AD Kerberos Ticket Granting Ticket opgehaald tijdens het aanmelden.</string>
+      <string id="PKInitHashAlgorithmConfiguration">Hash-algoritmen configureren voor certificaataanmelding</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">Met deze beleidsinstelling beheert u hash- of controlesomalgoritmen die door de Kerberos-client worden gebruikt bij het uitvoeren van certificaatverificatie.
+
+Als u dit beleid inschakelt, kunt u een van de vier statussen configureren voor elke algoritme:
+
+- Als u 'Standaard' kiest, wordt het algoritme ingesteld op de aanbevolen status.
+
+- Als u 'Ondersteund' kiest, wordt het gebruik van het algoritme ingeschakeld. Het inschakelen van algoritmen die standaard zijn uitgeschakeld, kan uw beveiliging verminderen.
+
+- Als u 'Gecontroleerd' kiest, wordt het algoritme gebruikt en wordt een gebeurtenis (id 206) gerapporteerd telkens wanneer deze wordt gebruikt. Deze status is bedoeld om te controleren of het algoritme niet wordt gebruikt en veilig kan worden uitgeschakeld.
+
+- Als u 'Niet ondersteund' kiest, wordt het gebruik van het algoritme uitgeschakeld. Deze status is bedoeld voor algoritmen die als onveilig worden beschouwd.
+
+Als u dit beleid uitschakelt of niet configureert, wordt voor elk algoritme de status 'Standaard' gebruikt.
+Meer informatie over de hash- en controlesomalgoritmen die worden ondersteund door de Windows Kerberos-client en de standaardstatussen vindt u op https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Gebeurtenissen gegenereerd door deze configuratie: 205, 206, 207, 208.
+</string>
+      <string id="PKInitHashAlgorithm_Default">Standaard</string>
+      <string id="PKInitHashAlgorithm_Supported">Ondersteund</string>
+      <string id="PKInitHashAlgorithm_Audited">Gecontroleerd</string>
+      <string id="PKInitHashAlgorithm_NotSupported">Niet ondersteund</string>
+      
+      <string id="DelegatedMSAEnabled">Gedelegeerde beheerde serviceaccountaanmeldingen inschakelen</string>
+      <string id="DelegatedMSAEnabled_explain">Met deze beleidsinstelling worden gedelegeerde aanmeldingen van beheerde serviceaccounts voor deze computer in- of uitgeschakeld.
+
+Als u deze beleidsinstelling inschakelt, worden gedelegeerde aanmeldingen van beheerde serviceaccounts ondersteund door de Kerberos-client. Houd er rekening mee dat dit beleid bepaalde vereisten heeft. De vereisten en instructies voor het maken van een nieuw gedelegeerd beheerd serviceaccount vindt u op https://go.microsoft.com/fwlink/?linkid=2250379.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, worden gedelegeerde aanmeldingen van beheerde serviceaccounts niet ondersteund. 
+</string>
+      <string id="EnableTryIPSPN">SPN's op basis van IP-adres toestaan tijdens Kerberos-authenticatie</string>
+      <string id="EnableTryIPSPN_explain">Met deze beleidsinstelling kunt u Kerberos zo configureren dat SPN's (Service Principal Names) op basis van IP-adressen worden gebruikt.
+
+Als u deze beleidsinstelling inschakelt, probeert de Kerberos-client SPN's op basis van IP-adressen te gebruiken bij het maken van verbinding met een service.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, probeert Kerberos geen SPN's op basis van IP-adressen te gebruiken.
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -182,6 +223,16 @@ Als u deze beleidsinstelling niet configureert, wordt Automatisch gebruikt.
         <text>Ander voorbeeld:</text>
         <text>Waardenaam: REALM.FABRIKAM.COM</text>
         <text>Waarde: &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">Realms:</multiTextBox>
+        <text>Syntaxis:</text>
+        <text>Voer een lijst in met realms waar DMSA's kunnen bestaan.</text>
+        <text>Voer zowel de FQDN (Fully Qualified Domain Name) als de korte naam in.</text>
+        <text>Voer één realm per regel in.</text>
+        <text>Details:</text>
+        <text>De Kerberos-client probeert een DMSA-compatibele domeincontroller te vinden voor de vermelde realms.</text>
+        <text>Als er geen realms zijn opgegeven, probeert de Kerberos-client een DMSA-compatibele domeincontroller te vinden voor alle realms.</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">Modus:</dropdownList>
@@ -226,7 +277,7 @@ Als u deze beleidsinstelling niet configureert, wordt Automatisch gebruikt.
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Ondersteun authentificatie met informatie over het client-apparaat:</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Ondersteun authentificatie met informatie over het client-apparaat:</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">Maximale grootte</decimalTextBox>
@@ -234,7 +285,13 @@ Als u deze beleidsinstelling niet configureert, wordt Automatisch gebruikt.
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Apparaatverificatiegedrag via certificaten:</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Apparaatverificatiegedrag via certificaten:</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

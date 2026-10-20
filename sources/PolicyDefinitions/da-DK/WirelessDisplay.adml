@@ -9,15 +9,11 @@
       
       <!-- prevent file sync-->
       <string id="AllowProjectionToPC">Tillad ikke, at computeren projiceres på</string>
-      <string id="AllowProjectionToPC_help">Med denne indstilling kan du slå projicering fra for en pc.  
+      <string id="AllowProjectionToPC_help">Med denne politikindstilling kan du slå projektion fra på en pc.  
 
- 
+Hvis du slår den til, er din pc ikke synlig og kan ikke projiceres til, medmindre brugeren starter appen Trådløs skærm manuelt.  
 
-Hvis du slår den til, kan pc'en ikke registreres, og den kan ikke projiceres, medmindre brugeren manuelt starter appen Opret forbindelse.  
-
- 
-
-Hvis du slår indstillingen fra eller undlader at konfigurere den, kan pc'en registreres, og den kan kun projiceres til over låseskærm. Brugeren kan også vælge, om indstillingen altid skal være slået til eller fra med undtagelse af ved manuel start.</string>
+Hvis du slår den fra eller undlader at konfigurere den, er din pc synlig og kan kun projiceres til over låseskærmen. Brugeren har mulighed for også at slå den til eller fra, undtagen manuel start.</string>
 
       <string id="RequirePinForPairing">Kræv pinkode til parring</string>
       <string id="RequirePinForPairing_help">Med denne politikindstilling kan du kræve en pinkode til parring.  

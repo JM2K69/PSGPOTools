@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Criteri di gruppo ReFS</displayName>
+  <description>Impostazioni di Criteri di gruppo per ReFS</description>
+  <resources>
+    <stringTable>
+      <string id="ReFS">ReFS</string>
+      <string id="EnableDevDrive">Abilita unità di sviluppo</string>
+      <string id="EnableDevDriveText">L'unità di sviluppo o il volume per sviluppatori è un volume ottimizzato per le prestazioni degli scenari di sviluppo. Un volume per sviluppatori consente a un amministratore di scegliere file system filtri collegati al volume.
+
+La disabilitazione di questa impostazione non consentirà la creazione di nuovi volumi per sviluppatori, i volumi per sviluppatori esistenti verranno montati come volumi normali.
+
+Se questa impostazione non è configurata, il criterio predefinito consiste nell'abilitare i volumi degli sviluppatori consentendo al tempo stesso il collegamento del filtro antivirus a un volume developer.  Inoltre, se non è configurato, un amministratore locale può scegliere di non avere un filtro antivirus collegato a un volume per sviluppatori.
+
+È necessario riavviare questa impostazione per rendere effettiva questa impostazione.</string>
+      <string id="ModeOff">Disattivato</string>
+      <string id="ModeAudit">Solo audit</string>
+      <string id="ModeBlock">Blocca</string>
+      <string id="BlockExternalBusMount">Controlla il montaggio di volumi ReFS su dischi USB e IEEE 1394</string>
+      <string id="BlockExternalBusMountText">Controlla se i volumi ReFS possono essere montati su dischi collegati tramite USB o IEEE 1394. ReFS non è una configurazione supportata nei dischi inseribili a caldo o rimovibili.
+
+Il blocco rifiuta il montaggio e registra un evento nel registro eventi di sistema.
+
+Il controllo consente solo il montaggio e registra lo stesso evento, quindi l'effetto dell'abilitazione di questo criterio può essere valutato prima che venga applicato.
+
+Disattivato non esegue alcun controllo né alcun blocco.
+
+Per un volume di spazi di archiviazione il controllo si applica ai dischi fisici che supportano il pool, non allo spazio stesso.
+
+Se non si configura questa impostazione dei criteri, verrà utilizzata l'impostazione locale del computer. Se non esiste alcuna impostazione locale, viene utilizzato il comportamento predefinito per questa versione di Windows.
+
+ReFS legge questa impostazione durante il caricamento, quindi è necessario un riavvio prima che venga applicata una modifica. L'impostazione viene quindi valutata ogni volta che viene montato un volume, quindi un volume già montato mantiene il suo stato corrente fino a quando non viene smontato e montato di nuovo.</string>
+      <string id="BlockHotplugMount">Controlla il montaggio dei volumi ReFS su dischi collegabili a caldo</string>
+      <string id="BlockHotplugMountText">Controlla se i volumi ReFS possono essere montati su dischi che lo stack di archiviazione segnala come collegabili a caldo, indipendentemente dal bus tramite cui sono collegati. ReFS non è una configurazione supportata nei dischi inseribili a caldo o rimovibili.
+
+Il blocco rifiuta il montaggio e registra un evento nel registro eventi di sistema.
+
+Il controllo consente solo il montaggio e registra lo stesso evento, quindi l'effetto dell'abilitazione di questo criterio può essere valutato prima che venga applicato.
+
+Disattivato non esegue alcun controllo né alcun blocco.
+
+Per un volume di spazi di archiviazione il controllo si applica ai dischi fisici che supportano il pool, non allo spazio stesso.
+
+Se non si configura questa impostazione dei criteri, verrà utilizzata l'impostazione locale del computer. Se non esiste alcuna impostazione locale, viene utilizzato il comportamento predefinito per questa versione di Windows.
+
+ReFS legge questa impostazione durante il caricamento, quindi è necessario un riavvio prima che venga applicata una modifica. L'impostazione viene quindi valutata ogni volta che viene montato un volume, quindi un volume già montato mantiene il suo stato corrente fino a quando non viene smontato e montato di nuovo.</string>
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="EnableDevDriveOptions">
+        <checkBox refId="DevDriveAllowAntivirusFilter" defaultChecked="true">Consenti al filtro antivirus di proteggere le unità di sviluppo</checkBox>
+      </presentation>
+      <presentation id="BlockExternalBusMountOptions">
+        <dropdownList refId="BlockExternalBusMountMode" defaultItem="0">Azione per volumi ReFS su dischi USB o IEEE 1394</dropdownList>
+      </presentation>
+      <presentation id="BlockHotplugMountOptions">
+        <dropdownList refId="BlockHotplugMountMode" defaultItem="0">Azione per i volumi ReFS su dischi collegabili a caldo</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

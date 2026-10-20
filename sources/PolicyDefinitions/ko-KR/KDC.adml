@@ -35,7 +35,7 @@ Windows 로그온에서 이 기능을 활용하려면 Windows 로그온 옵션 �
 
 "지원되지 않음" 옵션을 구성하면 Windows Server 2008 R2 이하 버전의 운영 체제를 실행하는 도메인 컨트롤러에서 기본적으로 사용되는 클레임, 복합 인증 또는 아머링을 도메인 컨트롤러가 지원하지 않습니다.
 
-참고: 이 KDC 정책의 다음 옵션을 적용하려면 지원되는 시스템에서 Kerberos 그룹 정책인 "클레임, 복합 인증 및 Kerberos 아머링(armoring)에 대한 Kerberos 클라이언트 지원"을 사용하도록 설정해야 합니다. Kerberos 정책 설정을 사용하지 않으면 Kerberos 인증 메시지에서 이러한 기능을 사용하지 않습니다.  
+참고: 이 KDC 정책의 다음 옵션을 적용하려면 지원되는 시스템에서 Kerberos 그룹 정책인 "클레임, 복합 인증 및 Kerberos 아머링(armoring)에 대한 Kerberos 클라이언트 지원"을 사용하도록 설정해야 합니다. Kerberos 정책 설정을 사용하지 않으면 Kerberos 인증 메시지에서 이러한 기능을 사용하지 않습니다. 
 
 "지원됨"을 구성하면 도메인 컨트롤러는 클레임, 복합 인증 및 Kerberos 아머링(armoring)을 지원합니다. 도메인 컨트롤러는 도메인이 동적 액세스 제어 및 Kerberos 아머링(armoring)에 대해 클레임 및 복합 인증을 사용할 수 있음을 클라이언트 컴퓨터에 알립니다. 
 
@@ -54,7 +54,6 @@ Windows 로그온에서 이 기능을 활용하려면 Windows 로그온 옵션 �
    - 보안 Kerberos 도메인 기능 검색이 필요하므로 추가적인 메시지 교환이 발생합니다.
    - 동적 액세스 제어에 대한 클레임 및 복합 인증 때문에 메시지의 데이터 크기 및 복잡성이 증가하므로 처리 시간이 늘어나고 Kerberos 서비스 티켓 크기가 더 커집니다.
    - Kerberos 아머링(armoring)이 Kerberos 메시지를 완전히 암호화하고 Kerberos 오류에 서명하기 때문에 처리 시간이 늘지만 서비스 티켓 크기는 바뀌지 않습니다.
-
 </string>
       <string id="NoCbacAndArmor">지원되지 않음</string>
       <string id="MixModeCbacAndArmor">지원됨</string>
@@ -94,6 +93,47 @@ Windows 로그온에서 이 기능을 활용하려면 Windows 로그온 옵션 �
       <string id="NoPKINITFreshness">사용 안 함</string>
       <string id="SupportPKINITFreshness">지원</string>
       <string id="RequirePKINITFreshness">필수</string>
+      <string id="PKINITHashAlgorithmConfiguration">인증서 로그온을 위한 해시 알고리즘 구성</string>
+      <string id="PKINITHashAlgorithmConfiguration_explain">이 정책 설정은 인증서 인증을 수행할 때 Kerberos 클라이언트에서 사용하는 해시 또는 체크섬 알고리즘을 제어합니다.
+
+이 정책을 사용하면 각 알고리즘에 대해 다음 네 가지 상태 중 하나를 구성할 수 있습니다.
+
+- "기본값"은 알고리즘을 권장 상태로 설정합니다.
+
+- "지원됨"을 선택하면 알고리즘을 사용할 수 있습니다. 기본적으로 사용하지 않도록 설정된 알고리즘을 사용하면 보안이 저하될 수 있습니다.
+
+- "감사됨"을 선택하면 알고리즘을 사용할 수 있으며 사용할 때마다 이벤트(ID 309)를 보고합니다. 이 상태는 알고리즘이 사용되고 있지 않으며 안전하게 사용되고 있지 않는지 확인하기 위한 것입니다.
+
+- "지원되지 않음"을 선택하면 알고리즘을 사용할 수 없습니다. 이 상태는 안전하지 않은 것으로 간주되는 알고리즘을 위한 것입니다.
+
+이 정책을 사용하지 않거나 구성하지 않으면 각 알고리즘은 "기본값" 상태를 가정합니다.
+Windows Kerberos 클라이언트에서 지원하는 해시 및 체크섬 알고리즘 및 기본 상태에 대한 자세한 내용은 https://go.microsoft.com/fwlink/?linkid=2169037에서 확인할 수 있습니다.
+
+이 구성에 의해 생성된 이벤트: 309, 310
+</string>
+      <string id="PKINITHashAlgorithm_Default">기본값</string>
+      <string id="PKINITHashAlgorithm_Supported">지원됨</string>
+      <string id="PKINITHashAlgorithm_Audited">감사됨</string>
+      <string id="PKINITHashAlgorithm_NotSupported">지원하지 않음</string>
+      <string id="StrongNameMatches">인증서에 이름 기반 강력 매핑 허용</string>
+      <string id="StrongNameMatches_explain">이 정책 설정을 사용하면 대체 이름 기반 식별자를 사용하여 발급된 인증서를 Active Directory 사용자 계정에 강력하게 매핑하고 어떤 인증서가 어떤 계정에 매핑될지 지정할 수 있습니다. 이 설정을 사용하지 않도록 설정하면 인증서가 일반적으로 이름 기반 식별자를 허용하지 않는 aka.ms/StrongCertMapKB 지정된 “강력한 매핑” 조건을 충족 해야 합니다.
+
+이 정책에 지정된 각 매핑은 아래에 지정된 구문을 사용하여 IssuerSubject 및/또는 UPN 접미사와 함께 정책 OID를 포함해야 합니다. 이 정책에서 지정된 인증서에 대한 유효한 매핑을 찾을 수 없는 경우 Active Directory는 KB5014754에 지정된 기존 강력한 매핑 조건을 사용하여 일치 항목을 찾으려고 시도합니다. “강력한 이름 매핑” 조건(이 정책) 또는 기존 “강력한 매핑” 조건을 준수하지 않는 인증서 매핑은 인증하기에 유효하지 않은 것으로 간주됩니다.
+
+일반 정책 형식 및 몇 가지 예제는 아래에 나열되어 있습니다. 이 정책은 Active Directory 사용자 계정에만 적용됩니다.
+
+일반 구문
+==============
+&lt;thumbprint&gt;; &lt;list of oids&gt;; &lt;name-match methods&gt;
+
+예제
+==============
+IssuerThumbprint1; oid1, oid2, oid3; UpnSuffix=domain.com
+IssuerThumbprint2; oid1; UpnSuffix=domain.com, UpnSuffix=other.domain.com, IssuerSubject
+IssuerThumbprint3; oid1, oid2; IssuerSubject
+
+정책에는 규칙당 인증서 지문이 하나만 포함되어야 하며 각 규칙은 튜플로 표시됩니다. 지문은 고유해야 하며 여러 규칙에서 반복할 수 없습니다. 세미콜론으로 구분된 각 튜플의 섹션은 지정된 순서를 따라야 하며 쉼표로 구분된 필드는 순서에 관계없이 지정할 수 있습니다. 규칙 자체는 줄 바꿈으로 구분됩니다.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="emitlili">
@@ -121,6 +161,15 @@ Windows 로그온에서 이 기능을 활용하려면 Windows 로그온 옵션 �
       </presentation>
       <presentation id="PKINITFreshness">
         <dropdownList refId="PKINITFreshness_Levels" noSort="true" defaultItem="1">PKInit Freshness Extension 옵션:</dropdownList>
+      </presentation>
+      <presentation id="PKINITHashAlgorithmConfiguration">
+        <dropdownList refId="PKINITHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
+      </presentation>
+      <presentation id="StrongNameMatches">
+          <multiTextBox refId="StrongNameMatchesList">강력한 이름 일치 규칙:</multiTextBox>
       </presentation>
     </presentationTable>
   </resources>

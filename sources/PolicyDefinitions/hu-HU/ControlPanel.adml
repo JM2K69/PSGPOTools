@@ -6,7 +6,7 @@
   <resources>
     <stringTable>
       <string id="DisallowCpls">A Vezérlőpult megadott elemeinek elrejtése</string>
-      <string id="DisallowCpls_Help">Ez a beállítás lehetővé teszi a Vezérlőpult egyes elemeinek – például az Egér, a Rendszer vagy a Személyre szabás – megjelenítését vagy elrejtését a Vezérlőpult ablakban és a kezdőképernyőn. A beállítás hatással van a kezdőképernyőre és a Vezérlőpultra ablakra, valamint a vezérlőpultelemek elérésének más módjaira is, például a Súgó és támogatás parancsikonjaira vagy a control.exe fájlt használó parancssorokra. Ez a házirend nincs hatással a Gépházban megjelenő elemekre.
+      <string id="DisallowCpls_Help">Ez a beállítás lehetővé teszi a Vezérlőpult egyes elemeinek – például az Egér, a Rendszer vagy a Személyre szabás – megjelenítését vagy elrejtését a Vezérlőpult ablakban és a kezdőképernyőn. A beállítás hatással van a kezdőképernyőre és a Vezérlőpultra ablakra, valamint a vezérlőpultelemek elérésének más módjaira is, például a Súgó és támogatás parancsikonjaira vagy a control.exe fájlt használó parancssorokra. Ez a házirend nincs hatással a Gépházban megjelenő elemekre.
 
 Ennek a beállításnak az engedélyezésével kijelölheti azokat az elemeket, amelyeket nem kíván megjeleníteni a Vezérlőpult ablakban vagy a kezdőképernyőn.
 
@@ -59,21 +59,29 @@ Megjegyzés: A Rendszerbeállítások alkalmazás lapjainak elrejtéséhez haszn
       <string id="SettingsPageVisibility">Beállítási lapok láthatósága</string>
       <string id="SettingsPageVisibility_Help">Megadja a Rendszerbeállítások alkalmazásban megjelenítendő vagy elrejtendő lapok listáját.
 
-Ez a házirend lehetővé teszi a rendszergazdák számára lapok adott készletének letiltását a Rendszerbeállítások alkalmazásban. A letiltott lapok nem láthatók az alkalmazásban, és ha egy kategória összes lapja le van tiltva, akkor az adott kategória sem jelenik meg. Ha valaki megpróbál URI azonosító vagy az Intéző helyi menüje használatával, illetve egyéb módon közvetlenül egy letiltott lapra lépni, a lap helyett a Gépház nyitólapja jelenik meg.
+Ez a házirend lehetővé teszi a rendszergazdák számára lapok adott készletének letiltását a Rendszerbeállítások alkalmazásban. A letiltott lapok nem láthatók az alkalmazásban, és ha egy kategória összes lapja le van tiltva, akkor az adott kategória sem jelenik meg. Ha valaki megpróbál URI azonosítón vagy az Intéző helyi menüjén keresztül, illetve egyéb módon közvetlenül egy letiltott lapra lépni, a lap helyett a Gépház nyitólapja jelenik meg.
 
-Ez a házirend két módban használható: megadhatja a megjelenítendő beállítási lapok listáját vagy az elrejtendő lapok listáját. A megjelenítendő lapok listájának megadásához a házirend karakterláncának a „showonly:” kulcsszóval kell kezdődnie (idézőjelek nélkül), az elrejtendő lapok listájának megadásához pedig a „hide:” kulcsszóval. Ha egy „showonly” listán szereplő lap szokásos esetben más okból (például hiányzó hardvereszköz miatt) rejtve lenne, ez a házirend nem kényszeríti ki a lap megjelenítését. A kezdő kulcsszó után a házirend karakterláncának tartalmaznia kell a beállítási lapok azonosítójából álló, pontosvesszővel elválasztott listát. Egy beállítási lap azonosítója az adott lap közétett URI azonosítója a protokollt megadó „ms-settings:” kulcsszó nélkül.
+Ez a házirend két módban használható: megadhatja a megjelenítendő beállítási lapok listáját vagy az elrejtendő lapok listáját. A megjelenítendő lapok listájának megadásához a házirend sztringjének a „showonly:” kulcsszóval kell kezdődnie (idézőjelek nélkül), az elrejtendő lapok listájának megadásához pedig a „hide:” kulcsszóval. Ha egy „showonly” listán szereplő lap szokásos esetben más okból (például hiányzó hardvereszköz miatt) rejtve lenne, a házirend nem kényszeríti ki a lap megjelenítését. A kezdő kulcsszó után a házirend sztringjének tartalmaznia kell a beállítási lapok azonosítójából álló, pontosvesszővel elválasztott listát. Egy beállítási lap azonosítója az adott lap közétett URI azonosítója a protokollt megadó „ms-settings:” kulcsszó nélkül.
 
-Példa: Annak megadása, hogy csak a Névjegy és a Bluetooth lap (ezek URI azonosítója ms-settings:about és ms-settings:bluetooth) jelenjen meg, és az összes többi lap maradjon rejtve:
+Példa: Annak megadása, hogy csak a Névjegy és a Bluetooth lap (ezek URI azonosítója ms-settings:about és ms-settings:bluetooth) jelenjen meg, és az összes többi lap rejtve maradjon:
 
 showonly:about;bluetooth
 
 Példa: Annak megadása, hogy csak a Bluetooth lap (amelynek URI azonosítója ms-settings:bluetooth) legyen elrejtve:
 
-hide:bluetooth</string>
+hide:bluetooth
+
+A felhasználónkénti támogatás elérhetőségéről itt olvashat: https://go.microsoft.com/fwlink/?linkid=2102995</string>
       <string id="AllowOnlineTips">Online tippek engedélyezése</string>
       <string id="AllowOnlineTips_Help">Engedélyezi vagy letiltja a Gépház alkalmazáshoz tartozó online tippek és súgó beolvasását.
 
 Ha le van tiltva, a Gépház nem lép kapcsolatba a Microsoft tartalomszolgáltatásaival a tippek és a súgótartalom beolvasásához.</string>
+      <string id="HideUnsupportedHardwareNotifications">Üzenetek elrejtése, ha a Windows rendszerkövetelményei nem teljesülnek</string>
+      <string id="HideUnsupportedHardwareNotificationsExplain">Ez a házirend azokat az üzeneteket szabályozza, amelyek akkor jelennek meg, ha a Windows olyan eszközön fut, amely nem felel meg az operációsrendszer-verzió minimális rendszerkövetelményeinek.
+
+Ha engedélyezi ezt a házirend-beállítást, ezek az üzenetek soha nem jelennek meg az asztalon és a Beállítások alkalmazásban.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, ezek az üzenetek megjelennek az asztalon és a Beállítások alkalmazásban, ha a Windows olyan eszközön fut, amely nem felel meg az operációsrendszer-verzió minimális rendszerkövetelményeknek.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DisallowCpls">

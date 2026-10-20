@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Data Protection API</displayName>
+  <description>Konfigurace nastavení Data Protection API</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">Data Protection API</string>
+      <string id="DomainBackupKeyRotationPeriod">Nastavení období rotace klíčů zálohování Data Protection API</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">Toto nastavení zásad určuje období rotace klíčů zálohování DPAPI. 
+Pomocí tohoto nastavení můžete přepsat výchozí hodnotu 90 dnů. Pokud chcete zakázat rotaci klíčů zálohování DPAPI, nastavte hodnotu 0. 
+Pokud toto nastavení zásad povolíte, nastavte počet dní, po které systém počká, než vygeneruje nový záložní klíč DPAPI. 
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude použita výchozí hodnota 90 dnů.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">Zadejte období rotace klíčů zálohování Data Protection API ve dnech. 
+Pokud chcete zakázat rotaci klíčů zálohování Data Protection API, nastavte hodnotu 0.</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

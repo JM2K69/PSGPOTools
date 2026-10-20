@@ -18,14 +18,23 @@ Para obtener más información, consulte la Ayuda de Windows
 
 NOTA: si esta directiva está deshabilitada o no se ha configurado, los administradores locales pueden seleccionar los tipos de vínculos simbólicos que se evaluarán.</string>
       <string id="SymlinkEvaluation">Permitir de forma selectiva la evaluación de un vínculo simbólico</string>
+
       <string id="DisableCompression">No permitir la compresión en todos los volúmenes NTFS</string>
-      <string id="DisableCompressionText">La compresión puede agregar sobrecarga de procesamiento a las operaciones del sistema de archivos.  Si habilita esta configuración, impedirá la creación de archivos comprimidos y el acceso a los mismos.  </string>
+      <string id="DisableCompressionText">La compresión puede Agregar a la sobrecarga de procesamiento de las operaciones del sistema de archivos.  Si habilita esta configuración, impedirá el acceso y la creación de archivos comprimidos.
+
+Es necesario reiniciar para que esta configuración surta efecto</string>
+
       <string id="DisableEncryption">No permitir el cifrado en todos los volúmenes NTFS</string>
-      <string id="DisableEncryptionText">El cifrado puede agregar sobrecarga de procesamiento a las operaciones del sistema de archivos.  Si habilita esta configuración, impedirá la creación de archivos cifrados y el acceso a los mismos.</string>
+      <string id="DisableEncryptionText">El cifrado puede Agregar a la sobrecarga de procesamiento de las operaciones del sistema de archivos.  Si habilita esta configuración, impedirá el acceso y la creación de archivos cifrados.
+
+Es necesario reiniciar para que esta configuración surta efecto</string>
+
       <string id="EnablePagefileEncryption">Habilitar el cifrado del archivo de paginación NTFS</string>
       <string id="EnablePagefileEncryptionText">El cifrado del archivo de paginación impide que usuarios malintencionados lean datos que se han paginado en el disco, pero también agrega sobrecarga de procesamiento a las operaciones del sistema de archivos.  Si habilita esta configuración, los archivos de paginación se cifrarán.</string>
+
       <string id="LongPathsEnabled">Habilitar rutas de acceso Win32 largas</string>
-      <string id="LongPathsEnabledText">Habilitar rutas de acceso Win32 largas permitirá que las aplicaciones win32 manifestadas y las aplicaciones de la Tienda Windows accedan a rutas de acceso más allá del límite normal de 260 caracteres por nodo en los sistemas de archivos que lo admitan. Si habilita esta configuración, hará que se pueda acceder a las rutas de acceso largas dentro del proceso.</string>
+      <string id="LongPathsEnabledText">La habilitación de rutas de acceso largas de Win32 permitirá que las aplicaciones win32 manifestadas y las aplicaciones de Microsoft Store empaquetadas accedan a las rutas de acceso más allá del límite normal de 260 caracteres.  La habilitación de esta configuración hará que las rutas de acceso largas sean accesibles dentro del proceso.</string>
+
       <string id="ShortNameCreationSettings">Opciones de creación de nombre corto</string>
       <string id="ShortNameCreationSettingsText">Estas configuraciones proporcionan control sobre si se generan nombres cortos al crear archivos.  Algunas aplicaciones requieren nombres cortos por motivos de compatibilidad, pero los nombres cortos tienen un impacto negativo en el rendimiento del sistema.
 
@@ -34,14 +43,60 @@ Si habilita los nombres cortos en todos los volúmenes, siempre se generarán no
       <string id="ShortNameCreationSetting_1">Deshabilitar en todos los volúmenes</string>
       <string id="ShortNameCreationSetting_2">Habilitar o deshabilitar por volumen</string>
       <string id="ShortNameCreationSetting_3">Deshabilitar en todos los volúmenes de datos</string>
+
       <string id="DisableDeleteNotification">Deshabilitar las notificaciones de eliminación en todos los volúmenes</string>
       <string id="DisableDeleteNotificationText">La notificación de eliminación es una característica que notifica al dispositivo de almacenamiento subyacente que hay clústeres liberados debido a una operación de eliminación de archivo.
 
 Un valor de 0, el predeterminado, habilitará las notificaciones de eliminación en todos los volúmenes. 
 Un valor de 1 deshabilitará las notificaciones de eliminación en todos los volúmenes.</string>
+
       <string id="TxfDeprecatedFunctionality">Habilitar o deshabilitar las características desusadas de TXF</string>
-      <string id="TxfDeprecatedFunctionalityText">Las características desusadas de TXF incluían puntos de retorno, RM secundaria, miniversión y puestas al día. Debe habilitar estas características si desea usar las API.</string>
+      <string id="TxfDeprecatedFunctionalityText">Las características en desuso de TXF incluían puntos de retorno, RM secundaria, miniversión y puestas al día. Debe habilitar estas características si quiere usar estas API.</string>
+
+      <string id="NtfsForceNonPagedPoolAllocation">Habilitar el uso de bloque no paginado de NTFS</string>
+      <string id="NtfsForceNonPagedPoolAllocationExplain">De forma predeterminada, NTFS asigna memoria de la memoria paginada y no paginada según sea necesario.  Al habilitar esta opción, se indica a NTFS que use memoria no paginable para todas las asignaciones.  NTFS también cambia todas las secciones del código para que no se puedan paginar.
+
+La ventaja de habilitar esta característica es una reducción de los errores de página y el uso de la pila a costa de un consumo de memoria adicional.
+
+Es necesario reiniciar para que esta configuración surta efecto</string>
+
+      <string id="NtfsParallelFlushThreshold">Umbral de vaciado paralelo de NTFS</string>
+      <string id="NtfsParallelFlushThresholdExplain">Cuando se vacían datos de archivos modificados de la memoria, NTFS elige usar uno o más subprocesos en función de la cantidad de archivos abiertos actualmente.  Esta configuración otorga control sobre el umbral de apertura de archivo usado para desencadenar vaciado paralelo.</string>
+
+      <string id="NtfsParallelFlushWorkers">Subprocesos de trabajo de vaciado paralelo de NTFS</string>
+      <string id="NtfsParallelFlushWorkersExplain">Cuando se vuelcan datos de archivos modificados de la memoria, NTFS opta por usar uno o más subprocesos en función de cuántos archivos estén abiertos. Esta configuración permite controlar el número de subprocesos que se usarán.
+
+Hacer que este valor sea mayor puede disminuir el tiempo que se tarda en vaciar un volumen, pero el vaciado puede tener un mayor impacto en otras operaciones de E/S concurrentes.
+
+Valores con significado especial:
+    0: Usar el sistema calculado predeterminado
+    1: Deshabilitar el vaciado paralelo
+
+El valor y el límite predeterminados para esta configuración varía según la cantidad de procesadores disponibles en un determinado sistema:
+    - El cálculo del valor predeterminado es:  (([NumProcessors]/2) + 1)
+    - El cálculo del valor máximo predeterminado es: ([NumProcessors]*2)</string>
+
+      <string id="NtfsDefaultTier">Nivel predeterminado de NTFS</string>
+      <string id="NtfsDefaultTierExplain">Para volúmenes en capas NTFS, esto controla el nivel predeterminado al que se van a las nuevas asignaciones.
+
+Los sistemas cliente tienen como valor predeterminado el nivel de rendimiento.
+Los sistemas de servidores son, de forma predeterminada, el nivel de capacidad.</string>
+      <string id="DefaultTierSetting_1">Nivel de capacidad</string>
+      <string id="DefaultTierSetting_2">Nivel de rendimiento</string>
+
+      <string id="ClfsAuthenticationChecking">Habilitar o deshabilitar la autenticación del archivo de registro CLFS</string>
+      <string id="ClfsAuthenticationCheckingExplain">Esta configuración de directiva configura la autenticación del archivo de registro CLFS, una característica de seguridad que pretende proteger el análisis de archivos de registro.
+
+La autenticación de archivos de registro proporciona la capacidad para que el controlador CLFS detecte las modificaciones malintencionadas realizadas en los archivos de registro. Si se detectan modificaciones, CLFS considerará que el archivo de registro no es seguro para el análisis y devolverá un error al llamador. CLFS es capaz de detectar modificaciones mediante la escritura de códigos de autenticación en archivos de registro, que combina datos de archivo con una clave criptográfica única del sistema. 
+
+Un efecto secundario de la autenticación de archivos de registro es que CLFS no podrá abrir los archivos de registro que se crearon en otros sistemas, ya que estos archivos de registro contienen códigos de autenticación creados con una clave criptográfica única del sistema. Para abrir un archivo de registro creado en otro sistema, un administrador debe usar primero el comando "fsutil.exe clfs authenticate" para corregir los códigos de autenticación.
+
+Si se habilita o no se establece esta configuración, CLFS consultará la configuración del registro local para saber si se debe realizar o no la autenticación del archivo de registro. De forma predeterminada, CLFS realizará la autenticación del archivo de registro. La configuración del registro local para esta característica se encuentra en "HKLM:\SYSTEM\CurrentControlSet\Services\CLFS\Authentication". 
+
+Si se deshabilita su configuración, CLFS ya no realizará la autenticación del archivo de registro. Los archivos de registro podrán moverse y abrirse entre sistemas sin acción administrativa. Sin embargo, CLFS abrirá y analizará todos los archivos de registro, incluidos los archivos de registro creados de forma malintencionada que pueden poner en peligro el sistema.</string>
+
     </stringTable>
+
     <presentationTable>
       <presentation id="SymlinkEvaluation">
         <checkBox refId="SymLinkClassL2L">Vínculo local a destino local</checkBox>
@@ -58,6 +113,21 @@ Un valor de 1 deshabilitará las notificaciones de eliminación en todos los vol
       </presentation>
       <presentation id="DeleteNotificationOptions"/>
       <presentation id="TxfDeprecatedFunctionalityOptions"/>
+      <presentation id="NtfsForceNonPagedPoolAllocationOptions"/>
+      <presentation id="NtfsParallelFlushThresholdOptions">
+        <decimalTextBox refId="NtfsParallelFlushThresholdID" defaultValue="1000">Umbral de archivo abierto:</decimalTextBox>
+      </presentation>
+
+      <presentation id="NtfsParallelFlushWorkersOptions">
+        <decimalTextBox refId="NtfsParallelFlushWorkersID" defaultValue="5">Umbral de archivo abierto:</decimalTextBox>
+      </presentation>
+
+      <presentation id="NtfsDefaultTierOptions">
+          <dropdownList refId="NtfsDefaultTier_Levels" noSort="true" defaultItem="1">Opciones de nivel predeterminado de NTFS</dropdownList>
+      </presentation>
+
+      <presentation id="ClfsAuthenticationCheckingOptions"/>
+
     </presentationTable>
   </resources>
 </policyDefinitionResources>

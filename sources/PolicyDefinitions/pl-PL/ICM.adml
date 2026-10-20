@@ -108,11 +108,13 @@ To ustawienie zasad zastępuje każde ustawienie użytkownika dotyczące raporto
 
 Zobacz też ustawienia zasad „Konfiguruj raportowanie błędów”, „Wyświetl powiadomienia o błędach” i „Wyłącz funkcję Raportowanie błędów systemu Windows” w lokalizacji Konfiguracja komputera/Szablony administracyjne/Składniki systemu Windows/Raportowanie błędów systemu Windows.</string>
       <string id="RemoveWindowsUpdate_ICM">Wyłącz dostęp do wszystkich funkcji usługi Windows Update</string>
-      <string id="RemoveWindowsUpdate_ICM_Help">To ustawienie pozwala na usunięcie dostępu do usługi Windows Update.
+      <string id="RemoveWindowsUpdate_ICM_Help">To ustawienie zasad umożliwia usunięcie dostępu do usługi Windows Update.
 
-Jeśli to ustawienie zasad zostanie włączone, wszystkie funkcje usługi Windows Update zostaną usunięte. To oznacza zablokowanie użytkownikowi dostępu do witryny Windows Update w sieci Web uzyskiwanego za pomocą adresu http://windowsupdate.microsoft.com, hiperłącza Windows Update w menu Start oraz menu Narzędzia w programie Internet Explorer. Automatyczne aktualizowanie systemu Windows zostanie również wyłączone — użytkownik nie będzie otrzymywać powiadomień i krytycznych aktualizacji z usługi Windows Update. To ustawienie zasad zapobiega również automatycznemu instalowaniu aktualizacji sterowników z witryny Windows Update w sieci Web za pomocą Menedżera urządzeń.
+Jeśli włączysz to ustawienie zasad, wszystkie funkcje usługi Windows Update zostaną usunięte. Obejmuje to zablokowanie dostępu do witryny internetowej Windows Update pod adresem http://windowsupdate.microsoft.com za pomocą hiperlinku Windows Update w menu Start oraz menu Narzędzia w przeglądarce Internet Explorer. Automatyczne aktualizowanie systemu Windows także zostanie wyłączone i nie będziesz nawet otrzymywać z usługi Windows Update powiadomień dotyczących aktualizacji krytycznych ani tych aktualizacji. To ustawienie zasad uniemożliwi także Menedżerowi urządzeń automatyczne instalowanie aktualizacji sterowników z witryny internetowej Windows Update.
 
-Wyłączenie lub nieskonfigurowanie tego ustawienia zasad spowoduje, że użytkownicy będą mogli uzyskać dostęp do witryny Windows Update w sieci Web i włączyć funkcję automatycznej aktualizacji w celu otrzymywania powiadomień i krytycznych aktualizacji z usługi Windows Update.</string>
+Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, użytkownicy będą mogli uzyskiwać dostęp do witryny internetowej Windows Update oraz włączać automatyczne aktualizowanie w celu otrzymywania powiadomień i aktualizacji krytycznych z usługi Windows Update.
+
+Uwaga: ta zasada będzie stosowana tylko wtedy, gdy ten komputer zostanie skonfigurowany do nawiązywania połączenia z intranetową usługą aktualizującą przy użyciu zasady „Określ lokalizację intranetowej usługi aktualizującej firmy Microsoft”.</string>
       <string id="SearchCompanion_DisableFileUpdates">Wyłącz aktualizacje plików zawartości Pomocnika wyszukiwania</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">To ustawienie zasad określa, czy Pomocnik wyszukiwania powinien automatycznie pobierać aktualizacje zawartości podczas wyszukiwania prowadzonego lokalnie oraz w Internecie.
 

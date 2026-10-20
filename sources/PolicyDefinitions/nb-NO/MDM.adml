@@ -33,6 +33,11 @@ Hvis du deaktiverer denne policyinnstillingen, aktiveres MDM-registrering for al
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">Velg legitimasjonstypen du vil bruke:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>MDM Program-ID:</label>
+        </textBox>
+        <text>Program-ID for MDM representerer IDen for MDM-søknaden som er konfigurert i Azure AD. Dette er valgfritt og kreves bare for automatisk MDM-registrering ved hjelp av enhetslegitimasjon når flere MDM-programmer er konfigurert i Azure AD.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

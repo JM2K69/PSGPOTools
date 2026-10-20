@@ -65,18 +65,17 @@
 請注意，如果指定兩者，Windows 會先搜尋受管理伺服器，例如 Windows Server Update Services (WSUS) 伺服器。Windows 只會在找不到更新時，再搜尋 Windows Update。
 
 如果您停用或未設定這個原則設定，Administrators 群組的成員可以決定搜尋裝置驅動程式時使用的伺服器。
-      
       </string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">搜尋 Windows Update</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">搜尋受管理伺服器</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">先搜尋受管理伺服器，再搜尋 WU</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">防止從網際網路擷取裝置中繼資料</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">這個原則設定可以讓您防止 Windows 從網際網路擷取裝置中繼資料。
-          
-如果您啟用這個原則設定，Windows 不會從網際網路為安裝的裝置擷取裝置中繼資料。這個原則設定會覆寫 [裝置安裝設定] 對話方塊 ([控制台] &gt; [系統及安全性] &gt; [系統] &gt; [進階系統設定] &gt; [硬體] 索引標籤) 中的設定。
 
-如果您停用或未設定這個原則設定，則由 [裝置安裝設定] 對話方塊中的設定控制 Windows 是否會從網際網路擷取裝置中繼資料。</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">防止自動下載與裝置中繼資料關聯的應用程式</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">這個原則設定可讓您防止 Windows 下載與裝置元數據相關聯的應用程式。
+
+如果您啟用這個原則設定，Windows 不會下載與已安裝裝置之裝置元數據相關聯的應用程式。這個原則設定會覆寫 [裝置安裝設定] 對話框 ([控制台 &gt; [系統與安全性] &gt; [系統] &gt; [進階系統設定] &gt; [硬體] 索引標籤) 中的設定。
+
+如果您停用或未設定這個原則設定，則 [裝置安裝設定] 對話框中的設定會控制 Windows 是否下載與裝置元數據相關聯的應用程式。</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

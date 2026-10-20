@@ -55,6 +55,15 @@ Active Directory 폴더는 Active Directory 개체를 찾아보기 창에 표시
 기본적으로 사용자는 폴더 속성 대화 상자의 위치 탭에 새 경로를 입력하여 내 문서, 내 음악 같은 개인 프로필 폴더의 위치를 변경할 수 있습니다.
 
 이 설정을 사용하면 대상 상자에 새로운 위치를 입력할 수 없습니다.</string>
+      <string id="EnableThemeFileRemoteResource">네트워크 위치에서 테마 파일 허용</string>
+      <string id="EnableThemeFileRemoteResource_Help">이 정책 설정은 Windows 바탕 화면 테마(.theme/.themepack) 파일 내부의 리소스에 원격 경로를 사용할 수 있는지 여부를 결정합니다.
+
+이 정책 설정을 활성화하면 테마 파일은 네트워크 공유 또는 기타 원격 위치에 있는 리소스(예: 이미지, 사운드, 아이콘)를 참조할 수 있습니다. 사용자는 원격 리소스가 포함된 테마를 적용할 수 있습니다.
+
+이 정책 설정을 비활성화하면 테마 파일에서 원격 리소스를 사용할 수 없습니다. 원격 리소스를 참조하는 모든 테마 파일은 해당 리소스를 로드하지 못하며, 로컬 리소스만 표시됩니다.
+
+이 정책 설정을 구성하지 않으면 보안상의 이유로 테마 파일의 원격 리소스를 차단하는 것이 기본 동작입니다.</string>
+
       <string id="ForceActiveDesktopOn">Active Desktop 사용</string>
       <string id="ForceActiveDesktopOn_Help">Active Desktop을 사용하도록 설정하고 사용자가 사용할 수 없게 합니다.
 

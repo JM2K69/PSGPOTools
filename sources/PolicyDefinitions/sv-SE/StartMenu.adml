@@ -27,12 +27,11 @@ Om du inaktiverar eller låter bli att konfigurera den här principen, visas lä
 Om du inaktiverar, eller låter bli att konfigurera den här principen visas länken Visa fler resultat när användaren utför en sökning i sökrutan på Start-menyn.  Om en tredje parts protokollhanterare är installerad visas länken Sök överallt istället för länken Visa fler resultat.</string>
       <string id="AddSearchInternetLinkInStartMenu">Lägg till länken Sök på Internet på Start-menyn</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
+Om du aktiverar den här principen visas länken Sök på Internet när användaren utför en sökning i sökrutan på Start-menyn.  Den här knappen startar standardwebbläsaren med sökorden.
 
-Om du aktiverar den här principen visas länken Sök på Internet när användaren utför en sökning i sökrutan på Start-menyn.  Den här knappen startar standardwebbläsaren med de aktuella sökorden.
+Om du inaktiverar den här principen visas inte länken Sök på Internet när användaren utför en sökning i sökrutan på Start-menyn.
 
-Om du inaktiverar principen visas inte länken Sök på Internet när användaren utför en sökning i sökrutan på Start-menyn.
-          
-Om du inte konfigurerar den här principen (standard) visas inte länken Sök på Internet på Startmenyn.</string>
+Om du inte konfigurerar den här principen (standard) visas inte länken Sök på Internet på startmenyn.</string>
       <string id="NoSearchFilesInStartMenu">Sök inte efter filer</string>
       <string id="NoSearchFilesInStartMenu_Help">Om du aktiverar den här principinställningen görs ingen sökning efter filer i sökrutan på Start-menyn.
 
@@ -207,6 +206,19 @@ I Utforskaren visas knappen Sök fortfarande i verktygsfältet med standardknapp
 Den här principinställningen påverkar endast angivna element i användargränssnittet. Den påverkar inte Utforskaren och förhindrar inte att andra metoder används för sökning.
 
 Om du inaktiverar eller låter bli att konfigurera den här principinställningen är söklänken tillgänglig på Start-menyn.</string>
+      <string id="ShowOrHideMostUsedApps">Visa eller dölj listan “mest använda” från Start-menyn</string>
+      <string id="ShowOrHideMostUsedApps_Help">Om du aktiverar den här principinställningen kan du konfigurera Start-menyn för att visa eller dölja listan över användarens mest använda appar, oavsett användarinställningar.
+
+Om du väljer “Visa” tvingas listan över “mest använda” att visas och användaren kan inte ändra den så att den döljas i appens inställningar.
+
+Om du väljer “Dölj” visas den “mest använda” listan som dold och användaren kan inte ändra den så att den visas i appens inställningar.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan användarna aktivera eller inaktivera visningen av listan över “mest använda” i appens inställningar. Det här är standard beteendet.
+
+Obs! Om du konfigurerar den här principen till “Visa” eller “Dölj” i versioner av Windows 10 som stöds kommer denna inställning att ersätta alla principinställningar för “Ta bort listan över vanliga program från Start-menyn” (som hanterar samma del av Start-menyn men med färre alternativ).</string>
+      <string id="MFU_NotConfigured">Inte konfigurerad</string>
+      <string id="MFU_Show">Visa</string>
+      <string id="MFU_Hide">Dölj</string>
       <string id="NoFrequentUsedPrograms">Ta bort listan över vanliga program från Start-menyn</string>
       <string id="NoFrequentUsedPrograms_Help">Om den här inställningen aktiveras tas listan över vanliga program bort från Start-menyn.
 
@@ -243,7 +255,7 @@ Om du inaktiverar eller låter bli att konfigurera den här inställningen visas
       <string id="APPLIST_NONE">Inget</string>
       <string id="APPLIST_COLLAPSE">Minimera</string>
       <string id="APPLIST_COLLAPSESETTING">Minimera och inaktivera inställningen</string>
-      <string id="APPLIST_REMOVESETTING">Ta bort och inaktivera inställningen</string>    
+      <string id="APPLIST_REMOVESETTING">Ta bort och inaktivera inställningen</string>
 
       <string id="NoNetAndDialupConnect">Ta bort Nätverksanslutningar från Start-menyn</string>
       <string id="NoNetAndDialupConnect_Help">Med den här principinställningen kan du ta bort Nätverksanslutningar från Start-menyn.
@@ -258,11 +270,11 @@ Om du inaktiverar eller låter bli att konfigurera den här principinställninge
 
 Se även principinställningarna Ta bort program från Inställningar-menyn och Neka åtkomst till Kontrollpanelen samt principinställningarna i mappen Nätverksanslutningar (Datorkonfiguration och Användarkonfiguration\Administrativa mallar\Nätverk\Nätverksanslutningar).</string>
       <string id="NoPinnedPrograms">Ta bort listan över fasta program från Start-menyn</string>
-      <string id="NoPinnedPrograms_Help">Om den här inställningen aktiveras tas listan över fästa program bort från Start-menyn. Användarna kan inte fästa program på Start-menyn. 
+      <string id="NoPinnedPrograms_Help">Om du aktiverar den här inställningen tas listan Över fästa program bort från Start-menyn. Användare kan inte fästa program på Start-menyn.
 
-I Windows XP och Windows Vista tas kryssrutorna Internet och E-post bort från dialogrutan Anpassa Start-menyn. 
+I Windows XP och Windows Vista tas kryssrutorna Internet och e-post bort från dialogrutan Anpassa Start-menyn.
 
-Om du inaktiverar eller låter bli att konfigurera den här principinställningen behålls listan med fästa program på Start-menyn. Användarna kan fästa program på Start-menyn.</string>
+Om du inaktiverar eller inte konfigurerar den här inställningen finns listan Över fästa program kvar på Start-menyn. Användare kan fästa och ta bort program på Start-menyn.</string>
       <string id="NoRecentDocsHistory">Behåll inte lista över senaste öppna dokument</string>
       <string id="NoRecentDocsHistory_Help">Förhindrar att operativsystemet och installerade program skapar och visar genvägar till nyligen använda program.
 
@@ -328,7 +340,7 @@ Om du aktiverar den här inställningen sker följande förändringar:
 
 (3) Användaren hindras från att göra följande i adressfältet i Internet Explorer:
 
---- Ange en UNC-sökväg: \\&lt;server&gt;\&lt;resurs&gt; 
+--- Ange en UNC-sökväg: \\&lt;server&gt;\&lt;resurs&gt;
 
 ---Komma åt lokala enheter:  t.ex. C:
 
@@ -612,10 +624,44 @@ Om du aktiverar principen tas ikonen för kontakter bort från aktivitetsfältet
       <string id="HideRecentlyAddedApps_Help">Med den här principen kan du hindra att listan över nyligen installerade program visas på Start-menyn.
 
 Om du aktiverar principen visas inte listan Nyligen tillagda på Start-menyn. Motsvarande inställning i Inställningar inaktiveras också.</string>
+      <string id="HideRecommendedSection">Ta bort rekommenderat avsnitt från Start-menyn</string>
+      <string id="HideRecommendedSection_Help">Med den här principen kan du hindra Start-menyn från att visa en lista över rekommenderade program och filer.
+
+Om du aktiverar den här principinställningen visas inte längre avsnittet som innehåller en lista över rekommenderade filer och appar på Start-menyn.</string>
+ <string id="HideCategoryView">Dölj kategorivyn i Start-menyn</string>
+ <string id="HideCategoryView_Help">Med den här principinställningen kan du dölja kategorivyn på Start-menyn.
+ 
+Om du aktiverar den här principinställningen visas inte kategorivyn som ett alternativ på Start-menyn och rutnätsvyn används som standard.</string>
+
+ <string id="ConfigureStartPins">Konfigurera fästa objekt i Start-menyn</string>
+      <string id="ConfigureStartPins_Help">Tillåter administratören att åsidosätta standardobjekten som är fästa på Start.
+
+Med den här inställningen kan du ange vilka standardobjekt som ska fästas på Start.</string>
+
+      <string id="HideRecommendedPersonalizedSites">Ta bort personliga webbplatsrekommendationer från det rekommenderade avsnittet på Start-menyn</string>
+      <string id="HideRecommendedPersonalizedSites_Help">Med den här principinställningen kan du dölja personliga webbplatser i det rekommenderade avsnittet på Start-menyn. 
+      
+Om du aktiverar den här principinställningen visas inte längre anpassade webbplatsrekommendationer på Start-menyn i det rekommenderade avsnittet.</string>
       <string id="DisableContextMenusInStart">Inaktivera snabbmenyer på Start-menyn</string>
       <string id="DisableContextMenusInStart_Help">Med den här principen kan du hindra användare från att öppna snabbmenyer på Start-menyn.
 
 Om du aktiverar principen går det inte att öppna snabbmenyer på Start-menyn.</string>
+      <string id="SimplifyQuickSettings_DisplayName">Förenkla layouten för snabbinställningar</string>
+      <string id="SimplifyQuickSettings_ExplainText">Om du aktiverar den här principen begränsas snabbinställningarna till att bara ha knapparna WiFi, Bluetooth, Hjälpmedel och VPN; reglagen för ljusstyrka och volym; och batteriindikator och länk till appen Inställningar.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen visas den vanliga snabbinställningslayouten när snabbinställningar anropas.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">Inaktivera redigering av Snabbinställningar</string>
+      <string id="DisableEditingQuickSettings_ExplainText">Om du aktiverar den här principen kan användaren inte ändra snabbinställningar.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan användaren redigera snabbinställningar, t.ex. fästa eller ta bort knappar.</string>
+      <string id="DisableControlCenter">Ta bort snabbinställningar</string>
+      <string id="DisableControlCenter_Help">Den här principinställningen tar bort Snabbinställningar från det nedre högra området i Aktivitetsfältet.
+
+Området för snabbinställningar finns till vänster om klockan i Aktivitetsfältet och innehåller ikoner för aktuellt nätverk och aktuell volym.
+
+Om den här inställningen är aktiverad visas inte Snabbinställningar i snabbinställningsområdet. 
+
+En omstart krävs för att den här principinställningen ska börja gälla.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +678,22 @@ Om du aktiverar principen går det inte att öppna snabbmenyer på Start-menyn.<
           <label>Layoutfil för Start</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">Använd layout igen vid varje inloggning</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">Välj en av följande storlekar</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">Välj en av följande åtgärder</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>Layoutfil för fästa objekt i Start-menyn</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">Dölj kategorivyn</checkBox>
       </presentation>
     </presentationTable>
   </resources>

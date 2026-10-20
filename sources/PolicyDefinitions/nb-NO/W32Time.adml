@@ -5,87 +5,87 @@
   <description>skriv inn beskrivelse her</description>
   <resources>
     <stringTable>
-      <string id="W32TIME_CONFIG_EXPLAIN">Med denne policyinnstillingen kan du angi klokkedisiplin og generelle verdier for Windows-tidstjenesten (W32time) for domenekontrollere inkludert RODC-er.
+      <string id="W32TIME_CONFIG_EXPLAIN">Med denne policyinnstillingen kan du angi klokkeverdier og generelle verdier for Windows Time-tjenesten (W32time) for domenekontrollere, inkludert RODC-er.
 
-Hvis denne policyinnstillingen er aktivert, bruker W32time-tjenesten på målmaskiner innstillingene som er angitt her. Ellers bruker tjenesten på målmaskiner lokalt konfigurerte innstillingsverdier.
+Hvis denne policyinnstillingen aktiveres, bruker W32time-tjenesten på målmaskiner innstillingene som er oppgitt her. Hvis ikke bruker tjenesten på målmaskiner lokalt konfigurerte innstillingsverdier.
 
-Hvis du vil ha mer informasjon om individuelle parametere, kombinasjoner av parameterverdier samt definisjoner av flagg, kan du se https://go.microsoft.com/fwlink/?linkid=847809.
+Du finner flere opplysninger om individuelle parametere, kombinasjoner av parameterverdier samt definisjoner av flagg på https://go.microsoft.com/fwlink/?linkid=847809.
 
         FrequencyCorrectRate
-Denne parameteren styrer hvor ofte W32time korrigerer den lokale klokkens frekvens. Lavere verdier fører til tregere korrigeringer, større verdier fører til hyppigere korrigeringer. Standard: 4 (skalar).
+Denne parameteren kontrollerer frekvensen som W32time bruker til å korrigere frekvensen til den lokale klokken. Lave verdier gir større korrigering, og høye verdier gir mindre korrigering. Standard: 4 (skalar).
 
         HoldPeriod
-Denne parameteren angir hvor mange konsekvente tidsstempler klientdatamaskinen må motta i en serie før påfølgende tidsstempler vurderes som potensielle topper. Standard: 5
+Denne parameteren indikerer hvor mange konsekvente tidsprøver klientdatamaskinen må motta i en serie, før etterfølgende tidsprøver evalueres som potensielle topper. Standard: 5
 
         LargePhaseOffset
-Hvis et tidsstempel er forskjellig fra klientdatamaskinens lokale klokke med mer enn LargePhaseOffset, anses den lokale klokken for å ha forskjøvet seg kraftig, eller med andre ord, toppet. Standard: 50 000 000 enheter på 100 nanosekunder (ns) eller 5 sekunder.
+Hvis en tidsprøve avviker fra klientdatamaskinens lokale klokke med mer enn LargePhaseOffset, anses den lokale klokken som vesentlig forskjøvet, og tidsprøven regnes som en topp. Standard: 50 000 000 enheter på 100 nanosekunder (ns), eller fem sekunder.
 
         MaxAllowedPhaseOffset
-Hvis det mottas et svar med en tidsvariasjon som er større enn denne parameterverdien, angir W32time klientdatamaskinens lokale klokke umiddelbart til tiden som er godkjent som nøyaktig fra NTP-serveren (Network Time Protocol). Hvis tidsvariasjonen er mindre enn denne verdien, korrigeres klientdatamaskinen gradvis. Standard: 300 sekunder.
+Hvis et svar mottas med en tidsforskjell som er større enn denne verdien, stiller W32time klientdatamaskinens lokale klokke umiddelbart til klokkeslettet som godtas som nøyaktig fra NTP-serveren (Network Time Protocol). Hvis tidsvariasjonen er mindre enn denne verdien, korrigeres klientdatamaskinens lokale klokke gradvis. Standard: 300 sekunder.
 
         MaxNegPhaseCorrection
-Hvis du mottar et tidsstempel som angir et tidspunkt i fortiden (sammenlignet med klientdatamaskinens lokale klokke) som har en tidsforskjell som er større enn verdien MaxNegPhaseCorrection, forkastes tidsstempelet. Standard: 172 800 sekunder.
+Hvis en tidsprøve mottas som indikerer et passert klokkeslett (sammenlignet med klientdatamaskinens lokale klokke) med en tidsforskjell som er større enn verdien for MaxNegPhaseCorrection, forkastes tidsprøven. Standard: 172 800 sekunder.
 
         MaxPosPhaseCorrection
-Hvis du mottar et tidsstempel som angir et tidspunkt i fremtiden (sammenlignet med klientdatamaskinens lokale klokke) som har en tidsforskjell som er større enn verdien MaxPosPhaseCorrection, forkastes tidsstempelet. Standard: 172 800 sekunder.
+ Hvis en tidsprøve mottas som indikerer et klokkeslett i fremtiden (sammenlignet med klientdatamaskinens lokale klokke) med en tidsforskjell som er større enn verdien for MaxPosPhaseCorrection, forkastes tidsprøven. Standard: 172 800 sekunder.
 
         PhaseCorrectRate
-Denne parameteren styrer hvor raskt W32time korrigerer klientdatamaskinens lokale klokkeforskjell for å samsvare med tidsstemplene som kan godtas som nøyaktige fra NTP-serveren. Lavere verdier fører til at klokken korrigeres saktere, større verdier fører til at klokken korrigeres raskere. Standard: 7 (skalar).
+Denne parameteren kontrollerer hvor raskt W32time korrigerer forskjellen på klientdatamaskinens lokale klokke for å samsvare med tidsprøver som er godkjent som nøyaktige fra NTP-serveren. Lave verdier får klokken til å korrigere tregt, og høye verdier får klokken til å korrigere raskt. Standard: 7 (skalar).
 
         PollAdjustFactor
-Denne parameteren styrer hvor raskt W32time endrer avspørringsintervall. Når svar anses å være nøyaktige, forlenges avspørringsintervallet automatisk. Når svarene anses å være unøyaktige, forkortes avspørringsintervallet automatisk. Standard: 5 (skalar).
+Denne parameteren kontrollerer hvor raskt W32time endrer avspørringsintervaller. Når svar regnes for å være nøyaktige, blir avspørringsintervallet lengre automatisk. Når svar regnes for å være unøyaktige, blir avspørringsintervallet kortere automatisk. Standard: 5 (skalar).
 
         SpikeWatchPeriod
-Denne parameteren angir hvor lenge stemplene med tidsforskyvning større enn LargePhaseOffset mottas før disse stemplene godtas som nøyaktige. SpikeWatchPeriod brukes i forbindelse med HoldPeriod for å fjerne sporadiske, unøyaktige tidsstempler som returneres fra en node. Standard: 900 sekunder.
+Denne parameteren angir hvor lenge tidsprøver med en tidsforskyvning som er større enn LargePhaseOffset, mottas før disse prøvene godtas som nøyaktige. SpikeWatchPeriod brukes sammen med HoldPeriod for å bidra til å eliminere sporadiske unøyaktige tidsprøver som returneres fra en node. Standard: 900 sekunder.
 
         UpdateInterval
-Denne parameteren angir hvor lenge W32time venter mellom korrigeringer når klokken blir korrigert gradvis. Når det er en gradvis korrigering, justerer tjenesten klokken litt, venter dette tidsrommet og kontrollerer deretter om andre justeringer er nødvendige til korrigeringen er fullført. Standard: 100 1/100. sekundærenheter eller 1 sekund.
+Denne parameteren angir hvor lenge W32time skal vente mellom korrigeringer når klokken korrigeres gradvis. Ved en gradvis korrigering justerer tjenesten klokken en tanke, venter i dette angitte tidsrommet og kontrollerer deretter om det er nødvendig med nok en justering, til korrigeringen er fullført. Standard: 100 enheter på 1/100 sekund, som er 1 sekund.
 
         Generelle parametere:
 
         AnnounceFlags
-Denne parameteren er en bitmaskeverdi som bestemmer hvordan tiden servicetilgjengelighet annonseres gjennom NetLogon. Standard: 0x0a heksadesimal
+Denne parameteren er en bitmaskeverdi som kontrollerer hvordan tidstjenestens tilgjengelighet annonseres via NetLogon. Standard: 0x0a heksadesimal
 
         EventLogFlags
-Denne parameteren styrer spesielle hendelser som logges i systemloggen i Hendelsesliste. Standard: 0x02 heksadesimal bitmaske.
+Denne parameteren kontrollerer spesielle hendelser som kan logges til systemloggen i hendelseslisten. Standard: 0x02 heksadesimal bitmaske.
 
         LocalClockDispersion
-Denne parameteren angir maksimalt antall feil i sekunder som rapporteres av NTP-serveren til klienter som ber om et tidsstempel. (Gjelder bare når NTP-serveren bruker tiden på den lokale CMOS-klokken.) Standard: 10 sekunder.
+Denne parameteren indikerer maksimal varighet for feil i sekunder som rapporteres av NTP-serveren til klienter som ber om en tidsprøve. (Gjelder bare når NTP-serveren bruker tiden for den lokale CMOS-klokken.) Standard: 10 sekunder.
 
         MaxPollInterval
-Denne parameteren styrer maksimalt avspørringsintervall, som definerer maksimumstiden mellom avspørringer av en node. Standard: 10 i log-base-2 eller 1024 sekunder. (Bør ikke settes høyere enn 15.)
+Denne parameteren kontrollerer det maksimale avspørringsintervallet, som definerer maksimaltiden mellom avspørringer av en node. Standard: 10 med logaritmisk grunntall 2, som er 1024 sekunder. (Bør ikke settes høyere enn 15.)
 
         MinPollInterval
-Denne parameteren styrer minimum avspørringsintervall som angir minimumstiden mellom avspørringer av en node. Standard: 6 i log-base-2 eller 64 sekunder.
+Denne parameteren kontrollerer minimum avspørringsintervall som definerer minimumstiden mellom avspørringer av en node. Standard: 6 med logaritmisk grunntall 2, som er 64 sekunder.
 
         ClockHoldoverPeriod
-Denne parameteren angir maksimalt antall sekunder en systemklokken vanligvis kan holde nøyaktigheten uten å synkronisere med en tidskilde. Hvis denne tidsperioden går uten at W32time henter nye stempler fra noen inndataleverandører, starter W32time en ny oppdagelse av tidskilder. Standard: 7800 sekunder.
+Denne parameteren angir maksimalt antall sekunder en systemklokke kan holde seg nøyaktig uten å synkronisere med en tidskilde. Hvis denne tidsperioden forløper uten at W32time henter nye prøver fra noen av leverandørene av inndata, starter W32time starter et nytt søk etter tidskilder. Standard: 7800 sekunder.
 
         RequireSecureTimeSyncRequests
-Denne parameteren styrer hvorvidt DC-en svarer på tidssynkroniseringsforespørsler som bruker eldre godkjenningsprotokoller. Hvis den er aktivert (satt til 1), vil ikke DC-en svare på forespørsler ved hjelp av disse protokollene. Standard: 0 boolsk.
+Denne parameteren kontrollerer om DC-en vil svare på forespørsler om tidssynkronisering som bruker gamle godkjenningsprotokoller. Hvis aktivert (angitt til 1), vil ikke DC-en svare på forespørsler ved hjelp av slike protokoller. Standard: 0 boolsk.
 
         UtilizeSslTimeData
-Denne parameteren styrer om W32time skal bruke tidsdata som er beregnet fra SSL-trafikk, på maskinen som ekstra inndata for å korrigere den lokale klokken.  Standard: 1 boolsk verdi (aktivert)
+Denne parameteren styrer om W32time skal bruke tidsdata som er beregnet fra SSL-trafikk på maskinen, som ekstra inndata for å korrigere den lokale klokken. Standard: 1 (aktivert) boolsk
 
         ClockAdjustmentAuditLimit
-Denne parameteren angir de minste lokale klokkejusteringene som kan logges i hendelsesloggen for W32time-tjenesten på målmaskinen. Standard: 800 deler per million (PPM).
+Denne parameteren angir den minste lokale klokkejusteringen som kan logges til W32time-tjenestehendelsesloggen på målmaskinen. Standard: 800 deler per million (PPM).
 
-        RODC-parametere:
+       RODC-parametere:
 
         ChainEntryTimeout
-Denne parameteren angir maksimumstiden en oppføring kan forbli i kjedetabellen før posten anses å være utløpt. Utløpte oppføringer kan fjernes når neste forespørsel eller svar behandles. Standard: 16 sekunder.
+Denne parameteren angir maksimumstiden som en oppføring kan bli værende i sammenkjedingstabellen før den regnes som utløpt. Utløpte oppføringer kan fjernes når den neste forespørselen eller det neste svaret behandles. Standard: 16 sekunder.
 
         ChainMaxEntries
-Denne parameteren styrer maksimalt antall oppføringer som er tillatt i kjedetabellen. Hvis kjedetabellen er full og ingen utløpte oppføringer kan fjernes, forkastes alle innkommende forespørsler. Standard: 128 oppføringer.
+Denne parameteren styrer maksimum antall oppføringer som er tillatt i sammenkjedingstabellen. Hvis sammenkjedingstabellen er full og ingen utløpte oppføringer kan fjernes, blir innkommende forespørsler forkastet. Standard: 128 oppføringer.
 
         ChainMaxHostEntries
-Denne parameteren styrer maksimalt antall oppføringer som er tillatt i kjedetabellen for en bestemt vert. Standard: 4 oppføringer.
+Denne parameteren styrer maksimum antall oppføringer som er tillatt i sammenkjedingstabellen for en bestemt vert. Standard: 4 oppføringer.
 
         ChainDisable
-Denne parameteren styrer hvorvidt kjedemekanismen er deaktivert. Hvis sammenkjeding er deaktivert (satt til 0), kan RODC synkronisere med en domenekontroller, men verter som ikke kan få passordene bufret på RODC, vil ikke kunne synkronisere med RODC. Standard: 0 boolsk.
+Denne parameteren styrer om sammenkjedingsmekanismen er deaktivert eller ikke. Hvis sammenkjeding er deaktivert (satt til 0), kan RODC synkronisere med alle domenekontrollere, men verter som ikke har passordene hurtigbufret på RODC, kan ikke synkronisere med RODC. Standard: 0 boolsk.
 
         ChainLoggingRate
-Denne parameteren styrer hvor ofte en hendelse som angir antall vellykkede og mislykkede sammenkjedingsforsøk, logges i systemloggen i Hendelsesliste. Standard: 30 minutter.
+Denne parameteren styrer frekvensen for en hendelse som angir antall vellykkede og mislykkede sammenkjedingsforsøk som logges til systemloggen i hendelseslisten Standard: 30 minutter.
       </string>
 
 <string id="W32TIME_CONFIGURE_NTPCLIENT_EXPLAIN">Denne policyinnstillingen angir et sett med parametere for å kontrollere Windows NTP-klienten.

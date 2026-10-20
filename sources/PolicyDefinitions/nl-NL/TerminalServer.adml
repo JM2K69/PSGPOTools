@@ -5,6 +5,8 @@
   <description>typ hier een beschrijving</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Automatisch abonnement inschakelen</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Hiermee bepaalt u de lijst met URL's waarvoor de gebruiker zich automatisch moet abonneren</string>
       <string id="TS_SUPPORTED_Windows10">Minimaal Windows 10 of Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">Minimaal Windows 8 of Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">Minimaal Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">Minimaal Windows XP en alleen Windows Server 2003</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">Minimaal Windows Server 2008 of Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  Alleen Windows Server 2008 R2</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 versie 1903, Windows 10 versie 1909 en Windows 10 versie 2004</string>
       <string id="TS_TERMINAL_SERVER">Host extern-bureaubladsessie</string>
       <string id="TS_TERMINAL_SERVER_Help">Hiermee beheert u de configuratie van de hostserver voor een extern-bureaubladsessie.</string>
       <string id="TS_LICENSE_SERVER">RD-licentieverlening</string>
@@ -128,22 +131,22 @@ Als u deze instelling uitschakelt of niet configureert, kan de gebruiker wachtwo
 Als u deze instelling inschakelt, wordt het selectievakje voor het opslaan van referenties in Verbinding met extern bureaublad uitgeschakeld en kunnen gebruikers geen wachtwoorden meer opslaan. Wanneer een gebruiker een RDP-bestand opent via Verbinding met extern bureaublad en de instellingen opslaat, worden de wachtwoorden verwijderd die eerder in het RDP-bestand zijn opgeslagen.
 
 Als u deze instelling uitschakelt of niet configureert, kan de gebruiker wachtwoorden opslaan via Verbinding met extern bureaublad.</string>
-      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">Deze beleidsinstelling bepaalt u of het toewijzen van clientstations tijdens een sessie met Extern bureaublad-services is toegestaan (stationsomleiding).
+      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">Met deze beleidsinstelling bepaalt u of de toewijzing van clientstations tijdens een Extern bureaublad-services sessie (stationsomleiding) moet worden voorkomen.
 
-Standaard worden clientstations automatisch toegewezen door een hostserver voor extern-bureaubladsessies nadat verbinding is gemaakt. Toegewezen stations worden in de sessiemapstructuur in Bestandenverkenner of in Computer weergegeven in de notatie &lt;stationsletter&gt; op &lt;computernaam&gt;. U kunt dit gedrag wijzigen met behulp van deze beleidsinstelling.
+Een hostserver voor Extern bureaublad-sessies wijst standaard automatisch clientstations toe bij verbinding. Toegewezen stations worden weergegeven in de sessiemapstructuur in Bestandenverkenner of Computer in de indeling &lt;driveletter&gt; op &lt;computername&gt;. U kunt deze beleidsinstelling gebruiken om dit gedrag te negeren.
 
-Als u deze instelling inschakelt, mogen clientstations niet worden omgeleid tijdens sessies van Extern bureaublad-services en mogen kopieën van Klembord-bestanden niet worden omgeleid op computers met Windows Server 2003, Windows 8 en Windows XP.
+Als u deze beleidsinstelling inschakelt, is het omleiden van clientstations niet toegestaan in Extern bureaublad-services sessies en is kopiëren van klembordbestanden niet toegestaan op computers met Windows XP, Windows Server 2003, Windows Server 2012 (en hoger) of Windows 8 (en hoger).
 
-Als u deze beleidsinstelling uitschakelt, mogen clientstations altijd worden omgeleid. Bovendien is het omleiden van een kopie van een Klembord-bestand altijd toegestaan als Klembord-omleiding is toegestaan.
+Als u deze beleidsinstelling uitschakelt, is omleiding van clientstations altijd toegestaan. Bovendien is het omleiden van het klembordbestand altijd toegestaan als klembordomleiding is toegestaan.
 
-Als u deze beleidsinstelling niet configureert, is omleiding van clientstations en kopie van een Klembord-bestand niet gedefinieerd op Groepsbeleidsniveau.
-
+Als u deze beleidsinstelling niet configureert, worden omleiding van clientstations en kopie van klembordbestanden niet opgegeven op groepsbeleid niveau.
 </string>
       <string id="TS_CLIENT_DRIVE_M">Stationsomleiding verbieden</string>
       <string id="TS_CLIENT_HELP">Hiermee beheert u de instellingen van de client voor Verbinding met extern bureaublad.</string>
       <string id="TS_CLIENT_LPT">Omleiding naar LPT-poort verbieden</string>
       <string id="TS_CLIENT_PNP">Omleiding naar ondersteunde Plug-and-Play-apparaten niet toestaan</string>
       <string id="TS_CAMERA_REDIRECTION">Omleiden van video-opname niet toestaan</string>
+      <string id="TS_LOCATION_REDIRECTION">Omleiding van locatie niet toestaan</string>
       <string id="TS_CLIENT_PRINTER">Omleiden van clientprinter niet toestaan</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">Deze beleidsinstelling bepaalt of het delen van de klembordinhoud (klembordomleiding) tussen een externe computer en een clientcomputer al dan niet moet worden verhinderd tijdens een sessie met Extern bureaublad-services.
 
@@ -208,6 +211,15 @@ Als u deze beleidsinstelling inschakelt, kunnen gebruikers hun video-opnameappar
 
 Als u deze beleidsinstelling uitschakelt of niet configureert, kunnen gebruikers hun video-opnameapparaten omleiden naar de externe computer. Met de optie Meer op het tabblad Lokale bronnen van Verbinding met extern bureaublad kunnen gebruikers selecteren welke video-opnameapparaten worden omgeleid naar de externe computer.
 
+</string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">Met deze beleidsinstelling kunt u bepalen hoe de locatiegegevens worden omgeleid naar de externe computer in een sessie met extern bureaublad-services.
+
+Standaard is het omleiden van locatiegegevens door Extern bureaublad-services toegestaan.
+
+Als u deze beleidsinstelling inschakelt, kunnen gebruikers hun locatiegegevens niet omleiden naar de externe computer.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, kunnen gebruikers hun locatiegegevens omleiden naar de externe computer.
+          
 </string>
       <string id="TS_MAXMONITOR_EXPLAIN">Met deze beleidsinstelling kunt u het aantal beeldschermen beperken dat een gebruiker kan gebruiken voor het weergeven van een sessie met Extern bureaublad-services. Het beperken van het aantal beeldschermen kan de prestaties van een verbinding verbeteren (vooral als er sprake is van langzame verbindingen) en de belasting van de server verminderen.
 
@@ -417,19 +429,19 @@ Als u deze beleidsinstelling inschakelt, worden deze meldingen niet weergegeven 
 Als u deze beleidsinstelling uitschakelt of niet configureert, worden deze meldingen weergegeven op de hostserver voor extern-bureaubladsessies nadat u zich als lokale beheerder hebt aangemeld.</string>
       <string id="TS_LICENSING_MODE">Licentiemodus van Extern bureaublad instellen</string>
       <string id="TS_LICENSING_MODE_EXPLAIN">
-        Met deze beleidsinstelling kunt u het RDS CAL-type (Client Access License voor Extern bureaublad-services) opgeven dat nodig is om verbinding te maken met deze Extern bureaublad-sessiehostserver.
+        Met deze beleidsinstelling kunt u het type client access license voor Extern bureaublad-services (RDS CAL) opgeven dat nodig is om verbinding te maken met deze Extern bureaublad-sessiehostserver. 
 
-        U kunt deze beleidsinstelling gebruiken om een van de volgende drie licentiemodi te selecteren: per gebruiker, per apparaat en AAD per gebruiker.
+        U kunt deze beleidsinstelling gebruiken om een van de twee licentiemodi te selecteren: per gebruiker of per apparaat.
 
-        De licentiemodus per gebruiker vereist dat elke gebruikersaccount die verbinding maakt met deze Extern bureaublad-sessiehostserver een RDS CAL per gebruiker heeft die is uitgegeven door een Extern bureaublad-licentieserver.
+        De licentiemodus per gebruiker vereist dat elk gebruikersaccount dat verbinding maakt met deze Extern bureaublad-sessiehostserver een client access license per gebruiker voor Extern bureaublad-services heeft ontvangen van een Extern bureaublad-licentieserver.
 
-        De licentiemodus per apparaat vereist dat elk apparaat dat verbinding maakt met deze Extern bureaublad-sessiehostserver een RDS CAL per apparaat heeft die is uitgegeven door een Extern bureaublad-licentieserver.
+        De licentiemodus per apparaat vereist dat elk apparaat dat verbinding maakt met deze Extern bureaublad-sessiehostserver een client access license per apparaat voor Extern bureaublad-services heeft ontvangen van een Extern bureaublad-licentieserver.
 
-        De licentiemodus AAD per gebruiker vereist dat elke gebruikersaccount die verbinding maakt met deze Extern bureaublad-sessiehostserver een serviceplan heeft waarbij RDS-licenties in AAD zijn toegewezen.
-        
-        Als u deze beleidsinstelling inschakelt, wordt de opgegeven Extern bureaublad-licentiemodus gebruikt door de Extern bureaublad-licentieserver en RD-sessiehost.
+        Als u deze beleidsinstelling inschakelt, wordt de Extern bureaublad-licentiemodus die u opgeeft, toegepast door de Extern bureaublad-licentieserver en de Extern bureaublad-sessiehost.
 
-        Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de licentiemodus niet opgegeven in Groepsbeleid.
+         Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de licentiemodus niet opgegeven op het niveau Groepsbeleid.
+
+         Opmerking: de modus AAD per gebruiker is afgeschaft in Windows 11 en hoger.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Per apparaat</string>
       <string id="TS_LICENSING_MODE_PER_USER">Per gebruiker</string>
@@ -604,6 +616,17 @@ Als u deze instelling uitschakelt of niet configureert, wordt de beveiligingsmet
       <string id="TS_SECURITY_LAYER_POLICY">Gebruik van specifieke beveiligingslaag voor externe (RDP-)verbindingen vereisen</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Microsoft Entra ID-authenticatie afdwingen inschakelen</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">Met deze beleidsinstelling kun je opgeven of serverzijde afdwingen van Microsoft Entra ID-authenticatie vereist is.
+
+Als je deze beleidsinstelling inschakelt, moeten alle Remote Desktop Services-clients RDS AAD-authenticatie gebruiken om in te loggen op RD Session Host-servers. 
+
+Dit beleid staat geen terugval naar andere authenticatiemethoden toe. 
+
+Verificatie op netwerkniveau (NLA) moet zijn ingeschakeld om dit beleid van kracht te laten zijn. Raadpleeg het beleid 'Gebruikersverificatie vereisen voor externe verbindingen met behulp van verificatie op netwerkniveau'.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, wordt Microsoft Entra ID-authenticatieafdwinging niet toegepast.
+</string>
       <string id="TS_Session_End_On_Limit">Sessie beëindigen als tijdslimiet is bereikt</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">Deze beleidsinstelling bepaalt of een sessie met Extern bureaublad-services waarvoor de tijdslimiet is bereikt moet worden beëindigd in plaats van onderbroken.
 
@@ -782,6 +805,79 @@ Als u deze instelling inschakelt, wordt het bureaublad altijd weergegeven wannee
 Als u deze instelling uitschakelt of niet configureert, kunt u opgeven welk programma als eerste op de externe computer wordt gestart nadat de verbinding tussen de client en de externe computer tot stand is gekomen. Hebt u een dergelijk programma niet opgegeven, dan wordt altijd het bureaublad op de externe computer weergegeven nadat de verbinding tot stand is gekomen.
 
 Opmerking: als deze instelling is ingeschakeld, wordt de instelling Een programma starten na het verbinden genegeerd.</string>
+      <string id="TS_UIA">Omleiding van UI Automation toestaan</string>
+      <string id="TS_UIA_EXPLAIN">Met deze beleidsinstelling bepaalt u of gebruikersinterface-clients (UI) die worden uitgevoerd op de lokale computer toegang hebben tot UI-elementen op de server.
+
+Met UI Automation hebben Programma's toegang tot de meeste UI-elementen, waarmee u hulpprogramma's voor productondersteuning, zoals Vergrootglas en verteller, kunt gebruiken die moeten communiceren met de GEBRUIKERSINTERFACE om goed te kunnen werken. Met UI-gegevens kunnen geautomatiseerde testscripts ook communiceren met de GEBRUIKERSINTERFACE.
+
+Extern bureaublad-sessies ondersteunen momenteel geen automatisering van automatische GEBRUIKERSINTERFACE.
+
+Als u deze beleidsinstelling inschakelt of niet configureert, kunnen UI-automatiserings clients op uw lokale computer communiceren met externe apps. U kunt bijvoorbeeld de verteller-en vergrootglas-clients van de lokale computer gebruiken om te communiceren met de GEBRUIKERSINTERFACE op een webpagina die u in een externe sessie hebt geopend.
+
+Als u deze beleidsinstelling uitschakelt, kunnen UI-automatiserings clients die op uw lokale computer worden uitgevoerd, niet werken met externe apps.
+</string>
+      <string id="TS_WEBAUTHN">WebAuthn-omleiding niet toestaan</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">Met deze beleidsinstelling kunt u de omleiding van webverificatieaanvragen (WebAuthn) van een Extern bureaublad-sessie naar het lokale apparaat beheren. Met deze omleiding kunnen gebruikers zich verifiëren bij resources in de Extern bureaublad-sessie met hun lokale authenticator (bijvoorbeeld Windows Hello voor Bedrijven, beveiligingscode of andere).
+
+Standaard staat Extern bureaublad omleiding van WebAuthn-aanvragen toe.
+
+Als u deze beleidsinstelling inschakelt, kunnen gebruikers hun lokale authenticator niet gebruiken in de Extern bureaublad-sessie.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, kunnen gebruikers lokale authenticators gebruiken in de Extern bureaublad-sessie.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">Klembordoverdracht van server naar client uitschakelen</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">Klembordoverdracht van client naar server uitschakelen</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Tekst zonder opmaak toestaan</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Tekst zonder opmaak en afbeeldingen toestaan</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Tekst zonder opmaak, afbeeldingen en RTF-indeling toestaan</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Tekst zonder opmaak, afbeeldingen, RTF-indeling en HTML toestaan</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">Klembordoverdracht van server naar client beperken</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">Met deze beleidsinstelling kunt u de overdracht van klembordgegevens van server naar client beperken.
+
+Als u deze beleidsinstelling inschakelt, moet u kiezen uit de volgende gedragingen:
+
+- Klembordoverdrachten van server naar client uitschakelen.
+
+- Kopiëren van tekst zonder opmaak van server naar client toestaan.
+
+- Kopiëren van tekst zonder opmaak en afbeeldingen van server naar client toestaan.
+
+- Kopiëren van tekst zonder opmaak, afbeeldingen en RTF-indeling van server naar client toestaan.
+
+- Tekst zonder opmaak, afbeeldingen, RTF-indeling en HTML-kopiëren van server naar client toestaan.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, kunnen gebruikers willekeurige inhoud van de server naar de client kopiëren als klembordomleiding is ingeschakeld.
+
+Opmerking: deze beleidsinstelling wordt weergegeven in computerconfiguratie en gebruikersconfiguratie. Als beide beleidsinstellingen zijn geconfigureerd, wordt de strengere beperking gebruikt.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">Klembordoverdracht van client naar server beperken</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">Met deze beleidsinstelling kunt u het overbrengen van klembordgegevens van client naar server beperken.
+
+Als u deze beleidsinstelling inschakelt, moet u kiezen uit de volgende gedragingen:
+
+- Klembordoverdrachten van client naar server uitschakelen.
+
+- Kopiëren van tekst zonder opmaak van client naar server toestaan.
+
+- Kopiëren van tekst zonder opmaak en afbeeldingen van client naar server toestaan.
+
+- Kopiëren van tekst zonder opmaak, afbeeldingen en RTF-indeling van client naar server toestaan.
+
+- Tekst zonder opmaak, afbeeldingen, RTF-indeling en HTML-kopiëren van client naar server toestaan.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, kunnen gebruikers willekeurige inhoud van de client naar de server kopiëren als klembordomleiding is ingeschakeld.
+
+Opmerking: deze beleidsinstelling wordt weergegeven in computerconfiguratie en gebruikersconfiguratie. Als beide beleidsinstellingen zijn geconfigureerd, wordt de strengere beperking gebruikt.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Cloudklembordintegratie uitschakelen voor gegevensoverdracht tussen servers</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">Met deze beleidsinstelling kunt u bepalen of gegevens die worden overgebracht van de externe sessie naar de client met klembordomleiding, worden toegevoegd aan het cloud klembord aan de clientzijde.
+
+Standaard schakelt Extern bureaublad integratie met het cloud klembord aan de clientzijde uit voor gegevens die vanuit de externe sessie worden overgebracht met klembordomleiding.
+
+Als u deze beleidsinstelling inschakelt of niet configureert, worden gegevens die in de externe sessie zijn gekopieerd en op de client zijn geplakt, niet toegevoegd aan het cloud klembord aan de clientzijde.
+
+Als u deze beleidsinstelling uitschakelt, worden gegevens die in de externe sessie zijn gekopieerd en op de client zijn geplakt, toegevoegd aan het cloud klembord aan de clientzijde (indien ingeschakeld).
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">Met deze beleidsinstelling kunt u opgeven of gebruikersverificatie is vereist voor externe verbindingen met de hostserver voor extern-bureaubladsessies met behulp van verificatie op netwerkniveau. Deze beleidsinstelling verbetert de beveiliging doordat wordt vereist dat de gebruikersverificatie eerder in het externe-verbindingsproces plaatsvindt.
 
 Als u deze beleidsinstelling inschakelt, kunnen alleen clientcomputers die ondersteuning bieden voor verificatie op netwerkniveau verbinding maken met de hostserver voor extern-bureaubladsessies.
@@ -796,6 +892,24 @@ Belangrijk: als deze beleidsinstelling wordt uitgeschakeld, biedt dit minder bev
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Gebruikersverificatie met verificatie op netwerkniveau vereisen voor externe verbindingen</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Externe sessie bij vergrendeling verbreken voor verouderde verificatie</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">Met deze beleidsinstelling kunt u de gebruikerservaring configureren wanneer de Extern bureaublad sessie is vergrendeld door de gebruiker of door een beleid. U kunt opgeven of de externe sessie het scherm voor extern vergrendelen weergeeft of de verbinding verbreekt wanneer de externe sessie is vergrendeld. Als u de verbinding met de externe sessie verbreekt, zorgt u ervoor dat een externe sessie niet kan worden verlaten op het vergrendelingsscherm en dat er niet automatisch opnieuw verbinding kan worden gemaakt vanwege verlies van de netwerkverbinding.
+
+Dit beleid is alleen van toepassing wanneer u verouderde verificatie gebruikt om te verifiëren bij de externe pc. Verouderde verificatie is beperkt tot gebruikersnaam en wachtwoord, of certificaten zoals smartcards. Verouderde verificatie maakt geen gebruik van het Microsoft-identiteitsplatform, zoals Microsoft Entra ID. Verouderde verificatie omvat de basisverificatieprotocollen NTLM, CredSSP, RDSTLS, TLS en RDP.
+
+Als u deze beleidsinstelling inschakelt, verbreekt Extern bureaublad verbindingen met verouderde verificatie de externe sessie wanneer de externe sessie is vergrendeld. Gebruikers kunnen opnieuw verbinding maken wanneer ze klaar zijn en hun referenties opnieuw invoeren wanneer hierom wordt gevraagd.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, wordt in Extern bureaublad verbindingen met verouderde verificatie het vergrendelingsscherm op afstand weergegeven wanneer de externe sessie is vergrendeld. Gebruikers kunnen de externe sessie ontgrendelen met hun gebruikersnaam en wachtwoord of certificaten.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Externe sessie bij vergrendeling verbreken voor Microsoft identity platform-verificatie</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">Met deze beleidsinstelling kunt u de gebruikerservaring configureren wanneer de Extern bureaublad sessie is vergrendeld door de gebruiker of door een beleid. U kunt opgeven of in de externe sessie het externe vergrendelingsscherm wordt weergegeven of dat de verbinding wordt verbroken wanneer de externe sessie is vergrendeld. Als u de verbinding met de externe sessie verbreekt, zorgt u ervoor dat een externe sessie niet op het vergrendelingsscherm kan worden achtergelaten en dat er automatisch geen verbinding meer kan worden gemaakt vanwege verlies van de netwerkverbinding.
+
+Dit beleid is alleen van toepassing wanneer een id-provider wordt gebruikt die de Microsoft identity platform, zoals Microsoft Entra ID, gebruikt voor verificatie bij de externe pc. Dit beleid is niet van toepassing wanneer verouderde verificatie wordt gebruikt, waaronder de basisverificatieprotocollen NTLM, CredSSP, RDSTLS, TLS en RDP.
+
+Als u deze beleidsinstelling inschakelt of niet configureert, verbreekt Extern bureaublad verbindingen met de Microsoft identity platform de externe sessie wanneer de externe sessie is vergrendeld. Gebruikers kunnen opnieuw verbinding maken wanneer ze klaar zijn en wachtwoordloze verificatie gebruiken als ze zijn geconfigureerd.
+
+Als u deze beleidsinstelling uitschakelt, wordt Extern bureaublad verbindingen die gebruikmaken van de Microsoft identity platform het externe vergrendelingsscherm weergegeven wanneer de externe sessie is vergrendeld. Gebruikers kunnen de externe sessie ontgrendelen met hun gebruikersnaam en wachtwoord of met certificaten.
+</string>
       <string id="TS_User_Help">Hiermee beheert u de configuratie van technologieën van Extern bureaublad-services die toegang bieden tot een server met een Windows-programma of het volledige Windows-bureaublad</string>
       <string id="TS_USER_HOME">Basismap voor gebruiker van Extern bureaublad-services instellen</string>
       <string id="TS_USER_HOME_EXPLAIN">Hiermee bepaalt u of Extern bureaublad-services de opgegeven netwerkshare of het lokale mappad gebruikt als hoofdmap voor de basismap van een sessie met Extern bureaublad-services.
@@ -899,36 +1013,55 @@ Opmerking:
 U kunt deze beleidsinstelling definiëren in het knooppunt Computerconfiguratie of het knooppunt Gebruikersconfiguratie. Als u deze beleidsinstelling configureert voor de computers, is dit van toepassing op alle gebruikers van de computer.
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">SHA1-vingerafdrukken opgeven van certificaten die vertrouwde RDP-uitgevers vertegenwoordigen</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">U kunt met deze beleidsinstelling een lijst met SHA1-certificaatvingerafdrukken (Secure Hash Algorithm 1) opgeven die vertrouwde uitgevers van RDP-bestanden (Remote Desktop Protocol) vertegenwoordigen.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Vingerafdrukken van certificaten opgeven die vertrouwde .rdp-uitgevers vertegenwoordigen</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Met deze beleidsinstelling kun je een lijst met certificaatvingerafdrukken opgeven die vertrouwde uitgevers van Remote Desktop Protocol (.rdp)-bestanden vertegenwoordigen. SHA-256-, SHA-384- en SHA-512-vingerafdrukken worden ondersteund. SHA-1-vingerafdrukken zijn afgeschaft: SHA-1 wordt niet meer als veilig beschouwd en ondersteuning voor SHA-1-vingerafdrukken wordt standaard uitgeschakeld in een aanstaande beveiligingsupdate. Beheerders moeten alle vingerafdrukvermeldingen zo snel mogelijk migreren naar SHA-256 of sterker.
 
-Als u deze beleidsinstelling inschakelt, wordt elk certificaat met een SHA1-vingerafdruk die overeenkomt met een vingerafdruk in de lijst, als vertrouwd aangemerkt. Als een gebruiker probeert een RDP-bestand te starten dat is ondertekend met een vertrouwd certificaat, ontvangt de gebruiker geen waarschuwingen als het bestand wordt gestart. Geef de gedetailleerde certificaatinformatie weer en klik op het veld Vingerafdruk om de vingerafdruk te verkrijgen.
+Vingerafdrukken kunnen worden voorafgegaan door het hash-algoritme dat is gebruikt om ze te maken. Ondersteunde voorvoegsels zijn "sha256:", "sha384:" en "sha512:" (niet hoofdlettergevoelig). Bijvoorbeeld: sha256:AB0356F2... Als er geen voorvoegsel is opgegeven, wordt de vermelding behandeld als een oudere SHA-1-vingerafdruk.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, wordt geen enkele uitgever beschouwd als vertrouwde RDP-uitgever.
+Als het selectievakje "SHA-1-vingerafdrukken niet toestaan" is ingeschakeld, worden vermeldingen zonder voorvoegsel genegeerd. Alleen SHA-256-, SHA-384- en SHA-512-vingerafdrukken worden dan gevonden. Het wordt sterk aanbevolen om dit selectievakje nu in te schakelen, zodat je je voorbereidt op de komende wijziging van de standaardinstelling.
 
+ is mislukt
+Als je deze beleidsinstelling inschakelt, wordt elk certificaat waarvan de vingerafdruk overeenkomt met een vingerafdruk in de lijst als vertrouwd beschouwd. Als een gebruiker probeert een RDP-bestand te starten dat is ondertekend met een vertrouwd certificaat, ontvangt de gebruiker geen waarschuwingen als het bestand wordt gestart.
+
+ is mislukt
+Als je deze beleidsinstelling uitschakelt of niet configureert, wordt geen enkele uitgever als vertrouwde .rdp-uitgever beschouwd.
+
+ is mislukt
 Opmerkingen:
 
-U kunt deze beleidsinstelling definiëren in het knooppunt Computerconfiguratie of het knooppunt Gebruikersconfiguratie. Als u deze beleidsinstelling configureert voor de computer, vormt de lijst met certificaatafdrukken die als vertrouwd worden aangemerkt voor een gebruiker, een combinatie van de lijst die is gedefinieerd voor de computer en de lijst die is gedefinieerd voor de gebruiker.
+Je kunt deze beleidsinstelling definiëren in het knooppunt Computerconfiguratie of in het knooppunt Gebruikersconfiguratie. Als je deze beleidsinstelling voor de computer configureert, is de lijst met certificaatvingerafdrukken die voor een gebruiker wordt vertrouwd, een combinatie van de lijst die is gedefinieerd voor de computer en de lijst die is gedefinieerd voor de gebruiker.
 
-Deze beleidsinstelling krijgt voorrang boven het gedrag van de beleidsinstelling RDP-bestanden van geldige uitgevers en de standaard-RDP-instellingen van de gebruiker toestaan.
+ is mislukt
+Deze beleidsinstelling heeft voorrang op het gedrag van de beleidsinstelling "RDP-bestanden van geldige uitgevers en standaard .rdp-instellingen van de gebruiker toestaan".
 
-Als de lijst een tekenreeks bevat die geen certificaatvingerafdruk is, wordt de lijst genegeerd.
+ is mislukt
+Als de lijst een tekenreeks bevat die geen certificaatvingerafdruk is, wordt deze genegeerd.
 
+ is mislukt
+Zie https://go.microsoft.com/fwlink/?LinkId=2368223 voor meer informatie.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">U kunt met deze beleidsinstelling een lijst met SHA1-certificaatvingerafdrukken (Secure Hash Algorithm 1) opgeven die vertrouwde uitgevers van RDP-bestanden (Remote Desktop Protocol) vertegenwoordigen.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Met deze beleidsinstelling kun je een lijst met certificaatvingerafdrukken opgeven die vertrouwde uitgevers van Remote Desktop Protocol (.rdp)-bestanden vertegenwoordigen. SHA-256-, SHA-384- en SHA-512-vingerafdrukken worden ondersteund. SHA-1-vingerafdrukken zijn afgeschaft: SHA-1 wordt niet meer als veilig beschouwd en ondersteuning voor SHA-1-vingerafdrukken wordt standaard uitgeschakeld in een aanstaande beveiligingsupdate. Gebruikers moeten alle vingerafdrukvermeldingen zo snel mogelijk migreren naar SHA-256 of sterker.
 
-Als u deze beleidsinstelling inschakelt, wordt elk certificaat met een SHA1-vingerafdruk die overeenkomt met een vingerafdruk in de lijst, als vertrouwd aangemerkt. Als een gebruiker probeert een RDP-bestand te starten dat is ondertekend met een vertrouwd certificaat, ontvangt de gebruiker geen waarschuwingen als het bestand wordt gestart. Geef de gedetailleerde certificaatinformatie weer en klik op het veld Vingerafdruk om de vingerafdruk te verkrijgen.
+Vingerafdrukken kunnen worden voorafgegaan door het hash-algoritme dat is gebruikt om ze te maken. Ondersteunde voorvoegsels zijn "sha256:", "sha384:" en "sha512:" (niet hoofdlettergevoelig). Bijvoorbeeld: sha256:AB0356F2... Als er geen voorvoegsel is opgegeven, wordt de vermelding behandeld als een oudere SHA-1-vingerafdruk.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, wordt geen enkele uitgever beschouwd als vertrouwde RDP-uitgever.
+Als je deze beleidsinstelling inschakelt, wordt elk certificaat waarvan de vingerafdruk overeenkomt met een vingerafdruk in de lijst als vertrouwd beschouwd. Als een gebruiker probeert een RDP-bestand te starten dat is ondertekend met een vertrouwd certificaat, ontvangt de gebruiker geen waarschuwingen als het bestand wordt gestart.
 
+ is mislukt
+Als je deze beleidsinstelling uitschakelt of niet configureert, wordt geen enkele uitgever als vertrouwde .rdp-uitgever beschouwd.
+
+ is mislukt
 Opmerking:
 
-U kunt deze beleidsinstelling definiëren in het knooppunt Computerconfiguratie of het knooppunt Gebruikersconfiguratie. Als u deze beleidsinstelling configureert voor de computer, vormt de lijst met certificaatafdrukken die als vertrouwd worden aangemerkt voor een gebruiker, een combinatie van de lijst die is gedefinieerd voor de computer en de lijst die is gedefinieerd voor de gebruiker.
+ is mislukt
+Je kunt deze beleidsinstelling definiëren in het knooppunt Computerconfiguratie of in het knooppunt Gebruikersconfiguratie. Als je deze beleidsinstelling voor de computer configureert, is de lijst met certificaatvingerafdrukken die voor een gebruiker wordt vertrouwd, een combinatie van de lijst die is gedefinieerd voor de computer en de lijst die is gedefinieerd voor de gebruiker.
 
-Deze beleidsinstelling krijgt voorrang boven het gedrag van de beleidsinstelling RDP-bestanden van geldige uitgevers en de standaard-RDP-instellingen van de gebruiker toestaan.
+Deze beleidsinstelling heeft voorrang op het gedrag van de beleidsinstelling "RDP-bestanden van geldige uitgevers en standaard .rdp-instellingen van de gebruiker toestaan".
 
-Als de lijst een tekenreeks bevat die geen certificaatvingerafdruk is, wordt de lijst genegeerd.
+ is mislukt
+Als de lijst een tekenreeks bevat die geen certificaatvingerafdruk is, wordt deze genegeerd.
 
+ is mislukt
+Zie https://go.microsoft.com/fwlink/?LinkId=2368223 voor meer informatie.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">Vragen om referenties op de clientcomputer</string>
@@ -1016,6 +1149,14 @@ Als u deze beleidsinstelling uitschakelt, maken RemoteApp-programma's die vanuit
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">Verbeterde shell-ervaring voor RemoteApp inschakelen</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">Deze beleidsinstelling maakt een verbeterde shell-ervaring mogelijk voor RemoteApp-sessies, biedt ondersteuning voor standaardbestandskoppelingen, Run/RunOnce-registersleutels en meer. Deze beleidsinstelling is alleen van toepassing op RemoteApp-sessies en is niet van toepassing op Extern bureaublad sessies.
+
+Als u deze beleidsinstelling inschakelt of niet configureert, hebben RemoteApp-sessies op Extern bureaublad-sessiehostservers de verbeterde shell-ervaring.
+
+Als u deze beleidsinstelling uitschakelt, hebben RemoteApp-sessies niet de verbeterde shell-ervaring en wordt het verouderde shell-gedrag gebruikt. Dit kan nodig zijn als er compatibiliteitsproblemen optreden in gepubliceerde RemoteApp-programma's.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1149,21 +1290,20 @@ Opmerking: RemoteApp-programma's die worden geïnstalleerd via RemoteApp- en bur
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">RDP-transportprotocollen selecteren</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Via deze beleidsinstelling kunt u bepalen welke protocollen kunnen worden gebruikt voor Remote Desktop Protocol (RDP)-toegang tot deze server.
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Met deze beleidsinstelling kunt u opgeven welke protocollen kunnen worden gebruikt voor Remote Desktop Protocol (RDP)-toegang tot deze server.
 
-Als u deze beleidsinstelling inschakelt, moet u opgeven of u RDP of UDP wilt gebruiken.
+Als u deze beleidsinstelling inschakelt, moet u opgeven of RDP UDP moet gebruiken.
 
-U kunt een van de volgende opties selecteren: Zowel UDP als TCP gebruiken, Alleen TCP gebruiken of Ofwel UDP ofwel TCP gebruiken (standaard) 
+U kunt een van de volgende opties selecteren: UDP of TCP gebruiken (standaard) of Alleen TCP gebruiken 
 
-Indien u Ofwel UDP ofwel TCP gebruiken selecteert en de UDP-verbinding is succesvol, zal het grootste deel van het RDP-verkeer UDP gebruiken.
+Als u 'UDP of TCP gebruiken' selecteert en de UDP-verbinding is geslaagd, wordt voor het grootste deel van het RDP-verkeer UDP gebruikt.
 
-Als de UDP-verbinding niet succesvol is of als u Alleen TCP gebruiken selecteert, zal al het RDP-verkeer TCP gebruiken.
+Als de UDP-verbinding niet lukt of als u Alleen TCP gebruiken selecteert, wordt voor al het RDP-verkeer TCP gebruikt.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, kiest RDP de optimale protocollen om de beste gebruikerservaring te leveren.
+Als u deze beleidsinstelling uitschakelt of niet configureert, kiest RDP de optimale protocollen voor de beste gebruikerservaring.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">Zowel UDP als TCP gebruiken</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Alleen TCP gebruiken</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">Ofwel UDP ofwel TCP gebruiken</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Alleen TCP gebruiken</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Netwerkdetectie op de server selecteren</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">Met deze beleidsinstelling kunt u bepalen hoe het Remote Desktop Protocol de netwerkkwaliteit (bandbreedte en latentie) probeert te detecteren.
@@ -1342,12 +1482,13 @@ OPMERKING: de beleidsinstelling schakelt taakverdeling voor GPU's (graphics proc
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Een door komma's gescheiden lijst van vertrouwde SHA1-certificaatvingerafdrukken:</label>
+          <label>Door komma's gescheiden lijst met vingerafdrukken van vertrouwde certificaten (voorvoegsel met sha256:, sha384:, of sha512:):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">SHA-1-vingerafdrukken niet toestaan</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Een door komma's gescheiden lijst van vertrouwde SHA1-certificaatvingerafdrukken:</label>
+          <label>Door komma's gescheiden lijst met vingerafdrukken van vertrouwde certificaten (voorvoegsel met sha256:, sha384:, of sha512:):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1385,6 +1526,12 @@ OPMERKING: de beleidsinstelling schakelt taakverdeling voor GPU's (graphics proc
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Transporttype selecteren</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Klembordoverdracht van server naar client beperken:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Klembordoverdracht van client naar server beperken:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

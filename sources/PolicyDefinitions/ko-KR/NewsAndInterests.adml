@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>여기에 표시 이름 입력</displayName>
+  <description>여기에 설명 입력</description>
+  <resources>
+    <stringTable>
+      <string id="NewsAndInterests">위젯</string>
+      <string id="AllowNewsAndInterests">위젯 허용</string>
+      <string id="Explain_AllowNewsAndInterests">이 정책은 디바이스에서 위젯 기능이 허용되는지 여부를 지정합니다.
+위젯은 설정에서 변경하지 않는 한 기본적으로 켜있습니다.
+이전에 이 기능을 켠 경우 기능을 끄지 않으면 자동으로 켜집니다.</string>
+      <string id="DisableWidgetsOnLockScreen">잠금 화면에서 위젯 비활성화</string>
+      <string id="Explain_DisableWidgetsOnLockScreen">이 정책은 잠금 화면에서 위젯 기능을 사용하지 않도록 설정할지 여부를 지정합니다.
+이 정책 설정을 사용하지 않거나 구성하지 않으면 위젯이 잠금 화면에 나타나며 Windows 설정 앱에서 관리할 수 있습니다.
+이 정책 설정을 사용하면 위젯이 잠금 화면에 나타나지 않습니다.</string>
+      <string id="DisableWidgetsBoard">위젯 보드 사용 안 함</string>
+      <string id="Explain_DisableWidgetsBoard">이 정책은 위젯 보드 환경을 사용하지 않도록 설정할지 여부를 지정합니다. 
+이 정책 설정을 사용하지 않거나 구성하지 않으면 위젯 보드를 호출하고 작업 표시줄에서 해당 진입점을 볼 수 있습니다. 위젯 보드 환경은 진입점이 위젯 보드에 있는 위젯 설정에서 관리할 수 있습니다.
+이 정책 설정을 사용하면 위젯 보드를 호출할 수 없으며 해당 진입점이 작업 표시줄에 더 이상 나타나지 않습니다.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

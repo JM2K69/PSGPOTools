@@ -77,6 +77,14 @@ Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane,
 Uwaga: to ustawienie zasad i pokrewne ustawienia zasad w tym folderze wspólnie definiują reakcję systemu w przypadkach, gdy profile użytkowników mobilnych są pobierane powoli. Aby dostosować czas, w ciągu którego użytkownik musi odpowiedzieć na to powiadomienie w systemach wcześniejszych niż Microsoft Windows Vista, użyj ustawienia zasad „Limit czasu dla okien dialogowych”.
 
 Ważne: jeśli ustawienie „Nie wykrywaj powolnych połączeń sieciowych” jest włączone, to ustawienie zasad jest ignorowane. Jeśli jest włączone ustawienie zasad „Usuwaj buforowane kopie profilów mobilnych”, to w przypadku wykrycia powolnego połączenia w systemie nie ma żadnej lokalnej kopii profilu mobilnego do załadowania.</string>
+      <string id="AllowNonStandardUserProfilePaths">Zezwalaj na gałęzie rejestru profilu użytkownika i folder AppData z niestandardowych ścieżek</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">To ustawienie zasad określa, czy gałęzie rejestru profilu użytkownika i lokalizacje folderów AppData mogą akceptować niestandardowe formaty ścieżek.
+
+Jeśli włączysz to ustawienie zasad, lokalizacje profilu użytkownika będą akceptować szerszy zakres formatów ścieżek plików.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, lokalizacje profilu użytkownika będą akceptować tylko standardowe ścieżki folderów systemu Windows.
+
+Uwaga: włączenie tego ustawienia może narazić system na zagrożenia bezpieczeństwa. Włączaj je tylko wtedy, gdy wymaga tego konkretna aplikacja w organizacji, i dopiero po dokonaniu oceny wszystkich zagrożeń dla środowiska.</string>
       <string id="ExcludeDirectories">Wyklucz katalogi w profilu mobilnym</string>
       <string id="ExcludeDirectories_Help">To ustawienie zasad pozwala wykluczyć foldery, które zwykle znajdują się w profilu użytkownika. W rezultacie te foldery nie muszą być przechowywane na serwerze sieciowym, na którym znajduje się profil, i nie są przenoszone dla użytkowników na inne komputery.
 
@@ -334,7 +342,7 @@ W ścieżce nie należy używać zmiennych środowiskowych ani wielokropków. Ni
 
 Uwaga: w razie wybrania z listy Lokalizacja pozycji „Na komputerze lokalnym” pole Litera dysku jest ignorowane. W razie wybrania pozycji „Na komputerze lokalnym” i podania udziału plików folder macierzysty użytkownika zostanie umieszczony w tej lokalizacji sieciowej bez mapowania udziału plików na literę dysku.
 
-Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, folder macierzysty użytkownika zostanie skonfigurowany tak, jak to określono na koncie tego użytkownika w usługach domenowych Active Directory.
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, folder macierzysty użytkownika zostanie skonfigurowany tak, jak to określono na koncie tego użytkownika w Active Directory Domain Services.
 
 Jeśli jest włączone ustawienie zasad „Ustaw katalog macierzysty użytkownika usług pulpitu zdalnego”, ustawienie zasad „Ustaw folder macierzysty użytkownika” nie odnosi żadnego skutku.</string>
       <string id="on_the_Local_Computer">Na komputerze lokalnym</string>

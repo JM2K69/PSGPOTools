@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>entrer le nom complet ici</displayName>
+  <description>entrer la description ici</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Démarrage sécurisé</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Déploiement de certificats par le biais du déploiement contrôlé de fonctionnalités</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">Pour les entreprises qui souhaitent obtenir de l’aide pour déployer les nouveaux certificats de démarrage sécurisé sur leurs appareils, ce paramètre peut être activé.
+
+ 
+
+Note : l’appareil doit envoyer les données de diagnostic requises à Microsoft pour utiliser cette fonctionnalité.
+
+ 
+
+Pour plus d’informations, consultez : https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Déploiement automatique de certificats par le biais des mises à jour</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">Pour les appareils dont les résultats de test indiquent qu’ils peuvent traiter avec succès les mises à jour des certificats, celles-ci seront lancées automatiquement dans le cadre des mises à jour de maintenance. Cette stratégie est activée par défaut. Pour les entreprises qui souhaitent gérer la mise à jour automatique, utilisez cette stratégie pour activer ou désactiver explicitement la fonctionnalité.
+
+ 
+
+Pour plus d’informations, consultez : https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Activez le déploiement du certificat de démarrage sécurisé</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Ce paramètre de stratégie vous permet d’activer ou de désactiver le processus de déploiement des certificats de démarrage sécurisé sur les appareils. Lorsqu’il est activé, Windows lance automatiquement le processus de déploiement des certificats sur les appareils auxquels cette stratégie a été appliquée. 
+
+ 
+
+Remarque : ce paramètre de registre n’est pas stocké dans une clé de stratégie, et est considéré comme une préférence. Par conséquent, si l’objet de stratégie de groupe qui implémente ce paramètre est supprimé, ce paramètre de Registre restera. 
+
+ 
+
+Remarque : la tâche Windows qui exécute et traite ce paramètre s’exécute à toutes les 12 heures. Dans certains cas, les mises à jour sont retenues jusqu’au redémarrage du système afin d’assurer un séquençage sécurisé des mises à jour. 
+
+ 
+
+Remarque : une fois que les certificats sont appliqués au microprogramme, vous ne pouvez pas les annuler depuis Windows. Si un effacement des certificats est nécessaire, il doit être effectué depuis l’interface du menu du microprogramme. 
+
+ 
+
+Pour plus d’informations, consultez https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Limiter les données de service requises pour le démarrage sécurisé</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Ce paramètre de stratégie contrôle si le système d’exploitation émet l’événement quotidien de données de service requis pour Démarrage sécurisé. L’événement contient des informations sur la configuration de Démarrage sécurisé de l’appareil et sur l’état des variables du microprogramme, et il est normalement envoyé quel que soit le niveau de données de diagnostic « Autoriser la télémétrie », car il est classé comme requis pour la sécurité.
+
+ 
+
+En activant ce paramètre de stratégie, l’événement quotidien de données de service requis pour Démarrage sécurisé ne sera pas émis. Cette option est destinée aux entreprises qui fonctionnent avec la base de référence Windows Restricted Traffic Limited Functionality.
+
+ 
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, le système d’exploitation continue d’émettre l’événement de données de service requis pour Démarrage sécurisé conformément aux règles existantes d’autorisation de la télémétrie.</string>
+
+      <string id="SUPPORTED_Windows8">Au minimum Windows Server 2012, Windows 8 ou Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

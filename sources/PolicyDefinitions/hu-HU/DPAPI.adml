@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>DPAPI</displayName>
+  <description>A DPAPI-beállítások konfigurálása</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod">A DPAPI biztonságimásolat-kulcsok rotációs időszakának beállítása</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">Ez a házirend-beállítás határozza meg a DPAPI biztonságimásolat-kulcsok rotációs időszakát. 
+Ezzel a beállítással felülbírálhatja 90 napos alapértelmezett értéket. Állítsa 0-ra a DPAPI biztonságimásolat-kulcsok rotációjának letiltásához. 
+Ha engedélyezi ezt a házirend-beállítást, adja meg, hány napig várjon a rendszer, mielőtt új DPAPI biztonságimásolat-kulcsot hoz létre. 
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a rendszer az alapértelmezett 90 napos értéket használja.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">Adja meg a DPAPI biztonságimásolat-kulcsok rotációs időszakát napokban. 
+Állítsa 0-ra a DPAPI biztonságimásolat-kulcsok rotációjának letiltásához.</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

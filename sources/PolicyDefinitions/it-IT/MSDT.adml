@@ -60,33 +60,34 @@ Per rendere effettiva questa impostazione dei criteri non sono necessari riavvii
 
 </string>
 <string id="TroubleshootingAllowRecommendations">Risoluzione dei problemi: consenti agli utenti di accedere alla risoluzione dei problemi consigliata per i problemi noti</string>
-<string id="TroubleshootingAllowRecommendationsExplain">Questa impostazione dei criteri si applica alle attività di risoluzione consigliate per i problemi noti del dispositivo e consente agli amministratori di configurare la modalità di applicazione ai domini/ambienti IT.
-Se questa impostazione dei criteri non viene configurata, l'utente potrà configurare la modalità e i tempi di applicazione delle attività di risoluzione dei problemi consigliate.
+<string id="TroubleshootingAllowRecommendationsExplain">Questa impostazione dei criteri configura la modalità di applicazione della risoluzione dei problemi noti nel dispositivo e consente agli amministratori di configurarne l'applicazione in domini/ambienti IT.
 
-Se questi criteri vengono abilitati, è possibile configurare il modo in cui le attività di risoluzione dei problemi consigliate vengono applicate al dispositivo. Puoi selezionare uno dei valori seguenti:
-0 = Disattiva questa funzionalità.
-1 = Disattiva questa funzionalità, ma applica comunque le attività di risoluzione dei problemi critici.
-2 = Comunica agli utenti la disponibilità di attività di risoluzione dei problemi consigliate, quindi consenti all'utente di eseguirle o ignorarle.
-3 = Esegui automaticamente le attività di risoluzione dei problemi consigliate e informa l'utente quando risultano completate correttamente.
-4 = Esegui automaticamente le attività di risoluzione dei problemi consigliate, senza inviare comunicazioni all'utente.
-5 = Consenti all'utente di scegliere le impostazioni delle attività di risoluzione dei problemi consigliate.
+Se questa impostazione dei criteri non è configurata, sarà l'utente a configurare l'applicazione della risoluzione dei problemi.
 
-Dopo aver configurato questa nuova impostazione, per attivare le attività di risoluzione dei problemi consigliate per i dispositivi nel dominio, segui queste istruzioni:
-1. Crea uno script bat con il seguente contenuto:
-rem Lo script batch seguente attiva Risoluzione dei problemi consigliata
-C:\Windows\System32\mitigationscanner.exe
+L'abilitazione di questo criterio consente di configurare la modalità di applicazione della risoluzione dei problemi nel dispositivo dell'utente. È possibile scegliere uno dei valori seguenti:
+0 = Non consente a utenti, funzionalità di sistema o a Microsoft di applicare la risoluzione dei problemi 
+1 = Consente l'applicazione automatica della risoluzione dei problemi solo per i problemi critici alle funzionalità di sistema e a Microsoft
+2 = Consente l'applicazione automatica della risoluzione dei problemi per i problemi critici alle funzionalità di sistema e a Microsoft. Informa gli utenti quando è disponibile una risoluzione per altri problemi e consente agli utenti di applicarla o ignorarla.
+3 = Consente l'applicazione automatica della risoluzione dei problemi per problemi critici o di altro tipo alle funzionalità di sistema e a Microsoft. Informa gli utenti quando la risoluzione ha consentito di risolvere un problema.
+4 = Consente l'applicazione automatica della risoluzione dei problemi per problemi critici o di altro tipo alle funzionalità di sistema e a Microsoft. Non informa gli utenti quando la risoluzione ha consentito di risolvere un problema.
+5 = Consente all'utente di scegliere impostazioni personalizzate per la risoluzione dei problemi.
 
-2. Per creare una nuova attività immediata, vai a Editor Gestione Criteri di gruppo &gt; Configurazione computer &gt; Preferenze e seleziona Impostazioni del Pannello di controllo. 
-3. In Impostazioni del Pannello di controllo fai clic con il pulsante destro del mouse su Attività pianificate e seleziona Nuovo. Seleziona Attività immediata (almeno Windows 7).
-4. Specifica nome e descrizione, quindi in Opzioni di sicurezza imposta l'account utente su Sistema e seleziona la casella di controllo Esegui con i privilegi più elevati.
-5. Nella scheda Azioni crea una nuova azione, seleziona Avvia un programma come tipo, quindi immetti il file creato nel passaggio 1.
-6. Configura l'attività per distribuire il dominio.</string>
-<string id="RecommendationsDropDown_DoNothing">Disattiva questa funzione</string>
-<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Disattiva questa funzionalità, ma applica comunque le attività di risoluzione dei problemi critici.</string>
-<string id="RecommendationsDropDown_AskFirst">Comunica agli utenti la disponibilità di attività di risoluzione dei problemi consigliate, quindi consenti all'utente di eseguirle o ignorarle.</string>
-<string id="RecommendationsDropDown_ApplyThenNotify">Esegui automaticamente le attività di risoluzione dei problemi consigliate e informa l'utente quando risultano completate correttamente.</string>
-<string id="RecommendationsDropDown_ApplySilently">Esegui automaticamente le attività di risoluzione dei problemi consigliate, senza inviare comunicazioni all'utente.</string>
-<string id="RecommendationsDropDown_DeferToUser">Consenti all'utente di scegliere le impostazioni delle attività di risoluzione dei problemi consigliate.</string>
+Dopo aver impostato questo criterio, è possibile usare le istruzioni seguenti per verificare la disponibilità di risoluzioni dei problemi disponibili per i dispositivi offerte da Microsoft:
+1. Creare uno script bat con il contenuto seguente:
+rem Lo script batch seguente attiva la risoluzione dei problemi consigliata
+schtasks /run /TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner"
+
+2. Per creare una nuova attività immediata, passare a Editor Gestione Criteri di gruppo &gt; Configurazione computer &gt; Preferenze e selezionare Impostazioni del Pannello di controllo. 
+3. In Impostazioni del Pannello di controllo fare clic con il pulsante destro del mouse su Attività pianificate e selezionare Nuova. Selezionare Attività immediata (almeno Windows 7).
+4. Specificare nome e descrizione desiderati, quindi in Opzioni di sicurezza impostare l'account utente su Sistema e selezionare la casella di controllo Esegui con i privilegi più elevati.
+5. Nella scheda Azioni creare una nuova azione, impostarne il tipo su Avvio programma, quindi immettere il file creato al passaggio 1.
+6. Configurare l'attività da distribuire nel dominio.</string>
+<string id="RecommendationsDropDown_DoNothing">Non consentire agli utenti, alle funzionalità di sistema o a Microsoft di applicare la risoluzione dei problemi.</string>
+<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Applica automaticamente la risoluzione dei problemi a errori critici per le funzionalità di sistema e Microsoft.</string>
+<string id="RecommendationsDropDown_AskFirst">Applica automaticamente la risoluzione dei problemi critici per le funzionalità di sistema e Microsoft. Notifica gli utenti quando è disponibile una risoluzione per altri problemi e consenti agli utenti di scegliere se applicarla o ignorarla.</string>
+<string id="RecommendationsDropDown_ApplyThenNotify">Applica automaticamente la risoluzione dei problemi per critici e altri problemi in base alle funzionalità di sistema e a Microsoft. Notifica gli utenti quando la risoluzione dei problemi ha risolto un problema.</string>
+<string id="RecommendationsDropDown_ApplySilently">Applica automaticamente la risoluzione dei problemi per critici e altri problemi in base alle funzionalità di sistema e a Microsoft. Non notificare gli utenti quando la risoluzione dei problemi ha risolto un problema.</string>
+<string id="RecommendationsDropDown_DeferToUser">Consenti all'utente di scegliere le impostazioni delle attività di risoluzione dei problemi.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MsdtToolDownloadPolicy">

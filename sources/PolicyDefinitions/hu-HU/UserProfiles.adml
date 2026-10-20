@@ -77,6 +77,14 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a rendszer nem
 Megjegyzés: Ez a házirend-beállítás és a mappában található kapcsolódó házirend-beállítások határozzák meg a rendszer válaszát, ha a központi felhasználói profilok letöltése túlságosan lassú. A Microsoft Windows Vista rendszernél korábbi operációs rendszerekben az értesítésre adott felhasználói válasz időkorlátjának meghatározásához a „Párbeszédpanelek megengedett időtúllépése” házirend-beállítás használható.
 
 Fontos: Ha a „Ne érzékelje a lassú hálózati kapcsolatokat” beállítás engedélyezve van, akkor a rendszer figyelmen kívül hagyja ezt a házirend-beállítást. Ezenkívül, ha a „Központi profilok gyorsítótárba helyezett példányainak törlése” beállítás engedélyezve van, a központi profilról nem áll rendelkezésre helyi példány arra az esetre, ha a rendszer lassú hálózati kapcsolatot észlel.</string>
+      <string id="AllowNonStandardUserProfilePaths">Felhasználói profil beállításjegyzék-struktúráinak és AppData adatainak engedélyezése nem szabványos elérési utakról</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Ez a házirend-beállítás szabályozza, hogy a felhasználói profilok beállításstruktúrái és az AppData mappahelyek elfogadhatnak-e nem szabványos elérési útformátumokat.
+
+Ha engedélyezi ezt a házirend-beállítást, a felhasználói profilhelyek a fájlelérési utak szélesebb körét fogadják el.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasználói profilhelyek csak a szabványos Windows mappaútvonalakat fogadják el.
+
+Megjegyzés: A beállítás engedélyezése biztonsági kockázatoknak teheti ki a rendszert. Csak akkor engedélyezze, ha a szervezetében egy adott alkalmazás megköveteli, és csak azután, hogy felmérte az összes kockázatot a környezetében.</string>
       <string id="ExcludeDirectories">Központi profil könyvtárainak kizárása</string>
       <string id="ExcludeDirectories_Help">Ezzel a házirend-beállítással olyan mappákat zárhat ki, amelyek egyébként szerepelnének a felhasználói profilban. Ennek következtében ezeket a mappákat nem kell azon a hálózati kiszolgálón tárolni, amelyen a profil található, és nem követik a felhasználókat más számítógépekre.
 

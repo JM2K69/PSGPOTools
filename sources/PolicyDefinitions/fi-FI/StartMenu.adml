@@ -27,12 +27,11 @@ Jos poistat tämän käytännön käytöstä tai et määritä sitä, Näytä ka
 Jos poistat tämän käytännön käytöstä tai et määritä sitä, Näytä lisää tuloksia- tai Etsi kaikkialta -linkki näytetään, kun käyttäjä tekee haun Käynnistä-valikon hakuruudussa.  Jos asennettuna on jokin kolmannen osapuolen protokollakäsittely, Etsi kaikkialta -linkki näytetään Näytä lisää tuloksia -linkin sijaan.</string>
       <string id="AddSearchInternetLinkInStartMenu">Lisää Etsi Internetistä -linkki Käynnistä-valikkoon</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
+Jos otat tämän käytännön käyttöön, Etsi Internetistä -linkki näytetään, kun käyttäjä tekee haun Käynnistä-valikon hakuruudussa.  Tämä painike käynnistää oletusselaimen, jossa on hakusanat.
 
-Jos otat tämän käytännön käyttöön, Etsi Internetistä -linkki näytetään, kun käyttäjä tekee haun Käynnistä-valikon hakuruudussa.  Tämä painike käynnistää oletusselaimen ja etsii hakuehtoja.
+Jos poistat tämän käytännön käytöstä, Etsi Internetistä -linkkiä ei tule, kun käyttäjä tekee haun Käynnistä-valikon hakuruudussa.
 
-Jos poistat tämän käytännön käytöstä, Etsi Internetistä -linkkiä ei näytetä, kun käyttäjä tekee haun Käynnistä-valikon hakuruudussa.
-          
-Jos et määritä tätä käytäntöä (oletusasetus), Etsi Internetistä -linkkiä ei ole Käynnistä-valikossa.</string>
+Jos et määritä tätä käytäntöä (oletus), Käynnistä-valikossa ei ole Etsi Internetistä -linkkiä.</string>
       <string id="NoSearchFilesInStartMenu">Älä etsi tiedostoja</string>
       <string id="NoSearchFilesInStartMenu_Help">Jos otat tämän käytäntöasetuksen käyttöön, Käynnistä-valikon hakuruutu ei etsi tiedostoja.
 
@@ -207,6 +206,19 @@ Etsi-linkki näkyy yhä Resurssienhallinnan vakiotyökalurivillä, mutta järjes
 Tämä käytäntöasetus vaikuttaa vain määritettyihin käyttöliittymän osiin. Se ei vaikuta Internet Exploreriin tai estä käyttäjää käyttämästä muita hakutapoja.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Etsi-linkki on käytettävissä Käynnistä-valikossa.</string>
+      <string id="ShowOrHideMostUsedApps">Näytä tai piilota aloitusvalikon Eniten käytetty -luettelo</string>
+      <string id="ShowOrHideMostUsedApps_Help">Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää, näytetäänkö aloitusvalikossa käyttäjän useimmiten käyttämät sovellukset käyttäjäasetuksista huolimatta.
+
+Näytä-valinta pakottaa Eniten käytetyt -luettelon näkyviin, eikä käyttäjä voi piilottaa sitä Asetukset-sovelluksella.
+
+Piilota-valinta pakottaa Eniten käytetyt -luettelon pois näkyvistä, eikä käyttäjä voi tuoda sitä näkyviin Asetukset-sovelluksella.
+
+Jos valitset Ei määritetty -valinnan tai jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjät voivat ottaa Eniten käytetyt -luettelon esiin tai piilottaa sen Asetukset-sovelluksella. Tämä on oletusarvoinen toiminta.
+
+Huomautus: Jos määrität tämän käytäntöasetuksen arvoksi Näytä tai Piilota, Windows 10:n tuetut versiot ohittavat kaikki ”Poista usein käytetyt ohjelmat Käynnistä-valikosta”-käytäntöasetukset. (Tämä valinta hallinnoi samaa aloitusvalikkoa, mutta siinä on vähemmän vaihtoehtoja.)</string>
+      <string id="MFU_NotConfigured">Ei määritetty</string>
+      <string id="MFU_Show">Näytä</string>
+      <string id="MFU_Hide">Piilota</string>
       <string id="NoFrequentUsedPrograms">Poista usein käytetyt ohjelmat Käynnistä-valikosta</string>
       <string id="NoFrequentUsedPrograms_Help">Jos otat tämän asetuksen käyttöön, viimeksi käytettyjen ohjelmien luettelo poistetaan Käynnistä-valikosta.
 
@@ -243,7 +255,7 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, kaikkien sove
       <string id="APPLIST_NONE">Ei mitään</string>
       <string id="APPLIST_COLLAPSE">Tiivistä</string>
       <string id="APPLIST_COLLAPSESETTING">Tiivistä ja poista asetus käytöstä</string>
-      <string id="APPLIST_REMOVESETTING">Poista ja poista asetus käytöstä</string>    
+      <string id="APPLIST_REMOVESETTING">Poista ja poista asetus käytöstä</string>
 
       <string id="NoNetAndDialupConnect">Poista Verkkoyhteydet Käynnistä-valikosta</string>
       <string id="NoNetAndDialupConnect_Help">Tämän käytäntöasetuksen avulla voit poistaa Verkkoyhteydet-vaihtoehdon Käynnistä-valikosta.
@@ -258,11 +270,11 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Ve
 
 Katso myös Poista Asetukset-valikon ohjelmat- ja Poista Ohjauspaneeli -käytäntöasetukset sekä Verkkoyhteydet-kansion käytäntöasetukset (Tietokoneasetukset ja Käyttäjäasetukset\Hallintamallit\Verkko\Verkkoyhteydet).</string>
       <string id="NoPinnedPrograms">Poista kiinnitettyjen ohjelmien luettelo Käynnistä-valikosta</string>
-      <string id="NoPinnedPrograms_Help">Jos otat tämän asetuksen käyttöön, kiinnitettyjen ohjelmien luettelo poistetaan Käynnistä-valikosta. Käyttäjät eivät pysty kiinnittämään ohjelmia Käynnistä-valikkoon. 
+      <string id="NoPinnedPrograms_Help">Jos otat tämän asetuksen käyttöön, Kiinnitettyjen ohjelmien luettelo poistetaan aloitusvalikko. Käyttäjät eivät voi kiinnittää ohjelmia aloitusvalikko.
 
-Windows XP:ssä ja Windows Vistassa Internetin ja sähköpostin valintaruudut poistetaan Käynnistä-valikon mukauttaminen -valintaikkunasta. 
+Windows XP:ssä ja Windows Vistassa Internetin ja sähköpostin valintaruudut poistetaan Käynnistä-valikon mukauttaminen -valintaikkunasta.
 
-Jos poistat tämän asetuksen käytöstä tai et määritä sitä, kiinnitettyjen ohjelmien luettelo näytetään edelleen Käynnistä-valikossa. Käyttäjät voivat kiinnittää ohjelmia Käynnistä-valikkoon ja irrottaa niitä.</string>
+Jos poistat tämän asetuksen käytöstä tai et määritä sitä, Kiinnitettyjen ohjelmien luettelo pysyy aloitusvalikko. Käyttäjät voivat kiinnittää ohjelmia aloitusvalikkoon ja poistaa niistä kiinnityksen.</string>
       <string id="NoRecentDocsHistory">Älä pidä kirjaa viimeksi avatuista tiedostoista</string>
       <string id="NoRecentDocsHistory_Help">Tämä asetus estää käyttöjärjestelmää ja asennettuja ohjelmia luomasta ja näyttämästä viimeksi avattujen tiedostojen pikakuvakkeita.
 
@@ -318,31 +330,29 @@ Huomautus: tämä käytäntöasetus koskee vain NTFS-osioissa sijaitsevia kohdet
 
 Katso myös Älä jäljitä liittymän pikakuvakkeita käytettäessä palvelimessa sijaitsevaa profiilia- ja Älä käytä hakupohjaisia menetelmiä liittymän pikakuvakkeiden ratkaisemiseen -käytäntöasetukset.</string>
       <string id="NoRun">Poista Suorita-komento Käynnistä-valikosta</string>
-      <string id="NoRun_Help">Tämän asetuksen avulla voit poistaa Suorita-komennon Käynnistä-valikosta, Internet Explorerista ja Tehtävienhallinnasta.
+      <string id="NoRun_Help">Tämän avulla voit poistaa Suorita-komennon aloitusvalikko, Internet Explorer ja Tehtävienhallinta.
 
-Tämän asetuksen käyttöönotto aiheuttaa seuraavat muutokset:
+Jos otat tämän asetuksen käyttöön, seuraavat muutokset tapahtuvat:
 
-(1) Suorita-komento poistetaan Käynnistä-valikosta.
+(1) Suorita-komento poistetaan aloitusvalikko.
 
-(2) Uusi tehtävä (Suorita) -komento poistetaan Tehtävienhallinnasta.
+(2) Uusi tehtävä (Suorita) -komento poistetaan Tehtävienhallinta.
 
-(3) Käyttäjää estetään käyttämästä seuraavia Internet Explorerin osoitepalkissa:
+(3) Käyttäjää estetään syöttämästä seuraavia Internet Explorer osoiteriville:
 
---- UNC-polut: \\&lt; palvelin&gt; \&lt; jakoresurssi&gt; 
+--- UNC-polku: \\&lt;server&gt;\&lt;share&gt;
 
----Paikalliset asemat: esimerkiksi C:
+---Käyttö paikalliset asemat: esimerkiksi C:
 
---- Paikalliset kansiot: esimerkiksi \&lt;temp&gt;
+--- Paikallisten kansioiden käyttäminen: esimerkiksi \temp&gt;
 
-Käyttäjät, joiden näppäimistössä on lisäpainikkeita, eivät voi käyttää Suorita-valintaikkunaa myöskään painamalla näppäinyhdistelmää Sovellusnäppäin (näppäin, jossa on Windows-logo) + R.
+Käyttäjät, joilla on laajennettu näppäimistö, eivät voi enää näyttää Suorita-valintaikkunaa painamalla Sovellusnäppäin (näppäin, jossa on Windows-logo) + R.
 
-Jos poistat tämän asetuksen käytöstä tai et määritä sitä, käyttäjät voivat käyttää Käynnistä-valikon ja Tehtävienhallinnan Suorita-komentoa ja Internet Explorerin osoitepalkkia.
+Jos poistat tämän asetuksen käytöstä tai et määritä sitä, käyttäjät voivat käyttää aloitusvalikko ja Tehtävienhallinta Suorita-komentoa sekä Internet Explorer osoiteriviä.
 
+Huomautus: tämä asetus vaikuttaa vain määritettyyn liittymään. Se ei estä käyttäjiä suorittamasta ohjelmia muilla keinoin.
 
-
-Huomautus: Tämä asetus vaikuttaa ainoastaan määritettyyn liittymään. Se ei estä käyttäjiä käyttämästä muita keinoja ohjelmien käynnistämiseen.
-
-Huomautus: Muiden valmistajien sovelluksilta edellytetään tätä asetusta Windows 2000:n ja uudempien versioiden sertifioinnissa.</string>
+Huomautus: Tämän asetuksen noudattaminen edellyttää, että kolmannen osapuolen sovellukset, joissa on Windows 2000 tai uudempi sertifiointi, noudattavat tätä asetusta.</string>
       <string id="NoSetFolders">Poista Asetukset-valikon ohjelmat</string>
       <string id="NoSetFolders_Help">Tämän käytäntöasetuksen avulla voit poistaa ohjelmat Asetukset-valikosta.
 
@@ -599,9 +609,9 @@ Jos otat tämän käytäntöasetuksen käyttöön, aloitusnäyttö näytetään 
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, aloitusnäyttö näytetään aina päänäytössä käyttäjän painaessa Windows-näppäintä. Käyttäjät voivat silti avata aloitusnäytön muissa näytöissä painamalla kyseisen näytön käynnistyspainiketta. Käyttäjä voi myös määrittää tämän käytäntöasetuksen.</string>
       <string id="ForceStartSize_DisplayName">Pakota Aloitus joko koko näytön kokoon tai valikkokokoon</string>
-      <string id="ForceStartSize_ExplainText">Jos otat tämän käytännön käyttöön ja määrität joko aloitusvalikon tai koko näytön aloitusnäytön, Aloitus on samankokoinen kaikille käyttäjille, eivätkä käyttäjät voi muuttaa sen kokoa asetuksissa.
+      <string id="ForceStartSize_ExplainText">Jos otat tämän käytännön käyttöön ja määrität sen aloitusvalikko tai koko näytön aloitusnäyttöön, aloitusnäyttö on samankokoinen, eivätkä käyttäjät voi muuttaa aloitusnäytön kokoa asetuksissa.
 
-Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittämättä, Windows valitsee koon automaattisesti laitemuodon mukaan, ja käyttäjät voivat muuttaa sitä asetuksissa.</string>
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Windows valitsee koon automaattisesti laitteiston lomaketekijän perusteella ja käyttäjät voivat muuttaa aloitusnäytön kokoa asetuksissa.</string>
       <string id="ForceLauncherSize_Collapsed">Aloitusvalikko</string>
       <string id="ForceLauncherSize_Expanded">Koko näytön kokoinen aloitusnäyttö</string>
       <string id="HidePeopleBar_DisplayName">Poista Ihmiset-palkki tehtäväpalkista</string>
@@ -612,10 +622,45 @@ Jos otat tämän käytännön käyttöön, Ihmiset-kuvake poistetaan tehtäväpa
       <string id="HideRecentlyAddedApps_Help">Tämä käytäntö antaa sinulle mahdollisuuden estää viimeksi asennettujen sovellusten luettelon näyttämisen aloitusvalikossa.
 
 Jos otat tämän käytännön käyttöön, aloitusvalikossa ei enää näytetä Viimeksi lisätty -luetteloa. Vastaava asetus poistetaan myös Asetukset-kohdassa käytöstä.</string>
+      <string id="HideRecommendedSection">Poista suositeltu osa aloitusvalikosta</string>
+      <string id="HideRecommendedSection_Help">Tämän käytännön avulla voit estää aloitusvalikkoa näyttämästä suositeltujen sovellusten ja tiedostojen luetteloa.
+
+Jos otat tämän käytäntöasetuksen käyttöön, aloitusvalikko ei enää näytä osiota, joka sisältää luettelon suositelluista tiedostoista ja sovelluksista.</string>
+ <string id="HideCategoryView">Piilota luokan näkymä aloitusvalikossa</string>
+ <string id="HideCategoryView_Help">Tämän käytäntöasetuksen avulla voit piilottaa luokkanäkymän Käynnistä-valikossa.
+ 
+Jos otat tämän käytäntöasetuksen käyttöön, Käynnistä-valikko ei enää näytä luokkanäkymää asetuksena ja käyttää oletusarvoisesti ruudukkonäkymää.</string>
+
+ <string id="ConfigureStartPins">Määritä aloituskiinnitykset</string>
+      <string id="ConfigureStartPins_Help">Sallii järjestelmänvalvojan ohittaa aloitukseen kiinnitetyt oletuskohteet.
+
+Tämän asetuksen avulla voit määrittää aloitukseen kiinnitetyt oletuskohteet.</string>
+
+      <string id="HideRecommendedPersonalizedSites">Poista mukautetut sivustosuositukset Aloitusvalikon Suositellut-osasta</string>
+      <string id="HideRecommendedPersonalizedSites_Help">Tämän käytäntöasetuksen avulla voit piilottaa aloitusvalikon ehdotusosiossa näkyvät mukautetut sivustot. 
+ 
+      
+Jos otat tämän käytäntöasetuksen käyttöön, aloitusvalikko ei enää näytä mukautettuja sivustosuosituksia ehdotusosiossa.</string>
       <string id="DisableContextMenusInStart">Poista pikavalikot aloitusvalikossa käytöstä</string>
       <string id="DisableContextMenusInStart_Help">Tämä käytäntö antaa sinulle mahdollisuuden estää käyttäjiä avaamasta aloitusvalikon pikavalikoita.
 
 Jos otat tämän käytännön käyttöön, aloitusvalikon pikavalikoiden kutsut ohitetaan.</string>
+      <string id="SimplifyQuickSettings_DisplayName">Yksinkertaista pika-asetusten asettelua</string>
+      <string id="SimplifyQuickSettings_ExplainText">Jos otat tämän käytännön käyttöön, pika-asetukset pienennetään niin, että niissä on vain WiFi-, Bluetooth-, Helppokäyttötoiminnot- ja VPN-painikkeet. kirkkauden ja äänenvoimakkuuden liukusäätimiä; ja akun ilmaisin ja linkki Asetukset-sovellukseen.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tavallinen pika-asetusten asettelu tulee näkyviin aina, kun pika-asetukset käynnistetään.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">Poista pika-asetusten muokkaaminen käytöstä</string>
+      <string id="DisableEditingQuickSettings_ExplainText">Jos otat tämän käytännön käyttöön, käyttäjä ei voi muokata pika-asetuksia.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjä voi muokata pika-asetuksia, kuten painikkeiden kiinnityksen tai kiinnityksen poistamisen.</string>
+      <string id="DisableControlCenter">Poista pika-asetukset</string>
+      <string id="DisableControlCenter_Help">Tämä käytäntöasetus poistaa pika-asetukset tehtäväpalkin oikeasta alareunasta.
+
+Pika-asetusalue sijaitsee tehtäväpalkin vasemmalla puolella ja sisältää nykyisen verkon ja aseman kuvakkeet.
+
+Jos tämä asetus on käytössä, pika-asetukset eivät näy pika-asetusten alueella. 
+
+Tämä käytäntöasetus tulee voimaan vasta, kun tietokone käynnistetään uudelleen.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +677,22 @@ Jos otat tämän käytännön käyttöön, aloitusvalikon pikavalikoiden kutsut 
           <label>Aloitusnäytön asettelutiedosto</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">Ota asettelu uudelleen käyttöön jokaisen kirjautumisen yhteydessä</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">Valitse jokin seuraavista kokovaihtoehdoista</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">Valitse jokin seuraavista toiminnoista</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>Aloituskiinnitysten asettelutiedosto</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">Piilota luokan näkymä</checkBox>
       </presentation>
     </presentationTable>
   </resources>

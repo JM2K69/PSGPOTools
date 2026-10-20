@@ -119,6 +119,51 @@ Jos et määritä tai poista käytöstä tätä asetusta, synkronointi käyttöp
         Jos et määritä tai poista käytöstä tätä asetusta, Aloitusnäytön asettelu -ryhmän synkronointi on käytössä oletusarvoisesti ja käyttäjän määritettävissä.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">Älä synkronoi helppokäyttöasetuksia</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        Estä helppokäyttötoimintojen ryhmän synkronointi sekä tietokoneeseen että tietokoneesta. Tämä poistaa käytöstä helppokäyttöisyysryhmän Windowsin varmuuskopioinnin asetussivulla Tietokoneen asetukset.
+
+Jos otat tämän käytäntöasetuksen käyttöön, helppokäyttöisyysryhmää ei synkronoida.
+
+Jos valitset Salli käyttäjien ottaa helppokäyttöisyyden synkronointi käyttöön -asetuksen, synkronointi on oletuksena pois käytöstä, mutta asetus on valittavissa.
+
+Jos et määritä tai poista käytöstä tätä asetusta, helppokäyttötoimintojen ryhmän synkronointi on käytössä oletusarvon mukaan ja käyttäjän määritettävissä.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">Älä synkronoi kieliasetuksia</string>
+      <string id="DisableLanguageSettingSync_Help">
+        Estä Kieliasetukset-ryhmän synkronointi sekä tietokoneeseen että tietokoneesta. Tämä poistaa käytöstä kieliasetukset-ryhmän Windowsin varmuuskopioinnin asetussivulla Tietokoneen asetukset.
+
+Jos otat tämän käytäntöasetuksen käyttöön, Kieliasetukset-ryhmää ei synkronoida.
+
+Jos valitset Salli käyttäjien ottaa kieliasetusten synkronointi käyttöön -asetuksen, synkronointi on oletuksena pois käytöstä, mutta asetus on valittavissa.
+
+Jos et määritä tai poista käytöstä tätä asetusta, kieliasetusten synkronointi on käytössä oletusarvon mukaan ja käyttäjän määritettävissä.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Ota Windowsin varmuuskopiointi käyttöön</string>
+      <string id="EnableWindowsBackup_Help">Tämän käytäntöasetuksen avulla järjestelmänvalvojat voivat määrittää ja hallita organisaationsa Windows-asetusten varmuuskopiointia.
+
+Jos otat tämän käytäntöasetuksen käyttöön, Windows-asetukset varmuuskopioidaan säännöllisesti.
+
+Jos poistat tämän käytäntöasetuksen käytöstä, Windows-asetusten varmuuskopiointia ei suoriteta.
+
+Jos tätä käytäntöasetusta ei ole määritetty, Windows-asetukset varmuuskopioidaan säännöllisesti kelpoisuuden perusteella.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Ota Windowsin palautus käyttöön</string>
+      <string id="EnableWindowsRestore_Help">Tämän käytäntöasetuksen avulla järjestelmänvalvojat voivat määrittää Windowsin asetusten palauttamisen ja hallita sitä organisaatiossaan.
+
+Jos otat tämän käytäntöasetuksen käyttöön, Windowsin asetusten palauttaminen otetaan käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Windowsin asetusten palauttaminen poistetaan käytöstä.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Jos et määritä tai poista käytöstä tätä asetusta, synkronointi käyttöp
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">Salli käyttäjien ottaa aloitusnäytön asettelun synkronointi käyttöön.</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Salli käyttäjien ottaa helppokäyttöisyyden synkronointi käyttöön.</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Salli käyttäjien ottaa kieliasetusten synkronointi käyttöön.</checkBox>
       </presentation>
 
     </presentationTable>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>在此輸入顯示名稱</displayName>
+  <description>在此輸入描述</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">關閉 Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot_Help">此原則設定可讓您關閉 Windows Copilot。
+
+如果啟用此原則設定，使用者將無法使用 Copilot。Copilot 圖示也不會出現在工作列上。
+
+如果停用或未設定此原則設定，使用者將能夠在系統提供他們 Copilot 時，進行使用。
+      </string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="DisableAIDataAnalysis">關閉儲存快照以與 [回顧] 搭配使用
+      </string>
+      <string id="DisableAIDataAnalysis_Help">此原則設定可讓您決定是否可以儲存螢幕快照集以搭配 回顧。受管理的裝置預設不會啟用 回顧的快照。IT 系統管理員無法自行啟用代表其用戶儲存快照集。選擇啟用儲存快照集需要個別使用者選擇加入同意。
+
+如果未設定原則，將不會儲存快照集以搭配 回顧。
+
+如果啟用此原則，將不會儲存快照集供 回顧 使用。如果快照集先前儲存在裝置上，則啟用此原則時將會刪除。
+
+如果您將此原則設定為停用，使用者可以選擇儲存螢幕快照，並使用 回顧 來尋找他們已在裝置上看到的內容。
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">設定 [回顧] 所使用的快照儲存空間上限
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">這個原則設定讓您控制 Windows 可使用的最大磁碟空間值以儲存螢幕擷取畫面進行 [回顧]。
+
+您可以將螢幕擷取畫面的最大磁碟空間量設定為 10、25、50、75、100 或 150 GB。
+
+未設定此設定時，作業系統會根據裝置儲存空間容量設定快照的儲存區配置，直到目前的使用者指定其他值為止。
+
+當裝置儲存容量為 256 GB 時，會配置 25 GB。當裝置儲存容量為 512 GB 時，會配置 75 GB。當裝置儲存空間容量為 1 TB 或以上時，會配置 150 GB。
+
+如果同時設定了 [回顧] 的儲存持續時間上限和儲存空間上限，則當達到第一個上限時，系統會將快照刪除。
+
+重要: 此設定僅適用於 Enterprise 和 Education 用戶端 SKU。
+      </string>
+      <string id="SetMaximumStorageSpace_Default">讓作業系統根據磁碟機儲存空間大小定義最大儲存量</string>
+      <string id="SetMaximumStorageSpace_10GB">10GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">設定儲存 [回顧] 所使用之螢幕擷取畫面的持續時間上限
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">這個原則設定讓您控制 Windows 儲存快照進行 [回顧] 的時間 (天數) 上限。
+
+啟用此原則時，您可以將儲存持續時間上限設定為 30、60、90 或 180 天。
+
+未設定此原則時，除非目前的使用者指定不同的值，否則儲存持續時間上限為 90 天。
+
+如果同時設定了 [回顧] 的儲存持續時間上限和儲存空間上限，則當達到第一個上限時，系統會將快照刪除。
+
+重要: 此設定僅適用於 Enterprise 和 Education 用戶端 SKU。
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">讓作業系統定義快照的儲存時間上限
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 天</string>
+      <string id="SetMaximumStorageDuration_60Days">60 天</string>
+      <string id="SetMaximumStorageDuration_90Days">90 天</string>
+      <string id="SetMaximumStorageDuration_180Days">180 天</string>
+      <string id="SetDenyAppListForRecall">設定要從快照中篩選的應用程式清單以進行 [回顧]
+      </string>
+      <string id="SetDenyAppListForRecall_Help">此原則可讓您定義將不會包含在 回顧 之快照中的應用程式清單。
+
+使用者將能使用 回顧 設定新增要從快照集排除的其他應用程式。
+
+清單可包含 AUMID) 或可執行檔案名稱 (應用程式使用者模型識別碼。
+
+使用以分號分隔的應用程式清單，定義 回顧 的拒絕應用程式清單。
+
+例如： code.exe;Microsoft.WindowsNotepad_8wekyb3d8bbwe！App;ms-teams.exe
+
+重要： 此設定僅適用於 Enterprise and Education 用戶端 SKU。設定此原則設定時，變更必須等到裝置重新啟動後才會生效。
+      </string>
+      <string id="SetDenyUriListForRecall">設定要從 [回顧] 快照中篩選的 URI 清單
+      </string>
+      <string id="SetDenyUriListForRecall_Help">此原則設定可讓您定義使用支援的瀏覽器時，回顧 快照集中不會包含的 URI 清單。人員 可以使用 回顧 設定將更多網站新增至清單。使用分號來定義清單來分隔 URI。
+
+例如： https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+將 https://www.WoodgroveBank.com 新增至清單也會篩選 https://Account.WoodgroveBank.com 和 https://www.WoodgroveBank.com/Account.
+
+重要： 此設定僅適用於 Enterprise and Education 用戶端 SKU。這個原則的變更會在裝置重新啟動後生效。
+      </string>
+      <string id="SetDataLossPreventionProvider">設定回顧的 DLP 提供者識別碼
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">此原則可讓系統管理員指定 DLP 提供者，如果提供者已正確安裝，回顧將使用該識別碼。您必須從提供者那裡取得此項目的字串。看起來像是 'key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll' (值中沒有任何引號)。
+
+重要: 此設定僅適用於 Enterprise 和 Education 用戶端 SKU。
+      </string>
+      <string id="SetCopilotHardwareKey">設定 Copilot 硬體金鑰</string>
+      <string id="SetCopilotHardwareKey_Help">此原則設定決定當使用者按下鍵盤上的 Copilot 時，系統會開啟的應用程式。如果啟用此原則，當使用者按下 Copilot 鍵時，系統將會開啟指定的應用程式。使用者可以在 [設定] 中變更按鍵指派。如果未設定此原則，則若該國家或地區提供 Copilot，則 Copilot 會隨即開啟。
+      </string>
+      <string id="AllowRecallEnablement">允許啟用 [回顧]。
+      </string>
+      <string id="AllowRecallEnablement_Help">這個原則設定可讓您決定使用者是否可在其裝置上啟用 回顧 選用元件。受管理的商業裝置預設會停用 回顧。回顧 預設無法在受管理的裝置上使用，且個別用戶無法自行啟用 回顧。
+
+如果未設定此原則，使用者將會有 回顧元件處於停用狀態。
+
+如果停用此原則，回顧元件將處於停用狀態，而且會從裝置移除 回顧 位。如果快照集先前已儲存在裝置上，則當停用此原則時，快照集就會被刪除。拿掉 回顧 需要重新啟動裝置。
+
+如果啟用此原則，用戶的裝置上將 回顧 可用。視 DisableAIDataAnalysis 原則的狀態而定 (關閉儲存用於 回顧) 的快照集，使用者將可以選擇是否要儲存螢幕快照，並使用 回顧 來尋找他們在裝置上看到的內容。
+      </string>
+      <string id="DisableClickToDo">停用 [按一下執行]</string>
+      <string id="DisableClickToDo_Help">[按一下執行] 可讓使用者對其螢幕上的內容採取動作。啟用時，它會拍攝其螢幕的螢幕擷取畫面並進行分析，以展示可執行的動作。他們退出時，[按一下執行] 便會結束，且關閉時便無法拍攝螢幕擷取畫面。螢幕擷取畫面分析一律會在其裝置上於本機執行。根據預設，系統會針對使用者啟用 [按一下執行]。
+
+此原則設定可讓您決定使用者是否可在其裝置上使用 [按一下執行]。
+
+當原則啟用時，使用者將無法使用 [按一下執行] 元件和進入點。
+
+停用原則時，使用者將可在其裝置上使用 [按一下執行]。
+      </string>
+      <string id="Paint">小畫家</string>
+      <string id="DisableImageCreator">停用 [影像建立工具]</string>
+      <string id="DisableImageCreator_Help">這個原則設定可讓您控制是否在 Windows 小畫家應用程式中停用 影像建立工具 功能。如果啟用此原則，小畫家應用程式將無法存取 影像建立工具 功能。如果停用或未設定這個原則，使用者將可以存取 影像建立工具 功能。</string>
+      <string id="DisableCocreator">停用 [Cocreator]</string>
+      <string id="DisableCocreator_Help">這個原則設定可讓您控制是否在 Windows 小畫家應用程式中停用 Cocreator 功能。如果啟用此原則，小畫家應用程式將無法存取 Cocreator 功能。如果停用或未設定這個原則，使用者將可以存取 Cocreator 功能。</string>
+      <string id="DisableGenerativeFill">停用生成式填滿</string>
+      <string id="DisableGenerativeFill_Help">這個原則設定可讓您控制是否在 Windows 小畫家應用程式中停用產生填滿功能。如果啟用此原則，小畫家應用程式將無法存取產生性填滿功能。如果停用或未設定這個原則，使用者將可以存取產生性填滿功能。</string>
+      <string id="AllowRecallExport">允許匯出 [回顧] 和快照資訊</string>
+      <string id="AllowRecallExport_Help">此原則可讓您決定使用者是否可以匯出他們自己的回顧和快照資訊。匯出功能可讓使用者與信任的應用程式或網站共用其回顧和快照資訊。使用者可以從 [設定] &gt; [隱私權與安全性] &gt; [回顧和快照] &gt; [進階設定] &gt; [匯出快照] &gt; [匯出過去的快照] &gt; [匯出] 來進行匯出。
+
+如果使用者現在起從 [設定] &gt; [隱私權與安全性] &gt; [回顧和快照] &gt; [進階設定] &gt; [匯出快照] &gt; [匯出] 開啟匯出快照的選項，他們也可以選擇持續匯出快照。
+
+在開始匯出之前，使用者必須透過 Windows Hello 進行驗證，並且會收到通知，關於其匯出的快照已加密，因為這些快照可能包含敏感性資訊。如果使用者希望允許受信任的應用程式或網站存取匯出的快照，則他們也會收到通知，必須提供其回顧匯出代碼。即使此原則設定為停用或未設定，回顧匯出代碼在回顧設定期間仍會向使用者顯示。針對受控裝置:
+
+當您將此原則設定為啟用時，使用者可以匯出回顧和快照資訊。
+
+如果此原則設定為停用或未設定，使用者將無法匯出其回顧和快照資訊。
+
+重要: 此設定僅適用於歐洲經濟區 (EEA) 的裝置。匯出回顧和快照資訊是由使用者起始的程序，且是由各個使用者起始。IT 系統管理員或其他使用者無法代表他人起始匯出。
+      </string>
+      <string id="DisableSettingsAgent">停用設定的代理程式搜尋體驗</string>
+      <string id="DisableSettingsAgent_Help">設定代理式體驗會啟用自然語言，以增強設定應用程式中的搜尋結果。啟用時，它會利用 AI 模型來提供智慧型設定搜尋建議。
+
+        此原則設定可讓您決定使用者是否可在其裝置上使用設定代理式搜尋體驗。
+
+        啟用該原則時，設定代理式搜尋體驗會停用，進而將搜尋結果限制為以靜態方式編製索引的搜尋和語意搜尋。
+
+        停用該原則時，使用者即可在其裝置上使用設定代理式搜尋體驗。
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">裝置上登錄記錄層級</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">此原則設定可讓您設定裝置上登錄作業的記錄層級。</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">錯誤或更高</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">資訊或更高</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">偵錯或更高</string>
+      <string id="RemoveMicrosoftCopilotApp">移除 Microsoft Copilot 應用程式</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">此原則設定允許您針對特定使用者移除 Microsoft Copilot。它將套用於符合以下條件的裝置或使用者:
+
+• 已安裝 Microsoft 365 Copilot 與 Microsoft Copilot
+
+• Microsoft Copilot 應用程式並非由使用者安裝
+
+• Microsoft Copilot 應用程式在過去 28 天內未曾啟動
+ 
+若啟用此原則，系統將解除安裝 Microsoft Copilot 應用程式。使用者仍可自行選擇重新安裝。 </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>輸入應用程式 AUMID</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>輸入拒絕應用程式清單:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>輸入拒絕 URI 清單:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>輸入 DLP 提供者識別碼:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">選取儲存空間上限:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">選取儲存持續時間上限:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> 裝置上登錄記錄層級: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

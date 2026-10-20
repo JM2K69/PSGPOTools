@@ -33,6 +33,11 @@ Jos poistat tämän käytäntöasetuksen käytöstä, mobiililaitteiden hallinna
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">Valitse käytettävä tunnistetietotyyppi:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>MDM-sovellustunnus:</label>
+        </textBox>
+        <text>MDM-sovellustunnus edustaa Azure AD:ssä määritettyä MDM-sovelluksen tunnusta. Tämä on valinnainen, ja sitä tarvitaan vain automaattisessa MDM-rekisteröinnissä, jossa käytetään laitteen käyttöoikeuksia, kun useita MDM-sovelluksia määritetään Azure AD:ssä.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

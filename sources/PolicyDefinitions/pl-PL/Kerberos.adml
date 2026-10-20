@@ -22,19 +22,18 @@ Jeśli to ustawienie zasad zostanie wyłączone, lista mapowań nazwy hosta na o
 Jeśli to ustawienie zasad pozostanie nieskonfigurowane, system będzie używał mapowań nazwy hosta na obszar Kerberos zdefiniowanych w rejestrze lokalnym (jeśli takie mapowania istnieją).</string>
       <string id="MitRealms">Definiuj ustawienia międzyoperacyjnego obszaru Kerberos V5</string>
       <string id="MitRealms_explain">To ustawienie zasad konfiguruje klienta protokołu Kerberos tak, że może on wykonywać uwierzytelnianie w międzyoperacyjnych obszarach Kerberos V5 zgodnie z tym ustawieniem zasad.
-      
+
 Włączenie tego ustawienia zasad umożliwi wyświetlanie i modyfikowanie listy międzyoperacyjnych obszarów Kerberos V5 oraz ich ustawień. Aby wyświetlić listę międzyoperacyjnych obszarów Kerberos V5, włącz to ustawienie zasad i kliknij przycisk Pokaż. Aby dodać międzyoperacyjny obszar Kerberos V5, włącz to ustawienie zasad, zapamiętaj składnię i kliknij przycisk Pokaż. W oknie dialogowym Pokazywanie zawartości w kolumnie Nazwa wartości wpisz nazwę międzyoperacyjnego obszaru Kerberos V5. W kolumnie Wartość wpisz (używając odpowiedniego formatu składni) flagi obszaru i nazwy hostów centrów dystrybucji kluczy hosta. Aby usunąć międzyoperacyjny obszar Kerberos V5, wybierz z listy pozycję Nazwa wartości lub Wartość, kliknij tę pozycję, a następnie naciśnij klawisz DELETE. Aby edytować mapowanie, usuń bieżącą pozycję z listy i dodaj nową z innymi parametrami.
 
 Wyłączenie tego ustawienia zasad spowoduje usunięcie ustawień międzyoperacyjnego obszaru Kerberos V5 zdefiniowanych w zasadach grupy.
 
 Jeśli to ustawienie zasad pozostanie nieskonfigurowane, system będzie używał ustawień międzyoperacyjnego obszaru Kerberos V5 zdefiniowanych w rejestrze lokalnym (jeśli takie ustawienia istnieją).</string>
       <string id="ValidateKDC">Wymagaj dokładnej weryfikacji centrum dystrybucji kluczy</string>
-      <string id="ValidateKDC_explain">To ustawienie zasad kontroluje zachowanie klienta protokołu Kerberos podczas weryfikowania certyfikatu centrum dystrybucji kluczy (KDC) dla karty inteligentnej i logowania przy użyciu certyfikatu systemu.  
+      <string id="ValidateKDC_explain">To ustawienie zasad kontroluje zachowanie klienta protokołu Kerberos podczas weryfikowania certyfikatu centrum dystrybucji kluczy (KDC) dla karty inteligentnej i logowania przy użyciu certyfikatu systemu.
 
-Jeśli to ustawienie zasad zostanie włączone, klient protokołu Kerberos będzie wymagał, aby certyfikat X.509 centrum dystrybucji kluczy zawierał w rozszerzeniach rozszerzonego użycia klucza (Extended Key Usage, EKU) identyfikator obiektu celu klucza KDC oraz rozszerzenie subjectAltName (SAN) typu dNSName pasujące do nazwy DNS domeny. Jeśli komputer należy do domeny, klient protokołu Kerberos będzie wymagał, aby certyfikat X.509 centrum dystrybucji kluczy był podpisany przez urząd certyfikacji zlokalizowany w magazynie NTAuth. Jeśli komputer nie należy do domeny, klient protokołu Kerberos będzie zezwalał, aby w procedurze weryfikacji ścieżki certyfikatu X.509 centrum dystrybucji kluczy był używany certyfikat głównego urzędu certyfikacji zapisany na karcie inteligentnej.
+Jeśli to ustawienie zasad zostanie włączone, klient protokołu Kerberos będzie wymagał, aby certyfikat X.509 centrum dystrybucji kluczy zawierał w rozszerzeniach rozszerzonego użycia klucza (Extended Key Usage, EKU) identyfikator obiektu celu klucza KDC oraz aby certyfikat X.509 centrum dystrybucji kluczy zawierał rozszerzenie subjectAltName (SAN) typu dNSName pasujące do nazwy DNS domeny. Jeśli komputer należy do domeny, klient protokołu Kerberos będzie wymagał, aby certyfikat X.509 centrum dystrybucji kluczy był podpisany przez urząd certyfikacji zlokalizowany w magazynie NTAuth. Jeśli komputer nie należy do domeny, klient protokołu Kerberos będzie zezwalał, aby w procedurze weryfikacji ścieżki certyfikatu X.509 centrum dystrybucji kluczy był używany certyfikat głównego urzędu certyfikacji zapisany na karcie inteligentnej.
 
 Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, klient protokołu Kerberos będzie jedynie wymagał, aby certyfikat centrum dystrybucji kluczy zawierał w rozszerzeniach EKU identyfikator obiektu celu uwierzytelniania serwera, który można wydać dla dowolnego serwera.
-
 </string>
       <string id="StrictTarget">Wymagaj ścisłego dopasowania nazwy SPN obiektu docelowego w zdalnych wywołaniach procedury</string>
       <string id="StrictTarget_explain">  To ustawienie zasad umożliwia takie skonfigurowanie tego serwera, aby protokół Kerberos mógł odszyfrować bilet zawierający nazwę SPN wygenerowaną przez ten system. Gdy aplikacja podejmie próbę zdalnego wywołania procedury (RPC) na tym serwerze przy użyciu głównej nazwy usługi (SPN) o wartości NULL, komputery z systemem Windows 7 lub nowszym podejmą próbę użycia protokołu Kerberos, generując nazwę SPN.
@@ -94,16 +93,14 @@ Jeśli to ustawienie zasad pozostanie nieskonfigurowane, będzie używana opcja 
 
       <string id="MaxTokenSize">Ustaw maksymalny rozmiar buforu tokena kontekstu Kerberos SSPI</string>
       <string id="MaxTokenSize_explain">To ustawienie zasad umożliwia ustawienie wartości zwracanej do aplikacji, które żądają wartości maksymalnego rozmiaru buforu tokena kontekstu SSPI.
-              
-Rozmiar buforu tokena kontekstu określa maksymalny rozmiar tokenów kontekstu SSPI, którego aplikacja oczekuje i który przydziela. W zależności od przetwarzania żądania uwierzytelniania i członkostwa w grupach bufor może być mniejszy niż rzeczywisty rozmiar tokenu kontekstu SSPI. 
+
+Rozmiar buforu tokena kontekstu określa maksymalny rozmiar tokenów kontekstu SSPI, którego aplikacja oczekuje i który przydziela. W zależności od przetwarzania żądania uwierzytelniania i członkostwa w grupach bufor może być mniejszy niż rzeczywisty rozmiar tokenu kontekstu SSPI.
 
 Jeśli to ustawienie zasad zostanie włączone, klient lub serwer protokołu Kerberos będzie używać wartości skonfigurowanej lub lokalnie dozwolonej wartości maksymalnej w zależności od tego, która jest mniejsza.
 
-Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, klient lub serwer protokołu Kerberos będzie używać wartości skonfigurowanej lokalnie lub domyślnej. 
+Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, klient lub serwer protokołu Kerberos będzie używać wartości skonfigurowanej lokalnie lub domyślnej.
 
-Uwaga: to ustawienie zasad konfiguruje istniejącą wartość rejestru MaxTokenSize w gałęzi HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters, która została dodana w systemach Windows XP i Windows Server 2003 z wartością domyślną 12 000 bajtów. Od systemu Windows 8 wartość domyślna wynosi 48 000 bajtów. Ze względu na kodowanie base64 tokenów kontekstu uwierzytelniania przez protokół HTTP ustawianie wartości większej niż 48 000 bajtów nie jest zalecane.
-
-
+Uwaga: To ustawienie zasad konfiguruje istniejącą wartość rejestru MaxTokenSize w gałęzi HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters, która została dodana w systemach Windows XP i Windows Server 2003 z wartością domyślną 12 000 bajtów. Od systemu Windows 8 wartość domyślna wynosi 48 000 bajtów. Ze względu na kodowanie base64 tokenów kontekstu uwierzytelniania przez protokół HTTP ustawianie wartości większej niż 48 000 bajtów nie jest zalecane.
 
 </string>
       <string id="EnableCbacAndArmor">Obsługa oświadczeń, tożsamości złożonej i ochrony protokołu Kerberos przez klienta protokołu Kerberos</string>
@@ -111,7 +108,7 @@ Uwaga: to ustawienie zasad konfiguruje istniejącą wartość rejestru MaxTokenS
 Jeśli to ustawienie zasad zostanie włączone, komputery klienckie będą żądały oświadczeń, dostarczały informacje wymagane do tworzenia tożsamości złożonej i chroniły komunikaty Kerberos w domenach obsługujących oświadczenia i tożsamość złożoną dla dynamicznej kontroli dostępu i ochrony protokołu Kerberos.
 
 Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, urządzenia klienckie nie będą żądały oświadczeń, dostarczały informacji wymaganych do tworzenia tożsamości złożonej i chroniły komunikatów Kerberos. Usługi hostowane na urządzeniu nie będą mogły pobrać oświadczeń dla klientów, korzystając z przejść protokołu Kerberos.  
-  
+
 </string>
       <string id="AlwaysSendCompoundId">Zawsze najpierw wysyłaj żądanie uwierzytelniania złożonego</string>
       <string id="AlwaysSendCompoundId_explain">To ustawienie zasad określa, czy urządzenie ma zawsze wysyłać żądanie uwierzytelniania złożonego, gdy domena zasobów żąda tożsamości złożonej.
@@ -124,7 +121,7 @@ Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane 
 
 </string>
       <string id="DevicePKInitEnabled">Obsługa uwierzytelniania urządzeń przy użyciu certyfikatów</string>
-      <string id="DevicePKInitEnabled_explain">Obsługa uwierzytelniania urządzeń za pomocą certyfikatów wymaga połączenia z kontrolerem domeny konta urządzenia, który obsługuje uwierzytelnianie kont komputerów przy użyciu certyfikatów. 
+      <string id="DevicePKInitEnabled_explain">Obsługa uwierzytelniania urządzeń za pomocą certyfikatów wymaga połączenia z kontrolerem domeny konta urządzenia, który obsługuje uwierzytelnianie kont komputerów przy użyciu certyfikatów.
 
 To ustawienie zasad umożliwia skonfigurowanie obsługi protokołu Kerberos w celu próby uwierzytelnienia urządzenia w domenie za pomocą jego certyfikatu.
 
@@ -136,9 +133,54 @@ Wymuś: urządzenie będzie zawsze uwierzytelniać się za pomocą swojego certy
 
 Jeśli to ustawienie zasad zostanie wyłączone, certyfikaty nie będą używane.
 Jeśli to ustawienie zasad nie zostanie skonfigurowane, będzie używana opcja Automatycznie.
+
+Postępuj zgodnie z tym przewodnikiem, aby skonfigurować korporacyjną infrastrukturę PKI: https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">Automatycznie</string>
       <string id="DevicePKInitBehavior_Force">Wymuś</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">Zezwalaj na pobieranie biletu uprawniającego do przyznania biletu Kerberos dla usługi Azure AD podczas logowania</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">To ustawienie zasad umożliwia pobranie biletu uprawniającego do przyznania biletu Kerberos dla usługi Azure AD podczas logowania.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, bilet uprawniający do przyznania biletu Kerberos dla usługi Azure AD nie będzie pobierany podczas logowania.
+
+Jeśli to ustawienie zasad zostanie włączone, bilet uprawniający do przyznania biletu Kerberos dla usługi Azure AD zostanie pobrany podczas logowania.</string>
+      <string id="PKInitHashAlgorithmConfiguration">Konfiguruj algorytmy wyznaczania wartości skrótu dla logowania certyfikatu</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">To ustawienie zasad kontroluje algorytmy skrótów lub sum kontrolnych używane przez klienta protokołu Kerberos podczas uwierzytelniania certyfikatu.
+
+Jeśli te zasady zostaną włączone, będzie można skonfigurować jeden z czterech stanów dla każdego algorytmu:
+
+- Wartość „Domyślny” powoduje ustawienie algorytmu na zalecany stan.
+
+- Wartość „Obsługiwany” włącza użycie algorytmu. Włączenie algorytmów, które zostały domyślnie wyłączone, może zmniejszyć bezpieczeństwo.
+
+- Wartość „Poddany inspekcji” umożliwia użycie algorytmu i zgłasza zdarzenie (identyfikator 206) za każdym razem, gdy jest on używany. Ten stan ma na celu sprawdzenie, czy algorytm nie jest używany i można go bezpiecznie wyłączyć.
+
+- Wartość „Nieobsługiwany” wyłącza użycie algorytmu. Ten stan jest przeznaczony dla algorytmów uznanych za niezabezpieczone.
+
+Jeśli te zasady zostaną wyłączone lub nie zostaną skonfigurowane, każdy algorytm przyjmie stan „Domyślny”.
+Więcej informacji o algorytmach skrótów i sum kontrolnych obsługiwanych przez klienta protokołu Kerberos systemu Windows oraz ich stanach domyślnych można znaleźć na stronie https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Zdarzenia generowane przez tę konfigurację: 205, 206, 207, 208.
+</string>
+      <string id="PKInitHashAlgorithm_Default">Domyślny</string>
+      <string id="PKInitHashAlgorithm_Supported">Obsługiwany</string>
+      <string id="PKInitHashAlgorithm_Audited">Poddane inspekcji</string>
+      <string id="PKInitHashAlgorithm_NotSupported">Nieobsługiwany</string>
+      
+      <string id="DelegatedMSAEnabled">Włącz logowania do delegowanego zarządzanego konta usługi</string>
+      <string id="DelegatedMSAEnabled_explain">To ustawienie zasad włącza lub wyłącza logowania delegowanego zarządzanego konta usługi dla tego komputera.
+
+Jeśli to ustawienie zasad zostanie włączone, delegowane logowania zarządzanego konta usługi będą obsługiwane przez klienta protokołu Kerberos. Pamiętaj, że te zasady mają pewne wymagania wstępne. Wymagania wstępne i wskazówki dotyczące tworzenia nowego delegowanego zarządzanego konta usługi można znaleźć pod adresem https://go.microsoft.com/fwlink/?linkid=2250379.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, logowania do delegowanego zarządzanego konta usługi nie będą obsługiwane. 
+</string>
+      <string id="EnableTryIPSPN">Zezwalaj na nazwy SPN oparte na adresach IP podczas uwierzytelniania w protokole Kerberos</string>
+      <string id="EnableTryIPSPN_explain">To ustawienie zasad umożliwia skonfigurowanie protokołu Kerberos do używania głównych nazw usługi (SPN) opartych na adresach IP.
+
+Jeśli to ustawienie zasad zostanie włączone, klient protokołu Kerberos będzie próbował używać nazw SPN opartych na adresach IP podczas łączenia się z usługą.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, protokół Kerberos nie będzie próbował używać nazw SPN opartych na adresach IP.
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -181,6 +223,16 @@ Jeśli to ustawienie zasad nie zostanie skonfigurowane, będzie używana opcja A
         <text>Inny przykład:</text>
         <text>Nazwa wartości: OBSZAR.FABRIKAM.COM</text>
         <text>Wartość: &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">Obszary:</multiTextBox>
+        <text>Składnia:</text>
+        <text>Wprowadź listę obszarów, w których mogą istnieć DMSA.</text>
+        <text>Wprowadź w pełni kwalifikowaną nazwę domeny (FQDN) i krótką nazwę.</text>
+        <text>Wprowadź jeden obszar na wiersz.</text>
+        <text>Szczegóły:</text>
+        <text>Klient protokołu Kerberos podejmie próbę znalezienia kontrolera domeny obsługującego usługę DMSA dla wymienionych obszaru.</text>
+        <text>Jeśli nie zostaną określone żadne obszary, klient protokołu Kerberos podejmie próbę znalezienia kontrolera domeny obsługującego usługę DMSA dla wszystkich obszaru.</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">Tryb:</dropdownList>
@@ -225,7 +277,7 @@ Jeśli to ustawienie zasad nie zostanie skonfigurowane, będzie używana opcja A
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Obsługuj autoryzację przy użyciu informacji o urządzeniu klienta:</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Obsługuj autoryzację przy użyciu informacji o urządzeniu klienta:</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">Rozmiar maksymalny</decimalTextBox>
@@ -233,7 +285,13 @@ Jeśli to ustawienie zasad nie zostanie skonfigurowane, będzie używana opcja A
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Zachowanie uwierzytelniania urządzeń przy użyciu certyfikatów:</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Zachowanie uwierzytelniania urządzeń przy użyciu certyfikatów:</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

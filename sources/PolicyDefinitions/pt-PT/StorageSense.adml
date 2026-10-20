@@ -63,12 +63,12 @@ Por predefinição, o Sensor de Armazenamento elimina os ficheiros na Reciclagem
     </string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold">Configurar limiar de limpeza das Transferências pelo Sensor de Armazenamento</string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold_Explain">
-Quando o Sensor de Armazenamento é executado, pode eliminar ficheiros da pasta Transferências do utilizador, caso estejam lá há mais de um determinado número de dias.
+Quando o Sensor de Armazenamento é executado pode eliminar ficheiros da pasta Transferências do utilizador, se não foram abertos durante mais do que um determinado número de dias.
 
 Se a Política de Grupo "Permitir Sensor de Armazenamento" estiver desativada, esta política não tem qualquer efeito.
 
 Ativado:
-Tem de fornecer o limiar de duração mínimo (em dias) para um ficheiro na pasta Transferências antes que o Sensor de Armazenamento o elimine. Os valores suportados são: 0 a 365.
+Tem de fornecer o número mínimo de dias que um ficheiro pode permanecer por abrir antes que o Sensor de Armazenamento o elimine da pasta Transferências. Os valores suportados são: 0 a 365.
 Se definir este valor para zero, o Sensor de Armazenamento não elimina os ficheiros na pasta Transferências do utilizador. A predefinição é 0 ou nunca eliminar ficheiros da pasta Transferências.
 
 Desativado ou Não Configurado:
@@ -81,7 +81,7 @@ Quando o Sensor de Armazenamento é executado, pode remover após inatividade o 
 Se a Política de Grupo "Permitir Sensor de Armazenamento" estiver desativada, esta política não tem qualquer efeito.
 
 Ativado:
-Tem de fornecer um número de dias desde que um ficheiro de cópia de segurança na cloud foi aberto, antes que o Sensor de Armazenamento o remova após inatividade. Os valores suportados são: 0 a 365.
+Tem de fornecer um número mínimo de dias que um ficheiro de cópia de segurança na cloud pode permanecer por abrir, antes que o Sensor de Armazenamento o remova após inatividade da raiz de sincronização. Os valores suportados são: 0 a 365.
 Se definir este valor para zero, o Sensor de Armazenamento não remove após inatividade qualquer conteúdo com cópia de segurança na cloud. O valor predefinido é 0 ou nunca remover após inatividade o conteúdo com cópia de segurança na cloud.
 
 Desativado ou Não Configurado:

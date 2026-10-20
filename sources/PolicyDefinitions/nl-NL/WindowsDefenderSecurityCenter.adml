@@ -135,18 +135,19 @@
     </string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts">Aangepaste meldingen configureren</string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts_Explain">
-        Contactgegevens naar keuze aan lokale gebruikers tonen in meldingen van Windows-beveiliging.
+        Opgegeven contactgegevens weergeven aan lokale gebruikers in meldingen van Windows-beveiliging.
 
         Ingeschakeld:
         De contactgegevens van uw bedrijf worden weergegeven in meldingen die afkomstig zijn van Windows-beveiliging.
 
-        Wanneer u deze instelling hebt ingeschakeld, moet u de GP-instelling 'Bedrijfsnaam van contactpersoon opgeven' en ten minste een van de volgende GP-instellingen configureren:
+        Nadat u deze instelling hebt ingeschakeld, moet u de GP-instelling Naam contactpersoon van bedrijf opgeven configureren, en minstens een van de volgende GP-instellingen:
         -Telefoonnummer of Skype-id van contactpersoon opgeven
-        -E-mailnummer of e-mail-id van contactpersoon opgeven
+        -E-mailadres of email-id van contactpersoon opgeven
         -Website van contactpersoon opgeven
-
+        In sommige gevallen beperken we de contactopties die worden weergegeven op basis van de beschikbare ruimte voor meldingen.
+        
         Uitgeschakeld:
-        Er worden geen contactgegevens weergegeven in meldingen.
+        In meldingen worden geen contactgegevens weergegeven.
 
         Niet geconfigureerd:
         Hetzelfde als Uitgeschakeld.

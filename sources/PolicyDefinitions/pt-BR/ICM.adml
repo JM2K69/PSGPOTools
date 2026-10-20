@@ -108,11 +108,13 @@ Essa configuração de política substitui qualquer configuração de usuário f
 
 Veja também as configurações de política "Configurar o Relatório de Erros", "Exibir Notificação de Erros" e "Desativar o Relatório de Erros do Windows" em Configuração do Computador/Modelos Administrativos/Componentes do Windows/Relatório de Erros do Windows.</string>
       <string id="RemoveWindowsUpdate_ICM">Desativar acesso a todos os recursos do Windows Update</string>
-      <string id="RemoveWindowsUpdate_ICM_Help">Essa configuração de diretiv permite que você remova o acesso ao Windows Update.
+      <string id="RemoveWindowsUpdate_ICM_Help">Esta configuração de política permite remover o acesso ao Windows Update.
 
-Se você habilitar essa configuração de diretiv, todos os recursos do Windows Update serão removidos. Também inclui o bloqueio de acesso ao site do Windows Update em http://windowsupdate.microsoft.com, através do hiperlink do Windows Update no menu Iniciar e do menu Ferramentas no Internet Explorer. A atualização automática do Windows também será desabilitada; você não receberá notificações nem atualizações críticas do Windows Update. Essa configuração de política impede que o Gerenciador de Dispositivos instale atualizações de driver automaticamente a partir do site do Windows Update.
+Se você habilitar esta configuração de política, todos os recursos do Windows Update serão removidos. Isso inclui o bloqueio do acesso ao site Windows Update em http://windowsupdate.microsoft.com, por meio do hiperlink do Windows Update no menu Iniciar e também no menu Ferramentas do Internet Explorer. A atualização automática do Windows também será desabilitada; você não receberá notificações sobre nem atualizações críticas do Windows Update. Esta configuração de política também impede que o Gerenciador do Dispositivo instale automaticamente atualizações de driver do site Windows Update.
 
-Se você desabilitar ou não definir essa configuração de política, os usuários poderão acessar o site Windows Update e ativar a atualização automática para receber notificações e atualizações críticas do Windows Update.</string>
+Se você desabilitar ou não definir esta configuração de política, os usuários poderão acessar o site Windows Update e habilitar a atualização automática para receber notificações e atualizações críticas do Windows Update.
+
+Observação: esta política se aplica somente quando o computador está configurado para se conectar a um serviço de atualização da intranet usando a política "	Especificar o local do serviço de atualização na intranet da Microsoft".</string>
       <string id="SearchCompanion_DisableFileUpdates">Desativar atualizações de arquivo de conteúdo do Search Companion</string>
       <string id="SearchCompanion_DisableFileUpdates_Help">Essa configuração de política especifica se o Search Companion deve baixar automaticamente atualizações de conteúdo durante pesquisas locais e na Internet.
 

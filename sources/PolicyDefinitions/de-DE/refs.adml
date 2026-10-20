@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>ReFS-Gruppenrichtlinie</displayName>
+  <description>Gruppenrichtlinieneinstellungen für ReFS</description>
+  <resources>
+    <stringTable>
+      <string id="ReFS">ReFS</string>
+      <string id="EnableDevDrive">Dev Drive aktivieren</string>
+      <string id="EnableDevDriveText">Das Dev Drive oder Entwicklervolume ist ein Volume, das für die Leistung von Entwicklerszenarien optimiert ist. Mit einem Dev Drive kann ein Administrator Dateisystemfilter auswählen, die auf dem Volume angefügt sind.
+
+Durch das Deaktivieren dieser Einstellung wird das Erstellen neuer Dev Drives verhindert. Vorhandene Dev Drives werden als reguläre Volumes eingebunden.
+
+Wenn diese Einstellung nicht konfiguriert ist, besteht die Standardrichtlinie darin, Dev Drives zu aktivieren und gleichzeitig das Anfügen von Antivirenfiltern auf einem Dev Drive zuzulassen. Wenn diese Option nicht konfiguriert ist, kann ein lokaler Administrator festlegen, dass kein Antivirenfilter an ein Dev Drive angefügt ist.
+
+Damit diese Einstellung wirksam wird, ist ein Neustart erforderlich.</string>
+      <string id="ModeOff">Aus</string>
+      <string id="ModeAudit">Nur Überwachung</string>
+      <string id="ModeBlock">Blockieren</string>
+      <string id="BlockExternalBusMount">Einbinden von ReFS-Volumes auf USB- und IEEE 1394-Datenträgern steuern</string>
+      <string id="BlockExternalBusMountText">Steuert, ob ReFS-Volumes auf Datenträgern eingebunden werden dürfen, die über USB oder IEEE 1394 angeschlossen sind. ReFS ist keine unterstützte Konfiguration auf Hot-Plug-fähigen Datenträgern oder Wechseldatenträgern.
+
+Block verweigert die Bereitstellung und zeichnet ein Ereignis im Systemprotokoll auf.
+
+Die Überwachung lässt nur die Einbindung zu und zeichnet dasselbe Ereignis auf, sodass die Auswirkungen der Aktivierung dieser Richtlinie bewertet werden können, bevor sie erzwungen wird.
+
+Bei Aus erfolgt keine Überwachung und Blockierung.
+
+Bei einem Volume mit Speicherplätzen bezieht sich die Überprüfung auf die physischen Datenträger, die den Pool unterstützen, und nicht auf den Speicherplatz selbst.
+
+Wenn diese Richtlinieneinstellung nicht konfiguriert ist, wird die lokale Einstellung auf diesem Computer verwendet. Wenn keine lokale Einstellung vorhanden ist, wird das Standardverhalten für diese Windows-Version verwendet.
+
+ReFS liest diese Einstellung beim Laden, daher ist ein Neustart erforderlich, bevor eine Änderung angewendet wird. Die Einstellung wird dann jedes Mal ausgewertet, wenn ein Volume bereitgestellt wird, sodass ein bereits bereitgestelltes Volume seinen aktuellen Zustand beibehält, bis die Bereitstellung aufgehoben und erneut bereitgestellt wird.</string>
+      <string id="BlockHotplugMount">Steuerung der Einbindung von ReFS-Volumes auf hotplugfähigen Datenträgern</string>
+      <string id="BlockHotplugMountText">Steuert, ob ReFS-Volumes auf Datenträgern eingebunden werden dürfen, die vom Speicherstapel als hotplugfähig gemeldet werden, unabhängig davon, über welchen Bus sie angeschlossen sind. ReFS ist auf hotplugfähigen oder entfernbaren Datenträgern keine unterstützte Konfiguration.
+
+Block verweigert das Einbinden und protokolliert ein Ereignis im Systemprotokoll.
+
+„Überwachen“ erlaubt nur die Einbindung und protokolliert dasselbe Ereignis, sodass die Auswirkungen der Aktivierung dieser Richtlinie bewertet werden können, bevor sie erzwungen wird.
+
+„Aus“ führt keine Überwachung und keine Sperrung aus.
+
+Bei einem Speicherplätze-Volume bezieht sich die Überprüfung auf die physischen Datenträger, die den Pool bilden, und nicht auf den Speicherplatz selbst.
+
+Wenn diese Richtlinieneinstellung nicht konfiguriert ist, wird die lokale Einstellung auf diesem Computer verwendet. Wenn keine lokale Einstellung vorhanden ist, wird das Standardverhalten für diese Version von Windows verwendet.
+
+ReFS liest diese Einstellung beim Laden, daher ist ein Neustart erforderlich, bevor eine Änderung wirksam wird. Die Einstellung wird dann jedes Mal ausgewertet, wenn ein Volume eingebunden wird, sodass ein bereits eingebundenes Volume seinen aktuellen Zustand beibehält, bis es ausgehängt und erneut eingebunden wird.</string>
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="EnableDevDriveOptions">
+        <checkBox refId="DevDriveAllowAntivirusFilter" defaultChecked="true">Antivirenfiltern den Schutz von Dev Drives erlauben</checkBox>
+      </presentation>
+      <presentation id="BlockExternalBusMountOptions">
+        <dropdownList refId="BlockExternalBusMountMode" defaultItem="0">Aktion für ReFS-Volumes auf USB- oder IEEE 1394-Datenträgern</dropdownList>
+      </presentation>
+      <presentation id="BlockHotplugMountOptions">
+        <dropdownList refId="BlockHotplugMountMode" defaultItem="0">Aktion für ReFS-Volumes auf hot-plug-fähigen Datenträgern</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

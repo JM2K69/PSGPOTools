@@ -296,7 +296,7 @@ BitLocker 恢复信息包括恢复密码和一些唯一的标识符数据。还�
 
 当安全引导状态(PCR7)支持可用时，默认平台验证配置文件使用安全引导状态(PCR 7)和 BitLocker 访问控制(PCR 11)来保护加密密钥。
 
-警告: 更改默认平台验证配置文件会影响计算机的安全性和可管理性。BitLocker 对平台修改(恶意或授权)的灵敏度会增加或减小，具体取决于(分别)包含还是排除 PCR。具体而言，在设置此策略时省略 PCR 7 将覆盖“允许对完整性验证使用安全引导”组策略，这将阻止 BitLocker 将安全引导用于平台或引导配置数据(BCD)完整性验证。设置此策略可能会导致在更新固件时恢复 BitLocker。如果将此策略设置为包括 PCR 0，将在应用固件更新之前挂起 BitLocker。
+警告: 更改默认平台验证配置文件会影响计算机的安全性和可管理性。BitLocker 对平台修改(恶意或授权)的灵敏度会增加或减小，具体取决于(分别)包含还是排除 PCR。具体而言，在设置此策略时省略 PCR 7 将覆盖“允许对完整性验证使用安全引导”组策略，这将阻止 BitLocker 将安全引导用于平台或引导配置数据(BCD)完整性验证。设置此策略可能会导致在更新固件时恢复 BitLocker。如果将此策略设置为包括 PCR 0，将在应用固件更新之前暂停 BitLocker。
 
 建议不配置此策略，以允许 Windows 根据每台电脑上的可用硬件选择 PCR 配置，从而获得最佳的安全性和可用性。
       </string>
@@ -320,6 +320,18 @@ BitLocker 恢复信息包括恢复密码和一些唯一的标识符数据。还�
 
       </string>
       <string id="DisableExternalDMAUnderLock_Name">此计算机锁定时禁用新的 DMA 设备</string>
+
+      <string id="DisableWinRETrust_Help">此策略设置将控制 BitLocker 是否信任 Windows 恢复环境(WinRE)。
+
+当 BitLocker 信任 WinRE 时，WinRE 可以访问受 BitLocker 保护的操作系统卷，而无需 BitLocker 恢复密钥。这支持需要访问操作系统卷的恢复操作。
+
+重要提示: 启用此策略会更改恢复行为。如果启用此策略设置，BitLocker 将不信任 WinRE。任何需要访问受 BitLocker 保护的操作系统卷的 WinRE 操作都需要 BitLocker 恢复密钥。依赖 WinRE 访问操作系统卷的恢复操作可能需要用户或管理员干预，并且可能无法自动完成，包括启动修复、快速计算机恢复、一键恢复，以及使用 RemoteWipe CSP 进行的由 MDM 发起的远程重置或擦除。
+
+如果禁用或未配置此策略设置，BitLocker 会信任经过验证的 WinRE 映像，这样 WinRE 无需恢复密钥就可以访问受 BitLocker 保护的操作系统卷。
+
+只在启用 BitLocker 或设备加密的情况下，才会强制执行此策略设置。</string>
+
+      <string id="DisableWinRETrust_Name">禁用 BitLocker 对 Windows 恢复环境 (WinRE) 的信任</string>
 
       <string id="FVEOSCategory">操作系统驱动器</string>
       <string id="FVEFDVCategory">固定数据驱动器</string>
@@ -405,7 +417,7 @@ BitLocker 恢复信息包括恢复密码和一些唯一的标识符数据。还�
       </string>
 
       <string id="FDVPassphrase_Name">配置对固定数据驱动器使用密码</string>
-      <string id="FDVPassphrase_Help">此策略设置指定对受 BitLocker 保护的固定数据驱动器解除锁定是否需要密码。如果选择允许使用密码，则可以要求使用密码、对密码强制执行复杂性要求以及为密码配置最小长度。要使复杂性要求设置发挥作用，还必须启用位于“计算机配置\Windows 设置\安全设置\帐户策略\密码策略”下的组策略设置“密码必须符合复杂性要求”。
+      <string id="FDVPassphrase_Help">此策略设置指定对受 BitLocker 保护的固定数据驱动器解除锁定是否需要密码。如果选择允许使用密码，则可以要求使用密码、对密码强制执行复杂性要求以及为密码配置最小长度。要使复杂性要求设置发挥作用，还必须启用位于“计算机配置\Windows 设置\安全设置\账户策略\密码策略”下的组策略设置“密码必须符合复杂性要求”。
 
 注意: 这些设置在打开 BitLocker 时强制执行，而在解除卷锁定时不强制执行。BitLocker 将允许使用驱动器上可用的任何保护器来解除驱动器锁定。
 
@@ -421,12 +433,10 @@ BitLocker 恢复信息包括恢复密码和一些唯一的标识符数据。还�
 
 注意: 如果启用了 FIPS 兼容，则不能使用密码。位于“计算机配置\Windows 设置\安全设置\本地策略\安全选项”中的“系统加密: 使用 FIPS 兼容的算法来加密、哈希和签名”策略设置指定是否启用 FIPS 兼容。
 
-
-
 </string>
 
       <string id="OSPassphrase_Name">配置对操作系统驱动器使用密码</string>
-      <string id="OSPassphrase_Help">此策略设置指定用于解锁受 BitLocker 保护的操作系统驱动器的密码限制。如果允许在操作系统驱动器上使用非 TPM 保护程序，则可以预配密码、对密码强制执行复杂性要求以及为密码配置最小长度。要使复杂性要求设置发挥作用，还必须启用位于“计算机配置\Windows 设置\安全设置\帐户策略\密码策略”下的组策略设置“密码必须符合复杂性要求”。
+      <string id="OSPassphrase_Help">此策略设置指定用于解锁受 BitLocker 保护的操作系统驱动器的密码限制。如果允许在操作系统驱动器上使用非 TPM 保护程序，则可以预配密码、对密码强制执行复杂性要求以及为密码配置最小长度。要使复杂性要求设置发挥作用，还必须启用位于“计算机配置\Windows 设置\安全设置\账户策略\密码策略”下的组策略设置“密码必须符合复杂性要求”。
 
 注意: 这些设置在打开 BitLocker 时强制执行，而在解除卷锁定时不强制执行。BitLocker 将允许使用驱动器上可用的任何保护器来解除驱动器锁定。
 
@@ -439,8 +449,6 @@ BitLocker 恢复信息包括恢复密码和一些唯一的标识符数据。还�
 如果禁用或未配置此策略设置，则将 8 个字符的默认长度限制应用于操作系统驱动器密码，并将不进行复杂性检查。
 
 注意: 如果启用了 FIPS 兼容，则不能使用密码。位于“计算机配置\Windows 设置\安全设置\本地策略\安全选项”中的“系统加密: 使用 FIPS 兼容的算法来加密、哈希和签名”策略设置指定是否启用 FIPS 兼容。
-
-
 
 </string>
 
@@ -487,7 +495,7 @@ BitLocker 恢复信息包括恢复密码和一些唯一的标识符数据。还�
       </string>
 
       <string id="RDVPassphrase_Name">配置对可移动数据驱动器使用密码</string>
-      <string id="RDVPassphrase_Help">此策略设置指定对受 BitLocker 保护的可移动数据驱动器解除锁定是否需要密码。如果选择允许使用密码，则可以要求使用密码、强制执行复杂性要求以及配置最小长度。要使复杂性要求设置发挥作用，还必须启用位于“计算机配置\Windows 设置\安全设置\帐户策略\密码策略”下的组策略设置“密码必须符合复杂性要求”。
+      <string id="RDVPassphrase_Help">此策略设置指定对受 BitLocker 保护的可移动数据驱动器解除锁定是否需要密码。如果选择允许使用密码，则可以要求使用密码、强制执行复杂性要求以及配置最小长度。要使复杂性要求设置发挥作用，还必须启用位于“计算机配置\Windows 设置\安全设置\账户策略\密码策略”下的组策略设置“密码必须符合复杂性要求”。
 
 注意: 这些设置在打开 BitLocker 时强制执行，而在解除卷锁定时不强制执行。BitLocker 将允许使用驱动器上可用的任何保护器来解除驱动器锁定。
 
@@ -502,8 +510,6 @@ BitLocker 恢复信息包括恢复密码和一些唯一的标识符数据。还�
 如果未配置此策略设置，则密码将由默认设置提供支持。默认设置无密码复杂性要求，并且只要求使用 8 个字符。
 
 注意: 如果启用了 FIPS 兼容，则不能使用密码。位于“计算机配置\Windows 设置\安全设置\本地策略\安全选项”中的“系统加密: 使用 FIPS 兼容的算法来加密、哈希和签名”策略设置指定是否启用 FIPS 兼容。
-
-      
 
       </string>
 
@@ -717,8 +723,7 @@ Windows 触摸键盘(如平板电脑使用的键盘)不可用于预启动环境�
 
 注意: 如果启用组策略设置“为本地 UEFI 固件配置配置 TPM 平台验证配置文件”且忽略 PCR 7，则 Bitlocker 将无法将安全引导用于平台或引导配置数据(BCD)完整性验证。
 
-警告: 禁用此策略可能会导致在更新固件时恢复 BitLocker。如果禁用此策略，则在应用固件更新之前将挂起 BitLocker。
-    
+警告: 禁用此策略可能会导致在更新固件时恢复 BitLocker。如果禁用此策略，则在应用固件更新之前将暂停 BitLocker。
       </string>
       <string id="SUPPORTED_Windows8NoARM">至少 Windows Server 2012 或 Windows 8</string>  
       <string id="SUPPORTED_Windows_6_3ToVista">Windows Server 2012 R2、Windows 8.1、Windows Server 2012、Windows 8、Windows Server 2008、Windows 7 和 Windows Vista</string>

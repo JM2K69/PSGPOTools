@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2006 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Definições de Política de Grupo do Gestor de Ligações do Windows</displayName>
   <description>Definições de Política de Grupo do Gestor de Ligações do Windows</description>
@@ -22,7 +22,7 @@ Tentativas de ligação manual
 Se esta definição de política não for configurada ou for desativada, os computadores terão permissão para se ligarem em simultâneo a redes de domínio e a redes que não pertençam a um domínio.
       </string>
       <string id="WCM_DisableRoaming">Proibir ligação a redes de Banda Larga Móvel de roaming</string>
-      <string id="WCM_DisableRoaming_Help">Esta definição de política impede que o cliente se ligue a redes de Banda Larga Móvel quando está registado numa rede de fornecedor de roaming. 
+      <string id="WCM_DisableRoaming_Help">Esta definição de política impede que o cliente se ligue a redes de Banda Larga Móvel quando está registado numa rede de fornecedor de roaming.
 
 Se esta definição de política for ativada, todas as tentativas de ligação automática e manual a redes de fornecedor de roaming serão bloqueadas até o cliente se registar numa rede de fornecedor doméstico.
 
@@ -47,7 +47,7 @@ Se esta definição de política não for configurada ou for desativada, os clie
         Esta definição de política está relacionada com a definição de política "Permitir que o Windows desligue temporariamente um computador de uma rede".
       </string>
       <string id="WCM_DisablePowerManagement">Desativar a gestão de energia em modo de espera ligado</string>
-      <string id="WCM_DisablePowerManagement_Help">Esta definição de política especifica que a gestão de energia deverá ser desativada quando o computador entrar em modo de espera ligado. 
+      <string id="WCM_DisablePowerManagement_Help">Esta definição de política especifica que a gestão de energia deverá ser desativada quando o computador entrar em modo de espera ligado.
 
 Se esta definição de política for ativada, o Gestor de Ligações do Windows não fará a gestão de transmissores de rádio de adaptadores para reduzir o consumo de energia quando o computador entrar em modo de espera ligado.
 
@@ -60,9 +60,9 @@ Se esta definição de política estiver ativada ou não for configurada, o Wind
 
 Se esta definição de política estiver desativada, o Windows irá desligar imediatamente um computador de uma rede quando determinar que o computador já não deve estar ligado a uma rede.
 
-Quando a desligação temporária está ativada:
-- Quando o Windows decide que o computador já não deve estar ligado a uma rede, espera que o tráfego assente nessa rede. A sessão TCP existente irá continuar sem interrupções.
-- Em seguida, o Windows verifica o nível de tráfego na rede periodicamente. Se o nível de tráfego for superior a um determinado limiar, não são realizadas mais ações. O computador permanece ligado à rede e continua a utilizá-la. Por exemplo, se a ligação de rede estiver a ser utilizada para transferir ficheiros da Internet, os ficheiros continuarão a ser transferidos utilizando essa ligação de rede.
+Quando o cancelamento temporário da ligação estiver ativado:
+- Quando o Windows decide que o computador já não deve estar ligado a uma rede, aguardará que o tráfego assente nessa rede. A sessão TCP existente irá continuar sem interrupções.
+- Em seguida, o Windows verifica o nível de tráfego na rede periodicamente. Se o nível de tráfego for superior a um determinado limiar, não são realizadas mais ações. O computador permanece ligado à rede e continuará a utilizá-la. Por exemplo, se a ligação de rede estiver a ser utilizada para transferir ficheiros da Internet, os ficheiros continuarão a ser transferidos utilizando essa ligação de rede.
 - Quando o tráfego de rede for inferior a este limiar, o computador será desligado da rede. As aplicações que mantêm uma ligação de rede ativa mesmo quando não a estão a utilizar ativamente (por exemplo, aplicações de e-mail) podem perder a ligação. Se isto acontecer, estas aplicações devem restabelecer a ligação através de uma rede diferente. 
 
 Esta definição de política depende de outras definições de política de grupo. Por exemplo, se a opção "Minimizar o número de ligações simultâneas à Internet ou a um Domínio Windows" estiver desativada, o Windows não irá desligar-se de quaisquer redes.

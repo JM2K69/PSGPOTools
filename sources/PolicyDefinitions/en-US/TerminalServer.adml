@@ -5,6 +5,8 @@
   <description>enter description here</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Enable auto-subscription</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Controls the list of URLs that the user should be auto-subscribed to</string>
       <string id="TS_SUPPORTED_Windows10">At least Windows 10 or Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">At least Windows 8 or Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">At least Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">At least Windows XP and Windows Server 2003 only</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">At least Windows Server 2008 or Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only"> Windows Server 2008 R2 only</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 Version 1903, Windows 10 Version 1909, and Windows 10 Version 2004</string>
       <string id="TS_TERMINAL_SERVER">Remote Desktop Session Host</string>
       <string id="TS_TERMINAL_SERVER_Help">Controls configuration of a Remote Desktop Session Host server</string>
       <string id="TS_LICENSE_SERVER">RD Licensing</string>
@@ -129,7 +132,7 @@ If you disable this setting or leave it not configured, the user will be able to
 
 By default, an RD Session Host server maps client drives automatically upon connection. Mapped drives appear in the session folder tree in File Explorer or Computer in the format &lt;driveletter&gt; on &lt;computername&gt;. You can use this policy setting to override this behavior.
 
-If you enable this policy setting, client drive redirection is not allowed in Remote Desktop Services sessions, and Clipboard file copy redirection is not allowed on computers running Windows Server 2003, Windows 8, and Windows XP.
+If you enable this policy setting, client drive redirection is not allowed in Remote Desktop Services sessions, and Clipboard file copy redirection is not allowed on computers running Windows XP, Windows Server 2003, Windows Server 2012 (and later) or Windows 8 (and later).
 
 If you disable this policy setting, client drive redirection is always allowed. In addition, Clipboard file copy redirection is always allowed if Clipboard redirection is allowed.
 
@@ -140,6 +143,7 @@ If you do not configure this policy setting, client drive redirection and Clipbo
       <string id="TS_CLIENT_LPT">Do not allow LPT port redirection</string>
       <string id="TS_CLIENT_PNP">Do not allow supported Plug and Play device redirection</string>
       <string id="TS_CAMERA_REDIRECTION">Do not allow video capture redirection</string>
+      <string id="TS_LOCATION_REDIRECTION">Do not allow location redirection</string>
       <string id="TS_CLIENT_PRINTER">Do not allow client printer redirection</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">This policy setting specifies whether to prevent the sharing of Clipboard contents (Clipboard redirection) between a remote computer and a client computer during a Remote Desktop Services session.
 
@@ -201,6 +205,15 @@ If you enable this policy setting, users cannot redirect their video capture dev
 
 If you disable or do not configure this policy setting, users can redirect their video capture devices to the remote computer. Users can use the More option on the Local Resources tab of Remote Desktop Connection to choose the video capture devices to redirect to the remote computer.
 
+</string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">This policy setting lets you control the redirection of location data to the remote computer in a Remote Desktop Services session.
+
+By default, Remote Desktop Services allows redirection of location data.
+
+If you enable this policy setting, users cannot redirect their location data to the remote computer.
+
+If you disable or do not configure this policy setting, users can redirect their location data to the remote computer.
+          
 </string>
       <string id="TS_MAXMONITOR_EXPLAIN">This policy setting allows you to limit the number of monitors that a user can use to display a Remote Desktop Services session. Limiting the number of monitors to display a Remote Desktop Services session can improve connection performance, particularly over slow links, and reduce server load.
 
@@ -409,17 +422,17 @@ If you disable or do not configure this policy setting, these notifications will
       <string id="TS_LICENSING_MODE_EXPLAIN">
         This policy setting allows you to specify the type of Remote Desktop Services client access license (RDS CAL) that is required to connect to this RD Session Host server.
 
-        You can use this policy setting to select one of three licensing modes: Per User , Per Device and AAD Per User .
+        You can use this policy setting to select one of two licensing modes: Per User or Per Device.
 
         Per User licensing mode requires that each user account connecting to this RD Session Host server have an RDS Per User CAL issued from an RD Licensing server.
 
         Per Device licensing mode requires that each device connecting to this RD Session Host server have an RDS Per Device CAL issued from an RD Licensing server.
 
-        AAD Per User licensing mode requires that each user account connecting to this RD Session Host server have a service plan that supports RDS licenses assigned in AAD.
-        
         If you enable this policy setting, the Remote Desktop licensing mode that you specify is honored by the Remote Desktop license server and RD Session Host.
 
         If you disable or do not configure this policy setting, the licensing mode is not specified at the Group Policy level.
+
+        Note: AAD Per User mode is deprecated on Windows 11 and above.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Per Device</string>
       <string id="TS_LICENSING_MODE_PER_USER">Per User</string>
@@ -591,6 +604,17 @@ If you disable or do not configure this policy setting, the security method to b
       <string id="TS_SECURITY_LAYER_POLICY">Require use of specific security layer for remote (RDP) connections</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Enable Microsoft Entra ID Authentication Enforcement</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">This policy setting allows you to specify whether to require server-side enforcement of Microsoft Entra ID authentication.
+
+If you enable this policy setting, all Remote Desktop Services clients must use RDS AAD Auth in order to authenticate to RD Session Host servers. 
+
+This policy does not allow fallback to other authentication methods. 
+
+Network Level Authentication (NLA) is required to be enabled in order for this policy to be effective. Refer to the "Require user authentication for remote connections by using Network Level Authentication" policy.
+
+If you disable or do not configure this policy setting, then Microsoft Entra ID Authentication Enforcement is not enforced.
+</string>
       <string id="TS_Session_End_On_Limit">End session when time limits are reached</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">This policy setting specifies whether to end a Remote Desktop Services session that has timed out instead of disconnecting it.
 
@@ -762,6 +786,79 @@ If you enable this policy setting, the desktop is always displayed when a client
 If you disable or do not configure this policy setting, an initial program can be specified that runs on the remote computer after the client connects to the remote computer. If an initial program is not specified, the desktop is always displayed on the remote computer after the client connects to the remote computer.
 
 Note: If this policy setting is enabled, then the "Start a program on connection" policy setting is ignored.</string>
+      <string id="TS_UIA">Allow UI Automation redirection</string>
+      <string id="TS_UIA_EXPLAIN">This policy setting determines whether User Interface (UI) Automation client applications running on the local computer can access UI elements on the server.
+
+UI Automation gives programs access to most UI elements, which lets you use assistive technology products like Magnifier and Narrator that need to interact with the UI in order to work properly. UI information also allows automated test scripts to interact with the UI.
+
+Remote Desktop sessions don't currently support UI Automation redirection.
+
+If you enable or don't configure this policy setting, any UI Automation clients on your local computer can interact with remote apps. For example, you can use your local computer's Narrator and Magnifier clients to interact with UI on a web page you opened in a remote session.
+
+If you disable this policy setting, UI Automation clients running on your local computer can't interact with remote apps.
+</string>
+      <string id="TS_WEBAUTHN">Do not allow WebAuthn redirection</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">This policy setting lets you control the redirection of web authentication (WebAuthn) requests from a Remote Desktop session to the local device. This redirection enables users to authenticate to resources inside the Remote Desktop session using their local authenticator (e.g., Windows Hello for Business, security key, or other).
+
+By default, Remote Desktop allows redirection of WebAuthn requests.
+
+If you enable this policy setting, users can't use their local authenticator inside the Remote Desktop session.
+
+If you disable or do not configure this policy setting, users can use local authenticators inside the Remote Desktop session.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">Disable clipboard transfers from server to client</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">Disable clipboard transfers from client to server</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Allow plain text</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Allow plain text and images</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Allow plain text, images and Rich Text Format</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Allow plain text, images, Rich Text Format and HTML</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">Restrict clipboard transfer from server to client</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">This policy setting allows you to restrict clipboard data transfers from server to client.
+
+If you enable this policy setting, you must choose from the following behaviors:
+
+- Disable clipboard transfers from server to client.
+
+- Allow plain text copying from server to client.
+
+- Allow plain text and images copying from server to client.
+
+- Allow plain text, images and Rich Text Format copying from server to client.
+
+- Allow plain text, images, Rich Text Format and HTML copying from server to client.
+
+If you disable or do not configure this policy setting, users can copy arbitrary contents from server to client if clipboard redirection is enabled.
+
+Note: This policy setting appears in both Computer Configuration and User Configuration. If both policy settings are configured, the stricter restriction will be used.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">Restrict clipboard transfer from client to server</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">This policy setting allows you to restrict clipboard data transfers from client to server.
+
+If you enable this policy setting, you must choose from the following behaviors:
+
+- Disable clipboard transfers from client to server.
+
+- Allow plain text copying from client to server.
+
+- Allow plain text and images copying from client to server.
+
+- Allow plain text, images and Rich Text Format copying from client to server.
+
+- Allow plain text, images, Rich Text Format and HTML copying from client to server.
+
+If you disable or do not configure this policy setting, users can copy arbitrary contents from client to server if clipboard redirection is enabled.
+
+Note: This policy setting appears in both Computer Configuration and User Configuration. If both policy settings are configured, the stricter restriction will be used.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Disable Cloud Clipboard integration for server-to-client data transfer</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">This policy setting lets you control whether data transferred from the remote session to the client using clipboard redirection is added to the client-side Cloud Clipboard.
+
+By default, Remote Desktop disables integration with the client-side Cloud Clipboard for data transfered from the remote session using clipboard redirection.
+
+If you enable or do not configure this policy setting, data copied in the remote session and pasted on the client, will not be added to the client-side Cloud Clipboard.
+
+If you disable this policy setting, data copied in the remote session and pasted on the client, will be added to the client-side Cloud Clipboard (if enabled).
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">This policy setting allows you to specify whether to require user authentication for remote connections to the RD Session Host server by using Network Level Authentication. This policy setting enhances security by requiring that user authentication occur earlier in the remote connection process.
 
 If you enable this policy setting, only client computers that support Network Level Authentication can connect to the RD Session Host server.
@@ -775,6 +872,24 @@ If you do not configure this policy setting, the local setting on the target com
 Important: Disabling this policy setting provides less security because user authentication will occur later in the remote connection process.
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Require user authentication for remote connections by using Network Level Authentication</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Disconnect remote session on lock for legacy authentication</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">This policy setting allows you to configure the user experience when the Remote Desktop session is locked by the user or by a policy. You can specify whether the remote session will show the remote lock screen or disconnect when the remote session is locked. Disconnecting the remote session ensures that a remote session cannot be left on the lock screen and cannot reconnect automatically due to loss of network connectivity.
+
+This policy applies only when using legacy authentication to authenticate to the remote PC. Legacy authentication is limited to username and password, or certificates like smartcards. Legacy authentication doesn't leverage the Microsoft identity platform, such as Microsoft Entra ID. Legacy authentication includes the NTLM, CredSSP, RDSTLS, TLS, and RDP basic authentication protocols.
+
+If you enable this policy setting, Remote Desktop connections using legacy authentication will disconnect the remote session when the remote session is locked. Users can reconnect when they're ready and re-enter their credentials when prompted.
+
+If you disable or do not configure this policy setting, Remote Desktop connections using legacy authentication will show the remote lock screen when the remote session is locked. Users can unlock the remote session using their username and password, or certificates.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Disconnect remote session on lock for Microsoft identity platform authentication</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">This policy setting allows you to configure the user experience when the Remote Desktop session is locked by the user or by a policy. You can specify whether the remote session will show the remote lock screen or disconnect when the remote session is locked. Disconnecting the remote session ensures that a remote session cannot be left on the lock screen and cannot reconnect automatically due to loss of network connectivity.
+
+This policy applies only when using an identity provider that uses the Microsoft identity platform, such as Microsoft Entra ID, to authenticate to the remote PC. This policy doesn't apply when using Legacy authentication which includes the NTLM, CredSSP, RDSTLS, TLS, and RDP basic authentication protocols.
+
+If you enable or do not configure this policy setting, Remote Desktop connections using the Microsoft identity platform will disconnect the remote session when the remote session is locked. Users can reconnect when they're ready and can use passwordless authentication if configured.
+
+If you disable this policy setting, Remote Desktop connections using the Microsoft identity platform will show the remote lock screen when the remote session is locked. Users can unlock the remote session using their username and password, or certificates.
+</string>
       <string id="TS_User_Help">Controls configuration of Remote Desktop Services technologies that enable access to a server running Windows-based programs or the full Windows desktop</string>
       <string id="TS_USER_HOME">Set Remote Desktop Services User Home Directory</string>
       <string id="TS_USER_HOME_EXPLAIN">Specifies whether Remote Desktop Services uses the specified network share or local directory path as the root of the user's home directory for a Remote Desktop Services session.
@@ -869,10 +984,14 @@ If you disable this policy setting, users cannot run .rdp files that are signed 
 
 Note: You can define this policy setting in the Computer Configuration node or in the User Configuration node. If you configure this policy setting for the computer, all users on the computer are affected.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Specify SHA1 thumbprints of certificates representing trusted .rdp publishers</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">This policy setting allows you to specify a list of Secure Hash Algorithm 1 (SHA1) certificate thumbprints that represent trusted Remote Desktop Protocol (.rdp) file publishers.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Specify thumbprints of certificates representing trusted .rdp publishers</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">This policy setting allows you to specify a list of certificate thumbprints that represent trusted Remote Desktop Protocol (.rdp) file publishers. SHA-256, SHA-384, and SHA-512 thumbprints are supported. SHA-1 thumbprints are deprecated: SHA-1 is no longer considered secure and support for SHA-1 thumbprints will be disabled by default in an upcoming security update. Administrators should migrate all thumbprint entries to SHA-256 or stronger as soon as possible.
 
-If you enable this policy setting, any certificate with an SHA1 thumbprint that matches a thumbprint on the list is trusted. If a user tries to start an .rdp file that is signed by a trusted certificate, the user does not receive any warning messages when they start the file. To obtain the thumbprint, view the certificate details, and then click the Thumbprint field.
+Thumbprints may be prefixed with the hash algorithm used to produce them. Supported prefixes are "sha256:", "sha384:", and "sha512:" (case-insensitive). For example: sha256:AB0356F2... If no prefix is specified, the entry is treated as a legacy SHA-1 thumbprint.
+
+If the "Do not allow SHA-1 thumbprints" checkbox is enabled, unprefixed entries are ignored. Only SHA-256, SHA-384, and SHA-512 thumbprints will be matched. It is strongly recommended to enable this checkbox now to prepare for the upcoming default change.
+
+If you enable this policy setting, any certificate with a thumbprint that matches a thumbprint on the list is trusted. If a user tries to start an .rdp file that is signed by a trusted certificate, the user does not receive any warning messages when they start the file.
 
 If you disable or do not configure this policy setting, no publisher is treated as a trusted .rdp publisher.
 
@@ -883,10 +1002,14 @@ You can define this policy setting in the Computer Configuration node or in the 
 This policy setting overrides the behavior of the "Allow .rdp files from valid publishers and user's default .rdp settings" policy setting.
 
 If the list contains a string that is not a certificate thumbprint, it is ignored.
-</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">This policy setting allows you to specify a list of Secure Hash Algorithm 1 (SHA1) certificate thumbprints that represent trusted Remote Desktop Protocol (.rdp) file publishers.
 
-If you enable this policy setting, any certificate with an SHA1 thumbprint that matches a thumbprint on the list is trusted. If a user tries to start an .rdp file that is signed by a trusted certificate, the user does not receive any warning messages when they start the file. To obtain the thumbprint, view the certificate details, and then click the Thumbprint field.
+See https://go.microsoft.com/fwlink/?LinkId=2368223 for more information.
+</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">This policy setting allows you to specify a list of certificate thumbprints that represent trusted Remote Desktop Protocol (.rdp) file publishers. SHA-256, SHA-384, and SHA-512 thumbprints are supported. SHA-1 thumbprints are deprecated: SHA-1 is no longer considered secure and support for SHA-1 thumbprints will be disabled by default in an upcoming security update. Users should migrate all thumbprint entries to SHA-256 or stronger as soon as possible.
+
+Thumbprints may be prefixed with the hash algorithm used to produce them. Supported prefixes are "sha256:", "sha384:", and "sha512:" (case-insensitive). For example: sha256:AB0356F2... If no prefix is specified, the entry is treated as a legacy SHA-1 thumbprint.
+
+If you enable this policy setting, any certificate with a thumbprint that matches a thumbprint on the list is trusted. If a user tries to start an .rdp file that is signed by a trusted certificate, the user does not receive any warning messages when they start the file.
 
 If you disable or do not configure this policy setting, no publisher is treated as a trusted .rdp publisher.
 
@@ -897,6 +1020,8 @@ You can define this policy setting in the Computer Configuration node or in the 
 This policy setting overrides the behavior of the "Allow .rdp files from valid publishers and user's default .rdp settings" policy setting.
 
 If the list contains a string that is not a certificate thumbprint, it is ignored.
+
+See https://go.microsoft.com/fwlink/?LinkId=2368223 for more information.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">Prompt for credentials on the client computer</string>
@@ -977,6 +1102,14 @@ If you enable or do not configure this policy setting, RemoteApp programs publis
 
 If you disable this policy setting, RemoteApp programs published from this RD Session Host server will not use these advanced graphics. You may want to choose this option if you discover that applications published as RemoteApp programs do not support these advanced graphics. 
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">Enable enhanced shell experience for RemoteApp</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">This policy setting enables an enhanced shell experience for RemoteApp sessions, offering support for default file associations, Run/RunOnce registry keys, and more. This policy setting applies only to RemoteApp sessions and does not apply to Remote Desktop sessions.
+
+If you enable or do not configure this policy setting, RemoteApp sessions on RD Session Host servers will have the enhanced shell experience.
+
+If you disable this policy setting, RemoteApp sessions will not have the enhanced shell experience and will use the legacy shell behavior. This may be needed if compatibility issues arise in published RemoteApp programs.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1106,7 +1239,7 @@ Note: RemoteApp programs that are installed through RemoteApp and Desktop Connec
 
 If you enable this policy setting, you must specify if you would like RDP to use UDP.
 
-You can select one of the following options: "Use both UDP and TCP", "Use only TCP" or "Use either UDP or TCP (default)" 
+You can select one of the following options: "Use either UDP or TCP (default)" or "Use only TCP" 
 
 If you select "Use either UDP or TCP" and the UDP connection is successful, most of the RDP traffic will use UDP.
 
@@ -1114,9 +1247,8 @@ If the UDP connection is not successful or if you select "Use only TCP," all of 
 
 If you disable or do not configure this policy setting, RDP will choose the optimal protocols for delivering the best user experience.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">Use both UDP and TCP</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Use only TCP</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">Use either UDP or TCP</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Use only TCP</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Select network detection on the server</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">This policy setting allows you to specify how the Remote Desktop Protocol will try to detect the network quality (bandwidth and latency).
@@ -1293,12 +1425,13 @@ NOTE: The policy setting enables load-balancing of graphics processing units (GP
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Comma-separated list of SHA1 trusted certificate thumbprints:</label>
+          <label>Comma-separated list of trusted certificate thumbprints (prefix with sha256:, sha384:, or sha512:):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">Do not allow SHA-1 thumbprints</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Comma-separated list of SHA1 trusted certificate thumbprints:</label>
+          <label>Comma-separated list of trusted certificate thumbprints (prefix with sha256:, sha384:, or sha512:):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1336,6 +1469,12 @@ NOTE: The policy setting enables load-balancing of graphics processing units (GP
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Select Transport Type</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Restrict clipboard transfer from server to client:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Restrict clipboard transfer from client to server:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

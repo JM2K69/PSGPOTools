@@ -947,7 +947,7 @@ Si deshabilita esta configuración de directiva, UE-V Agent sincronizará la con
 Si no establece esta configuración de directiva, se eliminan todos los valores definidos.
 Nota: si el usuario conecta su cuenta de Microsoft para su equipo, UE-V Agent no sincronizará las aplicaciones de Windows. De manera predeterminada, las aplicaciones de Windows usarán la configuración establecida en las opciones de Sincronizar tu configuración en Windows.
       </string>
-      <string id="Win8AppsList">Sincronización de aplicaciones de Windows</string>
+      <string id="Win8AppsList">Sincronización de Windows App</string>
       <string id="Win8AppsList_Help">Este valor de configuración de directiva permite configurar si User Experience Virtualization (UE-V) sincroniza la configuración de aplicaciones de Windows especificadas. De manera predeterminada, UE-V Agent no sincroniza la configuración de aplicaciones de Windows. Esta configuración de directiva le permite enumerar las aplicaciones de Windows según su nombre de familia de paquete. UE-V sincroniza la configuración de las aplicaciones enumeradas entre los equipos de usuarios que ejecutan la misma aplicación para Windows. Si habilita este valor de configuración de directiva y enumera nombres de familia de paquete de aplicaciones de Windows, UE-V Agent sincronizará la configuración de las aplicaciones enumeradas.
 Si lo deshabilita, no se sincronizará la configuración de aplicaciones de Windows. 
 Si no lo configura, se eliminarán los valores definidos.
@@ -960,10 +960,10 @@ Si lo deshabilita, no aparece ninguna notificación.
 Si no lo configura, se eliminarán los valores definidos.
       </string>
       <string id="SyncUnlistedWindows8Apps">Sincronizar aplicaciones de Windows que no aparecen en la lista</string>
-      <string id="SyncUnlistedWindows8Apps_Help">Este valor de configuración de directiva permite definir el comportamiento de sincronización de la configuración predeterminada de User Experience Virtualization (UE-V) Agent para aplicaciones de Windows que no aparecen explícitamente en la lista de aplicaciones de Windows.
-De forma predeterminada, UE-V Agent solo sincroniza la configuración de las aplicaciones de Windows incluidas en la lista de aplicaciones de Windows.
-Si habilita este valor de configuración de directiva, se sincroniza la configuración de todas las aplicaciones de Windows que no se hayan deshabilitado expresamente en la lista de aplicaciones de Windows.
-Si lo deshabilita, solo se sincroniza la configuración de las aplicaciones de Windows especificadas en la lista de aplicaciones de Windows.
+      <string id="SyncUnlistedWindows8Apps_Help">Este valor de configuración de directiva permite definir el comportamiento de sincronización de la configuración predeterminada de User Experience Virtualization (UE-V) Agent para Windows App que no aparecen explícitamente en la lista de Windows App.
+De forma predeterminada, UE-V Agent solo sincroniza la configuración de las Windows App incluidas en la lista de Windows App.
+Si habilita este valor de configuración de directiva, se sincroniza la configuración de todas las Windows App que no se hayan deshabilitado expresamente en la lista de Windows App.
+Si lo deshabilita, solo se sincroniza la configuración de las Windows App especificadas en la lista de Windows App.
 Si no lo configura, se eliminarán los valores definidos.
       </string>
       <string id="SyncSettingsOverMetered">Sincronizar configuración en conexiones de uso medido</string>

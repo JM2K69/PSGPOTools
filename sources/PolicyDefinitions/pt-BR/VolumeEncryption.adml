@@ -321,6 +321,18 @@ Observação: alguns computadores podem não ser compatíveis com esta política
       </string>
       <string id="DisableExternalDMAUnderLock_Name">Desabilitar novos dispositivos DMA quando este computador estiver bloqueado</string>
 
+      <string id="DisableWinRETrust_Help">Esta configuração de política controla se o BitLocker confia no Ambiente de Recuperação do Windows (WinRE).
+
+Quando o BitLocker confia no WinRE, o WinRE pode acessar o volume do sistema operacional protegido pelo BitLocker sem exigir a chave de recuperação do BitLocker. Isso dá suporte a operações de recuperação que precisam acessar o volume do sistema operacional.
+
+Importante: Habilitar esta configuração de política altera o comportamento de recuperação. Se você habilitar essa configuração de política, o BitLocker não confiará no WinRE. A chave de recuperação do BitLocker é necessária para qualquer operação do WinRE que precise acessar o volume do sistema operacional protegido pelo BitLocker. As operações de recuperação que dependem do acesso do WinRE ao volume do sistema operacional podem exigir a intervenção do usuário ou do administrador e talvez não sejam concluídas automaticamente, incluindo o Reparo de Inicialização, a Recuperação Rápida do Computador, a Recuperação por botão de ação e a redefinição ou limpeza remota iniciada pelo MDM usando o RemoteWipe CSP.
+
+Se você desabilitar ou não definir essa configuração de política, o BitLocker confiará em uma imagem WinRE validada para que o WinRE possa acessar o volume do sistema operacional protegido pelo BitLocker sem a chave de recuperação.
+
+Esta configuração de política só é aplicada quando o BitLocker está habilitado ou a criptografia do dispositivo está habilitada.</string>
+
+      <string id="DisableWinRETrust_Name">Desabilitar a relação de confiança do BitLocker do Ambiente de Recuperação do Windows (WinRE)</string>
+
       <string id="FVEOSCategory">Unidades do Sistema Operacional</string>
       <string id="FVEFDVCategory">Unidades de Dados Fixas</string>
       <string id="FVERDVCategory">Unidades de Dados Removíveis</string>
@@ -718,7 +730,6 @@ Quando essa política é habilitada e o hardware é compatível com o uso da Ini
 Observação: se a configuração de política de grupo "Configurar perfil de validação de plataforma TPM para configurações de firmware UEFI nativo" estiver habilitada e tiver o PCR 7 omitido, o BitLocker será impedido de usar a Inicialização Segura para plataforma ou a validação de integridade de BCD (Dados de Configuração da Inicialização).
 
 Aviso: desabilitar essa política pode resultar na recuperação de BitLocker quando o firmware é atualizado. Se você desabilitar essa política, suspenda o BitLocker antes de aplicar atualizações de firmware.
-    
       </string>
       <string id="SUPPORTED_Windows8NoARM">Windows Server 2012 ou Windows 8 ou posterior</string>  
       <string id="SUPPORTED_Windows_6_3ToVista">Windows Server 2012 R2, Windows 8.1, Windows Server 2012, Windows 8, Windows Server 2008, Windows 7 e Windows Vista</string>

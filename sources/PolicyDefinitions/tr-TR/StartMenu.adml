@@ -27,11 +27,10 @@ Bu ilkeyi devre dışı bırakır veya yapılandırmazsanız kullanıcı başlat
 Bu ilkeyi devre dışı bırakır veya yapılandırmazsanız kullanıcı başlat menüsünün arama kutusunda bir arama gerçekleştirdiğinde "Daha Fazla Sonuç Görüntüle" / "Her Yerde Ara" bağlantısı gösterilir.  Üçüncü taraf bir protokol işleyici yüklenirse, "Daha fazla sonuç görüntüle" bağlantısı yerine bir "Her Yerde Ara" bağlantısı gösterilir.</string>
       <string id="AddSearchInternetLinkInStartMenu">Başlat Menüsüne İnternet'te Ara bağlantısı ekle</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
-
 Bu ilkeyi etkinleştirirseniz kullanıcı başlat menüsünün arama kutusunda bir arama gerçekleştirdiğinde bir "İnternet'te Ara" bağlantısı gösterilir.  Bu düğme, varsayılan tarayıcıyı arama terimleri ile başlatır.
 
 Bu ilkeyi devre dışı bırakırsanız, kullanıcı başlat menüsünün arama kutusunda bir arama gerçekleştirdiğinde bir "İnternet'te Ara" bağlantısı olmaz.
-          
+
 Bu ilkeyi yapılandırmazsanız (varsayılandır), başlat menüsünde bir "İnternet'te Ara" bağlantısı olmaz.</string>
       <string id="NoSearchFilesInStartMenu">Dosyaları arama</string>
       <string id="NoSearchFilesInStartMenu_Help">Bu ilke ayarını etkinleştirirseniz Başlat menüsü arama kutusundan dosyalar aranamaz.
@@ -207,6 +206,19 @@ Dosya Gezgini'nde, Arama öğesi Standart düğmeler araç çubuğunda görünme
 Bu ilke ayarı yalnızca belirtilen kullanıcı arabirimi öğelerini etkiler. Internet Explorer'ı etkilemeyeceği gibi kullanıcıların arama yapmak için diğer yöntemleri kullanmalarını da engellemez.
 
 Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız, Başlat menüsünde Arama bağlantısı kullanılabilir.</string>
+      <string id="ShowOrHideMostUsedApps">"En çok kullanılan" listeyi Başlat menüsü 'nden göster veya gizle</string>
+      <string id="ShowOrHideMostUsedApps_Help">Bu ilke ayarını etkinleştirirseniz, Başlat menüsünü kullanıcı ayarlarına bakılmaksızın kullanıcının en çok kullandığı uygulamaların listesini gösterecek veya gizleyecek şekilde yapılandırabilirsiniz.
+
+"Göster" seçeneğinin belirtilmesi "En çok kullanılan" listesinin gösterilmesini zorlar; kullanıcı Ayarlar uygulamasını kullanarak bu seçimi değiştirip listeyi gizleyemez.
+
+"Gizle" seçeneğinin belirtilmesi "En çok kullanılan" listesinin gizlenmesini zorlar; kullanıcı Ayarlar uygulamasını kullanarak bu seçimi değiştirip listeyi görüntüleyemez.
+
+"Yapılandırılmadı" seçeneğini belirtirseniz ya da bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, kullanıcılara Ayarlar uygulamasını kullanarak "En çok kullanılan" listesinin görüntülenmesini açma veya kapatma olanağı sağlanır. Bu, varsayılan davranıştır.
+
+Not: Bu ilkenin, Windows 10' un desteklenen sürümlerinde "Göster" veya "Gizle" olarak yapılandırılması, "Sık kullanılan programlar listesini Başlat Menüsü'nden kaldır" (Başlat menüsünün aynı bölümünü yöneten, ancak daha az seçeneğe sahip) ilke ayarının yerini alır.</string>
+      <string id="MFU_NotConfigured">Yapılandırılmadı</string>
+      <string id="MFU_Show">Göster</string>
+      <string id="MFU_Hide">Gizle</string>
       <string id="NoFrequentUsedPrograms">Sık kullanılan programlar listesini Başlat Menüsü'nden kaldır</string>
       <string id="NoFrequentUsedPrograms_Help">Bu ayarı etkinleştirirseniz sık kullanılan programlar listesi Başlat menüsünden kaldırılır.
 
@@ -243,7 +255,7 @@ Bu ayarı devre dışı bırakır veya yapılandırmazsanız, tüm uygulamalar l
       <string id="APPLIST_NONE">Yok</string>
       <string id="APPLIST_COLLAPSE">Daralt</string>
       <string id="APPLIST_COLLAPSESETTING">Ayarı daralt ve devre dışı bırak</string>
-      <string id="APPLIST_REMOVESETTING">Ayarı kaldır ve devre dışı bırak</string>    
+      <string id="APPLIST_REMOVESETTING">Ayarı kaldır ve devre dışı bırak</string>
 
       <string id="NoNetAndDialupConnect">Başlat Menüsü'nden Ağ Bağlantıları'nı kaldır</string>
       <string id="NoNetAndDialupConnect_Help">Bu ilke ayarı, Başlat menüsünden Ağ Bağlantıları öğesini kaldırmanıza imkan tanır.
@@ -258,9 +270,9 @@ Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız, Ağ
 
 Ayrıca "Ayarlar menüsündeki programları devre dışı bırak" ve "Denetim Masası'nı devre dışı bırak" ilke ayarlarına ve Ağ Bağlantıları klasöründeki ilke ayarlarına bakın (Bilgisayar Yapılandırması ve Kullanıcı Yapılandırması\Yönetimsel Şablonlar\Ağ\Ağ Bağlantıları).</string>
       <string id="NoPinnedPrograms">Başlat Menüsü'nden tutturulan programlar listesini kaldır</string>
-      <string id="NoPinnedPrograms_Help">Bu ayarı etkinleştirirseniz "Tutturulan Programlar" listesi Başlat menüsünden kaldırılır. Kullanıcılar programları Başlat menüsüne tutturamaz. 
+      <string id="NoPinnedPrograms_Help">Bu ayarı etkinleştirirseniz "Tutturulan Programlar" listesi Başlat menüsünden kaldırılır. Kullanıcılar programları Başlat menüsüne tutturamaz.
 
-Windows XP ve Windows Vista'da, İnternet ve e-posta onay kutuları 'Başlat Menüsünü Özelleştir' iletişiminden kaldırılır. 
+Windows XP ve Windows Vista'da, İnternet ve e-posta onay kutuları 'Başlat Menüsünü Özelleştir' iletişiminden kaldırılır.
 
 Bu ayarı devre dışı bırakırsanız ya da yapılandırmazsanız "Tutturulan Programlar" listesi Başlat menüsünden kalır. Kullanıcılar programları Başlat Menüsü'ne tutturabilir ya da çıkarabilir.</string>
       <string id="NoRecentDocsHistory">Son açılan belgelerin geçmişini tutma</string>
@@ -328,7 +340,15 @@ Bu ayarı etkinleştirirseniz aşağıdaki değişiklikler oluşur:
 
 (3) Kullanıcının aşağıdakileri Internet Explorer Adres Çubuğuna girmesi engellenir:
 
---- UNC yolu: \\&lt; sunucu&gt; \&lt; paylaşım&gt; 
+--- UNC yolu: \\&lt;sunucu&gt;\&lt;paylaşım&gt;
+
+---Yerel sürücülere erişime:  ör., C:
+
+--- Yerel klasörlere erişme: ör., \temp&gt;
+
+Ayrıca genişletilmiş klavyeleri olan kullanıcılar artık Uygulama tuşu (Windows logolu tuş) + R kombinasyonu ile Çalıştır iletişim kutusunu görüntüleyemez.
+
+Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız, kullanıcılar Çalıştır komutuna Başlat menüsünden ve Görev Yöneticisi’nden erişebilir veya Internet Explorer Adres Çubuğu’nu kullanabilir.
 
 
 
@@ -591,7 +611,7 @@ Bu ilke ayarını etkinleştirirseniz, kullanıcı Windows logo tuşuna bastığ
 
 Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, kullanıcı Windows logo tuşuna bastığında Başlangıç ekranı her zaman ana ekranda gösterilir. Kullanıcılar yine başka herhangi bir görüntüde Başlat tuşuna basarak o görüntüde Başlangıç ekranını gösterebilir. Ayrıca, kullanıcı bu ayarı yapılandırabilir.</string>
       <string id="ForceStartSize_DisplayName">Başlangıç'ı tam ekran veya menü boyutuna getirmeye zorla</string>
-      <string id="ForceStartSize_ExplainText">Bu ilkeyi etkinleştirirseniz ve Başlat menüsü ya da tam ekran Başlangıç olarak ayarlarsanız, Başlangıç o boyutta görüntülenir ve kullanıcılar Ayarlar'dan Başlangıç boyutunu değiştiremez. 
+      <string id="ForceStartSize_ExplainText">Bu ilkeyi etkinleştirirseniz ve Başlat menüsü ya da tam ekran Başlangıç olarak ayarlarsanız, Başlangıç o boyutta görüntülenir ve kullanıcılar Ayarlar'dan Başlangıç boyutunu değiştiremez.
 
 Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, Windows donanım form faktörünü esas alarak boyutu otomatik olarak seçer ve kullanıcılar Ayarlar'dan Başlangıç boyutunu değiştiremez.</string>
       <string id="ForceLauncherSize_Collapsed">Başlat menüsü</string>
@@ -604,10 +624,44 @@ Bu ilkeyi etkinleştirirseniz kişiler simgesi görev çubuğundan kaldırılır
       <string id="HideRecentlyAddedApps_Help">Bu ilke, Başlat Menüsü'nün en son yüklenen uygulamaların bir listesini görüntülemesini engellemenizi sağlar.
 
 Bu ilkeyi etkinleştirirseniz Başlat menüsü artık "En son eklenenler" listesini görüntülemez. İlgili ayar Ayarlar'da da devre dışı bırakılır.</string>
+      <string id="HideRecommendedSection">Önerilen bölümünü Başlat Menüsünden Kaldır</string>
+      <string id="HideRecommendedSection_Help">Bu ilke, Başlat Menüsünün önerilen uygulamalar ve dosyaların bir listesini görüntülemesini engellemenize olanak tanır.
+
+Bu ilke ayarını etkinleştirirseniz Başlat Menüsü artık önerilen dosya ve uygulamaların listesini içeren bölümü göstermez.</string>
+ <string id="HideCategoryView">Başlat Menüsünde Kategori görünümünü gizle</string>
+ <string id="HideCategoryView_Help">Bu ilke ayarı, Başlat Menüsünde kategori görünümünü gizlemenizi sağlar.
+ 
+Bu ilke ayarını etkinleştirirseniz Başlat Menüsü artık kategori görünümünü seçenek olarak göstermez ve varsayılan olarak kılavuz görünümüne ayarlanır.</string>
+
+ <string id="ConfigureStartPins">Başlangıç Sabitlemelerini Yapılandır</string>
+      <string id="ConfigureStartPins_Help">Yöneticinin Başlangıç'a sabitlenen varsayılan öğeleri geçersiz kılmasına olanak sağlar.
+
+Bu ayar, Başlangıç'a sabitlenmiş varsayılan öğeleri belirtmenizi sağlar.</string>
+
+      <string id="HideRecommendedPersonalizedSites">Başlat Menüsündeki Önerilenler bölümünden Kişiselleştirilmiş Web Sitesi Önerilerini kaldırın</string>
+      <string id="HideRecommendedPersonalizedSites_Help">Bu ilke ayarı, Başlat Menüsünün önerilenler bölümündeki kişiselleştirilmiş web sitelerini gizlemenize olanak tanır. 
+      
+Bu ilke ayarını etkinleştirirseniz, Başlat Menüsü artık önerilenler bölümünde kişiselleştirilmiş web sitesi önerilerini göstermez.</string>
       <string id="DisableContextMenusInStart">Başlat Menüsü'ndeki içerik menülerini devre dışı bırak</string>
       <string id="DisableContextMenusInStart_Help">Bu ilke, kullanıcıların Başlat Menüsü'nde içerik menülerini açmalarını engellemenizi sağlar.
 
 Bu ilkeyi etkinleştirirseniz Başlat Menüsü içinde içerik menülerinin başlatılması yok sayılır.</string>
+      <string id="SimplifyQuickSettings_DisplayName">Hızlı Ayarlar Düzenini Basitleştir</string>
+      <string id="SimplifyQuickSettings_ExplainText">Bu ilkeyi etkinleştirirseniz Hızlı Ayarlar yalnızca WiFi, Bluetooth, Erişilebilirlik ve VPN düğmelerine sahip olacak şekilde azaltılır; parlaklık ve ses düzeyi kaydırıcıları; pil göstergesi ve Ayarlar uygulamasına bağlantı.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Hızlı Ayarlar her çağrıldığında normal Hızlı Ayarlar düzeni belirir.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">Hızlı Düzenleme Ayarları devre dışı bırak</string>
+      <string id="DisableEditingQuickSettings_ExplainText">Bu ilkeyi etkinleştirirseniz kullanıcı Hızlı Ayarları değiştiremez.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kullanıcı, düğmeleri sabitleme veya kaldırma gibi Hızlı Ayarları düzenleyebilir.</string>
+      <string id="DisableControlCenter">Hızlı Ayarları Kaldır</string>
+      <string id="DisableControlCenter_Help">Bu ilke ayarı, Görev çubuğundaki sağ alttan Hızlı Ayarları kaldırır.
+
+Hızlı ayarlar alanı görev çubuğunda saat sol tarafından bulunur ve geçerli ağ ve birim simgeleri içerir.
+
+Bu ayar etkinleştirilirse Hızlı Ayarlar hızlı ayarlar alanında görüntülenmez. 
+
+Bu ilke ayarının etkili olması için yeniden başlatma gerekiyor.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -624,9 +678,22 @@ Bu ilkeyi etkinleştirirseniz Başlat Menüsü içinde içerik menülerinin baş
           <label>Başlangıç Düzeni Dosyası</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">Düzeni her oturumda yeniden uygula</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">Aşağıdaki boyutlardan birini seçin</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">Aşağıdaki eylemlerden birini seçin</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>Başlangıç Sabitlemeleri Düzen Dosyası</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">Kategori görünümünü gizle</checkBox>
       </presentation>
     </presentationTable>
   </resources>

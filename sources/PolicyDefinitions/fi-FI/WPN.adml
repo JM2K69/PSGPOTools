@@ -6,6 +6,8 @@
   <resources>
     <stringTable>
       <string id="NotificationsCategory">Ilmoitukset</string>
+      <string id="WnsEndpoint">Ottaa käyttöön ryhmän WNS FQDN:lle.</string>
+      <string id="WnsEndpointExplain">Tämä asetus määrittää erityiset WNS FQDN -säännöt tietyille ympäristöille.</string>
       <string id="NoTileNotification">Poista ruutuilmoitukset käytöstä</string>
       <string id="NoTileNotificationExplain">
           
@@ -118,6 +120,18 @@
 
           Tämä käytäntöasetus tulee voimaan ilman järjestelmän tai palvelun uudelleenkäynnistystä.
       </string>
+      <string id="ExpandedToastNotifications">Ota käyttöön useita laajennettuja ilmoitusruutuilmoituksia toimintokeskuksessa</string>
+      <string id="ExpandedToastNotificationsExplain">
+          Tämä käytäntöasetus ottaa käyttöön useita laajennettuja ilmoitusruutuilmoituksia toimintokeskuksessa.
+
+          Jos otat tämän käytäntöasetuksen käyttöön, kunkin sovelluksen kolme ensimmäistä ilmoitusta laajennetaan oletusarvoisesti toimintokeskuksessa.
+
+          Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, vain kunkin sovelluksen ensimmäinen ilmoitus laajennetaan oletusarvoisesti toimintokeskuksessa.
+
+          Käytössä ainoastaan Windows 10:ssä. Käytäntö poistuu heti käytöstä Windows 11:ssä.
+
+          Käytäntöasetuksen käyttöönotto ei edellytä koneen tai palvelun käynnistämistä uudelleen.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="QuietHoursBeginTimePicker">
@@ -125,6 +139,11 @@
       </presentation>
       <presentation id="QuietHoursEndTimePicker">
         <decimalTextBox refId="QuietHoursDailyEndMinuteControl" defaultValue="360">Minuuttia keskiyön jälkeen:</decimalTextBox>
+      </presentation>
+      <presentation id="WnsEndpoint">
+        <textBox refId="WnsEndpoint_FQDN">
+          <label>FQDN for WNS</label>
+        </textBox>
       </presentation>
     </presentationTable>
   </resources>

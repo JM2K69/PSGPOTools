@@ -12,6 +12,8 @@ Detta gäller både för befintliga användare på en enhet och nya användare s
 Du rekommenderas aktivera den här inställningen innan någon användare loggar in på en enhet för att förhindra att cachelagrade tokens används. Om den här inställningen är inaktiverad eller inte konfigurerad kan program och tjänster använda Microsoft-konton för autentisering.  
 Inställningen är inaktiverad som standard. Den här inställningen påverkar inte användarnas möjligheter att logga in på enheter med Microsoft-konton och heller inte möjligheten att använda Microsoft-konton i webbläsaren för autentisering i webbaserade program. 
         </string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnly">Tillåt endast enhetsautentisering för Inloggningsassistenten för Microsoft-konton</string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnlyExplain">Den här inställningen anger om endast företagsenhetsautentisering ska tillåtas för tjänsten Inloggningsassistenten för Microsoft-konton (wlidsvc). Som standard är den här inställningen inaktiverad och tillåter både användar- och enhetsautentisering. Tillåt endast enhetsautentisering när värdet är 1 och blockera användarautentisering.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

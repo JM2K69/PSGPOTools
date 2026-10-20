@@ -13,6 +13,13 @@
     Si habilita o no define esta configuración de directiva, los elementos "Usar una imagen del sistema creada previamente para recuperar el equipo" y "Reinstalar Windows" (o "Devolver el equipo a la configuración de fábrica") aparecerán en la página "Métodos avanzados de recuperación" de Recuperación (en el Panel de control) y permitirán al usuario restaurar el equipo a su estado original o a una imagen del sistema creada por el usuario. Esta es la configuración predeterminada.
 
     Si deshabilita esta configuración de directiva, no estarán disponibles los elementos "Usar una imagen del sistema creada previamente para recuperar el equipo" y "Reinstalar Windows" (o "Devolver el equipo a la configuración de fábrica") de Recuperación (en el Panel de control). Sin embargo, aun con esta configuración de directiva deshabilitada, los usuarios podrán restaurar el equipo a su estado original o a una imagen del sistema creada por el usuario; para ello, deberán reiniciar el equipo y usar el menú Opciones de recuperación del sistema, si está disponible.</string>
+      <string id="AllowTrustedOfflineScan">Permitir examen sin conexión desde el Entorno de recuperación de Windows de confianza</string>
+      <string id="AllowTrustedOfflineScan_help">    Requisitos: Windows 10
+    Descripción: esta configuración de directiva controla si se debe permitir el examen sin conexión desde un Windows RE de confianza.
+
+    Si habilitas esta configuración de directiva, el examen sin conexión se ejecutará sin solicitar la clave de recuperación de BitLocker, siempre que BitLocker considere de confianza el Windows RE.
+
+    Si deshabilitas esta configuración de directiva o no la configura, el examen sin conexión solicitará al usuario la clave de recuperación de BitLocker para desbloquear el volumen del sistema operativo. Si el usuario omite desbloquear el volumen del sistema operativo, el examen sin conexión no se ejecutará. Esta es la configuración predeterminada.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

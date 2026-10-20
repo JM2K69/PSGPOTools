@@ -68,13 +68,13 @@
     </string>
     <string id="AppBrowserProtection_DisallowExploitProtectionOverride">Empêcher les utilisateurs de modifier les paramètres</string>
     <string id="AppBrowserProtection_DisallowExploitProtectionOverride_Explain">
-        Empêchez les utilisateurs d'effectuer des modifications dans la zone des paramètres Exploit protection de Sécurité Windows.
+        Empêchez les utilisateurs d'effectuer des modifications dans la zone des paramètres Exploit Protection de Sécurité Windows.
 
         Activé :
-        Les utilisateurs locaux ne peuvent pas effectuer de modifications dans la zone des paramètres Exploit protection.
+        Les utilisateurs locaux ne peuvent pas effectuer de modifications dans la zone des paramètres Exploit Protection.
 
         Désactivé :
-        Les utilisateurs locaux sont autorisés à effectuer des modifications dans la zone des paramètres Exploit protection.
+        Les utilisateurs locaux sont autorisés à effectuer des modifications dans la zone des paramètres Exploit Protection.
 
         Non configuré :
         Identique à Désactivé.
@@ -135,21 +135,22 @@
     </string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts">Configurer des notifications personnalisées</string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts_Explain">
-        Affichez des coordonnées spécifiées pour les utilisateurs locaux dans les notifications de Sécurité Windows.
+        Afficher les informations de contact spécifiées aux utilisateurs locaux dans les notifications de sécurité Windows.
 
-        Activé :
-        Les coordonnées de votre société vont être affichées dans des notifications provenant de Sécurité Windows.
+        Autorisé :
+        Les informations de contact de votre entreprise seront affichées dans les notifications provenant de Sécurité Windows.
 
-        Une fois ce paramètre défini sur Activé, vous devez configurer le paramètre de stratégie de groupe Spécifier le nom de l'entreprise du contact et au moins un des paramètres de stratégie de groupe suivants :
-        -Spécifier le numéro de téléphone du contact ou l'identifiant Skype
-        -Spécifier l'e-mail du contact ou l'ID d'e-mail
-        -Spécifier site web du contact
-
-        Désactivé :
-        Aucune coordonnée ne sera affichée dans les notifications.
+        Une fois ce paramètre défini comme activé, vous devez configurer le paramètre de stratégie de groupe spécifier le nom d’entreprise du contact et au moins un des paramètres de stratégie de groupe suivants :
+        -Spécifier le numéro de téléphone du contact ou l’IDENTIFIant Skype
+        -Spécifiez le numéro de messagerie du contact ou l’ID de courrier
+        -Spécifier le site Web du contact
+        Notez que dans certains cas, nous limitons les options de contact qui s’affichent en fonction de l’espace de notification disponible.
+        
+Désactivé
+        Aucune information de contact ne sera affichée sur les notifications.
 
         Non configuré :
-        Identique à Désactivé.
+        Identique à désactivé.
     </string>
     <string id="EnterpriseCustomization_EnableInAppCustomization">Configurer des informations de contact personnalisées</string>
     <string id="EnterpriseCustomization_EnableInAppCustomization_Explain">

@@ -25,6 +25,10 @@ Questa impostazione dei criteri non è configurata per impostazione predefinita.
 Per rendere effettiva questa impostazione, è necessario riavviare il computer.</string>
       <string id="HomeGroup">Gruppo Home</string>
       <string id="HomeGroup_Help">Contiene impostazioni per il controllo del comportamento del Gruppo Home.</string>
+      <string id="DisableShareAppPromotions">DisableShareAppPromotions</string>
+      <string id="DisableShareAppPromotions_Help">Questa impostazione dei criteri consente agli amministratori IT di controllare se le app promozionali vengono visualizzate in ShareSheet. Se si abilita questo criterio, le app promozionali non verranno visualizzate in ShareSheet. Se si disabilita o non si configura questo criterio, ShareSheet potrà visualizzare suggerimenti e promozioni per le app all'apertura di ShareSheet.</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

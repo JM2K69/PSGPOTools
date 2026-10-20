@@ -33,6 +33,11 @@ Se si disabilita questa impostazione dei criteri, la registrazione MDM sarà abi
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">Seleziona il tipo di credenziali da utilizzare:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>ID applicazione MDM:</label>
+        </textBox>
+        <text>L'ID dell'applicazione MDM rappresenta l'ID dell'applicazione MDM configurata in Azure AD. Questa operazione è facoltativa e necessaria per la registrazione automatica MDM con le credenziali del dispositivo quando sono configurate più applicazioni MDM in Azure AD.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

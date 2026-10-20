@@ -220,11 +220,11 @@ Pour voir un exemple de la boîte de dialogue Ouvrir standard, démarrez WordPad
 
 Remarque : dans Windows Vista, ce paramètre de stratégie s’applique uniquement aux applications qui utilisent le style de boîte de dialogue Windows XP usuel. Ce paramètre de stratégie ne s’applique pas au nouveau style de boîte de dialogue Windows Vista usuel. Les applications tierce partie disposant d’une certification Windows 2000 ou ultérieure doivent respecter ce paramètre.</string>
       <string id="NoRecycleFiles">Ne pas déplacer les fichiers supprimés vers la Corbeille</string>
-      <string id="NoRecycleFiles_Help">Lorsqu’un fichier ou un dossier est supprimé dans l’Explorateur de fichiers, une copie du fichier ou du dossier est placée dans la Corbeille. Ce paramètre permet de modifier ce comportement.
+      <string id="NoRecycleFiles_Help">Lorsqu’un fichier ou un dossier est supprimé dans l’Explorateur de fichiers, une copie du fichier ou du dossier est placée dans la corbeille. En utilisant ce paramètre, vous pouvez modifier ce comportement.
 
-Si vous activez ce paramètre, les fichiers et dossiers supprimés à l’aide de l’Explorateur de fichiers ne seront pas placés dans la Corbeille et seront donc définitivement supprimés.
+Si vous activez ce paramètre, les fichiers et dossiers supprimés à l’aide de l’Explorateur de fichiers ne seront pas placés dans la corbeille et seront donc définitivement supprimés.
 
-Si vous le désactivez ou si vous ne le configurez pas, les fichiers et dossiers supprimés à l’aide de l’Explorateur de fichiers seront placés dans la Corbeille.</string>
+Si vous désactivez ou ne configurez pas ce paramètre, les fichiers et dossiers supprimés à l’aide de l’Explorateur de fichiers seront placés dans la corbeille.</string>
       <string id="NoRunAsInstallPrompt">Ne pas demander d’autres informations d’identification</string>
       <string id="NoRunAsInstallPrompt_Help">Empêche les utilisateurs d’entrer d’autres informations d’identification d’ouverture de session pour installer un programme.
 
@@ -519,19 +519,33 @@ Si vous activez ce paramètre de stratégie, des chemins d’accès distants peu
 Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, les icônes de raccourcis de fichiers utilisant des chemins d’accès distants ne peuvent pas être affichés.
 
 Remarque : autoriser l’utilisation de chemins d’accès distants dans les icônes de raccourcis de fichiers peut exposer les ordinateurs des utilisateurs à des risques de sécurité.</string>
-      <string id="DefaultAssociationsConfiguration">Définir un fichier de configuration des associations par défaut</string>
-      <string id="DefaultAssociationsConfiguration_Help">Ce paramètre de stratégie spécifie le chemin d’accès à un fichier (stocké localement ou à un emplacement réseau), qui contient les associations de type de fichier et de protocole par défaut pour les applications. Ce fichier peut être créé à l’aide de l’outil DISM.
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Autoriser les opérations de descripteur de groupe de fichiers à écrire dans n’importe quel chemin de destination</string>
+      <string id="AllowAllCopyFGDDestinations_Help">Ce paramètre de stratégie détermine si les vérifications d’autonomie de traversée de chemin sont appliquées lors de l’écriture de fichiers reçus via le Presse-papiers ou par glisser-déplacer des descripteurs de groupe de fichiers (CFSTR_FILEDESCRIPTOR).
 
-Exemple :
+Si vous activez ce paramètre de stratégie, les vérifications de l’autonomie du parcours de chemin ne sont pas appliquées et les fichiers peuvent être écrits dans n’importe quel chemin accessible par le dossier de destination. Activez cette stratégie uniquement si le comportement par défaut interrompt un flux de travail requis.
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, les opérations de descripteur de groupe de fichiers appliquent l’autonomie du chemin d’accès et rejettent les noms de fichiers qui tentent d’échapper du dossier de destination via des composants de chemin relatifs.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">Ne pas appliquer la marque de la balise Web aux fichiers copiés à partir de sources non sécurisées</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">Ce paramètre de stratégie détermine l’application de la balise Marque du Web aux fichiers provenant d’emplacements non sécurisés.
+
+Si vous activez ce paramètre de stratégie, les fichiers copiés à partir de sources non sécurisées ne porteront pas la balise Marque du web.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les fichiers copiés à partir de sources non sécurisées porteront la balise Marque du web appropriée.
+
+Remarque : le fait de ne pas marquer les fichiers provenant de sources non sécurisées avec la marque du web peut exposer les ordinateurs des utilisateurs à des risques de sécurité.</string>
+      <string id="DefaultAssociationsConfiguration">Définir un fichier de configuration des associations par défaut</string>
+      <string id="DefaultAssociationsConfiguration_Help">Cette stratégie spécifie le chemin d’accès à un fichier (stocké localement ou sur un emplacement réseau) qui contient le type de fichier et les associations d’applications par défaut du protocole. Ce fichier peut être créé à l’aide de l’outil DISM.
+      
+Par exemple : 
 Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-Pour plus d’informations, reportez-vous à la documentation de DISM sur le site TechNet.
+Pour plus d’informations, reportez-vous à la documentation DISM.
 
-Si cette stratégie de groupe est activée et que l’ordinateur client est membre d’un domaine, le fichier est traité, et les associations par défaut sont appliquées à l’ouverture de session.
+Le fichier peut être modifié ultérieurement après sa création pour modifier la fréquence à laquelle les associations de stratégie sont appliquées. Un attribut « Version » peut être ajouté à l’élément « DefaultAssociations ». La valeur doit être un entier. Un attribut « Suggéré » peut être ajouté à n’importe quel élément « Association ». La valeur doit être une valeur booléenne et la valeur par défaut est « false ». Lorsque la stratégie est appliquée à un utilisateur, toute association ayant Suggested="true" ne sera appliquée qu’une seule fois. Si la valeur Version est incrémentée, les associations avec Suggested="true" sont réappliquées.
 
-Si la stratégie de groupe n’est pas configurée, est désactivée, ou si l’ordinateur client n’est pas membre d’un domaine, aucune association par défaut n’est appliquée à l’ouverture de session.
+Si cette stratégie de groupe est activée et que l’ordinateur client est joint à un domaine, le fichier est traité et les associations par défaut sont appliquées au moment de l’ouverture de la session.
 
-Si la stratégie est activée, désactivée ou n’est pas configurée, les utilisateurs pourront tout de même remplacer les associations de type de fichier et de protocole par défaut.</string>
+Si la stratégie est activée, les utilisateurs pourront toujours remplacer les associations de type de fichier et de protocole par défaut, mais lors de la prochaine ouverture de session, le fichier sera réappliqué.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

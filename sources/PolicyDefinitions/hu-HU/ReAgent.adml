@@ -13,6 +13,13 @@
     Ha engedélyezi ezt a házirend-beállítást, „A számítógép helyreállítása korábban létrehozott rendszerkép használatával” és „A Windows újratelepítése” (vagy „A számítógép gyári állapotának visszaállítása”) lehetőség megjelenik a Vezérlőpult Helyreállítás eszközének „Speciális helyreállítási módok” lapján, lehetővé téve, hogy a felhasználó visszaállítsa a számítógépet az eredeti állapotba vagy egy felhasználó által létrehozott rendszerképnek megfelelő állapotba. Ez az alapértelmezett beállítás.
 
     Ha letiltja a házirend-beállítást, „A számítógép helyreállítása korábban létrehozott rendszerkép használatával” és „A Windows újratelepítése” (vagy „A számítógép gyári állapotának visszaállítása”) lehetőség nem lesz elérhető a Vezérlőpulton Helyreállítás eszközében. A házirend-beállítás letiltásának ellenére a felhasználók továbbra is visszaállíthatják az eredeti állapotba vagy egy felhasználó által létrehozott rendszerképnek megfelelő állapotba a számítógépet annak újraindításával és, ha elérhető, a Rendszer-helyreállítási beállítások menü használatával.</string>
+      <string id="AllowTrustedOfflineScan">Az offline vizsgálat engedélyezése a megbízható Windows helyreállítási környezetből</string>
+      <string id="AllowTrustedOfflineScan_help">    Követelmények: Windows 10
+    Leírás: Ez a házirend-beállítás szabályozza, hogy engedélyezett legyen-e az offline vizsgálat egy megbízható Windows helyreállítási környezetből.
+
+    Ha engedélyezi ezt a házirend-beállítást, az offline vizsgálat a BitLocker helyreállítási kulcsának bekérése nélkül fut le, amennyiben a Windows helyreállítási környezetet a BitLocker megbízhatónak tartja.
+
+    Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, az offline vizsgálat a felhasználótól bekéri a BitLocker helyreállítási kulcsát az operációs rendszer kötetcímének feloldásához. Ha a felhasználó kihagyja az operációs rendszer kötetének feloldását, az offline vizsgálat nem fut le. Ez az alapértelmezett beállítás.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

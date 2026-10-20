@@ -285,6 +285,19 @@ Windows Vista でこのポリシー設定を有効にするには、"選択さ�
         
         このポリシーを無効にすると、音声サービスは無効になり、ユーザーは設定を使用して音声サービスを有効にすることはできません。
       </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">言語パックと言語機能のインストールを制限する</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        このポリシー設定を使用すると、すべてのユーザーが言語パックと言語機能をオンデマンドパッケージにインストールするのを制限します。このポリシーを有効にしても、windows 言語を制限することはできません。 "すべてのログオンユーザーに Windows が使用する UI 言語を制限する"  
+このポリシー設定を有効にした場合、言語パックと言語機能のインストールはすべてのユーザーに対して禁止されます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合は、どのユーザーについても言語パックや機能のインストールは制限されません。  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        このポリシー設定は、ユーザーが言語パックと言語機能を要求時にインストールしないように制限します。このポリシーを有効にしても、windows 言語を制限することはできません。 "選択されたユーザーに対して Windows が使用する UI 言語を制限します。"  
+このポリシー設定を有効にした場合、言語パックと言語機能のインストールがユーザーに対して禁止されます。 
+
+このポリシー設定を無効にした場合、または構成しなかった場合、ユーザーの言語パックや言語機能のインストールの制限はありません。  
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LocaleSystemRestrict">

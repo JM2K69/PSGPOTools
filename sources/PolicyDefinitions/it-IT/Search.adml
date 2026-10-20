@@ -246,13 +246,13 @@ Se il criterio è disabilitato o non è configurato, Windows Desktop Search gest
 
 Se il criterio è disabilitato o non è configurato, le impostazioni predefinite verranno impostate su bmp;emf;gif;jpg;jpeg;png;wmf;wrn;txt;err;xml;cpp;c;h;cxx;hxx;idl;cs;vb;idl;xsd;doc;docx;xls;xlsx;ppt;pptx;vsd;xlsb;xltx;dot;rtf.</string>
       <string id="PreventUnwantedAddins">Impedisci iFilter e gestori di protocollo indesiderati</string>
-      <string id="PreventUnwantedAddins_Explain">L'abilitazione di questo criterio impedisce a Windows Desktop Search di utilizzare iFilter e gestori di protocollo a meno che non siano stati specificati come consentiti in un apposito elenco. Tuttavia, questo criterio non impedirà l'installazione di iFilter o gestori di protocollo, né impedirà che vengano utilizzati da altre applicazioni o altri servizi. 
-È inoltre possibile specificare un elenco di componenti aggiuntivi consentiti fornendo la stringa dell'ID di classe (classID) o dell'ID di programma (ProgId). Ad esempio, se si intende distribuire uno specifico iFilter, assicurarsi che tale iFilter sia incluso nell'elenco di quelli consentiti, come una GUID quale {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} (includere le parentesi graffe) o un ProgID quale VisFilter.CFilter.1.
+      <string id="PreventUnwantedAddins_Explain">L'abilitazione di questo criterio impedisce a Windows Desktop Search di utilizzare iFilter e gestori di protocollo a meno che non siano stati specificati come autorizzati in un apposito elenco. Tuttavia, questo criterio non impedirà l'installazione di iFilter o gestori di protocollo, né impedirà che vengano utilizzati da altre applicazioni o altri servizi. 
+È inoltre possibile specificare un elenco di componenti aggiuntivi autorizzati fornendo la stringa dell'ID di classe (classID) o dell'ID di programma (ProgId). Ad esempio, se si intende distribuire uno specifico iFilter, assicurarsi che tale iFilter sia incluso nell'elenco di quelli autorizzati, come una GUID quale {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} (includere le parentesi graffe) o un ProgID quale VisFilter.CFilter.1.
 
 Se si gestisce un ambiente desktop bloccato, questa impostazione è ridondante perché gli utenti che non dispongono delle autorizzazioni di amministrazione non potranno installare nuovi componenti. Se gli utenti dispongono delle autorizzazioni come amministratore o sono in grado di installare software, questo criterio impedirà loro specificatamente di utilizzare componenti aggiuntivi relativi a Windows Desktop Search.
 
-Nota: a causa di una limitazione nell'Editor Criteri di gruppo, è necessario aggiungere almeno una voce nell'elenco dei componenti aggiuntivi consentiti, anche se si desidera abilitare il criterio senza un simile elenco. Creare una voce di elenco inserendo uno spazio nel campo del nome e uno spazio nel campo del valore, quindi salvarla. In tal modo verrà creata una voce di segnaposto che sarà ignorata dal programma.</string>
-      <string id="PreventUnwantedAddins_AllowList">Elenco Consentiti</string>
+Nota: a causa di una limitazione nell'Editor Criteri di gruppo, è necessario aggiungere almeno una voce nell'elenco dei componenti aggiuntivi autorizzati, anche se si desidera abilitare il criterio senza un simile elenco. Creare una voce di elenco inserendo uno spazio nel campo del nome e uno spazio nel campo del valore, quindi salvarla. In tal modo verrà creata una voce di segnaposto che sarà ignorata dal programma.</string>
+      <string id="PreventUnwantedAddins_AllowList">Elenco Autorizzati</string>
       <string id="ExcludedExtensionsMultiline">Impedisci l'indicizzazione di alcuni tipi di file</string>
       <string id="ExcludedExtensionsMultiline_Explain">L'abilitazione di questo criterio consente di modificare l'elenco dei tipi di file da escludere dall'indicizzazione. L'utente finale non potrà modificare tale elenco. È necessario separare ogni tipo di estensione con un punto e virgola.
 
@@ -275,6 +275,8 @@ Se si disabilita o non si configura questa impostazione dei criteri, gli utenti 
 Se si abilita o non si configura questa impostazione, Cortana sarà consentita nel dispositivo. Se si disabilita questa impostazione, Cortana verrà disattivata. 
  
 Quando Cortana è disattivata, gli utenti possono comunque usare la ricerca per trovare elementi nel dispositivo.</string>
+      <string id="EnableDynamicContentInWSB">Consenti gli Highlights di ricerca</string>
+      <string id="ExplainEnableDynamicContentInWSB">Se si disabilita questa impostazione, gli highlights della ricerca verranno disattivati nella casella di ricerca del menu Start e nella home page di ricerca. Se si abilita o non si configura questa impostazione, le evidenziazioni della ricerca verranno attivate nella casella di ricerca del menu Start e nella home page di ricerca.</string>
       <string id="AllowCortanaAboveLock">Consenti Cortana sopra la schermata di blocco</string>
       <string id="ExplainAllowCortanaAboveLock">Questa impostazione dei criteri determina se l'utente può interagire o meno con Cortana usando i comandi vocali mentre il sistema è bloccato.
 
@@ -294,6 +296,27 @@ Se questa impostazione è abilitata, la ricerca e Cortana possono accedere a inf
       <string id="AllowCortanainAADEnabled">Abilita la pagina di Cortana in AAD</string>
       <string id="AllowCloudSearchEnabled">Abilita ricerca cloud</string>
       <string id="AllowCloudSearchControlledByUser">Utente selezionato</string>
+      <string id="DisableSearch_DisplayName">Disabilita completamente l'interfaccia utente di ricerca</string>
+      <string id="DisableSearch_ExplainText">Se si abilita questo criterio, l'interfaccia utente di ricerca verrà disabilitata insieme a tutti i relativi punti di ingresso, ad esempio i tasti di scelta rapida, i movimenti del touchpad e la modalità di ricerca nel menu Start. La casella di ricerca del menu Start e il pulsante Cerca sulla barra delle applicazioni verranno nascosti.
+
+Se si disabilita o non si configura questa impostazione dei criteri, l'utente potrà aprire l'interfaccia utente di ricerca e i relativi punti di ingresso verranno visualizzati.</string>
+      <string id="ConfigureSearchOnTaskbarMode">Configura la ricerca sulla barra delle applicazioni</string>
+      <string id="ConfigureSearchOnTaskbarMode_Help">Questa impostazione dei criteri consente di configurare la ricerca sulla barra delle applicazioni.
+
+Se si abilita questa impostazione dei criteri e la si imposta per nascondere, la ricerca sulla barra delle applicazioni verrà nascosta per impostazione predefinita. Gli utenti non possono modificarlo in Impostazioni.
+
+Se si abilita questa impostazione dei criteri e la si imposta solo sull'icona di ricerca, l'icona di ricerca verrà visualizzata sulla barra delle applicazioni per impostazione predefinita. Gli utenti non possono modificarlo in Impostazioni.
+
+Se si abilita questa impostazione dei criteri e la si imposta sull'icona di ricerca e sull'etichetta, l'icona e l'etichetta di ricerca verranno visualizzate sulla barra delle applicazioni per impostazione predefinita. Gli utenti non possono modificarlo in Impostazioni.
+
+Se si abilita questa impostazione dei criteri e la si imposta sulla casella di ricerca, la casella di ricerca verrà visualizzata sulla barra delle applicazioni per impostazione predefinita. Gli utenti non possono modificarlo in Impostazioni.
+
+Se si disabilita o non si configura questa impostazione dei criteri, la ricerca sulla barra delle applicazioni verrà configurata in base alle impostazioni predefinite per l'edizione di Windows. Gli utenti potranno modificare la ricerca sulla barra delle applicazioni in Impostazioni.
+      </string>
+      <string id="SearchOnTaskbarModeEnum_Hidden">Nascondi</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconOnly">Solo icona di ricerca</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconAndLabel">Icona ed etichetta di ricerca</string>
+      <string id="SearchOnTaskbarModeEnum_SearchBox">Casella di ricerca</string>
     </stringTable>
     <presentationTable>
       <presentation id="RichAttachmentPreviews">
@@ -333,7 +356,7 @@ Se questa impostazione è abilitata, la ricerca e Cortana possono accedere a inf
         <decimalTextBox refId="LimitEnableThrottlingOnlineMailboxes" defaultValue="120">Numero di elementi al minuto</decimalTextBox>
       </presentation>
       <presentation id="PreventUnwantedAddins">
-        <listBox refId="PreventUnwantedAddins_AllowList">Elenco Consentiti</listBox>
+        <listBox refId="PreventUnwantedAddins_AllowList">Elenco Autorizzati</listBox>
       </presentation>
       <presentation id="PreventIndexingCertainPaths_1">
         <listBox refId="PreventIndexingCertainPaths">Impedisci l'indicizzazione di alcuni percorsi</listBox>
@@ -382,6 +405,9 @@ Se questa impostazione è abilitata, la ricerca e Cortana possono accedere a inf
       </presentation>
       <presentation id="AllowCortanaAAD">
         <dropdownList refId="AllowCortanaAAD_Dropdown" noSort="true" defaultItem="0">Impostazione di Cortana in AAD</dropdownList>
+      </presentation>
+      <presentation id="ConfigureSearchOnTaskbarMode">
+        <dropdownList refId="ConfigureSearchOnTaskbarMode_Dropdown" noSort="true" defaultItem="0">Cerca sulla barra delle applicazioni</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

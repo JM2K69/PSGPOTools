@@ -1,0 +1,125 @@
+{
+    "domain": "corp.contoso.com",
+    "gpos": [
+        { "name": "Default Domain Policy", "id": "31B2F340-016D-11D2-945F-00C04FB984F9", "computerVersion": 6, "userVersion": 0 },
+        { "name": "Default Domain Controllers Policy", "id": "6AC1786C-016F-11D2-945F-00C04FB984F9", "computerVersion": 4, "userVersion": 0 },
+
+        { "name": "C - DC - Security Baseline", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E01", "computerVersion": 18, "userEnabled": false },
+        { "name": "C - DC - Audit Policy", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E02", "computerVersion": 9, "userEnabled": false },
+        { "name": "C - Tier 0 - Restrict Logon", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E03", "computerVersion": 5, "userEnabled": false },
+        { "name": "C - PAW - Hardening", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E04", "computerVersion": 11, "userEnabled": false },
+
+        { "name": "C - All - LAPS", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E10", "computerVersion": 3, "userEnabled": false },
+        { "name": "C - All - Defender Antivirus", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E11", "computerVersion": 14, "userEnabled": false },
+        { "name": "C - All - Windows Firewall", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E12", "computerVersion": 8, "userEnabled": false },
+
+        { "name": "C - Servers - Security Baseline", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E20", "computerVersion": 16, "userEnabled": false },
+        { "name": "C - Servers - Remote Desktop", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E21", "computerVersion": 4, "userEnabled": false },
+        { "name": "C - Servers - Windows Update", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E22", "computerVersion": 7, "userEnabled": false },
+        { "name": "C - File Servers - Shadow Copies", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E23", "computerVersion": 2, "userEnabled": false },
+        { "name": "C - RDS - Session Hosts", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E24", "computerVersion": 10, "userVersion": 3 },
+
+        { "name": "C - Workstations - Security Baseline Windows 11", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E30", "computerVersion": 22, "userEnabled": false },
+        { "name": "C - Workstations - BitLocker", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E31", "computerVersion": 6, "userEnabled": false },
+        { "name": "C - Workstations - Windows Update Ring Pilot", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E32", "computerVersion": 5, "userEnabled": false },
+        { "name": "C - Workstations - Windows Update Ring Broad", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E33", "computerVersion": 5, "userEnabled": false },
+        { "name": "C - Laptops - Power Management", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E34", "computerVersion": 3, "userEnabled": false },
+        { "name": "C - Kiosks - Assigned Access", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E35", "computerVersion": 9, "userVersion": 4 },
+
+        { "name": "U - All - Desktop Restrictions", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E40", "userVersion": 12, "computerEnabled": false },
+        { "name": "U - All - Office Settings", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E41", "userVersion": 19, "computerEnabled": false },
+        { "name": "U - Paris - Drive Mappings", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E42", "userVersion": 8, "computerEnabled": false },
+        { "name": "U - Paris - Printers", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E43", "userVersion": 5, "computerEnabled": false },
+        { "name": "U - Lyon - Drive Mappings", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E44", "userVersion": 6, "computerEnabled": false },
+        { "name": "U - Lyon - Printers", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E45", "userVersion": 3, "computerEnabled": false },
+        { "name": "U - Admins - Restricted Browser", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E46", "userVersion": 2, "computerEnabled": false },
+
+        { "name": "TEST - Edge Policies", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E50", "computerVersion": 1, "userVersion": 1 },
+        { "name": "OLD - Windows 10 Baseline", "id": "8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E51", "computerVersion": 31, "userEnabled": false, "computerEnabled": false }
+    ],
+    "links": [
+        "Default Domain Policy",
+        { "gpo": "C - All - LAPS", "enforced": true },
+        "C - All - Defender Antivirus",
+        "C - All - Windows Firewall"
+    ],
+    "organizationalUnits": [
+        {
+            "name": "Domain Controllers",
+            "links": [ "C - DC - Security Baseline", "C - DC - Audit Policy", "Default Domain Controllers Policy" ]
+        },
+        {
+            "name": "Tier 0",
+            "blockInheritance": true,
+            "links": [ "C - Tier 0 - Restrict Logon" ],
+            "organizationalUnits": [
+                { "name": "Admin Accounts", "links": [ "U - Admins - Restricted Browser" ] },
+                { "name": "Service Accounts" },
+                { "name": "Groups" },
+                { "name": "PAW", "links": [ "C - PAW - Hardening" ] }
+            ]
+        },
+        {
+            "name": "Servers",
+            "links": [ "C - Servers - Security Baseline", "C - Servers - Windows Update" ],
+            "organizationalUnits": [
+                { "name": "File Servers", "links": [ "C - File Servers - Shadow Copies" ] },
+                { "name": "Application Servers" },
+                { "name": "RDS", "links": [ "C - RDS - Session Hosts", "C - Servers - Remote Desktop" ] },
+                { "name": "SQL Servers", "links": [ "C - Servers - Remote Desktop" ] }
+            ]
+        },
+        {
+            "name": "Sites",
+            "organizationalUnits": [
+                {
+                    "name": "Paris",
+                    "organizationalUnits": [
+                        {
+                            "name": "Workstations",
+                            "links": [
+                                { "gpo": "C - Workstations - Security Baseline Windows 11", "enforced": true },
+                                "C - Workstations - BitLocker",
+                                "C - Workstations - Windows Update Ring Broad"
+                            ],
+                            "organizationalUnits": [
+                                { "name": "Laptops", "links": [ "C - Laptops - Power Management" ] },
+                                { "name": "Pilot", "links": [ "C - Workstations - Windows Update Ring Pilot", "TEST - Edge Policies" ] },
+                                { "name": "Kiosks", "blockInheritance": true, "links": [ "C - Kiosks - Assigned Access" ] }
+                            ]
+                        },
+                        {
+                            "name": "Users",
+                            "links": [ "U - All - Desktop Restrictions", "U - All - Office Settings", "U - Paris - Drive Mappings", "U - Paris - Printers" ]
+                        },
+                        { "name": "Groups" }
+                    ]
+                },
+                {
+                    "name": "Lyon",
+                    "organizationalUnits": [
+                        {
+                            "name": "Workstations",
+                            "links": [
+                                { "gpo": "C - Workstations - Security Baseline Windows 11", "enforced": true },
+                                "C - Workstations - BitLocker",
+                                "C - Workstations - Windows Update Ring Broad",
+                                { "gpo": "OLD - Windows 10 Baseline", "enabled": false }
+                            ],
+                            "organizationalUnits": [
+                                { "name": "Laptops", "links": [ "C - Laptops - Power Management" ] }
+                            ]
+                        },
+                        {
+                            "name": "Users",
+                            "links": [ "U - All - Desktop Restrictions", "U - All - Office Settings", "U - Lyon - Drive Mappings", "U - Lyon - Printers" ]
+                        },
+                        { "name": "Groups" }
+                    ]
+                }
+            ]
+        },
+        { "name": "Staging", "blockInheritance": true },
+        { "name": "Disabled Objects", "organizationalUnits": [ { "name": "Computers" }, { "name": "Users" } ] }
+    ]
+}

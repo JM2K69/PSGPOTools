@@ -14,8 +14,15 @@
       <string id="WU_SUPPORTED_Windows7_To_Win2kSP3_Or_XPSP1">Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2003, Windows XP SP2, Windows XP SP1, Windows 2000 SP4, Windows 2000 SP3</string>
       <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_NoWinRT">Minst Windows XP Professional Service Pack 1 eller Windows 2000 Service Pack 3, med undantag för Windows RT</string>
       <string id="WU_SUPPORTED_WindowsXPSP1_NoWinRT">Minst Windows Server 2003-operativsystem eller Windows XP Professional med SP1, med undantag för Windows RT</string>
-      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Minst Windows XP Professional Service Pack 1, eller minst Windows 2000 Service Pack 3 till Windows 8.1 eller Windows Server 2012 R2 med senaste Service Pack</string>
-      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Minst Windows Vista till Windows 8.1 eller Windows Server 2012 R2 med senaste Service Pack</string>
+      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Minst Windows XP Professional Service Pack 1 eller Minst Windows 2000 Service Pack 3 till Windows 8.1 eller Windows Server 2012 R2 med de senaste service pack. Stöds inte för Windows 10 och senare.</string>
+      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Minst Windows Vista till Windows 8.1 eller Windows Server 2012 R2 med de senaste service pack. Stöds inte för Windows 10 och senare.</string>
+      <string id="WU_SUPPORTED_XPSP1_or_Win2kSP3_AUOption7_SUPPORTED_Server2016">Windows XP Professional Service Pack 1 eller minst Windows 2000 Service Pack 3
+Alternativ 7 stöds endast på servrar med minst Windows Server 2016</string>
+      <string id="WU_SUPPORTED_Server2016_Through_Server2022_Or_Windows10">Windows Server 2016 till Windows Server 2022 eller Windows 10​</string>
+      <string id="WU_SUPPORTED_Windows_Server_2019_Windows_10_0_1809">Minst Windows Server 2019 eller Windows 10 version 1809​</string>
+      <string id="WU_SUPPORTED_Windows_Server_2022_Windows_10_0_2004">Minst Windows Server 2022 eller Windows 10 version 2004​</string>
+      <string id="WU_SUPPORTED_WinServer2025_Win1021H2_Win1122H2">Minst Windows Server 2025, Windows 10 version 21H2 eller Windows 11 version 22H2</string>
+      <string id="WU_SUPPORTED_Win11_24H2">Minst Windows 11 version 24H2</string>
       <string id="AUDontShowUasHelp">Du kan använda den här principinställningen för att ange om alternativet "Installera uppdateringar och stäng av" ska visas i dialogrutan "Avsluta Windows".
 
 Om du aktiverar inställningen visas inte alternativet "Installera uppdateringar och stäng av" i dialogrutan "Avsluta Windows" även om det finns uppdateringar som kan installeras när användaren klickar på "Stäng av" på Start-menyn.
@@ -74,7 +81,7 @@ Med den här inställningen kan du ange om automatiska uppdateringar är aktiver
 
         När Automatiskt är valt som schemalagd installationstid söker Windows automatiskt efter uppdateringar och laddar ned och installerar dem. Enheten startas om enligt Windows standardinställningar såvida det inte är konfigurerat av en grupprincip. (Gäller Windows 10 version 1809 och senare)
 
-        Ange schemat med hjälp av alternativen i grupprincipinställningen. För version 1709 och senare finns det ytterligare ett alternativ för att begränsa uppdateringar till varje vecka, varannan vecka eller varje månad. Om inget schema anges är standardschemat att alla installationer sker varje dag klockan tre på morgonen. Om en uppdatering kräver en omstart för att installationen ska slutföras startar Windows om datorn automatiskt. (Om en användare är inloggad på datorn när den är klar att startas om meddelas användaren och ges möjlighet att vänta med omstarten.)
+        Ange schemat med hjälp av alternativen i grupprincipinställningen. För version 1709 och senare finns det ytterligare ett alternativ för att begränsa uppdateringar till varje vecka, varannan vecka eller varje månad. Om inget schema anges är standardschemat att alla installationer sker varje dag klockan tre på morgonen. Om en uppdatering kräver en omstart för att installationen ska slutföras startar Windows om datorn automatiskt. (Om en användare är inloggad på datorn när den är klar att startas om meddelas användarna och ges möjlighet att vänta med omstarten.)
 
         I Windows 8 och senare kan du ange att uppdateringar ska installeras vid automatiskt underhåll i stället för enligt ett schema. Vid automatiskt underhåll installeras uppdateringarna när datorn inte används (installation undviks när datorn körs med batteri). Om det inte går att installera uppdateringarna inom två dagar vid automatiskt underhåll installeras uppdateringarna direkt med Windows Update. Användarna meddelas om att datorn kommer att startas om och att omstarten endast utförs om det inte föreligger risk att data går förlorade.
 
@@ -82,10 +89,15 @@ Med den här inställningen kan du ange om automatiska uppdateringar är aktiver
 
         Med det här alternativet tillåts lokala administratörer att använda Windows Update på Kontrollpanelen och välja ett konfigurationsalternativ. Lokala administratörer tillåts inte inaktivera konfigurationen av Automatiska uppdateringar.
 
-Om status för den här principen är Inaktiverad måste tillgängliga uppdateringar på Windows Update laddas ned och installeras manuellt. Det gör du genom att söka efter Windows Update på Start.
+        7 = Meddela innan installation och omstart görs. (endast Windows Server)
+
+        Med det här alternativet från Windows Server 2016 (gäller endast enheter med server-SKU) tillåts lokala administratörer använda Windows Update och fortsätta med installationer eller omstarter manuellt.
+
+Om status för den här principen är Inaktiverad måste eventuella uppdateringar på Windows Update laddas ned och installeras manuellt. Det gör du genom att söka efter Windows Update på Start.
 
 Om statusen är Inte konfigurerad så används inte Automatiska uppdateringar på grupprincipsnivå. En administratör kan emellertid fortfarande konfigurera Automatiska uppdateringar via Kontrollpanelen.</string>
 
+      <string id="AutoUpdateModeNotifyToInstallNotifyToReboot">7 - Ladda ned automatiskt och meddela om installation och omstart</string>
       <string id="AutoUpdateModeAdminChooses">5 - Låt lokala administratörer välja inställning</string>
       <string id="AutoUpdateModeAuto">4 - Hämta automatiskt och schemalägg installationen</string>
       <string id="AutoUpdateModeDownload">3 - Hämta automatiskt och meddela om installation</string>
@@ -129,23 +141,41 @@ Om statusen är Inte konfigurerad så används inte Automatiska uppdateringar p�
 
         Använd den här inställningen om du vill ange en server i nätverket som kan fungera som en intern uppdateringstjänst. Klienten Automatiska uppdateringar söker igenom den här tjänsten för att hitta uppdateringar som kan tillämpas på datorerna i nätverket.
 
-        Du måste ange två servrar för den här inställningen: servern som klienten Automatiska uppdateringar identifierar och laddar ned uppdateringar från, och servern som uppdaterade datorer laddar upp statistik till. Du kan ange samma server för båda dessa. En valfri server kan anges för att konfigurera Windows Update-agenten till att ladda ned uppdateringar från en alternativ nedladdningsserver i stället för intranätuppdateringstjänsten.
+        Du måste ange två servrar för den här inställningen: servern som klienten Automatiska uppdateringar identifierar och laddar ned uppdateringar från, och servern som uppdaterade datorer laddar upp statistik till. Du kan ange samma server för båda dessa. En valfri server kan anges för att konfigurera Windows Update-agenten till att ladda ned uppdateringar från en alternativ nedladdningsserver i stället för uppdateringstjänsten för intranät.
 
         Om statusen är Aktiverad ansluter klienten Automatiska uppdateringar till den angivna Microsoft-uppdateringstjänsten i intranätet (eller den alternativa nedladdningsservern) i stället för Windows Update för att söka efter och ladda ned uppdateringar. Om du aktiverar den här inställningen behöver användarna i din organisation inte gå via en brandvägg för att hämta uppdateringar, och du ges möjlighet att testa uppdateringarna innan du distribuerar dem.
 
         Om statusen är Inaktiverad eller Inte konfigurerad, och Automatiska uppdateringar inte är inaktiverat av en princip eller användarinställning, ansluter klienten Automatiska uppdateringar direkt till Windows Update-webbplatsen på Internet.
 
-        Den alternativa nedladdningsservern konfigurerar Windows Update-agenten till att ladda ned filer från en alternativ nedladdningsserver i stället för intranätuppdateringstjänsten.
+        Den alternativa nedladdningsservern konfigurerar Windows Update-agenten till att ladda ned filer från en alternativ nedladdningsserver i stället för uppdateringstjänsten för intranät.
 
-        Alternativet för att ladda ned filer med saknade URL:er gör att innehåll kan laddas ned från en alternativ nedladdningsserver när det inte finns några nedladdnings-URL:er för filer i uppdateringsmetadata. Det här alternativet ska endast användas när intranätuppdateringstjänsten inte tillhandahåller nedladdnings-URL:er i uppdateringsmetadata för filer som finns på den alternativa nedladdningsservern.
+        Alternativet för att ladda ned filer med saknade URL:er gör att innehåll kan laddas ned från en alternativ nedladdningsserver när det inte finns några nedladdnings-URL:er för filer i uppdateringsmetadata. Det här alternativet ska endast användas när uppdateringstjänsten för intranät inte tillhandahåller nedladdnings-URL:er i uppdateringsmetadata för filer som finns på den alternativa nedladdningsservern.
 
         Anmärkning: Om principen "Konfigurera automatiska uppdateringar" är inaktiverad har den här principen ingen effekt.
 
-        Anmärkning: Om den alternativa nedladdningsservern inte anges används intranätuppdateringstjänsten som standard för att ladda ned uppdateringar.
+        Anmärkning: Om den alternativa nedladdningsservern inte anges används uppdateringstjänsten för intranät som standard för att ladda ned uppdateringar.
 
-        Anmärkning: Alternativet "Ladda ned filer utan URL:er i metadata om en alternativ nedladdningsserver har angetts" används endast om "Alternativ nedladdningsserver" anges.
+        Anmärkning: Alternativet "Ladda ned filer utan URL:er..." används endast om "Alternativ nedladdningsserver" anges.
 
-        Anmärkning: Den här principinställningen stöds inte på Windows RT, och om den anges har den ingen effekt på Windows RT-datorer.</string>
+        Anmärkning: Den här principen stöds inte på Windows RT, och om den anges har den ingen effekt på Windows RT-datorer.
+
+        För att säkerställa högsta säkerhetsnivå rekommenderar Microsoft att WSUS skyddas med TLS/SSL-protokoll, så att HTTPS-baserade intranätservrar används för att skydda systemen. Om en proxy krävs rekommenderar vi att en systemproxy konfigureras. För att försäkra högsta nivå av säkerhet, ytterligare WSUS TLS-certifikat fästs på alla enheter.
+
+        För att skydda klienter tillåter vi inte längre intranätservrar att som standard utnyttja användarproxy för att identifiera uppdateringar. Om du behöver dra nytta av användarproxy för att identifiera uppdateringar vid användning av en intranätserver trots de sårbarheter som finns måste du konfigurera proxybeteendet till "Tillåt användarproxy att användas som reserv om identifiering med systemproxy misslyckas".
+
+        Om principen för att använda ett alternativt proxybeteende inte har konfigurerats kommer upptäckter för uppdateringar mot intranätservrar att misslyckas när användarproxy behövs som en reserv.</string>
+      <string id="OnlyUseSystemProxyForUpdateDetection">Använd endast systemets proxy för identifiering av uppdateringar (standard)</string>
+      <string id="AllowUserProxyAsFallbackForUpdateDetection">Tillåt att proxyn används som reserv om identifieringen av systemproxyn misslyckas</string>
+      <string id="UpdateClassPolicySource_Title">Ange källtjänst för specifika klasser i Windows-uppdateringar</string>
+      <string id="UpdateClassPolicySource_Help">När den här principen är aktiverad får enheter Windows-uppdateringar för de klasser som listas från den angivna uppdateringskällan: antingen Windows Update eller Windows Server Update-tjänsten.
+
+Obs! Om du vill ta emot uppdateringar från Windows Server Update-tjänsten måste du ha konfigurerat en Microsoft-uppdateringstjänst på intranätet via principen Ange sökväg till tjänsten Microsoft Update på intranätet.
+
+Om den här principen inte är konfigurerad eller inaktiverad fortsätter enheten att identifiera uppdateringar enligt dina andra principkonfigurationer.
+
+Obs! Om du använder "Tillåt inte uppskjutningsprinciper för att orsaka genomsökningar mot Windows Update" för att säkerställa att enheter bara genomsöks mot den angivna servern rekommenderar vi att du konfigurerar den här principen i stället eller utöver den.</string>
+      <string id="UpdateClassPolicySourceSelectionWU">Windows Update</string>
+      <string id="UpdateClassPolicySourceSelectionWSUS">Windows Server Update Services</string>
       <string id="DetectionFrequency_Help">Anger antalet timmar Windows använder för att avgöra väntetiden innan en sökning görs efter tillgängliga uppdateringar. Den exakta väntetiden är summan av det angivna värdet och ett slumpmässigt värde mellan 0 och 4 timmar.
 
         Om status är Aktiverad söker Windows efter tillgängliga uppdateringar enligt specificerat intervall.
@@ -289,6 +319,12 @@ Obs! Den här principen gäller bara när den uppdateringstjänst på intranäte
 Obs! Den här principinställningen stöds inte på Windows RT. Den här principinställningen har ingen inverkan på Windows RT-datorer.</string>
       <string id="TargetGroup_Title">Aktivera anpassning efter klienter</string>
       <string id="WindowsUpdateCat">Windows Update</string>
+      <!--Category sub-folders-->
+      <string id="WindowsUpdateOffering">Hantera uppdateringar som erbjuds från Windows Update</string>
+      <string id="WSUSOffering">Hantera uppdateringar som erbjuds från WSUS-servern (Windows Server Update Service)</string>
+      <string id="WindowsUpdateExperience">Hantera slutanvändarupplevelse</string>
+      <string id="PreSV">Äldre principer</string>
+
       <string id="TrustedPublisher_Title">Tillåt signerade uppdateringar från en Microsoft-uppdateringstjänst på intranätet  </string>
       <string id="TrustedPublisher_Help">Med den här principinställningen anger du om Automatiska uppdateringar accepterar uppdateringar som har signerats av andra än Microsoft när uppdateringen kommer från en Microsoft-uppdateringstjänst på ett intranät.
 
@@ -304,48 +340,34 @@ Obs! Den här principinställningen stöds inte på Windows RT. Den här princip
 Om du aktiverar den här principen inaktiveras den funktionen och det kan innebära att anslutningen till offentliga tjänster som Windows Store slutar fungera.
 
 Obs! Den här principen gäller endast när datorn är konfigurerad för att ansluta till en uppdateringstjänst på intranätet med principen "Ange sökväg till tjänsten Microsoft Update på intranätet".</string>
-      <string id="DeferUpdateCat">Windows Update för företag</string>
       <string id="ManagePreviewBuilds_Title">Hantera förhandsversioner</string>
-      <string id="ManagePreviewBuilds_Help">Om du väljer "Inaktivera förhandsversioner" hindras förhandsversioner från att installeras på enheten. Detta hindrar även användare från att gå med i Windows Insider Program via Inställningar -&gt; Uppdatering och säkerhet.
+      <string id="ManagePreviewBuilds_Help">Aktivera den här principen för att hantera vilka uppdateringar du får innan uppdateringen släpps till hela världen.
 
-Om du väljer "Inaktivera förhandsversioner när nästa version är offentlig" installeras förhandsversioner bara fram till nästa offentliga Windows-version blir tillgänglig. Det här alternativet är användbart när din enhet är inställd på att installera förhandsversioner, och du vill avregistrera enheten från förhandsversionstestning på ett smidigt sätt. Med det här alternativet levereras bara förhandsversioner tills nästa offentliga version släpps.
+Dev Channel
+Perfekt för mycket tekniska användare. Insiders i Dev Channel får versioner från vår aktiva utvecklingsgren som är tidigast i en utvecklingscykel. Dessa versioner matchas inte med en specifik Windows 10 version.
 
-Om du väljer "Aktivera förhandsversioner" aktiveras installation av förhandsversioner på enheten. Användarna kan ladda ned och installera förhandsversioner av Windows på sina enheter genom att gå med i Windows Insider Program via Inställningar -&gt; Uppdatering och säkerhet -&gt; Windows Insider Program. Administratörer kan också använda andra principer för att hantera inställningarna för förhandsversioner åt användarna när det här värdet har angetts.</string>
-      <string id="DisablePreviewBuilds">Inaktivera förhandsversioner</string>
-      <string id="DisablePreviewBuildsAndOptOut">Inaktivera förhandsversioner när nästa version är offentlig</string>
-      <string id="EnablePreviewBuilds">Aktivera förhandsversioner</string>
-      <string id="PreviewBuildFastFeatureUpdates">Förhandsversion - Snabba testgruppen</string>
-      <string id="PreviewBuildSlowFeatureUpdates">Förhandsversion - Långsamma testgruppen</string>
-      <string id="ReleasePreviewBranchFeatureUpdates">Release Preview-testgruppen</string>
-      <string id="SemiAnnualChannelFeatureUpdates">Halvårskanal</string>
-      <string id="SemiAnnualChannelFeatureUpdatesDeprecated">Halvårskanal för version 1809 och tidigare (inaktuell)</string>
-      <string id="SemiAnnualChannelFeatureUpdatesTargetedDeprecated">Halvårskanal (riktad) för version 1809 och tidigare (inaktuell)</string>
+Betakanal
+Perfekt för funktionsutforskare som vill se kommande Windows 10 funktioner. Din feedback är särskilt viktig här eftersom den hjälper våra tekniker att se till att viktiga problem åtgärdas före en större version.
+
+Release Preview Channel (standard)
+Insiders i Förhandsversionskanalen har tillgång till den kommande versionen av Windows 10 innan den släpps till världen. Dessa versioner stöds av Microsoft. Förhandsversionskanalen är där rekommenderar vi att företag förhandsgranskar och validerar kommande Windows 10 versioner före en allmän distribution inom organisationen.
+
+Förhandsversionskanal endast kvalitetsuppdateringar
+ Idealiska för den som vill verifiera funktioner och korrigeringar som snart kommer till den aktuella versionen. Obs! Utgivna funktionsuppdateringar fortsätter att erbjudas i enlighet med konfigurerade principer när det här alternativet väljs.
+
+Obs! För förhandsversionsregistrering krävs en inställning för telemetrinivå på 2 eller högre och domänen är registrerad på insider.windows.com. Mer information om förhandsversioner finns i: https://aka.ms/wipforbiz
+
+Om du inaktiverar eller inte konfigurerar den här principen kommer Windows Update inte att erbjuda dig några förhandsversionsuppdateringar och du får sådant innehåll först när det släpps till hela världen. Om du inaktiverar den här principen kommer alla enheter som för närvarande har en förhandsversion att avregistrera sig och behålla den senaste funktionsuppdateringen när den väl har släppts.</string>
+      <string id="DevChannel">Utvecklingskanal</string>
+      <string id="BetaChannel">Betakanal</string>
+      <string id="ReleasePreviewChannel">Förhandsversionskanal</string>
+      <string id="ReleasePreviewQualityOnly">Förhandsversion endast av kvalitetsuppdateringar</string>
       <string id="DeferFeatureUpdates_Title">Välj när förhandsversioner och funktionsuppdateringar tas emot</string>
-      <string id="DeferFeatureUpdates_Help">Aktivera den här principen om du vill ange på vilken nivå du vill ta emot förhandsversioner eller funktionsuppdateringar och när.
+      <string id="DeferFeatureUpdates_Help">Aktivera den här principen om du vill ange när funktionsuppdateringar ska hämtas.
 
-* Förhandsversion - Snabbt: Enheter på den här nivån är bland de första att få nya versioner av Windows med funktioner som ännu inte släppts till allmänheten. Välj den här nivån om du vill delta i ett tidigt skede och lämna feedback till Microsoft om problem du stöter på eller föreslå nya funktioner.
-* Förhandsversion - Långsamt: Enheter på den här nivån får nya versioner av Windows innan de släpps till allmänheten, men i en långsammare takt än den snabba nivån vilket innebär att buggar har åtgärdats och ändringar gjorts sedan tidigare förhandsversioner.
-* Release Preview: Enheter på den här nivån får versioner av Windows precis innan Microsoft släpper dem till allmänheten.
-* Halvårskanal: Enheter på den här nivån får funktionsuppdateringar när de släpps till allmänheten.
+Skjut upp uppdateringar | Detta gör det möjligt för enheter att skjuta upp nästa funktionsuppdatering som är tillgänglig för den aktuella produkten (eller en ny produkt om den anges i principen Välj målversion för funktionsuppdatering). Du kan skjuta upp en funktionsuppdatering i upp till 14 dagar för alla förhandsversionskanaler och upp till 365 dagar för kanalen för allmän tillgänglighet. Mer information om de aktuella versionerna finns i aka.ms/WindowsTargetVersioninfo
 
-Följande Windows-beredskapsnivåer har dragits tillbaka och gäller endast version 1809 och tidigare:
-* Halvårskanal (riktad) för version 1809 och tidigare: Funktionsuppdateringar har släppts.
-* Halvårskanal för version 1809 och tidigare: Funktionsuppdateringar har deklarerats som Halvårskanal vilket indikerar att lanseringen är redo för bred distribution.
-Information om tillgänglighetsdatum i Halvårskanal (riktad) och Halvårskanal hittar du på sidan http://aka.ms/ReleaseInformationPage.
-
-När du väljer en förhandsversionsnivå:
-    - Du kan skjuta upp att ta emot förhandsversioner i upp till 14 dagar.
-    - Om du inte vill ta emot förhandsversioner den schemalagda tiden kan du tillfälligt pausa dem. Då pausas de i 35 dagar från och med den starttid du anger.
-    - Rensa fältet för startdatum om du vill återuppta förhandsversioner som pausats.
-
-För att du ska kunna registrera dig för förhandsversioner krävs att telemetrinivån anges till 2 eller högre och att din domän är registrerad i insider.windows.com. Mer information om förhandsversioner hittar du på: https://aka.ms/wipforbiz
-
-När du väljer Halvårskanal:
-    - Du kan skjuta upp funktionsuppdateringar i upp till 365 dagar.
-    - Om du inte vill ta emot funktionsuppdateringar den schemalagda tiden kan du tillfälligt pausa dem. Då pausas de i 35 dagar från och med den starttid du anger.
-    - Rensa fältet för startdatum om du vill återuppta funktionsuppdateringar som pausats.
-
-Om du inaktiverar eller låter bli att konfigurera principen kommer Windows Update inte att ändra sin uppdateringsprocess.</string>
+Pausa uppdateringar | Om du vill förhindra att funktionsuppdateringar erbjuds till enheten kan du tillfälligt pausa funktionsuppdateringar. Den här pausen gäller i 35 dagar från det angivna startdatumet eller tills fältet har rensats. Observera att kvalitetsuppdateringar fortfarande erbjuds även om funktionsuppdateringar pausas.</string>
       <string id="DeferQualityUpdates_Title">Välj när kvalitetsuppdateringar tas emot</string>
       <string id="DeferQualityUpdates_Help">Aktivera den här principen om du vill ange när du vill ta emot kvalitetsuppdateringar.
 
@@ -356,6 +378,20 @@ Om du inte vill ta emot kvalitetsuppdateringar den schemalagda tiden kan du till
 Rensa fältet för startdatum om du vill återuppta kvalitetsuppdateringar som pausats.
 
 Om du inaktiverar eller låter bli att konfigurera den här principen kommer Windows Update inte att ändra sin uppdateringsprocess.</string>
+      <string id="TargetReleaseVersion_Title">Välj målversion för funktionsuppdatering</string>
+      <string id="TargetReleaseVersion_Help">Ange den produkt och version som listas på sidan Windows Update målversion:
+
+                        aka.ms/WindowsTargetVersioninfo
+
+Enheten begär Windows Update-produkten och versionen i efterföljande genomsökningar.
+
+Att ange en målprodukt och klicka på OK eller Använd innebär att jag godkänner Licensvillkor för Programvara från Microsoft som finns på den aka.ms/WindowsTargetVersioninfo. Om en organisation licensierar programvaran är jag behörig att binda organisationen.
+
+Om du anger ett ogiltigt värde fortsätter du att använda den aktuella versionen tills du korrigerar värdena till en produkt och version som stöds.</string>
+      <string id="DisableWUfBSafeguards">Inaktivera skydd för funktionsuppdateringar</string>
+      <string id="DisableWUfBSafeguards_Help">
+          Aktiverar den här inställningen när funktionsuppdateringar ska distribueras till enheter som inte blockerar alla skyddsundantag. Skyddslösningar är kända kompatibilitetsproblem som hindrar uppgraderingen från att distribueras till berörda enheter tills problemet är löst. Aktivering av den här principen kan tillåta att en organisation distribuerar funktionsuppdateringen till enheter för testning, eller för att distribuera funktionsuppdateringen utan blockering vid säkerhetskontroll.
+      </string>
       <string id="ExcludeWUDriversInQualityUpdate_Title">Ta inte med drivrutiner med Windows-uppdateringar</string>
       <string id="ExcludeWUDriversInQualityUpdate_Help">Aktivera den här principen om du inte vill inkludera drivrutiner i kvalitetsuppdateringar för Windows.
 
@@ -448,6 +484,16 @@ Om du aktiverar inställningen nekas användare sökning i och nedladdning och 
       <string id="DisablePauseUXAccess_Help">Med den här inställningen kan du ta bort åtkomsten av funktionen Pausa uppdateringar.
 
 När den väl är aktiverad kan användarna inte pausa uppdateringar.
+      </string>
+
+      <string id="MaxPauseDays_Title">Ställ in högsta antal dagar som uppdateringar kan pausas</string>
+      <string id="MaxPauseDays_Help">Den här principen styr det maximala antalet dagar som slutanvändare kan pausa uppdateringar.
+
+Värden som stöds är 1-35. Standardvärdet är 35 (dagar).
+
+När principen har konfigurerats kan användarna bara pausa uppdateringar fram till slutet av den tidsperiod som anges i principen. När den konfigurerade gränsen har nåtts kan användarna inte längre förlänga pausen.
+
+Om principen är inaktiverad eller inte konfigurerad gäller standardpausbeteendet, vilket gör att användarna kontinuerligt kan pausa uppdateringar i upp till 35 dagar i taget. Den här principen inaktiverar inte pausa uppdateringar helt. Om du vill ta bort åtkomst till Pausa uppdateringar använder du principen Ta bort åtkomst till funktionen Pausa uppdateringar.
       </string>
 
       <string id="ActiveHoursMaxRange_Title">Ange intervallet för aktiva timmar för automatiska omstarter</string>
@@ -581,31 +627,52 @@ Om den här principen är inaktiverad eller inte konfigurerad kan Windows Update
 Obs! Den här principen gäller bara när den uppdateringstjänst på intranätet som den här datorn dirigeras till har konfigurerats så att den anpassar sig till olika klienter. Om principen "Ange sökväg till tjänsten Microsoft Update på intranätet" är inaktiverad eller inte konfigurerad har den här principen ingen effekt.
       </string>
       <string id="UpdateNotificationLevel_Title">Alternativ för att visa aviseringar om uppdateringar</string>
-      <string id="UpdateNotificationLevel_Help">0 (standard) – använd standardaviseringarna från Windows Update
-1 – inaktivera alla aviseringar, utom omstartsvarningar
-2 – inaktivera alla aviseringar, även omstartsvarningar
+      <string id="UpdateNotificationLevel_Help">0 (standard) – Använd standardmeddelanden för Windows Update
+1 – Inaktivera alla meddelanden, förutom omstartsvarningar
+2 – Inaktivera alla meddelanden, inklusive omstartsvarningar
 
-Med den här principen kan du ange vilka Windows Update-aviseringar som visas för användarna. Den här principen styr inte hur och när uppdateringar laddas ned och installeras.
+Med den här principen kan du definiera vilka Windows Update meddelanden som användarna ser. Den här principen styr inte hur och när uppdateringar laddas ned och installeras.
 
-Viktigt! Om du väljer att inte visa aviseringar om uppdateringar, och du även ställer in en annan grupprincip så att enheter inte får uppdateringar automatiskt, kommer varken du eller enhetsanvändarna att vara medvetna om att det eventuellt finns kritiska säkerhets-, kvalitets- och funktionsuppdateringar vilket kan göra dina enheter sårbara.
+Viktigt! Om du väljer att inte få aviseringar om uppdateringar och även definierar en annan grupprincip så att enheter inte automatiskt får uppdateringar är varken du eller enhetsanvändare medvetna om viktiga säkerhets-, kvalitets- eller funktionsuppdateringar och dina enheter kan vara utsatta för risk.
+
+Om du väljer "Använd endast under aktiva timmar" tillsammans med alternativ 1 eller 2 inaktiveras meddelanden endast under aktiva timmar. Du kan ange aktiva timmar genom att ställa in "Inaktivera automatisk omstart för uppdateringar under aktiva timmar" eller låta enheten ange aktiva timmar baserat på användarens beteende. För att säkerställa att enheten förblir säker visas fortfarande ett meddelande om det här alternativet väljs när tidsgränsen "Ange tidsgränser för automatiska uppdateringar och omstarter" har nåtts om den har konfigurerats, oavsett aktiva timmar.
       </string>
       <string id="DefaultNotification">0 (standard) – standardaviseringar från Windows Update</string>
       <string id="ExcludingRebootWarnings">1 – inaktivera alla aviseringar, utom omstartsvarningar</string>
       <string id="IncludingRebootWarnings">2 – inaktivera alla aviseringar, även omstartsvarningar</string>
-      <string id="ComplianceDeadline_Title">Ange deadlines för automatiska uppdateringar och omstarter</string>
-      <string id="ComplianceDeadline_Help">Med den här principen kan du ange antalet dagar användarna kan vänta innan kvalitets- och funktionsuppdateringar installeras automatiskt på deras enheter, samt en respitperiod efter vilken obligatoriska omstarter sker automatiskt. Uppdateringar och omstarter görs oavsett aktiva timmar och användarna kan inte ändra tiden för när dem görs.
+      <string id="ComplianceDeadlineForFU_Title">Specify deadline for automatic updates and restarts for feature update</string>
+      <string id="ComplianceDeadlineForFU_Help">This policy lets you specify the number of days before feature updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
 
-Deadlines för kvalitets- och funktionsuppdateringar kan vara upp till 30 dagar. Respitperioden för automatisk omstart kan vara mellan 0 och 7 dagar.
+Set deadlines for feature updates and quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
 
-Du kan också inaktivera automatisk omstart till slutet av respitperioden.
+Set a grace period for feature updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
 
-Om du inaktiverar eller låter bli att konfigurera den här principen får enheterna uppdateringar och omstart görs enligt standardschemat.
+You can set the device to delay restarting until both the deadline and grace period have expired.
 
-Den här principen åsidosätter följande principer:
-1.  Ange en tidsgräns för automatisk omstart för uppdateringsinstallation
-2.  Definiera övergång till Interaktiv omstart och meddelandeschema för uppdateringar
-3.  Starta alltid om automatiskt vid den schemalagda tiden
-4.  Ingen automatisk omstart med inloggade användare för schemalagda installationer av automatiska uppdateringar
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
+      </string>
+      <string id="ComplianceDeadlineForQU_Title">Specify deadline for automatic updates and restarts for quality update</string>
+      <string id="ComplianceDeadlineForQU_Help">This policy lets you specify the number of days before quality updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
+
+Set deadlines for quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
+
+Set a grace period for quality updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
+
+You can set the device to delay restarting until both the deadline and grace period have expired.
+
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
       </string>
       <string id="ComplianceDeadlineDay0">0</string>
       <string id="ComplianceDeadlineDay1">1</string>
@@ -638,6 +705,103 @@ Den här principen åsidosätter följande principer:
       <string id="ComplianceDeadlineDay28">28</string>
       <string id="ComplianceDeadlineDay29">29</string>
       <string id="ComplianceDeadlineDay30">30</string>
+
+      <string id="AllowTemporaryEnterpriseFeatureControl_Title">Aktivera funktioner som introduceras via underhåll som är inaktiverade som standard</string>
+      <string id="AllowTemporaryEnterpriseFeatureControl_Help">Funktioner som introduceras via underhåll (utanför den årliga funktionsuppdateringen) är som standard inaktiverade för enheter som har sina Windows-uppdateringar hanterade*.
+
+Om den här principen är konfigurerad till aktiverad kommer alla funktioner som är tillgängliga i den senaste månatliga kvalitetsuppdateringen att vara aktiverade.
+
+Om den här principen är inställd på inte konfigurerad eller inaktiverad är funktioner som levereras via en månatlig kvalitetsuppdatering (underhåll) inaktiverade tills funktionsuppdateringen som innehåller de här funktionerna installeras.
+
+ *Windows Update-hanterade enheter är de som har sina Windows-uppdateringar hanterade via en princip; oavsett om du använder Windows Update för företag via molnet eller lokalt med Windows Server Update Services (WSUS).
+      </string>
+      <string id="AllowOptionalContent_Title">Aktivera valfria uppdateringar</string>
+      <string id="AllowOptionalContent_Help">Med den här principen kan enheter få valfria uppdateringar (inklusive gradvisa funktionsdistributioner (CFR) – läs mer genom att gå till aka.ms/AllowOptionalContent)
+
+När principen är konfigurerad
+
+• Om "Ta emot valfria uppdateringar automatiskt (inklusive CFR)" har valts får enheten automatiskt de senaste valfria uppdateringarna i enlighet med de konfigurerade uppskjutningarna av kvalitetsuppdateringar. Detta inkluderar valfria kumulativa uppdateringar av icke-säkerhet och gradvisa funktionsdistributioner (CFR).
+
+• Om "Ta emot valfria uppdateringar automatiskt" har valts får enheten endast valfria kumulativa uppdateringar automatiskt, i enlighet med de uppskjutandena av kvalitetsuppdateringar.
+
+• Om "Användare kan välja vilka valfria uppdateringar som ska tas emot" har valts kan användarna välja vilka valfria uppdateringar som ska hämtas genom att gå till Inställningar &gt; Windows Update &gt; Avancerade alternativ &gt; Valfria uppdateringar. Användarna kan också aktivera växlingsknappen "Hämta de senaste uppdateringarna så snart de är tillgängliga" för att automatiskt ta emot valfria uppdateringar och gradvisa funktionsdistributioner.
+      </string>
+      <string id="DonotReceiveOptionalContent">Ta inte emot valfria uppdateringar</string>
+      <string id="ReceiveOptionalContentWithAutoApproval">Ta automatiskt emot valfria uppdateringar (inklusive CFR:ar)</string>
+      <string id="ReceiveOptionalLCUWithAutoApproval">Ta emot valfria uppdateringar automatiskt</string>
+      <string id="ReceiveOptionalContentNeedUserApproval">Användare kan välja vilka valfria uppdateringar som ska ta emot</string>
+
+      <string id="MaintenanceWindow_Title">Konfigurera underhållsperioder för automatiska uppdateringar</string>
+      <string id="MaintenanceWindow_Help">Aktivera den här principen om du vill ange återkommande underhållsperioder då enheten kan utföra angivna uppdateringar.
+
+När den här principen är aktiverad utförs de angivna uppdateringarna endast under den underhållsperioden som konfigurerats i Windows Update. Angivna uppdateringsåtgärder utanför dessa tider skjuts upp tills nästa underhållsperiod börjar.
+
+• Uppdateringsåtgärder: välj vilka uppdateringsåtgärder som endast tillåts under underhållsperioderna. Om en uppdateringsåtgärd inte är vald kan den utföras utanför underhållsperioden.
+    – Ladda ned, installera och starta om: Slutför uppdateringscykeln, inklusive nedladdning, installation och omstart av systemet
+    – Installera och starta om: nedladdade uppdateringar installeras och systemet startas om
+    – Endast omstart: Utför endast en omstart av systemet för väntande uppdateringar
+
+• Grundläggande schemakonfiguration:
+    – Startdatum: ange det första datumet när underhållsperioden börjar (format: yyyy-mm-dd, exempel: 2025-10-30)
+      * Fältet startdatum börjar endast gälla om det återkommande schemat är inställt på Inget
+    – Starttid: ange tiden när underhållsperioden startar (format: hh:mm, exempel: 23:30)
+    – Varaktighet: definiera hur länge underhållsperioden varar i timmar (till exempel: 2 för ett 2-timmarsfönster)
+
+• Alternativ för återkommande schema:
+    – Ingen upprepning: underhållsperioden startar endast på det angivna startdatumet
+    – Dagligen: underhållsfönstret upprepas varje dag
+    – Varje vecka: underhållsfönstret upprepas varje vecka på valda veckodagar
+    – Varje månad: underhållsfönstret upprepas varje månad på en specifik dag
+
+• Inställningar för veckoschema (när Veckovis väljs):
+    – Val av veckodag: välj vilka dagar i veckan som underhållsperioden gäller:
+        * Söndag till lördag: kryssa för rutor för att välja specifika veckodagar för underhållsperioden
+
+• Inställningar för månadsschema (när Varje månad är vald):
+    – Månatlig schematyp:
+        * Datumbaserat: underhållsperioden inträffar på en specifik dag i månaden (till exempel: den 15:e dagen varje månad)
+        * Veckobaserat: underhållsperioden inträffar på en viss veckodag i månaden (till exempel den andra tisdagen i varje månad)
+        * Sista dagen i månaden: underhållsperioden inträffar på den sista dagen i månaden
+    – Dag i månaden: när du använder datumbaserad schemaläggning anger du vilken dag i månaden (1–28)
+    – Förekomst i månaden: när du använder veckobaserad schemaläggning väljer du vecka i månaden (första, andra, tredje, fjärde eller sista)
+    – Veckodag: när du använder veckobaserad schemaläggning väljer du vilken dag i veckan (söndag till lördag)
+
+Exempel på månadskonfigurationer:
+    – Datumbaserat: 3:e dagen i varje månad = dag i månaden: 3
+    – Veckobaserat: andra tisdagen i varje månad = förekomst: andra, veckodag: tisdag
+    – Veckobaserat: sista fredagen i varje månad = förekomst: sista, veckodag: fredag
+    – Sista dagen i månaden: sista dagen i varje månad
+
+Efter ett engångsunderhåll måste nästa underhållsperiod schemaläggas inom 3 månader. Om startdatumet för engångsunderhållet är mer än 3 månader gammalt ignoreras principen och uppdateringar schemaläggs enligt standardinställningarna.
+
+Om du inaktiverar eller inte konfigurerar den här principen följer Windows Update standardbeteendet för schemaläggning.</string>
+      <!-- MaintenanceWindowUpdateActionsID dropdown options -->
+      <string id="MaintenanceWindowUpdateActions_DownloadInstallRestart">Ladda ned, installera och starta om</string>
+      <string id="MaintenanceWindowUpdateActions_InstallRestart">Installera och starta om</string>
+      <string id="MaintenanceWindowUpdateActions_RestartOnly">Starta endast om</string>
+      <!-- MaintenanceWindowRepeatScheduleOption dropdown options -->
+      <string id="MaintenanceWindowRepeatSchedule_NoRepeat">Ingen upprepning</string>
+      <string id="MaintenanceWindowRepeatSchedule_Daily">Varje dag</string>
+      <string id="MaintenanceWindowRepeatSchedule_Weekly">Varje vecka</string>
+      <string id="MaintenanceWindowRepeatSchedule_Monthly">Varje månad</string>
+      <!-- MaintenanceWindowMonthlyScheduleID dropdown options -->
+      <string id="MaintenanceWindowMonthlySchedule_MonthBased">Datumbaserad</string>
+      <string id="MaintenanceWindowMonthlySchedule_WeekBased">Veckobaserad</string>
+      <string id="MaintenanceWindowMonthlySchedule_LastDay">Sista dagen i månaden</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_First">första</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Second">Sekund</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Third">tredje</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Fourth">fjärde</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Last">Senast</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedDayOfTheWeek dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Sunday">Söndag</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Monday">Måndag</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Tuesday">Tisdag</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Wednesday">Onsdag</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Thursday">Torsdag</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Friday">Fredag</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Saturday">Lördag</string>
     </stringTable>
 
     <presentationTable>
@@ -669,21 +833,28 @@ Den här principen åsidosätter följande principer:
         <textBox refId="CorpWUContentHost_Name">
           <label>Ange en alternativ nedladdningsserver:</label>
         </textBox>
-        <text>(till exempel: http://IntranetUpd01)</text>
+        <text>(exempel: https://IntranetUpd01)</text>
         <checkBox refId="CorpWUFillEmptyContentUrls" defaultChecked="false">Ladda ned filer utan URL:er i metadata om en alternativ nedladdningsserver har angetts.</checkBox>
+        <checkBox refId="CorpWUDoNotEnforceEnterpriseTLSCertPinningForUpdateDetection" defaultChecked="false">Tvinga inte TLS-certifikatfästning för Windows Update-klienten för identifiering av uppdateringar.</checkBox>
+        <dropdownList refId="SetProxyBehaviorForUpdateDetection" noSort="true" defaultItem="0">Välj proxyns beteende för Windows Update-klienten för att hitta uppdateringar:</dropdownList>
+      </presentation>
+      <presentation id="UpdateClassPolicySource_Title">
+        <text>Ange källtjänst för följande klasser i Windows-uppdateringar:</text>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForFeatureUpdates" noSort="true" defaultItem="0">Funktionsuppdateringar</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForQualityUpdates" noSort="true" defaultItem="0">Kvalitetsuppdateringar</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForDriverUpdates" noSort="true" defaultItem="0">Drivrutinsuppdateringar</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForOtherUpdates" noSort="true" defaultItem="0">Andra uppdateringar</dropdownList>
       </presentation>
       <presentation id="DetectionFrequency_Title">
         <text>Sök efter uppdateringar enligt följande</text>
         <decimalTextBox refId="DetectionFrequency_Hour2" defaultValue="22">intervall (timmar):  </decimalTextBox>
       </presentation>
       <presentation id="RebootRelaunchTimeout_Title">
-        <text>Vänta följande antal minuter innan</text>
-        <text>fråga om schemalagd installation</text>
+        <text>Vänta följande period innan du frågar igen med en schemalagd</text>
         <decimalTextBox refId="RebootRelaunchTimeout_Minutes3" defaultValue="10">sker efter installation:  </decimalTextBox>
       </presentation>
       <presentation id="RebootWarningTimeout_Title">
-        <text>Vänta följande antal minuter innan</text>
-        <text>en schemalagd omstart</text>
+        <text>Vänta följande period innan du fortsätter med en schemalagd</text>
         <decimalTextBox refId="RebootWarningTimeout_Minutes3" defaultValue="5">sker efter installation:  </decimalTextBox>
       </presentation>
       <presentation id="RescheduleWaitTime_Title">
@@ -695,22 +866,23 @@ Den här principen åsidosätter följande principer:
           <label>Den här datorns målgruppsnamn</label>
         </textBox>
       </presentation>
-      <presentation id="IdleShutdownTimerDuration_Title">
-        <text>Vänta följande antal minuter innan</text>
-        <text>tjänsten stängs</text>
-        <decimalTextBox refId="IdleShutdownTimerDuration_Minutes" defaultValue="10">när den är inaktiv (minuter):  </decimalTextBox>
-      </presentation>
       <presentation id="AlwaysAutoRebootAtScheduledTime_Presentation">
-        <text>Omstartstimern ger användarna</text>
-        <text>så här mycket tid att spara sitt</text>
+        <text>Omstartstimern ger användarna så här lång tid för att spara sina</text>
         <decimalTextBox refId="AlwaysAutoRebootAtScheduledTime_Minutes" defaultValue="15">arbete (minuter):  </decimalTextBox>
       </presentation>
+      <presentation id="TargetReleaseVersion">
+        <textBox refId="ProductVersionId">
+          <label>Vilken Windows-produktversion vill du ta emot funktionsuppdateringar för? t.ex. Windows 10</label>
+        </textBox>
+        <textBox refId="TargetReleaseVersionId">
+          <label>Målversion för funktionsuppdateringar</label>
+        </textBox>
+      </presentation>
       <presentation id="ManagePreviewBuilds">
-        <dropdownList refId="ManagePreviewBuildsId" noSort="true" defaultItem="2">Ange beteende för mottagande av förhandsversioner:</dropdownList>
+        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Välj Windows-beredskapsnivån för de uppdateringar du vill ta emot:</dropdownList>
       </presentation>
       <presentation id="DeferFeatureUpdates">
-        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Välj Windows-beredskapsnivån för de uppdateringar du vill ta emot:</dropdownList>
-        <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">När en förhandsversion eller funktionsuppdatering släpps, skjut upp den i följande antal dagar:</decimalTextBox>
+       <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">Hur många dagar efter att en funktionsuppdatering släppts vill du skjuta upp uppdateringen innan den erbjuds till enheten?</decimalTextBox>
         <textBox refId="PauseFeatureUpdatesStartId">
           <label>Pausa förhandsversioner eller funktionsuppdateringar med början:</label>
         </textBox>
@@ -732,6 +904,10 @@ Den här principen åsidosätter följande principer:
         <text>Ange efter hur många dagar en väntande omstart görs automatiskt utanför aktiva timmar: </text>
         <dropdownList refId="AutoRestartDeadline" noSort="true" defaultItem="5">Kvalitetsuppdateringar (dagar): </dropdownList>
         <dropdownList refId="AutoRestartDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Funktionsuppdateringar (dagar): </dropdownList>
+      </presentation>
+      <presentation id="MaxPauseDays_Title">
+        <text>Ange hur många dagar användarna kan pausa uppdateringar i:</text>
+        <decimalTextBox refId="SetMaxPauseDays" noSort="true" defaultValue="35">Maximalt antal pausdagar: </decimalTextBox>
       </presentation>
       <presentation id="ActiveHoursMaxRange_Title">
         <text>Ange det maximala intervallet för aktiva timmar:</text>
@@ -768,16 +944,50 @@ Den här principen åsidosätter följande principer:
       </presentation>
       <presentation id="UpdateNotificationLevel_Title">
         <dropdownList refId="UpdateNotificationLevel" noSort="true" defaultItem="0">Ange alternativ för att visa aviseringar om uppdateringar:</dropdownList>
+        <text></text>
+        <checkBox refId="NoUpdateNotificationsDuringActiveHours" defaultChecked="false">Använd endast under aktiva timmar</checkBox>
       </presentation>
-      <presentation id="ComplianceDeadline_Title">
-        <text>Ange antalet dagar (upp till 30 dagar) som en användare kan vänta innan uppdateringar görs automatiskt, oavsett aktiva timmar, och utan möjlighet att ändra tiden.</text>
-        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="5">Kvalitetsuppdateringar (dagar):</dropdownList>
-        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Funktionsuppdateringar (dagar):</dropdownList>
+       <presentation id="ComplianceDeadlineForFU_Title">
+        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="2">Tidsgräns (dagar):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriodForFeatureUpdates" noSort="true" defaultItem="7">Respitperiod (dagar):</dropdownList>
         <text></text>
-        <text>Ange en respitperiod (0 till 7 dagar) för automatisk omstart från tiden då en omstart krävs tills enheten startar om automatiskt. Enheter startar om automatiskt oavsett aktiva timmar och utan möjlighet att ändra tiden.</text>
-        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Respitperiod (dagar)</dropdownList>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForFeatureUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="ComplianceDeadlineForQU_Title">
+        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="7">Tidsgräns (dagar):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Respitperiod (dagar):</dropdownList>
         <text></text>
-        <checkBox refId="ConfigureDeadlineNoAutoReboot" defaultChecked="false">Starta inte om automatiskt förrän respitperioden är över</checkBox>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForQualityUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="AllowOptionalContent_Title">
+        <dropdownList refId="AllowOptionalContent" noSort="true" defaultItem="0">Välj hur användare får valfria uppdateringar:</dropdownList>
+      </presentation>
+      <presentation id="MaintenanceWindow_Title">
+        <text>Underhållsperiod:</text>
+        <dropdownList refId="MaintenanceWindowUpdateActionsID" noSort="true" defaultItem="1">Uppdateringsåtgärder tillåts endast i underhållsperioden:</dropdownList>
+        <textBox refId="MaintenanceWindowStartDateID">
+            <label>Startdatum (format: åååå-mm-dd exempel: 2025-10-30)</label>
+        </textBox>
+        <textBox refId="MaintenanceWindowStartTimeID">
+            <label>Starttid (format: hh:mm exempel: 23:30 för 11:30 PM)</label>
+        </textBox>
+        <decimalTextBox refId="MaintenanceWindowDurationHoursID" defaultValue="2">Varaktighet (timmar):</decimalTextBox>
+        <dropdownList refId="MaintenanceWindowRepeatScheduleOptionID" noSort="true" defaultItem="1">Välj upprepningsschema:</dropdownList>
+        <text>De följande inställningarna krävs och är tillämpliga endast om Veckovis har valts:</text>
+        <checkBox refId="MaintenanceWindowWeeklySundayID" defaultChecked="false">Söndag</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyMondayID" defaultChecked="false">Måndag</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyTuesdayID" defaultChecked="false">Tisdag</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyWednesdayID" defaultChecked="false">Onsdag</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyThursdayID" defaultChecked="false">Torsdag</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyFridayID" defaultChecked="false">Fredag</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklySaturdayID" defaultChecked="false">Lördag</checkBox>
+        <text>Följande inställningar krävs endast och gäller endast om Månadsvis väljs:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyScheduleID" noSort="true" defaultItem="1">Månadsschematyp:</dropdownList>
+        <text>Följande inställningar krävs och gäller endast om datumbaserad typ har valts:</text>
+        <decimalTextBox refId="MaintenanceWindowMonthlyMonthBasedDayOfMonthID" defaultValue="1">Dag i månaden:</decimalTextBox>
+        <text>De följande inställningarna krävs och är tillämpliga endast om Veckobaserad typ har valts:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonthID" noSort="true" defaultItem="1">Förekomst i månad</dropdownList>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedDayOfTheWeekID" noSort="true" defaultItem="1">Veckodag</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -1,582 +1,313 @@
+#Requires -Modules @{ ModuleName = 'Pester'; ModuleVersion = '5.5.0' }
 
-Get-Module PSGPOTools | Remove-Module -ErrorAction Stop
-Import-Module '..\..\PSGPOTools\PSGPOTools.psm1'
-
-$TestPath = Split-Path $MyInvocation.MyCommand.Path
-
-Push-Location -Path $TestPath
-Set-Location -Path $TestPath
-
-#Describe "Test AdmxSupportedOn class"
-#Describe "Test AdmxNamespace class"
-#Describe "Test AdmxCategory class"
-#Describe "Test AdmxPolicy class"
+# The classes are only visible inside the module, so the whole file runs in its scope.
+# InModuleScope at the top level needs the module during discovery, hence BeforeDiscovery.
+BeforeDiscovery {
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
+    Get-Module PSGPOTools | Remove-Module -Force
+    Import-Module $ModuleManifest -Force
+}
 
 InModuleScope -ModuleName PSGPOTools {
-    Describe "Test GpoToolsAdmx class" {
-        Context "Test constructor method for Admx WindowsBackup" {
-            $ADMXPath = (Get-Item -Path "..\..\sources\PolicyDefinitions\WindowsBackup.admx").FullName
-            $ADMX = [GPOToolsAdmx]::New($ADMXPath)
-            $UsingTab = @(
-                [pscustomobject]@{
-                    prefix = 'backup'
-                    namespace = 'Microsoft.Policies.Backup'
-                },
-                [pscustomobject]@{
-                    prefix = 'windows'
-                    namespace = 'Microsoft.Policies.Windows'
-                },
-                [pscustomobject]@{
-                    prefix = 'server'
-                    namespace = 'Microsoft.Policies.Server'
-                }
-            )
-            $CatTab = @(
-                [PscustomObject]@{
-                    Name = 'Backup'
-                    DisplayName = 'Backup'
-                    ParentCategory = @{
-                        prefix = 'windows'
-                        name = 'WindowsComponents'
-                    }
-                },
-                [PscustomObject]@{
-                    Name = 'BackupServer'
-                    DisplayName = 'BackupServer'
-                    ParentCategory = @{
-                        prefix = 'backup'
-                        name = 'Backup'
-                    }
-                }
-            )
-            $PolTab = @(
-                [PscustomObject]@{
-                    Name = 'AllowOnlySystemBackup'
-                    Class = 'Machine'
-                    DisplayName = 'AllowOnlySystemBackup'
-                    Regkey = 'Software\Policies\Microsoft\Windows\Backup\Server'
-                    valueName = 'OnlySystemBackup'
-                    ParentCategory = @{
-                        prefix = 'windowsbackup'
-                        name = 'BackupServer'
-                    }
-                    EnableValue = 1
-                    DisableValue = 0
-                },[PscustomObject]@{
-                    Name = 'DisallowLocallyAttachedStorageAsBackupTarget'
-                    Class = 'Machine'
-                    DisplayName = 'DisallowLocallyAttachedStorageAsBackupTarget'
-                    Regkey = 'Software\Policies\Microsoft\Windows\Backup\Server'
-                    valueName = 'NoBackupToDisk'
-                    ParentCategory = @{
-                        prefix = 'windowsbackup'
-                        name = 'BackupServer'
-                    }
-                    EnableValue = '1'
-                    DisableValue = '0'
-                },[PscustomObject]@{
-                    Name = 'DisallowNetworkAsBackupTarget'
-                    Class = 'Machine'
-                    DisplayName = 'DisallowNetworkAsBackupTarget'
-                    Regkey = 'Software\Policies\Microsoft\Windows\Backup\Server'
-                    valueName = 'NoBackupToNetwork'
-                    ParentCategory = @{
-                        prefix = 'windowsbackup'
-                        name = 'BackupServer'
-                    }
-                    EnableValue = 1
-                    DisableValue = 0
-                },[PscustomObject]@{
-                    Name = 'DisallowOpticalMediaAsBackupTarget'
-                    Class = 'Machine'
-                    DisplayName = 'DisallowOpticalMediaAsBackupTarget'
-                    Regkey = 'Software\Policies\Microsoft\Windows\Backup\Server'
-                    valueName = 'NoBackupToOptical'
-                    ParentCategory = @{
-                        prefix = 'windowsbackup'
-                        name = 'BackupServer'
-                    }
-                    EnableValue = 1
-                    DisableValue = 0
-                },[PscustomObject]@{
-                    Name = 'DisallowRunOnceBackups'
-                    Class = 'Machine'
-                    DisplayName = 'DisallowRunOnceBackups'
-                    Regkey = 'Software\Policies\Microsoft\Windows\Backup\Server'
-                    valueName = 'NoRunNowBackup'
-                    ParentCategory = @{
-                        prefix = 'windowsbackup'
-                        name = 'BackupServer'
-                    }
-                    EnableValue = 1
-                    DisableValue = 0
-                }
-            )
-            It "Test ADMX object type"{
-                $ADMX -is [GPOToolsAdmx] | Should be $true
+    BeforeAll {
+        $script:PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path
+        # fr-FR, or fr-fr as in the ADMX of Windows 11 26H2: the case matters on Linux.
+        $script:French = (Get-ChildItem -LiteralPath $script:PolicyDefinitions -Directory | Where-Object Name -EQ 'fr-FR' | Select-Object -First 1).Name
+    }
+
+    Describe 'GpoToolsAdmx class' {
+        Context 'Constructor with WindowsBackup.admx' {
+            BeforeAll {
+                $ADMXPath = Join-Path $PolicyDefinitions 'WindowsBackup.admx'
+                $ADMX = [GPOToolsAdmx]::New($ADMXPath)
+                $UsingTab = @(
+                    @{ prefix = 'backup'; namespace = 'Microsoft.Policies.Backup' },
+                    @{ prefix = 'windows'; namespace = 'Microsoft.Policies.Windows' },
+                    @{ prefix = 'server'; namespace = 'Microsoft.Policies.Server' }
+                )
+                $CatTab = @(
+                    @{ Name = 'Backup'; DisplayName = 'Backup'; ParentCategory = @{ prefix = 'windows'; name = 'WindowsComponents' } },
+                    @{ Name = 'BackupServer'; DisplayName = 'BackupServer'; ParentCategory = @{ prefix = 'backup'; name = 'Backup' } }
+                )
+                $PolTab = @(
+                    @{ Name = 'AllowOnlySystemBackup'; ValueName = 'OnlySystemBackup' },
+                    @{ Name = 'DisallowLocallyAttachedStorageAsBackupTarget'; ValueName = 'NoBackupToDisk' },
+                    @{ Name = 'DisallowNetworkAsBackupTarget'; ValueName = 'NoBackupToNetwork' },
+                    @{ Name = 'DisallowOpticalMediaAsBackupTarget'; ValueName = 'NoBackupToOptical' },
+                    @{ Name = 'DisallowRunOnceBackups'; ValueName = 'NoRunNowBackup' }
+                )
             }
 
-            It "Test FilePath property type"{
-                $ADMX.FilePath -is [string] | Should be $true
-            }
-            It "Test FilePath proprerty value"{
-                $ADMX.FilePath | Should be $ADMXPath
+            It 'Creates a GPOToolsAdmx object' {
+                $ADMX | Should -BeOfType ([GPOToolsAdmx])
             }
 
-            It "Test BaseName Property type"{
-                $ADMX.BaseName -is [string] | Should be $true
-            }
-            It "Test BaseName Property Value"{
-                $ADMX.BaseName | Should be "WindowsBackup"
+            It 'Sets FilePath and BaseName' {
+                $ADMX.FilePath | Should -Be $ADMXPath
+                $ADMX.BaseName | Should -Be 'WindowsBackup'
             }
 
-            It "Test Target Property Type" {
-                $ADMX.Target -is [AdmxNamespace] | Should be $true
-            }
-            It "Test Target SubProperty Value" {
-                $ADMX.Target.prefix | Should be 'windowsbackup'
-                $ADMX.Target.Namespace | Should be 'Microsoft.Policies.WindowsBackup'
+            It 'Reads the target namespace' {
+                $ADMX.Target | Should -BeOfType ([AdmxNamespace])
+                $ADMX.Target.prefix | Should -Be 'windowsbackup'
+                $ADMX.Target.namespace | Should -Be 'Microsoft.Policies.WindowsBackup'
             }
 
-            It "Test Using Property Type" {
-                $ADMX.Using -is [System.Collections.ArrayList] | Should be $true
-            }
-            It "Test Using Property Value"{
-                $ADMX.Using.count | Should be $UsingTab.Count
-                for ($i = 0 ; $i -lt $ADMX.Using.count; $i++){
-                    $ADMX.Using[$i] -is [AdmxNamespace] | should be $true
-                    $ADMX.Using[$i].prefix | Should be $UsingTab[$i].prefix
-                    $ADMX.Using[$i].namespace | Should be $UsingTab[$i].namespace
+            It 'Reads the using namespaces' {
+                $ADMX.Using.Count | Should -Be $UsingTab.Count
+                for ($i = 0; $i -lt $UsingTab.Count; $i++) {
+                    $ADMX.Using[$i] | Should -BeOfType ([AdmxNamespace])
+                    $ADMX.Using[$i].prefix | Should -Be $UsingTab[$i].prefix
+                    $ADMX.Using[$i].namespace | Should -Be $UsingTab[$i].namespace
                 }
             }
 
-            It "Test SupportedOnDefinition Type" {
-                $ADMX.SupportedOnDefinition -is [System.Collections.ArrayList] | Should be $true
-            }
-            It "Test SupportedOnDefinition Value" {
-                $ADMX.SupportedOnDefinition.count | Should be 0
+            It 'Has no SupportedOn definition' {
+                $ADMX.SupportedOnDefinition.Count | Should -Be 0
             }
 
-            It "Test Category Type" {
-                $ADMX.Categories -is [System.Collections.ArrayList] | Should be $true
-            }
-            It "Test Category Value" {
-                $ADMX.Categories.count | Should be 2
-                for ($i = 0 ; $i -lt $ADMX.Categories.count; $i++){
-                    $ADMX.Categories[$i].Name | Should be $CatTab[$i].Name
-                    $ADMX.Categories[$i].DisplayName | Should be $CatTab[$i].DisplayName
-                    $ADMX.Categories[$i].ParentCategory.prefix | Should be $CatTab[$i].ParentCategory.prefix
-                    $ADMX.Categories[$i].ParentCategory.name | Should be $CatTab[$i].ParentCategory.name
-                    #$ADMX.Categories[$i].ExplainText
+            It 'Reads the categories' {
+                $ADMX.Categories.Count | Should -Be $CatTab.Count
+                for ($i = 0; $i -lt $CatTab.Count; $i++) {
+                    $ADMX.Categories[$i].Name | Should -Be $CatTab[$i].Name
+                    $ADMX.Categories[$i].DisplayName | Should -Be $CatTab[$i].DisplayName
+                    $ADMX.Categories[$i].ParentCategory.prefix | Should -Be $CatTab[$i].ParentCategory.prefix
+                    $ADMX.Categories[$i].ParentCategory.name | Should -Be $CatTab[$i].ParentCategory.name
                 }
             }
 
-            It "Test policy" {
-                $ADMX.Policies -is [System.Collections.ArrayList] | Should be $true
-                $ADMX.Policies.count | Should be $PolTab.Count
-                for ($i = 0 ; $i -lt $ADMX.Policies.count; $i++){
-                    $ADMX.Policies[$i].Name | Should be $PolTab[$i].Name
-                    $ADMX.Policies[$i].Class | Should be $PolTab[$i].Class
-                    $ADMX.Policies[$i].DisplayName | Should be $PolTab[$i].DisplayName
-                    $ADMX.Policies[$i].RegKey | Should be $PolTab[$i].RegKey
-                    $ADMX.Policies[$i].ValueName | Should be $PolTab[$i].ValueName
-                    $ADMX.Policies[$i].ParentCategory.prefix | Should be $PolTab[$i].ParentCategory.prefix
-                    $ADMX.Policies[$i].ParentCategory.name | Should be $PolTab[$i].ParentCategory.name
-                    $ADMX.Policies[$i].enableValue | Should be $PolTab[$i].enableValue
-                    $ADMX.Policies[$i].disableValue | Should be $PolTab[$i].disableValue
+            It 'Reads the policies' {
+                $ADMX.Policies.Count | Should -Be $PolTab.Count
+                for ($i = 0; $i -lt $PolTab.Count; $i++) {
+                    $Policy = $ADMX.Policies[$i]
+                    $Policy.Name | Should -Be $PolTab[$i].Name
+                    $Policy.DisplayName | Should -Be $PolTab[$i].Name
+                    $Policy.Class | Should -Be 'Machine'
+                    $Policy.RegKey | Should -Be 'Software\Policies\Microsoft\Windows\Backup\Server'
+                    $Policy.ValueName | Should -Be $PolTab[$i].ValueName
+                    $Policy.ParentCategory.prefix | Should -Be 'windowsbackup'
+                    $Policy.ParentCategory.name | Should -Be 'BackupServer'
+                    $Policy.enableValue | Should -Be 1
+                    $Policy.disableValue | Should -Be 0
                 }
             }
         }
 
-        Context "Test constructor method for Admx WindowsUpdate" {
-            $ADMXPath = (Get-Item -Path "..\..\sources\PolicyDefinitions\WindowsUpdate.admx").FullName
-            $ADMX = [GPOToolsAdmx]::New($ADMXPath)
-            $UsingTab = @(
-                [pscustomobject]@{
-                    prefix = 'windows'
-                    namespace = 'Microsoft.Policies.Windows'
-                }
-            )
-            $TabSupportedOn = @(
-                [pscustomobject]@{
-                    Name = 'WU_SUPPORTED_Windows7ToXPSP2'
-                    DisplayName = 'WU_SUPPORTED_Windows7ToXPSP2'
-                },
-                [pscustomobject]@{
-                    Name = 'WU_SUPPORTED_Windows7_To_Win2kSP3_Or_XPSP1'
-                    DisplayName = 'WU_SUPPORTED_Windows7_To_Win2kSP3_Or_XPSP1'
-                },
-                [pscustomobject]@{
-                    Name = 'WU_SUPPORTED_Win2kSP3_Or_XPSP1_NoWinRT'
-                    DisplayName = 'WU_SUPPORTED_Win2kSP3_Or_XPSP1_NoWinRT'
-                },
-                [pscustomobject]@{
-                    Name = 'WU_SUPPORTED_WindowsXPSP1_NoWinRT'
-                    DisplayName = 'WU_SUPPORTED_WindowsXPSP1_NoWinRT'
-                },
-                [pscustomobject]@{
-                    Name = 'WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2'
-                    DisplayName = 'WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2'
-                },
-                [pscustomobject]@{
-                    Name = 'WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2'
-                    DisplayName = 'WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2'
-                }
-            )
-            $CatTab = @(
-                [Pscustomobject]@{
-                    Name = 'WindowsUpdateCat'
-                    DisplayName = 'WindowsUpdateCat'
-                    ParentCategory = @{
-                        prefix = 'windows'
-                        name = 'WindowsComponents'
-                    }
-                },
-                [Pscustomobject]@{
-                    Name = 'DeferUpdateCat'
-                    DisplayName = 'DeferUpdateCat'
-                    ParentCategory = @{
-                        prefix = 'wuau'
-                        name = 'WindowsUpdateCat'
-                    }
-                }
-            )
-
-            $PolTab = @(
-                [PscustomObject]@{
-                    Name = 'NoAutoUpdate'
-                    Class = 'User'
-                    DisplayName = 'NoAutoUpdate'
-                    Regkey = 'Software\Microsoft\Windows\CurrentVersion\Policies\Explorer'
-                    valueName = 'NoAutoUpdate'
-                    ParentCategory = @{
-                        prefix = 'windows'
-                        name = 'System'
-                    }
-                    EnableValue = 1
-                    DisableValue = 0
-                },[PscustomObject]@{
-                    Name = 'AUDontShowUasPolicy'
-                    Class = 'Both'
-                    DisplayName = 'AUDontShowUasPolicy'
-                    Regkey = 'Software\Policies\Microsoft\Windows\WindowsUpdate\AU'
-                    valueName = 'NoAUShutdownOption'
-                    ParentCategory = @{
-                        prefix = 'wuau'
-                        name = 'WindowsUpdateCat'
-                    }
-                    EnableValue = 1
-                    DisableValue = 0
-                }
-            )
-
-            #IT blocks
-            It "Test object type"{
-                $ADMX -is [GPOToolsAdmx] | Should be $true
+        Context 'Constructor with WindowsUpdate.admx' {
+            BeforeAll {
+                $ADMX = [GPOToolsAdmx]::New((Join-Path $PolicyDefinitions 'WindowsUpdate.admx'))
+                $SupportedOnNames = @(
+                    'WU_SUPPORTED_Windows7ToXPSP2',
+                    'WU_SUPPORTED_Windows7_To_Win2kSP3_Or_XPSP1',
+                    'WU_SUPPORTED_Win2kSP3_Or_XPSP1_NoWinRT',
+                    'WU_SUPPORTED_WindowsXPSP1_NoWinRT',
+                    'WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2',
+                    'WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2',
+                    'WU_SUPPORTED_XPSP1_or_Win2kSP3_AUOption7_SUPPORTED_Server2016',
+                    'WU_SUPPORTED_Server2016_Through_Server2022_Or_Windows10',
+                    'WU_SUPPORTED_Windows_Server_2019_Windows_10_0_1809',
+                    'WU_SUPPORTED_Windows_Server_2022_Windows_10_0_2004',
+                    'WU_SUPPORTED_WinServer2025_Win1021H2_Win1122H2',
+                    'WU_SUPPORTED_Win11_24H2'
+                )
+                $PolTab = @(
+                    @{ Name = 'NoAutoUpdate'; Class = 'User'; RegKey = 'Software\Microsoft\Windows\CurrentVersion\Policies\Explorer'
+                       ValueName = 'NoAutoUpdate'; ParentCategory = @{ prefix = 'windows'; name = 'System' } },
+                    @{ Name = 'AUDontShowUasPolicy'; Class = 'Both'; RegKey = 'Software\Policies\Microsoft\Windows\WindowsUpdate\AU'
+                       ValueName = 'NoAUShutdownOption'; ParentCategory = @{ prefix = 'wuau'; name = 'PreSV' } }
+                )
             }
 
-            It "Test FilePath property"{
-                $ADMX.FilePath -is [string] | Should be $true
-                $ADMX.FilePath | Should be $ADMXPath
+            It 'Reads the target and using namespaces' {
+                $ADMX.BaseName | Should -Be 'WindowsUpdate'
+                $ADMX.Target.prefix | Should -Be 'wuau'
+                $ADMX.Target.namespace | Should -Be 'Microsoft.Policies.WindowsUpdate'
+                $ADMX.Using.Count | Should -Be 1
+                $ADMX.Using[0].namespace | Should -Be 'Microsoft.Policies.Windows'
             }
 
-            It "Test BaseName Property"{
-                $ADMX.BaseName -is [string] | Should be $true
-                $ADMX.BaseName | Should be "WindowsUpdate"
+            It 'Reads the SupportedOn definitions' {
+                $ADMX.SupportedOnDefinition.Name | Should -Be $SupportedOnNames
+                $ADMX.SupportedOnDefinition.DisplayName | Should -Be $SupportedOnNames
             }
 
-            It "Test Target Property" {
-                $ADMX.Target -is [AdmxNamespace] | Should be $true
-                $ADMX.Target.prefix | Should be 'wuau'
-                $ADMX.Target.Namespace | Should be 'Microsoft.Policies.WindowsUpdate'
+            It 'Reads the categories and their parent references' {
+                # The ADMX of Windows 11 26H2.
+                $ADMX.Categories.Name | Should -Be @('WindowsUpdateCat', 'WindowsUpdateOffering', 'WSUSOffering', 'WindowsUpdateExperience', 'PreSV')
+                $ADMX.Categories[0].ParentCategory.prefix | Should -Be 'windows'
+                $ADMX.Categories[0].ParentCategory.name | Should -Be 'WindowsComponents'
+                # An unprefixed reference resolves to the file's own prefix.
+                $ADMX.Categories[1].ParentCategory.prefix | Should -Be 'wuau'
+                $ADMX.Categories[1].ParentCategory.name | Should -Be 'WindowsUpdateCat'
             }
 
-            It "Test Using Property" {
-                $ADMX.Using -is [System.Collections.ArrayList] | Should be $true
-                $ADMX.Using.count | Should be $UsingTab.Count
-                for ($i = 0 ; $i -lt $ADMX.Using.count; $i++){
-                    $ADMX.Using[$i] -is [AdmxNamespace] | should be $true
-                    $ADMX.Using[$i].prefix | Should be $UsingTab[$i].prefix
-                    $ADMX.Using[$i].namespace | Should be $UsingTab[$i].namespace
-                }
-            }
-
-            It "Test SupportedOnDefinition"{
-                $ADMX.SupportedOnDefinition -is [System.Collections.ArrayList] | Should be $true
-                $ADMX.SupportedOnDefinition.count | Should be $TabSupportedOn.count
-                for ($i = 0 ; $i -lt $ADMX.SupportedOnDefinition.count; $i++){
-                    $ADMX.SupportedOnDefinition[$i].Name | Should be $TabSupportedOn[$i].Name
-                    $ADMX.SupportedOnDefinition[$i].DisplayName | Should be $TabSupportedOn[$i].DisplayName
-                }
-            }
-
-            It "Test Category" {
-                $ADMX.Categories -is [System.Collections.ArrayList] | Should be $true
-                $ADMX.Categories.count | Should be $CatTab.count
-                for ($i = 0 ; $i -lt $ADMX.Categories.count; $i++){
-                    $ADMX.Categories[$i].Name | Should be $CatTab[$i].Name
-                    $ADMX.Categories[$i].DisplayName | Should be $CatTab[$i].DisplayName
-                    $ADMX.Categories[$i].ParentCategory.prefix | Should be $CatTab[$i].ParentCategory.prefix
-                    $ADMX.Categories[$i].ParentCategory.Name | Should be $CatTab[$i].ParentCategory.Name
-                    #$ADMX.Categories[$i].ExplainText
-                }
-            }
-
-            It "Test policy" {
-                $ADMX.Policies -is [System.Collections.ArrayList] | Should be $true
-                $ADMX.Policies.count | Should be 40
-                for ($i = 0 ; $i -lt $ADMX.Policies.count; $i++){
-                    $ADMX.Policies[$i].Name | Should be $PolTab[$i].Name
-                    $ADMX.Policies[$i].Class | Should be $PolTab[$i].Class
-                    $ADMX.Policies[$i].DisplayName | Should be $PolTab[$i].DisplayName
-                    $ADMX.Policies[$i].RegKey | Should be $PolTab[$i].RegKey
-                    $ADMX.Policies[$i].ValueName | Should be $PolTab[$i].ValueName
-                    $ADMX.Policies[$i].ParentCategory.prefix | Should be $PolTab[$i].ParentCategory.prefix
-                    $ADMX.Policies[$i].ParentCategory.name | Should be $PolTab[$i].ParentCategory.name
-                    $ADMX.Policies[$i].enableValue | Should be $PolTab[$i].enableValue
-                    $ADMX.Policies[$i].disableValue | Should be $PolTab[$i].disableValue
+            It 'Reads the policies' {
+                $ADMX.Policies.Count | Should -Be 48
+                for ($i = 0; $i -lt $PolTab.Count; $i++) {
+                    $Policy = $ADMX.Policies[$i]
+                    $Policy.Name | Should -Be $PolTab[$i].Name
+                    $Policy.Class | Should -Be $PolTab[$i].Class
+                    $Policy.RegKey | Should -Be $PolTab[$i].RegKey
+                    $Policy.ValueName | Should -Be $PolTab[$i].ValueName
+                    $Policy.ParentCategory.prefix | Should -Be $PolTab[$i].ParentCategory.prefix
+                    $Policy.ParentCategory.name | Should -Be $PolTab[$i].ParentCategory.name
                 }
             }
         }
     }
 
-    Describe "Test GPOToolsADML class"{
-        Context "Test constructor method"{
-            $Culture = [cultureinfo]'fr-FR'
-            $ADMLFile = Get-Item -Path "..\..\sources\PolicyDefinitions\$Culture\WindowsBackup.adml"
-            $ADMLPath = $ADMLFile.FullName
-            $StringTableTest = @{
-                # Warning to encoding script for special caractere
-                AllowOnlySystemBackup = 'Autoriser\suniquement\sla\ssauvegarde\sdu\ssyst\xE8me'
-                DisallowLocallyAttachedStorageAsBackupTarget = 'Ne\spas\sautoriser\sun\sp\xE9riph\xE9rique\sde\sstockage\sconnect\xE9\slocalement\s\xE0\sfaire\soffice\sde\scible\sde\ssauvegarde'
-                Backup = 'Sauvegarde'
-                windowscomponents = 'Composants Windows'
-            }
+    Describe 'GpoToolsAdml class' {
+        BeforeAll {
+            $ADMLFile = Get-Item -Path (Join-Path $PolicyDefinitions $French 'WindowsBackup.adml')
+            $ADML = [GPOToolsAdml]::new($ADMLFile.FullName)
+        }
 
-            $ADML = [GPOToolsAdml]::new($ADMLPath)
-            It "Test GPOToolsADML type"{
-                $ADML -is [GPOToolsADML] | Should Be $true
-            }
+        It 'Sets FilePath and BaseName' {
+            $ADML | Should -BeOfType ([GPOToolsAdml])
+            $ADML.FilePath | Should -Be $ADMLFile.FullName
+            $ADML.BaseName | Should -Be $ADMLFile.BaseName
+        }
 
-            It "Test GPOToolsADML properties"{
-                $ADML.FilePath | Should Be $ADMLPath
-                $ADML.BaseName | Should Be $ADMLFile.BaseName
-            }
+        It 'Loads the localized string <Id>' -ForEach @(
+            @{ Id = 'AllowOnlySystemBackup'; Pattern = 'Autoriser\suniquement\sla\ssauvegarde\sdu\ssyst\xE8me' }
+            @{ Id = 'DisallowLocallyAttachedStorageAsBackupTarget'; Pattern = 'Ne\spas\sautoriser\sun\sp\xE9riph\xE9rique\sde\sstockage\sconnect\xE9\slocalement' }
+            @{ Id = 'Backup'; Pattern = 'Sauvegarde' }
+            @{ Id = 'windowscomponents'; Pattern = 'Composants Windows' }
+        ) {
+            $ADML.StringTable.ContainsKey($Id) | Should -BeTrue
+            $ADML.GetString($Id) | Should -Match $Pattern
+        }
 
-            It 'Test GPOToolsADML StringTable'{
-                $StringTableTest.GetEnumerator() | Foreach-Object {
-                    $ADML.StringTable.ContainsKey($_.Key) | Should Be $true
-                    $ADML.StringTable."$($_.Key)" | Should Match $_.Value
-                }
-            }
+        It 'GetString returns $null for an unknown or empty id' {
+            $ADML.GetString('DoesNotExist') | Should -BeNullOrEmpty
+            $ADML.GetString('') | Should -BeNullOrEmpty
+            $ADML.GetString($null) | Should -BeNullOrEmpty
         }
     }
 
-    Describe "Test GPOToolsSupportedOn class" {
-        Context "Test method constructor" {
-            $Culture = [cultureinfo]'fr-FR'
-            $ADMXFile = Get-Item -Path "..\..\sources\PolicyDefinitions\Windows.admx"
-            $ADMLFile = Get-Item -Path "..\..\sources\PolicyDefinitions\$Culture\Windows.adml"
-            $ADMX = [GpoToolsAdmx]::new($ADMXFile)
-            $ADML = [GpoToolsAdml]::new($ADMLFile)
-            $Support = [GPOToolsSupportedOn]::new($ADMX.SupportedOnDefinition[0],$ADML)
-            $LoadAdm = [GPOToolsSupportedOn]::LoadAdmxAdml($ADMX,$ADML)
-            $TestSup = @(
-                [PScustomObject]@{
-                    Name = 'SUPPORTED_AllowWebPrinting'
-                    DisplayNamePattern = "Windows\s2000\sou\sversion\sult\xE9rieure,\sex\xE9cutant\sIIS.\sNon\spris\sen\scharge\spar\sWindows\sServer\s2003"
-                },
-                [PScustomObject]@{
-                    Name = 'SUPPORTED_IE6SP1'
-                    DisplayNamePattern = "Au\sminimum\sInternet\sExplorer\s6\sService\sPack\s1"
-                }
-            )
+    Describe 'GPOToolsSupportedOn class' {
+        BeforeAll {
+            $ADMX = [GpoToolsAdmx]::new((Join-Path $PolicyDefinitions 'Windows.admx'))
+            $ADML = [GpoToolsAdml]::new((Join-Path $PolicyDefinitions $French 'Windows.adml'))
+        }
 
+        It 'Resolves the localized display name' {
+            $Support = [GPOToolsSupportedOn]::new($ADMX.SupportedOnDefinition[0], $ADML)
+            $Support.Name | Should -Be 'SUPPORTED_AllowWebPrinting'
+            $Support.DisplayName | Should -Match 'Windows\s2000\sou\sversion\sult\xE9rieure,\sex\xE9cutant\sIIS'
+        }
 
-            It "Test constructor method"{
-                $Support -is [GPOToolsSupportedOn] | Should be $true
-                $Support.Name | Should Be 'SUPPORTED_AllowWebPrinting'
-                $Support.DisplayName | should Match "Windows\s2000\sou\sversion\sult\xE9rieure,\sex\xE9cutant\sIIS.\sNon\spris\sen\scharge\spar\sWindows\sServer\s2003"
-            }
-
-            It "Test LoadAdmxAdml static method" {
-                $LoadAdm.Gettype().BaseType.Name | Should Be 'Array'
-                $LoadAdm | Should BeOfType System.Object
-                for ($i = 0 ; $i -lt $TestSup.count; $i++){
-                    $LoadAdm[$i].Name | Should be $TestSup[$i].Name
-                    $LoadAdm[$i].DisplayName | Should Match $TestSup[$i].DisplayNamePattern
-                }
-            }
+        It 'LoadAdmxAdml returns every definition' {
+            $LoadAdm = [GPOToolsSupportedOn]::LoadAdmxAdml($ADMX, $ADML)
+            $LoadAdm.Count | Should -Be $ADMX.SupportedOnDefinition.Count
+            $LoadAdm[1].Name | Should -Be 'SUPPORTED_IE6SP1'
+            $LoadAdm[1].DisplayName | Should -Match 'Au\sminimum\sInternet\sExplorer\s6\sService\sPack\s1'
         }
     }
 
-    Describe "Test GPOToolsCategory class" {
-        Context "Test method constructor" {
-            $Culture = [cultureinfo]'fr-FR'
-            $ADMXFile = Get-Item -Path "..\..\sources\PolicyDefinitions\Windows.admx"
-            $ADMLFile = Get-Item -Path "..\..\sources\PolicyDefinitions\$Culture\Windows.adml"
-            $ADMX = [GpoToolsAdmx]::new($ADMXFile)
-            $ADML = [GpoToolsAdml]::new($ADMLFile)
-            $Category = [GPOToolsCategory]::new($ADMX.Categories[0],$ADMX.Categories,$ADML)
-            #Tester la methode create()
+    Describe 'GPOToolsCategory class' {
+        BeforeAll {
+            $ADMX = [GpoToolsAdmx]::new((Join-Path $PolicyDefinitions 'Windows.admx'))
+            $ADML = [GpoToolsAdml]::new((Join-Path $PolicyDefinitions $French 'Windows.adml'))
+        }
+        BeforeEach {
+            [GPOToolsUtility]::RemoveAll()
+        }
 
-            $CatTab = @(
-                [PScustomObject]@{
-                    Name = 'System'
-                    DisplayNamePattern = "Syst\xE8me"
-                    ExplainText = 'Autorise\sla\sconfiguration\sde\sdivers\sparam\xE8tres\sde\scomposants\ssyst\xE8me.'
-                },
-                [PScustomObject]@{
-                    Name = 'InternetManagement'
-                    DisplayNamePattern = "Gestion\sde\sla\scommunication\sInternet"
-                    ParentCategory= @{
-                        Name = 'System'
-                        DisplayNamePattern = "Syst\xE8me"
-                    }
-                }
-            )
+        It 'Constructor resolves the localized texts' {
+            $Category = [GPOToolsCategory]::new($ADMX.Categories[0], $ADMX.Categories, $ADML)
+            $Category.Name | Should -Be 'System'
+            $Category.DisplayName | Should -Match 'Syst\xE8me'
+            $Category.ExplainText | Should -Match 'Autorise\sla\sconfiguration\sde\sdivers\sparam\xE8tres'
+        }
 
-            It "Test constructor method"{
-                $Category -is [GPOToolsCategory] | Should be $true
-                $Category.Name | Should Be $CatTab[0].Name
-                $Category.DisplayName | should Match $CatTab[0].DisplayNamePattern
-                $Category.ExplainText | should Match $CatTab[0].ExplainText
-            }
+        It 'LoadAdmxAdml loads every category once with its parent' {
+            [GPOToolsCategory]::LoadAdmxAdml($ADMX, $ADML)
+            $Categories = [GPOToolsUtility]::Categories
 
-            It "Test LoadAdmxAdml static method" {
-                [GPOToolsUtility]::RemoveAll()
-                [GPOToolsCategory]::LoadAdmxAdml($ADMX,$ADML)
-                $LoadAdm = [GPOToolsUtility]::Categories
+            $Categories.Count | Should -Be $ADMX.Categories.Count
+            ($Categories.Name | Sort-Object -Unique).Count | Should -Be $Categories.Count
+            $Internet = $Categories | Where-Object Name -EQ 'InternetManagement'
+            $Internet.ParentCategory | Should -BeOfType ([GPOToolsCategory])
+            $Internet.ParentCategory.Name | Should -Be 'System'
+        }
 
-                $LoadAdm.Gettype().Name | Should Be 'List`1'
-                $LoadAdm.Gettype().BaseType.Name | Should Be 'Object'
-                for ($i = 0 ; $i -lt $CatTab.count; $i++){
-                    $LoadAdm[$i].Name | Should be $CatTab[$i].Name
-                    $LoadAdm[$i].DisplayName | Should Match $CatTab[$i].DisplayNamePattern
-                    if($null -ne $CatTab[$i].ExplainText){
-                        $LoadAdm[$i].ExplainText | Should Match $CatTab[$i].ExplainText
-                    }
-                    if($null -ne $CatTab[$i].ParentCategory){
-                        $LoadAdm[$i].ParentCategory -is [GPOToolsCategory] | Should Be $true
-                        #$LoadAdm[$i].ParentCategory.prefix | Should be $CatTab[$i].ParentCategory.prefix
-                        $LoadAdm[$i].ParentCategory.Name | Should Match $CatTab[$i].ParentCategory.Name
-                        $LoadAdm[$i].ParentCategory.DisplayName | Should Match $CatTab[$i].ParentCategory.DisplayNamePattern
-                    }
-                }
-            }
+        It 'Creates a parent category declared later in the same ADMX' {
+            # Load a child before its parent: the parent must be created on the fly, not dropped.
+            $Child = $ADMX.Categories | Where-Object Name -EQ 'InternetManagement'
+            $Created = [GPOToolsCategory]::Create($Child, $ADMX.Categories, $ADML)
+
+            $Created.ParentCategory.Name | Should -Be 'System'
+            [GPOToolsUtility]::Categories.Name | Should -Contain 'System'
+            [GPOToolsCategory]::LoadAdmxAdml($ADMX, $ADML)
+            @([GPOToolsUtility]::Categories | Where-Object Name -EQ 'System').Count | Should -Be 1
+        }
+
+        It 'Create returns the already loaded category' {
+            $First = [GPOToolsCategory]::Create($ADMX.Categories[0], $ADMX.Categories, $ADML)
+            $Second = [GPOToolsCategory]::Create($ADMX.Categories[0], $ADMX.Categories, $ADML)
+            [object]::ReferenceEquals($First, $Second) | Should -BeTrue
+            [GPOToolsUtility]::CheckCategoryPresence($ADMX.Categories[0].Name, $ADMX.Categories[0].target) | Should -BeTrue
         }
     }
 
-    <#Describe "Test GPOToolsPolicy Class" {
-                    $PolTab = @(
-                [PscustomObject]@{
-                    Name = 'AllowOnlySystemBackup'
-                    Classe = 'Machine'
-                    DisplayName = 'Autoriser\suniquement\sla\ssauvegarde\sdu\ssyst\xE8me'
-                    Regkey = 'Software\Policies\Microsoft\Windows\Backup\Server'
-                    valueName = 'OnlySystemBackup'
-                    ParentCategory = @{
-                        prefix = 'windowsbackup'
-                        name = 'BackupServer'
-                    }
-                    EnableValue = 1
-                    DisableValue = 0
-                },[PscustomObject]@{
-                    Name = 'DisallowLocallyAttachedStorageAsBackupTarget'
-                    Classe = 'Machine'
-                    DisplayName = 'Ne\spas\sautoriser\sun\sp\xE9riph\xE9rique\sde\sstockage\sconnect\xE9\slocalement\s\xE0\sfaire\soffice\sde\scible\sde\ssauvegarde'
-                    Regkey = 'Software\Policies\Microsoft\Windows\Backup\Server'
-                    valueName = 'NoBackupToDisk'
-                    ParentCategory = @{
-                        prefix = 'windowsbackup'
-                        name = 'BackupServer'
-                    }
-                    EnableValue = '1'
-                    DisableValue = '0'
-                },[PscustomObject]@{
-                    Name = 'DisallowNetworkAsBackupTarget'
-                    Classe = 'Machine'
-                    DisplayName = 'Ne\spas\sautoriser\sun\sr\xE9seau\s\xE0\sfaire\soffice\sde\scible\sde\ssauvegarde'
-                    Regkey = 'Software\Policies\Microsoft\Windows\Backup\Server'
-                    valueName = 'NoBackupToNetwork'
-                    ParentCategory = @{
-                        prefix = 'windowsbackup'
-                        name = 'BackupServer'
-                    }
-                    EnableValue = 1
-                    DisableValue = 0
-                },[PscustomObject]@{
-                    Name = 'DisallowOpticalMediaAsBackupTarget'
-                    Classe = 'Machine'
-                    DisplayName = 'Ne\spas\sautoriser\sun\sm\xE9dia\soptique\s\xE0\sfaire\soffice\sde\scible\sde\ssauvegarde'
-                    Regkey = 'Software\Policies\Microsoft\Windows\Backup\Server'
-                    valueName = 'NoBackupToOptical'
-                    ParentCategory = @{
-                        prefix = 'windowsbackup'
-                        name = 'BackupServer'
-                    }
-                    EnableValue = 1
-                    DisableValue = 0
-                },[PscustomObject]@{
-                    Name = 'DisallowRunOnceBackups'
-                    Classe = 'Machine'
-                    DisplayName = 'Ne\spas\sautoriser\sles\ssauvegardes\s\xE0\sex\xE9cution\sunique'
-                    Regkey = 'Software\Policies\Microsoft\Windows\Backup\Server'
-                    valueName = 'NoRunNowBackup'
-                    ParentCategory = @{
-                        prefix = 'windowsbackup'
-                        name = 'BackupServer'
-                    }
-                    EnableValue = 1
-                    DisableValue = 0
-                }
-            )
-    }
+    Describe 'GPOToolsUtility class' {
+        BeforeAll {
+            $ADMXFile = Get-Item -Path (Join-Path $PolicyDefinitions 'WindowsBackup.admx')
+        }
 
-    #>
+        It 'GetADMLPathFromADMX builds the culture path' {
+            [GPOToolsUtility]::GetADMLPathFromADMX($ADMXFile, [cultureinfo]'fr-FR') |
+                Should -Be (Join-Path $PolicyDefinitions $French 'WindowsBackup.adml')
+        }
 
-    Describe "Test GPOToolsUtility class" {
+        It 'GetADMLPathFromADMX ignores the case of the culture folder and of the ADML file' {
+            # Microsoft ships inetres.admx / InetRes.adml, kdc.admx / KDC.adml: they must load on Linux too.
+            $Folder = New-Item -ItemType Directory -Path (Join-Path $TestDrive 'CaseStore')
+            $Admx = New-Item -ItemType File -Path (Join-Path $Folder 'kdc.admx')
+            $Culture = New-Item -ItemType Directory -Path (Join-Path $Folder 'en-us')
+            $Adml = New-Item -ItemType File -Path (Join-Path $Culture 'KDC.adml')
+            [GPOToolsUtility]::GetADMLPathFromADMX($Admx, [cultureinfo]'en-US') | Should -Be $Adml.FullName
+            { [GPOToolsUtility]::GetADMLPathFromADMX($Admx, [cultureinfo]'fr-FR') } | Should -Throw "*doesn't exist*"
+        }
 
-        Context "Test static method" {
-            $Culture = [cultureinfo]'fr-FR'
-            $ADMXFile = Get-Item -Path "..\..\sources\PolicyDefinitions\WindowsBackup.admx"
-            $ADMXPath = $ADMXFile.FullName
-            $ParentPath = Split-Path -Path $ADMXPath
-            $Dep1 = [GPOToolsUtility]::FindDependancyFile($ADMXPath,'Microsoft.Policies.Windows')
-            $Dep2 = [GPOToolsUtility]::FindDependancyFile($ADMXPath,'Microsoft.Policies.Server')
+        It 'Loads the ADMX whose ADML name differs in case (<File>)' -ForEach @(
+            @{ File = 'inetres.admx' }
+            @{ File = 'kdc.admx' }
+            @{ File = 'messaging.admx' }
+        ) {
+            [GPOToolsUtility]::RemoveAll()
+            [GPOToolsUtility]::InitiateAdmxAdml((Get-Item (Join-Path $PolicyDefinitions $File)), [cultureinfo]'en-US') 3>$null
+            @([GPOToolsUtility]::Policies | Where-Object FileName -EQ $File).Count | Should -BeGreaterThan 0
+        }
 
-            $AdmlPath = [GPOToolsUtility]::GetADMLPathFromADMX($ADMXFile,$Culture)
-            It "Test GetADMLPathFromADMX"{
-                $AdmlPath | Should be "$ParentPath\$Culture\WindowsBackup.adml"
-            }
+        It 'FindDependancyFile finds <Namespace>' -ForEach @(
+            @{ Namespace = 'Microsoft.Policies.Windows'; File = 'Windows.admx' }
+            @{ Namespace = 'Microsoft.Policies.Server'; File = 'WindowsServer.admx' }
+        ) {
+            $Dep = [GPOToolsUtility]::FindDependancyFile($ADMXFile.FullName, $Namespace)
+            $Dep | Should -BeOfType ([System.IO.FileInfo])
+            $Dep.FullName | Should -Be (Join-Path $PolicyDefinitions $File)
+        }
 
-            It "Test FindDependancyFile for windows namespace"{
-                $Dep1 -is [System.IO.FileInfo] | Should Be $True
-                $Dep1.FullName | Should Be "$ParentPath\Windows.admx"
-            }
+        It 'FindDependancyFile throws for a missing namespace' {
+            { [GPOToolsUtility]::FindDependancyFile($ADMXFile.FullName, 'Microsoft.Policies.Backup') } |
+                Should -Throw '*No dependancy file found for Microsoft.Policies.Backup*'
+        }
 
-                It "Test FindDependancyFile for WindowsServer namespace"{
-                $Dep2 -is [System.IO.FileInfo] | Should Be $True
-                $Dep2.FullName | Should Be "$ParentPath\WindowsServer.admx"
-            }
+        It 'InitiateAdmxAdml loads the folder and RemoveAll empties every store' {
+            [GPOToolsUtility]::RemoveAll()
+            { [GPOToolsUtility]::InitiateAdmxAdml((Get-Item $PolicyDefinitions), [cultureinfo]'fr-FR') } | Should -Not -Throw
+            [GPOToolsUtility]::Policies.Count | Should -BeGreaterThan 0
+            [GPOToolsUtility]::Categories.Count | Should -BeGreaterThan 0
 
-            It "Test FindDependancyFile fail"{
-                {[GPOToolsUtility]::FindDependancyFile($ADMXPath,'Microsoft.Policies.Backup')} | Should Throw "No dependancy file found for Microsoft.Policies.Backup"
-            }
-
-            It "Test RemoveAll"{
-                {[GPOToolsUtility]::RemoveAll()} | Should -Not -Throw
-                [GPOToolsUtility]::SupportOnTable | Should BeNullOrEmpty
-                [GPOToolsUtility]::Categories | Should BeNullOrEmpty
-                [GPOToolsUtility]::Policies | Should BeNullOrEmpty
-                [GPOToolsUtility]::TargetLoad | Should BeNullOrEmpty
-                [GPOToolsCategory]::AllParentCategory | Should BeNullOrEmpty
-            }
-
-            It "Test InitiateAdmxAdml static method"{
-                $ADMXFolder = Get-Item -Path "..\..\sources\PolicyDefinitions\"
-                {[GpotoolsUtility]::InitiateAdmxAdml($ADMXFolder,$Culture)} | Should -Not -Throw
-            }
+            { [GPOToolsUtility]::RemoveAll() } | Should -Not -Throw
+            [GPOToolsUtility]::SupportOnTable | Should -BeNullOrEmpty
+            [GPOToolsUtility]::Categories | Should -BeNullOrEmpty
+            [GPOToolsUtility]::Policies | Should -BeNullOrEmpty
+            [GPOToolsUtility]::TargetLoad | Should -BeNullOrEmpty
+            [GPOToolsUtility]::CategoryIndex.Count | Should -Be 0
+            [GPOToolsUtility]::NamespaceIndex.Count | Should -Be 0
         }
     }
 }

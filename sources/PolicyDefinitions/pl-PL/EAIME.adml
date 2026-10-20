@@ -13,7 +13,7 @@ Jeśli włączysz to ustawienie zasad, rejestrowanie błędów konwersji będzie
 
 Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, rejestrowanie błędów konwersji będzie wyłączone.
 
-To ustawienie zasad dotyczy edytora IME firmy Microsoft dla języka japońskiego.</string>
+To ustawienie zasad jest stosowane do edytora IME firmy Microsoft dla języka japońskiego i edytora IME dla języka chińskiego tradycyjnego.</string>
       <string id="L_TurnOffSavingAutoTuningDataToFile">Wyłącz zapisywanie danych autodostrajania do pliku</string>
       <string id="L_TurnOffSavingAutoTuningDataToFileExplain">To ustawienie zasad umożliwia wyłączenie zapisywania wyniku autodostrajania w pliku.
 
@@ -55,17 +55,19 @@ To ustawienie zasad dotyczy edytora IME firmy Microsoft dla języka japońskiego
 
 Uwaga: zmiany tego ustawienia zaczną obowiązywać dopiero po wylogowaniu się użytkownika.</string>
       <string id="L_TurnOffCustomDictionary">Wyłącz słownik niestandardowy</string>
-      <string id="L_TurnOffCustomDictionaryExplain">To ustawienie zasad umożliwia wyłączenie możliwości używania słownika niestandardowego.
+      <string id="L_TurnOffCustomDictionaryExplain">To ustawienie zasad umożliwia wyłączenie możliwości korzystania ze słownika niestandardowego.
 
-Jeśli włączysz to ustawienie zasad, nie będzie można dodawać słów do słownika niestandardowego ani ich edytować i usuwać przy użyciu narzędzi graficznego interfejsu użytkownika lub interfejsów API. Wyraz zarejestrowany w słowniku niestandardowym przed włączeniem tego ustawienia zasad nie będzie używany na potrzeby konwersji.
+Jeśli to ustawienie zasad zostanie włączone, nie będzie można dodawać wyrazów do słownika niestandardowego ani ich edytować i usuwać przy użyciu narzędzi graficznego interfejsu użytkownika i interfejsów API. Wyrazy zarejestrowane w słowniku niestandardowym przed włączeniem tego ustawienia zasad będą mogły być nadal używane na potrzeby konwersji.
 
-Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, domyślnie będzie można używać słownika niestandardowego.
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, domyślnie będzie można korzystać ze słownika niestandardowego.
 
-W przypadku edytora IME firmy Microsoft dla języka japońskiego ustawienie [Wyczyść informacje autodostrajania] działa, nawet jeśli to ustawienie zasad jest włączone, powodując usuwanie wyrazów pochodzących z funkcji autodostrajania ze słownika niestandardowego.
+Funkcja [Wyczyść informacje autodostrajania] usuwa ze słownika niestandardowego wyrazy pochodzące z funkcji autodostrajania, nawet jeśli jest włączone ustawienie zasad grupy. Aby to zrobić, wybierz pozycję Ustawienia &gt; Czas i język &gt; Opcje języka japońskiego &gt; Opcje edytora IME firmy Microsoft. Jeśli jest włączony tryb zgodności, wybierz pozycję Opcje zaawansowane &gt; Słownik/autodostrajanie &gt; [Wyczyść informacje autodostrajania].
+
+Funkcja [Wyczyść historię wprowadzania] usuwa ze słownika niestandardowego wyrazy pochodzące z funkcji autodostrajania, nawet jeśli jest włączone ustawienie zasad grupy. Aby to zrobić, wybierz pozycję Ustawienia &gt; Czas i język &gt; Opcje języka japońskiego &gt; Opcje edytora IME firmy Microsoft &gt; Nauka i słownik &gt; [Wyczyść historię wprowadzania].
 
 To ustawienie zasad jest stosowane do edytora IME firmy Microsoft dla języka japońskiego.
 
-Uwaga: zmiany tego ustawienia zaczną obowiązywać dopiero po wylogowaniu się użytkownika.</string>
+Uwaga: zmiany tego ustawienia nie zostaną uwzględnione, dopóki użytkownik nie wyloguje się.</string>
       <string id="L_RestrictCharacterCodeRangeOfConversion">Ogranicz zakres kodów znaków konwersji</string>
       <string id="L_RestrictCharacterCodeRangeOfConversionExplain">To ustawienie zasad umożliwia ograniczenie zakresu kodów znaków na potrzeby konwersji przez określenie filtru znaków.
 
@@ -118,26 +120,54 @@ Jeśli wyłączysz to ustawienie zasad, funkcjonalność skojarzona z tą funkcj
 Jeśli nie skonfigurujesz tego ustawienia zasad, będzie ono domyślnie wyłączone, a użytkownik będzie mógł włączyć i wyłączyć funkcję kandydatów w chmurze.
 
 To ustawienie zasad dotyczy tylko edytora IME Pinyin firmy Microsoft dla języka chińskiego uproszczonego.</string>
-      <string id="L_TurnOnLiveSticker">Włącz funkcję Nalepka dynamiczna</string>
-      <string id="L_TurnOnLiveStickerExplain">To ustawienie zasad steruje funkcją nalepek dynamicznych, która używa usługi online w celu dostarczania nalepek online.
+      <string id="L_ConfigureSimplifiedChineseImeVersion">Konfiguruj wersję edytora IME dla języka chińskiego uproszczonego</string>
+      <string id="L_ConfigureSimplifiedChineseImeVersionExplain">To ustawienie zasad określa wersję edytora IME firmy Microsoft.
 
-Jeśli włączysz to ustawienie zasad, funkcjonalność skojarzona z tą funkcją zostanie włączona, dane wprowadzane przez użytkownika za pomocą klawiatury będą wysyłane do firmy Microsoft w celu generowania nalepek dynamicznych, a użytkownik nie będzie mógł wyłączyć tej funkcjonalności.
+Jeśli nie skonfigurujesz tego ustawienia zasad, użytkownik będzie mógł określić, jakiej wersji edytora IME chce używać. Domyślnie jest włączony nowy edytor IME firmy Microsoft.
 
-Jeśli wyłączysz to ustawienie zasad, funkcjonalność skojarzona z tą funkcją zostanie wyłączona, a użytkownik nie będzie mógł jej włączyć.
+Jeśli włączysz to ustawienie, użytkownik nie będzie mógł określić, jakiej wersji edytora IME chce używać. Zawsze będzie wybrana poprzednia wersja edytora IME firmy Microsoft.
 
-Jeśli nie skonfigurujesz tego ustawienia zasad, będzie ono domyślnie wyłączone, a użytkownik będzie mógł włączyć i wyłączyć funkcję nalepek dynamicznych.
+Jeśli wyłączysz to ustawienie, użytkownik nie będzie mógł określić, jakiej wersji edytora IME chce używać. Zawsze będzie wybrany nowy edytor IME firmy Microsoft.
 
-To ustawienie zasad dotyczy tylko edytora IME Pinyin firmy Microsoft dla języka chińskiego uproszczonego.</string>
-      <string id="L_TurnOnLexiconUpdate">Włącz aktualizację leksykonu</string>
-      <string id="L_TurnOnLexiconUpdateExplain">To ustawienie zasad steruje funkcją aktualizacji leksykonu, która pobiera leksykon nowych i popularnych wyrazów na komputer lokalny.
+To ustawienie zasad dotyczy tylko edytora IME firmy Microsoft dla języka chińskiego uproszczonego.
 
-Jeśli włączysz to ustawienie zasad, funkcjonalność skojarzona z tą funkcją zostanie włączona, leksykon nowych i popularnych wyrazów będzie można pobierać na komputer lokalny, a użytkownik będzie mógł włączyć lub wyłączyć tę funkcję w ustawieniach.
+Uwaga: zmiany tego ustawienia zaczną obowiązywać dopiero po wylogowaniu się użytkownika.</string>
+      <string id="L_ConfigureTraditionalChineseImeVersion">Konfiguruj wersję edytora IME dla języka chińskiego tradycyjnego</string>
+      <string id="L_ConfigureTraditionalChineseImeVersionExplain">To ustawienie zasad określa wersję edytora IME firmy Microsoft.
 
-Jeśli wyłączysz to ustawienie zasad, funkcjonalność skojarzona z tą funkcją zostanie wyłączona, a użytkownik nie będzie mógł jej włączyć.
+Jeśli nie skonfigurujesz tego ustawienia zasad, użytkownik będzie mógł określić, jakiej wersji edytora IME chce używać. Domyślnie jest włączony nowy edytor IME firmy Microsoft.
 
-Jeśli nie skonfigurujesz tego ustawienia zasad, będzie ono włączone domyślnie, a użytkownik będzie mógł włączyć i wyłączyć funkcję aktualizacji leksykonu.
+Jeśli włączysz to ustawienie, użytkownik nie będzie mógł określić, jakiej wersji edytora IME chce używać. Zawsze będzie wybrana poprzednia wersja edytora IME firmy Microsoft.
 
-To ustawienie zasad dotyczy tylko edytora IME Pinyin firmy Microsoft dla języka chińskiego uproszczonego.</string>
+Jeśli wyłączysz to ustawienie, użytkownik nie będzie mógł określić, jakiej wersji edytora IME chce używać. Zawsze będzie wybrany nowy edytor IME firmy Microsoft.
+
+To ustawienie zasad dotyczy tylko edytora IME firmy Microsoft dla języka chińskiego tradycyjnego.
+
+Uwaga: zmiany tego ustawienia zaczną obowiązywać dopiero po wylogowaniu się użytkownika.</string>
+      <string id="L_ConfigureJapaneseImeVersion">Konfiguruj wersję edytora IME dla języka japońskiego</string>
+      <string id="L_ConfigureJapaneseImeVersionExplain">To ustawienie zasad określa wersję edytora IME firmy Microsoft.
+
+Jeśli nie skonfigurujesz tego ustawienia zasad, użytkownik będzie mógł określić, jakiej wersji edytora IME chce używać. Domyślnie jest włączony nowy edytor IME firmy Microsoft.
+
+Jeśli włączysz to ustawienie, użytkownik nie będzie mógł określić, jakiej wersji edytora IME chce używać. Zawsze będzie wybrana poprzednia wersja edytora IME firmy Microsoft.
+
+Jeśli wyłączysz to ustawienie, użytkownik nie będzie mógł określić, jakiej wersji edytora IME chce używać. Zawsze będzie wybrany nowy edytor IME firmy Microsoft.
+
+To ustawienie zasad dotyczy tylko edytora IME firmy Microsoft dla języka japońskiego.
+
+Uwaga: zmiany tego ustawienia zaczną obowiązywać dopiero po wylogowaniu się użytkownika.</string>
+      <string id="L_ConfigureKoreanImeVersion">Konfiguruj wersję edytora IME dla języka koreańskiego</string>
+      <string id="L_ConfigureKoreanImeVersionExplain">To ustawienie zasad określa wersję edytora IME firmy Microsoft.
+
+Jeśli nie skonfigurujesz tego ustawienia zasad, użytkownik będzie mógł określić, jakiej wersji edytora IME chce używać. Domyślnie jest włączony nowy edytor IME firmy Microsoft.
+
+Jeśli włączysz to ustawienie, użytkownik nie będzie mógł określić, jakiej wersji edytora IME chce używać. Zawsze będzie wybrana poprzednia wersja edytora IME firmy Microsoft.
+
+Jeśli wyłączysz to ustawienie, użytkownik nie będzie mógł określić, jakiej wersji edytora IME chce używać. Zawsze będzie wybrany nowy edytor IME firmy Microsoft.
+
+To ustawienie zasad dotyczy tylko edytora IME firmy Microsoft dla języka koreańskiego.
+
+Uwaga: zmiany tego ustawienia zaczną obowiązywać dopiero po wylogowaniu się użytkownika.</string>
     </stringTable>
     <presentationTable>
       <presentation id="L_RestrictCharacterCodeRangeOfConversion">

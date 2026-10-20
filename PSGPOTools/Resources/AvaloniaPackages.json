@@ -1,0 +1,242 @@
+{
+  "Source": "nuget.org flat container; Sha512 = SHA-512 of the .nupkg (base64), checked against the packageHash of the nuget.org catalog when this file was written",
+  "Packages": [
+    {
+      "Id": "Avalonia",
+      "Version": "11.2.3",
+      "Assets": "Managed",
+      "Rids": [
+        "win-x64",
+        "win-arm64",
+        "linux-x64",
+        "linux-arm64",
+        "osx"
+      ],
+      "Sha512": "PhyaJ4WI1AggsCMHYrFuwTjJqUs3bU2lBp7GudG61HLytHrx0m9NoVBzYOZr4TDts7HaBXh0hj8am03TrM55EQ=="
+    },
+    {
+      "Id": "Avalonia.Desktop",
+      "Version": "11.2.3",
+      "Assets": "Managed",
+      "Rids": [
+        "win-x64",
+        "win-arm64",
+        "linux-x64",
+        "linux-arm64",
+        "osx"
+      ],
+      "Sha512": "1FcZRjQ+p8Gc9ep+1NyZluthQ1IqBD7giRDhJSJkavY+dbrnfZ/Vi/IjHVjE/EoORtH3t/pLmk/1fpKh4d6b3w=="
+    },
+    {
+      "Id": "Avalonia.Themes.Fluent",
+      "Version": "11.2.3",
+      "Assets": "Managed",
+      "Rids": [
+        "win-x64",
+        "win-arm64",
+        "linux-x64",
+        "linux-arm64",
+        "osx"
+      ],
+      "Sha512": "IlI3jpoKaf51H+g4fepG2k6sm1lGMbXm/1xTuZchFVH9dHWe9/sQg3KdGVILhvYO/zHy/RqNjMzreWzCqqK35A=="
+    },
+    {
+      "Id": "Avalonia.Skia",
+      "Version": "11.2.3",
+      "Assets": "Managed",
+      "Rids": [
+        "win-x64",
+        "win-arm64",
+        "linux-x64",
+        "linux-arm64",
+        "osx"
+      ],
+      "Sha512": "Oh+5fQskt3TkZDE9EbygHQXQYHLpZC1l/zVuGm2H3/fBoGemSwCYoj5eap+ibYN/KlugqhRK+hDkVCWX6wcmKw=="
+    },
+    {
+      "Id": "Avalonia.Markup.Xaml.Loader",
+      "Version": "11.2.3",
+      "Assets": "Managed",
+      "Rids": [
+        "win-x64",
+        "win-arm64",
+        "linux-x64",
+        "linux-arm64",
+        "osx"
+      ],
+      "Sha512": "wIVVLD5cRWQHQn1xicz2rTt7bE+gzGgVm0H/uHnEVYAyrvXl8iPBFgDyDk1answW6r+WGSLWAkNxceExgogmuw=="
+    },
+    {
+      "Id": "Avalonia.Remote.Protocol",
+      "Version": "11.2.3",
+      "Assets": "Managed",
+      "Rids": [
+        "win-x64",
+        "win-arm64",
+        "linux-x64",
+        "linux-arm64",
+        "osx"
+      ],
+      "Sha512": "lPWgOzgQocbfFeXxxr2VsyuZ0ThW4CcINOFc8IRpZubz7YF118rVlyOh0AoKEeQJfq8BVZepUJZyjl+aL9ZEOg=="
+    },
+    {
+      "Id": "Avalonia.Controls.DataGrid",
+      "Version": "11.2.3",
+      "Assets": "Managed",
+      "Rids": [
+        "win-x64",
+        "win-arm64",
+        "linux-x64",
+        "linux-arm64",
+        "osx"
+      ],
+      "Sha512": "x4dSU97J8n6bpBDq9G3H1/KY/Og4MBN5tCNlvjpx1otKZyXkHXymVWO0RjrEFLqnXu2+cRb9NpQnpqQwJWoO2w=="
+    },
+    {
+      "Id": "MicroCom.Runtime",
+      "Version": "0.11.0",
+      "Assets": "Managed",
+      "Rids": [
+        "win-x64",
+        "win-arm64",
+        "linux-x64",
+        "linux-arm64",
+        "osx"
+      ],
+      "Sha512": "wAcxF2406nuTatWKOGOYQ8eQsCe3FO1dPqgouF6pSxSlAt7VLKf2C7EMCsDnRL1uYv3M4BCOuq+XMcQI7s4DHg=="
+    },
+    {
+      "Id": "SkiaSharp",
+      "Version": "2.88.9",
+      "Assets": "Managed",
+      "Rids": [
+        "win-x64",
+        "win-arm64",
+        "linux-x64",
+        "linux-arm64",
+        "osx"
+      ],
+      "Sha512": "Oi/6XgX0XNuA5nNe6UfpHgj/FF/FDHiC511Etq4MLNczQg0VtqQnShhrOnnUY6EnPif/f9eaUdCTclHrtu92HQ=="
+    },
+    {
+      "Id": "HarfBuzzSharp",
+      "Version": "7.3.0.3",
+      "Assets": "Managed",
+      "Rids": [
+        "win-x64",
+        "win-arm64",
+        "linux-x64",
+        "linux-arm64",
+        "osx"
+      ],
+      "Sha512": "vtYlxYIoxAT4YPs+JH+2yjIJyT/qYtpJi6Q0GVAL1AlEsuEX9Q9Yf4YBAabGR4rR0YB19lU3bRdJ0jjXS2oL0w=="
+    },
+    {
+      "Id": "Avalonia.Win32",
+      "Version": "11.2.3",
+      "Assets": "Managed",
+      "Rids": [
+        "win-x64",
+        "win-arm64"
+      ],
+      "Sha512": "GhY/I0LsH13nMevsqFmHNfC0wjbsTb1oBWuPlmUga6Yx55XneRRyhfMrIWW1cEpTIhJEE3sNrhVvcwKz6utQrg=="
+    },
+    {
+      "Id": "SkiaSharp.NativeAssets.Win32",
+      "Version": "2.88.9",
+      "Assets": "Native",
+      "Rids": [
+        "win-x64",
+        "win-arm64"
+      ],
+      "Sha512": "0YvYGUBBx/+3kwLU8b5YTowCToixLLRmmnOMrlUdo9PjkkCHuwqkLTSpADz7NQN9c2N4lOZ9AiI9EAobQhXu7A=="
+    },
+    {
+      "Id": "HarfBuzzSharp.NativeAssets.Win32",
+      "Version": "7.3.0.3",
+      "Assets": "Native",
+      "Rids": [
+        "win-x64",
+        "win-arm64"
+      ],
+      "Sha512": "3ZQNOzCFmWtOWWGg5CuxqG2q02DjN3YC+v1gsMtNPV7Zw/QpOoVR33XzgRGzqfTbvqTLJ7PgYyptSCObYG0TyQ=="
+    },
+    {
+      "Id": "Avalonia.X11",
+      "Version": "11.2.3",
+      "Assets": "Managed",
+      "Rids": [
+        "linux-x64",
+        "linux-arm64"
+      ],
+      "Sha512": "y6wHN39cQk/MSe6Ov9CxKNdBGCXf78ZhZGRGc8j9Hf1O0AtRCga9mQxsvSLL33zFf3rjXoT5/atX1qCM4InwuQ=="
+    },
+    {
+      "Id": "Avalonia.FreeDesktop",
+      "Version": "11.2.3",
+      "Assets": "Managed",
+      "Rids": [
+        "linux-x64",
+        "linux-arm64"
+      ],
+      "Sha512": "Wyyhgdz+t2jqm/Ps56RFtLD4C71UwsNjVb3eioQsXxOFrmiWzMoYmL0B1DzAjHsqTr+wyiIEwh5oHGnehJoazg=="
+    },
+    {
+      "Id": "Tmds.DBus.Protocol",
+      "Version": "0.20.0",
+      "Assets": "Managed",
+      "Rids": [
+        "linux-x64",
+        "linux-arm64"
+      ],
+      "Sha512": "YCzyUfA01BpP7vY/DXfDAFVT+Iq9W6nPlB0PcxNpqhwKiETolob3/Toa2OAgaLXDtN0+cZ/bQMtgO5yjsOIujg=="
+    },
+    {
+      "Id": "SkiaSharp.NativeAssets.Linux",
+      "Version": "2.88.9",
+      "Assets": "Native",
+      "Rids": [
+        "linux-x64",
+        "linux-arm64"
+      ],
+      "Sha512": "XGo+k6GOcOatzVSL0vdvoxERQ0bOTYEuUg8lDTM0LVrY0F6ihUM70Vyxm7xI2bvy730fFyXdcXBazO+ro/Rokg=="
+    },
+    {
+      "Id": "HarfBuzzSharp.NativeAssets.Linux",
+      "Version": "7.3.0.3",
+      "Assets": "Native",
+      "Rids": [
+        "linux-x64",
+        "linux-arm64"
+      ],
+      "Sha512": "z5TlaTxMR1pwLDQhY/HuKNLZw6E5OagzS7cTPRP/xe2V2du2FF56wATP1uYmoWKA338aTH42h1aeztWLiJChtQ=="
+    },
+    {
+      "Id": "Avalonia.Native",
+      "Version": "11.2.3",
+      "Assets": "Both",
+      "Rids": [
+        "osx"
+      ],
+      "Sha512": "VbgrsWZThBACvR9q1F6QyUXAuSl2335bTGqn3+lqrhiieYw48+I7JYa8KceZkSNi0BAjPSnbnKokxfdfwtbuug=="
+    },
+    {
+      "Id": "SkiaSharp.NativeAssets.macOS",
+      "Version": "2.88.9",
+      "Assets": "Native",
+      "Rids": [
+        "osx"
+      ],
+      "Sha512": "dM+4ZXRvKRGTUpC/uSRpszHlBBXVq+2odZjr20BJxSr4Sl2u2kHrywu67Gp967Qtg83GyfYc6lXUPHIKeMPrzg=="
+    },
+    {
+      "Id": "HarfBuzzSharp.NativeAssets.macOS",
+      "Version": "7.3.0.3",
+      "Assets": "Native",
+      "Rids": [
+        "osx"
+      ],
+      "Sha512": "ptrC6yxTbyVzTlNYqq6SY/Vohx+jEWnoFthhfFtukz144pVuqeAaw34AIr8kPmMSSVaAS0b2oNAIJqoCMg7yKw=="
+    }
+  ]
+}

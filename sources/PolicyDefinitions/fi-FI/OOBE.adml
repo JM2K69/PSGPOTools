@@ -14,6 +14,19 @@
 Jos tämä käytäntö on käytössä, tietosuoja-asetuksiin liittyvä käyttökokemus ei käynnisty uusien käyttäjätilien tapauksessa tai sellaisten tilien yhteydessä, joiden käyttäjiä pyydetään valitsemaan tietosuoja-asetukset päivityksen jälkeen.
 
 Jos tämä käytäntö ei ole käytössä tai sitä ei ole määritetty, tietosuoja-asetuksiin liittyvä käyttökokemus saattaa käynnistyä uusien käyttäjätilien tapauksessa tai sellaisten tilien yhteydessä, joiden käyttäjiä pyydetään valitsemaan tietosuoja-asetukset päivityksen jälkeen.</string>
+
+      <string id="AllowOOBEUpdates">Salli päivitykset OOBE:ssa</string>
+      <string id="AllowOOBEUpdates_Explain">Tämän käytännön avulla voit määrittää, saako uusi laite tärkeät päivitykset käyttöönottokokemuksen aikana.
+
+Jos poistat käytännön käytöstä tai et määritä sitä, uudet laitteet eivät saa kriittisiä päivityksiä käyttöönoton aikana.
+
+Jos otat käytännön käyttöön, uudet laitteet saavat uusimmat hyväksytyt kriittiset päivitykset käyttöönottokokemuksen aikana.
+
+Huomautukset:
+Tämä käytäntö ei hallitse OOBE:n nollapäivähaavoittuvuuden (ZDP) päivityssivua.
+
+Jos olet keskeyttänyt laatupäivitykset Windowsin laatupäivityksen lykkäys- ja keskeytyskäytäntöjen kautta, laatupäivityksiä ei toimiteta käyttöönottokokemuksen aikana.
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

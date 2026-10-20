@@ -37,14 +37,30 @@ Observação: a habilitação dessa configuração de política não impede que 
       <string id="DisableRoamedProfileInit_Help">Essa configuração de política permite que os administradores que configuraram o perfil de roaming em conjunto com a configuração Excluir Política de Grupo de Perfil de Roaming em Cache para garantir que o Explorer não reinicialize associações de programa padrão e outras configurações nos valores padrão.
 
 Se você habilitar essa configuração de política em um computador que não contém todos os programas instalados da mesma maneira como estava no computador em que o usuário fez login na última vez, um comportamento inesperado poderá ocorrer. </string>
+      <string id="DisableGraphRecentItems">Mostrar arquivos com base na sua conta e na atividade do provedor de nuvem</string>
+      <string id="DisableGraphRecentItems_Help">Desativar essa configuração impede que o Explorador de Arquivos solicite os metadados de arquivos de nuvem e os exiba na página inicial e em outras exibições do Explorador de Arquivos. Quaisquer insights e arquivos baseados em atividade de conta ou provedor de nuvem serão interrompidos em exibições como Recentes, Recomendados, Favoritos, Compartilhado, etc.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Desativar a integração de origem de Configurações Avançadas Explorador de Arquivos</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">Desabilitar a integração de origem de Configurações Avançadas impedirá Explorador de Arquivos mostrar informações do repositório do componente sytem Configurações Avançadas</string>
+      <string id="DisableFileExplorerPrelaunch">Desabilitar Explorador de Arquivos recurso para pré-inicializar uma janela em segundo plano</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Esta política impede que os usuários habilitam o recurso Pré-inicialização no Explorador de Arquivos, que cria uma janela em segundo plano para acelerar a experiência de inicialização e melhorar a capacidade de resposta.</string>
+      <string id="MakePrintScreenKeyYieldable">Tornar a tecla Print Screen acessível</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Esta configuração de política determina se a chave da tecla Print Screen pode ser rendida a outros aplicativos.
+
+Se você habilitar essa configuração de política, a chave da tecla Print Screen poderá ser interceptada por aplicativos, permitindo que eles substituam a funcionalidade de captura de tela padrão.
+
+Se você desabilitar essa configuração de política, a chave de tecla Print Screen manterá seu comportamento herdado para fazer capturas de tela e não poderá ser interceptada por aplicativos.
+
+Se esta política não for configurada, a chave da tecla Print Screen poderá ser interceptada por aplicativos, permitindo que eles substituam a funcionalidade de captura de tela padrão, o mesmo que o comportamento habilitado.
+
+Observação: esta configuração pode exigir uma reinicialização do sistema para entrar em vigor.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>Dar suporte a URL da página da Web</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>Dar suporte a URL da página da Web</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

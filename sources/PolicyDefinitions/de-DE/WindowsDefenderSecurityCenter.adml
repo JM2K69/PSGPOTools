@@ -144,7 +144,8 @@
         – Kontakttelefonnummer oder -Skype-ID angeben
         – Kontakt-E-Mail-Adresse oder -E-Mail-ID angeben
         – Kontaktwebsite angeben
-
+        Beachten Sie, dass die angezeigten Kontaktoptionen in einigen Fällen basierend auf dem für Benachrichtigungen verfügbaren Platz eingeschränkt sind.
+        
         Deaktiviert:
         In Benachrichtigungen werden keine Kontaktinformationen angezeigt.
 
@@ -292,7 +293,7 @@
         Nicht konfiguriert:
         Identisch mit "Deaktiviert".
     </string>
-    <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning">Empfehlung zum TPM-Firmwareupdate ausblenden</string>
+    <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning">Empfehlung zum TPM-Firmwareupdate ausblenden.</string>
     <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning_Explain">
         Blendet die Empfehlung zum Aktualisieren der TPM-Firmware aus, wenn gefährdete Firmware erkannt wird.
 

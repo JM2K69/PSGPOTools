@@ -7,47 +7,82 @@
     <stringTable>
       <string id="DeviceGuard">Device Guard</string>
       <string id="VirtualizationBasedSecurity">Virtualisierungsbasierte Sicherheit aktivieren</string>
-      <string id="VirtualizationBasedSecurityHelp">Gibt an, ob die virtualisierungsbasierte Sicherheit aktiviert ist.
+      <string id="VirtualizationBasedSecurityHelp">
+          Gibt an, ob virtualisierungsbasierte Sicherheit aktiviert ist.
 
-Die virtualisierungsbasierte Sicherheit verwendet den Windows-Hypervisor, um Sicherheitsdienste zu unterstützen. Die virtualisierungsbasierte Sicherheit erfordert den sicheren Start und kann optional unter Verwendung von DMA-Schutzmechanismen aktiviert werden. DMA-Schutzmechanismen erfordern Hardwareunterstützung und werden nur auf ordnungsgemäß konfigurierten Geräten aktiviert. 
+          Virtualisierungsbasierte Sicherheit nutzt den Windows-Hypervisor, um Unterstützung für Sicherheitsdienste bereitzustellen. Virtualisierungsbasierte Sicherheit erfordert Secure Boot und kann optional durch die Verwendung von DMA-Schutzmaßnahmen aktiviert werden. DMA-Schutzmaßnahmen erfordern Hardwareunterstützung und werden nur auf ordnungsgemäß konfigurierten Geräten aktiviert.
 
-Virtualisierungsbasierter Schutz der Codeintegrität
+          Virtualisierungsbasierte Sicherheit der Codeintegrität
 
-Diese Einstellung aktiviert den virtualisierungsbasierten Schutz der Codeintegrität im Kernelmodus. Wenn diese Einstellung aktiviert ist, werden Speicherschutzmechanismen im Kernelmodus erzwungen. Außerdem wird der Überprüfungspfad der Codeintegrität durch das virtualisierungsbasierte Sicherheitsfeature geschützt. 
+          Diese Einstellung aktiviert virtualisierungsbasierte Sicherheit der Codeintegrität im Kernelmodus. Wenn dies aktiviert ist, werden Speicherschutzmaßnahmen im Kernelmodus erzwungen, und der Validierungspfad für die Codeintegrität wird durch die Funktion für virtualisierungsbasierte Sicherheit geschützt.
 
-Durch die Option "Deaktiviert" wird der virtualisierungsbasierte Schutz der Codeintegrität remote deaktiviert, wenn er zuvor mit der Option "Ohne Sperre aktiviert" aktiviert wurde. 
+          Durch die Option „Deaktiviert“ wird die virtualisierungsbasierte Sicherheit der Codeintegrität remote deaktiviert, wenn sie zuvor über die Option „Ohne Sperre aktiviert“ aktiviert wurde.
 
-Die Option "Mit UEFI-Sperre aktiviert" stellt sicher, dass der virtualisierungsbasierte Schutz der Codeintegrität nicht remote deaktiviert werden kann. Um das Feature zu deaktivieren, müssen Sie die Gruppenrichtlinie auf "Deaktiviert" festlegen und die Sicherheitsfunktionen von jedem Computer entfernen, um die in UEFI persistent gespeicherte Konfiguration zu löschen. Bei diesem Vorgang muss ein Benutzer physisch anwesend sein. 
+          Die Option „Mit UEFI-Sperre aktiviert“ stellt sicher, dass die virtualisierungsbasierte Sicherheit der Codeintegrität nicht remote deaktiviert werden kann. Um die Funktion zu deaktivieren, müssen Sie die Gruppenrichtlinie auf „Deaktiviert“ festlegen und die Sicherheitsfunktionalität von jedem Computer mit einer physisch anwesenden Person entfernen, um die in UEFI beibehaltene Konfiguration zu löschen.
 
-Durch die Option "Ohne Sperre aktiviert" kann der virtualisierungsbasierte Schutz der Codeintegrität mithilfe der Gruppenrichtlinie remote deaktiviert werden. 
+          Die Option „Aktiviert ohne Sperre“ ermöglicht die Remotedeaktivierung der virtualisierungsbasierten Sicherheit der Codeintegrität mithilfe von Gruppenrichtlinien.
 
-Durch die Option "Nicht konfiguriert" bleibt die Richtlinieneinstellung undefiniert. Die Richtlinieneinstellung wird durch die Gruppenrichtlinie nicht in die Registrierung geschrieben, sodass sie keine Auswirkungen auf Computer oder Benutzer hat. Wenn die Registrierung eine aktuelle Einstellung enthält, wird sie nicht geändert. 
+          Durch die Option „Nicht konfiguriert“ bleibt die Richtlinieneinstellung undefiniert. Die Richtlinieneinstellung wird durch die Gruppenrichtlinie nicht in die Registrierung geschrieben, sodass sie keine Auswirkungen auf Computer oder Benutzende hat. Wenn eine aktuelle Einstellung in der Registrierung vorhanden ist, wird sie nicht geändert.
 
-Durch die Option "UEFI-Speicherattributtabelle erforderlich" wird der virtualisierungsbasierte Schutz der Codeintegrität nur auf Geräten aktiviert, die UEFI-Firmwareunterstützung für die Speicherattributtabelle bieten. Geräte ohne UEFI-Speicherattributtabelle verfügen u. U. über Firmware, die mit dem virtualisierungsbasierten Schutz der Codeintegrität nicht kompatibel ist, was manchmal zu Abstürzen, Datenverlust oder Inkompatibilitäten mit bestimmten Steckkarten führen kann. Wenn diese Option nicht festgelegt wird, sollten die Zielgeräte auf Kompatibilität geprüft werden. 
+          Die Option „UEFI-Speicherattributtabelle erforderlich“ aktiviert die virtualisierungsbasierte Sicherheit der Codeintegrität nur auf Geräten mit UEFI-Firmwareunterstützung für die Speicherattributtabelle. Geräte ohne die UEFI-Speicherattributtabelle verfügen möglicherweise über Firmware, die nicht mit der virtualisierungsbasierten Sicherheit der Codeintegrität kompatibel ist, was in einigen Fällen zu Abstürzen oder Datenverlust oder Inkompatibilität mit bestimmten Plug-In-Karten führen kann. Wenn diese Option nicht festgelegt wird, sollten die Zielgeräte auf Kompatibilität geprüft werden.
 
-Warnung: Alle Treiber im System müssen mit diesem Feature kompatibel sein, da das System andernfalls abstürzen kann. Stellen Sie sicher, dass diese Richtlinieneinstellung nur für Computer bereitgestellt wird, die bekanntermaßen kompatibel sind. 
+          Warnung: Alle Treiber im System müssen mit dieser Funktion kompatibel sein, oder das System stürzt ab. Stellen Sie sicher, dass diese Richtlinieneinstellung nur auf Computern bereitgestellt wird, von denen bekannt ist, dass sie kompatibel sind.
 
-Credential Guard
+          Credential Guard
 
-Mit dieser Einstellung können Benutzer Credential Guard mit virtualisierungsbasierter Sicherheit aktivieren, um Anmeldeinformationen zu schützen. 
+          Mit dieser Einstellung können Benutzende Credential Guard mit virtualisierungsbasierter Sicherheit aktivieren, um Anmeldeinformationen zu schützen.
 
-Durch die Option "Deaktiviert" wird Credential Guard remote deaktiviert, wenn sie zuvor mit der Option "Ohne Sperre aktiviert" aktiviert wurde. 
+          Unter Windows 11 21H2 und früher Versionen wird Credential Guard durch die Option „Deaktiviert“ remote deaktiviert, wenn die Funktion zuvor über die Option „Ohne Sperre aktiviert“ aktiviert wurde. Unter neueren Versionen wird Credential Guard durch die Option „Deaktiviert“ remote deaktiviert, wenn die Funktion zuvor über die Option „Ohne Sperre aktiviert“ aktiviert wurde oder „Nicht konfiguriert“ war.
 
-Die Option "Mit UEFI-Sperre aktiviert" stellt sicher, dass Credential Guard nicht remote deaktiviert werden kann. Um das Feature zu deaktivieren, müssen Sie die Gruppenrichtlinie auf "Deaktiviert" festlegen und die Sicherheitsfunktionen von jedem Computer entfernen, um die in UEFI persistent gespeicherte Konfiguration zu löschen. Bei diesem Vorgang muss ein Benutzer physisch anwesend sein. 
+          Die Option „Mit UEFI-Sperre aktiviert“ stellt sicher, dass Credential Guard nicht remote deaktiviert werden kann. Um die Funktion zu deaktivieren, müssen Sie die Gruppenrichtlinie auf „Deaktiviert“ festlegen und die Sicherheitsfunktionalität von jedem Computer mit physisch anwesender Person entfernen, um die in UEFI beibehaltene Konfiguration zu löschen.
 
-Durch die Option "Ohne Sperre aktiviert" kann Credential Guard mithilfe der Gruppenrichtlinie remote deaktiviert werden. Auf Geräten, die diese Einstellung verwenden, muss mindestens Windows 10 (Version 1511) ausgeführt werden. 
+          Durch die Option „Ohne Sperre aktiviert“ kann Credential Guard mithilfe einer Gruppenrichtlinie remote deaktiviert werden. Auf Geräten, die diese Einstellung verwenden, muss mindestens Windows 10 (Version 1511) ausgeführt werden.
 
-Durch die Option "Nicht konfiguriert" bleibt die Richtlinieneinstellung undefiniert. Die Richtlinieneinstellung wird durch die Gruppenrichtlinie nicht in die Registrierung geschrieben, sodass sie keine Auswirkungen auf Computer oder Benutzer hat. Wenn die Registrierung eine aktuelle Einstellung enthält, wird sie nicht geändert.
+          Unter Windows 11 21H2 und früheren Versionen bleibt die Richtlinieneinstellung durch die Option „Nicht konfiguriert“ undefiniert. Die Richtlinieneinstellung wird durch die Gruppenrichtlinie nicht in die Registrierung geschrieben, sodass sie keine Auswirkungen auf Computer oder Benutzende hat. Wenn die Registrierung eine aktuelle Einstellung enthält, wird diese nicht geändert. Wenn in neueren Versionen keine aktuelle Einstellung in der Registrierung vorhanden ist, aktiviert die Option „Nicht konfiguriert“ Credential Guard ohne UEFI-Sperre.
 
-Sicherer Start
+          Computeridentitätsisolation
 
-Diese Einstellung legt die Konfigurierung des sicheren Starts fest, um die Startzeichenfolgen zu sichern.
+          Diese Einstellung steuert den Schutz von Active Directory-Computerkonten durch Credential Guard. Für das Aktivieren dieser Richtlinie gelten bestimmte Voraussetzungen. Diese Voraussetzungen und weitere Informationen zu dieser Richtlinie finden Sie unter https://go.microsoft.com/fwlink/?linkid=2251066.
 
-Die Einstellung "Nicht konfiguriert" ist die Standardeinstellung, die die Konfiguration des Features durch Administratoren ermöglicht.
+          Durch die Option „Nicht konfiguriert“ bleibt die Richtlinieneinstellung undefiniert. Die Richtlinieneinstellung wird durch die Gruppenrichtlinie nicht in die Registrierung geschrieben, sodass sie keine Auswirkungen auf Computer oder Benutzende hat. Wenn eine aktuelle Einstellung in der Registrierung vorhanden ist, wird sie nicht geändert.
 
-Durch die Einstellung "Aktiviert" wird die Systemüberwachung auf unterstützter Hardware aktiviert.
+          Mit der Option „Deaktiviert“ wird die Computeridentitätsisolation deaktiviert. Wenn diese Richtlinie zuvor auf „Im Überwachungsmodus aktiviert“ festgelegt wurde, ist keine weitere Aktion erforderlich. Wenn diese Richtlinie zuvor auf „Im Erzwingungsmodus aktiviert“ festgelegt wurde, muss die Domäneneinbindung des Geräts aufgehoben und erneut hergestellt werden. Weitere Details finden Sie über den obigen Link.
 
-Durch die Einstellung "Deaktiviert" wird die Systemüberwachung auf unterstützter Hardware deaktiviert.
+          Mit der Option „Im Überwachungsmodus aktiviert“ wird die Computeridentität in Credential Guard kopiert. Sowohl LSA als auch Credential Guard haben Zugriff auf die Computeridentität. Hiermit können Benutzende überprüfen, ob „Im Erzwingungsmodus aktiviert“ in ihrer Active Directory-Domäne funktioniert.
+
+          Mit der Option „Im Erzwingungsmodus aktiviert“ wird die Computeridentität in Credential Guard verschoben. Dadurch wird die Computeridentität nur für Credential Guard zugänglich.
+
+          Sicherer Start
+
+          Mit dieser Einstellung wird die Konfiguration des sicheren Starts festgelegt, um die Startkette zu schützen.
+
+          Die Einstellung „Nicht konfiguriert“ ist die Standardeinstellung und ermöglicht die Konfiguration der Funk durch Administrierende.
+
+          Mit der Option „Aktiviert“ wird sichereres Starten auf unterstützter Hardware aktiviert.
+
+          Mit der Option „Deaktiviert“ wird sicheres Starten unabhängig von der Hardwareunterstützung deaktiviert.
+
+          Hardwaregestützter Stapelschutz im Kernelmodus
+
+          Diese Einstellung aktiviert den hardwaregestützten Stapelschutz für Code im Kernelmodus. Wenn diese Sicherheitsfunktion aktiviert ist, werden Datenstapel im Kernelmodus mit hardwarebasierten Schattenstapeln abgesichert, die beabsichtigte Rückgabeadressziele speichern, um sicherzustellen, dass der Programmsteuerungsfluss nicht manipuliert wird.
+
+          Für diese Sicherheitsfunktion gelten die folgenden Voraussetzungen:
+          1) Die CPU-Hardware unterstützt hardwarebasierte Schattenstapel.
+          2) Die virtualisierungsbasierte Sicherheit der Codeintegrität ist aktiviert.
+
+          Wenn eine der Voraussetzungen nicht erfüllt ist, wird diese Funktion auch dann nicht aktiviert, wenn für sie eine „Aktiviert“-Option ausgewählt ist. Beachten Sie, dass durch die Auswahl einer „Aktiviert“-Option für diese Funktion nicht automatisch die virtualisierungsbasierte Sicherheit der Codeintegrität aktiviert wird. Dies muss separat erfolgen.
+
+          Auf Geräten, auf denen diese Sicherheitsfunktion aktiviert wird, muss mindestens Windows 11 (Version 22H2) ausgeführt werden.
+
+          Mit der Option „Deaktiviert“ wird der hardwaregestützte Stapelschutz im Kernelmodus deaktiviert.
+
+          Mit der Option „Im Überwachungsmodus aktiviert“ wird der hardwaregestützte Stapelschutz im Kernelmodus im Überwachungsmodus aktiviert, wobei Schattenstapelverletzungen nicht schwerwiegend sind und im Systemereignisprotokoll protokolliert werden.
+
+          Mit der Option „Im Erzwingungsmodus aktiviert“ wird der hardwaregestützte Stapelschutz im Kernelmodus im Erzwingungsmodus aktiviert, wobei Schattenstapelverletzungen schwerwiegend sind.
+
+          Durch die Option „Nicht konfiguriert“ bleibt die Richtlinieneinstellung undefiniert. Die Richtlinieneinstellung wird durch die Gruppenrichtlinie nicht in die Registrierung geschrieben, sodass sie keine Auswirkungen auf Computer oder Benutzende hat. Wenn eine aktuelle Einstellung in der Registrierung vorhanden ist, wird sie nicht geändert.
+
+          Warnung: Alle Treiber im System müssen mit dieser Sicherheitsfunktion kompatibel sein, oder das System stürzt im Erzwingungsmodus ab. Der Überwachungsmodus kann verwendet werden, um inkompatible Treiber zu ermitteln. Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?LinkId=2162953.
       </string>
       <string id="SecureBoot">Sicherer Start</string>
       <string id="SecureBootAndDmaProtection">Sicherer Start und DMA-Schutz</string>
@@ -55,29 +90,33 @@ Durch die Einstellung "Deaktiviert" wird die Systemüberwachung auf unterstützt
       <string id="Enabled">Aktiviert</string>
       <string id="EnabledWithoutLock">Ohne Sperre aktiviert</string>
       <string id="EnabledWithUefiLock">Mit UEFI-Sperre aktiviert</string>
+      <string id="EnabledAudit">Im Überwachungsmodus aktiviert</string>
+      <string id="EnabledEnforcement">Aktiviert im Erzwingungsmodus</string>
       <string id="NotConfigured">Nicht konfiguriert</string>
-      <string id="ConfigCIPolicy">Windows Defender-Anwendungssteuerung bereitstellen</string>
-      <string id="ConfigCIPolicyHelp">Windows Defender-Anwendungssteuerung bereitstellen
+      <string id="ConfigCIPolicy">App Control for Business bereitstellen</string>
+      <string id="ConfigCIPolicyHelp">App Control for Business bereitstellen
 
 Mit dieser Richtlinieneinstellung können Sie eine Codeintegritätsrichtlinie auf einem Computer bereitstellen, um zu steuern, was auf diesem Computer ausgeführt werden darf.
 
-Wenn Sie eine Codeintegritätsrichtlinie bereitstellen, wird der im Kernelmodus und auf dem Windows-Desktop ausführbare Code auf Grundlage der Richtlinie durch Windows eingeschränkt. Zum Aktivieren dieser Richtlinie muss der Computer neu gestartet werden. 
+Wenn Sie eine Codeintegritätsrichtlinie bereitstellen, schränkt Windows ein, was basierend auf der Richtlinie sowohl im Kernelmodus als auch auf dem Windows Desktop ausgeführt werden kann. Um diese Richtlinie zu aktivieren, muss der Computer neu gestartet werden.
 
-Der Dateipfad muss entweder ein UNC-Pfad (z. B. \\ServerName\ShareName\SIPolicy.p7b) oder ein gültiger lokaler Pfad (z. B. C:\FolderName\SIPolicy.p7b) sein. Das lokale Computerkonto (LOCAL SYSTEM) muss über eine Zugriffsberechtigung für die Richtliniendatei verfügen.
- 
-Bei Verwendung einer signierten, geschützten Richtlinie wird die Funktion nicht vom Computer entfernt, wenn die Richtlinieneinstellung deaktiviert wird. Führen Sie stattdessen einen der folgenden Schritte aus:
+Der Dateipfad muss entweder ein UNC-Pfad (z. B. \\ServerName\ShareName\SIPolicy.p7b) oder ein lokal gültiger Pfad sein (z. B. C:\FolderName\SIPolicy.p7b).  Das Lokale Computerkonto (LOCAL SYSTEM) muss über Zugriffsberechtigungen für die Richtliniendatei verfügen.
 
-   1) Aktualisieren Sie zuerst die Richtlinie auf eine nicht geschützte Richtlinie, und deaktivieren Sie dann die Einstellung. Oder
-   2) Deaktivieren Sie die Einstellung, und entfernen Sie dann die Richtlinie von jedem Computer, während ein Benutzer physisch anwesend ist.
+Wenn Sie eine signierte und geschützte Richtlinie verwenden, wird durch das Deaktivieren dieser Richtlinieneinstellung das Feature nicht vom Computer entfernt. Stattdessen müssen Sie entweder:
+
+1) Aktualisieren Sie zuerst die Richtlinie auf eine nicht geschützte Richtlinie, und deaktivieren Sie dann die Einstellung, oder
+   2) Deaktivieren Sie die Einstellung, und entfernen Sie dann die Richtlinie von jedem Computer mit einem physisch anwesenden Benutzer.
       </string>
     </stringTable>
     <presentationTable>
       <presentation id="VirtualizationBasedSecurity">
         <dropdownList refId="RequirePlatformSecurityFeaturesDrop" defaultItem="1">Plattform-Sicherheitsstufe auswählen:</dropdownList>
-        <dropdownList refId="HypervisorEnforcedCodeIntegrityDrop" defaultItem="3">Virtualisierungsbasierter Schutz der Codeintegrität:</dropdownList>        
-        <checkBox refId="CheckboxMAT">UEFI-Speicherattributtabelle erforderlich</checkBox>        
+        <dropdownList refId="HypervisorEnforcedCodeIntegrityDrop" defaultItem="3">Virtualisierungsbasierter Schutz der Codeintegrität:</dropdownList>
+        <checkBox refId="CheckboxMAT">UEFI-Speicherattributtabelle erforderlich</checkBox>
         <dropdownList refId="CredentialIsolationDrop" defaultItem="3">Credential Guard-Konfiguration:</dropdownList>
-        <dropdownList refId="SystemGuardDrop" defaultItem="2">Sichere Startkonfiguration:</dropdownList>                
+        <dropdownList refId="MachineIdentityIsolationDrop" defaultItem="3">Konfiguration der Computeridentitätsisolation:</dropdownList>
+        <dropdownList refId="SystemGuardDrop" defaultItem="2">Sichere Startkonfiguration:</dropdownList>
+        <dropdownList refId="KernelShadowStacksDrop" defaultItem="3">Hardware-erzwungener Stack-Schutz im Kernel-Modus:</dropdownList>
       </presentation>
       <presentation id="ConfigCIPolicy">
         <textBox refId="ConfigCIPolicyFilePathText">

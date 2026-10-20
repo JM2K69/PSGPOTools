@@ -5,6 +5,8 @@
   <description>tutaj wprowadź opis</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Włącz automatyczną subskrypcję</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Określa listę adresów URL, do których użytkownik powinien mieć automatycznie przypisaną subskrypcję</string>
       <string id="TS_SUPPORTED_Windows10">Co najmniej Windows 10 lub Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">Co najmniej system Windows 8 lub Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">Co najmniej Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">Co najmniej system Windows XP i tylko Windows Server 2003</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">Co najmniej system Windows Server 2008 lub Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  Tylko system Windows Server 2008 R2</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 w wersji 1903, Windows 10 w wersji 1909 i Windows 10 w wersji 2004</string>
       <string id="TS_TERMINAL_SERVER">Host sesji pulpitu zdalnego</string>
       <string id="TS_TERMINAL_SERVER_Help">Steruje konfiguracją serwera hosta sesji pulpitu zdalnego</string>
       <string id="TS_LICENSE_SERVER">Licencjonowanie usług pulpitu zdalnego</string>
@@ -128,22 +131,22 @@ Jeżeli to ustawienie zostanie wyłączone lub pozostanie nieskonfigurowane, uż
 Jeżeli to ustawienie zostanie włączone, pole wyboru zapisywania poświadczeń w oknie Podłączanie pulpitu zdalnego będzie wyłączone i użytkownicy nie będą już mogli zapisywać haseł. Gdy użytkownik otworzy plik RDP za pomocą usługi Podłączanie pulpitu zdalnego i zapisze jego ustawienia, każde hasło istniejące w pliku RDP zostanie usunięte.
 
 Jeżeli to ustawienie zostanie wyłączone lub pozostanie nieskonfigurowane, użytkownik będzie mógł zapisywać hasła przy użyciu usługi Podłączanie pulpitu zdalnego.</string>
-      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">To ustawienie zasad określa, czy zapobiegać mapowaniu dysków klientów w sesji usług pulpitu zdalnego (przekierowywaniu dysków).
+      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">To ustawienie zasad określa, czy zapobiegać mapowaniu dysków klienckich w sesji Usługi pulpitu zdalnego (przekierowanie dysku).
 
-Domyślnie serwer hosta sesji usług pulpitu zdalnego automatycznie mapuje dyski klientów po połączeniu. Zamapowane dyski są wyświetlane w drzewie folderów sesji w Eksploratorze plików lub w oknie Mój komputer w formacie &lt;litera_dysku&gt; na &lt;nazwa_komputera&gt;. Za pomocą tego ustawienia zasad można zastąpić to zachowanie.
+Domyślnie serwer hosta sesji usług pulpitu zdalnego automatycznie mapuje dyski klienta po połączeniu. Mapowane dyski są wyświetlane w drzewie folderów sesji w Eksplorator plików lub na komputerze w formacie &lt;driveletter&gt; na &lt;computername&gt;. Za pomocą tego ustawienia zasad można zastąpić to zachowanie.
 
-Jeśli to ustawienie zasad zostanie włączone, przekierowywanie dysków klientów nie będzie dozwolone w sesjach usług pulpitu zdalnego, a także nie będzie dozwolone przekierowywanie kopii pliku Schowka na komputerach z systemami Windows Server 2003, Windows 8 i Windows XP.
+Jeśli to ustawienie zasad zostanie włączone, przekierowywanie dysków klientów nie będzie dozwolone w sesjach Usługi pulpitu zdalnego, a przekierowywanie kopii plików schowka nie będzie dozwolone na komputerach z systemami Windows XP, Windows Server 2003, Windows Server 2012 (i nowszymi) lub Windows 8 (i nowszymi).
 
-Jeśli to ustawienie zasad zostanie wyłączone, przekierowywanie dysków klientów będzie zawsze dozwolone. Ponadto przekierowywanie kopii pliku Schowka będzie zawsze dozwolone, o ile będzie dozwolone przekierowywanie Schowka.
+Jeśli to ustawienie zasad zostanie wyłączone, przekierowywanie dysków klientów będzie zawsze dozwolone. Ponadto przekierowanie kopiowania pliku Schowka jest zawsze dozwolone, jeśli dozwolone jest przekierowywanie Schowka.
 
-Jeśli to ustawienie zasad nie zostanie skonfigurowane, przekierowywanie dysków klientów i przekierowywanie kopii pliku Schowka nie będą określone na poziomie zasad grupy.
-
+Jeśli to ustawienie zasad pozostanie nieskonfigurowane, przekierowywanie dysków klientów i przekierowywanie kopii plików schowka nie będą określone na poziomie zasady grupy.
 </string>
       <string id="TS_CLIENT_DRIVE_M">Nie zezwalaj na przekierowywanie dysków</string>
       <string id="TS_CLIENT_HELP">Steruje ustawieniami klienta usługi Podłączanie pulpitu zdalnego</string>
       <string id="TS_CLIENT_LPT">Nie zezwalaj na przekierowywanie portu LPT</string>
       <string id="TS_CLIENT_PNP">Nie zezwalaj na przekierowywanie obsługiwanego urządzenia Plug and Play</string>
       <string id="TS_CAMERA_REDIRECTION">Nie zezwalaj na przekierowywanie przechwytywania wideo</string>
+      <string id="TS_LOCATION_REDIRECTION">Nie zezwalaj na przekierowywanie lokalizacji</string>
       <string id="TS_CLIENT_PRINTER">Nie zezwalaj na przekierowywanie drukarek klienta</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">To ustawienie zasad określa, czy należy zapobiegać udostępnianiu zawartości schowka (przekierowywaniu schowka) między komputerem zdalnym a komputerem klienckim w trakcie sesji usług pulpitu zdalnego.
 
@@ -208,6 +211,15 @@ Jeśli włączysz to ustawienie zasad, użytkownicy nie będą mogli przekierowy
 
 Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, użytkownicy będą mogli przekierowywać swoje urządzenia przechwytywania wideo do komputera zdalnego. Użytkownicy mogą użyć przycisku Więcej opcji na karcie Zasoby lokalne w oknie Podłączanie pulpitu zdalnego, aby wybrać urządzenia przechwytywania wideo, które będą przekierowywane do komputera zdalnego.
 
+</string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">To ustawienie zasad umożliwia sterowanie przekierowywaniem danych lokalizacji do komputera zdalnego w sesji usług pulpitu zdalnego.
+
+Domyślnie usługi pulpitu zdalnego zezwalają na przekierowywanie danych lokalizacji.
+
+Jeśli to ustawienie zasad zostanie włączone, użytkownicy nie będą mogli przekierowywać swoich danych lokalizacji do komputera zdalnego.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, użytkownicy będą mogli przekierowywać swoje dane lokalizacji do komputera zdalnego.
+          
 </string>
       <string id="TS_MAXMONITOR_EXPLAIN">To ustawienie zasad umożliwia ograniczenie liczby monitorów, na których użytkownik może wyświetlać sesję usług pulpitu zdalnego. Ograniczenie liczby monitorów używanych do wyświetlania sesji usług pulpitu zdalnego umożliwia zwiększenie wydajności połączenia, zwłaszcza w przypadku powolnych łączy, i zmniejszenie obciążenia serwera.
 
@@ -420,19 +432,19 @@ Jeżeli to ustawienie zasad zostanie włączone, te powiadomienia nie będą wy�
 Jeżeli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, te powiadomienia będą wyświetlane na serwerze hosta sesji pulpitu zdalnego po zalogowaniu się administratora lokalnego.</string>
       <string id="TS_LICENSING_MODE">Ustaw tryb licencjonowania usług pulpitu zdalnego</string>
       <string id="TS_LICENSING_MODE_EXPLAIN">
-        To ustawienie zasad umożliwia określenie typu licencji dostępu klienta usług pulpitu zdalnego (RDS CAL) potrzebnej do nawiązania połączenia z tym serwerem hosta sesji usług pulpitu zdalnego.
+        To ustawienie zasad umożliwia określenie typu licencji dostępu klienta usług pulpitu zdalnego (RDS CAL) wymaganej do nawiązania połączenia z tym serwerem usług pulpitu zdalnego.
 
-        Za pomocą tego ustawienia zasad możesz wybrać jeden z trzech trybów licencjonowania: Na użytkownika, Na urządzenie i Usługa AAD na użytkownika.
+          Za pomocą tego ustawienia zasad można wybrać jeden z dwóch trybów licencjonowania: Na użytkownika lub Na urządzenie.
 
-        W trybie licencjonowania Na użytkownika dla każdego konta użytkownika łączącego się z tym serwerem hosta sesji usług pulpitu zdalnego jest wymagana licencja RDS CAL na użytkownika wystawiona przez serwer licencjonowania usług pulpitu zdalnego.
+          Tryb licencjonowania Na użytkownika wymaga, aby każde konto użytkownika łączące się z tym serwerem usług pulpitu zdalnego posiadało licencję RDS CAL na użytkownika wystawioną przez serwer licencjonowania usług pulpitu zdalnego.
 
-        W trybie licencjonowania Na urządzenie dla każdego urządzenia łączącego się z tym serwerem hosta sesji usług pulpitu zdalnego jest wymagana licencja RDS CAL na urządzenie wystawiona przez serwer licencjonowania usług pulpitu zdalnego.
+          Tryb licencjonowania Na urządzenie wymaga, aby każde urządzenie łączące się z tym serwerem usług pulpitu zdalnego posiadało licencję RDS CAL na urządzenie wystawioną przez serwer licencjonowania usług pulpitu zdalnego.
 
-        W trybie licencjonowania Usługa AAD na użytkownika dla każdego konta użytkownika łączącego się z tym serwerem hosta sesji usług pulpitu zdalnego jest wymagany plan usług obsługujący licencje usług pulpitu zdalnego, który został przypisany w usłudze AAD.
-        
-        Jeśli włączysz to ustawienie zasad, określony tryb licencjonowania usług pulpitu zdalnego będzie uznawany przez serwer licencji usług pulpitu zdalnego i hosta sesji usług pulpitu zdalnego.
+          Jeśli to ustawienie zasad zostanie włączone, wybrany tryb licencjonowania usług pulpitu zdalnego będzie uznawany przez serwer licencji usług pulpitu zdalnego i hosta sesji usług pulpitu zdalnego.
 
-        Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, tryb licencjonowania nie będzie określany na poziomie zasad grupy.
+           Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, tryb licencjonowania nie zostanie określony na poziomie zasad grupy.
+
+        Uwaga: tryb licencjonowania usługi AAD Na użytkownika jest przestarzały w przypadku systemu Windows 11 i nowszych wersji.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Na urządzenie</string>
       <string id="TS_LICENSING_MODE_PER_USER">Na użytkownika</string>
@@ -609,6 +621,17 @@ Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane,
       <string id="TS_SECURITY_LAYER_POLICY">Wymagaj użycia odpowiedniej warstwy zabezpieczeń dla połączeń zdalnych (RDP, remote desktop protocol)</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Włącz wymuszanie uwierzytelniania Microsoft Entra ID</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">To ustawienie zasad pozwala określić, czy wymagane jest wymuszanie uwierzytelniania Tożsamości Microsoft Entra po stronie serwera.
+
+Jeśli włączysz to ustawienie zasad, wszyscy klienci usług pulpitu zdalnego będą musieli używać uwierzytelniania RDS AAD, żeby się uwierzytelnić na serwerach hosta sesji pulpitu zdalnego. 
+
+Ta zasada nie pozwala na powrót do innych metod uwierzytelniania. 
+
+Aby ta zasada była skuteczna, wymagane jest włączenie uwierzytelniania na poziomie sieci (NLA). Zapoznaj się z zasadą „Wymagaj uwierzytelniania użytkownika dla połączeń zdalnych przy użyciu uwierzytelniania na poziomie sieci”.
+
+Jeśli wyłączysz lub nie skonfigurujesz tej zasady, wymuszanie uwierzytelniania Tożsamość Microsoft Entra nie będzie wymuszane.
+</string>
       <string id="TS_Session_End_On_Limit">Zakończ sesję po osiągnięciu limitów czasu</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">To ustawienie zasad określa, czy należy kończyć sesję usług pulpitu zdalnego o przekroczonym limicie czasu, zamiast ją rozłączać.
 
@@ -787,6 +810,79 @@ Jeżeli to ustawienie zasad zostanie włączone, pulpit zawsze będzie wyświetl
 Jeżeli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, będzie można określić program początkowy uruchamiany na komputerze zdalnym po połączeniu klienta z komputerem zdalnym. Jeżeli program początkowy nie zostanie określony, pulpit zawsze będzie wyświetlany na komputerze zdalnym po połączeniu klienta z komputerem zdalnym.
 
 Uwaga: jeśli to ustawienie zasad zostanie włączone, ustawienie zasad Uruchom program przy połączeniu będzie ignorowane.</string>
+      <string id="TS_UIA">Zezwalaj na przekierowywanie automatyzacji interfejsu użytkownika</string>
+      <string id="TS_UIA_EXPLAIN">To ustawienie zasad określa, czy aplikacje klienckie automatyzacji interfejsu użytkownika wykonywane na komputerze lokalnym mogą uzyskiwać dostęp do elementów interfejsu użytkownika na serwerze.
+
+Automatyzacja interfejsu użytkownika zapewnia programom dostęp do większości elementów interfejsu użytkownika, dzięki czemu można używać produktów technologii pomocniczych, takich jak Lupa i narrator, w celu poprawnego działania. Informacje o interfejsie użytkownika umożliwiają również zautomatyzowanym skryptom testowym interakcję z interfejsem użytkownika.
+
+Sesje pulpitu zdalnego nie obsługują obecnie przekierowywania automatyzacji interfejsu użytkownika.
+
+Jeśli to ustawienie zasad zostanie włączone lub nie zostanie skonfigurowane, wszyscy klienci automatyzacji interfejsu użytkownika na komputerze lokalnym będą mogli interakcyjnie korzystać z aplikacji zdalnych. Na przykład do interakcji z interfejsem użytkownika na stronie sieci Web otwieranej podczas sesji zdalnej można użyć narratora i klientów lupy komputera lokalnego.
+
+Jeśli to ustawienie zasad zostanie wyłączone, klienci automatyzacji interfejsu użytkownika działający na tym komputerze lokalnym nie będą mogli interakcyjnie ze zdalnymi aplikacjami.
+</string>
+      <string id="TS_WEBAUTHN">Nie zezwalaj na przekierowywanie WebAuthn</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">To ustawienie zasad umożliwia sterowanie przekierowywaniem żądań uwierzytelniania internetowego (WebAuthn) z sesji Pulpit zdalny na urządzenie lokalne. To przekierowanie umożliwia użytkownikom uwierzytelnianie w zasobach wewnątrz sesji Pulpit zdalny przy użyciu  lokalnego wystawcy uwierzytelnienia (np. Windows Hello dla firm, klucza zabezpieczeń lub innego).
+
+Domyślnie Pulpit zdalny zezwala na przekierowywanie żądań WebAuthn.
+
+Jeśli to ustawienie zasad zostanie włączone, użytkownicy nie będą mogli używać lokalnego wystawcy uwierzytelniania w sesji Pulpit zdalny.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, użytkownicy będą mogli używać lokalnych wystawców uwierzytelnienia w sesji Pulpit zdalny.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">Wyłącz transfery schowka z serwera do klienta</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">Wyłącz transfery schowka od klienta na serwer</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Zezwalaj na zwykły tekst</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Zezwalaj na zwykły tekst i obrazy</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Zezwalaj na zwykły tekst, obrazy i tekst sformatowany rtf</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Zezwalaj na zwykły tekst, obrazy, tekst sformatowany rtf i kod HTML</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">Ogranicz transfer schowka z serwera do klienta</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">To ustawienie zasad umożliwia ograniczenie transferów danych ze schowka z serwera do klienta.
+
+Jeśli to ustawienie zasad zostanie włączone, należy wybrać spośród następujących zachowań:
+
+- Wyłącz transfery schowka z serwera do klienta.
+
+- Zezwalaj na kopiowanie zwykłego tekstu z serwera do klienta.
+
+- Zezwalaj na kopiowanie zwykłego tekstu i obrazów z serwera do klienta.
+
+- Zezwalaj na kopiowanie zwykłego tekstu, obrazów i rtf w formacie rtf z serwera do klienta.
+
+- Zezwalaj na kopiowanie zwykłego tekstu, obrazów, tekstu sformatowania rtf i html z serwera do klienta.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, użytkownicy będą mogli kopiować dowolną zawartość z serwera do klienta, jeśli przekierowywanie schowka jest włączone.
+
+Uwaga: to ustawienie zasad występuje zarówno w konfiguracji komputera, jak i w konfiguracji użytkownika. Jeśli oba ustawienia zasad zostaną skonfigurowane, zostanie użyte bardziej restrykcyjne ograniczenie.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">Ogranicz transfer schowka od klienta na serwer</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">To ustawienie zasad umożliwia ograniczenie transferu danych schowka od klienta na serwer.
+
+Jeśli włączysz to ustawienie zasad, musisz wybrać jedno z następujących zachowań:
+
+- Wyłącz transfery schowka od klienta na serwer.
+
+- Zezwalaj na kopiowanie zwykłego tekstu od klienta na serwer.
+
+- Zezwalaj na kopiowanie zwykłego tekstu i obrazów od klienta na serwer.
+
+- Zezwalaj na kopiowanie zwykłego tekstu, obrazów tekstu sformatowanego rtf od klienta na serwer.
+
+- Zezwalaj na kopiowanie zwykłego tekstu, obrazów tekstu sformatowanego rtf i kodu HTML od klienta na serwer.
+
+Jeśli wyłączysz lub nie skonfigurujesz tego ustawienia zasad, użytkownicy będą mogli kopiować dowolną zawartość z klienta na serwer, jeśli przekierowanie schowka jest włączone.
+
+Uwaga: to ustawienie zasad pojawia się zarówno w Konfiguracji komputera, jak i Konfiguracji użytkownika. Jeśli skonfigurowane są oba ustawienia zasad, zastosowane zostanie bardziej rygorystyczne ograniczenie.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Wyłącz integrację schowka w chmurze na potrzeby transferu danych między serwerami i klientami</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">To ustawienie zasad umożliwia określenie, czy dane przesyłane z sesji zdalnej do klienta przy użyciu przekierowywania schowka są dodawane do schowka w chmurze po stronie klienta.
+
+Domyślnie Pulpit zdalny wyłącza integrację ze schowkiem w chmurze po stronie klienta dla danych przesyłanych z sesji zdalnej przy użyciu przekierowania schowka.
+
+Jeśli to ustawienie zasad zostanie włączone lub nie zostanie skonfigurowane, dane skopiowane w sesji zdalnej i wklejone w kliencie nie będą dodawane do schowka w chmurze po stronie klienta.
+
+Jeśli to ustawienie zasad zostanie wyłączone, dane skopiowane w sesji zdalnej i wklejone w kliencie zostaną dodane do schowka w chmurze po stronie klienta (jeśli jest włączona).
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">To ustawienie zasad umożliwia określenie, czy na potrzeby nawiązywania połączeń zdalnych z serwerem hosta sesji usług pulpitu zdalnego ma być wymagane uwierzytelnianie użytkownika przy użyciu uwierzytelniania na poziomie sieci. To ustawienie zasad zwiększa bezpieczeństwo, wprowadzając wymaganie uwierzytelniania użytkownika we wcześniejszym etapie procesu nawiązywania połączenia zdalnego.
 
 Jeżeli to ustawienie zasad zostanie włączone, tylko komputery klienckie obsługujące uwierzytelnianie na poziomie sieci będą mogły łączyć się z serwerem hosta sesji usług pulpitu zdalnego.
@@ -801,6 +897,24 @@ Ważne: jeśli to ustawienie zasad zostanie wyłączone, spowoduje to zmniejszen
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Wymagaj uwierzytelniania użytkowników za pomocą uwierzytelniania na poziomie sieci dla połączeń zdalnych</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Rozłącz sesję zdalną po zablokowaniu dla starszego uwierzytelniania</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">To ustawienie zasad umożliwia skonfigurowanie środowiska użytkownika, gdy sesja Pulpitu zdalnego jest zablokowana przez użytkownika lub przez zasady. Możesz określić, czy podczas blokady sesji zdalnej będzie wyświetlany ekran blokady zdalnej, czy też nastąpi rozłączenie. Rozłączenie sesji zdalnej zapewnia, że sesja zdalna nie może zostać pozostawiona na ekranie blokady i nie może automatycznie połączyć się ponownie z powodu utraty łączności sieciowej.
+
+Te zasady mają zastosowanie tylko w przypadku korzystania ze starszego uwierzytelniania do uwierzytelniania na komputerze zdalnym. Starsze uwierzytelnianie jest ograniczone do nazwy użytkownika i hasła lub certyfikatów, takich jak karty inteligentne. Starsze uwierzytelnianie nie wykorzystuje platformy tożsamości Microsoft, takiej jak Microsoft Entra ID. Starsze uwierzytelnianie obejmuje podstawowe protokoły uwierzytelniania NTLM, CredSSP, RDSTLS, TLS i RDP.
+
+Jeśli to ustawienie zasad zostanie włączone, połączenia pulpitu zdalnego używające starszego uwierzytelniania będą rozłączane, gdy sesja zdalna zostanie zablokowana. Użytkownicy mogą połączyć się ponownie, gdy będą gotowi i ponownie wprowadzić swoje poświadczenia po wyświetleniu monitu.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, połączenia usług pulpitu zdalnego używające starszego uwierzytelniania będą wyświetlać ekran blokady zdalnej, gdy sesja zdalna zostanie zablokowana. Użytkownicy mogą odblokować sesję zdalną przy użyciu nazwy użytkownika i hasła lub certyfikatów.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Rozłącz sesję zdalną przy blokadzie na potrzeby uwierzytelniania Platforma tożsamości Microsoft</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">To ustawienie zasad umożliwia skonfigurowanie środowiska użytkownika, gdy sesja Pulpit zdalny jest zablokowana przez użytkownika lub przez zasady. Możesz określić, czy w sesji zdalnej będzie wyświetlany zdalny ekran blokady, czy rozłączenie po zablokowaniu sesji zdalnej. Rozłączenie sesji zdalnej gwarantuje, że sesji zdalnej nie można pozostawić na ekranie blokady i nie można ponownie nawiązać połączenia automatycznie z powodu utraty łączności sieciowej.
+
+Te zasady mają zastosowanie tylko w przypadku korzystania z dostawcy tożsamości używającego Platforma tożsamości Microsoft, takiego jak Microsoft Entra ID, do uwierzytelniania na komputerze zdalnym. Te zasady nie mają zastosowania w przypadku korzystania ze starszego uwierzytelniania, które obejmuje protokoły uwierzytelniania podstawowego NTLM, CredSSP, RDSTLS, TLS i RDP.
+
+Jeśli to ustawienie zasad zostanie włączone lub nie zostanie skonfigurowane, Pulpit zdalny połączenia korzystające z Platforma tożsamości Microsoft będą rozłączać sesję zdalną po zablokowaniu sesji zdalnej. Użytkownicy mogą ponownie nawiązać połączenie, gdy będą gotowi, i mogą używać uwierzytelniania bezhasłowego, jeśli są skonfigurowani.
+
+Jeśli to ustawienie zasad zostanie wyłączone, Pulpit zdalny połączenia korzystające z Platforma tożsamości Microsoft będą wyświetlać zdalny ekran blokady po zablokowaniu sesji zdalnej. Użytkownicy mogą odblokować sesję zdalną przy użyciu nazwy użytkownika i hasła lub certyfikatów.
+</string>
       <string id="TS_User_Help">Steruje konfiguracją technologii usług pulpitu zdalnego, które zapewniają dostęp do serwera z uruchomionymi programami opartymi na systemie Windows albo pełnym pulpitem systemu Windows</string>
       <string id="TS_USER_HOME">Ustaw katalog macierzysty użytkownika usług pulpitu zdalnego</string>
       <string id="TS_USER_HOME_EXPLAIN">Określa, czy w usługach pulpitu zdalnego używa się określonego udziału sieciowy lub ścieżki katalogu lokalnego jako katalogu głównego dla katalogu macierzystego użytkownika podczas sesji usług pulpitu zdalnego.
@@ -901,36 +1015,44 @@ Jeżeli to ustawienie zasad zostanie wyłączone, użytkownicy nie będą mogli 
 Uwaga: To ustawienie zasad można zdefiniować w węźle Konfiguracja komputera lub w węźle Konfiguracja użytkownika. Jeżeli to ustawienie zasad zostanie skonfigurowane dla komputera, wpłynie to na wszystkich użytkowników na tym komputerze.
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Określ odciski palców SHA1 certyfikatów reprezentujących zaufanych wydawców plików rdp</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">To ustawienie zasad umożliwia określenie listy odcisków palców SHA1 (Secure Hash Algorithm 1) certyfikatów reprezentujących zaufanych wydawców plików protokołu Remote Desktop Protocol (plików rdp).
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Określ odciski palców certyfikatów reprezentujących zaufanych wydawców plików .rdp</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">To ustawienie zasad umożliwia określenie listy odcisków palca certyfikatów reprezentujących zaufanych wydawców plików protokołu Remote Desktop Protocol (.rdp). Obsługiwane są odciski palców SHA-256, SHA-384 i SHA-512. Odciski palca SHA-1 są przestarzałe: SHA-1 nie jest już uznawany za bezpieczny, a obsługa odcisków palców SHA-1 zostanie domyślnie wyłączona w nadchodzącej aktualizacji zabezpieczeń. Administratorzy powinni jak najszybciej przeprowadzić migrację wszystkich wpisów odcisków palców do algorytmu SHA-256 lub silniejszego.
 
-Jeżeli to ustawienie zasad zostanie włączone, każdy certyfikat o odcisku palca SHA1 zgodnym z odciskiem palca wymienionym na tej liście będzie uważany za zaufany. Jeżeli użytkownik podejmie próbę uruchomienia pliku rdp podpisanego przy użyciu certyfikatu zaufanego, nie zostanie wyświetlony żaden komunikat ostrzegawczy. Aby uzyskać odcisk palca, wyświetl szczegóły certyfikatu, a następnie kliknij pole Odcisk palca.
+Odciski palców mogą być poprzedzone algorytmem wyznaczania wartości skrótu używanym do ich tworzenia. Obsługiwane prefiksy to „sha256:”, „sha384:” i „sha512:” (bez uwzględniania wielkości liter). Na przykład: sha256:AB0356F2... Jeśli nie określono prefiksu, wpis jest traktowany jako starszy odcisk palca SHA-1.
 
-Jeżeli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, żaden dostawca nie będzie traktowany jako zaufany dostawca plików rdp.
+Jeśli pole wyboru „Nie zezwalaj na odciski palców SHA-1” jest włączone, wpisy bez prefiksu są ignorowane. Dopasowywane będą tylko odciski palca SHA-256, SHA-384 i SHA-512. Zdecydowanie zaleca się włączenie tego pola wyboru teraz, aby przygotować się na nadchodzącą zmianę domyślną.
+
+Jeśli włączysz to ustawienie zasad, każdy certyfikat, którego odcisk palca zgadza się z odciskiem palca na liście, jest uznawany za zaufany. Jeżeli użytkownik podejmie próbę uruchomienia pliku .rdp podpisanego przy użyciu certyfikatu zaufanego, nie zostanie wyświetlony żaden komunikat ostrzegawczy.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, żaden wydawca nie będzie traktowany jako zaufany wydawca .rdp.
 
 Uwagi:
 
-To ustawienie zasad można zdefiniować w węźle Konfiguracja komputera lub w węźle Konfiguracja użytkownika. Jeżeli to ustawienie zasad zostanie skonfigurowane dla komputera, lista odcisków palców certyfikatów, które będą uważane za zaufane w przypadku danego użytkownika, będzie kombinacją listy zdefiniowanej dla komputera oraz listy zdefiniowanej dla użytkownika.
+To ustawienie zasad możesz zdefiniować w węźle Konfiguracja komputera lub w węźle Konfiguracja użytkownika. Jeśli to ustawienie zasad zostanie skonfigurowane dla komputera, lista odcisków palców certyfikatów zaufanych dla użytkownika jest kombinacją listy zdefiniowanej dla komputera i listy zdefiniowanej dla użytkownika.
 
-To ustawienie zasad zastępuje zachowanie określone przez ustawienie zasad Zezwalaj na pliki rdp pochodzące od prawidłowych wydawców oraz na ustawienia domyślne plików rdp użytkownika.
+To ustawienie zasad zastępuje zachowanie ustawienia zasad „Zezwalaj na pliki .rdp od prawidłowych wydawców i domyślne ustawienia RDP użytkownika”.
 
-Jeżeli ta lista będzie zawierać ciąg niebędący odciskiem palca certyfikatu, ciąg ten zostanie zignorowany.
+Jeśli lista zawiera ciąg, który nie jest odciskiem palca certyfikatu, zostanie on zignorowany.
 
+Aby uzyskać więcej informacji, zobacz https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">To ustawienie zasad umożliwia określenie listy odcisków palców SHA1 (Secure Hash Algorithm 1) certyfikatów reprezentujących zaufanych wydawców plików protokołu Remote Desktop Protocol (plików rdp).
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">To ustawienie zasad umożliwia określenie listy odcisków palca certyfikatów reprezentujących zaufanych wydawców plików protokołu Remote Desktop Protocol (.rdp). Obsługiwane są odciski palców SHA-256, SHA-384 i SHA-512. Odciski palca SHA-1 są przestarzałe: SHA-1 nie jest już uznawany za bezpieczny, a obsługa odcisków palców SHA-1 zostanie domyślnie wyłączona w nadchodzącej aktualizacji zabezpieczeń. Użytkownicy powinni jak najszybciej przenieść wszystkie wpisy odcisków palców do algorytmu SHA-256 lub silniejszego.
 
-Jeżeli to ustawienie zasad zostanie włączone, każdy certyfikat o odcisku palca SHA1 zgodnym z odciskiem palca wymienionym na tej liście będzie uważany za zaufany. Jeżeli użytkownik podejmie próbę uruchomienia pliku rdp podpisanego przy użyciu certyfikatu zaufanego, nie zostanie wyświetlony żaden komunikat ostrzegawczy. Aby uzyskać odcisk palca, wyświetl szczegóły certyfikatu, a następnie kliknij pole Odcisk palca.
+Odciski palców mogą być poprzedzone algorytmem wyznaczania wartości skrótu używanym do ich tworzenia. Obsługiwane prefiksy to „sha256:”, „sha384:” i „sha512:” (bez uwzględniania wielkości liter). Na przykład: sha256:AB0356F2... Jeśli nie określono prefiksu, wpis jest traktowany jako starszy odcisk palca SHA-1.
 
-Jeżeli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, żaden dostawca nie będzie traktowany jako zaufany dostawca plików rdp.
+Jeśli włączysz to ustawienie zasad, każdy certyfikat, którego odcisk palca zgadza się z odciskiem palca na liście, jest uznawany za zaufany. Jeżeli użytkownik podejmie próbę uruchomienia pliku .rdp podpisanego przy użyciu certyfikatu zaufanego, nie zostanie wyświetlony żaden komunikat ostrzegawczy.
+
+Jeśli wyłączysz to ustawienie zasad lub go nie skonfigurujesz, żaden wydawca nie będzie traktowany jako zaufany wydawca .rdp.
 
 Uwaga:
 
-To ustawienie zasad można zdefiniować w węźle Konfiguracja komputera lub w węźle Konfiguracja użytkownika. Jeżeli to ustawienie zasad zostanie skonfigurowane dla komputera, lista odcisków palców certyfikatów, które będą uważane za zaufane w przypadku danego użytkownika, będzie kombinacją listy zdefiniowanej dla komputera oraz listy zdefiniowanej dla użytkownika.
+To ustawienie zasad możesz zdefiniować w węźle Konfiguracja komputera lub w węźle Konfiguracja użytkownika. Jeśli skonfigurujesz to ustawienie zasad dla komputera, lista odcisków palców certyfikatów zaufanych dla użytkownika będzie połączeniem listy zdefiniowanej dla komputera i listy zdefiniowanej dla użytkownika.
 
-To ustawienie zasad zastępuje zachowanie określone przez ustawienie zasad Zezwalaj na pliki rdp pochodzące od prawidłowych wydawców oraz na ustawienia domyślne plików rdp użytkownika.
+To ustawienie zasad zastępuje zachowanie ustawienia zasad „Zezwalaj na pliki .rdp od prawidłowych wydawców i domyślne ustawienia .rdp użytkownika”.
 
-Jeżeli ta lista będzie zawierać ciąg niebędący odciskiem palca certyfikatu, ciąg ten zostanie zignorowany.
+Jeśli lista zawiera ciąg, który nie jest odciskiem palca certyfikatu, zostanie on zignorowany.
 
+Aby uzyskać więcej informacji, zobacz https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">Monituj o poświadczenia na komputerze klienckim</string>
@@ -1018,6 +1140,14 @@ Jeśli to ustawienie zasad zostanie wyłączone, w programach RemoteApp opubliko
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">Włącz rozszerzone środowisko powłoki dla funkcji RemoteApp</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">To ustawienie zasad umożliwia używanie rozszerzonego środowiska powłoki dla sesji funkcji RemoteApp, oferując obsługę domyślnych skojarzeń plików, kluczy rejestru Run/RunOnce i nie tylko. To ustawienie zasad ma zastosowanie tylko do sesji funkcji RemoteApp i nie ma zastosowania do sesji funkcji Pulpitu zdalnego.
+
+Jeśli to ustawienie zasad zostanie włączone lub nie zostanie skonfigurowane, sesje funkcji RemoteApp na serwerach terminali będą miały rozszerzone środowisko powłoki.
+
+Jeśli to ustawienie zasad zostanie wyłączone, sesje funkcji RemoteApp nie będą miały rozszerzonego środowiska powłoki i będą korzystać ze starszego zachowania powłoki. Może to być konieczne w przypadku wystąpienia problemów ze zgodnością w opublikowanych programach funkcji RemoteApp.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1151,21 +1281,20 @@ Uwaga: programy RemoteApp zainstalowane za pomocą funkcji Połączenia program�
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">Wybierz protokoły transportowe RDP</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">To ustawienie zasad umożliwia określenie, które protokoły mogą być używane w celu uzyskania dostępu do tego serwera za pomocą protokołu RDP (Remote Desktop Protocol).
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">To ustawienie zasad umożliwia określenie, które protokoły mogą być używane na potrzeby dostępu Remote Desktop Protocol (RDP) do tego serwera.
 
-Jeżeli to ustawienie zasad zostanie włączone, należy określić, czy protokół RDP ma używać protokołu UDP.
+Jeśli to ustawienie zasad zostanie włączone, należy określić, czy protokół RDP ma używać protokołu UDP.
 
-Możesz wybrać jedną z następujących opcji: „Użyj protokołów UDP i TCP”, „Użyj tylko protokołu TCP” albo „Użyj protokołu UDP lub TCP (domyślne)” 
+Możesz wybrać jedną z następujących opcji: "Użyj protokołu UDP lub TCP (domyślnie)" lub "Użyj tylko protokołu TCP" 
 
-Jeśli wybierzesz opcję „Użyj protokołu UDP lub TCP” i połączenie UDP zostanie pomyślnie nawiązane, większość ruchu RDP będzie używać protokołu UDP.
+Wybranie opcji "Użyj protokołu UDP lub TCP" i pomyślne nawiązanie połączenia UDP spowoduje, że większość ruchu RDP będzie używać protokołu UDP.
 
-Jeżeli połączenie UDP nie zostanie pomyślnie nawiązane lub jeśli zostanie wybrana opcja „Użyj tylko protokołu TCP”, cały ruch RDP będzie używać protokołu TCP.
+Jeśli połączenie UDP nie powiedzie się lub zostanie wybrana opcja "Użyj tylko protokołu TCP", cały ruch RDP będzie używał protokołu TCP.
 
-Jeżeli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, protokół RDP wybierze optymalne protokoły zapewniające najlepszą obsługę użytkownika.
+Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, protokół RDP będzie wybierać optymalne protokoły zapewniające najlepsze środowisko użytkownika.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">Użyj protokołów UDP i TCP</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Użyj tylko protokołu TCP</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">Użyj protokołu UDP lub TCP</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Użyj tylko protokołu TCP</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Wybierz wykrywanie sieci na serwerze</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">To ustawienie zasad umożliwia określenie, w jaki sposób protokół Remote Desktop Protocol ma podejmować próby wykrycia jakości sieci (przepustowości i opóźnienia).
@@ -1344,12 +1473,13 @@ UWAGA: To ustawienie zasad umożliwia równoważenie obciążenia procesorów gr
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Rozdzielana przecinkami lista odcisków palców zaufanych certyfikatów SHA1:</label>
+          <label>Lista zaufanych odcisków palców certyfikatów rozdzielonych przecinkami (z prefiksem sha256:, sha384: lub sha512:):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">Nie zezwalaj na odciski palca SHA-1</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Rozdzielana przecinkami lista odcisków palców zaufanych certyfikatów SHA1:</label>
+          <label>Lista zaufanych odcisków palców certyfikatów rozdzielonych przecinkami (z prefiksem sha256:, sha384: lub sha512:):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1387,6 +1517,12 @@ UWAGA: To ustawienie zasad umożliwia równoważenie obciążenia procesorów gr
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Wybierz typ transportu</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Ogranicz transfer schowka z serwera do klienta:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Ogranicz transfer schowka od klienta na serwer:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -169,7 +169,7 @@
 若要查看标准“打开”对话框的示例，请启动“写字板”，并在“文件”菜单上单击“打开”。
 
 注意: 在 Windows Vista 中，此策略设置仅适用于使用 Windows XP 公共对话框样式的应用程序。此策略设置不适用于新的 Windows Vista 公共对话框样式。对于具有 Windows 2000 或更新版本证书的第三方应用程序，要求遵循此设置。</string>
-      <string id="NoFolderOptions">不允许从彩带的“视图”选项卡上的“选项”按钮中打开文件夹选项</string>
+      <string id="NoFolderOptions">不允许通过功能区的“视图”选项卡上的“选项”按钮打开“文件夹选项”</string>
       <string id="NoFolderOptions_Help">使用此策略设置，可以阻止用户通过文件资源管理器的功能区中的“视图”选项卡访问“文件夹选项”。
 
 使用“文件夹选项”，用户可以更改文件和文件夹的打开方式、导航窗格中的显示内容以及其他高级视图设置。
@@ -519,19 +519,33 @@
 如果禁用或未配置此策略设置，将不会显示使用远程路径的文件快捷方式图标。
 
 注意: 允许使用文件快捷方式图标中的远程路径会使用户的计算机面临安全风险。</string>
-      <string id="DefaultAssociationsConfiguration">设置默认关联配置文件</string>
-      <string id="DefaultAssociationsConfiguration_Help">此策略指定包含文件类型和协议默认应用程序关联的文件(例如，存储在本地或网络位置中的文件)的路径。可以使用 DISM 工具创建此文件。
+      <string id="AllowAllCopyFGDDestinations_DisplayName">允许文件组描述符操作写入任何目标路径</string>
+      <string id="AllowAllCopyFGDDestinations_Help">此策略设置可确定在写入通过剪贴板或拖放文件组描述符 (CFSTR_FILEDESCRIPTOR) 收到的文件时是否强制执行路径遍历包含检查。
 
-例如:
+如果启用此策略设置，则不会强制执行路径遍历包含检查，并且可以将文件写入到目标文件夹可以访问的任何路径。仅当默认行为中断所需的工作流时才启用此策略。
+
+如果禁用或未配置此策略设置，则文件组描述符操作将强制包含路径，并拒绝尝试通过相对路径组件从目标文件夹转义的文件名。</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">不要将 Web 标记标记应用于从不安全源复制的文件</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">此策略设置确定是否对来自不安全位置的文件应用 Web 标记。
+
+如果启用此策略设置，则不会使用 Web 标记来标记从不安全来源复制的文件。
+
+如果禁用或未配置此策略设置，则将使用相应的 Web 标记来标记从不安全来源复制的文件。
+
+注意: 未能使用 Web 标记标记来自不安全来源的文件可能会使用户的计算机面临安全风险。</string>
+      <string id="DefaultAssociationsConfiguration">设置默认关联配置文件</string>
+      <string id="DefaultAssociationsConfiguration_Help">此策略指定包含文件类型和协议默认应用程序关联的文件（存储在本地或网络位置）的路径。可以使用 DISM 工具创建此文件。
+     
+例如：
 Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-有关详细信息，请参阅 TechNet 上的 DISM 文档。
+有关详细信息，请参阅 DISM 文档。
 
-如果启用此组策略并且客户端计算机已加入到域中，则系统将在用户登录时处理文件并应用默认关联。
+创建文件后，可以进一步编辑该文件，以更改应用策略关联的频率。可以将“Version”属性添加到“DefaultAssociations”元素。该值应为整数。可以将“Suggested”属性添加到任何“Association”元素。该值应为布尔值，默认值为“false”。将策略应用于用户时，任何 Suggested="true" 的关联都将仅应用一次。如果版本值不断递增，则将重新应用 Suggested="true" 的关联。
 
-如果未配置此组策略或禁用此组策略，或者客户端计算机未加入到域中，则用户登录时将不会应用任何默认关联。
+如果启用此组策略且客户端计算机已加入域，则将处理该文件，并在登录时应用默认关联。
 
-不管是启用、禁用还是未配置此策略，用户都能够替代默认文件类型和协议关联。</string>
+如果启用该策略，用户仍可以替代默认文件类型和协议关联，但在下次登录时，将重新应用该文件。</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

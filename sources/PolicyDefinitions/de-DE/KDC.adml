@@ -43,18 +43,17 @@ Anforderungen der Domänenfunktionsebene
 Wenn die Domänenfunktionsebene auf Windows Server 2008 R2 oder eine frühere Version festgelegt wird, verhalten sich Domänencontroller bei den Optionen "Immer Ansprüche liefern" und "Ungeschützte Authentifizierungsanfragen ablehnen", als wäre die Option "Unterstützt" ausgewählt. 
 
 Wenn Sie die Domänenfunktionsebene auf Windows Server 2012 festlegen, teilt der Domänencontroller den Kerberos-Clientcomputern mit, dass von der Domäne Ansprüche, Verbundauthentifizierung für die dynamische Zugriffssteuerung und Kerberos-Schutz unterstützt wird. Außerdem gilt Folgendes:
-   - Falls Sie die Option "Immer Ansprüche liefern" festlegen, werden immer Ansprüche für Konten zurückgegeben, und das RFC-Verhalten für die Ankündigung der flexiblen Authentifizierung über Secure Tunneling (FAST) wird unterstützt.
-   - Wenn Sie die Option "Ungeschützte Authentifizierungsanfragen ablehnen" aktivieren, werden ungeschützte Kerberos-Meldungen abgelehnt.
+  – Falls Sie die Option "Immer Ansprüche liefern" festlegen, werden immer Ansprüche für Konten zurückgegeben, und das RFC-Verhalten für die Ankündigung der flexiblen Authentifizierung über Secure Tunneling (FAST) wird unterstützt.
+  – Wenn Sie die Option "Ungeschützte Authentifizierungsanfragen ablehnen" aktivieren, werden ungeschützte Kerberos-Meldungen abgelehnt.
 
 Warnung: Wenn "Ungeschützte Authentifizierungsanfragen ablehnen" aktiviert ist, können sich Clientcomputer, die den Kerberos-Schutz nicht unterstützen, nicht am Domänencontroller authentifizieren.
 
 Damit dieses Feature wirksam ist, muss eine ausreichende Anzahl an Domänencontrollern bereitgestellt werden, von denen Ansprüche, Verbundauthentifizierung und Kerberos-Schutz unterstützt werden, um die Authentifizierungsanforderungen zu verarbeiten. Wenn zu wenig Domänencontroller vorhanden sind, die diese Richtlinie unterstützen, führt dies zu Authentifizierungsfehlern, sobald DAC oder der Kerberos-Schutz benötigt wird (d. h. die Option "Unterstützt" ist deaktiviert).
 
 Auswirkung auf die Domänencontrollerleistung, wenn diese Richtlinieneinstellung aktiviert ist:
-   - Das sichere Festellen der Kerberos-Domänenfunktion ist erforderlich und führt zum Austausch zusätzlicher Meldungen.
-   - Ansprüche und Verbundauthentifizierung für die dynamische Zugriffssteuerung erhöhen die Größe und Komplexität der in der Meldung enthaltenen Daten, was die Verarbeitungszeit verlängert und das Kerberos-Dienstticket vergrößert.
-   - Kerberos-Meldungen werden vom Kerberos-Schutz vollständig verschlüsselt und Kerberos-Fehler signiert. Dies führt zu einer längeren Verarbeitungszeit, dadurch wird jedoch nicht die Größe des Diensttickets verändert.
-
+  – Das sichere Festellen der Kerberos-Domänenfunktion ist erforderlich und führt zum Austausch zusätzlicher Meldungen.
+  – Ansprüche und Verbundauthentifizierung für die dynamische Zugriffssteuerung erhöhen die Größe und Komplexität der in der Meldung enthaltenen Daten, was die Verarbeitungszeit verlängert und das Kerberos-Dienstticket vergrößert.
+   – Kerberos-Meldungen werden vom Kerberos-Schutz vollständig verschlüsselt und Kerberos-Fehler signiert. Dies führt zu einer längeren Verarbeitungszeit, dadurch wird jedoch nicht die Größe des Diensttickets verändert.
 </string>
       <string id="NoCbacAndArmor">Nicht unterstützt</string>
       <string id="MixModeCbacAndArmor">Unterstützt</string>
@@ -94,6 +93,47 @@ Wenn Sie die Richtlinieneinstellung deaktivieren oder nicht konfigurieren, biete
       <string id="NoPKINITFreshness">Deaktiviert</string>
       <string id="SupportPKINITFreshness">Unterstützt</string>
       <string id="RequirePKINITFreshness">Erforderlich</string>
+      <string id="PKINITHashAlgorithmConfiguration">Hashalgorithmen für die Zertifikatanmeldung konfigurieren</string>
+      <string id="PKINITHashAlgorithmConfiguration_explain">Diese Richtlinieneinstellung steuert Hash- oder Prüfsummenalgorithmen, die vom Kerberos-Client beim Ausführen der Zertifikatauthentifizierung verwendet werden.
+
+Wenn Sie diese Richtlinie aktivieren, können Sie einen von vier Zuständen für jeden Algorithmus konfigurieren:
+
+"Standard" legt den Algorithmus auf den empfohlenen Zustand fest.
+
+"Unterstützt" aktiviert die Verwendung des Algorithmus. Das Aktivieren von Algorithmen, die standardmäßig deaktiviert wurden, kann die Sicherheit verringern.
+
+"Überwacht" aktiviert die Verwendung des Algorithmus und meldet bei jeder Verwendung ein Ereignis (ID 309). Mit diesem Status soll überprüft werden, ob der Algorithmus nicht verwendet wird und sicher deaktiviert werden kann.
+
+"Nicht unterstützt" deaktiviert die Verwendung des Algorithmus. Dieser Zustand ist für Algorithmen vorgesehen, die als unsicher eingestuft werden.
+
+Wenn Sie diese Richtlinie deaktivieren oder nicht konfigurieren, nimmt jeder Algorithmus den Status "Standard" an.
+Weitere Informationen zu den vom Windows Kerberos-Client unterstützten Hash- und Prüfsummenalgorithmen sowie deren Standardstatus finden Sie unter https://go.microsoft.com/fwlink/?linkid=2169037. 
+
+Von dieser Konfiguration generierte Ereignisse: 309, 310.
+</string>
+      <string id="PKINITHashAlgorithm_Default">Standard</string>
+      <string id="PKINITHashAlgorithm_Supported">Unterstützt</string>
+      <string id="PKINITHashAlgorithm_Audited">Überwacht</string>
+      <string id="PKINITHashAlgorithm_NotSupported">Nicht unterstützt</string>
+      <string id="StrongNameMatches">Namensbasierte starke Zuordnungen für Zertifikate zulassen</string>
+      <string id="StrongNameMatches_explain">Diese Richtlinieneinstellung ermöglicht die Verwendung alternativer, namensbasierter Bezeichner, um Zertifikate fest zuzuordnen, die für Active Directory-Benutzerkonten ausgestellt wurden, und legt fest, welche Zertifikate welchen Konten zugeordnet werden. Wenn diese Einstellung nicht aktiviert ist, müssen Zertifikate die in aka.ms/StrongCertMapKB angegebenen Kriterien für die „starke Zuordnung“ erfüllen, die im Allgemeinen keine namensbasierten Identifikatoren zulassen.
+
+Jede in dieser Richtlinie angegebene Zuordnung muss eine Richtlinien-OID zusammen mit einem IssuerSubject und/oder einem UPN-Suffix in der unten angegebenen Syntax enthalten. Wenn in dieser Richtlinie keine gültige Zuordnung für ein bestimmtes Zertifikat gefunden wird, versucht Active Directory, anhand der vorhandenen starken Zuordnungskriterien, die in KB5014754 angegeben sind, eine Übereinstimmung zu finden. Zertifikatszuordnungen, die weder den Kriterien der „starken Namenszuordnung“ (diese Richtlinie) noch den bestehenden Kriterien der „starken Zuordnung“ entsprechen, werden für die Authentifizierung als ungültig betrachtet.
+
+Das allgemeine Richtlinienformat und einige Beispiele sind unten aufgeführt. Diese Richtlinie gilt nur für Active Directory-Benutzerkonten.
+
+Allgemeine Syntax
+==============
+&lt;thumbprint&gt;; &lt;list of oids&gt;; &lt;name-match methods&gt;
+
+Beispiele
+==============
+IssuerThumbprint1; oid1, oid2, oid3; UpnSuffix=domain.com
+IssuerThumbprint2; oid1; UpnSuffix=domain.com, UpnSuffix=other.domain.com, IssuerSubject
+IssuerThumbprint3; oid1, oid2; IssuerSubject
+
+Die Richtlinie muss genau einen Zertifikatfingerabdruck pro Regel enthalten, wobei jede Regel als Tupel dargestellt wird. Fingerabdrücke müssen eindeutig sein und dürfen nicht in mehreren Regeln wiederholt werden. Die Abschnitte jedes Tupels, die durch Semikolons getrennt sind, müssen in der angegebenen Reihenfolge stehen, während die durch Kommas getrennten Felder in beliebiger Reihenfolge stehen können. Die Regeln selbst werden durch Zeilenumbrüche getrennt.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="emitlili">
@@ -121,6 +161,15 @@ Wenn Sie die Richtlinieneinstellung deaktivieren oder nicht konfigurieren, biete
       </presentation>
       <presentation id="PKINITFreshness">
         <dropdownList refId="PKINITFreshness_Levels" noSort="true" defaultItem="1">PKInit Freshness Extension-Optionen:</dropdownList>
+      </presentation>
+      <presentation id="PKINITHashAlgorithmConfiguration">
+        <dropdownList refId="PKINITHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
+      </presentation>
+      <presentation id="StrongNameMatches">
+          <multiTextBox refId="StrongNameMatchesList">Übereinstimmungsregeln für starke Namen:</multiTextBox>
       </presentation>
     </presentationTable>
   </resources>

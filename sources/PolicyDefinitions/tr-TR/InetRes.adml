@@ -270,7 +270,7 @@ Bu ilke ayarını etkinleştirirseniz kullanıcı ayarlarına bakılmaksızın a
 
 Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız varsayılan Açılır Pencere Engelleyicisi özel durum listesi sağlayamazsınız.
 
-Not: "Açılır Pencere İzinli Listesini Yönetmeyi Kapat" ilkesini etkinleştirerek, kullanıcıların özel durum listesine Web siteleri eklemesini veya listeden kaldırmasını devre dışı bırakabilirsiniz.</string>
+Not: "Açılır Pencere İzin Verilenler Listesini Yönetmeyi Kapat" ilkesini etkinleştirerek, kullanıcıların özel durum listesine Web siteleri eklemesini veya listeden kaldırmasını devre dışı bırakabilirsiniz.</string>
       <string id="ExplainScriptPaste_AllProcs_Explain">Bu ilke ayarı, bilgisayardaki herhangi bir işlemde çalışan bir betik Pano işlemi (silme, kopyalama veya yapıştırma) yapma girişiminde bulunduğunda, kullanıcıya sorma aşamasını atlamanıza olanak tanır.
 
 Bu ilke ayarını etkinleştirirseniz bilgisayardaki herhangi bir işlemde çalışan bir betik Pano işlemi yaparken kullanıcıya sorulmaz. Bu, şu anda bölge davranışı sorulacak biçimde ayarlanmışsa, bunun atlanacağı ve etkinleştirileceği anlamına gelir.
@@ -355,7 +355,7 @@ Bu ilke ayarını devre dışı bırakırsanız, Internet Bağlantı Sihirbazı 
 
 Bu ilke ayarını yapılandırmazsanız kullanıcı Internet Bağlantı Sihirbazı'nın otomatik olarak başlatılmasının gerekip gerekmediğine karar verebilir.</string>
       <string id="ICWSettings">Internet Bağlantı Sihirbazı Ayarları</string>
-      <string id="Identities">Kimlik Yöneticisi: Kullanıcıların Kimlik kullanmalarını engelle</string>
+      <string id="Identities">Identity Manager: Kullanıcıların Kimlik kullanmalarını engelle</string>
       <string id="IDN_Always">Her zaman IDN biçimine dönüştür</string>
       <string id="IDN_Intranet">İntranet adreslerini IDN biçimine dönüştür</string>
       <string id="IDN_Never">IDN biçimine hiçbir zaman dönüştürme</string>
@@ -415,17 +415,17 @@ Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kulla
 
 Bu ilke ayarını etkinleştirirseniz kullanıcıya kimlik avı filtresinin etkinleştirilip etkinleştirilmeyeceği sorulmaz. Kimlik avı filtresinin hangi modu kullanacağını belirtmelisiniz: el ile, otomatik veya kapalı.
 
-El ile modunu seçerseniz, kimlik avı filtresi yalnızca yerel çözümleme gerçekleştirir ve Microsoft'a gönderilecek her türlü veri için kullanıcıdan izin vermesi istenir. Özellik tam olarak etkinleştirilirse filtrenin izin listesinde bulunmayan tüm web sitesi adresleri kullanıcıya sorulmadan otomatik olarak Microsoft'a gönderilir.
+El ile modunu seçerseniz, kimlik avı filtresi yalnızca yerel çözümleme gerçekleştirir ve Microsoft'a gönderilecek her türlü veri için kullanıcıdan izin vermesi istenir. Özellik tam olarak etkinleştirilirse filtrenin izin verilenler listesinde bulunmayan tüm web sitesi adresleri kullanıcıya sorulmadan otomatik olarak Microsoft'a gönderilir.
 
 Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kullanıcıdan kimlik avı filtresi için işlem moduna karar vermesi istenir.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter">Bu ilke ayarı kullanıcının, "kimlik avı" aracılığıyla kişisel bilgiler toplamak için hileli girişimlerde bulunduğu veya kötü amaçlı yazılım barındırdığı bilinen bir web sitesi ziyaret edildiğinde kullanıcıyı uyaran SmartScreen Filtresi'ni etkinleştirmesine olanak tanır.
 
-Bu ilke ayarını etkinleştirirseniz kullanıcıdan SmartScreen Filtresi'ni açması istenmez. SmartScreen Filtresi'nin hangi modu kullanacağını belirtmelisiniz: açık veya kapalı. Filtrenin izin listesinde bulunmayan tüm web sitesi adresleri kullanıcıya sorulmadan otomatik olarak Microsoft'a gönderilir.
+Bu ilke ayarını etkinleştirirseniz kullanıcıdan SmartScreen Filtresi'ni açması istenmez. SmartScreen Filtresi'nin hangi modu kullanacağını belirtmelisiniz: açık veya kapalı. Filtrenin izin verilenler listesinde bulunmayan tüm web sitesi adresleri kullanıcıya sorulmadan otomatik olarak Microsoft'a gönderilir.
 
 Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız ilk çalıştırma deneyiminde kullanıcıdan SmartScreen Filtresi'nin açılıp açılmayacağına karar vermesi istenir.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter_IE9">Bu ilke ayarı kullanıcının, "kimlik avı" aracılığıyla kişisel bilgiler toplamak için hileli girişimlerde bulunduğu veya kötü amaçlı yazılım barındırdığı bilinen bir web sitesi ziyaret edildiğinde kullanıcıyı uyaran SmartScreen Filtresi'ni yönetmesini engeller.
 
-Bu ilke ayarını etkinleştirirseniz kullanıcıdan SmartScreen Filtresi'ni açması istenmez. Filtrenin izin listesinde bulunmayan tüm web sitesi adresleri kullanıcıya sorulmadan otomatik olarak Microsoft'a gönderilir.
+Bu ilke ayarını etkinleştirirseniz kullanıcıdan SmartScreen Filtresi'ni açması istenmez. Filtrenin izin verilenler listesinde bulunmayan tüm web sitesi adresleri kullanıcıya sorulmadan otomatik olarak Microsoft'a gönderilir.
 
 Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız ilk çalıştırma deneyiminde kullanıcıdan SmartScreen Filtresi'nin açılıp açılmayacağına karar vermesi istenir.</string>
       <string id="IE_Explain_DisableSecuritySettingsCheck">Bu ilke ayarı, ayarların Internet Explorer'ı ne zaman riske soktuğunu belirlemek için Internet Explorer güvenlik ayarlarını denetleyen Güvenlik Ayarları Denetimi özelliğini kapatır.
@@ -805,9 +805,9 @@ Dikkat: Bu ilkeyi etkinleştirmek, Netscape kullanıcılarına yönelik ipuçlar
 Bu ilkeyi etkinleştirirseniz Günün İpucu komutu Yardım menüsünden kaldırılır.
 
 Bu ilkeyi devre dışı bırakır veya yapılandırmazsanız kullanıcılar tarayıcının altında görünen Günün İpucu'nu etkinleştirebilir veya devre dışı bırakabilir.</string>
-      <string id="IE_ExplainIdentities">Kullanıcıların Kimlik Yöneticisi'ni kullanarak benzersiz kimlikler yapılandırmalarını engeller.
+      <string id="IE_ExplainIdentities">Kullanıcıların Identity Manager’ı kullanarak benzersiz kimlikler yapılandırmalarını engeller.
 
-Kimlik Yöneticisi, kullanıcıların aynı bilgisayarda birden fazla hesap, örneğin e-posta hesapları oluşturmalarını sağlar. Her kullanıcının farklı bir parolası ve program tercihleri olan benzersiz bir kimliği vardır.
+Identity Manager, kullanıcıların aynı bilgisayarda birden fazla hesap, örneğin e-posta hesapları oluşturmalarını sağlar. Her kullanıcının farklı bir parolası ve program tercihleri olan benzersiz bir kimliği vardır.
 
 Bu kuralı etkinleştirirseniz kullanıcılar yeni kimlikler oluşturamaz, var olanları yönetemez ve kimlik değiştiremez. Kimlik Değiştir seçeneği Adres Defteri'ndeki Dosya menüsünden kaldırılır.
 
@@ -884,13 +884,13 @@ Bu ilkeyi yapılandırmaz veya devre dışı bırakırsanız, bu denetim yöneti
 
 Yönetici onaylı denetimlerin her güvenlik bölgesinde nasıl işleneceğini belirtmek için aşağıdaki adımları izleyin:
 
-1. Grup İlkesi'nde, sırasıyla Kullanıcı Yapılandırması'nı, Internet Explorer Bakımı'nı ve ardından Güvenlik'i tıklatın.
+1. Grup İlkesi'nde, sırasıyla Kullanıcı Yapılandırması'na, Internet Explorer Bakımı'na ve ardından Güvenlik'e tıklayın.
 
-2. Güvenlik Bölgeleri ve İçerik Derecelendirmeleri'ni çift tıklatın, Geçerli Güvenlik Bölgesi Ayarlarını Al'ı tıklatın ve sonra da Ayarları Değiştir'i tıklatın.
+2. Güvenlik Bölgeleri ve İçerik Derecelendirmeleri'ne çift tıklayın, Geçerli Güvenlik Bölgesi Ayarlarını Al'a tıklayın ve sonra da Ayarları Değiştir'e tıklayın.
 
-3. ActiveX denetimlerini yönetmek istediğiniz içerik bölgesini seçin ve Özel Düzey'i tıklatın.
+3. ActiveX denetimlerini yönetmek istediğiniz içerik bölgesini seçin ve Özel Düzey'e tıklayın.
 
-4. ActiveX Denetimlerini ve Eklentilerini Çalıştır bölgesinde Yönetici Onaylı'yı tıklatın.</string>
+4. ActiveX Denetimlerini ve Eklentilerini Çalıştır bölgesinde Yönetici Onaylı'ya tıklayın.</string>
       <string id="IE_ExplainMSNBC">MSNBC denetimleri kümesini yönetici onaylı olarak belirtir.
 
 Bu denetimler MSNBC Web sitesinde gelişmiş haber tarama özellikleri sunar.
@@ -1345,7 +1345,7 @@ Bu ilke ayarını etkinleştirirseniz kullanıcı özel durum listesine web site
 
 Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kullanıcı özel durum listesine web sitesi ekleyebilir veya bu listeden web sitesi kaldırabilir.
 
-Not: "Açılır pencere izin listesini belirt" ilke ayarını etkinleştirerek, Internet Explorer işleminin Açılır Pencere Engelleyicisi ayarlarına bakılmaksızın açılır pencerelerin açılmasına izin verilen siteleri içeren bir varsayılan site listesi oluşturabilirsiniz.</string>
+Not: "Açılır pencere izin verilenler listesini belirt" ilke ayarını etkinleştirerek, Internet Explorer işleminin Açılır Pencere Engelleyicisi ayarlarına bakılmaksızın açılır pencerelerin açılmasına izin verilen siteleri içeren bir varsayılan site listesi oluşturabilirsiniz.</string>
       <string id="IE_ExplainRestrictPopupManagement">Bu ilke ayarı, Internet Explorer'daki açılır pencere yönetimini işlevini yönetmenizi sağlar.
 
 Bu ilke ayarını etkinleştirirseniz Denetim Masası'ndaki açılır pencere yönetimine ait bilgi kullanılamaz (grileşecek) ve diğer tüm açılır pencere yönetim denetimleri, bilgilendirmeleri ve iletişim kutuları görünmez. Pencere açılış ekranı, ekran üzerinde farklı konumlandırılmaya devam edeceği halde, açılır pencereler Windows XP Service Pack 1 veya daha önceki sürümlerdeki gibi çalışmaya devam eder
@@ -2037,16 +2037,16 @@ Bu ilke ayarını devre dışı bırakırsanız, kullanıcı her site için Acti
 Bu ilke ayarını etkinleştirirseniz, TDC ActiveX denetimi bu bölgedeki web sitelerinden çalışmaz.
 
 Bu ilke ayarını devre dışı bırakırsanız, TDC Active X denetimi bu bölgedeki tüm sitelerden çalışır.</string>
-      <string id="IZ_Policy_AllowDynsrcPlayback">Eski bir medya yürütücü kullanan bir web sayfasında video ve animasyona izin ver</string>
-      <string id="IZ_Policy_AllowDynsrcPlayback_Explain">Bu ilke ayarı, belirtilen bölgelerde eski medya yürütücüleriyle video ve animasyon yürütülmesine olanak tanır. Nesne etiketiyle kayıttan video ve animasyon yürütmeye yine izin verilebilir, çünkü bu işlem dış denetimler veya medya yürütücüleri gerektirir.
+      <string id="IZ_Policy_AllowDynsrcPlayback">Eski bir medya oynatıcı kullanan bir web sayfasında video ve animasyona izin ver</string>
+      <string id="IZ_Policy_AllowDynsrcPlayback_Explain">Bu ilke ayarı, belirtilen bölgelerde eski medya yürütücüleriyle video ve animasyon yürütülmesine olanak tanır. Nesne etiketiyle kayıttan video ve animasyon yürütmeye yine izin verilebilir, çünkü bu işlem dış denetimler veya medya oynatıcılar gerektirir.
 
-Img etiketindeki dynsrc özniteliği, eski bir medya yürütücü belirtir. Ayrıca, Internet Explorer 8'den itibaren, bu ilke ayarı ses ve video dosyalarına başvuran HTML+TIME medya öğelerini denetler.
+Img etiketindeki dynsrc özniteliği, eski bir medya oynatıcı belirtir. Ayrıca, Internet Explorer 8'den itibaren, bu ilke ayarı ses ve video dosyalarına başvuran HTML+TIME medya öğelerini denetler.
 
-Bu ilke ayarını etkinleştirirseniz video ve animasyon belirtilen bölgelerde eski medya yürütücülerle yürütülebilir.
+Bu ilke ayarını etkinleştirirseniz video ve animasyon belirtilen bölgelerde eski medya oynatıcılarla yürütülebilir.
 
-Bu ilke ayarını devre dışı bırakırsanız, video ve animasyon eski medya yürütücüler tarafından yürütülemez.
+Bu ilke ayarını devre dışı bırakırsanız, video ve animasyon eski medya oynatıcılar tarafından yürütülemez.
 
-Bu ilke ayarını yapılandırmazsanız video ve animasyon belirtilen bölgelerde eski medya yürütücülerle yürütülebilir.</string>
+Bu ilke ayarını yapılandırmazsanız video ve animasyon belirtilen bölgelerde eski medya oynatıcılarla yürütülebilir.</string>
       <string id="IZ_Policy_AllowScriptlets">Kod parçacıklarına izin ver</string>
       <string id="IZ_Policy_AllowScriptlets_Explain">Bu ilke ayarı, kullanıcının kod parçacıklarını çalıştırıp çalıştıramayacağını yönetmenize olanak tanır.
 
@@ -3014,7 +3014,7 @@ Bu özellik, Internet Explorer'ın yalnızca Internet Explorer 8 ve daha önceki
       <string id="Persistence_FileLimits4">Yasak Siteler bölgesi için dosya boyut sınırları</string>
       <string id="PhishingOff">Kapalı</string>
       <string id="PhishingOn">Açık</string>
-      <string id="PopupBlocker_AllowList">Açılır pencere izinli listesi</string>
+      <string id="PopupBlocker_AllowList">Açılır pencere izin verilenler listesi</string>
       <string id="Printing">Yazdırılıyor</string>
       <string id="Printing_Explain">Bu ilke ayarı, kullanıcı bir web sayfasını yazdırdığında Internet Explorer'ın arka plan renklerini ve resimlerini yazdırıp yazdırmayacağını belirtir. Arka plan renklerinin ve resimlerinin eklenmesi, yazıcının yeteneklerine bağlı olarak sayfanın yazdırma hızını ve kalitesini düşürebilir.
 
@@ -3574,37 +3574,42 @@ Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız Inte
 
 Not: Bu ilke, Windows 10 Sürüm 1607 itibarıyla desteklenmemektedir.</string>
       <string id="Protocols_None">Güvenli protokol kullanma</string>
-      <string id="Protocols_SSL2">Yalnızca SSL 2.0 kullan</string>
+      <string id="Protocols_SSL2">[Kullanımdan kaldırıldı] Yalnızca SSL 2.0 kullan</string>
       <string id="Protocols_SSL3">Yalnızca SSL 3.0 kullan</string>
-      <string id="Protocols_SSL2_SSL3">SSL 2.0 ve SSL 3.0 kullan</string>
+      <string id="Protocols_SSL2_SSL3">[Artık Kullanılmıyor] SSL 2.0 ve SSL 3.0 kullan</string>
       <string id="Protocols_TLS10">Yalnızca TLS 1.0 kullan</string>
-      <string id="Protocols_SSL2_TLS10">SSL 2.0 ve TLS 1.0 kullan</string>
+      <string id="Protocols_SSL2_TLS10">[Artık Kullanılmıyor] SSL 2.0 ve TLS 1.0 kullan</string>
       <string id="Protocols_SSL3_TLS10">SSL 3.0 ve TLS 1.0 kullan</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">SSL 2.0, SSL 3.0 ve TLS 1.0 kullan</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[Artık Kullanılmıyor] SSL 2.0, SSL 3.0 ve TLS 1.0 kullan</string>
       <string id="Protocols_TLS11">Yalnızca TLS 1.1 kullan</string>
-      <string id="Protocols_SSL2_TLS11">SSL 2.0 ve TLS 1.1 kullan</string>
+      <string id="Protocols_SSL2_TLS11">[Artık Kullanılmıyor] SSL 2.0 ve TLS 1.1 kullan</string>
       <string id="Protocols_SSL3_TLS11">SSL 3.0 ve TLS 1.1 kullan</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">SSL 2.0, SSL 3.0 ve TLS 1.1 kullan</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[Artık Kullanılmıyor] SSL 2.0, SSL 3.0 ve TLS 1.1 kullan</string>
       <string id="Protocols_TLS10_TLS11">TLS 1.0 ve TLS 1.1 kullan</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">SSL 2.0, TLS 1.0 ve TLS 1.1 kullan</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[Artık Kullanılmıyor] SSL 2.0, TLS 1.0 ve TLS 1.1 kullan</string>
       <string id="Protocols_SSL3_TLS10_TLS11">SSL 3.0, TLS 1.0 ve TLS 1.1 kullan</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">SSL 2.0, SSL 3.0, TLS 1.0 ve TLS 1.1 kullan</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[Artık Kullanılmıyor] SSL 2.0, SSL 3.0, TLS 1.0 ve TLS 1.1 kullan</string>
       <string id="Protocols_TLS12">Yalnızca TLS 1.2 kullan</string>
-      <string id="Protocols_SSL2_TLS12">SSL 2.0 ve TLS 1.2 kullan</string>
+      <string id="Protocols_SSL2_TLS12">[Artık Kullanılmıyor] SSL 2.0 ve TLS 1.2 kullan</string>
       <string id="Protocols_SSL3_TLS12">SSL 3.0 ve TLS 1.2 kullan</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">SSL 2.0, SSL 3.0 ve TLS 1.2 kullan</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[Artık Kullanılmıyor] SSL 2.0, SSL 3.0 ve TLS 1.2 kullan</string>
       <string id="Protocols_TLS10_TLS12">TLS 1.0 ve TLS 1.2 kullan</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">SSL 2.0, TLS 1.0 ve TLS 1.2 kullan</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[Artık Kullanılmıyor] SSL 2.0, TLS 1.0 ve TLS 1.2 kullan</string>
       <string id="Protocols_SSL3_TLS10_TLS12">SSL 3.0, TLS 1.0 ve TLS 1.2 kullan</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">SSL 2.0, SSL 3.0, TLS 1.0 ve TLS 1.2 kullan</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[Artık Kullanılmıyor] SSL 2.0, SSL 3.0, TLS 1.0 ve TLS 1.2 kullan</string>
       <string id="Protocols_TLS11_TLS12">TLS 1.1 ve TLS 1.2 kullan</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">SSL 2.0, TLS 1.1 ve TLS 1.2 kullan</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[Artık Kullanılmıyor] SSL 2.0, TLS 1.1 ve TLS 1.2 kullan</string>
       <string id="Protocols_SSL3_TLS11_TLS12">SSL 3.0, TLS 1.1 ve TLS 1.2 kullan</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">SSL 2.0, SSL 3.0, TLS 1.1 ve TLS 1.2 kullan</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[Artık Kullanılmıyor] SSL 2.0, SSL 3.0, TLS 1.1 ve TLS 1.2 kullan</string>
       <string id="Protocols_TLS10_TLS11_TLS12">TLS 1.0, TLS 1.1 ve TLS 1.2 kullan</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">SSL 2.0, TLS 1.0, TLS 1.1 ve TLS 1.2 kullan</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[Artık Kullanılmıyor] SSL 2.0, TLS 1.0, TLS 1.1 ve TLS 1.2 kullan</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">SSL 3.0, TLS 1.0, TLS 1.1 ve TLS 1.2 kullan</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 ve TLS 1.2 kullan</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[Artık Kullanılmıyor] SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 ve TLS 1.2 kullan</string>
+      <string id="Protocols_TLS13">Yalnızca TLS 1.3 kullan</string>
+      <string id="Protocols_TLS12_TLS13">TLS 1.2 ve TLS 1.3 kullan</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">TLS 1.1, TLS 1.2 ve TLS 1.3 kullan</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">TLS 1.0, TLS 1.1, TLS 1.2 ve TLS 1.3 kullan</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">SSL 3.0, TLS 1.0, TLS 1.1, TLS 1.2 ve TLS 1.3 kullan</string>
       <string id="LockToolbars">Tüm araç çubuklarını kilitle</string>
       <string id="MoveStopRefresh">Durdur ve Yenile düğmelerinin konumunu kilitle</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3903,7 +3908,7 @@ Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, kull
 Bu ayarı açarsanız, kullanıcılar Araçlar menüsünde Kuruluş Modu seçeneğini görebilir ve kullanabilir. Bu ayarı açar ancak rapor konumu belirtmezseniz, kullanıcılar yine Kuruluş Modu'nu kullanabilir ancak siz hiçbir ileti almazsınız.
 
 Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, menü seçeneği gösterilmez ve kullanıcılar web sitelerini Kuruluş Modu'nda çalıştıramaz.</string>
-      <string id="RestrictInternetExplorer">Kurumsal Mod Site Listesi'nde yer almayan tüm siteleri Microsoft Edge'e gönder.</string>
+      <string id="RestrictInternetExplorer">Kurumsal Mod Site Listesi'nde yer almayan tüm siteleri Microsoft Edge'e gönder</string>
       <string id="IE_ExplainRestrictInternetExplorer">Bu ayar, Kurumsal Mod Site Listesi'nde yer almayan tüm sitelerin Microsoft Edge'de açılıp açılamayacağına karar vermenizi sağlar. Bu ayarı kullanırsanız, Yönetim Şablonları\Windows Bileşenleri\Internet Explorer\Kurumsal Mod IE web site listesini kullan ilke ayarını da açık hale getirmeniz ve Kurumsal Mod Site Listesi'ne en az bir site eklemeniz gerekir.
 
 Bu ayarı etkinleştirirseniz, Kurumsal Mod Site Liste'sinde yer almayan tüm siteler otomatik olarak Microsoft Edge'de açılır.
@@ -3917,6 +3922,120 @@ Not: Yönetim Şablonları\Windows Bileşenleri\Internet Explorer\Microsoft Edge
 Bu ayarı etkinleştirirseniz, çalışanlar Internet Explorer 11’de, Microsoft Edge Kuruluş Modu kullanılarak bir sitenin açıldığını bildiren ek bir sayfa görürler.
 
 Bu ayarı devre dışı bırakır veya yapılandırmazsanız, varsayılan uygulama davranışı gerçekleşir ve hiçbir ek sayfa görünmez.</string>
+      <string id="NeedEdgeBrowser">Yeniden yönlendirilen siteleri açmak için hangi Microsoft Edge kanalının kullanılacağını yapılandırın</string>
+      <string id="IE_ExplainNeedEdgeBrowser">Yeniden yönlendirilen bir siteyi açmak üzere en fazla üç Microsoft Edge sürümünü (tercih sırasına göre) yapılandırmanızı sağlar. Ortamınız siteleri Internet Explorer 11'den Microsoft Edge'e yeniden yönlendirecek şekilde yapılandırılmışsa bu ilkeyi kullanın. Seçili sürümlerden herhangi biri cihazınızda yüklü değilse bu tercih atlanır.
+
+Hem sonraki Microsoft Edge* sürümü için Windows Update hem de Microsoft Edge Kararlı kanalı yüklüyse aşağıdaki davranışlar gerçekleşir:
+- Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız Microsoft Edge Kararlı kanalı kullanılır. Bu varsayılan davranıştır.
+- Bu ilkeyi etkinleştirirseniz yeniden yönlendirilen siteleri, aşağıdaki kanalların en fazla üçünde açılacak şekilde yapılandırabilirsiniz:
+    1 = Microsoft Edge Kararlı
+    2 = Microsoft Edge Beta sürüm 77 veya sonrası
+    3 = Microsoft Edge Dev sürüm 77 veya sonrası
+    4 = Microsoft Edge Canary sürüm 77 veya sonrası
+
+Sonraki Microsoft Edge* sürümü için Windows Update veya Microsoft Edge Stable kanalı yüklü değilse aşağıdaki davranışlar gerçekleşir:
+- Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız Microsoft Edge sürüm 45 veya önceki sürümleri otomatik olarak kullanılır. Bu varsayılan davranıştır.
+- Bu ilkeyi etkinleştirirseniz yeniden yönlendirilen siteleri, aşağıdaki kanalların en fazla üçünde açılacak şekilde yapılandırabilirsiniz:
+    0 = Microsoft Edge sürüm 45 veya öncesi
+    1 = Microsoft Edge Kararlı
+    2 = Microsoft Edge Beta sürüm 77 veya sonrası
+    3 = Microsoft Edge Dev sürüm 77 veya sonrası
+    4 = Microsoft Edge Canary sürüm 77 veya sonrası
+
+*Sonraki Microsoft Edge sürümüne yönelik Windows güncelleştirmesi ve nasıl devre dışı bırakılacağı hakkında daha fazla bilgi için https://go.microsoft.com/fwlink/?linkid=2102115 adresine bakın. Bu güncelleştirme yalnızca Windows 10 sürüm 1709 ve üzeri sürümler için geçerlidir.</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta sürüm 77 veya sonrası</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev sürüm 77 veya sonrası</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary sürüm 77 veya sonrası</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge sürüm 45 veya öncesi</string>
+      <string id="KeepIntranetSitesInInternetExplorer">Tüm intranet sitelerini Internet Explorer'da tut</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">Tüm intranet sitelerinin Internet Explorer dışında herhangi bir tarayıcıda açılmasını engeller. Ancak ‘Kuruluş Modu Site Listesi'ne dâhil edilmeyen tüm siteleri Microsoft Edge'e gönder’ (‘RestrictIE’) ilkesi etkinleştirilmediğinde bu ilkenin hiçbir etkisi olmayacağını unutmayın.
+
+Bu ilkeyi etkinleştirirseniz tüm intranet siteleri Internet Explorer 11'de açılır. Tek istisna, Kuruluş Modu Site Listenizde listelenen sitelerdir.
+
+Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız tüm intranet siteleri otomatik olarak Microsoft Edge'de açılır.
+
+Bu ilkenin, ‘Tüm intranet sitelerini Internet Explorer'a gönder’ (‘SendIntranetToInternetExplorer’) ile uyumlu olmasını şiddetle öneririz. Ek olarak, intranet sitelerinizin Microsoft Edge ile bilinen uyumluluk sorunları olması durumunda bu ilkeyi etkinleştirmek en iyisidir.
+
+İlgili ilkeler:
+- Tüm intranet sitelerini Internet Explorer'a gönder (‘SendIntranetToInternetExplorer’)
+- Kuruluş Modu Site Listesi'ne dâhil edilmeyen tüm siteleri Microsoft Edge'e gönder (‘RestrictIE’)
+
+Kuruluşunuzda uygun yapılandırmayı oluşturmak üzere bu ilkenin diğer ilgili ilkelerle birlikte nasıl kullanılacağı hakkında daha fazla bilgi edinmek için bk. https://go.microsoft.com/fwlink/?linkid=2094210.</string>
+      <string id="AllowSaveTargetAsInIEMode">Internet Explorer modunda "hedefi farklı kaydet" izni ver</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">Bu ilke ayarı, yöneticilerin Internet Explorer modunda "hedefi farklı kaydet" içerik menüsünü etkinleştirmesine olanak tanır.
+
+Bu ilkeyi etkinleştirirseniz "hedefi farklı kaydet" ayarı Internet Explorer mod bağlam menüsünde görünür ve Internet Explorer ile aynı şekilde çalışır.
+
+Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız "hedefi farklı kaydet" ayarı Internet Explorer mod bağlam menüsünde gösterilmez.
+
+Daha fazla bilgi için bkz. https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="EnableGlobalWindowListInIEMode">Genel pencere listesini Internet Explorer modunda etkinleştir</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">Bu ayar, Internet Explorer modun diğer uygulamalarla durum paylaşımını etkinleştiren genel pencere listesini kullanmasına olanak sağlar.
+Bu ayar yalnızca 11 Internet Explorer tek başına tarayıcı olarak devre dışı bırakıldığında etkili olur.
+
+Bu ilkeyi etkinleştirirseniz Internet Explorer modu genel pencere listesini kullantır.
+
+Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız Internet Explorer modu ayrı bir pencere listesini korumaya devam eder.
+
+Bu mod hakkında daha fazla Internet Explorer için bkz. https://go.microsoft.com/fwlink/?linkid=2102921
+11'i tek başına Internet Explorer devre dışı bırakma hakkında daha fazla bilgi edinmek için bkz. https://go.microsoft.com/fwlink/?linkid=2168340</string>
+      <string id="EnableExtendedIEModeHotkeys">Internet Explorer modunda genişletilmiş kısayol tuşlarını etkinleştirin</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">Bu ilke ayarı, yöneticilerin genişletilmiş Microsoft Edge Internet Explorer modu kısayol tuşlarının "Ctrl+S" gibi "farklı kaydet" işlevlerini etkinleştirmesine olanak tanır.
+
+Bu ilkeyi etkinleştirirseniz genişletilmiş kısayol tuşu işlevselliği Internet Explorer modunda etkinleştirilir ve Internet Explorer ile aynı şekilde çalışır.
+
+Bu ilkeyi devre dışı bırakır veya yapılandırmazsanız, genişletilmiş kısayol tuşları Internet Explorer modunda çalışmaz.
+
+Daha fazla bilgi için bkz. https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="AllowLegacyURLFields">İnternet Kısayolu dosyaları için eski işlevselliğe izin ver</string>
+      <string id="IE_ExplainAllowLegacyURLFields">Bu ilke ayarı, Internet Kısayol dosyalarında WorkingDirectory alanı veya eklenebilir protokol işleme gibi bazı devre dışı işlevlerin kullanımına olanak sağlar.
+
+Bu ilkeyi etkinleştirirseniz Internet Kısayol dosyaları için devre dışı bırakılan işlevler yeniden etkinleştirilir.
+
+Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız Internet Kısayol dosyaları için WorkingDirectory alanı veya eklenebilir protokol işleme gibi bazı işlevler devre dışı bırakılır.</string>
+      <string id="ResetZoomForDialogInIEMode">Bu modda HTML iletişim kutuları için yakınlaştırmayı Internet Explorer sıfırla</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">Bu ilke ayarı, yöneticilerin varsayılan modda HTML iletişim kutuları için yakınlaştırmayı Internet Explorer sağlar.
+
+Bu ilkeyi etkinleştirirseniz html iletişim kutusunun Internet Explorer sayfasından yayılmaz.
+
+Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız html iletişim kutusunun üst Internet Explorer yakınlaştırması temel alınarak bu modun yakınlaştırması ayarlanır.
+
+Daha fazla bilgi için bkz. https://go.microsoft.com/fwlink/?linkid=2220107</string>
+      <string id="DisableInternetExplorerApp">Internet Explorer 11 ' i bağımsız tarayıcı olarak devre dışı bırak</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">Bu ilke Internet Explorer'ın tek başına tarayıcı olarak başlatılmasını kısıtlayabilmenizi sağlar.
+
+Bu ilkeyi etkinleştirirseniz, şu olacaktır:
+-Internet Explorer 11'in tek başına tarayıcı olarak başlatılmasını engeller.
+-Internet Explorer'ın kullanımını Microsoft Edge'in yerel 'Internet Explorer modu' ile kısıtlar.
+-Internet Explorer 11'i başlatma girişimlerini Microsoft Edge Kararlı Kanalı tarayıcısına yeniden yönlendirir.
+-Internet Explorer 11'e yönlendiren diğer tüm ilkeleri geçersiz kılar.
+
+Bu ilke etkinleştirilmiş olsa bile COM otomasyonu kullanılarak Internet Explorer 11'in başlatılmasına yine de izin verilecektir. Internet Explorer 11'in COM otomasyon başlatmalarını devre dışı bırakmak için "Internet Explorer 11 COM Otomasyonunu Devre Dışı Bırak" grup ilkesini kullanın.
+
+Bu ilkeyi devre dışı bırakır veya yapılandırmazsanız, tüm siteler geçerli etkin tarayıcı ayarları kullanılarak açılır. Not: Bu ilkenin geçerlilik kazanması için Microsoft Edge Kararlı Kanalı'nın yüklenmesi gerekir.</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">COM Internet Explorer 11 Başlatmayı Devre Dışı Bırak</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">Bu ilke, COM otomasyonu kullanarak Internet Explorer kısıtlama sağlar.
+
+Bu ilkeyi etkinleştirirseniz 11 Internet Explorer COM otomasyonu kullanılarak başlatılmasını önler.
+
+Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız Internet Explorer 11 COM otomasyonu başlatmasına izin verilir.</string>
+      <string id="DisableIEAppDeprecationNotification">Internet Explorer 11 kullanımdan kaldırma bildirimini gizle</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">Bu ilke ayarı, devre dışı bırakılacak bildirim çubuğu anımsatıcısının Internet Explorer görüntülenip görüntülenmeyeceklerini yönetmenizi sağlar. Varsayılan olarak, Bildirim çubuğu 11 Internet Explorer görüntülenir.
+
+Bu ilke ayarını etkinleştirirseniz Bildirim çubuğu 11'de Internet Explorer görüntülenmez.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Bildirim çubuğu 11'de Internet Explorer görüntülenir.</string>
+      <string id="NotifyDisableIEOptions_Never">Hiçbir zaman</string>
+      <string id="NotifyDisableIEOptions_Always">Her zaman</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">Kullanıcı başına bir kez</string>
+      <string id="JScriptReplacement">JScript yerine JScript9Legacy’yi yükleyerek JScript’i değiştirin.</string>
+      <string id="IE_ExplainJScriptReplacement">Bu ilke ayarı, JScript JScript9Legacy'nin yüklü olup olmadığını belirtir.
+      
+Bu ilke ayarını etkinleştirirseniz veya yapılandırılmazsa, JScript9Legacy, uygulamanın JScript durumlarda yüklenir.
+
+Bu ilkeyi devre dışı bırakırsanız JScript bu ilkeden faydalanılacak.</string>
       <string id="VerMgmtDisable">Internet Explorer için tarihi geçmiş ActiveX denetimlerinin engellenmesini kapat</string>
       <string id="IE_ExplainVerMgmtDisable">Bu ilke ayarı, Internet Explorer'ın tarihi geçmiş ActiveX denetimlerini engelleyip engellemeyeceğini belirler. Tarihi geçmiş ActiveX denetimleri, Intranet Bölgesi'nde hiçbir zaman engellenmez.
 
@@ -4118,6 +4237,12 @@ Bu ayarı etkinleştirirseniz IE güncelleştirilmiş VersionList.XML sürümler
 Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız IE güncelleştirilmiş VersionList.XML sürümlerini indirmeye devam eder.
 
 Daha fazla bilgi için Internet Explorer TechNet kitaplığındaki "Tarihi geçmiş ActiveX denetimi engelleme" bölümüne bakın.</string>
+      <string id="DisableHTMLApplication">HTML Uygulamasını Devre Dışı Bırak</string>
+      <string id="DisableHTMLApplication_Explain">Bu ilke ayarı, HTML Uygulamasını (HTA dosyası) çalıştırmanın engellenmiş veya izinli olup olmadığını belirtir.
+
+Bu ilke ayarını etkinleştirirseniz HTML Uygulaması'nın (HTA dosyası) çalıştırması engellenir.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız HTML Uygulaması'nın (HTA dosyası) çalıştırmasına izin verilir.</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
@@ -4225,7 +4350,7 @@ Daha fazla bilgi için Internet Explorer TechNet kitaplığındaki "Tarihi geçm
         <dropdownList refId="IZ_Partname120c" noSort="true" defaultItem="1">Yalnızca onaylanmış etki alanlarının TDC ActiveX denetimini kullanmasına izin ver</dropdownList>
       </presentation>
       <presentation id="IZ_Policy_AllowDynsrcPlayback_1">
-        <dropdownList refId="IZ_Partname120A" noSort="true" defaultItem="0">Eski bir medya yürütücü kullanan bir Web sayfasında video ve animasyona izin ver</dropdownList>
+        <dropdownList refId="IZ_Partname120A" noSort="true" defaultItem="0">Eski bir medya oynatıcı kullanan bir Web sayfasında video ve animasyona izin ver</dropdownList>
       </presentation>
       <presentation id="IZ_Policy_AllowScriptlets_1">
         <dropdownList refId="IZ_Partname1209" noSort="true" defaultItem="0">Kod Parçacıkları</dropdownList>
@@ -4787,6 +4912,14 @@ Daha fazla bilgi için Internet Explorer TechNet kitaplığındaki "Tarihi geçm
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">Etki alanı listesi</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">İlk tercih</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">İkinci tercih</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">Üçüncü tercih</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">Internet Explorer 11 tarayıcısının devre dışı bırakıldığını bildir</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

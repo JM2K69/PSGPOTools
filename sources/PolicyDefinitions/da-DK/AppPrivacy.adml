@@ -99,6 +99,67 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan 
 
 Hvis en app er åben, når dette gruppepolitikobjekt anvendes på en enhed, skal medarbejdere genstarte appen eller enheden, for at politikændringerne kan træde i kraft i appen.
       </string>
+      <string id="LetAppsAccessSystemAIModels_Name">Lad Windows-apps bruge funktionerne til oprettelse af tekst og billeder i Windows</string>
+      <string id="LetAppsAccessSystemAIModels_Explain">
+Denne politikindstilling angiver, om Windows-apps kan bruge funktionerne til generering af tekst og billede i Windows.
+
+Du kan enten angive en standardindstilling for alle apps eller en indstilling pr. app ved at angive et pakkefamilienavn. Du kan få pakkefamilienavnet for en app ved at bruge cmdletten Get-AppPackage Windows PowerShell. En indstilling pr. app tilsidesætter standardindstillingen.
+
+Hvis du vælger indstillingen "Brugeren har styringen", kan medarbejdere i organisationen beslutte, om Windows-apps kan bruge generering af tekst og billede, ved hjælp af Indstillingerne &gt; Beskyttelse af personlige oplysninger på enheden.
+
+Hvis du vælger indstillingen "Gennemtving tilladelse", har Windows-apps tilladelse til at bruge funktionerne i Windows til generering af tekst og billede, og medarbejdere i din organisation kan ikke ændre den.
+
+Hvis du vælger indstillingen "Gennemtving afvisning", har Windows-apps ikke tilladelse til at bruge funktionerne i Windows til generering af tekst og billede, og medarbejdere i din organisation kan ikke ændre den.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan medarbejdere i organisationen beslutte, om Windows-apps kan bruge funktionerne i Windows til generering af tekst og billeder, ved hjælp af Indstillingerne &gt; Beskyttelse af personlige oplysninger på enheden.
+
+Hvis en app er åben, når dette Gruppepolitik-objekt anvendes på en enhed, skal medarbejderne genstarte appen eller enheden, for at politikændringerne kan anvendes på appen.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Name">Lad Windows-apps tage skærmbilleder af forskellige vinduer eller skærme</string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Explain">Denne politikindstilling angiver, om Windows-apps kan tage skærmbilleder af forskellige vinduer eller skærme.
+
+Du kan angive enten en standardindstilling for alle apps eller en pr. app-indstilling ved at angive et pakkefamilienavn. Du kan få pakkefamilienavnet for en app ved at bruge cmdletten Get-AppPackage Windows PowerShell. En pr. app-indstilling tilsidesætter standardindstillingen.
+
+Hvis du vælger indstillingen "Brugeren har kontrol", kan medarbejdere i din organisation bestemme, om Windows-apps kan tage skærmbilleder af forskellige vinduer eller skærme via Indstillinger – Beskyttelse af personlige oplysninger på enheden.
+
+Hvis du vælger indstillingen "Gennemtving tilladelse", kan Windows-apps tage skærmbilleder af forskellige vinduer eller skærme, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du vælger indstillingen "Gennemtving afvisning", kan Windows-apps ikke tage skærmbilleder af forskellige vinduer eller skærme, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan medarbejdere i din organisation bestemme, om Windows-apps kan tage skærmbilleder af forskellige vinduer eller skærme via Indstillinger – Beskyttelse af personlige oplysninger på enheden.
+
+Hvis en app er åben, når dette gruppepolitikobjekt anvendes på en enhed, skal medarbejdere genstarte appen eller enheden, for at politikændringerne kan træde i kraft i appen.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Name">Lad Windows-apps slå kanten af skærmbilledet fra</string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Explain">Denne politikindstilling angiver, om Windows-apps kan slå skærmbilledkant fra.
+
+Du kan angive enten en standardindstilling for alle apps eller en pr. app-indstilling ved at angive et pakkefamilienavn. Du kan få pakkefamilienavnet for en app ved at bruge cmdlet Get-AppPackage Windows PowerShell. En pr. app-indstilling tilsidesætter standardindstillingen.
+
+Hvis du vælger indstillingen "Brugeren har kontrol", kan medarbejdere i din organisation bestemme, om Windows-apps kan slå skærmbilledkant fra via Indstillinger – Beskyttelse af personlige oplysninger på enheden.
+
+Hvis du vælger indstillingen "Gennemtving tilladelse", har Windows-apps tilladelse til at slå skærmbilledkant fra, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du vælger indstillingen "Gennemtving afvisning", har Windows-apps ikke tilladelse til at slå skærmbilledkant fra, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan medarbejdere i din organisation bestemme, om Windows-apps kan slå skærmbilledkant fra via Indstillinger – Beskyttelse af personlige oplysninger på enheden.
+
+Hvis en app er åben, når dette gruppepolitikobjekt anvendes på en enhed, skal medarbejdere genstarte appen eller enheden, for at politikændringerne kan træde i kraft i appen.
+      </string>
+      <string id="LetAppsAccessHumanPresence_Name">Lad apps få adgang til tilstedeværelsesfornemmende</string>
+      <string id="LetAppsAccessHumanPresence_Explain">Denne politikindstilling angiver, om Windows-apps har adgang til tilstedeværelsesfornemmende.
+
+Du kan angive enten en standardindstilling for alle apps eller en pr. app-indstilling ved at angive et pakkefamilienavn. Du kan få pakkefamilienavnet for en app ved at bruge cmdlet Get-AppPackage Windows PowerShell. En pr. app-indstilling tilsidesætter standardindstillingen.
+
+Hvis du vælger indstillingen "Brugeren har kontrol", kan medarbejdere i din organisation bestemme, om Windows-apps har adgang til tilstedeværelsesfornemmende via Indstillinger &gt; Beskyttelse af personlige oplysninger på enheden.
+
+Hvis du vælger indstillingen "Gennemtving tilladelse", har Windows-apps adgang til tilstedeværelsesfornemmende, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du vælger indstillingen "Gennemtving afvisning", har Windows-apps ikke adgang til tilstedeværelsesfornemmende, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan medarbejdere i din organisation bestemme, om Windows-apps har adgang til tilstedeværelsesfornemmende via Indstillinger &gt; Beskyttelse af personlige oplysninger på enheden.
+
+Hvis en app er åben, når dette gruppepolitikobjekt anvendes på en enhed, skal medarbejdere genstarte appen eller enheden, for at politikændringerne kan træde i kraft i appen.
+      </string>
       <string id="LetAppsAccessLocation_Name">Lad Windows-apps få adgang til placering</string>
       <string id="LetAppsAccessLocation_Explain">Denne politikindstilling angiver, om Windows-apps har adgang til placering.
 
@@ -173,6 +234,36 @@ Hvis du vælger indstillingen "Gennemtving afvisning", har Windows-apps ikke adg
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan medarbejdere i din organisation bestemme, om Windows-apps har adgang til meddelelser via Indstillinger &gt; Beskyttelse af personlige oplysninger på enheden.
 
 Hvis en app er åben, når dette gruppepolitikobjekt anvendes på en enhed, skal medarbejdere genstarte appen eller enheden, for at politikændringerne kan træde i kraft i appen.
+      </string>
+      <string id="LetAppsAccessPasskeys_Name">Lad Windows-apps få adgang til adgangsnøgler</string>
+      <string id="LetAppsAccessPasskeys_Explain">Denne politikindstilling angiver, om apps kan få adgang til adgangsnøgler.
+
+Du kan enten angive en standardindstilling for alle apps eller en indstilling pr. app ved at angive et pakkefamilienavn. Du kan få pakkefamilienavnet for en app ved at bruge cmdletten Get-AppPackage Windows PowerShell. En indstilling pr. app tilsidesætter standardindstillingen.
+
+Hvis du vælger indstillingen "Brugeren har kontrol", kan medarbejdere i din organisation bestemme, om apps har adgang til adgangsnøgler via Indstillinger &gt; Beskyttelse af personlige oplysninger på enheden.
+
+Hvis du vælger indstillingen "Gennemtving tilladelse", har apps adgang til adgangsnøgler, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du vælger indstillingen "Gennemtving afvisning", har apps ikke adgang til adgangsnøgler, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan medarbejdere i din organisation bestemme, om apps har adgang til adgangsnøgler via Indstillinger &gt; Beskyttelse af personlige oplysninger på enheden.
+
+Hvis en app er åben, når dette gruppepolitikobjekt anvendes på en enhed, skal medarbejderne genstarte appen eller enheden, for at politikændringerne kan anvendes på appen.
+      </string>
+      <string id="LetAppsAccessPasskeysEnumeration_Name">Lad Windows-apps udfylde adgangsnøgler automatisk</string>
+      <string id="LetAppsAccessPasskeysEnumeration_Explain">Denne politikindstilling angiver, om apps kan få adgang til automatisk udfyldning af adgangsnøgler.
+
+Du kan enten angive en standardindstilling for alle apps eller en indstilling pr. app ved at angive et pakkefamilienavn. Du kan få pakkefamilienavnet for en app ved at bruge cmdletten Get-AppPackage Windows PowerShell. En indstilling pr. app tilsidesætter standardindstillingen.
+
+Hvis du vælger indstillingen "Brugeren har kontrol", kan medarbejdere i din organisation bestemme, om apps har adgang til automatisk udfyldning af adgangsnøgler via Indstillinger &gt; Beskyttelse af personlige oplysninger på enheden.
+
+Hvis du vælger indstillingen "Gennemtving tilladelse", har apps adgang til automatisk udfyldning adgangsnøgler, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du vælger indstillingen "Gennemtving afvisning", har apps ikke adgang til automatisk udfyldning af adgangsnøgler, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan medarbejdere i din organisation bestemme, om apps har adgang til automatisk udfyldning af adgangsnøgler via Indstillinger &gt; Beskyttelse af personlige oplysninger på enheden.
+
+Hvis en app er åben, når dette gruppepolitikobjekt anvendes på en enhed, skal medarbejderne genstarte appen eller enheden, for at politikændringerne kan anvendes på appen.
       </string>
       <string id="LetAppsAccessPhone_Name">Lad Windows-apps foretage telefonopkald</string>
       <string id="LetAppsAccessPhone_Explain">Denne politikindstilling angiver, om Windows-apps kan foretage telefonopkald.
@@ -321,6 +412,35 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan 
 
 Denne politik gælder for Windows-apps og Cortana. Den har højere prioritet end politikken "Tillad Cortana over låseskærm". Denne politik kan kun anvendes, når politikken "Tillad stemmeaktivering" er konfigureret til at tillade, at programmer aktiveres med stemmen.
       </string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Name">Lad Windows-apps få adgang til brugerbevægelser, mens de kører i baggrunden</string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Explain">Denne politikindstilling angiver, om Windows-apps kan få adgang til brugerens bevægelser af hoved, hænder, bevægelsescontrollere og andre sporede objekter, mens disse apps kører i baggrunden.
+
+Du kan angive enten en standardindstilling for alle apps eller en pr. app-indstilling ved at angive et pakkefamilienavn. Du kan få pakkefamilienavnet for en app ved at bruge cmdlet'en Get-AppPackage Windows PowerShell. En pr. app-indstilling tilsidesætter standardindstillingen.
+
+Hvis du vælger indstillingen "Brugeren har kontrol", kan medarbejdere i din organisation bestemme, om Windows-apps kan få adgang til brugerens bevægelser, mens apps kører i baggrunden, via Indstillinger &gt; Beskyttelse af personlige oplysninger på enheden.
+
+Hvis du vælger indstillingen "Gennemtving tilladelse", kan Windows-apps kan få adgang til brugerens bevægelser, mens apps kører i baggrunden, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du vælger indstillingen "Gennemtving afvisning", kan Windows-apps ikke få adgang til brugerens bevægelser, mens apps kører i baggrunden, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan medarbejdere i din organisation bestemme, om Windows-apps kan få adgang til brugerens bevægelser, mens apps kører i baggrunden, ved hjælp af Indstillinger &gt; Beskyttelse af personlige oplysninger på enheden.
+
+Hvis en app er åben, når dette gruppepolitikobjekt anvendes på en enhed, skal medarbejdere genstarte appen eller enheden, for at politikændringerne kan træde i kraft i appen.
+      </string>
+      <string id="LetAppsAccessForegroundText_Name">Lad Windows-apps få adgang til tekstindhold fra forgrundsprogrammer</string>
+      <string id="LetAppsAccessForegroundText_Explain">Denne politikindstilling angiver, om Windows-apps kan få adgang til tekstindhold fra forgrundsprogrammer.
+Du kan enten angive en standardindstilling for alle apps eller en indstilling pr. app ved at angive et pakkefamilienavn. Du kan få pakkefamilienavnet for en app ved at bruge cmdletten Get-AppPackage Windows PowerShell. En indstilling pr. app tilsidesætter standardindstillingen.
+
+Hvis du vælger indstillingen "Brugeren har kontrol", kan medarbejdere i din organisation bestemme, om Windows-apps har adgang til tekstindhold fra forgrundsprogrammer ved at bruge Indstillinger &gt; Beskyttelse af personlige oplysninger på enheden.
+
+Hvis du vælger indstillingen "Gennemtving tilladelse", har Windows-apps adgang til tekstindhold fra forgrundsprogrammer, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du vælger indstillingen "Gennemtving afvisning", har Windows-apps har ikke adgang til tekstindhold fra forgrundsprogrammer, og medarbejdere i din organisation kan ikke ændre det.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan medarbejdere i din organisation bestemme, om Windows-apps har adgang til tekstindhold fra forgrundsprogrammer via Indstillinger – Beskyttelse af personlige oplysninger på enheden.
+
+Hvis en app er åben, når dette gruppepolitikobjekt anvendes på en enhed, skal medarbejderne genstarte appen eller enheden, for at politikændringerne kan anvendes på appen.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LetAppsAccessCalendar">
@@ -377,6 +497,42 @@ Denne politik gælder for Windows-apps og Cortana. Den har højere prioritet end
         <text>Gennemtving afvisning af disse bestemte apps (brug pakkefamilienavne):</text>
         <multiTextBox refId="LetAppsAccessEmail_ForceDenyTheseApps_List"/>
       </presentation>
+      <presentation id="LetAppsAccessSystemAIModels">
+        <dropdownList refId="LetAppsAccessSystemAIModels_Enum" noSort="true" defaultItem="0">Standard for alle apps:</dropdownList>
+        <text>Giv brugeren kontrol over disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_UserInControlOfTheseApps_List"/>
+        <text>Gennemtving tilladelse af disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceAllowTheseApps_List"/>
+        <text>Gennemtving afvisning af disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureProgrammatic">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureProgrammatic_Enum" noSort="true" defaultItem="0">Standard for alle apps:</dropdownList>
+        <text>Giv brugeren kontrol over disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_UserInControlOfTheseApps_List"/>
+        <text>Gennemtving tilladelse af disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceAllowTheseApps_List"/>
+        <text>Gennemtving afvisning af disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureWithoutBorder">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureWithoutBorder_Enum" noSort="true" defaultItem="0">Standard for alle apps:</dropdownList>
+        <text>Giv brugeren kontrol over disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_UserInControlOfTheseApps_List"/>
+        <text>Gennemtving tilladelse af disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceAllowTheseApps_List"/>
+        <text>Gennemtving afvisning af disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessHumanPresence">
+        <dropdownList refId="LetAppsAccessHumanPresence_Enum" noSort="true" defaultItem="0">Standard for alle apps:</dropdownList>
+        <text>Giv brugeren kontrol over disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_UserInControlOfTheseApps_List"/>
+        <text>Gennemtving tilladelse af disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceAllowTheseApps_List"/>
+        <text>Gennemtving afvisning af disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceDenyTheseApps_List"/>
+      </presentation>
       <presentation id="LetAppsAccessLocation">
         <dropdownList refId="LetAppsAccessLocation_Enum" noSort="true" defaultItem="0">Standard for alle apps:</dropdownList>
         <text>Giv brugeren kontrol over disse bestemte apps (brug pakkefamilienavne):</text>
@@ -392,7 +548,7 @@ Denne politik gælder for Windows-apps og Cortana. Den har højere prioritet end
         <multiTextBox refId="LetAppsAccessMessaging_UserInControlOfTheseApps_List"/>
         <text>Gennemtving tilladelse af disse bestemte apps (brug pakkefamilienavne):</text>
         <multiTextBox refId="LetAppsAccessMessaging_ForceAllowTheseApps_List"/>
-        <text>Gennemtving afvisning af disse bestemte apps (brug pakkefamilienavne):</text>
+        <text>Gennemtving afvisning af disse bestemte apps (brug Pakkefamilienavne):</text>
         <multiTextBox refId="LetAppsAccessMessaging_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessMicrophone">
@@ -428,7 +584,7 @@ Denne politik gælder for Windows-apps og Cortana. Den har højere prioritet end
         <multiTextBox refId="LetAppsAccessRadios_UserInControlOfTheseApps_List"/>
         <text>Gennemtving tilladelse af disse bestemte apps (brug pakkefamilienavne):</text>
         <multiTextBox refId="LetAppsAccessRadios_ForceAllowTheseApps_List"/>
-        <text>Gennemtving afvisning af disse bestemte apps (brug Pakkefamilienavne):</text>
+        <text>Gennemtving afvisning af disse bestemte apps (brug pakkefamilienavne):</text>
         <multiTextBox refId="LetAppsAccessRadios_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessAccountInfo">
@@ -499,6 +655,42 @@ Denne politik gælder for Windows-apps og Cortana. Den har højere prioritet end
       </presentation>
       <presentation id="LetAppsActivateWithVoiceAboveLock">
         <dropdownList refId="LetAppsActivateWithVoiceAboveLock_Enum" noSort="true" defaultItem="0">Standard for alle apps:</dropdownList>
+      </presentation>
+      <presentation id="LetAppsAccessBackgroundSpatialPerception">
+        <dropdownList refId="LetAppsAccessBackgroundSpatialPerception_Enum" noSort="true" defaultItem="0">Standard for alle apps:</dropdownList>
+        <text>Giv brugeren kontrol over disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_UserInControlOfTheseApps_List"/>
+        <text>Gennemtving tilladelse af disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps_List"/>
+        <text>Gennemtving afvisning af disse bestemte apps (brug Pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessForegroundText">
+        <dropdownList refId="LetAppsAccessForegroundText_Enum" noSort="true" defaultItem="0">Standard for alle apps:</dropdownList>
+        <text>Giv brugeren kontrol over disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_UserInControlOfTheseApps_List"/>
+        <text>Gennemtving tilladelse af disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceAllowTheseApps_List"/>
+        <text>Gennemtving afvisning af disse bestemte apps (brug Pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeys">
+        <dropdownList refId="LetAppsAccessPasskeys_Enum" noSort="true" defaultItem="0">Standard for alle apps:</dropdownList>
+        <text>Giv brugeren kontrol over disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_UserInControlOfTheseApps_List"/>
+        <text>Gennemtving tilladelse af disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceAllowTheseApps_List"/>
+        <text>Gennemtving afvisning af disse bestemte apps (brug Pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeysEnumeration">
+        <dropdownList refId="LetAppsAccessPasskeysEnumeration_Enum" noSort="true" defaultItem="0">Standard for alle apps:</dropdownList>
+        <text>Giv brugeren kontrol over disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_UserInControlOfTheseApps_List"/>
+        <text>Gennemtving tilladelse af disse bestemte apps (brug pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceAllowTheseApps_List"/>
+        <text>Gennemtving afvisning af disse bestemte apps (brug Pakkefamilienavne):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceDenyTheseApps_List"/>
       </presentation>
     </presentationTable>
   </resources>

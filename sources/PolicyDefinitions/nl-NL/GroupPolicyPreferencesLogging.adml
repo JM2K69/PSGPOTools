@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>Beleid voor logboekregistratie van voorkeuren voor groepsbeleid</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">Logboekregistratie en tracering configureren voor de extensie Toepassingen</string>
+      <string id="CSE_Applications_Logging_Help">Met deze beleidsinstelling kunt u het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Toepassingen worden vastgelegd in het logboek. Tevens kunt u hiermee tracering inschakelen voor de extensie Toepassingen. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als u deze beleidsinstelling inschakelt, kunt u de logboekregistratie configureren en tracering inschakelen voor de extensie Toepassingen voor clientcomputers.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als u tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet u in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet u de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus computerconfiguratietracering is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als u items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet u in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet u de optie Tracering inschakelen. Als u Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.
+
+</string>
+      <string id="CSE_DataSources_Logging">Logboekregistratie en tracering configureren voor de voorkeursextensie Gegevensbronnen</string>
+      <string id="CSE_DataSources_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Gegevensbronnen worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Gegevensbronnen. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Gegevensbronnen voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_Devices_Logging">Logboekregistratie en tracering configureren van de voorkeursextensie Apparaten</string>
+      <string id="CSE_Devices_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Apparaten worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Apparaten. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Apparaten voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_Drives_Logging">Logboekregistratie en tracering configureren van de voorkeursextensie Stationstoewijzingen</string>
+      <string id="CSE_Drives_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Stationstoewijzingen worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Voorkeuren. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Stationstoewijzingen voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_Environment_Logging">Logboekregistratie en tracering configureren van de voorkeursextensie Omgeving</string>
+      <string id="CSE_Environment_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Omgeving worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Omgeving. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Omgeving voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_Files_Logging">Logboekregistratie en tracering configureren voor de extensie Bestanden</string>
+      <string id="CSE_Files_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Bestanden worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Voorkeuren. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Bestanden voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_FolderOptions_Logging">Logboekregistratie en tracering configureren voor de extensie Mapopties</string>
+      <string id="CSE_FolderOptions_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Mapopties worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Mapopties. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Mapopties voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_Folders_Logging">Logboekregistratie en tracering configureren van de voorkeursextensie Mappen</string>
+      <string id="CSE_Folders_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Mappen worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Voorkeuren. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Mappen voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_IniFiles_Logging">Logboekregistratie en tracering configureren voor de extensie INI-bestanden</string>
+      <string id="CSE_IniFiles_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie INI-bestanden worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie INI-bestanden. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie INI-bestanden voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_Internet_Logging">Logboekregistratie en tracering configureren voor de extensie Internetinstellingen</string>
+      <string id="CSE_Internet_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Internetinstellingen worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Internetinstellingen. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Internetinstellingen voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">Logboekregistratie en tracering configureren voor de extensie Lokale gebruikers en groepen</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Lokale gebruikers en groepen worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Lokale gebruikers en groepen. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Lokale gebruikers en groepen voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_NetworkOptions_Logging">Logboekregistratie en tracering configureren voor de extensie Netwerkopties</string>
+      <string id="CSE_NetworkOptions_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Netwerkopties worden vastgelegd in het logboek, en tracering inschakelen voor de extensie Netwerkopties. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Netwerkopties voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_NetShares_Logging">Logboekregistratie en tracering configureren voor de extensie Netwerkshares</string>
+      <string id="CSE_NetShares_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Netwerkshares worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Netwerkshares. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Netwerkshares voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_PowerOptions_Logging">Logboekregistratie en tracering configureren voor de extensie Energiebeheer</string>
+      <string id="CSE_PowerOptions_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Energiebeheer worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Energiebeheer. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Energiebeheer voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_Printers_Logging">Logboekregistratie en tracering configureren van de voorkeursextensie Printers</string>
+      <string id="CSE_Printers_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Printers worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Printers. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Printers voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_RegionalOptions_Logging">Logboekregistratie en tracering configureren voor de extensie Landinstellingen</string>
+      <string id="CSE_RegionalOptions_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Landinstellingen worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Landinstellingen. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Landinstellingen voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_PrefRegistry_Logging">Logboekregistratie en tracering configureren van de voorkeursextensie Register</string>
+      <string id="CSE_PrefRegistry_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Register worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Voorkeuren. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Register voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_ScheduledTasks_Logging">Logboekregistratie en tracering configureren voor de extensie Geplande taken</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Geplande taken worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Geplande taken. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Geplande taken voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_Services_Logging">Logboekregistratie en tracering configureren van de voorkeursextensie Services</string>
+      <string id="CSE_Services_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Services worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Services. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Services voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_Shortcuts_Logging">Logboekregistratie en tracering configureren van de voorkeursextensie Snelkoppelingen</string>
+      <string id="CSE_Shortcuts_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Snelkoppelingen worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Snelkoppelingen. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Snelkoppelingen voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_StartMenu_Logging">Logboekregistratie en tracering configureren voor de extensie Menu Start</string>
+      <string id="CSE_StartMenu_Logging_Help">Met deze beleidsinstelling kun je het detailniveau configureren waarmee gebeurtenissen voor de voorkeursextensie Menu Start worden vastgelegd in het logboek. Tevens kun je hiermee tracering inschakelen voor de extensie Menu Start. Logboekregistratie en tracering bieden diagnostische gegevens die kunnen helpen bij het oplossen van problemen.
+
+Als je deze beleidsinstelling inschakelt, kun je de logboekregistratie configureren en tracering inschakelen voor de extensie Menu Start voor clientcomputers.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, worden voor deze extensie standaard alleen waarschuwingen en fouten vastgelegd, en is tracering voor deze extensie uitgeschakeld.
+
+Beveiligingswaarschuwing: 
+Beveilig de geconfigureerde netwerklocatie alleen met de minimaal vereiste machtigingen. Gebruik geen brede toegang (bijvoorbeeld een standaardaccount of Iedereen met Volledig beheer), omdat dit kan leiden tot onbevoegde toegang tot logboek- en traceringsgegevens
+
+Opmerkingen:
+
+1. Tracering in Gebruikersconfiguratie: als je tracering wilt uitvoeren voor items in deze voorkeursextensie die worden vermeld onder Gebruikersconfiguratie, moet je in het vak Tracering gebruiker een pad typen naar de locatie waar op de clientcomputer een bestand voor gebruikerstracering kan worden gemaakt en moet je de optie Tracering inschakelen. Als er voor deze extensie geen voorkeursitems worden vermeld onder Gebruikersconfiguratie, wordt er geen traceringsbestand gemaakt.
+
+2. Tracering in Computerconfiguratie: deze voorkeursextensie is alleen beschikbaar in Gebruikersconfiguratie, dus tracering van de computerconfiguratie is niet van toepassing.
+
+3. Querytracering in Groepsbeleidsmodel: als je items in deze voorkeursextensie wilt traceren tijdens het uitvoeren van een query in Groepsbeleidsmodel, moet je in het vak Tracering planning een pad typen naar de locatie waar op de computer waarop het model wordt uitgevoerd een bestand voor planningstracering kan worden gemaakt. Bovendien moet je de optie Tracering inschakelen. Als je Groepsbeleidsmodel niet gebruikt of als deze extensie geen voorkeursitems bevat, wordt er geen traceringsbestand gemaakt.</string>
+      <string id="CSE_NOCHANGES">Ook verwerken als de groepsbeleidsobjecten niet zijn gewijzigd</string>
+      <string id="CSE_NOBACKGROUND">Niet toepassen tijdens periodieke achtergrondverwerking</string>
+      <string id="CSE_ALLOWSLOWLINK">Verwerking via een langzame netwerkverbinding toestaan</string>
+      <string id="CSE_TRACELEVEL">Tracering</string>
+      <string id="CSE_TRACEFILEPATHUSER">Gebruikerstrace</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">Computertrace</string>
+      <string id="CSE_TRACEFILEPATH">Traceringsbestand</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">Planningstrace</string>
+      <string id="CSE_TRACEFILEMAXSIZE">Maximumgrootte van traceringsbestand (KB)</string>
+      <string id="CSE_TRACELEVELNORMAL">Uit</string>
+      <string id="CSE_TRACELEVELVERBOSE">Aan</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">Achtergrondprioriteit</string>
+      <string id="CSE_PRILEVEL_NORMAL">Normaal</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">Lager dan normaal</string>
+      <string id="CSE_PRILEVEL_LOWEST">Laagste</string>
+      <string id="CSE_PRILEVEL_IDLE">Niet-actief</string>
+      <string id="CSE_LOGLEVEL">Gebeurtenisregistratie</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">Informatie, waarschuwingen en fouten</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">Waarschuwingen en fouten</string>
+      <string id="CSE_LOGLEVEL_ERRORS">Alleen fouten</string>
+      <string id="CSE_LOGLEVEL_NONE">Geen</string>
+      <string id="CSE_Logging">Registratie en tracering</string>
+      <string id="CSE_Logging_Help">Hiermee kunt u de logboekregistratie en tracering voor voorkeursonderdelen configureren.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computertrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Gebeurtenisregistratie</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Tracering</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Gebruikerstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planningstrace</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximumgrootte van traceringsbestand (KB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

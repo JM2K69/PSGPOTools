@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>NTLM-instellingen</displayName>
+  <description>Configuratie-instellingen voor het NTLM-beveiligingspakket.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">NTLM uitgebreide logboekregistratie</string>
+      <string id="EnhancedAuditsId_Explain">Met deze beleidsinstelling kan het NTLM-beveiligingspakket de nieuwe, verbeterde auditlogboeken vastleggen voor zowel clients als servers.
+
+      Deze uitgebreide logboeken bevatten informatie over wat NTLM gebruikt, waarom NTLM wordt gebruikt en de bestemming van de NTLM-verificatieaanvraag. Ze bevatten ook informatie over het gebruik van NTLMv1 en andere beveiligingsdowngrades.
+
+      Als je dit beleid hebt ingeschakeld of niet configureert, worden de nieuwe auditlogboeken gegenereerd. Als je het beleid uitschakelt, worden de nieuwe logboeken niet gegenereerd.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">Verbeterde NTLM-blokkering</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Met deze beleidsinstelling kan het NTLM-beveiligingspakket NTLM-verificatieaanvragen blokkeren op basis van het nieuwe, uitgebreide blokkeringsbeleid op computerniveau.
+
+      Met dit uitgebreide blokkeringsbeleid kun je NTLM-verificatie blokkeren op basis van nieuwe criteria, bijvoorbeeld het type account, de rol van het apparaat of het type toepassing.
+
+      Als het algemene beleid is ingesteld op 'Uitgeschakeld' of 'Niet geconfigureerd', zijn de onderstaande subinstellingen niet van kracht. Als het algemene beleid is ingesteld op 'Ingeschakeld', zijn de onderstaande subbeleidsregels van kracht op basis van hun configuratie.
+
+      Tenzij ze zijn geconfigureerd, zijn alle beleidsregels ingesteld op de controlemodus. Beleidsregels die zijn ingesteld op Controle, registreren een waarschuwing over de NTLM-aanvraag die geblokkeerd kan worden, maar blokkeren deze niet. Meerdere beleidsregels die zijn gemarkeerd als Controle, kunnen tegelijkertijd ingeschakeld zijn en worden geregistreerd in een uniform gebeurtenislogboek.
+
+      Als een beleid is gemarkeerd als 'Ingeschakeld', wordt de NTLM-verificatieaanvraag geblokkeerd als deze overeenkomt met de criteria van dat beleid. Als meerdere beleidsregels zijn gemarkeerd als 'Ingeschakeld', wordt de NTLM-verificatieaanvraag geblokkeerd als deze overeenkomt met criteria van die beleidsregels. Er wordt een gebeurtenislogboek gegenereerd voor het eerste beleid dat de NTLM-verificatie blokkeert. 
+
+      In scenario's met het beleid 'Controle' én 'Ingeschakeld', heeft het beleid 'Ingeschakeld' voorrang.
+
+      Al het uitgebreide blokkeringsbeleid dat hier wordt beschreven maakt gebruik van dezelfde acceptatielijst, waarin de accounts, apparaten en toepassingen staan die NTLM-verificatie mogen gebruiken. De acceptatielijst kan een reeks doelnamen of SPN's bevatten om de verificatie toe te staan. 
+
+      Ga naar aka.ms/ntlmlogandblock voor meer informatie.
+      </string>
+      <string id="Disabled">Uitgeschakeld</string>
+      <string id="Audit">Audit</string>
+      <string id="Enabled">Ingeschakeld</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">NTLM blokkeren voor domeinaccounts met eenmalige aanmelding</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">NTLM blokkeren voor domeincontrollers</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">NTLM blokkeren wanneer computerbinding mislukt</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Alle NTLM-authenticatie blokkeren</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Geef de acceptatielijst op voor uitgebreide blokkeringsbeleidsregels:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Политики ИИ CAM (Capability Access Manager)</displayName>
+  <description>Политики, связанные с возможностями ИИ, и управлением согласием на их использование.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">Согласие на использование ИИ</string>
+      <string id="WindowsAI">ИИ Windows</string>
+      <string id="UserInControl">Под управлением пользователя</string>
+      <string id="ForceEnable">Принудительно включить</string>
+      <string id="ForceDisable">Принудительно отключить</string>
+      <string id="AgentConsentDuration_Name">Срок действия согласия на использование агента</string>
+      <string id="AgentConsentDuration_Explain">Указывает, сколько часов согласие ("Разрешить") на использование возможностей агента остается действительным до повторного запроса пользователя.
+
+Если эта политика включена, значение должно быть от 1 (1 час) до 8760 (1 год). Настроенное значение используется как стандартный срок действия согласия ("Разрешить") на использование возможностей агента.
+
+Если эта политика не настроена или ее значение выходит за пределы допустимого диапазона, значение по умолчанию — 720 часов (30 дней).</string>
+      <string id="ConfigureAgentConnectors_Name">Настроить соединители агентов</string>
+      <string id="ConfigureAgentConnectors_Explain">Включить или отключить соединители агентов.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Политика доступа к соединителям агента</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Этот параметр политики позволяет определить список разрешенных подключений между узлами MCP и серверами MCP.
+
+Формат этого списка — строка JSON, соответствующая схеме на странице https://go.microsoft.com/fwlink/?LinkId=2363700.
+
+Если эта политика не настроена, узел MCP может подключаться к любому серверу MCP с согласия пользователя.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Настройте соединители агентов: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Срок действия согласия (ч) </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Настройка разрешенных подключений к узлу или серверу MCP:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

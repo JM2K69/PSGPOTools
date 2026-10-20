@@ -119,6 +119,51 @@ Pokud toto nastavení zakážete nebo nenastavíte, může synchronizaci přes p
         Pokud toto nastavení nenastavíte nebo zakážete, je synchronizace skupiny Rozložení úvodní obrazovky ve výchozím nastavení zapnutá a uživatel ji může nakonfigurovat.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">Nesynchronizovat nastavení přístupnosti</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        Zabrání synchronizaci skupiny přístupnosti s tímto počítačem a z tohoto počítače. Tato možnost vypne a zakáže skupinu přístupnosti na stránce nastavení Zálohování Windows v nastavení počítače.
+
+Pokud toto nastavení zásad povolíte, nebude skupina Přístupnost synchronizována.
+
+Pomocí možnosti Povolit uživatelům zapnout synchronizaci přístupnosti zajistíte, že synchronizace bude ve výchozím nastavení vypnutá, ale nikoli zakázaná.
+
+Pokud toto nastavení nenastavíte nebo zakážete, bude synchronizace skupiny přístupnosti ve výchozím nastavení zapnutá a uživatel ho bude konfigurovat.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">Nesynchronizovat nastavení jazykových předvoleb</string>
+      <string id="DisableLanguageSettingSync_Help">
+        Zabrání synchronizaci skupiny Jazykové předvolby s tímto počítačem a z tohoto počítače. Tato možnost vypne a zakáže skupinu Jazykové předvolby na stránce nastavení Zálohování Windows v nastavení počítače.
+
+Pokud toto nastavení zásad povolíte, nebude skupina Jazykové předvolby synchronizována.
+
+Pomocí možnosti Povolit uživatelům zapnout synchronizaci jazykových předvoleb zajistíte, že synchronizace bude ve výchozím nastavení vypnutá, ale nikoli zakázaná.
+
+Pokud toto nastavení nenastavíte nebo zakážete, bude synchronizace skupiny Jazykové předvolby ve výchozím nastavení zapnutá a uživatel je bude konfigurovat.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Povolit program Windows Zálohování</string>
+      <string id="EnableWindowsBackup_Help">Nastavení této zásady umožňuje správcům konfigurovat a spravovat zálohování nastavení systému Windows pro jejich organizaci.
+
+Pokud nastavení této zásady povolíte, bude zálohování nastavení systému Windows probíhat pravidelně.
+
+Pokud nastavení této zásady zakážete, zálohování nastavení systému Windows se neprovede.
+
+Pokud toto nastavení zásad není nakonfigurováno, zálohování nastavení systému Windows bude probíhat pravidelně podle způsobilosti.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Povolit obnovení systému Windows</string>
+      <string id="EnableWindowsRestore_Help">Toto nastavení zásad umožňuje správcům konfigurovat a spravovat obnovení nastavení Windows pro jejich organizaci.
+
+Když toto nastavení zásad povolíte, povolí se obnovení nastavení Windows.
+
+Když toto nastavení zásad zakážete nebo nenakonfigurujete, obnovení nastavení Windows bude zakázané.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Pokud toto nastavení zakážete nebo nenastavíte, může synchronizaci přes p
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">Povolit uživatelům zapnout synchronizaci rozložení úvodní obrazovky</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Povolit uživatelům zapnout synchronizaci „přístupnosti“.</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Povolí uživatelům zapnout synchronizaci jazykových předvoleb.</checkBox>
       </presentation>
 
     </presentationTable>

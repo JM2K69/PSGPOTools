@@ -6,11 +6,11 @@
   <resources>
     <stringTable>
       <string id="AllowBuildPreview">切換使用者對測試人員組建的控制</string>
-      <string id="AllowBuildPreview_Explain">此原則設定決定使用者是否可以透過設定 [設定] &gt; [更新與安全性] &gt; [Windows 測試人員計畫] 中的控制項取得 Windows 預覽版。
+      <string id="AllowBuildPreview_Explain">此原則設定決定使用者是否可以透過設定 [設定] &gt; [更新與安全性] &gt; [Windows 測試人員計畫] 中的控制項取得 Windows 預覽組建
 
-若啟用或未設定此原則設定，使用者可以透過設定 [Windows 測試人員計畫] 設定下載並安裝 Windows 預覽版。
+若啟用或未設定此原則設定，使用者可以透過設定 [Windows 測試人員計畫] 設定下載並安裝 Windows 預覽組建。
 
-若停用此原則設定，使用者無法透過 [設定] App 使用 [Windows 測試人員計畫] 設定。
+若停用此原則設定，使用者無法透過 [設定] 應用程式使用 [Windows 測試人員計畫] 設定。
 
 此原則僅支援直到 Windows 10 版本 1703 為止的版本。請使用 [商務用 Windows Update] 下的 [管理預覽版] 來取得較新的 Windows 10 版本。</string>
     </stringTable>

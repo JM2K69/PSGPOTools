@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>DPAPI</displayName>
+  <description>設定 DPAPI 設定</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod">設定 DPAPI 備份金鑰輪替期間</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">此原則設定會指定 DPAPI 備份金鑰輪替期間。
+您可以使用此設定來覆寫預設值 90 天。設定 0 以停用 DPAPI 備份金鑰輪替。
+如果您啟用此原則設定，請設定系統在產生新的 DPAPI 備份金鑰之前等候的天數。
+如果您停用或未設定此原則設定，則會使用預設值 90 天。</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">指定 DPAPI 備份金鑰輪替期間 (以天計算)。
+設為 0 以停用 DPAPI 備份金鑰輪替。</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

@@ -65,18 +65,17 @@ Pokud toto nastavení zásad povolíte, můžete vybrat, zda bude systém Window
 Jestliže zadáte web Windows Update i spravovaný server, bude systém Windows nejprve hledat na spravovaném serveru, například serveru služby Windows Server Update Services (WSUS). Pokud zde nenalezne žádnou aktualizaci, zkusí prohledat také web Windows Update.
 
 Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, mohou členové skupiny Administrators určit, na kterém serveru se mají hledat ovladače zařízení.
-      
       </string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Hledat na webu Windows Update</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Hledat na spravovaném serveru</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Hledat na spravovaném serveru, pak na webu Windows Update</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Zabránit načítání metadat zařízení z Internetu</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Toto nastavení zásad umožňuje zabránit systému Windows v načítání metadat zařízení z Internetu.
-          
-Pokud toto nastavení zásad povolíte, systém Windows nebude z Internetu načítat metadata zařízení pro instalovaná zařízení. Toto nastavení zásad přepíše nastavení v dialogovém okně Nastavení instalace zařízení (Ovládací panely &gt; Systém a zabezpečení &gt; Systém &gt; Upřesnit nastavení systému &gt; karta Hardware).
 
-Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude načítání metadat zařízení z Internetu ovládáno nastavením v dialogovém okně Nastavení instalace zařízení.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Zabránit automatickému stahování aplikací přidružených k metadatům zařízení</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Toto nastavení zásad umožňuje zabránit systému Windows ve stahování aplikací přidružených k metadatům zařízení.
+
+Pokud toto nastavení zásad povolíte, systém Windows nebude stahovat aplikace přidružené k metadatem zařízení pro nainstalovaná zařízení. Toto nastavení zásad přepíše nastavení v dialogovém okně Nastavení instalace zařízení (Ovládací panely &gt; kartu Systém a zabezpečení &gt; Systém &gt; Upřesnit nastavení systému &gt; Hardware).
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude nastavení v dialogovém okně Nastavení instalace zařízení určovat, zda systém Windows stahuje aplikace přidružené k metadatem zařízení.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

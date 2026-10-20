@@ -173,6 +173,12 @@ Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les utilis
 Par défaut, les utilisateurs peuvent modifier l’image d’arrière-plan qui apparaît lorsque l’ordinateur est verrouillé ou lorsqu’il affiche l’écran d’ouverture de session.
 
 Si vous activez ce paramètre, l’utilisateur ne peut pas modifier l’image de l’écran de verrouillage et d’ouverture de session. Il affiche au contraire l’image par défaut.</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">Empêcher le mouvement du fond d'écran</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">Cette politique permet de contrôler si l'image de l'écran de verrouillage est statique ou si elle a un effet panoramique subtil dû à la sortie de l'accéléromètre de l'appareil.
+
+Si vous activez ce paramètre, le mouvement sera empêché et l'utilisateur verra l'image de fond statique traditionnelle de l'écran de verrouillage.
+
+Si vous désactivez ce paramètre (et que l'appareil est équipé d'un accéléromètre), l'utilisateur verra l'image de fond de l'écran de verrouillage autour d'une image fixe lorsqu'il déplacera physiquement son appareil.</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">Forcer une image de l’écran de verrouillage et d’ouverture de session par défaut spécifique</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">Ce paramètre vous permet de forcer une image de l’écran de verrouillage et d’ouverture de session par défaut spécifique en indiquant le chemin d’accès (emplacement) du fichier image. Cette même image sert à l’écran de verrouillage et à l’écran d’ouverture de session.
 

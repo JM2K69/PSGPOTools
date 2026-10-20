@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>CAM (功能访问管理器) AI 策略</displayName>
+  <description>与 AI 功能及其同意管理相关的策略。</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">AI 许可</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">由用户控制</string>
+      <string id="ForceEnable">强制启用</string>
+      <string id="ForceDisable">强制禁用</string>
+      <string id="AgentConsentDuration_Name">智能体同意持续时间</string>
+      <string id="AgentConsentDuration_Explain">指定智能体功能“允许”同意响应的有效时长(以小时为单位)，超过此时长后系统会再次提示用户。
+
+如果启用此策略，则值必须介于 1 (1 小时)到 8760 (1 年)之间。配置的值将用作所有智能体功能“允许”同意响应的默认过期时间。
+
+如果未配置此策略，或者值超出允许范围，则默认值为 720 小时(30 天)。</string>
+      <string id="ConfigureAgentConnectors_Name">配置智能体连接器</string>
+      <string id="ConfigureAgentConnectors_Explain">启用或禁用智能体连接器。</string>
+      <string id="AgentConnectorAccessPolicy_Name">智能体连接器访问策略</string>
+      <string id="AgentConnectorAccessPolicy_Explain">此策略设置允许你定义 MCP 主机与 MCP 服务器之间允许的连接列表。
+
+此列表的格式将是一个符合 https://go.microsoft.com/fwlink/?LinkId=2363700 架构的 JSON 字符串。
+
+如果未配置此策略，MCP 主机可以在用户同意的情况下连接到任何 MCP 服务器。</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> 配置智能体连接器: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> 同意持续时间(小时): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>配置允许的 MCP 主机/服务器连接:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

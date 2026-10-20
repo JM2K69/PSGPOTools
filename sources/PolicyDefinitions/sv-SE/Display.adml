@@ -15,7 +15,16 @@ Om du aktiverar principinställningen aktiveras GDI DPI-skalning för alla äldr
 Om du inaktiverar eller låter bli att konfigurera principinställningen aktiveras inte GDI DPI-skalning för ett program såvida det inte aktiveras via ApplicationCompatibility-databasen, inställningen System (utökad) i ApplicationCompatibility-gränssnittet eller ett programmanifest.
 
 Om GDI DPI-skalning konfigureras till att både aktiveras och inaktiveras i ett program inaktiveras det.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">GDI DPI-skalning gör att program som inte är DPI-medvetna blir DPI-medvetna per skärm.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">Om du aktiverar den här principen kan du åsidosätta standardbeteendet när du ansluter ytterligare en övervakare. Det ger kontroll över om bildskärmen automatiskt ska klona (spegla) den primära skärmen eller utöka skrivbordet.
+Utöka utökar bildskärmen till den andra bildskärmen så att det finns olika innehåll på varje skärm. Klona dubbletter av den primära bildskärmen till den andra bildskärmen som visar samma innehåll på båda skärmarna. Intern Standardinställningen använder systemets standardbeteende som bestäms av Windows-inställningar.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> Konfigurera läge för flera bildskärmar</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">Om du aktiverar den här principen kan du åsidosätta standardbeteendet när du ansluter ytterligare en övervakare. Den ger kontroll över om en klonad bildskärm prioriterar den interna eller externa bildskärmen, d.v.s. att ange önskad upplösningskälla.
+Intern anger upplösningen för huvudskärmen som källa på båda skärmarna. Extern anger upplösningen för den anslutna (externa) bildskärmen som källa på båda skärmarna. Standardinställningen använder systemets standardbeteende som bestäms av Windows-inställningar.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> Ange prioriterad matchningskälla för klonad övervakare</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">GDI DPI-skalning gör att program som inte är DPI-medvetna blir DPI-medvetna per skärm.
 
 Med den här principinställningen kan du ange om GDI DPI-skalning ska vara inaktiverat för äldre program.
 
@@ -26,15 +35,15 @@ Om du inaktiverar eller låter bli att konfigurera principinställningen kan GDI
 Om GDI DPI-skalning konfigureras till att både inaktiveras och aktiveras i ett program inaktiveras det.</string>
       <string id="DisplayTurnOnGdiDPIScaling">Aktivera GdiDPIScaling för program</string>
       <string id="DisplayTurnOffGdiDPIScaling">Inaktivera GdiDPIScaling för program</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">System-DPI per process är en funktion för programkompatibilitet för skrivbordsprogram som inte renderas korrekt efter att skalningsfaktorn för bildskärmen (DPI) har ändrats. Många skrivbordsprogram kan vara oskarpa när skalningsfaktorn för den primära bildskärmen ändras (vilket kan hända om du ansluter eller kopplar från en bildskärm med en annan skalningsfaktor (DPI), fjärransluter från en enhet med en annan skalningsfaktor eller ändrar skalningsfaktorn manuellt). Skrivbordsprogram som inte uppdateras för att visas korrekt i det här scenariot förblir oskarpa tills användaren loggar ut och in igen i Windows. 
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">System-DPI per process är en funktion för programkompatibilitet för skrivbordsprogram som inte renderas korrekt efter att skalningsfaktorn för bildskärmen (DPI) har ändrats. Många skrivbordsprogram kan vara oskarpa när skalningsfaktorn för den primära bildskärmen ändras (vilket kan hända om du ansluter eller kopplar från en bildskärm med en annan skalningsfaktor (DPI), fjärransluter från en enhet med en annan skalningsfaktor eller ändrar skalningsfaktorn manuellt). Skrivbordsprogram som inte uppdateras för att visas korrekt i det här scenariot förblir oskarpa tills användaren loggar ut och in igen i Windows.
 
-När du aktiverar den här principen kan vissa program som är oskarpa se bra ut efter att de har startats om utan att användaren behöver logga ut och in igen i Windows. 
+När du aktiverar den här principen kan vissa program som är oskarpa se bra ut efter att de har startats om utan att användaren behöver logga ut och in igen i Windows.
 
 Obs!
 
-System-DPI per process förbättrar endast renderingen av skrivbordsprogram på den primära bildskärmen. Vissa skrivbordsprogram kan fortfarande vara oskarpa på sekundära bildskärmar som har en annan skalningsfaktor. 
+System-DPI per process förbättrar endast renderingen av skrivbordsprogram på den primära bildskärmen. Vissa skrivbordsprogram kan fortfarande vara oskarpa på sekundära bildskärmar som har en annan skalningsfaktor.
 
-System-DPI per process fungerar inte för alla program eftersom vissa äldre skrivbordsprogram alltid är oskarpa på bildskärmar med hög DPI. 
+System-DPI per process fungerar inte för alla program eftersom vissa äldre skrivbordsprogram alltid är oskarpa på bildskärmar med hög DPI.
 
 I en del fall kan vissa skrivbordsprogram bete sig lite udda. Om det händer bör du inaktivera System-DPI per process.
 
@@ -44,6 +53,14 @@ Om du aktiverar den här inställningen kan du ange en systemglobal standardinst
       <string id="DisplayPerProcessSystemDpiSettings">Konfigurera inställningar för System-DPI per process</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">Aktivera</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">Inaktivera</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">Klon</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">Standardinställning</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">Utvidga</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">Endast intern</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">Endast externt</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">Standardinställning</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">Internt</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">Extern</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">Aktivera System-DPI per process för program</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">Inaktivera System-DPI per process för program</string>
     </stringTable>
@@ -66,6 +83,12 @@ Om du aktiverar den här inställningen kan du ange en systemglobal standardinst
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>Inaktivera System-DPI per process för följande program. Använd den fullständiga programsökvägen eller programmets filnamn och filtillägg. Avgränsa programmen med semikolon.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">Klona, utöka, InternalOnly, ExternalOnly eller Fortsätt med standardinställningarna för Windows som konfiguration för flervisningsläge.</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">Ange den standardupplösning som Windows ska använda för nya klonade bildskärmar som interna, externa eller standardinställningar för Windows.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

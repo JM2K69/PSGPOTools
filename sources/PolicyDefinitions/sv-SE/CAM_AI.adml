@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>AI-principer för CAM (Capability Access Manager)</displayName>
+  <description>Policyer som rör AI-funktioner och hanteringen av deras samtycke.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">AI-samtycke</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">Användaren har kontrollen</string>
+      <string id="ForceEnable">Framtvinga aktivering</string>
+      <string id="ForceDisable">Framtvinga inaktivering</string>
+      <string id="AgentConsentDuration_Name">Varaktighet för agentmedgivande</string>
+      <string id="AgentConsentDuration_Explain">Anger hur länge, i timmar, ett ”Tillåt”-medgivandesvar för agentfunktioner förblir giltigt innan användaren tillfrågas igen.
+
+Om den här principen är aktiverad måste värdet vara mellan 1 (1 timme) och 8 760 (1 år). Det konfigurerade värdet används som standardförfallotid för alla ”Tillåt”-medgivandesvar för agentfunktioner.
+
+Om den här principen inte har konfigurerats, eller om värdet ligger utanför det tillåtna intervallet, är standardvärdet 720 timmar (30 dagar).</string>
+      <string id="ConfigureAgentConnectors_Name">Konfigurera agentanslutningar</string>
+      <string id="ConfigureAgentConnectors_Explain">Aktivera eller inaktivera agentanslutningar.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Åtkomstprincip för agentanslutning</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Med den här principinställningen kan du definiera en lista över tillåtna anslutningar mellan MCP-värdar och MCP-servrar.
+
+Formatet för den här listan är en JSON-sträng som följer schemat på https://go.microsoft.com/fwlink/?LinkId=2363700.
+
+Om den här principen inte har konfigurerats kan MCP-värden ansluta till valfri MCP-server med användarens medgivande.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Konfigurera agentanslutningar: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Varaktighet för medgivande (timmar): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Konfigurera tillåtna MCP-värd-/serveranslutningar:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

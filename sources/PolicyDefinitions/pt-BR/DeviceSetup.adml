@@ -70,13 +70,13 @@ Se você desabilitar ou não definir esta configuração de política, os membro
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Pesquisar Windows Update</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Pesquisar Servidor Gerenciado</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Pesquisar Servidor Gerenciado, depois WU</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Impedir a recuperação de metadados do dispositivo da Internet</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Esta configuração de política permite que você impeça o Windows de recuperar metadados do dispositivo da Internet.
-          
-Se você habilitar esta configuração de política, o Windows não recuperará metadados do dispositivo para dispositivos instalados da Internet. Esta configuração de política substitui a configuração na caixa de diálogo Configurações de Instalação do Dispositivo (Painel de Controle &gt; Sistema e Segurança &gt; Sistema &gt; Configurações Avançadas do Sistema &gt; guia Hardware).
 
-Se você desabilitar ou não definir esta configuração de política, a configuração na caixa de diálogo Configurações de Instalação do Dispositivo controlará se o Windows irá recuperar metadados do dispositivo da Internet.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Impedir o download automático de aplicativos associados aos metadados do dispositivo</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Essa configuração de política permite impedir que o Windows baixe aplicativos associados aos metadados do dispositivo.
+
+Se você habilitar essa configuração de política, o Windows não baixará aplicativos associados aos metadados do dispositivo para dispositivos instalados. Essa configuração de política substitui a configuração na caixa de diálogo Configurações de Instalação do Dispositivo (Painel de Controle &gt; Sistema e Segurança &gt; Sistema &gt; Configurações Avançadas do Sistema &gt; guia Hardware).
+
+Se você desabilitar ou não definir essa configuração de política, a configuração na caixa de diálogo Configurações de Instalação do Dispositivo determinará se o Windows baixará aplicativos associados aos metadados do dispositivo.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>ReFS-csoportházirend</displayName>
+  <description>A ReFS csoportházirend-beállításai</description>
+  <resources>
+    <stringTable>
+      <string id="ReFS">ReFS</string>
+      <string id="EnableDevDrive">Fejlesztői meghajtó engedélyezése</string>
+      <string id="EnableDevDriveText">A fejlesztői meghajtó vagy fejlesztői kötet a fejlesztői forgatókönyvek teljesítményére optimalizált kötet. A fejlesztői kötetek lehetővé teszik a rendszergazdák számára a kötethez csatolandó fájlrendszerszűrők kiválasztását.
+      
+A beállítás letiltásával letiltja az új fejlesztői kötetek létrehozását, a meglévő fejlesztői kötetek pedig normál kötetként lesznek csatlakoztatva.
+
+Ha ez a beállítás nincs konfigurálva, az alapértelmezett házirend a fejlesztői kötetek engedélyezése, ami eközben engedélyezi a víruskereső szűrő csatlakoztatását egy fejlesztői köteten.  Emellett ha nincs konfigurálva, a helyi rendszergazda dönthet úgy, hogy nem csatol víruskereső szűrőt a fejlesztői kötethez.
+
+A beállítás érvénybe lépéséhez újraindítás szükséges.</string>
+      <string id="ModeOff">Kikapcsolva</string>
+      <string id="ModeAudit">Csak naplózás</string>
+      <string id="ModeBlock">Tiltás</string>
+      <string id="BlockExternalBusMount">ReFS-kötetek csatlakoztatásának szabályozása USB- és IEEE 1394 lemezeken</string>
+      <string id="BlockExternalBusMountText">Meghatározza, hogy csatlakoztathatók-e ReFS-kötetek USB- vagy IEEE 1394 csatlakoztatott lemezeken. Az ReFS nem támogatott konfiguráció online csatlakoztatható vagy cserélhető lemezeken.
+
+A Tiltás visszautasítja a csatlakoztatást, és rögzít egy eseményt a rendszernaplóban.
+
+A Csak naplózás engedélyezi a csatlakoztatást és rögzíti ugyanazt az eseményt, hogy a házirend engedélyezésének hatása értékelhető legyen a kényszerítése előtt.
+
+A Kikapcsolva nem végez se auditálást, se blokkolást.
+
+Tárolóhelyek kötete esetén az ellenőrzés a készletet tartalmazó fizikai lemezekre vonatkozik, nem magára a helyre.
+
+Ha ez a házirend-beállítás nincs konfigurálva, a számítógép helyi beállítása lesz használva. Ha nincs helyi beállítás, a Windows ezen verziójának alapértelmezett viselkedése lesz használva.
+
+Az ReFS a betöltődéskor olvassa be ezt a beállítást, ezért a módosítás életbelépése előtt újraindítás szükséges. Ezután a beállítás minden alkalommal a kötet csatlakoztatásakor értékelődik ki, így a már csatlakoztatott kötet megőrzi az aktuális állapotát, amíg le nem választja, majd újra nem csatlakoztatja.</string>
+      <string id="BlockHotplugMount">ReFS-kötetek csatlakoztatásának szabályozása online csatlakoztatható lemezeken</string>
+      <string id="BlockHotplugMountText">Meghatározza, hogy csatlakoztathatók-e ReFS-kötetek azokra a lemezekre, amelyeket a tárolóverem online csatlakoztathatóként jelent, bármilyen buszhoz is csatlakozzanak. Az ReFS nem támogatott konfiguráció online csatlakoztatható vagy cserélhető lemezeken.
+
+A Tiltás visszautasítja a csatlakoztatást, és rögzít egy eseményt a rendszernaplóban.
+
+A Csak naplózás engedélyezi a csatlakoztatást és rögzíti ugyanazt az eseményt, hogy a házirend engedélyezésének hatása értékelhető legyen a kényszerítése előtt.
+
+A Kikapcsolva nem végez se auditálást, se blokkolást.
+
+Tárolóhelyek kötete esetén az ellenőrzés a készletet tartalmazó fizikai lemezekre vonatkozik, nem magára a helyre.
+
+Ha ez a házirend-beállítás nincs konfigurálva, a számítógép helyi beállítása lesz használva. Ha nincs helyi beállítás, a Windows ezen verziójának alapértelmezett viselkedése lesz használva.
+
+Az ReFS a betöltődéskor olvassa be ezt a beállítást, ezért a módosítás életbelépése előtt újraindítás szükséges. Ezután a beállítás minden alkalommal a kötet csatlakoztatásakor értékelődik ki, így a már csatlakoztatott kötet megőrzi az aktuális állapotát, amíg le nem választja, majd újra nem csatlakoztatja.</string>
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="EnableDevDriveOptions">
+        <checkBox refId="DevDriveAllowAntivirusFilter" defaultChecked="true">Védje fejlesztői meghajtóit víruskereső szűrővel</checkBox>
+      </presentation>
+      <presentation id="BlockExternalBusMountOptions">
+        <dropdownList refId="BlockExternalBusMountMode" defaultItem="0">ReFS-kötetek művelete USB- vagy IEEE 1394 lemezeken</dropdownList>
+      </presentation>
+      <presentation id="BlockHotplugMountOptions">
+        <dropdownList refId="BlockHotplugMountMode" defaultItem="0">ReFS-kötetek művelete online csatlakoztatható lemezeken</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

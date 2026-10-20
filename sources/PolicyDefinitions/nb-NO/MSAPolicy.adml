@@ -12,6 +12,8 @@ Dette gjelder både for eksisterende brukere av en enhet og nye brukere som kan 
 Det anbefales at du aktiverer denne innstillingen før alle brukere logger på en enhet for å hindre at bufrede tokener vises. Hvis denne innstillingen deaktiveres eller ikke konfigureres, kan programmer og tjenester bruke Microsoft-kontoer til godkjenning.  
 Denne policy innstillingen er deaktivert som standard. Denne innstillingen påvirker ikke om brukere kan logge på enheter ved hjelp av Microsoft-kontoer, eller muligheten for brukere til å tilby Microsoft-kontoer via nett leseren for godkjenning med webbaserte programmer. 
         </string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnly">Tillat bare enhetsgodkjenning for påloggingsassistenten for Microsoft-konto</string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnlyExplain">Denne innstillingen angir om bare organisasjons-enhetsgodkjenning skal tillates for påloggingsassistenttjenesten for Microsoft-konto (wlidsvc). Som standard er denne innstillingen deaktivert og tillater både bruker- og enhetsgodkjenning. Når verdien er satt til 1 tillates bare enhetsgodkjenning og brukergodkjenning blir blokkert.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

@@ -6,6 +6,8 @@
   <resources>
     <stringTable>
       <string id="NotificationsCategory">알림</string>
+      <string id="WnsEndpoint">WNS FQDN에 대해 그룹 정책을 사용하도록 설정합니다.</string>
+      <string id="WnsEndpointExplain">이 정책은 특정 환경을 위한 특수 WNS FQDN을 설정합니다.</string>
       <string id="NoTileNotification">타일 알림 끄기</string>
       <string id="NoTileNotificationExplain">
           
@@ -118,6 +120,18 @@
 
           이 정책 설정을 적용하기 위해 다시 부팅하거나 서비스를 다시 시작할 필요는 없습니다.
       </string>
+      <string id="ExpandedToastNotifications">알림 센터의 여러 확장된 알림 메시지 켜기</string>
+      <string id="ExpandedToastNotificationsExplain">
+          이 정책 설정은 알림 센터 여러 확장 알림 메시지를 켭니다.
+
+이 정책 설정을 사용하면 알림 센터 각 응용 프로그램의 처음 세 알림이 기본적으로 확장됩니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 알림 센터 각 응용 프로그램의 첫 번째 알림만 기본적으로 확장됩니다.
+
+Windows 10. 이 작업은 Windows 11 즉시 사용되지 않습니다.
+
+이 정책 설정을 적용하려면 다시 부팅하거나 서비스를 다시 시작할 필요가 없습니다.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="QuietHoursBeginTimePicker">
@@ -125,6 +139,11 @@
       </presentation>
       <presentation id="QuietHoursEndTimePicker">
         <decimalTextBox refId="QuietHoursDailyEndMinuteControl" defaultValue="360">자정 이후 시간(분):</decimalTextBox>
+      </presentation>
+      <presentation id="WnsEndpoint">
+        <textBox refId="WnsEndpoint_FQDN">
+          <label>WNS의 FQDN</label>
+        </textBox>
       </presentation>
     </presentationTable>
   </resources>

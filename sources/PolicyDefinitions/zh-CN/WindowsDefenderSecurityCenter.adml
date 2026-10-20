@@ -11,7 +11,7 @@
     <string id="FamilyOptions">家庭选项</string>
     <string id="Notifications">通知</string>
     <string id="EnterpriseCustomization">企业定制</string>
-    <string id="AccountProtection">帐户保护</string>
+    <string id="AccountProtection">账户保护</string>
     <string id="DeviceSecurity">设备安全性</string>
     <string id="Systray">Systray</string>
     <string id="VirusThreatProtection_UILockdown">隐藏病毒和威胁防护区域</string>
@@ -68,13 +68,13 @@
     </string>
     <string id="AppBrowserProtection_DisallowExploitProtectionOverride">阻止用户修改设置</string>
     <string id="AppBrowserProtection_DisallowExploitProtectionOverride_Explain">
-        阻止用户对 Windows 安全中心中的 Exploit Protection 设置区域做出更改。
+        阻止用户对 Windows 安全中心中的“攻击防护”设置区域做出更改。
 
         启用:
-        本地用户不能对 Exploit protection 设置区域做出更改。
+        本地用户不能对“攻击防护”设置区域做出更改。
 
         禁用:
-        允许本地用户对 Exploit protection 设置区域做出更改。
+        允许本地用户对“攻击防护”设置区域做出更改。
 
         未配置:
         与“禁用”相同。
@@ -135,21 +135,22 @@
     </string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts">配置自定义通知</string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts_Explain">
-        在 Windows 安全中心通知中向本地用户显示指定联系信息。
+        在 Windows 安全中心通知中向本地用户显示指定联系人信息。
 
-        启用:
-        你公司的联系信息将显示在 Windows 安全中心的通知中。
+        已启用:
+        你公司的联系人信息将显示在 Windows 安全中心的通知中。
 
-        将此项设置为“启用”后，你必须设置“指定联系公司名称”GP 设置，以及下述 GP 设置中的至少一项：
-        -指定联系电话号码或 Skype ID
-        -指定联系电子邮件号码或电子邮件 ID
-        -指定联系网页
+        将此项设置为“已启用”后，你必须配置“指定联系公司名称”GP 设置，以及下述 GP 设置中的至少一项:
+        - 指定联系电话号码或 Skype ID
+        - 指定联系电子邮件号码或电子邮件 ID
+        - 指定联系网页
+        请注意，在某些情况下，我们将根据可用的通知空间限制所显示的联系人选项。
+        
+        已禁用:
+        通知中将不会显示联系人信息。
 
-        禁用:
-        通知中将不会显示联系信息。
-
-        未配置：
-        与“禁用”相同。
+        未配置:
+        与“已禁用”相同。
     </string>
     <string id="EnterpriseCustomization_EnableInAppCustomization">配置自定义联系信息</string>
     <string id="EnterpriseCustomization_EnableInAppCustomization_Explain">
@@ -227,15 +228,15 @@
         未配置:
         与“禁用”相同。
     </string>
-    <string id="AccountProtection_UILockdown">隐藏帐户保护区域</string>
+    <string id="AccountProtection_UILockdown">隐藏账户保护区域</string>
     <string id="AccountProtection_UILockdown_Explain">
-        隐藏 Windows 安全中心中的帐户保护区域。
+        隐藏 Windows 安全中心中的账户保护区域。
 
         启用:
-        将隐藏帐户保护区域。
+        将隐藏账户保护区域。
 
         禁用:
-        将显示帐户保护区域。
+        将显示账户保护区域。
 
         未配置:
         与“禁用”相同。

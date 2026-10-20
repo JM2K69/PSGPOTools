@@ -22,7 +22,7 @@
 このポリシー設定を構成しないと、ホスト名から Kerberos 領域へのマッピングがローカル レジストリで定義されている場合、そのマッピングが使用されます。</string>
       <string id="MitRealms">相互運用可能な Kerberos V5 領域設定を定義する</string>
       <string id="MitRealms_explain">このポリシー設定では、このポリシー設定の定義に従って、相互運用可能な Kerberos V5 領域を使用して認証できるように、Kerberos クライアントを構成します。
-      
+
 このポリシー設定を有効にすると、相互運用可能な Kerberos V5 領域とその設定の一覧を表示および変更することができます。相互運用可能な Kerberos V5 領域の一覧を表示するには、このポリシー設定を有効にし、[表示] ボタンをクリックします。相互運用可能な Kerberos V5 領域を追加するには、このポリシー設定を有効にし、構文に注意して [表示] ボタンをクリックします。次に、[内容の表示] ダイアログ ボックスの [値の名前] 列に相互運用可能な Kerberos V5 領域名を入力し、適切な構文形式を使用して [値] 列にホスト KDC の領域フラグとホスト名を入力します。一覧から相互運用可能な Kerberos V5 領域の [値の名前] や [値] のエントリを削除するには、そのエントリをクリックし、Del キーを押します。マッピングを編集するには、一覧から現在のエントリを削除し、異なるパラメーターを持つ新しいエントリを追加します。
 
 このポリシー設定を無効にすると、グループ ポリシーで定義された相互運用可能な Kerberos V5 領域の設定が削除されます。
@@ -34,7 +34,6 @@
 このポリシー設定を有効にした場合、KDC の X.509 証明書に拡張キー使用法 (EKU) 拡張子の KDC キー用オブジェクト識別子が含まれていること、および KDC の X.509 証明書にドメインの DNS 名と一致する dNSName subjectAltName (SAN) 拡張子が含まれていることが、Kerberos クライアントに必要です。コンピューターがドメインに参加している場合は、NTAuth ストアの証明機関 (CA) によって KDC の X.509 証明書に署名が付加されていることが、Kerberos クライアントに必要です。コンピューターがドメインに参加していない場合、Kerberos クライアントにより、KDC の X.509 証明書のパス検証にスマート カードのルート CA 証明書が使用されることが許可されます。
 
 このポリシー設定を無効にした場合、または構成しなかった場合、Kerberos クライアントに必要になるのは、どのサーバーに対しても発行できる EKU 拡張子のサーバー認証用オブジェクト識別子が KDC 証明書に含まれていることのみです。
-
 </string>
       <string id="StrictTarget">リモート プロシージャ コールでターゲット SPN の厳密な一致を必須にする</string>
       <string id="StrictTarget_explain">  このポリシー設定を使用すると、このシステムで生成された SPN を含むチケットの暗号化を Kerberos で解除できるようにこのサーバーを構成することができます。アプリケーションで、サービス プリンシパル名 (SPN) の値が NULL の状態でこのサーバーへのリモート プロシージャ コール (RPC) が試行されると、Windows 7 以降が実行されているコンピューターでは SPN を生成して Kerberos の使用が試行されます。
@@ -94,7 +93,7 @@
 
       <string id="MaxTokenSize">Kerberos SSPI コンテキスト トークンのバッファー サイズの最大値を設定する</string>
       <string id="MaxTokenSize_explain">このポリシー設定では、SSPI コンテキスト トークンのバッファー サイズの最大値を要求するアプリケーションに返される値を設定できます。
-              
+
 コンテキスト トークンのバッファー サイズを使用して、アプリケーションでは SSPI コンテキスト トークン サイズの最大値を予測し、割り当てます。バッファーは、認証要求処理とグループ メンバーシップに応じて、SSPI コンテキスト トークンの実際のサイズより小さくなることがあります。
 
 このポリシー設定を有効にすると、Kerberos クライアントまたはサーバーは、構成された値とローカルで許容される最大値のうち、小さい方の値を使用します。
@@ -103,15 +102,13 @@
 
 注: このポリシー設定では、HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters 内の既存の MaxTokenSize レジストリ値が構成されます。このレジストリ値は Windows XP と Windows Server 2003 から追加されたもので、既定値は 12,000 バイトです。Windows 8 以降の既定値は 48,000 バイトです。HTTP では認証コンテキスト トークンの base64 エンコーディングがあるため、この値を 48,000 バイト以上に設定しないことをお勧めします。
 
-
-
 </string>
       <string id="EnableCbacAndArmor">Kerberos クライアントで信頼性情報、複合認証、および Kerberos 防御をサポートする</string>
       <string id="EnableCbacAndArmor_explain">このポリシー設定では、これらの機能をサポートするドメインで Kerberos 認証を使用して、ダイナミック アクセス制御と Kerberos 防御で使用する信頼性情報および複合認証をデバイスが要求するかどうかを制御します。
 このポリシー設定を有効にした場合、クライアント コンピューターは、信頼性情報を要求し、ダイナミック アクセス制御と Kerberos 防御で使用する信頼性情報および複合認証をサポートするドメインで複合認証の作成と Kerberos メッセージの防御に必要な情報を提供します。
 
 このポリシー設定を無効にした場合、または構成しなかった場合、クライアント デバイスは信頼性情報を要求しないため、複合認証の作成と Kerberos メッセージの防御に必要な情報が提供されません。デバイスでホストされているサービスは、Kerberos プロトコル遷移を使用してクライアントの信頼性情報を取得できなくなります。 
-  
+
 </string>
       <string id="AlwaysSendCompoundId">常に複合認証を先に送信する</string>
       <string id="AlwaysSendCompoundId_explain">このポリシー設定では、リソース ドメインにより複合 ID が要求されるときにデバイスが複合認証要求を常に送信するかどうかを制御します。
@@ -136,9 +133,54 @@
 
 このポリシー設定を無効にした場合、証明書は使用されません。
 このポリシー設定を構成しなかった場合、[自動] が使用されます。
+
+エンタープライズ PKI の構成については、次のガイドを参照してください: https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">自動</string>
       <string id="DevicePKInitBehavior_Force">強制</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">ログオン中にAzure AD Kerberos チケット保証チケットの取得を許可する</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">このポリシー設定を使用すると、ログオン時にAzure AD Kerberos チケット保証チケットを取得できます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、ログオン時に Azure AD Kerberos チケット保証チケットは取得されません。
+
+このポリシー設定を有効にした場合、ログオン時にAzure AD Kerberos チケット保証チケットが取得されます。</string>
+      <string id="PKInitHashAlgorithmConfiguration">証明書ログオンのハッシュ アルゴリズムを構成する</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">このポリシー設定は、証明書認証を実行するときに Kerberos クライアントで使用されるハッシュまたはチェックサムのアルゴリズムを制御します。
+
+このポリシーを有効にした場合、各アルゴリズムで 4 つの状態のうち 1 つを構成できるようになります。
+
+- "既定" の場合、アルゴリズムは推奨されている状態に設定されます。
+
+- "サポート" の場合、アルゴリズムの使用が有効になります。既定で無効にされたアルゴリズムを有効にすると、セキュリティが低下するおそれがあります。
+
+- "監査対象" の場合、アルゴリズムの使用が有効になり、それが使用されるたびにイベント (ID 206) が報告されます。この状態は、そのアルゴリズムが使用されておらず、無効にして差し支えないことを確認することを意図したものです。
+
+- "サポートされない" の場合、アルゴリズムの使用が無効になります。この状態は、安全ではないと見なされるアルゴリズムを対象としています。
+
+このポリシーを無効にした場合、または構成しなかった場合、各アルゴリズムは "既定" 状態と見なされます。
+Windows Kerberos クライアントでサポートされているハッシュおよびチェックサムのアルゴリズムと、その既定の状態の詳細については、https://go.microsoft.com/fwlink/?linkid=2169037 をご覧ください。
+
+この構成によって生成されるイベント: 205、206、207、208。
+</string>
+      <string id="PKInitHashAlgorithm_Default">既定値</string>
+      <string id="PKInitHashAlgorithm_Supported">サポート</string>
+      <string id="PKInitHashAlgorithm_Audited">監査対象</string>
+      <string id="PKInitHashAlgorithm_NotSupported">サポートされていません</string>
+      
+      <string id="DelegatedMSAEnabled">委任された管理されたサービス アカウント ログオンを有効にする</string>
+      <string id="DelegatedMSAEnabled_explain">このポリシー設定は、このコンピューターの委任された管理されたサービス アカウント ログオンを有効または無効にします。
+
+このポリシー設定を有効にすると、委任された管理されたサービス アカウント トログオンが Kerberos クライアントでサポートされます。このポリシーには特定の前提条件があることにご注意ください。新しい委任された管理されたサービス アカウントを作成するための前提条件と手順については、https://go.microsoft.com/fwlink/?linkid=2250379 を参照してください。
+
+このポリシー設定を無効にするか構成しない場合、委任された管理されたサービス アカウント トログオンは Kerberos クライアントでサポートされません。 
+</string>
+      <string id="EnableTryIPSPN">Kerberos 認証中に IP アドレスベースの SPN を許可する</string>
+      <string id="EnableTryIPSPN_explain">このポリシー設定を使用すると、IP アドレス ベースのサービス プリンシパル名 (SPN) を使用するように Kerberos を構成できます。
+
+このポリシー設定を有効にすると、Kerberos クライアントはサービスへの接続時に IP アドレス ベースの SPN の使用を試みます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、Kerberos は IP アドレス ベースの SPN の使用を試みません。
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -181,6 +223,16 @@
         <text>別の例:</text>
         <text>値の名前: REALM.FABRIKAM.COM</text>
         <text>値: &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">領域:</multiTextBox>
+        <text>構文:</text>
+        <text>DMSA が存在する可能性のある領域の一覧を入力してください。</text>
+        <text>完全修飾ドメイン名 (FQDN) と短い名前の両方を入力してください。</text>
+        <text>1 行につき 1 つの領域を入力してください。</text>
+        <text>詳細:</text>
+        <text>Kerberos クライアントは、一覧表示された領域について、DMSA 対応ドメイン コントローラーの検索を試みます。</text>
+        <text>領域が指定されていない場合、Kerberos クライアントはすべての領域の DMSA 対応ドメイン コントローラーを検索しようとします。</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">モード:</dropdownList>
@@ -225,7 +277,7 @@
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">クライアントのデバイス情報を使用する認証をサポートする:</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">クライアントのデバイス情報を使用する認証をサポートする:</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">最大サイズ</decimalTextBox>
@@ -233,7 +285,13 @@
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">証明書を使用したデバイス認証の動作:</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">証明書を使用したデバイス認証の動作:</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

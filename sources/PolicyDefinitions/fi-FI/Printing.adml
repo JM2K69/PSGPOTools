@@ -60,7 +60,7 @@ Huomautuksia:
           Jos et halua näyttää tietyntyyppisiä tulostimia, ota tämä käytäntö käyttöön ja aseta näytettävien tulostinten määräksi 0.
 
           Windows 10:ssä ja sitä uudemmissa käyttöjärjestelmissä ohjatussa toiminnossa voidaan näyttää vain TCP/IP-tulostimet. Jos otat tämän käytäntöasetuksen käyttöön, sovelletaan vain TCP/IP-tulostimien enimmäisrajaa. Jos Windows 10:ssä poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, sovelletaan oletusrajaa.
-          
+
           Windows 8:ssa ja sitä uudemmissa käyttöjärjestelmissä ei näytetä Bluetooth-tulostimia, joten niiden enimmäisrajaa ei sovelleta Windowsin kyseisissä versioissa.
       </string>
       <string id="DomainPrinters">Ohjattu tulostimen asennus - Verkon etsinnän tulossivu (Hallittu verkko)</string>
@@ -147,7 +147,7 @@ Jaetut tulostimet: 50
 Jos et halua näyttää tietyntyyppisiä tulostimia, ota tämä käytäntö käyttöön ja aseta näytettävien tulostinten määräksi 0.
 
 Windows 10:ssä ja sitä uudemmissa käyttöjärjestelmissä ohjatussa toiminnossa voidaan näyttää vain TCP/IP-tulostimet. Jos otat tämän käytäntöasetuksen käyttöön, sovelletaan vain TCP/IP-tulostimien enimmäisrajaa. Jos Windows 10:ssä poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, sovelletaan oletusrajaa.
-          
+
 Windows 8:ssa ja sitä uudemmissa käyttöjärjestelmissä ei näytetä Bluetooth-tulostimia, joten niiden enimmäisrajaa ei sovelleta Windowsin kyseisissä versioissa.</string>
       <string id="NonDomainPrinters">Ohjattu tulostimen asennus - Verkon etsinnän tulossivu (Hallitsematon verkko)</string>
       <string id="PackagePointAndPrintOnly">Käytä vain ohjainpaketteihin perustuvaa osoittamalla tulostamista</string>
@@ -278,19 +278,241 @@ Oletusarvon mukaan Windows Ultimaten, Professionalin ja Homen varastointiyksikö
 
         Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, kaikki asennetut tulostinlaajennukset ovat suoritettavissa.</string>
       <string id="MXDWUseLegacyOutputFormatMSXPS">Vaihda Microsoft XPS Document Writerin (MXDW) oletusarvoiseksi tulosmuodoksi vanha Microsoft XPS -muoto (*.xps)</string>
-      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Microsoft XPS -asiakirjojen kirjoitustoiminto (MXDW) muodostaa OpenXPS (*.oxps) -tiedostoja oletusarvon mukaan Windows 10:ssä ja Windows Server 2019:ssä.
+      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Microsoft XPS -asiakirjojen kirjoitustoiminto (MXDW) muodostaa OpenXPS (*.oxps) -tiedostoja oletusarvon mukaan Windows 10, Windows 10 ja Windows Server 2025:ssä.
 
-          Jos otat tämän ryhmäkäytäntöasetuksen käyttöön, oletusarvon mukainen MXDW-tulostemuoto on vanha Microsoft XPS (*.xps).
+Jos otat tämän ryhmäkäytäntöasetuksen käyttöön, MXDW-tulosteen oletusmuoto on vanha Microsoft XPS (*.xps).
 
-          Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, oletusarvon mukainen MXDW-tulostemuoto on OpenXPS (*.oxps).</string>
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, MXDW-tulosteen oletusmuoto on OpenXPS (*.oxps).</string>
       <string id="SetDefaultPrinterMRUModeOff">Poista Windowsin oletustulostimen hallinta käytöstä</string>
-      <string id="SetDefaultPrinterMRUModeOff_Help">Tämän asetuksen avulla voit muuttaa oletustulostimen hallintaa.
+      <string id="SetDefaultPrinterMRUModeOff_Help">Tämän asetuksen avulla voit muuttaa tulostimen oletushallintaa.
 
 Jos otat tämän asetuksen käyttöön, Windows ei hallitse oletustulostinta.
- 
+
 Jos poistat tämän asetuksen käytöstä, Windows hallitsee oletustulostinta.
 
 Jos et määritä tätä asetusta, oletustulostimen hallinta ei muutu. </string>
+      <string id="EnableDeviceControl">Ota laitehallinnan tulostusrajoitukset käyttöön</string>
+      <string id="EnableDeviceControl_Help">
+Määrittää, pakotetaanko laitehallinnan tulostusrajoitukset tulostukseen tällä tietokoneella.
+
+          Oletusarvoisesti tulostukseen ei sovelleta mitään rajoituksia yhteystyypin tai tulostimen valmistajan/mallin mukaan.
+
+          Jos otat käyttöön tämän asetuksen, tietokone rajoittaa tulostuksen tulostimen yhteyksiin yritysverkossa tai hyväksytyissä USB-liitetyissä tulostimissa.
+
+          Jos poistat käytöstä tämän asetuksen tai et määritä sitä, tulostukseen ei sovelleta rajoituksia yhteystyypin tai tulostimen valmistajan/mallin mukaan.</string>
+      <string id="ApprovedUsbPrintDevices">Hyväksyttyjen USB-tulostimien luettelo</string>
+      <string id="ApprovedUsbPrintDevices_Help">
+
+Tämä asetus on laiteohjauksen tulostusrajoitusten osa. Jos haluat käyttää tätä asetusta, ota laiteohjauksen tulostus käyttöön ottamalla käyttöön Laitehallinnan tulostusrajoitukset -asetus.
+
+Kun laiteohjauksen tulostus on käytössä, järjestelmä käyttää määritettyä vid/pid-arvojen luetteloa määrittääkseen, onko nykyinen USB-tulostin hyväksytty paikalliseen tulostukseen.
+
+Kirjoita kaikki hyväksytyt vid/pid-yhdistelmät (pilkuilla erotettuina), jotka vastaavat hyväksyttyjä USB-tulostinmalleja. Kun käyttäjä yrittää tulostaa USB-tulostinjonoon, laitteen vid/pid-pid-liittymää verrataan hyväksyttyyn luetteloon.
+      </string>
+      <string id="RestrictDriverInstallationToAdministrators">Rajoittaa tulostusohjaimen asennuksen järjestelmänvalvojille</string>
+      <string id="RestrictDriverInstallationToAdministrators_Help">
+Määrittää, voivatko muut kuin järjestelmänvalvojat asentaa tähän tietokoneeseen tulostusohjaimia.
+
+Oletusarvoisesti muut kuin järjestelmänvalvojat eivät voi asentaa tulostusohjaimia tähän tietokoneeseen.
+
+Jos otat tämän asetuksen käyttöön tai et määritä sitä, järjestelmä rajoittaa tulostusohjainten asennuksen tämän tietokoneen järjestelmänvalvojille.
+
+Jos poistat tämän asetuksen käytöstä, järjestelmä ei rajoita tulostusohjainten asentamista tähän tietokoneeseen.
+        </string>
+      <string id="CopyFilesPolicy">Jonokohtaisten tiedostojen käsittelyn hallinta</string>
+      <string id="CopyFilesPolicy_AllowAll">Salli kaikki jonokohtaiset tiedostot</string>
+      <string id="CopyFilesPolicy_Disabled">Älä salli jonokohtaisia tiedostoja</string>
+      <string id="CopyFilesPolicy_Help">
+Määrittää, miten jonokohtaiset tiedostot käsitellään tulostimen asennuksen aikana. Valmistajan toimittama asennussovellus voi määrittää tulostimen asennuksen yhteydessä tiedostojoukon ( mitä tahansa tyyppiä) liitettäväksi tiettyyn tulostusjonoon. Tiedostot ladataan jokaiseen asiakasohjelmaan, joka muodostaa yhteyden tulostuspalvelimeen.
+
+Voit ottaa tämän asetuksen käyttöön, jos haluat muuttaa jonokohtaisiin tiedostoihin liittyviä oletustoimintoja. Jos haluat käyttää tätä asetusta, valitse jokin alla olevista vaihtoehdoista Jonokohtaiset tiedostot -ruudusta.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, rajoita jonokohtaiset tiedostot väriprofiileihin oletusarvon mukaan.
+
+–- Älä salli jonokohtaisia tiedostoja -asetus määrittää, että jonokohtaisia tiedostoja ei sallita tai käsitellä tulostusjonon tai tulostinyhteyden asennuksen aikana.
+
+–- Rajoita jonokohtaiset tiedostot väriprofiileihin -asetus määrittää, että vain vakioväriprofiilimallin mukaisesti jonokohtaiset tiedostot sallitaan. Tämä tarkoittaa rekisteriavainta CopyFiles\ICM käyttäviä merkintöjä, jotka sisältävät hakemistoarvon COLOR ja tukevat mscms.dll moduulin arvona. Rajoita jonokohtaiset tiedostot väriprofiileihin -asetus on oletustoiminta.
+
+-- Salli kaikki jonokohtaiset tiedostot -asetus määrittää, että kaikki jonokohtaiset tiedostot sallitaan/käsitellään tulostusjonon tai tulostinyhteyden asennuksen aikana.
+      </string>
+      <string id="CopyFilesPolicy_ICMOnly">Rajoita jonokohtaiset tiedostot väriprofiileihin</string>
+      <string id="DriverValidationLevel_Inbox">Vaadi Saapuneet-kansion allekirjoitettuja ohjaimia</string>
+      <string id="DriverValidationLevel_Legacy">Salli kaikki kelvollisesti allekirjoitetut ohjaintiedostot</string>
+      <string id="DriverValidationLevel_Trusted">Salli Saapuneet-kansion ja tulostusohjainten luotetun kaupan allekirjoitetut ohjaimet</string>
+      <string id="DriverValidationLevel_TrustedShared">Salli Saapuneet-kansion, tulostusohjainten luotetun kaupan, WHQL:n ja luotetun julkaisijan kaupan allekirjoitetut ohjaimet</string>
+      <string id="DriverValidationLevel_WHQL">Salli Saapuneet-kansion, tulostusohjainten luotetun kaupan allekirjoitetut ohjaimet ja WHQL:n allekirjoitetut ohjaimet</string>
+      <string id="DriverValidationLevel">Hallitse tulostusohjaimen allekirjoituksen vahvistusta</string>
+      <string id="DriverValidationLevel_Help">
+          Tämä käytäntöasetus hallitsee tulostusohjaimen allekirjoituksen vahvistusmekanismia. Tämä käytäntö määrittää digitaalisen allekirjoituksen tyypin, jota tarvitaan, jotta tulostusohjain voidaan pitää kelvollisena ja asentaa järjestelmään.
+
+Tässä tarkistuksessa vahvistetaan luettelo tai upotettu allekirjoitus, ja kaikkien ohjaimen tiedostojen on oltava osa luetteloa tai niillä on oltava oma upotettu allekirjoitus, jota voidaan käyttää vahvistukseen.
+
+Voit ottaa tämän asetuksen käyttöön, jos haluat muuttaa allekirjoituksen oletusvahvistusmenetelmää. Jos haluat käyttää tätä asetusta, valitse jokin alla olevista vaihtoehdoista Valitse tämän tietokoneen ohjaimen allekirjoitustapa -ruudusta.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, oletusmenetelmänä on Salli kaikki kelvollisesti allekirjoitetut ohjaimet.
+
+–- Vaadi Saapuneet-kansion allekirjoitettuja ohjaimia -asetus määrittää, että tässä tietokoneessa sallitaan vain ohjaimet, jotka toimitetaan osana Windowsin näköistiedostoa.
+
+–- Salli Saapuneet-kansion ja PrintDriversin luotetun kaupan allekirjoitetut ohjaimet -asetus määrittää vain ohjaimet, jotka toimitetaan osana Windows-näköistiedostoa, tai ohjaimet, jotka on allekirjoitettu PrintDrivers-varmennesäilöön asennetuilla varmenteilla, sallitaan tässä tietokoneessa.
+
+–- Salli Saapuneet-kansion, PrintDriversin luotetut säilöt ja WHQL-allekirjoitetut ohjaimet -asetus määrittää ainoat tässä tietokoneessa sallitut ohjaimet, jotka toimitetaan Windows-näköistiedoston osana, allekirjoitetaan PrintDrivers-varmennesäilöön asennetuilla varmenteilla tai Windows Hardware Quality Labin (WHQL) allekirjoittamina.
+
+–- Salli Saapuneet-kansion, PrintDriversin luotettujen säilöjen, WHQL:n ja luotettujen julkaisijoiden kaupan allekirjoitetut ohjaimet -asetus määrittää ainoat tässä tietokoneessa sallitut ohjaimet: ne, jotka toimitetaan Windows-näköistiedoston osana, allekirjoitetaan PrintDrivers-varmennesäilöön asennetuilla varmenteilla, Windows Hardware Quality Labin (WHQL) allekirjoittamat tai Luotetut julkaisijat -varmennesäilöön asennetut varmenteet allekirjoittavat.
+
+-- Salli kaikki kelvollisesti allekirjoitetut ohjaimet -arvo määrittää, että tietokoneeseen voidaan asentaa mikä tahansa tulostusohjain, jolla on kelvollinen upotettu allekirjoitus tai joka voidaan vahvistaa tulostusohjainluettelon perusteella.
+
+Järjestelmänvalvojan on luotava PrintDrivers-varmennesäilö paikalliseen tietokoneen säilösijaintiin.
+
+Luotetut julkaisijat -varmennesäilö voi sisältää varmenteita lähteistä, jotka eivät liity tulostusohjaimiin.
+
+      </string>
+      <string id="DriverValidationLevelTitle">Valitse tämän tietokoneen ohjaimen allekirjoitusmekanismi</string>
+      <string id="DriverExclusionList">Hallitse tulostusohjaimen poikkeusluetteloa</string>
+      <string id="DriverExclusionList_Help">
+Tämä käytäntöasetus ohjaa tulostusohjaimen poikkeusluetteloa. Poikkeusluettelon avulla järjestelmänvalvoja voi kuratoida luettelon tulostinohjaimista, joita ei saa asentaa järjestelmään.
+
+Tämä kuittaa allekirjoituksen tarkistuksen vanhentuneeksi ja sallii tulostusohjaimen allekirjoituksen vahvistuskäytännön kelvollisen allekirjoitustason ohjaimien poissulkemisen.
+
+Pois jätettävien luettelon merkinnät koostuvat INF-tiedoston SHA256-hajautusarvosta (tai Win7:n SHA1-hajautusarvosta) ja/tai ohjaimen DLL-päätiedostosta sekä tiedoston nimestä.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tähän käytäntöasetukseen liittyvät rekisteriavain ja arvot poistetaan, jos sen arvoksi määritetään tällä hetkellä.
+
+      </string>
+      <string id="RpcListenerPolicy">Määritä RPC-kuuntelutoiminnon asetukset</string>
+      <string id="RpcOverNamedPipes">RPC nimettyjen putkien päällä</string>
+      <string id="RpcOverTcp">RPC TCP:n kautta</string>
+      <string id="RpcOverNamedPipesAndTcp">RPC nimettyjen putkien ja TCP:n kautta</string>
+      <string id="RpcAuthenticationProtocol_Negotiate">Neuvottele</string>
+      <string id="RpcAuthenticationProtocol_Kerberos">Kerberos</string>
+      <string id="RpcListenerPolicy_Help">
+Tämä käytäntöasetus määrittää, mitä protokollia taustatulostukseen saapuvien RPC-yhteyksien sallitaan käyttää.
+
+Oletusarvon mukaan RPC TCP:n kautta on käytössä ja Negotiate-protokollaa käytetään todennusprotokollalle.
+
+Protokollia, jotka sallivat saapuvat RPC-yhteydet:
+    -- RPC nimettyjen putkien kautta: saapuvat RPC-yhteydet sallitaan vain nimettyjen putkien kautta
+    -- RPC TCP:n kautta: saapuvat RPC-yhteydet sallitaan vain TCP:n kautta (oletusasetus)
+    -- RPC nimettyjen putkien ja TCP:n kautta: saapuvat RPC-yhteydet sallitaan TCP:n ja nimettyjen putkien kautta
+
+Saapuvissa etäproseduurikutsuyhteyksissä käytettävä todennusprotokolla:
+    -- Neuvottele: Käytä Negotiate-todennusprotokollaa (oletusasetus)
+    -- "Kerberos": käytä Kerberos-todennusprotokollaa
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käytetään yllä olevia oletusarvoja.
+      </string>
+      <string id="RpcConnectionPolicy">Määritä etäproseduurikutsun yhteysasetukset</string>
+      <string id="RpcConnectionAuthenticationDefault">Oletus</string>
+      <string id="RpcConnectionAuthenticationEnabled">Todennus käytössä</string>
+      <string id="RpcConnectionAuthenticationDisabled">Todennus poistettu käytöstä</string>
+      <string id="RpcConnectionPolicy_Help">
+Tämä käytäntöasetus määrittää, mitä protokolla- ja protokolla-asetuksia käytetään etätulostustulostusyhteyden etäproseduurikutsuyhteyksissä.
+
+Oletusarvon mukaan käytetään TCP:n välityksellä etäproseduurikutsua ja todennus on aina käytössä. Kun kyseessä on RPC nimettyjen putkien kautta, todentaminen on aina käytössä toimialueeseen liitetyille tietokoneille, mutta se on poistettu käytöstä muille kuin toimialueeseen liitetyille tietokoneille.
+
+Lähteville RPC-yhteyksille käytettävä protokolla:
+    -- RPC over TCP: käytä RPC over TCP -yhteyttä etätulostustulostuksen lähteville RPC-yhteyksille
+    -- RPC nimettyjen putkien päällä: käytä RPC-yhteyttä nimettyjen putkien päällä, kun kyseessä ovat etätulostuksen taustatulostusyhteyden RPC-yhteydet
+
+Käytä todennusta lähteville etäproseduurikutsuille nimettyjen putkien yhteyksissä:
+    -- Oletus: Oletusarvon mukaan toimialueeseen liitetyt tietokoneet mahdollistavat RPC-todennuksen RPC-todennuksen nimettyjen putkien kautta, kun taas toimialueeseen liittymättömät tietokoneet poistavat RPC-todennuksen käytöstä RPC-todennuksessa nimettyjen putkien päällä
+    -- Todennus käytössä: RPC-todennusta käytetään lähtevän etäproseduurikutsun käyttämiseen nimettyjen putkien yhteyksissä
+    -- Todennus poistettu käytöstä: RPC-todennusta ei käytetä lähteville RPC-yhteyksille nimettyjen putkien yhteyksissä
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käytetään yllä olevia oletusarvoja.
+      </string>
+      <string id="RpcTcpPortPolicy">Määritä RPC TCP-portin kautta</string>
+      <string id="RpcTcpPortPolicy_Help">
+Tämä käytäntöasetus määrittää, mitä porttia käytetään RPC:lle TCP:n kautta saapuville yhteyksille taustatulostusyhteyksiin ja lähteviin yhteyksiin etätulostustulostustulosteisiin.
+
+Dynaamisia TCP-portteja käytetään oletusarvoisesti.
+
+RPC TCP:n kautta -portti:
+    -- RCP TCP:n kautta käytettävä portti. Oletusarvo on 0 ja ilmaisee, että dynaamisia TCP-portteja käytetään
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä,  dynaamisia TCP-portteja käytetään.
+      </string>
+      <string id="RpcIncomingAuthenticationLevelPolicy">Määritä saapuvien yhteyksien RPC-pakettitason tietosuoja-asetus</string>
+      <string id="RpcIncomingAuthenticationLevelPolicy_Help">
+Tämä käytäntöasetus määrittää, onko pakettitason tietosuoja käytössä RPC:lle saapuville yhteyksille.
+
+Oletusarvoisesti pakettitason tietosuoja on käytössä saapuvien yhteyksien etäproseduurikutsulle.
+
+Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, saapuvan yhteyden etäproseduurikutsun pakettitason tietosuoja on käytössä.
+      </string>
+      <string id="AlwaysSendIppPageCounts">Lähetä aina IPP-tulostimien työsivujen määrätiedot</string>
+      <string id="AlwaysSendIppPageCounts_Help">
+Määrittää, lähetetäänkö sivumäärätiedot aina Microsoftin IPP-luokkaohjainta käyttävien tulostimien laskentaa varten.
+
+Sivut lähetetään oletusarvoisesti tulostimeen heti, kun ne hahmonnetaan, eikä sivumäärätietoja lähetetä tulostimeen, ellei sivuja tarvitse järjestää uudelleen.
+
+Jos otat tämän asetuksen käyttöön, järjestelmä hahmontaa kaikki tulostustyösivut eteen ja lähettää tulostimelle tulostustyön sivujen kokonaismäärän.
+
+Jos poistat tämän asetuksen käytöstä tai et määritä sitä, sivut tulostetaan heti, kun ne hahmonnetaan ja sivumäärät lähetetään vain, kun työn käsittely edellyttää sivun uudelleenjärjestelyä.
+      </string>
+      <string id="RequireIpps">Vaadi IPPS IPP-tulostimille</string>
+      <string id="RequireIpps_Help">Määrittää, onko tietoliikenteessä tulostimien kanssa microsoftin IPP-luokkaohjaimen avulla käytettävä IPPS-salausta (joka käyttää TLS:ää suojattuun tietoliikenteeseen).
+
+Jos otat tämän käytäntöasetuksen käyttöön, vain IPPS:ää tukevia IPP-tulostimia voi asentaa.
+
+Jos poistat tämän asetuksen käytöstä tai et määritä sitä, oletusarvona on sallia sellaisten IPP-tulostimien asennus, jotka eivät tue IPPS:iä.
+      </string>
+      <string id="IppTlsCertificatePolicy">Määritä TLS/SSL-suojauskäytäntö IPP-tulostimille</string>
+      <string id="IppTlsCertificatePolicy_Help">
+Määrittää TLS/SSL-suojauskäytännön (WINHTTP_OPTION_SECURITY_FLAGS) tulostimille, jotka käyttävät Microsoftin IPP-luokan ohjainta.
+
+Oletusarvoisesti suojauskäytäntö on määritetty ohittamaan kaikki varmennevirheet, mikä sallii itse allekirjoitettujen varmenteiden käytön tulostimissa.
+
+Jos otat tämän asetuksen käyttöön, järjestelmä ottaa oletusarvoisesti käyttöön kaikki varmenteiden tarkistukset, jolloin varmennevirheet estetään. Tietty varmenteiden tarkistus voidaan määrittää valintaruutujen avulla.
+
+Jos poistat tämän asetuksen käytöstä tai et määritä sitä, oletusarvona on ohittaa kaikki varmennevirheet (kaikki valintaruudut valitsematta).
+      </string>
+      <string id="RedirectionGuardPolicy">Määritä uudelleenohjaussuojaus</string>
+      <string id="RedirectionGuardPolicy_Disabled">Uudelleenohjaussuoja poistettu käytöstä</string>
+      <string id="RedirectionGuardPolicy_Enabled">Uudelleenohjaussuoja käytössä</string>
+      <string id="RedirectionGuardPolicy_AuditOnly">Vain uudelleenohjaussuojan valvonta</string>
+      <string id="RedirectionGuardPolicy_Help">
+Määrittää, onko taustatulostus käytössä Uudelleenohjaussuojassa.
+
+Voit ottaa tämän asetuksen käyttöön, jos haluat määrittää taustatulostukseen käytettävän Uudelleenohjaussuoja-käytännön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Uudelleenohjaussuoja on oletusarvoisesti Käytössä.
+
+Jos otat tämän asetuksen käyttöön, voit valita seuraavat vaihtoehdot:
+
+-- Käytössä: Uudelleenohjaussuoja estää tiedostojen uudelleenohjauksen seuraamisen
+
+-- Ei poistettu: Uudelleenohjaussuojausta ei oteta käyttöön, ja tiedostojen uudelleenohjauksia voidaan käyttää taustatulostusprosessissa
+
+-- Valvonta: Uudelleenohjaussuoja kirjaa tapahtumat ikään kuin ne olisivat käytössä, mutta ei itse asiassa estä tiedostojen uudelleenohjauksen käyttämistä taustatulostimen sisällä.
+      </string>
+      <string id="WindowsProtectedPrintPolicy">Suojatun Windows-tulostuksen määrittäminen</string>
+      <string id="WindowsProtectedPrintPolicy_Help">
+Määrittää, onko Windowsin suojaama tulostus käytössä tässä tietokoneessa.
+
+Windowsin suojattu tulostus ei ole oletusarvoisesti käytössä, eikä asennettavien tulostusohjainten tai tulostustoimintojen käyttämistä ole rajoitettu.
+
+Jos otat tämän asetuksen käyttöön, tietokone toimii Windowsin suojatussa tulostustilassa, joka sallii tulostamisen vain tulostimiin, jotka tukevat Saapuneet-kansion Windows-tulostusohjainten alijoukkoa.
+
+Jos tämä asetus poistetaan käytöstä tai sitä ei määritetä, asennettavien tulostusohjainten tai tulostustoimintojen käyttämistä ei rajoiteta.
+
+Lisätietoja on https://learn.microsoft.com/en-us/windows-hardware/drivers/print/windows-protected-print-mode
+      </string>
+      <string id="WindowsReadyPrintDriverRanking">Määritä Windows Ready Print -ohjaimen prioriteetti</string>
+      <string id="WindowsReadyPrintDriverRanking_Help">
+Määrittää, onko Windows Ready Print -ohjaimen priorisointi käytössä tässä tietokoneessa.
+
+Kun asetus on käytössä, Windows käyttää ensisijaisesti Microsoftin IPP-luokkaohjainta tulostimissa, jotka tukevat Internet Printing Protocolia (IPP). Tämä koskee sekä verkkoon liitettyjä IPP-tulostimia että USB:n kautta IPP:tä tukevia tulostimia.
+
+Jos otat tämän asetuksen käyttöön, Windows asettaa Microsoftin IPP-luokkaohjaimen etusijalle yhteensopivien tulostimien automaattisessa ohjainvalinnassa.
+
+Jos poistat tämän asetuksen käytöstä, Windows käyttää ohjaimen oletusvalintatoimintoa.
+
+Jos et määritä tätä asetusta, käytetään paikallisen järjestelmänvalvojan asetusta. Jos kumpaakaan asetusta ei ole määritetty, Windows Ready Print -ohjaimen luokitus on oletusarvoisesti käytössä.
+
+Huomautus: Tämä ryhmäkäytäntöasetus ohittaa paikallisen järjestelmänvalvojan asetuksen. Tämä asetus vaikuttaa vain automaattiseen ohjainvalintaan tulostimen alkuasennuksen aikana. Olemassa olevia tulostinasennuksia ei muuteta. Jotta asetuksen muutos tulee voimaan, tulostin on poistettava kokonaan ja asennettava uudelleen.
+
+Lisätietoja on https://go.microsoft.com/fwlink/?linkid=2364024.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="CustomizedSupportUrl">
@@ -350,6 +572,50 @@ Jos et määritä tätä asetusta, oletustulostimen hallinta ei muutu. </string>
           <label>Active Directory -oletuspolku</label>
         </textBox>
         <text>esimerkki --&gt; LDAP://DC=Alue1,DC=Yritys,DC=com.</text>
+      </presentation>
+      <presentation id="ApprovedUsbPrintDevices">
+        <text>Määritä hyväksyttyjen USB-tulostimien luettelo.</text>
+        <text>Luettelo on pilkuin eroteltu luettelo USB:n vid/pid-arvoista. Esimerkki: 0351/0872, 135E/2179</text>
+        <textBox refId="ApprovedUsbPrintDevices_List">
+          <label>vid/pid</label>
+        </textBox>
+      </presentation>
+      <presentation id="CopyFilesPolicy">
+        <text>Valitse menetelmä, jolla jonokohtaiset tiedostot käsitellään.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="CopyFilesPolicy_Enum">Hallitse jonokohtaisten tiedostojen käsittelyä:</dropdownList>
+      </presentation>
+      <presentation id="DriverValidationLevel">
+        <dropdownList defaultItem="4" noSort="true" refId="DriverValidationLevel_Enum">Valitse tämän tietokoneen ohjaimen allekirjoitusmekanismi:</dropdownList>
+      </presentation>
+      <presentation id="DriverExclusionList">
+        <text>  </text>
+        <text>Anna tiedoston hajautusarvo yhdistettynä alla olevan hajautusarvon edustaman tiedoston nimeen.</text>
+        <text>  </text>
+        <listBox refId="Driver_ExclusionListEntry">Tiedoston hajautusarvo   Tiedoston nimi:</listBox>
+      </presentation>
+      <presentation id="RpcListenerPolicy">
+        <text>Määritä saapuvien RPC-yhteyksien protokolla-asetukset.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RpcListenerProtocols_Enum">Saapuvat RPC-yhteydet sallivat protokollat:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcAuthenticationProtocol_Enum">Saapuvissa RPC-yhteyksissä käytettävä todennusprotokolla:</dropdownList>
+      </presentation>
+      <presentation id="RpcConnectionPolicy">
+        <text>Määritä lähtevien RPC-yhteyksien protokolla-asetukset.</text>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionProtocol_Enum">Lähteville RPC-yhteyksille käytettävä protokolla:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionAuthentication_Enum">Käytä todennusta lähteville RPC-yhteyksille:</dropdownList>
+      </presentation>
+      <presentation id="RpcTcpPortPolicy">
+        <text>Määritä portti, jota käytetään RPC:lle TCP:n kautta.</text>
+        <decimalTextBox defaultValue="0" refId="RpcTcpPort">RPC TCP:n kautta -portti:</decimalTextBox>
+      </presentation>
+      <presentation id="IppTlsCertificatePolicy">
+        <checkBox refId="SecurityFlagsBlockUnknownCA" defaultChecked="true">Estä virheellinen varmenteiden myöntäjä</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertWrongUsage" defaultChecked="true">Estä muut kuin palvelinvarmenteet</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertCNInvalid" defaultChecked="true">Estä virheellinen varmenteen yleinen nimi</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertDateInvalid" defaultChecked="true">Estä virheellinen varmenteen päivämäärä</checkBox>
+      </presentation>
+      <presentation id="RedirectionGuardPolicy">
+        <text>Määritä uudelleenohjaussuojauksen asetukset</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RedirectionGuardPolicy_Enum">Uudelleenohjaussuojauksen asetukset</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

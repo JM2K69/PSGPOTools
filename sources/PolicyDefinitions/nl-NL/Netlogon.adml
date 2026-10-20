@@ -135,11 +135,11 @@ Als u de levensduur voor DNS-records voor de DC-locator wilt opgeven, klikt u op
 
 Als u deze beleidsinstelling niet configureert, wordt deze op geen enkele DC toegepast en gebruiken DC's hun lokale configuratie.</string>
       <string id="Netlogon_ExpectedDialupDelay">"Verwachte inbelvertraging tijdens aanmelding" opgeven</string>
-      <string id="Netlogon_ExpectedDialupDelay_Help">Deze beleidsinstelling bepaalt de extra tijd die de computer op de reactie van de domeincontroller (DC) moet wachten bij aanmelding op het netwerk
+      <string id="Netlogon_ExpectedDialupDelay_Help">Met deze beleidsinstelling geeft u de extra tijd op die de computer moet wachten op de reactie van de domeincontroller (DC) wanneer u zich aanmeldt bij het netwerk.
 
-Als u de verwachte vertraging wilt opgeven, klikt u op Inschakelen en voert u de gewenste waarde in seconden in (de waarde 60 is bijvoorbeeld 1 minuut).
+U kunt de verwachte vertraging bij het aanmelden opgeven door te klikken op Ingeschakeld en vervolgens de gewenste waarde in seconden in te voeren (de waarde '60' is bijvoorbeeld 1 minuut).
 
-Als u deze beleidsinstelling niet configureert, wordt deze op geen enkele computer toegepast en gebruiken computers hun lokale configuratie.</string>
+Als u deze beleidsinstelling niet configureert, wordt deze op geen enkele computer toegepast en wordt voor computers de lokale configuratie gebruikt.</string>
       <string id="Netlogon_GcSiteCoverage">"Sites gedekt door de DNS-SRV-records voor de GC-locator" opgeven</string>
       <string id="Netlogon_GcSiteCoverage_Help">Deze beleidsinstelling geeft de sites op waarvoor de globale catalogi (GC) sitespecifieke DNS-SRV-bronrecords voor de GC-locator moeten registreren. Deze records worden geregistreerd naast de sitespecifieke SRV-records die worden geregistreerd voor de site waar de GC zich bevindt, en records die worden geregistreerd door een GC die is geconfigureerd om DNS-SRV-records voor de GC-locator te registreren voor de dichtstbijzijnde sites zonder GC. 
 
@@ -298,6 +298,7 @@ Deze beleidsinstelling wordt aanbevolen voor het verminderen van het aanvalsbere
 Als u deze beleidsinstelling inschakelt, worden binnenkomende mailslotberichten die worden gebruikt voor de op de NetBIOS-domeinnaam gebaseerde locatie van de DC, niet verwerkt.
 
 Als u deze beleidsinstelling uitschakelt of niet configureert, worden binnenkomende mailslotberichten door deze domeincontroller verwerkt. Dit is het standaardgedrag van DC Locator.</string>
+
       <string id="Netlogon_AvoidFallbackNetbiosDiscovery">Gebruik op NetBIOS-gebaseerde ontdekking voor domeinlokatie niet, wanneer op DNS gebaseerde ontdekking niet werkt.</string>
       <string id="Netlogon_AvoidFallbackNetbiosDiscovery_Help">Deze beleidsinstelling maakt het mogelijk om het algoritme voor domeincontroller (DC) locatie te regelen. Standaard geeft het algoritme voor DC-locatie de voorkeur aan op DNS gebaseerde opsporing, als de DNS-domeinnaam bekend is. Als op DNS gebaseerde opsporing mislukt en de NetBIOS-domeinnaam is bekend, gebruikt het algoritme vervolgens op NetBIOS gebaseerde opsporing als terugvalmechanisme.
 
@@ -307,7 +308,18 @@ Let erop dat deze beleidsinstelling op NetBIOS gebaseerde opsporing voor DC-loca
 
 Als u deze beleidsinstelling niet inschakelt of niet configureert, gebruikt het algoritme voor DC-locatie op NetBIOS gebaseerde opsporing niet als terugvalmechanisme, als op DNS gebaseerde opsporing niet werkt. Dit is het standaardgedrag.
 
-Als u deze beleidsinstelling uitschakelt, kan het DC-locatie algoritme op NetBIOS gebaseerde ontdekking gebruiken als mechanisme om op terug te vallen wanneer op DNS gebaseerde ontdekking mislukt.</string>
+Als u deze beleidsinstelling uitschakelt, kan het DC-locatie algoritme op NetBIOS gebaseerde ontdekking gebruiken als mechanisme om op terug te vallen wanneer op DNS gebaseerde ontdekking mislukt.
+
+Deze instelling heeft geen effect tenzij de instelling BlockNetbiosDiscovery is uitgeschakeld. Detectie op basis van NetBIOS wordt beschouwd als onbeveiligd, heeft veel beperkingen en wordt in een toekomstige release afgeschaft. Daarom wordt detectie op basis van NetBIOS niet aanbevolen. Zie https://aka.ms/dclocatornetbiosdeprecation voor meer informatie.</string>
+
+      <string id="Netlogon_BlockNetbiosDiscovery">Detectie op basis van NetBIOS blokkeren voor de locatie van de domeincontroller</string>
+      <string id="Netlogon_BlockNetbiosDiscovery_Help">Met deze beleidsinstelling kunt u bepalen of het locatiealgoritme van de domeincontroller (DC) gebruikmaakt van NetBIOS_based detectie voor de locatie van de domeincontroller. 
+
+Als u deze beleidsinstelling inschakelt of niet configureert, maakt het DC-locatiealgoritme nooit gebruik van detectie op basis van NetBIOS. Dit is het standaardgedrag.
+
+Als u deze beleidsinstelling uitschakelt, kan het DC-locatiealgoritme indien nodig gebruikmaken van detectie op basis van NetBIOS. Het uiteindelijke gedrag wordt verder bepaald door de instelling AvoidFallbackNetbiosDiscovery.
+
+Detectie op basis van NetBIOS wordt beschouwd als onbeveiligd, heeft veel beperkingen en wordt in een toekomstige release afgeschaft. Daarom wordt detectie op basis van NetBIOS niet aanbevolen. Zie https://aka.ms/dclocatornetbiosdeprecation voor meer informatie.</string>
 
       <string id="Netlogon_AddressLookupOnPingBehavior">Geef de werking voor het opzoeken van een adres voor de DC-locator ping aan</string>
       <string id="Netlogon_AddressLookupOnPingBehavior_Help">Met deze beleidsinstelling configureert u hoe een DC (Domain Controller) werkt wanneer deze reageert op een client wiens IP-adres niet overeenkomt met welke geconfigureerde site dan ook.
@@ -337,6 +349,33 @@ De toegestane waarden voor deze instelling resulteren in de onderstaande werking
 Als u dit gedrag wilt opgeven, klikt u op Ingeschakeld en voert u een waarde in. U kunt de waarde 1 of 2 opgeven.
 
 Als u de beleidsinstelling niet configureert, wordt deze op geen enkele computer toegepast en worden op computers de lokale configuratie gebruikt.</string>
+
+      <string id="Netlogon_DnsSrvRecordUseLowerCaseHostNames">DNS-hostnamen in kleine letters gebruiken bij het registreren van SRV-records van domeincontrollers</string>
+      <string id="Netlogon_DnsSrvRecordUseLowerCaseHostNames_Help">Met deze beleidsinstelling configureert u of de domeincontrollers waarop deze instelling wordt toegepast, de DNS-hostnaam in kleine letters weer krijgen wanneer SRV-records worden geregistreerd.
+
+Als u deze instelling inschakelt, wordt de DNS-hostnaam in de DNS-hostnaam omgezet wanneer de domeincontroller SRV-records registreert. Er wordt een poging gedaan om eerder geregistreerde SRV-records te verwijderen die de DNS-hostnamen met een gemengd geval bevatten. Zie de onderstaande koppeling voor meer informatie en mogelijke procedures voorhand matig opschonen.
+
+Als deze service is uitgeschakeld, gebruiken domeincontrollers hun geconfigureerde DNS-hostnaam bij het registreren van SRV-records van de domeincontroller.
+
+Als dit niet is geconfigureerd, wordt de lokale configuratie van domeincontrollers standaard gebruikt.
+
+De standaard lokale configuratie is ingeschakeld.
+
+De computer moet opnieuw worden opgestart voordat de wijzigingen in de instelling van kracht worden.
+
+Meer informatie is beschikbaar op https://aka.ms/lowercasehostnamesrvrecord
+      </string>
+      <string id="Netlogon_EnhancedDomainNtlmLogs">Logboeken voor verbeterde NTLM-domeinregistratie</string>
+      <string id="Netlogon_EnhancedDomainNtlmLogs_Help">Deze beleidsinstelling configureert of de domeincontrollers waarop deze instelling wordt toegepast, de nieuwe, uitgebreide NTLM-logboeken voor het hele domein vastleggen. Deze logboeken bevatten meer informatie over NTLM-verificatie op domeinbreed niveau, inclusief NTLMv1-gebruik.
+
+Als deze optie is ingeschakeld, registreren domeincontrollers de nieuwe NTLM-logboeken voor het hele domein.
+
+Als deze optie is uitgeschakeld, registreren domeincontrollers de nieuwe NTLM-logboeken voor het hele domein niet.
+
+Als deze niet is geconfigureerd, registreren domeincontrollers standaard de nieuwe NTLM-logboeken voor het hele domein.
+
+Meer informatie is beschikbaar op aka.ms/ntlmlogandblock.
+      </string>
 
     </stringTable>
     <presentationTable>

@@ -55,6 +55,15 @@ Remarque : ce paramètre ne désactive pas Active Desktop. Les utilisateurs peu
 Par défaut, un utilisateur peut modifier l’emplacement de ses dossiers de profils individuels, tels que Documents, Musique, etc., en tapant le nouveau chemin d’accès dans l’onglet Emplacements de la boîte de dialogue Propriétés du dossier.
 
 Si vous activez ce paramètre, les utilisateurs ne peuvent pas taper un nouvel emplacement dans la zone Cible.</string>
+      <string id="EnableThemeFileRemoteResource">Autoriser les fichiers de thème à partir d’emplacements réseau</string>
+      <string id="EnableThemeFileRemoteResource_Help">Ce paramètre de stratégie détermine si des chemins d’accès distants peuvent être utilisés pour des ressources à l’intérieur d’un fichier de thème de bureau Windows (.theme/.themepack).
+
+Si vous activez ce paramètre de stratégie, les fichiers de thème peuvent référencer des ressources (telles que des images, des sons et des icônes) se trouvant sur des partages réseau ou d’autres emplacements distants. Les utilisateurs pourront appliquer des thèmes contenant des ressources distantes.
+
+Si vous désactivez ce paramètre de stratégie, les fichiers de thème ne pourront pas utiliser de ressources distantes. Les fichiers de thème faisant référence à des ressources distantes ne pourront pas charger ces ressources et seules les ressources locales seront affichées.
+
+Si vous ne configurez pas ce paramètre de stratégie, le comportement par défaut est de bloquer les ressources distantes dans les fichiers de thème pour des raisons de sécurité.</string>
+
       <string id="ForceActiveDesktopOn">Activer Active Desktop</string>
       <string id="ForceActiveDesktopOn_Help">Active Active Desktop et empêche les utilisateurs de le désactiver.
 

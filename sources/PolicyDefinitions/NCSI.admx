@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <policyNamespaces>
     <target prefix="ncsi" namespace="Microsoft.Policies.NCSI" />
@@ -60,7 +60,7 @@
           </falseValue>
         </boolean>
       </elements>
-    </policy>    
+    </policy>
     <policy name="NCSI_GlobalDns" class="Machine" displayName="$(string.NCSI_GlobalDns)" explainText="$(string.NCSI_GlobalDns_Help)" presentation="$(presentation.NCSI_GlobalDns)" key="Software\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator">
       <parentCategory ref="NCSI_Category" />
       <supportedOn ref="windows:SUPPORTED_Windows_10_0_RS3" />

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Nastavení protokolu NTLM</displayName>
+  <description>Nastavení konfigurace pro balíček zabezpečení NTLM.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">Protokol NTLM</string>
+      <string id="EnhancedAuditsId">Rozšířené protokolování protokolu NTLM</string>
+      <string id="EnhancedAuditsId_Explain">Toto nastavení zásad umožňuje balíčku zabezpečení NTLM protokolovat nové, rozšířené protokoly auditování pro klienty i servery.
+
+      Tyto rozšířené protokoly obsahují informace o tom, co používá NTLM, proč je NTLM používán a cíl žádosti o ověření NTLM. Dále obsahují informace o využití NTLMv1 a dalších bezpečnostních downgradech.
+
+      Pokud tuto zásadu povolíte nebo ji nenakonfigurujete, nové protokoly auditování budou generovány. Pokud zásadu zakážete, nové protokoly se nevygenerují.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">Rozšířené blokování protokolu NTLM</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Toto nastavení zásad umožňuje balíčku zabezpečení NTLM blokovat žádosti o ověřování NTLM na základě nových rozšířených zásad blokování na úrovni počítačů.
+
+      Tyto rozšířené zásady blokování umožňují blokovat ověřování protokolem NTLM na základě nových kritérií, jako je typ účtu, role zařízení nebo typ aplikace.
+
+      Pokud jsou celkové zásady nastaveny na Zakázáno nebo Není nakonfigurováno, níže uvedená dílčí nastavení se neprojeví. Pokud jsou celkové zásady nastaveny na „Povoleno“, níže uvedené dílčí zásady se projeví podle jejich konfigurace.
+
+      Pokud není nakonfigurováno, všechny zásady jsou nastaveny na režim „Auditování“. Zásady nastavené na „Auditování“ budou do protokolu zaznamenávat upozornění na žádosti NTLM, které by mohly být blokovány, ale nebudou je blokovat. Současně je možné povolit více zásad označených jako „Auditování“ a budou zaznamenávány do sjednoceného protokolu událostí.
+
+      Pokud jsou některé zásady označeny jako „Povoleno“, žádost o ověření NTLM bude zablokována, pokud odpovídá kritériím těchto zásad. Pokud je více zásad označeno jako „Povoleno“, žádost o ověření NTLM bude zablokována, pokud odpovídá kritériím kterýchkoli z těchto zásad. Pro první zásady, které blokují ověřování NTLM, bude vygenerován protokol událostí. 
+
+      Ve scénářích, kde existují zásady nastavení na „Auditování“ i „Povoleno“, mají přednost zásady nastavené na „Povoleno“.
+
+      Všechny zde uvedené rozšířené zásady blokování sdílejí stejný seznam povolených, který určuje účty, zařízení a aplikace, kterým je povoleno používat ověřování NTLM. Seznam povolených může obsahovat řadu cílových názvů nebo hlavních názvů služby (SPN), které umožňují ověřování. 
+
+      Další informace najdete na aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Zakázáno</string>
+      <string id="Audit">Auditování</string>
+      <string id="Enabled">Povoleno</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Blokovat protokol NTLM pro jednotné přihlašování účtů domény</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">Blokovat protokol NTLM pro řadiče domény</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">Blokovat protokol NTLM, když selže vytvoření vazby počítače</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Blokovat veškeré ověřování NTLM</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Zadejte seznam povolených pro rozšířené zásady blokování:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

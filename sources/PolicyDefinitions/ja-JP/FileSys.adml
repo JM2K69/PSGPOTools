@@ -18,14 +18,23 @@
 
 注: このポリシーを無効にした場合、または構成しなかった場合は、ローカル管理者が評価するシンボリック リンクの種類を選択できます。</string>
       <string id="SymlinkEvaluation">選択的にシンボリック リンクの評価を許可する</string>
+
       <string id="DisableCompression">すべての NTFS ボリュームで圧縮を許可しない</string>
-      <string id="DisableCompressionText">圧縮を行うと、ファイル システム操作の処理のオーバーヘッドが増える可能性があります。 この設定を有効にすると、圧縮ファイルへのアクセスとその作成が回避されます。 </string>
+      <string id="DisableCompressionText">圧縮を使用すると、ファイルシステム操作の処理オーバーヘッドを追加できます。 この設定を有効にすると、圧縮ファイルのアクセスと作成が禁止されます。
+
+この設定を有効にするには、再起動する必要があります</string>
+
       <string id="DisableEncryption">すべての NTFS ボリュームで暗号化を許可しない</string>
-      <string id="DisableEncryptionText">暗号化を行うと、ファイル システム操作の処理のオーバーヘッドが増える可能性があります。 この設定を有効にすると、暗号化されたファイルへのアクセスとその作成が回避されます。</string>
+      <string id="DisableEncryptionText">暗号化を使用すると、ファイルシステム操作の処理オーバーヘッドを追加できます。 この設定を有効にすると、暗号化されたファイルへのアクセスと作成が禁止されます。
+
+この設定を有効にするには、再起動する必要があります</string>
+
       <string id="EnablePagefileEncryption">NTFS ページ ファイルの暗号化を有効にする</string>
       <string id="EnablePagefileEncryptionText">ページ ファイルを暗号化すると、悪意のあるユーザーがディスクにページングされたデータを読み取れなくなりますが、ファイル システム操作の処理のオーバーヘッドも増えます。 この設定を有効にすると、ページ ファイルが暗号化されます。</string>
+
       <string id="LongPathsEnabled">Win32 の長いパスを有効にする</string>
-      <string id="LongPathsEnabledText">Win32 の長いパスを有効にすると、明示された win32 アプリケーションと Windows ストア アプリケーションが、ノードあたり通常 260 文字の制限を超えるパスにアクセスできるようになります。この設定を有効にすると、プロセス内で長いパスにアクセスできるようになります。</string>
+      <string id="LongPathsEnabledText">Win32 の長いパスを有効にすると、マニフェスト化された win32 アプリケーションとパッケージ化された Microsoft Store アプリケーションが通常の 260 文字の制限を超えるパスにアクセスできるようになります。この設定を有効にすると、プロセス内で長いパスにアクセスできるようになります。</string>
+
       <string id="ShortNameCreationSettings">短い名前の作成オプション</string>
       <string id="ShortNameCreationSettingsText">これらの設定では、ファイルの作成時に短い名前を生成するかどうかを制御できます。 アプリケーションの中には互換性のために短い名前を必要とするものもありますが、短い名前を生成するとシステムのパフォーマンスが低下します。
 
@@ -34,14 +43,61 @@
       <string id="ShortNameCreationSetting_1">すべてのボリュームで無効にする</string>
       <string id="ShortNameCreationSetting_2">ボリュームごとに有効または無効にする</string>
       <string id="ShortNameCreationSetting_3">すべてのデータ ボリュームで無効にする</string>
+
       <string id="DisableDeleteNotification">すべてのボリュームで削除通知を無効にする</string>
       <string id="DisableDeleteNotificationText">削除通知は、ファイルの削除操作のために解放されたクラスターの基礎記憶装置を通知する機能です。
 
 値が 0 の場合は (既定)、すべてのボリュームで削除通知が有効になります。
 値が 1 の場合は、すべてのボリュームで削除通知が無効になります。</string>
+
       <string id="TxfDeprecatedFunctionality">TXF の推奨されなくなった機能を有効または無効にする</string>
-      <string id="TxfDeprecatedFunctionalityText">TXF の推奨されなくなった機能には、セーブポイント、セカンダリ RM、ミニバージョン、およびロールフォワードが含まれます。API を使用する場合は、これを有効にしてください。</string>
+      <string id="TxfDeprecatedFunctionalityText">TXF の推奨されなくなった機能には、セーブポイント、セカンダリ RM、ミニバージョン、およびロール フォワードが含まれます。API を使用する場合は、これを有効にしてください。</string>
+
+      <string id="NtfsForceNonPagedPoolAllocation">NTFS 非ページ プールの使用を有効にする</string>
+      <string id="NtfsForceNonPagedPoolAllocationExplain">既定では、NTFS は必要に応じて、ページング可能なメモリとページングされないメモリの両方からメモリを割り当てます。 この設定を有効にすると、非ページング メモリをすべての割り当てに使用するように NTFS に通知されます。 NTFS では、すべてのコード セクションもページング不可に変更されます。
+
+この機能を有効にすると、追加のメモリ消費のコストでページフォールトとスタック使用が減少します。
+
+この設定を有効にするには、再起動が必要です</string>
+
+      <string id="NtfsParallelFlushThreshold">NTFS パラレル フラッシュのしきい値</string>
+      <string id="NtfsParallelFlushThresholdExplain">変更されたファイル データをメモリからフラッシュする場合、NTFS は現在開いているファイルの数に基づいて、1 つ以上のスレッドを使用することを選択します。 この設定では、パラレル フラッシュをトリガーするために使用される、オープン ファイルのしきい値を制御できます。</string>
+
+      <string id="NtfsParallelFlushWorkers">NTFS パラレル フラッシュのワーカー スレッド</string>
+      <string id="NtfsParallelFlushWorkersExplain">変更されたファイル データをメモリからフラッシュすると、NTFS は、現在開いているファイルの数に基づいて、1 つまたは複数のスレッドの使用を選択します。 この設定では、使用するスレッドの数を制御できます。
+
+ この値を大きくした場合、ボリュームのフラッシュにかかる時間の短縮につながる場合がありますが、フラッシュは他の同時 IO 操作に大きな影響を与える可能性があります。
+
+特別な意味を持つ値:
+    0: システムによって計算された既定値を使用する
+ 
+    1: パラレル フラッシュの無効化
+
+この設定のデフォルト値と制限は、当該システムで使用可能なプロセッサの数によって異なります:
+    - 既定値の計算方法:  (([NumProcessors]/2) + 1)
+    - 最大既定値の計算方法: ([NumProcessors] * 2)</string>
+
+      <string id="NtfsDefaultTier">NTFS の既定の階層</string>
+      <string id="NtfsDefaultTierExplain">NTFS 階層型ボリュームでは、これによって、既定で新しい割り当てがどの階層に移動するかを制御します。
+
+クライアントシステムは既定ではパフォーマンス層になります。
+サーバーシステムの既定値はキャパシティ層です。</string>
+      <string id="DefaultTierSetting_1">キャパシティ層</string>
+      <string id="DefaultTierSetting_2">パフォーマンス層</string>
+
+      <string id="ClfsAuthenticationChecking">CLFS ログ ファイル認証を有効または無効にする</string>
+      <string id="ClfsAuthenticationCheckingExplain">このポリシー設定では、ログファイル解析の強化を目的としたセキュリティ機能である CLFS ログファイル認証を構成します。
+
+ログファイル認証により、CLFS ドライバーはログファイルに対して行われた悪意のある変更を検出できるようになります。変更が検出されると、CLFS はログファイルの解析が安全ではないと判断し、呼び出し元にエラーを返します。CLFS は、ファイル データとシステム固有の暗号化キーを組み合わせた認証コードをログファイルに書き込むことで、変更を検出できます。
+
+ログファイル認証の副作用として、他のシステムで作成されたログファイルを CLFS で開くことができなくなります。システム固有の暗号化キーを使用して作成された認証コードが含まれているためです。別のシステムで作成されたログファイルを開くには、管理者が最初に "fsutil.exe clfs authenticate" コマンドを使用して認証コードを修正する必要があります。
+
+この設定を有効にした場合、または構成しなかった場合、CLFS は、ログファイル認証の要否に関するローカル レジストリ設定を参照します。既定では、CLFS はログファイル認証を行います。この機能のローカル レジストリ設定は、"HKLM:\SYSTEM\CurrentControlSet\Services\CLFS\Authentication" にあります。
+
+この設定を無効にすると、CLFS はログファイル認証を実行しなくなります。ログファイルは、管理者が操作することなくシステム間で移動および開くことができるようになります。ただし、CLFS は、システムがセキュリティ侵害を受ける可能性がある、悪意を持って作成されたログファイルを含む、すべてのログファイルを開いて解析します。</string>
+
     </stringTable>
+
     <presentationTable>
       <presentation id="SymlinkEvaluation">
         <checkBox refId="SymLinkClassL2L">ローカル ターゲットへのローカル リンク</checkBox>
@@ -58,6 +114,21 @@
       </presentation>
       <presentation id="DeleteNotificationOptions"/>
       <presentation id="TxfDeprecatedFunctionalityOptions"/>
+      <presentation id="NtfsForceNonPagedPoolAllocationOptions"/>
+      <presentation id="NtfsParallelFlushThresholdOptions">
+        <decimalTextBox refId="NtfsParallelFlushThresholdID" defaultValue="1000">ファイルのしきい値を開く:</decimalTextBox>
+      </presentation>
+
+      <presentation id="NtfsParallelFlushWorkersOptions">
+        <decimalTextBox refId="NtfsParallelFlushWorkersID" defaultValue="5">ファイルのしきい値を開く:</decimalTextBox>
+      </presentation>
+
+      <presentation id="NtfsDefaultTierOptions">
+          <dropdownList refId="NtfsDefaultTier_Levels" noSort="true" defaultItem="1">NTFS の既定の階層オプション</dropdownList>
+      </presentation>
+
+      <presentation id="ClfsAuthenticationCheckingOptions"/>
+
     </presentationTable>
   </resources>
 </policyDefinitionResources>

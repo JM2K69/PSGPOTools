@@ -247,11 +247,11 @@ Jeśli ta zasada jest wyłączona lub nie jest skonfigurowana, wyszukiwanie z po
 Jeśli ta zasada jest wyłączona lub nie jest skonfigurowana, domyślne ustawienia mają postać: .bmp;.emf;.gif;.jpg;.jpeg;.png;.wmf;.wrn;.txt;.err;.xml;.cpp;.c;.h;.cxx;.hxx;.idl;.cs;.vb;.idl;.xsd;.doc;.docx;.xls;.xlsx;.ppt;.pptx;.vsd;.xlsb;.xltx;.dot;.rtf</string>
       <string id="PreventUnwantedAddins">Zapobiegaj niechcianym dodatkom iFilter i programom do obsługi protokołów</string>
       <string id="PreventUnwantedAddins_Explain">Włączenie tej zasady uniemożliwia funkcji wyszukiwania z poziomu pulpitu systemu Windows używanie dodatków iFilter i programów obsługi protokołów, chyba że zostaną określone na liście dozwolonych. Jednak ta zasada nie będzie zapobiegać instalowaniu dodatków iFilter lub programów obsługi protokołów. Nie będzie również zapobiegać używaniu tych elementów przez inne aplikacje i usługi. 
-Można również określić białą listę dodatków, podając wartość ciągu classID lub ProgId. Jeśli na przykład jest planowane wdrożenie określonego dodatku iFilter, należy upewnić się, że ten dodatek znajduje się na białej liście w postaci identyfikatora GUID, takiego jak {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} (w tym nawiasy), lub identyfikatora ProgID, na przykład VisFilter.CFilter.1.
+Można również określić listę dozwolonych dodatków, podając wartość ciągu classID lub ProgId. Jeśli na przykład jest planowane wdrożenie określonego dodatku iFilter, należy upewnić się, że ten dodatek znajduje się na liście dozwolonych w postaci identyfikatora GUID, takiego jak {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} (w tym nawiasy), lub identyfikatora ProgID, na przykład VisFilter.CFilter.1.
 
 W przypadku konserwowania środowiska z zablokowanym pulpitem to ustawienie nie jest potrzebne, ponieważ użytkownicy niebędący administratorami nie mają uprawnień do instalowania nowych składników. Jeśli użytkownicy mają uprawnienia administratora lub mogą instalować oprogramowanie, ta zasada uniemożliwia im używanie dodatków powiązanych z wyszukiwaniem z poziomu pulpitu systemu Windows.
 
-Uwaga: z powodu ograniczenia w edytorze zasad grupy należy dodać co najmniej jedną pozycję do białej listy, nawet jeśli ta zasada ma zostać włączona bez tej listy. Pozycję na liście można utworzyć, wstawiając spację w polu nazwy i spację w polu wartości, a następnie zapisując ją. To spowoduje utworzenie wpisu zastępczego, który jest ignorowany przez program.</string>
+Uwaga: z powodu ograniczenia w edytorze zasad grupy należy dodać co najmniej jedną pozycję do listy dozwolonych, nawet jeśli ta zasada ma zostać włączona bez tej listy. Pozycję na liście można utworzyć, wstawiając spację w polu nazwy i spację w polu wartości, a następnie zapisując ją. To spowoduje utworzenie wpisu zastępczego, który jest ignorowany przez program.</string>
       <string id="PreventUnwantedAddins_AllowList">Lista dozwolonych</string>
       <string id="ExcludedExtensionsMultiline">Zapobiegaj indeksowaniu określonych typów plików</string>
       <string id="ExcludedExtensionsMultiline_Explain">Włączenie tej zasady umożliwia edytowanie listy typów plików do wykluczenia z indeksowania. Użytkownik końcowy nie może modyfikować tej listy. Poszczególne typy rozszerzeń muszą być rozdzielone średnikami.
@@ -275,6 +275,8 @@ Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane,
 Jeśli to ustawienie zostanie włączone lub nie zostanie skonfigurowane, Cortana będzie dozwolona na urządzeniu. Jeśli to ustawienie zostanie wyłączone, Cortana zostanie wyłączona. 
 
 Po wyłączeniu Cortany użytkownicy nadal będą mogli korzystać z funkcji wyszukiwania zawartości na urządzeniu.</string>
+      <string id="EnableDynamicContentInWSB">Zezwalaj na wyróżnianie wyszukiwania</string>
+      <string id="ExplainEnableDynamicContentInWSB">Wyłączenie tego ustawienia spowoduje wyłączenie wyróżnień wyszukiwania w polu wyszukiwania menu Start i na stronie głównej wyszukiwania. Włączenie lub nieskonfigurowanie tego ustawienia powoduje włączenie wyróżnień wyszukiwania w polu wyszukiwania menu Start i na stronie głównej wyszukiwania.</string>
       <string id="AllowCortanaAboveLock">Zezwalaj na Cortanę na ekranie blokady</string>
       <string id="ExplainAllowCortanaAboveLock">To ustawienie zasad określa, czy użytkownik może korzystać interakcyjnie z funkcji Cortana przy użyciu mowy, gdy system jest zablokowany.
 
@@ -294,6 +296,27 @@ Jeśli to ustawienie zostanie włączone, funkcja wyszukiwania i Cortana będą 
       <string id="AllowCortanainAADEnabled">Włącz stronę Cortany w usłudze AAD</string>
       <string id="AllowCloudSearchEnabled">Włącz wyszukiwanie w chmurze</string>
       <string id="AllowCloudSearchControlledByUser">Wybrane przez użytkownika</string>
+      <string id="DisableSearch_DisplayName">Całkowicie wyłącz interfejs użytkownika dla wyszukiwania</string>
+      <string id="DisableSearch_ExplainText">Jeśli te zasady zostaną włączone, interfejs użytkownika dla wyszukiwania zostanie wyłączony wraz ze wszystkimi jego funkcjami, takimi jak skróty klawiaturowe, gesty płytki dotykowej i funkcja pisz, aby wyszukać w menu Start. Pole wyszukiwania w menu Start i przycisk Wyszukaj na pasku zadań również zostaną ukryte.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, użytkownik będzie mógł otworzyć interfejs użytkownika dla wyszukiwania i wyświetlić jego funkcje.</string>
+      <string id="ConfigureSearchOnTaskbarMode">Konfiguruje wyszukiwanie na pasku zadań</string>
+      <string id="ConfigureSearchOnTaskbarMode_Help">To ustawienie zasad umożliwia skonfigurowanie wyszukiwania na pasku zadań.
+
+Jeśli włączysz to ustawienie zasad i ustawisz je na ukrywanie, wyszukiwanie na pasku zadań będzie domyślnie ukryte. Użytkownicy nie mogą tego zmienić w Ustawieniach.
+
+Jeśli włączysz to ustawienie zasad i ustawisz je na Tylko ikona wyszukiwania, ikona wyszukiwania będzie domyślnie wyświetlana na pasku zadań. Użytkownicy nie mogą tego zmienić w Ustawieniach.
+
+Jeśli włączysz to ustawienie zasad i ustawisz je na ikonę i etykietę wyszukiwania, ikona i etykieta wyszukiwania będą domyślnie wyświetlane na pasku zadań. Użytkownicy nie mogą tego zmienić w Ustawieniach.
+
+Jeśli włączysz to ustawienie zasad i ustawisz je na pole wyszukiwania, pole wyszukiwania będzie domyślnie wyświetlane na pasku zadań. Użytkownicy nie mogą tego zmienić w Ustawieniach.
+
+Jeśli wyłączysz lub nie skonfigurujesz tego ustawienia zasad, wyszukiwanie na pasku zadań będzie skonfigurowane zgodnie z ustawieniami domyślnymi dla Twojej edycji systemu Windows. Użytkownicy będą mogli zmienić wyszukiwanie na pasku zadań w Ustawieniach.
+      </string>
+      <string id="SearchOnTaskbarModeEnum_Hidden">Ukrywanie</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconOnly">Tylko ikona wyszukiwania</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconAndLabel">Ikona i etykieta wyszukiwania</string>
+      <string id="SearchOnTaskbarModeEnum_SearchBox">Pole wyszukiwania</string>
     </stringTable>
     <presentationTable>
       <presentation id="RichAttachmentPreviews">
@@ -382,6 +405,9 @@ Jeśli to ustawienie zostanie włączone, funkcja wyszukiwania i Cortana będą 
       </presentation>
       <presentation id="AllowCortanaAAD">
         <dropdownList refId="AllowCortanaAAD_Dropdown" noSort="true" defaultItem="0">Ustawienie Cortany w usłudze AAD</dropdownList>
+      </presentation>
+      <presentation id="ConfigureSearchOnTaskbarMode">
+        <dropdownList refId="ConfigureSearchOnTaskbarMode_Dropdown" noSort="true" defaultItem="0">Wyszukiwanie na pasku zadań</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

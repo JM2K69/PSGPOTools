@@ -15,7 +15,16 @@
 如果您停用或未設定這個原則設定，就不會針對應用程式啟用 GDI DPI 縮放比例，但使用 ApplicationCompatibility 資料庫、ApplicationCompatibility UI 系統 (增強) 設定或應用程式資訊清單啟用的應用程式除外。
 
 如果 GDI DPI 縮放比例同時設定為關閉和開啟應用程式，則會關閉應用程式。</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">GDI DPI 縮放比例可讓非 DPI 感知的應用程式能夠感知監視器 DPI。
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">啟用此原則可讓您在連接其他監視器時，覆寫預設行為。它可讓您控制顯示器是否會自動複製 (鏡像) 主畫面或延伸桌面。
+延伸模式會將顯示器延伸到第二個監視器，允許每個螢幕顯示不同的內容。複製模式會將主要顯示器複製到第二個監視器，在兩個螢幕上顯示相同的內容。內部 預設會使用 Windows 設定所決定之系統的預設行為。</string>
+<string id="DisplayConfigureMultipleDisplayMode"> 設定多重顯示模式</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">啟用此原則可讓您在連接其他監視器時，覆寫預設行為。它可讓您控制複製顯示器時是將內部螢幕還是外部螢幕設為優先順序，即設定首選的解析度來源。
+內部將主要顯示器的解析度設定為兩個畫面上的來源。外部將連結的 (外部) 顯示器的解析度設定為兩個畫面上的來源。預設會使用 Windows 設定所決定之系統的預設行為。</string>
+<string id="DisplaySetClonePreferredResolutionSource"> 將複製的監視器設為首選解析度來源</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">GDI DPI 縮放比例可讓非 DPI 感知的應用程式能夠感知監視器 DPI。
 
 這個原則設定可讓您指定關閉 GDI DPI 縮放比例的舊版應用程式。
 
@@ -26,24 +35,32 @@
 如果 GDI DPI 縮放比例同時設定為關閉和開啟應用程式，則會關閉應用程式。</string>
       <string id="DisplayTurnOnGdiDPIScaling">針對應用程式開啟 GdiDPIScaling</string>
       <string id="DisplayTurnOffGdiDPIScaling">針對應用程式關閉 GdiDPIScaling</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">「每個處理序系統 DPI」是一項應用程式相容性功能，適用於在顯示縮放比例 (DPI) 變更後無法正常轉譯的傳統型應用程式。當主顯示器的顯示縮放比例變更時 (可能會在您連接或中斷連接顯示縮放比例 (DPI) 不同的顯示器時、從顯示縮放比例不同的裝置進行遠端連線時，或是手動變更顯示縮放比例時發生)，許多傳統型應用程式會呈現模糊狀態。尚未更新以在這種情況下正常顯示的傳統型應用程式，會一直呈現模糊的狀態，直到使用者登出再重新登入 Windows 才會回復。
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">每個程序系統 DPI 是桌面應用程式的應用程式相容性功能，在顯示縮放比例 (DPI) 變更後便無法正確呈現。當主要顯示器的顯示縮放比例發生變化時 (例如連接或中斷與擁有不同縮放比例 (DPI) 的顯示器之連結、從具有不同縮放比例的裝置遠端連線，或手動變更縮放比例)，許多桌面應用程式可能會出現模糊顯示的情況。在使用者登出並重新登入 Windows 之前，尚未更新以在此案例正確顯示之桌面應用程式將會模糊不清。
 
-當您啟用此原則後，有些模糊的應用程式將會在重新啟動後變得清晰，而不需要使用者先登出再重新登入 Windows。
+當您啟用此原則時，部分模糊的應用程式在重新啟動之後會清晰顯示，而不需要使用者登出後再重新登入 Windows。
 
 請注意下列事項:
 
-「每個處理序系統 DPI」只能改善位於主顯示器之傳統型應用程式的顯示效果。某些傳統型應用程式在顯示縮放比例不同的次顯示器上仍然可能會呈現模糊狀態。
+每個程序系統 DPI 只會改善主要顯示器上桌面應用程式的呈現。部分桌面應用程式在具有不同顯示縮放比例的次要顯示器上仍然可能會模糊不清。
 
-「每個處理序系統 DPI」不適用於所有應用程式，因為某些較舊的傳統型應用程式在高 DPI 顯示器上總是會呈現模糊狀態。
+每個程序系統 DPI 無法適用於所有應用程式，因為某些較舊的桌面應用程式在高 DPI 顯示器上一律會模糊不清。
 
-在某些情況下，您可能會在一些傳統型應用程式中看到某些異常行為。若發生這種情況，應該要停用「每個處理序系統 DPI」。
+在某些情況下，您可能會在某些桌面應用程式中看到一些異常行為。如果發生這種情況，應停用每個程序系統 DPI。
 
-啟用此設定可讓您為傳統型應用程式指定全系統預設值以及每個應用程式的覆寫。若您停用或並未進行此設定，「每個處理序系統 DPI」就不會套用至系統上的任何處理序。
+啟用此設定可讓您指定桌面應用程式以及每個應用程式覆寫的全系統預設。如果您停用或未設定此設定，每個程序系統 DPI 將不會套用至系統上的任何程序。
 
 </string>
       <string id="DisplayPerProcessSystemDpiSettings">設定每個處理序系統 DPI 設定</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">啟用</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">停用</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">複製</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">預設</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">延伸</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">僅限內部</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">僅限外部</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">預設</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">內部</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">外部</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">為應用程式啟用每個處理序系統 DPI</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">為應用程式停用每個處理序系統 DPI</string>
     </stringTable>
@@ -66,6 +83,12 @@
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>為下列應用程式停用每個處理序系統 DPI。使用完整應用程式路徑或應用程式檔案名稱及副檔名。使用分號分隔應用程式。</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">複製、延伸、InternalOnly、ExternalOnly，或以預設 Windows 設定繼續做為多重顯示模式的組態。</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">將 Windows 將針對新複製的顯示器使用的預設解析度設定為內部、外部或預設 Windows 設定。</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -2,19 +2,27 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>Gestione di pacchetti appx</displayName> 
+  <displayName>Gestione di pacchetti appx</displayName>
   <description>Gestione di pacchetti appx</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">Distribuzione di pacchetti di applicazioni</string>
       <string id="AppxDeploymentAllowAllTrustedApps">Consenti l'installazione di tutte le applicazioni attendibili</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Questa impostazione dei criteri consente di gestire l'installazione delle app di Windows Store line-of-business o firmate dallo sviluppatore attendibili.
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Questa impostazione di criteri consente di gestire l'installazione di app Microsoft Store in pacchetto firmate da sviluppatori o LOB (line-of-business) attendibili.
 
-Se si abilita questa impostazione dei criteri, è possibile installare qualsiasi app di Windows Store line-of-business o firmata dallo sviluppatore. L'app deve essere firmata con una catena di certificati che possa essere correttamente convalidata dal computer locale.
+Se abiliti o non configuri questa impostazione di criteri, puoi installare qualsiasi applicazione app Microsoft Store in pacchetto firmata da sviluppatori e LOB (che deve essere firmata con una catena di certificati che può essere convalidata dal computer locale).
 
-Se si disabilita o non si configura questa impostazione dei criteri, non è possibile installare app di Windows Store line-of-business o firmate dallo sviluppatore.</string>
+Se disabiliti o non configuri questa impostazione di criteri, non puoi installare app Microsoft Store in pacchetto firmate da sviluppatori o LOB.</string>
+      <string id="AllowAutomaticAppArchiving">Archiviazione app usate raramente</string>
+      <string id="AllowAutomaticAppArchivingExplanation">Questa impostazione dei criteri determina se il sistema può archiviare le app raramente utilizzate.
+
+Se si abilita questa impostazione dei criteri, il sistema controllerà periodicamente la presenza e l'archiviazione di raramente app utilizzate.
+
+Se si disabilita questa impostazione dei criteri, il sistema non eseguirà l'archiviazione di alcuna app.
+
+Se non si configura questa impostazione dei criteri (impostazione predefinita), il sistema utilizzerà il comportamento predefinito, che consentirà di controllare periodicamente e archiviare le app raramente usate e l'utente potrà configurare questa impostazione autonomamente.</string>
       <string id="AllowDeploymentInSpecialProfiles">Consenti operazioni di distribuzione in profili speciali</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">Questa impostazione dei criteri consente di gestire la distribuzione di app di Windows Store quando l'utente esegue l'accesso con un profilo speciale. I profili speciali sono i profili utente seguenti, per i quali le modifiche vengono eliminate dopo la disconnessione dell'utente:
+      <string id="AllowDeploymentInSpecialProfilesExplanation">Questa impostazione dei criteri consente di gestire la distribuzione di app di Microsoft Store quando l'utente esegue l'accesso con un profilo speciale. I profili speciali sono i profili utente seguenti, per i quali le modifiche vengono eliminate dopo la disconnessione dell'utente:
 
 Profili utente mobili a cui si applica l'impostazione di Criteri di gruppo "Elimina dalla cache le copie dei profili mobili"
 
@@ -25,16 +33,16 @@ I profili utente temporanei, creati quando un errore impedisce il caricamento de
 I profili utente per l'account Guest e i membri del gruppo Guests
 
 
-Se si abilita questa impostazione dei criteri, Criteri di gruppo consente le operazioni di distribuzione (aggiunta, registrazione, gestione temporanea, aggiornamento o rimozione di un pacchetto di app) per le app di Windows Store quando si utilizza un profilo speciale.
+Se si abilita questa impostazione dei criteri, Criteri di gruppo consente le operazioni di distribuzione (aggiunta, registrazione, gestione temporanea, aggiornamento o rimozione di un pacchetto di app) per le app di Microsoft Store quando si utilizza un profilo speciale.
 
-Se si disabilita o non si configura questa impostazione dei criteri, Criteri di gruppo blocca le operazioni di distribuzione di app di Windows Store quando si utilizza un profilo speciale.</string>
-      <string id="AllowDevelopmentWithoutDevLicense">Consenti lo sviluppo di app di Windows Store e la loro installazione da un ambiente di sviluppo integrato</string>
+Se si disabilita o non si configura questa impostazione dei criteri, Criteri di gruppo blocca le operazioni di distribuzione di app di Microsoft Store quando si utilizza un profilo speciale.</string>
+      <string id="AllowDevelopmentWithoutDevLicense">Consenti lo sviluppo di app di Microsoft Store e la loro installazione da un ambiente di sviluppo integrato</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        Consente o impedisce lo sviluppo di applicazioni di Windows Store e la relativa installazione direttamente da un ambiente di sviluppo integrato.
+        Consente o impedisce lo sviluppo di applicazioni di Microsoft Store e la relativa installazione direttamente da IDE.
 
-        Se si abilita questa impostazione dei criteri e si abilita l'impostazione di Criteri di gruppo "Consenti l'installazione di tutte le app attendibili", è possibile sviluppare app di Windows Store e installarle direttamente da un ambiente di sviluppo integrato.
-        
-        Se si disabilita o non si configura questa impostazione dei criteri, non è possibile sviluppare app di Windows Store o installarle direttamente da un ambiente di sviluppo integrato.
+        Se si abilita questa impostazione dei criteri e si abilita l'impostazione dei Criteri di gruppo "Consenti l'installazione di tutte le app attendibili", è possibile sviluppare app di Microsoft Store e installarle direttamente da IDE.
+
+        Se si disabilita o non si configura questa impostazione dei criteri, non è possibile sviluppare app di Microsoft Store o installarle direttamente da IDE.
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">Disabilita l'installazione di app di Windows in volumi non di sistema</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -54,11 +62,149 @@ Se si disabilita o non si configura questa impostazione, quando un'app viene spo
       </string>
       <string id="AllowSharedLocalAppData">Consenti a un'app di Windows di condividere i dati dell'applicazione tra gli utenti</string>
       <string id="AllowSharedLocalAppDataExplanation">Per un'app di Windows, gestisce la possibilità di condividere dati tra gli utenti che hanno installato l'app.
-        
-Se si abilita questa impostazione dei criteri, un'app di Windows può condividere i dati con altre istanze di tale app. I dati vengono condivisi tramite la cartella SharedLocal. La cartella è disponibile tramite l'API Windows.Storage.
 
-Se si disabilita questo criterio, un'app di Windows non può condividere i dati dell'app con altre istanze di tale app. Se questa impostazione dei criteri è stata abilitata in precedenza, tutti i dati dell'app condivisi in precedenza rimarranno nella cartella SharedLocal. 
+        Se abiliti questa impostazione dei criteri, un'app di Windows può condividere i dati con altre istanze di tale app. I dati vengono condivisi tramite la cartella SharedLocal. La cartella è disponibile tramite l'API Windows.Storage.
+
+        Se disabiliti questi criteri, un'app di Windows non può condividere i dati dell'app con altre istanze di tale app. Se questa impostazione dei criteri è stata abilitata in precedenza, tutti i dati dell'app condivisi in precedenza rimarranno nella cartella SharedLocal.
       </string>
+      <string id="BlockNonAdminUserInstall">Impedisci agli utenti non amministratori di installare app di Windows in pacchetto</string>
+      <string id="BlockNonAdminUserInstallExplanation">Gestisce la capacità degli utenti non amministratori di installare pacchetti di app di Windows.
+
+        Se abiliti questi criteri, gli utenti non amministratori non saranno in grado di avviare l'installazione dei pacchetti di app di Windows. Gli amministratori che desiderano installare un'app dovranno eseguire questa operazione da un contesto amministratore, ad esempio una finestra di PowerShell per l'amministratore. Tutti gli utenti potranno comunque installare pacchetti di app di Windows tramite Microsoft Store, se consentito da altri criteri.
+
+        Se disabiliti o non configuri questi criteri, tutti gli utenti potranno avviare l'installazione dei pacchetti di app di Windows.
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">Imposta i domini autorizzati per l'autenticazione HTTPS nell'installazione dello streaming MSIX</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">Questa impostazione dei criteri determina se un token EntraID OAuth verrà incluso nelle comunicazioni HTTPS a un nome di dominio completo specificato per l'esecuzione di un'installazione di streaming MSIX.
+
+Se si abilita questa impostazione dei criteri, le comunicazioni HTTPS con i domini completi predefiniti incorporeranno il token EntraID OAuth dell'utente durante l'esecuzione di un'installazione MSIX in streaming. Il valore specificato è un'espressione regolare (script ECMA) che verrà usata per la corrispondenza con il dominio completo maiuscolo dell'URL.
+
+Se si disabilita o non si configura questa impostazione dei criteri, il token EntraID OAuth dell'utente verrà condiviso solo con i domini configurati predefiniti.
+      </string>
+      <string id="DisableBackgroundAutoUpdates">Non consentire l'aggiornamento automatico delle app con sideload in background</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">Gestisce la capacità delle app trasferite localmente di aggiornarsi automaticamente in background. 
+
+        Se abiliti questo criterio, le app trasferite localmente non si aggiorneranno automaticamente in background.
+
+        Se disabiliti questo criterio, le app traferite localmente si aggiorneranno automaticamente in background.
+
+        Per impostazione predefinita è su "disabilitato" (chiave non presente).
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">Non consentire l'aggiornamento automatico delle app con sideload in background in una rete a consumo</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">Gestisce la capacità delle app trasferite localmente di aggiornarsi automaticamente in background su una rete a consumo. 
+
+        Se abiliti questo criterio, le app trasferite localmente non si aggiorneranno automaticamente in background su una rete a consumo.
+
+        Se disabiliti questo criterio, le app traferite localmente si aggiorneranno automaticamente in background su una rete a consumo.
+
+        Per impostazione predefinita è su "disabilitato" (chiave non presente).
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">Non consentire l'installazione di pacchetti non firmati per utente per impostazione predefinita (richiede esplicitamente l'autorizzazione per ogni installazione)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">Non consentire l'installazione per utente di pacchetti non firmati per impostazione predefinita (richiede esplicitamente l'autorizzazione per ogni installazione)
+
+Se si abilita questo criterio, l'opzione AllowUnsigned verrà impostata su 'false'.
+
+Se si disabilita questo criterio, l'opzione AllowUnsigned verrà impostata su 'true'.
+
+L'impostazione predefinita è 'disabled' (chiave non presente).
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">Nomi delle famiglie di pacchetti consentiti per l'installazione da parte di utenti non amministratori</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">Nomi delle famiglie di pacchetti consentiti per l'installazione del pacchetto dell'app Windows non amministratore.
+
+Se abiliti questo criterio, puoi immettere un elenco di pacchetti di app di Windows che non sono amministratori potranno avviare l'installazione indipendentemente dal criterio configurato "Impedisci agli utenti non amministratori di installare app di Windows in pacchetto".
+
+I valori specificati verranno considerati come espressioni regolari (script ECMA). Un nome di famiglia di pacchetti come Contoso.ContosoApp_8wekyb3d8bbwe è di per sé un'espressione regolare valida che corrisponderà a tutti i pacchetti della famiglia. Anche un'espressione regolare come ^Contoso.*_8wekyb3d8bbwe$ corrisponderà Contoso.ContosoApp_8wekyb3d8bbwe
+
+Se il nome della famiglia di pacchetti di un pacchetto dell'app di Windows di installazione corrisponde a qualsiasi regola, non verrà bloccato dal criterio "Impedisci agli utenti non amministratori di installare app di Windows in pacchetto". L'installazione potrebbe essere ancora bloccata da altri criteri o impostazioni.
+
+Se si disabilita o non si configura questo criterio, tutti i pacchetti di app di Windows saranno soggetti al criterio configurato "Impedisci agli utenti non amministratori di installare app di Windows in pacchetto".
+
+L'impostazione predefinita è 'disabled' (chiave non presente).
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">Rimuovi i pacchetti predefiniti di Microsoft Store dal sistema.</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">Rimuove i pacchetti predefiniti di Microsoft Store dal sistema.
+
+Se abiliti questo criterio, le app di Microsoft Store selezionate nell'elenco fornito verranno disinstallate dal sistema. Puoi apportare modifiche alle impostazioni predefinite.
+
+Le app non selezionate nell'elenco non verranno rimosse.
+
+* Questa è un'app headless (senza interfaccia utente)
+
+** Questa app è il gestore predefinito per un tipo di file o protocollo comune. La rimozione di questa app potrebbe comportare un peggioramento dell'esperienza utente. Non è consigliabile rimuovere questa app.
+
+Se abiliti questo criterio, puoi anche rimuovere un'app immettendo il nome della famiglia di pacchetti dell'app (ad esempio, Microsoft.WindowsCalculator_8wekyb3d8bbwe) nell'elenco dinamico sotto "Specifica nomi di famiglia di pacchetti aggiuntivi da rimuovere".
+
+Se questo criterio è abilitato, per reinstallare un'app rimossa in precedenza devi deselezionarla dall'elenco fornito o rimuovere il nome della famiglia di pacchetti dall'elenco dinamico.
+
+Non puoi rimuovere componenti di sistema di Windows tramite l'elenco dinamico di rimozione app.
+
+La convalida dei nomi delle famiglie di pacchetti nell'elenco dinamico avviene all'accesso dell'utente, non durante la configurazione del criterio.
+
+Il valore predefinito è 'disabled' (chiave non presente).
+
+Se il criterio è disabilitato o non configurato, nessun pacchetto predefinito di Microsoft Store verrà rimosso dal sistema.
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">Rimuove i pacchetti predefiniti di Microsoft Store dal sistema.</string>
+      <string id="EnableMsixAllowedZones">Abilita le zone consentite per i pacchetti MSIX</string>
+      <string id="EnableMsixAllowedZonesExplanation">Questo criterio controlla se i pacchetti MSIX provenienti da zone URL specifiche possono essere installati. L'origine di un pacchetto è determinata dal relativo URI e dalla presenza di un Mart-of-the-Web (MotW). Se sono coinvolti più URI, vengono considerati tutti;
+
+Se si abilita questo criterio, gli utenti potranno installare i pacchetti MSIX in base alla configurazione per ogni area.
+
+Se si disabilita o non si configura questo criterio, gli utenti potranno installare pacchetti MSIX da qualsiasi area, ad eccezione di Non attendibili.</string>
+      <string id="ZoneAllowed">Consenti</string>
+      <string id="ZoneBlocked">Blocca</string>
+      <string id="EnableMsixSmartScreenCheck">Abilita i controlli di Microsoft SmartScreen per i pacchetti MSIX</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">Questo criterio controlla se viene eseguito il controllo di Microsoft SmartScreen durante l'installazione di pacchetti MSIX da zone URL specifiche.
+
+Se abiliti o non configuri questo criterio, l'URI del pacchetto verrà valutato con Microsoft SmartScreen prima dell'installazione. Questo controllo viene effettuato solo per i pacchetti provenienti da Internet.
+
+Se disabiliti, Microsoft SmartScreen non verrà consultato prima dell'installazione di un pacchetto.</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>Espressione</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">Nomi delle famiglie di pacchetti consentiti per l'installazione da parte di utenti non amministratori</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>Rimuove i pacchetti predefiniti di Microsoft Store dal sistema.</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">Hub di Feedback</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">Microsoft 365 Copilot</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft News</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Microsoft Foto **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Microsoft Sticky Notes</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">Microsoft To Do</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN Meteo</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Outlook per Windows</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">Paint</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">Assistenza rapida</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">Strumento di cattura</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Calcolatrice di Windows</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Fotocamera Windows **</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Lettore multimediale Windows**</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Blocco note di Windows **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Registratore di suoni di Windows</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Terminale Windows</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">App Xbox Gaming</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Xbox Identity Provider *</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Xbox Speech To Text Overlay *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">Specifica ulteriori nomi di famiglie di pacchetti da rimuovere</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">Computer locale</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">Intranet</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">Siti attendibili</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">Internet</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">Siti non attendibili</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

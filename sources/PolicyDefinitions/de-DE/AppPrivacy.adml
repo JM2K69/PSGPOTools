@@ -99,6 +99,67 @@ Wenn Sie die Richtlinieneinstellung deaktivieren oder nicht konfigurieren, könn
 
 Wenn eine App geöffnet ist, während dieses Gruppenrichtlinienobjekt auf ein Gerät angewendet wird, müssen die Mitarbeiter die App oder das Gerät neu starten, damit die Richtlinienänderungen auf die App angewendet werden.
       </string>
+      <string id="LetAppsAccessSystemAIModels_Name">Windows-Apps die Verwendung der Features zur Text- und Bildgenerierung von Windows gestatten</string>
+      <string id="LetAppsAccessSystemAIModels_Explain">
+Diese Richtlinieneinstellung gibt an, ob Windows-Apps Text- und Bildgenerierungsfeatures von Windows verwenden können.
+
+Sie können entweder eine Standardeinstellung für alle Apps oder eine Einstellung pro App festlegen, indem Sie einen Paketfamiliennamen angeben. Sie können den Paketfamiliennamen für eine App mithilfe des Windows PowerShell-Cmdlets „Get-AppPackage“ abrufen. Eine Einstellung pro App überschreibt die Standardeinstellung.
+
+Wenn Sie die Option „Benutzer hat die Kontrolle“ auswählen, können die Mitarbeiter in Ihrer Organisation auf dem Gerät unter „Einstellungen &gt; Datenschutz“ entscheiden, ob Windows-Apps die Text- und Bildgenerierung verwenden dürfen.
+
+Wenn Sie die Option „Zulassen erzwingen“ auswählen, dürfen Windows-Apps die Text- und Bildgenerierungsfeatures von Windows verwenden und die Mitarbeiter in Ihrer Organisation können dies nicht ändern.
+
+Wenn Sie die Option „Verweigern erzwingen“ auswählen, dürfen Windows-Apps die Text- und Bildgenerierungsfeatures von Windows nicht verwenden und die Mitarbeiter in Ihrer Organisation können dies nicht ändern.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Mitarbeiter in Ihrer Organisation über „Einstellungen &gt; Datenschutz“ auf dem Gerät entscheiden, ob Windows-Apps die Text- und Bildgenerierungsfeatures von Windows verwenden können.
+
+Wenn eine App geöffnet ist, während dieses Gruppenrichtlinienobjekt auf einem Gerät angewendet wird, müssen Mitarbeiter die App oder das Gerät neu starten, damit die Richtlinienänderungen auf die App angewendet werden.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Name">Windows-Apps Screenshots von verschiedenen Fenstern und Anzeigen erstellen lassen</string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Explain">Diese Richtlinieneinstellung gibt an, ob Windows-Apps Bildschirmaufnahmen von beliebigen Fenstern oder Anzeigen erstellen können.
+
+Sie können entweder eine Standardeinstellung für alle Anwendungen oder eine Einstellung pro Anwendung angeben, indem Sie einen Paket-Familiennamen angeben. Sie können den Paketfamiliennamen für eine Anwendung mit dem Windows PowerShell-Cmdlet Get-AppPackage abrufen. Eine anwendungsspezifische Einstellung setzt die Standardeinstellung außer Kraft.
+
+Wenn Sie die Option „Benutzer hat die Kontrolle“ wählen, können die Mitarbeiter in Ihrer Organisation entscheiden, ob Windows-Apps Bildschirmaufnahmen beliebiger Fenster oder Anzeigen mit Hilfe von „Einstellungen“ &gt; „Datenschutz“ auf dem Gerät erstellen können.
+
+Wenn Sie die Option „Zulassen erzwingen“ wählen, können Windows-Apps Bildschirmaufnahmen von beliebigen Fenstern oder Anzeigen erstellen, und die Mitarbeiter in Ihrer Organisation können dies nicht ändern.
+
+Wenn Sie die Option „Verweigern erzwingen“ wählen, dürfen Windows-Apps keine Bildschirmaufnahmen von beliebigen Fenstern oder Anzeigen erstellen und die Mitarbeiter in Ihrer Organisation können dies nicht ändern.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können die Mitarbeiter in Ihrer Organisation entscheiden, ob Windows-Apps Bildschirmaufnahmen von beliebigen Fenstern oder Anzeigen erstellen dürfen, indem sie „Einstellungen“ &gt; „Datenschutz“ auf dem Gerät verwenden.
+
+Wenn eine Anwendung geöffnet ist, wenn dieses Gruppenrichtlinienobjekt auf ein Gerät angewendet wird, müssen die Mitarbeiter die Anwendung oder das Gerät neu starten, damit die Richtlinienänderungen auf die Anwendung angewendet werden.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Name">Windows-Apps den Rand des Screenshots deaktivieren lassen</string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Explain">Diese Richtlinieneinstellung gibt an, ob Windows-Apps den Rand des Bildschirmausschnitts deaktivieren können.
+
+Sie können entweder eine Standardeinstellung für alle Apps oder eine Einstellung pro App angeben, indem Sie einen Paketfamiliennamen angeben. Sie können den Paketfamiliennamen für eine App mit dem Windows PowerShell-Cmdlet "Get-AppPackage" abrufen. Eine anwendungsspezifische Einstellung setzt die Standardeinstellung außer Kraft.
+
+Wenn Sie die Option "Benutzer hat die Kontrolle" wählen, können Mitarbeiter in Ihrer Organisation entscheiden, ob Windows-Apps den Rand des Bildschirmausschnitts mit Hilfe von Einstellungen &gt; Datenschutz auf dem Gerät deaktivieren können.
+
+Wenn Sie die Option "Zulassen erzwingen" wählen, können Windows-Apps den Rand des Bildschirmausschnitts deaktivieren, und die Mitarbeiter in Ihrer Organisation können ihn nicht ändern.
+
+Wenn Sie die Option "Verweigern erzwingen" wählen, dürfen Windows-Apps den Rand des Bildschirmausschnitts nicht deaktivieren, und die Mitarbeiter in Ihrer Organisation können ihn nicht ändern.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können die Mitarbeiter in Ihrer Organisation entscheiden, ob Windows-Apps den Rand des Bildschirmausschnitts mit Hilfe von Einstellungen &gt; Datenschutz auf dem Gerät deaktivieren dürfen.
+
+Wenn eine App geöffnet ist, wenn dieses Gruppenrichtlinienobjekt auf ein Gerät angewendet wird, müssen die Mitarbeiter die App oder das Gerät neu starten, damit die Richtlinienänderungen auf die App angewendet werden.
+      </string>
+      <string id="LetAppsAccessHumanPresence_Name">Zulassen, dass Windows-Apps auf Anwesenheitserkennung zugreifen</string>
+      <string id="LetAppsAccessHumanPresence_Explain">Die Richtlinieneinstellung legt fest, ob Windows-Apps auf vertrauenswürdige Geräte zugreifen können.
+
+Sie können entweder eine Standardeinstellung für alle Apps oder eine App-spezifische Einstellung durch Angabe eines Paketfamiliennamens festlegen. Sie können den Paketfamiliennamen für eine App mithilfe des Windows PowerShell-Cmdlets Get-AppPackage abrufen. Die Standardeinstellung wird durch eine App-spezifische Einstellung überschrieben.
+
+Bei Auswahl der Option "Benutzer hat Kontrolle" können die Mitarbeiter in Ihrer Organisation entscheiden, ob Windows-Apps auf vertrauenswürdige Geräte zugreifen können, indem sie "Einstellungen &gt; Datenschutz" auf dem Gerät verwenden.
+
+Bei Auswahl der Option "Zulassen erzwingen" können Windows-Apps auf vertrauenswürdige Geräte zugreifen, wobei die Einstellung von den Mitarbeitern in Ihrer Organisation nicht geändert werden kann.
+
+Bei Auswahl der Option "Verweigern erzwingen" können Windows-Apps nicht auf vertrauenswürdige Geräte zugreifen, wobei die Einstellung von den Mitarbeitern in Ihrer Organisation nicht geändert werden kann.
+
+Wenn Sie die Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können die Mitarbeiter in Ihrer Organisation entscheiden, ob Windows-Apps auf vertrauenswürdige Geräte zugreifen können, indem sie "Einstellungen &gt; Datenschutz" auf dem Gerät verwenden.
+
+Wenn eine App geöffnet ist, während dieses Gruppenrichtlinienobjekt auf ein Gerät angewendet wird, müssen die Mitarbeiter die App oder das Gerät neu starten, damit die Richtlinienänderungen auf die App angewendet werden.
+      </string>
       <string id="LetAppsAccessLocation_Name">Windows-App-Zugriff auf Positionsdaten zulassen</string>
       <string id="LetAppsAccessLocation_Explain">Die Richtlinieneinstellung legt fest, ob Windows-Apps auf Positionsdaten zugreifen können.
 
@@ -173,6 +234,36 @@ Bei Auswahl der Option "Verweigern erzwingen" können Windows-Apps nicht auf Ben
 Wenn Sie die Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können die Mitarbeiter in Ihrer Organisation entscheiden, ob Windows-Apps auf Benachrichtigungen zugreifen können, indem sie "Einstellungen &gt; Datenschutz" auf dem Gerät verwenden.
 
 Wenn eine App geöffnet ist, während dieses Gruppenrichtlinienobjekt auf ein Gerät angewendet wird, müssen die Mitarbeiter die App oder das Gerät neu starten, damit die Richtlinienänderungen auf die App angewendet werden.
+      </string>
+      <string id="LetAppsAccessPasskeys_Name">Windows App-Zugriff auf Passkeys zulassen</string>
+      <string id="LetAppsAccessPasskeys_Explain">Diese Richtlinieneinstellung gibt an, ob Apps auf Hauptschlüssel zugreifen können.
+
+Sie können entweder eine Standardeinstellung für alle Apps oder eine Einstellung pro App festlegen, indem Sie einen Paketfamiliennamen angeben. Den Paketfamiliennamen einer App können Sie mit dem Windows PowerShell-Cmdlet „Get-App Package“ abrufen. Eine Einstellung pro App überschreibt die Standardeinstellung.
+
+Wenn Sie die Option „Benutzer hat die Kontrolle“ wählen, können die Mitarbeiter in Ihrer Organisation über die Einstellungen &gt; Datenschutz auf dem Gerät entscheiden, ob Apps auf Passkeys zugreifen dürfen.
+
+Wenn Sie die Option „Zulassen erzwingen“ wählen, dürfen Apps auf Passkeys zugreifen und Mitarbeiter in Ihrer Organisation können dies nicht ändern.
+
+Wenn Sie die Option „Verweigern erzwingen“ auswählen, dürfen Apps nicht auf Hauptschlüssel zugreifen und Mitarbeiter in Ihrer Organisation können das nicht ändern.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können die Mitarbeiter in Ihrer Organisation über die Einstellungen &gt; Datenschutz auf dem Gerät entscheiden, ob Apps auf Passkeys zugreifen dürfen.
+
+Wenn eine App geöffnet ist, während dieses Gruppenrichtlinienobjekt auf einem Gerät angewendet wird, müssen Mitarbeiter die App oder das Gerät neu starten, damit die Richtlinienänderungen auf die App angewendet werden.
+      </string>
+      <string id="LetAppsAccessPasskeysEnumeration_Name">Windows Apps-AutoAusfüllen von Passkeys erlauben</string>
+      <string id="LetAppsAccessPasskeysEnumeration_Explain">Diese Richtlinieneinstellung gibt an, ob Apps Hauptschlüssel automatisch ausfüllen können.
+
+Sie können entweder eine Standardeinstellung für alle Apps oder eine Einstellung pro App festlegen, indem Sie einen Paketfamiliennamen angeben. Den Paketfamiliennamen einer App können Sie mit dem Windows PowerShell-Cmdlet „Get-App Package“ abrufen. Eine Einstellung pro App überschreibt die Standardeinstellung.
+
+Wenn Sie die Option „Benutzer hat Kontrolle“ auswählen, können Mitarbeiter in Ihrer Organisation mithilfe von „Einstellungen &gt; Datenschutz“ auf dem Gerät entscheiden, ob Apps Hauptschlüssel automatisch ausfüllen können.
+
+Wenn Sie die Option „Zulassen erzwingen“ auswählen, dürfen Apps Hauptschlüssel automatisch ausfüllen und Mitarbeiter in Ihrer Organisation können das nicht ändern.
+
+Wenn Sie die Option „Verweigern erzwingen“ auswählen, dürfen Apps Hauptschlüssel nicht automatisch ausfüllen und Mitarbeiter in Ihrer Organisation können das nicht ändern.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Mitarbeiter in Ihrer Organisation mithilfe von „Einstellungen &gt; Datenschutz“ auf dem Gerät entscheiden, ob Apps Hauptschlüssel automatisch ausfüllen können.
+
+Wenn eine App geöffnet ist, während dieses Gruppenrichtlinienobjekt auf einem Gerät angewendet wird, müssen Mitarbeiter die App oder das Gerät neu starten, damit die Richtlinienänderungen auf die App angewendet werden.
       </string>
       <string id="LetAppsAccessPhone_Name">Windows-Apps Telefonanrufe gestatten</string>
       <string id="LetAppsAccessPhone_Explain">Die Richtlinieneinstellung legt fest, ob Windows-Apps Telefonanrufe tätigen können.
@@ -321,6 +412,35 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, kö
 
 Diese Richtlinie gilt für Windows-Apps und Cortana. Sie hat Vorrang vor der Richtlinie "Cortana auch bei Sperrung zulassen". Diese Richtlinie gilt nur, wenn die Richtlinie "Sprachaktivierung zulassen" so konfiguriert ist, dass Anwendungen per Sprache aktiviert werden können.
       </string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Name">Im Hintergrund ausgeführte Windows-Apps dürfen auf Benutzerbewegungen zugreifen</string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Explain">Diese Richtlinieneinstellung bestimmt, ob Windows-Apps auf die Bewegung von Kopf, Händen, Motion-Controllern und anderen überwachten Objekten des Benutzers zugreifen können, während die Apps im Hintergrund ausgeführt werden.
+
+Sie können entweder eine Standardeinstellung für alle Apps oder eine Einstellung pro App festlegen, indem Sie einen Paketfamiliennamen angeben. Sie können den Paketfamiliennamen für eine App mithilfe des Windows PowerShell-Cmdlets Get-AppPackage abrufen. Eine Einstellung pro App überschreibt die Standardeinstellung.
+
+Wenn Sie die Option für eine Steuerung durch den Benutzer wählen, können Mitarbeiter in Ihrer Organisation auf ihren Geräten über Einstellungen &gt; Datenschutz festlegen, ob Windows-Apps auf die Bewegungen des Benutzers zugreifen dürfen, während die Apps im Hintergrund ausgeführt werden.
+
+Wenn Sie die Option für eine erzwungene Zustimmung wählen, dürfen Windows-Apps auf Benutzerbewegungen zugreifen, während die Apps im Hintergrund ausgeführt werden. Die Mitarbeiter in Ihrer Organisation können diese Einstellung nicht ändern.
+
+Wenn Sie die Option für eine erzwungene Ablehnung wählen, dürfen Windows-Apps nicht auf Benutzerbewegungen zugreifen, während die Apps im Hintergrund ausgeführt werden. Die Mitarbeiter in Ihrer Organisation können diese Einstellung nicht ändern.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Mitarbeiter in Ihrer Organisation über Einstellungen &gt; Datenschutz festlegen, ob Windows-Apps auf die Bewegungen des Benutzers zugreifen können, während die Apps im Hintergrund ausgeführt werden.
+
+Wenn eine App geöffnet ist, während dieses Gruppenrichtlinienobjekt auf ein Gerät angewendet wird, müssen Mitarbeiter die App oder das Gerät neu starten, damit die Richtlinienänderungen auf die App angewendet werden.
+      </string>
+      <string id="LetAppsAccessForegroundText_Name">Windows-Apps den Zugriff auf Textinhalte von Vordergrundanwendungen erlauben</string>
+      <string id="LetAppsAccessForegroundText_Explain">Die Richtlinieneinstellung legt fest, ob Windows-Apps auf Textinhalte von Vordergrundanwendungen zugreifen können.
+Sie können entweder eine Standardeinstellung für alle Apps oder eine app-spezifische Einstellung durch Angabe eines Paketfamiliennamens festlegen. Den Paketfamiliennamen für eine App erhalten Sie mit dem Windows PowerShell-Cmdlet „Get-AppPackage“. Eine app-spezifische Einstellung überschreibt die Standardeinstellung.
+
+Wenn Sie die Option „Benutzer hat die Kontrolle“ wählen, können die Mitarbeiter in Ihrer Organisation über die „Einstellungen &gt; Datenschutz“ auf dem Gerät entscheiden, ob Windows-Apps auf Textinhalte von im Vordergrund laufenden Anwendungen zugreifen dürfen.
+
+Wenn Sie die Option „Zulassen erzwingen“ wählen, dürfen Windows-Apps auf Textinhalte von im Vordergrund laufenden Anwendungen zugreifen, und die Mitarbeiter Ihrer Organisation können dies nicht ändern.
+
+Wenn Sie die Option „Verweigern erzwingen“ wählen, ist es Windows-Apps nicht gestattet, auf Textinhalte von Vordergrundanwendungen zuzugreifen, und die Mitarbeiter Ihrer Organisation können dies nicht ändern.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können die Mitarbeiter in Ihrer Organisation über die „Einstellungen &gt; Datenschutz“ auf dem Gerät entscheiden, ob Windows-Apps auf Textinhalte aus Vordergrundanwendungen zugreifen dürfen.
+
+Wenn eine App geöffnet ist, während dieses GPO auf einem Gerät angewendet wird, müssen die Mitarbeitenden die App oder das Gerät neu starten, damit die Richtlinienänderungen auf die App angewendet werden.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LetAppsAccessCalendar">
@@ -376,6 +496,42 @@ Diese Richtlinie gilt für Windows-Apps und Cortana. Sie hat Vorrang vor der Ric
         <multiTextBox refId="LetAppsAccessEmail_ForceAllowTheseApps_List"/>
         <text>Verweigern dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
         <multiTextBox refId="LetAppsAccessEmail_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessSystemAIModels">
+        <dropdownList refId="LetAppsAccessSystemAIModels_Enum" noSort="true" defaultItem="0">Standard für alle Apps:</dropdownList>
+        <text>Kontrolle dieser Apps an Benutzer übertragen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_UserInControlOfTheseApps_List"/>
+        <text>Zulassen dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceAllowTheseApps_List"/>
+        <text>Verweigern dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureProgrammatic">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureProgrammatic_Enum" noSort="true" defaultItem="0">Standard für alle Apps:</dropdownList>
+        <text>Kontrolle dieser Apps an Benutzer übertragen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_UserInControlOfTheseApps_List"/>
+        <text>Zulassen dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceAllowTheseApps_List"/>
+        <text>Verweigern dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureWithoutBorder">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureWithoutBorder_Enum" noSort="true" defaultItem="0">Standard für alle Apps:</dropdownList>
+        <text>Kontrolle dieser Apps an Benutzer übertragen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_UserInControlOfTheseApps_List"/>
+        <text>Zulassen dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceAllowTheseApps_List"/>
+        <text>Verweigern dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessHumanPresence">
+        <dropdownList refId="LetAppsAccessHumanPresence_Enum" noSort="true" defaultItem="0">Standard für alle Apps:</dropdownList>
+        <text>Kontrolle dieser Apps an Benutzer übertragen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_UserInControlOfTheseApps_List"/>
+        <text>Zulassen dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceAllowTheseApps_List"/>
+        <text>Verweigern dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessLocation">
         <dropdownList refId="LetAppsAccessLocation_Enum" noSort="true" defaultItem="0">Standard für alle Apps:</dropdownList>
@@ -499,6 +655,42 @@ Diese Richtlinie gilt für Windows-Apps und Cortana. Sie hat Vorrang vor der Ric
       </presentation>
       <presentation id="LetAppsActivateWithVoiceAboveLock">
         <dropdownList refId="LetAppsActivateWithVoiceAboveLock_Enum" noSort="true" defaultItem="0">Standard für alle Apps:</dropdownList>
+      </presentation>
+      <presentation id="LetAppsAccessBackgroundSpatialPerception">
+        <dropdownList refId="LetAppsAccessBackgroundSpatialPerception_Enum" noSort="true" defaultItem="0">Standard für alle Apps:</dropdownList>
+        <text>Kontrolle dieser Apps an Benutzer übertragen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_UserInControlOfTheseApps_List"/>
+        <text>Zulassen dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps_List"/>
+        <text>Verweigern dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessForegroundText">
+        <dropdownList refId="LetAppsAccessForegroundText_Enum" noSort="true" defaultItem="0">Standard für alle Apps:</dropdownList>
+        <text>Kontrolle dieser Apps an Benutzer übertragen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_UserInControlOfTheseApps_List"/>
+        <text>Zulassen dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceAllowTheseApps_List"/>
+        <text>Verweigern dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeys">
+        <dropdownList refId="LetAppsAccessPasskeys_Enum" noSort="true" defaultItem="0">Standard für alle Apps:</dropdownList>
+        <text>Kontrolle dieser Apps an Benutzer übertragen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_UserInControlOfTheseApps_List"/>
+        <text>Zulassen dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceAllowTheseApps_List"/>
+        <text>Verweigern dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeysEnumeration">
+        <dropdownList refId="LetAppsAccessPasskeysEnumeration_Enum" noSort="true" defaultItem="0">Standard für alle Apps:</dropdownList>
+        <text>Kontrolle dieser Apps an Benutzer übertragen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_UserInControlOfTheseApps_List"/>
+        <text>Zulassen dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceAllowTheseApps_List"/>
+        <text>Verweigern dieser Apps erzwingen (Paketfamiliennamen verwenden):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceDenyTheseApps_List"/>
       </presentation>
     </presentationTable>
   </resources>

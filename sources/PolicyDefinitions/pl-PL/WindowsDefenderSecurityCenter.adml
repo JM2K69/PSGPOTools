@@ -27,15 +27,15 @@
         Nieskonfigurowane:
         Takie samo działanie jak w przypadku wartości Wyłączone.
     </string>
-    <string id="VirusThreatProtection_HideRansomwareRecovery">Ukryj obszar Odzyskiwanie danych po ataku oprogramowania wymuszającego okup</string>
+    <string id="VirusThreatProtection_HideRansomwareRecovery">Ukryj obszar Odzyskiwanie danych po ataku oprogramowania ransomware</string>
     <string id="VirusThreatProtection_HideRansomwareRecovery_Explain">
-        Ukryj obszar Odzyskiwanie danych po ataku oprogramowania wymuszającego okup w usłudze Zabezpieczenia Windows.
+        Ukryj obszar Odzyskiwanie danych po ataku oprogramowania ransomware w usłudze Zabezpieczenia Windows.
 
         Włączone:
-        Obszar Odzyskiwanie danych po ataku oprogramowania wymuszającego okup będzie ukryty.
+        Obszar Odzyskiwanie danych po ataku oprogramowania ransomware będzie ukryty.
 
         Wyłączone:
-        Obszar Odzyskiwanie danych po ataku oprogramowania wymuszającego okup będzie widoczny.
+        Obszar Odzyskiwanie danych po ataku oprogramowania ransomware będzie widoczny.
 
         Nieskonfigurowane:
         Takie samo działanie jak w przypadku wartości Wyłączone.
@@ -144,7 +144,8 @@
         - Określ kontaktowy numer telefonu lub identyfikator Skype
         - Określ kontaktowy adres e-mail lub identyfikator poczty e-mail
         - Określ kontaktową witrynę internetową
-
+        Pamiętaj, że w niektórych przypadkach będziemy ograniczać wyświetlane opcje kontaktu w zależności od ilości dostępnego miejsca na powiadomienie.
+        
         Wyłączone:
         W powiadomieniach nie będą wyświetlane informacje kontaktowe.
 

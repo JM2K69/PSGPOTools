@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Sem zadejte zobrazovaný název.</displayName>
+  <description>Sem zadejte popis.</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Zabezpečené spouštění</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Nasazení certifikátu prostřednictvím řízeného uvádění funkcí</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">Pro podniky, které chtějí pomoc při nasazování nových certifikátů zabezpečeného spouštění do svých zařízení, je možné toto nastavení povolit.
+
+ 
+
+Poznámka: Aby bylo možné tuto funkci používat, musí zařízení odesílat společnosti Microsoft povinná diagnostická data.
+
+ 
+
+Další informace viz https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Automatické nasazení certifikátu prostřednictvím aktualizací</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">U zařízení, kde jsou k dispozici výsledky testů, které označují, že zařízení může úspěšně zpracovat aktualizace certifikátu, se aktualizace iniciují automaticky jako součást servisních aktualizací. Tyto zásady jsou ve výchozím nastavení povoleny. Pro podniky, které chtějí spravovat automatické aktualizace, použijte tyto zásady k explicitnímu povolení nebo zakázání této funkce.
+
+ 
+
+Další informace viz https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Povolit nasazení certifikátu zabezpečeného spouštění</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Toto nastavení zásad umožňuje povolit nebo zakázat proces nasazení certifikátu Secure zabezpečeného spouštění v zařízeních. Pokud je tato možnost povolena, systém Windows automaticky zahájí proces nasazení certifikátu do zařízení, kde byla tato zásada použita. 
+
+ 
+
+Poznámka: Toto nastavení registru není uloženo v klíči zásad a je považováno za předvolbu. Pokud tedy někdy dojde k odstranění objektu zásad skupiny, který toto nastavení implementuje, zůstane toto nastavení registru zachováno. 
+
+ 
+
+Poznámka: Úloha Windows, která spouští a zpracovává toto nastavení, se spouští každých 12 hodin. V některých případech budou aktualizace pozastaveny, dokud se systém nerestartuje, aby se aktualizace bezpečně seřadily. 
+
+ 
+
+Poznámka: Jakmile jsou certifikáty použity ve firmwaru, nemůžete je z Windowsu vrátit zpět. Pokud je nutné certifikáty vymazat, je třeba to provést z rozhraní nabídky firmwaru. 
+
+ 
+
+Další informace najdete na: https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Omezit požadovaná servisní data pro zabezpečené spouštění</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Toto nastavení zásad určuje, jestli operační systém generuje každý den událost dat služby vyžadovanou zabezpečeným spuštěním. Událost obsahuje informace o konfiguraci zabezpečeného spuštění zařízení a stavu proměnných firmwaru. Obvykle se odesílá bez ohledu na úroveň diagnostických dat zásady Povolit telemetrii, protože se vyžaduje z hlediska zabezpečení.
+
+ 
+
+Pokud toto nastavení zásad povolíte, denní událost dat služby vyžadovaná zabezpečeným spuštěním se nebude generovat. Toto nastavení je určeno pro podniky, které používají balíček Windows Restricted Traffic Limited Functionality Baseline.
+
+ 
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, operační systém bude i nadále generovat událost dat služby vyžadovanou zabezpečeným spuštěním podle stávajících pravidel pro telemetrická oprávnění.</string>
+
+      <string id="SUPPORTED_Windows8">Minimálně Windows Server 2012, Windows 8 nebo Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

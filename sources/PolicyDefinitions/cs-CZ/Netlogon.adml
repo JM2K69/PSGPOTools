@@ -135,9 +135,9 @@ Chcete-li určit hodnotu TTL pro záznamy služby DNS lokátoru řadičů domén
 
 Pokud toto nastavení zásad nenakonfigurujete, neuplatní se v žádném řadiči domény a řadiče domény použijí svou místní konfiguraci.</string>
       <string id="Netlogon_ExpectedDialupDelay">Určit očekávané zpoždění při přihlašování telefonickým připojením</string>
-      <string id="Netlogon_ExpectedDialupDelay_Help">Toto nastavení zásad určuje, jak dlouho má počítač při přihlašování k síti čekat na odpověď řadiče domény.
+      <string id="Netlogon_ExpectedDialupDelay_Help">Nastavení této zásady určuje, jak dlouho má počítač při přihlašování k síti čekat na odpověď řadiče domény.
 
-Chcete-li určit hodnotu očekávaného zpoždění při přihlašování telefonickým připojením, klikněte na přepínač Povoleno a zadejte požadovanou hodnotu v sekundách (hodnota 60 například představuje 1 minutu).
+Pokud chcete určit hodnotu očekávaného zpoždění při přihlašování telefonickým připojením, klikněte na přepínač Povoleno a zadejte požadovanou hodnotu v sekundách (hodnota 60 například představuje 1 minutu).
 
 Pokud toto nastavení zásad nenakonfigurujete, neuplatní se v žádném počítači a počítače použijí svou místní konfiguraci.</string>
       <string id="Netlogon_GcSiteCoverage">Určit lokality pokryté záznamy DNS SRV lokátoru řadičů domény</string>
@@ -298,6 +298,7 @@ Toto nastavení zásad se doporučuje za účelem zúžení prostoru pro možný
 Pokud toto nastavení zásad povoleno, nebude tento řadič domény zpracovávat příchozí zprávy do zásuvky pošty, které se používají k vyhledávání řadičů domény na základě názvu domény pro rozhraní NetBIOS.
 
 Pokud je toto nastavení zásad zakázáno nebo pokud není nakonfigurováno, tento řadič domény příchozí zprávy do zásuvky pošty zpracuje. Jedná se o výchozí chování lokátoru řadiče domény.</string>
+
       <string id="Netlogon_AvoidFallbackNetbiosDiscovery">Nepoužívat vyhledávání řadiče domény na základě názvů NetBIOS v případě selhání vyhledávání na základě názvů DNS</string>
       <string id="Netlogon_AvoidFallbackNetbiosDiscovery_Help">Toto nastavení zásad umožňuje určit algoritmus vyhledávání řadiče domény. Ve výchozím nastavení algoritmus vyhledávání řadiče domény upřednostňuje vyhledávání na základě názvů DNS, pokud je název domény v systému DNS známý. Pokud vyhledávání založené na názvech DNS selže a název domény pro rozhraní NetBIOS je známý, algoritmus použije jako záložní mechanismus vyhledávání na základě názvů NetBIOS.
 
@@ -307,7 +308,18 @@ Uvědomte si, že toto nastavení zásad nemá vliv na zjišťování řadičů 
 
 Pokud toto nastavení zásad povolíte nebo nenakonfigurujete, potom v případě, že selže zjišťování na základě názvů DNS, algoritmus vyhledávání řadičů domény nepoužije jako záložní mechanismus zjišťování na základě názvů NetBIOS. Toto je výchozí chování.
 
-Pokud toto nastavení zásad zakážete, potom v případě, že selže zjišťování na základě názvů DNS, algoritmus vyhledávání řadičů domény může jako záložní mechanismus použít zjišťování na základě názvů NetBIOS.</string>
+Pokud toto nastavení zásad zakážete, potom v případě, že selže zjišťování na základě názvů DNS, algoritmus vyhledávání řadičů domény může jako záložní mechanismus použít zjišťování na základě názvů NetBIOS.
+
+Toto nastavení nemá žádný vliv, pokud není nastavení BlockNetbiosDiscovery zakázáno. Zjišťování založené na rozhraní NetBIOS se považuje za nezabezpečené, má mnoho omezení a v budoucí verzi bude vyřazeno. Z těchto důvodů se zjišťování založené na rozhraní NetBIOS nedoporučuje. Další informace najdete na https://aka.ms/dclocatornetbiosdeprecation.</string>
+
+      <string id="Netlogon_BlockNetbiosDiscovery">Blokovat zjišťování na základě rozhraní NetBIOS pro umístění řadiče domény</string>
+      <string id="Netlogon_BlockNetbiosDiscovery_Help">Toto nastavení zásad umožňuje určit, zda algoritmus umístění řadiče domény bude pro umístění řadiče domény používat zjišťování NetBIOS_based.
+
+Pokud toto nastavení zásad povolíte nebo nenakonfigurujete, algoritmus vyhledávání řadičů domény nebude nikdy používat zjišťování na základě názvů NetBIOS. Toto je výchozí chování.
+
+Pokud toto nastavení zásad zakážete, algoritmus umístění řadiče domény může v případě potřeby použít zjišťování na základě názvů NetBIOS. Konečné chování se dále řídí nastavením AvoidFallbackNetbiosDiscovery.
+
+Zjišťování na základě názvů NetBIOS se považuje za nezabezpečené, má mnoho omezení a v budoucí verzi bude zastaralé. Z těchto důvodů se nedoporučuje zjišťování na základě názvů NetBIOS. Další informace najdete https://aka.ms/dclocatornetbiosdeprecation.</string>
 
       <string id="Netlogon_AddressLookupOnPingBehavior">Určit chování při vyhledávání adresy pro příkaz ping lokátoru řadiče domény</string>
       <string id="Netlogon_AddressLookupOnPingBehavior_Help">Toto nastavení zásad umožňuje nakonfigurovat, jak se řadič domény chová při odpovědi klientovi, jehož IP adresa není namapována na žádnou nakonfigurovanou lokalitu.
@@ -337,6 +349,33 @@ Přípustné hodnoty tohoto nastavení vedou k následujícím možným chován�
 Chcete-li zadat toto chování, klikněte na možnost Povoleno a zadejte hodnotu. Rozsah hodnot je 1 až 2.
 
 Pokud toto nastavení zásad nenakonfigurujete, neuplatní se v žádném počítači a počítače použijí svou místní konfiguraci.</string>
+
+      <string id="Netlogon_DnsSrvRecordUseLowerCaseHostNames">Při registraci záznamů SRV řadiče domény použít v názvu hostitele DNS malá písmena</string>
+      <string id="Netlogon_DnsSrvRecordUseLowerCaseHostNames_Help">Tato zásada určuje, jestli řadiče domény, na které se toto nastavení vztahuje, mají při registraci záznamů SRV měnit svůj název hostitele DNS na malá písmena.
+
+Pokud je tato zásada povolena, budou řadiče domény při registraci svých záznamů SRV měnit svůj název hostitele DNS na malá písmena. Zároveň proběhne pokus o co nejdůkladnější odstranění dříve zaregistrovaných záznamů SRV, které obsahují název hostitele DNS s kombinací malých a velkých písmen. Další informace a potenciální postupy ručního čištění najdete pod níže uvedeným odkazem.
+
+Pokud je tato zásada zakázána, použijí řadiče domény při registraci záznamů SRV svůj nakonfigurovaný název hostitele DNS v aktuální podobě.
+
+Pokud toto nastavení není nakonfigurováno, uplatní řadiče domény ve výchozím nastavení svou místní konfiguraci.
+
+Je povolena výchozí místní konfigurace.
+
+Změny tohoto nastavení se projeví až po restartování počítače.
+
+Další informace najdete na stránce https://aka.ms/lowercasehostnamesrvrecord.
+      </string>
+      <string id="Netlogon_EnhancedDomainNtlmLogs">Zaznamenat rozšířené protokoly NTLM na úrovni celé domény.</string>
+      <string id="Netlogon_EnhancedDomainNtlmLogs_Help">Toto nastavení zásad konfiguruje, jestli budou řadiče domény, na které se vztahuje toto nastavení, protokolovat nové a rozšířené protokoly NTLM na úrovni celé domény. Tyto protokoly obsahují další informace o ověřování pomocí protokolu NTLM na úrovni celé domény, včetně použití NTLMv1.
+
+Pokud je tato možnost povolená, řadiče domény budou zaznamenávat nové protokoly NTLM na úrovni celé domény.
+
+Pokud je tato možnost zakázaná, řadiče domény nebudou protokolovat nové protokoly NTLM na úrovni celé domény.
+
+Pokud není nakonfigurováno, řadiče domény budou ve výchozím nastavení protokolovat nové protokoly NTLM na úrovni celé domény.
+
+Další informace najdete na aka.ms/ntlmlogandblock.
+      </string>
 
     </stringTable>
     <presentationTable>

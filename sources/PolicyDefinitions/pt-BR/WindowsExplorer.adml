@@ -220,11 +220,11 @@ Para ver um exemplo de uma caixa de diálogo Abrir padrão, inicie o Wordpad e, 
 
 Observação: no Windows Vista, esta configuração de política aplica-se somente aos aplicativos que estão usando o estilo de caixa de diálogo comum do Windows XP. Esta configuração de política não se aplica ao novo estilo de caixa de diálogo comum do Windows Vista. a aplicação desta configuração é um requisito para aplicativos de terceiros com certificação do Windows 2000 ou posterior.</string>
       <string id="NoRecycleFiles">Não mover arquivos excluídos para a Lixeira</string>
-      <string id="NoRecycleFiles_Help">Quando um arquivo ou uma pasta é excluído no Explorador de Arquivos, uma cópia do arquivo ou da pasta é colocada na Lixeira. Usando essa configuração, você pode alterar esse comportamento.
+      <string id="NoRecycleFiles_Help">Quando um arquivo ou uma pasta é excluído no explorador de arquivos, uma cópia do arquivo ou da pasta é colocada na lixeira. Usando essa configuração, você pode alterar esse comportamento.
 
-Se você habilitar essa configuração, os arquivos e pastas que forem excluídos através do Explorador de Arquivos não serão colocados na Lixeira e, portanto, serão excluídos permanentemente.
+Se você habilitar essa configuração, os arquivos e pastas excluídos usando o explorador de arquivos não serão colocados na lixeira e, portanto, serão excluídos permanentemente.
 
-Se você desabilitar ou não definir essa configuração, os arquivos e pastas que forem excluídos no Explorador de Arquivos serão colocados na Lixeira.</string>
+Se você desabilitar ou não definir essa configuração, os arquivos e pastas excluídos usando o explorador de arquivos serão colocados na lixeira.</string>
       <string id="NoRunAsInstallPrompt">Não solicitar credenciais alternativas</string>
       <string id="NoRunAsInstallPrompt_Help">Impede que usuários enviem credenciais de logon alternativas para instalar um programa.
 
@@ -519,19 +519,33 @@ Se você habilitar essa configuração de política, os ícones de atalho do arq
 Se você desabilitar essa configuração de política ou não a definir, os ícones de atalho do arquivo que usam caminhos remotos não poderão ser exibidos.
 
 Observação: permitir o uso de caminhos remotos em ícones de atalho do arquivo pode expor os computadores dos usuários a riscos de segurança.</string>
-      <string id="DefaultAssociationsConfiguration">Definir um arquivo de configuração de associações padrão</string>
-      <string id="DefaultAssociationsConfiguration_Help">Esta política especifica o caminho para um arquivo (por exemplo, armazenado localmente ou em um local de rede) que contém associações padrão do aplicativo de tipo de arquivo e de protocolo. Esse arquivo pode ser criado usando a ferramenta DISM.
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Permitir que operações de descritor de grupo de arquivos gravem em qualquer caminho de destino</string>
+      <string id="AllowAllCopyFGDDestinations_Help">Essa configuração de política determina se as verificações de contenção de passagem de caminho serão aplicadas ao gravar arquivos recebidos por meio da área de transferência ou de descritores de grupo de arquivos arrastar-e-soltar (CFSTR_FILEDESCRIPTOR).
 
+Se você habilitar essa configuração de política, as verificações de contenção de passagem de caminho não serão impostas e os arquivos poderão ser gravados em qualquer caminho acessível pela pasta de destino. Habilite essa política somente se o comportamento padrão interromper um fluxo de trabalho necessário.
+
+Se você desabilitar ou não definir essa configuração de política, as operações do descritor de grupo de arquivos imporão a contenção de caminho e rejeitarão nomes de arquivos que tentarem escapar da pasta de destino por meio de componentes de caminho relativo.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">Não aplicar a Marca da marca da Web a arquivos copiados de fontes não seguras</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">Essa configuração de política determina o aplicativo da Marca da Web para arquivos provenientes de locais desprotegidos.
+
+Se você habilitar essa configuração de política, os arquivos copiados de fontes desprotegidas não serão marcados com a Marca da Web.
+
+Se você desabilitar ou não definir essa configuração de política, os arquivos copiados de fontes desprotegidas serão marcados com a Marca da Web apropriada.
+
+Observação: a não marcação de arquivos de fontes desprotegidas com a Marca da Web pode expor os computadores dos usuários a riscos de segurança.</string>
+      <string id="DefaultAssociationsConfiguration">Definir um arquivo de configuração de associações padrão</string>
+      <string id="DefaultAssociationsConfiguration_Help">Essa política especifica o caminho para um arquivo (armazenado localmente ou em um local de rede) que contém associações de aplicativos padrão por protocolo e tipo de arquivo. Esse arquivo pode ser criado usando a ferramenta DISM.
+      
 Por exemplo:
 Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-Para obter mais informações, consulte a documentação do DISM no TechNet.
+Para obter mais informações, consulte a documentação do DISM.
 
-Se esta política de grupo for habilitada e o computador cliente tiver ingressado no domínio, o arquivo será processado e as associações padrão serão aplicadas no tempo de logon.
+O arquivo pode ser editado posteriormente depois de criado para alterar a frequência com que as associações de política são aplicadas. Um atributo "Version" pode ser adicionado ao elemento "DefaultAssociations". O valor deve ser um inteiro. Um atributo "Suggested" pode ser adicionado a qualquer elemento "Association". O valor deve ser um booliano e o valor padrão é "false". Quando a política for aplicada a um usuário, qualquer Associação que tenha Suggested="true" será aplicada somente uma vez. Se o valor de Versão for incrementado, as Associações com Suggested="true" serão reaplicadas.
 
-Se esta política de grupo não estiver configurada ou estiver desabilitada ou se o computador cliente tiver ingressado no domínio, nenhuma associação padrão será aplicada no tempo de logon.
+Se essa política de grupo estiver habilitada e o computador cliente estiver ingressado no domínio, o arquivo será processado e as associações padrão serão aplicadas no momento do logon.
 
-Se a política estiver habilitada, desabilitada ou não configurada, os usuários ainda poderão substituir as associações padrão de tipo de arquivo e protocolo.</string>
+Se a política estiver habilitada, os usuários ainda poderão substituir as associações padrão por tipo de arquivo e protocolo, mas, no próximo logon, o arquivo será reaplicado.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

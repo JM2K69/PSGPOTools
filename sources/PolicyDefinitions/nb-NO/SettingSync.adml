@@ -119,6 +119,51 @@ Hvis du ikke angir eller deaktiverer denne innstillingen, kan synkronisering ved
         Hvis du ikke angir eller deaktiverer denne innstillingen, er synkronisering av Startoppsett-gruppen som standard på og kan konfigureres av brukeren.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">Ikke synkroniser tilgjengelighetsinnstillinger</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        Hindre at tilgjengelighetsgruppen synkroniseres til og fra denne PCen. Dette slår av og deaktiverer tilgjengelighetsgruppen på innstillingssiden for Windows Sikkerhetskopiering i PC-innstillinger.
+
+Hvis du aktiverer denne policyinnstillingen, synkroniseres ikke tilgjengelighetsgruppen.
+
+Bruk alternativet Tillat at brukere aktiverer synkronisering av tilgjengelighet, slik at synkronisering deaktiveres som standard, men ikke deaktivert.
+
+Hvis du ikke angir eller deaktiverer denne innstillingen, er synkronisering av tilgjengelighetsgruppen som standard på og kan konfigureres av brukeren.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">Ikke synkroniser innstillinger for språkinnstillinger</string>
+      <string id="DisableLanguageSettingSync_Help">
+        Hindre at språkinnstillinger-gruppen synkroniseres til og fra denne PCen. Dette slår av og deaktiverer språkinnstillinger-gruppen på innstillingssiden for Windows Sikkerhetskopiering i PC-innstillinger.
+
+Hvis du aktiverer denne policyinnstillingen, synkroniseres ikke språkinnstillingene.
+
+Bruk alternativet Tillat at brukere aktiverer synkronisering av språkinnstillinger, slik at synkronisering deaktiveres som standard, men ikke deaktivert.
+
+Hvis du ikke angir eller deaktiverer denne innstillingen, er synkronisering av språkinnstillinger-gruppen som standard på og kan konfigureres av brukeren.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Aktiver Windows-sikkerhetskopiering</string>
+      <string id="EnableWindowsBackup_Help">Denne policyinnstillingen lar administratorer konfigurere og administrere sikkerhetskopiering av Windows-innstillinger for organisasjonen.
+
+Hvis du aktiverer denne policyinnstillingen, utføres sikkerhetskopiering av Windows-innstillinger regelmessig.
+
+Hvis du deaktiverer denne policyinnstillingen, blir ikke Windows-innstillinger sikkerhetskopiert.
+
+Hvis du ikke konfigurerer denne policyinnstillingen, utføres sikkerhetskopiering av Windows-innstillinger regelmessig basert på kvalifisering.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Aktiver Windows-gjenoppretting</string>
+      <string id="EnableWindowsRestore_Help">Denne policyinnstillingen lar administratorer konfigurere og administrere gjenoppretting av Windows-innstillinger for organisasjonen.
+
+Hvis du aktiverer denne policyinnstillingen, blir gjenoppretting av Windows-innstillinger aktivert.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, blir gjenoppretting av Windows-innstillinger deaktivert.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Hvis du ikke angir eller deaktiverer denne innstillingen, kan synkronisering ved
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">Tillat at brukere aktiverer synkronisering av Start oppsett-gruppen.</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Tillat brukere å aktivere synkronisering av «tilgjengelighet».</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Tillat brukere å slå synkronisering av «språkinnstillinger» på.</checkBox>
       </presentation>
 
     </presentationTable>

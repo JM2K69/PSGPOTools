@@ -355,7 +355,7 @@
 
 如果未配置此策略设置，则用户可以决定是否自动启动“Internet 连接向导”。</string>
       <string id="ICWSettings">“Internet 连接向导”设置</string>
-      <string id="Identities">标识管理器: 禁止用户使用标识</string>
+      <string id="Identities">Identity Manager: 禁止用户使用标识</string>
       <string id="IDN_Always">始终转换成 IDN 格式</string>
       <string id="IDN_Intranet">将 Intranet 地址转换成 IDN 格式</string>
       <string id="IDN_Never">从不转换成 IDN 格式</string>
@@ -415,17 +415,17 @@
 
 如果启用此策略设置，则不会提示用户启用网络钓鱼网站筛选。必须指定网络钓鱼网站筛选要使用的模式: 手动、自动或关闭。
 
-如果选择手动模式，则网络钓鱼网站筛选将仅执行本地分析，并将提示用户允许将任何数据发送到 Microsoft。如果完全启用该功能，则未列在筛选允许名单中的所有网站地址都将自动发送到 Microsoft，而不提示用户。
+如果选择手动模式，则网络钓鱼网站筛选将仅执行本地分析，并将提示用户允许将任何数据发送到 Microsoft。如果完全启用该功能，则未列在筛选允许列表中的所有网站地址都将自动发送到 Microsoft，而不提示用户。
 
 如果禁用或未配置此策略设置，则提示用户确定网络钓鱼网站筛选的操作模式。</string>
       <string id="IE_Explain_DisableManagingSafetyFilter">此策略设置允许用户启用 SmartScreen 筛选器。如果已知所访问的网站试图通过“网络钓鱼网站”骗取个人信息，或已知含有恶意软件，该筛选器就会向用户发出警告。
 
-如果启用此策略设置，将不提示用户启用 SmartScreen 筛选器。必须指定 SmartScreen 筛选器使用的模式: 启用或关闭。未列在该筛选器允许名单中的所有网站地址都将自动发送到 Microsoft，而不提示用户。
+如果启用此策略设置，将不提示用户启用 SmartScreen 筛选器。必须指定 SmartScreen 筛选器使用的模式: 启用或关闭。未列在该筛选器允许列表中的所有网站地址都将自动发送到 Microsoft，而不提示用户。
 
 如果禁用或未配置此策略设置，则在首次运行体验期间提示用户决定是否启用 SmartScreen 筛选器。</string>
       <string id="IE_Explain_DisableManagingSafetyFilter_IE9">此策略设置阻止用户管理 SmartScreen 筛选器。如果已知所访问的网站试图通过“网络钓鱼网站”骗取个人信息，或已知含有恶意软件，则该筛选器向用户发出警告。
 
-如果启用此策略设置，将不提示用户启用 SmartScreen 筛选器。不在筛选允许名单中的所有网站地址都将自动发送到 Microsoft，而不提示用户。
+如果启用此策略设置，将不提示用户启用 SmartScreen 筛选器。不在筛选允许列表中的所有网站地址都将自动发送到 Microsoft，而不提示用户。
 
 如果禁用或未配置此策略设置，则在第一次运行体验期间提示用户决定是否启用 SmartScreen 筛选器。</string>
       <string id="IE_Explain_DisableSecuritySettingsCheck">此策略设置关闭安全设置检查功能，该功能检查 Internet Explorer 安全设置，以确定这些设置将 Internet Explorer 置于不安全状态的时间。
@@ -805,9 +805,9 @@ Microsoft Agent 是一个软件服务集，支持软件代理作为交互式个�
 如果启用此策略，将删除“帮助”菜单上的“每日提示”命令。
 
 如果禁用或未对此策略进行配置，则用户可以启用或禁用出现在浏览器底部的“每日提示”。</string>
-      <string id="IE_ExplainIdentities">阻止用户使用“标识管理器”来配置唯一标识。
+      <string id="IE_ExplainIdentities">阻止用户使用 Identity Manager 来配置唯一标识。
 
-使用“标识管理器”，用户可以在同一台计算机上创建多个帐户，例如电子邮件帐户。每个用户都有唯一的标识，使用不同的密码和首选程序。
+使用 Identity Manager，用户可以在同一台计算机上创建多个账户，例如电子邮件账户。每个用户都有唯一的标识，使用不同的密码和首选程序。
 
 如果启用此策略，用户将无法创建新标识、管理现有标识或者切换标识。“切换标识”选项将从通讯簿中的“文件”菜单上删除。
 
@@ -1534,7 +1534,7 @@ Web 作者使用此控件以建立基于文本和图形的“聊天”社区，�
 如果禁用或未配置此策略，则同一台计算机的不同用户可以建立各自的代理服务器设置。
 
 此策略用于确保将代理服务器设置统一地应用于同一台计算机，不会因用户的不同而产生差异。</string>
-      <string id="IE_ExplainView_NoTheaterMode">阻止用户以全屏(kiosk)模式(而非标准工具栏)显示浏览器。
+      <string id="IE_ExplainView_NoTheaterMode">阻止用户以全屏(展台)模式(而非标准工具栏)显示浏览器。
 
 如果启用此策略，则“查看”菜单上的“全屏”命令将灰显，并且按 F11 将不会以全屏方式显示浏览器。
 
@@ -2037,16 +2037,16 @@ Internet Explorer 有 4 个安全区域，将其编号为 1-4，此策略设置�
 如果启用此策略设置，TDC ActiveX 控件将不会从此区域中的网站运行。
 
 如果禁用此策略设置，TDC ActiveX 控件将从此区域中的所有站点运行。</string>
-      <string id="IZ_Policy_AllowDynsrcPlayback">允许在网页上使用旧媒体播放机播放视频和动画</string>
-      <string id="IZ_Policy_AllowDynsrcPlayback_Explain">使用此策略设置，可以在特定区域中使用旧的媒体播放机播放视频和动画。可能仍然允许通过对象标记播放视频和动画，这是因为此标记包含外部控件或媒体播放机。
+      <string id="IZ_Policy_AllowDynsrcPlayback">允许在网页上使用旧媒体播放器播放视频和动画</string>
+      <string id="IZ_Policy_AllowDynsrcPlayback_Explain">使用此策略设置，可以在特定区域中使用旧的媒体播放器播放视频和动画。可能仍然允许通过对象标记播放视频和动画，这是因为此标记包含外部控件或媒体播放器。
 
-img 标记上的 dynsrc 属性指定旧媒体播放机。同时，截止到 Internet Explorer 8，此策略设置控制引用音频和视频文件的 HTML+TIME 媒体元素。
+img 标记上的 dynsrc 属性指定旧媒体播放器。同时，截止到 Internet Explorer 8，此策略设置控制引用音频和视频文件的 HTML+TIME 媒体元素。
 
-如果启用此策略设置，则可以在指定区域中通过旧媒体播放机播放视频和动画。
+如果启用此策略设置，则可以在指定区域中通过旧媒体播放器播放视频和动画。
 
-如果禁用此策略设置，则无法通过旧媒体播放机播放视频和动画。
+如果禁用此策略设置，则无法通过旧媒体播放器播放视频和动画。
 
-如果未配置此策略设置，则可以在指定区域中通过旧媒体播放机播放视频和动画。</string>
+如果未配置此策略设置，则可以在指定区域中通过旧媒体播放器播放视频和动画。</string>
       <string id="IZ_Policy_AllowScriptlets">允许 Scriptlet</string>
       <string id="IZ_Policy_AllowScriptlets_Explain">使用此策略设置，可以管理用户是否可以运行 Scriptlet。
 
@@ -2507,7 +2507,7 @@ img 标记上的 dynsrc 属性指定旧媒体播放机。同时，截止到 Inte
 
 如果启用此策略设置，则可以从以下登录选项中进行选择。
 
-匿名登录: 禁用 HTTP 验证并只对通用 Internet 文件系统(CIFS)协议使用来宾帐户。
+匿名登录: 禁用 HTTP 验证并只对通用 Internet 文件系统(CIFS)协议使用来宾账户。
 
 提示用户名和密码: 询问用户的用户 ID 和密码。询问用户之后，这些值将自动用于会话的提醒程序。
 
@@ -2522,7 +2522,7 @@ img 标记上的 dynsrc 属性指定旧媒体播放机。同时，截止到 Inte
 
 如果启用此策略设置，则可以从以下登录选项中进行选择。
 
-匿名登录: 禁用 HTTP 验证并只对通用 Internet 文件系统(CIFS)协议使用来宾帐户。
+匿名登录: 禁用 HTTP 验证并只对通用 Internet 文件系统(CIFS)协议使用来宾账户。
 
 提示用户名和密码: 询问用户的用户 ID 和密码。询问用户之后，这些值将自动用于会话的提醒程序。
 
@@ -2537,7 +2537,7 @@ img 标记上的 dynsrc 属性指定旧媒体播放机。同时，截止到 Inte
 
 如果启用此策略设置，则可以从以下登录选项中进行选择。
 
-匿名登录: 禁用 HTTP 验证并只对通用 Internet 文件系统(CIFS)协议使用来宾帐户。
+匿名登录: 禁用 HTTP 验证并只对通用 Internet 文件系统(CIFS)协议使用来宾账户。
 
 提示用户名和密码: 询问用户的用户 ID 和密码。询问用户之后，这些值将自动用于会话的提醒程序。
 
@@ -3574,37 +3574,42 @@ Microsoft 会收集你的浏览历史记录以改善使用页面预测快速翻�
 
 注意: 从 Windows 10 版本 1607 开始，不再支持此策略。</string>
       <string id="Protocols_None">使用不安全的协议</string>
-      <string id="Protocols_SSL2">仅使用 SSL 2.0</string>
+      <string id="Protocols_SSL2">[已过时] 仅使用 SSL 2.0</string>
       <string id="Protocols_SSL3">仅使用 SSL 3.0</string>
-      <string id="Protocols_SSL2_SSL3">使用 SSL 2.0 和 SSL 3.0</string>
+      <string id="Protocols_SSL2_SSL3">[过时]使用 SSL 2.0 和 SSL 3.0</string>
       <string id="Protocols_TLS10">仅使用 TLS 1.0</string>
-      <string id="Protocols_SSL2_TLS10">使用 SSL 2.0 和 TLS 1.0</string>
+      <string id="Protocols_SSL2_TLS10">[过时]使用 SSL 2.0 和 TLS 1.0</string>
       <string id="Protocols_SSL3_TLS10">使用 SSL 3.0 和 TLS 1.0</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">使用 SSL 2.0、SSL 3.0 和 TLS 1.0</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[过时]使用 SSL 2.0、SSL 3.0 和 TLS 1.0</string>
       <string id="Protocols_TLS11">仅使用 TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS11">使用 SSL 2.0 和 TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS11">[过时]使用 SSL 2.0 和 TLS 1.1</string>
       <string id="Protocols_SSL3_TLS11">使用 SSL 3.0 和 TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">使用 SSL 2.0、SSL 3.0 和 TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[过时]使用 SSL 2.0、SSL 3.0 和 TLS 1.1</string>
       <string id="Protocols_TLS10_TLS11">使用 TLS 1.0 和 TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">使用 SSL 2.0、TLS 1.0 和 TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[过时]使用 SSL 2.0、TLS 1.0 和 TLS 1.1</string>
       <string id="Protocols_SSL3_TLS10_TLS11">使用 SSL 3.0、TLS 1.0 和 TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">使用 SSL 2.0、SSL 3.0、TLS 1.0 和 TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[过时]使用 SSL 2.0、SSL 3.0、TLS 1.0 和 TLS 1.1</string>
       <string id="Protocols_TLS12">仅使用 TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS12">使用 SSL 2.0 和 TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS12">[过时]使用 SSL 2.0 和 TLS 1.2</string>
       <string id="Protocols_SSL3_TLS12">使用 SSL 3.0 和 TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">使用 SSL 2.0、SSL 3.0 和 TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[过时]使用 SSL 2.0、SSL 3.0 和 TLS 1.2</string>
       <string id="Protocols_TLS10_TLS12">使用 TLS 1.0 和 TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">使用 SSL 2.0、TLS 1.0 和 TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[过时]使用 SSL 2.0、TLS 1.0 和 TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS12">使用 SSL 3.0、TLS 1.0 和 TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">使用 SSL 2.0、SSL 3.0、TLS 1.0 和 TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[过时]使用 SSL 2.0、SSL 3.0、TLS 1.0 和 TLS 1.2</string>
       <string id="Protocols_TLS11_TLS12">使用 TLS 1.1 和 TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">使用 SSL 2.0、TLS 1.1 和 TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[过时]使用 SSL 2.0、TLS 1.1 和 TLS 1.2</string>
       <string id="Protocols_SSL3_TLS11_TLS12">使用 SSL 3.0、TLS 1.1 和 TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">使用 SSL 2.0、SSL 3.0、TLS 1.1 和 TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[过时]使用 SSL 2.0、SSL 3.0、TLS 1.1 和 TLS 1.2</string>
       <string id="Protocols_TLS10_TLS11_TLS12">使用 TLS 1.0、TLS 1.1 和 TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">使用 SSL 2.0、TLS 1.0、TLS 1.1 和 TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[过时]使用 SSL 2.0、TLS 1.0、TLS 1.1 和 TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">使用 SSL 3.0、TLS 1.0、TLS 1.1 和 TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">使用 SSL 2.0、SSL 3.0、TLS 1.0、TLS 1.1 和 TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[过时]使用 SSL 2.0、SSL 3.0、TLS 1.0、TLS 1.1 和 TLS 1.2</string>
+      <string id="Protocols_TLS13">仅使用 TLS 1.3</string>
+      <string id="Protocols_TLS12_TLS13">使用 TLS 1.2 和 TLS 1.3</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">使用 TLS 1.1、TLS 1.2 和 TLS 1.3</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">使用 TLS 1.0、TLS 1.1、TLS 1.2 和 TLS 1.3</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">使用 SSL 3.0、TLS 1.0、TLS 1.1、TLS 1.2 和 TLS 1.3</string>
       <string id="LockToolbars">锁定所有工具栏</string>
       <string id="MoveStopRefresh">锁定“停止”和“刷新”按钮的位置</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3903,7 +3908,7 @@ InPrivate 筛选可帮助用户控制第三方是否可以根据用户访问的�
 如果启用此设置，用户可以从“工具”菜单查看和使用“企业模式”选项。如果启用此设置但未指定报告位置，“企业模式”仍将可供用户使用，但你不会收到任何报告。
 
 如果禁用或未配置此策略设置，则不会显示该菜单选项，用户将无法在企业模式下运行网站。</string>
-      <string id="RestrictInternetExplorer">将企业模式站点列表中不包含的所有站点发送到 Microsoft Edge。</string>
+      <string id="RestrictInternetExplorer">将未包含在企业模式站点列表中的所有站点发送到 Microsoft Edge</string>
       <string id="IE_ExplainRestrictInternetExplorer">此设置可以让你决定是否要在 Microsoft Edge 中打开企业模式站点列表中不包含的所有站点。如果使用此设置，还必须启用“管理模板\Windows 组件\Internet Explorer\使用企业模式 IE 网站列表”策略设置，并且必须在企业模式站点列表中至少包含一个站点。
 
 启用此设置将在 Microsoft Edge 中自动打开企业模式站点列表中不包含的所有站点。
@@ -3917,6 +3922,120 @@ InPrivate 筛选可帮助用户控制第三方是否可以根据用户访问的�
 如果启用此设置，则员工会在 Internet Explorer 11 中看到一个指出某个站点已在企业模式下使用 Microsoft Edge 打开的附加页。
 
 如果禁用或未配置此设置，则会出现默认应用行为，不显示任何附加页。</string>
+      <string id="NeedEdgeBrowser">配置用于打开重定向的站点的 Microsoft Edge 通道</string>
+      <string id="IE_ExplainNeedEdgeBrowser">使你最多可以配置三个版本的 Microsoft Edge 来打开重定向的站点(按首选项顺序)。如果你的环境配置为将站点从 Internet Explorer 11 重定向到 Microsoft Edge，请使用此策略。如果设备上未安装任何选定版本，则将忽视该首选项。
+
+如果同时安装了适用于下一版本 Microsoft Edge* 的 Windows 更新和 Microsoft Edge 稳定渠道，则会发生以下行为:
+- 如果禁用或未配置此策略，则使用 Microsoft Edge 稳定渠道。这是默认行为。
+- 如果启用此策略，则可以将重定向的站点配置为最多在以下三个渠道中打开，其中:
+    1 = Microsoft Edge 稳定渠道
+    2 = Microsoft Edge 测试版本 77 或更高版本
+    3 = Microsoft Edge Dev 版本 77 或更高版本
+    4 = Microsoft Edge Canary 版本 77 或更高版本
+
+如果未安装适用于下一版本 Microsoft Edge* 的 Windows 更新或 Microsoft Edge 稳定渠道，则会发生以下行为:
+- 如果禁用或未配置此策略，则会自动使用 Microsoft Edge 45 或更早版本。这是默认行为。
+- 如果启用此策略，则可以将重定向的站点配置为最多在以下三个渠道中打开，其中:
+    0 = Microsoft Edge 版本 45 或更早版本
+    1 = Microsoft Edge 稳定渠道
+    2 = Microsoft Edge 测试版本 77 或更高版本
+    3 = Microsoft Edge Dev 版本 77 或更高版本
+    4 = Microsoft Edge Canary 版本 77 或更高版本
+
+*有关适用于下一版本 Microsoft Edge 的 Windows 更新的详细信息(包括如何禁用)，请参阅 https://go.microsoft.com/fwlink/?linkid=2102115。此更新仅适用于 Windows 10 版本 1709 及更高版本。</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta 版本 77 或更高版本</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev 版本 77 或更高版本</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary 版本 77 或更高版本</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge 版本 45 或更早版本</string>
+      <string id="KeepIntranetSitesInInternetExplorer">在 Internet Explorer 中保留所有 Intranet 站点</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">阻止 Intranet 站点在除 Internet Explorer 以外的任何浏览器中打开。但请注意，如果“将企业模式站点列表中不包含的所有站点发送到 Microsoft Edge”("RestrictIE") 策略未启用，则此策略不起作用。
+
+如果启用此策略，则会在 Internet Explorer 11 中打开所有 Intranet 站点。唯一例外是在企业模式站点列表中列出的站点。
+
+如果禁用或未配置此策略，则会在 Microsoft Edge 中自动打开所有 Intranet 站点。
+
+强烈建议将此策略与“将所有 Intranet 站点发送到 Internet Explorer”("SendIntranetToInternetExplorer") 策略保持同步。此外，如果你的 Intranet 站点与 Microsoft Edge 之间存在已知的兼容性问题，最好启用此策略。
+
+相关策略:
+- 将所有 Intranet 站点发送到 Internet Explorer ("SendIntranetToInternetExplorer")
+- 将企业模式站点列表中不包含的所有站点发送到 Microsoft Edge ("RestrictIE")
+
+有关如何将此策略与其他相关策略结合使用以为你的组织创建最佳配置的详细信息，请参阅 https://go.microsoft.com/fwlink/?linkid=2094210。</string>
+      <string id="AllowSaveTargetAsInIEMode">允许 Internet Explorer 模式下的“将目标另存为”</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">使用此策略设置，管理员可以在 Internet Explorer 模式下启用 "将目标另存为" 上下文菜单。
+
+如果启用此策略，将在 Internet Explorer 模式上下文菜单中显示 "目标另存为"，并且其作用与 Internet Explorer 相同。
+
+如果禁用或未配置此策略设置，则不会在 Internet Explorer 模式上下文菜单中显示 "目标另存为"。
+
+有关详细信息，请参阅 https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="EnableGlobalWindowListInIEMode">在Internet Explorer模式下启用全局窗口列表</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">此设置允许Internet Explorer模式使用启用与其他应用程序共享状态的全局窗口列表。
+只有当Internet Explorer 11 被禁用为独立浏览器时，设置才会生效。
+
+如果启用此策略，则Internet Explorer模式将使用全局窗口列表。
+
+如果禁用或未配置此策略，Internet Explorer模式将继续维护单独的窗口列表。
+
+若要详细了解Internet Explorer模式，请参阅https://go.microsoft.com/fwlink/?linkid=2102921
+若要详细了解如何禁用Internet Explorer 11 作为独立浏览器，请参阅https://go.microsoft.com/fwlink/?linkid=2168340</string>
+      <string id="EnableExtendedIEModeHotkeys">在 Internet Explorer 模式下启用扩展热键</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">此策略设置让管理员可以启用扩展的 Microsoft Edge Internet Explorer 模式热键，例如“Ctrl+S”具有“另存为”功能。
+
+如果启用此策略，则会在 Internet Explorer 模式下启用扩展热键功能，并且其工作方式与 Internet Explorer 相同。
+
+如果禁用或未配置此策略，则在 Internet Explorer 模式下扩展热键将无法工作。
+
+有关详细信息，请参阅 https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="AllowLegacyURLFields">允许 Internet 快捷方式文件的旧功能</string>
+      <string id="IE_ExplainAllowLegacyURLFields">此策略设置允许在 Internet 快捷文件中使用某些已禁用的功能，如 WorkingDirectory 字段或可插入协议处理。
+
+如果启用此策略，将重新启用 Internet 快捷方式文件的禁用功能。
+
+如果禁用或未配置此策略，将禁用 Internet 快捷方式文件的某些功能，如 WorkingDirectory 字段或可插入协议处理。</string>
+      <string id="ResetZoomForDialogInIEMode">在 Internet Explorer 模式下将 HTML 对话框的缩放重置为默认值</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">此策略设置允许管理员在Internet Explorer模式下将 HTML 对话框的缩放重置为默认值。
+
+如果启用此策略，则不会从其父页传播处于Internet Explorer模式的 HTML 对话框的缩放。
+
+如果禁用或未配置此策略，则将基于其父页的缩放设置Internet Explorer模式下 HTML 对话框的缩放。
+
+有关详细信息，请参阅https://go.microsoft.com/fwlink/?linkid=2220107</string>
+      <string id="DisableInternetExplorerApp">将 Internet Explorer 11 作为独立浏览器禁用</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">通过此策略，你可以限制 Internet Explorer 作为独立浏览器启动。
+
+如果启用此策略，它将: 
+- 阻止 Internet Explorer 11 作为独立浏览器启动。
+- 将 Internet Explorer 的使用限制为 Microsoft Edge 的本机“Internet Explorer 模式”。
+- 将启动 Internet Explorer 11 的尝试重定向到 Microsoft Edge 稳定渠道浏览器。
+- 替代任何其他重定向到 Internet Explorer 11 的策略。
+
+即使启用了此策略，也仍允许使用 COM 自动化技术来启动 Internet Explorer 11。若要禁用 Internet Explorer 11 的 COM 自动化启动，请使用“禁用 Internet Explorer 11 COM 自动化”组策略。
+
+如果禁用或未配置此策略，则将使用当前有效的浏览器设置打开所有网站。注意: 必须安装 Microsoft Edge 稳定渠道浏览器，此策略才能生效。</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">禁用通过 COM 自动化Internet Explorer 11 启动</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">此策略允许你限制使用 COM 自动化启动Internet Explorer。
+
+如果启用此策略，它将阻止使用 COM 自动化启动Internet Explorer 11。
+
+如果禁用或未配置此策略，则允许Internet Explorer 11 个 COM 自动化启动。</string>
+      <string id="DisableIEAppDeprecationNotification">隐藏 Internet Explorer 11 停用通知</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">使用此策略设置，可以管理是否显示Internet Explorer即将停用的通知栏提醒。默认情况下，通知栏显示在 Internet Explorer 11 中。
+
+如果启用此策略设置，则通知栏将不会显示在 Internet Explorer 11 中。
+
+如果禁用或未配置此策略设置，则通知栏将显示在Internet Explorer 11 中。</string>
+      <string id="NotifyDisableIEOptions_Never">从不</string>
+      <string id="NotifyDisableIEOptions_Always">始终</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">每个用户配置一次</string>
+      <string id="JScriptReplacement">借助加载 JScript9Legacy 代替 JScript 来取代 JScript。</string>
+      <string id="IE_ExplainJScriptReplacement">此策略设置指定是否加载JScript或 JScript9Legacy。
+      
+如果启用或未配置此策略设置，则将在实例化JScript的情况下加载 JScript9Legacy。
+
+如果禁用此策略，则将使用JScript。</string>
       <string id="VerMgmtDisable">关闭 Internet explorer 的过时 ActiveX 控件的阻止功能</string>
       <string id="IE_ExplainVerMgmtDisable">此策略设置可确定 Internet Explorer 是否会阻止特定的过时 ActiveX 控件。过时的 ActiveX 控件在 Intranet 区域中不受阻止。
 
@@ -4118,6 +4237,12 @@ LOBApp.contoso.com</string>
 如果禁用或未配置此设置，IE 会继续下载 VersionList.XML 的更新版本。
 
 有关详细信息，请参阅 Internet Explorer TechNet 库中的“过时 ActiveX 控件阻止功能”。</string>
+      <string id="DisableHTMLApplication">禁用 HTML 应用程序</string>
+      <string id="DisableHTMLApplication_Explain">此策略设置指定是否阻止或允许运行 HTML 应用程序(HTA 文件)。
+
+如果启用此策略设置，则将阻止运行 HTML 应用程序(HTA 文件)。
+
+如果禁用或未配置此策略设置，则允许运行 HTML 应用程序(HTA 文件)。</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
@@ -4225,7 +4350,7 @@ LOBApp.contoso.com</string>
         <dropdownList refId="IZ_Partname120c" noSort="true" defaultItem="1">仅允许经过批准的域使用 TDC ActiveX 控件</dropdownList>
       </presentation>
       <presentation id="IZ_Policy_AllowDynsrcPlayback_1">
-        <dropdownList refId="IZ_Partname120A" noSort="true" defaultItem="0">允许在网页上使用旧媒体播放机播放视频和动画</dropdownList>
+        <dropdownList refId="IZ_Partname120A" noSort="true" defaultItem="0">允许在网页上使用旧媒体播放器播放视频和动画</dropdownList>
       </presentation>
       <presentation id="IZ_Policy_AllowScriptlets_1">
         <dropdownList refId="IZ_Partname1209" noSort="true" defaultItem="0">Scriptlet</dropdownList>
@@ -4787,6 +4912,14 @@ LOBApp.contoso.com</string>
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">域列表</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">第一个选项</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">第二个选项</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">第三个选项</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">通知 Internet Explorer 11 浏览器已禁用</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

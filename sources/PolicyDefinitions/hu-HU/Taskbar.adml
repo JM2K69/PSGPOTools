@@ -29,6 +29,12 @@ Ha letiltja vagy nem konfigurálja a házirend-beállítást, a hangerőszabály
 Ha engedélyezi ezt a házirend-beállítást, a Biztonság és karbantartás ikon nem jelenik meg a rendszer értesítési területén.
 
 Ha letiltja vagy nem konfigurálja a házirend-beállítást, a Biztonság és karbantartás ikon megjelenik a rendszer értesítési területén.</string>
+      <string id="HideSCAMeetNow">Az Értekezlet most ikon eltávolítása</string>
+      <string id="HideSCAMeetNow_Help">Ez a házirend-beállítás lehetővé teszi az Értekezlet most ikon eltávolítását a rendszerszabályozási területről.
+
+Ha engedélyezi ezt a házirend-beállítást, az Értekezlet most ikon nem jelenik meg a rendszer értesítési területén.
+
+Ha letiltja vagy nem konfigurálja a házirend-beállítást, az Értekezlet most ikon megjelenik a rendszer értesítési területén.</string>
       <string id="TaskbarLockAll">Az összes tálcabeállítás zárolása</string>
       <string id="TaskbarLockAll_Help">Ez a házirend-beállítás lehetővé teszi az összes tálcabeállítás zárolását.
 
@@ -92,13 +98,13 @@ Ha letiltja vagy nem konfigurálja a házirend-beállítást, az újonnan felvet
       <string id="EnableLegacyBalloonNotifications">Az értesítőbuborékok bejelentésként való megjelenítésének letiltása.</string>
       <string id="EnableLegacyBalloonNotifications_Help">Ez a házirend letiltja a buborékokat bejelentő értesítésekké alakító funkciót. 
 
-Ha engedélyezi ezt a házirend-beállítást, akkor a rendszer és az alkalmazások értesítései nem bejelentési értesítésként, hanem buborékként fognak megjelenni.   
+ Ha engedélyezi ezt a házirend-beállítást, akkor a rendszer és az alkalmazások értesítései nem bejelentési értesítésként, hanem buborékként fognak megjelenni. 
 
-Akkor engedélyezze ezt a házirend-beállítást, ha egy adott alkalmazásnál vagy rendszerösszetevőnél kompatibilitási problémákat tapasztal a bejelentési értesítésekkel. 
+ Akkor engedélyezze ezt a házirend-beállítást, ha egy adott alkalmazásnál vagy rendszerösszetevőnél kompatibilitási problémákat tapasztal a bejelentési értesítésekkel. 
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor minden értesítés bejelentési értesítésként fog megjelenni.
+ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor minden értesítés bejelentési értesítésként fog megjelenni. 
 
-A házirend-beállítás érvénybe léptetéséhez újraindításra van szükség.</string>
+ A házirend-beállítás érvénybe léptetéséhez újraindításra van szükség.</string>
       <string id="NoRemoteDestinations">A távoli helyekre mutató gyorslistaelemek megjelenítésének és nyomon követésének letiltása</string>
       <string id="NoRemoteDestinations_Help">Ez a házirend-beállítás lehetővé teszi a távoli helyekre mutató gyorslistaelemek megjelenítésének és nyomon követésének szabályozását.
 
@@ -129,15 +135,16 @@ Ha letiltja vagy nem konfigurálja a házirend-beállítást, a felhasználók r
 Ha engedélyezi ezt a házirend-beállítást, a felhasználók csak egy monitoron jeleníthetik meg a tálcákat. A több monitoron való megjelenítés nincs engedélyezve a tálca tulajdonságait megjelenítő párbeszédpanelen.
 
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasználók több monitoron is megjeleníthetik a tálcákat.</string>
-        <string id="ShowWindowsStoreAppsOnTaskbar">Windows Áruházbeli alkalmazások megjelenítése a tálcán</string>
+        <string id="ShowWindowsStoreAppsOnTaskbar">Csomagolt Microsoft Store alkalmazások megjelenítése a tálcán</string>
         <string id="ShowWindowsStoreAppsOnTaskbar_Help">
-Ez a házirend-beállítás lehetővé teszi, hogy a felhasználók a Windows Áruházbeli alkalmazásokat is lássák a tálcán.
+Ez a házirend-beállítás lehetővé teszi, hogy a felhasználók a csomagolt Microsoft Store alkalmazásokat is lássák a tálcán. 
  
-Ha engedélyezi ezt a házirend-beállítást, a felhasználók a Windows Áruházbeli alkalmazásokat is látják a tálcán.
+ Ha engedélyezi ezt a házirend-beállítást, a felhasználók a csomagolt Microsoft Store alkalmazásokat is látják a tálcán.
  
-Ha letiltja ezt a házirend-beállítást, a felhasználók a Windows Áruházbeli alkalmazásokat nem látják a tálcán.
  
-Ha nem konfigurálja ezt a házirend-beállítást, a rendszer a felhasználó eszközén érvényes alapbeállítást használja, amelyet a felhasználó szabadon módosíthat.</string>
+ Ha letiltja ezt a házirend-beállítást, a felhasználók a csomagolt Microsoft Store alkalmazásokat nem látják a tálcán. 
+ 
+ Ha nem konfigurálja ezt a házirend-beállítást, a rendszer a felhasználó eszközén érvényes alapbeállítást használja, amelyet a felhasználó szabadon módosíthat.</string>
       <string id="DisableNotificationCenter">Az Értesítések és a Műveletközpont eltávolítása</string>
       <string id="DisableNotificationCenter_Help">Ezzel a házirend-beállítással eltávolítható az Értesítések és a Műveletközpont ikonja a tálca értesítési területéről.
 
@@ -148,7 +155,7 @@ Ha engedélyezve van ez a beállítás, akkor az értesítési területen nem je
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor a tálcán az Értesítés, a Biztonság és a Karbantartás ikon lesz látható. 
 
 A házirend-beállítás érvénybe léptetéséhez újraindításra van szükség.</string>
-      <string id="NoPinningStoreToTaskbar">A Store alkalmazás tálcán való rögzítésének letiltása</string> 
+      <string id="NoPinningStoreToTaskbar">A Store alkalmazás tálcán való rögzítésének letiltása</string>
       <string id="NoPinningStoreToTaskbar_Help">
 Ezzel a házirend-beállítással szabályozhatja, hogy a tálcán rögzíteni lehet-e a Store alkalmazást.
 
@@ -165,10 +172,81 @@ Ha letiltja ezt a házirend-beállítást, a felhasználók nem jeleníthetnek m
 Ha nem konfigurálja ezt a házirend-beállítást, a naptár az alapértelmezett logika szerint lesz beállítva.</string>
       <string id="ConfigureTaskbarCalendar_SimplifiedChinese">Egyszerűsített kínai (holdnaptár)</string>
       <string id="ConfigureTaskbarCalendar_TraditionalChinese">Hagyományos kínai (holdnaptár)</string>
+      <string id="Chat">Csevegés</string>
+      <string id="ConfigureChatIcon">A csevegés ikon konfigurálása a tálcán</string>
+      <string id="ConfigureChatIcon_Help">Ez a házirend-beállítás lehetővé teszi a tálcán megjelenő Csevegés ikon konfigurálását. 
+
+ Ha engedélyezi ezt a házirend-beállítást, és a Megjelenítés értékre állítja, a Csevegés ikonja alapértelmezés szerint megjelenik a tálcán. A felhasználók megjeleníthetik vagy elrejthetik a Beállításokban. 
+
+ Ha engedélyezi ezt a házirend-beállítást, és elrejtésre állítja, a csevegés ikonja alapértelmezés szerint el lesz rejtve. A felhasználók megjeleníthetik vagy elrejthetik a Beállításokban. 
+
+ Ha engedélyezi ezt a házirend-beállítást, és Letiltva értékre állítja, a Csevegés ikon nem jelenik meg, és a felhasználók nem tudják megjeleníteni vagy elrejteni a Beállításokban. 
+
+ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Chat ikon a Windows kiadásának alapértelmezése szerint van konfigurálva.</string>
+      <string id="ChatEnum_Show">Megjelenítés</string>
+      <string id="ChatEnum_Hide">Elrejtés</string>
+      <string id="ChatEnum_Disabled">Letiltva</string>
+      <string id="HideTaskViewButton">A TaskView gomb elrejtése</string>
+      <string id="HideTaskViewButton_Help">Ezzel a szabályzatbeállítással elrejtheti a Feladatnézet gombot.
+
+Ha engedélyezi ezt a szabályzatbeállítást, a Feladatnézet gomb rejtett lesz, a Beállítások váltógomb pedig le lesz tiltva.</string>
+      <string id="AlwaysShowNotificationIcon">Értesítés csengőikon megjelenítése</string>
+      <string id="AlwaysShowNotificationIcon_Help">
+Ezzel a házirend-beállítással megjelenítheti az értesítési harang ikont a rendszertálcán.
+
+Ha engedélyezi ezt a házirend-beállítást, az értesítés ikonja mindig megjelenik. Ellenkező esetben az értesítési ikon csak akkor jelenik meg, ha speciális állapot van beállítva (például a Ne zavarjanak állapot be van kapcsolva).
+
+A házirend-beállítás érvénybe léptetéséhez újraindítás szükséges.
+      </string>
+      <string id="TurnOffAbbreviatedDateTimeFormat">Rövidített idő- és dátumformátum kikapcsolása</string>
+      <string id="TurnOffAbbreviatedDateTimeFormat_Help">
+Ezzel a házirend-beállítással megjelenítheti a hosszabb idő- és dátumformátumot a tálcán.
+
+Ha ez a beállítás engedélyezve van, az időformátum tartalmazza a de./du. időjelölőt, a dátum pedig az évet.
+
+A házirend-beállítás érvénybe léptetéséhez újraindítás szükséges.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior">ConfigureTaskbarSmallButtonBehavior</string>  
+      <string id="ConfigureTaskbarSmallButtonBehavior_DisplayName">A kis tálcagombok viselkedésének konfigurálása</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Help">Ezzel a házirend-beállítással konfigurálhatja a kis tálcagombok viselkedését.
+      
+Ha a következő értékre van beállítva:
+      – Mindig: A tálca mindig kis gombokat használ.
+      – Ha a tálca megtelt: A tálca a rendelkezésre álló terület alapján dinamikusan vált a kis gombok és a szokásos gombméretek között.
+      – Soha: A tálca soha nem használ kis gombokat. Csak normál méretű gombok lesznek használva.
+
+Ha ez a házirend engedélyezve van, a fenti beállítások egyikét ki kell választani, és a felhasználók nem módosíthatják a „Kisebb tálcagombok megjelenítése” beállítást a Beállítások felhasználói felületén.
+
+Ha ez a szabályzat le van tiltva vagy nincs konfigurálva, a Csoportházirend nem alkalmaz beállítást. A Windows alapértelmezés szerint a „Ha a tálca megtelt” viselkedést alkalmazza, és a felhasználók manuálisan módosíthatják ezt a beállítást a Beállítások felhasználói felületen.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Always">Mindig</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_WhenTaskbarIsFull">Ha a tálca megtelt</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Never">Soha</string>
+      <string id="DisableTaskbarPosition">A tálcapozíció módosításának letiltása</string>
+      <string id="DisableTaskbarPosition_Help">Ezzel a házirend-beállítással megakadályozhatja, hogy a felhasználók módosítsák a tálca pozícióját.
+
+Ha engedélyezi ezt a házirend-beállítást, a tálca a képernyő aljára kerül, és a tálca helyzetének beállítása szürkén jelenik meg a Gépház alkalmazásban.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasználók módosíthatják a tálca helyét a Gépház alkalmazásban.</string>
+      <string id="DisableTaskbarSize">A tálcaméret módosításának letiltása</string>
+      <string id="DisableTaskbarSize_Help">Ezzel a házirend-beállítással megakadályozhatja, hogy a felhasználók módosítsák a tálca méretét.
+
+Ha engedélyezi ezt a házirend-beállítást, a tálca az alapértelmezett méretre lesz beállítva, és a tálca mérete szürkén jelenik meg a Beállítások alkalmazásban.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a felhasználók módosíthatják a tálca méretét a Gépház alkalmazásban.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureTaskbarCalendar">
         <dropdownList refId="ConfigureTaskbarCalendar_Dropdown" defaultItem="0">Naptár:</dropdownList>
+      </presentation>
+      <presentation id="ConfigureChatIcon">
+          <text>A Csevegés ikon beállításának konfigurálása</text>
+          <text> </text>
+          <dropdownList refId="ConfigureChatIcon_Action" noSort="true" defaultItem="1">Állapot: </dropdownList>
+          <text> </text>
+      </presentation>
+      <presentation id="ConfigureTaskbarSmallButtonBehavior">
+        <dropdownList refId="ConfigureTaskbarSmallButtonBehavior_Dropdown" noSort="true" defaultItem="1">Adja meg, hogy mikor jelenjenek meg a kisebb tálcagombok: </dropdownList>
       </presentation>
     </presentationTable>
   </resources>

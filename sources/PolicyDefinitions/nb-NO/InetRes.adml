@@ -18,7 +18,7 @@
       <string id="InternetCPL_Programs">Siden Programmer</string>
       <string id="AddonManagement_AddOnList">Liste over tillegg</string>
       <string id="AddonManagement_ManagementMode">Blokker alle tillegg som ikke er angitt som tillatt i listen over tillegg</string>
-      <string id="AddonManagement_RestrictCrashDetection">Deaktiver krasjgjenkjenning</string>
+      <string id="AddonManagement_RestrictCrashDetection">Deaktiver kollisjonsregistrering</string>
       <string id="AddonManagement_RestrictExtensionManagement">Ikke tillat brukerne å aktivere eller deaktivere tillegg</string>
       <string id="AddSearchProvider">Legg til en bestemt liste over søkeleverandører i brukerens liste over søkeleverandører</string>
       <string id="AdminApproved">Administratorgodkjente kontroller</string>
@@ -270,7 +270,7 @@ Hvis du aktiverer denne policyinnstillingen, kan du angi en liste over områder 
 
 Hvis denne policyinnstillingen deaktiveres eller ikke konfigureres, kan du ikke angi en standard unntaksliste for popup-blokkering.
 
-Obs!  Du kan hindre at brukerne legger til eller fjerner webområder fra unntakslisten ved å aktivere policyinnstillingen "Deaktiver behandling av tillatelsesliste for popup-vinduer".</string>
+Obs! Du kan hindre at brukerne legger til eller fjerner webområder fra unntakslisten ved å aktivere policyinnstillingen "Deaktiver behandling av tillatelsesliste for popup-vinduer".</string>
       <string id="ExplainScriptPaste_AllProcs_Explain">Denne policyinnstillingen tillater at det hoppes over bekreftelse når et skript som kjører i prosesser på datamaskinen, prøver å utføre en utklippstavleoperasjon (slette, kopiere eller lime inn).
 
 Hvis du aktiverer denne policyinnstillingen, blir ikke brukeren bedt om å bekrefte når et skript som kjører i prosesser på datamaskinen, utfører en utklippstavleoperasjon. Hvis sonefunksjonen er angitt til å be om bekreftelse, vil den bli hoppet over og aktivert.
@@ -355,7 +355,7 @@ Hvis du deaktiverer denne policyinnstillingen, startes ikke veiviseren for Inter
 
 Hvis du ikke konfigurerer denne policyinnstillingen, kan brukerne fritt velge om veiviseren for Internett-tilkobling skal startes automatisk.</string>
       <string id="ICWSettings">Innstillinger for veiviseren for Internett-tilkobling</string>
-      <string id="Identities">Identitetsbehandling: Hindre brukerne fra å bruke identiteter</string>
+      <string id="Identities">Identity Manager: Hindre brukerne fra å bruke identiteter</string>
       <string id="IDN_Always">Konverter alltid til IDN-format</string>
       <string id="IDN_Intranet">Konverter intranettadresser til IDN-format</string>
       <string id="IDN_Never">Konverter aldri til IDN-format</string>
@@ -501,11 +501,11 @@ Hvis du aktiverer denne policyinnstillingen, vil Internet Explorer bare tillate 
 Hvis du deaktiverer denne policyinnstillingen eller ikke konfigurerer den, kan brukerne bruke Behandling av tillegg til å tillate eller blokkere tillegg som ikke er inkludert i policyinnstillingen Liste over tillegg.
 
 Obs!  Hvis et tillegg er oppført i policyinnstillingen Liste over tillegg, kan brukerne ikke endre status via Behandling av tillegg (med mindre brukeradministrasjon tillates. Se policyinnstillingen Liste over tillegg hvis du vil ha mer informasjon).</string>
-      <string id="IE_ExplainAddonManagement_RestrictCrashDetection">Denne policyinnstillingen lar deg behandle funksjonen for krasjgjenkjenning i Behandling av tillegg.
+      <string id="IE_ExplainAddonManagement_RestrictCrashDetection">Denne policyinnstillingen lar deg behandle funksjonen for kollisjonsregistrering i Behandling av tillegg.
 
 Hvis du aktiverer denne policyen, vil et krasj i Internet Explorer behandles på samme måte som i Windows XP Professional Service Pack 1 eller tidligere, ved at Windows-feilrapportering startes. Alle policyinnstillinger for Windows-feilrapportering vil fortsatt være aktive.
 
-Hvis du deaktiverer denne policyinnstillingen eller ikke konfigurerer den, vil funksjonen for krasjgjenkjenning være aktivert.</string>
+Hvis du deaktiverer denne policyinnstillingen eller ikke konfigurerer den, vil funksjonen for kollisjonsregistrering være aktivert.</string>
       <string id="IE_ExplainAddonManagement_RestrictExtensionManagement">Denne policyinnstillingen lar deg administrere om brukere har muligheten til å tillate eller nekte tillegg via behandling av tillegg.
 
 Hvis du aktiverer denne policyinnstillingen, kan brukere aktivere eller deaktivere tillegg via behandling av tillegg.
@@ -805,9 +805,9 @@ Forsiktig!  Hvis du aktiverer denne policyen, fjernes ikke tipset for Netscape-b
 Hvis du aktiverer denne policyen, fjernes kommandoen Dagens tips fra Hjelp-menyen.
 
 Hvis du deaktiverer eller ikke konfigurerer denne policyen, kan brukerne aktivere eller deaktivere Dagens tips, som vises nederst i nettleseren.</string>
-      <string id="IE_ExplainIdentities">Hindrer at brukerne konfigurerer unike identiteter ved hjelp av identitetsbehandleren.
+      <string id="IE_ExplainIdentities">Hindrer at brukerne konfigurerer unike identiteter ved hjelp av Identity Manager.
 
-Med identitetsbehandleren kan brukerne opprette flere kontoer, som e-postkontoer, på samme datamaskin. Hver bruker har en unik identitet med et eget passord og ulike programtillatelser.
+Med Identity Manager kan brukerne opprette flere kontoer, som e-postkontoer, på samme datamaskin. Hver bruker har en unik identitet med et eget passord og ulike programtillatelser.
 
 Hvis du aktiverer denne policyen, kan ikke brukerne opprette nye identiteter, behandle eksisterende identiteter eller bytte identitet. Alternativet Bytt identitet fjernes fra Fil-menyen i adresseboken.
 
@@ -874,23 +874,23 @@ Hvis du vil angi hvordan administratorgodkjente kontroller behandles for hver si
 
 4. I området Kjør ActiveX-kontroller og plugin-moduler klikker du Godkjent av administrator.</string>
       <string id="IE_ExplainMenusCategory">Inneholder innstillinger for å vise eller skjule menyer og menyalternativer i Internet Explorer.</string>
-      <string id="IE_ExplainMicrosoft_Chat">Angir ActiveX-kontrollen for Microsoft Chat som administratorgodkjent.
+      <string id="IE_ExplainMicrosoft_Chat">Angir ActiveX-kontrollen for Microsoft-chat som administratorgodkjent.
 
-Denne kontrollen brukes av webutviklere til å bygge tekst- og grafikkbaserte chattemiljøer for sanntidskommunikasjon på weben.
+Denne kontrollen brukes av nettutviklere til å bygge tekst- og grafikkbaserte chattemiljøer for sanntidskommunikasjon på nettet.
 
 Hvis du aktiverer denne policyen, kan kontrollen kjøres i sikkerhetssoner der du angir at administratorgodkjente kontroller kan kjøres.
 
 Hvis du deaktiverer eller ikke konfigurerer denne policyen, angis ikke kontrollen som administratorgodkjent.
 
-Hvis du vil angi hvordan administratorgodkjente kontroller behandles for hver sikkerhetssone, utfører du følgende trinn:
+Hvis du vil angi hvordan administratorgodkjente kontroller behandles, for hver sikkerhetssone, gjør du følgende:
 
-1. Klikk Gruppepolicy, Brukerkonfigurasjon, Vedlikehold av Internet Explorer og deretter Sikkerhet.
+1. Klikk på Brukerkonfigurasjon i Gruppepolicy, klikk på Internet Explorer-vedlikehold, og klikk deretter på Sikkerhet.
 
-2. Dobbeltklikk Sikkerhetssoner og Innholdssensur, klikk Importer gjeldende innstillinger for sikkerhetssoner, og klikk deretter Endre innstillinger.
+2. Dobbeltklikk på Sikkerhetssoner og innholdsklassifisering, klikk på Importer gjeldende innstillinger for sikkerhetssoner, og klikk deretter på Endre innstillinger.
 
-3. Merk innholdssonen du vil behandle ActiveX-kontroller i, og klikk deretter Egendefinert nivå.
+3. Velg innholdssonen du vil behandle ActiveX-kontroller i, og klikk deretter på Egendefinert nivå.
 
-4. I området Kjør ActiveX-kontroller og plugin-moduler klikker du Godkjent av administrator.</string>
+4. Klikk på Godkjent av administrator i området Kjør ActiveX-kontroller og plugin-moduler.</string>
       <string id="IE_ExplainMSNBC">Angir et sett med MSNBC-kontroller som administratorgodkjent.
 
 Med disse kontrollene kan du utføre avanserte søk etter nyhetsrapporter på MSNBCs webområde.
@@ -1345,7 +1345,7 @@ Hvis du aktiverer denne policyinnstillingen, kan ikke brukeren legge til eller f
 
 Hvis du deaktiverer denne policyinnstillingen eller ikke konfigurerer den, kan brukeren legge til eller fjerne webområder fra unntakslisten
 
-Obs! Du kan tillate en standardliste med områder som kan åpne popup-vinduer, uansett hvilke innstillinger som er angitt for Internet Explorer-prosessen Popup-blokkering ved å aktivere policyinnstillingen "Angi tillatt popup-liste".</string>
+Obs! Du kan tillate en standardliste med områder som kan åpne popup-vinduer, uansett hvilke innstillinger som er angitt for Internet Explorer-prosessen Popup-blokkering ved å aktivere policyinnstillingen "Angi popup-tillatelsesliste".</string>
       <string id="IE_ExplainRestrictPopupManagement">Med denne policyinnstillingen kan du behandle funksjonen for administrasjon av popup-vinduer i Internet Explorer.
 
 Hvis du aktiverer denne policyinnstillingen, vil kontrollpanelinformasjon om behandling av popup-vinduer være utilgjengelig, og alle andre popup-kontroller, -varsler og -dialogbokser vil heller ikke bli vist. Popup-vinduer vil fortsette å fungere som de gjorde i Windows XP Service Pack 1 eller tidligere, selv om vinduer som har blitt startet utenfor skjermbildet fortsatt vil bli flyttet inn i skjermbildeområdet.
@@ -3574,37 +3574,42 @@ Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, vises ikk
 
 Obs! Denne policyen støttes ikke lenger fra og med Windows 10 versjon 1607.</string>
       <string id="Protocols_None">Ikke bruk noen sikre protokoller</string>
-      <string id="Protocols_SSL2">Bruk bare SSL 2.0</string>
+      <string id="Protocols_SSL2">[Avskrevet] Bruk bare SSL 2.0</string>
       <string id="Protocols_SSL3">Bruk bare SSL 3.0</string>
-      <string id="Protocols_SSL2_SSL3">Bruk SSL 2.0 og SSL 3.0</string>
+      <string id="Protocols_SSL2_SSL3">[Foreldet] Bruk SSL 2.0 og SSL 3.0</string>
       <string id="Protocols_TLS10">Bruk bare TLS 1.0</string>
-      <string id="Protocols_SSL2_TLS10">Bruk SSL 2.0 og TLS 1.0</string>
+      <string id="Protocols_SSL2_TLS10">[Foreldet] Bruk SSL 2.0 og TLS 1.0</string>
       <string id="Protocols_SSL3_TLS10">Bruk SSL 3.0 og TLS 1.0</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">Bruk SSL 2.0, SSL 3.0 og TLS 1.0</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[Foreldet] Bruk SSL 2.0, SSL 3.0 og TLS 1.0</string>
       <string id="Protocols_TLS11">Bruk bare TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS11">Bruk SSL 2.0 og TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS11">[Foreldet] Bruk SSL 2.0 og TLS 1.1</string>
       <string id="Protocols_SSL3_TLS11">Bruk SSL 3.0 og TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">Bruk SSL 2.0, SSL 3.0 og TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[Foreldet] Bruk SSL 2.0, SSL 3.0 og TLS 1.1</string>
       <string id="Protocols_TLS10_TLS11">Bruk TLS 1.0 og TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">Bruk SSL 2.0, TLS 1.0 og TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[Foreldet] Bruk SSL 2.0, TLS 1.0 og TLS 1.1</string>
       <string id="Protocols_SSL3_TLS10_TLS11">Bruk SSL 3.0, TLS 1.0 og TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">Bruk SSL 2.0, SSL 3.0, TLS 1.0 og TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[Foreldet] Bruk SSL 2.0, SSL 3.0, TLS 1.0 og TLS 1.1</string>
       <string id="Protocols_TLS12">Bruk bare TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS12">Bruk SSL 2.0 og TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS12">[Foreldet] Bruk SSL 2.0 og TLS 1.2</string>
       <string id="Protocols_SSL3_TLS12">Bruk SSL 3.0 og TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">Bruk SSL 2.0, SSL 3.0 og TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[Foreldet] Bruk SSL 2.0, SSL 3.0 og TLS 1.2</string>
       <string id="Protocols_TLS10_TLS12">Bruk TLS 1.0 og TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">Bruk SSL 2.0, TLS 1.0 og TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[Foreldet] Bruk SSL 2.0, TLS 1.0 og TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS12">Bruk SSL 3.0, TLS 1.0 og TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">Bruk SSL 2.0, SSL 3.0, TLS 1.0 og TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[Foreldet] Bruk SSL 2.0, SSL 3.0, TLS 1.0 og TLS 1.2</string>
       <string id="Protocols_TLS11_TLS12">Bruk TLS 1.1 og TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">Bruk SSL 2.0, TLS 1.1 og TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[Foreldet] Bruk SSL 2.0, TLS 1.1 og TLS 1.2</string>
       <string id="Protocols_SSL3_TLS11_TLS12">Bruk SSL 3.0, TLS 1.1 og TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">Bruk SSL 2.0, SSL 3.0, TLS 1.1 og TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[Foreldet] Bruk SSL 2.0, SSL 3.0, TLS 1.1 og TLS 1.2</string>
       <string id="Protocols_TLS10_TLS11_TLS12">Bruk TLS 1.0, TLS 1.1 og TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">Bruk SSL 2.0, TLS 1.0, TLS 1.1 og TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[Foreldet] Bruk SSL 2.0, TLS 1.0, TLS 1.1 og TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">Bruk SSL 3.0, TLS 1.0, TLS 1.1 og TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">Bruk SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 og TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[Avskrevet] Bruk SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 og TLS 1.2</string>
+      <string id="Protocols_TLS13">Bruk bare TLS 1.3</string>
+      <string id="Protocols_TLS12_TLS13">Bruk TLS 1.2 og TLS 1.3</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">Bruk TLS 1.1, TLS 1.2 og TLS 1.3</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">Bruk TLS 1.0, TLS 1.1, TLS 1.2 og TLS 1.3</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">Bruk SSL 3.0, TLS 1.0, TLS 1.1, TLS 1.2 og TLS 1.3</string>
       <string id="LockToolbars">Lås alle verktøylinjer</string>
       <string id="MoveStopRefresh">Lås plassering for Stopp-knappen og Oppdater-knappen</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3903,7 +3908,7 @@ Hvis du deaktiverer denne policyinnstillingen eller ikke konfigurerer den, kan b
 Hvis du aktiverer denne innstillingen, kan brukerne se og bruke organisasjonsmodusalternativet fra Verktøy-menyen. Hvis du aktiverer denne innstillingen, men ikke angir en rapportplassering, vil organisasjonsmodus fremdeles være tilgjengelig for brukerne, men du vil ikke motta noen rapporter.
 
 Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, vil menyalternativet vises, og brukerne vil ikke kunne kjøre nettsteder i organisasjonsmodus.</string>
-      <string id="RestrictInternetExplorer">Send alle områder som ikke er inkludert i listen over nettstedsplasseringer for Organisasjonsmodus, til Microsoft Edge.</string>
+      <string id="RestrictInternetExplorer">Send alle nettsteder som ikke er inkludert i listen over nettstedsplasseringer for Organisasjonsmodus, til Microsoft Edge</string>
       <string id="IE_ExplainRestrictInternetExplorer">Med denne innstillingen kan du bestemme om du vil åpne alle områder som ikke er inkludert i listen over nettstedsplasseringer for Organisasjonsmodus i Microsoft Edge. Hvis du bruker denne innstillingen, må du også aktivere policyinnstillingen Administrative maler\Windows-komponenter\Internet Explorer\Bruk nettstedslisten i organisasjonsmodus i IE, og du må inkludere minst ett område i listen over nettstedsplasseringer for Organisasjonsmodus.
 
 Hvis du aktiverer denne innstillingen, åpnes automatisk alle områder som ikke er inkludert i listen over nettstedsplasseringer for Organisasjonsmodus, i Microsoft Edge.
@@ -3917,6 +3922,120 @@ Obs!  Hvis du også har aktivert policyinnstillingen Administrative maler\Window
 Hvis du aktiverer denne innstillingen, ser de ansatte en tilleggsside i Internet Explorer 11 der det står at et område er åpnet med Microsoft Edge i organisasjonsmodus.
 
 Hvis du deaktiverer eller ikke konfigurerer denne innstillingen, brukes standard virkemåte for appen, og ingen tilleggsside vises.</string>
+      <string id="NeedEdgeBrowser">Konfigurer hvilken kanal for Microsoft Edge som skal brukes til å åpne omdirigerte områder</string>
+      <string id="IE_ExplainNeedEdgeBrowser">Med denne policyen kan du konfigurere opptil tre versjoner av Microsoft Edge til å åpne et omdirigert område (i henhold til innstillinger). Bruk denne policyen hvis miljøet er konfigurert til å omdirigere områder fra Internet Explorer 11 til Microsoft Edge. Hvis noen av de valgte versjonene ikke er installert på enheten, blir innstillingen omgått.
+
+Hvis Windows Update for den neste versjonen av Microsoft Edge* og Microsoft Edge Stable-kanalen er installert, skjer følgende virkemåter:
+– Hvis du deaktiverer eller ikke konfigurerer denne policyen, brukes Microsoft Edge Stable-kanalen. Dette er standard virkemåte.
+– Hvis du aktiverer denne policyen, kan du konfigurere at omdirigerte områder åpnes i opptil tre av de følgende kanalene der:
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta, versjon 77 eller nyere
+    3 = Microsoft Edge Dev, versjon 77 eller nyere
+    4 = Microsoft Edge Canary, versjon 77 eller nyere
+
+Hvis Windows Update for den neste versjonen av Microsoft Edge* eller Microsoft Edge Stable-kanalen ikke er installert, skjer følgende virkemåter:
+– Hvis du deaktiverer eller ikke konfigurerer denne policyen, brukes Microsoft Edge, versjon 45 eller tidligere automatisk. Dette er standard virkemåte.
+– Hvis du aktiverer denne policyen, kan du konfigurere at omdirigerte områder åpnes i opptil tre av følgende kanaler der:
+    0 = Microsoft Edge, versjon 45 eller tidligere
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta, versjon 77 eller nyere
+    3 = Microsoft Edge Dev, versjon 77 eller nyere
+    4 = Microsoft Edge Canary, versjon 77 eller nyere
+
+*Hvis du vil ha informasjon om Windows-oppdateringen for den neste versjonen av Microsoft Edge deriblant hvordan du deaktiverer den, kan du se https://go.microsoft.com/fwlink/?linkid=2102115. Denne oppdateringen gjelder bare Windows 10, versjon 1709 og nyere.</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta, versjon 77 eller nyere</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev, versjon 77 eller nyere</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary, versjon 77 eller nyere</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge, versjon 45 eller nyere</string>
+      <string id="KeepIntranetSitesInInternetExplorer">Behold alle intranettområder i Internet Explorer</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">Hindrer at intranettområder åpnes i andre nettlesere enn Internet Explorer. Vær imidlertid oppmerksom på at hvis policyen Send alle områder som ikke er inkludert i listen over nettstedsplasseringer for Organisasjonsmodus, til Microsoft Edge (RestrictIE) ikke er aktivert, har ikke denne policyen noen innvirkning.
+
+Hvis du aktiverer denne policyen, åpnes alle intranettområder i Internet Explorer 11. De eneste unntakene er oppført i nettstedslisten for organisasjonsmodus.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyen, åpnes alle intranettområder automatisk i Microsoft Edge.
+
+Vi anbefaler på det sterkeste at denne policyen er synkronisert med policyen Send alle intranettområder til Internet Explorer (SendIntranetToInternetExplorer). I tillegg er det best å aktivere denne policyen bare hvis intranettområdene har kjente kompatibilitetsproblemer med Microsoft Edge.
+
+Tilknyttede policyer:
+– Send alle intranettområder til Internet Explorer (SendIntranetToInternetExplorer)
+– Send alle områder som ikke er inkludert i listen over nettstedsplasseringer for Organisasjonsmodus, til Microsoft Edge (RestrictIE)
+
+Hvis du vil ha mer informasjon om bruk av denne policyen sammen med andre tilknyttede policyer for å opprette den optimale konfigurasjonen for organisasjonen, kan du se https://go.microsoft.com/fwlink/?linkid=2094210.</string>
+      <string id="AllowSaveTargetAsInIEMode">Tillat "Lagre mål som" i Internet Explorer-modus</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">Denne policy innstillingen lar administratorer aktivere hurtig menyen Lagre mål som i Internet Explorer-modus.
+
+Hvis du aktiverer denne policyen, vil lagre mål som vises i hurtig menyen for Internet Explorer-modus og arbeide med samme som Internet Explorer.
+
+Hvis du deaktiverer denne policy innstillingen eller ikke konfigurerer den, vil ikke lagre mål som vises i hurtig menyen for Internet Explorer-modus.
+
+Hvis du vil ha mer informasjon, se https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="EnableGlobalWindowListInIEMode">Aktiver global vindusliste i Internet Explorer modus</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">Denne innstillingen lar Internet Explorer modusen bruke den globale vinduslisten som aktiverer delingstilstand med andre programmer.
+Innstillingen trer bare i kraft når Internet Explorer 11 er deaktivert som frittstående nettleser.
+
+Hvis du aktiverer denne policyen, bruker Internet Explorer modus den globale vinduslisten.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyen, fortsetter Internet Explorer modus å opprettholde en egen vindusliste.
+
+Hvis du vil vite mer om Internet Explorer modus, kan du se https://go.microsoft.com/fwlink/?linkid=2102921
+Hvis du vil lære mer om deaktivering av Internet Explorer 11 som frittstående nettleser, kan du se https://go.microsoft.com/fwlink/?linkid=2168340</string>
+      <string id="EnableExtendedIEModeHotkeys">Aktiver utvidede hurtig taster i Internet Explorer-modus</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">Denne policy innstillingen lar administratorer aktivere utvidede hurtigtaster for Microsoft Edge Internet Explorer-modus, for eksempel “Ctrl+S” for å få “Lagre som”-funksjonalitet.
+
+Hvis du aktiverer denne policyen, aktiveres utvidet hurtigtast funksjonalitet i Internet Explorer-modus og fungerer på samme måte som Internet Explorer.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyen, vil ikke utvidede hurtigtaster fungere i Internet Explorer-modus.
+
+Hvis du vil ha mer informasjon, se https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="AllowLegacyURLFields">Tillat eldre funksjonalitet for snarveifiler på internett</string>
+      <string id="IE_ExplainAllowLegacyURLFields">Denne policyinnstillingen tillater bruk av enkelte deaktiverte funksjoner, for eksempel WorkingDirectory-felt eller protokollbehandling som kan kobles til, i snarveifiler på Internett.
+
+Hvis du aktiverer denne policyen, aktiveres deaktivert funksjonalitet for snarveifiler på Internett på nytt.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyen, deaktiveres enkelte funksjoner for internettsnarveifiler, for eksempel WorkingDirectory-felt eller protokollbehandling som kan kobles til.</string>
+      <string id="ResetZoomForDialogInIEMode">Tilbakestill zoom til standard for HTML-dialogbokser i Internet Explorer modus</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">Denne policyinnstillingen lar administratorer tilbakestille zoom til standard for HTML-dialogbokser i Internet Explorer modus.
+
+Hvis du aktiverer denne policyen, overføres ikke zoomen for en HTML-dialogboks i Internet Explorer-modus fra den overordnede siden.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyen, angis zoomen for en HTML-dialogboks i Internet Explorer modus basert på zoomen på den overordnede siden.
+
+Hvis du vil ha mer informasjon, kan du se https://go.microsoft.com/fwlink/?linkid=2220107</string>
+      <string id="DisableInternetExplorerApp">Deaktiver Internet Explorer 11 som en fritt stående leser</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">Med denne policyen kan du begrense start av Internet Explorer som frittstående nettleser.
+
+Hvis du aktiverer denne policyen, kan den
+– hindre at Internet Explorer 11 startes som frittstående nettleser
+– begrense bruken av Internet Explorer til Microsoft Edges opprinnelige Internet Explorer-modus
+– Omdirigerer forsøk på å starte nettleseren Internet Explorer 11 til Microsoft Edge Stable-kanalen.
+– overstyre eventuelle andre policyer som omdiriger til Internet Explorer 11
+
+Selv med denne policyen aktivert, vil det fortsatt være tillatt å starte Internet Explorer 11 ved hjelp av COM-automatisering. Hvis du vil deaktivere COM-automatiseringskjøringer av Internet Explorer 11, bruker du gruppepolicyen «Deaktiver Internet Explorer 11 COM-automatisering».
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyen, åpnes alle nettsteder med gjeldende aktive innstillinger for nettleser. Obs! Du må ha installert Microsoft Edge Stable-kanalen for at denne policyen skal tre i kraft.</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">Deaktiver Internet Explorer 11-kjøring via COM-automatisering</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">Med denne policyen kan du begrense oppstart av Internet Explorer ved hjelp av COM-automatisering.
+
+Hvis du aktiverer denne policyen, hindrer den Internet Explorer 11 fra å bli startet ved hjelp av COM-automatisering.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyen, er Internet Explorer 11 COM-automatiseringslanseringer tillatt.</string>
+      <string id="DisableIEAppDeprecationNotification">Skjul Internet Explorer 11-varselet om tilbaketrekking</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">Med denne policyinnstillingen kan du bestemme om påminnelsen på varslingslinjen som Internet Explorer skal fjernes, skal vises. Som standard vises varslingslinjen i Internet Explorer 11.
+
+Hvis du aktiverer denne policyinnstillingen, vises ikke varslingslinjen i Internet Explorer 11.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, vises varslingslinjen i Internet Explorer 11.</string>
+      <string id="NotifyDisableIEOptions_Never">Aldri</string>
+      <string id="NotifyDisableIEOptions_Always">Alltid</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">Én gang per bruker</string>
+      <string id="JScriptReplacement">Erstatt JScript ved å laste inn JScript9Legacy i stedet for JScript.</string>
+      <string id="IE_ExplainJScriptReplacement">Denne policyinnstillingen angir om JScript eller JScript9Legacy lastes inn.
+      
+Hvis du aktiverer eller ikke konfigurerer denne policyinnstillingen, lastes JScript9Legacy i situasjoner der JScript opprettes.
+
+Hvis du deaktiverer denne policyen, vil JScript bli brukt.</string>
       <string id="VerMgmtDisable">Deaktiver blokkering av utdaterte ActiveX-kontroller for Internet Explorer</string>
       <string id="IE_ExplainVerMgmtDisable">Denne policyinnstillingen fastslår om Internet Explorer blokkerer angitte, utdaterte ActiveX-kontroller. Utdaterte ActiveX-kontroller blir aldri blokkert i det lokale intranettet.
 
@@ -4118,6 +4237,12 @@ Hvis du aktiverer denne innstillinger, blir ikke oppdaterte versjoner av Version
 Hvis du deaktiverer eller ikke konfigurerer denne innstillingen, fortsetter nedlastingen av oppdaterte versjoner av VersionList.XML til IE.
 
 Hvis du vil ha mer informasjon, kan du se Out-of-date ActiveX control blocking (Blokkering av utdaterte ActiveX-kontroller) i TechNet-biblioteket i Internet Explorer.</string>
+      <string id="DisableHTMLApplication">Deaktiver HTML-program</string>
+      <string id="DisableHTMLApplication_Explain">Denne policyinnstillingen angir om kjøring av HTML-programmet (HTA-fil) er blokkert eller tillatt.
+
+Hvis du aktiverer denne policyinnstillingen, blokkeres kjøring av HTML-programmet (HTA-fil).
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, er det tillatt å kjøre HTML-programmet (HTA-filen).</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
@@ -4787,6 +4912,14 @@ Hvis du vil ha mer informasjon, kan du se Out-of-date ActiveX control blocking (
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">Domeneliste</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">Førstevalg</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">Andrevalg</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">Tredjevalg</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">Varsle om at Internet Explorer 11-leseren er deaktivert</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

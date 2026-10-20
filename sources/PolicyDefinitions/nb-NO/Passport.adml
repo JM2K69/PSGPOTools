@@ -10,6 +10,8 @@
         <string id="MSPassport_UsePassportForWork">Bruke Windows Hello for bedrifter</string>
         <!-- Add support for certificate trust deployments -->
         <string id="WHFB_UseCertificateForOnPremAuth">Bruk sertifikat for lokal godkjenning</string>
+        <!-- Add support for cloud trust deployments -->
+        <string id="WHFB_UseCloudTrustForOnPremAuth">Bruke sky klarering for lokal godkjenning</string>
         <!-- DropdownList Button strings -->
         <string id="MSPassport_UsePassportForWorkExplain">Windows Hello for bedrifter er en alternativ metode for å logge på Windows ved hjelp av Active Directory eller Azure Active Directory-kontoen som kan erstatte passord, smartkort og virtuelle smartkort.
 
@@ -34,13 +36,13 @@ Hvis du aktiverer denne policyinnstillingen, utføres bare klargjøring av Windo
 Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, foretrekkes TPM-en fortsatt, men alle enheter kan klargjøre Windows Hello for bedrifter med programvare hvis TPM-en ikke fungerer eller er ikke tilgjengelig.
         </string>
         <string id="MSPassport_MinimumPINLength">Minste PIN-kodelengde</string>
-        <string id="MSPassport_MinimumPINLengthExplain">Minimal PIN-kodelengde konfigurerer det laveste antallet tegn som kreves for PIN-koden. Det laveste antallet du kan konfigurere for denne policyinnstillingen, er fire. Det høyeste antallet du kan konfigurere, må være lavere enn antallet som er konfigurert i policyinnstillingen Maksimal PIN-kodelengde eller 127 tegn (det som er lavest).
+        <string id="MSPassport_MinimumPINLengthExplain">Minste PIN-kodelengde konfigurerer det minste antallet tegn som kreves for PIN-koden.  Det laveste tallet du kan konfigurere for denne policyinnstillingen, er 4.  Det største tallet du kan konfigurere, må være mindre enn antallet som er konfigurert i policyinnstillingen Maksimal PIN-kodelengde eller tallet 127, avhengig av hva som er lavest.
 
 Hvis du konfigurerer denne policyinnstillingen, må PIN-koden være lengre enn eller lik dette antallet.
 
-Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, må PIN-koden være lengre enn eller inneholde akkurat fire tegn.
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, må PIN-koden være lengre enn eller lik 6.
 
-Obs!  Hvis betingelsene ovenfor for minimal PIN-kodelengde ikke er oppfylt, brukes standardverdier for både minimal og maksimal PIN-kodelengde.
+Obs! Hvis betingelsene ovenfor for minimum PIN-kodelengde ikke er oppfylt, brukes standardverdier for både maksimal og minimum PIN-kodelengde.
         </string>
         <string id="MSPassport_MaximumPINLength">Største PIN-kodelengde</string>
         <string id="MSPassport_MaximumPINLengthExplain">Maksimal PIN-kodelengde konfigurerer maksimalt antall tegn som er tillatt for PIN-koden. Det høyeste antallet du kan konfigurere for denne policyinnstillingen, er 127. Det laveste antallet du kan konfigurere, må være høyere enn antallet som er konfigurert i policyinnstillingen Minimal PIN-kodelengde eller fire tegn (det som er høyest).
@@ -54,30 +56,38 @@ Obs!  Hvis betingelsene ovenfor for maksimal PIN-kodelengde ikke er oppfylt, bru
         <string id="MSPassport_UppercaseLetters">Krev store bokstaver</string>
         <string id="MSPassport_UppercaseLettersExplain">Bruk denne policyinnstillingen for å konfigurere bruk av store bokstaver i PIN-koden.
 
-Hvis du aktiverer denne policyinnstillingen, krever Windows at brukere tar med minst én stor bokstav i PIN-koden.
+Hvis du aktiverer denne policyinnstillingen, krever Windows at brukeren tar med minst én stor bokstav i PIN-koden.
 
-Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, tillater ikke Windows at brukere tar med store bokstaver i PIN-koden.
+Hvis du deaktiverer denne policyinnstillingen, tillater ikke Windows at brukeren tar med store bokstaver i PIN-koden.
+
+Hvis du ikke konfigurerer denne policyinnstillingen, tillater Windows, men krever ikke noen store bokstaver i PIN-koden.
         </string>
         <string id="MSPassport_LowercaseLetters">Krev små bokstaver</string>
         <string id="MSPassport_LowercaseLettersExplain">Bruk denne policyinnstillingen for å konfigurere bruk av små bokstaver i PIN-koden.
 
-Hvis du aktiverer denne policyinnstillingen, krever Windows at brukere tar med minst én liten bokstav i PIN-koden.
+Hvis du aktiverer denne policyinnstillingen, krever Windows at brukeren tar med minst én liten bokstav i PIN-koden.
 
-Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, tillater ikke Windows at brukere tar med små bokstaver i PIN-koden.
+Hvis du deaktiverer denne policyinnstillingen, tillater ikke Windows at brukeren tar med små bokstaver i PIN-koden.
+
+Hvis du ikke konfigurerer denne policyinnstillingen, tillater Windows, men krever ikke noen små bokstaver i PIN-koden.
         </string>
         <string id="MSPassport_SpecialCharacters">Krev spesialtegn</string>
-        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Bruk denne policyinnstillingen for å konfigurere bruk av spesialtegn i PIN-koden. Følgende spesialtegn er tillatt: : ! " # $ %  ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
+        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Bruk denne policyinnstillingen for å konfigurere bruk av spesialtegn i PIN-koden.  Spesialtegn som er tillatt, er: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
 
-Hvis du aktiverer denne policyinnstillingen, krever Windows at brukere tar med minst ett spesialtegn i PIN-koden.
+Hvis du aktiverer denne policyinnstillingen, krever Windows at brukeren tar med minst ett spesialtegn i PIN-koden.
 
-Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, tillater ikke Windows at brukere tar med spesialtegn i PIN-koden.]]>
+Hvis du deaktiverer denne policyinnstillingen, tillater ikke Windows at brukere tar med spesialtegn i PIN-koden.
+
+Hvis du ikke konfigurerer denne policyinnstillingen, tillater Windows, men krever ikke spesialtegn i PIN-koden.]]>
         </string>
         <string id="MSPassport_Digits">Krev sifre</string>
         <string id="MSPassport_DigitsExplain">Bruk denne policyinnstillingen for å konfigurere bruk av sifre i PIN-koden.
 
-Hvis du aktiverer eller ikke konfigurerer denne policyinnstillingen, krever Windows at brukere tar med minst ett siffer i PIN-koden.
+Hvis du aktiverer denne policyinnstillingen, krever Windows at brukeren tar med minst ett siffer i PIN-koden.
 
-Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, tillater ikke Windows at brukere tar med sifre i PIN-koden.
+Hvis du deaktiverer denne policyinnstillingen, tillater ikke Windows at brukeren tar med sifre i PIN-kodene.
+
+Hvis du ikke konfigurerer denne policyinnstillingen, tillater Windows, men krever ikke sifre i PIN-koden.
         </string>
         <string id="MSPassport_PINHistory">Logg</string>
         <string id="MSPassport_PINHistoryExplain">Denne innstillingen angir hvor mange tidligere PIN-koder som kan knyttes til en brukerkonto som ikke kan brukes på nytt. Denne policyen gjør det mulig for administratorer å forbedre sikkerheten ved å sørge for at gamle PIN-koder ikke brukes på nytt flere ganger. PIN-kodeloggen bevares ikke ved tilbakestilling av PIN-kode.
@@ -100,6 +110,19 @@ Hvis du deaktiverer denne policyinnstillingen, hindrer Windows Hello for bedrift
 
 Obs!  Deaktivering av denne policyen hindrer bruk av biometriske bevegelser på enheten for alle kontotyper.
         </string>
+        <string id="MSPassport_EnableEnhancedSignInSecurity">Aktiver ESS med eksterne enheter som støttes</string>
+        <string id="MSPassport_EnableEnhancedSignInSecurityExplain">Forbedret sikkerhet for pålogging (ESS) isolerer Windows Hello biometriske (ansikt og fingeravtrykk) maldata og samsvarende operasjoner til klarert maskinvare eller angitte minneområder, noe som betyr at resten av operativsystemet ikke kan få tilgang til eller tukle med dem. Siden kommunikasjonskanalen mellom sensorene og algoritmen også er sikret, er det umulig for skadelig programvare å sette inn eller spille av data på nytt for å simulere en bruker som logger på eller låser en bruker ute av maskinen.
+Hvis du aktiverer denne policyen, kan den ha følgende mulige verdier:
+
+0 – Forbedret sikkerhet for pålogging deaktivert med eksterne sensorer
+ESS vil bli deaktivert på systemer med kompatibel programvare og maskinvare. Godkjenningsoperasjoner for eksterne Windows Hello-kompatible enheter vil være tillatt, i henhold til gjeldende funksjonsbegrensninger.
+
+1 – Forbedret sikkerhet for pålogging aktivert uten eksterne sensorer (standard og anbefalte)
+ESS aktiveres på systemer med kompatibel programvare og maskinvare, etter eksisterende standard virkemåte i Windows. Godkjenningsoperasjoner for en ekstern biometrisk enhet vil bli blokkert og ikke tilgjengelig for Windows Hello.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyen, blokkeres ikke-ESS-sensorer på ESS-enheten.
+
+        </string>
         <string id="MSPassport_EnablePinRecovery">Bruk gjenoppretting av PIN-kode</string>
         <string id="MSPassport_EnablePinRecoveryExplain">Gjenoppretting av PIN-kode gjør at en bruker kan endre en glemt PIN-kode ved å bruke tjenesten for gjenoppretting av PIN-kode for Windows Hello for bedrifter, uten å miste noen tilknyttede legitimasjoner eller sertifikater, inkludert eventuelle nøkler som er knyttet til brukerens personlige kontoer på enheten. Den Azure-baserte tjenesten for gjenoppretting av PIN-kode oppnår dette ved å kryptere en hemmelighet for gjenoppretting som lagres på enheten, og den trenger både tjenesten for gjenoppretting av PIN-kode og enheten for å dekryptere. Gjenoppretting av PIN-kode krever at brukeren utfører godkjenning med flere faktorer til Azure Active Directory.
 
@@ -110,13 +133,22 @@ Hvis du deaktiverer eller lar være å konfigurere denne policyinnstillingen, bl
 Obs! Denne policyen gjelder bare for enheter som er registrert i Azure Active Directory.
         </string>
         <!-- Explain Text for UseCertificateForOnPremAuth -->
-        <string id="WHFB_UseCertificateForOnPremAuthExplain">Bruk denne policyinnstillingen til å konfigurere Windows Hello for bedrifter for å registrere en pålogging som brukes til lokal godkjenning.
+        <string id="WHFB_UseCertificateForOnPremAuthExplain">Bruk denne policy innstillingen til å konfigurere Windows Hello for bedrifter for å registrere et påloggings sertifikat som brukes til lokal godkjenning.
 
-Hvis du aktiverer denne policyinnstillingen, registrerer Windows Hello for bedrifter et påloggingssertifikat som brukes til lokal godkjenning.
+Hvis du aktiverer denne policy innstillingen, registrerer Windows Hello for bedrifter et påloggings sertifikat som brukes til lokal godkjenning.
 
-Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, registrerer Windows Hello for bedrifter en nøkkel som brukes til lokal godkjenning.
+Hvis du deaktiverer eller ikke konfigurerer denne policy innstillingen, bruker Windows Hello for bedrifter en nøkkel eller en Kerberos-billett (avhengig av andre policy innstillinger) for lokal godkjenning.
 
-OBS! Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen og aktiverer policyinnstillingen Bruk Windows Hello for bedrifter, krever miljøet én eller flere Windows Server 2016-domenekontrollere å hindre at godkjenning av Windows Hello for bedrifter mislykkes.
+Obs! hvis du deaktiverer eller ikke konfigurerer denne policy innstillingen og aktiverer policy innstillingen bruk Windows Hello for bedrifter, trenger du en eller flere Windows Server 2016-domene kontrollere for å hindre at godkjenning av Windows Hello for bedrifter mislykkes.
+        </string>
+        <!-- Explain Text for UseCloudTrustForOnPremAuth -->
+        <string id="WHFB_UseCloudTrustForOnPremAuthExplain">Bruk denne policy innstillingen til å konfigurere Windows Hello for bedrifter til å bruke Azure AD Kerberos for lokal godkjenning.
+
+Hvis du aktiverer denne policy innstillingen, bruker Windows Hello for bedrifter en Kerberos-billett som er Hentet fra godkjenning til Azure for lokal godkjenning.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policy innstillingen, vil Windows Hello for bedrifter bruke en nøkkel eller et sertifikat (avhengig av andre policy innstillinger) for lokal godkjenning. 
+ 
+Obs! et miljø som aktiverer både denne policy innstillingen og policy innstillingen bruk Windows Hello for bedrifter, krever én eller flere Windows Server 2016-domene kontrollere. Hvis ikke, vil godkjenning av Windows Hello for bedrifter mislykkes.
         </string>
         <!-- Explain text for device unlock policy -->
         <string id="MSPassport_UseDeviceUnlock">Konfigurer opplåsingsfaktorer for enhet</string>
@@ -173,6 +205,9 @@ Windows krever at en bruker låser og låser opp økten når denne innstillingen
         </string>
     </stringTable>
     <presentationTable>
+        <presentation id="MSPassport_EnableEnhancedSignInSecurityControl">
+            <decimalTextBox refId="MSPassport_EnableEnhancedSignInSecurityDataType" spin="true" spinStep="1" defaultvalue="1">Aktiver ESS med eksterne enheter som støttes</decimalTextBox>
+        </presentation>
         <presentation id="MSPassport_MinimumPINLengthControl">
             <decimalTextBox refId="MSPassport_MinimumPINLengthDataType" spin="true" spinStep="1" defaultvalue="6">Minste PIN-kodelengde</decimalTextBox>
         </presentation>

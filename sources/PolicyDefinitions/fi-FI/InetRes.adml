@@ -355,7 +355,7 @@ Jos poistat tämän käytäntöasetuksen käytöstä, ohjattu Internet-yhteyden 
 
 Jos jätät tämän käytäntöasetuksen määrittämättä, käyttäjä voi määrittää, käynnistyykö ohjattu Internet-yhteyden muodostaminen automaattisesti.</string>
       <string id="ICWSettings">Ohjatun Internet-yhteyden muodostamisen asetukset</string>
-      <string id="Identities">Tunnistetietojen hallinta: Estä käyttäjiä käyttämästä tunnistetietoja</string>
+      <string id="Identities">Identity Manager: Estä käyttäjiä käyttämästä tunnistetietoja</string>
       <string id="IDN_Always">Muunna aina kansainvälistettyjen toimialueiden nimien (IDN) muotoon</string>
       <string id="IDN_Intranet">Muunna intranetosoitteet kansainvälistettyjen toimialueiden nimien (IDN) muotoon</string>
       <string id="IDN_Never">Älä koskaan muunna kansainvälistettyjen toimialueiden nimien (IDN) muotoon</string>
@@ -415,17 +415,17 @@ Jos jätät tämän käytäntöasetuksen määrittämättä, käyttäjä voi vai
 
 Jos otat tämän käytäntöasetuksen käyttöön, käyttäjältä ei kysytä, otetaanko tietokalastelusuodatin käyttöön. Määritä, mitä tilaa tietokalastelusuodatin käyttää: Manuaalinen, Automaattinen vai Ei käytössä.
 
-Jos valitset manuaalisen tilan, tietokalastelusuodatin suorittaa vain paikallisen analyysin, ja käyttäjältä kysytään, salliiko hän tietojen lähettämisen Microsoftille. Jos toiminto on täysin käytössä, kaikki verkkosivustojen osoitteet, jotka eivät ole suodattimen sallittujen luettelossa, lähetetään automaattisesti Microsoftille kysymättä käyttäjältä.
+Jos valitset manuaalisen tilan, tietokalastelusuodatin suorittaa vain paikallisen analyysin, ja käyttäjältä kysytään, salliiko hän tietojen lähettämisen Microsoftille. Jos toiminto on täysin käytössä, kaikki verkkosivustojen osoitteet, jotka eivät ole suodattimen sallituissa, lähetetään automaattisesti Microsoftille kysymättä käyttäjältä.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittämättä, käyttäjää kehotetaan määrittämään tietokalastelusuodattimen toimintatila.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter">Tämä käytäntöasetus sallii käyttäjän ottaa käyttöön SmartScreen-suodatin, joka varoittaa käyttäjää, jos vierailtavan sivuston tiedetään yrittäneen kerätä henkilökohtaisia tietoja tietokalastelun avulla tai sen tiedetään sisältävän haittaohjelmia.
 
-Jos otat tämän käytäntöasetuksen käyttöön, käyttäjältä ei kysytä, otetaanko SmartScreen-suodatin käyttöön. Määritä, missä tilassa SmartScreen-suodatin on: Käytössä vai Ei käytössä. Jos toiminto on täysin käytössä, kaikki verkkosivustojen osoitteet, jotka eivät ole suodattimen sallittujen luettelossa, lähetetään automaattisesti Microsoftille kysymättä käyttäjältä.
+Jos otat tämän käytäntöasetuksen käyttöön, käyttäjältä ei kysytä, otetaanko SmartScreen-suodatin käyttöön. Määritä, missä tilassa SmartScreen-suodatin on: Käytössä vai Ei käytössä. Jos toiminto on täysin käytössä, kaikki verkkosivustojen osoitteet, jotka eivät ole suodattimen sallituissa, lähetetään automaattisesti Microsoftille kysymättä käyttäjältä.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittämättä, käyttäjää kehotetaan ensimmäisellä suorituskerralla määrittämään, otetaanko SmartScreen-suodatin käyttöön.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter_IE9">Tämä käytäntöasetus estää käyttäjää tekemästä hallintatoimia SmartScreen-suodattimelle, joka varoittaa käyttäjää, jos vierailtavan sivuston tiedetään yrittäneen kerätä henkilökohtaisia tietoja tietokalastelun avulla tai sen tiedetään sisältävän haittaohjelmia.
 
-Jos otat tämän käytäntöasetuksen käyttöön, käyttäjältä ei kysytä, otetaanko SmartScreen-suodatin käyttöön. Kaikki verkkosivustojen osoitteet, jotka eivät ole suodattimen sallittujen luettelossa, lähetetään automaattisesti Microsoftille kysymättä käyttäjältä.
+Jos otat tämän käytäntöasetuksen käyttöön, käyttäjältä ei kysytä, otetaanko SmartScreen-suodatin käyttöön. Kaikki verkkosivustojen osoitteet, jotka eivät ole suodattimen sallituissa, lähetetään automaattisesti Microsoftille kysymättä käyttäjältä.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittämättä, käyttäjää kehotetaan ensimmäisellä suorituskerralla määrittämään, otetaanko SmartScreen-suodatin käyttöön.</string>
       <string id="IE_Explain_DisableSecuritySettingsCheck">Tämä käytäntöasetus kytkee poistaa käytöstä turvallisuusasetusten tarkastus -toiminnon, joka määrittää, onko Internet Explorerin tietoturva uhattuna tarkastamalla Internet Explorerin turvallisuusasetukset.
@@ -806,9 +806,9 @@ Varoitus: tämän käytännön käyttöön ottaminen ei poista Netscape-käyttä
 Jos otat tämän käytäntöasetuksen käyttöön, Päivän vihje -komento poistetaan Ohje-valikosta.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittämättä, käyttäjät voivat ottaa selaimen alaosaan tulevan Päivän vihjeen käyttöön tai poistaa sen käytöstä.</string>
-      <string id="IE_ExplainIdentities">Estää käyttäjiä määrittämästä käyttäjätietoja käyttäjätietojen hallinnalla.
+      <string id="IE_ExplainIdentities">Estää käyttäjiä määrittämästä käyttäjätietoja Identity Managerilla.
 
-Käyttäjätietojen hallinnalla käyttäjät voivat luoda useita tilejä, kuten sähköpostitilejä, samaan tietokoneeseen. Kullakin käyttäjällä on omat käyttäjätiedot, oma salasana ja omat ohjelma-asetuksensa.
+Identity Managerilla käyttäjät voivat luoda useita tilejä, kuten sähköpostitilejä, samaan tietokoneeseen. Kullakin käyttäjällä on omat käyttäjätiedot, oma salasana ja omat ohjelma-asetuksensa.
 
 Jos tämä käytäntö otetaan käyttöön, käyttäjät eivät voi luoda uusia käyttäjätietoja, hallita nykyisiä käyttäjätietoja tai vaihtaa käyttäjätietoja. Vaihda käyttäjätiedot -komento poistetaan Osoitteiston Tiedosto-valikosta.
 
@@ -1348,7 +1348,7 @@ Jos otat tämän käytäntöasetuksen käyttöön, käyttäjä ei voi lisätä v
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittämättä, käyttäjä voi lisätä verkkosivustoja poikkeusluetteloon ja poistaa niitä siitä.
 
-Huomautus: Ottamalla käyttöön käytäntöasetuksen "Sallittujen ponnahdusikkunoiden luettelo" voit määrittää luettelon sivustoista, joiden ponnahdusikkunoiden avaaminen sallitaan riippumatta Internet Explorerin ponnahdusikkunoiden estoasetuksista.</string>
+Huomautus: Ottamalla käyttöön käytäntöasetuksen "Sallitut ponnahdusikkunat" voit määrittää luettelon sivustoista, joiden ponnahdusikkunoiden avaaminen sallitaan riippumatta Internet Explorerin ponnahdusikkunoiden estoasetuksista.</string>
       <string id="IE_ExplainRestrictPopupManagement">Tämän käytäntöasetuksen avulla voidaan ohjata Internet Explorerin ponnahdusikkunoiden hallintatoimintoja.
 
 Jos tämä käytäntö otetaan käyttöön, ponnahdusikkunoiden hallintaan liittyvät Ohjauspaneelin vaihtoehdot näkyvät himmennettyinä, eikä mitään muita ponnahdusikkunoiden hallinta-asetuksia, ilmoituksia tai valintaikkunoita tule näkyviin lainkaan. Ponnahdusikkunat toimivat edelleen kuten XP SP1:ssä, vaikka käytöstä poistamisesta ilmoittava näyttö tuleekin edelleen näkyviin.
@@ -3019,7 +3019,7 @@ Tämä ominaisuus koskee vain Internet Explorer 8:aa ja sen aiempia versioita.</
       <string id="Persistence_FileLimits4">Kielletyt sivustot -vyöhykkeen tiedostokokorajoitukset</string>
       <string id="PhishingOff">Poissa käytöstä</string>
       <string id="PhishingOn">Käytössä</string>
-      <string id="PopupBlocker_AllowList">Sallittujen ponnahdusikkunoiden luettelo</string>
+      <string id="PopupBlocker_AllowList">Sallitut ponnahdusikkunat</string>
       <string id="Printing">Tulostaminen</string>
       <string id="Printing_Explain">Tällä käytäntöasetuksella määritetään, tulostaako Internet Explorer verkkosivujen taustavärit ja -kuvat. Taustavärien ja kuvien tulostaminen saattaa hidastaa sivun tulostamista ja heikentää tulosteen laatua, riippuen tulostimesi ominaisuuksista.
 
@@ -3579,37 +3579,42 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, In
 
 Huomautus: tätä käytäntöä ei enää tueta Windows 10:n versiosta 1607 alkaen.</string>
       <string id="Protocols_None">Älä käytä suojausprotokollia</string>
-      <string id="Protocols_SSL2">Käytä vain SSL 2.0:aa</string>
+      <string id="Protocols_SSL2">[Vanhentunut] Käytä vain SSL 2.0:aa</string>
       <string id="Protocols_SSL3">Käytä vain SSL 3.0:aa</string>
-      <string id="Protocols_SSL2_SSL3">Käytä SSL 2.0:aa ja SSL 3.0:aa</string>
+      <string id="Protocols_SSL2_SSL3">[Vanhentunut] Käytä SSL 2.0:aa ja SSL 3.0:aa</string>
       <string id="Protocols_TLS10">Käytä vain TLS 1.0:aa</string>
-      <string id="Protocols_SSL2_TLS10">Käytä SSL 2.0:aa ja TLS 1.0:aa</string>
+      <string id="Protocols_SSL2_TLS10">[Vanhentunut] Käytä SSL 2.0:aa ja TSL 1.0:aa</string>
       <string id="Protocols_SSL3_TLS10">Käytä SSL 3.0:aa ja TLS 1.0:aa</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">Käytä SSL 2.0:aa, SSL 3.0:aa ja TLS 1.0:aa</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[Vanhentunut] Käytä SSL 2.0:aa, SSL 3.0:aa ja TLS 1.0:aa</string>
       <string id="Protocols_TLS11">Käytä vain TLS 1.1:tä</string>
-      <string id="Protocols_SSL2_TLS11">Käytä SSL 2.0:aa ja TLS 1.1:tä</string>
+      <string id="Protocols_SSL2_TLS11">[Vanhentunut] Käytä SSL 2.0:aa ja TSL 1.1:tä</string>
       <string id="Protocols_SSL3_TLS11">Käytä SSL 3.0:aa ja TLS 1.1:tä</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">Käytä SSL 2.0:aa, SSL 3.0:aa ja TLS 1.1:tä</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[Vanhentunut] Käytä SSL 2.0:aa, SSL 3.0:aa ja TLS 1.1:tä</string>
       <string id="Protocols_TLS10_TLS11">Käytä TLS 1.0:aa ja TLS 1.1:tä</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">Käytä SSL 2.0:aa, TLS 1.0:aa ja TLS 1.1:tä</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[Vanhentunut] Käytä SSL 2.0:aa, TLS 1.0:aa ja TLS 1.1:tä</string>
       <string id="Protocols_SSL3_TLS10_TLS11">Käytä SSL 3.0:aa, TLS 1.0:aa ja TLS 1.1:tä</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">Käytä SSL 2.0:aa, SSL 3.0:aa, TLS 1.0:aa ja TLS 1.1:tä</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[Vanhentunut] Käytä SSL 2.0:aa, SSL 3.0:aa, TLS 1.0:aa ja TLS 1.1:tä</string>
       <string id="Protocols_TLS12">Käytä vain TLS 1.2:ta</string>
-      <string id="Protocols_SSL2_TLS12">Käytä SSL 2.0:aa ja TLS 1.2:ta</string>
+      <string id="Protocols_SSL2_TLS12">[Vanhentunut] Käytä SSL 2.0:aa ja TSL 1.2:ta</string>
       <string id="Protocols_SSL3_TLS12">Käytä SSL 3.0:aa ja TLS 1.2:ta</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">Käytä SSL 2.0:aa, SSL 3.0:aa ja TLS 1.2:ta</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[Vanhentunut] Käytä SSL 2.0:aa, SSL 3.0:aa ja TLS 1.2:ta</string>
       <string id="Protocols_TLS10_TLS12">Käytä TLS 1.0:aa ja TLS 1.2:ta</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">Käytä SSL 2.0:aa, TLS 1.0:aa ja TLS 1.2:ta</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[Vanhentunut] Käytä SSL 2.0:aa, TLS 1.0:aa ja TLS 1.2:ta</string>
       <string id="Protocols_SSL3_TLS10_TLS12">Käytä SSL 3.0:aa, TLS 1.0:aa ja TLS 1.2:ta</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">Käytä SSL 2.0:aa, SSL 3.0:aa, TLS 1.0:aa ja TLS 1.2:ta</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[Vanhentunut] Käytä SSL 2.0:aa, SSL 3.0:aa, TLS 1.0:aa ja TLS 1.2:ta</string>
       <string id="Protocols_TLS11_TLS12">Käytä TLS 1.1:tä ja TLS 1.2:ta</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">Käytä SSL 2.0:aa, TLS 1.1:tä ja TLS 1.2:ta</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[Vanhentunut] Käytä SSL 2.0:aa, TLS 1.1:tä ja TLS 1.2:ta</string>
       <string id="Protocols_SSL3_TLS11_TLS12">Käytä SSL 3.0:aa, TLS 1.1:tä ja TLS 1.2:ta</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">Käytä SSL 2.0:aa, SSL 3.0:aa, TLS 1.1:tä ja TLS 1.2:ta</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[Vanhentunut] Käytä SSL 2.0:aa, SSL 3.0:aa, TLS 1.1:tä ja TLS 1.2:ta</string>
       <string id="Protocols_TLS10_TLS11_TLS12">Käytä TLS 1.0:aa, TLS 1.1:tä ja TLS 1.2:ta</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">Käytä SSL 2.0:aa, TLS 1.0:aa, TLS 1.1:tä ja TLS 1.2:ta</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[Vanhentunut] Käytä SSL 2.0:aa, TLS 1.0:aa, TLS 1.1:tä ja TLS 1.2:ta</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">Käytä SSL 3.0:aa, TLS 1.0:aa, TLS 1.1:tä ja TLS 1.2:ta</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">Käytä SSL 2.0:aa, SSL 3.0:aa, TLS 1.0:aa, TLS 1.1:tä ja TLS 1.2:ta</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[Vanhentunut] Käytä SSL 2.0:aa, SSL 3.0:aa, TLS 1.0:aa, TLS 1.1:ta ja TLS 1.2:ta</string>
+      <string id="Protocols_TLS13">Käytä vain TLS 1.3:a</string>
+      <string id="Protocols_TLS12_TLS13">Käytä TLS 1.2:ta ja TLS 1.3:a</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">Käytä TLS 1.1:tä, TLS 1.2:ta ja TLS 1.3:a</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">Käytä TLS 1.0:aa, TLS 1.1:tä, TLS 1.2:ta ja TLS 1.3:a</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">Käytä SSL 3.0:aa, TLS 1.0:aa, TLS 1.1:tä, TLS 1.2:ta ja TLS 1.3:a</string>
       <string id="LockToolbars">Lukitse kaikki työkalurivit</string>
       <string id="MoveStopRefresh">Lukitse Pysäytä- ja Päivitä-painikkeiden sijainti</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3908,7 +3913,7 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, k�
 Jos otat tämän asetuksen käyttöön, käyttäjät pystyvät näkemään Työkalut-valikon Yritystila-vaihtoehdon ja käyttämään sitä. Jos otat tämän asetuksen käyttöön mutta et määritä raporttisijaintia, käyttäjät pystyvät edelleen käyttämään yritystilaa, mutta sinä et saa raportteja.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittämättä, valikkovaihtoehto ei tule näkyviin, eivätkä käyttäjät pysty käyttämään sivustoja yritystilassa.</string>
-      <string id="RestrictInternetExplorer">Lähetä kaikki Microsoft Edgen yritystilan sivustoluetteloon kuulumattomat sivustot.</string>
+      <string id="RestrictInternetExplorer">Lähetä kaikki yritystilan sivustoluetteloon kuulumattomat sivustot Microsoft Edgeen</string>
       <string id="IE_ExplainRestrictInternetExplorer">Tämä asetus antaa sinun määrittää, avataanko kaikki Microsoft Edgen yritystilan sivustoluetteloon kuulumattomat sivustot. Jos käytät tätä asetusta, sinun on otettava käyttöön myös Hallintamallit\Windowsin osat\Internet Explorer\Käytä IE:n yritystilan sivustoluetteloa -käytäntöasetus ja lisättävä vähintään yksi sivusto yritystilan sivustoluetteloon.
 
 Tämän asetuksen ottaminen käyttöön avaa automaattisesti kaikki Microsoft Edgen yritystilan sivustoluetteloon kuulumattomat sivustot.
@@ -3922,6 +3927,120 @@ Huomautus: Jos olet ottanut käyttöön myös Hallintamallit\Windowsin osat\Micr
 Jos otat tämän asetuksen käyttöön, työntekijöille näytetään Internet Explorer 11:n lisäsivu, jossa ilmoitetaan, että sivusto on avattu käyttämällä Microsoft Edgen yritystilaa.
 
 Jos poistat tämän asetuksen käytöstä tai et määritä sitä, sovellus toimii oletusasetusten mukaan eikä lisäsivua näytetä.</string>
+      <string id="NeedEdgeBrowser">Määritä, mitä Microsoft Edge -kanavaa käytetään uudelleenohjattujen sivustojen avaamiseen</string>
+      <string id="IE_ExplainNeedEdgeBrowser">Voit määrittää uudelleenohjattujen sivustojen avaamisessa käytettävät Microsoft Edge -versiot. Versioita voi olla enintään kolme, ja ne voi asettaa ensisijaisuusjärjestykseen. Käytä tätä käytäntöä, jos käyttöympäristöösi on määritetty sivustojen uudelleenohjaus Internet Explorer 11:stä Microsoft Edgeen. Jos jokin valituista versiosta ei ole laitteeseen asennettuna, se ohitetaan.
+
+Jos Windows Updaten kautta saatavilla oleva seuraava Microsoft Edge* -versio sekä stabiili Microsoft Edge -kanava ovat asennettuina, toimintaperiaate on seuraava:
+- Jos poistat tämän käytännön käytöstä tai et määritä sitä, stabiili Microsoft Edge -kanava on käytössä. Tämä on oletusasetus.
+- Jos otat tämän käytännön käyttöön, voit määrittää uudelleenohjattujen sivustojen avaamisessa käytettäviksi versioiksi enintään kolme seuraavista vaihtoehdoista:
+    1 = stabiili Microsoft Edge
+    2 = Microsoft Edge Beta -versio 77 tai uudempi
+    3 = Microsoft Edge Dev -versio 77 tai uudempi
+    4 = Microsoft Edge Canary -versio 77 tai uudempi.
+
+Jos Windows Updaten kautta saatavilla olevaa seuraavaa Microsoft Edge* -versiota tai stabiilia Microsoft Edge -kanavaa ei ole asennettuna, toimintaperiaate on seuraava:
+- Jos poistat tämän käytännön käytöstä tai et määritä sitä, Microsoft Edge -versio 45 tai sitä aiempi versio on automaattisesti käytössä. Tämä on oletusasetus.
+- Jos otat tämän käytännön käyttöön, voit määrittää uudelleenohjattujen sivustojen avaamisessa käytettäviksi versioiksi enintään kolme seuraavista vaihtoehdoista:
+    0 = Microsoft Edge -versio 45 tai aiempi
+    1 = stabiili Microsoft Edge
+    2 = Microsoft Edge Beta -versio 77 tai uudempi
+    3 = Microsoft Edge Dev -versio 77 tai uudempi
+    4 = Microsoft Edge Canary -versio 77 tai uudempi.
+
+*Lisätietoja Windows Updaten kautta saatavilla olevasta seuraavasta Microsoft Edge -versiosta sekä siitä, kuinka se voidaan poistaa käytöstä, on osoitteessa https://go.microsoft.com/fwlink/?linkid=2102115. Tämä päivitys koskee vain Windows 10 -versiota 1709 ja sitä uudempia versioita.</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta -versio 77 tai uudempi</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev -versio 77 tai uudempi</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary -versio 77 tai uudempi</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge -versio 45 tai aiempi</string>
+      <string id="KeepIntranetSitesInInternetExplorer">Pidä kaikki intranet-sivustot Internet Explorerissa</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">Estää intranet-sivustojen avaamisen kaikilla muilla selaimilla kuin Internet Explorerilla. Huomaa kuitenkin, että jos Lähetä kaikki Microsoft Edgen yritystilan sivustoluetteloon kuulumattomat sivustot (RestrictIE) -käytäntöä ei oteta käyttöön, tällä käytännöllä ei ole vaikutusta.
+
+Jos otat tämän käytännön käyttöön, kaikki intranet-sivustot avataan Internet Explorer 11:ssä. Ainoan poikkeuksen tästä muodostavat yritystilan sivustoluettelossa olevat sivustot.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, kaikki intranet-sivustot avataan automaattisesti Microsoft Edgessä.
+
+On erittäin suositeltavaa pitää tämä käytäntö synkronoituna Lähetä kaikki intranet-sivustot Internet Exploreriin (SendIntranetToInternetExplorer) -käytännön kanssa. Tämän lisäksi tämä käytäntö kannattaa ottaa käyttöön vain silloin, jos intranet-sivustoillasi on tunnettuja yhteensopivuusongelmia Microsoft Edgen kanssa.
+
+Aiheeseen liittyvät käytännöt:
+- Lähetä kaikki intranet-sivustot Internet Exploreriin (SendIntranetToInternetExplorer)
+- Lähetä kaikki Microsoft Edgen yritystilan sivustoluetteloon kuulumattomat sivustot (RestrictIE)
+
+Lisätietoja tämän käytännön käytöstä yhdessä muiden siihen liittyvien käytäntöjen kanssa organisaatiollesi optimaalisen kokoonpanon luontiin on artikkelissa https://go.microsoft.com/fwlink/?linkid=2094210.</string>
+      <string id="AllowSaveTargetAsInIEMode">Salli Tallenna kohde nimellä Internet Explorer -tilassa</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">Tämän käytäntö asetuksen avulla järjestelmänvalvojat voivat ottaa Tallenna kohde-pikavalikon käyttöön Internet Explorer-tilassa.
+
+Jos otat tämän käytännön käyttöön, Tallenna kohde-toiminto näkyy Internet Explorer-tilan pikavalikosta ja työskentele samalta kuin Internet Explorer.
+
+Jos poistat tämän käytäntö asetuksen käytöstä tai et määritä sitä, Tallenna kohde nimellä-toiminto ei näy Internet Explorer-tilan pikavalikosta.
+
+Lisä tietoja on osoitteessa https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="EnableGlobalWindowListInIEMode">Yleisen ikkunaluettelon ottaminen käyttöön Internet Explorer -tilassa</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">Tämä asetus sallii Internet Explorer tilan käyttää yleistä ikkunaluetteloa, joka mahdollistaa tilan jakamisen muiden sovellusten kanssa.
+Asetus tulee voimaan vain, kun Internet Explorer 11 on poistettu käytöstä erillisenä selaimena.
+
+Jos otat tämän käytännön käyttöön, Internet Explorer tilassa käytetään yleistä ikkunaluetteloa.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Internet Explorer tilassa säilyy edelleen erillinen ikkunaluettelo.
+
+Lisätietoja Internet Explorer tilasta on https://go.microsoft.com/fwlink/?linkid=2102921
+Lisätietoja Internet Explorer 11:n poistamisesta käytöstä erillisenä selaimena on https://go.microsoft.com/fwlink/?linkid=2168340</string>
+      <string id="EnableExtendedIEModeHotkeys">Ota laajennetut pikanäppäimet käyttöön Internet Explorer-tilassa</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">Tämän käytäntöasetuksen avulla järjestelmänvalvojat voivat ottaa käyttöön laajennetun Microsoft Edgen Internet Explorer -tilan pikavalinnat, kuten Ctrl+S, joka on Tallenna nimellä -toiminto.
+
+Jos tämä käytäntöasetus otetaan käyttöön, laajennetut pikanäppäintoiminnot otetaan käyttöön Internet Explorer -tilassa, ja se toimii samalla tavalla kuin Internet Explorer.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, laajennetut pikanäppäimet eivät toimi Internet Explorer -tilassa.
+
+Lisätietoja on osoitteessa https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="AllowLegacyURLFields">Salli Internet-pikakuvaketiedostojen vanhat toiminnot</string>
+      <string id="IE_ExplainAllowLegacyURLFields">Tämän käytäntöasetuksen avulla voit käyttää Internet-pikakuvaketiedostoissa joitakin käytöstä poistettuja toimintoja, kuten WorkingDirectory-kenttää tai laajennusprotokollan käsittelyä.
+
+Jos otat tämän käytännön käyttöön, Internet-pikakuvaketiedostojen käytöstä poistetut toiminnot otetaan uudelleen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, jotkin Internet-pikakuvaketiedostojen toiminnot, kuten WorkingDirectory-kenttä tai laajennuksen protokollan käsittely, poistetaan käytöstä.</string>
+      <string id="ResetZoomForDialogInIEMode">Palauta html-valintaikkunoiden oletuszoomaus Internet Explorer -tilassa</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">Tämän käytäntöasetuksen avulla järjestelmänvalvojat voivat palauttaa HTML-valintaikkunoiden zoomausasetukset oletusasetuksiin Internet Explorer tilassa.
+
+Jos otat tämän käytännön käyttöön, Internet Explorer-tilassa olevan HTML-valintaikkunan zoomausta ei välitetä sen pääsivulta.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, HTML-valintaikkunan zoomaus Internet Explorer tilassa määritetään pääsivun zoomauksen perusteella.
+
+Lisätietoja on https://go.microsoft.com/fwlink/?linkid=2220107</string>
+      <string id="DisableInternetExplorerApp">Poista Internet Explorer 11 käytöstä erillisenä selaimena</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">Tällä käytännöllä voit rajoittaa Internet Explorerin käynnistämistä erillisenä selaimena.
+
+Jos tämä käytäntö otetaan käyttöön, se:
+- Estää Internet Explorer 11:n käynnistämisen erillisenä selaimena.
+- Rajoittaa Internet Explorerin käytön Microsoft Edgen alkuperäiseen Internet Explorer -tilaan.
+- Ohjaa yritykset käynnistää Internet Explorer 11 stabiilin Microsoft Edge -kanavan selaimeen.
+- Ohittaa kaikki muut käytännöt, jotka ohjautuvat uudelleen Internet Explorer 11:een.
+
+Vaikka tämä käytäntö on käytössä, Internet Explorer 11:n käynnistäminen COM-automaation avulla on silti sallittua. Poistaaksesi Internet Explorer 11:n COM-automaatiokäynnistykset käytä "Poista Internet Explorer 11 COM-automaation käytöstä" -ryhmäkäytäntöä.
+
+Jos poistat tämän käytännön käytöstä tai et määritä sitä, kaikki sivustot avataan nykyisiä aktiivisia selainasetuksia käyttämällä. Huomautus: stabiili Microsoft Edge -kanava on asennettava, jotta tämä käytäntö voi astua voimaan.</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">Poista Internet Explorer 11:n käynnistäminen COM-automaation kautta käytöstä</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">Tämän käytännön avulla voit rajoittaa com-automaatiota käyttävien Internet Explorer käynnistämistä.
+
+Jos otat tämän käytännön käyttöön, se estää Internet Explorer 11:n käynnistämisen COM-automaation avulla.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Internet Explorer 11 COM-automaation käynnistystä sallitaan.</string>
+      <string id="DisableIEAppDeprecationNotification">Piilota Internet Explorer 11:n käytöstäpoistoilmoitus</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">Tämän käytäntöasetuksen avulla voit määrittää, näytetäänkö ilmoituspalkin muistutus siitä, että Internet Explorer poistetaan käytöstä. Oletusarvon mukaan ilmoituspalkki näytetään Internet Explorer 11:ssä.
+
+Jos otat tämän käytäntöasetuksen käyttöön, ilmoituspalkkia ei näytetä Internet Explorer 11:ssä.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, ilmoituspalkki näytetään Internet Explorer 11:ssä.</string>
+      <string id="NotifyDisableIEOptions_Never">Ei koskaan</string>
+      <string id="NotifyDisableIEOptions_Always">Aina</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">Yksi kerta käyttäjäkohtaisesti</string>
+      <string id="JScriptReplacement">Korvaa JScript lataamalla JScript9Legacy JScriptin tilalle.</string>
+      <string id="IE_ExplainJScriptReplacement">Tämä käytäntöasetus määrittää, ladataanko JScript vai JScript9Legacy.
+      
+Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, JScript9Legacy ladataan tilanteissa, joissa JScript luodaan.
+
+Jos poistat tämän käytännön käytöstä, JScript käytetään.</string>
       <string id="VerMgmtDisable">Poista käytöstä vanhentuneiden Internet Explorerin ActiveX-komponenttien estäminen</string>
       <string id="IE_ExplainVerMgmtDisable">Tämä käytäntöasetus määrittää, estääkö Internet Explorer tietyt vanhentuneet ActiveX-komponentit. ActiveX-komponentteja ei koskaan estetä Intranet-vyöhykkeellä.
 
@@ -4123,10 +4242,16 @@ Jos otat tämän asetuksen käyttöön, IE lakkaa lataamasta päivitettyjä vers
 Jos poistat tämän asetuksen käytöstä tai et määritä sitä, IE lataa päivitetyt VersionList.XML-versiot jatkossakin.
  
 Lisätietoja on Internet Explorerin TechNet-kirjaston Vanhentuneiden ActiveX-komponenttien estämistä käsittelevässä artikkelissa.</string>
+      <string id="DisableHTMLApplication">Poista HTML-sovellus käytöstä</string>
+      <string id="DisableHTMLApplication_Explain">Tämä käytäntöasetus määrittää, onko HTML-sovelluksen (HTA-tiedoston) suorittaminen estetty vai sallittu.
+
+Jos otat tämän käytäntöasetuksen käyttöön, HTML-sovelluksen (HTA-tiedoston) suorittaminen estetään.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, HTML-sovelluksen (HTA-tiedoston) suorittaminen sallitaan.</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
-        <listBox refId="DomainList">Toimialueen sallittujen luettelo</listBox>
+        <listBox refId="DomainList">Sallitut toimialueet</listBox>
       </presentation>
       <presentation id="AddonManagement_AddOnList_1">
         <listBox refId="AddOnList">Lisäosaluettelo</listBox>
@@ -4792,6 +4917,14 @@ Lisätietoja on Internet Explorerin TechNet-kirjaston Vanhentuneiden ActiveX-kom
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">Toimialueluettelo</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">Ensimmäinen vaihtoehto</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">Toinen vaihtoehto</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">Kolmas vaihtoehto</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">Ilmoita, että Internet Explorer 11 -selain on poistettu käytöstä</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

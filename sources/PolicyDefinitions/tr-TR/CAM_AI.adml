@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>CAM (Capability Access Manager) Yapay Zeka İlkeleri</displayName>
+  <description>Yapay zeka özellikleri ve bunların onay yönetimiyle ilgili ilkeler.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">Yapay Zeka Onayı</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">Denetimdeki Kullanıcı</string>
+      <string id="ForceEnable">Zorla Etkinleştir</string>
+      <string id="ForceDisable">Zorla Devre Dışı Bırak</string>
+      <string id="AgentConsentDuration_Name">Aracı Onay Süresi</string>
+      <string id="AgentConsentDuration_Explain">Aracı özellikleri için "İzin Ver" onay yanıtının kullanıcıya yeniden sorulmadan önce ne kadar süreyle geçerli kalacağını saat cinsinden belirtir.
+
+Bu ilke etkinleştirilirse değer 1 (1 saat) ile 8760 (1 yıl) arasında olmalıdır. Yapılandırılan değer, aracı özellikleri için tüm "İzin Ver" onay yanıtlarının varsayılan geçerlilik süresi olarak kullanılır.
+
+Bu ilke yapılandırılmazsa veya değer izin verilen aralığın dışındaysa varsayılan değer 720 saattir (30 gün).</string>
+      <string id="ConfigureAgentConnectors_Name">Aracı Bağlayıcılarını Yapılandırın</string>
+      <string id="ConfigureAgentConnectors_Explain">Aracı Bağlayıcılarını Etkinleştir veya Devre Dışı Bırak.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Aracı Bağlayıcısı Erişim İlkesi</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Bu ilke ayarı, MCP ana bilgisayarları ile MCP sunucuları arasında izin verilen bağlantıların bir listesini tanımlamanıza olanak tanır.
+
+Bu listenin biçimi, https://go.microsoft.com/fwlink/?LinkId=2363700 adresindeki şemaya uyan bir JSON dizesi olacaktır.
+
+Bu ilke yapılandırılmazsa MCP ana bilgisayarı kullanıcı onayıyla herhangi bir MCP sunucusuna bağlanabilir.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Aracı Bağlayıcılarını Yapılandırın: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Onay süresi (saat): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>İzin verilen MCP Ana Bilgisayar/Sunucu bağlantılarını yapılandırın:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

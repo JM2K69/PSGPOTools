@@ -27,19 +27,17 @@
       <string id="IPHTTPS_ClientState">IP-HTTPS-Status festlegen</string>
       <string id="IPHTTPS_ClientUrl">IP-HTTPS-URL</string>
 
-      <string id="ISATAP_State_Help">Mit dieser Richtlinieneinstellung können Sie ISATAP (Intra-Site Automatic Tunnel Addressing Protocol) konfigurieren. Hierbei handelt es sich um eine automatische Adresse-zu-Router-, Host-zu-Host-, Host-zu-Router- und Router-zu-Host-Tunneling-Technologie, die IPv6-Unicastkonnektivität zwischen IPv6-Hosts innerhalb eines IPv4-Intranets bereitstellt.
+      <string id="ISATAP_State_Help">Diese Richtlinien Einstellung ermöglicht Ihnen die Konfiguration des automatischen Standort internen Tunnel Adressierungs Protokolls (ISATAP), eine Adresse-zu-Router-oder Host-zu-Host-, Host-zu-Host-Technologie für automatische Tunnel, die zum bereit stellen der Unicast-IPv6-Konnektivität zwischen IPv6-Hosts in einem IPv4-Intranet verwendet wird.
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird die lokale Hosteinstellung verwendet.
+Wenn Sie diese Richtlinien Einstellung deaktivieren oder nicht konfigurieren, wird die lokale Host Einstellung verwendet.
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie ISATAP mit einer der folgenden Einstellungen konfigurieren:
+Wenn Sie diese Richtlinien Einstellung aktivieren, können Sie ISATAP mit einer der folgenden Einstellungen konfigurieren:
 
-Standard: Wenn der ISATAP-Routername erfolgreich aufgelöst wird, wird ISATAP für den Host mit einer verbindungslokalen Adresse sowie mit einer Adresse für jedes Präfix konfiguriert, das vom ISATAP-Router durch die automatische Konfiguration zustandsloser Adressen empfangen wird. Wenn der ISATAP-Routername nicht erfolgreich aufgelöst wird, ist auf dem Host keine ISATAP-Konnektivität unter Verwendung der entsprechenden IPv4-Adresse verfügbar.
+Richtlinien Standard Status: auf dem Host sind keine ISATAP-Schnitt Stellen vorhanden.
 
-Aktiviert: Wenn der ISATAP-Routername erfolgreich aufgelöst wird, wird ISATAP für den Host mit einer verbindungslokalen Adresse sowie mit einer Adresse für jedes Präfix konfiguriert, das vom ISATAP-Router durch die automatische Konfiguration zustandsloser Adressen empfangen wird. Wenn der ISATAP-Name nicht erfolgreich aufgelöst wird, wird für den Host eine ISATAP-Schnittstelle mit einer verbindungslokalen Adresse konfiguriert.
+Richtlinien aktivierter Zustand: Wenn der ISATAP-Name erfolgreich aufgelöst wird, hat der Host für jedes Präfix, das von dem ISATAP-Router und der automatischen Konfiguration der Zustands losen Adresse empfangen wurde, eine Adresse konfiguriert. Wenn der ISATAP-Name nicht erfolgreich aufgelöst wurde, besitzt der Host eine ISATAP-Schnitt Stelle, die mit einer Verbindungs lokalen Adresse konfiguriert ist.
 
-Deaktiviert: Auf dem Host sind keine ISATAP-Schnittstellen vorhanden.
-
-
+Deaktiviert: auf dem Host sind keine ISATAP-Schnitt Stellen vorhanden.
 
 </string>
 
@@ -54,19 +52,17 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wir
 </string>
 
 
-      <string id="6to4_State_Help">Mit dieser Richtlinieneinstellung können Sie IP6-zu-IP4 konfigurieren. Hierbei handelt es sich um eine Adresszuweisungs- und automatische Router-zu-Router-Tunneling-Technologie, die IPv6-Unicastkonnektivität zwischen IPv6-Sites und -Hosts innerhalb einer IPv4-Internetumgebung bereitstellt. IP6-zu-IP4 verwendet das globale Adresspräfix "2002:WWXX:YYZZ::/48", wobei die Buchstaben einer hexadezimalen Darstellung der globalen IPv4-Adresse (w.x.y.z) entsprechen, die einer Site zugewiesen wurde.
+      <string id="6to4_State_Help">Mit dieser Richtlinieneinstellung können Sie IP6-zu-IP4 konfigurieren. Hierbei handelt es sich um eine Adresszuweisungs- und automatische Router-zu-Router-Tunneling-Technologie, mit der IPv6-Unicastkonnektivität zwischen IPv6-Sites und -Hosts innerhalb einer IPv4-Internetumgebung bereitgestellt wird. Bei IP6-zu-IP4 wird das globale Adresspräfix "2002:WWXX:YYZZ::/48" verwendet, wobei die Buchstaben einer hexadezimalen Darstellung der globalen IPv4-Adresse (w.x.y.z) entsprechen, die einer Site zugewiesen wurde.
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird die lokale Hosteinstellung verwendet.
 
 Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie IP6-zu-IP4 mit einer der folgenden Einstellungen konfigurieren:
 
-Standard: IP6-zu-IP4 wird aktiviert, wenn der Host lediglich über verbindungslokale IPv6-Konnektivität und eine öffentliche IPv4-Adresse verfügt. Wenn weder eine globale IPv6-Adresse noch eine globale IPv4-Adresse vorhanden ist, weist der Host keine IP6-zu-IP4-Schnittstelle auf. Wenn keine globale IPv6-Adresse, aber eine globale IPv4-Adresse vorhanden ist, weist der Host eine IP6-zu-IP4-Schnittstelle auf.
+Richtlinienstandard: IP6-zu-IP4 ist deaktiviert, und es ist keine IP6-zu-IP4-Konnektivität verfügbar.
 
-Aktiviert: Wenn eine globale IPv4-Adresse vorhanden ist, weist der Host eine IP6-zu-IP4-Schnittstelle auf. Wenn keine globale IPv4-Adresse vorhanden ist, weist der Host keine IP6-zu-IP4-Schnittstelle auf.
+Bei aktivierter Richtlinie: Wenn eine globale IPv4-Adresse vorhanden ist, weist der Host eine IP6-zu-IP4-Schnittstelle auf. Wenn keine globale IPv4-Adresse vorhanden ist, weist der Host keine IP6-zu-IP4-Schnittstelle auf.
 
-Deaktiviert: IP6-zu-IP4 ist deaktiviert, und es ist keine IP6-zu-IP4-Konnektivität verfügbar.
-
-
+Bei deaktivierter Richtlinie: IP6-zu-IP4 ist deaktiviert, und es ist keine IP6-zu-IP4-Konnektivität verfügbar.
 
 </string>
 
@@ -188,6 +184,45 @@ Wenn Sie diese Richtlinieneinstellung aktivieren oder nicht konfigurieren, werde
 Wenn Sie diese Richtlinieneinstellung deaktivieren, werden Beschränkungen für die automatische IP-Konfiguration ohne Status deaktiviert, und das System begrenzt die Anzahl der automatisch konfigurierten Adressen und Routen nicht.
 
 
+
+</string>
+
+      <string id="IPxlatCfg_PermitNonCellularCLAT">CLAT-Zulassung festlegen</string>
+      <string id="IPxlatCfg_PermitNonCellularCLAT_Help">Mit dieser Richtlinieneinstellung können Sie den kundenseitigen Übersetzer für 464XLAT (CLAT) global für Nicht-Mobilfunkschnittstellen zulassen oder deaktivieren.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, ist CLAT global zulässig und kann für Netzwerkschnittstellen aktiviert werden.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren, ist CLAT global nicht zulässig und kann nicht aktiviert werden.
+
+Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, wird die lokale Hosteinstellung verwendet.
+
+Es sind keine Neustarts oder Dienstneustarts erforderlich, damit diese Richtlinieneinstellung wirksam wird.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromRA">Festlegen von CLAT: Abrufen von Präfixinformationen von RA</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromRA_Help">Mit dieser Richtlinieneinstellung können Routerankündigungen (RA) als Präfixinformationsquelle für Nicht-Mobilfunk-CLAT verwendet werden.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, darf CLAT NAT64-Präfixe über RA ermitteln. Sind beide NAT64-Präfixermittlungsmethoden aktiviert, gilt die Rangfolge (RA, DNS).
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren, darf CLAT NAT64-Präfixe nicht über RA ermitteln.
+
+Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, wird die lokale Hosteinstellung verwendet.
+
+Ein Neustart ist erforderlich, damit diese Richtlinieneinstellung wirksam wird.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS">Festlegen von CLAT: Abrufen von Präfixinformationen aus DNS</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS_Help">Mit dieser Richtlinieneinstellung kann DNS als Präfixinformationsquelle für Nicht-Mobilfunk-CLAT verwendet werden.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, darf CLAT NAT64-Präfixe über DNS ermitteln. Sind beide NAT64-Präfixermittlungsmethoden aktiviert, gilt die Rangfolge (RA, DNS).
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren, darf CLAT NAT64-Präfixe nicht über DNS ermitteln.
+
+Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, wird die lokale Hosteinstellung verwendet.
+
+Ein Neustart ist erforderlich, damit diese Richtlinieneinstellung wirksam wird.
 
 </string>
 

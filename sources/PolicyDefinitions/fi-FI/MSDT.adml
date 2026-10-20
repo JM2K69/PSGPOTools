@@ -60,33 +60,34 @@ Tämä käytäntöasetus astuu voimaan välittömästi: se ei edellytä palvelui
 
 </string>
 <string id="TroubleshootingAllowRecommendations">Vianmääritys: Salli käyttäjien käyttää suositeltua vianmääritystä tunnettujen ongelmien ratkaisemiseen</string>
-<string id="TroubleshootingAllowRecommendationsExplain">Tämä käytäntöasetus koskee suositeltavaa vianmääritystä laitteen tunnettujen ongelmien ratkaisemista varten ja antaa järjestelmänvalvojien määrittää, miten sitä sovelletaan heidän toimialueillaan tai IT-ympäristöissään.
-Jos tätä käytäntöasetusta ei määritetä, käyttäjä voi määrittää, käytetäänkö suositeltua vianmääritystä vai ei, ja jos sitä käytetään, kuinka vianmääritys tapahtuu.
+<string id="TroubleshootingAllowRecommendationsExplain">Tämä käytäntöasetus määrittää, miten laitteessa voidaan tehdä tunnettujen ongelmien vianmääritys, ja antaa järjestelmänvalvojien määrittää, miten sitä sovelletaan heidän toimialueillaan tai IT-ympäristöissään.
 
-Jos otat tämän käytännön käyttöön, voit määrittää, miten suositeltua vianmääritystä käytetään käyttäjän laitteessa. Voit valita jonkin seuraavista arvoista:
-0 = Poista tämä ominaisuus käytöstä.
-1 = Poista tämä ominaisuus käytöstä, mutta suorita silti kriittiset vianmääritykset.
-2 = Ilmoita käyttäjälle, kun suositeltava vianmääritys on saatavilla, ja anna käyttäjän suorittaa tai ohittaa se.
-3 = Suorita suositeltava vianmääritys automaattisesti ja ilmoita käyttäjälle, kun se on suoritettu.
-4 = Suorita suositeltava vianmääritys automaattisesti, mutta älä ilmoita siitä käyttäjälle.
-5 = Anna käyttäjän valita omat suositeltujen vianmääritysten asetuksensa.
+Jos tätä käytäntöasetusta ei määritetä, käyttäjä voi määrittää, kuinka vianmääritys tapahtuu.
 
-Voit käynnistää suositeltavan vianmäärityksen toimialueesi laitteissa tämän asetuksen määrittämisen jälkeen näiden ohjeiden avulla:
-1. Luo seuraavansisältöinen bat-komentosarja:
+Jos otat tämän käytännön käyttöön, voit määrittää, miten vianmääritystä käytetään käyttäjän laitteessa. Voit valita jonkin seuraavista arvoista:
+0 = Älä anna käyttäjien, järjestelmän ominaisuuksien tai Microsoftin käyttää vianmääritystä.
+1 = Anna vain järjestelmän ominaisuuksien tai Microsoftin käyttää vianmääritystä kriittisiin ongelmiin automaattisesti.
+2 = Anna järjestelmän ominaisuuksien tai Microsoftin käyttää vianmääritystä kriittisiin ongelmiin automaattisesti. Ilmoita käyttäjille, kun muihin ongelmiin on saatavilla vianmääritys, ja anna käyttäjien ottaa vianmääritys käyttöön tai ohittaa se.
+3 = Anna järjestelmän ominaisuuksien ja Microsoftin käyttää vianmääritystä kriittisiin ja muihin ongelmiin automaattisesti. Ilmoita käyttäjälle, kun vianmääritys on ratkaissut ongelman.
+4 = Anna järjestelmän ominaisuuksien ja Microsoftin käyttää vianmääritystä kriittisiin ja muihin ongelmiin automaattisesti. Älä ilmoita käyttäjälle, kun vianmääritys on ratkaissut ongelman.
+5 = Anna käyttäjien valita omat vianmääritysasetuksensa.
+
+Tämän käytännön määrittämisen jälkeen voit tarkistaa seuraavien ohjeiden avulla toimialueesi laitteet, joille on saatavilla Microsoftin vianmääritys:
+1. Luo bat-komentosarja, jolla on seuraava sisältö:
 rem Seuraava komentojonosarja käynnistää suositeltavan vianmäärityksen
-C:\Windows\System32\mitigationscanner.exe
+schtasks /run /TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner"
 
-2. Siirry uuden välittömän tehtävän luomista varten kohtaan Ryhmäkäytäntöobjektieditori &gt; Tietokoneasetukset &gt; Asetukset ja valitse Ohjauspaneelin asetukset.
+2. Luo uusi välitön tehtävä siirtymällä kohtaan Ryhmäkäytäntöobjektieditori &gt; Tietokoneasetukset &gt; Asetukset ja valitsemalla Ohjauspaneelin asetukset. 
 3. Napsauta hiiren kakkospainikkeella Ohjauspaneelin asetusten kohtaa Ajoitetut tehtävät ja valitse Uusi. Valitse Välitön tehtävä (vähintään Windows 7).
-4. Anna sopiva nimi ja kuvaus. Aseta kohdassa Suojausasetukset käyttäjätiliksi Järjestelmä ja valitse valintaruutu Suorita laajimmilla mahdollisilla käyttöoikeuksilla.
-5. Luo Toiminnot-välilehdellä uusi toiminto. Aseta toiminnon tyypiksi Käynnistä ohjelma ja valitse kohdassa 1 luotu tiedosto.
+4. Kirjoita sopiva nimi ja kuvaus. Aseta Suojausasetukset-kohdassa käyttäjätiliksi Järjestelmä ja valitse Suorita laajimmilla mahdollisilla käyttöoikeuksilla -valintaruutu.
+5. Luo Toiminnot-välilehdessä uusi toiminto. Aseta toiminnon tyypiksi Käynnistä ohjelma ja valitse kohdassa 1 luotu tiedosto.
 6. Määritä tehtävä otettavaksi käyttöön toimialueellasi.</string>
-<string id="RecommendationsDropDown_DoNothing">Poista ominaisuus käytöstä</string>
-<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Poista tämä ominaisuus käytöstä, mutta suorita silti kriittiset vianmääritykset.</string>
-<string id="RecommendationsDropDown_AskFirst">Ilmoita käyttäjälle, kun suositeltava vianmääritys on saatavilla, ja anna käyttäjän suorittaa tai ohittaa se.</string>
-<string id="RecommendationsDropDown_ApplyThenNotify">Suorita suositeltava vianmääritys automaattisesti ja ilmoita käyttäjälle, kun se on suoritettu.</string>
-<string id="RecommendationsDropDown_ApplySilently">Suorita suositeltava vianmääritys automaattisesti, mutta älä ilmoita siitä käyttäjälle.</string>
-<string id="RecommendationsDropDown_DeferToUser">Anna käyttäjän valita omat suositeltujen vianmääritysten asetuksensa.</string>
+<string id="RecommendationsDropDown_DoNothing">Älä salli käyttäjien, järjestelmän ominaisuuksien tai Microsoftin käyttää vianmääritystä.</string>
+<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Käytä järjestelmän ominaisuuksien ja Microsoftin kriittisten ongelmien vianmääritystä automaattisesti.</string>
+<string id="RecommendationsDropDown_AskFirst">Anna järjestelmän ominaisuuksien ja Microsoftin käyttää vianmääritystä kriittisiin ongelmiin automaattisesti. Ilmoita käyttäjille, kun muihin ongelmiin on saatavilla vianmääritys, ja anna käyttäjien ottaa vianmääritys käyttöön tai ohittaa se.</string>
+<string id="RecommendationsDropDown_ApplyThenNotify">Käytä automaattisesti kriittisiä ja muita ongelmia järjestelmän ominaisuuksien ja Microsoft-ongelmien vian määritystä varten. Ilmoita käyttäjille, kun vian määritys on ratkaistu ongelman.</string>
+<string id="RecommendationsDropDown_ApplySilently">Käytä automaattisesti kriittisiä ja muita ongelmia järjestelmän ominaisuuksien ja Microsoft-ongelmien vian määritystä varten. Älä Ilmoita käyttäjille, kun vian määritys on havainnut ongelman.</string>
+<string id="RecommendationsDropDown_DeferToUser">Anna käyttäjän valita omat vianmääritysten asetuksensa.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MsdtToolDownloadPolicy">

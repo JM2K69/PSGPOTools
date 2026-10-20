@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>Ryhmäkäytäntöasetusten kirjaamiskäytännöt</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">Määritä Sovellukset-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_Applications_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Sovellukset-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Sovellukset-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Sovellukset-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.
+</string>
+      <string id="CSE_DataSources_Logging">Määritä Tietolähteet-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_DataSources_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Tietolähteet-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Tietolähteet-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Tietolähteet-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_Devices_Logging">Määritä Laitteet-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_Devices_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Laitteet-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Laitteet-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Laitteet-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_Drives_Logging">Määritä Aseman määritykset -asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_Drives_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Aseman määritykset -asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Aseman määritykset -laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Aseman määritykset-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_Environment_Logging">Määritä Ympäristö-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_Environment_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Ympäristö-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Ympäristö-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Ympäristö-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_Files_Logging">Määritä Tiedostot-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_Files_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Tiedostot-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Tiedostot-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Tiedostot-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_FolderOptions_Logging">Määritä kansioasetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_FolderOptions_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Kansioasetukset-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Kansioasetukset-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Kansioasetukset-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_Folders_Logging">Määritä Kansiot-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_Folders_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Kansiot-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Kansiot-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Kansiot-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_IniFiles_Logging">Määritä Alustustiedostot-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_IniFiles_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Alustustiedostot-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Alustustiedostot-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Alustustiedostot-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_Internet_Logging">Määritä Internet-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_Internet_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Internet-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Internet-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Internet-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">Määritä Paikalliset käyttäjät ja ryhmät -asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Paikalliset käyttäjät ja ryhmät -asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Paikalliset käyttäjät ja ryhmät -laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Paikalliset käyttäjät ja ryhmät -laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_NetworkOptions_Logging">Määritä verkkoasetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_NetworkOptions_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Verkkoasetukset-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Verkkoasetukset-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Verkkoasetukset-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_NetShares_Logging">Määritä Verkkojakaminen-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_NetShares_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Verkkojakaminen-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Verkkojakaminen-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Verkkojakaminen-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_PowerOptions_Logging">Määritä virranhallinta-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_PowerOptions_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Virranhallinta-asetusten asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Virranhallinta-asetusten laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Virranhallinta-asetusten laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_Printers_Logging">Määritä Tulostimet-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_Printers_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Tulostimet-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Tulostimet-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Tulostimet-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_RegionalOptions_Logging">Määritä paikallisten asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_RegionalOptions_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Paikalliset asetukset -asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Paikalliset asetukset -asetusten laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Paikalliset asetukset -laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_PrefRegistry_Logging">Määritä Rekisteri-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_PrefRegistry_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Rekisteri-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Rekisteri-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Rekisteri-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_ScheduledTasks_Logging">Määritä Ajoitetut tehtävät -asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Ajoitetut tehtävät -asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Ajoitetut tehtävät -laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Ajoitetut tehtävät -laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_Services_Logging">Määritä Palvelut-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_Services_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Palvelut-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Palvelut-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Palvelut-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_Shortcuts_Logging">Määritä Oikotiet-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_Shortcuts_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Oikotiet-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Oikotiet-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Oikotiet-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_StartMenu_Logging">Määritä Aloitusvalikko-asetusten kirjaaminen ja jäljitys</string>
+      <string id="CSE_StartMenu_Logging_Help">Tämän käytäntöasetuksen avulla voit määrittää, miten yksityiskohtaisesti Aloitusvalikko-asetuslaajennus kirjaa tapahtumatietoja, ja ottaa käyttöön Aloitusvalikko-laajennuksen seurannan. Lokit ja jäljitys tarjoavat diagnostiikkatietoja vianmääritystä varten.
+
+Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää tapahtumien kirjaamisen ja ottaa asiakastietokoneiden Aloitusvalikko-laajennuksen jäljityksen käyttöön.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, tämän laajennuksen tapahtumien kirjaamiseen sisältyvät oletusarvoisesti vain varoitukset ja virheet ja laajennuksen jäljitys poistetaan käytöstä.
+
+Tietoturvavaroitus: 
+Suojaa määritetty verkkojaettu resurssi vain vähimmäisoikeuksilla. Älä käytä laajoja käyttöoikeuksia, kuten mitään tavallista tiliä tai kaikkia täydellä hallinnalla, koska tämä voi johtaa luvattomaan pääsyyn loki- ja jäljitystietoihin
+
+Huomautukset:
+
+1. Käyttäjän määritysten jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen Käyttäjän määritys -kohdassa lueteltuja kohteita, sinun on annettava Käyttäjän jäljitys -kenttään polku sijaintiin, johon käyttäjän jäljitystiedosto voidaan luoda asiakastietokoneella, ja otettava jäljitys käyttöön. Jos tämän laajennuksen Käyttäjän määritys -kohdassa ei ole kohteita, käyttäjän jäljitystiedostoa ei luoda.
+
+2. Tietokoneen määritysten jäljitys: tämä asetuslaajennus on käytettävissä vain Käyttäjän määritys -kohdassa, joten tietokonemääritysten jäljitys ei ole käytettävissä.
+
+3. Ryhmäkäytännön mallinnuskyselyn jäljitys: Jos haluat jäljittää tämän asetuslaajennuksen kohteita ryhmäkäytännön mallinnuskyselyn aikana, sinun on annettava Suunnittelun jäljitys -kenttään polku sijaintiin, johon suunnittelun jäljitystiedosto voidaan luoda tietokoneella, jolla mallinnus suoritetaan, ja otettava jäljitys käyttöön. Jos et suorita ryhmäkäytännön mallinnusta tai tässä laajennuksessa ei ole asetuskohteita, suunnittelun jäljitystiedostoa ei luoda.</string>
+      <string id="CSE_NOCHANGES">Käsittele, vaikka ryhmäkäytäntöobjektit eivät olisi muuttuneet</string>
+      <string id="CSE_NOBACKGROUND">Älä käytä säännöllisen taustakäsittelyn aikana</string>
+      <string id="CSE_ALLOWSLOWLINK">Salli käsitteleminen verkkoyhteyden ollessa hidas</string>
+      <string id="CSE_TRACELEVEL">Seuranta</string>
+      <string id="CSE_TRACEFILEPATHUSER">Käyttäjän jäljitys</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">Tietokoneen jäljitys</string>
+      <string id="CSE_TRACEFILEPATH">Jäljitystiedosto</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">Suunnittelun jäljitys</string>
+      <string id="CSE_TRACEFILEMAXSIZE">Jäljitystiedoston enimmäiskoko (kt)</string>
+      <string id="CSE_TRACELEVELNORMAL">Ei käytössä</string>
+      <string id="CSE_TRACELEVELVERBOSE">Käytössä</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">Taustaprioriteetti</string>
+      <string id="CSE_PRILEVEL_NORMAL">Normaali</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">Pienempi kuin normaali</string>
+      <string id="CSE_PRILEVEL_LOWEST">Matalin</string>
+      <string id="CSE_PRILEVEL_IDLE">Vapaa</string>
+      <string id="CSE_LOGLEVEL">Tapahtumien kirjaaminen</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">Tiedottavat, varoitukset ja virheet</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">Varoitukset ja virheet</string>
+      <string id="CSE_LOGLEVEL_ERRORS">Vain virheet</string>
+      <string id="CSE_LOGLEVEL_NONE">Ei mitään</string>
+      <string id="CSE_Logging">Kirjaaminen ja jäljitys</string>
+      <string id="CSE_Logging_Help">Tämän avulla voit määrittää oletusosien kirjaamisen ja seurannan.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Tietokoneen jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Tapahtumien kirjaaminen</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seuranta</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Käyttäjän jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Suunnittelun jäljitys</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Jäljitystiedoston enimmäiskoko (kt)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

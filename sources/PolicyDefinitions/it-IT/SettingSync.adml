@@ -119,6 +119,51 @@ Se si disabilita o non si configura questa impostazione dei criteri, la sincroni
         Se si disabilita o non si configura questa impostazione dei criteri, la sincronizzazione del gruppo "layout Start" sarà attivata per impostazione predefinita e configurabile dall'utente.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">Non sincronizzare le impostazioni di accessibilità</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        Impedisci la sincronizzazione del gruppo "accessibilità" da e verso questo PC. Questa opzione disattiva e disabilita il gruppo "accessibilità" nella pagina delle impostazioni di "Windows Backup" in Impostazioni PC.
+
+Se si abilita questa impostazione dei criteri, il gruppo "accessibilità" non verrà sincronizzato.
+
+Usare l'opzione "Consenti agli utenti di attivare la sincronizzazione dell'accessibilità" in modo che la sincronizzazione sia disattivata per impostazione predefinita ma non disabilitata.
+
+Se non si configura o si disabilita questa impostazione, la sincronizzazione del gruppo "accessibilità" sarà attivata per impostazione predefinita e configurabile dall'utente.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">Non sincronizzare le impostazioni delle preferenze di lingua</string>
+      <string id="DisableLanguageSettingSync_Help">
+        Impedisci la sincronizzazione del gruppo "preferenze lingua" da e verso questo PC. Questa opzione disattiva e disabilita il gruppo "Preferenze lingue" nella pagina delle impostazioni di "Windows Backup" in Impostazioni PC.
+
+Se si abilita questa impostazione dei criteri, il gruppo "Preferenze lingua" non verrà sincronizzato.
+
+Utilizzare l'opzione "Consenti agli utenti di attivare la sincronizzazione delle preferenze di lingua" in modo che la sincronizzazione sia disattivata per impostazione predefinita ma non disabilitata.
+
+Se non si imposta o si disabilita questa impostazione, la sincronizzazione del gruppo "preferenze di lingua" sarà attivata per impostazione predefinita e configurabile dall'utente.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Abilita Windows Backup</string>
+      <string id="EnableWindowsBackup_Help">Questa impostazione dei criteri consente agli amministratori di configurare e gestire il backup delle impostazioni di Windows per l'organizzazione.
+
+Se si abilita questa impostazione dei criteri, il backup delle impostazioni di Windows verrà eseguito periodicamente.
+
+Se si disabilita questa impostazione dei criteri, il backup delle impostazioni di Windows non verrà eseguito.
+
+Se questa impostazione dei criteri non è configurata, il backup delle impostazioni di Windows verrà eseguito periodicamente in base all'idoneità.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Abilita Ripristino di Windows</string>
+      <string id="EnableWindowsRestore_Help">Questa impostazione di criteri consente agli amministratori di configurare e gestire il ripristino delle impostazioni di Windows per la loro organizzazione.
+
+Se si abilita l'impostazione di criteri, il ripristino delle impostazioni di Windows sarà abilitato.
+
+Se si disabilita o non configura l'impostazione di criteri, il ripristino delle impostazioni di Windows sarà disabilitato.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Se si disabilita o non si configura questa impostazione dei criteri, la sincroni
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">Consenti agli utenti di attivare la sincronizzazione di "layout Start".</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Consenti agli utenti di attivare la sincronizzazione di "accessibilità".</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Consenti agli utenti di attivare la sincronizzazione delle "preferenze di lingua".</checkBox>
       </presentation>
 
     </presentationTable>

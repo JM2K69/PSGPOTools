@@ -37,14 +37,30 @@ Bemærk! En aktivering af denne politikindstilling forhindrer ikke brugeren i at
       <string id="DisableRoamedProfileInit_Help">Denne politikindstilling giver de administratorer, der har konfigureret en roamingprofil i forbindelse med indstillingen Slet gruppepolitik for cachelagrede roamingprofiler for at sikre, at Stifinder ikke geninitialiserer standardprogramtilknytninger og andre indstillinger til standardværdierne. 
 
 Hvis du aktiverer denne politikindstilling på en maskine, der ikke indeholder alle de programmer, der er installeret på samme måde, som de var på den maskine, brugeren sidst var logget på, kan det medføre en uventet adfærd. </string>
+      <string id="DisableGraphRecentItems">Vis filer baseret på din konto- og cloududbyderaktivitet</string>
+      <string id="DisableGraphRecentItems_Help">Hvis du deaktiverer denne indstilling, forhindres Stifinder i at anmode om cloudfilmetadata og vise dem på startsiden og i andre visninger i Stifinder. Alle indsigter og filer baseret på konto- eller cloududbyderaktivitet stoppes i visninger som Seneste, Anbefalet, Favoritter, Delte osv.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Slå kildeintegration for avancerede indstillinger fra i Stifinder</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">Hvis du deaktiverer kildeintegration for avancerede indstillinger, forhindres Stifinder i at vise lageroplysninger fra komponenten Avancerede indstillinger</string>
+      <string id="DisableFileExplorerPrelaunch">Deaktiver funktionen Stifinder for at forudstarte et vindue i baggrunden</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Denne politik forhindrer brugerne i at aktivere funktionen Forudstart i Stifinder, som opretter et vindue i baggrunden for at accelerere startoplevelsen og forbedre svartiden.</string>
+      <string id="MakePrintScreenKeyYieldable">Gør tasten PrintScrn brugbar</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Denne politikindstilling bestemmer, om print screen-tasten kan returneres til andre programmer.
+
+Hvis du aktiverer denne politikindstilling, kan print Screen-tasten opfanges af programmer, så de kan tilsidesætte standardfunktionaliteten for skærmbilleder.
+
+Hvis du deaktiverer denne politikindstilling, bevarer print Screen-tasten sin ældre funktionsmåde for at tage skærmbilleder og kan ikke opfanges af programmer.
+
+Hvis denne politik ikke er konfigureret, kan print Screen-nøglen opfanges af programmer, så de kan tilsidesætte standardfunktionaliteten for skærmbilleder, ligesom den aktiverede adfærd.
+
+Bemærk! Denne indstilling kræver muligvis, at systemet genstartes, for at det kan træde i kraft.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>URL-adresse på websiden til support</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>URL-adresse på websiden til support</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

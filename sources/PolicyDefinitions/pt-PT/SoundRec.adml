@@ -5,15 +5,15 @@
   <description>introduzir a descrição aqui</description>
   <resources>
     <stringTable>
-      <string id="Soundrec_DiableApplication_TitleText">Não permitir execução do Gravador de Áudio</string>
-      <string id="Soundrec_DisableApplication_DescriptionText">Especifica se o Gravador de Áudio pode ser executado.
+      <string id="Soundrec_DiableApplication_TitleText">Não permitir execução do Gravador de Som</string>
+      <string id="Soundrec_DisableApplication_DescriptionText">Especifica se o Gravador de Som pode ser executado.
 
-O Gravador de Áudio é uma funcionalidade do Microsoft Windows Vista que pode ser utilizada para gravar som de um dispositivo de entrada de áudio em que o som gravado é codificado e guardado como um ficheiro de áudio.
+O Gravador de Som é uma funcionalidade do Microsoft Windows Vista que pode ser utilizada para gravar som de um dispositivo de entrada de áudio em que o som gravado é codificado e guardado como um ficheiro de áudio.
 
-Se ativar esta definição de política, o Gravador de Áudio não será executado.
+Se ativar esta definição de política, o Gravador de Som não será executado.
 
-Se desativar ou não configurar esta definição de política, o Gravador de Áudio poderá ser executado.</string>
-      <string id="Soundrec_GroupPolicyCategory">Gravador de áudio</string>
+Se desativar ou não configurar esta definição de política, o Gravador de Som poderá ser executado.</string>
+      <string id="Soundrec_GroupPolicyCategory">Gravador de Som</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

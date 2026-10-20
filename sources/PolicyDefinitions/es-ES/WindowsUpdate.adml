@@ -14,8 +14,15 @@
       <string id="WU_SUPPORTED_Windows7_To_Win2kSP3_Or_XPSP1">Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2003, Windows XP SP2, Windows XP SP1, Windows 2000 SP4, Windows 2000 SP3</string>
       <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_NoWinRT">Al menos Windows XP Professional Service Pack 1 o Windows 2000 Service Pack 3, excluido Windows RT</string>
       <string id="WU_SUPPORTED_WindowsXPSP1_NoWinRT">Al menos los sistemas operativos Windows Server 2003 o Windows XP Professional con SP1, excluido Windows RT</string>
-      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Se requiere al menos Windows XP Professional Service Pack 1 o al menos Windows 2000 Service Pack 3 a través de Windows 8.1 o Windows Server 2012 R2 con el Service Pack más reciente</string>
-      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Se requiere al menos Windows Vista a través de Windows 8.1 o Windows Server 2012 R2 con el Service Pack más reciente</string>
+      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Al menos Windows XP Professional Service Pack 1 o Al menos Windows 2000 Service Pack 3 hasta Windows 8.1 o Windows Server 2012 R2 con el Service Pack más reciente. No es compatible con Windows 10 y superiores.</string>
+      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Al menos Windows Vista a través de Windows 8.1 o Windows Server 2012 R2 con el Service Pack más actual. No se admite en Windows 10 y versiones posteriores.</string>
+      <string id="WU_SUPPORTED_XPSP1_or_Win2kSP3_AUOption7_SUPPORTED_Server2016">Windows XP Professional Service Pack 1 o, como mínimo, Windows 2000 Service Pack 3
+La opción 7 solo se admite en servidores que ejecuten Windows Server 2016 Edition como mínimo</string>
+      <string id="WU_SUPPORTED_Server2016_Through_Server2022_Or_Windows10">Windows Server 2016 hasta Windows Server 2022, o Windows 10​</string>
+      <string id="WU_SUPPORTED_Windows_Server_2019_Windows_10_0_1809">Al menos Windows Server 2019 o Windows 10 versión 1809​</string>
+      <string id="WU_SUPPORTED_Windows_Server_2022_Windows_10_0_2004">Al menos Windows Server 2022 o Windows 10 versión 2004​</string>
+      <string id="WU_SUPPORTED_WinServer2025_Win1021H2_Win1122H2">Al menos Windows Server 2025, Windows 10 versión 21H2 o Windows 11 versión 22H2</string>
+      <string id="WU_SUPPORTED_Win11_24H2">Como mínimo Windows 11 versión 24H2</string>
       <string id="AUDontShowUasHelp">Esta configuración de directiva permite controlar si la opción "Instalar actualizaciones y apagar" se muestra en el cuadro de diálogo Apagar de Windows.
 
 Si habilita esta configuración de directiva, "Instalar actualizaciones y apagar" no aparecerá como opción en el cuadro de diálogo Apagar de Windows, incluso si hay actualizaciones disponibles para instalarse cuando el usuario seleccione la opción Apagar en el menú Inicio.
@@ -60,32 +67,37 @@ En Windows 8 y Windows RT, si se habilita esta directiva, solo se mostrarán las
 
 Nota: Esta directiva no se aplica a Windows RT.
 
-Esta configuración permite especificar si las actualizaciones automáticas están habilitadas en este equipo. Si el servicio está habilitado, debes seleccionar una de las cuatro opciones de la configuración de directiva de grupo:
+Esta configuración te permite especificar si se habilitan las actualizaciones automáticas en este equipo. Si se habilita el servicio, debes seleccionar una de las cuatro opciones que figuran en Configuración de directiva de grupo:
 
         2 = Notificar antes de descargar e instalar cualquier actualización.
 
-Cuando Windows encuentre actualizaciones que se aplican a este equipo, se notificará a los usuarios que las actualizaciones están listas para descargarse. Después de ir a Windows Update, los usuarios pueden descargar e instalar cualquier actualización disponible.
+        Cuando Windows encuentre actualizaciones aplicables a este equipo, se notificará a los usuarios que hay actualizaciones listas para descargar. Los usuarios pueden descargar e instalar cualquier actualización disponible desde Windows Update.
 
-        3 = (Configuración predeterminada) Descargar las actualizaciones automáticamente y enviar una notificación cuando se puedan instalar
+        3 = (valor predeterminado) Descargar las actualizaciones automáticamente y notificar cuando estén listas para instalarse.
 
-        Windows busca actualizaciones que se aplican al equipo y las descarga en segundo plano (no se notifica ni se interrumpe al usuario durante este proceso). Cuando se completen las descargas, se notificará a los usuarios que están listas para instalarse. Después de ir a Windows Update, los usuarios pueden instalarlas.
+        Windows busca las actualizaciones que se aplican al equipo y las descarga en segundo plano (no se notifica al usuario ni se le interrumpe durante el proceso). Una vez completadas las descargas, se notifica a los usuarios que están listas para instalarse. Los usuarios pueden instalarlas desde Windows Update.
 
-        4 = Descargar las actualizaciones automáticamente e instalarlas según la programación que se especifica a continuación.
+        4 = Descargar las actualizaciones automáticamente e instalarlas según la programación especificada a continuación.
 
-Cuando se selecciona "Automático" como el tiempo de instalación programado, Windows comprobará, descargará e instalará las actualizaciones automáticamente. El dispositivo se reiniciará según la configuración predeterminada de Windows, a menos que se configure con una directiva de grupo. (Se aplica a Windows 10, versión 1809 y posteriores)
+        Cuando se seleccione "Automático" como la hora de instalación programada, Windows buscará, descargará e instalará automáticamente las actualizaciones. El dispositivo se reiniciará según la configuración predeterminada de Windows, a menos que la directiva de grupo indique lo contrario. (Se aplica a Windows 10, versión 1809 y versiones posteriores).
 
-        Especifica la programación mediante las opciones de configuración de la directiva de grupo. Para la versión 1709 y las posteriores, hay la opción adicional de limitar la actualización a una ocurrencia semanal, quincenal o mensual. Si no se especifica ninguna programación, la programación predeterminada para todas las instalaciones será todos los días a las 3:00 h. Si alguna actualización requiere un reinicio para completar la instalación, Windows reiniciará el equipo automáticamente. (Si un usuario tiene la sesión iniciada en el equipo cuando Windows está listo para reiniciarse, se le notificará y se le dará la opción de retrasar el reinicio).
+        Especifica la programación mediante las opciones de la configuración de la directiva de grupo. Para las versiones 1709 posteriores, hay una opción adicional que limita la actualización a una frecuencia semanal, quincenal o mensual. Si no se especifica ninguna programación, la programación predeterminada para todas las instalaciones será todos los días a las 15:00. Si alguna actualización requiere que se reinicie el equipo para completar la instalación, Windows reiniciará el equipo automáticamente. (Si un usuario ha iniciado sesión en el equipo cuando Windows está listo para reiniciarse, se le notificará y se le dará la opción de retrasar el reinicio).
 
-        En Windows 8 y versiones posteriores, puedes configurar que las actualizaciones se instalen durante el mantenimiento automático, en lugar de una programación específica. El mantenimiento automático instalará las actualizaciones cuando el equipo no esté en uso, y evitará hacerlo cuando el equipo solo esté funcionando con la batería. Si el mantenimiento automático no puede instalar actualizaciones durante 2 días, Windows Update instalará las actualizaciones de inmediato. A continuación, se notificará a los usuarios que próximamente se hará un reinicio, que solo tendrá lugar si no existe ningún riesgo de pérdida de datos accidental.
+        En Windows 8 y versiones posteriores, puedes establecer que las actualizaciones se instalen durante el mantenimiento automático en lugar de según una programación específica. El mantenimiento automático instalará las actualizaciones cuando el equipo no esté en uso y evitará hacerlo cuando el equipo funcione con batería. Si el mantenimiento automático no puede instalar las actualizaciones durante 2 días, Windows Update las instalará de inmediato. De este modo, se notificará a los usuarios sobre un próximo reinicio, y dicho reinicio solo se realizará si no hay posibilidad de pérdida accidental de datos.
 
-        5 = Permitir a los administradores locales seleccionar el modo de configuración en el que las actualizaciones automáticas notifican e instalan las actualizaciones. (Esta opción no se ha transferido a ninguna de las versiones de Windows 10).
+        5 = Permitir a los administradores locales seleccionar el modo de configuración en el que la característica Actualizaciones automáticas debe notificar e instalar las actualizaciones. (Esta opción no se ha trasladado a ninguna de las versiones de Windows 10).
 
-        Con esta opción, se permitirá a los administradores locales utilizar el panel de control de Windows Update para seleccionar una opción de configuración de su elección. No se permitirá que los administradores locales deshabiliten la configuración para las actualizaciones automáticas.
+        Con esta opción, se permitirá a los administradores locales usar el Panel de control de Windows Update para seleccionar la opción de configuración que deseen. No se permitirá a los administradores locales deshabilitar la configuración de Actualizaciones automáticas.
 
-Si el estado de esta directiva se establece en Deshabilitado, todas las actualizaciones disponibles en Windows Update se deben descargar e instalar manualmente. Para ello, busca Windows Update en Inicio.
+        7 = Notificar la instalación y notificar el reinicio. (solo Windows Server)
 
-Si el estado está establecido en No configurado, el uso de las actualizaciones automáticas no se especifica en el nivel de directiva de grupo. Sin embargo, un administrador todavía puede configurar las actualizaciones automáticas a través del Panel de control.</string>
+        Con esta opción de Windows Server 2016, que solo se aplica a los dispositivos con SKU de servidor, los administradores locales podrán usar Windows Update para realizar las instalaciones o los reinicios de forma manual.
 
+Si el estado de esta directiva se establece en Deshabilitado, todas las actualizaciones disponibles en Windows Update deberán descargarse e instalarse manualmente. Para ello, busca Windows Update en Inicio.
+
+Si el estado se establece en No configurado, el uso de la característica Actualizaciones automáticas no se especificará en el nivel de directiva de grupo. Sin embargo, un administrador puede seguir configurando Actualizaciones automáticas mediante el Panel de control.</string>
+
+      <string id="AutoUpdateModeNotifyToInstallNotifyToReboot">7: Descarga automática, notificar para instalar, notificar para reiniciar</string>
       <string id="AutoUpdateModeAdminChooses">5 - Permitir que el administrador local elija la opción</string>
       <string id="AutoUpdateModeAuto">4 - Descargar automáticamente y programar la instalación</string>
       <string id="AutoUpdateModeDownload">3 - Descargar automáticamente y notificar instalación</string>
@@ -125,11 +137,11 @@ Si el estado está establecido en No configurado, el uso de las actualizaciones 
       <string id="AutoUpdateSchTimeAuto">Automático</string>
       <string id="CorpWuURL">Especificar la ubicación del servicio Windows Update en la intranet</string>
       <string id="CorpWuURL_Help">
-        Especifica un servidor de la intranet que hospede actualizaciones de Microsoft Update. Puedes usar este servicio de actualización para actualizar automáticamente equipos de la red.
+        Especifica un servidor de la intranet para que reciba actualizaciones de Microsoft Update. Puedes usar este servicio de actualización para actualizar automáticamente equipos de la red.
 
-        Esta opción te permite especificar un servidor en la red para que funcione como un servicio de actualización interno. El cliente Actualizaciones automáticas buscará en este servicio actualizaciones que se apliquen a los equipos de la red.
+        Esta opción te permite especificar un servidor en la red para que funcione como un servicio de actualización interno. El cliente Actualizaciones automáticas buscará en este servicio actualizaciones que se apliquen a los equipos de tu red.
 
-        Para usar esta opción, debes establecer dos valores de nombre de servidor: el servidor desde el que el cliente Actualizaciones automáticas detecta y descarga las actualizaciones y el servidor en el que las estaciones de trabajo actualizadas cargan las estadísticas. Puedes establecer ambos valores en el mismo servidor. Se puede especificar un valor de nombre de servidor opcional para configurar el agente de Windows Update para que descargue actualizaciones desde un servidor de descargas alternativo, en lugar del servicio de actualización de la intranet.
+        Para usar esta opción, debes establecer dos valores de nombre de servidor: el servidor desde el que el cliente de Actualizaciones automáticas detecta y descarga las actualizaciones y el servidor en el que las estaciones de trabajo actualizadas cargan las estadísticas. Puedes establecer ambos valores en el mismo servidor. Se puede especificar un valor de nombre de servidor opcional para configurar el agente de Windows Update para que descargue actualizaciones desde un servidor de descargas alternativo, en lugar del servicio de actualización de la intranet.
 
         Si el estado se establece en Habilitado, el cliente Actualizaciones automáticas se conecta al servicio Microsoft Update de la intranet especificado (o al servidor de descargas alternativo), en lugar de Windows Update, para buscar y descargar las actualizaciones. Si habilitas esta configuración, los usuarios finales de la organización no tendrán que usar un firewall para obtener actualizaciones y, además, podrán probar las actualizaciones antes de implementarlas.
 
@@ -137,15 +149,33 @@ Si el estado está establecido en No configurado, el uso de las actualizaciones 
 
         El servidor de descargas alternativo configura el agente de Windows Update para descargar archivos desde un servidor de descargas alternativo, en lugar del servicio de actualización de la intranet.
 
-        La opción Download files with no Url permite descargar contenido desde el servidor de descargas alternativo cuando no haya ninguna URL de descarga para los archivos de los metadatos de la actualización. Esta opción solo se debe usar cuando el servicio de actualización de la intranet no proporciona las URL de descarga en los metadatos de actualización para los archivos del servidor de descargas alternativo.
+        La opción para descargar archivos con URL que falten permite descargar contenido desde el servidor de descargas alternativo cuando no haya ninguna URL de descarga para los archivos de los metadatos de la actualización. Esta opción solo se debe usar cuando el servicio de actualización de la intranet no proporciona las URL de descarga en los metadatos de actualización para los archivos del servidor de descargas alternativo.
 
-        Nota: Si la directiva "Configurar Actualizaciones automáticas" está deshabilitada, esta directiva no tiene ningún efecto.
+        Nota: si la directiva "Configurar Actualizaciones automáticas" está deshabilitada, esta directiva no tiene ningún efecto.
 
-        Nota: Si no está establecida la opción "Definir el servidor de descargas alternativo", se usará el servicio de actualización de la intranet de forma predeterminada para la descarga de actualizaciones.
+        Nota: si no está establecida la opción "Servidor de descargas alternativo", se usará el servicio de actualización de la intranet de forma predeterminada para la descarga de actualizaciones.
 
-        Nota: La opción "Download files with no Url..." solo se usa si se establece la opción "Definir el servidor de descargas alternativo".
+        Nota: la opción "Descargar archivos sin URL..." solo se usa si se establece la opción "Servidor de descargas alternativo".
 
-        Nota: Esta directiva no es compatible con Windows RT. Si estableces esta directiva, no tendrá ningún efecto en equipos con Windows RT.</string>
+        Nota: esta directiva no es compatible con Windows RT. Si estableces esta directiva, no tendrá ningún efecto en equipos con Windows RT.
+
+         Para garantizar el más alto nivel de seguridad, Microsoft recomienda proteger WSUS con el protocolo TLS/SSL, utilizando de este modo servidores de intranet basados en HTTPS para mantener los sistemas seguros. Si se requiere un proxy, recomendamos configurar el proxy del sistema. Para garantizar los más altos niveles de seguridad, aprovecha además el certificado WSUS TLS que se encuentra en todos los dispositivos.
+
+      Para mantener a los clientes inherentemente seguros, ya no permitimos que los servidores de intranet basados en HTTP aprovechen el proxy del usuario de forma predeterminada para detectar actualizaciones. Si necesitas aprovechar el proxy de usuario para detectar actualizaciones mientras usas un servidor de intranet basado en HTTP a pesar de las vulnerabilidades que presenta, debes configurar el comportamiento del proxy para "Permitir que el proxy de usuario se use como reserva si falla la detección usando el proxy del sistema".
+
+          La detección de actualizaciones fallará cuando los servidores de intranet basados en HTTP se usen sin un proxy del sistema configurado si la directiva para usar un comportamiento de proxy alternativo no está configurada.</string>
+      <string id="OnlyUseSystemProxyForUpdateDetection">Usar solo el proxy del sistema para detectar actualizaciones (predeterminado)</string>
+      <string id="AllowUserProxyAsFallbackForUpdateDetection">Permitir que el proxy del usuario se utilice como reserva si se produce un error en la detección con el proxy del sistema</string>
+      <string id="UpdateClassPolicySource_Title">Especificar el servicio de origen para clases específicas de actualizaciones de Windows</string>
+      <string id="UpdateClassPolicySource_Help">Cuando se habilita esta directiva, los dispositivos recibirán actualizaciones de Windows para las clases enumeradas desde el origen de actualización especificado: Windows Update o windows Server Update Service.
+
+Nota: para recibir actualizaciones del servicio Windows Server Update, debe haber configurado correctamente una ubicación del servicio Microsoft Update de la intranet mediante la directiva "Especificar la ubicación del servicio Microsoft Update en la intranet".
+
+Si esta directiva no está configurada o está deshabilitada, el dispositivo seguirá detectando actualizaciones según las demás configuraciones de directiva.
+
+Nota: Si usa "No permitir que las directivas de aplazamiento causen exámenes en Windows Update" actualmente para garantizar que los dispositivos solo se examinen en el servidor especificado, le recomendamos que configure esta directiva en su lugar o que se sume a ella.</string>
+      <string id="UpdateClassPolicySourceSelectionWU">Windows Update</string>
+      <string id="UpdateClassPolicySourceSelectionWSUS">Windows Server Update Services</string>
       <string id="DetectionFrequency_Help">Especifica las horas que Windows usará para determinar cuánto debe esperar antes de comprobar si existen actualizaciones disponibles. El tiempo de espera exacto se obtiene al sumar el valor específico y una variante aleatoria de entre 0 y 4 horas.
 
         Si el estado se establece en Habilitado, Windows buscará actualizaciones disponibles en el intervalo especificado.
@@ -289,6 +319,12 @@ Nota: esta directiva solo se aplica cuando el servicio de Microsoft Update en la
 Nota: esta directiva no se admite en Windows RT. La configuración de esta directiva no tendrá efecto en los equipos con Windows RT.</string>
       <string id="TargetGroup_Title">Habilitar destinatarios del lado cliente</string>
       <string id="WindowsUpdateCat">Windows Update</string>
+      <!--Category sub-folders-->
+      <string id="WindowsUpdateOffering">Administrar las actualizaciones ofrecidas desde Windows Update</string>
+      <string id="WSUSOffering">Administrar actualizaciones ofrecidas por el servicio de actualización de Windows Server</string>
+      <string id="WindowsUpdateExperience">Administrar la experiencia del usuario final</string>
+      <string id="PreSV">Directivas heredadas</string>
+
       <string id="TrustedPublisher_Title">Permitir actualizaciones firmadas procedentes de una ubicación del servicio Microsoft Update en la intranet  </string>
       <string id="TrustedPublisher_Help">Esta configuración de directiva permite administrar si Actualizaciones automáticas debe aceptar actualizaciones firmadas por otras entidades distintas de Microsoft cuando la actualización procede de una ubicación del servicio Microsoft Update en la intranet.
 
@@ -304,48 +340,34 @@ Nota: esta directiva no se admite en Windows RT. La configuración de esta direc
 Si habilita esta directiva, se deshabilitará esa funcionalidad y podría causar que la conexión a servicios públicos como la Tienda Windows deje de funcionar.
 
 Nota: esta directiva solo se aplica cuando el equipo está configurado para conectarse a un servicio de actualización de la intranet mediante la directiva "Especificar la ubicación del servicio Windows Update en la intranet".</string>
-      <string id="DeferUpdateCat">Actualización de Windows para empresas</string>
       <string id="ManagePreviewBuilds_Title">Administrar preliminares</string>
-      <string id="ManagePreviewBuilds_Help">Si seleccionas "Deshabilitar las versiones preliminares", estas no se instalarán en el dispositivo y así evitarás que los usuarios participen en el Programa Windows Insider mediante Configuración -&gt; Actualizaciones y seguridad.
+      <string id="ManagePreviewBuilds_Help">Habilita esta directiva para administrar las actualizaciones que recibes antes de que la actualización se publique mundialmente.
 
-Si seleccionas "Disable preview builds once next release is public", no se instalarán las versiones preliminares cuando la siguiente versión de Windows se lance al público. Esta opción puede serte de utilidad si tienes el dispositivo configurado para instalar versiones preliminares y quieres que deje de recibir paquetes piloto. Igualmente, esta opción proporcionará versiones preliminares hasta que el dispositivo tenga la siguiente versión pública.
+Canal de desarrollo
+Ideal para usuarios muy técnicos. Los participantes del canal de desarrollo recibirán compilaciones de nuestra rama activa de desarrollo que sea más temprana en un ciclo de desarrollo. Estas compilaciones no coinciden con una versión específica de Windows 10.
 
-Si seleccionas "Enable preview builds", podrás instalarlas en el dispositivo. Los usuarios podrán descargar e instalar versiones preliminares de Windows en sus dispositivos; para ello, deberán ir a Configuración -&gt; Actualizaciones y seguridad -&gt; Programa Windows Insider. Asimismo, los administradores pueden usar otras directivas para administrar la configuración de los paquetes piloto en nombre de los usuarios, cuando se establezca este valor.</string>
-      <string id="DisablePreviewBuilds">Deshabilitar preliminares</string>
-      <string id="DisablePreviewBuildsAndOptOut">Deshabilitar preliminares cuando próximo lanzamiento actual al público</string>
-      <string id="EnablePreviewBuilds">Habilitar preliminares</string>
-      <string id="PreviewBuildFastFeatureUpdates">Vista previa de compilación - rápido</string>
-      <string id="PreviewBuildSlowFeatureUpdates">Versión preliminar - lento</string>
-      <string id="ReleasePreviewBranchFeatureUpdates">Versión preliminar</string>
-      <string id="SemiAnnualChannelFeatureUpdates">Canal semianual</string>
-      <string id="SemiAnnualChannelFeatureUpdatesDeprecated">Canal semestral para la versión 1809 y versiones anteriores (en desuso)</string>
-      <string id="SemiAnnualChannelFeatureUpdatesTargetedDeprecated">Canal semestral (dirigido) para la versión 1809 y versiones anteriores (en desuso)</string>
+Canal beta
+Ideal para los exploradores de características que desean ver las próximas características de Windows 10. Tus comentarios serán especialmente importantes, ya que ayudarán a nuestros ingenieros a garantizar que se solucionen los problemas clave antes de una versión importante.
+
+Canal de versión preliminar (predeterminado)
+Los usuarios de Insider del canal de versión preliminar tendrán acceso a la próxima versión de Windows 10 antes de que se publique mundialmente. Estas compilaciones cuentan con el soporte de Microsoft. El canal de vista previa de la versión es donde se recomienda a las empresas obtener una vista previa y validar las próximas versiones de Windows 10 antes de realizar una implementación amplia dentro de la organización.
+
+Canal de Previsualización de la Versión, Sólo Actualizaciones de Calidad
+Ideal para aquellos que quieren validar las características y correcciones que llegarán pronto a su versión actual. Nota, las actualizaciones de características liberadas seguirán ofreciéndose de acuerdo con las políticas configuradas cuando se selecciona esta opción.
+
+Nota: la inscripción para la versión preliminar requiere una configuración de nivel de telemetría de 2 o superior y el dominio registrado en insider.windows.com. Para más información sobre las versiones preliminares, consulta: https://aka.ms/wipforbiz
+
+Si deshabilitas o no configuras esta directiva, Windows Update no te ofrecerá ninguna versión preliminar y recibirás ese contenido una vez que se haya lanzado públicamente. Si deshabilitas esta directiva, los dispositivos que actualmente estén en una versión preliminar dejarán de participar y permanecerán en la última actualización de características una vez que se publique.</string>
+      <string id="DevChannel">Canal de desarrollo</string>
+      <string id="BetaChannel">Canal beta</string>
+      <string id="ReleasePreviewChannel">Canal de versión preliminar</string>
+      <string id="ReleasePreviewQualityOnly">Versión preliminar de actualizaciones de calidad únicamente</string>
       <string id="DeferFeatureUpdates_Title">Seleccione cuando se reciben las compilaciones de vista previa y actualizaciones de características</string>
-      <string id="DeferFeatureUpdates_Help">Habilita esta directiva para especificar el nivel de versiones preliminares o actualizaciones de características que quieres recibir y cuándo.
+      <string id="DeferFeatureUpdates_Help">Esta directiva se ha de habilitar para especificar cuándo recibir actualizaciones de características.
 
-* Versión preliminar (rápida): los dispositivos establecidos en este nivel serán los primeros en recibir nuevas compilaciones de Windows con características que todavía no están disponibles para el público general. Selecciona Rápido para participar en la identificación y notificación de problemas a Microsoft, y envía tus sugerencias sobre la nueva funcionalidad.
-* Versión preliminar (lenta): los dispositivos establecidos en este nivel recibirán nuevas compilaciones de Windows antes de que estén disponibles para el público general, pero con una cadencia más lenta que la establecida en el nivel rápido, y con los cambios y las correcciones identificados en compilaciones anteriores.
-* Vista previa de versión: recibe compilaciones de Windows justo antes de que Microsoft las presente al público general.
-* Canal semestral: recibe actualizaciones de características cuando estén disponibles para el público general.
+Aplazar actualizaciones | Esto permite a los dispositivos aplazar la próxima actualización de características disponible para el producto (o para un nuevo producto si se especifica en la directiva Seleccionar la versión de actualización de características de destino). Una actualización de características se puede aplazar hasta 14 días para todos los canales de versión preliminar y hasta 365 días para el Canal de disponibilidad general. Para obtener más información sobre las versiones actuales, consultar aka.ms/WindowsTargetVersioninfo
 
- Los siguientes niveles de preparación de Windows han quedado en desuso y solo son aplicables a la versión 1809 y versiones anteriores:
-* Canal semestral (dirigido) para la versión 1809 y versiones anteriores: ya se han publicado las actualizaciones de características.
-* Canal semestral para la versión 1809 y versiones anteriores: las actualizaciones de características se han declarado del canal semestral, una designación que indica que la versión está lista para la implementación general.
-Revisa la página de información de la versión en http://aka.ms/ReleaseInformationPage para las fechas de lanzamiento del canal semestral (dirigido) y semestral.
-
- Al seleccionar una versión preliminar:
-    - Puedes aplazar la recepción de versiones preliminares hasta 14 días.
-    - Para evitar recibir versiones preliminares a la hora programada, las puedes detener temporalmente. La pausa se mantendrá en vigor durante 35 días a partir de la hora de inicio proporcionada.
-    - Para reanudar la recepción de actualizaciones de características en pausa, borra el campo de fecha de inicio.
-
- La inscripción de versión preliminar requiere un nivel de telemetría de 2 o superior y que tu dominio esté registrado en insider.windows.com. Para obtener más información sobre las versiones preliminares, consulta: https://aka.ms/wipforbiz
-
-Cuando selecciones el canal semestral:
-    - Puedes aplazar la recepción de actualizaciones de características durante un máximo de 365 días.
-    - Para evitar recibir actualizaciones de características a la hora programada, las puedes detener temporalmente. La pausa se mantendrá en vigor durante 35 días a partir de la hora de inicio proporcionada.
-    - Para reanudar la recepción de actualizaciones de características en pausa, borra el campo de fecha de inicio.
-
-Si deshabilitas esta Directiva o no la configuras, Windows Update no alterará su comportamiento.</string>
+Pausar actualizaciones | Para evitar que se le ofrezcan actualizaciones de características al dispositivo, se pueden pausar temporalmente las actualizaciones de características. Esta pausa permanecerá en vigor durante 35 días a partir de la fecha de inicio especificada o hasta que se borre el campo. Las actualizaciones de calidad se seguirán ofreciendo aunque las actualizaciones de características estén en pausa.</string>
       <string id="DeferQualityUpdates_Title">Selecciona cuándo quieres recibir actualizaciones de calidad</string>
       <string id="DeferQualityUpdates_Help">Habilita esta directiva para especificar si quieres recibir actualizaciones de calidad.
 
@@ -356,6 +378,20 @@ Para impedir la recepción de actualizaciones de calidad en la fecha programada,
 Para reanudar la recepción de actualizaciones de calidad que están en pausa, borra el campo de fecha de inicio.
 
 Si deshabilitas esta directiva o no la configuras, Windows Update no alterará su comportamiento.</string>
+      <string id="TargetReleaseVersion_Title">Seleccionar la versión de actualización de características de destino</string>
+      <string id="TargetReleaseVersion_Help">Escribe el producto y la versión tal como aparecen en la página de la versión de destino de Windows Update:
+
+                        aka.ms/WindowsTargetVersioninfo
+
+El dispositivo solicitará el producto Windows Update y la versión en los exámenes posteriores.
+
+Si especifico un producto de destino y hago clic en Aceptar o Aplicar, automáticamente acepto los Términos de licencia del software de Microsoft que se encuentran en aka.ms/WindowsTargetVersioninfo. Si una organización ofrece una licencia del software, estoy autorizado para vincularme a la organización.
+
+Si escribes un valor no válido, permanecerás en la versión actual hasta que se corrijan los valores a un producto y versión admitidos.</string>
+      <string id="DisableWUfBSafeguards">Deshabilitar la protección de las Actualizaciones de características</string>
+      <string id="DisableWUfBSafeguards_Help">
+          Habilite esta configuración cuando se deban implementar Actualizaciones de características en los dispositivos sin bloquear ninguna retención de seguridad. Las retenciones de seguridad son problemas de compatibilidad conocidos que impiden que se implemente la actualización en los dispositivos afectados hasta que se solucione el problema. Habilitar esta directiva puede permitir que una organización implemente la Actualización de características en los dispositivos para pruebas, o bien que implemente la Actualización de características sin bloquear las protecciones.
+      </string>
       <string id="ExcludeWUDriversInQualityUpdate_Title">No incluyas controladores con las actualizaciones de Windows</string>
       <string id="ExcludeWUDriversInQualityUpdate_Help">Habilita esta directiva para no incluir controladores con las actualizaciones de calidad de Windows.
 
@@ -448,6 +484,16 @@ Si habilitas esta configuración, se quitará el acceso al análisis, descarga e
       <string id="DisablePauseUXAccess_Help">Esta configuración permite eliminar el acceso a la característica "Pausar actualizaciones".
 
 Una vez habilitada, se quita el acceso al usuario para pausar las actualizaciones.
+      </string>
+
+      <string id="MaxPauseDays_Title">Configurar el número máximo de días que se pueden pausar las actualizaciones</string>
+      <string id="MaxPauseDays_Help">Esta directiva controla el número máximo de días que los usuarios finales pueden pausar las actualizaciones.
+
+Los valores admitidos son de 1 a 35. El valor predeterminado es 35 (días).
+
+Cuando se configura la directiva, los usuarios solo pueden pausar las actualizaciones hasta el final del período de tiempo especificado por la directiva. Una vez alcanzado el límite configurado, los usuarios ya no pueden extender la pausa.
+
+Si la directiva está deshabilitada o no está configurada, se aplica el comportamiento de pausa predeterminado, lo que permite a los usuarios pausar continuamente las actualizaciones durante un máximo de 35 días a la vez. Esta directiva no deshabilita las actualizaciones de pausa por completo. Para quitar el acceso a Pausar actualizaciones, use la directiva "Quitar acceso a la característica 'Pausar actualizaciones'".
       </string>
 
       <string id="ActiveHoursMaxRange_Title">Especificar el intervalo de horas activas para los reinicios automáticos</string>
@@ -581,31 +627,52 @@ Si se deshabilita esta directiva o no se configura, el cliente de Windows Update
 Nota: Esta directiva solo se aplica cuando el servicio de Microsoft Update en la intranet al que se dirige este equipo se configura para admitir destinatarios del lado cliente. Si la directiva "Especificar la ubicación del servicio Microsoft Update en la intranet" está deshabilitada o no configurada, no entrará en vigor.
       </string>
       <string id="UpdateNotificationLevel_Title">Mostrar opciones para notificaciones de actualización</string>
-      <string id="UpdateNotificationLevel_Help">0 (valor predeterminado): usar las notificaciones predeterminadas de Windows Update
+      <string id="UpdateNotificationLevel_Help">0 (valor predeterminado) - Usar las notificaciones de Windows Update predeterminadas
 1: desactivar todas las notificaciones, excepto las advertencias de reinicio
 2: desactivar todas las notificaciones, incluidas las advertencias de reinicio
 
-Esta directiva te permite definir qué notificaciones de Windows Update pueden ver los usuarios. Esta Directiva no controla la forma y el momento en que se descargan e instalan las actualizaciones.
+Esta directiva permite definir qué notificaciones de Windows Update pueden ver los usuarios. Esta directiva no controla cómo y cuándo se descargan e instalan las actualizaciones.
 
-Importante: Si decides no recibir notificaciones de actualización y también quieres definir otra directiva de grupo para que los dispositivos no reciban actualizaciones automáticas, ni usuarios de dispositivos tendrán conocimiento de la seguridad, la calidad o las actualizaciones de características críticas, y tus dispositivos pueden estar en riesgo.
+Importante: si se opta por no recibir notificaciones de actualizaciones y, además, se define otra directiva de grupo para que los dispositivos no reciban automáticamente actualizaciones, ni usted ni los usuarios del dispositivo estarán al tanto de las actualizaciones críticas de seguridad, calidad o características y es posible que los dispositivos estén en peligro.
+
+Si selecciona “Aplicar solo durante las horas activas” junto con la opción 1 o 2, las notificaciones solo se deshabilitarán durante las horas activas. Puede establecer las horas activas con la opción “Desactivar el reinicio automático para las actualizaciones durante las horas activas” o permitir que el dispositivo establezca las horas activas en función del comportamiento del usuario. Para garantizar que el dispositivo permanece seguro, se seguirá mostrando una notificación si se selecciona esta opción una vez que la fecha límite de “Especificar fechas límite para actualizaciones automáticas y reinicios” se haya alcanzado, si es que se ha configurado, independientemente de las horas activas.
       </string>
       <string id="DefaultNotification">0 (predeterminado): notificaciones de Windows Update de SO predeterminadas</string>
       <string id="ExcludingRebootWarnings">1 – Deshabilitar todas las notificaciones, excepto las advertencias de reinicio</string>
       <string id="IncludingRebootWarnings">2 – Deshabilitar todas las notificaciones, incluidas las advertencias de reinicio</string>
-      <string id="ComplianceDeadline_Title">Especificar fechas límite para actualizaciones y reinicios automáticos</string>
-      <string id="ComplianceDeadline_Help">Esta directiva permite especificar el número de días que un usuario tiene antes de que se instalen automáticamente las actualizaciones de calidad y características en sus dispositivos, así como un período de gracia tras el cual se realizan reinicios automáticos. Las actualizaciones y los reinicios se producirán independientemente de las horas activas y el usuario no podrá volver a programarlos.
+      <string id="ComplianceDeadlineForFU_Title">Specify deadline for automatic updates and restarts for feature update</string>
+      <string id="ComplianceDeadlineForFU_Help">This policy lets you specify the number of days before feature updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
 
-Los plazos de actualización de características y de calidad pueden ser de hasta 30 días. El período de gracia de reinicio automático puede comprender entre 0 y 7 días.
+Set deadlines for feature updates and quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
 
-También puedes deshabilitar los reinicios automáticos hasta el final de dicho período de gracia.
+Set a grace period for feature updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
 
-Si deshabilitas o no configuras esta directiva, los dispositivos recibirán actualizaciones y se reiniciarán según la programación predeterminada.
+You can set the device to delay restarting until both the deadline and grace period have expired.
 
-Esta directiva invalidará las siguientes directivas:
-1.  Especificar la fecha límite antes del reinicio automáticamente para instalar las actualizaciones
-2.  Especificar la transición de reinicio establecido y la programación de notificaciones
-3.  Reiniciar siempre automáticamente a la hora programada
-4.  No reiniciar automáticamente para instalar actualizaciones automáticas programadas si hay usuarios con una sesión iniciada
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
+      </string>
+      <string id="ComplianceDeadlineForQU_Title">Specify deadline for automatic updates and restarts for quality update</string>
+      <string id="ComplianceDeadlineForQU_Help">This policy lets you specify the number of days before quality updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
+
+Set deadlines for quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
+
+Set a grace period for quality updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
+
+You can set the device to delay restarting until both the deadline and grace period have expired.
+
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
       </string>
       <string id="ComplianceDeadlineDay0">0</string>
       <string id="ComplianceDeadlineDay1">1</string>
@@ -638,6 +705,103 @@ Esta directiva invalidará las siguientes directivas:
       <string id="ComplianceDeadlineDay28">28</string>
       <string id="ComplianceDeadlineDay29">29</string>
       <string id="ComplianceDeadlineDay30">30</string>
+
+      <string id="AllowTemporaryEnterpriseFeatureControl_Title">Habilitar características introducidas mediante el servicio que están desactivadas de manera predeterminada</string>
+      <string id="AllowTemporaryEnterpriseFeatureControl_Help">Las características introducidas mediante el mantenimiento (fuera de la actualización anual de características) están desactivadas de forma predeterminada para los dispositivos que tienen sus actualizaciones de Windows administradas*.
+
+Si esta directiva está configurada como “Habilitada”, todas las características disponibles en la última actualización de calidad mensual instalada estarán activadas.
+
+Si esta directiva está establecida en " No configurado" o "Deshabilitado" las características que se envían a través de una actualización de calidad mensual (mantenimiento) permanecerán desactivadas hasta que se instale la actualización de características que incluye estas características.
+
+ *Los dispositivos administrados por actualizaciones de Windows son aquellos que tienen sus actualizaciones de Windows administradas mediante políticas; ya sea a través de la nube utilizando Windows Update para empresa o en las instalaciones con Windows Server Update Services (WSUS).
+      </string>
+      <string id="AllowOptionalContent_Title">Habilitar actualizaciones opcionales</string>
+      <string id="AllowOptionalContent_Help">Esta directiva permite que los dispositivos obtengan actualizaciones opcionales (incluidos los lanzamientos graduales de características (CFR). Para obtener más información, visite aka.ms/AllowOptionalContent)
+
+Cuando se configura la directiva
+
+• Si se selecciona "Recibir automáticamente actualizaciones opcionales (incluidos CFR)", el dispositivo obtendrá automáticamente las últimas actualizaciones opcionales en línea con los aplazamientos de actualización de calidad configurados. Esto incluye actualizaciones acumulativas opcionales y lanzamientos graduales de características (CFR).
+
+• Si se selecciona "Recibir automáticamente actualizaciones opcionales", el dispositivo solo obtendrá automáticamente actualizaciones acumulativas opcionales, en línea con los aplazamientos de actualizaciones de calidad.
+
+• Si se selecciona "Los usuarios pueden seleccionar qué actualizaciones quieren recibir", los usuarios pueden seleccionar las actualizaciones opcionales que se van a obtener en Configuración &gt; Windows Update &gt; Opciones avanzadas &gt; Actualizaciones opcionales. Los usuarios también pueden habilitar el botón de alternancia "Obtener las actualizaciones más recientes tan pronto como estén disponibles" para recibir automáticamente actualizaciones opcionales y lanzamientos graduales de características.
+      </string>
+      <string id="DonotReceiveOptionalContent">No recibir actualizaciones opcionales</string>
+      <string id="ReceiveOptionalContentWithAutoApproval">Recibir automáticamente actualizaciones opcionales (incluidas CFR)</string>
+      <string id="ReceiveOptionalLCUWithAutoApproval">Recibir automáticamente actualizaciones opcionales</string>
+      <string id="ReceiveOptionalContentNeedUserApproval">Los usuarios pueden seleccionar las actualizaciones opcionales que van a recibir</string>
+
+      <string id="MaintenanceWindow_Title">Configurar ventanas de mantenimiento para actualizaciones automáticas</string>
+      <string id="MaintenanceWindow_Help">Habilita esta directiva para especificar ventanas de mantenimiento repetibles para que el dispositivo realice las acciones de actualización especificadas.
+
+Cuando esta directiva está habilitada, Windows Update solo realizará la acción de actualización especificada durante la ventana de mantenimiento configurada. Las acciones de actualización especificadas fuera de la ventana de mantenimiento se aplazarán hasta que comience la siguiente ventana de mantenimiento.
+
+• Acciones de actualización: selecciona cuáles acciones de actualización se permiten, únicamente, durante la ventana de mantenimiento. Si no se selecciona una acción de actualización, dicha acción puede suceder fuera de la ventana de mantenimiento.
+    - Descargar, instalar y reiniciar: ciclo completo de actualización, que incluye descarga, instalación y reinicio del sistema
+    - Instalar y reiniciar: instala las actualizaciones ya descargadas y reinicia el dispositivo
+    - Solo reiniciar: realiza únicamente un reinicio del sistema para las actualizaciones pendientes
+
+• Configuración de programación básica:
+    - Fecha de inicio: especifica la fecha inicial en la que comienza la primera ventana de mantenimiento (formato: aaaa-mm-dd; ejemplo: 2025-10-30)
+      * El campo Fecha de inicio únicamente surte efecto si la programación periódica está establecida en "Ninguna"
+    - Hora de inicio: establece la hora en la que comienza la ventana de mantenimiento (formato: hh:mm; ejemplo: 23:30 para las 11:30 p. m.)
+    - Duración: define cuánto tiempo dura cada ventana de mantenimiento en horas (ejemplo: 2 para una ventana de 2 horas)
+
+• Opciones de programación periódica:
+    - No repetir: ventana de mantenimiento única solamente en la fecha de inicio especificada
+    - Diario: la ventana de mantenimiento se repetirá cada día
+    - Semanal: la ventana de mantenimiento se repetirá semanalmente los días seleccionados de la semana
+    - Mensual: la ventana de mantenimiento se repetirá mensualmente en un día específico
+
+• Configuración de programación semanal (cuando se selecciona semanal):
+    - Selección del día de la semana: elige en cuáles días de la semana se producirá la ventana de mantenimiento:
+        * De domingo a sábado: marca las casillas para seleccionar los días específicos de la semana para la ventana de mantenimiento
+
+• Configuración de programación mensual (cuando se selecciona mensual):
+    - Tipo de programación mensual:
+        * Basado en la fecha: la ventana de mantenimiento se produce en un día específico del mes (por ejemplo, el día 15 de cada mes)
+        * Basado en semana:  la ventana de mantenimiento se produce en un evento específico del día de la semana dentro del mes (ejemplo: 2.º martes de cada mes)
+        * Último día del mes: la ventana de mantenimiento se produce el último día del mes
+    - Día del mes: al usar la programación basada en fechas, especifica qué día del mes (1-28)
+    - Evento en el mes: al usar la programación basada en semana, selecciona la semana del mes (primera, segunda, tercera, cuarta o última)
+    - Día de la semana: cuando utilices la programación basada en semana, selecciona qué día de la semana (de domingo a sábado)
+
+Ejemplos de configuraciones mensuales:
+    - Basado en fecha: "3.º día de cada mes" = día del mes: 3
+    - Basado en semana: "Segundo martes de cada mes" = Evento: Segundo, día de la semana: martes
+    - Basado en semana: "Último viernes de cada mes" = Evento: Último, día de la semana: viernes
+    - Último día del mes: "Último día de cada mes"
+
+Después de que se produzca una ventana de mantenimiento no repetitiva, la siguiente ventana de mantenimiento debe programarse en 3 meses. Si la fecha de inicio de una ventana de mantenimiento no repetitiva es de hace más de 3 meses, esta directiva se ignorará y las actualizaciones se programarán según la configuración predeterminada.
+
+Si deshabilitas o no configuras esta directiva, Windows Update aplicará su comportamiento de programación predeterminado.</string>
+      <!-- MaintenanceWindowUpdateActionsID dropdown options -->
+      <string id="MaintenanceWindowUpdateActions_DownloadInstallRestart">Descargar, instalar y reiniciar</string>
+      <string id="MaintenanceWindowUpdateActions_InstallRestart">Instalar y reiniciar</string>
+      <string id="MaintenanceWindowUpdateActions_RestartOnly">Reiniciar solo</string>
+      <!-- MaintenanceWindowRepeatScheduleOption dropdown options -->
+      <string id="MaintenanceWindowRepeatSchedule_NoRepeat">Sin repetición</string>
+      <string id="MaintenanceWindowRepeatSchedule_Daily">Diaria</string>
+      <string id="MaintenanceWindowRepeatSchedule_Weekly">Semanal</string>
+      <string id="MaintenanceWindowRepeatSchedule_Monthly">Mensual</string>
+      <!-- MaintenanceWindowMonthlyScheduleID dropdown options -->
+      <string id="MaintenanceWindowMonthlySchedule_MonthBased">Basado en fecha</string>
+      <string id="MaintenanceWindowMonthlySchedule_WeekBased">Basado en semana</string>
+      <string id="MaintenanceWindowMonthlySchedule_LastDay">Último día del mes</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_First">Primero</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Second">Segundo</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Third">Tercero</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Fourth">Cuarto</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Last">Último</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedDayOfTheWeek dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Sunday">Domingo</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Monday">Lunes</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Tuesday">Martes</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Wednesday">Miércoles</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Thursday">Jueves</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Friday">Viernes</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Saturday">Sábado</string>
     </stringTable>
 
     <presentationTable>
@@ -669,21 +833,28 @@ Esta directiva invalidará las siguientes directivas:
         <textBox refId="CorpWUContentHost_Name">
           <label>Definir el servidor de descargas alternativo:</label>
         </textBox>
-        <text>(por ejemplo, http://IntranetUpd01)</text>
+        <text>(ejemplo: https://IntranetUpd01)</text>
         <checkBox refId="CorpWUFillEmptyContentUrls" defaultChecked="false">Descarga archivos sin URL en los metadatos si se estableció un servidor de descargas alternativo.</checkBox>
+        <checkBox refId="CorpWUDoNotEnforceEnterpriseTLSCertPinningForUpdateDetection" defaultChecked="false">No forzar la asignación de certificados TLS para que el cliente de Windows Update detecte las actualizaciones.</checkBox>
+        <dropdownList refId="SetProxyBehaviorForUpdateDetection" noSort="true" defaultItem="0">Seleccione el comportamiento del proxy para el cliente de Windows Update para detectar actualizaciones:</dropdownList>
+      </presentation>
+      <presentation id="UpdateClassPolicySource_Title">
+        <text>Especifique el servicio de origen para las siguientes clases de actualizaciones de Windows:</text>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForFeatureUpdates" noSort="true" defaultItem="0">Actualizaciones de características</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForQualityUpdates" noSort="true" defaultItem="0">Actualizaciones de calidad</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForDriverUpdates" noSort="true" defaultItem="0">Actualizaciones de controladores</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForOtherUpdates" noSort="true" defaultItem="0">Otras actualizaciones</dropdownList>
       </presentation>
       <presentation id="DetectionFrequency_Title">
         <text>Comprobar actualizaciones con el siguiente</text>
         <decimalTextBox refId="DetectionFrequency_Hour2" defaultValue="22">intervalo (horas):  </decimalTextBox>
       </presentation>
       <presentation id="RebootRelaunchTimeout_Title">
-        <text>Esperar el siguiente período antes de</text>
-        <text>volver a pedir la intervención del usuario con un reinicio</text>
+        <text>Esperar el siguiente período antes de volver a preguntar con una</text>
         <decimalTextBox refId="RebootRelaunchTimeout_Minutes3" defaultValue="10">programado (minutos):  </decimalTextBox>
       </presentation>
       <presentation id="RebootWarningTimeout_Title">
-        <text>Esperar el siguiente período antes de</text>
-        <text>continuar con un reinicio</text>
+        <text>Esperar el siguiente período antes de continuar con una</text>
         <decimalTextBox refId="RebootWarningTimeout_Minutes3" defaultValue="5">programado (minutos):  </decimalTextBox>
       </presentation>
       <presentation id="RescheduleWaitTime_Title">
@@ -695,22 +866,23 @@ Esta directiva invalidará las siguientes directivas:
           <label>Nombre de grupo de destino para este equipo</label>
         </textBox>
       </presentation>
-      <presentation id="IdleShutdownTimerDuration_Title">
-        <text>Esperar el siguiente período antes de</text>
-        <text>apagar el servicio cuando</text>
-        <decimalTextBox refId="IdleShutdownTimerDuration_Minutes" defaultValue="10">esté inactivo (minutos):  </decimalTextBox>
-      </presentation>
       <presentation id="AlwaysAutoRebootAtScheduledTime_Presentation">
-        <text>El temporizador de reinicio concederá a los usuarios</text>
-        <text>todo este tiempo para guardar su</text>
+        <text>El temporizador de reinicio dará a los usuarios esta cantidad de tiempo para guardar su</text>
         <decimalTextBox refId="AlwaysAutoRebootAtScheduledTime_Minutes" defaultValue="15">trabajo (minutos):  </decimalTextBox>
       </presentation>
+      <presentation id="TargetReleaseVersion">
+        <textBox refId="ProductVersionId">
+          <label>¿Para qué versión de producto de Windows quieres recibir actualizaciones de características? por ejemplo, Windows 10</label>
+        </textBox>
+        <textBox refId="TargetReleaseVersionId">
+          <label>Versión de destino de Actualizaciones de características</label>
+        </textBox>
+      </presentation>
       <presentation id="ManagePreviewBuilds">
-        <dropdownList refId="ManagePreviewBuildsId" noSort="true" defaultItem="2">Establecer el comportamiento de recibir compilaciones de vista previa:</dropdownList>
+        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Seleccione el nivel de preparación de Windows para obtener las actualizaciones que desea recibir:</dropdownList>
       </presentation>
       <presentation id="DeferFeatureUpdates">
-        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Seleccione el nivel de preparación de Windows para obtener las actualizaciones que desea recibir:</dropdownList>
-        <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">Después del lanzamiento de una vista previa de compilación o actualización de características, aplazar su recepción por la siguiente cantidad de días:</decimalTextBox>
+       <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">¿Cuántos días después de que se publique una actualización de características quieres aplazar la actualización antes de que se ofrezca para el dispositivo?</decimalTextBox>
         <textBox refId="PauseFeatureUpdatesStartId">
           <label>Pausar actualizaciones de características iniciando o compilaciones de vista previa:</label>
         </textBox>
@@ -732,6 +904,10 @@ Esta directiva invalidará las siguientes directivas:
         <text>Especifica el número de días antes de que se ejecute automáticamente un reinicio pendiente fuera de las horas activas: </text>
         <dropdownList refId="AutoRestartDeadline" noSort="true" defaultItem="5">Actualizaciones de calidad (días): </dropdownList>
         <dropdownList refId="AutoRestartDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Actualizaciones de características (días): </dropdownList>
+      </presentation>
+      <presentation id="MaxPauseDays_Title">
+        <text>Especifique el número de días que los usuarios pueden pausar las actualizaciones:</text>
+        <decimalTextBox refId="SetMaxPauseDays" noSort="true" defaultValue="35">Máximo de días de pausa: </decimalTextBox>
       </presentation>
       <presentation id="ActiveHoursMaxRange_Title">
         <text>Especifica el intervalo máximo de horas activas:</text>
@@ -768,16 +944,50 @@ Esta directiva invalidará las siguientes directivas:
       </presentation>
       <presentation id="UpdateNotificationLevel_Title">
         <dropdownList refId="UpdateNotificationLevel" noSort="true" defaultItem="0">Especificar las opciones de visualización de las notificaciones de actualización:</dropdownList>
+        <text></text>
+        <checkBox refId="NoUpdateNotificationsDuringActiveHours" defaultChecked="false">Aplicar solo durante las horas activas</checkBox>
       </presentation>
-      <presentation id="ComplianceDeadline_Title">
-        <text>Especifica el número de días (hasta 30 días) que el usuario tiene antes de que las actualizaciones se ejecuten automáticamente, con independencia de las horas activas y sin posibilidad de reprogramarlo.</text>
-        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="5">Actualizaciones de calidad (días):</dropdownList>
-        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Actualizaciones de características (días):</dropdownList>
+       <presentation id="ComplianceDeadlineForFU_Title">
+        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="2">Fecha límite (días):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriodForFeatureUpdates" noSort="true" defaultItem="7">Período de gracia (días):</dropdownList>
         <text></text>
-        <text>Especifica un período de gracia para el reinicio automático (entre 0 y 7 días) desde el momento en que se requiere un reinicio hasta que el dispositivo se reinicie automáticamente. Los dispositivos se reiniciarán con independencia de las horas activa y sin posibilidad de reprogramarlo.</text>
-        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Período de gracia (días)</dropdownList>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForFeatureUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="ComplianceDeadlineForQU_Title">
+        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="7">Fecha límite (días):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Período de gracia (días):</dropdownList>
         <text></text>
-        <checkBox refId="ConfigureDeadlineNoAutoReboot" defaultChecked="false">No reiniciar automáticamente hasta el final del período de gracia</checkBox>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForQualityUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="AllowOptionalContent_Title">
+        <dropdownList refId="AllowOptionalContent" noSort="true" defaultItem="0">Seleccione el modo en que los usuarios reciben actualizaciones opcionales:</dropdownList>
+      </presentation>
+      <presentation id="MaintenanceWindow_Title">
+        <text>Ventana de mantenimiento:</text>
+        <dropdownList refId="MaintenanceWindowUpdateActionsID" noSort="true" defaultItem="1">Las acciones de actualización solo se permiten dentro de la ventana de mantenimiento:</dropdownList>
+        <textBox refId="MaintenanceWindowStartDateID">
+            <label>Fecha de inicio (formato: aaaa-mm-dd ejemplo: 2025-10-30)</label>
+        </textBox>
+        <textBox refId="MaintenanceWindowStartTimeID">
+            <label>Hora de inicio (formato: hh:mm ejemplo: 23:30 para 11:30 p. m.)</label>
+        </textBox>
+        <decimalTextBox refId="MaintenanceWindowDurationHoursID" defaultValue="2">Duración (horas):</decimalTextBox>
+        <dropdownList refId="MaintenanceWindowRepeatScheduleOptionID" noSort="true" defaultItem="1">Seleccione repetir programación:</dropdownList>
+        <text>Las siguientes opciones solo son necesarias y aplicables si se selecciona Semanal:</text>
+        <checkBox refId="MaintenanceWindowWeeklySundayID" defaultChecked="false">Domingo</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyMondayID" defaultChecked="false">Lunes</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyTuesdayID" defaultChecked="false">Martes</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyWednesdayID" defaultChecked="false">Miércoles</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyThursdayID" defaultChecked="false">Jueves</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyFridayID" defaultChecked="false">Viernes</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklySaturdayID" defaultChecked="false">Sábado</checkBox>
+        <text>Las siguientes opciones solo son necesarias y aplicables si se selecciona Mensual:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyScheduleID" noSort="true" defaultItem="1">Tipo de programación mensual:</dropdownList>
+        <text>La siguiente configuración solo es necesaria y aplicable si se selecciona el tipo basado en fecha:</text>
+        <decimalTextBox refId="MaintenanceWindowMonthlyMonthBasedDayOfMonthID" defaultValue="1">Día del mes:</decimalTextBox>
+        <text>La siguiente configuración solo es necesaria y aplicable si se selecciona el tipo basado en semana:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonthID" noSort="true" defaultItem="1">Ocurrencia en el mes</dropdownList>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedDayOfTheWeekID" noSort="true" defaultItem="1">Día de la semana</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

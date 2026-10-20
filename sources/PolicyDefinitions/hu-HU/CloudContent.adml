@@ -15,7 +15,7 @@ Emellett ha bejelöli az „Enterprise Reflektorfény tartalmának szerepelteté
 
 Ha letiltja ezt a házirend-beállítást, akkor a Windows Reflektorfény ki lesz kapcsolva, és a felhasználók nem választhatják ki ezt a szolgáltatást a zárolási képernyőjükhöz. A felhasználók számára ilyen esetben az alapértelmezett zárolási képernyő képe jelenik meg, és más képet is kiválaszthatnak, amennyiben nincs engedélyezve „A zárolási képernyő képmódosításának megelőzése” házirend.
 
-Ha nem konfigurálja ezt a házirendet, akkor a Windows Reflektorfény elérhető lesz és alapértelmezés szerint ki is lesz választva a zárolási képernyőhöz, hacsak nem konfigurált más alapértelmezett képet a zárolási képernyőhöz a „Megadott alapértelmezett kép használatának kényszerítése a zárolási képernyőn” házirenddel.
+Ha nem konfigurálja ezt a házirendet, akkor a Windows Reflektorfény elérhető lesz és alapértelmezés szerint ki is lesz választva a zárolási képernyőhöz, hacsak nem konfigurált más alapértelmezett képet a zárolási képernyőhöz a „Megadott alapértelmezett kép használatának kényszerítése a zárolási és bejelentkezési képernyőn” házirenddel.
 
 Megjegyzés: Ez a házirend csak Enterprise termékek esetében érhető el</string>
       <string id="DisableWindowsSpotlightFeatures">A Windows Reflektorfény összes szolgáltatásának kikapcsolása</string>
@@ -66,7 +66,44 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Windows Refl
 
 Ha engedélyezi ezt a szabályzatot, a Windows üdvözlőprogramja többé nem jelenik meg, ha a Windows vagy az alkalmazásai frissülnek vagy megváltoznak.
 
-Ha ezt a szabályzatot letiltja vagy nem konfigurálja, elindul a Windows üdvözlőprogramja, hogy segítse az új Windows-felhasználókat, ismertetve az újdonságokat, a változásokat és a javaslatokat.</string>
+Ha ezt a szabályzatot letiltja vagy nem konfigurálja, elindul a Windows üdvözlőprogramja, hogy segítse az új Windows-felhasználók hozzáadását, ismertetve az újdonságokat, a változásokat és a javaslatokat.</string>
+      <string id="DisableCloudOptimizedContent">A felhőre optimalizált tartalom kikapcsolása</string>
+      <string id="DisableCloudOptimizedContent_Help">Ez a házirend-beállítás lehetővé teszi, hogy kikapcsolja a felhőre optimalizált tartalmakat a Windows összes alkalmazásában.
+
+Ha engedélyezi ezt a házirendet, a felhőre optimalizált tartalom ügyfélösszetevőjét használó Windows-funkciók az alapértelmezett tartalék tartalmat fogják mutatni.
+
+Ha letiltja vagy nem konfigurálja ezt a házirendet, a Windows-funkciók a felhőre optimalizált tartalmak használatát is lehetővé teszik.</string>
+      <string id="DisableSpotlightCollectionOnDesktop">Kiemelt gyűjtemény kikapcsolása az asztali eszközön</string>
+      <string id="DisableSpotlightCollectionOnDesktop_Help">Ez a házirend-beállítás eltávolítja a Kiemelt gyűjtemény beállítását a Személyre szabás programban, így a felhasználó nem tudja kiválasztani, majd letölteni a napi képeket a Microsoftról az asztali eszközre.
+
+Ha engedélyezi ezt a házirendet, a „Kiemelt gyűjtemény" lehetőség opcióként nem lesz elérhető a Személyre szabás beállításai között.
+
+Ha letiltja vagy nem konfigurálja ezt a házirendet, a „Kiemelt gyűjtemény“ opcióként megjelenik a Személyre szabás beállításai között, ezért a felhasználó az asztali eszköz szolgáltatójaként kiválaszthatja a „Kiemelt gyűjtemény“ lehetőséget, és megjelenítheti a napi képeket a Microsoftról az asztali eszközön.</string>
+      <string id="DisableConsumerAccountStateContent">Felhőalapú fogyasztói fiók állapottartalmának kikapcsolása</string>
+      <string id="DisableConsumerAccountStateContent_Help">Ez a házirend-beállítás lehetővé teszi, hogy kikapcsolja a felhőalapú fogyasztói fiók állapottartalmait a Windows összes alkalmazásában.
+
+Ha engedélyezi ezt a házirendet, a felhőre optimalizált tartalom ügyfélösszetevőjét használó Windows-funkciók az alapértelmezett tartalék tartalmat fogják mutatni.
+
+Ha letiltja vagy nem konfigurálja ezt a házirendet, a Windows-funkciók a felhőalapú fogyasztói fiók állapottartalmának használatát is lehetővé teszik.
+        </string>
+      <string id="EnableOrganizationalMessagesContent">Szervezeti üzenetek engedélyezése</string>
+      <string id="EnableOrganizationalMessagesContent_Help">A szervezeti üzenetek lehetővé teszik a rendszergazdák számára, hogy egyes Windows 11 felületeken üzeneteket kézbesíthessenek a végfelhasználóknak. A szervezeti üzeneteket a rendszergazdák például a Microsoft Endpoint Manager szolgáltatáson keresztül érhetik el.
+
+Alapértelmezés szerint ez a szabályzat le van tiltva. Ha engedélyezi ezt a szabályzatot, ezek a felületek a rendszergazdák által lefoglalt tartalmakat fogják megjeleníteni.
+
+A szabályzat engedélyezése nincs hatással a Microsoft által a Windows felületekre való tartalomkézbesítést szabályozó meglévő MDM-szabályzatbeállításokra.</string>
+      <string id="DisableGetStartedContent">Az Első lépések letiltása</string>
+      <string id="DisableGetStartedContent_Help">Ez a házirend-beállítás kikapcsolja a Windows Első lépések élményt.
+
+Ha engedélyezi ezt a házirend-beállítást, az Első lépések nem indul el automatikusan, és ha kézzel indítják, azonnal bezárul. A kapcsolódó háttérfeladatok nem futnak.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, az Első lépések elérhető marad, és megjelenhet, hogy segítsen a felhasználóknak megismerni a Windowst.</string>
+      <string id="DisableCopilotPinScreenContent">Copilot PIN-kód képernyőjének letiltása</string>
+      <string id="DisableCopilotPinScreenContent_Help">Megakadályozza, hogy a Windows bejelentkezéskor megjelenítse a Microsoft 365 Copilot javaslatait. Ez nem tiltja le a Copilotot, és nincs hatással a licencelésre.
+
+Ha engedélyezi ezt a szabályzatbeállítást, a Microsoft 365 Copilot telepítési útmutatója nem indul el automatikusan bejelentkezéskor.
+
+Ha letiltja vagy nem konfigurálja ezt a szabályzatbeállítást, bejelentkezéskor megjelenhet a Microsoft 365 Copilot beállítási útmutatója, amely segíti a felhasználókat a Copilot felfedezésében és beállításában.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureWindowsSpotlight">

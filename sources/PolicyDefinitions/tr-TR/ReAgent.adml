@@ -13,6 +13,13 @@
     Bu ilke ayarını etkinleştirirseniz veya yapılandırmazsanız Kurtarma özelliğinin (Denetim Masası'nda) "Gelişmiş kurtarma yöntemleri" sayfasında "Bilgisayarınızı kurtarmak için daha önce oluşturduğunuz bir görüntüyü kullanın" ve "Windows'u yeniden yükle" (veya "Bilgisayarınızı fabrika ayarlarına döndürün") öğeleri görünür ve kullanıcının bilgisayarı özgün durumuna veya kullanıcı tarafından oluşturulmuş bir sistem görüntüsüne geri yüklemesini sağlar. Varsayılan ayar budur.
 
     Bu ilke ayarını devre dışı bırakırsanız, Kurtarma özelliğinde (Denetim Masası'nda) "Bilgisayarınızı kurtarmak için daha önce oluşturduğunuz bir görüntüyü kullanın" ve "Windows'u yeniden yükle" (veya "Bilgisayarınızı fabrika ayarlarına döndürün") öğeleri kullanılamaz. Ancak, bu ilke ayarı devre dışıyken de, kullanıcılar bilgisayarı yeniden başlatıp kullanılabiliyorsa Sistem Kurtarma Seçenekleri menüsüne erişerek bilgisayarı özgün durumuna veya kullanıcı tarafından oluşturulmuş bir sistem görüntüsüne geri yükleyebilir.</string>
+      <string id="AllowTrustedOfflineScan">Güvenilen Windows Kurtarma Ortamı'ndan çevrimdışı taramaya izin ver</string>
+      <string id="AllowTrustedOfflineScan_help">    Gereksinimler: Windows 10
+    Açıklama: Bu ilke ayarı, güvenilen bir Windows Kurtarma Ortamı’ndan çevrimdışı taramaya izin verilip verilmeyeceğini denetler.
+
+    Bu ilke ayarını etkinleştirirseniz, Windows Kurtarma Ortamı’na BitLocker tarafından güvenildiği sürece çevrimdışı tarama BitLocker kurtarma anahtarı istenmeden çalışır.
+
+    Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, çevrimdışı tarama işletim sistemi biriminin kilidini açmak için kullanıcıdan BitLocker kurtarma anahtarını isteyecektir. Kullanıcı işletim sistemi biriminin kilidini açmayı atlarsa, çevrimdışı tarama çalışmayacaktır. Bu varsayılan ayardır.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

@@ -65,18 +65,17 @@ Om du aktiverar den här principinställningen kan du välja om Windows ska sök
 Om du väljer att söka på båda kommer Windows först att söka på den hanterade servern, exempelvis på en Windows Server Update Services-server (WSUS). Det är endast om inga uppdateringar hittas på servern som Windows även söker på Windows Update.
 
 Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan medlemmar av gruppen Administratörer bestämma vilken server som ska användas vid sökningen efter enhetsdrivrutiner.
-      
       </string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Sök på Windows Update</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Sök på hanterad server (Search Managed Server)</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Sök på hanterad server och sedan på Windows Update (Search Managed Server, then WU)</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Förhindra hämtning av metadata för enheten från Internet</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Du kan använda den här principinställningen för att förhindra att Windows hämtar metadata för enheten från Internet.
-          
-Om du aktiverar principinställningen hämtar inte Windows metadata för enheter från Internet till installerade enheter. Den här principinställningen åsidosätter inställningen i dialogrutan Inställningar för enhetsinstallation (Kontrollpanelen &gt; System och säkerhet &gt; System &gt; Avancerade systeminställningar &gt; fliken Maskinvara).
 
-Om principinställningen inaktiveras eller inte konfigureras kontrollerar inställningen i dialogrutan Inställningar för enhetsinstallation om Windows tillåts hämta metadata från Internet.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Förhindra automatisk nedladdning av program som är kopplade till enhetsmetadata</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Med den här principinställningen kan du hindra Windows från att ladda ned program kopplade till enhetsmetadata.
+
+Om du aktiverar den här principinställningen hämtas inte program som är kopplade till enhetsmetadata för installerade enheter. Den här principinställningen åsidosätter inställningen i dialogrutan Inställningar för enhetsinstallation (Kontrollpanelen &gt; System och säkerhet &gt; System &gt; avancerade systeminställningar &gt; maskinvara).
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen styr inställningen i dialogrutan Inställningar för enhetsinstallation om Windows hämtar program som är kopplade till enhetsmetadata.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

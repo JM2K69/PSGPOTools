@@ -33,6 +33,11 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren, wird die MDM-Registrierung f
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">Zu verwendenden Anmeldedatentyp auswählen:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>MDM-Anwendungs-ID:</label>
+        </textBox>
+        <text>Die MDM-Anwendungs-ID stellt die ID Ihrer MDM-Anwendung dar, die in Azure AD konfiguriert ist. Dies ist optional und wird nur für die automatische MDM-Registrierung mittels Geräte-Anmeldeinformationen benötigt, wenn mehrere MDM-Anwendungen in Azure AD konfiguriert sind.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

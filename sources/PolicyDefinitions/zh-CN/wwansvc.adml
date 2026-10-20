@@ -19,10 +19,9 @@
 - 可变: 此连接是按照每个字节收费的。
 
 如果禁用或未配置此策略设置，则默认将 3G 连接成本设置为“固定”。
-      
       </string>
       <string id="SetCost4G">设置 4G 成本</string>
-      <string id="SetCost4G_Help">此策略设置配置本地计算机上的 4G 连接成本。     
+      <string id="SetCost4G_Help">此策略设置配置本地计算机上的 4G 连接成本。      
 
 如果启用此策略设置，则会激活一个下拉列表框以显示可能的成本值。如果从列表中选择以下值之一，则会设置本地计算机上的所有 4G 连接的成本:
 
@@ -33,7 +32,6 @@
 - 可变: 此连接是按照每个字节收费的。
 
 如果禁用或未配置此策略设置，则默认将 4G 连接成本设置为“固定”。
-      
       </string>
       <string id="Cost_DropDownList_Unrestricted">无限制</string>
       <string id="Cost_DropDownList_Fixed">固定</string>
@@ -42,13 +40,13 @@
       <string id="ShowAppCellularAccessUI">设置按应用手机网络访问 UI 可见性</string>
       <string id="ShowAppCellularAccessUI_Help">此策略设置配置按应用程序手机网络访问控制页面链接在手机网络设置 UX 中的可见性。
 
-如果启用此策略设置，则表示可能值的下拉列表框将处于活动状态。选择“隐藏”或“显示”以隐藏或显示按应用程序手机网络访问控制页面的链接。
-如果禁用或未配置此策略设置，则将默认显示按应用程序手机网络访问控制页面的链接。
+如果启用此策略设置，则显示可能值的下拉列表框将处于活动状态。选择“隐藏”或“显示”以隐藏或显示指向按应用程序手机网络访问控制页面的链接。
+如果禁用或未配置此策略设置，则默认显示指向按应用程序手机网络访问控制页面的链接。
       </string>
       <string id="ShowAppCellularAccessUI_Option_Hide">隐藏</string>
       <string id="ShowAppCellularAccessUI_Option_Show">显示</string>
       <string id="CellularDataAccess">手机网络数据访问</string>
-      <string id="UserInControl">由用户控制</string>
+      <string id="UserInControl">用户正在控制</string>
       <string id="ForceAllow">强制允许</string>
       <string id="ForceDeny">强制拒绝</string>
       <string id="LetAppsAccessCellularData_Name">允许 Windows 应用访问手机网络数据</string>

@@ -118,6 +118,51 @@
         이 설정을 지정하지 않거나 사용하지 않도록 설정하면 기본적으로 "시작 화면 레이아웃" 그룹의 동기화가 켜지고 사용자가 구성할 수 있게 됩니다.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">접근성 설정 동기화 안 함</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        "접근성" 그룹이 이 PC와 동기화되지 않도록 합니다. 이렇게 하면 PC 설정의 "Windows 백업" 설정 페이지에서 "접근성" 그룹이 꺼지고 비활성화됩니다.
+
+이 정책 설정을 활성화하면 "접근성" 그룹이 동기화되지 않습니다.
+
+기본적으로 동기화가 꺼지지만 비활성화되지는 않도록 하려면 "사용자가 접근성 동기화를 켤 수 있도록 허용" 옵션을 사용합니다.
+
+이 설정을 설정하지 않거나 비활성화하면 "접근성" 그룹의 동기화가 기본적으로 켜지며 사용자가 구성할 수 있습니다.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">언어 기본 설정 동기화 안 함</string>
+      <string id="DisableLanguageSettingSync_Help">
+        "언어 기본 설정" 그룹이 이 PC와 동기화되지 않도록 합니다. 이렇게 하면 PC 설정의 "Windows 백업" 설정 페이지에서 "언어 기본 설정" 그룹이 꺼지고 비활성화됩니다.
+
+이 정책 설정을 활성화하면 "언어 기본 설정" 그룹이 동기화되지 않습니다.
+
+기본적으로 동기화가 꺼지지만 비활성화되지는 않도록 하려면 "사용자가 언어 기본 설정 동기화를 켤 수 있도록 허용" 옵션을 사용합니다.
+
+이 설정을 설정하지 않거나 비활성화하면 "언어 기본 설정" 그룹의 동기화가 기본적으로 켜지며 사용자가 구성할 수 있습니다.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Windows 백업 활성화</string>
+      <string id="EnableWindowsBackup_Help">이 정책 설정을 사용하면 관리자가 해당 organization에 대한 Windows 설정 백업을 구성하고 관리할 수 있습니다.
+
+이 정책 설정을 사용하면 Windows 설정 백업이 주기적으로 수행됩니다.
+
+이 정책 설정을 사용하지 않으면 Windows 설정 백업이 수행되지 않습니다.
+
+이 정책 설정을 구성하지 않으면 Windows 설정이 자격에 따라 주기적으로 백업됩니다.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Windows 복원 사용</string>
+      <string id="EnableWindowsRestore_Help">이 정책 설정을 사용하면 관리자가 조직에 대한 Windows 설정 복원을 구성하고 관리할 수 있습니다.
+
+이 정책 설정을 사용하도록 설정하면 Windows 설정 복원이 사용됩니다.
+
+이 정책 설정을 사용하지 않도록 설정하거나 구성하지 않으면 Windows 설정 복원이 사용하지 않도록 설정됩니다.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -164,6 +209,16 @@
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">"시작 화면 레이아웃" 동기화를 켤 수 있도록 합니다.</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">사용자가 "언어 기본 설정" 동기화를 켤 수 있도록 허용합니다.</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">사용자가 "언어 기본 설정"을 설정하도록 허용 동기화 중입니다.</checkBox>
       </presentation>
 
     </presentationTable>

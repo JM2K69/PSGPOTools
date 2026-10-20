@@ -13,7 +13,7 @@ Jos otat tämän käytäntöasetuksen käyttöön, virheellisten muuntojen kirja
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, virheellisten muuntojen kirjaus poistetaan käytöstä.
 
-Tämä käytäntöasetus koskee japaninkielistä Microsoft IME -kirjoitustukea.</string>
+Tämä käytäntöasetus koskee japaninkielistä Microsoft IME -kirjoitustukea ja perinteisen kiinan kirjoitustukea.</string>
       <string id="L_TurnOffSavingAutoTuningDataToFile">Poista käytöstä automaattisen säädön tietojen tallentaminen tiedostoon</string>
       <string id="L_TurnOffSavingAutoTuningDataToFileExplain">Tämän käytäntöasetuksen avulla voit poistaa käytöstä automaattisäädön tulosten tallentamisen tiedostoon.
 
@@ -57,15 +57,17 @@ Huomautus: Tähän asetukseen tehdyt muutokset eivät tule voimaan, ennen kuin k
       <string id="L_TurnOffCustomDictionary">Poista mukautettu sanasto käytöstä</string>
       <string id="L_TurnOffCustomDictionaryExplain">Tämän käytäntöasetuksen avulla voit poistaa käytöstä mahdollisuuden käyttää mukautettua sanastoa.
 
-Jos otat tämän käytäntöasetuksen käyttöön, et voi lisätä sanoja mukautettuun sanastoon, muokata sanaston sanoja etkä poistaa niitä sanastosta graafisen käyttöliittymän työkaluilla tai ohjelmointirajapintojen avulla. Ennen tämän käytäntöasetuksen käyttöönottoa mukautetussa sanastossa rekisteröityä sanaa voidaan edelleen käyttää muunnossa.
+Jos otat tämän käytäntöasetuksen käyttöön, et voi lisätä sanoja mukautettuun sanastoon, muokata sanaston sanoja etkä poistaa niitä sanastosta graafisen käyttöliittymän työkaluilla tai ohjelmointirajapintojen avulla. Sanoja, jotka on lisätty mukautettuun sanastoon ennen tämän käytännön ottamista käyttöön, voidaan edelleen käyttää muunnossa.
 
-Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, mukautettua sanastoa voidaan käyttää oletusarvoisesti.
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, mukautettua sanastoa voi oletusarvoisesti käyttää.
 
-Japaninkielisessä Microsoft IME -kirjoitustuessa [Tyhjennä automaattisen säädön tiedot] toimii, vaikka tämä käytäntöasetus on otettu käyttöön, ja toiminto tyhjentää itse säädetyt sanat mukautetusta sanastosta.
+[Tyhjennä automaattisen säädön tiedot] poistaa itse säädetyt sanat mukautetusta sanastosta, vaikka ryhmän käytäntöasetus on otettu käyttöön. Voit tehdä tämän valitsemalla Asetukset &gt; Aika ja kieli &gt; Japanin kieliasetukset &gt; Microsoft IME -asetukset. Jos yhteensopivuustila on otettu käyttöön, valitse Lisäasetukset &gt; Sanasto ja automaattinen säätö &gt; [Tyhjennä automaattisen säädön tiedot].
+
+[Tyhjennä syötehistoria] poistaa itse säädetyt sanat mukautetusta sanastosta, vaikka ryhmän käytäntöasetus on otettu käyttöön. Voit tehdä tämän valitsemalla Asetukset &gt; Aika ja kieli &gt; Japanin kieliasetukset &gt; Microsoft IME -asetukset &gt; Oppiminen ja sanasto &gt; [Tyhjennä syötehistoria].
 
 Tätä käytäntöasetusta käytetään japaninkielisessä Microsoft IME -kirjoitustuessa.
 
-Huomautus: Tähän asetukseen tehdyt muutokset eivät tule voimaan, ennen kuin käyttäjä kirjautuu ulos.</string>
+Huomautus: tämän asetuksen muutokset tulevat voimaan vasta, kun käyttäjä kirjautuu ulos.</string>
       <string id="L_RestrictCharacterCodeRangeOfConversion">Rajoita muunnon merkkikoodialuetta</string>
       <string id="L_RestrictCharacterCodeRangeOfConversionExplain">Tämän käytäntöasetuksen avulla voit rajoittaa muunnon merkkikoodialuetta määrittämällä merkkisuodattimen.
 
@@ -118,26 +120,54 @@ Jos poistat tämän käytäntöasetuksen käytöstä, tähän ominaisuuteen liit
 Jos et määritä tätä käytäntöasetusta, ominaisuus on oletusarvoisesti poissa käytöstä ja käyttäjä pystyy ottamaan pilviehdotusominaisuuden käyttöön tai poistamaan sen käytöstä.
 
 Tämä käytäntöasetus koskee vain Microsoft CHS Pinyin IME -kirjoitustukea.</string>
-      <string id="L_TurnOnLiveSticker">Ota Reaaliaikainen tarra käyttöön</string>
-      <string id="L_TurnOnLiveStickerExplain">Tämä käytäntöasetus ohjaa reaaliaikaista tarraominaisuutta, joka tarjoaa verkkopalvelun avulla tarroja verkossa.
+      <string id="L_ConfigureSimplifiedChineseImeVersion">Määritä yksinkertaistetun kiinan IME-versio</string>
+      <string id="L_ConfigureSimplifiedChineseImeVersionExplain">Tämä käytäntöasetus määrittää Microsoft IME -version.​
 
-Jos otat tämän käytäntöasetuksen käyttöön, tähän ominaisuuteen liittyvät toiminnot otetaan käyttöön ja käyttäjän näppäimistösyöte lähetetään Microsoftille reaaliaikaisten tarrojen muodostamista varten. Käyttäjä ei pysty poistamaan ominaisuutta käytöstä.
+Jos et määritä tätä käytäntöasetusta, käyttäjä pystyy määrittämään käytettävän IME-version. Uusi Microsoft IME on oletusarvoisesti käytössä.​
 
-Jos poistat tämän käytäntöasetuksen käytöstä, tähän ominaisuuteen liittyvät toiminnot poistetaan käytöstä eikä käyttäjä pysty ottamaan ominaisuutta käyttöön.
+Jos otat asetuksen käyttöön, käyttäjällä ei ole lupaa määrittää käytettävää IME-versiota. Edellinen Microsoft IME -versio on aina valittuna.​
 
-Jos et määritä tätä käytäntöasetusta, ominaisuus on oletusarvoisesti poissa käytöstä ja käyttäjä pystyy ottamaan reaaliaikaisen tarraominaisuuden käyttöön tai poistamaan sen käytöstä.
+Jos poistat asetuksen käytöstä, käyttäjällä ei ole lupaa määrittää käytettävää IME-versiota. Uusi Microsoft IME on aina valittuna.
 
-Tämä käytäntöasetus koskee vain Microsoft CHS Pinyin IME -kirjoitustukea.</string>
-      <string id="L_TurnOnLexiconUpdate">Ota sanaston päivitysominaisuus käyttöön</string>
-      <string id="L_TurnOnLexiconUpdateExplain">Tämä käytäntöasetus ohjaa sanaston päivitysominaisuutta, joka lataa usein käytettyjen ja suosittujen sanojen sanaston paikalliseen tietokoneeseen.
+Tämä käytäntöasetus koskee vain yksinkertaistetun kiinan Microsoft IME -kirjoitustukea.
 
-Jos otat tämän käytäntöasetuksen käyttöön, tähän ominaisuuteen liittyvät toiminnot otetaan käyttöön, usein käytettyjen ja suosittujen sanojen sanaston voi ladata paikalliseen tietokoneeseen ja käyttäjä pystyy ottamaan sanaston päivitysominaisuuden käyttöön tai poistamaan sen käytöstä asetuksissa.
+Huomautus: tämän asetuksen muutokset tulevat voimaan vasta, kun käyttäjä kirjautuu ulos.</string>
+      <string id="L_ConfigureTraditionalChineseImeVersion">Määritä perinteisen kiinan IME-versio</string>
+      <string id="L_ConfigureTraditionalChineseImeVersionExplain">Tämä käytäntöasetus määrittää Microsoft IME -version.​
 
-Jos poistat tämän käytäntöasetuksen käytöstä, tähän ominaisuuteen liittyvät toiminnot poistetaan käytöstä eikä käyttäjä pysty ottamaan ominaisuutta käyttöön.
+Jos et määritä tätä käytäntöasetusta, käyttäjä pystyy määrittämään käytettävän IME-version. Uusi Microsoft IME on oletusarvoisesti käytössä.​
 
-Jos et määritä tätä käytäntöasetusta, ominaisuus on oletusarvoisesti käytössä ja käyttäjä pystyy ottamaan sanaston päivitysominaisuuden käyttöön tai poistamaan sen käytöstä.
+Jos otat asetuksen käyttöön, käyttäjällä ei ole lupaa määrittää käytettävää IME-versiota. Edellinen Microsoft IME -versio on aina valittuna.​
 
-Tämä käytäntöasetus koskee vain Microsoft CHS Pinyin IME -kirjoitustukea.</string>
+Jos poistat asetuksen käytöstä, käyttäjällä ei ole lupaa määrittää käytettävää IME-versiota. Uusi Microsoft IME on aina valittuna.
+
+Tämä käytäntöasetus koskee vain perinteisen kiinan Microsoft IME -kirjoitustukea.
+
+Huomautus: tämän asetuksen muutokset tulevat voimaan vasta, kun käyttäjä kirjautuu ulos.</string>
+      <string id="L_ConfigureJapaneseImeVersion">Määritä japanin IME-versio</string>
+      <string id="L_ConfigureJapaneseImeVersionExplain">Tämä käytäntöasetus määrittää Microsoft IME -version.​
+
+Jos et määritä tätä käytäntöasetusta, käyttäjä pystyy määrittämään käytettävän IME-version. Uusi Microsoft IME on oletusarvoisesti käytössä.​
+
+Jos otat asetuksen käyttöön, käyttäjällä ei ole lupaa määrittää käytettävää IME-versiota. Edellinen Microsoft IME -versio on aina valittuna.​
+
+Jos poistat asetuksen käytöstä, käyttäjällä ei ole lupaa määrittää käytettävää IME-versiota. Uusi Microsoft IME on aina valittuna.
+
+Tämä käytäntöasetus koskee vain japanin Microsoft IME -kirjoitustukea.
+
+Huomautus: tämän asetuksen muutokset tulevat voimaan vasta, kun käyttäjä kirjautuu ulos.</string>
+      <string id="L_ConfigureKoreanImeVersion">Määritä korean IME-versio</string>
+      <string id="L_ConfigureKoreanImeVersionExplain">Tämä käytäntöasetus määrittää Microsoft IME -version.​
+
+Jos et määritä tätä käytäntöasetusta, käyttäjä pystyy määrittämään käytettävän IME-version. Uusi Microsoft IME on oletusarvoisesti käytössä.​
+
+Jos otat asetuksen käyttöön, käyttäjällä ei ole lupaa määrittää käytettävää IME-versiota. Edellinen Microsoft IME -versio on aina valittuna.​
+
+Jos poistat asetuksen käytöstä, käyttäjällä ei ole lupaa määrittää käytettävää IME-versiota. Uusi Microsoft IME on aina valittuna.
+
+Tämä käytäntöasetus koskee vain korean Microsoft IME -kirjoitustukea.
+
+Huomautus: tämän asetuksen muutokset tulevat voimaan vasta, kun käyttäjä kirjautuu ulos.</string>
     </stringTable>
     <presentationTable>
       <presentation id="L_RestrictCharacterCodeRangeOfConversion">

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>itt adja meg a megjelenítendő nevet</displayName>
+  <description>itt adja meg a leírást</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">A Windows Copilot kikapcsolása</string>
+      <string id="TurnOffWindowsCopilot_Help">Ezzel a szabályzatbeállítással kikapcsolhatja a Windows Copilotot.
+
+Ha engedélyezi ezt a szabályzatbeállítást, a felhasználók nem fogják tudni használni a Copilotot. A Copilot ikon sem jelenik meg a tálcán.
+
+Ha letiltja vagy nem konfigurálja ezt a szabályzatbeállítást, a felhasználók használhatják a Copilotot, ha az elérhetővé válik számukra.
+      </string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="DisableAIDataAnalysis">A pillanatképek mentésének kikapcsolása a Felidézéssel való használathoz
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Ezzel a házirend-beállítással meghatározhatja, hogy a menthetők-e a képernyő pillanatképei a Felidézés funkcióval való használatra. Alapértelmezés szerint a Felidézés pillanatképei nincsenek engedélyezve a felügyelt eszközök esetén. A rendszergazdák önmagukban nem engedélyezhetik a pillanatképek mentését a felhasználók nevében. A pillanatképek mentésének engedélyezéséhez egyéni felhasználói jóváhagyás szükséges.
+
+Ha a házirend nincs konfigurálva, a pillanatképek nem lesznek mentve a Felidézéssel való használatra.
+
+Ha engedélyezi ezt a házirendet, a pillanatképek nem lesznek mentve a Felidézéssel való használatra. Ha a pillanatképek korábban az eszközre lettek mentve, akkor a házirend engedélyezésekor törlődnek.
+
+Ha letiltja ezt a házirendet, a végfelhasználók dönthetnek úgy, hogy mentik a képernyő pillanatképeit, és a Felidézés funkcióval keresik az eszközükön látott dolgokat.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">A Felidézés által használt pillanatképek maximális tárterületének beállítása
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Ezzel a házirend-beállítással szabályozhatja, hogy a Windows mekkora lemezterületet használhasson fel a pillanatképek mentésére a Felidézés számára.
+
+A pillanatképek maximális lemezterülete 10, 25, 50, 75, 100 vagy 150 GB lehet.
+
+Ha ez a beállítás nincs konfigurálva, az operációs rendszer az eszköz tárterület-kapacitása alapján konfigurálja a pillanatképek tárterület-foglalását, ha a felhasználó nem ad meg egy másik értéket.
+
+Ha az eszköz tárolókapacitása 256 GB, a rendszer 25 GB-ot foglal le. Ha az eszköz tárolókapacitása 512 GB, a rendszer 75 GB-ot foglal le. Ha az eszköz tárterület-kapacitása legalább 1 TB, a rendszer 150 GB-ot foglal le.
+
+Ha a Felidézés számára a maximális tárolási időtartamot és a maximális tárolási helyet is beállítják, akkor a pillanatképek törlésre kerülnek, amikor eléri az első maximális értéket.
+
+Fontos: Ez a beállítás csak az Enterprise és Education ügyfél-termékváltozatokra vonatkozik.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Az operációs rendszer határozza meg a maximális tárterületet a merevlemez tármérete alapján</string>
+      <string id="SetMaximumStorageSpace_10GB">10 GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25 GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50 GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75 GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100 GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150 GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">A Felidézés által használt pillanatképek tárolásának maximális időtartamának beállítása
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Ezzel a házirend-beállítással szabályozhatja, hogy a Windows legfeljebb mennyi ideig (napig) mentse a pillanatképeket a Felidézés számára.
+
+Ha a házirend engedélyezve van, a maximális tárolási időtartam 30, 60, 90 vagy 180 nap lehet.
+
+Ha ez a szabályzat nincs konfigurálva, a maximális tárolási időtartam 90 nap, hacsak a jelenlegi felhasználó nem ad meg más értéket.
+
+Ha a Felidézés számára a maximális tárolási időtartamot és a maximális tárolási helyet is beállítják, akkor a pillanatképek törlésre kerülnek, amikor eléri az első maximális értéket.
+
+Fontos: Ez a beállítás csak az Enterprise és Education ügyfél-termékváltozatokra vonatkozik.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">Az operációs rendszer határozza meg a pillanatképek mentésének maximális időtartamát
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 nap</string>
+      <string id="SetMaximumStorageDuration_60Days">60 nap</string>
+      <string id="SetMaximumStorageDuration_90Days">90 nap</string>
+      <string id="SetMaximumStorageDuration_180Days">180 nap</string>
+      <string id="SetDenyAppListForRecall">A Felidézés pillanatképeiből szűrni kívánt alkalmazások listájának beállítása
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Ez a házirend lehetővé teszi azon alkalmazások listájának meghatározását, amelyek nem fognak szerepelni a Felidézés pillanatképeiben.
+
+A felhasználók a Felidézés beállításaiban további alkalmazásokat adhatnak hozzá a pillanatképekből kizárandókhoz.
+
+A lista tartalmazhatja az alkalmazás felhasználói modellazonosítóit (AUMID) vagy a végrehajtható fájl nevét.
+
+Az alkalmazások pontosvesszővel elválasztott listájával definiálhatja a Felidézés megtagadandó alkalmazáslistáját.
+
+Például: code.exe;Microsoft.WindowsNotepad_8wekyb3d8bbwe! App;ms-teams.exe
+
+Fontos: Ez a beállítás csak az Enterprise és Education ügyfél-termékváltozatokra vonatkozik. A házirend-beállítás konfigurálásakor a módosítások csak az eszköz újraindítása után lépnek érvénybe.
+      </string>
+      <string id="SetDenyUriListForRecall">A Felidézés pillanatképeiből szűrni kívánt URI-k listájának beállítása
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Ez a házirendbeállítás lehetővé teszi azon URI-k listájának meghatározását, amelyek nem lesznek belefoglalva a Felidézés pillanatképeibe, ha támogatott böngészőt használ. A szervezeten belüli személyek a Visszahívási beállítások segítségével további webhelyeket adhatnak hozzá a listához. Adja meg a listát pontosvesszővel az URI-k elválasztásához.
+
+Például: https://www. Contoso.com; https://www. WoodgroveBank.com; https://www. Adatum.com
+
+A https://www.WoodgroveBank.com a listához a https://Account.WoodgroveBank.com és a https://www.WoodgroveBank.com/Account hozzáadása.
+
+Fontos: Ez a beállítás csak az Enterprise és Education ügyfél-termékváltozatokra vonatkozik. A szabályzat módosításai az eszköz újraindítása után lépnek érvénybe.
+      </string>
+      <string id="SetDataLossPreventionProvider">A DLP-szolgáltató azonosítójának beállítása Felidézéshez
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Ez a házirend lehetővé teszi a rendszergazda számára egy DLP-szolgáltató megadását, amelyet a Felidézés fog használni, ha a szolgáltató megfelelően van telepítve. Ehhez le kell kérnie a sztringet a szolgáltatótól. A következőhöz hasonló lesz: 'key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; érték:InstallPath; binary:contosoDLP.dll' (az értékben idézőjelek nélkül).
+
+Fontos: Ez a beállítás csak a Nagyvállalati és Oktatás ügyfél-termékváltozatokra vonatkozik.
+      </string>
+      <string id="SetCopilotHardwareKey">Copilot hardveres kulcs beállítása</string>
+      <string id="SetCopilotHardwareKey_Help">Ez a szabályzatbeállítás azt határozza meg, hogy melyik alkalmazás nyílik meg, amikor a felhasználó megnyomja a Copilot billentyűt a billentyűzetén. Ha a szabályzat engedélyezve van, a megadott alkalmazás nyílik meg, amikor a felhasználó megnyomja a Copilot billentyűt. A felhasználók a Beállítások lapon módosíthatják a billentyű-hozzárendelést. Ha a szabályzat nincs konfigurálva, a Copilot nyílik meg, ha az adott országban vagy régióban elérhető.
+      </string>
+      <string id="AllowRecallEnablement">A Felidézés engedélyezése
+      </string>
+      <string id="AllowRecallEnablement_Help">Ezzel a házirend-beállítással meghatározhatja, hogy a Felidézés választható összetevő elérhető-e a végfelhasználók számára az eszközükön való engedélyezéshez. Alapértelmezés szerint a Felidézés le van tiltva a felügyelt kereskedelmi eszközökön. A Felidézés alapértelmezés szerint nem érhető el a felügyelt eszközökön, és az egyes felhasználók önállóan nem engedélyezhetik a Felidézést.
+
+Ha ez a házirend nincs konfigurálva, a végfelhasználók számára le lesz tiltva a Felidézés összetevő.
+
+Ha ez a házirend le van tiltva, a Felidézés összetevő letiltott állapotban lesz, és a Felidézés részei el lesznek távolítva az eszközről. Ha a pillanatképek korábban az eszközre lettek mentve, akkor a házirend letiltásakor törlődnek. A Felidézés eltávolításához újra kell indítani az eszközt.
+
+Ha a szabályzat engedélyezve van, a végfelhasználók számára elérhető lesz a Felidézés az eszközükön. A DisableAIDataAnalysis házirend állapotától függően (a pillanatképek mentésének kikapcsolása a Felidézéssel való használathoz) a végfelhasználók kiválaszthatják, hogy menteni szeretnék-e a képernyő pillanatképeit, és a Felidézés segítségével szeretnék-e megkeresni az eszközön látott dolgokat.
+      </string>
+      <string id="DisableClickToDo">A Műveletek kattintással letiltása</string>
+      <string id="DisableClickToDo_Help">A Műveletek kattintással lehetővé teszi a felhasználók számára, hogy műveleteket végezzenek a képernyőjükön lévő tartalmakon. Aktiváláskor képernyőképet készít a képernyőről, és elemzi, hogy javaslatokat tegyen. A Műveletek kattintással funkció akkor ér véget, amikor a felhasználó kilép belőle, és nem tud képernyőképet készíteni, amikor ki van kapcsolva. A képernyőkép-elemzés mindig helyben, az eszközön történik. Alapértelmezés szerint a Műveletek kattintással engedélyezve van a felhasználók számára.
+
+Ez a házirend-beállítás lehetővé teszi, hogy meghatározza, elérhető-e a Műveletek kattintással funkció a felhasználók számára az eszközükön.
+
+Ha a házirend engedélyezve van, a Műveletek kattintással összetevő és a belépési pontok nem lesznek elérhetők a felhasználók számára.
+
+Ha a házirend le van tiltva, a felhasználók számára elérhető lesz a Műveletek kattintással funkció az eszközükön.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">A Képkészítő letiltása</string>
+      <string id="DisableImageCreator_Help">Ezzel a házirend-beállítással szabályozhatja, hogy a Képkészítő funkció le van-e tiltva a Windows Paint alkalmazásban. Ha ez a házirend engedélyezve van, a Képkészítő funkció nem lesz elérhető a Paint alkalmazásban. Ha letiltja vagy nem konfigurálja ezt a házirendet, a felhasználók hozzáférhetnek a Képkészítő funkcióihoz.</string>
+      <string id="DisableCocreator">A Cocreator letiltása</string>
+      <string id="DisableCocreator_Help">Ezzel a házirend-beállítással szabályozhatja, hogy a Cocreator funkció le van-e tiltva a Windows Paint alkalmazásban. Ha ez a házirend engedélyezve van, a Cocreator funkció nem lesz elérhető a Paint alkalmazásban. Ha letiltja vagy nem konfigurálja ezt a házirendet, a felhasználók hozzáférhetnek a Cocreator funkcióihoz.</string>
+      <string id="DisableGenerativeFill">Generatív kitöltés letiltása</string>
+      <string id="DisableGenerativeFill_Help">Ezzel a házirend-beállítással szabályozhatja, hogy a generatív kitöltés funkció le van-e tiltva a Windows Paint alkalmazásban. Ha ez a házirend engedélyezve van, a generatív kitöltés funkció nem lesz elérhető a Paint alkalmazásban. Ha letiltja vagy nem konfigurálja ezt a házirendet, a felhasználók hozzáférhetnek a generatív kitöltés funkcióihoz.</string>
+      <string id="AllowRecallExport">Felidézés és pillanatkép adatok exportálásának engedélyezése</string>
+      <string id="AllowRecallExport_Help">Ez a házirend lehetővé teszi annak meghatározását, hogy a felhasználók exportálhatják-e a saját Felidézés- és pillanatképadataikat. Az exportálás lehetővé teszi a felhasználók számára, hogy megosszák Felidézés- és pillanatképadataikat a megbízható alkalmazásokkal vagy webhelyekkel. A felhasználók a Gépház &gt;Adatvédelem és biztonság &gt; Felidézés és pillanatképek &gt; Speciális beállítások &gt; Pillanatképek exportálása &gt; Korábbi pillanatképek exportálása &gt; Exportálás területről exportálhatnak.
+
+A felhasználók mostantól azt is választhatják, hogy folyamatosan exportálják pillanatképeiket, ha engedélyezik a pillanatképek exportálását a Gépház &gt; Adatvédelem és biztonság &gt; Felidézés és pillanatképek &gt; Speciális beállítások &gt; Pillanatképek exportálása &gt; Exportálás területen.
+
+Az exportálás megkezdése előtt a felhasználónak hitelesítenie kell magát a Windows Hello segítségével, és értesítést kap arról, hogy az exportált pillanatképek titkosítva vannak, mivel bizalmas információkat tartalmazhatnak. A felhasználó értesítést kap arról is, hogy meg kell adnia a Felidézés exportálási kódját, ha engedélyezni szeretné a megbízható alkalmazások vagy webhelyek számára az exportált pillanatképek elérését. A Felidézés exportálási kódja a Felidézés beállítása során is megjelenik a felhasználók számára, még akkor is, ha ez a szabályzat le van tiltva vagy nincs konfigurálva. Felügyelt eszközök esetén:
+
+Ha engedélyezi ezt a házirendet, a felhasználók exportálhatják a Felidézés és a pillanatkép információit.
+
+Ha a házirend le van tiltva vagy nincs konfigurálva, a felhasználók nem fogják tudni exportálni a Felidézés és a pillanatkép információit.
+
+Fontos: Ez a beállítás csak az Európai Gazdasági Térség (EGT) eszközeire vonatkozik. A Felidézés- és pillanatképadatok exportálása felhasználó által kezdeményezett folyamat, amely felhasználónként történik. A rendszergazdák vagy más felhasználók nem kezdeményezhetnek exportálást más nevében.
+      </string>
+      <string id="DisableSettingsAgent">A beállítások ügynöki keresési élményének letiltása</string>
+      <string id="DisableSettingsAgent_Help">A beállítások ügynöki élménye javítja a keresési eredményeket a Beállítások alkalmazásban a természetes nyelv engedélyezésével. Ha aktiválva van, egy AI-modellt használ, amely intelligens Beállításoki keresési javaslatokat nyújt.
+
+        Ez a házirend-beállítás lehetővé teszi, hogy meghatározza a beállítások ügynöki keresési élmény elérhetőségét a felhasználók számára az eszközükön.
+
+        Ha a házirend engedélyezve van, a Beállítások ügynöki keresési élménye le van tiltva, így a keresési eredmények statikusan indexelt keresésekre és szemantikai keresésekre korlátozódnak.
+
+        Ha a házirend le van tiltva, a felhasználók számára elérhető lesz a Beállítások ügynöki keresési élménye az eszközükön.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Eszközön futó beállításjegyzék naplózási szintje</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Ez a házirend-beállítás lehetővé teszi az eszközön végzett beállításjegyzék-műveletek naplózási szintjének beállítását.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Hiba vagy magasabb</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Információ vagy magasabb</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Hibakeresés vagy magasabb</string>
+      <string id="RemoveMicrosoftCopilotApp">Microsoft Copilot alkalmazás eltávolítása</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Ez a házirend-beállítás lehetővé teszi, hogy célzottan távolítsa el a Microsoft Copilotot a felhasználók számára. Az alábbi feltételeknek megfelelő eszközökre/felhasználókra fog vonatkozni:
+
+• Mind a Microsoft 365 Copilot, mind a Microsoft Copilot telepítve van
+
+• A Microsoft Copilot alkalmazást nem a felhasználó telepítette
+
+• A Microsoft Copilot alkalmazás az elmúlt 28 napban nem indult el
+ 
+Ha ez a házirend engedélyezve van, a Microsoft Copilot alkalmazás el lesz távolítva. A felhasználók azonban továbbra is újratelepíthetik, ha szeretnék. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>Adja meg az alkalmazás AUMID azonosítóját</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Adja meg a megtagadandó alkalmazások listáját:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Adja meg a megtagadandó URI-listát:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>Adja meg a DLP-szolgáltató azonosítóját:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Válassza ki a maximális tárterületet:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Válassza ki a maximális tárolási időtartamot:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Eszközön futó beállításjegyzék naplózási szintje: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

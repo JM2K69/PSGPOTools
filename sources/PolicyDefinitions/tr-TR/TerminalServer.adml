@@ -5,6 +5,8 @@
   <description>buraya açıklamayı girin</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Otomatik aboneliği etkinleştir</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Kullanıcının otomatik olarak abone olması gereken URL'lerin listesini denetler</string>
       <string id="TS_SUPPORTED_Windows10">En azından Windows 10 veya Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">En az Windows 8 veya Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">En az Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">Yalnızca en azından Microsoft Windows XP ve Windows Server 2003</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">En az Windows Server 2008 veya Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  Yalnızca Windows Server 2008 R2</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 sürüm 1903, Windows 10 sürüm 1909 ve Windows 10 sürüm 2004</string>
       <string id="TS_TERMINAL_SERVER">Uzak Masaüstü Oturumu Ana Bilgisayarı</string>
       <string id="TS_TERMINAL_SERVER_Help">Bir Uzak Masaüstü Oturumu Ana Bilgisayar sunucusunun yapılandırmasını denetler</string>
       <string id="TS_LICENSE_SERVER">RD Lisanslama</string>
@@ -132,18 +135,18 @@ Bu ayarı devre dışı bırakır veya yapılandırmazsanız kullanıcı Uzak Ma
 
 Varsayılan olarak, bir RD Oturumu Ana Bilgisayarı sunucusu bağlantı sırasında istemci sürücülerini otomatik olarak eşler. Eşlenen sürücüler Dosya Gezgini veya Bilgisayar'daki oturum klasörü ağacında &lt;bilgisayaradı&gt; üzerindeki &lt;sürücüharfi&gt; biçiminde görünür. Bu ilke ayarını bu davranışı geçersiz kılmak için kullanabilirsiniz.
 
-Bu ilke ayarını etkinleştirirseniz, istemci sürücüsü yeniden yönlendirmesine Uzak Masaüstü Hizmetleri oturumlarında izin verilmez ve Pano dosya kopyası yeniden yönlendirmesine Windows Server 2003, Windows 8 ve Windows XP çalıştıran bilgisayarlarda izin verilmez.
+Bu ilke ayarını etkinleştirirseniz, istemci sürücüsü yeniden yönlendirmesine Uzak Masaüstü Hizmetleri oturumlarında izin verilmez ve Pano dosya kopyası yeniden yönlendirmesine Windows XP, Windows Server 2003, Windows Server 2012 (ve sonrası) veya Windows 8 (ve sonrası) çalıştıran bilgisayarlarda izin verilmez.
 
 Bu ilke ayarını devre dışı bırakırsanız, istemci sürücüsünün yeniden yönlendirmesine her zaman izin verilir. Buna ek olarak, Pano yeniden yönlendirmesine izin veriliyorsa Pano dosya kopyası yeniden yönlendirmesine her zaman izin verilir.
 
 Bu ilke ayarını yapılandırmazsanız, Grup İlkesi düzeyinde istemci sürücüsü yeniden yönlendirmesi ve Pano dosya kopyası yeniden yönlendirmesi belirtilmez.
-
 </string>
       <string id="TS_CLIENT_DRIVE_M">Sürücü yeniden yönlendirmesine izin verme</string>
       <string id="TS_CLIENT_HELP">Uzak Masaüstü Bağlantısı istemci ayarlarını denetler</string>
       <string id="TS_CLIENT_LPT">LPT bağlantı noktası yeniden yönlendirmesine izin verme</string>
       <string id="TS_CLIENT_PNP">Desteklenen Tak ve Kullan cihazların yeniden yönlendirmesine izin verme</string>
       <string id="TS_CAMERA_REDIRECTION">Video yakalama yönlendirmesine izin verme</string>
+      <string id="TS_LOCATION_REDIRECTION">Konum yeniden yönlendirmesi izin verme</string>
       <string id="TS_CLIENT_PRINTER">İstemci yazıcısı yeniden yönlendirmesine izin verme</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">Bu ilke ayarı, Uzak Masaüstü Hizmetleri oturumu sırasında uzak bir bilgisayarla istemci bilgisayar arasında Pano içeriklerinin paylaşılmasının (Pano yeniden yönlendirme) engellenip engellenmeyeceğini belirtir.
 
@@ -208,6 +211,15 @@ Bu ilke ayarını etkinleştirirseniz kullanıcılar, kendi video yakalama cihaz
 
 Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kullanıcılar, kendi video yakalama cihazlarını uzak bilgisayara yeniden yönlendirebilirler. Kullanıcılar, uzak bilgisayara yeniden yönlendirilecek video yakalama cihazlarını seçmek için Uzak Masaüstü Bağlantısı'nın Yerel Kaynaklar sekmesindeki Diğer seçeneğini kullanabilirler.
 
+</string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">Bu ilke ayarı, Uzak Masaüstü Hizmetleri oturumunda konum verilerinin uzak bilgisayara yeniden yönlendirilmesini denetlemenize olanak sağlar.
+
+Varsayılan olarak, Uzak Masaüstü Hizmetleri konum verilerinin yeniden yönlendirilmesine izin verir.
+
+Bu ilke ayarını etkinleştirirseniz kullanıcılar, konum verilerini uzak bilgisayara yeniden yönlendiremezler.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kullanıcılar kendi konum verilerini uzak bilgisayara yeniden yönlendirebilirler.
+          
 </string>
       <string id="TS_MAXMONITOR_EXPLAIN">Bu ilke ayarı, bir kullanıcının bir Uzak Masaüstü Hizmetleri oturumunu göstermek için kullanabileceği monitörlerin sayısını sınırlamak için kullanılır. Uzak Masaüstü Hizmetleri oturumu göstermek için kullanılacak monitörlerin sayısını sınırlamak, özellikle yavaş bağlantılarda performansı iyileştirebilir ve sunucu yükünü azaltabilir.
 
@@ -418,19 +430,19 @@ Bu ilke ayarını etkinleştirirseniz bu bildirimler RD Oturumu Ana Bilgisayarı
 Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız bu bildirimler RD Oturumu Ana Bilgisayarı sunucusunda yerel yönetici olarak oturum açtıktan sonra görüntülenir.</string>
       <string id="TS_LICENSING_MODE">Uzak Masaüstü lisans modunu ayarla</string>
       <string id="TS_LICENSING_MODE_EXPLAIN">
-        Bu ilke ayarı, bu Uzak Masaüstü Oturumu Ana Bilgisayarı sunucusuna bağlanmak için gerekli olan Uzak Masaüstü Hizmetleri istemci erişim lisansı (RDS CAL) türünü belirtmenize olanak tanır.
+        Bu ilke ayarı, bu RD Oturumu Ana Bilgisayarı sunucusuna bağlanmak için gerekli olan Uzak Masaüstü Hizmetleri istemci erişim lisansı (RDS CAL) türünü belirtmenize olanak tanır.
 
-        Bu ilke ayarını üç lisans modundan birini seçmek için kullanabilirsiniz: Kullanıcı başına, Cihaz başına ve Kullanıcı başına AAD.
+        Bu ilke ayarını iki lisans modundan birini seçmek için kullanabilirsiniz: Kullanıcı Başına veya Cihaz Başına.
 
-        Kullanıcı Başına lisans modu, bu RD Oturumu Ana Bilgisayarı sunucusuna bağlanan her kullanıcı hesabının bir RD lisans sunucusundan alınan RDS Kullanıcı Başına CAL'ye sahip olmasını gerektirir.
+        Kullanıcı Başına lisans modu, bu RD Oturumu Ana Bilgisayarı sunucusuna bağlanan her kullanıcı hesabının bir RD Lisansı sunucusundan alınan RDS Kullanıcı Başına CAL'e sahip olmasını gerektirir.
 
-        Cihaz Başına lisans modu, bu RD Oturumu Ana Bilgisayarı sunucusuna bağlanan her cihazın RD lisans sunucusundan alınan RDS Cihaz Başına CAL'ye sahip olmasını gerektirir.
+        Cihaz Başına lisans modu, bu RD Oturumu Ana Bilgisayarı sunucusuna bağlanan her cihazın bir RD lisansı sunucusundan alınan RDS Cihaz Başına CAL'e sahip olmasını gerektirir.
 
-        Kullanıcı Başına AAD lisans modu, bu RD Oturumu Ana Bilgisayarı sunucusuna bağlanan her kullanıcı hesabının AAD içinde atanan RDS lisanslarını destekleyen bir hizmet planına sahip olmasını gerektirir.
-        
         Bu ilke ayarını etkinleştirirseniz belirttiğiniz Uzak Masaüstü lisans modu, Uzak Masaüstü lisans sunucusu ve RD Oturumu Ana Bilgisayarı tarafından kabul edilir.
 
-        Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, lisans modu, Grup İlkesi düzeyinde belirtilmez.
+        Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız lisans modu, Grup İlkesi düzeyinde belirtilmez.
+
+        Not: Kullanıcı Başına modu, Windows 11 ve üzerinde kullanım dışıdır.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Cihaz Başına</string>
       <string id="TS_LICENSING_MODE_PER_USER">Kullanıcı Başına</string>
@@ -607,6 +619,17 @@ Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, RD O
       <string id="TS_SECURITY_LAYER_POLICY">Uzaktan (RDP) bağlantılar için özel güvenlik katmanının kullanılmasını iste</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Microsoft Entra ID Kimlik Doğrulama Zorlamasını etkinleştir</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">Bu ilke ayarı, Microsoft Entra ID kimlik doğrulaması için sunucu tarafında zorlama gerekip gerekmeyeceğini belirtmenize olanak tanır.
+
+Bu ilke ayarını etkinleştirirseniz, tüm Uzak Masaüstü Hizmetleri istemcileri, Uzak Masaüstü Oturumu Ana Bilgisayarı sunucularına kimlik doğrulaması yapmak için RDS AAD Kimlik Doğrulamasını kullanmak zorundadır. 
+
+Bu ilke, diğer kimlik doğrulama yöntemlerine geri dönüşe izin vermez. 
+
+Bu ilkenin etkili olması için Ağ Düzeyinde Kimlik Doğrulama (NLA) özelliği etkin olmalıdır. “Ağ Düzeyinde Kimlik Doğrulama özelliğini kullanarak uzak bağlantılar için kullanıcı kimlik doğrulaması iste” ilkesine başvurun.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, Microsoft Entra ID Kimlik Doğrulama Zorlaması uygulanmaz.
+</string>
       <string id="TS_Session_End_On_Limit">Süre sınırına ulaşıldığında oturumu sonlandır</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">Bu ilke ayarı, zaman aşımına uğramış Uzak Masaüstü Hizmetleri oturumunun bağlantısı kesilmesi yerine sonlandırılıp sonlandırılmayacağını belirtir.
 
@@ -785,6 +808,79 @@ Bu ilke ayarını etkinleştirirseniz istemci uzak bilgisayara bağlandığında
 Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız istemci uzak bilgisayara bağlandıktan sonra uzak bilgisayar üzerinde çalışan bir başlangıç programı belirtilebilir. Bir başlangıç programı belirtilmemişse, istemci uzak bilgisayara bağlandıktan sonra masaüstü her zaman uzak bilgisayarda görüntülenir.
 
 Not: Bu ilke ayarı etkinleştirilirse "Bağlantı sağlandığında bir program çalıştır" ilke ayarı yoksayılır.</string>
+      <string id="TS_UIA">UI Otomasyonu yeniden yönlendirmesine izin ver</string>
+      <string id="TS_UIA_EXPLAIN">Bu ilke ayarı yerel bilgisayarda çalıştırılan Kullanıcı Arabirimi (UI) Otomasyonu istemci uygulamalarının sunucudaki UI öğelerine erişip erişemeyeceğini belirler.
+
+UI Otomasyonu programların kullanıcı arabirimi öğelerinin çoğuna erişmesini sağlar ve bu sayede düzgün çalışması için kullanıcı arabirimiyle etkileşim kurması gereken Büyüteç ve Ekran Okuyucusu gibi yardımcı teknoloji ürünlerini kullanabilirsiniz. Kullanıcı arabirimi bilgileri, otomatik test betiklerinin de kullanıcı arabirimiyle etkileşim kurmasına olanak tanır.
+
+Uzak Masaüstü oturumları şu anda UI Otomasyonu yeniden yönlendirmesini desteklememektedir.
+
+Bu ilke ayarını etkinleştirirseniz veya yapılandırmazsanız, yerel bilgisayarınızdaki tüm UI Otomasyonu kullanıcıları uzak uygulamalarla etkileşim kurabilir. Örneğin uzak oturumda açtığınız web sayfasındaki kullanıcı arabirimiyle etkileşim kurmak için yerel bilgisayarınızın Ekran Okuyucusu ve Büyüteç istemcilerini kullanabilirsiniz.
+
+Bu ilke ayarını devre dışı bırakırsanız, yerel bilgisayarınızda çalıştırılan UI Otomasyonu istemcileri uzak uygulamalarla etkileşim kuramaz.
+</string>
+      <string id="TS_WEBAUTHN">WebAuthn yeniden yönlendirmesine izin verme</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">Bu ilke ayarı bir Uzak Masaüstü oturumundan yerel cihaza yapılan web kimlik doğrulaması (WebAuthn) isteklerinin yeniden yönlendirilmesini kontrol etmenizi sağlar. Söz konusu yeniden yönlendirme kullanıcıların Uzak Masaüstü oturumunun içindeki kaynaklar için yerel doğrulayıcılarını (ör., İş için Windows Hello, güvenlik anahtarı veya başkası) kullanarak kimlik doğrulaması yapmalarını sağlar.
+
+Varsayılan olarak Uzak Masaüstü, WebAuthn isteklerini yeniden yönlendirmeye izin verir.
+
+Bu ilke ayarını etkinleştirirseniz kullanıcılar Uzak Masaüstü oturumunun içinde kendi yerel doğrulayıcılarını kullanamaz.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kullanıcılar Uzak Masaüstü oturumunun içinde kendi yerel doğrulayıcılarını kullanabilir.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">Sunucudan istemciye pano aktarımını devre dışı bırak</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">İstemciden sunucuya pano aktarımını devre dışı bırak</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Düz metne izin ver</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Düz metne ve resimlere izin ver</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Düz metin, resimler ve Zengin Metin Biçimine izin ver</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Düz metin, resimler, Zengin Metin Biçimi ve HTML'ye izin ver</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">Sunucudan istemciye pano aktarımını kısıtla</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">Bu ilke ayarı, sunucudan istemciye pano verisi aktarımını kısıtlamanıza olanak tanır.
+
+Bu ilke ayarını etkinleştirirseniz, aşağıdaki davranışlar arasından seçim yapmanız gerekir:
+
+- Sunucudan istemciye pano aktarımını devre dışı bırak.
+
+- Sunucudan istemciye düz metin kopyalamaya izin ver.
+
+- Sunucudan istemciye düz metin ve resim kopyalamaya izin ver.
+
+- Sunucudan istemciye düz metin, resim ve Zengin Metin Biçimi kopyalamaya izin ver.
+
+- Sunucudan istemciye düz metin, resim, Zengin Metin Biçimi ve HTML kopyalamaya izin ver.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, pano yeniden yönlendirme özelliği etkinse kullanıcılar sunucudan istemciye rastgele içerikler kopyalayabilir.
+
+Not: Bu ilke ayarı hem Bilgisayar Yapılandırması hem de Kullanıcı Yapılandırması altında görünür. Her iki ilke ayarı da yapılandırılmışsa, daha katı olan kısıtlama kullanılır.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">İstemciden sunucuya pano aktarımını kısıtla</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">Bu ilke ayarı, istemciden sunucuya pano verisi aktarımını kısıtlamanıza olanak tanır.
+
+Bu ilke ayarını etkinleştirirseniz, aşağıdaki davranışlar arasından seçim yapmanız gerekir:
+
+- İstemciden sunucuya pano aktarımını devre dışı bırak.
+
+- İstemciden sunucuya düz metin kopyalamaya izin ver.
+
+- İstemciden sunucuya düz metin ve resim kopyalamaya izin ver.
+
+- İstemciden sunucuya düz metin, resim ve Zengin Metin Biçimi kopyalamaya izin ver.
+
+- İstemciden sunucuya düz metin, resim, Zengin Metin Biçimi ve HTML kopyalamaya izin ver.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, pano yeniden yönlendirme özelliği etkinse kullanıcılar istemciden sunucuya rastgele içerikler kopyalayabilir.
+
+Not: Bu ilke ayarı hem Bilgisayar Yapılandırması hem de Kullanıcı Yapılandırması altında görünür. Her iki ilke ayarı da yapılandırılmışsa, daha katı olan kısıtlama kullanılır.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Sunucudan istemciye veri aktarımı için bulut panosu tümleştirmesini devre dışı bırak</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">Bu ilke, pano yeniden yönlendirmesi kullanarak uzak oturumdan istemciye aktarılan verilerin istemci tarafındaki bulut panosuna eklenip eklenmeyeceğini kontrol etmenizi sağlar.
+
+Varsayılan değer olarak, uzak masaüstü, pano kullanılarak uzak oturumdan aktarılan veriler için istemci tarafındaki bulut panosuyla tümleştirmeyi devre dışı bırakır.
+
+Bu ilkeyi etkinleştirirseniz veya yapılandırmazsanız, uzak oturumdan kopyalanıp istemciye yapıştırılan veriler istemci tarafındaki bulut panosuna eklenmez
+
+Bu ilke ayarını devre dışı bırakırsanız uzak oturumdan kopyalanıp istemciye yapıştırılan veriler istemci tarafındaki bulut panosuna (etkinleştirildiyse) eklenir.
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">Bu ilke ayarı, RD Oturumu Ana Bilgisayarı sunucusuna yapılan uzak bağlantılarda Ağ Düzeyi Kimlik Doğrulaması kullanarak kullanıcı kimlik doğrulamasının istenip istenmeyeceğini belirtmenize olanak sağlar. Bu ilke ayarı, kullanıcı kimlik doğrulamasının uzak bağlantı işleminden önce gerçekleşmesini isteyerek güvenliği geliştirir.
 
 Bu ayarı etkinleştirirseniz RD Oturumu Ana Bilgisayarı sunucusuna yalnızca Ağ Düzeyi Kimlik Doğrulaması'nı destekleyen istemci bilgisayarlar bağlanabilir.
@@ -799,6 +895,24 @@ Bu ilke ayarını yapılandırmazsanız, hedef bilgisayardaki yerel ayar kullan�
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Ağ Düzeyi Kimlik Doğrulaması kullanarak uzak bağlantılar için kullanıcı kimlik doğrulaması iste</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Eski kimlik doğrulaması için kilitte uzak oturumun bağlantısını kes</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">Bu ilke ayarı, Uzak Masaüstü oturumu kullanıcı veya bir ilke tarafından kilitlendiğinde kullanıcı deneyimini yapılandırmanıza olanak tanır. Uzak oturumun uzak kilit ekranını gösterip göstermeyeceğini veya uzak oturum kilitlendiğinde bağlantının kesilip kesilmeyeceğini belirleyebilirsiniz. Uzak oturumun bağlantısının kesilmesi, uzak oturumun kilit ekranında bırakılmamasını ve ağ bağlantısı kaybı nedeniyle otomatik olarak yeniden bağlanamamasını sağlar.
+
+Bu ilke yalnızca uzak bilgisayarda kimlik doğrulamak için eski kimlik doğrulaması kullanıldığında geçerlidir. Eski kimlik doğrulaması, kullanıcı adı ve parola veya akıllı kartlar gibi sertifikalarla sınırlıdır. Eski kimlik doğrulaması, Microsoft Entra ID gibi Microsoft kimlik platformundan yararlanmaz. Eski kimlik doğrulaması NTLM, CredSSP, RDSTLS, TLS ve RDP temel kimlik doğrulaması protokollerini içerir.
+
+Bu ilke ayarını etkinleştirirseniz, eski kimlik doğrulamasını kullanan Uzak Masaüstü bağlantıları, uzak oturum kilitlendiğinde uzak oturumun bağlantısını keser. Kullanıcılar hazır olduklarında yeniden bağlanabilir ve istendiğinde kimlik bilgilerini yeniden girebilirler.
+
+Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, eski kimlik doğrulamasını kullanan Uzak Masaüstü bağlantıları, uzak oturum kilitlendiğinde uzak kilit ekranını gösterir. Kullanıcılar, kullanıcı adı ve parolalarını veya sertifikalarını kullanarak uzak oturumun kilidini açabilir.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Kimlik doğrulaması için kilitte uzak oturumun Microsoft kimlik platformu kes</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">Bu ilke ayarı, Uzak Masaüstü oturumu kullanıcı tarafından veya bir ilke tarafından kilitlendiğinde kullanıcı deneyimini yapılandırmanıza olanak sağlar. Uzak oturum kilitlendiğinde uzak oturumun uzaktan kilit ekranını gösterip göstere gösteremyr veya bağlantıyı kesip gösteremyyebilirsiniz. Uzak oturumun bağlantısının kesilmesi, bir uzak oturumun kilit ekranında bırakılamamalarını ve ağ bağlantısı kaybı nedeniyle otomatik olarak yeniden bağlanamamalarını sağlar.
+
+Bu ilke, yalnızca uzak bilgisayarda kimlik doğrulaması yapmak Microsoft kimlik platformu kimlik doğrulaması Microsoft Entra ID kimlik sağlayıcısını kullanan bir kimlik sağlayıcısı kullanılırken geçerlidir. NtLM, CredSSP, RDSTLS, TLS ve RDP temel kimlik doğrulama protokollerini içeren Eski kimlik doğrulaması kullanılırken bu ilke geçerli değildir.
+
+Bu ilke ayarını etkinleştirirseniz veya yapılandırmazsanız uzak oturum Microsoft kimlik platformu uzak oturum kilitlendiğinde uzak oturumun bağlantısını keser. Kullanıcılar hazır olduğunda yeniden bağlanarak yapılandırıldıysa parolasız kimlik doğrulamasını kullanılabilir.
+
+Bu ilke ayarını devre dışı bırakırsanız, uzak oturum Microsoft kimlik platformu uzak kilit ekranını kullanarak Uzak Masaüstü bağlantıları görüntülenir. Kullanıcılar, kullanıcı adlarını ve parolalarını veya sertifikalarını kullanarak uzak oturumun kilidini açabilir.
+</string>
       <string id="TS_User_Help">Windows tabanlı programlar veya tam Windows masaüstü çalışan bir sunucuya erişime olanak tanıyan Uzak Masaüstü Hizmetleri teknolojilerinin yapılandırmasını denetler</string>
       <string id="TS_USER_HOME">Uzak Masaüstü Hizmetleri Kullanıcı Ana Dizini'ni ayarla</string>
       <string id="TS_USER_HOME_EXPLAIN">Uzak Masaüstü Hizmetleri'nin, bir Uzak Masaüstü Hizmetleri oturumu için kullanıcının başlangıç dizini kökü olarak belirtilen ağ paylaşımı veya yerel dizin yolunu kullanıp kullanmayacağını belirtir.
@@ -899,36 +1013,44 @@ Bu ilke ayarını devre dışı bırakırsanız, kullanıcılar geçerli bir ser
 Not: Bu ilke ayarını Bilgisayar Yapılandırması düğümünde veya Kullanıcı Yapılandırması düğümünde tanımlayabilirsiniz. Bir bilgisayar için bu ilke ayarını yapılandırdığınızda, bilgisayardaki tüm kullanıcılar bu durumdan etkilenir.
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Güvenilir .rdp yayımcılarını gösteren sertifikaların SHA1 parmak izlerini belirt</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Bu ilke ayarı, güvenilir Uzak Masaüstü Protokolü (.rdp) dosya yayımcılarını temsil eden Güvenli Karma Algoritması 1 (SHA1) sertifikası parmak izleri için bir liste belirtmenizi sağlar.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Güvenilir .rdp yayıncılarını temsil eden sertifikaların parmak izlerini belirtin</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Bu ilke ayarı, güvenilen Uzak Masaüstü Protokolü (.rdp) dosya yayımcılarını temsil eden sertifika parmak izlerinin bir listesini belirtmenize olanak tanır. SHA-256, SHA-384 ve SHA-512 parmak izleri desteklenir. SHA-1 parmak izleri kullanım dışıdır: SHA-1 artık güvenli kabul edilmemektedir ve SHA-1 parmak izleri desteği yaklaşan bir güvenlik güncelleştirmesinde varsayılan olarak devre dışı bırakılacaktır. Yöneticiler tüm parmak izi girdilerini en kısa sürede SHA-256 veya daha güçlü bir algoritmaya geçirmelidir.
 
-Bu ilke ayarını etkinleştirirseniz listedeki parmak izi ile eşleşen bir SHA1 parmak izine sahip olan her sertifikaya güvenilir. Kullanıcı güvenilir bir sertifikayla imzalanmış bir .rdp dosyasını başlatmayı denerse, dosyayı başlattığında bir uyarı iletisi almaz. Parmak izini edinmek için sertifika ayrıntılarını görüntüleyin ve Parmak İzi alanını tıklatın.
+Parmak izlerinin önünde, onları oluşturmak için kullanılan karma algoritması öneki bulunabilir. Desteklenen ön ekler "sha256:", "sha384:" ve "sha512:" değerleridir ve büyük küçük harf duyarsızdır. Örneğin: sha256:AB0356F2... Hiçbir ön ek belirtilmezse, girdi eski bir SHA-1 parmak izi olarak değerlendirilir.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız hiçbir yayımcı güvenilir .rdp yayımcısı işlemi görmez.
+"SHA-1 parmak izlerine izin verme" onay kutusu etkinleştirilirse ön eksiz girdiler yok sayılır. Yalnızca SHA-256, SHA-384 ve SHA-512 parmak izleri eşleştirilir. Yaklaşan varsayılan değişikliğe hazırlanmak için bu onay kutusunu şimdi etkinleştirmeniz kesinlikle önerilir.
+
+Bu ilke ayarını etkinleştirirseniz listedeki bir parmak iziyle eşleşen her sertifikaya güvenilir. Kullanıcı güvenilir bir sertifikayla imzalanmış bir .rdp dosyasını başlatmayı denerse, dosyayı başlattığında bir uyarı iletisi almaz.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız hiçbir yayımcı güvenilen .rdp yayımcısı olarak değerlendirilmez.
 
 Notlar:
 
-Bu ilke ayarını Bilgisayar Yapılandırması düğümünde veya Kullanıcı Yapılandırması düğümünde tanımlayabilirsiniz. Bir bilgisayar için bu ilke ayarını yapılandırırsanız, bir kullanıcı için güvenilir sertifika parmak izlerinin listesi, bilgisayar için tanımlanmış olan liste ile kullanıcı için tanımlanmış olan listenin birleşimidir.
+Bu ilke ayarını Bilgisayar Yapılandırması düğümünde veya Kullanıcı Yapılandırması düğümünde tanımlayabilirsiniz. Bu ilke ayarını bilgisayar için yapılandırırsanız bir kullanıcı için güvenilir sertifika parmak izlerinin listesi, bilgisayar için tanımlanan liste ile kullanıcı için tanımlanan listenin birleşimi olur.
 
-Bu ilke ayarı "Geçerli yayımcılardan ve kullanıcının varsayılan .rdp ayarlarından gelen .rdp dosyalarına izin ver" ilke ayarının davranışını geçersiz kılar.
+Bu ilke ayarı, "Geçerli yayımcılardan ve kullanıcının varsayılan .rdp ayarlarından gelen .rdp dosyalarına izin ver" ilke ayarının davranışını geçersiz kılar.
 
-Listede sertifika parmak izi olmayan bir dize varsa, bu dize yok sayılır.
+Liste, sertifika parmak izi olmayan bir dize içeriyorsa bu dize yok sayılır.
 
+Daha fazla bilgi için "https://go.microsoft.com/fwlink/?LinkId=2368223" adresini ziyaret edin.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Bu ilke ayarı, güvenilir Uzak Masaüstü Protokolü (.rdp) dosya yayımcılarını temsil eden Güvenli Karma Algoritması 1 (SHA1) sertifikası parmak izleri için bir liste belirtmenizi sağlar.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Bu ilke ayarı, güvenilen Uzak Masaüstü Protokolü (.rdp) dosya yayımcılarını temsil eden sertifika parmak izlerinin bir listesini belirtmenize olanak tanır. SHA-256, SHA-384 ve SHA-512 parmak izleri desteklenir. SHA-1 parmak izleri kullanım dışıdır: SHA-1 artık güvenli kabul edilmemektedir ve SHA-1 parmak izleri desteği yaklaşan bir güvenlik güncelleştirmesinde varsayılan olarak devre dışı bırakılacaktır. Kullanıcılar tüm parmak izi girdilerini en kısa sürede SHA-256 veya daha güçlü bir algoritmaya geçirmelidir.
 
-Bu ilke ayarını etkinleştirirseniz listedeki parmak izi ile eşleşen bir SHA1 parmak izine sahip olan her sertifikaya güvenilir. Kullanıcı güvenilir bir sertifikayla imzalanmış bir .rdp dosyasını başlatmayı denerse, dosyayı başlattığında bir uyarı iletisi almaz. Parmak izini edinmek için sertifika ayrıntılarını görüntüleyin ve Parmak İzi alanını tıklatın.
+Parmak izlerinin önünde, onları oluşturmak için kullanılan karma algoritması öneki bulunabilir. Desteklenen ön ekler "sha256:", "sha384:" ve "sha512:" değerleridir ve büyük küçük harf duyarsızdır. Örneğin: sha256:AB0356F2... Hiçbir ön ek belirtilmezse, girdi eski bir SHA-1 parmak izi olarak değerlendirilir.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız hiçbir yayımcı güvenilir .rdp yayımcısı işlemi görmez.
+Bu ilke ayarını etkinleştirirseniz listedeki bir parmak iziyle eşleşen her sertifikaya güvenilir. Kullanıcı güvenilir bir sertifikayla imzalanmış bir .rdp dosyasını başlatmayı denerse, dosyayı başlattığında bir uyarı iletisi almaz.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız hiçbir yayımcı güvenilen .rdp yayımcısı olarak değerlendirilmez.
 
 Not:
 
-Bu ilke ayarını Bilgisayar Yapılandırması düğümünde veya Kullanıcı Yapılandırması düğümünde tanımlayabilirsiniz. Bir bilgisayar için bu ilke ayarını yapılandırırsanız, bir kullanıcı için güvenilir sertifika parmak izlerinin listesi, bilgisayar için tanımlanmış olan liste ile kullanıcı için tanımlanmış olan listenin birleşimidir.
+Bu ilke ayarını Bilgisayar Yapılandırması düğümünde veya Kullanıcı Yapılandırması düğümünde tanımlayabilirsiniz. Bu ilke ayarını bilgisayar için yapılandırırsanız bir kullanıcı için güvenilir sertifika parmak izlerinin listesi, bilgisayar için tanımlanan liste ile kullanıcı için tanımlanan listenin birleşimi olur.
 
-Bu ilke ayarı "Geçerli yayımcılardan ve kullanıcının varsayılan .rdp ayarlarından gelen .rdp dosyalarına izin ver" ilke ayarının davranışını geçersiz kılar.
+Bu ilke ayarı, "Geçerli yayımcılardan ve kullanıcının varsayılan .rdp ayarlarından gelen .rdp dosyalarına izin ver" ilke ayarının davranışını geçersiz kılar.
 
-Listede sertifika parmak izi olmayan bir dize varsa, bu dize yok sayılır.
+Liste, sertifika parmak izi olmayan bir dize içeriyorsa bu dize yoksayılır.
 
+Daha fazla bilgi için "https://go.microsoft.com/fwlink/?LinkId=2368223" adresini ziyaret edin.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">İstemci bilgisayarda kimlik bilgileri sor</string>
@@ -1016,6 +1138,14 @@ Bu ilke ayarını devre dışı bırakırsanız bu RD Oturumu Ana Bilgisayarı s
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">RemoteApp için gelişmiş kabuk deneyimini etkinleştir</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">Bu ilke ayarı RemoteApp oturumları için gelişmiş bir kabuk deneyimini etkinleştirir ve varsayılan dosya ilişkileri, Run/RunOnce kayıt defteri anahtarları vb. için destek sunar. Bu ilke ayarı yalnızca RemoteApp oturumları için geçerli olup, Uzak Masaüstü oturumları için geçerli değildir.
+
+Bu ilke ayarını etkinleştirirseniz veya yapılandırmazsanız, RD Oturumu Ana Bilgisayarı sunuculardaki RemoteApp oturumları gelişmiş kabuk deneyimini kullanır.
+
+Bu ilke ayarını devre dışı bırakırsanız, RemoteApp oturumları gelişmiş kabuk deneyimini kullanmaz; eski kabul davranışını kullanır. Yayımlanan RemoteApp programlarında uyumluluk sorunları ortaya çıkarsa eski kabuk deneyiminin kullanılması gerekebilir.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1149,21 +1279,20 @@ Not: Güvenilmeyen bir sunucudan RemoteApp ve Masaüstü Bağlantıları yoluyla
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">RDP taşıma protokollerini seç</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Bu ilke ayarı, bu sunucuya Uzak Masaüstü Protokolü (RDP) için hangi protokollerin kullanılacağını belirtmenizi sağlar.
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Bu ilke ayarı, bu sunucuya erişim için hangi protokollerin Uzak Masaüstü Protokolü (RDP) kullanıca musunuz?
 
-Bu ilke ayarını etkinleştirirseniz, UDP için RDP isteyip istemediğinizi belirtmeniz gerekir.
+Bu ilke ayarını etkinleştirirseniz, RDP'nin UDP'yi kullanmasını istediğinizi belirtseniz gerekir.
 
-Şu seçeneklerden birini seçebilirsiniz: "Hem UDP hem de TCP kullan", "Yalnızca TCP kullan" veya "UDP veya TCP kullan (varsayılan)" 
+Şu seçeneklerden birini seçebilirsiniz: "UDP veya TCP (varsayılan)" veya "Yalnızca TCP kullan" 
 
-"UDP veya TCP kullan" seçeneğini belirlerseniz ve UDP bağlantısı sorunsuzsa, RDP trafiğinin büyük bir bölümü UDP'yi kullanır.
+"UDP veya TCP kullan" seçeneğini belirtirseniz ve UDP bağlantısı başarılıysa, RDP trafiğinin çoğu UDP kullanır.
 
-UDP bağlantısı sorunluysa veya "Yalnızca TCP kullan" seçeneğini belirlerseniz, RDP trafiğinin tümü TCP kullanır.
+UDP bağlantısı başarılı olmadıysa veya "Yalnızca TCP kullan" seçeneğini seçerseniz, RDP trafiğinin tümü TCP kullanır.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, RDP en iyi kullanıcı deneyimini sunma amacıyla en iyi protokolleri seçer.
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız RDP en iyi kullanıcı deneyimini sağlamak için en uygun protokolleri seçmektedir.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">Hem UDP, hem de TCP kullan</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Yalnızca TCP kullan</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">UDP veya TCP kullan</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Yalnızca TCP kullan</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Sunucuda ağ algılamasını seç</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">Bu ilke ayarı, Uzak Masaüstü Protokolü'nün ağ kalitesini (bant genişliği ve gecikme süresi) nasıl algılamaya çalışacağını belirtmenizi sağlar.
@@ -1342,12 +1471,13 @@ NOT: İlke ayarı, birden fazla grafik işleme birimi (GPU) yüklü olan bir bil
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>SHA1 güvenilir sertifika parmak izlerinin virgülle ayrılmış listesi:</label>
+          <label>Güvenilir sertifika parmak izlerinin virgülle ayrılmış listesi (başına sha256:, sha384: veya sha512: önekini ekleyin):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">SHA-1 parmak izlerine izin vermeyin</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>SHA1 güvenilir sertifika parmak izlerinin virgülle ayrılmış listesi:</label>
+          <label>Güvenilir sertifika parmak izlerinin virgülle ayrılmış listesi (başına sha256:, sha384: veya sha512: önekini ekleyin):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1385,6 +1515,12 @@ NOT: İlke ayarı, birden fazla grafik işleme birimi (GPU) yüklü olan bir bil
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Taşıma Türünü Seç</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Sunucudan istemciye pano aktarımını kısıtla:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">İstemciden sunucuya pano aktarımını kısıtla:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

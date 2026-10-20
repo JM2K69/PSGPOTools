@@ -275,6 +275,8 @@ http://sitename/_layouts/XXXX/searchresults.aspx?SearchString=$w
 Αν ενεργοποιήσετε αυτήν τη ρύθμιση ή αν δεν ρυθμίσετε τις παραμέτρους της, η Cortana θα επιτρέπεται στη συσκευή. Αν απενεργοποιήσετε αυτήν τη ρύθμιση, η Cortana θα απενεργοποιηθεί. 
  
 Όταν η Cortana είναι ανενεργή, οι χρήστες θα εξακολουθούν να μπορούν να χρησιμοποιούν την αναζήτηση για να βρίσκουν δεδομένα στη συσκευή.</string>
+      <string id="EnableDynamicContentInWSB">Να επιτρέπονται οι επισημάνσεις αναζήτησης</string>
+      <string id="ExplainEnableDynamicContentInWSB">Η απενεργοποίηση αυτής της ρύθμισης απενεργοποιεί τις επισημάνσεις αναζήτησης στο πλαίσιο αναζήτησης του μενού "Έναρξη" και στην αρχική σελίδα αναζήτησης. Η ενεργοποίηση ή η μη ρύθμιση παραμέτρων αυτής της ρύθμισης ενεργοποιεί τις επισημάνσεις αναζήτησης στο πλαίσιο αναζήτησης του μενού "Έναρξη" και στην αρχική σελίδα αναζήτησης.</string>
       <string id="AllowCortanaAboveLock">Αποδοχή Cortana επάνω από την οθόνη κλειδώματος</string>
       <string id="ExplainAllowCortanaAboveLock">Αυτή η ρύθμιση πολιτικής καθορίζει αν ο χρήστης μπορεί να αλληλεπιδρά με την Cortana χρησιμοποιώντας φωνητικές εντολές, ενώ το σύστημα είναι κλειδωμένο.
 
@@ -294,6 +296,27 @@ http://sitename/_layouts/XXXX/searchresults.aspx?SearchString=$w
       <string id="AllowCortanainAADEnabled">Ενεργοποίηση της σελίδας Cortana στο AAD</string>
       <string id="AllowCloudSearchEnabled">Ενεργοποίηση αναζήτησης στο cloud</string>
       <string id="AllowCloudSearchControlledByUser">Επιλογή χρήστη</string>
+      <string id="DisableSearch_DisplayName">Απενεργοποιήστε πλήρως τη διεπαφή χρήστη αναζήτησης</string>
+      <string id="DisableSearch_ExplainText">Αν ενεργοποιήσετε αυτήν την πολιτική, το περιβάλλον εργασίας χρήστη αναζήτησης θα απενεργοποιηθεί μαζί με όλα τα σημεία εισόδου του, όπως συντομεύσεις πληκτρολογίου, κινήσεις touchpad και πληκτρολόγηση για αναζήτηση στο μενού Έναρξη. Το πλαίσιο αναζήτησης του μενού Έναρξη και το κουμπί Γραμμή εργασιών αναζήτησης θα είναι επίσης κρυφά.
+
+Αν απενεργοποιήσετε αυτήν τη ρύθμιση πολιτικής ή δεν ρυθμίσετε τις παραμέτρους της, ο χρήστης θα μπορεί να ανοίξει το περιβάλλον εργασίας χρήστη αναζήτησης και θα εμφανιστούν τα διαφορετικά σημεία εισόδου του.</string>
+      <string id="ConfigureSearchOnTaskbarMode">Ρυθμίζει τις παραμέτρους αναζήτησης στη γραμμή εργασιών</string>
+      <string id="ConfigureSearchOnTaskbarMode_Help">Αυτή η ρύθμιση πολιτικής σάς επιτρέπει να ρυθμίσετε τις παραμέτρους της αναζήτησης στη γραμμή εργασιών.
+
+Αν ενεργοποιήσετε αυτήν τη ρύθμιση πολιτικής και την ορίσετε για απόκρυψη, η αναζήτηση στη γραμμή εργασιών θα αποκρύπτεται από προεπιλογή. Οι χρήστες δεν μπορούν να το αλλάξουν στις "Ρυθμίσεις".
+
+Αν ενεργοποιήσετε αυτήν τη ρύθμιση πολιτικής και την ορίσετε σε εικονίδιο αναζήτησης μόνο, το εικονίδιο αναζήτησης θα εμφανίζεται από προεπιλογή στη γραμμή εργασιών. Οι χρήστες δεν μπορούν να το αλλάξουν στις "Ρυθμίσεις".
+
+Αν ενεργοποιήσετε αυτήν τη ρύθμιση πολιτικής και την ορίσετε για αναζήτηση εικονιδίου και ετικέτας, το εικονίδιο αναζήτησης και η ετικέτα θα εμφανίζονται από προεπιλογή στη γραμμή εργασιών. Οι χρήστες δεν μπορούν να το αλλάξουν στις "Ρυθμίσεις".
+
+Αν ενεργοποιήσετε αυτήν τη ρύθμιση πολιτικής και την ορίσετε σε πλαίσιο αναζήτησης, το πλαίσιο αναζήτησης θα εμφανίζεται στη γραμμή εργασιών από προεπιλογή. Οι χρήστες δεν μπορούν να το αλλάξουν στις "Ρυθμίσεις".
+
+Αν απενεργοποιήσετε αυτήν τη ρύθμιση πολιτικής ή δεν ρυθμίσετε τις παραμέτρους της, οι παράμετροι της αναζήτησης στη γραμμή εργασιών θα ρυθμιστούν σύμφωνα με τις προεπιλογές για την έκδοση των Windows. Οι χρήστες θα μπορούν να αλλάζουν την αναζήτηση στη γραμμή εργασιών στις "Ρυθμίσεις".
+      </string>
+      <string id="SearchOnTaskbarModeEnum_Hidden">Απόκρυψη</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconOnly">Αναζήτηση μόνο εικονιδίου</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconAndLabel">Εικονίδιο και ετικέτα αναζήτησης</string>
+      <string id="SearchOnTaskbarModeEnum_SearchBox">Πλαίσιο αναζήτησης</string>
     </stringTable>
     <presentationTable>
       <presentation id="RichAttachmentPreviews">
@@ -382,6 +405,9 @@ http://sitename/_layouts/XXXX/searchresults.aspx?SearchString=$w
       </presentation>
       <presentation id="AllowCortanaAAD">
         <dropdownList refId="AllowCortanaAAD_Dropdown" noSort="true" defaultItem="0">Ρύθμιση της Cortana στο AAD</dropdownList>
+      </presentation>
+      <presentation id="ConfigureSearchOnTaskbarMode">
+        <dropdownList refId="ConfigureSearchOnTaskbarMode_Dropdown" noSort="true" defaultItem="0">Αναζήτηση στη γραμμή εργασιών</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

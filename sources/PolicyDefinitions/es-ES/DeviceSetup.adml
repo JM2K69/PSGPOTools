@@ -70,13 +70,13 @@ Si deshabilita o no define esta configuración de directiva, los miembros del gr
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Buscar en Windows Update</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Buscar en servidor administrado</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Buscar en servidor administrado y, después, en WU</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Impedir la recuperación de metadatos de dispositivo desde Internet</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Esta configuración de directiva le permite impedir que Windows recupere metadatos de dispositivo desde Internet.
-          
-Si habilita esta configuración de directiva, Windows no recuperará metadatos de dispositivos instalados desde Internet. Esta configuración de directiva invalida la configuración definida en el cuadro de diálogo Configuración de la instalación de dispositivos (Panel de control &gt; Sistema y seguridad &gt; Sistema &gt; Configuración avanzada del sistema &gt; pestaña Hardware).
 
-Si deshabilita o no define esta configuración de directiva, la configuración establecida en el cuadro de diálogo Configuración de la instalación de dispositivos controla si Windows recupera metadatos de dispositivo desde Internet.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Impedir la descarga automática de aplicaciones asociadas a metadatos del dispositivo</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Esta configuración de directiva le permite impedir que Windows descargue aplicaciones asociadas a los metadatos del dispositivo.
+
+Si habilita esta configuración de directiva, Windows no descargará las aplicaciones asociadas a los metadatos del dispositivo para los dispositivos instalados. Esta configuración de directiva invalida la configuración del cuadro de diálogo Configuración de instalación del dispositivo (Panel de control &gt; Sistema y seguridad &gt; Sistema &gt; Configuración avanzada del sistema &gt; pestaña Hardware).
+
+Si deshabilita o no establece esta configuración de directiva, la configuración del cuadro de diálogo Configuración de instalación de dispositivos controla si Windows descarga aplicaciones asociadas a metadatos de dispositivo.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

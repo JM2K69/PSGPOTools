@@ -27,19 +27,17 @@
       <string id="IPHTTPS_ClientState">Angi IP-HTTPS-tilstand</string>
       <string id="IPHTTPS_ClientUrl">URL-adresse for IP-HTTPS</string>
 
-      <string id="ISATAP_State_Help">Med denne policyinnstillingen kan du konfigurere ISATAP (Intra-Site Automatic Tunnel Addressing Protocol), en automatisk tunneleringsteknologi av typen adresse til ruter og vert til vert, vert til ruter og ruter til vert, som brukes til å sørge for IPv6-unikasttilkobling mellom IPv6-verter over et IPv4-intranett.
+      <string id="ISATAP_State_Help">Med denne policy innstillingen kan du konfigurere nettsteders automatisk tunnel adresserings protokoll (ISATAP), en adresse-til-ruter-og verts-til-vert-, verts-til-vert-teknologi for automatisk tunnelering som brukes til å gi unicast IPv6-tilkobling mellom IPv6-verter over et IPv4-intranett.
 
-Hvis du deaktiverer eller lar være å konfigurere denne policyinnstillingen, brukes innstillingen for den lokale verten.
+Hvis du deaktiverer eller ikke konfigurerer denne policy innstillingen, brukes innstillingen for den lokale verten.
 
-Hvis du aktiverer denne policyinnstillingen, kan du konfigurere ISATAP med en av følgende innstillinger:
+Hvis du aktiverer denne policy innstillingen, kan du konfigurere ISATAP med en av følgende innstillinger:
 
-Policy i standardtilstand: Hvis ISATAP-ruternavnet er løst, vil verten ha ISATAP konfigurert med en koblingslokal adresse og en adresse for hvert prefiks som er mottatt fra ISATAP-ruteren via tilstandsløs automatisk adressekonfigurasjon. Hvis ISATAP-ruternavnet ikke er løst, er ikke ISATAP-tilkobling tilgjengelig på verten ved å bruke den tilsvarende IPv4-adressen.
+Standard tilstand for policy: ingen ISATAP-grensesnitt finnes på verten.
 
-Policy i aktivert tilstand: Hvis ISATAP-navnet er løst, vil verten ha ISATAP konfigurert med en koblingslokal adresse og en adresse for hvert prefiks som er mottatt fra ISATAP-ruteren via tilstandsløs automatisk adressekonfigurasjon. Hvis ISATAP-navnet ikke er løst, vil verten ha et ISATAP-grensesnitt konfigurert med en koblingslokal adresse.
+Policy i aktivert tilstand: Hvis ISATAP-navnet er løst, vil verten ha ISATAP konfigurert med en koblings lokal adresse og en adresse for hvert prefiks som er mottatt fra ISATAP-ruteren via tilstands løs autokonfigurasjon for adresser. Hvis ISATAP-navnet ikke er løst, vil verten ha et ISATAP-grensesnitt som er konfigurert med en koblings lokal adresse.
 
-Policy i deaktivert tilstand: Ingen ISATAP-grensesnitt finnes på verten.
-
-
+Policy-deaktivert status: ingen ISATAP-grensesnitt finnes på verten.
 
 </string>
 
@@ -60,13 +58,11 @@ Hvis du deaktiverer eller lar være å konfigurere denne policyinnstillingen, br
 
 Hvis du aktiverer denne policyinnstillingen, kan du konfigurere 6-til-4 med en av følgende innstillinger:
 
-Policy i standardtilstand: 6-til-4 aktiveres hvis verten bare har koblingslokal IPv6-tilkobling og en offentlig IPv4-adresse. Hvis det ikke finnes noen global IPv6-adresse og ingen global IPv4-adresse, har ikke verten et 6-til-4-grensesnitt. Hvis det ikke finnes noen global IPv6-adresse, men en global IPv4-adresse, har verten et 6-til-4-grensesnitt.
+Policy i standardtilstand: 6-til-4 slått av og tilkobling med 6-til-4 vil ikke være tilgjengelig.
 
 Policy i aktivert tilstand: Hvis det finnes en global IPv4-adresse, har verten et 6-til-4-grensesnitt. Hvis det ikke finnes noen global IPv4-adresse, har ikke verten et 6-til-4-grensesnitt.
 
 Policy i deaktivert tilstand: 6-til-4 er deaktivert, og tilkobling med 6-til-4 er ikke tilgjengelig.
-
-
 
 </string>
 
@@ -188,6 +184,45 @@ Hvis du aktiverer eller ikke konfigurerer denne policyinnstillingen, er grenser 
 Hvis du deaktiverer denne policyinnstillingen, er grenser for automatisk konfigurasjon av tilstandsløs IP deaktivert, og systemet begrenser ikke antallet autokonfigurerte adresser og ruter.
 
 
+
+</string>
+
+      <string id="IPxlatCfg_PermitNonCellularCLAT">Angi CLAT-tillatelse</string>
+      <string id="IPxlatCfg_PermitNonCellularCLAT_Help">Med denne policyinnstillingen kan du tillate eller deaktivere oversetteren på kundesiden for 464XLAT (CLAT) globalt for grensesnitt som ikke er for mobil.
+
+Hvis du aktiverer denne policyinnstillingen, er CLAT globalt tillatt og kan aktiveres på nettverksgrensesnitt.
+
+Hvis du deaktiverer denne policyinnstillingen, er CLAT globalt ikke tillatt og kan ikke aktiveres.
+
+Hvis du ikke konfigurerer denne policyinnstillingen, brukes den lokale vertsinnstillingen.
+
+Ingen omstart eller omstart av tjenesten kreves for at denne policyinnstillingen skal tre i kraft.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromRA">Angi CLAT-hent prefiksinformasjon fra RA</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromRA_Help">Denne policyinnstillingen tillater at ruterannonseringer (RA) brukes som en prefiksinformasjonskilde for ikke-mobil-CLAT.
+
+Hvis du aktiverer denne policyinnstillingen, kan CLAT oppdage NAT64-prefikser via RA. Hvis begge metodene for NAT64-prefikssøk er aktivert, er prioritetsrekkefølgen (RA, DNS).
+
+Hvis du deaktiverer denne policyinnstillingen, kan ikke CLAT oppdage NAT64-prefikser via RA.
+
+Hvis du ikke konfigurerer denne policyinnstillingen, brukes den lokale vertsinnstillingen.
+
+Det kreves en omstart for at policyinnstillingen skal tre i kraft.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS">Angi CLAT-hent prefiksinformasjon fra DNS</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS_Help">Med denne policyinnstillingen kan DNS brukes som en prefiksinformasjonskilde for ikke-mobil-CLAT.
+
+Hvis du aktiverer denne policyinnstillingen, kan CLAT oppdage NAT64-prefikser via DNS. Hvis begge metodene for NAT64-prefikssøk er aktivert, er prioritetsrekkefølgen (RA, DNS).
+
+Hvis du deaktiverer denne policyinnstillingen, kan CLAT ikke oppdage NAT64-prefikser via DNS.
+
+Hvis du ikke konfigurerer denne policyinnstillingen, brukes den lokale vertsinnstillingen.
+
+Det kreves en omstart for at policyinnstillingen skal tre i kraft.
 
 </string>
 

@@ -55,6 +55,15 @@ Active Directory 資料夾會在瀏覽視窗中顯示 Active Directory 物件。
 預設狀況下，使用者可以在資料夾 [內容] 對話方塊的 [位置] 索引標籤中輸入新路徑，以變更個人設定檔資料夾 (如 [文件]、[音樂] 等) 的位置。
 
 如果您啟用這個設定，使用者將無法在 [目標] 方塊中輸入新位置。</string>
+      <string id="EnableThemeFileRemoteResource">允許來自網路位置的主題檔案</string>
+      <string id="EnableThemeFileRemoteResource_Help">此原則設定決定是否可以在 Windows 桌面主題 (.theme/.themepack) 檔案內使用遠端路徑來存取資源。
+
+如果您啟用此原則設定，主題檔案可以參考位於網路共用或其他遠端位置的資源 (例如影像、音效和圖示)。使用者將能夠套用包含遠端資源的主題。
+
+如果您停用此原則設定，主題檔案將無法使用遠端資源。任何參考遠端資源的主題檔案將無法載入這些資源，並且只會顯示本機資源。
+
+如果您未設定此原則設定，預設行為是出於安全原因封鎖主題檔案中的遠端資源。</string>
+
       <string id="ForceActiveDesktopOn">啟用 Active Desktop</string>
       <string id="ForceActiveDesktopOn_Help">啟用 Active Desktop 並防止使用者將它停用。
 

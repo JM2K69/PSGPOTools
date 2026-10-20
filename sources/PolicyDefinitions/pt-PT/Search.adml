@@ -252,7 +252,7 @@ Também pode especificar uma lista de permissões dos suplementos fornecendo a c
 Se tem um ambiente de trabalho bloqueado, esta definição é redundante pois os utilizadores não administrativos não têm permissão para instalar componentes novos. Se is utilizadores têm permissões de Administrador ou podem instalar software, esta política impede-os de utilizar especificamente os suplementos relacionados com o Windows Desktop Search.
 
 Nota: devido a uma limitação do editor de Políticas de Grupo, tem de adicionar pelo menos uma entrada à lista de permissões, mesmo que pretenda ativar esta política sem uma lista de permissões. Crie uma entrada de lista colocando um espaço no campo de nome e um espaço no campo de valor e, em seguida, guarde-a. Isto criará uma entrada de marcador de posição que será ignorada pelo programa.</string>
-      <string id="PreventUnwantedAddins_AllowList">Lista de Autorizados</string>
+      <string id="PreventUnwantedAddins_AllowList">Lista de Permissões</string>
       <string id="ExcludedExtensionsMultiline">Impedir a indexação de determinados tipos de ficheiros</string>
       <string id="ExcludedExtensionsMultiline_Explain">Ativar esta política permite editar a lista de tipos de ficheiros a excluir da indexação. O utilizador final não pode modificar esta lista. Deve separar cada tipo de extensão por ponto e vírgula.
 
@@ -275,6 +275,8 @@ Se desativar ou não configurar esta definição de política, os utilizadores o
 Se ativar ou não configurar esta definição, a Cortana será permitida no dispositivo. Se desativar esta definição, a Cortana será desligada. 
  
 Com a Cortana desligada, os utilizadores continuam a poder utilizar a funcionalidade de pesquisa para localizar conteúdos no dispositivo.</string>
+      <string id="EnableDynamicContentInWSB">Permitir destaques de pesquisa</string>
+      <string id="ExplainEnableDynamicContentInWSB">Desativar esta definição desativa os destaques de pesquisa na caixa de pesquisa do menu iniciar e no início da pesquisa. Ativar ou não configurar esta definição ativa os destaques de pesquisa na caixa de pesquisa do menu iniciar e no início da pesquisa.</string>
       <string id="AllowCortanaAboveLock">Permitir Cortana acima do ecrã de bloqueio</string>
       <string id="ExplainAllowCortanaAboveLock">Esta definição de política determina se o utilizador pode ou não interagir com a Cortana ao utilizar a voz enquanto o sistema está bloqueado.
 
@@ -294,6 +296,27 @@ Se ativada, a pesquisa e a Cortana terão acesso às informações de localizaç
       <string id="AllowCortanainAADEnabled">Ativar Página da Cortana em AAD</string>
       <string id="AllowCloudSearchEnabled">Ativar Pesquisa na Cloud</string>
       <string id="AllowCloudSearchControlledByUser">Utilizador Selecionado</string>
+      <string id="DisableSearch_DisplayName">Desativar totalmente a IU de Pesquisa</string>
+      <string id="DisableSearch_ExplainText">Se ativar esta política, a IU de Pesquisa será desativada, juntamente com todos os pontos de entrada, como atalhos de teclado, gestos do touchpad e tipo de pesquisa no menu Iniciar. A caixa de pesquisa do menu Iniciar e o botão Procurar na Barra de Tarefas também estarão ocultos.
+
+Se desativar ou não configurar esta definição de política, o utilizador poderá abrir a IU de Pesquisa e serão apresentados os seus diferentes pontos de entrada.</string>
+      <string id="ConfigureSearchOnTaskbarMode">Configura a pesquisa na barra de tarefas</string>
+      <string id="ConfigureSearchOnTaskbarMode_Help">Esta definição de política permite-lhe configurar a pesquisa na barra de tarefas.
+
+Se ativar esta definição de política e a definir como oculta, a pesquisa na barra de tarefas será ocultada por predefinição. Os utilizadores não podem alterá-la nas Definições.
+
+Se ativar esta definição de política e a definir como apenas ícone de pesquisa, o ícone de pesquisa será mostrado na barra de tarefas por predefinição. Os utilizadores não podem alterá-la nas Definições.
+
+Se ativar esta definição de política e a definir como etiqueta e ícone de pesquisa, a etiqueta e o ícone de pesquisa serão mostrados na barra de tarefas por predefinição. Os utilizadores não podem alterá-la nas Definições.
+
+Se ativar esta definição de política e a definir como caixa de pesquisa, a caixa de pesquisa será mostrada na barra de tarefas por predefinição. Os utilizadores não podem alterá-la nas Definições.
+
+Se desativar ou não configurar esta definição de política, a pesquisa na barra de tarefas será configurada de acordo com as predefinições da sua edição do Windows. Os utilizadores poderão alterar a pesquisa na barra de tarefas nas Definições.
+      </string>
+      <string id="SearchOnTaskbarModeEnum_Hidden">Ocultar</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconOnly">Apenas ícone de pesquisa</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconAndLabel">Ícone e etiqueta de pesquisa</string>
+      <string id="SearchOnTaskbarModeEnum_SearchBox">Caixa de pesquisa</string>
     </stringTable>
     <presentationTable>
       <presentation id="RichAttachmentPreviews">
@@ -333,7 +356,7 @@ Se ativada, a pesquisa e a Cortana terão acesso às informações de localizaç
         <decimalTextBox refId="LimitEnableThrottlingOnlineMailboxes" defaultValue="120">Número de itens por minuto</decimalTextBox>
       </presentation>
       <presentation id="PreventUnwantedAddins">
-        <listBox refId="PreventUnwantedAddins_AllowList">Lista de Autorizados</listBox>
+        <listBox refId="PreventUnwantedAddins_AllowList">Lista de Permissões</listBox>
       </presentation>
       <presentation id="PreventIndexingCertainPaths_1">
         <listBox refId="PreventIndexingCertainPaths">Impedir a Indexação de Determinados Caminhos</listBox>
@@ -382,6 +405,9 @@ Se ativada, a pesquisa e a Cortana terão acesso às informações de localizaç
       </presentation>
       <presentation id="AllowCortanaAAD">
         <dropdownList refId="AllowCortanaAAD_Dropdown" noSort="true" defaultItem="0">Definição da Cortana em AAD</dropdownList>
+      </presentation>
+      <presentation id="ConfigureSearchOnTaskbarMode">
+        <dropdownList refId="ConfigureSearchOnTaskbarMode_Dropdown" noSort="true" defaultItem="0">Procurar na barra de tarefas</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

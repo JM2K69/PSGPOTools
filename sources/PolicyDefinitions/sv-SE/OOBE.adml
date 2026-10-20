@@ -14,6 +14,19 @@
 Om den här principen aktiveras startas inte sekretessfunktionen för nyskapade användarkonton eller för konton som skulle ha fått uppmaningar om att välja sekretessinställningar efter en uppgradering.
 
 Om den här principen inaktiveras eller inte konfigureras startas sekretessfunktionen för nyskapade användarkonton och konton som skulle ha fått uppmaningar om att välja sekretessinställningar efter en uppgradering.</string>
+
+      <string id="AllowOOBEUpdates">Tillåt uppdateringar i välkomstprogrammet</string>
+      <string id="AllowOOBEUpdates_Explain">Med den här principen kan du ange om en ny enhet får kritiska uppdateringar när välkomstprogrammet körs.
+
+Om du inaktiverar eller inte konfigurerar den här principen får nya enheter inte viktiga uppdateringar när välkomstprogrammet körs.
+
+Om du aktiverar principen får nya enheter de senaste godkända kritiska uppdateringarna när välkomstprogrammet körs.
+
+Anteckningar:
+Den här principen styr inte sidan för ZDP-uppdateringar (zero-day patch) i välkomstprogrammet.
+
+Om du har pausat kvalitetsuppdateringar genom att skjuta upp Windows-kvalitetsuppdateringar och pausprinciper kommer inga kvalitetsuppdateringar att levereras när välkomstprogrammet körs.
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

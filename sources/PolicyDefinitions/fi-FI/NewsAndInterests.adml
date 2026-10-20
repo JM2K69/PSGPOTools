@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>kirjoita näyttönimi tähän</displayName>
+  <description>kirjoita kuvaus tähän</description>
+  <resources>
+    <stringTable>
+      <string id="NewsAndInterests">Pienoissovellukset</string>
+      <string id="AllowNewsAndInterests">Salli pienoissovellukset</string>
+      <string id="Explain_AllowNewsAndInterests">Tämä käytäntö määrittää, sallitaanko pienoissovellusten ominaisuus laitteessa.
+Pienoissovellukset otetaan käyttöön oletusarvoisesti, ellet muuta tätä asetuksissa.
+Jos otit tämän toiminnon käyttöön aiemmin, se pysyy automaattisesti käytössä, ellet poista sitä käytöstä.</string>
+      <string id="DisableWidgetsOnLockScreen">Poista pienoissovellukset käytöstä lukitusnäytössä</string>
+      <string id="Explain_DisableWidgetsOnLockScreen">Tämä käytäntö määrittää, poistetaanko Pienoissovellukset-ominaisuus käytöstä lukitusnäytössä.
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, pienoissovellukset näkyvät lukitusnäytössä ja niitä voidaan hallita Windowsin asetukset -sovelluksessa.
+Jos otat tämän käytäntöasetuksen käyttöön, pienoissovelluksia ei näytetä lukitusnäytössä.</string>
+      <string id="DisableWidgetsBoard">Poista pienoissovellustaulu käytöstä</string>
+      <string id="Explain_DisableWidgetsBoard">Tämä käytäntö määrittää, poistetaanko Pienoissovellustaulu-käyttökokemus käytöstä. 
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, voit käynnistää Pienoissovellustaulun ja nähdä sen aloituskohdan tehtäväpalkissa. Pienoissovellustaulun käyttökokemusta voi hallita pienoissovellusasetuksissa, joiden aloituskohta sijaitsee Pienoissovellustaulussa.
+Jos otat tämän käytäntöasetuksen käyttöön, et voi käynnistää Pienoissovellustaulua ja sen aloituskohta ei enää näy tehtäväpalkissa.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

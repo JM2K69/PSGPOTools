@@ -67,6 +67,43 @@ Si se deshabilita esta directiva o no se configura, en el contenido destacado de
 Si habilitas esta directiva, la experiencia de bienvenida de Windows dejará de mostrar la existencia de nuevos cambios y actualizaciones para Windows y sus aplicaciones.
 
 Si deshabilitas esta directiva o no la configuras, la experiencia de bienvenida de Windows se iniciará para facilitar la presentación de Windows a los usuarios y proporcionarles información sobre novedades, cambios y sugerencias.</string>
+      <string id="DisableCloudOptimizedContent">Desactivar el contenido optimizado en la nube</string>
+      <string id="DisableCloudOptimizedContent_Help">Esta configuración de directiva permite desactivar el contenido optimizado en la nube en todas las experiencias de Windows.
+
+Si habilitas esta Directiva, las experiencias de Windows que usan el componente de cliente de contenido optimizado en la nube, en su lugar, presentarán el contenido de reserva predeterminado.
+
+Si deshabilitas o no configuras esta Directiva, las experiencias de Windows podrán usar contenido optimizado en la nube.</string>
+      <string id="DisableSpotlightCollectionOnDesktop">Desactivar la colección de contenido destacado en el Escritorio</string>
+      <string id="DisableSpotlightCollectionOnDesktop_Help">Esta configuración de directiva quita el parámetro de colección de contenido destacado de Personalización. De este modo, el usuario no puede seleccionar ni descargar imágenes diarias de Microsoft en el escritorio.
+
+Si habilita esta directiva, la colección de contenido destacado no estará disponible como opción en la configuración de Personalización.
+
+La colección de contenido destacado aparecerá como opción en la configuración de Personalización, lo que permite al usuario seleccionar la colección de contenido destacado como el Proveedor de escritorio y mostrar las imágenes diarias de Microsoft en el escritorio.</string>
+      <string id="DisableConsumerAccountStateContent">Desactivar el contenido de estado de cuentas de consumidor en la nube</string>
+      <string id="DisableConsumerAccountStateContent_Help">Esta configuración de directiva permite desactivar el contenido de estado de cuentas de consumidor de nube en todas las experiencias de Windows.
+
+Si habilitas esta Directiva, las experiencias de Windows que usan el componente de cliente de contenido de estado de la cuenta de consumidor de nube, en su lugar, presentarán el contenido de reserva predeterminado.
+
+Si deshabilitas o no configuras esta Directiva, las experiencias de Windows podrán usar el contenido de estado de la cuenta de consumidor de nube.
+        </string>
+      <string id="EnableOrganizationalMessagesContent">Habilitar mensajes de la organización</string>
+      <string id="EnableOrganizationalMessagesContent_Help">Los mensajes de la organización permiten a los administradores entregar mensajes a sus usuarios finales en experiencias de Windows 11 seleccionadas. Los mensajes de la organización están disponibles para los administradores a través de servicios como Microsoft Endpoint Manager.
+
+De forma predeterminada, esta directiva está deshabilitada. Si se habilita esta directiva, estas experiencias mostrarán el contenido reservado por los administradores.
+
+La habilitación de esta directiva no tendrá ningún impacto en la configuración de directiva MDM existente que rige la entrega de contenido de las experiencias de Microsoft en Windows.</string>
+      <string id="DisableGetStartedContent">Deshabilitar introducción</string>
+      <string id="DisableGetStartedContent_Help">Esta configuración de directiva desactiva la experiencia de Introducción de Windows.
+
+Si habilita esta configuración de directiva, Introducción no se iniciará automáticamente y se cerrará inmediatamente si se inicia manualmente. No se ejecutarán las tareas en segundo plano relacionadas.
+
+Si deshabilita o no establece esta configuración de directiva, Introducción seguirá estando disponible y puede parecer que ayuda a los usuarios a obtener información sobre Windows.</string>
+      <string id="DisableCopilotPinScreenContent">Deshabilitar la pantalla de anclaje de Copilot</string>
+      <string id="DisableCopilotPinScreenContent_Help">Evita que Windows muestre recomendaciones de Microsoft 365 Copilot al iniciar sesión. Esto no deshabilita Copilot ni afecta a las licencias.
+
+Si habilitas esta configuración de directiva, la guía de configuración de Microsoft 365 Copilot no se iniciará automáticamente al iniciar sesión.
+
+Si deshabilitas o no configuras esta configuración de directiva, la guía de configuración de Microsoft 365 Copilot puede aparecer al iniciar sesión para ayudar a los usuarios a descubrir y configurar Copilot.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureWindowsSpotlight">

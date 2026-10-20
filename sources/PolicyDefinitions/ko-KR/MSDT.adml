@@ -60,33 +60,34 @@ MSDT(Microsoft 지원 진단 도구)는 지원 전문가가 분석할 수 있도
 
 </string>
 <string id="TroubleshootingAllowRecommendations">문제 해결: 사용자가 알려진 문제를 해결할 때 문제해결 권장안에 액세스하도록 허용</string>
-<string id="TroubleshootingAllowRecommendationsExplain">이 정책 설정은 알려진 문제에 대한 권장 문제 해결을 장치에 적용하며 해당 도메인/IT 환경에 적용하는 방법을 관리자가 구성할 수 있습니다.
-이 정책 설정을 구성하지 않으면 권장 문제 해결 적용 여부 및 방법을 사용자가 구성할 수 있습니다.
+<string id="TroubleshootingAllowRecommendationsExplain">이 정책 설정은 장치에 알려진 문제의 해결 방법을 적용하는 방법을 구성하고 관리자가 도메인/IT 환경에 적용하는 방법을 구성할 수 있게 합니다.
 
-이 정책을 사용하도록 설정하면 사용자의 장치에 권장 문제 해결을 적용하는 방법을 구성할 수 있습니다. 다음 값 중 하나를 선택할 수 있습니다.
-0 = 이 기능을 끕니다.
-1 = 이 기능을 끄지만 중요 문제 해결은 여전히 적용합니다.
-2 = 권장 문제 해결이 사용 가능한 경우 사용자에게 알린 다음 사용자가 이를 실행하거나 무시할 수 있도록 허용합니다.
-3 = 권장 문제 해결을 자동으로 실행하고 성공적으로 실행된 후에 사용자에게 알립니다.
-4 = 사용자에게 알리지 않고 권장 문제 해결을 자동으로 실행합니다.
-5 = 사용자가 자신의 권장 문제 해결 설정을 선택할 수 있도록 허용합니다.
+이 정책 설정을 구성하지 않으면 사용자가 문제 해결을 적용하는 방법을 구성할 수 있습니다.
 
-이 새 설정을 설정한 후 도메인의 장치에 대해 권장 문제 해결을 시 하려면 다음 지침을 따르세요.
-1. 다음 콘텐츠를 사용하여 배치 스크립트를 만듭니다.
+이 정책을 사용하도록 설정하면 사용자가 장치에 문제 해결이 적용되는 방식을 구성할 수 있습니다. 다음 값 중 하나를 선택할 수 있습니다.
+0 = 사용자, 시스템 기능 또는 Microsoft가 문제 해결을 적용하는 것을 허용하지 않습니다.
+1 = 시스템 기능 및 Microsoft에서 중요한 문제에 대 한 문제 해결만 자동으로 적용합니다.
+2 = 시스템 기능 및 Microsoft에서 중요한 문제에 대한 문제 해결을 자동으로 적용합니다. 다른 문제에 대 한 문제 해결이 사용 가능한 경우 사용자에 게 알리고 사용자가 적용 또는 무시를 선택할 수 있도록 합니다.
+3 = 시스템 기능 및 Microsoft에서 중요 및 기타 문제에 대한 문제 해결을 자동으로 적용합니다. 문제 해결이 문제를 해결한 경우 사용자에게 알립니다.
+4 = 시스템 기능 및 Microsoft에서 중요 및 기타 문제에 대한 문제 해결을 자동으로 적용합니다. 문제 해결에서 문제를 해결 한 경우 사용자에 게 알리지 않습니다.
+5 = 사용자가 고유한 문제 해결 설정을 선택할 수 있도록 허용합니다.
+
+이 정책을 설정한 후에는 다음 지침을 사용하여 도메인의 장치에서 Microsoft의 사용 가능한 문제 해결을 확인할 수 있습니다.
+1. 다음 내용을 사용하여 bat 스크립트를 만듭니다.
 rem 다음 배치 스크립트는 권장 문제 해결을 트리거합니다.
-C:\Windows\System32\mitigationscanner.exe
+schtasks/run/TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner"
 
-2. 새 즉시 실행 작업을 만들려면 그룹 정책 관리 편집기 &gt; 컴퓨터 구성 &gt; 기본 설정으로 이동하여 제어판 설정을 선택합니다. 
-3. [제어판 설정]에서 [예약된 작업]을 마우스 오른쪽 단추로 클릭하고 [새로 만들기]를 선택합니다. 즉시 실행 작업(Windows 7 이상)을 선택합니다.
-4. 이름 및 설명을 적절하게 입력한 다음 [보안 옵션]에서 사용자 계정을 [시스템]으로 설정하고 가장 높은 수준의 권한으로 실행을 선택합니다.
-5. [동작] 탭에서 새 동작을 만들고 유형에 따라 [프로그램 시작]을 선택한 다음 1단계에서 만든 파일을 입력합니다.
+2. 새 즉시 실행 작업을 만들려면 그룹 정책 관리 편집기로 &gt; 컴퓨터 구성 &gt; 기본 설정으로 이동하여 제어판 설정을 선택합니다. 
+3. 제어판 설정에서 예약 작업을 마우스 오른쪽 단추로 클릭하고 새로 만들기를 선택합니다. 즉시 실행 작업을 선택합니다(Windows 7 이상).
+4. 적절한 이름 및 설명을 제공하고 보안 옵션에서 사용자 계정을 시스템으로 설정하고 가장 높은 권한으로 실행 확인란을 선택합니다.
+5. 작업 탭에서 새 작업을 만들고 유형으로 프로그램 시작을 선택한 다음 1단계에서 만든 파일을 입력합니다.
 6. 도메인에 배포할 작업을 구성합니다.</string>
-<string id="RecommendationsDropDown_DoNothing">이 기능 끄기</string>
-<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">이 기능을 끄지만 중요 문제 해결은 여전히 적용합니다.</string>
-<string id="RecommendationsDropDown_AskFirst">권장 문제 해결이 사용 가능한 경우 사용자에게 알린 다음 사용자가 이를 실행하거나 무시할 수 있도록 허용합니다.</string>
-<string id="RecommendationsDropDown_ApplyThenNotify">권장 문제 해결을 자동으로 실행하고 성공적으로 실행된 후에 사용자에게 알립니다.</string>
-<string id="RecommendationsDropDown_ApplySilently">사용자에게 알리지 않고 권장하는 문제 해결을 자동으로 실행합니다.</string>
-<string id="RecommendationsDropDown_DeferToUser">사용자가 자신의 권장 문제 해결 설정을 선택할 수 있도록 허용합니다.</string>
+<string id="RecommendationsDropDown_DoNothing">사용자, 시스템 기능 또는 Microsoft가 문제 해결을 적용하는 것을 허용하지 않습니다.</string>
+<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">시스템 기능 및 Microsoft의 중요한 문제에 대한 문제 해결만 자동으로 적용합니다.</string>
+<string id="RecommendationsDropDown_AskFirst">시스템 기능 및 Microsoft의 중요한 문제에 대한 문제 해결을 자동으로 적용합니다. 다른 문제에 대한 문제 해결이 가능할 때 사용자에게 이를 알리고, 사용자는 적용 또는 무시하도록 선택할 수 있습니다.</string>
+<string id="RecommendationsDropDown_ApplyThenNotify">시스템 기능 및 Microsoft에서 중요 및 기타 문제에 대한 문제 해결을 자동으로 적용합니다. 문제 해결을 통해 문제를 해결한 경우 사용자에게 알립니다.</string>
+<string id="RecommendationsDropDown_ApplySilently">시스템 기능 및 Microsoft에서 중요 및 기타 문제에 대한 문제 해결을 자동으로 적용합니다. 문제 해결을 통해 문제를 해결한 경우 사용자에게 알려주지 마세요.</string>
+<string id="RecommendationsDropDown_DeferToUser">사용자가 자신의 문제 해결 설정을 선택할 수 있도록 허용합니다.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MsdtToolDownloadPolicy">

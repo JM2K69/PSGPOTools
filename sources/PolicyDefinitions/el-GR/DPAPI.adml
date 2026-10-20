@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>DPAPI</displayName>
+  <description>Ρύθμιση παραμέτρων DPAPI</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod">Ορισμός περιόδου περιστροφής των κλειδιών αντιγράφων ασφαλείας DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">Αυτή η ρύθμιση πολιτικής καθορίζει την περίοδο περιστροφής των κλειδιών αντιγράφων ασφαλείας DPAPI. 
+Μπορείτε να χρησιμοποιήσετε αυτήν τη ρύθμιση για να παρακάμψετε την προεπιλεγμένη τιμή των 90 ημερών. Ορίστε 0 για να απενεργοποιήσετε την περιστροφή των κλειδιών αντιγράφων ασφαλείας DPAPI. 
+Εάν ενεργοποιήσετε αυτήν τη ρύθμιση πολιτικής, ορίστε τον αριθμό των ημερών που θα περιμένει το σύστημα πριν δημιουργήσει ένα νέο κλειδί αντιγράφου ασφαλείας DPAPI. 
+Εάν απενεργοποιήσετε αυτήν τη ρύθμιση πολιτικής ή δεν ρυθμίσετε τις παραμέτρους της, χρησιμοποιείται η προεπιλεγμένη τιμή των 90 ημερών.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">Καθορίστε την περίοδο περιστροφής των κλειδιών αντιγράφων ασφαλείας DPAPI σε ημέρες. 
+Ορίστε το 0 για να απενεργοποιήσετε την περιστροφή των κλειδιών αντιγράφων ασφαλείας DPAPI.</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

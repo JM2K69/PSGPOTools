@@ -246,13 +246,13 @@ Als dit beleid is uitgeschakeld of niet is geconfigureerd, beheert Windows Deskt
 
 Als dit beleid is uitgeschakeld of niet is geconfigureerd, worden de standaardinstellingen ingesteld op .bmp;.emf;.gif;.jpg;.jpeg;.png;.wmf;.wrn;.txt;.err;.xml;.cpp;.c;.h;.cxx;.hxx;.idl;.cs;.vb;.idl;.xsd;.doc;.docx;.xls;.xlsx;.ppt;.pptx;.vsd;.xlsb;.xltx;.dot;.rtf</string>
       <string id="PreventUnwantedAddins">Ongewenste iFilters en protocol-handlers voorkomen</string>
-      <string id="PreventUnwantedAddins_Explain">Als u dit beleid inschakelt, voorkomt u dat Windows Desktop Search iFilters en protocol-handlers gebruikt, tenzij deze worden opgegeven in Geaccepteerd. Dit beleid voorkomt echter niet dat iFilters of protocol-handlers worden geïnstalleerd en door andere toepassingen of diensten gebruikt. 
-U kunt ook een lijst met geaccepteerde invoegtoepassingen specifiëren door de klasse-id- of ProgID-string op te geven. Als u bijvoorbeeld een bepaald iFilter wilt gebruiken, moet u er zeker van zijn dat dit iFilter in Geaccepteerd staat, hetzij als een GUID zoals {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} (inclusief de accolades) of als een ProgID zoals een VisFilter.CFilter.1.
+      <string id="PreventUnwantedAddins_Explain">Als u dit beleid inschakelt, voorkomt u dat Windows Desktop Search iFilters en protocol-handlers gebruikt, tenzij deze worden opgegeven in de acceptatielijst. Dit beleid voorkomt echter niet dat iFilters of protocol-handlers worden geïnstalleerd en door andere toepassingen of diensten gebruikt. 
+U kunt ook een lijst met geaccepteerde invoegtoepassingen specifiëren door de klasse-id- of ProgID-string op te geven. Als u bijvoorbeeld een bepaald iFilter wilt gebruiken, moet u er zeker van zijn dat dit iFilter in de acceptatielijst staat, hetzij als een GUID zoals {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} (inclusief de accolades) of als een ProgID zoals een VisFilter.CFilter.1.
 
 Als u een vergrendelde bureaubladomgeving beheert, is deze instelling overbodig omdat gebruikers zonder beheerdersbevoegdheden niet gemachtigd zijn om nieuwe onderdelen te installeren. Als uw gebruikers beschikken over beheerdersmachtigingen of software kunnen installeren, voorkomt dit beleid dat zij aan Windows Desktop Search gerelateerde invoegtoepassingen gebruiken.
 
-Opmerking: vanwege een beperking in de Groepsbeleid-editor moet u te minste één item aan Geaccepteerd toevoegen, zelfs als u dit beleid zonder Geaccepteerd wilt inschakelen. U kunt een lijstitem maken door een spatie in het naamveld en een spatie in het waardeveld te plaatsen en dit vervolgens op te slaan. Hierdoor voert u een tijdelijke aanduiding in die door het programma wordt genegeerd.</string>
-      <string id="PreventUnwantedAddins_AllowList">Geaccepteerd</string>
+Opmerking: vanwege een beperking in de Groepsbeleid-editor moet u te minste één item aan de acceptatielijst toevoegen, zelfs als u dit beleid zonder acceptatielijst wilt inschakelen. U kunt een lijstitem maken door een spatie in het naamveld en een spatie in het waardeveld te plaatsen en dit vervolgens op te slaan. Hierdoor voert u een tijdelijke aanduiding in die door het programma wordt genegeerd.</string>
+      <string id="PreventUnwantedAddins_AllowList">Acceptatielijst</string>
       <string id="ExcludedExtensionsMultiline">Indexeren van bepaalde bestandstypen voorkomen</string>
       <string id="ExcludedExtensionsMultiline_Explain">Als u dit beleid inschakelt, kunt u de lijst met bestandstypen die moeten worden uitgesloten van indexering, bewerken. De eindgebruiker kan deze lijst niet wijzigen. U moet elke extensie scheiden met een puntkomma.
 
@@ -275,6 +275,8 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, zullen gebruikers
 Als u deze instelling inschakelt of niet configureert, is Cortana toegestaan op het apparaat. Als u deze instelling uitschakelt, wordt Cortana uitgeschakeld.
  
 Wanneer Cortana is uitgeschakeld, kunnen gebruikers toch zoekopdrachten uitvoeren op het apparaat.</string>
+      <string id="EnableDynamicContentInWSB">Zoekmarkeringen toestaan</string>
+      <string id="ExplainEnableDynamicContentInWSB">Als u deze instelling uitschakelt, worden zoekmarkeringen uitgeschakeld in het zoekvak van het Startmenu en in de zoekstartpagina. Als u deze instelling inschakelt of niet configureert, worden zoekmarkeringen ingeschakeld in het zoekvak van het Startmenu en in de zoekstartpagina.</string>
       <string id="AllowCortanaAboveLock">Cortana toestaan bij vergrendeling</string>
       <string id="ExplainAllowCortanaAboveLock">Met deze beleidsinstelling wordt bepaald of de gebruiker wel of niet kan praten met Cortana wanneer het systeem is vergrendeld.
 
@@ -294,6 +296,27 @@ Als deze instelling is ingeschakeld, hebben zoekopdrachten en Cortana toegang to
       <string id="AllowCortanainAADEnabled">Cortana-pagina in AAD inschakelen</string>
       <string id="AllowCloudSearchEnabled">Zoeken in de cloud inschakelen</string>
       <string id="AllowCloudSearchControlledByUser">Door gebruiker geselecteerd</string>
+      <string id="DisableSearch_DisplayName">Gebruikersinterface voor zoeken volledig uitschakelen</string>
+      <string id="DisableSearch_ExplainText">Als u dit beleid inschakelt, wordt de gebruikersinterface voor zoeken uitgeschakeld, samen met alle toegangspunten, zoals sneltoetsen, touchpad-bewegingen en typen om te zoeken in het menu Start. Het zoekvak van het menu Start en de knop Zoektaakbalk worden ook verborgen.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, kan de gebruiker de zoekinterface openen en worden de verschillende toegangspunten weergegeven.</string>
+      <string id="ConfigureSearchOnTaskbarMode">Configureert zoeken op de taakbalk</string>
+      <string id="ConfigureSearchOnTaskbarMode_Help">Met deze beleidsinstelling kunt u zoeken op de taakbalk configureren.
+
+Als u deze beleidsinstelling inschakelt en instelt op verbergen, wordt zoeken op de taakbalk standaard verborgen. Gebruikers kunnen dit niet wijzigen in Instellingen.
+
+Als u deze beleidsinstelling inschakelt en instelt op alleen het zoekpictogram, wordt het zoekpictogram standaard op de taakbalk weergegeven. Gebruikers kunnen dit niet wijzigen in Instellingen.
+
+Als u deze beleidsinstelling inschakelt en instelt op zoekpictogram en -label, worden het zoekpictogram en het zoeklabel standaard op de taakbalk weergegeven. Gebruikers kunnen dit niet wijzigen in Instellingen.
+
+Als u deze beleidsinstelling inschakelt en instelt op het zoekvak, wordt het zoekvak standaard op de taakbalk weergegeven. Gebruikers kunnen dit niet wijzigen in Instellingen.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, wordt zoeken op de taakbalk geconfigureerd volgens de standaardinstellingen voor uw Windows-editie. Gebruikers kunnen de zoekfunctie op de taakbalk wijzigen in Instellingen.
+      </string>
+      <string id="SearchOnTaskbarModeEnum_Hidden">Verbergen</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconOnly">Alleen zoekpictogram</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconAndLabel">Zoekpictogram en -label</string>
+      <string id="SearchOnTaskbarModeEnum_SearchBox">Zoekvak</string>
     </stringTable>
     <presentationTable>
       <presentation id="RichAttachmentPreviews">
@@ -333,7 +356,7 @@ Als deze instelling is ingeschakeld, hebben zoekopdrachten en Cortana toegang to
         <decimalTextBox refId="LimitEnableThrottlingOnlineMailboxes" defaultValue="120">Aantal items per minuut</decimalTextBox>
       </presentation>
       <presentation id="PreventUnwantedAddins">
-        <listBox refId="PreventUnwantedAddins_AllowList">Geaccepteerd</listBox>
+        <listBox refId="PreventUnwantedAddins_AllowList">Acceptatielijst</listBox>
       </presentation>
       <presentation id="PreventIndexingCertainPaths_1">
         <listBox refId="PreventIndexingCertainPaths">Indexeren van bepaalde paden voorkomen</listBox>
@@ -382,6 +405,9 @@ Als deze instelling is ingeschakeld, hebben zoekopdrachten en Cortana toegang to
       </presentation>
       <presentation id="AllowCortanaAAD">
         <dropdownList refId="AllowCortanaAAD_Dropdown" noSort="true" defaultItem="0">Cortana in AAD-instelling</dropdownList>
+      </presentation>
+      <presentation id="ConfigureSearchOnTaskbarMode">
+        <dropdownList refId="ConfigureSearchOnTaskbarMode_Dropdown" noSort="true" defaultItem="0">Zoeken op de taakbalk</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

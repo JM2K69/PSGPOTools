@@ -5,8 +5,8 @@
   <resources>
     <stringTable>
       <string id="TextInput">Tekstisyöte</string>
-      <string id="TextInput_AllowLanguageFeaturesUninstall_Help">Tämä käytäntöasetus määrittää, voidaanko koneesta poistaa joitakin kielitoimintoja, kuten sanastojen oikeinkirjoituksen tarkistusta tai käsinkirjoituksen tunnistusta. </string>
-      <string id="TextInput_AllowLanguageFeaturesUninstall">Salli kielitoimintojen poistaminen</string>  
+      <string id="TextInput_AllowLanguageFeaturesUninstall_Help">Kun tämä käytäntöasetus on käytössä, tietyt kieleen sisällytetyt ominaisuudet (kuten käsinkirjoituksen tunnistus ja sanastojen oikeinkirjoituksen tarkistus) voidaan poistaa käyttäjän koneesta, kun kyseisen kielen asennus poistetaan. Kieli voidaan haluttaessa asentaa uudelleen niin, että siihen sisältyy erilainen kieliominaisuuksien valikoima. Kun tämä käytäntöasetus on poissa käytöstä, kieliominaisuudet säilyvät käyttäjän koneessa, kun kielen asennus poistetaan. </string>
+      <string id="TextInput_AllowLanguageFeaturesUninstall">Kieliominaisuudet saa poistaa, kun kielen asennus poistetaan</string>  
       <string id="TextInput_AllowLinguisticDataCollection_Help">Tämä käytäntöasetus määrittää, voidaanko käsinkirjoitus- ja kirjoitustietoja lähettää Microsoftille Windows-sovellusten ja -palvelujen kielentunnistus- ja ehdotusominaisuuksien parantamiseksi. </string>
       <string id="TextInput_AllowLinguisticDataCollection">Paranna käsinkirjoituksen ja kirjoituksen tunnistusta</string>  
     </stringTable>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Gruppenrichtlinieneinstellungen für die Netzwerkverbindungs-Statusanzeige</displayName>
   <description>Gruppenrichtlinieneinstellungen für die Netzwerkverbindungs-Statusanzeige</description>
@@ -73,7 +73,7 @@
       </presentation>
       <presentation id="NCSI_PassivePolling">
         <text>Das folgende Kontrollkästchen deaktiviert den passiven Abrufmechanismus in NCSI.   Auf diese Weise können Sie die CPU-Arbeitsauslastung auf Servern oder anderen Computern verringern, deren Netzwerkkonnektivität statisch ist.</text>
-        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Passive Abrufe deaktivieren</checkBox>  
+        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Passive Abrufe deaktivieren</checkBox>
       </presentation>
       <presentation id="NCSI_GlobalDns">
         <text>Mit dem folgenden Kontrollkästchen wird die Schnittstellenbindung bei DNS-Lookups in NCSI deaktiviert. Dadurch funktioniert NCSI mit speziellen Netzwerkkonfigurationen u. U. besser, beispielsweise bei einem auf "localhost" ausgeführten DNS-Server.</text>

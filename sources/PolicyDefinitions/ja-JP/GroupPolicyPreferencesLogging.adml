@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>グループ ポリシーの基本設定のログ ポリシー</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">[アプリケーション] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_Applications_Logging_Help">このポリシー設定を使用すると、[アプリケーション] 基本設定拡張のイベント ログ機能によって記録された詳細情報のレベルを構成し、[アプリケーション] 拡張に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターの [アプリケーション] 拡張に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張でのイベント ログには警告とエラーのみが記録され、この拡張に対するトレースは無効になります。
+
+注:
+
+1.[ユーザーの構成] トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2.[コンピューターの構成] トレース: この基本設定拡張は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3.[グループ ポリシーのモデル作成] クエリ トレース: [グループ ポリシーのモデル作成] クエリを実行するときに、この基本設定拡張の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。[グループ ポリシーのモデル作成] を実行しない場合、またはこの拡張に基本設定項目がない場合、計画トレース ファイルは作成されません。
+</string>
+      <string id="CSE_DataSources_Logging">[データ ソース] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_DataSources_Logging_Help">このポリシー設定を使用すると、データ ソース基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、データ ソース拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、ベント ログを構成し、クライアント コンピューターのデータ ソース拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_Devices_Logging">[デバイス] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_Devices_Logging_Help">このポリシー設定を使用すると、デバイス基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、デバイス拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのデバイス拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_Drives_Logging">[ドライブ マップ] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_Drives_Logging_Help">このポリシー設定を使用すると、ドライブ マップ基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、ドライブ マップ拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にすると、イベント ログを構成し、クライアント コンピューターのドライブ マップ拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_Environment_Logging">[環境] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_Environment_Logging_Help">このポリシー設定を使用すると、環境基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、環境拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターの "環境" 拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_Files_Logging">[ファイル] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_Files_Logging_Help">このポリシー設定を使用すると、ファイル基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、ファイル拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのファイル拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_FolderOptions_Logging">[フォルダー オプション] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_FolderOptions_Logging_Help">このポリシー設定を使用すると、フォルダー オプション基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、フォルダー オプション拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのフォルダー オプション拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_Folders_Logging">[フォルダー] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_Folders_Logging_Help">このポリシー設定を使用すると、フォルダー基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、フォルダー拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのフォルダー拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_IniFiles_Logging">[ini ファイル] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_IniFiles_Logging_Help">このポリシー設定を使用すると、ini ファイル基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、ini ファイル拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターの Ini ファイル拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_Internet_Logging">[インターネット設定] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_Internet_Logging_Help">このポリシー設定を使用すると、インターネット基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、インターネット拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのインターネット拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">[ローカル ユーザーとグループ] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">このポリシー設定を使用すると、ローカル ユーザーとグループ基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、ローカル ユーザーとグループ拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのローカル ユーザーとグループ拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_NetworkOptions_Logging">[ネットワーク オプション] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_NetworkOptions_Logging_Help">このポリシー設定を使用すると、ネットワーク オプション基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、ネットワーク オプション拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのネットワーク オプション拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_NetShares_Logging">[ネットワーク共有] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_NetShares_Logging_Help">このポリシー設定を使用すると、ネットワーク共有基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、ネットワーク共有拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのネットワーク共有拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_PowerOptions_Logging">[電源オプション] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_PowerOptions_Logging_Help">このポリシー設定を使用すると、電源オプション基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、電源オプション拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターの電源オプション拡張機能に対してトレースを有効にするこができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_Printers_Logging">[プリンター] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_Printers_Logging_Help">このポリシー設定を使用すると、プリンター基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、プリンター拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのプリンター拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_RegionalOptions_Logging">[地域のオプション] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_RegionalOptions_Logging_Help">このポリシー設定を使用すると、地域のオプション基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、地域のオプション拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターの地域のオプション拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_PrefRegistry_Logging">[レジストリ] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_PrefRegistry_Logging_Help">このポリシー設定を使用すると、レジストリ基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、レジストリ拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのレジストリ拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_ScheduledTasks_Logging">[タスク] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">このポリシー設定を使用すると、タスク基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、タスク拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのタスクのスケジュール拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_Services_Logging">[サービス] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_Services_Logging_Help">このポリシー設定を使用すると、サービス基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、サービス拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのサービス拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_Shortcuts_Logging">[ショートカット] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_Shortcuts_Logging_Help">このポリシー設定を使用すると、ショートカット基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、ショートカット拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのショートカット拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_StartMenu_Logging">[[スタート] メニュー] 基本設定のログおよびトレースの構成</string>
+      <string id="CSE_StartMenu_Logging_Help">このポリシー設定を使用すると、スタート メニュー基本設定拡張機能のイベント ログ機能によって記録された詳細情報のレベルを構成し、スタート メニュー拡張機能に対するトレースを有効にすることができます。ログおよびトレースは、トラブルシューティング用の診断情報を提供します。
+
+このポリシー設定を有効にした場合、イベント ログを構成し、クライアント コンピューターのスタート メニュー拡張機能に対してトレースを有効にすることができます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、既定では、この拡張機能でのイベント ログには警告とエラーのみが記録され、この拡張機能に対するトレースは無効になります。
+
+セキュリティ上の注意: 
+セキュリティ上の注意: 構成されたネットワーク共有は、必要最小限のアクセス許可のみで保護してください。あらゆる標準アカウントや、完全に制御可能なすべてのユーザーなど、広範なアクセスは使用しないでください。不正アクセスにつながる可能性があるためです
+
+注:
+
+1. ユーザーの構成トレース: [ユーザーの構成] に一覧表示された、この基本設定拡張機能内の項目に対するトレースを実行するには、ユーザー トレース ファイルの作成先とするクライアント コンピューター上のパスを [ユーザー トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。この拡張機能の [ユーザーの構成] に基本設定項目がない場合、ユーザー トレース ファイルは作成されません。
+
+2. コンピューターの構成トレース: この基本設定拡張機能は、[ユーザーの構成] でのみ使用できます。したがって、コンピューターの構成のトレースは適用されません。
+
+3. "グループ ポリシーのモデル作成" クエリ トレース: "グループ ポリシーのモデル作成" クエリを実行するときに、この基本設定拡張機能の項目に対してトレースを実行するには、モデル作成を実行するコンピューター上の、計画トレース ファイル作成先とするパスを [計画トレース] ボックスに指定し、[トレース] オプションを有効にする必要があります。"グループ ポリシーのモデル作成" を実行しない場合、またはこの拡張機能に基本設定項目がない場合、計画トレース ファイルは作成されません。</string>
+      <string id="CSE_NOCHANGES">グループ ポリシー オブジェクトが変更されていなくても処理する</string>
+      <string id="CSE_NOBACKGROUND">バックグラウンドで定期的に処理しているときは適用しない</string>
+      <string id="CSE_ALLOWSLOWLINK">低速回線接続からの処理を許可する</string>
+      <string id="CSE_TRACELEVEL">トレース</string>
+      <string id="CSE_TRACEFILEPATHUSER">ユーザー トレース</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">コンピューター トレース</string>
+      <string id="CSE_TRACEFILEPATH">トレース ファイル</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">計画トレース</string>
+      <string id="CSE_TRACEFILEMAXSIZE">トレース ファイルの最大サイズ (KB)</string>
+      <string id="CSE_TRACELEVELNORMAL">オフ</string>
+      <string id="CSE_TRACELEVELVERBOSE">オン</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">バックグラウンドの優先順位</string>
+      <string id="CSE_PRILEVEL_NORMAL">標準</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">標準以下</string>
+      <string id="CSE_PRILEVEL_LOWEST">最低</string>
+      <string id="CSE_PRILEVEL_IDLE">アイドル</string>
+      <string id="CSE_LOGLEVEL">イベント ログ</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">情報、警告およびエラー</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">警告およびエラー</string>
+      <string id="CSE_LOGLEVEL_ERRORS">エラーのみ</string>
+      <string id="CSE_LOGLEVEL_NONE">なし</string>
+      <string id="CSE_Logging">ログおよびトレース</string>
+      <string id="CSE_Logging_Help">基本設定コンポーネントのログおよびトレースを構成できます。</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>コンピューター トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">イベント ログ</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">トレース</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>ユーザー トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計画トレース</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">トレース ファイルの最大サイズ (KB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

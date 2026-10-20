@@ -27,19 +27,17 @@
       <string id="IPHTTPS_ClientState">Ange IP-HTTPS-tillstånd</string>
       <string id="IPHTTPS_ClientUrl">IP-HTTPS-URL</string>
 
-      <string id="ISATAP_State_Help">Med den här principinställningen kan du konfigurera ISATAP (Intra-Site Automatic Tunnel Addressing Protocol), en automatisk tunneltjänst för adress-till-router och värd-till-värd, värd-till-router och router-till-värd som används för IPv6-unicasttrafikanslutning mellan IPv6-värdar i ett IPv4-intranät.
+      <string id="ISATAP_State_Help">Med den här princip inställningen kan du konfigurera ISATAP (Intra-site Automatic Tunnel Addressing Protocol), en automatisk tunnel teknik för adress-till-router och värd-till-värd, värd-till-router och router-till-värd som används för att tillhandahålla unicast-IPv6-anslutningar mellan IPv6-värdar i ett IPv4-intranät.
 
-Om du inaktiverar eller låter bli att konfigurera den här principinställningen används den lokala värdinställningen.
+Om du inaktiverar eller låter bli att konfigurera den här princip inställningen används den lokala värd inställningen.
 
-Om du aktiverar den här principinställningen kan du konfigurera ISATAP med en av de följande inställningarna:
+Om du aktiverar den här princip inställningen kan du konfigurera ISATAP med en av följande inställningar:
 
-Standardprinciptillstånd: Om ISATAP-routernamnet matchas konfigureras ISATAP på värden med en länklokal adress och en adress för varje prefix som tas emot från ISATAP-routern med hjälp av tillståndslös automatisk adresskonfiguration. Om namnet på ISATAP-routern inte matchas är ISATAP-anslutningsmöjlighet inte tillgänglig för en värd med hjälp av motsvarande IPv4-adress.
+Standard princip tillstånd: inga ISATAP-gränssnitt finns på värden.
 
-Principaktiverat tillstånd: Om ISATAP namnet matchas konfigurerar värden ISATAP med en länklokal-adress och en adress för varje prefix som tas emot från ISATAP-routern med hjälp av tillståndslös automatisk konfiguration av adresser. Om ISATAP-namnet inte kan matchas konfigurerar värden ett annat ISATAP-gränssnitt med en länklokal-adress.
+Princip aktive rad tillstånd: om ISATAP-namnet har matchats kan värden ha ISATAP konfigurerad med en länk lokal adress och en adress för varje prefix som tagits emot från ISATAP-routern via automatisk konfiguration av adresserat. Om ISATAP-namnet inte kan matchas får värden ett ISATAP-gränssnitt konfigurerat med en länk lokal adress.
 
-Principinaktiverat tillstånd: Det finns inga ISATAP-gränssnitt på värden.
-
-
+Princip inaktiverat tillstånd: det finns inga ISATAP-gränssnitt på värden.
 
 </string>
 
@@ -60,13 +58,11 @@ Om du inaktiverar eller låter bli att konfigurera den här principinställninge
 
 Om du aktiverar den här principinställningen kan du konfigurera 6to4 med en av de följande inställningarna:
 
-Standardprinciptillstånd: 6to4 är aktiverat om värden bara har en länklokal IPv6-anslutning och en offentlig IPv4-adress. Om det inte finns någon global IPv6- eller IPv4-address har inte värden något 6to4-gränssnitt. Om det inte finns någon global IPv6-adress men en global IPv4-adress har värden ett 6to4-gränssnitt.
+Standardprinciptillstånd: 6to4 är inaktiverat och anslutning med 6to4 kommer inte att vara tillgänglig. 
 
 Principaktiverat tillstånd: Om det finns en IPv4-adress har värden ett 6to4-gränssnitt. Om det inte finns någon global IPv4-adress har inte värden ett 6to4-gränssnitt.
 
 Principinaktiverat tillstånd: 6to4 är inaktiverat och anslutning med 6to4 är inte tillgänglig.
-
-
 
 </string>
 
@@ -188,6 +184,45 @@ Om du aktiverar eller inte konfigurerar den här principinställningen aktiveras
 Om du inaktiverar den här principinställningen inaktiveras Gränser för tillståndslös autokonfiguration av IP-adresser (IP Stateless Autoconfiguration Limits) och systemet begränsar inte antalet automatiskt konfigurerade adresser och vägar.
 
 
+
+</string>
+
+      <string id="IPxlatCfg_PermitNonCellularCLAT">Ange CLAT-tillstånd</string>
+      <string id="IPxlatCfg_PermitNonCellularCLAT_Help">Med den här principinställningen kan du tillåta eller inaktivera översättaren på kundsidan för 464XLAT (CLAT) globalt för icke-mobilgränssnitt.
+
+Om du aktiverar den här principinställningen tillåts CLAT globalt och kan aktiveras i nätverksgränssnitt.
+
+Om du inaktiverar den här principinställningen tillåts INTE CLAT globalt och kan inte aktiveras.
+
+Om du inte konfigurerar den här principinställningen används den lokala värdinställningen.
+
+Inga omstarter eller omstarter av tjänsten krävs för att den här principinställningen ska börja gälla.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromRA">Ange CLAT för att hämta prefixinformation från RA</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromRA_Help">Med den här principinställningen kan routerannonsering (RA) användas som prefixinformationskälla för icke-mobilnäts-CLAT.
+
+Om du aktiverar den här principinställningen tillåts CLAT att identifiera NAT64-prefix via RA. Om båda NAT64-prefixidentifieringsmetoderna är aktiverade är prioritetsordningen (RA, DNS).
+
+Om du inaktiverar den här principinställningen tillåts inte CLAT att identifiera NAT64-prefix via RA.
+
+Om du inte konfigurerar den här principinställningen används den lokala värdinställningen.
+
+En omstart krävs för att den här principinställningen ska träda ikraft.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS">Ange CLAT för att hämta prefixinformation från DNS</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS_Help">Med den här principinställningen kan DNS användas som prefixinformationskälla för icke-mobilnäts-CLAT.
+
+Om du aktiverar den här principinställningen tillåts CLAT att identifiera NAT64-prefix via DNS. Om båda NAT64-prefixidentifieringsmetoderna är aktiverade är prioritetsordningen (RA, DNS).
+
+Om du inaktiverar den här principinställningen får CLAT inte identifiera NAT64-prefix via DNS.
+
+Om du inte konfigurerar den här principinställningen används den lokala värdinställningen.
+
+En omstart krävs för att den här principinställningen ska träda ikraft.
 
 </string>
 

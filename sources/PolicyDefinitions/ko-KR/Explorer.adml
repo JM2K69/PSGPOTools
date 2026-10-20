@@ -37,14 +37,30 @@
       <string id="DisableRoamedProfileInit_Help">이 정책 설정을 통해 캐시된 로밍 프로필 그룹 정책 삭제 설정과 함께 로밍 프로필을 구성한 관리자가 Explorer에서 기본 프로그램 연결 및 다른 설정을 기본값으로 다시 초기화하지 않도록 설정할 수 있습니다.
 
 일부 프로그램을 마지막으로 로그온한 컴퓨터와 같은 방식으로 설치하지 않은 컴퓨터에서 이 정책 설정을 사용하면 예기치 않은 동작이 발생할 수 있습니다. </string>
+      <string id="DisableGraphRecentItems">계정 및 클라우드 공급자 활동을 기준으로 파일 표시</string>
+      <string id="DisableGraphRecentItems_Help">이 설정을 끄면 파일 탐색기가 클라우드 파일 메타데이터를 요청하고 이를 파일 탐색기의 홈페이지 및 기타 보기에 표시하지 않습니다. 계정 또는 클라우드 공급자 활동을 기반으로 하는 모든 인사이트 및 파일은 최근, 추천, 즐겨찾기, 공유 등과 같은 보기에서 중지됩니다.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">파일 탐색기 고급 설정 원본 통합 끄기</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">고급 설정 원본 통합을 사용하지 않도록 설정하면 파일 탐색기 고급 설정 시스템 구성 요소의 리포지토리 정보를 표시할 수 없습니다.</string>
+      <string id="DisableFileExplorerPrelaunch">백그라운드에서 창을 미리 실행하는 파일 탐색기 기능 비활성화</string>
+      <string id="DisableFileExplorerPrelaunch_Help">이 정책은 사용자가 파일 탐색기에서 사전 실행 기능을 활성화하지 못하게 합니다. 이 기능은 실행 경험을 가속하고 응답성을 향상시키기 위해 백그라운드에서 창을 생성합니다.</string>
+      <string id="MakePrintScreenKeyYieldable">Print Screen 키를 재할당할 수 있게 만들기</string>
+      <string id="MakePrintScreenKeyYieldable_Help">이 정책 설정은 인쇄 화면 키를 다른 응용 프로그램에 생성할 수 있는지 여부를 결정합니다.
+
+이 정책 설정을 사용하면 응용 프로그램에서 인쇄 화면 키를 가로채 기본 스크린샷 기능을 재정의할 수 있습니다.
+
+이 정책 설정을 사용하지 않으면 인쇄 화면 키는 스크린샷을 찍기 위한 레거시 동작을 유지하며 응용 프로그램에서 가로챌 수 없습니다.
+
+이 정책을 구성하지 않으면 응용 프로그램에서 인쇄 화면 키를 가로채 기본 스크린샷 기능을 사용하도록 설정한 동작과 동일하게 재정의할 수 있습니다.
+
+참고: 이 설정을 적용하려면 시스템을 다시 시작해야 할 수 있습니다.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>웹 페이지 URL 지원</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>웹 페이지 URL 지원</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

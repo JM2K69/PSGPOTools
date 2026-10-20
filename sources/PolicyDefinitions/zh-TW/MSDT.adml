@@ -60,33 +60,34 @@ Microsoft 支援服務診斷工具 (MSDT) 會收集診斷資料，供專業支�
 
 </string>
 <string id="TroubleshootingAllowRecommendations">疑難排解: 允許使用者存取建議的疑難排解方法以解決已知問題</string>
-<string id="TroubleshootingAllowRecommendationsExplain">這項原則設定會在裝置上套用已知問題的建議疑難排解，並讓系統管理員設定將其套用到網域/IT 環境的方式。
-若未設定此原則設定，則會允許使用者設定套用建議疑難排解的方式。
+<string id="TroubleshootingAllowRecommendationsExplain">這個原則設定可設定如何在裝置上套用疑難排解至已知問題，並讓系統管理員設定其網域/IT 環境的套用方式。
 
-啟用此原則，可讓您設定將疑難排解套用到使用者裝置的方式。您可以選取下列其中一個值:
-0 = 關閉此功能。
-1 = 關閉此功能但仍套用重大疑難排解。
-2 = 在有可用的建議疑難排解時通知使用者，並讓使用者執行或忽略它。
-3 = 自動執行建議的疑難排解，並在成功執行之後通知使用者。
-4 = 自動執行建議的疑難排解，而不通知使用者。
-5 = 讓使用者自行選擇建議的疑難排解設定。
+若未設定此原則設定，將允許使用者設定如何套用疑難排解。
 
-在設定此新設定後，若要在您的網域內觸發裝置的建議疑難排解，請遵循以下指示:
-1. 使用以下內容建立 bat 指令碼:
-rem 以下批次指令碼會觸發建議的疑難排解
-C:\Windows\System32\mitigationscanner.exe
+啟用這個原則允許您設定如何在使用者的裝置上套用疑難排解。您可以選取下列其中一個值：
+0 = 不允許使用者、系統功能或 Microsoft 套用疑難排解
+1 = 僅自動套用透過系統功能與 Microsoft 的重大問題疑難排解
+2 = 自動套用透過系統功能與 Microsoft 的重大問題疑難排解。當有其他問題的疑難排解時通知使用者，並允許使用者選擇要套用或略過。
+3 = 自動套用透過系統功能與 Microsoft 的重大問題疑難排解。當疑難排解解決問題時通知使用者。
+4 = 自動套用透過系統功能與 Microsoft 的重大問題疑難排解。當疑難排解解決問題時不要通知使用者。
+5 = 允許使用者選擇自己的疑難排解設定。
 
-2. 若要建立新的立即工作，請巡覽至群組原則管理編輯器 &gt; [電腦設定] &gt; [喜好設定]，然後選取 [控制台] 設定。
-3. 在 [控制台] 設定下方，以滑鼠右鍵按一下 [排定的工作] 然後選取 [新增]。選取 [立即工作] (至少為 Windows 7)。
-4. 提供適當的名稱和描述，然後在 [安全性選項] 下方，將使用者帳戶設為 [SYSTEM]，然後選取 [以最高權限執行] 核取方塊。
-5. 在 [動作] 索引標籤中，建立新動作、選取 [以其類型啟動程式]，然後輸入在步驟 1 中建立的檔案。
-6. 設定工作為部署到您的網域。</string>
-<string id="RecommendationsDropDown_DoNothing">關閉此功能</string>
-<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">關閉此功能但仍套用重大疑難排解。</string>
-<string id="RecommendationsDropDown_AskFirst">在有可用的建議疑難排解時通知使用者，並讓使用者執行或忽略它。</string>
-<string id="RecommendationsDropDown_ApplyThenNotify">自動執行建議的疑難排解，並在成功執行之後通知使用者。</string>
-<string id="RecommendationsDropDown_ApplySilently">自動執行建議的疑難排解，而不通知使用者。</string>
-<string id="RecommendationsDropDown_DeferToUser">讓使用者自行選擇建議的疑難排解設定。</string>
+設定這個原則之後，您可以使用下列指示檢查網域中的裝置，以取得 Microsoft 的可用疑難排解：
+1. 使用下列內容建立批次指令檔：
+ REM 下列批次指令檔觸發建議的疑難排解
+schtasks /run /TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner"
+
+2. 若要建立新的立即工作，請流覽至 [群組原則管理編輯器] &gt; [電腦設定] &gt; [喜好設定]，然後選取 [控制台設定]。
+3. 在 [控制台設定] 中，以滑鼠右鍵按一下 [排程工作]，然後選取 [新增]。選取 [立即工作] (至少須為 Windows 7)。
+4. 根據需要提供名稱與描述，然後在 [安全性選項] 下將使用者帳戶設定至 [系統]，然後選取 [以最高權限執行] 旁的核取方塊。
+5. 在 [動作] 索引標籤中，建立新的動作，選取 [啟動程式] 作為其類型，然後輸入在步驟 1 中建立的檔案。
+6. 設定要部署到您網域的工作。</string>
+<string id="RecommendationsDropDown_DoNothing">不允許使用者、系統功能或 Microsoft 套用疑難排解。</string>
+<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">只針對系統功能和 Microsoft 自動套用重大問題的疑難排解。</string>
+<string id="RecommendationsDropDown_AskFirst">自動針對系統功能和 Microsoft 的嚴重問題套用疑難排解。在可取得其他問題的疑難排解時通知使用者，並允許使用者選擇套用或略過。</string>
+<string id="RecommendationsDropDown_ApplyThenNotify">自動套用系統功能與 Microsoft 所造成的嚴重問題及其他問題的疑難排解。疑難排解解決問題時通知使用者。</string>
+<string id="RecommendationsDropDown_ApplySilently">透過系統功能和 Microsoft 自動對關鍵問題和其他問題套用疑難排解。當疑難排解解決問題時，請勿通知使用者。</string>
+<string id="RecommendationsDropDown_DeferToUser">讓使用者自行選擇疑難排解設定。</string>
     </stringTable>
     <presentationTable>
       <presentation id="MsdtToolDownloadPolicy">

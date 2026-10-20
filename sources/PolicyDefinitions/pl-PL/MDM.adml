@@ -33,6 +33,11 @@ Jeśli to ustawienie zasad zostanie wyłączone, rejestracja w usłudze MDM będ
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">Wybierz typ poświadczenia do użycia:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>Identyfikator aplikacji MDM:</label>
+        </textBox>
+        <text>Identyfikator aplikacji MDM reprezentuje identyfikator Twojej aplikacji MDM skonfigurowanej w usłudze Azure AD. Jest to opcjonalne i tylko wymagane w przypadku automatycznej rejestracji w usłudze MDM przy użyciu poświadczeń urządzenia, gdy wiele aplikacji MDM jest skonfigurowanych w usłudze Azure AD.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

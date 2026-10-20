@@ -138,18 +138,19 @@
         Näytä määritetyt yhteystiedot paikallisille käyttäjille Windowsin suojauksen ilmoituksissa.
 
         Käytössä:
-        Yrityksesi yhteystiedot näytetään Windowsin suojauksen ilmoituksissa.
+        Yrityksesi yhteystiedot näytetään Windowsin suojauksesta tulevissa ilmoituksissa.
 
-        Kun tämän asetuksen arvoksi on määritetty Käytössä, sinun on määritettävä Määritä yhteystietoihin yrityksen nimi -GP-asetus sekä vähintään yksi seuraavista GP-asetuksista:
+        Kun tämä asetus on Käytössä, sinun on määritettävä GP-asetus Määritä yrityksen nimi sekä vähintään yksi seuraavista GP-asetuksista:
         - Määritä yhteystietoihin puhelinnumero tai Skype-tunnus
         - Määritä yhteystietoihin sähköpostinumero tai -tunnus
-        - Määritä yhteystietojen verkkosivusto
-
-        Ei käytössä:
+        - Määritä yhteystietoihin verkkosivusto
+        Huomaa, että joissakin tapauksissa rajoitamme näytössä esitettävien yhteydenottovaihtoehtojen määrää käytettävissä olevan ilmoitustilan mukaan.
+        
+        Poistettu käytöstä:
         Ilmoituksissa ei näytetä yhteystietoja.
 
         Ei määritetty:
-        Sama kuin Ei käytössä.
+        Sama kuin Poistettu käytöstä.
     </string>
     <string id="EnterpriseCustomization_EnableInAppCustomization">Määritä mukautetut yhteystiedot</string>
     <string id="EnterpriseCustomization_EnableInAppCustomization_Explain">

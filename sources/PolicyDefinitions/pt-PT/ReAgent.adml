@@ -13,6 +13,13 @@
     Se ativar ou não configurar esta definição de política, os itens "Utilizar uma imagem de sistema que criou anteriormente para recuperar o computador" e "Reinstalar o Windows" (ou "Repor as definições de fábrica do computador") serão apresentados na página "Métodos de recuperação avançada" de Recuperação (em Painel de Controlo) e permitirão que o utilizador restaure o computador para o estado original ou a partir de uma imagem do sistema criada pelo utilizador. Esta é a predefinição.
 
     Se desativar esta definição de política, os itens "Utilizar uma imagem de sistema que criou anteriormente para recuperar o computador" e "Reinstalar o Windows" (ou "Repor as definições de fábrica do computador") em Recuperação (em Painel de Controlo) estarão indisponíveis. No entanto, com esta definição de política desativada, os utilizadores ainda podem restaurar o computador para o estado original ou a partir de uma imagem do sistema criada pelo utilizador reiniciando o computador e acedendo ao menu Opções de Recuperação do Sistema, se estiver disponível.</string>
+      <string id="AllowTrustedOfflineScan">Permitir análise offline a partir de Ambiente de Recuperação do Windows fidedigno</string>
+      <string id="AllowTrustedOfflineScan_help">    Requisitos: Windows 10
+    Descrição: esta definição de política controla se deve ser permitida a análise offline a partir de um Ambiente de Recuperação do Windows fidedigno.
+
+    Se ativar esta definição de política, a análise offline será executada sem pedir a chave de recuperação BitLocker, desde que o Ambiente de Recuperação do Windows seja considerado fidedigno pelo BitLocker.
+
+    Se desativar ou não configurar esta definição de política, a análise offline pedirá ao utilizador a chave de recuperação BitLocker para desbloquear o volume do SO. Se o utilizador ignorar o desbloqueio do volume do SO, a análise offline não será executada. Esta é a definição predefinida.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

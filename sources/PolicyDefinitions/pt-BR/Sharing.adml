@@ -25,6 +25,10 @@ Esta configuração de política não é definida por padrão.
 Você deve reiniciar o computador para que a configuração de política entre em vigor.</string>
       <string id="HomeGroup">Grupo Doméstico</string>
       <string id="HomeGroup_Help">Contém as configurações para controlar o comportamento do Grupo Doméstico.</string>
+      <string id="DisableShareAppPromotions">Desabilitar promoções de compartilhamento de aplicativos</string>
+      <string id="DisableShareAppPromotions_Help">Essa configuração de política permite que os administradores de TI controlem se os aplicativos promocionais são exibidos no ShareSheet. Se você habilitar essa política, o Windows não mostrará aplicativos promocionais no ShareSheet. Se você desabilitar ou não configurar esta política, o ShareSheet poderá mostrar sugestões e promoções de aplicativos quando o ShareSheet for aberto.</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

@@ -5,6 +5,8 @@
   <description>kirjoita kuvaus tähän</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Ota automaattinen tilaus käyttöön</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Määrittää luettelon URL-osoitteista, jotka käyttäjä tilaa automaattisesti</string>
       <string id="TS_SUPPORTED_Windows10">Vähintään Windows 10 tai Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">Vähintään Windows 8 tai Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">Vähintään Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">Vähintään Windows XP ja vain Windows Server 2003</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">Vähintään Windows Server 2008 tai Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  Vain Windows Server 2008 R2</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10:n versio 1903, Windows 10:n versio 1909 ja Windows 10:n versio 2004</string>
       <string id="TS_TERMINAL_SERVER">Etätyöpöytäistunnon isäntä</string>
       <string id="TS_TERMINAL_SERVER_Help">Ohjaa etätyöpöytäistunnon palvelimen määrittämistä</string>
       <string id="TS_LICENSE_SERVER">Etätyöpöydän lisensointi</string>
@@ -132,18 +135,18 @@ Jos poistat tämän asetuksen käytöstä tai et määritä sitä, käyttäjä p
 
 Etätyöpöytäistunnon isäntäpalvelin yhdistää asiakkaan asemat oletusarvon mukaan, kun yhteys muodostetaan. Yhdistetyt asemat näkyvät istunnon kansiorakenteessa Resurssienhallinnassa tai Oma tietokone -ikkunassa muodossa &lt;asemakirjain&gt; palvelimessa &lt;tietokonenimi&gt;. Tämän käytäntöasetuksen avulla voit ohittaa tämän toiminnan.
 
-Jos otat tämän käytäntöasetuksen käyttöön, asiakkaan aseman uudelleenohjausta ei sallita etätyöpöytäpalveluiden istunnoissa eikä leikepöydän tiedostokopioinnin uudelleenohjausta sallita Windows Server 2003-, Windows 8- ja Windows XP -tietokoneissa.
+Jos otat tämän käytäntöasetuksen käyttöön, asiakkaan aseman uudelleenohjausta ei sallita etätyöpöytäpalveluiden istunnoissa eikä leikepöydän tiedostokopioinnin uudelleenohjausta sallita Windows Server 2003-, Windows 2012- ja Windows XP -tietokoneissa.
 
 Jos poistat tämän asetuksen käytöstä, asiakkaan aseman uudelleenohjaus sallitaan aina. Lisäksi leikepöydän tiedostokopioinnin uudelleenohjaus sallitaan aina, jos leikepöydän uudelleenohjaus sallitaan.
 
 Jos et määritä tätä käytäntöasetusta, asiakkaan aseman ja leikepöydän tiedostokopioinnin uudelleenohjausta ja ei määritetä ryhmäkäytäntötasolla.
-
 </string>
       <string id="TS_CLIENT_DRIVE_M">Älä salli aseman uudelleenohjausta</string>
       <string id="TS_CLIENT_HELP">Hallitsee etätyöpöytäyhteyden asiakasohjelman asetuksia</string>
       <string id="TS_CLIENT_LPT">Älä salli LPT-portin uudelleenohjausta</string>
       <string id="TS_CLIENT_PNP">Älä salli tuettujen Plug and Play -laitteiden uudelleenohjausta</string>
       <string id="TS_CAMERA_REDIRECTION">Älä salli videosieppauksen uudelleenohjausta</string>
+      <string id="TS_LOCATION_REDIRECTION">Älä salli sijainnin uudelleenohjausta</string>
       <string id="TS_CLIENT_PRINTER">Älä salli asiakkaan tulostimen uudelleenohjausta</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää, estetäänkö leikepöydän sisällön jakaminen (leikepöydän uudelleenohjaus) etätietokoneen ja asiakastietokoneen välillä etätyöpöytäpalveluiden istunnon aikana.
 
@@ -209,6 +212,15 @@ Jos otat tämän käytäntöasetuksen käyttöön, käyttäjät eivät pysty ohj
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjät voivat ohjata videosieppauslaitteensa etätietokoneeseen. Käyttäjät voivat etätyöpöytäyhteyden Paikalliset resurssit -välilehden Lisää-vaihtoehdon avulla valita videosieppauslaitteet, jotka ohjataan etätietokoneeseen.
 
 </string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">Tämän käytäntö asetuksen avulla voit hallita sijainti tietojen uudelleenohjausta etätietokoneesta etätyöpöytäpalveluiden istunnossa.
+
+Oletus arvon mukaan Etätyöpöytäpalvelut sallii sijainti tietojen uudelleenohjauksen.
+
+Jos otat tämän käytäntö asetuksen käyttöön, käyttäjät eivät voi uudelleenohjata sijainti tietoja etätietokoneeseen.
+
+Jos poistat tämän käytäntö asetuksen käytöstä tai et määritä sitä, käyttäjät voivat uudelleenohjata sijainti tietonsa etätietokoneeseen.
+          
+</string>
       <string id="TS_MAXMONITOR_EXPLAIN">Tämän käytäntöasetuksen avulla voit rajoittaa niiden näyttöjen määrää, joita käyttäjä voi käyttää etätyöpöytäpalveluiden istunnon näyttämiseen. Etätyöpöytäpalveluiden istunnon näyttämiseen käytettävien näyttöjen määrän rajoittaminen voi parantaa yhteyden toimintaa etenkin silloin, kun yhteys on hidas, ja pienentää palvelimen kuormitusta.
 
 Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää etätyöpöytäpalveluiden istunnon näyttämiseen käytettävien näyttöjen määrän. Voit määrittää määräksi luvun 1–16.
@@ -229,7 +241,6 @@ Jos et määritä tätä käytäntöasetusta, etätyöpöytäpalvelut käyttää
 Huomautus: Voit rajoittaa sitä, mitkä asiakkaat voivat muodostaa etäyhteyden etätyöpöytäpalveluiden avulla, määrittämällä käytäntöasetuksen kohteessa Tietokoneasetukset\Hallintamallit\Windowsin osat\Etätyöpöytäpalvelut\Etätyöpöytäistunnon isäntä\Suojaus\Edellytä etäkäyttäjältä verkkotason todennus. 
 
 Voit rajoittaa niiden käyttäjien määrää, jotka voivat muodostaa yhtä aikaa yhteyden, määrittämällä käytäntöasetuksen kohteessa Tietokoneasetukset\Hallintamallit\Windowsin osat\Etätyöpöytäpalvelut\Etätyöpöytäistunnon isäntä\Yhteydet\Rajoita yhteyksien määrää tai määrittämällä Yhteyksien enimmäismäärä -käytäntöasetuksen käyttämällä etätyöpöytäistunnon isännän WMI-palvelua.
-
 </string>
       <string id="TS_MAXDISPLAYRES">Rajoita näytön enimmäistarkkuutta</string>
       <string id="TS_MAXDISPLAYRES_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää näytön enimmäistarkkuuden, jota kukin näyttö voi käyttää etätyöpöytäpalveluiden istunnon näyttämiseen. Etäistunnon näyttämiseen käytettävän tarkkuuden rajoittaminen voi parantaa yhteyden toimintaa etenkin silloin, kun yhteys on hidas, ja pienentää palvelimen kuormitusta.
@@ -408,7 +419,6 @@ Jos otat tämän käytäntöasetuksen käyttöön, etätyöpöytäistunnon isän
     2. Etätyöpöydän käyttöoikeuspalvelimet, jotka on asennettu toimialueen ohjauskoneisiin sillä toimialueella, jolla myös etätyöpöytäistunnon isäntäpalvelin sijaitsee.
 
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, etätyöpöytäistunnon isäntäpalvelin ei määritä käyttöoikeuspalvelinta ryhmäkäytäntötasolla.
-
 </string>
       <string id="TS_LICENSE_TOOLTIP">Piilota etätyöpöytäistunnon isäntäpalvelimeen vaikuttavien etätyöpöydän käyttöoikeusongelmien ilmoitukset</string>
       <string id="TS_LICENSE_TOOLTIP_EXPLAIN">Tämä käyttöoikeusasetus määrittää, näytetäänkö etätyöpöytäistunnon isäntäpalvelimessa ilmoituksia, kun etätyöpöytäistunnon isäntäpalvelimeen vaikuttavassa etätyöpöydän käyttöoikeuksien myöntämisessä on ongelmia.
@@ -420,19 +430,19 @@ Jos otat tämän käytäntöasetuksen käyttöön, näitä ilmoituksia ei näyte
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, nämä ilmoitukset näytetään etätyöpöytäistunnon isäntäpalvelimessa sen jälkeen, kun olet kirjautunut sisään paikallisena järjestelmänvalvojana.</string>
       <string id="TS_LICENSING_MODE">Määritä etätyöpöydän käyttöoikeuksien myöntämisen tila</string>
       <string id="TS_LICENSING_MODE_EXPLAIN">
-        Tämän käytäntöasetuksen avulla voit määrittää etätyöpöytäpalveluiden Client Access -käyttöoikeuden (RDS CAL) tyypin, joka tarvitaan muodostettaessa yhteyttä tähän etätyöpöytäistunnon isäntäpalvelimeen.
+        Tämän käytäntöasetuksen avulla voit määrittää, minkä tyyppistä etätyöpöytäpalveluiden Client Access -käyttöoikeutta (RDS CAL) tarvitaan yhteyden muodostamiseen tähän etätyöpöytäistunnon isäntäpalvelimeen.
 
-        Tämän käytäntöasetuksen avulla voit valita jonkin kolmesta käyttöoikeustilasta: Käyttäjäkohtainen, Laitekohtainen tai Käyttäjäkohtainen AAD.
+        Tämän käytäntöasetuksen avulla voit valita jommankumman kahdesta käyttöoikeustilasta: käyttäjäkohtainen tai laitekohtainen.
 
-        Käyttäjäkohtainen-käyttöoikeustila edellyttää, että kullakin tähän etätyöpöytäistunnon isäntäpalvelimeen yhteyden muodostavalla käyttäjätilillä on etätyöpöydän käyttöoikeuspalvelimesta myönnetty etätyöpöytäpalvelujen käyttäjäkohtainen CAL-käyttöoikeus.
+        Käyttäjäkohtainen käyttöoikeustila edellyttää, että kullakin tähän etätyöpöytäistunnon isäntäpalvelimeen yhdistettävällä käyttäjätilillä on etätyöpöydän käyttöoikeuspalvelimesta annettu RDS-käyttäjäkohtainen CAL-käyttöoikeus.
 
-        Laitekohtainen-käyttöoikeustila edellyttää, että kullakin tähän etätyöpöytäistunnon isäntäpalvelimeen yhteyden muodostavalla laitteella on etätyöpöydän käyttöoikeuspalvelimesta myönnetty etätyöpöytäpalvelujen laitekohtainen CAL-käyttöoikeus.
+        Laitekohtainen käyttöoikeustila edellyttää, että kullakin tähän etätyöpöytäistunnon isäntäpalvelimeen yhdistettävällä laitteella on etätyöpöydän käyttöoikeuspalvelimesta annettu RDS-laitekohtainen CAL-käyttöoikeus.
 
-        Käyttäjäkohtainen AAD -käyttöoikeustila edellyttää, että kullakin tähän etätyöpöytäistunnon isäntäpalvelimeen yhteyden muodostavalla käyttäjätilillä on palvelumalli, joka tukee AAD-palvelussa määritettyjä etätyöpöytäpalveluiden käyttöoikeuksia.
-        
         Jos otat tämän käytäntöasetuksen käyttöön, etätyöpöydän käyttöoikeuspalvelin ja etätyöpöytäistunnon isäntä käyttävät määrittämääsi etätyöpöydän käyttöoikeustilaa.
 
         Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttöoikeustilaa ei määritetä ryhmäkäytäntötasolla.
+
+        Huom. Käyttäjäkohtainen AAD on vanhentunut Windows 11:ssä ja sitä uudemmissa versioissa.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Laitekohtainen</string>
       <string id="TS_LICENSING_MODE_PER_USER">Käyttäjäkohtainen</string>
@@ -559,7 +569,6 @@ Huomautukset:
      1. Tämä käytäntöasetus tulee käyttöön vasta, kun sekä Liity etätyöpöydän yhteyksien välittäjään- että Määritä etätyöpöydän yhteyksien välittäjäpalvelimen nimi -asetukset on otettu käyttöön ja määritetty ryhmäkäytännön avulla.
 
      2. Jos kyseessä on Windows Server 2008, tätä käytäntöasetusta tuetaan ainakin Windows Server 2008 Standard -versiossa.
-
 </string>
       <string id="TS_SD_EXPOSE_ADDRESS">IP-osoitteen uudelleenohjauksen käyttäminen</string>
       <string id="TS_SD_EXPOSE_ADDRESS_Explain">Tämän käytäntöasetuksen avulla voit määrittää uudelleenohjaustavan, jota käytetään, kun asiakaslaite muodostaa uudelleen yhteyden aiemmin luotuun etätyöpöytäpalveluiden istuntoon etätyöpöytäistunnon isäntäpalvelinklusterissa, jonka kuormitus on tasattu. Tämä asetus määritetään etätyöpöytäistunnon isäntäpalvelimelle, joka on määritetty käyttämään etätyöpöydän yhteyksien välittäjää eikä etätyöpöydän yhteyksien välittäjäpalvelinta.
@@ -609,6 +618,17 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, et
       <string id="TS_SECURITY_LAYER_POLICY">Vaadi tietty suojauskerros etätyöpöytäyhteyksissä (RDP)</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Ota käyttöön Microsoft Entra ID -todennuksen pakottaminen</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää, vaaditaanko Microsoft Entra ID -todennuksen palvelinpuolen pakottamista.
+
+Jos otat tämän käytäntöasetuksen käyttöön, kaikkien Etätyöpöytäpalvelut-asiakkaiden on käytettävä RDS AAD -todennusta, jotta he voivat todentaa etätyöpöytäistunnon isäntäpalvelimiin. 
+
+Tämä käytäntö ei salli muiden todennusmenetelmien käyttämistä varavaihtoehtona. 
+
+Verkkotason todennus (NLA) on otettava käyttöön, jotta tämä käytäntö on voimassa. Katso Edellytä etäkäyttäjältä verkkotason todennus -käytäntö. 
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Microsoft Entra ID -todennuksen pakotus ei ole käytössä.
+</string>
       <string id="TS_Session_End_On_Limit">Lopeta istunto, kun aikaraja saavutetaan</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää, lopetetaanko etätyöpöytäpalveluiden aikakatkaistu istunto yhteyden katkaisemisen sijaan.
 
@@ -787,6 +807,79 @@ Jos otat tämän käytäntöasetuksen käyttöön, työpöytä näytetään aina
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, voidaan määrittää ohjelma, joka suoritetaan etätietokoneessa sen jälkeen, kun asiakas on muodostanut yhteyden etätietokoneeseen. Jos käynnistettävää ohjelmaa ei määritetä, työpöytä näytetään aina sen jälkeen, kun asiakas on muodostanut yhteyden etätietokoneeseen.
 
 Huomautus: jos tämä käytäntöasetus on käytössä, Käynnistä ohjelma yhteyden muodostamisen yhteydessä -asetus ohitetaan.</string>
+      <string id="TS_UIA">Salli käyttöliittymäautomaation uudelleenohjaus</string>
+      <string id="TS_UIA_EXPLAIN">Tämä käytäntö asetus määrittää, voivatko paikallisessa tieto koneessa käynnissä olevat asiakas sovellukset tämän palvelimen käyttö liittymä-elementtien avulla.
+
+Käyttö liittymän automaatio mahdollistaa sovellus käyttö LIITTYMÄN osien käytön, jonka avulla voit käyttää käyttöä helpottavalle ohjelmistolle Technology tuotteita, kuten suurennus lasin ja lukijan toimia, jotta käyttö liittymä toimii oikein. Käyttö liittymä tietojen avulla voit myös käyttää automaattista testi komento sarjoja käyttö liittymän kanssa.
+
+Etätyöpöytä-istunnot eivät tällä hetkellä tue käyttö liittymän automaatio uudelleenohjausta.
+
+Jos otat tämän käytäntö asetuksen käyttöön tai et määritä sitä, paikallisen tieto koneen käyttö liittymä Automation-asiakkaat voivat olla vuoro vaikutuksessa etäyhteyksiä varten. Voit esimerkiksi käyttää paikallisen tieto koneen lukijaa ja suurennus lasi-asiakkaita, jotka ovat yhteydessä sellaisen verkko sivun käyttö liittymään, jonka olet avannut etäistunnon kanssa.
+
+Jos poistat tämän käytäntö asetuksen käytöstä, paikallisessa tieto koneessa käynnissä olevat käyttö liittymä Automation-asiakkaat eivät voi käyttää Remote-sovelluksia.
+</string>
+      <string id="TS_WEBAUTHN">Älä salli WebAuthn-uudelleenohjausta</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">Tämän käytäntöasetuksen avulla voit hallita verkkotodennuspyyntöjen (WebAuthn) uudelleenohjausta etätyöpöytäistunnosta paikalliseen laitteeseen. Tämän uudelleenohjauksen avulla käyttäjät voivat todentaa resursseja etätyöpöytäistunnon sisällä käyttämällä paikallista  todentajaa (esim. Windows Hello yrityksille, suojausavain tai muu).
+
+Oletusarvoisesti Remote Desktop sallii WebAuthn-pyyntöjen uudelleenohjauksen.
+
+Jos otat tämän käytäntöasetuksen käyttöön, käyttäjät eivät voi käyttää paikallista todentajaansa etätyöpöytäistunnon sisällä.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjät voivat käyttää paikallisia todentajia etätyöpöytäistunnon sisällä.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">Poista käytöstä leikepöydän siirrot palvelimesta asiakkaaseen</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">Poista käytöstä leikepöydän siirrot asiakkaasta palvelimeen</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Salli pelkkä teksti</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Salli vain teksti ja kuvat</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Salli pelkkä teksti, kuvat ja RTF</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Salli vain teksti, kuvat, RTF ja HTML</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">Rajoita leikepöydän siirtoa palvelimesta asiakkaaseen</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">Tämän käytäntöasetuksen avulla voit rajoittaa leikepöydän tiedonsiirtoja palvelimesta asiakkaaseen.
+
+Jos otat tämän käytäntöasetuksen käyttöön, sinun on valittava seuraavista vaihtoehdoista:
+
+- Poista leikepöydän siirrot käytöstä palvelimesta asiakkaaseen.
+
+- Salli vain teksti -muotoinen kopioiminen palvelimesta asiakkaaseen.
+
+- Salli pelkän tekstin ja kuvan kopiointi palvelimesta asiakkaaseen.
+
+- Salli vain teksti-, kuva- ja RTF-muotoinen kopioiminen palvelimesta asiakkaaseen.
+
+- Salli pelkän tekstin, kuvien, RTF:n ja HTML:n kopiointi palvelimesta asiakkaaseen.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjät voivat kopioida satunnaista sisältöä palvelimesta asiakkaaseen, jos leikepöydän uudelleenohjaus on käytössä.
+
+Huomautus: tämä käytäntöasetus näkyy sekä Tietokoneasetuksissa että Käyttäjäasetuksissa. Jos molemmat käytäntöasetukset määritetään, käytetään tiukempaa rajoitusta.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">Rajoita leikepöydän siirtoa asiakkaasta palvelimeen</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">Tämän käytäntöasetuksen avulla voit rajoittaa leikepöydän tiedonsiirtoja asiakkaasta palvelimeen.
+
+Jos otat tämän käytäntöasetuksen käyttöön, sinun on valittava seuraavista vaihtoehdoista:
+
+- Poista leikepöydän siirrot käytöstä asiakkaasta palvelimeen.
+
+- Salli vain teksti -muotoinen kopioiminen asiakkaasta palvelimeen.
+
+- Salli pelkän tekstin ja kuvan kopiointi asiakkaasta palvelimeen.
+
+- Salli vain teksti-, kuva- ja RTF-muotoinen kopioiminen asiakkaasta palvelimeen.
+
+- Salli pelkän tekstin, kuvien, RTF:n ja HTML:n kopiointi asiakkaasta palvelimeen.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjät voivat kopioida satunnaista sisältöä asiakkaasta palvelimeen, jos leikepöydän uudelleenohjaus on käytössä.
+
+Huomautus: tämä käytäntöasetus näkyy sekä Tietokoneasetuksissa että Käyttäjäasetuksissa. Jos molemmat käytäntöasetukset määritetään, käytetään tiukempaa rajoitusta.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Poista käytöstä pilvipalvelun leikepöydän integrointi palvelimesta asiakaskohtaiseen tiedonsiirtoon</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää, lisätäänkö etäistunnosta asiakkaalle leikepöydän uudelleenohjauksen avulla siirretyt tiedot asiakaspuolen pilvipalvelun leikepöydälle.
+
+oletusarvon mukaan Etätyöpöytä poistaa käytöstä integroinnin asiakaspuolen pilvipalvelun leikepöydän kanssa etäistunnosta leikepöydän uudelleenohjauksen avulla siirretyille tiedoille.
+
+Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, etäistunnossa kopioituja ja asiakkaaseen liitettyjä tietoja ei lisätä asiakaspuolen pilvipalvelun leikepöydälle.
+
+Jos poistat tämän käytäntöasetuksen käytöstä, etäistunnossa kopioidut ja asiakkaaseen liitetyt tiedot lisätään asiakaspuolen pilvipalvelun leikepöydälle (jos käytössä).
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää, edellytetäänkö käyttäjiltä verkkotason todennuksen avulla toteutettua etätyöpöytäistunnon isäntäpalvelimeen muodostettavien etäyhteyksien todennusta. Tämä käytäntöasetus parantaa suojausta, koska se edellyttää, että käyttäjän todentaminen tapahtuu jo aiemmin etäyhteyden muodostamisprosessissa.
 
 Jos otat tämän käytäntöasetuksen käyttöön, vain verkkotason todennusta tukevat asiakastietokoneet voivat muodostaa yhteyksiä etätyöpöytäistunnon isäntäpalvelimeen.
@@ -801,6 +894,24 @@ Tärkeää: jos tämä käytäntöasetus poistetaan käytöstä, suojaus on heik
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Edellytä etäkäyttäjältä verkkotason todennus</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Katkaise etäistunto vanhan todentamisen lukituksen yhteydessä</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää käyttökokemuksen, kun käyttäjä tai käytäntö on lukinnut Etätyöpöytäistunnon. Voit määrittää, näyttääkö etäistunto etälukitusnäytön vai katkaiseeko se yhteyden, kun etäistunto on lukittu. Etäistunnon yhteyden katkaiseminen varmistaa, että etäistuntoa ei voi jättää lukitusnäyttöön eikä yhteyttä voi muodostaa uudelleen automaattisesti verkkoyhteyden menettämisen vuoksi.
+
+Tämä käytäntö koskee vain, kun käytetään vanhaa todentamista etätietokoneeseen todentamiseen. Vanha todentaminen on rajoitettu käyttäjänimeen ja salasanaan tai varmenteeseen, kuten älykorttiin. Vanha todentaminen ei käytä Microsoftin käyttäjätietoympäristöä, kuten Microsoft Entra ID:tä. Vanha todentaminen sisältää NTLM-, CredSSP-, RDSTLS-, TLS- ja RDP-perustodentamisprotokollat.
+
+Jos otat tämän käytäntöasetuksen käyttöön, Etätyöpöydän vanhaa todentamista käyttävät yhteydet katkaisevat etäistunnon yhteyden, kun etäistunto on lukittu. Käyttäjät voivat muodostaa yhteyden uudelleen, kun he ovat valmiita, ja antaa tunnistetietonsa uudelleen pyydettäessä.
+
+Jos poistat tämän käytäntöasetuksen käytöstä, Etätyöpöydän vanhaa todentamista käyttävät yhteydet näyttävät etäistunnon lukitusnäytön, kun etäistunto on lukittu. Käyttäjät voivat poistaa etäistunnon lukituksen käyttämällä käyttäjänimeä ja salasanaa tai varmenteita.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Katkaise etäistunnon yhteys lukituksen yhteydessä Microsoftin käyttäjätietoympäristön todentamista varten</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää käyttökokemuksen, kun käyttäjä tai käytäntö on lukinnut Etätyöpöytä istunnon. Voit määrittää, näyttääkö etäistunto etälukitusnäytön vai katkaiseeko se yhteyden, kun etäistunto on lukittu. Etäistunnon yhteyden katkaiseminen varmistaa, että etäistuntoa ei voi jättää lukitusnäyttöön, eikä se pysty yhdistämään automaattisesti uudelleen verkkoyhteyden katkeamisen vuoksi.
+
+Tätä käytäntöä käytetään vain, kun etätietokoneessa käytetään Microsoftin käyttäjätietoympäristö, kuten Microsoft Entra ID, käyttävää tunnistetietopalvelua. Tätä käytäntöä ei käytetä käytettäessä vanhaa todennusta, joka sisältää NTLM-, CredSSP-, RDSTLS-, TLS- ja RDP-perustodennusprotokollat.
+
+Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, Etätyöpöytä Microsoftin käyttäjätietoympäristö käyttävät yhteydet katkaisevat etäistunnon yhteyden, kun etäistunto lukitaan. Käyttäjät voivat muodostaa yhteyden uudelleen, kun he ovat valmiita, ja voivat käyttää salasanatonta todennusta, jos se on määritetty.
+
+Jos poistat tämän käytäntöasetuksen käytöstä, Etätyöpöytä Microsoftin käyttäjätietoympäristö käyttävät yhteydet näyttävät etälukitusnäytön, kun etäistunto on lukittu. Käyttäjät voivat poistaa etäistunnon lukituksen käyttäjänimellä, salasanalla tai varmenteella.
+</string>
       <string id="TS_User_Help">Ohjaa sellaisten etätyöpöytäpalveluiden tekniikoiden määrittämistä, joiden avulla voi käyttää Windows-ohjelmia tai koko Windows-työpöytää suorittavaa palvelinta</string>
       <string id="TS_USER_HOME">Määritä etätyöpöytäpalveluiden käyttäjän kotihakemisto</string>
       <string id="TS_USER_HOME_EXPLAIN">Määrittää, käyttävätkö etätyöpöytäpalvelut käyttäjän etätyöpöytäpalveluiden istunnon kotihakemiston pääpolkuna määritettyä jaettua verkkoasemaa tai paikallista hakemistopolkua.
@@ -901,36 +1012,44 @@ Jos poistat tämän käytäntöasetuksen käytöstä, käyttäjät eivät voi su
 Huomautus: voit määrittää tämän käytäntöasetuksen Tietokoneasetukset- tai Käyttäjäasetukset-solmussa. Jos määrität tämän käytäntöasetuksen tietokoneelle, tämä vaikuttaa kaikkiin tietokoneen käyttäjiin.
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Määritä sellaisten varmenteiden SHA1-allekirjoitukset, jotka edustavat luotettuja .rdp-julkaisijoita</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää luettelon Secure Hash Algorithm 1 (SHA1) -varmenneallekirjoituksista, jotka edustavat luotettuja Remote Desktop Protocol (.rdp) -tiedostojen julkaisijoita.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Määritä sellaisten varmenteiden sormenjäljet, jotka edustavat luotettuja .rdp-julkaisijoita</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää luettelon varmenteen allekirjoituksista, jotka edustavat luotettuja Remote Desktop Protocol (.rdp) -tiedostojen julkaisijoita. SHA-256-, SHA-384- ja SHA-512-allekirjoituksia tuetaan. SHA-1-allekirjoitukset ovat vanhentuneita: SHA-1:tä ei enää pidetä turvallisena, ja SHA-1-allekirjoitusten tuki poistetaan oletusarvoisesti käytöstä tulevassa tietoturvapäivityksessä. Järjestelmänvalvojien kannattaa siirtää kaikki allekirjoitusmerkinnät SHA-256:een tai sitä vahvempaan mahdollisimman pian.
 
-Jos otat tämän käytäntöasetuksen käyttöön, kaikkia varmenteita, joilla on luettelossa olevaa allekirjoitusta vastaava SHA1-allekirjoitus, pidetään luotettavina. Jos käyttäjä yrittää käynnistää luotetulla varmenteella allekirjoitetun .rdp-tiedoston, hän ei saa mitään varoitussanomia tiedostoa käynnistäessään. Saat allekirjoituksen tarkastelemalla varmenteen tietoja ja napsauttamalla sitten Allekirjoitus-kenttää.
+Allekirjoituksissa voi olla etuliite, joka kertoo niissä käytetyn hajautusalgoritmin. Tuetut etuliitteet ovat sha256:, sha384: ja sha512: (kirjainkoko ei ole merkitsevä). Esimerkki: sha256:AB0356F2... Jos etuliitettä ei määritetä, merkintä tulkitaan vanhaksi SHA-1-allekirjoitukseksi.
 
-Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, mitään julkaisijaa ei pidetä luotettavana .rdp-julkaisijana.
+Jos Älä salli SHA-1-allekirjoituksia -valintaruutu on käytössä, etuliitteettömät merkinnät ohitetaan. Tällöin täsmäytys tehdään vain SHA-256-, SHA-384- ja SHA-512-allekirjoituksille. On erittäin suositeltavaa ottaa tämä valintaruutu käyttöön nyt, jotta olet valmis tulevaan oletusmuutokseen.
 
-Huomautus:
+Jos otat tämän käytäntöasetuksen käyttöön, kaikkia varmenteita, joiden allekirjoitus vastaa luettelossa olevaa allekirjoitusta, pidetään luotettuina. Jos käyttäjä yrittää avata .rdp-tiedoston, joka on allekirjoitettu luotetulla varmenteella, käyttäjä ei saa varoitussanomia tiedostoa avattaessa.
 
-voit määrittää tämän käytäntöasetuksen Tietokoneasetukset- tai Käyttäjäasetukset-solmussa. Jos määrität tämän käytäntöasetuksen tietokoneelle, niiden varmenneallekirjoitusten luettelo, joita pidetään käyttäjälle luotettavina, on tietokoneelle määritetyn luettelon ja käyttäjälle määritetyn luettelon yhdistelmä.
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, mitään julkaisijaa ei pidetä luotettuna .rdp-julkaisijana.
 
-Tämä käytäntöasetus ohittaa Salli kelvollisten julkaisijoiden .rdp-tiedostot ja käyttäjän .rdp-oletusasetukset -käytäntöasetuksen.
+Huomautukset:
 
-Jos luettelo sisältää merkkijonon, joka ei ole varmenneallekirjoitus, se ohitetaan.
+Voit määrittää tämän käytäntöasetuksen Tietokoneasetukset- tai Käyttäjäasetukset-solmussa. Jos määrität tämän käytäntöasetuksen tietokoneelle, käyttäjän osalta luotettujen varmenteiden allekirjoitusten luettelo muodostuu tietokoneelle määritetystä luettelosta ja käyttäjälle määritetystä luettelosta.
 
+Tämä käytäntöasetus ohittaa Salli kelvollisten julkaisijoiden .rdp-tiedostot ja käyttäjän oletusarvoiset .rdp-asetukset -käytäntöasetuksen toiminnan.
+
+Jos luettelo sisältää merkkijonon, joka ei ole varmenteen allekirjoitus, se ohitetaan.
+
+Lisätietoja on osoitteessa https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää luettelon Secure Hash Algorithm 1 (SHA1) -varmenneallekirjoituksista, jotka edustavat luotettuja Remote Desktop Protocol (.rdp) -tiedostojen julkaisijoita.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää luettelon varmenteen allekirjoituksista, jotka edustavat luotettuja Remote Desktop Protocol (.rdp) -tiedostojen julkaisijoita. SHA-256-, SHA-384- ja SHA-512-allekirjoituksia tuetaan. SHA-1-allekirjoitukset ovat vanhentuneita: SHA-1:tä ei enää pidetä turvallisena, ja SHA-1-allekirjoitusten tuki poistetaan oletusarvoisesti käytöstä tulevassa tietoturvapäivityksessä. Käyttäjien kannattaa siirtää kaikki allekirjoitusmerkinnät SHA-256:een tai sitä vahvempaan mahdollisimman pian.
 
-Jos otat tämän käytäntöasetuksen käyttöön, kaikkia varmenteita, joilla on luettelossa olevaa allekirjoitusta vastaava SHA1-allekirjoitus, pidetään luotettavina. Jos käyttäjä yrittää käynnistää luotetulla varmenteella allekirjoitetun .rdp-tiedoston, hän ei saa mitään varoitussanomia tiedostoa käynnistäessään. Saat allekirjoituksen tarkastelemalla varmenteen tietoja ja napsauttamalla sitten Allekirjoitus-kenttää.
+Allekirjoituksissa voi olla etuliite, joka kertoo niissä käytetyn hajautusalgoritmin. Tuetut etuliitteet ovat sha256:, sha384: ja sha512: (kirjainkoko ei ole merkitsevä). Esimerkki: sha256:AB0356F2... Jos etuliitettä ei määritetä, merkintä tulkitaan vanhaksi SHA-1-allekirjoitukseksi.
 
-Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, mitään julkaisijaa ei pidetä luotettavana .rdp-julkaisijana.
+Jos otat tämän käytäntöasetuksen käyttöön, kaikkia varmenteita, joiden allekirjoitus vastaa luettelossa olevaa allekirjoitusta, pidetään luotettuina. Jos käyttäjä yrittää avata .rdp-tiedoston, joka on allekirjoitettu luotetulla varmenteella, käyttäjä ei saa varoitussanomia tiedostoa avattaessa.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, mitään julkaisijaa ei pidetä luotettuna .rdp-julkaisijana.
 
 Huomautus:
 
-voit määrittää tämän käytäntöasetuksen Tietokoneasetukset- tai Käyttäjäasetukset-solmussa. Jos määrität tämän käytäntöasetuksen tietokoneelle, niiden varmenneallekirjoitusten luettelo, joita pidetään käyttäjälle luotettavina, on tietokoneelle määritetyn luettelon ja käyttäjälle määritetyn luettelon yhdistelmä.
+Voit määrittää tämän käytäntöasetuksen Tietokoneasetukset- tai Käyttäjäasetukset-solmussa. Jos määrität tämän käytäntöasetuksen tietokoneelle, käyttäjän osalta luotettujen varmenteiden allekirjoitusten luettelo muodostuu tietokoneelle määritetystä luettelosta ja käyttäjälle määritetystä luettelosta.
 
-Tämä käytäntöasetus ohittaa Salli kelvollisten julkaisijoiden .rdp-tiedostot ja käyttäjän .rdp-oletusasetukset -käytäntöasetuksen.
+Tämä käytäntöasetus ohittaa käytäntöasetuksen Salli .rdp-tiedostot kelvollisilta julkaisijoilta ja käyttäjän oletusarvoiset .rdp-asetukset -toiminnan.
 
-Jos luettelo sisältää merkkijonon, joka ei ole varmenneallekirjoitus, se ohitetaan.
+Jos luettelo sisältää merkkijonon, joka ei ole varmenteen allekirjoitus, se ohitetaan.
 
+Lisätietoja on osoitteessa https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">Kysy tunnistetietoja asiakastietokoneessa</string>
@@ -1018,6 +1137,14 @@ Jos poistat tämän käytäntöasetuksen käytöstä, tästä etätyöpöytäist
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">Ota RemoteAppin parannettu liittymäkokemus käyttöön</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">Tämä käytäntöasetus mahdollistaa RemoteApp-istuntojen parannetun liittymäkokemuksen, joka tukee oletustiedostokytkentöjä, Run/RunOnce-rekisteriavaimia ja paljon muuta. Tämä käytäntöasetus koskee vain RemoteApp-istuntoja, eikä se koske Etätyöpöytä-istuntoja.
+
+Jos otat tämän käytäntöasetuksen käyttöön tai et määritä sitä, RD-isäntäpalvelimien RemoteApp-istunnoilla on parannettu käyttöliittymäkokemus.
+
+Jos poistat tämän käytäntöasetuksen käytöstä, RemoteApp-istunnoilla ei ole parannettua käyttöliittymäkokemusta ja ne käyttävät vanhan liittymän toimintaa. Tämä voi olla tarpeen, jos yhteensopivuusongelmia ilmenee julkaistuissa RemoteApp-ohjelmissa.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1135,7 +1262,7 @@ Oletusarvon mukaan RemoteFX:ää käyttävät etätyöpöytäyhteyksien istunnot
       
       </string>
       
-      <string id="TS_RADC">RemoteApp- ja työpöytäyhteydet</string>
+      <string id="TS_RADC">RemoteApp ja etätyöpöytäyhteydet</string>
       <string id="TS_RADC_Help">Ohjaa RemoteApp- ja työpöytäyhteyksien määrityksiä</string>
       <string id="TS_RADC_DefaultDesktop">Määritä oletusarvoinen yhteys-URL-osoite</string>
       <string id="TS_RADC_DefaultDesktop_Help">Tämän käytäntöasetuksen avulla voit määrittää RemoteApp- ja työpöytäyhteyksien oletusarvoisen yhteys-URL-osoitteen. Oletusarvoinen yhteys-URL-osoite on erityinen yhteys, joka voidaan määrittää vain ryhmäkäytännöllä. Kaikille yhteyksille yhteisten ominaisuuksien lisäksi oletusarvoinen yhteys-URL-osoite mahdollistaa tiedostotyyppien määrittämisen RemoteApp-ohjelmille.
@@ -1147,25 +1274,23 @@ Jos otat tämän käytäntöasetuksen käyttöön, määritetty URL-osoite asete
 Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käyttäjällä ei ole oletusarvoista yhteys-URL-osoitetta.
 
 Huomautus: RemoteApp-ohjelmat, jotka asennetaan ei-luotetusta palvelimesta RemoteApp- ja työpöytäyhteyksien välityksellä, saattavat aiheuttaa tietoturvariskin käyttäjän tilissä.
-      
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">Valitse RDP-siirtoprotokollat</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää, mitä protokollia voidaan käyttää muodostettaessa RDP-yhteyksiä tähän palvelimeen.
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää, mitä protokollia voidaan käyttää tämän palvelimen RDP-etäkäyttöprotokolla (RDP) -käyttöön.
 
-Jos otat tämän käytäntöasetuksen käyttöön, sinun on määritettävä myös se, käyttääkö RDP UDP:tä.
+Jos otat tämän käytäntöasetuksen käyttöön, sinun on määritettävä, käyttääkö RDP UDP:tä.
 
-Voit valita jonkin seuraavista vaihtoehdoista: Käytä UDP:tä ja TCP:tä, Käytä vain TCP:tä tai Käytä UDP:tä tai TCP:tä (oletus).
+Voit valita jonkin seuraavista vaihtoehdoista: Käytä UDP:tä tai TCP:tä (oletus) tai Käytä vain TCP:tä 
 
-Jos valitset Käytä UDP:tä tai TCP:tä -vaihtoehdon ja UDP-yhteys onnistuu, suurin osa RDP-liikenteestä käyttää UDP:tä.
+Jos valitset Käytä UDP:tä tai TCP:tä ja UDP-yhteys onnistuu, suurin osa RDP-liikenteestä käyttää UDP:tä.
 
 Jos UDP-yhteys ei onnistu tai jos valitset Käytä vain TCP:tä -vaihtoehdon, kaikki RDP-liikenne käyttää TCP:tä.
 
-Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, RDP valitsee protokollat, jotka tuottavat parhaan käyttökokemuksen.
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, RDP valitsee protokollat, jotka tarjoavat parhaan käyttökokemuksen.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">Käytä UDP:tä ja TCP:tä</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Käytä vain TCP:tä</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">Käytä UDP:tä tai TCP:tä</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Käytä vain TCP:tä</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Valitse verkon tunnistus palvelimessa</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">Tämän käytäntöasetuksen avulla voit määrittää, kuinka etätyöpöytäprotokolla yrittää tunnistaa verkon laadun (kaistanleveyden ja verkkoviiveen).
@@ -1344,12 +1469,13 @@ Huomautus: Jos tietokoneessa on useita grafiikkasuorittimia asennettuina, käyt�
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Luotettujen SHA1-varmenneallekirjoitusten pilkuilla erotettu luettelo:</label>
+          <label>Luotettujen varmenteiden sormenjälkien pilkuilla eroteltu luettelo (etuliitteellä sha256:, sha384: tai sha512:):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">Älä salli SHA-1-sormenjälkiä</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Luotettujen SHA1-varmenneallekirjoitusten pilkuilla erotettu luettelo:</label>
+          <label>Luotettujen varmenteiden sormenjälkien pilkuilla eroteltu luettelo (etuliitteellä sha256:, sha384: tai sha512:):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1387,6 +1513,12 @@ Huomautus: Jos tietokoneessa on useita grafiikkasuorittimia asennettuina, käyt�
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Valitse siirtotyyppi</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Rajoita leikepöydän siirtoa palvelimesta asiakkaaseen:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Rajoita leikepöydän siirtoa asiakkaasta palvelimeen:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

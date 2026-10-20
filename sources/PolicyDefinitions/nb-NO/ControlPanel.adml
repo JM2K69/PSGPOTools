@@ -6,19 +6,19 @@
   <resources>
     <stringTable>
       <string id="DisallowCpls">Skjul angitte Kontrollpanel-appleter</string>
-      <string id="DisallowCpls_Help">Du kan bruke denne innstillingen til å vise eller skjule angitte kontrollpanelelementer, for eksempel Mus, System eller Personalisering, i Kontrollpanel-vinduet og på startskjermen. Denne innstillingen påvirker startskjermen og Kontrollpanel-vinduet samt andre måter å få tilgang til kontrollpanelelementer på, for eksempel snarveier i Hjelp og støtte eller kommandolinjer der Control.exe brukes. Denne policyinnstillingen har ingen virkning på elementer som vises i PC-innstillinger.
+      <string id="DisallowCpls_Help">Du kan bruke denne innstillingen til å vise eller skjule angitte kontrollpanelelementer, for eksempel Mus, System eller Tilpassing, i Kontrollpanel-vinduet og på startskjermen. Innstillingen påvirker startskjermen og kontrollpanelvinduet samt andre måter å få tilgang til kontrollpanelelementer på, for eksempel snarveier i Hjelp og støtte eller kommandolinjer som bruker control.exe. Denne policyen har ingen virkning på elementer som vises i PC-innstillinger.
 
 Hvis du aktiverer denne innstillingen, kan du angi at bestemte elementer ikke skal vises i Kontrollpanel-vinduet og på startskjermen.
 
-Hvis du vil skjule et kontrollpanelelement, aktiverer du denne policyinnstillingen og klikker Vis for å få tilgang til listen over ikke tillatte kontrollpanelelementer. Skriv inn det kanoniske navnet på kontrollpanelelementet i Verdi-kolonnen i dialogboksen Vis innhold. Du kan for eksempel skrive inn "Microsoft.Mouse", "Microsoft.System" eller "Microsoft.Personalization".
+Hvis du vil skjule et kontrollpanelelement, aktiverer du denne policyinnstillingen og klikker Vis for å få tilgang til listen over ikke tillatte kontrollpanelelementer. Skriv inn det kanoniske navnet på kontrollpanelelementet i dialogboksen Vis innhold i Verdi-kolonnen. Du kan for eksempel skrive inn Microsoft.Mouse, Microsoft.System eller Microsoft.Personalization.
 
-Obs! Når det gjelder Windows Vista, Windows Server 2008 og tidligere versjoner av Windows, må du skrive inn modulnavnet, for eksempel Timedate.cpl eller Inetcpl.cpl. Hvis et kontrollpanelelement ikke har en CPL-fil eller CPL-filen inneholder flere appleter, skriver du inn modulnavnet og ID-nummeret for strengressurs, for eksempel "@systemcpl.dll,-1" for System eller "@themecpl.dll,-1" for Personalisering. Du finner en fullstendig liste over kanoniske navn og modulnavn ved å søke etter "Control Panel items" på MSDN. 
+Obs! Når det gjelder Windows Vista, Windows Server 2008 og tidligere versjoner av Windows, må du skrive inn modulnavnet, for eksempel timedate.cpl eller inetcpl.cpl. Hvis et kontrollpanelelement ikke har en CPL-fil eller CPL-filen inneholder flere appleter, skriver du inn modulnavnet og ID-nummeret for strengressurs, for eksempel @systemcpl.dll,-1 for System eller @themecpl.dll,-1 for Personalisering. Du finner en fullstendig liste over kanoniske navn og modulnavn ved å søke etter Kontrollpanelelementer på MSDN. 
 
-Hvis både innstillingen Skjul angitte Kontrollpanel-appleter og Vis bare angitte Kontrollpanel-appleter er aktivert, ignoreres innstillingen Vis bare angitte Kontrollpanel-appleter.
+Hvis både innstillingen Skjul angitte kontrollpanelelementer og Vis bare angitte kontrollpanelelementer er aktivert, ignoreres innstillingen Vis bare angitte kontrollpanelelementer.
 
-Obs! Kontrollpanelelementet som vises, kan ikke skjules på hurtigmenyen på skrivebordet med denne innstillingen. Hvis du vil skjule kontrollpanelelementet som vises, og hindre brukere fra å endre visningsinnstillingene på datamaskinen, bruker du innstillingen for å deaktivere visning i Kontrollpanel i stedet.
+Obs! Elementet Vis kontrollpanel kan ikke skjules på hurtigmenyen på skrivebordet med denne innstillingen. Hvis du vil skjule elementet Vis kontrollpanelet og hindre brukere fra å endre visningsinnstillingene på datamaskinen, må du bruke innstillingen Deaktiver Vis kontrollpanel i stedet.
 
-Obs!: Hvis du vil skjule sider i Systeminnstillinger-appen, bruker du innstillingen "Synlighet på Innstillinger-siden" under Datamaskinkonfigurasjon.</string>
+Obs! Hvis du vil skjule sider i Systeminnstillinger-appen, bruker du innstillingen Synlighet av innstillingssiden under Datamaskinkonfigurasjon.</string>
       <string id="ForceClassicControlPanel">Åpne alltid alle elementer når du åpner Kontrollpanel</string>
       <string id="ForceClassicControlPanel_Help">Denne policyinnstillingen styrer standardvisningen i Kontrollpanel, enten med kategorier eller ikoner. 
 
@@ -69,11 +69,19 @@ showonly:about;bluetooth
 
 Eksempel: Hvis du vil angi at bare Bluetooth-siden (som har URI-en ms-settings:bluetooth) skal skjules:
 
-hide:bluetooth</string>
+hide:bluetooth
+
+Tilgjengeligheten av brukerstøtte per bruker er dokumentert her: https://go.microsoft.com/fwlink/?linkid=2102995</string>
       <string id="AllowOnlineTips">Tillat tips fra nettet</string>
       <string id="AllowOnlineTips_Help">Aktiverer eller deaktiverer henting av tips og hjelp fra nettet i Innstillinger-appen.
 
 Hvis dette er deaktivert, henter Innstillinger ikke tips og hjelpeinnhold fra Microsofts innholdstjenester.</string>
+      <string id="HideUnsupportedHardwareNotifications">Skjul meldinger når Systemkrav for Windows ikke er oppfylt</string>
+      <string id="HideUnsupportedHardwareNotificationsExplain">Denne policyen kontrollerer meldinger som vises når Windows kjører på en enhet som ikke oppfyller minimumskravene for denne operativsystemversjonen.
+
+Hvis du aktiverer denne policyinnstillingen, vises disse meldingene aldri på skrivebordet eller i Innstillinger-appen.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, vises disse meldingene på skrivebordet og i Innstillinger-appen når Windows kjører på en enhet som ikke oppfyller minimumskravene for denne operativsystemversjonen.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DisallowCpls">

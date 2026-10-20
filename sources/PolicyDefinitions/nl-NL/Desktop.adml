@@ -55,6 +55,15 @@ Opmerking: Met deze instelling wordt Active Desktop niet uitgeschakeld. Gebruike
 Gebruikers kunnen standaard de locatie van hun eigen profielmappen zoals Documenten, Muziek, enzovoort wijzigen door een nieuw pad te typen op het tabblad Locaties van het dialoogvenster Eigenschappen van de map.
 
 Als u deze instelling inschakelt, kunnen gebruikers geen nieuwe locatie typen in het vak Doel.</string>
+      <string id="EnableThemeFileRemoteResource">Themabestanden van netwerklocaties toestaan</string>
+      <string id="EnableThemeFileRemoteResource_Help">Met deze beleidsinstelling wordt bepaald of externe paden kunnen worden gebruikt voor bronnen binnen een Windows-bureaubladthemabestand (.theme/.themepack).
+
+Als je deze beleidsinstelling inschakelt, kunnen themabestanden verwijzen naar bronnen (zoals afbeeldingen, geluiden en pictogrammen) in netwerkshares of andere externe locaties. Gebruikers kunnen thema's met externe bronnen toepassen.
+
+Als je deze beleidsinstelling uitschakelt, kunnen themabestanden geen externe bronnen gebruiken. Elk themabestand dat verwijst naar externe bronnen, kan deze bronnen niet laden en alleen lokale bronnen worden weergegeven.
+
+Als je deze beleidsinstelling niet configureert, is het standaardgedrag om externe bronnen in themabestanden om veiligheidsredenen te blokkeren.</string>
+
       <string id="ForceActiveDesktopOn">Active Desktop inschakelen</string>
       <string id="ForceActiveDesktopOn_Help">Hiermee schakelt u Active Desktop in en voorkomt u dat gebruikers het programma uitschakelen.
 

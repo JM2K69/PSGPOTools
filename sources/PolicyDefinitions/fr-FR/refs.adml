@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Stratégie de groupe ReFS</displayName>
+  <description>Paramètres de stratégie de groupe pour ReFS</description>
+  <resources>
+    <stringTable>
+      <string id="ReFS">ReFS</string>
+      <string id="EnableDevDrive">Activer un lecteur de développement</string>
+      <string id="EnableDevDriveText">Le lecteur de développement ou le volume développeur est un volume optimisé pour les performances des scénarios de développeur. Un volume de développeur permet à un administrateur de choisir des filtres de système de fichiers attachés au volume.
+
+La désactivation de ce paramètre interdit la création de nouveaux volumes de développeurs. Les volumes de développeur existants sont montés en tant que volumes standard.
+
+Si ce paramètre n’est pas configuré, la stratégie par défaut consiste à activer les volumes de développeur tout en autorisant l’attachement d’un filtre antivirus sur un volume deveveloper.  En outre, s’il n’est pas configuré, un administrateur local peut choisir de ne pas avoir de filtre antivirus attaché à un volume de développeur.
+
+Un redémarrage est nécessaire pour que ce paramètre prenne effet.</string>
+      <string id="ModeOff">Désactivé</string>
+      <string id="ModeAudit">Auditer uniquement</string>
+      <string id="ModeBlock">Bloquer</string>
+      <string id="BlockExternalBusMount">Contrôler le montage des volumes ReFS sur des disques USB et IEEE 1394</string>
+      <string id="BlockExternalBusMountText">Contrôle si les volumes ReFS sont autorisés à être montés sur des disques connectés par USB ou IEEE 1394. ReFS n’est pas une configuration prise en charge sur les disques enfichables à chaud ou amovibles.
+
+Block refuse le montage et enregistre un événement dans le journal système.
+
+L’audit autorise uniquement le montage et enregistre le même événement, de sorte que l’effet de l’activation de cette stratégie peut être évalué avant son application.
+
+L’option Désactivé n’effectue ni audit ni blocage.
+
+Pour un volume d’espaces de stockage, la case activée s’applique aux disques physiques stockant le pool et non à l’espace lui-même.
+
+Si ce paramètre de stratégie n’est pas configuré, le paramètre local sur cet ordinateur est utilisé. S’il n’existe aucun paramètre local, le comportement par défaut de cette version de Windows est utilisé.
+
+ReFS lit ce paramètre lors du chargement. Un redémarrage est donc nécessaire avant qu’une modification ne s’applique. Le paramètre est ensuite évalué à chaque montage d’un volume, de sorte qu’un volume déjà monté conserve son état actuel jusqu’à ce qu’il soit démonté et remonté.</string>
+      <string id="BlockHotplugMount">Contrôler le montage des volumes ReFS sur des disques connectables à chaud</string>
+      <string id="BlockHotplugMountText">Contrôle si les volumes ReFS sont autorisés à être montés sur les disques signalés par la pile de stockage comme enfichables à chaud, quel que soit le bus auquel ils sont attachés. ReFS n’est pas une configuration prise en charge sur les disques enfichables à chaud ou amovibles.
+
+Block refuse le montage et enregistre un événement dans le journal système.
+
+L’audit autorise uniquement le montage et enregistre le même événement, de sorte que l’effet de l’activation de cette stratégie peut être évalué avant son application.
+
+L’option Désactivé n’effectue ni audit ni blocage.
+
+Pour un volume d’espaces de stockage, la case activée s’applique aux disques physiques stockant le pool et non à l’espace lui-même.
+
+Si ce paramètre de stratégie n’est pas configuré, le paramètre local sur cet ordinateur est utilisé. S’il n’existe aucun paramètre local, le comportement par défaut de cette version de Windows est utilisé.
+
+ReFS lit ce paramètre lors du chargement. Un redémarrage est donc nécessaire avant qu’une modification ne s’applique. Le paramètre est ensuite évalué à chaque montage d’un volume, de sorte qu’un volume déjà monté conserve son état actuel jusqu’à ce qu’il soit démonté et remonté.</string>
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="EnableDevDriveOptions">
+        <checkBox refId="DevDriveAllowAntivirusFilter" defaultChecked="true">Permettre au filtre antivirus de protéger les lecteurs de développement</checkBox>
+      </presentation>
+      <presentation id="BlockExternalBusMountOptions">
+        <dropdownList refId="BlockExternalBusMountMode" defaultItem="0">Action pour les volumes ReFS sur des disques USB ou IEEE 1394</dropdownList>
+      </presentation>
+      <presentation id="BlockHotplugMountOptions">
+        <dropdownList refId="BlockHotplugMountMode" defaultItem="0">Action pour les volumes ReFS sur des disques à connexion à chaud</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

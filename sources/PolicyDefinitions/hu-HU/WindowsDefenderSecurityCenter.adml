@@ -68,7 +68,7 @@
     </string>
     <string id="AppBrowserProtection_DisallowExploitProtectionOverride">Beállítások módosításának tiltása a felhasználók számára</string>
     <string id="AppBrowserProtection_DisallowExploitProtectionOverride_Explain">
-        A felhasználók megakadályozása A biztonsági rések kiaknázása elleni védelem beállításai terület módosításában a Windows biztonság szolgáltatásban.
+        A felhasználók megakadályozása a Biztonsági rés kiaknázása elleni védelem beállításai terület módosításában a Windows biztonság szolgáltatásban.
 
         Engedélyezve:
         A helyi felhasználók nem hajthatnak végre változtatásokat A biztonsági rések kiaknázása elleni védelem beállításai területen.
@@ -138,13 +138,14 @@
         Adott elérhetőségi adatok megjelenítése a helyi felhasználóknak a Windows biztonság értesítéseiben.
 
         Engedélyezve:
-        A vállalat elérhetőségi adatai megjelennek a Windows biztonság szolgáltatásból érkező értesítésekben.
+        A vállalat elérhetőségi adatai megjelennek a Windows biztonságtól érkező értesítésekben.
 
-        A beállítás engedélyezése után konfigurálnia kell a Kapcsolattartási vállalatnév megadása csoportházirend-beállítást, valamint a csoportházirend következő beállításai közül legalább az egyiket:
-        – Elérhetőségi telefonszám vagy Skype-azonosító megadása
-        – Elérhetőségi e-mail-cím vagy e-mail-azonosító megadása
-        – Elérhetőségi webhely megadása
-
+        A beállítás engedélyezése után konfigurálnia kell a csoportházirendben a Kapcsolattartási vállalatnév megadása beállítást, valamint a következő csoportházirend-beállítások közül legalább az egyiket:
+        – Kapcsolattartási telefonszám vagy Skype-azonosító megadása
+        – Kapcsolattartási e-mail-cím vagy e-mail-azonosító megadása
+        – Kapcsolattartási webhely megadása
+        Felhívjuk a figyelmét, hogy bizonyos esetekben a rendelkezésre álló értesítési helytől függően korlátozzuk a megjelenített kapcsolattartási lehetőségeket.
+        
         Letiltva:
         Az értesítésekben nem jelennek meg elérhetőségi adatok.
 

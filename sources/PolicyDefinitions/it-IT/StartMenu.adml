@@ -27,12 +27,11 @@ Se si disabilita o non si configura questa impostazione, verrà visualizzato il 
 Se si disabilita o non si configura questa impostazione, verrà visualizzato il collegamento "Ulteriori risultati" quando si esegue una ricerca nella casella di ricerca del menu Start.  Se è installato un gestore di protocollo di terze parti, verrà invece visualizzato il collegamento "Cerca ovunque".</string>
       <string id="AddSearchInternetLinkInStartMenu">Aggiungi il collegamento Cerca in Internet al menu Start</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
+Se si abilita questo criterio, verrà visualizzato un collegamento "Cerca su Internet" quando l'utente esegue una ricerca nella casella di ricerca del menu Start.  Questo pulsante consente di avviare il browser predefinito con i termini di ricerca.
 
-Se si abilita questa impostazione, verrà visualizzato il collegamento "Cerca in Internet" quando si esegue una ricerca nella casella di ricerca del menu Start.  Facendo clic sul collegamento, verrà quindi avviato il browser predefinito per la ricerca in Internet del termine specificato.
+Se si disabilita questo criterio, non sarà disponibile un collegamento "Cerca su Internet" quando l'utente esegue una ricerca nella casella di ricerca del menu Start.
 
-Se si disabilita questa impostazione, non verrà visualizzato il collegamento "Cerca in Internet" quando si esegue una ricerca nella casella di ricerca del menu Start.
-          
-Se non si configura questa impostazione (comportamento predefinito), il collegamento "Cerca in Internet" non verrà visualizzato nel menu Start.</string>
+Se non si configura questo criterio (impostazione predefinita), non sarà disponibile un collegamento "Cerca in Internet" nel menu Start.</string>
       <string id="NoSearchFilesInStartMenu">Non cercare file</string>
       <string id="NoSearchFilesInStartMenu_Help">Se si abilita questa impostazione, non verrà eseguita la ricerca dei file mediante la casella di ricerca del menu Start.
 
@@ -207,6 +206,19 @@ In Esplora file la voce Cerca viene comunque visualizzata sulla barra dei pulsan
 Questa impostazione dei criteri interessa solo gli elementi dell'interfaccia utente specificati. Non si applica a Internet Explorer e non impedisce all'utente di utilizzare altri metodi di ricerca.
 
 Se si disabilita o non si configura questa impostazione dei criteri, il collegamento Cerca sarà disponibile dal menu Start.</string>
+      <string id="ShowOrHideMostUsedApps">Mostra o Nascondi l'elenco "più utilizzati" dal menu Start</string>
+      <string id="ShowOrHideMostUsedApps_Help">Abilitando questa impostazione dei criteri, sarà possibile configurare il menù di Avvio in modo che questo mostra o nasconda l’elenco delle applicazioni più usate dall’utente, indipendentemente dalle impostazioni dell’utente stesso. 
+
+Selezionando "Mostra", l’elenco verrà mostrato e l’utente non potrà cambiare l’opzione usando le impostazioni.
+
+Selezionando "Nascondi" l’elenco verrà mostrato e l’utente non potrà cambiare l’opzione usando le impostazioni.
+
+Selezionando "Non Configurato", o disabilitando o non configurando questa impostazione dei criteri gli utenti potranno scegliere, tramite le impostazioni, di mostrare o meno l’elenco dei “Più Usati”. Ciò avviene di default. 
+
+Nota: la configurazione di questo criterio con “Mostra” o “Nascondi” su una versione supportata di Windows 10 ha sempre la meglio su qualsiasi altra impostazione di “Rimuovi l’elenco dei programmi più usati dal menù di Avvio” (che gestisce la stessa parte del menù di Avvio ma con meno opzioni).</string>
+      <string id="MFU_NotConfigured">Non configurato</string>
+      <string id="MFU_Show">Mostra</string>
+      <string id="MFU_Hide">Nascondi</string>
       <string id="NoFrequentUsedPrograms">Rimuovi l'elenco dei programmi più utilizzati dal menu Start</string>
       <string id="NoFrequentUsedPrograms_Help">Se si abilita questa impostazione, l'elenco dei programmi utilizzati di frequente verrà rimosso dal menu Start.
 
@@ -243,7 +255,7 @@ Se si disabilita o non si configura questa impostazione, l'elenco di tutte le ap
       <string id="APPLIST_NONE">Nessuno</string>
       <string id="APPLIST_COLLAPSE">Comprimi</string>
       <string id="APPLIST_COLLAPSESETTING">Comprimi e disabilita impostazione</string>
-      <string id="APPLIST_REMOVESETTING">Rimuovi e disabilita impostazione</string>    
+      <string id="APPLIST_REMOVESETTING">Rimuovi e disabilita impostazione</string>
 
       <string id="NoNetAndDialupConnect">Rimuovi Connessioni di rete dal menu Start</string>
       <string id="NoNetAndDialupConnect_Help">Questa impostazione dei criteri consente di rimuovere Connessioni di rete dal menu Start.
@@ -258,11 +270,11 @@ Se si disabilita o non si configura questa impostazione dei criteri, Connessioni
 
 Vedere anche le impostazioni dei criteri "Disabilita i programmi nel menu Impostazioni" e "Disabilita il Pannello di controllo" e le impostazioni dei criteri nella cartella Connessioni di rete (Configurazione computer e Configurazione utente\Modelli amministrativi\Rete\Connessioni di rete).</string>
       <string id="NoPinnedPrograms">Rimuovi l'elenco dei programmi aggiunti dal menu Start</string>
-      <string id="NoPinnedPrograms_Help">Se si abilita questa impostazione, l'elenco dei programmi aggiunti verrà rimosso dal menu Start e gli utenti non potranno aggiungere programmi al menu Start. 
+      <string id="NoPinnedPrograms_Help">Se si abilita questa impostazione, l'elenco "Programmi aggiunti" verrà rimosso dal menu Start. Gli utenti non possono aggiungere programmi al menu Start.
 
-In Windows XP e in Windows Vista, le caselle di controllo Internet e Posta elettronica verranno rimosse dalla finestra di dialogo "Personalizzazione menu Start". 
+In Windows XP e Windows Vista le caselle di controllo Internet e posta elettronica vengono rimosse dalla finestra di dialogo 'Personalizza menu Start'.
 
-Se si disabilita o non si configura questa impostazione, l'elenco dei programmi aggiunti rimarrà nel menu Start e gli utenti potranno aggiungere e rimuovere programmi nel menu Start.</string>
+Se si disabilita o non si configura questa impostazione, l'elenco "Programmi aggiunti" rimarrà nel menu Start. Gli utenti possono aggiungere e rimuovere programmi dal menu Start.</string>
       <string id="NoRecentDocsHistory">Non mantenere la cronologia dei documenti aperti recentemente</string>
       <string id="NoRecentDocsHistory_Help">Impedisce al sistema operativo e ai programmi installati di creare e visualizzare i collegamenti ai documenti aperti di recente.
 
@@ -318,31 +330,29 @@ Nota: questa impostazione dei criteri si applica solo ai file di destinazione ne
 
 Vedere anche le impostazioni dei criteri "Non verificare i collegamenti con la shell quando è in uso un profilo comune" e "Non utilizzare il metodo basato sulla ricerca nella risoluzione dei collegamenti con la shell".</string>
       <string id="NoRun">Rimuovi il menu Esegui dal menu Start</string>
-      <string id="NoRun_Help">Consente di rimuovere il comando Esegui dal menu Start, da Internet Explorer e da Gestione attività.
+      <string id="NoRun_Help">Consente di rimuovere il comando Esegui dalle menu Start, Internet Explorer e Gestione attività.
 
 Se si abilita questa impostazione, verranno apportate le modifiche seguenti:
 
-(1) Il comando Eseguo verrà rimosso dal menu Start.
+(1) Il comando Esegui viene rimosso dal menu Start.
 
-(2) Il comando Nuova attività (Esegui) verrà rimosso da Gestione attività.
+(2) Il comando Nuova attività (Esecuzione) viene rimosso da Gestione attività.
 
-(3) All'utente verrà impedito di immettere nella barra degli indirizzi di Internet Explorer quanto segue:
+(3) All'utente verrà impedito di immettere quanto segue nella barra degli indirizzi Internet Explorer:
 
---- Un percorso UNC: \\&lt;server&gt;\&lt;condivisione&gt; 
+--- Percorso UNC: \\&lt;server&gt;\&lt;share&gt;
 
---- Accesso alle unità locali: es. C:
+---Accesso alle unità locali, ad esempio C:
 
---- Accesso alle cartelle locali: es. \temp&gt;
+--- Accesso alle cartelle locali, ad esempio \temp&gt;
 
-Gli utenti che utilizzano tastiere estese inoltre non potranno più visualizzare la finestra di dialogo Eseguo utilizzando il tasto logo Windows + R.
+Gli utenti con tastiere estese non potranno più visualizzare la finestra di dialogo Esegui premendo il tasto Applicazione (il tasto con il logo Windows) + R.
 
-Se si disabilita o non si configura questa impostazione, gli utenti potranno accedere al comando Esegui tramite il menu Start e Gestione attività e potranno utilizzare la barra degli indirizzi di Internet Explorer.
+Se si disabilita o non si configura questa impostazione, gli utenti potranno accedere al comando Esegui nel menu Start e in Gestione attività e utilizzare la barra degli indirizzi Internet Explorer.
 
+Nota: questa impostazione influisce solo sull'interfaccia specificata. Non impedisce agli utenti di utilizzare altri metodi per eseguire programmi.
 
-
-Nota: questa impostazione interessa solo l'interfaccia specificata e non impedisce di avviare i programmi in altri modi.
-
-Nota: le applicazioni di terze parti con certificazione Windows 2000 e versioni successive devono rispettare questa impostazione.</string>
+Nota: è necessario che le applicazioni di terze parti con certificazione Windows 2000 o successiva siano conformi a questa impostazione.</string>
       <string id="NoSetFolders">Rimuovi i programmi nel menu Impostazioni</string>
       <string id="NoSetFolders_Help">Questa impostazione dei criteri consente di rimuovere i programmi nel menu Impostazioni.
 
@@ -599,9 +609,9 @@ Se si abilita questa impostazione dei criteri, la schermata Start verrà visuali
 
 Se si disabilita o non si configura questa impostazione dei criteri, la schermata Start verrà sempre visualizzata sullo schermo principale quando l'utente preme il tasto logo Windows. Gli utenti potranno comunque aprire la schermata Start in altri schermi premendo il pulsante Start in tali schermi. L'utente potrà inoltre configurare questa impostazione.</string>
       <string id="ForceStartSize_DisplayName">Forza le dimensioni di Start in modalità a schermo intero o come menu</string>
-      <string id="ForceStartSize_ExplainText">Se si abilita questa impostazione dei criteri e la si imposta su Menu Start o su Start in modalità a schermo intero, verranno applicate le dimensioni corrispondenti per Start e gli utenti non potranno modificarle nelle impostazioni. 
+      <string id="ForceStartSize_ExplainText">Se si abilita questo criterio e lo si imposta su menu Start o start a schermo intero, le dimensioni di Start saranno tali e gli utenti non potranno modificare le dimensioni di Start in Impostazioni.
 
-Se si disabilita o non si configura questa impostazione dei criteri, Windows selezionerà automaticamente le dimensioni in base al fattore di forma dell'hardware e gli utenti potranno modificare le dimensioni di Start nelle impostazioni.</string>
+Se si disabilita o non si configura questa impostazione dei criteri, windows selezionerà automaticamente le dimensioni in base al fattore di forma hardware e gli utenti potranno modificare le dimensioni del menu Start in Impostazioni.</string>
       <string id="ForceLauncherSize_Collapsed">Menu Start</string>
       <string id="ForceLauncherSize_Expanded">Start in modalità a schermo intero</string>
       <string id="HidePeopleBar_DisplayName">Rimuovi la barra Contatti dalla barra delle applicazioni</string>
@@ -611,10 +621,44 @@ Se si abilitano questi criteri, l'icona dei contatti verrà rimossa dalla barra 
       <string id="HideRecentlyAddedApps_Help">Questo criterio consente di impedire la visualizzazione nel menu Start di un elenco delle applicazioni installate di recente.
 
 Se abiliti questo criterio, nel menu Start non verrà più visualizzato l'elenco "Aggiunti di recente". L'impostazione corrispondente verrà disabilitata anche in Impostazioni.</string>
+      <string id="HideRecommendedSection">Rimuovi la sezione consigliata dal menu Start</string>
+      <string id="HideRecommendedSection_Help">Questo criterio consente di impedire la visualizzazione di un elenco di applicazioni e file consigliati nel menu Start.
+
+Se si abilita questa impostazione dei criteri, il menu Start non mostrerà più la sezione contenente un elenco di file e app consigliati.</string>
+ <string id="HideCategoryView">Nascondi la visualizzazione categorie nel menu Start</string>
+ <string id="HideCategoryView_Help">Questa impostazione dei criteri consente di nascondere la visualizzazione categoria nel menu Start.
+ 
+Se si abilita questa impostazione dei criteri, il menu Start non mostrerà più la visualizzazione categoria come opzione e per impostazione predefinita verrà visualizzata la visualizzazione griglia.</string>
+
+ <string id="ConfigureStartPins">Configura elementi aggiunti a Start</string>
+      <string id="ConfigureStartPins_Help">Consente all'amministratore di ignorare gli elementi predefiniti aggiunti a Start.
+
+Questa impostazione consente di specificare gli elementi predefiniti aggiunti a Start.</string>
+
+      <string id="HideRecommendedPersonalizedSites">Rimuovere le raccomandazioni personalizzate per i siti Web dalla sezione Articoli consigliati nel menu Start</string>
+      <string id="HideRecommendedPersonalizedSites_Help">Questa impostazione dei criteri consente di nascondere i siti Web personalizzati nella sezione consigliata del menu Start. 
+      
+Se si abilita questa impostazione dei criteri, il menu Start non mostrerà più le raccomandazioni personalizzate per i siti Web nella sezione consigliata.</string>
       <string id="DisableContextMenusInStart">Disabilita menu contestuale nel menu Start</string>
       <string id="DisableContextMenusInStart_Help">Questo criterio consente di impedire agli utenti di aprire i menu contestuali nel menu Start.
 
 Se abiliti questo criterio, le chiamate dei menu contestuali all'interno del menu Start verranno ignorate.</string>
+      <string id="SimplifyQuickSettings_DisplayName">Semplificare il layout delle impostazioni rapide</string>
+      <string id="SimplifyQuickSettings_ExplainText">Se abiliti questo criterio, le impostazioni rapide verranno ridotte in modo da avere solo i pulsanti WiFi, Bluetooth, accessibilità e VPN; la luminosità e i dispositivi di scorrimento del volume; e l'indicatore della batteria e collegarsi all'app Impostazioni.
+
+Se si disabilita o non si configura questa impostazione dei criteri, il layout normale delle impostazioni rapide verrà visualizzato ogni volta che vengono richiamate impostazioni rapide.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">Disabilita modifica impostazioni rapide</string>
+      <string id="DisableEditingQuickSettings_ExplainText">Se si abilita questo criterio, l'utente non potrà modificare le impostazioni rapide.
+
+Se si disabilita o non si configura questa impostazione dei criteri, l'utente potrà modificare le impostazioni rapide, ad esempio l'aggiunta o la rimozione dei pulsanti.</string>
+      <string id="DisableControlCenter">Rimuovi impostazioni rapide</string>
+      <string id="DisableControlCenter_Help">Questa impostazione dei criteri rimuove Impostazioni rapide dall'area in basso a destra sulla barra delle applicazioni.
+
+L'area Impostazioni rapide si trova a sinistra dell'orologio sulla barra delle applicazioni e include le icone per la rete e il volume correnti.
+
+Se questa impostazione è abilitata, Le impostazioni rapide non verranno visualizzate nell'area Impostazioni rapide. 
+
+Per rendere effettiva questa impostazione dei criteri, è necessario riavviare il sistema.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -631,9 +675,22 @@ Se abiliti questo criterio, le chiamate dei menu contestuali all'interno del men
           <label>File layout Start</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">Riapplica layout a ogni accesso</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">Scegliere una delle seguenti dimensioni</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">Scegli una delle azioni seguenti</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>File di layout elementi aggiunti a Start</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">Nascondi visualizzazione categorie</checkBox>
       </presentation>
     </presentationTable>
   </resources>

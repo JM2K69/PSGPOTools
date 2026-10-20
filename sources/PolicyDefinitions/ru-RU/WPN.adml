@@ -6,6 +6,8 @@
   <resources>
     <stringTable>
       <string id="NotificationsCategory">Уведомления</string>
+      <string id="WnsEndpoint">Включает групповую политику для полного доменного имени WNS</string>
+      <string id="WnsEndpointExplain">Эта политика задает специальное полное доменное имя WNS для конкретных сред.</string>
       <string id="NoTileNotification">Отключить уведомления плиток</string>
       <string id="NoTileNotificationExplain">
           
@@ -118,6 +120,18 @@
 
           Чтобы изменения этого параметра политики вступили в силу, не требуется перезагружать систему или перезапускать службу.
       </string>
+      <string id="ExpandedToastNotifications">Включить несколько развернутых всплывающих уведомлений в центре действий</string>
+      <string id="ExpandedToastNotificationsExplain">
+          Этот параметр политики включает несколько расширенных всплывающих уведомлений в центр уведомлений.
+
+Если этот параметр политики включен, первые три уведомления каждого приложения будут по умолчанию развернуты в центр уведомлений.
+
+Если этот параметр политики отключен или не настроен, по умолчанию в центр уведомлений будет развернуто только первое уведомление каждого приложения.
+
+Windows 10 только. Это немедленно станет нерекомендуемым для Windows 11.
+
+Для вступления этого параметра политики в силу не требуется перезагрузка или перезапуск службы.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="QuietHoursBeginTimePicker">
@@ -125,6 +139,11 @@
       </presentation>
       <presentation id="QuietHoursEndTimePicker">
         <decimalTextBox refId="QuietHoursDailyEndMinuteControl" defaultValue="360">Минуты после полуночи:</decimalTextBox>
+      </presentation>
+      <presentation id="WnsEndpoint">
+        <textBox refId="WnsEndpoint_FQDN">
+          <label>Полное доменное имя для WNS</label>
+        </textBox>
       </presentation>
     </presentationTable>
   </resources>

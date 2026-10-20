@@ -59,21 +59,29 @@ Obs! Använd inställningen Visning av inställningssidor under Datorkonfigurati
       <string id="SettingsPageVisibility">Visning av inställningssidor</string>
       <string id="SettingsPageVisibility_Help">Anger listan över sidor som ska visas eller döljas i appen Systeminställningar.
 
-Med den här principen kan en administratör blockera vissa sidor i appen Systeminställningar. Blockerade sidor visas inte, och om alla sidor i en viss kategori blockeras så döljs hela kategorin. Om användaren navigerar till en blockerad sida via en URI, snabbmenyn i Utforskaren eller på annat sätt, visas startsidan i Inställningar i stället.
+Med den här principen kan en administratör blockera vissa sidor i appen Systeminställningar. Blockerade sidor visas inte i appen, och om alla sidor i en viss kategori blockeras så döljs hela kategorin. Om användaren navigerar till en blockerad sida via en URI, snabbmenyn i Utforskaren eller på annat sätt, visas startsidan i Inställningar i stället.
 
-Den här principen har två lägen: du kan antingen ange en lista över inställningssidor som ska visas eller en lista över sidor som ska döljas. Om du vill ange en lista över sidor som ska visas måste principsträngen inledas med "showonly:" (utan citatecken) och om du vill ange en lista över sidor som ska döljas måste den inledas med "hide:". Om en sida på en showonly-lista normalt döljs av andra skäl (t.ex. på grund av att en maskinvaruenhet saknas) framtvingar den här principen inte att sidan visas. Efter detta måste principsträngen innehålla en semikolonavgränsad lista över ID:n för inställningssidor. ID:t för en viss inställningssida är den publicerade URI:n för den sidan utan protokolldelen "ms-settings:".
+Den här principen har två lägen: du kan antingen ange en lista över inställningssidor som ska visas eller en lista över sidor som ska döljas. Om du vill ange en lista över sidor som ska visas måste principsträngen inledas med "showonly:" (utan citattecken) och om du vill ange en lista över sidor som ska döljas måste den inledas med "hide:". Om en sida på en showonly-lista normalt döljs av andra skäl (t.ex. på grund av att en maskinvaruenhet saknas) framtvingar den här principen inte att sidan visas. Efter detta måste principsträngen innehålla en semikolonavgränsad lista över ID:n för inställningssidor. ID:t för en viss inställningssida är den publicerade URI:n för sidan utan protokolldelen "ms-settings:".
 
-Om du till exempel bara vill visa sidorna Om och Bluetooth vars URI:er är ms-settings:about och ms-settings:bluetooth skriver du:
+Om du till exempel bara vill visa sidorna Om och Bluetooth vars URI:er är ms-settings:about och ms-settings:bluetooth och dölja alla andra sidor skriver du:
 
 showonly:about;bluetooth
 
 Om du bara vill dölja Bluetooth-sidan vars URI är ms-settings:bluetooth skriver du:
 
-hide:bluetooth</string>
+hide:bluetooth
+
+Mer information finns här: https://go.microsoft.com/fwlink/?linkid=2102995</string>
       <string id="AllowOnlineTips">Tillåt onlinetips</string>
       <string id="AllowOnlineTips_Help">Aktiverar eller inaktiverar hämtning av onlinetips och hjälp för appen Inställningar.
 
 Om det inaktiveras kontaktas inte Microsofts innehållstjänster för hämtning av tips och hjälpinnehåll.</string>
+      <string id="HideUnsupportedHardwareNotifications">Dölj meddelanden när systemkraven för Windows inte uppfylls</string>
+      <string id="HideUnsupportedHardwareNotificationsExplain">Den här principen styr meddelanden som visas när Windows körs på en enhet som inte uppfyller systemkraven för den här operativsystemversionen.
+
+Om du aktiverar den här principinställningen visas dessa meddelanden aldrig på skrivbordet eller i appen Inställningar.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen visas dessa meddelanden på skrivbordet och i appen Inställningar när Windows körs på en enhet som inte uppfyller systemkraven för den här operativsystemversionen.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DisallowCpls">

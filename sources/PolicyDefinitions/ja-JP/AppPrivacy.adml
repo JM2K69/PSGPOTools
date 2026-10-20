@@ -99,6 +99,67 @@
 
 このグループ ポリシー オブジェクトがデバイスに適用されているときに、アプリを開く場合、従業員は、アプリやデバイスを再起動してポリシーの変更をアプリに適用する必要があります。
       </string>
+      <string id="LetAppsAccessSystemAIModels_Name">Windows アプリで Windows のテキストおよびイメージ生成機能を利用できるようにする</string>
+      <string id="LetAppsAccessSystemAIModels_Explain">
+このポリシー設定では、Windows アプリが Windows のテキストおよびイメージ生成機能を使用できるかどうかを指定します。
+
+パッケージ ファミリ名を指定すると、すべてのアプリに適用される既定の設定またはアプリごとの設定を指定できます。Get-AppPackage Windows PowerShell コマンドレットを使用して、アプリのパッケージ ファミリ名を取得できます。アプリごとの設定は、既定の設定をオーバーライドします。
+
+[ユーザーが制御] オプションを選択した場合、組織内の従業員は、デバイスの [設定] &gt; [プライバシー] を使用して、Windows アプリがテキストと画像の生成を使用できるかどうかを決定できます。
+
+[強制的に許可] オプションを選択した場合、Windows アプリは Windows のテキストと画像の生成機能を使用でき、組織内の従業員はこの設定を変更できません。
+
+[強制的に拒否] オプションを選択した場合、Windows アプリは Windows のテキストと画像の生成機能を使用することは許可されず、組織内の従業員はこの設定を変更できません。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、組織内の従業員は、デバイスの [設定] &gt; [プライバシー] を使用して、Windows アプリが Windows のテキストと画像の生成機能を使用できるかどうかを決定できます。
+
+このグループ ポリシー オブジェクトがデバイスに適用されたときにアプリが開いている場合、ポリシーの変更をアプリに適用するには、従業員がアプリまたはデバイスを再起動する必要があります。
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Name">Windows アプリでさまざまなウィンドウまたはディスプレイのスクリーンショットを取ることができるようにします</string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Explain">このポリシー設定は、Windows アプリがさまざまなウィンドウやディスプレイでスクリーンショットを撮影できるかどうかを指定します。
+
+すべてのアプリに既定の設定を適用するか、パッケージ ファミリ名を指定してアプリごとの設定を適用するかを指定できます。アプリのパッケージ ファミリ名を取得するには、Get-AppPackage Windows PowerShell コマンドレットを使います。アプリごとの設定は既定の設定より優先されます。
+
+[ユーザーが制御] オプションを選ぶと、Windows アプリがさまざまなウィンドウやディスプレイでスクリーンショットを撮影することができるかどうかを、組織の従業員が選ぶことができます (デバイスで [設定] &gt; [プライバシー] を使用)。
+
+[強制的に許可] オプションを選ぶと、Windows アプリはさまざまなウィンドウやディスプレイでスクリーンショットを撮影することができます。組織の従業員はこの設定を変更することはできません。
+
+[強制的に拒否] オプションを選ぶと、Windows アプリはさまざまなウィンドウやディスプレイでスクリーンショットを撮影できなくなります。組織の従業員はこの設定を変更することはできません。
+
+このポリシー設定を無効にした場合や構成しなかった場合、Windows アプリがさまざまなウィンドウやディスプレイでスクリーンショットを撮影できるかどうかを、組織の従業員が選ぶことができます (デバイスで [設定] &gt; [プライバシー] を使用)。
+
+このグループ ポリシー オブジェクトがデバイスに適用されているときにアプリを開く場合、従業員は、アプリやデバイスを再起動してポリシーの変更をアプリに適用する必要があります。
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Name">Windows アプリでスクリーンショットの境界を無効にする</string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Explain">このポリシー設定は、Windows アプリがスクリーンショットの境界線をオフにできるかどうかを指定します。
+
+すべてのアプリに既定の設定を適用するか、パッケージ ファミリ名を指定してアプリごとの設定を適用するかを指定できます。アプリのパッケージ ファミリ名を取得するには、Get-AppPackage Windows PowerShell コマンドレットを使います。アプリごとの設定は既定の設定より優先されます。
+
+[ユーザーが制御] オプションを選ぶと、Windows アプリがスクリーンショットの境界線をオフにできるかどうかを、組織の従業員が選ぶことができます (デバイスで [設定] &gt; [プライバシー] を使用)。
+
+[強制的に許可] オプションを選ぶと、Windows アプリはスクリーンショットの境界線をオフにできます。組織の従業員はこの設定を変更することはできません。
+
+[強制的に拒否] オプションを選ぶと、Windows アプリはスクリーンショットの境界線をオフにできません。組織の従業員はこの設定を変更することはできません。
+
+このポリシー設定を無効にした場合や構成しなかった場合、Windows アプリがスクリーンショットの境界線をオフにできるかどうかを、組織の従業員が選ぶことができます (デバイスで [設定] &gt; [プライバシー] を使用)。
+
+このグループ ポリシー オブジェクトがデバイスに適用されているときにアプリを開く場合、従業員は、アプリやデバイスを再起動してポリシーの変更をアプリに適用する必要があります。
+      </string>
+      <string id="LetAppsAccessHumanPresence_Name">Windows アプリにプレゼンス センシングへのアクセスを許可する</string>
+      <string id="LetAppsAccessHumanPresence_Explain">このポリシー設定では、Windows アプリがプレゼンス センシングにアクセスできるかどうかを指定します。
+
+すべてのアプリに既定の設定を適用するか、パッケージ ファミリ名を指定してアプリごとの設定を適用するかを指定できます。アプリのパッケージ ファミリ名を取得するには、Get-AppPackage Windows PowerShell コマンドレットを使います。既定の設定はアプリごとの設定によって上書きされます。
+
+[ユーザーが制御] オプションを選ぶと、Windows アプリがプレゼンス センシングにアクセスできるかどうかを、組織の従業員が選ぶことができます (デバイスで [設定] &gt; [プライバシー] を使います)。
+
+[強制的に許可] オプションを選ぶと、Windows アプリはプレゼンス センシングにアクセスできます。組織の従業員はこの設定を変更することはできません。
+
+[強制的に拒否] オプションを選ぶと、Windows アプリはプレゼンス センシングにアクセスできません。組織の従業員はこの設定を変更することはできません。
+
+このポリシー設定を無効にした場合や構成しなかった場合、Windows アプリがプレゼンス センシングにアクセスできるかどうかを、組織の従業員が選ぶことができます (デバイスで [設定] &gt; [プライバシー] を使います)。
+
+このグループ ポリシー オブジェクトがデバイスに適用されているときに、アプリを開く場合、従業員は、アプリやデバイスを再起動してポリシーの変更をアプリに適用する必要があります。
+      </string>
       <string id="LetAppsAccessLocation_Name">Windows アプリで位置情報にアクセスする</string>
       <string id="LetAppsAccessLocation_Explain">このポリシー設定では、Windows アプリが位置情報にアクセスできるかどうかを指定します。
 
@@ -173,6 +234,36 @@
 このポリシー設定を無効にした場合や構成しなかった場合、Windows アプリが通知にアクセスできるかどうかを、組織の従業員が選ぶことができます (デバイスで [設定] &gt; [プライバシー] を使います)。
 
 このグループ ポリシー オブジェクトがデバイスに適用されているときに、アプリを開く場合、従業員は、アプリやデバイスを再起動してポリシーの変更をアプリに適用する必要があります。
+      </string>
+      <string id="LetAppsAccessPasskeys_Name">Windows アプリでパスキーにアクセスする</string>
+      <string id="LetAppsAccessPasskeys_Explain">このポリシー設定では、アプリがパスキーにアクセスできるかどうかを指定します。
+
+パッケージ ファミリ名を指定すると、すべてのアプリに適用される既定の設定またはアプリごとの設定のいずれかを指定できます。Get-AppPackage Windows PowerShell コマンドレットを使用して、アプリのパッケージ ファミリ名を取得できます。アプリごとの設定は、既定の設定を上書きします。
+
+[ユーザーが制御] オプションを選択すると、組織の従業員は、デバイスの [設定] &gt; [プライバシー] を使用して、アプリがパスキーにアクセスできるかどうかを決定できます。
+
+[強制的に許可] オプションを選択すると、アプリによるパスキーへのアクセスが許可され、組織の従業員はそれを変更できません。
+
+[強制的に拒否] オプションを選択すると、アプリによるパスキーへのアクセスが許可されず、組織の従業員はそれを変更できません。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、組織の従業員はデバイスの [設定] &gt; [プライバシー] を使用して、アプリがパスキーにアクセスできるかどうかを決定できます。
+
+この GPO がデバイスに適用されたときにアプリが開いていた場合、ポリシーの変更内容をアプリに適用するには、従業員がアプリまたはデバイスを再起動する必要があります。
+      </string>
+      <string id="LetAppsAccessPasskeysEnumeration_Name">Windows アプリにパスキーのオートフィルを許可する</string>
+      <string id="LetAppsAccessPasskeysEnumeration_Explain">このポリシー設定では、アプリがパスキーをオートフィルできるかどうかを指定します。
+
+パッケージ ファミリ名を指定すると、すべてのアプリに適用される既定の設定またはアプリごとの設定のいずれかを指定できます。Get-AppPackage Windows PowerShell コマンドレットを使用して、アプリのパッケージ ファミリ名を取得できます。アプリごとの設定は、既定の設定を上書きします。
+
+[ユーザーが制御] オプションを選択すると、組織の従業員は、デバイスの [設定] &gt; [プライバシー] を使用して、アプリがパスキーをオートフィルできるかどうかを決定できます。
+
+[強制的に許可] オプションを選択すると、アプリによるパスキーのオートフィルが許可され、組織の従業員はそれを変更できません。
+
+[強制的に拒否] オプションを選択すると、アプリによるパスキーのオートフィルが許可されず、組織内の従業員はそれを変更できません。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、組織の従業員はデバイスの [設定] &gt; [プライバシー] を使用して、アプリがパスキーをオートフィルできるかどうかを決定できます。
+
+この GPO がデバイスに適用されたときにアプリが開いていた場合、ポリシーの変更内容をアプリに適用するには、従業員がアプリまたはデバイスを再起動する必要があります。
       </string>
       <string id="LetAppsAccessPhone_Name">Windows アプリが電話をかけることを許可する</string>
       <string id="LetAppsAccessPhone_Explain">このポリシー設定では、Windows アプリが電話をかけることができるかどうかを指定します。
@@ -321,6 +412,35 @@
 
 このポリシーは、Windows アプリと Cortana に適用されます。この設定は、[ロック画面で Cortana を許可する] ポリシーよりも優先されます。このポリシーは、音声によるアクティブ化を許可するポリシーが、音声でアプリケーションをアクティブ化できるように構成されている場合にのみ適用されます。
       </string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Name">Windows アプリがバックグラウンドで実行中にユーザーの移動にアクセスできるようにする</string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Explain">このポリシー設定では、Windows アプリのバックグラウンドでの実行中に、アプリがユーザーの頭、手、モーション コントローラー、およびその他のトラッキング対象物の動きにアクセスできるかどうかを指定します。
+
+すべてのアプリに既定の設定を指定するか、パッケージ ファミリ名を指定してアプリごとの設定を指定できます。アプリのパッケージ ファミリ名を取得するには、Get-AppPackage Windows PowerShell コマンドレットを使います。既定の設定はアプリごとの設定によって上書きされます。
+
+"ユーザーが制御" オプションを選ぶと、Windows アプリのバックグラウンドでの実行中に、アプリがユーザーの動きにアクセスできるかどうかを、組織の従業員がデバイスで [設定] &gt; [プライバシー] を使って決定できます。
+
+"強制的に許可" オプションを選ぶと、Windows アプリのバックグラウンドでの実行中に、アプリはユーザーの動きにアクセスでき、組織の従業員はそれを変更できません。
+
+"強制的に拒否" オプションを選ぶと、Windows アプリのバックグラウンドでの実行中に、アプリはユーザーの動きにアクセスできず、組織の従業員はそれを変更できません。
+
+このポリシー設定を無効にした場合または構成しなかった場合、Windows アプリのバックグラウンドでの実行中にアプリがユーザーの動きにアクセスできるかどうかを、組織の従業員がデバイスで [設定] &gt; [プライバシー] を使って決定できます。
+
+このグループ ポリシー オブジェクトがデバイスに適用されているときにアプリを開くと、従業員は、アプリやデバイスを再起動してポリシーの変更をアプリに適用する必要があります。
+      </string>
+      <string id="LetAppsAccessForegroundText_Name">Windows アプリにフォアグラウンド アプリケーションからのテキスト コンテンツへのアクセスを許可する</string>
+      <string id="LetAppsAccessForegroundText_Explain">このポリシー設定では、Windows アプリがフォアグラウンド アプリケーションのテキスト コンテンツにアクセスできるかどうかを指定します。
+パッケージ ファミリ名を指定すると、すべてのアプリに適用される既定の設定またはアプリごとの設定を指定できます。Get-AppPackage Windows PowerShell コマンドレットを使用して、アプリのパッケージ ファミリ名を取得できます。アプリごとの設定は、既定の設定をオーバーライドします。
+
+[ユーザーが制御] オプションを選ぶと、組織内の従業員は、Windows アプリがフォアグラウンド アプリケーションのテキスト コンテンツにアクセスできるかどうかを決定できます。これにはデバイスの [設定] &gt; [プライバシー] を使用します。
+
+[強制的に許可] オプションを選ぶと、Windows アプリはフォアグラウンド アプリケーションのテキスト コンテンツにアクセスできるようになり、組織内の従業員はこの設定を変更できません。
+
+[強制的に拒否] オプションを選ぶと、Windows アプリはフォアグラウンド アプリケーションのテキスト コンテンツにアクセスできなくなり、組織内の従業員はこの設定を変更できません。
+
+このポリシー設定を無効にするか、構成しない場合、組織内の従業員は、Windows アプリがフォアグラウンド アプリケーションのテキスト コンテンツにアクセスできるかどうかを決定できます。これにはデバイスの [設定] &gt; [プライバシー] を使用します。
+
+このグループ ポリシー オブジェクトがデバイスに適用されたときにアプリが開いている場合、ポリシーの変更をアプリに適用するには、従業員がアプリまたはデバイスを再起動する必要があります。
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LetAppsAccessCalendar">
@@ -376,6 +496,42 @@
         <multiTextBox refId="LetAppsAccessEmail_ForceAllowTheseApps_List"/>
         <text>これらの特定のアプリを強制的に拒否 (パッケージ ファミリ名を使用):</text>
         <multiTextBox refId="LetAppsAccessEmail_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessSystemAIModels">
+        <dropdownList refId="LetAppsAccessSystemAIModels_Enum" noSort="true" defaultItem="0">すべてのアプリの既定値:</dropdownList>
+        <text>ユーザーをこれらの特定のアプリで管理 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_UserInControlOfTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に許可 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceAllowTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に拒否 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureProgrammatic">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureProgrammatic_Enum" noSort="true" defaultItem="0">すべてのアプリの既定値:</dropdownList>
+        <text>ユーザーをこれらの特定のアプリで管理 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_UserInControlOfTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に許可 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceAllowTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に拒否 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureWithoutBorder">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureWithoutBorder_Enum" noSort="true" defaultItem="0">すべてのアプリの既定値:</dropdownList>
+        <text>ユーザーをこれらの特定のアプリで管理 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_UserInControlOfTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に許可 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceAllowTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に拒否 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessHumanPresence">
+        <dropdownList refId="LetAppsAccessHumanPresence_Enum" noSort="true" defaultItem="0">すべてのアプリの既定値:</dropdownList>
+        <text>ユーザーをこれらの特定のアプリで管理 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_UserInControlOfTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に許可 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceAllowTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に拒否 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessLocation">
         <dropdownList refId="LetAppsAccessLocation_Enum" noSort="true" defaultItem="0">すべてのアプリの既定値:</dropdownList>
@@ -499,6 +655,42 @@
       </presentation>
       <presentation id="LetAppsActivateWithVoiceAboveLock">
         <dropdownList refId="LetAppsActivateWithVoiceAboveLock_Enum" noSort="true" defaultItem="0">すべてのアプリの既定値:</dropdownList>
+      </presentation>
+      <presentation id="LetAppsAccessBackgroundSpatialPerception">
+        <dropdownList refId="LetAppsAccessBackgroundSpatialPerception_Enum" noSort="true" defaultItem="0">すべてのアプリの既定値:</dropdownList>
+        <text>ユーザーをこれらの特定のアプリで管理 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_UserInControlOfTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に許可 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に拒否 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessForegroundText">
+        <dropdownList refId="LetAppsAccessForegroundText_Enum" noSort="true" defaultItem="0">すべてのアプリの既定値:</dropdownList>
+        <text>ユーザーをこれらの特定のアプリで管理 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_UserInControlOfTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に許可 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceAllowTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に拒否 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeys">
+        <dropdownList refId="LetAppsAccessPasskeys_Enum" noSort="true" defaultItem="0">すべてのアプリの既定値:</dropdownList>
+        <text>ユーザーをこれらの特定のアプリで管理 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_UserInControlOfTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に許可 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceAllowTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に拒否 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeysEnumeration">
+        <dropdownList refId="LetAppsAccessPasskeysEnumeration_Enum" noSort="true" defaultItem="0">すべてのアプリの既定値:</dropdownList>
+        <text>ユーザーをこれらの特定のアプリで管理 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_UserInControlOfTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に許可 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceAllowTheseApps_List"/>
+        <text>これらの特定のアプリを強制的に拒否 (パッケージ ファミリ名を使用):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceDenyTheseApps_List"/>
       </presentation>
     </presentationTable>
   </resources>

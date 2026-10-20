@@ -6,6 +6,8 @@
   <resources>
     <stringTable>
       <string id="NotificationsCategory">通知</string>
+      <string id="WnsEndpoint">為 WNS FQDN 啟用群組原則</string>
+      <string id="WnsEndpointExplain">此原則會為特定環境設計特別 WNS FQDN。</string>
       <string id="NoTileNotification">關閉磚通知</string>
       <string id="NoTileNotificationExplain">
           
@@ -118,6 +120,18 @@
 
           此原則設定不需要重新開機或重新啟動服務即可生效。
       </string>
+      <string id="ExpandedToastNotifications">在控制中心中開啟多個展開的快顯通知</string>
+      <string id="ExpandedToastNotificationsExplain">
+          此原則設定會在控制中心中開啟多個展開的快顯通知。
+
+          如果啟用此原則設定，預設會在控制中心中展開每個應用程式的前三個通知。
+
+          如果停用或未設定此原則設定，預設只會在控制中心中展開每個應用程式的第一個通知。
+
+          僅限 Windows 10。Windows 11 將立即淘汰此功能。
+
+          不需重新開機或重新啟動服務，此原則設定即可生效。
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="QuietHoursBeginTimePicker">
@@ -125,6 +139,11 @@
       </presentation>
       <presentation id="QuietHoursEndTimePicker">
         <decimalTextBox refId="QuietHoursDailyEndMinuteControl" defaultValue="360">午夜過後的分鐘數:</decimalTextBox>
+      </presentation>
+      <presentation id="WnsEndpoint">
+        <textBox refId="WnsEndpoint_FQDN">
+          <label>適用 FQDN 的 WNS</label>
+        </textBox>
       </presentation>
     </presentationTable>
   </resources>

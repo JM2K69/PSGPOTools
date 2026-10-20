@@ -1,0 +1,54 @@
+name: Release
+
+# Publishes the module on the PowerShell Gallery, only for a tag of a version (v0.1.2-alpha): the
+# commits of the branches run the tests (CI), never a publication.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  tests:
+    # Every test of the CI, on the tagged commit: nothing is published if one fails.
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    needs: tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # The secret PSGALLERY_API_KEY is a secret of this environment: its protection rules (a
+    # reviewer to approve, the tags allowed) apply before the key is given.
+    environment:
+      name: psgallery
+      url: https://www.powershellgallery.com/packages/PSGPOTools
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the API key
+        env:
+          PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+        run: |
+          if [ -z "$PSGALLERY_API_KEY" ]; then
+            echo "::error::No secret PSGALLERY_API_KEY in the environment psgallery: create it (Settings > Environments > psgallery) with an API key of the PowerShell Gallery."
+            exit 1
+          fi
+
+      - name: Build the module
+        shell: pwsh
+        run: ./CI/03_Build.ps1
+
+      - name: Publish on the PowerShell Gallery
+        shell: pwsh
+        env:
+          PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+        run: ./CI/04_Publish.ps1 -Tag '${{ github.ref_name }}' -ApiKey $env:PSGALLERY_API_KEY -NotesPath "$env:RUNNER_TEMP/notes.md"
+
+      - name: Create the release of GitHub
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prerelease=''
+          case "$GITHUB_REF_NAME" in *-*) prerelease='--prerelease' ;; esac
+          gh release create "$GITHUB_REF_NAME" --title "PSGPOTools $GITHUB_REF_NAME" --notes-file "$RUNNER_TEMP/notes.md" $prerelease

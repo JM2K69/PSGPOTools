@@ -18,7 +18,7 @@
       <string id="InternetCPL_Programs">Tabblad Programma's</string>
       <string id="AddonManagement_AddOnList">Lijst met invoegtoepassingen</string>
       <string id="AddonManagement_ManagementMode">Invoegtoepassingen niet toestaan tenzij deze zijn opgenomen in de lijst met invoegtoepassingen</string>
-      <string id="AddonManagement_RestrictCrashDetection">Systeemcrashdetectie uitschakelen</string>
+      <string id="AddonManagement_RestrictCrashDetection">Crashdetectie uitschakelen</string>
       <string id="AddonManagement_RestrictExtensionManagement">Gebruikers kunnen invoegtoepassingen niet in- of uitschakelen</string>
       <string id="AddSearchProvider">Een specifieke lijst van zoekmachines aan de lijst met zoekmachines van de gebruiker toevoegen</string>
       <string id="AdminApproved">Door de beheerder goedgekeurde besturingselementen</string>
@@ -270,7 +270,7 @@ Als u deze beleidsinstelling inschakelt, kunt u een lijst invoeren van websites 
 
 Als u deze beleidsinstelling uitschakelt of niet configureert, kunt u geen lijst met standaarduitzonderingen voor Pop-upblokkering opgeven.
 
-Opmerking: u kunt voorkomen dat gebruikers websites aan de lijst met uitzonderingen toevoegen of uit deze lijst verwijderen door het beleid Beheer van lijst met toegestane pop-ups uitschakelen in te schakelen.</string>
+Opmerking: u kunt voorkomen dat gebruikers websites aan de lijst met uitzonderingen toevoegen of uit deze lijst verwijderen door het beleid Beheer van acceptatielijst met pop-ups uitschakelen in te schakelen.</string>
       <string id="ExplainScriptPaste_AllProcs_Explain">Met deze beleidsinstelling kunt u vragen negeren, wanneer een script dat in een willekeurig proces op de computer draait, probeert om een Klembord-bewerking (knippen, kopiëren of plakken) uit te voeren.
 
 Als u deze beleidsinstelling inschakelt, wordt de gebruiker niets gevraagd, wanneer een script dat in een willekeurig proces op de computer draait, een Klembord-bewerking uitvoert. Dit betekent dat als het gedrag van de zone is ingesteld op vragen, dit gedrag wordt genegeerd en niets wordt gevraagd.
@@ -355,7 +355,7 @@ Als u deze beleidsinstelling uitschakelt, wordt de wizard Internetverbinding nie
 
 Als u deze beleidsinstelling niet configureert, kan de gebruiker zelf bepalen of de wizard Internetverbinding automatisch moet worden gestart.</string>
       <string id="ICWSettings">Instellingen van de wizard Internet-verbinding</string>
-      <string id="Identities">Identiteitsbeheer: voorkomen dat gebruikers identiteiten gebruiken</string>
+      <string id="Identities">Identity Manager: voorkomen dat gebruikers identiteiten gebruiken</string>
       <string id="IDN_Always">Altijd converteren naar IDN-indeling</string>
       <string id="IDN_Intranet">Intranetadressen converteren naar IDN-indeling</string>
       <string id="IDN_Never">Nooit converteren naar IDN-indeling</string>
@@ -413,19 +413,19 @@ Als u deze beleidsinstelling inschakelt, staat de menubalk onder de navigatiebal
 Als u deze beleidsinstelling niet configureert, kan de gebruiker de menubalk en navigatiebalk van plaats laten ruilen.</string>
       <string id="IE_Explain_DisableManagingPhishingFilter">Met deze beleidsinstelling kunt u voorkomen dat de gebruiker een filter beheert dat de gebruiker waarschuwt dat de website, die wordt bezocht, bekend staat voor frauduleuze pogingen om door middel van "phishing" persoonlijke informatie te vergaren
 
-Als u deze beleidsinstelling inschakelt, wordt de gebruiker niet gevraagd of het phisingfilter moet worden ingeschakeld. U moet opgeven welke modus voor het phisingfilter moet worden gebruikt: handmatig, automatisch of uit.
+Als u deze beleidsinstelling inschakelt, wordt de gebruiker niet gevraagd of het phishingfilter moet worden ingeschakeld. U moet opgeven welke modus voor het phishingfilter moet worden gebruikt: handmatig, automatisch of uit.
 
-Als u de handmatige modus selecteert, voert het phishingfilter alleen een lokale analyse uit en wordt de gebruiker om toestemming gevraagd voor het verzenden van gegevens naar Microsoft. Als deze functie volledig is ingeschakeld, worden alle webadressen die niet in de lijst met goedgekeurde sites van het filter staan automatisch naar Microsoft verzonden zonder tussenkomst van de gebruiker.
+Als u de handmatige modus selecteert, voert het phishingfilter alleen een lokale analyse uit en wordt de gebruiker om toestemming gevraagd voor het verzenden van gegevens naar Microsoft. Als deze functie volledig is ingeschakeld, worden alle webadressen die niet in de acceptatielijst met sites van het filter staan automatisch naar Microsoft verzonden zonder tussenkomst van de gebruiker.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, wordt aan de gebruiker gevraagd in welke modus het phisingfilter moet worden gebruikt.</string>
+Als u deze beleidsinstelling uitschakelt of niet configureert, wordt aan de gebruiker gevraagd in welke modus het phishingfilter moet worden gebruikt.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter">Met deze beleidsinstelling kan de gebruiker een SmartScreen-filter instellen dat de gebruiker waarschuwt als van de website die wordt bezocht, bekend is dat er pogingen worden gedaan om persoonlijke gegevens te verzamelen via 'phishing' of dat hierop malware wordt gehost.
 
-Als u deze beleidsinstelling inschakelt, wordt niet aan de gebruiker gevraagd of het SmartScreen-filter moet worden ingeschakeld. U moet aangeven welke modus het SmartScreen-filter moet gebruiken: aan of uit. Als deze functie volledig is ingeschakeld, worden alle webadressen die niet in de lijst met goedgekeurde sites van het filter staan automatisch naar Microsoft verzonden zonder tussenkomst van de gebruiker.
+Als u deze beleidsinstelling inschakelt, wordt niet aan de gebruiker gevraagd of het SmartScreen-filter moet worden ingeschakeld. U moet aangeven welke modus het SmartScreen-filter moet gebruiken: aan of uit. Als deze functie volledig is ingeschakeld, worden alle webadressen die niet in de acceptaqtielijst met sites van het filter staan automatisch naar Microsoft verzonden zonder tussenkomst van de gebruiker.
 
 Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de eerste keer aan de gebruiker gevraagd of het SmartScreen-filter moet worden ingeschakeld.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter_IE9">Met deze beleidsinstelling wordt voorkomen dat de gebruiker het SmartScreen-filter beheert, dat de gebruiker waarschuwt als van de website die wordt bezocht, bekend is dat er pogingen worden gedaan om persoonlijke gegevens te verzamelen via "phishing" of dat hierop malware wordt gehost.
 
-Als u deze beleidsinstelling inschakelt, wordt niet aan de gebruiker gevraagd of het SmartScreen-filter moet worden ingeschakeld. Alle webadressen die niet in de lijst met goedgekeurde sites van het filter staan, worden automatisch naar Microsoft verzonden zonder tussenkomst van de gebruiker.
+Als u deze beleidsinstelling inschakelt, wordt niet aan de gebruiker gevraagd of het SmartScreen-filter moet worden ingeschakeld. Alle webadressen die niet in de acceptatielijst met sites van het filter staan, worden automatisch naar Microsoft verzonden zonder tussenkomst van de gebruiker.
 
 Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de eerste keer aan de gebruiker gevraagd of het SmartScreen-filter moet worden ingeschakeld.</string>
       <string id="IE_Explain_DisableSecuritySettingsCheck">Met deze functie worden de beveiligingsinstellingen van Internet Explorer gecontroleerd om na te gaan of de beveiliging van Internet Explorer risico's loopt.
@@ -805,9 +805,9 @@ Waarschuwing: als u deze beleidsinstelling inschakelt, worden de tips voor Netsc
 Als u deze beleidsinstelling inschakelt, wordt de opdracht Tip van de dag uit het menu Help verwijderd.
 
 Als u deze beleidsinstelling uitschakelt of niet configureert, kunnen gebruikers de Tip van de dag, die onder in de browser wordt weergegeven, in- of uitschakelen.</string>
-      <string id="IE_ExplainIdentities">Met deze beleidsinstelling kunt u voorkomen dat gebruikers unieke id's configureren met Identiteitsbeheer.
+      <string id="IE_ExplainIdentities">Met deze beleidsinstelling kunt u voorkomen dat gebruikers unieke id's configureren met Identity Manager.
 
-Met Identiteitsbeheer kunnen gebruikers meerdere accounts, zoals e-mailaccounts, maken op dezelfde computer. Iedere gebruiker heeft een unieke id, met een eigen wachtwoord en eigen programmavoorkeuren.
+Met Identity Manager kunnen gebruikers meerdere accounts, zoals e-mailaccounts, maken op dezelfde computer. Iedere gebruiker heeft een unieke id, met een eigen wachtwoord en eigen programmavoorkeuren.
 
 Als u deze beleidsinstelling inschakelt, kunnen gebruikers geen nieuwe id maken, bestaande id's beheren of schakelen tussen id's. De optie Overschakelen naar een andere identiteit wordt uit het menu Bestand van Adresboek verwijderd.
 
@@ -876,7 +876,7 @@ Als u voor elke beveiligingszone wilt opgeven hoe door de beheerder goedgekeurde
       <string id="IE_ExplainMenusCategory">Hier vindt u instellingen voor het weergeven en verbergen van menu's en menuopdrachten in Internet Explorer.</string>
       <string id="IE_ExplainMicrosoft_Chat">Met deze beleidsinstelling kunt u het ActiveX-besturingselement van Microsoft Chat aanmerken als een door de beheerder goedgekeurd besturingselement.
 
-Dit besturingselement wordt door webontwikkelaars gebruikt om tekstuele en grafische chat-community's te bouwen voor het houden van live gesprekken via het web.
+Dit besturingselement wordt door webontwikkelaars gebruikt om tekstuele en grafische chat-community's te bouwen voor het houden van gesprekken in realtime via het web.
 
 Als u deze beleidsinstelling inschakelt, kan dit besturingselement worden uitgevoerd in beveiligingszones waarvoor u hebt opgegeven dat daarin door de beheerder goedgekeurde besturingselementen mogen worden uitgevoerd.
 
@@ -890,7 +890,7 @@ Als u voor elke beveiligingszone wilt opgeven hoe door de beheerder goedgekeurde
 
 3. Selecteer de zone waarbinnen u ActiveX-besturingselementen wilt beheren en klik op Aangepast niveau.
 
-4. Ga naar het gedeelte ActiveX-besturingselementen en -invoegtoepassingen uitvoeren en klik op Door de Beheerder goedgekeurd.</string>
+4. Ga naar het gedeelte ActiveX-besturingselementen en -invoegtoepassingen uitvoeren en klik op Door de Administrator goedgekeurd.</string>
       <string id="IE_ExplainMSNBC">Met deze beleidsinstelling kunt u een reeks MSNBC-besturingselementen aanmerken als door de beheerder goedgekeurde besturingselementen.
 
 Met deze besturingselementen kunnen gebruikers uitgebreid surfen in de nieuws- en sportrubrieken op de website van MSNBC.
@@ -1345,7 +1345,7 @@ Als u deze beleidsinstelling inschakelt, kan de gebruiker geen websites aan de l
 
 Als u deze beleidsinstelling uitschakelt of niet configureert, kan de gebruiker websites aan de lijst met uitzonderingen toevoegen of uit deze lijst verwijderen.
 
-Opmerking: u kunt een standaardlijst met sites die pop-upvensters mogen openen toestaan, ongeacht de instellingen van Pop-upblokkering van het proces van Internet Explorer, door de beleidsinstelling Lijst met toegestane pop-ups opgeven in te schakelen.</string>
+Opmerking: u kunt een standaardlijst met sites die pop-upvensters mogen openen toestaan, ongeacht de instellingen van Pop-upblokkering van het proces van Internet Explorer, door de beleidsinstelling Acceptatielijst met pop-ups opgeven in te schakelen.</string>
       <string id="IE_ExplainRestrictPopupManagement">Met deze beleidsinstelling kunt u bepalen of de functie voor het beheer van pop-ups in Internet Explorer ook voor gebruikers beschikbaar is.
 
 Als u deze beleidsinstelling inschakelt, is het onderdeel voor pop-upbeheer in het Configuratiescherm niet beschikbaar (lichter gekleurd) en worden alle andere besturingselementen, kennisgevingen en dialoogvensters voor het beheer van pop-ups niet weergegeven. Pop-ups worden nog steeds weergegeven zoals in Windows XP Service Pack 1 of eerdere versies.Vensters die buiten het scherm worden gestart, worden echter verplaatst en op het scherm weergegeven.
@@ -3011,7 +3011,7 @@ Deze functie is alleen van toepassing op versies van Internet Explorer tot en me
       <string id="Persistence_FileLimits4">Max. bestandsgrootte bij sites met beperkte toegang</string>
       <string id="PhishingOff">Uit</string>
       <string id="PhishingOn">Aan</string>
-      <string id="PopupBlocker_AllowList">Lijst met toegestane pop-ups</string>
+      <string id="PopupBlocker_AllowList">Acceptatielijst met pop-ups</string>
       <string id="Printing">Afdrukken</string>
       <string id="Printing_Explain">Met deze beleidsinstelling kunt u opgeven of er vanuit Internet Explorer achtergrondkleuren en -afbeeldingen moeten worden afgedrukt wanneer u een website afdrukt. Door ook achtergrondkleuren en afbeeldingen af te drukken, kan de pagina mogelijk minder snel en minder goed worden afgedrukt, afhankelijk van de mogelijkheden van de printer.
 
@@ -3571,37 +3571,42 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, toont Internet Ex
 
 Opmerking: dit beleid wordt met ingang van Windows 10 versie 1607 niet meer ondersteund.</string>
       <string id="Protocols_None">Geen veilige protocollen</string>
-      <string id="Protocols_SSL2">Alleen SSL 2.0 gebruiken</string>
+      <string id="Protocols_SSL2">[Verouderd] Alleen SSL 2.0 gebruiken</string>
       <string id="Protocols_SSL3">Alleen SSL 3.0 gebruiken</string>
-      <string id="Protocols_SSL2_SSL3">SSL 2.0 en SSL 3.0 gebruiken</string>
+      <string id="Protocols_SSL2_SSL3">[Verouderd] SSL 2.0 en SSL 3.0 gebruiken</string>
       <string id="Protocols_TLS10">Alleen TLS 1.0 gebruiken</string>
-      <string id="Protocols_SSL2_TLS10">SSL 2.0 en TLS 1.0 gebruiken</string>
+      <string id="Protocols_SSL2_TLS10">[Verouderd] SSL 2.0 en SSL 1.0 gebruiken</string>
       <string id="Protocols_SSL3_TLS10">SSL 3.0 en TLS 1.0 gebruiken</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">SSL 2.0, SSL 3.0 en TLS 1.0 gebruiken</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[Verouderd] SSL 2.0, SSL 3.0 en TLS 1.0 gebruiken</string>
       <string id="Protocols_TLS11">Alleen TLS 1.1 gebruiken</string>
-      <string id="Protocols_SSL2_TLS11">SSL 2.0 en TLS 1.1 gebruiken</string>
+      <string id="Protocols_SSL2_TLS11">[Verouderd] SSL 2.0 en TSL 1.1 gebruiken</string>
       <string id="Protocols_SSL3_TLS11">SSL 3.0 en TLS 1.1 gebruiken</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">SSL 2.0, SSL 3.0 en TLS 1.1 gebruiken</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[Verouderd] SSL 2.0, SSL 3.0 en TLS 1.1 gebruiken</string>
       <string id="Protocols_TLS10_TLS11">TLS 1.0 en TLS 1.1 gebruiken</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">SSL 2.0, TLS 1.0 en TLS 1.1 gebruiken</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[Verouderd] SSL 2.0, TLS 1.0 en TLS 1.1 gebruiken</string>
       <string id="Protocols_SSL3_TLS10_TLS11">SSL 3.0, TLS 1.0 en TLS 1.1 gebruiken</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">SSL 2.0, SSL 3.0, TLS 1.0 en TLS 1.1 gebruiken</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[Verouderd] SSL 2.0, SSL 3.0, TLS 1.0 en TLS 1.1 gebruiken</string>
       <string id="Protocols_TLS12">Alleen TLS 1.2 gebruiken</string>
-      <string id="Protocols_SSL2_TLS12">SSL 2.0 en TLS 1.2 gebruiken</string>
+      <string id="Protocols_SSL2_TLS12">[Verouderd] SSL 2.0 en TSL 1.2 gebruiken</string>
       <string id="Protocols_SSL3_TLS12">SSL 3.0 en TLS 1.2 gebruiken</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">SSL 2.0, SSL 3.0 en TLS 1.2 gebruiken</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[Verouderd] SSL 2.0, SSL 3.0 en TLS 1.2 gebruiken</string>
       <string id="Protocols_TLS10_TLS12">TLS 1.0 en TLS 1.2 gebruiken</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">SSL 2.0, TLS 1.0 en TLS 1.2 gebruiken</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[Verouderd] SSL 2.0, TLS 1.0 en TLS 1.2 gebruiken</string>
       <string id="Protocols_SSL3_TLS10_TLS12">SSL 3.0, TLS 1.0 en TLS 1.2 gebruiken</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">SSL 2.0, SSL 3.0, TLS 1.0 en TLS 1.2 gebruiken</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[Verouderd] SSL 2.0, SSL 3.0, TLS 1.0 en TLS 1.2 gebruiken</string>
       <string id="Protocols_TLS11_TLS12">TLS 1.1 en TLS 1.2 gebruiken</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">SSL 2.0, TLS 1.1 en TLS 1.2 gebruiken</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[Verouderd] SSL 2.0, SSL 1.1 en TLS 1.2 gebruiken</string>
       <string id="Protocols_SSL3_TLS11_TLS12">SSL 3.0, TLS 1.1 en TLS 1.2 gebruiken</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">SSL 2.0, SSL 3.0, TLS 1.1 en TLS 1.2 gebruiken</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[Verouderd] SSL 2.0, SSL 3.0, TLS 1.1 en TLS 1.2 gebruiken</string>
       <string id="Protocols_TLS10_TLS11_TLS12">TLS 1.0, TLS 1.1 en TLS 1.2 gebruiken</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">SSL 2.0, TLS 1.0, TLS 1.1 en TLS 1.2 gebruiken</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[Verouderd] SSL 2.0, TLS 1.0, TLS 1.1 en TLS 1.2 gebruiken</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">SSL 3.0, TLS 1.0, TLS 1.1 en TLS 1.2 gebruiken</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 en TLS 1.2 gebruiken</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[Verouderd] SSL 2.0, SSL 3.0, TLS 1.0 en TLS 1.1 en TLS 1.2 gebruiken</string>
+      <string id="Protocols_TLS13">Alleen TLS 1.3 gebruiken</string>
+      <string id="Protocols_TLS12_TLS13">TLS 1.2 en TLS 1.3 gebruiken</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">TLS 1.1, TLS 1.2 en TLS 1.3 gebruiken</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">TLS 1.0, TLS 1.1, TLS 1.2 en TLS 1.3 gebruiken</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">SSL 3.0, TLS 1.0, TLS 1.1 en TLS 1.2 en TLS 1.3 gebruiken</string>
       <string id="LockToolbars">Alle werkbalken vergrendelen</string>
       <string id="MoveStopRefresh">Locatie vergrendelen van de knoppen Stoppen en Vernieuwen</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3914,6 +3919,120 @@ Opmerking: als u ook de beleidsinstelling Beheersjablonen\Windows-onderdelen\Mic
 Als u deze instelling inschakelt, kunnen werknemers een extra pagina zien in Internet Explorer 11, met de melding dat een site is geopend in Microsoft Edge vanuit de Ondernemingsmodus.
 
 Als u deze instelling uitschakelt of niet configureert, past de app de standaardprocedures toe en wordt er geen extra pagina weergegeven.</string>
+      <string id="NeedEdgeBrowser">Configureer welk kanaal van Microsoft Edge moet worden gebruikt voor het openen van omgeleide sites</string>
+      <string id="IE_ExplainNeedEdgeBrowser">Hiermee kunt u tot drie versies van Microsoft Edge configureren voor het openen van een omgeleide site (in volgorde van voorkeur). Gebruik dit beleid als in uw omgeving is geconfigureerd dat sites van Internet Explorer 11 worden omgeleid naar Microsoft Edge. Als een gekozen versie niet is geïnstalleerd op het apparaat, worden die voorkeur overgeslagen.
+
+Als zowel de Windows Update voor de volgende versie van Microsoft Edge* als stabiel Microsoft Edge-kanaal zijn geïnstalleerd, doet zich het volgende gedrag voor:
+- Als u dit beleid uitschakelt of niet configureert, wordt stabiel Microsoft Edge-kanaal gebruikt. Dit is het standaardgedrag.
+- Als u dit beleid inschakelt, kunt u configureren dat omgeleide sites worden geopend in tot drie van de volgende kanalen, waarbij:
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta versie 77 of hoger
+    3 = Microsoft Edge Dev versie 77 of hoger
+    4 = Microsoft Edge Canary versie 77 of hoger
+
+Als de Windows Update voor de volgende versie van Microsoft Edge* of stabiel Microsoft Edge-kanaal niet zijn geconfigureerd, doet zich het volgende gedrag voor:
+- Als u dit beleid uitschakelt of niet configureert, wordt Microsoft Edge versie 45 of lager automatisch gebruikt. Dit is het standaardgedrag.
+- Als u dit beleid inschakelt, kunt u configureren dat omgeleide sites worden geopend in tot drie van de volgende kanalen, waarbij:
+    0 = Microsoft Edge versie 45 of lager
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta versie 77 of hoger
+    3 = Microsoft Edge Dev versie 77 of hoger
+    4 = Microsoft Edge Canary versie 77 of hoger
+
+*Voor meer informatie over de Windows-update voor de volgende versie van Microsoft Edge inclusief hoe deze kan worden uitgeschakeld, zie https://go.microsoft.com/fwlink/?linkid=2102115. Deze update is alleen van toepassing op Windows 10 versie 1709 en hoger.</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta versie 77 of hoger</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev versie 77 of hoger</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary versie 77 of hoger</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge versie 45 of lager</string>
+      <string id="KeepIntranetSitesInInternetExplorer">Alle intranetsites in Internet Explorer houden</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">Met deze beleidsregel kunt u voorkomen dat intranetpagina's worden geopend in andere browsers dan Internet Explorer. Houd er rekening mee dat deze beleidsregel geen effect heeft als de beleidsregel 'Alle sites die niet zijn opgenomen in de lijst met websites voor de ondernemingsmodus doorzenden naar Microsoft Edge' ('RestrictIE') niet is ingeschakeld.
+
+Als u deze beleidsregel inschakelt, worden alle intranetpagina's geopend in Internet Explorer 11. De enige uitzonderingen hierop zijn intranetsites die zijn vermeld in uw lijst met websites voor de Ondernemingsmodus.
+
+Als u deze beleidsregel uitschakelt of niet configureert, worden alle intranetsites automatisch geopend in Microsoft Edge.
+
+Het wordt sterk aanbevolen om deze beleidsregel te synchroniseren met de beleidsregel 'Alle intranetsites doorsturen naar Internet Explorer' (‘SendIntranetToInternetExplorer’). Het is ook beter om deze beleidsregel alleen in te schakelen als u weet dat uw intranetsites niet volledig compatibel zijn met Microsoft Edge.
+
+Gerelateerde beleidsregels:
+- Alle intranetsites doorsturen naar Internet Explorer ('SendIntranetToInternetExplorer')
+- Alle sites die niet zijn opgenomen in de lijst met websites voor de ondernemingsmodus doorzenden naar Microsoft Edge ('RestrictIE')
+
+Meer informatie over hoe u deze beleidsregel kunt combineren met gerelateerde beleidsregels om de optimale configuratie voor uw organisatie samen te stellen, vindt u in https://go.microsoft.com/fwlink/?linkid=2094210.</string>
+      <string id="AllowSaveTargetAsInIEMode">'Doel opslaan als' in de Internet Explorer-modus toestaan</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">Met deze beleidsinstelling kunnen beheerders het contextmenu doel opslaan als inschakelen in de Internet Explorer-modus.
+
+Als u deze beleidsinstelling inschakelt, wordt de optie doel opslaan als weergegeven in het contextmenu van de Internet Explorer-modus en werkt dit op dezelfde manier als Internet Explorer.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, wordt "doel opslaan als" niet weergegeven in het contextmenu van de Internet Explorer-modus.
+
+Zie https://go.microsoft.com/fwlink/?linkid=2102115 voor meer informatie</string>
+      <string id="EnableGlobalWindowListInIEMode">Globale vensterlijst inschakelen in Internet Explorer-modus</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">Met deze instelling kunt Internet Explorer modus de algemene vensterlijst gebruiken waarmee de status met andere toepassingen kan worden gedeeld.
+De instelling wordt alleen van kracht wanneer Internet Explorer 11 is uitgeschakeld als zelfstandige browser.
+
+Als u deze beleidsinstelling inschakelt, wordt in Internet Explorer modus de algemene vensterlijst gebruikt.
+
+Als u dit beleid uitschakelt of niet configureert, blijft Internet Explorer modus een aparte vensterlijst behouden.
+
+Zie https://go.microsoft.com/fwlink/?linkid=2102921 voor meer informatie over Internet Explorer modus
+Zie https://go.microsoft.com/fwlink/?linkid=2168340 voor meer informatie over het uitschakelen van Internet Explorer 11 als zelfstandige browser</string>
+      <string id="EnableExtendedIEModeHotkeys">Uitgebreide sneltoetsen inschakelen in de modus Internet Explorer</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">Met deze beleidsinstelling kunnen beheerders uitgebreide sneltoetsen in de Microsoft Edge Internet Explorer-modus, zoals 'Ctrl+S', inschakelen om de functionaliteit 'Opslaan als' te krijgen.
+
+Als u dit beleid inschakelt, is uitgebreide sneltoetsfunctionaliteit ingeschakeld in de modus Internet Explorer en werkt deze op dezelfde manier als Internet Explorer.
+
+Als u dit beleid uitschakelt of niet configureert, werken uitgebreide sneltoetsen niet in de modus Internet Explorer.
+
+Raadpleeg https://go.microsoft.com/fwlink/?linkid=2102115 voor meer informatie</string>
+      <string id="AllowLegacyURLFields">Verouderde functionaliteit voor snelkoppelingsbestanden op internet toestaan</string>
+      <string id="IE_ExplainAllowLegacyURLFields">Met deze beleidsinstelling kunt u bepaalde uitgeschakelde functies, zoals het veld WorkingDirectory of de verwerking van pluggable protocollen, in internetsnelkoppelingsbestanden gebruiken.
+
+Als u deze beleidsinstelling inschakelt, wordt uitgeschakelde functionaliteit voor snelkoppelingsbestanden op internet opnieuw ingeschakeld.
+
+Als u dit beleid uitschakelt of niet configureert, wordt bepaalde functionaliteit voor internetsnelkoppelingsbestanden, zoals het veld WorkingDirectory of de verwerking van pluggable protocollen, uitgeschakeld.</string>
+      <string id="ResetZoomForDialogInIEMode">Zoomen opnieuw instellen op de standaardwaarde voor HTML-dialoogvensters in Internet Explorer-modus</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">Met deze beleidsinstelling kunnen beheerders de zoomfunctie opnieuw instellen op de standaardwaarde voor HTML-dialoogvensters in Internet Explorer modus.
+
+Als u dit beleid inschakelt, wordt het in-/uitzoomen van een HTML-dialoogvenster in Internet Explorer modus niet doorgegeven vanaf de bovenliggende pagina.
+
+Als u dit beleid uitschakelt of niet configureert, wordt de zoomfunctie van een HTML-dialoogvenster in Internet Explorer modus ingesteld op basis van de zoomfunctie van de bovenliggende pagina.
+
+Zie https://go.microsoft.com/fwlink/?linkid=2220107 voor meer informatie</string>
+      <string id="DisableInternetExplorerApp">Internet Explorer 11 uitschakelen als een zelfstandige browser</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">Met dit beleid kun je het starten van Internet Explorer als zelfstandige browser beperken.
+
+Als je dit beleid inschakelt:
+- Wordt voorkomen dat Internet Explorer 11 als zelfstandige browser wordt gestart.
+- Wordt het gebruik van Internet Explorer beperkt tot de systeemeigen 'Internet Explorer-mode' van Microsoft Edge.
+- Worden alle pogingen tot het starten van Internet Explorer 11 omgeleid naar stabiel Microsoft Edge-kanaalbrowser.
+- Wordt elk ander beleid dat naar Internet Explorer 11 omleidt, overschreven.
+
+Zelfs als dit beleid is ingeschakeld, is het starten van Internet Explorer 11 met COM automation nog steeds toegestaan. Om COM-automatiseringsstarts van Internet Explorer 11 uit te schakelen, gebruik je het groepsbeleid 'Internet Explorer 11 COM-automatisering uitschakelen'.
+
+Als je dit beleid uitschakelt of niet configureert, worden alle sites geopend met de huidige actieve browserinstellingen. Opmerking: stabiel Microsoft Edge-kanaal moet zijn geïnstalleerd om dit beleid te kunnen toepassen.</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">Start Internet Explorer 11 via COM Automation uitschakelen</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">Met dit beleid kun je het starten van Internet Explorer met COM automation.
+
+Als je dit beleid inschakelt, wordt voorkomen dat Internet Explorer 11 wordt gestart met COM-automatisering.
+
+Als je dit beleid uitschakelt of niet configureert, zijn de starts van Internet Explorer 11 met COM-automatisering toegestaan.</string>
+      <string id="DisableIEAppDeprecationNotification">Melding over buitengebruikstelling van Internet Explorer 11 verbergen</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">Met deze beleidsinstelling kunt u bepalen of de herinnering voor de meldingsbalk die wordt ingetrokken, wordt weergegeven. De informatiebalk wordt standaard weergegeven in Internet Explorer 11.
+
+Als u deze beleidsinstelling inschakelt, wordt de informatiebalk niet weergegeven in Internet Explorer 11.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de informatiebalk weergegeven in Internet Explorer 11.</string>
+      <string id="NotifyDisableIEOptions_Never">Nooit</string>
+      <string id="NotifyDisableIEOptions_Always">Altijd</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">Eén keer per gebruiker</string>
+      <string id="JScriptReplacement">Vervang JScript door JScript9Legacy te laden in plaats van JScript.</string>
+      <string id="IE_ExplainJScriptReplacement">Deze beleidsinstelling bepaalt of JScript of JScript9Legacy wordt geladen.
+      
+Als u deze beleidsinstelling inschakelt of niet configureert, wordt JScript9Legacy geladen in situaties waarin JScript is geïnstaliseerd.
+
+Als u dit beleid uitschakelt, wordt JScript gebruikt.</string>
       <string id="VerMgmtDisable">Blokkering van verouderde ActiveX-besturingselementen voor Internet Explorer uitschakelen</string>
       <string id="IE_ExplainVerMgmtDisable">Met deze beleidsinstelling wordt bepaald of in Internet Explorer specifieke verouderde ActiveX-besturingselementen worden geblokkeerd. Verouderde ActiveX-besturingselementen worden nooit geblokkeerd in de intranetzone.
 
@@ -4115,10 +4234,16 @@ Als u deze instelling inschakelt, worden er in IE geen bijgewerkte versies van V
 Als u deze instelling uitschakelt of niet configureert, gaat IE door met het downloaden van bijgewerkte versies van VersionList.XML.
 
 Zie 'Out-of-date ActiveX control blocking' in de TechNet library voor Internet Explorer.</string>
+      <string id="DisableHTMLApplication">HTML-toepassing uitschakelen</string>
+      <string id="DisableHTMLApplication_Explain">Met deze beleidsinstelling wordt bepaald of het uitvoeren van de HTML-toepassing (HTA-bestand) is geblokkeerd of toegestaan.
+
+Als u deze beleidsinstelling inschakelt, wordt het uitvoeren van de HTML-toepassing (HTA-bestand) geblokkeerd.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, is het uitvoeren van de HTML-toepassing (HTA-bestand) toegestaan.</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
-        <listBox refId="DomainList">Lijst met toegestane domeinen</listBox>
+        <listBox refId="DomainList">Acceptatielijst met domeinen</listBox>
       </presentation>
       <presentation id="AddonManagement_AddOnList_1">
         <listBox refId="AddOnList">Lijst met invoegtoepassingen</listBox>
@@ -4784,6 +4909,14 @@ Zie 'Out-of-date ActiveX control blocking' in de TechNet library voor Internet E
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">Lijst met domeinen</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">Eerste keuze</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">Tweede keuze</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">Derde keuze</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">Melden dat de browser van Internet Explorer 11 is uitgeschakeld</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

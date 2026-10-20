@@ -7,7 +7,17 @@
     <stringTable>
       <string id="CloudContent">Bulut İçeriği</string>
       <string id="ConfigureWindowsSpotlight">Term Studio suggests "Windows spotlight" be translated as "Windows spot" into Turkish. So, the correct translation of the string should be "Kilit ekranındaki Windows spot'u yapılandır".</string>
-      <string id="ConfigureWindowsSpotlight_Help">Term Studio suggests "Windows spotlight" be translated as "Windows spot" into Turkish. So, the correct translation of the string should be "Bu ilke ayarı kilit ekranındaki Windows spot'u yapılandırmanıza olanak tanır.Bu ilke ayarını etkinleştirirseniz "Windows spot" kilit ekranı sağlayıcısı olarak ayarlanacak ve kullanıcılar kilit ekranlarını değiştiremeyecekler. "Windows spot" kilit ekranında Microsoft'tan günlük görüntüler gösterir.Ayrıca, "Kurumsal öne çıkanlar içeriğini dahil et" onay kutusunu işaretlerseniz ve kuruluşunuz da Azure'de Kurumsal öne çıkanlar içerik servisinin kurulumunu yaptıysa, kilit ekranı varsa bu serviste yapılandırılmış dahili mesajları ve iletişimleri gösterir. Kuruluşunuzun bir Kurumsal öne çıkanlar içerik servisi yoksa onay kutusunun hiçbir etkisi olmaz.Bu ilke ayarını devre dışı bırakırsanız Windows spot kapatılır ve kullanıcılar tarafından kilit ekranları olarak seçilemez. Kullanıcılar varsayılan kilit ekranı görüntüsünü görür ve eğer "Kilit ekranı görüntüsü değiştirmeyi engelle" ilkesini etkinleştirmediyseniz, başka bir görüntü seçebilirlerBu ilkeyi yapılandırmazsanız Windows spot kilit ekranında gösterilir ve eğer "Belirli bir varsayılan kilit ekranı görüntüsünü zorla" ilkesini kullanarak başka bir varsayılan kilit ekranı görüntüsünü yapılandırmadıysanız, varsayılan olarak seçilir.Not: Bu ilke yalnızca Kurumsal SKU'lar için geçerlidir.".</string>
+      <string id="ConfigureWindowsSpotlight_Help">Bu ilke ayarı kilit ekranında Windows spot'u yapılandırmanıza olanak tanır.
+
+Bu ilke ayarını etkinleştirirseniz "Windows spot" kilit ekranı sağlayıcısı olarak ayarlanır ve kullanıcılar kilit ekranlarını değiştiremezler. "Windows spot", kilit ekranında Microsoft'tan günlük resimler gösterir.
+
+Ayrıca, "Kurumsal öne çıkanlar içeriğini dahil et" onay kutusunu işaretlerseniz ve kuruluşunuz da Azure'de Kurumsal öne çıkanlar içerik hizmetinin kurulumunu yaptıysa, kilit ekranı varsa bu hizmette yapılandırılmış dahili mesajları ve iletişimleri gösterir. Kuruluşunuzun bir Kurumsal öne çıkanlar içerik hizmeti yoksa onay kutusunun hiçbir etkisi olmaz.
+
+Bu ilke ayarını devre dışı bırakırsanız Windows spot kapatılır ve kullanıcılar tarafından kilit ekranı olarak seçilemez. Kullanıcılar, varsayılan kilit ekranı resmini görür ve eğer "Kilit ekranı resmini değiştirmeyi engelle" ilkesini etkinleştirmediyseniz, başka bir resim seçebilirler.
+
+Bu ilkeyi yapılandırmazsanız Windows spot, kilit ekranında gösterilir ve eğer "Belirli bir varsayılan kilit ekranı ve oturum açma resmini zorla" ilkesini kullanarak başka bir varsayılan kilit ekranı görüntüsünü yapılandırmadıysanız, varsayılan olarak seçilir.
+
+Not: Bu ilke yalnızca Kurumsal SKU'lar için geçerlidir</string>
       <string id="DisableWindowsSpotlightFeatures">Term Studio suggests "Windows spotlight" be translated as "Windows spot" into Turkish. So, the correct translation of the string would be "Tüm Windows spot özelliklerini kapat"</string>
       <string id="DisableWindowsSpotlightFeatures_Help">Term Studio suggests "Windows spotlight" be translated as "Windows spot" into Turkish. So, the correct translation of the string would be "Bu ilke ayarı bütün Windows Spot özelliklerini bir kerede kapatmanıza olanak tanır.Bu ilke ayarını etkinleştirirseniz, kilitli ekranda Windows spot, Windows ipuçları, Microsoft tüketici özellikleri ve ilgili diğer özellikler devre dışı bırakılacaktır. Amacınız hedeflenen cihazlardan ağ trafiğini en aza indirmekse bu ilke ayarını etkinleştirmelisiniz.Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, Windows spot özelliklerine izin verilir ve ilgili ilke ayarları kullanılarak tek tek kontrol edilebilir."</string>
       <string id="DisableWindowsSpotlightOnActionCenter">Eylem Merkezi'nde Windows Spot'u Kapat</string>
@@ -37,11 +47,12 @@ Not: Bu ayar yalnızca Kurumsal ve Eğitim SKU'lar için geçerlidir.</string>
       <string id="DisableSoftLanding">Windows ipuçlarını gösterme</string>
       <string id="DisableSoftLanding_Help">Bu ilke ayarı, Windows ipuçlarının kullanıcılara gösterilmesini engeller.
 
-Bu ilke ayarını etkinleştirirseniz, kullanıcılar artık Windows ipuçlarını göremezler.
+Bu ilke ayarını etkinleştirirseniz kullanıcılar artık Windows ipuçlarını göremez.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, kullanıcılara Windows'un nasıl kullanılacağını açıklayan bağlamsal açılan pencereleri görebilirler. Microsoft hangi ipuçlarının gösterileceğini belirlemek için tanılama verilerini kullanır.
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, kullanıcılar Windows'un nasıl kullanılacağını açıklayan bağlamsal açılan pencereleri görebilirler. Microsoft hangi ipuçlarının gösterileceğini belirlemek için tanı ve kullanım verilerini kullanır.
 
-Not: Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, ancak "Temel" veya daha düşük bir düzeydeki "Bilgisayar Yapılandırması\Yönetim Şablonları\Windows Bileşenleri\Veri Toplama ve Önizleme Sürümleri\Telemetriye İzin Ver" ilke ayarını etkinleştirirseniz, kullanıcılar sınırlı sayıda ipuçlarını görebilirler. Ayrıca, bu ayar yalnızca Kurumsal ve Eğitim SKU'lar için geçerlidir.</string>
+Not: Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, ancak "Temel" veya daha düşük bir düzeydeki "Bilgisayar Yapılandırması\Yönetim Şablonları\Windows Bileşenleri\Veri Toplama ve Önizleme Sürümleri\Telemetriye İzin Ver" ilke ayarını etkinleştirirseniz, kullanıcılar sınırlı sayıda ipuçlarını görebilirler.
+Ayrıca, bu ayar yalnızca Kurumsal ve Eğitim SKU'larında geçerlidir.</string>
       <string id="DisableThirdPartySuggestions">Windows spot üzerinde üçüncü taraf içerikleri tavsiye etme</string>
       <string id="DisableThirdPartySuggestions_Help">Bu ilkeyi etkinleştirirseniz, kilit ekranı spotu gibi Windows Spot özellikleri, Başlat menüsü veya Windows ipuçlarındaki önerilen uygulamalar, üçüncü taraf yazılım yayıncılarından içerikleri tavsiye etmeyecektir. Kullanıcılar Microsoft özellik ve uygulamalarıyla onları daha verimli hale getirecek ipuçları ve öneriler görmeye devam edebilirler.
 
@@ -52,6 +63,43 @@ Eğer bu ilkeyi devre dışı bırakır ya da yapılandırmazsanız, Windows Spo
 Bu ilkeyi etkinleştirirseniz, Windows Karşılama Deneyimi, Windows'a veya uygulamalarına değişiklikler ve güncelleştirmeler yapıldığında daha fazla görüntülenmez.
 
 Bu ilkeyi devre dışı bırakır veya yapılandırmazsanız, Windows Karşılama Deneyimi, nelerin yeni, değişik olduğunu ve tavsiye edildiğini belirtmek amacıyla kullanıcıların alışmasına yardımcı olmak için başlatılır.</string>
+      <string id="DisableCloudOptimizedContent">Bulut için iyileştirilmiş içeriği kapat</string>
+      <string id="DisableCloudOptimizedContent_Help">Bu ilke ayarı, tüm Windows deneyimlerinde bulut için iyileştirilmiş içeriği kapatmanızı sağlar.
+
+Bu ilkeyi etkinleştirirseniz, bulut için iyileştirilmiş içerik istemci bileşenini kullanan Windows deneyimleri bunun yerine varsayılan geri dönüş içeriğini gösterir.
+
+Bu ilkeyi devre dışı bırakır veya yapılandırmazsanız, Windows deneyimleri bulut için iyileştirilmiş içeriği kullanabilir.</string>
+      <string id="DisableSpotlightCollectionOnDesktop">Masaüstünde Öne çıkanlar koleksiyonunu kapat</string>
+      <string id="DisableSpotlightCollectionOnDesktop_Help">Bu ilke ayarı, Kişiselleştirme'deki Spotlight koleksiyonu ayarını kaldırarak, kullanıcının günlük görüntüleri seçip Microsoft'tan masaüstüne indirememesine neden olur. 
+
+Bu ilkeyi etkinleştirirseniz, "Spotlight koleksiyonu" Kişiselleştirme ayarlarında bir seçenek olarak kullanılamayacak.
+
+Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız, Kişiselleştirme ayarlarında bir seçenek olarak "Spotlight koleksiyonu" görünerek kullanıcının Masaüstü sağlayıcısı olarak "Spotlight koleksiyonu" öğesini seçmesine ve Microsoft'tan günlük görüntüleri masaüstünde görüntülemesine olanak tanır.</string>
+      <string id="DisableConsumerAccountStateContent">Bulut tüketici hesabı durum içeriğini kapat</string>
+      <string id="DisableConsumerAccountStateContent_Help">Bu ilke ayarı, tüm Windows deneyimlerinde bulut tüketici hesabı durum içeriğini kapatmanızı sağlar.
+
+            Bu ilkeyi etkinleştirirseniz, bulut tüketici hesabı durum içeriği istemci bileşenini kullanan Windows deneyimleri bunun yerine varsayılan geri dönüş içeriğini gösterir.
+
+            Bu ilkeyi devre dışı bırakır veya yapılandırmazsanız, Windows deneyimleri bulut tüketici hesabı durum içeriğini kullanabilir.
+        </string>
+      <string id="EnableOrganizationalMessagesContent">Kurumsal İletileri Etkinleştir</string>
+      <string id="EnableOrganizationalMessagesContent_Help">Kurumsal iletiler, Yöneticilerin belirli Windows 11 deneyimlerinde son kullanıcılarına ileti göndermelerine olanak tanır. Kurumsal iletiler, Microsoft Endpoint Manager gibi hizmetler aracılığıyla Yöneticiler tarafından kullanılabilir.
+
+Varsayılan olarak bu ilke devre dışıdır. Bu ilkeyi etkinleştirirseniz, bu deneyimler Yöneticiler tarafından ayrılmış içeriği gösterir.
+
+Bu ilkenin etkinleştirilmesinin, Windows deneyimlerinde Microsoft'tan içerik dağıtımını yöneten mevcut MDM ilke ayarları üzerinde hiçbir etkisi olmaz.</string>
+      <string id="DisableGetStartedContent">Başla deneyimini devre dışı bırak</string>
+      <string id="DisableGetStartedContent_Help">Bu ilke ayarı Windows Başla deneyimini kapatır.
+
+Bu ilke ayarını etkinleştirirseniz Başla otomatik olarak başlamaz ve elle başlatılırsa hemen kapanır. İlgili arka plan görevleri çalışmayacaktır.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, Başla kullanılabilir durumda kalır ve kullanıcıların Windows hakkında bilgi edinmesine yardımcı olabilir.</string>
+      <string id="DisableCopilotPinScreenContent">Copilot PIN Ekranını Devre Dışı Bırak</string>
+      <string id="DisableCopilotPinScreenContent_Help">Windows’un oturum açma sırasında Microsoft 365 Copilot önerileri göstermesini engeller. Bu, Copilot’u devre dışı bırakmaz veya lisansı etkilemez.
+
+Bu ilke ayarını etkinleştirirseniz, Microsoft 365 Copilot kurulum kılavuzu oturum açma sırasında otomatik olarak başlatılmaz.
+
+Bu ilke ayarını devre dışı bıraksanız veya yapılandırmazsanız, kullanıcıların Copilot’u bulmasına ve ayarlamasına yardımcı olmak amacıyla oturum açma sırasında Microsoft 365 Copilot kurulum kılavuzu gösterilebilir.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureWindowsSpotlight">

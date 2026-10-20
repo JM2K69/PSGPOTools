@@ -10,6 +10,8 @@
         <string id="MSPassport_UsePassportForWork">Windows Hello voor Bedrijven gebruiken</string>
         <!-- Add support for certificate trust deployments -->
         <string id="WHFB_UseCertificateForOnPremAuth">Certificaat gebruiken voor on-premises authenticatie</string>
+        <!-- Add support for cloud trust deployments -->
+        <string id="WHFB_UseCloudTrustForOnPremAuth">Gebruik CloudTrust voor on-premises-verificatie</string>
         <!-- DropdownList Button strings -->
         <string id="MSPassport_UsePassportForWorkExplain">Windows Hello voor Bedrijven is een alternatieve methode om u aan te melden bij Windows met uw Active Directory- of Azure Active Directory-account. Hierdoor hebt u geen wachtwoorden, smartcards of virtuele smartcards nodig.
 
@@ -34,13 +36,13 @@ Als u deze beleidsinstelling inschakelt, kan Windows Hello voor Bedrijven alleen
 Als u deze beleidsinstelling uitschakelt of niet configureert, wordt nog steeds de voorkeur gegeven aan de TPM, maar kan Windows Hello voor Bedrijven door alle apparaten worden ingericht met behulp van software als de TPM niet werkt of niet beschikbaar is.
         </string>
         <string id="MSPassport_MinimumPINLength">Minimale lengte pincode</string>
-        <string id="MSPassport_MinimumPINLengthExplain">Met Minimale lengte pincode configureert u het minimum aantal tekens dat vereist is voor de pincode. Het kleinste aantal dat u voor deze beleidsinstelling kunt configureren, is 4. Het grootste aantal dat u kunt configureren, moet kleiner zijn dan het aantal dat is geconfigureerd in de beleidsinstelling Maximale lengte pincode of kleiner zijn dan 127, afhankelijk van welke waarde lager is.
+        <string id="MSPassport_MinimumPINLengthExplain">Met minimale pincodelengte wordt het minimum aantal tekens geconfigureerd dat is vereist voor de pincode.  Het laagste getal dat u voor deze beleidsinstelling kunt configureren, is 4.  Het grootste getal dat u kunt configureren, moet kleiner zijn dan het getal dat is geconfigureerd in de beleidsinstelling Maximale lengte pincode of het getal 127, afhankelijk van welke waarde het laagste is.
 
-Als u deze beleidsinstelling configureert, moet de lengte van de pincode groter zijn dan of gelijk zijn aan dit aantal.
+Als u deze beleidsinstelling configureert, moet de lengte van de pincode groter zijn dan of gelijk zijn aan dit getal.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, moet de lengte van de pincode groter zijn dan of gelijk zijn aan 4.
+Als u deze beleidsinstelling uitschakelt of niet configureert, moet de lengte van de pincode groter zijn dan of gelijk zijn aan 6.
 
-OPMERKING: als niet wordt voldaan aan de hierboven beschreven voorwaarden voor de minimale lengte van de pincode, worden er standaardwaarden gebruikt voor zowel de maximale als de minimale lengte van de pincode.
+OPMERKING: als niet wordt voldaan aan de hierboven opgegeven voorwaarden voor de minimale lengte van de pincode, worden standaardwaarden gebruikt voor zowel de maximale als de minimumlengte van de pincode.
         </string>
         <string id="MSPassport_MaximumPINLength">Maximale lengte pincode</string>
         <string id="MSPassport_MaximumPINLengthExplain">Met Maximale lengte pincode configureert u het maximum aantal tekens dat is toegestaan voor de pincode. Het grootste aantal dat u voor deze beleidsinstelling kunt configureren, is 127. Het kleinste aantal dat u kunt configureren, moet groter zijn dan het aantal dat is geconfigureerd in de beleidsinstelling Minimale lengte pincode of kleiner dan 4, afhankelijk van welke waarde hoger is.
@@ -56,28 +58,36 @@ OPMERKING: als niet wordt voldaan aan de hierboven beschreven voorwaarden voor d
 
 Als u deze beleidsinstelling inschakelt, moeten Windows-gebruikers ten minste één hoofdletter in hun pincode gebruiken.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, mogen Windows-gebruikers geen hoofdletters in hun pincode gebruiken.
+Als u deze beleidsinstelling uitschakelt, mogen Windows-gebruikers geen hoofdletters in hun pincode gebruiken.
+
+Als u deze beleidsinstelling niet configureert, mogen Windows-gebruikers hoofdletters in hun pincode gebruiken, maar dit is niet vereist.
         </string>
         <string id="MSPassport_LowercaseLetters">Kleine letters verplicht</string>
         <string id="MSPassport_LowercaseLettersExplain">Gebruik deze beleidsinstelling om het gebruik van kleine letters in de pincode te configureren.
 
 Als u deze beleidsinstelling inschakelt, moeten Windows-gebruikers ten minste één kleine letter in hun pincode gebruiken.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, mogen Windows-gebruikers geen kleine letters in hun pincode gebruiken.
+Als u deze beleidsinstelling uitschakelt, mogen Windows-gebruikers geen kleine letters in hun pincode gebruiken.
+
+Als u deze beleidsinstelling niet configureert, mogen Windows-gebruikers kleine letters in hun pincode gebruiken, maar dit is niet vereist.
         </string>
         <string id="MSPassport_SpecialCharacters">Speciale tekens verplicht</string>
-        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Gebruik deze beleidsinstelling om het gebruik van speciale tekens in de pincode te configureren. Geldige speciale tekens zijn: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
+        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Gebruik deze beleidsinstelling om het gebruik van speciale tekens in de pincode te configureren. Toegestane speciale tekens zijn: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
 
 Als u deze beleidsinstelling inschakelt, moeten Windows-gebruikers ten minste één speciaal teken in hun pincode gebruiken.
 
-Als u deze beleidsinstelling uitschakelt of niet configureert, mogen Windows-gebruikers geen speciale tekens in hun pincode gebruiken.]]>
+Als u deze beleidsinstelling uitschakelt, mogen Windows-gebruikers geen speciale tekens in hun pincode gebruiken.
+
+Als u deze beleidsinstelling niet configureert, mogen Windows-gebruikers speciale tekens in hun pincode gebruiken, maar dit is niet vereist.]]>
         </string>
         <string id="MSPassport_Digits">Cijfers verplicht</string>
         <string id="MSPassport_DigitsExplain">Gebruik deze beleidsinstelling om het gebruik van cijfers in de pincode te configureren.
 
-Als u deze beleidsinstelling inschakelt of niet configureert, moeten Windows-gebruikers ten minste één cijfer in hun pincode gebruiken.
+Als u deze beleidsinstelling inschakelt, moeten Windows-gebruikers ten minste één cijfer in hun pincode gebruiken.
 
 Als u deze beleidsinstelling uitschakelt, mogen Windows-gebruikers geen cijfers in hun pincode gebruiken.
+
+Als u deze beleidsinstelling niet configureert, mogen Windows-gebruikers cijfers in hun pincode gebruiken, maar dit is niet vereist.
         </string>
         <string id="MSPassport_PINHistory">Geschiedenis</string>
         <string id="MSPassport_PINHistoryExplain">Met deze instelling wordt bepaald hoeveel reeds gebruikte pincodes zijn toegestaan voor een gebruikersaccount. Met deze beleidsinstellingen kunnen beheerder de beveiliging verbeteren door ervoor te zorgen dat oude pincodes niet steeds opnieuw worden gebruikt. Als een pincode opnieuw wordt ingesteld, wordt de pincodegeschiedenis niet bewaard.
@@ -100,6 +110,19 @@ Als u deze beleidsinstelling uitschakelt, is het gebruik van biometrische elemen
 
 OPMERKING: als u deze beleidsinstelling uitschakelt, kunnen er voor geen enkel accounttype biometrische elementen worden gebruikt op het apparaat.
         </string>
+        <string id="MSPassport_EnableEnhancedSignInSecurity">ESS met ondersteunde randapparatuur inschakelen</string>
+        <string id="MSPassport_EnableEnhancedSignInSecurityExplain">Met Uitgebreide aanmeldingsbeveiliging (ESS; Enhanced Sign-in Security) worden biometrische sjabloongegevens (gezichts- en vingerafdrukgegevens) van Windows Hello geïsoleerd en worden bewerkingen afgestemd op vertrouwde hardware of opgegeven geheugengebieden, wat betekent dat de rest van het besturingssysteem er geen toegang toe heeft of er geen wijzigingen in kan aanbrengen. Omdat het communicatiekanaal tussen de sensoren en het algoritme ook is beveiligd, kan malware geen gegevens injecteren of opnieuw afspelen om een gebruiker te simuleren die zich aanmeldt of om een gebruiker buiten de computer te vergrendelen.
+Als u dit beleid inschakelt, kan het de volgende mogelijke waarden hebben:
+
+0 - Uitgebreide aanmeldingsbeveiliging uitgeschakeld met randsensoren
+ESS wordt uitgeschakeld op systemen met geschikte software en hardware. Verificatiebewerkingen van Windows Hello-randapparaten worden toegestaan, afhankelijk van huidige functiebeperkingen.
+
+1 - Uitgebreide aanmeldingsbeveiliging ingeschakeld zonder randsensoren (standaard en aanbevolen)
+ESS wordt ingeschakeld op systemen met geschikte software en hardware volgens het bestaande standaardgedrag in Windows. Verificatiebewerkingen van biometrische randapparaten worden geblokkeerd en niet beschikbaar voor Windows Hello.
+
+Als u dit beleid uitschakelt of niet configureert, worden niet-ESS-sensoren geblokkeerd op het ESS-apparaat.
+
+        </string>
         <string id="MSPassport_EnablePinRecovery">Gebruik Herstel pincode</string>
         <string id="MSPassport_EnablePinRecoveryExplain">Met Herstel pincode kan een gebruiker een vergeten pincode wijzigen met de pincodeherstelservice van Windows Hello voor Bedrijven, zonder de bijbehorende aanmeldingsgegevens of certificaten te verliezen, inclusief sleutels die mogelijk zijn gekoppeld met de persoonlijke accounts van de gebruiker op het apparaat. Hiervoor versleutelt de Azure-gebaseerde pincodeherstelservice een herstelgeheim, dat wordt opgeslagen op het apparaat. Hiervoor zijn zowel de pincodeherstelservice als het te ontsleutelen apparaat nodig. Voor pincodeherstel moet de gebruiker Multi-Factor Authentication bij Azure Active Directory uitvoeren.
 
@@ -110,13 +133,22 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, maakt Windows gee
 OPMERKING: dit beleid geldt alleen voor apparaten die zijn geregistreerd bij Azure Active Directory.
         </string>
         <!-- Explain Text for UseCertificateForOnPremAuth -->
-        <string id="WHFB_UseCertificateForOnPremAuthExplain">Gebruik deze beleidsinstelling om te configureren dat er een aanmeldingscertificaat wordt geregistreerd voor Windows Hello voor Bedrijven dat wordt gebruikt voor on-premises authenticatie.
+        <string id="WHFB_UseCertificateForOnPremAuthExplain">Gebruik deze beleidsinstelling om Windows hello voor bedrijven te configureren voor het inschrijven van een aanmeldingscertificaat voor on-premises authenticatie.
 
-Als u deze beleidsinstelling inschakelt, wordt er voor Windows Hello voor Bedrijven een aanmeldingscertificaat geregistreerd dat wordt gebruikt voor on-premises authenticatie.
-		
-Als u deze beleidsinstelling uitschakelt of niet configureert, wordt er voor Windows Hello voor Bedrijven een sleutel geregistreerd die wordt gebruikt voor on-premises authenticatie.
+Als u deze beleidsinstelling inschakelt, registreert Windows hello voor bedrijven een aanmeldcertificaat dat wordt gebruikt voor on-premises authenticatie.
 
-OPMERKING: als u deze beleidsinstelling uitschakelt of niet configureert, en de beleidsinstelling 'Windows Hello voor Bedrijven gebruiken' inschakelt, moet er in de omgeving een of meer Windows Server 2016-domeincontrollers zijn om te voorkomen dat de Windows Hello voor Bedrijven-authenticatie mislukt.
+Als u deze beleidsinstelling uitschakelt of niet configureert, wordt in Windows hello voor bedrijven een sleutel of een Kerberos-ticket (afhankelijk van andere beleidsinstellingen) gebruikt voor on-premises authenticatie.
+
+Opmerking: als u deze beleidsinstelling uitschakelt of niet configureert en de beleidsinstelling ' Windows hello voor bedrijven gebruiken ' inschakelt, moet de omgeving een of meer Windows Server 2016-domeincontrollers hebben om te voorkomen dat de verificatie van Windows hello voor bedrijven wordt afgebroken.
+        </string>
+        <!-- Explain Text for UseCloudTrustForOnPremAuth -->
+        <string id="WHFB_UseCloudTrustForOnPremAuthExplain">Gebruik deze beleidsinstelling om Windows hello voor bedrijven te configureren voor het gebruik van Azure AD Kerberos voor on-premises authenticatie.
+
+Als u deze beleidsinstelling inschakelt, gebruikt Windows hello voor bedrijven een Kerberos-ticket dat wordt opgehaald van verificatie naar Azure voor on-premises authenticatie.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, zal Windows hello voor bedrijven een sleutel of certificaat gebruiken (afhankelijk van andere beleidsinstellingen) voor on-premises authenticatie. 
+ 
+Opmerking: een omgeving waarin deze beleidsinstelling is ingeschakeld en de beleidsinstelling ' Windows hello voor bedrijven gebruiken ' vereist een of meer Windows Server 2016-domeincontrollers. Als dit niet het geval is, mislukt de verificatie van Windows hello voor bedrijven.
         </string>
         <!-- Explain text for device unlock policy -->
         <string id="MSPassport_UseDeviceUnlock">Apparaatontgrendelingsfactoren configureren</string>
@@ -173,6 +205,9 @@ Als gebruikers momenteel zijn aangemeld, moeten zij hun Windows-sessie vergrende
         </string>
     </stringTable>
     <presentationTable>
+        <presentation id="MSPassport_EnableEnhancedSignInSecurityControl">
+            <decimalTextBox refId="MSPassport_EnableEnhancedSignInSecurityDataType" spin="true" spinStep="1" defaultvalue="1">ESS met ondersteunde randapparatuur inschakelen</decimalTextBox>
+        </presentation>
         <presentation id="MSPassport_MinimumPINLengthControl">
             <decimalTextBox refId="MSPassport_MinimumPINLengthDataType" spin="true" spinStep="1" defaultvalue="6">Minimale lengte pincode</decimalTextBox>
         </presentation>

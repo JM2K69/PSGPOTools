@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>itt adja meg a megjelenítendő nevet</displayName>
+  <description>itt adja meg a leírást</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Biztonságos rendszerindítás</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Tanúsítványtelepítés szabályozott funkciókibocsátás révén</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">Azoknak a vállalatoknak, amelyek segítséget szeretnének az új Biztonságos rendszerindítási tanúsítványok eszközeiken való telepítéséhez, engedélyezhetik ezt a beállítást.
+
+ 
+
+Megjegyzés: A funkció használatához az eszköznek el kell küldenie a szükséges diagnosztikai adatokat a Microsoftnak.
+
+ 
+
+További információ: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Automatikus tanúsítvány-üzembehelyezés frissítéseken keresztül</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">Azokon az eszközökön, amelyekről elérhetők olyan teszteredmények, amelyek azt mutatják, hogy az eszköz képes sikeresen feldolgozni a tanúsítványfrissítéseket, a frissítések automatikusan elindulnak a karbantartási frissítések részeként. Ez a házirend alapértelmezés szerint engedélyezve van. Azok a vállalatoknak, amelyek szeretnék kezelni az automatikus frissítést, ezzel a házirenddel kifejezetten engedélyezhetik vagy letilthatják a funkciót.
+
+ 
+
+További információ: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Biztonságos rendszerindítási tanúsítvány telepítésének engedélyezése</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Ez a házirend-beállítás lehetővé teszi a Secure Boot tanúsítványtelepítési folyamat engedélyezését vagy letiltását az eszközökön. Ha engedélyezve van, a Windows automatikusan elindítja a tanúsítványtelepítési folyamatot azokon az eszközökön, amelyeken ezt a házirendet alkalmazták. 
+
+ 
+
+Megjegyzés: Ez a beállításjegyzék-beállítás nem egy házirendkulcsban tárolódik, ezért preferenciaként kezelendő. Ez azt jelenti, hogy ha a beállítást megvalósító Csoportházirend-objektum eltávolításra kerül, ez a beállításjegyzék-beállítás megmarad. 
+
+ 
+
+Megjegyzés: A Windows-feladat, amely ezt a beállítást futtatja és feldolgozza, 12 óránként fut. Bizonyos esetekben a frissítések csak a rendszer újraindításáig várakoznak, hogy biztonságosan lehessen őket egymás után alkalmazni. 
+
+ 
+
+Megjegyzés: Miután a tanúsítványokat a firmware-re telepítették, azokat a Windowsból nem lehet visszavonni. Ha a tanúsítványok törlése szükséges, azt a firmware menüfelületén kell elvégezni. 
+
+ 
+
+További információ: https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">A biztonságos indításhoz szükséges szolgáltatásadatok korlátozása</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Ez a házirend-beállítás azt szabályozza, hogy az operációs rendszer kibocsátja-e a napi, a Biztonságos rendszerindításhoz szükséges szolgáltatásadat-eseményt. Az esemény az eszköz Biztonságos rendszerindítási konfigurációjáról és a firmware-változók állapotáról tartalmaz információkat, és általában elküldi a rendszer, függetlenül a Telemetria engedélyezése diagnosztikai adatszinttől, mert biztonsági szempontból szükségesnek van besorolva.
+
+ 
+
+Ha engedélyezi ezt a házirend-beállítást, a rendszer nem bocsátja ki a napi, a Biztonságos rendszerindításhoz szükséges szolgáltatásadat-eseményt. Ez a Windows korlátozott forgalmú korlátozott működés alapcsomagja alatt működő vállalatok számára készült.
+
+ 
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, az operációs rendszer továbbra is a meglévő telemetriai engedélyezési szabályok szerint bocsátja ki a Biztonságos rendszerindításhoz szükséges szolgáltatásadat-eseményt.</string>
+
+      <string id="SUPPORTED_Windows8">Legalább Windows Server 2012, Windows 8 vagy Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

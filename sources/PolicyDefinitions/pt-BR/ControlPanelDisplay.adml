@@ -173,6 +173,12 @@ Se você desabilitar ou não definir essa configuração de política, os usuár
 Por padrão, os usuários podem alterar a imagem da tela de fundo mostrada quando o computador está bloqueado ou exibindo a tela de logon.
 
 Se você habilitar essa configuração, o usuário não poderá alterar a imagem da tela de bloqueio nem a imagem de logon. Em vez disso, ele verá a imagem padrão.</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground">Impedir o movimento do fundo da tela de bloqueio</string>
+      <string id="CPL_Personalization_AnimateLockScreenBackground_Help">Essa configuração de política controla se a imagem da tela de bloqueio é estática ou tem um efeito de panorâmica sutil orientado pela saída do acelerômetro do dispositivo.
+
+Se você habilitar essa configuração, o movimento será impedido e o usuário verá a imagem de fundo da tela de bloqueio estática tradicional.
+
+Se você desabilitar essa configuração (e o dispositivo com o acelerômetro), o usuário verá a panorâmica em segundo plano da tela de bloqueio ao redor de uma imagem estática, pois ela move fisicamente o dispositivo.</string>        
       <string id="CPL_Personalization_ForceDefaultLockScreen">Forçar uma imagem padrão específica de tela de bloqueio e de logon</string>
       <string id="CPL_Personalization_ForceDefaultLockScreen_Help">Essa configuração permite forçar uma imagem padrão específica para a tela de bloqueio e de logon inserindo o caminho (local) do arquivo de imagem. A mesma imagem será usada para a tela de bloqueio e para a tela de logon.
 

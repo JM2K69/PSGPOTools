@@ -77,6 +77,14 @@ Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, systém uživate
 Poznámka: Toto a související nastavení zásad nacházející se v této složce definují odezvu systému na pomalé stahování cestovních profilů uživatele. Chcete-li v operačních systémech starších než Microsoft Windows Vista upravit dobu, v rámci které musí uživatel odpovědět na upozornění, použijte nastavení zásad Časový limit pro dialogová okna.
 
 Důležité: Je-li povoleno nastavení Nezjišťovat pomalá síťová připojení, bude toto nastavení ignorováno. Je-li dále povoleno nastavení zásad Odstraňovat kopie cestovních profilů z mezipaměti, nelze v případě zjištění pomalého připojení načíst žádnou místní kopii cestovního profilu.</string>
+      <string id="AllowNonStandardUserProfilePaths">Povolit podregistry registru profilů uživatelů a AppData z nestandardních cest</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Toto nastavení zásad určuje, jestli podregistry profilů uživatelů a umístění složek AppData můžou přijímat nestandardní formáty cest.
+
+Pokud toto nastavení zásad povolíte, umístění profilů uživatelů přijímají širší škálu formátů cest k souborům.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, budou umístění profilů uživatelů přijímat pouze standardní cesty ke složkám systému Windows.
+
+Poznámka: Povolení tohoto nastavení může vystavit systém bezpečnostním rizikům. Povolte ho jenom v případě, že to konkrétní aplikace ve vaší organizaci vyžaduje, a to až po vyhodnocení všech rizik pro vaše prostředí.</string>
       <string id="ExcludeDirectories">Vyloučit adresáře z cestovního profilu</string>
       <string id="ExcludeDirectories_Help">Toto nastavení zásad umožní vyloučit složky, které obvykle bývají zahrnuty v profilu uživatele. To má za následek, že tyto složky není nutné ukládat na síťovém serveru, na němž je uložen profil, a nenásledují uživatele do jiných počítačů.
 
@@ -321,7 +329,6 @@ Pro určení primárních počítačů uživatele musí správce pomocí softwar
 Pokud toto nastavení zásad povolíte a uživatel má cestovní profil, stáhne se tento cestovní profil pouze do primárního počítače uživatele.
 
 Pokud toto nastavení zásad zakážete nebo nenakonfigurujete a uživatel má cestovní profil, bude tento cestovní profil stažen do každého počítače, ke kterému se uživatel přihlásí.
-      
       </string>
       <string id="USER_HOME">Nastavit domovskou složku uživatele</string>
       <string id="USER_HOME_EXPLAIN">Toto nastavení zásad umožňuje určit umístění a kořenovou složku (sdílenou složku nebo místní cestu) domovské složky uživatele pro relaci přihlášení.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Groepsbeleidinstellingen voor statusindicator voor netwerkverbindingen</displayName>
   <description>Groepsbeleidinstellingen voor statusindicator voor netwerkverbindingen</description>
@@ -73,7 +73,7 @@
       </presentation>
       <presentation id="NCSI_PassivePolling">
         <text>De volgende controlelijst schakelt het mechanisme voor passieve polling in NCSI uit.   Dit kan de CPU-belasting verbeteren op servers of andere computers, waarvan de netwerkconnectiviteit statisch is.</text>
-        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Passieve polling uitschakelen</checkBox>  
+        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Passieve polling uitschakelen</checkBox>
       </presentation>
       <presentation id="NCSI_GlobalDns">
         <text>Met het volgende selectievakje schakelt u interfacebinding voor DNS-zoekacties in NCSI uit. Zo werkt NCSI mogelijk beter bij speciale netwerkconfiguraties, zoals een DNS-server die wordt uitgevoerd op een lokale host.</text>

@@ -55,6 +55,15 @@ Uwaga: To ustawienie nie powoduje wyłączenia pulpitu Active Desktop. Użytkown
 Domyślnie użytkownik może zmienić lokalizację folderów swojego indywidualnego profilu, takich jak Dokumenty, Muzyka i inne, wpisując nową ścieżkę w oknie dialogowym Właściwości folderu na karcie Lokalizacje.
 
 Jeśli to ustawienie zostanie włączone, użytkownicy nie będą mogli wpisywać nowej lokalizacji w polu Element docelowy.</string>
+      <string id="EnableThemeFileRemoteResource">Zezwalaj na pliki motywów z lokalizacji sieciowych</string>
+      <string id="EnableThemeFileRemoteResource_Help">To ustawienie zasad określa, czy można używać ścieżek zdalnych do zasobów w pliku kompozycji pulpitu systemu Windows (theme/themepack).
+
+Jeśli włączysz to ustawienie zasad, pliki kompozycji będą mogły odwoływać się do zasobów (takich jak obrazy, dźwięki i ikony) znajdujących się w udziałach sieciowych lub innych lokalizacjach zdalnych. Użytkownicy będą mogli stosować kompozycje zawierające zasoby zdalne.
+
+Jeśli wyłączysz to ustawienie zasad, pliki kompozycji nie będą mogły korzystać z zasobów zdalnych. Ładowanie tych zasobów przez jakikolwiek plik kompozycji odwołujący się do zasobów zdalnych zakończy się niepowodzeniem i wyświetlone zostaną tylko zasoby lokalne.
+
+Jeśli nie skonfigurujesz tego ustawienia zasad, domyślnym działaniem jest blokowanie zasobów zdalnych w plikach kompozycji ze względów bezpieczeństwa.</string>
+
       <string id="ForceActiveDesktopOn">Włącz pulpit Active Desktop</string>
       <string id="ForceActiveDesktopOn_Help">Włącza pulpit Active Desktop i zapobiega wyłączaniu go przez użytkowników.
 

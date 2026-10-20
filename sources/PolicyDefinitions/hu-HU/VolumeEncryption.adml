@@ -320,6 +320,18 @@ Megjegyzés: Előfordulhat, hogy bizonyos PC-k nem kompatibilisek ezzel a házir
       </string>
       <string id="DisableExternalDMAUnderLock_Name">Az új DMA-eszközök letiltása, amikor a számítógép zárolva van</string>
 
+      <string id="DisableWinRETrust_Help">Ez a házirend-beállítás vezérli, hogy a BitLocker megbízik-e a Windows helyreállítási környezetben (WinRE).
+
+Ha a BitLocker megbízik a WinRE-ben, a WinRE a BitLocker által védett operációsrendszer-kötethez a BitLocker helyreállítási kulcs nélkül is hozzáférhet. Ez támogatja azokat a helyreállítási műveleteket, amelyeknek hozzá kell férniük az operációsrendszer-kötethez.
+
+Fontos: A házirend engedélyezése megváltoztatja a helyreállítás viselkedését. Ha engedélyezi ezt a házirend-beállítást, a BitLocker nem bízik a WinRE-ben. A BitLocker helyreállítási kulcs minden olyan WinRE-művelethez szükséges, amelynek hozzá kell férnie a BitLocker által védett operációsrendszer-kötethez. Az operációsrendszer-kötethez való WinRE-hozzáférést igénylő helyreállítási műveletek felhasználói vagy rendszergazdai beavatkozást igényelhetnek, és előfordulhat, hogy nem fejeződnek be automatikusan, beleértve az Indítási javítást, a Gyors gépi helyreállítást, a gombnyomásos helyreállítást, valamint az MDM által kezdeményezett távoli alaphelyzetbe állítást vagy törlést a RemoteWipe CSP használatával.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a BitLocker megbízik az ellenőrzött WinRE-lemezképekben, így a WinRE a helyreállítási kulcs nélkül is hozzáférhet a BitLocker által védett operációsrendszer-kötethez.
+
+Ez a házirend-beállítás csak akkor lép érvénybe, ha a BitLocker vagy az eszköztitkosítás engedélyezve van.</string>
+
+      <string id="DisableWinRETrust_Name">A Windows helyreállítási környezet (WinRE) BitLocker-megbízhatóságának letiltása</string>
+
       <string id="FVEOSCategory">Operációsrendszer-meghajtók</string>
       <string id="FVEFDVCategory">Rögzített adatmeghajtók</string>
       <string id="FVERDVCategory">Cserélhető adatmeghajtók</string>

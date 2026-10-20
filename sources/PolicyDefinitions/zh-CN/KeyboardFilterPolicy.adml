@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>键盘筛选器组策略</displayName>
+  <description>键盘筛选器的组策略设置</description>
+  <resources>
+    <stringTable>
+      <string id="KeyboardFilter">键盘筛选器</string>
+      <string id="AllowKbFilterInRemoteSessions">允许在远程会话中使用键盘筛选器</string>
+      <string id="AllowKbFilterInRemoteSessions_Text">键盘筛选器通常仅适用于本地会话。
+      
+启用此设置将允许通过远程会话将键盘筛选器应用到连接到计算机的用户。</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

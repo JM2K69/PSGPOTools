@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Directiva de grupo de filtro de teclado</displayName>
+  <description>Configuración de directiva de grupo para el filtro de teclado</description>
+  <resources>
+    <stringTable>
+      <string id="KeyboardFilter">Filtro de teclado</string>
+      <string id="AllowKbFilterInRemoteSessions">Permitir filtro de teclado en sesiones remotas</string>
+      <string id="AllowKbFilterInRemoteSessions_Text">Normalmente, el filtro de teclado solo se aplica a sesiones locales.
+      
+Si habilita esta opción, se permitirá que el filtro de teclado se aplique a los usuarios que se conecten al equipo mediante sesiones remotas.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

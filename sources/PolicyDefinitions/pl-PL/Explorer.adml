@@ -37,14 +37,30 @@ Uwaga: włączenie tego ustawienia zasad nie odbiera użytkownikom możliwości 
       <string id="DisableRoamedProfileInit_Help">To ustawienie zasad umożliwia administratorom ze skonfigurowanym profilem mobilnym (w połączeniu z ustawieniem zasad grupy „Usuń buforowany profil mobilny”) zablokowanie ponownego inicjowania domyślnych skojarzeń programów i innych ustawień do wartości domyślnych. 
 
 Jeśli to ustawienie zasad zostanie włączone na komputerze bez zainstalowanych wszystkich programów, które znajdowały się na komputerze, na którym ostatnio logował się użytkownik (w tej samej konfiguracji), może wystąpić nieoczekiwane działanie. </string>
+      <string id="DisableGraphRecentItems">Pokaż pliki na podstawie Twojego konta i aktywności dostawcy w chmurze</string>
+      <string id="DisableGraphRecentItems_Help">Wyłączenie tego ustawienia uniemożliwi Eksploratorowi plików żądanie metadanych plików w chmurze i wyświetlenie ich na stronie głównej oraz w innych widokach w Eksploratorze plików. Wszelkie szczegółowe informacje i pliki oparte na aktywności konta lub dostawcy usług w chmurze zostaną zatrzymane w widokach takich jak Ostatnie, Polecane, Ulubione, Udostępnione itp.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Wyłącz integrację źródła ustawień zaawansowanych w Eksplorator plików</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">Wyłączenie integracji źródła ustawień zaawansowanych uniemożliwi Eksplorator plików wyświetlanie informacji o repozytorium ze składnika schematu Ustawienia zaawansowane</string>
+      <string id="DisableFileExplorerPrelaunch">Wyłącz funkcję Eksploratora plików umożliwiającą wstępne uruchamianie okna w tle</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Ta zasada uniemożliwia użytkownikom włączanie funkcji wstępnego uruchamiania w Eksploratorze plików, która tworzy okno w tle, aby przyspieszyć uruchamianie i zwiększyć szybkość reakcji.</string>
+      <string id="MakePrintScreenKeyYieldable">Spraw, aby klawisz Print Screen był funkcjonalny</string>
+      <string id="MakePrintScreenKeyYieldable_Help">To ustawienie zasad określa, czy klucz ekranu wydruku może być wstrzymany dla innych aplikacji.
+
+Jeśli to ustawienie zasad zostanie włączone, klawisz print Screen będzie mógł być przechwytywany przez aplikacje, co pozwoli im przesłonić domyślną funkcjonalność zrzutu ekranu.
+
+Jeśli to ustawienie zasad zostanie wyłączone, funkcja print Screen Key zachowa starsze zachowanie podczas tworzenia zrzutów ekranu i nie będzie mogła być przechwytywana przez aplikacje.
+
+Jeśli te zasady nie zostaną skonfigurowane, klucz ekranu wydruku może zostać przechwycony przez aplikacje, co pozwoli im przesłonić domyślną funkcjonalność zrzutu ekranu, tak samo jak włączone zachowanie.
+
+Uwaga: to ustawienie może wymagać ponownego uruchomienia systemu.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>Adres URL strony sieci Web pomocy technicznej</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>Adres URL strony sieci Web pomocy technicznej</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

@@ -49,24 +49,61 @@ Om du inaktiverar eller låter bli att konfigurera principinställningen kan anv
 
 Obs! Den här inställningen gäller endast Enterprise- och Education-SKU:er.</string>
       <string id="DisableSoftLanding">Visa inte Windows-tips</string>
-      <string id="DisableSoftLanding_Help">Med den här principinställningen hindrar du Windows-tips från att visas för användarna.
-
-Om du aktiverar principinställningen visas inga Windows-tips för användarna.
-
-Om du inaktiverar eller låter bli att konfigurera principinställningen kan sammanhangsberoende popup-meddelanden visas för användarna som förklarar hur Windows-funktioner används. Microsoft använder diagnostik- och användningsdata för att avgöra vilka tips som ska visas.
-
-Obs! Om du inaktiverar eller låter bli att konfigurera principinställningen, men aktiverar principinställningen "Datorkonfiguration\Administrativa mallar\Windows-komponenter\Datainsamling och förhandsversioner\Tillåt telemetri" på nivån Grundläggande eller lägre kan en begränsad uppsättning tips visas för användarna.
+      <string id="DisableSoftLanding_Help">Med den här principinställningen hindrar du Windows-tips från att visas för användarna.&amp;#xD;
+&amp;#xD;
+Om du aktiverar principinställningen visas inga Windows-tips för användarna.&amp;#xD;
+&amp;#xD;
+Om du inaktiverar eller låter bli att konfigurera principinställningen kan sammanhangsberoende popup-meddelanden visas för användarna som förklarar hur Windows-funktioner används. Microsoft använder diagnostik- och användningsdata för att avgöra vilka tips som ska visas.&amp;#xD;
+&amp;#xD;
+Obs! Om du inaktiverar eller låter bli att konfigurera principinställningen, men aktiverar principinställningen "Datorkonfiguration\Administrativa mallar\Windows-komponenter\Datainsamling och förhandsversioner\Tillåt telemetri" på nivån Grundläggande eller lägre kan en begränsad uppsättning tips visas för användarna.&amp;#xD;
 Obs! Den här inställningen gäller endast Enterprise- och Education-SKU:er.</string>
       <string id="DisableThirdPartySuggestions">Föreslå inte innehåll från andra utgivare i Windows spotlight</string>
       <string id="DisableThirdPartySuggestions_Help">Om du aktiverar den här principen kommer Windows spotlight-funktioner som spotlight på låsskärmen, appar som föreslås på Start-menyn eller Windows-tips inte längre att föreslå appar eller innehåll från andra programvaruutgivare. Användarna kan fortfarande se förslag eller tips på hur de kan bli mer produktiva med Microsoft-funktioner och -appar.
 
 Om du inaktiverar eller låter bli att konfigurera principen kan Windows spotlight-funktioner föreslå appar och innehåll från andra programvaruutgivare utöver appar och innehåll från Microsoft.</string>
       <string id="DisableWindowsSpotlightWindowsWelcomeExperience">Inaktivera Välkommen till Windows</string>
-      <string id="DisableWindowsSpotlightWindowsWelcomeExperience_Help">Med den här principinställningen kan du inaktivera visningen av Välkommen till Windows. Den här funktionen hjälper användare komma igång med Windows, till exempel genom att starta Microsoft Edge med en webbsida som introducerar nya funktioner.
+      <string id="DisableWindowsSpotlightWindowsWelcomeExperience_Help">Med den här principinställningen kan du inaktivera visningen av Välkommen till Windows. Den här funktionen hjälper användare registrera sig för Windows, till exempel genom att starta Microsoft Edge med en webbsida som introducerar nya funktioner.
 
 Om du aktiverar den här principen visas inte Välkommen till Windows längre när det finns uppdateringar och ändringar av Windows och dess appar.
 
-Om du inaktiverar eller låter bli att konfigurera principen visas Välkommen till Windows för att hjälpa användare komma igång med Windows och berätta om vad som är nytt och har ändrats.</string>
+Om du inaktiverar eller låter bli att konfigurera principen visas Välkommen till Windows för att hjälpa användare att registrera sig för Windows och berätta om vad som är nytt och har ändrats.</string>
+      <string id="DisableCloudOptimizedContent">Inaktivera molnoptimerat innehåll</string>
+      <string id="DisableCloudOptimizedContent_Help">Med den här principinställningen kan du inaktivera molnoptimerat innehåll i alla Windows-upplevelser.
+
+Om du aktiverar den här principen visas i stället standard reservinnehållet för Windows-upplevelser där komponenten för molnbaserade komponenter används.
+
+Om du inaktiverar eller inte konfigurerar principen kan Windows-upplevelser använda molnoptimerat innehåll.</string>
+      <string id="DisableSpotlightCollectionOnDesktop">Inaktivera Spotlight-samlingen på skrivbordet</string>
+      <string id="DisableSpotlightCollectionOnDesktop_Help">Den här principinställningen tar bort inställningen för Spotlight-samlingen i personanpassning och renderar användaren att inte kunna välja och därmed ladda ned bilder från Microsoft till skrivbordet.
+
+Om principen aktiveras är "Spotlight-samlingen" inte tillgänglig som ett alternativ i anpassningsinställningar.
+
+Om du inaktiverar eller låter bli att konfigurera principen visas "Spotlight-samling" som ett alternativ i anpassningsinställningarna så att användaren kan välja "Spotlight-samling" som skrivbordsleverantör och visa dagliga bilder från Microsoft på skrivbordet.</string>
+      <string id="DisableConsumerAccountStateContent">Inaktivera innehåll för konsumentkonto i molnet</string>
+      <string id="DisableConsumerAccountStateContent_Help">Med den här principinställningen låter dig stänga av innehållet i molnkonsumentkonto i alla Windows-upplevelser..
+
+           Om du aktiverar den här policyn kommer Windows-upplevelser som använder klientkomponenten för tillståndskonsumentkonto i stället att presentera standardåterställningsinnehållet.
+
+            Om du inaktiverar eller inte konfigurerar den här policyn kommer Windows-upplevelser att kunna använda statusinnehåll för molnkonsumentkonto.
+        </string>
+      <string id="EnableOrganizationalMessagesContent">Aktivera organisationsmeddelanden</string>
+      <string id="EnableOrganizationalMessagesContent_Help">Med organisationsmeddelanden kan administratörer leverera meddelanden till slutanvändarna på de valda Windows 11-upplevelserna. Organisationsmeddelanden är tillgängliga för administratörer via tjänster som Microsoft Endpoint Manager.
+
+Som standard är den här principen inaktiverad. Om du aktiverar den här principen visas innehåll som är bokat av administratörer.
+
+Om du aktiverar den här principen påverkas inte befintliga MDM-principinställningar för leverans av innehåll från Microsoft på Windows-upplevelser.</string>
+      <string id="DisableGetStartedContent">Inaktivera Kom igång</string>
+      <string id="DisableGetStartedContent_Help">Den här principinställningen inaktiverar Windows Kom igång-upplevelsen.
+
+Om du aktiverar den här principinställningen startas inte Kom igång automatiskt och stängs omedelbart om den startas manuellt. Relaterade bakgrundsuppgifter körs inte.
+
+Om du inaktiverar eller låter bli att konfigurera denna principinställning förblir Kom igång tillgängligt och kan visas för att hjälpa användare att lära sig mer om Windows.</string>
+      <string id="DisableCopilotPinScreenContent">Inaktivera Copilot-fästskärmen</string>
+      <string id="DisableCopilotPinScreenContent_Help">Förhindrar att Windows visar rekommendationer för Microsoft 365 Copilot vid inloggning. Detta inaktiverar inte Copilot eller påverkar licensieringen.
+
+Om du aktiverar den här principinställningen startar inte installationsguiden för Microsoft 365 Copilot automatiskt vid inloggning.
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen kan installationsguiden för Microsoft 365 Copilot visas vid inloggning för att hjälpa användare att upptäcka och konfigurera Copilot.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureWindowsSpotlight">

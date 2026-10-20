@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>DPAPI</displayName>
+  <description>Määritä DPAPI-asetukset</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod">Määritä DPAPI-varmuuskopiointiavainten kiertojakso</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">Tämä käytäntöasetus määrittää DPAPI-varmuuskopiointiavainten kiertojakson. 
+Tämän asetuksen avulla voit ohittaa oletusarvon, joka on 90 päivää. Aseta arvoksi 0, jos haluat poistaa DPAPI-varmuuskopiointiavainten kierron käytöstä. 
+Jos otat tämän käytäntöasetuksen käyttöön, määritä niiden päivien määrä, jotka järjestelmä odottaa, ennen kuin se luo uuden DPAPI-varmuuskopiointiavaimen. 
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käytetään oletusarvoa 90 päivää.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">Määritä DPAPI-varmuuskopiointiavainten kiertojakso päivinä. 
+Aseta arvoksi 0, jos haluat poistaa DPAPI-varmuuskopiointiavainten kierron käytöstä.</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

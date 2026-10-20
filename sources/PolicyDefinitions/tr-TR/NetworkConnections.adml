@@ -49,14 +49,14 @@ Not: Yönetici olmayanlar (Ağ Yapılandırma İşletmenleri hariç), bu ayar ne
 İpucu: Gelişmiş TCP/IP Ayarları iletişim kutusunu açmak için Ağ Bağlantıları klasöründe bir bağlantı simgesini sağ tıklatın ve Özellikler'i tıklatın. Uzaktan erişim bağlantıları için Ağ sekmesini tıklatın.  İşaretli bileşenler bu bağlantı tarafından kullanılır" kutusunda, Internet Protokolü'nü (TCP/IP) tıklatın, Özellikler düğmesini tıklatıp ardından Gelişmiş düğmesini tıklatın.
 
 Not: Bu ayarın Etkin'ken Yapılandırılmadı olarak değiştirmek, kullanıcı oturumu kapatana dek gelişmiş düğmesinin etkin hale gelmesini sağlamaz.</string>
-      <string id="NC_AllowNetBridge_NLA">DNS etki alanı ağında Ağ Köprüsü'nün yüklenmesini ve yapılandırmasını engelle</string>
+      <string id="NC_AllowNetBridge_NLA">Ağınızda Ağ Köprüsü'nün yüklenmesini ve yapılandırmasını engelleyin.</string>
       <string id="NC_AllowNetBridge_NLA_Help">Bir kullanıcının Ağ Köprüsü'nü yükleyip yükleyemeyeceğini ve yapılandırıp yapılandıramayacağını belirler.
 
-Önemli: Bu ayar konuma duyarlıdır. Ayar, yalnızca bilgisayar, ayar bilgisayarda yenilendiğinde bağlı olduğu DNS etki alanı ağına bağlandığında uygulanır. Bilgisayar ayar yenilendiğinden bağlı olduğundan farklı bir DNS etki alanı ağına bağlıysa ayar uygulanmaz.
+Önemli: Bu ayar, AD etki alanına katılan cihazlarda konuma duyarlıdır. Ayar, yalnızca bilgisayar, ayar bilgisayarda yenilendiğinde bağlı olduğu DNS etki alanı ağına bağlandığında uygulanır. Bilgisayar ayar yenilendiğinden bağlı olduğundan farklı bir DNS etki alanı ağına bağlıysa ayar uygulanmaz. Entra'ya katılan cihazlarda bu ayar tüm ağlara uygulanır.
 
 Ağ Köprüsü, kullanıcıların bir 2. katman MAC köprüsü oluşturarak iki veya daha fazla ağ kesimini birbirine bağlamasını sağlar. Bu bağlantı, Ağ Bağlantıları klasöründe görüntülenir.
 
-Bu ayarı devre dışı bırakır veya yapılandırmazsanız, kullanıcı bir Ağ Köprüsü yapılandırması oluşturabilir ve değiştirebilir. Bu ayar etkinleştirildiğinde, var olab Ağ Köprüsü kullanıcının bilgisayarından kaldırılmaz.</string>
+Bu ayarı devre dışı bırakırsanız veya yapılandırmazsanız, kullanıcı Ağ Köprüsü yapılandırmasını oluşturabilir ve değiştirebilir. Bu ayar etkinleştirildiğinde, mevcut Ağ Köprüsü kullanıcının bilgisayarından kaldırılmaz.</string>
       <string id="NC_ChangeBindState">LAN bağlantısı bileşenlerini Etkinleştirmeyi/Devre Dışı Bırakmayı engelle</string>
       <string id="NC_ChangeBindState_Help">Yöneticilerin, LAN bağlantıları tarafından kullanılan bileşenleri etkinleştirebilip etkinleştiremeyeceklerini belirler.
 

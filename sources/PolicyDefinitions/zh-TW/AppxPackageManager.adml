@@ -2,19 +2,27 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>Appx 套件管理員</displayName> 
+  <displayName>Appx 套件管理員</displayName>
   <description>Appx 套件管理員</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">應用程式套件部署</string>
       <string id="AppxDeploymentAllowAllTrustedApps">允許安裝所有受信任的應用程式</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">這個原則設定可讓您管理受信任的企業營運 (LOB) 或開發人員簽署的 Windows 市集應用程式的安裝。
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">此原則設定可讓您管理受信任的企業營運 (LOB) 或開發人員簽署的已封裝 Microsoft Store 應用程式的安裝。
 
-如果您啟用這個原則設定，即可安裝任何 LOB 或開發人員簽署的 Windows 市集應用程式 (必須由本機電腦可以成功驗證的憑證鏈結簽署)。
+如果啟用或未設定此原則設定，您可以安裝任何 LOB 或開發人員簽署的已封裝 Microsoft Store 應用程式 (這必須使用可成功由本機電腦驗證的憑證鏈結進行簽署)。
 
-如果您停用或未設定這個原則設定，則不會安裝 LOB 開發人員簽署的 Windows 市集應用程式。</string>
+如果停用此原則設定，就無法安裝 LOB 或開發人員簽署的已封裝 Microsoft Store 應用程式。</string>
+      <string id="AllowAutomaticAppArchiving">封存不常用的應用程式</string>
+      <string id="AllowAutomaticAppArchivingExplanation">此原則設定可控制系統是否可封存不常用的應用程式。
+
+如果您啟用這個原則設定，系統會定期檢查並封存不常用的應用程式。
+
+如果您停用這個原則設定，則系統不會封存任何應用程式。
+
+如果您未設定這個原則設定 (預設)，則系統會依照預設行為，定期檢查並封存不常用的應用程式，而且使用者可以自行設定此設定。</string>
       <string id="AllowDeploymentInSpecialProfiles">允許特殊設定檔的部署作業</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">這個原則設定可以讓您在使用者以特殊設定檔登入時，管理 Windows 市集應用程式的部署。特殊設定檔包含下列使用者設定檔，在使用者登出後會捨棄變更:
+      <string id="AllowDeploymentInSpecialProfilesExplanation">這個原則設定可以讓您在使用者以特殊設定檔登入時，管理封裝 Microsoft Store 應用程式的部署。特殊設定檔包含下列使用者設定檔，在使用者登出後會捨棄變更:
 
 漫遊使用者設定檔，套用 [刪除漫遊設定檔的快取複本] 群組原則設定
 
@@ -25,16 +33,16 @@
 Guest 帳戶以及 Guests 群組成員的使用者設定檔
 
 
-如果您啟用這個原則設定，群組原則會允許使用特殊設定檔時 Windows 市集應用程式的部署作業 (新增、登錄、執行、更新或移除應用程式套件)。
+如果您啟用這個原則設定，群組原則會允許使用特殊設定檔時 Windows Store 應用程式的部署作業 (新增、登錄、執行、更新或移除應用程式套件)。
 
-如果您停用或未設定這個原則設定，群組原則會在使用特殊設定檔時封鎖 Windows 市集應用程式的部署作業。</string>
-      <string id="AllowDevelopmentWithoutDevLicense">允許開發 Windows 市集應用程式，並從整合式開發環境 (IDE) 安裝它們。</string>
+如果您停用或未設定這個原則設定，群組原則會在使用特殊設定檔時封鎖封裝 Microsoft Store 應用程式的部署作業。</string>
+      <string id="AllowDevelopmentWithoutDevLicense">允許開發封裝 Microsoft Store 應用程式，並從整合式開發環境 (IDE) 安裝它們。</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        允許或拒絕開發 Windows 市集應用程式並直接從 IDE 安裝它們。
+        允許或拒絕開發 Microsoft Store 應用程式，並直接從 IDE 安裝應用程式。
 
-        如果您啟用這個設定並啟用 [允許安裝所有受信任的應用程式] 群組原則，即可開發 Windows 市集應用程式並直接從 IDE 安裝它們。
-        
-        如果您停用或未設定這個設定，就不能開發 Windows 市集應用程式並直接從 IDE 安裝它們。
+        如果啟用此設定，並啟用「允許安裝所有受信任的應用程式」群組原則，則可以開發 Microsoft Store 應用程式，並直接從 IDE 安裝應用程式。
+
+        如果停用或未設定此設定，則無法開發 Microsoft Store 應用程式，或直接從 IDE 安裝應用程式。
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">停用安裝 Windows 應用程式到非系統磁碟區</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -53,12 +61,150 @@ Guest 帳戶以及 Guests 群組成員的使用者設定檔
         如果您停用或是未設定這個設定，那麼當應用程式移動到不同的磁碟區時，使用者的應用程式資料也將移動到該磁碟區。
       </string>
       <string id="AllowSharedLocalAppData">允許 Windows 應用程式在使用者間共用應用程式資料</string>
-      <string id="AllowSharedLocalAppDataExplanation">管理 Windows 應用程式在多個安裝該應用程式之使用者間共用資料的功能。
-      
-        如果您啟用這個原則，Windows 應用程式將可以與應用程式的其他執行個體共用應用程式資料。資料會透過 SharedLocal 資料夾共用。這個資料夾可透過 Windows.Storage API 來存取。
+      <string id="AllowSharedLocalAppDataExplanation">管理 Windows 應用程式在已安裝應用程式的使用者之間共用資料的功能。
 
-        如果您停用這個原則，Windows 應用程式將無法與該應用程式的其他執行個體共用應用程式資料。如果預先停用此原則，任何預先共用的應用程式資料將保留於 SharedLocal 資料夾中。 
+        如果啟用此原則，Windows 應用程式可以與該應用程式的其他執行個體共用應用程式資料。資料透過 SharedLocal 資料夾共用。此資料夾可透過 Windows.Storage API 來存取。
+
+        如果停用此原則，則 Windows 應用程式無法與該應用程式的其他執行個體共用應用程式資料。如果先前已啟用此原則，則之前共用的所有應用程式資料都將保留在 SharedLocal 資料夾中。
       </string>
+      <string id="BlockNonAdminUserInstall">防止非系統管理員使用者安裝 Windows 應用程式套件</string>
+      <string id="BlockNonAdminUserInstallExplanation">管理非系統管理員使用者安裝 Windows 應用程式套件的能力。
+
+        如果啟用此原則，非系統管理員將無法啟動 Windows 應用程式套件的安裝。希望安裝應用程式的系統管理員，需要從系統管理員內容 (如系統管理員 PowerShell 視窗) 執行此操作。如果其他原則允許，所有使用者仍可以透過 Microsoft Store 安裝 Windows 應用程式套件。
+
+        如果停用或未設定此原則，則所有使用者都可以啟動 Windows 應用程式套件的安裝。
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">在 MSIX 串流安裝中設定 HTTPS 驗證的授權網域</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">這個原則設定會決定是否將 EntraID OAuth 令牌包含在 HTTPS 通訊中，以連至指定的完整功能變數名稱，以執行 MSIX 串流安裝。
+
+如果您啟用這個原則設定，執行串流 MSIX 安裝時，與預先定義完整網域的 HTTPS 通訊會合併使用者的 EntraID OAuth 令牌。提供的值是ECMA腳本) (正則表示式，將用於與URL中大寫完整網域相符。
+
+如果您停用或未設定這個原則設定，則使用者的 EntraID OAuth 令牌只會與預設設定的網域共用。
+      </string>
+      <string id="DisableBackgroundAutoUpdates">不允許側載應用程式在背景自動更新</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">管理側載應用程式在背景自動更新的能力。
+
+如果您啟用此原則，側載的應用程式將不會在背景自動更新。
+
+如果您停用此原則，側載的應用程式將在背景自動更新。
+
+預設值為 'disabled' (金鑰不存在)。
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">在計量付費網路上，不允許側載應用程式在背景自動更新</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">管理側載應用程式在計量付費網路背景自動更新的能力。
+
+如果啟用此原則，側載的應用程式將不會在計量付費網路的背景中自動更新。
+
+如果您停用此原則，側載的應用程式將會在計量付費網路的背景中自動更新。
+
+預設值為 'disabled' (金鑰不存在)。
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">不允許依預設安裝每個使用者未簽署的套件 (需要明確允許每個安裝)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">不允許依預設安裝每個使用者未簽署的套件 (需要明確允許每個安裝)
+
+如果啟用此原則，AllowUnsigned 選項會預設為 'false'。
+
+如果停用此原則，AllowUnsigned 選項會預設為 'true'。
+
+預設值為 'disabled' (金鑰不存在)。
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">允許非系統管理員使用者安裝的套件系列名稱</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">允許非系統管理員使用者 Windows 應用程式套件安裝的套件系列名稱。
+
+如果您啟用這個原則，則不論設定的 [防止非系統管理員使用者安裝已封裝的 Windows 應用程式] 原則，非系統管理員都可以輸入 Windows 應用程式套件清單來起始安裝。
+
+提供的值將視為ECMA腳本) (正則表達式。Contoso.ContosoApp_8wekyb3d8bbwe之類的套件系列名稱本身是符合該系列中所有套件的有效正則表達式。^Contoso.*_8wekyb3d8bbwe$ 之類的正則表達式也會符合Contoso.ContosoApp_8wekyb3d8bbwe
+
+如果安裝 Windows 應用程式套件的套件系列名稱符合任何規則，則不會被 [防止非系統管理員使用者安裝已封裝的 Windows 應用程式] 原則封鎖。其他原則或設定可能仍然封鎖安裝。
+
+如果您停用或未設定這個原則，所有 Windows 應用程式套件都會受限於設定的 [防止非系統管理員使用者安裝已封裝的 Windows 應用程式] 原則。
+
+預設值為 『disabled』 (金鑰不存在)。
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">從系統中移除預設的 Microsoft Store 套件。</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">從系統中移除預設的 Microsoft Store 套件。
+
+如果您啟用此原則，則所提供清單中選取的 Microsoft Store 應用程式將會從系統中解除安裝。您可以調整預設設定。
+
+將不會移除清單中未選取的應用程式。
+
+* 這是一個無周邊應用程式 (無使用者介面)
+
+** 此應用程式是一般檔案類型或通訊協定的預設處理常式。移除此應用程式可能會導致使用者體驗下降。我們不建議您移除此應用程式。
+
+如果您啟用此原則，也可以透過在動態清單的「指定其他套件系列名稱以移除」底下輸入應用程式的套件系列名稱 (例如，Microsoft.WindowsCalculator_8wekyb3d8bbwe) 來移除應用程式。
+
+如果啟用此原則，重新安裝先前移除的應用程式，需從提供清單中取消選取該應用程式，或從動態清單中移除該應用程式的套件系列名稱。
+
+您無法透過動態應用程式移除清單移除 Windows 系統元件。
+
+動態應用程式移除清單中套件系列名稱的驗證會在使用者登入時進行，而非在原則設定時進行。
+
+預設值為「已停用」(金鑰不存在)。
+
+如果此原則已停用或未設定，則不會從系統中移除任何預設的應用程式。
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">從系統中移除預設的 Microsoft Store 套件。</string>
+      <string id="EnableMsixAllowedZones">啟用 MSIX 套件的允許區域</string>
+      <string id="EnableMsixAllowedZonesExplanation">此原則控制是否允許來自特定 URL 區域的 MSIX 套件安裝。套件的來源由其 URI 及是否存在網頁標記 (MotW) 決定。如果涉及多個 URI，則會考慮所有 URI；
+
+如果您啟用此原則，使用者將能依照各區域的設定安裝 MSIX 套件。
+
+如果您停用或未設定此原則，使用者將能從任何區域安裝 MSIX 套件，但不包括不受信任的區域。</string>
+      <string id="ZoneAllowed">允許</string>
+      <string id="ZoneBlocked">封鎖</string>
+      <string id="EnableMsixSmartScreenCheck">啟用 MSIX 套件的 Microsoft SmartScreen 檢查</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">此原則控制安裝特定 URL 區域的 MSIX 套件時，是否執行 Microsoft SmartScreen 檢查。
+
+如果您啟用或未設定此原則，系統會在安裝前使用 Microsoft SmartScreen 評估套件的 URI。此檢查僅針對來自網路的套件進行。
+
+如果您停用此原則，安裝套件前將不會使用 Microsoft SmartScreen。</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>運算式</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">允許非系統管理員使用者安裝的套件系列名稱</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>從系統中移除預設的 Microsoft Store 套件。</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">意見反應中樞</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">Microsoft 365 Copilot</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft 新聞</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Windows 相片 **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Microsoft Sticky Notes</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">Microsoft 待辦事項</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN 天氣</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Windows 版 Outlook</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">小畫家</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">快速助手</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">剪取工具</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Windows 小算盤</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Windows 相機 **</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Windows 媒體播放器 **</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Windows 記事本 **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Windows 語音錄音機</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Windows 終端機</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">Xbox Gaming 應用程式</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Xbox Identity Provider *</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Xbox 語音轉換文字 Overlay *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">指定要移除的其他套件系列名稱</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">本機電腦</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">內部網路</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">信任的網站</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">網際網路</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">未受信任的網站</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

@@ -52,7 +52,7 @@ Storage Sense tar som standard bort användarnas tillfälliga filer. Användarna
     <string id="SS_ConfigStorageSenseRecycleBinCleanupThreshold_Explain">
 När Storage Sense körs kan den ta bort filer i användarnas papperskorgar om de har varit där mer än ett visst antal dagar.
 
-Den här principen har ingen effekt om grupprincipen "Tillåt Storage Sense" är inaktiverad.
+Den här principen har ingen effekt om grupprincipen Tillåt Storage Sense är inaktiverad.
 
 Aktiverad:
 Du måste ange tröskelvärdet för hur många dagar en fil får vara i papperskorgen innan Storage Sense tar bort den. Möjliga värden är: 0 till 365.
@@ -63,25 +63,25 @@ Storage Sense tar bort de filer som har varit i papperskorgen i mer än 30 dagar
     </string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold">Ange tröskelvärdet för när Storage Sense rensar Hämtade filer</string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold_Explain">
-När Storage Sense körs kan den ta bort filer i användarmappen Hämtade filer om de har varit där mer än ett visst antal dagar.
+När Storage Sense körs kan den ta bort filer i användarmappen Hämtade filer om de inte har öppnats under ett visst antal dagar.
 
-Den här principen har ingen effekt om grupprincipen "Tillåt Storage Sense" är inaktiverad.
+Den här principen har ingen effekt om grupprincipen Tillåt Storage Sense är inaktiverad.
 
 Aktiverad:
-Du måste ange tröskelvärdet för hur många dagar en fil får vara i mappen Hämtade filer innan Storage Sense tar bort den. Möjliga värden är: 0 till 365.
-Om du anger värdet 0 tar Storage Sense inte bort några filer i användarmappen Hämtade filer. Standardvärdet är 0 vilket innebär att inga filer tas bort från mappen Hämtade filer.
+Du måste ange minsta antalet dagar som en fil kan vara oöppnad innan Storage Sense tar bort den från mappen Hämtade filer. Möjliga värden är: 0-365.
+Om du anger värdet 0 tar Storage Sense inte bort några filer i mappen Hämtade filer. Standardvärdet är 0 vilket innebär att inga filer tas bort från mappen Hämtade filer.
 
 Inaktiverad eller Inte konfigurerad:
-Storage Sense tar som standard inte bort filer i användarmappen Hämtade filer. Användarna kan konfigurera den här inställningen i Lagringsinställningar.
+Storage Sense tar som standard inte bort filer i mappen Hämtade filer. Användarna kan konfigurera den här inställningen i Lagringsinställningar.
     </string>
     <string id="SS_ConfigStorageSenseCloudContentDehydrationThreshold">Ange tröskelvärdet för när Storage Sense rensar molninnehåll</string>
     <string id="SS_ConfigStorageSenseCloudContentDehydrationThreshold_Explain">
-När Storage Sense körs kan den ta bort innehåll i molnet som inte använts under ett visst antal dagar.
+När Storage Sense körs kan den ta bort innehåll i molnet som inte har öppnats under ett visst antal dagar.
 
-Den här principen har ingen effekt om grupprincipen "Tillåt Storage Sense" är inaktiverad.
+Den här principen har ingen effekt om grupprincipen Tillåt Storage Sense är inaktiverad.
 
 Aktiverad:
-Du måste ange tröskelvärdet för hur många dagar en fil får vara i molnet utan att användas innan Storage Sense tar bort den. Möjliga värden är: 0 till 365.
+Du måste ange minsta antalet dagar som en fil i molnet kan vara oöppnad innan Storage Sense tar bort den från synkroniseringsroten. Möjliga värden är: 0-365.
 Om du anger värdet 0 tar Storage Sense inte bort några filer från molnet. Standardvärdet är 0 vilket innebär att inga filer tas bort från molnet.
 
 Inaktiverad eller Inte konfigurerad:

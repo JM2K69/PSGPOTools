@@ -13,6 +13,13 @@
     Wenn Sie diese Richtlinieneinstellung aktivieren oder nicht konfigurieren, werden die Elemente "Verwenden Sie ein zuvor erstelltes Systemimage, um den Computer wiederherzustellen" und "Windows neu installieren" (oder "Computer auf die Werkseinstellungen zurücksetzen") unter "Wiederherstellung" (in der Systemsteuerung) auf der Seite "Erweiterte Wiederherstellungsmethoden" angezeigt, und der Benutzer kann den Computer in den Originalzustand zurückversetzen oder aus einem vom Benutzer erstellten Systemimage wiederherstellen. Dies ist die Standardeinstellung.
 
     Wenn Sie diese Richtlinieneinstellung deaktivieren, sind die Elemente "Verwenden Sie ein zuvor erstelltes Systemimage, um den Computer wiederherzustellen" und "Windows neu installieren" (oder "Computer auf die Werkseinstellungen zurücksetzen") unter "Wiederherstellung" (in der Systemsteuerung) nicht verfügbar. Wenn diese Richtlinieneinstellung deaktiviert ist, können Benutzer den Computer jedoch in den Originalzustand zurückversetzen oder aus einem vom Benutzer erstellten Systemimages wiederherstellen, indem sie den Computer neu starten und, falls verfügbar, auf das Menü "Systemwiederherstellungsoptionen" zugreifen.</string>
+      <string id="AllowTrustedOfflineScan">Offlineüberprüfung aus der vertrauenswürdigen Windows-Wiederherstellungsumgebung zulassen</string>
+      <string id="AllowTrustedOfflineScan_help">    Anforderungen: Windows 10
+    Beschreibung: Diese Richtlinieneinstellung steuert, ob die Offlineüberprüfung von einer vertrauenswürdigen Windows-Wiederherstellungsumgebung aus zulässig sein soll.
+
+    Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Offlineüberprüfung ohne Aufforderung zur Eingabe des BitLocker-Wiederherstellungsschlüssels ausgeführt, solange BitLocker die Windows-Wiederherstellungsumgebung als vertrauenswürdig einstuft.
+
+    Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, fordert die Offlineüberprüfung die Benutzer zur Eingabe des BitLocker-Wiederherstellungsschlüssels auf, um das Betriebssystemvolume zu entsperren. Wenn die Entsperrung des Betriebssystemvolumes übersprungen wird, wird die Offlineüberprüfung nicht ausgeführt. Dies ist die Standardeinstellung.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

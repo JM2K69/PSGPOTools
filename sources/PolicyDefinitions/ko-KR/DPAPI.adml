@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>DPAPI</displayName>
+  <description>DPAPI 설정 구성</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod">DPAPI 백업 키 순환 기간 설정</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">이 정책 설정은 DPAPI 백업 키 순환 기간을 지정합니다. 
+이 설정을 사용하여 기본값인 90일을 재정의할 수 있습니다. DPAPI 백업 키 순환을 사용하지 않도록 설정하려면 0을 설정합니다. 
+이 정책 설정을 사용하면 새 DPAPI 백업 키를 생성하기 전에 시스템에서 대기하는 일수를 설정합니다. 
+이 정책 설정을 사용하지 않거나 구성하지 않으면 기본값인 90일이 사용됩니다.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">DPAPI 백업 키 순환 기간(일)을 설정하세요. 
+DPAPI 백업 키 순환을 사용하지 않으려면 0으로 설정하세요.</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

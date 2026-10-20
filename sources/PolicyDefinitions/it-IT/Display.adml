@@ -15,7 +15,16 @@ Se si abilita questa impostazione di criteri, il ridimensionamento DPI del progr
 Se si disabilita o non si configura questa impostazione di criteri, il ridimensionamento DPI del programma GDI non sarà abilitato per un'applicazione tranne quando quest'ultima viene abilitata mediante l'utilizzo del database di compatibilità delle applicazioni, dell'impostazione UI compatibilità applicazioni Sistema (avanzato) o di un manifesto dell'applicazione.
 
 Se il ridimensionamento DPI del programma GDI è configurato sia per disattivare sia per attivare un'applicazione, quest'ultima sarà disattivata.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">Il ridimensionamento DPI del programma GDI consente alle applicazioni che non sono sensibili ai valori DPI di diventare sensibili ai valori DPI del monitor.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">L'abilitazione di questo criterio consente di ignorare il comportamento predefinito quando si collega un monitor aggiuntivo. Consente di controllare se il display clonerà (rispecchierà) automaticamente lo schermo primario o estenderà il desktop.
+La funzione Estendi espande il display sul secondo monitor, consentendo di visualizzare contenuti diversi su ogni schermo. La funzione Clone duplica il display principale nel secondo monitor, mostrando lo stesso contenuto su entrambi gli schermi. La funzione Impostazione predefinita interna usa il comportamento predefinito del sistema determinato dalle impostazioni di Windows.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> Configura la modalità di visualizzazione multipla</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">L'abilitazione di questo criterio consente di ignorare il comportamento predefinito quando si collega un monitor aggiuntivo. Consente di controllare se uno schermo clonato dà priorità al monitor interno o a quello esterno, ad esempio impostando l'origine di risoluzione preferita.
+Interno imposta la risoluzione del display principale come origine su entrambi gli schermi. Esterno imposta la risoluzione del display connesso (esterno) come origine su entrambi gli schermi. Impostazione predefinita usa il comportamento predefinito del sistema determinato dalle impostazioni di Windows.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> Imposta l'origine di risoluzione preferita del monitor clonato</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">Il ridimensionamento DPI del programma GDI consente alle applicazioni che non sono sensibili ai valori DPI di diventare sensibili ai valori DPI del monitor.
 
 Questa impostazione di criteri consente di specificare le applicazioni legacy in cui è disattivato il ridimensionamento DPI del programma GDI.
 
@@ -26,24 +35,32 @@ Se si disabilita o non si configura questa impostazione di criteri, il ridimensi
 Se il ridimensionamento DPI del programma GDI è configurato sia per disattivare sia per attivare un'applicazione, quest'ultima sarà disattivata.</string>
       <string id="DisplayTurnOnGdiDPIScaling">Abilitare GdiDPIScaling per le applicazioni</string>
       <string id="DisplayTurnOffGdiDPIScaling">Disabilitare GdiDPIScaling per le applicazioni</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">DPI di sistema per processo è una funzionalità di compatibilità per le applicazioni desktop che non eseguono correttamente il rendering dopo la modifica di un fattore di scala di visualizzazione (DPI). Quando il fattore di scala di visualizzazione dello schermo primario cambia, che può verificarsi quando connetti o disconnetti uno schermo con un altro fattore di scala di visualizzazione (DPI), molte applicazioni desktop possono risultare sfocate. Le applicazioni desktop che non sono state aggiornate per essere visualizzate correttamente in questo scenario saranno sfocate finché l'utente non si disconnette e si riconnette a Windows. 
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">DPI di sistema per processo è una funzionalità di compatibilità applicazione per applicazioni desktop che non eseguono correttamente il rendering dopo la modifica di un fattore di scala di visualizzazione (DPI). Quando il fattore di scala di visualizzazione (DPI) del display primario cambia (situazione che può verificarsi quando si connette o si disconnette uno schermo con altro fattore di scala di visualizzazione differente, ci si connette da remoto da un dispositivo con un fattore di scala di visualizzazione differente o si cambia manualmente il fattore di scala di visualizzazione), molte applicazioni desktop possono risultare sfocate. Le applicazioni desktop che non sono state aggiornate per la visualizzazione corretta in questo scenario saranno sfocate finché l'utente non si disconnette e si riconnette a Windows.
 
-Quando abiliti questo criterio alcune applicazioni sfocate risulteranno nitide dopo il riavvio, senza richiedere all'utente di disconnettersi e di riconnettersi a Windows. 
+Quando si abilita questo criterio, alcune applicazioni sfocate risulteranno nitide dopo il riavvio, senza richiedere all'utente di disconnettersi e riconnettersi a Windows.
 
-Tieni presente le seguenti considerazioni:
+Tenere presente le seguenti considerazioni:
 
-DPI di sistema per processo migliora solo il rendering delle applicazioni desktop che si trovano sullo schermo principale. Alcune applicazioni desktop possono risultare ancora sfocate sugli schermi secondari che hanno fattori di scala di visualizzazione diversi. 
+DPI di sistema per processo migliorerà solo il rendering delle applicazioni desktop che si trovano sul display principale. Alcune applicazioni desktop possono risultare ancora sfocate sui display secondari che hanno fattori di scala di visualizzazione diversi.
 
-DPI di sistema per processo non funziona per tutte le applicazioni in quanto alcune applicazioni desktop saranno sempre sfocate sugli schermi con valori DPI alti. 
+DPI di sistema per processo non funzionerà per tutte le applicazioni, in quanto alcune applicazioni desktop meno recenti saranno sempre sfocate su display con valori DPI alti.
 
-In alcuni casi, puoi rilevare un comportamento insolito in alcune applicazioni desktop. In questi casi, DPI di sistema per processo deve essere disabilitato.
+In alcuni casi, si può rilevare un comportamento insolito in alcune applicazioni desktop. In questi casi, DPI di sistema per processo deve essere disabilitato.
 
-L'abilitazione di questa impostazione ti consente di specificare il valore predefinito a livello di sistema per le applicazioni desktop, nonché gli override per applicazione. Se si disabilita o non si configura questa impostazione, DPI di sistema per processo non verrà applicato ad alcun processo nel sistema.
+L'abilitazione di questa impostazione consente di specificare il valore predefinito a livello di sistema per le applicazioni desktop, nonché gli override per applicazione. Se si disabilita o non si configura questa impostazione, DPI di sistema per processo non verrà applicato ad alcun processo nel sistema.
 
 </string>
       <string id="DisplayPerProcessSystemDpiSettings">Configura impostazioni DPI di sistema per processo</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">Abilita</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">Disabilita</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">Clona</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">Impostazione predefinita</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">Estendi</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">Solo interno</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">Solo esterna</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">Impostazione predefinita</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">Interno</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">Esterno</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">Abilita DPI di sistema per processo per le applicazioni</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">Disabilita DPI di sistema per processo per le applicazioni</string>
     </stringTable>
@@ -66,6 +83,12 @@ L'abilitazione di questa impostazione ti consente di specificare il valore prede
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>Disabilita DPI di sistema per processo per le applicazioni seguenti. Utilizza il percorso completo dell'applicazione o il nome del file e l'estensione dell'applicazione. Separa le applicazioni con un punto e virgola.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">Clona, Estendi, InternalOnly, ExternalOnly o Continua con le impostazioni di Windows predefinite come configurazione per la modalità di visualizzazione multipla.</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">Imposta la risoluzione predefinita che Windows userà per i nuovi schermi clonati come le Impostazioni di Windows: Interno, Esterno o Impostazione predefinita.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

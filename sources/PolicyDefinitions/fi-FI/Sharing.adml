@@ -25,6 +25,10 @@ Tätä käytäntöasetusta ei ole oletusarvon mukaan määritetty.
 Sinun on käynnistettävä tietokone uudelleen, jotta tämä käytäntöasetus tulee voimaan.</string>
       <string id="HomeGroup">Kotiryhmä</string>
       <string id="HomeGroup_Help">Sisältää asetukset, joilla ohjataan kotiryhmän toimintaa.</string>
+      <string id="DisableShareAppPromotions">DisableShareAppPromotions</string>
+      <string id="DisableShareAppPromotions_Help">Tämän käytäntöasetuksen avulla IT-järjestelmänvalvojat voivat määrittää, näytetäänkö kampanjasovellukset ShareSheetissä. Jos otat tämän käytännön käyttöön, Windows ei näytä kampanjasovelluksia ShareSheetissä. Jos poistat tämän käytännön käytöstä tai et määritä sitä, ShareSheet saattaa näyttää sovellusehdotuksia ja ylennyksiä, kun ShareSheet avataan.</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

@@ -15,7 +15,16 @@ Jeśli włączysz to ustawienie zasad, skalowanie DPI z użyciem interfejsu GDI 
 Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, skalowanie DPI z użyciem interfejsu GDI nie będzie włączone dla aplikacji, o ile nie zostanie włączone w aplikacji za pomocą bazy danych Zgodność aplikacji, ustawienia System interfejsu użytkownika Zgodność aplikacji (ulepszony) lub manifestu aplikacji.
 
 Jeśli skalowanie DPI z użyciem interfejsu GDI będzie skonfigurowane tak, że jednocześnie będzie włączone i wyłączone w aplikacji, jego obsługa zostanie wyłączona w aplikacji.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">Skalowanie DPI z użyciem interfejsu GDI umożliwia aplikacjom, które nie rozpoznają rozdzielczości DPI, rozpoznawanie rozdzielczości DPI monitora.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">Włączenie tych zasad pozwala na zastąpienie domyślnego zachowania podczas podłączania dodatkowego monitora. Umożliwia kontrolę nad tym, czy wyświetlacz będzie automatycznie klonował (dublował) ekran podstawowy lub rozszerzał pulpit.
+Rozszerzanie rozciąga wyświetlanie na drugi monitor, umożliwiając wyświetlanie innej zawartości na każdym ekranie. Klonowanie duplikuje ekran podstawowy na drugim monitorze, wyświetlając tę samą zawartość na obu ekranach. Ustawienie domyślne wewnętrzne wykorzystuje domyślne zachowanie systemu określone w ustawieniach systemu Windows.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> Konfiguruj tryb wyświetlania wielokrotnego</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">Włączenie tych zasad pozwala na zastąpienie domyślnego zachowania podczas podłączania dodatkowego monitora. Umożliwia kontrolę nad tym, czy sklonowany wyświetlacz nadaje priorytet monitorowi wewnętrznemu czy zewnętrznemu, tj. ustawia preferowane źródło rozdzielczości.
+Opcja Wewnętrzny powoduje ustawienie rozdzielczości głównego monitora jako źródła na obu ekranach. Opcja Zewnętrzny powoduje ustawienie rozdzielczości podłączonego (zewnętrznego) monitora jako źródła na obu ekranach. Ustawienie domyślne używa domyślnego zachowania systemu określonego przez ustawienia systemu Windows.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> Ustaw źródło preferowanej rozdzielczości sklonowanego monitora</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">Skalowanie DPI z użyciem interfejsu GDI umożliwia aplikacjom, które nie rozpoznają rozdzielczości DPI, rozpoznawanie rozdzielczości DPI monitora.
 
 To ustawienie zasad umożliwia wybranie starszych aplikacji, dla których będzie wyłączone skalowanie DPI z użyciem interfejsu GDI.
 
@@ -26,15 +35,15 @@ Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, skalowanie DP
 Jeśli skalowanie DPI z użyciem interfejsu GDI będzie skonfigurowane tak, że jednocześnie będzie włączone i wyłączone w aplikacji, jego obsługa zostanie wyłączona w aplikacji.</string>
       <string id="DisplayTurnOnGdiDPIScaling">Włącz funkcję GdiDPIScaling dla aplikacji</string>
       <string id="DisplayTurnOffGdiDPIScaling">Wyłącz funkcję GdiDPIScaling dla aplikacji</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">Systemowy współczynnik DPI na proces to funkcja zgodności aplikacji dla aplikacji klasycznych, które nie są poprawnie renderowane po zmianie współczynnika skalowania ekranu (DPI). Gdy współczynnik skalowania ekranu wyświetlacza podstawowego zostanie zmieniony (co może mieć miejsce po podłączeniu lub odłączeniu wyświetlacza mającego inny współczynnik skalowania ekranu [DPI], zdalnym nawiązaniu połączenia z urządzenia mającego inny współczynnik skalowana ekranu albo ręcznej zmianie współczynnika skalowania ekranu), wiele aplikacji klasycznych może być wyświetlanych jako rozmyte. Aplikacje klasyczne, które nie zostały zaktualizowane do poprawnego wyświetlania w tym scenariuszu, będą rozmyte, dopóki użytkownik nie wyloguje się z systemu Windows i nie zaloguje się ponownie. 
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">Systemowy współczynnik DPI na proces to funkcja zgodności aplikacji dla aplikacji klasycznych, które nie są poprawnie renderowane po zmianie współczynnika skalowania ekranu (DPI). Gdy współczynnik skalowania ekranu wyświetlacza podstawowego zostanie zmieniony (co może mieć miejsce po podłączeniu lub odłączeniu wyświetlacza mającego inny współczynnik skalowania ekranu [DPI], zdalnym nawiązaniu połączenia z urządzenia mającego inny współczynnik skalowana ekranu albo ręcznej zmianie współczynnika skalowania ekranu), wiele aplikacji klasycznych może być wyświetlanych jako rozmyte. Aplikacje klasyczne, które nie zostały zaktualizowane do poprawnego wyświetlania w tym scenariuszu, będą rozmyte, dopóki użytkownik nie wyloguje się z systemu Windows i nie zaloguje się ponownie.
 
-Gdy włączysz tę zasadę, niektóre rozmyte aplikacje zaczną być wyraźne po ponownym uruchomieniu, a więc wylogowanie użytkownika z systemu Windows i ponowne zalogowanie się nie będzie konieczne. 
+Gdy włączysz tę zasadę, niektóre rozmyte aplikacje zaczną być wyraźne po ponownym uruchomieniu, a więc wylogowanie użytkownika z systemu Windows i ponowne zalogowanie się nie będzie konieczne.
 
 Należy pamiętać o następujących kwestiach:
 
-Funkcja Systemowy współczynnik DPI na proces ulepszy sposób renderowania tylko aplikacji klasycznych umieszczonych na wyświetlaczu podstawowym. Niektóre aplikacje klasyczne nadal mogą być rozmyte na wyświetlaczach pomocniczych, które mają inne współczynniki skalowania ekranu. 
+Funkcja Systemowy współczynnik DPI na proces ulepszy sposób renderowania tylko aplikacji klasycznych umieszczonych na wyświetlaczu podstawowym. Niektóre aplikacje klasyczne nadal mogą być rozmyte na wyświetlaczach pomocniczych, które mają inne współczynniki skalowania ekranu.
 
-Funkcja Systemowy współczynnik DPI na proces nie będzie działać ze wszystkimi aplikacjami, ponieważ niektóre starsze aplikacje klasyczne zawsze będą rozmyte na wyświetlaczach mających wysoki współczynnik DPI. 
+Funkcja Systemowy współczynnik DPI na proces nie będzie działać ze wszystkimi aplikacjami, ponieważ niektóre starsze aplikacje klasyczne zawsze będą rozmyte na wyświetlaczach mających wysoki współczynnik DPI.
 
 W niektórych przypadkach możesz zaobserwować dziwne zachowanie niektórych aplikacji klasycznych. W takiej sytuacji należy wyłączyć funkcję Systemowy współczynnik DPI na proces.
 
@@ -44,6 +53,14 @@ Włączenie tego ustawienia umożliwi określenie obowiązującej w całym syste
       <string id="DisplayPerProcessSystemDpiSettings">Konfiguruj ustawienia funkcji Systemowy współczynnik DPI na proces</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">Włącz</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">Wyłącz</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">Klonuj</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">Domyślne</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">Rozszerz</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">Tylko do użytku wewnętrznego</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">Tylko zewnętrzne</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">Domyślne</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">Wewnętrzny</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">Zewnętrzny</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">Włącz funkcję Systemowy współczynnik DPI na proces dla aplikacji</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">Wyłącz funkcję Systemowy współczynnik DPI na proces dla aplikacji</string>
     </stringTable>
@@ -66,6 +83,12 @@ Włączenie tego ustawienia umożliwi określenie obowiązującej w całym syste
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>Wyłącz funkcję Systemowy współczynnik DPI na proces dla wymienionych poniżej aplikacji. Użyj pełnej ścieżki aplikacji albo nazwy pliku i rozszerzenia aplikacji. Rozdziel aplikacje średnikami.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">Klonuj, rozszerz, InternalOnly, ExternalOnly lub kontynuuj z domyślnymi ustawieniami systemu Windows jako konfiguracją trybu wielu ekranów.</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">Ustaw rozdzielczość domyślną, która będzie używana przez system Windows dla nowych sklonowanych wyświetlaczy jako Wewnętrzny, Zewnętrzny lub Domyślne ustawienia systemu Windows.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

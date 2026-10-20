@@ -7,20 +7,19 @@
     <stringTable>
       <string id="ActiveDirectoryBackup_Help">Denne politikindstilling giver dig mulighed for at administrere Active Directory-domænetjenestens sikkerhedskopiering af oplysninger om BitLocker-drevkryptering. Herved opnår du en administrativ metode til at genoprette data, der er krypteret af BitLocker, for at forhindre datatab, som skyldes manglende nøgleoplysninger. Denne politikindstilling gælder kun computere, som kører Windows Server 2008 eller Windows Vista.
 
-Hvis du aktiverer denne politikindstilling, vil oplysningerne om BitLocker-genoprettelse automatisk blive sikkerhedskopieret til Active Directory-domænetjenesterne, når BitLocker er aktiveret for en computer. Denne politikindstilling anvendes, når du aktiverer BitLocker.
+Hvis du aktiverer denne politikindstilling, vil oplysningerne om BitLocker-genoprettelse automatisk blive sikkerhedskopieret til Active Directory-domæneservices, når BitLocker er aktiveret for en computer. Denne politikindstilling anvendes, når du aktiverer BitLocker.
 
 Bemærk! Du skal muligvis først oprette passende skemaudvidelser og adgangskontrolindstillinger på domænet, inden Active Directory-domænetjenestens sikkerhedskopiering kan fuldføres. Du kan finde flere oplysninger om at konfigurere Active Directory-domænetjenestens sikkerhedskopiering til BitLocker på Microsoft TechNet.
 
 BitLocker-genoprettelsesoplysninger omfatter genoprettelsesadgangskoden og nogle entydige id-data. Du kan også medtage en pakke, der indeholder et BitLocker-beskyttet drevs krypteringsnøgle. Denne pakke er sikret af en eller flere genoprettelsesadgangskoder og kan være med til at udføre særlig genoprettelse, når disken er beskadiget eller på anden måde har lidt overlast.
 
-Hvis du vælger indstillingen "Kræv BitLocker-sikkerhedskopiering til Active Directory-domænetjenester", kan BitLocker ikke aktiveres, medmindre computeren har forbindelse til domænet, og sikkerhedskopieringen af BitLocker-genoprettelsesoplysninger til Active Directory lykkes. Denne indstilling er valgt som standard, så BitLocker-genoprettelse bliver mulig. Hvis indstillingen ikke vælges, forsøges Active Directory-domænetjenestens sikkerhedskopiering, men netværks- eller andre sikkerhedskopieringsfejl forhindrer ikke BitLocker-konfigurationen. Sikkerhedskopiering forsøges ikke automatisk igen, og genoprettelsesadgangskoden vil muligvis ikke være gemt i Active Directory-domænetjenestens sikkerhedskopiering under BitLocker-konfigurationen.
+Hvis du vælger indstillingen "Kræv BitLocker-sikkerhedskopiering til Active Directory-domæneservices", kan BitLocker ikke aktiveres, medmindre computeren har forbindelse til domænet, og sikkerhedskopieringen af BitLocker-genoprettelsesoplysninger til Active Directory lykkes. Denne indstilling er valgt som standard, så BitLocker-genoprettelse bliver mulig. Hvis indstillingen ikke vælges, forsøges Active Directory-domænetjenestens sikkerhedskopiering, men netværks- eller andre sikkerhedskopieringsfejl forhindrer ikke BitLocker-konfigurationen. Sikkerhedskopiering forsøges ikke automatisk igen, og genoprettelsesadgangskoden vil muligvis ikke være gemt i Active Directory-domænetjenestens sikkerhedskopiering under BitLocker-konfigurationen.
 
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, sikkerhedskopieres BitLocker-genoprettelsesoplysninger ikke til Active Directory-domænetjenesterne.
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, sikkerhedskopieres BitLocker-genoprettelsesoplysninger ikke til Active Directory-domæneservices.
 
-Bemærk! Initialisering af TPM (Trusted Platform Module) finder muligvis ikke sted under BitLocker-konfigurationen. Aktivér politikindstillingen "Slå TPM-sikkerhedskopiering til Active Directory-domænetjenester til" i System\Trusted Platform Module-tjenester for at sikre, at TPM-oplysningerne også sikkerhedskopieres.
-      
+Bemærk! Initialisering af TPM (Trusted Platform Module) finder muligvis ikke sted under BitLocker-konfigurationen. Aktivér politikindstillingen "Slå TPM-sikkerhedskopiering til Active Directory-domæneservices til" i System\Trusted Platform Module-tjenester for at sikre, at TPM-oplysningerne også sikkerhedskopieres.
       </string>
-      <string id="ActiveDirectoryBackup_Name">Gem BitLocker-genoprettelsesoplysninger i Active Directory-domænetjenester (Windows Server 2008 og Windows Vista)</string>
+      <string id="ActiveDirectoryBackup_Name">Gem BitLocker-genoprettelsesoplysninger i Active Directory-domæneservices (Windows Server 2008 og Windows Vista)</string>
       <string id="ActiveDirectoryBackupDropDown_1">Genoprettelsesadgangskoder og nøglepakker</string>
       <string id="ActiveDirectoryBackupDropDown_2">Kun genoprettelsesadgangskoder</string>
 
@@ -100,9 +99,7 @@ Bemærk! Hvis initialisering af TPM (Trusted Platform Module) kræves under BitL
 
 Bemærk! Den 48-cifrede genoprettelsesadgangskode vil ikke være tilgængelig i FIPS-overholdelsestilstand.
 
-Vigtigt! Denne politikindstilling leverer en administrativ metode til at genoprette data, der er krypteret af BitLocker, for at forhindre datatab, som skyldes manglende nøgleoplysninger. Hvis du ikke vil tillade begge indstillinger for brugergenoprettelse, skal du aktivere politikindstillingen "Gem BitLocker-genoprettelsesoplysninger i Active Directory-domænetjenester (Windows Server 2008 og Windows Vista)" for at forhindre en politikfejl.
-
-      
+Vigtigt! Denne politikindstilling leverer en administrativ metode til at genoprette data, der er krypteret af BitLocker, for at forhindre datatab, som skyldes manglende nøgleoplysninger. Hvis du ikke vil tillade begge indstillinger for brugergenoprettelse, skal du aktivere politikindstillingen "Gem BitLocker-genoprettelsesoplysninger i Active Directory-domæneservices (Windows Server 2008 og Windows Vista)" for at forhindre en politikfejl.
 
       </string>
 
@@ -124,7 +121,7 @@ I "Konfigurer brugerlagrede data fra BitLocker-genoprettelsesoplysninger" skal d
 
 Vælg "Udelad genoprettelsesindstillinger i guiden til konfiguration af BitLocker" for at forhindre brugere i at angive genoprettelsesindstillinger, når de aktiverer BitLocker på et drev. Det betyder, at du ikke kan angive, hvilken genoprettelsesindstilling der skal bruges, når du aktiverer BitLocker. I stedet bestemmes BitLocker-genoprettelsesoplysninger for drevet af politikindstillingen.
 
-I "Gem BitLocker-genoprettelsesoplysninger i Active Directory-domænetjenester" skal du vælge, hvilke BitLocker-genoprettelsesoplysninger der skal gemmes i Active Directory-domænetjenester for operativsystemdrevene. Hvis du vælger "Sikkerhedskopiér genoprettelsesadgangskode og nøglepakke", gemmes både BitLocker-genoprettelsesadgangskoden og nøglepakken i Active Directory-domænetjenester. Lagring af nøglepakken understøtter genoprettelse af data fra et drev, som er fysisk beskadiget. Hvis du vælger "Sikkerhedskopiér kun genoprettelsesadgangskode", er det kun genoprettelsesadgangskoden, som gemmes i Active Directory-domænetjenesten.
+I "Gem BitLocker-genoprettelsesoplysninger i Active Directory-domæneservices" skal du vælge, hvilke BitLocker-genoprettelsesoplysninger der skal gemmes i Active Directory-domæneservices for operativsystemdrevene. Hvis du vælger "Sikkerhedskopiér genoprettelsesadgangskode og nøglepakke", gemmes både BitLocker-genoprettelsesadgangskoden og nøglepakken i Active Directory-domæneservices. Lagring af nøglepakken understøtter genoprettelse af data fra et drev, som er fysisk beskadiget. Hvis du vælger "Sikkerhedskopiér kun genoprettelsesadgangskode", er det kun genoprettelsesadgangskoden, som gemmes i Active Directory-domænetjenesten.
 
 Markér afkrydsningsfeltet "Aktivér ikke BitLocker, før genoprettelsesoplysninger er gemt i Active Directory-domænetjenesten for operativsystemdrev", hvis du vil forhindre brugere i at aktivere BitLocker, medmindre computeren har forbindelse til domænet, og sikkerhedskopieringen af BitLocker-genoprettelsesoplysninger til Active Directory lykkes.
 
@@ -133,8 +130,6 @@ Bemærk! Hvis afkrydsningsfeltet "Aktivér ikke BitLocker, før genoprettelsesop
 Hvis du aktiverer denne politikindstilling, kan du styre, hvilke metoder til genoprettelse af data fra BitLocker-beskyttede operativsystemdrev der skal være tilgængelige for brugere.
 
 Hvis denne politikindstilling deaktiveres eller ikke konfigureres, understøttes standardindstillingerne for BitLocker-genoprettelse. Som standard er en DRA tilladt, genoprettelsesindstillingerne, herunder genoprettelsesadgangskode og genoprettelsesnøgle, kan angives af brugeren, og genoprettelsesoplysninger sikkerhedskopieres ikke til Active Directory-domænetjenesten.
-
-
 
 </string>
 
@@ -155,7 +150,7 @@ I "Konfigurer brugerlagrede data fra BitLocker-genoprettelsesoplysninger" skal d
 
 Vælg "Udelad genoprettelsesindstillinger i guiden til konfiguration af BitLocker" for at forhindre brugere i at angive genoprettelsesindstillinger, når de aktiverer BitLocker på et drev. Det betyder, at du ikke kan angive, hvilken genoprettelsesindstilling der skal bruges, når du aktiverer BitLocker. I stedet bestemmes BitLocker-genoprettelsesoplysninger for drevet af politikindstillingen.
 
-I "Gem BitLocker-genoprettelsesoplysninger i Active Directory-domænetjenester" skal du vælge, hvilke BitLocker-genoprettelsesoplysninger der skal gemmes i Active Directory-domænetjenester for permanente datadrev. Hvis du vælger "Sikkerhedskopiér genoprettelsesadgangskode og nøglepakke", gemmes både BitLocker-genoprettelsesadgangskoden og nøglepakken i Active Directory-domænetjenester. Lagring af nøglepakken understøtter genoprettelse af data fra et drev, som er fysisk beskadiget. Hvis du vælger "Sikkerhedskopiér kun genoprettelsesadgangskode", er det kun genoprettelsesadgangskoden, som gemmes i Active Directory-domænetjenesten.
+I "Gem BitLocker-genoprettelsesoplysninger i Active Directory-domæneservices" skal du vælge, hvilke BitLocker-genoprettelsesoplysninger der skal gemmes i Active Directory-domæneservices for permanente datadrev. Hvis du vælger "Sikkerhedskopiér genoprettelsesadgangskode og nøglepakke", gemmes både BitLocker-genoprettelsesadgangskoden og nøglepakken i Active Directory-domæneservices. Lagring af nøglepakken understøtter genoprettelse af data fra et drev, som er fysisk beskadiget. Hvis du vælger "Sikkerhedskopiér kun genoprettelsesadgangskode", er det kun genoprettelsesadgangskoden, som gemmes i Active Directory-domænetjenesten.
 
 Markér afkrydsningsfeltet "Aktivér ikke BitLocker, før genoprettelsesoplysninger er gemt i Active Directory-domænetjenesten for permanente datadrev", hvis du vil forhindre brugere i at aktivere BitLocker, medmindre computeren har forbindelse til domænet, og sikkerhedskopieringen af BitLocker-genoprettelsesoplysninger til Active Directory lykkes.
 
@@ -164,8 +159,6 @@ Bemærk! Hvis afkrydsningsfeltet "Aktivér ikke BitLocker, før genoprettelsesop
 Hvis du aktiverer denne politikindstilling, kan du styre, hvilke metoder til genoprettelse af data fra BitLocker-beskyttede permanente datadrev der skal være tilgængelige for brugere.
 
 Hvis denne politikindstilling ikke konfigureres eller deaktiveres, understøttes standardindstillingerne for BitLocker-genoprettelse. Som standard er en DRA tilladt, genoprettelsesindstillingerne, herunder genoprettelsesadgangskode og genoprettelsesnøgle, kan angives af brugeren, og genoprettelsesoplysninger sikkerhedskopieres ikke til Active Directory-domænetjenesten.
-
-
 
 </string>
 
@@ -187,7 +180,7 @@ I "Konfigurer brugerlagrede data fra BitLocker-genoprettelsesoplysninger" skal d
 
 Vælg "Udelad genoprettelsesindstillinger i guiden til konfiguration af BitLocker" for at forhindre brugere i at angive genoprettelsesindstillinger, når de aktiverer BitLocker på et drev. Det betyder, at du ikke kan angive, hvilken genoprettelsesindstilling der skal bruges, når du aktiverer BitLocker. I stedet bestemmes BitLocker-genoprettelsesoplysninger for drevet af politikindstillingen.
 
-I "Gem BitLocker-genoprettelsesoplysninger i Active Directory-domænetjenester" skal du vælge, hvilke BitLocker-genoprettelsesoplysninger der skal gemmes i Active Directory-domænetjenester for flytbare datadrev. Hvis du vælger "Sikkerhedskopiér genoprettelsesadgangskode og nøglepakke", gemmes både BitLocker-genoprettelsesadgangskoden og nøglepakken i Active Directory-domænetjenester. Hvis du vælger "Sikkerhedskopiér kun genoprettelsesadgangskode", er det kun genoprettelsesadgangskoden, som gemmes i Active Directory-domænetjenesten.
+I "Gem BitLocker-genoprettelsesoplysninger i Active Directory-domæneservices" skal du vælge, hvilke BitLocker-genoprettelsesoplysninger der skal gemmes i Active Directory-domæneservices for flytbare datadrev. Hvis du vælger "Sikkerhedskopiér genoprettelsesadgangskode og nøglepakke", gemmes både BitLocker-genoprettelsesadgangskoden og nøglepakken i Active Directory-domæneservices. Hvis du vælger "Sikkerhedskopiér kun genoprettelsesadgangskode", er det kun genoprettelsesadgangskoden, som gemmes i Active Directory-domænetjenesten.
 
 Markér afkrydsningsfeltet "Aktivér ikke BitLocker, før genoprettelsesoplysninger er gemt i Active Directory-domænetjenesten for flytbare datadrev", hvis du vil forhindre brugere i at aktivere BitLocker, medmindre computeren har forbindelse til domænet, og sikkerhedskopieringen af BitLocker-genoprettelsesoplysninger til Active Directory lykkes.
 
@@ -196,7 +189,6 @@ Bemærk! Hvis afkrydsningsfeltet "Aktivér ikke BitLocker, før genoprettelsesop
 Hvis du aktiverer denne politikindstilling, kan du styre, hvilke metoder til genoprettelse af data fra BitLocker-beskyttede flytbare datadrev der skal være tilgængelige for brugere.
 
 Hvis denne politikindstilling ikke konfigureres eller deaktiveres, understøttes standardindstillingerne for BitLocker-genoprettelse. Som standard er en DRA tilladt, genoprettelsesindstillingerne, herunder genoprettelsesadgangskode og genoprettelsesnøgle, kan angives af brugeren, og genoprettelsesoplysninger sikkerhedskopieres ikke til Active Directory-domænetjenesten.
-      
       </string>
       <string id="RDVRecoveryPasswordUsageDropDown_Require">Kræv 48-cifret genoprettelsesadgangskode</string>
       <string id="RDVRecoveryPasswordUsageDropDown_Allow">Tillad 48-cifret genoprettelsesadgangskode</string>
@@ -321,6 +313,18 @@ Bemærk! Nogle pc'er er måske ikke kompatible med denne politik, hvis systemfir
 
       </string>
       <string id="DisableExternalDMAUnderLock_Name">Slå nye DMA-enheder fra, når denne computer er låst</string>
+
+      <string id="DisableWinRETrust_Help">Denne politikindstilling styrer, om BitLocker har tillid til Windows Genoprettelsesmiljø (WinRE).
+
+Når BitLocker har tillid til Windows Genoprettelsesmiljø, kan Windows Genoprettelsesmiljø få adgang til den BitLocker-beskyttede operativsystemvolumen uden at kræve BitLocker-genoprettelsesnøglen. Det understøtter genoprettelseshandlinger, der kræver adgang til operativsystemvolumen.
+
+Vigtigt: Hvis du aktiverer denne politikindstilling, ændres genoprettelsesadfærden. Hvis du aktiverer denne politikindstilling, har BitLocker ikke tillid til Windows Genoprettelsesmiljø. BitLocker-genoprettelsesnøglen kræves til alle Windows Genoprettelsesmiljø-handlinger, der har brug for adgang til den BitLocker-beskyttede operativsystemvolumen. Genoprettelseshandlinger, der er afhængige af Windows Genoprettelsesmiljø-adgang til operativsystemvolumen, kan kræve indgriben fra en bruger eller administrator og fuldføres muligvis ikke automatisk, herunder Startreparation, Hurtigt enhedsberedskab, Genoprettelse med tryk på en knap samt MDM-initieret fjernnulstilling eller fuldstændig sletning ved hjælp af RemoteWipe CSP.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, har BitLocker tillid til en valideret Windows Genoprettelsesmiljø-afbildning, så Windows Genoprettelsesmiljø kan få adgang til den BitLocker-beskyttede operativsystemvolumen uden genoprettelsesnøglen.
+
+Denne politikindstilling håndhæves kun, når BitLocker eller enhedskryptering er aktiveret.</string>
+
+      <string id="DisableWinRETrust_Name">Deaktiver BitLocker-tillid i Windows Genoprettelsesmiljø (WinRE)</string>
 
       <string id="FVEOSCategory">Operativsystemdrev</string>
       <string id="FVEFDVCategory">Permanente datadrev</string>
@@ -719,7 +723,6 @@ Når denne politik er aktiveret, og hardwaren kan udføre sikker bootstart i Bit
 Bemærk! Hvis gruppepolitikindstillingen "Konfigurer TPM-profil til platformsvalidering for indbyggede UEFI-firmwarekonfigurationer" er aktiveret, og PCR 7 er udeladt, forhindres BitLocker i at bruge sikker bootstart til validering af platforms- eller BCD-integritet (Boot Configuration Data).
 
 Advarsel: Hvis du deaktiverer denne politikindstilling, kan det resultere i BitLocker-genoprettelse, når firmware opdateres. Hvis du deaktiverer denne politikindstilling, skal du afbryde BitLocker før anvendelse af firmwareopdateringer.
-    
       </string>
       <string id="SUPPORTED_Windows8NoARM">Mindst Windows Server 2012 eller Windows 8</string>  
       <string id="SUPPORTED_Windows_6_3ToVista">Windows Server 2012 R2, Windows 8.1, Windows Server 2012, Windows 8, Windows Server 2008, Windows 7 og Windows Vista</string>

@@ -5,15 +5,15 @@
   <description>skriv inn beskrivelse her</description>
   <resources>
     <stringTable>
-      <string id="Soundrec_DiableApplication_TitleText">Ikke tillat at Lydinnspilling kjøres</string>
-      <string id="Soundrec_DisableApplication_DescriptionText">Angir om Lydinnspilling kan kjøres eller ikke.
+      <string id="Soundrec_DiableApplication_TitleText">Ikke tillat at Lydopptaker kjøres</string>
+      <string id="Soundrec_DisableApplication_DescriptionText">Angir om Lydopptaker kan kjøres eller ikke.
 
-Lydinnspilling er en funksjon i Microsoft Windows Vista som kan brukes til innspilling av lyd fra en lydinndataenhet der innspilt lyd er kodet og lagret som en lydfil.
+Lydopptaker er en funksjon i Microsoft Windows Vista som kan brukes til opptak av lyd fra en lydinndataenhet der innspilt lyd er kodet og lagret som en lydfil.
 
-Hvis du aktiverer denne policyinnstillingen, kan Lydinnspilling ikke kjøres.
+Hvis du aktiverer denne policyinnstillingen, kan Lydopptaker ikke kjøres.
 
-Hvis du deaktiverer eller lar være å konfigurere denne policyinnstillingen, kan Lydinnspilling kjøres.</string>
-      <string id="Soundrec_GroupPolicyCategory">Lydinnspilling</string>
+Hvis du deaktiverer eller lar være å konfigurere denne policyinnstillingen, kan Lydopptaker kjøres.</string>
+      <string id="Soundrec_GroupPolicyCategory">Lydopptaker</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

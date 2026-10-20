@@ -27,19 +27,17 @@
       <string id="IPHTTPS_ClientState">设置 IP-HTTPS 状态</string>
       <string id="IPHTTPS_ClientUrl">IP-HTTPS URL</string>
 
-      <string id="ISATAP_State_Help">使用此策略设置，可以配置站内自动隧道寻址协议(ISATAP)，这是一种地址到路由器、主机到主机以及主机到路由器的自动隧道技术，用于在 IPv4 Intranet 上的 IPv6 主机之间提供单播 IPv6 连接。
+      <string id="ISATAP_State_Help">通过此策略设置，可配置站内自动隧道寻址协议 (ISATAP)，这是一种“地址到路由器”和“主机到主机”、“主机到路由器”和“路由器到主机”的自动隧道技术，用于在 IPv4 intranet 内提供 IPv6 主机之间的单播 IPv6 连接。
 
-如果禁用或未配置此策略设置，则使用本地主机设置。
+ 如果禁用或未配置此策略设置，则使用本地主机设置。
 
-如果启用此策略设置，则可以使用以下设置之一配置 ISATAP:
+ 如果启用此策略设置，则可以使用以下设置之一配置 ISATAP：
 
-策略默认状态: 如果成功解析 ISATAP 路由器名称，则主机将通过无状态地址自动配置为 ISATAP 配置一个本地链接地址和一个与 ISATAP 路由器收到的每个前缀对应的地址。如果未成功解析 ISATAP 路由器名称，则 ISATAP 连接在使用相应 IPv4 地址的主机上不可用。
+ 策略默认状态：主机上不存在 ISATAP 接口。
 
-策略已启用状态: 如果成功解析 ISATAP 名称，主机将通过无状态地址自动配置为 ISATAP 配置一个本地链接地址和一个与 ISATAP 路由器收到的每个前缀对应的地址。如果未成功解析 ISATAP 名称，则主机将为 ISATAP 接口配置一个本地链接地址。
+ 策略已启用状态：如果 ISATAP 名称已成功解析，则主机将为 ISATAP 配置链接本地地址，并通过无状态地址自动配置的从 ISATAP 路由器收到的每个前缀获取地址。如果未成功解析 ISATAP 名称，则主机将为 ISATAP 接口配置链接本地地址。
 
-策略已禁用状态: 主机上没有任何 ISATAP 接口。
-
-
+ 策略已禁用状态：主机上不存在 ISATAP 接口。
 
 </string>
 
@@ -54,19 +52,17 @@
 </string>
 
 
-      <string id="6to4_State_Help">使用此策略设置，可以配置 6to4，这是一种地址分配和路由器到路由器自动隧道技术，用于在 IPv4 Internet 上的 IPv6 网站和主机之间提供单播 IPv6 连接。6to4 使用全局地址前缀: 2002:WWXX:YYZZ::/48，其中的字母是分配给站点的全局 IPv4 地址(w.x.y.z)的十六进制表示形式。
+      <string id="6to4_State_Help">使用此策略设置，可以配置6to4、地址分配和路由器到路由器的自动隧道技术，该技术用于跨 IPv4 Internet 提供 IPv6 站点和主机之间的单播 IPv6 连接。6to4 使用全局地址前缀：2002:WWXX:YYZZ::/48，其中字母是分配到网站的全局 IPv4 地址 (w.x.y.z) 的十六进制表示形式。
 
-如果禁用或未配置此策略设置，则使用本地主机设置。
+ 如果禁用或未配置此策略设置，则使用本地主机设置。
 
-如果启用此策略设置，则可以使用以下设置之一配置 6to4:
+ 如果启用此策略设置，则可以使用以下设置之一配置6to4：
 
-策略默认状态: 如果主机仅具有本地链接的 IPv6 连接和公用 IPv4 地址，则启用 6to4。如果不存在全局 IPv6 地址和全局 IPv4 地址，则主机将不具有 6to4 接口。如果不存在全局 IPv6 地址但存在全局 IPv4 地址，则主机将具有 6to4 接口。
+策略默认状态：6to4 已关闭，并且与 6to4 的连接将不可用。
 
-策略已启用状态: 如果存在全局 IPv4 地址，则主机将具有 6to4 接口。如果不存在全局 IPv4 地址，则主机将不具有 6to4 接口。
+ 策略已启用状态：如果存在全局 IPv4 地址，则主机将拥有 6to4 接口。如果没有全局 IPv4 地址，则主机将没有 6to4 接口。
 
-策略已禁用状态: 6to4 将关闭，并且与 6to4 的连接将不可用。
-
-
+ 策略禁用状态：6to4 已关闭，并且与 6to 4 的连接将不可用。
 
 </string>
 
@@ -188,6 +184,45 @@
 如果禁用此策略设置，则将禁用 IP 无状态自动配置限制，且系统不限制自动配置的地址和路由的数目。
 
 
+
+</string>
+
+      <string id="IPxlatCfg_PermitNonCellularCLAT">设置 CLAT 许可</string>
+      <string id="IPxlatCfg_PermitNonCellularCLAT_Help">此策略设置允许你全局许可或禁用非手机网络接口的 464XLAT (CLAT)客户端转换器。
+
+如果启用此策略设置，则全局许可 CLAT，并且可以在网络接口上启用。
+
+如果禁用此策略设置，则全局禁止 CLAT，并且无法启用。
+
+如果未配置此策略设置，则使用本地主机设置。
+
+此策略设置生效不需要重新启动或服务重启。
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromRA">设置 CLAT 从 RA 获取前缀信息</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromRA_Help">此策略设置允许路由器播发(RA)用作非手机网络 CLAT 的前缀信息源。
+
+如果启用此策略设置，将允许 CLAT 通过 RA 发现 NAT64 前缀。如果同时启用了两个 NAT64 前缀发现方法，则优先顺序为(RA, DNS)。
+
+如果禁用此策略设置，则将不允许 CLAT 通过 RA 发现 NAT64 前缀。
+
+如果未配置此策略设置，则使用本地主机设置。
+
+需要重启才能使此策略设置生效。
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS">设置 CLAT 从 DNS 获取前缀信息</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS_Help">此策略设置允许 DNS 用作非手机网络 CLAT 的前缀信息源。
+
+如果启用此策略设置，则将允许 CLAT 通过 DNS 发现 NAT64 前缀。如果同时启用了两个 NAT64 前缀发现方法，则优先顺序为(RA, DNS)。
+
+如果禁用此策略设置，则将不允许 CLAT 通过 DNS 发现 NAT64 前缀。
+
+如果未配置此策略设置，则使用本地主机设置。
+
+需要重启才能使此策略设置生效。
 
 </string>
 

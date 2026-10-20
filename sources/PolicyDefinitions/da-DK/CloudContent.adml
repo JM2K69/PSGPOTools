@@ -9,13 +9,13 @@
       <string id="ConfigureWindowsSpotlight">Konfigurer Windows Spotlys på låseskærmen</string>
       <string id="ConfigureWindowsSpotlight_Help">Denne politikindstilling gør det muligt at konfigurere Windows Spotlys på låseskærmen.
 
-Hvis du aktiverer denne politikindstilling, angives "Windows Spotlys" som låseskærmsprovideren, og brugerne vil ikke kunne ændre deres låseskærm. "Windows Spotlys" viser daglige billeder fra Microsoft på låseskærmen.
+Hvis du aktiverer denne politikindstilling, angives "Windows Spotlys" som låseskærmsudbyderen, og brugerne vil ikke kunne ændre deres låseskærm. "Windows Spotlys" viser daglige billeder fra Microsoft på låseskærmen.
 
 , Hvis du markerer afkrydsningsfeltet "Medtag indhold fra Enterprise-spotlys", og din organisation har installeret Enterprise-spotlysindholdstjenesten i Azure, viser låseskærmen interne meddelelser og meddelelser, der er konfigureret i denne tjeneste, når den er tilgængelig. Hvis din organisation ikke har et Enterprise-spotlysindholdscenter, har afkrydsningsfeltet ingen virkning.
 
 Hvis du deaktiverer denne politikindstilling, deaktiveres Windows Spotlys, og brugerne vil ikke længere kunne vælge den som deres låseskærm. Brugere ser standardbilledet til låseskærmen og kan vælge et andet billede, medmindre du har aktiveret politikken "Undgå ændring af låseskærmbillede".
 
-Hvis du undlader at konfigurere denne politik, vises Windows Spotlys på låseskærmen og markeres som standard, medmindre du har konfigureret et andet standardbillede til låseskærmen ved hjælp af politikken "Gennemtving et bestemt standardbillede til låseskærmen".
+Hvis du undlader at konfigurere denne politik, vises Windows Spotlys på låseskærmen og markeres som standard, medmindre du har konfigureret et andet standardbillede til låseskærmen ved hjælp af politikken "Gennemtving et bestemt standardlåseskærm og logonbillede".
 
 Bemærk! denne politik er kun tilgængelig for Enterprise-SKU'er</string>
       <string id="DisableWindowsSpotlightFeatures">Deaktiver alle Windows Spotlys-funktioner</string>
@@ -67,6 +67,43 @@ Hvis du deaktiverer eller undlader at konfigurere denne politik, kan Windows Spo
 Hvis du aktiverer denne politik, bliver velkomstskærmen til Windows ikke længere vist, når der er opdateringer og ændringer af Windows og de tilknyttede apps.
 
 Hvis du deaktiverer eller undlader at konfigurere politikken, vises velkomstskærmen til Windows for at hjælpe brugerne i gang med Windows og fortælle om nyheder, ændringer og forslag.</string>
+      <string id="DisableCloudOptimizedContent">Slå skyoptimeret indhold fra</string>
+      <string id="DisableCloudOptimizedContent_Help">Denne politikindstilling gør det muligt at slå Cloud-optimeret indhold fra i alle Windows-oplevelser.
+
+Hvis du aktiverer denne politik, vil Windows-oplevelser, der anvender komponenten Cloud optimeret indholds klient, i stedet vise standard-fallback-indholdet.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, kan Windows-oplevelser bruge indhold, der er optimeret til skyen.</string>
+      <string id="DisableSpotlightCollectionOnDesktop">Slå spotlys-samling fra på skrivebord</string>
+      <string id="DisableSpotlightCollectionOnDesktop_Help">Denne politikindstilling fjerner spotlys-samlingen i Personlige indstillinger, så brugeren ikke kan vælge og efterfølgende downloade daglige billeder fra Microsoft til skrivebordet.
+
+Hvis du aktiverer denne politik, vil "Spotlys-samling" ikke være tilgængelig som en indstilling i Personlige indstillinger.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, vises "Spotlys-samling" som en indstilling i Personlige indstillinger, og derved får brugeren mulighed for at vælge "Spotlys-samling" som skrivebordsudbyder og få vist daglige billeder fra Microsoft på skrivebordet.</string>
+      <string id="DisableConsumerAccountStateContent">Slå indhold af Cloud-forbrugerkontotilstand fra</string>
+      <string id="DisableConsumerAccountStateContent_Help">Med denne politikindstilling kan du deaktivere indhold i Cloud-forbruger konto tilstand i alle Windows-oplevelser.
+
+Hvis du aktiverer denne politik, vil Windows-oplevelser, der bruger klientkomponenten til Cloud-forbruger konto tilstand, i stedet vise standard-fallback-indholdet.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, kan Windows-oplevelsen bruge tilstands indhold for Cloud-forbruger kontoen.
+        </string>
+      <string id="EnableOrganizationalMessagesContent">Aktivér organisationsbeskeder</string>
+      <string id="EnableOrganizationalMessagesContent_Help">Organisationsbeskeder giver administratorer mulighed for at levere beskeder til deres slutbrugere på udvalgte Windows 11-oplevelser. Organisationsbeskeder er tilgængelige for administratorer via tjenester som Microsoft Endpoint Manager.
+
+Denne politik er som standard deaktiveret. Hvis du aktiverer denne politik, viser disse oplevelser indhold, der er reserveret af administratorerne.
+
+Aktivering af denne politik har ingen indflydelse på eksisterende MDM-politikindstillinger, der styrer levering af indhold fra Microsoft på Windows-oplevelser.</string>
+      <string id="DisableGetStartedContent">Deaktiver Kom i gang</string>
+      <string id="DisableGetStartedContent_Help">Denne politikindstilling slår Windows Kom i gang-oplevelsen fra.
+
+Hvis du aktiverer denne politikindstilling, starter Kom i gang ikke automatisk og lukker straks, hvis den startes manuelt. Relaterede baggrundsopgaver kører ikke.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, forbliver Kom i gang tilgængelig og kan vises for at hjælpe brugere med at lære om Windows.</string>
+      <string id="DisableCopilotPinScreenContent">Deaktiver Copilot-pinkodeskærm</string>
+      <string id="DisableCopilotPinScreenContent_Help">Forhindrer Windows i at vise Microsoft 365 Copilot-anbefalinger ved logon. Dette deaktiverer ikke Copilot og påvirker ikke licensering.
+
+Hvis du aktiverer denne politikindstilling, starter Microsoft 365 Copilot-konfigurationsvejledningen ikke automatisk ved logon.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vises installationsvejledningen til Microsoft 365 Copilot muligvis ved logon for at hjælpe brugerne med at finde og konfigurere Copilot.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureWindowsSpotlight">

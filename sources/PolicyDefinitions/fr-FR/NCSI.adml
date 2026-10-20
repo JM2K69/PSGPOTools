@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Paramètres de stratégie de groupe de l’indicateur d’état de la connectivité réseau</displayName>
   <description>Paramètres de stratégie de groupe de l’indicateur d’état de la connectivité réseau</description>
@@ -73,7 +73,7 @@
       </presentation>
       <presentation id="NCSI_PassivePolling">
         <text>La case à cocher suivante désactive le mécanisme d’interrogation passive dans NCSI.   Cela peut améliorer la charge de travail de l’UC sur les serveurs ou autres ordinateurs dont la connectivité réseau est statique.</text>
-        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Désactiver l’interrogation passive</checkBox>  
+        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Désactiver l’interrogation passive</checkBox>
       </presentation>
       <presentation id="NCSI_GlobalDns">
         <text>La case à cocher suivante désactive la liaison d'interface pendant les recherches DNS dans NCSI. Cela peut permettre à NCSI de mieux fonctionner avec des configurations réseau spéciales, comme un serveur DNS exécuté sur localhost.</text>

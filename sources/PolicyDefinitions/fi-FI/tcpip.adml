@@ -27,19 +27,17 @@
       <string id="IPHTTPS_ClientState">Aseta IP-HTTPS-tila</string>
       <string id="IPHTTPS_ClientUrl">IP-HTTPS-URL-osoite</string>
 
-      <string id="ISATAP_State_Help">Tämän käytäntöasetuksen avulla voit määrittää ISATAP (Intra-Site Automatic Tunnel Addressing Protocol) -protokollan (automaattisen tunnelointitekniikan osoitteesta reitittimeen ja isännästä isäntään sekä isännästä reitittimeen ja reitittimestä isäntään), jota käytetään mahdollistamaan IPv6-yksittäislähetysyhteys IPv6-isäntien välillä IPv4-intranetissä.
+      <string id="ISATAP_State_Help">Tämän käytäntö asetuksen avulla voit määrittää organisaation sisäisiä-sivuston automaattisen tunnelin osoite protokollan (ISATAP), osoitteen, reitittimen ja isännän välinen automaattinen tunnelointi tekniikka, jota käytetään yksittäislähetyksen IPv6-yhteyden IPv6-Isän tien avulla IPv4-isännän kautta.
 
-Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käytetään paikallisen isännän asetusta.
+Jos poistat tämän käytäntö asetuksen käytöstä tai et määritä sitä, käytetään paikallisen isännän asetusta.
 
-Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää ISATAPin käyttämällä jotakin seuraavista asetuksista:
+Jos otat tämän käytäntö asetuksen käyttöön, voit määrittää ISATAP-toiminnon käyttämällä jotakin seuraavista asetuksista:
 
-Käytännön oletustila: jos ISATAP-reitittimen nimen selvittäminen onnistuu, ISATAP määritetään isännälle käyttäen linkin paikallista osoitetta ja kunkin etuliitteen osoitetta, jotka saadaan ISATAP-reitittimestä tilattoman osoitteen automaattisen määrittämisen avulla. Jos ISATAP-reitittimen nimen selvittäminen ei onnistu, ISATAP-yhteys ei ole käytettävissä isännälle käyttäen vastaavaa IPv4-osoitetta.
+Käytännön oletus tila: isännässä ei ole ISATAP-liittymiä.
 
-Käytäntö käytössä -tila: Jos ISATAP-reitittimen nimen selvittäminen onnistuu, ISATAP määritetään isännälle käyttäen linkin paikallista osoitetta ja osoitetta kullekin etuliitteelle, jotka saadaan ISATAP-reitittimestä tilattoman osoitteen automaattisen määrittämisen avulla. Jos ISATAP-nimen selvittäminen ei onnistu, isännälle määritetään ISATAP-liittymä käyttäen linkin paikallista osoitetta.
+Käytäntö käytössä-tila: Jos ISATAP-reitittimen nimen selvittäminen onnistuu, ISATAP määritetään isännälle käyttäen linkin paikallista osoitetta ja kunkin etuliitteen osoitetta, jotka vastaanotetaan ISATAP-reitittimestä tilattoman osoitteen automaattisen määrittämisen avulla. Jos ISATAP-toiminnon nimen selvittäminen ei onnistu, isännälle määritetään ISATAP-liittymä käyttäen linkin paikallista osoitetta.
 
-Käytäntö ei käytössä -tila: Isännässä ei ole ISATAP-liittymiä.
-
-
+Käytäntö ei käytössä-tila: isännässä ei ole ISATAP-liittymiä.
 
 </string>
 
@@ -54,19 +52,17 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, k�
 </string>
 
 
-      <string id="6to4_State_Help">Tämän käytäntöasetuksen avulla voit määrittää 6to4:n, joka on osoitteen määrityksen ja automaattisen reitittimestä reitittimeen -tunneloinnin tekniikka, jota käytetään mahdollistamaan IPv6-yksittäislähetysyhteys IPv6-sivustojen ja -isäntien välillä IPv4-intranetissä. 6to4 käyttää yleistä osoite-etuliitettä 2002:WWXX:YYZZ::/48, jossa kirjaimet ovat sivustolle määritetyn yleisen IPv4-osoitteen (w.x.y.z) heksadesimaalinen esitystapa.
+      <string id="6to4_State_Help">Tällä käytäntöasetuksella voit määrittää 6to4:n, osoitetehtävän ja reitittimien välisen automaattisen tunnelointitekniikan, jota käytetään IPv6:n yksittäislähetysyhteyden tarjoamiseen IPv6-sivustojen ja isäntäpalvelimien välillä IPv4-verkossa. 6to4 käyttää yleistä osoite-etuliitettä: 2002:WWXX:YYZZ::/48, jossa kirjaimet ovat sivustolle määritettyjen maailmanlaajuisten IPv4-osoitteiden (w.x.y.z) heksadesimaalinen esitys.
 
-Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, käytetään paikallisen isännän asetusta.
+Jos tämä asetus on poistettu käytöstä tai sitä ei määritetä, käytetään paikallista isäntäasetusta.
 
-Jos otat tämän käytäntöasetuksen käyttöön, voit määrittää 6to4:n käyttämällä jotakin seuraavista asetuksista:
+Jos otat tämän asetuksen käyttöön, voit määrittää 6to4:n käyttämällä jotakin seuraavista asetuksista.
 
-Käytännön oletustila: 6to4 on käytössä, jos isännällä on vain paikallinen linkin IPv6-yhteys ja yleinen IPv4-osoite. Jos yleistä IPv6- tai IPv4-osoitetta ei ole, isännällä ei ole 6to4-liittymää. Jos yleistä IPv6-osoitetta ei ole, mutta yleinen IPv4-osoite on olemassa, isännällä on 6to4-liittymä.
+Käytäntöjen oletustila: 6to4 on poistettu käytöstä ja yhteydet 6to4-tilaan eivät ole saatavilla.
 
-Käytäntö käytössä -tila: Jos yleinen IPv4-osoite on olemassa, isännällä on 6to4-liittymä. Jos yleistä IPv4-osoitetta ei ole, isännällä ei ole 6to4-liittymää.
+Käytännöt käytössä -tila: Jos käytössä on yleinen IPv4-osoite, isännässä on 6to4-käyttöliittymä. Jos yleisestä IPv4-osoitetta ei ole käytössä, isännässä ei ole 6to4-liittymää.
 
-Käytäntö ei käytössä -tila: 6to4 on poistettu käytöstä, eikä 6to4-yhteys ole käytettävissä.
-
-
+Käytännöt pois käytöstä -tila: 6to4 on poistettu käytöstä ja 6to4-yhteydet eivät ole käytettävissä.
 
 </string>
 
@@ -188,6 +184,45 @@ Jos otat tämän asetuksen käyttöön tai et määritä sitä, IP:n tilattoman 
 Jos poistat tämän käytäntöasetuksen käytöstä, IP:n tilattoman automaattisen määrittämisen raja-arvot eivät ole käytössä eikä järjestelmä rajoita automaattisesti määritettävien osoitteiden ja reittien määrää.
 
 
+
+</string>
+
+      <string id="IPxlatCfg_PermitNonCellularCLAT">Määritä CLAT-lupa</string>
+      <string id="IPxlatCfg_PermitNonCellularCLAT_Help">Tämän käytäntöasetuksen avulla voit sallia tai poistaa käytöstä asiakaspuolen kääntäjän yleisesti 464XLAT:lle (CLAT) muissa kuin matkapuhelinverkon liittymissä.
+
+Jos otat tämän käytäntöasetuksen käyttöön, CLAT sallitaan yleisesti ja se voidaan ottaa käyttöön verkkoliittymissä.
+
+Jos poistat tämän käytäntöasetuksen käytöstä, CLAT estetään yleisesti eikä sitä voi ottaa käyttöön.
+
+Jos et määritä tätä käytäntöasetusta, käytetään paikallista isäntäasetusta.
+
+Tämän käytäntöasetuksen voimaantulo ei vaadi uudelleenkäynnistystä tai palvelun uudelleenkäynnistystä.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromRA">Määritä CLAT, nouda etuliitetiedot RA:sta</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromRA_Help">Tämä käytäntöasetus sallii reitittimen ilmoitusten (RA) käytön etuliitetietolähteenä muille kuin matkapuhelinverkon CLAT:lle.
+
+Jos otat tämän käytäntöasetuksen käyttöön, CLAT saa etsiä NAT64-etuliitteitä RA:n kautta. Jos molemmat NAT64-etuliitteen etsintämenetelmät ovat käytössä, etusijajärjestys on (RA, DNS).
+
+Jos poistat tämän käytäntöasetuksen käytöstä, CLAT ei saa etsiä NAT64-etuliitteitä RA:n kautta.
+
+Jos et määritä tätä käytäntöasetusta, käytetään paikallista isäntäasetusta.
+
+Tämän käytäntöasetuksen voimaantulo edellyttää uudelleenkäynnistystä.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS">Määritä CLAT, nouda etuliitetiedot DNS:sta</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS_Help">Tämä käytäntöasetus sallii DNS:n käytön etuliitetietolähteenä muille kuin matkapuhelinverkon CLAT:lle.
+
+Jos otat tämän käytäntöasetuksen käyttöön, CLAT saa etsiä NAT64-etuliitteitä DNS:n kautta. Jos molemmat NAT64-etuliitteen etsintämenetelmät ovat käytössä, etusijajärjestys on (RA, DNS).
+
+Jos poistat tämän käytäntöasetuksen käytöstä, CLAT ei saa etsiä NAT64-etuliitteitä DNS:n kautta.
+
+Jos et määritä tätä käytäntöasetusta, käytetään paikallista isäntäasetusta.
+
+Tämän käytäntöasetuksen voimaantulo edellyttää uudelleenkäynnistystä.
 
 </string>
 

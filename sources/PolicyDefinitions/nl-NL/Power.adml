@@ -296,6 +296,8 @@ Als u deze beleidsinstelling niet configureert, bepalen de gebruikers deze inste
 Als u deze beleidsinstelling inschakelt, wordt energiebeperking uitgeschakeld.
 
 Als u deze beleidsinstelling uitschakelt of niet configureert, kan de gebruiker deze instelling zelf wijzigen.</string>
+      <string id="EnableEnergySaver">Energiebesparing inschakelen zodat deze altijd ingeschakeld blijft</string>
+      <string id="EnableEnergySaverExplain">Dit beleid verlengt de levensduur van de batterij en vermindert het energieverbruik door de energiebesparingsfunctie in te schakelen. </string>
     </stringTable>
     <presentationTable>
       <presentation id="ACHibernateTimeOut_1">

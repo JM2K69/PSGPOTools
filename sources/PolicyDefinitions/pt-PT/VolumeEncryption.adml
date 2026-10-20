@@ -322,6 +322,18 @@ Nota: Alguns PCs podem não ser compatíveis com esta política se o firmware do
       </string>
       <string id="DisableExternalDMAUnderLock_Name">Desativar novos dispositivos DMA quando este computador estiver bloqueado</string>
 
+      <string id="DisableWinRETrust_Help">Esta definição de política controla se o BitLocker confia no Windows Recovery Environment (WinRE).
+
+Quando o BitLocker confia no WinRE, o WinRE pode aceder ao volume do sistema operativo protegido pelo BitLocker sem necessitar da chave de recuperação do BitLocker. Isto suporta operações de recuperação que precisam de aceder ao volume do sistema operativo.
+
+Importante: Ativar esta política altera o comportamento de recuperação. Se ativar esta definição de política, o BitLocker não confia no WinRE. A chave de recuperação do BitLocker é necessária para qualquer operação do WinRE que precise de aceder ao volume do sistema operativo protegido pelo BitLocker. As operações de recuperação que dependem do acesso WinRE ao volume do sistema operativo podem exigir a intervenção do utilizador ou do administrador e podem não ser concluídas automaticamente, incluindo a Reparação do Startup, a Recuperação Rápida da Máquina, a Recuperação Rápida por Botão e a reposição remota iniciada por MDM ou a limpeza através do CSP RemoteWipe.
+
+Se desativar ou não configurar esta definição de política, o BitLocker confia numa imagem WinRE validada para que o WinRE possa aceder ao volume do sistema operativo protegido pelo BitLocker sem a chave de recuperação.
+
+Esta definição de política é aplicada apenas quando o BitLocker ou a encriptação de dispositivo está ativada.</string>
+
+      <string id="DisableWinRETrust_Name">Desativar a fidedignidade do BitLocker do Ambiente de Recuperação do Windows (WinRE)</string>
+
       <string id="FVEOSCategory">Unidades do Sistema Operativo</string>
       <string id="FVEFDVCategory">Unidades de Dados Fixas</string>
       <string id="FVERDVCategory">Unidades de Dados Amovíveis</string>

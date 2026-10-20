@@ -80,20 +80,37 @@ Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, usługa Dzien
       <string id="Channel_LogMaxSize">Określ maksymalny rozmiar pliku dziennika (KB)</string>
       <string id="Channel_LogMaxSize_Help">To ustawienie zasad określa maksymalny rozmiar pliku dziennika w kilobajtach.
 
-Jeśli włączysz to ustawienie zasad, będziesz mieć możliwość skonfigurowania maksymalnego rozmiaru pliku dziennika z zakresu od 1 MB (1024 KB) do 2 TB (2 147 483 647 KB) z przyrostem 1 KB.
+Jeśli włączysz to ustawienie zasad, możesz skonfigurować maksymalny rozmiar pliku dziennika na wartość z zakresu od 1 megabajta (1024 kilobajtów) do 2 terabajtów (2147483647 kilobajtów), z przyrostem co jeden kilobajt.
 
-Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, maksymalny rozmiar pliku dziennika zostanie ustawiony na wartość skonfigurowaną lokalnie. Administrator lokalny może zmieniać tę wartość za pomocą okna dialogowego Właściwości dziennika. Jej ustawienie domyślne to 1 MB.</string>
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, maksymalny rozmiar pliku dziennika zostanie ustawiony na wartość skonfigurowaną lokalnie. Administrator lokalny może zmieniać tę wartość za pomocą okna dialogowego Właściwości dziennika, a jej ustawienie domyślne to 20 MB.</string>
       <string id="Channel_LogMaxSizeSecurity_Help">To ustawienie zasad określa maksymalny rozmiar pliku dziennika w kilobajtach.
 
-Jeśli włączysz to ustawienie zasad, będziesz mieć możliwość skonfigurowania maksymalnego rozmiaru pliku dziennika z zakresu od 20 MB (20 480 KB) do 2 TB (2 147 483 647 KB) z przyrostem 1 KB.
+Jeśli włączysz to ustawienie zasad, będziesz mieć możliwość skonfigurowania maksymalnego rozmiaru pliku dziennika z zakresu od 20 MB (20480 KB) do 2 TB (2147483647 KB) z przyrostem 1 KB.
 
-Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, maksymalny rozmiar pliku dziennika zostanie ustawiony na wartość skonfigurowaną lokalnie. Administrator lokalny może zmieniać tę wartość za pomocą okna dialogowego Właściwości dziennika. Jej ustawienie domyślne to 20 MB.</string>
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, maksymalny rozmiar pliku dziennika zostanie ustawiony na wartość skonfigurowaną lokalnie. Tę wartość może zmienić administrator lokalny za pomocą okna dialogowego Właściwości dziennika; domyślnie wynosi ona 40 megabajtów.</string>
       <string id="ChannelName_Help">Ustawienia konfiguracji dla dziennika</string>
       <string id="EventLog_Application">Aplikacja</string>
       <string id="EventLog_Security">Zabezpieczenia</string>
       <string id="EventLog_Setup">Instalator</string>
       <string id="EventLog_System">System</string>
       <string id="EventLogCategory">Usługa Dziennik zdarzeń</string>
+      <string id="Service_RpcAccess_Remote">Ogranicz dostęp zdalny do usługi dziennika zdarzeń</string>
+      <string id="Service_RpcAccess_Remote_Help">To ustawienie zasad określa, którzy użytkownicy zdalni będą mogli łączyć się z usługą Dziennika zdarzeń na tym komputerze.
+
+Jeśli włączysz te zasady, możesz określić grupę, której członkami muszą być użytkownicy zdalni, aby mogli nawiązać połączenie z usługą Dziennika zdarzeń na tym komputerze. Możesz wymagać, aby użytkownicy zdalni byli członkami jednej z następujących wbudowanych grup:
+
+• Uwierzytelnieni użytkownicy
+• Czytelnicy dziennika zdarzeń
+• Administratorzy
+
+Jeśli te zasady zostaną wyłączone lub nie zostaną skonfigurowane, wartością domyślną będzie grupa Uwierzytelnieni użytkownicy.
+
+W przypadku wcześniejszych wersji systemu Windows obsługiwana jest tylko grupa Uwierzytelnieni użytkownicy. Aby zachować zgodność z poprzednimi wersjami, połączenia lokalne z usługą będą zawsze dozwolone z poziomu grupy Uwierzytelnieni użytkownicy.
+
+To ustawienie nie kontroluje dostępu do poszczególnych dzienników. Gdy połączenie zdalne będzie dozwolone, nadal będzie potrzebować dostępu do określonych zasobów, których próbuje użyć.</string>
+      <string id="Service_RpcAccess_Remote_AU">Użytkownicy uwierzytelnieni</string>
+      <string id="Service_RpcAccess_Remote_ER">Czytelnicy dzienników zdarzeń</string>
+      <string id="Service_RpcAccess_Remote_AD">Administratorzy</string>
     </stringTable>
     <presentationTable>
       <presentation id="Channel_Log_FileLogAccess_1">
@@ -157,16 +174,19 @@ Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, maksymalny ro
         </textBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_1">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maksymalny rozmiar dziennika (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maksymalny rozmiar dziennika (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_2">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maksymalny rozmiar dziennika (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="40960">Maksymalny rozmiar dziennika (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_3">
         <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maksymalny rozmiar dziennika (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_4">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maksymalny rozmiar dziennika (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maksymalny rozmiar dziennika (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="Service_RpcAccess_Remote">
+        <dropdownList refId="RpcAccess_Remote_Setting" noSort="true" defaultItem="0">Wybierz jedno z następujących ustawień:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

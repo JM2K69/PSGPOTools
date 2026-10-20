@@ -135,16 +135,17 @@
     </string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts">Konfigurovat přizpůsobená oznámení</string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts_Explain">
-        Bude místním uživatelům zobrazovat určené kontaktní informace v oznámeních ze Zabezpečení Windows.
+        Zobrazí místním uživatelům určené kontaktní údaje v oznámeních Zabezpečení Windows.
 
         Povoleno:
-        V oznámeních ze Zabezpečení Windows se zobrazí kontaktní informace vaší společnosti.
+        V oznámeních Zabezpečení Windows budou zobrazeny kontaktní údaje vaší společnosti.
 
-        Jakmile nastavíte možnost Povoleno, musíte v zásadách skupiny nakonfigurovat nastavení Určit název společnosti pro kontaktování a aspoň jedno z následujících nastavení zásad skupiny:
+        Jakmile nastavíte možnost Povoleno, musíte v zásadách skupiny nakonfigurovat nastavení Určit název společnosti pro kontaktování a alespoň jedno z následujících nastavení zásad skupiny:
         - Určit kontaktní telefonní číslo nebo ID Skypu
         - Určit kontaktní e-mailovou adresu nebo ID e-mailu
         - Určit kontaktní web
-
+        Mějte prosím na paměti, že v některých případech omezíme zobrazené možnosti kontaktování podle dostupného místa v oznámení.
+        
         Zakázáno:
         V oznámeních se nezobrazí žádné kontaktní informace.
 
@@ -292,7 +293,7 @@ Nenakonfigurováno:
         Nenakonfigurováno:
         Stejné jako Zakázáno.
     </string>
-    <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning">Skrýt doporučení k aktualizaci firmwaru čipu TPM</string>
+    <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning">Skrýt doporučení k aktualizaci firmwaru čipu TPM.</string>
     <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning_Explain">
         Skryje doporučení k aktualizaci firmwaru čipu TPM při zjištění ohroženého firmwaru.
 

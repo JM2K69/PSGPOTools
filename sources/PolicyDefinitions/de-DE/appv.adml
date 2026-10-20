@@ -103,7 +103,7 @@
       <string id="CEIP_Enable_Help">Von diesem Programm werden Informationen zur Computerhardware sowie zur Verwendung von Microsoft Application Virtualization erfasst, ohne Ihre Arbeit zu unterbrechen. Durch diesen Vorgang wird Microsoft bei der Ermittlung verbesserungswürdiger Funktionen von Microsoft Application Virtualization unterstützt. Die erfassten Informationen werden nicht verwendet, um Sie zu identifizieren oder Kontakt zu Ihnen aufzunehmen. 
 
 Weitere Informationen zu dem Programm finden Sie unter http://go.microsoft.com/fwlink/?LinkID=184686.</string>
-      <string id="Virtualization_JITVAllowList">Liste zulässiger virtueller Komponentenprozesse</string>
+      <string id="Virtualization_JITVAllowList">Zulassungsliste für virtuelle Komponentenprozesse</string>
       <string id="Virtualization_JITVAllowList_Help">Hier wird eine Pfadliste (Platzhalterzeichen dürfen enthalten sein) für Prozesse angegeben, welche Kandidaten für die Verwendung virtueller Komponenten wie Shellerweiterungen, Browserhilfsobjekte usw. sind. Virtuelle Komponenten können nur von Prozessen verwendet werden, deren vollständiger Pfad mit einem dieser Objekte übereinstimmt.</string>
       <string id="Virtualization_JITVEnable">Dynamische Virtualisierung aktivieren</string>
       <string id="Virtualization_JITVEnable_Help">Hiermit wird die dynamische Virtualisierung unterstützter Shellerweiterungen, Browserhilfsobjekte und ActiveX-Steuerelemente aktiviert.</string>

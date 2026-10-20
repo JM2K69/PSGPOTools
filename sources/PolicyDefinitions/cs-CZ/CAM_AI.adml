@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Zásady AI pro CAM (Capability Access Manager)</displayName>
+  <description>Zásady související s funkcemi AI a správou souhlasu s nimi.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">Souhlas s AI</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">Vedoucí uživatel</string>
+      <string id="ForceEnable">Vynutit povolení</string>
+      <string id="ForceDisable">Vynutit zákaz</string>
+      <string id="AgentConsentDuration_Name">Doba trvání souhlasu s agentem</string>
+      <string id="AgentConsentDuration_Explain">Určuje, jak dlouho, v hodinách, zůstává odpověď na souhlas „Povolit“ pro funkce agenta platná, než se uživateli znovu zobrazí výzva.
+
+Pokud je tato zásada povolena, musí být hodnota v rozsahu od 1 (1 hodina) do 8760 (1 rok). Nakonfigurovaná hodnota se používá jako výchozí doba vypršení platnosti pro všechny odpovědi na souhlas „Povolit“ pro funkce agenta.
+
+Pokud tato zásada není nakonfigurovaná nebo pokud je hodnota mimo povolený rozsah, je výchozí hodnota 720 hodin (30 dní).</string>
+      <string id="ConfigureAgentConnectors_Name">Konfigurovat konektory agenta</string>
+      <string id="ConfigureAgentConnectors_Explain">Povolte nebo zakažte konektory agentů.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Zásady přístupu konektoru agenta</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Toto nastavení zásad umožňuje definovat seznam povolených připojení mezi hostiteli MCP a servery MCP.
+
+Formát tohoto seznamu bude řetězec JSON, který odpovídá schématu na https://go.microsoft.com/fwlink/?LinkId=2363700.
+
+Pokud tato zásada není nakonfigurovaná, hostitel MCP se může se souhlasem uživatele připojit k libovolnému serveru MCP.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Konfigurace konektorů agenta: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Doba trvání souhlasu (hodiny): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Konfigurace povolených připojení k hostiteli/serveru MCP:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

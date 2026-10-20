@@ -15,7 +15,16 @@ Als u deze beleidsinstelling gebruikt, wordt GDI DPI-schaalbaarheid ingeschakeld
 Als u deze beleidsinstelling uitschakelt of niet configureert, wordt voor geen enkele applicatie GDI DPI-schaalbaarheid ingeschakeld, behalve als GDI DPI-schaalbaarheid is ingeschakeld voor een applicatie via de toepassingscompatibiliteitsdatabase, de systeeminstelling Toepassingscompatibiliteit (Uitgebreid) of een toepassingsmanifest.
 
 Als GDI DPI-schaalbaarheid zowel wordt uitgeschakeld als wordt ingeschakeld voor een applicatie, wordt GDI DPI-schaalbaarheid uitgeschakeld.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">Met GDI DPI-schaalbaarheid krijgen applicaties die geen DPI-status hebben, een per-monitor-DPI-status.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">Als je dit beleid inschakelt, kun je het standaardgedrag overschrijven bij het verbinden van een extra monitor. Hiermee kun je bepalen of het primaire scherm automatisch wordt gekloond (gespiegeld) of dat het bureaublad wordt uitgebreid.
+Met Uitbreiden wordt het beeldscherm uitgebreid naar het tweede beeldscherm, zodat elk scherm andere inhoud kan weergeven. Met Klonen wordt het primaire beeldscherm gedupliceerd op het tweede beeldscherm, zodat beide schermen dezelfde inhoud weergeven. Bij Interne standaardinstelling wordt gebruikgemaakt van het standaardgedrag van het systeem zoals bepaald door de Windows-instellingen.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> Modus voor meerdere beeldschermen configureren</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">Als je dit beleid inschakelt, kun je het standaardgedrag overschrijven bij het verbinden van een extra monitor. Hiermee kun je bepalen of een gekloond beeldscherm prioriteit geeft aan de interne of externe monitor, bijvoorbeeld door de gewenste resolutiebron in te stellen.
+Met Intern wordt de resolutie van het hoofdbeeldscherm ingesteld als bron op beide schermen. Met Extern wordt de resolutie van het aangesloten (externe) beeldscherm ingesteld als de bron op beide schermen. Standaard wordt het standaardgedrag van het systeem gebruikt zoals bepaald door de Windows-instellingen.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> Bron van voorkeursresolutie van gekloonde monitor instellen</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">Met GDI DPI-schaalbaarheid krijgen applicaties die geen DPI-status hebben, een per-monitor-DPI-status.
 
 Gebruik deze beleidsinstelling om verouderde applicaties op te geven waarvoor GDI DPI-schaalbaarheid wordt uitgeschakeld.
 
@@ -26,24 +35,32 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, wordt voor sommig
 Als GDI DPI-schaalbaarheid zowel wordt uitgeschakeld als wordt ingeschakeld voor een applicatie, wordt GDI DPI-schaalbaarheid uitgeschakeld.</string>
       <string id="DisplayTurnOnGdiDPIScaling">GDI DPI-schaalbaarheid inschakelen voor applicaties</string>
       <string id="DisplayTurnOffGdiDPIScaling">GDI DPI-schaalbaarheid uitschakelen voor applicaties</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">Systeem-DPI per proces is een compatibiliteitsfunctie voor bureaubladtoepassingen die niet goed worden weergegeven na een wijziging van de schaalfactor (DPI). Wanneer de schaalfactor van het primaire beeldscherm wordt gewijzigd (na het aansluiten of loskoppelen van een beeldscherm met een andere schaalfactor, bij het op afstand verbinden via een apparaat met een andere schaalfactor of het handmatig wijzigen van de schaalfactor), kunnen veel bureaubladtoepassingen wazig beeld geven. Bureaubladtoepassingen die in dit scenario niet zijn bijgewerkt om goed te worden weergegeven, blijven wazig beeld geven totdat de gebruiker zich heeft afgemeld en weer heeft aangemeld bij Windows.
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">Systeem-DPI per proces is een toepassingscompatibiliteitsfunctie voor bureaubladtoepassingen die niet correct worden weergegeven na een wijziging van de beeldschermschaalfactor (DPI). Wanneer de schaalfactor van het primaire beeldscherm wordt gewijzigd (wat kan gebeuren wanneer je een beeldscherm met een andere schaalfactor aansluit of loskoppelt, een beeldscherm op afstand verbindt met een apparaat met een andere schaalfactor, of de schaalfactor handmatig wijzigt), kunnen veel bureaubladtoepassingen wazig beeld geven. Bureaubladtoepassingen die in dit scenario niet zijn bijgewerkt om goed te worden weergegeven, blijven wazig beeld geven totdat de gebruiker zich afmeldt en weer aanmeldt bij Windows.
 
-Als u dit beleid inschakelt, zijn bepaalde wazige toepassingen scherp ze deze opnieuw zijn gestart. De gebruiker hoeft zich niet af en weer aan te melden bij Windows.
+Als je dit beleid inschakelt, worden bepaalde wazige toepassingen weer scherp nadat ze opnieuw zijn gestart, zonder dat de gebruiker zich hoeft af te melden en weer aan te melden bij Windows.
 
 Houd rekening met het volgende:
 
-Met Systeem-DPI per proces wordt alleen de weergave van bureaubladtoepassingen op het primaire beeldscherm verbeterd. Bepaalde bureaubladtoepassingen kunnen op secundaire beeldschermen met een andere schaalfactor nog steeds wazig beeld geven.
+Systeem-DPI per proces verbetert alleen de weergave van bureaubladtoepassingen die op het primaire beeldscherm zijn geplaatst. Sommige bureaubladtoepassingen kunnen nog steeds wazig zijn op secundaire beeldschermen met andere schaalfactoren.
 
-Systeem-DPI per proces werkt niet voor alle toepassingen, omdat bepaalde oudere bureaubladtoepassingen altijd wazig beeld geven op beeldschermen met een hoge schaalfactor.
+Systeem-DPI per proces werkt niet voor alle toepassingen, omdat sommige oudere bureaubladtoepassingen altijd wazig blijven op beeldschermen met een hoge DPI.
 
-In enkele gevallen ziet u mogelijk afwijkend gedrag bij bepaalde toepassingen. Schakel Systeem-DPI per proces uit als dat gebeurt.
+In sommige gevallen kun je vreemd gedrag opmerken bij bepaalde bureaubladtoepassingen. Als dat gebeurt, moet Systeem-DPI per proces worden uitgeschakeld.
 
-Door deze instelling in te schakelen kunt u de systeemomvattende standaardwaarde voor bureaubladtoepassingen instellen en de instelling tegelijkertijd negeren per toepassing. Als u deze instelling uitschakelt of niet configureert, wordt Systeem-DPI per proces op geen enkel systeemproces toegepast.
+Door deze instelling in te schakelen kun je de algemene systeemstandaard voor bureaubladtoepassingen instellen, evenals overschrijvingen per toepassing. Als je deze instelling uitschakelt of niet configureert, wordt Systeem-DPI per proces niet toegepast op processen in het systeem.
 
 </string>
       <string id="DisplayPerProcessSystemDpiSettings">Instellingen voor systeem-DPI per proces configureren</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">Inschakelen</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">Uitschakelen</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">Klonen</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">Standaard</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">Uitbreiden</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">Alleen intern</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">Alleen extern</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">Standaard</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">Intern</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">Extern</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">Systeem-DPI per proces inschakelen voor toepassingen</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">Systeem-DPI per proces uitschakelen voor toepassingen</string>
     </stringTable>
@@ -66,6 +83,12 @@ Door deze instelling in te schakelen kunt u de systeemomvattende standaardwaarde
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>Systeem-DPI per proces uitschakelen voor de volgende toepassingen. Gebruik het volledige toepassingspad of de bestandsnaam met extensie van de toepassing. Scheid meerdere toepassingen met behulp van een puntkomma.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">Klonen, uitbreiden, InternalOnly, ExternalOnly of Doorgaan met de standaardinstellingen van Windows als configuratie voor de modus Voor meerdere beeldschermen.</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">De standaardresolutie instellen die door Windows wordt gebruikt voor nieuwe gekloonde beeldschermen als interne, externe of standaardinstellingen voor Windows.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

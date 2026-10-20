@@ -14,8 +14,15 @@
       <string id="WU_SUPPORTED_Windows7_To_Win2kSP3_Or_XPSP1">Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2003, Windows XP SP2, Windows XP SP1 , Windows 2000 SP4, Windows 2000 SP3</string>
       <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_NoWinRT">En azından Windows XP Professional Service Pack 1 veya Windows 2000 Service Pack 3, Windows RT hariç</string>
       <string id="WU_SUPPORTED_WindowsXPSP1_NoWinRT">En azından Windows Server 2003 işletim sistemleri veya SP1'li Windows XP Professional, Windows RT hariç</string>
-      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">En az Windows XP Professional Hizmet Paketi 1 veya en az Windows 2000 Hizmet Paketi 3'ten Windows 8.1'e kadar veya en güncel hizmet paketiyle Windows Server 2012 R2</string>
-      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">En az Windows Vista'dan Windows 8.1'e kadar veya en güncel hizmet paketiyle Windows Server 2012 R2</string>
+      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">En az Windows XP Professional Service Pack 1 veya En az Windows 2000 Service Pack 3 ile Windows 8.1 veya en güncel hizmet paketine sahip Windows Server 2012 R2. Üst ve Windows 10 desteklenmiyor.</string>
+      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">En az Windows Vista Windows 8.1 veya en güncel hizmet paketine sahip Windows Server 2012 R2. Üst ve Windows 10 desteklenmiyor.</string>
+      <string id="WU_SUPPORTED_XPSP1_or_Win2kSP3_AUOption7_SUPPORTED_Server2016">Windows XP Professional Service Pack 1 veya En az Windows 2000 Service Pack 3
+Seçenek 7 yalnızca en az Windows Server 2016 sürümünü çalıştıran sunucularda desteklenir​</string>
+      <string id="WU_SUPPORTED_Server2016_Through_Server2022_Or_Windows10">Windows Server 2016 ile Windows Server 2022 arasında veya Windows 10</string>
+      <string id="WU_SUPPORTED_Windows_Server_2019_Windows_10_0_1809">En az Windows Server 2019 veya Windows 10 Sürüm 1809</string>
+      <string id="WU_SUPPORTED_Windows_Server_2022_Windows_10_0_2004">En az Windows Server 2022 veya Windows 10 Sürüm 2004</string>
+      <string id="WU_SUPPORTED_WinServer2025_Win1021H2_Win1122H2">En az Windows Server 2025, Windows 10 Sürüm 21H2 veya Windows 11 Sürüm 22H2</string>
+      <string id="WU_SUPPORTED_Win11_24H2">En az Windows 11 Sürüm 24H2</string>
       <string id="AUDontShowUasHelp">Bu ilke ayarı sizin Windows Kapatma iletişim kutusunda "Güncelleştirmeleri Yükle ve Kapat" seçeneğinin gösterilip gösterilmemesini yönetmenizi sağlar.
 
 Bu ilke ayarını etkinleştirdiğiniz takdirde, kullanıcı Başlat menüsünden Kapat'ı seçtiğinde kurulum için güncelleştirmeler hazır olsa bile "Güncelleştirmeleri Yükle ve Kapat" Windows Kapatma iletişim kutusunda bir seçenek olarak görülmeyecektir.
@@ -66,7 +73,7 @@ Bu ayar, bilgisayarda otomatik güncelleştirmelerin etkinleştirilmiş olup olm
 
         4 = Güncelleştirmeleri otomatik olarak indir ve bunları aşağıda belirtilen zamanlamaya uygun olarak yükle.
 
-        Zamanlanan yükleme zamanı olarak "Otomatik" seçilirse Windows, güncelleştirmeleri otomatik olarak denetler, indirir ve yükler. Cihaz, grup ilkesi tarafından yapılandırılmadığı sürece Windows varsayılan ayarlarına göre yeniden başlayacaktır. (Windows 10, sürüm 1809 ve üzeri sürümler için geçerlidir)
+        Zamanlanan yükleme zamanı olarak "Otomatik" seçilirse Windows, güncelleştirmeleri otomatik olarak denetler, indirir ve yükler. Cihaz, grup ilkesi tarafından yapılandırılmadığı sürece Windows varsayılan ayarlarına göre yeniden başlatılır. (Windows 10, sürüm 1809 ve üzeri sürümler için geçerlidir.)
 
         Grup İlkesi Ayarı'ndaki seçenekleri kullanarak zamanlamayı belirtin. Sürüm 1709 ve üzeri için güncelleştirmeyi haftada bir, iki haftada bir veya ayda bir gerçekleşecek şekilde sınırlama seçeneği vardır. Herhangi bir zamanlama belirtilmezse tüm yüklemeler için varsayılan zamanlama her gün saat 03:00 olacaktır. Güncelleştirmeler, yüklemenin tamamlanabilmesi için bilgisayarın yeniden başlatılmasını gerektiriyorsa Windows, bilgisayarı otomatik olarak yeniden başlatır. (Windows yeniden başlatmaya hazır olduğunda bir kullanıcı oturum açmışsa kullanıcı uyarılır ve kendisine yeniden başlatmayı geciktirme seçeneği sunulur).
 
@@ -76,10 +83,15 @@ Bu ayar, bilgisayarda otomatik güncelleştirmelerin etkinleştirilmiş olup olm
 
         Bu seçenekle, yerel yöneticilerin istedikleri yapılandırma seçeneğini belirtmek üzere Windows Update denetim masasını kullanmalarına izin verilir. Yerel yöneticilerin Otomatik Güncelleştirmeler yapılandırmasını devre dışı bırakmalarına izin verilmez.
 
-Bu ilkenin durumu Devre Dışı Bırakıldı olarak ayarlanırsa Windows Update üzerindeki tüm güncelleştirmeler manuel olarak indirilmeli ve yüklenmelidir. Bunu yapmak için Başlat'ı kullanarak Windows Update'i arayın.
+        7 = Yükleme bildirimi göster ve yeniden başlatma bildirimi göster. (Yalnızca Windows Server)
+
+        Yalnızca Server SKU cihazlarına uygulanabilen bu Windows Server 2016 seçeneğiyle yerel yöneticiler yüklemeleri veya yeniden başlatmaları el ile sürdürmek için Windows Update'i kullanabilirler.
+
+Bu ilkenin durumu Devre Dışı bırakıldı olarak ayarlanırsa Windows Update'te mevcut tüm güncelleştirmelerin el ile indirilip yüklenmesi gerekir. Bunun için Başlat menüsünü kullanarak Windows Update'i arayın.
 
 Durum Yapılandırılmadı olarak ayarlanırsa Otomatik Güncelleştirmeler'in kullanımı Grup İlkesi düzeyinde belirtilmez. Ancak bir yönetici, Denetim Masası'ndan Otomatik Güncelleştirmeler'i yine de yapılandırabilir.</string>
 
+      <string id="AutoUpdateModeNotifyToInstallNotifyToReboot">7 - Otomatik İndir, Yüklemeyi bildir, Yeniden Başlatmayı Bildir</string>
       <string id="AutoUpdateModeAdminChooses">5 - Yerel yöneticinin ayarı seçmesine izin ver</string>
       <string id="AutoUpdateModeAuto">4 - Otomatik karşıdan yükle, kurmayı zamanla</string>
       <string id="AutoUpdateModeDownload">3 - Otomatik karşıdan yükle, kurma için uyar</string>
@@ -119,27 +131,45 @@ Durum Yapılandırılmadı olarak ayarlanırsa Otomatik Güncelleştirmeler'in k
       <string id="AutoUpdateSchTimeAuto">Otomatik</string>
       <string id="CorpWuURL">İntranet Microsoft güncelleştirme hizmeti konumunu belirt</string>
       <string id="CorpWuURL_Help">
-        Microsoft Update güncelleştirmelerini barındırmak üzere bir intranet sunucusunu belirtir. Daha sonra bu güncelleştirme hizmetini ağınızdaki bilgisayarları otomatik olarak güncelleştirmek için kullanabilirsiniz.
+        Microsoft Update güncelleştirmelerini barındıracak bir intranet sunucusunu belirtir. Daha sonra ağınızdaki bilgisayarları otomatik olarak güncelleştirmek için bu güncelleştirme hizmetini kullanabilirsiniz.
 
-        Bu ayar, ağınızdaki bir sunucuyu, bir iç güncelleştirme hizmeti olarak çalışması üzere belirtmenizi sağlar. Otomatik Güncelleştirmeler istemcisi ağınızdaki bilgisayarlara uygun güncelleştirmeleri bu hizmette aranabilir.
+        Bu ayar, dahili güncelleştirme hizmeti olarak işlev görmek üzere ağınızda bir sunucu belirlemenize olanak tanır. Otomatik Güncelleştirmeler istemcisi, ağınızdaki bilgisayarlar için geçerli olan güncelleştirmeleri bu hizmeti arar.
 
-        Bu ayarı kullanmak için iki sunucu adı değeri ayarlamalısınız: Otomatik Güncelleştirme istemcisinin güncelleştirmeleri bulup indireceği sunucu ve iş istasyonlarının güncelleştirilmiş istatistikleri vereceği sunucu. Her iki değeri de aynı sunucu olacak şekilde ayarlayabilirsiniz. Intranet güncelleştirme hizmeti yerine alternatif bir indirme sunucusundan güncelleştirmeleri indirmek için Windows Update Aracısı'nı güncelleştirmek üzere isteğe bağlı bir sunucu adı değeri belirlenebilir.
+        Bu ayarı kullanmak için iki sunucu adı değeri ayarlamalısınız: Otomatik Güncelleştirmeler istemcisi, güncelleştirmeleri ve güncelleştirilen iş istasyonlarının istatistikleri yüklediği sunucuyu algılar ve indirir. Her iki değeri de aynı sunucu olacak şekilde ayarlayabilirsiniz. Windows Update Aracısı'nı intranet güncelleştirme hizmeti yerine alternatif bir indirme sunucusundan güncelleştirmeleri indirecek şekilde yapılandırmak için isteğe bağlı bir sunucu adı değeri belirtilebilir.
 
-        Durum Etkin olarak ayarlanırsa, Otomatik Güncelleştirmeler istemcisi, güncelleştirme aramak ve indirmek için Windows Update yerine, belirtilen Intranet Microsoft güncelleştirme hizmetine (veya alternatif bir indirme sunucusu) bağlanır. Bu ayarı etkinleştirmek, kuruluşunuzdaki son kullanıcıların, güncelleştirmeleri edinmek için güvenlik duvarından geçmeye ihtiyacı olmadığı anlamına gelir ve güncelleştirmeleri dağıtmadan önce denemenize olanak sağlar.
+        Durum Etkin olarak ayarlanmışsa, Otomatik Güncelleştirmeler istemcisi, güncelleştirmeleri aramak ve indirmek için Windows Update yerine belirtilen intranet Microsoft güncelleştirme hizmetine (veya alternatif indirme sunucusuna) bağlanır. Bu ayarın etkinleştirilmesi, kuruluşunuzdaki son kullanıcıların güncelleştirmeleri almak için bir güvenlik duvarından geçmesi gerekmediği anlamına gelir ve size güncelleştirmeleri dağıtmadan önce test etme fırsatı verir.
 
-        Durum Devre Dışı veya Yapılandırılmamış olarak ayarlandıysa ve Otomatik Güncelleştirmeler ilke veya kullanıcı tercihinde devre dışı bırakılmadıysa, Otomatik Güncelleştirme istemcisi doğrudan İnternetteki Windows Update sitesine bağlanır.
+        Durumu Devre Dışı veya Yapılandırılmadı olarak ayarlanır ve Otomatik Güncelleştirmeler ilke veya kullanıcı tercihi tarafından devre dışı bırakılmamışsa, Otomatik Güncelleştirmeler istemcisi doğrudan İnternet'teki Windows Update sitesine bağlanır.
 
-        Alternatif indirme sunucusu, Windows Update Aracısı'nı Intranet güncelleştirme hizmeti yerine alternatif bir indirme sunucusundan indirecek şekilde yapılandırır.
+        Alternatif indirme sunucusu, Windows Update Aracısı'nı dosyaları intranet güncelleştirme hizmeti yerine alternatif bir indirme sunucusundan indirecek şekilde yapılandırır.
 
-        Güncelleştirme meta verilerinde dosyaları indirme URL'leri olduğunda alternatif karşıdan sunucudan yüklenecek içerik URL'leri eksik olan dosyaları karşıdan yükleme seçeneğine izin verir. Bu seçenek yalnızca Intranet güncelleştirme hizmeti alternatif indirme sunucusunda bulunan dosyalar için güncelleştirme meta verilerinde URL sağlamadığında kullanılmalıdır.
+        Eksik URL'leri olan dosyaları indirme seçeneği, güncelleştirme meta verilerindeki dosyalar için indirme URL'leri olmadığında içeriğin Alternatif İndirme Sunucusundan indirilmesine izin verir. Bu seçenek yalnızca intranet güncelleştirme hizmeti, alternatif indirme sunucusunda bulunan dosyalar için güncelleştirme meta verilerinde indirme URL'leri sağlamadığında kullanılmalıdır.
 
-        Not: "Otomatik Güncelleştirmeleri Yapılandır" ilkesi devre dışıysa, bu ilkenin hiçbir etkisi olmaz.
+        Not: "Otomatik Güncelleştirmeleri Yapılandır" ilkesi devre dışı bırakılırsa, bu ilkenin bir etkisi olmaz.
 
-        Not: "Alternatif İndirme Sunucusu" belirlenmediyse güncelleştirmeleri indirmek için varsayılan olarak Intranet güncelleştirme hizmetini kullanır.
+        Not:" Alternatif İndirme Sunucusu "ayarlanmazsa, güncelleştirmeleri indirmek için varsayılan olarak intranet güncelleştirme hizmetini kullanır.
 
-        Not: "Url'si olmayan dosyaları indir..." seçeneği yalnızca "Alternatif İndirme Sunucusu" belirlendiğinde kullanılır.
+        Not: "URL'siz dosyaları indir ..." seçeneği yalnızca "Alternatif İndirme Sunucusu" ayarlanmışsa kullanılır.
 
-        Not: Bu ilke, Windows RT'de desteklenmemektedir. Bu ilkeyi ayarladığınızda Windows RT bilgisayarlarda bir etkisi olmaz.</string>
+       Not: Bu ilke Windows RT'de desteklenmez. Bu ilkenin ayarlanmasının Windows RT bilgisayarlar üzerinde herhangi bir etkisi olmaz.
+
+        En üst düzeyde güvenlik sağlamak için Microsoft, WSUS'nin TLS / SSL protokolü ile güvenli hale getirilmesini, dolayısıyla HTTPS tabanlı intranet sunucularının sistemleri güvende tutun. Ara sunucu gerekliyse, sistem ara sunucusunu yapılandırmanızı öneririz. En yüksek düzeyde güvenlik sağlamak için, ek olarak tüm cihazlarda WSUS TLS sertifikası sabitlemesinden yararlanın.
+
+        İstemcileri doğası gereği güvende tutmak için, artık intranet sunucularının güncelleştirmeleri algılamak için varsayılan olarak kullanıcı ara sunucusundan yararlanmasına izin vermiyoruz. Bir intranet sunucusunu kullanırken, ortaya çıkardığı güvenlik açıklarına rağmen güncelleştirmeleri algılamak için kullanıcı ara sunucusundan yararlanmanız gerekiyorsa, ara sunucu davranışını "Sistem ara sunucusunu kullanarak algılama başarısız olursa, kullanıcı ara sunucusunun yedek olarak kullanılmasına izin ver" şeklinde yapılandırmanız gerekir.
+
+        İntranet sunucularında güncelleştirme algılanması, yedek olarak kullanıcı ara sunucusu gerektiğinde ve alternatif ara sunucu davranışı yapılandırılmadığında başarısız olur.</string>
+      <string id="OnlyUseSystemProxyForUpdateDetection">Yalnızca güncelleştirmeleri algılamak için sistem proxy 'sini kullan (varsayılan)</string>
+      <string id="AllowUserProxyAsFallbackForUpdateDetection">Sistem ara sunucusu kullanılarak algılama başarısız olursa geri dönüş olarak kullanıcı ara sunucusunun kullanılmasına izin ver</string>
+      <string id="UpdateClassPolicySource_Title">Windows Güncellemelerinin belirli sınıfları için kaynak hizmeti belirtin</string>
+      <string id="UpdateClassPolicySource_Help">Bu ilke etkinleştirildiğinde, aygıtlar belirtilen güncelleştirme kaynağından listelenen sınıflar için Windows güncelleştirmelerini alır: Windows Update veya Windows Server Update Service. 
+
+Not: Windows Server Update hizmetinden güncelleştirme almak Için "intranet Microsoft güncelleştirme hizmeti konumunu belirt" ilkesini kullanarak intranet Microsoft güncelleştirme hizmeti konumunu düzgün olarak yapılandırmış olmanız gerekir.
+
+Bu ilke yapılandırılmazsa veya devre dışı bırakılırsa, aygıt diğer ilke yapılandırmalarınız başına güncelleştirmeleri algılamaya devam edecektir. 
+
+Not: "Erteleme ilkelerinin Windows Update karşısında tarama yapmasına izin verme" yi kullanıyorsanız, şu anda yalnızca cihazların belirtilen sunucunuza taranmasını sağlamak için bu ilkeyi yapılandırmanız önerilir.</string>
+      <string id="UpdateClassPolicySourceSelectionWU">Windows Update</string>
+      <string id="UpdateClassPolicySourceSelectionWSUS">Windows Server Update Services</string>
       <string id="DetectionFrequency_Help">Windows'un kullanılabilir güncelleştirmeleri denetlemeden önce ne kadar süre bekleyeceğini belirlemek için kullanacağı saati belirtir. Tam bekleme süresi, belirli değerin ve 0-4 saatlik bir rastgele değişkenin toplamıdır.
 
         Durum Etkin olarak ayarlı ise, Windows belirlenen aralıkla kullanılabilir güncelleştirmeleri denetleyecektir.
@@ -283,6 +313,12 @@ Not: Bu ilke yalnızca bu bilgisayarın yönlendirildiği Microsoft güncelleşt
 Not: Bu ilke Windows RT'de desteklenmez. Bu ilkeyi ayarlamanız Windows RT bilgisayarlarını etkilemez.</string>
       <string id="TargetGroup_Title">İstemci tarafı hedef belirlemeyi etkinleştir</string>
       <string id="WindowsUpdateCat">Windows Update</string>
+      <!--Category sub-folders-->
+      <string id="WindowsUpdateOffering">Windows Update tarafından sunulan güncellemeleri yönetin</string>
+      <string id="WSUSOffering">Windows Server Update Service tarafından sunulan güncellemeleri yönetin</string>
+      <string id="WindowsUpdateExperience">Son kullanıcı deneyimini yönetin</string>
+      <string id="PreSV">Eski İlkeler</string>
+
       <string id="TrustedPublisher_Title">İntranet Microsoft güncelleştirme hizmeti konumundan imzalı güncelleştirmelere izin ver  </string>
       <string id="TrustedPublisher_Help">Bu ilke ayarı, Otomatik Güncelleştirmeler'in, intranet Microsoft güncelleştirme hizmeti konumunda bulunan güncelleştirmeleri, Microsoft dışındaki kurumlar tarafından imzalanmış olmaları durumunda kabul edip etmeyeceğini yönetmenizi sağlar.
 
@@ -298,48 +334,34 @@ Not: Bu ilke Windows RT'de desteklenmez. Bu ilkeyi ayarlamanız Windows RT bilgi
 Bu ilkenin etkinleştirilmesi söz konusu işlevselliği devre dışı bırakır ve Windows Mağazası gibi ortak hizmetlerle bağlantının çalışmayı durdurmasına neden olabilir.
 
 Not: Bu ilke yalnızca bu bilgisayarın "İntranet Microsoft güncelleştirme hizmeti konumunu belirt" ilkesini kullanarak bir intranet güncelleştirme hizmetine bağlanacak şekilde yapılandırıldığı durumlarda uygulanır.</string>
-      <string id="DeferUpdateCat">İş İçin Windows Update</string>
       <string id="ManagePreviewBuilds_Title">Önizleme sürümlerini yönet</string>
-      <string id="ManagePreviewBuilds_Help">"Ön izleme sürümlerini devre dışı bırak" ögesini seçtiğinizde cihaza önizleme sürümlerinin yüklenmesi engellenir. Bu durum, kullanıcıların Ayarlar -&gt; Güncelleştirme ve Güvenlik yoluyla Windows Insider Programı'na geçiş yapmalarını engeller.
+      <string id="ManagePreviewBuilds_Help">Hangi güncelleştirmeleri tüm dünyanın kullanımına sunulmadan önce alacağınızı yönetmek için bu ilkeyi etkinleştirin.
 
-"Bir sonraki sürüm kullanılabilir olduğunda ön izleme sürümlerini devre dışı bırak" ögesini seçtiğinizde bir sonraki Windows sürümü kullanılabilir olduğunda ön izleme sürümlerinin yüklenmesi engellenir. Bu özellik, bilgisayarınız ön izleme yükleyecek şekilde ayarlandıysa ve cihazda uçuşa izin vermemek istiyorsanız kullanışlıdır. Bu seçenek, cihazlar bir sonraki sürümün yayımına erişene kadar ön izleme sürümleri sağlar.
+Geliştirme Kanalı
+İleri düzeyde teknik kullanıcılar için idealdir. Geliştirme Kanalındaki Insider’lar geliştirme döngüsünde en erken olan etkin geliştirme dalımızdan derlemeler alacaktır. Bu derlemeler belirli bir Windows 10 sürümüyle eşleşmez.
 
-"Ön izleme sürümlerini etkinleştir" ögesini seçtiğinizde cihaza ön izleme sürümlerinin yüklenmesi etkinleştirilir. Kullanıcılar, Ayarlar -&gt; Güncelleştirme ve Güvenlik -&gt; Windows Insider Programı üzerinden seçeneği açarak cihazlarına Windows ön izleme sürümlerini indirebilir ve yükleyebilirler. Bu değer ayarlandığında yöneticiler, kullanıcılar adına uçuş ayarlarını yönetmek için diğer ilkeleri de kullanabilirler.</string>
-      <string id="DisablePreviewBuilds">Önizleme sürümlerini devre dışı bırak</string>
-      <string id="DisablePreviewBuildsAndOptOut">Bir sonraki sürüm yayınlandığında önizleme sürümlerini devre dışı bırak</string>
-      <string id="EnablePreviewBuilds">Önizleme sürümlerini etkinleştir</string>
-      <string id="PreviewBuildFastFeatureUpdates">Önizleme Sürümü - Hızlı</string>
-      <string id="PreviewBuildSlowFeatureUpdates">Preview Sürümü - Yavaş</string>
-      <string id="ReleasePreviewBranchFeatureUpdates">Yayınlama Önizlemesi</string>
-      <string id="SemiAnnualChannelFeatureUpdates">Yarı Yıllık Kanal</string>
-      <string id="SemiAnnualChannelFeatureUpdatesDeprecated">1809 ve altı için Yarı Yıllık Kanal (Kullanım Dışı)</string>
-      <string id="SemiAnnualChannelFeatureUpdatesTargetedDeprecated">1809 ve altı için Yarı Yıllık Kanal (Hedefli) (Kullanım Dışı)</string>
-      <string id="DeferFeatureUpdates_Title">Özellik Güncelleştirmeleri ve Özellik Güncelleştirmeleri'nin ne zaman alınacağını seçin</string>
-      <string id="DeferFeatureUpdates_Help">Alınacak Ön İzleme Sürümü veya Özellik Güncelleştirmelerinin düzeyini veya ne zaman alınacağını belirtmek için bu ilkeyi etkinleştirin.
+Beta Kanal
+Yaklaşan Windows 10 özelliklerini görmek isteyen özellik gezginleri için idealdir. Geri bildiriminiz burada özellikle önemlidir çünkü ana sürümden önce mühendislerimizin önemli sorunların çözüldüğünden emin olmasına yardımcı olur.
 
-* Ön İzleme Sürümü - Hızlı: Bu düzeye ayarlanan cihazlar, henüz herkes için kullanılabilir olmayan özelliklere sahip yeni Windows sürümlerini ilk alanlar olacaktır. Microsoft'a sorun tanımlamasına ve bildirimine katılmak ve yeni işlevler hakkında önerilerde bulunmak için Hızlı seçeneğini seçin.
-* Ön İzleme Sürümü - Yavaş: Bu düzeye ayarlanan cihazlar, yeni sürümleri herkes için kullanılabilir olmadan önce alırlar, ancak Hızlı düzeydeki cihazlara göre daha yavaş bir tempoda ve önceki sürümlerde tanımlanan değişiklikler ve düzeltmelerle birlikte alırlar.
-* Yayın Ön İzlemesi: Windows sürümleri, Microsoft genel kullanıma sunmadan hemen önce alınır.
-* Yarı Yıllık Kanal: Özellik güncelleştirmeleri yalnızca genel kullanıma sunulduğunda alınır.
+Sürüm Önizleme Kanalı (varsayılan)
+Sürüm Önizleme Kanalındaki Insider’lar yaklaşan Windows 10 sürümüne dünyanın kullanımına sunulmadan önce erişirler. Bu derlemeler Microsoft tarafından desteklenir. Sürüm Önizleme Kanalı, yaklaşan Windows 10 sürümlerini kuruluş geneline kapsamlı dağıtım öncesinde şirketlerin önizlemesini ve doğrulamasını önerdiğimiz kanaldır.
 
-Aşağıdaki Windows Hazır Olma düzeyleri kullanım dışıdır ve yalnızca 1809 ve altı için geçerlidir:
-* 1809 ve altı için Yarı Yıllık Kanal (Hedefli): Özellik güncelleştirmeleri yayınlanmıştır.
-* 1809 ve altı için Yarı Yıllık Kanal: Özellik güncelleştirmeleri Yarı Yıllık Kanal olarak bildirilmişir; bu beyan, yayının geniş çaplı dağıtım için hazır olduğu anlamına gelir.
-Yarı Yıllık Kanal (Hedefli) ve Yarı Yıllık Kanal yayın tarihleri için lütfen http://aka.ms/ReleaseInformationPage adresindeki yayın bilgileri sayfasını gözden geçirin.
+Sürüm Önizleme Kanalı, Yalnızca Kalite Güncelleştirmeleri
+Mevcut sürümleri için yakında sunulacak özellik ve düzeltmeleri doğrulamak isteyenler için idealdir. Not: Bu seçenek belirlendiğinde, yayınlanan özellik güncelleştirmeleri yapılandırılan ilkelere göre sunulmaya devam eder.
 
-Bir Ön İzleme Sürümü seçerken:
-    - Ön İzleme Sürümlerini almayı en fazla 14 gün erteleyebilirsiniz.
-    - Ön İzleme Sürümlerinin planlanan zamanda alınmasını engellemek için, onları geçici olarak duraklatabilirsiniz. Duraklatma işlemi, verilen başlangıç zamanından itibaren 35 gün boyunca etkin kalır.
-    - Duraklatılan Özellik Güncelleştirmelerini almaya devam etmek için başlangıç tarihi alanını temizleyin.
+Not: Önizleme Sürümü kaydı için telemetri düzeyi ayarının 2 veya daha yüksek olması ve etki alanınızın insider.windows.com'da kayıtlı olması gerekir. Önizleme Sürümleri hakkında ek bilgi için bkz.: https://aka.ms/wipforbiz
 
-Ön İzleme Sürümü kaydı için 2 veya daha yüksek bir telemetri düzey ayarı ve insider.windows.com üzerinde kayıtlı etki alanınız gereklidir. Ön İzleme Sürümleri hakkında ek bilgi için bkz. https://aka.ms/wipforbiz
+Bu ilkeyi devre dışı bırakır veya yapılandırmazsanız, Windows Update size hiçbir sürüm öncesi güncelleştirmesi sunmaz ve bu tür içeriği dünyanın kullanımına sunulduğunda alırsınız. Bu ilkenin devre dışı bırakılması şu anda sürüm öncesi derlemeyi kullanan tüm cihazların bu derlemeyi kullanmayı durdurmasına ve kullanıma sunulduğunda en son Özellik Güncelleştirmesinde kalmasına neden olur.</string>
+      <string id="DevChannel">Geliştirme Kanalı</string>
+      <string id="BetaChannel">Beta Kanal</string>
+      <string id="ReleasePreviewChannel">Sürüm Önizleme Kanalı</string>
+      <string id="ReleasePreviewQualityOnly">Yalnızca Kalite Güncelleştirmelerinin Önizlemesini Yayınla</string>
+      <string id="DeferFeatureUpdates_Title">Önizleme Sürümleri ve Özellik Güncelleştirmeleri'nin ne zaman alınacağını seçin</string>
+      <string id="DeferFeatureUpdates_Help">Özellik Güncelleştirmeleri'ni ne zaman alınacağınızı belirtmek için bu ilkeyi etkinleştirin.
 
-Yarı Yıllık Kanal seçerken:
-    - Özellik Güncelleştirmelerini almayı en fazla 365 gün erteleyebilirsiniz.
-    - Özellik Güncelleştirmelerinin planlanan zamanda alınmasını engellemek için, onları geçici olarak duraklatabilirsiniz. Duraklatma işlemi, verilen başlangıç zamanından itibaren 35 gün boyunca etkin kalır.
-    - Duraklatılan Özellik Güncelleştirmelerini almaya devam etmek için başlangıç tarihi alanını temizleyin.
+Güncelleştirmeleri Ertele | Bu, cihazların mevcut ürünlerinde kullanılabilen bir sonraki Özellik Güncelleştirmesi’ni almayı ertelemesini sağlar (veya hedef Özellik Güncelleştirmesi sürümünü Seç ilkesinde belirtilmişse yeni bir ürünü). Özellik Güncelleştirmesi’ni tüm ön sürüm kanalları için 14 gün, Genel Kullanılabilirlik Kanalı için 365 gün erteleyebilirsiniz. Geçerli sürümler hakkında daha fazla bilgi edinmek için bkz. aka.ms/WindowsTargetVersioninfo
 
-Bu ilkeyi devre dışı bırakırsanız ya da yapılandırmazsanız, Windows Update, davranışını değiştirmeyecektir.</string>
+Güncelleştirmeleri Duraklat | Özellik Güncelleştirmelerinin cihaza sunulmasını önlemek için Özellik Güncelleştirmelerini geçici olarak duraklatabilirsiniz. Bu duraklama, belirtilen başlangıç tarihten sonra veya alan temizleninceye kadar 35 gün boyunca etkin kalır. Özellik Güncelleştirmeleri duraklatılmış olsa bile Kalite Güncelleştirmeleri'nin yine de sunulacağını unutmayın.</string>
       <string id="DeferQualityUpdates_Title">Kalite Güncelleştirmeleri'nin ne zaman alınacağını seçin</string>
       <string id="DeferQualityUpdates_Help">Kalite güncelleştirmelerinin ne zaman alınması gerektiğini belirtmek için bu ilkeyi etkinleştirin.
 
@@ -350,6 +372,20 @@ Kalite güncelleştirmelerinin planlanan sürede alınmasını engellemek için 
 Duraklatılan Kalite Güncelleştirmelerini almaya devam etmek için başlangıç tarihi alanını temizleyin.
 
 Bu ilkeyi devre dışı bırakır veya yapılandırmazsanız, Windows Update davranışını değiştirmez.</string>
+      <string id="TargetReleaseVersion_Title">Hedef Özellik Güncelleştirmesi sürümünü seç</string>
+      <string id="TargetReleaseVersion_Help">Windows Update hedef sürüm sayfasında listelendiği şekilde ürünü ve sürümü girin:
+
+                        aka.ms/WindowsTargetVersioninfo
+
+Cihaz, daha sonraki taramalarda o Windows Update ürününü ve sürümünü isteyecektir.
+
+Bir hedef ürün girip Tamam veya Uygula’ya tıklamak, aka.ms/WindowsTargetVersioninfo adresinde bulunan Microsoft Yazılımı Lisans Koşulları’nı kabul ettiğim anlamına gelir. Yazılımın lisansı bir kuruluş tarafından sağlanıyorsa o kuruluş için hareket etmeye yetkiliyim.
+
+Geçersiz bir değer girerseniz desteklenen bir ürün ve sürümle bu değerleri düzeltene kadar geçerli sürümünüzde kalırsınız.</string>
+      <string id="DisableWUfBSafeguards">Özellik Güncelleştirmeleri için korumayı devre dışı bırakın</string>
+      <string id="DisableWUfBSafeguards_Help">
+          Özellik Güncelleştirmelerinin herhangi bir koruma askıya alma işlemiyle engellenmeden cihazlara dağıtılması gerektiğinde bu ayarı etkinleştirin. Koruma askıya alma işlemleri, yükseltmenin sorun çözülene kadar etkilenen cihazlara dağıtılmasını engelleyen, bilinen uyumluluk sorunlarıdır. Bu ilkenin etkinleştirilmesi kuruluşun Özellik Güncelleştirmesini cihazlara test amacıyla dağıtmasına veya koruma askıya alma işlemleriyle engellenmeden dağıtmasına olanak tanır.
+      </string>
       <string id="ExcludeWUDriversInQualityUpdate_Title">Windows Güncelleştirmeleri olan sürücüleri dahil etme</string>
       <string id="ExcludeWUDriversInQualityUpdate_Help">Sürücüleri Windows kalite güncelleştirmelerine dahil etmemek için bu ilkeyi etkinleştirin.
 
@@ -442,6 +478,16 @@ Bu ayarı etkinleştirirseniz Windows Update taraması, indirmesi ve yüklemesi 
       <string id="DisablePauseUXAccess_Help">Bu ayar, "Güncelleştirmeleri duraklat" özelliğine erişimi kaldırmanızı sağlar.
 
 Etkinleştirdikten sonra kullanıcıların güncelleştirmeleri duraklat özelliğine erişimi kaldırılır.
+      </string>
+
+      <string id="MaxPauseDays_Title">Uygulamaların duraklatılabileceği maksimum gün sayısını yapılandırın</string>
+      <string id="MaxPauseDays_Help">Bu ilke, son kullanıcıların güncelleştirmeleri duraklatabileceği en fazla gün sayısını denetler.
+
+Desteklenen değerler 1-35'tir. Varsayılan değer 35'tir (gün).
+
+İlke yapılandırıldığında, kullanıcılar güncelleştirmeleri yalnızca ilke tarafından belirtilen sürenin sonuna kadar duraklatabilir. Yapılandırılan sınıra ulaşıldığında, kullanıcılar artık duraklatmayı uzatamaz.
+
+İlke devre dışı bırakılırsa veya yapılandırılmazsa, varsayılan duraklatma davranışı uygulanır ve kullanıcılar güncelleştirmeleri bir seferde 35 güne kadar sürekli olarak duraklatabilir. Bu ilke, Güncelleştirmeleri duraklat işlemini tamamen devre dışı bırakmaz. Güncelleştirmeleri duraklat özelliğine erişimi kaldırmak için "'Güncelleştirmeleri duraklat' özelliğine erişimi kaldır" ilkesini kullanın.
       </string>
 
       <string id="ActiveHoursMaxRange_Title">Otomatik yeniden başlatmalar için etkin saat aralığını belirtin</string>
@@ -575,31 +621,52 @@ Bu ilke devre dışı bırakılırsa veya yapılandırılmazsa Windows Update is
 Not: Bu ilke yalnızca bu bilgisayarın yönlendirildiği intranet Microsoft Update hizmeti, istemci tarafı hedeflemesini destekleyecek şekilde yapılandırıldığında geçerlidir. "Intranet Microsoft Update hizmeti konumu belirt" ilkesi devre dışı bırakılırsa veya yapılandırılmazsa bu ilkenin herhangi bir etkisi olmaz.
       </string>
       <string id="UpdateNotificationLevel_Title">Güncelleştirme bildirimleri için görüntüleme seçenekleri</string>
-      <string id="UpdateNotificationLevel_Help">0 (varsayılan) – Varsayılan Windows Update bildirimlerini kullan
-1 – Yeniden başlatma uyarıları hariç tüm bildirimleri kapat
-2 – Yeniden başlatma uyarıları dahil tüm bildirimleri kapat
+      <string id="UpdateNotificationLevel_Help">0 (varsayılan) - Varsayılan Windows Update bildirimlerini kullan
+1 - Yeniden başlatma uyarıları dışında tüm bildirimleri kapat
+2 - Yeniden başlatma uyarıları dahil tüm bildirimleri kapat
 
-Bu ilke, kullanıcıların hangi Windows Update bildirimlerini göreceğini belirlemenize olanak sağlar. Bu ilke, güncelleştirmelerin nasıl ve ne zaman indirilip yükleneceğini denetlemez.
+Bu ilke, kullanıcıların hangi Windows Update bildirimlerini göreceğini tanımlamanızı sağlar. Bu ilke güncelleştirmelerin nasıl ve ne zaman indirileceğini ve yükleneceğini denetlemez.
 
-Önemli: güncelleştirme bildirimleri almamayı ve aynı zamanda diğer Grup ilkesini cihazların otomatik olarak güncelleştirme almayacağı şekilde tanımlamayı tercih ederseniz, hem siz hem de cihaz kullanıcıları kritik güvenlik, kalite veya özellik güncelleştirmelerinin farkında olmazsınız ve cihazlarınız risk altında olabilir.
+Önemli: Güncelleştirme bildirimi almamayı tercih eder ve ayrıca cihazların güncelleştirmeleri otomatik olarak almamasına yönelik başka bir Grup ilkesi tanımlarsanız siz veya cihaz kullanıcıları kritik güvenlik, kalite veya özellik güncelleştirmelerinin farkına varamaz ve cihazlarınız risk altında kalabilir.
+
+Seçenek 1 veya 2 ile birlikte “Yalnızca etkin saatlerde uygula” seçeneğini belirlerseniz bildirimler yalnızca etkin saatlerde devre dışı bırakılır. “Etkin saatlerde güncelleştirmeler için otomatik yeniden başlatmayı kapat” ayarını yaparak etkin saatleri ayarlayabilir veya cihazın etkin saatleri kullanıcı davranışına göre belirlemesine izin verebilirsiniz. Cihazın güvenli kalmasını sağlamak için, etkin saatler ne olursa olsun, yapılandırılmış olması halinde “Otomatik güncelleştirmeler ve yeniden başlatmalar için son tarihleri belirle” ayarındaki son tarihe ulaşıldığında bu seçenek belirlenmişse bir bildirim yine de gösterilir.
       </string>
       <string id="DefaultNotification">0 (varsayılan) – Varsayılan işletim sistemi Windows Update bildirimleri</string>
       <string id="ExcludingRebootWarnings">1 – Yeniden başlatma uyarıları hariç tüm bildirimleri devre dışı bırak</string>
       <string id="IncludingRebootWarnings">2 – Yeniden başlatma uyarıları dâhil tüm bildirimleri devre dışı bırak</string>
-      <string id="ComplianceDeadline_Title">Otomatik güncelleştirmeler ve yeniden başlatmalar için son tarihleri belirt</string>
-      <string id="ComplianceDeadline_Help">Bu ilke, kullanıcının kalite ve özellik güncelleştirmelerinin cihazlarına otomatik olarak yüklenmesinden önce sahip olduğu gün sayısını ve gerekli yeniden başlatma işleminin otomatik olarak çalıştırılmasının ardından geçen yetkisiz kullanım süresi uzunluğunu belirtmenize olanak verir.  Güncelleştirmeler ve yeniden başlatmalar etkin saatlerden bağımsız olarak gerçekleştirilir ve kullanıcı yeniden zamanlama yapamaz.
+      <string id="ComplianceDeadlineForFU_Title">Specify deadline for automatic updates and restarts for feature update</string>
+      <string id="ComplianceDeadlineForFU_Help">This policy lets you specify the number of days before feature updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
 
-Özellik güncelleştirmeleri ve kalite güncelleştirmeleri için son tarih en fazla 30 gün sonrası olabilir.  Otomatik yeniden başlatma yetkisiz kullanım süresi 0 ila 7 gün arasında olabilir.
+Set deadlines for feature updates and quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
 
-Otomatik yeniden başlatmaları ayrıca, otomatik yeniden başlatma yetkisiz kullanım süresinin sonuna kadar devre dışı bırakabilirsiniz.
+Set a grace period for feature updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
 
-Bu ilkeyi devre dışı bırakır veya yapılandırmazsanız, cihazlar güncelleştirmeleri alır ve varsayılan zamanlamaya göre yeniden başlatılır.
+You can set the device to delay restarting until both the deadline and grace period have expired.
 
-Bu ilke, aşağıdaki ilkeleri geçersiz kılar:
-1.  Güncelleştirme yüklemesi için, otomatik yeniden başlatmadan önce son tarihi belirt
-2. Güncelleştirmeler için Bağlı yeniden başlatma geçişini ve bildirim zamanlamasını belirt
-3.  Zamanlanan saatte her zaman otomatik olarak yeniden başlat
-4. Zamanlanan otomatik güncelleştirme yüklemesi için oturum açmış olan kullanıcılar için otomatik yeniden başlatma yok
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
+      </string>
+      <string id="ComplianceDeadlineForQU_Title">Specify deadline for automatic updates and restarts for quality update</string>
+      <string id="ComplianceDeadlineForQU_Help">This policy lets you specify the number of days before quality updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
+
+Set deadlines for quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
+
+Set a grace period for quality updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
+
+You can set the device to delay restarting until both the deadline and grace period have expired.
+
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
       </string>
       <string id="ComplianceDeadlineDay0">0</string>
       <string id="ComplianceDeadlineDay1">1</string>
@@ -632,6 +699,103 @@ Bu ilke, aşağıdaki ilkeleri geçersiz kılar:
       <string id="ComplianceDeadlineDay28">28</string>
       <string id="ComplianceDeadlineDay29">29</string>
       <string id="ComplianceDeadlineDay30">30</string>
+
+      <string id="AllowTemporaryEnterpriseFeatureControl_Title">Varsayılan olarak kapalı olan bakım aracılığıyla sunulan özellikleri etkinleştir</string>
+      <string id="AllowTemporaryEnterpriseFeatureControl_Help">Hizmet aracılığıyla sunulan özellikler (yıllık özellik güncelleştirmesi dışında), Windows güncelleştirmeleri yönetilen cihazlar için varsayılan olarak kapalıdır*.
+
+Bu ilke “Etkin” olarak yapılandırılırsa, yüklenen en son aylık kalite güncelleştirmesinde bulunan tüm özellikler açık olur.
+
+Bu ilke “Yapılandırılmadı” veya “Devre Dışı” olarak ayarlanırsa, aylık kalite güncelleştirmesi (hizmet) aracılığıyla gönderilen özellikler, bu özellikleri içeren özellik güncelleştirmesi yüklenene kadar kapalı kalır.
+
+ *Windows Update yönetimli cihazlar, Windows güncelleştirmelerinin ilke aracılığıyla yönetildiği cihazlardır; ister İş İçin Windows Update kullanılarak bulut üzerinden ister Windows Server Update Services (WSUS) ile şirket içinde.
+      </string>
+      <string id="AllowOptionalContent_Title">İsteğe bağlı güncelleştirmeleri etkinleştir</string>
+      <string id="AllowOptionalContent_Help">Bu ilke, cihazların isteğe bağlı güncelleştirmeleri (aşamalı özellik dağıtımları (CFR'ler) dahil) almasını sağlar. Daha fazla bilgi için bkz. aka.ms/AllowOptionalContent
+
+İlke yapılandırıldığında
+
+• "İsteğe bağlı güncelleştirmeleri (CFR'ler dahil) otomatik olarak al" seçilirse cihaz, yapılandırılan kalite güncelleştirmesi ertelemeleri ile uyumlu şekilde, isteğe bağlı en yeni güncelleştirmeleri otomatik olarak alır. Buna isteğe bağlı toplu güncelleştirmeler ve aşamalı özellik dağıtımları (CFR'ler) dahildir.
+
+• "İsteğe bağlı güncelleştirmeleri otomatik olarak al" seçilirse cihaz, yalnızca kalite güncelleştirmesi ertelemeleri ile uyumlu şekilde, isteğe bağlı toplu güncelleştirmeleri otomatik olarak alır.
+
+• "Kullanıcılar güncelleştirmelerden almak istediklerini seçebilir" seçilirse kullanıcılar, Ayarlar &gt; Windows Update &gt; Gelişmiş ayarlar &gt; İsteğe bağlı güncelleştirmeler'i ziyaret ederek isteğe bağlı güncelleştirmelerden almayı dilediklerini seçebilir. Ayrıca kullanıcılar, isteğe bağlı güncelleştirmeleri ve aşamalı özellik dağıtımlarını otomatik olarak almak için "En son güncelleştirmeleri kullanıma hazır olur olmaz al" düğmesini açabilir.
+      </string>
+      <string id="DonotReceiveOptionalContent">İsteğe bağlı güncelleştirme alma</string>
+      <string id="ReceiveOptionalContentWithAutoApproval">İsteğe bağlı güncelleştirmeleri otomatik olarak al (CFR’ler dahil)</string>
+      <string id="ReceiveOptionalLCUWithAutoApproval">İsteğe bağlı güncelleştirmeleri otomatik olarak al</string>
+      <string id="ReceiveOptionalContentNeedUserApproval">Kullanıcılar alacakları isteğe bağlı güncelleştirmeleri seçebilir</string>
+
+      <string id="MaintenanceWindow_Title">Otomatik güncelleştirmeler için bakım pencerelerini yapılandırın</string>
+      <string id="MaintenanceWindow_Help">Bu ilkeyi etkinleştirerek cihazın belirtilen güncelleştirme eylemlerini gerçekleştirmesi için tekrarlanabilir bakım pencerelerini belirtin.
+
+Bu ilke etkinleştirildiğinde, Windows Update yapılandırılan bakım pencereleri sırasında yalnızca belirtilen güncelleştirme eylemini gerçekleştirir. Bakım penceresinin dışında kalan güncelleştirme eylemleri, bir sonraki bakım penceresi başlayana kadar ertelenir.
+
+• Güncelleştirme Eylemleri: Bakım pencereleri sırasında yalnızca hangi güncelleştirme eylemlerine izin verileceğini seçin. Bir güncelleştirme eylemi seçilmezse, o eylem bakım penceresi dışında gerçekleşebilir.
+    - İndirme, yükleme ve yeniden başlatma: İndirme, yükleme ve sistemi yeniden başlatma eylemlerinden oluşan güncelleştirme döngüsünü tamamlayın
+    - Yükleme ve yeniden başlatma: İndirilmiş olan güncelleştirmeleri yükleyin ve cihazı yeniden başlatın
+    - Yalnızca yeniden başlatma: Bekleyen güncelleştirmeler için yalnızca sistem yeniden başlatması gerçekleştirin
+
+• Temel Zamanlama Yapılandırması:
+    - Başlangıç Tarihi: İlk bakım penceresinin başlayacağı tarihi belirtin (biçim: yyyy-aa-gg, örnek: 2025-10-30)
+      * Başlangıç Tarihi alanının geçerlilik kazanması için Yinelenen zamanlama “Yok” olarak ayarlanmalıdır
+    - Başlangıç Saati: Bakım penceresinin başlayacağı saati ayarlayın (biçim: ss:dd, örnek: 23:30)
+    - Süre: Her bakım penceresinin ne kadar süreyle açık kalacağını saat cinsinden tanımlayın (örnek: 2 saatlik bir pencere için 2)
+
+• Yinelenen Zamanlama Seçenekleri:
+    - Yineleme yok: Belirtilen başlangıç tarihinde yalnızca bir kerelik bir bakım penceresi
+    - Günlük: Bakım penceresi her gün yinelenir
+    - Haftalık: Bakım penceresi haftalık olarak, haftanın seçili günlerinde yinelenir
+    - Aylık: Bakım penceresi aylık olarak, belirli bir günde yinelenir
+
+• Haftalık Zamanlama Ayarları (Haftalık seçildiğinde):
+    - Haftanın Günü Seçimi: Bakım penceresinin haftanın hangi günlerinde olacağını seçin:
+        * Pazar'dan Cumartesi'ye: Bakım penceresinin gerçekleşeceği haftanın belirli günlerini seçmek için kutuları işaretleyin
+
+• Aylık Zamanlama Ayarları (Aylık seçildiğinde):
+    - Aylık Zamanlama Türü:
+        * Tarih Tabanlı: Bakım penceresi ayın belirli bir günü gerçekleşir (örnek: her ayın 15. günü)
+        * Hafta Tabanlı: Bakım penceresi ay içinde haftanın belirli bir günü yinelenerek gerçekleşir (örnek: her ayın 2. Salı günü)
+        * Ayın son günü: Bakım penceresi ayın son gününde gerçekleşir
+    - Ayın Günü: Tarih tabanlı zamanlama kullanıldığında ayın hangi günü gerçekleşeceğini belirtin (1-28)
+    - Ay İçindeki Tekrarlanma: Hafta tabanlı zamanlama kullanıldığında ayın hangi haftası gerçekleşeceğini seçin (Birinci, İkinci, Üçüncü, Dördüncü veya Sonuncu)
+    - Haftanın Günü: Hafta tabanlı zamanlama kullanıldığında haftanın hangi günü gerçekleşeceğini seçin (Pazar'dan Cumartesi'ye)
+
+Aylık Yapılandırma Örnekleri:
+    - Tarih Tabanlı: "her ayın 3. günü" = Ayın Günü: 3
+    - Hafta Tabanlı: "Her ayın ikinci Salı günü" = Tekrarlanma: İkinci, Haftanın Günü: Salı
+    - Hafta Tabanlı: "Her ayın son Cuma günü" = Tekrarlanma: Sonuncu, Haftanın Günü: Cuma
+    - Ayın son günü: "Her ayın son günü"
+
+Tekrarlanmayan bir bakım penceresi gerçekleştiğinde, bir sonraki bakım penceresi 3 ay içinde zamanlanmalıdır. Tekrarlanmayan bakım penceresinin başlangıç tarihi 3 aydan daha eskiyse, bu ilke göz ardı edilir ve güncelleştirmeler varsayılan ayarlara göre zamanlanır.
+
+Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız, Windows Update kendi varsayılan zamanlama davranışına uyar.</string>
+      <!-- MaintenanceWindowUpdateActionsID dropdown options -->
+      <string id="MaintenanceWindowUpdateActions_DownloadInstallRestart">İndir, yükle ve yeniden başlat</string>
+      <string id="MaintenanceWindowUpdateActions_InstallRestart">Yükle ve yeniden başlat</string>
+      <string id="MaintenanceWindowUpdateActions_RestartOnly">Yalnızca yeniden başlat</string>
+      <!-- MaintenanceWindowRepeatScheduleOption dropdown options -->
+      <string id="MaintenanceWindowRepeatSchedule_NoRepeat">Yineleme yok</string>
+      <string id="MaintenanceWindowRepeatSchedule_Daily">Günlük</string>
+      <string id="MaintenanceWindowRepeatSchedule_Weekly">Her hafta</string>
+      <string id="MaintenanceWindowRepeatSchedule_Monthly">Aylık</string>
+      <!-- MaintenanceWindowMonthlyScheduleID dropdown options -->
+      <string id="MaintenanceWindowMonthlySchedule_MonthBased">Tarih tabanlı</string>
+      <string id="MaintenanceWindowMonthlySchedule_WeekBased">Hafta bazlı</string>
+      <string id="MaintenanceWindowMonthlySchedule_LastDay">Ayın son günü</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_First">İlk</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Second">Saniye</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Third">Üçüncü</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Fourth">Dördüncü</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Last">Son</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedDayOfTheWeek dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Sunday">Pazar</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Monday">Pazartesi</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Tuesday">Salı</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Wednesday">Çarşamba</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Thursday">Perşembe</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Friday">Cuma</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Saturday">Cumartesi</string>
     </stringTable>
 
     <presentationTable>
@@ -663,21 +827,28 @@ Bu ilke, aşağıdaki ilkeleri geçersiz kılar:
         <textBox refId="CorpWUContentHost_Name">
           <label>Alternatif indirme sunucusunu ayarla:</label>
         </textBox>
-        <text>(örnek: http://IntranetGuncel01)</text>
+        <text>(örnek: https://IntranetUpd01)</text>
         <checkBox refId="CorpWUFillEmptyContentUrls" defaultChecked="false">Alternatif indirme sunucusu ayarlandığında meta verilerinde Url olmayan dosyaları indir.</checkBox>
+        <checkBox refId="CorpWUDoNotEnforceEnterpriseTLSCertPinningForUpdateDetection" defaultChecked="false">Güncelleştirmeleri algılaması için Windows Update istemcisi’nin TLS sertifika sabitlemesini zorunlu tutmayın.</checkBox>
+        <dropdownList refId="SetProxyBehaviorForUpdateDetection" noSort="true" defaultItem="0">Güncelleştirmeleri algılamak için Windows Update istemcisi proxy davranışını seçin:</dropdownList>
+      </presentation>
+      <presentation id="UpdateClassPolicySource_Title">
+        <text>Aşağıdaki Windows güncelleme sınıfları için kaynak hizmeti belirtin:</text>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForFeatureUpdates" noSort="true" defaultItem="0">Özellik Güncelleştirmeleri</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForQualityUpdates" noSort="true" defaultItem="0">Kalite Güncelleştirmeleri</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForDriverUpdates" noSort="true" defaultItem="0">Sürücü Güncelleştirmeleri</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForOtherUpdates" noSort="true" defaultItem="0">Diğer Güncelleştirmeler</dropdownList>
       </presentation>
       <presentation id="DetectionFrequency_Title">
         <text>Aşağıdaki aralıkta (saat)</text>
         <decimalTextBox refId="DetectionFrequency_Hour2" defaultValue="22">güncelleştirmeleri denetle:  </decimalTextBox>
       </presentation>
       <presentation id="RebootRelaunchTimeout_Title">
-        <text>Zamanlanmış yeniden başlatmayı</text>
-        <text>yeniden sormadan önce aşağıdaki</text>
+        <text>Zamanlanan öğeyi sormadan önce şu kadar süre bekleyin:</text>
         <decimalTextBox refId="RebootRelaunchTimeout_Minutes3" defaultValue="10">süre kadar bekle (dakika):  </decimalTextBox>
       </presentation>
       <presentation id="RebootWarningTimeout_Title">
-        <text>Zamanlanmış yeniden başlatmaya</text>
-        <text>devam etmeden önce aşağıdaki</text>
+        <text>Zamanlanan öğeyle devam etmeden önce şu kadar süre bekleyin:</text>
         <decimalTextBox refId="RebootWarningTimeout_Minutes3" defaultValue="5">süre kadar bekle (dakika):  </decimalTextBox>
       </presentation>
       <presentation id="RescheduleWaitTime_Title">
@@ -689,24 +860,25 @@ Bu ilke, aşağıdaki ilkeleri geçersiz kılar:
           <label>Bu bilgisayar için hedef grup adı</label>
         </textBox>
       </presentation>
-      <presentation id="IdleShutdownTimerDuration_Title">
-        <text>Boşta olduğunda hizmeti kapatmadan</text>
-        <text>önce aşağıdaki süre kadar</text>
-        <decimalTextBox refId="IdleShutdownTimerDuration_Minutes" defaultValue="10">bekle (dakika):  </decimalTextBox>
-      </presentation>
       <presentation id="AlwaysAutoRebootAtScheduledTime_Presentation">
-        <text>Yeniden başlatma süreölçeri kullanıcılara</text>
-        <text>çalışmalarını kaydetmeleri için şu kadar</text>
+        <text>Yeniden başlatma zamanlayıcısı kullanıcılara öğelerini kaydetmeleri için şu kadar zaman verir:</text>
         <decimalTextBox refId="AlwaysAutoRebootAtScheduledTime_Minutes" defaultValue="15">zaman verir (dakika):  </decimalTextBox>
       </presentation>
+      <presentation id="TargetReleaseVersion">
+        <textBox refId="ProductVersionId">
+          <label>Özellik güncelleştirmelerini hangi Windows ürün sürümü için almak istiyorsunuz? ör. Windows 10</label>
+        </textBox>
+        <textBox refId="TargetReleaseVersionId">
+          <label>Özellik Güncelleştirmeleri için Hedef Sürüm</label>
+        </textBox>
+      </presentation>
       <presentation id="ManagePreviewBuilds">
-        <dropdownList refId="ManagePreviewBuildsId" noSort="true" defaultItem="2">Önizleme sürümlerini alma davranışını ayarla:</dropdownList>
+        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Almak istediğiniz güncelleştirmeleri için Windows hazır olma durumunu seçin:</dropdownList>
       </presentation>
       <presentation id="DeferFeatureUpdates">
-        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Almak istediğiniz güncelleştirmeleri için Windows hazır olma durumunu seçin:</dropdownList>
-        <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">Bir Önizleme Sürümü veya Özellik Güncelleştirmesi yayınlandığında, alınmasını şu kadar gün geciktir:</decimalTextBox>
+       <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">Bir Özellik Güncelleştirmesi yayınlandığında, cihaza sunulmadan önce kaç gün ertelenmesini istiyorsunuz?</decimalTextBox>
         <textBox refId="PauseFeatureUpdatesStartId">
-          <label>Önizleme Güncelleştirmesi veya Özellik Güncelleştirmesi'nin başlatılmasını duraklat:</label>
+          <label>Önizleme Sürümlerinin veya Özellik Güncelleştirmelerinin başlatılmasını duraklat:</label>
         </textBox>
         <text>(biçim yyyy-aa-gg örneği: 2016-10-30)</text>
       </presentation>
@@ -726,6 +898,10 @@ Bu ilke, aşağıdaki ilkeleri geçersiz kılar:
         <text>Etkin saatler dışında bir yeniden başlatmanın otomatik olarak önceden yürütüleceği bir gün sayısını belirtin: </text>
         <dropdownList refId="AutoRestartDeadline" noSort="true" defaultItem="5">Kalite Güncelleştirmeleri (gün): </dropdownList>
         <dropdownList refId="AutoRestartDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Özellik Güncelleştirmeleri (gün): </dropdownList>
+      </presentation>
+      <presentation id="MaxPauseDays_Title">
+        <text>Kullanıcıların güncelleştirmeleri kaç gün duraklatabileceğini belirtin:</text>
+        <decimalTextBox refId="SetMaxPauseDays" noSort="true" defaultValue="35">Maksimum duraklatma günü sayısı: </decimalTextBox>
       </presentation>
       <presentation id="ActiveHoursMaxRange_Title">
         <text>Maksimum etkin saatler aralığını belirtin:</text>
@@ -762,16 +938,50 @@ Bu ilke, aşağıdaki ilkeleri geçersiz kılar:
       </presentation>
       <presentation id="UpdateNotificationLevel_Title">
         <dropdownList refId="UpdateNotificationLevel" noSort="true" defaultItem="0">Güncelleştirme bildirimlerini görüntüleme seçeneklerini belirtin:</dropdownList>
+        <text></text>
+        <checkBox refId="NoUpdateNotificationsDuringActiveHours" defaultChecked="false">Yalnızca etkin saatlerde uygula</checkBox>
       </presentation>
-      <presentation id="ComplianceDeadline_Title">
-        <text>Kullanıcının yeniden zamanlanmasına izin verilmeden, etkin saatlerden bağımsız olarak, güncelleştirmeler otomatik olarak çalışmadan önce sahip olduğu gün sayısını (en fazla 30 gün) belirtin.</text>
-        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="5">Kalite güncelleştirmeleri (gün):</dropdownList>
-        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Özellik güncelleştirmeleri (gün):</dropdownList>
+       <presentation id="ComplianceDeadlineForFU_Title">
+        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="2">Son tarih (gün):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriodForFeatureUpdates" noSort="true" defaultItem="7">Yetkisiz Kullanım Süresi (gün):</dropdownList>
         <text></text>
-        <text>Yeniden başlatmanın gerekli olduğu zamandan cihazın otomatik olarak yeniden başlatılacağı zamana kadar, bir otomatik yeniden başlatma yetkisiz kullanım süresi (0-7 gün) belirtin.  Cihazlar, etkin saatlerden bağımsız olarak yeniden başlatılacaktır ve yeniden zamanlamaya izin verilmeyecektir;</text>
-        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Yetkisiz kullanım süresi (gün)</dropdownList>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForFeatureUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="ComplianceDeadlineForQU_Title">
+        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="7">Son tarih (gün):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Yetkisiz kullanım süresi (gün):</dropdownList>
         <text></text>
-        <checkBox refId="ConfigureDeadlineNoAutoReboot" defaultChecked="false">Yetkisiz kullanım süresinin sonuna kadar otomatik olarak yeniden başlatma</checkBox>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForQualityUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="AllowOptionalContent_Title">
+        <dropdownList refId="AllowOptionalContent" noSort="true" defaultItem="0">Kullanıcıların isteğe bağlı güncelleştirmeleri nasıl alacaklarını seçin:</dropdownList>
+      </presentation>
+      <presentation id="MaintenanceWindow_Title">
+        <text>Bakım Penceresi:</text>
+        <dropdownList refId="MaintenanceWindowUpdateActionsID" noSort="true" defaultItem="1">Yalnızca bakım penceresi içinde izin verilen güncelleştirme eylemleri:</dropdownList>
+        <textBox refId="MaintenanceWindowStartDateID">
+            <label>Başlangıç tarihi (Biçim: yyyy-aa-gg, örnek: 2025-10-30)</label>
+        </textBox>
+        <textBox refId="MaintenanceWindowStartTimeID">
+            <label>Başlangıç saati (Biçim: ss:dd, örnek: 23:30)</label>
+        </textBox>
+        <decimalTextBox refId="MaintenanceWindowDurationHoursID" defaultValue="2">Süre (saat):</decimalTextBox>
+        <dropdownList refId="MaintenanceWindowRepeatScheduleOptionID" noSort="true" defaultItem="1">Yineleme zamanlamasını belirtin:</dropdownList>
+        <text>Aşağıdaki ayarlar yalnızca Haftalık seçeneği belirtilmişse kullanılabilir:</text>
+        <checkBox refId="MaintenanceWindowWeeklySundayID" defaultChecked="false">Pazar</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyMondayID" defaultChecked="false">Pazartesi</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyTuesdayID" defaultChecked="false">Salı</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyWednesdayID" defaultChecked="false">Çarşamba</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyThursdayID" defaultChecked="false">Perşembe</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyFridayID" defaultChecked="false">Cuma</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklySaturdayID" defaultChecked="false">Cumartesi</checkBox>
+        <text>Aşağıdaki ayarlar yalnızca Aylık seçili olduğunda gereklidir ve uygulanabilir:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyScheduleID" noSort="true" defaultItem="1">Aylık Zamanlama Türü:</dropdownList>
+        <text>Aşağıdaki ayarlar yalnızca Tarih Tabanlı tür seçili olduğunda gereklidir ve uygulanabilir:</text>
+        <decimalTextBox refId="MaintenanceWindowMonthlyMonthBasedDayOfMonthID" defaultValue="1">Ayın Günü:</decimalTextBox>
+        <text>Aşağıdaki ayarlar yalnızca Hafta bazlı tür seçili olduğunda gereklidir ve uygulanabilir:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonthID" noSort="true" defaultItem="1">Ayda Oluşum</dropdownList>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedDayOfTheWeekID" noSort="true" defaultItem="1">Haftanın Günü</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

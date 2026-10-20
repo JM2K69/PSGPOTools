@@ -25,6 +25,10 @@ Denne policyinnstillingen konfigureres ikke som standard.
 Du må starte datamaskinen på nytt for at policyinnstillingen skal tre i kraft.</string>
       <string id="HomeGroup">Hjemmegruppe</string>
       <string id="HomeGroup_Help">Inneholder innstillinger for å kontrollere virkemåten til hjemmegruppen.</string>
+      <string id="DisableShareAppPromotions">DeaktiverDelAppPromoteringer</string>
+      <string id="DisableShareAppPromotions_Help">Med denne policyinnstillingen kan IT-administratorer kontrollere om kampanjeapper skal vises i ShareSheet. Hvis du aktiverer denne policyen, vises ikke kampanjeapper i ShareSheet. Hvis du deaktiverer eller ikke konfigurerer denne policyen, kan ShareSheet vise appforslag og -kampanjer når ShareSheet åpnes.</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

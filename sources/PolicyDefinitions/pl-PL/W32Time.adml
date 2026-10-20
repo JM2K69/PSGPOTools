@@ -12,25 +12,25 @@ Jeśli włączysz to ustawienie zasad, usługa W32time na komputerach docelowych
 Aby uzyskać więcej szczegółowych informacji dotyczących poszczególnych parametrów, kombinacji wartości parametrów oraz definicji flag, zobacz https://go.microsoft.com/fwlink/?linkid=847809.
 
         FrequencyCorrectRate
-Ten parametr określa, jak często usługa W32time koryguje częstotliwość zegara lokalnego. Przy mniejszych wartościach korekty są rzadsze, a przy większych — częstsze. Wartość domyślna: 4 (wartość skalarna).
+Ten parametr określa, jak często usługa W32time koryguje częstotliwość zegara lokalnego. Przy mniejszych wartościach korekty są większe, a przy większych — mniejsze. Wartość domyślna: 4 (wartość skalarna).
 
         HoldPeriod
-Ten parametr wskazuje, ile spójnych próbek czasu komputer kliencki musi odebrać pod rząd, aby kolejne próbki czasu były oceniane jako potencjalne wahania czasu. Wartość domyślna: 5
+Ten parametr wskazuje, ile spójnych próbek czasu komputer kliencki musi odebrać pod rząd, aby kolejne próbki czasu były oceniane jako potencjalne wahania czasu. Wartość domyślna: 5.
 
         LargePhaseOffset
-Jeśli próbki czasu różnią się od wartości zegara lokalnego komputera klienckiego o więcej niż wynosi wartość parametru LargePhaseOffset, zegar lokalny jest uznawany za podlegający znacznemu odchyleniu, a więc próbki są uznawane za wahania. Wartość domyślna: 50 000 000 jednostek po 100 nanosekund (ns), czyli 5 sekund.
+Jeśli próbki czasu różnią się od wartości zegara lokalnego komputera klienckiego o więcej niż wynosi wartość parametru LargePhaseOffset, zegar lokalny jest uznawany za podlegający znacznemu odchyleniu, a więc próbki są uznawane za wahania. Wartość domyślna: 50 000 000 jednostek po 100 nanosekund (ns), czyli 5 sekund.
 
         MaxAllowedPhaseOffset
 W przypadku odebrania odpowiedzi o odchyleniu czasowym większym niż wartość tego parametru usługa W32time natychmiast ustawia dla zegara lokalnego komputera klienckiego godzinę, która jest akceptowana jako dokładna, z serwera protokołu Network Time Protocol (NTP). Jeśli odchylenie czasowe jest mniejsze niż ta wartość, zegar lokalny komputera klienckiego jest korygowany stopniowo. Wartość domyślna: 300 sekund.
 
         MaxNegPhaseCorrection
-W przypadku odebrania próbki czasu wskazującej czas w przeszłości (w porównaniu z zegarem lokalnym komputera klienckiego) o różnicy czasu większej niż wartość parametru MaxNegPhaseCorrection próbka czasu zostaje odrzucona. Wartość domyślna: 172 800 sekund.
+W przypadku odebrania próbki czasu wskazującej czas w przeszłości (w porównaniu z zegarem lokalnym komputera klienckiego) o różnicy czasu większej niż wartość parametru MaxNegPhaseCorrection próbka czasu zostaje odrzucona. Wartość domyślna: 172 800 sekund.
 
         MaxPosPhaseCorrection
-W przypadku odebrania próbki czasu wskazującej czas w przyszłości (w porównaniu z zegarem lokalnym komputera klienckiego) o różnicy czasu większej niż wartość parametru MaxPosPhaseCorrection próbka czasu zostaje odrzucona. Wartość domyślna: 172 800 sekund.
+W przypadku odebrania próbki czasu wskazującej czas w przyszłości (w porównaniu z zegarem lokalnym komputera klienckiego) o różnicy czasu większej niż wartość parametru MaxPosPhaseCorrection próbka czasu zostaje odrzucona. Wartość domyślna: 172 800 sekund.
 
         PhaseCorrectRate
-Ten parametr określa szybkość, z jaką usługa W32time koryguje różnicę czasu zegara lokalnego komputera klienckiego, dopasowując go do akceptowanych jako dokładne próbek czasu z serwera protokołu NTP. Przy niższych wartościach zegar jest korygowany wolniej, a przy wyższych — szybciej. Wartość domyślna: 7 (wartość skalarna).
+Ten parametr określa szybkość, z jaką usługa W32time koryguje różnicę czasu zegara lokalnego komputera klienckiego, dopasowując go do akceptowanych jako dokładne próbek czasu z serwera protokołu NTP. Przy niższych wartościach zegar jest korygowany szybciej, a przy wyższych — wolniej. Wartość domyślna: 7 (wartość skalarna).
 
         PollAdjustFactor
 Ten parametr określa szybkość, z jaką usługa W32time zmienia interwały sondowania. Jeśli odpowiedzi są uważane za dokładne, interwał sondowania automatycznie się wydłuża. Jeśli odpowiedzi są uważane za niedokładne, interwał sondowania automatycznie się skraca. Wartość domyślna: 5 (wartość skalarna).
@@ -44,7 +44,7 @@ Ten parametr określa czas oczekiwania usługi W32time między korektami, gdy ze
         Parametry ogólne:
 
         AnnounceFlags
-Ten parametr określa wartość maski bitowej sterującej sposobem ogłaszania dostępności usługi czasu za pośrednictwem usługi NetLogon. Wartość domyślna: 0x0a (wartość szesnastkowa)
+Ten parametr określa wartość maski bitowej sterującej sposobem ogłaszania dostępności usługi czasu za pośrednictwem usługi NetLogon. Wartość domyślna: 0x0a (wartość szesnastkowa).
 
         EventLogFlags
 Ten parametr określa zdarzenia specjalne, które mogą być rejestrowane w dzienniku systemu Podglądu zdarzeń. Wartość domyślna: 0x02 (szesnastkowa maska bitowa).
@@ -59,7 +59,7 @@ Ten parametr określa maksymalny interwał sondowania, czyli maksymalną ilość
 Ten parametr określa minimalny interwał sondowania, czyli minimalną ilość czasu między sondowaniami elementu równorzędnego. Wartość domyślna: 6 w jednostkach logarytmu o podstawie 2, czyli 64 sekundy.
 
         ClockHoldoverPeriod
-Ten parametr określa maksymalną liczbę sekund, przez którą zegar systemu może nominalnie utrzymać dokładność bez synchronizowania ze źródłem czasu. Jeśli ten okres upłynie, a usługa W32time nie uzyska w tym czasie nowych próbek od swoich dostawców danych wejściowych, usługa W32time zainicjuje ponowne odnajdowanie źródeł czasu. Wartość domyślna: 7800 sekund.
+Ten parametr określa maksymalną liczbę sekund, przez którą zegar systemu może nominalnie utrzymać dokładność bez synchronizowania się ze źródłem czasu. Jeśli ten okres upłynie, a usługa W32time nie uzyska w tym czasie nowych próbek od swoich dostawców danych wejściowych, usługa W32time zainicjuje ponowne odnajdowanie źródeł czasu. Wartość domyślna: 7800 sekund.
 
         RequireSecureTimeSyncRequests
 Ten parametr określa, czy kontroler domeny będzie odpowiadał na żądania synchronizacji czasu używające starszych protokołów uwierzytelniania. Jeśli ten parametr zostanie włączony (wartość równa 1), kontroler domeny nie będzie odpowiadał na żądania używające takich protokołów. Wartość domyślna: 0 (wartość logiczna).
@@ -68,9 +68,9 @@ Ten parametr określa, czy kontroler domeny będzie odpowiadał na żądania syn
 Ten parametr określa, czy usługa W32time będzie używać danych czasu obliczonych na podstawie ruchu SSL na komputerze jako dodatkowych danych wejściowych podczas korygowania zegara lokalnego. Wartość domyślna: 1 (wartość logiczna; włączone).
 
         ClockAdjustmentAuditLimit
-Ten parametr określa najmniejsze dostosowania zegara lokalnego, które mogą być rejestrowane w dzienniku zdarzeń usługi W32time na komputerze docelowym. Wartość domyślna: 800 części na milion (PPM).
+Ten parametr określa najmniejszą lokalną korektę zegara, która może zostać zarejestrowana w dzienniku zdarzeń usługi W32time na maszynie docelowej. Wartość domyślna: 800 części na milion (PPM).
 
-        Parametry kontrolera RODC:
+        Parametry RODC:
 
         ChainEntryTimeout
 Ten parametr określa maksymalny czas pozostawania wpisu w tabeli łańcucha, po upływie którego wpis zostaje uznany za wygasły. Wygasłe wpisy mogą być usuwane podczas przetwarzania następnego żądania lub odpowiedzi. Wartość domyślna: 16 sekund.

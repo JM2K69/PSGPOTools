@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Параметры групповой политики индикатора состояния сетевого подключения</displayName>
   <description>Параметры групповой политики индикатора состояния сетевого подключения</description>
@@ -73,7 +73,7 @@
       </presentation>
       <presentation id="NCSI_PassivePolling">
         <text>Следующий флажок отключает механизм пассивного опроса в NCSI.   Это может оптимизировать нагрузку ЦП на серверах или других компьютерах со статическим подключением к сети.</text>
-        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Отключить пассивный опрос</checkBox>  
+        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Отключить пассивный опрос</checkBox>
       </presentation>
       <presentation id="NCSI_GlobalDns">
         <text>Следующий флажок отключает привязку интерфейса при выполнении DNS-запросов в NCSI. Это может позволить NCSI работать лучше со специальными конфигурациями сети, например, DNS-сервером, работающим на локальном узле.</text>

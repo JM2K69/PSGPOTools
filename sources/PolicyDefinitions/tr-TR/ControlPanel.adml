@@ -6,19 +6,19 @@
   <resources>
     <stringTable>
       <string id="DisallowCpls">Belirtilen Denetim Masası öğelerini gizle</string>
-      <string id="DisallowCpls_Help">Bu ayar, Fare, Sistem veya Kişiselleştirme gibi belirtilen Denetim Masası öğelerini, Denetim Masası penceresinde ve Başlat menüsünde görüntülemenize veya gizlemenize olanak tanır. Bu ayar, Başlat menüsünün ve Denetim Masası penceresinin yanı sıra, Yardım ve Destek kısayolları veya control.exe kullanan komut satırları gibi Denetim Masası öğelerine erişmenin diğer yollarını da etkiler. Bu ilkenin, kişisel bilgisayar ayarlarında görüntülenen öğeler üzerinde hiçbir etkisi yoktur.
+      <string id="DisallowCpls_Help">Bu ayar, Fare, Sistem veya Kişiselleştirme gibi belirtilen Denetim Masası öğelerini, Denetim Masası penceresinde ve Başlangıç ekranında görüntülemenize veya gizlemenize olanak tanır. Bu ayar, Başlangıç ekranının ve Denetim Masası penceresinin yanı sıra, Yardım ve Destek kısayolları veya control.exe kullanan komut satırları gibi Denetim Masası öğelerine erişmenin diğer yollarını da etkiler. Bu ilkenin, kişisel bilgisayar ayarlarında görüntülenen öğeler üzerinde hiçbir etkisi yoktur.
 
-Bu ayarı etkinleştirirseniz belirli öğeleri Denetim Masası penceresinde ve Başlat menüsünde görüntülememeyi seçebilirsiniz.
+Bu ayarı etkinleştirirseniz belirli öğeleri Denetim Masası penceresinde ve Başlangıç ekranında görüntülememeyi seçebilirsiniz.
 
-Denetim Masası öğesini gizlemek için bu ilke ayarını etkinleştirin ve izin verilmeyen Denetim Masası öğelerinin listesine erişmek için Göster'i tıklatın. İçeriği Göster iletişim kutusunun Değer sütununda, Denetim Masası öğesinin kurallı adını girin. Örneğin, Microsoft.Mouse, Microsoft.System veya Microsoft.Personalization girin.
+Denetim Masası öğesini gizlemek için bu ilke ayarını etkinleştirin ve izin verilmeyen Denetim Masası öğelerinin listesine erişmek için Göster'e tıklayın. İçeriği Göster iletişim kutusunun Değer sütununda, Denetim Masası öğesinin kurallı adını girin. Örneğin, Microsoft.Mouse, Microsoft.System veya Microsoft.Personalization girin.
 
 Not: Windows Vista, Windows Server 2008 ve önceki Windows sürümleri için, timedate.cpl veya inetcpl.cpl gibi modül adları girilmelidir. Denetim Masası öğesinin CPL dosyası yoksa veya CPL dosyası birden fazla uygulama içeriyorsa, bu durumda modül adının ve dize kaynağı kimlik numarasının girilmesi gerekir; örneğin, Sistem için @systemcpl.dll,-1 veya Kişiselleştirme için @themecpl.dll,-1 girilmelidir. Kurallı adların ve modül adlarının tam listesi için, MSDN'de "Denetim Masası öğeleri" aranabilir. 
 
-Hem "Belirtilen Denetim Masası öğelerini gizle" ayarı, hem de "Yalnızca belirtilen Denetim Masası öğelerini göster" ayarı etkinleştirilirse "Yalnızca belirtilen Denetim Masası öğelerini göster" ayarı göz ardı edilir.
+Hem "Belirtilen Denetim Masası öğelerini gizle" ayarı hem de "Yalnızca belirtilen Denetim Masası öğelerini göster" ayarı etkinleştirilirse "Yalnızca belirtilen Denetim Masası öğelerini göster" ayarı göz ardı edilir.
 
 Not: Görüntü Denetim Masası öğesi bu ayar kullanılarak Masaüstü içerik menüsünde gizlenemez. Görüntü Denetim Masası öğesini gizlemek ve kullanıcıların bilgisayarın görüntü ayarlarını değiştirmesini engellemek için bunun yerine "Görüntü Denetim Masası'nı devre dışı bırak" ayarını kullanın.
 
-Not: Sistem ayarları uygulamasında sayfaları gizlemek için Bilgisayar Yapılandırması başlığı altında "Ayar Sayfası Görünürlüğü" ayarını kullanın.</string>
+Not: Sistem Ayarları uygulamasında sayfaları gizlemek için Bilgisayar Yapılandırması altında "Ayar Sayfası Görünürlüğü" ayarını kullanın.</string>
       <string id="ForceClassicControlPanel">Denetim Masası'nı açarken her zaman Tüm Denetim Masası Öğelerini aç</string>
       <string id="ForceClassicControlPanel_Help">Bu ilke ayarı, varsayılan Denetim Masası görünümünü (kategoriye veya simgelere göre) denetler. 
 
@@ -57,23 +57,31 @@ Not: Görüntü Denetim Masası öğesi bu ayar kullanılarak Masaüstü içerik
 
 Not: Sistem ayarları uygulamasında sayfaları gizlemek için Bilgisayar Yapılandırması başlığı altında "Ayar Sayfası Görünürlüğü" ayarını kullanın.</string>
       <string id="SettingsPageVisibility">Ayar Sayfası Görünürlüğü</string>
-      <string id="SettingsPageVisibility_Help">Sistem ayarları uygulamasında görüntülemek veya gizlemek için sayfa listesini belirtir.
+      <string id="SettingsPageVisibility_Help">Sistem Ayarları uygulamasında görüntülenecek veya gizlenecek sayfalar listesini belirtir.
 
-Bu ilke yöneticinin belli bir sayfa setini sistem ayarları uygulamasından engellemesini sağlar. Bloke sayfalar uygulamada görünmez ve bir kategorideki tüm sayfalar engellenirse kategori de gizlenir. URI, Explorer'daki bağlam menüsü veya başka yollarla bloke bir sayfaya yapılan direkt navigasyon ayarların ilk sayfasının gösterilmesiyle sonuçlanır.
+Bu ilke, bir yöneticinin Sistem Ayarları uygulamasında belirli bir sayfa kümesini engelleyebilmesini sağlar. Engellenmiş sayfalar uygulamada görüntülenmez; bir kategorinin içindeki bütün sayfalar engellenmişse kategori de gizlenir. Engellenmiş bir sayfaya URI, Gezgin'deki bağlam menüsü aracılığıyla veya başka bir yolla doğrudan ulaşmak, Ayarlar'ın ön sayfasının açılmasıyla sonuçlanır.
 
-Bu ilkenin iki modu vardır: Gösterilecek ayar sayfalarını ya da gizlenecek sayfaların listesini belirtebilir. Gösterilecek sayfaların listesini belirtmek için ilke dizesi "showonly:" (alıntısız) ile başlamalı ve gizlenecek sayfaların listesini belirtmek için de "Gizle:" ile başlamalıdır. Şayet showonly listesindeki bir sayfa normalde başka sebepler yüzünden (örneğin eksik donanım aygıtı) gizlenecekse ilke o sayfanın görüntülenmesini zorlayamaz. Bundan sonra ilke dizesi ayar sayfası tanımlayıcılarının noktalı virgülle sınırlanmış bir listesini içermelidir. Belirli bir ayar sayfası için tanımlayıcı o sayfaya ilişkin yayımlanmış URI eksi "ms-ayarları:" protokol bölümüdür.
+Bu ilkenin iki modu vardır: Gösterilecek ayarlar sayfalarının listesini veya gizlenecek sayfaların listesini belirtebilir. İlke dizesi, gösterilecek sayfaların listesini belirtmek için "showonly:" (tırnak işareti olmadan) ile başlamalı, gizlenecek sayfaların listesini belirtmek için ise "hide:" (tırnak işareti olmadan) ile başlamalıdır. showonly listesindeki bir sayfa başka sebeplerden dolayı (eksik donanım cihazı gibi) normal durumda da gizli hâldeyse bu ilke, sayfanın görüntülenmesini zorlamaz. Ayrıca ilke dizesi, ayarlar sayfası tanımlayıcılarının noktalı virgülle ayrılmış bir listesini içermelidir. Belirli bir ayarlar sayfası tanımlayıcısı, ilgili sayfanın "ms-settings:" protokol kısmı olmadan yayımlanmış URI'sıdır.
 
-Örnek: yalnızca Hakkında ve Bluetooth sayfalarının görüntüleneceğini (ilgili URI'lar ms ayarları:hakkında ve ms ayarları:bluetooth) ve diğer tüm sayfaların gizleneceğini belirtme:
+Örnek: Yalnızca Hakkında ve Bluetooth sayfalarının (ilgili URI'ları sırasıyla ms-settings:about ve ms-settings:bluetooth) görüntülenmesini ve diğer tüm sayfaların gizlenmesini belirtmek için:
 
-showonly hakkında;bluetooth
+showonly:about;bluetooth
 
-Örnek: Yalnızca Bluetooth sayfasının (URI ms-ayarları:bluetooth ile ilgili olan) gizleneceğini belirtme:
+Örnek: Yalnızca Bluetooth sayfasının (URI'sı ms-setting:bluetooth) gizlenmesini belirtmek için:
 
-gizle:bluetooth</string>
+hide:bluetooth
+
+Kullanıcı başına desteğin kullanılabilirliği burada belgelenmiştir: https://go.microsoft.com/fwlink/?linkid=2102995</string>
       <string id="AllowOnlineTips">Çevrimiçi İpuçları'na izin ver</string>
       <string id="AllowOnlineTips_Help">Ayarlar uygulaması için çevrimiçi ipuçlarının ve yardımın alınmasını etkinleştirir veya devre dışı bırakır.
 
 Devre dışı bırakıldıysa, Ayarlar ipucu ve yardım içeriğini almak için Microsoft içerik hizmetleri ile iletişim kurmayacaktır.</string>
+      <string id="HideUnsupportedHardwareNotifications">Windows sistem gereksinimleri karşılanmadığında iletileri gizle</string>
+      <string id="HideUnsupportedHardwareNotificationsExplain">Bu ilke, Windows bu işletim sistemi sürümü için en düşük sistem gereksinimlerini karşılamayan bir cihazda çalışırken gösterilen iletileri denetler.
+
+Bu ilke ayarını etkinleştirirseniz, bu iletiler hiçbir zaman masaüstünde veya Ayarlar uygulamasında görünmez.
+
+Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, Windows bu işletim sistemi sürümü için en düşük sistem gereksinimlerini karşılamayan bir cihazda çalışırken bu iletiler masaüstü ve Ayarlar uygulamasında görünür.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DisallowCpls">

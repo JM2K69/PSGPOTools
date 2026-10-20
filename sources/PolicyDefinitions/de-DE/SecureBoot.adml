@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Anzeigename hier eingeben</displayName>
+  <description>Beschreibung hier eingeben</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Sicherer Start</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Zertifikatbereitstellung über kontrollierten Featurerollout</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">Für Unternehmen, die Unterstützung bei der Bereitstellung der neuen Secure Boot-Zertifikate auf ihren Geräten wünschen, kann diese Einstellung aktiviert werden.
+
+ 
+
+Hinweis: Um dieses Feature nutzen zu können, muss das Gerät die erforderlichen Diagnosedaten an Microsoft senden.
+
+ 
+
+Weitere Informationen finden Sie unter https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Automatische Bereitstellung von Zertifikaten über Updates</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">Bei Geräten, für die Testergebnisse vorliegen, die bestätigen, dass das Gerät die Zertifikatupdates erfolgreich verarbeiten kann, werden die Updates automatisch im Rahmen der Wartungsupdates gestartet. Diese Richtlinie ist standardmäßig aktiviert. Unternehmen, die automatische Updates verwalten möchten, können dieses Feature mithilfe dieser Richtlinie explizit aktivieren oder deaktivieren.
+
+ 
+
+Weitere Informationen finden Sie unter https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Aktivieren der Zertifikatbereitstellung für den sicheren Start</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Mit dieser Richtlinieneinstellung können Sie den Bereitstellungsprozess für Zertifikate für den sicheren Start auf Geräten aktivieren oder deaktivieren. Wenn diese Option aktiviert ist, startet Windows automatisch den Zertifikatbereitstellungsprozess auf Geräten, auf denen diese Richtlinie angewendet wurde. 
+
+ 
+
+Hinweis: Diese Registrierungseinstellung wird nicht in einem Richtlinienschlüssel gespeichert, und dies wird als Einstellung betrachtet. Wenn das GPO, das diese Einstellung implementiert, entfernt wird, bleibt diese Registrierungseinstellung daher erhalten. 
+
+ 
+
+Hinweis: Der Windows-Task, der diese Einstellung ausführt und verarbeitet, wird alle 12 Stunden ausgeführt. In einigen Fällen werden die Updates so lange aufbewahrt, bis das System neu gestartet wird, um die Updates sicher zu sequenzieren. 
+
+ 
+
+Hinweis: Sobald die Zertifikate auf die Firmware angewendet wurden, können Sie sie nicht mehr von Windows rückgängig machen. Wenn das Löschen der Zertifikate erforderlich ist, muss dies über die Firmwaremenüschnittstelle erfolgen. 
+
+ 
+
+Weitere Informationen finden Sie unter https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Erforderliche Dienstdaten für sicheren Start einschränken</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Diese Richtlinieneinstellung steuert, ob das Betriebssystem das tägliche erforderliche Dienstdatenereignis für den sicheren Start ausgibt. Das Ereignis enthält Informationen zur sicherer Start-Konfiguration und zum Status der Firmwarevariablen des Geräts und wird normalerweise unabhängig von der Diagnosedatenebene „Telemetrie zulassen“ gesendet, da es als sicherheitsrelevant eingestuft ist.
+
+ 
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird das tägliche Ereignis für erforderliche sicherer Start-Dienstdaten nicht ausgegeben. Dies ist für Unternehmen gedacht, die unter der Windows Restricted Traffic Limited Functionality Baseline arbeiten.
+
+ 
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, gibt das Betriebssystem das Ereignis für erforderliche sicherer Start-Dienstdaten weiterhin gemäß den vorhandenen Regeln für die Telemetriezulassung aus.</string>
+
+      <string id="SUPPORTED_Windows8">Mindestens Windows Server 2012, Windows 8 oder Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

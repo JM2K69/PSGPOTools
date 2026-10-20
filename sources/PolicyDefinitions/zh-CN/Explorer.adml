@@ -37,14 +37,30 @@
       <string id="DisableRoamedProfileInit_Help">使用此策略设置，管理员如果已配置漫游配置文件连同“删除缓存的漫游配置文件组策略”设置，则可以确保资源管理器不会将默认程序关联项和其他设置重新初始化为默认值。
 
 如果启用此策略设置的计算机中不包含以相同的方式在用户上次登录的计算机上安装的所有程序，则可能会发生意外行为。 </string>
+      <string id="DisableGraphRecentItems">根据你的帐户和云提供商活动显示文件</string>
+      <string id="DisableGraphRecentItems_Help">关闭此设置将会阻止文件资源管理器请求云文件元数据，并在文件资源管理器中的主页和其他视图中显示元数据。基于帐户或云提供商活动的任何见解和文件都将不再显示在“最近”、“推荐”、“收藏夹”、“共享”等视图中。</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">关闭文件资源管理器中的高级设置源集成</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">禁用高级设置源集成将阻止文件资源管理器显示高级设置系统组件中的存储库信息</string>
+      <string id="DisableFileExplorerPrelaunch">禁用文件资源管理器功能以在后台预启动窗口</string>
+      <string id="DisableFileExplorerPrelaunch_Help">此策略阻止用户在文件资源管理器中启用预启动功能，这将在后台创建一个窗口以加速启动体验并提高响应能力。</string>
+      <string id="MakePrintScreenKeyYieldable">启用 Print Screen 键</string>
+      <string id="MakePrintScreenKeyYieldable_Help">此策略设置用于确定是否可将 Print Screen 键交由其他应用程序接管。
+
+如果启用此策略设置，应用程序可以截获 Print Screen 键，从而替代默认的屏幕截图功能。
+
+如果禁用此策略设置，Print Screen 键将保留旧的截图行为，无法被应用程序截获。
+
+如果未配置此策略，应用程序也可以截获 Print Screen 键，从而替代默认屏幕截图功能，行为与启用该策略相同。
+
+注意: 此设置可能需要重启系统才能生效。</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>支持网页 URL</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>支持网页 URL</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

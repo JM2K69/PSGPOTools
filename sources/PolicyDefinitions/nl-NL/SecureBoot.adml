@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>voer hier de weergegeven naam in</displayName>
+  <description>typ hier een beschrijving</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Secure Boot</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Certificaatimplementatie via gecontroleerde uitrol van functies</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">Voor ondernemingen die hulp nodig hebben bij het implementeren van de nieuwe certificaten voor beveiligd opstarten op hun apparaten, kan deze instelling worden ingeschakeld.
+
+ 
+
+Opmerking: het apparaat moet de vereiste diagnostische gegevens naar Microsoft sturen om deze functie te kunnen gebruiken.
+
+ 
+
+Zie voor meer informatie: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Automatische certificaatimplementatie via Updates</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">Voor apparaten waarvoor testresultaten beschikbaar zijn die aantonen dat ze de certificaatupdates succesvol kunnen verwerken, worden de updates automatisch gestart als onderdeel van de onderhoudsupdates. Dit beleid is standaard ingeschakeld. Voor ondernemingen die automatische updates willen beheren, gebruik dit beleid om de functie expliciet in of uit te schakelen.
+
+ 
+
+Zie voor meer informatie: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Beveiligde opstartcertificaatimplementatie inschakelen</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Met deze beleidsinstelling kun je het implementatieproces voor Secure Boot-certificaten op apparaten in- of uitschakelen. Als je deze optie inschakelt, start Windows automatisch het certificaatimplementatieproces op apparaten waarop dit beleid is toegepast. 
+
+ 
+
+Let op: deze registerinstelling wordt niet opgeslagen in een beleidsleutel en wordt als een voorkeur beschouwd. Daarom blijft deze registerinstelling bestaan als het Groepsbeleidsobject dat deze instelling toepast ooit wordt verwijderd. 
+
+ 
+
+Let op: de Windows-taak die deze instelling uitvoert, draait elke 12 uur. Soms worden updates vastgehouden totdat het systeem opnieuw wordt opgestart, zodat de updates veilig kunnen worden doorgevoerd. 
+
+ 
+
+Let op: zodra de certificaten op de firmware zijn toegepast, kun je dit niet meer ongedaan maken via Windows. Als je de certificaten wilt verwijderen, moet dat via het firmwaremenu. 
+
+ 
+
+Meer informatie: https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Vereiste servicegegevens voor Secure Boot beperken</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Deze beleidsinstelling bepaalt of het besturingssysteem de dagelijkse vereiste servicegegevensgebeurtenis voor Beveiligd opstarten verzendt. De gebeurtenis bevat informatie over de configuratie van Beveiligd opstarten en de status van de firmwarevariabele van het apparaat en wordt normaal gesproken verzonden, ongeacht het niveau van diagnostische gegevens dat Telemetrie toestaat, omdat deze is geclassificeerd als vereist voor beveiliging.
+
+ 
+
+Als je deze beleidsinstelling inschakelt, wordt de dagelijkse vereiste servicegegevensgebeurtenis voor Beveiligd opstarten niet verzonden. Dit is bedoeld voor bedrijven die werken volgens de Windows Restricted Traffic Limited Functionality Baseline.
+
+ 
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, blijft het besturingssysteem de vereiste servicegegevensgebeurtenis voor Beveiligd opstarten verzenden volgens de bestaande regels voor telemetriemachtigingen.</string>
+
+      <string id="SUPPORTED_Windows8">Minimaal Windows Server 2012, Windows 8 of Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

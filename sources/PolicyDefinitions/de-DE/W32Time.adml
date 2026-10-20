@@ -5,20 +5,20 @@
   <description>Beschreibung hier eingeben</description>
   <resources>
     <stringTable>
-      <string id="W32TIME_CONFIG_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie die Zeitdisziplin und allgemeine Werte für den Windows-Zeitdienst (W32time) für Domänencontroller einschließlich RODCs angeben.
+      <string id="W32TIME_CONFIG_EXPLAIN">Mit dieser Richtlinieneinstellung können Sie die Zeitdisziplin und allgemeine Werte für den Windows-Zeitdienst (W32time) für Domänenkontrolleure einschließlich RODCs angeben.
 
-Wenn diese Richtlinieneinstellung aktiviert wird, verwendet der W32time-Dienst auf Zielcomputern die hier angegebenen Einstellungen. Andernfalls verwendet der Dienst auf Zielcomputern lokal konfigurierte Einstellungswerte.
+Wenn diese Richtlinieneinstellung aktiviert wird, verwendet der W32time-Dienst auf Zielcomputern die hier angegebenen Einstellungen. Andernfalls verwendet der Dienst auf Zielcomputern lokalkonfigurierte Einstellungswerte.
 
 Weitere Details zu einzelnen Parametern, Kombinationen von Parameterwerten und Definitionen von Kennzeichen finden Sie unter https://go.microsoft.com/fwlink/?linkid=847809.
 
         FrequencyCorrectRate
-Dieser Parameter steuert die Rate, mit der die Frequenz der lokalen Uhr von W32time korrigiert wird. Durch niedrigere Werte werden Korrekturen langsamer und durch höhere Werte häufiger ausgeführt. Standardwert: 4 (Skalarwert)
+Dieser Parameter steuert die Rate, mit der die Frequenz der lokalen Uhr von W32time korrigiert wird. Durch niedrigere Werte werden Korrekturen langsamer, und durch höhere Werte häufiger ausgeführt. Standardwert: 4 (Skalarwert)
 
         HoldPeriod
-Dieser Parameter gibt an, wie viele konsistente Zeitproben vom Clientcomputer in Folge empfangen werden müssen, bevor nachfolgende Zeitproben als mögliche Spikes ausgewertet werden. Standardwert: 5
+Dieser Parameter gibt an, wie viele konsistente Zeitproben vom Clientcomputer in Folge empfangen werden müssen, bevor nachfolgende Zeitproben als mögliche Ausschreitungswerte ausgewertet werden. Standardwert: 5
 
         LargePhaseOffset
-Wenn eine Zeitprobe mehr von der lokalen Zeit des Clientcomputers abweicht, als in LargePhaseOffset angegeben, weist die lokale Zeit eine erhebliche Abweichung bzw. einen "Spike" auf. Standardwert: 50.000.000 Einheiten von 100 Nanosekunden (ns), entspricht fünf Sekunden.
+Wenn eine Zeitprobe mehr von der lokalen Zeit des Clientcomputers abweicht, als in LargePhaseOffset angegeben, weist die lokale Zeit eine erhebliche Abweichung bzw. einen Ausschreitungswert auf. Standardwert: 50.000.000 Einheiten von 100 Nanosekunden (ns), entspricht fünf Sekunden.
 
         MaxAllowedPhaseOffset
 Wird eine Antwort empfangen, deren Zeitabweichung über diesem Parameterwert liegt, wird die lokale Zeit des Clientcomputers von W32time sofort auf die Zeit festgelegt, die als richtige Uhrzeit vom NTP (Network Time Protocol)-Server angesehen wird. Liegt die Zeitabweichung unter diesem Wert, wird die lokale Zeit des Clientcomputers schrittweise korrigiert. Standardwert: 300 Sekunden
@@ -53,13 +53,13 @@ Dieser Parameter steuert besondere Ereignisse, die im Systemprotokoll der Ereign
 Dieser Parameter gibt die maximale fehlerhafte Abweichung in Sekunden an, die vom NTP-Server an Clients übermittelt wird, die eine Zeitprobe anfordern. (Gilt nur, wenn der NTP-Server die Uhrzeit der lokalen CMOS-Uhr verwendet.) Standardwert: 10 Sekunden
 
         MaxPollInterval
-Dieser Parameter steuert das maximale Abrufintervall, das die maximale Zeitspanne zwischen Abrufvorgängen eines Peers festlegt. Standardwert: 10 im Logarithmus zur Basis 2, entspricht 1.024 Sekunden. (Sollte nicht höher als 15 festgelegt werden.)
+Dieser Parameter steuert das maximale Abrufintervall, das die maximale Zeitspanne zwischen Abrufvorgängen eines Peers festlegt. Standardwert: 10 im Logarithmus zur Basis 2, entspricht 1024 Sekunden. (Sollte nicht höher als 15 festgelegt werden.)
 
         MinPollInterval
 Dieser Parameter steuert das minimale Abrufintervall, das die minimale Zeitspanne zwischen Abrufvorgängen eines Peers festlegt. Standardwert: 6 im Logarithmus zur Basis 2, entspricht 64 Sekunden.
 
         ClockHoldoverPeriod
-Dieser Parameter gibt die maximale Anzahl von Sekunden an, die eine Systemuhr ihre Genauigkeit nominell behalten kann, ohne dass sie mit einer Zeitquelle synchronisiert wird. Wenn diese Zeit verstreicht, ohne dass W32time neue Proben von Eingabeanbietern abruft, initiiert W32time eine Neuermittlung der Zeitquellen. Standardwert: 7.800 Sekunden
+Dieser Parameter gibt die maximale Anzahl von Sekunden an, die eine Systemuhr ihre Genauigkeit nominell behalten kann, ohne dass sie mit einer Zeitquelle synchronisiert wird. Wenn diese Zeit verstreicht, ohne dass W32time neue Proben von Eingabeanbietern abruft, initiiert W32time eine Neuermittlung der Zeitquellen. Standardwert: 7800 Sekunden
 
         RequireSecureTimeSyncRequests
 Dieser Parameter steuert, ob der Domänencontroller auf Zeitsynchronisierungsanforderungen reagiert, die ältere Authentifizierungsprotokolle verwenden. Ist diese Option aktiviert (auf 1 festgelegt), reagiert der Domänencontroller nicht auf Anforderungen, die derartige Protokolle verwenden. Standardwert: 0, boolescher Wert
@@ -68,24 +68,24 @@ Dieser Parameter steuert, ob der Domänencontroller auf Zeitsynchronisierungsanf
 Dieser Parameter steuert, ob W32time Zeitdaten, die auf Grundlage des SSL-Datenverkehrs auf dem Computer berechnet wurden, als zusätzliche Eingabe für die Korrektur der lokalen Uhrzeit verwendet. Standardwert: 1 (aktiviert), boolescher Wert
 
         ClockAdjustmentAuditLimit
-Dieser Parameter gibt die kleinsten Anpassungen der lokalen Uhrzeit an, die im Ereignisprotokoll des W32time-Diensts auf dem Zielcomputer protokolliert werden können. Standardwert: 800 PPM (Parts Per Million, Teile pro Million).
+Dieser Parameter gibt die geringsten lokalen Uhrzeitabweichungen and, die dem W32time Service Ereignis-Log auf dem Zielcomputer hinzugefügt werden. Standard: 800 Teile pro Million (PPM).
 
-        RODC-Parameter:
+        RODC parameters:
 
         ChainEntryTimeout
-Dieser Parameter gibt die maximale Zeitdauer an, die ein Eintrag in der Verkettungstabelle verbleiben kann, bevor er als abgelaufen angesehen wird. Abgelaufene Einträge können bei der Verarbeitung der nächsten Anforderung oder Antwort entfernt werden. Standardwert: 16 Sekunden
+Dieser Parameter gibt die maximale Zeitdauer an, die als ein Eintrag in der Verkettungstabelle verbleiben kann, bevor er als abgelaufen angesehen wird. Abgelaufene Einträge können bei der Verarbeitung der nächsten Anforderung oder Antwort entfernt werden. Standardwert: 16 Sekunden
 
         ChainMaxEntries
-Dieser Parameter steuert die maximal zulässige Anzahl von Einträgen in der Verkettungstabelle. Falls die Verkettungstabelle voll ist und keine abgelaufenen Einträge entfernt werden können, werden alle eingehenden Anforderungen verworfen. Standardwert: 128 Einträge
+Dieser Parameter steuert die maximal zulässige Anzahl von Einträgen in der Verkettungstabelle. Falls die Verkettungstabelle voll ist und keine abgelaufenen Einträge entfernt werden können, werden alle eingehenden Anforderungen verworfen. Standardwert: 28 Einträge
 
         ChainMaxHostEntries
-Dieser Parameter steuert die maximal zulässige Anzahl von Einträgen in der Verkettungstabelle für einen bestimmten Host. Standardwert: 4 Einträge
+Dieser Parameter steuert die maximal zulässige Anzahl von Einträgen in der Verkettungstabelle für einen bestimmten Host. Standardwert: 4 Einträge.
 
         ChainDisable
-Dieser Parameter steuert, ob der Verkettungsmechanismus deaktiviert ist. Wenn die Verkettung deaktiviert (auf 0 festgelegt) ist, kann der RODC Synchronisierungen mit beliebigen Domänencontrollern ausführen. Hosts, deren Kennwort nicht auf dem RODC zwischengespeichert ist, können jedoch keine Synchronisierung mit dem RODC ausführen. Standardwert: 0, boolescher Wert
+Dieser Parameter steuert, ob der Verkettungsmechanismus deaktiviert ist. Wenn die Verkettung deaktiviert (auf 4 festgelegt) ist, kann der RODC Synchronisierungen mit beliebigen Domänenkontrolleuren ausführen. Hosts deren Kennwort nicht auf dem RODC zwischengespeichert ist, können jedoch keine Synchronisierung mit dem RODC ausführen. Standardwert: 0, boolescher Wert.
 
         ChainLoggingRate
-Dieser Parameter steuert, wie häufig ein Ereignis, das die Anzahl erfolgreicher und nicht erfolgreicher Verkettungsversuche angibt, im Systemprotokoll der Ereignisanzeige protokolliert wird. Standardwert: 30 Minuten
+Dieser Parameter steuert wie häufig ein Ereignis, das die Anzahl erfolgreicher Verkettungsversuche angibt, im Systemprotokoll des Event Viewers protokolliert wird. Standardwert: 30 Minuten.
       </string>
 
 <string id="W32TIME_CONFIGURE_NTPCLIENT_EXPLAIN">Diese Richtlinieneinstellung gibt eine Gruppe von Parametern zur Steuerung des Windows-NTP-Clients an.

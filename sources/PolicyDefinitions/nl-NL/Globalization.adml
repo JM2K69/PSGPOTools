@@ -169,7 +169,7 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, hebben aangemelde
       <string id="UILang4">Duits</string>
       <string id="UILang5">Vereenvoudigd Chinees</string>
       <string id="UILang6">Traditioneel Chinees</string>
-      <string id="UILang34">Traditioneel Chinees (Hongkong)</string>
+      <string id="UILang34">Traditioneel Chinees (Hongkong SAR)</string>
       <string id="UILang35">Traditioneel Chinees (Taiwan)</string>
       <string id="UILang7">Frans</string>
       <string id="UILang8">Spaans</string>
@@ -284,6 +284,20 @@ Als u deze beleidsinstelling uitschakelt of niet configureert, zal Windows jaart
         Als dit beleid is ingeschakeld of niet is geconfigureerd, kunnen gebruikers zelf kiezen of ze spraakservices inschakelen via Instellingen.
         
         Als dit beleid is uitgeschakeld, worden spraakservices uitgeschakeld en kunnen gebruikers geen spraakservices inschakelen via Instellingen.
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Installatie van taalpakketten en -functies beperken</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        Deze beleidsinstelling beperkt u tot alle gebruikers van de installatie van taalpakketten en taalfuncties op pakketten voor pakketten. Als u de Windows-taal wilt beperken, kunt u met dit beleid de volgende beleidsregels beperken: de talen van de GEBRUIKERSINTERFACE beperken die door Windows worden gebruikt voor alle aangemelde gebruikers.   
+Als u deze beleidsinstelling inschakelt, wordt de installatie van taalpakketten en taalfuncties voor alle gebruikers voorkomen.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, zijn er geen taalpakketten of beperkingen voor de installatie van onderdelen voor alle gebruikers.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        Deze beleidsinstelling beperkt  de gebruiker in het installeren van taalpakketten en taalfuncties op aanvraag. Met dit beleid wordt het omschakelen van de  Windows -taal niet beperkt. Als u de  Windows -taal wilt beperken, gebruikt u het volgende beleid: "Hiermee kunt u de UI-talen beperken die door Windows moeten worden gebruikt voor de geselecteerde gebruiker."  
+
+        Als u deze beleidsinstelling inschakelt, wordt de installatie van taalpakketten en taalfuncties  beperkt voor de gebruiker.  
+
+        Als u deze beleidsinstelling uitschakelt of niet configureert, zijn er geen installatie beperkingen voor taalpakketten of -functies voor de gebruiker.  
       </string>
     </stringTable>
     <presentationTable>

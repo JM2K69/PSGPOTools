@@ -27,19 +27,17 @@
       <string id="IPHTTPS_ClientState">IP-HTTPS Durumunu Ayarla</string>
       <string id="IPHTTPS_ClientUrl">IP-HTTPS URL'si</string>
 
-      <string id="ISATAP_State_Help">Bu ilke ayarı, bir IPv4 intraneti genelinde IPv6 ana makineleri arasında tek noktadan yayın IPv6 bağlantısı sağlayan bir adresten yönlendiriciye ve ana makineden ana makineye, ana makineden ana makineye ve ana makineden yönlendiriciye otomatik tünel oluşturma teknolojisi olan Site İçi Otomatik Tünel Adresleme Protokolünü (ISATAP) yapılandırmanıza izin verir.
+      <string id="ISATAP_State_Help">Bu ilke ayarı, bir IPv4 intraneti üzerinden IPv6 ana bilgisayarları arasında tek noktaya yayın IPv6 bağlantısı sağlamak için kullanılan, siteler arası Otomatik Tünel Adresleme Protokolü 'Nü (ıSATAP), bir adresten yönlendiriciye ve ana bilgisayardan ana bilgisayara, ana bilgisayardan yönlendiriciye ve yönlendiriciden ana bilgisayara otomatik tünel oluşturma teknolojisini yapılandırmanıza olanak tanır.
 
 Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız yerel ana makine ayarı kullanılır.
 
-Bu ilke ayarını etkinleştirirseniz ISATAP'ı aşağıdaki ayarlardan biriyle yapılandırabilirsiniz:
+Bu ilke ayarını etkinleştirirseniz ıSATAP 'ı aşağıdaki ayarlardan biriyle yapılandırabilirsiniz:
 
-İlke Varsayılan Durumu: ISATAP yönlendirici adı başarıyla çözümlenirse, ana makine ISATAP'yi bağlantıda yerel olan bir adres ve durum bilgisi olmayan adres otomatik yapılandırması üzerinden ISATAP yönlendiricisinden alınan her önek için bir adresle yapılandırtır. ISATAP yönlendirici adı başarıyla çözülmezse, ISATAP bağlantısı, karşılık gelen IPv4 adresini kullanan ana makinede bulunmaz.
+İlke varsayılan durumu: ana bilgisayarda hiç ıSATAP arabirimi yok.
 
-İlke Etkin Durumu: ISATAP yönlendirici adı başarıyla çözülürse, ana makine ISATAP'yi bağlantıda yerel olan bir adres ve durum bilgisi olmayan adres otomatik yapılandırması üzerinden ISATAP yönlendiricisinden alınan her önek için bir adres ile yapılandırtır. ISATAP yönlendirici adı başarıyla çözülmezse, ana makine bir ISATAP arabirimini bağlantıda yerel olan bir adres ile yapılandırtır.
+İlke etkin durumu: ıSATAP adı başarıyla çözümlendikten sonra ana bilgisayar ıSATAP 'yi bağlantı yerel adresiyle, durum bilgisi olmayan adres otomatik yapılandırması üzerinden ıSATAP yönlendiricisinden alınan her önek için bir adresle yapılandırtır. ISATAP adı başarılı bir şekilde çözümlenmemişse, ana bilgisayar bağlantı yerel adresiyle yapılandırılmış bir ıSATAP arabirimine sahip olur.
 
-İlke Devre Dışı Durumu: Ana makinede hiçbir ISATAP arabirimi bulunmaz.
-
-
+İlke devre dışı durumu: ana bilgisayarda hiç ıSATAP arabirimi yok.
 
 </string>
 
@@ -54,19 +52,17 @@ Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız yerel ana m
 </string>
 
 
-      <string id="6to4_State_Help">Bu ilke ayarı, IPv4 Internet genelinde IPv6 siteleri ve ana makineleri arasında tek noktadan yayın IPv6 bağlantı sistemi sağlamak için kullanılan bir adres atama ve yönlendiriciden yönlendiriciye otomatik tünel oluşturma teknolojisi olan 6to4'ü yapılandırmanıza izin verir. 6to4, küresel adres öneki olan 2002:WWXX:YYZZ::/48'i kullanır; burada harfler, siteye atanmış küresel IPv4 adresinin (w.x.y.z) onaltılık gösterimidir.
+      <string id="6to4_State_Help">Bu ilke ayarı, IPv4 İnternet genelinde IPv6 siteleri ile ana makineleri arasında tek noktadan yayın yapan IPv6 bağlantı sistemini sağlamak için kullanılan bir adres atama ve yönlendiriciden yönlendiriciye otomatik tünel oluşturma teknolojisi olan 6to4'ü yapılandırmanıza izin verir. 6to4, küresel adres öneki olan 2002:WWXX:YYZZ::/48'i kullanır; burada harfler, siteye atanmış küresel IPv4 adresinin (w.x.y.z) onaltılık gösterimidir.
 
 Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız yerel ana makine ayarı kullanılır.
 
-Bu ilke ayarını etkinleştirirseniz 6to4 aşağıdaki ayarlardan biri ile yapılandırabilirsiniz:
+Bu ilke ayarını etkinleştirirseniz 6to4'ü aşağıdaki ayarlardan biri ile yapılandırabilirsiniz:
 
-İlke Varsayılan Durumu: Ana makinenin yalnızca bağlantıda yerel olan bir IPv6 bağlantı sistemi ve ortak bir IPv4 adresi varsa 6to4 etkinleştirilir. Hiçbir küresel IPv6 adresi ve küresel IPv4 adresi yoksa, ana makinenin bir 6to4 arabirimi olmaz. Hiçbir küresel IPv6 adresi ve küresel IPv4 adresi yoksa, ana makinenin bir 6to4 arabirimi olur.
+Varsayılan İlke Durumu: 6to4 kapalıdır ve 6to4 ile bağlantı kullanılamaz.
 
-İlke Devre Dışı Durumu: Küresel bir IPv4 adresi varsa, ana makinenin bir 6to4 arabirimi olur. Küresel bir IPv4 adresi varsa, ana makinenin bir 6to4 olmaz.
+ Etkin İlke Durumu: Genel bir IPv4 adresi mevcutsa ana makinenin 6to4 arabirimi olacaktır. Genel bir IPv4 adresi mevcut değilse ana makinenin 6to4 arabirimi olmayacaktır.
 
-İlke Devre Dışı Durumu: 6to4 kapalıdır ve 6to4 ile bağlantı kullanılamaz.
-
-
+Devre Dışı İlke Durumu: 6to4 kapalıdır ve 6to4 ile bağlantı kullanılamaz.
 
 </string>
 
@@ -188,6 +184,45 @@ Bu ilke ayarını etkinleştirirseniz ya da yapılandırmazsanız IP Durum Bilgi
 Bu ilke ayarını devre dışı bırakırsanız, IP Durum Bilgisi Olmayan Otomatik Yapılandırma Sınırları devre dışı bırakılır ve sistem otomatik yapılandırılmış adreslerin ve yönlendiricilerin sayısını sınırlar.
 
 
+
+</string>
+
+      <string id="IPxlatCfg_PermitNonCellularCLAT">CLAT İznini ayarla</string>
+      <string id="IPxlatCfg_PermitNonCellularCLAT_Help">Bu ilke ayarı, hücresel olmayan arabirimler için 464XLAT (CLAT) müşteri tarafı çeviricisini genel olarak etkinleştirmenize veya devre dışı bırakmanıza olanak sağlar.
+
+Bu ilke ayarını etkinleştirirseniz, CLAT genel olarak izinli olur ve ağ arabirimlerinde etkinleştirilebilir.
+
+Bu ilke ayarını devre dışı bırakırsanız, CLAT genel olarak engellenir ve etkinleştirilemez.
+
+Bu ilke ayarını yapılandırmazsanız, yerel ana bilgisayar ayarı kullanılır.
+
+Bu ilke ayarının etkili olması için yeniden başlatma veya hizmetin yeniden başlatılması gerekmez.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromRA">RA'dan CLAT Önek Bilgilerini Getiri ayarla</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromRA_Help">Bu ilke ayarı, yönlendirici reklamlarının (RA) hücresel olmayan CLAT için önek bilgi kaynağı olarak kullanılmasına izin verir.
+
+Bu ilke ayarını etkinleştirirseniz CLAT, RA aracılığıyla NAT64 öneklerini keşfedebilir. Her iki NAT64 önek keşif yöntemi etkinse, öncelik sırası (RA, DNS) geçerli olur.
+
+Bu ilke ayarını devre dışı bırakırsanız CLAT, RA aracılığıyla NAT64 öneklerini keşfedemez.
+
+Bu ilke ayarını yapılandırmazsanız, yerel ana bilgisayar ayarı kullanılır.
+
+Bu ilke ayarının etkili olması için yeniden başlatma gerekir.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS">DNS'ten CLAT Önek Bilgilerini Getiri ayarla</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS_Help">Bu ilke ayarı, DNS'nin hücresel olmayan CLAT için önek bilgi kaynağı olarak kullanılmasına izin verir.
+
+Bu ilke ayarını etkinleştirirseniz CLAT, DNS aracılığıyla NAT64 öneklerini keşfedebilir. Her iki NAT64 önek keşif yöntemi etkinse, öncelik sırası (RA, DNS) geçerli olur.
+
+Bu ilke ayarını devre dışı bırakırsanız CLAT, DNS aracılığıyla NAT64 öneklerini keşfedemez.
+
+Bu ilke ayarını yapılandırmazsanız, yerel ana bilgisayar ayarı kullanılır.
+
+Bu ilke ayarının etkili olması için yeniden başlatma gerekir.
 
 </string>
 

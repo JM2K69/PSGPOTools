@@ -49,14 +49,14 @@ Nota: Independentemente desta definição, os utilizadores que não são adminis
 Sugestão: Para abrir a caixa de diálogo Definições de TCP/IP Avançadas, na pasta Ligações de Rede, clique com o botão direito do rato num ícone de ligação e clique em Propriedades. Para ligações de acesso remoto, selecione o separador Funcionamento em rede.  Na caixa "Os componentes assinalados são utilizados por esta ligação", clique em TCP/IP (Protocolo Internet), clique no botão Propriedades e, em seguida, clique no botão Avançadas.
 
 Nota: A alteração desta definição de Ativado para Não Configurado só ativa o botão Avançadas quando o utilizador terminar sessão.</string>
-      <string id="NC_AllowNetBridge_NLA">Proibir a instalação e configuração de Bridge de Rede na rede de domínio DNS</string>
+      <string id="NC_AllowNetBridge_NLA">Proibir a instalação e configuração da Bridge de Rede na sua rede.</string>
       <string id="NC_AllowNetBridge_NLA_Help">Determina se um utilizador pode instalar e configurar a Bridge de Rede.
 
-Importante: Esta definição está ciente da localização. Só será aplicada quando um computador estiver ligado à mesma rede de domínio DNS a que estava ligado quando a definição foi atualizada nesse computador. Se um computador estiver ligado a uma rede de domínio DNS diferente da utilizada à qual estava ligada aquando da atualização da definição, esta definição não se aplica.
+Importante: esta definição tem em conta a localização em dispositivos associados a um domínio do AD. Só se aplica quando um computador está ligado à mesma rede de domínio DNS à qual estava ligado quando a definição foi atualizada nesse computador. Se um computador estiver ligado a uma rede de domínio DNS diferente daquela à qual estava ligado quando a definição foi atualizada, esta definição não se aplica. Em dispositivos associados ao Entra, esta definição aplica-se a todas as redes.
 
-A Bridge de Rede permite aos utilizadores criar uma bridge MAC 2 por camadas, permitindo ligar dois ou mais segmentos de rede. Esta ligação aparece na pasta Ligações de Rede.
+A Bridge de Rede permite aos utilizadores criar uma bridge MAC de camada 2, o que lhes permite ligar dois ou mais segmentos de rede entre si. Esta ligação é apresentada na pasta Ligações de Rede.
 
-Se desativar ou não configurar esta definição, o utilizador poderá criar e modificar a configuração de uma Bridge de Rede. Se a ativar, não remove uma Bridge de Rede existente no computador do utilizador.</string>
+Se desativar esta definição ou não a configurar, o utilizador poderá criar e modificar a configuração de uma Bridge de Rede. Ativar esta definição não remove uma Bridge de Rede existente do computador do utilizador.</string>
       <string id="NC_ChangeBindState">Proibir Ativação/Desativação de componentes de ligação local</string>
       <string id="NC_ChangeBindState_Help">Determina se os administradores podem ativar e desativar os componentes de ligações locais.
 

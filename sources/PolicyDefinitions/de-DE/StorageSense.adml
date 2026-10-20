@@ -56,20 +56,20 @@ Wenn die Gruppenrichtlinie "Speicheroptimierung zulassen" deaktiviert ist, hat d
 
 Aktiviert:
 Sie müssen den Mindestschwellenwert in Tagen angeben, die eine Datei im Papierkorb verbleibt, bis sie durch die Speicheroptimierung gelöscht wird. Folgende Werte werden unterstützt: 0 bis 365.
-Wenn Sie "0" angeben, werden im Papierkorb des Benutzers keine Dateien durch die Speicheroptimierung gelöscht. Der Standardwert lautet 30 Tage.
+Wenn Sie Null angeben, werden im Papierkorb des Benutzers keine Dateien durch die Speicheroptimierung gelöscht. Der Standardwert lautet 30 Tage.
 
 Deaktiviert oder Nicht konfiguriert:
-Standardmäßig löscht die Speicheroptimierung Dateien im Papierkorb des Benutzers, die bereits seit mehr als 30 Tagen dort abgelegt sind. Benutzer können diese Einstellung in den Speichereinstellungen konfigurieren.
+Standardmäßig löscht die Speicheroptimierung Dateien im Papierkorb des Benutzers, die bereits seit mehr als 30 Tagen dort abgelegt sind. Benutzer können diese Einstellung in den Speichereinstellungen konfigurieren.
     </string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold">Schwellenwert für Bereinigung des Download-Ordners durch Speicheroptimierung konfigurieren</string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold_Explain">
-Wenn die Speicheroptimierung ausgeführt wird, kann sie Dateien im Downloads-Ordner des Benutzers löschen, die bereits seit einer bestimmten Anzahl von Tagen dort abgelegt sind.
+Wenn die Speicheroptimierung ausgeführt wird, kann sie Dateien im Downloads-Ordner des Benutzers löschen, die seit einer bestimmten Anzahl von Tagen nicht mehr geöffnet wurden.
 
 Wenn die Gruppenrichtlinie "Speicheroptimierung zulassen" deaktiviert ist, hat diese Richtlinie keine Wirkung.
 
 Aktiviert:
-Sie müssen den Mindestschwellenwert in Tagen angeben, die eine Datei im Downloads-Ordner verbleibt, bis sie durch die Speicheroptimierung gelöscht wird. Folgende Werte werden unterstützt: 0 bis 365.
-Wenn Sie "0" angeben, werden im Downloads-Ordner des Benutzers keine Dateien durch die Speicheroptimierung gelöscht. Der Standardwert lautet "0" (Dateien im Downloads-Ordner werden nie gelöscht).
+Sie müssen die Mindestanzahl der Tage angeben, die eine Datei ungeöffnet bleiben kann, bevor sie durch die Speicheroptimierung aus dem Ordner "Downloads" gelöscht wird. Folgende Werte werden unterstützt: 0 bis 365.
+Wenn Sie den Wert Null angeben, werden im Downloads-Ordner des Benutzers keine Dateien durch die Speicheroptimierung gelöscht. Der Standardwert ist 0 (Dateien im Downloads-Ordner werden nie gelöscht)
 
 Deaktiviert oder Nicht konfiguriert:
 Standardmäßig löscht die Speicheroptimierung keine Dateien im Downloads-Ordner des Benutzers. Benutzer können diese Einstellung in den Speichereinstellungen konfigurieren.
@@ -81,8 +81,8 @@ Wenn die Speicheroptimierung ausgeführt wird, kann sie in der Cloud gesicherte 
 Wenn die Gruppenrichtlinie "Speicheroptimierung zulassen" deaktiviert ist, hat diese Richtlinie keine Wirkung.
 
 Aktiviert:
-Sie müssen die Anzahl der Tage angeben, seitdem eine in der Cloud gesicherte Datei geöffnet wurde, bevor sie durch die Speicheroptimierung pausiert wird. Folgende Werte werden unterstützt: 0 bis 365.
-Wenn Sie "0" angeben, werden keine in der Cloud gesicherten Inhalte durch die Speicheroptimierung pausiert. Der Standardwert lautet "0" (in der Cloud gesicherte Inhalt werden nie pausiert).
+Sie müssen die Mindestanzahl der Tage angeben, die eine in der Cloud gesicherte Datei ungeöffnet bleiben kann, bevor sie durch die Speicheroptimierung aus dem Stammverzeichnis pausiert wird. Folgende Werte werden unterstützt: 0 bis 365.
+Wenn Sie Null angeben, werden keine in der Cloud gesicherten Inhalte durch die Speicheroptimierung pausiert. Der Standardwert ist 0 (in der Cloud gesicherte Inhalt werden nie pausiert).
 
 Deaktiviert oder Nicht konfiguriert:
 Standardmäßig werden von der Speicheroptimierung keine in der Cloud gesicherten Inhalte pausiert. Benutzer können diese Einstellung in den Speichereinstellungen konfigurieren.

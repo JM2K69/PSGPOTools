@@ -37,14 +37,30 @@ Hinweis: Das Aktivieren dieser Richtlinieneinstellung hindert Benutzer nicht dar
       <string id="DisableRoamedProfileInit_Help">Mithilfe dieser Richtlinieneinstellung können Administratoren, die ein Roamingprofil in Verbindung mit der Gruppenrichtlinieneinstellung "Zwischengespeichertes Roamingprofil löschen" konfiguriert haben, sicherstellen, dass der Explorer für Standardprogrammzuordnungen und weitere Einstellungen nicht wieder die Standardwerte initialisiert. 
 
 Wenn Sie diese Richtlinieneinstellung auf einem Computer aktivieren, auf dem die Programme nicht alle in der gleichen Weise installiert sind wie auf dem Computer, an dem der Benutzer zuletzt angemeldet war, kann ein unerwartetes Verhalten auftreten. </string>
+      <string id="DisableGraphRecentItems">Dateien basierend auf Ihrer Konto- und Cloudanbieteraktivität anzeigen</string>
+      <string id="DisableGraphRecentItems_Help">Durch Deaktivierung dieser Einstellung wird verhindert, dass der Datei-Explorer Cloud-Dateimetadaten anfordert und diese auf der Startseite und in anderen Ansichten im Datei-Explorer anzeigt. Alle Erkenntnisse und Dateien, die auf der Konto- oder Cloudanbieteraktivität basieren, werden in Ansichten wie „Zuletzt verwendet“, „Empfohlen“, „Favoriten“, „Freigegeben“ usw. gestoppt.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Quellintegration für erweiterte Einstellungen in Explorer deaktivieren</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">Durch das Deaktivieren der Quellintegration für erweiterte Einstellungen wird verhindert, dass Explorer Repositoryinformationen aus der Systemkomponente "Erweiterte Einstellungen" anzeigen.</string>
+      <string id="DisableFileExplorerPrelaunch">Datei-Explorer-Feature deaktivieren, um ein Fenster im Hintergrund im Voraus zu laden</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Diese Richtlinie verhindert, dass Benutzer das Feature "Vorabstart" in Explorer aktivieren, wodurch ein Fenster im Hintergrund erstellt wird, um die Starterfahrung zu beschleunigen und die Reaktionsfähigkeit zu verbessern.</string>
+      <string id="MakePrintScreenKeyYieldable">DRUCK-TASTE funktionsfähig machen</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Mit dieser Richtlinieneinstellung wird festgelegt, ob die DRUCK-TASTE für andere Anwendungen verwendet werden kann.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, kann die DRUCK-TASTE von Anwendungen abgefangen werden, sodass sie die Standardmäßige Screenshot-Funktionalität außer Kraft setzen können.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren, behält die DRUCK-TASTE ihr Legacyverhalten beim Erstellen von Screenshots bei und kann von Anwendungen nicht abgefangen werden.
+
+Wenn diese Richtlinie nicht konfiguriert ist, kann die DRUCK-TASTE von Anwendungen abgefangen werden, sodass sie die standardmäßige Screenshot-Funktionalität außer Kraft setzen können (genauso wie bei Aktivierung der Einstellung).
+
+Hinweis: Für diese Einstellung ist möglicherweise ein Systemneustart erforderlich, damit sie wirksam wird.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>URL der Supportwebseite</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>URL der Supportwebseite</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

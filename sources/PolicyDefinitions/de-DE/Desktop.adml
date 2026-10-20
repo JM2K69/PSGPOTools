@@ -55,6 +55,15 @@ Hinweis: Diese Einstellung deaktiviert nicht den Active Desktop. Benutzer könne
 Standardmäßig können Benutzer den Speicherort ihrer individuellen Profilordner wie "Dokumente", "Musik" usw. dadurch ändern, dass sie auf der Registerkarte "Pfad" des Eigenschaftendialogfelds für den Ordner einen neuen Pfad eingeben.
 
 Wenn Sie diese Einstellung aktivieren, können die Benutzer in das Feld "Ziel" keinen neuen Speicherort eingeben.</string>
+      <string id="EnableThemeFileRemoteResource">Designdateien von Netzwerkspeicherorten zulassen</string>
+      <string id="EnableThemeFileRemoteResource_Help">Diese Richtlinieneinstellung legt fest, ob Remotepfade für Ressourcen innerhalb einer Windows-Desktopdesign-Datei (.theme/.themepack) verwendet werden können.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Designdateien auf Ressourcen (z. B. Bilder, Sounds und Symbole) verweisen, die sich auf Netzwerkfreigaben oder anderen Remotespeicherorten befinden. Benutzer können Designs anwenden, die Remoteressourcen enthalten.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren, können Designdateien keine Remoteressourcen verwenden. Bei Designdateien, die auf Remoteressourcen verweisen, schlägt das Laden dieser Ressourcen fehl und es werden nur lokale Ressourcen angezeigt.
+
+Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, besteht das Standardverhalten darin, Remoteressourcen in Designdateien aus Sicherheitsgründen zu blockieren.</string>
+
       <string id="ForceActiveDesktopOn">Active Desktop aktivieren</string>
       <string id="ForceActiveDesktopOn_Help">Aktiviert den Active Desktop und verhindert, dass die Benutzer ihn deaktivieren.
 

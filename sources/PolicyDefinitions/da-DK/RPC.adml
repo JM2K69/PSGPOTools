@@ -27,17 +27,17 @@ Udvidede fejloplysninger omfatter det lokale tidspunkt, hvor fejlen opstod, RPC-
 
 Hvis du deaktiverer denne politikindstilling, opretter RPC Runtime kun en statuskode, der angiver en fejltilstand.
 
-Hvis du undlader at konfigurere denne politikindstilling, forbliver den deaktiveret.  Der oprettes kun en statuskode, der angiver en fejltilstand.
+Hvis du undlader at konfigurere denne politikindstilling, forbliver den deaktiveret. Der oprettes kun en statuskode, der angiver en fejltilstand.
 
-Hvis du aktiverer denne politikindstilling, opretter RPC Runtime udvidede fejloplysninger.  Du skal vælge typen af fejlsvar på rullelisten.
+Hvis du aktiverer denne politikindstilling, opretter RPC Runtime udvidede fejloplysninger. Du skal vælge typen af fejlsvar på rullelisten.
 
---  "Slået fra" deaktiverer alle udvidede fejloplysninger for alle processer. RPC opretter kun en fejlkode.
+– "Slået fra" deaktiverer alle udvidede fejloplysninger for alle processer. RPC opretter kun en fejlkode.
 
---  "Slået til med undtagelser" aktiverer udvidede fejloplysninger, men gør det muligt at deaktivere udvalgte processer. Hvis du vil deaktivere udvidede fejlmeddelelser for en proces, når denne politikindstilling er gældende, skal den kommando, der starter processen, begynde med en af strengene i feltet Undtagelser til udvidede fejloplysninger.
+– "Slået til med undtagelser" aktiverer udvidede fejloplysninger, men gør det muligt at deaktivere udvalgte processer. Hvis du vil deaktivere udvidede fejlmeddelelser for en proces, når denne politikindstilling er gældende, skal den kommando, der starter processen, begynde med en af strengene i feltet Undtagelser til udvidede fejloplysninger.
 
---  "Slået fra med undtagelser" deaktiverer udvidede fejloplysninger, men gør det muligt at aktivere udvalgte processer. Hvis du vil aktivere udvidede fejlmeddelelser for en proces, når denne politikindstilling er gældende, skal den kommando, der starter processen, begynde med en af strengene i feltet Undtagelser til udvidede fejloplysninger.
+– "Slået fra med undtagelser" deaktiverer udvidede fejloplysninger, men gør det muligt at aktivere udvalgte processer. Hvis du vil aktivere udvidede fejlmeddelelser for en proces, når denne politikindstilling er gældende, skal den kommando, der starter processen, begynde med en af strengene i feltet Undtagelser til udvidede fejloplysninger.
 
---  "Slået til" aktiverer alle udvidede fejloplysninger for alle processer.
+– "Slået til" aktiverer alle udvidede fejloplysninger for alle processer.
 
 Bemærk! Du kan finde flere oplysninger om feltet Undtagelser til udvidede fejloplysninger i SDK (Software Development Kit) til Windows.
 

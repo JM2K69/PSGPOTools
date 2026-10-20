@@ -129,6 +129,12 @@ Jos et määritä tätä asetusta, työntekijät voivat valita, käyttävätkö 
 Jos asetus on käytössä, tulostaminen sallitaan.
 
 Jos asetus ei ole käytössä, tulostamista ei sallita.</string>
+      <string id="AllowMixedModePrintingInPdf">Jos PDF-tiedostoissa on sekä vaaka- että pystysuuntaisia sivuja, tulosta kukin sivu omansuuntaisena.</string>
+      <string id="AllowMixedModePrintingInPdf_Explain">Tämän käytäntöasetuksen avulla voit tulostaa PDF-tiedostoja sivun suunnan mukaisesti Microsoft Edgessä.
+
+Jos käytäntö on käytössä, tulostuksen yhdistelmätila on sallittu.
+
+Jos käytäntö ei ole käytössä, tulostuksen yhdistelmätilaa ei sallita.</string>
       <string id="AllowSavingHistory">Salli historian tallentaminen</string>
       <string id="AllowSavingHistory_Explain">Microsoft Edge tallentaa käyttäjän selaushistorian, joka sisältää tietoja sivustoista, joissa käyttäjä käy laitteellaan.
 
@@ -491,7 +497,7 @@ Jos estät esikäynnistyksen, Microsoft Edge ei esikäynnisty Windowsin käynnis
       <string id="AllowPrelaunchDropdown_AllowPrelaunch">Salli esikäynnistys</string>
       <string id="AllowPrelaunchDropdown_PreventPrelaunch">Estä esikäynnistys</string>
 
-      <string id="ConfigureKioskMode">Määritä itsenäisen esityksen tila</string>
+      <string id="ConfigureKioskMode">Määritä kioskitila</string>
       <string id="ConfigureKioskMode_Explain">Määritä, miten Microsoft Edge toimii, kun sitä käytetään itsenäisen esityksen ja määritetyn käytön tilassa joko yksittäisenä sovelluksena tai yhtenä useista itsenäisen esityksen laitteessa suoritettavista sovelluksista. Voit määrittää, toimiiko Microsoft Edge InPrivate-selaustilassa koko näytön kokoisena vai InPrivate-selaustilassa, jossa on useita välilehtiä ja rajoitettu toiminnallisuus, vai tavallisena Microsoft Edgenä.
 
 Jotta käytäntö tulee voimaan, Microsoft Edge on määritettävä määritettyä käyttöä varten. Muussa tapauksessa nämä asetukset ohitetaan. Lisätietoja määritetyn käytön ja itsenäisen esityksen laitteen määrittämisestä on artikkelissa Configure kiosk and shared devices running Windows desktop editions (https://aka.ms/E489vw).
@@ -502,7 +508,7 @@ Jos käytäntö on käytössä ja sen arvoksi on määritetty 0 (oletusarvo tai 
 Jos käytäntö on käytössä ja sen arvoksi on määritetty 1:
 - Jos kyseessä on yksittäinen sovellus, se toimii rajoitetussa usean välilehden InPrivate-tilassa ainoana julkisessa selauksessa käytettävissä olevana sovelluksena. Käyttäjät eivät pysty pienentämään, sulkemaan tai avaamaan ikkunoita tai mukauttamaan Microsoft Edgeä. He voivat kuitenkin tyhjentää selaus- ja lataustiedot ja tehdä uudelleenkäynnistyksen valitsemalla Lopeta istunto. Voit määrittää, että Microsoft Edge käynnistyy uudelleen, kun se on ollut jonkin aikaa käyttämättömänä, käyttämällä Määritä itsenäisen esityksen palautus käyttämättömyystilanteen aikakatkaisun jälkeen -käytäntöä.
 - Jos kyseessä on yksi useista sovelluksista, se toimii rajoitetussa usean välilehden InPrivate-tilassa julkisessa selauksessa muiden sovellusten kanssa. Käyttäjät voivat pienentää, sulkea ja avata useita InPrivate-ikkunoita, mutta he eivät voi mukauttaa Microsoft Edgeä.</string>
-      <string id="ConfigureKioskResetAfterIdleTimeout">Määritä itsenäisen esityksen palautus käyttämättömyystilanteen aikakatkaisun jälkeen</string>
+      <string id="ConfigureKioskResetAfterIdleTimeout">Määritä kioskin palautus käyttämättömyystilanteen aikakatkaisun jälkeen</string>
       <string id="ConfigureKioskResetAfterIdleTimeout_Explain">Voit määrittää Microsoft Edgen palautumaan määritettyyn aloituskäyttötilaan, kun laite on ollut käyttämättömänä tietyn ajan. Palautusajastin käynnistyy käyttäjän viimeisimmän toimenpiteen jälkeen. Kun määritetty aloituskäyttötila palautetaan, käyttäjän senhetkiset selaustiedot poistetaan.
 
 Jos käytäntö on käytössä, voit määrittää käyttämättömyysajan minuutteina (0 - 1440). Jotta käytäntö toimii, sinun on määritettävä Määritä itsenäisen esityksen tila -käytännön arvoksi 1 ja Microsoft Edge määritettyä yksittäisen sovelluksen käyttöä varten. Kun ennalta määritetty käyttämättömyysaika on umpeutunut, näkyviin tulee vahvistusviesti, jossa käyttäjää kehotetaan jatkamaan. Jos käyttäjän toimenpiteitä ei ilmene, Microsoft Edgen palautuminen tapahtuu 30 sekunnin kuluttua.
@@ -512,9 +518,14 @@ Jos määrität tämän käytännön arvoksi 0, käyttämättömyysajastinta ei 
 Jos käytäntö ei ole käytössä tai sitä ei määritetä, oletusarvo on 5 minuuttia.
 
 Jos et määritä Microsoft Edgeä määritettyä käyttöä varten, tämä käytäntö ei tule voimaan.</string>
-    </stringTable>
+      <string id="SuppressEdgeDeprecationNotification">Estä Edgen käytöstäpoistoilmoituksen näyttäminen</string>
+      <string id="SuppressEdgeDeprecationNotification_Explain">Voit määrittää Microsoft Edgen estämään ilmoituksen näyttämisen, jossa kerrotaan, että tämän Microsoft Edge -version tuki päättyi 9. maaliskuuta, 2021. Jos asetus on käytössä, ilmoitus ei näy.
 
+Jos asetus ei ole käytössä tai sitä ei ole määritetty, ilmoitus näytetään aina, kun Edge käynnistetään. </string>
+
+    </stringTable>
     <!-- Presentation -->
+    
     <presentationTable>
       <presentation id="ConfiguredFavorites_Presentation">
         <textBox refId="ConfiguredFavoritesPrompt">

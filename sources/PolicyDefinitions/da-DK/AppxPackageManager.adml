@@ -2,39 +2,47 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>Styring af AppX-pakke</displayName> 
+  <displayName>Styring af AppX-pakke</displayName>
   <description>Styring af AppX-pakke</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">Installation af app-pakke</string>
       <string id="AppxDeploymentAllowAllTrustedApps">Tillad installation af alle de apps, der er tillid til</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Du kan bruge denne politikindstilling til at administrere installationen af LOB (line-of-business) Windows Store-apps, der er tillid til, eller udviklersignerede Windows Store-apps.
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Med denne politikindstilling kan du administrere installationen af betroede LOB (Trusted Line of Business) eller udviklersignerede pakkede Microsoft Store-apps.
 
-Hvis du aktiverer denne politikindstilling, kan du installere en hvilken som helst LOB- eller udviklersigneret Windows Store-app (som skal være signeret med en certifikatkæde, som kan godkendes af den lokale computer).
+Hvis du aktiverer eller ikke konfigurerer denne politikindstilling, kan du installere nogen LOB- eller udviklersignerede pakkede Microsoft Store-apps (som skal være signeret med en certifikatkæde, der kan valideres af den lokale computer).
 
-Hvis du deaktiverer denne politikindstilling eller undlader at konfigurere den, kan du ikke installere LOB- eller udviklersignerede Windows Store-apps.</string>
+Hvis du deaktiverer denne politikindstilling, kan du ikke installere LOB eller udviklersignerede pakkede Microsoft Store-apps.</string>
+      <string id="AllowAutomaticAppArchiving">Arkivér sjældent brugte apps</string>
+      <string id="AllowAutomaticAppArchivingExplanation">Denne politikindstilling styrer, om systemet kan arkivere sjældent anvendte apps.
+
+Hvis du aktiverer denne politikindstilling, vil systemet jævnligt søge efter og arkivere sjældent anvendte apps.
+
+Hvis du deaktiverer denne politikindstilling, vil systemet ikke arkivere nogen apps.
+
+Hvis du undlader at konfigurere denne politikindstilling (standard), følger systemet standardfunktionsmåden, som jævnligt søger efter og arkiverer sjældent brugte apps, og brugeren kan selv konfigurere denne indstilling.</string>
       <string id="AllowDeploymentInSpecialProfiles">Tillade installationshandlinger i særlige profiler</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">Du kan bruge denne politikindstilling til at administrere installationen af Windows Store-apps, når brugeren er logget på med en særlig profil. Særlige profiler er følgende brugerprofiler, hvor ændringer slettes, når brugeren har logget af:
+      <string id="AllowDeploymentInSpecialProfilesExplanation">Med denne politikindstilling kan du administrere udrulningen af pakkede Microsoft Store apps, når brugeren er logget på med en særlig profil. Særlige profiler er følgende brugerprofiler, hvor ændringer kasseres, når brugeren logger af:
 
-Globale brugerprofiler, som gruppepolitikindstillingen "Slet cachekopier af roamingprofiler" gælder for
+Roamingbrugerprofiler, hvor indstillingen "Slet cachelagrede kopier af roamingprofiler" under Gruppepolitik anvendes
 
-Obligatoriske brugerprofiler og superobligatoriske profiler, som oprettes af en administrator
+Obligatoriske brugerprofiler og super obligatoriske profiler, som oprettes af en administrator
 
-Midlertidige brugerprofiler, som oprettes, når den korrekte profil ikke kan indlæses på grund af en fejl
+Midlertidige brugerprofiler, som oprettes, når en fejl forhindrer den korrekte profil i at indlæse
 
-Brugerprofiler til gæstekontoen og medlemmer af gæstegruppen
+Brugerprofiler for Gæstekontoen og medlemmer af gruppen Gæster
 
 
-Hvis du aktiverer denne politikindstilling, tillader gruppepolitikken installationshandlinger (tilføjelse, registrering, lagring, opdatering eller fjernelse af en app-pakke) på Windows Store-apps, når der bruges en særlig profil.
+Hvis du aktiverer denne politikindstilling, tillader Gruppepolitik installationshandlinger (tilføjelse, registrering, midlertidig lagring, opdatering eller fjernelse af en apppakke) af pakkede Microsoft Store apps, når du bruger en særlig profil.
 
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, blokerer gruppepolitikken for installationshandlinger på Windows Store-apps, når der anvendes en særlig profil.</string>
-      <string id="AllowDevelopmentWithoutDevLicense">Tillad udvikling af Windows Store-apps og installation af dem fra et IDE (integrated development environment)</string>
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, blokerer Gruppepolitik installationshandlinger for pakkede Microsoft Store apps, når du bruger en særlig profil.</string>
+      <string id="AllowDevelopmentWithoutDevLicense">Tillader udvikling af pakkede Microsoft Store apps og installation af dem fra et integreret udviklingsmiljø (IDE)</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        Tillader eller afviser udvikling af Windows Store-programmer og installation af dem direkte fra et IDE.
+        Tillader eller afviser udvikling af Microsoft store-programmer og installation af dem direkte fra en IDE.
 
-        Hvis du aktiverer denne indstilling og aktiverer gruppepolitikken "Tillad installation af alle de apps, der er tillid til", kan du udvikle Windows Store-apps og installere dem direkte fra et IDE.
-        
-        Hvis du deaktiverer denne politikindstilling eller undlader at konfigurere den, kan du ikke udvikle Windows Store-apps eller installere dem direkte fra et IDE.
+ Hvis du aktiverer denne indstilling og aktiverer gruppepolitikken »Tillad installering af alle de apps, der er tillid til«, kan du udvikle Microsoft Store-apps og installere dem direkte fra en IDE.
+
+ Hvis du deaktiverer eller ikke konfigurerer denne indstilling, kan du ikke udvikle Microsoft store-apps eller installere dem direkte fra en IDE.
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">Deaktiver installation af Windows-apps på drev, som ikke er systemdrev</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -53,12 +61,150 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, blok
         Hvis du deaktiverer eller undlader at konfigurere denne indstilling, betyder det, når en app flyttes til et andet drev, flyttes brugernes data også til dette drev.
       </string>
       <string id="AllowSharedLocalAppData">Tillad, at en Windows-app kan dele programdata mellem brugere</string>
-      <string id="AllowSharedLocalAppDataExplanation">Administrer en Windows-apps mulighed for at dele data mellem de brugere, der har installeret appen.
-      
-        Hvis du aktiverer denne politik, kan en Windows-app dele appdata med andre forekomster af den app. Data deles via mappen SharedLocal. Denne mappe er tilgængelig via Windows.Storage API.
+      <string id="AllowSharedLocalAppDataExplanation">Administrerer en Windows-apps mulighed for at dele data mellem brugere, der har installeret appen.
 
-        Hvis du deaktiverer denne politik, kan en Windows-app ikke dele appdata med andre forekomster af den app. Hvis denne politik tidligere var aktiveret, forbliver appdata, der tidligere er delt, i mappen SharedLocal. 
+        Hvis du aktiverer denne politik, kan en Windows-app dele appdata med andre forekomster af den app. Data deles via mappen SharedLocal. Denne mappe er tilgængelig via Windows.Storage-API'en.
+
+        Hvis du deaktiverer denne politik, kan en Windows-app ikke dele appdata med andre forekomster af den app. Hvis denne politik tidligere var aktiveret, forbliver alle tidligere delte appdata i mappen SharedLocal.
       </string>
+      <string id="BlockNonAdminUserInstall">Forbyd brugere, der ikke er administratorer, i at installere pakkede Windows-apps</string>
+      <string id="BlockNonAdminUserInstallExplanation">Styrer muligheden for, at brugere, der ikke er administratorer, kan installere Windows-app-pakker.
+
+        Hvis du aktiverer denne politik, vil ikke-administratorer ikke kunne starte installationen af Windows-app-pakker. Administratorer, der ønsker at installere en app, skal gøre det fra en administratorkontekst (f.eks. et administratorvindue i PowerShell). Alle brugere vil stadig kunne installere Windows-app-pakker via Microsoft Store, hvis det er tilladt i andre politikker.
+
+        Hvis du deaktiverer eller undlader at konfigurere denne politik, kan alle brugere starte installationen af Windows-app-pakker.
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">Angiv godkendte domæner til HTTPS-godkendelse i MSIX-streaminginstallation</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">Denne politikindstilling bestemmer, om et EntraID OAuth-token skal medtages i HTTPS-kommunikation til et angivet fuldt domænenavn til udførelse af en MSIX-streaminginstallation.
+
+Hvis du aktiverer denne politikindstilling, vil HTTPS-kommunikation til de foruddefinerede fuldt kvalificerede domæner inkorporere brugerens EntraID OAuth-token, når der udføres en MSIX-installation af streaming. Den angivne værdi er et regulært udtryk (ECMA Script), der bruges til at matche med URL-adressens fulde domæne med store bogstaver.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, deles brugerens EntraID OAuth-token kun med de standardkonfigurerede domæner.
+      </string>
+      <string id="DisableBackgroundAutoUpdates">Tillad ikke, at sideindlæste apps opdateres automatisk i baggrunden</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">Administrerer en sideloadet apps' mulighed for automatisk opdatering i baggrunden. 
+
+        Hvis du aktiverer denne politik, opdateres sideloadede apps ikke automatisk i baggrunden.
+
+        Hvis du deaktiverer denne politik, opdateres sideloadede apps automatisk i baggrunden.
+
+        Standard er "deaktiveret" (nøglen findes ikke).
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">Tillad ikke, at sideindlæste apps opdateres automatisk i baggrunden på et netværk efter forbrug</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">Administrerer en sideloadet apps' mulighed for automatisk at opdatere i baggrunden på et forbrugsbaseret netværk. 
+
+        Hvis du aktiverer denne politik, opdateres sideindlæste apps ikke automatisk i baggrunden på et netværk efter forbrug.
+
+        Hvis du deaktiverer denne politik, opdateres sideloadede apps automatisk i baggrunden på et forbrugsbaseret netværk.
+
+        Standard er "deaktiveret" (nøglen findes ikke).
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">Tillad ikke, at ikke-signerede pakker pr. bruger installeres som standard (kræver eksplicit tilladelse pr. installation)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">Tillad ikke, at ikke-signerede pakker pr. bruger installeres som standard (kræver eksplicit tilladelse pr. installation)
+
+        Hvis du aktiverer denne politik, vil indstillingen AllowUnsigned som standard være "falsk".
+
+        Hvis du deaktiverer denne politik, vil indstillingen AllowUnsigned som standard være "Sand".
+
+        Standarden er "deaktiveret" (nøglen findes ikke).
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">Tilladte pakkefamilienavne til ikke-administratorbrugerinstallation</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">Tilladte pakkefamilienavne for installation af Windows-apppakker, der ikke er administratorer.
+
+Hvis du aktiverer denne politik, kan du angive en liste over Windows-apppakker, som ikke-administratorer vil kunne starte installationen af, uanset den konfigurerede politik "Undgå, at brugere, der ikke er administratorer, kan installere pakkede Windows-apps".
+
+De angivne værdier behandles som regulære udtryk (ECMA-script). Et pakkefamilienavn som Contoso.ContosoApp_8wekyb3d8bbwe er sig selv et gyldigt regulært udtryk, der matcher alle pakker i den pågældende familie. Et regulært udtryk som ^Contoso.*_8wekyb3d8bbwe$ matcher også Contoso.ContosoApp_8wekyb3d8bbwe
+
+Hvis pakkefamilienavnet på en installerende Windows-apppakke svarer til nogen regel, blokeres den ikke af politikken "Undgå, at brugere, der ikke er administratorer, i at installere pakkede Windows-apps". Installationen kan stadig være blokeret af en anden politik eller andre indstillinger.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, vil alle Windows-apppakker være underlagt den konfigurerede politik "Undgå, at brugere, der ikke er administratorer, installerer pakkede Windows-apps".
+
+Standarden er 'disabled' (nøglen findes ikke).
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">Fjern Microsoft Store-standardpakker fra systemet.</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">Fjerner Microsoft Store-standardpakker fra systemet.
+
+Hvis du aktiverer denne politik, vil de valgte Microsoft Store-apps på den angivne liste blive fjernet fra systemet. Du kan foretage justeringer af standardindstillingerne.
+
+Ikke-markerede apps på listen fjernes ikke.
+
+* Dette er en konsolløs app (ingen brugergrænseflade)
+
+** Denne app er standardhandleren for en almindelig filtype eller protokol. Hvis du fjerner denne app, kan det medføre en forringet brugeroplevelse. Vi anbefaler ikke, at du fjerner denne app.
+
+Hvis du aktiverer denne politik, kan du også fjerne en app ved at indtaste appens pakkefamilienavn (f.eks. Microsoft.WindowsCalculator_8wekyb3d8bbwe) i den dynamiske liste under "Angiv yderligere pakkefamilienavne, der skal fjernes."
+
+Hvis denne politik er aktiveret, kræver geninstallation af en tidligere fjernet app, at du fjerner appen fra den angivne liste eller fjerner appens pakkefamilienavn fra den dynamiske liste.
+
+Du kan ikke fjerne Windows-systemkomponenter via den dynamiske appfjernelsessliste.
+
+Validering af pakkefamilienavne i den dynamiske appfjernelsessliste sker ved brugerlogin, ikke ved konfiguration af politikken.
+
+Standard er "deaktiveret" (nøglen findes ikke).
+
+Hvis politikken er deaktiveret eller ikke er konfigureret, fjernes ingen Microsoft Store-standardpakker fra systemet.
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">Fjerner Microsoft Store-standardpakker fra systemet.</string>
+      <string id="EnableMsixAllowedZones">Aktivér tilladte zoner for MSIX-pakker</string>
+      <string id="EnableMsixAllowedZonesExplanation">Denne politik styrer, om MSIX-pakker, der stammer fra bestemte URL-zoner, må installeres. En pakkes oprindelse bestemmes af dens URI, og om der findes en Mart-of-the-Web (MotW). Hvis der er involveret flere URI'er, tages de alle med i betragtning;
+
+Hvis du aktiverer denne politik, kan brugerne installere MSIX-pakker i henhold til konfigurationen for hver zone.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, kan brugerne installere MSIX-pakker fra alle zoner undtagen de zoner, der ikke er tillid til.</string>
+      <string id="ZoneAllowed">Tillad</string>
+      <string id="ZoneBlocked">Bloker</string>
+      <string id="EnableMsixSmartScreenCheck">Aktivér Microsoft SmartScreen-kontroller for MSIX-pakker</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">Denne politik styrer, om Microsoft SmartScreen-kontrollen udføres, når MSIX-pakker installeres fra bestemte URL-adressezoner.
+
+Hvis du aktiverer eller ikke konfigurerer denne politik, bliver pakke-URI'en vurderet med Microsoft SmartScreen før installation. Denne kontrol udføres kun for pakker, der kommer fra internettet.
+
+Hvis du deaktiverer politikken, bliver Microsoft SmartScreen ikke brugt før installation af en pakke.</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>Udtryk</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">Tilladte pakkefamilienavne til ikke-administratorbrugerinstallation</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>Fjerner Microsoft Store-standardpakker fra systemet.</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">Feedback Hub</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">Microsoft 365 Copilot</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft News</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Microsoft Billeder **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Microsoft Sticky Notes</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">Microsoft To Do</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN Vejr</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Outlook til Windows</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">Paint</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">Lynhjælp</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">Klippeværktøj</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Windows Lommeregner</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Windows Kamera **</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Windows-medieafspiller **</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Windows Notesblok **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Windows Lydoptager</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Windows Terminal</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">Xbox Gaming-appen</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Xbox Identity Provider *</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Tale til tekst-overlejring på Xbox *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">Angiv yderligere pakkefamilienavne, der skal fjernes</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">Lokal computer</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">Intranet</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">Websteder, du har tillid til</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">Internet</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">Upålidelige websteder</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

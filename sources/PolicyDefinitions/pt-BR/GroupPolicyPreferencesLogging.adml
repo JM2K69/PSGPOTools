@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>Política de Grupo de Registro em Log de Preferências</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">Configurar rastreamento e log de preferência de Aplicativos</string>
+      <string id="CSE_Applications_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Aplicativos, além de ativar o rastreamento para a extensão Aplicativos. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Aplicativos para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.
+</string>
+      <string id="CSE_DataSources_Logging">Configurar rastreamento e log de preferência de Fontes de Dados</string>
+      <string id="CSE_DataSources_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Fontes de Dados, além de ativar o rastreamento para a extensão Fontes de Dados. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Fontes de Dados para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_Devices_Logging">Configurar rastreamento e log de preferência de Dispositivos</string>
+      <string id="CSE_Devices_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Dispositivos, além de ativar o rastreamento para a extensão Dispositivos. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Dispositivos para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_Drives_Logging">Configurar rastreamento e log de preferência de Mapas de Unidades</string>
+      <string id="CSE_Drives_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Mapas de Unidades, além de ativar o rastreamento para a extensão Mapas de Unidades. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Mapas de Unidades para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_Environment_Logging">Configurar rastreamento e log de preferência de Ambiente</string>
+      <string id="CSE_Environment_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Ambiente, além de ativar o rastreamento para a extensão Ambiente. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Ambiente para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_Files_Logging">Configurar rastreamento e log de preferência de Arquivos</string>
+      <string id="CSE_Files_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Arquivos, além de ativar o rastreamento para a extensão Arquivos. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Arquivos para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_FolderOptions_Logging">Configurar rastreamento e log de preferência de Opções de Pasta</string>
+      <string id="CSE_FolderOptions_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Opções de Pasta, além de ativar o rastreamento para a extensão Opções de Pasta. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Opções de Pasta para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_Folders_Logging">Configurar rastreamento e log de preferência de Pastas</string>
+      <string id="CSE_Folders_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Pastas, além de ativar o rastreamento para a extensão Pastas. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Pastas para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_IniFiles_Logging">Configurar rastreamento e log de preferência de Arquivos Ini</string>
+      <string id="CSE_IniFiles_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Arquivos Ini, além de ativar o rastreamento para a extensão Arquivos Ini. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Arquivos Ini para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_Internet_Logging">Configurar rastreamento e log de preferência de Configurações da Internet</string>
+      <string id="CSE_Internet_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Internet, além de ativar o rastreamento para a extensão Internet. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Internet para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">Configurar rastreamento e log de preferência de Usuários e Grupos Locais</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Usuário Local e Grupo Local, além de ativar o rastreamento para a extensão Usuário Local e Grupo Local. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Usuário Local e Grupo Local para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_NetworkOptions_Logging">Configurar rastreamento e log de preferência de Opções de Rede</string>
+      <string id="CSE_NetworkOptions_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Opções de Rede, além de ativar o rastreamento para a extensão Opções de Rede. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Opções de Rede para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_NetShares_Logging">Configurar rastreamento e log de preferência de Compartilhamentos de Rede</string>
+      <string id="CSE_NetShares_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Compartilhamentos de Rede, além de ativar o rastreamento para a extensão Compartilhamentos de Rede. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Compartilhamentos de Rede para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_PowerOptions_Logging">Configurar rastreamento e log de preferência de Opções de Energia</string>
+      <string id="CSE_PowerOptions_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Opções de Energia, além de ativar o rastreamento para a extensão Opções de Energia. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Opções de Energia para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_Printers_Logging">Configurar rastreamento e log de preferência de Impressoras</string>
+      <string id="CSE_Printers_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Impressoras, além de ativar o rastreamento para a extensão Impressoras. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Impressoras para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_RegionalOptions_Logging">Configurar rastreamento e log de preferência de Opções Regionais</string>
+      <string id="CSE_RegionalOptions_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Opções Regionais, além de ativar o rastreamento para a extensão Opções Regionais. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Opções Regionais para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_PrefRegistry_Logging">Configurar rastreamento e log de preferência de Registro</string>
+      <string id="CSE_PrefRegistry_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Registro, além de ativar o rastreamento para a extensão Registro. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar essa configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão do Registro para computadores clientes.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_ScheduledTasks_Logging">Configurar rastreamento e log de preferência de Tarefas Agendadas</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Tarefas Agendadas, além de ativar o rastreamento para a extensão Tarefas Agendadas. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Tarefas Agendadas para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_Services_Logging">Configurar rastreamento e log de preferência de Serviços</string>
+      <string id="CSE_Services_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Serviços, além de ativar o rastreamento para a extensão Serviços. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Serviços para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_Shortcuts_Logging">Configurar rastreamento e log de preferência de Atalhos</string>
+      <string id="CSE_Shortcuts_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Atalhos, além de ativar o rastreamento para a extensão Atalhos. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Atalhos para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_StartMenu_Logging">Configurar rastreamento e log de preferência de Menu Iniciar</string>
+      <string id="CSE_StartMenu_Logging_Help">Esta configuração de política permite que você configure o nível de detalhes registrados por um log de eventos da extensão de preferência Menu Iniciar, além de ativar o rastreamento para a extensão Menu Iniciar. O log e o rastreamento fornecem informações de diagnóstico para a solução de problemas.
+
+Se você habilitar a configuração de política, poderá configurar o log de eventos e ativar o rastreamento para a extensão Menu Iniciar para computadores cliente.
+
+Se você desabilitar ou não definir a configuração de política, por padrão, o log de eventos para essa extensão incluirá somente avisos e erros, e o rastreamento para a extensão será desativado.
+
+Cuidado com a segurança: 
+Proteja o compartilhamento de rede configurado usando apenas as permissões mínimas necessárias. Não use acesso amplo (por exemplo, qualquer conta padrão ou Todos com Controle Total), pois isso pode resultar em acesso não autorizado aos dados de log e rastreamento
+
+Observações:
+
+1. Rastreamento da Configuração do Usuário: para executar o rastreamento de itens nesta extensão de preferência listada em Configuração do Usuário, você deve fornecer um caminho na caixa "Rastreamento do usuário" para o local em que um arquivo de rastreamento do usuário pode ser criado no computador cliente, e deve ativar a opção "Rastreando". Se não houver itens de preferência em Configuração do Usuário nesta extensão, nenhum arquivo de rastreamento do usuário será criado.
+
+2. Rastreamento da Configuração do Computador: esta extensão de preferência está disponível somente em Configuração do Usuário; portanto, o rastreamento da configuração do computador não é aplicável.
+
+3. Rastreamento de consulta de Modelagem de Política de Grupo: para executar o rastreamento de itens nesta extensão de preferência quando executar uma consulta de Modelagem de Política de Grupo, você deve fornecer um caminho na caixa "Rastreamento de planejamento" para o local em que um arquivo de rastreamento de planejamento pode ser criado no computador em que a modelagem é executada, e deve ativar a opção "Rastreando". Se você não estiver executando a Modelagem de Política de Grupo ou não houver itens de preferência nesta extensão, nenhum arquivo de rastreamento de planejamento será criado.</string>
+      <string id="CSE_NOCHANGES">Processar mesmo que os objetos de Política de Grupo não tenham mudado</string>
+      <string id="CSE_NOBACKGROUND">Não aplicar durante o processamento periódico em segundo plano</string>
+      <string id="CSE_ALLOWSLOWLINK">Permitir processamento em uma conexão de rede lenta</string>
+      <string id="CSE_TRACELEVEL">Rastreamento</string>
+      <string id="CSE_TRACEFILEPATHUSER">Rastreamento de usuário</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">Rastreamento de computador</string>
+      <string id="CSE_TRACEFILEPATH">Arquivo de rastreamento</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">Rastreamento de planejamento</string>
+      <string id="CSE_TRACEFILEMAXSIZE">Tamanho máximo do arquivo de rastreamento (KB)</string>
+      <string id="CSE_TRACELEVELNORMAL">Desativado</string>
+      <string id="CSE_TRACELEVELVERBOSE">Ativado</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">Prioridade em segundo plano</string>
+      <string id="CSE_PRILEVEL_NORMAL">Normal</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">Abaixo do Normal</string>
+      <string id="CSE_PRILEVEL_LOWEST">Menor</string>
+      <string id="CSE_PRILEVEL_IDLE">Ocioso</string>
+      <string id="CSE_LOGLEVEL">Log de eventos</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">Informativos, Avisos e Erros</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">Avisos e Erros</string>
+      <string id="CSE_LOGLEVEL_ERRORS">Apenas Erros</string>
+      <string id="CSE_LOGLEVEL_NONE">Nenhum</string>
+      <string id="CSE_Logging">Log e rastreamento</string>
+      <string id="CSE_Logging_Help">Permite configurar o log e o rastreamento dos componentes preferenciais.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Rastreamento de computador</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Log de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Rastreamento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Rastreamento de usuário</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Rastreamento de planejamento</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamanho máximo do arquivo de rastreamento (KB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

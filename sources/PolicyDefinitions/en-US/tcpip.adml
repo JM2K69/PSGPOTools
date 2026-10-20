@@ -33,7 +33,7 @@ If you disable or do not configure this policy setting, the local host setting i
 
 If you enable this policy setting, you can configure ISATAP with one of the following settings:
 
-Policy Default State: If the ISATAP router name is resolved successfully, the host will have ISATAP configured with a link-local address and an address for each prefix received from the ISATAP router through stateless address auto-configuration. If the ISATAP router name is not resolved successfully, ISATAP connectivity is not available on the host using the corresponding IPv4 address.
+Policy Default State: No ISATAP interfaces are present on the host.
 
 Policy Enabled State: If the ISATAP name is resolved successfully, the host will have ISATAP configured with a link-local address and an address for each prefix received from the ISATAP router through stateless address auto-configuration. If the ISATAP name is not resolved successfully, the host will have an ISATAP interface configured with a link-local address.
 
@@ -56,7 +56,7 @@ If you disable or do not configure this policy setting, the local host setting i
 
 If you enable this policy setting, you can configure 6to4 with one of the following settings:
 
-Policy Default State: 6to4 is enabled if the host has only link-local IPv6 connectivity and a public IPv4 address. If no global IPv6 address is present and no global IPv4 address is present, the host will not have a 6to4 interface. If no global IPv6 address is present and a global IPv4 address is present, the host will have a 6to4 interface.
+Policy Default State: 6to4 is turned off and connectivity with 6to4 will not be available.
 
 Policy Enabled State: If a global IPv4 address is present, the host will have a 6to4 interface. If no global IPv4 address is present, the host will not have a 6to4 interface.
 
@@ -163,6 +163,45 @@ If you disable this policy setting, Window Scaling Heuristics will be disabled a
 If you enable or do not configure this policy setting, IP Stateless Autoconfiguration Limits will be enabled and system will limit the number of autoconfigured addresses and routes.
 
 If you disable this policy setting, IP Stateless Autoconfiguration Limits will be disabled and system will not limit the number of autoconfigured addresses and routes.
+
+</string>
+
+      <string id="IPxlatCfg_PermitNonCellularCLAT">Set CLAT Permit</string>
+      <string id="IPxlatCfg_PermitNonCellularCLAT_Help">This policy setting allows you to permit or disable the customer-side translator for 464XLAT (CLAT) globally for non-cellular interfaces.
+
+If you enable this policy setting, CLAT is globally permitted and can be enabled on network interfaces.
+
+If you disable this policy setting, CLAT is globally disallowed and cannot be enabled.
+
+If you do not configure this policy setting, the local host setting is used.
+
+No reboots or service restarts are required for this policy setting to take effect.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromRA">Set CLAT Get Prefix Information from RA</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromRA_Help">This policy setting allows router advertisements (RA) to be used as a prefix information source for non-cellular CLAT.
+
+If you enable this policy setting, CLAT will be allowed to discover NAT64 prefixes via RA. If both NAT64 prefix discovery methods are enabled, the order of precedence is (RA, DNS).
+
+If you disable this policy setting, CLAT will not be allowed to discover NAT64 prefixes via RA.
+
+If you do not configure this policy setting, the local host setting is used.
+
+A reboot is required for this policy setting to take effect.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS">Set CLAT Get Prefix Information from DNS</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS_Help">This policy setting allows DNS to be used as a prefix information source for non-cellular CLAT.
+
+If you enable this policy setting, CLAT will be allowed to discover NAT64 prefixes via DNS. If both NAT64 prefix discovery methods are enabled, the order of precedence is (RA, DNS).
+
+If you disable this policy setting, CLAT will not be allowed to discover NAT64 prefixes via DNS.
+
+If you do not configure this policy setting, the local host setting is used.
+
+A reboot is required for this policy setting to take effect.
 
 </string>
 

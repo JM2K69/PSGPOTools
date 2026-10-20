@@ -9,15 +9,11 @@
       
       <!-- prevent file sync-->
       <string id="AllowProjectionToPC">Não permitir que este PC seja projetado</string>
-      <string id="AllowProjectionToPC_help">Essa configuração de política permite desativar a projeção em um computador. 
+      <string id="AllowProjectionToPC_help">Esta configuração de política permite desativar a projeção para um computador.  
 
- 
+Se você ativá-lo, seu computador não será detectável e não poderá ser projeção, exceto se o usuário iniciar manualmente o aplicativo vídeo sem fio.  
 
-Se você ativar essa configuração, seu computador não poderá ser detectado e não poderá ser projetado, exceto se o usuário iniciar manualmente o aplicativo Conexão. 
-
- 
-
-Se você desativá-la ou não configurá-la, seu computador poderá ser detectado e projetado somente acima da tela de bloqueio. O usuário também tem a opção de sempre ativá-la ou desativá-la, exceto para inicialização manual.</string>
+Se você desativá-lo ou não configurá-lo, seu computador será detectável e poderá ser projetar somente na tela de bloqueio acima. O usuário tem uma opção para ativá-lo sempre ou desativá-lo, exceto para inicialização manual também.</string>
 
       <string id="RequirePinForPairing">Exigir PIN para emparelhar</string>
       <string id="RequirePinForPairing_help">Esta configuração de política permite exigir um PIN para emparelhamento.  

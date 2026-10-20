@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>tutaj wprowadź nazwę wyświetlaną</displayName>
+  <description>tutaj wprowadź opis</description>
+  <resources>
+    <stringTable>
+      <string id="NewsAndInterests">Widżety</string>
+      <string id="AllowNewsAndInterests">Zezwalaj na widżety</string>
+      <string id="Explain_AllowNewsAndInterests">Ta zasada określa, czy na urządzeniu jest dozwolona funkcja widżetów.
+Widżety będą włączone domyślnie, o ile nie zostanie to zmienione w ustawieniach.
+Jeśli ta funkcja została wcześniej włączona, będzie ona automatycznie włączona, dopóki jej nie wyłączysz.</string>
+      <string id="DisableWidgetsOnLockScreen">Wyłącz widżety na ekranie blokady</string>
+      <string id="Explain_DisableWidgetsOnLockScreen">Ta zasada określa, czy funkcja Widżety ma być wyłączona na ekranie blokady.
+Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, widżety będą wyświetlane na ekranie blokady i będą mogły być zarządzane w aplikacji Ustawienia systemu Windows.
+Jeśli to ustawienie zasad zostanie włączone, widżety nie będą wyświetlane na ekranie blokady.</string>
+      <string id="DisableWidgetsBoard">Wyłącz tablicę widżetów</string>
+      <string id="Explain_DisableWidgetsBoard">Ta zasada określa, czy środowisko tablicy widżetów ma być wyłączone. 
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, będzie można wywołać tablicę widgetów i wyświetlić jej punkt wejścia na pasku zadań. Tablicą widgetów można zarządzać w ustawieniach widżetów, których punkt wejścia znajduje się na tablicy widżetów.
+Jeśli to ustawienie zasad zostanie włączone, nie będzie można wywoływać tablicy widżetów, a jej punkt wejścia nie będzie już wyświetlany na pasku zadań.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

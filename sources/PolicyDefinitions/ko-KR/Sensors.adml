@@ -36,6 +36,92 @@
       
       </string>
       <string id="LocationAndSensors">위치 및 센서</string>
+      <string id="HumanPresence">사람 감지</string>
+      <string id="ForceInstantWake_DisplayName">강제 즉시 켜짐</string>
+      <string id="ForceInstantWake_ExplainText">MDM 정책에 따라 도착시 켜짐에 대해 강제로 설정/해제 여부가 결정됩니다. 사용자는 이 설정을 변경할 수 없으며 UI의 토글이 회색으로 표시됩니다.</string>
+      <string id="ForceInstantWake_0">사용자 선택 기본값</string>
+      <string id="ForceInstantWake_1">강제 설정</string>
+      <string id="ForceInstantWake_2">강제 해제</string>
+      <string id="ForceInstantLock_DisplayName">강제 즉시 잠금</string>
+      <string id="ForceInstantLock_ExplainText">MDM 정책에 따라 종료 시 잠금에 대한 강제 설정/해제 여부가 결정됩니다. 사용자는 이 설정을 변경할 수 없으며 UI의 토글이 회색으로 표시됩니다.</string>
+      <string id="ForceInstantLock_0">사용자 선택 기본값</string>
+      <string id="ForceInstantLock_1">강제 설정</string>
+      <string id="ForceInstantLock_2">강제 해제</string>
+      <string id="ForceLockTimeout_DisplayName">잠금 시간 제한</string>
+      <string id="ForceLockTimeout_ExplainText">MDM 정책에 따라 종료 시 잠금에 대한 강제 시간 제한이 결정됩니다. 사용자는 이 설정을 변경할 수 없으며 UI의 토글이 회색으로 표시됩니다.</string>
+      <string id="ForceLockTimeout_0">사용자 선택으로 기본값 설정</string>
+      <string id="ForceLockTimeout_1">10초</string>
+      <string id="ForceLockTimeout_2">30초</string>
+      <string id="ForceLockTimeout_3">2분</string>
+      <string id="ForceLockTimeout_4">즉시</string>
+      <string id="ForceInstantDim_DisplayName">강제 즉시 어둡게</string>
+      <string id="ForceInstantDim_ExplainText">MDM 정책에 따라 주의 기반 디스플레이 어둡게에 대한 강제 설정/해제 여부가 결정됩니다. 사용자는 이 설정을 변경할 수 없으며 UI의 토글이 회색으로 표시됩니다.</string>
+      <string id="ForceInstantDim_0">사용자 선택으로 기본값 설정</string>
+      <string id="ForceInstantDim_1">강제 설정</string>
+      <string id="ForceInstantDim_2">강제 해제</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_DisplayName">배터리 절약 모드가 켜져 있을 때 웨이크업 사용 안 함 강제 적용</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_ExplainText">배터리 절약 모드가 켜져 있을 때 자동 웨이크업 사용 안 함 확인란이 MDM 정책에 의해 강제로 선택/선택 취소되는지 결정합니다. 사용자는 이 설정을 변경할 수 없으며 UI의 확인란이 회색으로 표시됩니다.</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_0">사용자 선택 기본값</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_1">강제 선택됨</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_2">강제 선택 취소됨</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_DisplayName">외부 디스플레이가 연결되면 웨이크업 허용 강제 적용</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_ExplainText">외부 디스플레이가 연결되면 자동 웨이크업 허용 확인란이 MDM 정책에 의해 강제로 선택/선택 취소되는지 결정합니다. 사용자는 이 설정을 변경할 수 없으며 UI의 확인란이 회색으로 표시됩니다.</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_0">사용자 선택 기본값</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_1">강제 선택됨</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_2">강제 선택 취소됨</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_DisplayName">외부 디스플레이가 연결되면 잠금 허용 강제 적용</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_ExplainText">MDM 정책에 따라 외부 디스플레이 연결 시 종료 시 잠금 허용 확인란을 선택하거나 선택 취소할지 여부를 결정합니다. 사용자가 이 설정을 변경할 수 없으며 UI의 확인란이 회색으로 표시됩니다.</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_0">사용자 선택 기본값</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_1">강제 선택됨</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_2">강제 선택 취소됨</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_DisplayName">외부 디스플레이가 연결되면 디밍 허용 강제 적용</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_ExplainText">MDM 정책에 따라 외부 디스플레이 연결 시 적응형 어둡게 표시 허용 확인란을 강제로 선택하거나 선택 취소할지 여부를 결정합니다. 사용자가 이 설정을 변경할 수 없으며 UI의 확인란이 회색으로 표시됩니다.</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_0">사용자 선택 기본값</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_1">강제 선택됨</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_2">강제 선택 취소됨</string>
+      <string id="ForceOnlookerDetection_DisplayName">관찰자 감지 강제 활성화</string>
+      <string id="ForceOnlookerDetection_ExplainText">MDM 정책에 따라 감지 기능을 강제 설정/해제할지 여부를 결정합니다. 사용자가 이 설정을 변경할 수 없으며 UI의 토글이 회색으로 표시됩니다.</string>
+      <string id="ForceOnlookerDetection_0">사용자 선택 기본값</string>
+      <string id="ForceOnlookerDetection_1">강제 설정</string>
+      <string id="ForceOnlookerDetection_2">강제 해제</string>
+      <string id="ForceOnlookerDetectionAction_DisplayName">관찰자 감지 작업 강제 활성화</string>
+      <string id="ForceOnlookerDetectionAction_ExplainText">MDM 정책에 의해 감지 작업이 강제 적용되는지 여부를 결정합니다. 사용자가 이 설정을 변경할 수 없으며 UI의 토글이 회색으로 표시됩니다.</string>
+      <string id="ForceOnlookerDetectionAction_0">사용자 선택 기본값</string>
+      <string id="ForceOnlookerDetectionAction_1">어둡게</string>
+      <string id="ForceOnlookerDetectionAction_2">알림</string>
+      <string id="ForceOnlookerDetectionAction_3">어둡게 및 알림</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ForceInstantWake">
+        <dropdownList refId="ForceInstantWakeDropdown" noSort="true" defaultItem="0">다음 작업 중 하나 선택</dropdownList>
+      </presentation>
+      <presentation id="ForceInstantLock">
+        <dropdownList refId="ForceInstantLockDropdown" noSort="true" defaultItem="0">다음 작업 중 하나 선택</dropdownList>
+      </presentation>
+      <presentation id="ForceLockTimeout">
+        <dropdownList refId="ForceLockTimeoutDropdown" noSort="true" defaultItem="1">다음 시간 제한 중 하나 선택</dropdownList>
+      </presentation>
+      <presentation id="ForceInstantDim">
+        <dropdownList refId="ForceInstantDimDropdown" noSort="true" defaultItem="0">다음 작업 중 하나 선택</dropdownList>
+      </presentation>
+      <presentation id="ForceDisableWakeWhenBatterySaverOn">
+        <dropdownList refId="ForceDisableWakeWhenBatterySaverOnDropdown" noSort="true" defaultItem="0">다음 작업 중 하나 선택</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowWakeWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowWakeWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">다음 작업 중 하나 선택</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowLockWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowLockWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">다음 작업 중 하나 선택</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowDimWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowDimWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">다음 작업 중 하나 선택</dropdownList>
+      </presentation>
+      <presentation id="ForceOnlookerDetection">
+        <dropdownList refId="ForceOnlookerDetectionDropdown" noSort="true" defaultItem="0">다음 작업 중 하나 선택</dropdownList>
+      </presentation>
+      <presentation id="ForceOnlookerDetectionAction">
+        <dropdownList refId="ForceOnlookerDetectionActionDropdown" noSort="true" defaultItem="0">다음 작업 중 하나 선택</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

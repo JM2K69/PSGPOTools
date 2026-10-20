@@ -49,10 +49,10 @@ Poznámka: Uživatelé, kteří nemají oprávnění správce (kromě členů sk
 Tip: Chcete-li otevřít dialogové okno Upřesnit nastavení TCP/IP, klikněte ve složce Síťová připojení pravým tlačítkem na ikonu připojení a potom klikněte na tlačítko Vlastnosti. Chcete-li nastavit připojení vzdáleného přístupu, klikněte na kartu Sítě.  V seznamu Toto připojení používá následující zaškrtnuté součásti klikněte na položku Protokol sítě Internet (TCP/IP), klikněte na tlačítko Vlastnosti a potom klikněte na tlačítko Upřesnit.
 
 Poznámka: Pokud toto nastavení změníte z Povoleno na Není konfigurováno, bude tlačítko Upřesnit k dispozici až po odhlášení uživatele.</string>
-      <string id="NC_AllowNetBridge_NLA">Zakázat instalaci a konfiguraci síťového mostu v síťové doméně DNS</string>
+      <string id="NC_AllowNetBridge_NLA">Zakázat instalaci a konfiguraci přemostění sítě ve vaší síti.</string>
       <string id="NC_AllowNetBridge_NLA_Help">Určuje, zda uživatel může nainstalovat a nakonfigurovat síťový most.
 
-Důležité: Toto nastavení je závislé na umístění. Bude použito, pouze pokud je počítač připojen ke stejné doméně DNS jako v okamžiku, kdy bylo toto nastavení v počítači aktualizováno. Pokud je počítač připojen k jiné doméně DNS než v okamžiku aktualizace tohoto nastavení, toto nastavení nebude použito.
+Důležité: Toto nastavení zohledňuje umístění na zařízeních připojených k doméně AD. Bude použito, pouze pokud je počítač připojen ke stejné doméně DNS jako v okamžiku, kdy bylo toto nastavení v počítači aktualizováno. Pokud je počítač připojený k síti domény DNS jiné, než ke které byl připojený při aktualizaci tohoto nastavení, toto nastavení se nepoužije. Na zařízeních připojených k Entra se toto nastavení použije na všechny sítě.
 
 Síťový most umožňuje uživatelům vytvořit druhou síťovou vrstvu mostu MAC, což umožňuje propojit dva a více segmentů sítě. Toto připojení se zobrazí ve složce Síťová připojení.
 

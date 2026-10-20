@@ -55,6 +55,15 @@ Obs! Den här inställningen inaktiverar inte Active Desktop. Användare kan for
 Som standard kan användare ändra plats för sina profilmappar, exempelvis "Dokument" och "Musik", genom att skriva en ny sökväg på fliken "Platser" i dialogrutan "Egenskaper".
 
 Om den här inställningen aktiveras kan användare inte ange någon ny plats i rutan "Mål".</string>
+      <string id="EnableThemeFileRemoteResource">Tillåt temafiler från nätverksplatser</string>
+      <string id="EnableThemeFileRemoteResource_Help">Den här principinställningen avgör om fjärrsökvägar kan användas för resurser i en Windows-skrivbordstema-fil (.theme/.themepack).
+
+Om du aktiverar den här principinställningen kan temafiler referera till resurser (som bilder, ljud och ikoner) som finns på nätverksdelningar eller andra fjärrplatser. Användare kommer att kunna tillämpa teman som innehåller fjärresurser.
+
+Om du inaktiverar den här principinställningen kan temafiler inte använda fjärresurser. Alla temafiler som refererar till fjärresurser kommer att misslyckas med att ladda dessa resurser, och endast lokala resurser kommer att visas.
+
+Om du inte konfigurerar den här principinställningen är standardbeteendet att blockera fjärresurser i temafiler av säkerhetsskäl.</string>
+
       <string id="ForceActiveDesktopOn">Aktivera Active Desktop</string>
       <string id="ForceActiveDesktopOn_Help">Aktiverar Active Desktop och förhindrar att användare inaktiverar det.
 

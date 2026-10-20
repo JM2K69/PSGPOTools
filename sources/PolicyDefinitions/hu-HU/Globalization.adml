@@ -169,7 +169,7 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor a bejele
       <string id="UILang4">Német</string>
       <string id="UILang5">Egyszerűsített kínai</string>
       <string id="UILang6">Hagyományos kínai</string>
-      <string id="UILang34">Hagyományos kínai (hongkongi)</string>
+      <string id="UILang34">Hagyományos kínai (Hongkong KKT)</string>
       <string id="UILang35">Hagyományos kínai (tajvani)</string>
       <string id="UILang7">Francia</string>
       <string id="UILang8">Spanyol</string>
@@ -285,6 +285,21 @@ Ha ezt a házirend-beállítást letiltja vagy nem konfigurálja, a Windows nem 
 Ha a házirend engedélyezve van, vagy nincs konfigurálva, a vezérlő késleltetve van a felhasználók számára, és a felhasználók a beállításokon keresztül kiválaszthatják, hogy engedélyezik-e a beszédfelismerési szolgáltatásokat.
         
         Ha a házirend le van tiltva, a beszédfelismerési szolgáltatások le lesznek tiltva, és a felhasználók nem engedélyezhetik a beszédfelismerési szolgáltatásokat a beállításokon keresztül.
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Nyelvi csomagok és nyelvi szolgáltatások telepítésének korlátozása</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        Ez a házirend-beállítás az összes felhasználót korlátozza a nyelvi csomagok és nyelvi szolgáltatások igény szerinti csomagjainak telepítésében. A házirend nem korlátozza a Windows nyelvének átváltását. Ha korlátozni szeretné a Windows nyelvét, használja a következő házirendet: „Bejelentkezett felhasználókhoz használt felhasználóifelület-nyelvek korlátozása”.  
+
+        Ha engedélyezi ezt a házirend-beállítást, a nyelvi csomagok és nyelvi szolgáltatások telepítése egyetlen felhasználó számára sem engedélyezett.
+
+        Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, egyetlen felhasználó számára sem lesz korlátozva a nyelvi csomagok vagy szolgáltatások telepítése.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        Ez a házirend-beállítás korlátozza a felhasználót a nyelvi csomagok és nyelvi szolgáltatások igény szerinti telepítésében. A házirend nem korlátozza a Windows nyelvének átváltását. Ha korlátozni szeretné a Windows nyelvét, használja a következő házirendet: „A Windows rendszer kijelölt felhasználók esetén használt felhasználói felületi nyelvének korlátozása”.  
+
+        Ha engedélyezi ezt a házirend-beállítást, a nyelvi csomagok és nyelvi szolgáltatások telepítése nem engedélyezett a felhasználó számára.  
+
+        Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, nem lesz korlátozva a nyelvi csomagok vagy nyelvi szolgáltatások telepítése a felhasználó számára.  
       </string>
     </stringTable>
     <presentationTable>

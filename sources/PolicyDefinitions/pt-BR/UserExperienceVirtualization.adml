@@ -947,7 +947,7 @@ Se esta configuração de política for desabilitada, o UE-V Agent sincronizará
 Se esta configuração de política não estiver definida, quaisquer valores definidos serão excluídos.
 Observação: Se o usuário se conectar à conta da Microsoft do computador, o UE-V Agent não sincronizará aplicativos do Windows. Os aplicativos do Windows usarão como padrão quaisquer configurações definidas em Sincronizar suas configurações no Windows.
       </string>
-      <string id="Win8AppsList">Sincronização de Aplicativos para o Windows</string>
+      <string id="Win8AppsList">Sincronização de Windows App</string>
       <string id="Win8AppsList_Help">Esta configuração de política define se o User Experience Virtualization (UE-V) sincronizará configurações de determinados aplicativos  do Windows. Por padrão, o UE-V Agent não sincroniza configurações de aplicativos do Windows. Esta configuração de política permite listar os aplicativos do Windows  por seu nome da família de pacote. O UE-V sincroniza as configurações do aplicativo listado entre computadores de trabalho de cada usuário que executam o mesmo aplicativo do Windows. Se você habilitar esta configuração de política e listar os nomes da família de pacote, o UE-V Agent sincronizará as configurações dos aplicativos listados. 
 Se você desabilitar esta política, nenhum aplicativo do Windows sincronizará suas configurações. 
 Se você não definir esta configuração de política, quaisquer valores definidos serão excluídos.
@@ -960,10 +960,10 @@ Quando esta configuração está desabilitada, nenhuma notificação aparece.
 Se você não definir esta configuração de política, quaisquer valores definidos serão excluídos.
       </string>
       <string id="SyncUnlistedWindows8Apps">Aplicativos do Windows Não Listados para Sincronização</string>
-      <string id="SyncUnlistedWindows8Apps_Help">Esta configuração de política define o comportamento padrão da sincronização das configurações do User Experience Virtualization (UE-V) Agent para aplicativos do Windows que não estejam explicitamente listados na Lista de Aplicativos do Windows.
-Por padrão, o UE-V Agent sincroniza apenas configurações dos aplicativos do Windows incluídos na Lista de Aplicativos do Windows.
-Com esta configuração habilitada, as configurações de todos os aplicativos do Windows, não expressamente desabilitados na Lista de Aplicativos do Windows, serão sincronizadas.
-Com esta configuração desabilitada, apenas as configurações dos aplicativos do Windows definidas para sincronizar na Lista de Aplicativos do Windows serão sincronizadas.
+      <string id="SyncUnlistedWindows8Apps_Help">Esta configuração de política define o comportamento padrão da sincronização das configurações do User Experience Virtualization (UE-V) Agent para aplicativos do Windows que não estejam explicitamente listados na Lista de Windows App.
+Por padrão, o UE-V Agent sincroniza apenas configurações dos aplicativos do Windows incluídos na Lista de Windows App.
+Com esta configuração habilitada, as configurações de todos os aplicativos do Windows, não expressamente desabilitados na Lista de Windows App, serão sincronizadas.
+Com esta configuração desabilitada, apenas as configurações dos aplicativos do Windows definidas para sincronizar na Lista de Windows App serão sincronizadas.
 Se você não definir esta configuração de política, quaisquer valores definidos serão deletados.
       </string>
       <string id="SyncSettingsOverMetered">Sincronizar configurações em conexões limitadas</string>

@@ -220,11 +220,11 @@ A közönséges Megnyitás párbeszédpanel mintájának megtekintéséhez futta
 
 Megjegyzés: A Windows Vista rendszerben ez a házirend-beállítás csak olyan alkalmazásokra érvényes, amelyek a Windows XP általános párbeszédpanel stílust használják. Ez a házirend-beállítás nem érvényes az új Windows Vista általános párbeszédpanel stílusra. Windows 2000 vagy újabb tanúsítványt használó külső alkalmazásoknak ezt a beállítást kell használniuk.</string>
       <string id="NoRecycleFiles">A törölt fájlok Lomtárba helyezésének kihagyása</string>
-      <string id="NoRecycleFiles_Help">Ha a Fájlkezelőben egy fájlt vagy mappát törölnek, a fájl vagy mappa egy másolata a Lomtárba kerül. Ezzel a beállítással ez a mechanizmus megváltoztatható.
+      <string id="NoRecycleFiles_Help">Ha törölnek egy fájlt vagy mappát a Fájlkezelőben, a fájl vagy mappa másodpéldánya a Lomtárba kerül. Ezzel a beállítással ez a működési mód megváltoztatható.
 
-Ha engedélyezi a beállítást, a Fájlkezelőben törölt fájlok és mappák nem kerülnek a Lomtárba, így a törlésük végleges.
+Ha engedélyezi ezt a beállítást, a Fájlkezelőben törölt fájlok és mappák nem kerülnek a Lomtárba, így a törlésük végleges.
 
-Ha letiltja vagy nem konfigurálja a beállítást, a Fájlkezelőben törölt fájlok és mappák a Lomtárba kerülnek.</string>
+Ha letiltja vagy nem konfigurálja ezt a beállítást, a Fájlkezelőben törölt fájlok és mappák a Lomtárba kerülnek.</string>
       <string id="NoRunAsInstallPrompt">Ne kérjen más hitelesítő adatokat</string>
       <string id="NoRunAsInstallPrompt_Help">A felhasználók nem adhatnak meg alternatív bejelentkezési hitelesítő adatokat programok telepítésekor.
 
@@ -519,19 +519,33 @@ Ha engedélyezi ezt a házirend-beállítást, a fájlok parancsikonjai elérhet
 Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a fájlok távoli elérési utakat használó parancsikonjait a rendszer nem jeleníti meg.
 
 Megjegyzés: A távoli elérési utak használatának engedélyezése a fájlok parancsikonjaiban biztonsági kockázatoknak teheti ki a felhasználó számítógépét.</string>
-      <string id="DefaultAssociationsConfiguration">Alapértelmezett társítások konfigurációs fájljának beállítása</string>
-      <string id="DefaultAssociationsConfiguration_Help">Ezzel a házirenddel adható meg a fájltípusok és a protokollok alapértelmezett alkalmazástársításait tartalmazó (helyileg vagy hálózati helyen tárolt) fájl elérési útja. Ez a fájl a DISM eszközzel hozható létre.
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Engedélyezze, hogy a fájlcsoport-leíró műveletek bármely célútvonalra írjanak</string>
+      <string id="AllowAllCopyFGDDestinations_Help">Ez a házirend-beállítás határozza meg, hogy kényszerítve legyenek-e az elérési út bejárását megakadályozó ellenőrzések, amikor a rendszer a vágólapon keresztül vagy húzással kapott fájlcsoport-leírókból (CFSTR_FILEDESCRIPTOR) ír fájlokat.
 
+Ha engedélyezi ezt a házirend-beállítást, az elérési út bejárását megakadályozó ellenőrzések nincsenek kényszerítve, és a fájlok a célmappából elérhető bármely elérési útra írhatók. Csak akkor engedélyezze ezt a házirendet, ha az alapértelmezett viselkedés megszakít egy szükséges munkafolyamatot.
+
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a fájlcsoport-leíró műveletek kényszerítik az elérési út szerinti elkülönítést, és elutasítják azokat a fájlneveket, amelyek relatív elérési útelemekkel megpróbálnak kikerülni a célmappából.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">Ne alkalmazza a Mark of the Web jelölést a bizonytalan forrásokból másolt fájlokra</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">Ez a szabályzatbeállítás határozza meg a Mark of the Web címke alkalmazását a nem biztonságos helyről származó fájlokra.
+
+Ha engedélyezi ezt a szabályzatbeállítást, a nem biztonságos forrásból másolt fájlok nem lesznek megjelölve a Mark of the Web címkével.
+
+Ha letiltja vagy nem konfigurálja ezt a szabályzatbeállítást, a nem biztonságos forrásból másolt fájlok meg lesznek jelölve a megfelelő Mark of the Web címkével.
+
+Megjegyzés: Ha nem látja el a nem biztonságos forrásból származó fájlokat a Mark of the Web címkével, azzal biztonsági kockázatnak teheti ki a felhasználók számítógépeit.</string>
+      <string id="DefaultAssociationsConfiguration">Alapértelmezett társítások konfigurációs fájljának beállítása</string>
+      <string id="DefaultAssociationsConfiguration_Help">Ez a házirend a fájltípust és a protokoll alapértelmezett alkalmazástársításait tartalmazó (helyileg vagy hálózati helyen tárolt) fájl elérési útját határozza meg. Ez a fájl a DISM eszközzel hozható létre.
+      
 Például:
 Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-További információt a TechNet webhelyen, a DISM dokumentációjában talál.
+További információért tekintse meg a DISM dokumentációját.
 
-Ha engedélyezve van ez a csoportházirend, és az ügyfélszámítógép tartományhoz csatlakozik, a Windows feldolgozza a fájlt, és érvénybe lépteti az alapértelmezett társításokat a bejelentkezéskor.
+A fájl a létrehozását követően tovább szerkeszthető, hogy megváltoztassa a házirendtársítások alkalmazásának gyakoriságát. A „Version” attribútum hozzáadható a „DefaultAssociations” elemhez. Az értéknek egész számnak kell lennie. A „Suggested” attribútum bármely „Association” elemhez hozzáadható. Az értéknek logikai értéknek kell lennie, és az alapértelmezett érték a „false”. Ha egy felhasználóra alkalmazza a házirendet, a Suggested="true" értékkel rendelkező társításokat a rendszer csak egyszer alkalmazza. Ha a „Version” érték növekszik, a rendszer újra alkalmazza a Suggested="true" értékkel rendelkező társításokat.
 
-Ha nincs konfigurálva ez a csoportházirend, le van tiltva, vagy az ügyfélszámítógép nem csatlakozik tartományhoz, a Windows nem lépteti érvénybe az alapértelmezett társításokat a bejelentkezéskor.
+Ha ez a csoportházirend engedélyezve van, és az ügyfélszámítógép tartományhoz csatlakozik, a fájl feldolgozása és az alapértelmezett társítások a bejelentkezéskor kerülnek alkalmazásra.
 
-Függetlenül attól, hogy a házirend engedélyezve van, le van tiltva vagy nincs konfigurálva, a felhasználók felülbírálhatják az alapértelmezett fájltípus- és protokolltársításokat.</string>
+Ha a házirend engedélyezve van, a felhasználók továbbra is felülbírálhatják az alapértelmezett fájltípust és protokolltársításokat, de a következő bejelentkezéskor a fájl újra alkalmazva lesz.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

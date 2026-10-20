@@ -99,6 +99,67 @@ Si deshabilitas o no estableces esta configuración de directiva, los empleados 
 
 Si una aplicación está abierta cuando este objeto de directiva de grupo se aplica en un dispositivo, los empleados deberán reiniciar la aplicación o el dispositivo para que los cambios de directiva se apliquen a la aplicación.
       </string>
+      <string id="LetAppsAccessSystemAIModels_Name">Permitir que las aplicaciones de Windows usen las características de generación de texto e imagen de Windows</string>
+      <string id="LetAppsAccessSystemAIModels_Explain">
+Esta configuración de directiva especifica si las aplicaciones de Windows pueden usar las características de generación de texto e imágenes de Windows.
+
+Puedes especificar una configuración predeterminada para todas las aplicaciones o una configuración por aplicación si especificas un Nombre de familia de paquete. Puedes obtener el Nombre de familia de paquete de una aplicación mediante el cmdlet Get-AppPackage de Windows PowerShell. La configuración por aplicación invalida la configuración predeterminada.
+
+Si eliges la opción "El usuario tiene el control", los empleados de tu organización pueden decidir si las aplicaciones de Windows pueden usar la generación de texto e imágenes desde Configuración &gt; Privacidad en el dispositivo.
+
+Si eliges la opción "Forzar permiso", las aplicaciones de Windows podrán usar características de generación de texto e imágenes de Windows y los empleados de tu organización no podrán cambiar esto.
+
+Si eliges la opción "Forzar denegación", las aplicaciones de Windows no podrán usar características de generación de texto e imágenes de Windows y los empleados de tu organización no podrán cambiar esto.
+
+Si deshabilitas o no configuras esta configuración de directiva, los empleados de tu organización podrán decidir si las aplicaciones de Windows pueden usar la generación de texto e imágenes desde Configuración &gt; Privacidad en el dispositivo.
+
+Si una aplicación está abierta cuando se aplica este objeto de directiva de grupo en un dispositivo, los empleados deberán reiniciar la aplicación o el dispositivo para que los cambios de directiva se apliquen a la aplicación.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Name">Permitir que las aplicaciones de Windows tomen capturas de pantalla de varias ventanas o pantallas</string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Explain">Esta configuración de directiva especifica si las aplicaciones de Windows pueden hacer capturas de varias pantallas o ventanas.
+
+Puede establecer una configuración predeterminada para todas las aplicaciones o configurar una por aplicación especificando el Nombre de familia de paquete. Puede obtener el Nombre de familia de paquete de una aplicación mediante el cmdlet Get-AppPackage de Windows PowerShell. La configuración por aplicación reemplazará la configuración predeterminada.
+
+Si elige la opción "El usuario tiene el control", los empleados de su organización podrán decidir si las aplicaciones de Windows pueden hacer capturas de varias pantallas o ventanas mediante la Configuración y Privacidad en el dispositivo.
+
+Si elige la opción "Forzar permiso", las aplicaciones de Windows podrán realizar capturas de varias pantallas o ventanas y los empleados de su organización no podrán cambiar este ajuste.
+
+Si elige la opción "Forzar denegación", las aplicaciones de Windows no podrán realizar capturas de varias pantallas o ventanas y los empleados de su organización tampoco podrán cambiarlo.
+
+Si deshabilita o no define la configuración de esta directiva, los empleados de su organización podrán decidir si las aplicaciones de Windows pueden realizar capturas de varias pantallas o ventanas mediante la Configuración y Privacidad en el dispositivo.
+
+Si una aplicación está abierta cuando este objeto de Directiva de grupo sea aplicado en un dispositivo, los empleados deberán reiniciar la aplicación o el dispositivo para que se apliquen los cambios de la directiva en la aplicación.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Name">Permitir que las aplicaciones de Windows desactiven el borde de captura de pantalla</string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Explain">Esta configuración de esta directiva especifica si las aplicaciones de Windows pueden desactivar el borde de captura de pantalla.
+
+Puede establecer una configuración predeterminada para todas las aplicaciones o configurar una por aplicación especificando el Nombre de familia de paquete. Puede obtener el nombre de familia de paquete de una aplicación mediante el cmdlet Get-AppPackage de Windows PowerShell. La configuración por aplicación reemplazará la configuración predeterminada.
+
+Si elige la opción "El usuario tiene el control", los empleados de su organización podrán decidir si las aplicaciones de Windows pueden desactivar el borde de captura de pantalla mediante la Configuración y Privacidad en el dispositivo.
+
+Si elige la opción "Forzar permiso", las aplicaciones de Windows podrán desactivar el borde de captura de pantalla y los empleados de su organización no podrán cambiar este ajuste.
+
+Si elige la opción "Forzar denegación", las aplicaciones de Windows no podrán desactivar el borde de captura de pantalla y los empleados de su organización tampoco podrán cambiarlo.
+
+Si deshabilita o no define la configuración de esta directiva, los empleados de su organización podrán decidir si las aplicaciones de Windows pueden desactivar el borde de captura de pantalla mediante la Configuración y Privacidad en el dispositivo.
+
+Si una aplicación está abierta cuando este objeto de Directiva de grupo sea aplicado en un dispositivo, los empleados deberán reiniciar la aplicación o el dispositivo para que se apliquen los cambios de la directiva en la aplicación.
+      </string>
+      <string id="LetAppsAccessHumanPresence_Name">Permitir que las aplicaciones de Windows accedan a la detección de presencia</string>
+      <string id="LetAppsAccessHumanPresence_Explain">Esta configuración de directiva especifica si las aplicaciones de Windows pueden acceder a dispositivos de confianza.
+
+Puedes especificar una configuración predeterminada para todas las aplicaciones, o bien una configuración por aplicación especificando un nombre de familia de paquete. Puedes obtener el nombre de familia de paquete de una aplicación mediante el cmdlet Get-AppPackage de Windows PowerShell. Una configuración por aplicación invalida la configuración predeterminada.
+
+Si eliges la opción "El usuario tiene el control", los empleados de tu organización podrán decidir si las aplicaciones de Windows pueden acceder a dispositivos de confianza mediante Configuración &gt; Privacidad en el dispositivo.
+
+Si eliges la opción "Forzar permiso", las aplicaciones de Windows podrán acceder a los dispositivos de confianza y los empleados de tu organización no podrán cambiarlo.
+
+Si eliges la opción "Forzar denegación", las aplicaciones de Windows no podrán acceder a dispositivos de confianza y los empleados de tu organización no podrán cambiarlo.
+
+Si deshabilitas o no estableces esta configuración de directiva, los empleados de tu organización podrán decidir si las aplicaciones de Windows pueden acceder a dispositivos de confianza mediante Configuración &gt; Privacidad en el dispositivo.
+
+Si una aplicación está abierta cuando este objeto de directiva de grupo se aplica en un dispositivo, los empleados deberán reiniciar la aplicación o el dispositivo para que los cambios de directiva se apliquen a la aplicación.
+      </string>
       <string id="LetAppsAccessLocation_Name">Permitir que las aplicaciones de Windows accedan a la ubicación</string>
       <string id="LetAppsAccessLocation_Explain">Esta configuración de directiva especifica si las aplicaciones de Windows pueden acceder a la ubicación.
 
@@ -173,6 +234,36 @@ Si eliges la opción "Forzar denegación", las aplicaciones de Windows no podrá
 Si deshabilitas o no estableces esta configuración de directiva, los empleados de tu organización podrán decidir si las aplicaciones de Windows pueden acceder a las notificaciones mediante Configuración &gt; Privacidad en el dispositivo.
 
 Si una aplicación está abierta cuando este objeto de directiva de grupo se aplica en un dispositivo, los empleados deberán reiniciar la aplicación o el dispositivo para que los cambios de directiva se apliquen a la aplicación.
+      </string>
+      <string id="LetAppsAccessPasskeys_Name">Permitir que las aplicaciones de Windows accedan a claves de paso</string>
+      <string id="LetAppsAccessPasskeys_Explain">Esta configuración de directiva especifica si las aplicaciones pueden acceder a las claves de paso.
+
+Puedes especificar una configuración predeterminada para todas las aplicaciones o una configuración por aplicación indicando un Nombre de familia de paquete. Puedes obtener el Nombre de familia de paquete de una aplicación utilizando el cmdlet Get-AppPackage de Windows PowerShell. Una configuración por aplicación anula la configuración predeterminada.
+
+Si seleccionas la opción "El usuario tiene el control", los empleados de tu organización pueden decidir si las aplicaciones pueden acceder a las claves de acceso mediante la configuración de &gt; Privacidad del dispositivo.
+
+Si seleccionas la opción "Forzar permiso", las aplicaciones podrán acceder a las claves de acceso y los empleados de tu organización no podrán modificarlas.
+
+Si elijes la opción "Denegar forzosamente", las aplicaciones no podrán acceder a las claves de acceso y los empleados de tu organización no podrán modificarlas.
+
+Si desactivas o no configura esta directiva, los empleados de tu organización pueden decidir si las aplicaciones pueden acceder a las claves de acceso mediante la opción Configuración &gt; Privacidad del dispositivo.
+
+Si una aplicación está abierta cuando se aplica este GPO en un dispositivo, los empleados deben reiniciar la aplicación o el dispositivo para que los cambios de directiva se apliquen a la aplicación.
+      </string>
+      <string id="LetAppsAccessPasskeysEnumeration_Name">Permitir que las aplicaciones de Windows autorrellenen las claves de paso</string>
+      <string id="LetAppsAccessPasskeysEnumeration_Explain">Esta configuración de directiva especifica si las aplicaciones pueden autocompletar las claves de acceso.
+
+Puedes especificar una configuración predeterminada para todas las aplicaciones o una configuración por aplicación indicando un Nombre de familia de paquete. Puedes obtener el Nombre de familia de paquete de una aplicación utilizando el cmdlet Get-AppPackage de Windows PowerShell. Una configuración por aplicación anula la configuración predeterminada.
+
+Si seleccionas la opción "El usuario tiene el control", los empleados de tu organización pueden decidir si las aplicaciones pueden autocompletar las contraseñas mediante la configuración &gt; Privacidad del dispositivo.
+
+Si seleccionas la opción "Forzar permiso", las aplicaciones podrán autocompletar las contraseñas y los empleados de tu organización no podrán modificarlas.
+
+Si elijes la opción "Forzar denegación", las aplicaciones no podrán autocompletar las contraseñas y los empleados de tu organización no podrán modificarlas.
+
+Si desactivas o no configuras esta directiva, los empleados de tu organización pueden decidir si las aplicaciones pueden autocompletar las contraseñas mediante la opción Configuración &gt; Privacidad del dispositivo.
+
+Si una aplicación está abierta cuando se aplica este GPO en un dispositivo, los empleados deben reiniciar la aplicación o el dispositivo para que los cambios de directiva se apliquen a la aplicación.
       </string>
       <string id="LetAppsAccessPhone_Name">Permitir que las aplicaciones de Windows realicen llamadas telefónicas</string>
       <string id="LetAppsAccessPhone_Explain">Esta configuración de directiva especifica si las aplicaciones de Windows pueden realizar llamadas telefónicas.
@@ -321,6 +412,35 @@ Si deshabilitas o no estableces esta configuración de directiva, los empleados 
 
 Esta directiva se aplica a las aplicaciones de Windows y Cortana. Tiene preferencia la directiva "Permitir Cortana a pesar del bloqueo". Esta directiva solo es aplicable cuando la directiva "Permitir activación por voz" está configurada para permitir que las aplicaciones se activen mediante voz.
       </string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Name">Permitir que las aplicaciones de Windows tengan acceso a los movimientos del usuario mientras se ejecutan en segundo plano</string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Explain">Esta configuración de directiva especifica si las aplicaciones de Windows pueden acceder al movimiento de la cabeza, las manos, los controladores de movimiento y otros objetos de los que se hace un seguimiento del usuario, mientras se ejecutan en segundo plano.
+
+Si quieres, puedes especificar una configuración predeterminada para todas las aplicaciones o por aplicación. Para ello, debes especificar el nombre de una familia de paquetes. Puedes obtener este nombre para una aplicación mediante el uso del cmdlet Get-AppPackage de Windows PowerShell. Una configuración por aplicación reemplaza la configuración predeterminada.
+
+Si eliges la opción "El usuario tiene el control", los empleados de tu organización pueden decidir si las aplicaciones de Windows pueden acceder a los movimientos del usuario mientras se ejecutan en segundo plano a través de Configuración &gt; Privacidad en el dispositivo.
+
+Si eliges la opción "Forzar permiso", las aplicaciones de Windows pueden acceder a los movimientos del usuario mientras se ejecutan en segundo plano y los empleados de tu organización no pueden cambiarlo.
+
+Si eliges la opción "Forzar denegación", las aplicaciones de Windows no pueden acceder a los movimientos del usuario mientras se ejecutan en segundo plano y los empleados de tu organización no pueden cambiarlo.
+
+Si deshabilitas o no configuras esta configuración de directiva, los empleados de tu organización pueden decidir si las aplicaciones de Windows pueden acceder a los movimientos del usuario mientras se ejecutan en segundo plano a través de Configuración &gt; Privacidad en el dispositivo.
+
+Si una aplicación está abierta cuando se aplica este objeto de directiva de grupo en un dispositivo, los empleados deben reiniciar la aplicación o el dispositivo para que los cambios de la directiva se apliquen a la aplicación.
+      </string>
+      <string id="LetAppsAccessForegroundText_Name">Permitir que las aplicaciones de Windows accedan al contenido de texto desde aplicaciones en primer plano</string>
+      <string id="LetAppsAccessForegroundText_Explain">Esta configuración de directiva especifica si las aplicaciones de Windows pueden acceder al contenido de texto desde aplicaciones en primer plano.
+Puedes especificar una configuración predeterminada para todas las aplicaciones o una configuración por aplicación especificando un nombre de familia de paquetes. Puedes obtener el Nombre de familia de paquete de una aplicación mediante el cmdlet Get-AppPackage de Windows PowerShell. La configuración por aplicación invalida la configuración predeterminada.
+
+Si eliges la opción "El usuario tiene el control", los empleados de tu organización pueden decidir si las aplicaciones de Windows pueden acceder al contenido de texto de las aplicaciones en primer plano mediante Configuración &gt; Privacidad en el dispositivo.
+
+Si eliges la opción "Forzar permiso", las aplicaciones de Windows podrán acceder al contenido de texto desde las aplicaciones en primer plano y los empleados de tu organización no podrán cambiarlo.
+
+Si eliges la opción "Forzar denegación", las aplicaciones de Windows no podrán acceder al contenido de texto desde aplicaciones en primer plano y los empleados de tu organización no podrán cambiarlo.
+
+Si deshabilitas o no estableces esta configuración de directiva, los empleados de tu organización pueden decidir si las aplicaciones de Windows pueden acceder al contenido de texto desde aplicaciones en primer plano mediante Configuración &gt; Privacidad en el dispositivo.
+
+Si una aplicación está abierta cuando se aplica este objeto de directiva de grupo en un dispositivo, los empleados deben reiniciar la aplicación o el dispositivo para que los cambios de la directiva se apliquen a la aplicación.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LetAppsAccessCalendar">
@@ -376,6 +496,42 @@ Esta directiva se aplica a las aplicaciones de Windows y Cortana. Tiene preferen
         <multiTextBox refId="LetAppsAccessEmail_ForceAllowTheseApps_List"/>
         <text>Forzar denegación de estas aplicaciones específicas (usar nombres de familia de paquete):</text>
         <multiTextBox refId="LetAppsAccessEmail_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessSystemAIModels">
+        <dropdownList refId="LetAppsAccessSystemAIModels_Enum" noSort="true" defaultItem="0">Valor predeterminado para todas las aplicaciones:</dropdownList>
+        <text>Hacer que el usuario controle estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_UserInControlOfTheseApps_List"/>
+        <text>Forzar permiso de estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceAllowTheseApps_List"/>
+        <text>Forzar denegación de estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureProgrammatic">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureProgrammatic_Enum" noSort="true" defaultItem="0">Valor predeterminado para todas las aplicaciones:</dropdownList>
+        <text>Hacer que el usuario controle estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_UserInControlOfTheseApps_List"/>
+        <text>Forzar permiso de estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceAllowTheseApps_List"/>
+        <text>Forzar denegación de estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureWithoutBorder">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureWithoutBorder_Enum" noSort="true" defaultItem="0">Valor predeterminado para todas las aplicaciones:</dropdownList>
+        <text>Hacer que el usuario controle estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_UserInControlOfTheseApps_List"/>
+        <text>Forzar permiso de estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceAllowTheseApps_List"/>
+        <text>Forzar denegación de estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessHumanPresence">
+        <dropdownList refId="LetAppsAccessHumanPresence_Enum" noSort="true" defaultItem="0">Valor predeterminado para todas las aplicaciones:</dropdownList>
+        <text>Hacer que el usuario controle estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_UserInControlOfTheseApps_List"/>
+        <text>Forzar permiso de estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceAllowTheseApps_List"/>
+        <text>Forzar denegación de estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessLocation">
         <dropdownList refId="LetAppsAccessLocation_Enum" noSort="true" defaultItem="0">Valor predeterminado para todas las aplicaciones:</dropdownList>
@@ -471,18 +627,18 @@ Esta directiva se aplica a las aplicaciones de Windows y Cortana. Tiene preferen
         <dropdownList refId="LetAppsRunInBackground_Enum" noSort="true" defaultItem="0">Valor predeterminado para todas las aplicaciones:</dropdownList>
         <text>Hacer que el usuario controle estas aplicaciones específicas (usar nombres de familia de paquete):</text>
         <multiTextBox refId="LetAppsRunInBackground_UserInControlOfTheseApps_List"/>
-        <text>Forzar permiso de estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <text>Forzar permiso de estas aplicaciones específicas (usar los nombres de familia del paquete):</text>
         <multiTextBox refId="LetAppsRunInBackground_ForceAllowTheseApps_List"/>
-        <text>Forzar denegación de estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <text>Forzar denegación de estas aplicaciones específicas (usar los nombres de familia del paquete):</text>
         <multiTextBox refId="LetAppsRunInBackground_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsGetDiagnosticInfo">
         <dropdownList refId="LetAppsGetDiagnosticInfo_Enum" noSort="true" defaultItem="0">Valor predeterminado para todas las aplicaciones:</dropdownList>
         <text>Hacer que el usuario controle estas aplicaciones específicas (usar nombres de familia de paquete):</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_UserInControlOfTheseApps_List"/>
-        <text>Forzar permiso de estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <text>Forzar permiso de estas aplicaciones específicas (usar los nombres de familia del paquete):</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_ForceAllowTheseApps_List"/>
-        <text>Forzar denegación de estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <text>Forzar denegación de estas aplicaciones específicas (usar los nombres de familia del paquete):</text>
         <multiTextBox refId="LetAppsGetDiagnosticInfo_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessGazeInput">
@@ -499,6 +655,42 @@ Esta directiva se aplica a las aplicaciones de Windows y Cortana. Tiene preferen
       </presentation>
       <presentation id="LetAppsActivateWithVoiceAboveLock">
         <dropdownList refId="LetAppsActivateWithVoiceAboveLock_Enum" noSort="true" defaultItem="0">Valor predeterminado para todas las aplicaciones:</dropdownList>
+      </presentation>
+      <presentation id="LetAppsAccessBackgroundSpatialPerception">
+        <dropdownList refId="LetAppsAccessBackgroundSpatialPerception_Enum" noSort="true" defaultItem="0">Valor predeterminado para todas las aplicaciones:</dropdownList>
+        <text>Hacer que el usuario controle estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_UserInControlOfTheseApps_List"/>
+        <text>Forzar permiso de estas aplicaciones específicas (usar los nombres de familia del paquete):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps_List"/>
+        <text>Forzar denegación de estas aplicaciones específicas (usar los nombres de familia del paquete):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessForegroundText">
+        <dropdownList refId="LetAppsAccessForegroundText_Enum" noSort="true" defaultItem="0">Valor predeterminado para todas las aplicaciones:</dropdownList>
+        <text>Hacer que el usuario controle estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_UserInControlOfTheseApps_List"/>
+        <text>Forzar permiso de estas aplicaciones específicas (usar los nombres de familia del paquete):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceAllowTheseApps_List"/>
+        <text>Forzar denegación de estas aplicaciones específicas (usar los nombres de familia del paquete):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeys">
+        <dropdownList refId="LetAppsAccessPasskeys_Enum" noSort="true" defaultItem="0">Valor predeterminado para todas las aplicaciones:</dropdownList>
+        <text>Hacer que el usuario controle estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_UserInControlOfTheseApps_List"/>
+        <text>Forzar permiso de estas aplicaciones específicas (usar los nombres de familia del paquete):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceAllowTheseApps_List"/>
+        <text>Forzar denegación de estas aplicaciones específicas (usar los nombres de familia del paquete):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeysEnumeration">
+        <dropdownList refId="LetAppsAccessPasskeysEnumeration_Enum" noSort="true" defaultItem="0">Valor predeterminado para todas las aplicaciones:</dropdownList>
+        <text>Hacer que el usuario controle estas aplicaciones específicas (usar nombres de familia de paquete):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_UserInControlOfTheseApps_List"/>
+        <text>Forzar permiso de estas aplicaciones específicas (usar los nombres de familia del paquete):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceAllowTheseApps_List"/>
+        <text>Forzar denegación de estas aplicaciones específicas (usar los nombres de familia del paquete):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceDenyTheseApps_List"/>
       </presentation>
     </presentationTable>
   </resources>

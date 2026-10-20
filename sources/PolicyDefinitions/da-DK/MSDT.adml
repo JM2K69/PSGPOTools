@@ -60,33 +60,34 @@ Du skal ikke genstarte computeren eller tjenesten, for at politikindstillingen k
 
 </string>
 <string id="TroubleshootingAllowRecommendations">Fejlfinding: Giv brugere adgang til anbefalet fejlfinding for kendte problemer</string>
-<string id="TroubleshootingAllowRecommendationsExplain">Denne politikindstilling anvender anbefalet fejlfinding for kendte problemer på enheden og giver administratorer mulighed for at konfigurere, hvordan den anvendes på deres domæner/it-miljøer.
-Hvis du ikke konfigurerer denne politikindstilling, kan brugeren konfigurere, om og hvordan anbefalet fejlfinding skal anvendes.
+<string id="TroubleshootingAllowRecommendationsExplain">Denne politikindstilling konfigurerer, hvordan fejlfinding af kendte problemer kan anvendes på enheden og giver administratorer mulighed for at konfigurere, hvordan den skal anvendes på deres domæner/IT-miljøer.
 
-Hvis du aktiverer denne politikindstilling, kan du konfigurere, hvordan anbefalet fejlfinding anvendes på brugerens enhed. Du kan vælge mellem følgende værdier:
-0 = Slå denne funktion fra.
-1 = Slå denne funktion fra, men anvend stadig kritisk fejlfinding.
-2 = Giv brugerne besked, når den anbefalede fejlfinding er tilgængelig, så brugeren kan køre eller ignorere den.
-3 = Kør den anbefalede fejlfinding automatisk, og giv brugeren besked, når den er blevet kørt korrekt.
-4 = Kør den anbefalede fejlfinding automatisk uden at give brugeren besked.
-5 = Gør det muligt for brugeren at vælge de anbefalede fejlfindingsindstillinger.
+Hvis du ikke konfigurerer denne politikindstilling, kan brugeren konfigurere, hvordan fejlfinding skal anvendes.
 
-Når du har angivet denne nye indstilling, skal du følge denne vejledning for at aktivere anbefalet fejlfinding for enheder i dit domæne:
+Hvis denne politikindstilling aktiveres, kan du konfigurere, hvordan fejlfinding skal anvendes på brugerens enhed. Du kan vælge mellem en af følgende værdier:
+0 = Tillad ikke, at brugere, systemfunktioner eller Microsoft anvender fejlfinding 
+1 = Anvend kun automatisk fejlfinding ved kritiske problemer af systemfunktioner og Microsoft
+2 = Anvend automatisk fejlfinding ved kritiske problemer med systemfunktioner og Microsoft. Giv brugerne besked, når fejlfinding er tilgængelig for andre problemer, og Giv brugerne mulighed for at vælge at anvende eller ignorere.
+3 = Anvend automatisk fejlfinding ved kritiske og andre problemer med systemfunktioner og Microsoft. Giv brugerne besked, når fejlfinding har løst et problem.
+4 = Anvend automatisk fejlfinding ved kritiske og andre problemer med systemfunktioner og Microsoft. Giv ikke brugerne besked, når fejlfinding har løst et problem.
+5 = gør det muligt for brugeren at vælge indstillinger for fejlfinding.
+
+Når du har angivet denne politik, kan du bruge følgende instruktioner til at kontrollere enheder i dit domæne, så der kan foretages fejlfinding fra Microsoft:
 1. Opret et BAT-script med følgende indhold:
-rem Følgende batchscript udløser anbefalet fejlfinding
-C:\Windows\System32\mitigationscanner.exe
+rem følgende batchscript udløser anbefalet fejlfinding
+SCHTASKS/Run/TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner"
 
-2. Hvis du vil oprette en ny omgående opgave, skal du åbne editoren til administration af Gruppepolitik &gt; Computerkonfiguration &gt; Indstillinger og vælge Kontrolpanel. 
-3. Højreklik på Planlagte opgaver under Kontrolpanel, og vælg Ny. Vælg Omgående opgave (mindst Windows 7).
-4. Angiv det ønskede navn og den ønskede beskrivelse, og vælg derefter brugerkontoen under Sikkerhedsindstillinger, og markér afkrydsningsfeltet Kør med højeste rettigheder.
-5. Opret en ny handling under fanen Handlinger, Vælg Start et program som dens type, og skriv derefter den fil, der blev oprettet i trin 1.
-6. Konfigurer opgaven til at blive installeret på dit domæne.</string>
-<string id="RecommendationsDropDown_DoNothing">Slå denne funktion fra</string>
-<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Slå denne funktion fra, men anvend stadig kritisk fejlfinding.</string>
-<string id="RecommendationsDropDown_AskFirst">Giv brugerne besked, hvis den anbefalede fejlfinding er tilgængelig, så brugeren kan køre eller ignorere den.</string>
-<string id="RecommendationsDropDown_ApplyThenNotify">Kør den anbefalede fejlfinding automatisk, og giv brugeren besked, når den er blevet kørt korrekt.</string>
-<string id="RecommendationsDropDown_ApplySilently">Kør den anbefalede fejlfinding automatisk uden at give brugeren besked.</string>
-<string id="RecommendationsDropDown_DeferToUser">Giv brugeren mulighed for at vælge sine egne anbefalede fejlfindingsindstillinger.</string>
+2. Hvis du vil oprette en ny omgående opgave, skal du gå til editoren til administration af gruppepolitik &gt; Computerkonfiguration &gt; Indstillinger og vælge Indstillinger i Kontrol panel. 
+3. Højreklik på planlagte opgaver under Kontrolpanel, og vælg Ny. Vælg Omgående opgave (mindst Windows 7).
+4. Angiv navn og beskrivelse efter behov, og angiv derefter brugerkontoen under Sikkerhedsindstillinger, og markér afkrydsningsfeltet Kør med højeste rettigheder.
+5. Opret en ny handling under fanen Handlinger, Vælg Start et program som type, og angiv den fil, der blev oprettet i trin 1.
+6. Konfigurer den opgave, der skal installeres på dit domæne.</string>
+<string id="RecommendationsDropDown_DoNothing">Tillad ikke brugere, systemfunktioner eller Microsoft at anvende fejlfinding.</string>
+<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Anvend kun automatisk fejlfinding ved kritiske problemer med systemfunktioner og Microsoft.</string>
+<string id="RecommendationsDropDown_AskFirst">Anvend automatisk fejlfinding ved kritiske problemer ved systemfunktioner og Microsoft. Giv brugerne besked når fejlfinding bliver tilgængelige for andre problemer og tillader brugere at anvende eller ignorere.</string>
+<string id="RecommendationsDropDown_ApplyThenNotify">Anvend automatisk fejlfinding ved kritiske og andre problemer med systemfunktioner og Microsoft. Giv brugerne besked, når fejlfinding har løst et problem.</string>
+<string id="RecommendationsDropDown_ApplySilently">Anvend automatisk fejlfinding ved kritiske og andre problemer med systemfunktioner og Microsoft. Giv ikke brugerne besked, når fejlfinding har løst et problem.</string>
+<string id="RecommendationsDropDown_DeferToUser">Giv brugeren mulighed for at vælge deres egen fejlfindingsindstillinger.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MsdtToolDownloadPolicy">

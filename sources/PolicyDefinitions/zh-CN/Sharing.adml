@@ -25,6 +25,10 @@
 必须重新启动计算机才能使此策略设置生效。</string>
       <string id="HomeGroup">家庭组</string>
       <string id="HomeGroup_Help">包含控制家庭组行为的设置。</string>
+      <string id="DisableShareAppPromotions">DisableShareAppPromotions</string>
+      <string id="DisableShareAppPromotions_Help">此策略设置允许 IT 管理员控制是否在 ShareSheet 中显示促销应用。如果启用此策略，Windows 将不会在 ShareSheet 中显示促销应用。如果禁用或未配置此策略，ShareSheet 可能会在打开 ShareSheet 时显示应用建议和促销。</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

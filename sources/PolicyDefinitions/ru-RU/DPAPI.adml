@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>DPAPI</displayName>
+  <description>Настройка параметров DPAPI</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod">Настроить период смены резервных ключей DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">Этот параметр политики определяет период смены ключей резервного копирования DPAPI. 
+Этот параметр можно использовать для переопределения значения по умолчанию в 90 дней. Задайте значение 0, чтобы отключить смену ключей резервного копирования DPAPI. 
+Если этот параметр политики включен, задайте число дней ожидания системы перед созданием нового ключа резервного копирования DPAPI. 
+Если этот параметр политики отключен или не настроен, используется значение по умолчанию (90 дней).</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">Укажите период смены резервных ключей DPAPI в днях. 
+Настройте 0, чтобы отключить смену резервных ключей DPAPI.</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

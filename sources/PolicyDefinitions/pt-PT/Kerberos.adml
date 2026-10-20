@@ -22,19 +22,18 @@ Se desativar esta definição de política, a lista de mapeamentos de nome de an
 Se não configurar esta definição de política, o sistema utiliza os mapeamentos de nome de anfitrião para realm Kerberos definidos no registo local, se existirem.</string>
       <string id="MitRealms">Definições do realm Kerberos V5 interoperável</string>
       <string id="MitRealms_explain">Esta definição de política configura o cliente Kerberos para que possa autenticar-se perante os realms Kerberos V5 interoperáveis, conforme especificado por esta definição de política.
-      
-Se ativar esta definição de política, pode ver e alterar a lista de realms Kerberos V5 interoperáveis e as suas definições. Para ver a lista de realms Kerberos V5 interoperáveis, ative a definição de política e, em seguida, clique no botão Mostrar. Para adicionar um realm Kerberos V5 interoperável, ative a definição de política, anote a sintaxe e, em seguida, clique em Mostrar. Na caixa de diálogo Mostrar Conteúdo, na coluna Nome do Valor, escreva o nome do realm Kerberos V5 interoperável. Na coluna Valor, escreva os sinalizadores de realm e os nomes de anfitrião dos KDCs de anfitrião utilizando o formato de sintaxe adequado. Para remover da lista uma entrada Nome de Valor ou Valor do realm Kerberos V5 interoperável, clique na entrada e, em seguida, prima a tecla DELETE. Para editar um mapeamento, remova a entrada atual da lista e adicione uma nova entrada com parâmetros diferentes.
 
-Se desativar esta definição de política, as definições de realm Kerberos V5 interoperável definidas pela Política de Grupo são eliminadas.
+Se ativar esta definição de política, pode ver e alterar a lista de realms Kerberos V5 interoperáveis e as respetivas definições. Para ver a lista de realms Kerberos V5 interoperáveis, ative a definição de política e, em seguida, clique no botão Mostrar. Para adicionar um realm Kerberos V5 interoperável, ative a definição de política, anote a sintaxe e, em seguida, clique em Mostrar. Na caixa de diálogo Mostrar Conteúdo, na coluna Nome do Valor, escreva o nome do realm Kerberos V5 interoperável. Na coluna Valor, escreva os sinalizadores de realm e os nomes de anfitrião dos KDCs de anfitrião utilizando o formato de sintaxe adequado. Para remover da lista uma entrada Nome de Valor ou Valor do realm Kerberos V5 interoperável, clique na entrada e, em seguida, prima a tecla DELETE. Para editar um mapeamento, remova a entrada atual da lista e adicione uma nova entrada com parâmetros diferentes.
 
-Se não configurar esta definição de política, o sistema utiliza as definições de realm Kerberos V5 interoperável definidas no registo local, se existirem.</string>
+Se desativar esta definição de política, as definições de realm Kerberos V5 interoperável definidas pela Política de Grupo serão eliminadas.
+
+Se não configurar esta definição de política, o sistema utilizará as definições de realm Kerberos V5 interoperável definidas no registo local, caso existam.</string>
       <string id="ValidateKDC">Requerer validação KDC estrita</string>
-      <string id="ValidateKDC_explain">Esta definição de política controla o comportamento do cliente Kerberos ao validar o certificado de KDC para início de sessão com smart card e com certificado do sistema.  
+      <string id="ValidateKDC_explain">Esta definição de política controla o comportamento do cliente Kerberos ao validar o certificado de KDC para início de sessão com smart card e com certificado do sistema.
 
-Se ativar esta definição de política, o cliente Kerberos exige que o certificado X.509 de KDC contenha o identificador de objeto de objetivo chave KDC nas extensões de Utilização Alargada da Chave (EKU) e que o certificado X.509 de KDC contenha uma extensão SAN (dNSName subjectAltName) que corresponda ao nome DNS do domínio. Se o computador fizer parte de um domínio, o cliente Kerberos exige que o certificado X.509 de KDC seja assinado por uma Autoridade de Certificação (AC) no arquivo NTAUTH. Se o computador não fizer parte de um domínio, o cliente Kerberos permite que o certificado de AC de raiz no smart card seja utilizado na validação do caminho do certificado X.509 de KDC.
+Se ativar esta definição de política, o cliente Kerberos exige que o certificado X.509 do KDC contenha o identificador de objeto de propósito-chave KDC nas extensões de Utilização Alargada da Chave (EKU) e que o certificado X.509 de KDC contenha uma extensão SAN (dNSName subjectAltName) que corresponda ao nome DNS do domínio. Se o computador fizer parte de um domínio, o cliente Kerberos exige que o certificado X.509 de KDC seja assinado por uma Autoridade de Certificação (AC) no arquivo NTAuth. Se o computador não fizer parte de um domínio, o cliente Kerberos permite que o certificado AC de raiz no smart card seja utilizado na validação do caminho do certificado X.509 de KDC.
 
-Se desativar ou não configurar esta definição de política, o cliente Kerberos exige apenas que o certificado de KDC contenha o identificador de objeto de objetivo de Autenticação do Servidor nas extensões EKU que podem ser emitidas para qualquer servidor.
-
+Se desativar ou não configurar esta definição de política, o cliente Kerberos exige apenas que o certificado de KDC contenha o identificador de objeto de propósito de Autenticação do Servidor nas extensões EKU que podem ser emitidas para qualquer servidor.
 </string>
       <string id="StrictTarget">Exigir uma correspondência de SPN de destino restrita em chamadas de procedimento remoto</string>
       <string id="StrictTarget_explain">  Esta definição de política permite-lhe configurar este servidor de modo a que o Kerberos possa desencriptar uma permissão que contém este SPN gerado pelo sistema. Quando uma aplicação tentar efetuar uma chamada de procedimento remoto (RPC) para este servidor com um valor NULL para o nome do principal do serviço (SPN), os computadores com o Windows 7 ou posterior tentam utilizar Kerberos gerando um SPN.
@@ -94,16 +93,14 @@ Se não configurar esta definição de política, será utilizado Automático.
 
       <string id="MaxTokenSize">Definir tamanho máximo da memória intermédia de tokens de contexto SSPI Kerberos</string>
       <string id="MaxTokenSize_explain">Esta definição de política permite-lhe definir o valor devolvido às aplicações que pedem o tamanho máximo do tamanho da memória intermédia de tokens de contexto SSPI.
-              
-O tamanho da memória intermédia de tokens de contexto determina o tamanho máximo dos tokens de contexto SSPI que uma aplicação espera e aloca. Consoante o processamento do pedido de autenticação e as associações a grupos, a memória intermédia poderá ser mais pequena do que o tamanho atual do token de contexto SSPI. 
 
-Se ativar esta definição de política, o cliente ou servidor Kerberos utiliza o valor configurado, ou o valor máximo permitido localmente, conforme o que for mais pequeno.
+O tamanho da memória intermédia de tokens de contexto determina o tamanho máximo dos tokens de contexto SSPI que uma aplicação espera e aloca. Consoante o processamento do pedido de autenticação e as associações a grupos, a memória intermédia poderá ser mais pequena do que o tamanho atual do token de contexto SSPI.
+
+Se ativar esta definição de política, o cliente ou servidor Kerberos utiliza o valor configurado, ou o valor máximo permitido localmente, consoante o que for mais pequeno.
 
 Se desativar ou não configurar esta definição de política, o cliente ou servidor Kerberos utilizar o valor configurado localmente ou o valor predefinido. 
 
-Nota: esta definição de política configura o valor do Registo MaxTokenSize existente em HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters, que foi adicionado no Windows XP e Windows Server 2003, com o valor predefinido de 12.000 bytes. A partir do Windows 8, a predefinição é 48.000 bytes. Devido à codificação base64 de HTTP dos tokens de contexto de autenticação, não é recomendável definir este valor como mais de 48.000 bytes.
-
-
+Nota: esta definição de política configura o valor do registo MaxTokenSize existente em HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters, que foi adicionado no Windows XP e Windows Server 2003, com o valor predefinido de 12.000 bytes. A partir do Windows 8, a predefinição é 48.000 bytes. Devido à codificação base64 de HTTP dos tokens de contexto de autenticação, não é recomendável definir este valor como mais de 48.000 bytes.
 
 </string>
       <string id="EnableCbacAndArmor">Suporte de cliente Kerberos para afirmações, autenticação composta e proteção Kerberos</string>
@@ -111,7 +108,7 @@ Nota: esta definição de política configura o valor do Registo MaxTokenSize ex
 Se ativar esta definição de política, os computadores cliente pedirão afirmações, fornecerão as informações necessárias para criar mensagens de autenticação composta e proteção Kerberos nos domínios com suporte para afirmações e autenticação composta para Controlo de Acesso Dinâmico e proteção Kerberos.
 
 Se desativar ou não configurar esta definição de política, os dispositivos cliente não pedirão afirmações, fornecerão as informações necessárias para criar mensagens de autenticação composta e proteção Kerberos. Os serviços alojados no dispositivo não conseguirão obter afirmações para os clientes que utilizam a transição do protocolo Kerberos.  
-  
+
 </string>
       <string id="AlwaysSendCompoundId">Enviar sempre a autenticação composta primeiro</string>
       <string id="AlwaysSendCompoundId_explain">Esta definição de política controla se um dispositivo envia sempre um pedido de autenticação composta quando o domínio do recurso pede a identidade composta.
@@ -136,9 +133,54 @@ Forçar: O dispositivo tentará sempre a autenticação utilizando o respetivo c
 
 Se desativar esta definição de política, nunca serão utilizados certificados.
 Se não configurar esta definição de política, será utilizada a opção Automático.
+
+Siga este guia para configurar a PKI empresarial: https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">Automático</string>
       <string id="DevicePKInitBehavior_Force">Forçar</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">Permitir a recuperação do Bilhete de Concessão do Bilhete do Kerberos do Azure AD durante o início de sessão</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">Esta definição de política permite a obtenção da permissão de concessão de permissão Kerberos do Azure AD durante o início de sessão.
+
+Se desativar ou não configurar esta definição de política, a permissão de concessão de permissão Kerberos do Azure AD não é obtida durante o início de sessão.
+
+Se ativar esta definição de política, a permissão de concessão de permissão Kerberos do Azure AD é obtida durante o início de sessão.</string>
+      <string id="PKInitHashAlgorithmConfiguration">Configurar algoritmos hash para início de sessão certificado</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">Esta definição de política controla os algoritmos hash ou de soma de verificação utilizados pelo cliente Kerberos ao efetuar a autenticação de certificados.
+
+Se ativar esta política, poderá configurar um de quatro estados para cada algoritmo:
+
+- "Predefinido" define o algoritmo para o estado recomendado.
+
+- "Suportado" permite a utilização do algoritmo. A ativação de algoritmos que foram desativados por predefinição poderá reduzir a sua segurança.
+
+- "Auditado" ativa a utilização do algoritmo e comunica um evento (ID 206) sempre que for utilizado. Este estado destina-se a verificar que o algoritmo não está a ser utilizado e pode ser desativado com segurança.
+
+- "Não suportado" desativa a utilização do algoritmo. Este estado destina-se a algoritmos que são considerados não seguros.
+
+Se desativar ou não configurar esta política, cada algoritmo irá assumir o estado "Predefinido".
+Podem ser encontradas mais informações sobre os algoritmos de hash e de soma de verificação suportados pelo cliente Windows Kerberos e respetivos estados predefinidos em https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Eventos gerados por esta configuração: 205, 206, 207, 208.
+</string>
+      <string id="PKInitHashAlgorithm_Default">Predefinido</string>
+      <string id="PKInitHashAlgorithm_Supported">Suportado</string>
+      <string id="PKInitHashAlgorithm_Audited">Auditado</string>
+      <string id="PKInitHashAlgorithm_NotSupported">Não Suportado</string>
+      
+      <string id="DelegatedMSAEnabled">Ativar inícios de sessão de Conta de Serviço Gerida Delegada</string>
+      <string id="DelegatedMSAEnabled_explain">Esta definição de política ativa ou desativa os inícios de sessão de contas de serviços geridos delegados para este computador.
+
+Se ativar esta definição de política, os inícios de sessão de contas de serviços geridos delegados serão suportados pelo cliente Kerberos. Tenha em atenção que esta política tem determinados pré-requisitos. Os pré-requisitos e as instruções para criar uma nova conta de serviços geridos delegados podem ser encontrados em https://go.microsoft.com/fwlink/?linkid=2250379.
+
+Se desativar ou não configurar esta definição de política, os inícios de sessão de contas de serviços geridos delegados não serão suportados. 
+</string>
+      <string id="EnableTryIPSPN">Permitir SPNs baseados em endereços IP durante a autenticação Kerberos</string>
+      <string id="EnableTryIPSPN_explain">Esta definição de política permite-lhe configurar o Kerberos para utilizar nomes dos principais do serviço (SPNs) baseados em endereços IP.
+
+Se ativar esta definição de política, o cliente Kerberos tentará utilizar SPNs baseados em endereços IP ao ligar a um serviço.
+
+Se desativar ou não configurar esta definição de política, o Kerberos não tentará utilizar SPNs baseados em endereços IP.
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -181,6 +223,16 @@ Se não configurar esta definição de política, será utilizada a opção Auto
         <text>Outro Exemplo:</text>
         <text>Nome de Valor: REALM.FABRIKAM.COM</text>
         <text>Valor: &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">Realms:</multiTextBox>
+        <text>Sintaxe:</text>
+        <text>Introduza uma lista de realms onde os DMSAs possam existir.</text>
+        <text>Introduza o Nome de Domínio Completamente Qualificado (FQDN) e o nome abreviado.</text>
+        <text>Introduza um realm por linha.</text>
+        <text>Detalhes:</text>
+        <text>O cliente Kerberos tentará localizar um Controlador de Domínio compatível com DMSA para os realms listados.</text>
+        <text>Se não forem especificados realms, o cliente Kerberos tentará localizar um Controlador de Domínio compatível com DMSA para todos os realms.</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">Modo:</dropdownList>
@@ -225,7 +277,7 @@ Se não configurar esta definição de política, será utilizada a opção Auto
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Suportar autorização com informações de dispositivo cliente:</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Suportar autorização com informações de dispositivo cliente:</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">Tamanho máximo</decimalTextBox>
@@ -233,7 +285,13 @@ Se não configurar esta definição de política, será utilizada a opção Auto
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Comportamento da autenticação do dispositivo usando certificado:</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Comportamento da autenticação do dispositivo usando certificado:</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

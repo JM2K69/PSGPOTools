@@ -1,0 +1,203 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main, avalonia]
+  pull_request:
+  # The Release workflow runs these tests on the tagged commit before it publishes.
+  workflow_call:
+
+jobs:
+  test:
+    # Windows: the ADMX parsing paths and the GUI tests (real Avalonia window) target Windows.
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show PowerShell version
+        shell: pwsh
+        run: $PSVersionTable
+
+      - name: Install Pester
+        shell: pwsh
+        run: Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser -Force -SkipPublisherCheck
+
+      - name: Analyze the sources (PSScriptAnalyzer)
+        shell: pwsh
+        run: |
+          Install-Module PSScriptAnalyzer -Scope CurrentUser -Force
+          # TypeNotFound is information: a class of another file, which the build puts first.
+          $found = @(Invoke-ScriptAnalyzer -Path ./Code -Recurse -Settings ./PSScriptAnalyzerSettings.psd1 | Where-Object Severity -In 'Error', 'Warning')
+          $found | Format-Table RuleName, Severity, ScriptName, Line, Message -AutoSize -Wrap
+          if ($found.Count) { throw "PSScriptAnalyzer: $($found.Count) finding(s)." }
+
+      - name: Cache Avalonia runtime
+        uses: actions/cache@v4
+        with:
+          path: PSGPOTools/Avalonia/bin
+          key: avalonia-win-x64-${{ hashFiles('PSGPOTools/Resources/AvaloniaPackages.json') }}
+
+      - name: Build the module
+        # Get-AvaloniaBinaries.ps1 loads the module, which is built from Code/ (not in the repository).
+        shell: pwsh
+        run: ./CI/03_Build.ps1
+
+      - name: Stage Avalonia runtime
+        shell: pwsh
+        run: ./PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1 -Rid win-x64
+
+      - name: Build and test
+        shell: pwsh
+        run: ./CI/Invoke-Tests.ps1 -OutputPath TestResults.xml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults.xml
+
+  test-linux:
+    # The console must also run on Linux: every test, the GUI included (Avalonia X11 backend
+    # on a virtual X server).
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Pester
+        shell: pwsh
+        run: Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser -Force -SkipPublisherCheck
+
+      - name: Install the virtual X server and the X11 libraries
+        run: sudo apt-get update && sudo apt-get install -y xvfb libx11-6 libice6 libsm6 libfontconfig1 fonts-dejavu-core
+
+      - name: Cache Avalonia runtime
+        uses: actions/cache@v4
+        with:
+          path: PSGPOTools/Avalonia/bin
+          key: avalonia-linux-x64-${{ hashFiles('PSGPOTools/Resources/AvaloniaPackages.json') }}
+
+      - name: Build the module
+        # Get-AvaloniaBinaries.ps1 loads the module, which is built from Code/ (not in the repository).
+        shell: pwsh
+        run: ./CI/03_Build.ps1
+
+      - name: Stage Avalonia runtime
+        shell: pwsh
+        run: ./PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1 -Rid linux-x64
+
+      - name: Build and test
+        # 1920x1080 screen: the default Xvfb screen (640x480) is smaller than the tested windows.
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" pwsh -NoProfile -File ./CI/Invoke-Tests.ps1 -OutputPath TestResults-linux.xml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-linux
+          path: TestResults-linux.xml
+
+  test-samba:
+    # The tests that write to a domain (links, Registry.pol, versions, groups, restore, samba-tool),
+    # against a Samba AD DC provisioned on the runner, with a Kerberos ticket as on a real domain.
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PSGPOTOOLS_TEST_LDAP_SERVER: dc.ci.test
+      PSGPOTOOLS_TEST_LDAP_WRITE: '1'
+      # The scripts of the lab (docs/assets/scripts) run against this domain.
+      PSGPOTOOLS_TEST_LAB_SCRIPTS: '1'
+      # A throwaway domain, only on this runner.
+      CI_ADMIN_PASSWORD: 'Ci-Passw0rd-Samba'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Pester
+        shell: pwsh
+        run: Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser -Force -SkipPublisherCheck
+
+      - name: Install Samba, Kerberos and the SASL GSSAPI module of LDAP
+        run: |
+          sudo DEBIAN_FRONTEND=noninteractive apt-get update
+          # samba-ad-dc: the services of a domain controller, the KDC included (Ubuntu splits them out).
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y samba samba-ad-dc samba-dsdb-modules samba-vfs-modules smbclient python3-samba krb5-user libsasl2-modules-gssapi-mit ldb-tools
+          sudo systemctl disable --now smbd nmbd winbind samba-ad-dc 2>/dev/null || true
+
+      - name: Provision the domain CI.TEST
+        run: |
+          # The name of the domain controller on the address of the runner, not on the loopback.
+          ip=$(hostname -I | awk '{print $1}')
+          # First in /etc/hosts: the address gives this name back, as Kerberos expects of a server.
+          { echo "$ip dc.ci.test dc ci.test"; cat /etc/hosts; } > /tmp/hosts
+          sudo cp /tmp/hosts /etc/hosts
+          # LDAP over SASL GSSAPI keeps the name of the server (no reverse lookup of its address).
+          echo 'SASL_NOCANON on' | sudo tee -a /etc/ldap/ldap.conf
+          sudo rm -f /etc/samba/smb.conf
+          sudo samba-tool domain provision --realm=CI.TEST --domain=CI --server-role=dc --dns-backend=NONE \
+            --host-name=dc --host-ip="$ip" --use-rfc2307 --adminpass="$CI_ADMIN_PASSWORD"
+          # No DNS on the runner: the KDC is named, not looked up.
+          sudo tee /etc/krb5.conf >/dev/null <<'KRB5'
+          [libdefaults]
+              default_realm = CI.TEST
+              dns_lookup_realm = false
+              dns_lookup_kdc = false
+              rdns = false
+          [realms]
+              CI.TEST = {
+                  kdc = dc.ci.test
+                  admin_server = dc.ci.test
+              }
+          [domain_realm]
+              .ci.test = CI.TEST
+              ci.test = CI.TEST
+          KRB5
+          sudo samba
+          # The KDC (88) and LDAP (389) listening, or the step fails with what Samba says.
+          for i in $(seq 1 60); do
+            if sudo ss -ltn | grep -q ':88 ' && sudo ss -ltn | grep -q ':389 '; then break; fi
+            sleep 2
+          done
+          sudo ss -ltnp | grep -E ':(53|88|389|445|636) ' || true
+          if ! sudo ss -ltn | grep -q ':88 '; then
+            echo "The KDC of Samba does not listen."
+            pgrep -a samba || true
+            sudo tail -n 80 /var/log/samba/log.samba 2>/dev/null || sudo journalctl -n 80 --no-pager
+            exit 1
+          fi
+
+      - name: Get a Kerberos ticket of the administrator
+        run: |
+          echo "$CI_ADMIN_PASSWORD" | kinit administrator@CI.TEST
+          # The ticket of the LDAP service: what LDAP over GSSAPI needs.
+          kvno ldap/dc.ci.test
+          klist
+
+      - name: Read the domain once
+        # What the tests need first: a clear error here rather than in each test.
+        shell: pwsh
+        run: |
+          $PSVersionTable | Format-Table -AutoSize | Out-String | Write-Host
+          ./CI/03_Build.ps1 *> $null
+          Import-Module ./PSGPOTools/PSGPOTools.psd1
+          & (Get-Module PSGPOTools) { Get-PSGPOPlatform | Format-List | Out-String | Write-Host }
+          try {
+              $directory = Get-PSGPODirectory -Server dc.ci.test -Verbose
+              "Read $($directory.DomainName) from $($directory.Server) as $($directory.Account): $($directory.Gpos.Count) GPOs."
+          } catch {
+              $_ | Format-List * -Force | Out-String | Write-Host
+              $_.Exception.GetBaseException() | Format-List * -Force | Out-String | Write-Host
+              throw
+          }
+
+      - name: Build and test against the domain
+        # -Command, not -File: -File passes the list of test files as separate arguments.
+        run: pwsh -NoProfile -Command "./CI/Invoke-Tests.ps1 -Path ./CI/tests/PSGPOTools.Ldap.tests.ps1, ./CI/tests/PSGPOTools.RegistryPol.tests.ps1 -OutputPath TestResults-samba.xml"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-samba
+          path: TestResults-samba.xml

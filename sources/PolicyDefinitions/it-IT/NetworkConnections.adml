@@ -49,14 +49,14 @@ Nota: indipendentemente da questa impostazione, gli utenti non amministratori, e
 Suggerimento: per aprire la finestra Impostazioni avanzate TCP/IP, fare clic con il pulsante destro del mouse sull'icona di una connessione nella cartella Connessioni di rete e quindi scegliere Proprietà. Per le connessioni di accesso remoto fare clic sulla scheda Rete.  Nella casella "I componenti selezionati sono utilizzati da questa connessione" selezionare Protocollo Internet (TCP/IP), fare clic sul pulsante Proprietà e quindi sul pulsante Avanzate.
 
 Nota: se si modifica questa impostazione da abilitata a non configurata, il pulsante Avanzate verrà abilitato solo dopo la disconnessione.</string>
-      <string id="NC_AllowNetBridge_NLA">Proibisci l'installazione, la configurazione e l'uso di Bridge di rete nella rete del dominio DNS</string>
+      <string id="NC_AllowNetBridge_NLA">Proibire l'installazione e la configurazione del Network Bridge sulla tua rete.</string>
       <string id="NC_AllowNetBridge_NLA_Help">Determina se un utente può installare e configurare il bridge di rete.
 
-Importante: questa impostazione varia a seconda della posizione. Si applica solo quando un computer è connesso alla stessa rete di dominio DNS cui era connesso quando l'impostazione è stata aggiornata in tale computer. Se un computer è connesso a una rete del dominio DNS diversa da quella cui era connesso quando l'impostazione è stata aggiornata, l'impostazione non verrà applicata.
+Importante: questa impostazione è sensibile alla posizione sui dispositivi aggiunti al dominio AD. Si applica solo quando un computer è connesso alla stessa rete di dominio DNS a cui era connesso quando l'impostazione è stata aggiornata in tale computer. Se un computer è connesso a una rete del dominio DNS diversa da quella a cui era connesso quando l'impostazione è stata aggiornata, questa impostazione non viene applicata. Nei dispositivi uniti a Entra, questa impostazione si applicherà a tutte le reti.
 
-Il bridge di rete consente agli utenti di creare un bridge MAC di livello 2 e quindi di connettere tra loro due o più segmenti di rete. Questa connessione viene visualizzata nella cartella Connessioni di rete.
+Il bridge di rete consente agli utenti di creare un bridge MAC di livello 2 e quindi connettere tra loro due o più segmenti di rete. Questa connessione appare nella cartella Connessioni di rete.
 
-Se si disabilita o non si configura questa impostazione, l'utente non sarà in grado di creare e modificare la configurazione di un bridge di rete. Se si abilita questa impostazione, dal computer dell'utente non verrà rimosso nessun bridge di rete esistente.</string>
+Se disabiliti o non configuri questa impostazione, l'utente non potrà creare e modificare la configurazione di un bridge di rete. Se abiliti questa impostazione, dal computer dell'utente non verrà rimosso alcun bridge di rete esistente.</string>
       <string id="NC_ChangeBindState">Proibisci l'abilitazione/disabilitazione dei componenti di una connessione LAN</string>
       <string id="NC_ChangeBindState_Help">Determina se gli amministratori possono abilitare e disabilitare i componenti utilizzati dalle connessioni LAN.
 

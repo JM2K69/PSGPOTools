@@ -12,6 +12,8 @@
 キャッシュされたトークンが存在しないようにするために、ユーザーがデバイスにサインインする前にこの設定を有効にすることをお勧めします。この設定を無効にした場合、または構成しなかった場合、アプリケーションとサービスは Microsoft アカウントを使用して認証を行うことができます。
 既定では、この設定は無効になっています。この設定は、ユーザーが Microsoft アカウントを使用してデバイスにサインインできるかどうか、または Web ベースのアプリケーションで認証を行うためにブラウザー経由で Microsoft アカウントを指定できるかどうかには影響しません。 
         </string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnly">Microsoft アカウント サインイン アシスタントに対してのみデバイス認証を許可する</string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnlyExplain">この設定は、Microsoft アカウント サインイン アシスタント サービス (wlidsvc) のエンタープライズ デバイス認証のみを許可するかどうかを決定します。既定では、この設定は無効になっており、ユーザー認証とデバイス認証の両方が許可されます。値が 1 に設定されている場合は、デバイス認証のみを許可し、ユーザー認証をブロックします。</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

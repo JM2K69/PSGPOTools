@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>tutaj wprowadź wyświetlaną nazwę</displayName>
+  <description>tutaj wprowadź opis</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Wyłącz funkcję Copilot systemu Windows</string>
+      <string id="TurnOffWindowsCopilot_Help">To ustawienie zasad umożliwia wyłączenie funkcji Windows Copilot.
+
+Jeśli włączysz to ustawienie zasad, użytkownicy nie będą mogli korzystać z funkcji Copilot. Ikona funkcji Copilot również nie będzie wyświetlana na pasku zadań.
+
+Jeśli wyłączysz lub nie skonfigurujesz tego ustawienia zasad, użytkownicy będą mogli korzystać z funkcji Copilot, gdy będzie ona dla nich dostępna.
+      </string>
+      <string id="WindowsAI">Sztuczna inteligencja systemu Windows</string>
+      <string id="DisableAIDataAnalysis">Wyłącz zapisywanie migawek do użycia z funkcją Przypomnienie
+      </string>
+      <string id="DisableAIDataAnalysis_Help">To ustawienie zasad umożliwia określenie, czy migawki ekranu mogą być zapisywane do użycia z Przypomnienie. W przypadku urządzeń zarządzanych migawki dla Przypomnienie nie są domyślnie włączone. Administratorzy IT nie mogą samodzielnie włączać zapisywania migawek w imieniu swoich użytkowników. Opcja włączenia zapisywania migawek wymaga zgody indywidualnego użytkownika.
+
+Jeśli zasady nie zostaną skonfigurowane, migawki nie będą zapisywane do użycia z Przypomnienie.
+
+Jeśli te zasady zostaną włączone, migawki nie będą zapisywane do użycia z Przypomnienie. Jeśli migawki zostały wcześniej zapisane na urządzeniu, zostaną usunięte po włączeniu tych zasad.
+
+Jeśli te zasady zostaną wyłączone, użytkownicy końcowi będą mogli zapisywać migawki swojego ekranu i używać Przypomnienie do znajdowania elementów widocznych na urządzeniu.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Ustaw maksymalny magazyn dla migawek używanych przez funkcję Przypomnienie
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">To ustawienie zasad pozwala kontrolować maksymalną ilość miejsca na dysku, która może być używana przez system Windows do zapisywania migawek dla funkcji Przypomnienie.
+
+Możesz ustawić maksymalną ilość miejsca na dysku dla migawek na 10, 25, 50, 75, 100 lub 150 GB.
+
+Jeśli to ustawienie nie jest skonfigurowane, system operacyjny konfiguruje przydział pamięci dla migawek na podstawie pojemności magazynu urządzenia, chyba że bieżący użytkownik określi inną wartość.
+
+25 GB jest przydzielane, gdy pojemność magazynu urządzenia wynosi 256 GB. 75 GB jest przydzielane, gdy pojemność magazynu urządzenia wynosi 512 GB. 150 GB jest przydzielane, gdy pojemność magazynu urządzenia wynosi 1 GB lub więcej.
+
+Jeśli dla funkcji Przypomnienie ustawiono zarówno maksymalny czas przechowywania, jak i maksymalny magazyn, migawki zostaną usunięte po osiągnięciu pierwszej z tych wartości.
+
+Ważne: to ustawienie dotyczy tylko jednostek SKU klienta dla przedsiębiorstw i instytucji edukacyjnych.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Zezwól systemowi operacyjnego na zdefiniowanie maksymalnej ilości miejsca do magazynowania na podstawie rozmiaru magazynu na dysku twardym</string>
+      <string id="SetMaximumStorageSpace_10GB">10 GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25 GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50 GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75 GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100 GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150 GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Ustaw maksymalny czas trwania przechowywania migawek używanych przez funkcję Przypomnienie
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">To ustawienie zasad pozwala kontrolować maksymalny czas (w dniach), przez jaki system Windows zapisuje migawki na potrzeby funkcji Przypomnienie.
+
+Jeśli te zasady są włączone, możesz skonfigurować maksymalny czas przechowywania na 30, 60, 90 lub 180 dni.
+
+Jeśli te zasady nie są skonfigurowane, maksymalny czas przechowywania wynosi 90 dni, chyba że bieżący użytkownik określi inną wartość.
+
+Jeśli dla funkcji Przypomnienie ustawiono zarówno maksymalny czas przechowywania, jak i maksymalny magazyn, migawki zostaną usunięte po osiągnięciu pierwszej z tych wartości.
+
+Ważne: to ustawienie dotyczy tylko jednostek SKU klienta dla przedsiębiorstw i instytucji edukacyjnych.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">Zezwól systemowi operacyjnego na zdefiniowanie maksymalnego czasu zapisywania migawek
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 dni</string>
+      <string id="SetMaximumStorageDuration_60Days">60 dni</string>
+      <string id="SetMaximumStorageDuration_90Days">90 dni</string>
+      <string id="SetMaximumStorageDuration_180Days">180 dni</string>
+      <string id="SetDenyAppListForRecall">Ustaw listę aplikacji do filtrowania na podstawie migawek dla funkcji Przypomnienie
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Te zasady umożliwiają zdefiniowanie listy aplikacji, które nie będą uwzględniane w migawkach dla Przypomnienie.
+
+Użytkownicy będą mogli dodawać dodatkowe aplikacje do wykluczenia z migawek przy użyciu ustawień Przypomnienie.
+
+Lista może zawierać identyfikatory modelu użytkownika aplikacji (AUMID) lub nazwę pliku wykonywalnego.
+
+Użyj rozdzielonej średnikami listy aplikacji, aby zdefiniować listę odrzuconych aplikacji dla Przypomnienie.
+
+Na przykład: code.exe; Microsoft.WindowsNotepad_8wekyb3d8bbwe! Aplikacja;ms-teams.exe
+
+Ważne: to ustawienie dotyczy tylko jednostek SKU klientów przedsiębiorstwa i instytucji edukacyjnych. Gdy to ustawienie zasad zostanie skonfigurowane, zmiany zostaną wprowadzone dopiero po ponownym uruchomieniu urządzenia.
+      </string>
+      <string id="SetDenyUriListForRecall">Ustaw listę identyfikatorów URI do filtrowania na podstawie migawek dla funkcji Przypomnienie
+      </string>
+      <string id="SetDenyUriListForRecall_Help">To ustawienie zasad umożliwia zdefiniowanie listy identyfikatorów URI, które nie będą uwzględniane w migawkach dla Przypomnienie, gdy będzie używana obsługiwana przeglądarka. Osoby w organizacji mogą używać ustawień Przypomnienie, aby dodać więcej witryn internetowych do listy. Zdefiniuj listę przy użyciu średnika do oddzielania identyfikatorów URI.
+
+Na przykład: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+Dodanie https://www.WoodgroveBank.com do listy spowoduje również filtrowanie https://Account.WoodgroveBank.com i https://www.WoodgroveBank.com/Account.
+
+Ważne: to ustawienie dotyczy tylko jednostek SKU klientów przedsiębiorstwa i instytucji edukacyjnych. Zmiany tych zasad zaczną obowiązywać po ponownym uruchomieniu urządzenia.
+      </string>
+      <string id="SetDataLossPreventionProvider">Ustaw identyfikator dostawcy DLP dla funkcji Przypomnienie
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Ta zasada umożliwia administratorowi określenie dostawcy DLP, który zostanie użyty przez funkcję Przypomnienie, jeśli dostawca jest poprawnie zainstalowany. Musisz uzyskać ten ciąg od swojego dostawcy. Będzie on wyglądał mniej więcej tak: „klucz:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; wartość:InstallPath; plik binarny:contosoDLP.dll” (bez cudzysłowów w wartości).
+
+Ważne: to ustawienie dotyczy tylko jednostek SKU klienta dla przedsiębiorstw i instytucji edukacyjnych.
+      </string>
+      <string id="SetCopilotHardwareKey">Ustaw klawisz sprzętowy usługi Copilot</string>
+      <string id="SetCopilotHardwareKey_Help">To ustawienie zasad określa, która aplikacja zostanie otwarta, gdy użytkownik naciśnie klawisz Copilot na klawiaturze. Jeśli ta zasada zostanie włączona, określona aplikacja zostanie otwarta, gdy użytkownik naciśnie klawisz funkcji Copilot. Użytkownicy mogą zmienić przypisanie klawiszy w Ustawieniach. Jeśli zasada nie zostanie skonfigurowana, usługa Copilot zostanie otwarta, jeśli jest dostępna w tym kraju lub regionie.
+      </string>
+      <string id="AllowRecallEnablement">Zezwalaj na włączanie funkcji Przypomnienie.
+      </string>
+      <string id="AllowRecallEnablement_Help">To ustawienie zasad umożliwia określenie, czy Przypomnienie opcjonalny składnik jest dostępny dla użytkowników końcowych do włączenia na ich urządzeniu. Domyślnie Przypomnienie jest wyłączone dla zarządzanych urządzeń komercyjnych. Przypomnienie nie jest domyślnie dostępna na urządzeniach zarządzanych, a poszczególni użytkownicy nie mogą samodzielnie włączać Przypomnienie.
+
+Jeśli te zasady nie zostaną skonfigurowane, użytkownicy końcowi będą mieli składnik Przypomnienie w stanie wyłączenia.
+
+Jeśli ta zasada zostanie wyłączona, składnik Przypomnienie będzie wyłączony, a bity Przypomnienie zostaną usunięte z urządzenia. Jeśli migawki zostały wcześniej zapisane na urządzeniu, zostaną usunięte po wyłączeniu tych zasad. Usunięcie Przypomnienie wymaga ponownego uruchomienia urządzenia.
+
+Jeśli te zasady zostaną włączone, użytkownicy końcowi będą mieli Przypomnienie dostępne na swoich urządzeniach. W zależności od stanu zasad DisableAIDataAnalysis (wyłącz zapisywanie migawek do użycia z Przypomnienie), użytkownicy końcowi będą mogli określić, czy chcą zapisywać migawki swojego ekranu, i używać Przypomnienie do znajdowania elementów widocznych na urządzeniu.
+      </string>
+      <string id="DisableClickToDo">Wyłącz funkcję Kliknij, aby wykonać</string>
+      <string id="DisableClickToDo_Help">Funkcja Kliknij, aby wykonać umożliwia użytkownikom podejmowanie działań na podstawie zawartości wyświetlanej na ich ekranach. Po aktywacji wykonuje zrzut ekranu i analizuje go w celu przedstawienia działań. Funkcja Kliknij, aby wykonać kończy działanie po jej zamknięciu i nie może wykonywać zrzutów ekranu, gdy jest zamknięta. Analiza zrzutów ekranu jest zawsze wykonywana lokalnie na urządzeniu użytkownika. Domyślnie funkcja Kliknij, aby wykonać jest włączona dla użytkowników.
+
+To ustawienie zasad pozwala określić, czy funkcja Kliknij, aby wykonać jest dostępna dla użytkowników na ich urządzeniach.
+
+Gdy te zasady są włączone, składnik Kliknij, aby wykonać i punkty wejścia nie będą dostępne dla użytkowników.
+
+Gdy te zasady są wyłączone, użytkownicy będą mieli dostęp do funkcji Kliknij, aby wykonać na swoich urządzeniach.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">Wyłącz Kreatora obrazów</string>
+      <string id="DisableImageCreator_Help">To ustawienie zasad umożliwia określenie, czy funkcja Kreator Obrazów jest wyłączona w aplikacji Windows Paint. Jeśli te zasady zostaną włączone, Kreator Obrazów funkcjonalność nie będzie dostępna w aplikacji Paint. Jeśli te zasady zostaną wyłączone lub nie zostaną skonfigurowane, użytkownicy będą mogli uzyskiwać dostęp do Kreator Obrazów funkcji.</string>
+      <string id="DisableCocreator">Wyłącz Współtwórcę</string>
+      <string id="DisableCocreator_Help">To ustawienie zasad umożliwia określenie, czy funkcja cocreator jest wyłączona w aplikacji Windows Paint. Jeśli te zasady zostaną włączone, funkcja Cocreator nie będzie dostępna w aplikacji Paint. Jeśli te zasady zostaną wyłączone lub nie zostaną skonfigurowane, użytkownicy będą mogli uzyskiwać dostęp do funkcji cocreator.</string>
+      <string id="DisableGenerativeFill">Wyłącz generatywne wypełnianie</string>
+      <string id="DisableGenerativeFill_Help">To ustawienie zasad umożliwia określenie, czy funkcja generowania wypełnienia jest wyłączona w aplikacji Windows Paint. Jeśli te zasady zostaną włączone, funkcja generowania wypełnienia nie będzie dostępna w aplikacji Paint. Jeśli te zasady zostaną wyłączone lub nie zostaną skonfigurowane, użytkownicy będą mogli uzyskiwać dostęp do funkcji generowania wypełnienia.</string>
+      <string id="AllowRecallExport">Zezwalaj na eksport informacji o funkcji Przypomnienie i migawkach</string>
+      <string id="AllowRecallExport_Help">Te zasady umożliwiają określenie, czy użytkownicy mogą eksportować własne informacje z funkcji Przypomnienie i migawki. Eksportowanie umożliwia użytkownikom udostępnianie informacji z funkcji Przypomnienie i migawek zaufanym aplikacjom lub witrynom internetowym. Użytkownicy mogą eksportować z obszaru Ustawienia &gt; Prywatność i zabezpieczenia &gt; Przypomnienie i migawki &gt; Ustawienia zaawansowane &gt; Eksportowanie migawek &gt; Eksportowanie wcześniejszych migawek &gt; Eksportuj.
+
+Użytkownicy mogą również zdecydować się na ciągłe eksportowanie swoich migawek, jeśli włączą opcję Eksportuj migawki od teraz w obszarze Ustawienia &gt; Prywatność i zabezpieczenia &gt; Przypomnienie i migawki &gt; Ustawienia zaawansowane &gt; Eksportowanie migawek &gt; Eksportuj.
+
+Przed rozpoczęciem eksportu użytkownik musi uwierzytelnić się za pomocą funkcji Windows Hello i zostanie powiadomiony, że wyeksportowane migawki są zaszyfrowane, ponieważ mogą zawierać informacje poufne. Użytkownik jest również powiadamiany, że będzie musiał podać swój kod eksportu funkcji Przypomnienie, jeśli chce zezwolić zaufanym aplikacjom lub witrynom internetowym na dostęp do wyeksportowanych migawek. Kod eksportu funkcji Recall jest wyświetlany użytkownikom podczas konfiguracji funkcji Recall, nawet jeśli ta zasada jest wyłączona lub nie została skonfigurowana. W przypadku urządzeń zarządzanych:
+
+Po włączeniu tej zasady użytkownicy będą mogli eksportować informacje z funkcji Przypomnienie i migawek.
+
+Jeśli te zasady są wyłączone lub nie zostały skonfigurowane, użytkownicy nie będą mogli eksportować swoich informacji z funkcji Przypomnienie i migawek.
+
+Ważne: to ustawienie dotyczy tylko urządzeń w Europejskim Obszarze Gospodarczym (EOG). Eksport informacji z funkcji Przypomnienie i migawek jest procesem inicjowanym przez użytkownika i dotyczy każdego użytkownika. Administratorzy IT lub inni użytkownicy nie mogą zainicjować eksportu w imieniu innej osoby.
+      </string>
+      <string id="DisableSettingsAgent">Wyłącz środowisko wyszukiwania agentowego w aplikacji Ustawienia</string>
+      <string id="DisableSettingsAgent_Help">Środowisko wyszukiwania agentowego ustawień poprawia wyniki wyszukiwania w aplikacji Ustawienia, umożliwiając korzystanie z języka naturalnego. Po aktywowaniu wykorzystuje model sztucznej inteligencji, aby zapewnić inteligentne sugestie wyszukiwania w aplikacji Ustawienia.
+
+        To ustawienie zasad pozwala określić, czy funkcja wyszukiwania agentowego w aplikacji Ustawienia jest dostępna dla użytkowników na ich urządzeniach.
+
+        Gdy zasady są włączone, środowisko wyszukiwania agentowego w aplikacji Ustawienia jest wyłączone, ograniczając wyniki wyszukiwania do wyszukiwania indeksowanego statycznie i wyszukiwania semantycznego.
+
+        Gdy zasady są wyłączone, użytkownicy będą mieli dostęp do funkcji wyszukiwania agentowego w aplikacji Ustawienia na swoim urządzeniu.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Poziom rejestrowania w rejestrze na urządzeniu</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">To ustawienie zasad umożliwia skonfigurowanie poziomu rejestrowania dla operacji rejestru na urządzeniu.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Błąd lub wyższy</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Informacje lub wyższy</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Debugowanie lub wyższy</string>
+      <string id="RemoveMicrosoftCopilotApp">Usuń aplikację Microsoft Copilot</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">To ustawienie zasad umożliwia ukierunkowane odinstalowanie aplikacji Microsoft Copilot dla użytkowników. Będzie ono miało zastosowanie do urządzeń/użytkowników spełniających poniższe warunki:
+
+• Aplikacje Microsoft 365 Copilot i Microsoft Copilot są zainstalowane
+
+• Aplikacja Microsoft Copilot nie została zainstalowana przez użytkownika
+
+• Aplikacja Microsoft Copilot nie została uruchomiona w ciągu ostatnich 28 dni
+ 
+Jeśli ta zasada zostanie włączona, aplikacja Microsoft Copilot zostanie odinstalowana. Użytkownicy nadal mogą ponownie ją zainstalować, jeśli zechcą. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>Wprowadź identyfikator AUMID aplikacji</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Wprowadź listę aplikacji odmowy:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Wprowadź listę identyfikatorów URI odmowy:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>Wprowadź identyfikator dostawcy DLP:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Wybierz maksymalną ilość miejsca do magazynowania:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Wybierz maksymalny czas trwania przechowywania:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Poziom rejestrowania w rejestrze na urządzeniu: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

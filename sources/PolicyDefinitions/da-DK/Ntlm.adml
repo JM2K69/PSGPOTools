@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>NTLM-indstillinger</displayName>
+  <description>Konfigurationsindstillinger for NTLM-sikkerhedspakken.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">Udvidet NTLM-logføring</string>
+      <string id="EnhancedAuditsId_Explain">Denne politikindstilling gør det muligt for NTLM-sikkerhedspakken at logføre de nye, udvidede overvågningslogge for både klienter og servere.
+
+      Disse udvidede logge indeholder oplysninger om, hvad der bruger NTLM, hvorfor NTLM anvendes, og destinationen for NTLM-godkendelsesanmodningen. De indeholder også oplysninger om brugen af NTLMv1 og andre sikkerhedsnedgraderinger.
+
+      Hvis du aktiverer eller ikke konfigurerer denne politik, vil de nye overvågningslogge blive genereret. Hvis du deaktiverer politikken, genereres de nye logge ikke.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">Udvidet NTLM-blokering</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Denne politikindstilling gør det muligt for NTLM-sikkerhedspakken at blokere NTLM-godkendelsesanmodninger baseret på de nye, forbedrede blokeringspolitikker på maskineniveau.
+
+      Disse forbedrede blokeringspolitikker giver dig mulighed for at blokere NTLM-godkendelse baseret på nye kriterier, såsom kontotypen, enhedens rolle eller programtypen.
+
+      Hvis den overordnede politik er indstillet til "Deaktiveret" eller "Ikke konfigureret", træder underindstillingerne nedenfor ikke i kraft. Hvis den overordnede politik er indstillet til "Aktiveret", træder underpolitikkerne nedenfor i kraft i henhold til deres konfiguration.
+
+      Medmindre andet er konfigureret, er alle politikker indstillet til "Overvågning". Politikker, der er sat til "Overvågning", logfører en advarsel om den NTLM-anmodning, der kunne være blevet blokeret, men blokerer den ikke. Flere politikker markeret som "Overvågning" kan være aktiveret samtidig, og de logføres i en samlet hændelseslog.
+
+      Hvis en politik er markeret som "Aktiveret", blokeres NTLM-godkendelsesanmodningen, hvis den opfylder politikkens kriterier. Hvis flere politikker er markeret som "Aktiveret", blokeres NTLM-godkendelsesanmodningen, hvis den opfylder kriterierne i en hvilken som helst af politikkerne. Der oprettes en hændelseslog for den første politik, der blokerer NTLM-godkendelsen. 
+
+      I tilfælde, hvor både "Overvågning"- og "Aktiveret"-politikker er til stede, har "Aktiveret"-politikken forrang.
+
+      Alle de forbedrede blokeringspolitikker, der er beskrevet her, deler den samme tilladelsesliste, som angiver de konti, enheder og programmer, der har tilladelse til at bruge NTLM-godkendelse. Tilladelseslisten kan indeholde en række destinationsnavne eller SPN'er, der tillader godkendelsen. 
+
+      Hvis du vil vide mere, skal du besøge aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Deaktiveret</string>
+      <string id="Audit">Overvågning</string>
+      <string id="Enabled">Aktiveret</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Bloker NTLM for domænekonti med enkeltlogon</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">Bloker NTLM for domænecontrollere</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">Bloker NTLM, når maskinbinding mislykkes</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Bloker al NTLM-godkendelse</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Angiv tilladelseslisten for udvidede blokeringspolitikker:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

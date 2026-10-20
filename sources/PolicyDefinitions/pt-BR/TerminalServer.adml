@@ -5,6 +5,8 @@
   <description>digite a descrição aqui</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Habilitar assinatura automática</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Controla a lista de URLs para as quais o usuário deve ser inscrito automaticamente</string>
       <string id="TS_SUPPORTED_Windows10">Pelo menos Windows 10 ou Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">Windows 8 ou Windows RT ou posterior</string>
       <string id="TS_SUPPORTED_Windows8_Server">No mínimo, o Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">Windows XP e Windows Server 2003 ou posterior</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">Windows Server 2008 ou Windows 7 ou posterior</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  Windows Server 2008 R2 somente</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 versão 1903, Windows 10 versão 1909 e Windows 10 versão 2004</string>
       <string id="TS_TERMINAL_SERVER">Host de Sessão da Área de Trabalho Remota</string>
       <string id="TS_TERMINAL_SERVER_Help">Controla a configuração de um servidor Host de Sessão da Área de Trabalho Remota</string>
       <string id="TS_LICENSE_SERVER">Licenciamento RD</string>
@@ -128,22 +131,22 @@ Se você desabilitar esta configuração ou não defini-la, o usuário poderá s
 Se você habilitar esta configuração, a caixa de seleção para salvar a credencial na Conexão de Área de Trabalho Remota será desabilitada, e os usuários não poderão mais salvar senhas. Quando um usuário abrir um arquivo RDP usando a Conexão de Área de Trabalho Remota e salvar suas configurações, todas as senhas que existirem no arquivo RDP serão excluídas.
 
 Se você desabilitar esta configuração ou não defini-la, o usuário poderá salvar senhas usando a Conexão de Área de Trabalho Remota.</string>
-      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">Esta configuração de política especifica se deve ser impedido o mapeamento de unidades cliente em uma sessão dos Serviços de Área de Trabalho Remota (redirecionamento de unidade).
+      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">Essa configuração de política especifica se o mapeamento de unidades de cliente deve ser impedido em uma sessão Serviços de Área de Trabalho Remota (redirecionamento de unidade).
 
-Por padrão, o servidor Host da Sessão RD mapeia automaticamente unidades cliente na conexão. As unidades mapeadas aparecem na árvore de pastas da sessão no Explorador de Arquivos ou em Meu Computador, no formato &lt;letra_da_unidade&gt; em &lt;nome_do_computador&gt;. Esta configuração de política pode ser usada para substituir esse comportamento.
+por padrão, um servidor Host da Sessão RD mapeia as unidades de cliente automaticamente após a conexão. As unidades mapeadas aparecem na árvore de pastas de sessão Explorador de Arquivos ou Computador no formato &lt;driveletter&gt; em &lt;computername&gt;. Você pode usar essa configuração de política para substituir esse comportamento.
 
-Se você habilitar essa configuração de política, o redirecionamento de unidade do cliente não será permitido nas sessões de Serviços de Área de Trabalho Remota, e o redirecionamento de cópia de arquivo na área de transferência não será permitido em computadores com Windows Server 2003, Windows 8 e Windows XP.
+Se você habilitar essa configuração de política, o redirecionamento de unidade de cliente não será permitido em sessões do Serviços de Área de Trabalho Remota e o redirecionamento de cópia de arquivo da área de transferência não será permitido em computadores que executam o Windows XP, o Windows Server 2003, o Windows Server 2012 (e posterior) ou o Windows 8 (e posterior).
 
-Se você desabilitar essa configuração de política, o redirecionamento de unidade do cliente será sempre permitido. Além disso, o redirecionamento da cópia de arquivos da Área de transferência é sempre permitido se o redirecionamento da Área de transferência for permitido.
+Se você desabilitar essa configuração de política, o redirecionamento de unidade de cliente sempre será permitido. Além disso, o redirecionamento de cópia de arquivo da Área de Transferência sempre será permitido se o redirecionamento da Área de Transferência for permitido.
 
-Se você não definir esta configuração de política, o redirecionamento de unidades cliente e da cópia de arquivo da Área de transferência não será especificado no nível da Política de Grupo.
-
+Se você não definir essa configuração de política, o redirecionamento de unidade de cliente e o redirecionamento de cópia de arquivo da área de transferência não serão especificados no nível Política de Grupo.
 </string>
       <string id="TS_CLIENT_DRIVE_M">Não permitir redirecionamento de unidade</string>
       <string id="TS_CLIENT_HELP">Controla as configurações do cliente de Conexão de Área de Trabalho Remota</string>
       <string id="TS_CLIENT_LPT">Não permitir redirecionamento de porta LPT</string>
       <string id="TS_CLIENT_PNP">Não permitir redirecionamento de dispositivo Plug and Play suportado</string>
       <string id="TS_CAMERA_REDIRECTION">Não permitir redirecionamento de captura de vídeo</string>
+      <string id="TS_LOCATION_REDIRECTION">Não permitir redirecionamento de local</string>
       <string id="TS_CLIENT_PRINTER">Não permitir redirecionamento de impressoras cliente</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">Esta configuração de política especifica se é deve ser impedido o compartilhamento de conteúdo da Área de Transferência (redirecionamento da Área de Transferência) entre um computador remoto e um computador cliente durante uma sessão dos Serviços de Área de Trabalho Remota.
 
@@ -208,6 +211,15 @@ Se você habilitar essa configuração de política, os usuários não poderão 
 
 Se você desabilitar ou não definir essa configuração de política, os usuários poderão redirecionar seus dispositivos de captura de vídeo para o computador remoto. Os usuários podem usar a opção Mais na guia Recursos Locais da Conexão de Área de Trabalho Remota para escolher os dispositivos de captura de vídeo que serão redirecionados para o computador remoto.
 
+</string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">Essa configuração de política permite controlar o redirecionamento dos dados de localização para o computador remoto em uma sessão dos serviços de área de trabalho remota.
+
+Por padrão, os serviços de área de trabalho remota permitem o redirecionamento dos dados de localização.
+
+Se você habilitar essa configuração de política, os usuários não poderão redirecionar os dados de localização para o computador remoto.
+
+Se você desabilitar ou não definir essa configuração de política, os usuários poderão redirecionar seus dados de localização para o computador remoto.
+          
 </string>
       <string id="TS_MAXMONITOR_EXPLAIN">Esta configuração de política permite limitar o número de monitores que podem ser usados para exibir uma sessão dos Serviços de Área de Trabalho Remota. Esse procedimento pode melhorar o desempenho da conexão, especialmente em links lentos, e reduzir a carga do servidor.
 
@@ -420,19 +432,19 @@ Se você habilitar esta configuração de diretiva, essas notificações não se
 Se a desabilitar ou não a definir, essas notificações serão exibidas no servidor Host de Sessão da Área de Trabalho Remota quando você fizer logon como administrador local.</string>
       <string id="TS_LICENSING_MODE">Definir o modo de licenciamento da Área de Trabalho Remota</string>
       <string id="TS_LICENSING_MODE_EXPLAIN">
-        Esta configuração de política permite especificar o tipo de licença de acesso para cliente aos Serviços de Área de Trabalho Remota necessário para se conectar a esse servidor Host da Sessão da Área de Trabalho Remota.
+        Esta configuração de política permite especificar o tipo de licença de acesso para cliente aos Serviços de Área de Trabalho Remota (RDS CAL) necessária para se conectar a este servidor Host da Sessão da Área de Trabalho Remota.
 
-        Você pode usar esta configuração de política para selecionar um dos três modos de licenciamento: Por Usuário, Por Dispositivo e Por Usuário do AAD.
+        Você pode usar essa configuração de política para selecionar um dos dois modos de licenciamento: Por Usuário ou Por Dispositivo.
 
-        O modo de licenciamento Por Usuário exige que cada conta de usuário que se conecte a esse servidor Host da Sessão da Área de Trabalho Remota tenha uma CAL por Usuário aos Serviços de Área de Trabalho Remota emitida por um Servidor de Licenciamento de Área de Trabalho Remota.
+        O Modo de licenciamento Por Usuário exige que todas as contas de usuário que se conectam a esse servidor Host da Sessão da Área de Trabalho Remota tenham uma licença de acesso para cliente Por Usuário aos Serviços de Terminal emitida por um servidor de Licenciamento de Área de Trabalho Remota.
 
-        O modo de licenciamento Por Dispositivo exige que cada dispositivo que se conecte a esse servidor Host da Sessão da Área de Trabalho Remota tenha uma CAL por Dispositivo aos Serviços de Área de Trabalho Remota emitida por um Servidor de Licenciamento de Área de Trabalho Remota.
+        O modo de licenciamento Por Dispositivo exige que todos os dispositivos que se conectam a esse servidor Host da Sessão da Área de Trabalho Remota tenham uma licença de acesso para cliente Por Usuário aos Serviços de Terminal emitida por um servidor de Licenciamento de Área de Trabalho Remota.
 
-        O modo de licenciamento Por Usuário do AAD requer que cada conta de usuário que se conecta a este servidor Host da Sessão da Área de Trabalho Remota tenha um plano de serviço que dê suporte a licenças do RDS atribuídas no AAD.
-        
-        Se você habilitar esta configuração de política, o modo de licenciamento de Área de Trabalho Remota especificado será respeitado pelo servidor de licenças da Área de Trabalho Remota e o Host da Sessão da Área de Trabalho Remota.
+        Se você habilitar essa configuração de política, o modo de licenciamento de Área de Trabalho Remota especificado por você será respeitado pelo servidor de licenciamento de Área de Trabalho Remota e pelo Host da Sessão RD.
 
-        Se você desabilitar ou não definir esta configuração de política, o modo de licenciamento não será especificado no nível da Política de Grupo.
+        Se você desabilitar ou não definir essa configuração de política, o modo de licenciamento não será especificado no nível de Política de Grupo.
+
+        Observação: o modo AAD Por Usuário foi preterido no Windows 11 e superior.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Por Dispositivo</string>
       <string id="TS_LICENSING_MODE_PER_USER">Por Usuário</string>
@@ -609,6 +621,17 @@ Se você desabilitar ou não definir esta configuração de política, o método
       <string id="TS_SECURITY_LAYER_POLICY">Solicitar o uso de camada de segurança específica para conexões remotas (RDP)</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Habilitar a Imposição da Autenticação do Microsoft Entra ID</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">Esta configuração de política permite especificar se é necessário exigir a aplicação da autenticação do Microsoft Entra ID no lado do servidor.
+
+Se você habilitar esta configuração de política, todos os clientes dos Serviços de Área de Trabalho Remota deverão usar a Autenticação AAD do RDS para se autenticar nos servidores de Host da Sessão RD. 
+
+Essa política não permite o uso de outros métodos de autenticação. 
+
+A Autenticação no Nível da Rede (NLA) precisa estar habilitada para que esta política seja efetiva. Consulte a política “Exigir autenticação do usuário para conexões remotas usando Autenticação no Nível da Rede”.
+
+Se você desativar ou não configurar esta configuração de política, a Imposição de Autenticação do Microsoft Entra ID não será aplicada.
+</string>
       <string id="TS_Session_End_On_Limit">Encerrar sessão quando os limites de tempo forem atingidos</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">Esta configuração de política especifica se uma sessão dos Serviços de Área de Trabalho Remota, por ter atingido o tempo limite, deve ser encerrada em vez de ser desconectada.
 
@@ -787,6 +810,79 @@ Se você habilitar esta configuração de diretiva, a área de trabalho remota s
 Se você desabilitar ou não definir esta configuração de diretiva, um programa inicial poderá ser especificado para ser executado no computador remoto quando o cliente se conectar a ele. Se um programa inicial não for especificado, a área de trabalho sempre será exibida no computador remoto após a conexão do cliente com o computador remoto.
 
 Observação: se esta configuração de diretiva for habilitada, a definição "Iniciar um programa na conexão" será ignorada.</string>
+      <string id="TS_UIA">Permitir redirecionamento de automação de interface do usuário</string>
+      <string id="TS_UIA_EXPLAIN">Essa configuração de política determina se os aplicativos cliente de automação da interface do usuário que estão sendo executados no computador local podem acessar elementos de UI no servidor.
+
+A automação da interface do usuário fornece acesso aos programas para a maioria dos elementos de interface do usuário, que permite que você use produtos de tecnologia assistencial, como a lupa e o narrador, que precisam interagir com a interface do usuário para que funcionem corretamente. As informações da interface do usuário também permitem que scripts de teste automático interajam com a interface do usuário.
+
+As sessões da área de trabalho remota não oferecem suporte ao redirecionamento de automação da IU.
+
+Se você habilitar ou não definir essa configuração de política, qualquer cliente de automação da interface do usuário no computador local poderá interagir com os aplicativos remotos. Por exemplo, você pode usar os clientes do narrador e da lupa do seu computador local para interagir com a interface do usuário em uma página da Web que você abriu em uma sessão remota.
+
+Se você desabilitar essa configuração de política, os clientes de automação de interface do usuário que estiverem em execução no computador local não poderão interagir com os aplicativos remotos.
+</string>
+      <string id="TS_WEBAUTHN">Não permitir redirecionamento de WebAuthn</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">Essa definição de política permite controlar o redirecionamento de solicitações de autenticação da Web (WebAuthN) a partir de uma sessão da Área de Trabalho Remota para o dispositivo local. Esse redirecionamento permite que os usuários se autentiquem em recursos dentro da sessão da Área de Trabalho Remota usando seu autenticador local (por exemplo, Windows Hello para Empresas, chave de segurança ou outro).
+
+Por padrão, a Área de Trabalho Remota permite o redirecionamento de solicitações WebAuthn.
+
+Se você habilitar essa definição de política, os usuários não poderão usar seu autenticador local dentro da sessão da Área de Trabalho Remota.
+
+Se você desabilitar ou não configurar essa definição de política, os usuários poderão utilizar autenticadores locais dentro da Sessão de Área de Trabalho Remota.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">Desabilitar transferências da área de transferência do servidor para o cliente</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">Desabilitar transferências da área de transferência do cliente para o servidor</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Permitir texto sem formatação</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Permitir texto sem formatação e imagens</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Permitir texto sem formatação, imagens e Formato Rich Text</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Permitir texto sem formatação, imagens, Formato Rich Text e HTML</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">Restringir a transferência da área de transferência do servidor para o cliente</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">Essa configuração de política permite restringir transferências de dados da área de transferência de servidor para cliente.
+
+Se você habilitar essa configuração de política, deverá escolher um dos seguintes comportamentos:
+
+- Desabilitar transferências de área de transferência de servidor para cliente.
+
+- Permitir cópia de texto sem formatação do servidor para o cliente.
+
+- Permitir a cópia de texto sem formatação e imagens do servidor para o cliente.
+
+- Permitir texto sem formatação, imagens e Cópia de Formato Rich Text de servidor para cliente.
+
+- Permitir texto sem formatação, imagens, Formato Rich Text e cópia HTML de servidor para cliente.
+
+Se você desabilitar ou não definir essa configuração de política, os usuários poderão copiar conteúdo arbitrário de servidor para cliente se o redirecionamento da área de transferência estiver habilitado.
+
+Observação: essa configuração de política aparece na Configuração do Computador e na Configuração do Usuário. Se ambas as configurações de política forem definidas, a restrição mais estrita será usada.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">Restringir a transferência da área de transferência do cliente para o servidor</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">Esta configuração de política permite restringir transferências de dados da área de transferência de cliente para servidor.
+
+Se você habilitar essa configuração de política, deverá escolher um dos seguintes comportamentos:
+
+- Desabilitar transferências de área de transferência de cliente para servidor.
+
+- Permitir cópia de texto sem formatação do cliente para o servidor.
+
+- Permitir a cópia de texto sem formatação e imagens do cliente para o servidor.
+
+- Permitir texto sem formatação, imagens e Formato Rich Text copiando do cliente para o servidor.
+
+- Permitir texto sem formatação, imagens, Formato Rich Text e cópia HTML do cliente para o servidor.
+
+Se você desabilitar ou não definir essa configuração de política, os usuários poderão copiar conteúdo arbitrário de cliente para servidor se o redirecionamento da área de transferência estiver habilitado.
+
+Observação: essa configuração de política aparece na Configuração do Computador e na Configuração do Usuário. Se ambas as configurações de política forem definidas, a restrição mais estrita será usada.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Desabilitar a integração da Área de Transferência de Nuvem para transferência de dados de servidor para cliente</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">Essa configuração de política permite controlar se os dados transferidos da sessão remota para o cliente usando o redirecionamento da área de transferência são adicionados à Área de Transferência de Nuvem do lado do cliente.
+
+Por padrão, o Área de Trabalho Remota desabilita a integração com a Área de Transferência de Nuvem do lado do cliente para dados transferidos da sessão remota usando o redirecionamento da área de transferência.
+
+Se você habilitar ou não definir essa configuração de política, os dados copiados na sessão remota e colados no cliente não serão adicionados à Área de Transferência de Nuvem do lado do cliente.
+
+Se você desabilitar essa configuração de política, os dados copiados na sessão remota e colados no cliente serão adicionados à Área de Transferência de Nuvem do lado do cliente (se habilitado).
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">Esta configuração de política permite especificar se deve ser exigida a autenticação do usuário para conexões remotas ao servidor Host da Sessão RD (Área de Trabalho Remota) usando Autenticação no Nível da Rede. Esta configuração de política aumenta a segurança exigindo que a autenticação do usuário ocorra mais cedo no processo de conexão remota.
 
 Se você habilitar esta configuração de política, somente computadores cliente com suporte à Autenticação no Nível da Rede poderão se conectar ao servidor Host da Sessão RD.
@@ -801,6 +897,24 @@ Importante: a desabilitação dessa configuração de política oferece menor se
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Solicitar autenticação de usuário de conexões remotas usando Autenticação no Nível da Rede</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Desconectar sessão remota no bloqueio para autenticação herdada</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">Essa configuração de política permite configurar a experiência do usuário quando a sessão da Área de Trabalho Remota é bloqueada pelo usuário ou por uma política. Você pode especificar se a sessão remota mostrará a tela de bloqueio remoto ou será desconectada quando a sessão remota for bloqueada. Desconectar a sessão remota garante que uma sessão remota não possa ser deixada na tela de bloqueio e não possa ser reconectada automaticamente devido à perda de conectividade de rede.
+
+Essa política se aplica somente ao usar a autenticação herdada para autenticar no PC remoto. A autenticação legada é limitada a nome de usuário e senha ou certificados como cartões inteligentes. A autenticação herdada não aproveita a plataforma de identidade da Microsoft, como o Microsoft Entra ID. A autenticação legada inclui os protocolos de autenticação básicos NTLM, CredSSP, RDSTLS, TLS e RDP.
+
+Se você habilitar essa configuração de política, as conexões de Área de Trabalho Remota que usam autenticação herdada desconectarão a sessão remota quando ela for bloqueada. Os usuários poderão se reconectar quando estiverem prontos e inserir novamente suas credenciais quando solicitado.
+
+Se você desabilitar ou não definir essa configuração de política, as conexões de Área de Trabalho Remota que usam autenticação herdada mostrarão a tela de bloqueio remoto quando a sessão remota for bloqueada. Os usuários podem desbloquear a sessão remota usando nome de usuário e senha ou certificados.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Desconectar sessão remota no bloqueio para plataforma de identidade da Microsoft autenticação</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">Essa configuração de política permite configurar a experiência do usuário quando Área de Trabalho Remota sessão de grupo é bloqueada pelo usuário ou por uma política. Você pode especificar se a sessão remota mostrará a tela de bloqueio remota ou desconectará quando a sessão remota estiver bloqueada. Desconectar a sessão remota garante que uma sessão remota não pode ser deixada na tela de bloqueio e não pode se reconectar automaticamente devido à perda de conectividade de rede.
+
+Esta política se aplica somente ao usar um provedor de identidade que usa o plataforma de identidade da Microsoft, como Microsoft Entra ID, para autenticar no computador remoto. Esta política não se aplica ao usar a autenticação Herdada que inclui os protocolos de autenticação básica NTLM, CredSSP, RDSTLS, TLS e RDP.
+
+Se você habilitar ou não definir essa configuração de política, Área de Trabalho Remota conexões que usam o plataforma de identidade da Microsoft desconectará a sessão remota quando a sessão remota estiver bloqueada. Os usuários podem se reconectar quando estiverem prontos e podem usar a autenticação sem senha, se configurado.
+
+Se você desabilitar essa configuração de política, Área de Trabalho Remota conexões que usam o plataforma de identidade da Microsoft mostrarão a tela de bloqueio remota quando a sessão remota estiver bloqueada. Os usuários podem desbloquear a sessão remota usando seu nome de usuário e senha, ou certificados.
+</string>
       <string id="TS_User_Help">Controla a configuração das tecnologias dos Serviços de Área de Trabalho Remota que permitem o acesso a um servidor que executa programas baseados no Windows ou a área de trabalho do Windows completa</string>
       <string id="TS_USER_HOME">Definir Diretório Base de Usuário dos Serviços de Área de Trabalho Remota</string>
       <string id="TS_USER_HOME_EXPLAIN">Especifica se os Serviços de Área de Trabalho Remota usam o caminho do diretório local ou o compartilhamento de rede especificado como raiz do diretório base do usuário para uma sessão dos Serviços de Área de Trabalho Remota.
@@ -901,36 +1015,44 @@ Se você desabilitar esta configuração de diretiva, os usuários não poderão
 Observação: esta configuração de diretiva poderá ser definida no nó Configuração do Computador ou Configuração do Usuário. Se você a definir em um computador, todos os seus usuários serão afetados.
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Especificar impressões digitais SHA1 dos certificados que representem editores confiáveis de .rdp</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Esta configuração de diretiva permite especificar uma lista de impressões digitais de certificados Secure Hash Algorithm 1 (SHA1) que representem fornecedores confiáveis de arquivo .rdp.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Especificar impressões digitais de certificados que representam publicadores .rdp confiáveis</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Esta configuração de política permite especificar uma lista de impressões digitais de certificados que representam editores confiáveis de arquivos do Protocolo de Área de Trabalho Remota (.rdp). Há suporte para impressões digitais SHA-256, SHA-384 e SHA-512. As impressões digitais SHA-1 estão preteridas: SHA-1 não é mais considerado seguro e o suporte a impressões digitais SHA-1 será desabilitado por padrão em uma atualização de segurança futura. Os Administradores devem migrar todas as entradas de impressão digital para SHA-256 ou mais forte o mais rápido possível.
 
-Se você habilitá-la, qualquer certificado que tenha uma impressão digital SHA1 que corresponda a uma impressão digital da lista será confiável. Se um usuário tentar iniciar um arquivo .rdp assinado por um certificado confiável, ele não receberá mensagens de aviso. Para obter a impressão digital, exiba os detalhes do certificado e clique no campo Impressão Digital.
+As impressões digitais podem vir com o prefixo do algoritmo de hash usado para gerá-las. Os prefixos com suporte são "sha256:", "sha384:" e "sha512:" (não diferencia maiúsculas de minúsculas). Por exemplo: sha256:AB0356F2... Se nenhum prefixo for especificado, a entrada será tratada como uma impressão digital SHA-1 herdada.
 
-Se você desabilitar ou não definir esta configuração de diretiva, nenhum fornecedor será tratado como fornecedor confiável de .rdp.
+Se a caixa de seleção "Não permitir impressões digitais SHA-1" estiver habilitada, as entradas sem prefixo serão ignoradas. Só serão correspondidas impressões digitais SHA-256, SHA-384 e SHA-512. É altamente recomendável habilitar essa caixa de seleção agora para se preparar para a próxima alteração padrão.
+
+Se você habilitar esta configuração de política, qualquer certificado cuja impressão digital corresponda a uma impressão digital da lista será confiável. Se um usuário tentar iniciar um arquivo .rdp assinado por um certificado confiável, ele não receberá mensagens de aviso.
+
+Se você desabilitar ou não configurar esta configuração de política, nenhum editor será tratado como um editor confiável de arquivos .rdp.
 
 Observações:
 
-Essa configuração de diretiva poderá ser definida no nó Configuração do Computador ou Configuração do Usuário. Se essa configuração de diretiva for definida para o computador, a lista de impressões digitais do certificado confiável for uma combinação da lista definida no computador e a lista definida para o usuário.
+Você pode definir esta configuração de política no nó Configuração do Computador ou no nó Configuração do Usuário. Se você configurar esta política para o computador, a lista de impressões digitais de certificados confiáveis para um usuário será a combinação da lista definida para o computador com a lista definida para o usuário.
 
-Essa configuração de diretiva substitui o comportamento da configuração de diretiva "Permitir arquivos .rdp de fornecedores válidos e configurações padrão de .rdp do usuário".
+Esta configuração de política substitui o comportamento da configuração de política "Permitir arquivos .rdp de editores válidos e configurações padrão de .rdp do usuário".
 
 Se a lista contiver uma cadeia de caracteres que não seja uma impressão digital de certificado, ela será ignorada.
 
+Veja https://go.microsoft.com/fwlink/?LinkId=2368223 para obter mais informações.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Esta configuração de diretiva permite especificar uma lista de impressões digitais de certificados Secure Hash Algorithm 1 (SHA1) que representem editores confiáveis de arquivo .rdp.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Esta configuração de política permite especificar uma lista de impressões digitais de certificados que representam editores confiáveis de arquivos do Protocolo de Área de Trabalho Remota (.rdp). Há suporte para impressões digitais SHA-256, SHA-384 e SHA-512. As impressões digitais SHA-1 estão preteridas: SHA-1 não é mais considerado seguro e o suporte a impressões digitais SHA-1 será desabilitado por padrão em uma atualização de segurança futura. Os usuários devem migrar todas as entradas de impressão digital para SHA-256 ou mais forte o mais rápido possível.
 
-Se você habilitá-la, qualquer certificado que tenha uma impressão digital SHA1 que corresponda a uma impressão digital da lista será confiável. Se um usuário tentar iniciar um arquivo .rdp assinado por um certificado confiável, ele não receberá mensagens de aviso. Para obter a impressão digital, exiba os detalhes do certificado e clique no campo Impressão Digital.
+As impressões digitais podem vir com o prefixo do algoritmo de hash usado para gerá-las. Os prefixos com suporte são "sha256:", "sha384:" e "sha512:" (não diferencia maiúsculas de minúsculas). Por exemplo: sha256:AB0356F2... Se nenhum prefixo for especificado, a entrada será tratada como uma impressão digital SHA-1 herdada.
 
-Se você desabilitar ou não definir esta configuração de diretiva, nenhum editor será tratado como fornecedor confiável de .rdp.
+Se você habilitar esta configuração de política, qualquer certificado cuja impressão digital corresponda a uma impressão digital da lista será confiável. Se um usuário tentar iniciar um arquivo .rdp assinado por um certificado confiável, ele não receberá mensagens de aviso.
+
+Se você desabilitar ou não configurar esta configuração de política, nenhum editor será tratado como um editor confiável de arquivos .rdp.
 
 Observação:
 
-Você pode definir esta configuração de diretiva no nó Configuração do Computador ou Configuração do Usuário. Se esta configuração de diretiva for definida para o computador, a lista de impressões digitais do certificado confiável for uma combinação da lista definida no computador e da lista definida para o usuário.
+Você pode definir esta configuração de política no nó Configuração do Computador ou no nó Configuração do Usuário. Se você configurar esta política para o computador, a lista de impressões digitais de certificados confiáveis para um usuário será a combinação da lista definida para o computador com a lista definida para o usuário.
 
-Esta configuração de diretiva substitui o comportamento da configuração de diretiva "Permitir arquivos .rdp de editores válidos e configurações padrão de .rdp do usuário".
+Esta configuração de política substitui o comportamento da configuração de política "Permitir arquivos .rdp de editores válidos e configurações padrão de .rdp do usuário".
 
-Se a lista contiver uma cadeia de caracteres que não for uma impressão digital de certificado, ela será ignorada.
+Se a lista contiver uma cadeia de caracteres que não seja uma impressão digital de certificado, ela será ignorada.
 
+Veja https://go.microsoft.com/fwlink/?LinkId=2368223 para obter mais informações.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">Solicitar credenciais no computador cliente</string>
@@ -1018,6 +1140,14 @@ Quando você desabilita essa configuração de política, os programas RemoteApp
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">Habilitar experiência de shell aprimorada para RemoteApp</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">Essa configuração de política habilita uma experiência de shell avançada para sessões RemoteApp, fornecendo suporte para associações de arquivos padrão, chaves de registro Run/RunOnce e muito mais. Essa configuração de política se aplica apenas a sessões RemoteApp e não se aplica a sessões de Área de Trabalho Remota.
+
+Se você habilitar ou não definir essa configuração de política, as sessões RemoteApp nos servidores de Host da Sessão RD terão a experiência de shell avançada.
+
+Se você desabilitar essa definição de política, as sessões do RemoteApp não terão a experiência de shell avançado e usarão o comportamento de shell herdado. Isso pode ser necessário se surgirem problemas de compatibilidade em programas RemoteApp publicados.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1151,21 +1281,20 @@ Observação: programas RemoteApp instalados por meio de Conexões RemoteApp e d
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">Selecionar protocolos de transporte RDP</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Esta configuração de política permite especificar quais protocolos podem ser usados para o protocolo RDP acessar este servidor.
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Essa configuração de política permite especificar quais protocolos podem ser usados para acesso protocolo RDP (RDP) a este servidor.
 
-Se você habilitar esta configuração de política, poderá especificar se prefere que o RDP use UDP.
+Se você habilitar essa configuração de política, deverá especificar se deseja que o RDP use UDP.
 
-É possível selecionar uma das seguintes opções: "Usar UDP e TCP", "Usar somente TCP" ou "Usar UDP ou TCP (padrão)" 
+Você pode selecionar uma das seguintes opções: "Usar UDP, TCP (padrão)" ou "Usar somente TCP" 
 
 Se você selecionar "Usar UDP ou TCP" e a conexão UDP for bem-sucedida, a maior parte do tráfego RDP usará UDP.
 
-Se a conexão UDP não for bem-sucedida ou se você selecionar "Usar somente TCP", todo o tráfego de RDP usará TCP.
+Se a conexão UDP não for bem-sucedida ou se você selecionar "Usar somente TCP", todo o tráfego RDP usará TCP.
 
-Se você desabilitar ou não definir esta configuração de política, o RDP escolherá os protocolos mais adequados para proporcionar a melhor experiência ao usuário.
+Se você desabilitar ou não definir essa configuração de política, o RDP escolherá os protocolos ideais para oferecer a melhor experiência do usuário.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">Usar UDP e TCP</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Usar somente TCP</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">Usar UDP ou TCP</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Usar somente TCP</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Selecionar detecção de rede no servidor</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">Esta configuração de política permite especificar como o protocolo RDP tentará detectar a qualidade da rede (largura de banda e latência).
@@ -1344,12 +1473,13 @@ Observação: A configuração da política habilita o balanceamento de carga de
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Lista separada por vírgula das impressões digitais de certificado confiável SHA1:</label>
+          <label>Lista separada por vírgulas de impressões digitais de certificado confiável (prefixo com sha256:, sha384:, ou sha512:):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">Não permitir impressões digitais SHA-1</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Lista separada por vírgula das impressões digitais de certificado confiável SHA1:</label>
+          <label>Lista separada por vírgulas de impressões digitais de certificado confiável (prefixo com sha256:, sha384:, ou sha512:):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1387,6 +1517,12 @@ Observação: A configuração da política habilita o balanceamento de carga de
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Selecionar Tipo de Transporte</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Restringir a transferência da área de transferência do servidor para o cliente:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Restringir a transferência da área de transferência do cliente para o servidor:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

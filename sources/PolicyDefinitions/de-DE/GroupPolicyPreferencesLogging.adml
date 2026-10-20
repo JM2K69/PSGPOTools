@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>Protokollierungsrichtlinien für Gruppenrichtlinieneinstellung</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">Protokollierung und Nachverfolgung für die Einstellung "Anwendungen" konfigurieren</string>
+      <string id="CSE_Applications_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Anwendungen" konfigurieren und die Nachverfolgung für die Erweiterung "Anwendungen" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Anwendungen" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Abfragen zur Gruppenrichtlinienmodellierung: Um beim Ausführen einer Abfrage zur Gruppenrichtlinienmodellierung Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.
+</string>
+      <string id="CSE_DataSources_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Datenquellen" konfigurieren</string>
+      <string id="CSE_DataSources_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Datenquellen" konfigurieren und die Nachverfolgung für die Erweiterung "Datenquellen" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Datenquellen" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_Devices_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Geräte" konfigurieren</string>
+      <string id="CSE_Devices_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Geräte" konfigurieren und die Nachverfolgung für die Erweiterung "Geräte" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Geräte" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_Drives_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Laufwerkzuordnungen" konfigurieren</string>
+      <string id="CSE_Drives_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Laufwerkzuordnungen" konfigurieren und die Nachverfolgung für die Erweiterung "Laufwerkzuordnungen" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Laufwerkzuordnungen" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_Environment_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Umgebung" konfigurieren</string>
+      <string id="CSE_Environment_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Umgebung" konfigurieren und die Nachverfolgung für die Erweiterung "Umgebung" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Umgebung" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_Files_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Dateien" konfigurieren</string>
+      <string id="CSE_Files_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Dateien" konfigurieren und die Nachverfolgung für die Erweiterung "Dateien" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Dateien" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_FolderOptions_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Ordneroptionen" konfigurieren</string>
+      <string id="CSE_FolderOptions_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Ordneroptionen" konfigurieren und die Nachverfolgung für die Erweiterung "Ordneroptionen" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Ordneroptionen" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_Folders_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Ordner" konfigurieren</string>
+      <string id="CSE_Folders_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Ordner" konfigurieren und die Nachverfolgung für die Erweiterung "Ordner" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Ablaufverfolgung für die Ordnererweiterung für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_IniFiles_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "INI-Dateien" konfigurieren</string>
+      <string id="CSE_IniFiles_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "INI-Dateien" konfigurieren und die Nachverfolgung für die Erweiterung "INI-Dateien" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "INI-Dateien" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_Internet_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Interneteinstellungen" konfigurieren</string>
+      <string id="CSE_Internet_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Interneteinstellungen" konfigurieren und die Nachverfolgung für die Erweiterung "Interneteinstellungen" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Interneteinstellungen" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Lokale Benutzer und Gruppen" konfigurieren</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Lokale Benutzer und Gruppen" konfigurieren und die Nachverfolgung für die Erweiterung "Lokale Benutzer und Gruppen" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Lokale Benutzer und Gruppen" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_NetworkOptions_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Netzwerkoptionen" konfigurieren</string>
+      <string id="CSE_NetworkOptions_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Netzwerkoptionen" konfigurieren und die Nachverfolgung für die Erweiterung "Netzwerkoptionen" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Netzwerkoptionen" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_NetShares_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Netzwerkfreigaben" konfigurieren</string>
+      <string id="CSE_NetShares_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Netzwerkfreigaben" konfigurieren und die Nachverfolgung für die Erweiterung "Netzwerkfreigaben" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Netzwerkfreigaben" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_PowerOptions_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Energieoptionen" konfigurieren</string>
+      <string id="CSE_PowerOptions_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Energieoptionen" konfigurieren und die Nachverfolgung für die Erweiterung "Energieoptionen" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Energieoptionen" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_Printers_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Drucker" konfigurieren</string>
+      <string id="CSE_Printers_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Drucker" konfigurieren und die Nachverfolgung für die Erweiterung "Drucker" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Drucker" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_RegionalOptions_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Regionale Einstellungen" konfigurieren</string>
+      <string id="CSE_RegionalOptions_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Regionale Einstellungen" konfigurieren und die Nachverfolgung für die Erweiterung "Regionale Einstellungen" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Regionale Einstellungen" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_PrefRegistry_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Registrierung" konfigurieren</string>
+      <string id="CSE_PrefRegistry_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Registrierung" konfigurieren und die Nachverfolgung für die Erweiterung "Registrierung" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Ablaufverfolgung für die Registrierungserweiterung für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_ScheduledTasks_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Geplante Aufgaben" konfigurieren</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Geplante Aufgaben" konfigurieren und die Nachverfolgung für die Erweiterung "Geplante Aufgaben" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Geplante Aufgaben" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_Services_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Dienste" konfigurieren</string>
+      <string id="CSE_Services_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Dienste" konfigurieren und die Nachverfolgung für die Erweiterung "Dienste" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Dienste" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_Shortcuts_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Verknüpfungen" konfigurieren</string>
+      <string id="CSE_Shortcuts_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Verknüpfungen" konfigurieren und die Nachverfolgung für die Erweiterung "Verknüpfungen" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Verknüpfungen" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_StartMenu_Logging">Protokollierung und Nachverfolgung für die Einstellungserweiterung "Startmenü" konfigurieren</string>
+      <string id="CSE_StartMenu_Logging_Help">Mit dieser Richtlinieneinstellung können Sie die von der Ereignisprotokollierung aufgezeichnete Detailebene für die Einstellungserweiterung "Startmenü" konfigurieren und die Nachverfolgung für die Erweiterung "Startmenü" aktivieren. Durch Protokollierung und Nachverfolgung werden Diagnoseinformationen für die Fehlerbehebung bereitgestellt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Ereignisprotokollierung konfigurieren und die Nachverfolgung für die Erweiterung "Startmenü" für Clientcomputer aktivieren.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, umfasst die Ereignisprotokollierung für diese Erweiterung gemäß der Standardeinstellung nur Warnungen und Fehler und die Nachverfolgung für diese Erweiterung ist deaktiviert.
+
+Vorsicht bei der Sicherheit: 
+Sichern Sie die konfigurierte Netzwerkfreigabe nur mit den mindestens erforderlichen Berechtigungen. Verwenden Sie keinen umfassenden Zugriff (z. B. ein Standardkonto oder jeder mit Vollzugriff), da dies zu einem nicht autorisierten Zugriff auf Protokollierungs- und Ablaufverfolgungsdaten führen kann.
+
+Hinweise:
+
+1. Nachverfolgung der Benutzerkonfiguration: Um Elemente in dieser Einstellungserweiterung nachzuverfolgen, die unter "Benutzerkonfiguration" aufgeführt sind, müssen Sie im Feld "Benutzernachverfolgung" den Pfad des Speicherorts eingeben, an dem auf dem Clientcomputer eine Datei zur Benutzernachverfolgung erstellt werden kann, und die Option "Nachverfolgung" aktivieren. Wenn unter "Benutzerkonfiguration" in dieser Erweiterung keine Einstellungselemente vorhanden sind, wird keine Datei zur Benutzernachverfolgung erstellt.
+
+2. Nachverfolgung der Computerkonfiguration: Diese Einstellungserweiterung ist nur unter "Benutzerkonfiguration" verfügbar, daher ist die Nachverfolgung der Computerkonfiguration nicht von Bedeutung.
+
+3. Nachverfolgung von Gruppenrichtlinien-Modellierungsabfragen: Um beim Ausführen einer Gruppenrichtlinien-Modellierungsabfrage Elemente in dieser Einstellungserweiterung nachzuverfolgen, müssen Sie im Feld "Planungsnachverfolgung" den Pfad des Speicherorts eingeben, an dem eine Datei zur Planungsnachverfolgung auf dem Computer erstellt werden kann, auf dem die Modellierung ausgeführt wird, und die Option "Nachverfolgung" aktivieren. Wenn Sie keine Gruppenrichtlinienmodellierung durchführen oder keine Einstellungselemente in dieser Erweiterung vorhanden sind, wird keine Datei zur Planungsnachverfolgung erstellt.</string>
+      <string id="CSE_NOCHANGES">Gruppenrichtlinienobjekte auch ohne Änderungen verarbeiten</string>
+      <string id="CSE_NOBACKGROUND">Während regelmäßiger Hintergrundverarbeitung nicht übernehmen</string>
+      <string id="CSE_ALLOWSLOWLINK">Verarbeitung über eine langsame Netzwerkverbindung zulassen</string>
+      <string id="CSE_TRACELEVEL">Nachverfolgung</string>
+      <string id="CSE_TRACEFILEPATHUSER">Benutzernachverfolgung</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">Computernachverfolgung</string>
+      <string id="CSE_TRACEFILEPATH">Nachverfolgungsdatei</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">Planungsnachverfolgung</string>
+      <string id="CSE_TRACEFILEMAXSIZE">Maximale Größe der Nachverfolgungsdatei (KB)</string>
+      <string id="CSE_TRACELEVELNORMAL">Aus</string>
+      <string id="CSE_TRACELEVELVERBOSE">Ein</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">Hintergrundpriorität</string>
+      <string id="CSE_PRILEVEL_NORMAL">Normal</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">Niedriger als normal</string>
+      <string id="CSE_PRILEVEL_LOWEST">Niedrigste</string>
+      <string id="CSE_PRILEVEL_IDLE">Leerlauf</string>
+      <string id="CSE_LOGLEVEL">Ereignisprotokollierung</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">Informationsmeldungen, Warnungen und Fehler</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">Warnungen und Fehler</string>
+      <string id="CSE_LOGLEVEL_ERRORS">Nur Fehler</string>
+      <string id="CSE_LOGLEVEL_NONE">Keine</string>
+      <string id="CSE_Logging">Protokollierung und Nachverfolgung</string>
+      <string id="CSE_Logging_Help">Ermöglicht das Konfigurieren der Protokollierung und Nachverfolgung für Einstellungskomponenten.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Ereignisprotokollierung</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Nachverfolgung</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Benutzernachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planungsnachverfolgung</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximale Größe der Nachverfolgungsdatei (KB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

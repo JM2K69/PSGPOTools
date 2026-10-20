@@ -70,13 +70,13 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, J�
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Search Windows Update (Hae Windows Updatesta)</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Search Managed Server (Hae hallitusta palvelusta)</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Search Managed Server, then WU (Hae hallitusta palvelusta, sitten WU:sta)</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Estä laitteiden metatietojen noutaminen Internetistä</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Tämän käytäntöasetuksen avulla voit estää Windowsia noutamasta laitteiden metatietoja Internetistä.
-          
-Jos otat tämän käytäntöasetuksen käyttöön, Windows ei nouda asennettujen laitteiden metatietoja Internetistä. Tämä käytäntöasetus ohittaa Laitteen asennusasetukset -valintaikkunan (Ohjauspaneeli &gt; Järjestelmä ja suojaus &gt; Järjestelmä &gt; Järjestelmän lisäasetukset &gt; Laitteisto-välilehti) asetuksen.
 
-Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Laitteen asennusasetukset -valintaikkunan asetus ohjaa, noutaako Windows laitteiden metatietoja Internetistä.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Estä laitteen metatietoihin liittyvien sovellusten automaattinen lataaminen</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Tämän käytäntöasetuksen avulla voit estää Windowsia lataamasta laitteen metatietoihin liittyviä sovelluksia.
+
+Jos otat tämän käytäntöasetuksen käyttöön, Windows ei lataa asennettujen laitteiden metatietoihin liittyviä sovelluksia. Tämä käytäntöasetus ohittaa Laitteen asennusasetukset -valintaikkunan (Ohjauspaneeli &gt; Järjestelmä ja suojaus &gt; Järjestelmäasetukset &gt; Järjestelmän lisäasetukset &gt; Laitteisto-välilehden asetukset) asetuksen.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, Laiteasennusasetukset-valintaikkunan asetus määrittää, lataako Windows laitteen metatietoihin liittyvät sovellukset.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

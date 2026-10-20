@@ -99,6 +99,67 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittä
 
 Jos sovellus on avoinna, kun tämä ryhmäkäytäntöobjekti otetaan käyttöön laitteessa, työntekijöiden on käynnistettävä sovellus tai laite uudelleen, jotta käytäntömuutokset tulevat käyttöön sovellukseen.
       </string>
+      <string id="LetAppsAccessSystemAIModels_Name">Anna Windows-sovellusten käyttää Windowsin tekstin- ja kuvanluontiominaisuuksia</string>
+      <string id="LetAppsAccessSystemAIModels_Explain">
+Tämä käytäntöasetus määrittää, voivatko Windows-sovellukset käyttää Windowsin generatiivisia tekoälyominaisuuksia.
+
+Voit määrittää joko oletusasetuksen kaikille sovelluksille tai sovelluskohtaisen asetuksen määrittämällä pakettiperheen nimen. Voit hankkia sovellukselle pakettiperheen nimen käyttämällä Windows PowerShellin cmdlet-komentoa Get-AppPackage. Sovelluskohtainen asetus ohittaa oletusasetuksen.
+
+Jos valitset Käyttäjä hallitsee -vaihtoehdon, organisaatiosi työntekijät voivat päättää, voivatko Windows-sovellukset käyttää generatiivista tekoälyä laitteessa kohdassa Asetukset &gt; Tietosuoja.
+
+Jos valitset Pakota salli -vaihtoehdon, Windows-sovellukset voivat käyttää Windowsin tekstin- ja kuvanluontiominaisuuksia, eivätkä organisaatiosi työntekijät voi muuttaa sitä.
+
+Jos valitset Pakota estäminen -vaihtoehdon, Windows-sovellukset eivät saa käyttää Windowsin ja organisaatiosi työntekijöiden tekstin- ja kuvanluontiominaisuuksia.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, organisaatiosi työntekijät voivat päättää, voivatko Windows-sovellukset käyttää Windowsin tekstin- ja näköistiedostojen luontiominaisuuksia, käyttämällä laitteessa asetuksia &gt; tietosuojaa.
+
+Jos sovellus on avoinna, kun tämä ryhmäkäytäntöobjekti otetaan käyttöön laitteessa, työntekijöiden on käynnistettävä sovellus tai laite uudelleen, jotta käytäntömuutokset otetaan käyttöön sovelluksessa.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Name">Anna Windows-sovellusten ottaa näyttökuvia eri ikkunoista tai näytöistä</string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Explain">Tämä käytäntöasetus määrittää, voivatko Windows-sovellukset ottaa näyttökuvia erilaisista ikkunoista tai näytöistä.
+
+Voit määrittää joko oletusasetuksen kaikille sovelluksille tai sovelluskohtaisen asetuksen määrittämällä pakettiperheen nimen. Voit hankkia sovellukselle pakettiperheen nimen käyttämällä Windows PowerShellin cmdlet-komentoa Get-AppPackage. Sovelluskohtaiset asetukset korvaavat oletusasetuksen.
+
+Jos valitset Hallinta on käyttäjällä -vaihtoehdon, organisaation työntekijät voivat päättää, voivatko Windows-sovellukset ottaa näyttökuvia eri ikkunoista tai näytöistä valitsemalla laitteessa Asetukset &gt; Tietosuoja.
+
+Jos valitset Pakota salliminen -vaihtoehdon, Windows-sovellukset voivat ottaa näyttökuvia eri ikkunoista tai näytöistä eivätkä organisaation työntekijät voi muuttaa asetusta.
+
+Jos valitset Pakota estäminen -vaihtoehdon, Windows-sovellukset eivät voi ottaa näyttökuvia eri ikkunoista tai näytöistä eivätkä organisaation työntekijät voi muuttaa asetusta.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittämättä, organisaation työntekijät voivat päättää, voivatko Windows-sovellukset ottaa näyttökuvia eri ikkunoista tai näytöistä, valitsemalla laitteessa Asetukset &gt; Tietosuoja.
+
+Jos jokin sovellus on avoinna, kun tätä ryhmäkäytäntöobjektia käytetään laitteeseen, työntekijöiden tulee käynnistää sovellus tai laite uudelleen, jotta käytäntömuutokset vaikuttavat sovellukseen.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Name">Anna Windows-sovellusten poistaa näyttökuvan reuna käytöstä</string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Explain">Tämä käytäntöasetus määrittää, voivatko Windows-sovellukset poistaa näyttökuvan reunan käytöstä.
+
+Voit määrittää joko oletusasetuksen kaikille sovelluksille tai sovelluskohtaisen asetuksen määrittämällä pakettiperheen nimen. Voit hankkia sovellukselle pakettiperheen nimen käyttämällä Windows PowerShellin cmdlet-komentoa Get-AppPackage. Sovelluskohtaiset asetukset korvaavat oletusasetuksen.
+
+Jos valitset Hallinta on käyttäjällä -vaihtoehdon, organisaation työntekijät voivat päättää, voivatko Windows-sovellukset poistaa näyttökuvan reunan käytöstä, valitsemalla laitteessa Asetukset &gt; Tietosuoja.
+
+Jos valitset Pakota salliminen -vaihtoehdon, Windows-sovellukset voivat poistaa näyttökuvan reunan käytöstä eivätkä organisaation työntekijät voi muuttaa asetusta.
+
+Jos valitset Pakota estäminen -vaihtoehdon, Windows-sovellukset eivät voi poistaa näyttökuvan reunaa käytöstä eivätkä organisaation työntekijät voi muuttaa asetusta.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittämättä, organisaation työntekijät voivat päättää, voivatko Windows-sovellukset poistaa näyttökuvan reunan käytöstä, valitsemalla laitteessa Asetukset &gt; Tietosuoja.
+
+Jos jokin sovellus on avoinna, kun tätä ryhmäkäytäntöobjektia käytetään laitteeseen, työntekijöiden tulee käynnistää sovellus tai laite uudelleen, jotta käytäntömuutokset vaikuttavat sovellukseen.
+      </string>
+      <string id="LetAppsAccessHumanPresence_Name">Anna Windows-sovellusten käyttää tavoitettavuuden tunnistusta</string>
+      <string id="LetAppsAccessHumanPresence_Explain">Tämä käytäntöasetus määrittää, voivatko Windows-sovellukset käyttää läsnäolotunnistusta.
+
+Voit määrittää joko oletusasetuksen kaikille sovelluksille tai sovelluskohtaisen asetuksen määrittämällä pakettiperheen nimen. Voit selvittää sovelluksen pakettiperheen nimen käyttämällä Windows PowerShellin cmdlet-komentoa Get-AppPackage. Sovelluskohtainen asetus korvaa oletusasetuksen.
+
+Jos valitset Hallinta on käyttäjällä -vaihtoehdon, organisaation työntekijät voivat valitsemalla laitteessa Asetukset &gt; Tietosuoja määrittää itse, voivatko Windows-sovellukset käyttää läsnäolotunnistusta.
+
+Jos valitset Pakota salliminen -vaihtoehdon, Windows-sovellukset voivat käyttää läsnäolotunnistusta eivätkä organisaation työntekijät voi muuttaa tätä.
+
+Jos valitset Pakota estäminen -vaihtoehdon, Windows-sovellukset eivät voi käyttää läsnäolotunnistusta eivätkä organisaation työntekijät voi muuttaa tätä.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittämättä, organisaation työntekijät voivat valitsemalla laitteessa Asetukset &gt; Tietosuoja määrittää, voivatko Windows-sovellukset käyttää läsnäolotunnistusta.
+
+Jos sovellus on avoinna, kun tämä ryhmäkäytäntöobjekti otetaan käyttöön laitteessa, työntekijöiden on käynnistettävä sovellus tai laite uudelleen, jotta käytäntömuutokset tulevat käyttöön sovellukseen.
+      </string>
       <string id="LetAppsAccessLocation_Name">Anna Windows-sovellusten käyttää sijaintia</string>
       <string id="LetAppsAccessLocation_Explain">Tämä käytäntöasetus määrittää, voivatko Windows-sovellukset käyttää sijaintia.
 
@@ -173,6 +234,36 @@ Jos valitset Pakota estäminen -vaihtoehdon, Windows-sovellukset eivät voi käy
 Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittämättä, organisaation työntekijät voivat valitsemalla laitteessa Asetukset &gt; Tietosuoja määrittää, voivatko Windows-sovellukset käyttää ilmoituksia.
 
 Jos sovellus on avoinna, kun tämä ryhmäkäytäntöobjekti otetaan käyttöön laitteessa, työntekijöiden on käynnistettävä sovellus tai laite uudelleen, jotta käytäntömuutokset tulevat käyttöön sovelluksessa.
+      </string>
+      <string id="LetAppsAccessPasskeys_Name">Anna Windows-sovellusten käyttää todentamisavaimia</string>
+      <string id="LetAppsAccessPasskeys_Explain">Tämä käytäntöasetus määrittää, voivatko sovellukset käyttää todentamisavaimia.
+
+Voit määrittää joko oletusasetuksen kaikille sovelluksille tai sovelluskohtaisen asetuksen määrittämällä pakettiperheen nimen. Voit hankkia sovellukselle pakettiperheen nimen käyttämällä Windows PowerShellin cmdlet-komentoa Get-AppPackage. Sovelluskohtainen asetus ohittaa oletusasetuksen.
+
+Jos valitset Hallinta on käyttäjällä -vaihtoehdon, organisaation työntekijät voivat päättää, voivatko sovellukset käyttää todentamisavaimia, valitsemalla laitteessa Asetukset &gt; Tietosuoja.
+
+Jos valitset Pakota salliminen -vaihtoehdon, sovellukset voivat käyttää todentamisavaimia eivätkä organisaation työntekijät voi muuttaa tätä.
+
+Jos valitset Pakota estäminen -vaihtoehdon, sovellukset eivät saa käyttää todentamisavaimia eivätkä organisaation työntekijät voi muuttaa tätä.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittämättä, organisaation työntekijät voivat päättää, voivatko sovellukset käyttää todentamisavaimia, valitsemalla laitteessa Asetukset &gt; Tietosuoja.
+
+Jos sovellus on avoinna, kun tämä ryhmäkäytäntöobjekti otetaan käyttöön laitteessa, työntekijöiden on käynnistettävä sovellus tai laite uudelleen, jotta käytäntömuutokset otetaan käyttöön sovelluksessa.
+      </string>
+      <string id="LetAppsAccessPasskeysEnumeration_Name">Salli Windows-sovellusten täyttää todentamisavaimet automaattisesti</string>
+      <string id="LetAppsAccessPasskeysEnumeration_Explain">Tämä käytäntöasetus määrittää, voivatko sovellukset täyttää todentamisavaimia automaattisesti.
+
+Voit määrittää joko oletusasetuksen kaikille sovelluksille tai sovelluskohtaisen asetuksen määrittämällä pakettiperheen nimen. Voit hankkia sovellukselle pakettiperheen nimen käyttämällä Windows PowerShellin cmdlet-komentoa Get-AppPackage. Sovelluskohtainen asetus ohittaa oletusasetuksen.
+
+Jos valitset Hallinta on käyttäjällä -vaihtoehdon, organisaation työntekijät voivat päättää, voivatko sovellukset täyttää todentamisavaimia automaattisesti, valitsemalla laitteessa Asetukset &gt; Tietosuoja.
+
+Jos valitset Pakota salliminen -vaihtoehdon, sovellukset voivat täyttää todentamisavaimia automaattisesti eivätkä organisaation työntekijät voi muuttaa tätä.
+
+Jos valitset Pakota estäminen -vaihtoehdon, sovellukset eivät saa täyttää todentamisavaimia automaattisesti eivätkä organisaation työntekijät voi muuttaa tätä.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittämättä, organisaation työntekijät voivat päättää, voivatko sovellukset täyttää todentamisavaimia automaattisesti, valitsemalla laitteessa Asetukset &gt; Tietosuoja.
+
+Jos sovellus on avoinna, kun tämä ryhmäkäytäntöobjekti otetaan käyttöön laitteessa, työntekijöiden on käynnistettävä sovellus tai laite uudelleen, jotta käytäntömuutokset otetaan käyttöön sovelluksessa.
       </string>
       <string id="LetAppsAccessPhone_Name">Anna Windows-sovellusten soittaa puheluita</string>
       <string id="LetAppsAccessPhone_Explain">Tämä käytäntöasetus määrittää, voivatko Windows-sovellukset soittaa puheluita.
@@ -321,6 +412,35 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittä
 
 Tämä käytäntö koskee Windows-sovelluksia ja Cortanaa. Se ohittaa Salli Cortana lukitusnäytön päällä -käytännön. Tämä käytäntö on käytettävissä vain, jos Salli ääniaktivointi -käytännössä on määritetty, että sovelluksia voi aktivoida äänikomennoilla.
       </string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Name">Anna Windows-sovellusten käyttää käyttäjän liikkeitä, kun sovellukset ovat käynnissä taustalla</string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Explain">Tämä käytäntöasetus määrittää, voivatko Windows-sovellukset käyttää käyttäjän pään, käsien, liikeohjainten ja muiden seurattujen objektien liikkeitä, kun sovellukset ovat käynnissä taustalla.
+
+Voit määrittää joko oletusasetuksen kaikille sovelluksille tai sovelluskohtaisen asetuksen määrittämällä pakettiperheen nimen. Voit selvittää sovelluksen pakettiperheen nimen käyttämällä Windows PowerShellin cmdlet-komentoa Get-AppPackage.
+
+Jos valitset Hallinta on käyttäjällä -vaihtoehdon, organisaation työntekijät voivat valitsemalla laitteessa Asetukset &gt; Tietosuoja määrittää, voivatko Windows-sovellukset käyttää käyttäjän liikkeitä, kun sovellukset ovat käynnissä taustalla.
+
+Jos valitset Pakota salliminen -vaihtoehdon, Windows-sovellukset voivat käyttää käyttäjän liikkeitä, kun sovellukset ovat käynnissä taustalla, ja organisaation työntekijät eivät voi muuttaa tätä.
+
+Jos valitset Pakota estäminen -vaihtoehdon, Windows-sovellukset eivät voi käyttää käyttäjän liikkeitä, kun sovellukset ovat käynnissä taustalla, ja organisaation työntekijät eivät voi muuttaa tätä.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, organisaation työntekijät voivat valitsemalla laitteessa Asetukset &gt; Tietosuoja määrittää, voivatko Windows-sovellukset käyttää käyttäjän liikkeitä, kun sovellukset ovat käynnissä taustalla.
+
+Jos sovellus on avoinna, kun tämä ryhmäkäytäntöobjekti otetaan käyttöön laitteessa, työntekijöiden on käynnistettävä sovellus tai laite uudelleen, jotta käytäntömuutokset tulevat käyttöön sovelluksessa.
+      </string>
+      <string id="LetAppsAccessForegroundText_Name">Salli Windows-sovellusten käyttää etualan sovellusten tekstisisältöä</string>
+      <string id="LetAppsAccessForegroundText_Explain">Tämä käytäntöasetus määrittää, voivatko Windows-sovellukset käyttää etualan sovellusten tekstisisältöä.
+Voit määrittää joko oletusasetuksen kaikille sovelluksille tai sovelluskohtaisen asetuksen määrittämällä pakettiperheen nimen. Voit hankkia sovellukselle pakettiperheen nimen käyttämällä Windows PowerShellin cmdlet-komentoa Get-AppPackage. Sovelluskohtainen asetus ohittaa oletusasetuksen.
+
+Jos valitset Käyttäjä hallitsee -vaihtoehdon, organisaatiosi työntekijät voivat päättää, voivatko Windows-sovellukset käyttää edustasovellusten tekstisisältöä käyttämällä laitteen Asetukset &gt; Tietosuoja.
+
+Jos valitset Pakota salli -vaihtoehdon, Windows-sovellukset voivat käyttää edustasovellusten tekstisisältöä, eivätkä organisaatiosi työntekijät voi muuttaa sitä.
+
+Jos valitset Pakota estäminen -vaihtoehdon, Windows-sovelluksilla ei ole oikeutta käyttää etualan sovellusten tekstisisältöä, eikä organisaation työntekijät voi muuttaa tätä.
+
+Jos poistat tämän käytäntöasetuksen käytöstä tai et määritä sitä, organisaatiosi työntekijät voivat päättää, voivatko Windows-sovellukset käyttää edustasovellusten tekstisisältöä laitteen Asetukset &gt; Tietosuoja -toiminnolla.
+
+Jos sovellus on avoinna, kun tämä ryhmäkäytäntöobjekti otetaan käyttöön laitteessa, työntekijöiden on käynnistettävä sovellus tai laite uudelleen, jotta käytäntömuutokset otetaan käyttöön sovelluksessa.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LetAppsAccessCalendar">
@@ -376,6 +496,42 @@ Tämä käytäntö koskee Windows-sovelluksia ja Cortanaa. Se ohittaa Salli Cort
         <multiTextBox refId="LetAppsAccessEmail_ForceAllowTheseApps_List"/>
         <text>Pakota näiden tiettyjen sovellusten estäminen (käytä pakettiperheiden nimiä):</text>
         <multiTextBox refId="LetAppsAccessEmail_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessSystemAIModels">
+        <dropdownList refId="LetAppsAccessSystemAIModels_Enum" noSort="true" defaultItem="0">Oletusarvo kaikille sovelluksille:</dropdownList>
+        <text>Anna käyttäjän hallita näitä tiettyjä sovelluksia (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_UserInControlOfTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten salliminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceAllowTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten estäminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureProgrammatic">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureProgrammatic_Enum" noSort="true" defaultItem="0">Oletusarvo kaikille sovelluksille:</dropdownList>
+        <text>Anna käyttäjän hallita näitä tiettyjä sovelluksia (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_UserInControlOfTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten salliminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceAllowTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten estäminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureWithoutBorder">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureWithoutBorder_Enum" noSort="true" defaultItem="0">Oletusarvo kaikille sovelluksille:</dropdownList>
+        <text>Anna käyttäjän hallita näitä tiettyjä sovelluksia (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_UserInControlOfTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten salliminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceAllowTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten estäminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessHumanPresence">
+        <dropdownList refId="LetAppsAccessHumanPresence_Enum" noSort="true" defaultItem="0">Oletusarvo kaikille sovelluksille:</dropdownList>
+        <text>Anna käyttäjän hallita näitä tiettyjä sovelluksia (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_UserInControlOfTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten salliminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceAllowTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten estäminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessLocation">
         <dropdownList refId="LetAppsAccessLocation_Enum" noSort="true" defaultItem="0">Oletusarvo kaikille sovelluksille:</dropdownList>
@@ -499,6 +655,42 @@ Tämä käytäntö koskee Windows-sovelluksia ja Cortanaa. Se ohittaa Salli Cort
       </presentation>
       <presentation id="LetAppsActivateWithVoiceAboveLock">
         <dropdownList refId="LetAppsActivateWithVoiceAboveLock_Enum" noSort="true" defaultItem="0">Oletusarvo kaikille sovelluksille:</dropdownList>
+      </presentation>
+      <presentation id="LetAppsAccessBackgroundSpatialPerception">
+        <dropdownList refId="LetAppsAccessBackgroundSpatialPerception_Enum" noSort="true" defaultItem="0">Oletusarvo kaikille sovelluksille:</dropdownList>
+        <text>Anna käyttäjän hallita näitä tiettyjä sovelluksia (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_UserInControlOfTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten salliminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten estäminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessForegroundText">
+        <dropdownList refId="LetAppsAccessForegroundText_Enum" noSort="true" defaultItem="0">Oletusarvo kaikille sovelluksille:</dropdownList>
+        <text>Anna käyttäjän hallita näitä tiettyjä sovelluksia (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_UserInControlOfTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten salliminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceAllowTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten estäminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeys">
+        <dropdownList refId="LetAppsAccessPasskeys_Enum" noSort="true" defaultItem="0">Oletusarvo kaikille sovelluksille:</dropdownList>
+        <text>Anna käyttäjän hallita näitä tiettyjä sovelluksia (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_UserInControlOfTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten salliminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceAllowTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten estäminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeysEnumeration">
+        <dropdownList refId="LetAppsAccessPasskeysEnumeration_Enum" noSort="true" defaultItem="0">Oletusarvo kaikille sovelluksille:</dropdownList>
+        <text>Anna käyttäjän hallita näitä tiettyjä sovelluksia (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_UserInControlOfTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten salliminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceAllowTheseApps_List"/>
+        <text>Pakota näiden tiettyjen sovellusten estäminen (käytä pakettiperheiden nimiä):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceDenyTheseApps_List"/>
       </presentation>
     </presentationTable>
   </resources>

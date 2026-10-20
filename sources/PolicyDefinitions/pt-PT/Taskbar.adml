@@ -29,6 +29,12 @@ Se desativar ou não configurar esta definição de política, o ícone de contr
 Se ativar esta definição de política, o ícone Segurança e manutenção não é apresentado na área de notificação do sistema.
 
 Se desativar ou não configurar esta definição de política, o ícone de Segurança e manutenção é apresentado na área de notificação do sistema.</string>
+      <string id="HideSCAMeetNow">Remover o ícone Reunir Agora</string>
+      <string id="HideSCAMeetNow_Help">Esta definição de política permite-lhe remover o ícone Reunir Agora da área de controlo do sistema.
+
+Se ativar esta definição de política, o ícone Reunir Agora não é apresentado na área de notificação do sistema.
+
+Se desativar ou não configurar esta definição de política, o ícone Reunir Agora é apresentado na área de notificação do sistema.</string>
       <string id="TaskbarLockAll">Bloquear todas as definições da barra de tarefas</string>
       <string id="TaskbarLockAll_Help">Esta definição de política permite-lhe bloquear todas as definições da barra de tarefas.
 
@@ -92,13 +98,13 @@ Se desativar ou não configurar esta definição de política, os ícones de not
       <string id="EnableLegacyBalloonNotifications">Desativar a exibição de balões de notificação como alertas.</string>
       <string id="EnableLegacyBalloonNotifications_Help">Esta política desativa a funcionalidade que converte balões em notificações de alerta.
 
-Se ativar esta definição de política, as notificações de sistema e aplicação serão apresentadas como balões em vez de notificações de alerta.
+Se ativar esta definição de política, as notificações do sistema e da aplicação serão apresentadas como balões em vez de notificações de alerta.
 
-Ative esta definição de política se uma aplicação específica ou um componente do sistema que utiliza balões de notificação apresentar problemas de compatibilidade com as notificações de alerta.
+Ative esta definição de política se uma aplicação específica ou um componente do sistema que utiliza notificações de balão tiver problemas de compatibilidade com as notificações de alerta.
 
-Se desativar ou não configurar esta definição de política, todas as notificações surgirão como notificações de alerta.
+Se desativar ou não configurar esta definição de política, todas as notificações serão exibidas como notificações de alerta.
 
-O reinício do computador é necessário para que esta definição de política surta efeito.</string>
+O reinício do computador é necessário para que esta definição de política entre em vigor.</string>
       <string id="NoRemoteDestinations">Não mostrar ou controlar itens em Listas de Atalhos a partir de localizações remotas</string>
       <string id="NoRemoteDestinations_Help">Esta definição de política permite-lhe controlar a apresentação ou monitorização de itens em Listas de Atalhos a partir de localizações remotas.
 
@@ -129,15 +135,15 @@ Se desativar ou não configurar esta definição de política, os utilizadores c
 Se ativar esta definição de política, os utilizadores não conseguem mostrar barras de tarefas em mais de um monitor. A secção de múltiplos ecrãs não é ativada no diálogo de propriedades de barra de tarefas.
 
 Se desativar ou não configurar esta definição de política, os utilizadores podem mostrar barras de tarefas em mais de um monitor.</string>
-        <string id="ShowWindowsStoreAppsOnTaskbar">Mostrar aplicações da Loja Windows na barra de tarefas</string>
+        <string id="ShowWindowsStoreAppsOnTaskbar">Mostrar aplicações da Microsoft Store em pacote na barra de tarefas</string>
         <string id="ShowWindowsStoreAppsOnTaskbar_Help">
-Esta definição de política permite aos utilizadores ver as aplicações da Loja Windows na barra de tarefas.
- 
-Se ativar esta definição de política, os utilizadores verão as aplicações da Loja Windows na barra de tarefas.
- 
-Se desativar esta definição de política, os utilizadores não verão as aplicações da Loja Windows na barra de tarefas.
- 
-Se não configurar esta definição de política, será utilizada a predefinição para o dispositivo do utilizador e o utilizador pode optar por alterá-la.</string>
+Esta definição de política permite aos utilizadores ver as aplicações da Microsoft Store em pacote na barra de tarefas.
+
+Se ativar esta definição de política, os utilizadores verão as aplicações da Microsoft Store em pacote na barra de tarefas.
+
+Se desativar esta definição de política, os utilizadores não verão as aplicações da Microsoft Store em pacote na barra de tarefas.
+
+Se não configurar esta definição de política, será utilizada a predefinição do dispositivo do utilizador e o mesmo pode optar por alterá-la.</string>
       <string id="DisableNotificationCenter">Remover Notificações e Centro de Ação</string>
       <string id="DisableNotificationCenter_Help">Esta definição de política remove as Notificações e o Centro de Ação da área de notificação na barra de tarefas.
 
@@ -148,7 +154,7 @@ Se esta definição é ativada, as Notificações e o Centro de Ação não ser�
 Se desativar ou não configurar esta definição de política, as Notificações e o ícone Segurança e manutenção aparecerão na barra de tarefas.
 
 O reinício do computador é necessário para que esta definição de política surta efeito.</string>
-      <string id="NoPinningStoreToTaskbar">Não permitir a afixação de aplicações da Microsoft Store à barra de tarefas</string> 
+      <string id="NoPinningStoreToTaskbar">Não permitir a afixação de aplicações da Microsoft Store à barra de tarefas</string>
       <string id="NoPinningStoreToTaskbar_Help">
 Esta definição de política permite-lhe controlar a afixação de aplicações da Microsoft Store à barra de tarefas.
 
@@ -165,10 +171,81 @@ Se desativar esta definição de política, os utilizadores não podem dispor de
 Se não configurar esta definição de política, o calendário é definido de acordo com a lógica predefinida.</string>
       <string id="ConfigureTaskbarCalendar_SimplifiedChinese">Chinês Simplificado (Calendário Lunar)</string>
       <string id="ConfigureTaskbarCalendar_TraditionalChinese">Chinês Tradicional (Calendário Lunar)</string>
+      <string id="Chat">Conversar</string>
+      <string id="ConfigureChatIcon">Configura o ícone de Conversa na barra de tarefas</string>
+      <string id="ConfigureChatIcon_Help">Esta definição de política permite-lhe configurar o ícone de Conversa na barra de tarefas.
+
+Se ativar esta definição de política e a defini-la como Mostrar, o ícone de Conversa será apresentado na barra de tarefas por predefinição. Os utilizadores podem mostrar ou ocultar o mesmo em Definições.
+
+Se ativar esta definição de política e a defini-la como Ocultar, o ícone de Conversa será ocultado por predefinição. Os utilizadores podem mostrar ou ocultar o mesmo em Definições.
+
+Se ativar esta definição de política e defini-la como Desativada, o ícone de Conversa não será apresentado e os utilizadores não poderão mostrar ou ocultar o mesmo em Definições.
+
+Se desativar ou não configurar esta definição de política, o ícone de Conversa será configurado de acordo com as predefinições da sua edição do Windows.</string>
+      <string id="ChatEnum_Show">Mostrar</string>
+      <string id="ChatEnum_Hide">Ocultar</string>
+      <string id="ChatEnum_Disabled">Desativado</string>
+      <string id="HideTaskViewButton">Ocultar o botão Vista de tarefa</string>
+      <string id="HideTaskViewButton_Help">Esta definição de política permite ocultar o botão TaskView.
+
+Se ativar esta definição de política, o botão TaskView será ocultado e o botão de alternar Definições será desativado.</string>
+      <string id="AlwaysShowNotificationIcon">Mostrar ícone de sino de notificação</string>
+      <string id="AlwaysShowNotificationIcon_Help">
+Esta definição de política permite-lhe mostrar o ícone de sino de notificação no tabuleiro do sistema.
+
+Se ativar esta definição de política, o ícone de notificação será sempre apresentado. Caso contrário, o ícone de notificação só será apresentado quando existir um estado especial (por exemplo, Não Incomodar está ativado).
+
+É necessário reiniciar para que esta definição de política entre em vigor.
+      </string>
+      <string id="TurnOffAbbreviatedDateTimeFormat">Desativar formato de data e hora abreviados</string>
+      <string id="TurnOffAbbreviatedDateTimeFormat_Help">
+Esta definição de política permite-lhe mostrar o formato de data e hora mais longos no tabuleiro do sistema.
+
+Se esta definição estiver ativada, o formato de hora incluirá o marcador de hora AM/PM e a data incluirá o ano.
+
+É necessário reiniciar para que esta definição de política entre em vigor.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior">ConfigureTaskbarSmallButtonBehavior</string>  
+      <string id="ConfigureTaskbarSmallButtonBehavior_DisplayName">Configurar o Comportamento de Botões Pequenos da Barra de Tarefas</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Help">Esta definição de política permite-lhe configurar o comportamento dos botões pequenos da barra de tarefas.
+      
+Quando definido como:
+      – Sempre: a barra de tarefas utiliza sempre botões pequenos.
+      – Quando a barra de tarefas está cheia: a barra de tarefas alterna dinamicamente entre botões pequenos e botões de tamanho padrão, com base no espaço disponível.
+      - Nunca: a barra de tarefas nunca utiliza botões pequenos. Apenas serão utilizados botões de tamanho padrão.
+
+Quando esta política está ativada, uma das opções acima tem de estar selecionada e os utilizadores não podem alterar a opção "Mostrar botões pequenos na barra de tarefas" na interface de utilizador das Definições.
+
+Quando esta política está desativada ou não está configurada, nenhuma opção é aplicada pela Política de Grupo. O Windows tem como predefinição o comportamento "Quando a barra de tarefas está cheia" e os utilizadores podem alterar manualmente esta definição na interface de utilizador das Definições.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Always">Sempre</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_WhenTaskbarIsFull">Quando a barra de tarefas está cheia</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Never">Nunca</string>
+      <string id="DisableTaskbarPosition">Desativar a alteração da posição da barra de tarefas</string>
+      <string id="DisableTaskbarPosition_Help">Esta definição de política permite-lhe impedir que os utilizadores alterem a posição da barra de tarefas.
+
+Se ativar esta definição de política, a barra de tarefas é movida para a parte inferior do ecrã e a definição de posição da barra de tarefas aparece a cinzento na aplicação Definições.
+
+Se desativar ou não configurar esta definição de política, os utilizadores poderão alterar a posição da barra de tarefas na aplicação Definições.</string>
+      <string id="DisableTaskbarSize">Desativar a alteração do tamanho da barra de tarefas</string>
+      <string id="DisableTaskbarSize_Help">Esta definição de política permite-lhe impedir que os utilizadores alterem o tamanho da barra de tarefas.
+
+Se ativar esta definição de política, a barra de tarefas será definida para o tamanho predefinido e a definição de tamanho da barra de tarefas ficará indisponível na aplicação Definições.
+
+Se desativar ou não configurar esta definição de política, os utilizadores poderão alterar o tamanho da barra de tarefas na aplicação Definições.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureTaskbarCalendar">
         <dropdownList refId="ConfigureTaskbarCalendar_Dropdown" defaultItem="0">Calendário:</dropdownList>
+      </presentation>
+      <presentation id="ConfigureChatIcon">
+          <text>Configurar a definição do ícone de Chat</text>
+          <text> </text>
+          <dropdownList refId="ConfigureChatIcon_Action" noSort="true" defaultItem="1">Estado: </dropdownList>
+          <text> </text>
+      </presentation>
+      <presentation id="ConfigureTaskbarSmallButtonBehavior">
+        <dropdownList refId="ConfigureTaskbarSmallButtonBehavior_Dropdown" noSort="true" defaultItem="1">Escolha quando mostrar botões mais pequenos na barra de tarefas: </dropdownList>
       </presentation>
     </presentationTable>
   </resources>

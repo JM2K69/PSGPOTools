@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Tastaturfilter-Gruppenrichtlinie</displayName>
+  <description>Gruppenrichtlinieneinstellungen für Tastaturfilter</description>
+  <resources>
+    <stringTable>
+      <string id="KeyboardFilter">Tastaturfilter</string>
+      <string id="AllowKbFilterInRemoteSessions">Tastaturfilter in Remotesitzungen zulassen</string>
+      <string id="AllowKbFilterInRemoteSessions_Text">Der Tastaturfilter gilt normalerweise nur für lokale Sitzungen.
+      
+Wenn Sie diese Einstellung aktivieren, kann der Tastaturfilter auf Benutzer angewendet werden, die über Remotesitzungen eine Verbindung mit dem Computer herstellen.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

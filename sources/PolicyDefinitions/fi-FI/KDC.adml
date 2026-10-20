@@ -54,7 +54,6 @@ Vaikutus toimialueen ohjauskoneen suorituskykyyn, kun tämä käytäntöasetus o
    - Ylimääräisten viestien lähettäminen edellyttää suojattua Kerberos-toimialueiden toimintojen tunnistamista.
    - Väitteet ja dynaamisen käyttöoikeuksien valvonnan yhdistelmätodennus kasvattaa viestin kokoa ja tekee siitä monimutkaisemman. Tämä pidentää käsittelyaikaa ja suurentaa Kerberos-palvelulippujen kokoa.
    - Kerberos-suojaus salaa Kerberos-viestit kokonaan sekä allekirjoittaa Kerberos-virheet. Tämä pidentää käsittelyaikaa, mutta ei muuta palvelulippujen kokoa.
-
 </string>
       <string id="NoCbacAndArmor">Ei tuettu</string>
       <string id="MixModeCbacAndArmor">Tuettu</string>
@@ -94,6 +93,47 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittä
       <string id="NoPKINITFreshness">Poissa käytöstä</string>
       <string id="SupportPKINITFreshness">Tuettu</string>
       <string id="RequirePKINITFreshness">Pakollinen</string>
+      <string id="PKINITHashAlgorithmConfiguration">Määritä varmenteen kirjautumisen hajautusalgoritmit</string>
+      <string id="PKINITHashAlgorithmConfiguration_explain">Tämä käytäntöasetus ohjaa Kerberos-asiakkaan varmenteen todentamisen aikana käyttämiä hajautus- tai tarkistussumma-algoritmeja.
+
+Jos otat tämän käytännön käyttöön, voit määrittää kullekin algoritmille yhden neljästä tilasta:
+
+-Jos valitset Oletus-asetuksen, algoritmi asetetaan suositeltuun tilaan.
+
+-Tuettu-vaihtoehto mahdollistaa algoritmin käytön. Oletusarvoisesti käytöstä poistettujen algoritmien ottaminen käyttöön saattaa heikentää suojausta.
+
+-Tarkastettu-vaihtoehto mahdollistaa algoritmin käytön ja raportoi tapahtuman (ID 309) aina, kun sitä käytetään. Tämä tila on tarkoitettu varmistamaan, että algoritmi ei ole käytössä ja että se voidaan poistaa käytöstä turvallisesti.
+
+-Ei tuettu -vaihtoehto poistaa algoritmin käytön käytöstä. Tämä tila on tarkoitettu algoritmeille, joiden katsotaan olevan epäluotettavia.
+
+Jos poistat tämän käytännön käytöstä tai et määritä sitä, kukin algoritmi käyttää Oletus-tilaa.
+Lisätietoja Windowsin Kerberos-asiakkaan tukemista hajautus- ja tarkistussumma-algoritmeista sekä niiden oletustiloista on osoitteessa https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Tämän asetuksen muodostamat tapahtumat: 309, 310.
+</string>
+      <string id="PKINITHashAlgorithm_Default">Oletus</string>
+      <string id="PKINITHashAlgorithm_Supported">Tuettu</string>
+      <string id="PKINITHashAlgorithm_Audited">Tarkastetut</string>
+      <string id="PKINITHashAlgorithm_NotSupported">Ei tuettu</string>
+      <string id="StrongNameMatches">Salli nimiin perustuvat vahvat yhdistämismääritykset varmenteille</string>
+      <string id="StrongNameMatches_explain">Tämä käytäntöasetus mahdollistaa vaihtoehtoisten nimipohjaisten tunnisteiden käyttämisen, jotta Active Directory -käyttäjätileille myönnetyt varmenteet voidaan yhdistää vahvasti ja määrittää, mitkä varmenteet yhdistetään mihinkin tiliin. Jos tämä asetus ei ole käytössä, varmenteiden on täytettävä aka.ms/StrongCertMapKB määritetyt vahvan yhdistämisen ehdot, jotka yleensä eivät salli nimipohjaisia tunnisteita.
+
+Kunkin tässä käytännössä määritetyn yhdistämismäärityksen on sisällettävä käytännön OID sekä IssuerSubject- ja/tai UPN-jälkiliite alla määritetyn syntaksin avulla. Jos määritetyn varmenteen kelvollista yhdistämismääritystä ei löydy tästä käytännöstä, Active Directory yrittää löytää vastaavuuden käyttämällä KB5014754:ssä määritettyjä vahvoja yhdistämisehtoja. Varmenteiden yhdistämismäärityksiä, jotka eivät ole joko Vahva nimien yhdistäminen -ehtojen (tämä käytäntö) tai olemassa olevien Vahva yhdistämisen -ehtojen mukaisia, pidetään virheellisinä todennuksessa.
+
+Yleinen käytäntömuoto ja joitakin esimerkkejä on lueteltu alla. Tämä käytäntö koskee vain Active Directory käyttäjätilejä.
+
+Yleinen syntaksi
+==============
+&lt;peukalonjälkit;; &lt;oid-luettelot;; &lt;name-match-menetelmät &lt;
+
+Esimerkit
+==============
+IssuerThumbprint1; oid1, oid2, oid3; UpnSuffix=domain.com
+IssuerThumbprint2; oid1; UpnSuffix=domain.com, UpnSuffix=other.domain.com, IssuerSubject
+IssuerThumbprint3; oid1, oid2; IssuerSubject
+
+Käytännön on sisällettävä täsmälleen yksi varmenteen allekirjoitus sääntöä kohden, ja jokainen sääntö on esitetty monikkona. Allekirjoitusten on oltava yksilöllisiä, eikä niitä voi toistaa useissa säännöissä. Kunkin monikon osien, jotka on erotettu toisistaan puolipisteillä, on oltava ilmoitetussa järjestyksessä, kun taas pilkuilla erotetut kentät voivat olla missä tahansa järjestyksessä. Itse säännöt erotetaan toisistaan uusilla rivillä.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="emitlili">
@@ -121,6 +161,15 @@ Jos poistat tämän käytäntöasetuksen käytöstä tai jätät sen määrittä
       </presentation>
       <presentation id="PKINITFreshness">
         <dropdownList refId="PKINITFreshness_Levels" noSort="true" defaultItem="1">PKInit Freshness -laajennuksen asetukset:</dropdownList>
+      </presentation>
+      <presentation id="PKINITHashAlgorithmConfiguration">
+        <dropdownList refId="PKINITHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
+      </presentation>
+      <presentation id="StrongNameMatches">
+          <multiTextBox refId="StrongNameMatchesList">Vahvan nimen vastaavuuden säännöt:</multiTextBox>
       </presentation>
     </presentationTable>
   </resources>

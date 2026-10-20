@@ -9,15 +9,11 @@
       
       <!-- prevent file sync-->
       <string id="AllowProjectionToPC">Ikke tillat speiling til denne PC-en</string>
-      <string id="AllowProjectionToPC_help">Med denne policyinnstillingen kan du deaktivere speiling til en PC.  
+      <string id="AllowProjectionToPC_help">Med denne policyinnstillingen kan du deaktivere projeksjon til en PC.  
 
- 
+Hvis du aktiverer den, er ikke PC-en synlig og kan ikke projiseres til den, bortsett fra hvis brukeren starter appen trådløs skjerm manuelt.  
 
-Hvis du aktiverer den, kan ikke PC-en oppdages, og det kan ikke speiles til den med mindre brukeren starter tilkoblingsappen manuelt.  
-
- 
-
-Hvis du deaktiverer den eller ikke konfigurerer den, kan PC-en oppdages, og det kan bare speiles til låseskjermen. Brukeren kan velge å aktivere eller deaktivere den alltid, med unntak av manuell oppstart.</string>
+Hvis du deaktiverer eller ikke konfigurerer den, er PC-en synlig og kan bare projiseres til låseskjermen ovenfor. Brukeren har et alternativ for å aktivere eller deaktivere den alltid, bortsett fra manuell oppstart også.</string>
 
       <string id="RequirePinForPairing">Krev PIN-kode for paring</string>
       <string id="RequirePinForPairing_help">Denne policyinnstillingen lar deg kreve en PIN-kode ved paring.

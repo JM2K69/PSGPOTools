@@ -218,11 +218,11 @@ Als u een voorbeeld wilt zien van het standaarddialoogvenster Openen, kunt u Wor
 
 Opmerking: in Windows Vista is deze beleidsinstelling alleen van toepassing op programma's die gebruikmaken van het type dialoogvenster dat gebruikelijk is in Windows XP. De beleidsinstelling is niet van toepassing op het nieuwe type dialoogvenster dat standaard wordt gebruikt in Windows Vista. Toepassingen van derden met certificering voor Windows 2000 of later moeten zich houden aan deze instelling.</string>
       <string id="NoRecycleFiles">Verwijderde bestanden niet naar de Prullenbak verplaatsen</string>
-      <string id="NoRecycleFiles_Help">Als een bestand of map wordt verwijderd in Bestandenverkenner, wordt een kopie van het bestand of de map in de Prullenbak geplaatst. Met deze instelling kunt u dit gedrag wijzigen.
+      <string id="NoRecycleFiles_Help">Wanneer een bestand of map wordt verwijderd in bestandenverkenner, wordt een kopie van het bestand of de map in de Prullenbak geplaatst. Met deze instelling kunt u dit gedrag wijzigen.
 
-Als u deze instelling inschakelt, worden bestanden en mappen die in Bestandenverkenner worden verwijderd niet in de Prullenbak geplaatst en dus voorgoed gewist.
+Als u deze instelling inschakelt, worden bestanden en mappen die met bestandenverkenner worden verwijderd, niet in de Prullenbak geplaatst en dus definitief verwijderd.
 
-Als u deze instelling uitschakelt of niet configureert, worden bestanden en mappen die in Bestandenverkenner verwijderd, in de Prullenbak geplaatst.</string>
+Als u deze instelling uitschakelt of niet configureert, worden bestanden en mappen die met bestandenverkenner zijn verwijderd, in de Prullenbak geplaatst.</string>
       <string id="NoRunAsInstallPrompt">Niet om andere referenties vragen</string>
       <string id="NoRunAsInstallPrompt_Help">Met deze instelling voorkomt u dat gebruikers andere referenties opgeven bij het installeren van een programma.
 
@@ -517,19 +517,33 @@ Als u deze beleidsinstelling inschakelt, mogen pictogrammen van de snelkoppeling
 Als u deze beleidsinstelling uitschakelt of niet configureert, worden pictogrammen van de snelkoppeling naar een bestand die externe paden gebruiken niet weergegeven.
 
 Opmerking: het toestaan van het gebruik van externe paden in pictogrammen van de snelkoppeling naar een bestand kan de computers van gebruikers blootstellen aan beveiligingsrisico's .</string>
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Sta bestandsgroepsdescriptorbewerkingen toe om naar elk doelpad te schrijven</string>
+      <string id="AllowAllCopyFGDDestinations_Help">Met deze beleidsinstelling wordt bepaald of controles op het doorkruisen van paden worden afgedwongen bij het schrijven van bestanden die zijn ontvangen via het Klembord of bestandsgroepdescriptors (CFSTR_FILEDESCRIPTOR) via slepen en neerzetten.
+
+Als u deze beleidsinstelling inschakelt, worden de controles op het doorkruisen van paden niet afgedwongen en kunnen bestanden worden geschreven naar elk pad dat bereikbaar is voor de doelmap. Schakel dit beleid alleen in als het standaardgedrag een vereiste werkstroom verbreekt.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, wordt bij descriptorbewerkingen van bestandsgroepen padinsluiting afgedwongen en worden bestandsnamen afgewezen die proberen de doelmap te escapen via relatieve padcomponenten.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">De markering van de webtag niet toepassen op bestanden die zijn gekopieerd uit onveilige bronnen</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">Met deze beleidsinstelling bepaalt u de toepassing van de Mark of the Web-tag op bestanden die afkomstig zijn van onveilige locaties.
+
+Als u deze beleidsinstelling inschakelt, krijgen bestanden die zijn gekopieerd uit onbeveiligde bronnen geen Mark of the Web-tag.
+
+Als u deze beleidsinstelling uitschakelt of niet configureert, krijgen bestanden die uit onbeveiligde bronnen zijn gekopieerd de toepasselijke Mark of the Web-tag.
+
+Opmerking: als bestanden uit onbeveiligde bronnen geen Mark of the Web-tag krijgen, kunnen de computers van gebruikers worden blootgesteld aan beveiligingsrisico's.</string>
       <string id="DefaultAssociationsConfiguration">Een configuratiebestand voor standaard koppelingen instellen</string>
-      <string id="DefaultAssociationsConfiguration_Help">Dit beleid geeft het pad naar een bestand aan (bijv. lokaal of op een netwerklocatie opgeslagen) dat de standaardkoppelingen van een toepassing naar een bestandstype en protocol bevat. Dit bestand kan worden gemaakt met het DISM-hulpprogramma.
+      <string id="DefaultAssociationsConfiguration_Help">Met dit beleid geeft u het pad op naar een bestand (lokaal opgeslagen of op een netwerklocatie) dat bestandstype- en standaardtoepassingskoppelingen voor protocollen bevat. Dit bestand kan worden gemaakt met het hulpprogramma DISM.
+      
+Bijvoorbeeld: 
+Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-Bijvoorbeeld:
-Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt 
+Raadpleeg de DISM-documentatie voor meer informatie.
 
-Zie de DISM-documentatie (mogelijk in het Engels) op TechNet.
+Het bestand kan verder worden bewerkt nadat het is gemaakt om te wijzigen hoe vaak de beleidskoppelingen worden toegepast. Een kenmerk 'Versie' kan worden toegevoegd aan het element 'DefaultAssociations'. De waarde moet een geheel getal zijn. Een kenmerk 'Voorgesteld' kan worden toegevoegd aan elk Association-element. De waarde moet een bool zijn en de standaardwaarde is 'false'. Wanneer het beleid wordt toegepast op een gebruiker, wordt elke koppeling met Suggested="true" slechts eenmaal toegepast. Als de waarde Version ooit wordt verhoogd, worden koppelingen met Suggested="true" opnieuw toegepast.
 
-Als dit groepsbeleid is ingeschakeld en de clientcomputer lid is van een domein, wordt het bestand verwerkt en worden de standaardkoppelingen toegepast bij het aanmelden. 
+Als dit groepsbeleid is ingeschakeld en de clientcomputer lid is van een domein, wordt het bestand verwerkt en worden standaardkoppelingen toegepast bij het aanmelden.
 
-Als dit groepsbeleid niet is geconfigureerd of is uitgeschakeld of als de clientcomputer geen lid is van een domein, worden er geen standaardkoppelingen toegepast bij het aanmelden.
-
-Als het beleid is ingeschakeld, uitgeschakeld of niet is geconfigureerd, kunnen gebruikers de standaardkoppelingen voor bestandstype en protocol nog steeds negeren.</string>
+Als het beleid is ingeschakeld, kunnen gebruikers nog steeds het standaardbestandstype en de standaardprotocolkoppelingen overschrijven, maar bij de volgende aanmelding wordt het bestand opnieuw toegepast.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

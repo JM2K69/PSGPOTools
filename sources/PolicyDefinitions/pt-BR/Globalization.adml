@@ -169,7 +169,7 @@ Se você desabilitar ou não definir esta configuração de política, o usuári
       <string id="UILang4">Alemão</string>
       <string id="UILang5">Chinês Simplificado</string>
       <string id="UILang6">Chinês Tradicional</string>
-      <string id="UILang34">Chinês tradicional (Hong Kong)</string>
+      <string id="UILang34">Chinês tradicional (RAE de Hong Kong)</string>
       <string id="UILang35">Chinês tradicional (Taiwan)</string>
       <string id="UILang7">Francês</string>
       <string id="UILang8">Espanhol</string>
@@ -284,6 +284,19 @@ Se você desabilitar ou não definir esta configuração de política, o Windows
         Se essa política estiver habilitada ou não configurada, o controle será adiado para os usuários, e os usuários poderão escolher se desejam habilitar os serviços de fala por meio de configurações.
         
         Se essa política estiver desabilitada, os serviços de fala serão desabilitados e os usuários não poderão habilitar os serviços de fala por meio de configurações.
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Restringir a instalação de pacotes de idiomas e recursos de idiomas</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        Essa configuração de política restringe os usuários de instalar pacotes de idiomas e recursos de idioma em pacotes de demanda. essa política não restringe a alternância do idioma do Windows, se você quiser restringir o idioma do Windows, use a seguinte política: "restringe os idiomas da interface do usuário que o Windows usa para todos os usuários registrados."   
+Se você habilitar essa configuração de política, a instalação de pacotes de idiomas e recursos de idioma será impedida para todos os usuários.
+
+Se você desabilitar ou não definir essa configuração de política, não haverá nenhum pacote de idioma ou restrição de instalação de recurso para nenhum usuário.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        Essa configuração de política restringe o usuário de instalar pacotes de idiomas e recursos de idioma sob demanda. essa política não restringirá a alternância do idioma do Windows, se você quiser restringir o idioma do Windows para usar a seguinte política: "restringe os idiomas da interface do usuário que o Windows deve usar para o usuário selecionado."   
+Se você habilitar essa configuração de política, a instalação de pacotes de idiomas e recursos de idioma será impedida para o usuário.  
+
+Se você desabilitar ou não definir essa configuração de política, não haverá restrição de instalação de pacotes de idiomas ou recursos de idioma para o usuário.  
       </string>
     </stringTable>
     <presentationTable>

@@ -29,6 +29,12 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wir
 Wenn Sie diese Richtlinieneinstellung aktivieren, wird das Symbol "Sicherheit und Wartung" im Bereich für Systembenachrichtigungen nicht angezeigt.
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird das Symbol "Sicherheit und Wartung" im Bereich für Systembenachrichtigungen angezeigt.</string>
+      <string id="HideSCAMeetNow">Entfernen des Symbols „Jetzt besprechen“</string>
+      <string id="HideSCAMeetNow_Help">Mit dieser Richtlinieneinstellung können Sie das Symbol „Jetzt besprechen“ aus dem Systemsteuerungsbereich entfernen.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird das Symbol „Jetzt besprechen“ nicht im Infobereich des Systems angezeigt.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird das Symbol „Jetzt besprechen“ im Infobereich des Systems angezeigt.</string>
       <string id="TaskbarLockAll">Alle Taskleisteneinstellungen sperren</string>
       <string id="TaskbarLockAll_Help">Mit dieser Richtlinieneinstellung können Sie alle Taskleisteneinstellungen sperren.
 
@@ -90,11 +96,11 @@ Wenn Sie diese Richtlinieneinstellung aktivieren, werden neu hinzugefügte Benac
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, werden neu hinzugefügte Benachrichtigungssymbole vorübergehend in die Taskleiste heraufgestuft.</string>
       <string id="EnableLegacyBalloonNotifications">Anzeige von Sprechblasenbenachrichtigungen als Popups deaktivieren.</string>
-      <string id="EnableLegacyBalloonNotifications_Help">Diese Richtlinie deaktiviert die Funktionalität zur Konvertierung von Sprechblasen- in Popupbenachrichtigungen. 
+      <string id="EnableLegacyBalloonNotifications_Help">Diese Richtlinie deaktiviert die Funktionalität zur Konvertierung von Sprechblasen- in Popupbenachrichtigungen.
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, werden die System- und Anwendungsbenachrichtigungen als Sprechblasen- anstelle von Popupbenachrichtigungen gerendert.   
+Wenn Sie diese Richtlinieneinstellung aktivieren, werden die System- und Anwendungsbenachrichtigungen als Sprechblasen- anstelle von Popupbenachrichtigungen gerendert.
 
-Aktivieren Sie diese Richtlinieneinstellung, wenn eine bestimmte App- oder Systemkomponente, die Sprechblasenbenachrichtigungen verwendet, Kompatibilitätsprobleme mit Popupbenachrichtigungen aufweist. 
+Aktivieren Sie diese Richtlinieneinstellung, wenn eine bestimmte App- oder Systemkomponente, die Sprechblasenbenachrichtigungen verwendet, Kompatibilitätsprobleme mit Popupbenachrichtigungen aufweist.
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, werden alle Benachrichtigungen als Popupbenachrichtigungen angezeigt.
 
@@ -121,7 +127,6 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, kö
 Wenn Sie diese Richtlinieneinstellung aktivieren, können Benutzer keine Dateien, Ordner, Websites oder sonstigen Elemente an ihre Sprunglisten im Startmenü und der Taskleiste anheften. Sie sind auch nicht in der Lage, vorhandene, an ihre Sprunglisten angeheftete Elemente zu lösen. Vorhandene Elemente, die bereits an Sprunglisten angeheftet sind, werden weiterhin angezeigt.
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer Dateien, Ordner, Websites und andere Elemente an die Sprungliste eines Programms anheften, sodass die Elemente immer in diesem Menü angezeigt werden.
-
 </string>
       <string id="TaskbarNoMultimon">Taskleisten auf mehr als einer Anzeige nicht zulassen</string>
       <string id="TaskbarNoMultimon_Help">Mit dieser Richtlinieneinstellung können Sie verhindern, dass Taskleisten auf mehr als einem Bildschirm angezeigt werden.
@@ -129,20 +134,20 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, kö
 Wenn Sie diese Richtlinieneinstellung aktivieren, können Benutzer Taskleisten nicht auf mehr als einem Bildschirm anzeigen. Der Abschnitt für mehrere Anzeigen ist im Dialogfeld der Taskleisteneigenschaften nicht aktiviert.
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer Taskleisten nicht auf mehr als einem Bildschirm anzeigen.</string>
-        <string id="ShowWindowsStoreAppsOnTaskbar">Windows Store-Apps auf der Taskleiste anzeigen</string>
+        <string id="ShowWindowsStoreAppsOnTaskbar">Gepackte Microsoft Store-Apps auf der Taskleiste anzeigen</string>
         <string id="ShowWindowsStoreAppsOnTaskbar_Help">
-Mit dieser Richtlinieneinstellung können Benutzer Windows Store-Apps auf der Taskleiste anzeigen.
- 
-Wenn Sie diese Richtlinieneinstellung aktivieren, werden den Benutzern Windows Store-Apps auf der Taskleiste angezeigt.
- 
-Wenn Sie diese Richtlinieneinstellung deaktivieren, werden keine Windows Store-Apps auf der Taskleiste angezeigt.
- 
+Mit dieser Richtlinieneinstellung können Benutzer gepackte Microsoft Store-Apps auf der Taskleiste anzeigen.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, werden den Benutzern gepackte Microsoft Store-Apps auf der Taskleiste angezeigt.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren, werden den Benutzern keine gepackten Microsoft Store-Apps auf der Taskleiste angezeigt.
+
 Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, wird die Standardeinstellung für das Gerät des Benutzers verwendet, und der Benutzer kann diese Einstellung ändern.</string>
       <string id="DisableNotificationCenter">Benachrichtigungs- und Info-Center entfernen</string>
       <string id="DisableNotificationCenter_Help">Diese Richtlinieneinstellung entfernt das Benachrichtigungs- und Info-Center aus dem Benachrichtigungsbereich der Taskleiste.
 
 Der Benachrichtigungsbereich befindet sich ganz rechts auf der Taskleiste und enthält neben Symbolen für aktuelle Benachrichti</string>
-      <string id="NoPinningStoreToTaskbar">Anheften der Store-App an die Taskleiste nicht zulassen</string> 
+      <string id="NoPinningStoreToTaskbar">Anheften der Store-App an die Taskleiste nicht zulassen</string>
       <string id="NoPinningStoreToTaskbar_Help">
 Mit dieser Richtlinieneinstellung können Sie die Store-App an die Taskleiste anheften.
 
@@ -159,10 +164,81 @@ Wenn Sie die Richtlinieneinstellung deaktivieren, können Benutzer unabhängig v
 Wenn Sie die Richtlinieneinstellung nicht konfigurieren, wird der Kalender gemäß der Standardlogik festgelegt.</string>
       <string id="ConfigureTaskbarCalendar_SimplifiedChinese">Chinesisch, vereinfacht (Mondkalender)</string>
       <string id="ConfigureTaskbarCalendar_TraditionalChinese">Chinesisch, traditionell (Mondkalender)</string>
+      <string id="Chat">Chat</string>
+      <string id="ConfigureChatIcon">Konfiguriert das Chat-Symbol in der Taskleiste</string>
+      <string id="ConfigureChatIcon_Help">Mit dieser Richtlinieneinstellung können Sie das Chatsymbol auf der Taskleiste konfigurieren.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren und auf "Anzeigen" festlegen, wird das Chatsymbol standardmäßig auf der Taskleiste angezeigt. Benutzer können sie in den Einstellungen anzeigen oder ausblenden.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren und auf "Ausblenden" festlegen, wird das Chatsymbol standardmäßig ausgeblendet. Benutzer können sie in den Einstellungen anzeigen oder ausblenden.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren und auf "Deaktiviert" festlegen, wird das Chatsymbol nicht angezeigt, und Benutzer können sie nicht in den Einstellungen anzeigen oder ausblenden.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird das Chatsymbol gemäß den Standardeinstellungen für Ihre Windows Edition konfiguriert.</string>
+      <string id="ChatEnum_Show">Einblenden</string>
+      <string id="ChatEnum_Hide">Ausblenden</string>
+      <string id="ChatEnum_Disabled">Deaktiviert</string>
+      <string id="HideTaskViewButton">Schaltfläche „TaskView“ ausblenden</string>
+      <string id="HideTaskViewButton_Help">Mit dieser Richtlinieneinstellung können Sie die Schaltfläche "TaskView" ausblenden.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Schaltfläche "TaskView" ausgeblendet, und die Umschaltfläche "Einstellungen" wird deaktiviert.</string>
+      <string id="AlwaysShowNotificationIcon">Glockensymbol für Benachrichtigung anzeigen</string>
+      <string id="AlwaysShowNotificationIcon_Help">
+Mit dieser Richtlinieneinstellung können Sie das Benachrichtigungsglockensymbol in der Taskleiste anzeigen.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird immer das Benachrichtigungssymbol angezeigt. Andernfalls wird das Benachrichtigungssymbol nur angezeigt, wenn eine spezielle status vorhanden ist (z. B. "Nicht stören" ist aktiviert).
+
+Damit diese Richtlinieneinstellung wirksam wird, ist ein Neustart erforderlich.
+      </string>
+      <string id="TurnOffAbbreviatedDateTimeFormat">Abgekürztes Zeit- und Datumsformat deaktivieren</string>
+      <string id="TurnOffAbbreviatedDateTimeFormat_Help">
+Mit dieser Richtlinieneinstellung können Sie das längere Zeit- und Datumsformat in der Taskleiste anzeigen.
+
+Wenn diese Einstellung aktiviert ist, enthält das Zeitformat den Zeitmarker am/pm und das Datum das Jahr.
+
+Damit diese Richtlinieneinstellung wirksam wird, ist ein Neustart erforderlich.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior">ConfigureTaskbarSmallButtonBehavior</string>  
+      <string id="ConfigureTaskbarSmallButtonBehavior_DisplayName">Verhalten für kleine Schaltflächen auf der Taskleiste konfigurieren</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Help">Diese Richtlinieneinstellung ermöglicht es Ihnen, das Verhalten kleiner Taskleistenschaltflächen zu konfigurieren.
+      
+Bei Festlegung auf:
+      - Immer: Die Taskleiste verwendet immer kleine Schaltflächen.
+      - Wenn die Taskleiste voll ist: Die Taskleiste wechselt dynamisch zwischen kleinen Schaltflächen und Standardgrößen, basierend auf dem verfügbaren Platz.
+      - Nie: Die Taskleiste verwendet niemals kleine Schaltflächen. Es werden nur Schaltflächen in Standardgröße verwendet.
+
+Wenn diese Richtlinie aktiviert ist, muss eine der oben genannten Optionen ausgewählt werden, und Benutzer können die Option „Kleinere Taskleistenschaltflächen anzeigen“ in der Benutzeroberfläche für Einstellungen nicht ändern.
+
+Wenn diese Richtlinie deaktiviert oder nicht konfiguriert ist, wird keine Option durch die Gruppenrichtlinie angewendet. Windows verwendet standardmäßig das Verhalten „Wenn die Taskleiste voll ist“, und Benutzer können diese Einstellung manuell in der Benutzeroberfläche für Einstellungen ändern.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Always">Immer</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_WhenTaskbarIsFull">Wenn die Taskleiste voll ist</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Never">Nie</string>
+      <string id="DisableTaskbarPosition">Ändern der Taskleistenposition deaktivieren</string>
+      <string id="DisableTaskbarPosition_Help">Mit dieser Richtlinieneinstellung können Sie verhindern, dass Benutzer die Position der Taskleiste ändern.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Taskleiste an den unteren Bildschirmrand verschoben, und die Einstellung für die Taskleistenposition wird in der App "Einstellungen" abgeblendet dargestellt.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer die Position der Taskleiste in der App "Einstellungen" ändern.</string>
+      <string id="DisableTaskbarSize">Ändern der Taskleistengröße deaktivieren</string>
+      <string id="DisableTaskbarSize_Help">Mit dieser Richtlinieneinstellung können Sie verhindern, dass Benutzer die Größe der Taskleiste ändern.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Taskleiste auf die Standardgröße festgelegt, und die Einstellung für die Taskleistengröße ist in der Einstellungs-App abgeblendet.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, können Benutzer die Größe der Taskleiste in der App "Einstellungen" ändern.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureTaskbarCalendar">
         <dropdownList refId="ConfigureTaskbarCalendar_Dropdown" defaultItem="0">Kalender:</dropdownList>
+      </presentation>
+      <presentation id="ConfigureChatIcon">
+          <text>Einstellung zum Konfigurieren des Chatsymbols</text>
+          <text> </text>
+          <dropdownList refId="ConfigureChatIcon_Action" noSort="true" defaultItem="1">Bundesland/Provinz: </dropdownList>
+          <text> </text>
+      </presentation>
+      <presentation id="ConfigureTaskbarSmallButtonBehavior">
+        <dropdownList refId="ConfigureTaskbarSmallButtonBehavior_Dropdown" noSort="true" defaultItem="1">Wählen Sie aus, wann kleinere Schaltflächen auf der Taskleiste angezeigt werden sollen: </dropdownList>
       </presentation>
     </presentationTable>
   </resources>

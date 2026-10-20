@@ -27,12 +27,11 @@ Hvis du deaktiverer denne politik eller undlader at konfigurere den, vises linke
 Hvis du deaktiverer denne politik eller undlader at konfigurere den, vises linket "Se flere resultater" ikke, når brugeren foretager en søgning i søgefeltet i menuen Start.  Hvis der er installeret en protokolhåndtering fra tredjepart, vises linket "Søg alle steder" i stedet for linket "Se flere resultater".</string>
       <string id="AddSearchInternetLinkInStartMenu">Tilføj linket Søg på internettet til menuen Start</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
-
-Hvis du aktiverer denne politik, vises linket "Søg på internettet" ikke, når brugeren foretager en søgning i søgefeltet i menuen Start.  Denne knap starter standardbrowseren med søgeordene.
+Hvis du aktiverer denne politik, vises linket "Søg på internettet", når brugeren foretager en søgning i søgefeltet i menuen Start.  Denne knap starter standardbrowseren med søgeordene.
 
 Hvis du deaktiverer denne politik, vises linket "Søg på internettet" ikke, når brugeren foretager en søgning i søgefeltet i menuen Start.
-          
-Hvis du ikke konfigurerer denne politik (standard), vises linket "Søg på internettet" ikke i menuen Start.</string>
+
+Hvis du undlader at konfigurere denne politik (standard), vises linket "Søg på internettet" ikke i menuen Start.</string>
       <string id="NoSearchFilesInStartMenu">Søg ikke efter filer</string>
       <string id="NoSearchFilesInStartMenu_Help">Hvis du aktiverer denne politikindstilling, søger søgefeltet i menuen Start ikke efter filer.
 
@@ -207,6 +206,19 @@ I Stifinder vises knappen Søg stadig på standardværktøjslinjen, men systemet
 Denne politikindstilling har kun indflydelse på elementer på den angivne brugergrænseflade. Indstillingen har ikke indflydelse på Internet Explorer og forhindrer ikke brugeren i at søge ved hjælp af andre metoder.
 
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, er linket Søg tilgængeligt i menuen Start.</string>
+      <string id="ShowOrHideMostUsedApps">Viser eller skjuler "mest anvendte"-liste fra menuen Start</string>
+      <string id="ShowOrHideMostUsedApps_Help">Hvis du aktiverer denne politikindstilling, kan du konfigurere menuen Start til at vise eller skjule listen over brugerens mest anvendte apps, uanset brugerindstillinger.
+
+Hvis du vælger "Vis", gennemtvinges den "mest anvendte" liste, og brugeren kan ikke ændre den ved hjælp af appen indstillinger.
+
+Hvis du vælger "Skjul", gennemtvinges den "mest brugte" liste til at være skjult, og brugeren kan ikke skifte til at vise det ved hjælp af appen indstillinger.
+
+Hvis du vælger "ikke konfigureret", eller hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, tillader alle brugere at slå visning af listen "mest brugte" til eller fra ved hjælp af appen indstillinger. Dette er standardfunktionsmåden.
+
+Bemærk! Hvis du konfigurerer denne politik til "Vis" eller "Skjul" på understøttede versioner af Windows 10, tilsidesættes alle politikindstillinger for listen "Fjern hyppige programmer fra menuen Start" (som administrerer den samme del af menuen Start, men med færre indstillinger).</string>
+      <string id="MFU_NotConfigured">Ikke konfigureret</string>
+      <string id="MFU_Show">Vis</string>
+      <string id="MFU_Hide">Skjul</string>
       <string id="NoFrequentUsedPrograms">Fjern listen over ofte anvendte programmer fra menuen Start</string>
       <string id="NoFrequentUsedPrograms_Help">Hvis du aktiverer denne indstilling, fjernes listen over ofte anvendte programmer fra menuen Start.
 
@@ -243,7 +255,7 @@ Hvis du deaktiverer eller undlader at konfigurere denne indstilling, vil listen 
       <string id="APPLIST_NONE">Ingen</string>
       <string id="APPLIST_COLLAPSE">Skjul</string>
       <string id="APPLIST_COLLAPSESETTING">Skjul og deaktiver indstilling</string>
-      <string id="APPLIST_REMOVESETTING">Fjern og deaktiver indstilling</string>    
+      <string id="APPLIST_REMOVESETTING">Fjern og deaktiver indstilling</string>
 
       <string id="NoNetAndDialupConnect">Fjern Netværksforbindelser fra menuen Start</string>
       <string id="NoNetAndDialupConnect_Help">Du kan bruge denne politikindstilling til at fjerne Netværksforbindelser fra menuen Start.
@@ -258,11 +270,11 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, er N
 
 Se også politikindstillingerne "Deaktiver programmer i menuen Indstillinger" og "Deaktiver Kontrolpanel" samt politikindstillingerne i mappen Netværksforbindelser (Computerkonfiguration og Brugerkonfiguration\Administrative skabeloner\Netværkssteder\Netværksforbindelser).</string>
       <string id="NoPinnedPrograms">Fjern liste over faste programmer fra menuen Start</string>
-      <string id="NoPinnedPrograms_Help">Hvis du aktiverer denne indstilling, fjernes listen over faste programmer fra menuen Start. Brugere kan ikke fastgøre programmer til menuen Start. 
+      <string id="NoPinnedPrograms_Help">Hvis du aktiverer denne indstilling, fjernes listen "Fastgjorte programmer" fra menuen Start. Brugerne kan ikke fastgøre programmer til menuen Start.
 
-I Windows XP og Windows Vista er afkrydsningsfelterne til internet og mail fjernet fra dialogboksen 'Tilpas menuen Start'. 
+I Windows XP og Windows Vista fjernes internet- og mailafkrydsningsfelterne fra dialogboksen 'Tilpas menuen Start'.
 
-Hvis du deaktiverer denne indstilling eller ikke konfigurer den, bevares listen over faste programmer i menuen Start. Brugere kan fastgøre og frigøre programmer i menuen Start.</string>
+Hvis du deaktiverer denne indstilling eller undlader at konfigurere den, forbliver listen over fastgjorte programmer på menuen Start. Brugerne kan fastgøre og frigøre programmer i menuen Start.</string>
       <string id="NoRecentDocsHistory">Opret ikke en oversigt over de senest åbnede dokumenter</string>
       <string id="NoRecentDocsHistory_Help">Forhindrer operativsystemet og installerede programmer i at oprette og vise genveje til de senest åbnede dokumenter.
 
@@ -316,33 +328,31 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, søg
 
 Bemærk! Denne politikindstilling gælder kun for destinationsfiler på NTFS-partitioner. FAT-partitioner har ikke denne funktion til sporing og søgning via id.
 
-Se også politikindstillingerne "Spor ikke Shell-genveje under gennemsøgning" og Brug ikke den søgebaserede metode, når der skal findes genveje i brugergrænsefladen".</string>
+Se også politikindstillingerne "Spor ikke Shell-genveje under gennemsøgning" og "Brug ikke den søgebaserede metode, når der skal findes genveje i brugergrænsefladen".</string>
       <string id="NoRun">Fjern menuen Kør fra menuen Start</string>
       <string id="NoRun_Help">Gør det muligt at fjerne kommandoen Kør fra menuen Start, Internet Explorer og Jobliste.
 
-Hvis du aktiverer denne indstilling, udføres følgende ændringer:
+Hvis du aktiverer denne indstilling, sker følgende ændringer:
 
-(1) Kommandoen Kør fjernes fra menuen Start.
+(1) Kommandoen Kør er fjernet fra menuen Start.
 
-(2) Kommandoen Nyt job (kør...) fjernes fra Jobliste.
+(2) Kommandoen Ny opgave (kør) er fjernet fra Jobliste.
 
-(3) Brugeren vil ikke kunne angive følgende på adresselinjen i Internet Explorer:
+(3) Brugeren forhindres i at angive følgende på Internet Explorer adresselinje:
 
---- En UNC-sti: \\&lt;server&gt;\&lt;share&gt; 
+--- En UNC-sti: \\&lt;server&gt;\&lt;share&gt;
 
----Adgang til lokale drev:  f.eks. C:
+---Tilgænge lokale drev: f.eks. C:
 
---- Adgang til lokale mapper: f.eks. \temp&gt;
+--- Adgang til lokale mapper, f.eks. \temp&gt;
 
-Brugere med udvidede tastaturer vil heller ikke kunne få vist dialogboksen Kør ved at trykke på programtasten (tasten med Windows-logoet) + R.
+Brugere med udvidede tastaturer kan heller ikke længere vise dialogboksen Kør ved at trykke på programtasten (tasten med Windows-logoet) + R.
 
-Hvis indstillingen deaktiveres eller ikke konfigureres, vil brugerne kunne få adgang til kommandoen Kør i menuen Start og i Jobliste samt kunne bruge adresselinjen i Internet Explorer.
+Hvis du deaktiverer eller undlader at konfigurere denne indstilling, kan brugerne få adgang til kommandoen Kør i menuen Start og Jobliste og bruge adresselinjen Internet Explorer.
 
+Bemærk! Denne indstilling påvirker kun den angivne grænseflade. Den forhindrer ikke brugerne i at anvende andre metoder til at køre programmer.
 
-
-Bemærk! Denne indstilling påvirker kun den angivne brugergrænseflade. Den forhindrer ikke brugere i at køre programmer ved hjælp af andre metoder.
-
-Bemærk! Det kræves, at tredjepartsprogrammer med certificering til Windows 2000 eller senere overholder retningslinjerne i denne indstilling.</string>
+Bemærk! Det er et krav til tredjepartsprogrammer med Windows 2000- eller nyere certificering for at overholde denne indstilling.</string>
       <string id="NoSetFolders">Fjern programmer i menuen Indstillinger</string>
       <string id="NoSetFolders_Help">Du kan bruge denne politikindstilling til at fjerne programmer fra menuen Indstillinger.
 
@@ -599,9 +609,9 @@ Hvis du slår denne politikindstilling til, vises startskærmen på den skærm, 
 
 Hvis du slår denne politikindstilling fra eller undlader at konfigurere den, vises startskærmen altid på den primære skærm, når brugeren trykker på Windows-tasten. Brugerne vil fortsat kunne åbne startskærmen på andre skærme ved at trykke på knappen Start på den pågældende skærm. Brugeren vil desuden kunne konfigurere denne politikindstilling.</string>
       <string id="ForceStartSize_DisplayName">Gennemtving, at start enten skal være i fuld skærmstørrelse eller i menustørrelse</string>
-      <string id="ForceStartSize_ExplainText">Hvis du aktiverer denne politik og indstiller den for menuen Start eller Start i fuld skærm, får Start den størrelse, og brugerne vil ikke kunne ændre størrelsen på Start under Indstillinger. 
+      <string id="ForceStartSize_ExplainText">Hvis du aktiverer denne politik og indstiller den til menuen Start eller Start i fuld skærm, vil Start være af denne størrelse, og brugerne vil ikke kunne ændre størrelsen på Start under Indstillinger.
 
-Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, vælger Windows automatisk størrelsen baseret på hardwarens formfaktor, og brugerne vil kunne ændre størrelsen på Start under Indstillinger.</string>
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vælger Windows automatisk størrelsen baseret på hardwarens formfaktor, og brugerne vil kunne ændre størrelsen på Start under Indstillinger.</string>
       <string id="ForceLauncherSize_Collapsed">Menuen Start</string>
       <string id="ForceLauncherSize_Expanded">Start i fuld skærm</string>
       <string id="HidePeopleBar_DisplayName">Fjern værktøjslinjen Personer fra proceslinjen</string>
@@ -612,10 +622,44 @@ Hvis du aktiverer denne politik, bliver ikonet Personer fjernet fra proceslinjen
       <string id="HideRecentlyAddedApps_Help">Med denne politik kan du undgå, at menuen Start viser en liste over senest installerede programmer.
 
 Hvis du aktiverer denne politik, vises listen "Senest tilføjede" ikke længere på menuen Start. Den tilsvarende indstilling deaktiveres også i Indstillinger.</string>
+      <string id="HideRecommendedSection">Fjern sektion Anbefalet fra menuen Start</string>
+      <string id="HideRecommendedSection_Help">Du kan bruge denne politik til at forhindre, at menuen Start viser en liste over anbefalede programmer og filer.
+
+Hvis du aktiverer denne politikindstilling, viser menuen Start ikke længere den sektion, der indeholder en liste over anbefalede filer og apps.</string>
+ <string id="HideCategoryView">Skjul kategorivisning i menuen Start</string>
+ <string id="HideCategoryView_Help">Du kan bruge denne politikindstilling til at skjule kategorivisningen i menuen Start.
+ 
+Hvis du aktiverer denne politikindstilling, viser menuen Start ikke længere kategorivisningen som en indstilling og bruges som standard til gittervisning.</string>
+
+ <string id="ConfigureStartPins">Konfigurer startpins</string>
+      <string id="ConfigureStartPins_Help">Gør det muligt for administratoren at tilsidesætte de standardelementer, der er fastgjort til Start.
+
+Med denne indstilling kan du angive de standardelementer, der er fastgjort til Start.</string>
+
+      <string id="HideRecommendedPersonalizedSites">Fjern tilpassede webstedsanbefalinger fra sektionen Anbefalet i menuen Start</string>
+      <string id="HideRecommendedPersonalizedSites_Help">Du kan bruge denne politikindstilling til at skjule de tilpassede websteder i det anbefalede afsnit i menuen Start. 
+      
+Hvis du aktiverer denne politikindstilling, viser menuen Start ikke længere tilpassede webstedsanbefalinger i det anbefalede afsnit.</string>
       <string id="DisableContextMenusInStart">Deaktiver genvejsmenuer i menuen Start</string>
       <string id="DisableContextMenusInStart_Help">Med denne politikindstilling kan du forhindre brugere i at kunne åbne genvejsmenuer i menuen Start.
 
 Hvis du aktiverer denne politik, ignoreres start af genvejsmenuer i menuen Start.</string>
+      <string id="SimplifyQuickSettings_DisplayName">Forenkle layoutet for hurtigindstillinger</string>
+      <string id="SimplifyQuickSettings_ExplainText">Hvis du aktiverer denne politik, reduceres hurtige indstillinger til kun at have knapperne WiFi, Bluetooth, Tilgængelighed og VPN; skyderne for lysstyrke og lydstyrke; og batteriindikator og link til appen Indstillinger.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vises det almindelige layout for hurtige indstillinger, når Hurtige indstillinger startes.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">Deaktiver redigering af hurtigindstillinger</string>
+      <string id="DisableEditingQuickSettings_ExplainText">Hvis du aktiverer denne politik, kan brugeren ikke ændre hurtige indstillinger.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan brugeren redigere hurtige indstillinger, f.eks. fastgørelse eller frigørelse af knapper.</string>
+      <string id="DisableControlCenter">Fjern hurtigindstillinger</string>
+      <string id="DisableControlCenter_Help">Denne politikindstilling fjerner hurtige indstillinger fra det nederste højre område på proceslinjen.
+
+Området hurtige indstillinger er placeret til venstre for uret på proceslinjen og indeholder ikoner for det aktuelle netværk og den aktuelle diskenhed.
+
+Hvis denne indstilling er aktiveret, vises Hurtige indstillinger ikke i området Hurtige indstillinger. 
+
+Computeren skal genstartes, for at denne politikindstilling kan træde i kraft.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +676,22 @@ Hvis du aktiverer denne politik, ignoreres start af genvejsmenuer i menuen Start
           <label>Startlayoutfil</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">Genanvend layout ved hvert logon</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">Vælg en af følgende størrelser</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">Vælg en af følgende handlinger</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>Layoutfil for startpins</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">Skjul kategorivisning</checkBox>
       </presentation>
     </presentationTable>
   </resources>

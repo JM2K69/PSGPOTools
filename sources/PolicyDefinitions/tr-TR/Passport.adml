@@ -10,6 +10,8 @@
         <string id="MSPassport_UsePassportForWork">İş İçin Windows Hello'yu kullan</string>
         <!-- Add support for certificate trust deployments -->
         <string id="WHFB_UseCertificateForOnPremAuth">Şirket içinde kimlik doğrulaması için sertifika kullanma</string>
+        <!-- Add support for cloud trust deployments -->
+        <string id="WHFB_UseCloudTrustForOnPremAuth">Şirket içi kimlik doğrulaması için bulut güvenini kullanma</string>
         <!-- DropdownList Button strings -->
         <string id="MSPassport_UsePassportForWorkExplain">İş İçin Windows Hello parolalar, Akıllı Kartlar ve Sanal Akıllı Kartların yerine geçebilecek, Active Directory veya Azure Active Directory hesabınızı kullanarak Windows'ta oturum açabileceğiniz alternatif bir yöntemdir.
 
@@ -34,13 +36,13 @@ Eğer bu ilke ayarını etkinleştirirseniz, İş İçin Windows Hello sağlama,
 Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, TPM yine de tercih edilecektir fakat tüm cihazlar İş İçin Windows Hello'yu, TPM işlevsel değil veya kullanılamazsa, yazılım kullanarak sağlayabilirler.
         </string>
         <string id="MSPassport_MinimumPINLength">Minimum PIN uzunluğu</string>
-        <string id="MSPassport_MinimumPINLengthExplain">Minimum PIN uzunluğu, PIN için gereken minimum karakter sayısını yapılandırır. Bu ilke ayarı için yapılandırabileceğiniz en düşük sayı 4'tür. Yapılandırabileceğiniz en büyük sayının, Maksimum PIN uzunluğu ilke ayarında yapılandırılan sayıdan veya 127 sayısından hangisi daha küçükse o sayıdan daha az olması gerekir.
+        <string id="MSPassport_MinimumPINLengthExplain">Minimum PIN uzunluğu, PIN için gereken minimum karakter sayısını yapılandırdı.  Bu ilke ayarı için yapılandırılan en düşük sayı 4'tür.  Yapılandırılacak en büyük sayı, Maksimum PIN uzunluğu ilke ayarında yapılandırılan sayıdan veya 127 sayısından (hangisi en düşükse) daha az olmalıdır.
 
-Bu ilke ayarını yapılandırırsanız, PIN uzunluğu bu sayıdan büyük veya bu sayıya eşit olmalıdır.
+Bu ilke ayarını yapılandırırsanız, PIN uzunluğu bu sayıdan büyük veya buna eşit olmalıdır.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, PIN uzunluğu 4'ten büyük veya 4'e eşit olmalıdır.
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız PIN uzunluğu 6'dan büyük veya buna eşit olmalıdır.
 
-NOT: Minimum PIN uzunluğu için yukarıda belirtilen koşullar karşılanmazsa, hem maksimum hem de minimum PIN uzunlukları için varsayılan değerler kullanılacaktır.
+NOT: Minimum PIN uzunluğu için yukarıda belirtilen koşullar karşılanmadıysa, hem maksimum hem de minimum PIN uzunlukları için varsayılan değerler kullanılır.
         </string>
         <string id="MSPassport_MaximumPINLength">Maksimum PIN uzunluğu</string>
         <string id="MSPassport_MaximumPINLengthExplain">Maksimum PIN uzunluğu, PIN için izin verilen maksimum karakter sayısını yapılandırır. Bu ilke ayarı için yapılandırabileceğiniz en büyük sayı 127'dir. Yapılandırabileceğiniz en küçük sayının, Minimum PIN uzunluğu ilke ayarında yapılandırılan sayıdan veya 4 sayısından hangisi daha büyükse o sayıdan daha fazla olması gerekir.
@@ -52,32 +54,40 @@ Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, PIN 
 NOT: Maksimum PIN uzunluğu için yukarıda belirtilen koşullar karşılanmazsa, hem maksimum hem de minimum PIN uzunlukları için varsayılan değerler kullanılacaktır.
         </string>
         <string id="MSPassport_UppercaseLetters">Büyük harf kullanımı gerektir</string>
-        <string id="MSPassport_UppercaseLettersExplain">Bu ilke ayarını, PIN'de büyük harflerin kullanımını yapılandırmak için kullanın.
+        <string id="MSPassport_UppercaseLettersExplain">Bu ilke ayarını, PIN'deki büyük harflerin kullanımını yapılandırmak için kullanın.
 
-Bu ilke ayarını etkinleştirirseniz, Windows, kullanıcıların PIN'lerinde en az bir büyük harf kullanmalarını gerektirir.
+Bu ilke ayarını etkinleştirirseniz Windows, kullanıcının PIN'ine en az bir büyük harf eklemesini gerektirir.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, Windows, kullanıcıların PIN'lerinde büyük harf kullanmalarına izin vermez.
+Bu ilke ayarını devre dışı bırakırsanız Windows, kullanıcının PIN'ine büyük harf eklemesine izin vermez.
+
+Bu ilke ayarını yapılandırmazsanız Windows, PIN'de büyük harf kullanılmasına izin verir ama bunu gerektirmez.
         </string>
         <string id="MSPassport_LowercaseLetters">Küçük harf kullanımı gerektir</string>
-        <string id="MSPassport_LowercaseLettersExplain">Bu ilke ayarını, PIN'de küçük harflerin kullanımını yapılandırmak için kullanın.
+        <string id="MSPassport_LowercaseLettersExplain">Bu ilke ayarını, PIN'deki küçük harflerin kullanımını yapılandırmak için kullanın.
 
-Bu ilke ayarını etkinleştirirseniz, Windows, kullanıcıların PIN'lerinde en az bir küçk harf kullanmalarını gerektirir.
+Bu ilke ayarını etkinleştirirseniz Windows, kullanıcının PIN'ine en az bir küçük harf eklemesini gerektirir.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, Windows, kullanıcıların PIN'lerinde küçük harf kullanmalarına izin vermez.
+Bu ilke ayarını devre dışı bırakırsanız Windows, kullanıcının PIN'ine küçük harf eklemesine izin vermez.
+
+Bu ilke ayarını yapılandırmazsanız Windows, PIN'de küçük harf kullanılmasına izin verir ama bunu gerektirmez.
         </string>
         <string id="MSPassport_SpecialCharacters">Özel karakter kullanımı gerektir</string>
-        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Bu ilke ayarını, PIN'deki özel karakterlerin kullanımını yapılandırmak için kullanın.  İzin verilebilen özel karakterler şunlardır: ! " # $ %  ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
+        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Bu ilke ayarını, PIN'deki özel karakterlerin kullanımını yapılandırmak için kullanın. İzin verilebilen özel karakterler şunlardır: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
 
-Bu ilke ayarını etkinleştirirseniz Windows, kullanıcıların PIN'lerine en az bir özel karakter kullanmalarını gerektirir.
+Bu ilke ayarını etkinleştirirseniz Windows, kullanıcının PIN'ine en az bir özel karakter eklemesini gerektirir.
 
-Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, Windows, kullanıcıların PIN'lerinde özel karakter kullanmalarına izin vermez.]]>
+Bu ilke ayarını devre dışı bırakırsanız Windows, kullanıcının PIN'ine özel karakter eklemesine izin vermez.
+
+Bu ilke ayarını yapılandırmazsanız Windows, PIN'de özel karakter kullanılmasına izin verir ama bunu gerektirmez.]]>
         </string>
         <string id="MSPassport_Digits">Rakam kullanımı gerektir</string>
         <string id="MSPassport_DigitsExplain">Bu ilke ayarını, PIN'deki rakamların kullanımını yapılandırmak için kullanın.
 
-Bu ilke ayarını etkinleştirirseniz veya yapılandırmazsanız, Windows, kullanıcıların PIN'lerinde en az bir rakam kullanmalarını gerektirir.
+Bu ilke ayarını etkinleştirirseniz Windows, kullanıcının PIN'ine en az bir rakam eklemesini gerektirir.
 
-Bu ilke ayarını devre dışı bırakırsanız, Windows, kullanıcıların PIN'lerinde rakam kullanmalarına izin vermez.
+Bu ilke ayarını devre dışı bırakırsanız Windows, kullanıcının PIN'ine rakam eklemesine izin vermez.
+
+Bu ilke ayarını yapılandırmazsanız Windows, PIN'de rakam kullanılmasına izin verir ama bunu gerektirmez.
         </string>
         <string id="MSPassport_PINHistory">Geçmiş</string>
         <string id="MSPassport_PINHistoryExplain">Bu ayar, yeniden kullanılamayacak olan bir kullanıcı hesabıyla ilişkili olabilecek geçmiş PIN sayısını belirtir. Bu ilke, yöneticilerin eski PIN'lerin sürekli olarak yeniden kullanılmamasını sağlayarak güvenliği artırmalarına olanak tanır. PIN geçmişi, PIN sıfırlama ile korunmaz.
@@ -100,6 +110,19 @@ Bu ilke ayarını devre dışı bırakırsanız, İş İçin Windows Hello biyom
 
 NOT: Bu ilkeyi devre dışı bırakmak, kullanıcının tüm hesap türleri için bu cihaz üzerinde biyometrik hareketleri kullanmasını engeller.
         </string>
+        <string id="MSPassport_EnableEnhancedSignInSecurity">Desteklenen Çevre Birimleri ile ESS'yi Etkinleştirin</string>
+        <string id="MSPassport_EnableEnhancedSignInSecurityExplain">Gelişmiş Oturum Açma Güvenliği (ESS), Windows Hello biyometrik (yüz ve parmak izi) şablon verilerini ve eşleşen işlemleri güvenilir donanım veya belirtilen bellek bölgelerine yalıtır; diğer bir deyişle işletim sisteminin geri kalanı bu verilere erişemez veya bunlar üzerinde oynanamaz. Algılayıcılar ve algoritma arasındaki iletişim kanalı da güvenli olduğundan, bir kullanıcının oturum açma benzetimini yapmak veya bir kullanıcının makinesine erişimini engellemek için kötü amaçlı yazılımların veri eklemesi veya yeniden yürütmesi mümkün değildir.
+Bu ilkeyi etkinleştirirseniz şu olası değerlere sahip olabilir:
+
+0 - Gelişmiş Oturum Açma Güvenliği çevre birimi algılayıcıları ile devre dışı bırakıldı
+ESS, uyumlu yazılım ve donanıma sahip sistemlerde devre dışı bırakılır. Windows Hello özellikli çevre birimi cihazların kimlik doğrulaması işlemlerine, geçerli özellik sınırlamalarına bağlı olarak izin verilir.
+
+1 - Gelişmiş Oturum Açma Güvenliği çevre birimi algılayıcıları ile etkinleştirildi (varsayılan ve önerilen)
+ESS, Windows'ta mevcut varsayılan davranışa uygun yazılım ve donanıma sahip sistemlerde etkinleştirilir. Herhangi bir çevre birimi biyometrik cihazının kimlik doğrulaması işlemleri engellenir ve Windows Hello için kullanılamaz.
+
+Bu ilkeyi devre dışı bırakırsanız veya yapılandırmazsanız ESS olmayan algılayıcılar ESS cihazında engellenir.
+
+        </string>
         <string id="MSPassport_EnablePinRecovery">PIN Kurtarma’yı kullan</string>
         <string id="MSPassport_EnablePinRecoveryExplain">PIN kurtarma, kullanıcın cihazdaki kişisel hesapları ile ilişkilendirilmiş anahtarlar da dâhil olmak üzere, ilişkili herhangi bir kimlik bilgisi veya sertifika kaybetmeden İş İçin Windows Hello PIN kurtarma hizmetini kullanarak kullanıcının unuttuğu PIN’ini değiştirmesini sağlar. Azure tabanlı PIN kurtarma hizmeti bir kurtarma gizliliği şifreler ve cihazda depolar; bunun için hem PIN kurtarma hizmetine hem de şifreyi çözmek için cihaz gereklidir. PIN kurtarma için kullanıcının Azure Active Directory’de çok faktörlü kimlik doğrulamasını gerçekleştirmesi gereklidir.
 
@@ -110,13 +133,22 @@ Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Windo
 NOT: Bu ilke yalnızca Azure Active Directory’ye kayıt olan cihazlar için geçerlidir.
         </string>
         <!-- Explain Text for UseCertificateForOnPremAuth -->
-        <string id="WHFB_UseCertificateForOnPremAuthExplain">Şirket içi kimlik doğrulama için kullanılacak bir oturum açma sertifikası kaydetmek üzere İş İçin Windows Hello yapılandırmak için bu ilke ayarını kullanın.
+        <string id="WHFB_UseCertificateForOnPremAuthExplain">Şirket içi kimlik doğrulamasında kullanılacak bir oturum açma sertifikası kaydetmek üzere Iş için Windows Hello 'Yu yapılandırmak için bu ilke ayarını kullanın.
 
-Bu ilke ayarını etkinleştirirseniz, İş İçin Windows Hello şirket içi kimlik doğrulaması için kullanılacak bir oturum açma sertifikası kaydedecektir.
+Bu ilke ayarını etkinleştirirseniz, Iş için Windows Hello, şirket içi kimlik doğrulaması için kullanılan bir oturum açma sertifikası kaydeder.
 
-Bu ilke ayranı devre dışı bırakır veya yapılandırmazsanız, İş İçin Windows Hello, şirket içi kimlik doğrulaması için kullanılacak bir anahtar kaydedecektir.
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Iş için Windows Hello şirket içi kimlik doğrulaması için anahtar veya Kerberos bileti (diğer ilke ayarlarına bağlı olarak) kullanır.
 
-NOT: Bu ilke ayarını devre dışı bırakmak veya yapılandırmamak ve "İş İçin Windows Hello Kullan" ilke ayarını etkinleştirmek, İş İçin Windows Hello kimlik doğrulamasının başarısız olmasını engellemek için ortamın bir ya da birden fazla Windows Server 2016 etki alanı denetleyicisine sahip olmasını gerektirir.
+Not: Bu ilke ayarını devre dışı bırakma veya yapılandırma ve "Iş için Windows Hello" ilke ayarının etkinleştirilmesi, Windows Hello 'nun Iş kimlik doğrulamasının başarısız olmasını engellemek için ortamın bir veya daha fazla Windows Server 2016 etki alanı denetleyicisine sahip olmasını gerektirir.
+        </string>
+        <!-- Explain Text for UseCloudTrustForOnPremAuth -->
+        <string id="WHFB_UseCloudTrustForOnPremAuthExplain">Şirket içi kimlik doğrulaması için Azure AD Kerberos kullanmak üzere Iş için Windows Hello 'Yu yapılandırmak için bu ilke ayarını kullanın.
+
+Bu ilke ayarını etkinleştirirseniz Iş için Windows Hello, şirket içi kimlik doğrulama için Azure 'a kimlik doğrulaması işleminden alınan Kerberos anahtarını kullanır.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Iş için Windows Hello, şirket içi kimlik doğrulaması için bir anahtar veya sertifika (diğer ilke ayarlarına bağlı olarak) kullanır. 
+ 
+Not: Bu ilke ayarını ve "Iş için Windows Hello 'Yu kullan" ilke ayarının her ikisini de sağlayan bir ortam, bir veya daha fazla Windows Server 2016 etki alanı denetleyicisi gerektirir. Aksi halde, Iş için Windows Hello kimlik doğrulaması başarısız olur.
         </string>
         <!-- Explain text for device unlock policy -->
         <string id="MSPassport_UseDeviceUnlock">Cihaz kilit açma faktörlerini yapılandır</string>
@@ -169,6 +201,9 @@ Windows, kullanıcının şu anda oturum açmış olması durumunda bu ayarı de
         </string>
     </stringTable>
     <presentationTable>
+        <presentation id="MSPassport_EnableEnhancedSignInSecurityControl">
+            <decimalTextBox refId="MSPassport_EnableEnhancedSignInSecurityDataType" spin="true" spinStep="1" defaultvalue="1">Desteklenen Çevre Birimleri ile ESS'yi Etkinleştirin</decimalTextBox>
+        </presentation>
         <presentation id="MSPassport_MinimumPINLengthControl">
             <decimalTextBox refId="MSPassport_MinimumPINLengthDataType" spin="true" spinStep="1" defaultvalue="6">Minimum PIN uzunluğu</decimalTextBox>
         </presentation>

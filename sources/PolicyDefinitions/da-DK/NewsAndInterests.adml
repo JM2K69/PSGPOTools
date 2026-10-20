@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>indtast det viste navn her</displayName>
+  <description>indtast beskrivelsen her</description>
+  <resources>
+    <stringTable>
+      <string id="NewsAndInterests">Widgets</string>
+      <string id="AllowNewsAndInterests">Tillad widgets</string>
+      <string id="Explain_AllowNewsAndInterests">Denne politik angiver, om funktionen widgets er tilladt på enheden.
+Widgets aktiveres som standard, medmindre du ændrer dette i dine indstillinger.
+Hvis du har slået denne funktion til før, forbliver den slået til automatisk, medmindre du slår den fra.</string>
+      <string id="DisableWidgetsOnLockScreen">Deaktiver widgets på låseskærmen</string>
+      <string id="Explain_DisableWidgetsOnLockScreen">Denne politik angiver, om funktionen Widgets skal deaktiveres på låseskærmen.
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vises widgets på låseskærmen og kan administreres i appen Windows-indstillinger.
+Hvis du aktiverer denne politikindstilling, vises widgets ikke på låseskærmen.</string>
+      <string id="DisableWidgetsBoard">Deaktiver widgets-tavle</string>
+      <string id="Explain_DisableWidgetsBoard">Denne politik angiver, om Widgets Board-oplevelsen skal deaktiveres. 
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan du starte Widgets Board og se dens indgangspunkt på proceslinjen. Widgets Board-oplevelsen kan administreres i Indstillinger for widgets, hvis indgangspunkt er placeret på Widgets Board.
+Hvis du aktiverer denne politikindstilling, kan du ikke starte Widgets-tavlen, og dens indgangspunkt vises ikke længere på proceslinjen.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

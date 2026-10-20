@@ -14,8 +14,15 @@
       <string id="WU_SUPPORTED_Windows7_To_Win2kSP3_Or_XPSP1">Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2003, Windows XP z dodatkiem SP2, Windows XP z dodatkiem SP1 , Windows 2000 z dodatkiem SP4, Windows 2000 z dodatkiem SP3</string>
       <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_NoWinRT">Przynajmniej system Windows XP Professional z dodatkiem Service Pack 1 lub Windows 2000 z dodatkiem Service Pack 3, oprócz systemu Windows RT</string>
       <string id="WU_SUPPORTED_WindowsXPSP1_NoWinRT">Przynajmniej system Windows Server 2003 lub Windows XP Professional z dodatkiem SP1, oprócz systemu Windows RT</string>
-      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Co najmniej system Windows XP Professional z dodatkiem Service Pack 1 lub co najmniej system Windows 2000 z dodatkiem Service Pack 3 do systemu Windows 8.1 lub Windows Server 2012 R2 z najnowszym dodatkiem Service Pack</string>
-      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Co najmniej system Windows Vista do systemu Windows 8.1 lub Windows Server 2012 R2 z najnowszym dodatkiem Service Pack</string>
+      <string id="WU_SUPPORTED_Win2kSP3_Or_XPSP1_Through_Win81_or_Server2012R2">Co najmniej system Windows XP Professional z dodatkiem Service Pack 1 lub co najmniej system Windows 2000 z dodatkiem Service Pack od 3 do Windows 8.1 lub Windows Server 2012 R2 z najnowszym dodatkiem Service Pack. Nieobsługiwane w Windows 10 i nowszych.</string>
+      <string id="WU_SUPPORTED_WindowsVista_Through_Win81_or_Server2012R2">Co najmniej system Windows Vista do Windows 8.1 lub Windows Server 2012 R2 z najnowszym dodatkiem Service Pack. Nieobsługiwane w Windows 10 i nowszych.</string>
+      <string id="WU_SUPPORTED_XPSP1_or_Win2kSP3_AUOption7_SUPPORTED_Server2016">System Windows XP Professional z dodatkiem Service Pack 1 albo system Windows 2000 z dodatkiem Service Pack 3 lub nowszy
+Opcja 7 jest obsługiwana tylko na serwerach z systemem nie starszym niż Windows Server 2016</string>
+      <string id="WU_SUPPORTED_Server2016_Through_Server2022_Or_Windows10">Systemy od Windows Server 2016 do Windows Server 2022 lub Windows 10​</string>
+      <string id="WU_SUPPORTED_Windows_Server_2019_Windows_10_0_1809">Co najmniej Windows Server 2019 lub Windows 10 w wersji 1809 ​</string>
+      <string id="WU_SUPPORTED_Windows_Server_2022_Windows_10_0_2004">Co najmniej Windows Server 2022, Windows 10 wersja 2004 ​</string>
+      <string id="WU_SUPPORTED_WinServer2025_Win1021H2_Win1122H2">Co najmniej system Windows Server 2025, Windows 10 w wersji 21H2 lub Windows 11 w wersji 22H2</string>
+      <string id="WU_SUPPORTED_Win11_24H2">Co najmniej system Windows 11 w wersji 24H2</string>
       <string id="AUDontShowUasHelp">To ustawienie zasad umożliwia określenie, czy opcja „Zainstaluj aktualizacje i zamknij system” ma być wyświetlana w oknie dialogowym Zamykanie systemu Windows.
 
 Jeśli to ustawienie zasad zostanie włączone, opcja „Zainstaluj aktualizacje i zamknij system” nie będzie dostępna do wybrania w oknie dialogowym Zamykanie systemu Windows po wybraniu przez użytkownika opcji Zamknij w menu Start, nawet jeśli aktualizacje będą gotowe do instalacji.
@@ -72,20 +79,25 @@ To ustawienie umożliwia określenie, czy na tym komputerze są włączone aktua
 
         4 = Automatycznie pobierz aktualizacje i zainstaluj je według harmonogramu określonego poniżej.
 
-        Gdy jako godzina zaplanowanej instalacji zostanie wybrana wartość „Automatycznie”, system Windows będzie automatycznie wyszukiwał, pobierał i instalował aktualizacje. Ponowne rozruchy urządzenia będą wykonywane zgodnie z domyślnymi ustawieniami systemu Windows, chyba że zostaną skonfigurowane za pośrednictwem zasad grupy. (Dotyczy systemu Windows 10 w wersji 1809 i nowszych).
+        Gdy jako godzina zaplanowanej instalacji zostanie wybrana wartość „Automatycznie”, system Windows będzie automatycznie wyszukiwał, pobierał i instalował aktualizacje. Ponowne rozruchy urządzenia będą wykonywane zgodnie z domyślnymi ustawieniami systemu Windows, chyba że zostaną skonfigurowane za pośrednictwem zasad grupy. (Dotyczy systemu Windows 10, wersja 1809 i nowszych).
 
         Określ harmonogram przy użyciu opcji w ustawieniu zasad grupy. W przypadku wersji 1709 i nowszych istnieje dodatkowa możliwość ograniczenia aktualizacji do aktualizacji co tydzień, co dwa tygodnie lub co miesiąc. Jeżeli nie zostanie określony harmonogram, domyślny harmonogram dla wszystkich instalacji określa ich wykonywanie codziennie o godzinie 3:00. Jeśli do zakończenia jakiejkolwiek aktualizacji będzie wymagane ponowne uruchomienie komputera, system Windows automatycznie uruchomi ponownie komputer. (Jeśli użytkownik będzie zalogowany do komputera w chwili, gdy system Windows będzie gotowy do ponownego uruchomienia, zostanie powiadomiony i będzie mógł wybrać opcję opóźnienia ponownego uruchomienia).
 
         W przypadku systemu Windows 8 lub nowszego możesz skonfigurować aktualizacje tak, aby były instalowane podczas automatycznej konserwacji, a nie zgodnie z określonym harmonogramem. Aktualizacje będą instalowane w ramach automatycznej konserwacji, gdy komputer nie będzie używany, ale nie będą instalowane, gdy komputer będzie zasilany z baterii. Jeśli w ramach automatycznej konserwacji nie będzie można zainstalować aktualizacji w ciągu 2 dni, usługa Windows Update zainstaluje aktualizacje natychmiast. Użytkownicy zostaną powiadomieni o nadchodzącym ponownym uruchomieniu, a komputer zostanie uruchomiony ponownie tylko wtedy, gdy nie będzie ryzyka przypadkowej utraty danych.
 
-        5 = Zezwalaj administratorom lokalnym na wybranie trybu konfiguracji, w ramach którego aktualizacje automatyczne powinny powiadamiać o aktualizacjach i instalować je. (Ta opcja nie została przeniesiona do żadnej z wersji systemu Win 10)
+        5 = Zezwalaj administratorom lokalnym na wybranie trybu konfiguracji, w ramach którego funkcja Aktualizacje automatyczne powinna powiadamiać o aktualizacjach i instalować je. (Ta opcja nie została przeniesiona do żadnej z wersji systemu Win 10).
 
-        Ta opcja umożliwia administratorom lokalnym używanie panelu sterowania usługi Windows Update w celu wybrania odpowiedniej opcji konfiguracji. Administratorzy lokalni nie będą mogli wyłączyć konfiguracji aktualizacji automatycznych.
+        Ta opcja umożliwia administratorom lokalnym używanie panelu sterowania usługi Windows Update w celu wybrania odpowiedniej opcji konfiguracji. Administratorzy lokalni nie będą mogli wyłączyć konfiguracji funkcji Aktualizacje automatyczne.
+
+        7 = Powiadamiaj o instalacji i o konieczności ponownego uruchomienia. (Tylko system Windows Server).
+
+        Za pomocą tej opcji z systemu Windows Server 2016, która ma zastosowanie tylko do urządzeń z produktami (SKU) serwerowymi, administratorzy lokalni mogą używać usługi Windows Update, aby ręcznie kontynuować instalacje lub ponowne rozruchy.
 
 Jeśli ta zasada będzie mieć stan Wyłączone, wszystkie aktualizacje dostępne w usłudze Windows Update będą musiały być pobierane i instalowane ręczne. W tym celu wyszukaj usługę Windows Update za pomocą menu Start.
 
-Jeśli ta zasada będzie mieć stan Nieskonfigurowane, użycie aktualizacji automatycznych nie zostanie określone na poziomie zasad grupy. Administrator będzie jednak mógł nadal skonfigurować aktualizacje automatyczne przy użyciu Panelu sterowania.</string>
+Jeśli ta zasada będzie mieć stan Nieskonfigurowane, użycie funkcji Aktualizacje automatyczne nie zostanie określone na poziomie zasad grupy. Administrator będzie jednak mógł nadal skonfigurować funkcję Aktualizacje automatyczne przy użyciu Panelu sterowania.</string>
 
+      <string id="AutoUpdateModeNotifyToInstallNotifyToReboot">7 — Pobierz automatycznie, powiadom o instalacji, powiadom o ponownym uruchomieniu</string>
       <string id="AutoUpdateModeAdminChooses">5 — Zezwalaj adm. lokalnym na wybier. ustawienia</string>
       <string id="AutoUpdateModeAuto">4 — Pobierz autom. i zaplanuj instal</string>
       <string id="AutoUpdateModeDownload">3 — Pobierz autom. i powiadom o instalacji</string>
@@ -125,15 +137,15 @@ Jeśli ta zasada będzie mieć stan Nieskonfigurowane, użycie aktualizacji auto
       <string id="AutoUpdateSchTimeAuto">Automatycznie</string>
       <string id="CorpWuURL">Określ lokalizację intranetowej usługi aktualizującej firmy Microsoft</string>
       <string id="CorpWuURL_Help">
-        Określa serwer intranetowy, który będzie hostował aktualizacje z usługi Microsoft Update. Następnie możesz użyć tej usługi aktualizacji w celu automatycznego aktualizowania komputerów w swojej sieci.
+        Określa serwer intranetowy, który będzie hostował aktualizacje z usługi Microsoft Update. Następnie możesz używać tej usługi aktualizacji w celu automatycznego aktualizowania komputerów w swojej sieci.
 
-        To ustawienie umożliwia określenie serwera w swojej sieci, który będzie pełnił funkcję wewnętrznej usługi aktualizacji. Klient Aktualizacji automatycznych będzie wyszukiwał w tej usłudze aktualizacje przeznaczone dla komputerów w Twojej sieci.
+        To ustawienie umożliwia określenie serwera w Twojej sieci, który będzie pełnił funkcję wewnętrznej usługi aktualizacji. Klient Aktualizacji automatycznych będzie wyszukiwał w tej usłudze aktualizacje przeznaczone dla komputerów w Twojej sieci.
 
-        Aby użyć tego ustawienia, musisz ustawić dwie wartości nazwy serwera: serwer, na którym klient Aktualizacji automatycznych wykrywa aktualizacje i z którego je pobiera, oraz serwer, na który zaktualizowane stacje robocze przekazują statystyki. Obie te wartości mogą odpowiadać jednemu serwerowi. Można określić opcjonalną nazwę serwera, aby skonfigurować usługę Windows Update Agent do pobierania aktualizacji z alternatywnego serwera pobierania, a nie z intranetowej usługi aktualizacji.
+        Aby używać tego ustawienia, musisz ustawić dwie wartości nazwy serwera: serwer, na którym klient Aktualizacji automatycznych wykrywa aktualizacje i z którego je pobiera, oraz serwer, na który zaktualizowane stacje robocze przekazują statystyki. Obie te wartości mogą odpowiadać jednemu serwerowi. Możliwe jest określenie opcjonalnej nazwy serwera, aby skonfigurować usługę Windows Update Agent do pobierania aktualizacji z alternatywnego serwera pobierania, a nie z intranetowej usługi aktualizacji.
 
-        Jeśli stan ma wartość Włączone, klient Aktualizacji automatycznych łączy się z określoną intranetową usługą aktualizacji firmy Microsoft (lub alternatywnym serwerem pobierania), a nie z usługą Windows Update, w celu wyszukiwania i pobierania aktualizacji. Włączenie tego ustawienia spowoduje, że użytkownicy końcowi w organizacji nie będą musieli przechodzić przez zaporę, aby uzyskać aktualizacje, a jednocześnie umożliwia testowanie aktualizacji przed wdrożeniem.
+        Jeśli stan ma wartość Włączone, klient Aktualizacji automatycznych łączy się z określoną intranetową usługą aktualizacji firmy Microsoft (lub alternatywnym serwerem pobierania), a nie z usługą Windows Update, w celu wyszukiwania i pobierania aktualizacji. Włączenie tego ustawienia spowoduje, że użytkownicy końcowi w organizacji nie będą musieli przechodzić przez zaporę, aby uzyskiwać aktualizacje, a jednocześnie umożliwia testowanie aktualizacji przed ich wdrożeniem.
 
-        Jeśli stan ma wartość Wyłączone lub Nieskonfigurowane, a Aktualizacje automatyczne nie zostały wyłączone w zasadach lub preferencjach użytkownika, klient Aktualizacji automatycznych łączy się bezpośrednio w witryną Windows Update w Internecie.
+        Jeśli stan ma wartość Wyłączone lub Nieskonfigurowane, a Aktualizacje automatyczne nie zostały wyłączone w zasadach lub preferencjach użytkownika, klient Aktualizacji automatycznych łączy się bezpośrednio z witryną Windows Update w Internecie.
 
         Alternatywny serwer pobierania konfiguruje usługę Windows Update Agent do pobierania plików z alternatywnego serwera pobierania, a nie z intranetowej usługi aktualizacji.
 
@@ -141,11 +153,29 @@ Jeśli ta zasada będzie mieć stan Nieskonfigurowane, użycie aktualizacji auto
 
         Uwaga: jeśli zasada „Konfigurowanie aktualizacji automatycznych” jest wyłączona, ta zasada nie działa.
 
-        Uwaga: jeśli wartość „Alternatywny serwer pobierania” nie jest ustawiona, intranetowa usługa aktualizacji będzie używana domyślnie w celu pobierania aktualizacji.
+        Uwaga: jeśli wartość „Alternatywny serwer pobierania” nie jest ustawiona, w celu pobierania aktualizacji domyślnie używana jest intranetowa usługa aktualizacji.
 
-        Uwaga: opcja „Pobieraj pliki bez adresów URL...” jest używana tylko wtedy, gdy jest ustawiona wartość „Alternatywny serwer pobierania”.
+        Uwaga: opcja „Pobieraj pliki bez adresów URL...” jest używana tylko wtedy, gdy ustawiona jest wartość „Alternatywny serwer pobierania”.
 
-        Uwaga: Ta zasada nie jest obsługiwana w systemie Windows RT. Ustawienie tej zasady na komputerach z systemem Windows RT nie przyniesie żadnego efektu.</string>
+        Uwaga: ta zasada nie jest obsługiwana w systemie Windows RT. Ustawienie tej zasady na komputerach z systemem Windows RT nie przyniesie żadnego efektu.
+
+        W celu zapewnienia najwyższego bezpieczeństwa firma Microsoft zaleca zabezpieczenie WSUS protokołem TLS/SSL, co wymaga korzystania z serwerów intranetowych HTTPS i zabezpiecza systemy. Jeśli wymagany jest serwer proxy,  zalecamy konfigurację systemowego serwera proxy. Aby zapewnić najwyższe poziomy zabezpieczeń, należy dodatkowo wykorzystać przypinanie certyfikatu TLS usług WSUS na wszystkich urządzeniach.
+
+        Wybór zachowania serwera proxy nie ma wpływu na klientów używających serwerów intranetowych do wykrywania aktualizacji. W celu zapewnienia bezpieczeństwa klientów nie zezwalamy już serwerom intranetowym na domyślne korzystanie z serwera proxy użytkownika do wykrywania aktualizacji. W przypadku podjęcia decyzji o używaniu serwera proxy użytkownika do wykrywania aktualizacji i korzystaniu z serwera intranetowego HTTP pomimo luk w zabezpieczeniach, konieczne jest skonfigurowanie zachowania serwera proxy „Zezwalaj na używanie serwera proxy użytkownika jako rezerwy, jeśli wykrywanie za pomocą systemowego serwera proxy zakończy się niepowodzeniem”.
+
+        Wykrywanie aktualizacji dla serwerów intranetowych zakończy się niepowodzeniem, gdy serwer proxy użytkownika jest niezbędny jako rezerwa i alternatywne zachowanie serwera proxy nie jest skonfigurowane.</string>
+      <string id="OnlyUseSystemProxyForUpdateDetection">Używaj tylko systemowego serwera proxy do wykrywania aktualizacji (domyślnie)</string>
+      <string id="AllowUserProxyAsFallbackForUpdateDetection">Zezwalaj na używanie serwera proxy użytkownika jako rezerwy, jeśli wykrywanie za pomocą systemowego serwera proxy zakończy się niepowodzeniem</string>
+      <string id="UpdateClassPolicySource_Title">Określ usługę źródłową dla określonych klas aktualizacji systemu Windows</string>
+      <string id="UpdateClassPolicySource_Help">Gdy ta zasada jest włączona, urządzenia będą otrzymywać aktualizacje systemu Windows dla klas wymienionych z określonego źródła aktualizacji: usługi Windows Update lub Windows Server Update Service. 
+
+        Uwaga: aby otrzymywać aktualizacje z usługi Windows Server Update Service, musisz odpowiednio skonfigurować lokalizację intranetową usługi aktualizującej firmy Microsoft za pomocą zasad.
+
+        Jeśli te zasady nie są skonfigurowane lub są wyłączone, urządzenie będzie nadal wykrywać aktualizacje zgodnie z konfiguracjami innych zasad. 
+
+        Uwaga: jeśli jest używana opcja „Nie zezwalaj na uruchamianie przez zasady odroczenia operacji skanowania po usłudze Windows Update” w celu zapewnienia, że tylko urządzenia są skanowane tylko na określonym serwerze, zamiast tego zalecamy skonfigurowanie tych zasad lub jako ich uzupełnienie.</string>
+      <string id="UpdateClassPolicySourceSelectionWU">Usługa Windows Update</string>
+      <string id="UpdateClassPolicySourceSelectionWSUS">Windows Server Update Services</string>
       <string id="DetectionFrequency_Help">Określa liczbę godzin używaną przez system Windows do ustalenia okresu oczekiwania przed sprawdzaniem, czy są dostępne aktualizacje. Dokładny czas stanowi sumę określonej wartości oraz losowej wartości z zakresu od 0 do 4 godzin.
 
         Jeśli ustawienie Stan ma wartość Włączone, system Windows będzie sprawdzać dostępność aktualizacji, korzystając z określonego interwału.
@@ -289,6 +319,12 @@ Uwaga: Ta zasada ma zastosowanie tylko wtedy, gdy usługa aktualizująca firmy M
 Uwaga: To ustawienie zasad nie jest obsługiwane w systemie Windows RT. Jego włączenie nie będzie miało żadnego efektu na komputerach z systemem Windows RT.</string>
       <string id="TargetGroup_Title">Włącz konfigurowanie docelowej strony klienta</string>
       <string id="WindowsUpdateCat">Usługa Windows Update</string>
+      <!--Category sub-folders-->
+      <string id="WindowsUpdateOffering">Zarządzanie aktualizacjami oferowanymi w usłudze Windows Update</string>
+      <string id="WSUSOffering">Zarządzanie aktualizacjami oferowanymi w usłudze Windows Server Update Service</string>
+      <string id="WindowsUpdateExperience">Zarządzanie środowiskiem użytkownika końcowego</string>
+      <string id="PreSV">Starsze zasady</string>
+
       <string id="TrustedPublisher_Title">Zezwalaj na podpisane aktualizacje z intranetowej lokalizacji usługi aktualizacji firmy Microsoft  </string>
       <string id="TrustedPublisher_Help">To ustawienie zasad umożliwia określenie, czy funkcja Aktualizacje automatyczne powinna akceptować aktualizacje podpisane przez jednostki inne niż firma Microsoft, gdy aktualizacja pochodzi z intranetowej lokalizacji usługi aktualizacji firmy Microsoft. 
 
@@ -304,48 +340,34 @@ Uwaga: To ustawienie zasad nie jest obsługiwane w systemie Windows RT. Jego wł
 Włączenie tej zasady spowoduje wyłączenie tej funkcji i może uniemożliwić nawiązywanie połączeń z usługami publicznymi, takimi jak Sklep Windows.
 
 Uwaga: ta usługa jest stosowana tylko wtedy, gdy komputer jest skonfigurowany w celu nawiązywania połączenia z intranetową usługą aktualizacji przy użyciu zasady „Określ lokalizację intranetowej usługi aktualizującej firmy Microsoft”.</string>
-      <string id="DeferUpdateCat">Windows Update dla firm</string>
       <string id="ManagePreviewBuilds_Title">Zarządzaj kompilacjami w wersji Preview</string>
-      <string id="ManagePreviewBuilds_Help">Wybranie ustawienia „Wyłącz kompilacje w wersji zapoznawczej” uniemożliwi instalowanie kompilacji w wersji zapoznawczej na urządzeniu. Uniemożliwi to także użytkownikom przystępowanie do niejawnego programu testów systemu Windows za pomocą apletu Ustawienia -&gt; Aktualizacja i zabezpieczenia.
+      <string id="ManagePreviewBuilds_Help">Włącz te zasady, aby określić, które aktualizacje otrzymujesz przed opublikowaniem aktualizacji na całym świecie.
 
-Wybranie ustawienia „Wyłącz kompilacje w wersji zapoznawczej, gdy następne wydanie zostanie udostępnione publicznie” uniemożliwi instalowanie kompilacji w wersji zapoznawczej, gdy następne wydanie systemu Windows zostanie udostępnione publicznie. Ta opcja jest użyteczna w sytuacji, gdy urządzenie jest skonfigurowane do instalowania wersji zapoznawczych i chcesz bezpiecznie wycofać urządzenie z odbierania dystrybucji testowych. Ta opcja spowoduje, że kompilacje w wersji zapoznawczej będą dostarczane, dopóki na urządzeniu nie znajdzie się następne wydanie publiczne.
+Kanał dla deweloperów
+Idealny dla bardzo technicznych użytkowników. Niejawni testerzy w kanale dla deweloperów będą otrzymywać kompilacje z naszej aktywnej gałęzi projektowania, która jest najwcześniej gotowa w cyklu opracowywania. Te kompilacje nie są zgodne z konkretnym wydaniem systemu Windows 10.
 
-Wybranie ustawienia „Włącz kompilacje w wersji zapoznawczej” umożliwi instalowanie kompilacji w wersji zapoznawczej na urządzeniu. Użytkownicy mogą pobierać i instalować kompilacje systemu Windows w wersji zapoznawczej na swoich urządzeniach, wybierając taką opcję w obszarze Ustawienia -&gt; Aktualizacja i zabezpieczenia -&gt; Niejawny program testów systemu Windows. Gdy ta wartość jest ustawiona, administratorzy mogą także używać innych zasad, aby zarządzać ustawieniami dystrybucji testowych w imieniu użytkowników.</string>
-      <string id="DisablePreviewBuilds">Wyłącz kompilacje w wersji Preview</string>
-      <string id="DisablePreviewBuildsAndOptOut">Wyłącz kompilacje w wersji Preview, gdy następne wydanie zostanie udostępnione publicznie</string>
-      <string id="EnablePreviewBuilds">Włącz kompilacje w wersji Preview</string>
-      <string id="PreviewBuildFastFeatureUpdates">Kompilacja w wersji Preview — szybko</string>
-      <string id="PreviewBuildSlowFeatureUpdates">Kompilacja w wersji Preview — wolno</string>
-      <string id="ReleasePreviewBranchFeatureUpdates">Wydanie wersji Preview</string>
-      <string id="SemiAnnualChannelFeatureUpdates">Półroczny kanał</string>
-      <string id="SemiAnnualChannelFeatureUpdatesDeprecated">Półroczny kanał dla wersji 1809 i starszych (przestarzałe)</string>
-      <string id="SemiAnnualChannelFeatureUpdatesTargetedDeprecated">Półroczny kanał (kierowany) dla wersji 1809 i starszych (przestarzałe)</string>
+Kanał beta
+Idealne rozwiązanie dla osób badających funkcje, które chcą poznać nadchodzące funkcje systemu Windows 10. Twoja opinia będzie tutaj szczególnie ważna, ponieważ ułatwi naszym inżynierom naprawę ważnych problemów przed wydaniem głównym.
+
+Kanał wersji zapoznawczej (domyślny)
+Niejawni testerzy w kanale wersji zapoznawczej będą mieli dostęp do nadchodzącej wersji systemu Windows 10 przed opublikowaniem aktualizacji na całym świecie. Te kompilacje są obsługiwane przez firmę Microsoft. Kanał wersji zapoznawczej to miejsce, w którym zalecamy firmom przejrzenie i sprawdzanie nadchodzących wersji systemu Windows 10 przed szerszym wdrożeniem w organizacji.
+
+Kanał wersji zapoznawczej, tylko aktualizacje dotyczące jakości
+Idealny dla tych, którzy chcą zweryfikować funkcje i poprawki, które wkrótce znajdą się w bieżącej wersji. Uwaga: gdy ta opcja jest wybrana, wydane aktualizacje funkcji będą nadal oferowane zgodnie ze skonfigurowanymi zasadami.
+
+Uwaga: rejestracja kompilacji w wersji zapoznawczej wymaga ustawienia poziomu telemetrii o wartości 2 lub wyższej i domeny zarejestrowanej w witrynie insider.windows.com. Aby uzyskać dodatkowe informacje na temat kompilacji w wersji zapoznawczej, zobacz: https://aka.ms/wipforbiz
+
+Jeśli te zasady zostaną wyłączone lub nie zostaną skonfigurowane, usługa Windows Update nie będzie oferować żadnych aktualizacji w wersji wstępnej i będziesz otrzymywać taką zawartość po opublikowaniu na całym świecie. Wyłączenie tych zasad spowoduje, że wszystkie urządzenia korzystające z kompilacji w wersji wstępnej zostaną wyrejestrowane i pozostaną przy najnowszej aktualizacji funkcji, gdy zostanie wydana.</string>
+      <string id="DevChannel">Kanał Dev</string>
+      <string id="BetaChannel">Kanał Beta</string>
+      <string id="ReleasePreviewChannel">Kanał wersji Preview</string>
+      <string id="ReleasePreviewQualityOnly">Podgląd wersji tylko aktualizacji dotyczących jakości</string>
       <string id="DeferFeatureUpdates_Title">Wybierz, kiedy chcesz otrzymywać kompilacje w wersji Preview i aktualizacje funkcji</string>
-      <string id="DeferFeatureUpdates_Help">Włącz tę zasadę, aby określić poziom kompilacji w wersji Preview lub aktualizacji funkcji, które chcesz otrzymywać, oraz czas ich odbierania.
+      <string id="DeferFeatureUpdates_Help">Włącz te zasady, aby określić, kiedy będą otrzymywane aktualizacje funkcji.
 
-* Kompilacja w wersji Preview — szybko: Urządzenia, dla których ustawiono ten poziom, będą jako pierwsze otrzymywać nowe kompilacje systemu Windows z funkcjami, które nie są jeszcze ogólnie dostępne. Wybierz opcję Szybko, aby wziąć udział w procesie identyfikowania problemów i zgłaszania ich firmie Microsoft oraz dostarczać sugestie dotyczące nowych funkcji.
-* Kompilacja w wersji Preview — wolno: urządzenia, dla których ustawiono ten poziom, będą otrzymywać nowe kompilacje systemu Windows, zanim staną się one ogólnie dostępne, jednak będzie się to odbywać w wolniejszym tempie niż w przypadku opcji Szybko, a kompilacje będą zawierać zmiany i poprawki zidentyfikowane we wcześniejszych kompilacjach.
-* Wydanie wersji Preview: odbieraj kompilacje systemu Windows tuż przed udostępnieniem ich przez firmę Microsoft wszystkim odbiorcom.
-* Półroczny kanał: odbieraj aktualizacje funkcji, gdy staną się ogólnie dostępne.
+Odrocz aktualizacje | Umożliwia to urządzeniom odroczenie przyjęcia następnej aktualizacji funkcji dostępnej dla ich bieżącego produktu (lub nowego produktu, jeśli jest określony w zasadach wybierania docelowej wersji aktualizacji funkcji). Możesz odroczyć aktualizacje funkcji o maksymalnie 14 dni dla wszystkich kanałów wersji wstępnej i do 365 dni dla kanału ogólnej dostępności. Aby dowiedzieć się więcej o bieżących wersjach, zobacz aka.ms/WindowsTargetVersioninfo
 
-Następujące poziomy gotowości systemu Windows zostały uznane za przestarzałe i są stosowane tylko do wersji 1809 i starszych:
-* Półroczny kanał (kierowany) dla wersji 1809 i starszych: zostały wydane aktualizacje funkcji.
-* Półroczny kanał dla wersji 1809 i starszych: dla półrocznego kanału zadeklarowano aktualizacje funkcji i zostały one oznaczone jako gotowe do powszechnego wdrożenia.
-Przejrzyj stronę z informacjami dotyczącymi wydania, która jest dostępna pod adresem http://aka.ms/ReleaseInformationPage, aby zapoznać się z datami wydania dla półrocznego kanału (kierowany) i półrocznego kanału.
-
-W przypadku wybrania ustawienia Kompilacja w wersji Preview:
-    - Możesz odroczyć odbieranie kompilacji w wersji Preview o maks. 14 dni.
-    - Aby uniemożliwić odbieranie kompilacji w wersji Preview w zaplanowanym czasie, możesz je tymczasowo wstrzymać. Wstrzymanie będzie trwać 35 dni od określonego czasu rozpoczęcia.
-    - Aby wznowić odbieranie wstrzymanych aktualizacji funkcji, wyczyść pole daty rozpoczęcia.
-
-Rejestracja do otrzymywania kompilacji w wersji Preview wymaga ustawienia poziomu telemetrii o wartości 2 lub wyższej oraz zarejestrowania Twojej domeny w witrynie insider.windows.com. Aby uzyskać dodatkowe informacje dotyczące kompilacji w wersji Preview, zobacz https://aka.ms/wipforbiz.
-
-W przypadku wybrania ustawienia Półroczny kanał:
-    - Możesz odroczyć odbieranie aktualizacji funkcji o maks. 365 dni.
-    - Aby uniemożliwić odbieranie aktualizacji funkcji w zaplanowanym czasie, możesz je tymczasowo wstrzymać. Wstrzymanie będzie trwać 35 dni od określonego czasu rozpoczęcia.
-    - Aby wznowić odbieranie wstrzymanych aktualizacji funkcji, wyczyść pole daty rozpoczęcia.
-
-Jeśli wyłączysz tę zasadę albo jej nie skonfigurujesz, zachowanie usługi Windows Update nie ulegnie zmianie.</string>
+Wstrzymaj aktualizacje | Aby zapobiec oferowaniu aktualizacji funkcji dla urządzenia, możesz tymczasowo wstrzymać aktualizacje funkcji. To wstrzymanie będzie obowiązywać przez 35 dni od podanej daty rozpoczęcia lub do momentu wyczyszczenia tego pola. Uwaga: nawet jeśli aktualizacje funkcji zostaną wstrzymane, nadal będą oferowane aktualizacje dotyczące jakości.</string>
       <string id="DeferQualityUpdates_Title">Wybierz, kiedy chcesz otrzymywać aktualizacje dotyczące jakości</string>
       <string id="DeferQualityUpdates_Help">Włącz tę zasadę, aby określić, kiedy mają być odbierane aktualizacje dotyczące jakości.
 
@@ -356,6 +378,20 @@ Aby nie otrzymywać aktualizacji dotyczących jakości w zaplanowanym czasie, mo
 Aby wznowić odbieranie wstrzymanych aktualizacji dotyczących jakości, wyczyść pole daty rozpoczęcia.
 
 Jeśli wyłączysz tę zasadę albo jej nie skonfigurujesz, zachowanie usługi Windows Update nie ulegnie zmianie.</string>
+      <string id="TargetReleaseVersion_Title">Wybierz docelową wersję aktualizacji funkcji</string>
+      <string id="TargetReleaseVersion_Help">Wprowadź produkt i wersję wymienioną na stronie wersji docelowej usługi Windows Update:
+
+                        aka.ms/WindowsTargetVersioninfo
+
+Podczas kolejnych skanowań urządzenie zażąda podania produktu i wersji usługi Windows Update.
+
+Wprowadzenie produktu docelowego i kliknięcie przycisku OK lub Zastosuj oznacza, że akceptuję Postanowienia licencyjne dotyczące oprogramowania firmy Microsoft dla niego znajdujące na stronie aka.ms/WindowsTargetVersioninfo. W przypadku licencjonowania oprogramowania przez organizację mam autoryzację do powiązania tej organizacji.
+
+Jeśli wprowadzisz nieprawidłową wartość, pozostaniesz przy bieżącej wersji, dopóki nie poprawisz wartości obsługiwanego produktu i wersji.</string>
+      <string id="DisableWUfBSafeguards">Wyłączanie zabezpieczeń na potrzeby aktualizacji funkcji</string>
+      <string id="DisableWUfBSafeguards_Help">
+          Włącz to ustawienie, gdy aktualizacje funkcji powinny zostać wdrożone na urządzeniach bez blokowania jakichkolwiek zawieszeń zabezpieczających. Zawieszenia zabezpieczające są to znane problemy ze zgodnością, które blokują wdrażanie uaktualnienie na objętych urządzeniach, dopóki problem nie zostanie rozwiązany. Włączenie tych zasad może pozwolić organizacji na wdrożenie aktualizacji funkcji na urządzeniach na potrzeby testowania lub wdrożenie aktualizacji funkcji bez blokowania zawieszeń zabezpieczających.
+      </string>
       <string id="ExcludeWUDriversInQualityUpdate_Title">Nie uwzględniaj sterowników w aktualizacjach systemu Windows</string>
       <string id="ExcludeWUDriversInQualityUpdate_Help">To ustawienie zasad umożliwia nieuwzględnianie sterowników w aktualizacjach dotyczących jakości systemu Windows.
 
@@ -448,6 +484,16 @@ Jeśli włączysz to ustawienie, użytkownicy nie będą mieć dostępu do funkc
       <string id="DisablePauseUXAccess_Help">To ustawienie umożliwia usunięcie dostępu do funkcji „Wstrzymaj aktualizacje”.
 
 Po włączeniu tego ustawienia użytkownicy utracą dostęp do funkcji wstrzymywania aktualizacji.
+      </string>
+
+      <string id="MaxPauseDays_Title">Skonfiguruj maksymalną liczbę dni, przez które można wstrzymać aktualizacje</string>
+      <string id="MaxPauseDays_Help">Te zasady kontrolują maksymalną liczbę dni, przez które użytkownicy końcowi mogą wstrzymywać aktualizacje.
+
+Obsługiwane są wartości od 1 do 35. Wartość domyślna to 35 (dni).
+
+Po skonfigurowaniu zasad użytkownicy mogą wstrzymywać aktualizacje tylko do końca okresu określonego przez zasady. Po osiągnięciu skonfigurowanego limitu użytkownicy nie mogą już przedłużyć wstrzymania.
+
+Jeśli te zasady są wyłączone lub nie zostały skonfigurowane, stosowane jest domyślne zachowanie wstrzymywania, umożliwiając użytkownikom ciągłe wstrzymywanie aktualizacji przez maksymalnie 35 dni naraz. Te zasady nie wyłączają całkowicie wstrzymania aktualizacji. Aby usunąć dostęp do funkcji Wstrzymaj aktualizacje, użyj zasady "Usuń dostęp do funkcji Wstrzymaj aktualizacje".
       </string>
 
       <string id="ActiveHoursMaxRange_Title">Podaj zakres godzin aktywnego użytkowania na potrzeby automatycznego ponownego uruchamiania</string>
@@ -581,31 +627,52 @@ Jeśli ta zasada zostanie wyłączona lub nie zostanie skonfigurowana, klient us
 Uwaga: Ta zasada ma zastosowanie tylko wtedy, gdy intranetowa usługa aktualizująca firmy Microsoft, do której jest kierowany ten komputer, jest skonfigurowana do obsługi funkcji konfigurowania docelowej strony klienta. Jeśli zasada „Określ lokalizację intranetowej usługi aktualizującej firmy Microsoft” jest wyłączona lub nie jest skonfigurowana, użycie tej zasady nie przynosi żadnego efektu.
       </string>
       <string id="UpdateNotificationLevel_Title">Opcje wyświetlania powiadomień o aktualizacjach</string>
-      <string id="UpdateNotificationLevel_Help">0 (wartość domyślna) — użyj domyślnych powiadomień usługi Windows Update.
-1 — wyłącz wszystkie powiadomienia, oprócz ostrzeżeń o ponownym uruchomieniu.
-2 — wyłącz wszystkie powiadomienia, w tym ostrzeżenia o ponownym uruchomieniu.
+      <string id="UpdateNotificationLevel_Help">0 (domyślnie) — użyj domyślnych powiadomień Windows Update
+1 — wyłącz wszystkie powiadomienia, z wyjątkiem ostrzeżeń o ponownym uruchomieniu
+2 — wyłącz wszystkie powiadomienia, w tym ostrzeżenia o ponownym uruchomieniu
 
-Ta zasada umożliwia określenie, co użytkownicy będą widzieć w powiadomieniach usługi Windows Update. Ta zasada nie określa, jak i kiedy są pobierane i instalowane aktualizacje.
+Te zasady umożliwiają określenie, jakie powiadomienia Windows Update będą widoczne dla użytkowników. Te zasady nie kontrolują sposobu i momentu pobierania i instalowania aktualizacji.
 
-Ważne: jeśli wybierzesz opcję niewyświetlania powiadomień o aktualizacjach, a jednocześnie zdefiniujesz inne zasady grupy w taki sposób, że urządzenia nie będą automatycznie uzyskiwać aktualizacji, Ty ani użytkownicy urządzeń nie będziecie informowani o krytycznych aktualizacjach zabezpieczeń, aktualizacjach dotyczących jakości oraz aktualizacjach funkcji, co będzie stanowić zagrożenie dla Twoich urządzeń.
+Ważne: jeśli nie chcesz otrzymywać powiadomień o aktualizacjach, a także definiować innych zasad grupy, aby urządzenia nie uzyskiwały automatycznie aktualizacji, ani Ty, ani inni użytkownicy urządzenia nie będziecie wiedzieć o krytycznych aktualizacjach zabezpieczeń, jakości lub funkcji, a Twoje urządzenia mogą być zagrożone.
+
+Jeśli wybierzesz opcję "Zastosuj tylko w godzinach aktywnego użytkowania" w połączeniu z opcją 1 lub 2, wtedy powiadomienia będą wyłączone tylko w godzinach aktywnego użytkowania. Godziny aktywnego użytkowania można ustawić, konfigurując opcję „Wyłącz automatyczne ponowne uruchamianie aktualizacji w godzinach aktywnego użytkowania” lub zezwalając urządzeniu na ustawianie godzin aktywnego użytkowania na podstawie zachowania użytkownika. Aby zapewnić bezpieczeństwo urządzenia, powiadomienie będzie nadal wyświetlane, jeśli ta opcja zostanie wybrana po upływie terminu ostatecznego określania automatycznych aktualizacji i ponownych uruchomień, jeśli zostało to skonfigurowane, niezależnie od godzin aktywnego użytkowania.
       </string>
       <string id="DefaultNotification">0 (wartość domyślna) — użyj domyślnych powiadomień usługi Windows Update systemu operacyjnego.</string>
       <string id="ExcludingRebootWarnings">1 — wyłącz wszystkie powiadomienia, oprócz ostrzeżeń o ponownym uruchomieniu.</string>
       <string id="IncludingRebootWarnings">2 — wyłącz wszystkie powiadomienia, w tym ostrzeżenia o ponownym uruchomieniu.</string>
-      <string id="ComplianceDeadline_Title">Określ ostateczne terminy automatycznych aktualizacji i ponownych uruchomień</string>
-      <string id="ComplianceDeadline_Help">Ta zasada umożliwia określenie liczby dni, po upływie których aktualizacje dotyczące jakości i aktualizacje funkcji zostaną automatycznie zainstalowane na urządzeniu użytkownika, oraz okresu prolongaty, po upływie którego wymagane ponowne uruchomienia zostaną wykonane automatycznie. Aktualizacje i ponowne uruchomienia będą wykonywane niezależnie od godzin aktywnego użytkowania, a użytkownik nie będzie mógł zmienić ich harmonogramu.
+      <string id="ComplianceDeadlineForFU_Title">Specify deadline for automatic updates and restarts for feature update</string>
+      <string id="ComplianceDeadlineForFU_Help">This policy lets you specify the number of days before feature updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
 
-Ostateczne terminy dla aktualizacji funkcji i aktualizacji dotyczących jakości mogą mieć wartość do 30 dni. Okres prolongaty ponownego uruchomienia może mieć wartość od 0 do 7 dni.
+Set deadlines for feature updates and quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
 
-Możesz także wyłączyć automatyczne ponowne uruchomienia do chwili zakończenia okresu prolongaty automatycznych ponownych uruchomień.
+Set a grace period for feature updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
 
-Jeśli wyłączysz tę zasadę albo jej nie skonfigurujesz, urządzenia będą otrzymywać aktualizacje i będą uruchamiane ponownie zgodnie z harmonogramem domyślnym.
+You can set the device to delay restarting until both the deadline and grace period have expired.
 
-Ta zasada zastąpi następujące zasady:
-1.  Podaj ostateczny termin automatycznego ponownego uruchomienia w celu instalacji aktualizacji
-2.  Określ przejście do ponownego uruchomienia wymagającego interwencji użytkownika oraz harmonogram powiadamiania o aktualizacjach
-3.  Zawsze automatycznie ponownie uruchamiaj w zaplanowanym czasie
-4.  Bez automatycznego uruchamiania ponownego dla zaplanowanej instalacji aktualizacji automatycznych przy zalogowanych użytkownikach
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
+      </string>
+      <string id="ComplianceDeadlineForQU_Title">Specify deadline for automatic updates and restarts for quality update</string>
+      <string id="ComplianceDeadlineForQU_Help">This policy lets you specify the number of days before quality updates are installed on devices automatically, and a grace period after which required restarts occur automatically.
+
+Set deadlines for quality updates to meet your compliance goals. Updates will be downloaded and installed as soon as they are offered and automatic restarts will be attempted outside of active hours. Once the deadline has passed, restarts will occur regardless of active hours, and users will not be able to reschedule. If the deadline is set to 0 days, the update will be installed immediately upon offering, but might not finish within the day due to device availability and network connectivity.
+
+Set a grace period for quality updates to guarantee users a minimum time to manage their restarts once updates are installed. Users will be able to schedule restarts during the grace period and Windows can still automatically restart outside of active hours if users choose not to schedule restarts. The grace period might not take effect if users already have more than the number of days set as grace period to manage their restart, based on deadline configurations.
+
+You can set the device to delay restarting until both the deadline and grace period have expired.
+
+If you disable or do not configure this policy, devices will get updates and will restart according to the default schedule.
+
+This policy will override the following policies:
+1.  Specify deadline before auto restart for update installation
+2.  Specify Engaged restart transition and notification schedule for updates
+3.  Always automatically restart at the scheduled time
+4.  Configure Automatic Updates
       </string>
       <string id="ComplianceDeadlineDay0">0</string>
       <string id="ComplianceDeadlineDay1">1</string>
@@ -638,6 +705,103 @@ Ta zasada zastąpi następujące zasady:
       <string id="ComplianceDeadlineDay28">28</string>
       <string id="ComplianceDeadlineDay29">29</string>
       <string id="ComplianceDeadlineDay30">30</string>
+
+      <string id="AllowTemporaryEnterpriseFeatureControl_Title">Włącz funkcje wprowadzone za pośrednictwem obsługi, które są domyślnie wyłączone</string>
+      <string id="AllowTemporaryEnterpriseFeatureControl_Help">Funkcje wprowadzone za pośrednictwem obsługi (poza roczną aktualizacją funkcji) są domyślnie wyłączone dla urządzeń, na których są zarządzane aktualizacje systemu Windows*.
+
+Jeśli te zasady są skonfigurowane na wartość „Włączone”, wszystkie funkcje dostępne w najnowszej zainstalowanej comiesięcznej aktualizacji jakości będą włączone.
+
+Jeśli te zasady są ustawione na wartość „Nieskonfigurowane” lub „Wyłączone” następnie funkcje dostarczane za pośrednictwem comiesięcznej aktualizacji jakości (obsługi) pozostaną wyłączone do czasu zainstalowania aktualizacji funkcji obejmującej te funkcje.
+
+ *Urządzenia zarządzane przez aktualizacje systemu Windows to te, które mają aktualizacje systemu Windows zarządzane za pośrednictwem zasad; czy za pośrednictwem chmury przy użyciu usługi Windows Update dla Firm, czy lokalnie z usługami Windows Server Update Services (WSUS).
+      </string>
+      <string id="AllowOptionalContent_Title">Włącz aktualizacje opcjonalne</string>
+      <string id="AllowOptionalContent_Help">Te zasady umożliwiają urządzeniom otrzymywanie aktualizacji opcjonalnych (w tym stopniowych wdrożeń funkcji (rekordów CFR) — dowiedz się więcej, odwiedzając stronę aka.ms/AllowOptionalContent)
+
+Po skonfigurowaniu zasad
+
+• Jeśli wybrano opcję „Automatycznie otrzymuj aktualizacje opcjonalne (w tym rekordy CFR)”, urządzenie będzie automatycznie otrzymywać najnowsze aktualizacje opcjonalne zgodnie ze skonfigurowanymi odroczeniami aktualizacji dotyczących jakości. Obejmuje to zbiorcze aktualizacje opcjonalne i stopniowe wdrożenia funkcji (rekordy CFR).
+
+• W przypadku wybrania opcji „Automatycznie otrzymuj aktualizacje opcjonalne” urządzenie będzie automatycznie otrzymywać tylko zbiorcze aktualizacje opcjonalne zgodnie z odroczeniami aktualizacji dotyczących jakości.
+
+• Jeśli wybrano opcję „Użytkownicy mogą wybrać aktualizacje, które chcą otrzymywać”, użytkownicy mogą wybrać aktualizacje opcjonalne, które chcą uzyskać, przechodząc do obszaru Ustawienia &gt; Windows Update &gt; Opcje zaawansowane &gt; Aktualizacje opcjonalne. Użytkownicy mogą również ustawić przełącznik „Pobierz najnowsze aktualizacje, gdy tylko będą dostępne” w pozycji włączonej, aby automatycznie otrzymywać aktualizacje opcjonalne i stopniowe wdrożenia funkcji.
+      </string>
+      <string id="DonotReceiveOptionalContent">Nie chcę otrzymywać automatycznie aktualizacji opcjonalnych</string>
+      <string id="ReceiveOptionalContentWithAutoApproval">Automatycznie otrzymuj aktualizacje opcjonalne (w tym rekordy CFR)</string>
+      <string id="ReceiveOptionalLCUWithAutoApproval">Automatycznie otrzymuj aktualizacje opcjonalne</string>
+      <string id="ReceiveOptionalContentNeedUserApproval">Użytkownicy mogą wybrać, które aktualizacje opcjonalne chcą otrzymać</string>
+
+      <string id="MaintenanceWindow_Title">Skonfiguruj okna obsługi dla automatycznych aktualizacji</string>
+      <string id="MaintenanceWindow_Help">Włącz tę zasadę, aby określić powtarzalne okna konserwacji dla urządzenia w celu wykonania określonych akcji aktualizacji.
+
+Gdy ta zasada jest włączona, usługa Windows Update wykona określone działanie aktualizacyjne tylko podczas skonfigurowanego okna obsługi. Określone aktualizuj aktualizacji poza oknem obsługi zostaną odroczone do momentu rozpoczęcia następnego okna obsługi.
+
+• Akcje aktualizacji: wybierz, które akcje aktualizacji są dozwolone tylko w oknie obsługi. Jeśli akcja aktualizacji nie zostanie wybrana, może ona nastąpić poza oknem obsługi.
+    – Pobieranie, instalowanie i ponowne uruchamianie: pełny cykl aktualizacji, obejmujący pobieranie, instalowanie i ponowne uruchamianie systemu
+    – Instalowanie i ponowne uruchamianie: zainstaluj już pobrane aktualizacje i uruchom ponownie urządzenie
+    – Tylko ponowne uruchomienie: wykonaj ponowne uruchomienie systemu tylko w przypadku oczekujących aktualizacji
+
+• Podstawowa konfiguracja harmonogramu:
+    – Data rozpoczęcia: określ datę początkową, kiedy rozpocznie się pierwsze okno obsługi (format: rrrr-mm-dd, przykład: 2025-10-30)
+      * Pole data rozpoczęcia ma zastosowanie tylko wtedy, gdy dla opcji harmonogram cykliczny wybrano ustawienie „Brak”
+    – Godzina rozpoczęcia: ustaw godzinę rozpoczęcia okna obsługi (format: gg:mm, przykład: 23:30 dla 11:30 PM)
+    – Czas trwania: określ, jak długo trwa każde okno obsługi w godzinach (przykład: 2 dla okna 2-godzinnego)
+
+• Opcje harmonogramu cyklicznego:
+    – Bez powtarzania: jednorazowe okno obsługi tylko w określonej dacie rozpoczęcia
+    – Codziennie: okno konserwacji będzie powtarzane każdego dnia
+    – Co tydzień: okno konserwacji będzie powtarzane co tydzień w wybrane dni tygodnia
+    – Co miesiąc: okno konserwacji będzie powtarzane co miesiąc w określonym dniu
+
+• Ustawienia harmonogramu tygodniowego (gdy wybrano opcję Co tydzień):
+    – Wybór dnia tygodnia: wybierz, w które dni tygodnia występuje okno konserwacji:
+        * Od niedzieli do soboty: zaznacz pola wyboru, aby wybrać konkretny dzień (dni) tygodnia dla okna konserwacji
+
+• Ustawienia harmonogramu miesięcznego (gdy wybrano opcję Co miesiąc):
+    – Typ harmonogramu miesięcznego:
+        * Na podstawie daty: okno konserwacji występuje w określonym dniu miesiąca (przykład: 15. dzień każdego miesiąca)
+        * Na podstawie tygodnia: okno konserwacji występuje w określonym dniu tygodnia w miesiącu (przykład: drugi wtorek każdego miesiąca)
+        * Ostatni dzień miesiąca: okno konserwacji występuje w ostatnim dniu miesiąca
+    – Dzień miesiąca: w przypadku korzystania z harmonogramu opartego na dacie określ dzień miesiąca (1–28)
+    – Wystąpienie w miesiącu: w przypadku korzystania z harmonogramu opartego na tygodniach wybierz tydzień miesiąca (Pierwszy, Drugi, Trzeci, Czwarty lub Ostatni)
+    – Dzień tygodnia: w przypadku harmonogramu tygodniowego wybierz dzień tygodnia (od niedzieli do soboty)
+
+Przykłady konfiguracji miesięcznych:
+    – Na podstawie daty: „3. dzień każdego miesiąca” = Dzień miesiąca: 3
+    – Na podstawie tygodnia: „Drugi wtorek każdego miesiąca” = Wystąpienie: Drugie, Dzień tygodnia: Wtorek
+    – Na podstawie tygodnia: „Ostatni piątek każdego miesiąca” = Wystąpienie: Ostatnie, Dzień tygodnia: Piątek
+    – Ostatni dzień miesiąca: „Ostatni dzień każdego miesiąca”
+
+Po wystąpieniu jednorazowego okna obsługi następne okno obsługi musi zostać zaplanowane za 3 miesiące. Jeśli data rozpoczęcia jednorazowego okna konserwacji przypada wcześniej niż 3 miesiące w przeszłości, ta zasada zostanie zignorowana, a aktualizacje zostaną zaplanowane zgodnie z ustawieniami domyślnymi.
+
+Jeśli wyłączysz lub nie skonfigurujesz tej zasady, usługa Windows Update będzie działać zgodnie z domyślnym zachowaniem harmonogramu.</string>
+      <!-- MaintenanceWindowUpdateActionsID dropdown options -->
+      <string id="MaintenanceWindowUpdateActions_DownloadInstallRestart">Pobieranie, instalowanie i ponowne uruchamianie</string>
+      <string id="MaintenanceWindowUpdateActions_InstallRestart">Instalowanie i ponowne uruchamianie</string>
+      <string id="MaintenanceWindowUpdateActions_RestartOnly">Tylko ponowne uruchamianie</string>
+      <!-- MaintenanceWindowRepeatScheduleOption dropdown options -->
+      <string id="MaintenanceWindowRepeatSchedule_NoRepeat">Bez powtarzania</string>
+      <string id="MaintenanceWindowRepeatSchedule_Daily">Codziennie</string>
+      <string id="MaintenanceWindowRepeatSchedule_Weekly">Cotygodniowo</string>
+      <string id="MaintenanceWindowRepeatSchedule_Monthly">Comiesięcznie</string>
+      <!-- MaintenanceWindowMonthlyScheduleID dropdown options -->
+      <string id="MaintenanceWindowMonthlySchedule_MonthBased">Na podstawie daty</string>
+      <string id="MaintenanceWindowMonthlySchedule_WeekBased">Na podstawie tygodnia</string>
+      <string id="MaintenanceWindowMonthlySchedule_LastDay">Ostatni dzień miesiąca</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_First">Pierwszy</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Second">Sekunda</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Third">Trzeci(a)</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Fourth">Czwarty(a)</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth_Last">Ostatni</string>
+      <!-- MaintenanceWindowMonthlyWeekBasedDayOfTheWeek dropdown options -->
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Sunday">Niedziela</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Monday">Poniedziałek</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Tuesday">Wtorek</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Wednesday">Środa</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Thursday">Czwartek</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Friday">Piątek</string>
+      <string id="MaintenanceWindowMonthlyWeekBasedDayOfTheWeek_Saturday">Sobota</string>
     </stringTable>
 
     <presentationTable>
@@ -669,21 +833,28 @@ Ta zasada zastąpi następujące zasady:
         <textBox refId="CorpWUContentHost_Name">
           <label>Ustaw alternatywny serwer pobierania:</label>
         </textBox>
-        <text>(przykład: http://IntranetUpd01)</text>
+        <text>(przykład: https://IntranetUpd01)</text>
         <checkBox refId="CorpWUFillEmptyContentUrls" defaultChecked="false">Pobieraj pliki bez adresów URL w metadanych, jeśli jest ustawiony alternatywny serwer pobierania.</checkBox>
+        <checkBox refId="CorpWUDoNotEnforceEnterpriseTLSCertPinningForUpdateDetection" defaultChecked="false">Nie wymuszaj funkcji przypinania certyfikatów TLS dla klienta usługi Windows Update w celu wykrywania aktualizacji.</checkBox>
+        <dropdownList refId="SetProxyBehaviorForUpdateDetection" noSort="true" defaultItem="0">Wybierz zachowanie serwera proxy dla klienta usługi Windows Update w celu wykrycia aktualizacji:</dropdownList>
+      </presentation>
+      <presentation id="UpdateClassPolicySource_Title">
+        <text>Określ usługę źródłową dla następujących klas aktualizacji systemu Windows:</text>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForFeatureUpdates" noSort="true" defaultItem="0">Aktualizacje funkcji</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForQualityUpdates" noSort="true" defaultItem="0">Aktualizacje dotyczące jakości</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForDriverUpdates" noSort="true" defaultItem="0">Aktualizacje sterowników</dropdownList>
+        <dropdownList refId="CorpWUSetPolicyDrivenUpdateSourceForOtherUpdates" noSort="true" defaultItem="0">Inne aktualizacje</dropdownList>
       </presentation>
       <presentation id="DetectionFrequency_Title">
         <text>Sprawdzaj, czy są aktualizacje przy użyciu następującego</text>
         <decimalTextBox refId="DetectionFrequency_Hour2" defaultValue="22">interwału (godziny):  </decimalTextBox>
       </presentation>
       <presentation id="RebootRelaunchTimeout_Title">
-        <text>Czekaj przez następujący okres przed</text>
-        <text>ponownym monitem o zaplanowane</text>
+        <text>Odczekaj tyle czasu przed ponownym wyświetleniem monitu o zaplanowanym</text>
         <decimalTextBox refId="RebootRelaunchTimeout_Minutes3" defaultValue="10">ponownego uruchomienia komputera (minuty):  </decimalTextBox>
       </presentation>
       <presentation id="RebootWarningTimeout_Title">
-        <text>Czekaj przez następujący okres przed</text>
-        <text>przeprowadzeniem zaplanowanego</text>
+        <text>Odczekaj tyle czasu przed zaplanowanym</text>
         <decimalTextBox refId="RebootWarningTimeout_Minutes3" defaultValue="5">ponownego uruchomienia komputera (minuty):  </decimalTextBox>
       </presentation>
       <presentation id="RescheduleWaitTime_Title">
@@ -695,22 +866,23 @@ Ta zasada zastąpi następujące zasady:
           <label>Nazwa grupy docelowej dla tego komputera</label>
         </textBox>
       </presentation>
-      <presentation id="IdleShutdownTimerDuration_Title">
-        <text>Czekaj przez następujący okres przed</text>
-        <text>zamknięciem usługi, gdy jest</text>
-        <decimalTextBox refId="IdleShutdownTimerDuration_Minutes" defaultValue="10">bezczynna przez (liczba minut):  </decimalTextBox>
-      </presentation>
       <presentation id="AlwaysAutoRebootAtScheduledTime_Presentation">
-        <text>Czasomierz ponownego uruchomienia pozwala użytkownikom</text>
-        <text>na zapisanie pracy przez następującą</text>
+        <text>Czasomierz ponownego uruchomienia zapewni użytkownikom tyle czasu na zapisanie</text>
         <decimalTextBox refId="AlwaysAutoRebootAtScheduledTime_Minutes" defaultValue="15">liczbę minut:  </decimalTextBox>
       </presentation>
+      <presentation id="TargetReleaseVersion">
+        <textBox refId="ProductVersionId">
+          <label>Dla której wersji produktu systemu Windows chcesz otrzymywać aktualizacje funkcji? np. Windows 10</label>
+        </textBox>
+        <textBox refId="TargetReleaseVersionId">
+          <label>Docelowa wersja aktualizacji funkcji</label>
+        </textBox>
+      </presentation>
       <presentation id="ManagePreviewBuilds">
-        <dropdownList refId="ManagePreviewBuildsId" noSort="true" defaultItem="2">Ustaw zachowanie dotyczące odbierania kompilacji w wersji Preview:</dropdownList>
+        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Wybierz poziom gotowości systemu Windows dla aktualizacji, które chcesz otrzymywać:</dropdownList>
       </presentation>
       <presentation id="DeferFeatureUpdates">
-        <dropdownList refId="BranchReadinessLevelId" noSort="true" defaultItem="0">Wybierz poziom gotowości systemu Windows dla aktualizacji, które chcesz otrzymywać:</dropdownList>
-        <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">Odrocz odebranie wydanej kompilacji w wersji Preview lub aktualizacji funkcji o następującą liczbę dni:</decimalTextBox>
+       <decimalTextBox refId="DeferFeatureUpdatesPeriodId" defaultValue="0">Na ile dni po wydaniu aktualizacji funkcji chcesz odroczyć aktualizację, zanim zostanie zaoferowana na urządzeniu?</decimalTextBox>
         <textBox refId="PauseFeatureUpdatesStartId">
           <label>Wstrzymaj kompilacje w wersji Preview lub aktualizacje funkcji począwszy od:</label>
         </textBox>
@@ -732,6 +904,10 @@ Ta zasada zastąpi następujące zasady:
         <text>Podaj liczbę dni przed automatycznym przeprowadzeniem oczekującego ponownego uruchomienia poza godzinami aktywnego użytkowania: </text>
         <dropdownList refId="AutoRestartDeadline" noSort="true" defaultItem="5">Aktualizacje dotyczące jakości (dni): </dropdownList>
         <dropdownList refId="AutoRestartDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Aktualizacje funkcji (dni): </dropdownList>
+      </presentation>
+      <presentation id="MaxPauseDays_Title">
+        <text>Określ, na ile dni użytkownicy mogą wstrzymać aktualizacje:</text>
+        <decimalTextBox refId="SetMaxPauseDays" noSort="true" defaultValue="35">Maksymalna liczba dni wstrzymania: </decimalTextBox>
       </presentation>
       <presentation id="ActiveHoursMaxRange_Title">
         <text>Zdefiniuj maksymalny zakres godzin aktywnego użytkowania:</text>
@@ -768,16 +944,50 @@ Ta zasada zastąpi następujące zasady:
       </presentation>
       <presentation id="UpdateNotificationLevel_Title">
         <dropdownList refId="UpdateNotificationLevel" noSort="true" defaultItem="0">Określ opcje wyświetlania powiadomień o aktualizacjach:</dropdownList>
+        <text></text>
+        <checkBox refId="NoUpdateNotificationsDuringActiveHours" defaultChecked="false">Zastosuj tylko w godzinach aktywnego użytkowania</checkBox>
       </presentation>
-      <presentation id="ComplianceDeadline_Title">
-        <text>Określ liczbę dni (do 30 dni) przed automatycznym wykonaniem aktualizacji niezależnie od godzin aktywnego użytkowania i bez możliwości zmiany harmonogramu.</text>
-        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="5">Aktualizacje dotyczące jakości (dni):</dropdownList>
-        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="5">Aktualizacje funkcji (w dniach):</dropdownList>
+       <presentation id="ComplianceDeadlineForFU_Title">
+        <dropdownList refId="ConfigureDeadlineForFeatureUpdates" noSort="true" defaultItem="2">Termin ostateczny (w dniach):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriodForFeatureUpdates" noSort="true" defaultItem="7">Okres prolongaty (w dniach):</dropdownList>
         <text></text>
-        <text>Określ okres prolongaty automatycznych ponownych uruchomień (od 0 do 7 dni) od momentu, w którym ponowne uruchomienie stało się wymagane, do momentu automatycznego ponownego uruchomienia urządzenia. Urządzenia będą uruchamiane ponownie niezależnie od godzin aktywnego użytkowania i bez możliwości zmiany harmonogramu.</text>
-        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Okres prolongaty (w dniach)</dropdownList>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForFeatureUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="ComplianceDeadlineForQU_Title">
+        <dropdownList refId="ConfigureDeadlineForQualityUpdates" noSort="true" defaultItem="7">Termin ostateczny (w dniach):</dropdownList>
+        <dropdownList refId="ConfigureDeadlineGracePeriod" noSort="true" defaultItem="2">Okres prolongaty (w dniach):</dropdownList>
         <text></text>
-        <checkBox refId="ConfigureDeadlineNoAutoReboot" defaultChecked="false">Nie wykonuj automatycznego ponownego uruchomienia przed zakończeniem okresu prolongaty</checkBox>
+        <checkBox refId="ConfigureDeadlineNoAutoRebootForQualityUpdates" defaultChecked="false">Don't auto-restart until end of grace period</checkBox>
+      </presentation>
+      <presentation id="AllowOptionalContent_Title">
+        <dropdownList refId="AllowOptionalContent" noSort="true" defaultItem="0">Wybierz sposób otrzymywania przez użytkowników aktualizacji opcjonalnych:</dropdownList>
+      </presentation>
+      <presentation id="MaintenanceWindow_Title">
+        <text>Okno obsługi:</text>
+        <dropdownList refId="MaintenanceWindowUpdateActionsID" noSort="true" defaultItem="1">Akcje aktualizacji dozwolone tylko w oknie obsługi:</dropdownList>
+        <textBox refId="MaintenanceWindowStartDateID">
+            <label>Data rozpoczęcia (format: rrrr-mm-dd, przykład: 2025-10-30)</label>
+        </textBox>
+        <textBox refId="MaintenanceWindowStartTimeID">
+            <label>Godzina rozpoczęcia (format: gg:mm, przykład: 23:30 dla 23:30)</label>
+        </textBox>
+        <decimalTextBox refId="MaintenanceWindowDurationHoursID" defaultValue="2">Czas trwania (godziny):</decimalTextBox>
+        <dropdownList refId="MaintenanceWindowRepeatScheduleOptionID" noSort="true" defaultItem="1">Wybierz harmonogram powtarzania:</dropdownList>
+        <text>Następujące ustawienia są wymagane i mają zastosowanie tylko w przypadku wybrania opcji Co tydzień:</text>
+        <checkBox refId="MaintenanceWindowWeeklySundayID" defaultChecked="false">Niedziela</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyMondayID" defaultChecked="false">Poniedziałek</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyTuesdayID" defaultChecked="false">Wtorek</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyWednesdayID" defaultChecked="false">Środa</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyThursdayID" defaultChecked="false">Czwartek</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklyFridayID" defaultChecked="false">Piątek</checkBox>
+        <checkBox refId="MaintenanceWindowWeeklySaturdayID" defaultChecked="false">Sobota</checkBox>
+        <text>Następujące ustawienia są wymagane i mają zastosowanie tylko w przypadku wybrania opcji Co miesiąc:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyScheduleID" noSort="true" defaultItem="1">Typ harmonogramu miesięcznego:</dropdownList>
+        <text>Poniższe ustawienia są wymagane i mają zastosowanie tylko w przypadku wybrania typu opartego na dacie:</text>
+        <decimalTextBox refId="MaintenanceWindowMonthlyMonthBasedDayOfMonthID" defaultValue="1">Dzień miesiąca:</decimalTextBox>
+        <text>Następujące ustawienia są wymagane i mają zastosowanie tylko w przypadku wybrania typu opartego na tygodniach:</text>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedOccurrenceInMonthID" noSort="true" defaultItem="1">Wystąpienie w miesiącu</dropdownList>
+        <dropdownList refId="MaintenanceWindowMonthlyWeekBasedDayOfTheWeekID" noSort="true" defaultItem="1">Dzień tygodnia</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

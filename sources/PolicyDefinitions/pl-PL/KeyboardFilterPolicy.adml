@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Zasady grupy filtru klawiatury</displayName>
+  <description>Ustawienia zasad grupy dla filtru klawiatury</description>
+  <resources>
+    <stringTable>
+      <string id="KeyboardFilter">Filtr klawiatury</string>
+      <string id="AllowKbFilterInRemoteSessions">Zezwalaj na filtrowanie klawiatury w sesjach zdalnych</string>
+      <string id="AllowKbFilterInRemoteSessions_Text">Filtr klawiatury zazwyczaj ma zastosowanie tylko do sesji lokalnych.
+      
+Włączenie tego ustawienia umożliwi stosowanie filtru klawiatury do użytkowników łączących się z komputerem za pomocą sesji zdalnych.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

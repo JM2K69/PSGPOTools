@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Параметры NTLM</displayName>
+  <description>Настройки конфигурации для пакета безопасности NTLM.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">Расширенное ведение журнала NTLM</string>
+      <string id="EnhancedAuditsId_Explain">Этот параметр политики позволяет пакету безопасности NTLM регистрировать новые расширенные журналы аудита как для клиентов, так и для серверов.
+
+      Эти расширенные журналы содержат информацию о том, что использует NTLM, почему используется NTLM, а также пункт назначения запроса на проверку подлинности NTLM. Также в них содержится информация об использовании NTLMv1 и других понижениях уровня безопасности.
+
+      Если эта политика включена или не настроена, новые журналы аудита создаются. Если эта политика отключена, новые журналы не создаются.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">Расширенная блокировка NTLM</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Этот параметр политики позволяет пакету безопасности NTLM блокировать запросы проверки подлинности NTLM на основе новых расширенных политик блокировки на уровне компьютера.
+
+      Эти политики расширенной блокировки позволяют блокировать проверку подлинности NTLM на основе новых условий, таких как тип учетной записи, роль устройства или тип приложения.
+
+      Если для общей политики присвоено значение "Отключено" или "Не настроено", вложенные параметры ниже не применяются. Если для общей политики присвоено значение "Включено", вложенные политики ниже применяются в соответствии с их конфигурациями.
+
+      Если не настроено, все политики настраиваются в режиме "Аудит". Политики, настроенные в режиме "Аудит", фиксируют предупреждения о запросах NTLM, которые могли бы быть заблокированы, но не блокируют их. Несколько политик, помеченных как "Аудит", могут быть включены одновременно, и их события будут регистрироваться в едином журнале событий.
+
+      Если какая-либо политика помечена как "Включено", запрос проверки подлинности NTLM будет заблокирован при совпадении с условиями этой политики. Если несколько политик помечены как "Включено", запрос проверки подлинности NTLM будет заблокирован при совпадении с условиями любой из политик. Для первой политики, которая блокирует проверку подлинности NTLM, будет создано событие в журнале. 
+
+      В сценариях, когда одновременно присутствуют политики в режимах "Аудит" и "Включено", приоритет имеет политика "Включено".
+
+      Все описанные политики расширенной блокировки используют общий список разрешений, где указаны учетные записи, устройства и приложения, которым разрешено использовать проверку подлинности NTLM. Список разрешений может содержать ряд целевых имен или SPN для разрешения проверки подлинности. 
+
+      Дополнительные сведения см. на странице aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Выключено</string>
+      <string id="Audit">Аудит</string>
+      <string id="Enabled">Включено</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Блокировать NTLM для единого входа учетных записей домена</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">Блокировать NTLM для контроллеров домена</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">Блокировать NTLM при сбое привязки компьютеров</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Блокировать все проверки подлинности NTLM</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Укажите список разрешений для политик расширенной блокировки:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

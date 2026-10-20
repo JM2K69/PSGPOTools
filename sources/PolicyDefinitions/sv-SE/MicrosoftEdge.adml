@@ -129,6 +129,12 @@ Om du inte konfigurerar inställningen kan anställda välja om de vill använda
 Utskrift tillåts om du aktiverar principen.
 
 Utskrift tillåts inte om du inaktiverar principen.</string>
+      <string id="AllowMixedModePrintingInPdf">PDF-filer som har både liggande och stående sidor skriver du ut i deras specifika orientering.</string>
+      <string id="AllowMixedModePrintingInPdf_Explain">Med den här principen kan du skriva ut PDF-sidor baserat på sidorienteringen i Microsoft Edge.
+
+Om den är aktiverad tillåts utskrift i blandat läge.
+
+Om den inaktiveras tillåts inte utskrift i blandat läge.</string>
       <string id="AllowSavingHistory">Tillåt att historiken sparas</string>
       <string id="AllowSavingHistory_Explain">Microsoft Edge sparar dina användares webbhistorik (information om webbplatserna de besöker) på deras enheter.
 
@@ -512,9 +518,14 @@ Om du sätter den här principen till 0 används ingen inaktivitetstimer i Micro
 Om principen är inaktiverad eller inte konfigurerad är standardvärdet 5 minuter.
 
 Om du inte konfigurerar Microsoft Edge med tilldelad åtkomst så har den här principen ingen verkan.</string>
-    </stringTable>
+      <string id="SuppressEdgeDeprecationNotification">Dölj utfasningsmeddelandet för Microsoft Edge</string>
+      <string id="SuppressEdgeDeprecationNotification_Explain">Du kan konfigurera Microsoft Edge till att dölja meddelandet som informerar användare om att stöd för den här versionen av Microsoft Edge upphörde den 9 mars 2021. Om den är aktiverad visas inte meddelandet.
 
+Om inställningen inaktiveras eller inte konfigureras visas meddelandet varje gång Microsoft Edge startas. </string>
+
+    </stringTable>
     <!-- Presentation -->
+    
     <presentationTable>
       <presentation id="ConfiguredFavorites_Presentation">
         <textBox refId="ConfiguredFavoritesPrompt">

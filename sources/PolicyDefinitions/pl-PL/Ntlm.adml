@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Ustawienia NTLM</displayName>
+  <description>Ustawienia konfiguracji dla pakietu zabezpieczeń NTLM.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">Rozszerzone rejestrowanie NTLM</string>
+      <string id="EnhancedAuditsId_Explain">To ustawienie zasad umożliwia pakietowi zabezpieczeń NTLM rejestrowanie nowych, ulepszonych dzienników inspekcji zarówno dla klientów, jak i serwerów.
+
+      Te rozszerzone dzienniki zawierają informacje o tym, co używa NTLM, dlaczego NTLM jest używany i miejsce docelowe żądania uwierzytelnienia NTLM. Zawierają również informacje o użyciu NTLMv1 i innych obniżeniach zabezpieczeń.
+
+      Jeśli włączysz lub nie skonfigurujesz tych zasad, zostaną wygenerowane nowe dzienniki inspekcji. Jeśli wyłączysz te zasady, nowe dzienniki nie będą generowane.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">Rozszerzone blokowanie protokołu NTLM</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">To ustawienie zasad pozwala pakietowi zabezpieczeń NTLM blokować żądania uwierzytelniania NTLM na podstawie nowych, rozszerzonych zasad blokowania na poziomie maszyny.
+
+      Te rozszerzone zasady blokowania umożliwiają blokowanie uwierzytelniania NTLM na podstawie nowych kryteriów, takich jak typ konta, rola urządzenia lub typ aplikacji.
+
+      Jeśli ogólne zasady są ustawione na „Wyłączone” lub „Nieskonfigurowane”, poniższe ustawienia podrzędne nie będą miały zastosowania. Jeśli ogólne zasady są ustawione na „Włączone”, poniższe zasady podrzędne zaczną obowiązywać zgodnie z ich konfiguracją.
+
+      O ile nie skonfigurowano inaczej, wszystkie zasady są ustawione na tryb „Inspekcja”. Zasady ustawione na tryb „Inspekcja” będą rejestrować ostrzeżenie dotyczące żądania NTLM, które mogłoby zostać zablokowane, ale go nie zablokują. Wiele zasad oznaczonych jako „Inspekcja” może być włączonych jednocześnie i będą one rejestrowane w ujednoliconym dzienniku zdarzeń.
+
+      Jeśli dowolne zasady są oznaczone jako „Włączone”, żądanie uwierzytelniania NTLM zostanie zablokowane, jeśli spełnia kryteria tych zasad. Jeśli wiele zasad jest oznaczonych jako „Włączone”, żądanie uwierzytelniania NTLM zostanie zablokowane, jeśli spełnia kryteria dowolnych z tych zasad. Dziennik zdarzeń zostanie wygenerowany dla pierwszych zasad, które zablokują uwierzytelnianie NTLM. 
+
+      W scenariuszach, w których występują zarówno zasady „Inspekcja”, jak i „Włączone”, zasady „Włączone” będą miały pierwszeństwo.
+
+      Wszystkie opisane tutaj rozszerzone zasady blokowania współdzielą tę samą listę dozwolonych, która określa konta, urządzenia i aplikacje, które mogą używać uwierzytelniania NTLM. Lista dozwolonych może zawierać serię nazw docelowych lub nazw SPN, aby zezwolić na uwierzytelnianie. 
+
+      Aby uzyskać więcej informacji, odwiedź stronę aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Wyłączone</string>
+      <string id="Audit">Inspekcja</string>
+      <string id="Enabled">Włączone</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Blokuj protokół NTLM dla logowania jednokrotnego kont domenowych</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">Blokuj protokół NTLM dla kontrolerów domeny</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">Blokuj protokół NTLM w przypadku niepowodzenia powiązania maszyny</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Blokuj wszystkie uwierzytelnienia NTLM</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Określ listę dozwolonych dla ulepszonych zasad blokowania:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

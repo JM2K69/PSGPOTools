@@ -70,13 +70,13 @@ W przypadku wyłączenia lub nieskonfigurowania tego ustawienia zasad członkowi
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Wyszukuj w witrynie Windows Update</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Wyszukuj na serwerze zarządzanym</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Wyszukuj na serwerze zarządzanym, a potem w witrynie Windows Update</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Zapobiegaj pobieraniu metadanych urządzeń z Internetu</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">To ustawienie zasad pozwala zapobiec w systemie Windows pobieraniu metadanych urządzenia z Internetu.
-          
-Jeśli to ustawienie zasad zostanie włączone, metadane dotyczące zainstalowanych urządzeń nie będą pobierane z Internetu. To ustawienie zasad zastępuje ustawienie w oknie dialogowym Ustawienia instalacji urządzeń (Panel sterowania &gt; System i zabezpieczenia &gt; System &gt; Zaawansowane ustawienia systemu &gt; karta Sprzęt).
 
-Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, wówczas o tym, czy metadane urządzeń będą pobierane z Internetu, decyduje ustawienie w oknie dialogowym Ustawienia instalacji urządzeń.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Zapobiegaj automatycznemu pobieraniu aplikacji skojarzonych z metadanymi urządzenia</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">To ustawienie zasad pozwala zapobiec pobieraniu przez system Windows aplikacji powiązanych z metadanymi urządzenia.
+
+Jeśli to ustawienie zasad zostanie włączone, system Windows nie będzie pobierał aplikacji powiązanych z metadanymi urządzenia dla zainstalowanych urządzeń. To ustawienie zasad zastępuje ustawienie w oknie dialogowym Ustawienia instalacji urządzeń (karta Panel sterowania &gt; System i zabezpieczenia &gt; System &gt; Zaawansowane ustawienia systemu &gt; Sprzęt).
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, ustawienie w oknie dialogowym Ustawienia instalacji urządzenia określa, czy system Windows pobiera aplikacje powiązane z metadanymi urządzenia.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

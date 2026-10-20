@@ -355,7 +355,7 @@ Jeśli to ustawienie zasad zostanie wyłączone, Kreator połączeń internetowy
 
 Jeśli to ustawienie zasad nie zostanie skonfigurowane, użytkownicy będą mogli decydować, czy Kreator połączeń internetowych ma być uruchamiany automatycznie.</string>
       <string id="ICWSettings">Ustawienia Kreatora połączeń internetowych</string>
-      <string id="Identities">Menedżer tożsamości: nie zezwalaj użytkownikom na korzystanie z tożsamości</string>
+      <string id="Identities">Identity Manager: nie zezwalaj użytkownikom na korzystanie z tożsamości</string>
       <string id="IDN_Always">Zawsze konwertuj na format IDN</string>
       <string id="IDN_Intranet">Konwertuj adresy intranetowe na format IDN</string>
       <string id="IDN_Never">Nigdy nie konwertuj na format IDN</string>
@@ -805,9 +805,9 @@ Uwaga: włączenie tej zasady nie powoduje usunięcia porad dla użytkowników p
 Włączenie tej zasady spowoduje, że polecenie Porada dnia zostanie usunięte z menu Pomoc.
 
 Wyłączenie lub nieskonfigurowanie tej zasady umożliwi użytkownikom włączanie lub wyłączanie wyświetlania Porady dnia widocznej u dołu okna przeglądarki.</string>
-      <string id="IE_ExplainIdentities">Uniemożliwia użytkownikom konfigurowanie unikatowych tożsamości za pomocą Menedżera tożsamości.
+      <string id="IE_ExplainIdentities">Uniemożliwia użytkownikom konfigurowanie unikatowych tożsamości za pomocą Identity Manager.
 
-Menedżer tożsamości umożliwia użytkownikom tworzenie wielu kont, takich jak konta e-mail, na tym samym komputerze. Każdy użytkownik ma unikatową tożsamość z innym hasłem i innymi preferencjami programów.
+Identity Manager umożliwia użytkownikom tworzenie wielu kont, takich jak konta e-mail, na tym samym komputerze. Każdy użytkownik ma unikatową tożsamość z innym hasłem i innymi preferencjami programów.
 
 Włączenie tej zasady spowoduje, że użytkownicy nie będą mogli tworzyć nowych tożsamości, zarządzać istniejącymi tożsamościami ani przełączać tożsamości. Opcja Przełączanie tożsamości zostanie usunięta z menu Plik w Książce adresowej.
 
@@ -3574,37 +3574,42 @@ Jeśli wyłączysz to ustawienie zasad albo go nie skonfigurujesz, przeglądarka
 
 Uwaga: to ustawienie zasad nie jest obsługiwane począwszy od wersji 1607 systemu Windows 10.</string>
       <string id="Protocols_None">Nie używaj bezpiecznych protokołów</string>
-      <string id="Protocols_SSL2">Używaj tylko protokołu SSL 2.0</string>
+      <string id="Protocols_SSL2">[Przestarzałe] Używaj tylko protokołu SSL 2.0</string>
       <string id="Protocols_SSL3">Używaj tylko protokołu SSL 3.0</string>
-      <string id="Protocols_SSL2_SSL3">Używaj protokołów SSL 2.0 i SSL 3.0</string>
+      <string id="Protocols_SSL2_SSL3">[Przestarzałe] Używaj protokołów SSL 2.0 i SSL 3.0</string>
       <string id="Protocols_TLS10">Używaj tylko protokołu TLS 1.0</string>
-      <string id="Protocols_SSL2_TLS10">Używaj protokołów SSL 2.0 i TLS 1.0</string>
+      <string id="Protocols_SSL2_TLS10">[Przestarzałe] Używaj protokołów SSL 2.0 i TLS 1.0</string>
       <string id="Protocols_SSL3_TLS10">Używaj protokołów SSL 3.0 i TLS 1.0</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">Używaj protokołów SSL 2.0, SSL 3.0 i TLS 1.0</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[Przestarzałe] Używaj protokołu SSL 2.0, SSL 3.0 i TLS 1.0</string>
       <string id="Protocols_TLS11">Używaj tylko protokołu TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS11">Używaj protokołów SSL 2.0 i TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS11">[Przestarzałe] Używaj protokołów SSL 2.0 i TLS 1.1</string>
       <string id="Protocols_SSL3_TLS11">Używaj protokołów SSL 3.0 i TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">Używaj protokołów SSL 2.0, SSL 3.0 i TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[Przestarzałe] Używaj protokołu SSL 2.0, SSL 3.0 i TLS 1.1</string>
       <string id="Protocols_TLS10_TLS11">Używaj protokołów TLS 1.0 i TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">Używaj protokołów SSL 2.0, TLS 1.0 i TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[Przestarzałe] Używaj protokołu SSL 2.0, TLS 1.0 i TLS 1.1</string>
       <string id="Protocols_SSL3_TLS10_TLS11">Używaj protokołów SSL 3.0, TLS 1.0 i TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">Używaj protokołów SSL 2.0, SSL 3.0, TLS 1.0 i TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[Przestarzałe] Używaj protokołów SSL 2.0, SSL 3.0, TLS 1.0 i TLS 1.1</string>
       <string id="Protocols_TLS12">Używaj tylko protokołu TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS12">Używaj protokołów SSL 2.0 i TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS12">[Przestarzałe] Używaj protokołów SSL 2.0 i TLS 1.2</string>
       <string id="Protocols_SSL3_TLS12">Używaj protokołów SSL 3.0 i TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">Używaj protokołów SSL 2.0, SSL 3.0 i TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[Przestarzałe] Używaj protokołu SSL 2.0, SSL 3.0 i TLS 1.2</string>
       <string id="Protocols_TLS10_TLS12">Używaj protokołów TLS 1.0 i TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">Używaj protokołów SSL 2.0, TLS 1.0 i TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[Przestarzałe] Używaj protokołu SSL 2.0, TLS 1.0 i TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS12">Używaj protokołów SSL 3.0, TLS 1.0 i TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">Używaj protokołów SSL 2.0, SSL 3.0, TLS 1.0 i TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[Przestarzałe] Używaj protokołów SSL 2.0, SSL 3.0, TLS 1.0 i TLS 1.2</string>
       <string id="Protocols_TLS11_TLS12">Używaj protokołów TLS 1.1 i TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">Używaj protokołów SSL 2.0, TLS 1.1 i TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[Przestarzałe] Używaj protokołu SSL 2.0, TLS 1.1 i TLS 1.2</string>
       <string id="Protocols_SSL3_TLS11_TLS12">Używaj protokołów SSL 3.0, TLS 1.1 i TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">Używaj protokołów SSL 2.0, SSL 3.0, TLS 1.1 i TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[Przestarzałe] Używaj protokołów SSL 2.0, SSL 3.0, TLS 1.1 i TLS 1.2</string>
       <string id="Protocols_TLS10_TLS11_TLS12">Używaj protokołów TLS 1.0, TLS 1.1 i TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">Używaj protokołów SSL 2.0, TLS 1.0, TLS 1.1 i TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[Przestarzałe] Używaj protokołu SSL 2.0, TLS 1.0, TLS 1.1 i TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">Używaj protokołów SSL 3.0, TLS 1.0, TLS 1.1 i TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">Używaj protokołów SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 i TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[Przestarzałe] Używaj protokołów SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 i TLS 1.2</string>
+      <string id="Protocols_TLS13">Używaj tylko protokołu TLS 1.3</string>
+      <string id="Protocols_TLS12_TLS13">Używaj protokołów TLS 1.2 i TLS 1.3</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">Używaj protokołu TLS 1.1, TLS 1.2 i TLS 1.3</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">Używaj protokołu TLS 1.0, TLS 1.1, TLS 1.2 i TLS 1.3</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">Używaj protokołu SSL 3.0, TLS 1.0, TLS 1.1, TLS 1.2 i TLS 1.3</string>
       <string id="LockToolbars">Zablokuj wszystkie paski narzędzi</string>
       <string id="MoveStopRefresh">Zablokuj położenie przycisków Zatrzymaj i Odśwież</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3917,6 +3922,120 @@ Uwaga: jeśli zostanie także włączone ustawienie zasad Szablony administracyj
 Jeśli to ustawienie zostanie włączone, pracownicy będą widzieć dodatkową stronę w programie Internet Explorer 11, zawierającą informację, że witryna została otwarta przy użyciu trybu przedsiębiorstwa w programie Microsoft Edge.
 
 Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, aplikacja będzie zachowywać się w sposób domyślny i nie będzie wyświetlana żadna dodatkowa strona.</string>
+      <string id="NeedEdgeBrowser">Określ, który kanał przeglądarki Microsoft Edge ma być używany do otwierania przekierowanych witryn</string>
+      <string id="IE_ExplainNeedEdgeBrowser">Umożliwia skonfigurowanie maksymalnie trzech wersji przeglądarki Microsoft Edge do otwierania przekierowanej witryny (w kolejności preferencji). Użyj tej zasady, jeśli Twoje środowisko jest skonfigurowane do przekierowywania witryn z przeglądarki Internet Explorer 11 do przeglądarki Microsoft Edge. Jeśli dowolna z wybranych wersji nie będzie zainstalowana na urządzeniu, odpowiadająca jej preferencja zostanie pominięta.
+
+Jeśli będzie zainstalowana zarówno aktualizacja z usługi Windows Update dla następnej wersji przeglądarki Microsoft Edge*, jak i stabilny kanał Microsoft Edge, system będzie zachowywał się w następujący sposób:
+- Jeśli wyłączysz tę zasadę albo jej nie skonfigurujesz, będzie używany stabilny kanał Microsoft Edge. Jest to zachowanie domyślne.
+- Jeśli włączysz tę zasadę, będziesz mieć możliwość określenia, że przekierowane witryny będą otwierane w maksymalnie trzech z wymienionych poniżej kanałów, gdzie:
+    1 = Stabilny kanał Microsoft Edge
+    2 = Microsoft Edge Beta w wersji 77 lub nowszej
+    3 = Microsoft Edge Dev w wersji 77 lub nowszej
+    4 = Microsoft Edge Canary w wersji 77 lub nowszej
+
+Jeśli nie będzie zainstalowana aktualizacja z usługi Windows Update dla następnej wersji przeglądarki Microsoft Edge* lub stabilny kanał Microsoft Edge, system będzie zachowywał się w następujący sposób:
+- Jeśli wyłączysz tę zasadę albo jej nie skonfigurujesz, automatycznie będzie używana przeglądarka Microsoft Edge w wersji 45. Jest to zachowanie domyślne.
+- Jeśli włączysz tę zasadę, będziesz mieć możliwość określenia, że przekierowane witryny będą otwierane w maksymalnie trzech z wymienionych poniżej kanałów, gdzie:
+    0 = Microsoft Edge w wersji 45 lub nowszej
+    1 = Stabilny kanał Microsoft Edge
+    2 = Microsoft Edge Beta w wersji 77 lub nowszej
+    3 = Microsoft Edge Dev w wersji 77 lub nowszej
+    4 = Microsoft Edge Canary w wersji 77 lub nowszej
+
+*Aby uzyskać więcej informacji dotyczących aktualizacji systemu Windows dla następnej wersji przeglądarki Microsoft Edge, w tym jak ją wyłączyć, zobacz https://go.microsoft.com/fwlink/?linkid=2102115. Ta aktualizacja dotyczy tylko systemu Windows 10 w wersji 1709 i nowszych.</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta w wersji 77 lub nowszej</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev w wersji 77 lub nowszej</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary w wersji 77 lub nowszej</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge w wersji 45 lub nowszej</string>
+      <string id="KeepIntranetSitesInInternetExplorer">Pozostaw wszystkie witryny intranetowe w przeglądarce Internet Explorer</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">Uniemożliwia otwieranie witryn intranetowych w przeglądarkach innych niż Internet Explorer. Należy jednak pamiętać, że jeśli nie będzie włączona zasada „Wysyłaj wszystkie witryny spoza listy witryn trybu przedsiębiorstwa do programu Microsoft Edge” (RestrictIE), ta zasada nie będzie działać.
+
+Jeśli włączysz tę zasadę, wszystkie witryny intranetowe będą otwierane w przeglądarce Internet Explorer 11. Jedynym wyjątkiem będą witryny wymienione na liście witryn trybu przedsiębiorstwa.
+
+Jeśli wyłączysz tę zasadę albo jej nie skonfigurujesz, wszystkie witryny intranetowe będą automatycznie otwierane w przeglądarce Microsoft Edge.
+
+Zdecydowanie zalecamy zsynchronizowanie tej zasady z zasadą „Otwieraj wszystkie witryny intranetowe w programie Internet Explorer” (SendIntranetToInternetExplorer). Ponadto najlepiej jest włączać tę zasadę tylko wtedy, gdy występują znane problemy ze zgodnością witryn intranetowych z przeglądarką Microsoft Edge.
+
+Powiązane zasady:
+- Otwieraj wszystkie witryny intranetowe w programie Internet Explorer (SendIntranetToInternetExplorer)
+- Wysyłaj wszystkie witryny spoza listy witryn trybu przedsiębiorstwa do programu Microsoft Edge (RestrictIE)
+
+Aby uzyskać więcej informacji dotyczących sposobu używania tej zasady wraz z innymi powiązanymi zasadami w celu utworzenia optymalnej konfiguracji dla swojej organizacji, zobacz https://go.microsoft.com/fwlink/?linkid=2094210.</string>
+      <string id="AllowSaveTargetAsInIEMode">Zezwalaj na opcję „Zapisz element docelowy jako” w trybie przeglądarki Internet Explorer</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">To ustawienie zasad umożliwia administratorom Włączanie menu kontekstowego Zapisz element docelowy jako w trybie programu Internet Explorer.
+
+Jeśli ta zasada zostanie włączona, polecenie Zapisz element docelowy jako zostanie wyświetlone w menu kontekstowym trybu programu Internet Explorer i będzie działało tak samo jak w programie Internet Explorer.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, polecenie "Zapisz element docelowy jako" nie będzie wyświetlane w menu kontekstowym trybu programu Internet Explorer.
+
+Aby uzyskać więcej informacji, zobacz https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="EnableGlobalWindowListInIEMode">Włącz globalną listę okien w trybie programu Internet Explorer</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">To ustawienie umożliwia trybowi Internet Explorer używanie globalnej listy okien, która umożliwia udostępnianie stanu innym aplikacjom.
+Ustawienie zacznie obowiązywać tylko wtedy, gdy Internet Explorer 11 jest wyłączona jako autonomiczna przeglądarka.
+
+Jeśli te zasady zostaną włączone, tryb Internet Explorer będzie używać globalnej listy okien.
+
+Jeśli wyłączysz tę zasadę albo jej nie skonfigurujesz, tryb Internet Explorer będzie nadal obsługiwać osobną listę okien.
+
+Aby dowiedzieć się więcej o trybie Internet Explorer, zobacz https://go.microsoft.com/fwlink/?linkid=2102921
+Aby dowiedzieć się więcej na temat wyłączania Internet Explorer 11 jako autonomicznej przeglądarki, zobacz https://go.microsoft.com/fwlink/?linkid=2168340</string>
+      <string id="EnableExtendedIEModeHotkeys">Włącz funkcję rozszerzone klawisze dostępu w trybie Internet Explorer</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">To ustawienie zasad umożliwia administratorom włączenie rozszerzonych skrótów trybu przeglądarki Internet Explorer w przeglądarce Microsoft Edge, takich jak „Ctrl+S”, w celu aktywowania funkcji „Zapisz jako”.
+
+Jeśli ta zasada zostanie włączona, funkcje rozszerzonych klawiszy dostępu będą włączone w trybie Internet Explorer i będą działać tak samo jak w przeglądarce Internet Explorer.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, funkcja rozszerzonych klawiszy dostępu nie będzie obsługiwana w trybie przeglądarki Internet Explorer.
+
+Aby uzyskać więcej informacji, odwiedź https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="AllowLegacyURLFields">Zezwalaj na starsze funkcje dla plików skrótów internetowych</string>
+      <string id="IE_ExplainAllowLegacyURLFields">To ustawienie zasad umożliwia korzystanie z niektórych wyłączonych funkcji, takich jak pole WorkingDirectory lub obsługa protokołu podłączanego, w plikach skrótów internetowych.
+
+Jeśli ta zasada zostanie włączona, wyłączona funkcjonalność plików skrótów internetowych zostanie ponownie włączona.
+
+Jeśli wyłączysz tę zasadę albo jej nie skonfigurujesz, niektóre funkcje plików skrótów internetowych, takie jak pole WorkingDirectory lub obsługa protokołu podłączanego, będą wyłączone.</string>
+      <string id="ResetZoomForDialogInIEMode">Resetuj powiększenie do wartości domyślnej dla okien dialogowych HTML w trybie programu Internet Explorer</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">To ustawienie zasad umożliwia administratorom zresetowanie powiększenia do wartości domyślnej dla okien dialogowych HTML w trybie Internet Explorer.
+
+Jeśli ta zasada zostanie włączona, powiększenie okna dialogowego HTML w trybie Internet Explorer nie będzie propagowane ze strony nadrzędnej.
+
+Jeśli wyłączysz tę zasadę albo jej nie skonfigurujesz, powiększenie okna dialogowego HTML w trybie Internet Explorer będzie ustawiane na podstawie powiększenia strony nadrzędnej.
+
+Aby uzyskać więcej informacji, zobacz https://go.microsoft.com/fwlink/?linkid=2220107</string>
+      <string id="DisableInternetExplorerApp">Wyłącz program Internet Explorer 11 jako autonomiczną przeglądarkę</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">Te zasady umożliwiają ograniczenie uruchamiania programu Internet Explorer jako samodzielnej przeglądarki.
+
+Jeśli te zasady zostaną włączone, spowoduje to:
+— Uniemożliwienie uruchamiania programu Internet Explorer 11 jako samodzielnej przeglądarki.
+— Ograniczenie użycia programu Internet Explorer do natywnego „trybu programu Internet Explorer” w przeglądarce Microsoft Edge.
+— Przekierowywanie prób uruchomienia przeglądarki Internet Explorer 11 do przeglądarki Microsoft Edge z kanału stabilnego.
+— Zastąpienie wszelkich innych zasad przekierowujących do programu Internet Explorer 11.
+
+Nawet po włączeniu tej zasady uruchamianie przeglądarki Internet Explorer 11 przy użyciu automatyzacji COM będzie nadal dozwolone. Aby wyłączyć uruchamianie automatyzacji COM w przeglądarce Internet Explorer 11, użyj zasady grupy „Wyłącz automatyzację COM w przeglądarce Internet Explorer 11”.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, wszystkie witryny będą otwierane przy użyciu bieżących ustawień aktywnej przeglądarki. Uwaga: aby te zasady zaczęły obowiązywać, musi być zainstalowana przeglądarka Microsoft Edge z kanału stabilnego.</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">Wyłącz uruchamianie Internet Explorer 11 za pośrednictwem usługi COM Automation</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">Te zasady umożliwiają ograniczenie uruchamiania Internet Explorer przy użyciu automatyzacji MODELU COM.
+
+Jeśli ta zasada zostanie włączona, nie będzie można uruchamiać Internet Explorer 11 przy użyciu automatyzacji MODELU COM.
+
+Jeśli wyłączysz tę zasadę albo jej nie skonfigurujesz, Internet Explorer 11 uruchomień automatyzacji MODELU COM będzie dozwolonych.</string>
+      <string id="DisableIEAppDeprecationNotification">Ukryj powiadomienie o wycofaniu programu Internet Explorer 11</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">To ustawienie zasad umożliwia określenie, czy ma być wyświetlane przypomnienie paska powiadomień, które Internet Explorer jest wycofywane. Domyślnie pasek powiadomień jest wyświetlany w Internet Explorer 11.
+
+Jeśli to ustawienie zasad zostanie włączone, pasek powiadomień nie będzie wyświetlany w Internet Explorer 11.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub pozostanie nieskonfigurowane, pasek powiadomień będzie wyświetlany w Internet Explorer 11.</string>
+      <string id="NotifyDisableIEOptions_Never">Nigdy</string>
+      <string id="NotifyDisableIEOptions_Always">Zawsze</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">Raz na użytkownika</string>
+      <string id="JScriptReplacement">Zamień język JScript przez załadowanie języka JScript9Legacy zamiast języka JScript.</string>
+      <string id="IE_ExplainJScriptReplacement">To ustawienie zasad określa, czy jest ładowany kod JScript, czy JScript9Legacy.
+      
+Jeśli to ustawienie zasad zostanie włączone lub nie zostanie skonfigurowane, element JScript9Legacy zostanie załadowany w sytuacjach, w których zostanie skonkretyzowany kod JScript.
+
+Jeśli wyłączysz te zasady, zostanie użyty kod JScript.</string>
       <string id="VerMgmtDisable">Wyłącz blokowanie nieaktualnych kontrolek ActiveX w programie Internet Explorer</string>
       <string id="IE_ExplainVerMgmtDisable">To ustawienie zasad określa, czy program Internet Explorer ma blokować określone nieaktualne kontrolki ActiveX. Nieaktualne kontrolki ActiveX nie są nigdy blokowane w strefie intranetu.
 
@@ -4118,6 +4237,12 @@ Jeśli to ustawienie zostanie włączone, program IE przestanie pobierać zaktua
 Jeśli to ustawienie zostanie wyłączone lub nie zostanie skonfigurowane, program IE będzie nadal pobierać zaktualizowane wersje pliku VersionList.XML.
 
 Więcej informacji zawiera artykuł „Blokowanie nieaktualnych kontrolek ActiveX” w bibliotece TechNet programu Internet Explorer.</string>
+      <string id="DisableHTMLApplication">Wyłącz aplikację HTML</string>
+      <string id="DisableHTMLApplication_Explain">To ustawienie zasad określa, czy uruchamianie aplikacji HTML (pliku HTA) jest zablokowane, czy też dozwolone.
+
+Jeśli to ustawienie zasad zostanie włączone, uruchamianie aplikacji HTML (pliku HTA) będzie blokowane.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, uruchamianie aplikacji HTML (pliku HTA) będzie dozwolone.</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
@@ -4787,6 +4912,14 @@ Więcej informacji zawiera artykuł „Blokowanie nieaktualnych kontrolek Active
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">Lista domen</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">Pierwszy wybór</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">Drugi wybór</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">Trzeci wybór</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">Powiadom o wyłączeniu programu Internet Explorer 11</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

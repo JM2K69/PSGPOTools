@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>Zásady protokolování předvoleb zásad skupiny</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">Konfigurovat protokolování a trasování předvoleb Aplikace</string>
+      <string id="CSE_Applications_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Aplikace a zapnout trasování pro rozšíření Aplikace. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Aplikace pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.
+
+</string>
+      <string id="CSE_DataSources_Logging">Konfigurovat protokolování a trasování předvoleb Zdroje dat</string>
+      <string id="CSE_DataSources_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Zdroje dat a zapnout trasování pro rozšíření Zdroje dat. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Zdroje dat pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_Devices_Logging">Konfigurovat protokolování a trasování předvoleb Zařízení</string>
+      <string id="CSE_Devices_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Zařízení a zapnout trasování pro rozšíření Zařízení. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Zařízení pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_Drives_Logging">Konfigurovat protokolování a trasování předvoleb Mapování jednotek</string>
+      <string id="CSE_Drives_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Mapování jednotek a zapnout trasování pro rozšíření Mapování jednotek. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud nastavení této zásady povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Mapování jednotek pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_Environment_Logging">Konfigurovat protokolování a trasování předvoleb Prostředí</string>
+      <string id="CSE_Environment_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Prostředí a zapnout trasování pro rozšíření Prostředí. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Prostředí pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_Files_Logging">Konfigurovat protokolování a trasování předvoleb Soubory</string>
+      <string id="CSE_Files_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Soubory a zapnout trasování pro rozšíření Soubory. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Soubory pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_FolderOptions_Logging">Konfigurovat protokolování a trasování předvoleb Možnosti složky</string>
+      <string id="CSE_FolderOptions_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Možnosti složky a zapnout trasování pro rozšíření Možnosti složky. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Možnosti složky pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_Folders_Logging">Konfigurovat protokolování a trasování předvoleb Složky</string>
+      <string id="CSE_Folders_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Složky a zapnout trasování pro rozšíření Složky. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Složky pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_IniFiles_Logging">Konfigurovat protokolování a trasování předvoleb Soubory INI</string>
+      <string id="CSE_IniFiles_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Soubory INI a zapnout trasování pro rozšíření Soubory INI. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Soubory INI pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_Internet_Logging">Konfigurovat protokolování a trasování předvoleb Nastavení Internetu</string>
+      <string id="CSE_Internet_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Internet a zapnout trasování pro rozšíření Internet. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Internet pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">Konfigurovat protokolování a trasování předvoleb Místní uživatelé a skupiny</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Místní uživatelé a skupiny a zapnout trasování pro rozšíření Místní uživatelé a skupiny. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Místní uživatelé a skupiny pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_NetworkOptions_Logging">Konfigurovat protokolování a trasování předvoleb Možnosti sítě</string>
+      <string id="CSE_NetworkOptions_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Možnosti sítě a zapnout trasování pro rozšíření Možnosti sítě. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Možnosti sítě pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_NetShares_Logging">Konfigurovat protokolování a trasování předvoleb Sdílené síťové složky</string>
+      <string id="CSE_NetShares_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Sdílené síťové složky a zapnout trasování pro rozšíření Sdílené síťové složky. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Sdílené síťové složky pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_PowerOptions_Logging">Konfigurovat protokolování a trasování předvoleb Možnosti napájení</string>
+      <string id="CSE_PowerOptions_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Možnosti napájení a zapnout trasování pro rozšíření Možnosti napájení. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Možnosti napájení pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_Printers_Logging">Konfigurovat protokolování a trasování předvoleb Tiskárny</string>
+      <string id="CSE_Printers_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Tiskárny a zapnout trasování pro rozšíření Tiskárny. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Tiskárny pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_RegionalOptions_Logging">Konfigurovat protokolování a trasování předvoleb Místní nastavení</string>
+      <string id="CSE_RegionalOptions_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Místní nastavení a zapnout trasování pro rozšíření Místní nastavení. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Místní nastavení pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_PrefRegistry_Logging">Konfigurovat protokolování a trasování předvoleb Registr</string>
+      <string id="CSE_PrefRegistry_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Registr a zapnout trasování pro rozšíření Registr. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Registr pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_ScheduledTasks_Logging">Konfigurovat protokolování a trasování předvoleb Naplánované úlohy</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Naplánované úlohy a zapnout trasování pro rozšíření Naplánované úlohy. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Naplánované úlohy pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_Services_Logging">Konfigurovat protokolování a trasování předvoleb Služby</string>
+      <string id="CSE_Services_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Služby a zapnout trasování pro rozšíření Služby. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Služby pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_Shortcuts_Logging">Konfigurovat protokolování a trasování předvoleb Zástupci</string>
+      <string id="CSE_Shortcuts_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Zástupci a zapnout trasování pro rozšíření Zástupci. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Zástupci pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_StartMenu_Logging">Konfigurovat protokolování a trasování předvoleb Nabídka Start</string>
+      <string id="CSE_StartMenu_Logging_Help">Toto nastavení zásad umožňuje nakonfigurovat úroveň podrobností zaznamenanou protokolováním událostí pro rozšíření předvoleb Nabídka Start a zapnout trasování pro rozšíření Nabídka Start. Díky protokolování a trasování jsou k dispozici diagnostické informace pro odstraňování potíží.
+
+Pokud toto nastavení zásad povolíte, můžete nakonfigurovat protokolování událostí a zapnout trasování pro rozšíření Nabídka Start pro klientské počítače.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude protokolování událostí ve výchozím nastavení pro toto rozšíření zahrnovat pouze upozornění a chyby. Trasování pro toto rozšíření bude vypnuto.
+
+Bezpečnostní upozornění: 
+Nakonfigurovanou sdílenou síťovou složku zabezpečte pouze minimálními požadovanými oprávněními. Nepoužívejte široký přístup (např. libovolný standardní účet nebo skupinu Everyone s oprávněním Úplné řízení), protože by to mohlo vést k neoprávněnému přístupu k datům protokolování a trasování
+
+Poznámky:
+
+1. Trasování konfigurace uživatele: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb uvedeném v části Konfigurace uživatele, je nutné do pole Trasování uživatele zadat cestu k umístění, ve kterém může být vytvořen soubor trasování uživatele v klientském počítači, a je nutné zapnout možnost Trasování. Pokud v tomto rozšíření neexistují žádné položky předvoleb v části Konfigurace uživatele, nevytvoří se žádný trasovací soubor.
+
+2. Trasování konfigurace počítače: Toto rozšíření předvoleb je k dispozici pouze v části Konfigurace uživatele, trasování konfigurace počítače proto není k dispozici.
+
+3. Trasování dotazů Modelování zásad skupiny: Chcete-li provést trasování pro položky v tomto rozšíření předvoleb při provedení dotazu Modelování zásad skupiny, je nutné do pole Trasování plánování zadat cestu k umístění, ve kterém lze vytvořit soubor trasování plánování v počítači, ve kterém běží modelování, a je nutné zapnout možnost Trasování. Pokud neprovádíte modelování zásad skupiny a v tomto rozšíření neexistují žádné položky předvoleb, nevytvoří se žádný soubor trasování plánování.</string>
+      <string id="CSE_NOCHANGES">Zpracovat i nezměněné objekty zásad skupiny</string>
+      <string id="CSE_NOBACKGROUND">Nepoužívat aktualizace během pravidelného zpracování na pozadí</string>
+      <string id="CSE_ALLOWSLOWLINK">Povolit zpracování aktualizace odeslané pomalým síťovým připojením</string>
+      <string id="CSE_TRACELEVEL">Trasování</string>
+      <string id="CSE_TRACEFILEPATHUSER">Trasování uživatele</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">Trasování počítače</string>
+      <string id="CSE_TRACEFILEPATH">Soubor trasování</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">Trasování plánování</string>
+      <string id="CSE_TRACEFILEMAXSIZE">Maximální velikost souboru trasování (kB)</string>
+      <string id="CSE_TRACELEVELNORMAL">Vypnuto</string>
+      <string id="CSE_TRACELEVELVERBOSE">Zapnuto</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">Priorita pozadí</string>
+      <string id="CSE_PRILEVEL_NORMAL">Normální</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">Nižší než normální</string>
+      <string id="CSE_PRILEVEL_LOWEST">Nejnižší</string>
+      <string id="CSE_PRILEVEL_IDLE">Nečinné</string>
+      <string id="CSE_LOGLEVEL">Protokolování událostí</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">Informace, upozornění a chyby</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">Upozornění a chyby</string>
+      <string id="CSE_LOGLEVEL_ERRORS">Pouze chyby</string>
+      <string id="CSE_LOGLEVEL_NONE">žádné</string>
+      <string id="CSE_Logging">Protokolování a trasování</string>
+      <string id="CSE_Logging_Help">Umožní konfiguraci protokolování a trasování součástí předvoleb.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování plánování</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování plánování</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování plánování</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování plánování</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování plánování</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování plánování</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování plánování</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování plánování</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování plánování</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování plánování</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Protokolování událostí</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Trasování</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Trasování uživatele</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Trasování počítače</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maximální velikost souboru trasování (kB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

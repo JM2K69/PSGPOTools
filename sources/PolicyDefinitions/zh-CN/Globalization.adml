@@ -249,7 +249,7 @@
 
 		如果禁用此策略设置，则会启用自动学习。用户无法在“控制面板”中配置此策略设置。如果启用手写个性化，则收集的数据仅用于手写识别。
 
-		如果未配置此策略，则用户可以通过“控制面板”的“Tablet 设置”中的“手写”选项卡或通过选择性加入对话框选择启用或禁用自动学习。
+		如果未配置此策略，则用户可以通过“控制面板”的“平板设置”中的“手写”选项卡或通过选择性加入对话框选择启用或禁用自动学习。
 
 		此策略设置与“关闭手写个性化”策略设置相关。
 
@@ -257,16 +257,15 @@
 
 		注意: 手写个性化仅适用于 Microsoft 手写识别器，不适用于第三方识别器。</string>
       <string id="InputPersonalization">手写个性化</string>
-      <string id="BlockUserInputMethodsForSignIn">不允许将用户输入法复制到用于登录的系统帐户</string>
+      <string id="BlockUserInputMethodsForSignIn">不允许将用户输入法复制到用于登录的系统账户</string>
       <string id="BlockUserInputMethodsForSignIn_Help">
-        
-        此策略阻止将用户输入法自动复制到要在登录屏幕上使用的系统帐户。限制用户使用在系统帐户中启用的输入法集。
+        此策略阻止将用户输入法自动复制到要在登录屏幕上使用的系统账户。限制用户使用在系统账户中启用的输入法集。
 
         注意，这不会影响锁屏上用户输入法的可用性或 UAC 提示。
 
-        如果此策略为“启用”，则用户将获得为登录页面上的系统帐户启用的输入法。
+        如果此策略为“启用”，则用户将获得为登录页面上的系统账户启用的输入法。
 
-        如果此策略为“禁用”或“未配置”，则用户将能够使用为其登录页面上的用户帐户启用的输入法。</string>
+        如果此策略为“禁用”或“未配置”，则用户将能够使用为其登录页面上的用户账户启用的输入法。</string>
       <string id="BlockCleanupOfUnusedPreinstalledLangPacks">阻止清理未使用的语言包</string>
       <string id="BlockCleanupOfUnusedPreinstalledLangPacks_Help">
           
@@ -284,6 +283,21 @@
         如果启用或未配置此策略，控制将推迟到用户，用户可以通过设置选择是否启用语音服务。
         
         如果禁用此策略，将禁用语音服务，用户无法通过设置启用语音服务。
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">限制语言包和语言特性的安装</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        此策略设置限制所有用户 "需" 程序包中安装语言包和语言功能。 此策略不限制切换 Windows 语言， 如果想要限制 Windows 语言 请使用以下策略： "限制 Windows 为所有已登录的用户使用的 UI 语言"。  
+
+ 如果启用此策略设置， 会阻止所有用户 安装语言包和语言功能 。 
+
+ 如果禁用或未配置此策略设置，则无 的语言包或功能 任何用户的  限制。   
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        此策略设置限制用户 按需安装语言包和语言功能。 此策略不限制切换 Windows 语言， 如果想要限制 Windows 语言 请使用以下策略： "限制 Windows 应为所选用户使用的 UI 语言。"  
+
+ 如果启用此策略设置， 会阻止用户 的语言包和语言功能 安装。   
+
+ 如果禁用或未配置此策略设置，则没有  的语言包或语言功能  用户的安装 限制。  
       </string>
     </stringTable>
     <presentationTable>

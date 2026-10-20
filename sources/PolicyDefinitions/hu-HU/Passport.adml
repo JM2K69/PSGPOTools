@@ -10,6 +10,8 @@
         <string id="MSPassport_UsePassportForWork">A Vállalati Windows Hello használata</string>
         <!-- Add support for certificate trust deployments -->
         <string id="WHFB_UseCertificateForOnPremAuth">Tanúsítvány használata a helyszíni hitelesítéshez</string>
+        <!-- Add support for cloud trust deployments -->
+        <string id="WHFB_UseCloudTrustForOnPremAuth">Felhőbeli bizalmi kapcsolat használata a helyszíni hitelesítéshez</string>
         <!-- DropdownList Button strings -->
         <string id="MSPassport_UsePassportForWorkExplain">A Vállalati Windows Hello szolgáltatás egy alternatív módszer, amellyel a saját Active Directory-fiókon vagy Azure Active Directory-fiókon keresztül lehet bejelentkezni a Windowsba, így nincs szükség jelszavakra, intelligens kártyákra és virtuális intelligens kártyákra.
 
@@ -38,9 +40,9 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, továbbra is a
 
 Ha konfigurálja ezt a házirend-beállítást, a PIN-kód hossza nem lehet kisebb a megadott számnál.
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a PIN-kód nem lehet rövidebb 4 karakternél.
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a PIN-kód nem lehet rövidebb 6 karakternél.
 
-Megjegyzés: Amennyiben a PIN-kód minimális hosszára vonatkozó fenti feltételek nem teljesülnek, a Windows az alapértelmezett értékeket használja a PIN-kód maximális és minimális hosszához egyaránt.
+MEGJEGYZÉS: Amennyiben a PIN-kód minimális hosszára vonatkozó fenti feltételek nem teljesülnek, a Windows az alapértelmezett értékeket használja a PIN-kód maximális és minimális hosszához egyaránt.
         </string>
         <string id="MSPassport_MaximumPINLength">PIN-kód maximális hossza</string>
         <string id="MSPassport_MaximumPINLengthExplain">A PIN-kód maximális hossza beállítással megadható, hogy legfeljebb hány karakterből állhat a PIN-kód. Az ehhez a házirend-beállításhoz megadható legnagyobb érték 127. A legkisebb beállítható értéknek nagyobbnak kell lennie a PIN-kód minimális hossza házirend-beállításban megadott értéknél (vagy 4-nél, amelyik érték nagyobb).
@@ -52,32 +54,40 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a PIN-kód nem
 Megjegyzés: Amennyiben a PIN-kód maximális hosszára vonatkozó fenti feltételek nem teljesülnek, a Windows az alapértelmezett értékeket használja a PIN-kód maximális és minimális hosszához egyaránt.
         </string>
         <string id="MSPassport_UppercaseLetters">Nagybetűk megkövetelése</string>
-        <string id="MSPassport_UppercaseLettersExplain">Ezzel a házirend-beállítással konfigurálható a nagybetűk PIN-kódban való használata.
+        <string id="MSPassport_UppercaseLettersExplain">Ezzel a házirend-beállítással konfigurálhatja a nagybetűk használatát a PIN-kódban.
 
-Ha engedélyezi ezt a házirend-beállítást, a Windows megköveteli a felhasználóktól, hogy legalább egy nagybetűt használjanak a PIN-kódjukban.
+Ha engedélyezi ezt a házirend-beállítást, a Windows megköveteli, hogy a felhasználó legalább egy nagybetűt használjon a PIN-kódjában.
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Windows nem engedélyezi, hogy a felhasználók nagybetűket használjanak a PIN-kódjukban.
+Ha letiltja ezt a házirend-beállítást, a Windows nem engedélyezi, hogy a felhasználó nagybetűket használjon a PIN-kódjában.
+
+Ha nem konfigurálja ezt a házirend-beállítást, a Windows engedélyezi, de nem követeli meg a nagybetűket a PIN-kódban.
         </string>
         <string id="MSPassport_LowercaseLetters">Kisbetűk megkövetelése</string>
-        <string id="MSPassport_LowercaseLettersExplain">Ezzel a házirend-beállítással konfigurálható a kisbetűk PIN-kódban való használata.
+        <string id="MSPassport_LowercaseLettersExplain">Ezzel a házirend-beállítással konfigurálhatja a kisbetűk használatát a PIN-kódban.
 
-Ha engedélyezi ezt a házirend-beállítást, a Windows megköveteli a felhasználóktól, hogy legalább egy kisbetűt használjanak a PIN-kódjukban.
+Ha engedélyezi ezt a házirend-beállítást, a Windows megköveteli, hogy a felhasználó legalább egy kisbetűt használjon a PIN-kódjában.
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Windows nem engedélyezi, hogy a felhasználók kisbetűket használjanak a PIN-kódjukban.
+Ha letiltja ezt a házirend-beállítást, a Windows nem engedélyezi, hogy a felhasználó kisbetűket használjon a PIN-kódjában.
+
+Ha nem konfigurálja ezt a házirend-beállítást, a Windows engedélyezi, de nem követeli meg a kisbetűket a PIN-kódban.
         </string>
         <string id="MSPassport_SpecialCharacters">Speciális karakterek megkövetelése</string>
-        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Ezzel a házirend-beállítással konfigurálható a speciális karakterek PIN-kódban való használata. A megengedett speciális karakterek a következők: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
+        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Ezzel a házirend-beállítással konfigurálhatja a speciális karakterek használatát a PIN-kódban.  A megengedett speciális karakterek a következők: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
 
-Ha engedélyezi ezt a házirend-beállítást, a Windows megköveteli a felhasználóktól, hogy legalább egy speciális karaktert használjanak a PIN-kódjukban.
+Ha engedélyezi ezt a házirend-beállítást, a Windows megköveteli, hogy a felhasználó legalább egy speciális karaktert használjon a PIN-kóddal.
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Windows nem engedélyezi, hogy a felhasználók speciális karaktereket használjanak a PIN-kódjukban.]]>
+Ha letiltja ezt a házirend-beállítást, a Windows nem engedélyezi, hogy a felhasználó speciális karaktereket használjon a PIN-kódjában.
+
+Ha nem konfigurálja ezt a házirend-beállítást, a Windows engedélyezi, de nem követeli meg a speciális karaktereket a PIN-kódban.]]>
         </string>
         <string id="MSPassport_Digits">Számjegyek megkövetelése</string>
-        <string id="MSPassport_DigitsExplain">Ezzel a házirend-beállítással konfigurálható a számjegyek PIN-kódban való használata.
+        <string id="MSPassport_DigitsExplain">Ezzel a házirend-beállítással konfigurálhatja a számjegyek használatát a PIN-kódban.
 
-Ha engedélyezi vagy nem konfigurálja ezt a házirend-beállítást, a Windows megköveteli a felhasználóktól, hogy legalább egy számjegyet használjanak a PIN-kódjukban.
+Ha engedélyezi ezt a házirend-beállítást, a Windows megköveteli, hogy a felhasználó legalább egy számjegyet használjon a PIN-kódjában.
 
-Ha letiltja ezt a házirend-beállítást, a Windows nem engedélyezi, hogy a felhasználók számjegyeket használjanak a PIN-kódjukban.
+Ha letiltja ezt a házirend-beállítást, a Windows nem engedélyezi, hogy a felhasználó számokat használjon a PIN-kódjában.
+
+Ha nem konfigurálja ezt a házirend-beállítást, a Windows engedélyezi, de nem követeli meg a számjegyeket a PIN-kódban.
         </string>
         <string id="MSPassport_PINHistory">Korábbi PIN-kódok</string>
         <string id="MSPassport_PINHistoryExplain">Ez a beállítás határozza meg, hogy hány olyan múltbeli PIN-kód társítható a felhasználói fiókokhoz, amely nem használható fel újból. Ezzel a házirenddel a rendszergazdák fokozhatják a biztonságot azáltal, hogy a régi PIN-kódokat nem lehet tovább használni az adott idő elteltével. Új PIN-kód létrehozásával nem menthetők a korábbi PIN-kódok.
@@ -100,6 +110,19 @@ Ha letiltja ezt a házirend-beállítást, a Vállalati Windows Hello nem enged�
 
 Megjegyzés: Ha letiltja ezt a házirendet, a felhasználó egyetlen fióktípushoz sem használhat biometrikus hitelesítési módokat az eszközön.
         </string>
+        <string id="MSPassport_EnableEnhancedSignInSecurity">Az ESS engedélyezése támogatott perifériákkal</string>
+        <string id="MSPassport_EnableEnhancedSignInSecurityExplain">A fokozott bejelentkezési biztonság szolgáltatás mind a biometrikus sablon adatait, mind az egyező műveleteket elkülöníti megbízható hardvereken vagy meghatározott memóriarégiókon, vagyis az operációs rendszer többi része nem fér hozzájuk, és illetéktelen módosítások nem végezhetők rajtuk. Mivel az érzékelők és az algoritmus közötti kommunikációs csatorna szintén biztonságossá válik, a kártevők nem képesek injektálni vagy ismételten megjeleníteni adatokat valamely felhasználói bejelentkezés szimulálásához, illetve a felhasználó számítógépről való kizárásához.
+Ha engedélyezi ezt a házirendet, akkor a következő lehetséges értékekkel rendelkezhet:
+
+0 – Fokozott bejelentkezési biztonság letiltva a perifériaérzékelőkkel
+A fokozott bejelentkezési biztonság le lesz tiltva a kompatibilis szoftverrel és hardverrel rendelkező rendszereken. A periféria-Windows Hello képes eszközök hitelesítési műveletei engedélyezve lesznek, a jelenlegi funkciókorlátozások függvényében.
+
+1 – Fokozott bejelentkezési biztonság engedélyezve perifériaérzékelők nélkül (alapértelmezett és ajánlott)
+A fokozott bejelentkezési biztonság szolgáltatás lesz engedélyezve kompatibilis hardverekkel rendelkező rendszereken, így az megfelel a Windows meglévő alapértelmezett működésének. Minden biometrikus perifériaeszköz hitelesítési műveletei blokkolva lesznek, és nem érhetők el a Windows Hellóhoz.
+
+Ha letiltja vagy nem konfigurálja ezt a házirendet, a nem ESS-érzékelők le lesznek tiltva az ESS-eszközön.
+
+        </string>
         <string id="MSPassport_EnablePinRecovery">PIN-helyreállítás használata</string>
         <string id="MSPassport_EnablePinRecoveryExplain">A PIN-helyreállítás lehetővé teszi, hogy a felhasználó megváltoztasson egy elfelejtett PIN-kódot a Vállalati Windows Hello PIN-helyreállítási szolgáltatásával anélkül, hogy elveszítené a hozzá tartozó hitelesítő adatokat és tanúsítványokat, ideértve az eszközön a felhasználó személyes fiókjaihoz tartozó kulcsokat is. Ehhez az Azure-alapú PIN-helyreállítási szolgáltatás titkosítja az eszközön tárolt titkos helyreállítási kódot, és a visszafejtéshez a PIN-helyreállítási szolgáltatás és az eszköz is szükséges. A PIN-helyreállításhoz a felhasználónak többfaktoros hitelesítést kell végrehajtania az Azure Active Directory szolgáltatásban.
 
@@ -113,10 +136,19 @@ MEGJEGYZÉS: Ez a házirend csak az Azure Active Directory szolgáltatásban reg
         <string id="WHFB_UseCertificateForOnPremAuthExplain">Ezzel a házirend-beállítással megadhatja, hogy a Vállalati Windows Hello bejelentkezési tanúsítványt használjon a helyszíni hitelesítéshez.
 
 Ha engedélyezi ezt a házirend-beállítást, a Vállalati Windows Hello bejelentkezési tanúsítványt használ a helyszíni hitelesítéshez.
+		
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Vállalati Windows Hello kulcsot vagy Kerberos jegyet használ (más házirend-beállításoktól függően) a helyszíni hitelesítéshez.
 
-Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Vállalati Windows Hello kulcsot használ a helyszíni hitelesítéshez.
+Megjegyzés: Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, és engedélyezi „A Vállalati Windows Hello használata“ házirend-beállítást, akkor a Vállalati Windows Hello hitelesítésének megfelelő működéséhez a környezetben lenni kell legalább egy Windows Server 2016 rendszerű tartományvezérlőnek.
+        </string>
+        <!-- Explain Text for UseCloudTrustForOnPremAuth -->
+        <string id="WHFB_UseCloudTrustForOnPremAuthExplain">Ezzel a házirend-beállítással megadhatja, hogy a Vállalati Windows Hello Azure Active Directory Kerberost használjon a helyszíni hitelesítéshez.
 
-Megjegyzés: Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, és engedélyezi A Vállalati Windows Hello használata házirend-beállítást, akkor a Vállalati Windows Hello hitelesítésének megfelelő működéséhez a környezetben lenni kell legalább egy Windows Server 2016 rendszerű tartományvezérlőnek.
+Ha engedélyezi ezt a házirend-beállítást, a Vállalati Windows Hello olyan Kerberos jegyet fog használni, amelyet az Azure-hoz kapcsolódó hitelesítéskor kért le a rendszer a helyszíni hitelesítéshez.
+		
+Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a Vállalati Windows Hello kulcsot vagy tanúsítványt használ (más házirend-beállításoktól függően) a helyszíni hitelesítéshez.
+
+Megjegyzés: Egy olyan környezet, amely mindkettő házirend-beállítást engedélyezi, és „A Vállalati Windows Hello használata házirend-beállítás“ egy vagy több Windows Server 2016 rendszerű tartományvezérlőt igényel. Másképp a Vállalati Windows Hello hitelesítése meghiúsul.
         </string>
         <!-- Explain text for device unlock policy -->
         <string id="MSPassport_UseDeviceUnlock">Eszközfeloldási tényezők beállítása</string>
@@ -173,6 +205,9 @@ A Windows megköveteli, hogy a felhasználó zárolja a munkamenetét, majd oldj
         </string>
     </stringTable>
     <presentationTable>
+        <presentation id="MSPassport_EnableEnhancedSignInSecurityControl">
+            <decimalTextBox refId="MSPassport_EnableEnhancedSignInSecurityDataType" spin="true" spinStep="1" defaultvalue="1">Az ESS engedélyezése támogatott perifériákkal</decimalTextBox>
+        </presentation>
         <presentation id="MSPassport_MinimumPINLengthControl">
             <decimalTextBox refId="MSPassport_MinimumPINLengthDataType" spin="true" spinStep="1" defaultvalue="6">PIN-kód minimális hossza</decimalTextBox>
         </presentation>

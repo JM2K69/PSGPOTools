@@ -25,6 +25,10 @@ Esta configuración de directiva no está definida de forma predeterminada.
 Debe reiniciar el equipo para que esta configuración de directiva surta efecto.</string>
       <string id="HomeGroup">Grupo en el hogar</string>
       <string id="HomeGroup_Help">Contiene configuraciones para controlar el comportamiento del grupo en el hogar.</string>
+      <string id="DisableShareAppPromotions">DisableShareAppPromotions</string>
+      <string id="DisableShareAppPromotions_Help">Esta configuración de directiva permite a los administradores de TI controlar si las aplicaciones promocionales se muestran en ShareSheet. Si habilita esta directiva, Windows no mostrará aplicaciones promocionales en ShareSheet. Si deshabilita o no configura esta directiva, ShareSheet puede mostrar sugerencias y promociones de aplicaciones cuando se abra ShareSheet.</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

@@ -9,15 +9,15 @@
       
       <!-- prevent file sync-->
       <string id="AllowProjectionToPC">Non consentire la proiezione di questo PC in</string>
-      <string id="AllowProjectionToPC_help">Questa impostazione dei criteri consente di disattivare la proiezione in un PC.  
+      <string id="AllowProjectionToPC_help">Questa impostazione dei criteri ti consente di disattivare la proiezione di un PC. 
 
  
 
-Se si abilita questa impostazione dei criteri, il PC non è individuabile e non può essere eseguita alcuna proiezione nel PC, a meno che l'utente non avvii manualmente l'app Connetti.  
+Se abiliti questa impostazione dei criteri, il PC non è individuabile e non può essere proiettato, a meno che l'utente non avvii manualmente l'app Schermo wireless. 
 
  
 
-Se si disabilita o non si configura questa impostazione dei criteri, il PC è individuabile e possono essere eseguite proiezioni solo sopra la schermata di blocco. L'utente ha inoltre la possibilità di attivare o disattivare sempre l'impostazione, tranne che per l'avvio manuale.</string>
+Se disabiliti o non configuri questa impostazione dei criteri, il PC è individuabile e può essere proiettato solo sopra la schermata di blocco. L'utente ha inoltre la possibilità di attivare o disattivare sempre l'impostazione, tranne che per l'avvio manuale.</string>
 
       <string id="RequirePinForPairing">Richiedi PIN per l'associazione</string>
       <string id="RequirePinForPairing_help">Questa impostazione dei criteri consente di richiedere un PIN per l'associazione.  

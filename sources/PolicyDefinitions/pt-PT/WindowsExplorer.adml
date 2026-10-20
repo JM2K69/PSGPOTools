@@ -220,7 +220,7 @@ Para ver um exemplo da caixa de diálogo Abrir padrão, inicie o WordPad e, no m
 
 Nota: No Windows Vista, esta definição de política aplica-se apenas às aplicações que estão a utilizar o estilo de caixa de diálogo comum do Windows XP. Esta definição de política não se aplica ao novo estilo de caixa de diálogo comum do Windows Vista. As aplicações de outros fabricantes com a certificação Windows 2000, ou de versões posteriores, têm de respeitar esta definição.</string>
       <string id="NoRecycleFiles">Não mover ficheiros eliminados para a Reciclagem</string>
-      <string id="NoRecycleFiles_Help">Quando um ficheiro ou pasta é eliminado no Explorador de Ficheiros, uma cópia do mesmo é colocada na Reciclagem. Utilizando esta definição, poderá alterar este comportamento.
+      <string id="NoRecycleFiles_Help">Quando um ficheiro ou pasta é eliminado no Explorador de Ficheiros, uma cópia do mesmo é colocada na Reciclagem. Ao utilizar esta definição, poderá alterar este comportamento.
 
 Se ativar esta definição, os ficheiros e pastas eliminados através do Explorador de Ficheiros não serão colocados na Reciclagem, sendo eliminados permanentemente.
 
@@ -519,19 +519,33 @@ Se ativar esta definição de política, será permitida a obtenção de ícones
 Se desativar ou não configurar esta definição de política, será impedida a apresentação de ícones de atalho de ficheiro que utilizem caminhos remotos.
 
 Nota: permitir a utilização de caminhos remotos em ícones de atalho de ficheiro pode expor os computadores dos utilizadores a riscos de segurança.</string>
-      <string id="DefaultAssociationsConfiguration">Definir um ficheiro de configuração de associações predefinidas</string>
-      <string id="DefaultAssociationsConfiguration_Help">Esta política especifica o caminho para um ficheiro (por exemplo: armazenado localmente ou numa localização de rede) que contém associações de aplicação predefinidas de tipo de ficheiro e protocolo. Este ficheiro pode ser criado com a ferramenta DISM.
+      <string id="AllowAllCopyFGDDestinations_DisplayName">Permitir que as operações do descritor do grupo de ficheiros escrevam em qualquer caminho de destino</string>
+      <string id="AllowAllCopyFGDDestinations_Help">Esta definição de política determina se as verificações de contenção de percurso transversal são impostas ao escrever ficheiros recebidos através de descritores de grupo de ficheiros de arrastar e largar (CFSTR_FILEDESCRIPTOR) ou área de transferência.
 
+Se ativar esta definição de política, as verificações de contenção transversal de caminhos não são impostas e os ficheiros poderão ser escritos em qualquer caminho acessível pela pasta de destino. Ative esta política apenas se o comportamento predefinido interromper um fluxo de trabalho necessário.
+
+Se desativar ou não configurar esta definição de política, as operações de descritor de grupo de ficheiros impõem a contenção de caminhos e rejeitam nomes de ficheiros que tentem escapar à pasta de destino através de componentes de caminho relativo.</string>
+      <string id="DisableMotWOnInsecurePathCopy_DisplayName">Não aplicar a Marca da etiqueta Web a ficheiros copiados de origens inseguras</string>
+      <string id="DisableMotWOnInsecurePathCopy_Help">Esta definição de política determina a aplicação da etiqueta Marca da Web para ficheiros com origem em localizações inseguras.
+
+Se ativar esta definição de política, os ficheiros copiados de origens não seguras não serão etiquetados com a Marca da Web.
+
+Se desativar ou não configurar esta definição de política, os ficheiros copiados de origens não seguras serão etiquetados com a Marca da Web adequada.
+
+Nota: não etiquetar ficheiros de origens inseguras com a Marca da Web pode expor os computadores dos utilizadores a riscos de segurança.</string>
+      <string id="DefaultAssociationsConfiguration">Definir um ficheiro de configuração de associações predefinidas</string>
+      <string id="DefaultAssociationsConfiguration_Help">Esta política especifica o caminho para um ficheiro (armazenado localmente ou numa localização de rede) que contém associações de aplicações predefinidas de tipo de ficheiro e protocolo. Este ficheiro pode ser criado através da ferramenta DISM.
+      
 Por exemplo:
 Dism.exe /Online /Export-DefaultAppAssociations:C:\AppAssoc.txt
 
-Para mais informações, consulte a documentação da ferramenta DISM no TechNet.
+Para mais informações, consulte a documentação do DISM.
 
-Se esta política de grupo for ativada e a máquina cliente estiver associada a um domínio, o ficheiro será processado e as associações predefinidas serão aplicadas aquando do início de sessão.
+O ficheiro pode ser editado após a sua criação para alterar a frequência com que as associações de políticas são aplicadas. Um atributo "Version" pode ser adicionado ao elemento "DefaultAssociations". O valor deve ser um número inteiro. Um atributo "Suggested" pode ser adicionado a qualquer elemento "Association". O valor deve ser booleano e o valor predefinido é "false". Quando a política é aplicada a um utilizador, qualquer elemento Association que tenha Suggested="true" só será aplicada uma vez. Se o valor da Versão for alguma vez incrementado, as Associações com Suggested="true" serão reaplicadas.
 
-Se a política de grupo não for configurada, for desativada, ou a máquina cliente não estiver associada a um domínio, não serão aplicadas associações predefinidas aquando do início de sessão.
+Se esta política de grupo estiver ativada e o computador cliente estiver ligado ao domínio, o ficheiro será processado e as associações predefinidas serão aplicadas aquando do início de sessão.
 
-Se a política for ativada, for desativada ou não for configurada, os utilizadores continuarão a poder contornar as associações predefinidas de tipo de ficheiro e protocolo.</string>
+Se a política estiver ativada, os utilizadores poderão ainda substituir as associações predefinidas do tipo de ficheiro e protocolo, mas o ficheiro será reaplicado no próximo início de sessão.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MaxRecentDocs">

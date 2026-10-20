@@ -46,22 +46,22 @@
           웹 보기는 사용자 구성\관리 템플릿\Windows 구성 요소\Windows 탐색기에 있는 "클래식 보기 사용" 및 "Do not allow Folder Options to be opened from the Options button on the View tab of the ribbon(리본의 보기 탭에 있는 옵션 단추에서 폴더 옵션 열기 허용 안 함)" 설정과 사용자 구성\관리 템플릿\바탕 화면\Active Desktop에 있는 "Active Desktop 사용" 설정의 영향을 받습니다.</string>
       <string id="DomainDisplayPrinters_Help">이 정책 설정을 사용하면 프린터 추가 마법사가 관리된 네트워크상의 컴퓨터(회사 네트워크상의 도메인에 연결된 랩톱과 같이 컴퓨터가 도메인 컨트롤러에 도달할 수 있는 경우)에 표시할 각 유형의 최대 프린터 수가 설정됩니다.
 
-          이 정책 설정을 사용하지 않으면 네트워크 검색 페이지가 표시되지 않습니다.
+ 이 정책 설정을 사용하지 않으면 네트워크 검색 페이지가 표시되지 않습니다.
 
-          이 정책 설정을 구성되지 않으면 프린터 추가 마법사는 각 프린터 유형의 기본 개수를 표시합니다.
-          디렉터리 프린터: 20
-          TCP/IP 프린터: 0
-          웹 서비스 프린터: 0
-          Bluetooth 프린터: 10
-          공유 프린터: 0
+ 이 정책 설정을 구성되지 않으면 프린터 추가 마법사는 각 프린터 유형의 기본 개수를 표시합니다.
+ 디렉터리 프린터: 20
+ TCP/IP 프린터: 0
+ 웹 서비스 프린터: 0
+ Bluetooth 프린터: 10
+ 공유 프린터: 0
 
-          네트워크의 사용 가능한 웹 서비스 프린터를 보려면 네트워크 검색이 켜져 있어야 합니다. 네트워크 검색을 사용하도록 설정하려면 "시작", "제어판", "네트워크 및 인터넷"을 차례로 클릭하고 "네트워크 및 인터넷" 페이지에서 "네트워크 및 공유 센터"를 클릭합니다. 그런 다음 네트워크 및 공유 센터 페이지에서 "고급 공유 설정 변경"을 클릭합니다. 그런 다음 네트워크 및 공유 센터 페이지에서 "고급 공유 설정 변경"을 클릭합니다. 고급 공유 설정 페이지가 나타나면 "도메인" 화살표 옆에 있는 화살표를 클릭하고 "네트워크 검색 켜기"를 클릭한 다음 "변경 내용 저장"을 클릭합니다.
+ 네트워크의 사용 가능한 웹 서비스 프린터를 보려면 네트워크 검색이 켜져 있어야 합니다. 네트워크 검색을 사용하도록 설정하려면 "시작", "제어판", "네트워크 및 인터넷"을 차례로 클릭하고 "네트워크 및 인터넷" 페이지에서 "네트워크 및 공유 센터"를 클릭합니다. 그런 다음 네트워크 및 공유 센터 페이지에서 "고급 공유 설정 변경"을 클릭합니다. 그런 다음 네트워크 및 공유 센터 페이지에서 "고급 공유 설정 변경"을 클릭합니다. 고급 공유 설정 페이지가 나타나면 "도메인" 화살표 옆에 있는 화살표를 클릭하고 "네트워크 검색 켜기"를 클릭한 다음 "변경 내용 저장"을 클릭합니다.
 
-          특정 유형의 프린터를 표시하지 않으려면 이 정책을 사용하고 표시할 프린터 수를 0으로 설정합니다.
+ 특정 유형의 프린터를 표시하지 않으려면 이 정책을 사용하고 표시할 프린터 수를 0으로 설정합니다.
 
-          Windows 10 이상에서는 마법사에 TCP/IP 프린터만 표시될 수 있습니다. 이 정책 설정을 사용하면 TCP/IP 프린터 제한만 적용할 수 있습니다. Windows 10의 경우 이 정책 설정을 사용하지 않거나 구성하지 않으면 기본 제한이 적용됩니다.
-          
-          Windows 8 이상에서는 Bluetooth 프린터가 표시되지 않으므로 제한이 적용되지 않습니다.
+ Windows 10 이상에서는 마법사에 TCP/IP 프린터만 표시될 수 있습니다. 이 정책 설정을 사용하면 TCP/IP 프린터 제한만 적용할 수 있습니다. Windows 10의 경우 이 정책 설정을 사용하지 않거나 구성하지 않으면 기본 제한이 적용됩니다.
+ 
+ Windows 8 이상에서는 Bluetooth 프린터가 표시되지 않으므로 제한이 적용되지 않습니다.
       </string>
       <string id="DomainPrinters">프린터 추가 마법사 - 네트워크 검색 페이지(관리된 네트워크)</string>
       <string id="DownlevelBrowse">네트워크에서 프린터 찾아보기</string>
@@ -147,7 +147,7 @@ Bluetooth 프린터: 10
 특정 유형의 프린터를 표시하지 않으려면 이 정책을 사용하고 표시할 프린터 수를 0으로 설정하세요.
 
 Windows 10 이상에서는 마법사에 TCP/IP 프린터만 표시될 수 있습니다. 이 정책 설정을 사용하면 TCP/IP 프린터 제한만 적용할 수 있습니다. Windows 10의 경우 이 정책 설정을 사용하지 않거나 구성하지 않으면 기본 제한이 적용됩니다.
-          
+ 
 Windows 8 이상에서는 Bluetooth 프린터가 표시되지 않으므로 제한이 적용되지 않습니다.</string>
       <string id="NonDomainPrinters">프린터 추가 마법사 - 네트워크 검색 페이지(관리되지 않는 네트워크)</string>
       <string id="PackagePointAndPrintOnly">패키지 지정하여 인쇄 사용</string>
@@ -278,19 +278,241 @@ Active Directory가 있는 도메인의 경우는 Active Directory에 사용 가
 
         이 정책 설정을 사용하지 않거나 구성하지 않으면 설치된 모든 프린터 확장의 실행이 허용됩니다.</string>
       <string id="MXDWUseLegacyOutputFormatMSXPS">Change Microsoft XPS Document Writer (MXDW) default output format to the legacy Microsoft XPS format (*.xps)(MXDW(Microsoft XPS 문서 작성기) 기본 출력 형식을 레거시 Microsoft XPS 형식(*.xps)으로 변경)</string>
-      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Microsoft XPS Document Writer(MXDW)는 Windows 10 및 Windows Server 2019에서 기본적으로 OpenXPS(*.oxps) 파일을 생성합니다.
+      <string id="MXDWUseLegacyOutputFormatMSXPS_Help">Microsoft XPS Document Writer(MXDW)는 Windows 10, Windows 10 및 Windows Server 2025에서 기본적으로 OpenXPS(*.oxps) 파일을 생성합니다.
 
-          이 그룹 정책 설정을 사용하는 경우 기본 MXDW 출력 형식은 레거시 Microsoft XPS(*.xps)입니다.
+이 그룹 정책 설정을 사용하면 기본 MXDW 출력 형식이 레거시 Microsoft XPS(*.xps)입니다.
 
-          이 정책 설정을 사용하지 않거나 구성하지 않는 경우 기본 MXDW 출력 형식은 OpenXPS(*.oxps)입니다.</string>
+이 정책 설정을 사용하지 않거나 구성하지 않으면 기본 MXDW 출력 형식은 OpenXPS(*.oxps)입니다.</string>
       <string id="SetDefaultPrinterMRUModeOff">Windows 기본 프린터 관리 끄기</string>
       <string id="SetDefaultPrinterMRUModeOff_Help">이 기본 설정을 통해 기본 프린터 관리를 변경할 수 있습니다.
 
 이 설정을 사용하면 Windows에서 기본 프린터를 관리하지 않습니다.
- 
+
 이 설정을 사용하지 않으면 Windows에서 기본 프린터를 관리합니다.
 
 이 설정을 구성하지 않으면 기본 프린터 관리가 변경되지 않습니다. </string>
+      <string id="EnableDeviceControl">장치 제어 인쇄 제한 사용</string>
+      <string id="EnableDeviceControl_Help">
+이 컴퓨터에서 인쇄하기 위해 장치 제어 인쇄 제한을 적용할지 여부를 결정합니다.
+
+기본적으로 연결 종류나 프린터 제조/모델에 따른 인쇄에 제한이 없습니다.
+
+이 설정을 사용하면 컴퓨터는 회사 네트워크의 프린터 연결이나 승인된 USB 연결 프린터로 인쇄를 제한합니다.
+
+이 설정을 사용하지 않거나 구성하지 않으면 연결 유형이나 프린터 제조/모델에 따른 인쇄에 제한이 없습니다.</string>
+      <string id="ApprovedUsbPrintDevices">승인된 USB 연결 인쇄 장치 목록</string>
+      <string id="ApprovedUsbPrintDevices_Help">
+
+이 설정은 장치 제어 인쇄 제한의 구성 요소입니다. 이 설정을 사용하려면 "장치 제어 인쇄 제한 사용"을 사용하여 장치 제어 인쇄를 사용하도록 설정합니다.
+
+장치 제어 인쇄를 사용하면 시스템은 지정된 vid/pid 값 목록을 사용하여 현재 USB 연결 프린터가 로컬 인쇄용으로 승인되었는지 확인합니다.
+
+승인된 USB 프린터 모델에 해당하는 승인된 vid/pid 조합(쉼표로 구분됨)을 모두 입력합니다. 사용자가 USB 프린터 큐에 인쇄하려고 하면 장치 vid/pid가 승인된 목록과 비교됩니다.
+      </string>
+      <string id="RestrictDriverInstallationToAdministrators">인쇄 드라이버 설치를 관리자로 제한</string>
+      <string id="RestrictDriverInstallationToAdministrators_Help">
+관리자가 아닌 사용자가 이 컴퓨터에 인쇄 드라이버를 설치할 수 있는지 여부를 결정합니다.
+
+기본적으로 Administrators가 아닌 사용자는 이 컴퓨터에 인쇄 드라이버를 설치할 수 없습니다.
+
+이 설정을 사용하거나 구성하지 않으면 인쇄 드라이버 설치가 이 컴퓨터의 관리자로 제한됩니다.
+
+이 설정을 사용하지 않으면 인쇄 드라이버 설치가 이 컴퓨터로 제한되지 않습니다.
+        </string>
+      <string id="CopyFilesPolicy">큐 관련 파일의 처리 관리</string>
+      <string id="CopyFilesPolicy_AllowAll">모든 큐 사양 파일 허용</string>
+      <string id="CopyFilesPolicy_Disabled">큐 관련 파일 허용 안 함</string>
+      <string id="CopyFilesPolicy_Help">
+프린터를 설치하는 동안 큐 관련 파일이 처리되는 방법을 관리합니다. 프린터 설치 시 공급업체에서 제공하는 설치 응용 프로그램에서 특정 인쇄 대기열에 연결할 모든 유형의 파일 집합을 지정할 수 있습니다. 파일은 인쇄 서버에 연결하는 각 클라이언트에 다운로드됩니다.
+
+이 설정을 사용하여 큐 관련 파일과 관련된 기본 동작을 변경할 수 있습니다. 이 설정을 사용하려면 "큐 관련 파일 처리 관리" 상자에서 아래 옵션 중 하나를 선택합니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 기본 동작은 "큐 관련 파일을 색 프로필로 제한"입니다.
+
+-- "큐 관련 파일 허용 안 함"은 인쇄 대기열/프린터 연결 설치 중에 큐 관련 파일을 허용/처리하지 않도록 지정합니다.
+
+-- "큐 관련 파일을 색 프로필로 제한"은 표준 색 프로필 구성표를 준수하는 큐 관련 파일만 허용되도록 지정합니다. COLOR의 디렉터리 값을 포함하고 모듈 값으로 mscms.dll 지원하는 레지스트리 키 CopyFiles\ICM을 사용하는 항목을 의미합니다. "큐 관련 파일을 색 프로필로 제한"이 기본 동작입니다.
+
+-- "모든 큐 관련 파일 허용"은 인쇄 대기열/프린터 연결 설치 중에 모든 큐 관련 파일을 허용/처리하도록 지정합니다.
+      </string>
+      <string id="CopyFilesPolicy_ICMOnly">큐 관련 파일을 색 프로필로 제한</string>
+      <string id="DriverValidationLevel_Inbox">받은 편지함 서명된 드라이버 필요</string>
+      <string id="DriverValidationLevel_Legacy">유효하게 서명된 모든 드라이버 허용</string>
+      <string id="DriverValidationLevel_Trusted">받은 편지함 및 인쇄 드라이버 신뢰할 수 있는 저장소 서명된 드라이버 허용</string>
+      <string id="DriverValidationLevel_TrustedShared">받은 편지함, 인쇄 드라이버 신뢰할 수 있는 저장소, WHQL 및 신뢰할 수 있는 게시자 저장소 서명된 드라이버 허용</string>
+      <string id="DriverValidationLevel_WHQL">받은 편지함, 인쇄 드라이버 신뢰할 수 있는 저장소 및 WHQL 서명된 드라이버 허용</string>
+      <string id="DriverValidationLevel">인쇄 드라이버 서명 유효성 검사 관리</string>
+      <string id="DriverValidationLevel_Help">
+          이 정책 설정은 인쇄 드라이버 서명 유효성 검사 메커니즘을 제어합니다. 이 정책은 인쇄 드라이버가 유효하고 시스템에 설치되는 데 필요한 디지털 서명 유형을 제어합니다.
+
+          이 유효성 검사의 일부로 카탈로그/포함된 서명이 확인되며 드라이버의 모든 파일은 카탈로그의 일부이거나 유효성 검사에 사용할 수 있는 자체 포함 서명이 있어야 합니다.
+
+          이 설정을 사용하여 기본 서명 유효성 검사 방법을 변경할 수 있습니다. 이 설정을 사용하려면 "이 컴퓨터에 대한 드라이버 서명 메커니즘 선택" 상자에서 아래 옵션 중 하나를 선택합니다.
+
+          이 정책 설정을 사용하지 않거나 구성하지 않으면 기본 방법은 "유효하게 서명된 모든 드라이버 허용"입니다.
+
+          -- "받은 편지함 서명된 드라이버 필요"는 Windows 이미지의 일부로 제공되는 드라이버만 이 컴퓨터에서 허용되도록 지정합니다.
+
+          -- "받은 편지함 및 PrintDrivers 신뢰할 수 있는 저장소 서명된 드라이버 허용"은 Windows 이미지의 일부로 제공되는 드라이버 또는 'PrintDrivers' 인증서 저장소에 설치된 인증서로 서명된 드라이버만 이 컴퓨터에 허용되도록 지정합니다.
+
+          -- "받은 편지함, PrintDrivers 신뢰할 수 있는 저장소 및 WHQL 서명된 드라이버 허용"은 이 컴퓨터에서 허용되는 유일한 드라이버(Windows 이미지의 일부로 배송되거나 'PrintDrivers' 인증서 저장소에 설치된 인증서로 서명되었거나 WHQL(Windows Hardware Quality Lab))에 의해 서명된 드라이버만 지정합니다.
+
+          -- "받은 편지함, PrintDrivers 신뢰할 수 있는 저장소, WHQL 및 신뢰할 수 있는 게시자 저장소 서명된 드라이버 허용"은 이 컴퓨터에 허용되는 유일한 드라이버(Windows 이미지의 일부로 배송되거나, 'PrintDrivers' 인증서 저장소에 설치된 인증서로 서명되었거나, WHQL(Windows Hardware Quality Lab))에 서명되었거나, '신뢰할 수 있는 게시자' 인증서 저장소에 설치된 인증서에 의해 서명된 드라이버만 지정됩니다.
+
+          -- "서명된 모든 드라이버 허용"은 유효한 포함 서명이 있거나 인쇄 드라이버 카탈로그에 대해 유효성을 검사할 수 있는 인쇄 드라이버를 이 컴퓨터에 설치할 수 있음을 지정합니다.
+
+          관리자가 로컬 컴퓨터 저장소 위치에서 'PrintDrivers' 인증서 저장소를 만들어야 합니다.
+
+          '신뢰할 수 있는 게시자' 인증서 저장소에는 인쇄 드라이버와 관련되지 않은 원본의 인증서가 포함될 수 있습니다.
+
+      </string>
+      <string id="DriverValidationLevelTitle">이 컴퓨터에 대한 드라이버 서명 메커니즘 선택</string>
+      <string id="DriverExclusionList">인쇄 드라이버 제외 목록 관리</string>
+      <string id="DriverExclusionList_Help">
+이 정책 설정은 인쇄 드라이버 제외 목록을 제어합니다. 제외 목록을 사용하면 관리자가 시스템에 설치할 수 없는 프린터 드라이버 목록을 큐레이팅할 수 있습니다.
+
+이렇게 하면 서명 확인이 우선하며 인쇄 드라이버 서명 유효성 검사 정책이 유효한 서명 수준이 있는 드라이버가 제외될 수 있습니다.
+
+제외 목록의 항목은 INF 파일의 SHA256 해시(또는 Win7의 경우 SHA1 해시) 및/또는 드라이버의 주 드라이버 DLL 파일과 파일 이름으로 구성됩니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 현재 값으로 설정된 경우 이 정책 설정과 연결된 레지스트리 키 및 값이 삭제됩니다.
+
+      </string>
+      <string id="RpcListenerPolicy">RPC 수신기 설정 구성</string>
+      <string id="RpcOverNamedPipes">명명된 파이프를 통한 RPC</string>
+      <string id="RpcOverTcp">RPC over TCP</string>
+      <string id="RpcOverNamedPipesAndTcp">명명된 파이프 및 TCP를 통한 RPC</string>
+      <string id="RpcAuthenticationProtocol_Negotiate">협상</string>
+      <string id="RpcAuthenticationProtocol_Kerberos">Kerberos</string>
+      <string id="RpcListenerPolicy_Help">
+이 정책 설정은 인쇄 스풀러에 대해 들어오는 RPC 연결이 사용할 수 있는 프로토콜을 제어합니다.
+
+기본적으로 RPC over TCP를 사용하며 협상은 인증 프로토콜에 사용됩니다.
+
+들어오는 RPC 연결을 허용하는 프로토콜:
+    -- "명명된 파이프를 통한 RPC": 들어오는 RPC 연결은 명명된 파이프를 통해서만 허용
+    -- "RPC over TCP": 들어오는 RPC 연결은 TCP를 통해서만 허용(기본 옵션)
+    -- "명명된 파이프 및 TCP를 통한 RPC": 들어오는 RPC 연결은 TCP 및 명명된 파이프를 통해 허용
+
+들어오는 RPC 연결에 사용할 인증 프로토콜:
+    -- "협상": 협상 인증 프로토콜 사용(기본 옵션)
+    -- "Kerberos": Kerberos 인증 프로토콜 사용
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 위의 기본값이 사용됩니다.
+      </string>
+      <string id="RpcConnectionPolicy">RPC 연결 설정 구성</string>
+      <string id="RpcConnectionAuthenticationDefault">기본값</string>
+      <string id="RpcConnectionAuthenticationEnabled">인증 사용</string>
+      <string id="RpcConnectionAuthenticationDisabled">인증 사용 안 함</string>
+      <string id="RpcConnectionPolicy_Help">
+이 정책 설정은 원격 인쇄 스풀러에 보내는 RPC 연결에 사용할 프로토콜과 프로토콜 설정을 제어합니다.
+
+기본적으로 TCP를 통한 RPC가 사용되며 인증은 항상 사용하도록 설정됩니다. 명명된 파이프를 통한 RPC는 도메인 가입된 컴퓨터에는 항상 사용하도록 설정되지만, 도메인 가입되지 않은 컴퓨터에는 사용하지 않도록 설정됩니다.
+
+보내는 RPC 연결에 사용할 프로토콜:
+    -- "TCP를 통한 RPC": 원격 인쇄 스풀러에 보내는 RPC 연결에 TCP를 통한 RPC 사용
+    -- "명명된 파이프를 통한 RPC": 원격 인쇄 스풀러에 보내는 RPC 연결에 명명된 파이프를 통한 RPC 사용
+
+명명된 파이프를 통한 보내는 RPC 연결에 인증 사용:
+    -- "기본값": 기본적으로 도메인에 가입된 컴퓨터는 명명된 파이프를 통한 RPC에 RPC 인증을 사용하는 반면 도메인에 가입되지 않은 컴퓨터는 명명된 파이프를 통한 RPC에 RPC 인증을 사용하지 않음
+    -- "인증 사용": 명명된 파이프를 통한 보내는 RPC 연결에 RPC 인증 사용
+    -- "인증 사용 안 함": 명명된 파이프를 통한 보내는 RPC 연결에 RPC 인증을 사용하지 않음
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 위의 기본값이 사용됩니다.
+      </string>
+      <string id="RpcTcpPortPolicy">RPC over TCP 포트 구성</string>
+      <string id="RpcTcpPortPolicy_Help">
+이 정책 설정은 인쇄 스풀러로 들어오는 연결 및 원격 인쇄 스풀러에 대한 나가는 연결에 RPC over TCP에 사용되는 포트를 제어합니다.
+
+기본적으로 동적 TCP 포트가 사용됩니다.
+
+RPC over TCP 포트:
+    -- RPC over TCP에 사용할 포트입니다. 값이 0이 기본값이며 동적 TCP 포트가 사용됨을 나타냅니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 동적 TCP 포트가 사용됩니다.
+      </string>
+      <string id="RpcIncomingAuthenticationLevelPolicy">들어오는 연결에 대한 RPC 패킷 수준 개인 정보 설정 구성</string>
+      <string id="RpcIncomingAuthenticationLevelPolicy_Help">
+이 정책 설정은 들어오는 연결에 RPC에 대해 패킷 수준 개인 정보를 사용할 수 있는지 여부를 제어합니다.
+
+기본적으로 들어오는 연결에 RPC에 대해 패킷 수준 개인 정보를 사용할 수 있습니다.
+
+이 정책 설정을 사용하거나 구성하지 않으면 들어오는 연결에 대해 RPC에 대해 패킷 수준 개인 정보를 사용할 수 있습니다.
+      </string>
+      <string id="AlwaysSendIppPageCounts">IPP 프린터에 대한 작업 페이지 수 정보 항상 보내기</string>
+      <string id="AlwaysSendIppPageCounts_Help">
+Microsoft IPP 클래스 드라이버를 사용하여 프린터의 계정 용도로 페이지 수 정보를 항상 보낼지 여부를 결정합니다.
+
+기본적으로 페이지는 렌더링되는 즉시 프린터로 전송되며 페이지 순서를 다시 지정해야 하는 경우가 아니면 페이지 수 정보가 프린터로 전송되지 않습니다.
+
+이 설정을 사용하면 시스템에서 모든 인쇄 작업 페이지를 맨 앞으로 렌더링하고 프린터에 인쇄 작업의 총 페이지 수를 보냅니다.
+
+이 설정을 사용하지 않거나 구성하지 않으면 페이지가 렌더링되는 즉시 인쇄되고 페이지 수는 작업을 처리하려면 페이지 순서를 다시 지정해야 하는 경우에만 전송됩니다.
+      </string>
+      <string id="RequireIpps">IPP 프린터에 IPPS 필요</string>
+      <string id="RequireIpps_Help">Microsoft IPP 클래스 드라이버를 사용하는 프린터와의 통신에서 보안 통신에 TLS를 사용하는 IPPS를 사용해야 하는지 여부를 결정합니다.
+
+이 정책 설정을 사용하면 IPPS를 지원하는 IPP 프린터만 설치할 수 있습니다.
+
+이 설정을 사용하지 않거나 구성하지 않으면 기본적으로 IPPS를 지원하지 않는 IPP 프린터 설치가 허용됩니다.
+      </string>
+      <string id="IppTlsCertificatePolicy">IPP 프린터에 대한 TLS/SSL 보안 정책 설정</string>
+      <string id="IppTlsCertificatePolicy_Help">
+Microsoft IPP 클래스 드라이버를 사용하는 프린터에 대한 TLS/SSL 보안 정책(WINHTTP_OPTION_SECURITY_FLAGS)을 결정합니다.
+
+기본적으로 보안 정책은 모든 인증서 오류를 무시하도록 설정되므로 프린터에 자체 서명된 인증서를 사용할 수 있습니다.
+
+이 설정을 사용하도록 설정하면 시스템에서 기본적으로 모든 인증서 검사를 사용하도록 설정하여 인증서 오류를 허용하지 않습니다. 특정 인증서 확인은 지정된 확인란을 사용하여 설정할 수 있습니다.
+
+이 설정을 사용하지 않도록 설정하거나 구성하지 않으면 기본값은 모든 인증서 오류(모든 확인란이 선택 취소됨)를 무시하는 것입니다.
+      </string>
+      <string id="RedirectionGuardPolicy">Redirection Guard 구성</string>
+      <string id="RedirectionGuardPolicy_Disabled">Redirection Guard 사용 안 함</string>
+      <string id="RedirectionGuardPolicy_Enabled">Redirection Guard 사용</string>
+      <string id="RedirectionGuardPolicy_AuditOnly">Redirection Guard 감사만 사용</string>
+      <string id="RedirectionGuardPolicy_Help">
+인쇄 스풀러에 Redirection Guard를 사용할지 여부를 결정합니다.
+
+이 설정을 사용하여 스풀러에 적용되는 Redirection Guard 정책을 구성할 수 있습니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 Redirection Guard는 기본값인 '사용'으로 설정됩니다.
+
+이 설정을 사용하면 다음 옵션을 선택할 수 있습니다.
+
+-- 사용: Redirection Guard로 인해 파일 리디렉션을 따르지 않습니다.
+
+-- 사용 안 함: Redirection Guard를 사용하지 않으므로 스풀러 프로세스 내에서 파일 리디렉션이 사용될 수 있습니다.
+
+-- 감사: Redirection Guard가 사용 설정된 것처럼 이벤트를 로그하지만, 실제로 스풀러 내 파일 리디렉션 사용을 방지하지는 않습니다.
+      </string>
+      <string id="WindowsProtectedPrintPolicy">Windows 보호 인쇄 구성</string>
+      <string id="WindowsProtectedPrintPolicy_Help">
+이 컴퓨터에서 Windows 보호 인쇄를 사용할 수 있는지 여부를 결정합니다.
+
+기본적으로 Windows 보호 인쇄는 사용할 수 없으며 설치 또는 인쇄 기능을 사용할 수 있는 인쇄 드라이버에는 제한이 없습니다.
+
+이 설정을 사용하면 컴퓨터가 Windows 보호 인쇄 모드에서 작동하며, 이 모드에서는 받은 편지함 Windows 인쇄 드라이버의 하위 집합을 지원하는 프린터로만 인쇄할 수 있습니다.
+
+이 설정을 사용하지 않거나 구성하지 않으면 설치하거나 인쇄 기능을 사용할 수 있는 인쇄 드라이버에 제한이 없습니다.
+
+자세한 내용은 https://learn.microsoft.com/en-us/windows-hardware/drivers/print/windows-protected-print-mode 참조하세요.
+      </string>
+      <string id="WindowsReadyPrintDriverRanking">Windows Ready Print 드라이버 순위 구성</string>
+      <string id="WindowsReadyPrintDriverRanking_Help">
+이 컴퓨터에서 Windows Ready Print 드라이버 순위가 활성화되어 있는지 여부를 결정합니다.
+
+활성화하면 Windows에서 IPP(인터넷 인쇄 프로토콜)를 지원하는 프린터에 대해 Microsoft IPP 클래스 드라이버를 우선 사용합니다. 이는 네트워크에 연결된 IPP 프린터와 USB를 통해 IPP를 지원하는 USB 연결 프린터 모두에 적용됩니다.
+
+이 설정을 활성화하면 Windows에서 적격 프린터에 대한 자동 드라이버 선택 시 Microsoft IPP 클래스 드라이버의 우선 순위를 지정합니다.
+
+이 설정을 비활성화하면 Windows에서 기본 드라이버 선택 동작을 사용합니다.
+
+이 설정을 구성하지 않으면 로컬 관리자 설정이 대신 사용됩니다. 어느 설정도 구성되지 않은 경우 Windows Ready Print 드라이버 순위가 기본적으로 활성화됩니다.
+
+참고: 이 그룹 정책 설정은 로컬 관리자 설정보다 우선합니다. 이 설정은 초기 프린터 설치 중 자동 드라이버 선택에만 영향을 줍니다. 기존 프린터 설치는 변경되지 않습니다. 이 설정의 변경 내용을 적용하려면 프린터를 완전히 제거한 후 다시 설치해야 합니다.
+
+자세한 내용은 https://go.microsoft.com/fwlink/?linkid=2364024에서 참조하세요.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="CustomizedSupportUrl">
@@ -352,6 +574,50 @@ Active Directory가 있는 도메인의 경우는 Active Directory에 사용 가
         <text>
         예 --&gt; LDAP://DC=Domain1,DC=MyCompany,DC=com
       </text>
+      </presentation>
+      <presentation id="ApprovedUsbPrintDevices">
+        <text>승인된 USB 연결 프린터 장치 목록을 지정합니다.</text>
+        <text>목록은 USB vid/pid 값의 쉼표로 구분된 목록입니다. 예: 0351/0872,135E/2179</text>
+        <textBox refId="ApprovedUsbPrintDevices_List">
+          <label>vid/pid</label>
+        </textBox>
+      </presentation>
+      <presentation id="CopyFilesPolicy">
+        <text>큐 관련 파일을 처리할 방법을 선택합니다.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="CopyFilesPolicy_Enum">큐 관련 파일의 처리 관리:</dropdownList>
+      </presentation>
+      <presentation id="DriverValidationLevel">
+        <dropdownList defaultItem="4" noSort="true" refId="DriverValidationLevel_Enum">이 컴퓨터에 대한 드라이버 서명 메커니즘 선택:</dropdownList>
+      </presentation>
+      <presentation id="DriverExclusionList">
+        <text>  </text>
+        <text>해시가 아래에 나타내는 파일 이름과 쌍을 이루는 파일 해시를 입력합니다.</text>
+        <text>  </text>
+        <listBox refId="Driver_ExclusionListEntry">파일 해시 파일 이름:</listBox>
+      </presentation>
+      <presentation id="RpcListenerPolicy">
+        <text>들어오는 RPC 연결에 대한 프로토콜 옵션을 구성합니다.</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RpcListenerProtocols_Enum">들어오는 RPC 연결을 허용하는 프로토콜:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcAuthenticationProtocol_Enum">들어오는 RPC 연결에 사용할 인증 프로토콜:</dropdownList>
+      </presentation>
+      <presentation id="RpcConnectionPolicy">
+        <text>보내는 RPC 연결에 대한 프로토콜 옵션을 구성합니다.</text>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionProtocol_Enum">보내는 RPC 연결에 사용할 프로토콜:</dropdownList>
+        <dropdownList defaultItem="0" noSort="true" refId="RpcConnectionAuthentication_Enum">보내는 RPC 연결에 대한 인증 사용:</dropdownList>
+      </presentation>
+      <presentation id="RpcTcpPortPolicy">
+        <text>RPC over TCP에 사용할 포트를 구성합니다.</text>
+        <decimalTextBox defaultValue="0" refId="RpcTcpPort">RPC over TCP 포트:</decimalTextBox>
+      </presentation>
+      <presentation id="IppTlsCertificatePolicy">
+        <checkBox refId="SecurityFlagsBlockUnknownCA" defaultChecked="true">잘못된 인증 기관 허용 안 함</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertWrongUsage" defaultChecked="true">서버가 아닌 인증서 허용 안 함</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertCNInvalid" defaultChecked="true">잘못된 인증서 일반 이름 허용 안 함</checkBox>
+        <checkBox refId="SecurityFlagsBlockCertDateInvalid" defaultChecked="true">잘못된 인증서 날짜 허용 안 함</checkBox>
+      </presentation>
+      <presentation id="RedirectionGuardPolicy">
+        <text>Redirection Guard에 대한 옵션 구성</text>
+        <dropdownList defaultItem="1" noSort="true" refId="RedirectionGuardPolicy_Enum">Redirection Guard 옵션</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

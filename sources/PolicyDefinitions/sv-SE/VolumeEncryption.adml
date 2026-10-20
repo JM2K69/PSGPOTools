@@ -322,6 +322,18 @@ Obs! Vissa datorer är eventuellt inte kompatibla med den här principen om syst
       </string>
       <string id="DisableExternalDMAUnderLock_Name">Inaktivera nya DMA-enheter när datorn är låst</string>
 
+      <string id="DisableWinRETrust_Help">Den här principinställningen styr om BitLocker litar på Windows Återställningsmiljö (WinRE).
+
+När BitLocker litar på WinRE kan WinRE komma åt den BitLocker-skyddade operativsystemvolymen utan att kräva BitLocker-återställningsnyckeln. Detta stöder återställningsåtgärder som behöver åtkomst till operativsystemvolymen.
+
+Viktigt: Om du aktiverar den här principen ändras återställningsbeteendet. Om du aktiverar den här principinställningen litar BitLocker inte på WinRE. BitLocker-återställningsnyckeln krävs för alla WinRE-åtgärder som behöver åtkomst till den BitLocker-skyddade operativsystemvolymen. Återställningsåtgärder som förlitar sig på WinRE-åtkomst till operativsystemvolymen kan kräva åtgärder från användaren eller administratören och kanske inte slutförs automatiskt, inklusive startreparation, snabbåterställning, snabbåterställning och MDM-initierad fjärråterställning eller rensning med hjälp av CSP för RemoteWipe.
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen litar BitLocker på en verifierad WinRE-avbildning så att WinRE kan komma åt den BitLocker-skyddade operativsystemvolymen utan återställningsnyckeln.
+
+Den här principinställningen tillämpas endast när BitLocker-kryptering eller enhetskryptering är aktiverat.</string>
+
+      <string id="DisableWinRETrust_Name">Inaktivera BitLocker-förtroende för Windows Återställningsmiljö (WinRE)</string>
+
       <string id="FVEOSCategory">Operativsystemenheter</string>
       <string id="FVEFDVCategory">Fasta dataenheter</string>
       <string id="FVERDVCategory">Flyttbara dataenheter</string>

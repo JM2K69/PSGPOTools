@@ -36,6 +36,92 @@
       
       </string>
       <string id="LocationAndSensors">位置和传感器</string>
+      <string id="HumanPresence">有人状态</string>
+      <string id="ForceInstantWake_DisplayName">强制即时唤醒</string>
+      <string id="ForceInstantWake_ExplainText">确定 MDM 策略是否强制打开/关闭“到达时唤醒”。用户将无法更改此设置，并且 UI 中的开关将灰显。</string>
+      <string id="ForceInstantWake_0">默认用户选择</string>
+      <string id="ForceInstantWake_1">强制打开</string>
+      <string id="ForceInstantWake_2">强制关闭</string>
+      <string id="ForceInstantLock_DisplayName">强制即时锁定</string>
+      <string id="ForceInstantLock_ExplainText">确定 MDM 策略是否强制打开/关闭“离开时锁定”。用户将无法更改此设置，并且 UI 中的开关将灰显。</string>
+      <string id="ForceInstantLock_0">默认用户选择</string>
+      <string id="ForceInstantLock_1">强制打开</string>
+      <string id="ForceInstantLock_2">强制关闭</string>
+      <string id="ForceLockTimeout_DisplayName">锁定超时</string>
+      <string id="ForceLockTimeout_ExplainText">确定 MDM 策略强制的“离开时锁定”的超时。用户将无法更改此设置，并且 UI 中的开关将灰显。</string>
+      <string id="ForceLockTimeout_0">默认为用户选择</string>
+      <string id="ForceLockTimeout_1">10 秒</string>
+      <string id="ForceLockTimeout_2">30 秒</string>
+      <string id="ForceLockTimeout_3">2 分钟</string>
+      <string id="ForceLockTimeout_4">即时</string>
+      <string id="ForceInstantDim_DisplayName">强制即时变暗</string>
+      <string id="ForceInstantDim_ExplainText">确定 MDM 策略是否强制打开/关闭“基于注意的显示器变暗”。用户将无法更改此设置，并且 UI 中的开关将灰显。</string>
+      <string id="ForceInstantDim_0">默认为用户选择</string>
+      <string id="ForceInstantDim_1">强制打开</string>
+      <string id="ForceInstantDim_2">强制关闭</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_DisplayName">节电模式打开时强制禁用唤醒</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_ExplainText">确定 MDM 策略是否强制选中/取消选中“节电模式开启时禁用接近时唤醒”复选框。用户将无法更改此设置，UI 中的复选框将变为灰色。</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_0">默认用户选择</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_1">强制选中</string>
+      <string id="ForceDisableWakeWhenBatterySaverOn_2">强制取消选中</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_DisplayName">外部显示器连接时强制允许唤醒</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_ExplainText">确定 MDM 策略是否强制选中/取消选中“外部显示连接时允许接近时唤醒”复选框。用户将无法更改此设置，UI 中的复选框将变为灰色。</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_0">默认用户选择</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_1">强制选中</string>
+      <string id="ForceAllowWakeWhenExternalDisplayConnected_2">强制取消选中</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_DisplayName">外部显示器连接时强制允许锁定</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_ExplainText">确定 MDM 策略是否强制选中/取消选中“外部显示连接时允许锁定离开”。用户将无法更改此设置，并且 UI 中的复选框将灰化。</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_0">默认用户选择</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_1">强制选中</string>
+      <string id="ForceAllowLockWhenExternalDisplayConnected_2">强制取消选中</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_DisplayName">外部显示器连接时强制允许变暗</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_ExplainText">确定 MDM 策略是否强制选中/取消选中“外部显示连接时允许自适应变暗”。用户将无法更改此设置，并且 UI 中的复选框将灰化。</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_0">默认用户选择</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_1">强制选中</string>
+      <string id="ForceAllowDimWhenExternalDisplayConnected_2">强制取消选中</string>
+      <string id="ForceOnlookerDetection_DisplayName">强制旁观者检测</string>
+      <string id="ForceOnlookerDetection_ExplainText">确定 MDM 策略是否强制启用/关闭 Onlooker 检测功能。用户将无法更改此设置，UI 中的切换开关将灰开。</string>
+      <string id="ForceOnlookerDetection_0">默认用户选择</string>
+      <string id="ForceOnlookerDetection_1">强制打开</string>
+      <string id="ForceOnlookerDetection_2">强制关闭</string>
+      <string id="ForceOnlookerDetectionAction_DisplayName">强制旁观者检测操作</string>
+      <string id="ForceOnlookerDetectionAction_ExplainText">确定是否由 MDM 策略强制执行 Onlooker 检测作。用户将无法更改此设置，UI 中的切换开关将灰开。</string>
+      <string id="ForceOnlookerDetectionAction_0">默认用户选择</string>
+      <string id="ForceOnlookerDetectionAction_1">调暗</string>
+      <string id="ForceOnlookerDetectionAction_2">通知</string>
+      <string id="ForceOnlookerDetectionAction_3">调暗并通知</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ForceInstantWake">
+        <dropdownList refId="ForceInstantWakeDropdown" noSort="true" defaultItem="0">请选择下列操作之一</dropdownList>
+      </presentation>
+      <presentation id="ForceInstantLock">
+        <dropdownList refId="ForceInstantLockDropdown" noSort="true" defaultItem="0">请选择下列操作之一</dropdownList>
+      </presentation>
+      <presentation id="ForceLockTimeout">
+        <dropdownList refId="ForceLockTimeoutDropdown" noSort="true" defaultItem="1">请选择下列超时之一</dropdownList>
+      </presentation>
+      <presentation id="ForceInstantDim">
+        <dropdownList refId="ForceInstantDimDropdown" noSort="true" defaultItem="0">请选择下列操作之一</dropdownList>
+      </presentation>
+      <presentation id="ForceDisableWakeWhenBatterySaverOn">
+        <dropdownList refId="ForceDisableWakeWhenBatterySaverOnDropdown" noSort="true" defaultItem="0">请选择下列操作之一</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowWakeWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowWakeWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">请选择下列操作之一</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowLockWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowLockWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">请选择下列操作之一</dropdownList>
+      </presentation>
+      <presentation id="ForceAllowDimWhenExternalDisplayConnected">
+        <dropdownList refId="ForceAllowDimWhenExternalDisplayConnectedDropdown" noSort="true" defaultItem="0">请选择下列操作之一</dropdownList>
+      </presentation>
+      <presentation id="ForceOnlookerDetection">
+        <dropdownList refId="ForceOnlookerDetectionDropdown" noSort="true" defaultItem="0">请选择下列操作之一</dropdownList>
+      </presentation>
+      <presentation id="ForceOnlookerDetectionAction">
+        <dropdownList refId="ForceOnlookerDetectionActionDropdown" noSort="true" defaultItem="0">请选择下列操作之一</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

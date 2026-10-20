@@ -25,6 +25,10 @@
 您必須重新啟動電腦，這個原則設定才會生效。</string>
       <string id="HomeGroup">HomeGroup</string>
       <string id="HomeGroup_Help">含有控制 HomeGroup 行為的設定。</string>
+      <string id="DisableShareAppPromotions">DisableShareAppPromotions</string>
+      <string id="DisableShareAppPromotions_Help">此原則設定可讓 IT 系統管理員控制促銷應用程式是否顯示在 ShareSheet 中。如果您啟用此策略，Windows 將不會在 ShareSheet 中顯示促銷應用程式。如果您停用或未設定此政策，ShareSheet 可能會在開啟 ShareSheet 時顯示應用程式建議和促銷。</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

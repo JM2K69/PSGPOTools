@@ -55,6 +55,15 @@ Nota: questa impostazione non disabilita Active Desktop. Gli utenti potranno com
 Per impostazione predefinita, è possibile modificare il percorso delle singole cartelle dei profili, ad esempio Documenti, Musica e così via, digitando un percorso diverso nella scheda Percorso della finestra di dialogo Proprietà della cartella.
 
 Se si abilita questa impostazione, non sarà possibile specificare un nuovo percorso nella casella Destinazione.</string>
+      <string id="EnableThemeFileRemoteResource">Consenti file di tema da percorsi di rete</string>
+      <string id="EnableThemeFileRemoteResource_Help">Questa impostazione dei criteri determina se i percorsi remoti possono essere usati per le risorse all'interno di un file del tema del desktop di Windows (.theme/.themepack).
+
+Se abiliti questa impostazione dei criteri, i file del tema possono fare riferimento a risorse, ad esempio immagini, suoni e icone, che si trovano in condivisioni di rete o in altre posizioni remote. Gli utenti potranno applicare temi che contengono risorse remote.
+
+Se disabiliti questa impostazione dei criteri, i file del tema non possono usare risorse remote. Qualsiasi file di tema che fa riferimento a risorse remote non riuscirà a caricare tali risorse e verranno visualizzate solo le risorse locali.
+
+Se non configuri questa impostazione dei criteri, il comportamento predefinito consiste nel bloccare le risorse remote nei file del tema per motivi di sicurezza.</string>
+
       <string id="ForceActiveDesktopOn">Abilita Active Desktop</string>
       <string id="ForceActiveDesktopOn_Help">Abilita Active Desktop e ne impedisce la disabilitazione.
 

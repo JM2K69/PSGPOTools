@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>请在此处输入显示名称</displayName>
+  <description>请在此处输入描述</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">安全启动</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">通过推出受控功能进行证书部署</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">如果企业在将新的安全启动证书部署到其设备时需要帮助，可以启用此设置。
+
+ 
+
+注意: 设备必须将所需的诊断数据发送到 Microsoft 才能使用此功能。
+
+ 
+
+有关详细信息，请参阅: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">通过更新自动部署证书</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">如果设备获得的测试结果表明它可以成功处理证书更新，则这些更新将作为服务更新的一部分自动启动。此策略默认启用。对于希望管理自动更新的企业，请使用此策略显式启用或禁用该功能。
+
+ 
+
+有关详细信息，请参阅: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">启用安全启动证书部署</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">此策略设置允许在设备上启用或禁用安全启动证书部署过程。启用后，Windows 将自动开始将证书部署过程部署到已应用此策略的设备。
+
+ 
+
+注意: 此注册表设置不存储在策略项中，这被视为首选项。因此，如果已移除实现此设置的组策略对象，此注册表设置将保留。
+
+ 
+
+注意: 运行和处理此设置的 Windows 任务每 12 小时运行一次。在某些情况下，更新将一直保留，直到系统重启以安全地对更新进行排序。
+
+ 
+
+注意: 将证书应用于固件后，无法从 Windows 中撤消。如果需要清除证书，必须从固件菜单接口完成。
+
+ 
+
+有关详细信息，请参阅: https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">限制所需的安全启动服务数据</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">此策略设置控制操作系统是否发出每日安全启动所需的服务数据事件。事件包含有关设备的安全启动配置和固件变量状态的信息，通常会发送，而不考虑允许遥测诊断数据级别，因为它被归类为安全要求。
+
+ 
+
+通过启用此策略设置，不会发出每日安全启动所需的服务数据事件。这适用于在 Windows 受限流量限制功能基线下运营的企业。
+
+ 
+
+如果禁用或未配置此策略设置，则操作系统会根据现有的遥测权限规则继续发出安全启动所需的服务数据事件。</string>
+
+      <string id="SUPPORTED_Windows8">Windows Server 2012、Windows 8 或 Windows RT 及以上版本</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

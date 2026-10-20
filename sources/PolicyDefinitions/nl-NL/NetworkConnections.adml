@@ -49,14 +49,14 @@ Opmerking: gebruikers die geen administrator zijn (exclusief netwerkconfiguratie
 Tip: klik in de map Netwerkverbindingen met de rechtermuisknop op een verbindingspictogram en klik op Eigenschappen als u het dialoogvenster Geavanceerde TCP/IP-instellingen wilt openen. Selecteer het tabblad Netwerk voor RAS-verbindingen.  Klik op Internet Protocol (TCP/IP) in het vak 'Geselecteerde onderdelen worden door deze verbinding gebruikt', klik op de knop Eigenschappen en vervolgens op de knop Geavanceerd.
 
 Opmerking: als u deze instelling wijzigt van Ingeschakeld in Niet geconfigureerd, wordt de knop Geavanceerd pas ingeschakeld wanneer de gebruiker zich afmeldt.</string>
-      <string id="NC_AllowNetBridge_NLA">Het installeren en configureren van een netwerkbrug in het DNS-domeinnetwerk verbieden</string>
+      <string id="NC_AllowNetBridge_NLA">Het installeren en configureren van een netwerkbrug in je netwerk verbieden.</string>
       <string id="NC_AllowNetBridge_NLA_Help">Hiermee wordt bepaald of een gebruiker de netwerkbrug kan installeren en configureren.
 
-Belangrijk: Deze instelling is afhankelijk van de locatie. De instelling is alleen van toepassing wanneer een computer is verbonden met hetzelfde DNS-domeinnetwerk waarmee de computer verbonden was toen de instelling op die computer werd vernieuwd. Als een computer is verbonden met een ander DNS-domeinnetwerk dan het netwerk waarmee de computer verbonden was toen de instelling werd vernieuwd, is deze instelling niet van toepassing.
+Belangrijk: deze instelling is locatieafhankelijk op AD-domein-verbonden apparaten. De instelling is alleen van toepassing wanneer een computer is verbonden met hetzelfde DNS-domeinnetwerk waarmee de computer verbonden was toen de instelling op die computer werd vernieuwd. Als een computer is verbonden met een ander DNS-domeinnetwerk dan het netwerk waarmee de computer verbonden was toen de instelling werd vernieuwd, is deze instelling niet van toepassing. Op Entra-verbonden apparaten geldt deze instelling voor alle netwerken.
 
 Met een netwerkbrug kunnen gebruikers een laag 2-MAC-brug maken, waarmee ze twee of meer netwerksegmenten met elkaar kunnen verbinden. Deze verbinding wordt weergegeven in de map Netwerkverbindingen.
 
-Als u deze instelling uitschakelt of niet configureert, kan de gebruiker de configuratie van een netwerkbrug instellen en wijzigen. Een bestaande netwerkbrug wordt niet van de computer van de gebruiker verwijderd wanneer deze instelling wordt ingeschakeld.</string>
+Als je deze instelling uitschakelt of niet configureert, kan de gebruiker de configuratie van een netwerkbrug instellen en wijzigen. Een bestaande netwerkbrug wordt niet van de computer van de gebruiker verwijderd wanneer deze instelling wordt ingeschakeld.</string>
       <string id="NC_ChangeBindState">Het in- en uitschakelen van de onderdelen van een LAN-verbinding verbieden</string>
       <string id="NC_ChangeBindState_Help">Hiermee wordt bepaald of administrators de onderdelen die worden gebruikt door LAN-verbindingen, kunnen inschakelen en uitschakelen.
 

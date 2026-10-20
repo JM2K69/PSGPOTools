@@ -5,6 +5,8 @@
   <description>ange beskrivning här</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Aktivera automatiskt prenumeration</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Kontrollerar listan över URL:er som användaren automatiskt ska prenumerera på</string>
       <string id="TS_SUPPORTED_Windows10">Minst Windows 10 eller Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">Minst Windows 8 eller Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">Minst Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">Minst Windows XP och Windows Server 2003</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">Minst Windows Server 2008 eller Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  Endast Windows Server 2008 R2</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 version 1903, Windows 10 version 1909 och Windows 10 version 2004</string>
       <string id="TS_TERMINAL_SERVER">Värddator för fjärrskrivbordssession</string>
       <string id="TS_TERMINAL_SERVER_Help">Kontrollerar konfigurationen av en värdserver för fjärrskrivbordssession</string>
       <string id="TS_LICENSE_SERVER">Fjärrskrivbordslicensiering</string>
@@ -128,22 +131,22 @@ Om du inaktiverar inställningen eller låter bli att konfigurera den kan använ
 Om du aktiverar den här inställningen inaktiveras kryssrutan för att spara lösenord i Anslutning till fjärrskrivbord och användarna kan inte längre spara lösenord. När en användare öppnar en RDP-fil med Anslutning till fjärrskrivbord och sparar sin inställning kommer eventuella befintliga lösenord i RDP-filen att tas bort.
 
 Om du inaktiverar inställningen eller låter bli att konfigurera den kan användaren spara lösenord med Anslutning till fjärrskrivbord</string>
-      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">Den här principinställningen bestämmer om mappning av klientenheter förhindras under en fjärrskrivbordstjänstsession (omdirigering av enheter).
+      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">Den här principinställningen anger om mappning av klientenheter ska förhindras under en Fjärrskrivbordstjänster session (omdirigering av enhet).
 
-Som standard mappar en värdserver för fjärrskrivbordssession automatiskt klientens enheter när en anslutning upprättas. Mappade enheter visas i formatet &lt;enhetsbeteckning&gt; på &lt;datornamn&gt; i sessionens mappträd i Utforskaren eller Den här datorn. Du kan åsidosätta det funktionssättet med den här principinställningen.
+Som standard mappas klientenheter automatiskt av en värdserver för fjärrskrivbordssessioner vid anslutning. Mappade enheter visas i sessionsmappträdet i Utforskaren eller dator i formatet &lt;driveletter&gt; på &lt;computername&gt;. Du kan använda den här principinställningen för att åsidosätta det här beteendet.
 
-Om du aktiverar den här principinställningen tillåts inte omdirigering av klientenheter i sessioner med Fjärrskrivbordstjänster och omdirigering av filkopiering via Urklipp tillåts inte på datorer med Windows Server 2003, Windows 8 eller Windows XP.
+Om du aktiverar den här principinställningen tillåts inte omdirigering av klientenheter i Fjärrskrivbordstjänster-sessioner och omdirigering av filkopiering i Urklipp tillåts inte på datorer som kör Windows XP, Windows Server 2003, Windows Server 2012 (och senare) eller Windows 8 (och senare).
 
-Om du inaktiverar den här principinställningen tillåts alltid omdirigering av klientenheter. Dessutom tillåts omdirigering av filkopiering via Urklipp alltid om omdirigering av Urklipp tillåts.
+Om du inaktiverar den här principinställningen tillåts alltid omdirigering av klientenheter. Dessutom tillåts omdirigering av filkopiering i Urklipp alltid om omdirigering av Urklipp tillåts.
 
-Om du inte konfigurerar den här principinställningen är omdirigering av klientenheter och av filkopiering via Urklipp inte angivet på grupprincipnivå.
-
+Om du inte konfigurerar den här principinställningen anges inte omdirigering av klientenheter och omdirigering av filkopiering från Urklipp på grupprincip nivån.
 </string>
       <string id="TS_CLIENT_DRIVE_M">Tillåt inte omdirigering av drivrutiner</string>
       <string id="TS_CLIENT_HELP">Kontrollerar klientinställningar för anslutning till fjärrskrivbord</string>
       <string id="TS_CLIENT_LPT">Tillåt inte omdirigering av LPT-portar</string>
       <string id="TS_CLIENT_PNP">Tillåt inte stöd för omdirigering av Plug and Play-enhet</string>
       <string id="TS_CAMERA_REDIRECTION">Tillåt inte omdirigering av videoinspelning</string>
+      <string id="TS_LOCATION_REDIRECTION">Tillåt inte omdirigering av plats</string>
       <string id="TS_CLIENT_PRINTER">Tillåt inte omdirigering av klientskrivare</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">Den här principinställningen bestämmer om innehållet i Urklipp (omdirigering av Urklipp) kan delas mellan en fjärrdator och en klientdator under en fjärrskrivbordstjänstsession eller inte.
 
@@ -208,6 +211,15 @@ Om du aktiverar den här principinställningen kan användarna inte omdirigera s
 
 Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan användarna omdirigera sina videoinspelningsenheter till fjärrdatorn. Användarna kan välja videoinspelningsenheter som de vill omdirigera till fjärrdatorn via alternativet Mer på fliken Lokala resurser i Anslutning till fjärrskrivbord.
 
+</string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">Med den här principinställningen kan du styra omdirigeringen av platsdata till fjärrdatorn i en session med Fjärrskrivbordstjänster.
+
+Fjärrskrivbordstjänster tillåter som standard omdirigering av platsdata.
+
+Om du aktiverar den här principinställningen kan användarna inte omdirigera sina platsdata till fjärrdatorn.
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen kan användarna omdirigera sina platsdata till fjärrdatorn.
+          
 </string>
       <string id="TS_MAXMONITOR_EXPLAIN">Den här principinställningen gör att du kan begränsa antalet bildskärmar som en användare kan använda för att visa en session med Fjärrskrivbordstjänster. En begränsning av antalet bildskärmar som används för att visa en session med Fjärrskrivbordstjänster kan förbättra anslutningens prestanda, särskilt för långsamma förbindelser och belastningen på servern minskar.
 
@@ -420,19 +432,19 @@ Om du aktiverar den här principinställningen visas inte meddelandena på värd
 Om du inaktiverar eller låter bli att konfigurera den här principinställningen visas meddelandena på värdservern för fjärrskrivbordssessioner efter att du har loggat in som en lokal administratör.</string>
       <string id="TS_LICENSING_MODE">Ange licensieringsläge för fjärrskrivbord</string>
       <string id="TS_LICENSING_MODE_EXPLAIN">
-        Med den här principinställningen kan du ange vilken typ av klientåtkomstlicens för Fjärrskrivbordstjänster som krävs för att ansluta till värdservern för fjärrskrivbordssessioner.
+        Med den här principinställningen kan du ange vilken typ av klientåtkomstlicens för fjärrskrivbordstjänster (TSCAL) som krävs för att ansluta till värdservern för fjärrskrivbordssession.
 
-        Du kan använda den här principinställningen för att välja ett av tre möjliga licenslägen: Per användare, Per enhet eller Per användare i AAD.
+        Du kan använda den här principinställningen för att välja ett av två licenslägen: per användare eller per enhet.
 
-        Licensläget Per användare kräver att varje användarkonto som ansluter till värdservern för fjärrskrivbordssessioner har en klientåtkomstlicens per användare för Fjärrskrivbordstjänster utfärdad från en server för Fjärrskrivbordslicensiering.
+        Licensläget per användare kräver att varje användarkonto som ansluter till värdservern för fjärrskrivbordssessionen har en klientåtkomstlicens per användare för fjärrskrivbordstjänster som utfärdats av en fjärrskrivbordslicensieringsserver.
 
-        Licensläget Per enhet kräver att varje enhet som ansluter till värdservern för fjärrskrivbordssessioner har en klientåtkomstlicens per enhet för Fjärrskrivbordstjänster utfärdad från en server för Fjärrskrivbordslicensiering.
+        Licensläget per enhet kräver att varje enhet som ansluter till värdservern för fjärrskrivbordssessionen har en klientåtkomstlicens per enhet för fjärrskrivbordstjänster som utfärdats av en fjärrskrivbordslicensieringsserver.
 
-        Licensläget Per användare i AAD kräver att varje användarkonto som ansluter till värdservern för fjärrskrivbordssessioner har en tjänstplan som stöder licenser för Fjärrskrivbordstjänster tilldelade i AAD.
-        
-        Om du aktiverar den här principinställningen använder servern för fjärrskrivbordslicenser och värden för fjärrskrivbordssessioner det licensläge för Fjärrskrivbord som du anger.
+        Om du aktiverar den här principinställningen tillämpas det licensieringsläge för fjärrskrivbord som du anger av servern för fjärrskrivbordslicenser och värden för fjärrskrivbordssessionen.
 
         Om du inaktiverar eller låter bli att konfigurera den här principinställningen anges inte licensläget på grupprincipnivå.
+
+        Obs!  Läget AAD per användare är inaktuellt i Windows 11 och senare.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Per enhet</string>
       <string id="TS_LICENSING_MODE_PER_USER">Per användare</string>
@@ -609,6 +621,17 @@ Om du inaktiverar eller låter bli att konfigurera principinställningen bestäm
       <string id="TS_SECURITY_LAYER_POLICY">Kräv användning av ett visst säkerhetsskikt för fjärranslutningar (RDP)</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Aktivera tvingande av Microsoft Entra ID-autentisering</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">Med den här principinställningen kan du ange om tvingande av Microsoft Entra ID-autentisering ska krävas på serversidan.
+
+Om du aktiverar den här principinställningen måste alla klienter för Fjärrskrivbordstjänster använda RDS AAD-autentisering för att kunna autentisera mot värdservrar för RD-sessioner. 
+
+Den här principen tillåter inte återgång till andra autentiseringsmetoder. 
+
+Autentisering på nätverksnivå (NLA) måste aktiveras för att den här principen ska börja gälla. Se principen "Kräv användarautentisering för fjärranslutningar med hjälp av autentisering på nätverksnivå".
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen tillämpas inte tvingande av Microsoft Entra ID-autentisering.
+</string>
       <string id="TS_Session_End_On_Limit">Avsluta sessionen när tidsgränser nås</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">Den här principinställningen bestämmer huruvida en session i Fjärrskrivbordstjänster som har överskridit tidsgränsen ska avslutas i stället för att kopplas från.
 
@@ -787,6 +810,79 @@ Om du aktiverar den här principinställningen visas alltid skrivbordet när en 
 Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan du ange ett startprogram som körs på fjärrdatorn efter att klienten ansluter till fjärrdatorn. Om inget startprogram anges visas alltid skrivbordet när klienten har anslutit till fjärrdatorn.
 
 Obs! Om den här inställningen är aktiverad åsidosätts inställningen Starta ett program när anslutning upprättas.</string>
+      <string id="TS_UIA">Tillåt omdirigering av UI-automatisering</string>
+      <string id="TS_UIA_EXPLAIN">Den här princip inställningen anger om automatiserings klient program för användar gränssnitt som körs på den lokala datorn kan komma åt GRÄNSSNITTs element på servern.
+
+UI automation ger program till gång till de flesta användar gränssnitts element, som gör att du kan använda hjälpmedels produkter som förstorings glas och skärm läsaren som behöver interagera med användar gränssnittet för att fungera korrekt. UI-information tillåter även automatiska test skript som interagerar med gränssnittet.
+
+Fjärr skrivbords sessioner stöder inte omdirigering av UI-automation.
+
+Om du aktiverar eller låter bli att konfigurera princip inställningen kan alla Automation-klienter på din lokala dator interagera med fjärrappar. Du kan till exempel använda den lokala datorns skärm bild läsare och förstorings glas för att interagera med användar gränssnittet på en webb sida som du öppnat i en fjärrsession.
+
+Om du inaktiverar den här princip inställningen kan inte UI automation-klienter som körs på den lokala datorn samverka med fjärrappar.
+</string>
+      <string id="TS_WEBAUTHN">Tillåt inte WebAuthn-omdirigering</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">Med den här principinställningen kan du styra omdirigering av webautentiseringsbegäranden (WebAuthn) från en fjärrskrivbordssession till den lokala enheten. Med den här omdirigeringen kan användare autentisera sig till resurser i fjärrskrivbordssessionen med hjälp av sin lokala  -autentisering (t.ex. Windows Hello för företag, säkerhetsnyckel eller annan).
+
+Som standard tillåter Fjärrskrivbord omdirigering av WebAuthn-begäranden.
+
+Om du aktiverar den här principinställningen kan användarna inte använda sin lokala autentisering i fjärrskrivbordssessionen.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan användare använda lokala autentiserare i fjärrskrivbordssessionen.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">Inaktivera urklippsöverföringar från server till klient</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">Inaktivera urklippsöverföringar från klient till server</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Tillåt oformaterad text</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Tillåt oformaterad text och bilder</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Tillåt oformaterad text, bilder och RTF-format</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Tillåt oformaterad text, bilder, RTF-format och HTML</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">Begränsa urklippsöverföring från server till klient</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">Med den här principinställningen kan du begränsa dataöverföringar från Urklipp från server till klient.
+
+Om du aktiverar den här principinställningen måste du välja bland följande beteenden:
+
+- Inaktivera överföringar från Urklipp från server till klient.
+
+- Tillåt kopiering av oformaterad text från server till klient.
+
+- Tillåt att oformaterad text och bilder kopieras från server till klient.
+
+- Tillåt kopiering av oformaterad text, bilder och RTF-format från server till klient.
+
+- Tillåt oformaterad text, bilder, RTF-format och HTML-kopiering från server till klient.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan användarna kopiera godtyckligt innehåll från servern till klienten om omdirigering av Urklipp är aktiverat.
+
+Obs! Den här principinställningen finns både i Datorkonfiguration och Användarkonfiguration. Om båda principinställningarna är konfigurerade används den striktare begränsningen.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">Begränsa urklippsöverföring från klient till server</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">Med den här principinställningen kan du begränsa dataöverföringar från Urklipp från klient till server.
+
+Om du aktiverar den här principinställningen måste du välja bland följande beteenden:
+
+- Inaktivera överföringar från urklipp från klient till server.
+
+- Tillåt kopiering av oformaterad text från klient till server.
+
+- Tillåt oformaterad text och bilder kopieras från klient till server.
+
+- Tillåt att oformaterad text, bilder och RTF-format kopieras från klient till server.
+
+- Tillåt oformaterad text, bilder, RTF-format och HTML-kopiering från klient till server.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen kan användare kopiera godtyckligt innehåll från klient till server om omdirigering av Urklipp är aktiverat.
+
+Obs! Den här principinställningen finns både i Datorkonfiguration och Användarkonfiguration. Om båda principinställningarna är konfigurerade används den striktare begränsningen.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Inaktivera molnurklippsintegrering för dataöverföring från server till klient</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">Med den här principinställningen kan du styra om data som överförs från fjärrsessionen till klienten med omdirigering av Urklipp läggs till i molnurklipp på klientsidan.
+
+Som standard inaktiverar Fjärrskrivbord integrering med molnurklipp på klientsidan för data som överförs från fjärrsessionen med omdirigering av Urklipp.
+
+Om du aktiverar eller låter bli att konfigurera den här principinställningen läggs inte data som kopierats i fjärrsessionen och klistrats in på klienten till i Molnurklipp på klientsidan.
+
+Om du inaktiverar den här principinställningen läggs data som kopieras i fjärrsessionen och klistras in på klienten till i Molnurklipp på klientsidan (om det är aktiverat).
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">Med den här principinställningen kan du ange om autentisering av användare krävs för fjärranslutningar till värdservern för fjärrskrivbordssessioner via autentisering på nätverksnivå. Den här principinställningen ökar säkerheten eftersom användaren måste autentisera sig tidigare under fjärranslutningsprocessen.
 
 Om du aktiverar den här principinställningen kan bara de klientdatorer som stöder autentisering på nätverksnivå ansluta till värdservern för fjärrskrivbordssessioner.
@@ -801,6 +897,24 @@ Viktigt! Om den här principinställningen inaktiveras minskar säkerheten, efte
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Kräv användarautentisering för fjärranslutningar genom att använda autentisering på nätverksnivå</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Koppla från fjärrsession vid lås för äldre autentisering</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">Med den här principinställningen kan du konfigurera användarupplevelsen när fjärrskrivbordssessionen är låst av användaren eller en princip. Du kan ange om fjärrsessionen ska visa fjärrlåsskärmen eller koppla från när fjärrsessionen är låst. Om du kopplar från fjärrsessionen säkerställer du att en fjärrsession inte kan lämnas kvar på låsskärmen och inte kan återansluta automatiskt om nätverksanslutningen försvinner.
+
+Den här principen gäller endast när du använder äldre autentisering för att autentisera till fjärrdatorn. Äldre autentisering är begränsad till användarnamn och lösenord, eller certifikat som smartkort. Äldre autentisering använder inte Microsofts identitetsplattform, till exempel Microsoft Entra ID. Äldre autentisering omfattar de grundläggande autentiseringsprotokollen NTLM, CredSSP, RDSTLS, TLS och RDP.
+
+Om du aktiverar den här principinställningen kommer fjärrskrivbordsanslutningar med äldre autentisering att koppla från fjärrsessionen när den är låst. Användarna kan återansluta när de är redo och ange sina autentiseringsuppgifter igen när de uppmanas att göra det.
+
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen kommer fjärrskrivbordsanslutningar med äldre autentisering att visa fjärrlåsskärmen när fjärrsessionen är låst. Användare kan låsa upp fjärrsessionen med sitt användarnamn och lösenord eller certifikat.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Koppla från fjärrsession vid lås för Microsofts identitetsplattform autentisering</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">Med den här principinställningen kan du konfigurera användarupplevelsen när fjärrskrivbordssessionen är låst av användaren eller av en princip. Du kan ange om fjärrsessionen ska visa låsskärmen eller koppla från när fjärrsessionen är låst. Om du kopplar från fjärrsessionen kan en fjärrsession inte lämnas på låsskärmen och det går inte att återansluta automatiskt på grund av att nätverksanslutningen bröts.
+
+Den här principen gäller endast när du använder en identitetsprovider som använder Microsofts identitetsplattform, t.ex. Microsoft Entra ID, för att autentisera till fjärrdatorn. Den här principen gäller inte när äldre autentisering används, vilket omfattar NTLM-, CredSSP-, RDSTLS-, TLS- och RDP-autentiseringsprotokollen.
+
+Om du aktiverar eller låter bli att konfigurera den här principinställningen kommer fjärrskrivbordsanslutningar som använder Microsofts identitetsplattform att koppla från fjärrsessionen när fjärrsessionen är låst. Användare kan återansluta när de är klara och kan använda lösenordsfri autentisering om de har konfigurerats.
+
+Om du inaktiverar den här principinställningen visas fjärrlåsskärmen när fjärrsessionen är låst om fjärrskrivbordsanslutningar som använder Microsofts identitetsplattform. Användare kan låsa upp fjärrsessionen med användarnamn och lösenord eller certifikat.
+</string>
       <string id="TS_User_Help">Kontrollerar konfigurationen av teknik för Fjärrskrivbordstjänster som aktiverar tillgång till en server som kör Windows-baserade program eller hela Windows-skrivbordet</string>
       <string id="TS_USER_HOME">Ange hemkatalog för användare av Fjärrskrivbordstjänster</string>
       <string id="TS_USER_HOME_EXPLAIN">Anger om Fjärrskrivbordstjänster använder den angivna nätverksresursen eller en lokal katalogsökväg som rot för användarnas hemkataloger i en session med Fjärrskrivbordstjänster.
@@ -901,36 +1015,44 @@ Om du inaktiverar den här principinställningen kan inte användare köra RDP-f
 Obs! Du kan definiera den här principinställningen i någon av noderna Datorkonfiguration och Användarkonfiguration. Om du konfigurerar principinställningen för datorn påverkas alla användare av datorn.
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Ange SHA1-tumavtryck för certifikat som representerar betrodda RDP-publicerare</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Med den här principinställningen kan du ange en lista över SHA1-certifikatstämplar (Secure Hash Algorithm 1) som representerar betrodda RDP-filpublicerare (Remote Desktop Protocol).
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Ange tumavtryck för certifikat som representerar betrodda .rdp-utgivare</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Med den här principinställningen kan du ange en lista med certifikattumavtryck som representerar betrodda Remote Desktop Protocol-filutgivare (.rdp). SHA-256-, SHA-384- och SHA-512-tumavtryck stöds. SHA-1-tumavtryck är inaktuella: SHA-1 anses inte längre vara säkert och stöd för SHA-1-tumavtryck inaktiveras som standard i en kommande säkerhetsuppdatering. Administratörer bör migrera alla tumavtrycksposter till SHA-256 eller starkare så snart som möjligt.
 
-Om du aktiverar den här principinställningen anses alla certifikat med en SHA1-stämpel som matchar en stämpel i listan vara betrodda. Om en användare försöker starta en RDP-fil som är signerad av ett betrott certifikat visas ingen varning när användaren startar filen. Visa certifikatinformationen och klicka sedan på fältet Stämpel och du vill erhålla stämpeln.
+Tumavtryck kan föregås av den hash-algoritm som används för att skapa dem. Prefix som stöds är "sha256:", "sha384:" och "sha512:" (skiftlägesokänsliga). Exempel: sha256:AB0356F2... Om inget prefix anges behandlas posten som ett äldre SHA-1-tumavtryck.
 
-Om du inaktiverar eller låter bli att konfigurera den här principinställningen anses inga publicerare vara betrodda publicerare av RDP-filer.
+Om kryssrutan "Tillåt inte SHA-1-tumavtryck" är aktiverad ignoreras inaktuella poster. Endast SHA-256-, SHA-384- och SHA-512-tumavtryck matchas. Vi rekommenderar starkt att du aktiverar den här kryssrutan nu för att förbereda för den kommande standardändringen.
 
-Obs!
+Om du aktiverar den här principinställningen är alla certifikat med ett tumavtryck som matchar ett tumavtryck i listan betrott. Om en användare försöker starta en RDP-fil som är signerad av ett betrott certifikat visas ingen varning när användaren startar filen.
 
-Du kan definiera den här principinställningen i någon av noderna Datorkonfiguration och Användarkonfiguration. Om du konfigurerar principinställningen för datorn kommer listan över certifikatstämplar som anses vara betrodda för en användare att innehålla en kombination av listan som har definierats för datorn och listan som har definierats för användaren.
+Om du inaktiverar eller inte konfigurerar den här principinställningen betraktas ingen utgivare som en betrodd .rdp-utgivare.
 
-Den här principinställningen åsidosätter beteendet för principinställningen Tillåt RDP-filer från giltiga publicerare och användares standardinställningar för RDP.
+Anteckningar:
 
-Om listan innehåller en sträng som inte är en certifikatstämpel ignoreras den.
+Du kan definiera den här principinställningen i noden Datorkonfiguration eller i noden Användarkonfiguration. Om du konfigurerar den här principinställningen för datorn är listan över certifikatfingeravtryck som är betrodda för en användare en kombination av listan som har definierats för datorn och listan som har definierats för användaren.
 
+Den här principinställningen åsidosätter beteendet för principinställningen "Tillåt .rdp-filer från giltiga utgivare och användarens standardinställningar för .rdp".
+
+Om listan innehåller en sträng som inte är ett certifikatfingeravtryck ignoreras den.
+
+Mer information finns i https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Med den här principinställningen kan du ange en lista över SHA1-certifikatstämplar (Secure Hash Algorithm 1) som representerar betrodda RDP-filpublicerare (Remote Desktop Protocol).
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Med den här principinställningen kan du ange en lista med certifikattumavtryck som representerar betrodda Remote Desktop Protocol-filutgivare (.rdp). SHA-256-, SHA-384- och SHA-512-tumavtryck stöds. SHA-1-tumavtryck är inaktuella: SHA-1 anses inte längre vara säkert och stöd för SHA-1-tumavtryck inaktiveras som standard i en kommande säkerhetsuppdatering. Användare bör migrera alla tumavtrycksposter till SHA-256 eller starkare så snart som möjligt.
 
-Om du aktiverar den här principinställningen anses alla certifikat med en SHA1-stämpel som matchar en stämpel i listan vara betrodda. Om en användare försöker starta en RDP-fil som är signerad av ett betrott certifikat visas ingen varning när användaren startar filen. Visa certifikatinformationen och klicka sedan på fältet Stämpel och du vill erhålla stämpeln.
+Tumavtryck kan föregås av den hash-algoritm som används för att skapa dem. Prefix som stöds är "sha256:", "sha384:" och "sha512:" (skiftlägesokänsliga). Exempel: sha256:AB0356F2... Om inget prefix anges behandlas posten som ett äldre SHA-1-tumavtryck.
 
-Om du inaktiverar eller låter bli att konfigurera den här principinställningen anses inga publicerare vara betrodda publicerare av RDP-filer.
+Om du aktiverar den här principinställningen är alla certifikat med ett tumavtryck som matchar ett tumavtryck i listan betrott. Om en användare försöker starta en RDP-fil som är signerad av ett betrott certifikat visas ingen varning när användaren startar filen.
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen betraktas ingen utgivare som en betrodd .rdp-utgivare.
 
 Obs!
 
-Du kan definiera den här principinställningen i någon av noderna Datorkonfiguration och Användarkonfiguration. Om du konfigurerar principinställningen för datorn kommer listan över certifikatstämplar som anses vara betrodda för en användare att innehålla en kombination av listan som har definierats för datorn och listan som har definierats för användaren.
+Du kan definiera den här principinställningen i noden Datorkonfiguration eller i noden Användarkonfiguration. Om du konfigurerar den här principinställningen för datorn är listan över certifikatfingeravtryck som är betrodda för en användare en kombination av listan som har definierats för datorn och listan som har definierats för användaren.
 
-Den här principinställningen åsidosätter beteendet för principinställningen Tillåt RDP-filer från giltiga publicerare och användares standardinställningar för RDP.
+Den här principinställningen åsidosätter beteendet för principinställningen "Tillåt .rdp-filer från giltiga utgivare och användarens standardinställningar för .rdp".
 
-Om listan innehåller en sträng som inte är en certifikatstämpel ignoreras den.
+Om listan innehåller en sträng som inte är ett certifikatfingeravtryck ignoreras den.
 
+Mer information finns i https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">Fråga efter autentiseringsuppgifter på klientdatorn</string>
@@ -1018,6 +1140,14 @@ Om du inaktiverar den här principinställningen använder RemoteApp-program som
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">Aktivera förbättrad gränssnittsupplevelse för RemoteApp</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">Den här principinställningen möjliggör en förbättrad gränssnittsupplevelse för RemoteApp-sessioner, vilket ger stöd för standardfilassociationer, Run/RunOnce-registernycklar med mera. Den här principinställningen gäller endast för RemoteApp-sessioner och gäller inte för fjärrskrivbordssessioner.
+
+Om du aktiverar eller inte konfigurerar den här principinställningen får RemoteApp-sessioner på värdservrar för fjärrskrivbordssessioner den förbättrade gränssnittsupplevelsen.
+
+Om du inaktiverar den här principinställningen kommer RemoteApp-sessioner inte att ha den förbättrade gränssnittsupplevelsen och kommer att använda det äldre gränssnittets beteende. Detta kan behövas om kompatibilitetsproblem uppstår i publicerade RemoteApp-program.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1151,21 +1281,20 @@ Obs! RemoteApp-program som installeras via RemoteApp och fjärrskrivbordsanslutn
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">Välj transportprotokoll för RDP</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Med den här principinställningen kan du ange vilka protokoll som kan användas för RDP-åtkomst (Remote Desktop Protocol) till den här servern.
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Med den här principinställningen kan du ange vilka protokoll som kan användas för Remote Desktop Protocol (RDP) åtkomst till den här servern.
 
-Om du aktiverar den här principinställningen måste du ange om du vill att UDP ska användas i RDP.
+Om du aktiverar den här principinställningen måste du ange om DU vill att RDP ska använda UDP.
 
-Du kan välja ett av följande alternativ: Använd både UDP och TCP, Använd endast TCP eller Använd antingen UDP eller TCP (standard).
+Du kan välja något av följande alternativ: Använd antingen UDP, TCP (standard) eller Använd endast TCP 
 
-Om du väljer Använd antingen UDP eller TCP och UDP-anslutningen lyckas, går större delen av RDP-trafiken via UDP.
+Om du väljer Använd antingen UDP eller TCP och UDP-anslutningen lyckas används UDP för större delen av RDP-trafiken.
 
-Om UDP-anslutningen misslyckas eller om du väljer Använd endast TCP går all RDP-trafik via TCP.
+Om UDP-anslutningen misslyckas eller om du väljer Använd endast TCP, kommer all RDP-trafik att använda TCP.
 
-Om du inaktiverar eller låter bli att konfigurera principinställningen väljs de protokoll som ger den bästa användarupplevelsen.
+Om du inaktiverar eller låter bli att konfigurera den här principinställningen väljer RDP de protokoll som är optimala för bästa användarupplevelse.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">Använd både UDP och TCP</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Använd endast TCP</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">Använd antingen UDP eller TCP</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Använd endast TCP</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Välj nätverksidentifiering på servern</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">Med den här principinställningen kan du ange hur nätverkskvaliteten (bandbredden och latensen) identifieras i Remote Desktop Protocol.
@@ -1344,12 +1473,13 @@ OBS! Principinställningen aktiverar belastningsutjämning av GPU på en dator s
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Kommaseparerad lista med SHA1-tumavtryck för betrott certifikat:</label>
+          <label>Kommaavgränsad lista över tumavtryck för betrodda certifikat (prefix sha256:, sha384: eller sha512:):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">Tillåt inte SHA-1-tumavtryck</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Kommaseparerad lista med SHA1-tumavtryck för betrott certifikat:</label>
+          <label>Kommaavgränsad lista över tumavtryck för betrodda certifikat (prefix sha256:, sha384: eller sha512:):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1387,6 +1517,12 @@ OBS! Principinställningen aktiverar belastningsutjämning av GPU på en dator s
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Välj transporttyp</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Begränsa urklippsöverföring från server till klient:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Begränsa urklippsöverföring från klient till server:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -27,12 +27,11 @@
 このポリシーを無効にするか、または構成しない場合は、ユーザーが [スタート] メニューの検索ボックスで検索を行うときに、[検索結果の続きを表示] リンクが表示されます。 サード パーティーのプロトコル ハンドラーがインストールされている場合は、[検索結果の続きを表示] リンクではなく [すべての場所の検索] リンクが表示されます。</string>
       <string id="AddSearchInternetLinkInStartMenu">[スタート] メニューに [インターネットの検索] リンクを追加する</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
+このポリシーを有効にした場合、ユーザーが [スタート] メニューの検索ボックスで検索を実行すると、[インターネットの検索] リンクが表示されます。 このボタンは、検索語句を使用して既定のブラウザーを起動します。
 
-このポリシーを有効にした場合は、ユーザーが [スタート] メニューの検索ボックスで検索を行うときに、[インターネットの検索] リンクが表示されます。 このボタンは、既定のブラウザーで検索用語の検索を開始します。
+このポリシーを無効にした場合、ユーザーが [スタート] メニューの検索ボックスで検索を実行しても、[インターネットの検索] リンクは表示されません。
 
-このポリシーを無効にした場合は、ユーザーが [スタート] メニューの検索ボックスで検索を行うときに、[インターネットの検索] リンクは表示されません。
-          
-このポリシーを構成しなかった場合は (既定)、[スタート] メニューに [インターネットの検索] リンクは表示されません。</string>
+このポリシーを構成しない場合 (既定)、スタート メニューに [インターネットの検索] リンクは表示されません。</string>
       <string id="NoSearchFilesInStartMenu">ファイルを検索しない</string>
       <string id="NoSearchFilesInStartMenu_Help">このポリシー設定を有効にすると、[スタート] メニューの検索ボックスによるファイルの検索は行われなくなります。
 
@@ -207,6 +206,19 @@ XML ファイルを生成して目的のファイル パスに移動したら、
 このポリシー設定は特定のユーザー インターフェイスのみに影響します。Internet Explorer には影響しません。また、ユーザーは他の方法を使って検索を行うことができます。
 
 このポリシー設定を無効にした場合、または構成しなかった場合、[スタート] メニューの [検索] を利用できます。</string>
+      <string id="ShowOrHideMostUsedApps">[スタート] メニューから [よく使う] の一覧を表示または非表示にする</string>
+      <string id="ShowOrHideMostUsedApps_Help">このポリシー設定を有効にした場合、ユーザー設定に関係なく、ユーザーの最も使用されているアプリの一覧を表示または非表示にするように [スタート] メニューを構成できます。
+
+[表示] を選択すると、"最も使用されている" リストが強制的に表示され、ユーザーは設定アプリを使用して非表示に変更することはできません。
+
+[非表示] を選択すると、"最も使用されている" リストが強制的に非表示になり、ユーザーは設定アプリを使用して表示するように変更できなくなります。
+
+[未構成] を選択した場合、または、このポリシー設定を無効にした場合、または構成しなかった場合は、ユーザーは設定アプリを使用して [最も使用されている] ボックスの表示をオンまたはオフにすることができます。これは既定の動作です。
+
+注: このポリシーを、サポートされているバージョンの Windows 10 に対して "表示" または "非表示" に構成すると、[[スタート] メニューから頻繁に使用するプログラムの一覧を削除する] というポリシー設定はなくなります ([スタート] メニューの同じ部分でオプションが少なくなります)。</string>
+      <string id="MFU_NotConfigured">未構成</string>
+      <string id="MFU_Show">表示</string>
+      <string id="MFU_Hide">非表示</string>
       <string id="NoFrequentUsedPrograms">[スタート] メニューから頻繁に利用するプログラムの一覧を削除する</string>
       <string id="NoFrequentUsedPrograms_Help">この設定を有効にした場合、頻繁に利用するプログラムの一覧が [スタート] メニューから削除されます。
 
@@ -243,7 +255,7 @@ XML ファイルを生成して目的のファイル パスに移動したら、
       <string id="APPLIST_NONE">なし</string>
       <string id="APPLIST_COLLAPSE">折りたたむ</string>
       <string id="APPLIST_COLLAPSESETTING">折りたたんで設定を無効にする</string>
-      <string id="APPLIST_REMOVESETTING">削除して設定を無効にする</string>    
+      <string id="APPLIST_REMOVESETTING">削除して設定を無効にする</string>
 
       <string id="NoNetAndDialupConnect">[スタート] メニューから [ネットワーク接続] を削除する</string>
       <string id="NoNetAndDialupConnect_Help">このポリシー設定を使用すると、[スタート] メニューから [ネットワーク接続] を削除できます。
@@ -258,11 +270,11 @@ XML ファイルを生成して目的のファイル パスに移動したら、
 
 [[設定] メニューのプログラムを無効にする] ポリシー設定、[コントロール パネルへのアクセスを禁止する] ポリシー設定および [ネットワークとダイヤルアップ接続] フォルダーにあるポリシー設定 (コンピューターの構成およびユーザーの構成\管理用テンプレート\ネットワーク\ネットワーク接続) も参照してください。</string>
       <string id="NoPinnedPrograms">[スタート] メニューからピンされたプログラムを削除する</string>
-      <string id="NoPinnedPrograms_Help">この設定を有効にした場合、[スタート] メニューから [ピンされたプログラム] の一覧が削除されます。ユーザーは [スタート] メニューにプログラムを固定できなくなります。
+      <string id="NoPinnedPrograms_Help">この設定を有効にした場合、[スタート] メニューから [ピンされたプログラム] の一覧が削除されます。ユーザーは [スタート] メニューにプログラムをピン留めできなくなります。
 
-Windows XP と Windows Vista では、[[スタート] メニューのカスタマイズ] からインターネットと電子メールのチェック ボックスが削除されます。
+Windows XP と Windows Vista では、[スタート メニューのカスタマイズ] からインターネットと電子メールのチェック ボックスが削除されます。
 
-この設定を無効にした場合、または構成しなかった場合は、[スタート] メニューに [ピンされたプログラム] の一覧が表示されます。ユーザーは、[スタート] メニューでプログラムを固定または固定解除できます。</string>
+この設定を無効にした場合、または構成しなかった場合は、[スタート] メニューに [ピンされたプログラム] の一覧が表示されます。ユーザーは、[スタート] メニューでプログラムをピン留めまたはピン留め解除できます。</string>
       <string id="NoRecentDocsHistory">最近使ったファイルの履歴を保存しない</string>
       <string id="NoRecentDocsHistory_Help">オペレーティング システムやインストールされたプログラムが最近使ったドキュメントへのショートカットを作成および表示しないようにします。
 
@@ -599,7 +611,7 @@ Windows のオンライン拡張である Windows Update を使うと、シス�
 
 このポリシー設定を無効にした場合、または構成しなかった場合、ユーザーが Windows ロゴ キーを押すと、メイン ディスプレイに常にスタート画面が表示されます。ユーザーは、他の画面で [スタート] ボタンを押すと、その画面でスタート画面を開くことができます。また、ユーザーはこの設定を構成できます。</string>
       <string id="ForceStartSize_DisplayName">スタート画面を全画面表示サイズまたはメニュー サイズに強制する</string>
-      <string id="ForceStartSize_ExplainText">このポリシーを有効にして、[スタート メニュー] または [スタートの全画面表示] に設定した場合、スタート画面がそのサイズになります。ユーザーが設定でスタート画面のサイズを変更することはできません。
+      <string id="ForceStartSize_ExplainText">このポリシーを有効にして、[スタート] メニュー、または [スタートの全画面表示] に設定した場合、スタート画面がそのサイズになります。ユーザーが設定でスタート画面のサイズを変更することはできません。
 
 このポリシー設定を無効にした場合または構成しなかった場合、Windows ではハードウェアのフォーム ファクターに基づいてサイズが自動的に選択され、ユーザーが設定でスタート画面のサイズを変更できます。</string>
       <string id="ForceLauncherSize_Collapsed">スタート メニュー</string>
@@ -612,10 +624,44 @@ Windows のオンライン拡張である Windows Update を使うと、シス�
       <string id="HideRecentlyAddedApps_Help">このポリシーでは、最近インストールされたアプリケーションの一覧をスタート メニューに表示しないようにすることができます。
 
 このポリシーを有効にした場合、スタート メニューに [最近追加されたもの] の一覧は表示されません。[設定] の対応する設定も無効になります。</string>
+      <string id="HideRecommendedSection">[スタート] メニューから [おすすめ] セクションを削除する</string>
+      <string id="HideRecommendedSection_Help">このポリシーを使用すると、[スタート] メニューに推奨されるアプリケーションとファイルの一覧が表示されないようにすることができます。
+
+このポリシー設定を有効にした場合、[スタート] メニューには、推奨されるファイルとアプリの一覧が含まれているセクションが表示されなくなります。</string>
+ <string id="HideCategoryView">スタート メニューの [カテゴリ] ビューを非表示にする</string>
+ <string id="HideCategoryView_Help">このポリシー設定を使用すると、[スタート] メニューのカテゴリ ビューを非表示にすることができます。
+ 
+このポリシー設定を有効にした場合、[スタート] メニューにはカテゴリ ビューがオプションとして表示されなくなり、既定でグリッド ビューが使用されます。</string>
+
+ <string id="ConfigureStartPins">スタート ピンの構成</string>
+      <string id="ConfigureStartPins_Help">管理者がスタート画面にピン留めされた既定の項目を上書きできるようにします。
+
+この設定では、[スタート] にピン留めする既定の項目を指定できます。</string>
+
+      <string id="HideRecommendedPersonalizedSites">スタート メニューの [推奨事項] セクションから個人用 Web サイトのおすすめ候補を削除する</string>
+      <string id="HideRecommendedPersonalizedSites_Help">このポリシー設定を使用すると、[スタート] メニューの [推奨] セクションで個人用 Web サイトを非表示にすることができます。
+      
+このポリシー設定を有効にした場合、[スタート] メニューの [推奨] セクションに個人用の Web サイトの推奨事項が表示されなくなります。</string>
       <string id="DisableContextMenusInStart">スタート メニューのショートカット メニューを無効にする</string>
       <string id="DisableContextMenusInStart_Help">このポリシーでは、スタート メニューのコンテキスト メニューをユーザーが開くことができないようにすることができます。
 
 このポリシーを有効にした場合、スタート メニュー内でのコンテキスト メニューの呼び出しは無視されます。</string>
+      <string id="SimplifyQuickSettings_DisplayName">クイック設定レイアウトの簡略化</string>
+      <string id="SimplifyQuickSettings_ExplainText">このポリシーを有効にした場合、クイック設定は、WiFi、Bluetooth、アクセシビリティ、明るさと音量スライダーおよびバッテリ インジケーターと設定アプリへのリンクなどの VPN ボタンのみが使用されるように縮小されます。
+
+このポリシー設定を無効にするか、未構成にした場合、クイック設定が呼び出されるたびに通常のクイック設定レイアウトが表示されます。</string>
+      <string id="DisableEditingQuickSettings_DisplayName">クイック設定の編集を無効にする</string>
+      <string id="DisableEditingQuickSettings_ExplainText">このポリシーを有効にすると、ユーザーはクイック設定を変更できなくなります。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、ユーザーはボタンのピン留めやピン留めを外すなどのクイック設定を編集できます。</string>
+      <string id="DisableControlCenter">クイック設定の削除</string>
+      <string id="DisableControlCenter_Help">このポリシー設定により、タスク バーの右下の領域からクイック設定が削除されます。
+
+クイック設定領域は、タスク バーの時計の左側にあり、現在のネットワークと音量のアイコンが含まれています。
+
+この設定が有効になっている場合、クイック設定はクイック設定領域に表示されません。
+
+このポリシー設定を有効にするには、再起動が必要です。</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +678,22 @@ Windows のオンライン拡張である Windows Update を使うと、シス�
           <label>スタート画面のレイアウト ファイル</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">すべてのログオンでレイアウトを再適用する</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">次のサイズから 1 つ選択してください</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">次の操作から 1 つ選択してください</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>スタート ピンのレイアウト ファイル</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">カテゴリ ビューを非表示にする</checkBox>
       </presentation>
     </presentationTable>
   </resources>

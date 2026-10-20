@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>AI-politikker for CAM (Capability Access Manager)</displayName>
+  <description>Politikker vedrørende AI-funktioner og deres samtykkestyring.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">AI-samtykke</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">Bruger har styringen</string>
+      <string id="ForceEnable">Gennemtving aktivering</string>
+      <string id="ForceDisable">Gennemtving deaktivering</string>
+      <string id="AgentConsentDuration_Name">Varighed af agentsamtykke</string>
+      <string id="AgentConsentDuration_Explain">Angiver, hvor længe et "Tillad"-samtykkesvar for agentfunktioner forbliver gyldigt i timer, før brugeren bliver bedt om det igen.
+
+Hvis denne politik er aktiveret, skal værdien være mellem 1 (1 time) og 8760 (1 år). Den konfigurerede værdi bruges som standardudløbstid for alle "Tillad"-samtykkesvar for agentfunktioner.
+
+Hvis denne politik ikke er konfigureret, eller hvis værdien er uden for det tilladte interval, er standarden 720 timer (30 dage).</string>
+      <string id="ConfigureAgentConnectors_Name">Konfigurer Agentforbindelser</string>
+      <string id="ConfigureAgentConnectors_Explain">Aktivér eller deaktiver Agentforbindelser.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Adgangspolitik for Agentforbindelse</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Med denne politikindstilling kan du definere en liste over tilladte forbindelser mellem MCP-værter og MCP-servere.
+
+Formatet for denne liste er en JSON-streng, der overholder skemaet på https://go.microsoft.com/fwlink/?LinkId=2363700.
+
+Hvis denne politik ikke er konfigureret, kan MCP-værten oprette forbindelse til enhver MCP-server med brugerens samtykke.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Konfigurer Agentforbindelser: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Varighed af samtykke (timer): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Konfigurer tilladte MCP-værts-/serverforbindelser:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

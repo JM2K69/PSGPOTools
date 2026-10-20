@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Klavye Filtresi grup ilkesi</displayName>
+  <description>Klavye Filtresi için grup ilkesi ayarları</description>
+  <resources>
+    <stringTable>
+      <string id="KeyboardFilter">Klavye Filtresi</string>
+      <string id="AllowKbFilterInRemoteSessions">Uzak oturumlarda Klavye Filtresine izin ver</string>
+      <string id="AllowKbFilterInRemoteSessions_Text">Klavye filtresi genellikle yalnızca yerel oturumlar için geçerlidir.
+      
+Bu ayarın etkinleştirilmesi, klavye filtresinin bilgisayara uzak oturumlar tarafından bağlanan kullanıcılara uygulanmasını sağlar.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

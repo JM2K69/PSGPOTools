@@ -54,7 +54,6 @@ Virkning på ydeevne af domænecontroller, når denne politikindstilling er akti
    - Sikker registrering af Kerberos-domænefunktionalitet er påkrævet og medfører flere udvekslinger af meddelelser.
    - Erklæringer og sammensat godkendelse til dynamisk adgangskontrol øger størrelsen og kompleksiteten af data i meddelelsen, hvilket medfører længere behandlingstid og større Kerberos-tjenestebillet.
    - Kerberos-armering krypterer Kerberos-meddelelser fuldt ud og signerer Kerberos-fejl, hvilket øger behandlingstiden, men ikke ændrer størrelsen på tjenestebilletten.
-
 </string>
       <string id="NoCbacAndArmor">Ikke understøttet</string>
       <string id="MixModeCbacAndArmor">Understøttet</string>
@@ -94,6 +93,47 @@ Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, vil domæn
       <string id="NoPKINITFreshness">Deaktiveret</string>
       <string id="SupportPKINITFreshness">Understøttet</string>
       <string id="RequirePKINITFreshness">Obligatorisk</string>
+      <string id="PKINITHashAlgorithmConfiguration">Konfigurer hashalgoritmer til certifikat login</string>
+      <string id="PKINITHashAlgorithmConfiguration_explain">Denne politikindstilling styrer hash- eller kontrolsumalgoritmer, der bruges af Kerberos-klienten, når der udføres certifikatgodkendelse.
+
+Hvis du aktiverer denne politik, kan du konfigurere en af fire tilstande for hver algoritme:
+
+- “ Standard ” angiver algoritmen til den anbefalede tilstand.
+
+- " Understøttet" aktiverer brugen af algoritmen. Aktivering af algoritmer, der er deaktiveret som standard, kan reducere din sikkerhed.
+
+- " Overvåget" aktiverer brugen af algoritmen og rapporterer en hændelse (id 309), hver gang den bruges. Denne tilstand er beregnet til at bekræfte, at algoritmen ikke bruges og kan deaktiveres sikkert.
+
+- " Understøttes ikke" deaktiverer brugen af algoritmen. Denne tilstand er beregnet til algoritmer, der anses for at være usikre.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, antager hver algoritme "Standard"-tilstanden.
+Du kan finde flere oplysninger om de hash- og kontrolsumalgoritmer, der understøttes af Windows Kerberos-klienten og deres standardtilstande, på https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Hændelser, der genereres af denne konfiguration: 309, 310.
+</string>
+      <string id="PKINITHashAlgorithm_Default">Standard</string>
+      <string id="PKINITHashAlgorithm_Supported">Understøttet</string>
+      <string id="PKINITHashAlgorithm_Audited">Overvågede</string>
+      <string id="PKINITHashAlgorithm_NotSupported">Ikke understøttet</string>
+      <string id="StrongNameMatches">Tillad navnebaserede stærke tilknytninger for certifikater</string>
+      <string id="StrongNameMatches_explain">Denne politikindstilling gør det muligt at bruge alternative navnebaserede id'er til at knytte certifikater udstedt til Active Directory-brugerkonti på en stærk måde og angiver, hvilke certifikater der er knyttet til hvilke konti. Hvis denne indstilling ikke er aktiveret, skal certifikater opfylde kriterierne for "stærk tilknytning", der er angivet i aka.ms/StrongCertMapKB, hvilket generelt ikke tillader navnebaserede id'er.
+
+Hver tilknytning, der er angivet i denne politik, skal indeholde et politik-OID sammen med et IssuerSubject og/eller et UPN-suffiks ved hjælp af den syntaks, der er angivet nedenfor. Hvis der ikke findes en gyldig tilknytning for et givet certifikat i denne politik, forsøger Active Directory at finde et match ved hjælp af de eksisterende kriterier for stærk tilknytning, der er angivet i KB5014754. Certifikattilknytninger, der ikke overholder kriterierne for "tilknytning af sikkert navn" (denne politik) eller de eksisterende kriterier for "stærk tilknytning", betragtes som ugyldige for godkendelse.
+
+Det generelle politikformat og nogle eksempler er angivet nedenfor. Denne politik gælder kun for Active Directory-brugerkonti.
+
+Generel syntaks
++==============
+&lt;thumbprint&gt;; &lt;list of oids&gt;; &lt;name-match methods&gt;
+
+Eksempler
++==============
+IssuerThumbprint1; oid1, oid2, oid3; UpnSuffix=domain.com
+IssuerThumbprint2; oid1; UpnSuffix=domain.com, UpnSuffix=other.domain.com, IssuerSubject
+IssuerThumbprint3; oid1, oid2; IssuerSubject
+
+Politikken skal indeholde nøjagtigt ét certifikataftryk pr. regel, hvor hver regel repræsenteres som en tuple. Aftryk skal være entydige og kan ikke gentages i flere regler. Sektionerne i hver tuple, der er adskilt af semikolon, skal være i den angivne rækkefølge, mens felterne adskilt af kommaer kan være i en hvilken som helst rækkefølge. Selve reglerne er adskilt af nye linjer.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="emitlili">
@@ -121,6 +161,15 @@ Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, vil domæn
       </presentation>
       <presentation id="PKINITFreshness">
         <dropdownList refId="PKINITFreshness_Levels" noSort="true" defaultItem="1">Indstillinger for udvidelsen PKINIT-opdatering:</dropdownList>
+      </presentation>
+      <presentation id="PKINITHashAlgorithmConfiguration">
+        <dropdownList refId="PKINITHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
+      </presentation>
+      <presentation id="StrongNameMatches">
+          <multiTextBox refId="StrongNameMatchesList">Regler for match af sikre navne:</multiTextBox>
       </presentation>
     </presentationTable>
   </resources>

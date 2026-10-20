@@ -22,19 +22,18 @@
 이 정책 설정이 구성되어 있지 않을 경우 로컬 레지스트리에 정의된 호스트 이름 및 Kerberos 영역 간의 매핑(있을 경우)이 사용됩니다.</string>
       <string id="MitRealms">상호 운용성 있는 Kerberos V5 영역 설정 정의</string>
       <string id="MitRealms_explain">이 정책 설정은 이 정책 설정에 정의된 대로 상호 운용성 있는 Kerberos V5 영역을 인증할 수 있도록 Kerberos 클라이언트를 구성합니다.
-      
+
 이 정책 설정을 사용하지 않으면 상호 운용성 있는 Kerberos V5 영역 및 해당 설정의 목록을 보고 변경할 수 있습니다. 상호 운용성 있는 Kerberos V5 영역의 목록을 보려면 정책 설정을 사용하도록 설정한 다음 표시 단추를 클릭합니다. 상호 운용성 있는 Kerberos V5 영역을 추가하려면 정책 설정을 사용하도록 설정한 다음 표시를 클릭합니다. 내용 표시 대화 상자의 값 이름 열에 상호 운용성 있는 Kerberos V5 영역 이름을 입력합니다. 적절한 구문 형식을 사용하여 값 열에 영역 플래그 및 호스트 KDC의 호스트 이름을 입력합니다. 목록에서 상호 운용성 있는 Kerberos V5 영역 값 이름 또는 값 항목을 제거하려면 해당 항목을 클릭한 다음 Delete 키를 누릅니다. 매핑을 편집하려면 목록에서 현재 항목을 제거하고 다른 매개 변수를 가진 새 항목을 추가합니다.
 
 이 정책 설정을 사용하지 않으면 그룹 정책에 정의된 상호 운용성 있는 Kerberos V5 영역 설정이 삭제됩니다.
 
 이 정책 설정을 구성하지 않으면 로컬 레지스트리에 정의된 상호 운용성 있는 Kerberos V5 영역 설정(있을 경우)이 사용됩니다.</string>
       <string id="ValidateKDC">엄격한 KDC 유효성 검사 요구</string>
-      <string id="ValidateKDC_explain">이 정책 설정은 스마트 카드 및 시스템 인증서 로그온을 위한 KDC 인증서의 유효성을 검사하는 Kerberos 클라이언트의 동작을 제어합니다.  
+      <string id="ValidateKDC_explain">이 정책 설정은 스마트 카드 및 시스템 인증서 로그온을 위한 KDC 인증서의 유효성을 검사하는 Kerberos 클라이언트의 동작을 제어합니다. 
 
 이 정책 설정을 사용할 경우 KDC의 X.509 인증서에 EKU(Extended Key Usage) 확장의 KDC 키 용도 개체 식별자가 포함되고 KDC의 X.509 인증서에 도메인의 DNS 이름과 일치하는 dNSName SAN(subjectAltName) 확장이 포함되어야 한다는 것이 Kerberos 클라이언트에서 요구됩니다. 컴퓨터가 도메인에 가입된 경우 NTAuth 저장소의 CA(인증 기관)에 의해 KDC의 X.509 인증서가 서명되어야 한다는 것이 Kerberos 클라이언트에서 요구됩니다. 컴퓨터가 도메인에 가입되지 않은 경우 Kerberos 클라이언트는 KDC의 X.509 인증서에 대한 경로 유효성 검사에서 스마트 카드의 루트 CA 인증서를 사용하는 것을 허용합니다.
 
 이 정책 설정이 사용되지 않거나 구성되어 있지 않을 경우 KDC 인증서에 어떤 서버로도 발급될 수 있는 EKU 확장의 서버 인증 용도 개체 식별자가 포함되어야 한다는 것만 Kerberos 클라이언트에서 요구합니다.
-
 </string>
       <string id="StrictTarget">원격 프로시저 호출에서 엄격한 대상 SPN 일치 요구</string>
       <string id="StrictTarget_explain">  이 정책 설정으로 이 시스템에서 생성한 SPN을 포함하는 티켓을 Kerberos에서 암호 해독할 수 있도록 이 서버를 구성할 수 있습니다. 응용 프로그램에서 SPN(서비스 사용자 이름)에 대한 Null 값으로 이 서버에 RPC(원격 프로시저 호출)를 시도할 경우, Windows 7 이상 버전을 실행하는 컴퓨터는 SPN을 생성하여 Kerberos를 사용하려고 시도합니다.
@@ -94,16 +93,14 @@
 
       <string id="MaxTokenSize">최대 Kerberos SSPI 컨텍스트 토큰 버퍼 크기 설정</string>
       <string id="MaxTokenSize_explain">이 정책 설정을 사용하면 SSPI 컨텍스트 토큰 버퍼 크기의 최대 크기를 요구하는 응용 프로그램으로 반환되는 값을 설정할 수 있습니다.
-              
+
 컨텍스트 토큰 버퍼의 크기는 응용 프로그램이 예상 및 할당하는 SSPI 컨텍스트 토큰의 최대 크기를 결정합니다. 인증 요청 처리 및 그룹 구성원 자격에 따라 버퍼가 SSPI 컨텍스트 토큰의 실제 크기보다 작을 수 있습니다. 
 
 이 정책 설정을 사용하면 Kerberos 클라이언트나 서버는 구성된 값과 로컬로 허용된 최대 값 중에서 더 작은 값을 사용합니다.
 
-이 정책 설정을 사용하지 않거나 구성하지 않으면 Kerberos 클라이언트나 서버는 로컬로 구성된 값이나 기본값을 사용합니다. 
+이 정책 설정을 사용하지 않거나 구성하지 않으면 Kerberos 클라이언트나 서버는 로컬로 구성된 값이나 기본값을 사용합니다.
 
 참고: 이 정책 설정은 Windows XP 및 Windows Server 2003에 추가된 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters에서 기본값이 12,000바이트인 기존 MaxTokenSize 레지스트리 값을 구성합니다. Windows 8부터 기본값은 48,000바이트입니다. 인증 컨텍스트 토큰의 HTTP base64 인코딩 때문에 이 값을 48,000바이트보다 크게 설정하는 것은 바람직하지 않습니다.
-
-
 
 </string>
       <string id="EnableCbacAndArmor">클레임, 복합 인증 및 Kerberos 아머링(armoring)에 대한 Kerberos 클라이언트 지원</string>
@@ -111,7 +108,7 @@
 이 정책 설정을 사용하면 클라이언트 컴퓨터는 동적 액세스 제어 및 Kerberos 아머링(armoring)에 대해 클레임 및 복합 인증을 지원하는 도메인에서 클레임을 요청하고, 복합 인증을 만드는 데 필요한 정보를 제공하고, Kerberos 메시지를 아머링(armoring)합니다.
 
 이 정책 설정을 사용하지 않거나 구성하지 않으면 클라이언트 장치는 클레임 요청, 복합 인증에 필요한 정보 제공, Kerberos 메시지 아머링(armoring)을 하지 않습니다. 장치에 호스트된 서비스는 Kerberos 프로토콜 전환을 사용하여 클라이언트의 클레임을 검색할 수 없습니다.  
-  
+
 </string>
       <string id="AlwaysSendCompoundId">항상 먼저 복합 인증 보내기</string>
       <string id="AlwaysSendCompoundId_explain">이 정책 설정은 리소스 도메인에서 복합 ID를 요청할 때 항상 장치에서 복합 인증 요청을 보낼지 여부를 제어합니다.
@@ -124,7 +121,7 @@
 
 </string>
       <string id="DevicePKInitEnabled">인증서를 사용한 장치 인증 지원</string>
-      <string id="DevicePKInitEnabled_explain">인증서를 사용하여 디바이스 인증을 지원하려면 컴퓨터 계정에 대한 인증서 인증을 지원하는 디바이스 계정 도메인의 DC에 연결해야 합니다. 
+      <string id="DevicePKInitEnabled_explain">인증서를 사용하여 디바이스 인증을 지원하려면 컴퓨터 계정에 대한 인증서 인증을 지원하는 디바이스 계정 도메인의 DC에 연결해야 합니다.
 
 이 정책 설정을 사용하면 Kerberos에 대한 지원을 설정하여 디바이스의 인증서를 사용해 도메인에 인증을 시도할 수 있습니다.
 
@@ -135,10 +132,55 @@
 강제: 디바이스에서 항상 해당 인증서를 사용하여 인증합니다. 인증서를 사용하여 컴퓨터 계정 인증을 지원하는 DC를 찾을 수 없으면 인증이 실패합니다.
 
 이 정책 설정을 사용하지 않으면 인증서가 사용되지 않습니다.
-이 정책 설정을 구성하지 않으면 [자동] 옵션이 사용됩니다.
+이 정책 설정을 구성하지 않으면 자동 옵션이 사용됩니다.
+
+엔터프라이즈 PKI를 구성하려면 이 가이드를 따릅니다. https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">자동</string>
       <string id="DevicePKInitBehavior_Force">강제</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">로그온하는 동안 Azure AD Kerberos 티켓 부여 티켓 검색 허용</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">이 정책 설정을 통해 로그온하는 동안 Azure AD Kerberos 티켓 부여 티켓을 검색할 수 있습니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 로그온하는 동안 Azure AD Kerberos 티켓 부여 티켓이 검색되지 않습니다.
+
+이 정책 설정을 사용하면 로그온하는 동안 Azure AD Kerberos 티켓 부여 티켓이 검색됩니다.</string>
+      <string id="PKInitHashAlgorithmConfiguration">인증서 로그온을 위한 해시 알고리즘 구성</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">이 정책 설정은 인증서 인증을 수행할 때 Kerberos 클라이언트에서 사용하는 해시 또는 체크섬 알고리즘을 제어합니다.
+
+이 정책을 사용하면 각 알고리즘에 대해 다음 네 가지 상태 중 하나를 구성할 수 있습니다.
+
+- "기본값"은 알고리즘을 권장 상태로 설정합니다.
+
+- "지원됨"을 선택하면 알고리즘을 사용할 수 있습니다. 기본적으로 사용하지 않도록 설정된 알고리즘을 사용하면 보안이 저하될 수 있습니다.
+
+- "감사됨"을 선택하면 알고리즘을 사용할 수 있으며 사용할 때마다 이벤트(ID 206)를 보고합니다. 이 상태는 알고리즘이 사용되고 있지 않으며 안전하게 사용되고 있지 않는지 확인하기 위한 것입니다.
+
+- "지원되지 않음"을 선택하면 알고리즘을 사용할 수 없습니다. 이 상태는 안전하지 않은 것으로 간주되는 알고리즘을 위한 것입니다.
+
+이 정책을 사용하지 않거나 구성하지 않으면 각 알고리즘은 "기본값" 상태를 가정합니다.
+Windows Kerberos 클라이언트에서 지원하는 해시 및 체크섬 알고리즘 및 기본 상태에 대한 자세한 내용은 https://go.microsoft.com/fwlink/?linkid=2169037에서 확인할 수 있습니다.
+
+이 구성에 의해 생성된 이벤트: 205, 206, 207, 208
+</string>
+      <string id="PKInitHashAlgorithm_Default">기본값</string>
+      <string id="PKInitHashAlgorithm_Supported">지원됨</string>
+      <string id="PKInitHashAlgorithm_Audited">감사됨</string>
+      <string id="PKInitHashAlgorithm_NotSupported">지원하지 않음</string>
+      
+      <string id="DelegatedMSAEnabled">위임된 관리 서비스 계정 로그온 사용</string>
+      <string id="DelegatedMSAEnabled_explain">이 정책 설정은 이 컴퓨터에 대해 위임된 관리 서비스 계정 로그온을 사용하거나 사용하지 않도록 설정합니다.
+
+이 정책 설정을 사용하면 위임된 관리 서비스 계정 로그온이 Kerberos 클라이언트에서 지원됩니다. 이 정책에는 특정 필수 구성 요소가 있습니다. 새 위임된 관리 서비스 계정을 만들기 위한 필수 조건 및 길 찾기는 https://go.microsoft.com/fwlink/?linkid=2250379.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 위임된 관리 서비스 계정 로그온이 지원되지 않습니다. 
+</string>
+      <string id="EnableTryIPSPN">Kerberos 인증 중 IP 주소 기반 SPN 허용</string>
+      <string id="EnableTryIPSPN_explain">이 정책 설정을 사용하면 IP 주소 기반 SPN(서비스 사용자 이름)을 사용하도록 Kerberos를 구성할 수 있습니다.
+
+이 정책 설정을 사용하면 Kerberos 클라이언트는 서비스에 연결할 때 IP 주소 기반 SPN을 사용하려고 시도합니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 Kerberos에서 IP 주소 기반 SPN을 사용하려고 시도하지 않습니다.
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -181,6 +223,16 @@
         <text>다른 예:</text>
         <text>값 이름: REALM.FABRIKAM.COM</text>
         <text>값: &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">영역:</multiTextBox>
+        <text>구문:</text>
+        <text>DMSA가 있을 수 있는 영역 목록을 입력하십시오.</text>
+        <text>FQDN(정규화된 도메인 이름)과 단축 이름을 모두 입력하십시오.</text>
+        <text>줄당 하나의 영역을 입력합니다.</text>
+        <text>자세히:</text>
+        <text>Kerberos 클라이언트가 나열된 영역에 대한 DMSA 지원 도메인 컨트롤러를 찾으려고 시도합니다.</text>
+        <text>영역을 지정하지 않으면 Kerberos 클라이언트는 모든 영역에 대해 DMSA 지원 도메인 컨트롤러를 찾으려고 시도합니다.</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">모드:</dropdownList>
@@ -225,7 +277,7 @@
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">클라이언트 장치 정보를 사용한 권한 부여 지원:</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">클라이언트 장치 정보를 사용한 권한 부여 지원:</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">최대 크기</decimalTextBox>
@@ -233,7 +285,13 @@
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">인증서를 사용한 장치 인증 동작:</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">인증서를 사용한 장치 인증 동작:</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

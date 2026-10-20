@@ -70,13 +70,13 @@ Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan medle
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Søk i Windows Update (Search Windows Update)</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Søk i administrert server (Search Managed Server)</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Søk i administrert server og deretter i Windows Update (Search Managed Server, then WU)</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Forhindre henting av enhetsmetadata fra Internett</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Du kan bruke denne policyinnstillingen til å forhindre Windows fra å hente enhetsmetadata fra Internett.
-          
-Hvis du aktiverer denne policyinnstillingen, henter ikke Windows enhetsmetadata for installerte enheter fra Internett. Denne policyinnstillingen overstyrer innstillingen i dialogboksen Innstillinger for enhetsinstallasjon (Kontrollpanel &gt; System og Sikkerhet &gt; System &gt; Avanserte systeminnstillinger &gt; kategorien Maskinvare).
 
-Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, angir innstillingen i dialogboksen Innstillinger for enhetsinstallasjon om Windows henter enhetsmetadata fra Internett.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Hindre automatisk nedlasting av programmer som er knyttet til enhetsmetadata</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Med denne policyinnstillingen kan du forhindre at Windows laster ned programmer som er knyttet til enhetsmetadata.
+
+Hvis du aktiverer denne policyinnstillingen, laster ikke Windows ned programmer som er knyttet til enhetsmetadata for installerte enheter. Denne policyinnstillingen overstyrer innstillingen i dialogboksen Innstillinger for enhetsinstallasjon (Kontrollpanel &gt; System og Sikkerhet &gt; System &gt; Avanserte systeminnstillinger &gt; kategorien Maskinvare).
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, styrer innstillingen i dialogboksen Innstillinger for enhetsinstallasjon om Windows laster ned programmer som er knyttet til enhetsmetadata.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Nastavení zásad skupiny indikátoru stavu připojení k síti</displayName>
   <description>Nastavení zásad skupiny indikátoru stavu připojení k síti</description>
@@ -73,7 +73,7 @@
       </presentation>
       <presentation id="NCSI_PassivePolling">
         <text>Pokud je následující políčko zaškrtnuté, vypne se mechanismus pasivního dotazování v rámci NCSI.   Tím se může snížit zatížení CPU na serverech nebo jiných počítačích se statickým připojením k síti.</text>
-        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Zakázat pasivní dotazování</checkBox>  
+        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Zakázat pasivní dotazování</checkBox>
       </presentation>
       <presentation id="NCSI_GlobalDns">
         <text>Zaškrtnutím tohoto políčka zakážete vazbu rozhraní při provádění vyhledávání DNS v NCSI. To může pro NCSI umožnit lepší vyhledávání při zvláštních síťových konfiguracích, jako je server DNS běžící na místním hostiteli.</text>

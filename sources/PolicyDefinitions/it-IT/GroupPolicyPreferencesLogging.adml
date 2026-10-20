@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>Criteri di registrazione delle preferenze dei Criteri di gruppo</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">Configura registrazione e traccia della preferenza Applicazioni</string>
+      <string id="CSE_Applications_Logging_Help">Questa impostazione di criteri consente di configurare il livello di dettaglio impiegato dalla registrazione eventi per l'estensione delle preferenze Applicazioni e di abilitare la traccia per l'estensione Applicazioni. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione, potrai configurare la registrazione degli eventi e abilitare la traccia per l'estensione Applicazioni sui computer client.
+
+Se disabiliti o non configuri questa impostazione, la registrazione degli eventi per questa estensione includerà, per impostazione predefinita, solo avvisi ed errori e la traccia sarà disabilitata.
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione delle preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi di preferenza per questa estensione, non verrà creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione delle preferenze è disponibile solo in Configurazione utente e pertanto la configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione delle preferenze quando viene creata una query di Modellazione Criteri di gruppo, è necessario specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui si esegue la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o se per questa estensione non sono disponibili elementi di preferenza, non verrà creato alcun file di traccia della pianificazione.
+</string>
+      <string id="CSE_DataSources_Logging">Configura registrazione e traccia della preferenza Origini dati</string>
+      <string id="CSE_DataSources_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Origini dati e di abilitare la traccia per l'estensione Origini dati. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Origini dati per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_Devices_Logging">Configura registrazione e traccia della preferenza Dispositivi</string>
+      <string id="CSE_Devices_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Dispositivi e di abilitare la traccia per l'estensione Dispositivi. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Dispositivi per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_Drives_Logging">Configura registrazione e traccia della preferenza Mapping unità</string>
+      <string id="CSE_Drives_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati nella registrazione eventi per l'estensione preferenze Mappe unità e di abilitare la traccia per l'estensione Mappe unità. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Mappe unità per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_Environment_Logging">Configura registrazione e traccia della preferenza Ambiente</string>
+      <string id="CSE_Environment_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione Preferenze ambiente e di abilitare la traccia per l'estensione Ambiente. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Ambiente per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_Files_Logging">Configura registrazione e traccia della preferenza File</string>
+      <string id="CSE_Files_Logging_Help">Questa impostazione di criteri consente di configurare il livello di dettagli registrati dalla registrazione eventi per l'estensione preferenze File, nonché abilitare la traccia per l'estensione File. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione File per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_FolderOptions_Logging">Configura registrazione e traccia della preferenza Opzioni cartella</string>
+      <string id="CSE_FolderOptions_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Opzioni cartella e di abilitare la traccia per l'estensione Opzioni cartella. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Opzioni cartella per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_Folders_Logging">Configura registrazione e traccia della preferenza Cartelle</string>
+      <string id="CSE_Folders_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Cartelle e di abilitare la traccia per l'estensione Cartelle. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Cartelle per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_IniFiles_Logging">Configura registrazione e traccia della preferenza File INI</string>
+      <string id="CSE_IniFiles_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione delle preferenze File ini e di abilitare la traccia per l'estensione File ini. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione File ini per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_Internet_Logging">Configura registrazione e traccia della preferenza Impostazioni Internet</string>
+      <string id="CSE_Internet_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Internet e di abilitare la traccia per l'estensione Internet. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Internet per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">Configura registrazione e traccia della preferenza Utenti e gruppi locali</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Utente locale e gruppo locale e di abilitare la traccia per l'estensione Utente locale e gruppo locale. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Utente locale e Gruppo locale per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_NetworkOptions_Logging">Configura registrazione e traccia della preferenza Opzioni rete</string>
+      <string id="CSE_NetworkOptions_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Opzioni rete e di abilitare la traccia per l'estensione Opzioni rete. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Opzioni rete per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_NetShares_Logging">Configura registrazione e traccia della preferenza Condivisioni di rete</string>
+      <string id="CSE_NetShares_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Condivisioni di rete e di abilitare la traccia per l'estensione Condivisioni di rete. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Condivisioni di rete per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_PowerOptions_Logging">Configura registrazione e traccia della preferenza Opzioni risparmio energia</string>
+      <string id="CSE_PowerOptions_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Opzioni risparmio energia e di abilitare la traccia per l'estensione Opzioni risparmio energia. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Opzioni risparmio energia per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_Printers_Logging">Configura registrazione e traccia della preferenza Stampanti</string>
+      <string id="CSE_Printers_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Stampanti e di abilitare la traccia per l'estensione Stampanti. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Stampanti per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_RegionalOptions_Logging">Configura registrazione e traccia della preferenza Opzioni internazionali</string>
+      <string id="CSE_RegionalOptions_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Opzioni internazionali e di abilitare la traccia per l'estensione Opzioni internazionali. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Opzioni internazionali per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_PrefRegistry_Logging">Configura registrazione e traccia della preferenza Registro di sistema</string>
+      <string id="CSE_PrefRegistry_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Registro di sistema e di abilitare la traccia per l'estensione Registro di sistema. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Registro di sistema per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_ScheduledTasks_Logging">Configura registrazione e traccia della preferenza Attività pianificate</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Attività pianificate e di abilitare la traccia per l'estensione Attività pianificate. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Attività pianificate per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_Services_Logging">Configura registrazione e traccia della preferenza Servizi</string>
+      <string id="CSE_Services_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Servizi e di abilitare la traccia per l'estensione Servizi. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Servizi per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_Shortcuts_Logging">Configura registrazione e traccia della preferenza Collegamenti</string>
+      <string id="CSE_Shortcuts_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Collegamenti e di abilitare la traccia per l'estensione Collegamenti. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Collegamenti per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_StartMenu_Logging">Configura registrazione e traccia della preferenza Menu Start</string>
+      <string id="CSE_StartMenu_Logging_Help">Questa impostazione di criteri consente di configurare il livello dei dettagli registrati dalla registrazione eventi per l'estensione preferenze Menu Start e di abilitare la traccia per l'estensione Menu Start. Registrazione e traccia forniscono informazioni di diagnostica per la risoluzione dei problemi.
+
+Se abiliti questa impostazione di criteri, puoi configurare la registrazione degli eventi e abilitare la traccia per l'estensione Menu Start per i computer client.
+
+Se disabiliti o non configuri questa impostazione di criteri, per impostazione predefinita la registrazione degli eventi per questa estensione includerà solo avvisi ed errori, e la traccia per questa estensione sarà disabilitata.
+
+Precauzione di sicurezza: 
+Proteggi la condivisione di rete configurata usando solo le autorizzazioni minime necessarie. Non usare accessi ampi, ad esempio qualsiasi account standard o Tutti con Controllo completo, perché ciò potrebbe consentire accessi non autorizzati ai dati di registrazione e traccia
+
+Note:
+
+1. Traccia di Configurazione utente: per eseguire la traccia degli elementi inclusi in questa estensione preferenze elencata in Configurazione utente, è necessario specificare un percorso nella casella "Traccia utente" relativo alla posizione in cui creare un file di traccia dell'utente nel computer client e abilitare l'opzione "Traccia". Se in Configurazione utente non sono disponibili elementi preferenze per questa estensione, non viene creato alcun file di traccia dell'utente.
+
+2. Traccia di Configurazione computer: questa estensione preferenze è disponibile solo in Configurazione utente, per cui la traccia di configurazione del computer non è applicabile.
+
+3. Traccia della query di Modellazione Criteri di gruppo: per eseguire la traccia degli elementi inclusi in questa estensione preferenze quando esegui una query di Modellazione Criteri di gruppo, devi specificare un percorso nella casella "Traccia pianificazione" relativo alla posizione in cui creare un file di traccia della pianificazione nel computer in cui esegui la modellazione, nonché abilitare l'opzione "Traccia". Se non stai eseguendo Modellazione Criteri di gruppo o non sono disponibili elementi preferenza in questa estensione, non viene creato alcun file di traccia della pianificazione.</string>
+      <string id="CSE_NOCHANGES">Elabora anche se gli oggetti Criteri di gruppo non sono stati modificati</string>
+      <string id="CSE_NOBACKGROUND">Non applicare durante l'elaborazione periodica in background</string>
+      <string id="CSE_ALLOWSLOWLINK">Consenti elaborazione attraverso una connessione di rete lenta</string>
+      <string id="CSE_TRACELEVEL">Traccia</string>
+      <string id="CSE_TRACEFILEPATHUSER">Traccia utente</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">Traccia computer</string>
+      <string id="CSE_TRACEFILEPATH">File di traccia</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">Traccia pianificazione</string>
+      <string id="CSE_TRACEFILEMAXSIZE">Dimensione massima file di traccia (KB)</string>
+      <string id="CSE_TRACELEVELNORMAL">Non attivo</string>
+      <string id="CSE_TRACELEVELVERBOSE">Attivo</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">Priorità background</string>
+      <string id="CSE_PRILEVEL_NORMAL">Normale</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">Inferiore al normale</string>
+      <string id="CSE_PRILEVEL_LOWEST">Minima</string>
+      <string id="CSE_PRILEVEL_IDLE">Inattiva</string>
+      <string id="CSE_LOGLEVEL">Registrazione eventi</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">Informazioni, avvisi ed errori</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">Avvisi ed errori</string>
+      <string id="CSE_LOGLEVEL_ERRORS">Solo errori</string>
+      <string id="CSE_LOGLEVEL_NONE">Nessuno</string>
+      <string id="CSE_Logging">Registrazione e traccia</string>
+      <string id="CSE_Logging_Help">Consente di configurare le funzionalità di registrazione e traccia per i componenti Preferenze.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Traccia computer</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registrazione eventi</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Traccia</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Traccia utente</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Traccia pianificazione</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Dimensione massima file di traccia (KB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

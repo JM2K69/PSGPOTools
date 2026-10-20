@@ -33,6 +33,11 @@ Pokud toto nastavení zakážete, zápis do MDM bude pro všechny uživatele pov
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">Vyberte typ přihlašovacích údajů, který chcete použít:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>ID aplikace MDM:</label>
+        </textBox>
+        <text>ID aplikace MDM představuje ID vaší aplikace MDM, která je nakonfigurovaná v Azure AD. Možnost je volitelná a vyžaduje se jenom pro automatický zápis (registraci) MDM pomocí přihlašovacích údajů zařízení, když je v Azure AD nakonfigurovaných více aplikací MDM.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

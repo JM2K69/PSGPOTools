@@ -287,7 +287,7 @@ Waarschuwing: als u een ander profiel voor platformvalidatie gebruikt dan het st
 
 Belangrijk: dit groepsbeleid geldt alleen voor computers met een systeemeigen UEFI-firmwareconfiguratie. Computers met BIOS- of UEFI-firmware met een ingeschakelde Compatibility Service Module (CSM) bewaren andere waarden in de Platform Configuration Registers (PCR's). Gebruik de groepsbeleidsinstelling "Validatieprofiel configureren voor TPM-platform voor op BIOS gebaseerde firmwareconfiguraties" om het TPM PCR-profiel te configureren voor computers met een BIOS-configuratie of computers met UEFI-firmware met een ingeschakelde CSM.
 
-Als u deze beleidsinstelling inschakelt voordat BitLocker wordt ingeschakeld, kunt u de opstartonderdelen configureren die door de TPM worden gevalideerd voordat er toegang wordt verleend tot het door BitLocker versleutelde systeemstation. Als zich wijzigingen voordoen in een of meer van deze onderdelen terwijl de BitLocker-beveiliging van kracht is, wordt de versleutelingssleutel voor het ontgrendelen van het station niet vrijgegeven door de TPM en wordt de herstelconsole van BitLocker weergegeven en moet het herstelwachtwoord of de hersleutel worden ingevoerd om toegang te krijgen tot het station.
+Als u deze beleidsinstelling inschakelt voordat BitLocker wordt ingeschakeld, kunt u de opstartonderdelen configureren die door de TPM worden gevalideerd voordat er toegang wordt verleend tot het door BitLocker versleutelde systeemstation. Als zich wijzigingen voordoen in een of meer van deze onderdelen terwijl de BitLocker-beveiliging van kracht is, wordt de versleutelingssleutel voor het ontgrendelen van het station niet vrijgegeven door de TPM en wordt de herstelconsole van BitLocker weergegeven en moet het herstelwachtwoord of de herstelsleutel worden ingevoerd om toegang te krijgen tot het station.
 
 Als u deze beleidsinstelling uitschakelt of niet configureert, gebruikt BitLocker het voor de beschikbare hardware of het profiel voor platformvalidatie dat is opgegeven in het installatiescript. Een profiel voor platformvalidatie bestaat uit een set PCR-indexen (Platform Configuration Register) van 0 tot 23.
 
@@ -319,6 +319,18 @@ Opmerking: Sommige pc's zijn mogelijk niet compatibel met dit beleid als directe
 
       </string>
       <string id="DisableExternalDMAUnderLock_Name">Nieuwe DMA-apparaten uitschakelen wanneer deze computer is vergrendeld</string>
+
+      <string id="DisableWinRETrust_Help">Deze beleidsinstelling bepaalt of BitLocker de Windows Herstelomgeving (WinRE) vertrouwt.
+
+Wanneer BitLocker WinRE vertrouwt, heeft WinRE toegang tot het door BitLocker beschermde besturingssysteemvolume zonder dat de BitLocker-herstelsleutel nodig is. Dit ondersteunt herstelbewerkingen die toegang nodig hebben tot het besturingssysteemvolume.
+
+Belangrijk: als je dit beleid inschakelt, verandert het herstelgedrag. Als je deze beleidsinstelling inschakelt, vertrouwt BitLocker WinRE niet. De BitLocker-herstelsleutel is vereist voor elke WinRE-bewerking die toegang moet krijgen tot het door BitLocker beveiligde besturingssysteemvolume. Herstelbewerkingen die afhankelijk zijn van WinRE-toegang tot het besturingssysteemvolume, hebben mogelijk hulp van een gebruiker of beheerder nodig en worden mogelijk niet automatisch voltooid. Dit geldt voor Opstartherstel, Snel machineherstel, Herstel met één druk op de knop en extern opnieuw instellen of wissen dat door MDM wordt gestart met behulp van de RemoteWipe CSP.
+
+Als je deze beleidsinstelling uitschakelt of niet configureert, vertrouwt BitLocker een gevalideerde WinRE-installatiekopie, zodat WinRE toegang heeft tot het door BitLocker beschermde besturingssysteemvolume zonder de herstelsleutel.
+
+Deze beleidsinstelling wordt alleen afgedwongen als BitLocker of apparaatversleuteling is ingeschakeld.</string>
+
+      <string id="DisableWinRETrust_Name">BitLocker-vertrouwensrelatie van Windows Herstelomgeving (WinRE) uitschakelen</string>
 
       <string id="FVEOSCategory">Systeemstations</string>
       <string id="FVEFDVCategory">Harde schijven</string>

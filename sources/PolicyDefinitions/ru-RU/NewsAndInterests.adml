@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>введите отображаемое имя</displayName>
+  <description>введите описание</description>
+  <resources>
+    <stringTable>
+      <string id="NewsAndInterests">Виджеты</string>
+      <string id="AllowNewsAndInterests">Разрешить мини-приложения</string>
+      <string id="Explain_AllowNewsAndInterests">Эта политика определяет, разрешена ли функция «виджеты» на устройстве.
+Виджеты будут включены по умолчанию, если это не будет изменено в настройках.
+Если эта функция была включена ранее, она автоматически останется включенной, пока не будет выключена.</string>
+      <string id="DisableWidgetsOnLockScreen">Отключить мини-приложения на экране блокировки</string>
+      <string id="Explain_DisableWidgetsOnLockScreen">Эта политика определяет, следует ли отключить функцию мини-приложений на экране блокировки.
+Если этот параметр политики отключен или не настроен, мини-приложения отображаются на экране блокировки и могут управляться в приложении "Параметры Windows".
+Если этот параметр политики включен, мини-приложения не будут отображаться на экране блокировки.</string>
+      <string id="DisableWidgetsBoard">Отключить доску мини-приложений</string>
+      <string id="Explain_DisableWidgetsBoard">Эта политика определяет, следует ли отключить интерфейс доски мини-приложений. 
+Если этот параметр политики отключен или не настроен, вы сможете вызвать доску мини-приложений и просмотреть ее точку входа на панели задач. Управление интерфейсом доски мини-приложений возможно в параметрах мини-приложений, точка входа которых находится на доске мини-приложений.
+Если этот параметр политики включен, вы не сможете вызвать доску мини-приложений, и ее точка входа больше не будет отображаться на панели задач.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

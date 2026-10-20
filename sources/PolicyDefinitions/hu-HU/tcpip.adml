@@ -33,13 +33,11 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, a rendszer a h
 
 Ha engedélyezi a házirend-beállítást, a következő beállítások egyikével konfigurálhatja az ISATAP protokollt:
 
-A házirend alapértelmezett állapota: az ISATAP-útválasztó nevének sikeres feloldása esetén az állomáson az ISATAP egy helyi kötésű címre és az ISATAP-útválasztótól automatikus állapotmentes konfigurációval kapott előtagok címeire lesz beállítva. Ha az ISATAP-útválasztó nevét nem sikerül feloldani, az ISATAP-kapcsolat nem lesz elérhető az adott IPv4-címet használó állomáson.
+A házirend alapértelmezett állapota: nincs ISATAP-felület az állomáson.
 
 A házirend engedélyezett állapota: az ISATAP-útválasztó nevének sikeres feloldása esetén az állomáson az ISATAP egy helyi kötésű címre és az ISATAP-útválasztótól automatikus állapotmentes konfigurációval kapott előtagok címeire lesz beállítva. Ha az ISATAP-útválasztó nevét nem sikerül feloldani, az állomáson egy helyi kötésű címre konfigurált ISATAP-kapcsolat lesz beállítva.
 
 A házirend letiltott állapota: nincs ISATAP-kapcsolat beállítva az állomáson.
-
-
 
 </string>
 
@@ -60,13 +58,11 @@ Ha letiltja vagy nem konfigurálja ezt a házirend-beállítást, akkor a rendsz
 
 Ha engedélyezi a házirend-beállítást, a 6to4 protokollt a következő beállításokkal konfigurálhatja:
 
-A házirend alapértelmezett állapota: a 6to4 engedélyezve van, ha az állomás csak helyi kötésű IPv6-kapcsolattal és egy nyilvános IPv4-címmel rendelkezik. Ha nincs jelen globális IPv6-cím és globális IPv4-cím, az állomásnak nem lesz 6to4-kapcsolata. Ha nincs jelen globális IPv6-cím, de van IPv4-cím, az állomásnak lesz 6to4-kapcsolata.
+A házirend alapértelmezett állapota: a 6to4 ki van kapcsolva, és a 6to4-kapcsolat nem engedélyezett.
 
 A házirend engedélyezett állapota: ha van globális IPv4-cím, az állomásnak lesz 6to4-kapcsolata. Ha nincs jelen globális IPv4-cím, az állomásnak nem lesz 6to4-kapcsolata.
 
 A házirend letiltott állapota: a 6to4 ki van kapcsolva, és nem érhető el 6to4-kapcsolat.
-
-
 
 </string>
 
@@ -188,6 +184,45 @@ Ha engedélyezi vagy nem konfigurálja ezt a házirend-beállítást, az állapo
 Ha letiltja a házirend-beállítást, az állapot nélküli automatikus IP-konfigurálási korlátok le lesznek tiltva, és rendszer nem fogja korlátozni az automatikusan konfigurált címek és útvonalak számát.
 
 
+
+</string>
+
+      <string id="IPxlatCfg_PermitNonCellularCLAT">CLAT-engedély beállítása</string>
+      <string id="IPxlatCfg_PermitNonCellularCLAT_Help">Ez a házirend-beállítás lehetővé teszi, hogy globálisan engedélyezze vagy letiltsa a 464XLAT (CLAT) ügyféloldali fordítót a nem mobilhálózati interfészeken.
+
+Ha engedélyezi ezt a házirend-beállítást, a CLAT globálisan engedélyezett lesz, és bekapcsolható a hálózati interfészeken.
+
+Ha letiltja ezt a házirend-beállítást, a CLAT globálisan le lesz tiltva, és nem kapcsolható be.
+
+Ha nem konfigurálja ezt a házirend-beállítást, a helyi gép beállítása lesz érvényben.
+
+A házirend-beállítás érvénybe lépéséhez nincs szükség újraindításra vagy a szolgáltatás újraindítására.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromRA">CLAT előtag információk lekérése az újrakonfigurálási ügynöktől beállítása</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromRA_Help">Ez a házirend-beállítás lehetővé teszi, hogy az útválasztói hirdetmények (RA) legyenek az előtag-információ forrása a nem mobilhálózati CLAT számára.
+
+Ha engedélyezi ezt a házirend-beállítást, engedélyezve lesz a CLAT számára, hogy RA-n keresztül fedezze fel a NAT64 előtagokat. Ha mindkét NAT64 előtag-felderítési módszer engedélyezve van, az elsőbbségi sorrend: (RA, DNS).
+
+Ha letiltja ezt a házirend-beállítást, nem lesz engedélyezve a CLAT számára, hogy RA-n keresztül fedezze fel a NAT64 előtagokat.
+
+Ha nem konfigurálja ezt a házirend-beállítást, a helyi gép beállítása lesz érvényben.
+
+A házirend-beállítás érvénybe léptetéséhez újraindítás szükséges.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS">CLAT előtag információk lekérése a DNS-től beállítása</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS_Help">Ez a házirend-beállítás lehetővé teszi, hogy a DNS legyen az előtag-információ forrása a nem mobilhálózati CLAT számára.
+
+Ha engedélyezi ezt a házirend-beállítást, engedélyezve lesz a CLAT számára, hogy DNS-en keresztül fedezze fel a NAT64 előtagokat. Ha mindkét NAT64 előtag-felderítési módszer engedélyezve van, az elsőbbségi sorrend: (RA, DNS).
+
+Ha letiltja ezt a házirend-beállítást, nem lesz engedélyezve a CLAT számára, hogy DNS-en keresztül fedezze fel a NAT64 előtagokat.
+
+Ha nem konfigurálja ezt a házirend-beállítást, a helyi gép beállítása lesz érvényben.
+
+A házirend-beállítás érvénybe léptetéséhez újraindítás szükséges.
 
 </string>
 

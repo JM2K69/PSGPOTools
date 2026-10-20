@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Paramètres NTLM</displayName>
+  <description>Paramètres de configuration pour le package de sécurité NTLM.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">Journalisation NTLM améliorée</string>
+      <string id="EnhancedAuditsId_Explain">Ce paramètre de stratégie permet au package de sécurité NTLM de journaliser les nouveaux journaux d'activité d’audit améliorés pour les clients et les serveurs.
+
+      Ces journaux d'activité améliorés contiennent des informations sur les éléments qui utilisent NTLM, pourquoi NTLM est utilisé et la destination de la requête d’authentification NTLM. Ils fournissent également des informations sur l’utilisation de NTLMv1 et d’autres rétrogradations de sécurité.
+
+      Si vous activez ou ne configurez pas cette stratégie, les nouveaux journaux d'activité d’audit seront générés. Si vous désactivez la stratégie, les nouveaux journaux d'activité ne seront pas générés.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">Blocage NTLM amélioré</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Ce paramètre de stratégie permet au package de sécurité NTLM de bloquer les demandes d’authentification NTLM en fonction des nouvelles stratégies de blocage améliorées au niveau de l’ordinateur.
+
+      Ces stratégies de blocage améliorées vous permettent de bloquer l’authentification NTLM en fonction de nouveaux critères, tels que le type du compte, le rôle de l’appareil ou le type d’application.
+
+      Si la stratégie globale est définie sur « Désactivé » ou « Non configuré », les sous-paramètres ci-dessous ne prendront pas effet. Si la stratégie globale est définie sur « Activé », les sous-stratégies ci-dessous prendront effet selon leur configuration.
+
+      Sauf configuration contraire, toutes les stratégies sont définies en mode « Audit ». Les stratégies définies sur « Audit » enregistrent un avertissement concernant la demande NTLM qui peut être bloquée, mais ne la bloquent pas. Plusieurs stratégies marquées comme « Audit » peuvent être activées simultanément et seront consignées dans un journal des événements unifié.
+
+      Si une stratégie est marquée comme « Activée », la demande d’authentification NTLM sera bloquée si elle correspond aux critères de cette stratégie. Si plusieurs stratégies sont marquées comme « Activées », la demande d’authentification NTLM sera bloquée si elle correspond aux critères de l’une d’elles. Un journal des événements sera généré pour la première stratégie qui bloque l’authentification NTLM. 
+
+      Dans les cas où coexistent des stratégies « Audit » et « Activée », la stratégie « Activée » prévaut.
+
+      Toutes les stratégies de blocage améliorées décrites ici partagent la même liste verte, qui spécifie les comptes, appareils et applications autorisés à utiliser l’authentification NTLM. La liste verte peut contenir une série de noms de cibles ou de SPN pour autoriser l’authentification. 
+
+      Pour plus d’informations, visitez aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Désactivé</string>
+      <string id="Audit">Auditer</string>
+      <string id="Enabled">Activé</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Bloquer NTLM pour l’authentification unique des comptes de domaine</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">Bloquer NTLM pour les contrôleurs de domaine</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">Bloquer NTLM lorsque la liaison de la machine échoue</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Bloquer toute l’authentification NTLM</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Spécifiez la liste verte pour les stratégies de blocage améliorées :</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

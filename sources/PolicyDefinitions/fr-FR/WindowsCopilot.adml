@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>entrer le nom complet ici</displayName>
+  <description>Entrer la description ici</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Copilot Windows</string>
+      <string id="TurnOffWindowsCopilot">Désactiver Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot_Help">Ce paramètre de stratégie vous permet de désactiver Windows Copilot.
+
+Si vous activez ce paramètre de stratégie, les utilisateurs ne pourront pas utiliser Copilot. L’icône Copilot n’apparaît pas non plus dans la barre des tâches.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les utilisateurs pourront utiliser Copilot lorsqu’il sera disponible.
+      </string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="DisableAIDataAnalysis">Désactiver l’enregistrement des instantanés à utiliser avec Retrouver
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Ce paramètre de stratégie vous permet de déterminer si les captures instantanées de l’écran peuvent être enregistrées pour une utilisation avec Retrouver. Pour les appareils gérés, les instantanés pour Retrouver ne sont pas activés par défaut. Les administrateurs informatiques ne peuvent pas, eux-mêmes, activer l’enregistrement d’instantanés au nom de leurs utilisateurs. Le choix d’activer l’enregistrement d’instantanés nécessite le consentement de l’utilisateur individuel.
+
+Si la stratégie n’est pas configurée, les instantanés ne seront pas enregistrés pour une utilisation avec Retrouver.
+
+Si vous activez cette stratégie, les instantanés ne sont pas enregistrés pour être utilisés avec Retrouver. Si des instantanés ont été précédemment enregistrés sur l’appareil, ils seront supprimés lorsque cette stratégie sera activée.
+
+Si vous désactivez cette stratégie, les utilisateurs finaux peuvent enregistrer des captures instantanées de leur écran et utiliser Retrouver pour trouver des éléments qu’ils ont vus sur leur appareil.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Définir le stockage maximal pour les instantanés utilisés par Retrouver
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Ce paramètre de stratégie vous permet de contrôler la quantité maximale d’espace disque pouvant être utilisée par Windows pour enregistrer des instantanés pour Retrouver.
+
+Vous pouvez définir la quantité maximale d’espace disque pour les instantanés sur 10, 25, 50, 75, 100 ou 150 Go.
+
+Lorsque ce paramètre n’est pas configuré, le système d’exploitation configure l’allocation de stockage pour les instantanés en fonction de la capacité de stockage de l’appareil, sauf si l’utilisateur actuel spécifie une autre valeur.
+
+25 Go sont alloués lorsque la capacité de stockage de l’appareil est de 256 Go. 75 Go sont alloués lorsque la capacité de stockage de l’appareil est de 512 Go. 150 Go sont alloués lorsque la capacité de stockage de l’appareil est de 1 To ou plus.
+
+Si la durée de stockage maximale et l'espace de stockage maximal sont définis pour Retrouver, alors les instantanés sont supprimés lorsque le premier maximum est atteint.
+
+Important : ce paramètre s’applique uniquement aux références SKU client Entreprise et Éducation.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Laisser le système d’exploitation définir la quantité de stockage maximale en fonction de la taille de stockage du disque dur</string>
+      <string id="SetMaximumStorageSpace_10GB">10 Go</string>
+      <string id="SetMaximumStorageSpace_25GB">25 Go</string>
+      <string id="SetMaximumStorageSpace_50GB">50 Go</string>
+      <string id="SetMaximumStorageSpace_75GB">75 Go</string>
+      <string id="SetMaximumStorageSpace_100GB">100 Go</string>
+      <string id="SetMaximumStorageSpace_150GB">150 Go</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Définir la durée maximale de stockage des instantanés utilisés par Retrouver
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Ce paramètre de stratégie vous permet de contrôler la durée maximale (en jours) pendant laquelle Windows enregistre des instantanés pour Retrouver.
+
+Lorsque la stratégie est activée, vous pouvez configurer la durée de stockage maximale sur 30, 60, 90 ou 180 jours.
+
+Lorsque cette stratégie n’est pas configurée, la durée de stockage maximale est de 90 jours, sauf si l'utilisateur actuel spécifie une valeur différente.
+
+Si la durée de stockage maximale et l'espace de stockage maximal sont définis pour Retrouver, alors les instantanés sont supprimés lorsque le premier maximum est atteint.
+
+Important : ce paramètre s’applique uniquement aux références SKU client Entreprise et Éducation.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">Laisser le système d’exploitation définir la durée maximale d’enregistrement des instantanés
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 jours</string>
+      <string id="SetMaximumStorageDuration_60Days">60 jours</string>
+      <string id="SetMaximumStorageDuration_90Days">90 jours</string>
+      <string id="SetMaximumStorageDuration_180Days">180 jours</string>
+      <string id="SetDenyAppListForRecall">Définir une liste d’applications à filtrer à partir d’instantanés pour Retrouver
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Cette stratégie vous permet de définir une liste d’applications qui ne seront pas incluses dans les instantanés pour Retrouver.
+
+Les utilisateurs pourront ajouter des applications supplémentaires à exclure des instantanés à l’aide des paramètres de Retrouver.
+
+La liste peut inclure des ID de modèle utilisateur d’application (AUMID) ou le nom du fichier exécutable.
+
+Utilisez une liste d’applications séparées par des points-virgules pour définir la liste d’applications d’exclusion pour Retrouver.
+
+Par exemple : code.exe ; Microsoft.WindowsNotepad_8wekyb3d8bbwe ! Application ;ms-teams.exe
+
+Important : ce paramètre s’applique uniquement aux références SKU clientEs Entreprise et Éducation. Lors de la configuration de ce paramètre de stratégie, les modifications ne prendront effet qu’après le redémarrage de l’appareil.
+      </string>
+      <string id="SetDenyUriListForRecall">Définir une liste d’URI à filtrer à partir d’instantanés pour Retrouver
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Ce paramètre de stratégie vous permet de définir une liste d’URI qui ne seront pas inclus dans les instantanés pour Retrouver lorsqu’un navigateur pris en charge est utilisé. Personnes de votre organization pouvez utiliser Retrouver paramètres pour ajouter d’autres sites web à la liste. Définissez la liste à l’aide d’un point-virgule pour séparer les URI.
+
+Par exemple : https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+L’ajout de https://www.WoodgroveBank.com à la liste filtre également les https://Account.WoodgroveBank.com et les https://www.WoodgroveBank.com/Account.
+
+Important : ce paramètre s’applique uniquement aux références SKU clientEs Entreprise et Éducation. Les modifications apportées à cette stratégie prennent effet après le redémarrage de l’appareil.
+      </string>
+      <string id="SetDataLossPreventionProvider">Définir l’ID de fournisseur DLP pour Retrouver
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Cette stratégie permet à un administrateur de spécifier un fournisseur DLP, que Retrouver utilisera si le fournisseur est correctement installé. Vous devez obtenir la chaîne pour cela auprès de votre fournisseur. Elle ressemblera à « key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll » (sans guillemets dans la valeur).
+
+Important : ce paramètre s’applique uniquement aux références SKU client Entreprise et Éducation.
+      </string>
+      <string id="SetCopilotHardwareKey">Définir une touche matérielle Copilot</string>
+      <string id="SetCopilotHardwareKey_Help">Ce paramètre de stratégie détermine quelle application s’ouvre lorsque l’utilisateur appuie sur la touche Copilot de son clavier. Si la politique est activée, l'application spécifiée s'ouvre lorsque l'utilisateur appuie sur la touche Copilot. Les utilisateurs peuvent modifier l’affectation des touches dans les paramètres. Si la politique n'est pas configurée, Copilot s'ouvre s’il est disponible dans ce pays ou cette région.
+      </string>
+      <string id="AllowRecallEnablement">Autorisez l'activation du Retrouver
+      </string>
+      <string id="AllowRecallEnablement_Help">Ce paramètre de stratégie vous permet de déterminer si l’Retrouver composant facultatif est disponible pour que les utilisateurs finaux puissent l’activer sur leur appareil. Par défaut, Retrouver est désactivée pour les appareils commerciaux gérés. Retrouver n’est pas disponible sur les appareils gérés par défaut et les utilisateurs individuels ne peuvent pas activer Retrouver seuls.
+
+Si cette stratégie n’est pas configurée, les utilisateurs finaux ont le composant Retrouver dans un état désactivé.
+
+Si cette stratégie est désactivée, le composant Retrouver est désactivé et les bits de Retrouver sont supprimés de l’appareil. Si des instantanés ont été précédemment enregistrés sur l’appareil, ils seront supprimés lorsque cette stratégie sera désactivée. La suppression de Retrouver nécessite un redémarrage de l’appareil.
+
+Si la stratégie est activée, les utilisateurs finaux auront Retrouver disponibles sur leur appareil. En fonction de l’état de la stratégie DisableAIDataAnalysis (désactiver l’enregistrement d’instantanés à utiliser avec Retrouver), les utilisateurs finaux pourront choisir s’ils souhaitent enregistrer des instantanés de leur écran et utiliser Retrouver pour trouver des éléments qu’ils ont vus sur leur appareil.
+      </string>
+      <string id="DisableClickToDo">Désactiver Actions par clic</string>
+      <string id="DisableClickToDo_Help">Actions par clic permet aux utilisateurs d’agir sur le contenu affiché à l’écran. Lorsqu’il est activé, il prend une capture d’écran de leur écran et il l’analyse pour présenter des actions. Actions par clic se termine lorsqu’ils quittent l’application, et il ne peut pas prendre de captures d’écran lorsqu’il est fermé. L’analyse des captures d’écran est toujours effectuée localement sur leur appareil. Par défaut, Actions par clic est activé pour les utilisateurs.
+
+Ce paramètre de stratégie vous permet de déterminer si Actions par clic est disponible pour les utilisateurs sur leur appareil.
+
+Lorsque la stratégie est activée, le composant Actions par clic et les points d’entrée ne seront pas disponibles pour les utilisateurs.
+
+Lorsque la stratégie est désactivée, les utilisateurs auront accès à Actions par clic sur leur appareil.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">Désactiver le Créateur d’image</string>
+      <string id="DisableImageCreator_Help">Ce paramètre de stratégie vous permet de contrôler si Créateur d’image fonctionnalité est désactivée dans l’application Windows Paint. Si cette stratégie est activée, Créateur d’image fonctionnalité ne sera pas accessible dans l’application Paint. Si cette stratégie est désactivée ou n’est pas configurée, les utilisateurs peuvent accéder à Créateur d’image fonctionnalité.</string>
+      <string id="DisableCocreator">Désactiver le Co-créateur</string>
+      <string id="DisableCocreator_Help">Ce paramètre de stratégie vous permet de contrôler si la fonctionnalité Cocreator est désactivée dans l’application Windows Paint. Si cette stratégie est activée, la fonctionnalité Cocreator n’est pas accessible dans l’application Paint. Si cette stratégie est désactivée ou n’est pas configurée, les utilisateurs peuvent accéder à la fonctionnalité Cocreator.</string>
+      <string id="DisableGenerativeFill">Désactiver le remplissage généré</string>
+      <string id="DisableGenerativeFill_Help">Ce paramètre de stratégie vous permet de contrôler si la fonctionnalité de remplissage généré est désactivée dans l’application Windows Paint. Si cette stratégie est activée, la fonctionnalité de remplissage généré n’est pas accessible dans l’application Paint. Si cette stratégie est désactivée ou n’est pas configurée, les utilisateurs peuvent accéder à la fonctionnalité de remplissage généré.</string>
+      <string id="AllowRecallExport">Autoriser l’exportation d’informations Retrouver et instantané</string>
+      <string id="AllowRecallExport_Help">Cette stratégie vous permet de savoir si les utilisateurs peuvent exporter leurs propres informations de Retrouver et des instantanés. L’exportation permet aux utilisateurs de partager leurs informations de Retrouver et des instantanés avec des applications ou des sites web approuvés. Les utilisateurs peuvent exporter depuis Paramètres &gt; Confidentialité et sécurité &gt; Retrouver et instantanés &gt; Paramètres avancés &gt; Exporter des instantanés &gt; Exporter des instantanés passés &gt; Exporter.
+
+Les utilisateurs peuvent également choisir d’exporter en continu leurs instantanés s’ils activent l’option d’exportation des instantanés à partir de Paramètres &gt; Confidentialité et sécurité &gt; Retrouver et instantanés &gt; Paramètres avancés &gt; Exporter des instantanés &gt; Exporter.
+
+Avant de démarrer une exportation, l’utilisateur doit s’authentifier auprès de Windows Hello. Il y est informé que ses instantanés exportés sont chiffrés, car ils peuvent contenir des informations sensibles. L’utilisateur est également averti qu’il doit fournir son code d’exportation Retrouver s’il souhaite autoriser des applications ou sites web approuvés à accéder aux instantanés exportés. Le code d’exportation Retrouver s’affiche aux utilisateurs pendant la configuration de Retrouver, même si cette stratégie est désactivée ou non configurée. Pour les appareils gérés :
+
+Lorsque cette stratégie est activée, les utilisateurs peuvent exporter les informations de Retrouver et des instantanés.
+
+Si la stratégie est désactivée ou non configurée, les utilisateurs ne peuvent pas exporter leurs informations de Retrouver et des instantanés.
+
+Important : ce paramètre s’applique uniquement aux appareils de l’Espace économique européen (EEE). L’exportation d’informations de Retrouver et des instantanés est un processus initié par l’utilisateur et ne concerne que l’utilisateur en question. Les administrateurs informatiques ou d’autres utilisateurs ne peuvent pas lancer d’exportation pour le compte d’un autre utilisateur.
+      </string>
+      <string id="DisableSettingsAgent">Désactiver l’expérience de recherche agentique des paramètres</string>
+      <string id="DisableSettingsAgent_Help">L’expérience agentique des paramètres améliore les résultats de la recherche dans l’application Paramètres en activant le langage naturel. Lorsqu’elle est activée, elle utilise un modèle IA pour fournir des suggestions de recherche intelligentes des paramètres.
+
+        Ce paramètre de stratégie vous permet de déterminer si l’expérience de recherche agentique des paramètres est disponible pour les utilisateurs sur leur appareil.
+
+        Lorsque la stratégie est activée, l’expérience de recherche agentique des paramètres est désactivée, limitant les résultats de la recherche aux recherches indexées statiquement et aux recherches sémantiques.
+
+        Lorsque la stratégie est désactivée, les utilisateurs ont accès à l’expérience de recherche agentique des paramètres sur leur appareil.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Niveau de journalisation du registre sur l’appareil</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Ce paramètre de stratégie vous permet de configurer le niveau de journalisation pour les opérations de Registre sur l’appareil.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Erreur ou supérieur</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Information ou supérieur</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Débogage ou supérieur</string>
+      <string id="RemoveMicrosoftCopilotApp">Supprimer l’application Microsoft Copilot</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Ce paramètre de stratégie vous permet de désinstaller Microsoft Copilot pour les utilisateurs de manière ciblée. Il s’applique aux appareils/utilisateurs qui remplissent les conditions ci-dessous :
+
+• Microsoft 365 Copilot et Microsoft Copilot sont toutes deux installées
+
+• L’application Microsoft Copilot n’a pas été installée par l’utilisateur
+
+• L’application Microsoft Copilot n’a pas été lancée au cours des 28 derniers jours
+ 
+Si cette stratégie est activée, l’application Microsoft Copilot sera désinstallée. Les utilisateurs peuvent toujours la réinstaller s’ils le souhaitent. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>Entrer l’AUMID de l’application</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Entrez la liste d’applications de refus :</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Entrez la liste d’URI de refus :</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>Entrez l’ID de fournisseur DLP :</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Sélectionner l’espace de stockage maximal :</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Sélectionner la durée de stockage maximal :</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Niveau de journalisation du registre sur l’appareil : </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>introduza o nome a apresentar aqui</displayName>
+  <description>introduza a descrição aqui</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Arranque Seguro</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Implementação de Certificados através da Implementação Controlada de Funcionalidades</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">Para empresas que pretendam assistência na implementação dos novos certificados de Arranque Seguro nos seus dispositivos, esta definição pode ser ativada.
+
+ 
+
+Nota: o dispositivo tem de enviar os dados de diagnóstico necessários à Microsoft para utilizar esta funcionalidade.
+
+ 
+
+Para obter mais informações, consulte: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Implementação Automática de Certificados através de Atualizações</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">Para dispositivos com resultados de teste disponíveis que indiquem que o dispositivo pode processar as atualizações de certificados com êxito, as atualizações serão iniciadas automaticamente como parte das atualizações de manutenção. Esta política está ativada por predefinição. Para empresas que pretendam gerir a atualização automática, utilize esta política para ativar ou desativar explicitamente a funcionalidade.
+
+ 
+
+Para obter mais informações, consulte: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Ativar Implementação de Certificado de Arranque Seguro</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">Esta definição de política permite-lhe ativar ou desativar o processo de Implementação de Certificados de Arranque Seguro nos dispositivos. Quando ativada, o Windows inicia automaticamente o processo de implementação de certificados nos dispositivos onde esta política foi aplicada. 
+
+ 
+
+Nota: esta definição de registo não está armazenada numa chave de política, sendo considerada uma preferência. Por isso, se o Objeto de Política de Grupo que implementa esta definição for removido, esta definição de registo permanecerá. 
+
+ 
+
+Nota: a tarefa do Windows que executa e processa esta definição é executada a cada 12 horas. Em alguns casos, as atualizações serão mantidas até que o sistema reinicie para sequenciar as atualizações de forma segura. 
+
+ 
+
+Nota: uma vez aplicados os certificados ao firmware, não é possível anulá-los a partir do Windows. Se for necessário limpar os certificados, isso deve ser feito a partir da interface do menu do firmware. 
+
+ 
+
+Para obter mais informações, consulte: https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Limitar os Dados de Serviço Necessário de Arranque Seguro</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">Esta definição de política controla se o sistema operativo emite o evento de dados de serviço diário necessário de Arranque Seguro. O evento contém informações sobre a configuração de Arranque Seguro do dispositivo e o estado da variável de firmware e, normalmente, é enviado independentemente do nível de dados de diagnóstico Permitir Telemetria, uma vez que está classificado como segurança obrigatória.
+
+ 
+
+Ao ativar esta definição de política, o evento de dados de serviço diário necessário de Arranque Seguro não será emitido. Destina-se a empresas que operam ao abrigo da Linha de Base de Referência de Funcionalidade Limitada de Tráfego Restrito do Windows.
+
+ 
+
+Se desativar ou não configurar esta definição de política, o sistema operativo continua a emitir o evento de dados de serviço necessário de Arranque Seguro de acordo com as regras de permissão de telemetria existentes.</string>
+
+      <string id="SUPPORTED_Windows8">Pelo menos, Windows Server 2012, Windows 8 ou Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

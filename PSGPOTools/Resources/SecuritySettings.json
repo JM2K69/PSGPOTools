@@ -1,0 +1,1094 @@
+{
+  "Source": "Security settings of GptTmpl.inf ([MS-GPSB] 2.2) and their names in the Group Policy editor, from Microsoft Learn. The Security Options stored as registry values are in SecurityOptions.json.",
+  "Settings": [
+    {
+      "Name": "Enforce password history",
+      "Path": [
+        "Account Policies",
+        "Password Policy"
+      ],
+      "Section": "System Access",
+      "Key": "PasswordHistorySize",
+      "Kind": "Number",
+      "Min": 0,
+      "Max": 24,
+      "Unit": "passwords remembered",
+      "Choices": [
+        {
+          "Value": "0",
+          "Text": "No password history"
+        }
+      ],
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/enforce-password-history"
+    },
+    {
+      "Name": "Maximum password age",
+      "Path": [
+        "Account Policies",
+        "Password Policy"
+      ],
+      "Section": "System Access",
+      "Key": "MaximumPasswordAge",
+      "Kind": "Number",
+      "Min": 0,
+      "Max": 999,
+      "Unit": "days",
+      "Choices": [
+        {
+          "Value": "0",
+          "Text": "Password will not expire"
+        },
+        {
+          "Value": "-1",
+          "Text": "Password will not expire"
+        }
+      ],
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/maximum-password-age"
+    },
+    {
+      "Name": "Minimum password age",
+      "Path": [
+        "Account Policies",
+        "Password Policy"
+      ],
+      "Section": "System Access",
+      "Key": "MinimumPasswordAge",
+      "Kind": "Number",
+      "Min": 0,
+      "Max": 998,
+      "Unit": "days",
+      "Choices": [
+        {
+          "Value": "0",
+          "Text": "Password can be changed immediately"
+        }
+      ],
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/minimum-password-age"
+    },
+    {
+      "Name": "Minimum password length",
+      "Path": [
+        "Account Policies",
+        "Password Policy"
+      ],
+      "Section": "System Access",
+      "Key": "MinimumPasswordLength",
+      "Kind": "Number",
+      "Min": 0,
+      "Max": 128,
+      "Unit": "characters",
+      "Choices": [
+        {
+          "Value": "0",
+          "Text": "No password required"
+        }
+      ],
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/minimum-password-length"
+    },
+    {
+      "Name": "Password must meet complexity requirements",
+      "Path": [
+        "Account Policies",
+        "Password Policy"
+      ],
+      "Section": "System Access",
+      "Key": "PasswordComplexity",
+      "Kind": "Boolean",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements"
+    },
+    {
+      "Name": "Store passwords using reversible encryption",
+      "Path": [
+        "Account Policies",
+        "Password Policy"
+      ],
+      "Section": "System Access",
+      "Key": "ClearTextPassword",
+      "Kind": "Boolean",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/store-passwords-using-reversible-encryption"
+    },
+    {
+      "Name": "Account lockout duration",
+      "Path": [
+        "Account Policies",
+        "Account Lockout Policy"
+      ],
+      "Section": "System Access",
+      "Key": "LockoutDuration",
+      "Kind": "Number",
+      "Min": 0,
+      "Max": 99999,
+      "Unit": "minutes",
+      "Choices": [
+        {
+          "Value": "0",
+          "Text": "Until an administrator unlocks the account"
+        },
+        {
+          "Value": "-1",
+          "Text": "Until an administrator unlocks the account"
+        }
+      ],
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/account-lockout-duration"
+    },
+    {
+      "Name": "Account lockout threshold",
+      "Path": [
+        "Account Policies",
+        "Account Lockout Policy"
+      ],
+      "Section": "System Access",
+      "Key": "LockoutBadCount",
+      "Kind": "Number",
+      "Min": 0,
+      "Max": 999,
+      "Unit": "invalid logon attempts",
+      "Choices": [
+        {
+          "Value": "0",
+          "Text": "Account will not lock out"
+        }
+      ],
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/account-lockout-threshold"
+    },
+    {
+      "Name": "Reset account lockout counter after",
+      "Path": [
+        "Account Policies",
+        "Account Lockout Policy"
+      ],
+      "Section": "System Access",
+      "Key": "ResetLockoutCount",
+      "Kind": "Number",
+      "Min": 1,
+      "Max": 99999,
+      "Unit": "minutes",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/reset-account-lockout-counter-after"
+    },
+    {
+      "Name": "Enforce user logon restrictions",
+      "Path": [
+        "Account Policies",
+        "Kerberos Policy"
+      ],
+      "Section": "Kerberos Policy",
+      "Key": "TicketValidateClient",
+      "Kind": "Boolean",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/enforce-user-logon-restrictions"
+    },
+    {
+      "Name": "Maximum lifetime for service ticket",
+      "Path": [
+        "Account Policies",
+        "Kerberos Policy"
+      ],
+      "Section": "Kerberos Policy",
+      "Key": "MaxServiceAge",
+      "Kind": "Number",
+      "Min": 10,
+      "Max": 99999,
+      "Unit": "minutes",
+      "Choices": [
+        {
+          "Value": "0",
+          "Text": "Ticket does not expire"
+        }
+      ],
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/maximum-lifetime-for-service-ticket"
+    },
+    {
+      "Name": "Maximum lifetime for user ticket",
+      "Path": [
+        "Account Policies",
+        "Kerberos Policy"
+      ],
+      "Section": "Kerberos Policy",
+      "Key": "MaxTicketAge",
+      "Kind": "Number",
+      "Min": 0,
+      "Max": 99999,
+      "Unit": "hours",
+      "Choices": [
+        {
+          "Value": "0",
+          "Text": "Ticket does not expire"
+        }
+      ],
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/maximum-lifetime-for-user-ticket"
+    },
+    {
+      "Name": "Maximum lifetime for user ticket renewal",
+      "Path": [
+        "Account Policies",
+        "Kerberos Policy"
+      ],
+      "Section": "Kerberos Policy",
+      "Key": "MaxRenewAge",
+      "Kind": "Number",
+      "Min": 0,
+      "Max": 99999,
+      "Unit": "days",
+      "Choices": [
+        {
+          "Value": "0",
+          "Text": "Ticket renewal does not expire"
+        }
+      ],
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/maximum-lifetime-for-user-ticket-renewal"
+    },
+    {
+      "Name": "Maximum tolerance for computer clock synchronization",
+      "Path": [
+        "Account Policies",
+        "Kerberos Policy"
+      ],
+      "Section": "Kerberos Policy",
+      "Key": "MaxClockSkew",
+      "Kind": "Number",
+      "Min": 0,
+      "Max": 99999,
+      "Unit": "minutes",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/maximum-tolerance-for-computer-clock-synchronization"
+    },
+    {
+      "Name": "Audit account logon events",
+      "Path": [
+        "Local Policies",
+        "Audit Policy"
+      ],
+      "Section": "Event Audit",
+      "Key": "AuditAccountLogon",
+      "Kind": "Audit",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/audit-account-logon-events"
+    },
+    {
+      "Name": "Audit account management",
+      "Path": [
+        "Local Policies",
+        "Audit Policy"
+      ],
+      "Section": "Event Audit",
+      "Key": "AuditAccountManage",
+      "Kind": "Audit",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/audit-account-management"
+    },
+    {
+      "Name": "Audit directory service access",
+      "Path": [
+        "Local Policies",
+        "Audit Policy"
+      ],
+      "Section": "Event Audit",
+      "Key": "AuditDSAccess",
+      "Kind": "Audit",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/audit-directory-service-access"
+    },
+    {
+      "Name": "Audit logon events",
+      "Path": [
+        "Local Policies",
+        "Audit Policy"
+      ],
+      "Section": "Event Audit",
+      "Key": "AuditLogonEvents",
+      "Kind": "Audit",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/audit-logon-events"
+    },
+    {
+      "Name": "Audit object access",
+      "Path": [
+        "Local Policies",
+        "Audit Policy"
+      ],
+      "Section": "Event Audit",
+      "Key": "AuditObjectAccess",
+      "Kind": "Audit",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/audit-object-access"
+    },
+    {
+      "Name": "Audit policy change",
+      "Path": [
+        "Local Policies",
+        "Audit Policy"
+      ],
+      "Section": "Event Audit",
+      "Key": "AuditPolicyChange",
+      "Kind": "Audit",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/audit-policy-change"
+    },
+    {
+      "Name": "Audit privilege use",
+      "Path": [
+        "Local Policies",
+        "Audit Policy"
+      ],
+      "Section": "Event Audit",
+      "Key": "AuditPrivilegeUse",
+      "Kind": "Audit",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/audit-privilege-use"
+    },
+    {
+      "Name": "Audit process tracking",
+      "Path": [
+        "Local Policies",
+        "Audit Policy"
+      ],
+      "Section": "Event Audit",
+      "Key": "AuditProcessTracking",
+      "Kind": "Audit",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/audit-process-tracking"
+    },
+    {
+      "Name": "Audit system events",
+      "Path": [
+        "Local Policies",
+        "Audit Policy"
+      ],
+      "Section": "Event Audit",
+      "Key": "AuditSystemEvents",
+      "Kind": "Audit",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/audit-system-events"
+    },
+    {
+      "Name": "Access Credential Manager as a trusted caller",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeTrustedCredManAccessPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Access this computer from the network",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeNetworkLogonRight",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Act as part of the operating system",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeTcbPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Add workstations to domain",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeMachineAccountPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Adjust memory quotas for a process",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeIncreaseQuotaPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Allow log on locally",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeInteractiveLogonRight",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Allow log on through Remote Desktop Services",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeRemoteInteractiveLogonRight",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Back up files and directories",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeBackupPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Bypass traverse checking",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeChangeNotifyPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Change the system time",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeSystemtimePrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Change the time zone",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeTimeZonePrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Create a pagefile",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeCreatePagefilePrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Create a token object",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeCreateTokenPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Create global objects",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeCreateGlobalPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Create permanent shared objects",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeCreatePermanentPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Create symbolic links",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeCreateSymbolicLinkPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Debug programs",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeDebugPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Deny access to this computer from the network",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeDenyNetworkLogonRight",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Deny log on as a batch job",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeDenyBatchLogonRight",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Deny log on as a service",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeDenyServiceLogonRight",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Deny log on locally",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeDenyInteractiveLogonRight",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Deny log on through Remote Desktop Services",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeDenyRemoteInteractiveLogonRight",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Enable computer and user accounts to be trusted for delegation",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeEnableDelegationPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Force shutdown from a remote system",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeRemoteShutdownPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Generate security audits",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeAuditPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Impersonate a client after authentication",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeImpersonatePrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Increase a process working set",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeIncreaseWorkingSetPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Increase scheduling priority",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeIncreaseBasePriorityPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Load and unload device drivers",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeLoadDriverPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Lock pages in memory",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeLockMemoryPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Log on as a batch job",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeBatchLogonRight",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Log on as a service",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeServiceLogonRight",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Manage auditing and security log",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeSecurityPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Modify an object label",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeRelabelPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Modify firmware environment values",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeSystemEnvironmentPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Obtain an impersonation token for another user in the same session",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeDelegateSessionUserImpersonatePrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Perform volume maintenance tasks",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeManageVolumePrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Profile single process",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeProfileSingleProcessPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Profile system performance",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeSystemProfilePrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Remove computer from docking station",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeUndockPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Replace a process level token",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeAssignPrimaryTokenPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Restore files and directories",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeRestorePrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Shut down the system",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeShutdownPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Synchronize directory service data",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeSyncAgentPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Take ownership of files or other objects",
+      "Path": [
+        "Local Policies",
+        "User Rights Assignment"
+      ],
+      "Section": "Privilege Rights",
+      "Key": "SeTakeOwnershipPrivilege",
+      "Kind": "Accounts",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment"
+    },
+    {
+      "Name": "Accounts: Administrator account status",
+      "Path": [
+        "Local Policies",
+        "Security Options"
+      ],
+      "Section": "System Access",
+      "Key": "EnableAdminAccount",
+      "Kind": "Boolean",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/accounts-administrator-account-status"
+    },
+    {
+      "Name": "Accounts: Guest account status",
+      "Path": [
+        "Local Policies",
+        "Security Options"
+      ],
+      "Section": "System Access",
+      "Key": "EnableGuestAccount",
+      "Kind": "Boolean",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/accounts-guest-account-status"
+    },
+    {
+      "Name": "Accounts: Rename administrator account",
+      "Path": [
+        "Local Policies",
+        "Security Options"
+      ],
+      "Section": "System Access",
+      "Key": "NewAdministratorName",
+      "Kind": "Text",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/accounts-rename-administrator-account"
+    },
+    {
+      "Name": "Accounts: Rename guest account",
+      "Path": [
+        "Local Policies",
+        "Security Options"
+      ],
+      "Section": "System Access",
+      "Key": "NewGuestName",
+      "Kind": "Text",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/accounts-rename-guest-account"
+    },
+    {
+      "Name": "Network access: Allow anonymous SID/Name translation",
+      "Path": [
+        "Local Policies",
+        "Security Options"
+      ],
+      "Section": "System Access",
+      "Key": "LSAAnonymousNameLookup",
+      "Kind": "Boolean",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-access-allow-anonymous-sidname-translation"
+    },
+    {
+      "Name": "Network security: Force logoff when logon hours expire",
+      "Path": [
+        "Local Policies",
+        "Security Options"
+      ],
+      "Section": "System Access",
+      "Key": "ForceLogoffWhenHourExpire",
+      "Kind": "Boolean",
+      "Reference": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-security-force-logoff-when-logon-hours-expire"
+    },
+    {
+      "Name": "Maximum application log size",
+      "Path": [
+        "Event Log"
+      ],
+      "Section": "Application Log",
+      "Key": "MaximumLogSize",
+      "Kind": "Number",
+      "Min": 64,
+      "Max": 4194240,
+      "Unit": "kilobytes",
+      "Reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpsb/0b9673a7-ce0a-49b4-912b-591efdb37cdf"
+    },
+    {
+      "Name": "Prevent local guests group from accessing application log",
+      "Path": [
+        "Event Log"
+      ],
+      "Section": "Application Log",
+      "Key": "RestrictGuestAccess",
+      "Kind": "Boolean",
+      "Reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpsb/0b9673a7-ce0a-49b4-912b-591efdb37cdf"
+    },
+    {
+      "Name": "Retain application log",
+      "Path": [
+        "Event Log"
+      ],
+      "Section": "Application Log",
+      "Key": "RetentionDays",
+      "Kind": "Number",
+      "Min": 1,
+      "Max": 365,
+      "Unit": "days",
+      "Reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpsb/0b9673a7-ce0a-49b4-912b-591efdb37cdf"
+    },
+    {
+      "Name": "Retention method for application log",
+      "Path": [
+        "Event Log"
+      ],
+      "Section": "Application Log",
+      "Key": "AuditLogRetentionPeriod",
+      "Kind": "Choice",
+      "Choices": [
+        {
+          "Value": "0",
+          "Text": "Overwrite events as needed"
+        },
+        {
+          "Value": "1",
+          "Text": "Overwrite events by days"
+        },
+        {
+          "Value": "2",
+          "Text": "Do not overwrite events (clear log manually)"
+        }
+      ],
+      "Reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpsb/0b9673a7-ce0a-49b4-912b-591efdb37cdf"
+    },
+    {
+      "Name": "Maximum security log size",
+      "Path": [
+        "Event Log"
+      ],
+      "Section": "Security Log",
+      "Key": "MaximumLogSize",
+      "Kind": "Number",
+      "Min": 64,
+      "Max": 4194240,
+      "Unit": "kilobytes",
+      "Reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpsb/0b9673a7-ce0a-49b4-912b-591efdb37cdf"
+    },
+    {
+      "Name": "Prevent local guests group from accessing security log",
+      "Path": [
+        "Event Log"
+      ],
+      "Section": "Security Log",
+      "Key": "RestrictGuestAccess",
+      "Kind": "Boolean",
+      "Reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpsb/0b9673a7-ce0a-49b4-912b-591efdb37cdf"
+    },
+    {
+      "Name": "Retain security log",
+      "Path": [
+        "Event Log"
+      ],
+      "Section": "Security Log",
+      "Key": "RetentionDays",
+      "Kind": "Number",
+      "Min": 1,
+      "Max": 365,
+      "Unit": "days",
+      "Reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpsb/0b9673a7-ce0a-49b4-912b-591efdb37cdf"
+    },
+    {
+      "Name": "Retention method for security log",
+      "Path": [
+        "Event Log"
+      ],
+      "Section": "Security Log",
+      "Key": "AuditLogRetentionPeriod",
+      "Kind": "Choice",
+      "Choices": [
+        {
+          "Value": "0",
+          "Text": "Overwrite events as needed"
+        },
+        {
+          "Value": "1",
+          "Text": "Overwrite events by days"
+        },
+        {
+          "Value": "2",
+          "Text": "Do not overwrite events (clear log manually)"
+        }
+      ],
+      "Reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpsb/0b9673a7-ce0a-49b4-912b-591efdb37cdf"
+    },
+    {
+      "Name": "Maximum system log size",
+      "Path": [
+        "Event Log"
+      ],
+      "Section": "System Log",
+      "Key": "MaximumLogSize",
+      "Kind": "Number",
+      "Min": 64,
+      "Max": 4194240,
+      "Unit": "kilobytes",
+      "Reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpsb/0b9673a7-ce0a-49b4-912b-591efdb37cdf"
+    },
+    {
+      "Name": "Prevent local guests group from accessing system log",
+      "Path": [
+        "Event Log"
+      ],
+      "Section": "System Log",
+      "Key": "RestrictGuestAccess",
+      "Kind": "Boolean",
+      "Reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpsb/0b9673a7-ce0a-49b4-912b-591efdb37cdf"
+    },
+    {
+      "Name": "Retain system log",
+      "Path": [
+        "Event Log"
+      ],
+      "Section": "System Log",
+      "Key": "RetentionDays",
+      "Kind": "Number",
+      "Min": 1,
+      "Max": 365,
+      "Unit": "days",
+      "Reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpsb/0b9673a7-ce0a-49b4-912b-591efdb37cdf"
+    },
+    {
+      "Name": "Retention method for system log",
+      "Path": [
+        "Event Log"
+      ],
+      "Section": "System Log",
+      "Key": "AuditLogRetentionPeriod",
+      "Kind": "Choice",
+      "Choices": [
+        {
+          "Value": "0",
+          "Text": "Overwrite events as needed"
+        },
+        {
+          "Value": "1",
+          "Text": "Overwrite events by days"
+        },
+        {
+          "Value": "2",
+          "Text": "Do not overwrite events (clear log manually)"
+        }
+      ],
+      "Reference": "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpsb/0b9673a7-ce0a-49b4-912b-591efdb37cdf"
+    }
+  ]
+}

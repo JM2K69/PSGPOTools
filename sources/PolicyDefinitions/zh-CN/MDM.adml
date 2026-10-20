@@ -33,6 +33,11 @@
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">选择要使用的凭据类型:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>MDM 应用程序 ID:</label>
+        </textBox>
+        <text>MDM 应用程序 ID 表示在 Azure AD 中配置的 MDM 应用程序 的 ID。这是可选的，只有当在 Azure AD 中配置了多个 MDM 应用程序时，才需要使用设备凭据自动进行 MDM 注册。</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

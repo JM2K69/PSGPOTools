@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>DPAPI</displayName>
+  <description>DPAPI 設定を構成する</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod">DPAPI バックアップ キーの回転期間を設定する</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">このポリシー設定では、DPAPI バックアップ キーのローテーション期間を指定します。
+この設定を使用して、既定値の 90 日を上書きできます。DPAPI バックアップ キーの交換を無効にするには 0 を設定します。
+このポリシー設定を有効にした場合、新しい DPAPI バックアップ キーを生成するまでにシステムが待機する日数を設定します。
+このポリシー設定を無効にするか、未構成にした場合、既定値の 90 日が使用されます。</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">DPAPI バックアップ キーの回転期間を日数で指定します。
+DPAPI バックアップ キーの回転を無効にするには、0 を設定します。</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

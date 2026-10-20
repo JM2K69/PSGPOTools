@@ -33,6 +33,11 @@ Se você desabilitar essa configuração de política, o Registro de MDM será h
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">Selecionar Tipo de Credencial a Ser Usado:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>ID do aplicativo MDM:</label>
+        </textBox>
+        <text>A ID do aplicativo MDM representa a ID do seu aplicativo MDM que está configurada no Azure AD. Isso é opcional e só é necessário para o registro automático do MDM usando credenciais do dispositivo quando vários aplicativos do MDM são configurados no Azure AD.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

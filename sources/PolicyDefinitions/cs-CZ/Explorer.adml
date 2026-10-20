@@ -37,14 +37,30 @@ Poznámka: Povolení tohoto nastavení zásad nezabrání uživatelům v přidá
       <string id="DisableRoamedProfileInit_Help">Nastavení této zásady umožňuje správcům, kteří nakonfigurovali cestovní profil ve spojení s nastavením zásad skupiny Odstranit cestovní profil uložený v mezipaměti, zajistit, že Průzkumník nebude znovu inicializovat přidružení výchozích programů a další nastavení na výchozí hodnoty. 
 
 Pokud nastavení této zásady povolíte v počítači, který neobsahuje všechny programy nainstalované stejným způsobem jako v počítači, ke kterému byl uživatel naposledy přihlášený, mohlo by dojít k neočekávanému chování. </string>
+      <string id="DisableGraphRecentItems">Zobrazit soubory na základě aktivity vašeho účtu a poskytovatele cloudu</string>
+      <string id="DisableGraphRecentItems_Help">Vypnutím tohoto nastavení zabráníte Průzkumníku souborů požadovat metadata cloudového souboru a zobrazovat je na domovské stránce a v dalších zobrazeních Průzkumníku souborů. Všechny přehledy a soubory založené na aktivitě účtu nebo poskytovatele cloudu se v zobrazeních, jako jsou Poslední, Doporučené, Oblíbené, Sdílené atd., přestanou zobrazovat.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Vypnout integraci zdroje pokročilých nastavení v Průzkumníkovi souborů</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">Zakázáním integrace zdroje upřesňujících nastavení zabráníte Průzkumník souborů v zobrazení informací o úložišti z komponenty sytem upřesňujících nastavení.</string>
+      <string id="DisableFileExplorerPrelaunch">Zakázat funkci Průzkumníka souborů pro předběžné spuštění okna na pozadí</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Tato zásada zabraňuje uživatelům povolit funkci předběžného spuštění v Průzkumníku souborů, která vytváří okno na pozadí pro urychlení spuštění a zlepšení rychlosti odezvy.</string>
+      <string id="MakePrintScreenKeyYieldable">Umožněte výměnu klávesy Print Screen</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Toto nastavení zásad určuje, zda bude možné klíč Print Screen pozastavit jiným aplikacím.
+
+Pokud toto nastavení zásad povolíte, aplikace mohou zachytit klávesu Print Screen, což jim umožní přepsat výchozí funkci snímku obrazovky.
+
+Pokud toto nastavení zásad zakážete, klávesa Print Screen zachová své starší chování při pořizování snímků obrazovky a aplikace je nebudou moci zachytit.
+
+Pokud tato zásada není nakonfigurovaná, aplikace můžou zachytit klíč print Screen, což jim umožní přepsat výchozí funkci snímku obrazovky, a to stejně jako povolené chování.
+
+Poznámka: Toto nastavení může vyžadovat restartování systému, aby se projevilo.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>Adresa URL webu podpory</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>Adresa URL webu podpory</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

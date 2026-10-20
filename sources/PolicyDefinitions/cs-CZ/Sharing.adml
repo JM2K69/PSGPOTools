@@ -25,6 +25,10 @@ Nastavení této zásady není ve výchozím nastavení nakonfigurováno.
 Aby se nastavení této zásady projevilo, je nutné restartovat počítač.</string>
       <string id="HomeGroup">Domácí skupina</string>
       <string id="HomeGroup_Help">Obsahuje nastavení pro řízení chování domácí skupiny.</string>
+      <string id="DisableShareAppPromotions">DisableShareAppPromotions</string>
+      <string id="DisableShareAppPromotions_Help">Toto nastavení zásad umožňuje správcům IT kontrolovat, zda se propagační aplikace zobrazují na ShareSheetu. Pokud tuto zásadu povolíte, Windows nebude zobrazovat propagační aplikace na listu sdílení. Pokud tuto zásadu zakážete nebo nenakonfigurujete, může ShareSheet po otevření zobrazovat návrhy aplikací a propagační akce.</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

@@ -14,6 +14,19 @@
 Si se habilita esta directiva, la experiencia de privacidad no se iniciará para las cuentas de usuario recién creadas o las cuentas para las que se haya pedido elegir la configuración de privacidad después de una actualización.
 
 Si se deshabilita o no se configura esta directiva, la experiencia de privacidad podría iniciarse para cuentas de usuario recién creadas o para cuentas para las que se solicitará elegir la configuración de privacidad después de una actualización.</string>
+
+      <string id="AllowOOBEUpdates">Permitir actualizaciones en OOBE</string>
+      <string id="AllowOOBEUpdates_Explain">Esta directiva permite configurar si un nuevo dispositivo recibirá actualizaciones críticas durante la configuración rápida.
+
+Si deshabilitas o no configuras esta directiva, los nuevos dispositivos no recibirán actualizaciones críticas durante la configuración rápida.
+
+Si habilitas la directiva, los nuevos dispositivos recibirán las últimas actualizaciones críticas aprobadas durante la configuración rápida.
+
+Notas:
+Esta directiva no controla la página de actualizaciones de la revisión de vulnerabilidad de día cero (ZDP) en OOBE.
+
+Si has pausado las actualizaciones de calidad a través de aplazamientos de actualizaciones de calidad de Windows y pausas las directivas, no se recibirán actualizaciones de calidad durante la configuración rápida.
+      </string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

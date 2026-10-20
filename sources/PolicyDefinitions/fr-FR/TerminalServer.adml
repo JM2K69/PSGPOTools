@@ -5,6 +5,8 @@
   <description>entrer la description ici</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Activer l’abonnement automatique</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Contrôle la liste des URL auxquelles l'utilisateur doit s'abonner automatiquement</string>
       <string id="TS_SUPPORTED_Windows10">Au moins Windows 10 ou Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">Au minimum Windows 8 ou Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">Au minimum Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">Au minimum Windows XP et Windows Server 2003 uniquement</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">Au minimum Windows Server 2008 ou Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  Windows Server 2008 R2 uniquement</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 version 1903, Windows 10 version 1909 et Windows 10 version 2004</string>
       <string id="TS_TERMINAL_SERVER">Hôte de la session Bureau à distance</string>
       <string id="TS_TERMINAL_SERVER_Help">Contrôle la configuration d'un serveur Hôte de la session Bureau à distance</string>
       <string id="TS_LICENSE_SERVER">Gestionnaire de licences des services Bureau à distance</string>
@@ -128,22 +131,22 @@ Si vous désactivez ce paramètre ou si vous ne le configurez pas, l'utilisateur
 Si vous activez ce paramètre, la case à cocher d'enregistrement des informations d'identification est désactivée dans Connexion Bureau à distance et les utilisateurs ne peuvent plus enregistrer les mots de passe. Quand un utilisateur ouvre un fichier RDP à l'aide de Connexion Bureau à distance et enregistre ses paramètres, tout mot de passe existant antérieurement dans le fichier RDP est supprimé.
 
 Si vous désactivez ce paramètre ou si vous ne le configurez pas, l'utilisateur ne peut pas enregistrer de mots de passe à l'aide de Connexion Bureau à distance.</string>
-      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">Ce paramètre de stratégie spécifie s’il faut empêcher le mappage des lecteurs du client dans une session de services Bureau à distance (redirection de lecteur).
+      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">Ce paramètre de stratégie spécifie s’il faut empêcher le mappage des lecteurs clients dans une session Services Bureau à distance (redirection de lecteur).
 
-Par défaut, un serveur Hôte de session Bureau à distance mappe automatiquement les lecteurs du client lors de la connexion. Les lecteurs mappés apparaissent dans l’arborescence des dossiers de la session dans l’Explorateur de fichiers ou dans Poste de travail, au format &lt;lettre_lecteur&gt; sur &lt;nom_ordinateur&gt;. Vous pouvez utiliser ce paramètre de stratégie pour modifier ce comportement.
+Par défaut, un serveur Hôte de session Bureau à distance mappe automatiquement les lecteurs clients lors de la connexion. Les lecteurs mappés apparaissent dans l’arborescence du dossier de session dans Explorateur de fichiers ou ordinateur au format &lt;driveletter&gt; sur &lt;computername&gt;. Vous pouvez utiliser ce paramètre de stratégie pour remplacer ce comportement.
 
-Si vous activez ce paramètre de stratégie, la redirection des lecteurs du client n’est pas autorisée dans les sessions des services Bureau à distance, et la redirection de copie de fichiers du Presse-papiers n’est pas autorisée sur les ordinateurs Windows Server 2003, Windows 8 et Windows XP.
+Si vous activez ce paramètre de stratégie, la redirection de lecteur client n’est pas autorisée dans les sessions Services Bureau à distance et la redirection de copie de fichiers du Presse-papiers n’est pas autorisée sur les ordinateurs exécutant Windows XP, Windows Server 2003, Windows Server 2012 (et ultérieur) ou Windows 8 (et versions ultérieures).
 
-Si vous désactivez ce paramètre de stratégie, la redirection des lecteurs du client est toujours autorisée. De plus, la redirection de copie de fichiers du Presse-papiers est toujours autorisée si la redirection du Presse-papiers est autorisée.
+Si vous désactivez ce paramètre de stratégie, la redirection de lecteur client est toujours autorisée. De plus, la redirection de la copie de fichier du Presse-papiers est toujours autorisée si la redirection du Presse-papiers est autorisée.
 
-Si vous ne configurez pas ce paramètre de stratégie, la redirection des lecteurs du client et la redirection de copie de fichier du Presse-papiers ne sont pas spécifiées au niveau de la stratégie de groupe.
-
+Si vous ne configurez pas ce paramètre de stratégie, la redirection du lecteur client et la redirection de copie de fichier du Presse-papiers ne sont pas spécifiées au niveau stratégie de groupe.
 </string>
       <string id="TS_CLIENT_DRIVE_M">Ne pas autoriser la redirection de lecteur</string>
       <string id="TS_CLIENT_HELP">Contrôle les paramètres du client Connexion Bureau à distance</string>
       <string id="TS_CLIENT_LPT">Ne pas autoriser la redirection de port LPT</string>
       <string id="TS_CLIENT_PNP">Ne pas autoriser la redirection de périphérique Plug-and-Play</string>
       <string id="TS_CAMERA_REDIRECTION">Ne pas autoriser la redirection de capture vidéo</string>
+      <string id="TS_LOCATION_REDIRECTION">Ne pas autoriser la redirection de la localisation</string>
       <string id="TS_CLIENT_PRINTER">Ne pas autoriser la redirection de l'imprimante client</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">Ce paramètre de stratégie spécifie s’il faut empêcher le partage du contenu du Presse-papiers (redirection du Presse-papiers) entre un ordinateur distant et un ordinateur client au cours d’une session de services Bureau à distance.
 
@@ -209,6 +212,15 @@ Si vous activez ce paramètre de stratégie, les utilisateurs ne peuvent pas red
 Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les utilisateurs peuvent rediriger leurs appareils de capture vidéo vers l’ordinateur distant. Les utilisateurs peuvent utiliser l’option Plus sous l’onglet Ressources locales de la Connexion Bureau à distance pour choisir les appareils de capture vidéo à rediriger vers l’ordinateur distant.
 
 </string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">Ce paramètre de stratégie vous permet de contrôler la redirection des données d’emplacement vers l’ordinateur distant dans une session de services Bureau à distance.
+
+Par défaut, les services Bureau à distance autorisent la redirection des données d’emplacement.
+
+Si vous activez ce paramètre de stratégie, les utilisateurs ne peuvent pas rediriger leurs données de localisation vers l’ordinateur distant.
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, les utilisateurs peuvent rediriger leurs données de localisation vers l’ordinateur distant.
+          
+</string>
       <string id="TS_MAXMONITOR_EXPLAIN">Ce paramètre de stratégie vous permet de limiter le nombre de moniteurs qu’un utilisateur peut utiliser pour afficher une session de services Bureau à distance. La limitation du nombre de moniteurs permettant d’afficher une session de services Bureau à distance peut améliorer les performances de connexion, en particulier en présence de liaisons lentes, et réduire la charge du serveur.
 
 Si vous activez ce paramètre de stratégie, vous pouvez spécifier le nombre de moniteurs pouvant être utilisés pour afficher une session de services Bureau à distance. Vous pouvez spécifier un nombre compris entre 1 et 16.
@@ -229,7 +241,6 @@ Si vous ne configurez pas ce paramètre de stratégie, les services Bureau à di
 Remarque : vous pouvez limiter les clients susceptibles de se connecter à distance à l’aide des services Bureau à distance en configurant le paramètre de stratégie dans Configuration ordinateur\Modèles d’administration\Composants Windows\Services Bureau à distance\Hôte de session Bureau à distance\Sécurité\Requérir l’authentification utilisateur pour les connexions à distance à l’aide de l’authentification au niveau du réseau. 
 
 Vous pouvez limiter le nombre d’utilisateurs qui peuvent se connecter simultanément en configurant le paramètre de stratégie dans Configuration ordinateur\Modèles d’administration\Composants Windows\Services Bureau à distance\Hôte de session Bureau à distance\Connexions\Limiter le nombre de connexions ou en configurant le paramètre de stratégie Nombre maximal de connexions via le fournisseur WMI de l’Hôte de session Bureau à distance.
-
 </string>
       <string id="TS_MAXDISPLAYRES">Limiter la résolution d'affichage maximale</string>
       <string id="TS_MAXDISPLAYRES_EXPLAIN">Ce paramètre de stratégie vous permet de spécifier la résolution d'affichage maximale pouvant être utilisée par chaque moniteur utilisé pour afficher une session de services Bureau à distance. La limitation de la résolution utilisée pour afficher une session à distance peut améliorer les performances de connexion, en particulier en cas de liaisons lentes, et réduire la charge de travail du serveur.
@@ -403,12 +414,11 @@ Remarque : vous devez activer ce paramètre de stratégie uniquement lorsque le
 
 Si vous activez ce paramètre de stratégie, un serveur Hôte de session Bureau à distance tente d’abord de localiser les serveurs de licences spécifiés. Si cette opération échoue, le serveur Hôte de session Bureau à distance procède ensuite à la détection automatique des serveurs de licences. Dans le processus de détection automatique des serveurs de licences, un serveur Hôte de session Bureau à distance appartenant à un domaine Windows Server essaie de contacter un serveur de licences dans l’ordre suivant :
 
-    1. Serveurs de licences des services Bureau à distance publiés dans les services de domaine Active Directory.
+    1. Serveurs de licences des services Bureau à distance publiés dans les Services de domaine Active Directory.
 
     2. Serveurs de licences des services Bureau à distance installés sur des contrôleurs de domaine du même domaine que celui du serveur Hôte de session Bureau à distance.
 
 Si vous désactivez ou ne configurez pas ce paramètre de stratégie, le serveur Hôte de session Bureau à distance ne spécifie aucun serveur de licences au niveau de la stratégie de groupe.
-
 </string>
       <string id="TS_LICENSE_TOOLTIP">Masquer les notifications de problèmes de licence RD qui concernent le serveur Hôte de la session Bureau à distance</string>
       <string id="TS_LICENSE_TOOLTIP_EXPLAIN">Ce paramètre de stratégie gère l’affichage des notifications sur le serveur Hôte de la session Bureau à distance lorsque celui-ci connaît des problèmes de licence RD.
@@ -420,19 +430,19 @@ Si vous activez ce paramètre de stratégie, ces notifications ne s’affichent 
 Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, ces notifications s’affichent sur le serveur Hôte de la session Bureau à distance une fois que vous avez ouvert une session en tant qu’administrateur local.</string>
       <string id="TS_LICENSING_MODE">Définir le mode de concession de licences des services Bureau à distance</string>
       <string id="TS_LICENSING_MODE_EXPLAIN">
-        Ce paramètre de stratégie vous permet de spécifier le type de licence d'accès client aux services Bureau à distance, nécessaire à la connexion à ce serveur hôte de session Bureau à distance.
+        Ce paramètre de stratégie vous permet de spécifier le type de licence d’accès client Services Bureau à distance (CAL RDS) requise pour se connecter à ce serveur hôte de session Bureau à distance. 
 
-        Vous pouvez utiliser ce paramètre de stratégie pour sélectionner l'un des trois modes de licence : par utilisateur, par périphérique et AAD par utilisateur.
+        Vous pouvez utiliser ce paramètre de stratégie pour sélectionner l’un des deux modes de licence : par utilisateur ou par appareil.
 
-        Le mode de licence par utilisateur exige que chaque compte d'utilisateur se connectant à ce serveur hôte de session Bureau à distance dispose d'une licence d'accès client aux services Bureau à distance par utilisateur émise par un serveur de licences des services Bureau.
+        le mode de licence par utilisateur requiert que chaque compte d’utilisateur qui se connecte à ce serveur hôte de session Bureau à distance dispose d’une licence d’accès client par utilisateur des services Bureau à distance émise à partir d’un serveur de licences des services Bureau à distance.
 
-        Le mode de licence par périphérique nécessite que chaque appareil se connectant à ce serveur hôte de session Bureau à distance dispose d'une licence d'accès client aux services Bureau à distance par périphérique émise par un serveur de licences des services Bureau.
+            le mode de licence par appareil requiert que chaque appareil se connecte à celui-ci Le serveur hôte de session Bureau à distance dispose d’une licence d’accès client aux services Bureau à distance par appareil émise à partir d’un serveur de licences des services Bureau à distance. 
 
-        Le mode de licence AAD par utilisateur exige que chaque compte d'utilisateur qui se connecte à ce serveur hôte de session Bureau à distance dispose d'un plan de service qui prend en charge les licences RDS attribuées dans AAD.
-        
-        Si vous activez ce paramètre de stratégie, le mode de licence des services Bureau à distance que vous spécifiez est honoré par le serveur de licences des services Bureau à distance et l'hôte de la session Bureau à distance.
+        Si vous activez ce paramètre de stratégie, le mode de licence Bureau à distance que vous spécifiez est respecté par le serveur de licences Bureau à distance et l’hôte de session Bureau à distance.
 
-        Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, le mode de licence n'est pas spécifié au niveau de la stratégie de groupe.
+         Si vous désactivez ou ne configurez pas ce paramètre de stratégie, le mode de licence n’est pas spécifié au niveau stratégie de groupe.
+
+      Remarque :  Le mode AAD par utilisateur est déconseillé sur Windows 11 et versions ultérieures.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Par périphérique</string>
       <string id="TS_LICENSING_MODE_PER_USER">Par utilisateur</string>
@@ -546,7 +556,7 @@ Si l’état est défini sur Non configuré, les communications non sécurisées
 
 Remarque : l’interface RPC sert à administrer et configurer les services Bureau à distance.</string>
       <string id="TS_SD_ClustName">Configurer le nom de la batterie de serveurs du service Broker pour les connexions Bureau à distance</string>
-      <string id="TS_SD_ClustName_Explain">Ce paramètre de stratégie permet de spécifier le nom d’une batterie de serveurs à joindre au service Broker pour les connexions Bureau à distance. Ce service utilise le nom de la batterie de serveurs pour déterminer quels serveurs Hôte de session Bureau à distance appartiennent à la même batterie de serveurs Hôte de session Bureau à distance. Vous devez donc utiliser le même nom de batterie pour tous les serveurs Hôte de session Bureau à distance qui appartiennent à la même batterie de serveurs à charge équilibrée. Le nom de la batterie ne doit pas nécessairement correspondre à un nom des services de domaine Active Directory.
+      <string id="TS_SD_ClustName_Explain">Ce paramètre de stratégie permet de spécifier le nom d’une batterie de serveurs à joindre au service Broker pour les connexions Bureau à distance. Ce service utilise le nom de la batterie de serveurs pour déterminer quels serveurs Hôte de session Bureau à distance appartiennent à la même batterie de serveurs Hôte de session Bureau à distance. Vous devez donc utiliser le même nom de batterie pour tous les serveurs Hôte de session Bureau à distance qui appartiennent à la même batterie de serveurs à charge équilibrée. Le nom de la batterie ne doit pas nécessairement correspondre à un nom des Services de domaine Active Directory.
 
 Si vous donnez un autre nom à la batterie, une nouvelle batterie de serveurs est créée dans le service Broker pour les connexions Bureau à distance. Si vous indiquez le nom d’une batterie existante, le serveur se joint à cette batterie dans le service Broker pour les connexions Bureau à distance.
 
@@ -559,7 +569,6 @@ Remarques :
      1. Ce paramètre de stratégie n’a aucun effet à moins que les deux paramètres de stratégie Joindre le service Broker pour les connexions Bureau à distance et Configurer le nom du serveur du service Broker pour les connexions Bureau à distance ne soient activés et configurés via la stratégie de groupe.
 
      2. Pour Windows Server 2008, ce paramètre de stratégie est pris en charge par Windows Server 2008 Standard et éditions supérieures.
-
 </string>
       <string id="TS_SD_EXPOSE_ADDRESS">Utiliser la redirection d’adresse IP</string>
       <string id="TS_SD_EXPOSE_ADDRESS_Explain">Ce paramètre de stratégie permet de spécifier la méthode de redirection à utiliser lorsqu’un périphérique client se reconnecte à une session existante des services Bureau à distance dans une batterie de serveurs Hôte de session Bureau à distance à charge équilibrée. Ce paramètre s’applique à un serveur Hôte de session Bureau à distance configuré pour utiliser le service Broker pour les connexions Bureau à distance, et non au serveur de ce service.
@@ -609,6 +618,17 @@ Si vous désactivez ce paramètre de stratégie ou si vous ne configurez pas, la
       <string id="TS_SECURITY_LAYER_POLICY">Nécessite l’utilisation d’une couche de sécurité spécifique pour les connexions distantes (RDP)</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Activer l’application de l’authentification Microsoft Entra ID</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">Ce paramètre de stratégie vous permet de spécifier s’il faut exiger l’application côté serveur de l’authentification Microsoft Entra ID.
+
+Si vous activez ce paramètre de stratégie, tous les clients Services Bureau à distance doivent utiliser l’authentification AAD RDS pour s’authentifier auprès des serveurs Hôtes de session Bureau à distance. 
+
+Cette stratégie n’autorise pas le recours à d’autres méthodes d’authentification. 
+
+L’authentification au niveau du réseau (NLA) doit être activée pour que cette stratégie soit effective. Reportez-vous à la stratégie « Exiger l’authentification utilisateur pour les connexions à distance à l’aide de l’authentification au niveau du réseau ».
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, l’application de l’authentification Microsoft Entra ID ne sera pas appliquée.
+</string>
       <string id="TS_Session_End_On_Limit">Mettre fin à la session quand les délais d’expiration ont été atteints</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">Ce paramètre de stratégie indique s'il convient de mettre fin à une session Services Bureau à distance qui a expiré au lieu de la déconnecter.
 
@@ -787,6 +807,79 @@ Si vous activez ce paramètre de stratégie, le Bureau s’affiche toujours lors
 Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, un programme initial peut être spécifié pour s’exécuter sur l’ordinateur distant après la connexion du client à ce dernier. Si aucun programme initial n’est spécifié, le Bureau est toujours affiché sur l’ordinateur distant après la connexion du client à cet ordinateur.
 
 Remarque : si ce paramètre de stratégie est activé, le paramètre de stratégie « Démarrer un programme à la connexion » est ignoré.</string>
+      <string id="TS_UIA">Autoriser la redirection de l’interface utilisateur d’automatisation</string>
+      <string id="TS_UIA_EXPLAIN">Ce paramètre de stratégie détermine si les applications clientes Automation de l’interface utilisateur s’exécutant sur l’ordinateur local peuvent accéder aux éléments d’interface utilisateur du serveur.
+
+UI Automation permet aux programmes d’accéder à la plupart des éléments de l’interface utilisateur, ce qui vous permet d’utiliser des produits de technologie d’assistance tels que la loupe et le narrateur qui doivent interagir avec l’interface utilisateur pour fonctionner correctement. Les informations d’interface utilisateur permettent également aux scripts de test automatisés d’interagir avec l’interface utilisateur.
+
+Les sessions Bureau à distance ne prennent pas en charge la redirection UI Automation pour le moment.
+
+Si vous activez ce paramètre de stratégie ou si vous ne le configurez pas, les clients UI Automation sur votre ordinateur local peuvent interagir avec les applications distantes. Par exemple, vous pouvez utiliser les clients narrateur et loupe de votre ordinateur local pour interagir avec l’interface utilisateur sur une page Web que vous avez ouverte dans une session à distance.
+
+Si vous désactivez ce paramètre de stratégie, les clients UI Automation qui s’exécutent sur votre ordinateur local ne peuvent pas interagir avec les applications distantes.
+</string>
+      <string id="TS_WEBAUTHN">Ne pas autoriser la redirection WebAuthn</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">Ce paramètre de stratégie vous permet de contrôler la redirection des demandes d'authentification Web (WebAuthn) d'une session Bureau à distance vers le périphérique local . Cette redirection permet aux utilisateurs de s'authentifier auprès des ressources dans la session Remote Desktop à l'aide de leur authentificateur local (par exemple, Windows Hello Entreprise, clé de sécurité ou autre).
+
+Par défaut, Bureau à distance autorise la redirection des demandes WebAuthn.
+
+Si vous activez ce paramètre de stratégie, les utilisateurs ne peuvent pas utiliser leur authentificateur local dans la session Bureau à distance.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les utilisateurs peuvent utiliser des authentificateurs locaux au sein de la session Bureau à distance.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">Désactiver les transferts du Presse-papiers du serveur vers le client</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">Désactiver les transferts du Presse-papiers du client vers le serveur</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Autoriser le texte brut</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Autoriser le texte brut et les images</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Autoriser le texte brut, les images et le format de texte enrichi</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Autoriser le texte brut, les images, le format de texte enrichi et html</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">Restreindre le transfert du Presse-papiers du serveur vers le client</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">Ce paramètre de stratégie vous permet de limiter les transferts de données du Presse-papiers du serveur vers le client.
+
+Si vous activez ce paramètre de stratégie, vous devez choisir parmi les comportements suivants :
+
+- Désactiver les transferts du Presse-papiers du serveur vers le client.
+
+- Autoriser la copie de texte brut du serveur vers le client.
+
+- Autoriser la copie de texte brut et d’images du serveur vers le client.
+
+- Autoriser la copie de texte brut, d’images et de format texte enrichi du serveur vers le client.
+
+- Autoriser la copie de texte brut, d’images, de format texte enrichi et de HTML du serveur vers le client.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les utilisateurs peuvent copier du contenu arbitraire du serveur vers le client si la redirection du Presse-papiers est activée.
+
+Remarque : ce paramètre de stratégie s’affiche dans Configuration de l’ordinateur et Configuration utilisateur. Si les deux paramètres de stratégie sont configurés, la restriction la plus stricte est utilisée.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">Restreindre le transfert du Presse-papiers du client vers le serveur</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">Ce paramètre de stratégie vous permet de limiter les transferts de données du Presse-papiers du client vers le serveur.
+
+Si vous activez ce paramètre de stratégie, vous devez choisir parmi les comportements suivants :
+
+- Désactiver les transferts du Presse-papiers du client vers le serveur.
+
+- Autoriser la copie de texte brut du client vers le serveur.
+
+- Autoriser la copie de texte brut et d’images du client vers le serveur.
+
+- Autoriser la copie de texte brut, d’images et de format texte enrichi du client vers le serveur.
+
+- Autoriser la copie de texte brut, d’images, de format texte enrichi et de HTML du client vers le serveur.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les utilisateurs peuvent copier du contenu arbitraire du client vers le serveur si la redirection du Presse-papiers est activée.
+
+Remarque : ce paramètre de stratégie s’affiche dans Configuration de l’ordinateur et Configuration utilisateur. Si les deux paramètres de stratégie sont configurés, la restriction la plus stricte est utilisée.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Désactiver l’intégration du Presse-papiers cloud pour le transfert de données serveur à client</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">Ce paramètre de stratégie vous permet de contrôler si les données transférées de la session à distance vers le client à l’aide de la redirection du Presse-papiers sont ajoutées au Presse-papiers cloud côté client.
+
+Par défaut, Bureau à distance désactive l’intégration au Presse-papiers cloud côté client pour les données transférées à partir de la session distante à l’aide de la redirection du Presse-papiers.
+
+Si vous activez ou ne configurez pas ce paramètre de stratégie, les données copiées dans la session distante et collées sur le client ne sont pas ajoutées au Presse-papiers cloud côté client.
+
+Si vous désactivez ce paramètre de stratégie, les données copiées dans la session distante et collées sur le client sont ajoutées au Presse-papiers cloud côté client (si cette option est activée).
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">Ce paramètre de stratégie permet de spécifier s’il faut requérir l’authentification utilisateur pour les connexions à distance au serveur Hôte de session Bureau à distance en utilisant l’authentification au niveau du réseau. Ce paramètre de stratégie renforce la sécurité en imposant l’authentification utilisateur plus tôt dans le processus de connexion à distance.
 
 Si vous activez ce paramètre de stratégie, seuls les ordinateurs client qui prennent en charge l’authentification au niveau du réseau peuvent se connecter au serveur Hôte de session Bureau à distance.
@@ -801,6 +894,24 @@ Important : le fait de désactiver ce paramètre de stratégie offre moins de s
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Requérir l’authentification utilisateur pour les connexions à distance à l’aide de l’authentification au niveau du réseau</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Déconnecter la session distante sur le verrou pour l’authentification héritée</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">Ce paramètre de stratégie vous permet de configurer l’expérience utilisateur lorsque la session Bureau à distance est verrouillée par l’utilisateur ou par une stratégie. Vous pouvez spécifier si la session à distance affiche l’écran de verrouillage à distance ou se déconnecte quand la session distante est verrouillée. La déconnexion de la session à distance garantit qu’une session distante ne peut pas être laissée sur l’écran de verrouillage et ne peut pas se reconnecter automatiquement en raison d’une perte de connectivité réseau.
+
+Cette stratégie s’applique uniquement lors de l’utilisation de l’authentification héritée pour s’authentifier sur le PC distant. L’authentification héritée est limitée au nom d’utilisateur et au mot de passe, ou aux certificats tels que les cartes à puce. L’authentification héritée ne tire pas parti des Plateforme d'identités Microsoft, comme Microsoft Entra ID. L’authentification héritée inclut les protocoles d’authentification de base NTLM, CredSSP, RDSTLS, TLS et RDP.
+
+Si vous activez ce paramètre de stratégie, Bureau à distance connexions utilisant l’authentification héritée déconnecte la session distante lorsque la session distante est verrouillée. Les utilisateurs peuvent se reconnecter lorsqu’ils sont prêts et entrer à nouveau leurs informations d’identification lorsqu’ils y sont invités.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, Bureau à distance connexions utilisant l’authentification héritée affiche l’écran de verrouillage à distance lorsque la session distante est verrouillée. Les utilisateurs peuvent déverrouiller la session à distance à l’aide de leur nom d’utilisateur et de leur mot de passe, ou de certificats.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Déconnecter la session distante lors du verrouillage pour l’authentification Plateforme d'identités Microsoft</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">Ce paramètre de stratégie vous permet de configurer l’expérience utilisateur lorsque la session Bureau à distance est verrouillée par l’utilisateur ou par une stratégie. Vous pouvez spécifier si la session à distance affiche l’écran de verrouillage à distance ou se déconnecte quand la session distante est verrouillée. La déconnexion de la session distante garantit qu’une session distante ne peut pas être laissée sur l’écran de verrouillage et ne peut pas se reconnecter automatiquement en raison d’une perte de connectivité réseau.
+
+Cette stratégie s’applique uniquement lors de l’utilisation d’un fournisseur d’identité qui utilise le Plateforme d'identités Microsoft, tel que Microsoft Entra ID, pour s’authentifier auprès du PC distant. Cette stratégie ne s’applique pas lors de l’utilisation de l’authentification héritée qui inclut les protocoles d’authentification de base NTLM, CredSSP, RDSTLS, TLS et RDP.
+
+Si vous activez ou ne configurez pas ce paramètre de stratégie, Bureau à distance connexions utilisant le Plateforme d'identités Microsoft déconnecte la session à distance lorsque la session à distance est verrouillée. Les utilisateurs peuvent se reconnecter lorsqu’ils sont prêts et peuvent utiliser l’authentification sans mot de passe si elles sont configurées.
+
+Si vous désactivez ce paramètre de stratégie, Bureau à distance connexions utilisant le Plateforme d'identités Microsoft affiche l’écran de verrouillage à distance lorsque la session à distance est verrouillée. Les utilisateurs peuvent déverrouiller la session à distance à l’aide de leur nom d’utilisateur et de leur mot de passe, ou de certificats.
+</string>
       <string id="TS_User_Help">Contrôle la configuration des technologies des services Bureau à distance permettant d’accéder à un serveur qui exécute des programmes Windows ou le Bureau Windows</string>
       <string id="TS_USER_HOME">Définir le répertoire de base de l’utilisateur des services Bureau à distance</string>
       <string id="TS_USER_HOME_EXPLAIN">Spécifie si les services Bureau à distance utilisent le chemin d’accès spécifié au partage réseau ou au répertoire local en tant que racine du répertoire de base de l’utilisateur pour une session de services Bureau à distance.
@@ -901,36 +1012,44 @@ Si vous désactivez ce paramètre de stratégie, les utilisateurs ne peuvent pas
 Remarque : vous pouvez définir ce paramètre de stratégie dans le nœud Configuration ordinateur ou Configuration utilisateur. Si vous configurez ce paramètre de stratégie pour l’ordinateur, tous les utilisateurs de cet ordinateur sont concernés.
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Spécifier les empreintes numériques SHA1 des certificats représentant des éditeurs .rdp approuvés</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Ce paramètre de stratégie permet de spécifier une liste d’empreintes numériques de certificats SHA1 (Secure Hash Algorithm 1) qui représentent les éditeurs approuvés de fichiers .rdp (Remote Desktop Protocol).
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Spécifier les empreintes numériques des certificats représentant des éditeurs .rdp approuvés</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Ce paramètre de stratégie vous permet de spécifier une liste d’empreintes de certificat qui déclarent les éditeurs approuvés de fichiers .rdp (Remote Desktop Protocol). Les empreintes SHA-256, SHA-384 et SHA-512 sont prises en charge. Les empreintes SHA-1 sont déconseillées : SHA-1 n’est plus considéré comme sécurisé et la prise en charge des empreintes SHA-1 sera désactivée par défaut dans une mise à jour de sécurité à venir. Les administrateurs doivent migrer dès que possible toutes les entrées d’empreinte vers SHA-256 ou vers une version plus robuste.
 
-Si vous activez ce paramètre de stratégie, tous les certificats contenant une empreinte numérique SHA1 correspondant à une empreinte numérique de la liste sont approuvés. Si un utilisateur tente de démarrer un fichier .rdp signé par un certificat approuvé, il ne reçoit aucun message d’avertissement à l’ouverture du fichier. Pour obtenir l’empreinte numérique, affichez les détails du certificat, puis cliquez sur le champ Empreinte numérique.
+Les empreintes peuvent être préfixées par l’algorithme de hachage utilisé pour les produire. Les préfixes pris en charge sont « sha256: », « sha384: » et « sha512: » (non sensibles à la casse). Par exemple : sha256:AB0356F2... Si aucun préfixe n’est spécifié, l’entrée est traitée comme une empreinte numérique SHA-1 héritée.
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, aucun éditeur n’est considéré comme éditeur .rdp approuvé.
+Si la case « Ne pas autoriser les empreintes SHA-1 » est cochée, les entrées sans préfixes sont ignorées. Seules les empreintes SHA-256, SHA-384 et SHA-512 seront mises en correspondance. Nous recommandons vivement de cocher dès maintenant cette case pour vous préparer au changement par défaut à venir.
+
+Si vous activez ce paramètre de stratégie, tout certificat dont l’empreinte correspond à une empreinte de la liste est approuvé. Si un utilisateur tente de démarrer un fichier .rdp signé par un certificat approuvé, il ne reçoit aucun message d’avertissement au démarrage du fichier.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, aucun éditeur n’est considéré comme éditeur approuvé de .rdp.
 
 Remarques :
 
-Vous pouvez définir ce paramètre de stratégie dans le nœud Configuration ordinateur ou Configuration utilisateur. Si vous configurez ce paramètre de stratégie pour l’ordinateur, la liste des empreintes numériques de certificat approuvées pour un utilisateur est constituée de la réunion de la liste définie pour l’ordinateur et de celle définie pour l’utilisateur.
+Vous pouvez définir ce paramètre de stratégie dans le nœud de configuration d’ordinateur ou dans le nœud de configuration d’utilisateur. Si vous configurez ce paramètre de stratégie pour l’ordinateur, la liste des empreintes de certificat approuvées pour un utilisateur est une combinaison de la liste définie pour l’ordinateur et de celle définie pour l’utilisateur.
 
 Ce paramètre de stratégie remplace le comportement du paramètre de stratégie « Autoriser les fichiers .rdp issus d’éditeurs valides et les paramètres .rdp par défaut de l’utilisateur ».
 
-Si la liste contient une chaîne qui ne représente pas l’empreinte numérique d’un certificat, elle est ignorée.
+Si la liste contient une chaîne qui n’est pas une empreinte numérique de certificat, elle est ignorée.
 
+Consultez https://go.microsoft.com/fwlink/?LinkId=2368223 pour en savoir plus.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Ce paramètre de stratégie permet de spécifier une liste d’empreintes numériques de certificats SHA1 (Secure Hash Algorithm 1) qui représentent les éditeurs approuvés de fichiers .rdp (Remote Desktop Protocol).
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Ce paramètre de stratégie vous permet de spécifier une liste d’empreintes de certificat qui déclarent les éditeurs approuvés de fichiers .rdp (Remote Desktop Protocol). Les empreintes SHA-256, SHA-384 et SHA-512 sont prises en charge. Les empreintes SHA-1 sont déconseillées : SHA-1 n’est plus considéré comme sécurisé et la prise en charge des empreintes SHA-1 sera désactivée par défaut dans une mise à jour de sécurité à venir. Les utilisateurs doivent migrer dès que possible toutes les entrées d’empreinte vers SHA-256 ou vers une version plus robuste.
 
-Si vous activez ce paramètre de stratégie, tous les certificats contenant une empreinte numérique SHA1 correspondant à une empreinte numérique de la liste sont approuvés. Si un utilisateur tente de démarrer un fichier .rdp signé par un certificat approuvé, il ne reçoit aucun message d’avertissement à l’ouverture du fichier. Pour obtenir l’empreinte numérique, affichez les détails du certificat, puis cliquez sur le champ Empreinte numérique.
+Les empreintes peuvent être préfixées par l’algorithme de hachage utilisé pour les produire. Les préfixes pris en charge sont « sha256: », « sha384: » et « sha512: » (non sensibles à la casse). Par exemple : sha256:AB0356F2... Si aucun préfixe n’est spécifié, l’entrée est traitée comme une empreinte numérique SHA-1 héritée.
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, aucun éditeur ne sera considéré comme un éditeur .rdp approuvé.
+Si vous activez ce paramètre de stratégie, tout certificat dont l’empreinte correspond à une empreinte de la liste est approuvé. Si un utilisateur tente de démarrer un fichier .rdp signé par un certificat approuvé, il ne reçoit aucun message d’avertissement au démarrage du fichier.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, aucun éditeur n’est considéré comme éditeur approuvé de .rdp.
 
 Remarque :
 
-Vous pouvez définir ce paramètre de stratégie dans le nœud Configuration ordinateur ou Configuration utilisateur. Si vous configurez ce paramètre de stratégie pour l’ordinateur, la liste des empreintes numériques de certificat approuvées pour un utilisateur est constituée de la réunion de la liste définie pour l’ordinateur et de celle définie pour l’utilisateur.
+Vous pouvez définir ce paramètre de stratégie dans le nœud de configuration d’ordinateur ou dans le nœud de configuration d’utilisateur. Si vous configurez ce paramètre de stratégie pour l’ordinateur, la liste des empreintes de certificat approuvées pour un utilisateur est une combinaison de la liste définie pour l’ordinateur et de celle définie pour l’utilisateur.
 
 Ce paramètre de stratégie remplace le comportement du paramètre de stratégie « Autoriser les fichiers .rdp issus d’éditeurs valides et les paramètres .rdp par défaut de l’utilisateur ».
 
-Si la liste contient une chaîne qui ne représente pas l’empreinte numérique d’un certificat, elle est ignorée.
+Si la liste contient une chaîne qui n’est pas une empreinte numérique de certificat, elle est ignorée.
 
+Consultez https://go.microsoft.com/fwlink/?LinkId=2368223 pour en savoir plus.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">Demander des informations d’identification sur l’ordinateur client</string>
@@ -1018,6 +1137,14 @@ Si vous désactivez ce paramètre de stratégie, les programmes RemoteApp publi�
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">Activer l’expérience d’interpréteur de commandes améliorée pour RemoteApp</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">Ce paramètre de stratégie permet une expérience de shell améliorée pour les sessions RemoteApp, offrant la prise en charge des associations de fichiers par défaut, des clés de Registre Run/RunOnce, etc. Ce paramètre de stratégie s’applique uniquement aux sessions RemoteApp et ne s’applique pas aux sessions Bureau à distance.
+
+Si vous activez ou ne configurez pas ce paramètre de stratégie, les sessions RemoteApp sur les serveurs hôtes de session Bureau à distance bénéficient de l’expérience shell améliorée.
+
+Si vous désactivez ce paramètre de stratégie, les sessions RemoteApp n’auront pas l’expérience d’interpréteur de commandes améliorée et utiliseront le comportement hérité de l’interpréteur de commandes. Cela peut être nécessaire si des problèmes de compatibilité surviennent dans les programmes RemoteApp publiés.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1147,25 +1274,23 @@ Si vous activez ce paramètre de stratégie, l’URL spécifiée est configurée
 Si vous désactivez ou ne configurez pas ce paramètre de stratégie, l’utilisateur ne dispose d’aucune URL de connexion par défaut.
 
 Remarque : les programmes RemoteApp installés via les connexions aux programmes RemoteApp et aux services Bureau à distance provenant d’un serveur non approuvé peuvent compromettre la sécurité d’un compte d’utilisateur.
-      
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">Sélectionner des protocoles de transfert RDP</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Ce paramètre de stratégie vous permet de spécifier les protocoles qui permettent un accès RDP (Remote Desktop Protocol) à ce serveur.
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Ce paramètre de stratégie vous permet de spécifier les protocoles qui peuvent être utilisés pour l’accès protocole RDP (Remote Desktop Protocol) (RDP) à ce serveur.
 
-Si vous activez ce paramètre de stratégie, vous devez indiquer si vous souhaitez que RDP utilise UDP.
+Si vous activez ce paramètre de stratégie, vous devez spécifier si vous souhaitez que RDP utilise UDP.
 
-Vous pouvez sélectionner une des options suivantes : « Utiliser UDP et TCP », « Utiliser uniquement TCP » ou « Utiliser UDP ou TCP ». 
+Vous pouvez sélectionner l’une des options suivantes : « Utiliser UDP ou TCP (par défaut) » ou « Utiliser uniquement TCP » 
 
-Si vous sélectionnez « Utiliser UDP ou TCP » et que la connexion UDP aboutit, la plupart du trafic RDP utilisera UDP.
+Si vous sélectionnez « Utiliser UDP ou TCP » et que la connexion UDP réussit, la plupart du trafic RDP utilise UDP.
 
-Si la connexion UDP n'aboutit pas ou si vous sélectionnez « Utiliser uniquement TCP », tout le trafic RDP utilise TCP.
+Si la connexion UDP échoue ou si vous sélectionnez « Utiliser uniquement TCP », tout le trafic RDP utilise TCP.
 
-Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, RDP choisit les protocoles optimaux pour garantir la meilleure expérience utilisateur.
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, RDP choisit les protocoles optimaux pour offrir la meilleure expérience utilisateur.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">Utiliser UDP et TCP</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Utiliser uniquement TCP</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">Utiliser UDP ou TCP</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Utiliser uniquement TCP</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Sélectionner la détection du réseau sur le serveur</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">Ce paramètre de stratégie vous permet d’indiquer comment le protocole RDP (Remote Desktop Protocol) va essayer de détecter la qualité du réseau (bande passante et latence).
@@ -1344,12 +1469,13 @@ Remarque : Le paramètre de stratégie permet à l’équilibrage de charge du 
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Liste séparée par des virgules des empreintes numériques SHA1 de certificats approuvés :</label>
+          <label>Liste séparée par des virgules des empreintes numériques des certificats approuvés (préfixez par sha256:, sha384: ou sha512:) :</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">Ne pas autoriser les empreintes numériques SHA-1</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Liste séparée par des virgules des empreintes numériques SHA1 de certificats approuvés :</label>
+          <label>Liste séparée par des virgules des empreintes numériques des certificats approuvés (préfixez par sha256:, sha384: ou sha512:) :</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1387,6 +1513,12 @@ Remarque : Le paramètre de stratégie permet à l’équilibrage de charge du 
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Sélectionner le type de transport</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Restreindre le transfert du Presse-papiers du serveur vers le client :</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Restreindre le transfert du Presse-papiers du client vers le serveur :</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

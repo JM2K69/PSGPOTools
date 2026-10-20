@@ -169,7 +169,7 @@ Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, l’uti
       <string id="UILang4">Allemand</string>
       <string id="UILang5">Chinois simplifié</string>
       <string id="UILang6">Chinois traditionnel</string>
-      <string id="UILang34">Chinois traditionnel (Hong Kong)</string>
+      <string id="UILang34">Chinois traditionnel (Hong Kong (R.A.S.))</string>
       <string id="UILang35">Chinois traditionnel (Taïwan)</string>
       <string id="UILang7">Français</string>
       <string id="UILang8">Espagnol</string>
@@ -284,6 +284,19 @@ Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, Windows
         Si cette stratégie est activée ou n'est pas configurée, le contrôle est délégué aux utilisateurs et ceux-ci peuvent choisir d'activer les services vocaux via les paramètres.
         
         Si cette stratégie est désactivée, les services vocaux sont désactivés et les utilisateurs ne peuvent pas les activer via les paramètres.
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall">Restreindre l’installation du module linguistique et de la fonctionnalité de langue</string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_Machine_Help">
+        Ce paramètre de stratégie empêche tous les utilisateurs d’installer des modules linguistiques et des fonctionnalités de langue à la demande. cette stratégie ne restreint pas le changement de langue Windows, si vous voulez restreindre la langue de Windows, utilisez la stratégie suivante : « restreint les langues d’interface utilisateur utilisées par Windows pour tous les utilisateurs connectés ».   
+Si vous activez ce paramètre de stratégie, l’installation des modules linguistiques et des fonctionnalités de langue est interdite pour tous les utilisateurs.
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, aucun module linguistique ou aucune restriction d’installation de fonctionnalité n’est disponible pour les utilisateurs.  
+      </string>
+      <string id="RestrictLanguagePacksAndFeaturesInstall_User_Help">
+        Ce paramètre de stratégie empêche l’utilisateur d’installer des packs de langue et des fonctionnalités de langue à la demande. cette stratégie ne restreint pas le changement de langue Windows, si vous voulez restreindre la langue de Windows, utiliser la stratégie suivante : « restreint les langues d’interface utilisateur que Windows doit utiliser pour l’utilisateur sélectionné. »   
+Si vous activez ce paramètre de stratégie, l’installation des modules linguistiques et des fonctionnalités de langue est interdite pour l’utilisateur.  
+
+Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, il n’existe aucune restriction d’installation de modules linguistiques ou de fonctionnalités linguistiques pour l’utilisateur.  
       </string>
     </stringTable>
     <presentationTable>

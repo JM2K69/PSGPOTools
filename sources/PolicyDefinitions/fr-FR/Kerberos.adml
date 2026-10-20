@@ -21,20 +21,19 @@ Si vous désactivez ce paramètre de stratégie, la liste des mappages de noms d
 
 Si vous ne configurez pas ce paramètre de stratégie, le système utilise les mappages de noms d’hôtes au domaine Kerberos qui sont définis dans le Registre local, s’ils existent.</string>
       <string id="MitRealms">Définir les paramètres des domaines interopérables Kerberos V5</string>
-      <string id="MitRealms_explain">Ce paramètre de stratégie configure le client Kerberos pour qu’il puisse s’authentifier à des domaines interopérables Kerberos V5, tel que défini par ce paramètre de stratégie.
-      
-Si vous activez ce paramètre de stratégie, vous pourrez afficher et modifier la liste des domaines interopérables Kerberos V5 et leurs paramètres. Pour afficher la liste des domaines interopérables Kerberos V5, activez le paramètre de stratégie et cliquez sur le bouton Afficher. Pour ajouter un domaine interopérable Kerberos V5, activez le paramètre de stratégie, notez la syntaxe, puis cliquez sur le bouton Afficher. Dans la boîte de dialogue Afficher le contenu, dans la colonne Nom de valeur, tapez le nom du domaine interopérable Kerberos V5. Dans la colonne Valeur, tapez les indicateurs de domaine et les noms d’hôtes des contrôleurs de domaine Kerberos (KDC) hôtes en respectant la syntaxe appropriée. Pour supprimer une entrée Nom de valeur ou Valeur du domaine interopérable Kerberos V5, cliquez sur son entrée, puis appuyez sur la touche Suppr. Pour modifier un mappage, supprimez l’entrée actuelle de la liste, puis ajoutez-en une avec d’autres paramètres.
+      <string id="MitRealms_explain">Ce paramètre de stratégie configure le client Kerberos pour qu’il puisse s’authentifier à des domaines interopérables Kerberos V5, tel que défini par ce paramètre de stratégie.
 
-Si vous désactivez ce paramètre de stratégie, les paramètres des domaines interopérables Kerberos V5 définis par la stratégie de groupe sont supprimés.
+Si vous activez ce paramètre de stratégie, vous pourrez afficher et modifier la liste des domaines interopérables Kerberos V5 et leurs paramètres. Pour afficher la liste des domaines interopérables Kerberos V5, activez le paramètre de stratégie et cliquez sur le bouton Afficher. Pour ajouter un domaine interopérable Kerberos V5, activez le paramètre de stratégie, notez la syntaxe, puis cliquez sur le bouton Afficher. Dans la boîte de dialogue Afficher le contenu, dans la colonne Nom de valeur, tapez le nom du domaine interopérable Kerberos V5. Dans la colonne Valeur, tapez les indicateurs de domaine et les noms d’hôtes des contrôleurs de domaine Kerberos (KDC) hôtes en respectant la syntaxe appropriée. Pour supprimer une entrée Nom de valeur ou Valeur du domaine interopérable Kerberos V5, cliquez sur son entrée, puis appuyez sur la touche Suppr. Pour modifier un mappage, supprimez l’entrée actuelle de la liste, puis ajoutez-en une avec d’autres paramètres.
 
-Si vous ne configurez pas ce paramètre de stratégie, le système utilise les paramètres des domaines interopérables Kerberos V5 qui sont définis dans le Registre local, s’ils existent.</string>
+Si vous désactivez ce paramètre de stratégie, les paramètres des domaines interopérables Kerberos V5 définis par la stratégie de groupe sont supprimés.
+
+Si vous ne configurez pas ce paramètre de stratégie, le système utilise les paramètres des domaines interopérables Kerberos V5 qui sont définis dans le Registre local, s’ils existent.</string>
       <string id="ValidateKDC">Exiger une validation KDC stricte</string>
-      <string id="ValidateKDC_explain">Ce paramètre de stratégie contrôle le comportement du client Kerberos durant la validation du certificat KDC pour l’ouverture de session à partir d’une carte à puce et d’un certificat système.  
+      <string id="ValidateKDC_explain">Ce paramètre de stratégie contrôle le comportement du client Kerberos durant la validation du certificat KDC pour l’ouverture de session à partir d’une carte à puce et d’un certificat système.
 
-Si vous activez ce paramètre de stratégie, le client Kerberos exige que le certificat X.509 du contrôleur de domaine Kerberos (KDC) contienne l’identificateur d’objet du rôle de clé dans les extensions d’utilisation améliorée de la clé et que le certificat X.509 du contrôleur de domaine Kerberos contienne une extension dNSName subjectAltName (SAN) qui correspond au nom DNS du domaine. Si l’ordinateur est membre d’un domaine, le client Kerberos exige que le certificat X.509 du contrôleur de domaine Kerberos (KDC) soit signé par une autorité de certification du magasin NTAuth. Si l’ordinateur n’est pas membre d’un domaine, le client Kerberos permet l’utilisation du certificat de l’AC racine sur la carte à puce dans la validation de chemin d’accès du certificat X.509 du KDC.
+Si vous activez ce paramètre de stratégie, le client Kerberos exige que le certificat X.509 du contrôleur de domaine Kerberos (KDC) contienne l’identificateur d’objet du rôle de clé dans les extensions d’utilisation améliorée de la clé et que le certificat X.509 du contrôleur de domaine Kerberos contienne une extension dNSName subjectAltName (SAN) qui correspond au nom DNS du domaine. Si l’ordinateur est membre d’un domaine, le client Kerberos exige que le certificat X.509 du contrôleur de domaine Kerberos (KDC) soit signé par une autorité de certification du magasin NTAuth. Si l’ordinateur n’est pas membre d’un domaine, le client Kerberos permet l’utilisation du certificat de l’AC racine sur la carte à puce dans la validation de chemin d’accès du certificat X.509 du KDC.
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, le client Kerberos exige seulement que le certificat KDC contienne l’identificateur d’objet du rôle de l’authentification du serveur dans les extensions d’utilisation améliorée de la clé qui peuvent être émises pour un serveur.
-
 </string>
       <string id="StrictTarget">Exiger une correspondance stricte des noms de principaux du service cibles dans les appels de procédure distante</string>
       <string id="StrictTarget_explain">  Ce paramètre de stratégie vous permet de configurer ce serveur de sorte que Kerberos puisse déchiffrer un ticket contenant le nom de principal du service généré par le système. Lorsqu’une application essaie d’effectuer un appel de procédure distante vers ce serveur avec une valeur NULL en tant que nom de principal du service, les ordinateurs exécutant Windows 7 essaient d’utiliser Kerberos en générant un nom de principal du service.
@@ -94,16 +93,14 @@ Si vous ne configurez pas ce paramètre de stratégie, l’option Automatique es
 
       <string id="MaxTokenSize">Définir la taille maximale de la mémoire tampon des jetons de contexte SSPI Kerberos</string>
       <string id="MaxTokenSize_explain">Ce paramètre de stratégie vous permet de définir la valeur retournée aux applications qui demandent la limite maximale de la taille de la mémoire tampon pour les jetons de contexte SSPI.
-              
+
 La taille de la mémoire tampon des jetons de contexte détermine la taille maximale des jetons de contexte SSPI qu’une application doit prévoir et allouer. Selon le traitement des demandes d’authentification et selon les appartenances aux groupes, la mémoire tampon peut être plus petite que la taille réelle des jetons de contexte SSPI. 
 
 Si vous activez ce paramètre de stratégie, le client ou le serveur Kerberos utilise soit la valeur configurée, soit la valeur maximale autorisée localement, en fonction de celle qui est la plus faible.
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, le client ou le serveur Kerberos utilise la valeur configurée localement ou la valeur par défaut. 
 
-Remarque : ce paramètre de stratégie configure la valeur de Registre existante MaxTokenSize dans HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters, ajoutée à Windows XP et Windows Server 2003 avec une valeur par défaut de 12 000 octets. À partir de Windows 8, la valeur par défaut est de 48 000 octets. En raison de l’encodage base64 du protocole HTTP pour les jetons de contexte d’authentification, il est déconseillé de définir cette valeur au-delà de 48 000 octets.
-
-
+Remarque : ce paramètre de stratégie configure la valeur de Registre existante MaxTokenSize dans HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters, ajoutée à Windows XP et Windows Server 2003 avec une valeur par défaut de 12 000 octets. À partir de Windows 8, la valeur par défaut est de 48 000 octets. En raison de l’encodage base64 du protocole HTTP pour les jetons de contexte d’authentification, il est déconseillé de définir cette valeur au-delà de 48 000 octets.
 
 </string>
       <string id="EnableCbacAndArmor">Prise en charge du client Kerberos pour les revendications, l’authentification composée et le blindage Kerberos</string>
@@ -111,7 +108,7 @@ Remarque : ce paramètre de stratégie configure la valeur de Registre existant
 Si vous activez ce paramètre de stratégie, les ordinateurs clients demandent des revendications, fournissent les informations nécessaires pour créer l’authentification composée et blinder les messages Kerberos dans les domaines qui prennent en charge les revendications et l’authentification composée pour le contrôle d’accès dynamique et le blindage Kerberos.
 
 Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas, les périphériques clients ne demandent pas de revendications, ne fournissent pas les informations nécessaires pour créer l’authentification composée et ne blindent pas les messages Kerberos. Les services hébergés sur le périphérique ne sont alors pas en mesure de récupérer les revendications des clients qui utilisent la transition du protocole Kerberos.  
-  
+
 </string>
       <string id="AlwaysSendCompoundId">Toujours envoyer l’authentification composée en premier</string>
       <string id="AlwaysSendCompoundId_explain">Ce paramètre de stratégie détermine si un périphérique envoie toujours une demande d’authentification composée quand le domaine de ressource demande l’identité composée.
@@ -124,21 +121,66 @@ Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas 
 
 </string>
       <string id="DevicePKInitEnabled">Prise en charde de l'authentification de périphérique à l'aide de certificats</string>
-      <string id="DevicePKInitEnabled_explain">La prise en charge de l’authentification d’appareil à l’aide d’un certificat nécessite la connexion à un contrôleur de domaine dans le domaine de compte de l’appareil qui prend en charge l’authentification par certificat des comptes d’ordinateurs. 
+      <string id="DevicePKInitEnabled_explain">La prise en charge de l’authentification de l’appareil à l’aide d’un certificat nécessite une connectivité à un contrôleur de domaine dans le domaine de comptes de l’appareil qui prend en charge l’authentification par certificat pour les comptes d’ordinateurs.
 
-Ce paramètre de stratégie vous permet de définir la prise en charge des tentatives d’authentification à l’aide du certificat pour l’appareil pour le domaine Kerberos.
+Ce paramètre de stratégie vous permet de définir la prise en charge de Kerberos pour tenter l’authentification à l’aide du certificat de l’appareil sur le domaine.
 
-Si vous activez ce paramètre de stratégie, les informations d’identification d’appareil sont sélectionnées en fonction des options suivantes :
+Si vous activez ce paramètre de stratégie, les informations d’identification de l’appareil sont sélectionnées en fonction des options suivantes :
 
-Automatique : l’appareil tente de s’authentifier à l’aide de son certificat. Si le contrôleur de domaine ne prend pas en charge l’authentification de compte d’ordinateur à l’aide de certificats, l’authentification par mot de passe est alors tentée.
+Automatique : l’appareil tente de s’authentifier à l’aide de son certificat. Si le contrôleur de domaine ne prend pas en charge l’authentification de compte d’ordinateur à l’aide de certificats, vous devez tenter alors l’authentification par mot de passe.
 
 Forcée : l’appareil s’authentifie toujours à l’aide de son certificat. Si aucun contrôleur de domaine prenant en charge l’authentification de compte d’ordinateur à l’aide de certificats n’est trouvé, l’authentification échoue.
 
-Si vous désactivez ce paramètre de stratégie, les certificats ne sont jamais utilisés.
-Si vous ne configurez pas ce paramètre de stratégie, Automatique est utilisé.
+Si vous désactivez ce paramètre de stratégie, les certificats ne seront jamais utilisés.
+Si vous ne configurez pas ce paramètre de stratégie, le mode Automatique sera utilisé.
+
+Suivez ce guide pour configurer l’infrastructure à clé publique d’entreprise : https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">Automatique</string>
       <string id="DevicePKInitBehavior_Force">Forcée</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">Autoriser la récupération du ticket Azure AD Ticket Granting Ticket Kerberos pendant l’ouverture de session</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">Ce paramètre de stratégie permet de récupérer le ticket d’octroi de ticket Kerberos Azure AD lors de l’ouverture de session.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, le ticket d’octroi de ticket Kerberos Azure AD n’est pas récupéré lors de l’ouverture de session.
+
+Si vous activez ce paramètre de stratégie, le ticket d’octroi de ticket Kerberos Azure AD est récupéré lors de l’ouverture de session.</string>
+      <string id="PKInitHashAlgorithmConfiguration">Configurer des algorithmes de hachage pour l’ouverture de session de certificat</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">Ce paramètre de stratégie contrôle les algorithmes de hachage ou de somme de contrôle utilisés par le client Kerberos lors de l’authentification de certificat.
+
+Si vous activez cette stratégie, vous pouvez configurer l’un des quatre états pour chaque algorithme :
+
+– « Par défaut » définit l’algorithme sur l’état recommandé.
+
+– « Pris en charge » active l’utilisation de l’algorithme. L’activation des algorithmes qui ont été désactivés par défaut peut réduire votre sécurité.
+
+– « Audité » active l’utilisation de l’algorithme et signale un événement (ID 206) chaque fois qu’il est utilisé. Cet état permet de vérifier que l’algorithme n’est pas utilisé et qu’il peut être désactivé en toute sécurité.
+
+– « Non pris en charge » désactive l’utilisation de l’algorithme. Cet état est destiné aux algorithmes considérés comme non sécurisés.
+
+Si vous désactivez ou ne configurez pas cette stratégie, chaque algorithme suppose l’état « Par défaut ».
+Pour plus d’informations sur les algorithmes de hachage et de somme de contrôle pris en charge par le client Windows Kerberos et leurs états par défaut, consultez https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Événements générés par cette configuration : 205, 206, 207, 208.
+</string>
+      <string id="PKInitHashAlgorithm_Default">Par défaut</string>
+      <string id="PKInitHashAlgorithm_Supported">Pris en charge</string>
+      <string id="PKInitHashAlgorithm_Audited">Audité</string>
+      <string id="PKInitHashAlgorithm_NotSupported">Non pris en charge</string>
+      
+      <string id="DelegatedMSAEnabled">Activer les ouvertures de session de compte de service administré délégué</string>
+      <string id="DelegatedMSAEnabled_explain">Ce paramètre de stratégie active ou désactive les ouvertures de session de compte de service managé délégué pour cet ordinateur.
+
+Si vous activez ce paramètre de stratégie, les ouvertures de session de compte de service managé délégué sont prises en charge par le client Kerberos. Notez que cette stratégie a certains prérequis. Les prérequis et les instructions pour créer un compte de service managé délégué sont disponibles sur https://go.microsoft.com/fwlink/?linkid=2250379.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les ouvertures de session de compte de service managé délégué ne sont pas prises en charge. 
+</string>
+      <string id="EnableTryIPSPN">Autoriser les SPN basés sur l’adresse IP lors de l’authentification Kerberos</string>
+      <string id="EnableTryIPSPN_explain">Ce paramètre de stratégie vous permet de configurer Kerberos pour utiliser des noms de principal du service (SPN) basés sur l’adresse IP.
+
+Si vous activez ce paramètre de stratégie, le client Kerberos tente d’utiliser des noms de principal du service basés sur une adresse IP lors de la connexion à un service.
+
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, Kerberos ne tentera pas d’utiliser des noms de principal du service basés sur une adresse IP.
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -181,6 +223,16 @@ Si vous ne configurez pas ce paramètre de stratégie, Automatique est utilisé.
         <text>Autre exemple :</text>
         <text>Nom de valeur : REALM.FABRIKAM.COM</text>
         <text>Valeur : &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">Realms :</multiTextBox>
+        <text>Syntaxe :</text>
+        <text>Entrez une liste de domaines où des DMSA peuvent exister.</text>
+        <text>Entrez le nom de domaine complet (FQDN) et le nom court.</text>
+        <text>Entrer un domaine par ligne.</text>
+        <text>Détails :</text>
+        <text>Le client Kerberos va tenter de trouver un contrôleur de domaine compatible DMSA pour les domaines répertoriés.</text>
+        <text>Si aucun domaine n’est spécifié, le client Kerberos tente de trouver un contrôleur de domaine compatible DMSA pour tous les domaines.</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">Mode :</dropdownList>
@@ -225,7 +277,7 @@ Si vous ne configurez pas ce paramètre de stratégie, Automatique est utilisé.
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Prendre en charge l’autorisation à l’aide des informations du périphérique client :</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Prendre en charge l’autorisation à l’aide des informations du périphérique client :</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">Taille maximale</decimalTextBox>
@@ -233,7 +285,13 @@ Si vous ne configurez pas ce paramètre de stratégie, Automatique est utilisé.
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Comportement de l'authentification de périphérique à l'aide de certificats :</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Comportement de l'authentification de périphérique à l'aide de certificats :</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -10,6 +10,8 @@
         <string id="MSPassport_UsePassportForWork">Usar o Windows Hello para Empresas</string>
         <!-- Add support for certificate trust deployments -->
         <string id="WHFB_UseCertificateForOnPremAuth">Usar certificado para autenticação local</string>
+        <!-- Add support for cloud trust deployments -->
+        <string id="WHFB_UseCloudTrustForOnPremAuth">Use a confiança na nuvem para autenticações no local</string>
         <!-- DropdownList Button strings -->
         <string id="MSPassport_UsePassportForWorkExplain">O Windows Hello para Empresas é um método alternativo para entrar no Windows usando sua conta do Active Directory ou do Azure Active Directory que pode substituir senhas, Cartões Inteligentes e Cartões Inteligentes Virtuais.
 
@@ -34,13 +36,13 @@ Se você habilitar essa configuração de política, o provisionamento do Window
 Se você desabilitar ou não definir essa configuração de política, o TPM ainda será preferencial, mas todos os dispositivos poderão provisionar o Windows Hello para Empresas usando o software se o TPM estiver inoperante ou indisponível.
         </string>
         <string id="MSPassport_MinimumPINLength">Comprimento mínimo do PIN</string>
-        <string id="MSPassport_MinimumPINLengthExplain">O comprimento mínimo do PIN configura o número mínimo de caracteres necessários para o PIN. O número mais baixo que você pode definir para essa configuração de política é 4. O maior número que você pode definir deve ser menor que o número definido na configuração da política de comprimento máximo do PIN ou o número 127, o que for menor.
+        <string id="MSPassport_MinimumPINLengthExplain">O comprimento mínimo do PIN configura o número mínimo de caracteres necessários para o PIN.  O número mais baixo que você pode definir para esta configuração de política é 4.  O maior número que você pode configurar deve ser menor que o número configurado na configuração de política de comprimento máximo do PIN ou o número 127, o que for o menor.
 
 Se você definir essa configuração de política, o comprimento do PIN deverá ser maior ou igual a esse número.
 
-Se você desabilitar ou não definir essa configuração de política, o comprimento do PIN deverá ser maior ou igual a 4.
+Se você desabilitar ou não definir essa configuração de política, o comprimento do PIN deverá ser maior ou igual a 6.
 
-OBSERVAÇÃO: se as condições especificadas acima para o comprimento mínimo do PIN não forem cumpridas, os valores padrão serão usados no comprimento mínimo e máximo do PIN.
+OBSERVAÇÃO: se as condições especificadas acima para o comprimento mínimo do PIN não forem atendidas, os valores padrão serão usados para os comprimentos máximo e mínimo do PIN.
         </string>
         <string id="MSPassport_MaximumPINLength">Comprimento máximo do PIN</string>
         <string id="MSPassport_MaximumPINLengthExplain">O comprimento máximo do PIN configura o número máximo de caracteres permitidos para o PIN. O número mais alto que você pode definir para essa configuração de política é 127. O número mais baixo que você pode definir deve ser maior que o número definido na configuração da política de comprimento mínimo do PIN ou o número 4, o que for maior.
@@ -52,32 +54,40 @@ Se você desabilitar ou não definir essa configuração de política, o comprim
 OBSERVAÇÃO: se as condições especificadas acima para o comprimento máximo do PIN não forem cumpridas, os valores padrão serão usados no comprimento mínimo e máximo do PIN.
         </string>
         <string id="MSPassport_UppercaseLetters">Requer letras maiúsculas</string>
-        <string id="MSPassport_UppercaseLettersExplain">Use essa configuração de política para definir o uso de letras maiúsculas no PIN.
+        <string id="MSPassport_UppercaseLettersExplain">Use esta configuração de política para definir o uso de letras maiúsculas no PIN.
 
-Se você habilitar essa configuração de política, o Windows exigirá que os usuários incluam pelo menos uma letra maiúscula no PIN.
+Se você habilitar essa configuração de política, o Windows exigirá que o usuário inclua pelo menos uma letra maiúscula no PIN.
 
-Se você desabilitar ou não definir essa configuração de política, o Windows não permitirá que os usuários usem letras maiúsculas no PIN.
+Se você desabilitar essa configuração de política, o Windows não permitirá que o usuário inclua letras maiúsculas no PIN.
+
+Se você não definir essa configuração de política, o Windows permitirá, mas não exigirá letras maiúsculas no PIN.
         </string>
         <string id="MSPassport_LowercaseLetters">Requer letras minúsculas</string>
-        <string id="MSPassport_LowercaseLettersExplain">Use essa configuração de política para definir o uso de letras minúsculas no PIN.
+        <string id="MSPassport_LowercaseLettersExplain">Use esta configuração de política para definir o uso de letras minúsculas no PIN.
 
-Se você habilitar essa configuração de política, o Windows exigirá que os usuários incluam pelo menos uma letra minúscula no PIN.
+Se você habilitar essa configuração de política, o Windows exigirá que o usuário inclua pelo menos uma letra minúscula no PIN.
 
-Se você desabilitar ou não definir essa configuração de política, o Windows não permitirá que os usuários usem letras minúsculas no PIN.
+Se você desabilitar essa configuração de política, o Windows não permitirá que o usuário inclua letras minúsculas no PIN.
+
+Se você não definir essa configuração de política, o Windows permitirá, mas não exigirá letras minúsculas no PIN.
         </string>
         <string id="MSPassport_SpecialCharacters">Requer caracteres especiais</string>
-        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Use essa configuração de política para definir o uso de caracteres especiais no PIN. Caracteres especiais permitidos: ! " # $ %  ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
+        <string id="MSPassport_SpecialCharactersExplain"><![CDATA[Use esta configuração de política para definir o uso de caracteres especiais no PIN.  Os caracteres especiais permitidos são: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~ .
 
-Se você habilitar essa configuração de política, o Windows exigirá que os usuários incluam pelo menos um caractere especial no PIN.
+Se você habilitar essa configuração de política, o Windows exigirá que o usuário inclua pelo menos um caractere especial no PIN.
 
-Se você desabilitar ou não definir essa configuração de política, o Windows não permitirá que os usuários usem caracteres especiais no PIN.]]>
+Se você desabilitar essa configuração de política, o Windows não permitirá que o usuário inclua caracteres especiais no PIN.
+
+Se você não definir essa configuração de política, o Windows permitirá, mas não exigirá caracteres especiais no PIN.]]>
         </string>
         <string id="MSPassport_Digits">Requer dígitos</string>
-        <string id="MSPassport_DigitsExplain">Use essa configuração de política para definir o uso de dígitos no PIN.
+        <string id="MSPassport_DigitsExplain">Use esta configuração de política para definir o uso de dígitos no PIN.
 
-Se você habilitar ou não definir essa configuração de política, o Windows exigirá que os usuários incluam pelo menos um dígito no PIN.
+Se você habilitar essa configuração de política, o Windows exigirá que o usuário inclua pelo menos um dígito no PIN.
 
-Se você desabilitar essa configuração de política, o Windows não permitirá que os usuários usem dígitos no PIN.
+Se você desabilitar essa configuração de política, o Windows não permitirá que o usuário inclua dígitos nos PINs.
+
+Se você não definir essa configuração de política, o Windows permitirá, mas não exigirá dígitos do PIN.
         </string>
         <string id="MSPassport_PINHistory">Histórico</string>
         <string id="MSPassport_PINHistoryExplain">Essa configuração especifica o número de PINs anteriores que podem ser associados a uma conta de usuário e que não podem ser reutilizados. Essa política permite que os administradores aprimorem a segurança garantindo que PINs antigos não sejam reutilizados continuamente. O Histórico de PINs não é mantido por meio da redefinição de PINs.
@@ -100,6 +110,19 @@ Se você desabilitar essa configuração de política, o Windows Hello para Empr
 
 OBSERVAÇÃO: desabilitar essa política impede o uso de gestos biométricos no dispositivo para todos os tipos de conta.
         </string>
+        <string id="MSPassport_EnableEnhancedSignInSecurity">Habilitar o ESS com periféricos com suporte</string>
+        <string id="MSPassport_EnableEnhancedSignInSecurityExplain">A segurança de entrada avançada (ESS) isola os dados de modelo biométricos (detecção facial e impressão digital) e as operações correspondentes do Windows Hello a equipamentos de hardware confiáveis ou regiões de memória especificadas, o que significa que o restante do sistema operacional não pode acessá-los nem adulterá-los. Como o canal de comunicação entre os sensores e o algoritmo também é protegido, é impossível para o malware injetar ou reproduzir dados para simular um usuário entrando ou bloqueando um usuário fora do computador.
+Se você habilitar essa política, ela poderá ter os seguintes valores possíveis:
+
+ 0 - Segurança de entrada avançada desabilitada com sensores periféricos
+A ESS será desabilitada em sistemas com software e hardware compatíveis. As operações de autenticação de dispositivos periféricos compatíveis com o Windows Hello serão permitidas, sujeitas às limitações de recursos atuais.
+
+1 - Segurança de entrada avançada habilitada sem sensores periféricos (padrão e recomendado)
+A ESS será habilitada em sistemas com software e hardware compatíveis, seguindo o comportamento padrão existente no Windows. As operações de autenticação de qualquer dispositivo biométrico periférico serão bloqueadas e não estarão disponíveis para Windows Hello.
+
+Se você desabilitar ou não configurar essa política, os sensores não ESS serão bloqueados no dispositivo ESS.
+
+        </string>
         <string id="MSPassport_EnablePinRecovery">Usar Recuperação de PIN</string>
         <string id="MSPassport_EnablePinRecoveryExplain">A recuperação de PIN permite que o usuário altere um PIN esquecido usando o serviço de recuperação de PIN do Windows Hello para Empresas, sem perder quaisquer credenciais ou certificados associados, incluindo quaisquer chaves associadas às contas pessoais do usuário no dispositivo. Para conseguir isso, o serviço de recuperação de PIN baseado no Azure criptografa um segredo de recuperação, armazenado no dispositivo, e requer o serviço de recuperação de PIN e o dispositivo para descriptografar. A recuperação de PIN exige que o usuário faça a autenticação multifator no Azure Active Directory.
 
@@ -110,13 +133,22 @@ Se você desabilitar ou não definir esta configuração de política, o Windows
 OBSERVAÇÃO: esta política é aplicável somente a dispositivos registrados no Azure Active Directory.
         </string>
         <!-- Explain Text for UseCertificateForOnPremAuth -->
-        <string id="WHFB_UseCertificateForOnPremAuthExplain">Use essa configuração de política para configurar o Windows Hello para Empresas para registrar um certificado de acesso para autenticação local.
+        <string id="WHFB_UseCertificateForOnPremAuthExplain">Use esta configuração de política para configurar o Windows Hello para empresas para registrar um certificado de entrada usado para a autenticação local.
 
-Se você habilitar essa configuração de política, o Windows Hello para Empresas registrará um certificado de acesso que é usado para autenticação local.
+Se você habilitar essa configuração de política, o Windows Hello para empresas registrará um certificado de entrada que é usado para autenticação local.
 
-Se você desabilitar ou não definir essa configuração de política, o Windows Hello para Empresas registrará uma chave que é usada para autenticação local.
+Se você desabilitar ou não definir essa configuração de política, o Windows Hello para empresas usará uma chave ou um tíquete Kerberos (dependendo das outras configurações de política) para a autenticação local.
 
-OBSERVAÇÃO: desabilitar ou não configurar esta política e habilitar a configuração de política "Usar o Windows Hello para Empresas" requer que o ambiente tenha um ou mais controladores de domínio do Windows Server 2016 para impedir a falha da autenticação do Windows Hello para Empresas.
+Observação: desabilitar ou não definir essa configuração de política e habilitar a configuração de política "usar o Windows Hello para empresas" requer que o ambiente tenha um ou mais controladores de domínio do Windows Server 2016 para impedir a falha da autenticação do Windows Hello para empresas.
+        </string>
+        <!-- Explain Text for UseCloudTrustForOnPremAuth -->
+        <string id="WHFB_UseCloudTrustForOnPremAuthExplain">Use esta configuração de política para configurar o Windows Hello para empresas para usar o Kerberos do Azure AD para autenticação local.
+
+Se você habilitar essa configuração de política, o Windows Hello para empresas usará um tíquete Kerberos recuperado da autenticação no Azure para a autenticação local.
+
+Se você desabilitar ou não definir essa configuração de política, o Windows Hello para empresas usará uma chave ou certificado (dependendo de outras configurações de política) para autenticação local. 
+ 
+Observação: um ambiente que habilita essa configuração de política e a configuração de política "usar o Windows Hello para empresas" requer um ou mais controladores de domínio do Windows Server 2016. Caso contrário, a autenticação do Windows Hello para empresas irá falhar.
         </string>
         <!-- Explain text for device unlock policy -->
         <string id="MSPassport_UseDeviceUnlock">Configurar fatores de desbloqueio do dispositivo</string>
@@ -173,6 +205,9 @@ O Windows requer que um usuário bloqueie e desbloqueie sua sessão depois de al
         </string>
     </stringTable>
     <presentationTable>
+        <presentation id="MSPassport_EnableEnhancedSignInSecurityControl">
+            <decimalTextBox refId="MSPassport_EnableEnhancedSignInSecurityDataType" spin="true" spinStep="1" defaultvalue="1">Habilitar o ESS com periféricos com suporte</decimalTextBox>
+        </presentation>
         <presentation id="MSPassport_MinimumPINLengthControl">
             <decimalTextBox refId="MSPassport_MinimumPINLengthDataType" spin="true" spinStep="1" defaultvalue="6">Comprimento mínimo do PIN</decimalTextBox>
         </presentation>

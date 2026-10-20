@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>DPAPI</displayName>
+  <description>DPAPI-instellingen configureren</description>
+  <resources>
+    <stringTable>
+      <string id="DPAPI">DPAPI</string>
+      <string id="DomainBackupKeyRotationPeriod">De rotatieperiode voor DPAPI-back-upsleutels instellen</string>
+      <string id="DomainBackupKeyRotationPeriod_Explain">Met deze beleidsinstelling geeft u de rotatieperiode voor DPAPI-back-upsleutels op. 
+Met deze instelling kunt u de standaardwaarde van 90 dagen overschrijven. Stel 0 in om de rotatie van de DPAPI-back-upsleutels uit te schakelen. 
+Als u deze beleidsinstelling inschakelt, stelt u het aantal dagen in dat het systeem wacht voordat een nieuwe DPAPI-back-upsleutel wordt gegenereerd. 
+Als u deze beleidsinstelling uitschakelt of niet configureert, wordt de standaardwaarde van 90 dagen gebruikt.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="DPAPI_DomainBackupKeyRotationPeriod_Presentation">
+        <decimalTextBox refId="DPAPI_DomainBackupKeyRotationPeriod_Prompt" defaultValue="90">De rotatieperiode voor DPAPI-back-upsleutels in dagen specificeren. 
+Stel het in op 0 om de rotatie van de DPAPI-back-upsleutels uit te schakelen.</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

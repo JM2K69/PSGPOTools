@@ -25,6 +25,10 @@
 このポリシー設定を有効にするにはコンピューターを再起動する必要があります。</string>
       <string id="HomeGroup">ホームグループ</string>
       <string id="HomeGroup_Help">ホームグループの動作を制御するための設定が含まれます。</string>
+      <string id="DisableShareAppPromotions">DisableShareAppPromotions</string>
+      <string id="DisableShareAppPromotions_Help">このポリシー設定を使用すると、IT 管理者は、ShareSheet にプロモーション アプリを表示するかどうかを制御できます。このポリシーを有効にした場合、ShareSheet にプロモーション アプリは表示されません。このポリシーを無効にするか、未構成にした場合、ShareSheet を開いたときに、ShareSheet にアプリの候補やプロモーションが表示されることがあります。</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

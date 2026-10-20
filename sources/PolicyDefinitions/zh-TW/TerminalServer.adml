@@ -5,6 +5,8 @@
   <description>在此輸入描述</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">啟用自動訂閱</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">控制使用者應自動訂閱的 URL 清單</string>
       <string id="TS_SUPPORTED_Windows10">至少需要 Windows 10 或 Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">至少需要 Windows 8 或 Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">至少需要 Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">至少需要 Windows XP 和僅 Windows Server 2003</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">至少需要 Windows Server 2008 或 Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  僅限 Windows Server 2008 R2</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 版本1903、Windows 10 版本1909與 Windows 10 版本2004</string>
       <string id="TS_TERMINAL_SERVER">遠端桌面工作階段主機</string>
       <string id="TS_TERMINAL_SERVER_Help">控制遠端桌面工作階段主機伺服器的設定</string>
       <string id="TS_LICENSE_SERVER">RD 授權</string>
@@ -128,22 +131,22 @@
 如果啟用這個設定，[遠端桌面連線] 的認證儲存核取方塊將會停用，而且使用者再也無法儲存密碼。當使用者使用遠端桌面連線開啟 RDP 檔案並儲存其設定後，所有先前存在於 RDP 檔案中的密碼都將予以刪除。
 
 如果停用或未做這個設定，則使用者能夠使用遠端桌面連線儲存密碼</string>
-      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">這個原則設定指定在遠端桌面服務工作階段中，是否要防止對應用戶端磁碟機 (磁碟機重新導向)。
+      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">這個原則設定指定是否要防止在遠端桌面服務會話中對應用戶端磁片磁碟機，(磁片磁碟機重新導向)。
 
-根據預設，RD 工作階段主機伺服器會在連線時自動對應用戶端磁碟機。對應的磁碟機會以「&lt;磁碟機代號&gt; 於 &lt;電腦名稱&gt;」的格式，顯示在 [檔案總管] 或電腦的工作階段資料夾樹狀目錄中。您可以使用這個原則設定覆寫這種行為。
+根據預設，RD 工作階段主機伺服器會在連線時自動對應用戶端磁片磁碟機。對應的磁片磁碟機會出現在檔案總管或電腦的會話資料夾樹狀結構中，格式為 &lt;driveletter&gt;  &lt;computername&gt;。您可以使用這個原則設定來覆寫這個行為。
 
-如果您啟用這個原則設定，就不允許在遠端桌面服務工作階段中，重新導向用戶端磁碟機，而且不允許在執行 Windows Server 2003、Windows 8 和 Windows XP 的電腦上，重新導向剪貼簿檔案複製。
+如果您啟用這個原則設定，則不允許在遠端桌面服務會話中重新導向用戶端磁片磁碟機，而且不允許在執行 Windows XP、Windows Server 2003、Windows Server 2012 (及更新版本的電腦上重新導向剪貼簿檔案複製，)或Windows 8 (及更新版本)。
 
-如果您停用這個原則設定，就一律允許重新導向用戶端磁碟機。此外，如果允許剪貼簿重新導向，就永遠允許剪貼簿檔案複製重新導向。
+如果您停用這個原則設定，一律允許重新導向用戶端磁片磁碟機。此外，如果允許剪貼簿重新導向，就一律允許剪貼簿檔案複製重新導向。
 
-如果您未設定這個原則設定，則不會在群組原則層級指定用戶端磁碟機重新導向和剪貼簿檔案複製重新導向。
-
+如果您未設定這個原則設定，則不會在群組原則層級指定用戶端磁片磁碟機重新導向和剪貼簿檔案複製重新導向。
 </string>
       <string id="TS_CLIENT_DRIVE_M">不允許磁碟重新導向</string>
       <string id="TS_CLIENT_HELP">控制遠端桌面連線用戶端設定</string>
       <string id="TS_CLIENT_LPT">不允許 LPT 連接埠重新導向</string>
       <string id="TS_CLIENT_PNP">不允許支援的隨插即用裝置重新導向</string>
       <string id="TS_CAMERA_REDIRECTION">不允許視訊擷取重新導向</string>
+      <string id="TS_LOCATION_REDIRECTION">不允許位置重新導向</string>
       <string id="TS_CLIENT_PRINTER">不允許用戶端印表機重新導向</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">這個原則設定指定在遠端桌面服務工作階段期間，是否要防止在遠端電腦及用戶端電腦間共用剪貼簿內容 (剪貼簿重新導向)。
 
@@ -208,6 +211,15 @@ c.	用戶端要求的值
 
 如果停用或不設定這項原則設定，使用者即可將他們的視訊擷取裝置重新導向到遠端電腦。使用者可以使用遠端桌面連線 [本機資源] 索引標籤上的 [更多] 選項，來選擇要重新導向到遠端電腦的視訊擷取裝置。
 
+</string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">這個原則設定可讓您控制在遠端桌面服務會話中，將位置資料重新導向到遠端電腦的功能。
+
+根據預設，遠端桌面服務允許重新導向位置資料。
+
+如果您啟用這個原則設定，使用者將無法將其位置資料重新導向到遠端電腦。
+
+如果您停用或未設定這個原則設定，使用者可以將其位置資料重新導向到遠端電腦。
+          
 </string>
       <string id="TS_MAXMONITOR_EXPLAIN">這個原則設定可讓您限制使用者可用來顯示遠端桌面服務工作階段的監視器數目。限制用來顯示遠端桌面服務工作階段的監視器數目可以改善連線的效能 (特別是在低速連結上)，並減少伺服器的負載。
 
@@ -422,17 +434,17 @@ RD 工作階段主機伺服器後援印表機驅動程式預設為停用。如�
       <string id="TS_LICENSING_MODE_EXPLAIN">
         此原則設定可讓您指定連線至此 RD 工作階段主機伺服器時，所需的遠端桌面服務用戶端存取權授權 (RDS CAL) 類型。
 
-        您可以使用此原則設定來選取三種授權模式之一: 每一使用者、每一裝置和每一使用者 AAD。
+        您可以使用此原則設定來選取兩種授權模式之一: 每一使用者或每一裝置。
 
         每一使用者授權模式需要連線至此 RD 工作階段主機伺服器的每一使用者帳戶都具有 RD 授權伺服器發行的 RDS 每一使用者 CAL。
 
         每一裝置授權模式需要連線至此 RD 工作階段主機伺服器的每一裝置都具有 RD 授權伺服器發行的 RDS 每一裝置 CAL。
 
-        每一使用者 AAD 授權模式需要連線至此 RD 工作階段主機伺服器的每一使用者帳戶都具有支援 AAD 中所指派 RDS 授權的服務方案。
-        
         若您啟用此原則設定，則遠端桌面授權伺服器和 RD 工作階段主機會接受您指定的遠端桌面授權模式。
 
         若您停用或未設定此原則設定，則不會在群組原則層級指定授權模式。
+
+        注意: 每個使用者的 AAD 模式在 Windows 11 和以上版本會遭到取代。
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">每個裝置</string>
       <string id="TS_LICENSING_MODE_PER_USER">每位使用者</string>
@@ -609,6 +621,17 @@ RD 工作階段主機伺服器後援印表機驅動程式預設為停用。如�
       <string id="TS_SECURITY_LAYER_POLICY">需要對遠端 (RDP) 連線使用特定的安全層</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">啟用 Microsoft Entra ID 驗證強制執行</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">此政策設定允許您指定是否要求伺服器端強制執行 Microsoft Entra ID 認證。
+
+若啟用此政策設定，所有遠端桌面服務用戶端必須使用 RDS AAD 認證，才能向 RD 會話主機伺服器進行驗證。
+
+此政策不允許退回到其他認證方式。
+
+此政策必須啟用網路層級認證 (NLA)，才能有效執行。請參考「透過網路層級驗證要求遠端連線使用者驗證」政策。
+
+如果您停用或未設定此政策設定，則 Microsoft Entra ID 認證強制執行將不被強制執行。
+</string>
       <string id="TS_Session_End_On_Limit">超過使用時間限制就結束工作階段</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">這個原則設定指定是否結束已經等候逾時的遠端桌面服務工作階段，而不是中斷連線。
 
@@ -787,6 +810,79 @@ RD 工作階段主機伺服器後援印表機驅動程式預設為停用。如�
 如果您停用或未設定這個原則設定，則可指定用戶端連線到遠端電腦後，要在遠端電腦上執行的初始程式。如果未指定初始程式，用戶端連線到遠端電腦後，將會在遠端電腦上顯示桌面。
 
 注意: 如果啟用這個原則設定，則會略過 [連線時啟動程式] 原則設定。</string>
+      <string id="TS_UIA">允許 UI 自動化重新導向</string>
+      <string id="TS_UIA_EXPLAIN">此原則設定可決定在本機電腦上執行的使用者 (介面) 自動化用戶端應用程式是否能存取伺服器上的 UI 元素。
+
+UI 自動化會讓程式存取大部分的 UI 元素，讓您使用需要與 UI 互動的輔助技術產品（例如，放大鏡與朗讀程式）才能正常運作。UI 資訊也允許自動測試腳本與 UI 互動。
+
+遠端桌面會話目前不支援 UI 自動化重新導向。
+
+如果您啟用或未設定這個原則設定，本機電腦上的任何 UI 自動化用戶端都可以與遠端應用程式互動。例如，您可以使用您的本機電腦的朗讀程式和放大鏡用戶端，與您在遠端會話中開啟的網頁上的 UI 互動。
+
+如果您停用這個原則設定，在您的本機電腦上執行的 UI 自動化用戶端無法與遠端應用程式互動。
+</string>
+      <string id="TS_WEBAUTHN">不允許 WebAuthn 重新導向</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">這個原則設定可讓您控制來自遠端桌面工作模式到本機裝置之 Web 驗證 (WebAuthn) 要求的的重新導向。此重新導向可讓使用者使用其本機 驗證器 (例如 Windows Hello 企業版、安全性金鑰或其他項目等)，向遠端桌面工作模式內的資源進行驗證。
+
+根據預設，遠端桌面允許 WebAuthn 要求的重新導向。
+
+如果啟用這個原則設定，使用者無法使用他們在遠端桌面工作模式內的的本機驗證器。
+
+如果停用或未進行這個原則設定，使用者可以使用在遠端桌面工作模式內的的本機驗證器。
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">停用剪貼簿從伺服器傳送到用戶端</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">停用剪貼簿從用戶端傳送到伺服器</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">允許純文字</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">允許純文字和影像</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">允許純文字、影像和 RTF 格式</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">允許純文字、影像、RTF 格式和 HTML</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">限制剪貼簿從伺服器傳送到用戶端</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">這個原則設定可讓您限制從伺服器到用戶端的剪貼簿資料傳輸。
+
+如果啟用此原則設定，您必須從下列行為中選擇：
+
+- 停用從伺服器到用戶端的剪貼簿傳輸。
+
+- 允許從伺服器將純文字複製到用戶端。
+
+- 允許從伺服器複製純文字和影像到用戶端。
+
+- 允許從伺服器複製純文字、影像和 RTF 格式到用戶端。
+
+- 允許從伺服器將純文字、影像、RTF 格式及 HTML 複製到用戶端。
+
+如果您停用或未設定這個原則設定，則如果啟用剪貼簿重新導向，使用者可以將任意內容從伺服器複製到用戶端。
+
+注意： 這個原則設定會同時出現在 [電腦設定] 和 [使用者設定] 中。如果同時設定這兩個原則設定，則會使用更嚴格的限制。
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">限制剪貼簿從用戶端傳送到伺服器</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">這個原則設定可讓您限制從用戶端到伺服器的剪貼簿資料傳輸。
+
+如果啟用此原則設定，您必須從下列行為中選擇：
+
+- 停用從用戶端到伺服器的剪貼簿傳輸。
+
+- 允許從用戶端複製純文字到伺服器。
+
+- 允許從用戶端複製純文字和影像到伺服器。
+
+- 允許從用戶端複製純文字、影像和 RTF 格式到伺服器。
+
+- 允許從用戶端複製純文字、影像、RTF 格式及 HTML 複製到伺服器。
+
+如果您停用或未設定這個原則設定，則如果啟用剪貼簿重新導向，則使用者可以將任意內容從用戶端複製到伺服器。
+
+注意： 這個原則設定會同時出現在 [電腦設定] 和 [使用者設定] 中。如果同時設定這兩個原則設定，則會使用更嚴格的限制。
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">停用伺服器對用戶端資料轉送的雲端剪貼簿整合</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">這個原則設定可讓您控制使用剪貼簿重新導向將資料從遠端工作模式轉送到用戶端是否會新增至用戶端的雲端剪貼簿。
+
+根據預設，遠端桌面會停用與用戶端雲端剪貼使用剪貼簿重新導向將資料從遠端工作模式轉送的整合
+
+如果啟用或不進行此原則設定，在遠端工作模式中複製並貼上至用戶端的資料不會新增至用戶端的雲端剪貼簿。
+
+如果停用這個原則設定，在遠端工作模式中複製並貼上至用戶端的資料則會新增至用戶端的雲端剪貼簿 (若啟用)。
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">這個原則設定可以讓您指定是否要使用網路層級驗證來對連至 RD 工作階段主機伺服器的遠端連線要求使用者驗證。這個原則設定要求使用者驗證在遠端連線處理程序初期執行，以增強安全性。
 
 如果您啟用這個原則設定，只有支援網路層級驗證的用戶端電腦能夠連線到 RD 工作階段主機伺服器。
@@ -801,6 +897,24 @@ RD 工作階段主機伺服器後援印表機驅動程式預設為停用。如�
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">透過使用網路層級驗證以要求對遠端連線進行使用者驗證</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> 在鎖定舊版驗證時中斷遠端工作階段的連線</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">此原則設定可讓您在使用者或原則鎖定 [遠端桌面工作階段] 時，設定使用者體驗。您可以指定遠端工作階段在遠端工作階段鎖定時，是否顯示遠端鎖定畫面或中斷連線。中斷遠端工作階段連線，可確保遠端工作階段無法留在鎖定畫面上，而且因為失去網路連線，而無法自動重新連線。
+
+此原則僅適用於使用舊版驗證向遠端系統進行驗證的情況。舊版驗證僅限於使用者名稱和密碼，或智慧卡等憑證。舊版驗證不會利用 Microsoft 身分識別平台，例如 Microsoft Entra ID。舊版驗證包括 NTLM、CredSSP、RDSTLS、TLS 和 RDP 基本身份驗證通訊協定。
+
+如果您啟用此原則設定，當遠端工作階段鎖定時，使用舊版驗證的 [遠端桌面] 連線將會中斷遠端工作階段連線。使用者可以在準備好時重新連結，並在系統提示時，重新輸入其認證。
+
+如果您停用或未設定此原則設定，當遠端工作階段鎖定時，使用舊版驗證的 [遠端桌面] 連線將會顯示遠端工作階段鎖定畫面。使用者可以使用使用者名稱和密碼或憑證，來解除鎖定遠端工作階段。
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">在鎖定時中斷遠程工作階段的連線，以進行 Microsoft 身分識別平台驗證</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">這個原則設定可讓您設定遠端桌面會話被使用者鎖定或由原則鎖定時的用戶體驗。您可以指定遠端會話在遠端會話鎖定時，是否顯示遠端鎖定畫面或中斷連線。中斷遠端會話的連線可確保遠端會話無法留在鎖定畫面上，也因為網路連線中斷而無法自動重新連線。
+
+此原則僅適用於使用 Microsoft 身分識別平台，例如 Microsoft Entra ID 向遠端電腦驗證的識別提供者時。使用包含 NTLM、CredSSP、RDSTLS、TLS 和 RDP 基本身份驗證通訊協定的舊版驗證時，不適用此原則。
+
+如果您啟用或未設定這個原則設定，則使用 Microsoft 身分識別平台 的遠端桌面連線將會在遠端會話鎖定時中斷遠端會話的連線。用戶可以準備就緒后重新連線，如果已設定，則可以使用無密碼驗證。
+
+如果您停用這個原則設定，則使用 Microsoft 身分識別平台的遠端桌面聯機會在遠端會話鎖定時顯示遠端鎖定畫面。用戶可以使用使用者名稱和密碼或憑證來解除鎖定遠端會話。
+</string>
       <string id="TS_User_Help">控制遠端桌面服務技術的設定，該設定可啟用執行 Windows 程式或完整 Windows 桌面的伺服器存取</string>
       <string id="TS_USER_HOME">設定遠端桌面服務使用者主目錄</string>
       <string id="TS_USER_HOME_EXPLAIN">指定遠端桌面服務是否會使用指定的網路共用或是本機目錄路徑，做為遠端桌面服務工作階段使用者主目錄的根目錄。
@@ -901,36 +1015,44 @@ RD 工作階段主機伺服器後援印表機驅動程式預設為停用。如�
 注意: 您可以在「電腦設定」節點或「使用者設定」節點中定義這個原則設定。如果為電腦設定這個原則設定，該電腦上的所有使用者都會受到影響。
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">指定代表受信任的 .rdp 發行者的 SHA1 憑證指紋</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">這個原則設定可讓您指定「安全雜湊演算法 1」(SHA1) 憑證指紋的清單，以代表受信任的遠端桌面通訊協定 (.rdp) 檔案發行者。
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">指定代表受信任的 .rdp 發行者的憑證指紋</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">此原則設定可讓您指定一份憑證指紋清單，用來代表受信任的遠端桌面通訊協定 (.rdp) 檔案發行者。支援 SHA-256、SHA-384 和 SHA-512 指紋。SHA-1 指紋已淘汰: SHA-1 不再被視為安全，而且即將推出的安全性更新會預設停用 SHA-1 指紋的支援。管理員應盡快將所有指紋項目移轉至 SHA-256 或更強的專案。
 
-如果啟用這個原則設定，系統會信任其 SHA1 憑證指紋與清單上的憑證指紋相符的任何憑證。如果使用者嘗試啟動由受信任憑證所簽署的 .rdp 檔案，該使用者不會在啟動檔案時收到任何警告訊息。若要取得憑證指紋，請檢視憑證詳細資料，然後按一下 [憑證指紋] 欄位。
+指紋可加上用來產生指紋的雜湊演算法前置詞。支援的前置詞為 "sha256:"、"sha384:" 和 "sha512:" (不區分大小寫)。例如: sha256:AB0356F2...如果未指定前置詞，系統會將該項目視為舊版 SHA-1 指紋。
 
-如果停用或未設定這個原則設定，則沒有任何發行者會被視為受信任的 .rdp 發行者。
+如果啟用 [不允許 SHA-1 指紋] 核取方塊，系統會忽略未加前置詞的項目。系統只會比對 SHA-256、SHA-384 和 SHA-512 指紋。強烈建議您現在就啟用此核取方塊，為即將到來的預設變更做好準備。
+
+如果您啟用此原則設定，任何指紋與清單中指紋相符的憑證都會受到信任。如果使用者嘗試開啟由受信任憑證簽署的 .rdp 檔案，開啟檔案時不會收到任何警告訊息。
+
+如果您停用或未設定此原則設定，系統不會將任何發行者視為受信任的 .rdp 發行者。
 
 注意:
 
-您可以在「電腦設定」節點或「使用者設定」節點中定義這個原則設定。如果為電腦設定這個原則設定，則使用者信任的憑證指紋清單是由為電腦定義的清單以及為該使用者定義的清單組合而成。
+您可以在 [電腦設定] 節點或 [使用者設定] 節點中定義此原則設定。如果您為電腦設定此原則設定，則使用者信任的憑證指紋清單會結合為電腦與使用者定義的清單。
 
-這個原則設定會覆寫「允許來自有效發行者的 .rdp 檔案以及使用者的預設 .rdp 設定」原則設定。
+此原則設定會覆寫 [允許來自有效發行者的 .rdp 檔案以及使用者的預設 .rdp 設定] 原則設定的行為。
 
-如果清單中包含不是憑證指紋的字串，則予以忽略。
+如果清單包含不是憑證指紋的字串，系統會忽略該字串。
 
+如需詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=2368223。
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">這個原則設定可讓您指定「安全雜湊演算法 1」(SHA1) 憑證指紋的清單，以代表受信任的遠端桌面通訊協定 (.rdp) 檔案發行者。
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">此原則設定可讓您指定一份憑證指紋清單，用來代表受信任的遠端桌面通訊協定 (.rdp) 檔案發行者。支援 SHA-256、SHA-384 和 SHA-512 指紋。SHA-1 指紋已淘汰: SHA-1 不再被視為安全，而且即將推出的安全性更新會預設停用 SHA-1 指紋的支援。使用者應盡快將所有指紋項目移轉至 SHA-256 或更強的專案。
 
-如果啟用這個原則設定，系統會信任其 SHA1 憑證指紋與清單上的憑證指紋相符的任何憑證。如果使用者嘗試啟動由受信任憑證所簽署的 .rdp 檔案，該使用者不會在啟動檔案時收到任何警告訊息。若要取得憑證指紋，請檢視憑證詳細資料，然後按一下 [憑證指紋] 欄位。
+指紋可加上用來產生指紋的雜湊演算法前置詞。支援的前置詞為 "sha256:"、"sha384:" 和 "sha512:" (不區分大小寫)。例如: sha256:AB0356F2...如果未指定前置詞，系統會將該項目視為舊版 SHA-1 指紋。
 
-如果停用或未設定這個原則設定，則沒有任何發行者會被視為受信任的 .rdp 發行者。
+如果您啟用此原則設定，任何指紋與清單中指紋相符的憑證都會受到信任。如果使用者嘗試開啟由受信任憑證簽署的 .rdp 檔案，開啟檔案時不會收到任何警告訊息。
+
+如果您停用或未設定此原則設定，系統不會將任何發行者視為受信任的 .rdp 發行者。
 
 注意:
 
-您可以在「電腦設定」節點或「使用者設定」節點中定義這個原則設定。如果為電腦設定這個原則設定，則使用者信任的憑證指紋清單是由為電腦定義的清單以及為該使用者定義的清單組合而成。
+您可以在 [電腦設定] 節點或 [使用者設定] 節點中定義此原則設定。如果您為電腦設定此原則設定，則使用者信任的憑證指紋清單會結合為電腦與使用者定義的清單。
 
-這個原則設定會覆寫「允許來自有效發行者的 .rdp 檔案以及使用者的預設 .rdp 設定」原則設定。
+此原則設定會覆寫 [允許來自有效發行者的 .rdp 檔案以及使用者的預設 .rdp 設定] 原則設定的行為。
 
-如果清單中包含不是憑證指紋的字串，則予以忽略。
+如果清單包含不是憑證指紋的字串，系統會忽略該字串。
 
+如需詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=2368223。
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">在用戶端電腦上提示要求認證</string>
@@ -1018,6 +1140,14 @@ RD 工作階段主機伺服器後援印表機驅動程式預設為停用。如�
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">啟用 RemoteApp 的增強殼層體驗</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">這個原則設定可增強 RemoteApp 工作階段的命令介面體驗，提供預設檔案關聯、Run/RunOnce 登錄機碼等的支援。此原則設定僅適用於 RemoteApp 工作階段，不適用於遠端桌面工作階段。
+
+如果您啟用或不設定此原則設定，RD 終端機伺服器上的 RemoteApp 工作階段將會有增強的殼層體驗。
+
+如果您停用此原則設定，RemoteApp 工作階段將不會有增強的殼層體驗，而且會使用舊版殼層行為。如果發行的 RemoteApp 程式發生相容性問題，就可能需要此選項。
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1151,21 +1281,20 @@ RD 工作階段主機伺服器後援印表機驅動程式預設為停用。如�
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">選取 RDP 傳輸通訊協定</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">這個原則設定可讓您指定遠端桌面通訊協定 (RDP) 可以使用哪些通訊協定來存取這部伺服器。
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">這個原則設定可讓您指定哪些通訊協定可用於遠端桌面通訊協定 (RDP) 存取這部伺服器。
 
-如果您啟用這個原則設定，必須指定是否要讓 RDP 使用 UDP。
+如果啟用此原則設定，您必須指定是否要 RDP 使用 UDP。
 
-您可以選取下列其中一個選項: [同時使用 UDP 和 TCP]、[僅使用 TCP]，或 [使用 UDP 或 TCP (預設)]
+您可以選取下列其中一個選項：「使用 UDP 或 TCP (預設)」或「只使用 TCP」
 
-如果您選取 [使用 UDP 或 TCP]，而且 UDP 連線成功，則大多數的 RDP 流量都將使用 UDP。
+如果選取 [使用 UDP 或 TCP]，且 UDP 連線成功，則大部分的 RDP 流量都將使用 UDP。
 
-如果 UDP 連線失敗，或者您選取 [僅使用 TCP]，則所有的 RDP 流量都將使用 TCP。
+如果 UDP 連線不成功，或您選取 [只使用 TCP]，則所有 RDP 流量都會使用 TCP。
 
-如果您停用或未設定這個原則設定，則 RDP 將選擇最佳通訊協定來傳遞最佳使用者經驗。
+如果您停用或未設定這個原則設定，RDP 會選擇最佳通訊協定，以提供最佳用戶體驗。
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">同時使用 UDP 和 TCP</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">僅使用 TCP</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">使用 UDP 或 TCP</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">僅使用 TCP</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">選取伺服器上的網路偵測</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">這個原則設定可讓您指定遠端桌面通訊協定如何嘗試偵測網路品質 (頻寬及延遲)。
@@ -1344,12 +1473,13 @@ RD 工作階段主機伺服器後援印表機驅動程式預設為停用。如�
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>以逗號分隔的 SHA1 受信任憑證指紋清單:</label>
+          <label>以逗號分隔的受信任憑證指紋清單 (以 sha256:、sha384: 或 sha512: 為前置詞):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">不允許 SHA-1 指紋</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>以逗號分隔的 SHA1 受信任憑證指紋清單:</label>
+          <label>以逗號分隔的受信任憑證指紋清單 (以 sha256:、sha384: 或 sha512: 為前置詞):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1387,6 +1517,12 @@ RD 工作階段主機伺服器後援印表機驅動程式預設為停用。如�
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">選取傳輸類型</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">限制剪貼簿從伺服器傳送到用戶端:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">限制剪貼簿從用戶端傳送到伺服器:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

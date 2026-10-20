@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--  (c) 2006 Microsoft Corporation  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
-  <displayName>Windows Defender Application Guard</displayName>
-  <description>Aktivera Windows Defender Application Guard i hanterat läge</description>
+  <displayName>Microsoft Defender Application Guard</displayName>
+  <description>Aktivera Microsoft Defender Application Guard i hanterat läge</description>
   <resources>
     <stringTable>
-        <string id="AppHVSICat_DisplayName">Windows Defender Application Guard</string>
-        <string id="AppHVSI_AllowAppHVSI_DisplayName">Aktivera Windows Defender Application Guard i hanterat läge</string>
-        <string id="AppHVSI_AllowAppHVSI_Explain">Den här principen aktiverar programisolering via Windows Defender Application Guard (Application Guard).
+        <string id="AppHVSICat_DisplayName">Microsoft Defender Application Guard</string>
+        <string id="AppHVSI_AllowAppHVSI_DisplayName">Aktivera Microsoft Defender Application Guard i hanterat läge</string>
+        <string id="AppHVSI_AllowAppHVSI_Explain">Den här principen aktiverar programisolering via Microsoft Defender Application Guard.
 
-Application Guard använder Hypervisor-programmet i Windows för att skapa en virtualiserad miljö för appar som är konfigurerade till att använda virtualiseringsbaserad säkerhetsisolering. I isolerat läge kan felaktig användarinteraktion och sårbarheter i appar inte skada kerneln eller andra appar som körs utanför den virtualiserade miljön.
+Application Guard använder hypervisor-programmet i Windows för att skapa en virtualiserad miljö för appar som är konfigurerade till att använda virtualiseringsbaserad säkerhetsisolering. I isolerat läge kan felaktig användarinteraktion och säkerhetsrisker i appar inte skada kerneln eller andra appar som körs utanför den virtualiserade miljön.
 
 Om du aktiverar den här inställningen aktiveras Application Guard för din organisation.
         </string>
-        <string id="AppHVSI_ClipboardSettings_DisplayName">Konfigurera urklippsinställningar för Windows Defender Application Guard</string>
-        <string id="AppHVSI_ClipboardSettings_Explain">Den här principinställningen anger hur Urklipp fungerar i Windows Defender Application Guard (Application Guard).
+        <string id="AppHVSI_ClipboardSettings_DisplayName">Konfigurera urklippsinställningar för Microsoft Defender Application Guard</string>
+        <string id="AppHVSI_ClipboardSettings_Explain">Den här principinställningen anger hur Urklipp fungerar i Microsoft Defender Application Guard.
 
 Om du aktiverar den här inställningen måste du välja något av följande:
 
@@ -41,8 +41,8 @@ Om du inaktiverar eller låter bli att konfigurera den här inställningen inakt
         <string id="AppHVSI_ClipboardSettings_DropdownList_Option_ContainerToHostEnabled">Aktivera urklippsåtgärder från en isolerad session till värden</string>
         <string id="AppHVSI_ClipboardSettings_DropdownList_Option_HostToContainerEnabled">Aktivera urklippsåtgärder från en värd till den isolerade sessionen</string>
         <string id="AppHVSI_ClipboardSettings_DropdownList_Option_BothDirectionsEnabled">Aktivera urklippsåtgärder i båda riktningarna</string>
-        <string id="AppHVSI_PrintingSettings_DisplayName">Konfigurera utskriftsinställningar för Windows Defender Application Guard</string>
-        <string id="AppHVSI_PrintingSettings_Explain">Den här principinställningen anger hur utskriftsfunktionen fungerar i Windows Defender Application Guard (Application Guard).
+        <string id="AppHVSI_PrintingSettings_DisplayName">Konfigurera utskriftsinställningar för Microsoft Defender Application Guard</string>
+        <string id="AppHVSI_PrintingSettings_Explain">Den här principinställningen anger hur utskriftsfunktionen fungerar i Microsoft Defender Application Guard.
 
 Om du aktiverar den här inställningen måste du välja en eller flera av följande:
 
@@ -59,12 +59,12 @@ Om du aktiverar den här inställningen måste du välja en eller flera av följ
 Om du inaktiverar eller låter bli att konfigurera den här inställningen inaktiveras alla utskriftsfunktioner i Application Guard.
         </string>
 
-        <string id="AppHVSI_CertificateThumbprints_DisplayName">Låt Windows Defender Application Guard använda rotcertifikatutfärdare från användarens enhet</string>
-        <string id="AppHVSI_CertificateThumbprints_Explain">Med den här principinställningen kan du tillåta att vissa rotcertifikat delas med Windows Defender Application Guard-behållaren.
+        <string id="AppHVSI_CertificateThumbprints_DisplayName">Låt Microsoft Defender Application Guard använda rotcertifikatutfärdare från användarens enhet</string>
+        <string id="AppHVSI_CertificateThumbprints_Explain">Med den här principinställningen kan du tillåta att vissa rotcertifikat delas med Microsoft Defender Application Guard-behållare.
 
 Om du aktiverar den här inställningen överförs certifikat vars tumavtryck matchar de som angetts till behållaren. Du kan ange flera certifikat genom att avgränsa tumavtrycken för varje certifikat du vill överföra med ett komma.
 
-Om du inaktiverar eller låter bli att konfigurera den här inställningen delas inte certifikat med Windows Defender Application Guard-behållaren.
+Om du inaktiverar eller låter bli att konfigurera den här inställningen delas inte certifikat med Microsoft Defender Application Guard-behållaren.
 
 Exempel: b4e72779a8a362c860c36a6461f31e3aa7e58c14,1b1d49f06d2a697a544a1059bd59a7b058cda924
         </string>
@@ -72,21 +72,21 @@ Exempel: b4e72779a8a362c860c36a6461f31e3aa7e58c14,1b1d49f06d2a697a544a1059bd59a7
         <string id="AppHVSI_BlockNonEnterpriseContent_DisplayName">Hindra företagswebbplatser från att läsa in icke-företagsinnehåll i Microsoft Edge och Internet Explorer</string>
         <string id="AppHVSI_BlockNonEnterpriseContent_Explain">Med den här principinställningen kan du bestämma om webbplatser kan läsa in icke-företagsinnehåll i Microsoft Edge och Internet Explorer.
 
-Om du aktiverar den här inställningen hindras icke-företagsinnehåll som är inbäddat i företagswebbplatser från att öppnas i Internet Explorer eller Microsoft Edge utanför Windows Defender Application Guard.
+Om du aktiverar den här inställningen hindras icke-företagsinnehåll som är inbäddat i företagswebbplatser från att öppnas i Internet Explorer eller Microsoft Edge utanför Microsoft Defender Application Guard.
 
-Om du inaktiverar eller låter bli att konfigurera inställningen kan icke-företagswebbplatser öppnas direkt i Internet Explorer och Microsoft Edge utanför Windows Defender Application Guard.
+Om du inaktiverar eller låter bli att konfigurera inställningen kan icke-företagswebbplatser öppnas direkt i Internet Explorer och Microsoft Edge utanför Microsoft Defender Application Guard.
         </string>
-        <string id="AppHVSI_AllowCameraMicrophoneRedirection_DisplayName">Tillåt kamera- och mikrofonåtkomst i Windows Defender Application Guard</string>
-        <string id="AppHVSI_AllowCameraMicrophoneRedirection_Explain">Med den här principen kan du bestämma om program i Windows Defender Application Guard får använda enhetens kamera och mikrofon när de här inställningarna är aktiverade på användarens enhet.
+        <string id="AppHVSI_AllowCameraMicrophoneRedirection_DisplayName">Tillåt kamera- och mikrofonåtkomst i Microsoft Defender Application Guard</string>
+        <string id="AppHVSI_AllowCameraMicrophoneRedirection_Explain">Med den här principen kan du bestämma om program i Microsoft Defender Application Guard får använda enhetens kamera och mikrofon när de här inställningarna är aktiverade på användarens enhet.
 
-Om du aktiverar principen får program i Windows Defender Application Guard använda kameran och mikrofonen på användarens enhet.
+Om du aktiverar principen får program i Microsoft Defender Application Guard använda kameran och mikrofonen på användarens enhet.
 
-Om du inaktiverar eller låter bli att konfigurera principen kan program i Windows Defender Application Guard inte använda kameran och mikrofonen på användarens enhet.
+Om du inaktiverar eller låter bli att konfigurera principen kan program i Microsoft Defender Application Guard inte använda kameran och mikrofonen på användarens enhet.
 
 Viktigt! Om du aktiverar principen kan en utsatt behållare åsidosätta behörigheterna för kameran och mikrofonen och använda kameran och mikrofonen utan användarens kännedom. För att förhindra obehörig åtkomst rekommenderar vi att sekretessinställningarna för kameran och mikrofonen inaktiveras på användarens enhet när de inte behövs.
         </string>
-        <string id="AppHVSI_AllowPersistence_DisplayName">Tillåt databeständighet i Windows Defender Application Guard</string>
-        <string id="AppHVSI_AllowPersistence_Explain">Med den här principinställningen kan du bestämma om data ska bevaras mellan olika sessioner i Windows Defender Application Guard (Application Guard).
+        <string id="AppHVSI_AllowPersistence_DisplayName">Tillåt databeständighet i Microsoft Defender Application Guard</string>
+        <string id="AppHVSI_AllowPersistence_Explain">Med den här principinställningen kan du bestämma om data ska bevaras mellan olika sessioner i Microsoft Defender Application Guard.
 
 Om du aktiverar den här inställningen sparar Application Guard användarnas nedladdade filer och andra objekt (cookies, favoriter med mera) så att de kan användas i framtida Application Guard-sessioner.
 
@@ -95,64 +95,41 @@ Obs!
 
 Om du inaktiverar eller låter blir att konfigurera inställningen raderar Application Guard alla användardata i Application Guard-behållaren.
         </string>
-        <string id="AppHVSI_AllowVirtualGPU_DisplayName">Tillåt maskinvaruaccelererad rendering för Windows Defender Application Guard</string>
-        <string id="AppHVSI_AllowVirtualGPU_Explain">Med den här principinställningen bestämmer du om Windows Defender Application Guard renderar grafik med maskinvaruacceleration eller programvaruacceleration.
+        <string id="AppHVSI_AllowVirtualGPU_DisplayName">Tillåt maskinvaruaccelererad rendering för Microsoft Defender Application Guard</string>
+        <string id="AppHVSI_AllowVirtualGPU_Explain">Med den här principinställningen bestämmer du om Microsoft Defender Application Guard renderar grafik med maskinvaruacceleration eller programvaruacceleration.
 
-Om du aktiverar den här inställningen används Hyper-V av Windows Defender Application Guard för att komma åt högsäkerhetsmaskinvara (GPU:er) som stöds för grafikrendering. Dessa GPU:er ger förbättrad renderingsprestanda och batteritid när Windows Defender Application Guard används, i synnerhet för videouppspelning och annan grafikintensiv användning. Om du aktiverar den här inställningen utan att ansluta någon högsäkerhetsmaskinvara för grafikrendering återgår Windows Defender Application Guard automatiskt till programvarubaserad (CPU) rendering.
+Om du aktiverar den här inställningen används Hyper-V av Microsoft Defender Application Guard för att komma åt högsäkerhetsmaskinvara (GPU:er) som stöds för grafikrendering. Dessa GPU:er ger förbättrad renderingsprestanda och batteritid när Microsoft Defender Application Guard används, i synnerhet för videouppspelning och annan grafikintensiv användning. Om du aktiverar den här inställningen utan att ansluta någon högsäkerhetsmaskinvara för grafikrendering återgår Microsoft Defender Application Guard automatiskt till programvarubaserad (CPU) rendering.
 
 Obs!
 Om du aktiverar den här inställningen med potentiellt komprometterade grafikenheter eller -drivrutiner kan det utgöra en risk för värdenheten.
 
-Om du inaktiverar eller låter bli att konfigurera inställningen använder Windows Defender Application Guard programvarubaserad (CPU) rendering och den läser inte in grafikdrivrutiner från tredje part eller interagerar med någon ansluten grafikmaskinvara.
+Om du inaktiverar eller låter bli att konfigurera inställningen använder Microsoft Defender Application Guard programvarubaserad (CPU) rendering och den läser inte in grafikdrivrutiner från tredje part eller interagerar med någon ansluten grafikmaskinvara.
         </string>
-        <string id="AppHVSI_AuditApplicationGuard_DisplayName">Tillåt granskningshändelser i Windows Defender Application Guard</string>
-        <string id="AppHVSI_AuditApplicationGuard_Explain">Med den här principinställningen kan du bestämma om granskningshändelser kan samlas in från Windows Defender Application Guard.
+        <string id="AppHVSI_AuditApplicationGuard_DisplayName">Tillåt granskningshändelser i Microsoft Defender Application Guard</string>
+        <string id="AppHVSI_AuditApplicationGuard_Explain">Med den här principinställningen kan du bestämma om granskningshändelser kan samlas in från Microsoft Defender Application Guard.
 
 Om du aktiverar den här inställningen ärver Application Guard granskningsprinciper från din enhet och loggar systemhändelser från Application Guard-behållaren till värden.
 
 Om du inaktiverar eller låter bli att konfigurera inställningen samlas händelseloggar inte in från Application Guard-behållaren.
         </string>
 
-        <string id="AppHVSI_SaveFilesToHost_DisplayName">Tillåt att filer laddas ned från Windows Defender Application Guard och sparas på värdoperativsystemet</string>
-        <string id="AppHVSI_SaveFilesToHost_Explain">Med den här principinställningen bestämmer du om nedladdade filer från Windows Defender Application Guard-behållaren kan sparas på värdoperativsystemet.
+        <string id="AppHVSI_SaveFilesToHost_DisplayName">Tillåt att filer laddas ned från Microsoft Defender Application Guard och sparas på värdoperativsystemet</string>
+        <string id="AppHVSI_SaveFilesToHost_Explain">Med den här principinställningen bestämmer du om nedladdade filer från Microsoft Defender Application Guard-behållaren kan sparas på värdoperativsystemet.
 
-Om du aktiverar den här inställningen kan användare spara nedladdade filer från Windows Defender Application Guard-behållaren på värdoperativsystemet.
+Om du aktiverar den här inställningen kan användare spara nedladdade filer från Microsoft Defender Application Guard-behållaren på värdoperativsystemet.
 
-Om du inaktiverar eller låter blir att konfigurera inställningen kan användare inte spara nedladdade filer från Windows Defender Application Guard-behållaren på värdoperativsystemet.
+Om du inaktiverar eller låter blir att konfigurera inställningen kan användare inte spara nedladdade filer från Microsoft Defender Application Guard-behållaren på värdoperativsystemet.
         </string>
-        <string id="AppHVSI_FileTrustCriteria_DisplayName">Tillåt att användare får lita på filer som öppnas i Windows Defender Application Guard</string>
-        <string id="AppHVSI_FileTrustCriteria_Explain">Med den här principinställningen kan du konfigurera nödvändiga åtgärder och valideringar som gör att användarna kan lita på filer som öppnas i Application Guard. Filerna öppnas på värden när åtgärderna och valideringarna har slutförts med lyckat resultat. 
-
-Om du aktiverar den här inställningen måste du välja ett eller flera av följande alternativ:
-0. Låt inte användare välja att lita på filer manuellt: Användarna får då inte valmöjlighet att lita på filer.
-1. Låt användare välja att lita på filer manuellt: Användare kan öppna Windows-gränssnittet så att de kan välja att explicit lita på valda filer.
-2. Låt användare välja att lita på filer manuellt efter en viruskontroll: Användare kan öppna Windows-gränssnittet så att de kan välja att explicit lita på valda filer. Filerna anses endast som betrodda efter att antivirusprogrammet på användarens enhet godkänt dem.
-
-Om du inaktiverar eller låter bli att konfigurera den här inställningen kan användarna inte välja att lita på filer som öppnas i Application Guard.
-</string>
-
-        <string id="AppHVSI_FileTrustOrigin_DisplayName">Konfigurera ytterligare källor för filer som inte är betrodda i Windows Defender Application Guard.</string>
-        <string id="AppHVSI_FileTrustOrigin_Explain">Med den här principinställningen kan du konfigurera ytterligare källor för filer som inte är betrodda.
-Om du aktiverar den här inställningen måste du välja ett eller flera av följande alternativ:
-1. Flyttbara medier: Filer som öppnas eller kopieras från flyttbara medier öppnas alltid i Windows Defender Application Guard.
-
-2. Nätverksresurser: Filer som öppnas eller kopieras från nätverksresurser öppnas alltid i Windows Defender Application Guard. Använd en av principerna för nätverksisolering för att explicit lita på en nätverksplats och förhindra att filer från den platsen öppnas i Application Guard.
-
-3. Filer med Mark of the Web (MotW): Filer som är märkta med MotW öppnas alltid i Windows Defender Application Guard.
-
-Om du inaktiverar eller låter bli att konfigurera den här inställningen öppnas endast filer som laddas ned från Application Guard för Microsoft Edge i Application Guard för Microsoft Word, Excel eller PowerPoint.
-</string>
-
     </stringTable>
     <presentationTable>
       <presentation id="AppHVSI_AllowAppHVSI_Presentation">
         <decimalTextBox refId="AppHVSI_AllowAppHVSI_TextBox" defaultValue="1"></decimalTextBox>
         <text>
 Alternativ:
-0. Inaktivera Windows Defender Application Guard
-1. Aktivera Windows Defender Application Guard ENDAST för Microsoft Edge
-2. Aktivera Windows Defender Application Guard ENDAST för Microsoft Office
-3. Aktivera Windows Defender Application Guard för Microsoft Edge OCH Microsoft Office
+0. Inaktivera Microsoft Defender Application Guard
+1. Aktivera Microsoft Defender Application Guard ENDAST för Microsoft Edge
+2. Aktivera Microsoft Defender Application Guard ENDAST för isolerade Windows-miljöer
+3. Aktivera Microsoft Defender Application Guard för Microsoft Edge OCH isolerade Windows-miljöer
         </text>
       </presentation>
     <presentation id="AppHVSIClipboardSettings_Presentation">
@@ -182,19 +159,6 @@ Alternativ:
      - 15. Aktiverar alla utskriftsfunktioner.
         </text>
       </presentation>
-      <presentation id="AppHVSI_FileTrustCriteria_Presentation">
-        <decimalTextBox refId="AppHVSI_FileTrustCriteria_TextBox" defaultValue="0"></decimalTextBox>
-        <text>Konfigurera nödvändiga åtgärder och valideringar som användarna måste slutföra innan de kan välja att lita på en fil som inte är betrodd och öppna, visa och redigera den på användarens enhet.
-0. Låt inte användare välja att lita på filer manuellt
-1. Låt användare välja att lita på filer manuellt
-2. Låt användare välja att lita på filer manuellt efter en viruskontroll</text>
-      </presentation>
-      <presentation id="AppHVSI_FileTrustOrigin_Presentation">
-         <checkBox refId="AppHVSI_FileTrustOrigin_RemovableMedia_Checkbox" defaultChecked="true">Flyttbara medier</checkBox>
-         <checkBox refId="AppHVSI_FileTrustOrigin_NetworkShares_Checkbox" defaultChecked="true">Nätverksresurser</checkBox>
-         <checkBox refId="AppHVSI_FileTrustOrigin_MOTW_Checkbox" defaultChecked="true">Filer med Mark of the Web (MOTW)</checkBox>
-      </presentation>
-
       <presentation id="AppHVSICertificateThumbprints_Presentation">
         <textBox refId="AppHVSICertificateThumbprints_TextBox">
           <label>Tumavtryck för certifikat som du vill dela</label>

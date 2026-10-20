@@ -135,20 +135,21 @@
     </string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts">사용자 지정 알림 구성</string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts_Explain">
-        Windows 보안의 알림에 있는 특정 연락처 정보를 로컬 사용자에게 표시합니다.
+        Windows 보안 알림에서 지정된 연락처 정보를 로컬 사용자에게 표시합니다.
 
-        사용함:
-        Windows 보안의 알림에 회사의 연락처 정보를 표시합니다.
+        사용:
+        회사 연락처 정보는 Windows 보안에서 수신한 알림에 표시됩니다.
 
-        이렇게 설정한 경우에는 연락처 회사 이름의 GP 설정과 함께 다음 GP 설정 항목 중 1개 이상을 구성해야 합니다.
-        -전화 번호 또는 Skype ID
-        -전자 메일 번호 또는 전자 메일 ID
-        -웹사이트
-
+        이 설정을 사용으로 설정한 후에는 연락처 회사 이름 GP 설정 지정 및 다음 GP 설정 중 하나 이상을 구성해야 합니다.
+        -연락처 전화 번호 또는 Skype ID 지정
+        -연락처 이메일 번호 또는 이메일 ID를 지정
+        -연락처 웹 사이트 지정
+        사용 가능한 알림 공간에 따라 표시되는 연락처 옵션이 제한되는 경우도 있습니다.
+        
         사용 안 함:
         알림에 연락처 정보를 표시하지 않습니다.
 
-        구성되어 있지 않음:
+        구성되지 않음:
         사용 안 함과 동일합니다.
     </string>
     <string id="EnterpriseCustomization_EnableInAppCustomization">사용자 지정 연락처 정보 구성</string>

@@ -355,7 +355,7 @@
 
 Если данный параметр политики не настроен, то пользователь может определить, будет ли мастер подключения к Интернету запускаться автоматически.</string>
       <string id="ICWSettings">Параметры мастера подключения к Интернету</string>
-      <string id="Identities">Диспетчер удостоверений: запретить пользователям использование удостоверений</string>
+      <string id="Identities">Identity Manager: запретить пользователям использование удостоверений</string>
       <string id="IDN_Always">Всегда преобразовывать в формат IDN</string>
       <string id="IDN_Intranet">Всегда преобразовывать адреса интрасети в формат IDN</string>
       <string id="IDN_Never">Никогда не преобразовывать в формат IDN</string>
@@ -806,9 +806,9 @@ Microsoft Agent — это набор программных служб, под�
 Если данный параметр политики включен, команда «Полезный совет» удаляется из меню «Справка».
 
 Если данный параметр политики отключен или не настроен, пользователи смогут включать или отключать полезные советы, отображаемые в нижней части окна браузера.</string>
-      <string id="IE_ExplainIdentities">Запрещает пользователям настраивать уникальные удостоверения с помощью диспетчера удостоверений.
+      <string id="IE_ExplainIdentities">Запрещает пользователям настраивать уникальные удостоверения с помощью Identity Manager.
 
-Диспетчер удостоверений позволяет пользователям создавать различные учетные записи, например учетные записи электронной почты, на одном компьютере. Каждый пользователь будет иметь уникальное удостоверение, со своим собственным паролем и собственными параметрами настройки программ.
+Identity Manager позволяет пользователям создавать различные учетные записи, например учетные записи электронной почты, на одном компьютере. Каждый пользователь будет иметь уникальное удостоверение, со своим собственным паролем и собственными параметрами настройки программ.
 
 Если данный параметр политики включен, пользователи не смогут создавать новые удостоверения, управлять имеющимися или переключаться на другие. Команда «Смена удостоверения» будет удалена из меню «Файл» адресной книги.
 
@@ -2041,16 +2041,16 @@ Internet Explorer запрещает общему контексту безоп�
 Если этот параметр политики включен, элемент ActiveX TDC не будет запускаться с веб-сайтов в этой зоне.
 
 Если этот параметр политики отключен, элемент ActiveX TDC будет запускаться со всех сайтов в этой зоне.</string>
-      <string id="IZ_Policy_AllowDynsrcPlayback">Разрешить видео и анимацию на веб-странице, использующей устаревший проигрыватель мультимедиа</string>
-      <string id="IZ_Policy_AllowDynsrcPlayback_Explain">Этот параметр политики позволяет проигрывать видео и анимацию с помощью устаревших проигрывателей мультимедиа в указанных зонах. Воспроизведение видео и анимации с помощью тега object может быть по-прежнему разрешено, поскольку оно выполняется с использованием внешних элементов управления или проигрывателей.
+      <string id="IZ_Policy_AllowDynsrcPlayback">Разрешить видео и анимацию на веб-странице, использующей устаревший медиаплеер</string>
+      <string id="IZ_Policy_AllowDynsrcPlayback_Explain">Этот параметр политики позволяет проигрывать видео и анимацию с помощью устаревших медиаплееров в указанных зонах. Воспроизведение видео и анимации с помощью тега object может быть по-прежнему разрешено, поскольку оно выполняется с использованием внешних элементов управления или плееров.
 
-В атрибуте dynsrc тега img указывается устаревший проигрыватель мультимедиа. Кроме того, начиная с версии Internet Explorer 8, элементы мультимедиа HTML+TIME, относящиеся к аудио- и видеофайлам, контролируются этим параметром политики.
+В атрибуте dynsrc тега img указывается устаревший медиаплеер. Кроме того, начиная с версии Internet Explorer 8, элементы мультимедиа HTML+TIME, относящиеся к аудио- и видеофайлам, контролируются этим параметром политики.
 
-Если этот параметр политики включен, проигрывание видео и анимации с помощью устаревших проигрывателей мультимедиа в выбранных зонах разрешено.
+Если этот параметр политики включен, проигрывание видео и анимации с помощью устаревших медиаплееров в выбранных зонах разрешено.
 
-Если этот параметр политики отключен, проигрывание видео и анимации с помощью устаревших проигрывателей мультимедиа запрещено.
+Если этот параметр политики отключен, проигрывание видео и анимации с помощью устаревших медиаплееров запрещено.
 
-Если этот параметр политики не настроен, проигрывание видео и анимации с помощью устаревших проигрывателей мультимедиа в выбранных зонах разрешено.</string>
+Если этот параметр политики не настроен, проигрывание видео и анимации с помощью устаревших медиаплееров в выбранных зонах разрешено.</string>
       <string id="IZ_Policy_AllowScriptlets">Разрешить сценарии</string>
       <string id="IZ_Policy_AllowScriptlets_Explain">Этот параметр политики позволяет управлять выполнением сценариев пользователем.
 
@@ -3578,37 +3578,42 @@ Internet Explorer запрещает общему контексту безоп�
 
 Примечание. Эта политика больше не поддерживается, начиная с Windows 10 версии 1607.</string>
       <string id="Protocols_None">Не использовать безопасные протоколы</string>
-      <string id="Protocols_SSL2">Использовать только SSL 2.0</string>
+      <string id="Protocols_SSL2">[Устарело] Использовать только SSL 2.0</string>
       <string id="Protocols_SSL3">Использовать только SSL 3.0</string>
-      <string id="Protocols_SSL2_SSL3">Использовать SSL 2.0 и SSL 3.0</string>
+      <string id="Protocols_SSL2_SSL3">[Устарело] Использовать SSL 2.0 и SSL 3.0</string>
       <string id="Protocols_TLS10">Использовать только TLS 1.0</string>
-      <string id="Protocols_SSL2_TLS10">Использовать SSL 2.0 и TLS 1.0</string>
+      <string id="Protocols_SSL2_TLS10">[Устарело] Использовать SSL 2.0 и TLS 1.0</string>
       <string id="Protocols_SSL3_TLS10">Использовать SSL 3.0 и TLS 1.0</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">Использовать SSL 2.0, SSL 3.0 и TLS 1.0</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[Устарело] Использовать SSL 2.0, SSL 3.0 и TLS 1.0</string>
       <string id="Protocols_TLS11">Использовать только TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS11">Использовать SSL 2.0 и TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS11">[Устарело] Использовать SSL 2.0 и TLS 1.1</string>
       <string id="Protocols_SSL3_TLS11">Использовать SSL 3.0 и TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">Использовать SSL 2.0, SSL 3.0 и TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[Устарело] Использовать SSL 2.0, SSL 3.0 и TLS 1.1</string>
       <string id="Protocols_TLS10_TLS11">Использовать TLS 1.0 и TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">Использовать SSL 2.0, TLS 1.0 и TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[Устарело] Использовать SSL 2.0, TLS 1.0 и TLS 1.1</string>
       <string id="Protocols_SSL3_TLS10_TLS11">Использовать SSL 3.0, TLS 1.0 и TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">Использовать SSL 2.0, SSL 3.0, TLS 1.0 и TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[Устарело] Использовать SSL 2.0, SSL 3.0, TLS 1.0 и TLS 1.1</string>
       <string id="Protocols_TLS12">Использовать только TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS12">Использовать SSL 2.0 и TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS12">[Устарело] Использовать SSL 2.0 и TLS 1.2</string>
       <string id="Protocols_SSL3_TLS12">Использовать SSL 3.0 и TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">Использовать SSL 2.0, SSL 3.0 и TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[Устарело] Использовать SSL 2.0, SSL 3.0 и TLS 1.2</string>
       <string id="Protocols_TLS10_TLS12">Использовать TLS 1.0 и TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">Использовать SSL 2.0, TLS 1.0 и TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[Устарело] Использовать SSL 2.0, TLS 1.0 и TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS12">Использовать SSL 3.0, TLS 1.0 и TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">Использовать SSL 2.0, SSL 3.0, TLS 1.0 и TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[Устарело] Использовать SSL 2.0, SSL 3.0, TLS 1.0 и TLS 1.2</string>
       <string id="Protocols_TLS11_TLS12">Использовать TLS 1.1 и TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">Использовать SSL 2.0, TLS 1.1 и TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[Устарело] Использовать SSL 2.0, TLS 1.1 и TLS 1.2</string>
       <string id="Protocols_SSL3_TLS11_TLS12">Использовать SSL 3.0, TLS 1.1 и TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">Использовать SSL 2.0, SSL 3.0, TLS 1.1 и TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[Устарело] Использовать SSL 2.0, SSL 3.0, TLS 1.1 и TLS 1.2</string>
       <string id="Protocols_TLS10_TLS11_TLS12">Использовать TLS 1.0, TLS 1.1 и TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">Использовать SSL 2.0, TLS 1.0, TLS 1.1 и TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[Устарело] Использовать SSL 2.0, TLS 1.0, TLS 1.1 и TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">Использовать SSL 3.0, TLS 1.0, TLS 1.1 и TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">Использовать SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 и TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[Устарело] Использовать SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 и TLS 1.2</string>
+      <string id="Protocols_TLS13">Использовать только протокол TLS 1.3</string>
+      <string id="Protocols_TLS12_TLS13">Использовать протоколы TLS 1.2 и TLS 1.3</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">Использовать протоколы TLS 1.1, TLS 1.2 и TLS 1.3</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">Использовать TLS 1.0, TLS 1.1, TLS 1.2 и TLS 1.3</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">Использовать SSL 3.0, TLS 1.0, TLS 1.1, TLS 1.2 и TLS 1.3</string>
       <string id="LockToolbars">Заблокировать все панели инструментов</string>
       <string id="MoveStopRefresh">Заблокировать расположение кнопок «Остановить» и «Обновить»</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3907,7 +3912,7 @@ Internet Explorer запрещает общему контексту безоп�
 Если вы включили этот параметр, пользователи смогут включать режим предприятия из меню "Сервис". Если вы также хотите получать отчеты, следует дополнительно задать расположение отчетов.
 
 Если вы отключили или не настроили этот параметр политики, в меню "Сервис" не будет представлен пункт "Режим предприятия".</string>
-      <string id="RestrictInternetExplorer">Отправлять все сайты, не включенные в список сайтов, открываемых в режиме предприятия, в Microsoft Edge.</string>
+      <string id="RestrictInternetExplorer">Отправлять все сайты, не включенные в список сайтов, открываемых в режиме предприятия, в Microsoft Edge</string>
       <string id="IE_ExplainRestrictInternetExplorer">Данный параметр позволяет решить, следует ли открывать все сайты, не включенные в список сайтов, открываемых в режиме предприятия. В случае использования данного параметра необходимо также включить параметр политики списков веб-сайтов IE "Административные шаблоны\Компоненты Windows\Internet Explorer\Использовать режим предприятия". Кроме того, нужно включить хотя бы один сайт в список сайтов, открываемых в режиме предприятия.
 
 Если данный параметр включен, все сайты, не включенные в список сайтов, открываемых в режиме предприятия, будут автоматически открываться в Microsoft Edge.
@@ -3921,6 +3926,120 @@ Internet Explorer запрещает общему контексту безоп�
 Если этот параметр включен, сотрудники будут видеть дополнительную страницу в Internet Explorer 11, информирующую о том, что сайт открыт с помощью Microsoft Edge в режиме предприятия.
 
 Если этот параметр отключен или не настроен, приложение действует по умолчанию и дополнительная страница не отображается.</string>
+      <string id="NeedEdgeBrowser">Выбор канала Microsoft Edge для открытия сайтов после перенаправления</string>
+      <string id="IE_ExplainNeedEdgeBrowser">Вы можете указать до трех версий Microsoft Edge для открытия сайтов после перенаправления (в порядки приоритетности). Используйте этот параметр политики, если в вашей среде настроено перенаправление на сайты из Internet Explorer 11 в Microsoft Edge. Если какая-либо из выбранных версий не установлена на устройстве, она пропускается.
+
+Если установлено одновременно и обновление Windows для следующей версии Microsoft Edge*, и стабильный канал Microsoft Edge, применяются следующие условия.
+- Если этот параметр выключен или не настроен, используется стабильный канал Microsoft Edge. Этот вариант применяется по умолчанию.
+- Если этот параметр включен, вы можете выбрать для открытия сайтов после перенаправления максимум три канала из указанных далее.
+    1 = стабильный канал Microsoft Edge
+    2 = Microsoft Edge Beta, версия 77 или более поздняя
+    3 = Microsoft Edge Dev, версия 77 или более поздняя
+    4 = Microsoft Edge Canary, версия 77 или более поздняя
+
+Если обновление Windows для следующей версии Microsoft Edge* или стабильный канал Microsoft Edge не установлены, применяются следующие условия.
+- Если этот параметр выключен или не настроен, автоматически используется Microsoft Edge версии 45 или более ранней. Этот вариант применяется по умолчанию.
+- Если этот параметр включен, вы можете выбрать для открытия сайтов после перенаправления максимум три канала из указанных далее.
+    0 = Microsoft Edge, версия 45 или более ранняя
+    1 = стабильный канал Microsoft Edge
+    2 = Microsoft Edge Beta, версия 77 или более поздняя
+    3 = Microsoft Edge Dev, версия 77 или более поздняя
+    4 = Microsoft Edge Canary, версия 77 или более поздняя
+
+*Дополнительные сведения об обновлении Windows для следующей версии Microsoft Edge, в том числе способы его отключения, см. на странице https://go.microsoft.com/fwlink/?linkid=2102115. Это обновление применяется только в Windows 10 версии 1709 или более поздней.</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta, версия 77 или более поздняя</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev, версия 77 или более поздняя</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary, версия 77 или более поздняя</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge, версия 45 или более ранняя</string>
+      <string id="KeepIntranetSitesInInternetExplorer">Сохранять все сайты интрасети в Internet Explorer</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">Запрещает открывать сайты интрасети в любом браузере, кроме Internet Explorer. Обратите внимание, что если политика "Открывать в Microsoft Edge все сайты, которые не включены в список сайтов, открываемых в режиме предприятия" ("RestrictIE") не включена, эта политика не действует.
+
+Если эта политика включена, все сайты интрасети будут открываться в Internet Explorer 11. Исключениями являются сайты, перечисленные в списке сайтов, открываемых в режиме предприятия.
+
+Если эта политика отключена или не настроена, все сайты интрасети будут автоматически открываться в Microsoft Edge.
+
+Настоятельно рекомендуется настроить эту политику в соответствии с политикой "Отправлять все сайты интрасети в Internet Explorer" ("SendIntranetToInternetExplorer"). Также рекомендуется включать эту политику только в случаях, когда существуют известные проблемы совместимости сайтов вашей интрасети с Microsoft Edge.
+
+Связанные политики:
+-Отправлять все сайты интрасети в Internet Explorer ("SendIntranetToInternetExplorer")
+-Открывать в Microsoft Edge все сайты, которые не включены в список сайтов, открываемых в режиме предприятия ("RestrictIE")
+
+Дополнительные сведения об использовании этой политики вместе с другими политиками для создания оптимальной конфигурации для вашей организации см. на странице https://go.microsoft.com/fwlink/?linkid=2094210.</string>
+      <string id="AllowSaveTargetAsInIEMode">Разрешить использование "Сохранить объект как" в режиме Internet Explorer</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">Этот параметр политики разрешает администраторам включать контекстное меню «сохранять объект» в режиме Internet Explorer.
+
+Если данный параметр политики включен, параметр "Сохранить объект как" будет отображаться в контекстном меню в режиме Internet Explorer и на нем работает как Internet Explorer.
+
+Если вы отключаете или не настраиваете этот параметр политики, то пункт «Сохранить объект как» не будет отображаться в контекстном меню режима Internet Explorer.
+
+Дополнительные сведения см. в https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="EnableGlobalWindowListInIEMode">Включить глобальный список окон в режиме Internet Explorer</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">Этот параметр Internet Explorer использовать глобальный список окон, который позволяет совместно использовать состояние общего доступа с другими приложениями.
+Этот параметр вступит в силу, только если Internet Explorer 11 отключен в качестве автономного браузера.
+
+Если эта политика включена, Internet Explorer режиме будет использоваться глобальный список окон.
+
+Если эта политика отключена или не настроена, Internet Explorer режиме будет по-прежнему поддерживаться отдельный список окон.
+
+Дополнительные сведения о режиме Internet Explorer см. в https://go.microsoft.com/fwlink/?linkid=2102921
+Дополнительные сведения об отключении Internet Explorer 11 в качестве автономного браузера см. в https://go.microsoft.com/fwlink/?linkid=2168340</string>
+      <string id="EnableExtendedIEModeHotkeys">Включить расширенные сочетания клавиш в режиме Internet Explorer</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">Этот параметр политики позволяет администраторам включить расширенные сочетания клавиш Microsoft Edge в режиме Internet Explorer, например "CTRL+S" для получения функции "Сохранить как".
+
+Если этот параметр включен, функция расширенного сочетания клавиш будет включена в режиме Internet Explorer и будет работать так же, как в Internet Explorer.
+
+Если этот параметр отключен или не настроен, расширенные сочетания клавиш не будут работать в режиме Internet Explorer.
+
+Для получения дополнительных сведений перейдите по ссылке https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="AllowLegacyURLFields">Разрешить устаревшие функции для файлов ярлыков Интернета</string>
+      <string id="IE_ExplainAllowLegacyURLFields">Этот параметр политики позволяет использовать некоторые отключенные функции, такие как поле WorkingDirectory или обработка подключаемых протоколов, в файлах ярлыков Интернета.
+
+Если эта политика включена, отключенная функциональность для файлов ярлыков Интернета будет включена повторно.
+
+Если эта политика отключена или не настроена, некоторые функции для файлов ярлыков Интернета, такие как поле WorkingDirectory или обработка подключаемых протоколов, будут отключены.</string>
+      <string id="ResetZoomForDialogInIEMode">Сброс масштаба до значения по умолчанию для диалоговых окон HTML в режиме Internet Explorer</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">Этот параметр политики позволяет администраторам сбрасывать масштаб по умолчанию для диалоговых окон HTML в Internet Explorer режиме.
+
+Если эта политика включена, масштаб диалогового окна HTML в Internet Explorer режиме не будет распространяться с родительской страницы.
+
+Если эта политика отключена или не настроена, масштаб диалогового окна HTML в режиме Internet Explorer настраивается на основе масштаба родительской страницы.
+
+Дополнительные сведения см. в https://go.microsoft.com/fwlink/?linkid=2220107</string>
+      <string id="DisableInternetExplorerApp">Отключить Internet Explorer 11 в качестве автономного браузера</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">Эта политика дает возможность ограничить запуск Internet Explorer в качестве автономного браузера.
+
+Если включить эту политику, она:
+— Запрещает запуск Internet Explorer 11 в качестве автономного браузера.
+— Ограничивает использование Internet Explorer в собственном режиме Microsoft Edge ("Режим Internet Explorer").
+— Перенаправляет все попытки запуска Internet Explorer 11 в браузер Microsoft Edge стабильного канала.
+— Переопределяет любые другие политики, перенаправляющие в Internet Explorer 11.
+
+Даже когда эта политика включена, будет по-прежнему можно запускать Internet Explorer 11 с использованием службы автоматизации COM. Чтобы отключить запуск Internet Explorer 11 с использованием службы автоматизации COM, используйте групповую политику "Отключить автоматизацию COM для Internet Explorer 11".
+
+Если отключить или не настраивать эту политику, все сайты будут открываться с использованием параметров текущего активного браузера. Примечание. Для применения этой политики требуется установить стабильный канал Microsoft Edge.</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">Отключить запуск Internet Explorer 11 с помощью службы автоматизации COM</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">Эта политика позволяет ограничить запуск веб-Обозреватель с помощью COM-автоматизации.
+
+Если данный параметр политики включен, запуск Обозреватель 11 с помощью com-автоматизации будет запрещен.
+
+Если эта политика отключена или не настроена, Обозреватель 11 запусков автоматизации COM через Интернет.</string>
+      <string id="DisableIEAppDeprecationNotification">Скрыть уведомление о прекращении поддержки Internet Explorer 11</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">Этот параметр политики позволяет управлять отображением напоминания панели уведомлений Internet Explorer о том, что поддержка прекращается. По умолчанию панель уведомлений отображается в Internet Explorer 11.
+
+Если этот параметр политики включен, панель уведомлений не будет отображаться в Internet Explorer 11.
+
+Если этот параметр политики отключен или не настроен, панель уведомлений будет отображаться в Internet Explorer 11.</string>
+      <string id="NotifyDisableIEOptions_Never">Никогда</string>
+      <string id="NotifyDisableIEOptions_Always">Всегда</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">Однократно для пользователя</string>
+      <string id="JScriptReplacement">Замените JScript, загрузив JScript9Legacy вместо JScript.</string>
+      <string id="IE_ExplainJScriptReplacement">Этот параметр политики определяет, JScript или JScript9Legacy.
+      
+Если этот параметр политики включен или не настроен, JScript9Legacy будет загружаться в ситуациях, когда JScript создание экземпляра.
+
+Если эта политика отключена, JScript будет использоваться.</string>
       <string id="VerMgmtDisable">Отключить блокирование устаревших элементов ActiveX для Internet Explorer</string>
       <string id="IE_ExplainVerMgmtDisable">Данный параметр политики определяет, будет ли Internet Explorer блокировать определенные устаревшие элементы ActiveX. Устаревшие элементы ActiveX не блокируются в зоне интрасети.
 
@@ -4122,6 +4241,12 @@ LOBApp.contoso.com</string>
 Если отключить или не настроить этот параметр, IE продолжит скачивание обновленных версий VersionList.XML.
 
 Дополнительные сведения см. в статье "Блокирование устаревших элементов ActiveX" в библиотеке TechNet для Internet Explorer.</string>
+      <string id="DisableHTMLApplication">Отключить HTML-приложение</string>
+      <string id="DisableHTMLApplication_Explain">Этот параметр политики определяет, заблокирован ли запуск HTML-приложения (HTA-файла).
+
+Если этот параметр политики включен, запуск HTML-приложения (HTA-файла) будет заблокирован.
+
+Если этот параметр политики отключен или не настроен, запуск HTML-приложения (HTA-файла) разрешен.</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
@@ -4229,7 +4354,7 @@ LOBApp.contoso.com</string>
         <dropdownList refId="IZ_Partname120c" noSort="true" defaultItem="1">Разрешать использовать элемент ActiveX TDC только утвержденным доменам</dropdownList>
       </presentation>
       <presentation id="IZ_Policy_AllowDynsrcPlayback_1">
-        <dropdownList refId="IZ_Partname120A" noSort="true" defaultItem="0">Разрешить видео и анимацию на веб-странице, использующей устаревший проигрыватель мультимедиа</dropdownList>
+        <dropdownList refId="IZ_Partname120A" noSort="true" defaultItem="0">Разрешить видео и анимацию на веб-странице, использующей устаревший медиаплеер</dropdownList>
       </presentation>
       <presentation id="IZ_Policy_AllowScriptlets_1">
         <dropdownList refId="IZ_Partname1209" noSort="true" defaultItem="0">Сценарии</dropdownList>
@@ -4791,6 +4916,14 @@ LOBApp.contoso.com</string>
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">Список доменов</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">Первый вариант</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">Второй вариант</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">Третий вариант</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">Уведомить, что браузер Internet Explorer 11 отключен</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -119,6 +119,51 @@ Hvis du ikke angiver eller deaktiverer denne indstilling, kan brugeren konfigure
         Hvis du undlader at konfigurere eller deaktiverer denne politikindstilling, er synkronisering af gruppen "Startlayout" slået til som standard, og brugeren kan konfigurere politikindstillingen.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">Synkroniser ikke indstillinger for tilgængelighed</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        Forhindr "tilgængelighed"-gruppen fra at blive synkroniseret til og fra denne pc. Dette slukker og deaktiverer gruppen "tilgængelighed" på indstillingssiden "Windows-sikkerhedskopiering" i Pc-indstillinger.
+
+Hvis du aktiverer denne politikindstilling, synkroniseres gruppen "tilgængelighed" ikke.
+
+Brug indstillingen "Tillad brugere at slå synkronisering af tilgængelighed til", så synkronisering er slået fra som standard, men ikke deaktiveret.
+
+Hvis du ikke angiver eller deaktiverer denne indstilling, er synkronisering af gruppen "tilgængelighed" slået til som standard og kan konfigureres af brugeren.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">Synkroniser ikke indstillinger for sprogindstillinger</string>
+      <string id="DisableLanguageSettingSync_Help">
+        Undgå, at gruppen "sprogindstillinger" synkroniseres til og fra denne pc. Dette slukker og deaktiverer gruppen "sprogindstillinger" på indstillingssiden "Windows-sikkerhedskopiering" i Pc-indstillinger.
+
+Hvis du aktiverer denne politikindstilling, synkroniseres gruppen "sprogindstillinger" ikke.
+
+Brug indstillingen "Tillad brugere at slå synkronisering af sprogindstillinger til", så synkronisering er slået fra som standard, men ikke deaktiveret.
+
+Hvis du ikke angiver eller deaktiverer denne indstilling, er synkronisering af gruppen "sprogindstillinger" slået til som standard og kan konfigureres af brugeren.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Aktivér Windows Sikkerhedskopiering</string>
+      <string id="EnableWindowsBackup_Help">Med denne politikindstilling kan administratorer konfigurere og administrere sikkerhedskopiering af Windows-indstillinger for deres organisation.
+
+Hvis du aktiverer denne politikindstilling, foretages der jævnligt sikkerhedskopiering af Windows-indstillinger.
+
+Hvis du deaktiverer denne politikindstilling, foretages der ingen sikkerhedskopiering af Windows-indstillinger.
+
+Hvis denne politikindstilling ikke er konfigureret, foretages der jævnligt sikkerhedskopiering af Windows-indstillinger baseret på berettigelse.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Aktivér Windows-gendannelse</string>
+      <string id="EnableWindowsRestore_Help">Med denne politikindstilling kan administratorer konfigurere og administrere gendannelse af Windows-indstillinger for deres organisation.
+
+Hvis du aktiverer denne politikindstilling, vil gendannelse af Windows-indstillinger blive aktiveret.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, vil gendannelse af Windows-indstillinger blive deaktiveret.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Hvis du ikke angiver eller deaktiverer denne indstilling, kan brugeren konfigure
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">Tillad brugerne at slå synkronisering af "startlayout" til.</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Tillad brugerne at slå synkronisering af "tilgængelighed" til.</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Tillad brugere at slå synkronisering af sprogindstillinger til.</checkBox>
       </presentation>
 
     </presentationTable>

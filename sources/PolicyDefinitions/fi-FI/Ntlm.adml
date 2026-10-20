@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>NTLM-asetukset</displayName>
+  <description>NTLM-suojauspaketin konfigurointiasetukset.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">NTLM:n parannettu kirjaaminen</string>
+      <string id="EnhancedAuditsId_Explain">Tämä käytäntöasetus sallii NTLM-suojauspaketin kirjata uudet, laajennetut valvontalokit sekä asiakkaille että palvelimille.
+
+      Nämä parannetut lokit sisältävät tietoa siitä, mitä NTLM:ää käytetään, miksi NTLM:ää käytetään ja mihin NTLM-todennuspyyntö on osoitettu. Lokit sisältävät myös tietoa NTLMv1:n käytöstä ja muista turvallisuustason alentamisista.
+
+      Jos otat tämän käytännön käyttöön tai et määritä sitä, uusia valvontalokeja luodaan. Jos poistat käytännön käytöstä, uusia lokeja ei luoda.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">Parannettu NTLM-esto</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Tämä käytäntöasetus sallii NTLM-suojauspaketin estää NTLM-todentamispyynnöt uusien, parannettujen estokäytäntöjen perusteella konetasolla.
+
+      Nämä parannetut estokäytännöt mahdollistavat NTLM-todentamisen estämisen uusien kriteerien, kuten tilin tyypin, laitteen roolin tai sovellustyypin perusteella.
+
+      Jos yleinen käytäntö on asetettu arvoon Ei käytössä tai Ei määritetty, alla olevat alikäytännöt eivät tule voimaan. Jos yleinen käytäntö on asetettu arvoon Käytössä, alla olevat alikäytännöt tulevat voimaan niiden asetusten mukaisesti.
+
+      Jos asetuksia ei ole määritetty, kaikki käytännöt ovat Valvonta-tilassa. Valvonta-tilaan asetetut käytännöt kirjaavat varoituksen NTLM-pyynnöstä, joka voitaisiin estää, mutta eivät estä sitä. Useita Valvonta-tilaan asetettuja käytäntöjä voi olla käytössä samanaikaisesti, ja ne kirjataan yhdistettyyn tapahtumalokiin.
+
+      Jos jokin käytäntö on asetettu Käytössä-tilaan, NTLM-todentamispyyntö estetään, jos se täyttää kyseisen käytännön kriteerit. Jos useampi käytäntö on Käytössä-tilassa, NTLM-todentamispyyntö estetään, jos se täyttää minkä tahansa käytännön kriteerit. Ensimmäisestä NTLM-todentamisen estävästä käytännöstä luodaan tapahtumaloki. 
+
+      Jos käytössä on sekä Valvonta- että Käytössä-tilaan asetettuja käytäntöjä, Käytössä-tilaan asetettu käytäntö on etusijalla.
+
+      Kaikki tässä kuvatut parannetut estokäytännöt käyttävät samaa sallittujen luetteloa, joka määrittää tilit, laitteet ja sovellukset, joilla on lupa käyttää NTLM-todennusta. Sallittujen luettelo voi sisältää joukon kohdenimiä tai palvelun päänimiä, jotka sallivat todennuksen. 
+
+      Lisätietoja löydät osoitteesta aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Ei käytössä</string>
+      <string id="Audit">Valvonta</string>
+      <string id="Enabled">Käytössä</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Estä NTLM toimialuetilien kertakirjautumisessa</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">Estä NTLM toimialueen ohjauskoneissa</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">Estä NTLM, kun koneen sidonta epäonnistuu</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Estä kaikki NTLM-todennukset</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Määritä parannettujen estokäytäntöjen sallittujen luettelo:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>网络连接状态指示器组策略设置</displayName>
   <description>网络连接状态指示器组策略设置</description>
@@ -73,7 +73,7 @@
       </presentation>
       <presentation id="NCSI_PassivePolling">
         <text>以下复选框禁用 NCSI 中的被动轮询机制。  这可以改善服务器上的 CPU 工作负荷或其网络连接处于静态状态的其他机器。</text>
-        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">禁用被动轮询</checkBox>  
+        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">禁用被动轮询</checkBox>
       </presentation>
       <presentation id="NCSI_GlobalDns">
         <text>在 NCSI 中进行 DNS 查找时，以下复选框将禁用接口绑定。这可以使 NCSI 能够更好地使用特殊网络配置，如在 localhost 上运行的 DNS 服务器。</text>

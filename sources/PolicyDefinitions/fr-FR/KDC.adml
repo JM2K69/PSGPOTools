@@ -33,28 +33,27 @@ Si vous activez ce paramètre de stratégie, les ordinateurs clients qui prennen
 
 Si vous désactivez ou ne configurez pas ce paramètre de stratégie, le contrôleur de domaine ne prend pas en charge les revendications, l’authentification composée ou le blindage.
 
-Si vous choisissez l’option « Non pris en charge », le contrôleur de domaine ne prend pas en charge les revendications, l’authentification composée ou le blindage, ce qui correspond au comportement par défaut pour les contrôleurs de domaine exécutant Windows Server 2008 R2 ou un système d’exploitation antérieur.
+Si vous choisissez l’option « 
 
-Remarque : pour que les options suivantes de cette stratégie de contrôleur de domaine Kerberos soient effectives, la stratégie de groupe Prise en charge du client Kerberos pour les revendications, l’authentification composée et le blindage Kerberos doit être activée sur les systèmes pris en charge. Si le paramètre de stratégie Kerberos n’est pas activé, les messages d’authentification Kerberos n’utilisent pas ces fonctionnalités.  
+Non pris en charge », le contrôleur de domaine ne prend pas en charge les revendications, l’authentification composée ou le blindage, ce qui correspond au comportement par défaut pour les contrôleurs de domaine exécutant Windows Server 2008 R2 ou un système d’exploitation antérieur.
 
-Si vous choisissez l’option « Pris en charge », le contrôleur de domaine prend en charge les revendications, l’authentification composée et le blindage Kerberos. Le contrôleur de domaine annonce aux ordinateurs clients Kerberos que le domaine prend en charge les revendications et l’authentification composée pour le contrôle d’accès dynamique et le blindage Kerberos. 
+Remarque : pour que les options suivantes de cette stratégie de contrôleur de domaine Kerberos soient effectives, la stratégie de groupe Prise en charge du client Kerberos pour les revendications, l’authentification composée et le blindage Kerberos doit être activée sur les systèmes pris en charge. Si le paramètre de stratégie Kerberos n’est pas activé, les messages d’authentification Kerberos n’utilisent pas ces fonctionnalités. 
 
-Exigences au niveau fonctionnel du domaine
-Pour les options « Toujours fournir des revendications » et « Rejeter les demandes d’authentification non blindées », quand le niveau fonctionnel du domaine est Windows Server 2008 R2 ou version antérieure, les contrôleurs de domaine se comportent comme si l’option « Pris en charge » était sélectionnée. 
+Si vous choisissez l’option
+« Pris en charge », le contrôleur de domaine prend en charge les revendications, l’authentification composée et le blindage Kerberos. Le contrôleur de domaine annonce aux ordinateurs clients Kerberos que le domaine prend en charge les revendications et l’authentification composée pour le contrôle d’accès dynamique et le blindage Kerberos.
 
-Quand le niveau fonctionnel du domaine est Windows Server 2012, le contrôleur de domaine annonce aux ordinateurs clients Kerberos que le domaine prend en charge les revendications et l’authentification composée pour le contrôle d’accès dynamique et le blindage Kerberos, et :
-   - Si vous choisissez l’option « Toujours fournir des revendications », il renvoie toujours des revendications pour les comptes et il prend en charge le comportement RFC pour l’annonce FAST (Flexible Authentication Secure Tunneling).
-   - Si vous choisissez l’option « Rejeter les demandes d’authentification non blindées », il rejette les messages Kerberos non blindés.
+Exigences au niveau fonctionnel du domaine Pour les options « Toujours fournir des revendications » et « Rejeter les demandes d’authentification non blindées », quand le niveau fonctionnel du domaine est Windows Server 2008 R2 ou version antérieure, les contrôleurs de domaine se comportent comme si l’option « Pris en charge » était sélectionnée. Quand le niveau fonctionnel du domaine est Windows Server 2012, le contrôleur de domaine annonce aux ordinateurs clients Kerberos que le domaine prend en charge les revendications et l’authentification composée pour le contrôle d’accès dynamique et le blindage Kerberos, et :
+    - Si vous choisissez l’option « Toujours fournir des revendications», il renvoie toujours des revendications pour les comptes et il prend en charge le comportement RFC pour l’annonce FAST (Flexible Authentication Secure Tunneling).
+   - Si vous choisissez l’option « Rejeter les demandes d’authentification non blindées », il rejette les messages Kerberos non blindés.
 
-Attention : lorsque l’option « Rejeter les demandes d’authentification non blindées » est sélectionnée, les ordinateurs clients qui ne prennent pas en charge le blindage Kerberos ne peuvent pas s’authentifier auprès du contrôleur de domaine.
+Attention : lorsque l’option « Rejeter les demandes d’authentification non blindées » est sélectionnée, les ordinateurs clients qui ne prennent pas en charge le blindage Kerberos ne peuvent pas s’authentifier auprès du contrôleur de domaine.
 
-Pour garantir l’efficacité de cette fonctionnalité, déployez suffisamment de contrôleurs de domaine qui prennent en charge les revendications et l’authentification composée pour le contrôle d’accès dynamique et qui prennent en charge le blindage Kerberos pour la gestion des demandes d’authentification. Le déploiement d’un nombre insuffisant de contrôleurs de domaine prenant en charge cette stratégie conduit à des échecs d’authentification dès lors que le contrôle d’accès dynamique ou le blindage Kerberos est requis (c’est-à-dire quand l’option « Pris en charge » est activée).
+Pour garantir l’efficacité de cette fonctionnalité, déployez suffisamment de contrôleurs de domaine qui prennent en charge les revendications et l’authentification composée pour le contrôle d’accès dynamique et qui prennent en charge le blindage Kerberos pour la gestion des demandes d’authentification. Le déploiement d’un nombre insuffisant de contrôleurs de domaine prenant en charge cette stratégie conduit à des échecs d’authentification dès lors que le contrôle d’accès dynamique ou le blindage Kerberos est requis (c’est-à-dire quand l’option « Pris en charge » est activée).
 
-Impact sur les performances du contrôleur de domaine lorsque ce paramètre de stratégie est activé :
+Impact sur les performances du contrôleur de domaine lorsque ce paramètre de stratégie est activé :
    - La découverte de fonctionnalités de domaine Kerberos sécurisée est requise, ce qui augmente le nombre d’échanges de messages.
    - Les revendications et l’authentification composée pour le contrôle d’accès dynamique augmentent la taille et la complexité des données dans le message, ce qui conduit à prolonger le temps de traitement et à augmenter la taille de ticket du service Kerberos.
    - Le blindage Kerberos chiffre entièrement les messages Kerberos et signe les erreurs Kerberos, ce qui accroît la durée de traitement mais ne modifie pas la taille de ticket du service.
-
 </string>
       <string id="NoCbacAndArmor">Non pris en charge</string>
       <string id="MixModeCbacAndArmor">Pris en charge</string>
@@ -94,6 +93,47 @@ Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas,
       <string id="NoPKINITFreshness">Désactivé</string>
       <string id="SupportPKINITFreshness">Pris en charge</string>
       <string id="RequirePKINITFreshness">Obligatoire</string>
+      <string id="PKINITHashAlgorithmConfiguration">Configurer des algorithmes de hachage pour l’ouverture de session de certificat</string>
+      <string id="PKINITHashAlgorithmConfiguration_explain">Ce paramètre de stratégie contrôle les algorithmes de hachage ou de somme de contrôle utilisés par le client Kerberos lors de l’authentification de certificat.
+
+Si vous activez cette stratégie, vous pouvez configurer l’un des quatre états pour chaque algorithme :
+
+– « Par défaut » définit l’algorithme sur l’état recommandé.
+
+– « Pris en charge » active l’utilisation de l’algorithme. L’activation des algorithmes qui ont été désactivés par défaut peut réduire votre sécurité.
+
+– « Audité » active l’utilisation de l’algorithme et signale un événement (ID 309) chaque fois qu’il est utilisé. Cet état permet de vérifier que l’algorithme n’est pas utilisé et qu’il peut être désactivé en toute sécurité.
+
+– « Non pris en charge » désactive l’utilisation de l’algorithme. Cet état est destiné aux algorithmes considérés comme non sécurisés.
+
+Si vous désactivez ou ne configurez pas cette stratégie, chaque algorithme suppose l’état « Par défaut ».
+Pour plus d’informations sur les algorithmes de hachage et de somme de contrôle pris en charge par le client Windows Kerberos et leurs états par défaut, consultez https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Événements générés par cette configuration : 309, 310.
+</string>
+      <string id="PKINITHashAlgorithm_Default">Par défaut</string>
+      <string id="PKINITHashAlgorithm_Supported">Pris en charge</string>
+      <string id="PKINITHashAlgorithm_Audited">Audité</string>
+      <string id="PKINITHashAlgorithm_NotSupported">Non pris en charge</string>
+      <string id="StrongNameMatches">Autoriser les mappages forts basés sur un nom pour les certificats</string>
+      <string id="StrongNameMatches_explain">Ce paramètre de stratégie permet l’utilisation d’identifiants alternatifs basés sur le nom pour mapper fortement les certificats émis aux comptes d’utilisateurs Active Directory et spécifie quels certificats sont mappés à quels comptes. Sans ce paramètre activé, les certificats doivent répondre aux critères de « mappage fort » spécifiés dans aka.ms/StrongCertMapKB, qui interdisent généralement les identifiants basés sur le nom.
+
+Chaque mappage spécifié dans cette politique doit inclure un OID de politique ainsi qu'un IssuerSubject et/ou un suffixe UPN en utilisant la syntaxe spécifiée ci-dessous. Si un mappage valide pour un certificat donné est introuvable dans cette stratégie, Active Directory tentera de trouver une correspondance à l'aide des critères de mappage forts existants spécifiés dans KB5014754. Les mappages de certificats qui ne sont pas conformes aux critères de « mappage de nom fort » (cette politique) ou aux critères de « mappage fort » existants seront considérés comme invalides pour l'authentification.
+
+Le format général de la politique et quelques exemples sont répertoriés ci-dessous. Cette politique s'applique uniquement aux comptes d'utilisateurs Active Directory.
+
+Syntaxe générale
+==============
+&lt;thumbprint&gt;; &lt;list of oids&gt;; &lt;name-match methods&gt;
+
+Exemples
+==============
+IssuerThumbprint1; oid1, oid2, oid3; UpnSuffix=domain.com
+IssuerThumbprint2; oid1; UpnSuffix=domain.com, UpnSuffix=other.domain.com, IssuerSubject
+IssuerThumbprint3; oid1, oid2; IssuerSubject
+
+La stratégie doit contenir exactement une empreinte de certificat par règle, chaque règle étant représentée sous forme de tuple. Les empreintes digitales doivent être uniques et ne peuvent pas être répétées dans plusieurs règles. Les sections de chaque tuple séparées par des points-virgules doivent être dans l'ordre indiqué, tandis que les champs séparés par des virgules peuvent être dans n'importe quel ordre. Les règles elles-mêmes sont séparées par des nouvelles lignes.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="emitlili">
@@ -121,6 +161,15 @@ Si vous désactivez ce paramètre de stratégie ou si vous ne le configurez pas,
       </presentation>
       <presentation id="PKINITFreshness">
         <dropdownList refId="PKINITFreshness_Levels" noSort="true" defaultItem="1">Options d’extension d’actualisation de PKInit :</dropdownList>
+      </presentation>
+      <presentation id="PKINITHashAlgorithmConfiguration">
+        <dropdownList refId="PKINITHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKINITHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
+      </presentation>
+      <presentation id="StrongNameMatches">
+          <multiTextBox refId="StrongNameMatchesList">Règles de correspondance de nom fort :</multiTextBox>
       </presentation>
     </presentationTable>
   </resources>

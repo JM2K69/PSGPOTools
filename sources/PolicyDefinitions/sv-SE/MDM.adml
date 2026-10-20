@@ -33,6 +33,11 @@ Om du inaktiverar principinställningen aktiveras MDM-registrering för alla anv
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">Välj vilken typ av autentiseringsuppgifter som ska användas:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>MDM-program-ID:</label>
+        </textBox>
+        <text>MDM-program-ID representerar ID för ditt MDM-program som är konfigurerat i Azure Active Directory. Detta är valfritt och krävs endast för automatisk MDM-registrering med enhetsinformation när flera MDM-program har konfigurerats i Azure Active Directory.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

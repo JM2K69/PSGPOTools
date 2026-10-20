@@ -5,6 +5,8 @@
   <description>immettere qui la descrizione</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Abilita sottoscrizione automatica</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Controlla l'elenco degli URL a cui l'utente deve essere sottoscritto automaticamente</string>
       <string id="TS_SUPPORTED_Windows10">Almeno Windows 10 o Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">Almeno Windows 8 o Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">Almeno Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">Solo Windows XP e Windows Server 2003</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">Almeno Windows Server 2008 o Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  Solo Windows Server 2008 R2</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 versione 1903, Windows 10 versione 1909 e Windows 10 versione 2004</string>
       <string id="TS_TERMINAL_SERVER">Host sessione di Desktop remoto</string>
       <string id="TS_TERMINAL_SERVER_Help">Controlla la configurazione di un server host sessione Desktop remoto</string>
       <string id="TS_LICENSE_SERVER">Servizio licenze Desktop remoto</string>
@@ -132,18 +135,18 @@ Se si disabilita o non si configura questa impostazione, l'utente sarà in grado
 
 Per impostazione predefinita, un server Host sessione Desktop remoto esegue automaticamente il mapping delle unità client all'avvio della connessione. Le unità mappate sono visibili nell'albero delle cartelle della sessione in Esplora file o Computer nel formato &lt;letteraunità&gt; su &lt;nomecomputer&gt;. È possibile utilizzare questa impostazione dei criteri per evitare questo comportamento.
 
-Se si abilita questa impostazione dei criteri, il reindirizzamento delle unità client non sarà consentito nelle sessioni di Servizi Desktop remoto e il reindirizzamento della copia di file negli Appunti non sarà consentito nei computer che eseguono Windows Server 2003, Windows 8 e Windows XP.
+Se si abilita questa impostazione dei criteri, il reindirizzamento delle unità client non sarà consentito nelle sessioni di Servizi Desktop remoto e il reindirizzamento della copia di file negli Appunti non sarà consentito nei computer che eseguono Windows XP, Windows Server 2003, Windows 2012 (e versioni successive) o Windows 8 (e versioni successive).
 
 Se si disabilita questa impostazione dei criteri, il reindirizzamento delle unità client sarà sempre consentito. Inoltre il reindirizzamento della copia di file negli Appunti sarà sempre consentito, se il reindirizzamento degli Appunti è consentito.
 
 Se non si configura questa impostazione dei criteri, il reindirizzamento delle unità client e il reindirizzamento della copia di file negli Appunti non saranno specificati a livello di Criteri di gruppo.
-
 </string>
       <string id="TS_CLIENT_DRIVE_M">Non consentire il reindirizzamento delle unità</string>
       <string id="TS_CLIENT_HELP">Controlla le impostazioni del client di Connessione desktop remoto</string>
       <string id="TS_CLIENT_LPT">Non consentire il reindirizzamento della porta LPT</string>
       <string id="TS_CLIENT_PNP">Non consentire il reindirizzamento dei dispositivi Plug and Play supportati</string>
       <string id="TS_CAMERA_REDIRECTION">Non consentire reindirizzamento dell'acquisizione video</string>
+      <string id="TS_LOCATION_REDIRECTION">Non consentire il reindirizzamento della posizione</string>
       <string id="TS_CLIENT_PRINTER">Non consentire il reindirizzamento della stampante client</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">Questa impostazione dei criteri specifica se impedire la condivisione del contenuto degli Appunti (reindirizzamento degli Appunti) tra un computer remoto e un computer client durante una sessione di Servizi Desktop remoto.
 
@@ -208,6 +211,15 @@ Se abiliti questa impostazione di criteri, gli utenti non potranno reindirizzare
 
 Se disabiliti o non configuri questa impostazione di criteri, gli utenti possono reindirizzare i dispositivi di acquisizione video al computer remoto. È possibile utilizzare l'opzione Altro nella scheda Risorse locali di Connessione Desktop remoto per scegliere i dispositivi di acquisizione video per il reindirizzamento al computer remoto.
 
+</string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">Questa impostazione dei criteri consente di controllare il reindirizzamento dei dati sulla posizione nel computer remoto in una sessione di Servizi Desktop remoto.
+
+Per impostazione predefinita, Servizi Desktop remoto consente il reindirizzamento dei dati di posizione.
+
+Se si abilita questa impostazione dei criteri, gli utenti non potranno reindirizzare i dati relativi alla posizione al computer remoto.
+
+Se si disabilita o non si configura questa impostazione dei criteri, gli utenti potranno reindirizzare i dati relativi alla posizione al computer remoto.
+          
 </string>
       <string id="TS_MAXMONITOR_EXPLAIN">Questa impostazione consente di limitare il numero dei monitor utilizzabili da un utente per visualizzare una sessione di Servizi Desktop remoto. In questo modo è possibile ottenere un miglioramento delle prestazioni della connessione, soprattutto in presenza di collegamenti lenti, e ridurre il carico del server.
 
@@ -403,12 +415,11 @@ Nota: è consigliabile abilitare questa impostazione dei criteri solo quando il 
 
 Se si abilita questa impostazione dei criteri, un server Host sessione Desktop remoto tenterà di individuare innanzitutto i server licenze specificati. Se non è possibile individuare i server licenze specificati, verrà effettuato un tentativo di individuazione automatica dei server licenze. Durante il processo di individuazione automatica dei server licenze, un server Host sessione Desktop remoto in un dominio basato su Windows Server tenterà di contattare un server licenze nell'ordine seguente
 
-    1. Server licenze Desktop remoto pubblicati in Servizi di dominio Active Directory.
+    1. Server licenze Desktop remoto pubblicati in Active Directory Domain Services.
 
     2. Server licenze Desktop remoto installati in controller di dominio nello stesso dominio del server Host sessione Desktop remoto.
 
 Se si disabilita o non si configura questa impostazione dei criteri, il server Host sessione Desktop remoto non specificherà un server licenze a livello di Criteri di gruppo.
-
 </string>
       <string id="TS_LICENSE_TOOLTIP">Nascondi notifiche di problemi relativi a Servizio licenze Desktop remoto che interessano il server host sessione Desktop remoto</string>
       <string id="TS_LICENSE_TOOLTIP_EXPLAIN">Questa impostazione determina la visualizzazione delle notifiche in un server host sessione Desktop remoto quando si verificano problemi con Servizio licenze Desktop remoto che interessano il server host sessione Desktop remoto.
@@ -420,19 +431,19 @@ Se si abilita questa impostazione, le notifiche non verranno visualizzate nel se
 Se si disabilita o non si configura questa impostazione, le notifiche verranno visualizzate nel server host sessione Desktop remoto dopo l'accesso come amministratore locale.</string>
       <string id="TS_LICENSING_MODE">Imposta modalità gestione licenze Desktop remoto</string>
       <string id="TS_LICENSING_MODE_EXPLAIN">
-        Questa impostazione dei criteri consente di specificare il tipo di licenza CAL (Client Access License) di Servizi Desktop remoto necessario per connettersi al server Host sessione Desktop remoto.
+        Questa impostazione dei criteri ti consente di specificare il tipo di licenza CAL (Client Access License) di Servizi Desktop remoto necessaria per connetterti al server Host sessione Desktop remoto.
 
-        Puoi utilizzare questa impostazione dei criteri per selezionare una delle modalità di gestione licenze seguenti: Per Utente, Per Dispositivo e AAD per utente.
+        Puoi utilizzare questa impostazione dei criteri per selezionare una delle modalità di gestione licenze seguenti: per utente o per dispositivo.
 
-        La modalità di gestione licenze Per Utente richiede che ogni account utente che si connette al server Host sessione Desktop remoto disponga di una licenza CAL Per Utente di Servizi Desktop remoto.
+        La modalità di gestione licenze per utente richiede che ogni account utente che si connette al server Host sessione Desktop remoto disponga di una licenza CAL per utente di Servizi Desktop remoto emessa da un server licenze Desktop remoto.
 
-        La modalità di gestione licenze Per Dispositivo richiede che ogni dispositivo che si connette al server Host sessione Desktop remoto disponga di una licenza CAL Per Dispositivo di Servizi Desktop remoto.
+        La modalità di gestione licenze per dispositivo richiede che ogni dispositivo che si connette al server Host sessione Desktop remoto disponga di una licenza CAL per dispositivo di Servizi Desktop remoto emessa da un server licenze Desktop remoto.
 
-        La modalità di gestione licenze AAD per utente richiede che ogni account utente che si connettere a questo server Host sessione Desktop remoto disponga di un piano di servizio che supporta le licenze Servizi Desktop remoto assegnate in AAD.
-        
-        Se si abilita questa impostazione dei criteri, la modalità di gestione licenze di Desktop remoto specificata verrà utilizzata dal server licenze Desktop remoto.
+        Se abiliti questa impostazione dei criteri, la modalità di gestione licenze di desktop remoto specificata verrà rispettata dal server licenze Desktop remoto e dall'host sessione Desktop remoto.
 
-        Se si disabilita o non si configura questa impostazione dei criteri, la modalità di gestione licenze non sarà specificata a livello di Criteri di gruppo.
+        Se disabiliti o non configuri questa impostazione dei criteri, la modalità di gestione licenze non sarà specificata a livello di criteri di gruppo.
+
+        Nota: la modalità AAD per utente è deprecata su Windows 11 e versioni superiori.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Per Dispositivo</string>
       <string id="TS_LICENSING_MODE_PER_USER">Per utente</string>
@@ -546,7 +557,7 @@ Se lo stato è impostato su Non configurato, saranno consentite le comunicazioni
 
 Nota: per la gestione e la configurazione di Servizi Desktop remoto è utilizzata l'interfaccia RPC.</string>
       <string id="TS_SD_ClustName">Configura nome farm Gestore connessione Desktop remoto</string>
-      <string id="TS_SD_ClustName_Explain">Questa impostazione dei criteri consente di specificare il nome di una farm da aggiungere a Gestore connessione Desktop remoto. Gestore connessione Desktop remoto utilizza il nome della farm per determinare quali server Host sessione Desktop remoto si trovano nella stessa farm di server Host sessione Desktop remoto. È pertanto necessario utilizzare lo stesso nome di farm per tutti i server Host sessione Desktop remoto presenti nella stessa farm con carico bilanciato. Il nome della farm non deve corrispondere a un nome in Servizi di dominio Active Directory.
+      <string id="TS_SD_ClustName_Explain">Questa impostazione dei criteri consente di specificare il nome di una farm da aggiungere a Gestore connessione Desktop remoto. Gestore connessione Desktop remoto utilizza il nome della farm per determinare quali server Host sessione Desktop remoto si trovano nella stessa farm di server Host sessione Desktop remoto. È pertanto necessario utilizzare lo stesso nome di farm per tutti i server Host sessione Desktop remoto presenti nella stessa farm con carico bilanciato. Il nome della farm non deve corrispondere a un nome in Active Directory Domain Services.
 
 Se si specifica un nuovo nome di farm, verrà creata una nuova farm in Gestore connessione Desktop remoto. Se si specifica un nome di farm esistente, il server aggiungerà la farm esistente a Gestore connessione Desktop remoto.
 
@@ -559,7 +570,6 @@ Nota:
 	1. Questa impostazione dei criteri non ha effetto a meno che entrambe le impostazioni dei criteri Aggiungi a Gestore connessione Desktop remoto e Configura nome server Gestore connessione Desktop remoto non siano abilitate e configurate mediante Criteri di gruppo.
 
      2. Per Windows Server 2008, questa impostazione dei criteri è supportata in almeno Windows Server 2008 Standard.
-
 </string>
       <string id="TS_SD_EXPOSE_ADDRESS">Usa reindirizzamento indirizzi IP</string>
       <string id="TS_SD_EXPOSE_ADDRESS_Explain">Questa impostazione dei criteri consente di specificare il metodo di reindirizzamento da utilizzare quando un dispositivo client si riconnette a una sessione di Servizi Desktop remoto esistente in una farm di server Host sessione Desktop remoto con carico bilanciato. Questa impostazione si applica al server Host sessione Desktop remoto configurato per utilizzare Gestore connessione Desktop remoto, mentre non si applica al server Gestore connessione Desktop remoto.
@@ -609,6 +619,17 @@ Se si disabilita o non si configura questa impostazione dei criteri, il metodo d
       <string id="TS_SECURITY_LAYER_POLICY">Richiedi l'utilizzo di un livello di sicurezza specificato per le connessioni remote (RDP)</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Abilita l'applicazione dell'autenticazione di Microsoft Entra ID</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">Questa impostazione di criteri ti consente di specificare se richiedere l'applicazione lato server dell'autenticazione di Microsoft Entra ID.
+
+Se abiliti questa impostazione di criteri, tutti i client di Servizi Desktop remoto devono usare l'autenticazione AAD di Servizi Desktop remoto per eseguire l'autenticazione nei server Host sessione Desktop remoto. 
+
+Questo criterio non consente il fallback ad altri metodi di autenticazione. 
+
+È necessario abilitare l'Autenticazione a livello di rete (NLA) per applicare questo criterio. Vedi il criterio "Richiedi autenticazione utente per le connessioni remote tramite Autenticazione a livello di rete".
+
+Se disabiliti o non configuri questa impostazione di criteri, l'applicazione di dell'autenticazione di Microsoft Entra ID non viene imposta.
+</string>
       <string id="TS_Session_End_On_Limit">Termina la sessione quando si raggiungono i limiti di tempo</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">Questa impostazione dei criteri specifica se terminare una sessione di Servizi Desktop remoto scaduta anziché disconnetterla.
 
@@ -787,6 +808,79 @@ Se si abilita questa impostazione, verrà sempre visualizzato il desktop quando 
 Se si disabilita o non si configura questa impostazione, sarà possibile specificare un programma iniziale che deve essere eseguito nel computer client dopo la connessione del client al computer remoto. Se non si specifica un programma iniziale, verrà sempre visualizzato il desktop sul computer remoto alla connessione del client al computer remoto.
 
 Nota: se si abilita questa impostazione, verrà ignorata l'impostazione "Avvia un programma alla connessione".</string>
+      <string id="TS_UIA">Consenti reindirizzamento automazione interfaccia utente</string>
+      <string id="TS_UIA_EXPLAIN">Questa impostazione dei criteri determina se le applicazioni client di automazione dell'interfaccia utente in esecuzione nel computer locale possono accedere agli elementi dell'interfaccia utente nel server.
+
+L'automazione interfaccia utente concede ai programmi l'accesso alla maggior parte degli elementi dell'interfaccia utente, che consente di utilizzare i prodotti di Assistive Technology come lente di ingrandimento e Assistente vocale che devono interagire con l'interfaccia utente per il corretto funzionamento. Le informazioni sull'interfaccia utente consentono inoltre gli script di test automatizzati per interagire con l'interfaccia utente.
+
+Le sessioni di desktop remoto non supportano attualmente il reindirizzamento dell'automazione dell'interfaccia utente.
+
+Se si Abilita o non si configura questa impostazione dei criteri, tutti i client di automazione interfaccia utente nel computer locale potranno interagire con le app Remote. È ad esempio possibile utilizzare i client Assistente vocale e lente di ingrandimento del computer locale per interagire con l'interfaccia utente in una pagina Web aperta in una sessione remota.
+
+Se si disabilita questa impostazione dei criteri, i client di automazione interfaccia utente in esecuzione nel computer locale non possono interagire con le app Remote.
+</string>
+      <string id="TS_WEBAUTHN">Non consentire il reindirizzamento WebAuthn</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">Questa impostazione dei criteri consente di controllare il reindirizzamento delle richieste di autenticazione Web (WebAuthn) da una sessione di Desktop remoto al dispositivo locale. Questo reindirizzamento consente agli utenti di eseguire l'autenticazione alle risorse all'interno della sessione di Desktop remoto usando l'autenticatore locale,  ad esempio Windows Hello for Business, chiave di sicurezza o altro.
+
+Per impostazione predefinita, Desktop remoto consente il reindirizzamento delle richieste WebAuthn.
+
+Se si abilita questa impostazione dei criteri, gli utenti non potranno usare l'autenticatore locale all'interno della sessione di Desktop remoto.
+
+Se si disabilita o non si configura questa impostazione dei criteri, gli utenti potranno utilizzare autenticatori locali all'interno della sessione di Desktop remoto.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">Disabilita i trasferimenti degli Appunti dal server al client</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">Disabilita i trasferimenti degli Appunti dal client al server</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Consenti testo normale</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Consenti testo normale e immagini</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Consenti testo normale, immagini e formato RTF</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Consenti testo normale, immagini, formato RTF e HTML</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">Limita il trasferimento degli Appunti dal server al client</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">Questa impostazione dei criteri consente di limitare i trasferimenti di dati dagli Appunti dal server al client.
+
+Se si abilita questa impostazione dei criteri, sarà necessario scegliere uno dei comportamenti seguenti:
+
+- Disabilitare i trasferimenti dagli Appunti dal server al client.
+
+- Consentire la copia di testo normale dal server al client.
+
+- Consentire la copia di testo normale e immagini dal server al client.
+
+- Consente la copia di testo normale, immagini e formato RTF dal server al client.
+
+- Consentire la copia di testo normale, immagini, formato RTF e HTML dal server al client.
+
+Se si disabilita o non si configura questa impostazione dei criteri, gli utenti potranno copiare contenuto arbitrario dal server al client se è abilitato il reindirizzamento degli Appunti.
+
+Nota: questa impostazione dei criteri viene visualizzata sia in Configurazione computer che in Configurazione utente. Se sono configurate entrambe le impostazioni dei criteri, verrà usata la restrizione più rigida.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">Limita il trasferimento degli Appunti dal client al server</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">Questa impostazione dei criteri consente di limitare i trasferimenti di dati dagli Appunti dal client al server.
+
+Se si abilita questa impostazione dei criteri, sarà necessario scegliere uno dei comportamenti seguenti:
+
+- Disabilitare i trasferimenti dagli Appunti dal client al server.
+
+- Consentire la copia di testo normale dal client al server.
+
+- Consentire la copia di testo normale e immagini dal client al server.
+
+- Consente la copia di testo normale, immagini e formato RTF dal client al server.
+
+- Consentire la copia di testo normale, immagini, formato RTF e HTML dal client al server.
+
+Se si disabilita o non si configura questa impostazione dei criteri, gli utenti potranno copiare contenuto arbitrario dal client al server se è abilitato il reindirizzamento degli Appunti.
+
+Nota: questa impostazione dei criteri viene visualizzata sia in Configurazione computer che in Configurazione utente. Se sono configurate entrambe le impostazioni dei criteri, verrà usata la restrizione più rigida.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Disabilita l'integrazione degli Appunti cloud per il trasferimento dei dati da server a client</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">Questa impostazione dei criteri consente di controllare se i dati trasferiti dalla sessione remota al client tramite il reindirizzamento degli Appunti vengono aggiunti agli Appunti cloud lato client.
+
+Per impostazione predefinita, Desktop remoto disabilita l'integrazione con gli Appunti cloud lato client per i dati trasferiti dalla sessione remota tramite il reindirizzamento degli Appunti.
+
+Se si abilita o non si configura questa impostazione dei criteri, i dati copiati nella sessione remota e incollati nel client non verranno aggiunti agli Appunti cloud lato client.
+
+Se si disabilita questa impostazione dei criteri, i dati copiati nella sessione remota e incollati nel client verranno aggiunti agli Appunti cloud lato client (se abilitati).
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">Questa impostazione dei criteri consente di specificare se richiedere al server Host sessione Desktop remoto l'autenticazione utente tramite Autenticazione a livello di rete per le connessioni remote. Questa impostazione dei criteri migliora la sicurezza in quanto richiede che l'autenticazione dell'utente avvenga in una fase precedente del processo di connessione remota.
 
 Se si abilita questa impostazione dei criteri, solo i computer client che supportano Autenticazione a livello di rete potranno connettersi al server Host sessione Desktop remoto.
@@ -801,6 +895,24 @@ Importante: la disabilitazione di questa impostazione dei criteri determina una 
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Richiedi autenticazione utente tramite Autenticazione a livello di rete per le connessioni remote</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Disconnetti sessione remota al blocco per l'autenticazione legacy</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">Questa impostazione dei criteri consente di configurare l'esperienza utente quando la sessione di Desktop remoto è bloccata dall'utente o da un criterio. È possibile specificare se la sessione remota mostrerà la schermata di blocco remoto o si disconnetterà quando la sessione remota è bloccata. La disconnessione della sessione remota garantisce che una sessione remota non possa essere lasciata nella schermata di blocco e non possa riconnettersi automaticamente a causa della perdita di connettività di rete.
+
+Questo criterio si applica solo quando si usa l'autenticazione legacy per l'autenticazione al PC remoto. L'autenticazione legacy è limitata a nome utente e password o a certificati come le smart card. L'autenticazione legacy non sfrutta Microsoft Identity Platform, ad esempio Microsoft Entra ID. L'autenticazione legacy include i protocolli di autenticazione di base NTLM, CredSSP, RDSTLS, TLS e RDP.
+
+Se si abilita questa impostazione dei criteri, le connessioni di Desktop remoto che usano l'autenticazione legacy disconnetteranno la sessione remota quando la sessione remota è bloccata. Gli utenti possono riconnettersi quando sono pronti e immettere di nuovo le credenziali quando richiesto.
+
+Se si disabilita o non si configura questa impostazione dei criteri, le connessioni di Desktop remoto che usano l'autenticazione legacy visualizzeranno la schermata di blocco remoto quando la sessione remota è bloccata. Gli utenti possono sbloccare la sessione remota usando il nome utente e la password o i certificati.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Disconnetti sessione remota al blocco per l'autenticazione Microsoft Identity Platform</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">Questa impostazione dei criteri consente di configurare l'esperienza utente quando la sessione di Desktop remoto è bloccata dall'utente o da un criterio. È possibile specificare se la sessione remota mostrerà la schermata di blocco remota o si disconnetterà quando la sessione remota è bloccata. La disconnessione della sessione remota garantisce che una sessione remota non possa essere lasciata nella schermata di blocco e che non possa riconnettersi automaticamente a causa della perdita della connettività di rete.
+
+Questo criterio si applica solo quando si usa un provider di identità che utilizza il Microsoft Identity Platform, ad esempio Microsoft Entra ID, per l'autenticazione nel PC remoto. Questo criterio non si applica quando si usa l'autenticazione legacy che include i protocolli di autenticazione di base NTLM, CredSSP, RDSTLS, TLS e RDP.
+
+Se si abilita o non si configura questa impostazione dei criteri, Desktop remoto connessioni che utilizzano il Microsoft Identity Platform disconnetteranno la sessione remota quando la sessione remota è bloccata. Gli utenti possono riconnettersi quando sono pronti e possono usare l'autenticazione senza password se configurati.
+
+Se si disabilita questa impostazione dei criteri, Desktop remoto connessioni che utilizzano il Microsoft Identity Platform mostrerà la schermata di blocco remoto quando la sessione remota è bloccata. Gli utenti possono sbloccare la sessione remota usando il nome utente e la password o i certificati.
+</string>
       <string id="TS_User_Help">Controlla la configurazione delle tecnologie di Servizi Desktop remoto che consentono l'accesso a un server su cui vengono eseguiti programmi per Windows o tutto il desktop Windows</string>
       <string id="TS_USER_HOME">Imposta la home directory utente di Servizi Desktop remoto</string>
       <string id="TS_USER_HOME_EXPLAIN">Specifica se deve essere utilizzata la condivisione di rete specificata o il percorso di directory locale come radice della home directory dell'utente per una sessione di Servizi Desktop remoto.
@@ -890,7 +1002,6 @@ Se si abilita o non si configura questa impostazione, gli utenti potranno esegui
 Se si disabilita questa impostazione, gli utenti non potranno eseguire file RDP firmati con un certificato valido. Gli utenti, inoltre, non potranno avviare una sessione RDP aprendo direttamente il client RDC e specificando il nome del computer remoto. Se un utente tenta di avviare una sessione RDP, riceverà un messaggio che indica che l'autore è stato bloccato.
 
 Nota: è possibile definire questa impostazione nel nodo Configurazione computer o nel nodo Configurazione utente. Se è configurata per il computer, questa impostazione sarà effettiva per tutti gli utenti del computer.
-
 </string>
       <string id="TS_CLIENT_ALLOW_SIGNED_FILES_USER_EXPLAIN">Questa impostazione consente di specificare se gli utenti possono eseguire file RDP (Remote Desktop Protocol) firmati da un autore con un certificato valido. Un certificato valido è un certificato rilasciato da un'autorità riconosciuta dal client, ad esempio un'autorità di certificazione presente nell'archivio certificati Autorità di certificazione radice di terze parti del client. Questa impostazione controlla inoltre la possibilità dell'utente di avviare una sessione RDP utilizzando le impostazioni RDP predefinite, ad esempio quando un utente apre direttamente il client Connessione desktop remoto (RDC) senza specificare un file RDP.
 
@@ -899,38 +1010,45 @@ Se si abilita o non si configura questa impostazione, gli utenti potranno esegui
 Se si disabilita questa impostazione, gli utenti non potranno eseguire file RDP firmati con un certificato valido. Gli utenti, inoltre, non potranno avviare una sessione RDP aprendo direttamente il client RDC e specificando il nome del computer remoto. Se un utente tenta di avviare una sessione RDP, riceverà un messaggio che indica che l'autore è stato bloccato.
 
 Nota: è possibile definire questa impostazione nel nodo Configurazione computer o nel nodo Configurazione utente. Se è configurata per il computer, questa impostazione sarà effettiva per tutti gli utenti del computer.
-
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Specifica identificazioni personali SHA1 di certificati che rappresentano autori RDP attendibili</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Questa impostazione consente di specificare un elenco di identificazioni personali certificato Secure Hash Algorithm 1 (SHA1) che rappresentano autori di file Remote Desktop Protocol (RDP) attendibili.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Specifica le impronte digitali dei certificati che rappresentano editori .rdp attendibili</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Questa impostazione di criteri consente di specificare un elenco di identificazioni personali certificato che rappresentano autori di file di Remote Desktop Protocol (RDP) attendibili. Sono supportate le identificazioni personali SHA-256, SHA-384 e SHA-512. Le identificazioni personali SHA-1 sono deprecate: SHA-1 non è più considerato sicuro e il supporto per le identificazioni personali SHA-1 verrà disabilitato per impostazione predefinita in un prossimo aggiornamento della sicurezza. Gli amministratori devono eseguire la migrazione di tutte le voci di identificazione personale a SHA-256 o versioni più avanzate il prima possibile.
 
-Se si abilita questa impostazione, qualsiasi certificato con un'identificazione personale SHA1 corrispondente a un'identificazione personale presente nell'elenco verrà considerato proveniente da un'Autorità di certificazione disponibile nell'elenco locale. Se un utente tenta di avviare un file RDP firmato da un certificato proveniente da un'Autorità di certificazione disponibile nell'elenco locale, l'utente non riceverà alcun messaggio di avviso all'avvio del file. Per ottenere l'identificazione personale, visualizzare i dettagli del certificato, quindi fare clic sul campo Identificazione personale.
+Le identificazioni personali possono avere come prefisso l'algoritmo hash usato per generarle. I prefissi supportati sono "sha256:", "sha384:" e "sha512:" (senza distinzione tra maiuscole e minuscole). Ad esempio: sha256:AB0356F2... Se non viene specificato alcun prefisso, la voce viene considerata un'identificazione personale SHA-1 legacy.
 
-Se si disabilita o non si configura questa impostazione, nessun autore verrà considerato un autore RDP attendibile.
+Se la casella di controllo "Non consentire identificazioni personali SHA-1" è abilitata, le voci senza prefisso vengono ignorate. Verranno confrontate solo le identificazioni personali SHA-256, SHA-384 e SHA-512. È consigliabile abilitare questa casella di controllo adesso per prepararsi per la prossima modifica predefinita.
+
+Se abiliti questa impostazione di criteri, qualsiasi certificato con un'identificazione personale che corrisponde a un'identificazione personale nell'elenco è considerato attendibile. Se un utente tenta di avviare un file RDP firmato da un certificato attendibile, non riceverà alcun messaggio di avviso all'avvio del file.
+
+Se disabiliti o non configuri questa impostazione di criteri, nessun autore viene considerato un autore di RDP attendibile.
 
 Note:
 
-È possibile definire questa impostazione nel nodo Configurazione computer o nel nodo Configurazione utente. Se si configura questa impostazione per il computer, l'elenco di identificazioni personali certificato considerate attendibili per un utente sarà una combinazione dell'elenco definito per il computer e dell'elenco definito per l'utente.
+Puoi definire questa impostazione di criteri nel nodo Configurazione computer o nel nodo Configurazione utente. Se configuri questa impostazione di criteri per il computer, l'elenco delle identificazioni personali certificato attendibili per un utente è una combinazione dell'elenco definito per il computer e dell'elenco definito per l'utente.
 
-Questa impostazione sostituisce l'impostazione "Consenti file RDP di autori validi e impostazioni RDP predefinite dell'utente".
+Questa impostazione di criteri sostituisce il comportamento dell'impostazione di criteri "Consenti file RDP di autori validi e impostazioni RDP predefinite dell'utente".
 
-Se l'elenco contiene una stringa che non è un'identificazione personale certificato, verrà ignorato.
+Se l'elenco contiene una stringa che non è un'identificazione personale certificato, viene ignorata.
 
+Per altre informazioni, vedi https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Questa impostazione consente di specificare un elenco di identificazioni personali certificato Secure Hash Algorithm 1 (SHA1) che rappresentano autori di file Remote Desktop Protocol (RDP) attendibili.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Questa impostazione di criteri consente di specificare un elenco di identificazioni personali certificato che rappresentano autori di file di Remote Desktop Protocol (RDP) attendibili. Sono supportate le identificazioni personali SHA-256, SHA-384 e SHA-512. Le identificazioni personali SHA-1 sono deprecate: SHA-1 non è più considerato sicuro e il supporto per le identificazioni personali SHA-1 verrà disabilitato per impostazione predefinita in un prossimo aggiornamento della sicurezza. Gli utenti devono eseguire la migrazione di tutte le voci di identificazione personale a SHA-256 o versioni più avanzate il prima possibile.
 
-Se si abilita questa impostazione, qualsiasi certificato con un'identificazione personale SHA1 corrispondente a un'identificazione personale presente nell'elenco verrà considerato proveniente da un'Autorità di certificazione disponibile nell'elenco locale. Se un utente tenta di avviare un file RDP firmato da un certificato proveniente da un'Autorità di certificazione disponibile nell'elenco locale, l'utente non riceverà alcun messaggio di avviso all'avvio del file. Per ottenere l'identificazione personale, visualizzare i dettagli del certificato, quindi fare clic sul campo Identificazione personale.
+Le identificazioni personali possono avere come prefisso l'algoritmo hash usato per generarle. I prefissi supportati sono "sha256:", "sha384:" e "sha512:" (senza distinzione tra maiuscole e minuscole). Ad esempio: sha256:AB0356F2... Se non viene specificato alcun prefisso, la voce viene considerata un'identificazione personale SHA-1 legacy.
 
-Se si disabilita o non si configura questa impostazione, nessun autore verrà considerato un autore RDP attendibile.
+Se abiliti questa impostazione di criteri, qualsiasi certificato con un'identificazione personale che corrisponde a un'identificazione personale nell'elenco è considerato attendibile. Se un utente tenta di avviare un file RDP firmato da un certificato attendibile, non riceverà alcun messaggio di avviso all'avvio del file.
+
+Se disabiliti o non configuri questa impostazione di criteri, nessun autore viene considerato un autore di RDP attendibile.
 
 Nota:
 
-è possibile definire questa impostazione nel nodo Configurazione computer o nel nodo Configurazione utente. Se si configura questa impostazione per il computer, l'elenco di identificazioni personali certificato considerate attendibili per un utente sarà una combinazione dell'elenco definito per il computer e dell'elenco definito per l'utente.
+Puoi definire questa impostazione di criteri nel nodo Configurazione computer o nel nodo Configurazione utente. Se configuri questa impostazione di criteri per il computer, l'elenco delle identificazioni personali certificato attendibili per un utente è una combinazione dell'elenco definito per il computer e dell'elenco definito per l'utente.
 
-Questa impostazione sostituisce l'impostazione "Consenti file RDP di autori validi e impostazioni RDP predefinite dell'utente".
+Questa impostazione di criteri sostituisce il comportamento dell'impostazione di criteri "Consenti file RDP di autori validi e impostazioni RDP predefinite dell'utente".
 
-Se l'elenco contiene una stringa che non è un'identificazione personale certificato, verrà ignorato.
+Se l'elenco contiene una stringa che non è un'identificazione personale certificato, viene ignorata.
 
+Per altre informazioni, vedi https://go.microsoft.com/fwlink/?LinkId=2368223.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">Richiedi credenziali nel computer client</string>
@@ -1018,6 +1136,14 @@ Se si disabilita questa impostazione dei criteri. i programmi RemoteApp pubblica
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">Abilita l'esperienza della shell avanzata per RemoteApp</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">Questa impostazione dei criteri consente di migliorare l'esperienza della shell per le sessioni RemoteApp, offrendo supporto per associazioni di file predefinite, chiavi del Registro di sistema Run/RunOnce e altro ancora. Questa impostazione dei criteri si applica solo alle sessioni RemoteApp e non alle sessioni Desktop remoto.
+
+Se abiliti o non configuri questa impostazione dei criteri, le sessioni RemoteApp nei server Host sessione Desktop remoto avranno l'esperienza avanzata della shell.
+
+Se disabiliti questa impostazione dei criteri, le sessioni RemoteApp non avranno l'esperienza avanzata della shell e useranno il funzionamento della shell di legacy. Questa operazione potrebbe essere necessaria se si verificano problemi di compatibilità nei programmi RemoteApp pubblicati.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1151,21 +1277,20 @@ Nota: i programmi RemoteApp installati tramite Connessione RemoteApp e desktop d
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">Seleziona protocolli trasporto RDP</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Questa impostazione dei criteri consente di specificare quali protocolli è possibile utilizzare per l'accesso RDP (Remote Desktop Protocol) a questo server.
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Questa impostazione dei criteri consente di specificare i protocolli che è possibile utilizzare per l'accesso Remote Desktop Protocol (RDP) a questo server.
 
-Se si abilita questa impostazione dei criteri, è necessario specificare se si desidera che RDP utilizzi UDP.
+Se si abilita questa impostazione dei criteri, sarà necessario specificare se si desidera che RDP utilizzi UDP.
 
-È possibile selezionare una delle opzioni seguenti: "Utilizza UDP e TCP", "Utilizza solo TCP" oppure "Utilizza UDP o TCP (impostazione predefinita)" 
+È possibile selezionare una delle opzioni seguenti: "Usa UDP, TCP (impostazione predefinita)" o "Usa solo TCP" 
 
-Se si seleziona l'impostazione "Utilizza UDP o TCP" e la connessione UDP ha esito positivo, la maggior parte del traffico RDP utilizzerà il protocollo UDP.
+Se si seleziona "Usa UDP o TCP" e la connessione UDP ha esito positivo, la maggior parte del traffico RDP utilizzerà UDP.
 
-Se la connessione UDP ha esito negativo o se si seleziona "Utilizza solo TCP", tutto il traffico RPD utilizzerà il protocollo TCP.
+Se la connessione UDP non riesce o si seleziona "Utilizza solo TCP", tutto il traffico RDP utilizzerà TCP.
 
-Se si disabilita o non si configura questa impostazione dei criteri, RDP sceglierà i protocolli ottimali per fornire la migliore esperienza utente.
+Se si disabilita o non si configura questa impostazione dei criteri, RDP sceglierà i protocolli ottimali per offrire la migliore esperienza utente.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">Utilizza UDP e TCP</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Utilizza solo TCP</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">Utilizza UDP o TCP</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Utilizza solo TCP</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Seleziona rilevamento della rete sul server</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">Questa impostazione dei criteri consente di specificare in che modo il protocollo RDP (Remote Desktop Protocol) tenterà di rilevare la qualità della rete (larghezza di banda e latenza).
@@ -1344,12 +1469,13 @@ NOTA: l'impostazione di criteri consente il bilanciamento del carico delle unit�
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Elenco delimitato da virgole di identificazioni personali certificato SHA1 attendibili:</label>
+          <label>Elenco delimitato da virgole di identificazioni personali di certificati attendibili (prefisso sha256:, sha384: o sha512:):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">Non consentire impronte digitali personali SHA-1</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Elenco delimitato da virgole di identificazioni personali certificato SHA1 attendibili:</label>
+          <label>Elenco delimitato da virgole di identificazioni personali di certificati attendibili (prefisso sha256:, sha384: o sha512:):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1387,6 +1513,12 @@ NOTA: l'impostazione di criteri consente il bilanciamento del carico delle unit�
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Seleziona tipo di trasporto</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Limita il trasferimento degli Appunti dal server al client:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Limita il trasferimento degli Appunti dal client al server:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -15,7 +15,16 @@ Pokud toto nastavení zásad povolíte, přizpůsobení rozlišení DPI GDI se z
 Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, přizpůsobení rozlišení DPI GDI bude u aplikace zapnuto pouze v případě, že to určuje databáze ApplicationCompatibility, nastavení Systém (Rozšířené) UI ApplicationCompatibility nebo manifest aplikace.
 
 Pokud je přizpůsobení rozlišení DPI GDI nakonfigurováno tak, aby aplikaci vypnulo i zapnulo, aplikace se vypne.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">Přizpůsobení rozlišení DPI GDI umožňuje aplikacím, které nepodporují DPI, aby podporovaly DPI pro jednotlivé monitory.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">Povolení této zásady umožňuje přepsat výchozí chování při připojování dalšího monitoru. Umožňuje řídit, jestli bude displej automaticky klonovat (zrcadlit) primární obrazovku nebo rozšiřovat plochu.
+Rozšíření rozšíří zobrazení na druhý monitor a umožní tak mít na každé obrazovce jiný obsah. Klon duplikuje primární displej na druhý monitor zobrazující stejný obsah na obou obrazovkách. Interní výchozí nastavení používá výchozí chování systému určené nastavením systému Windows.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> Konfigurovat režim více zobrazení</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">Povolení této zásady umožňuje přepsat výchozí chování při připojování dalšího monitoru. Umožňuje kontrolu nad tím, zda klonovaný displej upřednostňuje interní nebo externí monitor, tj. nastavení preferovaného zdroje rozlišení.
+Interní nastaví rozlišení hlavního displeje jako zdroj na obou obrazovkách. Externí nastaví rozlišení připojeného (externího) displeje jako zdroje na obou obrazovkách. Výchozí nastavení používá výchozí chování systému určené nastavením systému Windows.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> Nastavit upřednostňovaný zdroj rozlišení klonovaného monitoru</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">Přizpůsobení rozlišení DPI GDI umožňuje aplikacím, které nepodporují DPI, aby podporovaly DPI pro jednotlivé monitory.
 
 Toto nastavení zásad vám umožňuje určit starší aplikace, u kterých se vypne přizpůsobení rozlišení DPI GDI.
 
@@ -26,15 +35,15 @@ Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, přizpůsobení 
 Pokud je přizpůsobení rozlišení DPI GDI nakonfigurováno tak, aby aplikaci vypnulo i zapnulo, aplikace se vypne.</string>
       <string id="DisplayTurnOnGdiDPIScaling">Zapnout u aplikací GdiDPIScaling</string>
       <string id="DisplayTurnOffGdiDPIScaling">Vypnout u aplikací GdiDPIScaling</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">Nastavení DPI systému podle procesu je funkce kompatibility aplikací pro desktopové aplikace, které se po změně faktoru měřítka zobrazení (DPI, body na palec) nevykreslují správně. Když se změní měřítko zobrazení primárního monitoru (k čemuž může dojít, když připojíte nebo odpojíte displej, který má jiný faktor měřítka zobrazení, vzdáleně se připojíte ze zařízení s jiným faktorem nebo tento faktor změníte ručně), mnoho desktopových aplikací se může zobrazit rozmazaně. Desktopové aplikace, které nebyly aktualizovány tak, aby se při tomto scénáři zobrazovaly správně, budou rozmazané, dokud se uživatel neodhlásí a pak znovu nepřihlásí do Windows. 
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">Nastavení DPI systému podle procesu je funkce kompatibility aplikací pro desktopové aplikace, které se po změně faktoru měřítka zobrazení (DPI, body na palec) nevykreslují správně. Když se změní měřítko zobrazení primárního monitoru (k čemuž může dojít, když připojíte nebo odpojíte displej, který má jiný faktor měřítka zobrazení, vzdáleně se připojíte ze zařízení s jiným faktorem nebo tento faktor změníte ručně), mnoho desktopových aplikací se může zobrazit rozmazaně. Desktopové aplikace, které nebyly aktualizovány tak, aby se při tomto scénáři zobrazovaly správně, budou rozmazané, dokud se uživatel neodhlásí a pak znovu nepřihlásí do Windows.
 
-Pokud tuto zásadu povolíte, budou se některé rozmazané aplikace po restartování zobrazovat ostře, aniž by se uživatel musel odhlásit a znovu přihlásit do Windows. 
+Pokud tuto zásadu povolíte, budou se některé rozmazané aplikace po restartování zobrazovat ostře, aniž by se uživatel musel odhlásit a znovu přihlásit do Windows.
 
 Mějte na paměti následující:
 
-Nastavení DPI systému podle procesu zlepší vykreslování jen u desktopových aplikací, které jsou umístěné na primárním monitoru. Některé desktopové aplikace můžou být i nadále rozmazané na sekundárních monitorech, které mají jiný faktor měřítka zobrazení. 
+Nastavení DPI systému podle procesu zlepší vykreslování jen u desktopových aplikací, které jsou umístěné na primárním monitoru. Některé desktopové aplikace můžou být i nadále rozmazané na sekundárních monitorech, které mají jiný faktor měřítka zobrazení.
 
-Nastavení DPI systému podle procesu nebude fungovat u všech aplikací – některé starší desktopové aplikace budou na monitorech s vysokou hodnotou DPI rozmazané vždycky. 
+Nastavení DPI systému podle procesu nebude fungovat u všech aplikací – některé starší desktopové aplikace budou na monitorech s vysokou hodnotou DPI rozmazané vždycky.
 
 V některých případech se může u některých desktopových aplikací projevit zvláštní chování. Pokud se to stane, měli byste funkci Nastavení DPI systému podle procesu zakázat.
 
@@ -44,6 +53,14 @@ Pokud toto nastavení povolíte, můžete určit výchozí systémové nastaven�
       <string id="DisplayPerProcessSystemDpiSettings">Konfigurovat funkci Nastavení DPI systému podle procesu </string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">Povolit</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">Zakázat</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">Klonovat</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">Výchozí</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">Rozšířit</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">Pouze interní</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">Pouze externí</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">Výchozí</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">Interní</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">Externí</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">Povolit funkci Nastavení DPI systému podle procesu pro aplikace</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">Zakázat funkci Nastavení DPI systému podle procesu pro aplikace</string>
     </stringTable>
@@ -66,6 +83,12 @@ Pokud toto nastavení povolíte, můžete určit výchozí systémové nastaven�
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>Zakázat funkci Nastavení DPI systému podle procesu u následujících aplikací. Použijte buď celou cestu k aplikaci, nebo název souboru aplikace s příponou. Aplikace oddělte středníkem.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">Klonovat, Rozšířit, InternalOnly, ExternalOnly nebo Pokračovat s výchozím nastavením Windows jako konfigurací pro režim více zobrazení</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">Nastavte výchozí rozlišení, které bude systém Windows používat pro nové klonované displeje jako interní, externí nebo výchozí nastavení systému Windows.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

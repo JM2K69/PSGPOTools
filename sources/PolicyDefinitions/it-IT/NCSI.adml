@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Impostazioni di Criteri di gruppo Indicatore stato connettività di rete</displayName>
   <description>Impostazioni di Criteri di gruppo Indicatore stato connettività di rete</description>
@@ -73,7 +73,7 @@
       </presentation>
       <presentation id="NCSI_PassivePolling">
         <text>La seguente casella di controllo disabilita il meccanismo di polling passivo nell'indicatore di stato della connettività di rete.   Ciò determina un miglioramento del carico di lavoro su server o altri computer che dispongono di una connessione di rete statica.</text>
-        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Disabilita polling passivo</checkBox>  
+        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Disabilita polling passivo</checkBox>
       </presentation>
       <presentation id="NCSI_GlobalDns">
         <text>La seguente casella di controllo disabilita il binding dell'interfaccia quando si effettuano ricerche DNS nell'Indicatore stato connettività di rete. Ciò consente all'Indicatore stato connettività di rete di funzionare meglio con configurazioni di rete speciali, ad esempio un server DNS eseguito in localhost.</text>

@@ -15,7 +15,16 @@
 이 정책 설정을 사용하지 않거나 구성하지 않으면 ApplicationCompatibility 데이터베이스, ApplicationCompatibility UI 시스템(고급) 설정 또는 응용 프로그램 매니페스트를 사용하여 응용 프로그램을 사용하는 경우를 제외하고 응용 프로그램에 대해 GDI DPI 조정을 사용할 수 없습니다.
 
 GDI DPI 조정이 응용 프로그램을 끄고 켜도록 구성된 경우, 응용 프로그램은 꺼집니다.</string>
-      <string id="Display_TurnOffGdiDPIScaling_Help">GDI DPI 조정은 DPI 인식이 아닌 응용 프로그램들이 모니터별 DPI 인식이 되도록 합니다.
+
+<string id="Display_ConfigureMultipleDisplayModeHelp">이 정책을 사용하면 추가 모니터 연결 시 기본 동작을 재정의할 수 있습니다. 디스플레이가 기본 화면을 자동으로 복제(미러링)할지 또는 데스크톱을 확장할지를 제어할 수 있습니다.
+확장할 경우 디스플레이가 두 번째 모니터로 확장되므로 각 화면에 서로 다른 콘텐츠가 표시되게 할 수 있습니다. 복제는 두 번째 모니터에 기본 디스플레이를 복제하여 두 화면에 동일한 콘텐츠를 표시합니다. 내부 기본값은 Windows 설정에서 결정하는 시스템의 기본 동작을 사용합니다.</string>
+<string id="DisplayConfigureMultipleDisplayMode"> 다중 디스플레이 모드 구성</string>
+
+<string id="Display_SetClonePreferredResolutionSourceHelp">이 정책을 사용하면 추가 모니터 연결 시 기본 동작을 재정의할 수 있습니다. 복제된 디스플레이가 내부 모니터를 우선하는지, 외부 모니터를 우선하는지를 제어할 수 있습니다(즉, 복제된 디스플레이의 기본 설정 해상도 원본 설정).
+내부는 주 디스플레이의 해상도를 두 화면의 원본으로 설정합니다. 외부는 연결된(외부) 디스플레이의 해상도를 두 화면의 원본으로 설정합니다. 기본값은 Windows 설정에서 결정하는 시스템의 기본 동작을 사용합니다.</string>
+<string id="DisplaySetClonePreferredResolutionSource"> 복제된 모니터 기본 설정 확인 원본 설정</string>
+
+<string id="Display_TurnOffGdiDPIScaling_Help">GDI DPI 조정은 DPI 인식이 아닌 응용 프로그램들이 모니터별 DPI 인식이 되도록 합니다.
 
 이 정책 설정으로 GDI DPI 조정이 꺼진 레거시 응용 프로그램을 지정할 수 있습니다.
 
@@ -26,24 +35,32 @@ GDI DPI 조정이 응용 프로그램을 끄고 켜도록 구성된 경우, 응�
 GDI DPI 조정이 응용 프로그램을 끄고 켜도록 구성된 경우, 응용 프로그램은 꺼집니다.</string>
       <string id="DisplayTurnOnGdiDPIScaling">응용 프로그램의 GdiDPIScaling을 켭니다</string>
       <string id="DisplayTurnOffGdiDPIScaling">응용 프로그램의 GdiDPIScaling을 끕니다</string>
-      <string id="DisplayPerProcessSystemDpiSettingsHelp">프로세스 단위 DPI는 디스플레이 배율 인수(DPI) 변경 후 제대로 렌더링되지 않는 데스크톱 응용 프로그램을 위한 응용 프로그램 호환성 기능입니다. 기본 디스플레이의 디스플레이 배율 인수가 변경되면(디스플레이 배율 인수(DPI)가 다른 디스플레이를 연결 또는 흐리게 디스플레이 배율 인수가 다른 장치에서 원격으로 연결하거나 디스플레이 배율을 수동으로 변경할 때 발생할 수 있음) 많은 데스크톱 응용 프로그램이 흐릿하게 표시될 수 있습니다. 이 시나리오에서 제대로 표시되도록 업데이트되지 않은 데스크톱 응용 프로그램은 사용자가 로그 아웃했다가 Windows로 다시 돌아올 때까지 흐리게 표시됩니다. 
+      <string id="DisplayPerProcessSystemDpiSettingsHelp">프로세스별 시스템 DPI는 DPI(디스플레이 배율) 변경 후 제대로 렌더링되지 않는 데스크톱 애플리케이션을 위한 애플리케이션 호환성 기능입니다. 기본 디스플레이의 디스플레이 배율이 변경될 경우(DPI(디스플레이 배율)가 다른 디스플레이에 연결하거나 연결을 끊거나, 디스플레이 배율이 다른 장치에서 원격으로 연결하거나, 디스플레이 배율을 수동으로 변경할 때 발생할 수 있음) 많은 데스크톱 응용 프로그램이 흐리게 표시될 수 있습니다. 이 시나리오에서 제대로 표시되도록 업데이트되지 않은 데스크톱 응용 프로그램은 사용자가 Windows에서 로그아웃했다가 다시 로그인할 때까지 흐리게 표시됩니다.
 
-이 정책을 사용하면 사용자가 로그 아웃했다가 Windows로 다시 돌아오지 않아도 응용 프로그램을 다시 시작한 후에 일부 흐릿한 응용 프로그램이 선명하게 표시됩니다. 
+이 정책을 사용하면 사용자가 Windows에서 로그아웃했다가 다시 로그인하지 않아도 응용 프로그램을 다시 시작한 후에 일부 흐릿한 응용 프로그램이 선명하게 표시됩니다.
 
-다음 사항을 유의해야 합니다. 
+다음 사항에 유의하세요.
 
-프로세스 단위 시스템 DPI는 기본 디스플레이에 위치한 데스크톱 응용 프로그램의 렌더링만 개선합니다. 일부 데스크톱 응용 프로그램은 디스플레이 배율 인수가 다른 보조 디스플레이에서 여전히 흐리게 표시될 수 있습니다. 
+프로세스별 시스템 DPI는 기본 디스플레이에 위치한 데스크톱 응용 프로그램의 렌더링만 개선합니다. 일부 데스크톱 응용 프로그램은 디스플레이 배율이 다른 보조 디스플레이에서 여전히 흐리게 표시될 수 있습니다.
 
-일부 이전 데스크톱 응용 프로그램은 높은 DPI 디스플레이에서 항상 흐리게 표시되므로 프로세스 단위 시스템 DPI는 모든 응용 프로그램에서 작동하지 않습니다. 
+프로세스별 시스템 DPI는 모든 응용 프로그램에서 작동하는 것은 아니며, 일부 오래된 데스크톱 응용 프로그램은 DPI가 높은 디스플레이에서는 항상 흐리게 표시됩니다.
 
-경우에 따라 일부 데스크톱 응용 프로그램에서 이상한 동작이 나타날 수 있습니다. 이 경우 프로세스 단위 시스템 DPI를 사용하지 않도록 설정해야 합니다. 
+경우에 따라 일부 데스크톱 응용 프로그램에서 이상한 동작이 나타날 수 있습니다. 이 경우 프로세스별 시스템 DPI를 사용하지 않도록 설정해야 합니다.
 
-이 설정을 사용하면 데스크톱 응용 프로그램 및 응용 프로그램별 재정의에 대한 시스템 전체 기본값을 지정할 수 있습니다. 이 설정을 사용하지 않거나 구성하지 않으면 프로세스 단위 시스템 DPI가 시스템의 모든 프로세스에 적용되지 않습니다.
+이 설정을 사용하면 데스크톱 응용 프로그램에 대한 시스템 전체 기본값과 응용 프로그램별 재정의를 지정할 수 있습니다. 이 설정을 사용하지 않거나 설정을 구성하지 않으면 프로세스별 시스템 DPI가 시스템의 모든 프로세스에 적용되지 않습니다.
 
 </string>
       <string id="DisplayPerProcessSystemDpiSettings">프로세스 단위 시스템 DPI 설정 구성</string>
       <string id="DisplayGlobalPerProcessSystemDpiEnable">사용</string>
       <string id="DisplayGlobalPerProcessSystemDpiDisable">사용 중지</string>
+      <string id="DisplayConfigureMultipleDisplayModeClone">복제</string>
+      <string id="DisplayConfigureMultipleDisplayModeDefault">기본값</string>
+      <string id="DisplayConfigureMultipleDisplayModeExtend">확장</string>
+      <string id="DisplayConfigureMultipleDisplayInternalOnly">내부용</string>
+      <string id="DisplayConfigureMultipleDisplayExternalOnly">외부 전용</string>
+      <string id="DisplaySetClonePreferredResolutionSourceDefault">기본값</string>
+      <string id="DisplaySetClonePreferredResolutionSourceInternal">내부</string>
+      <string id="DisplaySetClonePreferredResolutionSourceExternal">외부</string>
       <string id="DisplayEnablePerProcessSystemDpiSettings">응용 프로그램에 대해 프로세스 단위 시스템 DPI 사용</string>
       <string id="DisplayDisablePerProcessSystemDpiSettings">응용 프로그램에 대해 프로세스 단위 시스템 DPI 사용 안 함</string>
     </stringTable>
@@ -66,6 +83,12 @@ GDI DPI 조정이 응용 프로그램을 끄고 켜도록 구성된 경우, 응�
         <textBox refId="DisplayDisablePerProcessSystemDpiSettings">
           <label>다음 응용 프로그램에 대해 프로세스 단위 시스템 DPI를 사용하지 않습니다. 전체 응용 프로그램 경로 또는 응용 프로그램 파일 이름과 확장명을 사용하세요. 응용 프로그램들은 세미콜론으로 구분합니다.</label>
         </textBox>
+      </presentation>
+      <presentation id="DisplayConfigureMultipleDisplayMode">
+        <dropdownList refId="DisplayConfigureMultipleDisplayModeSettings" noSort="true" defaultItem="0">다중 디스플레이 모드에 대한 구성으로 기본 Windows 설정을 사용하여 복제, 확장, InternalOnly, ExternalOnly 또는 계속합니다.</dropdownList>
+      </presentation>
+      <presentation id="DisplaySetClonePreferredResolutionSource">
+        <dropdownList refId="DisplaySetClonePreferredResolutionSourceSettings" noSort="true" defaultItem="0">Windows에서 새 복제된 디스플레이에 사용할 기본 해상도를 내부, 외부 또는 기본 Windows 설정으로 설정합니다.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

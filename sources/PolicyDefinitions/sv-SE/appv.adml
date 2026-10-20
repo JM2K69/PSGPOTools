@@ -103,7 +103,7 @@
       <string id="CEIP_Enable_Help">Programmet samlar in information om din dators maskinvara och hur du använder Microsoft Application Virtualization i bakgrunden (utan att störa dig). Detta hjälper Microsoft identifiera vilka Microsoft Application Virtualization-funktioner som behöver förbättras. Ingen information samlas in för att identifiera eller kontakta dig. 
 
 Mer information om programmet hittar du online på http://go.microsoft.com/fwlink/?LinkID=184686.</string>
-      <string id="Virtualization_JITVAllowList">Lista över processer som tillåts använda virtuella komponenter</string>
+      <string id="Virtualization_JITVAllowList">Lista över tillåtna processer som kan använda virtuella komponenter</string>
       <string id="Virtualization_JITVAllowList_Help">Anger en lista över processökvägar (får innehålla jokertecken) som får använda virtuella komponenter (shell-tillägg, webbläsarhjälpobjekt o.s.v.). Det är bara processer vars fullständiga sökväg matchar någon av dessa poster som kan använda virtuella komponenter.</string>
       <string id="Virtualization_JITVEnable">Aktivera dynamisk virtualisering</string>
       <string id="Virtualization_JITVEnable_Help">Aktiverar dynamisk virtualisering för shell-tillägg, webbläsarhjälpobjekt och ActiveX-kontroller som stöds.</string>

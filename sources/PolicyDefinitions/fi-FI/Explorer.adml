@@ -37,14 +37,30 @@ Huomautus: Tämän käytäntöasetuksen käyttöönottaminen ei estä käyttäji
       <string id="DisableRoamedProfileInit_Help">Tämän käytäntöasetuksen avulla järjestelmänvalvojat, jotka ovat määrittäneet verkkovierailuprofiilin yhdessä Poista välimuistiin tallennettu verkkovierailuprofiili -ryhmäkäytäntö -asetuksen kanssa, voivat varmistaa, että Resurssienhallinta ei alusta uudelleen ohjelmien oletuskytkentöjä ja muita asetuksia oletusarvoiksi. 
 
 Tämän käytäntöasetuksen ottaminen käyttöön koneessa, jossa kaikkia ohjelmia ei ole asennettu samalla tavalla kuin koneessa, johon käyttäjä edellisen kerran kirjautui, voi johtaa odottamattomaan toimintaan. </string>
+      <string id="DisableGraphRecentItems">Näytä tiedostot tilisi ja pilvipalvelupalvelusi toiminnan perusteella</string>
+      <string id="DisableGraphRecentItems_Help">Tämän asetuksen poistaminen käytöstä estää resurssienhallintaa pyytämästä pilvitiedoston metatietoja ja näyttämästä niitä resurssienhallinnan etusivulla ja muissa näkymissä. Tiliin tai pilvipalveluntarjoajan toimintaan perustuvat merkitykselliset tiedot ja tiedostot pysäytetään näkymissä, kuten Viimeisimmät, Suositellut, Suosikit, Jaettu jne.</string>
+      <string id="DisableAdvancedSettingsSourceIntegration">Poista käytöstä lisäasetusten lähteen integrointi Resurssienhallinnassa</string>
+      <string id="DisableAdvancedSettingsSourceIntegration_Help">Lisäasetusten lähteen integroinnin poistaminen käytöstä estää Resurssienhallinta näyttämästä säilötietoja Sytem-lisäasetusten osasta</string>
+      <string id="DisableFileExplorerPrelaunch">Poista Resurssienhallinta ominaisuus käytöstä, jos haluat esikäynnistää ikkunan taustalla</string>
+      <string id="DisableFileExplorerPrelaunch_Help">Tämä käytäntö estää käyttäjiä ottamasta esikäynnistysominaisuutta käyttöön Resurssienhallinta, mikä luo ikkunan taustalla käynnistämiskokemuksen nopeuttamiseksi ja reagoivuuden parantamiseksi.</string>
+      <string id="MakePrintScreenKeyYieldable">Tee Print Screen -näppäimestä keskeytettävä</string>
+      <string id="MakePrintScreenKeyYieldable_Help">Tämä käytäntöasetus määrittää, voidaanko print screen -avain antaa muille sovelluksille.
+
+Jos otat tämän käytäntöasetuksen käyttöön, sovellukset voivat siepata print Screen -näppäimen, jolloin ne voivat ohittaa näyttökuvien oletustoiminnon.
+
+Jos poistat tämän käytäntöasetuksen käytöstä, print Screen -avain säilyttää aiemman toimintatapansa näyttökuvien ottamiseen, eivätkä sovellukset voi siepata sitä.
+
+Jos tätä käytäntöä ei määritetä, sovellukset voivat siepata print Screen -näppäimen, jolloin ne voivat ohittaa näyttökuvien oletustoiminnon sama kuin käytössä oleva toiminta.
+
+Huomautus: Tämä asetus saattaa edellyttää järjestelmän uudelleenkäynnistystä, jotta se tulee voimaan.</string>
     </stringTable>
     <presentationTable>
-	<presentation id="AdminInfoUrl">
-            <textBox refId="AdminInfoUrl_TextBox">
-              <label>Tuen verkkosivun URL-osoite</label>
-	      <defaultValue>http://msdn.microsoft.com</defaultValue>
-            </textBox>	    
-	</presentation>
+      <presentation id="AdminInfoUrl">
+        <textBox refId="AdminInfoUrl_TextBox">
+          <label>Tuen verkkosivun URL-osoite</label>
+          <defaultValue>http://msdn.microsoft.com</defaultValue>
+        </textBox>
+      </presentation>
     </presentationTable>
   </resources>
 </policyDefinitionResources>

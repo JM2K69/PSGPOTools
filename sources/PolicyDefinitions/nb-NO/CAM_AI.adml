@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>CAM (Capability Access Manager) AI-policyer</displayName>
+  <description>Retningslinjer knyttet til KI-funksjoner og samtykkehåndtering.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">Samtykke for KI</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">Bruker i kontroll</string>
+      <string id="ForceEnable">Tving aktivering</string>
+      <string id="ForceDisable">Tving deaktivering</string>
+      <string id="AgentConsentDuration_Name">Varighet for agentsamtykke</string>
+      <string id="AgentConsentDuration_Explain">Angir hvor lenge, i timer, et «Tillat»-samtykkesvar for agentfunksjoner forblir gyldig før brukeren blir spurt på nytt.
+
+Hvis denne policyen er aktivert, må verdien være fra 1 (1 time) til 8760 (1 år). Den konfigurerte verdien brukes som standard utløpstid for alle «Tillat»-samtykkesvar for agentfunksjoner.
+
+Hvis denne policyen ikke er konfigurert, eller hvis verdien er utenfor tillatt område, er standard 720 timer (30 dager).</string>
+      <string id="ConfigureAgentConnectors_Name">Konfigurer agentkoblinger</string>
+      <string id="ConfigureAgentConnectors_Explain">Aktiver eller deaktiver agentkoblinger.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Tilgangspolicy for agentkobling</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Denne policyinnstillingen lar deg definere tillatte forbindelser mellom MCP-verter og MCP-servere.
+
+Formatet på denne listen er en JSON-streng som følger skjemaet på https://go.microsoft.com/fwlink/?LinkId=2363700.
+
+Hvis denne policyen ikke er konfigurert, kan MCP-verten koble til hvilken som helst MCP-server med brukersamtykke.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Konfigurer agentkoblinger: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Varighet for samtykke (timer): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Konfigurer tillatte MCP-vert-/servertilkoblinger:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

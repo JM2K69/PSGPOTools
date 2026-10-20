@@ -947,7 +947,7 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren, werden Einstellungen für Wi
 Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, werden alle definierten Werte gelöscht.
 Hinweis: Wenn der Benutzer das Microsoft-Konto für seinen Computer verbindet, werden Windows-Apps vom UE-V Agent synchronisiert. Für Windows-Apps werden die in Windows unter "Einstellungen synchronisieren" konfigurierten Einstellungen als Standard verwendet.
       </string>
-      <string id="Win8AppsList">Synchronisierung von Windows-Apps</string>
+      <string id="Win8AppsList">Synchronisierung von Windows App</string>
       <string id="Win8AppsList_Help">Mit dieser Richtlinieneinstellung wird konfiguriert, ob Einstellungen für angegebene Windows-Apps von User Experience Virtualization (UE-V) synchronisiert werden. Standardmäßig werden Einstellungen für Windows-Apps vom UE-V Agent nicht synchronisiert. Mithilfe dieser Richtlinieneinstellung können Windows-Apps nach ihren Paketfamiliennamen aufgelistet werden. Die aufgelisteten App-Einstellungen werden von UE-V zwischen den Arbeitscomputern jedes Benutzers synchronisiert, auf denen die gleiche Windows-App ausgeführt wird. Wenn Sie diese Richtlinieneinstellung aktivieren und Paketfamiliennamen von Windows-Apps auflisten, werden die Einstellungen für die aufgelisteten Apps vom UE-V Agent synchronisiert. 
 Wenn Sie diese Richtlinieneinstellung deaktivieren, werden die Einstellungen für Windows-Apps nicht synchronisiert. 
 Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, werden alle festgelegten Werte gelöscht.
@@ -960,7 +960,7 @@ Wenn diese Einstellung deaktiviert ist, wird keine Benachrichtigung angezeigt.
 Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, werden alle festgelegten Werte gelöscht.
       </string>
       <string id="SyncUnlistedWindows8Apps">Synchronisierung nicht aufgelisteter Windows-Apps</string>
-      <string id="SyncUnlistedWindows8Apps_Help">Über diese Richtlinieneinstellung wird die Standard-Einstellungssynchronisierung durch den User Experience Virtualization (UE-V) Agent für Windows-Apps festgelegt, die nicht explizit in der Liste der Windows-Apps aufgeführt sind.
+      <string id="SyncUnlistedWindows8Apps_Help">Über diese Richtlinieneinstellung wird die Standard-Einstellungssynchronisierung durch den User Experience Virtualization (UE-V) Agent für Windows App festgelegt, die nicht explizit in der Liste der Windows-Apps aufgeführt sind.
 Standardmäßig werden vom UE-V Agent nur die Einstellungen der Windows-Apps, die in der Liste der Windows-Apps enthalten sind, synchronisiert.
 Wird diese Einstellung aktiviert, werden die Einstellungen aller Windows-Apps, die nicht explizit in der Liste der Windows-Apps deaktiviert wurden, synchronisiert.
 Wird die Einstellung deaktiviert, werden nur die Einstellungen der Windows-Apps synchronisiert, die für die Synchronisierung in der Liste der Windows-Apps festgelegt sind.

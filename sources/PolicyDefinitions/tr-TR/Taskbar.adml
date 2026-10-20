@@ -29,6 +29,12 @@ Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız ses 
 Bu ilke ayarını etkinleştirirseniz, Güvenlik ve Bakım simgesi sistem bildirim alanında görüntülenmez.
 
 Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, Güvenlik ve Bakım simgesi sistem bildirim alanında görüntülenir.</string>
+      <string id="HideSCAMeetNow">Anında Toplantı simgesini kaldır</string>
+      <string id="HideSCAMeetNow_Help">Bu ilke ayarı, Sistem denetim alanından Şimdi Toplantı Yap simgesini kaldırmanıza olanak tanır.
+
+Bu ilke ayarını etkinleştirirseniz, Sistem bildirim alanında Anında Toplantı simgesi görüntülenmez.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, sistem bildirim alanında Anında Toplantı simgesi görüntülenir.</string>
       <string id="TaskbarLockAll">Tüm görev çubuğu ayarlarını kilitle</string>
       <string id="TaskbarLockAll_Help">Bu ilke ayarı, tüm görev çubuğu ayarlarını kilitlemenizi sağlar.
 
@@ -90,11 +96,11 @@ Bu ilke ayarını etkinleştirirseniz yeni eklenen bildirim simgeleri Görev çu
 
 Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız yeni eklenen bildirim simgeleri Görev çubuğuna geçici olarak çıkarılır.</string>
       <string id="EnableLegacyBalloonNotifications">Balon bildirimleri bildirim olarak göstermeyi devre dışı bırak.</string>
-      <string id="EnableLegacyBalloonNotifications_Help">Bu ilke, balonların normal bildirime dönüştürülmesi özelliğini devre dışı bırakır.
+      <string id="EnableLegacyBalloonNotifications_Help">Bu ilke, balonların normal bildirimlere dönüştürülme özelliğini devre dışı bırakır.
 
 Bu ilke ayarını etkinleştirirseniz, sistem ve uygulama bildirimleri, normal bildirim yerine balon olarak görülecektir.
 
-Balon bildirimleri kullanan belirli bir uygulama veya sistem bileşeni, normal bildirimlerle ilgili bir sorun yaşıyorsa bu ilke ayarını etkinleştirin.
+Balon bildirimleri kullanan belirli bir uygulama veya sistem bileşeninin normal bildirimlerle ilgili bir uyumluluk sorunu varsa bu ilke ayarını etkinleştirin.
 
 Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, tüm bildirimler normal bildirim olarak görülecektir.
 
@@ -129,15 +135,15 @@ Bu ayarı devre dışı bırakırsanız ya da yapılandırmazsanız kullanıcıl
 Bu ilke ayarını etkinleştirirseniz kullanıcılar görev çubuklarını birden fazla ekranda gösteremezler. Görev çubuğu özellikleri iletişim kutusunda birden fazla bölüm etkin değildir.
 
 Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız kullanıcılar görev çubuklarını birden fazla ekranda gösterebilir.</string>
-        <string id="ShowWindowsStoreAppsOnTaskbar">Windows Mağazası uygulamalarını görev çubuğunda göster</string>
+        <string id="ShowWindowsStoreAppsOnTaskbar">Paketlenmiş Microsoft Store uygulamalarını görev çubuğunda göster</string>
         <string id="ShowWindowsStoreAppsOnTaskbar_Help">
-Bu ilke ayarı, kullanıcıların Windows Mağazası uygulamalarını görev çubuğunda görmelerini sağlar.
+Bu ilke ayarı, kullanıcıların paketlenmiş Microsoft Store uygulamalarını görev çubuğunda görmelerini sağlar.
+
+Bu ilke ayarını etkinleştirirseniz kullanıcılar paketlenmiş Microsoft Store uygulamalarını görev çubuğunda görür.
  
-Bu ilke ayarını etkinleştirirseniz kullanıcılar Windows Mağazası uygulamalarını görev çubuğunda görürler.
- 
-Bu ilke ayarını devre dışı bırakırsanız kullanıcılar Windows Mağazası uygulamalarını görev çubuğunda görmezler.
- 
-Bu ilke ayarını yapılandırmazsanız kullanıcı cihazının varsayılan ayarı kullanılır ve kullanıcı onu değiştirmeyi seçebilir.</string>
+Bu ilke ayarını devre dışı bırakırsanız kullanıcılar paketlenmiş Microsoft Store uygulamalarını görev çubuğunda görmez.
+
+Bu ilke ayarını yapılandırmazsanız kullanıcı cihazının varsayılan ayarı kullanılır ve kullanıcı bunu değiştirmeyi seçebilir.</string>
       <string id="DisableNotificationCenter">Bildirimler ve İşlem Merkezi'ni kaldır</string>
       <string id="DisableNotificationCenter_Help">Bu ilke, görev çubuğundaki bildirim alanından Bildirimler ve İşlem Merkezi'ni kaldırır.
 
@@ -148,7 +154,7 @@ Bu ilke ayarını etkinleştirilirse, Bildirimler ve İşlem Merkezi bildirim al
 Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız, Bildirim ve Güvenlik ve Bakım, görev çubuğunda gösterilir.
 
 Bu ilke ayarının etkili olması için yeniden başlatma gereklidir.</string>
-      <string id="NoPinningStoreToTaskbar">Store uygulamasının Görev Çubuğu'na sabitlenmesine izin verme</string> 
+      <string id="NoPinningStoreToTaskbar">Store uygulamasının Görev Çubuğu'na sabitlenmesine izin verme</string>
       <string id="NoPinningStoreToTaskbar_Help">
 Bu ilke ayarı, Store uygulamasının Görev Çubuğu'na sabitlenmesini denetlemenizi sağlar.
 
@@ -165,10 +171,81 @@ Bu ilke ayarını devre dışı bırakırsanız kullanıcılar, yerel ayar ne ol
 Bu ilke ayarını yapılandırmazsanız takvim varsayılan mantığa göre ayarlanır.</string>
       <string id="ConfigureTaskbarCalendar_SimplifiedChinese">Basitleştirilmiş Çince (Ay)</string>
       <string id="ConfigureTaskbarCalendar_TraditionalChinese">Geleneksel Çince (Ay)</string>
+      <string id="Chat">Sohbet</string>
+      <string id="ConfigureChatIcon">Görev çubuğundaki Sohbet simgesini yapılandırır</string>
+      <string id="ConfigureChatIcon_Help">Bu ilke ayarı, görev çubuğundaki Sohbet simgesini yapılandırmanıza olanak tanır.
+
+Bu ilke ayarını etkinleştirir ve Göster olarak ayarlarsanız, sohbet simgesi varsayılan olarak görev çubuğunda görüntülenir. Kullanıcılar bunu Ayarlar'da gösterir veya gizler.
+
+Bu ilke ayarını etkinleştirir ve Gizle olarak ayarlarsanız, Sohbet simgesi varsayılan olarak gizlenir. Kullanıcılar bunu Ayarlar'da gösterir veya gizler.
+
+Bu ilke ayarını etkinleştirir ve Devre Dışı olarak ayarlarsanız, Sohbet simgesi görüntülenmez ve kullanıcılar bunu Ayarlar'da görüntüleyip gizleyemiyor.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız Sohbet simgesi, Windows sürümünüz için varsayılanlara göre yapılandırılacak.</string>
+      <string id="ChatEnum_Show">Göster</string>
+      <string id="ChatEnum_Hide">Gizle</string>
+      <string id="ChatEnum_Disabled">Devre dışı bırakıldı</string>
+      <string id="HideTaskViewButton">GörevGörünümü düğmesini gizle</string>
+      <string id="HideTaskViewButton_Help">Bu ilke ayarı TaskView düğmesini gizlemenizi sağlar.
+
+Bu ilke ayarını etkinleştirirseniz, TaskView düğmesi gizlenir ve Ayarlar geçişi devre dışı bırakılır.</string>
+      <string id="AlwaysShowNotificationIcon">Bildirim zili simgesini göster</string>
+      <string id="AlwaysShowNotificationIcon_Help">
+Bu ilke ayarı, sistem tepsisinde bildirim zili simgesini göstermenizi sağlar.
+
+Bu ilke ayarını etkinleştirirseniz bildirim simgesi her zaman gösterilir. Aksi takdirde, bildirim simgesi yalnızca özel bir durum olduğunda gösterilir (örneğin, Rahatsız Etmeyin özelliği açık).
+
+Bu ilke ayarının etkili olması için yeniden başlatma gerekiyor.
+      </string>
+      <string id="TurnOffAbbreviatedDateTimeFormat">Kısaltılmış saat ve tarih biçimini kapat</string>
+      <string id="TurnOffAbbreviatedDateTimeFormat_Help">
+Bu ilke ayarı, sistem tepsisinde daha uzun saat ve tarih biçimini göstermenizi sağlar.
+
+Bu ayar etkinleştirilirse, saat biçimi/PM saat işaretçisini içerir ve tarih yılı içerir.
+
+Bu ilke ayarının etkili olması için yeniden başlatma gerekiyor.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior">ConfigureTaskbarSmallButtonBehavior</string>  
+      <string id="ConfigureTaskbarSmallButtonBehavior_DisplayName">Görev Çubuğu Küçük Düğme Davranışını Yapılandır</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Help">Bu ilke ayarı, küçük görev çubuğu düğmelerinin davranışını yapılandırmanıza olanak tanır.
+      
+Şu değere ayarlandığında:
+      - Her zaman: Görev çubuğu her zaman küçük düğmeleri kullanır.
+      - Görev çubuğu dolduğunda: Görev çubuğu, kullanılabilir alana göre küçük düğmeler ve standart düğme boyutları arasında dinamik olarak geçiş yapar.
+      - Hiçbir zaman: Görev çubuğu hiçbir zaman küçük düğmeleri kullanmaz. Yalnızca standart boyutlu düğmeler kullanılır.
+
+Bu ilke etkinleştirildiğinde, yukarıdaki seçeneklerden biri seçilmelidir ve kullanıcılar Ayarlar kullanıcı arabirimindeki "Daha küçük görev çubuğu düğmelerini göster" seçeneğini değiştiremezler.
+
+Bu ilke devre dışı bırakıldığında veya yapılandırılmamışsa, grup ilkesi tarafından hiçbir seçenek uygulanmaz. Windows varsayılan olarak "Görev çubuğu dolduğunda" davranışını benimser ve kullanıcılar bu ayarı Ayarlar kullanıcı arabiriminde manuel olarak değiştirebilir.
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Always">Her Zaman</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_WhenTaskbarIsFull">Görev çubuğu dolu olduğunda</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Never">Hiçbir Zaman</string>
+      <string id="DisableTaskbarPosition">Görev çubuğu konumunun değiştirilmesini devre dışı bırakın</string>
+      <string id="DisableTaskbarPosition_Help">Bu ilke ayarı, kullanıcıların görev çubuğunun konumunu değiştirmesini engellemenizi sağlar.
+
+Bu ilke ayarını etkinleştirirseniz görev çubuğu ekranın en altına taşınır ve görev çubuğu konum ayarı Ayarlar uygulamasında gri görünür.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kullanıcılar Ayarlar uygulamasında görev çubuğunun konumunu değiştirebilir.</string>
+      <string id="DisableTaskbarSize">Görev çubuğu boyutunun değiştirilmesini devre dışı bırakın</string>
+      <string id="DisableTaskbarSize_Help">Bu ilke ayarı, kullanıcıların görev çubuğu boyutunu değiştirmesini engellemenizi sağlar.
+
+Bu ilke ayarını etkinleştirirseniz görev çubuğu varsayılan boyuta ayarlanır ve Ayarlar uygulamasında görev çubuğu boyutu ayarı gri renkte görüntülenir.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kullanıcılar Ayarlar uygulamasında görev çubuğunun boyutunu değiştirebilirler.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureTaskbarCalendar">
         <dropdownList refId="ConfigureTaskbarCalendar_Dropdown" defaultItem="0">Takvim:</dropdownList>
+      </presentation>
+      <presentation id="ConfigureChatIcon">
+          <text>Sohbet simgesi ayarını yapılandırın</text>
+          <text> </text>
+          <dropdownList refId="ConfigureChatIcon_Action" noSort="true" defaultItem="1">Durum: </dropdownList>
+          <text> </text>
+      </presentation>
+      <presentation id="ConfigureTaskbarSmallButtonBehavior">
+        <dropdownList refId="ConfigureTaskbarSmallButtonBehavior_Dropdown" noSort="true" defaultItem="1">Daha küçük görev çubuğu düğmelerini ne zaman göstereceğinizi seçin: </dropdownList>
       </presentation>
     </presentationTable>
   </resources>

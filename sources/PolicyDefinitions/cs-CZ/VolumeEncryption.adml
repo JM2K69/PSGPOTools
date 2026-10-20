@@ -18,7 +18,6 @@ Pokud vyberete možnost Požadovat zálohování nástroje BitLocker do služby 
 Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, nebudou do služby AD DS zálohovány žádné informace o obnovení nástrojem BitLocker.
 
 Během nastavování nástroje BitLocker může být nutná inicializace čipu TPM (Trusted Platform Module). Chcete-li zároveň zajistit zálohování informací o čipu TPM, povolte nastavení zásad Zapnout zálohování čipu TPM do služby AD DS v části Systém\Služby TPM.
-      
       </string>
       <string id="ActiveDirectoryBackup_Name">Uložit informace o obnovení nástrojem BitLocker ve službě Active Directory Domain Services (systémy Windows Server 2008 a Windows Vista)</string>
       <string id="ActiveDirectoryBackupDropDown_1">Hesla pro obnovení a balíčky s klíči</string>
@@ -102,8 +101,6 @@ Poznámka: 48místné číselné heslo pro obnovení nebude dostupné v režimu 
 
 Důležité: Toto nastavení zásad poskytuje metodu správy pro obnovení dat šifrovaných nástrojem BitLocker, aby nemohlo dojít ke ztrátě dat z důvodu nepřítomnosti informací klíče. Pokud obě tyto uživatelské možnosti obnovení nepovolíte, je potřeba povolit nastavení zásad Ukládat informace o obnovení nástrojem BitLocker do služby Active Directory Domain Services (Windows Server 2008 a Windows Vista), aby nedocházelo k chybě zásad.
 
-      
-
       </string>
 
       <string id="ConfigureRecoveryUsage_Name">Zvolit, jakým způsobem mohou uživatelé obnovit jednotky chráněné nástrojem BitLocker (Windows Server 2008 a Windows Vista)</string>
@@ -134,8 +131,6 @@ Pokud toto nastavení zásad povolíte, můžete řídit metody, které mají u�
 
 Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, budou pro obnovení nástrojem BitLocker podporovány výchozí možnosti pro obnovení. Ve výchozím nastavení je povolen agent DRA, uživatel může určit možnosti pro obnovení včetně hesla pro obnovení a obnovovacího klíče a informace pro obnovení nejsou zálohovány do služby AD DS.
 
-
-
 </string>
 
       <string id="OSRecoveryPasswordUsageDropDown_Require">Vyžadovat 48místné číselné heslo pro obnovení</string>
@@ -164,8 +159,6 @@ Poznámka: Pokud nebude zaškrtnuto políčko Nepovolit nástroj BitLocker, doku
 Pokud toto nastavení zásad povolíte, můžete řídit, jaké metody budou mít uživatelé k dispozici pro obnovení dat z pevných datových jednotek chráněných nástrojem BitLocker.
 
 Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, budou pro obnovení nástrojem BitLocker podporovány výchozí možnosti obnovení. Ve výchozím nastavení je povolen agent DRA, uživatel může určit možnosti obnovení uvedením hesla pro obnovení a obnovovacího klíče a informace o obnovení nejsou zálohovány do služby AD DS.
-
-
 
 </string>
 
@@ -196,7 +189,6 @@ Poznámka: Pokud nebude zaškrtnuto políčko Nepovolit nástroj BitLocker, doku
 Pokud toto nastavení zásad povolíte, můžete řídit, jaké metody budou mít uživatelé k dispozici pro obnovení dat z vyměnitelných datových jednotek chráněných nástrojem BitLocker.
 
 Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, budou pro obnovení nástrojem BitLocker podporovány výchozí možnosti obnovení. Ve výchozím nastavení je povolen agent DRA, uživatel může určit možnosti obnovení uvedením hesla pro obnovení a obnovovacího klíče a informace o obnovení nejsou zálohovány do služby AD DS.
-      
       </string>
       <string id="RDVRecoveryPasswordUsageDropDown_Require">Vyžadovat 48místné číselné heslo pro obnovení</string>
       <string id="RDVRecoveryPasswordUsageDropDown_Allow">Povolit 48místné číselné heslo pro obnovení</string>
@@ -321,6 +313,18 @@ Poznámka: Některé počítače nemusí být s touto zásadou kompatibilní, po
 
       </string>
       <string id="DisableExternalDMAUnderLock_Name">Zakázat nová zařízení DMA, pokud je tento počítač zamknutý</string>
+
+      <string id="DisableWinRETrust_Help">Toto nastavení zásad určuje, jestli nástroj BitLocker důvěřuje prostředí Windows Recovery Environment (WinRE).
+
+Pokud nástroj BitLocker důvěřuje prostředí WinRE, má prostředí WinRE přístup ke svazku operačního systému chráněnému nástrojem BitLocker bez nutnosti obnovovacího klíče nástroje BitLocker. To podporuje operace obnovení, které potřebují přístup ke svazku operačního systému.
+
+Důležité: Povolení této zásady změní chování při obnovení. Pokud toto nastavení zásady povolíte, nástroj BitLocker nedůvěřuje WinRE. Obnovovací klíč nástroje BitLocker je vyžadován pro všechny operace WinRE, které potřebují přístup ke svazku operačního systému chráněného nástrojem BitLocker. Operace obnovení, které se spoléhají na přístup WinRE ke svazku operačního systému, můžou vyžadovat zásah uživatele nebo správce a nemusí se dokončit automaticky, včetně opravy spouštění, rychlého obnovení počítače, obnovení pomocí tlačítka a vzdáleného resetování nebo vymazání iniciované MSM pomocí RemoteWipe CSP.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, BitLocker důvěřuje ověřené imagi WinRE, aby prostředí WinRE získalo přístup ke svazku operačního systému chráněného nástrojem BitLocker bez obnovovacího klíče.
+
+Toto nastavení zásady je vynuceno pouze tehdy, když je povolen nástroj BitLocker nebo šifrování zařízení.</string>
+
+      <string id="DisableWinRETrust_Name">Zakázat důvěryhodnost nástroje BitLocker prostředí Windows Recovery Environment (WinRE)</string>
 
       <string id="FVEOSCategory">Jednotky operačního systému</string>
       <string id="FVEFDVCategory">Pevné datové jednotky</string>

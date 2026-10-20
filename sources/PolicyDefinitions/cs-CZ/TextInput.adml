@@ -5,8 +5,8 @@
   <resources>
     <stringTable>
       <string id="TextInput">Zadávání textu.</string>
-      <string id="TextInput_AllowLanguageFeaturesUninstall_Help">Toto nastavení zásad určuje, zda lze z počítače odinstalovat některé jazykové funkce (například slovníky, nástroje pro rozpoznávání rukopisu pro kontrolu pravopisu). </string>
-      <string id="TextInput_AllowLanguageFeaturesUninstall">Povolit odinstalace jazykové funkce.</string>  
+      <string id="TextInput_AllowLanguageFeaturesUninstall_Help">Pokud je tato zásada povolená, bude možné při odinstalaci určitého jazyka z počítače uživatele odinstalovat i některé jazykové funkce, které jsou jeho součástí (například nástroje pro rozpoznávání rukopisu a slovníky pro kontrolu pravopisu). V případě potřeby můžete jazyk znovu nainstalovat s jiným výběrem zahrnutých jazykových funkcí. Pokud je tato zásada zakázaná, jazykové funkce na počítači uživatele při odinstalaci určitého jazyka zůstanou. </string>
+      <string id="TextInput_AllowLanguageFeaturesUninstall">Povolit odebrání jazykových funkcí při odinstalaci jazyka</string>  
       <string id="TextInput_AllowLinguisticDataCollection_Help">Nastavení této zásady řídí schopnost odesílat data o psaní rukou a pomocí klávesnice do Microsoftu s cílem přispět ke zlepšování funkcí pro rozpoznávání jazyka a návrhy používané aplikacemi a službami ve Windows. </string>
       <string id="TextInput_AllowLinguisticDataCollection">Zlepšovat rozpoznávání psaní rukou a pomocí klávesnice</string>  
     </stringTable>

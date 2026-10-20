@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Zásady skupiny ReFS</displayName>
+  <description>Nastavení zásad skupiny pro Odolný systém souborů</description>
+  <resources>
+    <stringTable>
+      <string id="ReFS">ReFS</string>
+      <string id="EnableDevDrive">Povolit vývojářskou jednotku</string>
+      <string id="EnableDevDriveText">Vývojářská jednotka nebo vývojářský svazek je svazek optimalizovaný pro výkon vývojářských scénářů. Vývojářský svazek umožňuje správci zvolit filtry systému souborů, které jsou připojené ke svazku.
+
+Zakázáním tohoto nastavení zakážete vytváření nových vývojářských svazků a stávající vývojářské svazky se připojí jako běžné svazky.
+
+Pokud toto nastavení není nakonfigurované, výchozí zásadou je povolit vývojářské svazky a současně povolit připojení antivirového filtru na vývojářském svazku.  Pokud není nakonfigurované, může se místní správce rozhodnout, že k svazku vývojáře nebude připojený antivirový filtr.
+
+Aby se toto nastavení projevilo, je nutné restartovat počítač.</string>
+      <string id="ModeOff">Vypnuto</string>
+      <string id="ModeAudit">Jen auditování</string>
+      <string id="ModeBlock">Blokování</string>
+      <string id="BlockExternalBusMount">Řídit připojování svazků ReFS na discích USB a IEEE 1394</string>
+      <string id="BlockExternalBusMountText">Řídí, jestli se svazky ReFS smějí připojovat na discích připojených přes USB nebo IEEE 1394. ReFS není podporovaná konfigurace na discích připojitelných za provozu ani na vyměnitelných discích.
+
+Blokovat odmítne připojení a zaznamená událost do systémového protokolu.
+
+Jen audit umožní připojení a zaznamená stejnou událost, takže můžete před vynucením této zásady posoudit účinek jejího povolení.
+
+Vypnuto neprovádí audit ani blokování.
+
+U svazku Prostory úložiště se kontrola vztahuje na fyzické disky, na kterých je fond založený, ne na samotný prostor.
+
+Pokud toto nastavení zásad není nakonfigurované, použije se místní nastavení v tomto počítači. Pokud žádné místní nastavení neexistuje, použije se výchozí chování pro tuto verzi Windows.
+
+ReFS toto nastavení načte při spuštění, takže před použitím změny je nutné restartovat počítač. Nastavení se pak vyhodnocuje při každém připojení svazku. Už připojený svazek si proto zachová aktuální stav, dokud se neodpojí a znovu nepřipojí.</string>
+      <string id="BlockHotplugMount">Řídit připojování svazků ReFS na discích připojitelných za provozu</string>
+      <string id="BlockHotplugMountText">Řídí, jestli se svazky ReFS smějí připojovat na discích, které sada úložiště hlásí jako připojitelné za provozu, bez ohledu na sběrnici, přes kterou jsou připojené. ReFS není podporovaná konfigurace na discích připojitelných za provozu ani na vyměnitelných discích.
+
+Blokovat odmítne připojení a zaznamená událost do systémového protokolu.
+
+Jen audit umožní připojení a zaznamená stejnou událost, takže můžete před vynucením této zásady posoudit účinek jejího povolení.
+
+Vypnuto neprovádí audit ani blokování.
+
+U svazku Prostory úložiště se kontrola vztahuje na fyzické disky, na kterých je fond založený, ne na samotný prostor.
+
+Pokud toto nastavení zásad není nakonfigurované, použije se místní nastavení v tomto počítači. Pokud žádné místní nastavení neexistuje, použije se výchozí chování pro tuto verzi Windows.
+
+ReFS toto nastavení načte při spuštění, takže před použitím změny je nutné restartovat počítač. Nastavení se pak vyhodnocuje při každém připojení svazku. Už připojený svazek si proto zachová aktuální stav, dokud se neodpojí a znovu nepřipojí.</string>
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="EnableDevDriveOptions">
+        <checkBox refId="DevDriveAllowAntivirusFilter" defaultChecked="true">Umožnit antivirovému filtru chránit vývojářské jednotky</checkBox>
+      </presentation>
+      <presentation id="BlockExternalBusMountOptions">
+        <dropdownList refId="BlockExternalBusMountMode" defaultItem="0">Akce pro svazky ReFS na discích USB nebo IEEE 1394</dropdownList>
+      </presentation>
+      <presentation id="BlockHotplugMountOptions">
+        <dropdownList refId="BlockHotplugMountMode" defaultItem="0">Akce pro svazky ReFS na discích připojitelných za provozu</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

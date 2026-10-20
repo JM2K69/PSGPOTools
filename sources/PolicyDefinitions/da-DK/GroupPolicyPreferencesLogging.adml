@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>Gruppepolitik for indstillinger for logføring</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">Konfigurer indstillinger for logføring og sporing for programmer</string>
+      <string id="CSE_Applications_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring af indstillingerne for programudvidelsen og aktivere sporing for programudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for programudvidelsen på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.
+</string>
+      <string id="CSE_DataSources_Logging">Konfigurer logføring og sporing af indstillinger for datakilder</string>
+      <string id="CSE_DataSources_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i datakildensudvidelsens indstillinger og aktivere sporing for datakildensudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for datakildeudvidelsen på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_Devices_Logging">Konfigurer logføring og sporing af indstillinger for enheder</string>
+      <string id="CSE_Devices_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i enhedsudvidelsens indstillinger og aktivere sporing for enhedudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for enhedsudvidelsen på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_Drives_Logging">Konfigurer logføring og sporing af indstillinger for drevkort</string>
+      <string id="CSE_Drives_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring af drevkortudvidelsens indstillinger og aktivere sporing for drevkortudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for drevkortudvidelsen på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_Environment_Logging">Konfigurer logføring og sporing af miljøindstillinger</string>
+      <string id="CSE_Environment_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring af Miljøudvidelsens indstillinger og aktivere sporing for drevkortudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for Miljøudvidelsen på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_Files_Logging">Konfigurer logning og sporing af filindstillinger</string>
+      <string id="CSE_Files_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i filudvidelsens indstillinger og aktivere sporing for filudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for Filudvidelsen på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_FolderOptions_Logging">Konfigurer logføring og sporing af indstillinger for mappeindstillinger</string>
+      <string id="CSE_FolderOptions_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i mappeudvidelsens indstillinger og aktivere sporing for programudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for indstillinger for Mappeudvidelsen Strømstyring på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_Folders_Logging">Konfigurer logning og sporing af mappeindstillinger</string>
+      <string id="CSE_Folders_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i mappeudvidelsens indstillinger og aktivere sporing for mappenudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for Mappeudvidelsen på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_IniFiles_Logging">Konfigurer logning og sporing af INI-filindstillinger</string>
+      <string id="CSE_IniFiles_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i ini-filudvidelsens indstillinger og aktivere sporing for ini-filudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for ini-filudvidelsen på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_Internet_Logging">Konfigurer logføring og sporing af indstillinger for internetindstillinger</string>
+      <string id="CSE_Internet_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i internetudvidelsens indstillinger og aktivere sporing for internetudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for internetudvidelsen på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">Konfigurer logføring og sporing af indstillinger for lokale brugere og grupper</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring af indstillinger for udvidelsen for lokal bruger og lokal gruppe og aktivere sporing for udvidelsen lokal bruger og lokal gruppe. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for udvidelsen lokal bruger og lokal gruppe på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_NetworkOptions_Logging">Konfigurer logføring og sporing af indstillinger for netværksindstillinger</string>
+      <string id="CSE_NetworkOptions_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i indstillinger for netværksudvidelsen og aktivere sporing for netværksudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for indstillinger for Netværksudvidelsen Strømstyring på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_NetShares_Logging">Konfigurer logføring og sporing af indstillinger for netværksdrev</string>
+      <string id="CSE_NetShares_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i indstillinger for netværksshareudvidelsen og aktivere sporing for netværksudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for netværksshares på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_PowerOptions_Logging">Konfigurer logføring og sporing af indstillinger for Strømstyring</string>
+      <string id="CSE_PowerOptions_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsniveauet for hændelseslogføring i Strømstyringsudvidelsens indstillinger samt aktivere sporing for Strømstyringsudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for udvidelsen Strømstyring på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_Printers_Logging">Konfigurer logning og sporing af printerindstillinger</string>
+      <string id="CSE_Printers_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i printerudvidelsens indstillinger og aktivere sporing for printerudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for Printerudvidelsen på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_RegionalOptions_Logging">Konfigurer logføring og sporing af indstillinger for regionale indstillinger</string>
+      <string id="CSE_RegionalOptions_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsniveauet for hændelseslogføring i udvidelsen for områdeindstillinger samt aktivere sporing for områdeindstillinger. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing af indstillinger for udvidelsen til områdeindstillinger på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_PrefRegistry_Logging">Konfigurer logning og sporing af registreringsdatabasens indstillinger</string>
+      <string id="CSE_PrefRegistry_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring for udvidelsen til registreringsdatabasens indstillinger udvidelsen og aktivere sporing for registreringsdatabasens udvidelse. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for indstillinger for registreringsdatabaseudvidelsen på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_ScheduledTasks_Logging">Konfigurer logføring og sporing af indstillinger for planlagte opgaver</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i indstillinger for udvidelsen for Planlagte opgaver og aktivere sporing for Planlagte opgaver. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for indstillinger for udvidelsen Planlagte opgaver på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_Services_Logging">Konfigurer logføring og sporing af indstillinger for tjenester</string>
+      <string id="CSE_Services_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i tjenesteudvidelsens indstillinger og aktivere sporing for tjenesteudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for tjenesteudvidelsen på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_Shortcuts_Logging">Konfigurer logning og sporing af genvejsindstillinger</string>
+      <string id="CSE_Shortcuts_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i indstillinger for genvejsudvidelsen og aktivere sporing for genvejsudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for indstillinger for udvidelsen Genveje på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_StartMenu_Logging">Konfigurer logføring og sporing af Startmenu-præferencer</string>
+      <string id="CSE_StartMenu_Logging_Help">Med denne politikindstilling kan du konfigurere detaljeringsgraden for hændelseslogføring i indstillinger for Startmenuudvidelsen og aktivere sporing for Startmenuudvidelsen. Logføring og sporing leverer diagnostiske oplysninger til fejlfinding.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere hændelseslogføring og aktivere sporing for indstillinger for Startmenu-udvidelsen på klientcomputere.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, omfatter hændelseslogning som standard kun advarsler og fejl, og sporing for denne udvidelse er slået fra.
+
+Sikkerhedsadvarsel: 
+Beskyt det konfigurerede netværksshare med kun de minimumsrettigheder, der kræves. Brug ikke bred adgang (f.eks. en standardkonto eller Alle med Fuld kontrol), da dette kan medføre uautoriseret adgang til logførings- og sporingsdata
+
+Noter:
+
+1. Sporing af brugerkonfiguration: For at udføre sporing af elementer i denne udvidelses indstillinger under Brugerkonfiguration skal du angive en sti i feltet "Brugersporing" til den placering, hvor en brugersporingsfil kan oprettes på klientcomputeren, og du skal aktivere indstillingen "Sporing". Hvis der ikke er nogen indstillinger for elementer under Brugerkonfiguration i denne udvidelse, oprettes der ingen brugersporingsfil.
+
+2. Sporing af computerkonfiguration: Denne udvidelses indstillinger findes kun under Brugerkonfiguration, så sporing af computerkonfiguration er ikke relevant.
+
+3. Sporing af gruppepolitikmodellering: For at udføre sporing af elementer i denne udvidelses indstillinger, når du udfører en gruppepolitikmodellering, skal du angive en sti i feltet "Planlægningssporing" til den placering, hvor en planlægningssporingsfil kan oprettes på den computer, hvor du kører modelleringen, og du skal aktivere indstillingen "Sporing". Hvis du ikke udfører gruppepolitikmodellering, eller der ikke er nogen indstilolinger for elementer i denne udvidelse, oprettes der ingen planlægningssporingsfil.</string>
+      <string id="CSE_NOCHANGES">Udfør behandlingen, selvom gruppepolitikobjekterne ikke er blevet ændret</string>
+      <string id="CSE_NOBACKGROUND">Anvend ikke under periodisk baggrundsbehandling</string>
+      <string id="CSE_ALLOWSLOWLINK">Tillad behandling via en langsom netværksforbindelse</string>
+      <string id="CSE_TRACELEVEL">Sporing</string>
+      <string id="CSE_TRACEFILEPATHUSER">Brugerspor</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">Computersporing</string>
+      <string id="CSE_TRACEFILEPATH">Sporingsfil</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">Planlægningsspor</string>
+      <string id="CSE_TRACEFILEMAXSIZE">Maksimal størrelse på sporingsfil (KB)</string>
+      <string id="CSE_TRACELEVELNORMAL">Fra</string>
+      <string id="CSE_TRACELEVELVERBOSE">Til</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">Baggrundsprioritet</string>
+      <string id="CSE_PRILEVEL_NORMAL">Normal</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">Under normal</string>
+      <string id="CSE_PRILEVEL_LOWEST">Lavest</string>
+      <string id="CSE_PRILEVEL_IDLE">Inaktiv</string>
+      <string id="CSE_LOGLEVEL">Hændelseslogføring</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">Information, advarsler og fejl</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">Advarsler og fejl</string>
+      <string id="CSE_LOGLEVEL_ERRORS">Kun fejl</string>
+      <string id="CSE_LOGLEVEL_NONE">Ingen</string>
+      <string id="CSE_Logging">Logføring og sporing</string>
+      <string id="CSE_Logging_Help">Giver dig mulighed for at konfigurere logføring og sporing for præferencekomponenter.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Computersporing</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Hændelseslogføring</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Sporing</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Brugerspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Planlægningsspor</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Maksimal størrelse på sporingsfil (KB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

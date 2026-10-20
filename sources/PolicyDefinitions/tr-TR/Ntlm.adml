@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>NTLM Ayarları</displayName>
+  <description>NTLM güvenlik paketi için yapılandırma ayarları.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">NTLM Gelişmiş Günlüğe Kaydetme</string>
+      <string id="EnhancedAuditsId_Explain">Bu ilke ayarı, NTLM güvenlik paketinin hem istemciler hem de sunucular için yeni ve gelişmiş denetim günlüklerini kaydetmesine olanak tanır.
+
+      Bu gelişmiş günlükler, nelerin NTLM kullandığı, NTLM’nin neden kullanıldığı ve NTLM kimlik doğrulama isteğinin hedefi hakkında bilgiler içerir. Ayrıca NTLMv1 kullanımı ve güvenlikle ilgili diğer sürüm düşürmeleri hakkında bilgi sağlar.
+
+      Bu ilkeyi etkinleştirirseniz veya yapılandırmazsanız, yeni denetim günlükleri oluşturulur. İlkeyi devre dışı bırakırsanız, yeni günlükler oluşturulmaz.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">NTLM Gelişmiş Engelleme</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Bu ilke ayarı, NTLM güvenlik paketinin Makine düzeyinde yeni ve gelişmiş engelleme ilkelerine göre NTLM kimlik doğrulama isteklerini engellemesine olanak tanır.
+
+      Bu gelişmiş engelleme ilkeleri, hesabın türü, cihazın rolü veya uygulama türü gibi yeni ölçütlere göre NTLM kimlik doğrulamasını engellemenize olanak tanır.
+
+      Genel ilke “Devre dışı” veya “Yapılandırılmadı” olarak ayarlanırsa, aşağıdaki alt ayarlar geçerli olmaz. Genel ilke “Etkin” olarak ayarlanırsa, aşağıdaki alt ilkeler sahip oldukları yapılandırmaya göre geçerli olur.
+
+      Yapılandırılmadığı sürece, tüm ilkeler “Denetim” moduna ayarlanır. “Denetim” moduna ayarlanmış ilkeler, engellenebilecek NTLM isteği hakkında günlüğe bir uyarı kaydeder ancak isteği engellemez. “Denetim” olarak işaretlenmiş birden çok ilke aynı anda etkinleştirilebilir ve bu ilkeler birleşik bir olay günlüğüne kaydedilir.
+
+      Herhangi bir ilke “Etkin” olarak işaretlenirse, ilkenin ölçütleriyle eşleşmesi durumunda NTLM kimlik doğrulama isteği engellenir. Birden çok ilke “Etkin” olarak işaretlenirse, ilkelerden herhangi birinin ölçütleriyle eşleşmesi durumunda NTLM kimlik doğrulama isteği engellenir. NTLM kimlik doğrulamasını engelleyen ilk ilke için bir olay günlüğü oluşturulur. 
+
+      Hem “Denetim” hem de “Etkin” modundaki ilkelerin bulunduğu senaryolarda, “Etkin” ilkesine öncelik verilir.
+
+      Burada açıklanan tüm gelişmiş engelleme ilkeleri, NTLM kimlik doğrulamasını kullanmasına izin verilen hesapları, cihazları ve uygulamaları belirten aynı izin verilenler listesini paylaşır. İzin verilenler listesi, kimlik doğrulamasına izin vermek için bir dizi hedef adı veya SPN içerebilir. 
+
+      Daha fazla bilgi için lütfen aka.ms/ntlmlogandblock sayfasını ziyaret edin.
+      </string>
+      <string id="Disabled">Devre Dışı</string>
+      <string id="Audit">Denetim</string>
+      <string id="Enabled">Etkin</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Etki Alanı Hesapları Çoklu Oturum Açma için NTLM'yi Engelle</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">Etki Alanı Denetleyicileri için NTLM'yi Engelle</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">Makine bağlaması başarısız olduğunda NTLM'yi Engelle</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Tüm NTLM kimlik doğrulamalarını engelle</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Gelişmiş engelleme ilkeleri için izin verilenler listesini belirtin:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

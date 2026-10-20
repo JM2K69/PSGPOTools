@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>NTLM-innstillinger</displayName>
+  <description>Konfigurasjonsinnstillinger for NTLM-sikkerhetspakken.</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">Forbedret NTLM-logging</string>
+      <string id="EnhancedAuditsId_Explain">Med denne policyinnstillingen kan NTLM-sikkerhetspakken logge de nye, forbedrede overvåkingsloggene for både klienter og servere.
+
+      Disse forbedrede loggene inneholder informasjon om hva som bruker NTLM, hvorfor NTLM brukes, og målet for NTLM-godkjenningsforespørselen. De inneholder også informasjon om bruken av NTLMv1 og andre sikkerhetsnedgraderinger.
+
+      Hvis du har aktivert eller ikke konfigurerer denne policyen, vil de nye overvåkingsloggene bli generert. Hvis du deaktiverer policyen, vil ikke de nye loggene bli generert.
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">NTLM-forbedret blokkering</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">Denne policyinnstillingen gjør det mulig for NTLM-sikkerhetspakken å blokkere NTLM-godkjenningsforespørsler basert på de nye, forbedrede policyene for utvidet blokkering på maskinnivå.
+
+      Disse forbedrede policyene for blokkering lar deg blokkere NTLM-godkjenning basert på nye kriterier, for eksempel kontotypen, rollen til enheten eller programtypen.
+
+      Hvis den overordnede policyen er satt til «Deaktivert» eller «Ikke konfigurert», vil ikke delinnstillingene på nivået under tre i kraft. Hvis den overordnede policyen er satt til «Aktivert», vil policyene på nivået under tre i kraft basert på valgt konfigurasjon.
+
+      Med mindre annet er konfigurert, settes alle policyer til modusen «Overvåking». Policyer som er satt til modusen «Overvåking», logger en advarsel om NTLM-forespørselen som kan bli blokkert, men blokkerer den ikke. Flere policyer merket med «Overvåking» kan være aktivert samtidig, og de logges i en samlet hendelseslogg.
+
+      Hvis en policy er merket som «Aktivert», blokkeres NTLM-godkjenningsforespørselen hvis den samsvarer med kriteriene for policyen. Hvis flere policyer er merket som «Aktivert», blokkeres NTLM-godkjenningsforespørselen hvis den samsvarer med kriteriene for noen av policyene. Det genereres en hendelseslogg for den første policyen som blokkerer NTLM-godkjenningen. 
+
+      I situasjoner med policyer som er merket med både «Overvåking» og «Aktivert», har «Aktivert»-policyen forrang.
+
+      Alle policyene for utvidet blokkering som er beskrevet her, deler samme tillatelsesliste, som angir kontoene, enhetene og programmene som har tillatelse til å bruke NTLM-godkjenning. Tillatelseslisten kan inneholde en rekke målnavn eller SPN-er (Service Principal Names) for å tillate godkjenning. 
+
+      Hvis du vil ha mer informasjon, kan du gå til aka.ms/ntlmlogandblock.
+      </string>
+      <string id="Disabled">Deaktivert</string>
+      <string id="Audit">Overvåking</string>
+      <string id="Enabled">Aktivert</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">Blokker NTLM for domenekontoer med enkel pålogging</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">Blokker NTLM for domenekontrollere</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">Blokker NTLM når maskinbinding mislykkes</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">Blokker all NTLM-godkjenning</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">Angi tillatelseslisten for policyer for utvidet blokkering:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

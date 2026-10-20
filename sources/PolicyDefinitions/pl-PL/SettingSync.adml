@@ -119,6 +119,51 @@ Jeśli to ustawienie nie zostanie skonfigurowane ani wyłączone, użytkownik b�
         Jeśli to ustawienie nie zostanie skonfigurowane ani wyłączone, synchronizowanie grupy układu ekranu startowego będzie domyślnie włączone i użytkownik będzie mógł je skonfigurować.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">Nie synchronizuj ustawień ułatwień dostępu</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        Zapobiegaj synchronizowaniu grupy „ułatwień dostępu” z tym komputerem i z tego komputera. To spowoduje wyłączenie grupy „ułatwień dostępu” na stronie ustawień „kopii zapasowej systemu Windows” w ustawieniach komputera.
+
+Jeśli włączysz to ustawienie zasad, grupa „ułatwień dostępu” nie będzie synchronizowana.
+
+Użyj opcji „Zezwalaj użytkownikom na włączanie synchronizacji ułatwień dostępu”, aby synchronizacja była domyślnie nieaktywna, ale nie wyłączona.
+
+Jeśli to ustawienie nie zostanie ustawione lub wyłączone, synchronizacja grupy „ułatwień dostępu” jest domyślnie włączona i konfigurowalna przez użytkownika.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">Nie synchronizuj ustawień preferencji językowych</string>
+      <string id="DisableLanguageSettingSync_Help">
+        Zapobiegaj synchronizowaniu grupy „preferencji językowych” z tym komputerem i z tego komputera. To spowoduje wyłączenie grupy „preferencji językowych” na stronie ustawień „kopii zapasowej systemu Windows” w ustawieniach komputera.
+
+Jeśli włączysz to ustawienie zasad, grupa „preferencji językowych” nie będzie synchronizowana.
+
+Użyj opcji „Zezwalaj użytkownikom na włączanie synchronizacji preferencji językowych”, aby synchronizacja była domyślnie nieaktywna, ale nie wyłączona.
+
+Jeśli to ustawienie nie zostanie ustawione lub wyłączone, synchronizacja grupy „preferencji językowych” jest domyślnie włączona i konfigurowalna przez użytkownika.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Włącz tworzenie kopii zapasowych systemu Windows</string>
+      <string id="EnableWindowsBackup_Help">To ustawienie zasad umożliwia administratorom konfigurowanie kopii zapasowej ustawień systemu Windows dla organizacji i zarządzanie nią.
+
+Jeśli to ustawienie zasad zostanie włączone, kopia zapasowa ustawień systemu Windows będzie okresowo wykonywana.
+
+Jeśli to ustawienie zasad zostanie wyłączone, kopia zapasowa ustawień systemu Windows nie będzie wykonywana.
+
+Jeśli to ustawienie zasad nie zostanie skonfigurowane, kopia zapasowa ustawień systemu Windows będzie okresowo wykonywana w zależności od uprawnień.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Włącz przywracanie systemu Windows</string>
+      <string id="EnableWindowsRestore_Help">To ustawienie zasad umożliwia administratorom konfigurowanie przywracania ustawień systemu Windows dla organizacji i zarządzanie nimi.
+
+Jeśli to ustawienie zasad zostanie włączone, przywracanie ustawień systemu Windows zostanie włączone.
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, przywracanie ustawień systemu Windows zostanie wyłączone.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Jeśli to ustawienie nie zostanie skonfigurowane ani wyłączone, użytkownik b�
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">Zezwalaj użytkownikom na włączanie synchronizowania układu ekranu startowego.</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Zezwalaj użytkownikom na włączanie synchronizacji „ułatwień dostępu”.</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Zezwalaj użytkownikom na włączanie synchronizacji „preferencji językowych”.</checkBox>
       </presentation>
 
     </presentationTable>

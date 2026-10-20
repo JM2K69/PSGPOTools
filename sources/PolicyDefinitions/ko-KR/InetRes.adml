@@ -18,7 +18,7 @@
       <string id="InternetCPL_Programs">프로그램 페이지</string>
       <string id="AddonManagement_AddOnList">추가 기능 목록</string>
       <string id="AddonManagement_ManagementMode">추가 기능 목록에 지정되지 않은 모든 추가 기능 거부</string>
-      <string id="AddonManagement_RestrictCrashDetection">크래시 감지 사용 안 함</string>
+      <string id="AddonManagement_RestrictCrashDetection">충돌 감지 끄기</string>
       <string id="AddonManagement_RestrictExtensionManagement">사용자가 추가 기능을 사용 또는 사용하지 않도록 허용 안 함</string>
       <string id="AddSearchProvider">사용자의 검색 공급자 목록에 특정 검색 공급자 목록 추가</string>
       <string id="AdminApproved">관리자 승인 컨트롤</string>
@@ -264,13 +264,13 @@ Windows Vista, Windows 7, Internet Explorer 7 및 Internet Explorer 8에서는 �
 이 정책을 사용하면 도움말 메뉴에서 둘러보기 명령이 제거됩니다.
 
 이 정책 설정을 사용하지 않거나 구성하지 않으면 사용자가 도움말 메뉴에서 둘러보기를 실행할 수 있습니다.</string>
-      <string id="ExplainPopupBlocker_AllowList">Internet Explorer 프로세스의 팝업 차단 설정과 관계없이 팝업 창 열기가 허용되는 웹 사이트 목록을 지정할 수 있습니다.
+      <string id="ExplainPopupBlocker_AllowList">이 정책 설정은 Internet Explorer 프로세스의 팝업 차단 설정과 관계없이 팝업 창 열기가 허용되는 웹 사이트 목록을 지정할 수 있도록 합니다.
 
-이 정책 설정을 사용하면 사용자 설정과 관계없이 팝업 창 열기가 허용되는 사이트 목록을 입력할 수 있습니다. 도메인 이름만 허용되므로 www.contoso.com은 올바르지만 http://www.contoso.com은 올바르지 않습니다. 와일드카드가 허용되므로 *.contoso.com도 올바릅니다.
+이 정책 설정을 사용하면 사용자 설정과 관계없이 팝업 창 열기가 허용되는 사이트 목록을 입력할 수 있습니다. 도메인 이름만 허용되므로 www.contoso.com은 유효하지만 http://www.contoso.com은 유효하지 않습니다. 와일드카드가 허용되므로 *.contoso.com도 유효합니다.
 
 이 정책 설정을 사용하지 않거나 구성하지 않으면 기본 팝업 차단 예외 목록을 제공할 수 없습니다.
 
-참고: "팝업 허용 목록 관리 사용 안 함" 정책을 사용하여 사용자가 예외 목록에 웹 사이트를 추가하거나 제거하지 못하도록 할 수 있습니다.</string>
+참고: "팝업 허용 목록 관리 사용 안 함" 정책을 사용하여 사용자가 예외 목록에서 웹 사이트를 추가 또는 제거하지 못하도록 할 수 있습니다.</string>
       <string id="ExplainScriptPaste_AllProcs_Explain">컴퓨터로 실행 중인 프로세스에서 스크립트가 삭제, 복사 및 붙여넣기 등의 클립보드 작업을 수행하려고 할 때 프롬프트를 무시할 수 있습니다.
 
 이 정책 설정을 사용하면 컴퓨터로 실행 중인 프로세스에서 스크립트가 클립보드 작업을 수행하려고 할 때 사용자에게 프롬프트가 표시되지 않습니다. 즉, 영역 동작이 현재 프롬프트로 설정되어 있는 경우 영역 동작은 확인을 무시하고 사용하도록 설정됩니다.
@@ -355,7 +355,7 @@ Windows Vista, Windows 7, Internet Explorer 7 및 Internet Explorer 8에서는 �
 
 이 정책 설정을 구성하지 않으면 사용자가 인터넷 연결 마법사의 자동 시작 여부를 결정할 수 있습니다.</string>
       <string id="ICWSettings">인터넷 연결 마법사 설정</string>
-      <string id="Identities">ID 관리자: 사용자가 ID를 사용할 수 없게 함</string>
+      <string id="Identities">Identity Manager: 사용자가 ID를 사용할 수 없게 함</string>
       <string id="IDN_Always">항상 IDN 형식으로 변환</string>
       <string id="IDN_Intranet">인트라넷 주소를 IDN 형식으로 변환</string>
       <string id="IDN_Never">IDN 형식으로 변환 안 함</string>
@@ -411,23 +411,23 @@ Windows Vista, Windows 7, Internet Explorer 7 및 Internet Explorer 8에서는 �
 이 정책 설정을 사용하지 않으면 메뉴 모음이 탐색 모음 아래에 위치합니다. 사용자는 메뉴 모음과 탐색 모음의 위치를 바꿀 수 없습니다.
 
 이 정책 설정을 구성하지 않으면 사용자가 메뉴 모음과 탐색 모음의 위치를 바꿀 수 있습니다.</string>
-      <string id="IE_Explain_DisableManagingPhishingFilter">방문하는 웹 사이트가 "피싱"을 통해 개인 정보 수집을 부정하게 시도하는 것으로 알려진 경우 사용자에게 경고하는 필터를 사용자가 관리할 수 없도록 합니다.
+      <string id="IE_Explain_DisableManagingPhishingFilter">이 정책 설정은 방문 중인 웹 사이트가 "피싱"을 통해 개인 정보를 수집하는 사기성 웹 사이트로 알려져 있을 경우 사용자에게 경고하는 필터를 사용자가 관리할 수 없도록 합니다.
 
-이 정책 설정을 사용하면 사용자에게 피싱 필터를 사용하라는 프롬프트가 표시되지 않습니다. 피싱 필터를 사용할 모드를 관리자가 수동, 자동, 끄기 중 하나로 지정해야 합니다.
+이 정책 설정을 사용하면 피싱 필터를 사용하라는 메시지가 사용자에게 표시되지 않습니다. 피싱 필터를 사용하는 모드를 수동, 자동, 끄기 중 하나로 지정해야 합니다.
 
-수동 모드를 선택하면 피싱 필터는 로컬 분석만 수행하고 Microsoft로 데이터 보내기를 허용할 것인지 묻는 메시지가 사용자에게 표시됩니다. 이 기능을 완전히 사용하면 사용자에게 프롬프트를 표시하지 않고 필터의 허용 목록에 포함되지 않은 모든 웹 사이트 주소를 자동으로 Microsoft에 보냅니다.
+수동 모드를 선택하면 피싱 필터는 로컬 분석만 수행하고 Microsoft로 데이터 보내기를 허용할 것인지 묻는 메시지가 사용자에게 표시됩니다. 이 기능을 완전히 사용하도록 설정하면 사용자에게 메시지를 표시하지 않고 필터의 허용 목록에 포함되지 않은 모든 웹 사이트 주소를 자동으로 Microsoft에 보냅니다.
 
-이 정책 설정을 사용하지 않거나 구성하지 않으면 피싱 필터에 대한 작업 모드를 선택하라는 메시지가 사용자에게 표시됩니다.</string>
-      <string id="IE_Explain_DisableManagingSafetyFilter">사용자가 방문하는 웹 사이트가 "피싱"을 통해 개인 정보 수집을 부정하게 시도하는 것으로 알려져 있거나 맬웨어를 호스트하는 것으로 알려져 있을 경우 경고를 하는 SmartScreen 필터를 사용할 수 있도록 합니다.
+이 정책 설정을 사용하지 않거나 구성하지 않으면 피싱 필터에 대한 작업 모드를 결정하라는 메시지가 사용자에게 표시됩니다.</string>
+      <string id="IE_Explain_DisableManagingSafetyFilter">이 정책 설정은 사용자가 방문 중인 웹 사이트가 "피싱"을 통해 개인 정보를 수집하는 사기성 웹 사이트로 알려져 있거나 맬웨어를 호스트하는 것으로 알려져 있을 경우 사용자에게 경고를 하는 SmartScreen 필터를 사용할 수 있도록 합니다.
 
-이 정책 설정을 사용하면 사용자에게 SmartScreen 필터를 켜라는 프롬프트가 표시되지 않습니다. SmartScreen 필터에서 사용하는 모드를 켜기와 끄기 중에서 선택해야 합니다. 필터의 허용 목록에 포함되지 않은 모든 웹 사이트 주소는 사용자에게 프롬프트를 표시하지 않고 자동으로 Microsoft에 보냅니다.
+이 정책 설정을 사용하면 SmartScreen 필터를 켜라는 메시지가 사용자에게 표시되지 않습니다. SmartScreen 필터에서 사용하는 모드를 켜기 또는 끄기 중 하나로 지정해야 합니다. 필터의 허용 목록에 포함되지 않은 모든 웹 사이트 주소는 사용자에게 메시지를 표시하지 않고 자동으로 Microsoft에 보냅니다.
 
-이 정책 설정을 사용하지 않거나 구성하지 않으면 첫 실행 경험 중에 SmartScreen 필터를 켤지 여부를 결정하라는 내용의 프롬프트가 사용자에게 표시됩니다.</string>
-      <string id="IE_Explain_DisableManagingSafetyFilter_IE9">사용자가 방문하는 웹 사이트가 "피싱"을 통해 개인 정보 수집을 부정하게 시도하는 것으로 알려져 있거나 맬웨어를 호스트하는 것으로 알려져 있을 경우 경고를 하는 SmartScreen 필터를 사용하지 못하도록 합니다.
+이 정책 설정을 사용하지 않거나 구성하지 않으면 첫 실행 경험 중에 SmartScreen 필터 사용 여부를 결정하라는 메시지가 사용자에게 표시됩니다.</string>
+      <string id="IE_Explain_DisableManagingSafetyFilter_IE9">이 정책 설정은 사용자가 방문 중인 웹 사이트가 "피싱"을 통해 개인 정보를 수집하는 사기성 웹 사이트로 알려져 있거나 맬웨어를 호스트하는 것으로 알려져 있을 경우 사용자에게 경고를 하는 SmartScreen 필터를 사용하지 못하도록 합니다.
 
-이 정책 설정을 사용하면 사용자에게 SmartScreen 필터를 켜라는 프롬프트가 표시되지 않습니다. 필터의 허용 목록에 있지 않은 모든 웹 사이트 주소는 사용자에게 프롬프트를 표시하지 않고 자동으로 Microsoft에 보냅니다.
+이 정책 설정을 사용하면 SmartScreen 필터를 켜라는 메시지가 사용자에게 표시되지 않습니다. 필터의 허용 목록에 포함되지 않은 모든 웹 사이트 주소는 사용자에게 메시지를 표시하지 않고 자동으로 Microsoft에 보냅니다.
 
-이 정책 설정을 사용하지 않거나 구성하지 않으면 첫 실행 경험 중에 SmartScreen 필터 사용 여부를 결정하라는 내용의 프롬프트가 사용자에게 표시됩니다.</string>
+이 정책 설정을 사용하지 않거나 구성하지 않으면 첫 실행 경험 중에 SmartScreen 필터 사용 여부를 결정하라는 메시지가 사용자에게 표시됩니다.</string>
       <string id="IE_Explain_DisableSecuritySettingsCheck">Internet Explorer 보안 설정을 검사하여 설정으로 인해 Internet Explorer가 위험에 처하는 경우를 확인하는 보안 설정 검사 기능을 사용하지 않습니다.
 
 이 정책 설정을 사용하면 기능이 꺼집니다.
@@ -501,11 +501,11 @@ Microsoft Agent는 소프트웨어 에이전트가 Microsoft Windows 인터페�
 이 정책 설정을 사용하지 않거나 구성하지 않으면 사용자가 추가 기능 관리자를 사용하여 '추가 기능 목록' 정책 설정에 포함되어 있지 않은 추가 기능을 허용하거나 거부할 수 있습니다.
 
 참고: 추가 기능이 '추가 기능 목록' 정책 설정에 열거되어 있으면 사용자는 추가 기능 관리자를 통해 상태를 변경할 수 없습니다(값이 사용자 관리를 허용하도록 설정되어 있지 않을 경우 - 자세한 내용은 '추가 기능 목록' 정책 참조).</string>
-      <string id="IE_ExplainAddonManagement_RestrictCrashDetection">이 정책 설정은 추가 기능 관리의 크래시 감지 기능을 관리할 수 있도록 합니다.
+      <string id="IE_ExplainAddonManagement_RestrictCrashDetection">이 정책 설정은 추가 기능 관리의 충돌 감지 기능을 관리할 수 있도록 합니다.
 
-이 정책을 사용하면 Internet Explorer가 크래시된 경우 Windows XP Professional 서비스 팩 1 이전 버전에서와 같이 Windows 오류 보고가 시작됩니다. Windows 오류 보고에 대한 모든 정책 설정은 계속 적용됩니다.
+이 정책을 사용하도록 설정하면 Internet Explorer의 충돌이 있는 경우 Windows XP Professional 서비스 팩 1 이전 버전에서와 같이 Windows 오류 보고를 호출하는 동작이 나타납니다. Windows 오류 보고에 대한 모든 정책 설정은 계속 적용됩니다.
 
-이 정책 설정을 사용하지 않거나 구성하지 않으면 추가 기능 관리의 크래시 감지 기능을 사용할 수 있게 됩니다.</string>
+이 정책 설정을 사용하지 않도록 설정하거나 구성하지 않으면 추가 기능 관리의 충돌 감지 기능을 사용할 수 있게 됩니다.</string>
       <string id="IE_ExplainAddonManagement_RestrictExtensionManagement">사용자가 추가 기능 관리자를 통해 추가 기능을 허용하거나 거부할 수 있는지를 관리할 수 있습니다.
 
 이 정책 설정을 사용하면 사용자가 추가 기능 관리자를 통해 추가 기능의 사용 여부를 설정할 수 없습니다.
@@ -805,9 +805,9 @@ Microsoft Agent는 소프트웨어 에이전트가 Microsoft Windows 인터페�
 이 정책을 사용하면 도움말 메뉴에서 잠깐만 명령이 제거됩니다.
 
 이 정책 설정을 사용하지 않거나 구성하지 않으면 사용자가 브라우저 아래쪽에 잠깐만이 나타나는지 여부를 설정할 수 있습니다.</string>
-      <string id="IE_ExplainIdentities">사용자가 ID 관리자를 사용하여 고유한 ID를 구성할 수 없도록 합니다.
+      <string id="IE_ExplainIdentities">사용자가 Identity Manager를 사용하여 고유한 ID를 구성할 수 없도록 합니다.
 
-ID 관리자를 사용하면 사용자가 동일한 컴퓨터에서 전자 메일 계정 등의 계정을 여러 개 만들 수 있습니다. 각 사용자는 서로 다른 암호와 서로 다른 프로그램 기본 설정을 갖춘 고유한 ID를 갖습니다.
+Identity Manager를 사용하면 사용자가 동일한 컴퓨터에서 전자 메일 계정 등의 계정을 여러 개 만들 수 있습니다. 각 사용자는 서로 다른 암호와 서로 다른 프로그램 기본 설정을 갖춘 고유한 ID를 갖습니다.
 
 이 정책을 사용하면 사용자가 새 ID를 만들거나 기존 ID를 관리하거나 ID를 전환할 수 없습니다. 주소록의 파일 메뉴에서 ID 전환 옵션이 제거됩니다.
 
@@ -2038,15 +2038,15 @@ Internet Explorer에는 1부터 4까지의 번호로 지정된 네 개의 보안
 
 이 정책 설정을 사용하지 않으면 TDC ActiveX 컨트롤이 이 영역의 모든 사이트에서 실행됩니다.</string>
       <string id="IZ_Policy_AllowDynsrcPlayback">오래된 미디어 플레이어를 사용하는 웹 페이지에서 비디오 및 애니메이션 허용</string>
-      <string id="IZ_Policy_AllowDynsrcPlayback_Explain">지정한 영역에서 오래된 미디어 플레이어를 통해 비디오와 애니메이션을 재생할 수 있도록 합니다. 개체 태그를 통한 비디오 및 애니메이션 재생에는 외부 컨트롤 또는 미디어 플레이어가 사용되므로 이러한 재생은 그대로 허용될 수 있습니다.
+      <string id="IZ_Policy_AllowDynsrcPlayback_Explain">이 정책 설정은 지정한 영역에서 오래된 미디어 플레이어를 통한 비디오 및 애니메이션 재생을 허용합니다. 개체 태그를 통한 비디오 및 애니메이션 재생에는 외부 컨트롤 또는 미디어 플레이어가 사용되므로 이러한 재생은 그대로 허용될 수 있습니다.
 
 img 태그의 dynsrc 특성은 오래된 미디어 플레이를 지정합니다. 또한, Internet Explorer 8부터는 이 정책 설정이 오디오 및 비디오 파일을 참조하는 HTML+TIME 미디어 요소를 제어합니다.
 
-이 정책 설정을 사용하면 지정한 영역에서 오래된 미디어 플레이어를 통해 비디오와 애니메이션을 재생할 수 있습니다.
+이 정책 설정을 사용하면 지정한 영역에서 오래된 미디어 플레이어를 통해 비디오 및 애니메이션을 재생할 수 있습니다.
 
-이 정책 설정을 사용하지 않으면 오래된 미디어 플레이어를 통해 비디오와 애니메이션을 재생할 수 없습니다.
+이 정책 설정을 사용하지 않으면 오래된 미디어 플레이어를 통해 비디오 및 애니메이션을 재생할 수 없습니다.
 
-이 정책 설정을 구성하지 않으면 지정한 영역에서 오래된 미디어 플레이어를 통해 비디오와 애니메이션을 재생할 수 있습니다.</string>
+이 정책 설정을 구성하지 않으면 지정한 영역에서 오래된 미디어 플레이어를 통해 비디오 및 애니메이션을 재생할 수 있습니다.</string>
       <string id="IZ_Policy_AllowScriptlets">스크립틀릿 허용</string>
       <string id="IZ_Policy_AllowScriptlets_Explain">사용자가 스크립틀릿을 실행할 수 있는지 여부를 관리할 수 있습니다.
 
@@ -3574,37 +3574,42 @@ Internet Explorer 11 이상:
 
 참고: 이 정책은 Windows 10 버전 1607부터 지원되지 않습니다.</string>
       <string id="Protocols_None">보안 프로토콜 사용하지 않음</string>
-      <string id="Protocols_SSL2">SSL 2.0만 사용</string>
+      <string id="Protocols_SSL2">[사용되지 않음] SSL 2.0만 사용</string>
       <string id="Protocols_SSL3">SSL 3.0만 사용</string>
-      <string id="Protocols_SSL2_SSL3">SSL 2.0과 SSL 3.0 사용</string>
+      <string id="Protocols_SSL2_SSL3">[사용되지 않음] SSL 2.0, SSL 3.0 사용</string>
       <string id="Protocols_TLS10">TLS 1.0만 사용</string>
-      <string id="Protocols_SSL2_TLS10">SSL 2.0 및 TLS 1.0 사용</string>
+      <string id="Protocols_SSL2_TLS10">[사용되지 않음] SSL 2.0, TLS 1.0 사용</string>
       <string id="Protocols_SSL3_TLS10">SSL 3.0 및 TLS 1.0 사용</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">SSL 2.0, SSL 3.0, TLS 1.0 사용</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[사용되지 않음] SSL 2.0, SSL 3.0, TLS 1.0 사용</string>
       <string id="Protocols_TLS11">TLS 1.1만 사용</string>
-      <string id="Protocols_SSL2_TLS11">SSL 2.0 및 TLS 1.1 사용</string>
+      <string id="Protocols_SSL2_TLS11">[사용되지 않음] SSL 2.0, TLS 1.1 사용</string>
       <string id="Protocols_SSL3_TLS11">SSL 3.0 및 TLS 1.1 사용</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">SSL 2.0, SSL 3.0, TLS 1.1 사용</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[사용되지 않음] SSL 2.0, SSL 3.0, TLS 1.1 사용</string>
       <string id="Protocols_TLS10_TLS11">TLS 1.0 및 TLS 1.1 사용</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">SSL 2.0, TLS 1.0 및 TLS 1.1 사용</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[사용되지 않음] SSL 2.0, TLS 1.0, TLS 1.1 사용</string>
       <string id="Protocols_SSL3_TLS10_TLS11">SSL 3.0, TLS 1.0 및 TLS 1.1 사용</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">SSL 2.0, SSL 3.0, TLS 1.0 및 TLS 1.1 사용</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[사용되지 않음] SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 사용</string>
       <string id="Protocols_TLS12">TLS 1.2만 사용</string>
-      <string id="Protocols_SSL2_TLS12">SSL 2.0 및 TLS 1.2 사용</string>
+      <string id="Protocols_SSL2_TLS12">[사용되지 않음] SSL 2.0, TLS 1.2 사용</string>
       <string id="Protocols_SSL3_TLS12">SSL 3.0 및 TLS 1.2 사용</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">SSL 2.0, SSL 3.0, TLS 1.2 사용</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[사용되지 않음] SSL 2.0, SSL 3.0, TLS 1.2 사용</string>
       <string id="Protocols_TLS10_TLS12">TLS 1.0 및 TLS 1.2 사용</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">SSL 2.0, TLS 1.0 및 TLS 1.2 사용</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[사용되지 않음] SSL 2.0, TLS 1.0, TLS 1.2 사용</string>
       <string id="Protocols_SSL3_TLS10_TLS12">SSL 3.0, TLS 1.0 및 TLS 1.2 사용</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">SSL 2.0, SSL 3.0, TLS 1.0 및 TLS 1.2 사용</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[사용되지 않음] SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.2 사용</string>
       <string id="Protocols_TLS11_TLS12">TLS 1.1 및 TLS 1.2 사용</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">SSL 2.0, TLS 1.1 및 TLS 1.2 사용</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[사용되지 않음] SSL 2.0, TLS 1.1, TLS 1.2 사용</string>
       <string id="Protocols_SSL3_TLS11_TLS12">SSL 3.0, TLS 1.1 및 TLS 1.2 사용</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">SSL 2.0, SSL 3.0, TLS 1.1 및 TLS 1.2 사용</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[사용되지 않음] SSL 2.0, SSL 3.0, TLS 1.1, TLS 1.2 사용</string>
       <string id="Protocols_TLS10_TLS11_TLS12">TLS 1.0, TLS 1.1 및 TLS 1.2 사용</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">SSL 2.0, TLS 1.0, TLS 1.1 및 TLS 1.2 사용</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[사용되지 않음] SSL 2.0, TLS 1.0, TLS 1.1, TLS 1.2 사용</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">SSL 3.0, TLS 1.0, TLS 1.1 및 TLS 1.2 사용</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 및 TLS 1.2 사용</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[사용되지 않음] SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1, TLS 1.2 사용</string>
+      <string id="Protocols_TLS13">TLS 1.3만 사용</string>
+      <string id="Protocols_TLS12_TLS13">TLS 1.2, TLS 1.3 사용</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">TLS 1.1, TLS 1.2, TLS 1.3 사용</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">TLS 1.0, TLS 1.1, TLS 1.2, TLS 1.3 사용</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">SSL 3.0, TLS 1.0, TLS 1.1, TLS 1.2 및 TLS 1.3 사용</string>
       <string id="LockToolbars">모든 도구 모음 잠금</string>
       <string id="MoveStopRefresh">중지 및 새로 고침 단추 위치 잠금</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3903,7 +3908,7 @@ InPrivate 필터링은 사용자가 방문한 사이트에 기초하여 사용�
 이 설정을 켜면 사용자가 [도구] 메뉴에서 엔터프라이즈 모드 옵션을 보고 사용할 수 있습니다. 이 설정을 켜지만 보고서 위치를 지정하지 않을 경우 사용자가 엔터프라이즈 모드를 사용할 수는 있지만 보고서를 받지 못합니다.
 
 이 정책 설정을 사용하지 않도록 설정하거나 구성하지 않으면 메뉴 옵션이 표시되지 않고 사용자가 엔터프라이즈 모드에서 웹 사이트를 실행할 수 없습니다.</string>
-      <string id="RestrictInternetExplorer">엔터프라이즈 모드 사이트 목록에 포함되지 않은 모든 사이트를 Microsoft Edge에 보냅니다.</string>
+      <string id="RestrictInternetExplorer">엔터프라이즈 모드 사이트 목록에 포함되지 않은 모든 사이트를 Microsoft Edge에 보냅니다</string>
       <string id="IE_ExplainRestrictInternetExplorer">이 설정을 통해 Microsoft Edge에서 엔터프라이즈 모드 사이트 목록에 포함되지 않은 모든 사이트를 열지 여부를 결정할 수 있습니다. 이 설정을 사용하면 관리 템플릿\Windows 구성 요소\Internet Explorer\엔터프라이즈 모드 IE 웹 사이트 목록 사용 정책 설정도 켜야 하며 엔터프라이즈 모드 사이트 목록에 사이트를 하나 이상 포함해야 합니다.
 
 이 설정을 사용하면 Microsoft Edge에서 엔터프라이즈 모드 사이트 목록에 포함되지 않은 모든 사이트가 자동으로 열립니다.
@@ -3917,6 +3922,120 @@ InPrivate 필터링은 사용자가 방문한 사이트에 기초하여 사용�
 이 설정을 사용하면 엔터프라이즈 모드의 Microsoft Edge를 사용하여 사이트가 열렸음을 나타내는 추가 페이지가 Internet Explorer 11에서 직원에게 표시됩니다.
 
 이 설정을 사용하지 않거나 구성하지 않으면 기본 앱 동작이 발생하고 추가 페이지가 표시되지 않습니다.</string>
+      <string id="NeedEdgeBrowser">리디렉션된 사이트를 여는 데 사용할 Microsoft Edge 채널 구성</string>
+      <string id="IE_ExplainNeedEdgeBrowser">최대 3개의 Microsoft Edge 버전을 구성하여 리디렉션된 사이트를 선호도 순으로 열 수 있습니다. 사용자 환경이 Internet Explorer 11에서 Microsoft Edge로 사이트를 리디렉션하도록 구성된 경우 이 정책을 사용하세요. 선택한 버전이 장치에 설치되어 있지 않으면 해당 선호도가 무시됩니다.
+
+다음 버전의 Microsoft Edge* 및 Microsoft Edge 안정 채널에 대한 Windows 업데이트가 둘 다 설치된 경우 다음과 같은 동작이 발생합니다.
+- 이 정책을 사용하지 않거나 구성하지 않으면 Microsoft Edge 안정 채널이 사용됩니다. 이것이 기본 동작입니다.
+- 이 정책을 사용하면 리디렉션된 사이트가 다음 중 최대 3개 채널에서 열리도록 구성할 수 있습니다.
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta 버전 77 이상
+    3 = Microsoft Edge Dev 버전 77 이상
+    4 = Microsoft Edge Canary 버전 77 이상
+
+다음 버전의 Microsoft Edge* 또는 Microsoft Edge 안정 채널에 대한 Windows 업데이트가 설치되지 않은 경우 다음 동작이 발생 합니다.
+-이 정책을 사용하지 않거나 구성하지 않으면 Microsoft Edge 버전 45 이하가 자동으로 사용됩니다. 이것이 기본 동작입니다.
+- 이 정책을 사용하면 리디렉션된 사이트가 다음 중 최대 3개 채널에서 열리도록 구성할 수 있습니다:
+    0 = Microsoft Edge 버전 45 이하
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta 버전 77 이상
+    3 = Microsoft Edge Dev 버전 77 이상
+    4 = Microsoft Edge Canary 버전 77 이상
+
+*사용 중지 방법을 포함하여 Microsoft Edge 다음 버전의 Windows 업데이트에 대한 자세한 내용은 https://go.microsoft.com/fwlink/?linkid=2102115를 참조하세요. 이 업데이트는 Windows 10 버전 1709 이상에만 적용됩니다.</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta 버전 77 이상</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev 버전 77 이상</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary 버전 77 이상</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge 버전 45 이하</string>
+      <string id="KeepIntranetSitesInInternetExplorer">모든 인트라넷 사이트를 Internet Explorer에 유지</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">Internet Explorer를 제외한 모든 브라우저에서 인트라넷 사이트가 열리지 않도록 합니다. 그러나 '엔터프라이즈 모드 사이트 목록에 포함되지 않은 모든 사이트를 Microsoft Edge로 보내기'(RestrictIE') 정책을 사용하지 않으면 이 정책이 적용되지 않습니다.
+
+이 정책을 사용하면 모든 인트라넷 사이트가 Internet Explorer 11에서 열립니다. 유일한 예외는 엔터프라이즈 모드 사이트 목록에 나열된 사이트입니다.
+
+이 정책을 사용하지 않거나 구성하지 않으면 모든 인트라넷 사이트가 Microsoft Edge에서 자동으로 열립니다.
+
+이 정책을 '모든 인트라넷 사이트를 Internet Explorer로 보내기'('SendIntranetToInternetExplorer') 정책과 동기화하여 유지하는 것이 좋습니다. 또한 인트라넷 사이트에 Microsoft Edge와의 호환성 문제가 있는 경우에만 이 정책을 사용하는 것이 가장 좋습니다.
+
+관련 정책:
+- 모든 인트라넷 사이트를 Internet Explorer로 보내기(‘SendIntranetToInternetExplorer’)
+- 엔터프라이즈 모드 사이트 목록에 포함되지 않은 모든 사이트를 Microsoft Edge로 보내기(‘RestrictIE’)
+
+이 정책을 다른 관련 정책과 함께 사용하여 조직에 가장 적합한 구성을 만드는 방법에 대한 자세한 내용은 https://go.microsoft.com/fwlink/?linkid=2094210을 참조하세요.</string>
+      <string id="AllowSaveTargetAsInIEMode">Internet Explorer 모드에서 "대상을 다른 이름으로 저장"을 허용</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">관리자는 Internet Explorer 모드에서 "대상 이름으로 저장" 메뉴를 사용할 수 있습니다.
+
+이 정책을 사용하면 "다른 이름으로 대상 저장"이 Internet Explorer 모드에 표시되며 Internet Explorer와 동일하게 작동합니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 "다른 이름으로 저장"이 Internet Explorer 모드의 상황에 맞는 메뉴에 표시되지 않습니다.
+
+자세한 내용은 https://go.microsoft.com/fwlink/?linkid=2102115(R)</string>
+      <string id="EnableGlobalWindowListInIEMode">Internet Explorer 모드에서 전역 창 목록 사용</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">이 설정을 사용하면 Internet Explorer 모드에서 다른 응용 프로그램과 상태를 공유할 수 있는 전역 창 목록을 사용할 수 있습니다.
+이 설정은 Internet Explorer 11이 독립 실행형 브라우저로 사용하지 않도록 설정된 경우에만 적용됩니다.
+
+이 정책을 사용하면 Internet Explorer 모드에서 전역 창 목록을 사용합니다.
+
+이 정책을 사용하지 않거나 구성하지 않으면 Internet Explorer 모드에서 별도의 창 목록을 계속 유지 관리합니다.
+
+Internet Explorer 모드에 대해 자세히 알아보려면 https://go.microsoft.com/fwlink/?linkid=2102921 참조하세요.
+Internet Explorer 11을 독립 실행형 브라우저로 사용하지 않도록 설정하는 방법에 대한 자세한 내용은 https://go.microsoft.com/fwlink/?linkid=2168340 참조하세요.</string>
+      <string id="EnableExtendedIEModeHotkeys">Internet Explorer 모드에서 확장 핫 키 사용하기</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">이 정책 설정을 통해 관리자는 "Ctrl+S"라는 확장된 Microsoft Edge Internet Explorer 모드 핫키를 사용하도록 설정하여 "다른 이름으로 저장" 기능을 사용할 수 있습니다.
+
+이 정책을 사용하면 Internet Explorer 모드에서 확장된 핫키 기능을 사용할 수 있으며 Internet Explorer와 동일하게 작동합니다.
+
+이 정책을 사용하지 않거나 구성하지 않으면 Internet Explorer 모드에서 확장된 핫키가 작동하지 않습니다.
+
+자세한 내용은 https://go.microsoft.com/fwlink/?linkid=2102115를 참조하세요.</string>
+      <string id="AllowLegacyURLFields">인터넷 바로 가기 파일에 레거시 기능 허용</string>
+      <string id="IE_ExplainAllowLegacyURLFields">이 정책 설정을 통해 인터넷 바로 가기 파일에서 WorkingDirectory 필드 또는 플러그형 프로토콜 처리와 같은 일부 비활성화된 기능을 사용할 수 있습니다.
+
+이 정책을 사용하면 인터넷 바로 가기 파일에 대해 사용하지 않도록 설정된 기능이 다시 사용하도록 설정됩니다.
+
+이 정책을 사용하지 않거나 구성하지 않으면 WorkingDirectory 필드 또는 플러그형 프로토콜 처리와 같은 인터넷 바로 가기 파일에 대한 일부 기능이 사용하지 않도록 설정됩니다.</string>
+      <string id="ResetZoomForDialogInIEMode">Internet Explorer 모드에서 HTML 대화 상자의 확대/축소를 기본값으로 재설정</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">이 정책 설정을 통해 관리자는 Internet Explorer 모드에서 HTML 대화 상자의 확대/축소를 기본값으로 다시 설정할 수 있습니다.
+
+이 정책을 사용하면 Internet Explorer 모드에서 HTML 대화 상자의 확대/축소가 부모 페이지에서 전파되지 않습니다.
+
+이 정책을 사용하지 않거나 구성하지 않으면 Internet Explorer 모드에서 HTML 대화 상자의 확대/축소가 상위 페이지의 확대/축소에 따라 설정됩니다.
+
+자세한 내용은 https://go.microsoft.com/fwlink/?linkid=2220107 참조하세요.</string>
+      <string id="DisableInternetExplorerApp">Internet Explorer 11을 독립 실행형 브라우저로 사용 안 함</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">이 정책을 사용하면 Internet Explorer를 독립 실행형 브라우저로 실행하는 것을 제한할 수 있습니다.
+
+이 정책을 사용하는 경우:
+- Internet Explorer 11이 독립 실행형 브라우저로 실행되지 않도록 합니다.
+- Internet Explorer의 사용을 Microsoft Edge의 기본 'Internet Explorer 모드'로 제한합니다.
+- Internet Explorer 11을 실행하려는 시도를 Microsoft Edge Stable Channel 브라우저로 리디렉션합니다.
+- Internet Explorer 11로 리디렉션되는 다른 모든 정책을 재정의합니다.
+
+이 정책을 사용하도록 설정한 경우에도 COM 자동화를 사용하여 Internet Explorer 11을 시작할 수 있습니다. Internet Explorer 11의 COM 자동화 출시를 사용하지 않도록 설정하려면 "Internet Explorer 11 COM 자동화 사용 안 함" 그룹 정책을 사용하세요.
+
+이 정책을 사용하지 않거나 구성하지 않으면 현재 활성 브라우저 설정을 사용하여 모든 사이트가 열립니다. 참고: 이 정책을 적용하려면 Microsoft Edge Stable Channel이 설치되어 있어야 합니다.</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">COM 자동화를 통한 인터넷 Explorer 11 시작 사용 안 함</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">이 정책을 사용하면 COM 자동화를 사용하여 인터넷 Explorer 시작을 제한할 수 있습니다.
+
+이 정책을 사용하면 COM 자동화를 사용하여 인터넷 Explorer 11을 시작할 수 없습니다.
+
+이 정책을 사용하지 않거나 구성하지 않으면 인터넷 Explorer 11개의 COM 자동화 시작이 허용됩니다.</string>
+      <string id="DisableIEAppDeprecationNotification">Internet Explorer 11 사용 중지 알림 숨기기</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">이 정책 설정을 통해 Internet Explorer 사용 중지되는 알림 표시줄 미리 알림을 표시할지 여부를 관리할 수 있습니다. 기본적으로 알림 표시줄은 Internet Explorer 11에 표시됩니다.
+
+이 정책 설정을 사용하면 Internet Explorer 11에 알림 표시줄이 표시되지 않습니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 알림 표시줄이 Internet Explorer 11에 표시됩니다.</string>
+      <string id="NotifyDisableIEOptions_Never">안 함</string>
+      <string id="NotifyDisableIEOptions_Always">항상</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">사용자당 한 번</string>
+      <string id="JScriptReplacement">JScript 대신 JScript9Legacy를 로드하여 JScript를 바꿉니다.</string>
+      <string id="IE_ExplainJScriptReplacement">이 정책 설정은 JScript 또는 JScript9Legacy를 로드할지 여부를 지정합니다.
+      
+이 정책 설정을 사용하거나 구성하지 않으면 JScript 인스턴스화된 상황에서 JScript9Legacy가 로드됩니다.
+
+이 정책을 사용하지 않으면 JScript 활용됩니다.</string>
       <string id="VerMgmtDisable">Internet Explorer의 만료된 ActiveX 컨트롤 차단 끄기</string>
       <string id="IE_ExplainVerMgmtDisable">이 정책 설정은 Internet Explorer에서 만료된 특정 ActiveX 컨트롤을 차단할지 여부를 결정합니다. 만료된 ActiveX 컨트롤은 인트라넷 영역에서는 차단되지 않습니다.
 
@@ -4118,6 +4237,12 @@ LOBApp.contoso.com</string>
 이 설정을 사용하지 않도록 설정하거나 구성하지 않으면 IE가 VersionList.XML의 업데이트된 버전을 계속해서 다운로드합니다.
 
 자세한 내용은 Internet Explorer TechNet 라이브러리의 "오래된 ActiveX 컨트롤 차단"을 참조하세요.</string>
+      <string id="DisableHTMLApplication">HTML 애플리케이션 사용 안 함</string>
+      <string id="DisableHTMLApplication_Explain">이 정책 설정은 HTML 응용 프로그램(HTA 파일) 실행이 차단되거나 허용되는지 여부를 지정합니다.
+
+이 정책 설정을 사용하면 HTML 응용 프로그램(HTA 파일) 실행이 차단됩니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 HTML 응용 프로그램(HTA 파일)을 실행할 수 있습니다.</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
@@ -4787,6 +4912,14 @@ LOBApp.contoso.com</string>
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">도메인 목록</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">첫 번째 선택</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">두 번째 선택</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">세 번째 선택</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">Internet Explorer 11 브라우저가 비활성화되었음을 알립니다.</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -49,10 +49,10 @@ Huomautus: Muut käyttäjät kuin järjestelmänvalvojat (paitsi verkkokokoonpan
 Vihje: Avaa TCP/IP-lisäasetukset-valintaikkuna napsauttamalla Verkkoyhteyden-kansion yhteyskuvaketta hiiren kakkospainikkeella ja valitsemalla Ominaisuudet. Valitse Verkko-välilehti etäkäyttöyhteyksissä.  Valitse Valittuja osia käytetään tässä yhteydessä -ruudussa Internet-protokolla (TCP/IP), napsauta Ominaisuudet-painiketta ja napsauta Lisäasetukset-painiketta.
 
 Huomautus: Tämän asetuksen muuttaminen arvosta Käytössä arvoon Ei määritetty ei ota Lisäasetukset-painiketta käyttöön, ennen kuin käyttäjä kirjautuu ulos.</string>
-      <string id="NC_AllowNetBridge_NLA">Estä verkkosillan asentaminen ja määrittäminen DNS-toimialueverkossa</string>
+      <string id="NC_AllowNetBridge_NLA">Estä verkkosillan asentaminen ja määrittäminen verkossasi.</string>
       <string id="NC_AllowNetBridge_NLA_Help">Määrittää, voiko käyttäjä asentaa ja määrittää verkkosillan.
 
-Tärkeää: Tämä asetus määräytyy sijainnin mukaan. Asetus koskee vain niitä tietokoneita, jotka on liitetty samaan DNS-toimialueverkkoon kuin silloin, kun asetus päivitettiin. Jos tietokone on yhteydessä muuhun DNS-toimialueverkkoon kuin siihen, johon se oli yhteydessä asetusta päivitettäessä, asetus ei ole voimassa.
+Tärkeää: Tämä asetus on sijaintitietoinen AD-toimialueeseen liitetyissä laitteissa. Asetus koskee vain niitä tietokoneita, jotka on liitetty samaan DNS-toimialueverkkoon kuin silloin, kun asetus päivitettiin. Jos tietokone on yhteydessä toiseen DNS-toimialueverkkoon kuin siihen, johon se oli yhteydessä asetusta päivitettäessä, tätä asetusta ei sovelleta. Entraan liitetyissä laitteissa asetus koskee kaikkia verkkoja.
 
 Verkkosillan avulla käyttäjät voivat luoda Layer 2 MAC -sillan, jolla he voivat yhdistää useita verkkosegmenttejä toisiinsa. Tämä yhteys näkyy Verkkoyhteydet-kansiossa.
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Gruppepolitik for tastaturfilter</displayName>
+  <description>Gruppepolitikindstillinger for tastaturfilter</description>
+  <resources>
+    <stringTable>
+      <string id="KeyboardFilter">Tastaturfilter</string>
+      <string id="AllowKbFilterInRemoteSessions">Tillad tastaturfilter i fjernsessioner</string>
+      <string id="AllowKbFilterInRemoteSessions_Text">Tastaturfilteret gælder typisk kun for lokale sessioner.
+      
+Hvis du aktiverer denne indstilling, kan tastaturfilteret anvendes på brugere, der opretter forbindelse til computeren via fjernsessioner.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

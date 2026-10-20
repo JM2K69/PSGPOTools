@@ -138,13 +138,14 @@
         Vis angitt kontaktinformasjon til lokale brukere i Windows Sikkerhet-varslinger.
 
         Aktivert:
-        Kontaktinformasjon til bedriften vises i varslinger som kommer fra Windows Sikkerhet.
+        Kontaktinformasjon til bedriften vil vises i varslinger som kommer fra Windows Sikkerhet.
 
-        Når du har satt dette til Aktivert, må du konfigurere GP-innstillingen Angi kontaktnavn for bedriften og minst én av følgende GP-innstillinger:
+        Når du har satt dette til Aktivert, må du konfigurere gruppepolicyinnstillingen Angi kontaktnavn for bedriften og minst én av følgende gruppepolicyinnstillinger:
         – Angi kontakttelefonnummer eller Skype-ID
         – Angi kontakt-e-post eller e-post-ID
         – Angi kontaktnettsted
-
+        Vær oppmerksom på at i enkelte tilfeller begrenser vi kontaktalternativene som vises, basert på varlingsplassen tilgjengelig.
+        
         Deaktivert:
         Ingen kontaktinformasjon vises i varslinger.
 

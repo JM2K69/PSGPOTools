@@ -12,6 +12,8 @@ Bu, hem var olan bir aygıtın kullanıcıları hem de eklenebilecek yeni kullan
 Önbelleğe alınmış belirteçlerin mevcut olmasını engellemek için, herhangi bir kullanıcı aygıta girmeden önce bu ayarın etkinleştirilmesi önerilir. Bu ayar devre dışı bırakılır veya yapılandırılmazsa, uygulamalar ve hizmetler kimlik doğrulama için Microsoft hesaplarını kullanabilir.  
 Varsayılan olarak, bu ayar devre dışıdır. Bu ayar kullanıcıların Microsoft hesaplarını kullanarak cihazlarda oturum açıp yükleyemeyeceklerini ya da kullanıcıların Web tabanlı uygulamalarla kimlik doğrulaması için Microsoft hesaplarını tarayıcı aracılığıyla sağlayabilmelerini etkilemez. 
         </string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnly">Cihaz kimlik doğrulamasına yalnızca Microsoft Hesabı Oturum Açma Yardımcısı için izin ver</string>
+        <string id="MicrosoftAccount_RestrictToEnterpriseDeviceAuthenticationOnlyExplain">Bu ayar, cihaz kimlik doğrulamasına yalnızca Microsoft Hesabı Oturum Açma Yardımcısı hizmeti (wlidsvc) için izin verilip verilmeyeceğini belirler. Varsayılan olarak bu ayar devre dışıdır ve hem kullanıcı hem de cihaz kimlik doğrulamasına izin verir. Değer 1 olarak ayarlandığında yalnızca cihaz kimlik doğrulamasına izin verilir ve kullanıcı kimlik doğrulaması engellenir.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

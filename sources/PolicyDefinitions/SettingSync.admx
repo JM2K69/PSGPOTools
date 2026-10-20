@@ -212,5 +212,71 @@
         </boolean>
       </elements>
     </policy>
+
+    <policy name="DisableAccessibilitySettingSync" presentation="$(presentation.DisableAccessibilitySettingSyncUserOverride)" class="Machine" displayName="$(string.DisableAccessibilitySettingSync)" explainText="$(string.DisableAccessibilitySettingSync_Help)" key="Software\Policies\Microsoft\Windows\SettingSync" valueName="DisableAccessibilitySettingSync">
+      <parentCategory ref="SettingSync" />
+      <supportedOn ref="windows:SUPPORTED_Windows_11_0_22H2" />
+      <enabledValue>
+        <decimal value="2" />
+      </enabledValue>
+      <disabledValue>
+        <decimal value="0" />
+      </disabledValue>
+      <elements>
+        <boolean id="CheckBox_UserOverride" valueName="DisableAccessibilitySettingSyncUserOverride">
+          <trueValue>
+            <decimal value="0" />
+          </trueValue>
+          <falseValue>
+            <decimal value="1" />
+          </falseValue>
+        </boolean>
+      </elements>
+    </policy>
+
+    <policy name="DisableLanguageSettingSync" presentation="$(presentation.DisableLanguageSettingSyncUserOverride)" class="Machine" displayName="$(string.DisableLanguageSettingSync)" explainText="$(string.DisableLanguageSettingSync_Help)" key="Software\Policies\Microsoft\Windows\SettingSync" valueName="DisableLanguageSettingSync">
+      <parentCategory ref="SettingSync" />
+      <supportedOn ref="windows:SUPPORTED_Windows_11_0_22H2" />
+      <enabledValue>
+        <decimal value="2" />
+      </enabledValue>
+      <disabledValue>
+        <decimal value="0" />
+      </disabledValue>
+      <elements>
+        <boolean id="CheckBox_UserOverride" valueName="DisableLanguageSettingSyncUserOverride">
+          <trueValue>
+            <decimal value="0" />
+          </trueValue>
+          <falseValue>
+            <decimal value="1" />
+          </falseValue>
+        </boolean>
+      </elements>
+    </policy>
+
+    <policy name="EnableWindowsBackup" class="Machine" displayName="$(string.EnableWindowsBackup)" explainText="$(string.EnableWindowsBackup_Help)" key="Software\Policies\Microsoft\Windows\SettingSync" valueName="EnableWindowsBackup">
+      <parentCategory ref="SettingSync" />
+      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER" />
+      <enabledValue>
+        <decimal value="1" />
+      </enabledValue>
+      <disabledValue>
+        <decimal value="0" />
+      </disabledValue>
+    </policy>
+
+    <policy name="EnableWindowsRestore" class="Machine" displayName="$(string.EnableWindowsRestore)" explainText="$(string.EnableWindowsRestore_Help)" key="Software\Microsoft\Windows\CurrentVersion\WindowsBackupAndRestore\NodeValues" valueName="EnableWindowsRestore">
+      <parentCategory ref="SettingSync" />
+      <supportedOn ref="windows:SUPPORTED_Windows_11_0_24H2" />
+      <enabledValue>
+        <decimal value="1" />
+      </enabledValue>
+      <disabledValue>
+        <decimal value="0" />
+      </disabledValue>
+    </policy>
+
   </policies>
 </policyDefinitions>
+

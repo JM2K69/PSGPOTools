@@ -78,22 +78,39 @@ Si vous activez ce paramètre de stratégie, le journal des événements utilise
 
 Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, le journal des événements utilise le dossier %SYSTEMROOT%\System32\winevt\Logs.</string>
       <string id="Channel_LogMaxSize">Spécifier la taille de fichier journal maximale (Ko)</string>
-      <string id="Channel_LogMaxSize_Help">Ce paramètre de stratégie spécifie la taille maximale du fichier journal en kilo-octets.
+      <string id="Channel_LogMaxSize_Help">Ce paramètre de stratégie spécifie la taille maximale du fichier d'historique en kilo-octets.
 
-Si vous activez ce paramètre de stratégie, vous pouvez configurer la taille maximale du fichier d'historique, comprise entre 1 mégaoctet (1 024 kilo-octets) et 2 téraoctets (2 147 483 647 kilo-octets), par incréments (en kilo-octets).
+Si vous activez ce paramètre de stratégie, vous pouvez configurer la taille maximale du fichier journal, comprise entre 1 mégaoctet (1024 kilo-octets) et 2 téraoctets (2147483647 kilo-octets), par incréments (en kilo-octets).
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, la taille maximale du fichier d'historique correspond à la valeur configurée localement. Cette valeur peut être modifiée par l’administrateur local dans la boîte de dialogue des propriétés du journal et la valeur par défaut est 1 mégaoctet.</string>
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, la taille maximale du fichier d'historique correspond à la valeur configurée localement. Cette valeur peut être modifiée par l’administrateur local dans la boîte de dialogue des propriétés du journal et la valeur par défaut est 20 mégaoctets.</string>
       <string id="Channel_LogMaxSizeSecurity_Help">Ce paramètre de stratégie spécifie la taille maximale du fichier d'historique en kilo-octets.
 
 Si vous activez ce paramètre de stratégie, vous pouvez configurer la taille maximale du fichier d'historique, comprise entre 20 mégaoctets (20 480 kilo-octets) et 2 téraoctets (2 147 483 647 kilo-octets), par incréments (en kilo-octets).
 
-Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, la taille maximale du fichier d'historique correspond à la valeur configurée localement. Cette valeur peut être modifiée par l’administrateur local dans la boîte de dialogue des propriétés du journal et la valeur par défaut est 20 mégaoctets.</string>
+Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, la taille maximale du fichier d'historique correspond à la valeur configurée localement. Cette valeur peut être modifiée par l’administrateur local dans la boîte de dialogue des propriétés du journal et la valeur par défaut est 40 mégaoctets.</string>
       <string id="ChannelName_Help">Paramètres de configuration pour le journal</string>
       <string id="EventLog_Application">Application</string>
       <string id="EventLog_Security">Sécurité</string>
       <string id="EventLog_Setup">Installation</string>
       <string id="EventLog_System">Système</string>
       <string id="EventLogCategory">Service Journal des événements</string>
+      <string id="Service_RpcAccess_Remote">Limiter l’accès à distance au service journal des événements</string>
+      <string id="Service_RpcAccess_Remote_Help">Ce paramètre de stratégie contrôle les utilisateurs distants qui seront autorisés à se connecter au service de journal des événements sur cette machine.
+
+Si vous activez cette stratégie, vous pouvez limiter le groupe auquel les utilisateurs distants doivent appartenir pour se connecter au service de journal des événements sur cette machine. Vous pouvez exiger que les utilisateurs distants soient membres de l’un des groupes intégrés suivants :
+
+• Utilisateurs authentifiés
+• Lecteurs de journaux des événements
+• Administrateurs
+
+Si vous désactivez ou ne configurez pas cette stratégie, la valeur par défaut sera Utilisateurs authentifiés.
+
+Pour les versions antérieures de Windows, seuls les utilisateurs authentifiés étaient pris en charge. Pour maintenir la compatibilité avec les versions antérieures, les connexions locales au service seront toujours autorisées à partir d’utilisateurs authentifiés.
+
+Ce paramètre ne contrôle pas l’accès aux journaux individuels. Une fois qu’une connexion à distance est autorisée, elle doit toujours avoir accès aux ressources spécifiques qu’elle tente d’utiliser.</string>
+      <string id="Service_RpcAccess_Remote_AU">Utilisateurs authentifiés</string>
+      <string id="Service_RpcAccess_Remote_ER">Lecteurs de journaux d'événements</string>
+      <string id="Service_RpcAccess_Remote_AD">Administrateurs</string>
     </stringTable>
     <presentationTable>
       <presentation id="Channel_Log_FileLogAccess_1">
@@ -157,16 +174,19 @@ Si vous désactivez ce paramètre de stratégie ou ne le configurez pas, la tail
         </textBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_1">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Taille maximale du journal (Ko)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Taille maximale du journal (Ko)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_2">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Taille maximale du journal (Ko)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="40960">Taille maximale du journal (Ko)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_3">
         <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Taille maximale du journal (Ko)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_4">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Taille maximale du journal (Ko)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Taille maximale du journal (Ko)</decimalTextBox>
+      </presentation>
+      <presentation id="Service_RpcAccess_Remote">
+        <dropdownList refId="RpcAccess_Remote_Setting" noSort="true" defaultItem="0">Choisissez l’un des paramètres suivants :</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

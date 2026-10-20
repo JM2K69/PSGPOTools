@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Groepsbeleid toetsenbordfilter</displayName>
+  <description>Groepsbeleidsinstellingen voor toetsenbordfilter</description>
+  <resources>
+    <stringTable>
+      <string id="KeyboardFilter">Toetsenbordfilter</string>
+      <string id="AllowKbFilterInRemoteSessions">Toetsenbordfilter toestaan in externe sessies</string>
+      <string id="AllowKbFilterInRemoteSessions_Text">Toetsenbordfilter is meestal alleen van toepassing op lokale sessies.
+      
+Als u deze instelling inschakelt, kan het toetsenbordfilter worden toegepast op gebruikers die via externe sessies verbinding met de computer maken.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

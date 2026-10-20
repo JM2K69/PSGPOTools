@@ -119,6 +119,51 @@
         如果您未設定或停用這個設定，同步 [開始配置] 群組預設會開啟而且可由使用者加以設定。
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">請勿同步協助工具設定</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        防止「輔助功能」群組與這部計算機進行同步處理。這會關閉和停用電腦設定中 [Windows 備份] 設定頁面上的 [輔助功能] 群組。
+
+如果啟用此原則設定，將不會同步 [輔助功能] 群組。
+
+使用[允許使用者開啟輔助功能同步處理] 選項讓同步預設為關閉但不停用。
+
+如果您未設定或停用這個設定，同步 [輔助功能] 群組預設會開啟，而且使用者可以設定。
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">不要同步語言喜好設定</string>
+      <string id="DisableLanguageSettingSync_Help">
+        防止「語言喜好設定」群組與這部計算機進行同步處理。這會關閉和停用電腦設定中 [Windows 備份] 設定頁面上的 [語言喜好設定] 群組。
+
+如果啟用此原則設定，將不會同步 [語言喜好設定] 群組。
+
+使用[允許使用者開啟同步的語言喜好設定] 選項讓同步預設為關閉但不停用。
+
+如果您未設定或停用這個設定，同步 [語言喜好設定] 群組預設會開啟，而且使用者可以設定。
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">啟用 Windows 備份</string>
+      <string id="EnableWindowsBackup_Help">這個原則設定可讓系統管理員設定和管理其組織的 Windows 設定備份。
+
+如果您啟用這個原則設定，將會定期備份 Windows 設定。
+
+如果您停用這個原則設定，將不會執行 Windows 設定備份。
+
+若未設定此原則設定，將會根據資格定期備份 Windows 設定。
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">啟用 Windows 還原</string>
+      <string id="EnableWindowsRestore_Help">此原則設定允許管理員為其組織設定並管理 Windows 設定還原。
+
+如果您啟用此原則設定，Windows 設定還原將會啟用。
+
+如果您停用或未設定此原則設定，Windows 設定還原將會停用。
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">允許使用者開啟同步開始配置。</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">允許使用者開啟「協助工具」同步。</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">允許使用者開啟「語言喜好設定」同步處理。</checkBox>
       </presentation>
 
     </presentationTable>

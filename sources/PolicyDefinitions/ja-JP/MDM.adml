@@ -33,6 +33,11 @@
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">使用する資格情報の種類を選択してください:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>MDM アプリケーション ID：</label>
+        </textBox>
+        <text>MDM アプリケーション ID は、Azure AD で構成されている MDM アプリケーションの ID を表します。これはオプションであり、複数の MDM アプリケーションが Azure AD で構成されている場合に、デバイスの資格情報を使用して MDM の自動登録を行うためにのみ必要です。   </text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

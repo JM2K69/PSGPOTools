@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Network Connectivity Status Indicator Group Policy Settings</displayName>
   <description>Network Connectivity Status Indicator Group Policy Settings</description>
@@ -73,7 +73,7 @@
       </presentation>
       <presentation id="NCSI_PassivePolling">
         <text>The following checkbox disables the passive polling mechanism in NCSI.   This can improve CPU workload on servers or other machines whose network connectivity is static.</text>
-        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Disable passive polling</checkBox>  
+        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Disable passive polling</checkBox>
       </presentation>
       <presentation id="NCSI_GlobalDns">
         <text>The following checkbox disables interface binding when doing DNS lookups in NCSI.   This can enable NCSI to work better with special network configurations, like a DNS server running on localhost.</text>

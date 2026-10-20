@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Política de grupo ReFS</displayName>
+  <description>Configurações de política de grupo para ReFS</description>
+  <resources>
+    <stringTable>
+      <string id="ReFS">ReFS</string>
+      <string id="EnableDevDrive">Desabilitar unidade de desenvolvimento</string>
+      <string id="EnableDevDriveText">A unidade de desenvolvimento ou o volume do desenvolvedor é um volume otimizado para o desempenho de cenários de desenvolvedor. Um volume de desenvolvedor permite que um administrador escolha filtros do sistema de arquivos anexados ao volume.
+
+Desabilitar essa configuração não permitirá a criação de novos volumes de desenvolvedor. Os volumes de desenvolvedor existentes serão montados como volumes regulares.
+
+Se essa configuração não for definida, a política padrão será habilitar volumes de desenvolvedor, permitindo que o filtro antivírus seja anexado em um volume deveveloper.  Além disso, se não estiver configurado, um administrador local poderá optar por não ter o filtro antivírus anexado a um volume de desenvolvedor.
+
+Uma reinicialização é necessária para que esta configuração entre em vigor.</string>
+      <string id="ModeOff">Desativado</string>
+      <string id="ModeAudit">Somente auditoria</string>
+      <string id="ModeBlock">Bloquear</string>
+      <string id="BlockExternalBusMount">Controlar a montagem de volumes ReFS em discos USB e IEEE 1394</string>
+      <string id="BlockExternalBusMountText">Controla se os volumes ReFS têm permissão para montar em discos conectados por USB ou IEEE 1394. ReFS não é uma configuração com suporte em discos removíveis ou de conexão dinâmica.
+
+Block recusa a montagem e registra um evento no log do sistema.
+
+A auditoria permite apenas a montagem e registra o mesmo evento, portanto, o efeito de habilitar essa política pode ser avaliado antes de ser imposto.
+
+Desativado não executa auditoria nem bloqueio.
+
+Para um volume de Espaços de Armazenamento, a marcação se aplica aos discos físicos que dão suporte ao pool, não ao espaço em si.
+
+Se esta configuração de política não for definida, a configuração local neste computador será usada. Se não houver configuração local, o comportamento padrão para esta versão do Windows será usado.
+
+O ReFS lê essa configuração quando é carregado, portanto, uma reinicialização é necessária antes que uma alteração seja aplicada. A configuração é então avaliada cada vez que um volume é montado, de modo que um volume que já está montado mantenha seu estado atual até que seja desmontado e montado novamente.</string>
+      <string id="BlockHotplugMount">Controlar a montagem de volumes ReFS em discos conectáveis</string>
+      <string id="BlockHotplugMountText">Controla se os volumes ReFS têm permissão para montar em discos que a pilha de armazenamento relata como hot-pluggable, independentemente do barramento pelo qual eles estão conectados. ReFS não é uma configuração com suporte em discos removíveis ou de conexão dinâmica.
+
+Block recusa a montagem e registra um evento no log do sistema.
+
+A auditoria permite apenas a montagem e registra o mesmo evento, portanto, o efeito de habilitar essa política pode ser avaliado antes de ser imposto.
+
+Desativado não executa auditoria nem bloqueio.
+
+Para um volume de Espaços de Armazenamento, a marcação se aplica aos discos físicos que dão suporte ao pool, não ao espaço em si.
+
+Se esta configuração de política não for definida, a configuração local neste computador será usada. Se não houver configuração local, o comportamento padrão para esta versão do Windows será usado.
+
+O ReFS lê essa configuração quando é carregado, portanto, uma reinicialização é necessária antes que uma alteração seja aplicada. A configuração é então avaliada cada vez que um volume é montado, de modo que um volume que já está montado mantenha seu estado atual até que seja desmontado e montado novamente.</string>
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="EnableDevDriveOptions">
+        <checkBox refId="DevDriveAllowAntivirusFilter" defaultChecked="true">Permitir que o filtro antivírus proteja as unidades de desenvolvimento</checkBox>
+      </presentation>
+      <presentation id="BlockExternalBusMountOptions">
+        <dropdownList refId="BlockExternalBusMountMode" defaultItem="0">Ação para volumes ReFS em discos USB ou IEEE 1394</dropdownList>
+      </presentation>
+      <presentation id="BlockHotplugMountOptions">
+        <dropdownList refId="BlockHotplugMountMode" defaultItem="0">Ação para volumes ReFS em discos de conexão quente</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

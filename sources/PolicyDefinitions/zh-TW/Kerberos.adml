@@ -34,7 +34,6 @@
 如果您啟用這個原則設定，Kerberos 用戶端會要求 KDC 的 X.509 憑證在擴充金鑰使用方法 (EKU) 延伸中必須包含 KDC 金鑰目的物件識別碼，而且 KDC 的 X.509 憑證必須包含符合網域 DNS 名稱的 dNSName subjectAltName (SAN) 延伸。如果電腦已加入網域，Kerberos 用戶端會要求 KDC 的 X.509 憑證必須由 NTAuth 存放區中的憑證授權單位 (CA) 簽署。如果電腦未加入網域，則 Kerberos 用戶端會允許在 KDC 之 X.509 憑證的路徑驗證中，使用智慧卡上的根 CA 憑證。
 
 如果停用或未設定個原則設定，則 Kerberos 用戶端只會要求 KDC 憑證在可發行給任何伺服器的 EKU 延伸中必須包含「伺服器驗證」目的物件識別碼。
-
 </string>
       <string id="StrictTarget">對遠端程序呼叫要求嚴格的目標 SPN 比對</string>
       <string id="StrictTarget_explain">  這個原則設定可讓您設定這部伺服器，使 Kerberos 可以將內含這個由系統產生之 SPN 的票證解密。當應用程式嘗試用 NULL 值做為服務主要名稱 (SPN) 來與這部伺服器建立遠端程序呼叫 (RPC) 時，執行 Windows 7 或更新版本的電腦會產生 SPN 以嘗試使用 Kerberos。
@@ -103,15 +102,13 @@
 
 注意: 這個原則設定會在 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters 中設定現有的 MaxTokenSize 登錄值，此值是在 Windows XP 和 Windows Server 2003 中所新增，其預設值為 12,000 位元組。從 Windows 8 開始預設值為 48,000 位元組。由於 HTTP 的 base64 編碼驗證內容權杖，不建議將此值設定為大於 48,000 位元組。
 
-
-
 </string>
       <string id="EnableCbacAndArmor">Kerberos 用戶端支援宣告、複合驗證以及 Kerberos 保護</string>
       <string id="EnableCbacAndArmor_explain">這個原則設定可控制裝置是否會在支援這些功能的網域中，使用 Kerberos 驗證要求動態存取控制和 Kerberos 保護功能的宣告和複合驗證。
 如果您啟用這個原則設定，用戶端電腦將要求宣告，在支援宣告、動態存取控制的複合驗證以及 Kerberos 保護的網域中，提供建立複合驗證和保護 Kerberos 訊息所需的資訊。
 
 如果您停用或未設定這個原則設定，用戶端裝置不會要求宣告、提供建立複合驗證和保護 Kerberos 訊息所需的資訊。裝置上裝載的服務將無法使用 Kerberos 通訊協定轉換，擷取用戶端的宣告。 
-  
+
 </string>
       <string id="AlwaysSendCompoundId">一律先傳送複合驗證</string>
       <string id="AlwaysSendCompoundId_explain">這個原則設定控制當資源網域要求複合身分識別時，裝置一律傳送複合驗證要求。
@@ -124,7 +121,7 @@
 
 </string>
       <string id="DevicePKInitEnabled">支援使用憑證進行裝置驗證</string>
-      <string id="DevicePKInitEnabled_explain">若要支援使用憑證進行裝置驗證，裝置帳戶網域需要支援使用憑證進行電腦帳戶驗證，並需要可連線至網域控制站 (DC) 的能力。
+      <string id="DevicePKInitEnabled_explain">若要支援使用憑證進行裝置驗證，裝置帳戶網域需要支援使用憑證進行電腦帳戶驗證，並需要可連線至網域控制站的能力。
 
 此原則設定可讓您設定對 Kerberos 的支援，以嘗試使用憑證向網域驗證裝置。
 
@@ -136,9 +133,54 @@
 
 若停用此原則設定，將一律不會使用憑證。
 若未設定此原則設定，將會使用「自動」。
+
+請遵循此指南以設定企業 PKI: https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">自動</string>
       <string id="DevicePKInitBehavior_Force">強制</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">允許在登入期間擷取 Azure AD Kerberos 票證授權票證</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">這個原則設定允許在登入期間擷取Azure AD Kerberos 票證授權票證。
+
+如果您停用或未設定這個原則設定，則不會在登入期間擷取Azure AD Kerberos 票證授權票證。
+
+如果您啟用這個原則設定，將會在登入期間擷取Azure AD Kerberos 票證授權票證。</string>
+      <string id="PKInitHashAlgorithmConfiguration">設定憑證登入的雜湊演算法</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">此原則設定可控制 Kerberos 用戶端在執行憑證驗證時所使用的雜湊或總和檢查碼演算法。
+
+如果您啟用這個原則，即可為每個演算法設定為四種狀態中的其中之一:
+
+[預設] 會將演算法設定為建議的狀態。
+
+[支援] 會啟用演算法的使用。啟用預設已停用的演算法可能會降低您的安全性。
+
+[已稽核] 會啟用演算法的使用，並在每次使用演算法時報告事件 (識別碼 206)。這個狀態是為了確保演算法並未使用，而且得以安全地停用。
+
+[不支援] 會停用演算法的使用。此狀態適用於視為不安全的演算法。
+
+如果停用或未設定此原則，則每個演算法都會假設為 [預設] 狀態。
+如需有關 Windows Kerberos 用戶端所支援之雜湊和總和檢查碼演算法及其預設狀態的詳細資訊，請參閱 https://go.microsoft.com/fwlink/?linkid=2169037。
+
+此設定所產生的事件: 205, 206, 207, 208。
+</string>
+      <string id="PKInitHashAlgorithm_Default">預設</string>
+      <string id="PKInitHashAlgorithm_Supported">支援</string>
+      <string id="PKInitHashAlgorithm_Audited">已稽核</string>
+      <string id="PKInitHashAlgorithm_NotSupported">不支援</string>
+      
+      <string id="DelegatedMSAEnabled">啟用委派的受管理服務帳戶登入</string>
+      <string id="DelegatedMSAEnabled_explain">此原則設定可啟用或停用此電腦的委派受管理服務帳戶登入。
+
+如果您啟用這個原則設定，Kerberos 用戶端將支援委派的受管理服務帳戶登入。請注意，此原則有某些先決條件。您可以在 https://go.microsoft.com/fwlink/?linkid=2250379. 找到建立新委派受管理服務帳戶的必要條件和方向
+
+如果停用或未設定此原則設定，則不支援委派的受管理服務帳戶登入。 
+</string>
+      <string id="EnableTryIPSPN">在 Kerberos 驗證過程中允許基於 IP 位址的 SPN</string>
+      <string id="EnableTryIPSPN_explain">這個原則設定可讓您設定 Kerberos 使用 IP 位址型服務主體名稱 (SPN)。
+
+如果您啟用這個原則設定，Kerberos 用戶端在連線到服務時會嘗試使用 IP 位址型 SPN。
+
+如果您停用或未設定這個原則設定，Kerberos 將不會嘗試使用 IP 位址型 SPN。
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -181,6 +223,16 @@
         <text>其他範例:</text>
         <text>值名稱: REALM.FABRIKAM.COM</text>
         <text>值: &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">領域:</multiTextBox>
+        <text>語法:</text>
+        <text>輸入 DMSA 可能存在的領域清單。</text>
+        <text>請輸入完整功能變數名稱 (FQDN) 和簡短名稱。</text>
+        <text>每行輸入一個領域。</text>
+        <text>詳細資料:</text>
+        <text>Kerberos 用戶端會嘗試為列出的領域尋找支援 DMSA 的網域控制站。</text>
+        <text>如果沒有指定領域，Kerberos 用戶端會嘗試為所有領域尋找支援 DMSA 的網域控制站。</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">模式:</dropdownList>
@@ -225,7 +277,7 @@
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">支援用戶端裝置資訊的授權:</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">支援用戶端裝置資訊的授權:</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">大小上限</decimalTextBox>
@@ -233,7 +285,13 @@
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">使用憑證的裝置驗證行為:</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">使用憑證的裝置驗證行為:</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

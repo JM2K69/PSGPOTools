@@ -80,20 +80,37 @@ Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, bruger hæ
       <string id="Channel_LogMaxSize">Angiv den maksimale størrelse på logfilen (KB)</string>
       <string id="Channel_LogMaxSize_Help">Denne politikindstilling angiver den maksimale størrelse på logfilen i kilobyte.
 
-Hvis du aktiverer denne politikindstilling, kan du konfigurere den maksimale størrelse på logfilen til at være mellem 1 megabyte (1024 kilobyte) og 2 terabyte (2.147.483.647 kilobyte) i trin på kilobyte.
-
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, angives maksimumstørrelsen på logfilen til den lokalt konfigurerede værdi. Værdien kan ændres af den lokale administrator i dialogboksen Logegenskaber, og standarden er 1 megabyte.</string>
-      <string id="Channel_LogMaxSizeSecurity_Help">Denne politikindstilling angiver den maksimale størrelse på logfilen i kilobyte.
-
-Hvis du aktiverer denne politikindstilling, kan du konfigurere den maksimale størrelse på logfilen til at være mellem 20 megabyte (20480 kilobyte) og 2 terabyte (2.147.483.647 kilobyte) i trin på kilobyte.
+Hvis du aktiverer denne politikindstilling, kan du konfigurere den maksimale størrelse på logfilen til at være mellem 1 MB (1024 kilobyte) og 2 terabyte (2147483647 kilobytes) i trin på kilobyte.
 
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, angives maksimumstørrelsen på logfilen til den lokalt konfigurerede værdi. Værdien kan ændres af den lokale administrator i dialogboksen Logegenskaber, og standarden er 20 megabyte.</string>
+      <string id="Channel_LogMaxSizeSecurity_Help">Denne politikindstilling angiver den maksimale størrelse på logfilen i kilobyte.
+
+Hvis du aktiverer denne politikindstilling, kan du konfigurere den maksimale størrelse på logfilen til at være mellem 20 megabyte (20480 kilobyte) og 2 terabyte (2147483647 kilobyte) i trin på kilobyte.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, angives maksimumstørrelsen på logfilen til den lokalt konfigurerede værdi. Værdien kan ændres af den lokale administrator i dialogboksen Logegenskaber, og standarden er 40 MB.</string>
       <string id="ChannelName_Help">Konfigurationsindstillinger til logfil</string>
       <string id="EventLog_Application">Program</string>
       <string id="EventLog_Security">Sikkerhed</string>
       <string id="EventLog_Setup">Installation</string>
       <string id="EventLog_System">System</string>
       <string id="EventLogCategory">Hændelseslogtjeneste</string>
+      <string id="Service_RpcAccess_Remote">Begræns fjernadgang til tjenesten Hændelseslog</string>
+      <string id="Service_RpcAccess_Remote_Help">Denne politikindstilling styrer, hvilke fjernbrugere der har tilladelse til at oprette forbindelse til tjenesten Hændelseslog på denne maskine.
+
+Hvis du aktiverer denne politik, kan du begrænse, hvilken gruppe fjernbrugere skal være medlemmer af, for at de kan oprette forbindelse til tjenesten Hændelseslog på denne maskine. Du kan kræve, at fjernbrugere er medlemmer af en af følgende indbyggede grupper:
+
+• Godkendte brugere
+• Hændelseslog-læsere
+• Administratorer
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, vil standardværdien være Godkendte brugere.
+
+I tidligere versioner af Windows understøttes kun Godkendte brugere. For at sikre bagudkompatibilitet vil lokale forbindelser til tjenesten altid være tilladt fra Godkendte brugere.
+
+Denne indstilling styrer ikke adgangen til individuelle logfiler. Når en fjernforbindelse er tilladt, skal den stadig have adgang til de specifikke ressourcer, den forsøger at bruge.</string>
+      <string id="Service_RpcAccess_Remote_AU">Godkendte brugere</string>
+      <string id="Service_RpcAccess_Remote_ER">Læsere af Hændelseslog</string>
+      <string id="Service_RpcAccess_Remote_AD">Administratorer</string>
     </stringTable>
     <presentationTable>
       <presentation id="Channel_Log_FileLogAccess_1">
@@ -157,16 +174,19 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, angi
         </textBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_1">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maksimal størrelse for logfil (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maksimal størrelse for logfil (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_2">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maksimal størrelse for logfil (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="40960">Maksimal størrelse for logfil (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_3">
         <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maksimal størrelse for logfil (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_4">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Maksimal størrelse for logfil (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Maksimal størrelse for logfil (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="Service_RpcAccess_Remote">
+        <dropdownList refId="RpcAccess_Remote_Setting" noSort="true" defaultItem="0">Vælg en af følgende indstillinger:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -5,6 +5,8 @@
   <description>indtast beskrivelsen her</description>
   <resources>
     <stringTable>
+      <string id="TS_AUTOSUBSCRIPTION_NAME">Aktivér automatisk oprettelse af abonnement</string>
+      <string id="TS_AUTOSUBSCRIPTION_EXPLAIN">Administrerer listen over URL-adresser, som brugeren automatisk skal abonnere på</string>
       <string id="TS_SUPPORTED_Windows10">Mindst Windows 10 eller Windows Server 2016</string>
       <string id="TS_SUPPORTED_Windows8_or_ARM">Mindst Windows 8 eller Windows RT</string>
       <string id="TS_SUPPORTED_Windows8_Server">Mindst Windows Server 2012</string>
@@ -26,6 +28,7 @@
       <string id="TS_SUPPORTED_WindowsXP_Win2K3_only">Mindst Windows XP og kun Windows Server 2003</string>
       <string id="TS_SUPPORTED_WindowsServer2008OrWin7">Mindst Windows Server 2008 eller Windows 7</string>
       <string id="TS_SUPPORTED_WindowsServer2008R2_Only">  Kun Windows Server 2008 R2</string>
+      <string id="TS_SUPPORTED_1903_TO_2004">Windows 10 version 1903, Windows 10 version 1909 og Windows 10 version 2004</string>
       <string id="TS_TERMINAL_SERVER">Vært for fjernskrivebordssession</string>
       <string id="TS_TERMINAL_SERVER_Help">Kontrollerer konfigurationen af en værtsserver for en fjernskrivebordssession</string>
       <string id="TS_LICENSE_SERVER">RD-licensering</string>
@@ -128,22 +131,22 @@ Hvis du deaktiverer eller ikke konfigurerer denne indstilling, kan brugeren gemm
 Hvis du aktiverer denne indstilling, deaktiveres afkrydsningsfeltet for lagring af legitimationsoplysninger i Forbindelse til Fjernskrivebord, og brugere kan ikke længere gemme adgangskoder. Når en bruger åbner en RDP-fil ved hjælp af Forbindelse til Fjernskrivebord og gemmer indstillingerne, slettes eventuelle adgangskoder, der tidligere har været gemt i RDP-filen.
 
 Hvis du deaktiverer eller ikke konfigurerer denne indstilling, kan brugeren gemme adgangskoder ved hjælp af Forbindelse til Fjernskrivebord.</string>
-      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">Denne politikindstilling angiver, om tilknytningen af klientdrev i en session med Fjernskrivebord-tjenester (omdirigering af drev).
+      <string id="TS_CLIENT_DRIVE_EXPLAIN_M">Denne politikindstilling angiver, om tilknytning af klientdrev i en Fjernskrivebord-tjenester session (drevomdirigering).
 
-Som standard tilknytter værtsserveren for fjernskrivebordssessionen automatisk klientdrev, når der er oprettet forbindelse. Tilknyttede drev vises i sessionens mappetræ i Stifinder eller i Computer i formatet &lt;drevbogstav&gt; på &lt;computernavn&gt;. Du kan bruge denne politikindstilling til at tilsidesætte denne funktionsmåde.
+En værtsserver for fjernskrivebordssessioner tilknytter som standard automatisk klientdrev, når der oprettes forbindelse. Tilknyttede drev vises i sessionsmappetræet i Stifinder eller Computer i det format, &lt;driveletter&gt; på &lt;computername&gt;. Du kan bruge denne politikindstilling til at tilsidesætte denne funktionsmåde.
 
-Hvis du aktiverer denne politikindstilling, er omdirigering af klientdrev ikke tilladt i sessioner med Fjernskrivebord-tjenester, og omdirigering af Udklipsholder-filkopier er ikke tilladt på computere, der kører Windows Server 2003, Windows 8 og Windows XP.
+Hvis du aktiverer denne politikindstilling, er omdirigering af klientdrev ikke tilladt i Fjernskrivebord-tjenester sessioner, og omdirigering af Udklipsholder-filkopier er ikke tilladt på computere, der kører Windows XP, Windows Server 2003, Windows Server 2012 (og nyere) eller Windows 8 (og nyere).
 
 Hvis du deaktiverer denne politikindstilling, er omdirigering af klientdrev altid tilladt. Desuden er omdirigering af Udklipsholder-filkopier altid tilladt, hvis omdirigering af Udklipsholder er tilladt.
 
-Hvis du ikke konfigurerer denne politikindstilling, er omdirigering af klientdrev og omdirigering af Udklipsholder-filkopier ikke angivet på gruppepolitikniveau.
-
+Hvis du undlader at konfigurere denne politikindstilling, er omdirigering af klientdrev og omdirigering af Udklipsholder-filkopier ikke angivet på Gruppepolitik niveau.
 </string>
       <string id="TS_CLIENT_DRIVE_M">Tillad ikke omdirigering af drev</string>
       <string id="TS_CLIENT_HELP">Kontrollerer klientindstillingerne til Forbindelse til fjernskrivebord</string>
       <string id="TS_CLIENT_LPT">Tillad ikke omdirigering af LPT-port</string>
       <string id="TS_CLIENT_PNP">Tillad ikke understøttet omdirigering af Plug and Play-enhed</string>
       <string id="TS_CAMERA_REDIRECTION">Tillad ikke omdirigering af videooptagelse</string>
+      <string id="TS_LOCATION_REDIRECTION">Tillad ikke omdirigering af placering</string>
       <string id="TS_CLIENT_PRINTER">Tillad ikke omdirigering af klientprinter</string>
       <string id="TS_CLIPBOARDMAP_EXPLAIN">Denne politikindstilling angiver, om deling af indholdet i Udklipsholder (omdirigering af Udklipsholder) mellem en fjerncomputer og en klientcomputer skal forhindres under en session med Fjernskrivebord-tjenester.
 
@@ -209,6 +212,15 @@ Hvis du aktiverer denne politikindstilling, kan brugere ikke omdirigere deres en
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan brugere omdirigere deres enheder til videooptagelse til fjerncomputeren. Brugere kan bruge indstillingen Mere under fanen Lokale ressourcer i Forbindelse til Fjernskrivebord for at vælge, hvilke enheder til videooptagelse, der skal omdirigeres til den eksterne computer.
 
 </string>
+      <string id="TS_LOCATION_REDIRECTION_EXPLAIN">Denne politikindstilling gør det muligt at styre omdirigering af placeringsdata til fjerncomputeren i en session med Fjernskrivebord-tjenester.
+
+Fjernskrivebord-tjenester tillader som standard omdirigering af placeringsdata.
+
+Hvis du aktiverer denne politikindstilling, kan brugere ikke omdirigere deres placeringsdata til fjerncomputeren.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan brugerne omdirigere deres placeringsdata til fjerncomputeren.
+          
+</string>
       <string id="TS_MAXMONITOR_EXPLAIN">Med denne politikindstilling kan du begrænse antallet af skærme, som en bruger kan bruge til at vise en session med Fjernskrivebord-tjenester. Ved at begrænse antallet af skærme, som viser en session med Fjernskrivebord-tjenester, kan du forbedre forbindelsen, særligt for langsomme forbindelser, og reducere serverbelastningen.
 
 Hvis du aktiverer denne politikindstilling, kan du angive antallet af skærme, som kan bruges til at vise en session med Fjernskrivebord-tjenester. Du kan angive et tal fra 1 til 10.
@@ -229,7 +241,6 @@ Hvis du ikke konfigurerer denne politikindstilling, benytter Fjernskrivebord-tje
 Bemærk! Du kan begrænse, hvilke klienter der kan oprette fjernforbindelse ved hjælp af Fjernskrivebord-tjenester, ved at konfigurere politikindstillingen i Computerkonfiguration\Administrative skabeloner\Windows-komponenter\Fjernskrivebord-tjenester\Vært for fjernskrivebordssession\Sikkerhed\Kræv brugergodkendelse til fjernforbindelser ved hjælp af Godkendelse på netværksniveau (NLA). 
 
 Du kan begrænse antallet af brugere, der på samme tid kan oprette forbindelse, ved at konfigurere politikindstillingen under Computerkonfiguration\Administrative skabeloner\Windows-komponenter\Fjernskrivebord-tjenester\Forbindelser\Begræns antallet af forbindelser, eller ved at konfigurere politikindstillingen Maksimalt antal forbindelser ved hjælp af WMI-provideren for værten for Fjernskrivebord-tjenesten.
-
 </string>
       <string id="TS_MAXDISPLAYRES">Begræns den maksimale skærmopløsning</string>
       <string id="TS_MAXDISPLAYRES_EXPLAIN">Med denne politikindstilling kan du angive den maksimale skærmopløsning, der kan bruges af hver skærm, som bruges til at vise en session med Fjernskrivebord-tjenester. Ved at begrænse den opløsning, der bruges til at vise en fjernsession, kan du forbedre forbindelsen, særligt for langsomme forbindelser, og reducere serverbelastningen.
@@ -403,12 +414,11 @@ Bemærk! Du bør kun aktivere denne politikindstilling, hvis licensserveren er m
 
 Hvis du aktiverer denne politikindstilling forsøger en værtsserver for fjernskrivebordssessioner først at finde de angivne licensservere. Denne politikindstilling giver brugeren mulighed for at aktivere SmartScreen-filteret, der viser en advarsel, hvis det besøgte websted er kendt for svindelnumre, der skal lokke personlige oplysninger ud af folk vha. phishing eller vides at være vært for malware. I den automatiske proces for søgning efter licensservere vil en værtsserver for fjernskrivebordssessioner i et Windows Server-baseret domæne forsøge at kontakte en licensserver i følgende rækkefølge:
 
-    1. Fjernskrivebord-licensservere, der publiceres i Active Directory-domænetjenester.
+    1. Fjernskrivebord-licensservere, der publiceres i Active Directory-domæneservices.
 
     2. Fjernskrivebord-licensservere, der er installeret på domænecontrollere i samme domæne som værtsserveren for fjernskrivebordssessioner.
 
 Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, angiver værtsserveren for fjernskrivebordssessioner ikke en licensserver på gruppepolitikniveau.
-
 </string>
       <string id="TS_LICENSE_TOOLTIP">Skjul meddelelser om problemer med RD-licensering, som påvirker værtsserveren for fjernskrivebordssessioner</string>
       <string id="TS_LICENSE_TOOLTIP_EXPLAIN">Denne politikindstilling bestemmer, om der vises meddelelser på værtsserveren for fjernskrivebordssessioner, når der er problemer med RD-licenstildeling, som påvirker værtsserveren.
@@ -422,17 +432,17 @@ Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, vises medd
       <string id="TS_LICENSING_MODE_EXPLAIN">
         Denne politikindstilling giver dig mulighed for at angive, hvilken type klientadgangslicens til Fjernskrivebord-tjenester (RDS CAL), der skal bruges for at oprette forbindelse til denne RD-sessions værtsserver.
 
-        Du kan bruge denne politikindstilling til at vælge en af tre licenstilstande: pr. bruger, pr. enhed og AAD pr. bruger.
+        Du kan bruge denne politikindstilling til at vælge en af to licenstilstande: pr. bruger eller pr. enhed.
 
         Licenstilstand pr. bruger kræver, at alle brugere, der opretter forbindelse til denne RD-sessions værtsserver, skal have en RDS CAL pr. bruger tildelt fra en RD-licensserver.
 
         Licenstilstand pr. enhed kræver, at alle enheder, der opretter forbindelse til denne RD-sessions værtsserver, skal have en RDS CAL pr. enhed tildelt fra en RD-licensserver.
 
-        AAD-licenstilstand pr. bruger kræver, at alle brugere, der opretter forbindelse til denne RD-sessions værtsserver, skal have en serviceplan, som understøtter RDS-licenser tildelt i AAD.
-        
         Hvis du aktiverer denne politikindstilling, overholder Fjernskrivebord-licensserveren RD-sessionens vært den Fjernskrivebord-licenstilstand, du angiver.
 
         Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, er licenstilstanden ikke angivet på gruppepolitikniveau.
+
+        Bemærk: AAD pr. brugertilstand er udfaset på Windows 11 og over.
       </string>
       <string id="TS_LICENSING_MODE_PER_DEVICE">Pr. enhed</string>
       <string id="TS_LICENSING_MODE_PER_USER">Pr. bruger</string>
@@ -469,7 +479,7 @@ Hvis du aktiverer denne politikindstilling, vises "Afbryd forbindelsen" ikke som
 
 Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, fjernes "Afbryd forbindelsen" ikke fra rullelisten i dialogboksen Luk Windows.
 
-Bemærk! Denne politikindstilling påvirker kun dialogboksen Luk Windows. Den forhindrer ikke brugere i at bruge andre metoder til at afbryde forbindelsen til en session med Fjernskrivebord-tjenester. Denne politikindstilling forhindrer heller ikke afbrudte sessioner på serveren. Du kan styre, hvor længe en afbrudt session skal forblive aktiv på serveren, ved at konfigurere politikindstillingen "Computerkonfiguration\Administrative skabeloner\Windows-komponenter\Fjernskrivebord-tjenester\RD Session Host\Session Time Limits\Angiv tidsgrænsen for afbrudte sessioner.</string>
+Bemærk! Denne politikindstilling påvirker kun dialogboksen Luk Windows. Den forhindrer ikke brugere i at bruge andre metoder til at afbryde forbindelsen til en session med Fjernskrivebord-tjenester. Denne politikindstilling forhindrer heller ikke afbrudte sessioner på serveren. Du kan styre, hvor længe en afbrudt session skal forblive aktiv på serveren, ved at konfigurere politikindstillingen "Computerkonfiguration\Administrative skabeloner\Windows-komponenter\Fjernskrivebord-tjenester\RD Session Host\Session Time Limits\Angiv tidsgrænsen for afbrudte sessioner".</string>
       <string id="TS_NoSecurityMenu">Fjern elementet Windows Sikkerhed fra menuen Start</string>
       <string id="TS_NoSecurityMenu_Help">Angiver, om elementet Windows Sikkerhed skal fjernes fra menuen Indstillinger på Fjernskrivebord-klienter. Du kan bruge denne indstilling for at forhindre uerfarne brugere i at logge af Fjernskrivebord-tjenester ved et uheld.
 
@@ -546,7 +556,7 @@ Hvis status er angivet til Ikke konfigureret, er usikker kommunikation tilladt.
 
 Bemærk! RPC-grænsefladen bruges til at administrere og konfigurere Fjernskrivebord-tjenester.</string>
       <string id="TS_SD_ClustName">Konfigurer farmnavn for forbindelsesmægler for fjernskrivebord</string>
-      <string id="TS_SD_ClustName_Explain">Denne politikindstilling giver dig mulighed for at angive navnet på en farm, der skal tilsluttes forbindelsesmægler for fjernskrivebord. Forbindelsesmægler for fjernskrivebord bruger farmens navn til at afgøre, hvilke værtsservere for fjernskrivebordssessionen der er i den samme RD-sessions værtsserverfarm. Du skal derfor bruge det samme farmnavn til alle værtsserverfarme for RD-sessioner i den samme farm med afbalancering af belastning. Navnet på farmen behøver ikke være det samme som et navn i Active Directory-domænetjenester.
+      <string id="TS_SD_ClustName_Explain">Denne politikindstilling giver dig mulighed for at angive navnet på en farm, der skal tilsluttes forbindelsesmægler for fjernskrivebord. Forbindelsesmægler for fjernskrivebord bruger farmens navn til at afgøre, hvilke værtsservere for fjernskrivebordssessionen der er i den samme RD-sessions værtsserverfarm. Du skal derfor bruge det samme farmnavn til alle værtsserverfarme for RD-sessioner i den samme farm med afbalancering af belastning. Navnet på farmen behøver ikke være det samme som et navn i Active Directory-domæneservices.
 
 Hvis du angiver et nyt farmnavn, oprettes der en ny farm i forbindelsesmægleren for fjernskrivebord. Hvis du angiver navnet på en eksisterende farm, tilsluttes serveren den pågældende farm i forbindelsesmægleren for fjernskrivebord.
 
@@ -559,7 +569,6 @@ Bemærk!
      1. Denne politikindstilling har ikke effekt, medmindre både politikindstillingen Tilslut forbindelsesmægler for fjernskrivebord og politikindstillingen Konfigurer servernavn for forbindelsesmægler for fjernskrivebord er aktiveret og konfigureret ved hjælp af gruppepolitik.
 
      2. I Windows Server 2008 understøttes denne politikindstilling på mindst Windows Server 2008 Standard.
-
 </string>
       <string id="TS_SD_EXPOSE_ADDRESS">Brug omdirigering af IP-adresse</string>
       <string id="TS_SD_EXPOSE_ADDRESS_Explain">Denne politikindstilling giver dig mulighed for at angive den omdirigeringsmetode, der skal bruges, når en klientenhed genopretter forbindelse til en eksisterende session med Fjernskrivebord-tjenester i en fjernskrivebordssessions værtsserverfarm med afbalancering af belastning. Denne indstilling gælder for en værtsserver for en fjernskrivebordssession, der er konfigureret til at bruge forbindelsesmægler for fjernskrivebord og ikke serveren for forbindelsesmægler for fjernskrivebord.
@@ -609,6 +618,17 @@ Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, gennemtvin
       <string id="TS_SECURITY_LAYER_POLICY">Kræver, at der bruges et bestemt sikkerhedslag til RDP-fjernforbindelser</string>
       <string id="TS_SECURITY_LAYER_RDP">RDP</string>
       <string id="TS_SECURITY_LAYER_SSL">SSL</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_POLICY">Aktivér håndhævelse af Microsoft Entra ID-godkendelse</string>
+      <string id="TS_MICROSOFT_ENTRA_ID_AUTHENTICATION_ENFORCEMENT_EXPLAIN">Denne politikindstilling giver dig mulighed for at angive, om der skal kræves håndhævelse på serversiden af Microsoft Entra ID-godkendelse.
+
+Hvis du aktiverer denne politikindstilling, skal alle klienter til Fjernskrivebordstjenester bruge RDS AAD-godkendelse for at kunne godkendes på Vært for Fjernskrivebordssession-servere. 
+
+Denne politik tillader ikke fallback til andre godkendelsesmetoder. 
+
+Network Level Authentication (NLA) skal være aktiveret for, at denne politik kan træde i kraft. Se politikken Kræv brugergodkendelse til fjernforbindelser ved hjælp af Godkendelse på netværksniveau (NLA).
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, håndhæves Microsoft Entra ID-godkendelse ikke.
+</string>
       <string id="TS_Session_End_On_Limit">Afslut sessionen, når tidsgrænserne er nået</string>
       <string id="TS_SESSION_END_ON_LIMIT_EXPLAIN">Denne politikindstilling angiver, om du vil afbryde en session med Fjernskrivebord-tjenester med timeout i stedet for at afbryde forbindelsen til den.
 
@@ -787,6 +807,79 @@ Hvis du aktiverer denne politikindstilling, vises skrivebordet altid, når en kl
 Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, kan der angives et startprogram, som køres på fjerncomputeren, når klienten har oprettet forbindelse til fjerncomputeren. Hvis der ikke er angivet et startprogram, vises skrivebordet altid på fjerncomputeren, når klienten har oprettet forbindelse til fjerncomputeren.
 
 Bemærk! Hvis denne politikindstilling er aktiveret, ignoreres politikindstillingen "Start et program, når der oprettes forbindelse".</string>
+      <string id="TS_UIA">Tillad omdirigering af brugergrænseflade automatisering</string>
+      <string id="TS_UIA_EXPLAIN">Denne politikindstilling bestemmer, om de programmer til automatiserings af brugergrænsefladen, som kører på den lokale computer, kan få adgang til brugergrænsefladeelementer på serveren.
+
+Brugergrænsefladeautomatisering giver programmer adgang til de fleste brugergrænsefladeelementer, som gør det muligt at bruge teknologiske hjælpemidler som f. eks. forstørrelsesglas og Oplæser, der skal interagere med BRUGERGRÆNSEFLADEN for at fungere korrekt. BRUGERGRÆNSEFLADE oplysninger giver også mulighed for automatisk test af scripts til at interagere med BRUGERGRÆNSEFLADEN.
+
+Fjernskrivebordssessioner understøtter i øjeblikket ikke omdirigering af Brugergrænsefladeautomatisering.
+
+Hvis du aktiverer eller undlader at konfigurere denne politikindstilling, kan alle brugergrænseflade automatiseringsklienter på din lokale computer interagere med eksterne apps. Du kan f. eks. bruge den lokale computers Oplæser-og forstørrelses klient til at interagere med brugergrænseflade på en webside, du har åbnet i en fjernsession.
+
+Hvis du deaktiverer denne politikindstilling, kan de brugergrænseflade automatiseringsklienter, der kører på den lokale computer, ikke interagere med eksterne apps.
+</string>
+      <string id="TS_WEBAUTHN">Tillad ikke omdirigering af WebAuthn</string>
+      <string id="TS_WEBAUTHN_EXPLAIN">Med denne politikindstilling kan du styre omdirigeringen af webgodkendelsesanmodninger (WebAuthn) fra en Fjernskrivebord-session til den lokale enhed. Denne omdirigering gør det muligt for brugere at godkende ressourcer i Fjernskrivebord-sessionen ved hjælp af deres lokale godkender (f.eks. Windows Hello til virksomheder, sikkerhedsnøgle eller andet).
+
+Som standard tillader Fjernskrivebord omdirigering af WebAuthn-anmodninger.
+
+Hvis du aktiverer denne politikindstilling, kan brugerne ikke bruge deres lokale godkender i Fjernskrivebord-sessionen.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan brugerne bruge lokale godkendere i Fjernskrivebord-sessionen.
+</string>
+      <string id="TS_SC_CLIPBOARD_DISABLED">Deaktiver udklipsholderoverførsler fra server til klient</string>
+      <string id="TS_CS_CLIPBOARD_DISABLED">Deaktiver udklipsholderoverførsler fra klient til server</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT">Tillad almindelig tekst</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE">Tillad almindelig tekst og billeder</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF">Tillad almindelig tekst, billeder og RTF-format</string>
+      <string id="TS_CLIPBOARD_ALLOW_TEXT_IMAGE_RTF_HTML">Tillad almindelig tekst, billeder, RTF-format og HTML</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION">Begræns udklipsholderoverførsel fra server til klient</string>
+      <string id="TS_SC_CLIPBOARD_RESTRICTION_EXPLAIN">Med denne politikindstilling kan du begrænse dataoverførsler fra Udklipsholder fra server til klient.
+
+Hvis du aktiverer denne politikindstilling, skal du vælge mellem følgende funktionsmåder:
+
+- Deaktiver overførsler fra udklipsholder fra server til klient.
+
+- Tillad kopiering af almindelig tekst fra server til klient.
+
+- Tillad almindelig tekst og kopiering af billeder fra server til klient.
+
+- Tillad kopiering af almindelig tekst, billeder og RTF-format fra server til klient.
+
+- Tillad almindelig tekst, billeder, RTF-format og HTML-kopiering fra server til klient.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan brugerne kopiere vilkårligt indhold fra server til klient, hvis omdirigering af Udklipsholder er aktiveret.
+
+Bemærk! Denne politikindstilling vises i både Computerkonfiguration og Brugerkonfiguration. Hvis begge politikindstillinger er konfigureret, bruges den strengere begrænsning.
+</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION">Begræns udklipsholderoverførsel fra klient til server</string>
+      <string id="TS_CS_CLIPBOARD_RESTRICTION_EXPLAIN">Med denne politikindstilling kan du begrænse dataoverførsler fra Udklipsholder fra klient til server.
+
+Hvis du aktiverer denne politikindstilling, skal du vælge mellem følgende funktionsmåder:
+
+- Deaktiver overførsler fra udklipsholder fra klient til server.
+
+- Tillad kopiering af almindelig tekst fra klient til server.
+
+- Tillad almindelig tekst og kopiering af billeder fra klient til server.
+
+- Tillad kopiering af almindelig tekst, billeder og RTF-format fra klient til server.
+
+- Tillad almindelig tekst, billeder, RTF-format og HTML-kopiering fra klient til server.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan brugerne kopiere vilkårligt indhold fra klient til server, hvis omdirigering af Udklipsholder er aktiveret.
+
+Bemærk! Denne politikindstilling vises i både Computerkonfiguration og Brugerkonfiguration. Hvis begge politikindstillinger er konfigureret, bruges den strengere begrænsning.
+</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION">Deaktiver integration af Udklipsholder i skyen for server til klient-dataoverførsel</string>
+      <string id="TS_CLIPRDR_CLOUD_CLIP_INTEGRATION_EXPLAIN">Med denne politikindstilling kan du styre, om data, der overføres fra fjernsessionen til klienten ved hjælp af omdirigering af Udklipsholder, føjes til Cloud Clipboard på klientsiden.
+
+Som standard deaktiverer Fjernskrivebord integration med Cloud Clipboard på klientsiden for data, der er overført fra fjernsessionen ved hjælp af omdirigering af Udklipsholder.
+
+Hvis du aktiverer eller undlader at konfigurere denne politikindstilling, føjes data, der er kopieret i fjernsessionen og indsat på klienten, ikke til Cloud Clipboard på klientsiden.
+
+Hvis du deaktiverer denne politikindstilling, føjes data, der er kopieret i fjernsessionen og indsat på klienten, til Cloud Clipboard på klientsiden (hvis aktiveret).
+</string>
       <string id="TS_USER_AUTHENTICATION_EXPLAIN">Denne politikindstilling giver dig mulighed for at angive, om der skal kræves brugergodkendelse til fjernforbindelser til fjernskrivebordssessionens værtsserver ved hjælp af Godkendelse på netværksniveau (NLA). Denne politikindstilling forbedrer sikkerheden ved at kræve, at brugergodkendelse skal ske tidligere i processen til oprettelse af fjernforbindelse.
 
 Hvis du aktiverer denne politikindstilling, er det kun klientcomputere, der understøtter Godkendelse på netværksniveau (NLA), som kan oprette forbindelse til fjernskrivebordssessionens værtsserver.
@@ -801,6 +894,24 @@ Vigtigt! Hvis du deaktiverer denne politikindstilling, reduceres sikkerheden, fo
 
 </string>
       <string id="TS_USER_AUTHENTICATION_POLICY">Kræv brugergodkendelse til fjernforbindelser ved hjælp af Godkendelse på netværksniveau (NLA)</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY"> Afbryd fjernsession ved lås for ældre godkendelse</string>
+      <string id="TS_DISCONNECT_ON_LOCK_POLICY_EXPLAIN">Med denne politikindstilling kan du konfigurere brugeroplevelsen, når Fjernskrivebordssessionen er låst af brugeren eller af en politik. Du kan angive, om fjernsessionen skal vise fjernlåseskærmen eller afbryde forbindelsen, når fjernsessionen er låst. Hvis fjernsessionen afbrydes, sikrer du, at en fjernsession ikke kan efterlades på låseskærmen, og at forbindelsen ikke automatisk kan genoprettes ved tab af netværksforbindelse.
+
+Denne politik gælder kun, når du bruger ældre godkendelse til at godkende fjerncomputeren. Ældre godkendelse er begrænset til brugernavn og adgangskode eller certifikater som chipkort. Ældre godkendelse udnytter ikke Microsofts identitetsplatform, f.eks. Microsoft Entra ID. Ældre godkendelse omfatter NTLM-, CredSSP-, RDSTLS-, TLS- og RDP-basisgodkendelsesprotokollerne.
+
+Hvis du aktiverer denne politikindstilling, vil Fjernskrivebordsforbindelser, der bruger ældre godkendelse, afbryde fjernsessionen, når fjernsessionen er låst. Brugerne kan genoprette forbindelsen, når de er klar, og angive deres legitimationsoplysninger igen, når de bliver bedt om det.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vil Fjernskrivebordsforbindelser, der bruger ældre godkendelse, vise låseskærmen, når fjernsessionen er låst. Brugerne kan låse fjernsessionen op ved hjælp af deres brugernavn og adgangskode eller certifikater.
+</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY">Afbryd fjernsessionen ved lås for Microsoft-identitetsplatform-godkendelse</string>
+      <string id="TS_DISCONNECT_ON_LOCK_AAD_POLICY_EXPLAIN">Med denne politikindstilling kan du konfigurere brugeroplevelsen, når den Fjernskrivebord session er låst af brugeren eller af en politik. Du kan angive, om fjernsessionen skal vise fjernlåsskærmen eller afbryde forbindelsen, når fjernsessionen er låst. Hvis fjernsessionen afbrydes, sikres det, at en fjernsession ikke kan efterlades på låseskærmen, og at forbindelsen ikke automatisk kan genoprettes på grund af tab af netværksforbindelse.
+
+Denne politik gælder kun, når der bruges en identitetsudbyder, der bruger Microsoft-identitetsplatform, f.eks. Microsoft Entra ID, til godkendelse på fjerncomputeren. Denne politik gælder ikke, når du bruger ældre godkendelse, som omfatter basisgodkendelsesprotokollerne NTLM, CredSSP, RDSTLS, TLS og RDP.
+
+Hvis du aktiverer eller undlader at konfigurere denne politikindstilling, afbryder Fjernskrivebord forbindelser, der bruger Microsoft-identitetsplatform fjernsessionen, når fjernsessionen er låst. Brugerne kan genoprette forbindelsen, når de er klar, og de kan bruge godkendelse uden adgangskode, hvis de er konfigureret.
+
+Hvis du deaktiverer denne politikindstilling, viser Fjernskrivebord forbindelser, der bruger Microsoft-identitetsplatform fjernlåsskærmen, når fjernsessionen er låst. Brugerne kan låse fjernsessionen op ved hjælp af deres brugernavn og adgangskode eller certifikater.
+</string>
       <string id="TS_User_Help">Styrer konfigurationen af teknologier i Fjernskrivebord-tjenester, som muliggør adgang til en server, som kører Windows-baserede programmer eller hele Windows-skrivebordet</string>
       <string id="TS_USER_HOME">Angiv brugerens hjemmemappe for Fjernskrivebord-tjenester</string>
       <string id="TS_USER_HOME_EXPLAIN">Angiver, om Fjernskrivebord-tjenester bruger det angivne netværksshare eller den lokale mappesti som roden for brugerens hjemmemappe for en session med Fjernskrivebord-tjenester.
@@ -901,36 +1012,44 @@ Hvis du deaktiverer denne politikindstilling, kan brugerne ikke køre .rdp-filer
 Bemærk! Du kan definere denne politikindstilling i noden Computerkonfiguration eller noden Brugerkonfiguration. Hvis du konfigurerer denne politikindstilling for en computer, påvirker det alle brugere på computeren.
 
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Angiv SHA1-miniaturecertifikater, som repræsenterer .rdp-udgivere, der er tillid til</string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Denne politikindstilling giver dig mulighed for at angive en liste over SHA1-miniaturecertifikater (Secure Hash Algorithm 1), som repræsenterer udgivere af .rdp-filer (Remote Desktop Protocol), der er tillid til.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS">Angiv miniaturecertifikater, som repræsenterer .rdp-udgivere, der er tillid til</string>
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_MACHINE_EXPLAIN">Med denne politikindstilling kan du angive en liste over certifikatfingeraftryk, som repræsenterer betroede udgivere af Remote Desktop Protocol-filer (.rdp). SHA-256-, SHA-384- og SHA-512-fingeraftryk understøttes. SHA-1-fingeraftryk er udfaset: SHA-1 betragtes ikke længere som sikker, og understøttelse af SHA-1-fingeraftryk deaktiveres som standard i en kommende sikkerhedsopdatering. Administratorer skal overføre alle fingeraftryksposter til SHA-256 eller stærkere så hurtigt som muligt.
 
-Hvis du aktiverer denne politikindstilling, er der automatisk tillid til alle certifikater med et SHA1-miniaturecertifikat, der svarer til en miniatureudskrift på listen. Hvis en bruger forsøger at åbne en .rdp-fil, der er signeret med et certifikat, der er tillid til, modtager brugeren ikke en advarselsmeddelelse, når filen åbnes. Miniatureudskriften kan hentes ved at få vist detaljer for certifikatet og derefter klikke i feltet Miniatureudskrift.
+Fingeraftryk kan have et præfiks med hashalgoritmen, der blev brugt til at oprette dem. Understøttede præfikser er "sha256:", "sha384:" og "sha512:" (der skelnes ikke mellem store og små bogstaver). For eksempel: sha256:AB0356F2... Hvis der ikke er angivet et præfiks, behandles det angivne som et ældre SHA-1-fingeraftryk.
 
-Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, er der ikke automatisk tillid til nogen .rdp-udgivere.
+Hvis afkrydsningsfeltet "Tillad ikke SHA-1-aftryk" er aktiveret, ignoreres ikke-fastgjorte poster. Kun SHA-256-, SHA-384- og SHA-512-fingeraftryk matches. Det anbefales kraftigt at aktivere dette afkrydsningsfelt nu for at forberede den kommende standardændring.
+
+Hvis du aktiverer denne politikindstilling, betragtes ethvert certifikat med et fingeraftryk, der matcher et fingeraftryk på listen, som betroet. Hvis en bruger forsøger at åbne en .rdp-fil, der er signeret med et certifikat, der er tillid til, modtager brugeren ikke en advarselsmeddelelse, når filen åbnes.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, betragtes ingen udgiver som en betroet .rdp-udgiver.
 
 Noter:
 
-Du kan definere denne politikindstilling i noden Computerkonfiguration eller noden Brugerkonfiguration. Hvis du konfigurerer denne politikindstilling for en computer, er listen over miniaturecertifikater, brugeren har tillid til, en kombination af den liste, der er defineret for computeren, og den liste, der er defineret for brugeren.
+Du kan definere denne politikindstilling i noden Computerkonfiguration eller i noden Brugerkonfiguration. Hvis du konfigurerer denne politikindstilling for computeren, er listen over certifikatfingeraftryk, der er betroet for en bruger, en kombination af listen, der er defineret for computeren, og listen, der er defineret for brugeren.
 
-Denne politikindstilling tilsidesætter politikindstillingen Tillad .rdp-filer fra gyldige udgivere og brugerens standardindstillinger for .rdp.
+Denne politikindstilling tilsidesætter funktionsmåden for politikindstillingen "Tillad .rdp-filer fra gyldige udgivere og brugerens standardindstillinger for .rdp".
 
-Hvis listen indeholder en streng, der ikke er et miniaturecertifikat, ignoreres den.
+Hvis listen indeholder en streng, der ikke er et certifikatfingeraftryk, ignoreres den.
 
+Se https://go.microsoft.com/fwlink/?LinkId=2368223 for at få flere oplysninger.
 </string>
-      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Denne politikindstilling giver dig mulighed for at angive en liste over SHA1-miniaturecertifikater (Secure Hash Algorithm 1), som repræsenterer udgivere af .rdp-filer (Remote Desktop Protocol), der er tillid til.
+      <string id="TS_CLIENT_TRUSTED_CERTIFICATE_THUMBPRINTS_USER_EXPLAIN">Med denne politikindstilling kan du angive en liste over certifikatfingeraftryk, som repræsenterer betroede udgivere af Remote Desktop Protocol-filer (.rdp). SHA-256-, SHA-384- og SHA-512-fingeraftryk understøttes. SHA-1-fingeraftryk er udfaset: SHA-1 betragtes ikke længere som sikker, og understøttelse af SHA-1-fingeraftryk deaktiveres som standard i en kommende sikkerhedsopdatering. Brugere skal overføre alle fingeraftryksposter til SHA-256 eller stærkere så hurtigt som muligt.
 
-Hvis du aktiverer denne politikindstilling, er der automatisk tillid til alle certifikater med et SHA1-miniaturecertifikat, der svarer til en miniatureudskrift på listen. Hvis en bruger forsøger at åbne en .rdp-fil, der er signeret med et certifikat, der er tillid til, modtager brugeren ikke en advarselsmeddelelse, når filen åbnes. Miniatureudskriften kan hentes ved at få vist detaljer for certifikatet og derefter klikke i feltet Miniatureudskrift.
+Fingeraftryk kan have et præfiks med hashalgoritmen, der blev brugt til at oprette dem. Understøttede præfikser er "sha256:", "sha384:" og "sha512:" (der skelnes ikke mellem store og små bogstaver). For eksempel: sha256:AB0356F2... Hvis der ikke er angivet et præfiks, behandles det angivne som et ældre SHA-1-fingeraftryk.
 
-Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, er der ikke automatisk tillid til nogen .rdp-udgivere.
+Hvis du aktiverer denne politikindstilling, betragtes ethvert certifikat med et fingeraftryk, der matcher et fingeraftryk på listen, som betroet. Hvis en bruger forsøger at åbne en .rdp-fil, der er signeret med et certifikat, der er tillid til, modtager brugeren ikke en advarselsmeddelelse, når filen åbnes.
 
-Noter:
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, betragtes ingen udgiver som en betroet .rdp-udgiver.
 
-Du kan definere denne politikindstilling i noden Computerkonfiguration eller noden Brugerkonfiguration. Hvis du konfigurerer denne politikindstilling for en computer, er listen over miniaturecertifikater, brugeren har tillid til, en kombination af den liste, der er defineret for computeren, og den liste, der er defineret for brugeren.
+Note:
 
-Denne politikindstilling tilsidesætter politikindstillingen Tillad .rdp-filer fra gyldige udgivere og brugerens standardindstillinger for .rdp.
+Du kan definere denne politikindstilling i noden Computerkonfiguration eller i noden Brugerkonfiguration. Hvis du konfigurerer denne politikindstilling for computeren, er listen over certifikatfingeraftryk, der er betroet for en bruger, en kombination af listen, der er defineret for computeren, og listen, der er defineret for brugeren.
 
-Hvis listen indeholder en streng, der ikke er et miniaturecertifikat, ignoreres den.
+Denne politikindstilling tilsidesætter funktionsmåden for politikindstillingen "Tillad .rdp-filer fra gyldige udgivere og brugerens standardindstillinger for .rdp".
 
+Hvis listen indeholder en streng, der ikke er et certifikatfingeraftryk, ignoreres den.
+
+Se https://go.microsoft.com/fwlink/?LinkId=2368223 for at få flere oplysninger.
 </string>
 
       <string id="TS_PROMT_CREDS_CLIENT_COMP">Spørg om legitimationsoplysninger på klientcomputeren</string>
@@ -1018,6 +1137,14 @@ Hvis du deaktiverer denne politikindstilling, bruger RemoteApp-programmer, som u
 
      
 
+    </string>
+
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME">Aktivér forbedret shell-oplevelse for RemoteApp</string>
+    <string id="TS_SERVER_REMOTEAPP_USE_SHELLAPPRUNTIME_EXPLAIN">Denne politikindstilling muliggør en forbedret shell-oplevelse for RemoteApp-sessioner med understøttelse af standard filtilknytninger, Run/RunOnce-registreringsnøgler og meget mere. Denne politikindstilling gælder kun for RemoteApp-sessioner og gælder ikke for Fjernskrivebord- sessioner.
+
+Hvis du aktiverer eller undlader at konfigurere denne politikindstilling, får RemoteApp-sessioner på værtsservere for Fjernskrivebord-sessioner den forbedrede shelloplevelse.
+
+Hvis du deaktiverer denne politikindstilling, har RemoteApp-sessioner ikke den forbedrede shelloplevelse og bruger den ældre shellfunktionsmåde. Dette kan være nødvendigt, hvis der opstår kompatibilitetsproblemer i publicerede RemoteApp-programmer.
     </string>
 
     <!--WDDM Graphics Driver Mode; Introduced Win10+-->
@@ -1135,7 +1262,7 @@ Sessioner for forbindelse til Fjernskrivebord, der benytter RemoteFX er som stan
       
       </string>
       
-      <string id="TS_RADC">RemoteApp- og skrivebordsforbindelser</string>
+      <string id="TS_RADC">RemoteApp og skrivebordsforbindelser</string>
       <string id="TS_RADC_Help">Kontrollerer konfiguration af RemoteApp- og skrivebordsforbindelser</string>
       <string id="TS_RADC_DefaultDesktop">Angiv standard-URL-adresse for forbindelse</string>
       <string id="TS_RADC_DefaultDesktop_Help">Denne politikindstilling angiver standard-URL-adressen til RemoteApp- og skrivebordsforbindelser. Standard-URL-adresse for forbindelse er en specifik forbindelse, der kun kan konfigureres ved hjælp af gruppepolitik. Udover de egenskaber, der er fælles for alle forbindelser, gør standard-URL-adressen for forbindelsen det muligt at knytte dokumentfiltyper til RemoteApp-programmer.
@@ -1147,25 +1274,23 @@ Hvis ud aktiverer denne politikindstilling, konfigureres den angivne URL-adresse
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, har brugeren ingen standard-URL-adresse for forbindelse.
 
 Bemærk! RemoteApp-programmer, der installeres via RemoteApp og skrivebordsforbindelser fra en server, der ikke er tillid til, kan kompromittere sikkerheden for en brugerkonto.
-      
       </string>
 
 	  <string id="TS_SELECT_TRANSPORT">Vælg RDP-transportprotokoller</string>
-	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Denne politikindstilling giver dig mulighed for at angive, hvilke protokoller der kan bruges til RDP-adgang (Remote Desktop Protocol) til denne server.
+	  <string id="TS_SELECT_TRANSPORT_EXPLAIN">Med denne politikindstilling kan du angive, hvilke protokoller der kan bruges til RDP (Fjernskrivebordsprotokol) (RDP) adgang til denne server.
 
-Hvis du aktiverer denne politikindstilling, skal du angive, om du ønsker, at RDP skal benytte UDP.
+Hvis du aktiverer denne politikindstilling, skal du angive, om du vil have RDP til at bruge UDP.
 
-Du kan vælge en af følgende indstillinger: "Brug både UDP og TCP", "Brug kun TCP" eller "Brug enten UDP eller TCP (standard)" 
+Du kan vælge en af følgende indstillinger: "Brug enten UDP eller TCP (standard)" eller "Brug kun TCP" 
 
-Hvis du vælger "Brug enten UDP eller TCP", og UDP-forbindelsen er gennemført, vil hovedparten af RDP-trafikken benytte UDP.
+Hvis du vælger "Brug enten UDP eller TCP", og UDP-forbindelsen er oprettet, bruger de fleste af RDP-trafikken UDP.
 
-Hvis UDP-forbindelsen ikke gennemføres, eller hvis du vælger "Brug kun TCP", benytter al RDP-trafikken TCP.
+Hvis UDP-forbindelsen ikke lykkes, eller hvis du vælger "Brug kun TCP", bruger al RDP-trafikken TCP.
 
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vælger RDP de protokoller, der er optimale for den bedste brugeroplevelse.	  
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vælger RDP de optimale protokoller til at levere den bedste brugeroplevelse.
 	  </string>
-	  <string id="TS_SELECT_TRANSPORT_UDP_AND_TCP">Brug både UDP og TCP</string>
-	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Brig lim TCP</string>
 	  <string id="TS_SELECT_TRANSPORT_UDP_OR_TCP">Brug enten UDP eller TCP</string>
+	  <string id="TS_SELECT_TRANSPORT_TCP_ONLY">Brig lim TCP</string>
 
       <string id="TS_SELECT_NETWORK_DETECT">Vælg netværksgenkendelse på serveren</string>
       <string id="TS_SELECT_NETWORK_DETECT_EXPLAIN">Denne politikindstilling giver dig mulighed for at angive, hvordan RDP (Remote Desktop Protocol) forsøger at genkende netværkskvaliteten (båndbredde og ventetid).
@@ -1344,12 +1469,13 @@ Bemærk! Politikindstillingen muliggør justering af belastning af GPU'er (grafi
       </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_1">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Kommasepareret liste over SHA1-miniaturecertifikater, der er tillid til:</label>
+          <label>Kommasepareret liste over miniaturecertifikater, der er tillid til (præfiks med sha256:, sha384: eller sha512:):</label>
         </textBox>
+        <checkBox refId="DISABLE_SHA1_THUMBPRINTS">Tillad ikke SHA-1-fingeraftryk</checkBox>
        </presentation>
       <presentation id="TS_TRUSTED_CERTIFICATE_THUMBPRINTS_2">
         <textBox refId="TRUSTED_CERTIFICATE_THUMBPRINTS">
-          <label>Kommasepareret liste over SHA1-miniaturecertifikater, der er tillid til:</label>
+          <label>Kommasepareret liste over miniaturecertifikater, der er tillid til (præfiks med sha256:, sha384: eller sha512:):</label>
         </textBox>
        </presentation>
       <presentation id="TS_SERVER_AUTH">
@@ -1387,6 +1513,12 @@ Bemærk! Politikindstillingen muliggør justering af belastning af GPU'er (grafi
       </presentation>
       <presentation id="TS_SELECT_TRANSPORT">
         <dropdownList refId="TS_SELECT_TRANSPORT_TYPE" noSort="true" defaultItem="0">Vælg transporttype</dropdownList>
+      </presentation>
+      <presentation id="TS_SC_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_SC_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Begræns udklipsholderoverførsel fra server til klient:</dropdownList>
+      </presentation>
+      <presentation id="TS_CS_CLIPBOARD_RESTRICTION">
+        <dropdownList refId="TS_CS_CLIPBOARD_RESTRICTION_Text" noSort="true" defaultItem="0">Begræns udklipsholderoverførsel fra klient til server:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

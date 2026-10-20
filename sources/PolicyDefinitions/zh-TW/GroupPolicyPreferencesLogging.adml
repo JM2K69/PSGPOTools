@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>群組原則喜好設定記錄原則</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">設定應用程式喜好設定記錄與追蹤</string>
+      <string id="CSE_Applications_Logging_Help">這個原則設定可讓您設定由事件日誌記錄的應用程式喜好設定延伸的詳細層級，以及開啟應用程式延伸的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的應用程式延伸設定事件日誌以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸的事件日誌預設會只包括警告與錯誤，並關閉此延伸的追蹤功能。
+
+注意:
+
+1.使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2.電腦設定追蹤: 這個喜好設定延伸只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3.群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您不執行群組原則模型，或是此延伸中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。
+</string>
+      <string id="CSE_DataSources_Logging">設定資料來源喜好設定記錄與追蹤</string>
+      <string id="CSE_DataSources_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的資料來源喜好設定延伸模組的詳細層級，以及開啟資料來源延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的資料來源延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_Devices_Logging">設定裝置喜好設定記錄與追蹤</string>
+      <string id="CSE_Devices_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的裝置喜好設定延伸模組的詳細層級，以及開啟裝置延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的裝置延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_Drives_Logging">設定磁碟機對應喜好設定記錄與追蹤</string>
+      <string id="CSE_Drives_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的磁碟機對應喜好設定延伸模組的詳細層級，以及開啟磁碟機對應延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的磁碟機對應延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_Environment_Logging">設定環境喜好設定記錄與追蹤</string>
+      <string id="CSE_Environment_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的環境喜好設定延伸模組的詳細層級，以及開啟環境延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的環境延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_Files_Logging">設定檔案喜好設定記錄與追蹤</string>
+      <string id="CSE_Files_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的檔案喜好設定延伸模組的詳細層級，以及開啟檔案延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的檔案延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_FolderOptions_Logging">設定資料夾選項喜好設定記錄與追蹤</string>
+      <string id="CSE_FolderOptions_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的資料夾選項喜好設定延伸模組的詳細層級，以及開啟資料夾選項延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的資料夾選項延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_Folders_Logging">設定資料夾喜好設定記錄與追蹤</string>
+      <string id="CSE_Folders_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的資料夾喜好設定延伸模組的詳細層級，以及開啟資料夾延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的資料夾延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_IniFiles_Logging">設定 Ini 檔案喜好設定記錄與追蹤</string>
+      <string id="CSE_IniFiles_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的 Ini 檔案喜好設定延伸模組的詳細層級，以及開啟 Ini 檔案延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的 Ini 檔案延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_Internet_Logging">設定網際網路設定喜好設定記錄與追蹤</string>
+      <string id="CSE_Internet_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的網際網路喜好設定延伸模組的詳細層級，以及開啟網際網路延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的網際網路延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">設定本機使用者和群組喜好設定記錄與追蹤</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的本機使用者和本機群組喜好設定延伸模組的詳細層級，以及開啟本機使用者和本機群組延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的本機使用者和本機群組延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_NetworkOptions_Logging">設定網路選項喜好設定記錄與追蹤</string>
+      <string id="CSE_NetworkOptions_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的網路選項喜好設定延伸模組的詳細層級，以及開啟網路選項延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的網路選項延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_NetShares_Logging">設定網路共用喜好設定記錄與追蹤</string>
+      <string id="CSE_NetShares_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的網路共用喜好設定延伸模組的詳細層級，以及開啟網路共用延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的網路共用延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_PowerOptions_Logging">設定電源選項喜好設定記錄與追蹤</string>
+      <string id="CSE_PowerOptions_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的電源選項喜好設定延伸模組的詳細層級，以及開啟電源選項延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的電源選項延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_Printers_Logging">設定印表機喜好設定記錄與追蹤</string>
+      <string id="CSE_Printers_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的印表機喜好設定延伸模組的詳細層級，以及開啟印表機延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的印表機延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_RegionalOptions_Logging">設定地區選項喜好設定記錄與追蹤</string>
+      <string id="CSE_RegionalOptions_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的地區選項喜好設定延伸模組的詳細層級，以及開啟地區選項延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的地區選項延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_PrefRegistry_Logging">設定登錄喜好設定記錄與追蹤</string>
+      <string id="CSE_PrefRegistry_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的登錄喜好設定延伸模組的詳細層級，以及開啟登錄延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的登錄延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_ScheduledTasks_Logging">設定排定的工作喜好設定記錄與追蹤</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的排定的工作喜好設定延伸模組的詳細層級，以及開啟排定的工作延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的排定的工作延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_Services_Logging">設定服務喜好設定記錄與追蹤</string>
+      <string id="CSE_Services_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的服務喜好設定延伸模組的詳細層級，以及開啟服務延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的服務延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_Shortcuts_Logging">設定捷徑喜好設定記錄與追蹤</string>
+      <string id="CSE_Shortcuts_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的捷徑喜好設定延伸模組的詳細層級，以及開啟捷徑延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的捷徑延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_StartMenu_Logging">設定開始功能表喜好設定記錄與追蹤</string>
+      <string id="CSE_StartMenu_Logging_Help">這個原則設定可讓您設定由事件記錄所記錄的開始功能表喜好設定延伸模組的詳細層級，以及開啟開始功能表延伸模組的追蹤功能。記錄與追蹤功能可提供用於疑難排解的診斷資訊。
+
+如果您啟用這個原則設定，就可以為用戶端電腦的開始功能表延伸模組設定事件記錄以及開啟追蹤功能。
+
+如果您停用或未設定這個原則設定，則此延伸模組的事件記錄預設會只包括警告與錯誤，並關閉此延伸模組的追蹤功能。
+
+安全性警告: 
+僅以最低必要權限保護已設定的網路共用。請勿使用廣泛存取 (例如，任何標準帳戶或擁有完全控制權的所有人)，因為可能會導致未經授權存取記錄與追蹤資料
+
+注意:
+
+1. 使用者設定追蹤: 若要在使用者設定下列出的此喜好設定延伸模組中追蹤項目，您必須在 [使用者追蹤] 方塊中提供可在用戶端電腦上建立使用者追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果此延伸模組的使用者設定下沒有任何喜好設定項目，就不會建立使用者追蹤檔案。
+
+2. 電腦設定追蹤: 這個喜好設定延伸模組只能在使用者設定下使用，因此電腦設定追蹤不適用。
+
+3. 群組原則模型查詢追蹤: 若要在執行群組原則模型查詢時，追蹤此喜好設定延伸模組中的項目，您必須在 [計劃追蹤] 方塊中提供執行模型時可在電腦上建立計劃追蹤檔案的路徑位置，還必須開啟 [追蹤] 選項。如果您未執行群組原則模型，或是此延伸模組中沒有任何喜好設定項目，就不會建立計劃追蹤檔案。</string>
+      <string id="CSE_NOCHANGES">即使群組原則物件尚未變更也進行處理</string>
+      <string id="CSE_NOBACKGROUND">在定期的背景處理期間不要套用</string>
+      <string id="CSE_ALLOWSLOWLINK">允許在低速網路連線之間處理</string>
+      <string id="CSE_TRACELEVEL">追蹤</string>
+      <string id="CSE_TRACEFILEPATHUSER">使用者追蹤</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">電腦追蹤</string>
+      <string id="CSE_TRACEFILEPATH">追蹤檔</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">計劃追蹤</string>
+      <string id="CSE_TRACEFILEMAXSIZE">追蹤檔案的最大容量 (KB)</string>
+      <string id="CSE_TRACELEVELNORMAL">關閉</string>
+      <string id="CSE_TRACELEVELVERBOSE">開啟</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">背景優先順序</string>
+      <string id="CSE_PRILEVEL_NORMAL">標準</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">在標準以下</string>
+      <string id="CSE_PRILEVEL_LOWEST">最低</string>
+      <string id="CSE_PRILEVEL_IDLE">閒置</string>
+      <string id="CSE_LOGLEVEL">事件記錄</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">資訊、警告和錯誤</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">警告和錯誤</string>
+      <string id="CSE_LOGLEVEL_ERRORS">只限錯誤</string>
+      <string id="CSE_LOGLEVEL_NONE">無</string>
+      <string id="CSE_Logging">記錄和追蹤</string>
+      <string id="CSE_Logging_Help">讓您設定喜好設定元件的記錄和追蹤。</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>電腦追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">事件記錄</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">追蹤</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>使用者追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>計劃追蹤</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">追蹤檔案的最大容量 (KB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

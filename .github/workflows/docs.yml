@@ -1,0 +1,100 @@
+name: Documentation
+
+# The documentation site (Zensical), in English and in French, published on GitHub Pages:
+# <site>/en/ and <site>/fr/, the root sending to the English one. The repository must publish
+# GitHub Pages with GitHub Actions (Settings > Pages > Build and deployment > GitHub Actions).
+on:
+  push:
+    branches: [main, master, avalonia]
+    paths:
+      - 'docs/**'
+      - 'CHANGELOG.md'
+      - 'PSGPOTools/PSGPOTools.psd1'
+      - 'zensical.toml'
+      - 'zensical.fr.toml'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/configure-pages@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: 3.x
+      - run: pip install zensical
+
+      # The screenshots are kept once, in docs/assets: each language gets a copy.
+      - name: Share the assets
+        run: |
+          cp -r docs/assets docs/en/assets
+          cp -r docs/assets docs/fr/assets
+
+      # The version of the module (its manifest) and the commit the site is built from: in the
+      # footer of every page, and over the Changelog page, made from CHANGELOG.md.
+      - name: Changelog and version
+        run: |
+          version=$(sed -n "s/^ModuleVersion *= *'\(.*\)'.*/\1/p" PSGPOTools/PSGPOTools.psd1)
+          commit=$(git rev-parse --short HEAD)
+          commit_url="https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
+          day=$(date -u +%Y-%m-%d)
+          history=$(tail -n +2 CHANGELOG.md)
+          {
+            echo '# Changelog'
+            echo
+            echo "Version of the module: **${version}**. This documentation is built from the commit [${commit}](${commit_url}) of the branch \`${GITHUB_REF_NAME}\`, on ${day}."
+            echo
+            echo "$history"
+          } > docs/en/changelog.md
+          {
+            echo '# Historique des versions'
+            echo
+            echo "Version du module : **${version}**. Cette documentation est construite à partir du commit [${commit}](${commit_url}) de la branche \`${GITHUB_REF_NAME}\`, le ${day}. L'historique est écrit en anglais."
+            echo
+            echo "$history"
+          } > docs/fr/changelog.md
+          for config in zensical.toml zensical.fr.toml; do
+            sed -i "s|^copyright = \"\(.*\)\"|copyright = \"\1 \&middot; PSGPOTools ${version} (<a href='${commit_url}'>${commit}</a>)\"|" "$config"
+          done
+          grep '^copyright' zensical.toml zensical.fr.toml
+
+      - name: Build the English site
+        run: zensical build --clean
+      - name: Build the French site
+        run: zensical build --clean --config-file zensical.fr.toml
+
+      # The root of the site sends to the English documentation.
+      - name: Root page
+        run: |
+          cat > site/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <title>PSGPOTools</title>
+            <meta http-equiv="refresh" content="0; url=en/">
+            <link rel="canonical" href="en/">
+          </head>
+          <body><a href="en/">PSGPOTools documentation</a> - <a href="fr/">documentation en français</a></body>
+          </html>
+          EOF
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+      - uses: actions/deploy-pages@v5
+        id: deployment

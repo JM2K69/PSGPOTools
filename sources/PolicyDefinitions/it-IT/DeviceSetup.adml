@@ -70,13 +70,13 @@ Se si disabilita o non si configura questa impostazione dei criteri, i membri de
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Cerca in Windows Update</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Cerca in un server gestito</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Cerca in un server gestito e poi in Windows Update</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Impedisci recupero metadati dispositivo da Internet</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Questa impostazione dei criteri consente di impedire il recupero dei metadati del dispositivo da Internet.
-          
-Se si abilita questa impostazione dei criteri, i metadati del dispositivo non verranno recuperati da Internet per i dispositivi installati. Questa impostazione dei criteri sostituisce l'impostazione presente nella finestra di dialogo Impostazioni installazione dispositivo (Pannello di controllo &gt; Sistema e sicurezza &gt; Sistema &gt; Impostazioni di sistema avanzate &gt; scheda Hardware).
 
-Se si disabilita o non si configura questa impostazione dei criteri, l'impostazione presente nella finestra di dialogo Impostazioni installazione dispositivo controllerà il recupero dei metadati del dispositivo da Internet da parte di Windows.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Impedisci il download automatico delle applicazioni associate ai metadati del dispositivo</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Questa impostazione dei criteri consente di impedire a Windows di scaricare applicazioni associate ai metadati del dispositivo.
+
+Se si abilita questa impostazione dei criteri, le applicazioni associate ai metadati del dispositivo per i dispositivi installati non verranno scaricate. Questa impostazione dei criteri sostituisce l'impostazione nella finestra di dialogo Impostazioni installazione dispositivo (Pannello di controllo &gt; scheda Sistema e sicurezza &gt; Sistema &gt; Impostazioni di sistema avanzate &gt; Hardware).
+
+Se si disabilita o non si configura questa impostazione dei criteri, l'impostazione nella finestra di dialogo Impostazioni installazione dispositivo determina se windows scarica le applicazioni associate ai metadati del dispositivo.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

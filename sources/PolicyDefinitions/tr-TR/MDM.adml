@@ -33,6 +33,11 @@ Bu ilke ayarını devre dışı bırakırsanız, MDM Kaydı bütün kullanıcıl
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">Kullanılacak Kimlik Bilgisi Türünü Seçin:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>MDM Uygulama Kimliği:</label>
+        </textBox>
+        <text>MDM Uygulama Kimliği, Azure AD'de yapılandırılan MDM uygulamanızın Kimliğini temsil eder. Bu isteğe bağlıdır ve yalnızca Azure AD'de birden çok MDM uygulaması yapılandırıldığında cihaz kimlik bilgileri kullanan otomatik MDM kaydı için gereklidir.</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

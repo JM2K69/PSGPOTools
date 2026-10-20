@@ -13,6 +13,13 @@
     Se você habilitar ou não definir essa configuração de política, os itens "Usar uma imagem de sistema criada anteriormente para recuperar o computador" e "Reinstalar o Windows" (ou "Retornar o computador à condição de fábrica") serão exibidos na página "Métodos de recuperação avançados" de Recuperação (no Painel de Controle) e permitirão que o usuário restaure o computador ao estado original ou a partir de uma imagem do sistema criada pelo usuário. Essa é a configuração padrão.
 
     Se você desabilitar essa configuração de política, os itens "Usar uma imagem de sistema criada anteriormente para recuperar o computador" e "Reinstalar o Windows" (ou "Retornar o computador à condição de fábrica") em Recuperação (no Painel de Controle) não estarão disponíveis. No entanto, com essa configuração de política desabilitada, os usuários ainda poderão restaurar o computador ao estado original ou a partir de uma imagem do sistema criada pelo usuário, reiniciando o computador e acessando o menu Opções de Recuperação do Sistema, se disponível.</string>
+      <string id="AllowTrustedOfflineScan">Permitir verificação offline do Ambiente de Recuperação do Windows confiável</string>
+      <string id="AllowTrustedOfflineScan_help">    Requisitos: Windows 10
+    Descrição: essa configuração de política controla se a verificação offline deve ser permitida em um Ambiente de Recuperação do Windows confiável.
+
+    Se você habilitar essa configuração de política, a verificação offline será executada sem solicitar a chave de recuperação do BitLocker, desde que o Ambiente de Recuperação do Windows seja confiável para o BitLocker.
+
+    Se você desabilitar esta configuração de política ou não a configurar, a verificação offline solicitará a chave de recuperação do BitLocker para desbloquear o volume do sistema operacional. Se o usuário optar por não desbloquear o volume do sistema operacional, a verificação offline não será executada. Esta é a configuração padrão.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

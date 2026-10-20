@@ -99,6 +99,67 @@ Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan ansat
 
 Er en app åpen når dette gruppepolicyobjektet brukes på en enhet, må ansatte starte appen eller enheten på nytt for at policyendringene skal tre i kraft i appen.
       </string>
+      <string id="LetAppsAccessSystemAIModels_Name">La Windows-apper bruke tekst- og bildegenereringsfunksjoner i Windows</string>
+      <string id="LetAppsAccessSystemAIModels_Explain">
+Denne policyinnstillingen angir om Windows-apper kan bruke funksjoner for tekst- og bildegenerering i Windows.
+
+Du kan angi en standardinnstilling for alle apper eller en innstilling per app ved å angi et pakkeserienavn. Du kan finne pakkeserienavnet til en app ved å bruke cmdleten Get-AppPackage i Windows PowerShell. En innstilling per app overstyrer standardinnstillingen.
+
+Hvis du velger alternativet Brukeren har kontroll, kan ansatte i organisasjonen bestemme om Windows-apper kan bruke Tekst og bilde-generering, ved hjelp av Innstillinger &gt; Personvern på enheten.
+
+Hvis du velger alternativet Tvungen tillatelse, har Windows-apper tillatelse til å bruke funksjoner for generering av tekst og bilder i Windows, og ansatte i organisasjonen kan ikke endre det.
+
+Hvis du velger alternativet Tvungen avvisning, har ikke Windows-apper tillatelse til å bruke funksjoner for generering av tekst og bilder i Windows, og ansatte i organisasjonen kan ikke endre det.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan ansatte i organisasjonen bestemme om Windows-apper kan bruke funksjoner for generering av tekst og bilder i Windows, ved å gå til Innstillinger &gt; Personvern på enheten.
+
+Hvis en app er åpen når dette gruppepolicyobjektet brukes på en enhet, må ansatte starte appen eller enheten på nytt for at policyendringene skal brukes i appen.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Name">La Windows-apper ta skjermbilder av forskjellige vinduer eller skjermer</string>
+      <string id="LetAppsAccessGraphicsCaptureProgrammatic_Explain">Denne policyinnstillingen spesifiserer om Windows-apper kan ta skjermbilde av forskjellige vinduer eller skjermer.
+
+Du kan enten spesifisere en standardinnstilling for alle apper eller en appspesifikk innstilling ved å spesifisere et pakkeserienavn. Du kan finne pakkeserienavnet til en app ved å bruke cmdleten Get-AppPackage i Windows PowerShell. En appspesifikk innstilling overstyrer standardinnstillingen.
+
+Hvis du velger alternativet Brukeren har kontroll, kan ansatte i organisasjonen gå til Innstillinger og personvern på enheten for å velge om Windows-apper kan ta skjermbilde av forskjellige vinduer eller skjermer.
+
+Hvis du velger alternativet Tvungen tillatelse, kan Windows-apper ta skjermbilde av forskjellige vinduer eller skjermer, og ansatte i organisasjonen kan ikke endre dette.
+
+Hvis du velger alternativet Tvunget avslag, kan Windows-apper ikke ta skjermbilde av forskjellige vinduer eller skjermer, og ansatte i organisasjonen kan ikke endre dette.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan ansatte i organisasjonen gå til Innstillinger og personvern på enheten for å bestemme om Windows-apper kan ta skjermbilde av forskjellige vinduer eller skjermer.
+
+Hvis en app er åpen når dette gruppepolicyobjektet brukes på en enhet, må ansatte starte appen eller enheten på nytt for at policyendringene skal tre i kraft i appen.
+      </string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Name">La Windows-apper slå av skjermbildekantlinjen</string>
+      <string id="LetAppsAccessGraphicsCaptureWithoutBorder_Explain">Denne policyinnstillingen spesifiserer om Windows-apper kan slå av skjermbildekantlinjen.
+
+Du kan enten spesifisere en standardinnstilling for alle apper eller en appspesifikk innstilling ved å spesifisere et pakkeserienavn. Du kan få pakkeserienavnet til en app ved å bruke cmdleten Get-AppPackage i Windows PowerShell. En appspesifikk innstilling overstyrer standardinnstillingen.
+
+Hvis du velger alternativet Brukeren har kontroll, kan ansatte i organisasjonen din bestemme om Windows-apper skal kunne slå av skjermbildekantlinjen ved å gå til Innstillinger og personvern på enheten.
+
+Hvis du velger alternativet Tvungen tillatelse, kan Windows-apper slå av skjermbildekantlinjen, og ansatte i organisasjonen kan ikke endre dette.
+
+Hvis du velger alternativet Tvunget avslag, kan Windows-apper ikke slå av skjermbildekantlinjen, og ansatte i organisasjonen kan ikke endre dette.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan ansatte i organisasjonen gå til Innstillinger &gt; Personvern på enheten for å bestemme om Windows-apper kan slå av skjermbildekantlinjen.
+
+Er en app åpen når dette gruppepolicyobjektet brukes på en enhet, må ansatte starte appen eller enheten på nytt for at policyendringene skal tre i kraft i appen.
+      </string>
+      <string id="LetAppsAccessHumanPresence_Name">La Windows-apper få tilgang til registrering av tilstedeværelse</string>
+      <string id="LetAppsAccessHumanPresence_Explain">Denne policyinnstillingen spesifiserer om Windows-apper kan få tilgang til registrering av tilstedeværelse.
+
+Du kan enten spesifisere en standardinnstilling for alle apper eller en appspesifikk innstilling, ved å spesifisere et pakkeserienavn. Du kan få pakkeserienavnet til en app ved å bruke cmdlet-en Get-AppPackage i Windows PowerShell. En appspesifikk innstilling overstyrer standardinnstillingen.
+
+Hvis du velger alternativet Brukeren har kontroll, kan ansatte i organisasjonen gå til Innstillinger &gt; Personvern på enheten for å bestemme om Windows-apper kan få tilgang til registrering av tilstedeværelse.
+
+Hvis du velger alternativet Tvungen tillatelse, kan Windows-apper få tilgang til registrering av tilstedeværelse, og ansatte i organisasjonen kan ikke endre dette.
+
+Hvis du velger alternativet Tvunget avslag, kan Windows-apper ikke få tilgang til registrering av tilstedeværelse, og ansatte i organisasjonen kan ikke endre dette.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan ansatte i organisasjonen gå til Innstillinger &gt; Personvern på enheten for å bestemme om Windows-apper kan få tilgang til registrering av tilstedeværelse.
+
+Er en app åpen når dette gruppepolicyobjektet brukes på en enhet, må ansatte starte appen eller enheten på nytt for at policyendringene skal tre i kraft i appen.
+      </string>
       <string id="LetAppsAccessLocation_Name">Gi Windows-apper tilgang til plassering</string>
       <string id="LetAppsAccessLocation_Explain">Denne policyinnstillingen spesifiserer om Windows-apper kan få tilgang til posisjonsdata.
 
@@ -173,6 +234,36 @@ Hvis du velger alternativet Tvunget avslag, kan ikke Windows-apper få tilgang t
 Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan ansatte i organisasjonen gå til Innstillinger &gt; Personvern på enheten for å bestemme om Windows-apper kan få tilgang til varsler.
 
 Hvis en app er åpen når dette gruppepolicyobjektet brukes på en enhet, må ansatte starte appen eller enheten på nytt for at policyendringene skal tre i kraft i appen.
+      </string>
+      <string id="LetAppsAccessPasskeys_Name">La Windows-apper få tilgang til tilgangsnøkler</string>
+      <string id="LetAppsAccessPasskeys_Explain">Denne policyinnstillingen spesifiserer om apper kan få tilgang til adgangsnøkler.
+
+Du kan angi en standardinnstilling for alle apper eller en innstilling per app ved å angi et pakkeserienavn. Du kan finne pakkeserienavnet til en app ved å bruke cmdleten Get-AppPackage i Windows PowerShell. En innstilling per app overstyrer standardinnstillingen.
+
+Hvis du velger alternativet «Brukeren har kontrollen», kan ansatte i organisasjonen din bestemme om apper kan få tilgang til adgangsnøkler ved å bruke Innstillinger &gt; Personvern på enheten.
+
+Hvis du velger alternativet «Tving tillat», får apper tilgang til adgangsnøkler, og ansatte i organisasjonen din kan ikke endre dette.
+
+Hvis du velger alternativet «Tving avslå», får ikke apper tilgang til adgangsnøkler, og ansatte i organisasjonen din kan ikke endre dette.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan ansatte i organisasjonen din bestemme om apper kan få tilgang til adgangsnøkler ved å bruke Innstillinger &gt; Personvern på enheten.
+
+Hvis en app er åpen når dette gruppepolicyobjektet brukes på en enhet, må ansatte starte appen eller enheten på nytt for at policyendringene skal brukes i appen.
+      </string>
+      <string id="LetAppsAccessPasskeysEnumeration_Name">La Windows-apper fylle ut tilgangsnøkler automatisk</string>
+      <string id="LetAppsAccessPasskeysEnumeration_Explain">Denne policyinnstillingen spesifiserer om apper kan fylle ut adgangsnøkler automatisk.
+
+Du kan angi en standardinnstilling for alle apper eller en innstilling per app ved å angi et pakkeserienavn. Du kan finne pakkeserienavnet til en app ved å bruke cmdleten Get-AppPackage i Windows PowerShell. En innstilling per app overstyrer standardinnstillingen.
+
+Hvis du velger alternativet «Brukeren har kontrollen», kan ansatte i organisasjonen din bestemme om apper kan fylle ut adgangsnøkler automatisk ved å bruke Innstillinger &gt; Personvern på enheten.
+
+Hvis du velger alternativet «Tving tillat», har apper tillatelse til å fylle ut adgangsnøkler automatisk, og ansatte i organisasjonen din kan ikke endre dette.
+
+Hvis du velger alternativet «Tving avslå», får apper ikke lov til å fylle ut adgangsnøkler automatisk, og ansatte i organisasjonen din kan ikke endre dette.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan ansatte i organisasjonen din bestemme om apper kan fylle ut adgangsnøkler automatisk ved å bruke Innstillinger &gt; Personvern på enheten.
+
+Hvis en app er åpen når dette gruppepolicyobjektet brukes på en enhet, må ansatte starte appen eller enheten på nytt for at policyendringene skal brukes i appen.
       </string>
       <string id="LetAppsAccessPhone_Name">La Windows-apper ringe</string>
       <string id="LetAppsAccessPhone_Explain">Denne policyinnstillingen spesifiserer om Windows-apper kan ringe.
@@ -321,6 +412,35 @@ Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan ansat
 
 Denne policyen brukes for Windows-apper og Cortana. Den overstyrer policyen Tillat Cortana over låseskjermen. Denne policyen gjelder bare når policyinnstillingen Tillat stemmeaktivering er konfigurert til å tillate at programmer aktiveres med stemmen.
       </string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Name">La Windows-apper få tilgang til brukerbevegelser mens den kjører i bakgrunnen</string>
+      <string id="LetAppsAccessBackgroundSpatialPerception_Explain">Denne policyinnstillingen angir om Windows-apper har tilgang til bevegelsen til brukerens hode, hender, bevegelseskontroller og andre sporede objekter, mens appene kjører i bakgrunnen.
+
+Du kan angi enten en standardinnstilling for alle apper eller en appspesifikk innstilling ved å angi et pakkeserienavn. Du kan få pakkeserienavnet for en app ved å bruke cmdleten Get-AppPackage i Windows PowerShell. En appspesifikk innstilling overstyrer standardinnstillingen.
+
+Hvis du velger alternativet Brukeren har kontroll, kan ansatte i organisasjonen bestemme om Windows-apper har tilgang til brukerens bevegelser mens appene kjører i bakgrunnen ved å bruke Innstillinger &gt; Personvern på enheten.
+
+Hvis du velger alternativet Tvungen tillatelse, har Windows-apper tilgang til brukerbevegelser mens apper kjører i bakgrunnen, og ansatte i organisasjonen kan ikke endre dette.
+
+Hvis du velger alternativet Tvunget avslag, har ikke Windows-apper tilgang til brukerbevegelser mens apper kjører i bakgrunnen, og ansatte i organisasjonen kan ikke endre dette.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan ansatte i organisasjonen bestemme om Windows-apper har tilgang til brukerens bevegelser mens apper kjører i bakgrunnen, ved å bruke Innstillinger &gt; Personvern på enheten.
+
+Hvis en app er åpen når dette gruppepolicyobjektet brukes på en enhet, må ansatte starte appen eller enheten på nytt for at policyendringene skal tre i kraft i appen.
+      </string>
+      <string id="LetAppsAccessForegroundText_Name">La Windows-apper få tilgang til tekstinnhold fra forgrunnsprogrammer</string>
+      <string id="LetAppsAccessForegroundText_Explain">Denne policyinnstillingen angir om Windows-apper kan få tilgang til tekstinnhold fra forgrunnsprogrammer.
+Du kan angi en standardinnstilling for alle apper eller en innstilling per app ved å angi et pakkeserienavn. Du kan finne pakkeserienavnet til en app ved å bruke cmdleten Get-AppPackage i Windows PowerShell. En innstilling per app overstyrer standardinnstillingen.
+
+Hvis du velger alternativet «Brukeren har kontroll», kan ansatte i organisasjonen bestemme om Windows-apper kan få tilgang til tekstinnhold fra forgrunnsprogrammer ved hjelp av Innstillinger &gt; Personvern på enheten.
+
+Hvis du velger alternativet «Tving tillatelse», har Windows-apper tilgang til tekstinnhold fra forgrunnsprogrammer, og ansatte i organisasjonen kan ikke endre det.
+
+Hvis du velger alternativet Tving avslag, har ikke Windows-apper tilgang til tekstinnhold fra forgrunnsprogrammer, og ansatte i organisasjonen kan ikke endre det.
+
+Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, kan ansatte i organisasjonen bestemme om Windows-apper kan få tilgang til tekstinnhold fra forgrunnsprogrammer ved hjelp av Innstillinger &gt; Personvern på enheten.
+
+Hvis en app er åpen når dette gruppepolicyobjektet brukes på en enhet, må ansatte starte appen eller enheten på nytt for at policyendringene skal brukes i appen.
+      </string>
     </stringTable>
     <presentationTable>
       <presentation id="LetAppsAccessCalendar">
@@ -376,6 +496,42 @@ Denne policyen brukes for Windows-apper og Cortana. Den overstyrer policyen Till
         <multiTextBox refId="LetAppsAccessEmail_ForceAllowTheseApps_List"/>
         <text>Tvangsavslå disse bestemte appene (bruk pakkeserienavn):</text>
         <multiTextBox refId="LetAppsAccessEmail_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessSystemAIModels">
+        <dropdownList refId="LetAppsAccessSystemAIModels_Enum" noSort="true" defaultItem="0">Standard for alle apper:</dropdownList>
+        <text>Gi brukeren kontroll over disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_UserInControlOfTheseApps_List"/>
+        <text>Tvangstillat disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceAllowTheseApps_List"/>
+        <text>Tvangsavslå disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessSystemAIModels_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureProgrammatic">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureProgrammatic_Enum" noSort="true" defaultItem="0">Standard for alle apper:</dropdownList>
+        <text>Gi brukeren kontroll over disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_UserInControlOfTheseApps_List"/>
+        <text>Tvangstillat disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceAllowTheseApps_List"/>
+        <text>Tvangsavslå disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureProgrammatic_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessGraphicsCaptureWithoutBorder">
+        <dropdownList refId="LetAppsAccessGraphicsCaptureWithoutBorder_Enum" noSort="true" defaultItem="0">Standard for alle apper:</dropdownList>
+        <text>Gi brukeren kontroll over disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_UserInControlOfTheseApps_List"/>
+        <text>Tvangstillat disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceAllowTheseApps_List"/>
+        <text>Tvangsavslå disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessGraphicsCaptureWithoutBorder_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessHumanPresence">
+        <dropdownList refId="LetAppsAccessHumanPresence_Enum" noSort="true" defaultItem="0">Standard for alle apper:</dropdownList>
+        <text>Gi brukeren kontroll over disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_UserInControlOfTheseApps_List"/>
+        <text>Tvangstillat disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceAllowTheseApps_List"/>
+        <text>Tvangsavslå disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessHumanPresence_ForceDenyTheseApps_List"/>
       </presentation>
       <presentation id="LetAppsAccessLocation">
         <dropdownList refId="LetAppsAccessLocation_Enum" noSort="true" defaultItem="0">Standard for alle apper:</dropdownList>
@@ -499,6 +655,42 @@ Denne policyen brukes for Windows-apper og Cortana. Den overstyrer policyen Till
       </presentation>
       <presentation id="LetAppsActivateWithVoiceAboveLock">
         <dropdownList refId="LetAppsActivateWithVoiceAboveLock_Enum" noSort="true" defaultItem="0">Standard for alle apper:</dropdownList>
+      </presentation>
+      <presentation id="LetAppsAccessBackgroundSpatialPerception">
+        <dropdownList refId="LetAppsAccessBackgroundSpatialPerception_Enum" noSort="true" defaultItem="0">Standard for alle apper:</dropdownList>
+        <text>Gi brukeren kontroll over disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_UserInControlOfTheseApps_List"/>
+        <text>Tvangstillat disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps_List"/>
+        <text>Tvangsavslå disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessBackgroundSpatialPerception_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessForegroundText">
+        <dropdownList refId="LetAppsAccessForegroundText_Enum" noSort="true" defaultItem="0">Standard for alle apper:</dropdownList>
+        <text>Gi brukeren kontroll over disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_UserInControlOfTheseApps_List"/>
+        <text>Tvangstillat disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceAllowTheseApps_List"/>
+        <text>Tvangsavslå disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessForegroundText_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeys">
+        <dropdownList refId="LetAppsAccessPasskeys_Enum" noSort="true" defaultItem="0">Standard for alle apper:</dropdownList>
+        <text>Gi brukeren kontroll over disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_UserInControlOfTheseApps_List"/>
+        <text>Tvangstillat disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceAllowTheseApps_List"/>
+        <text>Tvangsavslå disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessPasskeys_ForceDenyTheseApps_List"/>
+      </presentation>
+      <presentation id="LetAppsAccessPasskeysEnumeration">
+        <dropdownList refId="LetAppsAccessPasskeysEnumeration_Enum" noSort="true" defaultItem="0">Standard for alle apper:</dropdownList>
+        <text>Gi brukeren kontroll over disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_UserInControlOfTheseApps_List"/>
+        <text>Tvangstillat disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceAllowTheseApps_List"/>
+        <text>Tvangsavslå disse bestemte appene (bruk pakkeserienavn):</text>
+        <multiTextBox refId="LetAppsAccessPasskeysEnumeration_ForceDenyTheseApps_List"/>
       </presentation>
     </presentationTable>
   </resources>

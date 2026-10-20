@@ -55,6 +55,15 @@ Poznámka: Toto nastavení nezakáže systém Active Desktop. Uživatelé mohou 
 Ve výchozím nastavení uživatelé mohou změnit umístění složek profilů (jako jsou Dokumenty, Hudba a podobně) zadáním nové cesty do pole Cíl v dialogovém okně vlastností dané složky.
 
 Jestliže toto nastavení povolíte, uživatelé nebudou moci zadat nové umístění do pole Cíl.</string>
+      <string id="EnableThemeFileRemoteResource">Povolit soubory motivů ze síťových umístění</string>
+      <string id="EnableThemeFileRemoteResource_Help">Toto nastavení zásad určuje, jestli se pro prostředky v souboru motivu plochy Windows (.theme/.themepack) dají použít vzdálené cesty.
+
+Pokud toto nastavení zásad povolíte, můžou soubory motivů odkazovat na prostředky (například obrázky, zvuky a ikony) umístěné ve sdílených síťových složkách nebo v jiných vzdálených umístěních. Uživatelé budou moct použít motivy, které obsahují vzdálené prostředky.
+
+Pokud toto nastavení zásad zakážete, soubory motivů nebudou moct používat vzdálené zdroje. Žádný soubor motivu, který odkazuje na vzdálené prostředky, dané prostředky nedokáže načíst a zobrazí se jenom místní prostředky.
+
+Pokud toto nastavení zásad nenakonfigurujete, z bezpečnostních důvodů je výchozím chováním blokování vzdálených prostředků v souborech motivů.</string>
+
       <string id="ForceActiveDesktopOn">Povolit systém Active Desktop</string>
       <string id="ForceActiveDesktopOn_Help">Povolí systém Active Desktop a zabrání uživatelům zakázat jej.
 

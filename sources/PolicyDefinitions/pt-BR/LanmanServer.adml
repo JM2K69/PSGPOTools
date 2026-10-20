@@ -59,16 +59,18 @@ Versão de hash com suporte:
 
 - Para dar suporte a informações de conteúdo V1 e V2, configure "Versão de hash com suporte" com o valor 3.</string>
       <string id="Pol_CipherSuiteOrder_Name">Ordem do pacote de codificação</string>
-      <string id="Pol_CipherSuiteOrder_Help">Essa configuração de política determina o pacote de criptografia usado pelo servidor SMB.
+      <string id="Pol_CipherSuiteOrder_Help">Essa configuração de política determina os pacotes de criptografia usados pelo servidor SMB.
 
-Se você habilitar essa configuração de política, os pacotes de codificação serão priorizados na ordem especificada.
+Se você habilitar essa configuração de política, os pacotes de criptografia serão priorizados na ordem especificada.
 
-Se você habilitar essa configuração de política e não especificar pelo menos um pacote de criptografia com suporte, ou se você desabilitar ou não definir essa configuração de política, a ordem do pacote de codificação padrão será usada.
+Se você habilitar essa configuração de política e não especificar pelo menos um pacote de criptografia com suporte, ou se você desabilitar ou não definir essa configuração de política, a ordem do pacote de criptografia padrão será usada.
 
-Pacote de criptografia SMB 3.11:
+Pacotes de criptografia SMB 3.11:
 
 AES_128_GCM
 AES_128_CCM
+AES_256_GCM
+AES_256_CCM
 
 Pacotes de criptografia SMB 3.0 e 3.02:
 
@@ -76,9 +78,9 @@ AES_128_CCM
 
 Como modificar essa configuração:
 
-Organize os pacotes de codificação desejados na caixa de edição, um pacote de codificação por linha, do mais ao menos preferencial, com o pacote de codificação preferencial na parte superior. Remova qualquer pacote de criptografia que você não deseja usar.
+Organize os pacotes de criptografia desejados na caixa de edição, um pacote de criptografia por linha, do mais ao menos preferencial, com o pacote de codificação preferencial na parte superior. Remova qualquer pacote de criptografia que você não deseja usar.
 
-Observação: ao definir esta configuração de segurança, as alterações só terão efeito depois que você reiniciar o Windows.</string>
+Observação: Ao definir esta configuração de segurança, as alterações só terão efeito depois que você reiniciar o Windows.</string>
       <string id="HonorCipherSuiteOrder_Name">Obedecer ordem do pacote de codificação</string>
       <string id="HonorCipherSuiteOrder_Help">Essa configuração de política determina como o servidor SMB seleciona um pacote de codificação ao negociar uma nova conexão com um cliente SMB.
 
@@ -95,6 +97,100 @@ Se você habilitar essa configuração de política, o servidor SMB selecionará
 Se você desabilitar ou não definir essa configuração de política, o servidor SMB selecionará o pacote de codificação que o cliente SMB mais prefere na lista de pacotes de codificação do servidor com suporte.
 
 Observação: ao definir esta configuração de segurança, as alterações só terão efeito depois que você reiniciar o Windows.</string>
+      <string id="SUPPORTED_Windows_Server_2022_Windows_11_0">Windows Server 2022, Windows 11 ou posterior</string>
+      <string id="SUPPORTED_Windows_Server_2025_Windows_11_0">No mínimo, Windows Server 2025, Windows 11</string>
+      <string id="SUPPORTED_Windows_Server_2025_Windows_11_0_24H2">No mínimo Windows Server 2025, Windows 11 24H2</string>
+      <string id="Pol_EnableCompressedTraffic_Name">Solicitar a compactação de tráfego para todos os compartilhamentos</string>
+      <string id="Pol_EnableCompressedTraffic_Help">Essa política controla se o servidor SMB solicita que o cliente SMB utilize a compactação de tráfego para todos os compartilhamentos SMB.
+
+Se você habilitar essa configuração de política, o servidor SMB solicitará, por padrão, que o cliente SMB compacte o tráfego quando a compactação SMB estiver habilitada. Veja as observações abaixo.
+
+Se você desabilitar ou não definir essa configuração de política, o servidor SMB não solicitará, por padrão, que o cliente SMB compacte o tráfego. No entanto, a compactação do tráfego pode ser solicitada por outros meios. Veja as observações abaixo.
+
+Observação: se essa política estiver desabilitada, a compactação de tráfego poderá ser solicitada por propriedades por compartilhamento do lado do servidor ou pelo Cliente SMB. Se isso for indesejado e se desejar desabilitar completamente a compactação, configure a política 'Desabilitar compactação SMB'.
+
+Observação: a compactação de tráfego só pode ser usada quando o cliente SMB e o servidor SMB suportam e ativam a compactação de tráfego.
+      </string>
+      <string id="Pol_DisableCompression_Name">Desabilitar compactação SMB</string>
+      <string id="Pol_DisableCompression_Help">Esta política controla se o servidor SMB desabilitará (impedir completamente) a compactação de tráfego.
+
+Se você habilitar essa configuração de política, o servidor SMB nunca compactará dados, independentemente de outras políticas (como a política 'Usar compactação SMB por padrão' ou a propriedade por compartilhamento).
+
+Se você desabilitar ou não definir essa configuração de política, o servidor SMB poderá compactar o tráfego (dependendo de uma combinação de outras políticas e condições).
+      </string>
+      <string id="Pol_MaxSmb2Dialect_Name">Exigir a versão máxima do SMB</string>
+      <string id="Pol_MaxSmb2Dialect_Help">Esta política controla a versão máxima do protocolo SMB
+
+Observação: esta política de grupo não impedirá o uso do SMB 1 se esse componente ainda estiver instalado e habilitado.
+      </string>
+      <string id="Pol_MinSmb2Dialect_Name">Exigir a versão mínima do SMB</string>
+      <string id="Pol_MinSmb2Dialect_Help">Esta política controla a versão mínima do protocolo SMB
+
+Observação: esta política de grupo não impedirá o uso do SMB 1 se esse componente ainda estiver instalado e habilitado.
+      </string>
+      <string id="Dialect_0x202">SMB 2.0.2</string>
+      <string id="Dialect_0x210">SMB 2.1.0</string>
+      <string id="Dialect_0x300">SMB 3.0.0</string>
+      <string id="Dialect_0x302">SMB 3.0.2</string>
+      <string id="Dialect_0x311">SMB 3.1.1</string>
+
+      <string id="Pol_EnableRemoteMailslots_Name">Habilitar processadores de mensagens remotos</string>
+      <string id="Pol_EnableRemoteMailslots_Help">Esta política controla se o servidor SMB habilitará ou desabilitará processadores de mensagens remotos no serviço de navegador do computador.
+
+Se você desabilitar essa configuração de política, o serviço de navegador do computador não será mais executado como esperado.
+
+Se você não definir essa configuração de política, o navegador do computador ainda poderá estar trabalhando com processadores de mensagens remotos habilitados.
+
+Observação: esta política requer uma reinicialização do Windows para entrar em vigor.
+      </string>
+
+      <string id="Pol_EnableAuthRateLimiter_Name">Habilitar o limitador de taxa de autenticação</string>
+      <string id="Pol_EnableAuthRateLimiter_Help">Esta política controla se o servidor SMB habilitará ou desabilitará o limitador de taxa de autenticação.
+
+Se você desabilitar essa configuração de política, o limitador de taxa de autenticação não será habilitado.
+
+Se você não definir essa configuração de política, o limitador de taxa de autenticação ainda poderá estar funcionando dependendo das configurações de atraso (o valor de atraso recomendado é 2000 ms).
+      </string>
+      <string id="Pol_AuditClientDoesNotSupportEncryption_Name">O cliente de auditoria não dá suporte à criptografia</string>
+      <string id="Pol_AuditClientDoesNotSupportEncryption_Help">Esta política controla se o servidor SMB registrará o evento quando o cliente SMB não for compatível com criptografia.
+
+Se você habilitar essa configuração de política, o servidor SMB registrará o evento quando o cliente SMB não tiver suporte para criptografia.
+
+Se você desabilitar ou não definir essa configuração de política, o servidor SMB não registrará o evento.
+      </string>
+      <string id="Pol_AuditClientDoesNotSupportSigning_Name">O cliente de auditoria não dá suporte à assinatura</string>
+      <string id="Pol_AuditClientDoesNotSupportSigning_Help">Essa política controla se o servidor SMB registrará o evento quando o cliente SMB não der suporte para assinatura.
+
+Se você habilitar essa configuração de política, o servidor SMB registrará o evento quando não houver suporte para a assinatura por parte do cliente SMB.
+      </string>
+      <string id="Pol_AuditInsecureGuestLogon_Name">Auditoria de logon de convidado inseguro</string>
+      <string id="Pol_AuditInsecureGuestLogon_Help">Esta política controla se o servidor SMB habilitará o evento de auditoria quando o cliente estiver conectado como conta convidado.
+
+Se você habilitar essa configuração de política, o servidor SMB registrará o evento quando o cliente estiver conectado como conta de convidado.
+
+Se você desabilitar ou não definir essa configuração de política, o servidor SMB não registrará o evento.
+      </string>
+      <string id="Pol_EnableSMBQUIC_Name">Habilitar SMB sobre QUIC</string>
+      <string id="Pol_EnableSMBQUIC_Help">Esta configuração de política controla se o servidor SMB habilitará o SMB sobre o QUIC.
+
+Se você desabilitar essa configuração de política, o servidor SMB não aceitará conexões via QUIC.
+
+Se você não definir essa configuração de política, o servidor SMB poderá aceitar conexões via QUIC.
+      </string>
+      <string id="Pol_AuthRateLimiterDelayInMs_Name">Definir o atraso do limitador de taxa de autenticação (milissegundos)</string>
+      <string id="Pol_AuthRateLimiterDelayInMs_Help">Essa política controla se o servidor SMB usará um valor padrão em milissegundos para o atraso de autenticação inválida.
+
+Se você definir essa configuração de política, o limitador de taxa de autenticação usará o valor especificado para atrasar as tentativas de autenticação inválidas.
+
+Se você não configurar esta definição de política, o limitador de taxa de autenticação usará o valor padrão ou o valor do registro local em HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters.
+      </string>
+      <string id="Pol_AuditClientSpnSupport_Name">Auditar suporte a SPN do cliente SMB</string>
+      <string id="Pol_AuditClientSpnSupport_Help">Esta política controla se o servidor SMB audita o SPN (Nome da Entidade de Serviço) fornecido por clientes SMB durante a autenticação.
+
+Se você habilitar essa configuração de política, o servidor SMB registrará um evento sempre que um cliente SMB não enviar o SPN ou enviar um SPN inválido durante a autenticação. Esses dados de auditoria podem ajudar a identificar os clientes que podem ser incompatíveis com a validação de SPN antes que a imposição seja habilitada no servidor SMB.
+
+Se você desabilitar ou não definir essa configuração de política, o servidor SMB não registrará o evento.
+      </string>
       </stringTable>
     <presentationTable>
       <presentation id="Pol_HashPublication">
@@ -116,6 +212,17 @@ Observação: ao definir esta configuração de segurança, as alterações só 
       <presentation id="Pol_CipherSuiteOrder">
         <text>Pacotes de codificação:</text>
         <multiTextBox refId="MultiText_CipherSuiteOrder"/>
+      </presentation>
+      <presentation id="Pol_MaxSmb2Dialect">
+        <text>Selecione a versão do SMB:</text>
+        <dropdownList refId="MaxSmb2Dialect" defaultItem="0">Versão:</dropdownList>
+      </presentation>
+      <presentation id="Pol_MinSmb2Dialect">
+        <text>Selecione a versão do SMB:</text>
+        <dropdownList refId="MinSmb2Dialect" defaultItem="0">Versão:</dropdownList>
+      </presentation>
+      <presentation id="Pol_AuthRateLimiterDelayInMs">
+        <decimalTextBox refId="DecimalTextBox_AuthRateLimiterDelayInMs" defaultValue="0" spinStep="1">Tempo (milissegundos): </decimalTextBox>
       </presentation>
     </presentationTable>
   </resources>

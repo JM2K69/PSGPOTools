@@ -22,19 +22,18 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren, wird die von der Gruppenrich
 Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, verwendet das System die Zuordnungen von Hostnamen zu Kerberos-Bereichen, die in der lokalen Registrierung definiert sind, sofern vorhanden.</string>
       <string id="MitRealms">Interoperable Kerberos-V5-Bereichseinstellungen definieren</string>
       <string id="MitRealms_explain">Diese Richtlinieneinstellung konfiguriert den Kerberos-Client so, dass er eine Authentifizierung mit interoperablen Kerberos V5-Bereichen durchführen kann, wie durch diese Richtlinieneinstellung definiert.
-      
+
 Wenn Sie diese Richtlinieneinstellung aktivieren, können Sie die Liste der interoperablen Kerberos V5-Bereiche und ihre Einstellungen anzeigen und ändern. Um die Liste der interoperablen Kerberos V5-Bereiche anzuzeigen, aktivieren Sie die Richtlinieneinstellung und klicken auf die Schaltfläche "Anzeigen". Um einen interoperablen Kerberos V5-Bereich hinzuzufügen, aktivieren Sie die Richtlinieneinstellung, notieren sich die Syntax und klicken auf "Anzeigen". Geben Sie im Dialogfeld "Inhalt anzeigen" in der Spalte "Wertname" den Namen des interoperablen Kerberos V5-Bereichs ein. Geben Sie in der Spalte "Wert" die Bereichskennzeichen und Hostnamen der Host-KDCs im richtigen Syntaxformat ein. Um den Eintrag "Wertname" oder "Wert" eines interoperablen Kerberos V5-Bereichs aus der Liste zu entfernen, klicken Sie auf den Eintrag und drücken die Taste ENTF. Wenn Sie eine Zuordnung bearbeiten möchten, entfernen Sie den aktuellen Eintrag aus der Liste, und fügen Sie einen neuen Eintrag mit anderen Parametern hinzu.
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren, werden die von der Gruppenrichtlinie definierten interoperablen Kerberos V5-Bereichseinstellungen gelöscht.
 
 Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, verwendet das System die Einstellungen für den interoperablen Kerberos V5-Bereich, die in der lokalen Registrierung definiert sind, sofern vorhanden.</string>
       <string id="ValidateKDC">Strenge KDC-Überprüfung voraussetzen</string>
-      <string id="ValidateKDC_explain">Diese Richtlinieneinstellung steuert das Verhalten des Kerberos-Clients bei der Überprüfung des KDC-Zertifikats für die Smart Card- und Systemzertifikatanmeldung.  
+      <string id="ValidateKDC_explain">Diese Richtlinieneinstellung steuert das Verhalten des Kerberos-Clients bei der Überprüfung des KDC-Zertifikats für die Smart Card- und Systemzertifikatanmeldung. 
 
-Wenn Sie diese Richtlinieneinstellung aktivieren, setzt der Kerberos-Client voraus, dass das X.509-Zertifikat des KDCs in den EKU-Erweiterungen (Extended Key Usage) die KDC-Schlüsselzweck-Objekt-ID und das X.509-Zertifikat des KDCs eine dNSName subjectAltName-(SAN-)Erweiterung vom Typ "dNSName" enthält, die mit dem DNS-Namen der Domäne übereinstimmt. Wenn der Computer einer Domäne angehört, setzt der Kerberos-Client voraus, dass das X.509-Zertifikat des KDCs von einer Zertifizierungsstelle im NTAuth-Speicher signiert ist. Wenn der Computer keiner Domäne angehört, erlaubt der Kerberos-Client bei der Pfadüberprüfung des X.509-Zertifikats des KDCs die Verwendung des Stamm-Zertifizierungsstellenzertifikats für die Smartcard.
+Wenn Sie diese Richtlinieneinstellung aktivieren, setzt der Kerberos-Client voraus, dass das X.509-Zertifikat des KDCs in den EKU-Erweiterungen (Extended Key Usage) die KDC-Schlüsselzweck-Objekt-ID und das X.509-Zertifikat des KDCs eine dNSName subjectAltName-(SAN)-Erweiterung vom Typ "dNSName" enthält, die mit dem DNS-Namen der Domäne übereinstimmt. Wenn der Computer einer Domäne angehört, setzt der Kerberos-Client voraus, dass das X.509-Zertifikat des KDCs von einer Zertifizierungsstelle im NTAuth-Speicher signiert ist. Wenn der Computer keiner Domäne angehört, erlaubt der Kerberos-Client bei der Pfadüberprüfung des X.509-Zertifikats des KDCs die Verwendung des Stamm-Zertifizierungsstellenzertifikats für die Smartcard.
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, setzt der Kerberos-Client nur voraus, dass das KDC-Zertifikat in den EKU-Erweiterungen die Serverauthentifizierungs-Zweckobjekt-ID enthält, die für alle Server ausgestellt werden kann.
-
 </string>
       <string id="StrictTarget">Strenge Übereinstimmung mit Ziel-Dienstprinzipalnamen bei Remoteprozeduraufrufen anfordern</string>
       <string id="StrictTarget_explain">  Mit dieser Richtlinieneinstellung können Sie diesen Server so konfigurieren, dass Kerberos ein Ticket, das den vom System generierten Dienstprinzipalnamen enthält, entschlüsseln kann. Wenn eine Anwendung versucht, einen Remoteprozeduraufruf mit einem NULL-Wert für den Dienstprinzipalnamen an diesen Server zu senden, versuchen Computer unter Windows 7 oder höher, Kerberos zu verwenden, indem sie einen Dienstprinzipalnamen generieren.
@@ -94,16 +93,14 @@ Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, wird die Option "Auto
 
       <string id="MaxTokenSize">Maximale Puffergröße für Kerberos-SSPI-Kontexttoken festlegen</string>
       <string id="MaxTokenSize_explain">Mit dieser Richtlinieneinstellung können Sie den Wert festlegen, der an Anwendungen zurückgegebenen wird, die die maximale Größe des Puffers des SSPI-Kontexttokens anfordern.
-              
-Die Größe des Kontexttokenpuffers bestimmt die maximale Größe des von einer Anwendung erwarteten und zugeteilten SSPI-Kontexttokens. Abhängig von der Authentifizierungsanforderungverarbeitung und den Gruppenmitgliedschaften, kann der Puffer kleiner sein, als die tatsächliche Größe des SSPI-Kontexttokens. 
+
+Die Größe des Kontexttokenpuffers bestimmt die maximale Größe des von einer Anwendung erwarteten und zugeteilten SSPI-Kontexttokens. Abhängig von der Verarbeitung der Authentifizierungsanforderung und den Gruppenmitgliedschaften, kann der Puffer kleiner sein, als die tatsächliche Größe des SSPI-Kontexttokens. 
 
 Wenn Sie diese Gruppenrichtlinieneinstellung aktivieren, verwendet der Kerberos-Client oder -Server den konfigurierten Wert oder den lokal zulässigen Maximalwert, je nachdem, welcher kleiner ist.
 
 Wenn Sie diese Gruppenrichtlinieneinstellung deaktivieren oder nicht konfigurieren, verwendet der Kerberos-Client oder -Server den lokal konfigurierten Wert oder den Standardwert. 
 
-Hinweis: Diese Richtlinieneinstellung konfiguriert den bestehenden MaxTokenSize-Registrierungswert unter "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters", der unter Windows XP und Windows Server 2003 hinzugefügt wurde, mit einem Standardwert von 12.000 Byte. Ab Windows 8 liegt der Standardwert bei 48.000 Byte. Aufgrund der Base64-Kodierung des Authentifizierungskontexttokens von HTTP, ist es nicht ratsam, einen Wert von über 48.000 Byte festzulegen.
-
-
+Hinweis: Diese Richtlinieneinstellung konfiguriert den bestehenden MaxTokenSize-Registrierungswert unter HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\Kerberos\Parameters, der unter Windows XP und Windows Server 2003 hinzugefügt wurde, mit einem Standardwert von 12.000 Byte. Ab Windows 8 liegt der Standardwert bei 48.000 Byte. Aufgrund der Base64-Kodierung des Authentifizierungskontexttokens von HTTP, ist es nicht ratsam, einen Wert von über 48.000 Byte festzulegen.
 
 </string>
       <string id="EnableCbacAndArmor">Unterstützung des Kerberos-Clients für Ansprüche, Verbundauthentifizierung und Kerberos-Schutz</string>
@@ -111,7 +108,7 @@ Hinweis: Diese Richtlinieneinstellung konfiguriert den bestehenden MaxTokenSize-
 Wenn Sie diese Richtlinieneinstellung aktivieren, fordern die Clientcomputer Ansprüche an, stellen zum Erstellen der Verbundauthentifizierung erforderliche Informationen bereit und schützen Kerberos-Meldungen in Domänen, von denen Ansprüche, Verbundauthentifizierung für die dynamische Zugriffssteuerung und den Kerberos-Schutz unterstützt werden.
 
 Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, werden vom Clientgerät keine Ansprüche angefordert, keine zum Erstellen der Verbundauthentifizierung erforderlichen Informationen bereitgestellt und Kerberos-Meldungen nicht geschützt. Von auf dem Gerät gehosteten Diensten können keine Ansprüche für Clients abgerufen werden, die den Kerberos-Protokollübergang verwenden.  
-  
+
 </string>
       <string id="AlwaysSendCompoundId">Verbundauthentifizierung immer zuerst senden</string>
       <string id="AlwaysSendCompoundId_explain">Mit dieser Richtlinieneinstellung wird gesteuert, ob ein Gerät immer eine Verbundauthentifizierungsanforderung sendet, wenn die Ressourcendomäne eine Verbundidentität anfordert.
@@ -124,7 +121,7 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren und 
 
 </string>
       <string id="DevicePKInitEnabled">Geräteauthentifizierung mittels Zertifikat unterstützen</string>
-      <string id="DevicePKInitEnabled_explain">Die Unterstützung der Geräteauthentifizierung mittels Zertifikat erfordert eine Verbindung mit einem DC in der Gerätekontodomäne, die die Zertifikatauthentifizierung für Computerkonten unterstützt. 
+      <string id="DevicePKInitEnabled_explain">Die Unterstützung der Geräteauthentifizierung mittels Zertifikat erfordert eine Verbindung mit einem DC in der Gerätekontodomäne, die die Zertifikatauthentifizierung für Computerkonten unterstützt.
 
 Mit dieser Richtlinieneinstellung können Sie die Unterstützung für Kerberos festlegen, um das Gerät mithilfe des Zertifikats bei der Domäne zu authentifizieren.
 
@@ -135,10 +132,55 @@ Automatisch: Das Gerät versucht, sich mithilfe des Zertifikats zu authentifizie
 Erzwingen: Das Gerät wird immer mithilfe seines Zertifikats authentifiziert. Wenn kein DC gefunden wird, der die Computerkontoauthentifizierung mithilfe von Zertifikaten unterstützt, tritt ein Authentifizierungsfehler auf.
 
 Wenn Sie die Richtlinieneinstellung deaktivieren, werden nie Zertifikate verwendet.
-Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, wird die Option "Automatisch" verwendet.
+Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, wird die Option „Automatisch“ verwendet.
+
+Folgen Sie dieser Anleitung, um die Enterprise-PKI zu konfigurieren: https://go.microsoft.com/fwlink/?linkid=2340158
 </string>
       <string id="DevicePKInitBehavior_Automatic">Automatisch</string>
       <string id="DevicePKInitBehavior_Force">Erzwingen</string>
+      <string id="CloudKerberosTicketRetrievalEnabled">Abrufen des Azure AD Kerberos Ticket Granting Ticket während der Anmeldung zulassen</string>
+      <string id="CloudKerberosTicketRetrievalEnabled_explain">Diese Richtlinieneinstellung ermöglicht das Abrufen des Azure AD Kerberos Ticket Granting Ticket während der Anmeldung. 
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird das Azure AD Kerberos Ticket Granting Ticket während der Anmeldung nicht abgerufen.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird das Azure AD Kerberos Ticket Granting Ticket während der Anmeldung abgerufen.</string>
+      <string id="PKInitHashAlgorithmConfiguration">Hashalgorithmen für die Zertifikatanmeldung konfigurieren</string>
+      <string id="PKInitHashAlgorithmConfiguration_explain">Diese Richtlinieneinstellung steuert Hash- oder Prüfsummenalgorithmen, die vom Kerberos-Client beim Ausführen der Zertifikatauthentifizierung verwendet werden.
+
+Wenn Sie diese Richtlinie aktivieren, können Sie einen von vier Zuständen für jeden Algorithmus konfigurieren:
+
+"Standard" legt den Algorithmus auf den empfohlenen Zustand fest.
+
+"Unterstützt" aktiviert die Verwendung des Algorithmus. Das Aktivieren von Algorithmen, die standardmäßig deaktiviert wurden, kann die Sicherheit verringern.
+
+"Überwacht" aktiviert die Verwendung des Algorithmus und meldet bei jeder Verwendung ein Ereignis (ID 206). Mit diesem Status soll überprüft werden, ob der Algorithmus nicht verwendet wird und sicher deaktiviert werden kann.
+
+"Nicht unterstützt" deaktiviert die Verwendung des Algorithmus. Dieser Zustand ist für Algorithmen vorgesehen, die als unsicher eingestuft werden.
+
+Wenn Sie diese Richtlinie deaktivieren oder nicht konfigurieren, nimmt jeder Algorithmus den Status "Standard" an.
+Weitere Informationen zu den vom Windows Kerberos-Client unterstützten Hash- und Prüfsummenalgorithmen sowie deren Standardstatus finden Sie unter https://go.microsoft.com/fwlink/?linkid=2169037.
+
+Von dieser Konfiguration generierte Ereignisse: 205, 206, 207, 208.
+</string>
+      <string id="PKInitHashAlgorithm_Default">Standard</string>
+      <string id="PKInitHashAlgorithm_Supported">Unterstützt</string>
+      <string id="PKInitHashAlgorithm_Audited">Überwacht</string>
+      <string id="PKInitHashAlgorithm_NotSupported">Nicht unterstützt</string>
+      
+      <string id="DelegatedMSAEnabled">Anmeldungen für delegierte verwaltete Dienstkonten aktivieren</string>
+      <string id="DelegatedMSAEnabled_explain">Mit dieser Richtlinieneinstellung werden delegierte verwaltete Dienstkontoanmeldungen für diesen Computer aktiviert oder deaktiviert.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, werden delegierte verwaltete Dienstkontoanmeldungen vom Kerberos-Client unterstützt. Beachten Sie, dass für diese Richtlinie bestimmte Anforderungen vorhanden sind. Die Voraussetzungen und Anweisungen zum Erstellen eines neuen delegierten verwalteten Dienstkontos finden Sie unter https://go.microsoft.com/fwlink/?linkid=2250379.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, werden delegierte Verwaltete Dienstkontoanmeldungen nicht unterstützt. 
+</string>
+      <string id="EnableTryIPSPN">IP-Adressenbasierte SPNs während der Kerberos-Authentifizierung zulassen</string>
+      <string id="EnableTryIPSPN_explain">Mit dieser Richtlinieneinstellung können Sie Kerberos für die Verwendung von Dienstprinzipalnamen (SPNs) auf IP-Adressbasis konfigurieren.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, versucht der Kerberos-Client, IP-adressbasierte SPNs zu verwenden, wenn er eine Verbindung mit einem Dienst herstellt.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, versucht Kerberos nicht, IP-adressbasierte SPNs zu verwenden.
+</string>
     </stringTable>
     <presentationTable>
       <presentation id="hosttorealm">
@@ -181,6 +223,16 @@ Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, wird die Option "Auto
         <text>Ein weiteres Beispiel:</text>
         <text>Wertname: REALM.FABRIKAM.COM</text>
         <text>Wert: &lt;f&gt;0x0000000E&lt;/f&gt;</text>
+      </presentation>
+      <presentation id="DmsaRealms">
+        <multiTextBox refId="DmsaRealmsList">Realms:</multiTextBox>
+        <text>Syntax:</text>
+        <text>Eine Liste der Bereiche eingeben, in denen DMSAs vorhanden sein können.</text>
+        <text>Geben Sie sowohl den vollqualifizierten Domänennamen (FQDN) als auch den Kurznamen ein.</text>
+        <text>Geben Sie einen Bereich pro Zeile ein.</text>
+        <text>Details:</text>
+        <text>Der Kerberos-Client versucht, einen DMSA-fähigen Domänencontroller für die aufgeführten Bereiche zu finden.</text>
+        <text>Wenn keine Bereiche angegeben werden, versucht der Kerberos-Client, einen DMSA-fähigen Domänencontroller für alle Bereiche zu finden.</text>
       </presentation>
       <presentation id="ValidateKDC">
         <dropdownList refId="ValidateKDCOp" noSort="true" defaultItem="0">Modus:</dropdownList>
@@ -225,7 +277,7 @@ Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, wird die Option "Auto
       <presentation id="ClientRequireFast">
       </presentation>
       <presentation id="ServerAcceptsCompound">
-       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Autorisierung mit Clientgeräteinformationen unterstützen:</dropdownList>  
+       <dropdownList refId="CompoundIdEnabled" noSort="true" defaultItem="2">Autorisierung mit Clientgeräteinformationen unterstützen:</dropdownList>
       </presentation>
       <presentation id="MaxTokenSize">
         <decimalTextBox refId="MaxTokenSize" defaultValue="48000" spinStep="1000">Maximale Größe</decimalTextBox>
@@ -233,7 +285,13 @@ Wenn Sie diese Richtlinieneinstellung nicht konfigurieren, wird die Option "Auto
       <presentation id="EnableCbacAndArmor">
       </presentation>
       <presentation id="DevicePKInitBehavior">
-        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Geräteauthentifizierungsverhalten mittels Zertifikat:</dropdownList>  
+        <dropdownList refId="DevicePKInitBehavior" noSort="true" defaultItem="0">Geräteauthentifizierungsverhalten mittels Zertifikat:</dropdownList>
+      </presentation>
+      <presentation id="PKInitHashAlgorithmConfiguration">
+        <dropdownList refId="PKInitHashAlgorithmSHA1" noSort="true" defaultItem="0">SHA-1    </dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA256" noSort="true" defaultItem="0">SHA-256</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA384" noSort="true" defaultItem="0">SHA-384</dropdownList>
+        <dropdownList refId="PKInitHashAlgorithmSHA512" noSort="true" defaultItem="0">SHA-512</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -60,33 +60,34 @@ Não são necessários reinícios de sistema ou de serviços para que esta defin
 
 </string>
 <string id="TroubleshootingAllowRecommendations">Resolução de problemas: permitir que os utilizadores acedam à resolução de problemas recomendada para problemas conhecidos</string>
-<string id="TroubleshootingAllowRecommendationsExplain">Esta definição de política aplica a resolução de problemas recomendada a problemas conhecidos no dispositivo e permite que os administradores configurem a forma como é aplicada aos seus domínios/ambientes de TI.
-A não configuração desta definição de política permitirá que o utilizador configure a forma de aplicação da resolução de problemas recomendada.
+<string id="TroubleshootingAllowRecommendationsExplain">Esta definição de política configura a forma como a resolução de problemas para problemas conhecidos pode ser aplicada ao dispositivo e permite aos administradores configurar a forma como é aplicada aos seus domínios/ambientes de TI.
 
-A ativação desta política permite-lhe configurar a forma como a resolução de problemas recomendada é aplicada no dispositivo do utilizador. Pode selecionar um dos seguintes valores:
-0 = Desativar esta funcionalidade.
-1 = Desativar esta funcionalidade, mas continuar a aplicar a resolução de problemas críticos.
-2 = Notificar os utilizadores quando a resolução de problemas recomendada estiver disponível e, em seguida, permitir que o utilizador execute ou ignore a mesma.
-3 = Executar a resolução de problemas recomendada automaticamente e notificar o utilizador após ter sido executada com êxito.
-4 = Executar a resolução de problemas recomendada automaticamente sem notificar o utilizador.
-5 = Permitir que o utilizador escolha as suas próprias definições de resolução de problemas recomendada.
+Não configurar esta definição de política permitirá ao utilizador configurar a forma como a resolução de problemas é aplicada.
 
-Após definir esta nova definição, para ativar a resolução de problemas recomendada para dispositivos no seu domínio, siga estas instruções:
-1. Crie um script bat com o seguinte conteúdo:
-rem O seguinte ficheiro batch aciona a Resolução de Problemas Recomendada
-C:\Windows\System32\mitigationscanner.exe
+Ativar esta política permite-lhe configurar a forma como a resolução de problemas é aplicada no dispositivo do utilizador. Pode escolher um dos seguintes valores:
+0 = Não permitir aos utilizadores, às funcionalidades do sistema ou à Microsoft aplicar a resoluções de problemas 
+1 = Aplicar automaticamente resoluções de problemas fornecidas por funcionalidades do sistema e pela Microsoft apenas a problemas críticos.
+2 = Aplicar automaticamente resoluções de problemas fornecidas por funcionalidades do sistema e pela Microsoft apenas a problemas críticos. Notificar os utilizadores quando existem resoluções de problemas para outros problemas e permitir aos utilizadores escolher entre aplicar ou ignorar.
+3 = Aplicar automaticamente resoluções de problemas fornecidas por funcionalidades do sistema e pela Microsoft a problemas críticos e outros. Notificar os utilizadores quando a resolução de problemas tiver resolvido um problema.
+4 = Aplicar automaticamente resoluções de problemas fornecidas por funcionalidades do sistema e pela Microsoft a problemas críticos e outros. Não notificar os utilizadores quando a resolução de problemas tiver resolvido um problema.
+5 = Permitir ao utilizador escolher as respetivas definições da resolução de problemas.
 
-2. Para criar uma nova tarefa imediata, navegue até ao Editor de Gestão de Políticas de Grupo &gt; Configuração do Computador &gt; Preferências e selecione Definições do Painel de Controlo. 
-3. Nas definições do Painel de Controlo, clique com o botão direito do rato em Tarefas Agendadas e selecione Nova. Selecione Tarefa Imediata (Windows 7, no mínimo).
-4. Forneça o nome e a descrição conforme necessário e, em seguida, em Opções de segurança, defina a conta de utilizador para o Sistema e selecione a caixa de verificação Executar com os privilégios máximos.
-5. No separador Ações, crie uma nova ação, selecione Iniciar um Programa e, em seguida, introduza o ficheiro criado no passo 1.
-6. Configure a tarefa para implementação no seu domínio.</string>
-<string id="RecommendationsDropDown_DoNothing">Desativar esta funcionalidade</string>
-<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Desativar esta funcionalidade, mas continuar a aplicar a resolução de problemas críticos.</string>
-<string id="RecommendationsDropDown_AskFirst">Notificar os utilizadores quando a resolução de problemas recomendada estiver disponível e, em seguida, permitir que o utilizador a execute ou ignore.</string>
-<string id="RecommendationsDropDown_ApplyThenNotify">Executar a resolução de problemas recomendada automaticamente e notificar o utilizador após ter sido executada com êxito.</string>
-<string id="RecommendationsDropDown_ApplySilently">Executar a resolução de problemas recomendada automaticamente sem notificar o utilizador.</string>
-<string id="RecommendationsDropDown_DeferToUser">Permitir que o utilizador escolha as suas próprias definições de resolução de problemas recomendada.</string>
+Após definir esta política, pode utilizar as seguintes instruções para verificar a existência de resoluções de problemas da Microsoft para dispositivos no seu domínio:
+1. Crie um script de comandos com os seguintes conteúdos:
+rem O seguinte script de comandos aciona a Resolução de Problemas Recomendada
+schtasks /run /TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner"
+
+2. Para criar uma nova tarefa imediata, aceda ao Editor de Gestão de Políticas de Grupo &gt; Configuração do Computador &gt; Preferências e selecione Definições do Painel de Controlo. 
+3. Por baixo de Definições do Painel de Controlo, clique com o botão direito do rato em Tarefas Agendadas e selecione Novo. Selecione Tarefa Imediata (Windows 7 no mínimo).
+4. Insira um nome e uma descrição apropriados e por baixo de Opções de Segurança, defina a conta do utilizador como Sistema e selecione a caixa de verificação Executar com os privilégios máximos.
+5. No separador Ações, crie uma nova ação, selecione Iniciar um Programa como o tipo e, em seguida, insira o ficheiro criado no passo 1.
+6. Configure a tarefa para a implementar no seu domínio.</string>
+<string id="RecommendationsDropDown_DoNothing">Não permitir utilizadores, funcionalidades do sistema ou a Microsoft para aplicar a resolução de problemas.</string>
+<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Aplicar automaticamente a resolução de problemas de problemas críticos por funcionalidades de sistema e Microsoft.</string>
+<string id="RecommendationsDropDown_AskFirst">Aplicar automaticamente a resolução de problemas críticos por funcionalidades do sistema e pela Microsoft. Notificar os utilizadores quando a resolução de problemas está disponível e permitir aos utilizadores escolherem aplicá-la ou ignorá-la.</string>
+<string id="RecommendationsDropDown_ApplyThenNotify">Aplicar automaticamente a resolução de problemas para críticos e outros problemas por funcionalidades de sistema e Microsoft. Notificar os utilizadores quando a resolução de problemas resolver um problema.</string>
+<string id="RecommendationsDropDown_ApplySilently">Aplicar automaticamente a resolução de problemas críticos e outros por funcionalidades do sistema e pela Microsoft. Não notificar os utilizadores quando a resolução de problemas resolveu um problema.</string>
+<string id="RecommendationsDropDown_DeferToUser">Permitir que o utilizador escolha as suas próprias definições de resolução de problemas.</string>
     </stringTable>
     <presentationTable>
       <presentation id="MsdtToolDownloadPolicy">

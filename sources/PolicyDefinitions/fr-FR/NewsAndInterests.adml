@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>entrer le nom complet ici</displayName>
+  <description>entrer la description ici</description>
+  <resources>
+    <stringTable>
+      <string id="NewsAndInterests">Widgets</string>
+      <string id="AllowNewsAndInterests">Autoriser les widgets</string>
+      <string id="Explain_AllowNewsAndInterests">Cette stratégie spécifie si la fonctionnalité widgets est autorisée sur l’appareil.
+Les widgets sont activés par défaut, sauf si vous modifiez vos paramètres.
+Si vous avez déjà activé cette fonctionnalité, elle restera activée automatiquement, sauf si vous la désactivez.</string>
+      <string id="DisableWidgetsOnLockScreen">Désactiver les widgets sur l’écran de verrouillage</string>
+      <string id="Explain_DisableWidgetsOnLockScreen">Cette stratégie spécifie s’il faut désactiver la fonctionnalité Widgets sur l’écran de verrouillage.
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, les widgets s’affichent sur l’écran de verrouillage et peuvent être gérés dans l’application Paramètres Windows.
+Si vous activez ce paramètre de stratégie, les widgets n’apparaissent pas sur l’écran de verrouillage.</string>
+      <string id="DisableWidgetsBoard">Désactiver un tableau de widgets</string>
+      <string id="Explain_DisableWidgetsBoard">Cette stratégie spécifie s’il faut désactiver l’expérience Widgets Board. 
+Si vous désactivez ou ne configurez pas ce paramètre de stratégie, vous pouvez appeler le tableau des widgets et voir son point d’entrée dans la barre des tâches. L’expérience Widgets Board peut être gérée dans les paramètres widgets dont le point d’entrée se trouve sur le tableau de widgets.
+Si vous activez ce paramètre de stratégie, vous ne pouvez pas appeler le tableau de widgets et son point d’entrée n’apparaît plus dans la barre des tâches.</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

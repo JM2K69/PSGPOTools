@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" revision="1.0" schemaVersion="1.0">
+  <displayName>Directivas de registro de preferencias de la directiva de grupo</displayName>
+  <description></description>
+  <resources>
+    <stringTable>
+      <string id="CSE_Applications_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Aplicaciones</string>
+      <string id="CSE_Applications_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Aplicaciones y activar el seguimiento para la extensión Aplicaciones. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puede configurar el registro de eventos y activar el seguimiento de la extensión Aplicaciones para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.
+
+</string>
+      <string id="CSE_DataSources_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Orígenes de datos</string>
+      <string id="CSE_DataSources_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Orígenes de datos y activar el seguimiento para la extensión Orígenes de datos. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Orígenes de datos para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_Devices_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Dispositivos</string>
+      <string id="CSE_Devices_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Dispositivos y activar el seguimiento para la extensión Dispositivos. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Dispositivos para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_Drives_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Asignaciones de unidades</string>
+      <string id="CSE_Drives_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Asignaciones de unidades y activar el seguimiento para la extensión Asignaciones de unidades. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Asignaciones de unidades para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_Environment_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Entorno</string>
+      <string id="CSE_Environment_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Entorno y activar el seguimiento para la extensión Entorno. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Entorno para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_Files_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Archivos</string>
+      <string id="CSE_Files_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Archivos y activar el seguimiento para la extensión Archivos. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Archivos para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_FolderOptions_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Opciones de carpeta</string>
+      <string id="CSE_FolderOptions_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Opciones de carpeta y activar el seguimiento para la extensión Opciones de carpeta. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Opciones de carpeta para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_Folders_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Carpetas</string>
+      <string id="CSE_Folders_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Carpetas y activar el seguimiento para la extensión Carpetas. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y habilitar el seguimiento de la extensión Carpetas para los equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_IniFiles_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Archivos ini</string>
+      <string id="CSE_IniFiles_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Archivos Ini y activar el seguimiento para la extensión Archivos Ini. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Archivos Ini para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_Internet_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Configuración de Internet</string>
+      <string id="CSE_Internet_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Internet y activar el seguimiento para la extensión Internet. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Internet para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_LocalUsersAndGroups_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Usuarios y grupos locales</string>
+      <string id="CSE_LocalUsersAndGroups_Logging_Help">Esta configuración de directiva permite establecer el nivel de detalle que almacena el registro de eventos para la extensión de preferencias Usuario local y Grupo local, así como activar el seguimiento para esta extensión. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Usuario local y Grupo local.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_NetworkOptions_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Opciones de red</string>
+      <string id="CSE_NetworkOptions_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Opciones de red y activar el seguimiento para la extensión Opciones de red. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Opciones de red para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_NetShares_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Recursos compartidos de red</string>
+      <string id="CSE_NetShares_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Recursos compartidos de red y activar el seguimiento para la extensión Recursos compartidos de red. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Recursos compartidos de red para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_PowerOptions_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Opciones de energía</string>
+      <string id="CSE_PowerOptions_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Opciones de energía y activar el seguimiento para la extensión Opciones de energía. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Opciones de energía para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_Printers_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Impresoras</string>
+      <string id="CSE_Printers_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Impresoras y activar el seguimiento para la extensión Impresoras. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Impresoras para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_RegionalOptions_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Configuración regional</string>
+      <string id="CSE_RegionalOptions_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Configuración regional y activar el seguimiento para la extensión Configuración regional. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Configuración regional para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_PrefRegistry_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Registro</string>
+      <string id="CSE_PrefRegistry_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Registro y activar el seguimiento para la extensión Registro. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y habilitar el seguimiento de la extensión Registro para los equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_ScheduledTasks_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Tareas programadas</string>
+      <string id="CSE_ScheduledTasks_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Tareas programadas y activar el seguimiento para la extensión Tareas programadas. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Tareas programadas para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_Services_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Servicios</string>
+      <string id="CSE_Services_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Servicios y activar el seguimiento para la extensión Servicios. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Servicios para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_Shortcuts_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Accesos directos</string>
+      <string id="CSE_Shortcuts_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Accesos directos y activar el seguimiento para la extensión Accesos directos. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Accesos directos para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_StartMenu_Logging">Configurar el seguimiento y el registro de la extensión de preferencias Menú Inicio</string>
+      <string id="CSE_StartMenu_Logging_Help">Esta configuración de directiva te permite configurar el nivel de detalle registrado por el registro de eventos para la extensión de preferencias Menú Inicio y activar el seguimiento para la extensión Menú Inicio. El registro y seguimiento proporciona información de diagnóstico para la solución de problemas.
+
+Si habilitas esta configuración de directiva, puedes configurar el registro de eventos y activar el seguimiento de la extensión Menú Inicio para equipos cliente.
+
+Si deshabilitas o no configuras esta configuración de directiva, el registro de eventos para esta extensión solamente incluye de manera predeterminada advertencias y errores, y el seguimiento para esta extensión está desactivado.
+
+Precaución de seguridad: 
+Protege el recurso compartido de red configurado únicamente con los permisos mínimos necesarios. No uses un acceso amplio (por ejemplo, Cualquier cuenta estándar o Todos con Control total), ya que esto podría permitir el acceso no autorizado a los datos de registro y seguimiento
+
+Notas:
+
+1. Seguimiento de la Configuración de usuario: para realizar el seguimiento de elementos en esta extensión de preferencias enumerada en Configuración de usuario, en el cuadro "Seguimiento de usuarios" debes proporcionar una ruta de acceso a la ubicación en el equipo cliente donde se pueda crear un archivo de seguimiento de usuarios y debes activar la opción "Seguimiento". Si no hay elementos de preferencias en Configuración de usuario en esta extensión, no se creará ningún archivo de seguimiento de usuarios.
+
+2. Seguimiento de la Configuración del equipo: esta extensión de preferencias está disponible únicamente en Configuración de usuario por lo que el seguimiento de la configuración del equipo no es aplicable.
+
+3. Seguimiento de la consulta de Modelado de directivas de grupo: para realizar el seguimiento de elementos en esta extensión de preferencias al realizar una consulta de Modelado de directivas de grupo, en el cuadro "Seguimiento de planeación" debes proporcionar una ruta de acceso a la ubicación donde se pueda crear un archivo de seguimiento de planeación en el equipo donde ejecutes el modelado y debes activar la opción "Seguimiento". Si no estás realizando un Modelado de directivas de grupo o no hay elementos de preferencias en esta extensión, no se crea ningún archivo de seguimiento de planeación.</string>
+      <string id="CSE_NOCHANGES">Procesar incluso si los objetos de directiva de grupo no han cambiado</string>
+      <string id="CSE_NOBACKGROUND">No aplicar durante el procesamiento periódico en segundo plano</string>
+      <string id="CSE_ALLOWSLOWLINK">Permitir el procesamiento a través de una conexión de red de baja velocidad</string>
+      <string id="CSE_TRACELEVEL">Seguimiento</string>
+      <string id="CSE_TRACEFILEPATHUSER">Seguimiento de usuarios</string>
+      <string id="CSE_TRACEFILEPATHMACHINE">Seguimiento de equipos</string>
+      <string id="CSE_TRACEFILEPATH">Archivo de seguimiento</string>
+      <string id="CSE_TRACEFILEPATHPLANNING">Seguimiento de planeación</string>
+      <string id="CSE_TRACEFILEMAXSIZE">Tamaño máximo del archivo de seguimiento (KB)</string>
+      <string id="CSE_TRACELEVELNORMAL">Desactivado</string>
+      <string id="CSE_TRACELEVELVERBOSE">Activado</string>
+      <string id="CSE_BACKGROUNDPRIORTYLEVEL">Prioridad en segundo plano</string>
+      <string id="CSE_PRILEVEL_NORMAL">Normal</string>
+      <string id="CSE_PRILEVEL_BELOWNORMAL">Por debajo de lo normal</string>
+      <string id="CSE_PRILEVEL_LOWEST">Mínima</string>
+      <string id="CSE_PRILEVEL_IDLE">Inactiva</string>
+      <string id="CSE_LOGLEVEL">Registro de eventos</string>
+      <string id="CSE_LOGLEVEL_INFORMATION">Información, advertencias y errores</string>
+      <string id="CSE_LOGLEVEL_WARNINGS">Advertencias y errores</string>
+      <string id="CSE_LOGLEVEL_ERRORS">Solo errores</string>
+      <string id="CSE_LOGLEVEL_NONE">Ninguno</string>
+      <string id="CSE_Logging">Registro y seguimiento</string>
+      <string id="CSE_Logging_Help">Permite configurar el registro y el seguimiento de los componentes de preferencias.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="CSE_Applications_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_DataSources_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Devices_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Drives_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Environment_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Files_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_FolderOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Folders_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_IniFiles_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Internet_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_LocalUsersAndGroups_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetworkOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_NetShares_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PowerOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Printers_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_RegionalOptions_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_PrefRegistry_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_ScheduledTasks_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Services_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_Shortcuts_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHMACHINE">
+          <label>Seguimiento de equipos</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Computer.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="CSE_StartMenu_Logging">
+        <dropdownList refId="CSE_LOGLEVEL" noSort="true" defaultItem="1">Registro de eventos</dropdownList>
+        <dropdownList refId="CSE_TRACELEVEL" noSort="true" defaultItem="1">Seguimiento</dropdownList>
+        <textBox refId="CSE_TRACEFILEPATHUSER">
+          <label>Seguimiento de usuarios</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\User.log</defaultValue>
+        </textBox>
+        <textBox refId="CSE_TRACEFILEPATHPLANNING">
+          <label>Seguimiento de planeación</label>
+          <defaultValue>%COMMONAPPDATA%\GroupPolicy\Preference\Trace\Planning.log</defaultValue>
+        </textBox>
+        <decimalTextBox refId="CSE_TRACEFILEMAXSIZE" defaultValue="1024">Tamaño máximo del archivo de seguimiento (KB)</decimalTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>CAM (Capability Access Manager) KI-Richtlinien</displayName>
+  <description>Richtlinien zu KI-Funktionen und der Verwaltung ihrer Einwilligungen.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">KI-Einwilligung</string>
+      <string id="WindowsAI">Windows-KI</string>
+      <string id="UserInControl">Benutzer hat die Kontrolle</string>
+      <string id="ForceEnable">Zoom aktivieren erzwingen</string>
+      <string id="ForceDisable">Deaktivierung erzwingen</string>
+      <string id="AgentConsentDuration_Name">Dauer der Agent-Einwilligung</string>
+      <string id="AgentConsentDuration_Explain">Gibt an, wie lange eine Einwilligungsantwort „Zulassen“ für Agentfunktionen in Stunden gültig bleibt, bevor die Person erneut dazu aufgefordert wird.
+
+Wenn diese Richtlinie aktiviert ist, muss der Wert zwischen 1 (1 Stunde) und 8760 (1 Jahr) liegen. Der konfigurierte Wert wird als Standardablaufzeit für alle Einwilligungsantworten „Zulassen“ für Agentfunktionen verwendet.
+
+Wenn diese Richtlinie nicht konfiguriert ist oder der Wert außerhalb des zulässigen Bereichs liegt, beträgt der Standardwert 720 Stunden (30 Tage).</string>
+      <string id="ConfigureAgentConnectors_Name">Agent-Connectors konfigurieren</string>
+      <string id="ConfigureAgentConnectors_Explain">Agent Connectors aktivieren oder deaktivieren.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Zugriffsrichtlinie für Agent-Connector</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Mit dieser Richtlinieneinstellung können Sie eine Liste zulässiger Verbindungen zwischen MCP-Hosts und MCP-Servern definieren.
+
+Das Format dieser Liste ist eine JSON-Zeichenfolge, die dem Schema unter https://go.microsoft.com/fwlink/?LinkId=2363700 entspricht.
+
+Wenn diese Richtlinie nicht konfiguriert ist, kann der MCP-Host mit Zustimmung der Person eine Verbindung mit jedem MCP-Server herstellen.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Agent Connectors konfigurieren: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Einwilligungsdauer (Stunden): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Zugelassene MCP-Host/Server-Verbindungen konfigurieren:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

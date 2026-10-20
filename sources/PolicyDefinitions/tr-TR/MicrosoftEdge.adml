@@ -129,6 +129,12 @@ Bu ayarı yapılandırmazsanız, çalışanlar Açılır Pencere Engelleyicisi�
 Etkinleştirilirse yazdırmaya izin verilir.
 
 Devre dışı bırakılırsa yazdırmaya izin verilmez.</string>
+      <string id="AllowMixedModePrintingInPdf">Hem yatay hem de dikey sayfaları olan PDF dosyaları için her sayfayı kendi yönlendirmesinde yazdırın.</string>
+      <string id="AllowMixedModePrintingInPdf_Explain">Bu ilkeyle Microsoft Edge'de PDF dosyalarını sayfa yönlendirmesine göre yazdırabilirsiniz.
+
+Etkinleştirilirse karma mod yazdırmaya izin verilir.
+
+Devre dışı bırakılırsa karma mod yazdırmaya izin verilmez.</string>
       <string id="AllowSavingHistory">Geçmişi Kaydetmeye İzin Ver</string>
       <string id="AllowSavingHistory_Explain">Microsoft Edge, kullanıcıların kendi cihazlarında ziyaret ettikleri web siteler hakkındaki bilgilerden oluşturulan göz atma geçmişlerini kaydeder.
 
@@ -512,9 +518,14 @@ Bu ilkeyi 0 olarak ayarlarsanız Microsoft Edge, boşta kalma zamanlayıcısın�
 Devre dışı bırakılırsa veya yapılandırılmazsa varsayılan değer 5 dakikadır.
 
 Microsoft Edge'i atanan erişimde yapılandırmamanız hâlinde bu ilke geçerli olmaz.</string>
-    </stringTable>
+      <string id="SuppressEdgeDeprecationNotification">Edge Kullanımdan Kaldırma Bildiriminin görüntülenmesini engelleme</string>
+      <string id="SuppressEdgeDeprecationNotification_Explain">Microsoft Edge’i, bu Microsoft Edge sürümü için desteğin 9 Mart 2021 tarihinde sona erdiği konusunda kullanıcıları bilgilendiren bildirimin görüntülenmesini engelleyecek şekilde yapılandırabilirsiniz.
 
+Etkinleştirilirse, bildirim gösterilmez. Devre dışı bırakılırsa veya yapılandırılmazsa bildirim, Edge her başlatıldığında gösterilir. </string>
+
+    </stringTable>
     <!-- Presentation -->
+    
     <presentationTable>
       <presentation id="ConfiguredFavorites_Presentation">
         <textBox refId="ConfiguredFavoritesPrompt">

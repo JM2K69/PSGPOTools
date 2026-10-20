@@ -76,7 +76,7 @@
 
 如果启用此策略设置，Windows Defender 防火墙会将信息写入日志文件。必须提供日志文件的名称、位置和最大大小。位置可以包含环境变量。还必须指定是否记录有关防火墙阻止(丢弃)的传入消息的信息，以及有关成功的传入和传出连接的信息。Windows Defender 防火墙不提供用于记录成功传入消息的选项。
 
-如果正在配置日志文件名称，请确保 Windows Defender 防火墙服务帐户具有对包含日志文件的文件夹的写入权限。日志文件的默认路径是 %systemroot%\system32\LogFiles\Firewall\pfirewall.log。
+如果正在配置日志文件名称，请确保 Windows Defender 防火墙服务账户具有对包含日志文件的文件夹的写入权限。日志文件的默认路径是 %systemroot%\system32\LogFiles\Firewall\pfirewall.log。
 
 如果禁用此策略设置，则 Windows Defender 防火墙不会在日志文件中记录信息。如果启用此策略设置，并且 Windows Defender 防火墙已创建日志文件并添加信息，则在禁用此策略设置时，Windows Defender 防火墙不会改动日志文件。
 

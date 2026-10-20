@@ -29,6 +29,12 @@
 このポリシー設定を有効にした場合、システム通知領域に [セキュリティとメンテナンス] のアイコンが表示されません。
 
 このポリシー設定を無効にした場合、または構成しなかった場合は、システム通知領域に [セキュリティとメンテナンス] アイコンが表示されます。</string>
+      <string id="HideSCAMeetNow">[今すぐ会議] アイコンを削除します</string>
+      <string id="HideSCAMeetNow_Help">このポリシー設定では、システムコントロール領域から [今すぐ会議] アイコンを削除できます。
+
+このポリシー設定を有効にした場合、[今すぐ会議] アイコンがシステム通知領域に表示されません。
+
+このポリシー設定を無効にするか、未構成にした場合、[今すぐ会議] アイコンがシステム通知領域に表示されます。</string>
       <string id="TaskbarLockAll">すべてのタスク バー設定をロックする</string>
       <string id="TaskbarLockAll_Help">このポリシー設定を使用すると、すべてのタスク バー設定をロックできます。
 
@@ -129,14 +135,14 @@
 このポリシー設定を有効にした場合、ユーザーは複数のディスプレイで複数のタスク バーを表示できません。タスク バーのプロパティ ダイアログの複数のディスプレイ セクションは有効になりません。
 
 このポリシー設定を無効にした場合、または構成しなかった場合、ユーザーは複数のディスプレイで複数のタスク バーを表示できます。</string>
-        <string id="ShowWindowsStoreAppsOnTaskbar">Windows ストア アプリをタスク バーに表示する</string>
+        <string id="ShowWindowsStoreAppsOnTaskbar">パッケージ化された Microsoft Store アプリをタスク バーに表示する</string>
         <string id="ShowWindowsStoreAppsOnTaskbar_Help">
-このポリシー設定を使用すると、ユーザーは、Windows ストア アプリをタスク バーに表示できます。
- 
-このポリシー設定を有効にした場合、Windows ストア アプリがタスク バーに表示されます。
- 
-このポリシー設定を無効にした場合、Windows ストア アプリはタスク バーに表示されません。
- 
+このポリシー設定を使用すると、ユーザーは、パッケージ化された Microsoft Store アプリをタスク バーに表示できます。
+
+このポリシー設定を有効にした場合、パッケージ化された Microsoft Store アプリがタスク バーに表示されます。
+
+このポリシー設定を無効にした場合、パッケージ化された Microsoft Store アプリはタスク バーに表示されません。
+
 このポリシー設定を構成しなかった場合は、ユーザーのデバイスの既定の設定が使用されます。ユーザーが設定を変更することもできます。</string>
       <string id="DisableNotificationCenter">通知とアクション センターを削除する</string>
       <string id="DisableNotificationCenter_Help">このポリシー設定を使用して、タスク バーの通知領域から通知とアクション センターを削除できます。
@@ -148,7 +154,7 @@
 このポリシー設定を無効にした場合、または構成しない場合は、通知と [セキュリティとメンテナンス] がタスク バーに表示されます。
 
 このポリシー設定を適用するには再起動が必要です。</string>
-      <string id="NoPinningStoreToTaskbar">タスク バーへの Microsoft Store アプリの固定を許可しません</string> 
+      <string id="NoPinningStoreToTaskbar">タスク バーへの Microsoft Store アプリの固定を許可しません</string>
       <string id="NoPinningStoreToTaskbar_Help">
 タスク バーへの Microsoft Store アプリの固定は、このポリシー設定で制御できます。
 
@@ -165,10 +171,81 @@
 このポリシー設定を構成しなかった場合、カレンダーは既定のロジックに従って設定されます。</string>
       <string id="ConfigureTaskbarCalendar_SimplifiedChinese">簡体字中国語 (旧暦)</string>
       <string id="ConfigureTaskbarCalendar_TraditionalChinese">繁体字中国語 (旧暦)</string>
+      <string id="Chat">チャット</string>
+      <string id="ConfigureChatIcon">タスク バーの [チャット] アイコンを構成する。</string>
+      <string id="ConfigureChatIcon_Help">このポリシー設定を使用すると、タスク バーの [チャット] アイコンを構成できます。
+
+このポリシー設定を有効にし、[表示] に設定すると、既定でタスク バーに [チャット] アイコンが表示されます。ユーザーは [設定] で表示または非表示を切り替えることができます。
+
+このポリシー設定を有効にして [非表示] に設定すると、既定でチャット アイコンが非表示になります。ユーザーは [設定] で表示または非表示を切り替えることができます。
+
+このポリシー設定を有効にして無効に設定すると、チャット アイコンは表示されず、ユーザーは [設定] で表示または非表示にすることもできません。
+
+このポリシー設定を無効にするか、未構成にした場合、チャット アイコンは Windows エディションの既定値に従って構成されます。</string>
+      <string id="ChatEnum_Show">表示</string>
+      <string id="ChatEnum_Hide">非表示</string>
+      <string id="ChatEnum_Disabled">無効です</string>
+      <string id="HideTaskViewButton">タスク ビュー ボタンを非表示にする</string>
+      <string id="HideTaskViewButton_Help">このポリシー設定を使用すると、[TaskView] ボタンを非表示にすることができます。
+
+このポリシー設定を有効にした場合、[タスク ビュー] ボタンは非表示になり、[設定] トグルは無効になります。</string>
+      <string id="AlwaysShowNotificationIcon">通知ベル アイコンを表示する</string>
+      <string id="AlwaysShowNotificationIcon_Help">
+このポリシー設定を使用すると、システム トレイに通知ベルアイコンを表示できます。
+
+このポリシー設定を有効にした場合、通知アイコンは常に表示されます。それ以外の場合は、特別な状態 ([応答不可] がオンになっているなど) がある場合にのみ通知アイコンが表示されます。
+
+このポリシー設定を有効にするには、再起動が必要です。
+      </string>
+      <string id="TurnOffAbbreviatedDateTimeFormat">省略形の時刻と日付の形式を無効にする</string>
+      <string id="TurnOffAbbreviatedDateTimeFormat_Help">
+このポリシー設定を使用すると、システム トレイに長い時刻と日付の形式を表示できます。
+
+この設定を有効にした場合、時刻の形式には AM/PM 時刻マーカーが含まれます。日付には年が含まれます。
+
+このポリシー設定を有効にするには、再起動が必要です。
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior">ConfigureTaskbarSmallButtonBehavior</string>  
+      <string id="ConfigureTaskbarSmallButtonBehavior_DisplayName">タスク バーの小さいボタンの動作を構成する</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Help">このポリシー設定では、タスク バーの小さなボタンの動作を構成できます。
+      
+以下に設定した場合:
+      - 常に: タスク バーは常に小さいボタンを使用します。
+      - タスク バーに入りきらない場合: タスク バーは、使用可能な領域に基づいて、小さなボタンと標準のボタン サイズを動的に切り替えます。
+      - なし: タスク バーは小さいボタンを使用しません。標準サイズのボタンのみが使用されます。
+
+このポリシーを有効にすると、上記のオプションのいずれかを選択する必要があり、ユーザーは設定 UI の [小さいタスク バー ボタンを表示する] オプションを変更できません。
+
+このポリシーを無効にした場合、または構成しなかった場合、グループ ポリシーによってオプションは適用されません。Windows は既定で [タスク バーに入りきらない場合] の動作を行い、ユーザーは設定 UI でこの設定を手動で変更できます。
+      </string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Always">常時</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_WhenTaskbarIsFull">タスク バーに入りきらない場合</string>
+      <string id="ConfigureTaskbarSmallButtonBehavior_Never">なし</string>
+      <string id="DisableTaskbarPosition">タスク バーの位置変更を無効にする</string>
+      <string id="DisableTaskbarPosition_Help">このポリシー設定では、ユーザーがタスク バーの位置を変更できないようにすることができます。
+
+このポリシー設定を有効にすると、タスク バーは画面の下部に移動され、設定アプリでタスク バーの位置の設定が灰色表示されます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、ユーザーは設定アプリでタスク バーの位置を変更できます。</string>
+      <string id="DisableTaskbarSize">タスク バーのサイズ変更を無効にする</string>
+      <string id="DisableTaskbarSize_Help">このポリシー設定を使用すると、タスク バーのサイズを変更できないようにすることができます。
+
+このポリシー設定を有効にした場合、タスク バーは既定のサイズに設定され、設定アプリでタスク バーのサイズ設定は灰色表示されます。
+
+このポリシー設定を無効にした場合、または構成しなかった場合、ユーザーは設定アプリでタスク バーのサイズを変更できます。</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureTaskbarCalendar">
         <dropdownList refId="ConfigureTaskbarCalendar_Dropdown" defaultItem="0">カレンダー:</dropdownList>
+      </presentation>
+      <presentation id="ConfigureChatIcon">
+          <text>[チャット] アイコン設定の構成</text>
+          <text> </text>
+          <dropdownList refId="ConfigureChatIcon_Action" noSort="true" defaultItem="1">状態: </dropdownList>
+          <text> </text>
+      </presentation>
+      <presentation id="ConfigureTaskbarSmallButtonBehavior">
+        <dropdownList refId="ConfigureTaskbarSmallButtonBehavior_Dropdown" noSort="true" defaultItem="1">小さいタスク バー ボタンを表示するタイミングを選択します。 </dropdownList>
       </presentation>
     </presentationTable>
   </resources>

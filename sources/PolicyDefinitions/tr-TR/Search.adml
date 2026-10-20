@@ -275,6 +275,8 @@ Bu ilke ayarını devre dışı bırakırsanız ya da yapılandırmazsanız önc
 Bu ayarı etkinleştirirseniz veya yapılandırmazsanız, cihazda Cortana’ya izin verilir. Bu ayarı devre dışı bırakırsanız, Cortana kapatılır. 
  
 Cortana kapalıyken kullanıcılar aramayı kullanarak hâlâ cihazda bir şeyler bulabilirler.</string>
+      <string id="EnableDynamicContentInWSB">Arama vurgularına izin ver</string>
+      <string id="ExplainEnableDynamicContentInWSB">Bu ayarı devre dışı bırakmak, başlat menüsü arama kutusundaki ve ana sayfadaki aramadaki arama vurgularını kapatır. Bu ayarın etkinleştirilmesi veya yapılandırılmaması, başlat menüsü arama kutusunda ve ana sayfa aramasında arama vurgularını açar.</string>
       <string id="AllowCortanaAboveLock">Cortana'ya kilit ekranı üzerinde izin ver</string>
       <string id="ExplainAllowCortanaAboveLock">Bu ilke ayarı, sistem kilitliyken kullanıcının konuşma özelliğini kullanarak Cortana ile etkileşim kurup kuramayacağını belirler.
 
@@ -294,6 +296,27 @@ Bu ayar etkinleştirilirse, arama ve Cortana konum bilgilerine erişebilir.</str
       <string id="AllowCortanainAADEnabled">AAD'deki Cortana Sayfası'nı Etkinleştir</string>
       <string id="AllowCloudSearchEnabled">Bulut Aramayı Etkinleştir</string>
       <string id="AllowCloudSearchControlledByUser">Kullanıcı Tarafından Seçilen</string>
+      <string id="DisableSearch_DisplayName">Arama kullanıcı arabirimini tamamen devre dışı bırak</string>
+      <string id="DisableSearch_ExplainText">Bu ilkeyi etkinleştirirseniz Arama kullanıcı arabirimi klavye kısayolları, dokunmatik yüzey hareketleri ve arama türü gibi tüm giriş noktalarıyla birlikte devre dışı Başlat menüsü. Kullanıcının Başlat menüsü kutusu ve Görev Çubuğunu Ara düğmesi de gizlenir.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız kullanıcı Arama kullanıcı arabirimini açarak farklı giriş noktaları gösterilir.</string>
+      <string id="ConfigureSearchOnTaskbarMode">Görev çubuğunda aramayı yapılandırır</string>
+      <string id="ConfigureSearchOnTaskbarMode_Help">Bu ilke ayarı, görev çubuğunda arama yapılandırmanızı sağlar.
+
+Bu ilke ayarını etkinleştirir ve gizle olarak ayarlarsanız, görev çubuğunda arama varsayılan olarak gizlenir. Kullanıcılar bunu Ayarlar'da değiştiremez.
+
+Bu ilke ayarını etkinleştirir ve yalnızca arama simgesi olarak ayarlarsanız, arama simgesi varsayılan olarak görev çubuğunda görüntülenir. Kullanıcılar bunu Ayarlar'da değiştiremez.
+
+Bu ilke ayarını etkinleştirir ve arama simgesi ve etiketi olarak ayarlarsanız, arama simgesi ve etiketi varsayılan olarak görev çubuğunda görüntülenir. Kullanıcılar bunu Ayarlar'da değiştiremez.
+
+Bu ilke ayarını etkinleştirir ve arama kutusuna ayarlarsanız, arama kutusu varsayılan olarak görev çubuğunda görüntülenir. Kullanıcılar bunu Ayarlar'da değiştiremez.
+
+Bu ilke ayarını devre dışı bırakırsanız veya yapılandırmazsanız görev çubuğundaki arama, Windows sürümünüz için varsayılanlara göre yapılandırılacak. Kullanıcılar, Ayarlar'da görev çubuğunda arama değiştirebilir.
+      </string>
+      <string id="SearchOnTaskbarModeEnum_Hidden">Gizle</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconOnly">Yalnızca arama simgesi</string>
+      <string id="SearchOnTaskbarModeEnum_SearchIconAndLabel">Arama simgesi ve etiketi</string>
+      <string id="SearchOnTaskbarModeEnum_SearchBox">Arama kutusu</string>
     </stringTable>
     <presentationTable>
       <presentation id="RichAttachmentPreviews">
@@ -382,6 +405,9 @@ Bu ayar etkinleştirilirse, arama ve Cortana konum bilgilerine erişebilir.</str
       </presentation>
       <presentation id="AllowCortanaAAD">
         <dropdownList refId="AllowCortanaAAD_Dropdown" noSort="true" defaultItem="0">AAD'deki Cortana Ayarı</dropdownList>
+      </presentation>
+      <presentation id="ConfigureSearchOnTaskbarMode">
+        <dropdownList refId="ConfigureSearchOnTaskbarMode_Dropdown" noSort="true" defaultItem="0">Görev çubuğunda ara</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -13,6 +13,13 @@
     Hvis du aktiverer eller ikke konfigurerer denne policyinnstillingen, vises elementene Bruk en systemavbildning du har opprettet tidligere, til å gjenopprette datamaskinen og Installer Windows på nytt (eller Returner datamaskinen til fabrikktilstanden) på siden Avanserte gjenopprettingsmetoder under Gjenoppretting (i Kontrollpanel), og brukeren kan gjenopprette datamaskinen til den opprinnelige tilstanden eller fra en brukeropprettet systemavbildning. Dette er standardinnstillingen.
 
     Hvis du deaktiverer denne policyinnstillingen, vil elementene Bruk en systemavbildning du har opprettet tidligere, til å gjenopprette datamaskinen og Installer Windows på nytt (eller Returner datamaskinen til fabrikktilstanden) under Gjenoppretting (i Kontrollpanel) være utilgjengelige. Med denne policyinnstillingen deaktivert kan brukere imidlertid fortsatt gjenopprette datamaskinen til den opprinnelige tilstanden eller fra en brukeropprettet systemavbildning ved å starte datamaskinen på nytt og gå til menyen Alternativer for systemgjenoppretting, hvis den er tilgjengelig.</string>
+      <string id="AllowTrustedOfflineScan">Tillat frakoblet skanning fra klarert Windows Recovery Environment</string>
+      <string id="AllowTrustedOfflineScan_help">    Krav: Windows 10
+    Beskrivelse: Denne policyinnstillingen styrer om frakoblet skanning skal tillates fra et klarert Windows Recovery Environment.
+
+    Hvis du aktiverer denne policyinnstillingen, kjøres frakoblet skanning uten å be om BitLocker-gjenopprettingsnøkkel, så lenge Windows Recovery Environment er klarert av BitLocker.
+
+    Hvis du deaktiverer eller ikke konfigurerer denne policyinnstillingen, vil frakoblet skanning be om BitLocker-gjenopprettingsnøkkelen for å låse opp OS-volumet. Hvis brukeren hopper over å låse opp OS-volumet, kjøres ikke frakoblet skanning. Dette er standardinnstillingen.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

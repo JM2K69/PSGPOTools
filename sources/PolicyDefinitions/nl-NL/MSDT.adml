@@ -60,32 +60,33 @@ Het systeem of de service hoeft niet opnieuw te worden gestart om dit beleid te 
 
 </string>
 <string id="TroubleshootingAllowRecommendations">Probleemoplossing: gebruikers toegang geven tot aanbevolen probleemoplossing voor bekende problemen</string>
-<string id="TroubleshootingAllowRecommendationsExplain">Met deze beleidsinstelling worden aanbevolen probleemoplossingen voor bekende problemen op het apparaat toegepast en kunnen beheerders configureren hoe de instelling wordt toegepast binnen hun domeinen/IT-omgevingen.
-Als u deze beleidsinstelling niet configureert, kunnen gebruikers zelf configureren of en hoe aanbevolen probleemoplossing wordt toegepast.
+<string id="TroubleshootingAllowRecommendationsExplain">Met deze beleidsinstelling configureert u hoe oplossingen voor bekende problemen kunnen worden toegepast op het apparaat. Beheerders kunnen instellen hoe deze in hun domeinen of IT-omgevingen worden toegepast.
 
-Als u dit beleid inschakelt, kunt u configureren hoe aanbevolen probleemoplossing wordt toegepast op apparaten van gebruikers. U kunt kiezen uit een van de volgende waarden:
-0 = Deze functie uitschakelen.
-1 = Deze functie uitschakelen, maar kritieke probleemoplossing wel toepassen.
-2 = Gebruikers informeren over aanbevolen probleemoplossing, maar zij bepalen zelf of deze wordt uitgevoerd of genegeerd.
-3 = Aanbevolen probleemoplossing automatisch uitvoeren en gebruikers informeren als de probleemoplossing is geslaagd.
-4 = Aanbevolen probleemoplossing automatisch uitvoeren zonder gebruikers te informeren.
-5 = Gebruikers mogen hun eigen instellingen voor aanbevolen probleemoplossing kiezen.
+Als u deze beleidsinstelling niet configureert, kan de gebruiker zelf bepalen hoe oplossingen voor problemen worden toegepast.
 
-Wanneer deze nieuwe instelling is ingesteld, voert u de volgende instructies uit om aanbevolen probleemoplossing te activeren voor apparaten binnen uw domein:
-1. Maak een .bat-script met de volgende inhoud:
-rem Dit batchscript activeert aanbevolen probleemoplossing
-C:\Windows\System32\mitigationscanner.exe
+Als u dit beleid inschakelt, kunt u configureren hoe oplossingen voor problemen worden toegepast op het apparaat van de gebruiker. U kunt een van de volgende waarden selecteren:
+0 = niet toestaan dat oplossingen voor problemen worden toegepast door gebruikers, systeemfuncties of Microsoft 
+1 = alleen oplossingen voor kritieke problemen automatisch laten toepassen door systeemfuncties en Microsoft
+2 = oplossingen voor kritieke problemen automatisch laten toepassen door systeemfuncties en Microsoft. Gebruikers op de hoogte stellen wanneer er oplossingen beschikbaar zijn voor andere problemen en toestaan dat gebruikers kiezen om deze toe te passen of te negeren.
+3 = oplossingen voor kritieke en andere problemen automatisch laten toepassen door systeemfuncties en Microsoft. Gebruikers op de hoogte stellen wanneer het probleem is opgelost.
+4 = oplossingen voor kritieke en andere problemen automatisch laten oplossen door systeemfuncties en Microsoft. Gebruikers niet op de hoogte stellen wanneer een probleem is opgelost.
+5 = toestaan dat de gebruiker zelf de instellingen voor probleemoplossing kiest.
 
-2. Voor het maken van een nieuwe directe taak navigeert u naar de Groepsbeleidsbeheer-editor &gt; Computerconfiguratie &gt; Voorkeuren en selecteert u Instellingen Configuratiescherm. 
-3. In Instellingen Configuratiescherm klikt u met de rechtermuisknop op Geplande taken en selecteert u Nieuw. Selecteer Directe taak (Windows 7 en hoger).
-4. Geef een naam en een beschrijving op en stel het gebruikersaccount onder Beveiligingsopties in op Systeem. Schakel het selectievakje Met meeste bevoegdheden uitvoeren in.
-5. Maak op het tabblad Acties een nieuwe actie, selecteer het type Een programma starten en kies vervolgens het bestand dat u in stap 1 hebt gemaakt.
-6. Configureer de taak zodanig dat deze in uw domein kan worden geïmplementeerd.</string>
-<string id="RecommendationsDropDown_DoNothing">Deze functie uitschakelen</string>
-<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Deze functie uitschakelen, maar kritieke probleemoplossing wel toepassen.</string>
-<string id="RecommendationsDropDown_AskFirst">Gebruikers informeren over aanbevolen probleemoplossing, maar zij bepalen zelf of deze wordt uitgevoerd of genegeerd.</string>
-<string id="RecommendationsDropDown_ApplyThenNotify">Aanbevolen probleemoplossing automatisch uitvoeren en gebruikers informeren als de probleemoplossing is geslaagd.</string>
-<string id="RecommendationsDropDown_ApplySilently">Aanbevolen probleemoplossing automatisch uitvoeren zonder gebruikers te informeren.</string>
+Wanneer u dit beleid hebt ingesteld, kunt u de volgende instructies gebruiken om te controleren of Microsoft oplossingen heeft voor problemen met de apparaten in uw domein:
+1. Een bat-script maken met de volgende inhoud:
+rem Met het volgende batchscript worden aanbevolen oplossingen voor problemen geactiveerd
+schtasks /run /TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner"
+
+2. Als u een nieuwe directe taak wilt maken, gaat u naar de editor voor Groepsbeleidsbeheer &gt; Computerconfiguratie &gt; Voorkeuren en selecteert u Configuratiescherm-instellingen. 
+3. Klik onder Configuratiescherm-instellingen met de rechtermuisknop op Geplande taken en selecteer Nieuw. Selecteer Directe taak (Windows 7 en hoger).
+4. Geef een naam en beschrijving op, indien van toepassing, en stel vervolgens onder Beveiligingsopties het gebruikersaccount in op Systeem en schakel het selectievakje Uitvoeren met de hoogste bevoegdheden in.
+5. Op het tabblad Acties maakt u een nieuwe actie, selecteert u Een programma starten als type en voert u vervolgens het bestand in dat u in stap 1 hebt gemaakt.
+6. Configureer de taak die u wilt implementeren in uw domein.</string>
+<string id="RecommendationsDropDown_DoNothing">Sta gebruikers, systeemfuncties of Microsoft niet toe om probleemoplossing toe te passen.</string>
+<string id="RecommendationsDropDown_ApplyCoreSystemMitigationsOnly">Alleen automatisch oplossingen toepassen op kritieke problemen door systeemfuncties en Microsoft.</string>
+<string id="RecommendationsDropDown_AskFirst">Pas automatisch probleemoplossing toe op kritieke en andere problemen door systeemfuncties en Microsoft. Informeer gebruikers wanneer een oplossing voor andere problemen beschikbaar is en laat gebruikers kiezen om toe te passen of te negeren.</string>
+<string id="RecommendationsDropDown_ApplyThenNotify">Pas automatisch probleemoplossing toe op kritieke en andere problemen door systeemfuncties en Microsoft. Informeer gebruikers wanneer probleemoplossing een probleem heeft opgelost.</string>
+<string id="RecommendationsDropDown_ApplySilently">Pas automatisch probleemoplossing toe op kritieke en andere problemen door systeemfuncties en Microsoft. Informeer gebruikers niet wanneer probleemoplossing een probleem heeft opgelost.</string>
 <string id="RecommendationsDropDown_DeferToUser">Gebruikers mogen hun eigen instellingen voor aanbevolen probleemoplossing kiezen.</string>
     </stringTable>
     <presentationTable>

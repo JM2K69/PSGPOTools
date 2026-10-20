@@ -70,13 +70,13 @@ Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, kö
       <string id="DriverSearchPlaces_SearchServerConfiguration_WU">Windows Update durchsuchen</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_WSUS">Verwalteten Server durchsuchen</string>
       <string id="DriverSearchPlaces_SearchServerConfiguration_Both">Verwalteten Server und anschließend Windows Update durchsuchen</string>
-      
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Abrufen von Gerätemetadaten aus dem Internet verhindern</string>
-      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Mit dieser Richtlinieneinstellung können Sie verhindern, dass Gerätemetadaten aus dem Internet abgerufen werden.
-          
-Wenn Sie diese Richtlinieneinstellung aktivieren, werden keine Gerätemetadaten für installierte Geräte aus dem Internet abgerufen. Diese Richtlinieneinstellung überschreibt die Einstellung im Dialogfeld "Geräteinstallationseinstellungen" (Systemsteuerung &gt; System und Sicherheit &gt; System &gt; Erweiterte Systemeinstellungen &gt; Registerkarte "Hardware").
 
-Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird durch die Einstellung im Dialogfeld "Geräteinstallationseinstellungen" gesteuert, ob Gerätemetadaten aus dem Internet abgerufen werden.</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork">Automatischen Download von Anwendungen verhindern, die Gerätemetadaten zugeordnet sind</string>
+      <string id="DeviceMetadata_PreventDeviceMetadataFromNetwork_Help">Mit dieser Richtlinieneinstellung können Sie verhindern, dass Windows Anwendungen herunterlädt, die Gerätemetadaten zugeordnet sind.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, lädt Windows keine Anwendungen herunter, die Gerätemetadaten für installierte Geräte zugeordnet sind. Diese Richtlinieneinstellung setzt die Einstellung im Dialogfeld "Geräteinstallationseinstellungen" außer Kraft (Systemsteuerung &gt; Registerkarte "System und Sicherheit &gt; System &gt; Erweiterte Systemeinstellungen &gt; Hardware").
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, steuert die Einstellung im Dialogfeld "Geräteinstallationseinstellungen", ob Windows Anwendungen herunterlädt, die Gerätemetadaten zugeordnet sind.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DriverSearchPlaces">

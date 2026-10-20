@@ -49,10 +49,10 @@ Megjegyzés: A beállítástól függetlenül a rendszergazdákon és a hálóza
 Tipp: A Speciális TCP/IP-beállítások párbeszédpanel megnyitásához a Hálózati kapcsolatok mappában kattintson a jobb gombbal a kapcsolat ikonjára, majd kattintson a Tulajdonságok parancsra. Távelérésű kapcsolat esetén kattintson a Hálózat fülre.  Az „Ez a kapcsolat a kijelölt összetevőket használja” mezőben kattintson a TCP/IP protokoll elemre, kattintson a Tulajdonságok gombra, majd kattintson a Speciális gombra.
 
 Megjegyzés: Ha Engedélyezett állapotról Nem konfigurált állapotra változtatja a beállítást, akkor a felhasználó csak kijelentkezés után érheti el a Speciális gombot.</string>
-      <string id="NC_AllowNetBridge_NLA">Hálózati híd telepítésének és konfigurálásának tiltása a DNS-tartomány hálózatában</string>
+      <string id="NC_AllowNetBridge_NLA">Hálózati híd telepítésének és konfigurálásának tiltása a hálózatában.</string>
       <string id="NC_AllowNetBridge_NLA_Help">Ez a beállítás határozza meg a hálózati hidak telepítésének és konfigurálásának engedélyezését a felhasználók számára.
 
-Fontos: Ez a beállítás helyfüggő. Csak akkor érvényes, ha a számítógép ugyanahhoz a DNS-tartományi hálózathoz kapcsolódik, mint amelyikhez a beállítás frissítésekor csatlakozott. Ha a számítógép a beállítás frissítéséhez képest eltérő DNS-tartományi hálózathoz kapcsolódik, ez a beállítás nem érvényes.
+Fontos: Ez a beállítás helyfüggő az AD tartományhoz csatlakoztatott eszközökön. Csak akkor érvényes, ha a számítógép ugyanahhoz a DNS-tartományi hálózathoz kapcsolódik, mint amelyikhez a beállítás frissítésekor csatlakozott. Ha a számítógép a beállítás frissítéséhez képest eltérő DNS-tartományi hálózathoz kapcsolódik, ez a beállítás nem érvényes. Az Entra-hoz csatlakoztatott eszközökön ez a beállítás minden hálózatra érvényes lesz.
 
 A hálózati híd révén a felhasználók egy második rétegbeli MAC-hidat hozhatnak létre, aminek köszönhetően összeköthetnek két vagy több hálózati szegmenst. Ez a kapcsolat a Hálózati kapcsolatok mappában jelenik meg.
 

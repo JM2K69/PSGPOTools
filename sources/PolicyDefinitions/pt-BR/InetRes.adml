@@ -18,7 +18,7 @@
       <string id="InternetCPL_Programs">Página de Programas</string>
       <string id="AddonManagement_AddOnList">Lista de Complementos</string>
       <string id="AddonManagement_ManagementMode">Negar todos os complementos, exceto quando especificamente permitido na Lista de Complementos</string>
-      <string id="AddonManagement_RestrictCrashDetection">Desativar Detecção de Pane</string>
+      <string id="AddonManagement_RestrictCrashDetection">Desativar Detecção de Colisão</string>
       <string id="AddonManagement_RestrictExtensionManagement">Não permitir que os usuários habilitem ou desabilitem complementos</string>
       <string id="AddSearchProvider">Adicionar uma lista específica de provedores de pesquisa à lista de provedores de pesquisa do usuário</string>
       <string id="AdminApproved">Controles Aprovados pelo Administrador</string>
@@ -355,7 +355,7 @@ Se você desabilitar essa configuração de política, o Assistente para Conexã
 
 Se você não definir essa configuração de política, o usuário poderá decidir se o Assistente para Conexão com a Internet será iniciado automaticamente.</string>
       <string id="ICWSettings">Configurações do Assistente para Conexão com a Internet</string>
-      <string id="Identities">Gerenciador de Identidades: Impedir os usuários de usar Identidades</string>
+      <string id="Identities">Identity Manager: Impedir os usuários de usar Identidades</string>
       <string id="IDN_Always">Sempre converter no formato IDN</string>
       <string id="IDN_Intranet">Converter endereços da intranet no formato IDN</string>
       <string id="IDN_Never">Nunca converter no formato IDN</string>
@@ -501,11 +501,11 @@ Se você habilitar essa configuração de política, o Internet Explorer permiti
 Se você desabilitar ou não definir essa configuração de política, os usuários poderão usar o Gerenciador de Complementos para permitir ou negar qualquer complemento que não esteja incluído na configuração de política Lista de Complementos.
 
 Observação: se um complemento estiver listado na configuração de política Lista de Complementos, o usuário não poderá alterar seu estado por meio do Gerenciador de Complementos (a menos que seu valor seja configurado para permitir o gerenciamento pelos usuários - consulte a política Lista de Complementos para obter mais detalhes).</string>
-      <string id="IE_ExplainAddonManagement_RestrictCrashDetection">Essa configuração de política permite gerenciar o recurso de detecção de pane do Gerenciamento de complementos.
+      <string id="IE_ExplainAddonManagement_RestrictCrashDetection">Essa configuração de política permite gerenciar o recurso de detecção de colisão do Gerenciamento de complementos.
 
 Se essa configuração de política estiver habilitada, uma pane no Internet Explorer apresentará o comportamento encontrado no Windows XP Service Pack 1 e versões anteriores, ou seja, invocar Relatórios de Erros do Windows. Todas as configurações de políticas de Relatórios de Erros do Windows ainda serão aplicáveis.
 
-Se você desabilitar ou não definir essa configuração de política, o recurso de detecção de pane do gerenciamento de complementos será funcional.</string>
+Se você desabilitar ou não definir essa configuração de política, o recurso de detecção de colisão do gerenciamento de complementos será funcional.</string>
       <string id="IE_ExplainAddonManagement_RestrictExtensionManagement">Essa configuração de política permite determinar se os usuários poderão autorizar ou proibir complementos por meio do Gerenciador de Complementos.
 
 Se você habilitar essa configuração de política, os usuários não poderão habilitar nem desabilitar complementos por meio do Gerenciador de Complementos.
@@ -806,9 +806,9 @@ Cuidado: a habilitação dessa política não remove as dicas para usuários do 
 Se você habilitar essa política, o comando Dica do dia será removido do menu Ajuda.
 
 Se você desabilitar essa política ou não a configurar, os usuários poderão habilitar ou desabilitar a Dica do Dia, que é mostrada na parte inferior do navegador.</string>
-      <string id="IE_ExplainIdentities">Impede que os usuários configurem identidades exclusivas usando o Gerenciador de Identidades.
+      <string id="IE_ExplainIdentities">Impede que os usuários configurem identidades exclusivas usando o Identity Manager. 
 
-O Gerenciador de Identidades permite aos usuários criar várias contas, como contas de email, no mesmo computador. Cada usuário tem uma identidade exclusiva, com uma senha diferente e preferências de programas diferentes.
+O Identity Manager permite aos usuários criar várias contas, como contas de email, no mesmo computador. Cada usuário tem uma identidade exclusiva, com uma senha diferente e preferências de programas diferentes.
 
 Se você habilitar essa política, os usuários não poderão criar novas identidades, gerenciar identidades existentes nem alternar identidades. A opção Alternar Identidade será removida do menu Arquivo no Catálogo de Endereços.
 
@@ -2041,7 +2041,7 @@ Se você desabilitar essa configuração de política, o usuário não verá o p
 Se você habilitar essa configuração de política, o controle ActiveX TDC não será executado de sites nesta zona.
 
 Se você desabilitar essa configuração de política, o controle ActiveX TDC será executado de todos os sites nesta zona.</string>
-      <string id="IZ_Policy_AllowDynsrcPlayback">Permitir vídeo e animação em uma página da Web que use um media player mais antigo</string>
+      <string id="IZ_Policy_AllowDynsrcPlayback">Permitir vídeo e animação em uma página da Web que use um reprodutor multimídia mais antigo</string>
       <string id="IZ_Policy_AllowDynsrcPlayback_Explain">Essa configuração de política permite reproduzir vídeos e animações por meio de media players mais antigos em zonas especificadas. A reprodução de vídeos e animações por meio da tag object pode ainda ser permitida porque envolve controles ou media players externos.
 
 O atributo dynsrc na tag img especifica um media player mais antigo. Além disso, a partir do Internet Explorer 8, essa configuração de diretiv controla elementos de mídia HTML+TIME relacionados a arquivos de áudio e vídeo.
@@ -2050,7 +2050,7 @@ Se você habilitar essa configuração de política, vídeos e animações poder
 
 Se você desabilitar essa configuração de política, vídeos e animações não poderão ser reproduzidos por meio de media players mais antigos.
 
-Se você não definir essa configuração de política, vídeos e animações poderão ser reproduzidos por meio de media players mais antigos nas zonas especificadas.</string>
+Se você não definir essa configuração de política, vídeos e animações poderão ser reproduzidos por meio de reprodutores multimídias mais antigos nas zonas especificadas.</string>
       <string id="IZ_Policy_AllowScriptlets">Permitir scriptlets</string>
       <string id="IZ_Policy_AllowScriptlets_Explain">Essa configuração de política permite gerenciar se o usuário pode executar scriptlets.
 
@@ -3578,37 +3578,42 @@ Se você desabilitar ou não definir essa configuração de política, o Interne
 
 Observação: esta política não tem mais suporte a partir do Windows 10 Versão 1607.</string>
       <string id="Protocols_None">Não usar protocolos seguros</string>
-      <string id="Protocols_SSL2">Usar apenas SSL 2.0</string>
+      <string id="Protocols_SSL2">[Obsoleto] Usar apenas SSL 2.0</string>
       <string id="Protocols_SSL3">Usar apenas SSL 3.0</string>
-      <string id="Protocols_SSL2_SSL3">Usar SSL 2.0 e SSL 3.0</string>
+      <string id="Protocols_SSL2_SSL3">[Obsoleto] Usar SSL 2.0 e SSL 3.0</string>
       <string id="Protocols_TLS10">Usar apenas TLS 1.0</string>
-      <string id="Protocols_SSL2_TLS10">Usar SSL 2.0 e TLS 1.0</string>
+      <string id="Protocols_SSL2_TLS10">[Obsoleto] Usar SSL 2.0 e TLS 1.0</string>
       <string id="Protocols_SSL3_TLS10">Usar SSL 3.0 e TLS 1.0</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">Usar SSL 2.0, SSL 3.0 e TLS 1.0</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[Obsoleto] Usar SSL 2.0, SSL 3.0 e TLS 1.0</string>
       <string id="Protocols_TLS11">Usar apenas TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS11">Usar SSL 2.0 e TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS11">[Obsoleto] Usar SSL 2.0 e TLS 1.1</string>
       <string id="Protocols_SSL3_TLS11">Usar SSL 3.0 e TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">Usar SSL 2.0, SSL 3.0 e TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[Obsoleto] Usar SSL 2.0, SSL 3.0 e TLS 1.1</string>
       <string id="Protocols_TLS10_TLS11">Usar TLS 1.0 e TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">Usar SSL 2.0, TLS 1.0 e TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[Obsoleto] Usar SSL 2.0, TLS 1.0 e TLS 1.1</string>
       <string id="Protocols_SSL3_TLS10_TLS11">Usar SSL 3.0, TLS 1.0 e TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">Usar SSL 2.0, SSL 3.0, TLS 1.0 e TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[Obsoleto] Usar SSL 2.0, SSL 3.0, TLS 1.0 e TLS 1.1</string>
       <string id="Protocols_TLS12">Usar apenas TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS12">Usar SSL 2.0 e TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS12">[Obsoleto] Usar SSL 2.0 e TLS 1.2</string>
       <string id="Protocols_SSL3_TLS12">Usar SSL 3.0 e TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">Usar SSL 2.0, SSL 3.0 e TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[Obsoleto] Usar SSL 2.0, SSL 3.0 e TLS 1.2</string>
       <string id="Protocols_TLS10_TLS12">Usar TLS 1.0 e TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">Usar SSL 2.0, TLS 1.0 e TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[Obsoleto] Usar SSL 2.0, TLS 1.0 e TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS12">Usar SSL 3.0, TLS 1.0 e TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">Usar SSL 2.0, SSL 3.0, TLS 1.0 e TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[Obsoleto] Usar SSL 2.0, SSL 3.0, TLS 1.0 e TLS 1.2</string>
       <string id="Protocols_TLS11_TLS12">Usar TLS 1.1 e TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">Usar SSL 2.0, TLS 1.1 e TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[Obsoleto] Usar SSL 2.0, TLS 1.1 e TLS 1.2</string>
       <string id="Protocols_SSL3_TLS11_TLS12">Usar SSL 3.0, TLS 1.1 e TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">Usar SSL 2.0, SSL 3.0, TLS 1.1 e TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[Obsoleto] Usar SSL 2.0, SSL 3.0, TLS 1.1 e TLS 1.2</string>
       <string id="Protocols_TLS10_TLS11_TLS12">Usar TLS 1.0, TLS 1.1 e TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">Usar SSL 2.0, TLS 1.0, TLS 1.1 e TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[Obsoleto] Usar SSL 2.0, TLS 1.0, TLS 1.1 e TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">Usar SSL 3.0, TLS 1.0, TLS 1.1 e TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">Usar SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 e TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[Obsoleto] Usar SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 e TLS 1.2</string>
+      <string id="Protocols_TLS13">Usar apenas TLS 1.3</string>
+      <string id="Protocols_TLS12_TLS13">Usar TLS 1.2 e TLS 1.3</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">Usar TLS 1.1, TLS 1.2 e TLS 1.3</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">Usar TLS 1.0, TLS 1.1, TLS 1.2 e TLS 1.3</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">Usar SSL 3.0, TLS 1.0, TLS 1.1, TLS 1.2 e TLS 1.3</string>
       <string id="LockToolbars">Bloquear todas as barras de ferramentas</string>
       <string id="MoveStopRefresh">Bloquear local dos dos botões Parar e Atualizar</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3907,7 +3912,7 @@ Se você desabilitar ou não definir essa configuração de política, os usuár
 Se você ativar essa configuração, os usuários podem ver e usar a opção Modo Empresarial a partir do menu Ferramentas. Se você ativar esta configuração, mas não especificar um local de relatório, o Modo Empresarial ainda estará disponível para seus usuários, mas você não obtém nenhum relatório.
 
 Se você desabilitar ou não definir essa configuração de política, a opção de menu não aparecerá e os usuários não conseguirão executar sites no Modo Empresarial.</string>
-      <string id="RestrictInternetExplorer">Envie todos os sites não incluídos na Enterprise Mode Site List para o Microsoft Edge.</string>
+      <string id="RestrictInternetExplorer">Envie todos os sites não incluídos na Lista de Sites do Modo Empresarial para o Microsoft Edge</string>
       <string id="IE_ExplainRestrictInternetExplorer">Essa configuração permite que você decida se deseja abrir todos os sites não incluídos na Enterprise Mode Site List no Microsoft Edge. Se você usar essa configuração, deverá também ativar a configuração de política Modelos Administrativos\Componentes do Windows\Internet Explorer\Usar a lista de sites do Modo Empresarial IE e incluir pelo menos um site na Enterprise Mode Site List.
 
 A habilitação dessa configuração abre automaticamente todos os sites não incluídos na Enterprise Mode Site List no Microsoft Edge.
@@ -3921,6 +3926,120 @@ Observação: se você também tiver habilitado a configuração de política Mo
 Se você habilitar essa configuração, os funcionários verão uma página adicional no Internet Explorer 11, indicando que um site foi aberto usando o Microsoft Edge com o Modo Empresarial.
 
 Se você desabilitar ou não definir essa configuração, o comportamento padrão do aplicativo ocorrerá e nenhuma página adicional será exibida.</string>
+      <string id="NeedEdgeBrowser">Configure o canal do Microsoft Edge que será usado para abrir sites redirecionados</string>
+      <string id="IE_ExplainNeedEdgeBrowser">Permite configurar até três versões do Microsoft Edge para abrir um site redirecionado (em ordem de preferência). Use essa política se seu ambiente estiver configurado para redirecionar sites do Internet Explorer 11 para o Microsoft Edge. Se qualquer uma das versões selecionadas não estiver instalada no dispositivo, essa preferência será ignorada.
+
+Se o Windows Update da próxima versão do Microsoft Edge* e o canal estável do Microsoft Edge estiverem instalados, os seguintes comportamentos ocorrerão:
+- Se você desabilitar ou não configurar essa política, o canal estável do Microsoft Edge será usado. Esse é o comportamento padrão.
+- Se você habilitar essa política, poderá configurar os sites redirecionados para serem abertos em até três dos seguintes canais, em que:
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta versão 77 ou posterior
+    3 = Microsoft Edge Dev versão 77 ou posterior
+    4 = Microsoft Edge Canary versão 77 ou posterior
+
+Se o Windows Update da próxima versão do Microsoft Edge* ou o canal estável do Microsoft Edge não estiver instalado, os seguintes comportamentos ocorrerão:
+- Se você desabilitar ou não configurar essa política, o Microsoft Edge versão 45 ou anterior será usado automaticamente. Esse é o comportamento padrão.
+- Se você habilitar essa política, poderá configurar os sites redirecionados para serem abertos em até três dos seguintes canais, em que:
+    0 = Microsoft Edge versão 45 ou anterior
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta versão 77 ou posterior
+    3 = Microsoft Edge Dev versão 77 ou posterior
+    4 = Microsoft Edge Canary versão 77 ou posterior
+
+*Para obter mais informações sobre o Windows Update para a próxima versão do Microsoft Edge, inclusive como desabilitá-lo, consulte https://go.microsoft.com/fwlink/?linkid=2102115. Essa atualização se aplica somente ao Windows 10 versão 1709 e posterior.</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta versão 77 ou posterior</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev versão 77 ou posterior</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary versão 77 ou posterior</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge versão 45 ou posterior</string>
+      <string id="KeepIntranetSitesInInternetExplorer">Manter todos os sites da intranet no Internet Explorer</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">Impede que sites da intranet sejam abertos em qualquer navegador que não seja o Internet Explorer. Observe que, se a política "Enviar todos os sites não incluídos na Enterprise Mode Site List para o Microsoft Edge" ("RestrictIE") não estiver habilitada, esta política não terá efeito.
+
+Se você habilitar esta política, todos os sites da intranet serão abertos no Internet Explorer 11. As únicas exceções serão os sites relacionados na lista de sites do modo empresarial.
+
+Se você desabilitar ou não configurar esta política, todos os sites da intranet serão abertos automaticamente no Microsoft Edge.
+
+É altamente recomendável manter esta política em sincronia com a política "Enviar todos os sites da intranet para o Internet Explorer" ("SendIntranetToInternetExplorer"). Além disso, é recomendável habilitar esta política somente se os sites da intranet tiverem problemas de compatibilidade conhecidos com o Microsoft Edge.
+
+Políticas relacionadas:
+- Enviar todos os sites da intranet para o Internet Explorer (" SendIntranetToInternetExplorer")
+- Enviar todos os sites não incluídos na Enterprise Mode Site List para o Microsoft Edge ("RestrictIE")
+
+Para obter mais informações sobre como usar esta política em conjunto com outras políticas relacionadas para criar a configuração ideal para sua organização, consulte https://go.microsoft.com/fwlink/?linkid=2094210.</string>
+      <string id="AllowSaveTargetAsInIEMode">Permitir "salvar destino como" no modo Internet Explorer</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">Essa configuração de política permite que os administradores habilitem o menu de contexto "salvar destino como" no modo Internet Explorer.
+
+Se você habilitar essa política, "salvar destino como" aparecerá no menu de contexto do modo Internet Explorer e funcionará da mesma forma que o Internet Explorer.
+
+Se você desabilitar ou não definir essa configuração de política, "salvar destino como" não será exibido no menu de contexto do modo Internet Explorer.
+
+Para obter mais informações, consulte https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="EnableGlobalWindowListInIEMode">Habilitar lista de janelas globais no modo Internet Explorer</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">Esta configuração permite Internet Explorer modo de exibição use a lista de janelas global que habilita o estado de compartilhamento com outros aplicativos.
+A configuração entrará em vigor somente quando Internet Explorer 11 estiver desabilitado como um navegador autônomo.
+
+Se você habilitar essa política, Internet Explorer modo usará a lista de janelas global.
+
+Se você desabilitar ou não configurar esta política, Internet Explorer modo continuará a manter uma lista separada de janelas.
+
+Para saber mais sobre o Internet Explorer, consulte https://go.microsoft.com/fwlink/?linkid=2102921
+Para saber mais sobre como desabilitar o Internet Explorer 11 como um navegador autônomo, consulte https://go.microsoft.com/fwlink/?linkid=2168340</string>
+      <string id="EnableExtendedIEModeHotkeys">Habilitar chaves de acesso estendidas no modo Internet Explorer</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">Esta configuração de política permite que os administradores habilitem as teclas de acesso estendidas do modo Internet Explorer do Microsoft Edge, como "Ctrl+S" para ter a funcionalidade "Salvar como".
+
+Se você habilitar essa política, a funcionalidade de teclas de atalho estendida será habilitada no modo Internet Explorer e funcionará da mesma forma que o Internet Explorer.
+
+Se você desabilitar ou não configurar essa política, as teclas de atalho estendidas não funcionarão no modo Internet Explorer.
+
+Para obter mais informações, confira https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="AllowLegacyURLFields">Permitir a funcionalidade herdada para arquivos de atalho da Internet</string>
+      <string id="IE_ExplainAllowLegacyURLFields">Essa configuração de política permite o uso de algumas funcionalidades desabilitadas, como o campo WorkingDirectory ou a manipulação de protocolo conectável, em arquivos de Atalho da Internet.
+
+Se você habilitar essa política, a funcionalidade desabilitada para arquivos de Atalho da Internet será reabilitar.
+
+Se você desabilitar ou não configurar esta política, algumas funcionalidades para arquivos de Atalho da Internet, como o campo WorkingDirectory ou manipulação de protocolo conectável, serão desabilitadas.</string>
+      <string id="ResetZoomForDialogInIEMode">Redefinir zoom para o padrão para caixas de diálogo HTML Internet Explorer modo</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">Essa configuração de política permite que os administradores redefinam o zoom para o padrão para caixas de diálogo HTML Internet Explorer modo.
+
+Se você habilitar essa política, o zoom de uma caixa de diálogo HTML no Internet Explorer não será propagado de sua página pai.
+
+Se você desabilitar ou não configurar esta política, o zoom de uma caixa de diálogo HTML no modo Internet Explorer será definido com base no zoom da página pai.
+
+Para obter mais informações, consulte https://go.microsoft.com/fwlink/?linkid=2220107</string>
+      <string id="DisableInternetExplorerApp">Desabilitar o Internet Explorer 11 como um navegador autônomo</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">Essa política permite restringir o lançamento do Internet Explorer como um navegador independente.
+
+Se você habilitar essa política, ela:
+- Impede que o Internet Explorer 11 seja iniciado como um navegador independente.
+- Restringe o uso do Internet Explorer ao modo nativo "modo Internet Explorer" do Microsoft Edge.
+- Redireciona tentativas de iniciar o Internet Explorer 11 para o navegador Microsoft Edge (Canal Estável).
+- Substitui quaisquer outras políticas que redirecionem para o Internet Explorer 11.
+
+Mesmo com essa política ativada, o lançamento do Internet Explorer 11 por meio de automação COM ainda será permitido. Para desativar os lançamentos do Internet Explorer 11 por automação COM, use a política de grupo "Desativar Automação COM do Internet Explorer 11".
+
+Se você desabilitar ou não configurar esta política, todos os sites serão abertos usando as configurações atuais do navegador ativo. Observação: o Microsoft Edge Canal Estável deve estar instalado para que esta política tenha efeito.</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">Desabilitar a Inicialização do Internet Explorer 11 via Automação COM</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">Esta política permite restringir a inicialização de aplicativos Explorer usando automação COM.
+
+Se você habilitar essa política, ela impedirá que a Internet Explorer 11 seja iniciada usando a automação COM.
+
+Se você desabilitar ou não configurar essa política, as inicializações de automação do Internet Explorer 11 COM serão permitidas.</string>
+      <string id="DisableIEAppDeprecationNotification">Ocultar notificação de aposentadoria do Internet Explorer 11</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">Essa configuração de política permite que você gerencie se o lembrete da barra de Internet Explorer que está sendo desativado será exibido. Por padrão, a barra de Notificações é exibida Internet Explorer 11.
+
+Se você habilitar essa configuração de política, a barra de Notificações não será exibida Internet Explorer 11.
+
+Se você desabilitar ou não definir essa configuração de política, a barra de Notificações será exibida no Internet Explorer 11.</string>
+      <string id="NotifyDisableIEOptions_Never">Nunca</string>
+      <string id="NotifyDisableIEOptions_Always">Sempre</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">Uma vez por usuário</string>
+      <string id="JScriptReplacement">Substitua o JScript carregando o JScript9Legacy no lugar do JScript.</string>
+      <string id="IE_ExplainJScriptReplacement">Esta configuração de política especifica se JScript ou JScript9Legacy será carregado.
+      
+Se você habilitar ou não definir essa configuração de política, O JScript9Legacy será carregado em situações em que JScript é instanciado.
+
+Se você desabilitar essa política, JScript será utilizada.</string>
       <string id="VerMgmtDisable">Desativar bloqueio de controles ActiveX desatualizados do Internet Explorer</string>
       <string id="IE_ExplainVerMgmtDisable">Essa configuração de política determina se o Internet Explorer bloqueia controles ActiveX desatualizados específicos. Controles ActiveX desatualizados nunca são bloqueados na zona da Intranet.
 
@@ -4122,6 +4241,12 @@ Se você habilitar essa configuração, o IE interrompe o download das versões 
 Se você desabilitar ou não configurar esse parâmetro, o IE continua a baixar versões atualizadas de VersionList.XML.
 
 Para obter mais informações, consulte "Bloqueio de controles ActiveX desatualizados" na biblioteca TechNet do Internet Explorer.</string>
+      <string id="DisableHTMLApplication">Desabilitar Aplicativo HTML</string>
+      <string id="DisableHTMLApplication_Explain">Essa configuração de política especifica se a execução do Aplicativo HTML (arquivo HTA) está bloqueada ou permitida.
+
+Se você habilitar essa configuração de política, a execução do Aplicativo HTML (arquivo HTA) será bloqueada.
+
+Se você desabilitar ou não definir essa configuração de política, a execução do Aplicativo HTML (arquivo HTA) será permitida.</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
@@ -4229,7 +4354,7 @@ Para obter mais informações, consulte "Bloqueio de controles ActiveX desatuali
         <dropdownList refId="IZ_Partname120c" noSort="true" defaultItem="1">Permitir somente domínios aprovados para usar o controle ActiveX TDC</dropdownList>
       </presentation>
       <presentation id="IZ_Policy_AllowDynsrcPlayback_1">
-        <dropdownList refId="IZ_Partname120A" noSort="true" defaultItem="0">Permitir vídeo e animação em uma página da Web que use um media player herdado</dropdownList>
+        <dropdownList refId="IZ_Partname120A" noSort="true" defaultItem="0">Permitir vídeo e animação em uma página da Web que use um reprodutor multimídia herdado</dropdownList>
       </presentation>
       <presentation id="IZ_Policy_AllowScriptlets_1">
         <dropdownList refId="IZ_Partname1209" noSort="true" defaultItem="0">Miniscripts</dropdownList>
@@ -4791,6 +4916,14 @@ Para obter mais informações, consulte "Bloqueio de controles ActiveX desatuali
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">Lista de domínios</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">Primeira opção</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">Segunda opção</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">Terceira opção</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">Notificar que o navegador Internet Explorer 11 está desabilitado</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -82,18 +82,35 @@ Se desativar ou não configurar esta definição de política, o Registo de Even
 
 Se ativar esta definição de política, pode configurar o tamanho máximo do ficheiro de registo para um valor entre 1 megabyte (1024 quilobytes) e 2 terabytes (2147483647 quilobytes) em incrementos de quilobytes.
 
-Se desativar ou não configurar esta definição de política, o tamanho máximo do ficheiro de registo será definido para o valor configurado localmente. Este valor pode ser alterado pelo administrador local utilizando a caixa de diálogo Propriedades do Registo e assume o valor predefinido de 1 megabyte.</string>
+Se desativar ou não configurar esta definição de política, o tamanho máximo do ficheiro de registo será definido para o valor configurado localmente. Este valor pode ser alterado pelo administrador local utilizando a caixa de diálogo Propriedades do Registo e assume o valor predefinido de 20 megabytes.</string>
       <string id="Channel_LogMaxSizeSecurity_Help">Esta definição de política especifica o tamanho máximo do ficheiro de registo em quilobytes.
 
-Se ativar esta definição de política, pode configurar o tamanho máximo do ficheiro de registo para um valor entre 20 megabytes (20480 quilobytes) e 2 terabytes (2147483647 quilobytes) em incrementos de quilobytes.
+Se ativar esta definição de política, pode configurar o tamanho máximo do ficheiro de registo para um valor entre 20 megabytes (20480 quilobytes) e 2 terabytes (2147483647 quilobytes), em incrementos de quilobytes.
 
-Se desativar ou não configurar esta definição de política, o tamanho máximo do ficheiro de registo será definido para o valor configurado localmente. Este valor pode ser alterado pelo administrador local utilizando a caixa de diálogo Propriedades do Registo e assume o valor predefinido de 20 megabytes.</string>
+Se desativar ou não configurar esta definição de política, o tamanho máximo do ficheiro de registo será definido para o valor configurado localmente. Este valor pode ser alterado pelo administrador local através do diálogo Propriedades de Registo e assume o valor predefinido de 40 megabytes.</string>
       <string id="ChannelName_Help">Definições de Configuração para registo</string>
       <string id="EventLog_Application">Aplicação</string>
       <string id="EventLog_Security">Segurança</string>
       <string id="EventLog_Setup">Configuração</string>
       <string id="EventLog_System">Sistema</string>
       <string id="EventLogCategory">Serviço do Registo de Eventos</string>
+      <string id="Service_RpcAccess_Remote">Limitar o acesso remoto ao Serviço de Registo de Eventos</string>
+      <string id="Service_RpcAccess_Remote_Help">Esta definição de política controla que utilizadores remotos terão permissão para se ligarem ao serviço do Registo de Eventos neste computador.
+
+Se ativar esta política, pode restringir de que grupo os utilizadores remotos têm de ser membros para se ligarem ao Serviço do Registo de Eventos neste computador. Pode exigir que os utilizadores remotos sejam membros de um dos seguintes grupos incorporados:
+
+• Utilizadores Autenticados
+• Leitores do EventLog
+• Administradores
+
+Se desativar ou não configurar esta política, o valor predefinido será Utilizadores Autenticados.
+
+Para versões anteriores do Windows, só era suportado Utilizadores Autenticados. Para manter a retrocompatibilidade, as ligações locais ao serviço serão sempre permitidas a partir de Utilizadores Autenticados.
+
+Esta definição não controla o acesso a registos individuais. Assim que uma ligação remota for permitida, continuará a precisar de acesso aos recursos específicos que está a tentar utilizar.</string>
+      <string id="Service_RpcAccess_Remote_AU">Utilizadores Autenticados</string>
+      <string id="Service_RpcAccess_Remote_ER">Leitores de Registos de Eventos</string>
+      <string id="Service_RpcAccess_Remote_AD">Administradores</string>
     </stringTable>
     <presentationTable>
       <presentation id="Channel_Log_FileLogAccess_1">
@@ -157,16 +174,19 @@ Se desativar ou não configurar esta definição de política, o tamanho máximo
         </textBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_1">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Tamanho Máximo do Registo (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Tamanho Máximo do Registo (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_2">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Tamanho Máximo do Registo (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="40960">Tamanho Máximo do Registo (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_3">
         <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Tamanho Máximo do Registo (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_4">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Tamanho Máximo do Registo (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Tamanho Máximo do Registo (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="Service_RpcAccess_Remote">
+        <dropdownList refId="RpcAccess_Remote_Setting" noSort="true" defaultItem="0">Escolha uma das seguintes definições:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

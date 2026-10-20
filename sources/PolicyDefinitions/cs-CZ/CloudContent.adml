@@ -11,11 +11,11 @@
 
 Pokud nastavení této zásady povolíte, nastaví se Windows Spotlight jako poskytovatel zamykací obrazovky a uživatelé nebudou moct zamykací obrazovku změnit. Windows Spotlight bude na zamykací obrazovce denně zobrazovat obrázky od Microsoftu.
 
-Pokud zaškrtnete políčko Zahrnout obsah z Enterprise Spotlight a vaše organizace má v Azure nastavenou službu obsahu Enterprise Spotlight, můžou se na zamykací obrazovce taky zobrazovat interní zprávy a komunikace nakonfigurované v dané službě (pokud je k dispozici). V případě, že vaše organizace nemá službu obsahu Enterprise Spotlight, nebude mít toto zaškrtávací políčko žádný účinek.
+Pokud zaškrtnete políčko Zahrnout obsah z Enterprise Spotlight a vaše organizace má v Azure nastavenou službu obsahu Enterprise Spotlight, můžou se na zamykací obrazovce zobrazovat také interní zprávy a sdělení nakonfigurované v dané službě (pokud je k dispozici). V případě, že vaše organizace nemá službu obsahu Enterprise Spotlight, nebude mít toto zaškrtávací políčko žádný účinek.
 
 Pokud nastavení této zásady zakážete, Windows Spotlight se vypne a uživatelé si ho už nebudou moct vybrat jako zamykací obrazovku. Uživatelům se bude zobrazovat výchozí obrázek zamykací obrazovky a budou si moct vybrat jiný obrázek, pokud jste nepovolili zásadu Bránit změnám obrázku zamykací obrazovky.
 
-Pokud tuto zásadu nenakonfigurujete, bude Windows Spotlight dostupný na zamykací obrazovce a ve výchozím nastavení bude vybraný, pokud jste nenakonfigurovali jiný výchozí obrázek zamykací obrazovky pomocí zásady Vynutit konkrétní výchozí obrázek zamykací obrazovky.
+Pokud tuto zásadu nenakonfigurujete, bude Windows Spotlight dostupný na zamykací obrazovce a ve výchozím nastavení bude vybraný, pokud jste nenakonfigurovali jiný výchozí obrázek zamykací obrazovky pomocí zásady Vynutit konkrétní výchozí obrázek zamykací obrazovky a přihlášení.
 
 Poznámka: Tato zásada je dostupná jenom pro edice Enterprise.</string>
       <string id="DisableWindowsSpotlightFeatures">Vypnout všechny funkce Windows Spotlight</string>
@@ -55,7 +55,7 @@ Pokud nastavení této zásady povolíte, uživatelé už tipy Windows neuvidí.
 
 Pokud nastavení této zásady zakážete nebo nenakonfigurujete, uvidí uživatelé automaticky otevíraná kontextová okna, která vysvětlují použití Windows. Microsoft určuje, které tipy se mají zobrazit, podle diagnostických dat a údajů o využití.
 
-Poznámka: Pokud nastavení této zásady zakážete nebo nenakonfigurujete, ale povolíte zásadu Konfigurace počítače\Šablony pro správu\Součásti systému Windows\Shromažďování dat a buildy verze Preview\Povolit telemetrii na úrovni Základní nebo nižší, uživatelé uvidí omezenou sadu tipů.
+Poznámka: Pokud nastavení této zásady zakážete nebo nenakonfigurujete, ale povolíte zásadu Konfigurace počítače\Šablony pro správu\Součásti systému Windows\Shromažďování dat a buildy Preview\Povolit telemetrii na úrovni Základní nebo nižší, uživatelé uvidí omezenou sadu tipů.
 Kromě toho platí, že se toto nastavení vztahuje jen na edice Enterprise a Education.</string>
       <string id="DisableThirdPartySuggestions">Nenavrhovat ve Windows Spotlight obsah třetích stran</string>
       <string id="DisableThirdPartySuggestions_Help">Když tuto zásadu povolíte, nebudou už funkce Windows Spotlight (například novinky na zamykací obrazovce, navrhované aplikace v nabídce Start nebo tipy k Windows) navrhovat aplikace a obsah od jiných vydavatelů softwaru. Uživatelům se můžou pořád zobrazovat návrhy a tipy pro zvýšení produktivity pomocí funkcí a aplikací od Microsoftu.
@@ -67,6 +67,43 @@ Když tuto zásadu zakážete nebo nenakonfigurujete, můžou funkce Windows Spo
 Pokud nastavení této zásady povolíte, prostředí uvítání systémem Windows se už nebude zobrazovat, když se objeví aktualizace a změny Windows nebo aplikací v tomto systému.
 
 Pokud nastavení této zásady zakážete nebo nenakonfigurujete, prostředí uvítání systémem Windows se bude spouštět, aby uživatelům Windows přinášelo informace o tom, co je nového, co se změnilo a co doporučujeme.</string>
+      <string id="DisableCloudOptimizedContent">Vypnout obsah optimalizovaný pro cloud</string>
+      <string id="DisableCloudOptimizedContent_Help">Tato zásada umožňuje vypnout obsah optimalizovaný pro cloud ve všech prostředích Windows.
+
+Pokud tuto zásadu povolíte, prostředí Windows, která používají klientskou součást pro obsah optimalizovaný pro cloud, se místo toho vrátí k výchozímu záložnímu obsahu.
+
+Pokud tuto zásadu zakážete nebo nenakonfigurujete, prostředí Windows budou moct obsah optimalizovaný pro cloud používat.</string>
+      <string id="DisableSpotlightCollectionOnDesktop">Vypnout kolekci Spotlight na ploše</string>
+      <string id="DisableSpotlightCollectionOnDesktop_Help">Toto nastavení zásad odebere nastavení kolekce Spotlight v Přizpůsobení, takže uživatel nebude moct vybrat a následně stáhnout denní obrázky z Microsoftu na plochu.
+
+Pokud tuto zásadu povolíte, kolekce Spotlight nebude v nastavení Přizpůsobení jako možnost dostupná.
+
+Pokud tuto zásadu zakážete nebo nenakonfigurujete, kolekce Spotlight se v nastavení Přizpůsobení zobrazí jako možnost a uživatel bude moct vybrat kolekci Spotlight jako poskytovatele plochy a zobrazovat na ploše denní obrázky od Microsoftu.</string>
+      <string id="DisableConsumerAccountStateContent">Vypnout obsah stavu cloudového účtu spotřebitele</string>
+      <string id="DisableConsumerAccountStateContent_Help">Tato zásada umožňuje vypnout obsah stavu cloudového účtu spotřebitele ve všech prostředích Windows.
+
+            Pokud tuto zásadu povolíte, prostředí Windows, která používají klientskou součást pro obsah stavu cloudového účtu spotřebitele, se místo toho vrátí k výchozímu záložnímu obsahu.
+
+            Pokud tuto zásadu zakážete nebo nenakonfigurujete, prostředí Windows budou moct obsah optimalizovaný pro cloud používat.
+        </string>
+      <string id="EnableOrganizationalMessagesContent">Povolit zprávy organizace</string>
+      <string id="EnableOrganizationalMessagesContent_Help">Zprávy organizace umožňují správcům doručovat zprávy koncovým uživatelům ve vybraných prostředích Windows 11. Zprávy organizace jsou správcům k dispozici prostřednictvím služeb, jako je Microsoft Endpoint Manager.
+
+Ve výchozím nastavení je tato zásada zakázána. Pokud tuto zásadu povolíte, budou se v těchto prostředích zobrazovat obsah rezervovaný správci.
+
+Povolení této zásady nebude mít žádný vliv na existující nastavení zásad MDM, která řídí doručování obsahu od Microsoftu v prostředích Windows.</string>
+      <string id="DisableGetStartedContent">Zakázat prostředí Začínáme</string>
+      <string id="DisableGetStartedContent_Help">Toto nastavení zásad vypne prostředí Windows Začínáme.
+
+Pokud toto nastavení zásad povolíte, prostředí Začínáme se nespustí automaticky a při ručním spuštění se okamžitě zavře. Související úlohy na pozadí nebudou spuštěny.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, prostředí Začínáme zůstane dostupné a může se zobrazovat, aby pomáhalo uživatelům seznámit se se systémem Windows.</string>
+      <string id="DisableCopilotPinScreenContent">Zakázat Copilota na obrazovce PIN kódu</string>
+      <string id="DisableCopilotPinScreenContent_Help">Zabrání systému Windows zobrazovat doporučení Microsoft 365 Copilota při přihlášení. Tím se nezakáže Copilot ani neovlivní licencování.
+
+Pokud toto nastavení zásad povolíte, pokyny k nastavení Microsoft 365 Copilota se při přihlášení nespustí automaticky.
+
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, můžou se při přihlášení zobrazit pokyny k nastavení Microsoft 365 Copilota, které uživatelům pomůžou najít a nastavit Copilota.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureWindowsSpotlight">

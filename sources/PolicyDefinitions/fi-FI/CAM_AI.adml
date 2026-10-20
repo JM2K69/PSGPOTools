@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>CAM (ominaisuuksien käyttöoikeuksien hallinta) -tekoälykäytännöt</displayName>
+  <description>Tekoälyominaisuuksiin ja niiden suostumusten hallintaan liittyvät käytännöt.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">Tekoälysuostumus</string>
+      <string id="WindowsAI">Windows-tekoäly</string>
+      <string id="UserInControl">Käyttäjä hallinnassa</string>
+      <string id="ForceEnable">Pakota käyttöönotto</string>
+      <string id="ForceDisable">Pakota käytöstä poistaminen</string>
+      <string id="AgentConsentDuration_Name">Agentin suostumuksen kesto</string>
+      <string id="AgentConsentDuration_Explain">Määrittää, kuinka kauan tunteina agentin ominaisuuksien Salli-suostumusvastaus pysyy voimassa, ennen kuin käyttäjältä kysytään suostumusta uudelleen.
+
+Jos tämä käytäntö on käytössä, arvon on oltava 1 (1 tunti) – 8760 (1 vuosi). Määritettyä arvoa käytetään oletusarvoisena vanhenemisaikana kaikille agentin ominaisuuksien Salli-suostumusvastauksille.
+
+Jos tätä käytäntöä ei ole määritetty tai jos arvo on sallitun alueen ulkopuolella, oletusarvo on 720 tuntia (30 päivää).</string>
+      <string id="ConfigureAgentConnectors_Name">Määritä agenttiyhdistimet</string>
+      <string id="ConfigureAgentConnectors_Explain">Ota agenttiyhdistimet käyttöön tai poista ne käytöstä.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Agenttiyhdistimen käyttöoikeuskäytäntö</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Tämän käytäntöasetuksen avulla voit määrittää luettelon sallituista yhteyksistä MCP-isäntien ja MCP-palvelimien välillä.
+
+Tämän luettelon muoto on JSON-merkkijono, joka noudattaa osoitteessa https://go.microsoft.com/fwlink/?LinkId=2363700 esitettyä rakennetta.
+
+Jos tätä käytäntöä ei ole määritetty, MCP-isäntä voi muodostaa yhteyden mihin tahansa MCP-palvelimeen käyttäjän suostumuksella.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Määritä agenttiyhdistimet: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Suostumuksen kesto (tunteina): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Määritä sallitut MCP-isäntä-/palvelinyhteydet:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

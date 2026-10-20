@@ -68,13 +68,13 @@
     </string>
     <string id="AppBrowserProtection_DisallowExploitProtectionOverride">Kullanıcıların ayarları değiştirmelerini engelle</string>
     <string id="AppBrowserProtection_DisallowExploitProtectionOverride_Explain">
-        Kullanıcıların Windows Güvenliği'nde Exploit Protection ayarları alanında değişiklik yapmalarını engelleyin.
+        Kullanıcıların Windows Güvenliği'nde Açıklardan Yararlanma ayarları alanında değişiklik yapmalarını engelleyin.
 
         Etkinleştirildi:
-        Yerel kullanıcılar Exploit Protection ayarları alanında değişiklik yapamazlar.
+        Yerel kullanıcılar Açıklardan Yararlanma ayarları alanında değişiklik yapamazlar.
 
         Devre dışı bırakıldı:
-        Yerel kullanıcılar Exploit Protection ayarları alanında değişiklik yapabilirler.
+        Yerel kullanıcılar Açıklardan Yararlanma ayarları alanında değişiklik yapabilirler.
 
         Yapılandırılmadı:
         Devre dışı bırakıldı ile aynı.
@@ -135,9 +135,9 @@
     </string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts">Özelleştirilmiş bildirimleri yapılandır</string>
     <string id="EnterpriseCustomization_EnableCustomizedToasts_Explain">
-        Belirtilen iletişim bilgilerini Windows Güvenliği bildirimlerinde yerel kullanıcılara görüntüleyin.
+        Belirtilen iletişim bilgilerini Windows Güvenliği bildirimlerinde yerel kullanıcılara göster.
 
-        Etkinleştirildi:
+        Etkin:
         Şirketinizin iletişim bilgileri, Windows Güvenliği'nden gelen bildirimlerde görüntülenir.
 
         Bu ayar Etkinleştirildikten sonra Kişi şirket adı belirt GP ayarını ve aşağıdaki GP ayarlarından en az birini yapılandırmalısınız:
@@ -145,11 +145,13 @@
         -Kişi e-posta numarasını veya e-posta kimliğini belirt
         -Kişi web sitesini belirt
 
-        Devre dışı bırakıldı:
+        Bazı durumlarda, gösterilen kişi seçeneklerini mevcut bildirim alanına göre sınırlandıracağımızı aklınızda bulundurun.
+        
+        Devre dışı:
         Bildirimlerde herhangi bir iletişim bilgisi gösterilmez.
 
-        Yapılandırılmadı:
-        Devre dışı bırakılma durumuyla aynıdır.
+        Yapılandırılmamış:
+        Devre dışı ile aynıdır.
     </string>
     <string id="EnterpriseCustomization_EnableInAppCustomization">Özelleştirilmiş iletişim bilgilerini yapılandır</string>
     <string id="EnterpriseCustomization_EnableInAppCustomization_Explain">
@@ -292,7 +294,7 @@
         Yapılandırılmadı:
         Devre dışı bırakıldı ile aynı.
     </string>
-    <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning">TPM Üretici Yazılımı Güncelleştirmesi önerisini gizleyin.</string>
+    <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning">TPM bellenim güncelleştirmesi önerisini gizleyin.</string>
     <string id="DeviceSecurity_DisableTpmFirmwareUpdateWarning_Explain">
         Savunmasız bir üretici yazılımı algılandığında TPM Üretici Yazılımı'nı güncelleştirme önerisini gizleyin.
 

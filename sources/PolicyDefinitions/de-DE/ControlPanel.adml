@@ -6,19 +6,19 @@
   <resources>
     <stringTable>
       <string id="DisallowCpls">Angegebene Systemsteuerungssymbole ausblenden</string>
-      <string id="DisallowCpls_Help">Mit dieser Einstellung können Sie bestimmte Systemsteuerungselemente (wie "Maus", "System" oder "Personalisierung") im Fenster der Systemsteuerung und auf dem Startbildschirm anzeigen oder ausblenden. Die Einstellung wirkt sich auf den Startbildschirm und die Systemsteuerung sowie auf weitere Methoden für den Zugriff auf Systemsteuerungselemente aus, z. B. Verknüpfungen in "Hilfe und Support" oder Befehlszeilen, in denen "control.exe" verwendet wird. Diese Richtlinie hat keine Auswirkung auf die in den PC-Einstellungen angezeigten Elemente.
+      <string id="DisallowCpls_Help">Mit dieser Einstellung können Sie bestimmte Elemente der Systemsteuerung, wie z. B. Maus, System oder Personalisierung, im Fenster der Systemsteuerung und auf dem Startbildschirm anzeigen oder ausblenden. Die Einstellung wirkt sich auf den Startbildschirm und das Fenster der Systemsteuerung sowie auf andere Möglichkeiten zum Zugriff auf Elemente der Systemsteuerung aus, z. B. Verknüpfungen in Hilfe und Support oder Befehlszeilen, die control.exe verwenden. Diese Richtlinie hat keine Auswirkungen auf Elemente, die in den PC-Einstellungen angezeigt werden.
 
 Wenn Sie diese Einstellung aktivieren, können Sie bestimmte Elemente auswählen, die im Fenster der Systemsteuerung und auf dem Startbildschirm nicht angezeigt werden sollen.
 
-Zum Ausblenden eines Systemsteuerungselements aktivieren Sie diese Richtlinieneinstellung und klicken auf "Anzeigen", um auf die Liste der nicht zugelassenen Systemsteuerungselemente zuzugreifen. Geben Sie im Dialogfeld "Inhalt anzeigen" in der Spalte "Wert" den kanonischen Namen des Systemsteuerungselements ein. Geben Sie beispielsweise "Microsoft.Mouse", "Microsoft.System" oder "Microsoft.Personalization" ein.
+Um ein Element der Systemsteuerung auszublenden, aktivieren Sie diese Richtlinieneinstellung und klicken Sie auf „Anzeigen“, um auf die Liste der unzulässigen Systemsteuerungselemente zuzugreifen. Geben Sie im Dialogfeld „Inhalt anzeigen“ in der Spalte „Wert“ den kanonischen Namen des Systemsteuerungselements ein. Geben Sie beispielsweise „Microsoft.Mouse“, „Microsoft.System“ oder „Microsoft.Personalization“ ein.
 
-Hinweis: Für Windows Vista, Windows Server 2008 und frühere Windows-Versionen muss der Modulname (z. B. "timedate.cpl" oder "inetcpl.cpl") eingegeben werden. Wenn ein Systemsteuerungselement keine CPL-Datei aufweist oder die CPL-Datei mehrere Applets enthält, müssen der zugehörige Modulname und die ID der Zeichenfolgenressource eingegeben werden. Geben Sie beispielsweise "@systemcpl.dll,-1" für "System" oder "@themecpl.dll,-1" für "Personalisierung" ein. Eine vollständige Liste der kanonischen Namen und Modulnamen für Systemsteuerungselemente finden Sie auf MSDN, indem Sie nach "Systemsteuerungselemente" suchen.
+Hinweis: Für Windows Vista, Windows Server 2008 und frühere Versionen von Windows sollte der Modulname eingegeben werden, z. B. timedate.cpl oder inetcpl.cpl. Wenn für ein Systemsteuerungselement keine CPL-Datei vorhanden ist oder die CPL-Datei mehrere Applets enthält, sollten der Modulname und die Zeichenfolgen-Ressourcen-Identifikationsnummer eingegeben werden, z. B. @systemcpl.dll, -1 für System oder @themecpl.dll,-1 für Personalisierung. Eine vollständige Liste der kanonischen und Modulnamen finden Sie in MSDN, indem Sie nach „Systemsteuerungselemente“ suchen.
 
-Wenn sowohl die Einstellung "Angegebene Systemsteuerungssymbole ausblenden" als auch die Einstellung "Nur angegebene Systemsteuerungssymbole anzeigen" aktiviert ist, wird die Einstellung "Nur angegebene Systemsteuerungssymbole anzeigen" ignoriert.
+Wenn sowohl die Einstellung „Angegebene Systemsteuerungselemente ausblenden“ als auch die Einstellung „Nur bestimmte Elemente der Systemsteuerung anzeigen“ aktiviert sind, wird die Einstellung „Nur bestimmte Elemente der Systemsteuerung anzeigen“ ignoriert.
 
-Hinweis: Das Systemsteuerungselement "Anzeige" kann mit dieser Einstellung nicht aus dem Kontextmenü auf dem Desktop ausgeblendet werden. Um das Systemsteuerungselement "Anzeige" auszublenden und Benutzer daran zu hindern, die Anzeigeeinstellungen des Computers zu ändern, verwenden Sie stattdessen die Einstellung "Systemsteuerungsoption 'Anzeige' deaktivieren".
+Hinweis: Das Element „Systemsteuerung anzeigen“ kann mit dieser Einstellung nicht im Desktop-Kontextmenü ausgeblendet werden. Um das Element Anzeige der Systemsteuerung auszublenden und Benutzer daran zu hindern, die Anzeigeeinstellungen des Computers zu ändern, verwenden Sie stattdessen die Einstellung „Anzeige der Systemsteuerung deaktivieren“.
 
-Hinweis: Um Seiten in der Systemeinstellungs-App auszublenden, verwenden Sie unter "Computerkonfiguration" die Einstellung "Sichtbarkeit von Einstellungsseiten".</string>
+Hinweis: Um Seiten in der Systemeinstellungs-App auszublenden, verwenden Sie die Einstellung „Sichtbarkeit der Einstellungsseite“ unter „Computerkonfiguration“.</string>
       <string id="ForceClassicControlPanel">Beim Öffnen der Systemsteuerung immer alle Systemsteuerungselemente öffnen</string>
       <string id="ForceClassicControlPanel_Help">Diese Richtlinieneinstellung steuert die Standardansicht der Systemsteuerung entweder nach Kategorie oder nach Symbolen. 
 
@@ -69,11 +69,19 @@ showonly:about;bluetooth
 
 Beispiel: So geben Sie an, dass nur die Seite "Bluetooth" (mit dem URI "ms-settings:bluetooth") ausgeblendet werden soll:
 
-hide:bluetooth</string>
+hide:bluetooth
+
+Die Verfügbarkeit des Supports pro Benutzer ist hier dokumentiert: https://go.microsoft.com/fwlink/?linkid=2102995</string>
       <string id="AllowOnlineTips">Onlinetipps zulassen</string>
       <string id="AllowOnlineTips_Help">Aktiviert oder deaktiviert das Abrufen von Onlinetipps und -hilfe für die Einstellungs-App.
 
 Falls deaktiviert, stellt die Einstellungs-App keine Verbindung mit Microsoft-Inhaltsdiensten her, um Tipps und Hilfeinhalte abzurufen.</string>
+      <string id="HideUnsupportedHardwareNotifications">Nachrichten ausblenden, wenn die Windows-Systemanforderungen nicht erfüllt sind</string>
+      <string id="HideUnsupportedHardwareNotificationsExplain">Diese Richtlinie steuert Meldungen, die angezeigt werden, wenn Windows auf einem Gerät ausgeführt wird, das die Mindestsystemanforderungen für diese Betriebssystemversion nicht erfüllt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, werden diese Nachrichten nie auf dem Desktop oder in der App "Einstellungen" angezeigt.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, werden diese Meldungen auf dem Desktop und in der App "Einstellungen" angezeigt, wenn Windows auf einem Gerät ausgeführt wird, das die Mindestsystemanforderungen für diese Betriebssystemversion nicht erfüllt.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DisallowCpls">

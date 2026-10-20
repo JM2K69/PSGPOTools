@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>tutaj wprowadź nazwę wyświetlaną</displayName>
+  <description>tutaj wprowadź opis</description>
+  <resources>
+    <stringTable>
+
+      <string id="SecureBootCategory">Bezpieczny rozruch</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn">Wdrażanie certyfikatów za pomocą kontrolowanego wprowadzania funkcji</string>
+      <string id="SecureBoot_MicrosoftUpdateManagedOptIn_Help">Dla przedsiębiorstw, które potrzebują pomocy przy wdrażaniu nowych certyfikatów bezpiecznego rozruchu na swoich urządzeniach, to ustawienie może zostać włączone.
+
+ 
+
+Uwaga: aby korzystać z tej funkcji, urządzenie musi wysyłać wymagane dane diagnostyczne do firmy Microsoft.
+
+ 
+
+Aby uzyskać więcej informacji, zobacz: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_HighConfidenceOptOut">Automatyczne wdrażanie certyfikatów poprzez aktualizacje</string>
+      <string id="SecureBoot_HighConfidenceOptOut_Help">W przypadku urządzeń, dla których dostępne są wyniki testów wskazujące, że urządzenie może pomyślnie przetworzyć aktualizacje certyfikatów, aktualizacje te zostaną zainicjowane automatycznie w ramach aktualizacji serwisowych. Ta zasada jest domyślnie włączona. W przypadku przedsiębiorstw, które chcą zarządzać automatyczną aktualizacją, użyj tej zasady, aby jawnie włączyć lub wyłączyć tę funkcję.
+
+ 
+
+Aby uzyskać więcej informacji, zobacz: https://aka.ms/GetSecureBoot </string>
+
+      <string id="SecureBoot_AvailableUpdatesPolicy">Włącz wdrażanie certyfikatu bezpiecznego rozruchu</string>
+      <string id="SecureBoot_AvailableUpdatesPolicy_Help">To ustawienie zasad pozwala włączyć lub wyłączyć proces wdrażania certyfikatu bezpiecznego rozruchu na urządzeniach. Gdy to ustawienie jest włączone, system Windows automatycznie rozpocznie proces wdrażania certyfikatu na urządzeniach, na których zastosowano tę zasadę. 
+
+ 
+
+Uwaga: to ustawienie rejestru nie jest przechowywane w kluczu zasad i jest to uważane za preferencję. Dlatego też, jeśli obiekt zasad grupy, który wdraża to ustawienie, zostanie kiedykolwiek usunięty, to ustawienie rejestru pozostanie. 
+
+ 
+
+Uwaga: zadanie systemu Windows, które uruchamia i przetwarza to ustawienie, jest wykonywane co 12 godzin. W niektórych przypadkach aktualizacje zostaną wstrzymane do ponownego uruchomienia systemu, aby bezpiecznie ustalić kolejność aktualizacji. 
+
+ 
+
+Uwaga: po zastosowaniu certyfikatów w oprogramowaniu układowym, nie możesz ich cofnąć z poziomu systemu Windows. Jeśli konieczne jest usunięcie certyfikatów, należy to zrobić z poziomu interfejsu menu oprogramowania układowego. 
+
+ 
+
+Aby uzyskać więcej informacji, zobacz: https://aka.ms/GetSecureBoot </string>
+
+      <string id="LimitSecureBootRequiredServiceData">Ogranicz dane usługi wymagane przez funkcję Bezpieczny rozruch</string>
+      <string id="LimitSecureBootRequiredServiceData_Help">To ustawienie zasad określa, czy system operacyjny wysyła codzienne zdarzenie danych usługi wymaganych przez funkcję Bezpieczny rozruch. Zdarzenie zawiera informacje o konfiguracji funkcji Bezpieczny rozruch urządzenia oraz stanie zmiennej oprogramowania układowego i jest zwykle wysyłane niezależnie od poziomu danych diagnostycznych „Zezwalaj na telemetrię”, ponieważ jest klasyfikowane jako wymagane ze względów bezpieczeństwa.
+
+ 
+
+Włączenie tego ustawienia zasad spowoduje, że codzienne zdarzenie danych usługi wymaganych przez funkcję Bezpieczny rozruch nie będzie wysyłane. Jest to przeznaczone dla przedsiębiorstw działających w ramach planu bazowego ograniczonej funkcjonalności ograniczonego ruchu w systemie Windows.
+
+ 
+
+Jeśli to ustawienie zasad zostanie wyłączone lub nie zostanie skonfigurowane, system operacyjny będzie nadal wysyłać zdarzenie danych usługi wymaganych przez funkcję Bezpieczny rozruch zgodnie z istniejącymi regułami uprawnień telemetrii.</string>
+
+      <string id="SUPPORTED_Windows8">Co najmniej system Windows Server 2012, Windows 8 lub Windows RT</string>  
+
+    </stringTable>
+
+  </resources>
+</policyDefinitionResources>

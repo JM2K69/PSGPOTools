@@ -119,6 +119,51 @@ Om du inte anger eller inaktiverar den här inställningen kan användaren välj
         Om du inte anger eller inaktiverar den här inställningen är synkronisering av gruppen Startlayout aktiverat som standard och kan konfigureras av användaren.
       
       </string>
+
+      <!-- Accessibility -->
+      <string id="DisableAccessibilitySettingSync">Synkronisera inte hjälpmedelsinställningar</string>
+      <string id="DisableAccessibilitySettingSync_Help">
+        Förhindra gruppen Hjälpmedel från att synkroniseras till och från den här datorn. Detta stänger av och inaktiverar gruppen Hjälpmedel på inställningssidan för Windows säkerhetskopiering i Datorinställningar.
+
+Om du aktiverar den här principinställningen synkroniseras inte gruppen Hjälpmedel.
+
+Använd alternativet Tillåt användare att aktivera hjälpmedelssynkronisering så att synkronisering är inaktiverat som standard men inte inaktiverat.
+
+Om du inte anger eller inaktiverar den här inställningen är synkronisering av gruppen Hjälpmedel aktiverat som standard och användaren kan konfigurera.
+      </string>
+
+      <!-- Language -->
+      <string id="DisableLanguageSettingSync">Synkronisera inte inställningar för språkinställningar</string>
+      <string id="DisableLanguageSettingSync_Help">
+        Förhindra gruppen Språkinställningar från att synkroniseras till och från den här datorn. Detta stänger av och inaktiverar gruppen Språkinställningar på inställningssidan för Windows Säkerhetskopiering i Datorinställningar.
+
+Om du aktiverar den här principinställningen synkroniseras gruppen Språkinställningar inte.
+
+Använd alternativet Tillåt användare att aktivera synkronisering av språkinställningar så att synkronisering är inaktiverat som standard men inte inaktiverat.
+
+Om du inte anger eller inaktiverar den här inställningen är synkronisering av gruppen Språkinställningar aktiverat som standard och användaren kan konfigurera.
+      </string>
+
+      <!-- Allow Windows backup-->
+      <string id="EnableWindowsBackup">Aktivera Windows Säkerhetskopiering</string>
+      <string id="EnableWindowsBackup_Help">Med den här principinställningen kan administratörer konfigurera och hantera säkerhetskopiering av Windows-inställningar för organisationen.
+
+Om du aktiverar den här principinställningen säkerhetskopieras Windows-inställningarna regelbundet.
+
+Om du inaktiverar den här principinställningen görs ingen säkerhetskopiering av Windows-inställningarna.
+
+Om du låter bli att konfigurera den här principinställningen säkerhetskopieras Windows-inställningarna regelbundet beroende på om du är kvalificerad.
+      </string>
+
+      <!-- Allow Windows restore-->
+      <string id="EnableWindowsRestore">Aktivera Windows-återställning</string>
+      <string id="EnableWindowsRestore_Help">Med den här principinställningen kan administratörer konfigurera och hantera återställning av Windows-inställningar för organisationen.
+
+Om du aktiverar den här principinställningen aktiveras återställning av Windows-inställningar.
+
+Om du inaktiverar eller inte konfigurerar den här principinställningen inaktiveras Återställning av Windows-inställningar.
+      </string>
+
     </stringTable>
     <presentationTable>
 
@@ -165,6 +210,16 @@ Om du inte anger eller inaktiverar den här inställningen kan användaren välj
       <!-- StartLayout -->
       <presentation id="DisableStartLayoutSettingSyncUserOverride">
         <checkBox refId="CheckBox_UserOverride">Tillåt användarna att aktivera synkronisering av startlayout.</checkBox>
+      </presentation>
+
+      <!-- AccessibilitySync -->
+      <presentation id="DisableAccessibilitySettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Tillåt användare att aktivera synkronisering av hjälpmedel.</checkBox>
+      </presentation>
+
+      <!-- LanguageSync -->
+      <presentation id="DisableLanguageSettingSyncUserOverride">
+        <checkBox refId="CheckBox_UserOverride">Tillåt användare att aktivera synkronisering av "språkinställningar".</checkBox>
       </presentation>
 
     </presentationTable>

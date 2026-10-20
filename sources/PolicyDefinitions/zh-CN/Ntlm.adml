@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>NTLM 设置</displayName>
+  <description>NTLM 安全数据包的配置设置。</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">NTLM 增强的记录</string>
+      <string id="EnhancedAuditsId_Explain">此策略设置允许 NTLM 安全数据包为客户端和服务器记录新的增强的审核日志。
+
+      这些增强的日志包含有关正在使用 NTLM 的内容、使用 NTLM 的原因以及 NTLM 身份验证请求的目标的信息。它们还包含有关 NTLMv1 使用情况和其他安全降级的信息。
+
+      如果已启用或未配置此策略，将生成新的审核日志。如果禁用该策略，则不会生成新日志。
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">NTLM 增强型阻止</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">此策略设置允许 NTLM 安全包基于计算机级别的新增强阻止策略阻止 NTLM 身份验证请求。
+
+      这些增强阻止策略允许你根据新条件阻止 NTLM 身份验证，例如帐户类型、设备角色或应用程序类型。
+
+      如果整体策略设置为“已禁用”或“未配置”，则以下子策略不会生效。如果整体策略设置为“已启用”，则以下子策略将根据其配置生效。
+
+      除非已配置，否则所有策略都设置为“审核”模式。设置为“审核”的策略会记录可能被阻止的 NTLM 请求的警告，但不会实际阻止请求。多个标记为“审核”的策略可以同时启用，并会统一记录在事件日志中。
+
+      如果任何策略标记为“已启用”，且 NTLM 身份验证请求符合该策略条件，则请求将被阻止。如果多个策略标记为“已启用”，则如果 NTLM 身份验证请求符合任何策略的条件，就会阻止该请求。将为阻止 NTLM 身份验证的第一个策略生成事件日志。
+
+      在同时存在“审核”和“已启用”策略的情况下，“已启用”策略优先。
+
+      此处列出的所有增强的阻止策略共享相同的允许列表，该列表指定允许使用 NTLM 身份验证的帐户、设备和应用程序。允许列表可以包含一系列目标名称或 SPN 以允许身份验证。
+
+      有关详细信息，请访问 aka.ms/ntlmlogandblock。
+      </string>
+      <string id="Disabled">已禁用</string>
+      <string id="Audit">审核</string>
+      <string id="Enabled">已启用</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">阻止使用 NTLM 进行域帐户单一登录</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">阻止将 NTLM 用于域控制器</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">机器绑定失败时阻止使用 NTLM</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">阻止所有 NTLM 身份验证</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">指定增强阻止策略的允许列表：</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

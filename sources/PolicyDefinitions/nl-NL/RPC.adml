@@ -27,23 +27,23 @@ Uitgebreide foutinformatie omvat de lokale tijd van de fout, de RPC-versie en de
 
 Als u deze beleidsinstelling uitschakelt, genereert de RPC-runtime alleen een statuscode om een foutconditie aan te geven.
 
-Als u deze beleidsinstelling niet configureert, blijft het uitgeschakeld.  Het zal enkel een statuscode genereren om een foutconditie aan te geven.
+Als u deze beleidsinstelling niet configureert, blijft deze uitgeschakeld. Er wordt alleen een statuscode gegenereerd om een foutstatus aan te geven.
 
-Als u deze beleidsinstelling inschakelt, zal de RPC-runtime uitgebreide foutinformatie genereren.  U moet een type foutbericht selecteren in de vervolgkeuzelijst.
+Als u deze beleidsinstelling inschakelt, genereert de RPC-runtime uitgebreide foutinformatie. U moet een type foutbericht selecteren in de vervolgkeuzelijst.
 
--- Uit - de uitgebreide foutinformatie wordt voor alle processen uitgeschakeld. De RPC genereert alleen een statuscode.
+-- Uit - De uitgebreide foutinformatie wordt voor alle processen uitgeschakeld. De RPC genereert alleen een foutcode.
 
--- Aan, met uitzonderingen - de uitgebreide foutinformatie wordt ingeschakeld, maar u kunt deze voor bepaalde processen uitschakelen. Als u uitgebreide foutinformatie voor bepaalde processen wilt uitschakelen, terwijl deze beleidsinstelling van kracht is, moet de opdracht waarmee het proces wordt gestart, beginnen met één van de tekenreeksen in het veld Uitzonderingen voor uitgebreide foutinformatie.
+-- Aan, met uitzonderingen - De uitgebreide foutinformatie wordt ingeschakeld, maar u kunt deze voor bepaalde processen uitschakelen. Als u uitgebreide foutinformatie voor bepaalde processen wilt uitschakelen terwijl deze beleidsinstelling van kracht is, moet de opdracht waarmee het proces wordt gestart, beginnen met één van de tekenreeksen in het veld Uitzonderingen voor uitgebreide foutinformatie.
 
--- Uit, met uitzonderingen - de uitgebreide foutinformatie wordt uitgeschakeld, maar u kunt deze voor bepaalde processen inschakelen. Als u uitgebreide foutinformatie voor bepaalde processen wilt inschakelen, terwijl deze instelling van kracht is, moet de opdracht waarmee het proces wordt gestart, beginnen met één van de tekenreeksen in het veld Uitzonderingen voor uitgebreide foutinformatie.
+-- Uit, met uitzonderingen - De uitgebreide foutinformatie wordt uitgeschakeld, maar u kunt deze voor bepaalde processen inschakelen. Als u uitgebreide foutinformatie voor bepaalde processen wilt inschakelen terwijl deze instelling van kracht is, moet de opdracht waarmee het proces wordt gestart, beginnen met één van de tekenreeksen in het veld Uitzonderingen voor uitgebreide foutinformatie.
 
--- Aan - de uitgebreide foutinformatie wordt voor alle processen ingeschakeld.
+-- Aan - De uitgebreide foutinformatie wordt voor alle processen ingeschakeld.
 
 Opmerking: Zie de SDK (Software Development Kit) van Windows voor informatie over het veld Uitzonderingen voor uitgebreide foutinformatie.
 
 Opmerking: uitgebreide foutinformatie heeft een opmaak die compatibel is met andere besturingssystemen en oudere Microsoft-besturingssystemen, maar alleen nieuwere Microsoft-besturingssystemen kunnen deze informatie lezen en erop reageren.
 
-Opmerking: De standaard beleidsinstelling Uit is ontworpen voor systemen waarop uitgebreide foutinformatie als gevoelige informatie wordt beschouwd die niet zonder meer extern beschikbaar mag zijn.
+Opmerking: de standaard beleidsinstelling Uit is ontworpen voor systemen waarop uitgebreide foutinformatie als gevoelige informatie wordt beschouwd die niet zonder meer extern beschikbaar mag zijn.
 
 Opmerking: deze beleidsinstelling wordt pas van kracht nadat het systeem opnieuw is opgestart.</string>
       <string id="RpcIDFOff">Uit</string>

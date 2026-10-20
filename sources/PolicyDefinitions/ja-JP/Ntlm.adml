@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>NTLM 設定</displayName>
+  <description>NTLM セキュリティ パッケージの構成設定。</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">NTLM 拡張ログ</string>
+      <string id="EnhancedAuditsId_Explain">このポリシー設定を使用すると、NTLM セキュリティ パッケージは、クライアントとサーバーの両方の新しい拡張監査ログを記録できるようになります。
+
+      これらの拡張ログには、NTLM を使用しているもの、NTLM が使用されている理由、NTLM 認証要求の送信先に関する情報が含まれています。また、NTLMv1 の使用やその他のセキュリティ ダウングレードに関する情報も含まれています。
+
+      このポリシーを有効にするか、構成しない場合は、新しい監査ログが生成されます。ポリシーを無効にすると、新しいログは生成されません。
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">NTLM 拡張ブロック</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">このポリシー設定では、マシン レベルで強化された新しいブロック ポリシーに基づく NTLM 認証要求をブロックすることを、NTLM セキュリティ パッケージに許可します。
+
+      これらの強化されたブロック ポリシーを使用すると、アカウントの種類、デバイスの役割、アプリケーションの種類などの新しい条件に基づいて、NTLM 認証をブロックできます。
+
+      ポリシー全体が "無効" または "未構成" に設定されている場合、以下のサブ設定は有効になりません。ポリシー全体が "有効" に設定されている場合、以下のサブポリシーはそれぞれの構成に基づいて有効になります。
+
+      構成されない限り、すべてのポリシーは "監査" モードに設定されます。"監査" に設定されたポリシーは、ブロックされる可能性のある NTLM 要求に関する警告をログに記録しますが、ブロックしません。"監査" としてマークされた複数のポリシーを同時に有効にすることが可能で、これらは統合されたイベント ログに記録されます。
+
+      いずれかのポリシーが "有効" としてマークされている場合、そのポリシーの条件に一致した NTLM 認証要求がブロックされます。複数のポリシーが "有効" としてマークされている場合、いずれかのポリシーの条件に一致した NTLM 認証要求がブロックされます。NTLM 認証を最初にブロックしたポリシーに対して、イベント ログが生成されます。
+
+      "監査" ポリシーと "有効" ポリシーの両方が存在するシナリオでは、"有効" ポリシーが優先されます。
+
+      ここで説明するすべての強化ブロック ポリシーは、NTLM 認証の使用が許可されたアカウント、デバイス、アプリケーションを指定する同じ許可リストを共有します。認証を許可するために、許可リストには一連のターゲット名や SPN を含めることができます。
+
+      詳細については、aka.ms/ntlmlogandblock を参照してください。
+      </string>
+      <string id="Disabled">無効</string>
+      <string id="Audit">監査</string>
+      <string id="Enabled">有効</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">ドメイン アカウントのシングル サインオンに対する NTLM のブロック</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">ドメイン コントローラーに対する NTLM のブロック</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">マシン バインディングが失敗した場合に NTLM をブロックする</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">すべての NTLM 認証をブロックする</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">拡張ブロック ポリシーの許可リストを指定します:</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

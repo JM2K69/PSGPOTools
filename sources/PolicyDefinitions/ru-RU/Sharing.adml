@@ -25,6 +25,10 @@
 Чтобы изменение этого параметра вступило в силу, необходимо перезагрузить компьютер.</string>
       <string id="HomeGroup">Домашняя группа</string>
       <string id="HomeGroup_Help">Содержит параметры для управления функциями домашней группы.</string>
+      <string id="DisableShareAppPromotions">DisableShareAppPromotions</string>
+      <string id="DisableShareAppPromotions_Help">Этот параметр политики позволяет ИТ-администраторам управлять отображением рекламных приложений в ShareSheet. Если этот параметр политики включен, Windows не будет отображать рекламные приложения в ShareSheet. Если эта политика отключена или не настроена, ShareSheet может отображать предложения приложений и рекламные акции при открытии ShareSheet.</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

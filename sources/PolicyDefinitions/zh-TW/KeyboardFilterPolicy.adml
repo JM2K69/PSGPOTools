@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2023 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>鍵盤篩選器群組原則</displayName>
+  <description>鍵盤篩選器的群組原則設定</description>
+  <resources>
+    <stringTable>
+      <string id="KeyboardFilter">鍵盤篩選器</string>
+      <string id="AllowKbFilterInRemoteSessions">允許遠端工作階段中的鍵盤篩選器</string>
+      <string id="AllowKbFilterInRemoteSessions_Text">鍵盤篩選器通常僅適用於本機會話。
+      
+啟用這個設定將允許鍵盤篩選器套用到透過遠端會話連線到計算機的使用者。</string>
+    </stringTable>
+  </resources>
+</policyDefinitionResources>

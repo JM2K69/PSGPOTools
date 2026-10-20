@@ -33,6 +33,11 @@
     <presentationTable>
       <presentation id="AutoEnrollMDM">
         <dropdownList refId="UseAADCredentialTypeDrop" defaultItem="1">選取要使用的認證類型:</dropdownList>
+        <textBox refId="MDMApplicationId">
+          <label>MDM 應用程式識別碼:</label>
+        </textBox>
+        <text>MDM 應用程式識別碼代表您在 Azure AD 中設定的 MDM 應用程式識別碼。此為選用，只有當您在 Azure AD 中設定多個 MDM 應用程式時使用裝置認證進行自動註冊 MDM 的情況下，才需要。</text>
+        <text/>
       </presentation>
     </presentationTable>	
   </resources>

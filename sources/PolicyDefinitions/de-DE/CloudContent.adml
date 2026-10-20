@@ -15,7 +15,7 @@ Wenn Sie das Kontrollkästchen "Inhalt von Enterprise-Blickpunkt einschließen" 
 
 Wenn Sie die Richtlinieneinstellung deaktivieren, wird Windows-Blickpunkt deaktiviert, wobei Benutzer ihn nicht mehr als Sperrbildschirm auswählen können. Die Benutzer sehen das Standardbild für den Sperrbildschirm und können ein anderes Bild auswählen, sofern Sie nicht die Richtlinie "Ändern des Sperrbildschirmbilds verhindern" aktiviert haben.
 
-Wenn Sie die Richtlinie nicht konfigurieren, ist Windows-Blickpunkt auf dem Sperrbildschirm verfügbar und wird standardmäßig ausgewählt, sofern Sie nicht über die Richtlinie "Ein bestimmtes Standardbild für den Sperrbildschirm erzwingen" ein anderes Standardbild für den Sperrbildschirm konfiguriert haben.
+Wenn Sie die Richtlinie nicht konfigurieren, ist Windows-Blickpunkt auf dem Sperrbildschirm verfügbar und wird standardmäßig ausgewählt, sofern Sie nicht über die Richtlinie "Ein bestimmtes Standardbild für den Sperr- und Anmeldebildschirm erzwingen" ein anderes Standardbild für den Sperrbildschirm konfiguriert haben.
 
 Hinweis: Diese Richtlinie ist nur für Enterprise-SKUs verfügbar.</string>
       <string id="DisableWindowsSpotlightFeatures">Features von Windows-Blickpunkt deaktivieren</string>
@@ -67,6 +67,43 @@ Wenn Sie diese Richtlinie deaktivieren oder nicht konfigurieren, können durch F
 Wenn Sie diese Richtlinie aktivieren, wird die Windows-Willkommensseite nicht mehr angezeigt, wenn Updates und Änderungen für Windows und die zugehörigen Apps verfügbar sind.
 
 Wenn Sie diese Richtlinie deaktivieren oder nicht konfigurieren, wird die Windows-Willkommensseite gestartet, um Benutzern den Einstieg in Windows zu erleichtern und sie über Neuerungen, Änderungen und Empfehlungen zu informieren.</string>
+      <string id="DisableCloudOptimizedContent">Deaktivieren von Inhalten, die für die Cloud optimiert sind</string>
+      <string id="DisableCloudOptimizedContent_Help">Diese Richtlinieneinstellung ermöglicht Ihnen das Deaktivieren von Inhalten, die für die Cloud sind, in allen Windows-Umgebungen.
+
+Wenn Sie diese Richtlinie aktivieren, werden Windows-Systeme, die die Client-Komponente für Cloud-optimierte Inhalte verwenden, stattdessen den standardmäßigen Ausweichinhalt anzeigen.
+
+Wenn Sie diese Richtlinie deaktivieren oder nicht konfigurieren, können die Windows-Umgebungen Cloud-optimierte Inhalte verwenden.</string>
+      <string id="DisableSpotlightCollectionOnDesktop">Blickpunktsammlung auf dem Desktop deaktivieren</string>
+      <string id="DisableSpotlightCollectionOnDesktop_Help">Diese Richtlinieneinstellung entfernt die Einstellung der Blickpunktsammlung in der Personalisierung, sodass der Benutzer keine täglichen Bilder von Microsoft mehr auswählen und anschließend auf den Desktop herunterladen kann.
+
+Wenn Sie diese Richtlinie aktivieren, ist „Blickpunktsammlung“ in den Personalisierungseinstellungen nicht als Option verfügbar.
+
+Wenn Sie diese Richtlinie deaktivieren oder nicht konfigurieren, wird “Blickpunktsammlung“ als Option in den Personalisierungseinstellungen angezeigt, sodass der Benutzer “Blickpunktsammlung“ als Desktop-Anbieter auswählen und tägliche Bilder von Microsoft auf dem Desktop anzeigen kann.</string>
+      <string id="DisableConsumerAccountStateContent">Inhalte des Cloud-Verbraucherkontostatus deaktivieren</string>
+      <string id="DisableConsumerAccountStateContent_Help">Diese Richtlinieneinstellung ermöglicht Ihnen das Deaktivieren des Inhalts des Cloud-Verbraucherkontostatus in allen Windows-Erfahrungen.
+
+            Wenn Sie diese Richtlinie aktivieren, werden Windows-Erfahrungen, welche die Client-Komponente für Inhalte des Cloud-Verbraucherkontostatus verwenden, stattdessen den standardmäßigen Ausweichinhalt anzeigen.
+
+            Wenn Sie diese Richtlinie deaktivieren oder nicht konfigurieren, können die Windows-Erfahrungen Inhalte des Cloud-Verbraucherkontostatus verwenden.
+        </string>
+      <string id="EnableOrganizationalMessagesContent">Organisationsnachrichten aktivieren</string>
+      <string id="EnableOrganizationalMessagesContent_Help">Organisationsnachrichten ermöglichen Administratoren das Übermitteln von Nachrichten an ihre Endbenutzer auf ausgewählten Windows 11-Erfahrungen. Organisationsnachrichten stehen Administratoren über Dienste wie Microsoft Endpoint Manager zur Verfügung.
+
+Standardmäßig ist diese Richtlinie ist deaktiviert. Wenn Sie diese Richtlinie aktivieren, werden auf diesen Erfahrungen Inhalte angezeigt, die von Administratoren gebucht wurden.
+
+Das Aktivieren dieser Richtlinie hat keine Auswirkungen auf vorhandene MDM-Richtlinieneinstellungen, welche die Übermittlung von Inhalten von Microsoft auf Windows-Erfahrungen steuern.</string>
+      <string id="DisableGetStartedContent">„Erste Schritte“ deaktivieren</string>
+      <string id="DisableGetStartedContent_Help">Mit dieser Richtlinieneinstellung wird die Windows-Erste Schritte-Erfahrung deaktiviert.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird „Erste Schritte“ nicht automatisch gestartet und schließt sich sofort, wenn es manuell gestartet wird. Zugehörige Hintergrundaufgaben werden nicht ausgeführt.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, bleibt „Erste Schritte“ verfügbar und kann angezeigt werden, um Benutzer beim Kennenlernen von Windows zu unterstützen.</string>
+      <string id="DisableCopilotPinScreenContent">Copilot-PIN-Bildschirm deaktivieren</string>
+      <string id="DisableCopilotPinScreenContent_Help">Verhindert, dass Windows Microsoft 365 Copilot-Empfehlungen bei der Anmeldung anzeigt. Dadurch wird Copilot nicht deaktiviert, und die Lizenzierung wird nicht beeinträchtigt.
+
+Wenn Sie diese Richtlinieneinstellung aktivieren, wird die Einrichtungsanleitung für Microsoft 365 Copilot bei der Anmeldung nicht automatisch gestartet.
+
+Wenn Sie diese Richtlinieneinstellung deaktivieren oder nicht konfigurieren, wird möglicherweise die Microsoft 365 Copilot-Einrichtungsanleitung bei der Anmeldung angezeigt, damit Benutzer Copilot ermitteln und einrichten können.</string>
     </stringTable>
     <presentationTable>
       <presentation id="ConfigureWindowsSpotlight">

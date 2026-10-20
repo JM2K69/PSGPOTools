@@ -6,21 +6,14 @@
     <stringTable>
       <string id="DeliveryOptimizationCat">Optimalizace doručení</string>
       <string id="DownloadMode">Režim stahování</string>
-      <string id="DownloadMode_Help">Určuje metodu stahování, kterou může Optimalizace doručení používat při stahování aktualizací pro Windows, aplikací a aktualizací pro aplikace.
-      
-Podporované hodnoty:
+      <string id="DownloadMode_Help">Určuje metodu, pomocí které Optimalizace doručení stahovat obsah jménem různých produktů Microsoftu.
 
-0 = Jenom HTTP, žádný partnerský vztah.
-      
-1 = HTTP v kombinaci s partnerskými počítači v rámci stejného překladu adres (NAT).
-
-2 = HTTP v kombinaci s partnerským vztahem soukromé skupiny. Ve výchozím nastavení vzniká partnerský vztah mezi počítači ve stejné lokalitě adresářové služby Active Directory (pokud existuje) nebo ve stejné doméně. Při výběru této možnosti jde partnerský vztah napříč překlady adres (NAT). Pokud chcete vytvořit vlastní skupinu, použijte ID skupiny v kombinaci s režimem 2.
-      
-3 = HTTP v kombinaci s internetovým partnerským vztahem. 
-
-99 = Režim jednoduchého stahování bez partnerského vztahu. Optimalizace doručení bude stahovat jenom pomocí HTTP a nepokusí se kontaktovat cloudové služby Optimalizace doručení.
-      
-100 = Režim obejití. Místo Optimalizace doručení použije BITS.</string>
+0 = pouze HTTP, bez partnerského vztahu
+1 = HTTP v kombinaci s partnerským vztahem za stejným překladem adres (NAT)
+2 = HTTP v kombinaci s partnerským vztahem v soukromé skupině
+3 = HTTP v kombinaci s internetovým partnerským vztahem
+99 = pouze HTTP, bez partnerského vztahu, bez použití cloudové služby DO
+100 = Režim obejití, zastaralé v Windows 11</string>
       <string id="DownloadMode_CdnOnly">Jenom HTTP (0)</string>
       <string id="DownloadMode_Lan">LAN (1)</string>
       <string id="DownloadMode_Group">Skupina (2)</string>
@@ -28,144 +21,80 @@ Podporované hodnoty:
       <string id="DownloadMode_Simple">Jednoduché (99)</string>
       <string id="DownloadMode_Bypass">Obejít (100)</string>
       <string id="GroupId">ID skupiny</string>
-      <string id="GroupId_Help">ID skupiny musí být nastavené jako GUID. Tato zásada určuje libovolné ID skupiny, ke které má zařízení patřit.
-      
-Tuto možnost použijte, pokud potřebujete vytvořit jednu skupinu pro partnerské vztahy v místní síti pro větve, které jsou v různých doménách a nespadají ve stejné síti LAN.
-      
-Poznámka: Jedná se o optimalizaci na bázi přiměřeného úsilí a neměla by se používat pro ověřování identity.</string>
-      <string id="MaxUploadBandwidth">Maximální šířka pásma pro nahrávání (kB/s)</string>
-      <string id="MaxUploadBandwidth_Help">Určuje maximální šířku pásma pro nahrávání v kB za sekundu, kterou může služba Optimalizace doručení využívat pro všechny souběžné aktivity nahrávání.
-      
-Výchozí hodnota 0 (nula) umožňuje neomezené použití, při kterém se šířka pásma pro nahrávání dynamicky přizpůsobuje.</string>
+      <string id="GroupId_Help">Určuje libovolné ID skupiny, do které zařízení patří. Je třeba použít identifikátor GUID.</string>
       <string id="MaxCacheSize">Maximální velikost mezipaměti (procenta)</string>
-      <string id="MaxCacheSize_Help">Určuje maximální velikost mezipaměti, kterou může využívat služba Optimalizace doručení, jako procenta volného místa na disku (1 až 100).</string>
+      <string id="MaxCacheSize_Help">Určuje maximální velikost mezipaměti, kterou může Optimalizace doručení využít, jako procento dostupného místa na disku.</string>
       <string id="AbsoluteMaxCacheSize">Absolutní maximální velikost mezipaměti (GB)</string>
-      <string id="AbsoluteMaxCacheSize_Help">Určuje maximální velikost v GB pro mezipaměť služby Optimalizace doručení.
-      
-Tato zásada přepisuje zásadu DOMaxCacheSize.
-      
-Hodnota 0 (nula) znamená „neomezenou“ mezipaměť. Služba Optimalizace doručení mezipaměť vymaže, když bude v zařízení docházet místo na disku.</string>
+      <string id="AbsoluteMaxCacheSize_Help">Určuje maximální velikost Optimalizace doručení mezipaměti v GB. Tato zásada přepíše zásady MaxCacheSize.</string>
       <string id="MaxCacheAge">Maximální stáří mezipaměti (v sekundách)</string>
-      <string id="MaxCacheAge_Help">Určuje maximální dobu v sekundách, po kterou po úspěšném stažení zůstávají jednotlivé soubory v mezipaměti Optimalizace doručení.
-      
-Při nastavení hodnoty 0 (neomezeno) zůstávají stažené soubory v mezipaměti déle, takže jsou dostupné k nahrání na jiná zařízení (pokud ovšem nedojde k překročení velikosti mezipaměti).</string>
+      <string id="MaxCacheAge_Help">Určuje maximální dobu v sekundách, po kterou je každý soubor po úspěšném stažení uložen v mezipaměti Optimalizace doručení.</string>
       <string id="MonthlyUploadDataCap">Měsíční limit pro nahrávání dat (GB)</string>
-      <string id="MonthlyUploadDataCap_Help">Určuje maximální celkový počet gigabajtů, které smí Optimalizace doručení nahrát na partnerská zařízení v internetu v určitém kalendářním měsíci.
-      
-Hodnota 0 (nula) znamená neomezený objem: neuplatňuje se žádný měsíční limit pro nahrávání.</string>
+      <string id="MonthlyUploadDataCap_Help">Určuje maximální počet bajtů v GB, které může Optimalizace doručení nahrát na partnerské uzly internetu v každém kalendářním měsíci.</string>
       <string id="MinBackgroundQos">Minimální QoS na pozadí (kB/s)</string>
-      <string id="MinBackgroundQos_Help">Určuje minimální QoS (kvalitu služby nebo rychlost) pro stahování na pozadí v kilobajtech za sekundu.
-      
-Tato zásada ovlivňuje souběžné používání partnerských zdrojů a zdrojů HTTP. Služba Optimalizace doručení doplňuje stahování ze zdroje HTTP tak, aby se dosáhlo zadané minimální hodnoty QoS.</string>
+      <string id="MinBackgroundQos_Help">Určuje minimální dobu stahování QoS (Quality of Service) v kilobajtech/s pro stahování na pozadí.</string>
       <string id="ModifyCacheDrive">Změnit jednotku mezipaměti</string>
-      <string id="ModifyCacheDrive_Help">Určuje jednotku, kterou má Optimalizace doručení používat pro svou mezipaměť. 
-      
-Ve výchozím nastavení se k ukládání mezipaměti používá jednotka %SystemDrive%. Umístění jednotky je možné zadat pomocí proměnných prostředí, písmene jednotky nebo celé cesty.</string>
-      <string id="MaxDownloadBandwidth">Maximální šířka pásma pro stahování (kB/s)</string>
-      <string id="MaxDownloadBandwidth_Help">Určuje maximální šířku pásma pro stahování v kilobajtech za sekundu, kterou může zařízení používat pro všechny souběžné aktivity stahování na pozadí přes službu Optimalizace doručení. 
-      
-Výchozí hodnota 0 (nula) znamená, že služba Optimalizace doručení dostupnou šířku pásma pro stahování dynamicky přizpůsobuje.</string>
-      <string id="PercentageMaxDownloadBandwidth">Maximální šířka pásma pro stahování (procenta)</string>
-      <string id="PercentageMaxDownloadBandwidth_Help">Určuje maximální šířku pásma pro stahování, kterou Optimalizace doručení využívá napříč všemi souběžnými aktivitami stahování, a to jako procento dostupné šířky pásma pro stahování. 
-      
-Výchozí hodnota 0 (nula) znamená, že se Optimalizace doručení dynamicky přizpůsobuje tak, aby využívala dostupnou šířku pásma pro stahování.
-
-Tato zásada je zastaralá a v další verzi ji odebereme. Použijte místo ní nastavení Maximální šířka pásma pro stahování na popředí (procenta) nebo Maximální šířka pásma pro stahování na pozadí (v procentech).</string>
+      <string id="ModifyCacheDrive_Help">Určuje jednotku, kterou by měl Optimalizace doručení použít pro svou mezipaměť. Umístění jednotky lze zadat pomocí proměnných prostředí, písmene jednotky nebo pomocí úplné cesty.</string>
+      <string id="MaxBackgroundDownloadBandwidth">Maximální šířka pásma pro stahování na pozadí (kB/s)</string>
+      <string id="MaxBackgroundDownloadBandwidth_Help">Určuje maximální šířku pásma pro stahování na pozadí v kilobajtech za sekundu, kterou může zařízení používat ve všech souběžných aktivitách stahování pomocí Optimalizace doručení.</string>
+      <string id="MaxForegroundDownloadBandwidth">Maximální šířka pásma pro stahování na popředí (kB/s)</string>
+      <string id="MaxForegroundDownloadBandwidth_Help">Určuje maximální šířku pásma pro stahování na popředí v kilobajtech za sekundu, kterou může zařízení používat ve všech souběžných aktivitách stahování pomocí Optimalizace doručení.</string>
       <string id="PercentageMaxBackgroundBandwidth">Maximální šířka pásma pro stahování na pozadí (procenta)</string>
-      <string id="PercentageMaxBackgroundBandwidth_Help">Určuje maximální šířku pásma pro stahování na pozadí, kterou bude Optimalizace doručení využívat u všech souběžných aktivit stahování, jako procento dostupné šířky pásma pro stahování. 
-      
-Výchozí hodnota je 0 (nula) a znamená, že Optimalizace doručení se dynamicky přizpůsobuje dostupné šířce pásma pro stahování na pozadí.</string>
+      <string id="PercentageMaxBackgroundBandwidth_Help">Určuje maximální šířku pásma pro stahování na pozadí, kterou Optimalizace doručení používá ve všech souběžných aktivitách stahování, jako procento dostupné šířky pásma pro stahování.</string>
       <string id="PercentageMaxForegroundBandwidth">Maximální šířka pásma pro stahování na popředí (procenta)</string>
-      <string id="PercentageMaxForegroundBandwidth_Help">Určuje maximální šířku pásma pro stahování na popředí, kterou bude Optimalizace doručení využívat u všech souběžných aktivit stahování, jako procento dostupné šířky pásma pro stahování.
-      
-Výchozí hodnota je 0 (nula) a znamená, že Optimalizace doručení se dynamicky přizpůsobuje dostupné šířce pásma pro stahování na popředí.</string>
-      <string id="MinFileSizeToCache">Minimální velikost souboru obsahu pro ukládání do sdílené mezipaměti (v MB)</string>
-      <string id="MinFileSizeToCache_Help">Určuje minimální velikost souboru obsahu v MB, který může používat ukládání do sdílené mezipaměti. 
-      
-Doporučené hodnoty: 1 MB až 100 000 MB.</string>
-      <string id="AllowVPNPeerCaching">Povolit ukládání do sdílené mezipaměti, když je zařízení připojené přes síť VPN</string>
-      <string id="AllowVPNPeerCaching_Help">Zadáním hodnoty true umožníte, aby se zařízení účastnilo ukládání do sdílené mezipaměti, když je k síti domény připojené přes síť VPN.
-      
-To znamená, že zařízení může stahovat nebo nahrávat na jiná zařízení v síti domény, a to buď v síti VPN, nebo v síti firemní domény.</string>
-      <string id="MinRAMAllowedToPeer">Minimální kapacita paměti RAM (včetně) vyžadovaná k povolení ukládání do sdílené mezipaměti (v GB)</string>
-      <string id="MinRAMAllowedToPeer_Help">Určuje minimální velikost paměti RAM v GB vyžadovanou k použití ukládání do sdílené mezipaměti. 
-      
-Pokud je například nastavené minimum 1 GB, budou moci ukládání do sdílené mezipaměti používat zařízení s pamětí RAM o kapacitě 1 GB nebo vyšší. 
-      
-Doporučené hodnoty: 1 GB až 4 GB.</string>
-      <string id="MinDiskSizeAllowedToPeer">Minimální velikost disku, při které se může používat ukládání do sdílené mezipaměti (v GB)</string>
-      <string id="MinDiskSizeAllowedToPeer_Help">Určuje požadovanou minimální velikost disku (v GB), aby zařízení mohlo používat ukládání do sdílené mezipaměti. Použije se výchozí hodnota nastavená cloudovou službou. 
-      
-Doporučené hodnoty: 64 GB až 256 GB. 
-      
-Poznámka: Pokud je nastavená zásada DOModifyCacheDrive, použije se u nového pracovního adresáře určeného touto zásadou kontrola velikosti disku.</string>
+      <string id="PercentageMaxForegroundBandwidth_Help">Určuje maximální šířku pásma pro stahování na popředí, kterou Optimalizace doručení používá ve všech souběžných aktivitách stahování, jako procento dostupné šířky pásma pro stahování.</string>
+      <string id="MinFileSizeToCache">Minimální velikost souboru obsahu P2P (v MB)</string>
+      <string id="MinFileSizeToCache_Help">Určuje minimální velikost souboru obsahu v MB, který může používat P2P.</string>
+      <string id="AllowVPNPeerCaching">Povolit P2P, když se zařízení připojuje přes VPN</string>
+      <string id="AllowVPNPeerCaching_Help">Určuje, jestli se zařízení s aktivním připojením VPN může účastnit P2P, nebo ne.</string>
+      <string id="MinRAMAllowedToPeer">Minimální kapacita paměti RAM (včetně) potřebná k povolení použití P2P (v GB)</string>
+      <string id="MinRAMAllowedToPeer_Help">Určuje minimální celkovou velikost paměti RAM v GB vyžadovanou pro použití P2P.</string>
+      <string id="MinDiskSizeAllowedToPeer">Minimální velikost disku povolená pro použití P2P (v GB)</string>
+      <string id="MinDiskSizeAllowedToPeer_Help">Určuje požadovanou minimální celkovou velikost disku v GB, aby zařízení mohlo používat P2P.</string>
       <string id="MinBatteryPercentageAllowedToUpload">Povolit nahrávání, když je zařízení napájené z baterie, která je pod nastavenou úrovní nabití (procenta)</string>
-      <string id="MinBatteryPercentageAllowedToUpload_Help">Zadejte hodnotu od 1 do 100 (procenta). Tím u zařízení povolíte nahrávání dat na partnerská zařízení v síti LAN a ve skupině při napájení stejnosměrným proudem (z baterie). 
-      
-Pokud nahrávání při napájení z baterie povolíte, doporučuje se nastavit 40 (tedy 40%). Bez ohledu na tuto zásadu může zařízení při napájení z baterie stahovat obsah z partnerských zařízení. 
-      
-Hodnota 0 znamená, že není nastavené žádné omezení, ale použije se výchozí hodnota cloudové služby.</string>
-      <string id="CacheHost">[Rezervováno pro budoucí použití] Název hostitele serveru mezipaměti</string>
-      <string id="CacheHost_Help">[Rezervováno pro budoucí použití]</string>
+      <string id="MinBatteryPercentageAllowedToUpload_Help">Určuje minimální úroveň nabití baterie vyžadovanou pro nahrávání na partnerské uzly při napájení z baterie.</string>
+      <string id="CacheHost">Název hostitele serveru mezipaměti</string>
+      <string id="CacheHost_Help">Určuje jeden nebo více serverů Microsoft Připojená mezipaměť, které budou používat vaši klienti. Jednu nebo více hodnot lze přidat jako plně kvalifikované názvy domén (FQDN) nebo IP adresy. Pokud chcete přidat více hodnot, oddělte jednotlivé plně kvalifikované názvy domén nebo IP adresy čárkami.</string>
+      <string id="CacheHostSource">Zdroj názvu hostitele serveru mezipaměti</string>
+      <string id="CacheHostSource_Help">Určuje, jak můžou klienti dynamicky zjišťovat servery Microsoft Připojená mezipaměť.
+
+1 = Možnost DHCP 235
+2 = Možnost DHCP 235 Vynucení</string>
+      <string id="CacheHostSource_DHCP">Možnost DHCP 235</string>
+      <string id="CacheHostSource_DHCP_Force">Možnost DHCP 235 s vynucením</string>
+      <string id="DisallowCacheServerDownloadsOnVPN">Zakázat stahování ze serverů Microsoft Připojená mezipaměť, když se zařízení připojí přes síť VPN</string>
+      <string id="DisallowCacheServerDownloadsOnVPN_Help">Určete, že se má zakázat stahování ze serverů Microsoft Připojená mezipaměť, když se zařízení připojí přes síť VPN. Pokud není zaškrtnuté, může zařízení při připojení přes síť VPN stahovat z Microsoft Připojená mezipaměť. Zaškrtnutím tohoto políčka zablokujete stahování.</string>
       <string id="GroupIdSource">Vyberte zdroj ID skupin.</string>
-      <string id="GroupIdSource_Help">Nastavením této zásady můžete výběr partnerských zařízení omezit na konkrétní zdroj. 
-      
- Dostupné možnosti: 
+      <string id="GroupIdSource_Help">Určuje zdroj ID skupiny, který se používá pro výběr partnerského uzlu.
 
+0 = Nenastaveno
 1 = Lokalita AD
-
 2 = SID ověřené domény
-
 3 = ID možnosti DHCP
-
-4 = přípona DNS 
-
-5 = ID tenanta AAD 
-
-Pokud je nastavené ID skupiny, přiřadí se automaticky z vybraného zdroje. Pokud tuto zásadu povolíte, budou se zásady pro GroupID ignorovat. 
-      
-Možnosti nastavené u této zásady platí jen pro režim stahování Skupina (2). Pokud jako režim stahování není nastavená Skupina (2), bude se tato zásada ignorovat. 
-
-Pro možnost 3 – ID možnosti DHCP se bude klient dotazovat na ID možnosti DHCP 234 a použije vrácenou hodnotu GUID jako ID skupiny.</string>
-      <string id="GroupIdSource_Unset">Zrušit nastavení: (0)</string>
+4 = Přípona DNS
+5 = ID tenanta Entra ID</string>
+      <string id="GroupIdSource_Unset">Nenastaveno (0)</string>
       <string id="GroupIdSource_AD">Lokalita služby Active Directory (1)</string>
       <string id="GroupIdSource_SID">Ověřené domény SID (2)</string>
       <string id="GroupIdSource_DHCP">ID možnosti DHCP (3)</string>
       <string id="GroupIdSource_DNS">Přípona DNS (4)</string>
       <string id="GroupIdSource_AAD">ID tenanta AAD (5)</string>
       <string id="DelayBackgroundDownloadFromHttp">Zpozdit stahování na pozadí z http (v sekundách)</string>
-      <string id="DelayBackgroundDownloadFromHttp_Help">Tato zásada umožňuje zpozdit použití zdroje HTTP ve stahování na pozadí, které smí používat P2P.
-      
-Po dosažení maximálního zpoždění bude stahování přes HTTP pokračovat, a to buď stažením celé datové části, nebo dodatečných bajtů, které nebylo možné stáhnout z partnerských zařízení.
-      
-Mějte na paměti, že stahování, které čeká na partnerské zdroje, se bude koncovému uživateli jevit jako zablokované.
-      
-Doporučená hodnota je 1 hodina (3600).</string>
+      <string id="DelayBackgroundDownloadFromHttp_Help">U stahování na pozadí, které používají P2P, určuje dobu, po kterou se má čekat, než se spustí stahování ze zdroje HTTP.</string>
       <string id="DelayForegroundDownloadFromHttp">Zpozdit stahování na popředí z http (v sekundách)</string>
-      <string id="DelayForegroundDownloadFromHttp_Help">Tato zásada umožňuje zpozdit použití zdroje HTTP ve stahování na popředí (interaktivním), které smí používat P2P.
-      
-Po dosažení maximálního zpoždění bude stahování přes HTTP pokračovat, a to buď stažením celé datové části, nebo dodatečných bajtů, které nebylo možné stáhnout z partnerských zařízení.
-      
-Mějte na paměti, že stahování, které čeká na partnerské zdroje, se bude koncovému uživateli jevit jako zablokované.
-      
-Doporučená hodnota je 1 hodina (60).</string>
+      <string id="DelayForegroundDownloadFromHttp_Help">U stahování na popředí, která používají P2P, určuje dobu čekání před zahájením stahování ze zdroje HTTP.</string>
       <string id="DelayCacheServerFallbackBackground">Zpozdit přepnutí ze serveru mezipaměti na náhradní zdroj při stahování na pozadí (v sekundách)</string>
-      <string id="DelayCacheServerFallbackBackground_Help">Nastavením této zásady můžete při stahování obsahu na pozadí zpozdit přepnutí ze serveru mezipaměti na náhradní zdroj HTTP o X sekund. 
-
-Poznámka: Pokud nastavíte zásadu pro zpoždění stahování na pozadí z HTTP, použije se jako první (aby se nejprve umožnilo stahování z partnerských zařízení).</string>
+      <string id="DelayCacheServerFallbackBackground_Help">U stahování na pozadí, které používají server mezipaměti, určuje dobu čekání, než se vrátí ke stažení z původního zdroje HTTP.</string>
       <string id="DelayCacheServerFallbackForeground">Zpozdit přepnutí ze serveru mezipaměti na náhradní zdroj při stahování na popředí (v sekundách)</string>
-      <string id="DelayCacheServerFallbackForeground_Help">Nastavením této zásady můžete při stahování obsahu na popředí zpozdit přepnutí ze serveru mezipaměti na náhradní zdroj HTTP o X sekund. 
-
-Poznámka: Pokud nastavíte zásadu pro zpoždění stahování na popředí z HTTP, použije se jako první (aby se nejprve umožnilo stahování z partnerských zařízení).</string>
+      <string id="DelayCacheServerFallbackForeground_Help">Pro stahování na popředí, které používají server mezipaměti, určuje dobu čekání, než se vrátí ke stažení z původního zdroje HTTP.</string>
       <string id="RestrictPeerSelectionBy">Vyberte způsob omezení výběru partnerských zařízení.</string>
-      <string id="RestrictPeerSelectionBy_Help">Nastavením této zásady můžete omezit výběr partnerských uzlů prostřednictvím vybrané možnosti. 
-      
-Dostupné možnosti: 
-1 = maska podsítě (v budoucí verzi budou přidány další možnosti). 
-      
-Možnost 1 (maska podsítě) platí pro režim stahování LAN (1) a skupiny (2).</string>
+      <string id="RestrictPeerSelectionBy_Help">Určuje, že se kromě zásady DownloadMode omezí výběr partnerských zařízení pomocí vybrané metody.
+
+0 = Žádné
+1 = maska podsítě
+2 = Místní zjišťování (DNS-SD)</string>
       <string id="RestrictPeerSelectionBy_None">Žádné</string>
-      <string id="RestrictPeerSelectionBy_Subnet">Podsíť</string>
+      <string id="RestrictPeerSelectionBy_Subnet">Maska podsítě</string>
+      <string id="RestrictPeerSelectionBy_LinkLocal">Místní zjišťování (DNS-SD)</string>
       <string id="SetHoursToLimitBackgroundDownloadBandwidth">Nastavit pracovní dobu pro omezení šířky pásma pro stahování na pozadí</string>
       <string id="SetHoursToLimitBackgroundDownloadBandwidth_Help">Určuje maximální šířku pásma pro stahování na pozadí, kterou bude Optimalizace doručení během pracovní doby i mimo ni využívat u všech souběžných aktivit stahování, jako procento dostupné šířky pásma pro stahování.</string>
       <string id="SetHoursToLimitForegroundDownloadBandwidth">Nastavit pracovní dobu pro omezení šířky pásma pro stahování na popředí</string>
@@ -194,6 +123,8 @@ Možnost 1 (maska podsítě) platí pro režim stahování LAN (1) a skupiny (2)
       <string id="Time11PM">23:00</string>
       <string id="Time12AM">12:00</string>
       <string id="Time12PM">24:00</string>
+      <string id="VpnKeywords">Klíčová slova sítě VPN</string>
+      <string id="VpnKeywords_Help">Určuje jedno nebo více klíčových slov použitých k rozpoznání připojení VPN. Pokud chcete přidat více klíčových slov, oddělte je čárkou.</string>
     </stringTable>
     <presentationTable>
       <presentation id="DownloadMode">
@@ -204,96 +135,86 @@ Možnost 1 (maska podsítě) platí pro režim stahování LAN (1) a skupiny (2)
           <label>ID skupiny:</label>
         </textBox>
       </presentation>
-      <presentation id="MaxUploadBandwidth">
-        <decimalTextBox defaultValue="0" refId="MaxUploadBandwidth">Maximální šířka pásma pro nahrávání (kB/s):</decimalTextBox>
-        <text>Výchozí hodnota je 0 (neomezeno).</text>
-      </presentation>
       <presentation id="MaxCacheSize">
         <decimalTextBox defaultValue="20" refId="MaxCacheSize">Maximální velikost mezipaměti (procenta):</decimalTextBox>
-        <text>Výchozí hodnota je 20 %.</text>
       </presentation>
       <presentation id="AbsoluteMaxCacheSize">
         <decimalTextBox defaultValue="10" refId="AbsoluteMaxCacheSize">Absolutní maximální velikost mezipaměti (GB):</decimalTextBox>
-        <text>Výchozí hodnota je 10 GB.</text>
       </presentation>
       <presentation id="MaxCacheAge">
-        <decimalTextBox defaultValue="259200" refId="MaxCacheAge">Maximální stáří mezipaměti (v sekundách):</decimalTextBox>
-        <text>Výchozí hodnota jsou 3 dny.</text>
+        <decimalTextBox defaultValue="604800" refId="MaxCacheAge">Maximální stáří mezipaměti (v sekundách):</decimalTextBox>
       </presentation>
       <presentation id="MonthlyUploadDataCap">
-        <decimalTextBox defaultValue="20" refId="MonthlyUploadDataCap">Měsíční limit pro nahrávání dat (GB):</decimalTextBox>
-        <text>Výchozí hodnota je 20 GB.</text>
+        <decimalTextBox defaultValue="5120" refId="MonthlyUploadDataCap">Měsíční limit pro nahrávání dat (GB):</decimalTextBox>
       </presentation>
       <presentation id="MinBackgroundQos">
-        <decimalTextBox defaultValue="500" refId="MinBackgroundQos">Minimální QoS na pozadí (kB/s):</decimalTextBox>
-        <text>Výchozí hodnota je 500 kB/s.</text>
+        <decimalTextBox defaultValue="20480" refId="MinBackgroundQos">Minimální QoS na pozadí (kB/s):</decimalTextBox>
       </presentation>
       <presentation id="ModifyCacheDrive">
         <textBox refId="ModifyCacheDrive">
           <label>Změnit jednotku mezipaměti:</label>
         </textBox>
       </presentation>
-      <presentation id="MaxDownloadBandwidth">
-        <decimalTextBox defaultValue="0" refId="MaxDownloadBandwidth">Maximální šířka pásma pro stahování (kB/s):</decimalTextBox>
-        <text>Výchozí hodnota je 0 (neomezeno).</text>
+      <presentation id="MaxBackgroundDownloadBandwidth">
+        <decimalTextBox defaultValue="0" refId="MaxBackgroundDownloadBandwidth">Maximální šířka pásma pro stahování na pozadí (kB/s):</decimalTextBox>
       </presentation>
-      <presentation id="PercentageMaxDownloadBandwidth">
-        <decimalTextBox defaultValue="0" refId="PercentageMaxDownloadBandwidth">Maximální šířka pásma pro stahování (procenta):</decimalTextBox>
-        <text>Výchozí hodnota je 0 (neomezeno).</text>
+      <presentation id="MaxForegroundDownloadBandwidth">
+        <decimalTextBox defaultValue="0" refId="MaxForegroundDownloadBandwidth">Maximální šířka pásma pro stahování na popředí (kB/s):</decimalTextBox>
       </presentation>
       <presentation id="PercentageMaxBackgroundBandwidth">
         <decimalTextBox defaultValue="0" refId="PercentageMaxBackgroundBandwidth">Maximální šířka pásma pro stahování na pozadí (procenta):</decimalTextBox>
-        <text>Výchozí hodnota je 0 (neomezeno).</text>
       </presentation>
       <presentation id="PercentageMaxForegroundBandwidth">
         <decimalTextBox defaultValue="0" refId="PercentageMaxForegroundBandwidth">Maximální šířka pásma pro stahování na popředí (procenta):</decimalTextBox>
-        <text>Výchozí hodnota je 0 (neomezeno).</text>
       </presentation>
       <presentation id="MinFileSizeToCache">
-        <decimalTextBox defaultValue="100" refId="MinFileSizeToCache">Minimální velikost souboru obsahu pro ukládání do sdílené mezipaměti (v MB):</decimalTextBox>
-        <text>Výchozí hodnota je 100 MB.</text>
+        <decimalTextBox defaultValue="100" refId="MinFileSizeToCache">Minimální velikost souboru obsahu P2P (v MB):</decimalTextBox>
       </presentation>
       <presentation id="AllowVPNPeerCaching">
-        <checkBox defaultChecked="false" refId="AllowVPNPeerCaching">Povolit ukládání do sdílené mezipaměti, když je zařízení připojené přes síť VPN</checkBox>
+        <checkBox defaultChecked="false" refId="AllowVPNPeerCaching">Povolit P2P, když se zařízení připojuje přes VPN</checkBox>
       </presentation>
       <presentation id="MinRAMAllowedToPeer">
-        <decimalTextBox defaultValue="4" refId="MinRAMAllowedToPeer">Minimální kapacita paměti RAM (včetně) vyžadovaná k povolení ukládání do sdílené mezipaměti (v GB):</decimalTextBox>
-        <text>Výchozí hodnota jsou 4 GB.</text>
+        <decimalTextBox defaultValue="4" refId="MinRAMAllowedToPeer">Minimální kapacita paměti RAM (včetně) požadovaná k povolení použití P2P (v GB):</decimalTextBox>
       </presentation>
       <presentation id="MinDiskSizeAllowedToPeer">
-        <decimalTextBox defaultValue="32" refId="MinDiskSizeAllowedToPeer">Minimální velikost disku, při které se může používat ukládání do sdílené mezipaměti (v GB):</decimalTextBox>
-        <text>Výchozí hodnota je 32 GB.</text>
+        <decimalTextBox defaultValue="32" refId="MinDiskSizeAllowedToPeer">Minimální velikost disku, která může používat P2P (v GB):</decimalTextBox>
       </presentation>
       <presentation id="MinBatteryPercentageAllowedToUpload">
         <decimalTextBox defaultValue="0" refId="MinBatteryPercentageAllowedToUpload">Minimální úroveň nabití baterie (procenta):</decimalTextBox>
-        <text>Výchozí hodnota je 0 (bez omezení).</text>
       </presentation>
       <presentation id="CacheHost">
         <textBox refId="CacheHost">
           <label>Server mezipaměti:</label>
         </textBox>
       </presentation>
+      <presentation id="CacheHostSource">
+        <dropdownList defaultItem="0" noSort="true" refId="CacheHostSource">Zdroj názvu hostitele serveru mezipaměti:</dropdownList>
+      </presentation>
+      <presentation id="DisallowCacheServerDownloadsOnVPN">
+        <checkBox defaultChecked="false" refId="DisallowCacheServerDownloadsOnVPN">Zakázat stahování z MCC přes síť VPN</checkBox>
+      </presentation>
       <presentation id="GroupIdSource">
-        <dropdownList defaultItem="0" noSort="true" refId="GroupIdSource">Zdroj ID skupin:</dropdownList>        
+        <dropdownList defaultItem="0" noSort="true" refId="GroupIdSource">Zdroj ID skupin:</dropdownList>
       </presentation>
       <presentation id="DelayBackgroundDownloadFromHttp">
         <decimalTextBox defaultValue="0" refId="DelayBackgroundDownloadFromHttp">Zpozdit stahování na pozadí z http (v sekundách):</decimalTextBox>
-        <text>Výchozí hodnota je 0 (bez zpoždění).</text>
       </presentation>
       <presentation id="DelayForegroundDownloadFromHttp">
         <decimalTextBox defaultValue="0" refId="DelayForegroundDownloadFromHttp">Zpozdit stahování na popředí z http (v sekundách):</decimalTextBox>
-        <text>Výchozí hodnota je 0 (bez zpoždění).</text>
       </presentation>
       <presentation id="DelayCacheServerFallbackBackground">
         <decimalTextBox defaultValue="0" refId="DelayCacheServerFallbackBackground">Zpozdit přepnutí ze serveru mezipaměti na náhradní zdroj při stahování na pozadí (v sekundách):</decimalTextBox>
-        <text>Výchozí hodnota je 0 (bez zpoždění).</text>
       </presentation>
       <presentation id="DelayCacheServerFallbackForeground">
         <decimalTextBox defaultValue="0" refId="DelayCacheServerFallbackForeground">Zpozdit přepnutí ze serveru mezipaměti na náhradní zdroj při stahování na popředí (v sekundách):</decimalTextBox>
-        <text>Výchozí hodnota je 0 (bez zpoždění).</text>
       </presentation>
       <presentation id="RestrictPeerSelectionBy">
-        <dropdownList defaultItem="0" noSort="true" refId="RestrictPeerSelectionBy">Omezit výběr partnerského zařízení na základě:</dropdownList>
+        <dropdownList defaultItem="1" noSort="true" refId="RestrictPeerSelectionBy">Omezit výběr partnerského zařízení na základě:</dropdownList>
+      </presentation>
+      <presentation id="VpnKeywords">
+        <textBox refId="VpnKeywords">
+          <label>Klíčová slova sítě VPN:</label>
+        </textBox>
       </presentation>
       <presentation id="SetHoursToLimitBackgroundDownloadBandwidth">
         <text/>
@@ -303,11 +224,9 @@ Možnost 1 (maska podsítě) platí pro režim stahování LAN (1) a skupiny (2)
         <text/>
         <text>Maximální šířka pásma pro stahování na pozadí (procenta) během pracovní doby:</text>
         <decimalTextBox defaultValue="0" refId="SetHoursToLimitBackgroundDownloadBandwidthIn"/>
-        <text>Výchozí hodnota je 0 (bez omezení).</text>
         <text/>
         <text>Maximální šířka pásma pro stahování na pozadí (procenta) mimo pracovní dobu:</text>
         <decimalTextBox defaultValue="0" refId="SetHoursToLimitBackgroundDownloadBandwidthOut"/>
-        <text>Výchozí hodnota je 0 (bez omezení).</text>
       </presentation>
       <presentation id="SetHoursToLimitForegroundDownloadBandwidth">
         <text/>
@@ -317,11 +236,9 @@ Možnost 1 (maska podsítě) platí pro režim stahování LAN (1) a skupiny (2)
         <text/>
         <text>Maximální šířka pásma pro stahování na popředí (procenta) během pracovní doby:</text>
         <decimalTextBox defaultValue="0" refId="SetHoursToLimitForegroundDownloadBandwidthIn"/>
-        <text>Výchozí hodnota je 0 (bez omezení).</text>
         <text/>
         <text>Maximální šířka pásma pro stahování na popředí (procenta) mimo pracovní dobu:</text>
         <decimalTextBox defaultValue="0" refId="SetHoursToLimitForegroundDownloadBandwidthOut"/>
-        <text>Výchozí hodnota je 0 (bez omezení).</text>
       </presentation>
     </presentationTable>
   </resources>

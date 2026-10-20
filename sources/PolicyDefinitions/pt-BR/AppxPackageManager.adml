@@ -2,19 +2,27 @@
 <!--  Copyright (C) Microsoft. All rights reserved.  -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <!-- displayName and description are not used. Not supported by current Group Policy tools. -->
-  <displayName>Gerenciador de Pacotes de Aplicativos</displayName> 
+  <displayName>Gerenciador de Pacotes de Aplicativos</displayName>
   <description>Gerenciador de Pacotes de Aplicativos</description>
   <resources>
     <stringTable>
       <string id="AppxDeployment">Implantação do Pacote de Aplicativos</string>
       <string id="AppxDeploymentAllowAllTrustedApps">Permitir instalação de todos os aplicativos confiáveis</string>
-      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Essa configuração de política permite gerenciar a instalação de aplicativos LOB (linha de negócios) ou da Windows Store criados pelo desenvolvedor.
+      <string id="AppxDeploymentAllowAllTrustedAppsExplanation">Essa configuração de política permite que você gerencie a instalação de LOB (linha de negócios) confiável ou aplicativos da Microsoft Store empacotados assinados pelo desenvolvedor.
 
-Se você habilitar essa configuração de política, poderá instalar qualquer aplicativo LOB ou da Windows Store criado pelo desenvolvedor (o qual deverá ser assinado com uma cadeia de certificados que possa ser validada com êxito pelo computador local).
+Se você habilitar ou não definir essa configuração de política, poderá instalar qualquer aplicativo LOB ou pacote da Microsoft Store assinado pelo desenvolvedor (que deve ser assinado com uma cadeia de certificados que possa ser validada com êxito pelo computador local).
 
-Se você desabilitar ou não definir essa configuração de política, não poderá instalar aplicativos LOB ou da Windows Store criados pelo desenvolvedor.</string>
+Se você desabilitar essa configuração de política, não poderá instalar aplicativos LOB ou pacotes da Microsoft Store assinados pelo desenvolvedor.</string>
+      <string id="AllowAutomaticAppArchiving">Arquivar aplicativos usados com pouca frequência</string>
+      <string id="AllowAutomaticAppArchivingExplanation">Esta configuração de política controla se o sistema pode arquivar aplicativos usados com pouca frequência.
+
+Se você habilitar essa configuração de política, o sistema verificará periodicamente e arquivará aplicativos usados com pouca frequência.
+
+Se você desabilitar essa configuração de política, o sistema não arquivará nenhum aplicativo.
+
+Se você não definir essa configuração de política (padrão), o sistema seguirá o comportamento padrão, que será para verificar periodicamente se há e arquivar aplicativos usados com pouca frequência, e o usuário poderá configurar a própria configuração.</string>
       <string id="AllowDeploymentInSpecialProfiles">Permitir operações de implantação em perfis especiais</string>
-      <string id="AllowDeploymentInSpecialProfilesExplanation">Essa configuração de política permite gerenciar a implantação de aplicativos da Windows Store, quando o usuário se conecta por meio de um perfil especial. Perfis especiais são estes a seguir, em que as alterações são descartadas depois que o usuário se desconecta:
+      <string id="AllowDeploymentInSpecialProfilesExplanation">Essa configuração de política permite gerenciar a implantação de aplicativos empacotados da Microsoft Store, quando o usuário se conecta por meio de um perfil especial. Perfis especiais são estes a seguir, em que as alterações são descartadas depois que o usuário se desconecta:
 
 Perfis de usuário móvel aos quais se aplica a configuração de Política de Grupo "Excluir cópias em cache de perfis móveis"
 
@@ -22,19 +30,19 @@ Perfis de usuário obrigatório e perfis de usuário superobrigatório, que são
 
 Perfis de usuário temporário, que são criados quando um erro impede o carregamento do perfil correto
 
-Perfis de usuário para contas Convidado e membros do grupo Convidados
+Perfis de usuário para contas de convidado e membros do grupo de convidados
 
 
-Se você habilitar essa configuração de política, a Política de Grupo permitirá operações de implantação (adição, registro, preparação, atualização ou remoção de um pacote de aplicativos) de aplicativos da Windows Store, quando um perfil especial estiver em uso.
+Se você habilitar essa configuração de política, a Política de Grupo permitirá operações de implantação (adição, registro, preparação, atualização ou remoção de um pacote de aplicativos) de aplicativos da Microsoft Store, quando um perfil especial estiver em uso.
 
-Se desabilitar ou não definir essa configuração de política, a Política de Grupo bloqueará as operações de implantação de aplicativos da Windows Store, quando um perfil especial estiver em uso.</string>
-      <string id="AllowDevelopmentWithoutDevLicense">Permitir o desenvolvimento de aplicativos da Windows Store e a instalação de um ambiente de desenvolvimento integrado (IDE)</string>
+Se desabilitar ou não definir essa configuração de política, a Política de Grupo bloqueará as operações de implantação de aplicativos empacotados da Microsoft Store, quando um perfil especial estiver em uso.</string>
+      <string id="AllowDevelopmentWithoutDevLicense">Permite o desenvolvimento de aplicativos empacotados da Microsoft Store e a instalação deles de um IDE (ambiente de desenvolvimento integrado)</string>
       <string id="AllowDevelopmentWithoutDevLicenseExplanation">
-        Permite ou nega o desenvolvimento de aplicativos da Windows Store e sua instalação diretamente de um IDE.
+        Permite ou nega o desenvolvimento de aplicativos da Microsoft Store e os instala diretamente a partir de um IDE.
 
-        Se você habilitar essa configuração e também a Política de Grupo "Permitir instalação de todos os aplicativos confiáveis", poderá desenvolver aplicativos da Windows Store e instalá-los diretamente de um IDE.
-        
-        Caso desabilite ou não defina essa configuração, você não poderá desenvolver aplicativos da Windows Store ou instalá-los diretamente de um IDE.
+ se você habilitar essa configuração e habilitar a política de grupo "permitir que todos os aplicativos confiáveis sejam instalados", será possível desenvolver aplicativos da Microsoft Store e instalá-los diretamente a partir de um IDE.
+
+ se desabilitar ou não definir essa configuração, não será possível desenvolver aplicativos da Microsoft Store ou instalá-los diretamente a partir de um IDE.
       </string>
       <string id="DisableDeploymentToNonSystemVolumes">Desabilitar a instalação de aplicativos do Windows em volumes que não sejam do sistema</string>
       <string id="DisableDeploymentToNonSystemVolumesExplanation">
@@ -53,12 +61,150 @@ Se desabilitar ou não definir essa configuração de política, a Política de 
         Se você desabilitar ou não definir essa configuração, quando um aplicativo for movido para outro volume, os dados do aplicativo do usuário também serão movidos para esse volume.
       </string>
       <string id="AllowSharedLocalAppData">Permitir que um aplicativo do Windows compartilhe os dados do aplicativo entre usuários</string>
-      <string id="AllowSharedLocalAppDataExplanation">Gerencie a capacidade de um aplicativo do Windows compartilhar dados entre usuários que tenham instalado o aplicativo.
-      
-        Se você habilitar essa política, um aplicativo do Windows poderá compartilhar os dados do aplicativo com outras instâncias desse aplicativo. Os dados serão compartilhados via pasta SharedLocal. Essa pasta está disponível por meio da API do Windows.Storage.
+      <string id="AllowSharedLocalAppDataExplanation">Gerencia a capacidade de um aplicativo do Windows de compartilhar dados entre usuários que tenham instalado o aplicativo.
 
-       Se você desabilitar essa política, um aplicativo do Windows não poderá compartilhar os dados do aplicativo com outras instâncias desse aplicativo. Se essa política tiver sido habilitada anteriormente, todos os dados compartilhados do aplicativo permanecerão na pasta SharedLocal. 
+        Se você habilitar essa política, um aplicativo do Windows poderá compartilhar os dados do aplicativo com outras instâncias desse aplicativo. Os dados serão compartilhados via pasta SharedLocal. Essa pasta está disponível por meio da API Windows.Storage.
+
+        Se você desabilitar essa política, um aplicativo do Windows não poderá compartilhar os dados do aplicativo com outras instâncias desse aplicativo. Se essa política tiver sido habilitada anteriormente, todos os dados compartilhados do aplicativo permanecerão na pasta SharedLocal.
       </string>
+      <string id="BlockNonAdminUserInstall">Impedir que usuários não administradores instalem aplicativos do Windows empacotados</string>
+      <string id="BlockNonAdminUserInstallExplanation">Gerencia a capacidade de os usuários não administradores instalar pacotes de aplicativos do Windows.
+
+        Se você habilitar essa política, os usuários que não são administradores não poderão iniciar a instalação de pacotes de apps do Windows. Os administradores que desejam instalar um app precisarão fazer isso por meio de um contexto de Administrador (por exemplo, uma janela Administrador do PowerShell). Todos os usuários ainda poderão instalar pacotes de aplicativos do Windows por meio da Microsoft Store, se permitido por outras políticas.
+
+        Se você desabilitar ou não configurar essa política, todos os usuários poderão iniciar a instalação de pacotes de apps do Windows.
+      </string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomains">Definir domínios autorizados para autenticação HTTPS na instalação de streaming do MSIX</string>
+      <string id="ConfigureMSIXAuthenticationAuthorizedDomainsExplanation">Esta configuração de política determina se um token OAuth EntraID será incluído nas comunicações HTTPS com um nome de domínio totalmente qualificado especificado para executar uma instalação de streaming do MSIX.
+
+Se você habilitar essa configuração de política, as comunicações HTTPS com os domínios totalmente qualificados predefinidos incorporarão o token OAuth EntraID do usuário ao executar uma instalação do MSIX de streaming. O valor fornecido é uma expressão regular (Script ECMA) que será usada para corresponder ao domínio totalmente qualificado e superior da URL.
+
+Se você desabilitar ou não definir essa configuração de política, o token OAuth EntraID do usuário será compartilhado somente com os domínios configurados padrão.
+      </string>
+      <string id="DisableBackgroundAutoUpdates">Não permitir que aplicativos do Sideload sejam atualizados automaticamente em segundo plano</string>
+      <string id="DisableBackgroundAutoUpdatesExplanation">Gerencia a capacidade de um sideload de aplicativos para atualizar automaticamente em segundo plano.
+
+Se você habilitar essa política, os aplicativos com sideload não serão atualizados automaticamente em segundo plano.
+
+Se você desabilitar essa política, os aplicativos com sideload serão atualizados automaticamente em segundo plano.
+
+O padrão é 'disabled' (chave não presente).
+      </string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdates">Não permitir que aplicativos do Sideload sejam atualizados automaticamente em segundo plano em uma rede limitada</string>
+      <string id="DisableMeteredNetworkBackgroundAutoUpdatesExplanation">Gerencia a capacidade de um sideload de aplicativos para atualizar automaticamente em segundo plano em uma rede limitada.
+
+Se você habilitar essa política, os aplicativos com sideload não serão atualizados automaticamente em segundo plano em uma rede limitada.
+
+Se você desabilitar essa política, os aplicativos com sideload serão atualizados automaticamente em segundo plano em uma rede limitada.
+
+O padrão é 'disabled' (chave não presente).
+      </string>
+      <string id="DisablePerUserUnsignedPackagesByDefault">Não permitir a instalação de pacotes não assinados por usuário por padrão (requer permissão explícita por instalação)</string>
+      <string id="DisablePerUserUnsignedPackagesByDefaultExplanation">Não permitir a instalação de pacotes não assinados por usuário por padrão (requer permissão explícita por instalação)
+
+Se você habilitar essa política, a opção AllowUnsigned padrão será 'false'.
+
+Se você desabilitar essa política, a opção AllowUnsigned padrão será 'true'.
+
+O padrão é 'disabled' (chave não presente).
+      </string>
+      <string id="AllowedNonAdminPackageFamilyNameRules">Nomes da família de pacotes permitidos para instalação de usuários não administradores</string>
+      <string id="AllowedNonAdminPackageFamilyNameRulesExplanation">Nomes da família de pacotes permitidos para instalação de pacote de aplicativo windows de usuário não administrador.
+
+Se você habilitar essa política, poderá inserir uma lista de pacotes de aplicativos do Windows que não sejam Administradores poderão iniciar a instalação, independentemente da política "Impedir que usuários não administradores instalem aplicativos do Windows empacotados".
+
+Os valores fornecidos serão tratados como expressões regulares (Script ECMA). Um nome de família de pacotes como Contoso.ContosoApp_8wekyb3d8bbwe é uma expressão regular válida que corresponderá a todos os pacotes dessa família. Uma expressão regular como ^Contoso.*_8wekyb3d8bbwe$ também corresponderá Contoso.ContosoApp_8wekyb3d8bbwe
+
+Se o nome da família de pacotes de um pacote de aplicativo do Windows de instalação corresponder a qualquer regra, ele não será bloqueado pela política "Impedir que usuários não administradores instalem aplicativos do Windows empacotados". A instalação ainda pode ser bloqueada por outra política ou configuração.
+
+Se você desabilitar ou não configurar essa política, todos os pacotes de aplicativos do Windows estarão sujeitos à política "Impedir que usuários não administradores instalem aplicativos do Windows empacotados".
+
+O padrão é 'disabled' (chave não presente).
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackages">Remover pacotes padrão da Microsoft Store do sistema.</string>
+      <string id="RemoveDefaultMicrosoftStorePackagesExplanation">Remove pacotes padrão da Microsoft Store do sistema.
+
+Se você habilitar esta política, os aplicativos da Microsoft Store selecionados na lista fornecida serão desinstalados do sistema. Você pode fazer ajustes nas configurações padrão.
+
+Os aplicativos não selecionados na lista não serão removidos.
+
+* Este é um aplicativo sem periféricos (sem interface do usuário)
+
+** Este aplicativo é o manipulador padrão para um tipo de arquivo ou protocolo comum. A remoção deste aplicativo pode resultar em uma experiência do usuário degradada. Não recomendamos a remoção deste aplicativo.
+
+Se você habilitar esta política, também poderá remover um aplicativo inserindo o nome da família de pacotes do aplicativo (por exemplo, Microsoft.WindowsCalculator_8wekyb3d8bbwe) na lista dinâmica em "Especificar nomes de famílias de pacotes adicionais a serem removidos".
+
+Se esta política estiver habilitada, a reinstalação de um aplicativo removido anteriormente exigirá a desmarcação do aplicativo na lista fornecida ou a remoção do nome da família de pacotes do aplicativo da lista dinâmica.
+
+Você não pode remover componentes do sistema Windows por meio da lista dinâmica de remoção de aplicativos.
+
+A validação dos nomes de famílias de pacotes na lista dinâmica de remoção de aplicativos ocorre no logon do usuário, não no momento da configuração da política.
+
+O padrão é "desabilitado" (chave não presente).
+
+Se a política estiver desabilitada ou não configurada, nenhum aplicativo padrão será removido do sistema.
+      </string>
+      <string id="RemoveDefaultMicrosoftStorePackagesDescription">Remove pacotes padrão da Microsoft Store do sistema.</string>
+      <string id="EnableMsixAllowedZones">Habilitar Zonas Permitidas para Pacotes MSIX</string>
+      <string id="EnableMsixAllowedZonesExplanation">Esta política controla se os pacotes MSIX provenientes de Zonas de URL específicas têm permissão para instalar. A origem de um pacote é determinada por seu URI e se um Mart-of-the-Web (MotW) está presente. Se vários URIs forem envolvidos, todos eles serão considerados;
+
+Se você habilitar essa política, os usuários poderão instalar pacotes MSIX de acordo com a configuração de cada zona.
+
+Se você desabilitar ou não configurar esta política, os usuários poderão instalar pacotes MSIX de qualquer zona, exceto por Não Confiável.</string>
+      <string id="ZoneAllowed">Permitir</string>
+      <string id="ZoneBlocked">Bloquear</string>
+      <string id="EnableMsixSmartScreenCheck">Habilitar verificações do Microsoft SmartScreen para Pacotes MSIX</string>
+      <string id="EnableMsixSmartScreenCheckExplanation">Essa política controla se a verificação do Microsoft SmartScreen é realizada ao instalar pacotes MSIX de zonas de URL específicas.
+
+Se você habilitar ou não configurar essa política, a URI do pacote será avaliada com o Microsoft SmartScreen antes da instalação. Essa verificação só é feita para pacotes que vêm da Internet.
+
+Se você desabilitar, o Microsoft SmartScreen não será consultado antes da instalação do pacote.</string>
     </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureMSIXAuthenticationAuthorizedDomains">
+        <textBox refId="ConfigureMSIXAuthenticationAuthorizedDomains">
+          <label>Expressão</label>
+        </textBox>
+      </presentation>
+      <presentation id="AllowedNonAdminPackageFamilyNameRules">
+        <listBox refId="AllowedNonAdminPackageFamilyNameRulesList">Nomes da família de pacotes permitidos para instalação de usuários não administradores</listBox>
+      </presentation>
+      <presentation id="RemoveDefaultMicrosoftStorePackages">
+        <text>Remove pacotes padrão da Microsoft Store do sistema.</text>
+        <checkBox refId="WindowsFeedbackHub" defaultChecked="false">Hub de Feedback</checkBox>
+        <checkBox refId="MicrosoftOfficeHub" defaultChecked="false">Microsoft 365 Copilot</checkBox>
+        <checkBox refId="Clipchamp" defaultChecked="false">Microsoft Clipchamp</checkBox>
+        <checkBox refId="Copilot" defaultChecked="false">Microsoft Copilot</checkBox>
+        <checkBox refId="BingNews" defaultChecked="true">Microsoft News</checkBox>
+        <checkBox refId="Photos" defaultChecked="false">Fotos Microsoft **</checkBox>
+        <checkBox refId="MicrosoftSolitaireCollection" defaultChecked="true">Microsoft Solitaire Collection</checkBox>
+        <checkBox refId="MicrosoftStickyNotes" defaultChecked="false">Microsoft Sticky Notes</checkBox>
+        <checkBox refId="MSTeams" defaultChecked="false">Microsoft Teams</checkBox>
+        <checkBox refId="Todo" defaultChecked="false">Microsoft To Do</checkBox>
+        <checkBox refId="BingWeather" defaultChecked="true">MSN Clima</checkBox>
+        <checkBox refId="OutlookForWindows" defaultChecked="false">Outlook para Windows</checkBox>
+        <checkBox refId="Paint" defaultChecked="false">Paint</checkBox>
+        <checkBox refId="QuickAssist" defaultChecked="false">Assistência Rápida</checkBox>
+        <checkBox refId="ScreenSketch" defaultChecked="false">Ferramenta de Captura</checkBox>
+        <checkBox refId="WindowsCalculator" defaultChecked="false">Calculadora do Windows</checkBox>
+        <checkBox refId="WindowsCamera" defaultChecked="false">Câmera do Windows **</checkBox>
+        <checkBox refId="MediaPlayer" defaultChecked="false">Reprodutor Multimídia do Windows **</checkBox>
+        <checkBox refId="WindowsNotepad" defaultChecked="false">Bloco de Notas do Windows **</checkBox>
+        <checkBox refId="WindowsSoundRecorder" defaultChecked="false">Gravador de Som do Windows</checkBox>
+        <checkBox refId="WindowsTerminal" defaultChecked="false">Terminal do Windows</checkBox>
+        <checkBox refId="GamingApp" defaultChecked="true">Aplicativo de Jogos do Xbox</checkBox>
+        <checkBox refId="XboxIdentityProvider" defaultChecked="true">Provedor de Identidade do Xbox *</checkBox>
+        <checkBox refId="XboxSpeechToTextOverlay" defaultChecked="true">Sobreposição de Conversão de Fala em Texto do Xbox *</checkBox>
+        <checkBox refId="XboxTCUI" defaultChecked="true">Xbox TCUI *</checkBox>
+        <multiTextBox refId="DynamicRemovalList">Especificar nomes de famílias de pacotes adicionais a serem removidos</multiTextBox>
+      </presentation>
+      <presentation id="MsixAllowedZones">
+        <dropdownList refId="LocalMachine" noSort="true" defaultItem="1">Computador Local</dropdownList>
+        <dropdownList refId="Intranet" noSort="true" defaultItem="1">Intranet</dropdownList>
+        <dropdownList refId="TrustedSites" noSort="true" defaultItem="1">Sites Confiáveis</dropdownList>
+        <dropdownList refId="Internet" noSort="true" defaultItem="1">Internet</dropdownList>
+        <dropdownList refId="UntrustedSites" noSort="true" defaultItem="0">Sites Não Confiáveis</dropdownList>
+      </presentation>
+    </presentationTable>
   </resources>
 </policyDefinitionResources>

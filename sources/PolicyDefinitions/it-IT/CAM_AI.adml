@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  (c) 2006 Microsoft Corporation  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>Criteri IA CAM (Capability Access Manager)</displayName>
+  <description>Criteri correlati alle funzionalità di intelligenza artificiale e alla relativa gestione del consenso.</description>
+  <resources>
+    <stringTable>
+      <string id="AIConsent">Consenso per IA</string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="UserInControl">Utente in controllo</string>
+      <string id="ForceEnable">Forza abilitazione</string>
+      <string id="ForceDisable">Forza disabilitazione</string>
+      <string id="AgentConsentDuration_Name">Durata del consenso dell'agente</string>
+      <string id="AgentConsentDuration_Explain">Specifica per quanto tempo, in ore, una risposta di tipo "Consenti" per le funzionalità dell'agente rimane valida prima che venga inviata una nuova richiesta all'utente.
+
+Se questo criterio è abilitato, il valore deve essere compreso tra 1 (1 ora) e 8760 (1 anno). Il valore configurato viene usato come ora di scadenza predefinita per tutte le risposte di tipo "Consenti" per le funzionalità dell'agente.
+
+Se questo criterio non è configurato o se il valore non è compreso nell'intervallo consentito, il valore predefinito è 720 ore (30 giorni).</string>
+      <string id="ConfigureAgentConnectors_Name">Configura i connettori agenti</string>
+      <string id="ConfigureAgentConnectors_Explain">Abilita o disabilita i connettori agenti.</string>
+      <string id="AgentConnectorAccessPolicy_Name">Criteri di accesso per i connettori agenti</string>
+      <string id="AgentConnectorAccessPolicy_Explain">Questa impostazione di criteri ti consente di definire un elenco di connessioni consentite tra gli host MCP e i server MCP.
+
+Il formato di questo elenco sarà una stringa JSON conforme allo schema riportato in https://go.microsoft.com/fwlink/?LinkId=2363700.
+
+Se questo criterio non è configurato, l'host MCP può connettersi a qualsiasi server MCP con il consenso dell'utente.</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="ConfigureAgentConnectors">
+        <dropdownList refId="ConfigureAgentConnectors_Enum" noSort="true" defaultItem="0"> Configura i connettori agenti: </dropdownList>
+      </presentation>
+      <presentation id="AgentConsentDuration">
+        <decimalTextBox refId="AgentConsentDuration_Value" defaultValue="720"> Durata del consenso (ore): </decimalTextBox>
+      </presentation>
+      <presentation id="AgentConnectorAccessPolicy">
+        <textBox refId="AgentConnectorAccessPolicy_Name">
+          <label>Configura le connessioni host/server MCP consentite:</label>
+        </textBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

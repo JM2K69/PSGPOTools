@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.  -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>buraya görünen adı girin</displayName>
+  <description>buraya açıklamayı girin</description>
+  <resources>
+    <stringTable>
+      <string id="WindowsCopilot">Windows Copilot</string>
+      <string id="TurnOffWindowsCopilot">Windows Copilot'ı kapatma</string>
+      <string id="TurnOffWindowsCopilot_Help">Bu ilke ayarı, Windows Copilot'u devre dışı bırakmanıza olanak sağlar.
+
+Bu ilke ayarını etkinleştirirseniz kullanıcılar Copilot'ı kullanamaz. Copilot simgesi de görev çubuğunda görünmez.
+
+Bu ilke ayarını devre dışı bırakır veya yapılandırmazsanız, kullanıcılar Copilot’ı kendileri için kullanılabilir olduğunda kullanabilir.
+      </string>
+      <string id="WindowsAI">Windows AI</string>
+      <string id="DisableAIDataAnalysis">Hatırlama’yla kullanmak üzere anlık görüntülerini kaydedilmesini kapat
+      </string>
+      <string id="DisableAIDataAnalysis_Help">Bu ilke ayarı, ekran anlık görüntülerinin ekran görüntüsüyle birlikte kullanmak üzere kaydedilip kaydedile Hatırlama. Yönetilen cihazlar için, yönetilen Hatırlama anlık görüntüleri varsayılan olarak etkinleştirilmez. BT yöneticileri, kullanıcıları adına anlık görüntü kaydetmeyi kendi başına etkinleştiremez. Anlık görüntüleri kaydetmeyi etkinleştirme seçeneği bireysel kullanıcı kabul onayı gerektirir.
+
+İlke yapılandırılmazsa anlık görüntüler bu ilkeyle birlikte Hatırlama.
+
+Bu ilkeyi etkinleştirirseniz anlık görüntüler bu ilkeyle birlikte Hatırlama. Anlık görüntüler daha önce cihaza kaydedildiyseniz, bu ilke etkinleştirildiğinde bunlar silinir.
+
+Bu ilkeyi devre dışı olarak ayarlarsanız son kullanıcılar ekranlarının anlık görüntülerini kaydetme ve cihazlarında Hatırlama görmek için bu ayarları kullanma seçeneğine sahip olacak.
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots">Hatırlama tarafından kullanılacak anlık görüntülerin depolama alanının üst sınırını belirle
+      </string>
+      <string id="SetMaximumStorageSpaceForRecallSnapshots_Help">Bu ilke ayarı, Windows’un Hatırlama’nın anlık görüntülerini kaydetmek için kullanacağı maksimum disk alanı miktarını kontrol etmenizi sağlar.
+
+Anlık görüntüler için maksimum disk alanı miktarını 10, 25, 50, 75, 100 veya 150 GB olarak belirleyebilirsiniz.
+
+Bu ayar yapılandırılmamışsa, mevcut kullanıcı farklı bir değer belirtmediği sürece işletim sistemi anlık görüntüler için cihaz depolama kapasitesine göre depolama alanı ayıracaktır.
+
+Cihazın depolama kapasitesi 256 GB ise 25 GB ayrılır. Cihazın depolama kapasitesi 512 GB ise 75 GB ayrılır. Cihazın depolama kapasitesi 1 TB ya da daha yüksekse 150 GB ayrılır.
+
+Hatırlama için hem maksimum depolama süresi hem de maksimum depolama alanı ayarlanmışsa, ilk maksimum değere ulaşıldığında anlık görüntüler silinecektir.
+
+Önemli: Bu ayar yalnızca Kurum ve Eğitim istemci SKU'ları için geçerlidir.
+      </string>
+      <string id="SetMaximumStorageSpace_Default">Maksimum depolama miktarı, sabit sürücü depolama kapasitesine göre işletim sistemi tarafından belirlensin</string>
+      <string id="SetMaximumStorageSpace_10GB">10GB</string>
+      <string id="SetMaximumStorageSpace_25GB">25GB</string>
+      <string id="SetMaximumStorageSpace_50GB">50GB</string>
+      <string id="SetMaximumStorageSpace_75GB">75GB</string>
+      <string id="SetMaximumStorageSpace_100GB">100GB</string>
+      <string id="SetMaximumStorageSpace_150GB">150GB</string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots">Hatırlama tarafından kullanılacak anlık görüntülerin maksimum depolanma süresini belirleyin
+      </string>
+      <string id="SetMaximumStorageDurationForRecallSnapshots_Help">Bu ilke ayarı, Windows’un Hatırlama’nın anlık görüntülerini maksimum ne kadar süreyle saklayacağını (gün bazında) kontrol etmenizi sağlar.
+
+İlke etkinleştirildiğinde, maksimum depolama süresini 30, 60, 90 veya 180 gün olarak yapılandırabilirsiniz.
+
+Bu ilke yapılandırılmadığında, geçerli kullanıcı farklı bir değer belirtmediği sürece maksimum depolama süresi 90 gündür.
+
+Hatırlama için hem maksimum depolama süresi hem de maksimum depolama alanı ayarlanmışsa, ilk maksimum değere ulaşıldığında anlık görüntüler silinecektir.
+
+Önemli: Bu ayar yalnızca Kurum ve Eğitim istemci SKU'ları için geçerlidir.
+      </string>
+      <string id="SetMaximumStorageDuration_OSDefined">İşletim sisteminin anlık görüntülerin kaydedildiği en uzun zamanı tanımlamasına izin ver
+      </string>
+      <string id="SetMaximumStorageDuration_30Days">30 gün</string>
+      <string id="SetMaximumStorageDuration_60Days">60 gün</string>
+      <string id="SetMaximumStorageDuration_90Days">90 gün</string>
+      <string id="SetMaximumStorageDuration_180Days">180 gün</string>
+      <string id="SetDenyAppListForRecall">Hatırlama’nın kullanacağı anlık görüntülerden filtrelenecek uygulamaların listesini belirle
+      </string>
+      <string id="SetDenyAppListForRecall_Help">Bu ilke, Hatırlama’nın kullanacağı anlık görüntülere eklenmeyecek olan uygulamaların listesini belirlemenizi sağlar.
+
+Kullanıcılar, Hatırlama ayarlarını kullanarak anlık görüntülerden hariç tutulacak ek uygulamalar ekleyebilir.
+
+Listede Uygulama Kullanıcı Modeli Kimlikleri (AUMID) veya yürütülebilir dosyanın adı yer alabilir.
+
+Hatırlama’dan hariç tutulacak uygulamaların listesini belirlemek için noktalı virgülle ayrılmış bir uygulama listesi kullanın.
+
+Örneğin: code.exe;Microsoft.WindowsNotepad_8wekyb3d8bbwe!App;ms-teams.exe
+
+Önemli: Bu ayar yalnızca Kurum ve Eğitim istemci SKU'ları için geçerlidir. Bu ilke ayarı yapılandırıldığında, değişikliklerin yürürlüğe girmesi için cihazın yeniden başlatılması gerekir.
+      </string>
+      <string id="SetDenyUriListForRecall">Hatırlama’nın kullanacağı anlık görüntülerden filtrelenecek URI’lerin listesini belirle
+      </string>
+      <string id="SetDenyUriListForRecall_Help">Bu ilke ayarı, desteklenen bir tarayıcı kullanıldığında anlık görüntülere dahil Hatırlama URI'lerin listesini tanımlamaya izin verir. Kişiler içindeki kullanıcılar, Hatırlama daha fazla web sitesi eklemek için bu ayarları kullanılabilir. URI'leri ayırmak için noktalı virgül kullanarak liste tanımla.
+
+Örneğin: https://www.Contoso.com;https://www.WoodgroveBank.com;https://www.Adatum.com
+
+Bu https://www.WoodgroveBank.com eklemek aynı zamanda filtre uygulama ve https://Account.WoodgroveBank.com https://www.WoodgroveBank.com/Account.
+
+Önemli: Bu ayar yalnızca Kurumsal ve Eğitim istemci SKU'ları için geçerlidir. Bu ilkede yapılan değişiklikler cihaz yeniden başlatıldıktan sonra etkili olur.
+      </string>
+      <string id="SetDataLossPreventionProvider">Hatırlama için DLP sağlayıcı kimliğini ayarlayın
+      </string>
+      <string id="SetDataLossPreventionProvider_Help">Bu ilke yöneticinin, sağlayıcı düzgün yüklendiğinde Hatırlama özelliğinin kullanacağı DLP sağlayıcısını belirtmesine olanak tanır. Sağlayıcınızdan bunun için dize almanız gerekir. Dize, 'key:HKEY_LOCAL_MACHINE\Software\Contoso\DLP; value:InstallPath; binary:contosoDLP.dll' (değer içinde tırnak işareti olmadan) gibi görünecektir.
+
+Önemli: Bu ayar yalnızca Kuruluş ve Eğitim istemci SKU'ları için geçerlidir.
+      </string>
+      <string id="SetCopilotHardwareKey">Copilot Donanım Anahtarını Ayarlama</string>
+      <string id="SetCopilotHardwareKey_Help">Bu ilke ayarı kullanıcı, klavyesindeki Copilot tuşuna bastığında hangi uygulamanın açılacağını belirler. İlke etkinleştirilirse kullanıcı, Copilot tuşuna bastığında belirtilen uygulama açılır. Kullanıcılar, Ayarlar'da anahtar atamasını değiştirebilir. İlke yapılandırılmamışsa, söz konusu ülke veya bölgede Copilot mevcutsa açılır.
+      </string>
+      <string id="AllowRecallEnablement">Hatırlama’nın etkinleştirilmesine izin ver
+      </string>
+      <string id="AllowRecallEnablement_Help">Bu ilke ayarı, son kullanıcıların cihazlarında Hatırlama isteğe bağlı bileşeninin etkinleştirilmek üzere kullanılabilir olup olmayacağını belirlemenizi sağlar. Varsayılan olarak, Hatırlama yönetilen ticari cihazlar için devre dışıdır. Hatırlama, yönetilen cihazlarda varsayılan olarak kullanılamaz ve bireysel kullanıcılar Hatırlama’yı kendileri etkinleştiremez.
+
+Bu ilke yapılandırılmazsa son kullanıcıların cihazlarında Hatırlama bileşeni devre dışı durumda olur.
+
+Bu ilke devre dışı bırakılırsa Hatırlama bileşeni devre dışı durumda olur ve Hatırlama bitleri cihazdan kaldırılır. Anlık görüntüler daha önce cihaza kaydedildiyse bu ilke devre dışı bırakıldığında bunlar silinir. Hatırlama’nın kaldırılması için cihazın yeniden başlatılması gereklidir.
+
+İlke etkinleştirilirse son kullanıcılar cihazlarında Hatırlama bileşenine sahip olur. DisableAIDataAnalysis ilkesinin durumuna bağlı olarak (Hatırlama ile kullanmak için anlık görüntüleri kaydetmeyi kapat), son kullanıcılar ekranlarının anlık görüntülerini kaydedip Hatırlama kullanarak cihazlarında gördüklerini bulmayı isteyip istemediklerini seçebilir.
+      </string>
+      <string id="DisableClickToDo">Tıklayarak Yap’ı Devre Dışı Bırak</string>
+      <string id="DisableClickToDo_Help">Tıklayarak Yap, kullanıcıların ekranlarındaki içerik üzerinde işlem yapmalarını sağlar. Etkinleştirildiğinde, ekranın bir ekran görüntüsünü alır ve eylemleri sunmak için analiz eder. Tıklayarak Yap, kapatıldığında sona erer ve kapalıyken ekran görüntüsü alamaz. Ekran görüntüsü analizi her zaman cihazda yerel olarak gerçekleştirilir. Varsayılan olarak, kullanıcılar için Tıklayarak Yap etkindir.
+
+Bu ilke ayarı, Tıklayarak Yap'ın kullanıcıların cihazlarında kullanılabilir olup olmadığını belirlemenizi sağlar.
+
+İlke etkinleştirildiğinde, Tıklayarak Yap bileşeni ve giriş noktaları kullanıcıların kullanımına sunulmaz.
+
+İlke devre dışı bırakıldığında, kullanıcılar cihazlarında Tıklayarak Yap’ı kullanabileceklerdir.
+      </string>
+      <string id="Paint">Paint</string>
+      <string id="DisableImageCreator">Görüntü Oluşturucu'yu Devre Dışı Bırak</string>
+      <string id="DisableImageCreator_Help">Bu ilke ayarı, Windows Paint Görüntü Oluşturucu devre dışı bırakılıp devre dışı bırakılamanıza olanak sağlar. Bu ilke etkinleştirilirse Görüntü Oluşturucu işlevselliği Paint uygulaması içinde erişilemez. Bu ilke devre dışı bırakılırsa veya yapılandırılmazsa, kullanıcılar bu Görüntü Oluşturucu erişebilir.</string>
+      <string id="DisableCocreator">AI Destekli İçerik Oluşturma'yı devre dışı bırak</string>
+      <string id="DisableCocreator_Help">Bu ilke ayarı, Windows Paint uygulaması içinde Cocreator işlevselliğinin devre dışı bırakılıp devre dışı bırakılamaysa da denetime olanak sağlar. Bu ilke etkinleştirilirse, Paint uygulaması içinde Cocreator işlevine erişilemez. Bu ilke devre dışı bırakılırsa veya yapılandırılmazsa, kullanıcılar Cocreator işlevine erişebilir.</string>
+      <string id="DisableGenerativeFill">Üretken doldurmayı devre dışı bırak</string>
+      <string id="DisableGenerativeFill_Help">Bu ilke ayarı, Windows Paint uygulaması içinde dolgu işlevselliğinin devre dışı bırakılıp devre dışı bırakımadığını kontrol etmek için izin sağlar. Bu ilke etkinleştirilirse, mantıksal doldurma işlevine Paint uygulaması üzerinden erişilemez. Bu ilke devre dışı bırakılırsa veya yapılandırılmazsa, kullanıcılar benzersiz doldurma işlevine erişebilir.</string>
+      <string id="AllowRecallExport">Hatırlama’nın ve anlık görüntü bilgilerinin dışarı aktarılmasına izin ver</string>
+      <string id="AllowRecallExport_Help">Bu ilke, kullanıcıların Hatırlama ve anlık görüntü bilgilerini dışarı aktarıp aktaramayacağını belirlemenize olanak tanır. Dışarı aktarma, kullanıcıların Hatırlama ve anlık görüntü bilgilerini güvenilen uygulamalar veya web siteleriyle paylaşabilmesini sağlar. Kullanıcılar, Ayarlar &gt; Gizlilik ve güvenlik &gt; Hatırlama ve anlık görüntüler &gt; Gelişmiş ayarlar &gt; Anlık görüntüleri dışarı aktar &gt; Geçmiş anlık görüntüleri dışarı aktar &gt; Dışarı Aktar adımlarını izleyerek dışarı aktarabilir.
+
+Kullanıcılar Ayarlar &gt; Gizlilik ve güvenlik &gt; Hatırlama ve anlık görüntüler &gt; Gelişmiş ayarlar &gt; Anlık görüntüleri dışarı aktar &gt; Dışarı Aktar adımlarını izleyip Bundan sonra anlık görüntüleri dışarı aktar seçeneğini açarak, anlık görüntülerini sürekli dışarı aktarmayı da seçebilir.
+
+Kullanıcı dışarı aktarma işlemini başlatmadan önce Windows Hello'da kimlik doğrulaması yapmalıdır. Kullanıcıya, dışarı aktardığı anlık görüntülerin hassas bilgiler içerme olasılığına karşı şifrelendiği bildirilir. Kullanıcıya ayrıca güvenilen uygulamalar veya web sitelerinin dışarı aktarılan anlık görüntülere erişmesine izin vermek istiyorsa Hatırlama dışarı aktarma kodunu sağlaması gerektiği de bildirilir. Bu ilke devre dışı bırakılmış veya yapılandırılmamış olsa bile, Hatırlama dışarı aktarma kodu Hatırlama kurulumu sırasında kullanıcılara gösterilir. Yönetilen cihazlar için:
+
+Bu ilkeyi etkin olarak ayarladığınızda, kullanıcılar Hatırlama ve anlık görüntü bilgilerini dışarı aktarabilir.
+
+Bu ilke devre dışı olarak ayarlandığında veya yapılandırılmadığında, kullanıcılar Hatırlama ve anlık görüntü bilgilerini dışarı aktaramaz.
+
+Önemli: Bu ayar yalnızca Avrupa Ekonomik Alanı (EEA) içindeki cihazlarda geçerlidir. Hatırlama ve anlık görüntü bilgilerini dışarı aktarma işlemi, kullanıcı tarafından başlatılan bir işlemdir ve tek tek kullanıcılar tarafından gerçekleştirilir. BT yöneticileri veya diğer kullanıcılar, başka bir kullanıcı adına dışarı aktarma işlemi başlatamaz.
+      </string>
+      <string id="DisableSettingsAgent">Ayarlar aracısıyla arama deneyimini devre dışı bırak</string>
+      <string id="DisableSettingsAgent_Help">Ayarlar aracısıyla arama deneyimi, doğal dili etkinleştirerek Ayarlar uygulaması içindeki arama sonuçlarını iyileştirir. Etkinleştirildiğinde, bir yapay zeka modeli kullanarak akıllı Ayarlar arama önerileri sağlar.
+
+        Bu ilke ayarı bu cihazdaki kullanıcılara Ayarlar aracısıyla arama deneyiminin sağlanıp sağlanmadığını belirlemenize olanak tanır.
+
+        İlke etkinleştirildiğinde, Ayarlar aracısıyla arama deneyimi devre dışı bırakılır ve arama sonuçları statik olarak dizinlenmiş aramalarla ve anlamsal aramalarla sınırlandırılır.
+
+        İlke devre dışı bırakıldığında, kullanıcılara cihazlarında Ayarlar aracısıyla arama deneyimi sağlanır.
+      </string>
+      <string id="OnDeviceRegistryLoggingLevel_Name">Cihaz Üzerinde Kayıt Defteri Günlük Kaydı Düzeyi</string>
+      <string id="OnDeviceRegistryLoggingLevel_Explain">Bu ilke ayarı, cihazdaki kayıt defteri işlemleri için günlüğe kaydetme düzeyini yapılandırmanızı sağlar.</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option0">Hata veya daha yüksek</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option1">Bilgi veya daha yüksek</string>
+      <string id="OnDeviceRegistryLoggingLevel_Option2">Hata ayıklama veya daha yüksek</string>
+      <string id="RemoveMicrosoftCopilotApp">Microsoft Copilot Uygulamasını Kaldırma</string>
+      <string id="RemoveMicrosoftCopilotApp_Help">Bu ilke ayarı, Microsoft Copilot'u kullanıcılar için hedeflenen bir şekilde kaldırmanıza olanak sağlar. Şu koşulları sağlayan cihazlar/kullanıcılar için geçerli olur:
+
+• Microsoft 365 Copilot ve Microsoft Copilot'ın her ikisi de yüklü
+
+• Microsoft Copilot uygulaması kullanıcı tarafından yüklenmemiş
+
+• Microsoft Copilot uygulaması son 28 gün içinde başlatılmamış
+ 
+Bu ilke etkinleştirilirse Microsoft Copilot uygulaması kaldırılır. Kullanıcılar isterlerse yeniden yükleyebilir. </string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="SetCopilotHardwareKey">
+        <textBox refId="SetCopilotHardwareKey_Name">
+          <label>Uygulama AUMID’sini girin</label>
+          <defaultValue>
+          </defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyAppListForRecall">
+        <textBox refId="SetDenyAppListForRecall_Name">
+          <label>Reddedilecek uygulamalar listesini girin:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDenyUriListForRecall">
+        <textBox refId="SetDenyUriListForRecall_Name">
+          <label>Reddedilecek uri listesini girin:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetDataLossPreventionProvider">
+        <textBox refId="SetDataLossPreventionProvider_Name">
+          <label>DLP sağlayıcı kimliğini girin:</label>
+        </textBox>
+      </presentation>
+      <presentation id="SetMaximumStorageSpaceForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageSpace_Text" noSort="true" defaultItem="0">Maksimum depolama alanını seçin:</dropdownList>
+      </presentation>
+      <presentation id="SetMaximumStorageDurationForRecallSnapshots">
+        <dropdownList refId="SetMaximumStorageDuration_Text" noSort="true" defaultItem="0">Maksimum saklama süresini seçin:</dropdownList>
+      </presentation>
+      <presentation id="OnDeviceRegistryLoggingLevel">
+        <dropdownList refId="OnDeviceRegistryLoggingLevel_Enum" noSort="true" defaultItem="0"> Cihaz Üzerinde Kayıt Defteri Günlüğü Kaydı Düzeyi: </dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

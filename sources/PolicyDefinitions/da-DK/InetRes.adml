@@ -18,7 +18,7 @@
       <string id="InternetCPL_Programs">Siden Programmer</string>
       <string id="AddonManagement_AddOnList">Liste over tilføjelsesprogrammer</string>
       <string id="AddonManagement_ManagementMode">Afvis alle tilføjelsesprogrammer medmindre de specielt er tilladt på listen over tilføjelsesprogrammer</string>
-      <string id="AddonManagement_RestrictCrashDetection">Slå registrering af nedbrud fra</string>
+      <string id="AddonManagement_RestrictCrashDetection">Slå sammenstødsregistrering fra</string>
       <string id="AddonManagement_RestrictExtensionManagement">Tillad ikke at brugerne aktiverer eller deaktiverer tilføjelsesprogrammer</string>
       <string id="AddSearchProvider">Føj en liste med bestemte søgemaskiner til brugerens liste med søgemaskiner</string>
       <string id="AdminApproved">Objekter, som er godkendt af administrator</string>
@@ -270,7 +270,7 @@ Hvis du aktiverer denne politikindstilling, kan du angive en liste over webstede
 
 Hvis du deaktiverer denne indstilling og undlader at konfigurere den, vil du ikke kunne angive en standardundtagelsesliste til Blokering af pop op-vinduer.
 
-Bemærk! Du kan deaktivere brugere, så de ikke kan tilføje eller fjerne websteder på undtagelseslisten, ved at aktivere politikken Slå administration af liste over tilladte pop-op-vinduer fra.</string>
+Bemærk! Du kan deaktivere brugere, så de ikke kan tilføje eller fjerne websteder på undtagelseslisten, ved at aktivere politikken Slå administration af tilladt-liste over pop-op-vinduer fra.</string>
       <string id="ExplainScriptPaste_AllProcs_Explain">Denne politikindstilling giver dig mulighed for at undgå spørgsmål, når scripts, der kører i en proces på computeren, prøver at udføre en handling med Udklipsholder (slet, kopiér eller sæt ind).
 
 Hvis du aktiverer denne politikindstilling, bliver brugeren ikke spurgt, når et script, der kører i en proces på computeren, udfører en handling med Udklipsholder. Dette betyder, at hvis zonefunktionen i øjeblikket er indstillet til Spørg, vil den blive sprunget over og aktiveret.
@@ -303,7 +303,7 @@ Hvis du undlader at konfigurere denne politikindstilling, vil de aktuelle værdi
       <string id="File_NoBrowserSaveAs">Menuen Filer: Deaktiver menupunktet Gem som...</string>
       <string id="File_NoBrowserSaveWebComplete">Menuen Filer: Deaktiver Gem som fuldstændig webside</string>
       <string id="File_NoFileNew">Menuen Filer: Deaktiver menupunktet Ny</string>
-      <string id="File_NoFileOpen">Menuen Filer: Deaktiver menupunktet Åbn</string>
+      <string id="File_NoFileOpen">Filmenu: Deaktiver menupunktet Åbn</string>
       <string id="Flash">Shockwave Flash</string>
       <string id="Font0">Mindst</string>
       <string id="Font1">Mindre</string>
@@ -355,7 +355,7 @@ Hvis du deaktiverer denne politikindstilling, startes guiden Internetforbindelse
 
 Hvis du undlader at konfigurere denne politikindstilling, kan brugeren afgøre, om guiden Internetforbindelse skal startes automatisk.</string>
       <string id="ICWSettings">Indstillinger for guiden Internetforbindelse</string>
-      <string id="Identities">Identitetsstyring: Forhindrer brugere i at anvende identiteter</string>
+      <string id="Identities">Identity Manager: Forhindrer brugere i at anvende identiteter</string>
       <string id="IDN_Always">Konvertér altid til IDN-format</string>
       <string id="IDN_Intranet">Konvertér intranetadresser til IDN-format</string>
       <string id="IDN_Never">Konvertér aldrig til IDN-format</string>
@@ -415,17 +415,17 @@ Hvis du undlader at konfigurere denne politikindstilling, kan brugeren bytte om 
 
 Hvis du aktiverer denne politikindstilling, bliver brugeren ikke spurgt, om phishing-filteret skal aktiveres. Du skal angive, hvordan phishing-filteret skal bruges: manuelt, automatisk eller slået fra.
 
-Hvis du vælger manuel brug, foretager phishing-filteret kun lokal analyse, og brugeren anmodes om tilladelse til at sende data til Microsoft. Hvis funktionen er fuldt aktiveret, sendes alle webadresser, som ikke er med på filterets tilladelsesliste, automatisk til Microsoft, uden at brugeren bliver spurgt.
+Hvis du vælger manuel brug, foretager phishing-filteret kun lokal analyse, og brugeren anmodes om tilladelse til at sende data til Microsoft. Hvis funktionen er fuldt aktiveret, sendes alle webadresser, som ikke er med på filterets tilladt-liste, automatisk til Microsoft, uden at brugeren bliver spurgt.
 
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, anmodes brugeren om at vælge phishing-filterets funktionsmåde.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter">Denne politikindstilling giver brugeren mulighed for at aktivere SmartScreen-filteret, der advarer brugeren, hvis det besøgte websted er kendt for svindelnumre, der skal lokke personlige oplysninger ud af folk vha. phishing, eller vides at være vært for malware.
 
-Hvis du aktiverer denne politikindstilling, bliver brugeren ikke spurgt, om SmartScreen-filteret skal slås til. Du skal angive, hvordan SmartScreen-filteret skal bruges: slået til eller fra. Alle webadresser, som ikke er med på filterets tilladelsesliste, sendes automatisk til Microsoft, uden at brugeren bliver spurgt.
+Hvis du aktiverer denne politikindstilling, bliver brugeren ikke spurgt, om SmartScreen-filteret skal slås til. Du skal angive, hvordan SmartScreen-filteret skal bruges: slået til eller fra. Alle webadresser, som ikke er med på filterets tilladt-liste, sendes automatisk til Microsoft, uden at brugeren bliver spurgt.
 
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, anmodes brugeren om at vælge, om SmartScreen-filteret skal slås til, første gang det køres.</string>
       <string id="IE_Explain_DisableManagingSafetyFilter_IE9">Denne politikindstilling forhindrer brugeren i at styre SmartScreen-filteret, der advarer brugeren, hvis det besøgte websted er kendt for svindelnumre, der skal lokke personlige oplysninger ud af folk vha. phishing, eller vides at være vært for malware.
 
-Hvis du aktiverer denne politikindstilling, bliver brugeren ikke spurgt, om SmartScreen-filteret skal slås til. Alle webadresser, som ikke er med på filterets tilladelsesliste, sendes automatisk til Microsoft, uden at brugeren bliver spurgt.
+Hvis du aktiverer denne politikindstilling, bliver brugeren ikke spurgt, om SmartScreen-filteret skal slås til. Alle webadresser, som ikke er med på filterets tilladt-liste, sendes automatisk til Microsoft, uden at brugeren bliver spurgt.
 
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, anmodes brugeren om at vælge, om SmartScreen-filteret skal slås til, første gang det køres.</string>
       <string id="IE_Explain_DisableSecuritySettingsCheck">Denne politikindstilling deaktiverer den funktion, der kontrollerer Internet Explorer-sikkerhedsindstillinger for at fastslå, hvornår indstillingerne udsætter Internet Explorer for risici.
@@ -501,11 +501,11 @@ Hvis du aktiverer denne politikindstilling, tillader Internet Explorer kun tilf�
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan brugerne anvende programmet til administration af tilføjelsesprogrammer til at tillade eller afvise tilføjelsesprogrammer, der ikke er angivet i politikindstillingen Liste over tilføjelsesprogrammer.
 
 Bemærk! Hvis et tilføjelsesprogram er opført i politikindstillingen Liste over tilføjelsesprogrammer, kan brugeren ikke ændre tilføjelsesprogrammets status i programmet til administration af tilføjelsesprogrammer (medmindre dets værdi er indstillet til at tillade brugeradministration - se politikindstillingen Liste over tilføjelsesprogrammer for at få flere oplysninger).</string>
-      <string id="IE_ExplainAddonManagement_RestrictCrashDetection">Du kan bruge denne politikindstilling til at administrere funktionen Registrering af nedbrud i Administration af tilføjelsesprogrammer.
+      <string id="IE_ExplainAddonManagement_RestrictCrashDetection">Du kan bruge denne politikindstilling til at administrere funktionen Sammenstødsregistrering i Administration af tilføjelsesprogrammer.
 
 Hvis du aktiverer denne politikindstilling, vil et nedbrud i Internet Explorer have samme virkning som i Windows XP Professional Service Pack 1 og tidligere (starter Windows-fejlrapportering). Alle politikindstillinger i Windows-fejlrapportering gælder stadig.
 
-Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, virker funktionen Registrering af nedbrud i Administration af tilføjelsesprogrammer.</string>
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, virker funktionen sammenstødsregistrering i Administration af tilføjelsesprogrammer.</string>
       <string id="IE_ExplainAddonManagement_RestrictExtensionManagement">Med denne politikindstilling kan du bestemme, om brugerne har mulighed for at tillade eller afvise tilføjelsesprogrammer via Administration af tilføjelsesprogrammer.
 
 Hvis du aktiverer denne politikindstilling, kan brugere ikke aktivere eller deaktivere tilføjelsesprogrammer via Administration af tilføjelsesprogrammer.
@@ -805,11 +805,11 @@ Advarsel! Aktivering af denne politik fjerner ikke tip til Netscape-brugere fra 
 Hvis du aktiverer denne politik, fjernes kommandoen Dagens tip fra menuen Hjælp.
 
 Hvis du deaktiverer eller undlader at konfigurere denne politik, kan brugerne aktivere eller deaktivere Dagens tip, som vises nederst i browseren.</string>
-      <string id="IE_ExplainIdentities">Forhindrer brugerne i at konfigurere entydige identiteter ved hjælp af Identitetsstyring.
+      <string id="IE_ExplainIdentities">Forhindrer brugerne i at konfigurere entydige identiteter ved hjælp af Identity Manager.
 
-Identitetsstyring gør det muligt for brugerne at oprette flere konti, f.eks. mailkonti, på den samme computer. Hver bruger har en entydig identitet med egen adgangskode og egne programindstillinger.
+Identity Manager gør det muligt for brugerne at oprette flere konti, f.eks. mailkonti, på den samme computer. Hver bruger har en entydig identitet med egen adgangskode og egne programindstillinger.
 
-Hvis du aktiverer denne politik, kan brugerne ikke oprette nye identiteter, administrere eksisterende identiteter eller skifte identiteter. Indstillingen Skift identitet fjernes fra menuen Filer i adressekartoteket.
+Hvis du aktiverer denne politik, kan brugerne ikke oprette nye identiteter, administrere eksisterende identiteter eller skifte identitet. Indstillingen Skift identitet fjernes fra menuen Filer i adressekartoteket.
 
 Hvis du deaktiverer denne politik eller undlader at konfigurere den, kan brugerne oprette og ændre identiteter.</string>
       <string id="IE_ExplainInvestor">Angiver, at en gruppe MSN (Microsoft Network) Investor-objekter er godkendt af administratoren.
@@ -966,7 +966,7 @@ Hvis du deaktiverer denne politik eller undlader at konfigurere den, kan kanalud
 Hvis du aktiverer denne politik, deaktiveres kanalvælgerens brugergrænseflade, så brugerne kan ikke markere afkrydsningsfeltet Internet Explorer-kanalvælger under fanen Web i dialogboksen Egenskaber for skærm.
 
 Hvis du deaktiverer denne politik eller undlader at konfigurere den, kan brugerne se og abonnere på kanaler i kanalvælgerens brugergrænseflade.</string>
-      <string id="IE_ExplainNoDelBrowsingHistory">Denne politikindstilling forhindrer brugeren i at udføre handlinger, som sletter browserdata. Du kan finde flere oplysninger om gruppepolitikindstillinger for browserdata i "Group Policies Settings in Internet Explorer 10 i TechNet Library.
+      <string id="IE_ExplainNoDelBrowsingHistory">Denne politikindstilling forhindrer brugeren i at udføre handlinger, som sletter browserdata. Du kan finde flere oplysninger om gruppepolitikindstillinger for browserdata i "Group Policies Settings in Internet Explorer 10" i TechNet Library.
 
 Hvis du aktiverer denne politikindstilling, kan brugeren ikke få adgang til dialogboksen Slet browserdata. Fra og med Windows 8 kan brugerne ikke klikke på knappen Slet browserdata i amuletten Indstillinger.
 
@@ -1345,7 +1345,7 @@ Hvis du aktiverer denne politikindstilling, kan brugeren ikke tilføje eller fje
 
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan brugeren tilføje og fjerne websteder på undtagelseslisten.
 
-Bemærk! Du kan give tilladelse til en standardliste over websteder, som kan åbne pop op-vinduer uanset Internet Explorer-processens indstillinger for Blokering af pop op-vinduer, ved at aktivere politikindstillingen Angiv tilladelsesliste for pop op-vinduer.</string>
+Bemærk! Du kan give tilladelse til en standardliste over websteder, som kan åbne pop op-vinduer uanset Internet Explorer-processens indstillinger for Blokering af pop op-vinduer, ved at aktivere politikindstillingen Angiv tilladt-liste for pop op-vinduer.</string>
       <string id="IE_ExplainRestrictPopupManagement">Du kan bruge denne politikindstilling til at styre pop op-funktionaliteten i Internet Explorer.
 
 Hvis du aktiverer denne politikindstilling, vil Kontrolpanel-oplysningerne om pop op-styring ikke være tilgængelige (nedtonet), og alle andre kontrolelementer, meddelelser og dialogbokse for pop op-styring vises ikke. Pop op-vinduer vil stadig fungere, som de gør i Windows XP Service Pack 1 og tidligere versioner, men vinduer, der startes uden for skærmen, vil fortsat blive placeret på skærmen.
@@ -1426,7 +1426,7 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, kan 
 
 Denne politik er beregnet til situationer, hvor administratorer ikke ønsker, at brugerne kan søge på internettet eller harddisken.
 
-Denne politik kan bruges sammen med politikken Menuen Filer: Deaktiver menupunktet Åbn (findes i \Brugerkonfiguration\Administrative skabeloner\Windows-komponenter\Internet Explorer\Webbrowsermenuer), som forhindrer brugerne i at åbne filer ved hjælp af webbrowseren.</string>
+Denne politik kan bruges sammen med Filmenuen: Deaktiver menupunktet Åbn (findes i \Brugerkonfiguration\Administrative skabeloner\Windows-komponenter\Internet Explorer\Webbrowsermenuer), som forhindrer brugerne i at åbne filer ved hjælp af webbrowseren.</string>
       <string id="IE_ExplainSecurity_HKLM_only">Anvender oplysninger om sikkerhedszoner for alle brugere af den samme computer. En sikkerhedszone er en gruppe af websteder med samme sikkerhedsniveau.
 
 Hvis du aktiverer denne politik, anvendes de ændringer af en sikkerhedszone, der foretages af en bruger, for alle brugerne af computeren.
@@ -2289,7 +2289,7 @@ Hvis du undlader at konfigurere denne politikindstilling, forhindres de fleste u
       <string id="IZ_PolicyDisplayMixedContent">Vis blandet indhold</string>
       <string id="IZ_PolicyDisplayMixedContent_ExplainDefaultPrompt">Du kan bruge denne politikindstilling til at angive, om brugerne kan vise elementer, der ikke er sikre, og om brugerne skal modtage en meddelelse med sikkerhedsoplysninger om visning af sider, der indeholder både sikre og usikre elementer.
 
-Hvis du aktiverer denne politikindstilling, og rullelisten er indstillet til Aktiver, modtager brugeren ikke nogen meddelelse med sikkerhedsoplysninger (Denne side indeholder både sikre og ikke-sikre emner. Vil du vise de ikke-sikre emner?, og usikkert indhold kan vises.
+Hvis du aktiverer denne politikindstilling, og rullelisten er indstillet til Aktiver, modtager brugeren ikke nogen meddelelse med sikkerhedsoplysninger (Denne side indeholder både sikre og ikke-sikre emner. Vil du vise de ikke-sikre emner?), og usikkert indhold kan vises.
 
 Hvis rullelisten indstilles til Spørg, modtager brugeren meddelelsen med sikkerhedsoplysninger på websider, der har både sikkert indhold (https://) og indhold, der ikke er sikkert (http://).
 
@@ -3014,7 +3014,7 @@ Denne funktion gælder kun for versioner af Internet Explorer til og med Interne
       <string id="Persistence_FileLimits4">Begrænsninger af filstørrelsen for zonen Usikre websteder</string>
       <string id="PhishingOff">Slået fra</string>
       <string id="PhishingOn">Slået til</string>
-      <string id="PopupBlocker_AllowList">Tilladelsesliste for pop op-vinduer</string>
+      <string id="PopupBlocker_AllowList">Tilladt-liste for pop op-vinduer</string>
       <string id="Printing">Udskrivning</string>
       <string id="Printing_Explain">Du kan bruge denne politikindstilling til at angive, om Internet Explorer skal udskrive baggrundsfarver og -billeder, når brugeren udskriver en webside. Hvis baggrundsfarver og -billeder medtages, kan det nedsætte hastigheden og kvaliteten, når siden udskrives, afhængig af printerens ydeevne.
 
@@ -3574,37 +3574,42 @@ Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vise
 
 Bemærk! Denne politik understøttes ikke længere fra og med Windows 10 Version 1607.</string>
       <string id="Protocols_None">Brug ingen sikre protokoller</string>
-      <string id="Protocols_SSL2">Brug kun SSL 2.0</string>
+      <string id="Protocols_SSL2">[Forældet] Brug kun SSL 2.0</string>
       <string id="Protocols_SSL3">Brug kun SSL 3.0</string>
-      <string id="Protocols_SSL2_SSL3">Brug SSL 2.0 og SSL 3.0</string>
+      <string id="Protocols_SSL2_SSL3">[Forældet] Brug SSL 2.0 og SSL 3.0</string>
       <string id="Protocols_TLS10">Brug kun TLS 1.0</string>
-      <string id="Protocols_SSL2_TLS10">Brug SSL 2.0 og TLS 1.0</string>
+      <string id="Protocols_SSL2_TLS10">[Forældet] Brug SSL 2.0 og TLS 1.0</string>
       <string id="Protocols_SSL3_TLS10">Brug SSL 3.0 og TLS 1.0</string>
-      <string id="Protocols_SSL2_SSL3_TLS10">Brug SSL 2.0, SSL 3.0 og TLS 1.0</string>
+      <string id="Protocols_SSL2_SSL3_TLS10">[Forældet] Brug SSL 2.0, SSL 3.0 og TLS 1.0</string>
       <string id="Protocols_TLS11">Brug kun TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS11">Brug SSL 2.0 og TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS11">[Forældet] Brug SSL 2.0 og TLS 1.1</string>
       <string id="Protocols_SSL3_TLS11">Brug SSL 3.0 og TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS11">Brug SSL 2.0, SSL 3.0 og TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS11">[Forældet] Brug SSL 2.0, SSL 3.0 og TLS 1.1</string>
       <string id="Protocols_TLS10_TLS11">Brug TLS 1.0 og TLS 1.1</string>
-      <string id="Protocols_SSL2_TLS10_TLS11">Brug SSL 2.0, TLS 1.0 og TLS 1.1</string>
+      <string id="Protocols_SSL2_TLS10_TLS11">[Forældet] Brug SSL 2.0, TLS 1.0 og TLS 1.1</string>
       <string id="Protocols_SSL3_TLS10_TLS11">Brug SSL 3.0, TLS 1.0 og TLS 1.1</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">Brug SSL 2.0, SSL 3.0, TLS 1.0 og TLS 1.1</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11">[Forældet] Brug SSL 2.0, SSL 3.0, TLS 1.0 og TLS 1.1</string>
       <string id="Protocols_TLS12">Brug kun TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS12">Brug SSL 2.0 og TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS12">[Forældet] Brug SSL 2.0 og TLS 1.2</string>
       <string id="Protocols_SSL3_TLS12">Brug SSL 3.0 og TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS12">Brug SSL 2.0, SSL 3.0 og TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS12">[Forældet] Brug SSL 2.0, SSL 3.0 og TLS 1.2</string>
       <string id="Protocols_TLS10_TLS12">Brug TLS 1.0 og TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS12">Brug SSL 2.0, TLS 1.0 og TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS12">[Forældet] Brug SSL 2.0, TLS 1.0 og TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS12">Brug SSL 3.0, TLS 1.0 og TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">Brug SSL 2.0, SSL 3.0, TLS 1.0 og TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS12">[Forældet] Brug SSL 2.0, SSL 3.0, TLS 1.0 og TLS 1.2</string>
       <string id="Protocols_TLS11_TLS12">Brug TLS 1.1 og TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS11_TLS12">Brug SSL 2.0, TLS 1.1 og TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS11_TLS12">[Forældet] Brug SSL 2.0, TLS 1.1 og TLS 1.2</string>
       <string id="Protocols_SSL3_TLS11_TLS12">Brug SSL 3.0, TLS 1.1 og TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">Brug SSL 2.0, SSL 3.0, TLS 1.1 og TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS11_TLS12">[Forældet] Brug SSL 2.0, SSL 3.0, TLS 1.1 og TLS 1.2</string>
       <string id="Protocols_TLS10_TLS11_TLS12">Brug TLS 1.0, TLS 1.1 og TLS 1.2</string>
-      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">Brug SSL 2.0, TLS 1.0, TLS 1.1 og TLS 1.2</string>
+      <string id="Protocols_SSL2_TLS10_TLS11_TLS12">[Forældet] Brug SSL 2.0, TLS 1.0, TLS 1.1 og TLS 1.2</string>
       <string id="Protocols_SSL3_TLS10_TLS11_TLS12">Brug SSL 3.0, TLS 1.0, TLS 1.1 og TLS 1.2</string>
-      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">Brug SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 og TLS 1.2</string>
+      <string id="Protocols_SSL2_SSL3_TLS10_TLS11_TLS12">[Forældet] Brug SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1 og TLS 1.2</string>
+      <string id="Protocols_TLS13">Brug kun TLS 1.3</string>
+      <string id="Protocols_TLS12_TLS13">Brug TLS 1.2 og TLS 1.3</string>
+      <string id="Protocols_TLS11_TLS12_TLS13">Brug TLS 1.1, TLS 1.2 og TLS 1.3</string>
+      <string id="Protocols_TLS10_TLS11_TLS12_TLS13">Brug TLS 1.0, TLS 1.1, TLS 1.2 og TLS 1.3</string>
+      <string id="Protocols_SSL3_TLS10_TLS11_TLS12_TLS13">Brug SSL 3.0, TLS 1.0, TLS 1.1, TLS 1.2 og TLS 1.3</string>
       <string id="LockToolbars">Lås alle værktøjslinjer</string>
       <string id="MoveStopRefresh">Lås placeringen af knapperne Stop og Opdater</string>
       <string id="NewTab_AboutBlank">about:blank</string>
@@ -3903,7 +3908,7 @@ Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, kan bruger
 Hvis du slår denne indstilling til, kan brugere se og bruge Enterprise-tilstand fra menuen Funktioner. Hvis du slår indstillingen til uden at angive en placering til rapporter, vil Enterprise-tilstand stadig være tilgængelig for dine brugere, men du vil ikke modtage nogen rapporter.
 
 Hvis du slår denne politikindstilling fra eller ikke konfigurerer den, vil menupunktet ikke blive vist, og brugere vil ikke kunne køre websteder i Enterprise-tilstand.</string>
-      <string id="RestrictInternetExplorer">Send alle de websteder, der ikke er inkluderet på listen over websteder i Enterprise-tilstand til Microsoft Edge.</string>
+      <string id="RestrictInternetExplorer">Send alle de websteder, der ikke er inkluderet på listen over websteder i Enterprise-tilstand, til Microsoft Edge.</string>
       <string id="IE_ExplainRestrictInternetExplorer">Med denne indstilling kan du angive, om du vil åbne alle de websteder, som ikke er angivet på listen over websteder i Enterprise-tilstand, i Microsoft Edge. Hvis du bruger denne indstilling, skal du også aktivere politikindstillingen Administrative skabeloner\Windows-komponenter\Internet Explorer\Brug listen over websteder, der skal åbnes i Enterprise-tilstand i IE, og du skal angive mindst ét websted på listen over websteder i Enterprise-tilstand.
 
 Når du aktiverer denne indstilling, åbnes alle de websteder, der ikke er medtaget på listen over websteder i Enterprise-tilstand, automatisk i Microsoft Edge.
@@ -3917,6 +3922,120 @@ Bemærk! Hvis du også aktiverer politikindstillingen Administrative skabeloner\
 Hvis du aktiverer denne indstilling, ser medarbejderne en ekstra side i Internet Explorer 11, der angiver, at et websted er blevet åbnet ved hjælp af Microsoft Edge i Enterprise-tilstand.
 
 Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, anvendes appens standardfunktionsmåde, og der vises ingen ekstra side.</string>
+      <string id="NeedEdgeBrowser">Konfigurer, hvilken kanal i Microsoft Edge der skal bruges til at åbne omdirigerede websteder</string>
+      <string id="IE_ExplainNeedEdgeBrowser">Giver dig mulighed for at konfigurere op til tre versioner af Microsoft Edge for at åbne et omdirigeret websted (i prioriteret rækkefølge). Brug denne politik, hvis dit miljø er konfigureret til at omdirigere websteder fra Internet Explorer 11 til Microsoft Edge. Hvis en eller flere af de valgte versioner ikke er installeret på enheden, vil denne indstilling blive ignoreret.
+
+Hvis der er installeret Windows Update til den næste version af Microsoft Edge* og den stabile Microsoft Edge-kanal, opstår der følgende problemer:
+- Hvis du deaktiverer eller undlader at konfigurere denne politik, bruges den stabile Microsoft Edge-kanal. Det er standardfunktionsmåden.
+- Hvis du aktiverer denne politik, kan du konfigurere omdirigerede websteder til at blive åbnet på op til tre af følgende kanaler, hvor:
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta-version 77 eller nyere
+    3 = Microsoft Edge Dev-version 77 eller nyere
+    4 = Microsoft Edge Canary-version 77 eller nyere
+
+Hvis Windows-opdateringen til den næste version af Microsoft Edge* eller den stabile Microsoft Edge-kanal ikke er installeret, opstår følgende funktionsmåder:
+-Hvis du deaktiverer eller undlader at konfigurere denne politik, bruges Microsoft Edge version 45 eller tidligere automatisk. Det er standardfunktionsmåden.
+- Hvis du aktiverer denne politik, kan du konfigurere omdirigerede websteder til at blive åbnet på op til tre af følgende kanaler, hvor:
+    0 = Microsoft Edge version 45 eller ældre
+    1 = Microsoft Edge Stable
+    2 = Microsoft Edge Beta-version 77 eller nyere
+    3 = Microsoft Edge Dev-version 77 eller nyere
+    4 = Microsoft Edge Canary-version 77 eller nyere
+
+* Du kan finde flere oplysninger om Windows-opdateringen til den næste version af Microsoft Edge, herunder hvordan du deaktiverer den, i https://go.microsoft.com/fwlink/?linkid=2102115. Denne opdatering gælder kun for Windows 10 version 1709 og nyere.</string>
+      <string id="NeedEdgeBrowserChoice_None"></string>
+      <string id="NeedEdgeBrowserChoice_ChromiumStable">Microsoft Edge Stable</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumBeta">Microsoft Edge Beta-version 77 eller nyere</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumDev">Microsoft Edge Dev-version 77 eller nyere</string>
+      <string id="NeedEdgeBrowserChoice_ChromiumCanary">Microsoft Edge Canary-version 77 eller nyere</string>
+      <string id="NeedEdgeBrowserChoice_EdgeHTML">Microsoft Edge version 45 eller ældre</string>
+      <string id="KeepIntranetSitesInInternetExplorer">Behold alle intranetwebsteder i Internet Explorer</string>
+      <string id="IE_ExplainKeepIntranetSitesInInternetExplorer">Forhindrer, at intranetwebsteder åbnes i andre browsere end Internet Explorer. Bemærk dog, at denne politik ikke har nogen effekt, hvis politikken "Send alle de websteder, der ikke er inkluderet på listen over websteder i Enterprise-tilstand til Microsoft Edge" ("RestrictIE") ikke er aktiveret.
+
+Hvis du aktiverer denne politik, åbnes alle intranetwebsteder i Internet Explorer 11. De eneste undtagelser er webstederne på listen over websteder i Enterprise-tilstand.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politik, åbnes alle intranetwebsteder automatisk i Microsoft Edge.
+
+Vi anbefaler på det kraftigste, at denne politik holdes synkroniseret med politikken "Send al intranettrafik til Internet Explorer" ("SendIntranetToInternetExplorer"). Desuden er det bedst kun at aktivere denne politik, hvis dine intranetwebsteder har kendte kompatibilitetsproblemer med Microsoft Edge.
+
+Relaterede politikker:
+- Send alle intranetwebsteder til Internet Explorer" ("SendIntranetToInternetExplorer")
+- Send alle de websteder, der ikke er inkluderet på listen over websteder i Enterprise-tilstand til Microsoft Edge ("RestrictIE")
+
+Du kan få flere oplysninger om, hvordan denne politik bruges sammen med andre relaterede politikker for at oprette den bedste konfiguration for din organisation, på https://go.microsoft.com/fwlink/?linkid=2094210.</string>
+      <string id="AllowSaveTargetAsInIEMode">Tillad "Gem målskive som" i Internet Explorer-tilstand</string>
+      <string id="IE_ExplainAllowSaveTargetAsInIEMode">Denne politikindstilling giver administratorer mulighed for at aktivere genvejsmenuen "Gem destinationer som" i Internet Explorer-tilstand.
+
+Hvis du aktiverer denne politik, vises "Gem som Place ringe som" i genvejsmenuen i Internet Explorer-tilstand, og du kan arbejde på samme måde som Internet Explorer.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vises "Gem som Place ringe som" ikke i genvejsmenuen i Internet Explorer-tilstand.
+
+Du kan finde flere oplysninger i https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="EnableGlobalWindowListInIEMode">Aktivér global vinduesliste i Internet Explorer-tilstand</string>
+      <string id="IE_ExplainEnableGlobalWindowListInIEMode">Denne indstilling gør det muligt for Internet Explorer tilstand at bruge den globale vinduesliste, der gør det muligt at dele tilstanden med andre programmer.
+Indstillingen træder først i kraft, når Internet Explorer 11 er deaktiveret som en separat browser.
+
+Hvis du aktiverer denne politik, bruger Internet Explorer tilstand den globale vinduesliste.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, fortsætter Internet Explorer tilstand med at vedligeholde en separat vinduesliste.
+
+Hvis du vil vide mere om Internet Explorer tilstand, skal du se https://go.microsoft.com/fwlink/?linkid=2102921
+Hvis du vil vide mere om deaktivering af Internet Explorer 11 som en separat browser, skal du se https://go.microsoft.com/fwlink/?linkid=2168340</string>
+      <string id="EnableExtendedIEModeHotkeys">Aktivér udvidede genvejstaster i Internet Explorer-tilstand</string>
+      <string id="IE_ExplainEnableExtendedIEModeHotkeys">Med denne politikindstilling kan administratorer aktivere udvidede genvejstaster i Microsoft Edge Internet Explorer-tilstand, f.eks. "Ctrl+S" for at have funktionen "Gem som".
+
+Hvis du aktiverer denne politik, aktiveres udvidet genvejstastfunktion i Internet Explorer-tilstand, og de fungerer på samme måde som i Internet Explorer.
+
+Hvis du deaktiverer eller ikke konfigurerer denne politik, vil udvidede genvejstaster ikke fungere i Internet Explorer-tilstand.
+
+Du kan finde flere oplysninger under https://go.microsoft.com/fwlink/?linkid=2102115</string>
+      <string id="AllowLegacyURLFields">Tillad ældre funktionalitet for internetgenvejsfiler</string>
+      <string id="IE_ExplainAllowLegacyURLFields">Denne politikindstilling tillader brug af nogle deaktiverede funktioner, f.eks. feltet WorkingDirectory eller tilslutningsbar protokolhåndtering, i Internet Shortcut-filer.
+
+Hvis du aktiverer denne politik, aktiveres deaktiverede funktioner for internetgenvejsfiler igen.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, deaktiveres visse funktioner for Internet Shortcut-filer, f.eks. feltet WorkingDirectory eller tilslutningsbar protokolhåndtering.</string>
+      <string id="ResetZoomForDialogInIEMode">Nulstil zoom til standard for HTML-dialogbokse i Internet Explorer-tilstand</string>
+      <string id="IE_ExplainResetZoomForDialogInIEMode">Med denne politikindstilling kan administratorer nulstille zoom til standardindstillingen for HTML-dialogbokse i Internet Explorer-tilstand.
+
+Hvis du aktiverer denne politik, overføres zoomet i en HTML-dialogboks i Internet Explorer-tilstand ikke fra den overordnede side.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, indstilles zoomet på en HTML-dialogboks i Internet Explorer-tilstand baseret på zoomet på den overordnede side.
+
+Du kan få flere oplysninger under https://go.microsoft.com/fwlink/?linkid=2220107</string>
+      <string id="DisableInternetExplorerApp">Deaktiver Internet Explorer 11 som en separat browser</string>
+      <string id="IE_ExplainDisableInternetExplorerApp">Denne politik gør det muligt at begrænse start af Internet Explorer som en separat browser.
+
+Hvis du aktiverer denne politik, vil den:
+- forhindre Internet Explorer 11 i at starte som en separat browser.
+- begrænse Internet Explorers brug af den oprindelige "Internet Explorer-tilstand" i Microsoft Edge.
+- omdirigere forsøg på start af Internet Explorer 11 til browseren stabil Microsoft Edge-kanal.
+- tilsidesætte alle andre politikker, der omdirigerer til Internet Explorer 11.
+
+Selv med denne politik aktiveret vil start af Internet Explorer 11 ved hjælp af COM-automatisering stadig være tilladt. For at deaktivere COM-automatiseringsstart af Internet Explorer 11 skal du bruge gruppepolitikken "Deaktiver Internet Explorer 11 COM-automatisering".
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, åbnes alle websteder ved hjælp af de aktuelle aktive browserindstillinger. Bemærk! Den stabile Microsoft Edge-kanal skal være installeret, for at denne politik kan træde i kraft.</string>
+      <string id="DisableInternetExplorerLaunchViaCOM">Deaktiver Internet Explorer 11-start via COM Automation</string>
+      <string id="IE_ExplainDisableInternetExplorerLaunchViaCOM">Med denne politik kan du begrænse start af Internet Explorer ved hjælp af COM-automatisering.
+
+Hvis du aktiverer denne politik, forhindres Internet Explorer 11 i at blive startet ved hjælp af COM-automatisering.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politik, er Internet Explorer 11 COM-automatiseringsstart tilladt.</string>
+      <string id="DisableIEAppDeprecationNotification">Skjul Internet Explorer 11 meddelelse om udfasning</string>
+      <string id="IE_ExplainDisableIEAppDeprecationNotification">Du kan bruge denne politikindstilling til at angive, om påmindelsen på meddelelseslinjen om, at Internet Explorer udgår, vises. Meddelelseslinjen vises som standard i Internet Explorer 11.
+
+Hvis du aktiverer denne politikindstilling, vises meddelelseslinjen ikke i Internet Explorer 11.
+
+Hvis du deaktiverer eller undlader at konfigurere denne politikindstilling, vises meddelelseslinjen i Internet Explorer 11.</string>
+      <string id="NotifyDisableIEOptions_Never">Aldrig</string>
+      <string id="NotifyDisableIEOptions_Always">Altid</string>
+      <string id="NotifyDisableIEOptions_OncePerUser">Én gang pr. bruger</string>
+      <string id="JScriptReplacement">Erstat JScript ved at indlæse JScript9Legacy i stedet for JScript.</string>
+      <string id="IE_ExplainJScriptReplacement">Denne politikindstilling angiver, om JScript eller JScript9Legacy er indlæst.
+      
+Hvis du aktiverer denne politikindstilling eller ikke er konfigureret, indlæses JScript9Legacy i situationer, hvor JScript instantieres.
+
+Hvis du deaktiverer denne politik, bliver JScript brugt.</string>
       <string id="VerMgmtDisable">Deaktiver blokering af forældede ActiveX-kontrolelementer til Internet Explorer</string>
       <string id="IE_ExplainVerMgmtDisable">Denne politikindstilling bestemmer, om Internet Explorer blokerer specifikke forældede ActiveX-kontrolelementer. Forældede ActiveX-kontrolelementer blokeres aldrig i intranetzonen.
 
@@ -4118,10 +4237,16 @@ Hvis du aktiverer indstillingen, stopper IE download af opdaterede versioner af 
 Hvis du deaktiverer eller undlader at konfigurere indstillingen, fortsætter IE med at downloade opdaterede versioner af VersionList.XML.
 
 Der er flere oplysninger under "Out-of-date ActiveX control blocking" i TechNet-biblioteket til Internet Explorer.</string>
+      <string id="DisableHTMLApplication">Deaktiver HTML-programmet</string>
+      <string id="DisableHTMLApplication_Explain">Denne politikindstilling angiver, om kørsel af HTML-programmet (HTA-filen) er blokeret eller tilladt.
+
+Hvis du aktiverer denne politikindstilling, blokeres kørsel af HTML-programmet (HTA-filen).
+
+Hvis du deaktiverer eller ikke konfigurerer denne politikindstilling, er det tilladt at køre HTML-programmet (HTA-filen).</string>
     </stringTable>
     <presentationTable>
       <presentation id="VerMgmtDomainAllowlist_1">
-        <listBox refId="DomainList">Liste over domænetilladelser</listBox>
+        <listBox refId="DomainList">Tilladt-liste over domæner</listBox>
       </presentation>
       <presentation id="AddonManagement_AddOnList_1">
         <listBox refId="AddOnList">Liste over tilføjelsesprogrammer</listBox>
@@ -4787,6 +4912,14 @@ Der er flere oplysninger under "Out-of-date ActiveX control blocking" i TechNet-
       </presentation>
       <presentation id="SiteDiscoveryDomainAllowList">
         <multiTextBox refId="SiteDiscoveryDomainAllowList">Domæneliste</multiTextBox>
+      </presentation>
+      <presentation id="NeedEdgeBrowser">
+        <dropdownList refId="NeedEdgeBrowser" noSort="true" defaultItem="0">Første valg</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser2" noSort="true" defaultItem="0">Andet valg</dropdownList>
+        <dropdownList refId="NeedEdgeBrowser3" noSort="true" defaultItem="0">Tredje valg</dropdownList>
+      </presentation>
+      <presentation id="NotifyDisableIEOptions">
+        <dropdownList refId="NotifyDisableIEOptions" noSort="true" defaultItem="0">Giv besked om, at Internet Explorer 11-browseren er deaktiveret</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

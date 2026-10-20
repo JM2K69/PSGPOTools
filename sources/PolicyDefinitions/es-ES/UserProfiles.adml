@@ -77,6 +77,14 @@ Si deshabilita o no establece esta configuración de directiva, el sistema no co
 Nota: esta configuración de directiva y las configuraciones de directiva relacionadas de esta carpeta definen la respuesta del sistema cuando los perfiles de usuarios móviles tardan en descargarse. Para ajustar el tiempo en el que el usuario debe responder a este aviso en sistemas operativos anteriores a Microsoft Windows Vista, use la configuración de directiva "Tiempo de espera para cuadros de diálogo".
 
 Importante: esta opción se omitirá si la configuración de directiva "No detectar las conexiones de red lentas" está habilitada. Asimismo, si la configuración de directiva "Eliminar copias en caché de perfiles móviles" está habilitada, no habrá copia local del perfil móvil que cargar cuando el sistema detecte una conexión lenta.</string>
+      <string id="AllowNonStandardUserProfilePaths">Permitir los subárboles del Registro de perfiles de usuario y AppData desde rutas no estándar</string>
+      <string id="AllowNonStandardUserProfilePaths_Help">Esta configuración de directiva controla si los subárboles del Registro de perfiles de usuario y las ubicaciones de las carpetas de AppData pueden aceptar formatos de ruta de acceso no estándar.
+
+Si habilita esta configuración de directiva, las ubicaciones de perfiles de usuario aceptan una gama más amplia de formatos de ruta de acceso de archivo.
+
+Si deshabilitas o no estableces esta configuración de directiva, las ubicaciones de perfiles de usuario solo aceptan rutas de acceso de carpeta estándares de Windows.
+
+Nota: Habilitar esta configuración puede exponer el sistema a riesgos de seguridad. Habilítala solo si lo requiere una aplicación específica de tu organización y solo después de evaluar todos los riesgos para tu entorno.</string>
       <string id="ExcludeDirectories">Excluir directorios en el perfil móvil</string>
       <string id="ExcludeDirectories_Help">Esta configuración de directiva le permite excluir carpetas que normalmente se incluyen en el perfil del usuario. Como resultado, estas carpetas no necesitan almacenarse en el servidor de red en que reside el perfil y no siguen a los usuarios a otros equipos.
 

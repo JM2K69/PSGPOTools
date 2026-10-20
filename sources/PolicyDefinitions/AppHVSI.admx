@@ -36,7 +36,7 @@
             key="SOFTWARE\Policies\Microsoft\AppHVSI"
             >
       <parentCategory ref="AppHVSICat" />
-      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION" />
+      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION_MDAG_EDGE" />
       <elements>
         <enum 
           id="AppHVSIClipboardSettings_CopyPasteDirection_DropdownList"
@@ -77,7 +77,7 @@
             key="SOFTWARE\Policies\Microsoft\AppHVSI"
             >
       <parentCategory ref="AppHVSICat" />
-      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION" />
+      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION_MDAG_EDGE" />
         <elements>
           <text id="AppHVSICertificateThumbprints_TextBox" valueName="CertificateThumbprints" required="true"  /> <!--maxLength="16383" -->
         </elements>
@@ -92,7 +92,7 @@
             key="SOFTWARE\Policies\Microsoft\AppHVSI"
             >
       <parentCategory ref="AppHVSICat" />
-      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION" />
+      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION_MDAG_EDGE" />
       <elements>
         <decimal id="AppHVSIPrintingSettings_TextBox" valueName="AppHVSIPrintingSettings" minValue="0" maxValue="15" />
       </elements>
@@ -106,7 +106,7 @@
             valueName="BlockNonEnterpriseContent"
             >
       <parentCategory ref="AppHVSICat" />
-      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION" />
+      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION_MDAG_EDGE" />
       <enabledValue>
         <decimal value="1" />
       </enabledValue>
@@ -123,7 +123,7 @@
             valueName="AllowCameraMicrophoneRedirection"
             >
       <parentCategory ref="AppHVSICat" />
-      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION" />
+      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION_MDAG_EDGE" />
       <enabledValue>
         <decimal value="1" />
       </enabledValue>
@@ -140,7 +140,7 @@
             valueName="AllowPersistence"
             >
       <parentCategory ref="AppHVSICat" />
-      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION" />
+      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION_MDAG_EDGE" />
       <enabledValue>
         <decimal value="1" />
       </enabledValue>
@@ -157,7 +157,7 @@
             valueName="AllowVirtualGPU"
             >
       <parentCategory ref="AppHVSICat" />
-      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION" />
+      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION_MDAG_EDGE" />
       <enabledValue>
         <decimal value="1" />
       </enabledValue>
@@ -174,7 +174,7 @@
             valueName="AuditApplicationGuard"
             >
       <parentCategory ref="AppHVSICat" />
-      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION" />
+      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION_MDAG" />
       <enabledValue>
         <decimal value="1" />
       </enabledValue>
@@ -191,67 +191,13 @@
             valueName="SaveFilesToHost"
             >
       <parentCategory ref="AppHVSICat" />
-      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION" />
+      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION_MDAG_EDGE" />
       <enabledValue>
         <decimal value="1" />
       </enabledValue>
       <disabledValue>
         <decimal value="0" />
       </disabledValue>
-    </policy>
-
-    <!-- File Trust Criteria - Can only be mutually exclusive -->
-    <policy name="AppHVSI_FileTrustCriteria"
-            class="Machine"
-            displayName="$(string.AppHVSI_FileTrustCriteria_DisplayName)"
-            explainText="$(string.AppHVSI_FileTrustCriteria_Explain)"
-            presentation="$(presentation.AppHVSI_FileTrustCriteria_Presentation)"
-            key="SOFTWARE\Policies\Microsoft\AppHVSI"
-            >
-      <parentCategory ref="AppHVSICat" />
-      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION" />
-      <elements>
-        <decimal id="AppHVSI_FileTrustCriteria_TextBox" valueName="FileTrustCriteria" minValue="0" maxValue="2" />
-      </elements>
-    </policy>
-    
-    <!-- File Trust Origin - Can be logically OR'ed-->
-    <policy name="AppHVSI_FileTrustOrigin"
-            class="Machine"
-            displayName="$(string.AppHVSI_FileTrustOrigin_DisplayName)"
-            explainText="$(string.AppHVSI_FileTrustOrigin_Explain)"
-            presentation="$(presentation.AppHVSI_FileTrustOrigin_Presentation)"
-            key="SOFTWARE\Policies\Microsoft\AppHVSI\FileTrustOrigin"
-            >
-      <parentCategory ref="AppHVSICat" />
-      <supportedOn ref="windows:SUPPORTED_Windows_10_0_NOSERVER_ENTERPRISE_EDUCATION" />
-        <elements>
-            <!-- File Trust Origin - RemovableMedia-->
-            <boolean id="AppHVSI_FileTrustOrigin_RemovableMedia_Checkbox" valueName="FileTrustOriginRemovableMedia">
-                <trueValue>
-                    <decimal value="1" />
-                </trueValue>
-                <falseValue>
-                    <decimal value="0" />
-                </falseValue>
-            </boolean>
-            <boolean id="AppHVSI_FileTrustOrigin_NetworkShares_Checkbox" valueName="FileTrustOriginNetworkShare">
-                <trueValue>
-                    <decimal value="1" />
-                </trueValue>
-                <falseValue>
-                    <decimal value="0" />
-                </falseValue>
-            </boolean>
-            <boolean id="AppHVSI_FileTrustOrigin_MOTW_Checkbox" valueName="FileTrustOriginMarkOfTheWeb">
-                <trueValue>
-                    <decimal value="1" />
-                </trueValue>
-                <falseValue>
-                    <decimal value="0" />
-                </falseValue>
-            </boolean>
-        </elements>
     </policy>
   </policies>
 </policyDefinitions>

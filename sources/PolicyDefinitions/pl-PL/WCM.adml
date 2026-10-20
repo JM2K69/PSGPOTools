@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2006 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Ustawienia zasad grupy Menedżera połączeń systemu Windows</displayName>
   <description>Ustawienia zasad grupy Menedżera połączeń systemu Windows</description>
@@ -22,9 +22,9 @@ Ręczne próby połączenia
 Jeśli to ustawienie zasad nie zostanie skonfigurowane lub zostanie wyłączone, komputery będą mogły łączyć się jednocześnie zarówno z sieciami należącymi do domeny, jak i nienależącymi do domeny.
       </string>
       <string id="WCM_DisableRoaming">Zabroń nawiązywania połączeń z komórkowymi sieciami szerokopasmowymi w roamingu</string>
-      <string id="WCM_DisableRoaming_Help">To ustawienie zasad uniemożliwia klientom łączenie się z komórkowymi sieciami szerokopasmowymi, gdy są oni zarejestrowani w sieciach dostawców roamingu. 
+      <string id="WCM_DisableRoaming_Help">To ustawienie zasad uniemożliwia klientom łączenie się z komórkowymi sieciami szerokopasmowymi, gdy są oni zarejestrowani w sieciach dostawców roamingu.
 
-Jeśli to ustawienie zasad zostanie włączone, wszystkie ręczne i automatyczne próby połączenia z sieciami dostawców roamingu będą blokowane, dopóki klient nie zarejestruje się w sieci macierzystego dostawcy.
+Jeśli to ustawienie zasad zostanie włączone, wszystkie automatyczne i ręczne próby połączenia z sieciami dostawców roamingu będą blokowane, dopóki klient nie zarejestruje się w sieci macierzystego dostawcy.
 
 Jeśli to ustawienie zasad nie zostanie skonfigurowane lub zostanie wyłączone, klienci będą mogli łączyć się z komórkowymi sieciami szerokopasmowymi dostawców roamingu.
       </string>
@@ -47,23 +47,23 @@ Jeśli to ustawienie zasad nie zostanie skonfigurowane lub zostanie wyłączone,
         To ustawienie zasad jest związane z ustawieniem zasad „Zezwalaj systemowi Windows na programowe odłączanie komputera od sieci”.
       </string>
       <string id="WCM_DisablePowerManagement">Wyłącz zarządzanie energią w trybie wstrzymania przy zachowaniu połączenia</string>
-      <string id="WCM_DisablePowerManagement_Help">To ustawienie zasad określa, że funkcje zarządzania energią są wyłączane po przejściu komputera do trybu wstrzymania przy zachowaniu połączenia. 
+      <string id="WCM_DisablePowerManagement_Help">To ustawienie zasad określa, że funkcje zarządzania energią są wyłączane po przejściu komputera do trybu wstrzymania przy zachowaniu połączenia.
 
-Jeśli to ustawienie zasad zostanie włączone, Menedżer połączeń systemu Windows nie będzie zarządzał modułami łączności bezprzewodowej karty sieciowej w celu zmniejszenia zużycia energii, gdy komputer przejdzie do trybu wstrzymania przy zachowaniu połączenia.
+Jeśli to ustawienie zasad zostanie włączone, Menedżer połączeń systemu Windows nie będzie zarządzał urządzeniami radiowymi karty sieciowej w celu zmniejszenia zużycia energii, gdy komputer przejdzie do trybu wstrzymania przy zachowaniu połączenia.
 
 Jeśli to ustawienie zasad nie zostanie skonfigurowane lub zostanie wyłączone, funkcje zarządzania energią zostaną włączone po przejściu komputera do trybu wstrzymania przy zachowaniu połączenia.
       </string>
       <string id="WCM_EnableSoftDisconnect">Zezwalaj systemowi Windows na programowe odłączanie komputera od sieci</string>
       <string id="WCM_EnableSoftDisconnect_Help">To ustawienie zasad określa, czy system Windows będzie programowo odłączał komputer od sieci.
 
-Jeśli to ustawienie zasad zostanie włączone lub nie zostanie skonfigurowane, system Windows będzie programowo odłączał komputer od sieci, gdy ustali, że komputer nie powinien być dłużej podłączony do sieci.
+Jeśli to ustawienie zostanie włączone lub nie zostanie skonfigurowane, system Windows będzie programowo odłączał komputer od sieci, gdy ustali, że komputer nie powinien być dłużej podłączony do sieci.
 
 Jeśli to ustawienie zasad zostanie wyłączone, system Windows będzie odłączał komputer od sieci, gdy tylko ustali, że komputer nie powinien być dłużej podłączony do sieci.
 
 Gdy odłączanie programowe jest włączone:
 - Gdy system Windows zdecyduje, że komputer nie powinien być już podłączony do sieci, czeka na ustabilizowanie ruchu w tej sieci. Istniejąca sesja protokołu TCP będzie kontynuowana bez zakłóceń.
 - Następnie system Windows okresowo sprawdza poziom ruchu w danej sieci. Jeśli poziom ruchu przekracza określony próg, nie jest wykonywana żadna dodatkowa akcja. Komputer pozostaje podłączony do sieci i nadal jej używa. Na przykład jeśli połączenie sieciowe jest aktualnie używane do pobierania plików z Internetu, pobieranie plików za pośrednictwem tego połączenia sieciowego będzie kontynuowane.
-- Gdy natężenie ruchu w sieci spadnie poniżej tego progu, komputer zostanie odłączony od sieci. Aplikacje utrzymujące aktywne połączenia sieciowe nawet wtedy, gdy nie używają ich aktywnie (na przykład aplikacje poczty e-mail), mogą utracić swoje połączenia. Jeśli tak się stanie, te aplikacje będą musiały ustanowić ponownie swoje połączenia za pośrednictwem innej sieci. 
+– Gdy natężenie ruchu w sieci spadnie poniżej tego progu, komputer zostanie odłączony od sieci. Aplikacje utrzymujące aktywne połączenia sieciowe nawet wtedy, gdy nie używają ich aktywnie (na przykład aplikacje poczty e-mail), mogą utracić swoje połączenia. Jeśli tak się stanie, te aplikacje będą musiały ustanowić ponownie swoje połączenia za pośrednictwem innej sieci.
 
 To ustawienie zasad jest zależne od innych ustawień zasad grupy. Na przykład jeśli ustawienie Minimalizuj liczbę jednoczesnych połączeń z Internetem lub z domeną systemu Windows jest wyłączone, system Windows nie będzie odłączał komputera od żadnej sieci.
       </string>

@@ -25,6 +25,10 @@ To ustawienie zasad domyślnie nie jest skonfigurowane.
 Aby to ustawienie zasad zaczęło obowiązywać, należy ponownie uruchomić komputer.</string>
       <string id="HomeGroup">Grupa domowa</string>
       <string id="HomeGroup_Help">Zawiera ustawienia umożliwiające sterowanie zachowaniem grupy domowej.</string>
+      <string id="DisableShareAppPromotions">DisableShareAppPromotions</string>
+      <string id="DisableShareAppPromotions_Help">To ustawienie zasad umożliwia administratorom IT kontrolowanie, czy aplikacje promocyjne są wyświetlane w arkuszu programu ShareSheet. Jeśli te zasady zostaną włączone, w programie ShareSheet w systemie Windows nie będą wyświetlane aplikacje promocyjne. Jeśli te zasady zostaną wyłączone lub nie zostaną skonfigurowane, po otwarciu arkusza ShareSheet będą mogły być wyświetlane sugestie aplikacji i promocje.</string>
+      <string id="DisableInlineCompose">DisableInlineCompose</string>
+      <string id="DisableInlineCompose_Help">This policy controls whether users can compose a message directly in the Share sheet after selecting Outlook. If the policy is enabled, Windows hides the message entry field and users must complete message composition within Outlook. If the policy is disabled or not configured, Windows may display a message entry field in the Share sheet.</string>
     </stringTable>
   </resources>
 </policyDefinitionResources>

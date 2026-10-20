@@ -78,22 +78,39 @@ Se abiliti questa impostazione dei criteri, il Registro eventi utilizzerà il pe
 
 Se disabiliti o non configuri questa impostazione dei criteri, il Registro eventi utilizzerà la cartella %SYSTEMROOT%\System32\winevt\Logs.</string>
       <string id="Channel_LogMaxSize">Specifica dimensione massima file di registro (KB)</string>
-      <string id="Channel_LogMaxSize_Help">Questa impostazione dei criteri specifica la dimensione massima del file di registro in kilobyte.
+      <string id="Channel_LogMaxSize_Help">Questa impostazione di criteri specifica la dimensione massima del file di registro in kilobyte.
 
-Se abiliti questa impostazione dei criteri, potrai configurare la dimensione massima del file di registro tra 1 megabyte (1024 kilobyte) e 2 terabyte (2147483647 kilobyte) con incrementi in kilobyte.
+Se abiliti questa impostazione di criteri, puoi configurare la dimensione massima del file di registro tra 1 megabyte (1024 kilobyte) e 2 terabyte (2147483647 kilobyte) con incrementi in kilobyte.
 
-Se disabiliti o non configuri questa impostazione dei criteri, la dimensione massima del file di registro verrà impostata sul valore di configurazione locale. Questo valore può essere modificato dall'amministratore locale utilizzando la finestra di dialogo Proprietà registro. Il valore predefinito è 1 megabyte.</string>
-      <string id="Channel_LogMaxSizeSecurity_Help">Questa impostazione dei criteri specifica la dimensione massima del file di registro in kilobyte.
+Se disabiliti o non configuri questa impostazione di criteri, la dimensione massima del file di registro verrà impostata sul valore configurato in locale. Questo valore può essere modificato dall'amministratore locale usando la finestra di dialogo Proprietà registro, e il valore predefinito è 20 megabyte.</string>
+      <string id="Channel_LogMaxSizeSecurity_Help">Questa impostazione di criteri specifica la dimensione massima del file di registro in kilobyte.
 
-Se abiliti questa impostazione dei criteri, potrai configurare la dimensione massima del file di registro tra 20 megabyte (20480 kilobyte) e 2 terabyte (2147483647 kilobyte) con incrementi in kilobyte.
+Se abiliti questa impostazione di criteri, potrai configurare la dimensione massima del file di registro tra 20 megabyte (20480 kilobyte) e 2 terabyte (2147483647 kilobyte) con incrementi in kilobyte.
 
-Se disabiliti o non configuri questa impostazione dei criteri, la dimensione massima del file di registro verrà impostata sul valore di configurazione locale. Questo valore può essere modificato dall'amministratore locale utilizzando la finestra di dialogo Proprietà registro. Il valore predefinito è 20 megabyte.</string>
+Se disabiliti o non configuri questa impostazione di criteri, la dimensione massima del file di registro verrà impostata sul valore di configurazione locale. Questo valore può essere modificato dall'amministratore locale usando la finestra di dialogo Proprietà registro e il valore predefinito è 40 megabyte.</string>
       <string id="ChannelName_Help">Impostazioni di configurazione per il registro</string>
       <string id="EventLog_Application">Applicazione</string>
       <string id="EventLog_Security">Sicurezza</string>
       <string id="EventLog_Setup">Programma di installazione</string>
       <string id="EventLog_System">Sistema</string>
       <string id="EventLogCategory">Servizio Registro eventi</string>
+      <string id="Service_RpcAccess_Remote">Limitare l'accesso remoto al servizio registro eventi</string>
+      <string id="Service_RpcAccess_Remote_Help">Questa impostazione dei criteri controlla quali utenti remoti saranno autorizzati a connettersi al servizio Registro eventi in questo computer.
+
+Se si abilita questo criterio, è possibile limitare il gruppo a cui gli utenti remoti devono appartenere per connettersi al Servizio registro eventi su questo computer. È possibile richiedere che gli utenti remoti siano membri di uno dei seguenti gruppi predefiniti:
+
+• Utenti autenticati
+• Lettori registri eventi
+•Amministratori
+
+Se si disabilita o non si configura questo criterio, il valore predefinito sarà Utenti autenticati.
+
+Nelle versioni precedenti di Windows erano supportati solo gli Utenti autenticati. Per mantenere la compatibilità con le versioni precedenti, le connessioni locali al servizio saranno sempre consentite da utenti autenticati.
+
+Questa impostazione non controlla l'accesso ai singoli log. Una volta consentita una connessione remota, questa dovrà comunque accedere alle risorse specifiche che sta tentando di usare.</string>
+      <string id="Service_RpcAccess_Remote_AU">Utenti autenticati</string>
+      <string id="Service_RpcAccess_Remote_ER">Lettori registri eventi</string>
+      <string id="Service_RpcAccess_Remote_AD">Amministratori</string>
     </stringTable>
     <presentationTable>
       <presentation id="Channel_Log_FileLogAccess_1">
@@ -157,16 +174,19 @@ Se disabiliti o non configuri questa impostazione dei criteri, la dimensione mas
         </textBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_1">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Dimensione massima registro (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Dimensione massima registro (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_2">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Dimensione massima registro (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="40960">Dimensione massima registro (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_3">
         <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Dimensione massima registro (KB)</decimalTextBox>
       </presentation>
       <presentation id="Channel_LogMaxSize_4">
-        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="1024">Dimensione massima registro (KB)</decimalTextBox>
+        <decimalTextBox refId="Channel_LogMaxSize" defaultValue="20480">Dimensione massima registro (KB)</decimalTextBox>
+      </presentation>
+      <presentation id="Service_RpcAccess_Remote">
+        <dropdownList refId="RpcAccess_Remote_Setting" noSort="true" defaultItem="0">Seleziona una delle impostazioni seguenti:</dropdownList>
       </presentation>
     </presentationTable>
   </resources>

@@ -27,19 +27,17 @@
       <string id="IPHTTPS_ClientState">Nastavit stav IP-HTTPS</string>
       <string id="IPHTTPS_ClientUrl">Adresa URL IP-HTTPS</string>
 
-      <string id="ISATAP_State_Help">Nastavení této zásady umožňuje nakonfigurovat protokol ISATAP (Intra-Site Automatic Tunnel Addressing Protocol), technologii automatického tunelu adresa-směrovač a hostitel-hostitel, hostitel-směrovač a směrovač-hostitel zajišťující připojení jednosměrového vysílání IPv6 mezi hostiteli IPv6 v rámci sítě intranet využívající protokol IPv4.
+      <string id="ISATAP_State_Help">Toto nastavení zásad umožňuje konfigurovat rozhraní ISATAP (propojování mezi lokalitami), jako je automatická technologie tunelového propojení mezi sítěmi, hostitel-směrovač a směrovač-hostitel, která slouží k zajištění připojení jednosměrového vysílání IPv6 mezi hostiteli IPv6 v rámci intranetu s protokolem IPv4.
 
-Pokud nastavení této zásady zakážete nebo nenakonfigurujete, je použito nastavení místního hostitele.
+Pokud toto nastavení zásad zakážete nebo nenakonfigurujete, bude použito nastavení místního hostitele.
 
-Pokud nastavení této zásady povolíte, budete moci pro protokol ISATAP nakonfigurovat jedno z následujících nastavení:
+Pokud toto nastavení zásad povolíte, můžete konfigurovat rozhraní ISATAP pomocí jednoho z následujících nastavení:
 
-Výchozí stav zásady: Jestliže je název směrovače ISATAP přeložen úspěšně, bude mít hostitel nakonfigurován protokol ISATAP s místní adresou a adresou pro každou předponu přijatou ze směrovače ISATAP prostřednictvím automatické konfigurace bezstavové adresy. Jestliže název směrovače ISATAP není úspěšně přeložen, není připojení ISATAP k dispozici na hostiteli využívajícím odpovídající adresu IPv4.
+Výchozí stav zásady: na hostiteli nejsou k dispozici žádná rozhraní ISATAP.
 
-Povolený stav zásady: Jestliže je název ISATAP přeložen úspěšně, bude mít hostitel nakonfigurován protokol ISATAP s místní adresou a adresou pro každou předponu přijatou ze směrovače ISATAP prostřednictvím automatické konfigurace bezstavové adresy. Jestliže název ISATAP není úspěšně přeložen, bude mít hostitel rozhraní ISATAP nakonfigurováno s místní adresou.
+Povolený stav zásady: je-li název ISATAP přeložen úspěšně, bude mít hostitel rozhraní ISATAP nakonfigurováno pomocí místní adresy v rámci propojení a adresy pro každou předponu přijatou ze směrovače ISATAP prostřednictvím automatické konfigurace bezstavové adresy. Pokud název ISATAP není úspěšně přeložen, bude mít hostitel rozhraní ISATAP nakonfigurované na místní adresu v rámci propojení.
 
-Zakázaný stav zásady: Na hostiteli nejsou k dispozici žádná rozhraní ISATAP.
-
-
+Zakázaný stav zásady: na hostiteli nejsou k dispozici žádná rozhraní ISATAP.
 
 </string>
 
@@ -60,13 +58,11 @@ Pokud nastavení této zásady zakážete nebo nenakonfigurujete, je použito na
 
 Pokud nastavení této zásady povolíte, budete moci pro rozhraní 6to4 nakonfigurovat jedno z následujících nastavení:
 
-Výchozí stav zásady: Režim 6to4 je povolen v případě, že je na hostiteli dostupné pouze místní připojení IPv6 a veřejná IPv4 adresa. Pokud neexistuje žádná globální IPv6 adresa ani žádná globální IPv4 adresa, hostitel nebude mít rozhraní 6to4. Jestliže neexistuje žádná globální IPv6 adresa, ale je k dispozici globální IPv4 adresa, bude na hostiteli k dispozici rozhraní 6to4.
+Výchozí stav zásady: Režim 6to4 je vypnutý a připojení k rozhraní 6to4 nebude k dispozici.
 
 Povolený stav zásady: Pokud je k dispozici globální IPv4 adresa, bude na hostiteli k dispozici rozhraní 6to4. Jestliže neexistuje globální IPv4 adresa, nebude na hostiteli k dispozici rozhraní 6to4.
 
 Zakázaný stav zásady: Režim 6to4 je vypnutý a připojení k rozhraní 6to4 nebude k dispozici.
-
-
 
 </string>
 
@@ -188,6 +184,45 @@ Pokud nastavení této zásady povolíte nebo nenakonfigurujete, bude omezení b
 Pokud nastavení této zásady zakážete, bude omezení bezstavové automatické konfigurace IP adres zakázáno a systém neomezí počet automaticky konfigurovaných adres a tras.
 
 
+
+</string>
+
+      <string id="IPxlatCfg_PermitNonCellularCLAT">Nastavit povolení CLAT</string>
+      <string id="IPxlatCfg_PermitNonCellularCLAT_Help">Toto nastavení zásad umožňuje povolit nebo zakázat překladač na straně zákazníka pro 464XLAT (CLAT) globálně pro nemobilní rozhraní.
+
+Pokud toto nastavení zásad povolíte, bude CLAT globálně povolený a dá se povolit na síťových rozhraních.
+
+Pokud toto nastavení zásad zakážete, bude CLAT globálně zakázaný a nedá se povolit.
+
+Pokud toto nastavení zásad nenakonfigurujete, použije se nastavení místního hostitele.
+
+Aby se toto nastavení zásad projevilo, nevyžadují se žádná restartování zařízení ani restartování služby.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromRA">Nastavit získávání informací o předponě CLAT z RA</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromRA_Help">Toto nastavení zásad umožňuje používat inzerování směrovače (RA) jako zdroj informací o předponách pro nemobilní CLAT.
+
+Pokud toto nastavení zásad povolíte, CLAT bude moct zjišťovat předpony NAT64 prostřednictvím RA. Pokud jsou povolené obě metody zjišťování předpon NAT64, pořadí priority je (RA, DNS).
+
+Pokud toto nastavení zásad zakážete, CLAT nebude moct zjišťovat předpony NAT64 prostřednictvím RA.
+
+Pokud toto nastavení zásad nenakonfigurujete, použije se nastavení místního hostitele.
+
+Aby se toto nastavení zásad projevilo, je nutné restartovat počítač.
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS">Nastavit získávání informací o předponě CLAT ze služby DNS</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS_Help">Toto nastavení zásad umožňuje, aby se DNS používalo jako zdroj informací o předponě pro nemobilní CLAT.
+
+Pokud toto nastavení zásad povolíte, CLAT bude moct zjišťovat předpony NAT64 prostřednictvím DNS. Pokud jsou povolené obě metody zjišťování předpon NAT64, pořadí priority je (RA, DNS).
+
+Pokud toto nastavení zásad zakážete, CLAT nebude moct zjišťovat předpony NAT64 prostřednictvím DNS.
+
+Pokud toto nastavení zásad nenakonfigurujete, použije se nastavení místního hostitele.
+
+Aby se toto nastavení zásad projevilo, je nutné restartovat počítač.
 
 </string>
 

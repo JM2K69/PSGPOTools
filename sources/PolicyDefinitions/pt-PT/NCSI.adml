@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  (c) 2008 Microsoft Corporation  -->
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
 <policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
   <displayName>Definições de Política de Grupo do Indicador de Estado de Conectividade de Rede</displayName>
   <description>Definições de Política de Grupo do Indicador de Estado de Conectividade de Rede</description>
@@ -73,7 +73,7 @@
       </presentation>
       <presentation id="NCSI_PassivePolling">
         <text>A seguinte caixa de verificação desativa o mecanismo de consulta passiva no NCSI.   Isto pode melhorar a carga de trabalho da CPU nos servidores ou noutros computadores cuja conectividade de rede seja estática.</text>
-        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Desativar consulta passiva</checkBox>  
+        <checkBox refId="NCSI_DisablePassivePolling_Checkbox">Desativar consulta passiva</checkBox>
       </presentation>
       <presentation id="NCSI_GlobalDns">
         <text>A seguinte caixa de verificação desativa o vínculo de interfaces durante pesquisas de DNS no NCSI. Isto pode fazer com que o NCSI funcione melhor com configurações de rede especiais, tais como um servidor DNS a ser executado em localhost.</text>

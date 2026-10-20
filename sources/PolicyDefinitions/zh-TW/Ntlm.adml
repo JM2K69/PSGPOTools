@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" revision="1.0" schemaVersion="1.0" xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+  <displayName>NTLM 設定</displayName>
+  <description>NTLM 安全性封裝的組態設定。</description>
+  <resources>
+    <stringTable>
+      <string id="NTLM">NTLM</string>
+      <string id="EnhancedAuditsId">NTLM 增強型記錄</string>
+      <string id="EnhancedAuditsId_Explain">此原則設定可讓 NTLM 安全性封裝記錄用戶端和伺服器的新增強稽核記錄。
+
+      這些增強的記錄包含關於使用 NTLM 的內容、使用 NTLM 的原因，以及 NTLM 驗證要求目的地的資訊。它們還包含關於 NTLMv1 使用方式和其他安全性降級的資訊。
+
+      如果您已啟用或未設定此原則，則會產生新的稽核記錄。如果您停用此原則，則不會產生新的記錄。
+      </string>
+      <string id="EnhancedMachineBlockingWithAllowListId">NTLM 增強封鎖</string>
+      <string id="EnhancedMachineBlockingWithAllowListId_Explained">此原則設定允許 NTLM 安全性套件依據機器層級的新增強封鎖原則，封鎖 NTLM 驗證要求。
+
+      這些增強封鎖原則可讓您依據新準則封鎖 NTLM 驗證，例如帳戶類型、裝置角色或應用程式類型。
+
+      若整體原則設定為「已停用」或「未設定」，以下子設定將不會生效。若整體原則設定為「已啟用」，以下子原則將依其設定生效。
+
+      除非另行設定，所有原則皆預設為「稽核」模式。設定為「稽核」的原則會針對可能遭封鎖的 NTLM 要求記錄警告，但不會實際封鎖該要求。多個標示為「稽核」的原則可同時啟用，且會記錄於統一事件記錄檔中。
+
+      若任何原則標示為「已啟用」，則與該原則的準則相符的 NTLM 驗證要求即會遭到封鎖。若多個原則標示為「已啟用」，則只要與任一原則的準則相符，NTLM 驗證要求即會遭到封鎖。系統會針對第一個封鎖該 NTLM 驗證的原則產生事件記錄檔。
+
+      當同時存在「稽核」與「已啟用」原則時，「已啟用」原則將優先生效。
+
+      此處所述的所有增強封鎖原則皆共用相同的允許清單，該清單會指定允許使用 NTLM 驗證的帳戶、裝置及應用程式。允許清單可包含一系列目標名稱或 SPN 以允許驗證。
+
+      如需詳細資訊，請瀏覽 aka.ms/ntlmlogandblock。
+      </string>
+      <string id="Disabled">已停用</string>
+      <string id="Audit">稽核</string>
+      <string id="Enabled">已啟用</string>
+    </stringTable>
+    <presentationTable>
+      <presentation id="EnhancedMachineBlockingWithAllowListId">
+        <dropdownList refId="DomainSingleSignOnDropDown" defaultItem="0" noSort="true">封鎖網域帳戶單一登入的 NTLM</dropdownList>
+        <dropdownList refId="DomainControllerAuthDropDown" defaultItem="0" noSort="true">封鎖網域控制站的 NTLM</dropdownList>
+        <dropdownList refId="MachineBindingDropDown" defaultItem="0" noSort="true">當電腦綁定失敗時封鎖 NTLM</dropdownList>
+        <dropdownList refId="BlockAllDropDown" defaultItem="0" noSort="true">封鎖所有 NTLM 驗證</dropdownList>
+        <multiTextBox refId="EnhancedMachineBlockingWithAllowListBox">指定增強封鎖原則的允許清單：</multiTextBox>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

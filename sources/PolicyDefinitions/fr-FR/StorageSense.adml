@@ -29,7 +29,7 @@ Vous devez fournir la cadence de détection de stockage souhaitée. Les options 
 Désactivé ou non configuré :
 Par défaut, la cadence de détection du stockage est définie à « pendant un espace disque disponible faible ». Les utilisateurs peuvent configurer ce paramètre dans les paramètres de stockage.
     </string>
-    <string id="SS_StorageSenseGlobalCadence_Daily">Chaque jour</string>
+    <string id="SS_StorageSenseGlobalCadence_Daily">Tous les jours</string>
     <string id="SS_StorageSenseGlobalCadence_Weekly">Chaque semaine</string>
     <string id="SS_StorageSenseGlobalCadence_Monthly">Chaque mois</string>
     <string id="SS_StorageSenseGlobalCadence_DuringLowFreeDiskSpace">Lorsque l’espace disque est faible</string>
@@ -50,7 +50,7 @@ Par défaut, l'Assistant Stockage va supprimer les fichiers temporaires de l'uti
     </string>
     <string id="SS_ConfigStorageSenseRecycleBinCleanupThreshold">Configurer le seuil de nettoyage de la corbeille de détection de stockage</string>
     <string id="SS_ConfigStorageSenseRecycleBinCleanupThreshold_Explain">
-Lorsque le programme de détection de stockage s'exécute, il peut supprimer des fichiers dans la corbeille de l'utilisateur, s'ils y sont depuis un certain nombre de jours.
+Lorsque le programme Assistant Stockage s'exécute, il peut supprimer des fichiers dans la corbeille de l'utilisateur, s'ils y sont depuis un certain nombre de jours.
 
 Si la stratégie de groupe « autoriser le stockage » est désactivée, cette stratégie n'a aucun effet.
 
@@ -63,29 +63,29 @@ Par défaut, l'Assistant Stockage supprime les fichiers qui se trouvent dans la 
     </string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold">Configurer le seuil de nettoyage de téléchargement du stockage</string>
     <string id="SS_ConfigStorageSenseDownloadsCleanupThreshold_Explain">
-Lorsque le programme de détection de stockage s'exécute, il peut supprimer les fichiers du dossier de téléchargement de l'utilisateur s'ils y sont depuis un certain nombre de jours.
+Lorsque l'Assistant stockage s'exécute, il peut supprimer les fichiers du dossier de téléchargement de l'utilisateur s'il n'a pas été ouvert depuis plus d'un certain nombre de jours.
 
-Si la stratégie de groupe « autoriser le stockage » est désactivée, cette stratégie n'a aucun effet.
+Si la stratégie de groupe « Autoriser l'Assistant Stockage » est désactivée, cette stratégie n'a aucun effet.
 
-Activé :
-Vous devez indiquer le seuil d'âge minimal (en jours) d'un fichier dans le dossier des téléchargements avant de le supprimer. Les valeurs prises en charge sont : 0-365.
-Si vous définissez cette valeur sur zéro, l'Assistant Stockage ne supprimera pas les fichiers qui se trouvent dans le dossier de téléchargement de l'utilisateur. La valeur par défaut est 0 ou ne supprime jamais les fichiers du dossier des téléchargements.
+Activée :
+Vous devez indiquer le nombre minimal de jours pendant lesquels un fichier peut rester non ouvert avant que l'Assistant stockage ne le supprime du dossier de téléchargement. Les valeurs prises en charge sont les suivantes : de 0 à 365.
+Si vous définissez cette valeur sur zéro, l'Assistant stockage ne supprime pas les fichiers qui se trouvent dans le dossier de téléchargement de l'utilisateur. La valeur par défaut est 0, ce qui ne supprime jamais des fichiers du dossier de téléchargement.
 
 Désactivé ou non configuré :
-Par défaut, l'Assistant Stockage ne supprimera pas les fichiers du dossier de téléchargement de l'utilisateur. Les utilisateurs peuvent configurer ce paramètre dans les paramètres de stockage.
+Par défaut, l'Assistant stockage ne supprime pas les fichiers du dossier de téléchargement de l'utilisateur. Les utilisateurs peuvent configurer ce paramètre dans les paramètres de stockage.
     </string>
     <string id="SS_ConfigStorageSenseCloudContentDehydrationThreshold">Configurer le seuil de déshydratation du contenu Cloud pour l'Assistant Stockage</string>
     <string id="SS_ConfigStorageSenseCloudContentDehydrationThreshold_Explain">
-Lorsque l'Assistant Stockage s'exécute, il peut mettre en veille le contenu sauvegardé dans le Cloud qui n'a pas été ouvert depuis un certain nombre de jours.
+Lorsque l'Assistant stockage s'exécute, il peut mettre en attente du contenu stocké dans le cloud qui n'a pas été ouvert pendant un certain nombre de jours.
 
-Si la stratégie de groupe « autoriser le stockage » est désactivée, cette stratégie n'a aucun effet.
+Si la stratégie de groupe « Autoriser l'Assistant Stockage » est désactivée, cette stratégie n'a aucun effet.
 
-Activé :
-Vous devez indiquer le nombre de jours écoulés depuis l'ouverture d'un fichier sauvegardé dans le Cloud avant que l'Assistant Stockage ne le réalimente. Les valeurs prises en charge sont : 0-365.
-Si vous définissez cette valeur à zéro, l'Assistant Stockage ne mettra pas en attente le contenu sauvegardé dans le Cloud. La valeur par défaut est 0, ou ne réhydratant jamais le contenu sauvegardé dans le Cloud.
+Activée :
+Vous devez indiquer le nombre minimal de jours pendant lesquels un fichier stocké dans le cloud peut rester non ouvert avant que l'Assistant Stockage ne le mette en attente à partir de la racine de synchronisation. Les valeurs prises en charge sont les suivantes : de 0 à 365.
+Si vous définissez cette valeur sur zéro, l'Assistant Stockage ne met pas en attente le contenu stocké dans le cloud. La valeur par défaut est 0, ce qui ne met jamais en attente le contenu stocké dans le cloud.
 
 Désactivé ou non configuré :
-Par défaut, l'Assistant Stockage ne mettra pas en attente le contenu sauvegardé dans le Cloud. Les utilisateurs peuvent configurer ce paramètre dans les paramètres de stockage.
+Par défaut, l'Assistant Stockage ne met pas en attente le contenu stocké dans le cloud. Les utilisateurs peuvent configurer ce paramètre dans les paramètres de stockage.
     </string>
     </stringTable>
     <presentationTable>
@@ -93,10 +93,10 @@ Par défaut, l'Assistant Stockage ne mettra pas en attente le contenu sauvegard�
         <dropdownList refId="StorageSenseGlobalCadence" noSort="true" defaultItem="3">Exécuter l'Assistant Stockage :</dropdownList>
     </presentation>
     <presentation id="SS_ConfigStorageSenseRecycleBinCleanupThreshold_Presentation">
-        <decimalTextBox refId="StorageSenseRecycleBinCleanupThreshold" defaultValue="30">Âge minimal (en jours) des fichiers d'un dossier de la corbeille avant la suppression de l'espace de stockage (0 n'entraîne jamais la suppression des fichiers) :</decimalTextBox>
+        <decimalTextBox refId="StorageSenseRecycleBinCleanupThreshold" defaultValue="30">Durée minimale (en jours) d’un fichier dans le dossier Corbeille avant la suppression par l'Assistant Stockage (avec la valeur 0, un fichier n’est jamais supprimé) :</decimalTextBox>
     </presentation>
     <presentation id="SS_ConfigStorageSenseDownloadsCleanupThreshold_Presentation">
-        <decimalTextBox refId="StorageSenseDownloadsCleanupThreshold" defaultValue="0">Durée minimale (en jours) d'un fichier dans le dossier des fichiers téléchargés avant la suppression de l'Assistant Stockage (0 n'entraîne jamais la suppression des fichiers) :</decimalTextBox>
+        <decimalTextBox refId="StorageSenseDownloadsCleanupThreshold" defaultValue="0">Durée minimale (en jours) d'un fichier dans le dossier Téléchargements avant la suppression par l'Assistant Stockage (avec la valeur 0, un fichier n’est jamais supprimé) :</decimalTextBox>
     </presentation>
     <presentation id="SS_ConfigStorageSenseCloudContentDehydrationThreshold_Presentation">
         <decimalTextBox refId="StorageSenseCloudContentDehydrationThreshold" defaultValue="0">Nombre de jours depuis l'ouverture d'un fichier sauvegardé dans le Cloud avant que l'Assistant Stockage ne le réalimente (0 n'est jamais en attente des fichiers) :</decimalTextBox>

@@ -27,11 +27,10 @@
 이 정책을 사용하지 않거나 구성하지 않으면 사용자가 시작 메뉴의 검색 상자에서 검색을 수행할 때 "자세한 결과 보기" 링크가 표시됩니다.  타사의 프로토콜 처리기를 설치했을 경우 "자세한 결과 보기" 링크 대신 "모든 범위 검색" 링크가 표시됩니다.</string>
       <string id="AddSearchInternetLinkInStartMenu">시작 메뉴에 인터넷 검색 링크 추가</string>
       <string id="AddSearchInternetLinkInStartMenu_Help">
+이 정책을 사용하면 사용자가 시작 메뉴의 검색 상자에서 검색을 수행할 때 "인터넷 검색" 링크가 표시됩니다.  이 단추는 검색어로 기본 브라우저를 시작합니다.
 
-이 정책을 사용하면 사용자가 시작 메뉴의 검색 상자에서 검색을 수행할 때 "인터넷 검색" 링크가 표시됩니다.  이 단추를 클릭하면 해당 검색어로 기본 브라우저가 실행됩니다.
+이 정책을 사용하지 않으면 사용자가 시작 메뉴의 검색 상자에서 검색을 수행할 때 "인터넷 검색" 링크가 표시되지 않습니다.
 
-이 정책을 사용하지 않으면 사용자가 시작 메뉴의 검색 상자에서 검색을 수행할 때 "인터넷 검색" 링크가 나타나지 않습니다.
-          
 이 정책을 구성하지 않으면(기본값) 시작 메뉴에 "인터넷 검색" 링크가 표시되지 않습니다.</string>
       <string id="NoSearchFilesInStartMenu">파일 검색 안 함</string>
       <string id="NoSearchFilesInStartMenu_Help">이 정책 설정을 사용하면 시작 메뉴의 검색 상자에서 파일을 검색하지 않습니다.
@@ -207,6 +206,19 @@ XML 파일이 생성되고 원하는 파일 경로로 이동된 후 XML 파일�
 이 정책 설정은 지정한 사용자 인터페이스 요소에만 적용됩니다. 이 설정은 Internet Explorer에는 적용되지 않으며 사용자는 여전히 다른 방법을 사용하여 검색할 수 있습니다.
 
 이 정책 설정을 사용하지 않거나 구성하지 않으면 시작 메뉴에서 검색 링크를 사용할 수 있습니다.</string>
+      <string id="ShowOrHideMostUsedApps">시작 메뉴에서 "자주 사용하는" 목록 표시 또는 숨기기</string>
+      <string id="ShowOrHideMostUsedApps_Help">이 정책 설정을 사용하면 사용자 설정에 관계없이 사용자가 자주 사용하는 앱 목록을 표시하거나 숨기도록 시작 메뉴를 구성할 수 있습니다.
+
+"표시"를 선택하면 "자주 사용하는" 목록이 표시되고 사용자는 설정 앱을 사용하여 숨기도록 변경할 수 없습니다.
+
+"숨기기"를 선택하면 "자주 사용하는" 목록을 숨기고 설정 앱을 사용하여 표시하도록 변경할 수 없습니다.
+
+"구성되지 않음"을 선택하거나 이 정책 설정을 사용하지 않거나 구성하지 않으면 모두 사용자가 설정 앱을 사용하여 "자주 사용하는" 목록의 디스플레이를 설정하거나 해제할 수 있게 됩니다. 이는 기본 동작입니다.
+
+참고: 지원되는 Windows 10 버전에서 이 정책을 "표시" 또는 "숨기기"로 구성하면 "시작 메뉴에서 자주 사용하는 프로그램 목록 제거"(시작 메뉴의 동일한 부분을 관리하지만 옵션 수가 더 적음)의 정책 설정보다 우선합니다.</string>
+      <string id="MFU_NotConfigured">구성되지 않음</string>
+      <string id="MFU_Show">표시</string>
+      <string id="MFU_Hide">숨기기</string>
       <string id="NoFrequentUsedPrograms">시작 메뉴에서 자주 사용하는 프로그램 목록 제거</string>
       <string id="NoFrequentUsedPrograms_Help">이 설정을 사용하면 자주 사용하는 프로그램 목록이 시작 메뉴에서 제거됩니다.
 
@@ -243,7 +255,7 @@ XML 파일이 생성되고 원하는 파일 경로로 이동된 후 XML 파일�
       <string id="APPLIST_NONE">없음</string>
       <string id="APPLIST_COLLAPSE">축소</string>
       <string id="APPLIST_COLLAPSESETTING">축소 및 설정 사용 안 함</string>
-      <string id="APPLIST_REMOVESETTING">제거 및 설정 사용 안 함</string>    
+      <string id="APPLIST_REMOVESETTING">제거 및 설정 사용 안 함</string>
 
       <string id="NoNetAndDialupConnect">시작 메뉴에서 네트워크 연결 제거</string>
       <string id="NoNetAndDialupConnect_Help">이 정책 설정을 통해 시작 메뉴에서 네트워크 연결을 제거할 수 있습니다.
@@ -258,11 +270,11 @@ XML 파일이 생성되고 원하는 파일 경로로 이동된 후 XML 파일�
 
 "설정 메뉴의 프로그램 사용 안 함" 및 "제어판 사용 안 함" 정책 설정과 네트워크 연결 폴더(컴퓨터 구성 및 사용자 구성\관리 템플릿\네트워크\네트워크 연결)의 정책 설정을 참조하십시오.</string>
       <string id="NoPinnedPrograms">시작 메뉴에서 고정된 프로그램 목록 제거</string>
-      <string id="NoPinnedPrograms_Help">이 설정을 사용하면 "고정된 프로그램" 목록이 시작 메뉴에서 제거됩니다. 사용자는 시작 메뉴에 프로그램을 고정할 수 없습니다. 
+      <string id="NoPinnedPrograms_Help">이 설정을 사용하면 시작 메뉴 "고정된 프로그램" 목록이 제거됩니다. 사용자는 프로그램을 시작 메뉴 고정할 수 없습니다.
 
-Windows XP 및 Windows Vista의 '시작 메뉴 사용자 지정' 대화 상자에서 인터넷 및 전자 메일 확인란이 제거됩니다. 
+Windows XP 및 Windows Vista에서는 '시작 메뉴 사용자 지정' 대화 상자에서 인터넷 및 전자 메일 확인란이 제거됩니다.
 
-이 설정을 사용하지 않거나 구성하지 않으면 "고정된 프로그램" 목록이 시작 메뉴에 유지됩니다. 사용자는 시작 메뉴에서 프로그램을 고정하거나 제거할 수 있습니다.</string>
+이 설정을 사용하지 않거나 구성하지 않으면 "고정된 프로그램" 목록이 시작 메뉴 유지됩니다. 사용자는 시작 메뉴에서 프로그램을 고정 및 고정 해제할 수 있습니다.</string>
       <string id="NoRecentDocsHistory">최근에 열었던 문서 목록 보관 안 함</string>
       <string id="NoRecentDocsHistory_Help">이 설정을 사용하면 운영 체제 및 설치된 프로그램에서 최근에 열어 본 문서의 바로 가기를 만들고 표시할 수 없습니다.
 
@@ -328,7 +340,7 @@ Windows XP 및 Windows Vista의 '시작 메뉴 사용자 지정' 대화 상자�
 
 (3) 사용자가 Internet Explorer 주소 표시줄에 다음을 입력할 수 없게 됩니다.
 
---- UNC 경로: \\&lt;server&gt;\&lt;share&gt; 
+--- UNC 경로: \\&lt;server&gt;\&lt;share&gt;
 
 ---로컬 드라이브 액세스:  예: C:
 
@@ -599,9 +611,9 @@ Windows 업데이트는 Windows의 온라인 확장 기능으로 사용자의 �
 
 이 정책 설정을 사용하지 않거나 구성하지 않으면 사용자가 Windows 로고 키를 누를 때마다 주 디스플레이에 시작 화면이 나타납니다. 사용자가 해당 디스플레이에서 시작 단추를 누르면 다른 디스플레이에서 시작 화면을 열 수 있습니다. 또한 사용자가 이 설정을 구성할 수 있습니다.</string>
       <string id="ForceStartSize_DisplayName">시작을 전체 화면 크기 또는 메뉴 크기로 설정</string>
-      <string id="ForceStartSize_ExplainText">이 정책을 사용하고 시작 메뉴 또는 전체 화면 시작으로 설정하면 시작이 해당 크기가 되고 사용자가 설정에서 시작의 크기를 변경할 수 없습니다.
+      <string id="ForceStartSize_ExplainText">이 정책을 사용하도록 설정하고 시작 메뉴 또는 전체 화면 시작으로 설정하면 시작이 해당 크기가 되고 사용자가 설정에서 시작 크기를 변경할 수 없습니다.
 
-이 정책 설정을 사용하지 않거나 구성하지 않으면 Windows에서 하드웨어 폼 팩터에 따라 자동으로 크기를 선택하고 사용자가 설정에서 시작의 크기를 변경할 수 있습니다.</string>
+이 정책 설정을 사용하지 않거나 구성하지 않으면 Windows에서 하드웨어 폼 팩터에 따라 크기를 자동으로 선택하고 사용자가 설정에서 시작 크기를 변경할 수 있습니다.</string>
       <string id="ForceLauncherSize_Collapsed">시작 메뉴</string>
       <string id="ForceLauncherSize_Expanded">전체 화면 시작</string>
       <string id="HidePeopleBar_DisplayName">작업 표시줄에서 피플 표시줄 제거</string>
@@ -612,10 +624,44 @@ Windows 업데이트는 Windows의 온라인 확장 기능으로 사용자의 �
       <string id="HideRecentlyAddedApps_Help">이 정책을 사용하면 시작 메뉴에 최근에 설치한 응용 프로그램 목록을 표시할 수 없습니다.
 
 이 정책을 사용하면 시작 메뉴 "최근에 추가됨" 목록이 더 이상 표시되지 않습니다.  해당 설정은 설정에서도 사용 중지됩니다.</string>
+      <string id="HideRecommendedSection">시작 메뉴에서 권장 섹션 제거</string>
+      <string id="HideRecommendedSection_Help">이 정책을 사용하면 시작 메뉴에 권장 응용 프로그램 및 파일 목록이 표시되지 않도록 할 수 있습니다.
+
+이 정책 설정을 사용하면 시작 메뉴에 권장 파일 및 앱 목록이 포함된 섹션이 더 이상 표시되지 않습니다.</string>
+ <string id="HideCategoryView">시작 메뉴에서 범주 보기 숨기기</string>
+ <string id="HideCategoryView_Help">이 정책 설정을 통해 시작 메뉴에서 범주 보기를 숨길 수 있습니다.
+ 
+이 정책 설정을 사용하면 시작 메뉴에 더 이상 범주 보기가 옵션으로 표시되지 않으며 기본적으로 눈금 보기로 설정됩니다.</string>
+
+ <string id="ConfigureStartPins">시작 핀 구성</string>
+      <string id="ConfigureStartPins_Help">관리자가 시작 화면에 고정된 기본 항목을 재정의할 수 있도록 허용합니다.
+
+이 설정을 사용하면 시작에 고정된 기본 항목을 지정할 수 있습니다.</string>
+
+      <string id="HideRecommendedPersonalizedSites">시작 메뉴의 맞춤 섹션에서 맞춤형 웹 사이트 추천 제거</string>
+      <string id="HideRecommendedPersonalizedSites_Help">이 정책 설정을 사용하면 시작 메뉴의 권장 섹션에서 개인 설정된 웹 사이트를 숨길 수 있습니다. 
+      
+이 정책 설정을 사용하면 시작 메뉴에 더 이상 권장 섹션에 개인 설정된 웹 사이트 권장 사항이 표시되지 않습니다.</string>
       <string id="DisableContextMenusInStart">시작 메뉴에서 상황에 맞는 메뉴 사용 중지</string>
       <string id="DisableContextMenusInStart_Help">이 정책을 사용하면 사용자가 시작 메뉴에서 상황에 맞는 메뉴를 열 수 없습니다.
 
 이 정책을 사용하면 시작 메뉴 내에서 상황에 맞는 메뉴 호출이 무시됩니다.</string>
+      <string id="SimplifyQuickSettings_DisplayName">빠른 설정 레이아웃 간소화</string>
+      <string id="SimplifyQuickSettings_ExplainText">이 정책을 사용하면 빠른 설정이 WiFi, Bluetooth, 접근성 및 VPN 단추만 포함하도록 축소됩니다. 밝기 및 볼륨 슬라이더; 및 배터리 표시기 및 설정 앱에 연결합니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 빠른 설정이 호출될 때마다 일반 빠른 설정 레이아웃이 표시됩니다.</string>
+      <string id="DisableEditingQuickSettings_DisplayName">빠른 설정 편집 사용 안 함</string>
+      <string id="DisableEditingQuickSettings_ExplainText">이 정책을 사용하면 사용자가 빠른 설정을 수정할 수 없습니다.
+
+이 정책 설정을 사용하지 않거나 구성하지 않으면 사용자가 단추 고정 또는 고정 해제와 같은 빠른 설정을 편집할 수 있습니다.</string>
+      <string id="DisableControlCenter">빠른 설정 제거</string>
+      <string id="DisableControlCenter_Help">이 정책 설정은 작업 표시줄의 오른쪽 아래 영역에서 빠른 설정을 제거합니다.
+
+빠른 설정 영역은 작업 표시줄의 시계 왼쪽에 있으며 현재 네트워크 및 볼륨의 아이콘을 포함합니다.
+
+이 설정을 사용하면 빠른 설정 영역에 빠른 설정이 표시되지 않습니다. 
+
+이 정책 설정을 적용하려면 다시 부팅해야 합니다.</string>
     </stringTable>
     <presentationTable>
       <presentation id="NoMoreProgramsList">
@@ -632,9 +678,22 @@ Windows 업데이트는 Windows의 온라인 확장 기능으로 사용자의 �
           <label>시작 화면 레이아웃 파일</label>
           <defaultValue></defaultValue>
         </textBox>
+        <checkBox refId="LockedStartLayout_ReapplyEveryLogon" defaultChecked="false">로그온할 때마다 레이아웃 다시 적용</checkBox>
       </presentation>
       <presentation id="ForceStartSize">
         <dropdownList refId="ForceStartSizeDropdown" noSort="true" defaultItem="0">다음 크기 중 하나 선택</dropdownList>
+      </presentation>
+      <presentation id="ShowOrHideMostUsedApps">
+        <dropdownList refId="ShowOrHideMostUsedAppsDropdown" noSort="true" defaultItem="1">다음 작업 중 하나 선택</dropdownList>
+      </presentation>
+      <presentation id="ConfigureStartPins">
+        <textBox refId="ConfigureStartPins_Name">
+          <label>시작 핀 레이아웃 파일</label>
+          <defaultValue></defaultValue>
+        </textBox>
+      </presentation>
+      <presentation id="HideCategoryView">
+        <checkBox refId="HideCategoryView_CheckBox" defaultChecked="false">범주 보기 숨기기</checkBox>
       </presentation>
     </presentationTable>
   </resources>

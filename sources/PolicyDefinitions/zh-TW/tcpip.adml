@@ -27,46 +27,40 @@
       <string id="IPHTTPS_ClientState">設定 IP-HTTPS 狀態</string>
       <string id="IPHTTPS_ClientUrl">IP-HTTPS URL</string>
 
-      <string id="ISATAP_State_Help">這個原則設定可讓您設定「內部網站自動通道定址通訊協定」(Intra-Site Automatic Tunnel Addressing Protocol，ISATAP)，這個位址對路由器、主機對主機、主機對路由器，以及路由器對主機的自動通道技術是用來提供 IPv4 內部網站上各 IPv6 主機間的單點傳播 IPv6 連線。
+      <string id="ISATAP_State_Help">此原則設定可讓您設定站內自動隧道定址通訊協定 (ISATAP)、位址到路由器和主機對主機、主機對路由器和路由器對主機的自動隧道技術，以提供 IPv4 內部網路之間的 IPv6 主機之間的單播 IPv6 連線。
 
-如果您停用或未設定這個原則設定，則使用本機主機設定。
+如果您禁用或未設定此策略設定，則會使用本機主機設定。
 
-如果您啟用這個原則設定，您可以在 ISATAP 指定以下其中一項設定:
+如果您啟用此原則設定，您可以使用下列其中一種設定來設定 ISATAP：
 
-原則預設狀態: 如果成功解析 ISATAP 路由器名稱，主機會為 ISATAP 設定一個連結本機位址，並透過無狀態位址自動設定，為 ISATAP 路由器收到的每個首碼設定一個位址。如果無法成功解析 ISATAP 路由器名稱，則無法在使用對應 IPv4 位址的主機上使用 ISATAP 連線。
+原則預設狀態：主機上沒有 ISATAP 介面。
 
-原則啟用狀態: 如果成功解析 ISATAP 名稱，主機會為 ISATAP 設定一個連結本機位址，並透過無狀態位址自動設定，為 ISATAP 路由器收到的每個首碼設定一個位址。如果無法成功解析 ISATAP 名稱，主機會用連結本機位址來設定 ISATAP 介面。
+原則已啟用狀態：如果 ISATAP 名稱成功解析，主機會將 ISATAP 設定為連結本機位址，並使用從 ISATAP 路由器收到的每個首碼 (無狀態位址自動設定)。如果未成功解析 ISATAP 名稱，主機會將 ISATAP 介面設定為連結本機位址。
 
-原則停用狀態: 主機不提供 ISATAP 介面。
-
-
+原則已停用狀態：主機上沒有 ISATAP 介面。
 
 </string>
 
       <string id="ISATAP_Router_Name_Help">這個原則設定可讓您為 ISATAP 路由器指定路由器名稱或網際網路通訊協定第 4 版 (IPv4) 位址。
 
-如果您啟用這個原則設定，您可以為 ISATAP 路由器指定路由器名稱或 IPv4 位址。如果在文字方塊中輸入 ISATAP 路由器的 IPv4 位址，就不需要 DNS 服務。
+如果您啟用這個原則設定，您可以為 ISATAP 路由器指定路由器名稱或 IPv4 位址。如果在文字輸入框中輸入 ISATAP 路由器的 IPv4 位址，就不需要 DNS 服務。
 
 如果您停用或未設定這個原則設定，則使用本機主機設定。
-
-
 
 </string>
 
 
-      <string id="6to4_State_Help">這個原則設定可讓您設定 6to4，這個位址指派以及路由器對路由器自動通道技術是用來提供 IPv4 網際網路上 IPv6 站台與主機之間的單點傳播 IPv6 連線。6to4 使用全域位址首碼: 2002:WWXX:YYZZ::/48，其中英文字母是指派給站台的全域 IPv4 位址 (w.x.y.z) 的十六進位表示。
+      <string id="6to4_State_Help">此原則設定可讓您設定6to4、[位址指派] 和 [路由器對路由器] 自動隧道技術，用來在 IPv6 網站和 IPv4 網際網路之間提供單播 IPv6 連線。6to4 使用 [全域位址首碼：2002:WWXX:YYZZ::/48]，其中字母是指派給網站之全域 IPv4 位址 (w.x.y.z)的十六進位表示。
 
-如果您停用或未設定這個原則設定，則使用本機主機設定。
+如果您禁用或未設定此策略設定，則會使用本機主機設定。
 
-如果您啟用這個原則設定，您可以在 6to4 指定以下其中一項設定:
+如果您啟用此原則設定，您可以使用下列其中一種設定來設定 6to4：
 
-原則預設狀態: 如果主機只有連結本機 IPv6 的上網能力以及公用的 IPv4 位址，則會啟用 6to4。如果沒有全域 IPv6 位址，也沒有全域 IPv4 位址，主機將沒有 6to4 介面。如果沒有全域 IPv6 位址，但是有全域 IPv4 位址，主機將有 6to4 介面。
+原則預設狀態：6to4 已關閉，且無法使用 6to4 連線。
 
-原則啟用狀態: 如果有全域 IPv4 位址，主機將有 6to4 介面。如果沒有全域 IPv4 位址，主機將沒有 6to4 介面。
+原則啟用狀態：如果存在全域 IPv4 位址，主機將擁有 6to4 介面。如果沒有全域 IPv4 位址，主機將不會有 6to4 介面。
 
-原則停用狀態: 6to4 為關閉狀態，而且無法使用與 6to4 的連線。
-
-
+原則停用狀態：6to4 已關閉，且無法使用 6to4 連線。
 
 </string>
 
@@ -188,6 +182,45 @@
 如果您停用這個原則設定，則會停用 IP 無狀態自動設定限制，而且系統不會限制自動設定的位址和路由器數量。
 
 
+
+</string>
+
+      <string id="IPxlatCfg_PermitNonCellularCLAT">設定 CLAT 許可</string>
+      <string id="IPxlatCfg_PermitNonCellularCLAT_Help">此原則設定可讓您在全域範圍內在非行動數據介面上啟用或停用 464XLAT（CLAT）的客戶端翻譯工具。
+
+如果您啟用此原則設定，系統會在全域範圍內允許 CLAT 並可在網路介面上將其啟用。
+
+如果您停用此原則設定，系統會在全域範圍內禁止 CLAT，且無法將其啟用。
+
+如果您未設定此原則設定，系統會使用本機主機設定。
+
+此原則設定無需重新開機或重新啟動服務即可生效。
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromRA">設定 CLAT 從 RA 取得前置資訊</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromRA_Help">此原則設定允許將路由器公告 (RA) 用作非行動數據 CLAT 的前置詞資訊來源。
+
+如果您啟用此原則設定，CLAT 將可透過 RA 探索 NAT64 前置詞。若同時啟用兩種 NAT64 前置詞探索方法，優先順序為 (RA、DNS)。
+
+如果您停用此原則設定，CLAT 即無法透過 RA 探索 NAT64 前置詞。
+
+如果您未設定此原則設定，系統會使用本機主機設定。
+
+此原則設定需要重新開機才會生效。
+
+</string>
+
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS">設定 CLAT 從 DNS 取得前置資訊</string>
+      <string id="IPxlatCfg_GetPrefixInfoFromDNS_Help">此原則設定允許將 DNS 用作非行動數據 CLAT 的前置詞資訊來源。
+
+如果您啟用此原則設定，CLAT 將可透過 DNS 探索 NAT64 前置詞。若同時啟用兩種 NAT64 前置詞探索方法，優先順序為 (RA、DNS)。
+
+如果您停用此原則設定，CLAT 即無法透過 DNS 探索 NAT64 前置詞。
+
+如果您未設定此原則設定，系統會使用本機主機設定。
+
+此原則設定需要重新開機才會生效。
 
 </string>
 
