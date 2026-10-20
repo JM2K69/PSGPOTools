@@ -69,18 +69,25 @@ PowerShellVersion = '7.4'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Approve-PSGPO', 'Backup-PSGPO', 'Compare-PSGPOBackup',
-               'Get-PSGPOAuditLog', 'Get-PSGPOBackup', 'Get-PSGPOCategory',
-               'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 'Get-PSGPODrift',
-               'Get-PSGPOGpmcBackup', 'Get-PSGPOMigrationEntry',
-               'Get-PSGPOMigrationTable', 'Get-PSGPOPermission', 'Get-PSGPOPolicy',
-               'Get-PSGPOSupportedOn', 'Get-PSGPOWmiFilter', 'Import-PSGPO',
-               'Import-PSGPODirectory', 'Initialize-PSGPOAdmx',
-               'Initialize-PSGPOWorkflow', 'Install-PSGPOAdmx', 'New-PSGPO',
-               'New-PSGPOLink', 'New-PSGPOMigrationTable', 'New-PSGPOWmiFilter',
-               'Remove-PSGPO', 'Remove-PSGPOLink', 'Remove-PSGPOWmiFilter',
-               'Restore-PSGPO', 'Set-PSGPO', 'Set-PSGPOBackup', 'Set-PSGPOInheritance',
-               'Set-PSGPOLink', 'Set-PSGPOPermission', 'Show-GPOManagerAvalonia'
+FunctionsToExport = 'Add-PSGPOFineGrainedPasswordPolicySubject', 'Approve-PSGPO', 
+               'Backup-PSGPO', 'Compare-PSGPOBackup', 'Get-PSGPOAuditLog', 
+               'Get-PSGPOBackup', 'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 
+               'Get-PSGPODefaultPasswordPolicy', 'Get-PSGPODirectory', 
+               'Get-PSGPODrift', 'Get-PSGPOFineGrainedPasswordPolicy', 
+               'Get-PSGPOGpmcBackup', 'Get-PSGPOMigrationEntry', 
+               'Get-PSGPOMigrationTable', 'Get-PSGPOPermission', 'Get-PSGPOPolicy', 
+               'Get-PSGPOResultantPasswordPolicy', 'Get-PSGPOSupportedOn', 
+               'Get-PSGPOWmiFilter', 'Import-PSGPO', 'Import-PSGPODirectory', 
+               'Initialize-PSGPOAdmx', 'Initialize-PSGPOWorkflow', 
+               'Install-PSGPOAdmx', 'New-PSGPO', 
+               'New-PSGPOFineGrainedPasswordPolicy', 'New-PSGPOLink', 
+               'New-PSGPOMigrationTable', 'New-PSGPOWmiFilter', 'Remove-PSGPO', 
+               'Remove-PSGPOFineGrainedPasswordPolicy', 
+               'Remove-PSGPOFineGrainedPasswordPolicySubject', 'Remove-PSGPOLink', 
+               'Remove-PSGPOWmiFilter', 'Restore-PSGPO', 'Set-PSGPO', 
+               'Set-PSGPOBackup', 'Set-PSGPOFineGrainedPasswordPolicy', 
+               'Set-PSGPOInheritance', 'Set-PSGPOLink', 'Set-PSGPOPermission', 
+               'Show-GPOManagerAvalonia', 'Show-PSOManagerAvalonia'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()

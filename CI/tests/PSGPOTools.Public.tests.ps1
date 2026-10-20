@@ -16,7 +16,7 @@ Describe 'Module manifest' {
 
     It 'Exports only the public functions' {
         (Get-Module HGPM).ExportedCommands.Keys | Sort-Object |
-            Should -Be @('Approve-PSGPO', 'Backup-PSGPO', 'Compare-PSGPOBackup', 'Get-PSGPOAuditLog', 'Get-PSGPOBackup', 'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 'Get-PSGPODirectory', 'Get-PSGPODrift', 'Get-PSGPOGpmcBackup', 'Get-PSGPOMigrationEntry', 'Get-PSGPOMigrationTable', 'Get-PSGPOPermission', 'Get-PSGPOPolicy', 'Get-PSGPOSupportedOn', 'Get-PSGPOWmiFilter', 'Import-PSGPO', 'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 'Initialize-PSGPOWorkflow', 'Install-PSGPOAdmx', 'New-PSGPO', 'New-PSGPOLink', 'New-PSGPOMigrationTable', 'New-PSGPOWmiFilter', 'Remove-PSGPO', 'Remove-PSGPOLink', 'Remove-PSGPOWmiFilter', 'Restore-PSGPO', 'Set-PSGPO', 'Set-PSGPOBackup', 'Set-PSGPOInheritance', 'Set-PSGPOLink', 'Set-PSGPOPermission', 'Show-GPOManagerAvalonia')
+            Should -Be @('Add-PSGPOFineGrainedPasswordPolicySubject', 'Approve-PSGPO', 'Backup-PSGPO', 'Compare-PSGPOBackup', 'Get-PSGPOAuditLog', 'Get-PSGPOBackup', 'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 'Get-PSGPODefaultPasswordPolicy', 'Get-PSGPODirectory', 'Get-PSGPODrift', 'Get-PSGPOFineGrainedPasswordPolicy', 'Get-PSGPOGpmcBackup', 'Get-PSGPOMigrationEntry', 'Get-PSGPOMigrationTable', 'Get-PSGPOPermission', 'Get-PSGPOPolicy', 'Get-PSGPOResultantPasswordPolicy', 'Get-PSGPOSupportedOn', 'Get-PSGPOWmiFilter', 'Import-PSGPO', 'Import-PSGPODirectory', 'Initialize-PSGPOAdmx', 'Initialize-PSGPOWorkflow', 'Install-PSGPOAdmx', 'New-PSGPO', 'New-PSGPOFineGrainedPasswordPolicy', 'New-PSGPOLink', 'New-PSGPOMigrationTable', 'New-PSGPOWmiFilter', 'Remove-PSGPO', 'Remove-PSGPOFineGrainedPasswordPolicy', 'Remove-PSGPOFineGrainedPasswordPolicySubject', 'Remove-PSGPOLink', 'Remove-PSGPOWmiFilter', 'Restore-PSGPO', 'Set-PSGPO', 'Set-PSGPOBackup', 'Set-PSGPOFineGrainedPasswordPolicy', 'Set-PSGPOInheritance', 'Set-PSGPOLink', 'Set-PSGPOPermission', 'Show-GPOManagerAvalonia', 'Show-PSOManagerAvalonia')
         (Get-Module HGPM).ExportedVariables.Count | Should -Be 0
     }
 
@@ -40,7 +40,7 @@ Describe 'Module manifest' {
 Describe 'Commands that write' {
     It '<Command> supports -WhatIf and -Confirm' -ForEach @(
         (Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1')).FunctionsToExport |
-            Where-Object { $_ -match '^(New|Set|Remove|Restore|Approve|Backup|Install|Initialize-PSGPOWorkflow)' } | ForEach-Object { @{ Command = $_ } }
+            Where-Object { $_ -match '^(New|Set|Remove|Restore|Approve|Backup|Install|Add|Initialize-PSGPOWorkflow)' } | ForEach-Object { @{ Command = $_ } }
     ) {
         # PSScriptAnalyzer leaves the private functions out of this rule: the commands ask.
         (Get-Command $Command).Parameters.Keys | Should -Contain 'WhatIf'

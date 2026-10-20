@@ -8,6 +8,28 @@
     password never goes over plain LDAP.
 #>
 
+# The domain controller to read the domain from: -Server, else the computer itself when it is a
+# domain controller, else the domain of the computer (Windows locates a domain controller).
+function Resolve-PSGPODomainServer {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([string]$Server)
+
+    $platform = Get-PSGPOPlatform
+    if (-not $platform.LdapAvailable) { throw $platform.LdapUnavailableReason }
+    if ($Server) { return $Server }
+    $Server = if ($platform.IsDomainController) {
+        # Kerberos needs the full DNS name (ldap/dc.domain service principal).
+        $hostName = [System.Net.Dns]::GetHostEntry([Environment]::MachineName).HostName
+        if ($hostName.Contains('.') -or -not $platform.DomainName) { $hostName } else { "$hostName.$($platform.DomainName)" }
+    } else {
+        $platform.DomainName
+    }
+    if (-not $Server) { throw 'This computer is not in a domain: give the domain controller with -Server.' }
+    Write-Verbose "Domain controller: $Server"
+    $Server
+}
+
 # Opens and binds an LDAP connection.
 function New-PSGPOLdapConnection {
     [CmdletBinding()]

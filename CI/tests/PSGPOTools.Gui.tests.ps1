@@ -2021,4 +2021,162 @@ InModuleScope -ModuleName HGPM {
             (Get-PSGPOUserSetting).Count | Should -Be 0 -Because 'nothing was chosen'
         }
     }
+
+    Describe 'PSO Manager window' -Skip:$AvaloniaMissing {
+        BeforeEach {
+            $SamplePolicies = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'PasswordPolicy.sample.json'
+            $Store = Import-PSGPOPasswordPolicyStore -Path $SamplePolicies
+            $Store.IsDemonstration = $true
+        }
+
+        It 'Lists the PSOs by order of priority, and shows the settings and subjects of the selected one' {
+            Start-PSGPOPasswordPolicyWindow -Store $Store -OnShown {
+                param($Ui)
+                $Ui.Window.Icon | Should -Not -BeNullOrEmpty -Because 'the logo of HGPM is the icon of the window'
+                $Ui.demoBanner.IsVisible | Should -BeTrue
+                $Ui.policiesView.IsVisible | Should -BeTrue
+                $Ui.policiesButton.Classes | Should -Contain 'active'
+                @($Ui.policiesList.ItemsSource).Name | Should -Be @($Store.Policies.Name)
+                $Ui.policiesHeaderTextBlock.Text | Should -BeLike '7 password settings objects*'
+                $Ui.domainPolicyTextBlock.Text | Should -Be '7 characters, history 24, expires after 42 days, no lockout'
+                $Ui.editPolicyButton.IsEnabled | Should -BeFalse
+                $Ui.policiesList.SelectedItem = @($Ui.policiesList.ItemsSource) | Where-Object Name -EQ 'PSO - Tier 0 Admins'
+                $Ui.policyTitleTextBlock.Text | Should -Be 'PSO - Tier 0 Admins'
+                ($Ui.policySettingsList.ItemsSource | Where-Object Key -EQ 'Minimum password length').Value | Should -Be '20 characters'
+                ($Ui.policySettingsList.ItemsSource | Where-Object Key -EQ 'Account will be locked out').Value | Should -Be 'Until an administrator manually unlocks the account'
+                $Ui.appliesToHeaderTextBlock.Text | Should -Be 'Directly Applies To (1)'
+                @($Ui.appliesToList.ItemsSource)[0].Kind | Should -Be 'Global security group'
+                @($Ui.statusBarList.ItemsSource).Count | Should -Be 4 -Because 'this computer, its addresses, its domain and the source of the policies'
+                @($Ui.statusBarList.ItemsSource)[0].Text | Should -Not -BeNullOrEmpty
+                @($Ui.statusBarList.ItemsSource)[0] | Should -BeOfType [AvaloniaStatusItem] -Because 'a binding does not read the properties of a PSObject'
+            }
+        }
+
+        It 'Creates a PSO in its window, checked first, and applies it to a user' {
+            Start-PSGPOPasswordPolicyWindow -Store $Store -OnShown {
+                param($Ui)
+                Invoke-Click $Ui.newPolicyButton
+                $Editor = $Ui.Editor.Ui.Controls
+                $Ui.Editor.Ui.Window.Title | Should -Be 'Create Password Settings'
+                $Editor.protectCheckBox.IsChecked | Should -BeTrue
+                $Editor.minLengthUpDown.Value | Should -Be 7
+                Invoke-Click $Editor.okButton
+                $Editor.errorTextBlock.Text | Should -Be 'The name is required. The precedence is a number of 1 or more.'
+                $Editor.nameTextBox.Text = 'PSO - Helpdesk'
+                $Editor.precedenceUpDown.Value = [decimal]2
+                $Editor.enforceMaxAgeCheckBox.IsChecked = $false
+                $Editor.maxAgeUpDown.IsEnabled | Should -BeFalse -Because 'a value is entered for a setting enforced only'
+                $Editor.enforceLockoutCheckBox.IsChecked = $true
+                $Editor.lockUntilUnlockRadio.IsChecked = $true
+                $Editor.subjectSearchTextBox.Text = 'Jean'
+                Invoke-Click $Editor.subjectSearchButton
+                @($Editor.subjectResultsList.ItemsSource).Name | Should -Be @('Jean Dupont')
+                $Editor.subjectResultsList.SelectedIndex = 0
+                Invoke-Click $Editor.subjectAddButton
+                Invoke-Click $Editor.okButton
+                $Ui.Editor.Ui.Window.IsVisible | Should -BeFalse -Because 'the PSO is created'
+                $New = $Store.FindPolicy('PSO - Helpdesk')
+                $New.MaxPasswordAge | Should -Be ([TimeSpan]::Zero)
+                $New.LockoutThreshold | Should -Be 5
+                $New.LockoutDuration | Should -Be ([TimeSpan]::Zero)
+                $New.AppliesTo | Should -Be @($Store.ResolveAccount('jdupont').DistinguishedName)
+                $Ui.policyTitleTextBlock.Text | Should -Be 'PSO - Helpdesk' -Because 'the new PSO is selected'
+                $Ui.policyResultTextBlock.Text | Should -Be 'Saved: PSO - Helpdesk.'
+                @($Ui.policiesList.ItemsSource)[0].Name | Should -Be 'PSO - Helpdesk' -Because 'precedence 2 comes first'
+            }
+        }
+
+        It 'Changes nothing when a PSO is opened and saved as it is' {
+            $Policy = $Store.FindPolicy('PSO - IT Staff')
+            $Policy.MinPasswordAge = [TimeSpan]::FromHours(36)
+            $Before = Get-PSGPOPasswordPolicyValue -Policy $Policy
+            Start-PSGPOPasswordPolicyWindow -Store $Store -OnShown {
+                param($Ui)
+                $Ui.policiesList.SelectedItem = @($Ui.policiesList.ItemsSource) | Where-Object Name -EQ 'PSO - IT Staff'
+                Invoke-Click $Ui.editPolicyButton
+                $Ui.Editor.Ui.Window.Title | Should -Be 'Password Settings: PSO - IT Staff'
+                $Ui.Editor.Ui.Controls.minAgeUpDown.Value | Should -Be 2 -Because '1.5 days shows rounded'
+                Invoke-Click $Ui.Editor.Ui.Controls.okButton
+                $Ui.Editor.Ui.Window.IsVisible | Should -BeFalse
+            }
+            $After = Get-PSGPOPasswordPolicyValue -Policy $Policy
+            foreach ($Name in $Before.Keys) { "$($After[$Name])" | Should -Be "$($Before[$Name])" -Because "$Name did not change" }
+        }
+
+        It 'Deletes a PSO once confirmed, but not one protected from accidental deletion' {
+            Start-PSGPOPasswordPolicyWindow -Store $Store -OnShown {
+                param($Ui)
+                $Ui.policiesList.SelectedItem = @($Ui.policiesList.ItemsSource) | Where-Object Name -EQ 'PSO - Tier 0 Admins'
+                Invoke-Click $Ui.deletePolicyButton
+                $Ui.deletePolicyPanel.IsVisible | Should -BeFalse
+                $Ui.policyResultTextBlock.Text | Should -BeLike '*protected from accidental deletion*'
+                $Ui.policiesList.SelectedItem = @($Ui.policiesList.ItemsSource) | Where-Object Name -EQ 'PSO - IT Staff'
+                Invoke-Click $Ui.deletePolicyButton
+                $Ui.deletePolicyPanel.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.deletePolicyConfirmButton
+                $Store.FindPolicy('PSO - IT Staff') | Should -BeNullOrEmpty
+                $Ui.policyResultTextBlock.Text | Should -Be 'PSO - IT Staff deleted.'
+                @($Ui.policiesList.ItemsSource).Count | Should -Be 6
+            }
+        }
+
+        It 'Shows what applies to a user and why, by order of priority' {
+            Start-PSGPOPasswordPolicyWindow -Store $Store -StartView Resultant -OnShown {
+                param($Ui)
+                $Ui.resultantView.IsVisible | Should -BeTrue
+                $Ui.resultantButton.Classes | Should -Contain 'active'
+                $Ui.resultEmptyTextBlock.IsVisible | Should -BeTrue
+                $Ui.identitySearchTextBox.Text = 'Bob'
+                Invoke-Click $Ui.identitySearchButton
+                $Ui.identityStatusTextBlock.Text | Should -Be '1 users and groups found.'
+                $Ui.identitiesList.SelectedIndex = 0
+                $Ui.resultTitleTextBlock.Text | Should -Be 'Bob Durand (User)'
+                $Ui.appliedNameTextBlock.Text | Should -Be 'PSO - Tier 1 Admins'
+                $Ui.appliedSourceTextBlock.Text | Should -Be 'Computed from the password settings objects and the groups of the account.'
+                $Ui.differsTextBlock.IsVisible | Should -BeFalse
+                $Rows = @($Ui.candidatesList.ItemsSource)
+                $Rows.Name | Should -Be @('PSO - VPN Users', 'PSO - Tier 1 Admins', 'PSO - IT Staff', 'Default domain password policy')
+                $Rows.Status | Should -Be @('Ignored', 'Applies', 'Not applied', 'Not applied')
+                $Rows[2].Through | Should -Be 'Through Tier 1 Admins > IT Staff'
+                $Ui.groupRuleTextBlock.Text | Should -BeLike '*global security groups only*'
+                # A change of the PSOs shows there at once.
+                Invoke-Click $Ui.policiesButton
+                $Ui.policiesList.SelectedItem = @($Ui.policiesList.ItemsSource) | Where-Object Name -EQ 'PSO - IT Staff'
+                Invoke-Click $Ui.editPolicyButton
+                $Ui.Editor.Ui.Controls.precedenceUpDown.Value = [decimal]1
+                Invoke-Click $Ui.Editor.Ui.Controls.okButton
+                $Ui.appliedNameTextBlock.Text | Should -Be 'PSO - IT Staff'
+            }
+        }
+
+        It 'Speaks French' {
+            try {
+                Start-PSGPOPasswordPolicyWindow -Store $Store -Language 'fr-FR' -OnShown {
+                    param($Ui)
+                    $Ui.subtitleTextBlock.Text | Should -Be 'Stratégies de mot de passe affinées de corp.contoso.com'
+                    $Ui.domainPolicyTextBlock.Text | Should -Be '7 caractères, historique 24, expire après 42 jours, pas de verrouillage'
+                    Invoke-Click $Ui.newPolicyButton
+                    $Ui.Editor.Ui.Window.Title | Should -Be 'Créer des paramètres de mot de passe'
+                    $Ui.Editor.Ui.Controls.enforceLengthCheckBox.Content | Should -Be 'Appliquer la longueur minimale du mot de passe'
+                }
+            } finally { $null = Set-PSGPOLanguage -Language 'en-US' }
+        }
+
+        It 'Says why the domain was not read, and opens anyway' {
+            Start-PSGPOPasswordPolicyWindow -Store $null -StoreError 'dc.contoso.com cannot be reached' -OnShown {
+                param($Ui)
+                $Ui.errorBanner.IsVisible | Should -BeTrue
+                $Ui.errorBannerTextBlock.Text | Should -Be 'The domain could not be read. dc.contoso.com cannot be reached'
+                $Ui.newPolicyButton.IsEnabled | Should -BeFalse
+                $Ui.identitySearchButton.IsEnabled | Should -BeFalse
+            }
+        }
+
+        It 'Opens on the sample policies when no domain is discovered' {
+            Mock Get-PSGPOPlatform { [GPOToolsPlatform]@{ OperatingSystem = 'Linux' } }
+            Mock Start-PSGPOPasswordPolicyWindow { }
+            Show-PSOManagerAvalonia -Language en-US -View Resultant
+            Should -Invoke Start-PSGPOPasswordPolicyWindow -Times 1 -Exactly -ParameterFilter { $Store.IsDemonstration -and $Store.Policies.Count -eq 7 -and $StartView -eq 'Resultant' -and -not $StoreError }
+        }
+    }
 }

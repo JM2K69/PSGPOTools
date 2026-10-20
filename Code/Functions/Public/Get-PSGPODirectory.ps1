@@ -55,19 +55,7 @@ function Get-PSGPODirectory {
         [int]$Port
     )
 
-    $platform = Get-PSGPOPlatform
-    if (-not $platform.LdapAvailable) { throw $platform.LdapUnavailableReason }
-    if (-not $Server) {
-        $Server = if ($platform.IsDomainController) {
-            # Kerberos needs the full DNS name (ldap/dc.domain service principal).
-            $hostName = [System.Net.Dns]::GetHostEntry([Environment]::MachineName).HostName
-            if ($hostName.Contains('.') -or -not $platform.DomainName) { $hostName } else { "$hostName.$($platform.DomainName)" }
-        } else {
-            $platform.DomainName
-        }
-        if (-not $Server) { throw 'This computer is not in a domain: give the domain controller with -Server.' }
-        Write-Verbose "Domain controller: $Server"
-    }
+    $Server = Resolve-PSGPODomainServer -Server $Server
 
     $connection = New-PSGPOLdapConnection -Server $Server -Credential $Credential -UseSsl:$UseSsl -Port $Port
     try {
