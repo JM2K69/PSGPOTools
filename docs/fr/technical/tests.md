@@ -54,7 +54,7 @@ SYSVOL échoue, les permissions retirées et signalées. Le workflow complet, qu
 
 ## CI
 
-`.github/workflows/ci.yml` lance trois jobs à chaque push sur `master`, `main` et `avalonia` :
+`.github/workflows/ci.yml` lance trois jobs à chaque push sur `master` et `main`, et à chaque pull request :
 
 | Job | Lance |
 |---|---|

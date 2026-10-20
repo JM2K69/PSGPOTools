@@ -5,13 +5,12 @@ else it needs depends on what you do with it and where.
 
 ## The module
 
-Build it from the repository (the console is on the `avalonia` branch until its first release on
-the PowerShell Gallery):
+Install it from the PowerShell Gallery, or build it from the repository (the branch `master`):
 
 === "From the repository"
 
     ```powershell
-    git clone -b avalonia https://github.com/JM2K69/PSGPOTools.git
+    git clone https://github.com/JM2K69/PSGPOTools.git
     cd PSGPOTools
     pwsh -File CI/03_Build.ps1          # builds HGPM/HGPM.psm1 from Code/
     Import-Module ./HGPM/HGPM.psd1
@@ -66,7 +65,7 @@ folder of the user (`PSGPOTools/PolicyDefinitions`): the console finds them ther
 controller (an account allowed to write SYSVOL: a domain administrator), as for GPMC: every
 console of the domain then reads them. The ADMX files already there are kept, those of the same
 name replaced; with files already there, give `-Force`. Before the first release of a version
-(no tag yet), give the branch: `-Ref avalonia`.
+(no tag yet), give the branch: `-Ref master`.
 
 ## Windows
 

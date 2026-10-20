@@ -5,13 +5,12 @@ plateformes ; le reste dépend de ce que vous en faites, et où.
 
 ## Le module
 
-Construisez-le depuis le dépôt (la console est sur la branche `avalonia` jusqu'à sa première
-version sur la PowerShell Gallery) :
+Installez-le depuis la PowerShell Gallery, ou construisez-le depuis le dépôt (la branche `master`) :
 
 === "Depuis le dépôt"
 
     ```powershell
-    git clone -b avalonia https://github.com/JM2K69/PSGPOTools.git
+    git clone https://github.com/JM2K69/PSGPOTools.git
     cd PSGPOTools
     pwsh -File CI/03_Build.ps1          # construit HGPM/HGPM.psm1 depuis Code/
     Import-Module ./HGPM/HGPM.psd1
@@ -68,7 +67,7 @@ données de l'utilisateur (`PSGPOTools/PolicyDefinitions`) : la console les y tr
 domaine (un compte qui peut écrire SYSVOL : un administrateur du domaine), comme pour GPMC : toutes
 les consoles du domaine les lisent alors. Les fichiers ADMX déjà présents sont gardés, ceux de même
 nom remplacés ; s'il y en a déjà, ajoutez `-Force`. Avant la première publication d'une version
-(pas encore de tag), donnez la branche : `-Ref avalonia`.
+(pas encore de tag), donnez la branche : `-Ref master`.
 
 ## Windows
 

@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [master, main, avalonia]
+    branches: [master, main]
   pull_request:
   # The Release workflow runs these tests on the tagged commit before it publishes.
   workflow_call:

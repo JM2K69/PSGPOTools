@@ -107,10 +107,10 @@ InModuleScope -ModuleName HGPM {
 
         It 'Installs every language with -AllLanguages, from the ref given' {
             $Path = Join-Path $TestDrive "folder-$([guid]::NewGuid().ToString('N'))"
-            $Result = Install-PSGPOAdmx -Path $Path -AllLanguages -Ref avalonia -Confirm:$false
+            $Result = Install-PSGPOAdmx -Path $Path -AllLanguages -Ref master -Confirm:$false
             $Result.Languages | Should -Be @('en-US', 'fr-FR')
             $Result.Files | Should -Be 6
-            Should -Invoke Invoke-WebRequest -Times 1 -Exactly -ParameterFilter { $Uri -eq 'https://github.com/JM2K69/PSGPOTools/archive/avalonia.zip' }
+            Should -Invoke Invoke-WebRequest -Times 1 -Exactly -ParameterFilter { $Uri -eq 'https://github.com/JM2K69/PSGPOTools/archive/master.zip' }
         }
 
         It 'Refuses a download that is not the files pinned, and installs nothing' {
@@ -150,7 +150,7 @@ InModuleScope -ModuleName HGPM {
 
         It 'Says to give a branch when the tag of the version cannot be downloaded' {
             Mock Invoke-WebRequest { throw 'Response status code does not indicate success: 404 (Not Found).' }
-            { Install-PSGPOAdmx -Path (Join-Path $TestDrive 'never') -Confirm:$false } | Should -Throw '*404*-Ref avalonia*'
+            { Install-PSGPOAdmx -Path (Join-Path $TestDrive 'never') -Confirm:$false } | Should -Throw '*404*-Ref master*'
         }
 
         It 'Writes the central store of the domain controller, and the audit log' {
