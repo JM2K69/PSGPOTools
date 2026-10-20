@@ -8,8 +8,8 @@
 
         Before anything is sent, it checks that:
         - the tag is the version of the manifest: v<ModuleVersion>, with -<Prerelease> when the
-          manifest has one (v0.1.2-alpha for 0.1.2 and alpha);
-        - CHANGELOG.md has a section for this version (## 0.1.2 - alpha);
+          manifest has one (v0.1.3-alpha for 0.1.3 and alpha);
+        - CHANGELOG.md has a section for this version (## 0.1.3 - alpha);
         - the manifest is valid (Test-ModuleManifest) and the module is built;
         - this version is not on the gallery yet (the gallery refuses a version twice).
 
@@ -19,14 +19,14 @@
         Writes the notes of the version (its section of CHANGELOG.md) to -NotesPath, for the release
         of GitHub.
     .PARAMETER Tag
-        The tag pushed (v0.1.2-alpha).
+        The tag pushed (v0.1.3-alpha).
     .PARAMETER ApiKey
         The API key of the PowerShell Gallery; without it, everything is checked and the package
         made, nothing is published.
     .PARAMETER NotesPath
         Where to write the notes of the version.
     .EXAMPLE
-        ./CI/03_Build.ps1; ./CI/04_Publish.ps1 -Tag v0.1.2-alpha
+        ./CI/03_Build.ps1; ./CI/04_Publish.ps1 -Tag v0.1.3-alpha
         Checks the version and makes the package, without publishing it.
 #>
 [CmdletBinding()]

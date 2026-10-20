@@ -78,7 +78,7 @@ With -CentralStore: the domain controller to read the domain from and write to.
 
 ### -Ref
 
-The tag, branch or commit of the repository to download; the tag of the version of the module (v0.1.2-alpha) by default. Its files must be those the module pins.
+The tag, branch or commit of the repository to download; the tag of the version of the module (v0.1.3-alpha) by default. Its files must be those the module pins.
 
 | Type | Required | Position | Default value | Accepts pipeline input |
 |---|---|---|---|---|

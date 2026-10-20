@@ -72,7 +72,7 @@ number of files and a SHA-256, line endings and case of the names aside). After 
 `sources/PolicyDefinitions`, `CI/Update-AdmxCatalog.ps1` writes the catalog again; a test checks it.
 
 `.github/workflows/release.yml` publishes the module on the PowerShell Gallery for a tag of a version
-(`v0.1.2-alpha`) only, never for a commit: it runs the three jobs of the CI on the tagged commit, then
+(`v0.1.3-alpha`) only, never for a commit: it runs the three jobs of the CI on the tagged commit, then
 `CI/04_Publish.ps1` (the tag is the version of the manifest, `CHANGELOG.md` has its section, the gallery
 does not have it yet) with the secret `PSGALLERY_API_KEY` of the environment `psgallery`, and creates the
 release of GitHub with the notes of the version.
