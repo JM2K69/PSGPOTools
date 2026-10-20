@@ -98,6 +98,11 @@ The groups that pass a PSO on to their members differ between the domain control
       controller you read applies; a PSO **Ignored** reaches the account through a group that does
       not pass it on there.
 
+    On the Windows domain `powershell.labo` of the lab, a PSO of precedence 5 applied to the domain
+    local group `VPN Users` is ignored for `tiers1`, its member: the PSO of its global group applies.
+
+    ![A PSO ignored through a domain local group, on a Windows domain controller](../assets/screenshots/37-pso-ignored.png)
+
 The status of each PSO says it: **Applies**, **Not applied** (another one comes first, or one
 applied directly wins), **Ignored** (applied through a group that passes no PSO on). For a user, the
 domain controller has the last word: the console shows the PSO it applies (`msDS-ResultantPSO`),
