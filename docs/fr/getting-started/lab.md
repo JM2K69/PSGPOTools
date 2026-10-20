@@ -91,8 +91,13 @@ de son tier.
   dans `CN=Policies,CN=System` et leur dossier dans le dossier `Policies` de SYSVOL ; leurs GPO
   attendent l'approbation d'un administrateur du domaine.
 
-D'abord, dans la console, **Settings**, **Workflow** : activé, avec `GPO-Tier1-Admins, GPO-Tier2-Admins`
-comme créateurs. Sans cela, le script s'arrête avant de rien changer.
+D'abord, activez le workflow du domaine avec les deux groupes comme créateurs : dans la console, en
+administrateur du domaine, **Paramètres** : `Workflow.Enabled` = `True`, `Workflow.Creators` =
+`GPO-Tier1-Admins, GPO-Tier2-Admins`, **Enregistrer** (pas à pas dans
+[Workflow d'approbation](../workflows/approval.md#1-configurer-le-workflow-tier-0-une-fois)). Sans cela,
+le script s'arrête avant de rien changer, et dit ce qu'il a lu.
+
+![Workflow.Creators avec les groupes des scripts](../assets/screenshots/28-settings-workflow-creators.fr.png)
 
 === "Windows"
 

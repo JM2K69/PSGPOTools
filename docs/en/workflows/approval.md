@@ -23,7 +23,24 @@ sequenceDiagram
 
 ## 1. Configure the workflow (Tier 0, once)
 
-In the **Settings** window, or in the [configuration of the domain](../features/configuration.md):
+In the console, as a domain administrator (the **Settings** button is greyed for the other
+accounts), **Settings** opens the configuration of the domain, in
+`SYSVOL\<domain>\PSGPOTools\Configuration.psd1`, the same for every console of the domain:
+
+1. In **Setting**, choose `Workflow.Enabled`; in **Value**, `True`; **Set the value**.
+2. In **Setting**, choose `Workflow.Creators`; in **Value**, the groups of the creators, separated
+   by commas: those of the scripts of the [lab](../getting-started/lab.md), `GPO-Tier1-Admins, GPO-Tier2-Admins`;
+   **Set the value**.
+3. Keep `Workflow.Approvers` and `Workflow.ApprovedOwner` (`Domain Admins`) or set your Tier 0
+   groups, then **Save**.
+
+The settings of the domain show **Set for the domain**, the others **Default**.
+
+![Workflow.Enabled set to True in the Settings window](../assets/screenshots/27-settings-workflow-enabled.png)
+
+![Workflow.Creators with the groups of the creators](../assets/screenshots/28-settings-workflow-creators.png)
+
+The configuration file then holds:
 
 ```powershell
 @{
