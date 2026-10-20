@@ -10,6 +10,7 @@ dans le [labo](../getting-started/lab.md).
 | [Corbeille et modèles](recycle-bin-and-templates.md) | administrateurs | supprimer, restaurer une GPO supprimée, partir d'un modèle |
 | [Écart avec la version approuvée](drift.md) | sécurité, audit | trouver ce qui a changé depuis l'approbation d'une version |
 | [Approbation Tier 0 / Tier 1](approval.md) | équipes Tier 0 et Tier 1 | le Tier 1 crée, le Tier 0 approuve, avec les droits du domaine |
+| [Stratégies de mot de passe des tiers](password-policies.md) | administrateurs | des stratégies de mot de passe affinées (PSO) pour les tiers, et celle qui s'applique à chaque compte |
 
 ```mermaid
 flowchart LR

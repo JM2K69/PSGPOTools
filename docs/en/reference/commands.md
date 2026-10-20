@@ -80,6 +80,25 @@ Initialize-PSGPOAdmx -Path C:\Windows\PolicyDefinitions -UICulture en-US
 Get-PSGPOPolicy -Scope Machine | Where-Object DisplayName -Like '*biometrics*' | Select-Object DisplayName, Registry
 ```
 
+## Password policies
+
+| Command | Does |
+|---|---|
+| [`Show-PSOManagerAvalonia`](commands/show-psomanageravalonia.md) `[-Server] [-Credential] [-UseSsl] [-View Policies\|Resultant] [-Language]` | opens the console of the fine-grained password policies (PSO) |
+| [`Get-PSGPOFineGrainedPasswordPolicy`](commands/get-psgpofinegrainedpasswordpolicy.md) `[-Name]` | the PSOs of the domain, by order of priority, with the users and groups they apply to |
+| [`Get-PSGPODefaultPasswordPolicy`](commands/get-psgpodefaultpasswordpolicy.md) | the password policy of the domain, for the accounts no PSO applies to |
+| [`New-PSGPOFineGrainedPasswordPolicy`](commands/new-psgpofinegrainedpasswordpolicy.md) `-Name -Precedence [-MinPasswordLength] [-MaxPasswordAge] [-LockoutThreshold] [-AppliesTo]...` | creates a PSO, with the settings of the Administrative Center by default |
+| [`Set-PSGPOFineGrainedPasswordPolicy`](commands/set-psgpofinegrainedpasswordpolicy.md) `-Name [-NewName] [-Precedence] [-ProtectedFromAccidentalDeletion]...` | changes, renames, protects PSOs |
+| [`Remove-PSGPOFineGrainedPasswordPolicy`](commands/remove-psgpofinegrainedpasswordpolicy.md) `-Name` | deletes PSOs not protected from accidental deletion |
+| [`Add-PSGPOFineGrainedPasswordPolicySubject`](commands/add-psgpofinegrainedpasswordpolicysubject.md) `-Name -Subject` | applies PSOs to users and groups |
+| [`Remove-PSGPOFineGrainedPasswordPolicySubject`](commands/remove-psgpofinegrainedpasswordpolicysubject.md) `-Name -Subject` | stops applying them |
+| [`Get-PSGPOResultantPasswordPolicy`](commands/get-psgporesultantpasswordpolicy.md) `-Identity` | the PSO that applies to a user or a group, and why the others do not |
+
+```powershell
+New-PSGPOFineGrainedPasswordPolicy -Name 'PSO - Tier 1 Admins' -Precedence 10 -MinPasswordLength 16 -AppliesTo 'GPO-Tier1-Admins'
+(Get-PSGPOResultantPasswordPolicy -Identity tiers1).Candidates | Format-Table Order, Name, Precedence, AppliesThrough, Status
+```
+
 ## What they return
 
 | Type | From | Main properties |

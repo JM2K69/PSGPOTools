@@ -36,6 +36,13 @@ Directory**.
     domaine (SYSVOL), et le workflow ne repose que sur les ACL de l'annuaire et de SYSVOL.
     [Délégation](features/delegation.md)
 
+- **Stratégies de mot de passe (PSO)**
+
+    Une deuxième console, `Show-PSOManagerAvalonia`, pour les stratégies de mot de passe affinées,
+    comme le Centre d'administration Active Directory : les créer, les appliquer, et voir celle qui
+    s'applique à un utilisateur ou à un groupe, et pourquoi.
+    [Stratégies de mot de passe](features/password-policies.md)
+
 </div>
 
 ## En bref
