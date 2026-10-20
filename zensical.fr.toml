@@ -9,8 +9,8 @@ site_url = "https://jm2k69.github.io/PSGPOTools/fr/"
 copyright = "&copy; JM2K69 and the HGPM contributors"
 repo_url = "https://github.com/JM2K69/PSGPOTools"
 repo_name = "JM2K69/PSGPOTools"
-# La branche des liens « Modifier » : avalonia jusqu’à sa fusion dans la branche principale, puis celle-ci.
-edit_uri = "edit/avalonia/docs/fr/"
+# La branche des liens « Modifier » : master, où se fait le travail.
+edit_uri = "edit/master/docs/fr/"
 docs_dir = "docs/fr"
 site_dir = "site/fr"
 

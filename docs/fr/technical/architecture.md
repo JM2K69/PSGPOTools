@@ -16,7 +16,7 @@ HGPM/
   HGPM.psm1           construit : les classes, puis les fonctions privées et publiques (jamais modifié à la main)
   Resources/          Configuration.psd1, Preferences.json, AvaloniaPackages.json, Icons/
   Avalonia/           Get-AvaloniaBinaries.ps1, et bin/ (le runtime, non versionné)
-  Samples/            Directory.sample.json (l'environnement de démonstration)
+  Samples/            Directory.sample.json, PasswordPolicy.sample.json (les environnements de démonstration)
 docs/                 cette documentation (en, fr, assets)
 ```
 
@@ -67,6 +67,15 @@ défaut…), puis appellent une méthode cachée `Save*` / `Load*` qui fait le t
 La fenêtre et les commandes sont donc le même code pour un domaine et pour les tests, et une
 modification refusée par le domaine laisse le modèle tel qu'il était.
 
+Les stratégies de mot de passe affinées suivent le même modèle, sans les GPO :
+`GPOToolsPasswordPolicyStore` contient les PSO (`GPOToolsPasswordPolicy`), la stratégie de mot de
+passe du domaine et, en mémoire, les utilisateurs et groupes (`GPOToolsPasswordAccount`) ; ses
+méthodes `NewPolicy`, `SetPolicy`, `RemovePolicy`, `AddSubject`, `RemoveSubject` vérifient, puis
+appellent `Save*`. `GPOToolsLdapPasswordPolicyStore` (`Connect-PSGPOPasswordPolicyStore`, utilisé
+par `Show-PSOManagerAvalonia` et les commandes) les écrit en LDAP. `Resolve-PSGPOPasswordPolicy`
+ordonne les PSO qui concernent un compte, avec les groupes que compte chaque contrôleur de domaine
+([LDAP](ldap.md#strategies-de-mot-de-passe-affinees)).
+
 ### La plateforme
 
 `Get-PSGPOPlatform` détecte une fois ce qu'est l'ordinateur : Windows ou Linux, membre d'un
@@ -80,6 +89,7 @@ bibliothèque LDAP. Chaque opération prend ensuite le chemin de sa plateforme :
 | Droits SYSVOL | contrôle d'accès .NET | bindings Python de Samba (`libsmb`) |
 | Créer et supprimer des GPO | `New-GPO`, `Remove-GPO` (RSAT) | `samba-tool gpo create / del` |
 | Liens, statut, filtrage de sécurité, workflow | LDAP | LDAP |
+| Stratégies de mot de passe affinées | LDAP | LDAP |
 
 ## Principes
 

@@ -21,7 +21,8 @@ Invoke-Pester -Configuration $Config
 | `PSGPOTools.Workflow.tests.ps1` | le workflow d'approbation |
 | `PSGPOTools.Delegation.tests.ps1` | les droits lus dans l'annuaire |
 | `PSGPOTools.Ldap.tests.ps1` | LDAP, gPLink, samba-tool, RSAT (simulés), et face à un contrôleur de domaine |
-| `PSGPOTools.Gui.tests.ps1` | la vraie fenêtre (`-OnShown`) |
+| `PSGPOTools.PasswordPolicy.tests.ps1` | les stratégies de mot de passe affinées : les valeurs de l'annuaire, les vérifications, le PSO qui s'applique et pourquoi, les commandes |
+| `PSGPOTools.Gui.tests.ps1` | les vraies fenêtres des deux consoles (`-OnShown`) |
 | `PSGPOTools.Public.tests.ps1` | les commandes exportées |
 
 ## Face à un contrôleur de domaine
@@ -38,7 +39,11 @@ pwsh -c 'Invoke-Pester CI/tests'
 
 Avec `PSGPOTOOLS_TEST_LDAP_WRITE=1`, ils créent une OU et des GPO nommées `PSGPOTools test ...`, les
 lient, écrivent leurs paramètres, en suppriment et en restaurent une, et suppriment tout ce qu'ils
-ont créé à la fin, quoi qui ait échoué.
+ont créé à la fin, quoi qui ait échoué. Pour les stratégies de mot de passe (Linux, `samba-tool`),
+ils créent un utilisateur, un groupe de sécurité global et un local de domaine, et des PSO nommés
+`PSO test ...` : protégés contre la suppression accidentelle, renommés, appliqués directement et
+par les groupes, une modification faite entre-temps refusée, le PSO trouvé par la console comparé à
+`msDS-ResultantPSO` ; puis ils les suppriment.
 
 Avec aussi `PSGPOTOOLS_TEST_LAB_SCRIPTS=1` (Linux), ils lancent les scripts Linux du
 [labo](../getting-started/lab.md), `New-PSGPOTierLab.ps1` et `Grant-PSGPOTierDelegation.ps1`, deux fois

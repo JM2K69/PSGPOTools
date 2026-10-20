@@ -45,11 +45,17 @@ mais la plupart des bureaux Linux n'ont pas de police pour les dessiner.
 !!! note "Le pipeline"
     La sortie du pipeline enveloppe les objets dans `PSObject`, auquel Avalonia ne sait pas se lier :
     les listes sont construites avec `List[T]` et `foreach`. `if (...) { @(...) }` déroule une liste
-    d'un seul élément : les listes sont affectées dans les branches.
+    d'un seul élément : les listes sont affectées dans les branches. `Select-Object` enveloppe aussi
+    ses objets : une liste faite avec lui prend `.PSObject.BaseObject` de chaque élément.
+
+!!! note "Le bouton de la vue affichée"
+    La classe `accent` du thème Fluent ne colore pas un bouton ici : les fenêtres partagent le
+    style `Button.active` (`Get-PSGPOWindowResourceXaml`, avec les pinceaux des deux thèmes).
 
 ## Tests de la fenêtre
 
-`Start-PSGPOManagerWindow -OnShown { param($Ui) ... }` ouvre la vraie fenêtre et exécute le bloc
+`Start-PSGPOManagerWindow -OnShown { param($Ui) ... }` (et `Start-PSGPOPasswordPolicyWindow` pour
+la console des PSO, sa fenêtre d'un PSO dans `$Ui.Editor`) ouvre la vraie fenêtre et exécute le bloc
 une fois qu'elle est affichée, avec ses contrôles par nom : les tests de l'interface cliquent,
 saisissent et vérifient ce que montre la fenêtre, puis la fenêtre se ferme. Ils tournent sous
 Windows et dans la session X d'un ordinateur Linux.
