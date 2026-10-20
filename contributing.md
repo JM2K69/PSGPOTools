@@ -60,6 +60,23 @@ domain run when `PSGPOTOOLS_TEST_LDAP_SERVER` names a domain controller and
 and delete GPOs. The [technical documentation](https://jm2k69.github.io/PSGPOTools/en/technical/tests/)
 describes the suite.
 
+### Releases
+
+A commit never publishes the module: the CI only tests it. A version is published on the
+[PowerShell Gallery](https://www.powershellgallery.com/packages/PSGPOTools) when its tag is pushed:
+
+1. In `PSGPOTools/PSGPOTools.psd1`, `ModuleVersion` (and `Prerelease`, `alpha` while the module is
+   one); in `CHANGELOG.md`, the changes under `## <ModuleVersion> - <Prerelease>` (`## 0.1.2 - alpha`).
+2. Check it: `./CI/03_Build.ps1; ./CI/04_Publish.ps1 -Tag v0.1.2-alpha` (without `-ApiKey`, nothing is sent).
+3. Tag the commit and push the tag: `git tag v0.1.2-alpha; git push origin v0.1.2-alpha`.
+
+The Release workflow (`.github/workflows/release.yml`) runs every test of the CI on the tagged
+commit, then `CI/04_Publish.ps1`: the tag must be the version of the manifest, the version must have
+its section in the changelog and not be on the gallery yet. It publishes the module without the
+Avalonia runtime (downloaded at the first window), then creates the release of GitHub with the notes
+of the changelog. The API key is the secret `PSGALLERY_API_KEY` of the environment `psgallery` of the
+repository (Settings > Environments), whose rules (a reviewer to approve) apply before it is given.
+
 ### Pull requests
 
 - One goal per pull request, with what it changes and why.

@@ -26,6 +26,14 @@ Describe 'Module manifest' {
         $Data.LicenseUri | Should -BeLike 'https://github.com/JM2K69/PSGPOTools/*LICENSE'
         $Data.ReleaseNotes | Should -Be 'https://jm2k69.github.io/PSGPOTools/en/changelog/' -Because 'the Changelog page of the site, made from CHANGELOG.md'
     }
+
+    It 'Has a section of CHANGELOG.md for its version, which the release publishes' {
+        $Data = Import-PowerShellDataFile -Path $ModuleManifest
+        $Prerelease = "$($Data.PrivateData.PSData.Prerelease)".Trim()
+        $Heading = '## {0}{1}' -f $Data.ModuleVersion, $(if ($Prerelease) { " - $Prerelease" })
+        $Changelog = Join-Path (Split-Path -Path (Split-Path -Path $ModuleManifest -Parent) -Parent) 'CHANGELOG.md'
+        @(Get-Content -LiteralPath $Changelog) | Should -Contain $Heading -Because 'CI/04_Publish.ps1 refuses a version without its notes'
+    }
 }
 
 Describe 'Commands that write' {
