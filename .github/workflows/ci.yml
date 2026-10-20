@@ -107,6 +107,8 @@ jobs:
     env:
       PSGPOTOOLS_TEST_LDAP_SERVER: dc.ci.test
       PSGPOTOOLS_TEST_LDAP_WRITE: '1'
+      # The scripts of the lab (docs/assets/scripts) run against this domain.
+      PSGPOTOOLS_TEST_LAB_SCRIPTS: '1'
       # A throwaway domain, only on this runner.
       CI_ADMIN_PASSWORD: 'Ci-Passw0rd-Samba'
     steps:

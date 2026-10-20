@@ -39,6 +39,12 @@ With `PSGPOTOOLS_TEST_LDAP_WRITE=1`, they create an OU and GPOs named `PSGPOTool
 them, write their settings, delete and restore one, and delete everything they created at the end,
 whatever failed.
 
+With `PSGPOTOOLS_TEST_LAB_SCRIPTS=1` too (Linux), they run the Linux scripts of the
+[lab](../getting-started/lab.md), `New-PSGPOTierLab.ps1` and `Grant-PSGPOTierDelegation.ps1`, twice
+each: the OUs, groups and accounts of the tiers, the password of the lab (a Kerberos ticket of
+`tiers1`), the delegation of the links and Group Policy Creator Owners. They change the domain for
+good: the job `test-samba` of the CI sets it, on its throwaway domain only.
+
 The writes of an approval (`PSGPOTools.Hardening.tests.ps1`) are tested with mocks: their order
 (SYSVOL, the objects the GPO holds, then the GPO), the GPO left pending when SYSVOL fails, the
 permissions removed and reported. The whole workflow, which needs two accounts (Tier 0 and

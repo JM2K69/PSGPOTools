@@ -152,3 +152,7 @@ custom_fences = [
 custom_checkbox = true
 [project.markdown_extensions.pymdownx.tabbed]
 alternate_style = true
+# The scripts of docs/assets/scripts shown in the pages (--8<--), from the root of the repository.
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["."]
+check_paths = true
