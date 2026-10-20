@@ -1,6 +1,6 @@
 # Installation
 
-PSGPOTools est un module PowerShell. Il demande **PowerShell 7.4 ou plus** sur toutes les
+HGPM est un module PowerShell. Il demande **PowerShell 7.4 ou plus** sur toutes les
 plateformes ; le reste dépend de ce que vous en faites, et où.
 
 ## Le module
@@ -13,15 +13,15 @@ version sur la PowerShell Gallery) :
     ```powershell
     git clone -b avalonia https://github.com/JM2K69/PSGPOTools.git
     cd PSGPOTools
-    pwsh -File CI/03_Build.ps1          # construit PSGPOTools/PSGPOTools.psm1 depuis Code/
-    Import-Module ./PSGPOTools/PSGPOTools.psd1
+    pwsh -File CI/03_Build.ps1          # construit HGPM/HGPM.psm1 depuis Code/
+    Import-Module ./HGPM/HGPM.psd1
     ```
 
 === "PowerShell Gallery (une fois publié)"
 
     ```powershell
-    Install-Module PSGPOTools -Scope CurrentUser -AllowPrerelease   # versions alpha
-    Import-Module PSGPOTools
+    Install-Module HGPM -Scope CurrentUser -AllowPrerelease   # versions alpha
+    Import-Module HGPM
     ```
 
 ## Le runtime Avalonia
@@ -39,7 +39,7 @@ catalogue nuget.org) avant d'extraire quoi que ce soit, puis les met en place d'
   charge le module : depuis le dépôt, construisez-le d'abord (`CI/03_Build.ps1`).
 
 ```powershell
-./PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1 -Rid linux-x64
+./HGPM/Avalonia/Get-AvaloniaBinaries.ps1 -Rid linux-x64
 ```
 
 Les commandes qui n'ouvrent pas de fenêtre (sauvegardes, écart, approbation…) n'ont jamais besoin
@@ -124,8 +124,8 @@ même un ticket Kerberos.
 ## Vérifier l'installation
 
 ```powershell
-Import-Module PSGPOTools
-Get-Command -Module PSGPOTools        # les commandes publiques
+Import-Module HGPM
+Get-Command -Module HGPM        # les commandes publiques
 Get-PSGPODirectory -Server dc.hardenbox.labo | Select-Object DomainName, Account, Source
 ```
 

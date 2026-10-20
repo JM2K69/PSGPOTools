@@ -13,7 +13,7 @@
         - the manifest is valid (Test-ModuleManifest) and the module is built;
         - this version is not on the gallery yet (the gallery refuses a version twice).
 
-        The package is the folder PSGPOTools without the Avalonia runtime (Avalonia/bin): the console
+        The package is the folder HGPM without the Avalonia runtime (Avalonia/bin): the console
         downloads it the first time it opens, checked against its pinned SHA-512.
 
         Writes the notes of the version (its section of CHANGELOG.md) to -NotesPath, for the release
@@ -38,7 +38,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Path $PSScriptRoot -Parent
-$moduleName = 'PSGPOTools'
+$moduleName = 'HGPM'
 $source = Join-Path $root $moduleName
 $manifestPath = Join-Path $source "$moduleName.psd1"
 

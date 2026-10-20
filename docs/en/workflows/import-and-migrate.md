@@ -12,7 +12,7 @@ are replaced.
 - **GPMC**: `Backup-GPO`, or **Back Up...** in GPMC. A folder holds one folder per backup, named by
   its ID, with `bkupInfo.xml` (the GPO, its domain, when), `Backup.xml` (its accounts with their
   SID, name, type and domain, and its client-side extensions) and `DomainSysvol\GPO` (its files).
-- **PSGPOTools**: `Backup-PSGPO` or the History tab; the newest backup of each GPO.
+- **HGPM**: `Backup-PSGPO` or the History tab; the newest backup of each GPO.
 
 ```powershell
 Get-PSGPOGpmcBackup -Path C:\backupGPO

@@ -4,12 +4,12 @@
 # the levels read from a DACL as Samba and GPMC write it, the ACEs a change writes, the directory
 # in memory and over LDAP, and Get-/Set-PSGPOPermission.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     BeforeAll {
         $Domain = 'S-1-5-21-99285962-3314789183-2679996994'
         $Apply = [GPOToolsSecurityDescriptor]::ApplyGroupPolicy
@@ -148,7 +148,7 @@ InModuleScope -ModuleName PSGPOTools {
 
     Describe 'Permissions of the GPOs of a directory' {
         BeforeEach {
-            $Directory = Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Samples' 'Directory.sample.json')
+            $Directory = Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json')
             $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
         }
 

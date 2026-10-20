@@ -1,6 +1,6 @@
 # Security policy
 
-PSGPOTools writes the Group Policy of a domain: its permissions, its settings, the files of SYSVOL.
+HGPM writes the Group Policy of a domain: its permissions, its settings, the files of SYSVOL.
 A flaw in it can let an account change what applies to every computer of a domain, so security
 reports are handled first.
 

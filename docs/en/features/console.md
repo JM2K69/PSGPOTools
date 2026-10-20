@@ -83,6 +83,6 @@ Without a domain, the window shows `Samples/Directory.sample.json` under a banne
 domain with OUs, links and GPOs, to discover the console. Its changes stay in memory.
 
 ```powershell
-$Sample = Join-Path (Split-Path (Get-Module PSGPOTools).Path) 'Samples' 'Directory.sample.json'
+$Sample = Join-Path (Split-Path (Get-Module HGPM).Path) 'Samples' 'Directory.sample.json'
 Show-GPOManagerAvalonia -Directory (Import-PSGPODirectory -Path $Sample)
 ```

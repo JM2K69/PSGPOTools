@@ -55,7 +55,7 @@ Approve-PSGPO -Directory $Directory -Name 'T1 - Servers - Proxy' -ApplyTo 'APPLY
 | [`Get-PSGPODrift`](commands/get-psgpodrift.md) `-Path [-Name] [-Label]` | compares each GPO to its approved version: `InSync`, `Drifted`, `NotApproved` |
 | [`Get-PSGPOAuditLog`](commands/get-psgpoauditlog.md) `[-Path] [-Domain] [-Name] [-Action] [-Account] [-After] [-Before]` | what the consoles and the commands changed in the domain, newest first |
 | [`Get-PSGPOGpmcBackup`](commands/get-psgpogpmcbackup.md) `-Path [-Name]` | the backups of GPMC (`Backup-GPO`) of a folder |
-| [`Import-PSGPO`](commands/import-psgpo.md) `-Path -TargetName [-SourceName] [-BackupId] [-MigrationTable] [-Exclusive] [-CreateIfNeeded] [-BackupPath] [-NoBackup]` | imports the settings of a backup (GPMC or PSGPOTools) into a GPO, with a migration table |
+| [`Import-PSGPO`](commands/import-psgpo.md) `-Path -TargetName [-SourceName] [-BackupId] [-MigrationTable] [-Exclusive] [-CreateIfNeeded] [-BackupPath] [-NoBackup]` | imports the settings of a backup (GPMC or HGPM) into a GPO, with a migration table |
 | [`Get-PSGPOMigrationEntry`](commands/get-psgpomigrationentry.md) `-Path [-Name] [-IncludePermission]` | the accounts and UNC paths the settings of backups reference |
 | [`New-PSGPOMigrationTable`](commands/new-psgpomigrationtable.md) `-Path -BackupPath [-Name] [-IncludePermission] [-MapByRelativeName] [-Force]` | writes a migration table (`.migtable`) for backups, as GPMC writes it |
 | [`Get-PSGPOMigrationTable`](commands/get-psgpomigrationtable.md) `-Path` | reads a migration table of GPMC, checked |
@@ -70,7 +70,7 @@ Get-PSGPODrift -Path /srv/gpo-backups | Where-Object State -EQ 'Drifted' | ForEa
 | Command | Does |
 |---|---|
 | [`Initialize-PSGPOAdmx`](commands/initialize-psgpoadmx.md) `-Path [-UICulture]` | loads the ADMX and ADML files of a folder (local PolicyDefinitions or the central store) |
-| [`Install-PSGPOAdmx`](commands/install-psgpoadmx.md) `[-UICulture] [-AllLanguages] [-Path] [-CentralStore] [-Ref] [-Force]` | downloads the ADMX files of PSGPOTools from GitHub (checked), into a folder or the central store of the domain |
+| [`Install-PSGPOAdmx`](commands/install-psgpoadmx.md) `[-UICulture] [-AllLanguages] [-Path] [-CentralStore] [-Ref] [-Force]` | downloads the ADMX files of HGPM from GitHub (checked), into a folder or the central store of the domain |
 | [`Get-PSGPOPolicy`](commands/get-psgpopolicy.md) `[-Scope Machine\|User]` | the policies loaded |
 | [`Get-PSGPOCategory`](commands/get-psgpocategory.md) | their categories |
 | [`Get-PSGPOSupportedOn`](commands/get-psgposupportedon.md) | the platforms they support |

@@ -2,6 +2,10 @@
 
 ## 0.1.2 - alpha
 
+### Changed
+
+* The module is named HGPM (`Install-Module HGPM`, `Import-Module HGPM`, the folder `HGPM` with `HGPM.psd1`): the name PSGPOTools is taken on the PowerShell Gallery by its first versions. The commands keep their names (`Get-PSGPODirectory`...), and so do the data: the configuration of the domain in `SYSVOL\<domain>\PSGPOTools`, the backups and their formats, the folders of the user, the variables `PSGPOTOOLS_*`, the repository and the documentation site
+
 ### Added
 
 * Documentation: enabling the approval workflow of the domain step by step in the Settings window (Workflow.Enabled, Workflow.Creators with the groups of the scripts of the lab), with its screenshots, those of the French pages in the French interface

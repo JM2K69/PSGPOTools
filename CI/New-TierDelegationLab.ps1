@@ -32,9 +32,9 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-Import-Module (Join-Path $PSScriptRoot '..' 'PSGPOTools' 'PSGPOTools.psd1') -Force
+Import-Module (Join-Path $PSScriptRoot '..' 'HGPM' 'HGPM.psd1') -Force
 
-& (Get-Module PSGPOTools) {
+& (Get-Module HGPM) {
     param($Server)
     $ErrorActionPreference = 'Stop'
 

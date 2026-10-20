@@ -1,5 +1,5 @@
 <#
-    Window of the configuration of PSGPOTools (Get-PSGPOConfiguration), opened from the console:
+    Window of the configuration of HGPM (Get-PSGPOConfiguration), opened from the console:
     every setting with its value, its default and where the value comes from. A value is set
     (created or changed) for a setting, or removed (the default applies again); Save writes the
     configuration of the domain (SYSVOL\<domain>\PSGPOTools\Configuration.psd1) with the values

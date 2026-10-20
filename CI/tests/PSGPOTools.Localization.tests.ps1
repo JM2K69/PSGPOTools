@@ -3,14 +3,14 @@
 # Language of the interface: every text of the code has its translation in each file of
 # Resources/Strings, with the same values ({0}...), and the windows parse once translated.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     # Evaluated during discovery, here: the variables of BeforeDiscovery are not visible in InModuleScope.
-    $Languages = @(Get-ChildItem (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Resources' 'Strings') -Filter '*.psd1' | ForEach-Object { @{ Language = $_.BaseName; File = $_.FullName } })
+    $Languages = @(Get-ChildItem (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Resources' 'Strings') -Filter '*.psd1' | ForEach-Object { @{ Language = $_.BaseName; File = $_.FullName } })
 
     Describe 'Texts of the interface' {
         BeforeAll {

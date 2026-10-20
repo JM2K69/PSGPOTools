@@ -1,6 +1,6 @@
-# PSGPOTools
+# HGPM
 
-**PSGPOTools** est une console de gestion des stratégies de groupe, dans l'esprit de GPMC, écrite
+**HGPM** est une console de gestion des stratégies de groupe, dans l'esprit de GPMC, écrite
 en PowerShell 7 avec une interface [Avalonia](https://avaloniaui.net/). Elle fonctionne sous
 **Windows et Linux**, et gère aussi bien les GPO des domaines **Samba AD** que ceux d'**Active
 Directory**.

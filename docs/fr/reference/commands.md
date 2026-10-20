@@ -54,7 +54,7 @@ Approve-PSGPO -Directory $Directory -Name 'T1 - Servers - Proxy' -ApplyTo 'APPLY
 | [`Set-PSGPOBackup`](commands/set-psgpobackup.md) `-Backup [-Comment] [-AddLabel] [-RemoveLabel] [-Approve] [-Unapprove]` | modifie les notes d'une sauvegarde |
 | [`Get-PSGPODrift`](commands/get-psgpodrift.md) `-Path [-Name] [-Label]` | compare chaque GPO à sa version approuvée : `InSync`, `Drifted`, `NotApproved` |
 | [`Get-PSGPOGpmcBackup`](commands/get-psgpogpmcbackup.md) `-Path [-Name]` | les sauvegardes de GPMC (`Backup-GPO`) d'un dossier |
-| [`Import-PSGPO`](commands/import-psgpo.md) `-Path -TargetName [-SourceName] [-BackupId] [-MigrationTable] [-Exclusive] [-CreateIfNeeded] [-BackupPath] [-NoBackup]` | importe les paramètres d'une sauvegarde (GPMC ou PSGPOTools) dans une GPO, avec une table de migration |
+| [`Import-PSGPO`](commands/import-psgpo.md) `-Path -TargetName [-SourceName] [-BackupId] [-MigrationTable] [-Exclusive] [-CreateIfNeeded] [-BackupPath] [-NoBackup]` | importe les paramètres d'une sauvegarde (GPMC ou HGPM) dans une GPO, avec une table de migration |
 | [`Get-PSGPOMigrationEntry`](commands/get-psgpomigrationentry.md) `-Path [-Name] [-IncludePermission]` | les comptes et chemins UNC que référencent les paramètres de sauvegardes |
 | [`New-PSGPOMigrationTable`](commands/new-psgpomigrationtable.md) `-Path -BackupPath [-Name] [-IncludePermission] [-MapByRelativeName] [-Force]` | écrit une table de migration (`.migtable`) pour des sauvegardes, comme GPMC l'écrit |
 | [`Get-PSGPOMigrationTable`](commands/get-psgpomigrationtable.md) `-Path` | lit une table de migration de GPMC, vérifiée |
@@ -70,7 +70,7 @@ Get-PSGPODrift -Path /srv/gpo-backups | Where-Object State -EQ 'Drifted' | ForEa
 | Commande | Fait |
 |---|---|
 | [`Initialize-PSGPOAdmx`](commands/initialize-psgpoadmx.md) `-Path [-UICulture]` | charge les fichiers ADMX et ADML d'un dossier (PolicyDefinitions local ou magasin central) |
-| [`Install-PSGPOAdmx`](commands/install-psgpoadmx.md) `[-UICulture] [-AllLanguages] [-Path] [-CentralStore] [-Ref] [-Force]` | télécharge les fichiers ADMX de PSGPOTools depuis GitHub (vérifiés), dans un dossier ou le magasin central du domaine |
+| [`Install-PSGPOAdmx`](commands/install-psgpoadmx.md) `[-UICulture] [-AllLanguages] [-Path] [-CentralStore] [-Ref] [-Force]` | télécharge les fichiers ADMX de HGPM depuis GitHub (vérifiés), dans un dossier ou le magasin central du domaine |
 | [`Get-PSGPOPolicy`](commands/get-psgpopolicy.md) `[-Scope Machine\|User]` | les stratégies chargées |
 | [`Get-PSGPOCategory`](commands/get-psgpocategory.md) | leurs catégories |
 | [`Get-PSGPOSupportedOn`](commands/get-psgposupportedon.md) | les plateformes qu'elles prennent en charge |

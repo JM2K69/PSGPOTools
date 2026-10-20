@@ -4,24 +4,24 @@
 # Start-PSGPOManagerWindow -OnShown hook), drives its controls, then the window closes.
 # They are skipped when the Avalonia runtime has not been staged with Get-AvaloniaBinaries.ps1.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     # Evaluated during discovery, here and not in BeforeDiscovery: InModuleScope runs this block
     # in the module scope, where the variables of the test file are not visible (-Skip:$null).
     $Rid = Get-PSGPOAvaloniaRid
-    $AvaloniaMissing = -not (Test-Path (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Avalonia' 'bin' $Rid 'Avalonia.dll'))
+    $AvaloniaMissing = -not (Test-Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Avalonia' 'bin' $Rid 'Avalonia.dll'))
     if ($AvaloniaMissing) {
-        Write-Warning "Avalonia runtime not staged for ${Rid}: GUI tests skipped (run PSGPOTools/Avalonia/Get-AvaloniaBinaries.ps1)."
+        Write-Warning "Avalonia runtime not staged for ${Rid}: GUI tests skipped (run HGPM/Avalonia/Get-AvaloniaBinaries.ps1)."
     }
 
     BeforeAll {
         $PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path
         # Root BeforeAll also runs when every test is skipped: only load the ADMX for the GUI tests.
-        $AvaloniaDll = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Avalonia' 'bin' (Get-PSGPOAvaloniaRid) 'Avalonia.dll'
+        $AvaloniaDll = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Avalonia' 'bin' (Get-PSGPOAvaloniaRid) 'Avalonia.dll'
         if (Test-Path $AvaloniaDll) {
             Initialize-PSGPOAdmx -Path $PolicyDefinitions -UICulture 'en-US' 3>$null
         }
@@ -352,7 +352,7 @@ InModuleScope -ModuleName PSGPOTools {
 
     Describe 'Group Policy Management view' -Skip:$AvaloniaMissing {
         BeforeAll {
-            $SamplePath = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Samples' 'Directory.sample.json'
+            $SamplePath = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json'
             . (Join-Path $PSScriptRoot 'Fixtures' 'LdapDirectory.ps1')
 
             # Node of the domain tree at a path of headers, from the domain.
@@ -871,7 +871,7 @@ InModuleScope -ModuleName PSGPOTools {
                 Start-PSGPOManagerWindow -Directory $Directory -OnShown {
                     param($Ui)
                     $Ui.configurationButton.IsEnabled | Should -BeFalse
-                    [Avalonia.Controls.ToolTip]::GetTip($Ui.configurationButton) | Should -Be 'Only the administrators of the domain change the configuration of PSGPOTools'
+                    [Avalonia.Controls.ToolTip]::GetTip($Ui.configurationButton) | Should -Be 'Only the administrators of the domain change the configuration of HGPM'
                     # Opened anyway, it shows the configuration without saving it.
                     $Settings = New-PSGPOConfigurationWindow -Directory $Directory
                     $Settings.Controls.saveButton.IsEnabled | Should -BeFalse

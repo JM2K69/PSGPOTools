@@ -12,7 +12,7 @@ Get-PSGPOMigrationEntry [-Path] <string> [[-Name] <string[]>] [-IncludePermissio
 
 ## Description
 
-As "Populate from Backup" of the Migration Table Editor of GPMC: for the backups of a folder (of GPMC or of PSGPOTools), each account (by its SID, or its name where the settings give a name) and each UNC path (\\server\share) of their security settings, preferences, scripts and folder redirection: its Type (User, Computer, LocalGroup, GlobalGroup, UniversalGroup, UNCPath, or Unknown for free text and SIDs), its Source as a migration table writes it, its SID, and the files and GPOs it is in.
+As "Populate from Backup" of the Migration Table Editor of GPMC: for the backups of a folder (of GPMC or of HGPM), each account (by its SID, or its name where the settings give a name) and each UNC path (\\server\share) of their security settings, preferences, scripts and folder redirection: its Type (User, Computer, LocalGroup, GlobalGroup, UniversalGroup, UNCPath, or Unknown for free text and SIDs), its Source as a migration table writes it, its SID, and the files and GPOs it is in.
 
 ## Parameters
 

@@ -1,15 +1,15 @@
-# Documentation of PSGPOTools, in English: https://jm2k69.github.io/PSGPOTools/en/
+# Documentation of HGPM, in English: https://jm2k69.github.io/PSGPOTools/en/
 # The French one is zensical.fr.toml. Both are built by .github/workflows/docs.yml, which also
 # copies docs/assets (the screenshots, shared) into each of them:
 #   zensical build --clean                          (docs/en -> site/en)
 #   zensical build --clean -f zensical.fr.toml      (docs/fr -> site/fr)
 
 [project]
-site_name = "PSGPOTools"
+site_name = "HGPM"
 site_description = "Group Policy management console for Samba AD and Active Directory, on Windows and Linux, in PowerShell 7 and Avalonia."
 site_author = "JM2K69"
 site_url = "https://jm2k69.github.io/PSGPOTools/en/"
-copyright = "&copy; JM2K69 and the PSGPOTools contributors"
+copyright = "&copy; JM2K69 and the HGPM contributors"
 repo_url = "https://github.com/JM2K69/PSGPOTools"
 repo_name = "JM2K69/PSGPOTools"
 # The branch of the "Edit" links: avalonia until it is merged into the main branch, then that one.

@@ -1,11 +1,12 @@
-# PSGPOTools
+# HGPM
 
 [![CI](https://github.com/JM2K69/PSGPOTools/actions/workflows/ci.yml/badge.svg)](https://github.com/JM2K69/PSGPOTools/actions/workflows/ci.yml)
 [![Documentation](https://github.com/JM2K69/PSGPOTools/actions/workflows/docs.yml/badge.svg)](https://jm2k69.github.io/PSGPOTools/)
 
-**PSGPOTools** is a Group Policy management console, in the spirit of GPMC, written in
+**HGPM** is a Group Policy management console, in the spirit of GPMC, written in
 PowerShell 7 with an [Avalonia](https://avaloniaui.net/) interface. It runs on **Windows and
 Linux**, and manages the GPOs of **Samba AD** and **Windows Active Directory** domains alike.
+It was named PSGPOTools: the module is published on the PowerShell Gallery as `HGPM`.
 
 **Documentation: <https://jm2k69.github.io/PSGPOTools/>** ([français](https://jm2k69.github.io/PSGPOTools/fr/))
 
@@ -38,8 +39,8 @@ its first release on the PowerShell Gallery:
 ```powershell
 git clone -b avalonia https://github.com/JM2K69/PSGPOTools.git
 cd PSGPOTools
-pwsh -File CI/03_Build.ps1          # builds PSGPOTools/PSGPOTools.psm1 from Code/
-Import-Module ./PSGPOTools/PSGPOTools.psd1
+pwsh -File CI/03_Build.ps1          # builds HGPM/HGPM.psm1 from Code/
+Import-Module ./HGPM/HGPM.psd1
 Show-GPOManagerAvalonia             # the domain of the computer, or -Server dc.example.com
 ```
 
@@ -51,7 +52,7 @@ package checked against its pinned SHA-512. What each platform needs (RSAT on Wi
 ## Development
 
 The sources are in `Code/` (classes, private and public functions); `CI/03_Build.ps1`
-concatenates them into `PSGPOTools/PSGPOTools.psm1`, which is not versioned. The tests need
+concatenates them into `HGPM/HGPM.psm1`, which is not versioned. The tests need
 Pester 5.5+:
 
 ```powershell

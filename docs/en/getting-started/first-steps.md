@@ -3,7 +3,7 @@
 ## Open the console on your domain
 
 ```powershell
-Import-Module PSGPOTools
+Import-Module HGPM
 Show-GPOManagerAvalonia
 ```
 

@@ -1,6 +1,6 @@
 # Install-PSGPOAdmx
 
-Downloads the ADMX files of PSGPOTools from GitHub: into a folder, or to create the central store of the domain.
+Downloads the ADMX files of HGPM from GitHub: into a folder, or to create the central store of the domain.
 
 _L'aide de la commande, telle que `Get-Help Install-PSGPOAdmx -Full` la donne (en anglais)._
 

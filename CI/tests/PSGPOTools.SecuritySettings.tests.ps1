@@ -4,12 +4,12 @@
 # of the settings (Get-PSGPOSecuritySetting), their values and the Settings report. The fixtures
 # are the GptTmpl.inf of the default GPOs of a Samba 4.22 domain.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     BeforeAll {
         $Fixtures = Join-Path $PSScriptRoot 'Fixtures'
         $DefaultDomain = Join-Path $Fixtures 'GptTmpl.DefaultDomainPolicy.samba.inf'

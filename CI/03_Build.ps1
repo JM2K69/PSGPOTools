@@ -1,13 +1,13 @@
 #Requires -Version 7.4
-# PSGPOTools runs on PowerShell 7.4+ (pwsh), not Windows PowerShell 5.1 (powershell.exe).
+# HGPM runs on PowerShell 7.4+ (pwsh), not Windows PowerShell 5.1 (powershell.exe).
 Write-Host "[BUILD][START] Launching Build Process" -ForegroundColor RED -BackgroundColor White
 
 # Retrieve parent folder
 $Current = (Split-Path -Path $MyInvocation.MyCommand.Path)
 $Root = ((Get-Item $Current).Parent).FullName
-# The module is PSGPOTools whatever the folder of the repository is called (a GitHub archive is
+# The module is HGPM whatever the folder of the repository is called (a GitHub archive is
 # extracted as PSGPOTools-<branch>, a worktree can have any name).
-$ModuleName = 'PSGPOTools'
+$ModuleName = 'HGPM'
 Write-Host "[BUILD][START] Working on module $($ModuleName)" -ForegroundColor RED -BackgroundColor White
 
 $ModuleFolderPath = Join-Path -Path $Root -ChildPath $ModuleName

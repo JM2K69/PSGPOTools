@@ -1,5 +1,5 @@
 <#
-    Configuration of PSGPOTools: Resources/Configuration.psd1 of the module (every key, with its
+    Configuration of HGPM: Resources/Configuration.psd1 of the module (every key, with its
     default), then the configuration of the domain, which only holds the keys it changes:
     Configuration.psd1 in SYSVOL\<domain>\PSGPOTools on the domain controller the console reads
     the domain from (GPOToolsDirectory.ReadConfigurationFile). One configuration for every
@@ -292,7 +292,7 @@ function Save-PSGPODomainConfiguration {
     $path = $Directory.GetConfigurationPath()
     if (-not $PSCmdlet.ShouldProcess($path, 'Save the configuration of the domain')) { return }
     $by = if ($Directory.Account) { $Directory.Account } else { [Environment]::UserName }
-    $text = "# Configuration of PSGPOTools for the domain $($Directory.DomainName), for every console of the domain:`r`n" +
+    $text = "# Configuration of HGPM for the domain $($Directory.DomainName), for every console of the domain:`r`n" +
         "# the settings changed from the defaults of the module (Get-PSGPOConfiguration shows them all).`r`n" +
         "# Written by $by with the console; read as data.`r`n" +
         (ConvertTo-PSGPODataText -Data $override) + "`r`n"

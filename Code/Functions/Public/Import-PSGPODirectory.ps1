@@ -19,7 +19,7 @@ function Import-PSGPODirectory {
     .PARAMETER Path
         Path of the JSON file.
     .EXAMPLE
-        $Directory = Import-PSGPODirectory -Path (Join-Path (Split-Path (Get-Module PSGPOTools).Path) 'Samples' 'Directory.sample.json')
+        $Directory = Import-PSGPODirectory -Path (Join-Path (Split-Path (Get-Module HGPM).Path) 'Samples' 'Directory.sample.json')
         Show-GPOManagerAvalonia -Directory $Directory
     .LINK
         https://jm2k69.github.io/PSGPOTools/en/reference/commands/import-psgpodirectory/

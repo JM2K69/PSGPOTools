@@ -14,7 +14,7 @@ Get-PSGPODirectory [[-Server] <string>] [[-Credential] <pscredential>] [[-Port] 
 
 Reads the domain as GPMC shows it: the domain and its organizational units with their GPO links (gPLink, by link order, enforced and disabled links) and blocked inheritance (gPOptions), and the group policy containers (GPOs). Works with Windows and Samba domain controllers, from Windows and Linux, through System.DirectoryServices.Protocols.
 
-The configuration of PSGPOTools for the domain (Get-PSGPOConfiguration: SYSVOL\<domain>\ PSGPOTools\Configuration.psd1) is read with it, and used from then on.
+The configuration of HGPM for the domain (Get-PSGPOConfiguration: SYSVOL\<domain>\ PSGPOTools\Configuration.psd1) is read with it, and used from then on.
 
 Its changes are written to the domain: NewGpo creates a GPO with New-GPO of RSAT on Windows (the GroupPolicy module), with samba-tool on Linux (Kerberos), NewLink links a GPO to the domain or an OU over LDAP. Pass it to Show-GPOManagerAvalonia -Directory to manage it in the window.
 

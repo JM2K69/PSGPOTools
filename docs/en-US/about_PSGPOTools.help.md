@@ -1,4 +1,4 @@
-# PSGPOTools
+# HGPM
 ## about_PSGPOTools
 
 ```

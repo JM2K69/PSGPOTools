@@ -3,14 +3,14 @@
 # Group Policy Management model (proof of concept): the domain read from JSON by
 # Import-PSGPODirectory, GPO creation and links, the tree and the details of the view.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     BeforeAll {
-        $SamplePath = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Samples' 'Directory.sample.json'
+        $SamplePath = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json'
 
         function Find-Som {
             param([GPOToolsDirectory]$Directory, [string]$DistinguishedName)
@@ -251,7 +251,7 @@ class FailingDirectory : GPOToolsDirectory {
 
     Describe 'Icons' {
         It 'Ships every icon the code uses, under the MIT license of Fluent UI System Icons' {
-            $IconFolder = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Resources' 'Icons'
+            $IconFolder = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Resources' 'Icons'
             Get-Content (Join-Path $IconFolder 'LICENSE') -TotalCount 1 | Should -Be 'MIT License'
             $Shipped = @(Get-PSGPOIconName)
             $Code = Get-ChildItem (Join-Path $PSScriptRoot '..' '..' 'Code') -Recurse -Filter *.ps1 | Get-Content -Raw

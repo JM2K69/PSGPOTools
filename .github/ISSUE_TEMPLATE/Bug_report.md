@@ -29,7 +29,7 @@ If applicable, add screenshots or PowerShell transcripts to help explain your pr
 
 **System Details**
 
-- PSGPOTools version or commit:
+- HGPM version or commit:
 - PowerShell version (`$PSVersionTable.PSVersion`):
 - The console runs on: [Windows | Linux] and its version
 - The domain controller: [Samba AD (`samba -V`) | Windows Server] and its version

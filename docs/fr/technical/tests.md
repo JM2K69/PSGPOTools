@@ -68,7 +68,7 @@ La page de chaque commande publique (`docs/<langue>/reference/commands/`, et son
 les pages sont celles de l'aide.
 
 `Install-PSGPOAdmx` télécharge `sources/PolicyDefinitions` depuis GitHub et n'installe que les fichiers
-qu'épingle `PSGPOTools/Resources/PolicyDefinitions.json` (chaque ensemble, les `.admx` et chaque langue :
+qu'épingle `HGPM/Resources/PolicyDefinitions.json` (chaque ensemble, les `.admx` et chaque langue :
 son nombre de fichiers et un SHA-256, fins de ligne et casse des noms mises à part). Après un changement de
 `sources/PolicyDefinitions`, `CI/Update-AdmxCatalog.ps1` réécrit le catalogue ; un test le vérifie.
 

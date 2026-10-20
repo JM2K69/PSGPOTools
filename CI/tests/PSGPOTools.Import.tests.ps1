@@ -5,12 +5,12 @@
 # Migration Table Editor with each kind of destination), and a backup of GPMC with settings that
 # reference accounts and UNC paths, migrated into a domain in memory.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     BeforeAll {
         $Fixture = Join-Path $PSScriptRoot 'Fixtures' 'GpmcBackup'
         $Lab = 'S-1-5-21-204864384-581126797-2929775416'
@@ -259,8 +259,8 @@ InModuleScope -ModuleName PSGPOTools {
                 Should -Be 'Default Domain Policy'
         }
 
-        It 'Imports a backup of PSGPOTools into another GPO' {
-            $Sample = Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Samples' 'Directory.sample.json')
+        It 'Imports a backup of HGPM into another GPO' {
+            $Sample = Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json')
             $Gpo = $Sample.FindGpo('C - Servers - Security Baseline')
             $Sample.WriteSecurityTemplate($Gpo, $Unicode.GetPreamble() + $Unicode.GetBytes("[Unicode]`r`nUnicode=yes`r`n[System Access]`r`nMinimumPasswordLength = 14`r`n[Version]`r`nsignature=""`$CHICAGO`$""`r`nRevision=1`r`n"))
             $Own = Join-Path $TestDrive "own-$([guid]::NewGuid())"

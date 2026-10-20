@@ -5,12 +5,12 @@
 # the classes it may create in CN=Policies. A technician sees the OUs where it links GPOs, their
 # parents as the path to them, and the GPOs it edits or that are linked to its OUs.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Fixtures' 'LdapDirectory.ps1')
 

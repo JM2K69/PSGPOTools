@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Generates PSGPOTools/Resources/SecurityOptions.json, the catalog of the Security Options
+    Generates HGPM/Resources/SecurityOptions.json, the catalog of the Security Options
     stored as registry values in GptTmpl.inf ([Registry Values]).
 .DESCRIPTION
     Reads the catalog the Group Policy editor builds its Security Options from: the registry key
@@ -22,7 +22,7 @@
 [CmdletBinding()]
 param(
     [switch]$FromInf,
-    [string]$OutputPath = (Join-Path $PSScriptRoot '..' 'PSGPOTools' 'Resources' 'SecurityOptions.json')
+    [string]$OutputPath = (Join-Path $PSScriptRoot '..' 'HGPM' 'Resources' 'SecurityOptions.json')
 )
 
 if (-not $IsWindows) { throw 'Windows only: the catalog and its display names come from Windows.' }

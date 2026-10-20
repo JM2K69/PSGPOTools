@@ -13,7 +13,7 @@ d'AGPM dans une GPO existante, dont les paramètres sont remplacés.
   sauvegarde, nommé par son ID, avec `bkupInfo.xml` (la GPO, son domaine, la date), `Backup.xml`
   (ses comptes avec leur SID, nom, type et domaine, et ses extensions côté client) et
   `DomainSysvol\GPO` (ses fichiers).
-- **PSGPOTools** : `Backup-PSGPO` ou l'onglet Historique ; la sauvegarde la plus récente de chaque
+- **HGPM** : `Backup-PSGPO` ou l'onglet Historique ; la sauvegarde la plus récente de chaque
   GPO.
 
 ```powershell

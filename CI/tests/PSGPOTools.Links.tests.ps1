@@ -4,14 +4,14 @@
 # Inheritance, the status of a GPO; on a directory in memory, the gPLink a domain gets, and the
 # commands.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     BeforeAll {
-        $SamplePath = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Samples' 'Directory.sample.json'
+        $SamplePath = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json'
         $Users = 'OU=Users,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com'
         function Get-Order { param($Som) @($Som.Links | Sort-Object Order | ForEach-Object { $_.GetDisplayName() }) }
     }

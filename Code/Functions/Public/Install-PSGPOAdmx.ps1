@@ -1,7 +1,7 @@
 function Install-PSGPOAdmx {
     <#
     .SYNOPSIS
-        Downloads the ADMX files of PSGPOTools from GitHub: into a folder, or to create the central store of the domain.
+        Downloads the ADMX files of HGPM from GitHub: into a folder, or to create the central store of the domain.
     .DESCRIPTION
         The module does not ship ADMX files: the console reads those of the central store of the
         domain, of Windows (%windir%\PolicyDefinitions) or of the SYSVOL of a Samba domain
@@ -87,7 +87,7 @@ function Install-PSGPOAdmx {
         if ($Directory -isnot [GPOToolsLdapDirectory]) { throw 'The central store is in SYSVOL: read the domain from a domain controller (Get-PSGPODirectory).' }
         $target = "\\$($Directory.Server)\SYSVOL\$($Directory.DomainName)\Policies\PolicyDefinitions"
         if ((Test-PSGPOAdmxCentralStore -Directory $Directory) -and -not $Force) {
-            throw "The central store of $($Directory.DomainName) has ADMX files ($target): give -Force to add those of PSGPOTools, the others kept."
+            throw "The central store of $($Directory.DomainName) has ADMX files ($target): give -Force to add those of HGPM, the others kept."
         }
     } else {
         if (-not $Path) {
@@ -108,7 +108,7 @@ function Install-PSGPOAdmx {
         }
         $target = [System.IO.Path]::GetFullPath($Path)
         if ((Get-ChildItem -LiteralPath $target -File -Filter '*.admx' -ErrorAction SilentlyContinue | Select-Object -First 1) -and -not $Force) {
-            throw "ADMX files are already in '$target': give -Force to write those of PSGPOTools, the others kept."
+            throw "ADMX files are already in '$target': give -Force to write those of HGPM, the others kept."
         }
     }
     $uri = "https://github.com/JM2K69/PSGPOTools/archive/$Ref.zip"

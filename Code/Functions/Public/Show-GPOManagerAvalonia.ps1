@@ -64,7 +64,7 @@ function Show-GPOManagerAvalonia {
         kinit administrator@HARDENBOX.LABO
         Show-GPOManagerAvalonia -Server dc.hardenbox.labo
     .EXAMPLE
-        $Sample = Join-Path (Split-Path (Get-Module PSGPOTools).Path) 'Samples' 'Directory.sample.json'
+        $Sample = Join-Path (Split-Path (Get-Module HGPM).Path) 'Samples' 'Directory.sample.json'
         Show-GPOManagerAvalonia -Directory (Import-PSGPODirectory -Path $Sample)
     .LINK
         https://jm2k69.github.io/PSGPOTools/en/reference/commands/show-gpomanageravalonia/
@@ -106,7 +106,7 @@ function Show-GPOManagerAvalonia {
         if ($UICulture) { $admx.UICulture = $UICulture }
         Initialize-PSGPOAdmx @admx -WarningAction SilentlyContinue
     } elseif ([GPOToolsUtility]::Policies.Count -eq 0 -and -not (Show-PSGPOAdmxWindow)) {
-        Write-Warning 'No ADMX file loaded: the console is not opened. Choose a PolicyDefinitions folder, give -PolicyDefinitions, or download the ADMX files of PSGPOTools with Install-PSGPOAdmx.'
+        Write-Warning 'No ADMX file loaded: the console is not opened. Choose a PolicyDefinitions folder, give -PolicyDefinitions, or download the ADMX files of HGPM with Install-PSGPOAdmx.'
         return
     }
 

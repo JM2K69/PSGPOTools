@@ -4,12 +4,12 @@
 # GPO and its GPO status. The fixture is the security descriptor of the Default Domain Policy of a
 # Samba 4.22 domain, as read over LDAP (owner, group, DACL).
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     BeforeAll {
         $DefaultDomainPolicy = [Convert]::FromHexString(
             '010004901400000030000000000000004C000000010500000000000515000000CAFBEA053FAB93C54282BD9F00020000010500000000000515000000CAFBEA05' +

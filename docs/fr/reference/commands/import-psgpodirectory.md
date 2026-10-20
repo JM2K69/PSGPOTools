@@ -39,7 +39,7 @@ Path of the JSON file.
 ### Exemple 1
 
 ```powershell
-$Directory = Import-PSGPODirectory -Path (Join-Path (Split-Path (Get-Module PSGPOTools).Path) 'Samples' 'Directory.sample.json')
+$Directory = Import-PSGPODirectory -Path (Join-Path (Split-Path (Get-Module HGPM).Path) 'Samples' 'Directory.sample.json')
 Show-GPOManagerAvalonia -Directory $Directory
 ```
 

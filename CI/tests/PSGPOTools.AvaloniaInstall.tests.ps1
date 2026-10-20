@@ -3,12 +3,12 @@
 # The Avalonia runtime installed on first use: the pinned packages, where the runtime goes, and
 # the checks of a download. nuget.org is not reached: Invoke-WebRequest serves local packages.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     BeforeAll {
         # A package of the test: a zip with the given entries, and its SHA-512 as NuGet gives it.
         function New-TestPackage {
@@ -47,7 +47,7 @@ InModuleScope -ModuleName PSGPOTools {
 
         It 'Looks for the runtime in the module, then in the data folder of the user' {
             $Folders = @(Get-PSGPOAvaloniaFolder -Rid linux-x64)
-            $Folders[0] | Should -Be (Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'Avalonia' 'bin' 'linux-x64' | ForEach-Object { [System.IO.Path]::GetFullPath($_) })
+            $Folders[0] | Should -Be (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Avalonia' 'bin' 'linux-x64' | ForEach-Object { [System.IO.Path]::GetFullPath($_) })
             $Folders[1] | Should -BeLike "*PSGPOTools*Avalonia*11.2.3*linux-x64"
             $Empty = Join-Path $TestDrive 'empty'
             $Full = Join-Path $TestDrive 'full'

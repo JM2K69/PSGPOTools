@@ -4,12 +4,12 @@
 # written to its entries (Get-PSGPOPolicyState / Set-PSGPOPolicyState).
 # Every policy of the ADMX set is checked with PSGPOTOOLS_TEST_ALL_POLICIES=1, one in eight otherwise.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     BeforeAll {
         $PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path
         Initialize-PSGPOAdmx -Path $PolicyDefinitions -UICulture 'en-US' 3>$null

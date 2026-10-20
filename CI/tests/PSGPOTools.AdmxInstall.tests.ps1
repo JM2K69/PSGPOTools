@@ -5,12 +5,12 @@
 # from an archive like the one of GitHub (the download mocked), into a folder or the central store.
 # The copy into a real SYSVOL is tested in PSGPOTools.Ldap.tests.ps1.
 BeforeDiscovery {
-    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'PSGPOTools' 'PSGPOTools.psd1'
-    Get-Module PSGPOTools | Remove-Module -Force
+    $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+    Get-Module HGPM | Remove-Module -Force
     Import-Module $ModuleManifest -Force
 }
 
-InModuleScope -ModuleName PSGPOTools {
+InModuleScope -ModuleName HGPM {
     BeforeAll {
         $Sources = Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions'
         # A small PolicyDefinitions folder: two .admx files, en-US and fr-FR.

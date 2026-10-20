@@ -22,9 +22,9 @@ param([string]$OutputPath)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Path $PSScriptRoot -Parent
 $site = 'https://jm2k69.github.io/PSGPOTools'
-$manifest = Join-Path $root 'PSGPOTools' 'PSGPOTools.psd1'
+$manifest = Join-Path $root 'HGPM' 'HGPM.psd1'
 Import-Module $manifest -Force
-$module = Get-Module PSGPOTools
+$module = Get-Module HGPM
 $names = @($module.ExportedFunctions.Keys | Sort-Object)
 
 $text = @{
