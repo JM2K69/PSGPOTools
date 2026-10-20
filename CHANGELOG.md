@@ -1,5 +1,15 @@
 # HGPM Release History
 
+## Unreleased
+
+### Added
+
+* `Test-PSGPOUpdate`: tells whether a newer version of HGPM is published on the PowerShell Gallery (Find-PSResource), comparing the version loaded with the latest as semantic versions (a prerelease before its release; the prereleases counted when the version loaded is one, or with -Prerelease), and gives the command that installs it (Update-PSResource, or Install-PSResource for a module not installed from the Gallery); -Quiet returns $true or $false. Documentation: Getting started > Installation > Updates
+
+### Changed
+
+* Documentation: the module is installed with PSResourceGet (`Install-PSResource -Name HGPM -Prerelease`, `Update-PSResource`), the module of PowerShell 7.4 that replaces PowerShellGet (`Install-Module`); the PowerShell Gallery is the first way in the installation page and in the README
+
 ## 0.1.4 - alpha
 
 ### Changed

@@ -7,6 +7,20 @@ plateformes ; le reste dépend de ce que vous en faites, et où.
 
 Installez-le depuis la PowerShell Gallery, ou construisez-le depuis le dépôt (la branche `master`) :
 
+=== "PowerShell Gallery"
+
+    Avec PSResourceGet, le module de PowerShell 7.4 et suivants qui remplace PowerShellGet
+    (`Install-Module`) :
+
+    ```powershell
+    Install-PSResource -Name HGPM -Prerelease -Scope CurrentUser   # versions alpha
+    Import-Module HGPM
+    ```
+
+    `-Prerelease` tant que HGPM n'a que des versions alpha. Plus tard,
+    `Update-PSResource -Name HGPM -Prerelease` installe une version plus récente
+    ([mises à jour](#mises-a-jour)).
+
 === "Depuis le dépôt"
 
     ```powershell
@@ -14,13 +28,6 @@ Installez-le depuis la PowerShell Gallery, ou construisez-le depuis le dépôt (
     cd PSGPOTools
     pwsh -File CI/03_Build.ps1          # construit HGPM/HGPM.psm1 depuis Code/
     Import-Module ./HGPM/HGPM.psd1
-    ```
-
-=== "PowerShell Gallery (une fois publié)"
-
-    ```powershell
-    Install-Module HGPM -Scope CurrentUser -AllowPrerelease   # versions alpha
-    Import-Module HGPM
     ```
 
 ## Le runtime Avalonia
@@ -130,3 +137,25 @@ Get-PSGPODirectory -Server dc.hardenbox.labo | Select-Object DomainName, Account
 
 La barre d'état de la fenêtre dit aussi ce que la console a trouvé : cet ordinateur, son domaine,
 le contrôleur de domaine et son service d'annuaire.
+
+## Mises à jour
+
+`Test-PSGPOUpdate` dit si une version plus récente de HGPM est publiée sur la PowerShell Gallery,
+et donne la commande qui l'installe. Elle compare la version chargée à la dernière de la Gallery
+comme des versions sémantiques : `0.1.4-alpha` passe avant `0.1.4-beta`, elle-même avant `0.1.4`.
+Les préversions comptent quand la version chargée en est une (ou avec `-Prerelease`).
+
+```powershell
+Test-PSGPOUpdate
+# Name             : HGPM
+# InstalledVersion : 0.1.4-alpha
+# LatestVersion    : 0.1.5-alpha
+# UpdateAvailable  : True
+# UpdateCommand    : Update-PSResource -Name HGPM -Prerelease
+
+if (Test-PSGPOUpdate -Quiet) { Update-PSResource -Name HGPM -Prerelease }
+```
+
+Un module construit depuis le dépôt se met à jour avec `git pull` et `CI/03_Build.ps1` ; la
+commande propose alors `Install-PSResource`, pour installer la version de la Gallery à côté. Les
+changements de chaque version sont dans le [journal des modifications](../changelog.md).

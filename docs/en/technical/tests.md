@@ -23,6 +23,7 @@ Invoke-Pester -Configuration $Config
 | `PSGPOTools.PasswordPolicy.tests.ps1` | the fine-grained password policies: the values of the directory, the checks, the PSO that applies and why, the commands |
 | `PSGPOTools.Gui.tests.ps1` | the real windows of both consoles (`-OnShown`) |
 | `PSGPOTools.Public.tests.ps1` | the commands exported |
+| `PSGPOTools.Update.tests.ps1` | the versions of HGPM and `Test-PSGPOUpdate` (the Gallery mocked) |
 
 ## Against a domain controller
 

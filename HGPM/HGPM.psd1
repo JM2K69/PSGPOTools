@@ -87,7 +87,8 @@ FunctionsToExport = 'Add-PSGPOFineGrainedPasswordPolicySubject', 'Approve-PSGPO'
                'Remove-PSGPOWmiFilter', 'Restore-PSGPO', 'Set-PSGPO', 
                'Set-PSGPOBackup', 'Set-PSGPOFineGrainedPasswordPolicy', 
                'Set-PSGPOInheritance', 'Set-PSGPOLink', 'Set-PSGPOPermission', 
-               'Show-GPOManagerAvalonia', 'Show-PSOManagerAvalonia'
+               'Show-GPOManagerAvalonia', 'Show-PSOManagerAvalonia', 
+               'Test-PSGPOUpdate'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()

@@ -80,6 +80,12 @@ Initialize-PSGPOAdmx -Path C:\Windows\PolicyDefinitions -UICulture en-US
 Get-PSGPOPolicy -Scope Machine | Where-Object DisplayName -Like '*biometrics*' | Select-Object DisplayName, Registry
 ```
 
+## The module
+
+| Command | Does |
+|---|---|
+| [`Test-PSGPOUpdate`](commands/test-psgpoupdate.md) `[-Prerelease] [-Quiet] [-Repository]` | tells whether a newer version of HGPM is on the PowerShell Gallery, and the command that installs it |
+
 ## Password policies
 
 | Command | Does |
