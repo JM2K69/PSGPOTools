@@ -112,10 +112,10 @@ PrivateData = @{
         LicenseUri = 'https://github.com/JM2K69/PSGPOTools/blob/master/LICENSE'
 
         # A URL to the main website for this project.
-        ProjectUri = 'https://github.com/JM2K69/PSGPOTools'
+        ProjectUri = 'https://jm2k69.github.io/PSGPOTools/'
 
         # A URL to an icon representing this module.
-        # IconUri = ''
+        IconUri = 'https://raw.githubusercontent.com/JM2K69/PSGPOTools/master/docs/assets/logo/hgpm.png'
 
         # ReleaseNotes of this module
         ReleaseNotes = 'https://jm2k69.github.io/PSGPOTools/en/changelog/'
