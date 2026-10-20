@@ -74,10 +74,15 @@ Write-Host "Domain $domainDN, domain controller $Server"
 $groups = @($tiers | ForEach-Object { $_.Group })
 if (-not (Get-Module PSGPOTools)) { Import-Module PSGPOTools -ErrorAction Stop }
 # Read only: -WhatIf is for the changes.
-$workflow = (& { $WhatIfPreference = $false; Get-PSGPOConfiguration -Server $Server }).Configuration.Workflow
+$configuration = & { $WhatIfPreference = $false; Get-PSGPOConfiguration -Server $Server }
+$workflow = $configuration.Configuration.Workflow
 $creators = @("$($workflow.Creators)" -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
 if (-not $workflow.Enabled -or @($groups | Where-Object { $creators -notcontains $_ }).Count) {
-    throw "The approval workflow of the domain must be enabled, with $($groups -join ' and ') as its creators: in the console, Settings, Workflow (Enabled, Creators = '$($groups -join ', ')'), then run this script again."
+    # What was read, and from where: a configuration that cannot be read is the defaults (no workflow).
+    $read = if ($configuration.DomainFileExists) { "read from $($configuration.DomainPath): Enabled = $($workflow.Enabled), Creators = '$($workflow.Creators)'" }
+        else { "no configuration of the domain in $($configuration.DomainPath)" }
+    if ($configuration.Problem) { $read += " ($($configuration.Problem))" }
+    throw "The approval workflow of the domain must be enabled, with $($groups -join ' and ') as its creators ($read): in the console, Settings, Workflow (Enabled, Creators = '$($groups -join ', ')'), then run this script again."
 }
 
 foreach ($tier in $tiers) {
