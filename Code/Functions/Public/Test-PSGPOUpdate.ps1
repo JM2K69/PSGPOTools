@@ -51,15 +51,6 @@ function Test-PSGPOUpdate {
     $available = $latest.Version -gt $installed.Version
     if ($Quiet) { return $available }
 
-    # From the Gallery: Update-PSResource; a copy of the repository: Install-PSResource.
-    $fromGallery = $false
-    try {
-        $fromGallery = [bool](@(Get-InstalledPSResource -Name 'HGPM' -ErrorAction Stop) | Where-Object { $_.InstalledLocation -and $installed.Path.StartsWith($_.InstalledLocation, [System.StringComparison]::OrdinalIgnoreCase) })
-    } catch {
-        Write-Verbose "The modules installed by PSResourceGet cannot be read: $($_.Exception.Message)"
-    }
-    $command = '{0}-PSResource -Name HGPM{1}{2}' -f $(if ($fromGallery) { 'Update' } else { 'Install' }),
-        $(if ($latest.Version.PreReleaseLabel) { ' -Prerelease' }), $(if ($Repository -ne 'PSGallery') { " -Repository $Repository" })
     [pscustomobject]@{
         PSTypeName = 'PSGPOTools.Update'
         Name = 'HGPM'
@@ -69,6 +60,6 @@ function Test-PSGPOUpdate {
         Published = $latest.Resource.PublishedDate
         Repository = $Repository
         ReleaseNotes = "$($latest.Resource.ReleaseNotes)"
-        UpdateCommand = if ($available) { $command }
+        UpdateCommand = if ($available) { Get-PSGPOUpdateCommand -InstalledPath $installed.Path -Latest $latest.Version -Repository $Repository }
     }
 }

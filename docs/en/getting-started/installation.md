@@ -136,6 +136,21 @@ domain controller and its directory service.
 
 ## Updates
 
+The import of the module says its version, and the command that installs a newer one when the
+PowerShell Gallery has it:
+
+```text
+PS> Import-Module HGPM
+HGPM 0.1.5-alpha
+HGPM 0.1.6-alpha is available on the PowerShell Gallery: Update-PSResource -Name HGPM -Prerelease, then open a new PowerShell session.
+```
+
+The import reads the Gallery at most once a day (`UpdateCheck.json` in the local data folder of
+the user, `PSGPOTools`), and waits 3 seconds at most: without network, it gives the version only.
+It does not read it in a CI, in a session started with `-NonInteractive`, nor with
+`PSGPOTOOLS_SKIP_UPDATE_CHECK=1`. The new version is used by a new PowerShell session: the one
+running keeps the module it imported.
+
 `Test-PSGPOUpdate` tells whether a newer version of HGPM is published on the PowerShell Gallery,
 and gives the command that installs it. It compares the version loaded with the latest of the
 Gallery as semantic versions: `0.1.4-alpha` comes before `0.1.4-beta`, itself before `0.1.4`. The

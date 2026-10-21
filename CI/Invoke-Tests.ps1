@@ -16,6 +16,8 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+# Each test file imports the module: its import must not read the PowerShell Gallery.
+$env:PSGPOTOOLS_SKIP_UPDATE_CHECK = '1'
 
 & (Join-Path $PSScriptRoot '03_Build.ps1')
 
