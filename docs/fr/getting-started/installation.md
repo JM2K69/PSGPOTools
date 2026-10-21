@@ -140,6 +140,21 @@ le contrôleur de domaine et son service d'annuaire.
 
 ## Mises à jour
 
+L'import du module donne sa version, et la commande qui installe une version plus récente quand la
+PowerShell Gallery en a une :
+
+```text
+PS> Import-Module HGPM
+HGPM 0.1.5-alpha
+HGPM 0.1.6-alpha is available on the PowerShell Gallery: Update-PSResource -Name HGPM -Prerelease, then open a new PowerShell session.
+```
+
+L'import lit la Gallery au plus une fois par jour (`UpdateCheck.json` dans le dossier de données
+local de l'utilisateur, `PSGPOTools`), et attend 3 secondes au plus : sans réseau, il ne donne que
+la version. Il ne la lit pas dans une CI, dans une session lancée avec `-NonInteractive`, ni avec
+`PSGPOTOOLS_SKIP_UPDATE_CHECK=1`. La nouvelle version sert à une nouvelle session PowerShell : celle
+en cours garde le module qu'elle a importé.
+
 `Test-PSGPOUpdate` dit si une version plus récente de HGPM est publiée sur la PowerShell Gallery,
 et donne la commande qui l'installe. Elle compare la version chargée à la dernière de la Gallery
 comme des versions sémantiques : `0.1.4-alpha` passe avant `0.1.4-beta`, elle-même avant `0.1.4`.

@@ -1,5 +1,11 @@
 # HGPM Release History
 
+## Unreleased
+
+### Added
+
+* The import of the module says its version, and, when the PowerShell Gallery has a newer one, the command that installs it (Update-PSResource, or Install-PSResource for a module not installed from the Gallery). The Gallery is read at most once a day (UpdateCheck.json in the local data folder of the user) and 3 seconds at most, never in a CI, a session started with -NonInteractive, or with PSGPOTOOLS_SKIP_UPDATE_CHECK=1; without network, the version only
+
 ## 0.1.5 - alpha
 
 ### Added
