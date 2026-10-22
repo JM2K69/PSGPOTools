@@ -86,6 +86,12 @@ the local Administrators), then:
 Settings tab lists them (Members, Member of). Checked on a Windows member: the local Remote Desktop
 Users received exactly the members defined.
 
+!!! warning "A difference with GPMC"
+    For a restricted group, GPMC always writes the list of its members: an empty list then removes
+    every member of the group. In the console, **Members of this group** is checked by default:
+    the same behaviour. Unchecked, the `__Members` key is not written and the current members of
+    the group are not touched; only **This group is a member of** applies.
+
 ### Public key policies
 
 ![The trusted root certification authorities of a GPO](../assets/screenshots/40-public-key-policies.png)
@@ -108,6 +114,10 @@ organization).
 Checked on a Windows member: the root certification authority is in the Group Policy store of the
 computer (`certutil -grouppolicy -store Root`), the EFS recovery agent in its EFS store, and the
 `EFSBlob` of the registry is the one written.
+
+The formats come from the specification of Microsoft:
+[\[MS-GPEF\] Message Syntax](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpef/2816eba2-0079-4650-a152-276334c0745e)
+(EFS Recovery Policy, Certificate BLOB, EfsBlob, EfsKey).
 
 ### Advanced audit policy
 
