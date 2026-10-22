@@ -247,16 +247,49 @@ function Start-PSGPOManagerWindow {
     $preferencesFormErrorTextBlock = Get-PSGPOAvaloniaControl $window 'preferencesFormErrorTextBlock'
     $preferencesSaveButton = Get-PSGPOAvaloniaControl $window 'preferencesSaveButton'
     $preferencesCancelButton = Get-PSGPOAvaloniaControl $window 'preferencesCancelButton'
+    $restrictedGroupsPanel = Get-PSGPOAvaloniaControl $window 'restrictedGroupsPanel'
+    $restrictedGroupsInfoTextBlock = Get-PSGPOAvaloniaControl $window 'restrictedGroupsInfoTextBlock'
+    $restrictedGroupsAddButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupsAddButton'
+    $restrictedGroupsEditButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupsEditButton'
+    $restrictedGroupsDeleteButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupsDeleteButton'
+    $restrictedGroupsStatusTextBlock = Get-PSGPOAvaloniaControl $window 'restrictedGroupsStatusTextBlock'
+    $restrictedGroupsEmptyTextBlock = Get-PSGPOAvaloniaControl $window 'restrictedGroupsEmptyTextBlock'
+    $restrictedGroupsList = Get-PSGPOAvaloniaControl $window 'restrictedGroupsList'
+    $restrictedGroupsDeletePanel = Get-PSGPOAvaloniaControl $window 'restrictedGroupsDeletePanel'
+    $restrictedGroupsDeleteTextBlock = Get-PSGPOAvaloniaControl $window 'restrictedGroupsDeleteTextBlock'
+    $restrictedGroupsDeleteConfirmButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupsDeleteConfirmButton'
+    $restrictedGroupsDeleteCancelButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupsDeleteCancelButton'
+    $restrictedGroupsFormBorder = Get-PSGPOAvaloniaControl $window 'restrictedGroupsFormBorder'
+    $restrictedGroupsFormTitleTextBlock = Get-PSGPOAvaloniaControl $window 'restrictedGroupsFormTitleTextBlock'
+    $restrictedGroupNameTextBox = Get-PSGPOAvaloniaControl $window 'restrictedGroupNameTextBox'
+    $restrictedGroupMembersCheckBox = Get-PSGPOAvaloniaControl $window 'restrictedGroupMembersCheckBox'
+    $restrictedGroupMembersTextBox = Get-PSGPOAvaloniaControl $window 'restrictedGroupMembersTextBox'
+    $restrictedGroupMemberOfTextBox = Get-PSGPOAvaloniaControl $window 'restrictedGroupMemberOfTextBox'
+    $restrictedGroupsFormErrorTextBlock = Get-PSGPOAvaloniaControl $window 'restrictedGroupsFormErrorTextBlock'
+    $restrictedGroupsSaveButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupsSaveButton'
+    $restrictedGroupsCancelButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupsCancelButton'
 
     # Options form of the selected policy (New-PSGPOPolicyEditor), the policy it edits and the
     # GPO opened from the Group Policy Management view ($null: browsing the ADMX policies).
     # Pol: the Registry.pol of the GPO by scope; Saved: the registry values of the setting of the
     # selected policy in it, compared with the form to know whether there is something to apply.
     # Security: the selected security setting, Template: the GptTmpl.inf of the GPO (security
-    # settings); Saved is then the raw value of the setting in it.
-    $editing = @{ Policy = $null; Security = $null; Editor = $null; Gpo = $null; Pol = @{}; PolError = $null; Template = $null; Saved = $null; Preferences = @{} }
+    # settings), Audit: its audit.csv (advanced audit policy); Saved is then the raw value of the
+    # setting in it.
+    $editing = @{ Policy = $null; Security = $null; Editor = $null; Gpo = $null; Pol = @{}; PolError = $null; Template = $null; Audit = $null; Saved = $null; Preferences = @{} }
     $previewHeaderTextBlock = Get-PSGPOAvaloniaControl $window 'previewHeaderTextBlock'
     $notDefinedMark = '(not defined)'
+
+    # The file of a security setting in the GPO: audit.csv for the advanced audit policy, else
+    # GptTmpl.inf; $null when the GPO is not read.
+    function Get-SecurityStore {
+        param([GPOToolsSecuritySetting]$Setting)
+        if ($Setting.Section -eq [GPOToolsAuditPolicyFile]::Section) { $editing.Audit } else { $editing.Template }
+    }
+    function Get-SecurityFileName {
+        param([GPOToolsSecuritySetting]$Setting)
+        if ($Setting.Section -eq [GPOToolsAuditPolicyFile]::Section) { 'audit.csv' } else { 'GptTmpl.inf' }
+    }
 
     # Raw GptTmpl.inf value of the security setting of the form, or the not defined mark.
     function Get-SecuritySignature {
@@ -282,7 +315,7 @@ function Start-PSGPOManagerWindow {
         if (-not $settingErrorTextBlock.Text) {
             try {
                 if ($policy -and $pol) { $changed = (Get-SettingSignature $policy (Get-SettingState) (& $editing.Editor.GetValue)) -ne $editing.Saved }
-                elseif ($editing.Security -and $editing.Template) { $changed = (Get-SecuritySignature) -ne $editing.Saved }
+                elseif ($editing.Security -and (Get-SecurityStore $editing.Security)) { $changed = (Get-SecuritySignature) -ne $editing.Saved }
             } catch { $changed = $false }
         }
         $applySettingButton.IsEnabled = $changed
@@ -301,8 +334,9 @@ function Start-PSGPOManagerWindow {
             if ($state -eq 'Enabled') {
                 try {
                     $row = [AvaloniaPreviewRow]::new()
-                    $row.Title = Get-PSGPOText 'Set in GptTmpl.inf'
-                    $row.Key = "[$($editing.Security.Section)]"
+                    $audit = $editing.Security.Section -eq [GPOToolsAuditPolicyFile]::Section
+                    $row.Title = Get-PSGPOText $(if ($audit) { 'Set in audit.csv' } else { 'Set in GptTmpl.inf' })
+                    $row.Key = if ($audit) { $editing.Security.Name } else { "[$($editing.Security.Section)]" }
                     $row.ValueName = $editing.Security.Key
                     $row.Data = $editing.Security.ConvertToRaw((& $editing.Editor.GetValue))
                     $rows = @($row)
@@ -312,7 +346,7 @@ function Start-PSGPOManagerWindow {
             }
             $registryPreviewList.ItemsSource = $rows
             $previewEmptyTextBlock.IsVisible = $rows.Count -eq 0
-            $previewEmptyTextBlock.Text = Get-PSGPOText $(if ($settingErrorTextBlock.Text) { 'Fix the value above to see the line of GptTmpl.inf.' } else { 'Not defined: nothing is written to GptTmpl.inf.' })
+            $previewEmptyTextBlock.Text = Get-PSGPOText $(if ($settingErrorTextBlock.Text) { 'Fix the value above to see the line of {0}.' } else { 'Not defined: nothing is written to {0}.' }) (Get-SecurityFileName $editing.Security)
             Update-ApplyButton
             return
         }
@@ -337,17 +371,24 @@ function Start-PSGPOManagerWindow {
     # changed on a copy: if the domain refuses it, the setting read before stays.
     $applySettingButton.Add_Click({
         if ($editing.Security) {
-            # A security setting: written to a copy of GptTmpl.inf, saved, then kept.
+            # A security setting: written to a copy of GptTmpl.inf (audit.csv for the advanced
+            # audit policy), saved, then kept.
             $setting = $editing.Security
-            if (-not $editing.Gpo -or -not $editing.Template) { return }
+            $store = Get-SecurityStore $setting
+            if (-not $editing.Gpo -or -not $store) { return }
             $value = if ($enabledRadio.IsChecked) { & $editing.Editor.GetValue } else { $null }
-            $copy = [GPOToolsSecurityTemplate]::Parse($editing.Template.ToBytes())
+            $copy = if ($store -is [GPOToolsAuditPolicyFile]) { [GPOToolsAuditPolicyFile]::Parse($store.ToBytes()) } else { [GPOToolsSecurityTemplate]::Parse($store.ToBytes()) }
             try {
                 Set-PSGPOSecurityValue -Template $copy -Setting $setting -Value $value
-                $Directory.WriteSecurityTemplate($editing.Gpo, $copy.ToBytes())
-                $editing.Template = $copy
+                if ($copy -is [GPOToolsAuditPolicyFile]) {
+                    $Directory.WriteAuditPolicyFile($editing.Gpo, $copy.ToBytes())
+                    $editing.Audit = $copy
+                } else {
+                    $Directory.WriteSecurityTemplate($editing.Gpo, $copy.ToBytes())
+                    $editing.Template = $copy
+                }
                 $editing.Saved = Get-SecuritySignature
-                $applyStatusTextBlock.Text = Get-PSGPOText 'Saved: {0} in GptTmpl.inf (version {1}).' (ConvertTo-PSGPODisplayText $setting.FormatValue($value)) $editing.Gpo.GetComputerVersion()
+                $applyStatusTextBlock.Text = Get-PSGPOText 'Saved: {0} in {1} (version {2}).' (ConvertTo-PSGPODisplayText $setting.FormatValue($value)) (Get-SecurityFileName $setting) $editing.Gpo.GetComputerVersion()
             } catch {
                 $applyStatusTextBlock.Text = Get-PSGPOText 'Not saved: {0}' $_.Exception.GetBaseException().Message
             }
@@ -436,16 +477,18 @@ function Start-PSGPOManagerWindow {
     function Show-SecuritySetting {
         param([GPOToolsSecuritySetting]$Setting)
         $read = [pscustomobject]@{ Defined = $false; Value = $null; Problem = $null; Raw = $null }
-        if ($editing.Template) { $read = Get-PSGPOSecurityValue -Template $editing.Template -Setting $Setting }
+        $store = Get-SecurityStore $Setting
+        $fileName = Get-SecurityFileName $Setting
+        if ($store) { $read = Get-PSGPOSecurityValue -Template $store -Setting $Setting }
         $editing.Policy = $null
         $editing.Saved = if ($read.Defined) { $read.Raw } else { $notDefinedMark }
         $notConfiguredRadio.Content = Get-PSGPOText 'Not Defined'
         $enabledRadio.Content = Get-PSGPOText 'Define this policy setting'
         $disabledRadio.IsVisible = $false
-        $previewHeaderTextBlock.Text = Get-PSGPOText 'GptTmpl.inf Preview'
+        $previewHeaderTextBlock.Text = Get-PSGPOText '{0} Preview' $fileName
         if ($read.Defined -and -not $read.Problem) { $enabledRadio.IsChecked = $true } else { $notConfiguredRadio.IsChecked = $true }
         $applyStatusTextBlock.Text = if ($read.Problem) { $read.Problem }
-            elseif ($editing.Template) { Get-PSGPOText $(if ($read.Defined) { 'Defined in GptTmpl.inf' } else { 'Not defined in GptTmpl.inf' }) }
+            elseif ($store) { Get-PSGPOText $(if ($read.Defined) { 'Defined in {0}' } else { 'Not defined in {0}' }) $fileName }
             elseif ($editing.Gpo -and $editing.PolError) { $editing.PolError } else { '' }
 
         $editing.Security = $Setting
@@ -454,9 +497,9 @@ function Start-PSGPOManagerWindow {
         $optionsHost.Content = $editing.Editor.Panel
 
         $displayNameTextBox.Text = Get-PSGPOText $Setting.Name
-        $descriptionTextBox.Text = (Get-PSGPOText 'Security setting of the computer, in GptTmpl.inf (Machine\Microsoft\Windows NT\SecEdit).') + $(if ($Setting.Reference) { "`n`n" + (Get-PSGPOText 'Reference: {0}' $Setting.Reference) })
+        $descriptionTextBox.Text = (Get-PSGPOText $(if ($fileName -eq 'audit.csv') { 'Advanced audit policy of the computer, in audit.csv (Machine\Microsoft\Windows NT\Audit): the events of this subcategory the computers audit.' } else { 'Security setting of the computer, in GptTmpl.inf (Machine\Microsoft\Windows NT\SecEdit).' })) + $(if ($Setting.Reference) { "`n`n" + (Get-PSGPOText 'Reference: {0}' $Setting.Reference) })
         $scopeTextBox.Text = Get-PSGPOText 'Machine'
-        $registryPathTextBox.Text = "GptTmpl.inf [$($Setting.Section)]"
+        $registryPathTextBox.Text = if ($fileName -eq 'audit.csv') { [GPOToolsDirectory]::AuditPolicyPath } else { "GptTmpl.inf [$($Setting.Section)]" }
         $registryKeyTextBox.Text = $Setting.Key
         $registryValuesList.ItemsSource = @(
             foreach ($pair in @(
@@ -667,6 +710,124 @@ function Start-PSGPOManagerWindow {
     $preferencesUpButton.Add_Click({ Move-PreferenceItem -Direction Up })
     $preferencesDownButton.Add_Click({ Move-PreferenceItem -Direction Down })
 
+    # --- Restricted Groups: the groups of [Group Membership] in the GptTmpl.inf of the edited GPO ---
+
+    $restrictedGroups = @{ Group = $null }
+    function Set-RestrictedGroupStatus {
+        param([string]$Text, [switch]$Problem)
+        $restrictedGroupsStatusTextBlock.Text = $Text
+        if ($Problem) { $restrictedGroupsStatusTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438')) }
+        else { $restrictedGroupsStatusTextBlock.ClearValue([Avalonia.Controls.TextBlock]::ForegroundProperty) }
+    }
+
+    function Test-RestrictedGroupEditable {
+        $editing.Gpo -and $editing.Gpo.CanEdit -and -not $Directory.IsReadOnly -and $editing.Template
+    }
+
+    function Update-RestrictedGroupToolbar {
+        $editable = Test-RestrictedGroupEditable
+        $restrictedGroupsAddButton.IsEnabled = [bool]$editable
+        $restrictedGroupsEditButton.IsEnabled = $editable -and $restrictedGroupsList.SelectedItem
+        $restrictedGroupsDeleteButton.IsEnabled = $editable -and $restrictedGroupsList.SelectedItem
+    }
+
+    # The restricted groups of the edited GPO, the group $Select selected.
+    function Show-RestrictedGroups {
+        param([string]$Status, [string]$Select)
+        $restrictedGroupsFormBorder.IsVisible = $false
+        $restrictedGroupsDeletePanel.IsVisible = $false
+        $rows = @()
+        if (-not $editing.Gpo) {
+            $restrictedGroupsEmptyTextBlock.Text = Get-PSGPOText 'Edit a GPO (Group Policy Management view) to see and configure its restricted groups.'
+        } elseif (-not $editing.Template) {
+            $restrictedGroupsEmptyTextBlock.Text = ''
+            if (-not $Status) { $Status = $editing.PolError }
+        } else {
+            $rows = @(foreach ($group in @(Get-PSGPORestrictedGroup -Template $editing.Template)) {
+                    $row = [AvaloniaPreferenceRow]::new()
+                    $row.Name = Format-PSGPORestrictedAccount $group.Group
+                    $row.Summary = (@(
+                            if ($null -eq $group.Members) { Get-PSGPOText 'Members: not defined' }
+                            elseif ($group.Members.Count) { Get-PSGPOText 'Members: {0}' (@($group.Members | ForEach-Object { Format-PSGPORestrictedAccount $_ }) -join ', ') }
+                            if ($group.MemberOf.Count) { Get-PSGPOText 'Member of: {0}' (@($group.MemberOf | ForEach-Object { Format-PSGPORestrictedAccount $_ }) -join ', ') }) -join ' - ')
+                    $row.Flags = if ($null -ne $group.Members -and -not $group.Members.Count) { Get-PSGPOText 'No member: the computers remove every member of this group' }
+                    $row.Item = $group
+                    $row
+                })
+            $restrictedGroupsEmptyTextBlock.Text = if ($rows.Count) { '' } else { Get-PSGPOText 'This GPO has no restricted group.' }
+        }
+        $restrictedGroupsEmptyTextBlock.IsVisible = [bool]$restrictedGroupsEmptyTextBlock.Text
+        $restrictedGroupsList.ItemsSource = $rows
+        if ($Select) { $restrictedGroupsList.SelectedItem = $rows | Where-Object { $_.Item.Group -ieq $Select } | Select-Object -First 1 }
+        Set-RestrictedGroupStatus $Status
+        Update-RestrictedGroupToolbar
+    }
+
+    function Open-RestrictedGroupForm {
+        param($Group)
+        $restrictedGroups.Group = $Group
+        $restrictedGroupsFormTitleTextBlock.Text = if ($Group) { Get-PSGPOText 'Restricted group: {0}' (Format-PSGPORestrictedAccount $Group.Group) } else { Get-PSGPOText 'New restricted group' }
+        $restrictedGroupNameTextBox.Text = if ($Group) { $Group.Group } else { '' }
+        $restrictedGroupMembersCheckBox.IsChecked = -not $Group -or $null -ne $Group.Members
+        $restrictedGroupMembersTextBox.Text = if ($Group) { @($Group.Members) -join [Environment]::NewLine } else { '' }
+        $restrictedGroupMemberOfTextBox.Text = if ($Group) { @($Group.MemberOf) -join [Environment]::NewLine } else { '' }
+        $restrictedGroupsFormErrorTextBlock.Text = ''
+        $restrictedGroupsDeletePanel.IsVisible = $false
+        $restrictedGroupsFormBorder.IsVisible = $true
+    }
+
+    # A change of the restricted groups: on a copy of GptTmpl.inf, written, then kept.
+    function Save-RestrictedGroups {
+        param([scriptblock]$Change, [string]$Done, [string]$Select)
+        $copy = [GPOToolsSecurityTemplate]::Parse($editing.Template.ToBytes())
+        try {
+            & $Change $copy
+            $Directory.WriteSecurityTemplate($editing.Gpo, $copy.ToBytes())
+        } catch {
+            return $_.Exception.GetBaseException().Message
+        }
+        $editing.Template = $copy
+        $settingsCache.Remove("$($editing.Gpo.Id)")
+        Show-RestrictedGroups -Status (Get-PSGPOText '{0} in GptTmpl.inf (version {1}).' $Done $editing.Gpo.GetComputerVersion()) -Select $Select
+        $null
+    }
+
+    $restrictedGroupsList.add_SelectionChanged({ Update-RestrictedGroupToolbar })
+    $restrictedGroupsAddButton.Add_Click({ Open-RestrictedGroupForm $null })
+    $restrictedGroupsEditButton.Add_Click({ if ($restrictedGroupsList.SelectedItem) { Open-RestrictedGroupForm $restrictedGroupsList.SelectedItem.Item } })
+    $restrictedGroupsList.add_DoubleTapped({ if ($restrictedGroupsList.SelectedItem -and (Test-RestrictedGroupEditable)) { Open-RestrictedGroupForm $restrictedGroupsList.SelectedItem.Item } })
+    $restrictedGroupsCancelButton.Add_Click({ $restrictedGroupsFormBorder.IsVisible = $false })
+    $restrictedGroupMembersCheckBox.add_IsCheckedChanged({ $restrictedGroupMembersTextBox.IsEnabled = [bool]$restrictedGroupMembersCheckBox.IsChecked })
+    $restrictedGroupsSaveButton.Add_Click({
+        $name = "$($restrictedGroupNameTextBox.Text)".Trim()
+        $lines = { param($Text) @("$Text" -split '\r?\n' | ForEach-Object { $_.Trim() } | Where-Object { $_ }) }
+        $members = if ($restrictedGroupMembersCheckBox.IsChecked) { [string[]](& $lines $restrictedGroupMembersTextBox.Text) } else { $null }
+        $memberOf = [string[]](& $lines $restrictedGroupMemberOfTextBox.Text)
+        $old = $restrictedGroups.Group
+        $problem = Save-RestrictedGroups -Select $name -Done (Get-PSGPOText $(if ($old) { "Restricted group '{0}' saved" } else { "Restricted group '{0}' added" }) $name) -Change {
+            param($Copy)
+            if ($old -and $old.Group -ine $name) { Remove-PSGPORestrictedGroup -Template $Copy -Group $old.Group }
+            if (-not $old -and @(Get-PSGPORestrictedGroup -Template $Copy | Where-Object { $_.Group -ieq $name }).Count) { throw (Get-PSGPOText "'{0}' is already a restricted group of this GPO: edit it." $name) }
+            Set-PSGPORestrictedGroup -Template $Copy -Group $name -Members $members -MemberOf $memberOf
+        }
+        if ($problem) { $restrictedGroupsFormErrorTextBlock.Text = $problem }
+    })
+    $restrictedGroupsDeleteButton.Add_Click({
+        $row = $restrictedGroupsList.SelectedItem
+        if (-not $row) { return }
+        $restrictedGroupsDeleteTextBlock.Text = Get-PSGPOText "Delete the restricted group '{0}' from the GPO? The computers stop changing its members; the members it already has stay." $row.Name
+        $restrictedGroupsFormBorder.IsVisible = $false
+        $restrictedGroupsDeletePanel.IsVisible = $true
+    })
+    $restrictedGroupsDeleteCancelButton.Add_Click({ $restrictedGroupsDeletePanel.IsVisible = $false })
+    $restrictedGroupsDeleteConfirmButton.Add_Click({
+        $row = $restrictedGroupsList.SelectedItem
+        if (-not $row) { return }
+        $group = $row.Item.Group
+        $problem = Save-RestrictedGroups -Done (Get-PSGPOText "Restricted group '{0}' deleted" $row.Name) -Change { param($Copy) Remove-PSGPORestrictedGroup -Template $Copy -Group $group }
+        if ($problem) { Set-RestrictedGroupStatus (Get-PSGPOText 'Not deleted: {0}' $problem) -Problem }
+    })
+
     $treeView.add_SelectionChanged({
         $selected = $treeView.SelectedItem
 
@@ -681,11 +842,19 @@ function Start-PSGPOManagerWindow {
 
         $policy = if ($selected) { $selected.Tag } else { $null }
         $editing.Security = $null
-        # A preference type: its items instead of the form of a policy.
+        # A preference type: its items instead of the form of a policy; Restricted Groups: its groups.
         $isPreference = $policy -is [GPOToolsPreferenceNode]
+        $isRestricted = $policy -is [string] -and $policy -eq 'RestrictedGroups'
         $preferencesPanel.IsVisible = $isPreference
-        $detailsTabs.IsVisible = -not $isPreference
-        $detailsTitleTextBlock.Text = Get-PSGPOText $(if ($isPreference) { 'Preference Items' } else { 'Policy Details' })
+        $restrictedGroupsPanel.IsVisible = $isRestricted
+        $detailsTabs.IsVisible = -not $isPreference -and -not $isRestricted
+        $detailsTitleTextBlock.Text = Get-PSGPOText $(if ($isPreference) { 'Preference Items' } elseif ($isRestricted) { 'Restricted Groups' } else { 'Policy Details' })
+        if ($isRestricted) {
+            $editing.Policy = $null
+            $editing.Editor = $null
+            Show-RestrictedGroups
+            return
+        }
         if ($isPreference) {
             $editing.Policy = $null
             $editing.Editor = $null
@@ -772,11 +941,11 @@ function Start-PSGPOManagerWindow {
                 if (-not $editing.Pol[$scope]) { continue }
                 foreach ($configured in @(Get-PSGPOConfiguredPolicy -Pol $editing.Pol[$scope] -Scope $scope)) { [void]$only.Add($configured.Policy) }
             }
-            if ($editing.Template) {
-                foreach ($setting in Get-PSGPOSecuritySetting) {
-                    if ($editing.Template.HasValue($setting.Section, $setting.Key)) { [void]$only.Add($setting) }
-                }
+            foreach ($setting in Get-PSGPOSecuritySetting) {
+                $store = Get-SecurityStore $setting
+                if ($store -and $store.HasValue($setting.Section, $setting.Key)) { [void]$only.Add($setting) }
             }
+            if ($editing.Template -and @(Get-PSGPORestrictedGroup -Template $editing.Template).Count) { [void]$only.Add('RestrictedGroups') }
             # The preference types the GPO declares (its client-side extensions).
             foreach ($scope in 'Machine', 'User') {
                 $names = if ($scope -eq 'Machine') { "$($editing.Gpo.MachineExtensionNames)" } else { "$($editing.Gpo.UserExtensionNames)" }
@@ -837,6 +1006,7 @@ function Start-PSGPOManagerWindow {
         # The settings of the GPO: its Registry.pol for each scope (empty when it has none).
         $editing.Pol = @{}
         $editing.Template = $null
+        $editing.Audit = $null
         $editing.Preferences = @{}
         $editing.PolError = $null
         if ($Gpo) {
@@ -846,10 +1016,13 @@ function Start-PSGPOManagerWindow {
                 }
                 # Its security settings: GptTmpl.inf, a new empty template when the GPO has none.
                 $editing.Template = [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($Gpo))
+                # Its advanced audit policy: audit.csv, empty when the GPO has none.
+                $editing.Audit = [GPOToolsAuditPolicyFile]::Parse($Directory.ReadAuditPolicyFile($Gpo))
             } catch {
                 $editing.PolError = Get-PSGPOText 'The settings of the GPO cannot be read: {0}' $_.Exception.GetBaseException().Message
                 $editing.Pol = @{}
                 $editing.Template = $null
+                $editing.Audit = $null
             }
         }
         $treeView.SelectedItem = $null
@@ -1373,7 +1546,8 @@ function Start-PSGPOManagerWindow {
                 }
                 # Security settings first, as GPMC lists Windows Settings before Administrative Templates.
                 $template = [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($gpo))
-                $cached['Machine'] = @(Get-PSGPOConfiguredSecuritySetting -Template $template) + $cached['Machine']
+                $audit = [GPOToolsAuditPolicyFile]::Parse($Directory.ReadAuditPolicyFile($gpo))
+                $cached['Machine'] = @(Get-PSGPOConfiguredSecuritySetting -Template $template) + @(Get-PSGPOConfiguredAuditSetting -AuditFile $audit) + $cached['Machine']
                 # Preferences last, as GPMC lists them after the policies: their files, read in one
                 # copy of the folder, only when the GPO declares a preference type.
                 $declared = "$($gpo.MachineExtensionNames)$($gpo.UserExtensionNames)"
@@ -2241,7 +2415,8 @@ function Start-PSGPOManagerWindow {
             'preferencesStatusTextBlock', 'preferencesEmptyTextBlock', 'preferencesList', 'preferencesDeletePanel', 'preferencesDeleteTextBlock',
             'preferencesDeleteConfirmButton', 'preferencesDeleteCancelButton', 'preferencesFormBorder', 'preferencesFormTitleTextBlock', 'refreshButton',
             'enforcedLinkMenuItem', 'enabledLinkMenuItem', 'moveLinkUpMenuItem', 'moveLinkDownMenuItem', 'blockInheritanceMenuItem', 'gpoStatusMenuItem', 'wmiFilterMenuItem', 'newWmiFilterMenuItem', 'deleteWmiFilterMenuItem', 'newWmiFilterPanel', 'newWmiFilterNameTextBox', 'newWmiFilterDescriptionTextBox', 'newWmiFilterNamespaceTextBox', 'newWmiFilterQueryTextBox', 'newWmiFilterErrorTextBlock', 'newWmiFilterCreateButton', 'newWmiFilterCancelButton', 'deleteWmiFilterPanel', 'deleteWmiFilterTextBlock', 'deleteWmiFilterConfirmButton', 'deleteWmiFilterCancelButton', 'gpoStatusEnabledMenuItem', 'gpoStatusUserDisabledMenuItem', 'gpoStatusComputerDisabledMenuItem', 'gpoStatusAllDisabledMenuItem',
-            'preferencesFormHost', 'preferencesFormErrorTextBlock', 'preferencesSaveButton', 'preferencesCancelButton') {
+            'preferencesFormHost', 'preferencesFormErrorTextBlock', 'preferencesSaveButton', 'preferencesCancelButton',
+            'restrictedGroupsPanel', 'restrictedGroupsInfoTextBlock', 'restrictedGroupsAddButton', 'restrictedGroupsEditButton', 'restrictedGroupsDeleteButton', 'restrictedGroupsStatusTextBlock', 'restrictedGroupsEmptyTextBlock', 'restrictedGroupsList', 'restrictedGroupsDeletePanel', 'restrictedGroupsDeleteTextBlock', 'restrictedGroupsDeleteConfirmButton', 'restrictedGroupsDeleteCancelButton', 'restrictedGroupsFormBorder', 'restrictedGroupsFormTitleTextBlock', 'restrictedGroupNameTextBox', 'restrictedGroupMembersCheckBox', 'restrictedGroupMembersTextBox', 'restrictedGroupMemberOfTextBox', 'restrictedGroupsFormErrorTextBlock', 'restrictedGroupsSaveButton', 'restrictedGroupsCancelButton') {
             $controls[$name] = Get-PSGPOAvaloniaControl $window $name
         }
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {

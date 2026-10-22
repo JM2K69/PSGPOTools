@@ -1789,6 +1789,98 @@ InModuleScope -ModuleName HGPM {
             [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($Gpo)).GetSectionNames() | Should -Not -Contain 'Event Audit'
         }
 
+        It 'Edits the restricted groups of a GPO, as the Group Policy editor' {
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+                # Security Settings > Restricted Groups, after Event Log and before the advanced audit policy.
+                $Node = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -eq 'RestrictedGroups' }
+                $Node.Parent.Header | Should -Be 'Security Settings'
+                $Headers = @($Node.Parent.Children.Header)
+                [array]::IndexOf($Headers, 'Restricted Groups') | Should -Be ([array]::IndexOf($Headers, 'Event Log') + 1)
+                $Headers[-1] | Should -Be 'Advanced Audit Policy Configuration'
+                $Ui.treeView.SelectedItem = $Node
+                $Ui.restrictedGroupsPanel.IsVisible | Should -BeTrue
+                $Ui.detailsTabs.IsVisible | Should -BeFalse
+                $Ui.restrictedGroupsEmptyTextBlock.Text | Should -Be 'This GPO has no restricted group.'
+
+                # A group: the members of the local Administrators.
+                Invoke-Click $Ui.restrictedGroupsAddButton
+                $Ui.restrictedGroupNameTextBox.Text = '*S-1-5-32-544'
+                $Ui.restrictedGroupMembersTextBox.Text = "CONTOSO\Domain Admins`nCONTOSO\Tier1-Admins"
+                $Ui.restrictedGroupMemberOfTextBox.Text = ''
+                Invoke-Click $Ui.restrictedGroupsSaveButton
+                $Ui.restrictedGroupsFormErrorTextBlock.Text | Should -BeNullOrEmpty
+                $Ui.restrictedGroupsStatusTextBlock.Text | Should -BeLike "Restricted group '*S-1-5-32-544' added in GptTmpl.inf (version *)."
+                $Row = @($Ui.restrictedGroupsList.ItemsSource)[0]
+                $Row.Name | Should -Be 'BUILTIN\Administrators (*S-1-5-32-544)'
+                $Row.Summary | Should -Be 'Members: CONTOSO\Domain Admins, CONTOSO\Tier1-Admins'
+
+                # The same group again: refused, it is edited instead.
+                Invoke-Click $Ui.restrictedGroupsAddButton
+                $Ui.restrictedGroupNameTextBox.Text = '*s-1-5-32-544'
+                Invoke-Click $Ui.restrictedGroupsSaveButton
+                $Ui.restrictedGroupsFormErrorTextBlock.Text | Should -BeLike '*is already a restricted group*'
+                Invoke-Click $Ui.restrictedGroupsCancelButton
+
+                # Edited: its members no longer defined, a member of Remote Desktop Users.
+                $Ui.restrictedGroupsList.SelectedItem = $Row
+                Invoke-Click $Ui.restrictedGroupsEditButton
+                $Ui.restrictedGroupMembersCheckBox.IsChecked = $false
+                $Ui.restrictedGroupMemberOfTextBox.Text = '*S-1-5-32-555'
+                Invoke-Click $Ui.restrictedGroupsSaveButton
+                @($Ui.restrictedGroupsList.ItemsSource)[0].Summary | Should -Be 'Members: not defined - Member of: BUILTIN\Remote Desktop Users (*S-1-5-32-555)'
+
+                # "Configured settings only" keeps the node.
+                $Ui.configuredOnlyCheckBox.IsChecked = $true
+                Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -eq 'RestrictedGroups' } | Should -Not -BeNullOrEmpty
+                $Ui.configuredOnlyCheckBox.IsChecked = $false
+
+                # Deleted.
+                $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -eq 'RestrictedGroups' }
+                $Ui.restrictedGroupsList.SelectedItem = @($Ui.restrictedGroupsList.ItemsSource)[0]
+                Invoke-Click $Ui.restrictedGroupsDeleteButton
+                $Ui.restrictedGroupsDeletePanel.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.restrictedGroupsDeleteConfirmButton
+                @($Ui.restrictedGroupsList.ItemsSource).Count | Should -Be 0
+            }
+            [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($Gpo)).GetSectionNames() | Should -Not -Contain 'Group Membership'
+        }
+
+        It 'Edits the advanced audit policy of a GPO in audit.csv' {
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+
+                # Security Settings > Advanced Audit Policy Configuration > Audit Policies > Account Logon
+                $Node = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsSecuritySetting] -and $n.Tag.Name -eq 'Audit Credential Validation' }
+                $Node.Parent.Header | Should -Be 'Account Logon'
+                $Node.Parent.Parent.Header | Should -Be 'Audit Policies'
+                $Node.Parent.Parent.Parent.Header | Should -Be 'Advanced Audit Policy Configuration'
+                $Node.Parent.Parent.Parent.Parent.Header | Should -Be 'Security Settings'
+                $Ui.treeView.SelectedItem = $Node
+                $Ui.applyStatusTextBlock.Text | Should -Be 'Not defined in audit.csv'
+                $Ui.previewHeaderTextBlock.Text | Should -Be 'audit.csv Preview'
+                $Ui.enabledRadio.IsChecked = $true
+                $Ui.Editing.Editor.Controls['Success'].IsChecked = $true
+                $Ui.Editing.Editor.Controls['Failure'].IsChecked = $true
+                (Get-PreviewLine $Ui) | Should -Be 'Set in audit.csv | Audit Credential Validation | {0cce923f-69ae-11d9-bed3-505054503030} | 3'
+                Invoke-Click $Ui.applySettingButton
+                $Ui.applyStatusTextBlock.Text | Should -BeLike 'Saved: Success, Failure in audit.csv*'
+
+                # The Settings tab lists it.
+                Invoke-Click $Ui.managementButton
+                $Ui.directoryTabs.SelectedItem = $Ui.settingsTab
+                ($Ui.computerSettingsList.ItemsSource | Where-Object Name -EQ 'Audit Credential Validation').State | Should -Be 'Success and Failure'
+            }
+            [GPOToolsAuditPolicyFile]::Parse($Directory.ReadAuditPolicyFile($Gpo)).GetValue('AdvancedAudit', '{0cce923f-69ae-11d9-bed3-505054503030}') | Should -Be '3'
+            $Gpo.MachineExtensionNames | Should -Match 'F3CCC681-B74C-4060-9F26-CD84525DCA2A'
+        }
+
         It 'Shows only the settings the GPO configures with "Configured settings only"' {
             $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
             $Pol = [GPOToolsRegistryPol]::new()

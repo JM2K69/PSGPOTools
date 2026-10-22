@@ -459,6 +459,12 @@ function Get-PSGPOSettingReport {
             if ($Files.Contains($template)) {
                 $rows = @(Get-PSGPOConfiguredSecuritySetting -Template ([GPOToolsSecurityTemplate]::Parse([byte[]]$Files[$template]))) + $rows
             }
+            # The advanced audit policy (GPMC writes the folders in lower case: Machine\microsoft\windows nt).
+            $audit = @($Files.Keys | Where-Object { $_ -ieq [GPOToolsDirectory]::AuditPolicyPath }) | Select-Object -First 1
+            if ($audit) {
+                [void]$known.Add($audit)
+                $rows = @(Get-PSGPOConfiguredAuditSetting -AuditFile ([GPOToolsAuditPolicyFile]::Parse([byte[]]$Files[$audit]))) + $rows
+            }
         }
         foreach ($row in $rows) {
             # Extra registry values share their key: the value name tells them apart.

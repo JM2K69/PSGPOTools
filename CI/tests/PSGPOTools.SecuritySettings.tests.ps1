@@ -214,4 +214,117 @@ InModuleScope -ModuleName HGPM {
             $Gpo.GetUserVersion() | Should -Be 0
         }
     }
+
+    Describe 'Restricted groups ([Group Membership])' {
+        It 'Reads the groups, their members and the groups they are a member of' {
+            $Template = [GPOToolsSecurityTemplate]::new()
+            $Template.SetValue('Group Membership', '*S-1-5-32-544__Memberof', '')
+            $Template.SetValue('Group Membership', '*S-1-5-32-544__Members', '*S-1-5-21-1-2-3-512,CONTOSO\Helpdesk')
+            $Template.SetValue('Group Membership', 'CONTOSO\Helpdesk__Memberof', '*S-1-5-32-555')
+            $Groups = @(Get-PSGPORestrictedGroup -Template $Template)
+            $Groups.Group | Should -Be @('*S-1-5-32-544', 'CONTOSO\Helpdesk')
+            $Groups[0].Members | Should -Be @('*S-1-5-21-1-2-3-512', 'CONTOSO\Helpdesk')
+            $Groups[0].MemberOf.Count | Should -Be 0
+            $null -eq $Groups[1].Members | Should -BeTrue -Because 'no __Members key: its members do not change'
+            $Groups[1].MemberOf | Should -Be @('*S-1-5-32-555')
+        }
+
+        It 'Writes a group as the Group Policy editor, an empty list of members kept, and removes it' {
+            $Template = [GPOToolsSecurityTemplate]::new()
+            Set-PSGPORestrictedGroup -Template $Template -Group '*S-1-5-32-544' -Members @('CONTOSO\Admins', ' CONTOSO\Admins ', '') -MemberOf @()
+            $Template.GetValue('Group Membership', '*S-1-5-32-544__Members') | Should -Be 'CONTOSO\Admins'
+            $Template.HasValue('Group Membership', '*S-1-5-32-544__Memberof') | Should -BeTrue
+            Set-PSGPORestrictedGroup -Template $Template -Group 'CONTOSO\Kiosk' -Members @() -MemberOf $null
+            $Template.HasValue('Group Membership', 'CONTOSO\Kiosk__Members') | Should -BeTrue -Because 'defined and empty: no member'
+            $Template.GetValue('Group Membership', 'CONTOSO\Kiosk__Members') | Should -Be ''
+            Set-PSGPORestrictedGroup -Template $Template -Group 'contoso\kiosk' -Members $null -MemberOf @('*S-1-5-32-545')
+            @(Get-PSGPORestrictedGroup -Template $Template).Count | Should -Be 2 -Because 'the same group, another case of its name'
+            $Template.HasValue('Group Membership', 'contoso\kiosk__Members') | Should -BeFalse
+            Remove-PSGPORestrictedGroup -Template $Template -Group '*S-1-5-32-544'
+            Remove-PSGPORestrictedGroup -Template $Template -Group 'CONTOSO\KIOSK'
+            $Template.GetSectionNames() | Should -Not -Contain 'Group Membership'
+            { Set-PSGPORestrictedGroup -Template $Template -Group ' ' -Members @() } | Should -Throw
+        }
+
+        It 'Lists them in the Settings tab, not as unknown keys' {
+            $Template = [GPOToolsSecurityTemplate]::new()
+            Set-PSGPORestrictedGroup -Template $Template -Group '*S-1-5-32-544' -Members @('CONTOSO\Admins') -MemberOf @()
+            Set-PSGPORestrictedGroup -Template $Template -Group 'CONTOSO\Kiosk' -Members @() -MemberOf @('*S-1-5-32-545')
+            $Rows = @(Get-PSGPOConfiguredSecuritySetting -Template $Template)
+            $Rows.Count | Should -Be 2
+            $Rows[0].Path | Should -Be 'Policies > Windows Settings > Security Settings > Restricted Groups'
+            $Rows[0].Name | Should -Be 'BUILTIN\Administrators (*S-1-5-32-544)'
+            $Rows[0].State | Should -Be 'Members: CONTOSO\Admins'
+            $Rows[1].State | Should -Be 'Members: none (the computers remove every member)'
+            $Rows[1].Options | Should -Be 'Member of: BUILTIN\Users (*S-1-5-32-545)'
+        }
+    }
+
+    Describe 'Advanced audit policy (audit.csv)' {
+        BeforeAll {
+            $Credential = Get-PSGPOSecuritySetting | Where-Object Name -EQ 'Audit Credential Validation'
+            $Logon = Get-PSGPOSecuritySetting | Where-Object Name -EQ 'Audit Logon'
+        }
+
+        It 'Has the subcategories of Windows under Advanced Audit Policy Configuration > Audit Policies' {
+            $Audit = @(Get-PSGPOSecuritySetting | Where-Object Section -EQ 'AdvancedAudit')
+            $Audit.Count | Should -Be 60
+            @($Audit.Path | Where-Object { $_ -notin 'Advanced Audit Policy Configuration', 'Audit Policies' } | Sort-Object -Unique) | Should -Be @(
+                'Account Logon', 'Account Management', 'Detailed Tracking', 'DS Access', 'Logon/Logoff', 'Object Access', 'Policy Change', 'Privilege Use', 'System')
+            $Credential.Key | Should -Be '{0cce923f-69ae-11d9-bed3-505054503030}'
+            $Credential.Path | Should -Be @('Advanced Audit Policy Configuration', 'Audit Policies', 'Account Logon')
+            $Credential.Kind | Should -Be 'Audit'
+        }
+
+        It 'Writes audit.csv as the Group Policy editor, and reads it back' {
+            $File = [GPOToolsAuditPolicyFile]::new()
+            Set-PSGPOSecurityValue -Template $File -Setting $Credential -Value 3
+            Set-PSGPOSecurityValue -Template $File -Setting $Logon -Value 0
+            $Text = [System.Text.Encoding]::UTF8.GetString($File.ToBytes())
+            $Text | Should -Be ("Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclusion Setting,Setting Value`r`n" +
+                ",System,Audit Credential Validation,{0cce923f-69ae-11d9-bed3-505054503030},Success and Failure,,3`r`n" +
+                ",System,Audit Logon,{0cce9215-69ae-11d9-bed3-505054503030},No Auditing,,0`r`n")
+            $Read = [GPOToolsAuditPolicyFile]::Parse($File.ToBytes())
+            (Get-PSGPOSecurityValue -Template $Read -Setting $Credential).Value | Should -Be 3
+            (Get-PSGPOSecurityValue -Template $Read -Setting $Logon).Defined | Should -BeTrue -Because 'No auditing is a setting'
+            Set-PSGPOSecurityValue -Template $Read -Setting $Logon -Value $null
+            $Read.HasValue('AdvancedAudit', $Logon.Key) | Should -BeFalse
+            { Set-PSGPOSecurityValue -Template $Read -Setting $Logon -Value 4 } | Should -Throw
+        }
+
+        It 'Keeps the lines it does not know, and reads a file in UTF-16 or with upper-case GUIDs' {
+            $Text = "Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclusion Setting,Setting Value`r`n" +
+                ",System,Audit Credential Validation,{0CCE923F-69AE-11D9-BED3-505054503030},Success,,1`r`n" +
+                ",,Option:CrashOnAuditFail,,Enabled,,1`r`n"
+            $Bytes = [byte[]](@(0xFF, 0xFE) + [System.Text.Encoding]::Unicode.GetBytes($Text))
+            $File = [GPOToolsAuditPolicyFile]::Parse($Bytes)
+            $File.GetValue('AdvancedAudit', $Credential.Key) | Should -Be '1'
+            [System.Text.Encoding]::UTF8.GetString($File.ToBytes()) | Should -BeLike '*,,Option:CrashOnAuditFail,,Enabled,,1*'
+        }
+
+        It 'Lists the subcategories configured as the Settings tab of GPMC' {
+            $File = [GPOToolsAuditPolicyFile]::new()
+            Set-PSGPOSecurityValue -Template $File -Setting $Credential -Value 3
+            $Row = @(Get-PSGPOConfiguredAuditSetting -AuditFile $File)
+            $Row.Count | Should -Be 1
+            $Row[0].Path | Should -Be 'Policies > Windows Settings > Security Settings > Advanced Audit Policy Configuration > Audit Policies > Account Logon'
+            $Row[0].Name | Should -Be 'Audit Credential Validation'
+            $Row[0].State | Should -Be 'Success and Failure'
+        }
+
+        It 'Saves audit.csv in the GPO with the extension of the advanced audit policy' {
+            $Directory = Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json')
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            $Version = $Gpo.GetComputerVersion()
+            $File = [GPOToolsAuditPolicyFile]::new()
+            Set-PSGPOSecurityValue -Template $File -Setting $Credential -Value 2
+            $Directory.WriteAuditPolicyFile($Gpo, $File.ToBytes())
+            [GPOToolsAuditPolicyFile]::Parse($Directory.ReadAuditPolicyFile($Gpo)).GetValue('AdvancedAudit', $Credential.Key) | Should -Be '2'
+            $Gpo.GetComputerVersion() | Should -Be ($Version + 1)
+            $Gpo.MachineExtensionNames | Should -Match ([regex]::Escape('{F3CCC681-B74C-4060-9F26-CD84525DCA2A}{0F3F3735-573D-9804-99E4-AB2A69BA5FD4}'))
+            # A backup reports it, as the History tab compares it.
+            $Report = @(Get-PSGPOSettingReport -Files $Directory.ReadGpoFolder($Gpo) -Property @{ DisplayName = $Gpo.DisplayName })
+            ($Report | Where-Object Name -EQ 'Audit Credential Validation').State | Should -Be 'Failure'
+        }
+    }
 }

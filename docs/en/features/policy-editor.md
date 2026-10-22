@@ -69,6 +69,36 @@ Each has its kind (number with its bounds and unit, choice, text, accounts for t
 and a link to its Microsoft documentation. Apply writes `GptTmpl.inf` (UTF-16, as Windows writes
 it), increases the computer version and declares the security extension.
 
+### Restricted groups
+
+**Security Settings > Restricted Groups** lists the groups of `[Group Membership]` in
+`GptTmpl.inf`. **Add group** gives the group (`DOMAIN\name`, or a SID such as `*S-1-5-32-544` for
+the local Administrators), then:
+
+- **Members of this group**: the computers give the group these members only, and remove the
+  others; an empty list removes every member. Unchecked, its members do not change (no
+  `__Members` key);
+- **This group is a member of**: the groups the computers add it to.
+
+**Edit** and **Delete** change or remove a group; a deleted group keeps the members it has. The
+Settings tab lists them (Members, Member of). Checked on a Windows member: the local Remote Desktop
+Users received exactly the members defined.
+
+### Advanced audit policy
+
+**Security Settings > Advanced Audit Policy Configuration > Audit Policies** has the 60
+subcategories of Windows (as `auditpol /list /subcategory:*` gives them), in their 9 categories
+(Account Logon, Account Management, Detailed Tracking, DS Access, Logon/Logoff, Object Access,
+Policy Change, Privilege Use, System). Each one is not defined, or audits its successes, its
+failures, both, or nothing (No Auditing). Apply writes `Machine\Microsoft\Windows NT\Audit\audit.csv`
+as the Group Policy editor does, increases the computer version and declares the extension of
+the advanced audit policy (Audit Policy Configuration): Windows applies it at the next refresh
+(checked with `auditpol /get` on a Windows member). The lines of `audit.csv` the console does not
+edit (audit options, global object access auditing) are kept as they are.
+
+Do not mix it with **Local Policies > Audit Policy** in the same domain: as Microsoft documents
+it, a computer then applies one or the other.
+
 ## Search and copy
 
 The search box finds the policies whose name holds the text typed (with **Configured settings
