@@ -6,7 +6,7 @@
 
 La vue sur laquelle elle s'ouvre, comme GPMC :
 
-![La vue Group Policy Management](../assets/screenshots/01-console-domain.png)
+![La vue Group Policy Management](../assets/screenshots/01-console-domain.fr.png)
 
 - **Le domaine et ses OU**, triées par nom, chacune avec ses liens de GPO par ordre de lien
   (l'ordre 1 d'abord, la plus haute priorité). Une OU qui bloque l'héritage le dit, et a sa propre
@@ -33,7 +33,7 @@ Une GPO a aussi deux onglets :
   n'explique.
 - **History** : ses sauvegardes en frise ([sauvegardes et historique](backup-history.md)).
 
-![L'onglet Settings](../assets/screenshots/03-gpo-settings.png)
+![L'onglet Settings](../assets/screenshots/03-gpo-settings.fr.png)
 
 **Refresh** (ou F5) relit le domaine, sur le même contrôleur de domaine avec le même compte, comme
 GPMC : les modifications des autres consoles et de GPMC apparaissent, l'arbre gardant ce qui est
@@ -53,7 +53,7 @@ sécurité et les préférences, lus dans la GPO et enregistrés dedans.
 une stratégie par son nom, lire son explication et la valeur de registre qu'elle pose, copier son
 nom, son chemin de registre ou la commande `Get-ItemProperty` qui la lit.
 
-![Le navigateur ADMX](../assets/screenshots/13-admx-browser.png)
+![Le navigateur ADMX](../assets/screenshots/13-admx-browser.fr.png)
 
 ## La barre d'état
 

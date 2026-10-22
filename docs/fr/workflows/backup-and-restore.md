@@ -55,7 +55,7 @@ Compare-PSGPOBackup -ReferenceBackup $Backups[-1] -DifferenceBackup $Backups[0] 
     Format-Table Change, Path, Name, Before, After
 ```
 
-![Les changements d'une sauvegarde](../assets/screenshots/04-history.png)
+![Les changements d'une sauvegarde](../assets/screenshots/04-history.fr.png)
 
 ## 4. Restaurer une version
 

@@ -6,13 +6,13 @@
    ses liens, supprimés avec elle, et le dossier où elle est d'abord sauvegardée.
 2. **Delete GPO**. Elle passe dans **Deleted GPOs**, sa dernière sauvegarde disant quand et par qui.
 
-![Supprimer une GPO](../assets/screenshots/08-delete-gpo.png)
+![Supprimer une GPO](../assets/screenshots/08-delete-gpo.fr.png)
 
 3. Plus tard : **Deleted GPOs** > la GPO > **Restore this GPO...** (ou **Restore...** dans son
    menu).
 4. Laissez **Link it again where it was** coché, **Restore**.
 
-![Restaurer une GPO supprimée](../assets/screenshots/07-deleted-gpo.png)
+![Restaurer une GPO supprimée](../assets/screenshots/07-deleted-gpo.fr.png)
 
 La GPO revient avec un **nouveau GUID**, son nom, ses paramètres, son statut et ses extensions côté
 client. Elle est reliée à ses OU qui existent encore, si son filtrage de sécurité était

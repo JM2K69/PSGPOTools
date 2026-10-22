@@ -44,7 +44,7 @@ vérifiée avec les autres avant d'être retenue.
 **Paramètres** est réservé aux administrateurs du domaine : il est grisé pour tout autre compte (son
 info-bulle dit pourquoi), sans domaine, et pour un annuaire qu'on ne peut pas écrire.
 
-![La fenêtre Settings](../assets/screenshots/09-configuration-window.png)
+![La fenêtre Settings](../assets/screenshots/09-configuration-window.fr.png)
 
 
 ## Quand elle est lue

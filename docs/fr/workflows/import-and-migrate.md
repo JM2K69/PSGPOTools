@@ -71,7 +71,7 @@ Dans la console, **Importer des paramètres...** dans le menu contextuel d'une G
 sauvegardes, la sauvegarde à importer, la table de migration, et si elle est utilisée
 exclusivement. Le résultat dit ce qu'est devenue chaque référence.
 
-![Importer des paramètres](../assets/screenshots/26-import-settings.png)
+![Importer des paramètres](../assets/screenshots/26-import-settings.fr.png)
 
 ```powershell
 Import-PSGPO -Path C:\backupGPO -SourceName 'C - Servers - Baseline' -TargetName 'C - Servers - Baseline' `

@@ -3,7 +3,7 @@
 **Edit** sur une GPO l'ouvre dans l'éditeur de stratégies. Le bandeau dit quelle GPO est modifiée ;
 chaque paramètre est lu dans la GPO, et **Apply** l'y enregistre.
 
-![L'éditeur de stratégies](../assets/screenshots/10-editor-policy.png)
+![L'éditeur de stratégies](../assets/screenshots/10-editor-policy.fr.png)
 
 L'arbre a les deux étendues d'une GPO, **Machine** (Configuration ordinateur) et **User**
 (Configuration utilisateur), avec chacune :
@@ -55,7 +55,7 @@ Les valeurs qu'aucune stratégie des ADMX chargés n'explique sont conservées, 
 
 ## Paramètres de sécurité
 
-![Les paramètres de sécurité](../assets/screenshots/12-editor-security.png)
+![Les paramètres de sécurité](../assets/screenshots/12-editor-security.fr.png)
 
 189 paramètres de `Machine\Microsoft\Windows NT\SecEdit\GptTmpl.inf`, groupés comme dans
 l'éditeur de Windows :
