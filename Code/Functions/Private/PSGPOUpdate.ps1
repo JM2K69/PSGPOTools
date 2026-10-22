@@ -85,28 +85,36 @@ function Get-PSGPOGalleryVersion {
 
 # The latest version of the Gallery for this version of HGPM (the prereleases count for a
 # prerelease), read at most once a day: the answer is kept in UpdateCheck.json. $null when the
-# Gallery cannot be read.
+# Gallery cannot be read; that is kept for an hour, so that a computer without network does not
+# wait for the Gallery at each import and each console.
 function Get-PSGPOLatestGalleryVersion {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] [semver]$Installed,
-        [TimeSpan]$MaxAge = [TimeSpan]::FromDays(1)
+        [TimeSpan]$MaxAge = [TimeSpan]::FromDays(1),
+        [TimeSpan]$FailedMaxAge = [TimeSpan]::FromHours(1)
     )
 
     $path = Get-PSGPOUpdateCheckPath
     $cache = $null
     try { $cache = Get-Content -LiteralPath $path -Raw -ErrorAction Stop | ConvertFrom-Json -ErrorAction Stop } catch { $cache = $null }
+    # ConvertFrom-Json gives the date of the check as a DateTime (its time zone kept), else a text.
     $checked = [datetime]::MinValue
-    if (-not ($cache -and [datetime]::TryParse("$($cache.Checked)", [cultureinfo]::InvariantCulture, [System.Globalization.DateTimeStyles]::RoundtripKind, [ref]$checked) -and
-            [datetime]::UtcNow - $checked.ToUniversalTime() -lt $MaxAge)) {
+    $known = if ($cache.Checked -is [datetime]) { $checked = $cache.Checked; $true }
+        else { [datetime]::TryParse("$($cache.Checked)", [cultureinfo]::InvariantCulture, [System.Globalization.DateTimeStyles]::RoundtripKind, [ref]$checked) }
+    $fresh = $cache -and $known -and [datetime]::UtcNow - $checked.ToUniversalTime() -lt $(if ($cache.Failed) { $FailedMaxAge } else { $MaxAge })
+    if (-not $fresh) {
+        $failed = $false
         try {
             $versions = @(Get-PSGPOGalleryVersion)
         } catch {
             Write-Verbose "The PowerShell Gallery cannot be read: $($_.Exception.GetBaseException().Message)"
-            return $null
+            $failed = $true
+            $versions = @()
         }
         $cache = [pscustomobject]@{
             Checked = [datetime]::UtcNow.ToString('o')
+            Failed = $failed
             Latest = "$($versions | Sort-Object -Descending | Select-Object -First 1)"
             LatestStable = "$($versions | Where-Object { -not $_.PreReleaseLabel } | Sort-Object -Descending | Select-Object -First 1)"
         }
@@ -117,6 +125,7 @@ function Get-PSGPOLatestGalleryVersion {
             Write-Verbose "What the PowerShell Gallery has is not kept: $($_.Exception.Message)"
         }
     }
+    if ($cache.Failed) { return $null }
     $latest = if ($Installed.PreReleaseLabel) { $cache.Latest } else { $cache.LatestStable }
     if ($latest) { [semver]$latest }
 }

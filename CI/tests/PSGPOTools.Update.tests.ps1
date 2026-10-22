@@ -131,6 +131,20 @@ InModuleScope -ModuleName HGPM {
             Should -Invoke Get-PSGPOGalleryVersion -Times 1 -Exactly -Because 'only the read that failed, none once skipped'
         }
 
+        It 'Keeps for an hour that the Gallery cannot be read: no wait at each import without network' {
+            Mock Get-PSGPOGalleryVersion { throw 'The request was canceled due to the configured HttpClient.Timeout of 3 seconds elapsing.' }
+            @(Write-PSGPOImportBanner 6>&1).MessageData | Should -Be 'HGPM 0.1.5-alpha'
+            @(Write-PSGPOImportBanner 6>&1).MessageData | Should -Be 'HGPM 0.1.5-alpha'
+            Should -Invoke Get-PSGPOGalleryVersion -Times 1 -Exactly
+            (Get-Content -LiteralPath $script:Cache -Raw | ConvertFrom-Json).Failed | Should -BeTrue
+            # An hour later, the Gallery is read again.
+            $Kept = Get-Content -LiteralPath $script:Cache -Raw | ConvertFrom-Json
+            $Kept.Checked = [datetime]::UtcNow.AddHours(-2).ToString('o')
+            Set-Content -LiteralPath $script:Cache -Value ($Kept | ConvertTo-Json)
+            Mock Get-PSGPOGalleryVersion { $script:Gallery }
+            @(Write-PSGPOImportBanner 6>&1).MessageData -join "`n" | Should -BeLike '*0.1.6-alpha is available*'
+        }
+
         It 'Never fails the import' {
             Mock Get-PSGPOModuleVersion { throw 'unreadable manifest' }
             { Write-PSGPOImportBanner 6>$null } | Should -Not -Throw

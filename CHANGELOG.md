@@ -13,6 +13,7 @@
 
 * In French, the title of the policy tree no longer runs over the check box Configured settings only, and a long name of the details of the console wraps instead of running over its value
 * The name of the security option on PKU2U authentication ended with two line breaks
+* Without network, the import and the consoles no longer wait 3 seconds for the PowerShell Gallery each time: a failed check is kept for an hour
 
 ## 0.1.5 - alpha
 
