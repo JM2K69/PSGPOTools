@@ -847,6 +847,15 @@ InModuleScope -ModuleName HGPM {
                 $Ui.filteringNameTextBox.Text = 'Servers-Paris'
                 Invoke-Click $Ui.filteringAddButton
                 $Ui.delegationStatusTextBlock.Text | Should -Be "'Servers-Paris' applies the GPO now."
+                # The badge of the security filtering, on its accounts only.
+                (@($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'Servers-Paris').Applies | Should -BeTrue
+                (@($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'Domain Admins').Applies | Should -BeFalse
+                # The row realized first: the list shows a few rows at a time.
+                $Index = [array]::IndexOf(@($Ui.delegationList.ItemsSource.Name), 'Servers-Paris')
+                $Ui.delegationList.ScrollIntoView($Index)
+                $Ui.Window.UpdateLayout()
+                $Badge = [Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($Ui.delegationList.ContainerFromIndex($Index)) | Where-Object { $_ -is [Avalonia.Controls.Border] -and $_.IsVisible -and ([Avalonia.Controls.ToolTip]::GetTip($_)) }
+                @($Badge).Count | Should -Be 1
                 $Ui.filteringList.SelectedItem = @($Ui.filteringList.ItemsSource) | Where-Object Name -EQ 'Authenticated Users'
                 $Ui.filteringRemoveButton.IsEnabled | Should -BeTrue
                 Invoke-Click $Ui.filteringRemoveButton
@@ -860,7 +869,7 @@ InModuleScope -ModuleName HGPM {
                 $Ui.delegationNameTextBox.Text = 'Servers-Lyon'
                 $Ui.delegationPermissionComboBox.SelectedIndex = 1
                 Invoke-Click $Ui.delegationSetButton
-                $Ui.delegationStatusTextBlock.Text | Should -Be "'Servers-Lyon' has the permission Read (from Security Filtering) now."
+                $Ui.delegationStatusTextBlock.Text | Should -Be "'Servers-Lyon' has the permission Read and apply now."
                 @($Ui.filteringList.ItemsSource.Name) | Should -Contain 'Servers-Lyon'
                 $Ui.filteringList.SelectedItem = @($Ui.filteringList.ItemsSource) | Where-Object Name -EQ 'Servers-Lyon'
                 Invoke-Click $Ui.filteringRemoveButton
@@ -871,6 +880,12 @@ InModuleScope -ModuleName HGPM {
                 $Ui.delegationPermissionComboBox.SelectedIndex = 2
                 Invoke-Click $Ui.delegationSetButton
                 $Ui.delegationStatusTextBlock.Text | Should -Be "'GPO-Tier1-Admins' has the permission Edit settings now."
+                # An editor added to the security filtering keeps its level, and has the badge.
+                $Ui.filteringNameTextBox.Text = 'GPO-Tier1-Admins'
+                Invoke-Click $Ui.filteringAddButton
+                $Editor = @($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'GPO-Tier1-Admins'
+                $Editor.PermissionText | Should -Be 'Edit settings'
+                $Editor.Applies | Should -BeTrue
                 $Ui.delegationList.SelectedItem = @($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'GPO-Tier1-Admins'
                 $Ui.delegationNameTextBox.Text | Should -Be 'GPO-Tier1-Admins'
                 $Ui.delegationPermissionComboBox.SelectedIndex | Should -Be 2

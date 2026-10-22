@@ -1747,6 +1747,7 @@ function Start-PSGPOManagerWindow {
                 $item.Sid = $row.Sid
                 $item.Permission = $row.Permission
                 $item.PermissionText = Get-PSGPOText (Get-PSGPOPermissionText -Permission $row.Permission)
+                $item.Applies = $row.Applies -and -not $row.Denied
                 $item.Inherited = $row.Inherited
                 $item.InheritedText = Get-PSGPOText $(if ($row.Inherited) { 'Yes' } else { 'No' })
                 $item

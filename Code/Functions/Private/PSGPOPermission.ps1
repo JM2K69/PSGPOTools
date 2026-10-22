@@ -3,7 +3,8 @@
     its DACL, one level of GPMC, from the access control entries of its group policy container.
 
       GpoRead                      Read                                    (A;CI;0x20094)
-      GpoApply                     Read (from Security Filtering)          read + (OA;CI;CR;Apply Group Policy)
+      GpoApply                     Read and apply                          read + (OA;CI;CR;Apply Group Policy)
+                                   (GPMC: Read (from Security Filtering))
       GpoEdit                      Edit settings                           (A;CI;0x200BF)
       GpoEditDeleteModifySecurity  Edit settings, delete, modify security  (A;CI;0xF00FF)
       GpoCustom                    Custom: anything else, or a deny ACE
@@ -30,7 +31,7 @@ function Get-PSGPOPermissionText {
 
     switch ($Permission) {
         'GpoRead' { 'Read' }
-        'GpoApply' { 'Read (from Security Filtering)' }
+        'GpoApply' { 'Read and apply' }
         'GpoEdit' { 'Edit settings' }
         'GpoEditDeleteModifySecurity' { 'Edit settings, delete, modify security' }
         default { 'Custom' }

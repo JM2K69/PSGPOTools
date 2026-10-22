@@ -549,7 +549,16 @@ $(Get-PSGPOWindowResourceXaml)
                                             <DataTemplate>
                                                 <Grid ColumnDefinitions='*,280,90'>
                                                     <TextBlock Grid.Column='0' Text='{Binding Name}' TextTrimming='CharacterEllipsis'/>
-                                                    <TextBlock Grid.Column='1' Text='{Binding PermissionText}'/>
+                                                    <!-- An account of the security filtering: it applies the GPO, whatever its level -->
+                                                    <DockPanel Grid.Column='1' Margin='0,0,8,0'>
+                                                        <Border DockPanel.Dock='Right' IsVisible='{Binding Applies}' Background='{DynamicResource PrimaryBrush}'
+                                                                CornerRadius='8' Padding='7,1' Margin='6,0,0,0' VerticalAlignment='Center'
+                                                                ToolTip.Tip='Security filtering: this account reads and applies the GPO (Apply Group Policy).'>
+                                                            <TextBlock Text='Applies' FontSize='11' Foreground='White'/>
+                                                        </Border>
+                                                        <TextBlock Text='{Binding PermissionText}' TextTrimming='CharacterEllipsis' VerticalAlignment='Center'
+                                                                   ToolTip.Tip='{Binding PermissionText}'/>
+                                                    </DockPanel>
                                                     <TextBlock Grid.Column='2' Text='{Binding InheritedText}'/>
                                                 </Grid>
                                             </DataTemplate>
@@ -559,7 +568,7 @@ $(Get-PSGPOWindowResourceXaml)
                                         <TextBox Grid.Column='0' Name='delegationNameTextBox' Watermark='Group, user or computer (PC01`$)'/>
                                         <ComboBox Grid.Column='1' Name='delegationPermissionComboBox' Margin='8,0,0,0' MinWidth='300' SelectedIndex='0'>
                                             <ComboBoxItem Content='Read' Tag='GpoRead'/>
-                                            <ComboBoxItem Content='Read (from Security Filtering)' Tag='GpoApply'/>
+                                            <ComboBoxItem Content='Read and apply' Tag='GpoApply'/>
                                             <ComboBoxItem Content='Edit settings' Tag='GpoEdit'/>
                                             <ComboBoxItem Content='Edit settings, delete, modify security' Tag='GpoEditDeleteModifySecurity'/>
                                         </ComboBox>
