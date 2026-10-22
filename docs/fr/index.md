@@ -5,7 +5,7 @@ en PowerShell 7 avec une interface [Avalonia](https://avaloniaui.net/). Elle fon
 **Windows et Linux**, et gère aussi bien les GPO des domaines **Samba AD** que ceux d'**Active
 Directory**.
 
-![La vue Group Policy Management sur un domaine Samba AD](assets/screenshots/01-console-domain.png)
+![La vue Group Policy Management sur un domaine Samba AD](assets/screenshots/01-console-domain.fr.png)
 
 ## Ce qu'elle fait
 

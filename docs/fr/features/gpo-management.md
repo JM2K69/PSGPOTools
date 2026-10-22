@@ -8,7 +8,7 @@ droit de faire dans le domaine (voir [délégation](delegation.md)).
 **Create a GPO in this domain, and Link it here...** sur le domaine ou une OU, ou **New GPO...**
 sur Group Policy Objects :
 
-![Le formulaire New GPO](../assets/screenshots/05-new-gpo.png)
+![Le formulaire New GPO](../assets/screenshots/05-new-gpo.fr.png)
 
 | Champ | |
 |---|---|
@@ -60,7 +60,7 @@ posé **à l'approbation**, où l'approbateur peut créer les mêmes groupes.
 avec une recherche par nom ; le lien prend la plus faible priorité (le dernier ordre de lien),
 comme dans GPMC.
 
-![Lier une GPO existante](../assets/screenshots/06-link-existing-gpo.png)
+![Lier une GPO existante](../assets/screenshots/06-link-existing-gpo.fr.png)
 
 **Delete link...** sur un lien le supprime, après confirmation ; la GPO elle-même reste dans Group
 Policy Objects avec ses autres liens, et les liens suivants remontent d'un rang.
@@ -84,9 +84,9 @@ s'y appliquent plus, sauf les liens appliqués (Enforced). L'arbre les montre co
 pour un lien appliqué, un lien barré pour un lien désactivé, un dossier barré pour une OU qui bloque
 l'héritage.
 
-![Les liens d'une OU : l'un appliqué, l'autre désactivé](../assets/screenshots/19-links-enforced.png)
+![Les liens d'une OU : l'un appliqué, l'autre désactivé](../assets/screenshots/19-links-enforced.fr.png)
 
-![Une OU qui bloque l'héritage](../assets/screenshots/20-block-inheritance.png)
+![Une OU qui bloque l'héritage](../assets/screenshots/20-block-inheritance.fr.png)
 
 Chaque modification est écrite tout de suite dans le domaine, et seulement ce qui change : la
 console relit le `gPLink` (ou le `gPOptions`), modifie son lien, et l'écrit dans une seule requête
@@ -122,7 +122,7 @@ GPO, comme les ordinateurs en ont besoin (MS16-072).
 L'onglet **Délégation** d'une GPO montre et modifie ses autorisations, comme les onglets Étendue
 et Délégation de GPMC.
 
-![L'onglet Délégation d'une GPO](../assets/screenshots/25-delegation.png)
+![L'onglet Délégation d'une GPO](../assets/screenshots/25-delegation.fr.png)
 
 - **Filtrage de sécurité** : les groupes, utilisateurs et ordinateurs qui appliquent la GPO.
   **Ajouter** un compte (son nom, `DOMAINE\nom`, un ordinateur sous la forme `PC01$`) : il lit et
@@ -167,21 +167,21 @@ Windows ; une GPO désigne son filtre dans `gPCWQLFilter`.
 requêtes, comme GPMC. Un filtre montre sa description, ses requêtes, les GPO qui l'utilisent et son
 nom distinctif :
 
-![Les filtres WMI du domaine](../assets/screenshots/23-wmi-filter-details.png)
+![Les filtres WMI du domaine](../assets/screenshots/23-wmi-filter-details.fr.png)
 
 **New WMI Filter...**, dans le menu contextuel de WMI Filters, en crée un : son nom, une
 description, l'espace de noms WMI (`root\CIMv2`) et ses requêtes WQL, une par ligne.
 **Delete WMI filter...**, dans le menu contextuel d'un filtre, le supprime quand plus aucune GPO ne
 l'utilise.
 
-![Un nouveau filtre WMI](../assets/screenshots/24-new-wmi-filter.png)
+![Un nouveau filtre WMI](../assets/screenshots/24-new-wmi-filter.fr.png)
 
 **WMI Filter**, dans le menu contextuel d'une GPO, liste les filtres du domaine : celui qui est
 coché est le filtre de la GPO, **(none)** la délie. Ses détails montrent le filtre et ses requêtes,
 ou disent que le filtre d'une GPO n'est plus dans le domaine (les ordinateurs ignorent alors la
 GPO).
 
-![Une GPO liée à un filtre WMI](../assets/screenshots/21-wmi-filter.png)
+![Une GPO liée à un filtre WMI](../assets/screenshots/21-wmi-filter.fr.png)
 
 ```powershell
 New-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' -Description 'Les postes Windows, pas les serveurs'
@@ -200,7 +200,7 @@ n'y est plus.
 
 **Delete GPO...** sur une GPO de Group Policy Objects, après confirmation :
 
-![Supprimer une GPO](../assets/screenshots/08-delete-gpo.png)
+![Supprimer une GPO](../assets/screenshots/08-delete-gpo.fr.png)
 
 1. La GPO est d'abord **sauvegardée**, dans le dossier de l'onglet History ; sa dernière
    sauvegarde dit quand et par qui elle a été supprimée.
@@ -224,7 +224,7 @@ Remove-PSGPO -Name 'U - Lyon - Printers' -BackupPath /srv/gpo-backups
 **Deleted GPOs** liste les GPO du domaine qui n'y sont plus et qui ont une sauvegarde (la plus
 récente). **Restore...** recrée la GPO à partir de celle-ci :
 
-![Restaurer une GPO supprimée](../assets/screenshots/07-deleted-gpo.png)
+![Restaurer une GPO supprimée](../assets/screenshots/07-deleted-gpo.fr.png)
 
 - une **nouvelle GPO**, avec un nouveau GUID donné par le domaine (ni New-GPO ni samba-tool ne
   permettent de le choisir), avec le nom, les paramètres, le statut et les extensions côté client

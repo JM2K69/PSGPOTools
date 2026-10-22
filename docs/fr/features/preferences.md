@@ -4,7 +4,7 @@ Le nœud **Preferences** de chaque étendue a les 21 types de préférences de
 [MS-GPPREF](https://learn.microsoft.com/fr-fr/openspecs/windows_protocols/ms-gppref/), sous
 **Windows Settings** et **Control Panel Settings**, comme l'éditeur de Windows les montre.
 
-![Les préférences Registry d'une GPO](../assets/screenshots/11-editor-preferences.png)
+![Les préférences Registry d'une GPO](../assets/screenshots/11-editor-preferences.fr.png)
 
 | Windows Settings | Control Panel Settings |
 |---|---|

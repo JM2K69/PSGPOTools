@@ -35,7 +35,7 @@ Show-GPOManagerAvalonia
 
 ## Se repérer dans la fenêtre
 
-![Les détails d'une GPO](../assets/screenshots/02-gpo-details.png)
+![Les détails d'une GPO](../assets/screenshots/02-gpo-details.fr.png)
 
 - **À gauche** : le domaine, ses OU avec leurs liens de GPO (par ordre de lien),
   **Group Policy Objects**, et **Deleted GPOs** (la corbeille, tirée des sauvegardes).

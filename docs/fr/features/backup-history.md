@@ -4,7 +4,7 @@ HGPM garde l'historique de chaque GPO sous forme de sauvegardes, dans un dossier
 choix (par défaut `PSGPOTools Backups` dans vos documents). L'onglet **History** d'une GPO les
 montre en frise.
 
-![L'onglet History](../assets/screenshots/04-history.png)
+![L'onglet History](../assets/screenshots/04-history.fr.png)
 
 ## Les sauvegardes
 

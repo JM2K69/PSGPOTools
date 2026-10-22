@@ -12,7 +12,7 @@ Objectif : une GPO pour les serveurs du Tier 1, qui ne s'applique qu'aux membres
    `DENY_T1 - Servers - Proxy`, dans le conteneur proposé par la configuration.
 4. **Create**.
 
-![Le formulaire New GPO](../assets/screenshots/05-new-gpo.png)
+![Le formulaire New GPO](../assets/screenshots/05-new-gpo.fr.png)
 
 Sous les détails, la console dit ce qu'elle a fait : la GPO créée, son statut, ses groupes, son
 lien. Si les groupes n'ont pas pu être créés, la GPO **n'est pas liée**, et la console dit
