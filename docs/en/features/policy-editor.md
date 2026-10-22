@@ -71,6 +71,8 @@ it), increases the computer version and declares the security extension.
 
 ### Restricted groups
 
+![The restricted groups of a GPO](../assets/screenshots/38-restricted-groups.png)
+
 **Security Settings > Restricted Groups** lists the groups of `[Group Membership]` in
 `GptTmpl.inf`. **Add group** gives the group (`DOMAIN\name`, or a SID such as `*S-1-5-32-544` for
 the local Administrators), then:
@@ -85,6 +87,8 @@ Settings tab lists them (Members, Member of). Checked on a Windows member: the l
 Users received exactly the members defined.
 
 ### Public key policies
+
+![The trusted root certification authorities of a GPO](../assets/screenshots/40-public-key-policies.png)
 
 **Security Settings > Public Key Policies** has the certificate stores of the Group Policy editor:
 for the computers, Encrypting File System, BitLocker Drive Encryption, BitLocker Drive Encryption
@@ -106,6 +110,8 @@ computer (`certutil -grouppolicy -store Root`), the EFS recovery agent in its EF
 `EFSBlob` of the registry is the one written.
 
 ### Advanced audit policy
+
+![A subcategory of the advanced audit policy](../assets/screenshots/39-advanced-audit.png)
 
 **Security Settings > Advanced Audit Policy Configuration > Audit Policies** has the 60
 subcategories of Windows (as `auditpol /list /subcategory:*` gives them), in their 9 categories
