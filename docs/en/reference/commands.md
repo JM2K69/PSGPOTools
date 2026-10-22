@@ -30,6 +30,7 @@ page. The commands that change the domain support `-WhatIf` and `-Confirm`.
 | [`Set-PSGPOPermission`](commands/set-psgpopermission.md) `-Name -Account [-Permission GpoRead\|GpoApply\|GpoEdit\|GpoEditDeleteModifySecurity\|None] [-SecurityFiltering Add\|Remove]` | gives an account a level on GPOs, or changes their security filtering, in the directory and in SYSVOL |
 | [`Get-PSGPOWmiFilter`](commands/get-psgpowmifilter.md) `[-Name]` | the WMI filters of the domain, their queries and their GPOs |
 | [`New-PSGPOWmiFilter`](commands/new-psgpowmifilter.md) `-Name -Query [-Namespace] [-Description]` | creates a WMI filter |
+| [`Set-PSGPOWmiFilter`](commands/set-psgpowmifilter.md) `-Name [-NewName] [-Description] [-Query] [-Namespace]` | changes the name, description or queries of a WMI filter |
 | [`Remove-PSGPOWmiFilter`](commands/remove-psgpowmifilter.md) `-Name` | deletes WMI filters no GPO uses |
 
 A name given with `-Name` is the name of the GPO, brackets included (`Servers [Lyon]`); with `*` or `?` it is a wildcard pattern. Two GPOs with the same name are each taken.
@@ -118,5 +119,5 @@ New-PSGPOFineGrainedPasswordPolicy -Name 'PSO - Tier 1 Admins' -Precedence 10 -M
 | `PSGPOTools.Restore` | `Restore-PSGPO` | `DisplayName`, `Id`, `Version`, `BackupBefore`, `CreatedAgain`, `Linked`, `Problems` |
 | `PSGPOTools.Link` | `New-PSGPOLink`, `Set-PSGPOLink` | `DisplayName`, `Target`, `Order`, `Enabled`, `Enforced` |
 | `PSGPOTools.AuditEntry` | `Get-PSGPOAuditLog` | `Time`, `Account`, `Computer`, `Server`, `Action`, `Target`, `GpoName`, `GpoId`, `Details` |
-| `PSGPOTools.WmiFilter` | `Get-PSGPOWmiFilter`, `New-PSGPOWmiFilter` | `Name`, `Id`, `Description`, `Queries`, `Gpos`, `DistinguishedName` |
+| `PSGPOTools.WmiFilter` | `Get-PSGPOWmiFilter`, `New-PSGPOWmiFilter`, `Set-PSGPOWmiFilter` | `Name`, `Id`, `Description`, `Queries`, `Gpos`, `DistinguishedName` |
 | `PSGPOTools.Approval` | `Approve-PSGPO` | `DisplayName`, `Owner`, `CreatedBy`, `CreatorRights`, `AppliedBy`, `DeniedTo`, `GroupsCreated`, `RemovedPermissions`, `Backup` |

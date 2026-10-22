@@ -586,6 +586,30 @@ class GPOToolsDirectory {
         return $Filter
     }
 
+    # Changes the name, description and queries of a WMI filter, as GPMC edits a filter: the GPOs
+    # linked to it keep it (its Id does not change) and apply with its new queries.
+    [void] EditWmiFilter([GPOToolsWmiFilter]$Filter, [string]$Name, [string]$Description, [object[]]$Queries) {
+        $this.AssertWritable()
+        if (-not $this.WmiFilters.Contains($Filter)) { throw "The WMI filter '$($Filter.Name)' is not a filter of $($this.DomainName)." }
+        $Name = "$Name".Trim()
+        if (-not $Name) { throw 'The name of the WMI filter is required.' }
+        $Other = $this.FindWmiFilter($Name)
+        if ($Other -and $Other -ne $Filter) { throw "A WMI filter named '$Name' already exists in $($this.DomainName)." }
+        if (-not @($Queries).Count) { throw 'A WMI filter has at least one query.' }
+        $Changed = [GPOToolsWmiFilter]::new()
+        $Changed.Id = $Filter.Id
+        $Changed.DistinguishedName = $Filter.DistinguishedName
+        $Changed.Name = $Name
+        $Changed.Description = "$Description".Trim()
+        $Changed.Queries = @($Queries | ForEach-Object { [pscustomobject]@{ Namespace = $(if ($_.Namespace) { "$($_.Namespace)".Trim() } else { 'root\CIMv2' }); Query = "$($_.Query)".Trim() } })
+        if ($Changed.Name -ceq $Filter.Name -and $Changed.Description -ceq "$($Filter.Description)" -and $Changed.GetQueryText() -ceq $Filter.GetQueryText()) { return }
+        $this.SaveEditedWmiFilter($Filter, $Changed)
+        $Filter.Name = $Changed.Name
+        $Filter.Description = $Changed.Description
+        $Filter.Queries = $Changed.Queries
+        $this.WmiFilters.Sort([System.Comparison[GPOToolsWmiFilter]] { param($a, $b) [string]::Compare($a.Name, $b.Name, $true) })
+    }
+
     # Deletes a WMI filter no GPO is linked to, as GPMC does.
     [void] RemoveWmiFilter([GPOToolsWmiFilter]$Filter) {
         $this.AssertWritable()
@@ -828,6 +852,8 @@ class GPOToolsDirectory {
         return $Descriptor
     }
     hidden [void] SaveNewWmiFilter([GPOToolsWmiFilter]$Filter) {}
+    # $Changed: the filter as it becomes, $Filter still as the domain has it.
+    hidden [void] SaveEditedWmiFilter([GPOToolsWmiFilter]$Filter, [GPOToolsWmiFilter]$Changed) {}
     hidden [void] SaveRemovedWmiFilter([GPOToolsWmiFilter]$Filter) {}
     # A GPO of a creator, made to wait for its approval: it applies to nobody.
     hidden [void] SavePendingGpo([GPOToolsGpo]$Gpo) {
@@ -987,6 +1013,12 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
     hidden [void] SaveNewWmiFilter([GPOToolsWmiFilter]$Filter) {
         New-PSGPODomainWmiFilter -Directory $this -Filter $Filter
         Write-PSGPOAuditEntry -Directory $this -Action 'NewWmiFilter' -Target $Filter.DistinguishedName -Details ([ordered]@{ Name = $Filter.Name; Queries = $Filter.GetQueryText() })
+    }
+
+    hidden [void] SaveEditedWmiFilter([GPOToolsWmiFilter]$Filter, [GPOToolsWmiFilter]$Changed) {
+        Set-PSGPODomainWmiFilter -Directory $this -Filter $Filter -Changed $Changed
+        Write-PSGPOAuditEntry -Directory $this -Action 'EditWmiFilter' -Target $Filter.DistinguishedName `
+            -Details ([ordered]@{ Name = $Changed.Name; OldName = $(if ($Filter.Name -cne $Changed.Name) { $Filter.Name }); Queries = $Changed.GetQueryText() })
     }
 
     hidden [void] SaveRemovedWmiFilter([GPOToolsWmiFilter]$Filter) {

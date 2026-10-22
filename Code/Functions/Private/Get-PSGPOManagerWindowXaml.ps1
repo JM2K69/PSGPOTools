@@ -176,6 +176,9 @@ $(Get-PSGPOWindowResourceXaml)
                                 <MenuItem Name='newWmiFilterMenuItem' Header='New WMI Filter...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.add}'/></MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Name='editWmiFilterMenuItem' Header='Edit WMI filter...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.edit}'/></MenuItem.Icon>
+                                </MenuItem>
                                 <MenuItem Name='deleteWmiFilterMenuItem' Header='Delete WMI filter...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.delete}'/></MenuItem.Icon>
                                 </MenuItem>
@@ -363,19 +366,19 @@ $(Get-PSGPOWindowResourceXaml)
                                         </StackPanel>
                                     </Border>
 
-                                    <!-- A new WMI filter of the domain, as GPMC: its name, description and WQL queries -->
+                                    <!-- A new WMI filter of the domain, or one changed, as GPMC: its name, description and WQL queries -->
                                     <Border Name='newWmiFilterPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
                                             BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
                                             Background='{DynamicResource SecondaryBackgroundBrush}'>
                                         <StackPanel Spacing='8'>
-                                            <TextBlock Text='New WMI filter' FontWeight='SemiBold' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBlock Name='newWmiFilterTitleTextBlock' Text='New WMI filter' FontWeight='SemiBold' Foreground='{DynamicResource TextBrush}'/>
                                             <TextBlock Text='Name' FontSize='12' Opacity='0.8' Foreground='{DynamicResource TextBrush}'/>
                                             <TextBox Name='newWmiFilterNameTextBox' Watermark='Name'/>
                                             <TextBlock Text='Description' FontSize='12' Opacity='0.8' Foreground='{DynamicResource TextBrush}'/>
                                             <TextBox Name='newWmiFilterDescriptionTextBox' Watermark='Description (optional)'/>
                                             <TextBlock Text='Namespace' FontSize='12' Opacity='0.8' Foreground='{DynamicResource TextBrush}'/>
                                             <TextBox Name='newWmiFilterNamespaceTextBox' Text='root\CIMv2' Watermark='Namespace'/>
-                                            <TextBlock Text='WQL queries, one per line' FontSize='12' Opacity='0.8' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBlock Text='WQL queries, one per line (namespace: query for another namespace)' FontSize='12' Opacity='0.8' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
                                             <TextBox Name='newWmiFilterQueryTextBox' AcceptsReturn='True' TextWrapping='Wrap' MinHeight='70'
                                                      Watermark='WQL queries, one per line: SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1'/>
                                             <TextBlock Name='newWmiFilterErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
