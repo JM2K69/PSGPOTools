@@ -8,6 +8,7 @@
 * The Delegation tab of the GPO console gives the level Read and apply too: the account reads and applies the GPO (Apply Group Policy), as Set-PSGPOPermission -Permission GpoApply. The level is named Read and apply in the tab (GPMC: Read (from Security Filtering)). An Applies badge marks every account of the Delegation tab that applies the GPO, whatever its level (an editor in the security filtering, for instance)
 * The status bar of both consoles (Show-GPOManagerAvalonia, Show-PSOManagerAvalonia) shows the version of HGPM with a dot: green when it is the latest of the PowerShell Gallery, orange when a newer one is there (its tooltip gives the command that installs it), grey when the Gallery was not read
 * The consoles in French show the names of the security settings and options, of the preferences (types, items, their properties) and the descriptions of the configuration in French, from Resources/Strings/Catalogs/fr-FR.psd1 (683 names, those of the French Group Policy editor); the Settings and History tabs show their reports in French, the registry values and preview of the policy editor too. The commands and their reports stay in English
+* The policy editor shows the tree of the Group Policy editor: Computer Configuration and User Configuration, each with Policies (Windows Settings > Security Settings, Administrative Templates and the ADMX policies under it) then Preferences
 
 ### Fixed
 

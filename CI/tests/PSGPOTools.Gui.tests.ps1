@@ -89,7 +89,7 @@ InModuleScope -ModuleName HGPM {
             Start-PSGPOManagerWindow -OnShown {
                 param($Ui)
                 $Ui.Window.IsVisible | Should -BeTrue
-                $Ui.treeView.ItemsSource.Header | Should -Be @('Machine', 'User')
+                $Ui.treeView.ItemsSource.Header | Should -Be @('Computer Configuration', 'User Configuration')
                 $Ui.breadcrumbTextBlock.Text | Should -Be 'Select a policy to see its path'
                 @(Get-TreePolicy $Ui.treeView.ItemsSource).Count | Should -Be ([GPOToolsUtility]::Policies.Count)
             }
@@ -111,7 +111,7 @@ InModuleScope -ModuleName HGPM {
                 ($Rows | Where-Object Key -EQ 'Enabled').Value | Should -Be 'Software\Policies\Microsoft\Windows Defender\DisableAntiSpyware = 1 (DWord)'
                 ($Rows | Where-Object Key -EQ 'Disabled').Value | Should -Be 'Software\Policies\Microsoft\Windows Defender\DisableAntiSpyware = 0 (DWord)'
 
-                $Ui.breadcrumbTextBlock.Text | Should -BeLike "*Machine > Windows Components > *$($DefenderPolicy.Category.DisplayName) > $($DefenderPolicy.DisplayName)"
+                $Ui.breadcrumbTextBlock.Text | Should -BeLike "Computer Configuration > Policies > Administrative Templates > Windows Components > *$($DefenderPolicy.Category.DisplayName) > $($DefenderPolicy.DisplayName)"
             }
         }
 
@@ -209,8 +209,9 @@ InModuleScope -ModuleName HGPM {
                     param($Ui)
                     # The security settings do not come from the ADMX files (Linux without ADMX).
                     # The preferences do not either: both scopes have them.
-                    $Ui.treeView.ItemsSource.Header | Should -Be @('Machine', 'User')
-                    @($Ui.treeView.ItemsSource)[0].Children.Header | Should -Be @('Windows Settings', 'Preferences')
+                    $Ui.treeView.ItemsSource.Header | Should -Be @('Computer Configuration', 'User Configuration')
+                    @($Ui.treeView.ItemsSource)[0].Children.Header | Should -Be @('Policies', 'Preferences')
+                    @(@($Ui.treeView.ItemsSource)[0].Children[0].Children.Header) | Should -Be @('Windows Settings') -Because 'no Administrative Templates without ADMX'
                     @($Ui.treeView.ItemsSource)[1].Children.Header | Should -Be @('Preferences')
                     $Ui.breadcrumbTextBlock.Text | Should -BeLike 'No ADMX policy loaded*'
                     $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsSecuritySetting] -and $n.Tag.Key -eq 'MinimumPasswordLength' }
@@ -448,7 +449,7 @@ InModuleScope -ModuleName HGPM {
                     ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Nom unique').Value | Should -Be 'OU=Workstations,OU=Paris,OU=Sites,DC=corp,DC=contoso,DC=com'
                     ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Type').Value | Should -Be "Unité d'organisation"
 
-                    $Ui.treeView.ItemsSource.Header | Should -Be @('Ordinateur', 'Utilisateur')
+                    $Ui.treeView.ItemsSource.Header | Should -Be @('Configuration ordinateur', 'Configuration utilisateur')
                 }
             } finally {
                 $null = Set-PSGPOLanguage -Language 'en-US'
@@ -1818,7 +1819,7 @@ InModuleScope -ModuleName HGPM {
                 $Ui.configuredOnlyCheckBox.IsChecked = $true
                 @(Get-TreePolicy $Ui.treeView.ItemsSource).ID | Should -Be @('DisallowCpls')
                 @(Get-TreeSecurity $Ui.treeView.ItemsSource).Key | Should -Be @('MinimumPasswordLength')
-                $Ui.treeView.ItemsSource.Header | Should -Be @('Machine', 'User')
+                $Ui.treeView.ItemsSource.Header | Should -Be @('Computer Configuration', 'User Configuration')
                 # Expanded down to the settings, to see them at once.
                 $Node = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsSecuritySetting] }
                 for ($Parent = $Node.Parent; $Parent; $Parent = $Parent.Parent) { $Parent.IsExpanded | Should -BeTrue -Because "$($Parent.Header) leads to the setting" }
