@@ -956,6 +956,54 @@ $(Get-PSGPOWindowResourceXaml)
                         </ScrollViewer>
                     </Grid>
 
+                    <!-- A certificate store of the public key policies: its certificates in Registry.pol -->
+                    <Grid Grid.Row='1' Name='certificatesPanel' IsVisible='False' Margin='16,8' RowDefinitions='Auto,Auto,Auto,*'>
+                        <StackPanel Grid.Row='0' Spacing='2'>
+                            <TextBlock Name='certificatesTitleTextBlock' FontSize='16' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                            <TextBlock Name='certificatesInfoTextBlock' FontSize='12' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                        </StackPanel>
+                        <Grid Grid.Row='1' ColumnDefinitions='*,Auto,Auto' Margin='0,8,0,0'>
+                            <TextBox Grid.Column='0' Name='certificatesPathTextBox' Watermark='Certificate file to import: .cer, .crt or .pem (DER or Base-64)'/>
+                            <Button Grid.Column='1' Name='certificatesImportButton' Margin='8,0,0,0'>
+                                <StackPanel Orientation='Horizontal' Spacing='6'>
+                                    <PathIcon Data='{StaticResource Icon.add}' Width='14' Height='14'/>
+                                    <TextBlock Text='Import' VerticalAlignment='Center'/>
+                                </StackPanel>
+                            </Button>
+                            <Button Grid.Column='2' Name='certificatesDeleteButton' Content='Delete' Margin='8,0,0,0'/>
+                        </Grid>
+                        <TextBlock Grid.Row='2' Name='certificatesStatusTextBlock' TextWrapping='Wrap' Margin='0,4,0,0'
+                                   IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                        <ScrollViewer Grid.Row='3' Margin='0,8,0,0'>
+                            <StackPanel Spacing='8' Margin='0,0,12,0'>
+                                <TextBlock Name='certificatesEmptyTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                <ListBox Name='certificatesList' MaxHeight='360'>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Spacing='2' Margin='0,2'>
+                                                <TextBlock Text='{Binding Name}' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                                <TextBlock Text='{Binding Summary}' FontSize='12' TextWrapping='Wrap'/>
+                                                <TextBlock Text='{Binding Flags}' FontSize='11' Foreground='#CA5010' TextWrapping='Wrap'
+                                                           IsVisible='{Binding Flags, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <!-- Confirmation of a deletion -->
+                                <Border Name='certificatesDeletePanel' IsVisible='False' Padding='12' CornerRadius='4'
+                                        BorderThickness='1' BorderBrush='#D13438' Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                    <StackPanel Spacing='8'>
+                                        <TextBlock Name='certificatesDeleteTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                        <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                            <Button Name='certificatesDeleteConfirmButton' Content='Delete' Width='100'/>
+                                            <Button Name='certificatesDeleteCancelButton' Content='Cancel' Width='100'/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+
                     <!-- Setting: what the administrator edits; Details: what the ADMX defines. -->
                     <TabControl Grid.Row='1' Name='detailsTabs' Margin='8,0,8,8'>
                         <TabItem Header='Setting'>

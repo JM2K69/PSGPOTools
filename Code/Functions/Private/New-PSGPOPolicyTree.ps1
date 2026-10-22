@@ -97,70 +97,89 @@ function New-PSGPOPolicyTree {
             $currentNode.Children.Add($policyNode)
         }
 
-        # Security settings (GptTmpl.inf) of the computer, first as in the Group Policy editor:
-        # Windows Settings > Security Settings > Account Policies > Password Policy > settings.
-        if ($scope -eq [ScopePolicy]::Machine) {
-            # Found by its name in English or in the language of the interface.
-            $security = @(Get-PSGPOSecuritySetting | Where-Object {
-                (-not $Filter -or $_.Name.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0 -or
-                    (Get-PSGPOText $_.Name).IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) -and (-not $expand -or $Only.Contains($_))
-            })
-            # Restricted Groups: one node for the groups of [Group Membership] (RestrictedGroups in -Only).
-            $restricted = (-not $Filter -or 'Restricted Groups'.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0 -or
-                    (Get-PSGPOText 'Restricted Groups').IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) -and (-not $expand -or $Only.Contains('RestrictedGroups'))
-            if ($security.Count -or $restricted) {
-                $windowsNode = [AvaloniaTreeNode]::new()
-                $windowsNode.Header = Get-PSGPOText 'Windows Settings'
-                Set-PSGPOTreeNodeIcon -Node $windowsNode -Name 'folder'
-                $windowsNode.Tag = 'WindowsSettings'
-                $windowsNode.IsExpanded = $expand
-                $windowsNode.Parent = $policiesNode
-                $securityNode = [AvaloniaTreeNode]::new()
-                $securityNode.Header = Get-PSGPOText 'Security Settings'
-                Set-PSGPOTreeNodeIcon -Node $securityNode -Name 'shield'
-                $securityNode.Tag = 'SecuritySettings'
-                $securityNode.IsExpanded = $expand
-                $securityNode.Parent = $windowsNode
-                $windowsNode.Children.Add($securityNode)
-                $folders = @{}
-                foreach ($setting in $security) {
-                    $parent = $securityNode
-                    $folderPath = ''
-                    foreach ($part in $setting.Path) {
-                        $folderPath = "$folderPath>$part"
-                        if (-not $folders.ContainsKey($folderPath)) {
-                            $folder = [AvaloniaTreeNode]::new()
-                            $folder.Header = Get-PSGPOText $part
-                            $folder.Icon = 'folder'
-                            $folder.IconData = $folderData
-                            $folder.IconBrush = $script:PSGPOIconBrush['folder']
-                            $folder.Tag = "Security:$folderPath"
-                            $folder.IsExpanded = $expand
-                            $folder.Parent = $parent
-                            $parent.Children.Add($folder)
-                            $folders[$folderPath] = $folder
-                        }
-                        $parent = $folders[$folderPath]
+        # Security settings, first as in the Group Policy editor: Windows Settings > Security
+        # Settings > Account Policies > Password Policy > settings (GptTmpl.inf, the computer
+        # only), Restricted Groups, Public Key Policies (both scopes), the advanced audit policy.
+        $isMatch = { param([string]$Name) -not $Filter -or $Name.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0 -or
+            (Get-PSGPOText $Name).IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0 }
+        $machine = $scope -eq [ScopePolicy]::Machine
+        # Found by its name in English or in the language of the interface.
+        $security = @(if ($machine) { Get-PSGPOSecuritySetting | Where-Object { (& $isMatch $_.Name) -and (-not $expand -or $Only.Contains($_)) } })
+        # Restricted Groups: one node for the groups of [Group Membership] (RestrictedGroups in -Only).
+        $restricted = $machine -and (& $isMatch 'Restricted Groups') -and (-not $expand -or $Only.Contains('RestrictedGroups'))
+        # Public Key Policies: the certificate stores of the scope (Certificates:<scope>|<store> in -Only).
+        $stores = @(Get-PSGPOCertificateStore -Scope "$scope" | Where-Object { ((& $isMatch $_.Name) -or (& $isMatch 'Public Key Policies')) -and (-not $expand -or $Only.Contains("Certificates:$scope|$($_.Store)")) })
+        if ($security.Count -or $restricted -or $stores.Count) {
+            $windowsNode = [AvaloniaTreeNode]::new()
+            $windowsNode.Header = Get-PSGPOText 'Windows Settings'
+            Set-PSGPOTreeNodeIcon -Node $windowsNode -Name 'folder'
+            $windowsNode.Tag = 'WindowsSettings'
+            $windowsNode.IsExpanded = $expand
+            $windowsNode.Parent = $policiesNode
+            $securityNode = [AvaloniaTreeNode]::new()
+            $securityNode.Header = Get-PSGPOText 'Security Settings'
+            Set-PSGPOTreeNodeIcon -Node $securityNode -Name 'shield'
+            $securityNode.Tag = 'SecuritySettings'
+            $securityNode.IsExpanded = $expand
+            $securityNode.Parent = $windowsNode
+            $windowsNode.Children.Add($securityNode)
+            $folders = @{}
+            foreach ($setting in $security) {
+                $parent = $securityNode
+                $folderPath = ''
+                foreach ($part in $setting.Path) {
+                    $folderPath = "$folderPath>$part"
+                    if (-not $folders.ContainsKey($folderPath)) {
+                        $folder = [AvaloniaTreeNode]::new()
+                        $folder.Header = Get-PSGPOText $part
+                        $folder.Icon = 'folder'
+                        $folder.IconData = $folderData
+                        $folder.IconBrush = $script:PSGPOIconBrush['folder']
+                        $folder.Tag = "Security:$folderPath"
+                        $folder.IsExpanded = $expand
+                        $folder.Parent = $parent
+                        $parent.Children.Add($folder)
+                        $folders[$folderPath] = $folder
                     }
-                    $node = [AvaloniaTreeNode]::new()
-                    $node.Header = Get-PSGPOText $setting.Name
-                    Set-PSGPOTreeNodeIcon -Node $node -Name 'shield'
-                    $node.Tag = $setting
-                    $node.Parent = $parent
-                    $parent.Children.Add($node)
+                    $parent = $folders[$folderPath]
                 }
-                if ($restricted) {
-                    $groupsNode = [AvaloniaTreeNode]::new()
-                    $groupsNode.Header = Get-PSGPOText 'Restricted Groups'
-                    Set-PSGPOTreeNodeIcon -Node $groupsNode -Name 'people'
-                    $groupsNode.Tag = 'RestrictedGroups'
-                    $groupsNode.Parent = $securityNode
-                    # After Event Log, before the advanced audit policy, as in the Group Policy editor.
-                    $audit = @($securityNode.Children | Where-Object Tag -EQ 'Security:>Advanced Audit Policy Configuration')
-                    if ($audit.Count) { $securityNode.Children.Insert($securityNode.Children.IndexOf($audit[0]), $groupsNode) } else { $securityNode.Children.Add($groupsNode) }
-                }
-                $policiesNode.Children.Add($windowsNode)
+                $node = [AvaloniaTreeNode]::new()
+                $node.Header = Get-PSGPOText $setting.Name
+                Set-PSGPOTreeNodeIcon -Node $node -Name 'shield'
+                $node.Tag = $setting
+                $node.Parent = $parent
+                $parent.Children.Add($node)
             }
+            if ($restricted) {
+                $groupsNode = [AvaloniaTreeNode]::new()
+                $groupsNode.Header = Get-PSGPOText 'Restricted Groups'
+                Set-PSGPOTreeNodeIcon -Node $groupsNode -Name 'people'
+                $groupsNode.Tag = 'RestrictedGroups'
+                $groupsNode.Parent = $securityNode
+                # After Event Log, before the advanced audit policy, as in the Group Policy editor.
+                $audit = @($securityNode.Children | Where-Object Tag -EQ 'Security:>Advanced Audit Policy Configuration')
+                if ($audit.Count) { $securityNode.Children.Insert($securityNode.Children.IndexOf($audit[0]), $groupsNode) } else { $securityNode.Children.Add($groupsNode) }
+            }
+            if ($stores.Count) {
+                $publicKeyNode = [AvaloniaTreeNode]::new()
+                $publicKeyNode.Header = Get-PSGPOText 'Public Key Policies'
+                Set-PSGPOTreeNodeIcon -Node $publicKeyNode -Name 'folder'
+                $publicKeyNode.Tag = "PublicKeyPolicies:$scope"
+                $publicKeyNode.IsExpanded = $expand
+                $publicKeyNode.Parent = $securityNode
+                foreach ($store in $stores) {
+                    $node = [AvaloniaTreeNode]::new()
+                    $node.Header = Get-PSGPOText $store.Name
+                    Set-PSGPOTreeNodeIcon -Node $node -Name 'key'
+                    $node.Tag = [GPOToolsCertificateStoreNode]::new("$scope", $store.Store, $store.Name)
+                    $node.Parent = $publicKeyNode
+                    $publicKeyNode.Children.Add($node)
+                }
+                # Before the advanced audit policy, as in the Group Policy editor.
+                $audit = @($securityNode.Children | Where-Object Tag -EQ 'Security:>Advanced Audit Policy Configuration')
+                if ($audit.Count) { $securityNode.Children.Insert($securityNode.Children.IndexOf($audit[0]), $publicKeyNode) } else { $securityNode.Children.Add($publicKeyNode) }
+            }
+            $policiesNode.Children.Add($windowsNode)
         }
 
         if ($templatesNode.Children.Count) { $policiesNode.Children.Add($templatesNode) }

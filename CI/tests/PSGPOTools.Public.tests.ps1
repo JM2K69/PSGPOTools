@@ -174,7 +174,7 @@ Describe 'After Initialize-PSGPOAdmx' {
                 # As the Group Policy editor: Policies (Windows Settings, Administrative Templates), then Preferences.
                 @($Roots[0].Children.Header) | Should -Be @('Policies', 'Preferences')
                 @($Roots[0].Children[0].Children.Header) | Should -Be @('Windows Settings', 'Administrative Templates')
-                @($Roots[1].Children[0].Children.Header) | Should -Be @('Administrative Templates')
+                @($Roots[1].Children[0].Children.Header) | Should -Be @('Windows Settings', 'Administrative Templates') -Because 'Windows Settings > Security Settings > Public Key Policies'
 
                 $PolicyNodes = 0
                 $Stack = [System.Collections.Generic.Stack[object]]::new()

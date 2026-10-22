@@ -212,7 +212,7 @@ InModuleScope -ModuleName HGPM {
                     $Ui.treeView.ItemsSource.Header | Should -Be @('Computer Configuration', 'User Configuration')
                     @($Ui.treeView.ItemsSource)[0].Children.Header | Should -Be @('Policies', 'Preferences')
                     @(@($Ui.treeView.ItemsSource)[0].Children[0].Children.Header) | Should -Be @('Windows Settings') -Because 'no Administrative Templates without ADMX'
-                    @($Ui.treeView.ItemsSource)[1].Children.Header | Should -Be @('Preferences')
+                    @($Ui.treeView.ItemsSource)[1].Children.Header | Should -Be @('Policies', 'Preferences') -Because 'the public key policies of the users'
                     $Ui.breadcrumbTextBlock.Text | Should -BeLike 'No ADMX policy loaded*'
                     $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsSecuritySetting] -and $n.Tag.Key -eq 'MinimumPasswordLength' }
                     $Ui.settingTitleTextBlock.Text | Should -Be 'Minimum password length'
@@ -1847,6 +1847,58 @@ InModuleScope -ModuleName HGPM {
                 @($Ui.restrictedGroupsList.ItemsSource).Count | Should -Be 0
             }
             [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($Gpo)).GetSectionNames() | Should -Not -Contain 'Group Membership'
+        }
+
+        It 'Imports and deletes the certificates of the public key policies of a GPO' {
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            $Rsa = [System.Security.Cryptography.RSA]::Create(2048)
+            $Request = [System.Security.Cryptography.X509Certificates.CertificateRequest]::new('CN=HGPM GUI Root CA', $Rsa,
+                [System.Security.Cryptography.HashAlgorithmName]::SHA256, [System.Security.Cryptography.RSASignaturePadding]::Pkcs1)
+            $Der = $Request.CreateSelfSigned([datetimeoffset]::Now.AddDays(-1), [datetimeoffset]::Now.AddDays(30)).Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Cert)
+            $Rsa.Dispose()
+            $CerPath = Join-Path $TestDrive 'gui-root.cer'
+            [System.IO.File]::WriteAllBytes($CerPath, $Der)
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+                # Security Settings > Public Key Policies > Trusted Root Certification Authorities, for the computers.
+                $Node = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsCertificateStoreNode] -and $n.Tag.Scope -eq 'Machine' -and $n.Tag.Store -eq 'Root' }
+                $Node.Header | Should -Be 'Trusted Root Certification Authorities'
+                $Node.Parent.Header | Should -Be 'Public Key Policies'
+                $Node.Parent.Parent.Header | Should -Be 'Security Settings'
+                @(Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsCertificateStoreNode] -and $n.Tag.Scope -eq 'User' }).Count | Should -BeGreaterThan 0
+                $Ui.treeView.SelectedItem = $Node
+                $Ui.certificatesPanel.IsVisible | Should -BeTrue
+                $Ui.certificatesEmptyTextBlock.Text | Should -Be 'This GPO has no certificate in this store.'
+
+                $Ui.certificatesPathTextBox.Text = Join-Path $TestDrive 'missing.cer'
+                Invoke-Click $Ui.certificatesImportButton
+                $Ui.certificatesStatusTextBlock.Text | Should -BeLike 'Give the path of a certificate file*'
+                $Ui.certificatesPathTextBox.Text = $CerPath
+                Invoke-Click $Ui.certificatesImportButton
+                $Ui.certificatesStatusTextBlock.Text | Should -BeLike 'Certificate imported in Machine\Registry.pol (version *).'
+                $Row = @($Ui.certificatesList.ItemsSource)[0]
+                $Row.Name | Should -Be 'HGPM GUI Root CA'
+                $Row.Summary | Should -BeLike 'Issued by HGPM GUI Root CA - expires * - thumbprint *'
+                $Ui.certificatesList.SelectedItem | Should -Be $Row
+
+                # The Settings tab lists it.
+                Invoke-Click $Ui.managementButton
+                $Ui.directoryTabs.SelectedItem = $Ui.settingsTab
+                ($Ui.computerSettingsList.ItemsSource | Where-Object Name -EQ 'HGPM GUI Root CA').Path | Should -BeLike '*Public Key Policies > Trusted Root Certification Authorities'
+                $Ui.directoryTabs.SelectedIndex = 0
+                Invoke-Click $Ui.editGpoMenuItem
+
+                # Deleted.
+                $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -is [GPOToolsCertificateStoreNode] -and $n.Tag.Scope -eq 'Machine' -and $n.Tag.Store -eq 'Root' }
+                $Ui.certificatesList.SelectedItem = @($Ui.certificatesList.ItemsSource)[0]
+                Invoke-Click $Ui.certificatesDeleteButton
+                Invoke-Click $Ui.certificatesDeleteConfirmButton
+                @($Ui.certificatesList.ItemsSource).Count | Should -Be 0
+            }
+            @(Get-PSGPOPolicyCertificate -Pol ([GPOToolsRegistryPol]::Parse($Directory.ReadPolicyFile($Gpo, 'Machine'))) -Store 'Root').Count | Should -Be 0
+            $Gpo.MachineExtensionNames | Should -Match ([regex]::Escape('{53D6AB1D-2488-11D1-A28C-00C04FB94F17}'))
         }
 
         It 'Edits the advanced audit policy of a GPO in audit.csv' {
