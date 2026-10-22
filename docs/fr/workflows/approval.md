@@ -80,8 +80,8 @@ SYSVOL.
 
 ## 3. Créer une GPO (Tier 1)
 
-Le technicien ne voit que ses OU ([délégation](../features/delegation.md)), et les détails du
-domaine disent que ses GPO attendent une approbation :
+Le technicien ne gère que ses OU, les autres sont grisées ([délégation](../features/delegation.md)),
+et les détails du domaine disent que ses GPO attendent une approbation :
 
 ![La console d'un technicien Tier 1](../assets/screenshots/14-tier1-view.fr.png)
 

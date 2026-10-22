@@ -4,9 +4,8 @@
     "Deleted GPOs": the recycle bin, the newest backup of each GPO deleted from the domain.
     Kept free of any Avalonia type so it can be tested without a UI.
 
-    Only what the account manages is shown (RBAC, from the delegations of the domain): the OUs
-    where it links GPOs, their parents greyed as the path to them, without their links; the GPOs
-    it edits or that are linked to its OUs.
+    Every OU, link and GPO is shown, as GPMC shows them to any account of the domain; what the
+    account does not manage (RBAC, from the delegations of the domain) is greyed: it only reads it.
 #>
 
 # Key of a node kept across rebuilds (expanded nodes): the DN of a SOM, a fixed key for the GPO container.
@@ -53,19 +52,20 @@ function New-PSGPODirectoryTree {
         $Header = if ($Som.BlockInheritance) { Get-PSGPOText '{0} (blocks inheritance)' $Som.Name } else { $Som.Name }
         $Icon = if ($Som.Kind -eq [GPOToolsSomKind]::Domain) { 'globe' } elseif ($Som.BlockInheritance) { 'folder-prohibited' } else { 'folder' }
         $Node = New-Node $Header $Icon $Som $Parent
-        # Only the path to the OUs the account manages: greyed, without its links.
+        # An OU where the account does not link GPOs: greyed, as its links.
         if (-not $Som.CanLink) { $Node.IconBrush = '#8A8886' }
 
-        foreach ($Link in @($Som.Links | Where-Object { $Som.CanLink } | Sort-Object Order)) {
+        foreach ($Link in @($Som.Links | Sort-Object Order)) {
             $LinkHeader = if ($Link.Gpo) { $Link.Gpo.DisplayName } else { Get-PSGPOText 'GPO not found ({0})' $Link.GpoDistinguishedName }
             if ($Link.Gpo -and $Link.Gpo.AppliesWhilePending()) { $LinkHeader += Get-PSGPOText ' (waiting for approval, but it applies)' }
             elseif ($Link.Gpo -and $Link.Gpo.ApprovalState -eq 'Pending') { $LinkHeader += Get-PSGPOText ' (waiting for approval)' }
             if ($Link.Enforced) { $LinkHeader += Get-PSGPOText ' (enforced)' }
             if (-not $Link.Enabled) { $LinkHeader += Get-PSGPOText ' (link disabled)' }
             $LinkIcon = if (-not $Link.Enabled) { 'link-dismiss' } elseif ($Link.Enforced) { 'lock-closed' } else { 'link' }
-            [void](New-Node $LinkHeader $LinkIcon $Link $Node)
+            $LinkNode = New-Node $LinkHeader $LinkIcon $Link $Node
+            if (-not $Som.CanLink) { $LinkNode.IconBrush = '#8A8886' }
         }
-        foreach ($Child in $Som.Children) { if ($Directory.IsSomVisible($Child)) { [void](Add-Som $Child $Node) } }
+        foreach ($Child in $Som.Children) { [void](Add-Som $Child $Node) }
         $Node
     }
 
@@ -74,13 +74,15 @@ function New-PSGPODirectoryTree {
     $DomainNode.IsExpanded = $true
 
     $GposNode = New-Node (Get-PSGPOText 'Group Policy Objects') 'library' 'GroupPolicyObjects' $DomainNode
-    foreach ($Gpo in $Directory.GetVisibleGpos()) {
+    foreach ($Gpo in $Directory.Gpos) {
         if ($Gpo.ApprovalState -eq 'Pending') {
             $Label = $Gpo.DisplayName + $(if ($Gpo.AppliesWhilePending()) { Get-PSGPOText ' (waiting for approval, but it applies)' } else { Get-PSGPOText ' (waiting for approval)' })
             $Node = New-Node $Label 'document-settings' $Gpo $GposNode
             $Node.IconBrush = if ($Gpo.AppliesWhilePending()) { '#C50F1F' } else { '#CA5010' }
         } else {
-            [void](New-Node $Gpo.DisplayName 'document-settings' $Gpo $GposNode)
+            $Node = New-Node $Gpo.DisplayName 'document-settings' $Gpo $GposNode
+            # A GPO the account does not edit: greyed, it reads it only.
+            if (-not $Gpo.CanEdit) { $Node.IconBrush = '#8A8886' }
         }
     }
     # WMI Filters, as GPMC: every filter of the domain.

@@ -81,6 +81,8 @@ class GPOToolsWmiFilter {
     [string]$DistinguishedName
     # Its WQL queries: Namespace (root\CIMv2) and Query, as msWMI-Parm2 holds them
     [object[]]$Queries = @()
+    # The account can change and delete it (allowedAttributesEffective holds msWMI-Parm2)
+    [bool]$CanEdit = $true
 
     [string] GetQueryText() {
         return (@($this.Queries | ForEach-Object { "$($_.Namespace): $($_.Query)" }) -join '; ')
@@ -180,6 +182,8 @@ class GPOToolsDirectory {
     [string]$Account
     # The account can create GPOs (groupPolicyContainer objects in CN=Policies)
     [bool]$CanCreateGpo = $true
+    # The account can create WMI filters (msWMI-Som objects in CN=SOM,CN=WMIPolicy,CN=System)
+    [bool]$CanCreateWmiFilter = $true
     # The account is an administrator of the domain (Domain Admins, Enterprise Admins,
     # Administrators): it changes the configuration of HGPM for the domain. In memory, the
     # directory is the one of its user.
@@ -404,9 +408,8 @@ class GPOToolsDirectory {
         [void]$this.Gpos.Remove($Gpo)
     }
 
-    # Rights of the account, as the delegations of the domain give them (RBAC): a technician sees
-    # the OUs where it links GPOs, with their parents as the path to them, and the GPOs it edits
-    # or that are linked there.
+    # Rights of the account, as the delegations of the domain give them (RBAC): a technician
+    # changes the OUs where it links GPOs and the GPOs it edits; it reads the others.
     [bool] IsLimited() {
         if (-not $this.CanCreateGpo) { return $true }
         foreach ($Gpo in $this.Gpos) { if (-not $Gpo.CanEdit) { return $true } }
@@ -420,10 +423,19 @@ class GPOToolsDirectory {
         return $false
     }
 
-    # A SOM the account manages, or the path to one.
-    [bool] IsSomVisible([GPOToolsSom]$Som) {
-        if ($Som.CanLink) { return $true }
-        foreach ($Child in $Som.Children) { if ($this.IsSomVisible($Child)) { return $true } }
+    # The account manages something: it links GPOs somewhere, edits or creates GPOs, creates or
+    # changes WMI filters. Without it, the console only reads.
+    [bool] HasDelegation() {
+        if ($this.CanCreateGpo -or $this.CanCreateWmiFilter) { return $true }
+        foreach ($Gpo in $this.Gpos) { if ($Gpo.CanEdit) { return $true } }
+        foreach ($Filter in $this.WmiFilters) { if ($Filter.CanEdit) { return $true } }
+        $Stack = [System.Collections.Generic.Stack[GPOToolsSom]]::new()
+        $Stack.Push($this.Domain)
+        while ($Stack.Count) {
+            $Som = $Stack.Pop()
+            if ($Som.CanLink) { return $true }
+            foreach ($Child in $Som.Children) { $Stack.Push($Child) }
+        }
         return $false
     }
 
@@ -473,6 +485,7 @@ class GPOToolsDirectory {
     [void] SetGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {
         $this.AssertWritable()
         if ($Flags -lt 0 -or $Flags -gt 3) { throw "Unknown GPO status flags: $Flags (0 to 3)." }
+        if (-not $Gpo.CanEdit) { throw "The account $($this.Account) cannot edit the GPO '$($Gpo.DisplayName)'." }
         $this.SaveGpoStatus($Gpo, $Flags)
         $Gpo.Flags = $Flags
     }
@@ -571,6 +584,7 @@ class GPOToolsDirectory {
     # Creates a WMI filter: its queries are WQL queries of a namespace (root\CIMv2).
     [GPOToolsWmiFilter] NewWmiFilter([string]$Name, [string]$Description, [object[]]$Queries) {
         $this.AssertWritable()
+        if (-not $this.CanCreateWmiFilter) { throw "The account $($this.Account) cannot create WMI filters in $($this.DomainName)." }
         $Name = "$Name".Trim()
         if (-not $Name) { throw 'The name of the WMI filter is required.' }
         if ($this.FindWmiFilter($Name)) { throw "A WMI filter named '$Name' already exists in $($this.DomainName)." }
@@ -591,6 +605,7 @@ class GPOToolsDirectory {
     [void] EditWmiFilter([GPOToolsWmiFilter]$Filter, [string]$Name, [string]$Description, [object[]]$Queries) {
         $this.AssertWritable()
         if (-not $this.WmiFilters.Contains($Filter)) { throw "The WMI filter '$($Filter.Name)' is not a filter of $($this.DomainName)." }
+        if (-not $Filter.CanEdit) { throw "The account $($this.Account) cannot change the WMI filter '$($Filter.Name)'." }
         $Name = "$Name".Trim()
         if (-not $Name) { throw 'The name of the WMI filter is required.' }
         $Other = $this.FindWmiFilter($Name)
@@ -613,6 +628,7 @@ class GPOToolsDirectory {
     # Deletes a WMI filter no GPO is linked to, as GPMC does.
     [void] RemoveWmiFilter([GPOToolsWmiFilter]$Filter) {
         $this.AssertWritable()
+        if (-not $Filter.CanEdit) { throw "The account $($this.Account) cannot delete the WMI filter '$($Filter.Name)'." }
         $Linked = @($this.Gpos | Where-Object { $_.WmiFilterId -eq $Filter.Id } | ForEach-Object DisplayName)
         if ($Linked.Count) { throw "The WMI filter '$($Filter.Name)' is used by $($Linked -join ', '): it is not deleted." }
         $this.SaveRemovedWmiFilter($Filter)

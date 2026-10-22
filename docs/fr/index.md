@@ -32,7 +32,7 @@ Directory**.
 
 - **Les droits du domaine**
 
-    La console montre ce que le compte gère (ses délégations), la configuration est celle du
+    La console propose ce que le compte gère (ses délégations) et montre le reste en lecture, la configuration est celle du
     domaine (SYSVOL), et le workflow ne repose que sur les ACL de l'annuaire et de SYSVOL.
     [Délégation](features/delegation.md)
 

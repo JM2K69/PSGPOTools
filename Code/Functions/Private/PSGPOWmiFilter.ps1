@@ -65,6 +65,8 @@ function ConvertFrom-PSGPOWqlFilterLink {
 }
 
 # The WMI filters of the domain, into the directory; a domain without the container has none.
+# The rights of the account come with them: create filters (allowedChildClassesEffective of the
+# container), change one (allowedAttributesEffective of the filter).
 function Read-PSGPODomainWmiFilter {
     [CmdletBinding()]
     param(
@@ -73,8 +75,10 @@ function Read-PSGPODomainWmiFilter {
     )
 
     $base = "CN=SOM,CN=WMIPolicy,CN=System,$($Directory.Domain.DistinguishedName)"
+    $container = Invoke-PSGPOLdapSearch -Connection $Connection -SearchBase $base -Scope Base -Attribute 'allowedChildClassesEffective' -AllowMissing
+    $Directory.CanCreateWmiFilter = $container -and @($container.Attributes['allowedChildClassesEffective']) -contains 'msWMI-Som'
     $entries = @(Invoke-PSGPOLdapSearch -Connection $Connection -SearchBase $base -Scope OneLevel -Filter '(objectClass=msWMI-Som)' `
-            -Attribute 'msWMI-ID', 'msWMI-Name', 'msWMI-Parm1', 'msWMI-Parm2' -AllowMissing)
+            -Attribute 'msWMI-ID', 'msWMI-Name', 'msWMI-Parm1', 'msWMI-Parm2', 'allowedAttributesEffective' -AllowMissing)
     $Directory.WmiFilters.Clear()
     foreach ($entry in $entries) {
         $id = [guid]::Empty
@@ -87,6 +91,7 @@ function Read-PSGPODomainWmiFilter {
         $filter.DistinguishedName = $entry.DistinguishedName
         $filter.Name = Get-PSGPOLdapValue $entry 'msWMI-Name'
         $filter.Description = Get-PSGPOLdapValue $entry 'msWMI-Parm1'
+        $filter.CanEdit = @($entry.Attributes['allowedAttributesEffective']) -contains 'msWMI-Parm2'
         try {
             $filter.Queries = @(ConvertFrom-PSGPOWmiQueryText -Text (Get-PSGPOLdapValue $entry 'msWMI-Parm2'))
         } catch {

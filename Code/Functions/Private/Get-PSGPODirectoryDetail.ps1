@@ -55,7 +55,8 @@ function Get-PSGPODirectoryDetail {
             New-Row 'Block inheritance' (& $YesNo $Item.BlockInheritance)
         )
         if ($Directory.Account) {
-            $Detail.Properties += New-Row 'Your rights' (Get-PSGPOText $(if ($Item.CanLink) { 'Link GPOs' } else { 'None: shown as the path to the OUs you manage' }))
+            $Detail.Properties += New-Row 'Your rights' (Get-PSGPOText $(
+                    if ($Item.CanLink) { 'Link GPOs' } else { 'Read only' }))
         }
         if ($Item.Kind -eq [GPOToolsSomKind]::Domain -and $Directory -is [GPOToolsLdapDirectory]) {
             $Detail.Properties += New-Row 'Domain controller' $Directory.Server
@@ -71,11 +72,13 @@ function Get-PSGPODirectoryDetail {
         }
         if ($Item.Kind -eq [GPOToolsSomKind]::Domain -and $Directory.Account) {
             $Detail.Properties += New-Row 'Connected as' $Directory.Account
-            $Detail.Properties += New-Row 'Delegation' (Get-PSGPOText $(if ($Directory.IsLimited()) { 'Limited: only the OUs and GPOs this account manages are shown' } else { 'Full: this account manages every OU and GPO' }))
+            $Detail.Properties += New-Row 'Delegation' (Get-PSGPOText $(
+                    if (-not $Directory.HasDelegation()) { 'None: this account manages no OU, GPO or WMI filter, it reads the domain only' }
+                    elseif ($Directory.IsLimited()) { 'Limited: this account changes only the OUs and GPOs it manages, the others are greyed' }
+                    else { 'Full: this account manages every OU and GPO' }))
         }
         $Detail.LinksHeader = Get-PSGPOText 'Linked Group Policy Objects ({0})' $Item.Links.Count
-        $Detail.Links = @(foreach ($Link in @($Item.Links | Where-Object { $Item.CanLink } | Sort-Object Order)) { New-LinkRow $Link $Link.GetDisplayName() '' })
-        if (-not $Item.CanLink) { $Detail.LinksHeader = Get-PSGPOText 'Linked Group Policy Objects: not shown, no delegation here' }
+        $Detail.Links = @(foreach ($Link in @($Item.Links | Sort-Object Order)) { New-LinkRow $Link $Link.GetDisplayName() '' })
     } elseif ($Item -is [GPOToolsGpoLink] -and -not $Item.Gpo) {
         $Detail.Title = $Item.GetDisplayName()
         $Detail.Properties = @(
@@ -156,7 +159,7 @@ function Get-PSGPODirectoryDetail {
         )
     } elseif ($Item -eq 'GroupPolicyObjects') {
         $Detail.Title = Get-PSGPOText 'Group Policy Objects in {0}' $Directory.DomainName
-        $Detail.Properties = @(foreach ($Gpo in $Directory.GetVisibleGpos()) { New-Row $Gpo.DisplayName (Get-PSGPOText $Gpo.GetStatus()) -Name })
+        $Detail.Properties = @(foreach ($Gpo in $Directory.Gpos) { New-Row $Gpo.DisplayName (Get-PSGPOText $Gpo.GetStatus()) -Name })
     }
     $Detail
 }

@@ -30,7 +30,7 @@ Linux**, and manages the GPOs of **Samba AD** and **Windows Active Directory** d
 
 - **Rights of the domain**
 
-    The console shows what the account manages (its delegations), the configuration is the one of
+    The console offers what the account manages (its delegations) and shows the rest read only, the configuration is the one of
     the domain (SYSVOL), and the workflow relies on the ACLs of the directory and of SYSVOL only.
     [Delegation](features/delegation.md)
 

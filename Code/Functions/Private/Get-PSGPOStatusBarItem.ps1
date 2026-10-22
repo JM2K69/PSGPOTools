@@ -46,8 +46,10 @@ function Get-PSGPOStatusBarItem {
         New-StatusItem 'server' "DC $($Directory.Server) ($($Directory.ServerType))" (Get-PSGPOText 'Directory {0}' $Directory.Source)
         if ($Directory.Account) {
             $limited = $Directory.IsLimited()
-            New-StatusItem 'person' (Get-PSGPOText $(if ($limited) { 'Connected as {0} (delegated rights)' } else { 'Connected as {0}' }) $Directory.Account) $(
-                if ($limited) { Get-PSGPOText 'The directory is read as {0}: only the OUs and GPOs it manages are shown.' $Directory.Account }
+            $delegated = $Directory.HasDelegation()
+            New-StatusItem 'person' (Get-PSGPOText $(if (-not $delegated) { 'Connected as {0} (read only)' } elseif ($limited) { 'Connected as {0} (delegated rights)' } else { 'Connected as {0}' }) $Directory.Account) $(
+                if (-not $delegated) { Get-PSGPOText 'The directory is read as {0}, which manages no OU, GPO or WMI filter: nothing can be changed.' $Directory.Account }
+                elseif ($limited) { Get-PSGPOText 'The directory is read as {0}: it changes only the OUs and GPOs it manages, the others are greyed.' $Directory.Account }
                 else { Get-PSGPOText 'The directory is read as {0}, which manages every OU and GPO.' $Directory.Account })
         }
     } elseif ($Directory.IsDemonstration) {
