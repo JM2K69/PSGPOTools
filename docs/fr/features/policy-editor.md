@@ -76,6 +76,8 @@ comme Windows l'écrit), augmente la version ordinateur et déclare l'extension 
 
 ### Groupes restreints
 
+![Les groupes restreints d'un GPO](../assets/screenshots/38-restricted-groups.fr.png)
+
 **Paramètres de sécurité > Groupes restreints** liste les groupes de `[Group Membership]` dans
 `GptTmpl.inf`. **Ajouter un groupe** demande le groupe (`DOMAINE\nom`, ou un SID comme
 `*S-1-5-32-544` pour les Administrateurs locaux), puis :
@@ -90,6 +92,8 @@ qu'il a. L'onglet Paramètres les liste (Membres, Membre de). Vérifié sur un m
 Utilisateurs du Bureau à distance locaux ont reçu exactement les membres définis.
 
 ### Stratégies de clé publique
+
+![Les autorités de certification racines de confiance d'un GPO](../assets/screenshots/40-public-key-policies.fr.png)
 
 **Paramètres de sécurité > Stratégies de clé publique** a les magasins de certificats de l'éditeur
 de stratégie de groupe : pour les ordinateurs, Système de fichiers EFS, Chiffrement de lecteur
@@ -114,6 +118,8 @@ de groupe de l'ordinateur (`certutil -grouppolicy -store Root`), l'agent de réc
 son magasin EFS, et l'`EFSBlob` du registre est celui écrit.
 
 ### Stratégie d'audit avancée
+
+![Une sous-catégorie de la stratégie d'audit avancée](../assets/screenshots/39-advanced-audit.fr.png)
 
 **Paramètres de sécurité > Configuration avancée de la stratégie d'audit > Stratégies d'audit** a
 les 60 sous-catégories de Windows (telles que `auditpol /list /subcategory:*` les donne), dans
