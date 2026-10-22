@@ -881,6 +881,81 @@ $(Get-PSGPOWindowResourceXaml)
                         </ScrollViewer>
                     </Grid>
 
+                    <!-- Restricted Groups: the groups of [Group Membership] in GptTmpl.inf -->
+                    <Grid Grid.Row='1' Name='restrictedGroupsPanel' IsVisible='False' Margin='16,8' RowDefinitions='Auto,Auto,Auto,*'>
+                        <StackPanel Grid.Row='0' Spacing='2'>
+                            <TextBlock Text='Restricted Groups' FontSize='16' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                            <TextBlock Name='restrictedGroupsInfoTextBlock' FontSize='12' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'
+                                       Text='The computers give each group the members defined, and remove the others; they add it to the groups it is a member of. In GptTmpl.inf, [Group Membership].'/>
+                        </StackPanel>
+                        <WrapPanel Grid.Row='1' Orientation='Horizontal' Margin='0,8,0,0'>
+                            <Button Name='restrictedGroupsAddButton' Margin='0,0,8,4'>
+                                <StackPanel Orientation='Horizontal' Spacing='6'>
+                                    <PathIcon Data='{StaticResource Icon.add}' Width='14' Height='14'/>
+                                    <TextBlock Text='Add group' VerticalAlignment='Center'/>
+                                </StackPanel>
+                            </Button>
+                            <Button Name='restrictedGroupsEditButton' Content='Edit' Margin='0,0,8,4'/>
+                            <Button Name='restrictedGroupsDeleteButton' Content='Delete' Margin='0,0,8,4'/>
+                        </WrapPanel>
+                        <TextBlock Grid.Row='2' Name='restrictedGroupsStatusTextBlock' TextWrapping='Wrap' Margin='0,4,0,0'
+                                   IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                        <ScrollViewer Grid.Row='3' Margin='0,8,0,0'>
+                            <StackPanel Spacing='8' Margin='0,0,12,0'>
+                                <TextBlock Name='restrictedGroupsEmptyTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                <ListBox Name='restrictedGroupsList' MaxHeight='320'>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Spacing='2' Margin='0,2'>
+                                                <TextBlock Text='{Binding Name}' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                                <TextBlock Text='{Binding Summary}' FontSize='12' TextWrapping='Wrap'/>
+                                                <TextBlock Text='{Binding Flags}' FontSize='11' Foreground='#CA5010' TextWrapping='Wrap'
+                                                           IsVisible='{Binding Flags, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <!-- Confirmation of a deletion -->
+                                <Border Name='restrictedGroupsDeletePanel' IsVisible='False' Padding='12' CornerRadius='4'
+                                        BorderThickness='1' BorderBrush='#D13438' Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                    <StackPanel Spacing='8'>
+                                        <TextBlock Name='restrictedGroupsDeleteTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                        <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                            <Button Name='restrictedGroupsDeleteConfirmButton' Content='Delete' Width='100'/>
+                                            <Button Name='restrictedGroupsDeleteCancelButton' Content='Cancel' Width='100'/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                                <!-- The group added or edited -->
+                                <Border Name='restrictedGroupsFormBorder' IsVisible='False' Padding='12' CornerRadius='4'
+                                        BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}' Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                    <StackPanel Spacing='6'>
+                                        <TextBlock Name='restrictedGroupsFormTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                        <TextBlock Text='Group' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                        <TextBox Name='restrictedGroupNameTextBox' Watermark='DOMAIN\group, or a SID: *S-1-5-32-544 (Administrators)'/>
+                                        <CheckBox Name='restrictedGroupMembersCheckBox' Content='Members of this group: the computers keep these members only (empty: none)' IsChecked='True'/>
+                                        <TextBox Name='restrictedGroupMembersTextBox' AcceptsReturn='True' MinHeight='70' TextWrapping='NoWrap'
+                                                 Watermark='One account per line: DOMAIN\name, or *S-1-5-...'/>
+                                        <TextBlock Text='This group is a member of' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                        <TextBox Name='restrictedGroupMemberOfTextBox' AcceptsReturn='True' MinHeight='50' TextWrapping='NoWrap'
+                                                 Watermark='One group per line: DOMAIN\name, or *S-1-5-...'/>
+                                        <TextBlock Name='restrictedGroupsFormErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap'
+                                                   IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                        <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                            <Button Name='restrictedGroupsSaveButton' Width='100'>
+                                                <StackPanel Orientation='Horizontal' Spacing='6'>
+                                                    <PathIcon Data='{StaticResource Icon.save}' Width='14' Height='14'/>
+                                                    <TextBlock Text='Save' VerticalAlignment='Center'/>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Name='restrictedGroupsCancelButton' Content='Cancel' Width='100'/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+
                     <!-- Setting: what the administrator edits; Details: what the ADMX defines. -->
                     <TabControl Grid.Row='1' Name='detailsTabs' Margin='8,0,8,8'>
                         <TabItem Header='Setting'>

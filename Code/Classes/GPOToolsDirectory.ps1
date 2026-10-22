@@ -745,6 +745,24 @@ class GPOToolsDirectory {
         $this.SaveGpoFile($Gpo, [GPOToolsDirectory]::SecurityTemplatePath, $Bytes, 'Machine', [GPOToolsDirectory]::SecurityExtension, [GPOToolsDirectory]::SecurityTool)
     }
 
+    # Advanced audit policy of a GPO ([MS-GPAC]): its audit.csv, its client-side extension
+    # (Audit Policy Configuration) and the tool of the editor.
+    static [string] $AuditPolicyPath = 'Machine\Microsoft\Windows NT\Audit\audit.csv'
+    static [string] $AuditPolicyExtension = '{F3CCC681-B74C-4060-9F26-CD84525DCA2A}'
+    static [string] $AuditPolicyTool = '{0F3F3735-573D-9804-99E4-AB2A69BA5FD4}'
+
+    # The audit.csv of a GPO: its bytes, $null when the GPO has none.
+    [byte[]] ReadAuditPolicyFile([GPOToolsGpo]$Gpo) {
+        return $this.LoadGpoFile($Gpo, [GPOToolsDirectory]::AuditPolicyPath)
+    }
+
+    # Writes the audit.csv of a GPO, increases its computer version and declares the extension of
+    # the advanced audit policy.
+    [void] WriteAuditPolicyFile([GPOToolsGpo]$Gpo, [byte[]]$Bytes) {
+        $this.AssertWritable()
+        $this.SaveGpoFile($Gpo, [GPOToolsDirectory]::AuditPolicyPath, $Bytes, 'Machine', [GPOToolsDirectory]::AuditPolicyExtension, [GPOToolsDirectory]::AuditPolicyTool)
+    }
+
     # Folder of a scope in the GPO: Machine (HKLM) or User (HKCU).
     static [string] GetScopeFolder([string]$Scope) {
         switch ($Scope) {

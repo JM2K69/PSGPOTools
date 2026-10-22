@@ -9,6 +9,8 @@
 * The status bar of both consoles (Show-GPOManagerAvalonia, Show-PSOManagerAvalonia) shows the version of HGPM with a dot: green when it is the latest of the PowerShell Gallery, orange when a newer one is there (its tooltip gives the command that installs it), grey when the Gallery was not read
 * The consoles in French show the names of the security settings and options, of the preferences (types, items, their properties) and the descriptions of the configuration in French, from Resources/Strings/Catalogs/fr-FR.psd1 (683 names, those of the French Group Policy editor); the Settings and History tabs show their reports in French, the registry values and preview of the policy editor too. The commands and their reports stay in English
 * The policy editor shows the tree of the Group Policy editor: Computer Configuration and User Configuration, each with Policies (Windows Settings > Security Settings, Administrative Templates and the ADMX policies under it) then Preferences
+* The policy editor edits the advanced audit policy: Security Settings > Advanced Audit Policy Configuration > Audit Policies, the 60 subcategories of Windows in their 9 categories, written to Machine\Microsoft\Windows NT\Audit\audit.csv with the extension Audit Policy Configuration, as the Group Policy editor does (applied by a Windows member, checked with auditpol); the Settings and History tabs and the backups show it
+* The policy editor edits the restricted groups: Security Settings > Restricted Groups, the groups of [Group Membership] in GptTmpl.inf with their members (or not defined) and the groups they are a member of, as the Group Policy editor writes them (applied by a Windows member); the Settings tab lists them instead of their raw keys
 
 ### Fixed
 

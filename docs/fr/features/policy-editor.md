@@ -74,6 +74,37 @@ Chacun a sa nature (nombre avec ses bornes et son unité, choix, texte, comptes 
 utilisateur), et un lien vers sa documentation Microsoft. Apply écrit `GptTmpl.inf` (en UTF-16,
 comme Windows l'écrit), augmente la version ordinateur et déclare l'extension de sécurité.
 
+### Groupes restreints
+
+**Paramètres de sécurité > Groupes restreints** liste les groupes de `[Group Membership]` dans
+`GptTmpl.inf`. **Ajouter un groupe** demande le groupe (`DOMAINE\nom`, ou un SID comme
+`*S-1-5-32-544` pour les Administrateurs locaux), puis :
+
+- **Membres de ce groupe** : les ordinateurs ne donnent au groupe que ces membres et retirent les
+  autres ; une liste vide retire tous les membres. Décochée, ses membres ne changent pas (pas de
+  clé `__Members`) ;
+- **Ce groupe est membre de** : les groupes auxquels les ordinateurs l'ajoutent.
+
+**Modifier** et **Supprimer** changent ou retirent un groupe ; un groupe supprimé garde les membres
+qu'il a. L'onglet Paramètres les liste (Membres, Membre de). Vérifié sur un membre Windows : les
+Utilisateurs du Bureau à distance locaux ont reçu exactement les membres définis.
+
+### Stratégie d'audit avancée
+
+**Paramètres de sécurité > Configuration avancée de la stratégie d'audit > Stratégies d'audit** a
+les 60 sous-catégories de Windows (telles que `auditpol /list /subcategory:*` les donne), dans
+leurs 9 catégories (Connexion de compte, Gestion des comptes, Suivi détaillé, Accès DS,
+Ouvrir/fermer la session, Accès à l'objet, Changement de stratégie, Utilisation de privilège,
+Système). Chacune est non définie, ou audite ses réussites, ses échecs, les deux, ou rien (Pas
+d'audit). Appliquer écrit `Machine\Microsoft\Windows NT\Audit\audit.csv` comme l'éditeur de
+stratégie de groupe, augmente la version ordinateur et déclare l'extension de la stratégie d'audit
+avancée (Audit Policy Configuration) : Windows l'applique à l'actualisation suivante (vérifié avec
+`auditpol /get` sur un membre Windows). Les lignes de `audit.csv` que la console ne modifie pas
+(options d'audit, audit de l'accès global aux objets) sont gardées telles quelles.
+
+Ne la mélangez pas avec **Stratégies locales > Stratégie d'audit** dans le même domaine : comme
+Microsoft le documente, un ordinateur applique alors l'une ou l'autre.
+
 ## Recherche et copie
 
 Le champ de recherche trouve les stratégies dont le nom contient le texte saisi (avec

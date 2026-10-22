@@ -22,6 +22,8 @@ $script:PSGPOIconBrush = @{
     'person'            = '#0F6CBD'
     'desktop'           = '#0F6CBD'
     'shield'            = '#107C10'
+    # Restricted groups
+    'people'            = '#107C10'
     # Deleted GPOs (their backups), templates of new GPOs
     'delete'            = '#8A8886'
     'document-copy'     = '#8764B8'

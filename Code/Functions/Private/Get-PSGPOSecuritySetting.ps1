@@ -4,7 +4,9 @@
     - Resources/SecuritySettings.json: account policies, Kerberos, audit, user rights, event
       logs and the security options GptTmpl.inf stores in [System Access] (from Microsoft Learn);
     - Resources/SecurityOptions.json: the security options stored as registry values
-      ([Registry Values]), generated from the catalog of Windows (CI/Update-SecurityOptionCatalog.ps1).
+      ([Registry Values]), generated from the catalog of Windows (CI/Update-SecurityOptionCatalog.ps1);
+    - Resources/AuditPolicies.json: the subcategories of the advanced audit policy, stored in
+      audit.csv (GPOToolsAuditPolicyFile), not in GptTmpl.inf: their section is AdvancedAudit.
 #>
 
 function Get-PSGPOSecuritySetting {
@@ -63,6 +65,22 @@ function Get-PSGPOSecuritySetting {
             $setting.Display = switch ($setting.RegistryType) { 4 { 'Number' } 7 { 'MultiText' } default { 'Text' } }
         }
         $settings.Add($setting)
+    }
+
+    # The advanced audit policy: a subcategory of audit.csv (GPOToolsAuditPolicyFile) each.
+    $audit = Get-Content -LiteralPath (Join-Path $resources 'AuditPolicies.json') -Raw | ConvertFrom-Json
+    foreach ($category in $audit.Categories) {
+        foreach ($entry in $category.Subcategories) {
+            $setting = [GPOToolsSecuritySetting]::new()
+            $setting.Name = $entry.Name
+            $setting.Path = 'Advanced Audit Policy Configuration', 'Audit Policies', $category.Name
+            $setting.Section = [GPOToolsAuditPolicyFile]::Section
+            $setting.Key = $entry.Guid
+            $setting.Kind = 'Audit'
+            $setting.Min = 0
+            $setting.Max = 3
+            $settings.Add($setting)
+        }
     }
 
     foreach ($setting in $settings) { $setting.Id = "$($setting.Section)|$($setting.Key)" }

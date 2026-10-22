@@ -105,7 +105,10 @@ function New-PSGPOPolicyTree {
                 (-not $Filter -or $_.Name.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0 -or
                     (Get-PSGPOText $_.Name).IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) -and (-not $expand -or $Only.Contains($_))
             })
-            if ($security.Count) {
+            # Restricted Groups: one node for the groups of [Group Membership] (RestrictedGroups in -Only).
+            $restricted = (-not $Filter -or 'Restricted Groups'.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0 -or
+                    (Get-PSGPOText 'Restricted Groups').IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) -and (-not $expand -or $Only.Contains('RestrictedGroups'))
+            if ($security.Count -or $restricted) {
                 $windowsNode = [AvaloniaTreeNode]::new()
                 $windowsNode.Header = Get-PSGPOText 'Windows Settings'
                 Set-PSGPOTreeNodeIcon -Node $windowsNode -Name 'folder'
@@ -145,6 +148,16 @@ function New-PSGPOPolicyTree {
                     $node.Tag = $setting
                     $node.Parent = $parent
                     $parent.Children.Add($node)
+                }
+                if ($restricted) {
+                    $groupsNode = [AvaloniaTreeNode]::new()
+                    $groupsNode.Header = Get-PSGPOText 'Restricted Groups'
+                    Set-PSGPOTreeNodeIcon -Node $groupsNode -Name 'people'
+                    $groupsNode.Tag = 'RestrictedGroups'
+                    $groupsNode.Parent = $securityNode
+                    # After Event Log, before the advanced audit policy, as in the Group Policy editor.
+                    $audit = @($securityNode.Children | Where-Object Tag -EQ 'Security:>Advanced Audit Policy Configuration')
+                    if ($audit.Count) { $securityNode.Children.Insert($securityNode.Children.IndexOf($audit[0]), $groupsNode) } else { $securityNode.Children.Add($groupsNode) }
                 }
                 $policiesNode.Children.Add($windowsNode)
             }

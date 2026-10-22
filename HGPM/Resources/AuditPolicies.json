@@ -1,0 +1,299 @@
+{
+  "Source": "auditpol /list /subcategory:* /v (Windows 10.0.26300): the subcategories of the advanced audit policy, named as the Group Policy editor and audit.csv name them (Audit <subcategory>), under Computer Configuration > Policies > Windows Settings > Security Settings > Advanced Audit Policy Configuration > Audit Policies",
+  "Categories": [
+    {
+      "Name": "Account Logon",
+      "Guid": "{69979850-797a-11d9-bed3-505054503030}",
+      "Subcategories": [
+        {
+          "Name": "Audit Credential Validation",
+          "Guid": "{0cce923f-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Kerberos Authentication Service",
+          "Guid": "{0cce9242-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Kerberos Service Ticket Operations",
+          "Guid": "{0cce9240-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Other Account Logon Events",
+          "Guid": "{0cce9241-69ae-11d9-bed3-505054503030}"
+        }
+      ]
+    },
+    {
+      "Name": "Account Management",
+      "Guid": "{6997984e-797a-11d9-bed3-505054503030}",
+      "Subcategories": [
+        {
+          "Name": "Audit Application Group Management",
+          "Guid": "{0cce9239-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Computer Account Management",
+          "Guid": "{0cce9236-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Distribution Group Management",
+          "Guid": "{0cce9238-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Other Account Management Events",
+          "Guid": "{0cce923a-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Security Group Management",
+          "Guid": "{0cce9237-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit User Account Management",
+          "Guid": "{0cce9235-69ae-11d9-bed3-505054503030}"
+        }
+      ]
+    },
+    {
+      "Name": "Detailed Tracking",
+      "Guid": "{6997984c-797a-11d9-bed3-505054503030}",
+      "Subcategories": [
+        {
+          "Name": "Audit DPAPI Activity",
+          "Guid": "{0cce922d-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Plug and Play Events",
+          "Guid": "{0cce9248-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Process Creation",
+          "Guid": "{0cce922b-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Process Termination",
+          "Guid": "{0cce922c-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit RPC Events",
+          "Guid": "{0cce922e-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Token Right Adjusted Events",
+          "Guid": "{0cce924a-69ae-11d9-bed3-505054503030}"
+        }
+      ]
+    },
+    {
+      "Name": "DS Access",
+      "Guid": "{6997984f-797a-11d9-bed3-505054503030}",
+      "Subcategories": [
+        {
+          "Name": "Audit Detailed Directory Service Replication",
+          "Guid": "{0cce923e-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Directory Service Access",
+          "Guid": "{0cce923b-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Directory Service Changes",
+          "Guid": "{0cce923c-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Directory Service Replication",
+          "Guid": "{0cce923d-69ae-11d9-bed3-505054503030}"
+        }
+      ]
+    },
+    {
+      "Name": "Logon/Logoff",
+      "Guid": "{69979849-797a-11d9-bed3-505054503030}",
+      "Subcategories": [
+        {
+          "Name": "Audit Access Rights",
+          "Guid": "{0cce924b-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Account Lockout",
+          "Guid": "{0cce9217-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Group Membership",
+          "Guid": "{0cce9249-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit IPsec Extended Mode",
+          "Guid": "{0cce921a-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit IPsec Main Mode",
+          "Guid": "{0cce9218-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit IPsec Quick Mode",
+          "Guid": "{0cce9219-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Logoff",
+          "Guid": "{0cce9216-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Logon",
+          "Guid": "{0cce9215-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Network Policy Server",
+          "Guid": "{0cce9243-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Other Logon/Logoff Events",
+          "Guid": "{0cce921c-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Special Logon",
+          "Guid": "{0cce921b-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit User / Device Claims",
+          "Guid": "{0cce9247-69ae-11d9-bed3-505054503030}"
+        }
+      ]
+    },
+    {
+      "Name": "Object Access",
+      "Guid": "{6997984a-797a-11d9-bed3-505054503030}",
+      "Subcategories": [
+        {
+          "Name": "Audit Application Generated",
+          "Guid": "{0cce9222-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Central Policy Staging",
+          "Guid": "{0cce9246-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Certification Services",
+          "Guid": "{0cce9221-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Detailed File Share",
+          "Guid": "{0cce9244-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit File Share",
+          "Guid": "{0cce9224-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit File System",
+          "Guid": "{0cce921d-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Filtering Platform Connection",
+          "Guid": "{0cce9226-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Filtering Platform Packet Drop",
+          "Guid": "{0cce9225-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Handle Manipulation",
+          "Guid": "{0cce9223-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Kernel Object",
+          "Guid": "{0cce921f-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Other Object Access Events",
+          "Guid": "{0cce9227-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Registry",
+          "Guid": "{0cce921e-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Removable Storage",
+          "Guid": "{0cce9245-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit SAM",
+          "Guid": "{0cce9220-69ae-11d9-bed3-505054503030}"
+        }
+      ]
+    },
+    {
+      "Name": "Policy Change",
+      "Guid": "{6997984d-797a-11d9-bed3-505054503030}",
+      "Subcategories": [
+        {
+          "Name": "Audit Audit Policy Change",
+          "Guid": "{0cce922f-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Authentication Policy Change",
+          "Guid": "{0cce9230-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Authorization Policy Change",
+          "Guid": "{0cce9231-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Filtering Platform Policy Change",
+          "Guid": "{0cce9233-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit MPSSVC Rule-Level Policy Change",
+          "Guid": "{0cce9232-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Other Policy Change Events",
+          "Guid": "{0cce9234-69ae-11d9-bed3-505054503030}"
+        }
+      ]
+    },
+    {
+      "Name": "Privilege Use",
+      "Guid": "{6997984b-797a-11d9-bed3-505054503030}",
+      "Subcategories": [
+        {
+          "Name": "Audit Non Sensitive Privilege Use",
+          "Guid": "{0cce9229-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Other Privilege Use Events",
+          "Guid": "{0cce922a-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Sensitive Privilege Use",
+          "Guid": "{0cce9228-69ae-11d9-bed3-505054503030}"
+        }
+      ]
+    },
+    {
+      "Name": "System",
+      "Guid": "{69979848-797a-11d9-bed3-505054503030}",
+      "Subcategories": [
+        {
+          "Name": "Audit IPsec Driver",
+          "Guid": "{0cce9213-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Other System Events",
+          "Guid": "{0cce9214-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Security State Change",
+          "Guid": "{0cce9210-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit Security System Extension",
+          "Guid": "{0cce9211-69ae-11d9-bed3-505054503030}"
+        },
+        {
+          "Name": "Audit System Integrity",
+          "Guid": "{0cce9212-69ae-11d9-bed3-505054503030}"
+        }
+      ]
+    }
+  ]
+}
