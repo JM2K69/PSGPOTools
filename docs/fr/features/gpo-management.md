@@ -129,13 +129,15 @@ et Délégation de GPMC.
   applique la GPO, un refus qui le nommait est retiré. **Supprimer** un compte : il n'applique plus
   la GPO, et ne la lit plus quand c'était tout ce qu'il faisait. Utilisateurs authentifiés garde
   la lecture : les ordinateurs doivent lire chaque GPO (MS16-072).
-- **Délégation** : chaque compte des autorisations de la GPO avec son niveau, tel que GPMC le
-  nomme : **Lecture**, **Lecture (à partir du filtrage de sécurité)**, **Modifier les paramètres**,
-  **Modifier les paramètres, supprimer, modifier la sécurité**, ou **Personnalisé** (d'autres
-  droits, ou un refus). Choisissez un niveau et **Définir l'autorisation** pour un compte, ou
-  **Supprimer** le compte. **Lecture (à partir du filtrage de sécurité)** lit et applique la GPO
-  (Appliquer la stratégie de groupe), comme un compte ajouté au filtrage de sécurité. Un éditeur
-  qui appliquait la GPO continue de l'appliquer. Les
+- **Délégation** : chaque compte des autorisations de la GPO avec son niveau : **Lecture**,
+  **Lecture et application**, **Modifier les paramètres**, **Modifier les paramètres, supprimer,
+  modifier la sécurité**, ou **Personnalisé** (d'autres droits, ou un refus). Choisissez un niveau
+  et **Définir l'autorisation** pour un compte, ou **Supprimer** le compte. **Lecture et
+  application** lit et applique la GPO (Appliquer la stratégie de groupe), comme un compte ajouté
+  au filtrage de sécurité ; GPMC le nomme Lecture (à partir du filtrage de sécurité). Un niveau
+  remplace celui du compte : pour garder un éditeur et lui faire appliquer la GPO, **Ajoutez**-le
+  plutôt au filtrage de sécurité. Un éditeur qui appliquait la GPO continue de l'appliquer. La
+  pastille **S'applique** marque chaque compte qui applique la GPO, quel que soit son niveau. Les
   autorisations héritées viennent du conteneur Policies du domaine : elles sont affichées, pas
   modifiées.
 

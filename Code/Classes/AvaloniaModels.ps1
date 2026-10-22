@@ -130,6 +130,8 @@ class AvaloniaPermissionRow {
     [string]$Permission
     # As GPMC shows it, in the language of the interface
     [string]$PermissionText
+    # Reads and applies the GPO (security filtering), whatever its level
+    [bool]$Applies
     [bool]$Inherited
     [string]$InheritedText
 }

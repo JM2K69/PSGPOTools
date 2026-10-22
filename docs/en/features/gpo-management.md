@@ -125,14 +125,15 @@ tabs of GPMC.
   name, `DOMAIN\name`, a computer as `PC01$`): it reads and applies the GPO, a denial that named it
   removed. **Remove** one: it no longer applies the GPO, and no longer reads it when that was all
   it did. Authenticated Users keeps reading it: the computers must read every GPO (MS16-072).
-- **Delegation**: every account of the permissions of the GPO with its level, as GPMC names it:
-  **Read**, **Read (from Security Filtering)**, **Edit settings**, **Edit settings, delete, modify
-  security**, or **Custom** (other rights, or a denial). Choose a level and **Set the permission**
-  for an account, or **Remove** it. **Read (from Security Filtering)** reads and applies the GPO
-  (Apply Group Policy), as an account added to the security filtering. An editor that applied the
-  GPO keeps applying it. The
-  inherited permissions come from the Policies container of the domain: they are shown, not
-  changed.
+- **Delegation**: every account of the permissions of the GPO with its level: **Read**, **Read
+  and apply**, **Edit settings**, **Edit settings, delete, modify security**, or **Custom** (other
+  rights, or a denial). Choose a level and **Set the permission** for an account, or **Remove**
+  it. **Read and apply** reads and applies the GPO (Apply Group Policy), as an account added to
+  the security filtering; GPMC names it Read (from Security Filtering). A level replaces the one
+  the account had: to keep an editor and make it apply the GPO, **Add** it to the security
+  filtering instead. An editor that applied the GPO keeps applying it. The **Applies** badge marks
+  every account that applies the GPO, whatever its level. The inherited permissions come from the
+  Policies container of the domain: they are shown, not changed.
 
 A change is written on the GPO in the directory (its DACL read again first: a change another
 console made is kept), then on its SYSVOL folder and everything in it, with the ACL derived from

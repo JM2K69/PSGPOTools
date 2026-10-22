@@ -5,7 +5,7 @@
 ### Added
 
 * The import of the module says its version, and, when the PowerShell Gallery has a newer one, the command that installs it (Update-PSResource, or Install-PSResource for a module not installed from the Gallery). The Gallery is read at most once a day (UpdateCheck.json in the local data folder of the user) and 3 seconds at most, never in a CI, a session started with -NonInteractive, or with PSGPOTOOLS_SKIP_UPDATE_CHECK=1; without network, the version only
-* The Delegation tab of the GPO console gives the level Read (from Security Filtering) too: the account reads and applies the GPO (Apply Group Policy), as Set-PSGPOPermission -Permission GpoApply
+* The Delegation tab of the GPO console gives the level Read and apply too: the account reads and applies the GPO (Apply Group Policy), as Set-PSGPOPermission -Permission GpoApply. The level is named Read and apply in the tab (GPMC: Read (from Security Filtering)). An Applies badge marks every account of the Delegation tab that applies the GPO, whatever its level (an editor in the security filtering, for instance)
 
 ## 0.1.5 - alpha
 
