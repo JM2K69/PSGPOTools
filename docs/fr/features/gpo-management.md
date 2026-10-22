@@ -176,6 +176,15 @@ l'utilise.
 
 ![Un nouveau filtre WMI](../assets/screenshots/24-new-wmi-filter.fr.png)
 
+**Modifier le filtre WMI...**, dans le menu contextuel d'un filtre, le modifie dans le même
+formulaire : son nom, sa description, ses requêtes. Le filtre garde son identité (`msWMI-ID`) : les
+GPO qui y sont liées le gardent et les ordinateurs les appliquent avec ses nouvelles requêtes, comme
+quand GPMC modifie un filtre. Une requête d'un autre espace de noms que celui du formulaire est une
+ligne `espace de noms: requête` (`root\WMI: SELECT * FROM BatteryStatus`). La modification est
+refusée si le filtre a changé dans le domaine depuis que la console l'a lu.
+
+![Un filtre WMI modifié](../assets/screenshots/41-edit-wmi-filter.fr.png)
+
 **WMI Filter**, dans le menu contextuel d'une GPO, liste les filtres du domaine : celui qui est
 coché est le filtre de la GPO, **(none)** la délie. Ses détails montrent le filtre et ses requêtes,
 ou disent que le filtre d'une GPO n'est plus dans le domaine (les ordinateurs ignorent alors la
@@ -187,6 +196,7 @@ GPO).
 New-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' -Description 'Les postes Windows, pas les serveurs'
 Set-PSGPO -Name 'T2 - Workstations - Baseline' -WmiFilter 'Workstations'
 Get-PSGPOWmiFilter | Format-Table Name, Queries, Gpos
+Set-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1 AND Version LIKE ''10.0.2%''' -Description 'Les postes Windows 11'
 Set-PSGPO -Name 'T2 - Workstations - Baseline' -NoWmiFilter
 Remove-PSGPOWmiFilter -Name 'Workstations'
 ```

@@ -109,8 +109,10 @@ function Start-PSGPOManagerWindow {
     $gpoStatusMenuItem = Get-PSGPOAvaloniaControl $window 'gpoStatusMenuItem'
     $wmiFilterMenuItem = Get-PSGPOAvaloniaControl $window 'wmiFilterMenuItem'
     $newWmiFilterMenuItem = Get-PSGPOAvaloniaControl $window 'newWmiFilterMenuItem'
+    $editWmiFilterMenuItem = Get-PSGPOAvaloniaControl $window 'editWmiFilterMenuItem'
     $deleteWmiFilterMenuItem = Get-PSGPOAvaloniaControl $window 'deleteWmiFilterMenuItem'
     $newWmiFilterPanel = Get-PSGPOAvaloniaControl $window 'newWmiFilterPanel'
+    $newWmiFilterTitleTextBlock = Get-PSGPOAvaloniaControl $window 'newWmiFilterTitleTextBlock'
     $newWmiFilterNameTextBox = Get-PSGPOAvaloniaControl $window 'newWmiFilterNameTextBox'
     $newWmiFilterDescriptionTextBox = Get-PSGPOAvaloniaControl $window 'newWmiFilterDescriptionTextBox'
     $newWmiFilterNamespaceTextBox = Get-PSGPOAvaloniaControl $window 'newWmiFilterNamespaceTextBox'
@@ -2227,8 +2229,9 @@ function Start-PSGPOManagerWindow {
         foreach ($statusItem in $gpoStatusEnabledMenuItem, $gpoStatusUserDisabledMenuItem, $gpoStatusComputerDisabledMenuItem, $gpoStatusAllDisabledMenuItem) {
             $statusItem.IsChecked = $null -ne $detail.Gpo -and [int]$statusItem.Tag -eq ($detail.Gpo.Flags -band 3)
         }
-        # WMI Filters: a new filter, the deletion of one.
+        # WMI Filters: a new filter, the change or the deletion of one.
         $newWmiFilterMenuItem.IsVisible = $item -eq 'WmiFilters' -and -not $Directory.IsReadOnly
+        $editWmiFilterMenuItem.IsVisible = $item -is [GPOToolsWmiFilter] -and -not $Directory.IsReadOnly
         $deleteWmiFilterMenuItem.IsVisible = $item -is [GPOToolsWmiFilter] -and -not $Directory.IsReadOnly
         # WMI Filter: the filters of the domain, as the WMI Filtering of the Scope tab of GPMC.
         $wmiFilterMenuItem.IsVisible = $gpoStatusMenuItem.IsVisible -and ($Directory.WmiFilters.Count -or $null -ne $detail.Gpo.WmiFilterId)
@@ -2247,7 +2250,7 @@ function Start-PSGPOManagerWindow {
     (Get-PSGPOAvaloniaControl $window 'domainContextMenu').add_Opening({
         param($control, $e)
         if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
-                $blockInheritanceMenuItem.IsVisible -or $gpoStatusMenuItem.IsVisible -or $wmiFilterMenuItem.IsVisible -or $newWmiFilterMenuItem.IsVisible -or $deleteWmiFilterMenuItem.IsVisible -or
+                $blockInheritanceMenuItem.IsVisible -or $gpoStatusMenuItem.IsVisible -or $wmiFilterMenuItem.IsVisible -or $newWmiFilterMenuItem.IsVisible -or $editWmiFilterMenuItem.IsVisible -or $deleteWmiFilterMenuItem.IsVisible -or
                 $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible -or $approveGpoMenuItem.IsVisible -or $importGpoMenuItem.IsVisible) -or
             -not $domainTreeView.SelectedItem) { $e.Cancel = $true }
     })
@@ -2310,12 +2313,21 @@ function Start-PSGPOManagerWindow {
         Invoke-DirectoryChange -Select $select -Done $(if ($Filter) { Get-PSGPOText "'{0}' is linked to the WMI filter '{1}': the computers apply it only when {2} returns something." $gpo.DisplayName $Filter.Name $Filter.GetQueryText() } else { Get-PSGPOText "'{0}' is linked to no WMI filter." $gpo.DisplayName }) `
             -Change { $Directory.SetWmiFilter($gpo, $Filter) }
     }
-    # New WMI Filter... on WMI Filters, as GPMC.
+    # New WMI Filter... on WMI Filters, as GPMC; Edit WMI filter... on a filter, in the same form.
+    $wmiFilterForm = @{ Filter = $null }
     function Open-NewWmiFilterForm {
-        $newWmiFilterNameTextBox.Text = ''
-        $newWmiFilterDescriptionTextBox.Text = ''
-        $newWmiFilterNamespaceTextBox.Text = 'root\CIMv2'
-        $newWmiFilterQueryTextBox.Text = ''
+        param([GPOToolsWmiFilter]$Filter)
+        $wmiFilterForm.Filter = $Filter
+        $newWmiFilterTitleTextBlock.Text = if ($Filter) { Get-PSGPOText 'Edit WMI filter' } else { Get-PSGPOText 'New WMI filter' }
+        $newWmiFilterCreateButton.Content = if ($Filter) { Get-PSGPOText 'Save' } else { Get-PSGPOText 'Create' }
+        $newWmiFilterNameTextBox.Text = if ($Filter) { $Filter.Name } else { '' }
+        $newWmiFilterDescriptionTextBox.Text = if ($Filter) { "$($Filter.Description)" } else { '' }
+        # The namespace of the first query; a query of another namespace is a line namespace: query.
+        $namespace = if ($Filter -and @($Filter.Queries).Count) { $Filter.Queries[0].Namespace } else { 'root\CIMv2' }
+        $newWmiFilterNamespaceTextBox.Text = $namespace
+        $newWmiFilterQueryTextBox.Text = if ($Filter) {
+            @($Filter.Queries | ForEach-Object { if ($_.Namespace -eq $namespace) { $_.Query } else { "$($_.Namespace): $($_.Query)" } }) -join [Environment]::NewLine
+        } else { '' }
         $newWmiFilterErrorTextBlock.Text = ''
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
@@ -2325,16 +2337,30 @@ function Start-PSGPOManagerWindow {
     function Submit-NewWmiFilter {
         $namespace = "$($newWmiFilterNamespaceTextBox.Text)".Trim()
         if (-not $namespace) { $namespace = 'root\CIMv2' }
-        $queries = @("$($newWmiFilterQueryTextBox.Text)" -split '\r?\n' | ForEach-Object { $_.Trim() } | Where-Object { $_ } | ForEach-Object { [pscustomobject]@{ Namespace = $namespace; Query = $_ } })
+        $queries = @("$($newWmiFilterQueryTextBox.Text)" -split '\r?\n' | ForEach-Object { $_.Trim() } | Where-Object { $_ } | ForEach-Object {
+                # A WQL query starts with its verb (SELECT): a line that starts with root names its namespace.
+                if ($_ -match '^(root(\\[^\\:\s]+)*)\s*:\s*(\S.*)$') { [pscustomobject]@{ Namespace = $Matches[1]; Query = $Matches[3] } }
+                else { [pscustomobject]@{ Namespace = $namespace; Query = $_ } }
+            })
+        $filter = $wmiFilterForm.Filter
+        $users = @()
         try {
-            $filter = $Directory.NewWmiFilter($newWmiFilterNameTextBox.Text, "$($newWmiFilterDescriptionTextBox.Text)".Trim(), $queries)
+            if ($filter) {
+                $users = @($Directory.Gpos | Where-Object { $_.WmiFilterId -eq $filter.Id } | ForEach-Object DisplayName)
+                $Directory.EditWmiFilter($filter, $newWmiFilterNameTextBox.Text, "$($newWmiFilterDescriptionTextBox.Text)".Trim(), $queries)
+            } else {
+                $filter = $Directory.NewWmiFilter($newWmiFilterNameTextBox.Text, "$($newWmiFilterDescriptionTextBox.Text)".Trim(), $queries)
+            }
         } catch {
             $newWmiFilterErrorTextBlock.Text = $_.Exception.GetBaseException().Message
             return
         }
         $newWmiFilterPanel.IsVisible = $false
         Update-DirectoryTree -Select $filter
-        Show-DirectoryResult -Text (Get-PSGPOText "WMI filter '{0}' created. Link a GPO to it with WMI Filter in the context menu of the GPO." $filter.Name)
+        Show-DirectoryResult -Text $(
+            if (-not $wmiFilterForm.Filter) { Get-PSGPOText "WMI filter '{0}' created. Link a GPO to it with WMI Filter in the context menu of the GPO." $filter.Name }
+            elseif ($users.Count) { Get-PSGPOText "WMI filter '{0}' saved: {1} apply it with its new queries." $filter.Name ($users -join ', ') }
+            else { Get-PSGPOText "WMI filter '{0}' saved." $filter.Name })
     }
     # Delete WMI filter... on a filter, once confirmed; refused while a GPO uses it.
     $deleteWmiFilter = @{ Filter = $null }
@@ -2356,6 +2382,7 @@ function Start-PSGPOManagerWindow {
         Invoke-DirectoryChange -Select 'WmiFilters' -Done (Get-PSGPOText "WMI filter '{0}' deleted." $filter.Name) -Change { $Directory.RemoveWmiFilter($filter) }
     }
     $newWmiFilterMenuItem.Add_Click({ Open-NewWmiFilterForm })
+    $editWmiFilterMenuItem.Add_Click({ $item = $domainTreeView.SelectedItem.Tag; if ($item -is [GPOToolsWmiFilter]) { Open-NewWmiFilterForm -Filter $item } })
     $newWmiFilterCreateButton.Add_Click({ Submit-NewWmiFilter })
     $newWmiFilterCancelButton.Add_Click({ $newWmiFilterPanel.IsVisible = $false })
     $deleteWmiFilterMenuItem.Add_Click({ Open-DeleteWmiFilterForm })
@@ -2555,7 +2582,7 @@ function Start-PSGPOManagerWindow {
             'preferencesNewButton', 'preferencesEditButton', 'preferencesDeleteButton', 'preferencesUpButton', 'preferencesDownButton',
             'preferencesStatusTextBlock', 'preferencesEmptyTextBlock', 'preferencesList', 'preferencesDeletePanel', 'preferencesDeleteTextBlock',
             'preferencesDeleteConfirmButton', 'preferencesDeleteCancelButton', 'preferencesFormBorder', 'preferencesFormTitleTextBlock', 'refreshButton',
-            'enforcedLinkMenuItem', 'enabledLinkMenuItem', 'moveLinkUpMenuItem', 'moveLinkDownMenuItem', 'blockInheritanceMenuItem', 'gpoStatusMenuItem', 'wmiFilterMenuItem', 'newWmiFilterMenuItem', 'deleteWmiFilterMenuItem', 'newWmiFilterPanel', 'newWmiFilterNameTextBox', 'newWmiFilterDescriptionTextBox', 'newWmiFilterNamespaceTextBox', 'newWmiFilterQueryTextBox', 'newWmiFilterErrorTextBlock', 'newWmiFilterCreateButton', 'newWmiFilterCancelButton', 'deleteWmiFilterPanel', 'deleteWmiFilterTextBlock', 'deleteWmiFilterConfirmButton', 'deleteWmiFilterCancelButton', 'gpoStatusEnabledMenuItem', 'gpoStatusUserDisabledMenuItem', 'gpoStatusComputerDisabledMenuItem', 'gpoStatusAllDisabledMenuItem',
+            'enforcedLinkMenuItem', 'enabledLinkMenuItem', 'moveLinkUpMenuItem', 'moveLinkDownMenuItem', 'blockInheritanceMenuItem', 'gpoStatusMenuItem', 'wmiFilterMenuItem', 'newWmiFilterMenuItem', 'editWmiFilterMenuItem', 'deleteWmiFilterMenuItem', 'newWmiFilterPanel', 'newWmiFilterTitleTextBlock', 'newWmiFilterNameTextBox', 'newWmiFilterDescriptionTextBox', 'newWmiFilterNamespaceTextBox', 'newWmiFilterQueryTextBox', 'newWmiFilterErrorTextBlock', 'newWmiFilterCreateButton', 'newWmiFilterCancelButton', 'deleteWmiFilterPanel', 'deleteWmiFilterTextBlock', 'deleteWmiFilterConfirmButton', 'deleteWmiFilterCancelButton', 'gpoStatusEnabledMenuItem', 'gpoStatusUserDisabledMenuItem', 'gpoStatusComputerDisabledMenuItem', 'gpoStatusAllDisabledMenuItem',
             'preferencesFormHost', 'preferencesFormErrorTextBlock', 'preferencesSaveButton', 'preferencesCancelButton',
             'certificatesPanel', 'certificatesTitleTextBlock', 'certificatesInfoTextBlock', 'certificatesPathTextBox', 'certificatesImportButton', 'certificatesDeleteButton', 'certificatesStatusTextBlock', 'certificatesEmptyTextBlock', 'certificatesList', 'certificatesDeletePanel', 'certificatesDeleteTextBlock', 'certificatesDeleteConfirmButton', 'certificatesDeleteCancelButton',
             'restrictedGroupsPanel', 'restrictedGroupsInfoTextBlock', 'restrictedGroupsAddButton', 'restrictedGroupsEditButton', 'restrictedGroupsDeleteButton', 'restrictedGroupsStatusTextBlock', 'restrictedGroupsEmptyTextBlock', 'restrictedGroupsList', 'restrictedGroupsDeletePanel', 'restrictedGroupsDeleteTextBlock', 'restrictedGroupsDeleteConfirmButton', 'restrictedGroupsDeleteCancelButton', 'restrictedGroupsFormBorder', 'restrictedGroupsFormTitleTextBlock', 'restrictedGroupNameTextBox', 'restrictedGroupMembersCheckBox', 'restrictedGroupMembersTextBox', 'restrictedGroupMemberOfTextBox', 'restrictedGroupsFormErrorTextBlock', 'restrictedGroupsSaveButton', 'restrictedGroupsCancelButton') {

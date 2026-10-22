@@ -62,6 +62,31 @@ InModuleScope -ModuleName HGPM {
             $Directory.WmiFilters.Count | Should -Be 0
         }
 
+        It 'Changes the name, description and queries of a filter, the GPO linked to it keeping it' {
+            $Filter = $Directory.NewWmiFilter('Laptops', 'Computers with a battery', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_Battery' }))
+            $Directory.SetWmiFilter($Gpo, $Filter)
+            $null = New-PSGPOWmiFilter -Directory $Directory -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1'
+
+            $Result = Set-PSGPOWmiFilter -Directory $Directory -Name 'Laptops' -NewName 'Portables' -Query 'SELECT * FROM Win32_Battery', 'SELECT * FROM Win32_PortableBattery'
+            $Result.Name | Should -Be 'Portables'
+            $Result.Queries | Should -Be 'root\CIMv2: SELECT * FROM Win32_Battery; root\CIMv2: SELECT * FROM Win32_PortableBattery'
+            $Result.Description | Should -Be 'Computers with a battery' -Because 'what is not given does not change'
+            @($Result.Gpos) | Should -Be @('C - Laptops - Power Management')
+            $Gpo.WmiFilterId | Should -Be $Filter.Id
+            @($Directory.WmiFilters.Name) | Should -Be @('Portables', 'Workstations') -Because 'the filters stay sorted by name'
+
+            $Result = Set-PSGPOWmiFilter -Directory $Directory -Name 'Portables' -Description '' -Namespace 'root\cimv2'
+            $Result.Description | Should -BeNullOrEmpty
+            $Result.Queries | Should -BeLike 'root\cimv2: *; root\cimv2: *'
+
+            { Set-PSGPOWmiFilter -Directory $Directory -Name 'Portables' -NewName 'workstations' } | Should -Throw -ExpectedMessage "*'workstations' already exists*"
+            { Set-PSGPOWmiFilter -Directory $Directory -Name 'Portables' } | Should -Throw -ExpectedMessage '*what changes*'
+            { Set-PSGPOWmiFilter -Directory $Directory -Name 'Nothing' -Description '' } | Should -Throw -ExpectedMessage "*No WMI filter named 'Nothing'*"
+            { $Directory.EditWmiFilter($Filter, 'Portables', '', @()) } | Should -Throw -ExpectedMessage '*at least one query*'
+            # A name that only changes its case is the same filter.
+            (Set-PSGPOWmiFilter -Directory $Directory -Name 'Portables' -NewName 'PORTABLES').Name | Should -Be 'PORTABLES'
+        }
+
         It 'Shows WMI Filters and each filter, with its queries and the GPOs using it' {
             $Filter = $Directory.NewWmiFilter('Laptops', 'Computers with a battery', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_Battery' }))
             $Directory.SetWmiFilter($Gpo, $Filter)

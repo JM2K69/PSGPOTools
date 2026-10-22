@@ -1209,6 +1209,49 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Changes a WMI filter from its context menu, a query of another namespace included' {
+            $Filter = $Directory.NewWmiFilter('Laptops', 'Computers with a battery', @(
+                    [pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_Battery' }
+                    [pscustomobject]@{ Namespace = 'root\WMI'; Query = 'SELECT * FROM BatteryStatus' }))
+            $Directory.SetWmiFilter($Directory.FindGpo('C - Laptops - Power Management'), $Filter)
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters'
+                $Ui.editWmiFilterMenuItem.IsVisible | Should -BeFalse
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters', 'Laptops'
+                $Ui.editWmiFilterMenuItem.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.editWmiFilterMenuItem
+                $Ui.newWmiFilterPanel.IsVisible | Should -BeTrue
+                $Ui.newWmiFilterTitleTextBlock.Text | Should -Be 'Edit WMI filter'
+                $Ui.newWmiFilterCreateButton.Content | Should -Be 'Save'
+                $Ui.newWmiFilterNameTextBox.Text | Should -Be 'Laptops'
+                $Ui.newWmiFilterDescriptionTextBox.Text | Should -Be 'Computers with a battery'
+                $Ui.newWmiFilterNamespaceTextBox.Text | Should -Be 'root\CIMv2'
+                $Ui.newWmiFilterQueryTextBox.Text | Should -Be ('SELECT * FROM Win32_Battery', 'root\WMI: SELECT * FROM BatteryStatus' -join [Environment]::NewLine)
+
+                $Ui.newWmiFilterQueryTextBox.Text = ''
+                Invoke-Click $Ui.newWmiFilterCreateButton
+                $Ui.newWmiFilterErrorTextBlock.Text | Should -Be 'A WMI filter has at least one query.'
+                $Ui.newWmiFilterNameTextBox.Text = 'Portables'
+                $Ui.newWmiFilterQueryTextBox.Text = "SELECT * FROM Win32_PortableBattery`nroot\WMI : SELECT * FROM BatteryStatus WHERE Voltage > 0`n"
+                Invoke-Click $Ui.newWmiFilterCreateButton
+                $Ui.newWmiFilterPanel.IsVisible | Should -BeFalse
+                $Filter.Name | Should -Be 'Portables'
+                $Filter.GetQueryText() | Should -Be 'root\CIMv2: SELECT * FROM Win32_PortableBattery; root\WMI: SELECT * FROM BatteryStatus WHERE Voltage > 0'
+                $Ui.Directory.FindGpo('C - Laptops - Power Management').WmiFilterId | Should -Be $Filter.Id
+                $Ui.domainTreeView.SelectedItem.Tag | Should -Be $Filter
+                $Ui.domainTreeView.SelectedItem.Header | Should -Be 'Portables'
+                $Ui.directoryResultTextBlock.Text | Should -Be "WMI filter 'Portables' saved: C - Laptops - Power Management apply it with its new queries."
+
+                # The same form creates a filter again afterwards.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters'
+                Invoke-Click $Ui.newWmiFilterMenuItem
+                $Ui.newWmiFilterTitleTextBlock.Text | Should -Be 'New WMI filter'
+                $Ui.newWmiFilterCreateButton.Content | Should -Be 'Create'
+                $Ui.newWmiFilterNameTextBox.Text | Should -BeNullOrEmpty
+            }
+        }
+
         It 'Reads the domain again (Refresh, F5), keeping what is selected' {
             $Set = Get-TestLdapEntrySet
             $Read = ConvertTo-PSGPOLdapDirectory -Server 'dc.hardenbox.labo' -VendorName 'Samba Team' -DomainEntry $Set.Domain -OrganizationalUnitEntry $Set.Ous -GpoEntry $Set.Gpos 3>$null

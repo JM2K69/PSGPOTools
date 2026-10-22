@@ -877,7 +877,7 @@ InModuleScope -ModuleName HGPM {
             $ReadOu.BlockInheritance | Should -BeFalse
         }
 
-        It 'Creates a WMI filter, links the GPO to it, reads both back, and deletes the filter once unlinked' {
+        It 'Creates a WMI filter, links the GPO to it, changes the filter, reads both back, and deletes the filter once unlinked' {
             $Gpo = $Directory.FindGpo($GpoName)
             $FilterName = "PSGPOTools test WMI $Stamp"
             $Filter = $Directory.NewWmiFilter($FilterName, 'Test of PSGPOTools', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = "SELECT * FROM Win32_OperatingSystem WHERE Caption LIKE '%;%'" }))
@@ -889,6 +889,21 @@ InModuleScope -ModuleName HGPM {
                 $ReadFilter.Description | Should -Be 'Test of PSGPOTools'
                 $ReadFilter.Queries[0].Query | Should -Be "SELECT * FROM Win32_OperatingSystem WHERE Caption LIKE '%;%'"
                 $Read.FindGpo($GpoName).WmiFilterId | Should -Be $Filter.Id
+
+                # Changed in place: another name, no description, two queries; the GPO keeps it.
+                $Directory.EditWmiFilter($Filter, "$FilterName (changed)", '', @(
+                        [pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' }
+                        [pscustomobject]@{ Namespace = 'root\StandardCimv2'; Query = 'SELECT * FROM MSFT_NetAdapter' }))
+                $Read = Get-PSGPODirectory -Server $Server
+                $ReadFilter = $Read.FindWmiFilter("$FilterName (changed)")
+                $ReadFilter.Id | Should -Be $Filter.Id
+                $ReadFilter.Description | Should -BeNullOrEmpty
+                $ReadFilter.GetQueryText() | Should -Be 'root\CIMv2: SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1; root\StandardCimv2: SELECT * FROM MSFT_NetAdapter'
+                $Read.FindGpo($GpoName).WmiFilterId | Should -Be $Filter.Id
+                # Changed meanwhile by another console: refused.
+                $Read.EditWmiFilter($ReadFilter, $ReadFilter.Name, 'Other console', $ReadFilter.Queries)
+                { $Directory.EditWmiFilter($Filter, $Filter.Name, 'This console', $Filter.Queries) } | Should -Throw -ExpectedMessage '*changed in the domain meanwhile*'
+
                 { $Directory.RemoveWmiFilter($Filter) } | Should -Throw -ExpectedMessage '*is used by*'
                 $Directory.SetWmiFilter($Gpo, $null)
                 (Get-PSGPODirectory -Server $Server).FindGpo($GpoName).WmiFilterId | Should -BeNullOrEmpty

@@ -171,6 +171,56 @@ function New-PSGPODomainWmiFilter {
     Write-Verbose "WMI filter '$($Filter.Name)' created: $($Filter.DistinguishedName)."
 }
 
+# Writes the name, description and queries of a WMI filter ($Changed) in the domain, as GPMC does,
+# refused if the filter changed there since it was read ($Filter).
+function Set-PSGPODomainWmiFilter {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsWmiFilter]$Filter,
+        [Parameter(Mandatory)] [GPOToolsWmiFilter]$Changed
+    )
+
+    $connection = New-PSGPODirectoryConnection -Directory $Directory
+    try {
+        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Filter.DistinguishedName -Scope Base -Attribute 'msWMI-Name', 'msWMI-Parm1', 'msWMI-Parm2' -AllowMissing
+        if (-not $entry) { throw "The WMI filter '$($Filter.Name)' is not in the domain anymore." }
+        $old = @{}
+        foreach ($name in 'msWMI-Name', 'msWMI-Parm1', 'msWMI-Parm2') { $old[$name] = Get-PSGPOLdapValue $entry $name }
+        $queries = try { (@(ConvertFrom-PSGPOWmiQueryText -Text $old['msWMI-Parm2']) | ForEach-Object { "$($_.Namespace): $($_.Query)" }) -join '; ' } catch { $null }
+        if ("$($old['msWMI-Name'])" -cne $Filter.Name -or "$($old['msWMI-Parm1'])" -cne "$($Filter.Description)" -or "$queries" -cne $Filter.GetQueryText()) {
+            throw "The WMI filter '$($Filter.Name)' changed in the domain meanwhile: read the domain again, then try again."
+        }
+        $request = [System.DirectoryServices.Protocols.ModifyRequest]::new()
+        $request.DistinguishedName = $Filter.DistinguishedName
+        # The values read are removed: the change is refused if another one came in between.
+        Add-PSGPOLdapValueChange -Request $request -Name 'msWMI-Name' -Old $old['msWMI-Name'] -New $Changed.Name
+        Add-PSGPOLdapValueChange -Request $request -Name 'msWMI-Parm1' -Old $old['msWMI-Parm1'] -New $Changed.Description
+        Add-PSGPOLdapValueChange -Request $request -Name 'msWMI-Parm2' -Old $old['msWMI-Parm2'] -New (ConvertTo-PSGPOWmiQueryText -Query $Changed.Queries)
+        if (-not $request.Modifications.Count) { return }
+        $date = [System.DirectoryServices.Protocols.DirectoryAttributeModification]::new()
+        $date.Name = 'msWMI-ChangeDate'
+        $date.Operation = [System.DirectoryServices.Protocols.DirectoryAttributeOperation]::Replace
+        [void]$date.Add([datetime]::UtcNow.ToString('yyyyMMddHHmmss.ffffff-000', [cultureinfo]::InvariantCulture))
+        [void]$request.Modifications.Add($date)
+        try {
+            [void]$connection.SendRequest($request)
+        } catch {
+            $base = $_.Exception.GetBaseException()
+            if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -in 'NoSuchAttribute', 'AttributeOrValueExists') {
+                throw "The WMI filter '$($Filter.Name)' changed in the domain meanwhile: read the domain again, then try again."
+            }
+            if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -eq 'InsufficientAccessRights') {
+                throw "The account cannot change the WMI filter '$($Filter.Name)': $($base.Message)"
+            }
+            throw
+        }
+    } finally {
+        $connection.Dispose()
+    }
+    Write-Verbose "WMI filter '$($Changed.Name)' changed: $($Changed.GetQueryText())."
+}
+
 function Remove-PSGPODomainWmiFilter {
     [CmdletBinding()]
     param(

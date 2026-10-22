@@ -168,6 +168,15 @@ the context menu of a filter deletes it, once no GPO uses it.
 
 ![A new WMI filter](../assets/screenshots/24-new-wmi-filter.png)
 
+**Edit WMI filter...** in the context menu of a filter changes it in the same form: its name, its
+description, its queries. The filter keeps its identity (`msWMI-ID`): the GPOs linked to it keep it
+and the computers apply them with its new queries, as when GPMC edits a filter. A query of another
+namespace than the one of the form is a line `namespace: query`
+(`root\WMI: SELECT * FROM BatteryStatus`). The change is refused if the filter changed in the
+domain since the console read it.
+
+![A WMI filter changed](../assets/screenshots/41-edit-wmi-filter.png)
+
 **WMI Filter** in the context menu of a GPO lists the filters of the domain: the one checked is
 the filter of the GPO, **(none)** unlinks it. Its details show the filter and its queries, or say
 that the filter of a GPO is not in the domain anymore (the computers then ignore the GPO).
@@ -178,6 +187,7 @@ that the filter of a GPO is not in the domain anymore (the computers then ignore
 New-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' -Description 'Windows workstations, not the servers'
 Set-PSGPO -Name 'T2 - Workstations - Baseline' -WmiFilter 'Workstations'
 Get-PSGPOWmiFilter | Format-Table Name, Queries, Gpos
+Set-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1 AND Version LIKE ''10.0.2%''' -Description 'Windows 11 workstations'
 Set-PSGPO -Name 'T2 - Workstations - Baseline' -NoWmiFilter
 Remove-PSGPOWmiFilter -Name 'Workstations'
 ```
