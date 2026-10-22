@@ -248,7 +248,6 @@ function Start-PSGPOManagerWindow {
     $preferencesSaveButton = Get-PSGPOAvaloniaControl $window 'preferencesSaveButton'
     $preferencesCancelButton = Get-PSGPOAvaloniaControl $window 'preferencesCancelButton'
     $restrictedGroupsPanel = Get-PSGPOAvaloniaControl $window 'restrictedGroupsPanel'
-    $restrictedGroupsInfoTextBlock = Get-PSGPOAvaloniaControl $window 'restrictedGroupsInfoTextBlock'
     $restrictedGroupsAddButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupsAddButton'
     $restrictedGroupsEditButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupsEditButton'
     $restrictedGroupsDeleteButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupsDeleteButton'
@@ -732,7 +731,7 @@ function Start-PSGPOManagerWindow {
     }
 
     # The restricted groups of the edited GPO, the group $Select selected.
-    function Show-RestrictedGroups {
+    function Show-RestrictedGroupList {
         param([string]$Status, [string]$Select)
         $restrictedGroupsFormBorder.IsVisible = $false
         $restrictedGroupsDeletePanel.IsVisible = $false
@@ -777,7 +776,7 @@ function Start-PSGPOManagerWindow {
     }
 
     # A change of the restricted groups: on a copy of GptTmpl.inf, written, then kept.
-    function Save-RestrictedGroups {
+    function Save-RestrictedGroupChange {
         param([scriptblock]$Change, [string]$Done, [string]$Select)
         $copy = [GPOToolsSecurityTemplate]::Parse($editing.Template.ToBytes())
         try {
@@ -788,7 +787,7 @@ function Start-PSGPOManagerWindow {
         }
         $editing.Template = $copy
         $settingsCache.Remove("$($editing.Gpo.Id)")
-        Show-RestrictedGroups -Status (Get-PSGPOText '{0} in GptTmpl.inf (version {1}).' $Done $editing.Gpo.GetComputerVersion()) -Select $Select
+        Show-RestrictedGroupList -Status (Get-PSGPOText '{0} in GptTmpl.inf (version {1}).' $Done $editing.Gpo.GetComputerVersion()) -Select $Select
         $null
     }
 
@@ -804,7 +803,7 @@ function Start-PSGPOManagerWindow {
         $members = if ($restrictedGroupMembersCheckBox.IsChecked) { [string[]](& $lines $restrictedGroupMembersTextBox.Text) } else { $null }
         $memberOf = [string[]](& $lines $restrictedGroupMemberOfTextBox.Text)
         $old = $restrictedGroups.Group
-        $problem = Save-RestrictedGroups -Select $name -Done (Get-PSGPOText $(if ($old) { "Restricted group '{0}' saved" } else { "Restricted group '{0}' added" }) $name) -Change {
+        $problem = Save-RestrictedGroupChange -Select $name -Done (Get-PSGPOText $(if ($old) { "Restricted group '{0}' saved" } else { "Restricted group '{0}' added" }) $name) -Change {
             param($Copy)
             if ($old -and $old.Group -ine $name) { Remove-PSGPORestrictedGroup -Template $Copy -Group $old.Group }
             if (-not $old -and @(Get-PSGPORestrictedGroup -Template $Copy | Where-Object { $_.Group -ieq $name }).Count) { throw (Get-PSGPOText "'{0}' is already a restricted group of this GPO: edit it." $name) }
@@ -824,7 +823,7 @@ function Start-PSGPOManagerWindow {
         $row = $restrictedGroupsList.SelectedItem
         if (-not $row) { return }
         $group = $row.Item.Group
-        $problem = Save-RestrictedGroups -Done (Get-PSGPOText "Restricted group '{0}' deleted" $row.Name) -Change { param($Copy) Remove-PSGPORestrictedGroup -Template $Copy -Group $group }
+        $problem = Save-RestrictedGroupChange -Done (Get-PSGPOText "Restricted group '{0}' deleted" $row.Name) -Change { param($Copy) Remove-PSGPORestrictedGroup -Template $Copy -Group $group }
         if ($problem) { Set-RestrictedGroupStatus (Get-PSGPOText 'Not deleted: {0}' $problem) -Problem }
     })
 
@@ -852,7 +851,7 @@ function Start-PSGPOManagerWindow {
         if ($isRestricted) {
             $editing.Policy = $null
             $editing.Editor = $null
-            Show-RestrictedGroups
+            Show-RestrictedGroupList
             return
         }
         if ($isPreference) {
