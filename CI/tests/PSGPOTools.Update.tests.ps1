@@ -137,6 +137,38 @@ InModuleScope -ModuleName HGPM {
         }
     }
 
+    Describe 'The version in the status bar of the consoles' {
+        BeforeEach {
+            $script:Latest = [semver]'0.1.6-alpha'
+            Mock Get-PSGPOModuleVersion { [pscustomobject]@{ Version = [semver]'0.1.5-alpha'; Path = 'C:\Users\me\Documents\PowerShell\Modules\HGPM\0.1.5' } }
+            Mock Get-PSGPOLatestGalleryVersion { $script:Latest }
+            Mock Get-InstalledPSResource { [pscustomobject]@{ Name = 'HGPM'; InstalledLocation = 'C:\Users\me\Documents\PowerShell\Modules' } }
+            Mock Test-PSGPOUpdateCheckSkipped { $false }
+        }
+
+        It 'Shows a newer version with an orange dot, its command in the tooltip' {
+            $Item = Get-PSGPOVersionStatusItem
+            $Item | Should -BeOfType [AvaloniaStatusItem]
+            $Item.Text | Should -Be 'HGPM 0.1.5-alpha: 0.1.6-alpha available'
+            $Item.ToolTip | Should -BeLike '*Update-PSResource -Name HGPM -Prerelease*'
+            $Item.HasBadge | Should -BeTrue
+            $Item.BadgeBrush | Should -Be '#CA5010'
+        }
+
+        It 'Shows the latest version with a green dot, and grey when the Gallery is not read' {
+            $script:Latest = [semver]'0.1.5-alpha'
+            $Item = Get-PSGPOVersionStatusItem
+            $Item.Text | Should -Be 'HGPM 0.1.5-alpha'
+            $Item.BadgeBrush | Should -Be '#107C10'
+            $script:Latest = $null
+            (Get-PSGPOVersionStatusItem).BadgeBrush | Should -Be '#8A8886'
+            Mock Test-PSGPOUpdateCheckSkipped { $true }
+            $script:Latest = [semver]'0.1.6-alpha'
+            (Get-PSGPOVersionStatusItem).BadgeBrush | Should -Be '#8A8886'
+            Should -Invoke Get-PSGPOLatestGalleryVersion -Times 2 -Exactly -Because 'the Gallery is not read when the check is off'
+        }
+    }
+
     Describe 'When the import reads the Gallery' {
         BeforeEach { $script:Skip = $env:PSGPOTOOLS_SKIP_UPDATE_CHECK }
         AfterEach { $env:PSGPOTOOLS_SKIP_UPDATE_CHECK = $script:Skip }

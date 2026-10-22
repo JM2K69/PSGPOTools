@@ -110,7 +110,7 @@ function New-PSGPOConfigurationWindow {
     }
     $Controls.saveButton.IsEnabled = [bool]$canSave
     $red = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
-    $Text = { param($Value) if ($Value -is [bool]) { if ($Value) { 'True' } else { 'False' } } elseif ("$Value" -eq '') { Get-PSGPOText '(empty)' } else { "$Value" } }
+    $Text = { param($Value) if ($Value -is [bool]) { Get-PSGPOText $(if ($Value) { 'True' } else { 'False' }) } elseif ("$Value" -eq '') { Get-PSGPOText '(empty)' } else { "$Value" } }
 
     $SetStatus = {
         param([string]$Message, [switch]$Problem)
@@ -125,7 +125,7 @@ function New-PSGPOConfigurationWindow {
                 $row = $RowType::new()
                 $row.Key = $setting.Key
                 $row.Value = & $T 'Value: {0}' (& $Text $setting.Value)
-                $row.Default = (& $T 'Default: {0}' (& $Text $setting.Default)) + $(if ($setting.Description) { " - $($setting.Description)" })
+                $row.Default = (& $T 'Default: {0}' (& $Text $setting.Default)) + $(if ($setting.Description) { " - $(& $T $setting.Description)" })
                 $row.Source = & $T $(if ($setting.IsSet) { 'Set for the domain' } else { 'Default' })
                 $row.SourceBrush = if ($setting.IsSet) { '#0078D4' } else { '#8A8886' }
                 $row.Setting = $setting
@@ -139,13 +139,14 @@ function New-PSGPOConfigurationWindow {
         param([string]$Key)
         $setting = $State.Settings | Where-Object Key -EQ $Key | Select-Object -First 1
         if (-not $setting) { return }
-        $Controls.descriptionTextBlock.Text = "$($setting.Description) Default: $(& $Text $setting.Default)."
+        $Controls.descriptionTextBlock.Text = "$(& $T $setting.Description) $(& $T 'Default: {0}' (& $Text $setting.Default))."
         $choice = $setting.Kind -in 'Bool', 'Choice'
         $Controls.valueComboBox.IsVisible = $choice
         $Controls.valueTextBox.IsVisible = -not $choice
         if ($setting.Kind -eq 'Bool') {
-            $Controls.valueComboBox.ItemsSource = @('True', 'False')
-            $Controls.valueComboBox.SelectedItem = & $Text $setting.Value
+            # True, False in the language of the interface: read by their index.
+            $Controls.valueComboBox.ItemsSource = @((& $T 'True'), (& $T 'False'))
+            $Controls.valueComboBox.SelectedIndex = if ($setting.Value) { 0 } else { 1 }
         } elseif ($setting.Kind -eq 'Choice') {
             $Controls.valueComboBox.ItemsSource = @($setting.Choices)
             $Controls.valueComboBox.SelectedItem = "$($setting.Value)"
@@ -170,7 +171,7 @@ function New-PSGPOConfigurationWindow {
         $setting = $State.Settings | Where-Object Key -EQ $key | Select-Object -First 1
         if (-not $setting) { & $SetStatus (& $T 'Choose a setting.') -Problem; return }
         $value = switch ($setting.Kind) {
-            'Bool' { "$($Controls.valueComboBox.SelectedItem)" -eq 'True' }
+            'Bool' { $Controls.valueComboBox.SelectedIndex -eq 0 }
             'Choice' { "$($Controls.valueComboBox.SelectedItem)" }
             default { "$($Controls.valueTextBox.Text)" }
         }

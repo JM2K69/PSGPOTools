@@ -50,9 +50,10 @@ function New-PSGPOPreferenceForm {
         $Name = $Property.Name
         switch ($Property.Type) {
             'Action' {
-                $Panel.Children.Add((& $NewLabel $Property.Label))
+                $Panel.Children.Add((& $NewLabel (Get-PSGPOText $Property.Label)))
                 $Combo = [Avalonia.Controls.ComboBox]::new()
-                $Combo.ItemsSource = @('Create', 'Replace', 'Update', 'Delete')
+                # Shown in the language of the interface; the value is taken by its index.
+                $Combo.ItemsSource = @('Create', 'Replace', 'Update', 'Delete' | ForEach-Object { Get-PSGPOText $_ })
                 $Combo.HorizontalAlignment = [Avalonia.Layout.HorizontalAlignment]::Stretch
                 $Combo.SelectedIndex = [Math]::Max(0, [array]::IndexOf(@('C', 'R', 'U', 'D'), (& $ValueOf $Property)))
                 $Panel.Children.Add($Combo)
@@ -61,24 +62,25 @@ function New-PSGPOPreferenceForm {
             }
             'Bool' {
                 $Check = [Avalonia.Controls.CheckBox]::new()
-                $Check.Content = $Property.Label
+                $Check.Content = Get-PSGPOText $Property.Label
                 $Check.IsChecked = (& $ValueOf $Property) -eq '1'
                 $Panel.Children.Add($Check)
                 $Controls[$Name] = $Check
                 $Getters[$Name] = { if ($Check.IsChecked) { '1' } else { '0' } }.GetNewClosure()
             }
             'Choice' {
-                $Panel.Children.Add((& $NewLabel $Property.Label))
+                $Panel.Children.Add((& $NewLabel (Get-PSGPOText $Property.Label)))
+                $None = Get-PSGPOText '(none)'
                 $Choices = @($Property.Choices)
                 $Combo = [Avalonia.Controls.ComboBox]::new()
-                $Combo.ItemsSource = @($Choices | ForEach-Object { if ($_) { $_ } else { '(none)' } })
+                $Combo.ItemsSource = @($Choices | ForEach-Object { if ($_) { $_ } else { $None } })
                 $Combo.HorizontalAlignment = [Avalonia.Layout.HorizontalAlignment]::Stretch
                 $Current = & $ValueOf $Property
                 $Index = [array]::IndexOf($Choices, $Current)
                 if ($Index -lt 0 -and $Current) {
                     # A value of another editor: kept as a choice.
                     $Choices += $Current
-                    $Combo.ItemsSource = @($Choices | ForEach-Object { if ($_) { $_ } else { '(none)' } })
+                    $Combo.ItemsSource = @($Choices | ForEach-Object { if ($_) { $_ } else { $None } })
                     $Index = $Choices.Count - 1
                 }
                 $Combo.SelectedIndex = [Math]::Max(0, $Index)
@@ -94,7 +96,7 @@ function New-PSGPOPreferenceForm {
                 }
             }
             'Xml' {
-                $Panel.Children.Add((& $NewLabel "$($Property.Label)$(if ($Property.Roots) { ": <$($Property.Roots -join '>, <')>" })"))
+                $Panel.Children.Add((& $NewLabel "$(Get-PSGPOText $Property.Label)$(if ($Property.Roots) { ": <$($Property.Roots -join '>, <')>" })"))
                 $Box = [Avalonia.Controls.TextBox]::new()
                 $Box.AcceptsReturn = $true
                 $Box.TextWrapping = [Avalonia.Media.TextWrapping]::NoWrap
@@ -108,7 +110,9 @@ function New-PSGPOPreferenceForm {
                 $Getters[$Name] = { "$($Box.Text)" }.GetNewClosure()
             }
             'Members' {
-                $Panel.Children.Add((& $NewLabel (Get-PSGPOText '{0}: one per line, ADD or REMOVE then the name (and its SID, S-1-...)' $Property.Label)))
+                $Panel.Children.Add((& $NewLabel (Get-PSGPOText '{0}: one per line, ADD or REMOVE then the name (and its SID, S-1-...)' (Get-PSGPOText $Property.Label))))
+                # Translated here: the closure of the getter no longer sees the functions of the module.
+                $NotAddRemove = Get-PSGPOText "{0}: '{1}' does not start with ADD or REMOVE." (Get-PSGPOText $Property.Label) '{0}'
                 $Box = [Avalonia.Controls.TextBox]::new()
                 $Box.AcceptsReturn = $true
                 $Box.TextWrapping = [Avalonia.Media.TextWrapping]::NoWrap
@@ -119,7 +123,7 @@ function New-PSGPOPreferenceForm {
                 $Getters[$Name] = {
                     @(foreach ($Line in @("$($Box.Text)" -split '\r?\n' | Where-Object { $_.Trim() })) {
                             $Parts = @($Line.Trim() -split '\s+')
-                            $Action = if ($Parts[0] -in 'ADD', 'REMOVE') { $Parts[0].ToUpperInvariant() } else { throw "Members: '$Line' does not start with ADD or REMOVE." }
+                            $Action = if ($Parts[0] -in 'ADD', 'REMOVE') { $Parts[0].ToUpperInvariant() } else { throw ($NotAddRemove -f $Line) }
                             $Rest = @($Parts | Select-Object -Skip 1)
                             $Sid = if ($Rest.Count -and $Rest[-1] -match '^\*?S-1-[\d-]+$') { $Rest[-1].TrimStart('*'); $Rest = @($Rest | Select-Object -SkipLast 1) } else { '' }
                             [pscustomobject]@{ Action = $Action; Name = ($Rest -join ' '); Sid = $Sid }
@@ -127,10 +131,10 @@ function New-PSGPOPreferenceForm {
                 }.GetNewClosure()
             }
             default {
-                $Panel.Children.Add((& $NewLabel "$($Property.Label)$(if ($Property.Required) { ' *' })"))
+                $Panel.Children.Add((& $NewLabel "$(Get-PSGPOText $Property.Label)$(if ($Property.Required) { ' *' })"))
                 $Box = [Avalonia.Controls.TextBox]::new()
                 $Box.Text = & $ValueOf $Property
-                if ($Property.Hint) { $Box.Watermark = $Property.Hint }
+                if ($Property.Hint) { $Box.Watermark = Get-PSGPOText $Property.Hint }
                 $Panel.Children.Add($Box)
                 $Controls[$Name] = $Box
                 $Getters[$Name] = { "$($Box.Text)".Trim() }.GetNewClosure()

@@ -347,7 +347,7 @@ function Start-PSGPOManagerWindow {
                 $Directory.WriteSecurityTemplate($editing.Gpo, $copy.ToBytes())
                 $editing.Template = $copy
                 $editing.Saved = Get-SecuritySignature
-                $applyStatusTextBlock.Text = Get-PSGPOText 'Saved: {0} in GptTmpl.inf (version {1}).' $setting.FormatValue($value) $editing.Gpo.GetComputerVersion()
+                $applyStatusTextBlock.Text = Get-PSGPOText 'Saved: {0} in GptTmpl.inf (version {1}).' (ConvertTo-PSGPODisplayText $setting.FormatValue($value)) $editing.Gpo.GetComputerVersion()
             } catch {
                 $applyStatusTextBlock.Text = Get-PSGPOText 'Not saved: {0}' $_.Exception.GetBaseException().Message
             }
@@ -449,21 +449,21 @@ function Start-PSGPOManagerWindow {
             elseif ($editing.Gpo -and $editing.PolError) { $editing.PolError } else { '' }
 
         $editing.Security = $Setting
-        $settingTitleTextBlock.Text = $Setting.Name
+        $settingTitleTextBlock.Text = Get-PSGPOText $Setting.Name
         $editing.Editor = New-PSGPOSecurityEditor -Setting $Setting -Value $read.Value -OnChange { Update-RegistryPreview }
         $optionsHost.Content = $editing.Editor.Panel
 
-        $displayNameTextBox.Text = $Setting.Name
+        $displayNameTextBox.Text = Get-PSGPOText $Setting.Name
         $descriptionTextBox.Text = (Get-PSGPOText 'Security setting of the computer, in GptTmpl.inf (Machine\Microsoft\Windows NT\SecEdit).') + $(if ($Setting.Reference) { "`n`n" + (Get-PSGPOText 'Reference: {0}' $Setting.Reference) })
-        $scopeTextBox.Text = 'Machine'
+        $scopeTextBox.Text = Get-PSGPOText 'Machine'
         $registryPathTextBox.Text = "GptTmpl.inf [$($Setting.Section)]"
         $registryKeyTextBox.Text = $Setting.Key
         $registryValuesList.ItemsSource = @(
             foreach ($pair in @(
-                    @('Category', ($Setting.Path -join ' > '))
-                    @('Value', $(if ($Setting.Kind -eq 'RegistryValue') { Get-PSGPOText '{0}, registry type {1}' $Setting.Display $Setting.RegistryType } else { $Setting.Kind }))
-                    @('Range', $(if ($null -ne $Setting.Min -or $null -ne $Setting.Max) { (Get-PSGPOText '{0} to {1} {2}' $Setting.Min $Setting.Max $Setting.Unit).Trim() }))
-                    @('Values', (@($Setting.Choices | ForEach-Object { "$($_.Value): $($_.Text)" }) -join '; ')))) {
+                    @('Category', (@($Setting.Path | ForEach-Object { Get-PSGPOText $_ }) -join ' > '))
+                    @('Value', $(if ($Setting.Kind -eq 'RegistryValue') { Get-PSGPOText '{0}, registry type {1}' (Get-PSGPOText "$($Setting.Display)") $Setting.RegistryType } else { Get-PSGPOText "$($Setting.Kind)" }))
+                    @('Range', $(if ($null -ne $Setting.Min -or $null -ne $Setting.Max) { (Get-PSGPOText '{0} to {1} {2}' $Setting.Min $Setting.Max (Get-PSGPOText "$($Setting.Unit)")).Trim() }))
+                    @('Values', (@($Setting.Choices | ForEach-Object { "$($_.Value): $(Get-PSGPOText "$($_.Text)")" }) -join '; ')))) {
                 if (-not $pair[1]) { continue }
                 $row = [AvaloniaRegistryRow]::new()
                 $row.Key = Get-PSGPOText $pair[0]
@@ -517,13 +517,13 @@ function Start-PSGPOManagerWindow {
         $preferences.File = $null
         $extension = $Node.Extension
         $scopeLabel = Get-PSGPOText $(if ($Node.Scope -eq 'Machine') { 'Computer Configuration' } else { 'User Configuration' })
-        $preferencesTitleTextBlock.Text = "$($extension.Name) ($scopeLabel)"
+        $preferencesTitleTextBlock.Text = "$(Get-PSGPOText $extension.Name) ($scopeLabel)"
         $types = @($extension.Items | Where-Object { $_.Properties -and -not $_.IsCollection })
-        $preferencesInfoTextBlock.Text = (Get-PSGPOText 'Preferences > {0} > {1}: Preferences\{2} in the {3} folder of the GPO, client-side extension {4}.' $extension.Group $extension.Name $extension.Path $Node.Scope $extension.Cse) +
+        $preferencesInfoTextBlock.Text = (Get-PSGPOText 'Preferences > {0} > {1}: Preferences\{2} in the {3} folder of the GPO, client-side extension {4}.' (Get-PSGPOText $extension.Group) (Get-PSGPOText $extension.Name) $extension.Path (Get-PSGPOText $Node.Scope) $extension.Cse) +
             $(if (-not $types.Count) { Get-PSGPOText ' Its items are created with GPMC: the console shows them, keeps them as they are and deletes them.' })
         $preferencesFormBorder.IsVisible = $false
         $preferencesDeletePanel.IsVisible = $false
-        $preferencesNewTypeComboBox.ItemsSource = @($types.Label)
+        $preferencesNewTypeComboBox.ItemsSource = @($types | ForEach-Object { Get-PSGPOText $_.Label })
         $preferencesNewTypeComboBox.SelectedIndex = if ($types.Count) { 0 } else { -1 }
         $preferencesNewTypeComboBox.IsVisible = $types.Count -gt 0
         $preferencesNewButton.IsVisible = $types.Count -gt 0
@@ -536,7 +536,7 @@ function Start-PSGPOManagerWindow {
                 $preferences.File = Get-PreferenceFile $Node
                 $rows = @(foreach ($item in @(Get-PSGPOPreferenceItem -File $preferences.File -Extension $extension)) {
                         $row = [AvaloniaPreferenceRow]::new()
-                        $row.Name = "$(if ($item.Collection) { "$($item.Collection) > " })$(if ($item.Name) { $item.Name } else { $item.Label })"
+                        $row.Name = "$(if ($item.Collection) { "$($item.Collection) > " })$(if ($item.Name) { $item.Name } else { Get-PSGPOText $item.Label })"
                         $row.Summary = Get-PSGPOPreferenceSummary -Item $item
                         $row.Flags = (@(
                                 if ($item.Disabled) { Get-PSGPOText 'Disabled' }
@@ -546,7 +546,7 @@ function Start-PSGPOManagerWindow {
                         $row.Item = $item
                         $row
                     })
-                $preferencesEmptyTextBlock.Text = if ($rows.Count) { '' } else { Get-PSGPOText $(if ($Node.Scope -eq 'Machine') { 'This GPO has no {0} item for the computers.' } else { 'This GPO has no {0} item for the users.' }) $extension.Name }
+                $preferencesEmptyTextBlock.Text = if ($rows.Count) { '' } else { Get-PSGPOText $(if ($Node.Scope -eq 'Machine') { 'This GPO has no {0} item for the computers.' } else { 'This GPO has no {0} item for the users.' }) (Get-PSGPOText $extension.Name) }
             } catch {
                 $problem = Get-PSGPOText 'The preferences cannot be read: {0}' $_.Exception.GetBaseException().Message
                 $preferencesEmptyTextBlock.Text = ''
@@ -574,7 +574,7 @@ function Start-PSGPOManagerWindow {
         $editing.Preferences["$($node.Scope)|$($node.Extension.Id)"] = $copy
         $settingsCache.Remove("$($editing.Gpo.Id)")
         $version = if ($node.Scope -eq 'Machine') { $editing.Gpo.GetComputerVersion() } else { $editing.Gpo.GetUserVersion() }
-        Show-PreferenceType -Node $node -Status (Get-PSGPOText '{0} in Preferences\{1} ({2} version {3}).' $Done $node.Extension.Path $node.Scope $version) -SelectUid $(if ($uid) { $uid } else { $SelectUid })
+        Show-PreferenceType -Node $node -Status (Get-PSGPOText '{0} in Preferences\{1} ({2} version {3}).' $Done $node.Extension.Path (Get-PSGPOText $node.Scope) $version) -SelectUid $(if ($uid) { $uid } else { $SelectUid })
         $null
     }
 
@@ -589,7 +589,7 @@ function Start-PSGPOManagerWindow {
         $preferences.Item = $Item
         $preferences.Form = New-PSGPOPreferenceForm -Type $Type -Scope $preferences.Node.Scope -Item $Item
         $preferencesFormHost.Content = $preferences.Form.Panel
-        $preferencesFormTitleTextBlock.Text = if ($Item) { "$($Type.Label): $($Item.Name)" } else { Get-PSGPOText 'New {0}' $Type.Label }
+        $preferencesFormTitleTextBlock.Text = if ($Item) { "$(Get-PSGPOText $Type.Label): $($Item.Name)" } else { Get-PSGPOText 'New {0}' (Get-PSGPOText $Type.Label) }
         $preferencesFormErrorTextBlock.Text = ''
         $preferencesDeletePanel.IsVisible = $false
         $preferencesFormBorder.IsVisible = $true
@@ -621,12 +621,12 @@ function Start-PSGPOManagerWindow {
             return
         }
         $problem = if ($item) {
-            Save-PreferenceFile -Done (Get-PSGPOText '{0} saved' $type.Label) -SelectUid $item.Uid -Change {
+            Save-PreferenceFile -Done (Get-PSGPOText '{0} saved' (Get-PSGPOText $type.Label)) -SelectUid $item.Uid -Change {
                 param($Copy)
                 Set-PSGPOPreferenceElement -Element (Find-PreferenceElement $Copy $item.Uid) -Type $type -Values $values -Common $common
             }
         } else {
-            Save-PreferenceFile -Done (Get-PSGPOText '{0} created' $type.Label) -Change {
+            Save-PreferenceFile -Done (Get-PSGPOText '{0} created' (Get-PSGPOText $type.Label)) -Change {
                 param($Copy)
                 (New-PSGPOPreferenceItem -File $Copy -Type $type -Values $values -Common $common).GetAttribute('uid')
             }
@@ -723,7 +723,7 @@ function Start-PSGPOManagerWindow {
 
             $displayNameTextBox.Text = $policy.DisplayName
             $descriptionTextBox.Text = if ($policy.Description) { $policy.Description } else { Get-PSGPOText '(No description available)' }
-            $scopeTextBox.Text = $policy.Scope.ToString()
+            $scopeTextBox.Text = Get-PSGPOText $policy.Scope.ToString()
 
             if ($policy.Registry) {
                 $registryPathTextBox.Text = if ($policy.Registry.Path) { $policy.Registry.Path } else { Get-PSGPOText '(No registry path defined)' }
@@ -1390,6 +1390,8 @@ function Start-PSGPOManagerWindow {
             } catch {
                 $cached.Error = Get-PSGPOText 'The settings of the GPO cannot be read: {0}' $_.Exception.GetBaseException().Message
             }
+            # In the language of the interface: the rows come from functions the commands share.
+            foreach ($scope in 'Machine', 'User') { $cached[$scope] = @(foreach ($row in $cached[$scope]) { ConvertTo-DisplaySettingRow $row }) }
             $settingsCache["$($gpo.Id)"] = $cached
         }
         $settingsStatusTextBlock.Text = if ($cached.Error) { $cached.Error }
@@ -1402,6 +1404,19 @@ function Start-PSGPOManagerWindow {
         $computerSettingsList.ItemsSource = $cached.Machine
         $userSettingsList.ItemsSource = $cached.User
     }
+    # A row of the Settings tab in the language of the interface (a copy: the row of the report
+    # stays in English).
+    function ConvertTo-DisplaySettingRow {
+        param([AvaloniaSettingRow]$Row)
+        $copy = [AvaloniaSettingRow]::new()
+        $copy.Path = ConvertTo-PSGPODisplayText $Row.Path
+        $copy.Name = ConvertTo-PSGPODisplayText $Row.Name
+        $copy.State = ConvertTo-PSGPODisplayText $Row.State
+        $copy.Options = ConvertTo-PSGPODisplayText $Row.Options
+        $copy.IsExtra = $Row.IsExtra
+        $copy
+    }
+
     # --- History tab: the backups of the GPO as a timeline, and what changed at each one ---------
 
     # Reports of the backups read once (by folder), and of the current state of each GPO (by its
@@ -1582,10 +1597,11 @@ function Start-PSGPOManagerWindow {
                 $row = [AvaloniaChangeRow]::new()
                 $row.Change = Get-PSGPOText $change.Change
                 $row.ChangeBrush = $brushes[$change.Change]
-                $row.Location = "$($scopes[$change.Scope]) > $($change.Path)"
-                $row.Name = $change.Name
-                $row.Before = $change.Before
-                $row.After = $change.After
+                # The report of the changes is in English (Compare-PSGPOBackup shares it).
+                $row.Location = "$($scopes[$change.Scope]) > $(ConvertTo-PSGPODisplayText $change.Path)"
+                $row.Name = ConvertTo-PSGPODisplayText $change.Name
+                $row.Before = ConvertTo-PSGPODisplayText $change.Before
+                $row.After = ConvertTo-PSGPODisplayText $change.After
                 $row.HasBefore = [bool]$change.Before
                 $row.HasAfter = [bool]$change.After
                 $row
@@ -2164,7 +2180,8 @@ function Start-PSGPOManagerWindow {
     if ($Directory) { Update-DirectoryTree }
     Show-View $StartView
 
-    $statusBarList.ItemsSource = @(Get-PSGPOStatusBarItem -Platform (Get-PSGPOPlatform) -Directory $Directory -DirectoryError $DirectoryError)
+    # Then the version of HGPM, and whether a newer one is on the PowerShell Gallery.
+    $statusBarList.ItemsSource = @(Get-PSGPOStatusBarItem -Platform (Get-PSGPOPlatform) -Directory $Directory -DirectoryError $DirectoryError) + @(Get-PSGPOVersionStatusItem)
 
     # Avalonia's SetupWithoutStarting() does not run a message loop by itself; drive one
     # manually and stop it when the window closes so the call blocks until then.

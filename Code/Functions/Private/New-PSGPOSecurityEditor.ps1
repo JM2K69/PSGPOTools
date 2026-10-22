@@ -48,7 +48,7 @@ function New-PSGPOSecurityEditor {
 
     switch ($Display) {
         'Boolean' {
-            $Combo = & $NewCombo @('Enabled', 'Disabled') $(if ($null -eq $Value -or $Value) { 0 } else { 1 })
+            $Combo = & $NewCombo @((Get-PSGPOText 'Enabled'), (Get-PSGPOText 'Disabled')) $(if ($null -eq $Value -or $Value) { 0 } else { 1 })
             $Panel.Children.Add($Combo)
             $Controls['Value'] = $Combo
             $GetValue = { $Combo.SelectedIndex -eq 0 }.GetNewClosure()
@@ -70,10 +70,10 @@ function New-PSGPOSecurityEditor {
             $Numeric.Value = if ($null -ne $Value) { [decimal]$Value } elseif ($null -ne $Setting.Min) { [decimal]$Setting.Min } else { [decimal]0 }
             $Numeric.add_ValueChanged({ & $OnChange }.GetNewClosure())
             $Row.Children.Add($Numeric)
-            if ($Setting.Unit) { $Row.Children.Add((& $NewText $Setting.Unit)) }
+            if ($Setting.Unit) { $Row.Children.Add((& $NewText (Get-PSGPOText $Setting.Unit))) }
             $Panel.Children.Add($Row)
             if ($Setting.Choices) {
-                $Panel.Children.Add((& $NewText ((@($Setting.Choices | ForEach-Object { "$($_.Value): $($_.Text)" }) -join [Environment]::NewLine))))
+                $Panel.Children.Add((& $NewText ((@($Setting.Choices | ForEach-Object { "$($_.Value): $(Get-PSGPOText "$($_.Text)")" }) -join [Environment]::NewLine))))
             }
             $Controls['Value'] = $Numeric
             $GetValue = { if ($null -ne $Numeric.Value) { [long]$Numeric.Value } }.GetNewClosure()
@@ -89,7 +89,7 @@ function New-PSGPOSecurityEditor {
         'Choice' {
             $Choices = @($Setting.Choices)
             $Selected = [array]::FindIndex([object[]]$Choices, [Predicate[object]] { param($c) $c.Value -eq "$Value" }.GetNewClosure())
-            $Combo = & $NewCombo ([string[]]$Choices.Text) $Selected
+            $Combo = & $NewCombo ([string[]]@($Choices | ForEach-Object { Get-PSGPOText "$($_.Text)" })) $Selected
             $Panel.Children.Add($Combo)
             $Controls['Value'] = $Combo
             $GetValue = { if ($Combo.SelectedIndex -ge 0) { [long]$Choices[$Combo.SelectedIndex].Value } }.GetNewClosure()
@@ -113,7 +113,7 @@ function New-PSGPOSecurityEditor {
         'Bitmask' {
             $Boxes = @(foreach ($Choice in $Setting.Choices) {
                     $Box = [Avalonia.Controls.CheckBox]::new()
-                    $Box.Content = $Choice.Text
+                    $Box.Content = Get-PSGPOText "$($Choice.Text)"
                     $Box.Tag = [long]$Choice.Value
                     $Box.IsChecked = ([long]$Value -band [long]$Choice.Value) -eq [long]$Choice.Value -and [long]$Choice.Value -ne 0
                     $Box.add_IsCheckedChanged({ & $OnChange }.GetNewClosure())

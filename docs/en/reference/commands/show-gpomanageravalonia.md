@@ -18,7 +18,7 @@ Opens on the Group Policy Management view, as GPMC: the domain, its OUs and thei
 
 Without -Directory, the domain is detected and read at launch (Get-PSGPODirectory), whether its domain controllers run Windows (Active Directory) or Samba (Samba AD): on a computer of a domain, on a domain controller, or with -Server. When the domain cannot be read (no Kerberos ticket, server unreachable...), the window still opens and says why. When no domain is discovered, the window shows the sample directory of the module (Samples/Directory.sample.json) under a "demonstration environment" banner.
 
-A status bar shows this computer (name, system, addresses), its domain and the domain controller the directory was read from, with its directory service.
+A status bar shows this computer (name, system, addresses), its domain and the domain controller the directory was read from, with its directory service, then the version of HGPM with a dot: green when it is the latest of the PowerShell Gallery, orange when a newer one is there (its tooltip gives the command that installs it), grey when the Gallery was not read.
 
 The policy editor displays the security settings of the computer (Windows Settings > Security Settings) and the policies loaded by Initialize-PSGPOAdmx (scope > categories > policies) with their setting form and details. When no ADMX file is loaded, a window asks for the PolicyDefinitions folder and the language of its ADML files (detected from the names of its language folders), remembering the choice for the next time; the console does not open without them. -PolicyDefinitions loads a folder without asking. Editing a GPO, each setting is read from the GPO (Registry.pol, GptTmpl.inf) and Apply saves it there.
 

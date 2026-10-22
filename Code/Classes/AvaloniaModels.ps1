@@ -53,6 +53,9 @@ class AvaloniaStatusItem {
     [string]$IconData
     [string]$Text
     [string]$ToolTip
+    # A coloured dot after the text (the version of HGPM: up to date, update available, not checked)
+    [bool]$HasBadge
+    [string]$BadgeBrush = '#8A8886'
 }
 
 # One GPO link of the Group Policy Management details ("Linked Group Policy Objects", "Links")

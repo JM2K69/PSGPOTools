@@ -6,6 +6,13 @@
 
 * The import of the module says its version, and, when the PowerShell Gallery has a newer one, the command that installs it (Update-PSResource, or Install-PSResource for a module not installed from the Gallery). The Gallery is read at most once a day (UpdateCheck.json in the local data folder of the user) and 3 seconds at most, never in a CI, a session started with -NonInteractive, or with PSGPOTOOLS_SKIP_UPDATE_CHECK=1; without network, the version only
 * The Delegation tab of the GPO console gives the level Read and apply too: the account reads and applies the GPO (Apply Group Policy), as Set-PSGPOPermission -Permission GpoApply. The level is named Read and apply in the tab (GPMC: Read (from Security Filtering)). An Applies badge marks every account of the Delegation tab that applies the GPO, whatever its level (an editor in the security filtering, for instance)
+* The status bar of both consoles (Show-GPOManagerAvalonia, Show-PSOManagerAvalonia) shows the version of HGPM with a dot: green when it is the latest of the PowerShell Gallery, orange when a newer one is there (its tooltip gives the command that installs it), grey when the Gallery was not read
+* The consoles in French show the names of the security settings and options, of the preferences (types, items, their properties) and the descriptions of the configuration in French, from Resources/Strings/Catalogs/fr-FR.psd1 (683 names, those of the French Group Policy editor); the Settings and History tabs show their reports in French, the registry values and preview of the policy editor too. The commands and their reports stay in English
+
+### Fixed
+
+* In French, the title of the policy tree no longer runs over the check box Configured settings only, and a long name of the details of the console wraps instead of running over its value
+* The name of the security option on PKU2U authentication ended with two line breaks
 
 ## 0.1.5 - alpha
 

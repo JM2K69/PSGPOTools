@@ -286,6 +286,8 @@ function Start-PSGPOPasswordPolicyWindow {
     } else {
         $statusItems.Add((& $newItem 'server' (Get-PSGPOText 'Domain controller not reached') $StoreError))
     }
+    # Then the version of HGPM, and whether a newer one is on the PowerShell Gallery.
+    $statusItems.Add((Get-PSGPOVersionStatusItem).PSObject.BaseObject)
     $ui.statusBarList.ItemsSource = @($statusItems)
 
     $cts = [System.Threading.CancellationTokenSource]::new()

@@ -66,7 +66,7 @@ function New-Option {
     param([string]$Key, [string]$Name, [string]$ValueType, [string]$DisplayType, [string]$Unit, [string[]]$Choices)
     $option = [ordered]@{
         Key = $Key
-        Name = Resolve-String $Name
+        Name = (Resolve-String $Name).Trim()
         RegistryType = [int]$ValueType
         Display = $displays[$DisplayType]
     }

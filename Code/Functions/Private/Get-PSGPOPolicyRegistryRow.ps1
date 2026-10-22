@@ -1,7 +1,8 @@
 <#
     Rows of the "Registry Values" grid of Show-GPOManagerAvalonia for one policy: the
     values written when the policy is enabled or disabled, then one row per element.
-    Kept free of any Avalonia type so it can be tested without a UI.
+    Kept free of any Avalonia type so it can be tested without a UI. In the language of the
+    interface (Get-PSGPOText): only the console shows them.
 #>
 
 function Format-PSGPORegistryValue {
@@ -12,13 +13,13 @@ function Format-PSGPORegistryValue {
     )
 
     $Text = switch ($Value.Type) {
-        'Delete' { '{0}\{1}: deleted' -f $Value.Key, $Value.ValueName }
-        'DeleteAllValues' { '{0}\*: all values deleted' -f $Value.Key }
+        'Delete' { Get-PSGPOText '{0}\{1}: deleted' $Value.Key $Value.ValueName }
+        'DeleteAllValues' { Get-PSGPOText '{0}\*: all values deleted' $Value.Key }
         'MultiString' { '{0}\{1} = {2} ({3})' -f $Value.Key, $Value.ValueName, ($Value.Value -join ' | '), $Value.Type }
         default { '{0}\{1} = {2} ({3})' -f $Value.Key, $Value.ValueName, $Value.Value, $Value.Type }
     }
     # An implicit value is not written in the ADMX: it is the editor's default behaviour.
-    if ($Value.Implicit) { "$Text [default]" } else { $Text }
+    if ($Value.Implicit) { Get-PSGPOText '{0} [default]' $Text } else { $Text }
 }
 
 function Get-PSGPOPolicyRegistryRow {
@@ -30,13 +31,13 @@ function Get-PSGPOPolicyRegistryRow {
 
     foreach ($Value in $Policy.EnabledValues) {
         $Row = [AvaloniaRegistryRow]::new()
-        $Row.Key = 'Enabled'
+        $Row.Key = Get-PSGPOText 'Enabled'
         $Row.Value = Format-PSGPORegistryValue $Value
         $Row
     }
     foreach ($Value in $Policy.DisabledValues) {
         $Row = [AvaloniaRegistryRow]::new()
-        $Row.Key = 'Disabled'
+        $Row.Key = Get-PSGPOText 'Disabled'
         $Row.Value = Format-PSGPORegistryValue $Value
         $Row
     }
@@ -45,7 +46,7 @@ function Get-PSGPOPolicyRegistryRow {
         $Row.Key = if ($Element.Label) { $Element.Label } else { $Element.Id }
         $Target = if ($Element.Type -eq 'List') { '{0}\*' -f $Element.Key } else { '{0}\{1}' -f $Element.Key, $Element.ValueName }
         $Detail = switch ($Element.Type) {
-            'Enum' { '{0} choices' -f $Element.Items.Count }
+            'Enum' { Get-PSGPOText '{0} choices' $Element.Items.Count }
             { $_ -in 'Decimal', 'LongDecimal' } { '{0}..{1}' -f $Element.MinValue, $Element.MaxValue }
             default { $null }
         }
@@ -72,22 +73,22 @@ function ConvertTo-PSGPOPreviewRow {
     $Row.Key = '{0}\{1}' -f $Hive, $Change.Key
     switch ($Change.Type) {
         'Delete' {
-            $Row.Title = 'Delete value'
+            $Row.Title = Get-PSGPOText 'Delete value'
             $Row.ValueName = $Change.ValueName
             $Row.Data = '-'
         }
         'DeleteAllValues' {
-            $Row.Title = 'Delete all values of the key'
-            $Row.ValueName = '(all values)'
+            $Row.Title = Get-PSGPOText 'Delete all values of the key'
+            $Row.ValueName = Get-PSGPOText '(all values)'
             $Row.Data = '-'
         }
         default {
-            $Row.Title = 'Set {0}' -f $RegType["$($Change.Type)"]
+            $Row.Title = Get-PSGPOText 'Set {0}' $RegType["$($Change.Type)"]
             $Row.ValueName = $Change.ValueName
             $Row.Data = if ($Change.Type -eq [GPOToolsRegistryValueType]::MultiString) { $Change.Value -join ' | ' } else { "$($Change.Value)" }
         }
     }
     # Not written in the ADMX: the editor's default behaviour, to be confirmed against GPMC.
-    if ($Change.Implicit) { $Row.Title += ' (editor default)' }
+    if ($Change.Implicit) { $Row.Title += Get-PSGPOText ' (editor default)' }
     $Row
 }
