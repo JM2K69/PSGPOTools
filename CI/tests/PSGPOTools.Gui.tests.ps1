@@ -1040,6 +1040,9 @@ InModuleScope -ModuleName HGPM {
                 $Row = @($Ui.computerSettingsList.ItemsSource) | Where-Object Path -EQ 'Policies > Preferences > Windows Settings > Registry'
                 $Row.Name | Should -Be 'Mode'
                 $Row.State | Should -Be 'Update'
+                # Its attributes by the labels of its form, not their names in the XML.
+                $Row.Options | Should -Match '(?m)^Hive: HKEY_'
+                $Row.Options | Should -Not -Match '(?m)^hive = '
             }
             $Gpo.MachineExtensionNames | Should -Match ([regex]::Escape('{B087BE9D-ED37-454F-AF9C-04291E351182}{BEE07A6A-EC9F-4659-B8C9-0B1937907C83}'))
         }

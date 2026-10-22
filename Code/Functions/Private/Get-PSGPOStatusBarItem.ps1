@@ -63,7 +63,7 @@ function Get-PSGPOStatusBarItem {
 
 # The version of HGPM in the status bar of the consoles, with a dot: green when it is the latest
 # of the PowerShell Gallery, orange when a newer one is there (its command in the tooltip), grey
-# when the Gallery was not read. The Gallery is read as at the import: at most once a day, 3
+# when the Gallery was not read. The Gallery is read as at the import: at most once a day, 8
 # seconds at most, never when the check is off (Test-PSGPOUpdateCheckSkipped).
 function Get-PSGPOVersionStatusItem {
     [CmdletBinding()]

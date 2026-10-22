@@ -66,7 +66,7 @@ account connected, and the version of HGPM with a dot:
 - **grey**: the Gallery was not read (no network, or the check is off), the updates are unknown.
 
 The Gallery is read as at the import of the module (see [Updates](../getting-started/installation.md#updates)):
-at most once a day, 3 seconds at most. The console of the password settings has the same status bar.
+at most once a day, 8 seconds at most. The console of the password settings has the same status bar.
 
 ## Themes and settings
 

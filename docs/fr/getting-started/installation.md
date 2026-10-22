@@ -150,7 +150,7 @@ HGPM 0.1.6-alpha is available on the PowerShell Gallery: Update-PSResource -Name
 ```
 
 L'import lit la Gallery au plus une fois par jour (`UpdateCheck.json` dans le dossier de données
-local de l'utilisateur, `PSGPOTools`), et attend 3 secondes au plus : sans réseau, il ne donne que
+local de l'utilisateur, `PSGPOTools`), et attend 8 secondes au plus : sans réseau, il ne donne que
 la version, et ne réessaie pas avant une heure. Il ne la lit pas dans une CI, dans une session lancée avec `-NonInteractive`, ni avec
 `PSGPOTOOLS_SKIP_UPDATE_CHECK=1`. La nouvelle version sert à une nouvelle session PowerShell : celle
 en cours garde le module qu'elle a importé.
