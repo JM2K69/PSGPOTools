@@ -89,6 +89,30 @@ comme Windows l'écrit), augmente la version ordinateur et déclare l'extension 
 qu'il a. L'onglet Paramètres les liste (Membres, Membre de). Vérifié sur un membre Windows : les
 Utilisateurs du Bureau à distance locaux ont reçu exactement les membres définis.
 
+### Stratégies de clé publique
+
+**Paramètres de sécurité > Stratégies de clé publique** a les magasins de certificats de l'éditeur
+de stratégie de groupe : pour les ordinateurs, Système de fichiers EFS, Chiffrement de lecteur
+BitLocker, Certificat de déverrouillage réseau du chiffrement de lecteur BitLocker, Autorités de
+certification racines de confiance, Confiance de l'entreprise, Autorités de certification
+intermédiaires, Éditeurs approuvés, Certificats non autorisés, Autorités de certification racines
+tierces et Personnes autorisées ; pour les utilisateurs, Confiance de l'entreprise et Personnes
+autorisées.
+
+Un magasin liste ses certificats (sujet, émetteur, expiration, empreinte). **Importer** ajoute un
+fichier de certificat (`.cer`, `.crt` ou `.pem`, DER ou Base-64), **Supprimer** en retire un. Ce sont
+des valeurs du `Registry.pol` de l'étendue
+(`Software\Policies\Microsoft\SystemCertificates\<magasin>\Certificates\<empreinte>`, valeur
+`Blob`), telles que [MS-GPEF] les décrit ; l'extension Registre les applique, déclarée avec l'outil
+des certificats comme le fait la GPMC. Les agents de récupération du **Système de fichiers EFS**
+forment aussi l'`EFSBlob` d'EFS, reconstruit à chaque modification ([MS-GPEF] 2.2.1.2). BitLocker
+prend ses agents de récupération de données dans **Chiffrement de lecteur BitLocker** (avec la
+stratégie qui donne les identificateurs de l'organisation).
+
+Vérifié sur un membre Windows : l'autorité de certification racine est dans le magasin de stratégie
+de groupe de l'ordinateur (`certutil -grouppolicy -store Root`), l'agent de récupération EFS dans
+son magasin EFS, et l'`EFSBlob` du registre est celui écrit.
+
 ### Stratégie d'audit avancée
 
 **Paramètres de sécurité > Configuration avancée de la stratégie d'audit > Stratégies d'audit** a

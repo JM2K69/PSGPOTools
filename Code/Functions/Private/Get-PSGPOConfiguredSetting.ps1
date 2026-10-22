@@ -126,6 +126,11 @@ function Get-PSGPOConfiguredSetting {
     # Sort-Object wraps its output in PSObjects, which Avalonia cannot bind: the rows themselves.
     foreach ($row in @($rows | Sort-Object Path, Name)) { $row.psobject.BaseObject }
 
+    # The certificates of the public key policies, by their store.
+    $publicKey = Get-PSGPOConfiguredPublicKeyPolicy -Pol $Pol -Scope $Scope
+    $publicKey.Rows
+    foreach ($entry in $publicKey.Entries) { [void]$explained.Add($entry) }
+
     # Registry values no configured policy explains, as GPMC lists them.
     foreach ($entry in $Pol.Entries) {
         if ($explained.Contains($entry)) { continue }

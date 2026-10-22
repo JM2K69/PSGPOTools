@@ -763,6 +763,19 @@ class GPOToolsDirectory {
         $this.SaveGpoFile($Gpo, [GPOToolsDirectory]::AuditPolicyPath, $Bytes, 'Machine', [GPOToolsDirectory]::AuditPolicyExtension, [GPOToolsDirectory]::AuditPolicyTool)
     }
 
+    # Public key policies: the Registry.pol of the scope, declared with the tool of the
+    # certificates (Public Key Policies of the editor) under the Registry extension, and under the
+    # extension of the EFS recovery policy when the GPO has recovery agents, as GPMC does.
+    static [string] $PublicKeyTool = '{53D6AB1D-2488-11D1-A28C-00C04FB94F17}'
+    static [string] $EfsRecoveryExtension = '{B1BE8D72-6EAC-11D2-A4EA-00C04F79F83A}'
+
+    [void] WritePublicKeyPolicyFile([GPOToolsGpo]$Gpo, [string]$Scope, [byte[]]$Bytes, [bool]$Efs) {
+        $this.AssertWritable()
+        $Folder = [GPOToolsDirectory]::GetScopeFolder($Scope)
+        $Extensions = @([GPOToolsDirectory]::RegistryExtension) + @(if ($Efs) { [GPOToolsDirectory]::EfsRecoveryExtension })
+        $this.SaveGpoFile($Gpo, "$Folder\Registry.pol", $Bytes, $Folder, $Extensions, [GPOToolsDirectory]::PublicKeyTool)
+    }
+
     # Folder of a scope in the GPO: Machine (HKLM) or User (HKCU).
     static [string] GetScopeFolder([string]$Scope) {
         switch ($Scope) {

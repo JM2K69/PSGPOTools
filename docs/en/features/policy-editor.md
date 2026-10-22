@@ -84,6 +84,27 @@ the local Administrators), then:
 Settings tab lists them (Members, Member of). Checked on a Windows member: the local Remote Desktop
 Users received exactly the members defined.
 
+### Public key policies
+
+**Security Settings > Public Key Policies** has the certificate stores of the Group Policy editor:
+for the computers, Encrypting File System, BitLocker Drive Encryption, BitLocker Drive Encryption
+Network Unlock Certificate, Trusted Root Certification Authorities, Enterprise Trust, Intermediate
+Certification Authorities, Trusted Publishers, Untrusted Certificates, Third-Party Root
+Certification Authorities and Trusted People; for the users, Enterprise Trust and Trusted People.
+
+A store lists its certificates (subject, issuer, expiry, thumbprint). **Import** adds a certificate
+file (`.cer`, `.crt` or `.pem`, DER or Base-64), **Delete** removes one. They are values of the
+`Registry.pol` of the scope (`Software\Policies\Microsoft\SystemCertificates\<store>\Certificates\<thumbprint>`,
+value `Blob`), as [MS-GPEF] describes them; the Registry extension applies them, declared with the
+tool of the certificates as GPMC does. The recovery agents of **Encrypting File System** also make
+the `EFSBlob` of EFS, rebuilt at each change ([MS-GPEF] 2.2.1.2). BitLocker takes its data recovery
+agents from **BitLocker Drive Encryption** (with the policy that gives the identifiers of the
+organization).
+
+Checked on a Windows member: the root certification authority is in the Group Policy store of the
+computer (`certutil -grouppolicy -store Root`), the EFS recovery agent in its EFS store, and the
+`EFSBlob` of the registry is the one written.
+
 ### Advanced audit policy
 
 **Security Settings > Advanced Audit Policy Configuration > Audit Policies** has the 60
