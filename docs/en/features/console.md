@@ -60,13 +60,19 @@ directory was read from and its directory service (`Samba AD` or `Active Directo
 account connected, and the version of HGPM with a dot:
 
 - **green**: the latest version of the PowerShell Gallery;
-- **orange**: a newer version is on the Gallery (`HGPM 0.1.5-alpha: 0.1.6-alpha available`); its
-  tooltip gives the command that installs it (`Update-PSResource -Name HGPM -Prerelease`), then
-  open a new PowerShell session;
+- **orange**: a newer version is on the Gallery (`HGPM 0.1.6-alpha: 0.1.7-alpha available`); its
+  tooltip gives the command that installs it (`Update-PSResource -Name HGPM -Prerelease`, or
+  `Install-PSResource` for a module not installed from the Gallery, a checkout of the repository
+  for instance), then open a new PowerShell session;
 - **grey**: the Gallery was not read (no network, or the check is off), the updates are unknown.
 
+![A newer version on the PowerShell Gallery](../assets/screenshots/43-update-available.png)
+
 The Gallery is read as at the import of the module (see [Updates](../getting-started/installation.md#updates)):
-at most once a day, 8 seconds at most. The console of the password settings has the same status bar.
+at most once a day, 8 seconds at most: a version published since the last check shows the next
+day, or at once after deleting `UpdateCheck.json` from the local data folder of the user
+(`~/.local/share/PSGPOTools` on Linux, `%LOCALAPPDATA%\PSGPOTools` on Windows). The console of the
+password settings has the same status bar.
 
 ## Themes and settings
 

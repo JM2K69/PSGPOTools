@@ -62,15 +62,20 @@ lequel l'annuaire a été lu et son service d'annuaire (`Samba AD` ou `Active Di
 compte connecté, et la version de HGPM avec une pastille :
 
 - **verte** : la dernière version de la PowerShell Gallery ;
-- **orange** : une version plus récente est sur la Gallery (`HGPM 0.1.5-alpha : 0.1.6-alpha
+- **orange** : une version plus récente est sur la Gallery (`HGPM 0.1.6-alpha : 0.1.7-alpha
   disponible`) ; son info-bulle donne la commande qui l'installe (`Update-PSResource -Name HGPM
-  -Prerelease`), puis ouvrez une nouvelle session PowerShell ;
+  -Prerelease`, ou `Install-PSResource` pour un module qui n'a pas été installé depuis la Gallery,
+  une copie du dépôt par exemple), puis ouvrez une nouvelle session PowerShell ;
 - **grise** : la Gallery n'a pas été lue (pas de réseau, ou vérification désactivée), les mises à
   jour sont inconnues.
 
+![Une version plus récente sur la PowerShell Gallery](../assets/screenshots/43-update-available.fr.png)
+
 La Gallery est lue comme à l'import du module (voir [Mises à jour](../getting-started/installation.md#mises-a-jour)) :
-au plus une fois par jour, 8 secondes au plus. La console des paramètres de mot de passe a la même
-barre d'état.
+au plus une fois par jour, 8 secondes au plus : une version publiée depuis la dernière lecture
+apparaît le lendemain, ou tout de suite après avoir supprimé `UpdateCheck.json` du dossier de
+données local de l'utilisateur (`~/.local/share/PSGPOTools` sous Linux, `%LOCALAPPDATA%\PSGPOTools`
+sous Windows). La console des paramètres de mot de passe a la même barre d'état.
 
 ## Thèmes et réglages
 
