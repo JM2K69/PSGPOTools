@@ -2230,9 +2230,9 @@ function Start-PSGPOManagerWindow {
             $statusItem.IsChecked = $null -ne $detail.Gpo -and [int]$statusItem.Tag -eq ($detail.Gpo.Flags -band 3)
         }
         # WMI Filters: a new filter, the change or the deletion of one.
-        $newWmiFilterMenuItem.IsVisible = $item -eq 'WmiFilters' -and -not $Directory.IsReadOnly
-        $editWmiFilterMenuItem.IsVisible = $item -is [GPOToolsWmiFilter] -and -not $Directory.IsReadOnly
-        $deleteWmiFilterMenuItem.IsVisible = $item -is [GPOToolsWmiFilter] -and -not $Directory.IsReadOnly
+        $newWmiFilterMenuItem.IsVisible = $item -eq 'WmiFilters' -and -not $Directory.IsReadOnly -and $Directory.CanCreateWmiFilter
+        $editWmiFilterMenuItem.IsVisible = $item -is [GPOToolsWmiFilter] -and -not $Directory.IsReadOnly -and $item.CanEdit
+        $deleteWmiFilterMenuItem.IsVisible = $editWmiFilterMenuItem.IsVisible
         # WMI Filter: the filters of the domain, as the WMI Filtering of the Scope tab of GPMC.
         $wmiFilterMenuItem.IsVisible = $gpoStatusMenuItem.IsVisible -and ($Directory.WmiFilters.Count -or $null -ne $detail.Gpo.WmiFilterId)
         if ($wmiFilterMenuItem.IsVisible) { Update-WmiFilterMenu -Gpo $detail.Gpo }

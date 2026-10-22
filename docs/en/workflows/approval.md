@@ -79,8 +79,8 @@ Run the check again after `samba-tool ntacl sysvolreset`, which gives SYSVOL its
 
 ## 3. Create a GPO (Tier 1)
 
-The technician sees only its OUs ([delegation](../features/delegation.md)), and the details of the
-domain say that its GPOs wait for an approval:
+The technician manages only its OUs, the others are greyed ([delegation](../features/delegation.md)),
+and the details of the domain say that its GPOs wait for an approval:
 
 ![The console of a Tier 1 technician](../assets/screenshots/14-tier1-view.png)
 

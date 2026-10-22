@@ -1,5 +1,15 @@
 # HGPM Release History
 
+## Unreleased
+
+### Changed
+
+* The GPO console shows every account the whole domain, as GPMC: every OU, link and GPO. What the account does not manage (its delegations) is greyed and offers no action; it reads it. An account without any delegation reads the domain: the details say Delegation: None, the status bar (read only)
+
+### Fixed
+
+* New WMI Filter, Edit WMI filter and Delete WMI filter are offered only to an account the domain allows to (allowedChildClassesEffective of CN=SOM,CN=WMIPolicy,CN=System, allowedAttributesEffective of the filter); the commands refuse the others
+
 ## 0.1.6 - alpha
 
 ### Added

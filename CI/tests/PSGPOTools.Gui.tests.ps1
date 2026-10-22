@@ -1243,6 +1243,14 @@ InModuleScope -ModuleName HGPM {
                 $Ui.domainTreeView.SelectedItem.Header | Should -Be 'Portables'
                 $Ui.directoryResultTextBlock.Text | Should -Be "WMI filter 'Portables' saved: C - Laptops - Power Management apply it with its new queries."
 
+                # Without the right to change it, the filter offers no action.
+                $Filter.CanEdit = $false
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters', 'Portables'
+                $Ui.editWmiFilterMenuItem.IsVisible | Should -BeFalse
+                $Ui.deleteWmiFilterMenuItem.IsVisible | Should -BeFalse
+                $Filter.CanEdit = $true
+
                 # The same form creates a filter again afterwards.
                 $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters'
                 Invoke-Click $Ui.newWmiFilterMenuItem

@@ -1,8 +1,8 @@
 # Délégation : ce que le compte gère
 
-La console montre à chaque technicien ce qu'il gère, d'après les **délégations du domaine** et le
-ticket Kerberos qu'il utilise : un contrôle d'accès par rôle bâti sur les droits qui existent déjà,
-sans rien à configurer dans la console.
+Chaque compte voit tout le domaine, comme dans GPMC ; la console ne propose à chacun que ce qu'il
+gère, d'après les **délégations du domaine** et le ticket Kerberos qu'il utilise : un contrôle
+d'accès par rôle bâti sur les droits qui existent déjà, sans rien à configurer dans la console.
 
 ## Comment les droits sont lus
 
@@ -10,9 +10,11 @@ L'annuaire les calcule pour le compte connecté :
 
 | Droit | Lu dans | Donne |
 |---|---|---|
-| Lier des GPO à un domaine ou une OU | `allowedAttributesEffective` du domaine / de l'OU contient `gPLink` | l'OU est montrée avec ses liens ; créer et lier, lier, supprimer un lien |
-| Modifier une GPO | `allowedAttributesEffective` de son conteneur contient `versionNumber` | Edit, Apply, restaurer, supprimer |
+| Lier des GPO à un domaine ou une OU | `allowedAttributesEffective` du domaine / de l'OU contient `gPLink` | l'OU n'est pas grisée ; créer et lier, lier, supprimer un lien, bloquer l'héritage |
+| Modifier une GPO | `allowedAttributesEffective` de son conteneur contient `versionNumber` | la GPO n'est pas grisée ; Edit, Apply, restaurer, supprimer |
 | Créer des GPO | `allowedChildClassesEffective` de `CN=Policies` contient `groupPolicyContainer` | New GPO |
+| Créer des filtres WMI | `allowedChildClassesEffective` de `CN=SOM,CN=WMIPolicy,CN=System` contient `msWMI-Som` | Nouveau filtre WMI |
+| Modifier un filtre WMI | `allowedAttributesEffective` du filtre contient `msWMI-Parm2` | Modifier le filtre WMI, Supprimer le filtre WMI |
 
 Le compte est celui que l'annuaire répond à « Who am I? » (RFC 4532) : la console le montre dans
 son titre, les détails du domaine et la barre d'état.
@@ -21,12 +23,13 @@ son titre, les détails du domaine et la barre d'état.
 
 ![La console du technicien Tier 1](../assets/screenshots/14-tier1-view.fr.png)
 
-- les OU où il lie des GPO, et **leurs parents grisés** comme chemin d'accès, sans leurs liens ;
-- les GPO qu'il modifie, ou qui sont liées à ses OU ;
+- toutes les OU, tous les liens et toutes les GPO du domaine, comme GPMC les montre ;
+- les OU où il lie des GPO et les GPO qu'il modifie comme d'habitude, **les autres grisées** : il les
+  lit (détails, liens, paramètres, délégation, historique) et n'y change rien ;
 - seulement les actions qu'il peut faire, dans le menu contextuel.
 
 Les détails du domaine disent si la délégation est **complète** (le compte gère toutes les OU et
-GPO) ou **limitée**.
+GPO), **limitée** ou **aucune**.
 
 ```bash
 # La même console, avec le technicien Tier 1
@@ -38,6 +41,15 @@ pwsh -c 'Show-GPOManagerAvalonia -Server dc.hardenbox.labo'
     `kinit` remplace le ticket du cache par défaut. Pour garder celui du Tier 0 dans un autre
     terminal, donnez à chaque terminal son propre cache : `export KRB5CCNAME=FILE:/tmp/krb5cc_tier1`
     avant `kinit`.
+
+## Un compte sans délégation
+
+Un compte à qui le domaine ne donne aucune délégation, un utilisateur de Domain Users par exemple,
+lit tout le domaine : tout est grisé, les menus contextuels ne proposent rien, **Paramètres** est
+grisé, et la barre d'état dit **(lecture seule)**. Les détails du domaine disent
+**Délégation : Aucune**.
+
+![La console d'un compte sans délégation](../assets/screenshots/42-read-only-view.fr.png)
 
 ## Les droits sont ceux du domaine
 
