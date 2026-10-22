@@ -443,7 +443,9 @@ $(Get-PSGPOWindowResourceXaml)
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid ColumnDefinitions='180,*' Margin='0,3'>
-                                                    <TextBlock Grid.Column='0' Text='{Binding Key}' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                    <!-- A long name (in French) wraps instead of running over its value -->
+                                                    <TextBlock Grid.Column='0' Text='{Binding Key}' Foreground='{DynamicResource SecondaryTextBrush}'
+                                                               TextWrapping='Wrap' Margin='0,0,8,0'/>
                                                     <SelectableTextBlock Grid.Column='1' Text='{Binding Value}' TextWrapping='Wrap'/>
                                                 </Grid>
                                             </DataTemplate>
