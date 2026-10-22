@@ -167,6 +167,42 @@ Test-PSGPOUpdate
 if (Test-PSGPOUpdate -Quiet) { Update-PSResource -Name HGPM -Prerelease }
 ```
 
-A module built from the repository is updated with `git pull` and `CI/03_Build.ps1`; the command
-then suggests `Install-PSResource`, to install the version of the Gallery beside it. The changes of
-each version are in the [changelog](../changelog.md).
+### Update HGPM
+
+1. **Close** the consoles (`Show-GPOManagerAvalonia`, `Show-PSOManagerAvalonia`) and the PowerShell
+   sessions that imported HGPM: a session keeps the module it imported.
+2. **Install** the new version, as the module was installed:
+
+    === "PowerShell Gallery"
+
+        ```powershell
+        Update-PSResource -Name HGPM -Prerelease
+        ```
+
+        The new version goes beside the old one (a folder per version in `Modules/HGPM`). A module
+        installed for all users (`-Scope AllUsers`) is updated as an administrator, with
+        `-Scope AllUsers` (`sudo pwsh` on Linux). Installed with PowerShellGet (`Install-Module`):
+        `Update-Module -Name HGPM -AllowPrerelease`.
+
+    === "From the repository"
+
+        ```bash
+        cd PSGPOTools
+        git pull
+        pwsh -File CI/03_Build.ps1
+        ```
+
+        The import of a checkout then suggests `Install-PSResource`: it installs the version of the
+        Gallery beside the checkout, which keeps its own.
+
+3. **Check** in a new PowerShell session: the import gives the new version, without the line
+   `is available`, and the dot of the status bar of the consoles is green.
+
+    ```powershell
+    Import-Module HGPM
+    Get-PSResource -Name HGPM          # the versions installed
+    ```
+
+4. Optionally, **remove** an old version: `Uninstall-PSResource -Name HGPM -Version <version>`.
+
+The changes of each version are in the [changelog](../changelog.md).
