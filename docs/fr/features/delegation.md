@@ -19,7 +19,7 @@ son titre, les détails du domaine et la barre d'état.
 
 ## Ce que voit un technicien
 
-![La console du technicien Tier 1](../assets/screenshots/14-tier1-view.png)
+![La console du technicien Tier 1](../assets/screenshots/14-tier1-view.fr.png)
 
 - les OU où il lie des GPO, et **leurs parents grisés** comme chemin d'accès, sans leurs liens ;
 - les GPO qu'il modifie, ou qui sont liées à ses OU ;

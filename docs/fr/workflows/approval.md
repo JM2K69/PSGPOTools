@@ -83,13 +83,13 @@ SYSVOL.
 Le technicien ne voit que ses OU ([délégation](../features/delegation.md)), et les détails du
 domaine disent que ses GPO attendent une approbation :
 
-![La console d'un technicien Tier 1](../assets/screenshots/14-tier1-view.png)
+![La console d'un technicien Tier 1](../assets/screenshots/14-tier1-view.fr.png)
 
 Il crée la GPO comme d'habitude (**Create a GPO in this domain, and Link it here...**) ; le
 formulaire dit qu'elle attendra, et ne propose **pas de groupes de filtrage** : une GPO filtrée sur
 un groupe s'appliquerait à ses membres avant son approbation. Ils sont posés à l'approbation.
 
-![Le formulaire New GPO d'un créateur](../assets/screenshots/15-tier1-new-gpo.png)
+![Le formulaire New GPO d'un créateur](../assets/screenshots/15-tier1-new-gpo.fr.png)
 
 Ce que le domaine lui donne, et ce que la console ajoute :
 
@@ -120,7 +120,7 @@ donnez pas le droit de lier des GPO (`gPLink`) là où elles ne doivent pas s'ap
 
 Clic droit sur la GPO > **Approve...** :
 
-![Approuver une GPO, avec ses groupes de filtrage](../assets/screenshots/17-approve-gpo.png)
+![Approuver une GPO, avec ses groupes de filtrage](../assets/screenshots/17-approve-gpo.fr.png)
 
 - **The creators** : *la lire seulement* (ils ne peuvent plus la modifier), ou *continuer à modifier
   ses paramètres* (chaque modification la fait alors s'écarter de sa version approuvée) ;
@@ -168,7 +168,7 @@ c'est son propriétaire qui la rend approuvée. Si l'une de ces écritures écho
 en attente, la console le dit, et elle peut être approuvée de nouveau une fois le problème corrigé ;
 elle n'est jamais approuvée avec un dossier SYSVOL que son créateur possède encore.
 
-![Une GPO approuvée](../assets/screenshots/18-approved-gpo.png)
+![Une GPO approuvée](../assets/screenshots/18-approved-gpo.fr.png)
 
 Dans le labo, l'approbation de `T1 - Servers - Proxy` avec ses groupes a donné :
 
