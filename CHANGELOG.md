@@ -1,6 +1,6 @@
 # HGPM Release History
 
-## Unreleased
+## 0.1.7 - alpha
 
 ### Changed
 
