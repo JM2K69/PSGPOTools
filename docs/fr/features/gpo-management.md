@@ -133,7 +133,9 @@ et Délégation de GPMC.
   nomme : **Lecture**, **Lecture (à partir du filtrage de sécurité)**, **Modifier les paramètres**,
   **Modifier les paramètres, supprimer, modifier la sécurité**, ou **Personnalisé** (d'autres
   droits, ou un refus). Choisissez un niveau et **Définir l'autorisation** pour un compte, ou
-  **Supprimer** le compte. Un éditeur qui appliquait la GPO continue de l'appliquer. Les
+  **Supprimer** le compte. **Lecture (à partir du filtrage de sécurité)** lit et applique la GPO
+  (Appliquer la stratégie de groupe), comme un compte ajouté au filtrage de sécurité. Un éditeur
+  qui appliquait la GPO continue de l'appliquer. Les
   autorisations héritées viennent du conteneur Policies du domaine : elles sont affichées, pas
   modifiées.
 

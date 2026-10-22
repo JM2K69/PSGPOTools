@@ -1814,7 +1814,7 @@ function Start-PSGPOManagerWindow {
         if ($row) {
             # The account and its level, to change them.
             $delegationNameTextBox.Text = $row.Name
-            $index = @('GpoRead', 'GpoEdit', 'GpoEditDeleteModifySecurity').IndexOf($row.Permission)
+            $index = @('GpoRead', 'GpoApply', 'GpoEdit', 'GpoEditDeleteModifySecurity').IndexOf($row.Permission)
             if ($index -ge 0) { $delegationPermissionComboBox.SelectedIndex = $index }
         }
         Update-DelegationButton
