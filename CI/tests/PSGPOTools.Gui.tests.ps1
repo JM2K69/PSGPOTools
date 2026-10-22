@@ -856,15 +856,25 @@ InModuleScope -ModuleName HGPM {
                 $Gpo.SecurityFiltering | Should -Be @('Servers-Paris')
                 ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Security filtering').Value | Should -Be 'Servers-Paris' -Because 'the details show it at once'
 
+                # Delegation: read and apply, as the security filtering gives it.
+                $Ui.delegationNameTextBox.Text = 'Servers-Lyon'
+                $Ui.delegationPermissionComboBox.SelectedIndex = 1
+                Invoke-Click $Ui.delegationSetButton
+                $Ui.delegationStatusTextBlock.Text | Should -Be "'Servers-Lyon' has the permission Read (from Security Filtering) now."
+                @($Ui.filteringList.ItemsSource.Name) | Should -Contain 'Servers-Lyon'
+                $Ui.filteringList.SelectedItem = @($Ui.filteringList.ItemsSource) | Where-Object Name -EQ 'Servers-Lyon'
+                Invoke-Click $Ui.filteringRemoveButton
+                @($Ui.delegationList.ItemsSource.Name) | Should -Not -Contain 'Servers-Lyon'
+
                 # Delegation: an editor, its level changed, then removed.
                 $Ui.delegationNameTextBox.Text = 'GPO-Tier1-Admins'
-                $Ui.delegationPermissionComboBox.SelectedIndex = 1
+                $Ui.delegationPermissionComboBox.SelectedIndex = 2
                 Invoke-Click $Ui.delegationSetButton
                 $Ui.delegationStatusTextBlock.Text | Should -Be "'GPO-Tier1-Admins' has the permission Edit settings now."
                 $Ui.delegationList.SelectedItem = @($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'GPO-Tier1-Admins'
                 $Ui.delegationNameTextBox.Text | Should -Be 'GPO-Tier1-Admins'
-                $Ui.delegationPermissionComboBox.SelectedIndex | Should -Be 1
-                $Ui.delegationPermissionComboBox.SelectedIndex = 2
+                $Ui.delegationPermissionComboBox.SelectedIndex | Should -Be 2
+                $Ui.delegationPermissionComboBox.SelectedIndex = 3
                 Invoke-Click $Ui.delegationSetButton
                 (@($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'GPO-Tier1-Admins').PermissionText | Should -Be 'Edit settings, delete, modify security'
                 $Ui.delegationList.SelectedItem = @($Ui.delegationList.ItemsSource) | Where-Object Name -EQ 'GPO-Tier1-Admins'

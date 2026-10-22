@@ -128,7 +128,9 @@ tabs of GPMC.
 - **Delegation**: every account of the permissions of the GPO with its level, as GPMC names it:
   **Read**, **Read (from Security Filtering)**, **Edit settings**, **Edit settings, delete, modify
   security**, or **Custom** (other rights, or a denial). Choose a level and **Set the permission**
-  for an account, or **Remove** it. An editor that applied the GPO keeps applying it. The
+  for an account, or **Remove** it. **Read (from Security Filtering)** reads and applies the GPO
+  (Apply Group Policy), as an account added to the security filtering. An editor that applied the
+  GPO keeps applying it. The
   inherited permissions come from the Policies container of the domain: they are shown, not
   changed.
 

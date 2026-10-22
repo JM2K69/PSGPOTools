@@ -559,6 +559,7 @@ $(Get-PSGPOWindowResourceXaml)
                                         <TextBox Grid.Column='0' Name='delegationNameTextBox' Watermark='Group, user or computer (PC01`$)'/>
                                         <ComboBox Grid.Column='1' Name='delegationPermissionComboBox' Margin='8,0,0,0' MinWidth='300' SelectedIndex='0'>
                                             <ComboBoxItem Content='Read' Tag='GpoRead'/>
+                                            <ComboBoxItem Content='Read (from Security Filtering)' Tag='GpoApply'/>
                                             <ComboBoxItem Content='Edit settings' Tag='GpoEdit'/>
                                             <ComboBoxItem Content='Edit settings, delete, modify security' Tag='GpoEditDeleteModifySecurity'/>
                                         </ComboBox>
