@@ -167,10 +167,14 @@ Describe 'After Initialize-PSGPOAdmx' {
     }
 
     Context 'GUI policy tree (New-PSGPOPolicyTree)' {
-        It 'Places every policy under its own category' {
+        It 'Places every policy under its own category, in Policies > Administrative Templates' {
             InModuleScope HGPM {
                 $Roots = New-PSGPOPolicyTree
-                $Roots.Header | Should -Be @('Machine', 'User')
+                $Roots.Header | Should -Be @('Computer Configuration', 'User Configuration')
+                # As the Group Policy editor: Policies (Windows Settings, Administrative Templates), then Preferences.
+                @($Roots[0].Children.Header) | Should -Be @('Policies', 'Preferences')
+                @($Roots[0].Children[0].Children.Header) | Should -Be @('Windows Settings', 'Administrative Templates')
+                @($Roots[1].Children[0].Children.Header) | Should -Be @('Administrative Templates')
 
                 $PolicyNodes = 0
                 $Stack = [System.Collections.Generic.Stack[object]]::new()
@@ -180,8 +184,8 @@ Describe 'After Initialize-PSGPOAdmx' {
                     foreach ($Child in $Node.Children) { $Stack.Push($Child) }
                     if ($Node.Tag -is [GPOToolsPolicy]) {
                         $PolicyNodes++
-                        # A policy without a category is under its scope.
-                        $Expected = if ($Node.Tag.Category) { $Node.Tag.Category } else { $Node.Tag.Scope }
+                        # A policy without a category is under the Administrative Templates of its scope.
+                        $Expected = if ($Node.Tag.Category) { $Node.Tag.Category } else { "AdministrativeTemplates:$($Node.Tag.Scope)" }
                         if ($Node.Tag.Category) { [object]::ReferenceEquals($Node.Parent.Tag, $Expected) | Should -BeTrue } else { $Node.Parent.Tag | Should -Be $Expected }
                     }
                 }

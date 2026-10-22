@@ -5,13 +5,14 @@ chaque paramètre est lu dans la GPO, et **Apply** l'y enregistre.
 
 ![L'éditeur de stratégies](../assets/screenshots/10-editor-policy.fr.png)
 
-L'arbre a les deux étendues d'une GPO, **Machine** (Configuration ordinateur) et **User**
-(Configuration utilisateur), avec chacune :
+L'arbre est celui de l'éditeur de stratégie de groupe : **Configuration ordinateur** et
+**Configuration utilisateur**, avec chacune :
 
-- **Windows Settings > Security Settings** (ordinateur) : les paramètres de sécurité de
-  `GptTmpl.inf` ;
-- **les modèles d'administration** des fichiers ADMX chargés, par catégorie ;
-- **Preferences** : les [préférences de stratégie de groupe](preferences.md).
+- **Stratégies** :
+    - **Paramètres Windows > Paramètres de sécurité** (ordinateur) : les paramètres de sécurité de
+      `GptTmpl.inf` ;
+    - **Modèles d'administration** : les stratégies des fichiers ADMX chargés, par catégorie ;
+- **Préférences** : les [préférences de stratégie de groupe](preferences.md).
 
 **Configured settings only** ne garde que ce que la GPO configure : le moyen le plus rapide de lire
 une GPO.

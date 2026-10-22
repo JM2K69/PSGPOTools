@@ -5,11 +5,12 @@ is read from the GPO, and **Apply** saves it there.
 
 ![The policy editor](../assets/screenshots/10-editor-policy.png)
 
-The tree has the two scopes of a GPO, **Machine** (Computer Configuration) and **User** (User
-Configuration), each with:
+The tree is that of the Group Policy editor: **Computer Configuration** and **User
+Configuration**, each with:
 
-- **Windows Settings > Security Settings** (computer): the security settings of `GptTmpl.inf`;
-- **the administrative templates** of the ADMX files loaded, by category;
+- **Policies**:
+    - **Windows Settings > Security Settings** (computer): the security settings of `GptTmpl.inf`;
+    - **Administrative Templates**: the policies of the ADMX files loaded, by category;
 - **Preferences**: the [Group Policy Preferences](preferences.md).
 
 **Configured settings only** keeps only what the GPO configures: the quickest way to read a GPO.
