@@ -58,8 +58,19 @@ nom, son chemin de registre ou la commande `Get-ItemProperty` qui la lit.
 ## La barre d'état
 
 En bas : cet ordinateur (nom, système, adresses), son domaine, le contrôleur de domaine depuis
-lequel l'annuaire a été lu et son service d'annuaire (`Samba AD` ou `Active Directory`), et le
-compte connecté.
+lequel l'annuaire a été lu et son service d'annuaire (`Samba AD` ou `Active Directory`), le
+compte connecté, et la version de HGPM avec une pastille :
+
+- **verte** : la dernière version de la PowerShell Gallery ;
+- **orange** : une version plus récente est sur la Gallery (`HGPM 0.1.5-alpha : 0.1.6-alpha
+  disponible`) ; son info-bulle donne la commande qui l'installe (`Update-PSResource -Name HGPM
+  -Prerelease`), puis ouvrez une nouvelle session PowerShell ;
+- **grise** : la Gallery n'a pas été lue (pas de réseau, ou vérification désactivée), les mises à
+  jour sont inconnues.
+
+La Gallery est lue comme à l'import du module (voir [Mises à jour](../getting-started/installation.md#mises-a-jour)) :
+au plus une fois par jour, 3 secondes au plus. La console des paramètres de mot de passe a la même
+barre d'état.
 
 ## Thèmes et réglages
 
@@ -71,8 +82,11 @@ La barre d'outils bascule entre les thèmes clair et sombre, et ouvre la fenêtr
 La console est dans la langue de la session PowerShell : en français sur un système français, en
 anglais sinon, et `-Language` la choisit. Les textes viennent de `Resources/Strings/<langue>.psd1`
 du module (`fr-FR.psd1`, avec les termes de la GPMC française) ; un texte qu'il ne traduit pas reste
-en anglais. Les commandes, leurs messages et leurs erreurs restent en anglais, comme ceux de
-PowerShell, ainsi que les noms des paramètres de sécurité et des types de préférences.
+en anglais. Les noms des paramètres de sécurité, des préférences et les descriptions de la
+configuration viennent de `Resources/Strings/Catalogs/<langue>.psd1`, avec les noms de l'éditeur de
+stratégie de groupe français ; les onglets Paramètres et Historique montrent leurs rapports dans la
+même langue. Les commandes, leurs messages et leurs erreurs restent en anglais, comme ceux de
+PowerShell, ainsi que leurs rapports (`Compare-PSGPOBackup`, `Get-PSGPODrift`).
 
 ```powershell
 Show-GPOManagerAvalonia -Language fr-FR

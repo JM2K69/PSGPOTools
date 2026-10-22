@@ -134,7 +134,8 @@ function Get-PSGPOPreferenceItem {
     & $walk $File.GetRoot() ''
 }
 
-# What an item does, in a few words: the action and its main values.
+# What an item does, in a few words: the action and its main values, in the language of the
+# interface (the console shows it).
 function Get-PSGPOPreferenceSummary {
     [CmdletBinding()]
     [OutputType([string])]
@@ -142,16 +143,17 @@ function Get-PSGPOPreferenceSummary {
 
     $values = $Item.Properties
     $parts = [System.Collections.Generic.List[string]]::new()
-    if ($Item.Action -and $script:PSGPOPreferenceActions.Contains($Item.Action)) { $parts.Add($script:PSGPOPreferenceActions[$Item.Action]) }
+    if ($Item.Action -and $script:PSGPOPreferenceActions.Contains($Item.Action)) { $parts.Add((Get-PSGPOText $script:PSGPOPreferenceActions[$Item.Action])) }
     $properties = if ($Item.Type -and $Item.Type.Properties) { @($Item.Type.Properties) } else { @($values.Keys | ForEach-Object { [pscustomobject]@{ Name = $_; Label = $_; Type = 'Text' } }) }
     foreach ($property in $properties) {
         if ($property.Name -eq 'action' -or $property.Type -in 'Password', 'Members', 'Xml') { continue }
         $value = "$($values[$property.Name])"
         if (-not $value -or ($property.Type -eq 'Bool' -and $value -eq '0') -or $value -in 'NOCHANGE', 'NO_CHANGE') { continue }
-        $parts.Add($(if ($property.Type -eq 'Bool') { $property.Label } else { "$($property.Label): $value" }))
+        $label = Get-PSGPOText $property.Label
+        $parts.Add($(if ($property.Type -eq 'Bool') { $label } else { Get-PSGPOText '{0}: {1}' $label $value }))
         if ($parts.Count -ge 7) { break }
     }
-    if ($Item.Members.Count) { $parts.Add("$($Item.Members.Count) member(s): $(@($Item.Members | ForEach-Object { "$($_.Action) $(if ($_.Name) { $_.Name } else { $_.Sid })" }) -join ', ')") }
+    if ($Item.Members.Count) { $parts.Add((Get-PSGPOText '{0} member(s): {1}' $Item.Members.Count (@($Item.Members | ForEach-Object { "$($_.Action) $(if ($_.Name) { $_.Name } else { $_.Sid })" }) -join ', '))) }
     $parts -join ' - '
 }
 

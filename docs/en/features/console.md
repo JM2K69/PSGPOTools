@@ -56,8 +56,17 @@ registry path or the `Get-ItemProperty` command that reads it.
 ## The status bar
 
 At the bottom: this computer (name, system, addresses), its domain, the domain controller the
-directory was read from and its directory service (`Samba AD` or `Active Directory`), and the
-account connected.
+directory was read from and its directory service (`Samba AD` or `Active Directory`), the
+account connected, and the version of HGPM with a dot:
+
+- **green**: the latest version of the PowerShell Gallery;
+- **orange**: a newer version is on the Gallery (`HGPM 0.1.5-alpha: 0.1.6-alpha available`); its
+  tooltip gives the command that installs it (`Update-PSResource -Name HGPM -Prerelease`), then
+  open a new PowerShell session;
+- **grey**: the Gallery was not read (no network, or the check is off), the updates are unknown.
+
+The Gallery is read as at the import of the module (see [Updates](../getting-started/installation.md#updates)):
+at most once a day, 3 seconds at most. The console of the password settings has the same status bar.
 
 ## Themes and settings
 
@@ -69,8 +78,11 @@ The toolbar switches between the light and dark themes, and opens the **Settings
 The console is in the language of the PowerShell session: French on a French system, English
 otherwise, and `-Language` chooses it. The texts come from `Resources/Strings/<language>.psd1`
 of the module (`fr-FR.psd1`, with the words of the French GPMC); a text it does not translate
-stays in English. The commands, their messages and their errors stay in English, as those of
-PowerShell, and so do the names of the security settings and of the preference types.
+stays in English. The names of the security settings, of the preferences and the descriptions of
+the configuration come from `Resources/Strings/Catalogs/<language>.psd1`, with the names of the
+French Group Policy editor; the Settings and History tabs show their reports in the same language.
+The commands, their messages and their errors stay in English, as those of PowerShell, and so do
+their reports (`Compare-PSGPOBackup`, `Get-PSGPODrift`).
 
 ```powershell
 Show-GPOManagerAvalonia -Language fr-FR

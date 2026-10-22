@@ -79,8 +79,10 @@ function New-PSGPOPolicyTree {
         # Security settings (GptTmpl.inf) of the computer, first as in the Group Policy editor:
         # Windows Settings > Security Settings > Account Policies > Password Policy > settings.
         if ($scope -eq [ScopePolicy]::Machine) {
+            # Found by its name in English or in the language of the interface.
             $security = @(Get-PSGPOSecuritySetting | Where-Object {
-                (-not $Filter -or $_.Name.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) -and (-not $expand -or $Only.Contains($_))
+                (-not $Filter -or $_.Name.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0 -or
+                    (Get-PSGPOText $_.Name).IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) -and (-not $expand -or $Only.Contains($_))
             })
             if ($security.Count) {
                 $windowsNode = [AvaloniaTreeNode]::new()
@@ -104,7 +106,7 @@ function New-PSGPOPolicyTree {
                         $folderPath = "$folderPath>$part"
                         if (-not $folders.ContainsKey($folderPath)) {
                             $folder = [AvaloniaTreeNode]::new()
-                            $folder.Header = $part
+                            $folder.Header = Get-PSGPOText $part
                             $folder.Icon = 'folder'
                             $folder.IconData = $folderData
                             $folder.IconBrush = $script:PSGPOIconBrush['folder']
@@ -117,7 +119,7 @@ function New-PSGPOPolicyTree {
                         $parent = $folders[$folderPath]
                     }
                     $node = [AvaloniaTreeNode]::new()
-                    $node.Header = $setting.Name
+                    $node.Header = Get-PSGPOText $setting.Name
                     Set-PSGPOTreeNodeIcon -Node $node -Name 'shield'
                     $node.Tag = $setting
                     $node.Parent = $parent
@@ -130,7 +132,8 @@ function New-PSGPOPolicyTree {
         # Preferences ([MS-GPPREF]), last as in the Group Policy editor: Windows Settings and
         # Control Panel Settings, one node per preference type of the scope.
         $preferences = @(Get-PSGPOPreferenceExtension -Scope "$scope" | Where-Object {
-                (-not $Filter -or $_.Name.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) -and
+                (-not $Filter -or $_.Name.IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0 -or
+                    (Get-PSGPOText $_.Name).IndexOf($Filter, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) -and
                 (-not $expand -or $Only.Contains("Preference:$scope|$($_.Id)"))
             })
         if ($preferences.Count) {
@@ -144,7 +147,7 @@ function New-PSGPOPolicyTree {
             foreach ($extension in $preferences) {
                 if (-not $groups.ContainsKey($extension.Group)) {
                     $group = [AvaloniaTreeNode]::new()
-                    $group.Header = $extension.Group
+                    $group.Header = Get-PSGPOText $extension.Group
                     # A folder in the colour of the preferences.
                     Set-PSGPOTreeNodeIcon -Node $group -Name 'folder'
                     $group.IconBrush = $script:PSGPOIconBrush['folder-preference']
@@ -155,7 +158,7 @@ function New-PSGPOPolicyTree {
                     $groups[$extension.Group] = $group
                 }
                 $node = [AvaloniaTreeNode]::new()
-                $node.Header = $extension.Name
+                $node.Header = Get-PSGPOText $extension.Name
                 Set-PSGPOTreeNodeIcon -Node $node -Name 'wrench'
                 $node.Tag = [GPOToolsPreferenceNode]::new("$scope", $extension)
                 $node.Parent = $groups[$extension.Group]

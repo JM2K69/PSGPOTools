@@ -60,3 +60,33 @@ function Get-PSGPOStatusBarItem {
         New-StatusItem 'server' (Get-PSGPOText 'No directory read')
     }
 }
+
+# The version of HGPM in the status bar of the consoles, with a dot: green when it is the latest
+# of the PowerShell Gallery, orange when a newer one is there (its command in the tooltip), grey
+# when the Gallery was not read. The Gallery is read as at the import: at most once a day, 3
+# seconds at most, never when the check is off (Test-PSGPOUpdateCheckSkipped).
+function Get-PSGPOVersionStatusItem {
+    [CmdletBinding()]
+    [OutputType([AvaloniaStatusItem])]
+    param()
+
+    $item = [AvaloniaStatusItem]::new()
+    $item.IconData = Get-PSGPOIconData -Name 'info'
+    $item.HasBadge = $true
+    $installed = Get-PSGPOModuleVersion
+    $latest = $null
+    try { if (-not (Test-PSGPOUpdateCheckSkipped)) { $latest = Get-PSGPOLatestGalleryVersion -Installed $installed.Version } } catch { $latest = $null }
+    if ($latest -and $latest -gt $installed.Version) {
+        $item.Text = Get-PSGPOText 'HGPM {0}: {1} available' $installed.Version $latest
+        $item.ToolTip = Get-PSGPOText 'HGPM {0} is on the PowerShell Gallery: {1}, then open a new PowerShell session.' $latest (Get-PSGPOUpdateCommand -InstalledPath $installed.Path -Latest $latest)
+        $item.BadgeBrush = '#CA5010'
+    } elseif ($latest) {
+        $item.Text = "HGPM $($installed.Version)"
+        $item.ToolTip = Get-PSGPOText 'HGPM {0}: the latest version of the PowerShell Gallery.' $installed.Version
+        $item.BadgeBrush = '#107C10'
+    } else {
+        $item.Text = "HGPM $($installed.Version)"
+        $item.ToolTip = Get-PSGPOText 'HGPM {0}: the PowerShell Gallery was not read (no network, or the check is off), the updates are unknown.' $installed.Version
+    }
+    $item
+}

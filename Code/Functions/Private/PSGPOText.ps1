@@ -40,10 +40,15 @@ function Set-PSGPOLanguage {
     $file = $available | Where-Object { $_ -eq $culture.Name } | Select-Object -First 1
     if (-not $file) { $file = $available | Where-Object { ([cultureinfo]::GetCultureInfo($_)).TwoLetterISOLanguageName -eq $culture.TwoLetterISOLanguageName } | Select-Object -First 1 }
     if (-not $file) { return $script:PSGPOLanguage }
-    # More than 500 texts: past the limit of a data file without -SkipLimitCheck.
-    $texts = Import-PowerShellDataFile -LiteralPath (Join-Path $PSScriptRoot 'Resources' 'Strings' "$file.psd1") -SkipLimitCheck
     $script:PSGPOTexts = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-    foreach ($key in $texts.Keys) { $script:PSGPOTexts[$key] = $texts[$key] }
+    # The names of the catalogs (security settings, preferences: Resources/Strings/Catalogs), then
+    # the texts of the interface, which win when both have a text. More than 500 texts: past the
+    # limit of a data file without -SkipLimitCheck.
+    foreach ($path in (Join-Path $PSScriptRoot 'Resources' 'Strings' 'Catalogs' "$file.psd1"), (Join-Path $PSScriptRoot 'Resources' 'Strings' "$file.psd1")) {
+        if (-not (Test-Path -LiteralPath $path)) { continue }
+        $texts = Import-PowerShellDataFile -LiteralPath $path -SkipLimitCheck
+        foreach ($key in $texts.Keys) { $script:PSGPOTexts[$key] = $texts[$key] }
+    }
     $script:PSGPOLanguage = $file
     $file
 }
@@ -62,6 +67,34 @@ function Get-PSGPOText {
     # Not "if ($Argument)": one value of 0 or empty would be false.
     if ($Argument.Count) { return $Text -f $Argument }
     $Text
+}
+
+# A text the console shows but that functions shared with the commands write in English (the
+# Settings tab, the History tab): in the language of the interface, line by line. A line is
+# translated whole, else by its parts: a path (Policies > Windows Settings > ...), a number and its
+# unit (8 hours), a list (Success, Failure), a label and its value (Hive: HKEY_LOCAL_MACHINE), a
+# note in brackets (Update (disabled)). What has no translation stays as it is (names, values).
+function ConvertTo-PSGPODisplayText {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([AllowNull()] [AllowEmptyString()] [string]$Text)
+
+    if (-not $script:PSGPOTexts -or -not $Text) { return $Text }
+    $translate = {
+        param([string]$Part)
+        $translated = $null
+        if ($Part -and $script:PSGPOTexts.TryGetValue($Part, [ref]$translated) -and $translated) { return $translated }
+        if ($Part.Contains(' > ')) { return (@($Part -split ' > ' | ForEach-Object { & $translate $_ }) -join ' > ') }
+        if ($Part -match '^(-?[\d.,]+) (.+)$' -and $script:PSGPOTexts.ContainsKey($Matches[2])) { return "$($Matches[1]) $($script:PSGPOTexts[$Matches[2]])" }
+        if ($Part.Contains(', ')) {
+            $items = @($Part -split ', ')
+            if (@($items | Where-Object { $script:PSGPOTexts.ContainsKey($_) }).Count -eq $items.Count) { return (@($items | ForEach-Object { $script:PSGPOTexts[$_] }) -join ', ') }
+        }
+        if ($Part -match '^([^:]+): (.*)$' -and $script:PSGPOTexts.ContainsKey($Matches[1])) { return "$($script:PSGPOTexts[$Matches[1]]) : $(& $translate $Matches[2])" }
+        if ($Part -match '^(.+) \(([^()]+)\)$' -and $script:PSGPOTexts.ContainsKey("($($Matches[2]))")) { return "$(& $translate $Matches[1]) $($script:PSGPOTexts["($($Matches[2]))"])" }
+        $Part
+    }
+    @($Text -split '\r?\n' | ForEach-Object { & $translate $_ }) -join [Environment]::NewLine
 }
 
 # The XAML of a window with its texts in the language of the interface: the values of its Header,

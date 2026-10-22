@@ -1949,14 +1949,19 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
-        It 'Shows this computer, its addresses, its domain and the domain controller in the status bar' {
+        It 'Shows this computer, its addresses, its domain, the domain controller and the version of HGPM in the status bar' {
             $Platform = Get-PSGPOPlatform
             Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
                 param($Ui)
                 $Items = @($Ui.statusBarList.ItemsSource)
-                $Items.Count | Should -Be 4
+                $Items.Count | Should -Be 5
                 $Items[0].Text | Should -BeLike "$($Platform.ComputerName) - *"
                 $Items[3].Text | Should -Be 'DC dc.hardenbox.labo (Samba AD)'
+                # The tests do not read the Gallery (PSGPOTOOLS_SKIP_UPDATE_CHECK): the version, a grey dot.
+                $Items[4].Text | Should -Be "HGPM $((Get-PSGPOModuleVersion).Version)"
+                $Items[4].HasBadge | Should -BeTrue
+                $Items[4].BadgeBrush | Should -Be '#8A8886'
+                @($Items | Where-Object HasBadge).Count | Should -Be 1
 
                 # Drawn at the bottom of the window, below the views.
                 $Ui.Window.UpdateLayout()
@@ -1965,8 +1970,11 @@ InModuleScope -ModuleName HGPM {
                 $Ui.statusBar.Bounds.Bottom | Should -BeGreaterThan ($Ui.Window.Bounds.Height - 2)
                 $Ui.statusBar.Bounds.Top | Should -BeGreaterOrEqual $Ui.managementView.Bounds.Bottom
                 $Icons = @([Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($Ui.statusBarList) | Where-Object { $_ -is [Avalonia.Controls.PathIcon] })
-                $Icons.Count | Should -Be 4
+                $Icons.Count | Should -Be 5
                 $Icons | ForEach-Object { $_.Data | Should -Not -BeNullOrEmpty }
+                $Dots = @([Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($Ui.statusBarList) | Where-Object { $_ -is [Avalonia.Controls.Shapes.Ellipse] -and $_.IsVisible })
+                $Dots.Count | Should -Be 1
+                "$($Dots[0].Fill)" | Should -Match '8A8886'
             }
         }
     }
@@ -2071,7 +2079,9 @@ InModuleScope -ModuleName HGPM {
                 ($Ui.policySettingsList.ItemsSource | Where-Object Key -EQ 'Account will be locked out').Value | Should -Be 'Until an administrator manually unlocks the account'
                 $Ui.appliesToHeaderTextBlock.Text | Should -Be 'Directly Applies To (1)'
                 @($Ui.appliesToList.ItemsSource)[0].Kind | Should -Be 'Global security group'
-                @($Ui.statusBarList.ItemsSource).Count | Should -Be 4 -Because 'this computer, its addresses, its domain and the source of the policies'
+                @($Ui.statusBarList.ItemsSource).Count | Should -Be 5 -Because 'this computer, its addresses, its domain, the source of the policies and the version of HGPM'
+                @($Ui.statusBarList.ItemsSource)[4] | Should -BeOfType [AvaloniaStatusItem]
+                @($Ui.statusBarList.ItemsSource)[4].Text | Should -BeLike 'HGPM *'
                 @($Ui.statusBarList.ItemsSource)[0].Text | Should -Not -BeNullOrEmpty
                 @($Ui.statusBarList.ItemsSource)[0] | Should -BeOfType [AvaloniaStatusItem] -Because 'a binding does not read the properties of a PSObject'
             }

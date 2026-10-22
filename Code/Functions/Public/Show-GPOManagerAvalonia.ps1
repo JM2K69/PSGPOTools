@@ -15,7 +15,10 @@ function Show-GPOManagerAvalonia {
         (Samples/Directory.sample.json) under a "demonstration environment" banner.
 
         A status bar shows this computer (name, system, addresses), its domain and the domain
-        controller the directory was read from, with its directory service.
+        controller the directory was read from, with its directory service, then the version of
+        HGPM with a dot: green when it is the latest of the PowerShell Gallery, orange when a newer
+        one is there (its tooltip gives the command that installs it), grey when the Gallery was
+        not read.
 
         The policy editor displays the security settings of the computer (Windows Settings >
         Security Settings) and the policies loaded by Initialize-PSGPOAdmx (scope > categories >

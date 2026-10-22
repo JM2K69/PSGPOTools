@@ -200,7 +200,7 @@ function New-PSGPOPolicyEditor {
     }
 
     if ($Policy.Elements.Count -eq 0) {
-        $Panel.Children.Add((& $NewLabel 'This policy has no option: enable or disable it.'))
+        $Panel.Children.Add((& $NewLabel (Get-PSGPOText 'This policy has no option: enable or disable it.')))
     }
 
     [pscustomobject]@{

@@ -1001,6 +1001,7 @@ $(Get-PSGPOWindowResourceXaml)
                         <StackPanel Orientation='Horizontal' Spacing='6' Margin='0,0,24,0' ToolTip.Tip='{Binding ToolTip}'>
                             <PathIcon Data='{Binding IconData}' Width='14' Height='14' Foreground='{DynamicResource SecondaryTextBrush}'/>
                             <TextBlock Text='{Binding Text}' FontSize='12' VerticalAlignment='Center' Foreground='{DynamicResource TextBrush}'/>
+                            <Ellipse Width='9' Height='9' VerticalAlignment='Center' Fill='{Binding BadgeBrush}' IsVisible='{Binding HasBadge}'/>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

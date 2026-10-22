@@ -20,7 +20,9 @@ InModuleScope -ModuleName HGPM {
             foreach ($Key in 'Enabled', 'Disabled', 'NotConfigured', 'Added', 'Changed', 'Removed', 'Category', 'Value', 'Range', 'Values', 'User', 'Machine',
                 'User configuration settings disabled', 'Computer configuration settings disabled', 'All settings disabled',
                 'Continue processing the other items of this type after an error', "Run in the logged-on user's security context", 'Remove this item when it is no longer applied',
-                'Read', 'Read and apply', 'Edit settings', 'Edit settings, delete, modify security', 'Custom') {
+                'Read', 'Read and apply', 'Edit settings', 'Edit settings, delete, modify security', 'Custom',
+                'True', 'False', 'Create', 'Replace', 'Update', 'Delete',
+                'Number', 'Boolean', 'Accounts', 'Audit', 'Text', 'Choice', 'MultiText', 'Bitmask', 'RegistryValue') {
                 [void]$Keys.Add($Key)
             }
         }
@@ -48,6 +50,66 @@ InModuleScope -ModuleName HGPM {
             foreach ($Xaml in (Get-PSGPOManagerWindowXaml), (Get-PSGPOPasswordPolicyWindowXaml), (Get-PSGPOPasswordPolicyEditorXaml)) {
                 { [xml](ConvertTo-PSGPOLocalizedXaml -Xaml $Xaml) } | Should -Not -Throw
             }
+        }
+    }
+
+    # The names the console shows of the catalogs: Resources/Strings/Catalogs/<language>.psd1.
+    $Catalogs = @(Get-ChildItem (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Resources' 'Strings' 'Catalogs') -Filter '*.psd1' | ForEach-Object { @{ Language = $_.BaseName; File = $_.FullName } })
+
+    Describe 'Names of the catalogs' {
+        BeforeAll {
+            $Names = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+            foreach ($Setting in @(Get-PSGPOSecuritySetting)) {
+                foreach ($Name in @($Setting.Name) + @($Setting.Path) + @($Setting.Unit) + @($Setting.Choices | ForEach-Object Text)) { if ($Name) { [void]$Names.Add($Name) } }
+            }
+            foreach ($Extension in @(Get-PSGPOPreferenceCatalog)) {
+                foreach ($Name in @($Extension.Name, $Extension.Group) + @($Extension.Items.Label) + @($Extension.Items.Properties | ForEach-Object { $_.Label; $_.Hint })) { if ($Name) { [void]$Names.Add($Name) } }
+            }
+            foreach ($Setting in @(Get-PSGPOConfigurationSetting -Override @{})) { if ($Setting.Description) { [void]$Names.Add($Setting.Description) } }
+        }
+
+        It 'Has a translation of every name in <Language>, and no other' -ForEach $Catalogs {
+            $Texts = Import-PowerShellDataFile -LiteralPath $File -SkipLimitCheck
+            @($Names | Where-Object { -not $Texts.ContainsKey($_) } | Sort-Object) | Should -BeNullOrEmpty
+            @($Texts.Keys | Where-Object { -not $Names.Contains($_) } | Sort-Object) | Should -BeNullOrEmpty -Because 'a name no catalog has anymore is left over'
+            @($Texts.Keys | Where-Object { -not $Texts[$_] -or $Texts[$_] -ne $Texts[$_].Trim() }) | Should -BeNullOrEmpty
+        }
+
+        It 'Keeps the values of each name in <Language>' -ForEach $Catalogs {
+            $Texts = Import-PowerShellDataFile -LiteralPath $File -SkipLimitCheck
+            @(foreach ($Key in $Texts.Keys) {
+                    if ((@([regex]::Matches($Key, '\{\d+\}').Value) -join ',') -ne (@([regex]::Matches($Texts[$Key], '\{\d+\}').Value) -join ',')) { $Key }
+                }) | Should -BeNullOrEmpty
+        }
+
+        It 'Shows the names of the catalogs in the language of the interface, the texts of the interface first' {
+            $null = Set-PSGPOLanguage -Language 'fr-FR'
+            Get-PSGPOText 'Minimum password length' | Should -Be 'Longueur minimale du mot de passe'
+            Get-PSGPOText 'Registry Item' | Should -Be 'Élément Registre'
+            Get-PSGPOText 'Refresh' | Should -Be 'Actualiser'
+            $null = Set-PSGPOLanguage -Language 'en-US'
+            Get-PSGPOText 'Minimum password length' | Should -Be 'Minimum password length'
+        }
+    }
+
+    Describe 'Reports shown in the language of the interface' {
+        AfterEach { $null = Set-PSGPOLanguage -Language 'en-US' }
+
+        It 'Translates a path, a value and its unit, a list, a label and its value, a note' {
+            $null = Set-PSGPOLanguage -Language 'fr-FR'
+            ConvertTo-PSGPODisplayText 'Policies > Windows Settings > Security Settings > Account Policies > Password Policy' |
+                Should -Be 'Stratégies > Paramètres Windows > Paramètres de sécurité > Stratégies de comptes > Stratégie de mot de passe'
+            ConvertTo-PSGPODisplayText '8 hours' | Should -Be '8 heures'
+            ConvertTo-PSGPODisplayText 'Success, Failure' | Should -Be 'Réussite, Échec'
+            ConvertTo-PSGPODisplayText 'Update (disabled)' | Should -Be 'Mettre à jour (désactivé)'
+            ConvertTo-PSGPODisplayText "Enabled`nGPO status: All settings disabled" | Should -Be "Activé$([Environment]::NewLine)État GPO : Tous les paramètres désactivés"
+            ConvertTo-PSGPODisplayText 'T1 - Servers - Baseline' | Should -Be 'T1 - Servers - Baseline' -Because 'a name stays as it is'
+            ConvertTo-PSGPODisplayText 'HKLM\Software, a value' | Should -Be 'HKLM\Software, a value'
+        }
+
+        It 'Leaves the report in English without a language' {
+            ConvertTo-PSGPODisplayText '8 hours' | Should -Be '8 hours'
+            ConvertTo-PSGPODisplayText '' | Should -Be ''
         }
     }
 
