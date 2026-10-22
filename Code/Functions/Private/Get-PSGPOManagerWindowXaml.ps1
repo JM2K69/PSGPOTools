@@ -737,14 +737,14 @@ $(Get-PSGPOWindowResourceXaml)
                             Background='{DynamicResource HeaderBackgroundBrush}'
                             Padding='16,12' CornerRadius='8,8,0,0'>
                         <StackPanel>
-                            <Grid ColumnDefinitions='*,Auto'>
-                                <StackPanel Orientation='Horizontal' Spacing='8' VerticalAlignment='Center'>
-                                    <PathIcon Data='{StaticResource Icon.tree}' Foreground='{DynamicResource HeaderTextBrush}'/>
-                                    <TextBlock Text='Policy Structure' FontSize='15' FontWeight='SemiBold'
-                                               Foreground='{DynamicResource HeaderTextBrush}'/>
-                                </StackPanel>
+                            <!-- The title gives way to the check box (longer in French) -->
+                            <Grid ColumnDefinitions='Auto,*,Auto'>
+                                <PathIcon Grid.Column='0' Data='{StaticResource Icon.tree}' Foreground='{DynamicResource HeaderTextBrush}' VerticalAlignment='Center'/>
+                                <TextBlock Grid.Column='1' Text='Policy Structure' FontSize='15' FontWeight='SemiBold' Margin='8,0,8,0'
+                                           TextTrimming='CharacterEllipsis' VerticalAlignment='Center'
+                                           Foreground='{DynamicResource HeaderTextBrush}'/>
                                 <!-- Editing a GPO: only the settings it configures -->
-                                <CheckBox Grid.Column='1' Name='configuredOnlyCheckBox' Content='Configured settings only'
+                                <CheckBox Grid.Column='2' Name='configuredOnlyCheckBox' Content='Configured settings only'
                                           IsVisible='False' Foreground='{DynamicResource HeaderTextBrush}'
                                           ToolTip.Tip='Shows only the policies and security settings this GPO configures'/>
                             </Grid>
