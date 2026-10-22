@@ -69,7 +69,7 @@ compte connecté, et la version de HGPM avec une pastille :
   jour sont inconnues.
 
 La Gallery est lue comme à l'import du module (voir [Mises à jour](../getting-started/installation.md#mises-a-jour)) :
-au plus une fois par jour, 3 secondes au plus. La console des paramètres de mot de passe a la même
+au plus une fois par jour, 8 secondes au plus. La console des paramètres de mot de passe a la même
 barre d'état.
 
 ## Thèmes et réglages

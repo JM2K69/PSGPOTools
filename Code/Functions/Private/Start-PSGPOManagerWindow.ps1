@@ -1412,7 +1412,19 @@ function Start-PSGPOManagerWindow {
         $copy.Path = ConvertTo-PSGPODisplayText $Row.Path
         $copy.Name = ConvertTo-PSGPODisplayText $Row.Name
         $copy.State = ConvertTo-PSGPODisplayText $Row.State
-        $copy.Options = ConvertTo-PSGPODisplayText $Row.Options
+        # A preference: its attributes (hive = HKEY_LOCAL_MACHINE) by the labels of its type, as
+        # its form shows them (Hive: HKEY_LOCAL_MACHINE).
+        $labels = @{}
+        if ($Row.Path -like 'Policies > Preferences > *') {
+            $extensionName = @($Row.Path -split ' > ')[3]
+            foreach ($property in @(Get-PSGPOPreferenceCatalog | Where-Object Name -EQ $extensionName | ForEach-Object { $_.Items.Properties })) {
+                if ($property.Name -and -not $labels.ContainsKey($property.Name)) { $labels[$property.Name] = $property.Label }
+            }
+        }
+        $copy.Options = @("$($Row.Options)" -split '\r?\n' | ForEach-Object {
+                if ($_ -match '^(\w+) = (.*)$' -and $labels.ContainsKey($Matches[1])) { Get-PSGPOText '{0}: {1}' (Get-PSGPOText $labels[$Matches[1]]) $Matches[2] }
+                else { ConvertTo-PSGPODisplayText $_ }
+            }) -join [Environment]::NewLine
         $copy.IsExtra = $Row.IsExtra
         $copy
     }

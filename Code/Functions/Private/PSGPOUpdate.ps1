@@ -69,7 +69,7 @@ function Get-PSGPOUpdateCheckPath {
 function Get-PSGPOGalleryVersion {
     [CmdletBinding()]
     [OutputType([semver])]
-    param([int]$TimeoutSeconds = 3)
+    param([int]$TimeoutSeconds = 8)
 
     $response = Invoke-WebRequest -Uri "https://www.powershellgallery.com/api/v2/FindPackagesById()?id=%27HGPM%27" -TimeoutSec $TimeoutSeconds -UseBasicParsing -ErrorAction Stop
     $feed = [xml]$response.Content
