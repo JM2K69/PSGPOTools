@@ -91,6 +91,12 @@ comme Windows l'écrit), augmente la version ordinateur et déclare l'extension 
 qu'il a. L'onglet Paramètres les liste (Membres, Membre de). Vérifié sur un membre Windows : les
 Utilisateurs du Bureau à distance locaux ont reçu exactement les membres définis.
 
+!!! warning "Un écart avec la GPMC"
+    Pour un groupe restreint, la GPMC écrit toujours la liste de ses membres : une liste vide retire
+    alors tous les membres du groupe. Dans la console, **Membres de ce groupe** est coché par
+    défaut : même comportement. Décochée, la clé `__Members` n'est pas écrite et les membres
+    actuels du groupe ne sont pas touchés ; seul **Ce groupe est membre de** s'applique.
+
 ### Stratégies de clé publique
 
 ![Les autorités de certification racines de confiance d'un GPO](../assets/screenshots/40-public-key-policies.fr.png)
@@ -116,6 +122,10 @@ stratégie qui donne les identificateurs de l'organisation).
 Vérifié sur un membre Windows : l'autorité de certification racine est dans le magasin de stratégie
 de groupe de l'ordinateur (`certutil -grouppolicy -store Root`), l'agent de récupération EFS dans
 son magasin EFS, et l'`EFSBlob` du registre est celui écrit.
+
+Les formats viennent de la spécification de Microsoft :
+[\[MS-GPEF\] Message Syntax](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpef/2816eba2-0079-4650-a152-276334c0745e)
+(EFS Recovery Policy, Certificate BLOB, EfsBlob, EfsKey).
 
 ### Stratégie d'audit avancée
 
