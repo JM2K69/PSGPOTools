@@ -5,7 +5,7 @@ function Get-PSGPOWmiFilter {
     .DESCRIPTION
         As the WMI Filters container of GPMC: the msWMI-Som objects of CN=SOM,CN=WMIPolicy,
         CN=System of the domain, with their queries. A computer applies a GPO linked to a WMI
-        filter only when one of its queries returns something.
+        filter only when each of its queries returns something.
     .PARAMETER Name
         Names of the filters (* and ? make a pattern); all of them by default.
     .PARAMETER Directory

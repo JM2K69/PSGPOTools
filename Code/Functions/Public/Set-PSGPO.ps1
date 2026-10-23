@@ -8,7 +8,7 @@ function Set-PSGPO {
         menu of GPMC) says which part of the GPO the computers apply: all its settings, those of
         the computers only (User configuration settings disabled), those of the users only, or
         none. The WMI filter (the WMI Filtering of the Scope tab of GPMC) makes the computers
-        apply the GPO only when one of its queries returns something.
+        apply the GPO only when each of its queries returns something.
     .PARAMETER Name
         Display names of the GPOs (* and ? make a pattern).
     .PARAMETER NewName

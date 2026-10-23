@@ -17,6 +17,8 @@
 
 ### Changed
 
+* A documentation page, WMI filters and Linux clients: how a Windows computer evaluates a WMI filter, and what a Linux computer joined with Samba applies of a GPO (read in the code of Samba 4.22): it ignores the WMI filters, the GPO status and the *Apply Group Policy* right (only Read counts), and applies only the extensions of Samba (sudoers, scripts, messages, smb.conf, firewalld, Firefox, Chromium, GNOME, certificates, drive maps, VGP...); how to target or keep away the Linux computers
+* The console, the help and the documentation say a WMI filter is true when each of its queries returns something (they said one of them): the queries are joined with AND, as Windows evaluates them
 * The History tab names the versions of each node, `computer 3, user 0`, instead of `version 3 / 0` that read as a fraction
 
 ## 0.1.8 - alpha

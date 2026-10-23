@@ -547,7 +547,7 @@ $(Get-PSGPOWindowResourceXaml)
                                     <Grid Name='gpoWmiFilterPanel' ColumnDefinitions='180,*' IsVisible='False' Margin='0,0,0,8'>
                                         <TextBlock Text='Change the WMI filter' VerticalAlignment='Center' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
                                         <ComboBox Grid.Column='1' Name='gpoWmiFilterComboBox' HorizontalAlignment='Stretch'
-                                                  ToolTip.Tip='The computers apply the GPO only when a query of its WMI filter returns something'/>
+                                                  ToolTip.Tip='The computers apply the GPO only when each query of its WMI filter returns something'/>
                                     </Grid>
                                     <Button Name='editWmiFilterButton' IsVisible='False' Margin='0,8,0,8'>
                                         <StackPanel Orientation='Horizontal' Spacing='8'>

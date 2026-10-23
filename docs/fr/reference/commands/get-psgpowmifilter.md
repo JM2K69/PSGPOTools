@@ -12,7 +12,7 @@ Get-PSGPOWmiFilter [[-Name] <string[]>] [[-Directory] <GPOToolsDirectory>] [[-Se
 
 ## Description
 
-As the WMI Filters container of GPMC: the msWMI-Som objects of CN=SOM,CN=WMIPolicy, CN=System of the domain, with their queries. A computer applies a GPO linked to a WMI filter only when one of its queries returns something.
+As the WMI Filters container of GPMC: the msWMI-Som objects of CN=SOM,CN=WMIPolicy, CN=System of the domain, with their queries. A computer applies a GPO linked to a WMI filter only when each of its queries returns something.
 
 ## Paramètres
 

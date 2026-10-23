@@ -73,7 +73,7 @@ class GPOToolsGpo {
 }
 
 # A WMI filter of the domain (msWMI-Som in CN=SOM,CN=WMIPolicy,CN=System): the computers apply the
-# GPOs linked to it only when one of its queries returns something.
+# GPOs linked to it only when each of its queries returns something.
 class GPOToolsWmiFilter {
     [guid]$Id
     [string]$Name

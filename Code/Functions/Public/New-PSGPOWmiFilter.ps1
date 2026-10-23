@@ -4,7 +4,7 @@ function New-PSGPOWmiFilter {
         Creates a WMI filter in the domain, as GPMC "New" in WMI Filters.
     .DESCRIPTION
         A msWMI-Som object in CN=SOM,CN=WMIPolicy,CN=System of the domain, with its WQL queries. A
-        computer applies a GPO linked to it (Set-PSGPO -WmiFilter) only when one of its queries
+        computer applies a GPO linked to it (Set-PSGPO -WmiFilter) only when each of its queries
         returns something. Samba AD keeps the filters for the Windows computers of the domain.
     .PARAMETER Name
         Name of the filter, unique in the domain.

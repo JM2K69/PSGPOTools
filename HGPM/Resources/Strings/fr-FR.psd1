@@ -434,7 +434,7 @@
     'File (.mof) exported by GPMC or HGPM' = 'Fichier (.mof) exporté par GPMC ou HGPM'
     'C:\Exports\Workstations.mof' = 'C:\Exports\Postes.mof'
     'Name of the filter in this domain' = 'Nom du filtre dans ce domaine'
-    'The computers apply the GPO only when a query of its WMI filter returns something' = 'Les ordinateurs n''appliquent le GPO que lorsqu''une requête de son filtre WMI renvoie quelque chose'
+    'The computers apply the GPO only when each query of its WMI filter returns something' = 'Les ordinateurs n''appliquent le GPO que lorsque chaque requête de son filtre WMI renvoie quelque chose'
     'WMI filter (.mof)' = 'Filtre WMI (.mof)'
     'Export the WMI filter' = 'Exporter le filtre WMI'
     'Export the WMI filter ''{0}''' = 'Exporter le filtre WMI « {0} »'
@@ -450,7 +450,7 @@
     '''{0}'', exported from {1}' = '« {0} », exporté de {1}'
     'A WMI filter named ''{0}'' exists in {1}: give the imported one another name.' = 'Un filtre WMI nommé « {0} » existe dans {1} : donnez un autre nom à celui importé.'
     'WMI filter ''{0}'' imported from {1}. Link a GPO to it with WMI Filter in the context menu of the GPO, or Use it in a GPO... here.' = 'Filtre WMI « {0} » importé de {1}. Liez-y un GPO avec Filtre WMI dans le menu contextuel du GPO, ou L''utiliser dans un GPO... ici.'
-    'Use the WMI filter ''{0}'' in a GPO: the computers apply it only when {1} returns something' = 'Utiliser le filtre WMI « {0} » dans un GPO : les ordinateurs ne l''appliquent que lorsque {1} renvoie quelque chose'
+    'Use the WMI filter ''{0}'' in a GPO: the computers apply it only when each of its queries returns something ({1})' = 'Utiliser le filtre WMI « {0} » dans un GPO : les ordinateurs ne l''appliquent que lorsque chacune de ses requêtes renvoie quelque chose ({1})'
     'No GPO named like ''{0}'' can use the WMI filter ''{1}''.' = 'Aucun GPO nommé comme « {0} » ne peut utiliser le filtre WMI « {1} ».'
     'Every GPO you edit uses the WMI filter ''{0}'' already.' = 'Chaque GPO que vous modifiez utilise déjà le filtre WMI « {0} ».'
     '''{0}'' is linked to the WMI filter ''{1}'', instead of ''{2}''.' = '« {0} » est lié au filtre WMI « {1} », au lieu de « {2} ».'
@@ -511,7 +511,7 @@
     'Changes since the approved version of {0}' = 'Modifications depuis la version approuvée du {0}'
 
     # --- WMI filters, links, inheritance, status, refresh ----------------------------------------
-    '''{0}'' is linked to the WMI filter ''{1}'': the computers apply it only when {2} returns something.' = '« {0} » est lié au filtre WMI « {1} » : les ordinateurs ne l''appliquent que si {2} renvoie quelque chose.'
+    '''{0}'' is linked to the WMI filter ''{1}'': the computers apply it only when each of its queries returns something ({2}).' = '« {0} » est lié au filtre WMI « {1} » : les ordinateurs ne l''appliquent que si chacune de ses requêtes renvoie quelque chose ({2}).'
     '''{0}'' is linked to no WMI filter.' = '« {0} » n''est lié à aucun filtre WMI.'
     'root\CIMv2' = 'root\CIMv2'
     'WMI filter ''{0}'' created. Link a GPO to it with WMI Filter in the context menu of the GPO.' = 'Filtre WMI « {0} » créé. Liez-y un GPO avec Filtre WMI dans le menu contextuel du GPO.'

@@ -1414,7 +1414,7 @@ InModuleScope -ModuleName HGPM {
                 $Ui.useWmiFilterMenuItem.IsVisible | Should -BeTrue
                 Invoke-Click $Ui.useWmiFilterMenuItem
                 $Ui.useWmiFilterPanel.IsVisible | Should -BeTrue
-                $Ui.useWmiFilterTitleTextBlock.Text | Should -Be "Use the WMI filter 'Laptops' in a GPO: the computers apply it only when root\CIMv2: SELECT * FROM Win32_Battery returns something"
+                $Ui.useWmiFilterTitleTextBlock.Text | Should -Be "Use the WMI filter 'Laptops' in a GPO: the computers apply it only when each of its queries returns something (root\CIMv2: SELECT * FROM Win32_Battery)"
                 @($Ui.useWmiFilterList.ItemsSource).Count | Should -Be $Ui.Directory.Gpos.Count
                 $Ui.useWmiFilterSearchTextBox.Text = 'power management'
                 $Ui.useWmiFilterList.SelectedItem | Should -Be $Gpo -Because 'the only match is chosen'
@@ -1423,7 +1423,7 @@ InModuleScope -ModuleName HGPM {
                 $Gpo.WmiFilterId | Should -Be $Laptops.Id
                 $Ui.domainTreeView.SelectedItem.Tag | Should -Be $Laptops
                 ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'GPOs using it').Value | Should -Be 'C - Laptops - Power Management'
-                $Ui.directoryResultTextBlock.Text | Should -Be "'C - Laptops - Power Management' is linked to the WMI filter 'Laptops': the computers apply it only when root\CIMv2: SELECT * FROM Win32_Battery returns something."
+                $Ui.directoryResultTextBlock.Text | Should -Be "'C - Laptops - Power Management' is linked to the WMI filter 'Laptops': the computers apply it only when each of its queries returns something (root\CIMv2: SELECT * FROM Win32_Battery)."
                 Invoke-Click $Ui.useWmiFilterMenuItem
                 @($Ui.useWmiFilterList.ItemsSource) | Should -Not -Contain $Gpo -Because 'it uses the filter already'
                 Invoke-Click $Ui.useWmiFilterCancelButton
