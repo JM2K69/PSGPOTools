@@ -83,6 +83,14 @@ class GPOToolsWmiFilter {
     [object[]]$Queries = @()
     # The account can change and delete it (allowedAttributesEffective holds msWMI-Parm2)
     [bool]$CanEdit = $true
+    # Who created it and when, when it changed last (msWMI-Author, msWMI-CreationDate,
+    # msWMI-ChangeDate: yyyyMMddHHmmss.ffffff-000, UTC), as a .mof export keeps them
+    [string]$Author
+    [string]$CreationDate
+    [string]$ChangeDate
+
+    # The date of a WMI filter (msWMI-CreationDate, msWMI-ChangeDate) now.
+    static [string] GetDate() { return [datetime]::UtcNow.ToString('yyyyMMddHHmmss.ffffff-000', [cultureinfo]::InvariantCulture) }
 
     [string] GetQueryText() {
         return (@($this.Queries | ForEach-Object { "$($_.Namespace): $($_.Query)" }) -join '; ')
@@ -618,8 +626,13 @@ class GPOToolsDirectory {
         $Filter.Description = $Description
         $Filter.Queries = @($Queries | ForEach-Object { [pscustomobject]@{ Namespace = $(if ($_.Namespace) { $_.Namespace } else { 'root\CIMv2' }); Query = "$($_.Query)" } })
         $Filter.DistinguishedName = 'CN={{{0}}},CN=SOM,CN=WMIPolicy,CN=System,{1}' -f $Filter.Id.ToString().ToUpperInvariant(), $this.Domain.DistinguishedName
+        $Filter.Author = if ($this.Account) { $this.Account } else { [Environment]::UserName }
+        $Filter.CreationDate = [GPOToolsWmiFilter]::GetDate()
+        $Filter.ChangeDate = $Filter.CreationDate
         $this.SaveNewWmiFilter($Filter)
         $this.WmiFilters.Add($Filter)
+        # By name, as the domain gives them.
+        $this.WmiFilters.Sort([System.Comparison[GPOToolsWmiFilter]] { param($a, $b) [string]::Compare($a.Name, $b.Name, $true) })
         return $Filter
     }
 
@@ -641,7 +654,9 @@ class GPOToolsDirectory {
         $Changed.Description = "$Description".Trim()
         $Changed.Queries = @($Queries | ForEach-Object { [pscustomobject]@{ Namespace = $(if ($_.Namespace) { "$($_.Namespace)".Trim() } else { 'root\CIMv2' }); Query = "$($_.Query)".Trim() } })
         if ($Changed.Name -ceq $Filter.Name -and $Changed.Description -ceq "$($Filter.Description)" -and $Changed.GetQueryText() -ceq $Filter.GetQueryText()) { return }
+        $Changed.ChangeDate = [GPOToolsWmiFilter]::GetDate()
         $this.SaveEditedWmiFilter($Filter, $Changed)
+        $Filter.ChangeDate = $Changed.ChangeDate
         $Filter.Name = $Changed.Name
         $Filter.Description = $Changed.Description
         $Filter.Queries = $Changed.Queries

@@ -4,6 +4,10 @@
 
 ### Added
 
+* Export and import WMI filters as `.mof` files, as GPMC does: **Export...** on a filter, **Import...** on WMI Filters, and `Export-PSGPOWmiFilter`, `Import-PSGPOWmiFilter`. The format is the one of GPMC (UTF-16, `MSFT_SomFilter` and its `MSFT_Rule`), checked on a Windows domain both ways: Windows creates a filter again from a file of HGPM, HGPM imports a file of Windows that GPMC then reads. An imported filter gets a new Id; the console imports a file of one filter, the command all of them
+* Give a WMI filter to a GPO from the filter, **Use it in a GPO...**, and from the details of the GPO, its **WMI filter** list, as the Scope tab of GPMC
+* The WMI filters keep their author and dates (`msWMI-Author`, `msWMI-CreationDate`, `msWMI-ChangeDate`), as the `.mof` files hold them
+
 * Rename a GPO, as GPMC: **Rename...** in the context menu of a GPO or of a link to it, or F2 in the tree, and `Set-PSGPO -NewName`. Only its display name changes (its GUID, SYSVOL folder, links, backups and filtering groups are kept); the name of another GPO, or a GPO renamed in the domain meanwhile, is refused. Audited as `RenameGpo`
 * Rename a WMI filter with **Rename...** (or F2) in its context menu, and **Edit this WMI filter** in its details
 * Delete a GPO of the recycle bin for good: **Delete for good...** on a GPO of Deleted GPOs, and `Remove-PSGPOBackup`, deletes all its backups, the templates made from it too, after a confirmation that counts them. Refused for a GPO still in the domain. Audited as `RemoveDeletedGpoBackup`

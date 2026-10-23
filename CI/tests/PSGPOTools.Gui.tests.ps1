@@ -1328,6 +1328,131 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Exports a WMI filter to a .mof file and imports it, from their context menus' {
+            $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
+            $script:MofRoot = Join-Path $TestDrive "mof-$([guid]::NewGuid())"
+            $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
+            Set-PSGPOUserSetting -Values @{ BackupPath = $script:MofRoot }
+            $script:WindowsMof = Join-Path $PSScriptRoot 'Fixtures' 'WmiFilter' 'windows-export.mof'
+            $null = $Directory.NewWmiFilter('Laptops', 'Computers with a battery', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_Battery' }))
+            try {
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    $File = Join-Path $script:MofRoot 'WMI filters' 'Laptops.mof'
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters'
+                    $Ui.exportWmiFilterMenuItem.IsVisible | Should -BeFalse
+                    $Ui.importWmiFilterMenuItem.IsVisible | Should -BeTrue
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters', 'Laptops'
+                    $Ui.importWmiFilterMenuItem.IsVisible | Should -BeFalse
+                    $Ui.exportWmiFilterMenuItem.IsVisible | Should -BeTrue
+                    Invoke-Click $Ui.exportWmiFilterMenuItem
+                    $Ui.exportWmiFilterPanel.IsVisible | Should -BeTrue
+                    $Ui.exportWmiFilterTitleTextBlock.Text | Should -Be "Export the WMI filter 'Laptops'"
+                    $Ui.exportWmiFilterPathTextBox.Text | Should -Be $File
+                    Invoke-Click $Ui.exportWmiFilterConfirmButton
+                    $Ui.exportWmiFilterPanel.IsVisible | Should -BeFalse
+                    Test-Path -LiteralPath $File | Should -BeTrue
+                    $Ui.directoryResultTextBlock.Text | Should -BeLike "WMI filter 'Laptops' exported to $File*"
+
+                    # A file there: replaced once confirmed.
+                    Invoke-Click $Ui.exportWmiFilterMenuItem
+                    Invoke-Click $Ui.exportWmiFilterConfirmButton
+                    $Ui.exportWmiFilterPanel.IsVisible | Should -BeTrue
+                    $Ui.exportWmiFilterErrorTextBlock.Text | Should -Be "$File exists: Replace writes the filter over it."
+                    $Ui.exportWmiFilterConfirmButton.Content | Should -Be 'Replace'
+                    Invoke-Click $Ui.exportWmiFilterConfirmButton
+                    $Ui.exportWmiFilterPanel.IsVisible | Should -BeFalse
+
+                    # Imported: refused under the name of a filter of the domain, then under another one.
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters'
+                    Invoke-Click $Ui.importWmiFilterMenuItem
+                    $Ui.importWmiFilterPanel.IsVisible | Should -BeTrue
+                    $Ui.importWmiFilterConfirmButton.IsEnabled | Should -BeFalse
+                    $Ui.importWmiFilterPathTextBox.Text = $File
+                    Invoke-Click $Ui.importWmiFilterReadButton
+                    $Ui.importWmiFilterInfoTextBlock.Text | Should -Be ("'Laptops', exported from corp.contoso.com", 'Computers with a battery', 'root\CIMv2: SELECT * FROM Win32_Battery' -join [Environment]::NewLine)
+                    $Ui.importWmiFilterErrorTextBlock.Text | Should -Be "A WMI filter named 'Laptops' exists in corp.contoso.com: give the imported one another name."
+                    $Ui.importWmiFilterNameTextBox.Text | Should -Be 'Laptops'
+                    Invoke-Click $Ui.importWmiFilterConfirmButton
+                    $Ui.importWmiFilterErrorTextBlock.Text | Should -BeLike "*'Laptops' already exists*"
+                    $Ui.importWmiFilterNameTextBox.Text = 'Laptops (copy)'
+                    Invoke-Click $Ui.importWmiFilterConfirmButton
+                    $Ui.importWmiFilterPanel.IsVisible | Should -BeFalse
+                    $Copy = $Ui.Directory.FindWmiFilter('Laptops (copy)')
+                    $Copy.GetQueryText() | Should -Be 'root\CIMv2: SELECT * FROM Win32_Battery'
+                    $Ui.domainTreeView.SelectedItem.Tag | Should -Be $Copy
+                    $Ui.directoryResultTextBlock.Text | Should -BeLike "WMI filter 'Laptops (copy)' imported from $File.*"
+
+                    # The file of Windows (GPMC), and a file that is not a filter.
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters'
+                    Invoke-Click $Ui.importWmiFilterMenuItem
+                    $Ui.importWmiFilterPathTextBox.Text = $script:WindowsMof
+                    $KeyArgs = [Avalonia.Input.KeyEventArgs]::new()
+                    $KeyArgs.RoutedEvent = [Avalonia.Input.InputElement]::KeyDownEvent
+                    $KeyArgs.Key = [Avalonia.Input.Key]::Enter
+                    $Ui.importWmiFilterPathTextBox.RaiseEvent($KeyArgs)
+                    $Ui.importWmiFilterInfoTextBlock.Text | Should -BeLike "'HGPM - MOF reference', exported from powershell.labo*root\StandardCimv2: SELECT * FROM MSFT_NetAdapter"
+                    $Ui.importWmiFilterErrorTextBlock.Text | Should -BeNullOrEmpty
+                    $Ui.importWmiFilterConfirmButton.IsEnabled | Should -BeTrue
+                    $Ui.importWmiFilterPathTextBox.Text = $PSCommandPath
+                    Invoke-Click $Ui.importWmiFilterReadButton
+                    $Ui.importWmiFilterErrorTextBlock.Text | Should -BeLike 'The file cannot be imported: *'
+                    $Ui.importWmiFilterConfirmButton.IsEnabled | Should -BeFalse
+                }
+            } finally {
+                $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
+            }
+        }
+
+        It 'Gives a WMI filter to a GPO from the filter, and from the details of the GPO' {
+            $Laptops = $Directory.NewWmiFilter('Laptops', '', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_Battery' }))
+            $Workstations = $Directory.NewWmiFilter('Workstations', '', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' }))
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Gpo = $Ui.Directory.FindGpo('C - Laptops - Power Management')
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters', 'Laptops'
+                $Ui.useWmiFilterMenuItem.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.useWmiFilterMenuItem
+                $Ui.useWmiFilterPanel.IsVisible | Should -BeTrue
+                $Ui.useWmiFilterTitleTextBlock.Text | Should -Be "Use the WMI filter 'Laptops' in a GPO: the computers apply it only when root\CIMv2: SELECT * FROM Win32_Battery returns something"
+                @($Ui.useWmiFilterList.ItemsSource).Count | Should -Be $Ui.Directory.Gpos.Count
+                $Ui.useWmiFilterSearchTextBox.Text = 'power management'
+                $Ui.useWmiFilterList.SelectedItem | Should -Be $Gpo -Because 'the only match is chosen'
+                Invoke-Click $Ui.useWmiFilterConfirmButton
+                $Ui.useWmiFilterPanel.IsVisible | Should -BeFalse
+                $Gpo.WmiFilterId | Should -Be $Laptops.Id
+                $Ui.domainTreeView.SelectedItem.Tag | Should -Be $Laptops
+                ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'GPOs using it').Value | Should -Be 'C - Laptops - Power Management'
+                $Ui.directoryResultTextBlock.Text | Should -Be "'C - Laptops - Power Management' is linked to the WMI filter 'Laptops': the computers apply it only when root\CIMv2: SELECT * FROM Win32_Battery returns something."
+                Invoke-Click $Ui.useWmiFilterMenuItem
+                @($Ui.useWmiFilterList.ItemsSource) | Should -Not -Contain $Gpo -Because 'it uses the filter already'
+                Invoke-Click $Ui.useWmiFilterCancelButton
+
+                # In the details of the GPO: its filter, another one, none.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'C - Laptops - Power Management'
+                $Ui.gpoWmiFilterPanel.IsVisible | Should -BeTrue
+                @($Ui.gpoWmiFilterComboBox.ItemsSource.Content) | Should -Be @('(none)', 'Laptops', 'Workstations')
+                $Ui.gpoWmiFilterComboBox.SelectedItem.Content | Should -Be 'Laptops'
+                $Ui.gpoWmiFilterComboBox.SelectedIndex = 2
+                $Gpo.WmiFilterId | Should -Be $Workstations.Id
+                $Ui.directoryResultTextBlock.Text | Should -BeLike "'C - Laptops - Power Management' is linked to the WMI filter 'Workstations'*"
+                $Ui.gpoWmiFilterComboBox.SelectedItem.Content | Should -Be 'Workstations'
+                $Ui.gpoWmiFilterComboBox.SelectedIndex = 0
+                $Gpo.WmiFilterId | Should -BeNullOrEmpty
+                $Ui.directoryResultTextBlock.Text | Should -Be "'C - Laptops - Power Management' is linked to no WMI filter."
+
+                # A filter the domain does not have anymore, and a GPO the account does not edit.
+                $Gpo.WmiFilterId = [guid]::NewGuid()
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'C - Laptops - Power Management'
+                $Ui.gpoWmiFilterComboBox.SelectedItem.Content | Should -BeLike '{*}: not in the domain anymore*'
+                $Gpo.CanEdit = $false
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'C - Laptops - Power Management'
+                $Ui.gpoWmiFilterPanel.IsVisible | Should -BeFalse
+            }
+        }
+
         It 'Says in the editor what the status of the GPO disables' {
             $Directory.SetGpoStatus($Directory.FindGpo('U - Lyon - Printers'), 2)
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {

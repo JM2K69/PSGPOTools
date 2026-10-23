@@ -78,7 +78,7 @@ function Read-PSGPODomainWmiFilter {
     $container = Invoke-PSGPOLdapSearch -Connection $Connection -SearchBase $base -Scope Base -Attribute 'allowedChildClassesEffective' -AllowMissing
     $Directory.CanCreateWmiFilter = $container -and @($container.Attributes['allowedChildClassesEffective']) -contains 'msWMI-Som'
     $entries = @(Invoke-PSGPOLdapSearch -Connection $Connection -SearchBase $base -Scope OneLevel -Filter '(objectClass=msWMI-Som)' `
-            -Attribute 'msWMI-ID', 'msWMI-Name', 'msWMI-Parm1', 'msWMI-Parm2', 'allowedAttributesEffective' -AllowMissing)
+            -Attribute 'msWMI-ID', 'msWMI-Name', 'msWMI-Parm1', 'msWMI-Parm2', 'msWMI-Author', 'msWMI-CreationDate', 'msWMI-ChangeDate', 'allowedAttributesEffective' -AllowMissing)
     $Directory.WmiFilters.Clear()
     foreach ($entry in $entries) {
         $id = [guid]::Empty
@@ -91,6 +91,9 @@ function Read-PSGPODomainWmiFilter {
         $filter.DistinguishedName = $entry.DistinguishedName
         $filter.Name = Get-PSGPOLdapValue $entry 'msWMI-Name'
         $filter.Description = Get-PSGPOLdapValue $entry 'msWMI-Parm1'
+        $filter.Author = Get-PSGPOLdapValue $entry 'msWMI-Author'
+        $filter.CreationDate = Get-PSGPOLdapValue $entry 'msWMI-CreationDate'
+        $filter.ChangeDate = Get-PSGPOLdapValue $entry 'msWMI-ChangeDate'
         $filter.CanEdit = @($entry.Attributes['allowedAttributesEffective']) -contains 'msWMI-Parm2'
         try {
             $filter.Queries = @(ConvertFrom-PSGPOWmiQueryText -Text (Get-PSGPOLdapValue $entry 'msWMI-Parm2'))
@@ -148,15 +151,14 @@ function New-PSGPODomainWmiFilter {
         [Parameter(Mandatory)] [GPOToolsWmiFilter]$Filter
     )
 
-    $now = [datetime]::UtcNow.ToString('yyyyMMddHHmmss.ffffff-000', [cultureinfo]::InvariantCulture)
     $request = [System.DirectoryServices.Protocols.AddRequest]::new($Filter.DistinguishedName, 'msWMI-Som')
     $values = [ordered]@{
         'msWMI-ID' = '{' + $Filter.Id.ToString().ToUpperInvariant() + '}'
         'msWMI-Name' = $Filter.Name
         'msWMI-Parm2' = ConvertTo-PSGPOWmiQueryText -Query $Filter.Queries
-        'msWMI-Author' = if ($Directory.Account) { $Directory.Account } else { [Environment]::UserName }
-        'msWMI-CreationDate' = $now
-        'msWMI-ChangeDate' = $now
+        'msWMI-Author' = $Filter.Author
+        'msWMI-CreationDate' = $Filter.CreationDate
+        'msWMI-ChangeDate' = $Filter.ChangeDate
         'showInAdvancedViewOnly' = 'TRUE'
     }
     if ($Filter.Description) { $values['msWMI-Parm1'] = $Filter.Description }
@@ -206,7 +208,7 @@ function Set-PSGPODomainWmiFilter {
         $date = [System.DirectoryServices.Protocols.DirectoryAttributeModification]::new()
         $date.Name = 'msWMI-ChangeDate'
         $date.Operation = [System.DirectoryServices.Protocols.DirectoryAttributeOperation]::Replace
-        [void]$date.Add([datetime]::UtcNow.ToString('yyyyMMddHHmmss.ffffff-000', [cultureinfo]::InvariantCulture))
+        [void]$date.Add($(if ($Changed.ChangeDate) { $Changed.ChangeDate } else { [GPOToolsWmiFilter]::GetDate() }))
         [void]$request.Modifications.Add($date)
         try {
             [void]$connection.SendRequest($request)

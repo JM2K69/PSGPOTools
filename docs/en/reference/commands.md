@@ -32,6 +32,8 @@ page. The commands that change the domain support `-WhatIf` and `-Confirm`.
 | [`New-PSGPOWmiFilter`](commands/new-psgpowmifilter.md) `-Name -Query [-Namespace] [-Description]` | creates a WMI filter |
 | [`Set-PSGPOWmiFilter`](commands/set-psgpowmifilter.md) `-Name [-NewName] [-Description] [-Query] [-Namespace]` | changes the name, description or queries of a WMI filter |
 | [`Remove-PSGPOWmiFilter`](commands/remove-psgpowmifilter.md) `-Name` | deletes WMI filters no GPO uses |
+| [`Export-PSGPOWmiFilter`](commands/export-psgpowmifilter.md) `-Name -Path [-Force]` | exports WMI filters to `.mof` files, as GPMC does |
+| [`Import-PSGPOWmiFilter`](commands/import-psgpowmifilter.md) `-Path [-Name]` | creates WMI filters from `.mof` files of GPMC or HGPM |
 
 A name given with `-Name` is the name of the GPO, brackets included (`Servers [Lyon]`); with `*` or `?` it is a wildcard pattern. Two GPOs with the same name are each taken.
 

@@ -172,6 +172,35 @@ function Start-PSGPOManagerWindow {
     $renameCancelButton = Get-PSGPOAvaloniaControl $window 'renameCancelButton'
     $editWmiFilterButton = Get-PSGPOAvaloniaControl $window 'editWmiFilterButton'
     $editingStatusTextBlock = Get-PSGPOAvaloniaControl $window 'editingStatusTextBlock'
+    $useWmiFilterMenuItem = Get-PSGPOAvaloniaControl $window 'useWmiFilterMenuItem'
+    $exportWmiFilterMenuItem = Get-PSGPOAvaloniaControl $window 'exportWmiFilterMenuItem'
+    $importWmiFilterMenuItem = Get-PSGPOAvaloniaControl $window 'importWmiFilterMenuItem'
+    $exportWmiFilterPanel = Get-PSGPOAvaloniaControl $window 'exportWmiFilterPanel'
+    $exportWmiFilterTitleTextBlock = Get-PSGPOAvaloniaControl $window 'exportWmiFilterTitleTextBlock'
+    $exportWmiFilterPathTextBox = Get-PSGPOAvaloniaControl $window 'exportWmiFilterPathTextBox'
+    $exportWmiFilterBrowseButton = Get-PSGPOAvaloniaControl $window 'exportWmiFilterBrowseButton'
+    $exportWmiFilterErrorTextBlock = Get-PSGPOAvaloniaControl $window 'exportWmiFilterErrorTextBlock'
+    $exportWmiFilterConfirmButton = Get-PSGPOAvaloniaControl $window 'exportWmiFilterConfirmButton'
+    $exportWmiFilterCancelButton = Get-PSGPOAvaloniaControl $window 'exportWmiFilterCancelButton'
+    $importWmiFilterPanel = Get-PSGPOAvaloniaControl $window 'importWmiFilterPanel'
+    $importWmiFilterTitleTextBlock = Get-PSGPOAvaloniaControl $window 'importWmiFilterTitleTextBlock'
+    $importWmiFilterPathTextBox = Get-PSGPOAvaloniaControl $window 'importWmiFilterPathTextBox'
+    $importWmiFilterBrowseButton = Get-PSGPOAvaloniaControl $window 'importWmiFilterBrowseButton'
+    $importWmiFilterReadButton = Get-PSGPOAvaloniaControl $window 'importWmiFilterReadButton'
+    $importWmiFilterInfoTextBlock = Get-PSGPOAvaloniaControl $window 'importWmiFilterInfoTextBlock'
+    $importWmiFilterNameTextBox = Get-PSGPOAvaloniaControl $window 'importWmiFilterNameTextBox'
+    $importWmiFilterErrorTextBlock = Get-PSGPOAvaloniaControl $window 'importWmiFilterErrorTextBlock'
+    $importWmiFilterConfirmButton = Get-PSGPOAvaloniaControl $window 'importWmiFilterConfirmButton'
+    $importWmiFilterCancelButton = Get-PSGPOAvaloniaControl $window 'importWmiFilterCancelButton'
+    $useWmiFilterPanel = Get-PSGPOAvaloniaControl $window 'useWmiFilterPanel'
+    $useWmiFilterTitleTextBlock = Get-PSGPOAvaloniaControl $window 'useWmiFilterTitleTextBlock'
+    $useWmiFilterSearchTextBox = Get-PSGPOAvaloniaControl $window 'useWmiFilterSearchTextBox'
+    $useWmiFilterList = Get-PSGPOAvaloniaControl $window 'useWmiFilterList'
+    $useWmiFilterErrorTextBlock = Get-PSGPOAvaloniaControl $window 'useWmiFilterErrorTextBlock'
+    $useWmiFilterConfirmButton = Get-PSGPOAvaloniaControl $window 'useWmiFilterConfirmButton'
+    $useWmiFilterCancelButton = Get-PSGPOAvaloniaControl $window 'useWmiFilterCancelButton'
+    $gpoWmiFilterPanel = Get-PSGPOAvaloniaControl $window 'gpoWmiFilterPanel'
+    $gpoWmiFilterComboBox = Get-PSGPOAvaloniaControl $window 'gpoWmiFilterComboBox'
     $newGpoTemplateComboBox = Get-PSGPOAvaloniaControl $window 'newGpoTemplateComboBox'
     $historyNotesTemplateCheckBox = Get-PSGPOAvaloniaControl $window 'historyNotesTemplateCheckBox'
     $linkGpoPanel = Get-PSGPOAvaloniaControl $window 'linkGpoPanel'
@@ -1412,7 +1441,8 @@ function Start-PSGPOManagerWindow {
 
     # The forms of the details, one at a time.
     function Hide-DirectoryForm {
-        foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel, $purgeDeletedGpoPanel, $renamePanel, $approveGpoPanel, $newWmiFilterPanel, $deleteWmiFilterPanel, $importGpoPanel) { $panel.IsVisible = $false }
+        foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel, $purgeDeletedGpoPanel, $renamePanel, $approveGpoPanel, $newWmiFilterPanel, $deleteWmiFilterPanel,
+            $exportWmiFilterPanel, $importWmiFilterPanel, $useWmiFilterPanel, $importGpoPanel) { $panel.IsVisible = $false }
     }
 
     # Approval of the selected GPO (approval workflow): what the creators may still do, who
@@ -2334,6 +2364,14 @@ function Start-PSGPOManagerWindow {
         # WMI Filter: the filters of the domain, as the WMI Filtering of the Scope tab of GPMC.
         $wmiFilterMenuItem.IsVisible = $gpoStatusMenuItem.IsVisible -and ($Directory.WmiFilters.Count -or $null -ne $detail.Gpo.WmiFilterId)
         if ($wmiFilterMenuItem.IsVisible) { Update-WmiFilterMenu -Gpo $detail.Gpo }
+        # And in the details of the GPO.
+        $gpoWmiFilterPanel.IsVisible = $wmiFilterMenuItem.IsVisible
+        if ($gpoWmiFilterPanel.IsVisible) { Update-GpoWmiFilterComboBox -Gpo $detail.Gpo }
+        # A filter: exported by anyone who reads it, used in the GPOs the account edits; WMI
+        # Filters: a filter imported where the account creates them.
+        $exportWmiFilterMenuItem.IsVisible = $item -is [GPOToolsWmiFilter]
+        $useWmiFilterMenuItem.IsVisible = $item -is [GPOToolsWmiFilter] -and -not $Directory.IsReadOnly -and @($Directory.Gpos | Where-Object CanEdit).Count -gt 0
+        $importWmiFilterMenuItem.IsVisible = $newWmiFilterMenuItem.IsVisible
         # Delete a GPO from Group Policy Objects, as GPMC; never a default GPO of the domain.
         $importGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit -and -not $Directory.IsReadOnly
         $deleteGpoMenuItem.IsVisible = $item -is [GPOToolsGpo] -and -not $Directory.IsReadOnly -and $item.CanEdit -and [GPOToolsDirectory]::DefaultGpoIds -notcontains $item.Id
@@ -2349,6 +2387,7 @@ function Start-PSGPOManagerWindow {
     (Get-PSGPOAvaloniaControl $window 'domainContextMenu').add_Opening({
         param($control, $e)
         if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $renameMenuItem.IsVisible -or $purgeDeletedGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
+                $exportWmiFilterMenuItem.IsVisible -or $importWmiFilterMenuItem.IsVisible -or $useWmiFilterMenuItem.IsVisible -or
                 $blockInheritanceMenuItem.IsVisible -or $gpoStatusMenuItem.IsVisible -or $wmiFilterMenuItem.IsVisible -or $newWmiFilterMenuItem.IsVisible -or $editWmiFilterMenuItem.IsVisible -or $deleteWmiFilterMenuItem.IsVisible -or
                 $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible -or $approveGpoMenuItem.IsVisible -or $importGpoMenuItem.IsVisible) -or
             -not $domainTreeView.SelectedItem) { $e.Cancel = $true }
@@ -2488,6 +2527,259 @@ function Start-PSGPOManagerWindow {
     $deleteWmiFilterMenuItem.Add_Click({ Open-DeleteWmiFilterForm })
     $deleteWmiFilterConfirmButton.Add_Click({ Submit-DeleteWmiFilter })
     $deleteWmiFilterCancelButton.Add_Click({ $deleteWmiFilterPanel.IsVisible = $false })
+
+    # File pickers of the system (xdg-desktop-portal on Linux), when there is one, for the .mof
+    # files: the result is awaited by a timer, as the UI thread cannot block on it; $Done gets the
+    # path chosen.
+    $filePicker = @{ Task = $null; Timer = $null; Done = $null }
+    function Start-MofFilePicker {
+        param([switch]$Save, [string]$Title, [string]$Path, [Parameter(Mandatory)] [scriptblock]$Done)
+        $type = [Avalonia.Platform.Storage.FilePickerFileType]::new((Get-PSGPOText 'WMI filter (.mof)'))
+        $type.Patterns = [string[]]@('*.mof')
+        if ($Save) {
+            $options = [Avalonia.Platform.Storage.FilePickerSaveOptions]::new()
+            $options.SuggestedFileName = [System.IO.Path]::GetFileName($Path)
+            $options.DefaultExtension = 'mof'
+            $options.FileTypeChoices = [Avalonia.Platform.Storage.FilePickerFileType[]]@($type)
+        } else {
+            $options = [Avalonia.Platform.Storage.FilePickerOpenOptions]::new()
+            $options.AllowMultiple = $false
+            $options.FileTypeFilter = [Avalonia.Platform.Storage.FilePickerFileType[]]@($type)
+        }
+        $options.Title = $Title
+        $filePicker.Done = $Done
+        $filePicker.Task = if ($Save) { $window.StorageProvider.SaveFilePickerAsync($options) } else { $window.StorageProvider.OpenFilePickerAsync($options) }
+        $filePicker.Timer = [Avalonia.Threading.DispatcherTimer]::new()
+        $filePicker.Timer.Interval = [TimeSpan]::FromMilliseconds(100)
+        $filePicker.Timer.Add_Tick({
+            if (-not $filePicker.Task.IsCompleted) { return }
+            $filePicker.Timer.Stop()
+            if (-not $filePicker.Task.IsCompletedSuccessfully) { return }
+            $chosen = $filePicker.Task.Result
+            if ($chosen -isnot [Avalonia.Platform.Storage.IStorageFile]) { $chosen = @($chosen) | Select-Object -First 1 }
+            if ($chosen) { & $filePicker.Done $chosen.Path.LocalPath }
+        })
+        $filePicker.Timer.Start()
+    }
+    $canPick = $null -ne $window.StorageProvider
+    $exportWmiFilterBrowseButton.IsVisible = $canPick -and $window.StorageProvider.CanSave
+    $importWmiFilterBrowseButton.IsVisible = $canPick -and $window.StorageProvider.CanOpen
+
+    # Export... on a WMI filter, as GPMC: a .mof file in the format of GPMC, by default in the
+    # folder WMI filters of the folder of the backups. A file there is replaced once confirmed.
+    $exportWmiFilter = @{ Filter = $null; Replace = $null }
+    function Open-ExportWmiFilterForm {
+        $filter = if ($domainTreeView.SelectedItem) { $domainTreeView.SelectedItem.Tag }
+        if ($filter -isnot [GPOToolsWmiFilter]) { return }
+        $exportWmiFilter.Filter = $filter
+        $exportWmiFilter.Replace = $null
+        $exportWmiFilterTitleTextBlock.Text = Get-PSGPOText "Export the WMI filter '{0}'" $filter.Name
+        $exportWmiFilterPathTextBox.Text = Join-Path (Join-Path (Get-HistoryRoot) 'WMI filters') (Get-PSGPOWmiFilterFileName -Name $filter.Name)
+        $exportWmiFilterErrorTextBlock.Text = ''
+        $exportWmiFilterConfirmButton.Content = Get-PSGPOText 'Export'
+        Hide-DirectoryForm
+        $directoryResultTextBlock.Text = ''
+        $exportWmiFilterPanel.IsVisible = $true
+    }
+    function Submit-ExportWmiFilter {
+        $filter = $exportWmiFilter.Filter
+        if (-not $filter) { return }
+        $file = "$($exportWmiFilterPathTextBox.Text)".Trim()
+        if (-not $file) { $exportWmiFilterErrorTextBlock.Text = Get-PSGPOText 'Give the file of the export.'; return }
+        if (-not $file.EndsWith('.mof', [System.StringComparison]::OrdinalIgnoreCase)) { $file += '.mof' }
+        if ((Test-Path -LiteralPath $file) -and $exportWmiFilter.Replace -ne $file) {
+            $exportWmiFilter.Replace = $file
+            $exportWmiFilterErrorTextBlock.Text = Get-PSGPOText '{0} exists: Replace writes the filter over it.' $file
+            $exportWmiFilterConfirmButton.Content = Get-PSGPOText 'Replace'
+            return
+        }
+        try {
+            $folder = [System.IO.Path]::GetDirectoryName($file)
+            if ($folder) { $null = New-Item -ItemType Directory -Path $folder -Force -ErrorAction Stop }
+            [System.IO.File]::WriteAllBytes($file, (ConvertTo-PSGPOWmiFilterMofByte -Filter $filter -Domain $Directory.DomainName))
+        } catch {
+            $exportWmiFilterErrorTextBlock.Text = Get-PSGPOText 'The WMI filter is not exported: {0}' $_.Exception.GetBaseException().Message
+            return
+        }
+        $exportWmiFilterPanel.IsVisible = $false
+        Show-DirectoryResult -Text (Get-PSGPOText "WMI filter '{0}' exported to {1}: GPMC imports it in another domain, as Import... in the context menu of WMI Filters does." $filter.Name $file)
+    }
+    $exportWmiFilterPathTextBox.add_PropertyChanged({
+        param($control, $e)
+        # Another file: confirmed again before it is replaced.
+        if ($e.Property -eq [Avalonia.Controls.TextBox]::TextProperty -and $exportWmiFilter.Replace) {
+            $exportWmiFilter.Replace = $null
+            $exportWmiFilterErrorTextBlock.Text = ''
+            $exportWmiFilterConfirmButton.Content = Get-PSGPOText 'Export'
+        }
+    })
+
+    # Import... on WMI Filters, as GPMC: a .mof file of GPMC or HGPM read first, its filter shown,
+    # then created in the domain with a new Id, under its name or the one given.
+    $importWmiFilter = @{ Source = $null; File = $null }
+    function Open-ImportWmiFilterForm {
+        $importWmiFilter.Source = $null
+        $importWmiFilter.File = $null
+        $importWmiFilterTitleTextBlock.Text = Get-PSGPOText 'Import a WMI filter into {0}' $Directory.DomainName
+        $importWmiFilterInfoTextBlock.Text = ''
+        $importWmiFilterNameTextBox.Text = ''
+        $importWmiFilterErrorTextBlock.Text = ''
+        $importWmiFilterConfirmButton.IsEnabled = $false
+        Hide-DirectoryForm
+        $directoryResultTextBlock.Text = ''
+        $importWmiFilterPanel.IsVisible = $true
+        [void]$importWmiFilterPathTextBox.Focus()
+    }
+    function Read-ImportWmiFilterFile {
+        $importWmiFilter.Source = $null
+        $importWmiFilterConfirmButton.IsEnabled = $false
+        $importWmiFilterInfoTextBlock.Text = ''
+        $importWmiFilterErrorTextBlock.Text = ''
+        $file = "$($importWmiFilterPathTextBox.Text)".Trim()
+        if (-not $file) { $importWmiFilterErrorTextBlock.Text = Get-PSGPOText 'Give the .mof file to import.'; return }
+        try {
+            $read = @(ConvertFrom-PSGPOWmiFilterMof -Bytes ([System.IO.File]::ReadAllBytes($file)))
+        } catch {
+            $importWmiFilterErrorTextBlock.Text = Get-PSGPOText 'The file cannot be imported: {0}' $_.Exception.GetBaseException().Message
+            return
+        }
+        # As GPMC: one filter in a file; Import-PSGPOWmiFilter imports them all.
+        if ($read.Count -gt 1) { $importWmiFilterErrorTextBlock.Text = Get-PSGPOText 'The file holds {0} WMI filters: the console imports a file of one, Import-PSGPOWmiFilter imports them all.' $read.Count; return }
+        $source = $read[0]
+        $importWmiFilter.Source = $source
+        $importWmiFilter.File = $file
+        $importWmiFilterInfoTextBlock.Text = ((@(
+                    Get-PSGPOText "'{0}', exported from {1}" $source.Name $(if ($source.Domain) { $source.Domain } else { '?' })
+                    if ($source.Description) { $source.Description }
+                    @($source.Queries | ForEach-Object { "$($_.Namespace): $($_.Query)" })
+                )) -join [Environment]::NewLine)
+        $importWmiFilterNameTextBox.Text = $source.Name
+        if ($Directory.FindWmiFilter($source.Name)) { $importWmiFilterErrorTextBlock.Text = Get-PSGPOText "A WMI filter named '{0}' exists in {1}: give the imported one another name." $source.Name $Directory.DomainName }
+        $importWmiFilterConfirmButton.IsEnabled = $true
+    }
+    function Submit-ImportWmiFilter {
+        $source = $importWmiFilter.Source
+        if (-not $source) { return }
+        try {
+            $filter = $Directory.NewWmiFilter($importWmiFilterNameTextBox.Text, $source.Description, $source.Queries)
+        } catch {
+            $importWmiFilterErrorTextBlock.Text = $_.Exception.GetBaseException().Message
+            return
+        }
+        $importWmiFilterPanel.IsVisible = $false
+        Update-DirectoryTree -Select $filter
+        Show-DirectoryResult -Text (Get-PSGPOText "WMI filter '{0}' imported from {1}. Link a GPO to it with WMI Filter in the context menu of the GPO, or Use it in a GPO... here." $filter.Name $importWmiFilter.File)
+    }
+
+    # Use it in a GPO... on a WMI filter: the GPOs the account edits that do not use it; the one
+    # chosen is linked to the filter (its former filter replaced), as its Scope tab in GPMC.
+    $useWmiFilter = @{ Filter = $null }
+    function Open-UseWmiFilterForm {
+        $filter = if ($domainTreeView.SelectedItem) { $domainTreeView.SelectedItem.Tag }
+        if ($filter -isnot [GPOToolsWmiFilter]) { return }
+        $useWmiFilter.Filter = $filter
+        $useWmiFilterTitleTextBlock.Text = Get-PSGPOText "Use the WMI filter '{0}' in a GPO: the computers apply it only when {1} returns something" $filter.Name $filter.GetQueryText()
+        $useWmiFilterErrorTextBlock.Text = ''
+        Hide-DirectoryForm
+        $directoryResultTextBlock.Text = ''
+        $useWmiFilterSearchTextBox.Text = ''
+        Update-UseWmiFilterList
+        $useWmiFilterPanel.IsVisible = $true
+        [void]$useWmiFilterSearchTextBox.Focus()
+    }
+    function Update-UseWmiFilterList {
+        $filter = $useWmiFilter.Filter
+        if (-not $filter) { return }
+        $search = "$($useWmiFilterSearchTextBox.Text)".Trim()
+        $gpos = [System.Collections.Generic.List[GPOToolsGpo]]::new()
+        foreach ($gpo in @($Directory.Gpos | Sort-Object DisplayName)) {
+            if (-not $gpo.CanEdit -or $gpo.WmiFilterId -eq $filter.Id) { continue }
+            if ($search -and $gpo.DisplayName.IndexOf($search, [System.StringComparison]::OrdinalIgnoreCase) -lt 0) { continue }
+            $gpos.Add($gpo)
+        }
+        $useWmiFilterList.ItemsSource = $gpos
+        $useWmiFilterList.SelectedIndex = if ($gpos.Count -eq 1) { 0 } else { -1 }
+        $useWmiFilterConfirmButton.IsEnabled = $null -ne $useWmiFilterList.SelectedItem
+        $useWmiFilterErrorTextBlock.Text = if ($gpos.Count) { '' }
+            elseif ($search) { Get-PSGPOText "No GPO named like '{0}' can use the WMI filter '{1}'." $search $filter.Name }
+            else { Get-PSGPOText "Every GPO you edit uses the WMI filter '{0}' already." $filter.Name }
+    }
+    function Submit-UseWmiFilter {
+        $filter = $useWmiFilter.Filter
+        $gpo = $useWmiFilterList.SelectedItem
+        if (-not $filter -or $gpo -isnot [GPOToolsGpo]) { return }
+        $former = $Directory.GetWmiFilter($gpo)
+        try {
+            $Directory.SetWmiFilter($gpo, $filter)
+        } catch {
+            $useWmiFilterErrorTextBlock.Text = $_.Exception.GetBaseException().Message
+            return
+        }
+        $useWmiFilterPanel.IsVisible = $false
+        Update-DirectoryTree -Select $filter
+        Show-DirectoryResult -Text $(if ($former) { Get-PSGPOText "'{0}' is linked to the WMI filter '{1}', instead of '{2}'." $gpo.DisplayName $filter.Name $former.Name }
+            else { Get-PSGPOText "'{0}' is linked to the WMI filter '{1}': the computers apply it only when {2} returns something." $gpo.DisplayName $filter.Name $filter.GetQueryText() })
+    }
+
+    # The WMI filter of the selected GPO in its details, as the Scope tab of GPMC: (none), the
+    # filters of the domain, and a filter the domain does not have anymore.
+    $gpoWmiFilter = @{ Updating = $false }
+    function Update-GpoWmiFilterComboBox {
+        param([GPOToolsGpo]$Gpo)
+        $gpoWmiFilter.Updating = $true
+        try {
+            $items = [System.Collections.Generic.List[object]]::new()
+            $selected = $null
+            foreach ($choice in @($null) + @($Directory.WmiFilters)) {
+                $item = [Avalonia.Controls.ComboBoxItem]::new()
+                $item.Content = if ($choice) { $choice.Name } else { Get-PSGPOText '(none)' }
+                $item.Tag = $choice
+                if ($choice) { [Avalonia.Controls.ToolTip]::SetTip($item, $choice.GetQueryText()) }
+                $items.Add($item)
+                if (($choice -and $Gpo.WmiFilterId -eq $choice.Id) -or (-not $choice -and $null -eq $Gpo.WmiFilterId)) { $selected = $item }
+            }
+            if (-not $selected) {
+                $selected = [Avalonia.Controls.ComboBoxItem]::new()
+                $selected.Content = Get-PSGPOText '{0}: not in the domain anymore, the computers ignore the GPO' ('{' + $Gpo.WmiFilterId.ToString().ToUpperInvariant() + '}')
+                $selected.Tag = 'Missing'
+                $items.Add($selected)
+            }
+            $gpoWmiFilterComboBox.ItemsSource = $items
+            $gpoWmiFilterComboBox.SelectedItem = $selected
+        } finally {
+            $gpoWmiFilter.Updating = $false
+        }
+    }
+    $gpoWmiFilterComboBox.add_SelectionChanged({
+        if ($gpoWmiFilter.Updating) { return }
+        $item = $gpoWmiFilterComboBox.SelectedItem
+        if (-not $item -or "$($item.Tag)" -eq 'Missing') { return }
+        Set-SelectedWmiFilter -Filter $item.Tag
+    })
+
+    $exportWmiFilterMenuItem.Add_Click({ Open-ExportWmiFilterForm })
+    $exportWmiFilterBrowseButton.Add_Click({ Start-MofFilePicker -Save -Title (Get-PSGPOText 'Export the WMI filter') -Path $exportWmiFilterPathTextBox.Text -Done { param($Path) $exportWmiFilterPathTextBox.Text = $Path } })
+    $exportWmiFilterConfirmButton.Add_Click({ Submit-ExportWmiFilter })
+    $exportWmiFilterCancelButton.Add_Click({ $exportWmiFilterPanel.IsVisible = $false })
+    $importWmiFilterMenuItem.Add_Click({ Open-ImportWmiFilterForm })
+    $importWmiFilterBrowseButton.Add_Click({ Start-MofFilePicker -Title (Get-PSGPOText 'Import a WMI filter') -Done { param($Path) $importWmiFilterPathTextBox.Text = $Path; Read-ImportWmiFilterFile } })
+    $importWmiFilterReadButton.Add_Click({ Read-ImportWmiFilterFile })
+    $importWmiFilterPathTextBox.Add_KeyDown({
+        param($control, $e)
+        if ($e.Key -eq [Avalonia.Input.Key]::Enter) { Read-ImportWmiFilterFile }
+    })
+    $importWmiFilterConfirmButton.Add_Click({ Submit-ImportWmiFilter })
+    $importWmiFilterCancelButton.Add_Click({ $importWmiFilterPanel.IsVisible = $false })
+    $useWmiFilterMenuItem.Add_Click({ Open-UseWmiFilterForm })
+    # The property, not TextChanged: it is raised at once, whoever sets the text.
+    $useWmiFilterSearchTextBox.add_PropertyChanged({
+        param($control, $e)
+        if ($e.Property.Name -eq 'Text' -and $useWmiFilterPanel.IsVisible) { Update-UseWmiFilterList }
+    })
+    $useWmiFilterList.add_SelectionChanged({ $useWmiFilterConfirmButton.IsEnabled = $null -ne $useWmiFilterList.SelectedItem })
+    $useWmiFilterList.add_DoubleTapped({ Submit-UseWmiFilter })
+    $useWmiFilterConfirmButton.Add_Click({ Submit-UseWmiFilter })
+    $useWmiFilterCancelButton.Add_Click({ $useWmiFilterPanel.IsVisible = $false })
 
     function Get-SelectedLink {
         $selected = $domainTreeView.SelectedItem
@@ -2689,6 +2981,7 @@ function Start-PSGPOManagerWindow {
             'purgeDeletedGpoMenuItem', 'purgeDeletedGpoButton', 'purgeDeletedGpoPanel', 'purgeDeletedGpoTextBlock', 'purgeDeletedGpoConfirmButton', 'purgeDeletedGpoCancelButton',
             'renameMenuItem', 'renamePanel', 'renameTitleTextBlock', 'renameTextBox', 'renameErrorTextBlock', 'renameConfirmButton', 'renameCancelButton',
             'editWmiFilterButton', 'editingStatusTextBlock',
+            'useWmiFilterMenuItem', 'exportWmiFilterMenuItem', 'importWmiFilterMenuItem', 'exportWmiFilterPanel', 'exportWmiFilterTitleTextBlock', 'exportWmiFilterPathTextBox', 'exportWmiFilterBrowseButton', 'exportWmiFilterErrorTextBlock', 'exportWmiFilterConfirmButton', 'exportWmiFilterCancelButton', 'importWmiFilterPanel', 'importWmiFilterTitleTextBlock', 'importWmiFilterPathTextBox', 'importWmiFilterBrowseButton', 'importWmiFilterReadButton', 'importWmiFilterInfoTextBlock', 'importWmiFilterNameTextBox', 'importWmiFilterErrorTextBlock', 'importWmiFilterConfirmButton', 'importWmiFilterCancelButton', 'useWmiFilterPanel', 'useWmiFilterTitleTextBlock', 'useWmiFilterSearchTextBox', 'useWmiFilterList', 'useWmiFilterErrorTextBlock', 'useWmiFilterConfirmButton', 'useWmiFilterCancelButton', 'gpoWmiFilterPanel', 'gpoWmiFilterComboBox',
             'newGpoTemplateComboBox', 'historyNotesTemplateCheckBox', 'approveGpoMenuItem', 'approveGpoPanel', 'approveGpoTextBlock',
             'approveGpoRightsComboBox', 'approveGpoApplyToTextBox', 'approveGpoErrorTextBlock', 'approveGpoConfirmButton', 'approveGpoCancelButton',
             'approveGpoDenyToTextBox', 'approveGpoGroupsCheckBox', 'approveGpoGroupsTextBlock', 'approveGpoFilteringGrid',

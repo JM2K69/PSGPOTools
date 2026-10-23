@@ -137,4 +137,103 @@ InModuleScope -ModuleName HGPM {
             "$($Result.Problems)" | Should -BeLike "*WMI filter 'Laptops' is not in the domain anymore*"
         }
     }
+
+    Describe 'WMI filters in .mof files, as GPMC exports and imports them' {
+        BeforeAll {
+            # The text Windows gives for a WMI filter of powershell.labo (root\policy, MSFT_SomFilter):
+            # what GPMC exports.
+            $WindowsMof = Join-Path $PSScriptRoot 'Fixtures' 'WmiFilter' 'windows-export.mof'
+        }
+        BeforeEach {
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            $Directory.Account = 'CORP\bob'
+            $Root = Join-Path $TestDrive "mof-$([guid]::NewGuid())"
+        }
+
+        It 'Reads the file of Windows: its filter, escapes and two namespaces included' {
+            $Read = @(ConvertFrom-PSGPOWmiFilterMof -Bytes ([System.IO.File]::ReadAllBytes($WindowsMof)))
+            $Read.Count | Should -Be 1
+            $Read[0].Name | Should -Be 'HGPM - MOF reference'
+            $Read[0].Description | Should -Be 'Workstations "Windows 11" \ not servers'
+            $Read[0].Author | Should -Be 'POWERSHELL\Administrator'
+            $Read[0].Domain | Should -Be 'powershell.labo'
+            $Read[0].Id | Should -Be ([guid]'cc133ed0-fa13-4196-841e-a087fe197f36')
+            $Read[0].CreationDate | Should -Be '20261023183621.776344-000'
+            @($Read[0].Queries.Namespace) | Should -Be @('root\CIMv2', 'root\StandardCimv2')
+            $Read[0].Queries[0].Query | Should -Be "SELECT * FROM Win32_OperatingSystem WHERE Version LIKE '10.0.2%' AND Caption LIKE ""%Windows%"""
+        }
+
+        It 'Writes the text Windows writes for the same filter, in UTF-16 with its BOM' {
+            $Source = ConvertFrom-PSGPOWmiFilterMof -Bytes ([System.IO.File]::ReadAllBytes($WindowsMof))
+            $Filter = [GPOToolsWmiFilter]::new()
+            foreach ($Name in 'Id', 'Name', 'Description', 'Author', 'CreationDate', 'ChangeDate', 'Queries') { $Filter.$Name = $Source.$Name }
+            $Bytes = ConvertTo-PSGPOWmiFilterMofByte -Filter $Filter -Domain 'powershell.labo'
+            @($Bytes[0..1]) | Should -Be @(0xFF, 0xFE)
+            $Windows = ConvertFrom-PSGPOMofByte -Bytes ([System.IO.File]::ReadAllBytes($WindowsMof))
+            # Windows gives the text with LF; the file has CRLF, as the files of Windows.
+            ((ConvertFrom-PSGPOMofByte -Bytes $Bytes) -replace "`r`n", "`n") | Should -BeExactly $Windows
+        }
+
+        It 'Exports filters to a folder, and imports them again under a new Id' {
+            $Laptops = $Directory.NewWmiFilter('Laptops: battery', 'Computers with a battery', @(
+                    [pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_Battery' }
+                    [pscustomobject]@{ Namespace = 'root\WMI'; Query = 'SELECT * FROM BatteryStatus WHERE Voltage > 0' }))
+            $null = $Directory.NewWmiFilter('Workstations', '', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' }))
+            $Files = @(Export-PSGPOWmiFilter -Directory $Directory -Name '*' -Path $Root)
+            @($Files.Name) | Should -Be @('Laptops_ battery.mof', 'Workstations.mof')
+            { Export-PSGPOWmiFilter -Directory $Directory -Name '*' -Path (Join-Path $Root 'one.mof') } | Should -Throw -ExpectedMessage '*give a folder for the 2 WMI filters*'
+            Export-PSGPOWmiFilter -Directory $Directory -Name 'Workstations' -Path $Root -ErrorVariable Problem -ErrorAction SilentlyContinue
+            "$Problem" | Should -BeLike '*exists*-Force replaces it*'
+            (Export-PSGPOWmiFilter -Directory $Directory -Name 'Workstations' -Path (Join-Path $Root 'Workstations.mof') -Force).Name | Should -Be 'Workstations.mof'
+
+            # Into another domain: the same filters.
+            $Other = Import-PSGPODirectory -Path $SamplePath
+            $Imported = @($Files | Import-PSGPOWmiFilter -Directory $Other)
+            @($Imported.Name) | Should -Be @('Laptops: battery', 'Workstations')
+            $Copy = $Other.FindWmiFilter('Laptops: battery')
+            $Copy.Description | Should -Be 'Computers with a battery'
+            $Copy.GetQueryText() | Should -Be $Laptops.GetQueryText()
+            $Copy.Id | Should -Not -Be $Laptops.Id -Because 'an imported filter gets a new Id'
+
+            # Into the same domain: refused under the same name, imported under another one.
+            Import-PSGPOWmiFilter -Directory $Directory -Path $Files[0].FullName -ErrorVariable Problem -ErrorAction SilentlyContinue
+            "$Problem" | Should -BeLike "*'Laptops: battery' already exists*Give it another name with -Name.*"
+            (Import-PSGPOWmiFilter -Directory $Directory -Path $Files[0].FullName -Name 'Laptops (copy)').Queries | Should -Be $Laptops.GetQueryText()
+            Import-PSGPOWmiFilter -Directory $Directory -Path $Files[1].FullName -WhatIf
+            @($Directory.WmiFilters.Name) | Should -Be @('Laptops (copy)', 'Laptops: battery', 'Workstations')
+        }
+
+        It 'Reads MOF as other tools write it: UTF-8, comments, #pragma, any order, strings put together, dates without quotes' {
+            $Text = @'
+#pragma namespace("\\\\.\\root\\policy")
+// Exported by a script
+/* two filters */
+instance of MSFT_SomFilter
+{
+    Name = "Windows " "11";
+    Domain = "domain.tld";
+    ChangeDate = 20230309091810.376970+060;
+    Rules = { instance of MSFT_Rule { TargetNameSpace = "root\\CIMv2"; QueryLanguage = "WQL"; Query = "SELECT * FROM Win32_OperatingSystem WHERE Version LIKE \"10.0.2%\""; } };
+};
+instance of MSFT_SomFilter { ID = "{D8D7BCE7-71A4-4BB9-9F4C-6322B132BF43}"; Name = "Servers"; Rules = { instance of MSFT_Rule { Query = "SELECT * FROM Win32_OperatingSystem WHERE ProductType <> 1"; } }; };
+'@
+            $Read = @(ConvertFrom-PSGPOWmiFilterMof -Bytes ([System.Text.Encoding]::UTF8.GetBytes($Text)))
+            @($Read.Name) | Should -Be @('Windows 11', 'Servers')
+            $Read[0].ChangeDate | Should -Be '20230309091810.376970+060'
+            $Read[0].Queries[0].Query | Should -Be 'SELECT * FROM Win32_OperatingSystem WHERE Version LIKE "10.0.2%"'
+            $Read[1].Queries[0].Namespace | Should -Be 'root\CIMv2' -Because 'the namespace of a rule without one'
+        }
+
+        It 'Refuses what is not a WMI filter' {
+            { ConvertFrom-PSGPOWmiFilterMof -Text 'instance of Win32_Service { Name = "x"; };' } | Should -Throw -ExpectedMessage '*instance of Win32_Service, not of MSFT_SomFilter*'
+            { ConvertFrom-PSGPOWmiFilterMof -Text 'instance of MSFT_SomFilter { Name = "x"; Rules = {}; };' } | Should -Throw -ExpectedMessage "*'x' of the MOF text has no query*"
+            { ConvertFrom-PSGPOWmiFilterMof -Text 'instance of MSFT_SomFilter { Name = "x"; Rules = { instance of MSFT_Rule { QueryLanguage = "CQL"; Query = "q"; } }; };' } | Should -Throw -ExpectedMessage '*rule in CQL*'
+            { ConvertFrom-PSGPOWmiFilterMof -Text 'instance of MSFT_SomFilter { Name = "x;' } | Should -Throw -ExpectedMessage '*string is not closed*'
+            { ConvertFrom-PSGPOWmiFilterMof -Text '' } | Should -Throw -ExpectedMessage '*no instance of MSFT_SomFilter*'
+            $Bad = Join-Path $TestDrive 'bad.mof'
+            Set-Content -LiteralPath $Bad -Value 'class Something { };'
+            Import-PSGPOWmiFilter -Directory $Directory -Path $Bad -ErrorVariable Problem -ErrorAction SilentlyContinue
+            "$Problem" | Should -BeLike '*bad.mof is not imported*'
+        }
+    }
 }
