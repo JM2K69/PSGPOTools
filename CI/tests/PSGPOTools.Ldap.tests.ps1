@@ -1115,6 +1115,26 @@ InModuleScope -ModuleName HGPM {
             ($Read.Gpos | Where-Object Id -EQ ([guid]'31B2F340-016D-11D2-945F-00C04FB984F9')).SecurityFiltering | Should -Be @('Authenticated Users')
         }
 
+        It 'Renames a GPO in the domain, and refuses a copy read before someone renamed it' {
+            $Gpo = $Directory.FindGpo($SecondName)
+            $Id = $Gpo.Id
+            try {
+                $Directory.RenameGpo($Gpo, "$SecondName renamed")
+                $Read = Get-PSGPODirectory -Server $Server
+                $Stale = $Read.Gpos | Where-Object Id -EQ $Id
+                $Stale.DisplayName | Should -Be "$SecondName renamed"
+                $Stale.FileSysPath | Should -Be $Gpo.FileSysPath -Because 'its GUID, so its folder, does not change'
+                $Directory.RenameGpo($Gpo, $SecondName)
+                { $Read.RenameGpo($Stale, "$SecondName again") } | Should -Throw -ExpectedMessage '*changed in the domain meanwhile*'
+                (Get-PSGPODirectory -Server $Server).FindGpo($SecondName).Id | Should -Be $Id
+            } finally {
+                # The other tests and the cleanup find it by its name.
+                $Now = (Get-PSGPODirectory -Server $Server).Gpos | Where-Object Id -EQ $Id
+                if ($Now -and $Now.DisplayName -ne $SecondName) { Set-PSGPODomainGpoName -Directory $Directory -Gpo $Now -DisplayName $SecondName }
+                $Gpo.DisplayName = $SecondName
+            }
+        }
+
         It 'Creates a GPO from a terminal without waiting for a password (the window froze)' -Skip:(-not (Get-Command script -ErrorAction SilentlyContinue)) {
             # samba-tool gpo create asks for a password on the terminal, even with Kerberos.
             $Script = Join-Path $TestDrive 'create-from-terminal.ps1'

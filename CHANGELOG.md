@@ -1,5 +1,18 @@
 # HGPM Release History
 
+## Unreleased
+
+### Added
+
+* Rename a GPO, as GPMC: **Rename...** in the context menu of a GPO or of a link to it, or F2 in the tree, and `Set-PSGPO -NewName`. Only its display name changes (its GUID, SYSVOL folder, links, backups and filtering groups are kept); the name of another GPO, or a GPO renamed in the domain meanwhile, is refused. Audited as `RenameGpo`
+* Rename a WMI filter with **Rename...** (or F2) in its context menu, and **Edit this WMI filter** in its details
+* Delete a GPO of the recycle bin for good: **Delete for good...** on a GPO of Deleted GPOs, and `Remove-PSGPOBackup`, deletes all its backups, the templates made from it too, after a confirmation that counts them. Refused for a GPO still in the domain. Audited as `RemoveDeletedGpoBackup`
+* The editor of a GPO says when its status disables the part being edited: its settings are saved, but nobody applies them
+
+### Changed
+
+* The History tab names the versions of each node, `computer 3, user 0`, instead of `version 3 / 0` that read as a fraction
+
 ## 0.1.8 - alpha
 
 ### Added

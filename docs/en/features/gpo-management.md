@@ -108,6 +108,11 @@ has it.
 GPMC: all its settings, those of the computers only (User Configuration Settings Disabled), those
 of the users only, or none (`Set-PSGPO -Status`).
 
+The part of a GPO its status disables can still be edited, as in GPMC: its settings are saved, but
+nobody applies them. The editor says so above the policies:
+
+![The editor of a GPO whose user configuration is disabled](../assets/screenshots/47-editor-status.png)
+
 The details of a GPO show its **status** and its **security filtering**, as the Scope tab of
 GPMC: who applies it ("Apply Group Policy") and who is denied it. The security filtering groups of
 a new GPO are created with the prefixes, scope and descriptions of the
@@ -168,8 +173,9 @@ the context menu of a filter deletes it, once no GPO uses it.
 
 ![A new WMI filter](../assets/screenshots/24-new-wmi-filter.png)
 
-**Edit WMI filter...** in the context menu of a filter changes it in the same form: its name, its
-description, its queries. The filter keeps its identity (`msWMI-ID`): the GPOs linked to it keep it
+**Edit WMI filter...** in the context menu of a filter, or **Edit this WMI filter** in its
+details, changes it in the same form: its name, its description, its queries. **Rename...** (or
+F2) changes its name only. The filter keeps its identity (`msWMI-ID`): the GPOs linked to it keep it
 and the computers apply them with its new queries, as when GPMC edits a filter. A query of another
 namespace than the one of the form is a line `namespace: query`
 (`root\WMI: SELECT * FROM BatteryStatus`). The change is refused if the filter changed in the
@@ -195,6 +201,20 @@ Remove-PSGPOWmiFilter -Name 'Workstations'
 A filter a GPO uses is not deleted, those GPOs your account cannot see included. The backups keep
 the filter of a GPO (its name and queries): the drift shows when it changed, and a restore links
 the GPO to it again when it is still in the domain, or says it is not.
+
+## Rename a GPO
+
+**Rename...** in the context menu of a GPO, or of a link to it, or **F2** in the tree, gives it a
+new name, as GPMC does. Only its display name changes: its GUID, so its SYSVOL folder, its links,
+its settings, its backups (the History tab) and its security filtering groups are kept. The name
+of another GPO of the domain is refused, and so is a GPO renamed in the domain since the console
+read it. The rename goes to the [audit log](backup-history.md) (`RenameGpo`).
+
+![Rename a GPO](../assets/screenshots/45-rename-gpo.png)
+
+```powershell
+Set-PSGPO -Name 'U - Lyon - Printers' -NewName 'U - Lyon - Color printers'
+```
 
 ## Delete a GPO
 
@@ -235,6 +255,17 @@ newest one). **Restore...** creates the GPO again from it:
 
 ```powershell
 Get-PSGPOBackup -Path /srv/gpo-backups -Deleted | Restore-PSGPO -RestoreLink
+```
+
+**Delete for good...** empties the recycle bin of a GPO, after confirmation: every backup of it in
+the folder of the History tab is deleted, the templates made from it too (the confirmation counts
+them). It cannot be restored afterwards. The backups of a GPO that is still in the domain are its
+history: they are never deleted this way.
+
+![Delete a GPO of the recycle bin for good](../assets/screenshots/46-delete-for-good.png)
+
+```powershell
+Get-PSGPOBackup -Path /srv/gpo-backups -Deleted -Name 'U - Lyon - Printers' | Remove-PSGPOBackup
 ```
 
 ## Templates

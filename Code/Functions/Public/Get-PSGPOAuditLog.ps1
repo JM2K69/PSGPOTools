@@ -15,9 +15,12 @@ function Get-PSGPOAuditLog {
     .PARAMETER Name
         Display name of a GPO (* and ? make a pattern): only its changes.
     .PARAMETER Action
-        Only these actions (NewGpo, NewLink, SetLink, RemoveLink, SetBlockInheritance,
-        SetGpoStatus, RemoveGpo, ApproveGpo, PendingGpo, SaveGpoFile, RestoreGpo,
-        NewFilteringGroups, SaveConfiguration); * and ? make a pattern.
+        Only these actions (NewGpo, RenameGpo, SetGpoStatus, RemoveGpo, RemoveDeletedGpoBackup,
+        NewLink, SetLink, RemoveLink, SetBlockInheritance, SetWmiFilter, NewWmiFilter,
+        EditWmiFilter, RemoveWmiFilter, SetGpoPermission, SetGpoSecurityFiltering, ApproveGpo,
+        PendingGpo, SaveGpoFile, RestoreGpo, ImportGpo, NewFilteringGroups, SaveConfiguration,
+        InstallAdmx, NewPasswordPolicy, SetPasswordPolicy, RemovePasswordPolicy); * and ? make a
+        pattern.
     .PARAMETER Account
         Only the changes of this account (* and ? make a pattern).
     .PARAMETER After

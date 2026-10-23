@@ -1,18 +1,18 @@
 # Set-PSGPO
 
-Sets the status and the WMI filter of GPOs, as GPMC does.
+Renames GPOs, sets their status and their WMI filter, as GPMC does.
 
 _The help of the command, as `Get-Help Set-PSGPO -Full` gives it._
 
 ## Syntax
 
 ```powershell
-Set-PSGPO [-Name] <string[]> [[-Status] <string>] [[-WmiFilter] <string>] [[-Directory] <GPOToolsDirectory>] [[-Server] <string>] [-NoWmiFilter] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-PSGPO [-Name] <string[]> [[-NewName] <string>] [[-Status] <string>] [[-WmiFilter] <string>] [[-Directory] <GPOToolsDirectory>] [[-Server] <string>] [-NoWmiFilter] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## Description
 
-The status (the GPO Status menu of GPMC) says which part of the GPO the computers apply: all its settings, those of the computers only (User configuration settings disabled), those of the users only, or none. The WMI filter (the WMI Filtering of the Scope tab of GPMC) makes the computers apply the GPO only when one of its queries returns something.
+The new name (the Rename item of GPMC) is the display name of the GPO only: its GUID, its folder in SYSVOL, its links and its backups do not change. The status (the GPO Status menu of GPMC) says which part of the GPO the computers apply: all its settings, those of the computers only (User configuration settings disabled), those of the users only, or none. The WMI filter (the WMI Filtering of the Scope tab of GPMC) makes the computers apply the GPO only when one of its queries returns something.
 
 ## Parameters
 
@@ -24,13 +24,21 @@ Display names of the GPOs (* and ? make a pattern).
 |---|---|---|---|---|
 | `String[]` | Yes | 1 | None | Yes |
 
+### -NewName
+
+New display name of the GPO: -Name gives one GPO only.
+
+| Type | Required | Position | Default value | Accepts pipeline input |
+|---|---|---|---|---|
+| `String` | No | 2 | None | No |
+
 ### -Status
 
 Enabled, ComputerOnly (User configuration settings disabled), UserOnly (Computer configuration settings disabled) or Disabled (all settings disabled).
 
 | Type | Required | Position | Default value | Accepts pipeline input |
 |---|---|---|---|---|
-| `String` | No | 2 | None | No |
+| `String` | No | 3 | None | No |
 
 ### -WmiFilter
 
@@ -38,7 +46,7 @@ Name (or Id) of the WMI filter of the domain the GPOs are linked to (Get-PSGPOWm
 
 | Type | Required | Position | Default value | Accepts pipeline input |
 |---|---|---|---|---|
-| `String` | No | 3 | None | No |
+| `String` | No | 4 | None | No |
 
 ### -NoWmiFilter
 
@@ -54,7 +62,7 @@ Directory of the domain (Get-PSGPODirectory); the domain is read when not given.
 
 | Type | Required | Position | Default value | Accepts pipeline input |
 |---|---|---|---|---|
-| `GPOToolsDirectory` | No | 4 | None | No |
+| `GPOToolsDirectory` | No | 5 | None | No |
 
 ### -Server
 
@@ -62,7 +70,7 @@ Domain controller to read the domain from, without -Directory.
 
 | Type | Required | Position | Default value | Accepts pipeline input |
 |---|---|---|---|---|
-| `String` | No | 5 | None | No |
+| `String` | No | 6 | None | No |
 
 ### -WhatIf
 
@@ -88,6 +96,12 @@ Set-PSGPO -Name 'C - Kiosks - Baseline' -Status ComputerOnly
 
 ```powershell
 Set-PSGPO -Name 'C - Workstations - *' -WmiFilter 'Workstations'
+```
+
+### Example 3
+
+```powershell
+Set-PSGPO -Name 'C - Kiosks - Baseline' -NewName 'C - Kiosks - Hardening'
 ```
 
 ## Outputs

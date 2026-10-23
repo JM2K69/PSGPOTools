@@ -157,6 +157,21 @@ function Start-PSGPOManagerWindow {
     $restoreGpoLinkCheckBox = Get-PSGPOAvaloniaControl $window 'restoreGpoLinkCheckBox'
     $restoreGpoConfirmButton = Get-PSGPOAvaloniaControl $window 'restoreGpoConfirmButton'
     $restoreGpoCancelButton = Get-PSGPOAvaloniaControl $window 'restoreGpoCancelButton'
+    $purgeDeletedGpoMenuItem = Get-PSGPOAvaloniaControl $window 'purgeDeletedGpoMenuItem'
+    $purgeDeletedGpoButton = Get-PSGPOAvaloniaControl $window 'purgeDeletedGpoButton'
+    $purgeDeletedGpoPanel = Get-PSGPOAvaloniaControl $window 'purgeDeletedGpoPanel'
+    $purgeDeletedGpoTextBlock = Get-PSGPOAvaloniaControl $window 'purgeDeletedGpoTextBlock'
+    $purgeDeletedGpoConfirmButton = Get-PSGPOAvaloniaControl $window 'purgeDeletedGpoConfirmButton'
+    $purgeDeletedGpoCancelButton = Get-PSGPOAvaloniaControl $window 'purgeDeletedGpoCancelButton'
+    $renameMenuItem = Get-PSGPOAvaloniaControl $window 'renameMenuItem'
+    $renamePanel = Get-PSGPOAvaloniaControl $window 'renamePanel'
+    $renameTitleTextBlock = Get-PSGPOAvaloniaControl $window 'renameTitleTextBlock'
+    $renameTextBox = Get-PSGPOAvaloniaControl $window 'renameTextBox'
+    $renameErrorTextBlock = Get-PSGPOAvaloniaControl $window 'renameErrorTextBlock'
+    $renameConfirmButton = Get-PSGPOAvaloniaControl $window 'renameConfirmButton'
+    $renameCancelButton = Get-PSGPOAvaloniaControl $window 'renameCancelButton'
+    $editWmiFilterButton = Get-PSGPOAvaloniaControl $window 'editWmiFilterButton'
+    $editingStatusTextBlock = Get-PSGPOAvaloniaControl $window 'editingStatusTextBlock'
     $newGpoTemplateComboBox = Get-PSGPOAvaloniaControl $window 'newGpoTemplateComboBox'
     $historyNotesTemplateCheckBox = Get-PSGPOAvaloniaControl $window 'historyNotesTemplateCheckBox'
     $linkGpoPanel = Get-PSGPOAvaloniaControl $window 'linkGpoPanel'
@@ -1177,6 +1192,14 @@ function Start-PSGPOManagerWindow {
         $editingGpoTextBlock.Text = if (-not $Gpo) { '' }
             elseif ($editing.PolError) { Get-PSGPOText "Editing the GPO '{0}' [{1}]: {2}" $Gpo.DisplayName $Directory.DomainName $editing.PolError }
             else { Get-PSGPOText "Editing the GPO '{0}' [{1}]" $Gpo.DisplayName $Directory.DomainName }
+        # Its status may disable a part: it can be edited, as in GPMC, but does not apply.
+        $editingStatusTextBlock.Text = if ($Gpo) {
+            switch ($Gpo.Flags -band 3) {
+                1 { Get-PSGPOText 'The GPO status disables its User Configuration: its settings are saved, but the users do not apply them.' }
+                2 { Get-PSGPOText 'The GPO status disables its Computer Configuration: its settings are saved, but the computers do not apply them.' }
+                3 { Get-PSGPOText 'The GPO status disables all its settings: they are saved, but nobody applies them.' }
+            }
+        }
         Update-ApplyButton
         Show-View 'Editor'
     }
@@ -1389,7 +1412,7 @@ function Start-PSGPOManagerWindow {
 
     # The forms of the details, one at a time.
     function Hide-DirectoryForm {
-        foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel, $approveGpoPanel, $newWmiFilterPanel, $deleteWmiFilterPanel, $importGpoPanel) { $panel.IsVisible = $false }
+        foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel, $purgeDeletedGpoPanel, $renamePanel, $approveGpoPanel, $newWmiFilterPanel, $deleteWmiFilterPanel, $importGpoPanel) { $panel.IsVisible = $false }
     }
 
     # Approval of the selected GPO (approval workflow): what the creators may still do, who
@@ -1601,6 +1624,77 @@ function Start-PSGPOManagerWindow {
         Show-DirectoryResult -Text ((@($lines) + @($result.Problems)) -join [Environment]::NewLine) -Problem:($result.Problems.Count -gt 0)
     }
 
+    # A deleted GPO deleted for good, once confirmed: all its backups in the folder of the History
+    # tab, its templates too; it leaves Deleted GPOs and cannot be restored anymore.
+    $purgeDeletedGpo = @{ Backup = $null }
+    function Open-PurgeDeletedGpoForm {
+        $backup = if ($domainTreeView.SelectedItem) { $domainTreeView.SelectedItem.Tag }
+        if (-not $backup -or $backup.PSObject.TypeNames -notcontains 'PSGPOTools.Backup') { return }
+        $purgeDeletedGpo.Backup = $backup
+        $backups = @(Get-PSGPOBackupEntry -Path (Get-HistoryRoot) -Id $backup.Id 3>$null)
+        $label = Get-PSGPOTemplateLabel
+        $templates = @($backups | Where-Object { $_.Labels -contains $label }).Count
+        $purgeDeletedGpoTextBlock.Text = (Get-PSGPOText $(if ($backups.Count -gt 1) { "Delete the GPO '{0}' for good? Its {1} backups in {2} are deleted: it cannot be restored afterwards." } else { "Delete the GPO '{0}' for good? Its backup in {2} is deleted: it cannot be restored afterwards." }) $backup.DisplayName $backups.Count (Get-HistoryRoot)) +
+            $(if ($templates) { ' ' + (Get-PSGPOText 'Templates of new GPOs made from it: {0}, deleted too.' $templates) })
+        Hide-DirectoryForm
+        $directoryResultTextBlock.Text = ''
+        $purgeDeletedGpoPanel.IsVisible = $true
+    }
+
+    function Submit-PurgeDeletedGpo {
+        $backup = $purgeDeletedGpo.Backup
+        $purgeDeletedGpoPanel.IsVisible = $false
+        if (-not $backup) { return }
+        try {
+            $removed = Remove-PSGPODeletedGpoBackup -Directory $Directory -Path (Get-HistoryRoot) -Id $backup.Id
+        } catch {
+            Update-BackupList -Force
+            Update-DirectoryTree -Select 'DeletedGpos'
+            Show-DirectoryResult -Text (Get-PSGPOText "The GPO '{0}' is not deleted for good: {1}" $backup.DisplayName $_.Exception.GetBaseException().Message) -Problem
+            return
+        }
+        Update-BackupList -Force
+        Update-DirectoryTree -Select 'DeletedGpos'
+        Show-DirectoryResult -Text (Get-PSGPOText $(if ($removed.Backups -gt 1) { "GPO '{0}' deleted for good: its {1} backups are deleted." } else { "GPO '{0}' deleted for good: its backup is deleted." }) $removed.DisplayName $removed.Backups)
+    }
+
+    # Rename... on a GPO (or a link to it) or on a WMI filter, as GPMC: its name only.
+    $rename = @{ Target = $null; Select = $null }
+    function Open-RenameForm {
+        if (-not $renameMenuItem.IsVisible) { return }
+        $item = $domainTreeView.SelectedItem.Tag
+        $target = if ($item -is [GPOToolsWmiFilter]) { $item } else { Get-SelectedGpo }
+        if (-not $target) { return }
+        $rename.Target = $target
+        $rename.Select = $item
+        $renameTitleTextBlock.Text = if ($target -is [GPOToolsWmiFilter]) { Get-PSGPOText "Rename the WMI filter '{0}'" $target.Name } else { Get-PSGPOText "Rename the GPO '{0}'" $target.DisplayName }
+        $renameTextBox.Text = "$target"
+        $renameErrorTextBlock.Text = ''
+        Hide-DirectoryForm
+        $directoryResultTextBlock.Text = ''
+        $renamePanel.IsVisible = $true
+        $renameTextBox.Focus()
+        $renameTextBox.SelectAll()
+    }
+
+    function Submit-Rename {
+        $target = $rename.Target
+        if (-not $target) { return }
+        $old = "$target"
+        $name = "$($renameTextBox.Text)".Trim()
+        try {
+            if ($target -is [GPOToolsWmiFilter]) { $Directory.EditWmiFilter($target, $name, $target.Description, $target.Queries) }
+            else { $Directory.RenameGpo($target, $name) }
+        } catch {
+            $renameErrorTextBlock.Text = $_.Exception.GetBaseException().Message
+            return
+        }
+        $renamePanel.IsVisible = $false
+        if ("$target" -ceq $old) { return }
+        Update-DirectoryTree -Select $rename.Select
+        Show-DirectoryResult -Text (Get-PSGPOText $(if ($target -is [GPOToolsWmiFilter]) { "WMI filter '{0}' renamed '{1}'." } else { "GPO '{0}' renamed '{1}': its links, its settings and its history are kept." }) $old "$target")
+    }
+
     function Submit-DeleteLink {
         $som = $deleteLink.Som
         $link = $deleteLink.Link
@@ -1807,7 +1901,7 @@ function Start-PSGPOManagerWindow {
                 $node = [AvaloniaHistoryNode]::new()
                 $node.Backup = $backup
                 $node.Title = Format-HistoryDate $(if ($backup.Modified) { $backup.Modified } else { $backup.BackedUp })
-                $node.Subtitle = Get-PSGPOText 'version {0} / {1}' $backup.ComputerVersion $backup.UserVersion
+                $node.Subtitle = Get-PSGPOText 'computer {0}, user {1}' $backup.ComputerVersion $backup.UserVersion
                 $node.Changes = @(Compare-PSGPOSettingReport -Reference $previous -Difference $report)
                 $node.Summary = if ($nodes.Count) { Get-ChangeSummary $node.Changes } else { Get-PSGPOText 'first backup' }
                 $node.Previous = $previousDate
@@ -1843,7 +1937,7 @@ function Start-PSGPOManagerWindow {
                 $node = [AvaloniaHistoryNode]::new()
                 $node.IsCurrent = $true
                 $node.Title = Get-PSGPOText 'Now'
-                $node.Subtitle = Get-PSGPOText 'version {0} / {1}' $gpo.GetComputerVersion() $gpo.GetUserVersion()
+                $node.Subtitle = Get-PSGPOText 'computer {0}, user {1}' $gpo.GetComputerVersion() $gpo.GetUserVersion()
                 $node.Changes = $changes
                 $node.Summary = if ($nodes.Count) { Get-PSGPOText '{0}, not backed up' (Get-ChangeSummary $changes) } else { Get-PSGPOText 'not backed up' }
                 $node.Previous = $previousDate
@@ -2206,6 +2300,7 @@ function Start-PSGPOManagerWindow {
         Hide-DirectoryForm
         $canRestore = $null -ne $detail.Deleted -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo
         $restoreDeletedGpoButton.IsVisible = $canRestore
+        $purgeDeletedGpoButton.IsVisible = $canRestore
 
         # Context menu of the selected node, as in GPMC.
         # A read-only directory (read over LDAP) cannot create GPOs yet.
@@ -2232,7 +2327,10 @@ function Start-PSGPOManagerWindow {
         # WMI Filters: a new filter, the change or the deletion of one.
         $newWmiFilterMenuItem.IsVisible = $item -eq 'WmiFilters' -and -not $Directory.IsReadOnly -and $Directory.CanCreateWmiFilter
         $editWmiFilterMenuItem.IsVisible = $item -is [GPOToolsWmiFilter] -and -not $Directory.IsReadOnly -and $item.CanEdit
+        $editWmiFilterButton.IsVisible = $editWmiFilterMenuItem.IsVisible
         $deleteWmiFilterMenuItem.IsVisible = $editWmiFilterMenuItem.IsVisible
+        # Rename a GPO (its node or a link to it) or a WMI filter, as GPMC.
+        $renameMenuItem.IsVisible = $editWmiFilterMenuItem.IsVisible -or $gpoStatusMenuItem.IsVisible
         # WMI Filter: the filters of the domain, as the WMI Filtering of the Scope tab of GPMC.
         $wmiFilterMenuItem.IsVisible = $gpoStatusMenuItem.IsVisible -and ($Directory.WmiFilters.Count -or $null -ne $detail.Gpo.WmiFilterId)
         if ($wmiFilterMenuItem.IsVisible) { Update-WmiFilterMenu -Gpo $detail.Gpo }
@@ -2240,6 +2338,7 @@ function Start-PSGPOManagerWindow {
         $importGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit -and -not $Directory.IsReadOnly
         $deleteGpoMenuItem.IsVisible = $item -is [GPOToolsGpo] -and -not $Directory.IsReadOnly -and $item.CanEdit -and [GPOToolsDirectory]::DefaultGpoIds -notcontains $item.Id
         $restoreDeletedGpoMenuItem.IsVisible = $canRestore
+        $purgeDeletedGpoMenuItem.IsVisible = $canRestore
         $approveGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.ApprovalState -eq 'Pending' -and -not $Directory.IsReadOnly -and
             $Directory.Workflow -and $Directory.Workflow.IsApprover
         Update-SettingsTab
@@ -2249,7 +2348,7 @@ function Start-PSGPOManagerWindow {
     # Nothing to offer on this node: do not open an empty menu.
     (Get-PSGPOAvaloniaControl $window 'domainContextMenu').add_Opening({
         param($control, $e)
-        if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
+        if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $renameMenuItem.IsVisible -or $purgeDeletedGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
                 $blockInheritanceMenuItem.IsVisible -or $gpoStatusMenuItem.IsVisible -or $wmiFilterMenuItem.IsVisible -or $newWmiFilterMenuItem.IsVisible -or $editWmiFilterMenuItem.IsVisible -or $deleteWmiFilterMenuItem.IsVisible -or
                 $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible -or $approveGpoMenuItem.IsVisible -or $importGpoMenuItem.IsVisible) -or
             -not $domainTreeView.SelectedItem) { $e.Cancel = $true }
@@ -2383,6 +2482,7 @@ function Start-PSGPOManagerWindow {
     }
     $newWmiFilterMenuItem.Add_Click({ Open-NewWmiFilterForm })
     $editWmiFilterMenuItem.Add_Click({ $item = $domainTreeView.SelectedItem.Tag; if ($item -is [GPOToolsWmiFilter]) { Open-NewWmiFilterForm -Filter $item } })
+    $editWmiFilterButton.Add_Click({ $item = $domainTreeView.SelectedItem.Tag; if ($item -is [GPOToolsWmiFilter]) { Open-NewWmiFilterForm -Filter $item } })
     $newWmiFilterCreateButton.Add_Click({ Submit-NewWmiFilter })
     $newWmiFilterCancelButton.Add_Click({ $newWmiFilterPanel.IsVisible = $false })
     $deleteWmiFilterMenuItem.Add_Click({ Open-DeleteWmiFilterForm })
@@ -2456,6 +2556,23 @@ function Start-PSGPOManagerWindow {
     $restoreDeletedGpoButton.Add_Click({ Open-RestoreGpoForm })
     $restoreGpoConfirmButton.Add_Click({ Submit-RestoreGpo })
     $restoreGpoCancelButton.Add_Click({ $restoreGpoPanel.IsVisible = $false })
+    $purgeDeletedGpoMenuItem.Add_Click({ Open-PurgeDeletedGpoForm })
+    $purgeDeletedGpoButton.Add_Click({ Open-PurgeDeletedGpoForm })
+    $purgeDeletedGpoConfirmButton.Add_Click({ Submit-PurgeDeletedGpo })
+    $purgeDeletedGpoCancelButton.Add_Click({ $purgeDeletedGpoPanel.IsVisible = $false })
+    $renameMenuItem.Add_Click({ Open-RenameForm })
+    $renameConfirmButton.Add_Click({ Submit-Rename })
+    $renameCancelButton.Add_Click({ $renamePanel.IsVisible = $false })
+    $renameTextBox.Add_KeyDown({
+        param($control, $e)
+        if ($e.Key -eq [Avalonia.Input.Key]::Enter) { Submit-Rename }
+        elseif ($e.Key -eq [Avalonia.Input.Key]::Escape) { $renamePanel.IsVisible = $false }
+    })
+    # F2 on the tree, as in GPMC and the file managers.
+    $domainTreeView.Add_KeyDown({
+        param($control, $e)
+        if ($e.Key -eq [Avalonia.Input.Key]::F2 -and $renameMenuItem.IsVisible) { Open-RenameForm; $e.Handled = $true }
+    })
     $deleteLinkConfirmButton.Add_Click({ Submit-DeleteLink })
     $deleteLinkCancelButton.Add_Click({ $deleteLinkPanel.IsVisible = $false })
     $newGpoGroupsCheckBox.add_IsCheckedChanged({ $newGpoGroupsPanel.IsVisible = [bool]$newGpoGroupsCheckBox.IsChecked })
@@ -2569,6 +2686,9 @@ function Start-PSGPOManagerWindow {
             'linkGpoTitleTextBlock', 'linkGpoFilterTextBox', 'linkGpoList', 'linkGpoErrorTextBlock', 'linkGpoConfirmButton', 'linkGpoCancelButton',
             'deleteGpoMenuItem', 'deleteGpoPanel', 'deleteGpoTextBlock', 'deleteGpoConfirmButton', 'deleteGpoCancelButton', 'restoreDeletedGpoMenuItem',
             'restoreDeletedGpoButton', 'restoreGpoPanel', 'restoreGpoTextBlock', 'restoreGpoLinkCheckBox', 'restoreGpoConfirmButton', 'restoreGpoCancelButton',
+            'purgeDeletedGpoMenuItem', 'purgeDeletedGpoButton', 'purgeDeletedGpoPanel', 'purgeDeletedGpoTextBlock', 'purgeDeletedGpoConfirmButton', 'purgeDeletedGpoCancelButton',
+            'renameMenuItem', 'renamePanel', 'renameTitleTextBlock', 'renameTextBox', 'renameErrorTextBlock', 'renameConfirmButton', 'renameCancelButton',
+            'editWmiFilterButton', 'editingStatusTextBlock',
             'newGpoTemplateComboBox', 'historyNotesTemplateCheckBox', 'approveGpoMenuItem', 'approveGpoPanel', 'approveGpoTextBlock',
             'approveGpoRightsComboBox', 'approveGpoApplyToTextBox', 'approveGpoErrorTextBlock', 'approveGpoConfirmButton', 'approveGpoCancelButton',
             'approveGpoDenyToTextBox', 'approveGpoGroupsCheckBox', 'approveGpoGroupsTextBlock', 'approveGpoFilteringGrid',

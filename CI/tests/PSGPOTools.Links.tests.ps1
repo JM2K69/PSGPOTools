@@ -135,6 +135,35 @@ InModuleScope -ModuleName HGPM {
             (Set-PSGPO -Directory $Directory -Name 'C - Servers - Windows Update' -Status ComputerOnly).GetStatus() | Should -Be 'User configuration settings disabled'
         }
 
+        It 'Renames a GPO: its links, its GUID and its place in the list follow' {
+            $Gpo = $Directory.FindGpo('U - Lyon - Printers')
+            $Id = $Gpo.Id
+            $Renamed = Set-PSGPO -Directory $Directory -Name 'U - Lyon - Printers' -NewName '  A - Lyon - Printers '
+            $Renamed | Should -Be $Gpo
+            $Gpo.DisplayName | Should -Be 'A - Lyon - Printers'
+            $Gpo.Id | Should -Be $Id
+            $Directory.FindGpo('U - Lyon - Printers') | Should -BeNullOrEmpty
+            $Directory.Gpos[0] | Should -Be $Gpo -Because 'the GPOs stay sorted by name'
+            Get-Order $Directory.FindSom($Users) | Should -Contain 'A - Lyon - Printers'
+
+            # Another case only is a new name; the name of another GPO, an empty name are refused.
+            $Directory.RenameGpo($Gpo, 'a - lyon - printers')
+            $Gpo.DisplayName | Should -Be 'a - lyon - printers'
+            { $Directory.RenameGpo($Gpo, 'default domain policy') } | Should -Throw -ExpectedMessage "*'default domain policy' already exists*"
+            { $Directory.RenameGpo($Gpo, ' ') } | Should -Throw -ExpectedMessage '*name is required*'
+            { Set-PSGPO -Directory $Directory -Name $Gpo.DisplayName -NewName '' } | Should -Throw -ExpectedMessage '*-NewName is empty*'
+            $Gpo.CanEdit = $false
+            { $Directory.RenameGpo($Gpo, 'B - Lyon - Printers') } | Should -Throw -ExpectedMessage '*cannot rename the GPO*'
+            $Gpo.CanEdit = $true
+
+            # One GPO only: a pattern that finds several renames none.
+            Set-PSGPO -Directory $Directory -Name 'C - Servers - *' -NewName 'C - Servers' -ErrorVariable Problem -ErrorAction SilentlyContinue
+            "$Problem" | Should -BeLike '*-NewName renames one GPO*'
+            $Directory.FindGpo('C - Servers') | Should -BeNullOrEmpty
+            Set-PSGPO -Directory $Directory -Name $Gpo.DisplayName -NewName 'B - Lyon - Printers' -WhatIf
+            $Gpo.DisplayName | Should -Be 'a - lyon - printers'
+        }
+
         It 'Changes nothing with -WhatIf' {
             Set-PSGPOLink -Directory $Directory -Name 'U - Lyon - Printers' -Target $Users -Enforced $true -WhatIf
             ($Directory.FindSom($Users).Links | Where-Object { $_.GetDisplayName() -eq 'U - Lyon - Printers' }).Enforced | Should -BeFalse

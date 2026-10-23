@@ -617,6 +617,53 @@ function Get-PSGPODeletedGpoBackup {
     @($deleted | Sort-Object DisplayName)
 }
 
+# Deletes for good a GPO of the recycle bin: every backup of its GUID in $Path, in its folder
+# <name> {GUID} (or each of them, written by several consoles), its templates too. Refused while
+# the GPO is in the domain: its backups are then its history. Returns what was deleted.
+function Remove-PSGPODeletedGpoBackup {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
+        [Parameter(Mandatory)] [string]$Path,
+        [Parameter(Mandatory)] [guid]$Id
+    )
+
+    $text = "{$($Id.ToString().ToUpperInvariant())}"
+    if (@($Directory.Gpos | Where-Object Id -EQ $Id).Count) { throw "The GPO $text is in $($Directory.DomainName): its backups are its history, they are not deleted." }
+    $backups = @(Get-PSGPOBackupEntry -Path $Path -Id $Id)
+    if (-not $backups.Count) { throw "No backup of the GPO $text in $Path." }
+    $others = @($backups | Where-Object { -not [string]::Equals($_.Domain, $Directory.DomainName, [System.StringComparison]::OrdinalIgnoreCase) })
+    if ($others.Count) { throw "The backups of the GPO $text are of $($others[0].Domain), not of $($Directory.DomainName): they are not deleted." }
+    $label = Get-PSGPOTemplateLabel
+    $templates = @($backups | Where-Object { $_.Labels -contains $label })
+    $deleted = 0
+    try {
+        foreach ($backup in $backups) {
+            Remove-Item -LiteralPath $backup.Path -Recurse -Force -ErrorAction Stop
+            $deleted++
+        }
+    } catch {
+        throw "$deleted of the $($backups.Count) backups of the GPO '$($backups[0].DisplayName)' are deleted, not $($backup.Path): $($_.Exception.GetBaseException().Message)"
+    } finally {
+        # The folder of the GPO, once empty.
+        foreach ($folder in @($backups | ForEach-Object { [System.IO.Path]::GetDirectoryName($_.Path) } | Select-Object -Unique)) {
+            if ((Test-Path -LiteralPath $folder) -and -not @(Get-ChildItem -LiteralPath $folder -Force).Count) { Remove-Item -LiteralPath $folder -Force -ErrorAction SilentlyContinue }
+        }
+    }
+    $removed = [pscustomobject]@{
+        PSTypeName = 'PSGPOTools.RemovedBackup'
+        DisplayName = $backups[0].DisplayName
+        Id = $Id
+        Backups = $deleted
+        Templates = $templates.Count
+        Path = $Path
+    }
+    if ($Directory -is [GPOToolsLdapDirectory]) {
+        Write-PSGPOAuditEntry -Directory $Directory -Action 'RemoveDeletedGpoBackup' -Target $Path -Details ([ordered]@{ Id = $Id.ToString(); Name = $removed.DisplayName; Backups = $deleted; Templates = $templates.Count })
+    }
+    $removed
+}
+
 # Deletes a GPO (GPOToolsDirectory.RemoveGpo), backed up first in $Path unless -NoBackup: its
 # last backup says when and by whom it was deleted, and keeps it in the recycle bin.
 function Remove-PSGPOWithBackup {

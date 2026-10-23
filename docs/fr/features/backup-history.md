@@ -31,7 +31,7 @@ Backup-PSGPO -Path /srv/gpo-backups -Comment 'CHG-1024 : signature SMB'
 ## La frise
 
 La plus ancienne d'abord, comme la branche d'un graphe git. Chaque nœud est une sauvegarde, avec
-sa date, ses versions (ordinateur / utilisateur) et ce qui a changé depuis le nœud précédent
+sa date, ses versions (`ordinateur 3, utilisateur 0`) et ce qui a changé depuis le nœud précédent
 (`+ajoutés ~modifiés -retirés`) ; **Now** est la GPO telle qu'elle est, quand elle a changé depuis
 sa dernière sauvegarde. Sélectionnez un nœud pour voir ses changements paramètre par paramètre,
 avec la valeur avant (barrée) et après.
@@ -117,7 +117,7 @@ journal d'audit :
 |---|---|
 | `Time` | quand (UTC) |
 | `Account`, `Computer`, `Server` | qui, depuis quel ordinateur, sur quel contrôleur de domaine |
-| `Action` | `NewGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SaveGpoFile`, `RestoreGpo`, `RemoveGpo`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration` |
+| `Action` | `NewGpo`, `RenameGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SetWmiFilter`, `NewWmiFilter`, `EditWmiFilter`, `RemoveWmiFilter`, `SetGpoPermission`, `SetGpoSecurityFiltering`, `SaveGpoFile`, `RestoreGpo`, `ImportGpo`, `RemoveGpo`, `RemoveDeletedGpoBackup`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration` |
 | `Target`, `GpoName`, `GpoId` | sur quoi : la GPO, le domaine ou l'OU, la configuration |
 | `Details` | comment : les options de lien changées, le fichier enregistré avec son SHA-256 et la nouvelle version, les droits des créateurs et les permissions retirées à une approbation… |
 

@@ -497,6 +497,22 @@ class GPOToolsDirectory {
         $Gpo.Flags = $Flags
     }
 
+    # Renames a GPO, as GPMC "Rename": its display name only. Its GUID, so its folder in SYSVOL,
+    # its links, its backups and its security filtering groups do not change.
+    [void] RenameGpo([GPOToolsGpo]$Gpo, [string]$DisplayName) {
+        $this.AssertWritable()
+        if (-not $this.Gpos.Contains($Gpo)) { throw "The GPO '$($Gpo.DisplayName)' is not in $($this.DomainName)." }
+        if (-not $Gpo.CanEdit) { throw "The account $($this.Account) cannot rename the GPO '$($Gpo.DisplayName)'." }
+        $Name = "$DisplayName".Trim()
+        if (-not $Name) { throw 'The GPO name is required.' }
+        if ($Name -ceq $Gpo.DisplayName) { return }
+        $Other = $this.FindGpo($Name)
+        if ($Other -and $Other -ne $Gpo) { throw "A GPO named '$Name' already exists in $($this.DomainName)." }
+        $this.SaveRenamedGpo($Gpo, $Name)
+        $Gpo.DisplayName = $Name
+        $this.SortGpos()
+    }
+
     # Security filtering groups of a GPO, created in $Container: APPLY_<GPO>, whose members alone
     # apply it, and DENY_<GPO>, whose members never apply it. Returns the two groups (Name,
     # DistinguishedName, Sid).
@@ -854,6 +870,8 @@ class GPOToolsDirectory {
     # SaveNewLink may set the links of the SOM again from the domain (link added by someone else).
     hidden [void] SaveNewLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {}
     hidden [void] SaveGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {}
+    # $Gpo still has the name the domain has.
+    hidden [void] SaveRenamedGpo([GPOToolsGpo]$Gpo, [string]$DisplayName) {}
     # SaveRemovedLink may set the links of the SOM again from the domain.
     hidden [void] SaveRemovedLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {}
     # SaveLink may set the links of the SOM again from the domain; $null keeps an option, $Order 0
@@ -987,6 +1005,11 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
     hidden [void] SaveGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {
         Set-PSGPODomainGpoStatus -Directory $this -Gpo $Gpo -Flags $Flags
         Write-PSGPOAuditEntry -Directory $this -Action 'SetGpoStatus' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details @{ Flags = $Flags }
+    }
+
+    hidden [void] SaveRenamedGpo([GPOToolsGpo]$Gpo, [string]$DisplayName) {
+        Set-PSGPODomainGpoName -Directory $this -Gpo $Gpo -DisplayName $DisplayName
+        Write-PSGPOAuditEntry -Directory $this -Action 'RenameGpo' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details ([ordered]@{ Name = $DisplayName; OldName = $Gpo.DisplayName })
     }
 
     hidden [void] SaveRemovedLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {
