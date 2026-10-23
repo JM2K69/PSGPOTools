@@ -329,6 +329,46 @@ function Remove-PSGPODomainGpLink {
     Write-Verbose "Link of the GPO $($Link.GetDisplayName()) to $($Som.DistinguishedName) deleted."
 }
 
+# Renames a GPO in the domain: the displayName of its group policy container, the name read
+# removed in the same request, so that it fails if someone renamed it meanwhile.
+function Set-PSGPODomainGpoName {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
+        [Parameter(Mandatory)] [string]$DisplayName
+    )
+
+    $connection = New-PSGPODirectoryConnection -Directory $Directory
+    try {
+        $request = [System.DirectoryServices.Protocols.ModifyRequest]::new()
+        $request.DistinguishedName = $Gpo.DistinguishedName
+        $remove = [System.DirectoryServices.Protocols.DirectoryAttributeModification]::new()
+        $remove.Name = 'displayName'
+        $remove.Operation = [System.DirectoryServices.Protocols.DirectoryAttributeOperation]::Delete
+        [void]$remove.Add($Gpo.DisplayName)
+        [void]$request.Modifications.Add($remove)
+        $add = [System.DirectoryServices.Protocols.DirectoryAttributeModification]::new()
+        $add.Name = 'displayName'
+        $add.Operation = [System.DirectoryServices.Protocols.DirectoryAttributeOperation]::Add
+        [void]$add.Add($DisplayName)
+        [void]$request.Modifications.Add($add)
+        try {
+            [void]$connection.SendRequest($request)
+        } catch {
+            $base = $_.Exception.GetBaseException()
+            $code = if ($base.PSObject.Properties['Response']) { "$($base.Response.ResultCode)" }
+            if ($code -in 'NoSuchAttribute', 'AttributeOrValueExists') { throw "The GPO '$($Gpo.DisplayName)' changed in the domain meanwhile: read the domain again, then try again." }
+            if ($code -eq 'InsufficientAccessRights') { throw "The account cannot rename the GPO '$($Gpo.DisplayName)': $($base.Message)" }
+            if ($code -eq 'NoSuchObject') { throw "The GPO '$($Gpo.DisplayName)' is not in the domain anymore." }
+            throw
+        }
+    } finally {
+        $connection.Dispose()
+    }
+    Write-Verbose "GPO '$($Gpo.DisplayName)' renamed '$DisplayName'."
+}
+
 # The GPO as the directory has it now: display name, version, status and last change.
 function Update-PSGPODomainGpoState {
     [CmdletBinding()]

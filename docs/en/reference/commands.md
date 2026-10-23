@@ -25,7 +25,7 @@ page. The commands that change the domain support `-WhatIf` and `-Confirm`.
 | [`Set-PSGPOLink`](commands/set-psgpolink.md) `-Name -Target [-Enabled] [-Enforced] [-Order]` | enables, disables, enforces or moves links |
 | [`Remove-PSGPOLink`](commands/remove-psgpolink.md) `-Name -Target` | deletes links, the GPOs kept |
 | [`Set-PSGPOInheritance`](commands/set-psgpoinheritance.md) `-Target -Blocked` | blocks the inheritance of the domain or an OU, or not |
-| [`Set-PSGPO`](commands/set-psgpo.md) `-Name [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter]` | sets the status and the WMI filter of GPOs |
+| [`Set-PSGPO`](commands/set-psgpo.md) `-Name [-NewName] [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter]` | renames a GPO, sets the status and the WMI filter of GPOs |
 | [`Get-PSGPOPermission`](commands/get-psgpopermission.md) `-Name` | the permissions of GPOs, as the Delegation tab of GPMC: each account and its level |
 | [`Set-PSGPOPermission`](commands/set-psgpopermission.md) `-Name -Account [-Permission GpoRead\|GpoApply\|GpoEdit\|GpoEditDeleteModifySecurity\|None] [-SecurityFiltering Add\|Remove]` | gives an account a level on GPOs, or changes their security filtering, in the directory and in SYSVOL |
 | [`Get-PSGPOWmiFilter`](commands/get-psgpowmifilter.md) `[-Name]` | the WMI filters of the domain, their queries and their GPOs |
@@ -52,6 +52,7 @@ Approve-PSGPO -Directory $Directory -Name 'T1 - Servers - Proxy' -ApplyTo 'APPLY
 | [`Get-PSGPOBackup`](commands/get-psgpobackup.md) `-Path [-Name] [-Id] [-Label] [-Approved] [-Template] [-Deleted]` | lists the backups, newest first; `-Deleted`: the recycle bin |
 | [`Compare-PSGPOBackup`](commands/compare-psgpobackup.md) `-ReferenceBackup -DifferenceBackup` | what changed between two backups, setting by setting |
 | [`Restore-PSGPO`](commands/restore-psgpo.md) `-Backup [-NoBackup] [-RestoreLink]` | puts a GPO back as a backup has it, or creates a deleted GPO again |
+| [`Remove-PSGPOBackup`](commands/remove-psgpobackup.md) `-Backup` | deletes for good a GPO of the recycle bin: all its backups |
 | [`Set-PSGPOBackup`](commands/set-psgpobackup.md) `-Backup [-Comment] [-AddLabel] [-RemoveLabel] [-Approve] [-Unapprove]` | changes the notes of a backup |
 | [`Get-PSGPODrift`](commands/get-psgpodrift.md) `-Path [-Name] [-Label]` | compares each GPO to its approved version: `InSync`, `Drifted`, `NotApproved` |
 | [`Get-PSGPOAuditLog`](commands/get-psgpoauditlog.md) `[-Path] [-Domain] [-Name] [-Action] [-Account] [-After] [-Before]` | what the consoles and the commands changed in the domain, newest first |
@@ -117,6 +118,7 @@ New-PSGPOFineGrainedPasswordPolicy -Name 'PSO - Tier 1 Admins' -Precedence 10 -M
 | `PSGPOTools.SettingChange` | `Compare-PSGPOBackup`, `Get-PSGPODrift` | `Change`, `Scope`, `Path`, `Name`, `Before`, `After` |
 | `PSGPOTools.Drift` | `Get-PSGPODrift` | `DisplayName`, `State`, `Approved`, `ApprovedBy`, `Changes` |
 | `PSGPOTools.Restore` | `Restore-PSGPO` | `DisplayName`, `Id`, `Version`, `BackupBefore`, `CreatedAgain`, `Linked`, `Problems` |
+| `PSGPOTools.RemovedBackup` | `Remove-PSGPOBackup` | `DisplayName`, `Id`, `Backups`, `Templates`, `Path` |
 | `PSGPOTools.Link` | `New-PSGPOLink`, `Set-PSGPOLink` | `DisplayName`, `Target`, `Order`, `Enabled`, `Enforced` |
 | `PSGPOTools.AuditEntry` | `Get-PSGPOAuditLog` | `Time`, `Account`, `Computer`, `Server`, `Action`, `Target`, `GpoName`, `GpoId`, `Details` |
 | `PSGPOTools.WmiFilter` | `Get-PSGPOWmiFilter`, `New-PSGPOWmiFilter`, `Set-PSGPOWmiFilter` | `Name`, `Id`, `Description`, `Queries`, `Gpos`, `DistinguishedName` |

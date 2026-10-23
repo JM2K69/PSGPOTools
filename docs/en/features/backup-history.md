@@ -30,7 +30,7 @@ Backup-PSGPO -Path /srv/gpo-backups -Comment 'CHG-1024: SMB signing'
 ## The timeline
 
 Oldest first, as the branch of a git graph. Each node is a backup, with its date, its versions
-(computer / user) and what changed since the node before it (`+added ~changed -removed`); **Now**
+(`computer 3, user 0`) and what changed since the node before it (`+added ~changed -removed`); **Now**
 is the GPO as it is, when it changed since its last backup. Select a node to see its changes
 setting by setting, with the value before (struck out) and after.
 
@@ -113,7 +113,7 @@ Each change the domain accepted, from the console or a command, is a line of the
 |---|---|
 | `Time` | when (UTC) |
 | `Account`, `Computer`, `Server` | who, from which computer, on which domain controller |
-| `Action` | `NewGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SaveGpoFile`, `RestoreGpo`, `RemoveGpo`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration` |
+| `Action` | `NewGpo`, `RenameGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SetWmiFilter`, `NewWmiFilter`, `EditWmiFilter`, `RemoveWmiFilter`, `SetGpoPermission`, `SetGpoSecurityFiltering`, `SaveGpoFile`, `RestoreGpo`, `ImportGpo`, `RemoveGpo`, `RemoveDeletedGpoBackup`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration` |
 | `Target`, `GpoName`, `GpoId` | on what: the GPO, the domain or OU, the configuration |
 | `Details` | how: the link options changed, the file saved with its SHA-256 and the new version, the rights of the creators and the permissions removed at an approval... |
 

@@ -606,6 +606,8 @@ InModuleScope -ModuleName HGPM {
                     $Nodes = @($Ui.historyTimelineList.ItemsSource)
                     @($Nodes.Summary) | Should -Be @('first backup', '+1  ~0  -0', '+0  ~1  -0, not backed up')
                     $Nodes[2].IsCurrent | Should -BeTrue
+                    # The version of each part, named: '3 / 0' read as a fraction.
+                    $Nodes[2].Subtitle | Should -Be ('computer {0}, user {1}' -f $Gpo.GetComputerVersion(), $Gpo.GetUserVersion())
                     $Ui.historyTimelineList.SelectedIndex | Should -Be 2
                     $Ui.historyStatusTextBlock.Text | Should -BeLike '2 backups in*The GPO changed since the last one (Now).'
                     $Ui.historyCompareTextBlock.Text | Should -BeLike 'Changes since the backup of*not backed up yet'
@@ -1257,6 +1259,120 @@ InModuleScope -ModuleName HGPM {
                 $Ui.newWmiFilterTitleTextBlock.Text | Should -Be 'New WMI filter'
                 $Ui.newWmiFilterCreateButton.Content | Should -Be 'Create'
                 $Ui.newWmiFilterNameTextBox.Text | Should -BeNullOrEmpty
+            }
+        }
+
+        It 'Renames a GPO from its node, a link to it or F2, and a WMI filter; edits a filter from its details' {
+            $Filter = $Directory.NewWmiFilter('Laptops', 'Computers with a battery', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_Battery' }))
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Gpo = $Ui.Directory.FindGpo('U - Lyon - Printers')
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'U - Lyon - Printers'
+                $Ui.renameMenuItem.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.renameMenuItem
+                $Ui.renamePanel.IsVisible | Should -BeTrue
+                $Ui.renameTitleTextBlock.Text | Should -Be "Rename the GPO 'U - Lyon - Printers'"
+                $Ui.renameTextBox.Text | Should -Be 'U - Lyon - Printers'
+                $Ui.renameTextBox.Text = 'Default Domain Policy'
+                Invoke-Click $Ui.renameConfirmButton
+                $Ui.renameErrorTextBlock.Text | Should -Be "A GPO named 'Default Domain Policy' already exists in corp.contoso.com."
+                $Ui.renameTextBox.Text = 'U - Lyon - Color printers'
+                Invoke-Click $Ui.renameConfirmButton
+                $Ui.renamePanel.IsVisible | Should -BeFalse
+                $Gpo.DisplayName | Should -Be 'U - Lyon - Color printers'
+                $Ui.domainTreeView.SelectedItem.Tag | Should -Be $Gpo
+                $Ui.domainTreeView.SelectedItem.Header | Should -Be 'U - Lyon - Color printers'
+                $Ui.directoryResultTextBlock.Text | Should -Be "GPO 'U - Lyon - Printers' renamed 'U - Lyon - Color printers': its links, its settings and its history are kept."
+                (Get-DomainNode $Ui 'Sites', 'Lyon', 'Users').Children.Header | Should -Contain 'U - Lyon - Color printers'
+
+                # F2 on a link renames its GPO; Escape gives up.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Users', 'U - Lyon - Color printers'
+                $KeyArgs = [Avalonia.Input.KeyEventArgs]::new()
+                $KeyArgs.RoutedEvent = [Avalonia.Input.InputElement]::KeyDownEvent
+                $KeyArgs.Key = [Avalonia.Input.Key]::F2
+                $Ui.domainTreeView.RaiseEvent($KeyArgs)
+                $Ui.renamePanel.IsVisible | Should -BeTrue
+                $Ui.renameTitleTextBlock.Text | Should -Be "Rename the GPO 'U - Lyon - Color printers'"
+                $KeyArgs = [Avalonia.Input.KeyEventArgs]::new()
+                $KeyArgs.RoutedEvent = [Avalonia.Input.InputElement]::KeyDownEvent
+                $KeyArgs.Key = [Avalonia.Input.Key]::Escape
+                $Ui.renameTextBox.RaiseEvent($KeyArgs)
+                $Ui.renamePanel.IsVisible | Should -BeFalse
+
+                # Without the right to edit the GPO, no Rename.
+                $Gpo.CanEdit = $false
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'U - Lyon - Color printers'
+                $Ui.renameMenuItem.IsVisible | Should -BeFalse
+                $Gpo.CanEdit = $true
+
+                # A WMI filter: Edit this WMI filter in its details, Rename in its menu.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters', 'Laptops'
+                $Ui.editWmiFilterButton.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.editWmiFilterButton
+                $Ui.newWmiFilterPanel.IsVisible | Should -BeTrue
+                $Ui.newWmiFilterTitleTextBlock.Text | Should -Be 'Edit WMI filter'
+                Invoke-Click $Ui.renameMenuItem
+                $Ui.newWmiFilterPanel.IsVisible | Should -BeFalse -Because 'one form at a time'
+                $Ui.renameTitleTextBlock.Text | Should -Be "Rename the WMI filter 'Laptops'"
+                $Ui.renameTextBox.Text = 'Portables'
+                Invoke-Click $Ui.renameConfirmButton
+                $Filter.Name | Should -Be 'Portables'
+                $Filter.Description | Should -Be 'Computers with a battery' -Because 'only its name changes'
+                $Filter.GetQueryText() | Should -Be 'root\CIMv2: SELECT * FROM Win32_Battery'
+                $Ui.domainTreeView.SelectedItem.Header | Should -Be 'Portables'
+                $Ui.directoryResultTextBlock.Text | Should -Be "WMI filter 'Laptops' renamed 'Portables'."
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters'
+                $Ui.editWmiFilterButton.IsVisible | Should -BeFalse
+                $Ui.renameMenuItem.IsVisible | Should -BeFalse
+            }
+        }
+
+        It 'Says in the editor what the status of the GPO disables' {
+            $Directory.SetGpoStatus($Directory.FindGpo('U - Lyon - Printers'), 2)
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'U - Lyon - Printers'
+                Invoke-Click $Ui.editGpoMenuItem
+                $Ui.editingStatusTextBlock.Text | Should -Be 'The GPO status disables its Computer Configuration: its settings are saved, but the computers do not apply them.'
+                $Ui.editingStatusTextBlock.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.managementButton
+                $Ui.Directory.SetGpoStatus($Ui.Directory.FindGpo('U - Lyon - Printers'), 0)
+                Invoke-Click $Ui.editGpoMenuItem
+                $Ui.editingStatusTextBlock.Text | Should -BeNullOrEmpty
+                $Ui.editingStatusTextBlock.IsVisible | Should -BeFalse
+            }
+        }
+
+        It 'Deletes a GPO of Deleted GPOs for good, once confirmed' {
+            $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
+            $Root = Join-Path $TestDrive "purge-$([guid]::NewGuid())"
+            $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
+            Set-PSGPOUserSetting -Values @{ BackupPath = $Root }
+            try {
+                $Gpo = $Directory.FindGpo('U - Lyon - Printers')
+                $null = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Label 'Template'
+                $null = Remove-PSGPO -Name $Gpo.DisplayName -Directory $Directory -BackupPath $Root -Confirm:$false
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Deleted GPOs', 'U - Lyon - Printers'
+                    $Ui.purgeDeletedGpoButton.IsVisible | Should -BeTrue
+                    $Ui.purgeDeletedGpoMenuItem.IsVisible | Should -BeTrue
+                    Invoke-Click $Ui.purgeDeletedGpoButton
+                    $Ui.purgeDeletedGpoPanel.IsVisible | Should -BeTrue
+                    # Unchanged since its backup: deleted with that backup only, a template.
+                    $Ui.purgeDeletedGpoTextBlock.Text | Should -Be "Delete the GPO 'U - Lyon - Printers' for good? Its backup in $Root is deleted: it cannot be restored afterwards. Templates of new GPOs made from it: 1, deleted too."
+                    Invoke-Click $Ui.purgeDeletedGpoCancelButton
+                    @(Get-PSGPOBackup -Path $Root -Id $Gpo.Id).Count | Should -Be 1
+                    Invoke-Click $Ui.purgeDeletedGpoMenuItem
+                    Invoke-Click $Ui.purgeDeletedGpoConfirmButton
+                    @(Get-PSGPOBackup -Path $Root -Id $Gpo.Id).Count | Should -Be 0
+                    $Ui.domainTreeView.SelectedItem.Tag | Should -Be 'DeletedGpos'
+                    @((Get-DomainNode $Ui 'Deleted GPOs').Children).Count | Should -Be 0
+                    $Ui.directoryResultTextBlock.Text | Should -Be "GPO 'U - Lyon - Printers' deleted for good: its backup is deleted."
+                }
+            } finally {
+                $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
             }
         }
 

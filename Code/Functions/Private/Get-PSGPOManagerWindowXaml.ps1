@@ -161,6 +161,9 @@ $(Get-PSGPOWindowResourceXaml)
                                 <MenuItem Name='editGpoMenuItem' Header='Edit...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.edit}'/></MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Name='renameMenuItem' Header='Rename...' InputGesture='F2'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.rename}'/></MenuItem.Icon>
+                                </MenuItem>
                                 <MenuItem Name='enforcedLinkMenuItem' Header='Enforced' ToggleType='CheckBox'/>
                                 <MenuItem Name='enabledLinkMenuItem' Header='Link Enabled' ToggleType='CheckBox'/>
                                 <MenuItem Name='moveLinkUpMenuItem' Header='Move link up'/>
@@ -196,6 +199,9 @@ $(Get-PSGPOWindowResourceXaml)
                                 </MenuItem>
                                 <MenuItem Name='restoreDeletedGpoMenuItem' Header='Restore...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.arrow-undo}'/></MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Name='purgeDeletedGpoMenuItem' Header='Delete for good...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.delete-dismiss}'/></MenuItem.Icon>
                                 </MenuItem>
                             </ContextMenu>
                         </TreeView.ContextMenu>
@@ -328,6 +334,34 @@ $(Get-PSGPOWindowResourceXaml)
                                         </StackPanel>
                                     </Border>
 
+                                    <!-- Rename of a GPO or of a WMI filter, as GPMC: its name only -->
+                                    <Border Name='renamePanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='renameTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBox Name='renameTextBox' Watermark='New name'/>
+                                            <TextBlock Name='renameErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='renameConfirmButton' Content='Rename' MinWidth='110'/>
+                                                <Button Name='renameCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- A deleted GPO deleted for good: all its backups -->
+                                    <Border Name='purgeDeletedGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='#D13438'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='purgeDeletedGpoTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='purgeDeletedGpoConfirmButton' Content='Delete for good' MinWidth='120'/>
+                                                <Button Name='purgeDeletedGpoCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
                                     <!-- A deleted GPO created again from its backup -->
                                     <Border Name='restoreGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
                                             BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
@@ -435,12 +469,26 @@ $(Get-PSGPOWindowResourceXaml)
                                             <TextBlock Text='Edit this GPO' VerticalAlignment='Center'/>
                                         </StackPanel>
                                     </Button>
-                                    <Button Name='restoreDeletedGpoButton' IsVisible='False' Margin='0,8,0,8'>
+                                    <Button Name='editWmiFilterButton' IsVisible='False' Margin='0,8,0,8'>
                                         <StackPanel Orientation='Horizontal' Spacing='8'>
-                                            <PathIcon Data='{StaticResource Icon.arrow-undo}'/>
-                                            <TextBlock Text='Restore this GPO...' VerticalAlignment='Center'/>
+                                            <PathIcon Data='{StaticResource Icon.edit}'/>
+                                            <TextBlock Text='Edit this WMI filter' VerticalAlignment='Center'/>
                                         </StackPanel>
                                     </Button>
+                                    <StackPanel Orientation='Horizontal' Spacing='8'>
+                                        <Button Name='restoreDeletedGpoButton' IsVisible='False' Margin='0,8,0,8'>
+                                            <StackPanel Orientation='Horizontal' Spacing='8'>
+                                                <PathIcon Data='{StaticResource Icon.arrow-undo}'/>
+                                                <TextBlock Text='Restore this GPO...' VerticalAlignment='Center'/>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Name='purgeDeletedGpoButton' IsVisible='False' Margin='0,8,0,8'>
+                                            <StackPanel Orientation='Horizontal' Spacing='8'>
+                                                <PathIcon Data='{StaticResource Icon.delete-dismiss}'/>
+                                                <TextBlock Text='Delete for good...' VerticalAlignment='Center'/>
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
 
                                     <ItemsControl Name='directoryPropertiesList'>
                                         <ItemsControl.ItemTemplate>
@@ -639,7 +687,7 @@ $(Get-PSGPOWindowResourceXaml)
                                                     <Ellipse Grid.Row='0' Width='18' Height='18' HorizontalAlignment='Center'
                                                              Fill='{Binding NodeFill}' Stroke='{Binding NodeStroke}' StrokeThickness='3'/>
                                                     <TextBlock Grid.Row='1' Text='{Binding Title}' FontSize='11' FontWeight='SemiBold' HorizontalAlignment='Center' Margin='0,4,0,0'/>
-                                                    <TextBlock Grid.Row='2' Text='{Binding Subtitle}' FontSize='11' HorizontalAlignment='Center'
+                                                    <TextBlock Grid.Row='2' Text='{Binding Subtitle}' FontSize='11' HorizontalAlignment='Center' TextAlignment='Center' TextWrapping='Wrap'
                                                                Foreground='{DynamicResource SecondaryTextBrush}'/>
                                                     <TextBlock Grid.Row='3' Text='{Binding Summary}' FontSize='11' HorizontalAlignment='Center'/>
                                                     <TextBlock Grid.Row='4' Text='{Binding LabelsText}' FontSize='10' FontWeight='SemiBold' HorizontalAlignment='Center'
@@ -728,6 +776,9 @@ $(Get-PSGPOWindowResourceXaml)
                 </StackPanel>
                 <TextBlock Text='The setting of each policy is read from the GPO (Registry.pol, GptTmpl.inf for the security settings); Apply saves it there.' FontSize='11'
                            Foreground='{DynamicResource SecondaryTextBrush}' TextWrapping='Wrap'/>
+                <!-- The part of the GPO its status disables: saved, not applied -->
+                <TextBlock Name='editingStatusTextBlock' FontSize='12' FontWeight='SemiBold' Foreground='#CA5010' TextWrapping='Wrap' Margin='0,4,0,0'
+                           IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
             </StackPanel>
         </Border>
         <Grid Grid.Row='1' ColumnDefinitions='2*,Auto,3*' Margin='0'>

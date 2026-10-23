@@ -111,6 +111,11 @@ Remove-PSGPOLink -Name 'U - Lyon - Printers' -Target Lyon
 appliquent, comme dans GPMC : tous ses paramètres, ceux des ordinateurs seulement (User
 Configuration Settings Disabled), ceux des utilisateurs seulement, ou aucun (`Set-PSGPO -Status`).
 
+La partie d'une GPO que son statut désactive reste modifiable, comme dans GPMC : ses paramètres
+sont enregistrés, mais personne ne les applique. L'éditeur le dit au-dessus des stratégies :
+
+![L'éditeur d'une GPO dont la configuration utilisateur est désactivée](../assets/screenshots/47-editor-status.fr.png)
+
 Les détails d'une GPO montrent son **statut** et son **filtrage de sécurité**, comme l'onglet
 Étendue de GPMC : qui l'applique (« Appliquer la stratégie de groupe ») et à qui elle est refusée.
 Les groupes de filtrage d'une nouvelle GPO sont créés avec les préfixes, l'étendue et les
@@ -176,8 +181,9 @@ l'utilise.
 
 ![Un nouveau filtre WMI](../assets/screenshots/24-new-wmi-filter.fr.png)
 
-**Modifier le filtre WMI...**, dans le menu contextuel d'un filtre, le modifie dans le même
-formulaire : son nom, sa description, ses requêtes. Le filtre garde son identité (`msWMI-ID`) : les
+**Modifier le filtre WMI...**, dans le menu contextuel d'un filtre, ou **Modifier ce filtre WMI**
+dans ses détails, le modifie dans le même formulaire : son nom, sa description, ses requêtes.
+**Renommer...** (ou F2) ne change que son nom. Le filtre garde son identité (`msWMI-ID`) : les
 GPO qui y sont liées le gardent et les ordinateurs les appliquent avec ses nouvelles requêtes, comme
 quand GPMC modifie un filtre. Une requête d'un autre espace de noms que celui du formulaire est une
 ligne `espace de noms: requête` (`root\WMI: SELECT * FROM BatteryStatus`). La modification est
@@ -205,6 +211,21 @@ Un filtre qu'utilise une GPO n'est pas supprimé, y compris les GPO que votre co
 Les sauvegardes gardent le filtre d'une GPO (son nom et ses requêtes) : l'écart montre quand il a
 changé, et une restauration relie la GPO à son filtre s'il est encore dans le domaine, ou dit qu'il
 n'y est plus.
+
+## Renommer une GPO
+
+**Renommer...**, dans le menu contextuel d'une GPO ou d'un lien vers elle, ou **F2** dans
+l'arborescence, lui donne un nouveau nom, comme GPMC. Seul son nom d'affichage change : son GUID,
+donc son dossier SYSVOL, ses liens, ses paramètres, ses sauvegardes (l'onglet Historique) et ses
+groupes de filtrage de sécurité sont conservés. Le nom d'une autre GPO du domaine est refusé, tout
+comme une GPO renommée dans le domaine depuis que la console l'a lue. Le renommage va dans le
+[journal d'audit](backup-history.md) (`RenameGpo`).
+
+![Renommer une GPO](../assets/screenshots/45-rename-gpo.fr.png)
+
+```powershell
+Set-PSGPO -Name 'U - Lyon - Printers' -NewName 'U - Lyon - Color printers'
+```
 
 ## Supprimer une GPO
 
@@ -247,6 +268,17 @@ récente). **Restore...** recrée la GPO à partir de celle-ci :
 
 ```powershell
 Get-PSGPOBackup -Path /srv/gpo-backups -Deleted | Restore-PSGPO -RestoreLink
+```
+
+**Supprimer définitivement...** vide la corbeille d'une GPO, après confirmation : chacune de ses
+sauvegardes dans le dossier de l'onglet Historique est supprimée, les modèles faits à partir d'elle
+aussi (la confirmation les compte). Elle ne peut plus être restaurée ensuite. Les sauvegardes d'une
+GPO encore dans le domaine sont son historique : elles ne sont jamais supprimées ainsi.
+
+![Supprimer définitivement une GPO de la corbeille](../assets/screenshots/46-delete-for-good.fr.png)
+
+```powershell
+Get-PSGPOBackup -Path /srv/gpo-backups -Deleted -Name 'U - Lyon - Printers' | Remove-PSGPOBackup
 ```
 
 ## Les modèles

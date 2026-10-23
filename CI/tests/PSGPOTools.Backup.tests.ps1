@@ -374,6 +374,30 @@ InModuleScope -ModuleName HGPM {
             { (Get-PSGPOBackup -Path $Root -Id $Gpo.Id) | Restore-PSGPO -Directory $Directory -Confirm:$false } | Should -Throw -ExpectedMessage '*was created again already*'
         }
 
+        It 'Deletes for good a GPO of the recycle bin: every backup of it, renamed or not, its templates too' {
+            $null = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Label 'Template'
+            $Directory.RenameGpo($Gpo, 'U - Lyon - Old printers')
+            $Other = Backup-PSGPO -Directory $Directory -Path $Root -Name 'C - Servers - Windows Update'
+            # Its backups are its history while it is in the domain.
+            { Remove-PSGPODeletedGpoBackup -Directory $Directory -Path $Root -Id $Gpo.Id } | Should -Throw -ExpectedMessage '*is in corp.contoso.com*'
+            $null = Remove-PSGPO -Name $Gpo.DisplayName -Directory $Directory -BackupPath $Root -Confirm:$false
+            @(Get-PSGPOBackup -Path $Root -Id $Gpo.Id).Count | Should -Be 2 -Because 'its name changed'
+            $Deleted = @(Get-PSGPOBackup -Path $Root -Deleted -Directory $Directory)
+            $Deleted.Count | Should -Be 1
+
+            $Deleted | Remove-PSGPOBackup -Directory $Directory -WhatIf
+            @(Get-PSGPOBackup -Path $Root -Id $Gpo.Id).Count | Should -Be 2 -Because '-WhatIf deletes nothing'
+            $Removed = $Deleted | Remove-PSGPOBackup -Directory $Directory -Confirm:$false
+            $Removed.Backups | Should -Be 2
+            $Removed.Templates | Should -Be 1
+            $Removed.DisplayName | Should -Be 'U - Lyon - Old printers'
+            @(Get-PSGPOBackup -Path $Root -Id $Gpo.Id).Count | Should -Be 0
+            @(Get-PSGPOBackup -Path $Root -Deleted -Directory $Directory).Count | Should -Be 0
+            @(Get-ChildItem -LiteralPath $Root -Directory | Where-Object Name -Like '*Printers*').Count | Should -Be 0 -Because 'its folder is gone'
+            @(Get-PSGPOBackup -Path $Root -Id $Other.Id).Count | Should -Be 1 -Because 'the backups of the other GPOs stay'
+            { Remove-PSGPODeletedGpoBackup -Directory $Directory -Path $Root -Id $Gpo.Id } | Should -Throw -ExpectedMessage '*No backup of the GPO*'
+        }
+
         It 'Does not link again a deleted GPO whose security filtering was not Authenticated Users' {
             $Gpo.SecurityFiltering = @('CORP\APPLY_U - Lyon - Printers')
             $null = Remove-PSGPO -Name $Gpo.DisplayName -Directory $Directory -BackupPath $Root -Confirm:$false

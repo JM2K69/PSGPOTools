@@ -25,7 +25,7 @@ ouvre sa page. Les commandes qui modifient le domaine acceptent `-WhatIf` et `-C
 | [`Set-PSGPOLink`](commands/set-psgpolink.md) `-Name -Target [-Enabled] [-Enforced] [-Order]` | active, désactive, applique (Enforced) ou déplace des liens |
 | [`Remove-PSGPOLink`](commands/remove-psgpolink.md) `-Name -Target` | supprime des liens, les GPO restent |
 | [`Set-PSGPOInheritance`](commands/set-psgpoinheritance.md) `-Target -Blocked` | bloque l'héritage du domaine ou d'une OU, ou non |
-| [`Set-PSGPO`](commands/set-psgpo.md) `-Name [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter]` | règle le statut et le filtre WMI de GPO |
+| [`Set-PSGPO`](commands/set-psgpo.md) `-Name [-NewName] [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter]` | renomme une GPO, règle le statut et le filtre WMI de GPO |
 | [`Get-PSGPOPermission`](commands/get-psgpopermission.md) `-Name` | les autorisations de GPO, comme l'onglet Délégation de GPMC : chaque compte et son niveau |
 | [`Set-PSGPOPermission`](commands/set-psgpopermission.md) `-Name -Account [-Permission GpoRead\|GpoApply\|GpoEdit\|GpoEditDeleteModifySecurity\|None] [-SecurityFiltering Add\|Remove]` | donne un niveau à un compte sur des GPO, ou change leur filtrage de sécurité, dans l'annuaire et dans SYSVOL |
 | [`Get-PSGPOWmiFilter`](commands/get-psgpowmifilter.md) `[-Name]` | les filtres WMI du domaine, leurs requêtes et leurs GPO |
@@ -52,6 +52,7 @@ Approve-PSGPO -Directory $Directory -Name 'T1 - Servers - Proxy' -ApplyTo 'APPLY
 | [`Get-PSGPOBackup`](commands/get-psgpobackup.md) `-Path [-Name] [-Id] [-Label] [-Approved] [-Template] [-Deleted]` | liste les sauvegardes, la plus récente d'abord ; `-Deleted` : la corbeille |
 | [`Compare-PSGPOBackup`](commands/compare-psgpobackup.md) `-ReferenceBackup -DifferenceBackup` | ce qui a changé entre deux sauvegardes, paramètre par paramètre |
 | [`Restore-PSGPO`](commands/restore-psgpo.md) `-Backup [-NoBackup] [-RestoreLink]` | remet une GPO comme une sauvegarde la contient, ou recrée une GPO supprimée |
+| [`Remove-PSGPOBackup`](commands/remove-psgpobackup.md) `-Backup` | supprime définitivement une GPO de la corbeille : toutes ses sauvegardes |
 | [`Set-PSGPOBackup`](commands/set-psgpobackup.md) `-Backup [-Comment] [-AddLabel] [-RemoveLabel] [-Approve] [-Unapprove]` | modifie les notes d'une sauvegarde |
 | [`Get-PSGPODrift`](commands/get-psgpodrift.md) `-Path [-Name] [-Label]` | compare chaque GPO à sa version approuvée : `InSync`, `Drifted`, `NotApproved` |
 | [`Get-PSGPOGpmcBackup`](commands/get-psgpogpmcbackup.md) `-Path [-Name]` | les sauvegardes de GPMC (`Backup-GPO`) d'un dossier |
@@ -117,6 +118,7 @@ New-PSGPOFineGrainedPasswordPolicy -Name 'PSO - Tier 1 Admins' -Precedence 10 -M
 | `PSGPOTools.SettingChange` | `Compare-PSGPOBackup`, `Get-PSGPODrift` | `Change`, `Scope`, `Path`, `Name`, `Before`, `After` |
 | `PSGPOTools.Drift` | `Get-PSGPODrift` | `DisplayName`, `State`, `Approved`, `ApprovedBy`, `Changes` |
 | `PSGPOTools.Restore` | `Restore-PSGPO` | `DisplayName`, `Id`, `Version`, `BackupBefore`, `CreatedAgain`, `Linked`, `Problems` |
+| `PSGPOTools.RemovedBackup` | `Remove-PSGPOBackup` | `DisplayName`, `Id`, `Backups`, `Templates`, `Path` |
 | `PSGPOTools.Link` | `New-PSGPOLink`, `Set-PSGPOLink` | `DisplayName`, `Target`, `Order`, `Enabled`, `Enforced` |
 | `PSGPOTools.AuditEntry` | `Get-PSGPOAuditLog` | `Time`, `Account`, `Computer`, `Server`, `Action`, `Target`, `GpoName`, `GpoId`, `Details` |
 | `PSGPOTools.WmiFilter` | `Get-PSGPOWmiFilter`, `New-PSGPOWmiFilter`, `Set-PSGPOWmiFilter` | `Name`, `Id`, `Description`, `Queries`, `Gpos`, `DistinguishedName` |
