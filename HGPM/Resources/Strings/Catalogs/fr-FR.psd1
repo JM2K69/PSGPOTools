@@ -689,6 +689,7 @@
     'Task definition (Task Scheduler XML: triggers, actions, settings)' = 'Définition de la tâche (XML du Planificateur de tâches : déclencheurs, actions, paramètres)'
     'TCP/IP Printer' = 'Imprimante TCP/IP'
     'The approval workflow is used.' = 'Le circuit d''approbation est utilisé.'
+    'Every account sees the whole domain, as GPMC: what it does not manage (its delegations) is greyed, read only. $false: it sees only what it manages, and an account without delegation sees nothing.' = 'Chaque compte voit tout le domaine, comme GPMC : ce qu''il ne gère pas (ses délégations) est grisé, en lecture seule. $false : il ne voit que ce qu''il gère, et un compte sans délégation ne voit rien.'
     'This policy is disabled' = 'Cette stratégie est désactivée'
     'Ticket does not expire' = 'Le ticket n''expire pas'
     'Ticket renewal does not expire' = 'Le renouvellement du ticket n''expire pas'

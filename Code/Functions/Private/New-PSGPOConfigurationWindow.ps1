@@ -95,7 +95,7 @@ function New-PSGPOConfigurationWindow {
     $RowType = [AvaloniaConfigurationRow]
 
     # The values of the configuration of the domain, by key, as edited (saved with Save).
-    $State = @{ Values = @{}; Dirty = $false; CloseAsked = $false; Settings = @(); Directory = $Directory }
+    $State = @{ Values = @{}; Dirty = $false; CloseAsked = $false; Settings = @(); Directory = $Directory; Saved = $false }
     # As the domain has it now: an administrator may have changed it meanwhile.
     Use-PSGPODomainConfiguration -Directory $Directory -Force
     $domainState = $script:PSGPOConfigurationState
@@ -204,6 +204,7 @@ function New-PSGPOConfigurationWindow {
         try {
             & $SaveConfiguration -Directory $State.Directory -Values $State.Values -Confirm:$false
             $State.Dirty = $false
+            $State.Saved = $true
             & $SetStatus (& $T $(if ($State.Values.Count) { 'Saved: {0}.' } else { 'Saved: {0}, every setting with its default.' }) $State.Directory.GetConfigurationPath())
         } catch {
             & $SetStatus (& $T 'Not saved: {0}' $_.Exception.Message) -Problem

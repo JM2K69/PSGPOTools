@@ -439,6 +439,13 @@ class GPOToolsDirectory {
         return $false
     }
 
+    # A SOM the account manages, or the path to one.
+    [bool] IsSomVisible([GPOToolsSom]$Som) {
+        if ($Som.CanLink) { return $true }
+        foreach ($Child in $Som.Children) { if ($this.IsSomVisible($Child)) { return $true } }
+        return $false
+    }
+
     # A GPO the account edits, or linked to a SOM it manages.
     [bool] IsGpoVisible([GPOToolsGpo]$Gpo) {
         if ($Gpo.CanEdit) { return $true }

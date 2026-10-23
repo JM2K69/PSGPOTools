@@ -22,6 +22,8 @@ function Get-PSGPODirectoryDetail {
 
     $Date = { param($Value) if ($Value) { ([datetime]$Value).ToLocalTime().ToString('g') } else { Get-PSGPOText 'unknown date' } }
     $YesNo = { param($Value) if ($Value) { Get-PSGPOText 'Yes' } else { Get-PSGPOText 'No' } }
+    # What the account does not manage is shown, greyed (View.ShowUnmanaged), or hidden.
+    $ShowUnmanaged = Test-PSGPOUnmanagedShown
 
     # A row of the details: its label in the language of the interface, but a name (-Name).
     function New-Row {
@@ -56,7 +58,7 @@ function Get-PSGPODirectoryDetail {
         )
         if ($Directory.Account) {
             $Detail.Properties += New-Row 'Your rights' (Get-PSGPOText $(
-                    if ($Item.CanLink) { 'Link GPOs' } else { 'Read only' }))
+                    if ($Item.CanLink) { 'Link GPOs' } elseif ($ShowUnmanaged) { 'Read only' } else { 'None: shown as the path to the OUs you manage' }))
         }
         if ($Item.Kind -eq [GPOToolsSomKind]::Domain -and $Directory -is [GPOToolsLdapDirectory]) {
             $Detail.Properties += New-Row 'Domain controller' $Directory.Server
@@ -73,12 +75,15 @@ function Get-PSGPODirectoryDetail {
         if ($Item.Kind -eq [GPOToolsSomKind]::Domain -and $Directory.Account) {
             $Detail.Properties += New-Row 'Connected as' $Directory.Account
             $Detail.Properties += New-Row 'Delegation' (Get-PSGPOText $(
-                    if (-not $Directory.HasDelegation()) { 'None: this account manages no OU, GPO or WMI filter, it reads the domain only' }
-                    elseif ($Directory.IsLimited()) { 'Limited: this account changes only the OUs and GPOs it manages, the others are greyed' }
-                    else { 'Full: this account manages every OU and GPO' }))
+                    if (-not $Directory.HasDelegation()) {
+                        if ($ShowUnmanaged) { 'None: this account manages no OU, GPO or WMI filter, it reads the domain only' } else { 'None: this account manages no OU, GPO or WMI filter, nothing is shown' }
+                    } elseif ($Directory.IsLimited()) {
+                        if ($ShowUnmanaged) { 'Limited: this account changes only the OUs and GPOs it manages, the others are greyed' } else { 'Limited: only the OUs and GPOs this account manages are shown' }
+                    } else { 'Full: this account manages every OU and GPO' }))
         }
         $Detail.LinksHeader = Get-PSGPOText 'Linked Group Policy Objects ({0})' $Item.Links.Count
-        $Detail.Links = @(foreach ($Link in @($Item.Links | Sort-Object Order)) { New-LinkRow $Link $Link.GetDisplayName() '' })
+        $Detail.Links = @(foreach ($Link in @($Item.Links | Where-Object { $ShowUnmanaged -or $Item.CanLink } | Sort-Object Order)) { New-LinkRow $Link $Link.GetDisplayName() '' })
+        if (-not $ShowUnmanaged -and -not $Item.CanLink) { $Detail.LinksHeader = Get-PSGPOText 'Linked Group Policy Objects: not shown, no delegation here' }
     } elseif ($Item -is [GPOToolsGpoLink] -and -not $Item.Gpo) {
         $Detail.Title = $Item.GetDisplayName()
         $Detail.Properties = @(
@@ -159,7 +164,7 @@ function Get-PSGPODirectoryDetail {
         )
     } elseif ($Item -eq 'GroupPolicyObjects') {
         $Detail.Title = Get-PSGPOText 'Group Policy Objects in {0}' $Directory.DomainName
-        $Detail.Properties = @(foreach ($Gpo in $Directory.Gpos) { New-Row $Gpo.DisplayName (Get-PSGPOText $Gpo.GetStatus()) -Name })
+        $Detail.Properties = @(foreach ($Gpo in $(if ($ShowUnmanaged) { $Directory.Gpos } else { $Directory.GetVisibleGpos() })) { New-Row $Gpo.DisplayName (Get-PSGPOText $Gpo.GetStatus()) -Name })
     }
     $Detail
 }

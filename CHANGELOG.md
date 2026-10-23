@@ -1,5 +1,11 @@
 # HGPM Release History
 
+## Unreleased
+
+### Added
+
+* `View.ShowUnmanaged` in the configuration of the domain: `$true` (the default) shows every account the whole domain, what it does not manage greyed; `$false` shows each account only what it manages (the OUs where it links GPOs with their parents as the path to them, the GPOs it edits or that are linked there), and an account without delegation sees nothing. The console builds its tree again once the Settings window saved it
+
 ## 0.1.7 - alpha
 
 ### Changed

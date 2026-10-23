@@ -730,8 +730,8 @@ InModuleScope -ModuleName HGPM {
                     $C.pathTextBlock.Text | Should -BeLike 'Configuration of the domain corp.contoso.com, for every console of the domain: SYSVOL\corp.contoso.com\PSGPOTools\Configuration.psd1*(not created yet)*'
                     $C.saveButton.IsEnabled | Should -BeTrue
                     $Rows = @($C.settingsList.ItemsSource)
-                    $Rows.Count | Should -Be 17
-                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 17
+                    $Rows.Count | Should -Be 18
+                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 18
                     ($Rows | Where-Object Key -EQ 'NewGpo.SecurityFilteringGroups.ApplyPrefix').Default | Should -BeLike 'Default: APPLY_ - Names of the groups*'
 
                     # Create: a choice, a boolean, a text.

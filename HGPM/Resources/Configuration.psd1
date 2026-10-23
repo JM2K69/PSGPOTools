@@ -60,6 +60,14 @@
         Path = ''
     }
 
+    # The Group Policy Management view of the console.
+    View = @{
+        # Every account sees the whole domain, as GPMC: what it does not manage (its
+        # delegations) is greyed, read only. $false: it sees only what it manages, and an account
+        # without delegation sees nothing.
+        ShowUnmanaged = $true
+    }
+
     # Approval workflow: the GPOs the creators make wait for the approval of an approver. The
     # rights are those of the domain: the creators get the right to create GPOs (Initialize-
     # PSGPOWorkflow), not Group Policy Creator Owners; a GPO they create applies to nobody until

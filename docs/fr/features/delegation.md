@@ -51,6 +51,21 @@ grisé, et la barre d'état dit **(lecture seule)**. Les détails du domaine dis
 
 ![La console d'un compte sans délégation](../assets/screenshots/42-read-only-view.fr.png)
 
+## Ne montrer que ce que le compte gère
+
+Les administrateurs du domaine le choisissent dans la [configuration du domaine](configuration.md) :
+avec **`View.ShowUnmanaged`** à `$false` (**Paramètres**, ou `Configuration.psd1`), chaque compte ne
+voit que ce qu'il gère : les OU où il lie des GPO, **leurs parents grisés** comme chemin d'accès,
+sans leurs liens, et les GPO qu'il modifie ou qui sont liées à ses OU. Un compte sans délégation ne
+voit alors rien ; les détails du domaine et la barre d'état le disent. La valeur par défaut, `$true`,
+est la vue ci-dessus. La console reconstruit son arbre une fois le réglage enregistré.
+
+![Le technicien Tier 1, View.ShowUnmanaged à $false](../assets/screenshots/44-filtered-view.fr.png)
+
+```powershell
+@{ View = @{ ShowUnmanaged = $false } }
+```
+
 ## Les droits sont ceux du domaine
 
 La console ne décide jamais seule : une modification que le compte n'a pas le droit de faire est

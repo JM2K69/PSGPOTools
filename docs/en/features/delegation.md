@@ -49,6 +49,21 @@ status bar says **(read only)**. The details of the domain say **Delegation: Non
 
 ![The console of an account without delegation](../assets/screenshots/42-read-only-view.png)
 
+## Show only what the account manages
+
+The administrators of the domain choose it in the [configuration of the domain](configuration.md):
+with **`View.ShowUnmanaged`** set to `$false` (**Settings**, or `Configuration.psd1`), each account
+sees only what it manages: the OUs where it links GPOs, **their parents greyed** as the path to
+them, without their links, and the GPOs it edits or that are linked to its OUs. An account without
+delegation then sees nothing; the details of the domain say so, and the status bar. The default,
+`$true`, is the view above. The console builds its tree again once the setting is saved.
+
+![The Tier 1 technician, View.ShowUnmanaged set to $false](../assets/screenshots/44-filtered-view.png)
+
+```powershell
+@{ View = @{ ShowUnmanaged = $false } }
+```
+
 ## The rights are those of the domain
 
 The console never decides alone: a change the account may not make is refused by the domain

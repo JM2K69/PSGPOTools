@@ -122,6 +122,58 @@ InModuleScope -ModuleName HGPM {
         }
     }
 
+    Describe 'Only what the account manages (View.ShowUnmanaged $false)' {
+        BeforeAll {
+            Use-PSGPODomainConfiguration -Directory $null
+            $script:PSGPOConfigurationState.Override = @{ View = @{ ShowUnmanaged = $false } }
+            $Directory = New-DelegatedDirectory
+            $Roots = New-PSGPODirectoryTree -Directory $Directory
+        }
+        AfterAll { Use-PSGPODomainConfiguration -Directory $null }
+
+        It 'Shows the OUs it manages with the path to them, and hides the others' {
+            Test-PSGPOUnmanagedShown | Should -BeFalse
+            $Domain = @($Roots)[0]
+            # The domain: no link shown, only the path to Lyon, and the GPO container.
+            @($Domain.Children.Header) | Should -Be @('Lyon', 'Group Policy Objects', 'WMI Filters')
+            $Lyon = Get-Node $Roots 'Lyon'
+            $Lyon.IconBrush | Should -Be '#8A8886' -Because 'it is only the path to the OUs it manages'
+            @($Lyon.Children.Header) | Should -Be @('Workstations (blocks inheritance)')
+            @((Get-Node $Roots 'Lyon', 'Workstations').Children | Where-Object { $_.Tag -is [GPOToolsGpoLink] }).Count | Should -Be 2 -Because 'its links are shown'
+        }
+
+        It 'Shows the GPOs it edits or that are linked to its OUs' {
+            # The two "Workstations": the first is linked to Workstations, the second is edited.
+            @((Get-Node $Roots 'Group Policy Objects').Children.Header) | Should -Be @('Workstations', 'Workstations')
+            @((Get-PSGPODirectoryDetail -Directory $Directory -Item 'GroupPolicyObjects').Properties.Key) | Should -Be @('Workstations', 'Workstations')
+        }
+
+        It 'Says it shows only what the account manages' {
+            $Detail = Get-PSGPODirectoryDetail -Directory $Directory -Item $Directory.Domain
+            Get-Row $Detail 'Delegation' | Should -Be 'Limited: only the OUs and GPOs this account manages are shown'
+            $Detail.LinksHeader | Should -BeLike '*not shown, no delegation here'
+            $Detail.Links | Should -BeNullOrEmpty
+            Get-Row (Get-PSGPODirectoryDetail -Directory $Directory -Item $Directory.FindSom("OU=Lyon,$TestLdapDomainDN")) 'Your rights' | Should -BeLike 'None: shown as the path*'
+            $Item = @(Get-PSGPOStatusBarItem -Platform ([GPOToolsPlatform]@{ OperatingSystem = 'Linux' }) -Directory $Directory) | Where-Object Text -Like 'Connected as*'
+            $Item.ToolTip | Should -BeLike '*only the OUs and GPOs it manages are shown.'
+        }
+
+        It 'Shows nothing to an account without delegation' {
+            $Set = Get-TestLdapEntrySet
+            $Policies = New-TestLdapEntry "CN=Policies,CN=System,$TestLdapDomainDN" @{ allowedChildClassesEffective = @('container') }
+            $Reader = ConvertTo-PSGPOLdapDirectory -Server 'dc.hardenbox.labo' -VendorName 'Samba Team' -DomainEntry $Set.Domain `
+                -OrganizationalUnitEntry $Set.Ous -GpoEntry $Set.Gpos -PoliciesEntry $Policies -EffectiveRights 3>$null
+            $Reader.Account = 'HARDENBOX\test.user'
+            $Reader.CanCreateWmiFilter = $false
+            $Domain = @(New-PSGPODirectoryTree -Directory $Reader)[0]
+            @($Domain.Children.Header) | Should -Be @('Group Policy Objects', 'WMI Filters')
+            (Get-Node @($Domain) 'Group Policy Objects').Children | Should -BeNullOrEmpty
+            Get-Row (Get-PSGPODirectoryDetail -Directory $Reader -Item $Reader.Domain) 'Delegation' | Should -Be 'None: this account manages no OU, GPO or WMI filter, nothing is shown'
+            # The same domain, the setting given: everything, greyed.
+            @(@(New-PSGPODirectoryTree -Directory $Reader -ShowUnmanaged $true)[0].Children.Header) | Should -Contain 'Lyon'
+        }
+    }
+
     Describe 'What a delegated account sees' {
         BeforeAll {
             $Directory = New-DelegatedDirectory
