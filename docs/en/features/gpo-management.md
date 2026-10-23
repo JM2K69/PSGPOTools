@@ -195,6 +195,19 @@ From the filter, **Use it in a GPO...** lists the GPOs your account edits that d
 
 ![Use a WMI filter in a GPO](../assets/screenshots/50-use-wmi-filter.png)
 
+```powershell
+New-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' -Description 'Windows workstations, not the servers'
+Set-PSGPO -Name 'T2 - Workstations - Baseline' -WmiFilter 'Workstations'
+Get-PSGPOWmiFilter | Format-Table Name, Queries, Gpos
+Set-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1 AND Version LIKE ''10.0.2%''' -Description 'Windows 11 workstations'
+Set-PSGPO -Name 'T2 - Workstations - Baseline' -NoWmiFilter
+Remove-PSGPOWmiFilter -Name 'Workstations'
+```
+
+A filter a GPO uses is not deleted, those GPOs your account cannot see included. The backups keep
+the filter of a GPO (its name and queries): the drift shows when it changed, and a restore links
+the GPO to it again when it is still in the domain, or says it is not.
+
 ### Export and import a WMI filter
 
 **Export...** in the context menu of a filter writes it to a `.mof` file, as GPMC does: the same
@@ -222,18 +235,34 @@ Get-ChildItem C:\Exports -Filter *.mof | Import-PSGPOWmiFilter -Server dc.fabrik
 Import-PSGPOWmiFilter -Path C:\Exports\Workstations.mof -Name 'Workstations (lab)'
 ```
 
-```powershell
-New-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' -Description 'Windows workstations, not the servers'
-Set-PSGPO -Name 'T2 - Workstations - Baseline' -WmiFilter 'Workstations'
-Get-PSGPOWmiFilter | Format-Table Name, Queries, Gpos
-Set-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1 AND Version LIKE ''10.0.2%''' -Description 'Windows 11 workstations'
-Set-PSGPO -Name 'T2 - Workstations - Baseline' -NoWmiFilter
-Remove-PSGPOWmiFilter -Name 'Workstations'
-```
+### Delegation of the WMI filters
 
-A filter a GPO uses is not deleted, those GPOs your account cannot see included. The backups keep
-the filter of a GPO (its name and queries): the drift shows when it changed, and a restore links
-the GPO to it again when it is still in the domain, or says it is not.
+The **Delegation** tab of WMI Filters says who creates WMI filters in the domain, and the one of a
+filter who changes it, as the Delegation tabs of GPMC, with the same levels and the ACEs GPMC writes:
+
+| Where | Level | The account |
+|---|---|---|
+| WMI Filters | **Creator owner** | creates filters, and changes those it created |
+| WMI Filters | **Full control** | creates filters, and changes all of them: each filter inherits it |
+| A filter | **Edit** | changes its name, description and queries |
+| A filter | **Full control** | also deletes it and changes its permissions |
+
+Type a group or a user, choose its level and **Set the permission**; **Remove** takes back what
+the account has there. An inherited permission (on a filter, the full control of WMI Filters) is
+shown, not changed. Only the administrators of the domain change who creates filters, and an
+account changes the permissions of the filters it may change. Each change goes to the
+[audit log](backup-history.md) (`SetWmiFilterPermission`). Read and written both ways with the GPMC
+API on a Windows domain: what HGPM gives, GPMC reads at that level, and the other way.
+
+![Who creates WMI filters](../assets/screenshots/51-wmi-filters-delegation.png)
+
+![Who changes a WMI filter](../assets/screenshots/52-wmi-filter-delegation.png)
+
+```powershell
+Get-PSGPOWmiFilterPermission
+Set-PSGPOWmiFilterPermission -Account 'GPO-Tier1-Admins' -Permission WmiCreate
+Set-PSGPOWmiFilterPermission -Name 'Workstations' -Account 'GPO-Tier2-Admins' -Permission WmiEdit
+```
 
 ## Rename a GPO
 

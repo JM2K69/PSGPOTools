@@ -42,7 +42,7 @@ Display name of a GPO (* and ? make a pattern): only its changes.
 
 ### -Action
 
-Only these actions (NewGpo, RenameGpo, SetGpoStatus, RemoveGpo, RemoveDeletedGpoBackup, NewLink, SetLink, RemoveLink, SetBlockInheritance, SetWmiFilter, NewWmiFilter, EditWmiFilter, RemoveWmiFilter, SetGpoPermission, SetGpoSecurityFiltering, ApproveGpo, PendingGpo, SaveGpoFile, RestoreGpo, ImportGpo, NewFilteringGroups, SaveConfiguration, InstallAdmx, NewPasswordPolicy, SetPasswordPolicy, RemovePasswordPolicy); * and ? make a pattern.
+Only these actions (NewGpo, RenameGpo, SetGpoStatus, RemoveGpo, RemoveDeletedGpoBackup, NewLink, SetLink, RemoveLink, SetBlockInheritance, SetWmiFilter, NewWmiFilter, EditWmiFilter, RemoveWmiFilter, SetWmiFilterPermission, SetGpoPermission, SetGpoSecurityFiltering, ApproveGpo, PendingGpo, SaveGpoFile, RestoreGpo, ImportGpo, NewFilteringGroups, SaveConfiguration, InstallAdmx, NewPasswordPolicy, SetPasswordPolicy, RemovePasswordPolicy); * and ? make a pattern.
 
 | Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
 |---|---|---|---|---|

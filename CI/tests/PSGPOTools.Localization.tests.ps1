@@ -20,7 +20,7 @@ InModuleScope -ModuleName HGPM {
             foreach ($Key in 'Enabled', 'Disabled', 'NotConfigured', 'Added', 'Changed', 'Removed', 'Category', 'Value', 'Range', 'Values', 'User', 'Machine',
                 'User configuration settings disabled', 'Computer configuration settings disabled', 'All settings disabled',
                 'Continue processing the other items of this type after an error', "Run in the logged-on user's security context", 'Remove this item when it is no longer applied',
-                'Read', 'Read and apply', 'Edit settings', 'Edit settings, delete, modify security', 'Custom',
+                'Read', 'Read and apply', 'Edit settings', 'Edit settings, delete, modify security', 'Custom', 'Creator owner', 'Edit', 'Full control',
                 'True', 'False', 'Create', 'Replace', 'Update', 'Delete',
                 'Number', 'Boolean', 'Accounts', 'Audit', 'Text', 'Choice', 'MultiText', 'Bitmask', 'RegistryValue') {
                 [void]$Keys.Add($Key)

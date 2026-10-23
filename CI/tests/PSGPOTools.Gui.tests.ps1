@@ -1453,6 +1453,61 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Delegates the WMI filters in their Delegation tab: who creates them, who changes one' {
+            $Filter = $Directory.NewWmiFilter('Laptops', '', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_Battery' }))
+            Mock Resolve-PSGPOApplyTo { [pscustomobject]@{ Name = $Name; Sid = $Name } }
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                $Ui.wmiDelegationTab.IsVisible | Should -BeFalse
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters'
+                $Ui.wmiDelegationTab.IsVisible | Should -BeTrue
+                $Ui.delegationTab.IsVisible | Should -BeFalse -Because 'the one of the GPOs'
+                $Ui.directoryTabs.SelectedItem = $Ui.wmiDelegationTab
+                $Ui.wmiDelegationTitleTextBlock.Text | Should -Be 'Delegation of the WMI filters of corp.contoso.com'
+                @($Ui.wmiDelegationList.ItemsSource | ForEach-Object { "$($_.Name)=$($_.PermissionText)" }) |
+                    Should -Be @('Domain Admins=Full control', 'Enterprise Admins=Full control', 'Administrators=Creator owner', 'Group Policy Creator Owners=Creator owner')
+                @($Ui.wmiDelegationPermissionComboBox.ItemsSource.Content) | Should -Be @('Creator owner', 'Full control')
+                $Ui.wmiDelegationNameTextBox.Text = 'GPO-Tier1-Admins'
+                Invoke-Click $Ui.wmiDelegationSetButton
+                $Ui.wmiDelegationStatusTextBlock.Text | Should -Be "'GPO-Tier1-Admins' has the permission Creator owner now."
+                (@($Ui.wmiDelegationList.ItemsSource) | Where-Object Name -EQ 'GPO-Tier1-Admins').PermissionText | Should -Be 'Creator owner'
+                # Full control: each filter inherits it.
+                $Ui.wmiDelegationList.SelectedItem = @($Ui.wmiDelegationList.ItemsSource) | Where-Object Name -EQ 'GPO-Tier1-Admins'
+                $Ui.wmiDelegationNameTextBox.Text | Should -Be 'GPO-Tier1-Admins'
+                $Ui.wmiDelegationRemoveButton.IsEnabled | Should -BeTrue
+                $Ui.wmiDelegationPermissionComboBox.SelectedIndex = 1
+                Invoke-Click $Ui.wmiDelegationSetButton
+                (@($Ui.wmiDelegationList.ItemsSource) | Where-Object Name -EQ 'GPO-Tier1-Admins').PermissionText | Should -Be 'Full control'
+
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters', 'Laptops'
+                $Ui.directoryTabs.SelectedItem = $Ui.wmiDelegationTab
+                $Ui.wmiDelegationTitleTextBlock.Text | Should -Be "Delegation of the WMI filter 'Laptops'"
+                @($Ui.wmiDelegationPermissionComboBox.ItemsSource.Content) | Should -Be @('Edit', 'Full control')
+                $Inherited = @($Ui.wmiDelegationList.ItemsSource) | Where-Object Name -EQ 'GPO-Tier1-Admins'
+                "$($Inherited.PermissionText) $($Inherited.InheritedText)" | Should -Be 'Full control Yes'
+                $Ui.wmiDelegationList.SelectedItem = $Inherited
+                $Ui.wmiDelegationRemoveButton.IsEnabled | Should -BeFalse -Because 'an inherited permission comes from WMI Filters'
+                $Ui.wmiDelegationNameTextBox.Text = 'GPO-Tier2-Admins'
+                $Ui.wmiDelegationPermissionComboBox.SelectedIndex = 0
+                Invoke-Click $Ui.wmiDelegationSetButton
+                $Row = @($Ui.wmiDelegationList.ItemsSource) | Where-Object Name -EQ 'GPO-Tier2-Admins'
+                "$($Row.PermissionText) $($Row.InheritedText)" | Should -Be 'Edit No'
+                $Ui.wmiDelegationList.SelectedItem = $Row
+                Invoke-Click $Ui.wmiDelegationRemoveButton
+                $Ui.wmiDelegationStatusTextBlock.Text | Should -Be "The permissions of 'GPO-Tier2-Admins' are removed."
+                @($Ui.wmiDelegationList.ItemsSource.Name) | Should -Not -Contain 'GPO-Tier2-Admins'
+
+                # Without the right to change the filter, read only.
+                $Filter.CanEdit = $false
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'WMI Filters', 'Laptops'
+                $Ui.directoryTabs.SelectedItem = $Ui.wmiDelegationTab
+                $Ui.wmiDelegationSetButton.IsEnabled | Should -BeFalse
+                $Ui.wmiDelegationStatusTextBlock.Text | Should -Be 'Read only: the account cannot change the permissions of this WMI filter.'
+            }
+        }
+
         It 'Says in the editor what the status of the GPO disables' {
             $Directory.SetGpoStatus($Directory.FindGpo('U - Lyon - Printers'), 2)
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {
