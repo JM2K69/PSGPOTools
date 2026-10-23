@@ -4,6 +4,8 @@
 
 ### Added
 
+* Delegation of the WMI filters, as GPMC: a **Delegation** tab on WMI Filters (who creates filters: Creator owner, Full control) and on each filter (who changes it: Edit, Full control), and `Get-PSGPOWmiFilterPermission`, `Set-PSGPOWmiFilterPermission`. The ACEs are those the GPMC API writes, checked both ways on a Windows domain; the filters inherit the full control of WMI Filters. Audited as `SetWmiFilterPermission`
+
 * Export and import WMI filters as `.mof` files, as GPMC does: **Export...** on a filter, **Import...** on WMI Filters, and `Export-PSGPOWmiFilter`, `Import-PSGPOWmiFilter`. The format is the one of GPMC (UTF-16, `MSFT_SomFilter` and its `MSFT_Rule`), checked on a Windows domain both ways: Windows creates a filter again from a file of HGPM, HGPM imports a file of Windows that GPMC then reads. An imported filter gets a new Id; the console imports a file of one filter, the command all of them
 * Give a WMI filter to a GPO from the filter, **Use it in a GPO...**, and from the details of the GPO, its **WMI filter** list, as the Scope tab of GPMC
 * The WMI filters keep their author and dates (`msWMI-Author`, `msWMI-CreationDate`, `msWMI-ChangeDate`), as the `.mof` files hold them

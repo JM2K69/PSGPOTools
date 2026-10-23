@@ -34,6 +34,8 @@ page. The commands that change the domain support `-WhatIf` and `-Confirm`.
 | [`Remove-PSGPOWmiFilter`](commands/remove-psgpowmifilter.md) `-Name` | deletes WMI filters no GPO uses |
 | [`Export-PSGPOWmiFilter`](commands/export-psgpowmifilter.md) `-Name -Path [-Force]` | exports WMI filters to `.mof` files, as GPMC does |
 | [`Import-PSGPOWmiFilter`](commands/import-psgpowmifilter.md) `-Path [-Name]` | creates WMI filters from `.mof` files of GPMC or HGPM |
+| [`Get-PSGPOWmiFilterPermission`](commands/get-psgpowmifilterpermission.md) `[-Name]` | who creates WMI filters (without `-Name`), who changes each filter, as the Delegation tabs of GPMC |
+| [`Set-PSGPOWmiFilterPermission`](commands/set-psgpowmifilterpermission.md) `[-Name] -Account -Permission WmiCreate\|WmiEdit\|WmiFullControl\|None` | delegates the creation of the WMI filters, or the change of a filter, with the ACEs of GPMC |
 
 A name given with `-Name` is the name of the GPO, brackets included (`Servers [Lyon]`); with `*` or `?` it is a wildcard pattern. Two GPOs with the same name are each taken.
 

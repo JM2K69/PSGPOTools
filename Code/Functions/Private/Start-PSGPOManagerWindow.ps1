@@ -201,6 +201,15 @@ function Start-PSGPOManagerWindow {
     $useWmiFilterCancelButton = Get-PSGPOAvaloniaControl $window 'useWmiFilterCancelButton'
     $gpoWmiFilterPanel = Get-PSGPOAvaloniaControl $window 'gpoWmiFilterPanel'
     $gpoWmiFilterComboBox = Get-PSGPOAvaloniaControl $window 'gpoWmiFilterComboBox'
+    $wmiDelegationTab = Get-PSGPOAvaloniaControl $window 'wmiDelegationTab'
+    $wmiDelegationTitleTextBlock = Get-PSGPOAvaloniaControl $window 'wmiDelegationTitleTextBlock'
+    $wmiDelegationInfoTextBlock = Get-PSGPOAvaloniaControl $window 'wmiDelegationInfoTextBlock'
+    $wmiDelegationList = Get-PSGPOAvaloniaControl $window 'wmiDelegationList'
+    $wmiDelegationNameTextBox = Get-PSGPOAvaloniaControl $window 'wmiDelegationNameTextBox'
+    $wmiDelegationPermissionComboBox = Get-PSGPOAvaloniaControl $window 'wmiDelegationPermissionComboBox'
+    $wmiDelegationSetButton = Get-PSGPOAvaloniaControl $window 'wmiDelegationSetButton'
+    $wmiDelegationRemoveButton = Get-PSGPOAvaloniaControl $window 'wmiDelegationRemoveButton'
+    $wmiDelegationStatusTextBlock = Get-PSGPOAvaloniaControl $window 'wmiDelegationStatusTextBlock'
     $newGpoTemplateComboBox = Get-PSGPOAvaloniaControl $window 'newGpoTemplateComboBox'
     $historyNotesTemplateCheckBox = Get-PSGPOAvaloniaControl $window 'historyNotesTemplateCheckBox'
     $linkGpoPanel = Get-PSGPOAvaloniaControl $window 'linkGpoPanel'
@@ -2300,10 +2309,109 @@ function Start-PSGPOManagerWindow {
     })
     $delegationRemoveButton.Add_Click({ if ($delegationList.SelectedItem) { Invoke-PermissionChange -Row $delegationList.SelectedItem -Operation Permission -Value 'None' } })
 
+    # --- Delegation of the WMI filters, as GPMC: on WMI Filters who creates filters, on a filter
+    # who changes it ----------------------------------------------------------------------------
+
+    $wmiDelegation = @{ Target = $null; Filter = $null; Editable = $false }
+    function Update-WmiDelegationTab {
+        param([string]$Status, [switch]$Problem)
+        $item = if ($domainTreeView.SelectedItem) { $domainTreeView.SelectedItem.Tag }
+        $onContainer = $item -is [string] -and $item -eq 'WmiFilters'
+        $wmiDelegationTab.IsVisible = $onContainer -or $item -is [GPOToolsWmiFilter]
+        if (-not $wmiDelegationTab.IsVisible) {
+            if ($directoryTabs.SelectedItem -eq $wmiDelegationTab) { $directoryTabs.SelectedIndex = 0 }
+            return
+        }
+        if ($directoryTabs.SelectedItem -ne $wmiDelegationTab) { return }
+        $filter = if ($onContainer) { $null } else { $item }
+        $wmiDelegation.Filter = $filter
+        $wmiDelegation.Editable = -not $Directory.IsReadOnly -and $(if ($filter) { $filter.CanEdit } else { $Directory.IsDomainAdministrator })
+        $wmiDelegationTitleTextBlock.Text = if ($filter) { Get-PSGPOText "Delegation of the WMI filter '{0}'" $filter.Name } else { Get-PSGPOText 'Delegation of the WMI filters of {0}' $Directory.DomainName }
+        $wmiDelegationInfoTextBlock.Text = if ($filter) { Get-PSGPOText 'These groups and users have the specified permission for this WMI filter: Edit changes its name, description and queries; Full control also deletes it and changes its permissions.' }
+            else { Get-PSGPOText 'These groups and users create WMI filters: Creator owner creates filters and changes those it created; Full control creates filters and changes all of them.' }
+        # The levels of the target, the one chosen kept when it is one of them.
+        $levels = if ($filter) { 'WmiEdit', 'WmiFullControl' } else { 'WmiCreate', 'WmiFullControl' }
+        $chosen = if ($wmiDelegationPermissionComboBox.SelectedItem) { "$($wmiDelegationPermissionComboBox.SelectedItem.Tag)" }
+        $choices = foreach ($level in $levels) {
+            $choice = [Avalonia.Controls.ComboBoxItem]::new()
+            $choice.Content = Get-PSGPOText (Get-PSGPOWmiFilterPermissionText -Permission $level)
+            $choice.Tag = $level
+            $choice
+        }
+        $wmiDelegationPermissionComboBox.ItemsSource = @($choices)
+        $wmiDelegationPermissionComboBox.SelectedIndex = [Math]::Max(0, [array]::IndexOf($levels, $chosen))
+        $rows = @()
+        $lines = [System.Collections.Generic.List[string]]::new()
+        try {
+            $rows = @($Directory.GetWmiFilterPermissions($filter))
+        } catch {
+            $lines.Add((Get-PSGPOText 'The permissions cannot be read: {0}' $_.Exception.GetBaseException().Message))
+            $Problem = $true
+        }
+        $wmiDelegationList.ItemsSource = @(foreach ($row in $rows) {
+                $entry = [AvaloniaPermissionRow]::new()
+                $entry.Name = $row.Name
+                $entry.Sid = $row.Sid
+                $entry.Permission = $row.Permission
+                $entry.PermissionText = Get-PSGPOText (Get-PSGPOWmiFilterPermissionText -Permission $row.Permission)
+                $entry.Inherited = $row.Inherited
+                $entry.InheritedText = Get-PSGPOText $(if ($row.Inherited) { 'Yes' } else { 'No' })
+                $entry
+            })
+        foreach ($control in $wmiDelegationNameTextBox, $wmiDelegationPermissionComboBox, $wmiDelegationSetButton) { $control.IsEnabled = $wmiDelegation.Editable }
+        Update-WmiDelegationButton
+        if (-not $wmiDelegation.Editable) { $lines.Add((Get-PSGPOText $(if ($filter) { 'Read only: the account cannot change the permissions of this WMI filter.' } else { 'Read only: only the administrators of the domain change who creates WMI filters.' }))) }
+        if ($Status) { $lines.Insert(0, $Status) }
+        $wmiDelegationStatusTextBlock.Text = $lines -join [Environment]::NewLine
+        if ($Problem) { $wmiDelegationStatusTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438')) }
+        else { $wmiDelegationStatusTextBlock.ClearValue([Avalonia.Controls.TextBlock]::ForegroundProperty) }
+    }
+
+    # Remove is for an account of the filter or the container itself, not an inherited one.
+    function Update-WmiDelegationButton {
+        $wmiDelegationRemoveButton.IsEnabled = $wmiDelegation.Editable -and $wmiDelegationList.SelectedItem -and -not $wmiDelegationList.SelectedItem.Inherited
+    }
+
+    function Invoke-WmiPermissionChange {
+        param([string]$Account, [AvaloniaPermissionRow]$Row, [string]$Value)
+        $filter = $wmiDelegation.Filter
+        try {
+            $principal = if ($Row) { [pscustomobject]@{ Name = $Row.Name; Sid = $Row.Sid } }
+                elseif ("$Account".Trim()) { Resolve-PSGPOApplyTo -Directory $Directory -Name $Account }
+                else { throw (Get-PSGPOText 'Give a group or a user.') }
+            $Directory.SetWmiFilterPermission($filter, $principal.Sid, $Value)
+        } catch {
+            Update-WmiDelegationTab -Status (Get-PSGPOText 'Not changed: {0}' $_.Exception.GetBaseException().Message) -Problem
+            return
+        }
+        $done = if ($Value -eq 'None') { Get-PSGPOText "The permissions of '{0}' are removed." $principal.Name }
+            else { Get-PSGPOText "'{0}' has the permission {1} now." $principal.Name (Get-PSGPOText (Get-PSGPOWmiFilterPermissionText -Permission $Value)) }
+        $wmiDelegationNameTextBox.Text = ''
+        Update-WmiDelegationTab -Status $done
+    }
+
+    $wmiDelegationList.add_SelectionChanged({
+        $row = $wmiDelegationList.SelectedItem
+        if ($row) {
+            $wmiDelegationNameTextBox.Text = $row.Name
+            $index = [array]::IndexOf(@($wmiDelegationPermissionComboBox.ItemsSource | ForEach-Object { "$($_.Tag)" }), $row.Permission)
+            if ($index -ge 0) { $wmiDelegationPermissionComboBox.SelectedIndex = $index }
+        }
+        Update-WmiDelegationButton
+    })
+    $wmiDelegationSetButton.Add_Click({
+        $level = "$($wmiDelegationPermissionComboBox.SelectedItem.Tag)"
+        $row = $wmiDelegationList.SelectedItem
+        # The selected account when its name is the one typed (its SID, a name may not resolve).
+        if ($row -and $row.Name -eq "$($wmiDelegationNameTextBox.Text)".Trim() -and -not $row.Inherited) { Invoke-WmiPermissionChange -Row $row -Value $level }
+        else { Invoke-WmiPermissionChange -Account $wmiDelegationNameTextBox.Text -Value $level }
+    })
+    $wmiDelegationRemoveButton.Add_Click({ if ($wmiDelegationList.SelectedItem) { Invoke-WmiPermissionChange -Row $wmiDelegationList.SelectedItem -Value 'None' } })
+
     $directoryTabs.add_SelectionChanged({
         param($control, $e)
         # Only the selection of a tab, not of a control inside one.
-        if ([object]::ReferenceEquals($e.Source, $directoryTabs)) { Update-SettingsTab; Update-DelegationTab; Update-HistoryTab }
+        if ([object]::ReferenceEquals($e.Source, $directoryTabs)) { Update-SettingsTab; Update-DelegationTab; Update-WmiDelegationTab; Update-HistoryTab }
     })
 
     function Get-SelectedGpo {
@@ -2381,6 +2489,7 @@ function Start-PSGPOManagerWindow {
             $Directory.Workflow -and $Directory.Workflow.IsApprover
         Update-SettingsTab
         Update-DelegationTab
+        Update-WmiDelegationTab
         Update-HistoryTab
     })
     # Nothing to offer on this node: do not open an empty menu.
@@ -2982,6 +3091,7 @@ function Start-PSGPOManagerWindow {
             'renameMenuItem', 'renamePanel', 'renameTitleTextBlock', 'renameTextBox', 'renameErrorTextBlock', 'renameConfirmButton', 'renameCancelButton',
             'editWmiFilterButton', 'editingStatusTextBlock',
             'useWmiFilterMenuItem', 'exportWmiFilterMenuItem', 'importWmiFilterMenuItem', 'exportWmiFilterPanel', 'exportWmiFilterTitleTextBlock', 'exportWmiFilterPathTextBox', 'exportWmiFilterBrowseButton', 'exportWmiFilterErrorTextBlock', 'exportWmiFilterConfirmButton', 'exportWmiFilterCancelButton', 'importWmiFilterPanel', 'importWmiFilterTitleTextBlock', 'importWmiFilterPathTextBox', 'importWmiFilterBrowseButton', 'importWmiFilterReadButton', 'importWmiFilterInfoTextBlock', 'importWmiFilterNameTextBox', 'importWmiFilterErrorTextBlock', 'importWmiFilterConfirmButton', 'importWmiFilterCancelButton', 'useWmiFilterPanel', 'useWmiFilterTitleTextBlock', 'useWmiFilterSearchTextBox', 'useWmiFilterList', 'useWmiFilterErrorTextBlock', 'useWmiFilterConfirmButton', 'useWmiFilterCancelButton', 'gpoWmiFilterPanel', 'gpoWmiFilterComboBox',
+            'wmiDelegationTab', 'wmiDelegationTitleTextBlock', 'wmiDelegationInfoTextBlock', 'wmiDelegationList', 'wmiDelegationNameTextBox', 'wmiDelegationPermissionComboBox', 'wmiDelegationSetButton', 'wmiDelegationRemoveButton', 'wmiDelegationStatusTextBlock',
             'newGpoTemplateComboBox', 'historyNotesTemplateCheckBox', 'approveGpoMenuItem', 'approveGpoPanel', 'approveGpoTextBlock',
             'approveGpoRightsComboBox', 'approveGpoApplyToTextBox', 'approveGpoErrorTextBlock', 'approveGpoConfirmButton', 'approveGpoCancelButton',
             'approveGpoDenyToTextBox', 'approveGpoGroupsCheckBox', 'approveGpoGroupsTextBlock', 'approveGpoFilteringGrid',

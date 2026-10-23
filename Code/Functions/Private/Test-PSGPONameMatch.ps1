@@ -31,3 +31,20 @@ function Find-PSGPOByName {
         foreach ($gpo in $found) { if ($seen.Add($gpo.Id)) { $gpo } }
     }
 }
+
+# The WMI filters of a directory named $Name (Test-PSGPONameMatch), each once.
+function Find-PSGPOWmiFilterByName {
+    [CmdletBinding()]
+    [OutputType([GPOToolsWmiFilter])]
+    param(
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
+        [Parameter(Mandatory)] [string[]]$Name
+    )
+
+    $seen = [System.Collections.Generic.HashSet[guid]]::new()
+    foreach ($pattern in $Name) {
+        $found = @($Directory.WmiFilters | Where-Object { Test-PSGPONameMatch -Name $_.Name -Pattern $pattern })
+        if (-not $found) { Write-Error "No WMI filter named '$pattern' in $($Directory.DomainName)." }
+        foreach ($filter in $found) { if ($seen.Add($filter.Id)) { $filter } }
+    }
+}

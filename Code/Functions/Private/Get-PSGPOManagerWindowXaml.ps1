@@ -714,6 +714,40 @@ $(Get-PSGPOWindowResourceXaml)
                                 </StackPanel>
                             </ScrollViewer>
                         </TabItem>
+                        <!-- Delegation of the WMI filters, as GPMC: on WMI Filters, who creates filters; on a filter, who changes it -->
+                        <TabItem Name='wmiDelegationTab' Header='Delegation' IsVisible='False'>
+                            <ScrollViewer>
+                                <StackPanel Margin='16,8' Spacing='6'>
+                                    <TextBlock Name='wmiDelegationTitleTextBlock' FontSize='14' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                    <TextBlock Name='wmiDelegationInfoTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                    <Grid ColumnDefinitions='*,280,90' Margin='12,0,12,0'>
+                                        <TextBlock Grid.Column='0' Text='Name' FontWeight='SemiBold'/>
+                                        <TextBlock Grid.Column='1' Text='Allowed Permissions' FontWeight='SemiBold'/>
+                                        <TextBlock Grid.Column='2' Text='Inherited' FontWeight='SemiBold'/>
+                                    </Grid>
+                                    <ListBox Name='wmiDelegationList' MaxHeight='280'>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid ColumnDefinitions='*,280,90'>
+                                                    <TextBlock Grid.Column='0' Text='{Binding Name}' TextTrimming='CharacterEllipsis'/>
+                                                    <TextBlock Grid.Column='1' Text='{Binding PermissionText}' TextTrimming='CharacterEllipsis' Margin='0,0,8,0'/>
+                                                    <TextBlock Grid.Column='2' Text='{Binding InheritedText}'/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <Grid ColumnDefinitions='*,Auto'>
+                                        <TextBox Grid.Column='0' Name='wmiDelegationNameTextBox' Watermark='Group or user'/>
+                                        <ComboBox Grid.Column='1' Name='wmiDelegationPermissionComboBox' Margin='8,0,0,0' MinWidth='220'/>
+                                    </Grid>
+                                    <StackPanel Orientation='Horizontal' HorizontalAlignment='Right' Spacing='8'>
+                                        <Button Name='wmiDelegationSetButton' Content='Set the permission'/>
+                                        <Button Name='wmiDelegationRemoveButton' Content='Remove' IsEnabled='False'/>
+                                    </StackPanel>
+                                    <TextBlock Name='wmiDelegationStatusTextBlock' TextWrapping='Wrap' Margin='0,4,0,0'/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </TabItem>
                         <!-- History of the GPO: its backups as a timeline (oldest on the left), and what
                              changed at the selected one -->
                         <TabItem Name='historyTab' Header='History' IsVisible='False'>

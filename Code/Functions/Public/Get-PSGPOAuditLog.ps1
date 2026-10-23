@@ -17,10 +17,10 @@ function Get-PSGPOAuditLog {
     .PARAMETER Action
         Only these actions (NewGpo, RenameGpo, SetGpoStatus, RemoveGpo, RemoveDeletedGpoBackup,
         NewLink, SetLink, RemoveLink, SetBlockInheritance, SetWmiFilter, NewWmiFilter,
-        EditWmiFilter, RemoveWmiFilter, SetGpoPermission, SetGpoSecurityFiltering, ApproveGpo,
-        PendingGpo, SaveGpoFile, RestoreGpo, ImportGpo, NewFilteringGroups, SaveConfiguration,
-        InstallAdmx, NewPasswordPolicy, SetPasswordPolicy, RemovePasswordPolicy); * and ? make a
-        pattern.
+        EditWmiFilter, RemoveWmiFilter, SetWmiFilterPermission, SetGpoPermission,
+        SetGpoSecurityFiltering, ApproveGpo, PendingGpo, SaveGpoFile, RestoreGpo, ImportGpo,
+        NewFilteringGroups, SaveConfiguration, InstallAdmx, NewPasswordPolicy, SetPasswordPolicy,
+        RemovePasswordPolicy); * and ? make a pattern.
     .PARAMETER Account
         Only the changes of this account (* and ? make a pattern).
     .PARAMETER After

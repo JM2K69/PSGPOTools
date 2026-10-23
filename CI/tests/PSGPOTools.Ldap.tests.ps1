@@ -943,6 +943,33 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Delegates the WMI filters in the domain, as GPMC: who creates them, who changes one, the filters inheriting full control' {
+            $FilterName = "PSGPOTools test WMI delegation $Stamp"
+            $Users = Resolve-PSGPOApplyTo -Directory $Directory -Name 'Domain Users'
+            $Filter = $Directory.NewWmiFilter($FilterName, '', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_Battery' }))
+            $Level = { param($Name) @(Get-PSGPOWmiFilterPermission -Server $Server -Name $(if ($Name) { $Name }) | Where-Object Sid -EQ $Users.Sid | ForEach-Object { "$($_.Permission)$(if ($_.Inherited) { ' inherited' })" }) -join ',' }
+            try {
+                @(Get-PSGPOWmiFilterPermission -Directory $Directory | Where-Object Permission -EQ 'WmiFullControl').Count | Should -BeGreaterThan 0 -Because 'the administrators of the domain create and change every filter'
+                $null = Set-PSGPOWmiFilterPermission -Directory $Directory -Account $Users.Sid -Permission WmiCreate -Confirm:$false
+                & $Level | Should -Be 'WmiCreate'
+                & $Level $FilterName | Should -BeNullOrEmpty
+                $null = Set-PSGPOWmiFilterPermission -Directory $Directory -Account $Users.Sid -Permission WmiFullControl -Confirm:$false
+                & $Level | Should -Be 'WmiFullControl'
+                & $Level $FilterName | Should -Be 'WmiFullControl inherited' -Because 'the domain gives the filters what the container gives them'
+                $null = Set-PSGPOWmiFilterPermission -Directory $Directory -Account $Users.Sid -Permission None -Confirm:$false
+                & $Level | Should -BeNullOrEmpty
+                & $Level $FilterName | Should -BeNullOrEmpty
+
+                $null = Set-PSGPOWmiFilterPermission -Directory $Directory -Name $FilterName -Account $Users.Sid -Permission WmiEdit -Confirm:$false
+                & $Level $FilterName | Should -Be 'WmiEdit'
+                $null = Set-PSGPOWmiFilterPermission -Directory $Directory -Name $FilterName -Account $Users.Sid -Permission None -Confirm:$false
+                & $Level $FilterName | Should -BeNullOrEmpty
+            } finally {
+                $null = Set-PSGPOWmiFilterPermission -Directory $Directory -Account $Users.Sid -Permission None -Confirm:$false -ErrorAction SilentlyContinue
+                $Directory.RemoveWmiFilter($Filter)
+            }
+        }
+
         It 'Writes the changes the domain accepted to the audit log' {
             $Entries = @(Get-PSGPOAuditLog -Path $script:AuditLog -Domain $Directory.DomainName)
             @($Entries.Action) | Should -Contain 'NewGpo'

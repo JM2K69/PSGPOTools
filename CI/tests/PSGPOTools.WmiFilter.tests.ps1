@@ -138,6 +138,95 @@ InModuleScope -ModuleName HGPM {
         }
     }
 
+    Describe 'Delegation of the WMI filters, as GPMC writes and shows it' {
+        BeforeAll {
+            # A descriptor of ACEs: Sid, Mask, Flags (CI container inherit, IO inherit only, ID inherited).
+            function New-TestDescriptor {
+                param([object[]]$Ace)
+                $Descriptor = [GPOToolsSecurityDescriptor]::new()
+                $Descriptor.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
+                foreach ($Item in $Ace) {
+                    $Flags = 0
+                    if ($Item[2] -match 'CI') { $Flags = $Flags -bor [GPOToolsAce]::ContainerInherit }
+                    if ($Item[2] -match 'IO') { $Flags = $Flags -bor [GPOToolsAce]::InheritOnly }
+                    if ($Item[2] -match 'ID') { $Flags = $Flags -bor [GPOToolsAce]::Inherited }
+                    $Descriptor.Dacl.Add([GPOToolsAce]::new([GPOToolsAce]::AccessAllowed, $Flags, [uint32]$Item[1], $Item[0], [guid]::Empty))
+                }
+                $Descriptor
+            }
+            $Full = 0x000F01FF
+            $All = 0x100F01FF
+        }
+        BeforeEach {
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            $Filter = $Directory.NewWmiFilter('Laptops', '', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_Battery' }))
+        }
+
+        It 'Reads the container of a Windows domain as GPMC shows it, Domain Users given Creator owner by GPMC' {
+            # CN=SOM,CN=WMIPolicy of powershell.labo, read on the domain controller.
+            $Container = New-TestDescriptor @(
+                @('S-1-3-0', $All, 'CIIO'), @('S-1-5-11', 0x00020094, 'CI'), @('S-1-5-18', 0x00020094, 'CI'), @('S-1-5-32-544', 0x000200BD, '')
+                @('DA', $All, 'CIIO'), @('DA', $Full, ''), @('EA', $All, 'CIIO'), @('EA', $Full, ''), @('PA', 0x000200BD, ''), @('DU', 0x00020035, ''))
+            $Rows = @(Get-PSGPOWmiFilterPermissionFromDescriptor -Descriptor $Container -Container)
+            @($Rows | ForEach-Object { "$($_.Sid)=$($_.Permission)" }) | Should -Be @('S-1-5-32-544=WmiCreate', 'DA=WmiFullControl', 'EA=WmiFullControl', 'PA=WmiCreate', 'DU=WmiCreate')
+            # GPMC Full control: create and delete filters, and full control on each one.
+            $Container.Dacl.Add([GPOToolsAce]::new([GPOToolsAce]::AccessAllowed, [GPOToolsAce]::ContainerInherit -bor [GPOToolsAce]::InheritOnly, $All, 'DU', [guid]::Empty))
+            (@(Get-PSGPOWmiFilterPermissionFromDescriptor -Descriptor $Container -Container) | Where-Object Sid -EQ 'DU').Permission | Should -Be 'WmiFullControl'
+        }
+
+        It 'Reads a filter of a Windows domain as GPMC shows it: one row for each account, its highest level' {
+            $Descriptor = New-TestDescriptor @(
+                @('S-1-5-11', 0x00020094, ''), @('S-1-5-18', $Full, ''), @('DA', 0x000E01BF, ''), @('PA', 0x1, ''), @('DU', 0x00020034, '')
+                @('DA', $Full, 'ID'), @('DA', $All, 'CIIOID'), @('EA', $Full, 'ID'), @('S-1-5-11', 0x00020094, 'CIID'), @('S-1-3-0', $All, 'CIIOID'))
+            $Rows = @(Get-PSGPOWmiFilterPermissionFromDescriptor -Descriptor $Descriptor)
+            @($Rows | ForEach-Object { "$($_.Sid)=$($_.Permission)$(if ($_.Inherited) { ' inherited' })" }) | Should -Be @('S-1-5-18=WmiFullControl', 'DU=WmiEdit', 'DA=WmiFullControl inherited', 'EA=WmiFullControl inherited')
+            ($Rows | Where-Object Sid -EQ 'DA').Explicit | Should -BeTrue -Because 'it has an ACE of its own there too'
+            $Descriptor.Dacl[4].Mask = 0x00070074
+            (@(Get-PSGPOWmiFilterPermissionFromDescriptor -Descriptor $Descriptor) | Where-Object Sid -EQ 'DU').Permission | Should -Be 'WmiFullControl'
+            $Descriptor.Dacl[4].Mask = 0x00000020
+            (@(Get-PSGPOWmiFilterPermissionFromDescriptor -Descriptor $Descriptor) | Where-Object Sid -EQ 'DU').Permission | Should -Be 'WmiCustom'
+        }
+
+        It 'Writes the ACEs of GPMC, in place of those the account had' {
+            $Descriptor = New-TestDescriptor @(@('DU', 0x00020034, ''), @('DU', 0x00020094, 'CIID'))
+            Set-PSGPOWmiFilterPermissionAce -Descriptor $Descriptor -Sid 'DU' -Permission 'WmiFullControl'
+            @($Descriptor.Dacl | ForEach-Object { '{0}:{1:X8}:{2}' -f $_.Sid, $_.Mask, $_.Flags }) | Should -Be @('DU:00070074:0', 'DU:00020094:18') -Because 'the inherited ACE stays, after the explicit ones'
+            Set-PSGPOWmiFilterPermissionAce -Descriptor $Descriptor -Sid 'DU' -Permission 'None'
+            @($Descriptor.Dacl).Count | Should -Be 1
+            # One ACE: the comma keeps it a list of one.
+            $Container = New-TestDescriptor @(, @('DU', 0x00020035, ''))
+            Set-PSGPOWmiFilterPermissionAce -Descriptor $Container -Sid 'DU' -Permission 'WmiFullControl' -Container
+            @($Container.Dacl | ForEach-Object { '{0:X8}:{1}' -f $_.Mask, $_.Flags }) | Should -Be @('00020037:0', '100F01FF:10')
+            Set-PSGPOWmiFilterPermissionAce -Descriptor $Container -Sid 'DU' -Permission 'WmiCreate' -Container
+            @($Container.Dacl | ForEach-Object { '{0:X8}:{1}' -f $_.Mask, $_.Flags }) | Should -Be @('00020035:0') -Because 'its inherit-only ACE is its own: replaced too'
+            { Set-PSGPOWmiFilterPermissionAce -Descriptor $Container -Sid 'DU' -Permission 'WmiEdit' -Container } | Should -Throw -ExpectedMessage '*Unknown permission on the WMI Filters container*'
+        }
+
+        It 'Delegates the creation of the filters and the change of one; the filters inherit the full control of the container' {
+            @(Get-PSGPOWmiFilterPermission -Directory $Directory | ForEach-Object { "$($_.Trustee)=$($_.Permission)" }) |
+                Should -Be @('Domain Admins=WmiFullControl', 'Enterprise Admins=WmiFullControl', 'Administrators=WmiCreate', 'Group Policy Creator Owners=WmiCreate')
+            $Row = Set-PSGPOWmiFilterPermission -Directory $Directory -Account 'GPO-Tier1-Admins' -Permission WmiCreate
+            $Row.Permission | Should -Be 'WmiCreate'
+            $Row.WmiFilter | Should -BeNullOrEmpty
+            (Get-PSGPOWmiFilterPermission -Directory $Directory -Name 'Laptops' | Where-Object Trustee -EQ 'GPO-Tier1-Admins') | Should -BeNullOrEmpty -Because 'Creator owner changes the filters it creates only'
+            $null = Set-PSGPOWmiFilterPermission -Directory $Directory -Account 'GPO-Tier1-Admins' -Permission WmiFullControl
+            $Inherited = Get-PSGPOWmiFilterPermission -Directory $Directory -Name 'Laptops' | Where-Object Trustee -EQ 'GPO-Tier1-Admins'
+            "$($Inherited.Permission) $($Inherited.Inherited)" | Should -Be 'WmiFullControl True'
+
+            $Row = Set-PSGPOWmiFilterPermission -Directory $Directory -Name 'Lap*' -Account 'GPO-Tier2-Admins' -Permission WmiEdit
+            "$($Row.WmiFilter) $($Row.Permission) $($Row.Inherited)" | Should -Be 'Laptops WmiEdit False'
+            $null = Set-PSGPOWmiFilterPermission -Directory $Directory -Name 'Laptops' -Account 'GPO-Tier2-Admins' -Permission None
+            Get-PSGPOWmiFilterPermission -Directory $Directory -Name 'Laptops' | Where-Object Trustee -EQ 'GPO-Tier2-Admins' | Should -BeNullOrEmpty
+            Set-PSGPOWmiFilterPermission -Directory $Directory -Name 'Laptops' -Account 'GPO-Tier2-Admins' -Permission WmiEdit -WhatIf
+            Get-PSGPOWmiFilterPermission -Directory $Directory -Name 'Laptops' | Where-Object Trustee -EQ 'GPO-Tier2-Admins' | Should -BeNullOrEmpty
+
+            { Set-PSGPOWmiFilterPermission -Directory $Directory -Name 'Laptops' -Account 'GPO-Tier2-Admins' -Permission WmiCreate } | Should -Throw -ExpectedMessage '*WmiCreate is a permission of WMI Filters*'
+            { Set-PSGPOWmiFilterPermission -Directory $Directory -Account 'GPO-Tier2-Admins' -Permission WmiEdit } | Should -Throw -ExpectedMessage '*WmiEdit is a permission of a filter*'
+            $Filter.CanEdit = $false
+            { $Directory.SetWmiFilterPermission($Filter, 'GPO-Tier2-Admins', 'WmiEdit') } | Should -Throw -ExpectedMessage "*cannot change the permissions of the WMI filter 'Laptops'*"
+        }
+    }
+
     Describe 'WMI filters in .mof files, as GPMC exports and imports them' {
         BeforeAll {
             # The text Windows gives for a WMI filter of powershell.labo (root\policy, MSFT_SomFilter):

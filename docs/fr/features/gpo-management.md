@@ -205,6 +205,20 @@ ancien filtre remplacé.
 
 ![Utiliser un filtre WMI dans une GPO](../assets/screenshots/50-use-wmi-filter.fr.png)
 
+```powershell
+New-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' -Description 'Les postes Windows, pas les serveurs'
+Set-PSGPO -Name 'T2 - Workstations - Baseline' -WmiFilter 'Workstations'
+Get-PSGPOWmiFilter | Format-Table Name, Queries, Gpos
+Set-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1 AND Version LIKE ''10.0.2%''' -Description 'Les postes Windows 11'
+Set-PSGPO -Name 'T2 - Workstations - Baseline' -NoWmiFilter
+Remove-PSGPOWmiFilter -Name 'Workstations'
+```
+
+Un filtre qu'utilise une GPO n'est pas supprimé, y compris les GPO que votre compte ne voit pas.
+Les sauvegardes gardent le filtre d'une GPO (son nom et ses requêtes) : l'écart montre quand il a
+changé, et une restauration relie la GPO à son filtre s'il est encore dans le domaine, ou dit qu'il
+n'y est plus.
+
 ### Exporter et importer un filtre WMI
 
 **Exporter...**, dans le menu contextuel d'un filtre, l'écrit dans un fichier `.mof`, comme GPMC :
@@ -234,19 +248,36 @@ Get-ChildItem C:\Exports -Filter *.mof | Import-PSGPOWmiFilter -Server dc.fabrik
 Import-PSGPOWmiFilter -Path C:\Exports\Workstations.mof -Name 'Workstations (lab)'
 ```
 
-```powershell
-New-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' -Description 'Les postes Windows, pas les serveurs'
-Set-PSGPO -Name 'T2 - Workstations - Baseline' -WmiFilter 'Workstations'
-Get-PSGPOWmiFilter | Format-Table Name, Queries, Gpos
-Set-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1 AND Version LIKE ''10.0.2%''' -Description 'Les postes Windows 11'
-Set-PSGPO -Name 'T2 - Workstations - Baseline' -NoWmiFilter
-Remove-PSGPOWmiFilter -Name 'Workstations'
-```
+### Délégation des filtres WMI
 
-Un filtre qu'utilise une GPO n'est pas supprimé, y compris les GPO que votre compte ne voit pas.
-Les sauvegardes gardent le filtre d'une GPO (son nom et ses requêtes) : l'écart montre quand il a
-changé, et une restauration relie la GPO à son filtre s'il est encore dans le domaine, ou dit qu'il
-n'y est plus.
+L'onglet **Délégation** de Filtres WMI dit qui crée des filtres WMI dans le domaine, et celui d'un
+filtre qui le modifie, comme les onglets Délégation de GPMC, avec les mêmes niveaux et les ACE
+qu'écrit GPMC :
+
+| Où | Niveau | Le compte |
+|---|---|---|
+| Filtres WMI | **Propriétaire créateur** | crée des filtres, et modifie ceux qu'il a créés |
+| Filtres WMI | **Contrôle total** | crée des filtres, et les modifie tous : chaque filtre en hérite |
+| Un filtre | **Modifier** | change son nom, sa description et ses requêtes |
+| Un filtre | **Contrôle total** | le supprime aussi et change ses autorisations |
+
+Saisissez un groupe ou un utilisateur, choisissez son niveau puis **Définir l'autorisation** ;
+**Supprimer** retire ce que le compte a là. Une autorisation héritée (sur un filtre, le contrôle
+total de Filtres WMI) est montrée, pas modifiée. Seuls les administrateurs du domaine changent qui
+crée des filtres, et un compte change les autorisations des filtres qu'il peut modifier. Chaque
+modification va dans le [journal d'audit](backup-history.md) (`SetWmiFilterPermission`). Lu et
+écrit dans les deux sens avec l'API de GPMC sur un domaine Windows : ce que HGPM donne, GPMC le lit
+à ce niveau, et inversement.
+
+![Qui crée des filtres WMI](../assets/screenshots/51-wmi-filters-delegation.fr.png)
+
+![Qui modifie un filtre WMI](../assets/screenshots/52-wmi-filter-delegation.fr.png)
+
+```powershell
+Get-PSGPOWmiFilterPermission
+Set-PSGPOWmiFilterPermission -Account 'GPO-Tier1-Admins' -Permission WmiCreate
+Set-PSGPOWmiFilterPermission -Name 'Workstations' -Account 'GPO-Tier2-Admins' -Permission WmiEdit
+```
 
 ## Renommer une GPO
 

@@ -663,6 +663,30 @@ class GPOToolsDirectory {
         $this.WmiFilters.Sort([System.Comparison[GPOToolsWmiFilter]] { param($a, $b) [string]::Compare($a.Name, $b.Name, $true) })
     }
 
+    # The container of the WMI filters of the domain.
+    [string] GetWmiFilterContainer() { return "CN=SOM,CN=WMIPolicy,CN=System,$($this.Domain.DistinguishedName)" }
+
+    # Delegation of the WMI filters, as the Delegation tabs of GPMC (PSGPOWmiFilterPermission.ps1):
+    # one row for each account, Sid, Name, Permission, Inherited, Explicit. A filter: who changes
+    # it (WmiEdit, WmiFullControl); $null: the WMI Filters container, who creates filters
+    # (WmiCreate, WmiFullControl).
+    [object[]] GetWmiFilterPermissions([GPOToolsWmiFilter]$Filter) {
+        $Rows = @(Get-PSGPOWmiFilterPermissionFromDescriptor -Descriptor $this.LoadWmiFilterDescriptor($Filter) -Container:($null -eq $Filter))
+        $Names = $this.ResolveSidNames([string[]]@($Rows | ForEach-Object Sid))
+        foreach ($Row in $Rows) { $Row | Add-Member -NotePropertyName Name -NotePropertyValue $Names[$Row.Sid] -Force }
+        return $Rows
+    }
+
+    # Gives an account ($Sid) one level on a filter, or on the container ($null), None removing it.
+    [void] SetWmiFilterPermission([GPOToolsWmiFilter]$Filter, [string]$Sid, [string]$Permission) {
+        $this.AssertWritable()
+        if ($Filter) {
+            if (-not $this.WmiFilters.Contains($Filter)) { throw "The WMI filter '$($Filter.Name)' is not a filter of $($this.DomainName)." }
+            if (-not $Filter.CanEdit) { throw "The account $($this.Account) cannot change the permissions of the WMI filter '$($Filter.Name)'." }
+        }
+        $this.SaveWmiFilterPermission($Filter, $Sid, $Permission)
+    }
+
     # Deletes a WMI filter no GPO is linked to, as GPMC does.
     [void] RemoveWmiFilter([GPOToolsWmiFilter]$Filter) {
         $this.AssertWritable()
@@ -908,6 +932,32 @@ class GPOToolsDirectory {
         return $Descriptor
     }
     hidden [void] SaveNewWmiFilter([GPOToolsWmiFilter]$Filter) {}
+    # The delegation of the WMI filters in memory: the explicit ACEs of the container ('Container')
+    # and of each filter (its Id); a filter inherits what the container gives its filters.
+    hidden [hashtable]$WmiFilterDescriptors = @{}
+    hidden [GPOToolsSecurityDescriptor] LoadWmiFilterDescriptor([GPOToolsWmiFilter]$Filter) {
+        if (-not $this.WmiFilterDescriptors.ContainsKey('Container')) { $this.WmiFilterDescriptors['Container'] = New-PSGPOWmiFilterDefaultDescriptor -Container }
+        if (-not $Filter) { return $this.WmiFilterDescriptors['Container'] }
+        $Key = "$($Filter.Id)"
+        if (-not $this.WmiFilterDescriptors.ContainsKey($Key)) { $this.WmiFilterDescriptors[$Key] = New-PSGPOWmiFilterDefaultDescriptor }
+        # A copy, not through its bytes: in memory an account may be a name, not a SID.
+        $Stored = $this.WmiFilterDescriptors[$Key]
+        $Descriptor = [GPOToolsSecurityDescriptor]::new()
+        $Descriptor.Owner = $Stored.Owner
+        $Descriptor.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
+        foreach ($Ace in @($Stored.Dacl)) { $Descriptor.Dacl.Add([GPOToolsAce]::new($Ace.Type, $Ace.Flags, $Ace.Mask, $Ace.Sid, $Ace.ObjectType)) }
+        foreach ($Ace in @($this.WmiFilterDescriptors['Container'].Dacl)) {
+            if ($Ace.IsKnown() -and ($Ace.Flags -band [GPOToolsAce]::ContainerInherit)) {
+                $Descriptor.Dacl.Add([GPOToolsAce]::new($Ace.Type, [GPOToolsAce]::Inherited, $Ace.Mask, $Ace.Sid, $Ace.ObjectType))
+            }
+        }
+        return $Descriptor
+    }
+    hidden [void] SaveWmiFilterPermission([GPOToolsWmiFilter]$Filter, [string]$Sid, [string]$Permission) {
+        $null = $this.LoadWmiFilterDescriptor($Filter)
+        $Descriptor = $this.WmiFilterDescriptors[$(if ($Filter) { "$($Filter.Id)" } else { 'Container' })]
+        Set-PSGPOWmiFilterPermissionAce -Descriptor $Descriptor -Sid $Sid -Permission $Permission -Container:($null -eq $Filter)
+    }
     # $Changed: the filter as it becomes, $Filter still as the domain has it.
     hidden [void] SaveEditedWmiFilter([GPOToolsWmiFilter]$Filter, [GPOToolsWmiFilter]$Changed) {}
     hidden [void] SaveRemovedWmiFilter([GPOToolsWmiFilter]$Filter) {}
@@ -1080,6 +1130,20 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
         Set-PSGPODomainWmiFilter -Directory $this -Filter $Filter -Changed $Changed
         Write-PSGPOAuditEntry -Directory $this -Action 'EditWmiFilter' -Target $Filter.DistinguishedName `
             -Details ([ordered]@{ Name = $Changed.Name; OldName = $(if ($Filter.Name -cne $Changed.Name) { $Filter.Name }); Queries = $Changed.GetQueryText() })
+    }
+
+    hidden [GPOToolsSecurityDescriptor] LoadWmiFilterDescriptor([GPOToolsWmiFilter]$Filter) {
+        $Connection = New-PSGPODirectoryConnection -Directory $this
+        try { return Get-PSGPODomainSecurityDescriptor -Connection $Connection -DistinguishedName $(if ($Filter) { $Filter.DistinguishedName } else { $this.GetWmiFilterContainer() }) }
+        finally { $Connection.Dispose() }
+    }
+
+    hidden [void] SaveWmiFilterPermission([GPOToolsWmiFilter]$Filter, [string]$Sid, [string]$Permission) {
+        $Target = if ($Filter) { $Filter.DistinguishedName } else { $this.GetWmiFilterContainer() }
+        $null = Set-PSGPODomainWmiFilterPermission -Directory $this -DistinguishedName $Target -Sid $Sid -Permission $Permission -Container:($null -eq $Filter) `
+            -Name $(if ($Filter) { "the WMI filter '$($Filter.Name)'" } else { "the WMI filters of $($this.DomainName)" })
+        $Name = $this.ResolveSidNames([string[]]@($Sid))[$Sid]
+        Write-PSGPOAuditEntry -Directory $this -Action 'SetWmiFilterPermission' -Target $Target -Details ([ordered]@{ WmiFilter = $(if ($Filter) { $Filter.Name }); Account = $Name; Sid = $Sid; Value = $Permission })
     }
 
     hidden [void] SaveRemovedWmiFilter([GPOToolsWmiFilter]$Filter) {
