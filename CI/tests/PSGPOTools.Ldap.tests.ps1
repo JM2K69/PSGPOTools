@@ -914,6 +914,35 @@ InModuleScope -ModuleName HGPM {
             (Get-PSGPODirectory -Server $Server).FindWmiFilter($FilterName) | Should -BeNullOrEmpty
         }
 
+        It 'Exports a WMI filter of the domain to a .mof file, with its author and dates, and imports it again' {
+            $FilterName = "PSGPOTools test MOF $Stamp"
+            $Filter = $Directory.NewWmiFilter($FilterName, 'Test "MOF" of PSGPOTools', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = "SELECT * FROM Win32_OperatingSystem WHERE Caption LIKE '%\%'" }))
+            $Folder = Join-Path $TestDrive "mof-$Stamp"
+            try {
+                $Read = Get-PSGPODirectory -Server $Server
+                $ReadFilter = $Read.FindWmiFilter($FilterName)
+                $ReadFilter.Author | Should -Be $Directory.Account
+                $ReadFilter.CreationDate | Should -Be $Filter.CreationDate
+                $File = Export-PSGPOWmiFilter -Directory $Read -Name $FilterName -Path $Folder
+                $Mof = ConvertFrom-PSGPOWmiFilterMof -Bytes ([System.IO.File]::ReadAllBytes($File.FullName))
+                $Mof.Domain | Should -Be $Directory.DomainName
+                $Mof.Id | Should -Be $Filter.Id
+                $Mof.CreationDate | Should -Be $Filter.CreationDate
+                $Mof.Description | Should -Be 'Test "MOF" of PSGPOTools'
+
+                $Imported = Import-PSGPOWmiFilter -Directory $Directory -Path $File.FullName -Name "$FilterName (imported)"
+                $Imported.Id | Should -Not -Be $Filter.Id
+                $Again = (Get-PSGPODirectory -Server $Server).FindWmiFilter("$FilterName (imported)")
+                $Again.GetQueryText() | Should -Be $Filter.GetQueryText()
+                $Again.Description | Should -Be 'Test "MOF" of PSGPOTools'
+            } finally {
+                foreach ($Name in $FilterName, "$FilterName (imported)") {
+                    $Left = $Directory.FindWmiFilter($Name)
+                    if ($Left) { $Directory.RemoveWmiFilter($Left) }
+                }
+            }
+        }
+
         It 'Writes the changes the domain accepted to the audit log' {
             $Entries = @(Get-PSGPOAuditLog -Path $script:AuditLog -Domain $Directory.DomainName)
             @($Entries.Action) | Should -Contain 'NewGpo'

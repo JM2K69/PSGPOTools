@@ -192,11 +192,47 @@ refusée si le filtre a changé dans le domaine depuis que la console l'a lu.
 ![Un filtre WMI modifié](../assets/screenshots/41-edit-wmi-filter.fr.png)
 
 **WMI Filter**, dans le menu contextuel d'une GPO, liste les filtres du domaine : celui qui est
-coché est le filtre de la GPO, **(none)** la délie. Ses détails montrent le filtre et ses requêtes,
-ou disent que le filtre d'une GPO n'est plus dans le domaine (les ordinateurs ignorent alors la
-GPO).
+coché est le filtre de la GPO, **(none)** la délie. Les détails de la GPO offrent le même choix
+dans leur liste **Filtre WMI**, comme l'onglet Étendue de GPMC, et montrent le filtre et ses
+requêtes, ou disent que le filtre d'une GPO n'est plus dans le domaine (les ordinateurs ignorent
+alors la GPO).
 
 ![Une GPO liée à un filtre WMI](../assets/screenshots/21-wmi-filter.fr.png)
+
+Depuis le filtre, **L'utiliser dans un GPO...** liste les GPO que votre compte modifie et qui ne
+l'utilisent pas encore (cherchez-en une par son nom) : la GPO choisie est liée au filtre, son
+ancien filtre remplacé.
+
+![Utiliser un filtre WMI dans une GPO](../assets/screenshots/50-use-wmi-filter.fr.png)
+
+### Exporter et importer un filtre WMI
+
+**Exporter...**, dans le menu contextuel d'un filtre, l'écrit dans un fichier `.mof`, comme GPMC :
+le même format (UTF-16, une instance de `MSFT_SomFilter` avec ses règles), que GPMC importe donc
+dans un autre domaine. Le fichier est proposé dans le dossier `WMI filters` du dossier des
+sauvegardes ; **Parcourir...** en choisit un autre, et un fichier déjà là est remplacé après
+confirmation.
+
+![Exporter un filtre WMI](../assets/screenshots/48-export-wmi-filter.fr.png)
+
+**Importer...**, dans le menu contextuel de Filtres WMI, lit un fichier `.mof` exporté par GPMC ou
+par HGPM : **Lire le fichier** montre son filtre (son domaine, sa description et ses requêtes), puis
+**Importer** le crée dans le domaine, sous son nom ou un autre. Il reçoit un nouvel Id : un fichier
+de ce domaine est donc importé à côté de son filtre ; un nom que le domaine a déjà est refusé. Comme
+dans GPMC, la console importe un fichier d'un seul filtre ; `Import-PSGPOWmiFilter` les importe
+tous.
+
+![Importer un filtre WMI](../assets/screenshots/49-import-wmi-filter.fr.png)
+
+Les fichiers ont été vérifiés sur un domaine Windows : un filtre exporté par HGPM est recréé par
+Windows à partir de son fichier (le fournisseur `root\policy` des filtres, comme GPMC), et un
+fichier de Windows est importé par HGPM, puis lu par GPMC.
+
+```powershell
+Export-PSGPOWmiFilter -Name '*' -Path C:\Exports
+Get-ChildItem C:\Exports -Filter *.mof | Import-PSGPOWmiFilter -Server dc.fabrikam.com
+Import-PSGPOWmiFilter -Path C:\Exports\Workstations.mof -Name 'Workstations (lab)'
+```
 
 ```powershell
 New-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' -Description 'Les postes Windows, pas les serveurs'

@@ -182,6 +182,15 @@ $(Get-PSGPOWindowResourceXaml)
                                 <MenuItem Name='editWmiFilterMenuItem' Header='Edit WMI filter...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.edit}'/></MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Name='useWmiFilterMenuItem' Header='Use it in a GPO...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.link}'/></MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Name='exportWmiFilterMenuItem' Header='Export...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.arrow-export}'/></MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Name='importWmiFilterMenuItem' Header='Import...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.arrow-import}'/></MenuItem.Icon>
+                                </MenuItem>
                                 <MenuItem Name='deleteWmiFilterMenuItem' Header='Delete WMI filter...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.delete}'/></MenuItem.Icon>
                                 </MenuItem>
@@ -423,6 +432,71 @@ $(Get-PSGPOWindowResourceXaml)
                                         </StackPanel>
                                     </Border>
 
+                                    <!-- Export of a WMI filter to a .mof file, as GPMC -->
+                                    <Border Name='exportWmiFilterPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='exportWmiFilterTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBlock Text='File (.mof), in the format of GPMC' FontSize='12' Opacity='0.8' Foreground='{DynamicResource TextBrush}'/>
+                                            <Grid ColumnDefinitions='*,Auto'>
+                                                <TextBox Name='exportWmiFilterPathTextBox'/>
+                                                <Button Grid.Column='1' Name='exportWmiFilterBrowseButton' Content='Browse...' Margin='8,0,0,0'/>
+                                            </Grid>
+                                            <TextBlock Name='exportWmiFilterErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='exportWmiFilterConfirmButton' Content='Export' MinWidth='100'/>
+                                                <Button Name='exportWmiFilterCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Import of a WMI filter from a .mof file (GPMC or HGPM), as GPMC -->
+                                    <Border Name='importWmiFilterPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='importWmiFilterTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBlock Text='File (.mof) exported by GPMC or HGPM' FontSize='12' Opacity='0.8' Foreground='{DynamicResource TextBrush}'/>
+                                            <Grid ColumnDefinitions='*,Auto,Auto'>
+                                                <TextBox Name='importWmiFilterPathTextBox' Watermark='C:\Exports\Workstations.mof'/>
+                                                <Button Grid.Column='1' Name='importWmiFilterBrowseButton' Content='Browse...' Margin='8,0,0,0'/>
+                                                <Button Grid.Column='2' Name='importWmiFilterReadButton' Content='Read the file' Margin='8,0,0,0'/>
+                                            </Grid>
+                                            <TextBlock Name='importWmiFilterInfoTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'
+                                                       IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <TextBlock Text='Name' FontSize='12' Opacity='0.8' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBox Name='importWmiFilterNameTextBox' Watermark='Name of the filter in this domain'/>
+                                            <TextBlock Name='importWmiFilterErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='importWmiFilterConfirmButton' Content='Import' MinWidth='100' IsEnabled='False'/>
+                                                <Button Name='importWmiFilterCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- A WMI filter given to a GPO from the filter: the GPOs the account edits that do not use it -->
+                                    <Border Name='useWmiFilterPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='useWmiFilterTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBox Name='useWmiFilterSearchTextBox' Watermark='Search a GPO'/>
+                                            <ListBox Name='useWmiFilterList' MaxHeight='240' SelectionMode='Single'>
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text='{Binding DisplayName}' TextTrimming='CharacterEllipsis'/>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                            <TextBlock Name='useWmiFilterErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='useWmiFilterConfirmButton' Content='Use the filter' MinWidth='110' IsEnabled='False'/>
+                                                <Button Name='useWmiFilterCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
                                     <!-- Deletion of a WMI filter no GPO uses -->
                                     <Border Name='deleteWmiFilterPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
                                             BorderThickness='1' BorderBrush='#D13438'
@@ -469,6 +543,12 @@ $(Get-PSGPOWindowResourceXaml)
                                             <TextBlock Text='Edit this GPO' VerticalAlignment='Center'/>
                                         </StackPanel>
                                     </Button>
+                                    <!-- The WMI filter of the GPO, as the WMI Filtering of the Scope tab of GPMC -->
+                                    <Grid Name='gpoWmiFilterPanel' ColumnDefinitions='180,*' IsVisible='False' Margin='0,0,0,8'>
+                                        <TextBlock Text='Change the WMI filter' VerticalAlignment='Center' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                        <ComboBox Grid.Column='1' Name='gpoWmiFilterComboBox' HorizontalAlignment='Stretch'
+                                                  ToolTip.Tip='The computers apply the GPO only when a query of its WMI filter returns something'/>
+                                    </Grid>
                                     <Button Name='editWmiFilterButton' IsVisible='False' Margin='0,8,0,8'>
                                         <StackPanel Orientation='Horizontal' Spacing='8'>
                                             <PathIcon Data='{StaticResource Icon.edit}'/>

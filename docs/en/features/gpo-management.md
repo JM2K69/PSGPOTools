@@ -184,10 +184,43 @@ domain since the console read it.
 ![A WMI filter changed](../assets/screenshots/41-edit-wmi-filter.png)
 
 **WMI Filter** in the context menu of a GPO lists the filters of the domain: the one checked is
-the filter of the GPO, **(none)** unlinks it. Its details show the filter and its queries, or say
-that the filter of a GPO is not in the domain anymore (the computers then ignore the GPO).
+the filter of the GPO, **(none)** unlinks it. The details of the GPO offer the same choice in their
+**WMI filter** list, as the Scope tab of GPMC, and show the filter and its queries, or say that the
+filter of a GPO is not in the domain anymore (the computers then ignore the GPO).
 
 ![A GPO linked to a WMI filter](../assets/screenshots/21-wmi-filter.png)
+
+From the filter, **Use it in a GPO...** lists the GPOs your account edits that do not use it yet
+(search one by its name): the GPO chosen is linked to the filter, its former filter replaced.
+
+![Use a WMI filter in a GPO](../assets/screenshots/50-use-wmi-filter.png)
+
+### Export and import a WMI filter
+
+**Export...** in the context menu of a filter writes it to a `.mof` file, as GPMC does: the same
+format (UTF-16, an instance of `MSFT_SomFilter` with its rules), so GPMC imports it in another
+domain. The file is proposed in the folder `WMI filters` of the folder of the backups; **Browse...**
+chooses another one, and a file there is replaced once confirmed.
+
+![Export a WMI filter](../assets/screenshots/48-export-wmi-filter.png)
+
+**Import...** in the context menu of WMI Filters reads a `.mof` file exported by GPMC or by HGPM:
+**Read the file** shows its filter (its domain, description and queries), then **Import** creates
+it in the domain, under its name or another one. It gets a new Id, so a file of this domain is
+imported beside its filter; a name the domain has already is refused. As in GPMC, the console
+imports a file of one filter; `Import-PSGPOWmiFilter` imports them all.
+
+![Import a WMI filter](../assets/screenshots/49-import-wmi-filter.png)
+
+The files were checked on a Windows domain: a filter exported by HGPM is created again by Windows
+from its file (the `root\policy` provider of the filters, as GPMC), and a file of Windows is
+imported by HGPM, then read by GPMC.
+
+```powershell
+Export-PSGPOWmiFilter -Name '*' -Path C:\Exports
+Get-ChildItem C:\Exports -Filter *.mof | Import-PSGPOWmiFilter -Server dc.fabrikam.com
+Import-PSGPOWmiFilter -Path C:\Exports\Workstations.mof -Name 'Workstations (lab)'
+```
 
 ```powershell
 New-PSGPOWmiFilter -Name 'Workstations' -Query 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1' -Description 'Windows workstations, not the servers'

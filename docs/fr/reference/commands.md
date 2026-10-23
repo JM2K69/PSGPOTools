@@ -32,6 +32,8 @@ ouvre sa page. Les commandes qui modifient le domaine acceptent `-WhatIf` et `-C
 | [`New-PSGPOWmiFilter`](commands/new-psgpowmifilter.md) `-Name -Query [-Namespace] [-Description]` | crée un filtre WMI |
 | [`Set-PSGPOWmiFilter`](commands/set-psgpowmifilter.md) `-Name [-NewName] [-Description] [-Query] [-Namespace]` | modifie le nom, la description ou les requêtes d'un filtre WMI |
 | [`Remove-PSGPOWmiFilter`](commands/remove-psgpowmifilter.md) `-Name` | supprime des filtres WMI qu'aucune GPO n'utilise |
+| [`Export-PSGPOWmiFilter`](commands/export-psgpowmifilter.md) `-Name -Path [-Force]` | exporte des filtres WMI en fichiers `.mof`, comme GPMC |
+| [`Import-PSGPOWmiFilter`](commands/import-psgpowmifilter.md) `-Path [-Name]` | crée des filtres WMI à partir de fichiers `.mof` de GPMC ou de HGPM |
 
 Un nom donné avec `-Name` est le nom de la GPO, crochets compris (`Servers [Lyon]`) ; avec `*` ou `?`, c'est un motif. Deux GPO de même nom sont prises chacune.
 
