@@ -2557,7 +2557,7 @@ function Start-PSGPOManagerWindow {
         if (-not $gpo) { return }
         if ("$($gpo.WmiFilterId)" -eq "$(if ($Filter) { $Filter.Id })") { return }
         $select = $domainTreeView.SelectedItem.Tag
-        Invoke-DirectoryChange -Select $select -Done $(if ($Filter) { Get-PSGPOText "'{0}' is linked to the WMI filter '{1}': the computers apply it only when {2} returns something." $gpo.DisplayName $Filter.Name $Filter.GetQueryText() } else { Get-PSGPOText "'{0}' is linked to no WMI filter." $gpo.DisplayName }) `
+        Invoke-DirectoryChange -Select $select -Done $(if ($Filter) { Get-PSGPOText "'{0}' is linked to the WMI filter '{1}': the computers apply it only when each of its queries returns something ({2})." $gpo.DisplayName $Filter.Name $Filter.GetQueryText() } else { Get-PSGPOText "'{0}' is linked to no WMI filter." $gpo.DisplayName }) `
             -Change { $Directory.SetWmiFilter($gpo, $Filter) }
     }
     # New WMI Filter... on WMI Filters, as GPMC; Edit WMI filter... on a filter, in the same form.
@@ -2787,7 +2787,7 @@ function Start-PSGPOManagerWindow {
         $filter = if ($domainTreeView.SelectedItem) { $domainTreeView.SelectedItem.Tag }
         if ($filter -isnot [GPOToolsWmiFilter]) { return }
         $useWmiFilter.Filter = $filter
-        $useWmiFilterTitleTextBlock.Text = Get-PSGPOText "Use the WMI filter '{0}' in a GPO: the computers apply it only when {1} returns something" $filter.Name $filter.GetQueryText()
+        $useWmiFilterTitleTextBlock.Text = Get-PSGPOText "Use the WMI filter '{0}' in a GPO: the computers apply it only when each of its queries returns something ({1})" $filter.Name $filter.GetQueryText()
         $useWmiFilterErrorTextBlock.Text = ''
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
@@ -2827,7 +2827,7 @@ function Start-PSGPOManagerWindow {
         $useWmiFilterPanel.IsVisible = $false
         Update-DirectoryTree -Select $filter
         Show-DirectoryResult -Text $(if ($former) { Get-PSGPOText "'{0}' is linked to the WMI filter '{1}', instead of '{2}'." $gpo.DisplayName $filter.Name $former.Name }
-            else { Get-PSGPOText "'{0}' is linked to the WMI filter '{1}': the computers apply it only when {2} returns something." $gpo.DisplayName $filter.Name $filter.GetQueryText() })
+            else { Get-PSGPOText "'{0}' is linked to the WMI filter '{1}': the computers apply it only when each of its queries returns something ({2})." $gpo.DisplayName $filter.Name $filter.GetQueryText() })
     }
 
     # The WMI filter of the selected GPO in its details, as the Scope tab of GPMC: (none), the

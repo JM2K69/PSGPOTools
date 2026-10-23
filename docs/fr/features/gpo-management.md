@@ -162,11 +162,12 @@ Set-PSGPOPermission -Name 'C - Workstations - BitLocker' -Account 'Authenticated
 
 ## Les filtres WMI
 
-Un filtre WMI fait appliquer une GPO par les ordinateurs seulement quand l'une de ses requêtes WQL
+Un filtre WMI fait appliquer une GPO par les ordinateurs seulement quand chacune de ses requêtes WQL
 renvoie quelque chose (les postes de travail seulement, une version de Windows, les portables…),
 comme le filtrage WMI de l'onglet Étendue de GPMC. Les filtres sont des objets du domaine
 (`msWMI-Som` dans `CN=SOM,CN=WMIPolicy,CN=System`), que Samba AD conserve pour les ordinateurs
-Windows ; une GPO désigne son filtre dans `gPCWQLFilter`.
+Windows ; une GPO désigne son filtre dans `gPCWQLFilter`. Un ordinateur Linux joint avec Samba ignore
+les filtres WMI : voir [Filtres WMI et clients Linux](wmi-filters-and-linux.md).
 
 **WMI Filters**, dans l'arbre sous Group Policy Objects, liste les filtres du domaine avec leurs
 requêtes, comme GPMC. Un filtre montre sa description, ses requêtes, les GPO qui l'utilisent et son

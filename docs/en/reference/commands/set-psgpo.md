@@ -12,7 +12,7 @@ Set-PSGPO [-Name] <string[]> [[-NewName] <string>] [[-Status] <string>] [[-WmiFi
 
 ## Description
 
-The new name (the Rename item of GPMC) is the display name of the GPO only: its GUID, its folder in SYSVOL, its links and its backups do not change. The status (the GPO Status menu of GPMC) says which part of the GPO the computers apply: all its settings, those of the computers only (User configuration settings disabled), those of the users only, or none. The WMI filter (the WMI Filtering of the Scope tab of GPMC) makes the computers apply the GPO only when one of its queries returns something.
+The new name (the Rename item of GPMC) is the display name of the GPO only: its GUID, its folder in SYSVOL, its links and its backups do not change. The status (the GPO Status menu of GPMC) says which part of the GPO the computers apply: all its settings, those of the computers only (User configuration settings disabled), those of the users only, or none. The WMI filter (the WMI Filtering of the Scope tab of GPMC) makes the computers apply the GPO only when each of its queries returns something.
 
 ## Parameters
 
