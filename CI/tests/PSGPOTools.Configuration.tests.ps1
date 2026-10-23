@@ -57,6 +57,7 @@ InModuleScope -ModuleName HGPM {
             @{ Case = 'has an unknown setting'; Content = "@{ NewGpo = @{ Colour = 'blue' } }"; Message = '*Unknown setting NewGpo.Colour*' }
             @{ Case = 'has a wrong scope'; Content = "@{ NewGpo = @{ SecurityFilteringGroups = @{ Scope = 'Forest' } } }"; Message = "*Scope must be Global, DomainLocal or Universal, not 'Forest'*" }
             @{ Case = 'has a prefix a group name cannot hold'; Content = "@{ NewGpo = @{ SecurityFilteringGroups = @{ DenyPrefix = 'DENY:' } } }"; Message = '*DenyPrefix must not be empty, nor hold*' }
+            @{ Case = 'shows what is not managed with a text'; Content = "@{ View = @{ ShowUnmanaged = 'no' } }"; Message = '*View.ShowUnmanaged must be $true or $false*' }
             @{ Case = 'runs code'; Content = "@{ NewGpo = @{ DefaultName = (Get-Date) } }"; Message = ' it is not PowerShell data: Cannot generate a PowerShell object for a ScriptBlock evaluating dynamic expressions*' }
             @{ Case = 'is not PowerShell data'; Content = "@{ NewGpo = "; Message = " it is not PowerShell data: The file 'Configuration.psd1' could not be parsed*" }
         ) {

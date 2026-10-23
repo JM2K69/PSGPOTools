@@ -38,6 +38,12 @@ Une étiquette fait au plus 64 caractères, sans virgule, tabulation ni saut de 
 |---|---|---|
 | `Audit.Path` | vide | dossier du [journal d'audit](../features/backup-history.md#journal-daudit), le même pour toutes les consoles : un partage où écrivent les administrateurs des GPO (`\\serveur\gpo-audit`) ; vide : le dossier `Audit` des sauvegardes du compte |
 
+## View
+
+| Réglage | Par défaut | |
+|---|---|---|
+| `View.ShowUnmanaged` | `$true` | chaque compte voit tout le domaine, comme GPMC : ce qu'il ne gère pas est grisé, en lecture seule ; `$false` : il ne voit que ce qu'il gère, et un compte sans délégation ne voit rien ([délégation](../features/delegation.md)) |
+
 ## Workflow
 
 Le [workflow d'approbation](../workflows/approval.md).

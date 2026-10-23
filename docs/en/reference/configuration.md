@@ -37,6 +37,12 @@ A label has at most 64 characters, without comma, tab or line break; the two lab
 |---|---|---|
 | `Audit.Path` | empty | folder of the [audit log](../features/backup-history.md#audit-log), the same for every console: a share the administrators of the GPOs write (`\\server\gpo-audit`); empty: the folder `Audit` of the backups of the account |
 
+## View
+
+| Setting | Default | |
+|---|---|---|
+| `View.ShowUnmanaged` | `$true` | every account sees the whole domain, as GPMC: what it does not manage is greyed, read only; `$false`: it sees only what it manages, and an account without delegation sees nothing ([delegation](../features/delegation.md)) |
+
 ## Workflow
 
 The [approval workflow](../workflows/approval.md).

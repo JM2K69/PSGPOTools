@@ -122,6 +122,7 @@ function Test-PSGPOConfiguration {
         if (-not $label -or $label.Length -gt 64 -or $label -match '[,\r\n\t]') { "Backup.$name must not be empty, and has at most 64 characters, without comma, tab or line break." }
     }
     if ("$($Configuration.Backup.ApprovedLabel)".Trim() -eq "$($Configuration.Backup.TemplateLabel)".Trim()) { 'Backup.ApprovedLabel and TemplateLabel must differ.' }
+    if ($Configuration.View.ShowUnmanaged -isnot [bool]) { 'View.ShowUnmanaged must be $true or $false.' }
     $workflow = $Configuration.Workflow
     if ($workflow.Enabled -isnot [bool]) { 'Workflow.Enabled must be $true or $false.' }
     if ($workflow.CreatorRights -notin 'ReadOnly', 'EditSettings') { "Workflow.CreatorRights must be ReadOnly or EditSettings, not '$($workflow.CreatorRights)'." }
@@ -142,6 +143,16 @@ function Get-PSGPOConfigurationData {
     param()
 
     Merge-PSGPOConfiguration -Base (Import-PowerShellDataFile -LiteralPath (Get-PSGPODefaultConfigurationPath)) -Override $script:PSGPOConfigurationState.Override
+}
+
+# The console shows what the account does not manage, greyed (View.ShowUnmanaged), or only what it
+# manages.
+function Test-PSGPOUnmanagedShown {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param()
+
+    [bool](Get-PSGPOConfigurationData).View.ShowUnmanaged
 }
 
 # The container of the security filtering groups for a directory: the configuration, made a

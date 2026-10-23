@@ -2482,6 +2482,8 @@ function Start-PSGPOManagerWindow {
         if ($configurationWindow.Ui -and $configurationWindow.Ui.Window.IsVisible) { $configurationWindow.Ui.Window.Activate(); return }
         $configurationWindow.Ui = New-PSGPOConfigurationWindow -Directory $Directory
         $configurationWindow.Ui.Window.RequestedThemeVariant = $window.RequestedThemeVariant
+        # A configuration saved may change the view (View.ShowUnmanaged): the tree built again.
+        $configurationWindow.Ui.Window.add_Closed({ if ($configurationWindow.Ui.State.Saved) { Update-DirectoryTree -Select $domainTreeView.SelectedItem.Tag } })
         $configurationWindow.Ui.Window.Show($window)
     })
     $browseAdmxButton.Add_Click({ Open-GpoEditor -Gpo $null })
