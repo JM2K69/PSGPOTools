@@ -79,7 +79,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
 
     # The .PolicyRules files of the folder, read again; the sets added (GPOs, GPMC backups) are kept,
     # and the files keep their check.
-    function Update-AnalyzerSets {
+    function Read-AnalyzerFolder {
         $folder = "$($analyzerFolderTextBox.Text)".Trim()
         $checked = @{}
         foreach ($item in $analyzer.Sets) { if ($item.Kind -eq 'File' -and $item.IsChecked) { $checked[$item.Path] = $true } }
@@ -108,7 +108,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
         param([string]$Folder)
         $analyzerFolderTextBox.Text = $Folder
         try { Set-PSGPOUserSetting -Values @{ PolicyAnalyzerPath = $Folder } -Confirm:$false } catch { Write-Verbose "Folder of the rule sets not saved: $($_.Exception.Message)" }
-        Update-AnalyzerSets
+        Read-AnalyzerFolder
     }
 
     # The first time the view shows: the folder given ($Folder, not kept for the next time), else
@@ -118,7 +118,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
         if ($analyzer.Loaded) { return }
         $analyzer.Loaded = $true
         $analyzerFolderTextBox.Text = if ($Folder) { $Folder } else { Get-AnalyzerDefaultFolder }
-        Update-AnalyzerSets
+        Read-AnalyzerFolder
     }
 
     # A file or folder chosen with the picker of the system; $Done gets its path.
@@ -161,7 +161,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
         $analyzer.Picker.Timer.Start()
     }
 
-    function Hide-AnalyzerForms {
+    function Hide-AnalyzerForm {
         $analyzerGposPanel.IsVisible = $false
         $analyzerFilePanel.IsVisible = $false
     }
@@ -177,7 +177,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
     }
 
     function Open-AnalyzerGposForm {
-        Hide-AnalyzerForms
+        Hide-AnalyzerForm
         $analyzerGposFilterTextBox.Text = ''
         $analyzerGposNameTextBox.Text = ''
         $analyzerGposErrorTextBlock.Text = ''
@@ -187,7 +187,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
         $analyzerGposFilterTextBox.Focus()
     }
 
-    function Submit-AnalyzerGpos {
+    function Submit-AnalyzerGpoSelection {
         if (-not $analyzer.Directory) { return }
         $gpos = @($analyzerGposList.SelectedItems | Where-Object { $_ -is [GPOToolsGpo] })
         if (-not $gpos.Count) { $analyzerGposErrorTextBlock.Text = Get-PSGPOText 'Select one or more GPOs.'; return }
@@ -228,7 +228,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
                 $analyzerFileConfirmButton.Content = Get-PSGPOText 'Export'
             }
         }
-        Hide-AnalyzerForms
+        Hide-AnalyzerForm
         $analyzer.FileMode = $Mode
         $analyzer.Replace = $null
         $analyzerFileAllCheckBox.IsVisible = $Mode -eq 'Excel'
@@ -263,7 +263,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
                 if ([string]::Equals([System.IO.Path]::GetDirectoryName($file.FullName), [System.IO.Path]::GetFullPath("$($analyzerFolderTextBox.Text)".Trim()), [System.StringComparison]::OrdinalIgnoreCase)) {
                     # A file of the folder, read again with the others; checked if it was.
                     $item.Kind = 'File'
-                    Update-AnalyzerSets
+                    Read-AnalyzerFolder
                 }
                 $analyzerSetsStatusTextBlock.Text = Get-PSGPOText 'Saved: {0}' $file.FullName
             } else {
@@ -279,7 +279,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
     # --- The comparison ----------------------------------------------------------------------------
 
     # A column per set, after the setting; each cell with the colour of its state.
-    function Update-AnalyzerColumns {
+    function Update-AnalyzerGridColumn {
         $analyzerGrid.Columns.Clear()
         foreach ($column in @(@{ Header = (Get-PSGPOText 'Scope'); Property = 'Scope'; Width = 110 }, @{ Header = (Get-PSGPOText 'Setting'); Property = 'Name'; Width = 320 }, @{ Header = (Get-PSGPOText 'Option'); Property = 'Option'; Width = 150 })) {
             $text = [Avalonia.Controls.DataGridTextColumn]::new()
@@ -323,7 +323,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
     }
 
     # The rows the filters keep: all, the differences or the conflicts, and those the search finds.
-    function Update-AnalyzerRows {
+    function Update-AnalyzerGridRow {
         $text = "$($analyzerSearchTextBox.Text)".Trim()
         $show = $analyzerShowComboBox.SelectedIndex
         # A foreach, not Where-Object: Avalonia cannot bind the PSObjects of a pipeline.
@@ -336,7 +336,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
         if ($all.Count) {
             $analyzerSummaryTextBlock.Text = Get-PSGPOText '{0} settings, {1} differences, {2} conflicts; {3} shown' $all.Count @($all | Where-Object { $_.Source.Difference }).Count @($all | Where-Object { $_.Source.Conflict }).Count $analyzer.Shown.Count
         }
-        Show-AnalyzerDetails
+        Show-AnalyzerDetail
     }
 
     function Invoke-AnalyzerCompare {
@@ -351,10 +351,10 @@ function Initialize-PSGPOPolicyAnalyzerView {
                     $comparison = @(Get-PSGPOPolicyRuleComparison -RuleSet ([GPOToolsPolicyRuleSet[]]$analyzer.Comparing))
                     $analyzer.Columns = @(if ($comparison.Count) { $comparison[0].Cells | ForEach-Object Set } else { Get-PSGPOPolicyRuleColumnName -RuleSet ([GPOToolsPolicyRuleSet[]]$analyzer.Comparing) })
                     $analyzer.Rows = [object[]]@(foreach ($row in $comparison) { (ConvertTo-AnalyzerRow -Row $row).psobject.BaseObject })
-                    Update-AnalyzerColumns
+                    Update-AnalyzerGridColumn
                     $analyzerEmptyTextBlock.IsVisible = $false
                     $analyzerGrid.IsVisible = $true
-                    Update-AnalyzerRows
+                    Update-AnalyzerGridRow
                     $analyzerSetsStatusTextBlock.Text = ''
                 } catch {
                     $analyzerSetsStatusTextBlock.Text = Get-PSGPOText 'The sets are not compared: {0}' $_.Exception.GetBaseException().Message
@@ -365,7 +365,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
     }
 
     # Where GPMC shows the selected setting, the value each GPO of each set gives it, its explanation.
-    function Show-AnalyzerDetails {
+    function Show-AnalyzerDetail {
         $item = $analyzerGrid.SelectedItem
         $analyzerDetailsBorder.IsVisible = $item -is [AvaloniaPolicyRuleRow]
         if ($item -isnot [AvaloniaPolicyRuleRow]) { return }
@@ -401,7 +401,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
         param($control, $e)
         if ($e.Property.Name -eq 'Text' -and $analyzerGposPanel.IsVisible) { Update-AnalyzerGposList }
     })
-    $analyzerGposConfirmButton.Add_Click({ Submit-AnalyzerGpos })
+    $analyzerGposConfirmButton.Add_Click({ Submit-AnalyzerGpoSelection })
     $analyzerGposCancelButton.Add_Click({ $analyzerGposPanel.IsVisible = $false })
     $analyzerAddGpmcButton.Add_Click({ Open-AnalyzerFileForm -Mode Gpmc })
     $analyzerSaveSetButton.Add_Click({ Open-AnalyzerFileForm -Mode Save })
@@ -422,10 +422,10 @@ function Initialize-PSGPOPolicyAnalyzerView {
     $analyzerFileConfirmButton.Add_Click({ Submit-AnalyzerFile })
     $analyzerFileCancelButton.Add_Click({ $analyzerFilePanel.IsVisible = $false })
     $analyzerCompareButton.Add_Click({ Invoke-AnalyzerCompare })
-    $analyzerShowComboBox.Add_SelectionChanged({ Update-AnalyzerRows })
+    $analyzerShowComboBox.Add_SelectionChanged({ Update-AnalyzerGridRow })
     $analyzerSearchTextBox.add_PropertyChanged({
         param($control, $e)
-        if ($e.Property.Name -eq 'Text') { Update-AnalyzerRows }
+        if ($e.Property.Name -eq 'Text') { Update-AnalyzerGridRow }
     })
-    $analyzerGrid.Add_SelectionChanged({ Show-AnalyzerDetails })
+    $analyzerGrid.Add_SelectionChanged({ Show-AnalyzerDetail })
 }

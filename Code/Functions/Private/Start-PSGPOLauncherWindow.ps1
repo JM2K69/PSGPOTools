@@ -98,7 +98,7 @@ function Start-PSGPOLauncherWindow {
         }
     }
     $ui.toolsPanel.AddHandler([Avalonia.Controls.Button]::ClickEvent, [EventHandler[Avalonia.Interactivity.RoutedEventArgs]] {
-            param($sender, $e)
+            param($source, $e)
             $tile = $e.Source
             $tool = $tile.Tag
             if ($tool -isnot [hashtable]) { return }

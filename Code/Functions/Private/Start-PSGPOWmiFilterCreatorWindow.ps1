@@ -115,7 +115,10 @@ function Start-PSGPOWmiFilterCreatorWindow {
         $ui.removeQueryButton.IsEnabled = $null -ne $ui.queriesList.SelectedItem
         if ($state.ExportPathAuto) {
             $state.Updating = $true
-            $ui.exportPathTextBox.Text = Join-Path ([Environment]::GetFolderPath('MyDocuments')) (Get-PSGPOWmiFilterFileName -Name $(if ("$($ui.filterNameTextBox.Text)".Trim()) { $ui.filterNameTextBox.Text } else { 'WMI filter' }))
+            # No Documents folder on a Linux account without one: its home.
+            $documents = [Environment]::GetFolderPath('MyDocuments')
+            if (-not $documents) { $documents = $HOME }
+            $ui.exportPathTextBox.Text = Join-Path $documents (Get-PSGPOWmiFilterFileName -Name $(if ("$($ui.filterNameTextBox.Text)".Trim()) { $ui.filterNameTextBox.Text } else { 'WMI filter' }))
             $state.Updating = $false
         }
         $state.ConfirmNew = $false
@@ -246,25 +249,25 @@ function Start-PSGPOWmiFilterCreatorWindow {
             $label.FontSize = 12
             $ui.templateParametersPanel.Children.Add($label)
             if ($parameter.Kind -eq 'Choice') {
-                $input = [Avalonia.Controls.ComboBox]::new()
-                $input.HorizontalAlignment = [Avalonia.Layout.HorizontalAlignment]::Stretch
-                $input.ItemsSource = [string[]]@($parameter.Choices | ForEach-Object { Get-PSGPOText $_.Text })
+                $field = [Avalonia.Controls.ComboBox]::new()
+                $field.HorizontalAlignment = [Avalonia.Layout.HorizontalAlignment]::Stretch
+                $field.ItemsSource = [string[]]@($parameter.Choices | ForEach-Object { Get-PSGPOText $_.Text })
                 $default = [array]::IndexOf([string[]]@($parameter.Choices.Value), "$($parameter.Default)")
-                $input.SelectedIndex = [math]::Max(0, $default)
-                $input.add_SelectionChanged({ Update-TemplatePreview })
+                $field.SelectedIndex = [math]::Max(0, $default)
+                $field.add_SelectionChanged({ Update-TemplatePreview })
             } else {
-                $input = [Avalonia.Controls.TextBox]::new()
-                $input.Text = "$($parameter.Default)"
-                if ($parameter.Hint) { $input.Watermark = Get-PSGPOText $parameter.Hint }
-                $input.add_PropertyChanged({
+                $field = [Avalonia.Controls.TextBox]::new()
+                $field.Text = "$($parameter.Default)"
+                if ($parameter.Hint) { $field.Watermark = Get-PSGPOText $parameter.Hint }
+                $field.add_PropertyChanged({
                     param($control, $e)
                     if ($e.Property -eq [Avalonia.Controls.TextBox]::TextProperty) { Update-TemplatePreview }
                 })
             }
-            $input.FontSize = 12
-            $input.Tag = $parameter
-            $templateState.Inputs[$parameter.Name] = $input
-            $ui.templateParametersPanel.Children.Add($input)
+            $field.FontSize = 12
+            $field.Tag = $parameter
+            $templateState.Inputs[$parameter.Name] = $field
+            $ui.templateParametersPanel.Children.Add($field)
         }
         Update-TemplatePreview
     }
@@ -272,9 +275,9 @@ function Start-PSGPOWmiFilterCreatorWindow {
     function Get-TemplateQuery {
         $values = @{}
         foreach ($name in $templateState.Inputs.Keys) {
-            $input = $templateState.Inputs[$name]
+            $field = $templateState.Inputs[$name]
             # A choice by its index: its text is translated.
-            $values[$name] = if ($input -is [Avalonia.Controls.ComboBox]) { if ($input.SelectedIndex -ge 0) { @($input.Tag.Choices)[$input.SelectedIndex].Value } } else { $input.Text }
+            $values[$name] = if ($field -is [Avalonia.Controls.ComboBox]) { if ($field.SelectedIndex -ge 0) { @($field.Tag.Choices)[$field.SelectedIndex].Value } } else { $field.Text }
         }
         New-PSGPOWmiTemplateQuery -Template $templateState.Item.Template -Values $values
     }
@@ -354,8 +357,10 @@ function Start-PSGPOWmiFilterCreatorWindow {
 
     function Update-BuilderQuery {
         $class = Get-BuilderClass
-        $ui.builderConditionsList.ItemsSource = [string[]]@($builder.Conditions | ForEach-Object -Begin { $first = $true } -Process {
-                if ($first) { $_.Text; $first = $false } else { "$($_.Join) $($_.Text)" }
+        # The first condition alone, the others after their AND / OR.
+        $conditions = @($builder.Conditions)
+        $ui.builderConditionsList.ItemsSource = [string[]]@(for ($index = 0; $index -lt $conditions.Count; $index++) {
+                if ($index -eq 0) { $conditions[$index].Text } else { "$($conditions[$index].Join) $($conditions[$index].Text)" }
             })
         $ui.builderRemoveConditionButton.IsEnabled = $false
         if (-not $class) { $ui.builderQueryTextBlock.Text = ''; $ui.builderAddQueryButton.IsEnabled = $false; return }

@@ -36,7 +36,7 @@ function ConvertTo-PSGPOXlsxText {
 
     if (-not $Text) { return '' }
     if ($Text.Length -gt 32767) { $Text = $Text.Substring(0, 32767) }
-    $clean = [regex]::Replace($Text, '[\x00-\x08\x0B\x0C\x0E-\x1F￾￿]', '')
+    $clean = [regex]::Replace($Text, '[\x00-\x08\x0B\x0C\x0E-\x1F\uFFFE\uFFFF]', '')
     [System.Security.SecurityElement]::Escape($clean)
 }
 
