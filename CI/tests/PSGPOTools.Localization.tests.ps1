@@ -47,7 +47,7 @@ InModuleScope -ModuleName HGPM {
 
         It 'Parses the windows once translated in <Language>' -ForEach $Languages {
             $null = Set-PSGPOLanguage -Language $Language
-            foreach ($Xaml in (Get-PSGPOManagerWindowXaml), (Get-PSGPOPasswordPolicyWindowXaml), (Get-PSGPOPasswordPolicyEditorXaml)) {
+            foreach ($Xaml in (Get-PSGPOManagerWindowXaml), (Get-PSGPOPasswordPolicyWindowXaml), (Get-PSGPOPasswordPolicyEditorXaml), (Get-PSGPOLauncherWindowXaml), (Get-PSGPOWmiFilterCreatorWindowXaml)) {
                 { [xml](ConvertTo-PSGPOLocalizedXaml -Xaml $Xaml) } | Should -Not -Throw
             }
         }
@@ -66,6 +66,14 @@ InModuleScope -ModuleName HGPM {
                 foreach ($Name in @($Extension.Name, $Extension.Group) + @($Extension.Items.Label) + @($Extension.Items.Properties | ForEach-Object { $_.Label; $_.Hint })) { if ($Name) { [void]$Names.Add($Name) } }
             }
             foreach ($Setting in @(Get-PSGPOConfigurationSetting -Override @{})) { if ($Setting.Description) { [void]$Names.Add($Setting.Description) } }
+            # The WMI filter creator: its classes, their properties and values, its ready-made queries.
+            $Wmi = Get-PSGPOWmiCatalog
+            foreach ($Class in $Wmi.Classes) {
+                foreach ($Name in @($Class.Description, $Class.Warning) + @($Class.Properties.Description) + @($Class.Properties.Values | ForEach-Object Text)) { if ($Name) { [void]$Names.Add($Name) } }
+            }
+            foreach ($Template in $Wmi.Templates) {
+                foreach ($Name in @($Template.Category, $Template.Name, $Template.Description, $Template.Note) + @($Template.Parameters | ForEach-Object { $_.Label; $_.Hint; $_.Choices.Text })) { if ($Name) { [void]$Names.Add($Name) } }
+            }
         }
 
         It 'Has a translation of every name in <Language>, and no other' -ForEach $Catalogs {

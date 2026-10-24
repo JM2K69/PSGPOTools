@@ -2864,4 +2864,207 @@ InModuleScope -ModuleName HGPM {
             Should -Invoke Start-PSGPOPasswordPolicyWindow -Times 1 -Exactly -ParameterFilter { $Store.IsDemonstration -and $Store.Policies.Count -eq 7 -and $StartView -eq 'Resultant' -and -not $StoreError }
         }
     }
+    Describe 'Launcher window' -Skip:$AvaloniaMissing {
+        It 'Shows a tile for each console, and a click opens it in the language of the launcher' {
+            Mock Show-PSOManagerAvalonia { }
+            Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -OnShown {
+                param($Ui)
+                $Ui.Window.Icon | Should -Not -BeNullOrEmpty
+                @($Ui.Tiles.Tag.Command) | Should -Be @('Show-GPOManagerAvalonia', 'Show-PSOManagerAvalonia', 'Show-WmiFilterCreatorAvalonia')
+                $Ui.Tiles[1].Content.Children[1].Text | Should -Be 'Password Settings'
+                Invoke-Click $Ui.Tiles[1]
+                # The console runs once the click is over: the tile does not keep the pointer.
+                $Ui.Tiles[1].IsEnabled | Should -BeFalse
+                Invoke-UiLoop -Until { $Ui.Tiles[1].IsEnabled }
+                $Ui.Tiles[1].IsEnabled | Should -BeTrue -Because 'the tile comes back once the console is closed'
+                $Ui.statusTextBlock.IsVisible | Should -BeFalse
+            }
+            Should -Invoke Show-PSOManagerAvalonia -Times 1 -Exactly -ParameterFilter { $Language -eq 'en-US' }
+        }
+
+        It 'Gives its theme to every window: those open, and those opened after' {
+            try {
+                $Seen = @{}
+                Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -OnShown {
+                    param($Ui)
+                    $Before = $Ui.Window.RequestedThemeVariant
+                    Invoke-Click $Ui.themeToggleButton
+                    $Ui.Window.RequestedThemeVariant | Should -Not -Be $Before
+                    $Seen.Theme = $Ui.Window.RequestedThemeVariant
+                    $Seen.Text = $Ui.themeToggleText.Text
+                }
+                Start-PSGPOManagerWindow -OnShown {
+                    param($Ui)
+                    $Ui.Window.RequestedThemeVariant | Should -Be $Seen.Theme -Because 'a console opened after starts on the theme chosen'
+                    $Ui.themeToggleText.Text | Should -Be $Seen.Text
+                    # A window open changes with the theme chosen in another one.
+                    $Other = [Avalonia.Controls.Window]::new()
+                    Register-PSGPOThemeWindow -Window $Other
+                    $Other.RequestedThemeVariant | Should -Be $Seen.Theme
+                    Invoke-Click $Ui.themeToggleButton
+                    $Other.RequestedThemeVariant | Should -Be $Ui.Window.RequestedThemeVariant
+                    $Other.RequestedThemeVariant | Should -Not -Be $Seen.Theme
+                    $Other.Close()
+                }
+            } finally {
+                $script:PSGPOThemeDark = $null
+            }
+        }
+
+        It 'Says why a console did not open' {
+            Mock Show-PSOManagerAvalonia { throw 'no display' }
+            Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -OnShown {
+                param($Ui)
+                Invoke-Click $Ui.Tiles[1]
+                Invoke-UiLoop -Until { $Ui.statusTextBlock.IsVisible }
+                $Ui.statusTextBlock.IsVisible | Should -BeTrue
+                $Ui.statusTextBlock.Text | Should -Be 'Show-PSOManagerAvalonia did not open: no display'
+                $Ui.Tiles[1].IsEnabled | Should -BeTrue
+            }
+        }
+
+        It 'Speaks French' {
+            try {
+                $null = Set-PSGPOLanguage -Language 'fr-FR'
+                Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -Language 'fr-FR' -OnShown {
+                    param($Ui)
+                    $Ui.Tiles[0].Content.Children[1].Text | Should -Be 'Gestion de stratégie de groupe'
+                    $Ui.themeToggleText.Text | Should -BeIn 'Mode sombre', 'Mode clair'
+                }
+            } finally { $null = Set-PSGPOLanguage -Language 'en-US' }
+        }
+    }
+
+    Describe 'WMI Filter Creator window' -Skip:$AvaloniaMissing {
+        BeforeAll {
+            $SamplePath = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json'
+        }
+        AfterEach { $null = Set-PSGPOLanguage -Language 'en-US' }
+
+        It 'Adds a ready-made query with its parameters, checks a query typed, and exports the filter to .mof' {
+            $File = Join-Path $TestDrive 'creator.mof'
+            Start-PSGPOWmiFilterCreatorWindow -OnShown {
+                param($Ui)
+                $Ui.Window.Icon | Should -Not -BeNullOrEmpty
+                @($Ui.templatesList.ItemsSource).Count | Should -BeGreaterThan 60
+                $Ui.exportButton.IsEnabled | Should -BeFalse
+                $Ui.filterStatusTextBlock.Text | Should -Be 'Give the filter a name. Add at least one query.'
+
+                $Ui.templateSearchTextBox.Text = 'minimum memory'
+                @($Ui.templatesList.ItemsSource).Count | Should -Be 1
+                $Ui.templatesList.SelectedIndex = 0
+                $Ui.templateParametersPanel.Children[1].Text = 'lots'
+                $Ui.addTemplateButton.IsEnabled | Should -BeFalse
+                $Ui.templateErrorTextBlock.Text | Should -Be 'Memory (GB) is a number: lots is not one.'
+                $Ui.templateParametersPanel.Children[1].Text = '16'
+                $Ui.templateQueryTextBlock.Text | Should -Be 'SELECT * FROM Win32_ComputerSystem WHERE TotalPhysicalMemory >= 16000000000'
+                Invoke-Click $Ui.addTemplateButton
+                $Ui.Rows.Count | Should -Be 1
+                $Ui.filterNameTextBox.Text | Should -Be 'Minimum memory' -Because 'the first query names an unnamed filter'
+
+                # A query typed, checked as it is typed.
+                Invoke-Click $Ui.newQueryButton
+                $Ui.queryTextBox.Text = 'SELECT * FROM Win32_Service WHERE Name ='
+                $Ui.Rows[1].Status | Should -Be 'Not valid: A value expected after =, not the end of the query.'
+                $Ui.exportButton.IsEnabled | Should -BeFalse
+                $Ui.filterStatusTextBlock.Text | Should -Be '1 query(ies) not valid: correct or remove them.'
+                $Ui.queryTextBox.Text = "SELECT * FROM Win32_Service WHERE Name = 'Spooler'"
+                $Ui.Rows[1].Status | Should -Be 'Valid WQL'
+                $Ui.exportButton.IsEnabled | Should -BeTrue
+
+                $Ui.exportPathTextBox.Text = $File
+                Invoke-Click $Ui.exportButton
+                $Ui.resultTextBlock.Text | Should -BeLike "WMI filter 'Minimum memory' exported to *creator.mof*"
+                Invoke-Click $Ui.exportButton
+                $Ui.exportButtonTextBlock.Text | Should -Be 'Replace' -Because 'a file there is replaced once confirmed'
+                Invoke-Click $Ui.exportButton
+                $Ui.exportButtonTextBlock.Text | Should -Be 'Export .mof'
+            }
+            $Read = ConvertFrom-PSGPOWmiFilterMof -Bytes ([System.IO.File]::ReadAllBytes($File))
+            $Read.Name | Should -Be 'Minimum memory'
+            @($Read.Queries.Query) | Should -Be @('SELECT * FROM Win32_ComputerSystem WHERE TotalPhysicalMemory >= 16000000000', "SELECT * FROM Win32_Service WHERE Name = 'Spooler'")
+        }
+
+        It 'Builds a query from a class, its properties and conditions' {
+            Start-PSGPOWmiFilterCreatorWindow -OnShown {
+                param($Ui)
+                $Ui.builderClassComboBox.SelectedIndex = [array]::IndexOf(@((Get-PSGPOWmiCatalog).Classes.Name), 'Win32_ComputerSystem')
+                $Ui.builderPropertyComboBox.SelectedItem = 'PCSystemType'
+                $Ui.builderKnownValueComboBox.IsVisible | Should -BeTrue
+                $Ui.builderKnownValueComboBox.SelectedIndex = 1
+                $Ui.builderValueTextBox.Text | Should -Be '2'
+                Invoke-Click $Ui.builderAddConditionButton
+                $Ui.builderJoinComboBox.SelectedItem = 'OR'
+                $Ui.builderPropertyComboBox.SelectedItem = 'Model'
+                $Ui.builderOperatorComboBox.SelectedItem = 'LIKE'
+                $Ui.builderValueTextBox.Text = '%Surface%'
+                Invoke-Click $Ui.builderAddConditionButton
+                $Ui.builderQueryTextBlock.Text | Should -Be "SELECT * FROM Win32_ComputerSystem WHERE PCSystemType = 2 OR Model LIKE '%Surface%'"
+                $Ui.builderPropertyComboBox.SelectedItem = 'TotalPhysicalMemory'
+                $Ui.builderValueTextBox.Text = 'much'
+                Invoke-Click $Ui.builderAddConditionButton
+                $Ui.builderErrorTextBlock.Text | Should -Be 'TotalPhysicalMemory is a number: much is not one.'
+                Invoke-Click $Ui.builderAddQueryButton
+                $Ui.Rows[0].Query | Should -Be "SELECT * FROM Win32_ComputerSystem WHERE PCSystemType = 2 OR Model LIKE '%Surface%'"
+                $Ui.Rows[0].Namespace | Should -Be 'root\CIMv2'
+            }
+        }
+
+        It 'Opens a .mof file, creates the filter in the domain, and clears it once confirmed' {
+            $File = Join-Path $TestDrive 'open.mof'
+            $null = [pscustomobject]@{ Name = 'Opened'; Description = 'From a file'; Queries = @(Get-PSGPOWmiQueryTemplate -Id Laptops) } | Export-PSGPOWmiFilter -Path $File -Domain 'contoso.com'
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            Start-PSGPOWmiFilterCreatorWindow -Directory $Directory -OnShown {
+                param($Ui)
+                Invoke-Click $Ui.openFilterButton
+                $Ui.openPanel.IsVisible | Should -BeTrue
+                $Ui.openPathTextBox.Text = Join-Path $TestDrive 'none.mof'
+                Invoke-Click $Ui.openConfirmButton
+                $Ui.openErrorTextBlock.Text | Should -BeLike '*none.mof cannot be opened:*'
+                $Ui.openPathTextBox.Text = $File
+                Invoke-Click $Ui.openConfirmButton
+                $Ui.openPanel.IsVisible | Should -BeFalse
+                $Ui.filterNameTextBox.Text | Should -Be 'Opened'
+                $Ui.filterDescriptionTextBox.Text | Should -Be 'From a file'
+                $Ui.Rows.Count | Should -Be 1
+
+                $Ui.domainHintTextBlock.Text | Should -BeLike "Creates the filter in $($Directory.DomainName)*"
+                Invoke-Click $Ui.createInDomainButton
+                $Ui.resultTextBlock.Text | Should -BeLike "WMI filter 'Opened' created in *"
+                Invoke-Click $Ui.createInDomainButton
+                $Ui.resultTextBlock.Text | Should -BeLike "The WMI filter is not created: A WMI filter named 'Opened' already exists*"
+
+                Invoke-Click $Ui.newFilterButton
+                $Ui.Rows.Count | Should -Be 1 -Because 'New asks to be clicked again'
+                $Ui.resultTextBlock.Text | Should -Be 'Click New again to clear the filter: its queries are not kept.'
+                Invoke-Click $Ui.newFilterButton
+                $Ui.Rows.Count | Should -Be 0
+                $Ui.filterNameTextBox.Text | Should -Be ''
+            }
+            $Directory.FindWmiFilter('Opened').GetQueryText() | Should -Be 'root\CIMv2: SELECT * FROM Win32_ComputerSystem WHERE PCSystemType = 2'
+        }
+
+        It 'Tests the filter on this computer without blocking the window' -Skip:(-not $IsWindows) {
+            Start-PSGPOWmiFilterCreatorWindow -Filter ([pscustomobject]@{ Name = 'Test'; Queries = @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_OperatingSystem' }) }) -OnShown {
+                param($Ui)
+                $Ui.testButton.IsEnabled | Should -BeTrue
+                Invoke-Click $Ui.testButton
+                $Ui.testButton.IsEnabled | Should -BeFalse -Because 'the test runs'
+                Invoke-UiLoop -Until { $Ui.testButton.IsEnabled } -TimeoutMilliseconds 30000
+                $Ui.testSummaryTextBlock.Text | Should -Be "The filter is True on $([Environment]::MachineName): this computer applies the GPOs linked to it."
+                @($Ui.testResultsList.ItemsSource).ResultText | Should -Be 'True: the query returns something'
+            }
+        }
+
+        It 'Speaks French, the ready-made queries included' {
+            $null = Set-PSGPOLanguage -Language 'fr-FR'
+            Start-PSGPOWmiFilterCreatorWindow -Language 'fr-FR' -OnShown {
+                param($Ui)
+                $Ui.Window.Title | Should -Be 'Créateur de filtres WMI'
+                @($Ui.templatesList.ItemsSource).Name | Should -Contain 'Ordinateurs portables'
+                $Ui.templateCategoryComboBox.SelectedItem | Should -Be 'Toutes les catégories'
+                $Ui.filterStatusTextBlock.Text | Should -Be 'Donnez un nom au filtre. Ajoutez au moins une requête.'
+            }
+        }
+    }
 }

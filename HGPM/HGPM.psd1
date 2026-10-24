@@ -80,8 +80,8 @@ FunctionsToExport = 'Add-PSGPOFineGrainedPasswordPolicySubject', 'Approve-PSGPO'
                'Get-PSGPOMigrationTable', 'Get-PSGPOPermission', 'Get-PSGPOPolicy', 
                'Get-PSGPOPolicyRuleSet', 'Get-PSGPOResultantPasswordPolicy', 
                'Get-PSGPOSupportedOn', 'Get-PSGPOWmiFilter', 
-               'Get-PSGPOWmiFilterPermission', 'Import-PSGPO', 
-               'Import-PSGPODirectory', 'Import-PSGPOWmiFilter', 
+               'Get-PSGPOWmiFilterPermission', 'Get-PSGPOWmiQueryTemplate', 
+               'Import-PSGPO', 'Import-PSGPODirectory', 'Import-PSGPOWmiFilter', 
                'Initialize-PSGPOAdmx', 'Initialize-PSGPOWorkflow', 
                'Install-PSGPOAdmx', 'New-PSGPO', 
                'New-PSGPOFineGrainedPasswordPolicy', 'New-PSGPOLink', 
@@ -93,7 +93,8 @@ FunctionsToExport = 'Add-PSGPOFineGrainedPasswordPolicySubject', 'Approve-PSGPO'
                'Set-PSGPOInheritance', 'Set-PSGPOLink', 'Set-PSGPOPermission', 
                'Set-PSGPOWmiFilter', 'Set-PSGPOWmiFilterPermission', 
                'Show-GPOManagerAvalonia', 'Show-PSOManagerAvalonia', 
-               'Test-PSGPOUpdate'
+               'Show-WmiFilterCreatorAvalonia', 'Start-HGPM', 'Test-PSGPOUpdate', 
+               'Test-PSGPOWmiFilter'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()

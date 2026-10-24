@@ -205,6 +205,30 @@ class AvaloniaPolicyRuleRow {
     [string]$SearchText
 }
 
+# One ready-made query of the WMI filter creator, its texts in the language of the interface
+class AvaloniaWmiTemplateItem {
+    [string]$Name
+    [string]$Category
+    [string]$Description
+    # The query of Resources/WmiFilters.json
+    [object]$Template
+}
+
+# One query of the WMI filter of the WMI filter creator, and what its check says
+class AvaloniaWmiQueryRow {
+    [string]$Namespace
+    [string]$Query
+    [string]$Status
+    [string]$StatusBrush = '#107C10'
+}
+
+# The result of one query of the test of the WMI filter creator
+class AvaloniaWmiTestRow {
+    [string]$ResultText
+    [string]$ResultBrush
+    [string]$Query
+    [string]$Error
+}
 
 # The value of a setting in one set, in the details of the Policy Analyzer view
 class AvaloniaPolicyRuleValueItem {

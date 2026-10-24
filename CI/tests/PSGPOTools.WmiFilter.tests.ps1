@@ -325,4 +325,104 @@ instance of MSFT_SomFilter { ID = "{D8D7BCE7-71A4-4BB9-9F4C-6322B132BF43}"; Name
             "$Problem" | Should -BeLike '*bad.mof is not imported*'
         }
     }
+
+    Describe 'WMI filter creator: ready-made queries, WQL, test and export without a domain' {
+        It 'Has ready-made queries that are valid WQL, each with its category, source and parameters filled' {
+            $Templates = @(Get-PSGPOWmiQueryTemplate)
+            $Templates.Count | Should -BeGreaterThan 60
+            @($Templates.Id | Select-Object -Unique).Count | Should -Be $Templates.Count -Because 'an Id names one query'
+            $Classes = @((Get-PSGPOWmiCatalog).Classes.Name)
+            $Namespaces = @((Get-PSGPOWmiCatalog).Namespaces)
+            foreach ($Template in $Templates) {
+                $Check = Test-PSGPOWqlSyntax -Query $Template.Query -Namespace $Template.Namespace
+                $Check.IsValid | Should -BeTrue -Because "$($Template.Id): $($Check.Error)"
+                $Check.Class | Should -BeIn $Classes -Because "the builder knows the class of $($Template.Id)"
+                $Template.Namespace | Should -BeIn $Namespaces
+                $Template.Query | Should -Not -Match '\{\w+\}' -Because "the parameters of $($Template.Id) are filled"
+                $Template.Category | Should -Not -BeNullOrEmpty
+                $Template.Source | Should -Match '^https://'
+            }
+        }
+
+        It 'Fills the parameters of a query: a number times its multiplier, a choice by its value or text, a text escaped' {
+            (Get-PSGPOWmiQueryTemplate -Id Memory -Value @{ Memory = '16' }).Query | Should -Be 'SELECT * FROM Win32_ComputerSystem WHERE TotalPhysicalMemory >= 16000000000'
+            (Get-PSGPOWmiQueryTemplate -Id FreeSpace -Value @{ Free = '1,5' }).Query | Should -Be "SELECT * FROM Win32_LogicalDisk WHERE DeviceID = 'C:' AND FreeSpace >= 1610612736"
+            (Get-PSGPOWmiQueryTemplate -Id WindowsServerVersion -Value @{ Build = 'Windows Server 2022 (20348)' }).Query | Should -BeLike "*BuildNumber = '20348'*"
+            (Get-PSGPOWmiQueryTemplate -Id FolderExists -Value @{ Path = "C:\O'Neil" }).Query | Should -Be "SELECT * FROM Win32_Directory WHERE Name = 'C:\\O\'Neil'"
+            { Get-PSGPOWmiQueryTemplate -Id Memory -Value @{ Memory = 'lots' } } | Should -Throw -ExpectedMessage 'Memory (GB) is a number: lots is not one.'
+            { Get-PSGPOWmiQueryTemplate -Id Edition -Value @{ Sku = 'Home' } } | Should -Throw -ExpectedMessage 'Home is not a choice of Edition.'
+            { Get-PSGPOWmiQueryTemplate -Id Nothing } | Should -Throw -ExpectedMessage "No ready-made WMI query 'Nothing'*"
+            @(Get-PSGPOWmiQueryTemplate -Category 'Virtual*').Id | Should -Contain 'VMwareGuest'
+        }
+
+        It 'Checks the syntax of WQL and says where it is wrong: <Query>' -ForEach @(
+            @{ Query = 'SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1'; Problem = $null }
+            @{ Query = "select Name, Domain from Win32_ComputerSystem where 1 = DomainRole and not (Name IS NULL or Name like 'PC%')"; Problem = $null }
+            @{ Query = 'SELECT * FROM Win32_Battery'; Problem = $null }
+            @{ Query = ''; Problem = 'The query is empty.' }
+            @{ Query = 'SELECT * FROM'; Problem = 'A class expected, not the end of the query.' }
+            @{ Query = 'SELECT * FROM Win32_Service WHERE'; Problem = 'A condition expected, not the end of the query.' }
+            @{ Query = "SELECT * FROM Win32_Service WHERE Name = 'Spooler"; Problem = 'The string at position 42 is not closed.' }
+            @{ Query = 'SELECT * FROM Win32_Service WHERE (Name = 1'; Problem = ') expected, not the end of the query.' }
+            @{ Query = 'SELECT * FROM Win32_Service WHERE Name = State'; Problem = 'A condition compares a property with a value: Name = State.' }
+            @{ Query = 'SELECT * FROM Win32_Service WHERE Name LIKE 3'; Problem = "A string expected after LIKE, not '3' at position 45." }
+            @{ Query = 'SELECT * FROM Win32_Service WHERE Name = 1 garbage'; Problem = "The query should end before 'garbage' at position 44." }
+            @{ Query = 'DELETE FROM Win32_Service'; Problem = "SELECT expected, not 'DELETE' at position 1." }
+            @{ Query = 'SELECT * FROM Win32_Service WHERE Name ~ 1'; Problem = "The character '~' at position 40 has no meaning in WQL." }
+        ) {
+            $Check = Test-PSGPOWqlSyntax -Query $Query
+            $Check.IsValid | Should -Be (-not $Problem)
+            $Check.Error | Should -Be $Problem
+        }
+
+        It 'Warns about a slow class, a class of another namespace, and does not check ASSOCIATORS OF' {
+            (Test-PSGPOWqlSyntax -Query "SELECT * FROM Win32_Product WHERE Name LIKE '%7-Zip%'").Warning | Should -BeLike 'Win32_Product checks and repairs*'
+            (Test-PSGPOWqlSyntax -Query 'SELECT * FROM Win32_Tpm' -Namespace 'root\CIMv2').Warning | Should -Be 'The class Win32_Tpm is in the namespace root\CIMv2\Security\MicrosoftTpm, not root\CIMv2.'
+            $Check = Test-PSGPOWqlSyntax -Query "ASSOCIATORS OF {Win32_Service.Name='Spooler'}"
+            $Check.IsValid | Should -BeTrue
+            $Check.Warning | Should -BeLike 'ASSOCIATORS OF and REFERENCES OF queries are not checked*'
+        }
+
+        It 'Writes the conditions of the builder as their type wants them' {
+            New-PSGPOWqlCondition -Property Name -Operator '=' -Value "O'Neil\x" | Should -Be "Name = 'O\'Neil\\x'"
+            New-PSGPOWqlCondition -Property Model -Operator 'NOT LIKE' -Value '%Virtual%' | Should -Be "NOT Model LIKE '%Virtual%'"
+            New-PSGPOWqlCondition -Property ProductType -Type Number -Operator '<>' -Value '1' | Should -Be 'ProductType <> 1'
+            New-PSGPOWqlCondition -Property PartOfDomain -Type Boolean -Operator '=' -Value 'true' | Should -Be 'PartOfDomain = TRUE'
+            New-PSGPOWqlCondition -Property Domain -Operator 'IS NOT NULL' | Should -Be 'Domain IS NOT NULL'
+            { New-PSGPOWqlCondition -Property Bias -Type Number -Operator '=' -Value 'one' } | Should -Throw -ExpectedMessage 'Bias is a number: one is not one.'
+            (Test-PSGPOWqlSyntax -Query "SELECT * FROM X WHERE $(New-PSGPOWqlCondition -Property Model -Operator 'NOT LIKE' -Value 'a')").IsValid | Should -BeTrue
+        }
+
+        It 'Exports a filter written without a domain, as GPMC reads it, and refuses a query that is not valid' {
+            $Root = Join-Path $TestDrive 'creator'
+            $Query = Get-PSGPOWmiQueryTemplate -Id Laptops, Os64
+            $File = [pscustomobject]@{ Name = 'Laptops 64'; Description = 'Created offline'; Queries = $Query } | Export-PSGPOWmiFilter -Path $Root -Domain 'contoso.com'
+            $File.Name | Should -Be 'Laptops 64.mof'
+            $Read = ConvertFrom-PSGPOWmiFilterMof -Bytes ([System.IO.File]::ReadAllBytes($File.FullName))
+            $Read.Name | Should -Be 'Laptops 64'
+            $Read.Domain | Should -Be 'contoso.com'
+            @($Read.Queries.Query) | Should -Be @($Query.Query)
+            $Read.Id | Should -Not -Be ([guid]::Empty)
+            { [pscustomobject]@{ Name = 'Bad'; Queries = @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM' }) } | Export-PSGPOWmiFilter -Path $Root } |
+                Should -Throw -ExpectedMessage "The query 'SELECT * FROM' of the WMI filter 'Bad' is not valid WQL*"
+            # A domain imports it as a file of GPMC.
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            (Import-PSGPOWmiFilter -Directory $Directory -Path $File.FullName).Name | Should -Be 'Laptops 64'
+        }
+
+        It 'Tests a filter on this computer, as Windows evaluates it' -Skip:(-not $IsWindows) {
+            $Result = Test-PSGPOWmiFilter -Query 'SELECT * FROM Win32_OperatingSystem', "SELECT * FROM Win32_Service WHERE Name = 'No service has this name'"
+            $Result.Applies | Should -BeFalse -Because 'a query returns nothing'
+            @($Result.Queries.Result) | Should -Be @('Match', 'NoMatch')
+            $Failed = Test-PSGPOWmiFilter -Query 'SELECT * FROM Win32_Nothing'
+            $Failed.Queries[0].Result | Should -Be 'Error'
+            $Failed.Applies | Should -BeFalse
+            (Get-PSGPOWmiQueryTemplate -Id Workstations, Servers | Test-PSGPOWmiFilter).Applies | Should -BeFalse -Because 'a computer is not both'
+            { Test-PSGPOWmiFilter -Query 'SELECT * FROM' } | Should -Throw -ExpectedMessage "The query 'SELECT * FROM' is not valid WQL*"
+        }
+
+        It 'Refuses to test a filter elsewhere than on Windows' -Skip:$IsWindows {
+            { Test-PSGPOWmiFilter -Query 'SELECT * FROM Win32_OperatingSystem' } | Should -Throw -ExpectedMessage 'WMI is a service of Windows*'
+        }
+    }
 }
