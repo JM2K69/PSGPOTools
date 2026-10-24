@@ -865,13 +865,11 @@
 
     # --- Policy Analyzer view -------------------------------------------------------------------
     'Policy Analyzer' = 'Policy Analyzer'
-    'Compare GPOs and the security baselines of Microsoft setting by setting, as Policy Analyzer (Show-PolicyAnalyzerAvalonia)' = 'Comparer les GPO et les baselines de sécurité de Microsoft paramètre par paramètre, comme Policy Analyzer (Show-PolicyAnalyzerAvalonia)'
     'GPOs and security baselines compared setting by setting' = 'GPO et baselines de sécurité comparées paramètre par paramètre'
     'GPOs and security baselines compared setting by setting - {0}' = 'GPO et baselines de sécurité comparées paramètre par paramètre - {0}'
     'GPOs and the security baselines of Microsoft compared setting by setting, as in the Security Compliance Toolkit' = 'Les GPO et les baselines de sécurité de Microsoft comparées paramètre par paramètre, comme dans le Security Compliance Toolkit'
     'No ADMX file loaded: the registry values are shown by their key, not by their policy (-PolicyDefinitions).' = 'Aucun fichier ADMX chargé : les valeurs de registre sont montrées par leur clé, pas par leur stratégie (-PolicyDefinitions).'
     'No domain: this computer is not in a domain, and no domain controller was given (-Server).' = 'Pas de domaine : cet ordinateur n''est pas dans un domaine, et aucun contrôleur de domaine n''a été donné (-Server).'
-    'Policy Analyzer did not open: {0}' = 'Policy Analyzer ne s''est pas ouvert : {0}'
     'The domain could not be read: {0}' = 'Le domaine n''a pas pu être lu : {0}'
     # Writing a rule set in a GPO (Import-PSGPOPolicyRuleSet)
     'Write in a GPO...' = 'Écrire dans une GPO...'

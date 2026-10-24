@@ -9,9 +9,8 @@ sont lus tels quels, et les fichiers qu'écrit HGPM s'ouvrent dans Policy Analyz
 
 ## La fenêtre
 
-`Show-PolicyAnalyzerAvalonia` ouvre Policy Analyzer dans une fenêtre à part, comme la tuile
-**Policy Analyzer** du lanceur (`Start-HGPM`) et le bouton **Policy Analyzer** de l'en-tête de la
-console GPO, qui lui donne le domaine qu'elle a lu. Il n'a pas besoin de domaine : les GPO du
+`Show-PolicyAnalyzerAvalonia` ouvre Policy Analyzer dans une fenêtre à part, comme le fait la
+tuile **Policy Analyzer** du lanceur (`Start-HGPM`). Il n'a pas besoin de domaine : les GPO du
 domaine sont lues la première fois qu'elles sont demandées (`-Server`, sinon le domaine de
 l'ordinateur). Les paramètres sont nommés avec les fichiers ADMX chargés, sinon ceux du magasin
 central ou de `%windir%\PolicyDefinitions` (`-PolicyDefinitions` ailleurs) ; sans eux, une valeur

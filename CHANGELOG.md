@@ -9,6 +9,7 @@
 ### Changed
 
 * The launcher shows its four tiles on one line
+* The GPO console no longer has a **Policy Analyzer** button: the launcher and `Show-PolicyAnalyzerAvalonia` open it
 
 ### Fixed
 
