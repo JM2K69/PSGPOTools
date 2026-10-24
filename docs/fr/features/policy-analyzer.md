@@ -7,6 +7,32 @@ la même chose, sous Windows et sous Linux, avec les mêmes fichiers : les fichi
 des baselines de sécurité de Microsoft, et ceux faits par Policy Analyzer ou `GPO2PolicyRules.exe`,
 sont lus tels quels, et les fichiers qu'écrit HGPM s'ouvrent dans Policy Analyzer.
 
+## Dans la console
+
+**Policy Analyzer**, dans l'en-tête de la console, ouvre sa vue (**Gestion de stratégie de
+groupe** revient au domaine). À gauche, les jeux de règles : les fichiers `.PolicyRules` du dossier
+*Jeux de règles dans* (`Documents\PolicyAnalyzer` par défaut, comme Policy Analyzer : copiez-y les
+fichiers des baselines de sécurité de Microsoft), et les jeux ajoutés avec **GPO du domaine...**
+(les GPO choisies, telles qu'elles sont) ou **Sauvegardes GPMC...** (le dossier `GPOs` d'une
+baseline). Cochez les jeux à comparer, puis **Afficher / Comparer**.
+
+![Des GPO du domaine comme jeu de règles](../assets/screenshots/54-policy-analyzer-gpos.fr.png)
+
+Le tableau a une ligne par paramètre et une colonne par jeu, avec les couleurs de Policy Analyzer
+ci-dessous ; ses colonnes se trient, se déplacent et se redimensionnent comme dans Policy Analyzer.
+*Seulement les différences* et *Seulement les conflits* gardent les lignes du menu, la recherche
+trouve un paramètre, une valeur ou une GPO. Sous le tableau, le paramètre sélectionné : où GPMC le
+montre, sa valeur de registre ou la ligne de son modèle de sécurité, la valeur que lui donne chaque
+GPO de chaque jeu, et son explication.
+
+![Une baseline de sécurité de Microsoft et des GPO du domaine comparées](../assets/screenshots/53-policy-analyzer.fr.png)
+
+**Exporter vers Excel...** enregistre les lignes affichées dans un classeur Excel (*Toutes les
+données* : avec la valeur de chaque GPO et l'explication de chaque paramètre) ; **Enregistrer en
+.PolicyRules...** enregistre le jeu sélectionné dans un fichier que lisent Policy Analyzer et
+`LGPO.exe`, par défaut dans le dossier des jeux. Un fichier qui existe est remplacé après un second
+clic.
+
 ## Jeux de règles
 
 Un jeu de règles, ce sont les paramètres d'une ou plusieurs GPO, pris comme un tout : les
