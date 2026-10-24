@@ -7,6 +7,30 @@ Linux, with the same files: the `.PolicyRules` files of the security baselines o
 those Policy Analyzer or `GPO2PolicyRules.exe` made, are read as they are, and the files HGPM
 writes open in Policy Analyzer.
 
+## In the console
+
+**Policy Analyzer**, in the header of the console, opens its view (**Group Policy Management**
+goes back to the domain). On the left, the rule sets: the `.PolicyRules` files of the folder
+*Policy Rule sets in* (`Documents\PolicyAnalyzer` by default, as Policy Analyzer: copy there the
+files of the security baselines of Microsoft), and the sets added with **GPOs of the domain...**
+(the GPOs chosen, as they are now) or **GPMC backups...** (the `GPOs` folder of a baseline).
+Check the sets to compare, then **View / Compare**.
+
+![GPOs of the domain as a rule set](../assets/screenshots/54-policy-analyzer-gpos.png)
+
+The table has a row per setting and a column per set, with the colours of Policy Analyzer below;
+its columns are sorted, moved and resized as in Policy Analyzer. *Only the differences* and *Only
+the conflicts* keep the rows of the menu, the search finds a setting, a value or a GPO. Below the
+table, the selected setting: where GPMC shows it, its registry value or the line of its security
+template, the value each GPO of each set gives it, and its explanation.
+
+![A security baseline of Microsoft and GPOs of the domain compared](../assets/screenshots/53-policy-analyzer.png)
+
+**Export to Excel...** saves the rows shown as an Excel workbook (*All data*: with the value of
+each GPO and the explanation of each setting); **Save as .PolicyRules...** saves the selected set
+as a file Policy Analyzer and `LGPO.exe` read, in the folder of the sets by default. A file that
+exists is replaced after a second click.
+
 ## Rule sets
 
 A rule set is the settings of one or more GPOs, as one unit: the registry settings of their

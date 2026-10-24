@@ -2474,6 +2474,139 @@ InModuleScope -ModuleName HGPM {
         }
     }
 
+    Describe 'Policy Analyzer view' -Skip:$AvaloniaMissing {
+        BeforeAll {
+            $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
+            $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive 'settings.json'
+            $Fixture = Join-Path $PSScriptRoot 'Fixtures' 'PolicyRules'
+            $Rules = Join-Path $TestDrive 'Rules'
+            $null = New-Item -ItemType Directory -Path $Rules -Force
+            Copy-Item -LiteralPath (Join-Path $Fixture 'gpo2policyrules.PolicyRules') -Destination (Join-Path $Rules 'Fixture.PolicyRules')
+            $SamplePath = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json'
+            # The texts the cells of the grid show: what Avalonia binds, not the rows given to it.
+            function Get-GridText {
+                param($Grid)
+                @([Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($Grid) | Where-Object { $_ -is [Avalonia.Controls.TextBlock] -and $_.DataContext -is [AvaloniaPolicyRuleRow] } | ForEach-Object Text)
+            }
+        }
+        AfterAll {
+            $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
+        }
+
+        It 'Opens from the header, lists the rule sets of its folder, compares them and shows the details of a setting' {
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                Invoke-Click $Ui.analyzerButton
+                $Ui.analyzerView.IsVisible | Should -BeTrue
+                $Ui.managementView.IsVisible | Should -BeFalse
+                $Ui.managementButton.IsVisible | Should -BeTrue
+                $Ui.analyzerButton.IsVisible | Should -BeFalse
+                $Ui.subtitleTextBlock.Text | Should -Be 'Policy Analyzer: GPOs and security baselines compared setting by setting'
+                $Ui.analyzerFolderTextBox.Text = $Rules
+                Invoke-Click $Ui.analyzerFolderReadButton
+                $Sets = @($Ui.analyzerSetsList.ItemsSource)
+                $Sets.Count | Should -Be 1
+                $Sets[0].Name | Should -Be 'Fixture'
+                $Sets[0].Detail | Should -Be '2 GPO(s), 41 settings'
+                (Get-PSGPOUserSetting).PolicyAnalyzerPath | Should -Be $Rules -Because 'the folder chosen is the one of the next time'
+
+                Invoke-Click $Ui.analyzerCompareButton
+                $Ui.analyzerSetsStatusTextBlock.Text | Should -Be 'Check one or more rule sets to compare.'
+                $Sets[0].IsChecked = $true
+                Invoke-Click $Ui.analyzerCompareButton
+                Invoke-UiLoop -Until { $Ui.analyzerGrid.IsVisible -and $Ui.analyzerCompareButton.IsEnabled } -TimeoutMilliseconds 30000
+                $Ui.analyzerSummaryTextBlock.Text | Should -Be '36 settings, 3 differences, 3 conflicts; 36 shown'
+                @($Ui.analyzerGrid.Columns | ForEach-Object Header) | Should -Be @('Scope', 'Setting', 'Option', 'Fixture', 'Path')
+                Invoke-UiLoop -TimeoutMilliseconds 300
+                @(Get-GridText $Ui.analyzerGrid | Where-Object { $_ }) | Should -Not -BeNullOrEmpty -Because 'the cells show their values: Avalonia does not bind the PSObjects of a pipeline'
+
+                $Ui.analyzerShowComboBox.SelectedIndex = 2
+                @($Ui.analyzerGrid.ItemsSource).Count | Should -Be 3
+                $Conflict = @($Ui.analyzerGrid.ItemsSource) | Where-Object { $_.Source.Setting -eq 'Differs' }
+                $Conflict.Values | Should -Be @('***CONFLICT***')
+                $Conflict.Brushes | Should -Be @('#80FFE14D')
+                $Ui.analyzerShowComboBox.SelectedIndex = 0
+                $Ui.analyzerSearchTextBox.Text = 'Spooler'
+                @($Ui.analyzerGrid.ItemsSource).Count | Should -Be 1
+                $Ui.analyzerGrid.SelectedIndex = 0
+                Invoke-UiLoop -Until { $Ui.analyzerDetailsBorder.IsVisible } -TimeoutMilliseconds 3000
+                $Ui.analyzerDetailsBorder.IsVisible | Should -BeTrue
+                $Ui.analyzerDetailsNameTextBlock.Text | Should -Be 'Spooler'
+                $Ui.analyzerDetailsPathTextBlock.Text | Should -Be 'Computer > Policies > Windows Settings > Security Settings > System Services'
+                $Ui.analyzerDetailsSettingTextBlock.Text | Should -Be 'Security Template: [Service General Setting] Spooler'
+                @($Ui.analyzerDetailsValuesList.ItemsSource)[0].Text | Should -Be 'HGPM Test - Computer: Disabled; D:AR(A;;RPWPCCDCLCSWRCWDWOGA;;;BA)'
+                Invoke-Click $Ui.managementButton
+                $Ui.managementView.IsVisible | Should -BeTrue
+                $Ui.analyzerView.IsVisible | Should -BeFalse
+            }
+        }
+
+        It 'Adds GPOs of the domain and GPMC backups as sets, saves a set as a .PolicyRules file and exports the comparison to Excel' {
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            $Folder = Join-Path $TestDrive 'Saved'
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                Invoke-Click $Ui.analyzerButton
+                $Ui.analyzerFolderTextBox.Text = $Folder
+                Invoke-Click $Ui.analyzerFolderReadButton
+                $Ui.analyzerSetsStatusTextBlock.Text | Should -BeLike 'No folder *'
+                $Ui.analyzerSetsEmptyTextBlock.IsVisible | Should -BeTrue
+
+                Invoke-Click $Ui.analyzerAddGposButton
+                $Ui.analyzerGposPanel.IsVisible | Should -BeTrue
+                $Ui.analyzerGposFilterTextBox.Text = 'Servers - Security Baseline'
+                $Gpo = @($Ui.analyzerGposList.ItemsSource)[0]
+                $Gpo.DisplayName | Should -Be 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.analyzerGposConfirmButton
+                $Ui.analyzerGposErrorTextBlock.Text | Should -Be 'Select one or more GPOs.'
+                $Ui.analyzerGposList.SelectedItems.Add($Gpo)
+                Invoke-Click $Ui.analyzerGposConfirmButton
+                $Ui.analyzerGposPanel.IsVisible | Should -BeFalse
+                $Domain = @($Ui.analyzerSetsList.ItemsSource)[0]
+                $Domain.Kind | Should -Be 'Domain'
+                $Domain.Name | Should -Be 'C - Servers - Security Baseline'
+                $Domain.IsChecked | Should -BeTrue
+
+                Invoke-Click $Ui.analyzerAddGpmcButton
+                $Ui.analyzerFilePathTextBox.Text = Join-Path $PSScriptRoot 'Fixtures' 'PolicyRules' 'GPOs'
+                Invoke-Click $Ui.analyzerFileConfirmButton
+                $Gpmc = @($Ui.analyzerSetsList.ItemsSource)[1]
+                $Gpmc.Kind | Should -Be 'Gpmc'
+                $Gpmc.Detail | Should -Be 'GPMC backups: 2 GPO(s), 41 settings'
+
+                $Ui.analyzerSetsList.SelectedItem = $Gpmc
+                Invoke-Click $Ui.analyzerSaveSetButton
+                $Ui.analyzerFilePathTextBox.Text | Should -Be (Join-Path $Folder 'GPOs.PolicyRules')
+                Invoke-Click $Ui.analyzerFileConfirmButton
+                Test-Path -LiteralPath (Join-Path $Folder 'GPOs.PolicyRules') | Should -BeTrue
+                # The set saved in the folder is now its file, still checked.
+                @($Ui.analyzerSetsList.ItemsSource | ForEach-Object Kind) | Should -Be @('File', 'Domain')
+                $Saved = @($Ui.analyzerSetsList.ItemsSource)[0]
+                $Saved.Name | Should -Be 'GPOs'
+                $Saved.IsChecked | Should -BeTrue
+
+                Invoke-Click $Ui.analyzerCompareButton
+                Invoke-UiLoop -Until { $Ui.analyzerGrid.IsVisible -and $Ui.analyzerCompareButton.IsEnabled } -TimeoutMilliseconds 30000
+                @($Ui.analyzerGrid.Columns | ForEach-Object Header)[3..4] | Should -Be @('GPOs', 'C - Servers - Security Baseline')
+                Invoke-Click $Ui.analyzerExportButton
+                $Ui.analyzerFileAllCheckBox.IsVisible | Should -BeTrue
+                $Workbook = Join-Path $Folder 'Comparison.xlsx'
+                $Ui.analyzerFilePathTextBox.Text = $Workbook
+                Invoke-Click $Ui.analyzerFileConfirmButton
+                Test-Path -LiteralPath $Workbook | Should -BeTrue
+                $Ui.analyzerSummaryTextBlock.Text | Should -Be "Exported: $Workbook"
+                # A file there is replaced once confirmed.
+                Invoke-Click $Ui.analyzerExportButton
+                $Ui.analyzerFilePathTextBox.Text = $Workbook
+                Invoke-Click $Ui.analyzerFileConfirmButton
+                $Ui.analyzerFileErrorTextBlock.Text | Should -Be "$Workbook exists: click again to replace it."
+                Invoke-Click $Ui.analyzerFileConfirmButton
+                $Ui.analyzerFilePanel.IsVisible | Should -BeFalse
+            }
+        }
+    }
+
     Describe 'ADMX window' -Skip:$AvaloniaMissing {
         BeforeAll {
             $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH

@@ -176,3 +176,39 @@ class AvaloniaPasswordCandidateRow {
     [string]$Reason
     [bool]$IsApplied
 }
+
+# One rule set of the Policy Analyzer view: a .PolicyRules file of its folder, GPOs of the domain,
+# GPMC backups
+class AvaloniaPolicyRuleSetItem {
+    [bool]$IsChecked
+    [string]$Name
+    # Where it comes from and how many settings, in the language of the interface
+    [string]$Detail
+    [string]$Path
+    # File, Domain or Gpmc
+    [string]$Kind
+    # The set (GPOToolsPolicyRuleSet)
+    [object]$RuleSet
+}
+
+# One setting of the comparison of the Policy Analyzer view: a value and a background per set
+class AvaloniaPolicyRuleRow {
+    [string]$Scope
+    [string]$Path
+    [string]$Name
+    [string]$Option
+    [string[]]$Values
+    [string[]]$Brushes
+    # The row of Compare-PSGPOPolicyRuleSet (PSGPOTools.PolicyRuleComparison)
+    [object]$Source
+    # What the search reads: the texts of the row and the names of its GPOs
+    [string]$SearchText
+}
+
+
+# The value of a setting in one set, in the details of the Policy Analyzer view
+class AvaloniaPolicyRuleValueItem {
+    [string]$Set
+    # The value each GPO of the set gives it, one per line
+    [string]$Text
+}

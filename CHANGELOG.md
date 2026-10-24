@@ -5,6 +5,7 @@
 ### Added
 
 * Policy Analyzer, as in the Security Compliance Toolkit of Microsoft, on Windows and Linux, with the same `.PolicyRules` files: `Get-PSGPOPolicyRuleSet` reads them (the security baselines of Microsoft) or makes a rule set from GPOs of the domain, backups of HGPM or of GPMC, the file `GPO2PolicyRules.exe` makes, byte for byte; `Compare-PSGPOPolicyRuleSet` compares sets setting by setting, a column per set (conflicts, differences, duplicates and `***CONFLICT***` in a set, lists of accounts in any order, `REG_DWORD` and `REG_SZ` told apart, the policies of the ADMX and the security settings by name); `Export-PSGPOPolicyRuleSet` saves a `.PolicyRules` file Policy Analyzer and `LGPO.exe /p` read, several sets merged; `Export-PSGPOPolicyRuleComparison` writes the comparison as an Excel workbook with the colours of Policy Analyzer, without Excel nor any module. A documentation page, Policy Analyzer
+* The **Policy Analyzer** view of the console, a view of its own as Group Policy Management (the button in the header): the `.PolicyRules` files of a folder (`Documents\PolicyAnalyzer` by default, as Policy Analyzer), GPOs of the domain and GPMC backups as rule sets; the comparison of those checked, a column per set with the colours of Policy Analyzer, sorted and filtered (only the differences, only the conflicts, a search), the details of a setting (where GPMC shows it, the value of each GPO, its explanation); a set saved as `.PolicyRules`, the comparison exported to Excel
 
 ### Changed
 
