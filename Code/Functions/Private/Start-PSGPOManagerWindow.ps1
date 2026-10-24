@@ -3067,7 +3067,7 @@ function Start-PSGPOManagerWindow {
         )
     })
 
-    $window.Show()
+    Show-PSGPOWindow -Window $window
 
     # A hashtable, because assigning a variable inside the posted action would only set a child-scope copy.
     $onShownState = @{ Error = $null }

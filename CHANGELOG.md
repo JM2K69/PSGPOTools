@@ -1,5 +1,11 @@
 # HGPM Release History
 
+## Unreleased
+
+### Fixed
+
+* On Windows, the windows of the consoles (ADMX files, GPO console, PSO console) opened behind the terminal that started them: they now open in front
+
 ## 0.1.9 - alpha
 
 ### Added
