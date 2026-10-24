@@ -4,6 +4,9 @@
     frame of the dispatcher, as a dialog), so the launcher stays responsive and several consoles can
     be open at once; the tile of an open console is disabled until it is closed.
 
+    The language of the launcher can be changed in its window: its texts change at once, the consoles
+    opened after are in it, and Start-HGPM starts on it the next time (the settings of the user).
+
     -OnShown exists for the GUI tests, as for Start-PSGPOManagerWindow: the scriptblock receives a
     hashtable of the named controls and the tiles, runs inside the loop once the window is shown,
     and the window is then closed.
@@ -23,12 +26,12 @@ function Start-PSGPOLauncherWindow {
     )
 
     Initialize-PSGPOAvaloniaRuntime
-    $null = Set-PSGPOLanguage -Language $Language
+    $Language = Set-PSGPOLanguage -Language $Language
 
     $window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse((ConvertTo-PSGPOLocalizedXaml -Xaml (Get-PSGPOLauncherWindowXaml)))
     Set-PSGPOWindowIcon -Window $window
     $ui = @{}
-    foreach ($name in 'logoImage', 'themeToggleButton', 'themeToggleIcon', 'themeToggleText', 'toolsPanel', 'statusTextBlock') {
+    foreach ($name in 'logoImage', 'subtitleTextBlock', 'languageComboBox', 'themeToggleButton', 'themeToggleIcon', 'themeToggleText', 'toolsPanel', 'statusTextBlock') {
         $ui[$name] = Get-PSGPOAvaloniaControl $window $name
     }
     $ui.logoImage.Source = New-PSGPOLogoBitmap
@@ -38,71 +41,76 @@ function Start-PSGPOLauncherWindow {
     $ui.themeToggleButton.Add_Click({ Switch-PSGPOTheme })
 
     # The tiles: an icon, the title and what the console does; the tool is the Tag of the button.
+    # Built again in the language chosen.
     $tiles = [System.Collections.Generic.List[object]]::new()
-    foreach ($tool in $Tools) {
-        $icon = [Avalonia.Controls.PathIcon]::new()
-        $icon.Data = [Avalonia.Media.Geometry]::Parse((Get-PSGPOIconData -Name $tool.Icon))
-        $icon.Width = 40
-        $icon.Height = 40
-        # The brushes follow the theme (DynamicResource).
-        $null = $icon.Bind([Avalonia.Controls.PathIcon]::ForegroundProperty, [Avalonia.Controls.ResourceNodeExtensions]::GetResourceObservable($window, 'PrimaryBrush', $null))
+    function Update-LauncherTile {
+        $ui.toolsPanel.Children.Clear()
+        $tiles.Clear()
+        foreach ($tool in $Tools) {
+            $icon = [Avalonia.Controls.PathIcon]::new()
+            $icon.Data = [Avalonia.Media.Geometry]::Parse((Get-PSGPOIconData -Name $tool.Icon))
+            $icon.Width = 40
+            $icon.Height = 40
+            # The brushes follow the theme (DynamicResource).
+            $null = $icon.Bind([Avalonia.Controls.PathIcon]::ForegroundProperty, [Avalonia.Controls.ResourceNodeExtensions]::GetResourceObservable($window, 'PrimaryBrush', $null))
 
-        $title = [Avalonia.Controls.TextBlock]::new()
-        $title.Text = $tool.Title
-        $title.FontWeight = [Avalonia.Media.FontWeight]::SemiBold
-        $title.TextAlignment = [Avalonia.Media.TextAlignment]::Center
-        $title.TextWrapping = [Avalonia.Media.TextWrapping]::Wrap
-        # Its own brush, as the description: the foreground the tile gives it on pointer over made it
-        # lay out its lines again, on the left, once the pointer left.
-        $null = $title.Bind([Avalonia.Controls.TextBlock]::ForegroundProperty, [Avalonia.Controls.ResourceNodeExtensions]::GetResourceObservable($window, 'TextBrush', $null))
+            $title = [Avalonia.Controls.TextBlock]::new()
+            $title.Text = $tool.Title
+            $title.FontWeight = [Avalonia.Media.FontWeight]::SemiBold
+            $title.TextAlignment = [Avalonia.Media.TextAlignment]::Center
+            $title.TextWrapping = [Avalonia.Media.TextWrapping]::Wrap
+            # Its own brush, as the description: the foreground the tile gives it on pointer over made it
+            # lay out its lines again, on the left, once the pointer left.
+            $null = $title.Bind([Avalonia.Controls.TextBlock]::ForegroundProperty, [Avalonia.Controls.ResourceNodeExtensions]::GetResourceObservable($window, 'TextBrush', $null))
 
-        $description = [Avalonia.Controls.TextBlock]::new()
-        $description.Text = $tool.Description
-        $description.FontSize = 11
-        $description.TextAlignment = [Avalonia.Media.TextAlignment]::Center
-        $description.TextWrapping = [Avalonia.Media.TextWrapping]::Wrap
-        $null = $description.Bind([Avalonia.Controls.TextBlock]::ForegroundProperty, [Avalonia.Controls.ResourceNodeExtensions]::GetResourceObservable($window, 'SecondaryTextBrush', $null))
+            $description = [Avalonia.Controls.TextBlock]::new()
+            $description.Text = $tool.Description
+            $description.FontSize = 11
+            $description.TextAlignment = [Avalonia.Media.TextAlignment]::Center
+            $description.TextWrapping = [Avalonia.Media.TextWrapping]::Wrap
+            $null = $description.Bind([Avalonia.Controls.TextBlock]::ForegroundProperty, [Avalonia.Controls.ResourceNodeExtensions]::GetResourceObservable($window, 'SecondaryTextBrush', $null))
 
-        # The texts as wide as the inside of the tile, centered by their TextAlignment: measured on
-        # the width of their panel, a title on two lines was drawn on another once the pointer left
-        # the tile, its lines then on the left.
-        $icon.HorizontalAlignment = [Avalonia.Layout.HorizontalAlignment]::Center
-        foreach ($text in $title, $description) { $text.Width = 220 - 2 * 12 - 2 }
-        $content = [Avalonia.Controls.StackPanel]::new()
-        $content.Spacing = 8
-        $content.HorizontalAlignment = [Avalonia.Layout.HorizontalAlignment]::Stretch
-        $content.VerticalAlignment = [Avalonia.Layout.VerticalAlignment]::Center
-        foreach ($child in $icon, $title, $description) { $content.Children.Add($child) }
+            # The texts as wide as the inside of the tile, centered by their TextAlignment: measured on
+            # the width of their panel, a title on two lines was drawn on another once the pointer left
+            # the tile, its lines then on the left.
+            $icon.HorizontalAlignment = [Avalonia.Layout.HorizontalAlignment]::Center
+            foreach ($text in $title, $description) { $text.Width = 220 - 2 * 12 - 2 }
+            $content = [Avalonia.Controls.StackPanel]::new()
+            $content.Spacing = 8
+            $content.HorizontalAlignment = [Avalonia.Layout.HorizontalAlignment]::Stretch
+            $content.VerticalAlignment = [Avalonia.Layout.VerticalAlignment]::Center
+            foreach ($child in $icon, $title, $description) { $content.Children.Add($child) }
 
-        $tile = [Avalonia.Controls.Button]::new()
-        $tile.Width = 220
-        $tile.Height = 160
-        $tile.Margin = [Avalonia.Thickness]::new(6)
-        $tile.Padding = [Avalonia.Thickness]::new(12)
-        $tile.HorizontalContentAlignment = [Avalonia.Layout.HorizontalAlignment]::Stretch
-        $tile.Content = $content
-        $tile.Tag = $tool
-        [Avalonia.Controls.ToolTip]::SetTip($tile, $tool.Command)
-        $ui.toolsPanel.Children.Add($tile)
-        $tiles.Add($tile)
+            $tile = [Avalonia.Controls.Button]::new()
+            $tile.Width = 220
+            $tile.Height = 160
+            $tile.Margin = [Avalonia.Thickness]::new(6)
+            $tile.Padding = [Avalonia.Thickness]::new(12)
+            $tile.HorizontalContentAlignment = [Avalonia.Layout.HorizontalAlignment]::Stretch
+            $tile.Content = $content
+            $tile.Tag = $tool
+            [Avalonia.Controls.ToolTip]::SetTip($tile, $tool.Command)
+            $ui.toolsPanel.Children.Add($tile)
+            $tiles.Add($tile)
+        }
     }
 
     # A click on a tile runs its console, until the window of the console is closed. Once the click
     # is over: the tile keeps the pointer during its click, and every click in the console would go
     # to the launcher (which comes back in front) until the console is closed.
-    $launch = @{ Tile = $null; Tool = $null }
+    $launch = @{ Tile = $null; Tool = $null; Language = $Language }
     function Invoke-LauncherTool {
         $tile = $launch.Tile
         $tool = $launch.Tool
         try {
-            & $tool.Command -Language $Language
+            & $tool.Command -Language $launch.Language
         } catch {
             $ui.statusTextBlock.Text = Get-PSGPOText '{0} did not open: {1}' $tool.Command $_.Exception.GetBaseException().Message
             $ui.statusTextBlock.IsVisible = $true
         } finally {
             $tile.IsEnabled = $true
             # The consoles share the language of the session: the launcher keeps its own.
-            $null = Set-PSGPOLanguage -Language $Language
+            $null = Set-PSGPOLanguage -Language $launch.Language
         }
     }
     $ui.toolsPanel.AddHandler([Avalonia.Controls.Button]::ClickEvent, [EventHandler[Avalonia.Interactivity.RoutedEventArgs]] {
@@ -116,6 +124,38 @@ function Start-PSGPOLauncherWindow {
             $launch.Tile = $tile
             $launch.Tool = $tool
             [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] { Invoke-LauncherTool }, [Avalonia.Threading.DispatcherPriority]::Background)
+        })
+
+    # The language: an item for each one of the module, in its own language. The texts of the window
+    # and of the tiles change with it (the titles of the tools from Get-PSGPOLauncherTool).
+    function Update-LauncherText {
+        $ui.subtitleTextBlock.Text = Get-PSGPOText 'Choose a console'
+        [Avalonia.Controls.ToolTip]::SetTip($ui.languageComboBox, (Get-PSGPOText 'Language of the consoles'))
+        $ui.themeToggleText.Text = Get-PSGPOText $(if (Get-PSGPOThemeIsDark) { 'Light mode' } else { 'Dark mode' })
+        $translated = @{}
+        foreach ($tool in Get-PSGPOLauncherTool) { $translated[$tool.Command] = $tool }
+        foreach ($tool in $Tools) {
+            if (-not $translated.ContainsKey($tool.Command)) { continue }
+            $tool.Title = $translated[$tool.Command].Title
+            $tool.Description = $translated[$tool.Command].Description
+        }
+        Update-LauncherTile
+    }
+    foreach ($name in Get-PSGPOLanguage) {
+        $neutral = ([cultureinfo]::GetCultureInfo($name)).Parent
+        $item = [Avalonia.Controls.ComboBoxItem]::new()
+        $item.Content = $neutral.TextInfo.ToTitleCase($neutral.NativeName)
+        $item.Tag = $name
+        $null = $ui.languageComboBox.Items.Add($item)
+        if ($name -eq $launch.Language) { $ui.languageComboBox.SelectedItem = $item }
+    }
+    Update-LauncherTile
+    $ui.languageComboBox.add_SelectionChanged({
+            $chosen = $ui.languageComboBox.SelectedItem.Tag
+            if (-not $chosen -or $chosen -eq $launch.Language) { return }
+            $launch.Language = Set-PSGPOLanguage -Language $chosen
+            Update-LauncherText
+            try { Set-PSGPOUserSetting -Values @{ Language = $launch.Language } -Confirm:$false } catch { Write-Verbose "Language not saved: $($_.Exception.Message)" }
         })
 
     $cts = [System.Threading.CancellationTokenSource]::new()

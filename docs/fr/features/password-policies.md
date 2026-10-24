@@ -1,5 +1,7 @@
 # Stratégies de mot de passe (PSO)
 
+![La tuile Paramètres de mot de passe](../assets/screenshots/58-tile-password-settings.fr.png){ align=right width="170" }
+
 `Show-PSOManagerAvalonia` ouvre la deuxième console de HGPM : les **stratégies de mot de passe
 affinées** du domaine (objets de paramètres de mot de passe, PSO), comme le *Centre
 d'administration Active Directory* les gère, pour les **domaines Windows et Samba AD**, depuis

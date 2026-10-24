@@ -1,5 +1,7 @@
 # The console
 
+![The Group Policy Management tile](../assets/screenshots/57-tile-group-policy.png){ align=right width="170" }
+
 `Show-GPOManagerAvalonia` opens one window with three views, switched from its toolbar.
 
 ## Group Policy Management

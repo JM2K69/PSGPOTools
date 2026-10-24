@@ -5,9 +5,10 @@ function Start-HGPM {
     .DESCRIPTION
         A window with a tile for each console of HGPM: Group Policy Management
         (Show-GPOManagerAvalonia), the fine-grained password policies (Show-PSOManagerAvalonia) and
-        the WMI filter creator (Show-WmiFilterCreatorAvalonia).
+        the WMI filter creator (Show-WmiFilterCreatorAvalonia) and Policy Analyzer
+        (Show-PolicyAnalyzerAvalonia).
         A click on a tile opens the console with its default parameters, in the language of the
-        launcher; several consoles can be open at once, and the tile of an open console is
+        launcher, chosen in its list of languages and kept for the next time; several consoles can be open at once, and the tile of an open console is
         disabled until its window is closed. To give a console parameters (-Server, -Credential,
         -PolicyDefinitions...), run its command instead.
 
@@ -15,7 +16,8 @@ function Start-HGPM {
         until the launcher and the consoles opened from it are closed.
     .PARAMETER Language
         Language of the interface: en-US, or a language of Resources/Strings (fr-FR); by default the
-        language of the session, English when the module has no translation for it.
+        one last chosen in the launcher, else the language of the session, English when the module
+        has no translation for it.
     .EXAMPLE
         Start-HGPM
     .EXAMPLE
@@ -28,12 +30,18 @@ function Start-HGPM {
         Show-PSOManagerAvalonia
     .LINK
         Show-WmiFilterCreatorAvalonia
+    .LINK
+        Show-PolicyAnalyzerAvalonia
     #>
     [CmdletBinding()]
     param(
-        [string]$Language = [cultureinfo]::CurrentUICulture.Name
+        [string]$Language
     )
 
+    if (-not $PSBoundParameters.ContainsKey('Language')) {
+        $Language = (Get-PSGPOUserSetting).Language
+        if (-not $Language) { $Language = [cultureinfo]::CurrentUICulture.Name }
+    }
     $Language = Set-PSGPOLanguage -Language $Language
     Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -Language $Language
 }

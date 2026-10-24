@@ -11,6 +11,12 @@ Directory**.
 
 <div class="grid cards" markdown>
 
+- **Le lanceur**
+
+    `Start-HGPM` : une tuile pour chaque outil de HGPM, dans la langue et le thème choisis pour
+    tous.
+    [Le lanceur](features/launcher.md)
+
 - **Vue Group Policy Management**
 
     Le domaine, ses OU et leurs liens de GPO, les Group Policy Objects, comme GPMC les montre :
@@ -43,6 +49,19 @@ Directory**.
     s'applique à un utilisateur ou à un groupe, et pourquoi.
     [Stratégies de mot de passe](features/password-policies.md)
 
+- **Créateur de filtres WMI**
+
+    Des filtres WMI construits à partir de requêtes prêtes à l'emploi ou d'un générateur, vérifiés
+    à la saisie, testés sur l'ordinateur, exportés en `.mof` ou créés dans le domaine.
+    [Créateur de filtres WMI](features/wmi-filter-creator.md)
+
+- **Policy Analyzer**
+
+    Les GPO, les sauvegardes et les baselines de sécurité de Microsoft comparées paramètre par
+    paramètre, avec les fichiers `.PolicyRules` du Security Compliance Toolkit ; une baseline
+    écrite dans une GPO.
+    [Policy Analyzer](features/policy-analyzer.md)
+
 </div>
 
 ## En bref
@@ -59,7 +78,7 @@ Directory**.
 ## Par où commencer
 
 1. [Installer le module](getting-started/installation.md) et ce qu'il demande sur votre plateforme.
-2. [Ouvrir la console](getting-started/first-steps.md) sur votre domaine.
+2. [Ouvrir le lanceur](getting-started/first-steps.md) et ouvrir un outil sur votre domaine.
 3. Suivre un [workflow](workflows/index.md) : créer et lier une GPO, la sauvegarder et la
    restaurer, faire approuver les GPO des techniciens Tier 1.
 

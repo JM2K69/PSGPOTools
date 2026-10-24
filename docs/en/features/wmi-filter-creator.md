@@ -1,5 +1,7 @@
 # WMI filter creator
 
+![The WMI Filter Creator tile](../assets/screenshots/59-tile-wmi-filter-creator.png){ align=right width="170" }
+
 `Show-WmiFilterCreatorAvalonia` (or the **WMI Filter Creator** tile of `Start-HGPM`) writes the WMI
 filters of the GPOs: from ready-made queries or a query builder, each query checked as it is
 typed, the filter tested on the computer, then exported to a `.mof` file in the format of GPMC or

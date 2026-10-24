@@ -3032,6 +3032,35 @@ InModuleScope -ModuleName HGPM {
             } finally { $null = Set-PSGPOLanguage -Language 'en-US' }
         }
 
+        It 'Changes its language in its list: its texts at once, the consoles opened after, and the next start' {
+            $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
+            try {
+                $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
+                Mock Show-PSOManagerAvalonia { }
+                Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -Language 'en-US' -OnShown {
+                    param($Ui)
+                    @($Ui.languageComboBox.Items.Tag) | Should -Be @('en-US', 'fr-FR')
+                    $Ui.languageComboBox.SelectedItem.Tag | Should -Be 'en-US'
+                    $Ui.languageComboBox.Items[1].Content | Should -Be ('Fran' + [char]0xE7 + 'ais')
+                    $Ui.languageComboBox.SelectedIndex = 1
+                    $Ui.subtitleTextBlock.Text | Should -Be 'Choisissez une console'
+                    $Ui.themeToggleText.Text | Should -BeIn 'Mode sombre', 'Mode clair'
+                    $Ui.toolsPanel.Children[0].Content.Children[1].Text | Should -Be ('Gestion de strat' + [char]0xE9 + 'gie de groupe')
+                    Invoke-Click $Ui.toolsPanel.Children[1]
+                    Invoke-UiLoop -Until { $Ui.toolsPanel.Children[1].IsEnabled }
+                }
+                Should -Invoke Show-PSOManagerAvalonia -Times 1 -Exactly -ParameterFilter { $Language -eq 'fr-FR' }
+                (Get-PSGPOUserSetting).Language | Should -Be 'fr-FR'
+                Mock Start-PSGPOLauncherWindow { }
+                Start-HGPM
+                Should -Invoke Start-PSGPOLauncherWindow -Times 1 -Exactly -ParameterFilter { $Language -eq 'fr-FR' }
+                Start-HGPM -Language en-US
+                Should -Invoke Start-PSGPOLauncherWindow -Times 1 -Exactly -ParameterFilter { $Language -eq 'en-US' }
+            } finally {
+                $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
+                $null = Set-PSGPOLanguage -Language 'en-US'
+            }
+        }
     }
 
     Describe 'WMI Filter Creator window' -Skip:$AvaloniaMissing {

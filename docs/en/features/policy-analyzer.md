@@ -1,5 +1,7 @@
 # Policy Analyzer
 
+![The Policy Analyzer tile](../assets/screenshots/60-tile-policy-analyzer.png){ align=right width="170" }
+
 The [Security Compliance Toolkit](https://www.microsoft.com/download/details.aspx?id=55319) of
 Microsoft comes with Policy Analyzer: it compares sets of GPOs setting by setting, and shows the
 settings a set configures twice or with different values. HGPM does the same, on Windows and on

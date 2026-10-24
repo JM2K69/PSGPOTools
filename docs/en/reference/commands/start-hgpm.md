@@ -12,7 +12,7 @@ Start-HGPM [[-Language] <string>] [<CommonParameters>]
 
 ## Description
 
-A window with a tile for each console of HGPM: Group Policy Management (Show-GPOManagerAvalonia), the fine-grained password policies (Show-PSOManagerAvalonia) and the WMI filter creator (Show-WmiFilterCreatorAvalonia). A click on a tile opens the console with its default parameters, in the language of the launcher; several consoles can be open at once, and the tile of an open console is disabled until its window is closed. To give a console parameters (-Server, -Credential, -PolicyDefinitions...), run its command instead.
+A window with a tile for each console of HGPM: Group Policy Management (Show-GPOManagerAvalonia), the fine-grained password policies (Show-PSOManagerAvalonia) and the WMI filter creator (Show-WmiFilterCreatorAvalonia) and Policy Analyzer (Show-PolicyAnalyzerAvalonia). A click on a tile opens the console with its default parameters, in the language of the launcher, chosen in its list of languages and kept for the next time; several consoles can be open at once, and the tile of an open console is disabled until its window is closed. To give a console parameters (-Server, -Credential, -PolicyDefinitions...), run its command instead.
 
 Hosted on Avalonia UI under PowerShell 7+, as Show-GPOManagerAvalonia; the call blocks until the launcher and the consoles opened from it are closed.
 
@@ -20,11 +20,11 @@ Hosted on Avalonia UI under PowerShell 7+, as Show-GPOManagerAvalonia; the call 
 
 ### -Language
 
-Language of the interface: en-US, or a language of Resources/Strings (fr-FR); by default the language of the session, English when the module has no translation for it.
+Language of the interface: en-US, or a language of Resources/Strings (fr-FR); by default the one last chosen in the launcher, else the language of the session, English when the module has no translation for it.
 
 | Type | Required | Position | Default value | Accepts pipeline input |
 |---|---|---|---|---|
-| `String` | No | 1 | `[cultureinfo]::CurrentUICulture.Name` | No |
+| `String` | No | 1 | None | No |
 
 ## Examples
 
@@ -45,4 +45,5 @@ Start-HGPM -Language fr-FR
 - [Show-GPOManagerAvalonia](show-gpomanageravalonia.md)
 - [Show-PSOManagerAvalonia](show-psomanageravalonia.md)
 - [Show-WmiFilterCreatorAvalonia](show-wmifiltercreatoravalonia.md)
+- [Show-PolicyAnalyzerAvalonia](show-policyanalyzeravalonia.md)
 - [All the commands](../commands.md)

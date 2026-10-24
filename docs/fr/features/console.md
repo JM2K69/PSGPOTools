@@ -1,5 +1,7 @@
 # La console
 
+![La tuile Gestion de stratégie de groupe](../assets/screenshots/57-tile-group-policy.fr.png){ align=right width="170" }
+
 `Show-GPOManagerAvalonia` ouvre une fenêtre à trois vues, qu'on choisit depuis sa barre d'outils.
 
 ## Group Policy Management

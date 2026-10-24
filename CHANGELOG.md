@@ -10,6 +10,8 @@
 ### Changed
 
 * The launcher shows its four tiles on one line
+* The launcher has a list of languages (English, Français): its texts change at once, the tools opened after are in that language, and `Start-HGPM` starts on it the next time (`-Language` still chooses another one)
+* The documentation groups the features by tool, as the tiles of the launcher, with a page for the launcher and the tile of each tool at the top of its page
 * The GPO console no longer has a **Policy Analyzer** button: the launcher and `Show-PolicyAnalyzerAvalonia` open it
 * **Backups...** of the Policy Analyzer window, and `Get-PSGPOPolicyRuleSet -GpmcBackupPath` (alias `-BackupPath`), read the backups of HGPM too: their folder (the newest backup of each GPO), the folder of a GPO, one backup or its `Files` folder
 
