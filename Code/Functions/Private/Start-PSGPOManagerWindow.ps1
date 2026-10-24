@@ -73,7 +73,6 @@ function Start-PSGPOManagerWindow {
     $searchPanel = Get-PSGPOAvaloniaControl $window 'searchPanel'
     $managementView = Get-PSGPOAvaloniaControl $window 'managementView'
     $editorView = Get-PSGPOAvaloniaControl $window 'editorView'
-    $analyzerButton = Get-PSGPOAvaloniaControl $window 'analyzerButton'
     $editingBanner = Get-PSGPOAvaloniaControl $window 'editingBanner'
     $editingGpoTextBlock = Get-PSGPOAvaloniaControl $window 'editingGpoTextBlock'
     $domainTreeView = Get-PSGPOAvaloniaControl $window 'domainTreeView'
@@ -1169,7 +1168,6 @@ function Start-PSGPOManagerWindow {
         $editorView.IsVisible = $View -eq 'Editor'
         $managementButton.IsVisible = $View -eq 'Editor'
         $browseAdmxButton.IsVisible = $View -eq 'Management'
-        $analyzerButton.IsVisible = $View -eq 'Management'
         # A domain read over LDAP is read again; a description in memory has nothing to read.
         $refreshButton.IsVisible = $View -eq 'Management' -and $Directory -is [GPOToolsLdapDirectory]
         $searchPanel.IsVisible = $View -eq 'Editor'
@@ -2978,22 +2976,6 @@ function Start-PSGPOManagerWindow {
         elseif ($e.Key -eq [Avalonia.Input.Key]::Escape) { $newGpoPanel.IsVisible = $false }
     })
     $managementButton.Add_Click({ Show-View 'Management' })
-    # Policy Analyzer, a window of its own on the domain of the console; once the click is over, as
-    # the launcher does: the button keeps the pointer during its click.
-    function Open-PolicyAnalyzer {
-        $analyzerButton.IsEnabled = $false
-        try {
-            $open = @{ Language = $Language }
-            if ($Directory) { $open.Directory = $Directory }
-            Show-PolicyAnalyzerAvalonia @open
-        } catch {
-            Show-DirectoryResult -Text (Get-PSGPOText 'Policy Analyzer did not open: {0}' $_.Exception.GetBaseException().Message) -Problem
-        } finally {
-            $analyzerButton.IsEnabled = $true
-            $null = Set-PSGPOLanguage -Language $Language
-        }
-    }
-    $analyzerButton.Add_Click({ [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] { Open-PolicyAnalyzer }, [Avalonia.Threading.DispatcherPriority]::Background) })
     # The configuration window (New-PSGPOConfigurationWindow), one at a time, owned by the console;
     # for the administrators of the domain only, who change the configuration every console reads.
     $configurationWindow = @{ Ui = $null }
@@ -3113,7 +3095,7 @@ function Start-PSGPOManagerWindow {
             'preferencesStatusTextBlock', 'preferencesEmptyTextBlock', 'preferencesList', 'preferencesDeletePanel', 'preferencesDeleteTextBlock',
             'preferencesDeleteConfirmButton', 'preferencesDeleteCancelButton', 'preferencesFormBorder', 'preferencesFormTitleTextBlock', 'refreshButton',
             'enforcedLinkMenuItem', 'enabledLinkMenuItem', 'moveLinkUpMenuItem', 'moveLinkDownMenuItem', 'blockInheritanceMenuItem', 'gpoStatusMenuItem', 'wmiFilterMenuItem', 'newWmiFilterMenuItem', 'editWmiFilterMenuItem', 'deleteWmiFilterMenuItem', 'newWmiFilterPanel', 'newWmiFilterTitleTextBlock', 'newWmiFilterNameTextBox', 'newWmiFilterDescriptionTextBox', 'newWmiFilterNamespaceTextBox', 'newWmiFilterQueryTextBox', 'newWmiFilterErrorTextBlock', 'newWmiFilterCreateButton', 'newWmiFilterCancelButton', 'deleteWmiFilterPanel', 'deleteWmiFilterTextBlock', 'deleteWmiFilterConfirmButton', 'deleteWmiFilterCancelButton', 'gpoStatusEnabledMenuItem', 'gpoStatusUserDisabledMenuItem', 'gpoStatusComputerDisabledMenuItem', 'gpoStatusAllDisabledMenuItem',
-            'preferencesFormHost', 'preferencesFormErrorTextBlock', 'preferencesSaveButton', 'preferencesCancelButton', 'analyzerButton',
+            'preferencesFormHost', 'preferencesFormErrorTextBlock', 'preferencesSaveButton', 'preferencesCancelButton',
             'certificatesPanel', 'certificatesTitleTextBlock', 'certificatesInfoTextBlock', 'certificatesPathTextBox', 'certificatesImportButton', 'certificatesDeleteButton', 'certificatesStatusTextBlock', 'certificatesEmptyTextBlock', 'certificatesList', 'certificatesDeletePanel', 'certificatesDeleteTextBlock', 'certificatesDeleteConfirmButton', 'certificatesDeleteCancelButton',
             'restrictedGroupsPanel', 'restrictedGroupsInfoTextBlock', 'restrictedGroupsAddButton', 'restrictedGroupsEditButton', 'restrictedGroupsDeleteButton', 'restrictedGroupsStatusTextBlock', 'restrictedGroupsEmptyTextBlock', 'restrictedGroupsList', 'restrictedGroupsDeletePanel', 'restrictedGroupsDeleteTextBlock', 'restrictedGroupsDeleteConfirmButton', 'restrictedGroupsDeleteCancelButton', 'restrictedGroupsFormBorder', 'restrictedGroupsFormTitleTextBlock', 'restrictedGroupNameTextBox', 'restrictedGroupMembersCheckBox', 'restrictedGroupMembersTextBox', 'restrictedGroupMemberOfTextBox', 'restrictedGroupsFormErrorTextBlock', 'restrictedGroupsSaveButton', 'restrictedGroupsCancelButton') {
             $controls[$name] = Get-PSGPOAvaloniaControl $window $name

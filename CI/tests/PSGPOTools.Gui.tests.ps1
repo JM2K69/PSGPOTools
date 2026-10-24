@@ -2665,19 +2665,6 @@ InModuleScope -ModuleName HGPM {
             @(Get-ChildItem -LiteralPath (Join-Path $TestDrive 'ApplyBackups') -Recurse -Filter 'manifest.json').Count | Should -BeGreaterThan 0 -Because 'the GPO is backed up first'
         }
 
-        It 'Is opened by the button of the GPO console, on the domain of the console' {
-            Mock Show-PolicyAnalyzerAvalonia { $Seen.Opened = $true }
-            $Seen = @{ Opened = $false }
-            $Directory = Import-PSGPODirectory -Path $SamplePath
-            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
-                param($Ui)
-                $Ui.analyzerButton.IsVisible | Should -BeTrue
-                Invoke-Click $Ui.analyzerButton
-                Invoke-UiLoop -Until { $Seen.Opened -and $Ui.analyzerButton.IsEnabled }
-                $Ui.managementView.IsVisible | Should -BeTrue
-            }
-            Should -Invoke Show-PolicyAnalyzerAvalonia -Times 1 -Exactly -ParameterFilter { $Directory.DomainName -eq 'corp.contoso.com' -and $Language -eq 'en-US' }
-        }
     }
 
     Describe 'ADMX window' -Skip:$AvaloniaMissing {

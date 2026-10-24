@@ -10,8 +10,7 @@ writes open in Policy Analyzer.
 ## The window
 
 `Show-PolicyAnalyzerAvalonia` opens Policy Analyzer in a window of its own, as the **Policy
-Analyzer** tile of the launcher (`Start-HGPM`) and the **Policy Analyzer** button in the header of
-the GPO console, which gives it the domain it read. It needs no domain: the GPOs of the domain are
+Analyzer** tile of the launcher (`Start-HGPM`) does. It needs no domain: the GPOs of the domain are
 read the first time they are asked for (`-Server`, else the domain of the computer). The settings
 are named with the ADMX files loaded, else those of the central store or of
 `%windir%\PolicyDefinitions` (`-PolicyDefinitions` elsewhere); without them, a registry value is

@@ -50,12 +50,6 @@ $(Get-PSGPOWindowResourceXaml)
                             <TextBlock Text='Group Policy Management' VerticalAlignment='Center'/>
                         </StackPanel>
                     </Button>
-                    <Button Name='analyzerButton' Height='36' ToolTip.Tip='Compare GPOs and the security baselines of Microsoft setting by setting, as Policy Analyzer (Show-PolicyAnalyzerAvalonia)'>
-                        <StackPanel Orientation='Horizontal' Spacing='8'>
-                            <PathIcon Data='{StaticResource Icon.table-search}'/>
-                            <TextBlock Text='Policy Analyzer' VerticalAlignment='Center'/>
-                        </StackPanel>
-                    </Button>
                     <Button Name='refreshButton' Height='36' ToolTip.Tip='Read the domain again (F5)'>
                         <StackPanel Orientation='Horizontal' Spacing='8'>
                             <PathIcon Data='{StaticResource Icon.arrow-sync}'/>
