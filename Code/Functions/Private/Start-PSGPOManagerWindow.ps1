@@ -74,8 +74,6 @@ function Start-PSGPOManagerWindow {
     $managementView = Get-PSGPOAvaloniaControl $window 'managementView'
     $editorView = Get-PSGPOAvaloniaControl $window 'editorView'
     $analyzerButton = Get-PSGPOAvaloniaControl $window 'analyzerButton'
-    # The Policy Analyzer view: its controls, state and functions in this scope (dot-sourced).
-    . Initialize-PSGPOPolicyAnalyzerView
     $editingBanner = Get-PSGPOAvaloniaControl $window 'editingBanner'
     $editingGpoTextBlock = Get-PSGPOAvaloniaControl $window 'editingGpoTextBlock'
     $domainTreeView = Get-PSGPOAvaloniaControl $window 'domainTreeView'
@@ -1166,20 +1164,12 @@ function Start-PSGPOManagerWindow {
     # --- Group Policy Management view --------------------------------------------------------
 
     function Show-View {
-        param([ValidateSet('Management', 'Editor', 'Analyzer')][string]$View)
+        param([ValidateSet('Management', 'Editor')][string]$View)
         $managementView.IsVisible = $View -eq 'Management'
         $editorView.IsVisible = $View -eq 'Editor'
-        $analyzerView.IsVisible = $View -eq 'Analyzer'
-        $managementButton.IsVisible = $View -ne 'Management'
+        $managementButton.IsVisible = $View -eq 'Editor'
         $browseAdmxButton.IsVisible = $View -eq 'Management'
         $analyzerButton.IsVisible = $View -eq 'Management'
-        if ($View -eq 'Analyzer') {
-            Open-AnalyzerView
-            $subtitleTextBlock.Text = Get-PSGPOText 'Policy Analyzer: GPOs and security baselines compared setting by setting'
-            $refreshButton.IsVisible = $false
-            $searchPanel.IsVisible = $false
-            return
-        }
         # A domain read over LDAP is read again; a description in memory has nothing to read.
         $refreshButton.IsVisible = $View -eq 'Management' -and $Directory -is [GPOToolsLdapDirectory]
         $searchPanel.IsVisible = $View -eq 'Editor'
@@ -2988,7 +2978,22 @@ function Start-PSGPOManagerWindow {
         elseif ($e.Key -eq [Avalonia.Input.Key]::Escape) { $newGpoPanel.IsVisible = $false }
     })
     $managementButton.Add_Click({ Show-View 'Management' })
-    $analyzerButton.Add_Click({ Show-View 'Analyzer' })
+    # Policy Analyzer, a window of its own on the domain of the console; once the click is over, as
+    # the launcher does: the button keeps the pointer during its click.
+    function Open-PolicyAnalyzer {
+        $analyzerButton.IsEnabled = $false
+        try {
+            $open = @{ Language = $Language }
+            if ($Directory) { $open.Directory = $Directory }
+            Show-PolicyAnalyzerAvalonia @open
+        } catch {
+            Show-DirectoryResult -Text (Get-PSGPOText 'Policy Analyzer did not open: {0}' $_.Exception.GetBaseException().Message) -Problem
+        } finally {
+            $analyzerButton.IsEnabled = $true
+            $null = Set-PSGPOLanguage -Language $Language
+        }
+    }
+    $analyzerButton.Add_Click({ [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] { Open-PolicyAnalyzer }, [Avalonia.Threading.DispatcherPriority]::Background) })
     # The configuration window (New-PSGPOConfigurationWindow), one at a time, owned by the console;
     # for the administrators of the domain only, who change the configuration every console reads.
     $configurationWindow = @{ Ui = $null }
@@ -3114,8 +3119,6 @@ function Start-PSGPOManagerWindow {
             'restrictedGroupsPanel', 'restrictedGroupsInfoTextBlock', 'restrictedGroupsAddButton', 'restrictedGroupsEditButton', 'restrictedGroupsDeleteButton', 'restrictedGroupsStatusTextBlock', 'restrictedGroupsEmptyTextBlock', 'restrictedGroupsList', 'restrictedGroupsDeletePanel', 'restrictedGroupsDeleteTextBlock', 'restrictedGroupsDeleteConfirmButton', 'restrictedGroupsDeleteCancelButton', 'restrictedGroupsFormBorder', 'restrictedGroupsFormTitleTextBlock', 'restrictedGroupNameTextBox', 'restrictedGroupMembersCheckBox', 'restrictedGroupMembersTextBox', 'restrictedGroupMemberOfTextBox', 'restrictedGroupsFormErrorTextBlock', 'restrictedGroupsSaveButton', 'restrictedGroupsCancelButton') {
             $controls[$name] = Get-PSGPOAvaloniaControl $window $name
         }
-        foreach ($name in $analyzerControlNames) { $controls[$name] = Get-PSGPOAvaloniaControl $window $name }
-        $controls.Analyzer = $analyzer
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {
             try { & $OnShown $controls } catch { $onShownState.Error = $_ } finally { $window.Close() }
         })

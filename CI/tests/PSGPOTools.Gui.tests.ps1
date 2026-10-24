@@ -2474,7 +2474,7 @@ InModuleScope -ModuleName HGPM {
         }
     }
 
-    Describe 'Policy Analyzer view' -Skip:$AvaloniaMissing {
+    Describe 'Policy Analyzer window' -Skip:$AvaloniaMissing {
         BeforeAll {
             $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
             $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive 'settings.json'
@@ -2493,16 +2493,14 @@ InModuleScope -ModuleName HGPM {
             $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
         }
 
-        It 'Opens from the header, lists the rule sets of its folder, compares them and shows the details of a setting' {
+        It 'Lists the rule sets of its folder, compares them and shows the details of a setting' {
             $Directory = Import-PSGPODirectory -Path $SamplePath
-            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+            Start-PSGPOPolicyAnalyzerWindow -Directory $Directory -OnShown {
                 param($Ui)
-                Invoke-Click $Ui.analyzerButton
+                $Ui.Window.Title | Should -Be 'Policy Analyzer'
+                $Ui.Window.Icon | Should -Not -BeNullOrEmpty
                 $Ui.analyzerView.IsVisible | Should -BeTrue
-                $Ui.managementView.IsVisible | Should -BeFalse
-                $Ui.managementButton.IsVisible | Should -BeTrue
-                $Ui.analyzerButton.IsVisible | Should -BeFalse
-                $Ui.subtitleTextBlock.Text | Should -Be 'Policy Analyzer: GPOs and security baselines compared setting by setting'
+                $Ui.subtitleTextBlock.Text | Should -Be "GPOs and security baselines compared setting by setting - $($Directory.DomainName)"
                 $Ui.analyzerFolderTextBox.Text = $Rules
                 Invoke-Click $Ui.analyzerFolderReadButton
                 $Sets = @($Ui.analyzerSetsList.ItemsSource)
@@ -2536,18 +2534,14 @@ InModuleScope -ModuleName HGPM {
                 $Ui.analyzerDetailsPathTextBlock.Text | Should -Be 'Computer > Policies > Windows Settings > Security Settings > System Services'
                 $Ui.analyzerDetailsSettingTextBlock.Text | Should -Be 'Security Template: [Service General Setting] Spooler'
                 @($Ui.analyzerDetailsValuesList.ItemsSource)[0].Text | Should -Be 'HGPM Test - Computer: Disabled; D:AR(A;;RPWPCCDCLCSWRCWDWOGA;;;BA)'
-                Invoke-Click $Ui.managementButton
-                $Ui.managementView.IsVisible | Should -BeTrue
-                $Ui.analyzerView.IsVisible | Should -BeFalse
             }
         }
 
         It 'Adds GPOs of the domain and GPMC backups as sets, saves a set as a .PolicyRules file and exports the comparison to Excel' {
             $Directory = Import-PSGPODirectory -Path $SamplePath
             $Folder = Join-Path $TestDrive 'Saved'
-            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+            Start-PSGPOPolicyAnalyzerWindow -Directory $Directory -OnShown {
                 param($Ui)
-                Invoke-Click $Ui.analyzerButton
                 $Ui.analyzerFolderTextBox.Text = $Folder
                 Invoke-Click $Ui.analyzerFolderReadButton
                 $Ui.analyzerSetsStatusTextBlock.Text | Should -BeLike 'No folder *'
@@ -2604,6 +2598,50 @@ InModuleScope -ModuleName HGPM {
                 Invoke-Click $Ui.analyzerFileConfirmButton
                 $Ui.analyzerFilePanel.IsVisible | Should -BeFalse
             }
+        }
+
+        It 'Opens on the folder given, without keeping it for the next time' {
+            Start-PSGPOPolicyAnalyzerWindow -Path $Rules -OnShown {
+                param($Ui)
+                $Ui.analyzerFolderTextBox.Text | Should -Be $Rules
+                @($Ui.analyzerSetsList.ItemsSource).Count | Should -Be 1
+                (Get-PSGPOUserSetting).PolicyAnalyzerPath | Should -Not -Be $Rules
+            }
+        }
+
+        It 'Says there is no domain to read the GPOs from, and reads the one given the first time they are asked for' {
+            Mock Get-PSGPOPlatform { [pscustomobject]@{ DomainName = $null } }
+            Start-PSGPOPolicyAnalyzerWindow -OnShown {
+                param($Ui)
+                Invoke-Click $Ui.analyzerAddGposButton
+                $Ui.analyzerGposPanel.IsVisible | Should -BeTrue
+                $Ui.analyzerGposErrorTextBlock.Text | Should -Be 'No domain: this computer is not in a domain, and no domain controller was given (-Server).'
+                @($Ui.analyzerGposList.ItemsSource).Count | Should -Be 0
+            }
+            Mock Get-PSGPODirectory { Import-PSGPODirectory -Path $SamplePath }
+            Start-PSGPOPolicyAnalyzerWindow -DomainParameters @{ Server = 'dc.hgpm.test' } -OnShown {
+                param($Ui)
+                Invoke-Click $Ui.analyzerAddGposButton
+                $Ui.analyzerGposErrorTextBlock.Text | Should -BeNullOrEmpty
+                @($Ui.analyzerGposList.ItemsSource).Count | Should -BeGreaterThan 0
+                Invoke-Click $Ui.analyzerGposCancelButton
+                Invoke-Click $Ui.analyzerAddGposButton
+            }
+            Should -Invoke Get-PSGPODirectory -Times 1 -Exactly -ParameterFilter { $Server -eq 'dc.hgpm.test' } -Because 'the domain is read once'
+        }
+
+        It 'Is opened by the button of the GPO console, on the domain of the console' {
+            Mock Show-PolicyAnalyzerAvalonia { $Seen.Opened = $true }
+            $Seen = @{ Opened = $false }
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.analyzerButton.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.analyzerButton
+                Invoke-UiLoop -Until { $Seen.Opened -and $Ui.analyzerButton.IsEnabled }
+                $Ui.managementView.IsVisible | Should -BeTrue
+            }
+            Should -Invoke Show-PolicyAnalyzerAvalonia -Times 1 -Exactly -ParameterFilter { $Directory.DomainName -eq 'corp.contoso.com' -and $Language -eq 'en-US' }
         }
     }
 
@@ -2870,7 +2908,7 @@ InModuleScope -ModuleName HGPM {
             Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -OnShown {
                 param($Ui)
                 $Ui.Window.Icon | Should -Not -BeNullOrEmpty
-                @($Ui.Tiles.Tag.Command) | Should -Be @('Show-GPOManagerAvalonia', 'Show-PSOManagerAvalonia', 'Show-WmiFilterCreatorAvalonia')
+                @($Ui.Tiles.Tag.Command) | Should -Be @('Show-GPOManagerAvalonia', 'Show-PSOManagerAvalonia', 'Show-WmiFilterCreatorAvalonia', 'Show-PolicyAnalyzerAvalonia')
                 $Ui.Tiles[1].Content.Children[1].Text | Should -Be 'Password Settings'
                 Invoke-Click $Ui.Tiles[1]
                 # The console runs once the click is over: the tile does not keep the pointer.

@@ -12,7 +12,7 @@ Show-WmiFilterCreatorAvalonia -Path C:\Exports\Workstations.mof     # a .mof of 
 Show-WmiFilterCreatorAvalonia -Server dc.contoso.com -Language fr-FR
 ```
 
-![WMI filter creator: the ready-made queries and the filter](../../assets/screenshots/60-wmi-filter-creator.png)
+![WMI filter creator: the ready-made queries and the filter](../assets/screenshots/60-wmi-filter-creator.png)
 
 A WMI filter is **true when each of its queries returns at least one instance** on the computer
 that applies the GPO ([WMI filters and Linux clients](wmi-filters-and-linux.md)): the queries of
@@ -58,7 +58,7 @@ PC system type, domain role, SKU, language...), an operator (`=`, `<>`, `<`, `>`
 `NOT LIKE`, `IS NULL`...) and a value. A text is quoted and escaped, a number checked, a boolean
 written `TRUE` or `FALSE`; the conditions are joined with AND or OR.
 
-![The query builder, and a query typed that is not valid](../../assets/screenshots/61-wmi-filter-creator-builder.png)
+![The query builder, and a query typed that is not valid](../assets/screenshots/61-wmi-filter-creator-builder.png)
 
 ## Check of the queries
 

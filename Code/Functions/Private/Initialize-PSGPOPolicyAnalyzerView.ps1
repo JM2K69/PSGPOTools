@@ -1,14 +1,15 @@
 <#
-    The Policy Analyzer view of Show-GPOManagerAvalonia (Get-PSGPOPolicyAnalyzerViewXaml), as the
+    The Policy Analyzer of Show-PolicyAnalyzerAvalonia (Get-PSGPOPolicyAnalyzerViewXaml), as the
     Policy Analyzer of the Security Compliance Toolkit: the rule sets of a folder (its
     .PolicyRules files; Documents\PolicyAnalyzer by default, as Policy Analyzer), with GPOs of the
     domain and GPMC backups added to them; the comparison of those checked, a column per set, with
     the colours of Policy Analyzer; its export to Excel, and a set saved as a .PolicyRules file.
 
-    Dot-sourced by Start-PSGPOManagerWindow (. Initialize-PSGPOPolicyAnalyzerView): its controls,
-    state and functions live in the scope of the window, which stays alive while the window is
-    open, so that its handlers find them. It uses $window and $Directory of the window, and names
-    what it defines analyzer* or *Analyzer*.
+    Dot-sourced by Start-PSGPOPolicyAnalyzerWindow (. Initialize-PSGPOPolicyAnalyzerView): its
+    controls, state and functions live in the scope of the window, which stays alive while the
+    window is open, so that its handlers find them. It uses $window, $Directory (the domain, or
+    $null) and $DomainParameters (how to read it, on the first GPOs of the domain asked for) of the
+    window, and names what it defines analyzer* or *Analyzer*.
 #>
 
 function Initialize-PSGPOPolicyAnalyzerView {
@@ -28,6 +29,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
     $analyzer = @{
         Loaded = $false; Sets = [System.Collections.Generic.List[object]]::new(); Rows = @(); Shown = @(); Columns = @()
         FileMode = $null; Replace = $null; SetToSave = $null; Picker = @{ Task = $null; Timer = $null; Done = $null }
+        Directory = $Directory; DomainParameters = $DomainParameters
     }
     # The colours of Policy Analyzer, readable in the light and dark themes.
     $analyzerBrush = @{ Conflict = '#80FFE14D'; Absent = '#4D9E9E9E'; Duplicate = '#269E9E9E'; Normal = '#00000000' }
@@ -55,7 +57,24 @@ function Initialize-PSGPOPolicyAnalyzerView {
     function Update-AnalyzerSetsList {
         $analyzerSetsList.ItemsSource = [object[]]$analyzer.Sets.ToArray()
         $analyzerSetsEmptyTextBlock.IsVisible = $analyzer.Sets.Count -eq 0
-        $analyzerAddGposButton.IsEnabled = [bool]$Directory
+    }
+
+    # The domain of the GPOs: the one given, else read the first time (-Server, else the domain of
+    # the computer); $null, the reason in the form, when it cannot be read.
+    function Get-AnalyzerDirectory {
+        if ($analyzer.Directory) { return $analyzer.Directory }
+        $read = @{}
+        if ($analyzer.DomainParameters) { $read = $analyzer.DomainParameters }
+        if (-not $read.Server -and -not (Get-PSGPOPlatform).DomainName) {
+            $analyzerGposErrorTextBlock.Text = Get-PSGPOText 'No domain: this computer is not in a domain, and no domain controller was given (-Server).'
+            return
+        }
+        try {
+            $analyzer.Directory = Get-PSGPODirectory @read -ErrorAction Stop -WarningAction SilentlyContinue
+        } catch {
+            $analyzerGposErrorTextBlock.Text = Get-PSGPOText 'The domain could not be read: {0}' $_.Exception.GetBaseException().Message
+        }
+        $analyzer.Directory
     }
 
     # The .PolicyRules files of the folder, read again; the sets added (GPOs, GPMC backups) are kept,
@@ -92,11 +111,13 @@ function Initialize-PSGPOPolicyAnalyzerView {
         Update-AnalyzerSets
     }
 
-    # The first time the view shows.
+    # The first time the view shows: the folder given ($Folder, not kept for the next time), else
+    # the one of the last time.
     function Open-AnalyzerView {
+        param([string]$Folder)
         if ($analyzer.Loaded) { return }
         $analyzer.Loaded = $true
-        $analyzerFolderTextBox.Text = Get-AnalyzerDefaultFolder
+        $analyzerFolderTextBox.Text = if ($Folder) { $Folder } else { Get-AnalyzerDefaultFolder }
         Update-AnalyzerSets
     }
 
@@ -150,27 +171,28 @@ function Initialize-PSGPOPolicyAnalyzerView {
     function Update-AnalyzerGposList {
         $text = "$($analyzerGposFilterTextBox.Text)".Trim()
         # The GPOs themselves: Sort-Object wraps them in PSObjects, which Avalonia cannot bind.
-        $analyzerGposList.ItemsSource = [object[]]@(foreach ($gpo in @($Directory.Gpos | Sort-Object DisplayName)) {
+        $analyzerGposList.ItemsSource = [object[]]@(foreach ($gpo in @($analyzer.Directory.Gpos | Sort-Object DisplayName)) {
                 if (-not $text -or $gpo.DisplayName.IndexOf($text, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) { $gpo.psobject.BaseObject }
             })
     }
 
     function Open-AnalyzerGposForm {
-        if (-not $Directory) { return }
         Hide-AnalyzerForms
         $analyzerGposFilterTextBox.Text = ''
         $analyzerGposNameTextBox.Text = ''
         $analyzerGposErrorTextBlock.Text = ''
+        $null = Get-AnalyzerDirectory
         Update-AnalyzerGposList
         $analyzerGposPanel.IsVisible = $true
         $analyzerGposFilterTextBox.Focus()
     }
 
     function Submit-AnalyzerGpos {
+        if (-not $analyzer.Directory) { return }
         $gpos = @($analyzerGposList.SelectedItems | Where-Object { $_ -is [GPOToolsGpo] })
         if (-not $gpos.Count) { $analyzerGposErrorTextBlock.Text = Get-PSGPOText 'Select one or more GPOs.'; return }
         try {
-            $set = New-PSGPOPolicyRuleSetFromGpo -Directory $Directory -Gpo $gpos -SetName "$($analyzerGposNameTextBox.Text)".Trim()
+            $set = New-PSGPOPolicyRuleSetFromGpo -Directory $analyzer.Directory -Gpo $gpos -SetName "$($analyzerGposNameTextBox.Text)".Trim()
         } catch {
             $analyzerGposErrorTextBlock.Text = Get-PSGPOText 'The GPOs are not read: {0}' $_.Exception.GetBaseException().Message
             return

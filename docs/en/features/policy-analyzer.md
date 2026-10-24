@@ -7,10 +7,22 @@ Linux, with the same files: the `.PolicyRules` files of the security baselines o
 those Policy Analyzer or `GPO2PolicyRules.exe` made, are read as they are, and the files HGPM
 writes open in Policy Analyzer.
 
-## In the console
+## The window
 
-**Policy Analyzer**, in the header of the console, opens its view (**Group Policy Management**
-goes back to the domain). On the left, the rule sets: the `.PolicyRules` files of the folder
+`Show-PolicyAnalyzerAvalonia` opens Policy Analyzer in a window of its own, as the **Policy
+Analyzer** tile of the launcher (`Start-HGPM`) and the **Policy Analyzer** button in the header of
+the GPO console, which gives it the domain it read. It needs no domain: the GPOs of the domain are
+read the first time they are asked for (`-Server`, else the domain of the computer). The settings
+are named with the ADMX files loaded, else those of the central store or of
+`%windir%\PolicyDefinitions` (`-PolicyDefinitions` elsewhere); without them, a registry value is
+shown by its key.
+
+```powershell
+Show-PolicyAnalyzerAvalonia
+Show-PolicyAnalyzerAvalonia -Server dc.contoso.com -Path '.\Windows 11 v25H2 Security Baseline\Documentation'
+```
+
+On the left, the rule sets: the `.PolicyRules` files of the folder
 *Policy Rule sets in* (`Documents\PolicyAnalyzer` by default, as Policy Analyzer: copy there the
 files of the security baselines of Microsoft), and the sets added with **GPOs of the domain...**
 (the GPOs chosen, as they are now) or **GPMC backups...** (the `GPOs` folder of a baseline).

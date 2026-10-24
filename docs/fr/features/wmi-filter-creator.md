@@ -12,7 +12,7 @@ Show-WmiFilterCreatorAvalonia -Path C:\Exports\Workstations.mof     # un .mof de
 Show-WmiFilterCreatorAvalonia -Server dc.contoso.com -Language fr-FR
 ```
 
-![Créateur de filtres WMI : les requêtes prêtes à l'emploi et le filtre](../../assets/screenshots/60-wmi-filter-creator.fr.png)
+![Créateur de filtres WMI : les requêtes prêtes à l'emploi et le filtre](../assets/screenshots/60-wmi-filter-creator.fr.png)
 
 Un filtre WMI est **vrai quand chacune de ses requêtes renvoie au moins une instance** sur
 l'ordinateur qui applique la GPO ([Filtres WMI et clients Linux](wmi-filters-and-linux.md)) : les
@@ -58,7 +58,7 @@ produit, type de PC, rôle dans le domaine, SKU, langue...), un opérateur (`=`,
 `LIKE`, `NOT LIKE`, `IS NULL`...) et une valeur. Un texte est mis entre guillemets et échappé, un
 nombre vérifié, un booléen écrit `TRUE` ou `FALSE` ; les conditions sont jointes par AND ou OR.
 
-![Le générateur de requête, et une requête saisie non valide](../../assets/screenshots/61-wmi-filter-creator-builder.fr.png)
+![Le générateur de requête, et une requête saisie non valide](../assets/screenshots/61-wmi-filter-creator-builder.fr.png)
 
 ## Vérification des requêtes
 
