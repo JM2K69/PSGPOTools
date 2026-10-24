@@ -13,6 +13,7 @@
 ### Fixed
 
 * The title of a tile of the launcher on two lines (Group Policy Management) went to the left once the pointer left the tile
+* The window of the ADMX files, the configuration window and the editor of a PSO did not follow the theme of the session: they open on it, and follow it while open
 
 ## 0.1.10 - alpha
 

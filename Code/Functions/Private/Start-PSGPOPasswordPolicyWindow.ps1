@@ -117,7 +117,6 @@ function Start-PSGPOPasswordPolicyWindow {
             if ($resultant.Account) { Show-Resultant -Account $resultant.Account }
         }
         $editor.Ui = New-PSGPOPasswordPolicyEditorWindow -Store $Store -Policy $Policy -OnSaved $saved
-        $editor.Ui.Window.RequestedThemeVariant = $window.RequestedThemeVariant
         $editor.Ui.Window.Show($window)
     }
 

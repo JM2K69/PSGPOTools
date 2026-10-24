@@ -23,6 +23,8 @@ function New-PSGPOPasswordPolicyEditorWindow {
     $xaml = Get-PSGPOPasswordPolicyEditorXaml
     $Window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse((ConvertTo-PSGPOLocalizedXaml -Xaml $xaml))
     Set-PSGPOWindowIcon -Window $Window
+    # The theme of the session, followed while the window is open (PSGPOTheme.ps1).
+    Register-PSGPOThemeWindow -Window $Window
     $Controls = @{ Window = $Window }
     foreach ($Name in 'titleTextBlock', 'containerTextBlock', 'nameTextBox', 'precedenceUpDown', 'enforceLengthCheckBox', 'minLengthUpDown', 'enforceHistoryCheckBox',
         'historyUpDown', 'complexityCheckBox', 'reversibleCheckBox', 'protectCheckBox', 'descriptionTextBox', 'enforceMinAgeCheckBox', 'minAgeUpDown',

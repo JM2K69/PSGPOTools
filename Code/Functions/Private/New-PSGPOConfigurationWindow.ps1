@@ -78,6 +78,8 @@ function New-PSGPOConfigurationWindow {
 '@
     $Window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse((ConvertTo-PSGPOLocalizedXaml -Xaml $xaml))
     Set-PSGPOWindowIcon -Window $Window
+    # The theme of the session, followed while the window is open (PSGPOTheme.ps1).
+    Register-PSGPOThemeWindow -Window $Window
     $Controls = @{ Window = $Window }
     foreach ($Name in 'pathTextBlock', 'settingsList', 'keyComboBox', 'descriptionTextBlock', 'valueTextBox', 'valueComboBox', 'setButton', 'removeButton', 'statusTextBlock', 'saveButton', 'closeButton') {
         $Controls[$Name] = Get-PSGPOAvaloniaControl $Window $Name
